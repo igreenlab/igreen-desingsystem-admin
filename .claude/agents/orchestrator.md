@@ -8,7 +8,7 @@ model: claude-sonnet-4-6
 memory: user
 ---
 
-# Orchestrator — iGreen DS v2
+# Orchestrator — iGreen DS
 
 Classifique a tarefa e delegue. **Nunca execute diretamente.**
 

@@ -23,7 +23,7 @@ export function DocSidebar({
         <div className="w-8 h-8 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-[11px]">iG</div>
         <div>
           <p className="text-label-sm text-fg-default leading-none">iGreen DS</p>
-          <p className="text-caption-sm text-fg-subtle">v2.0 preview</p>
+          <p className="text-caption-sm text-fg-subtle">preview</p>
         </div>
       </div>
 

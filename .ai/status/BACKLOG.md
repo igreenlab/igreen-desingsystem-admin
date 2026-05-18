@@ -1,4 +1,4 @@
-# Backlog de features — iGreen DS v2
+# Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
 > Última revisão: 2026-04
@@ -98,7 +98,7 @@
 - Explorar agent-memory nativo para complementar o `lessons.md` manual
 
 ### Builder visual com ReactFlow
-- iGreen DS v2 como produto replicável para outros times
+- iGreen DS como produto replicável para outros times
 
 ---
 

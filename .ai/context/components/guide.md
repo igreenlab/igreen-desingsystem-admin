@@ -1,4 +1,4 @@
-# Guia de componentes — iGreen DS v2
+# Guia de componentes — iGreen DS
 
 > Carregar quando a tarefa envolve: criar componente iGreen, editar estilo
 > de componente existente, ou adicionar variante.

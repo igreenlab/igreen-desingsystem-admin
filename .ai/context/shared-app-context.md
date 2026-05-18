@@ -17,7 +17,7 @@
 ```
 Tipo: app desktop (não mobile)
 Stack: Vite + React + TypeScript + Tailwind v4
-DS: iGreen DS v2 (todos os componentes em src/components/)
+DS: iGreen DS (todos os componentes em src/components/)
 ```
 
 ---

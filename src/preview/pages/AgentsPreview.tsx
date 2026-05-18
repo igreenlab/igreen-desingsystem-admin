@@ -132,7 +132,10 @@ const SC: Scenario[] = [
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const TOC = [
-  { id: "scenarios", label: "Scenarios" },
+  { id: "structure", label: "Pipeline Structure" },
+  { id: "hierarchy", label: "Hierarchy" },
+  { id: "flow", label: "How a Task Flows" },
+  { id: "scenarios", label: "Scenarios (Simulator)" },
   { id: "pipeline", label: "Pipeline Flow" },
   { id: "terminal", label: "Terminal" },
 ];
@@ -188,13 +191,166 @@ export function AgentsPreview() {
     <DocLayout toc={TOC}>
       <DocHeader
         category="Agents"
-        title="Flow Preview"
-        description="Interactive visualization of the multi-agent pipeline. Select a scenario and click Execute to watch the flow."
+        title="Pipeline"
+        description="Structural view of the multi-agent pipeline + interactive simulator. See how a task flows through Orchestrator, Designer, Dev and Reviewer."
       />
       <DocSeparator />
 
-      {/* ── Section: Scenarios ─────────────────────────────────────── */}
-      <SectionH2 id="scenarios" title="Scenarios" />
+      {/* ── Section: Pipeline Structure ────────────────────────────── */}
+      <SectionH2 id="structure" title="Pipeline Structure" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">
+          O pipeline iGreen é composto por <strong className="text-fg-default">4 camadas</strong> que cooperam em toda
+          tarefa: Orchestrator no topo (decide a rota), Subagentes especialistas no meio (executam), Infra horizontal
+          dando suporte (skills, hooks, commands, output styles, MCP, memory), e Memória persistindo decisões.
+        </p>
+        <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
+          <div className="grid gap-gp-3xl">
+            {/* Layer 1: Orchestrator */}
+            <div>
+              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 1 — Orchestration</p>
+              <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderLeftWidth: 4, borderLeftColor: "#6366f1" }}>
+                <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#6366f1" }}>Orchestrator</p>
+                <p className="text-paragraph-sm text-fg-muted">Recebe toda tarefa, classifica o domínio, escolhe a rota, segura o gate. Nunca executa diretamente.</p>
+              </div>
+            </div>
+
+            {/* Layer 2: Specialists */}
+            <div>
+              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 2 — Specialist Subagents</p>
+              <div className="grid grid-cols-3 gap-gp-2xl">
+                <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#f59e0b" }}>
+                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#f59e0b" }}>DS Designer</p>
+                  <p className="text-paragraph-sm text-fg-muted">Especifica tokens, components, Figma. Strategist perspective (alt + assumption).</p>
+                </div>
+                <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#10b981" }}>
+                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#10b981" }}>DS Dev</p>
+                  <p className="text-paragraph-sm text-fg-muted">Implementa spec aprovada. tv() + tokens. Cascata se token faltar.</p>
+                </div>
+                <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#3b82f6" }}>
+                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#3b82f6" }}>DS Reviewer</p>
+                  <p className="text-paragraph-sm text-fg-muted">Regression sweep + 3 checklists + critique genuína + Assumption check.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Layer 3: Pipeline Infra */}
+            <div>
+              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 3 — Pipeline Infra (horizontal)</p>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-gp-md">
+                {[
+                  { label: "Skills", desc: "Atomic procedures" },
+                  { label: "Commands", desc: "/ds-*" },
+                  { label: "Hooks", desc: "Pre/Post tool" },
+                  { label: "Output Style", desc: "Terse" },
+                  { label: "MCP Servers", desc: "Figma/FS/DevTools" },
+                  { label: "Rules", desc: "Auto-loaded" },
+                ].map((b) => (
+                  <div key={b.label} className="rounded-radius-base border border-border-subtle p-pad-md">
+                    <p className="text-caption-sm font-semibold text-fg-default mb-gp-xs">{b.label}</p>
+                    <p className="text-caption-sm text-fg-muted">{b.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Layer 4: Memory */}
+            <div>
+              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 4 — Memory (persistence)</p>
+              <div className="grid grid-cols-4 gap-gp-md">
+                {[
+                  { label: "User Memory", desc: "~/.claude/.../memory/" },
+                  { label: "Project Memory", desc: "memory/MEMORY.md" },
+                  { label: "Audit Log", desc: ".ai/status/pipeline-state.md" },
+                  { label: "Lessons", desc: ".ai/status/lessons.md" },
+                ].map((b) => (
+                  <div key={b.label} className="rounded-radius-base border border-border-subtle p-pad-md">
+                    <p className="text-caption-sm font-semibold text-fg-default mb-gp-xs">{b.label}</p>
+                    <p className="text-caption-sm text-fg-muted">{b.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Section: Hierarchy ─────────────────────────────────────── */}
+      <SectionH2 id="hierarchy" title="Hierarchy" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">
+          Quando o usuário envia uma tarefa, a hierarquia é estritamente top-down: Orchestrator escolhe,
+          Subagentes executam carregando suas Skills, Hooks e MCP intervêm em pontos específicos, Memory
+          grava o que aconteceu.
+        </p>
+        <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-loose overflow-x-auto">
+          <pre className="whitespace-pre">{`User task
+   │
+   ▼
+[Orchestrator]  ← classifica · escolhe rota · segura gate
+   │
+   ├─ if (token/component novo) → DS Designer
+   │      │
+   │      ├─ Skill: spec-token-* | spec-component | figma-extract
+   │      └─ Signal: SPEC_READY  ──►  [GATE 👤 usuário aprova]
+   │
+   ├─ DS Dev  ← carrega spec aprovada
+   │      │
+   │      ├─ Skill: impl-igreen | impl-shadcn | impl-composite | impl-token
+   │      ├─ Hook PreToolUse: block-sensitive-edit | block-rm-rf
+   │      ├─ MCP: igreen-workspace.write_file | claude_ai_Figma.get_*
+   │      ├─ Hook PostToolUse: format-on-save
+   │      └─ Signal: IMPL_READY
+   │
+   └─ DS Reviewer  ← carrega resultado
+          │
+          ├─ Skill: review-component | SKILL (token review)
+          ├─ Regression sweep (grep automatizado)
+          ├─ Critique genuína (assumption check)
+          └─ Signal: REVIEW_OK | REVIEW_FAILED
+                │
+                ▼
+        Audit log + Lessons update`}</pre>
+        </div>
+      </div>
+
+      {/* ── Section: How a task flows ──────────────────────────────── */}
+      <SectionH2 id="flow" title="How a Task Flows" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">
+          Sequência canônica de um pipeline completo (componente novo). Cada passo deixa um traço auditável.
+        </p>
+        <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
+          <div className="grid gap-gp-3xl">
+            {[
+              { step: "1", title: "Entry", desc: "User envia tarefa ou usa /ds-create-component <Name>." },
+              { step: "2", title: "Classify", desc: "Orchestrator lê CLAUDE.md + inventory. Escolhe rota e delega." },
+              { step: "3", title: "Spec", desc: "DS Designer carrega skill spec-component. Lista alternativas, declara assumption central." },
+              { step: "4", title: "Gate", desc: "Orchestrator apresenta spec. PARA até usuário aprovar." },
+              { step: "5", title: "Implement", desc: "DS Dev carrega skill impl-igreen. Cria 5 arquivos + USAGE.md. Hooks rodam em paralelo." },
+              { step: "6", title: "Review", desc: "DS Reviewer roda regression sweep + 3 checklists + critique genuína." },
+              { step: "7", title: "Persist", desc: "Entry append em pipeline-state.md com Assumption. Se erro novo: lesson L-NNN criada." },
+            ].map((item) => (
+              <div key={item.step} className="flex gap-gp-2xl">
+                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold bg-bg-brand text-fg-on-brand">
+                  {item.step}
+                </div>
+                <div>
+                  <p className="text-label-sm text-fg-default mb-gp-xs">{item.title}</p>
+                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <p className="text-paragraph-sm text-fg-muted">
+          Não todo cenário roda os 7 passos. Rotas que pulam Designer (Shadcn, visual edit) começam direto
+          no passo 5. Use o simulador abaixo pra ver as rotas alternativas em ação.
+        </p>
+      </div>
+
+      {/* ── Section: Scenarios (Simulator) ─────────────────────────── */}
+      <SectionH2 id="scenarios" title="Scenarios (Simulator)" />
 
       {/* Active scenario info card */}
       <div className="rounded-radius-base border border-border-subtle bg-bg-surface p-pad-3xl shadow-sh-sm mb-gp-2xl">

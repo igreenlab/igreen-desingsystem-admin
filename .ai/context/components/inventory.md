@@ -1,4 +1,4 @@
-# Component inventory — iGreen DS v2
+# Component inventory — iGreen DS
 
 > Fonte de verdade sobre o que existe.
 > Atualizar sempre que criar ou remover componente.

@@ -1,8 +1,16 @@
 {
-  "name": "@igreen/design-system-v2",
+  "name": "@igreen/design-system",
   "version": "0.1.0",
-  "description": "iGreen Design System v2 — token-first, stack-agnostic",
+  "description": "iGreen Design System — token-first, stack-agnostic",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snksergio/igreen-desingsystem-admin.git"
+  },
+  "bugs": {
+    "url": "https://github.com/snksergio/igreen-desingsystem-admin/issues"
+  },
+  "homepage": "https://github.com/snksergio/igreen-desingsystem-admin#readme",
   "exports": {
     "./theme.css": "./src/styles/theme/tailwind-theme.css",
     "./tokens": "./tokens/brands/default/index.ts",
@@ -22,7 +30,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "sync:agents": "node .claude/scripts/sync-agents-to-cursor.js"
+    "sync:agents": "node .claude/scripts/sync-agents-to-cursor.cjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

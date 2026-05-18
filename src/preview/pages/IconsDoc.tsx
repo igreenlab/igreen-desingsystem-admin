@@ -177,7 +177,7 @@ export function IconsDoc() {
           </div>
           <div className="flex flex-col items-center gap-gp-md">
             <Home className="size-icon-md text-fg-brand" />
-            <span className="text-caption-sm text-fg-subtle">primary</span>
+            <span className="text-caption-sm text-fg-subtle">brand</span>
           </div>
           <div className="flex flex-col items-center gap-gp-md">
             <Home className="size-icon-md text-fg-success" />
@@ -185,7 +185,7 @@ export function IconsDoc() {
           </div>
           <div className="flex flex-col items-center gap-gp-md">
             <Home className="size-icon-md text-fg-danger" />
-            <span className="text-caption-sm text-fg-subtle">critical</span>
+            <span className="text-caption-sm text-fg-subtle">danger</span>
           </div>
         </div>
       </ExampleSection>

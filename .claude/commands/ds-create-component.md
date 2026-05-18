@@ -6,7 +6,7 @@ description: >
   Implementação detalhada em .claude/skills/ds-dev/impl-igreen.md
 ---
 
-# Criar componente iGreen — iGreen DS v2
+# Criar componente iGreen — iGreen DS
 
 ## ⛔ Três verificações antes de qualquer código
 

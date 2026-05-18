@@ -19,7 +19,7 @@
 > operar com precisão ou adaptar este sistema para outro projeto.
 > Leia do início ao fim uma vez. Depois use como referência por seção.
 >
-> **Projeto de referência:** `igreen-ds-v2` — Design System de produção iGreen.
+> **Projeto de referência:** `igreen-ds` — Design System de produção iGreen.
 > **Ferramenta:** Claude Code (Anthropic) — CLI agente local, versão 2025/2026.
 > **Estado:** 21 componentes em produção · 14 lições registradas · pipeline ativo.
 
@@ -464,7 +464,7 @@ o thumb precisa ser sempre branco independente do modo.
 ## 6. Estrutura de arquivos completa e anotada
 
 ```
-igreen-ds-v2/
+igreen-ds/
 │
 ├── CLAUDE.md
 │   PAPEL: Ponto de entrada de qualquer sessão. Lido por todo agente antes de
@@ -668,7 +668,7 @@ model: claude-sonnet-4-6   ← modelo base do agente
 memory: user               ← ativa memória persistente entre sessões
 ---
 
-# DS Designer — iGreen DS v2    ← corpo: instruções operacionais do agente
+# DS Designer — iGreen DS    ← corpo: instruções operacionais do agente
 ...
 ```
 
@@ -2087,6 +2087,6 @@ na primeira sessão em que o Reviewer encontra um padrão de erro e o converte e
 
 ---
 
-*Documento mantido em `igreen-ds-v2/PIPELINE.md`*
+*Documento mantido em `igreen-ds/PIPELINE.md`*
 *Atualizar quando houver mudanças estruturais no sistema de agentes ou no pipeline.*
 *Última atualização: Abril 2026 — versão pós-reestruturação completa.*

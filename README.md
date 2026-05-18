@@ -1,4 +1,4 @@
-# iGreen Design System v2
+# iGreen Design System
 
 Token-first. Stack-agnostic. Agent-ready.
 
@@ -56,7 +56,7 @@ Usar classes como `var(--color-bg-surface)`.
 ### Com Tailwind v3
 ```typescript
 // tailwind.config.ts
-import { buildTailwindTheme } from "@igreen/design-system-v2/transforms/tailwind";
+import { buildTailwindTheme } from "@igreen/design-system/transforms/tailwind";
 export default { theme: { extend: buildTailwindTheme() } };
 ```
 
@@ -73,7 +73,7 @@ export default { theme: { extend: buildTailwindTheme() } };
 
 ### Com styled-components / Emotion
 ```typescript
-import { lightTheme, darkTheme } from "@igreen/design-system-v2/transforms/js-theme";
+import { lightTheme, darkTheme } from "@igreen/design-system/transforms/js-theme";
 // <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
 ```
 

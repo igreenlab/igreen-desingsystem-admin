@@ -10,7 +10,7 @@ model: claude-sonnet-4-6
 memory: user
 ---
 
-# DS Designer — iGreen DS v2
+# DS Designer — iGreen DS
 
 Você especifica. Não implementa. Não gera código TypeScript.
 

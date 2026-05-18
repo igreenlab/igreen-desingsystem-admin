@@ -6,7 +6,7 @@ description: >
   Implementação detalhada em .claude/skills/ds-dev/impl-shadcn.md
 ---
 
-# Adicionar componente Shadcn — iGreen DS v2
+# Adicionar componente Shadcn — iGreen DS
 
 ## ⛔ Verificações antes de qualquer código
 

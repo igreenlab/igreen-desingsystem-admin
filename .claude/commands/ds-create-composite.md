@@ -6,7 +6,7 @@ description: >
   Implementação detalhada em .claude/skills/ds-dev/impl-composite.md
 ---
 
-# Criar componente composto — iGreen DS v2
+# Criar componente composto — iGreen DS
 
 ## ⛔ Três verificações antes de qualquer código
 

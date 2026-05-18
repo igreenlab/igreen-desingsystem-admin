@@ -1,4 +1,4 @@
-# iGreen Design System v2 — Arquitetura
+# iGreen Design System — Arquitetura
 
 Visão completa do DS: domínios, tokens, pipeline, fluxos. Fonte única (não há `architecture-flows.md` separado — está tudo consolidado aqui).
 

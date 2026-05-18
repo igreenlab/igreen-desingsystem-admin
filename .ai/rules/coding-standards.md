@@ -1,4 +1,4 @@
-# Coding standards — iGreen DS v2
+# Coding standards — iGreen DS
 
 > Referência completa. Carregar apenas quando precisar de detalhe além do que
 > está em `.claude/rules/ds-standards.md` ou nas skills de cada agente.

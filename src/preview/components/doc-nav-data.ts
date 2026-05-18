@@ -19,16 +19,28 @@ const BASE_NAV: DocNavSection[] = [
     title: "Agents",
     items: [
       { label: "Overview", href: "agents-overview" },
+      { label: "Pipeline", href: "agents" },
       { label: "Orchestrator", href: "agent-orchestrator" },
       { label: "DS Designer", href: "agent-designer" },
       { label: "DS Dev", href: "agent-dev" },
       { label: "DS Reviewer", href: "agent-reviewer" },
-      { label: "Pipeline Simulator", href: "agents" },
+    ],
+  },
+  {
+    title: "Pipeline Infra",
+    items: [
+      { label: "Skills", href: "pipeline-skills" },
+      { label: "Commands", href: "pipeline-commands" },
+      { label: "Hooks", href: "pipeline-hooks" },
+      { label: "Output Styles", href: "pipeline-output-styles" },
+      { label: "MCP Servers", href: "pipeline-mcp" },
+      { label: "Memory System", href: "pipeline-memory" },
     ],
   },
   {
     title: "Foundations",
     items: [
+      { label: "Tokens Overview", href: "tokens-overview" },
       { label: "Color", href: "colors" },
       { label: "Typography", href: "typography" },
       { label: "Spacing", href: "spacing" },

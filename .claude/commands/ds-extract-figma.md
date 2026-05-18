@@ -6,7 +6,7 @@ description: >
   Ativar para: "extrair do Figma", "importar do Figma", "mapear tokens do Figma".
 ---
 
-# Extrair do Figma — iGreen DS v2
+# Extrair do Figma — iGreen DS
 
 ## Fluxo correto
 

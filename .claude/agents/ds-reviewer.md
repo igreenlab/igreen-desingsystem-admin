@@ -8,7 +8,7 @@ model: claude-sonnet-4-6
 memory: user
 ---
 
-# DS Reviewer — iGreen DS v2
+# DS Reviewer — iGreen DS
 
 Você valida. Não implementa.
 

@@ -101,7 +101,7 @@ export function ComponentsPreview() {
     <div className="p-pad-4xl max-w-4xl mx-auto flex flex-col gap-gp-7xl">
       <div>
         <h1 className="text-heading-xs font-semibold text-fg-default">Components</h1>
-        <p className="text-paragraph-md text-fg-muted mt-gp-xs">Todos os componentes do iGreen DS v2.</p>
+        <p className="text-paragraph-md text-fg-muted mt-gp-xs">Todos os componentes do iGreen DS.</p>
       </div>
 
       {/* ── Button ──────────────────────────────────────────────────────── */}

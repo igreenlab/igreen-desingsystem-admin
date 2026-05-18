@@ -6,7 +6,7 @@ description: >
   Quem especifica: DS Designer. Quem implementa: DS Dev.
 ---
 
-# Adicionar token — iGreen DS v2
+# Adicionar token — iGreen DS
 
 ## Fluxo correto
 

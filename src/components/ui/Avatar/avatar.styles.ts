@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from "@/utils/tv";
 
 /**
- * Avatar styles — iGreen DS v2
+ * Avatar styles — iGreen DS
  *
  * Circular badge with initials. No interactive states (no hover, no focus, no disabled).
  *

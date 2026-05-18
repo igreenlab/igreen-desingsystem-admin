@@ -1,14 +1,14 @@
 ---
 name: igreen-frontend
 description: >
-  Skill específica do iGreen DS v2. Substituiu a skill genérica frontend-design
+  Skill específica do iGreen DS. Substituiu a skill genérica frontend-design
   que conflitava com o DS (fonts não-Inter, gradients, layouts assimétricos).
   Ativar quando criar páginas, telas, blocos ou componentes dentro do iGreen DS.
 ---
 
 # iGreen DS — Frontend Skill
 
-Esta skill guia a criação de interfaces dentro do iGreen Design System v2.
+Esta skill guia a criação de interfaces dentro do iGreen Design System.
 Não usar para projetos externos ao iGreen.
 
 ## Princípio central

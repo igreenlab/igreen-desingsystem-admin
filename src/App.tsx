@@ -56,6 +56,7 @@ import ClientesShowcase from "./preview/pages/ClientesShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
 import DashboardShowcase from "./preview/pages/DashboardShowcase";
 import { ColorsDoc } from "./preview/pages/ColorsDoc";
+import { TokensOverviewDoc } from "./preview/pages/TokensOverviewDoc";
 import { TypographyDoc } from "./preview/pages/TypographyDoc";
 import { SpacingDoc } from "./preview/pages/SpacingDoc";
 import { ElevationDoc } from "./preview/pages/ElevationDoc";
@@ -64,6 +65,13 @@ import { ShapeDoc } from "./preview/pages/ShapeDoc";
 import { IntroductionDoc } from "./preview/pages/IntroductionDoc";
 import { StructureDoc } from "./preview/pages/StructureDoc";
 import { TransformTokensDoc } from "./preview/pages/TransformTokensDoc";
+import { InstallationDoc } from "./preview/pages/InstallationDoc";
+import { PipelineSkillsDoc } from "./preview/pages/PipelineSkillsDoc";
+import { PipelineCommandsDoc } from "./preview/pages/PipelineCommandsDoc";
+import { PipelineHooksDoc } from "./preview/pages/PipelineHooksDoc";
+import { PipelineOutputStylesDoc } from "./preview/pages/PipelineOutputStylesDoc";
+import { PipelineMcpDoc } from "./preview/pages/PipelineMcpDoc";
+import { PipelineMemoryDoc } from "./preview/pages/PipelineMemoryDoc";
 import { AgentsOverviewDoc } from "./preview/pages/AgentsOverviewDoc";
 import { AgentOrchestratorDoc } from "./preview/pages/AgentOrchestratorDoc";
 import { AgentDesignerDoc } from "./preview/pages/AgentDesignerDoc";
@@ -199,7 +207,8 @@ export function App() {
     "button", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
     "introduction", "structure", "installation", "transform-tokens",
     "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
-    "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
+    "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
+    "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
     "switch", "checkbox", "radio-group", "slider", "progress",
     "accordion", "alert", "dialog", "dropdown-menu",
     "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
@@ -267,6 +276,7 @@ export function App() {
           {activePage === "clientes-showcase" && <ClientesShowcase />}
           {activePage === "chat-v2" && <ChatV2 />}
           {activePage === "dashboard-showcase" && <DashboardShowcase />}
+          {activePage === "tokens-overview" && <TokensOverviewDoc />}
           {activePage === "colors" && <ColorsDoc />}
           {activePage === "typography" && <TypographyDoc />}
           {activePage === "spacing" && <SpacingDoc />}
@@ -284,9 +294,13 @@ export function App() {
           {activePage === "introduction" && <IntroductionDoc />}
           {activePage === "structure" && <StructureDoc />}
           {activePage === "transform-tokens" && <TransformTokensDoc />}
-          {activePage === "installation" && (
-            <div className="flex items-center justify-center h-full"><div className="text-center"><p className="text-title-md font-semibold text-fg-default mb-gp-md">Installation</p><p className="text-paragraph-sm text-fg-muted">Coming soon</p></div></div>
-          )}
+          {activePage === "installation" && <InstallationDoc />}
+          {activePage === "pipeline-skills" && <PipelineSkillsDoc />}
+          {activePage === "pipeline-commands" && <PipelineCommandsDoc />}
+          {activePage === "pipeline-hooks" && <PipelineHooksDoc />}
+          {activePage === "pipeline-output-styles" && <PipelineOutputStylesDoc />}
+          {activePage === "pipeline-mcp" && <PipelineMcpDoc />}
+          {activePage === "pipeline-memory" && <PipelineMemoryDoc />}
           {activePage === "docs" && <ComponentDocTemplate />}
           {activePage === "docs-template" && <ComponentDocTemplate />}
         </main>
@@ -304,7 +318,7 @@ export function App() {
           <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-[13px]">iG</div>
           <div>
             <div className="text-label-sm text-fg-default">iGreen DS</div>
-            <div className="text-caption-sm text-fg-subtle">v2.0 preview</div>
+            <div className="text-caption-sm text-fg-subtle">preview</div>
           </div>
         </div>
 

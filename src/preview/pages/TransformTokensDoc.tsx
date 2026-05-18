@@ -128,11 +128,14 @@ export function TransformTokensDoc() {
           registers CSS vars so Tailwind v4 generates utility classes automatically. Example output:
         </p>
         <CodeBlock>{`@theme {
-  /* Colors */
-  --color-bg-primary: oklch(0.696 0.17 150.5);
+  /* Colors (semantic v3: brand/danger/default) */
+  --color-bg-brand: oklch(0.696 0.17 150.5);
   --color-bg-surface: oklch(1 0 0);
-  --color-fg-foreground: oklch(0.145 0 0);
+  --color-bg-danger: oklch(0.6368 0.2078 25.33);
+  --color-fg-default: oklch(0.145 0 0);
   --color-fg-muted: oklch(0.556 0 0);
+  --color-fg-on-brand: oklch(1 0 0);
+  --color-ring-brand: color-mix(in oklch, oklch(0.696 0.17 150.5) 22%, transparent);
 
   /* Spacing (anti-collision prefixes) */
   --spacing-sp-md: 1rem;        /* → p-sp-md, m-sp-md */
@@ -161,12 +164,14 @@ export function TransformTokensDoc() {
         </p>
         <CodeBlock>{`.dark {
   --color-bg-surface: oklch(0.205 0 0);
-  --color-bg-primary: oklch(0.696 0.17 150.5);
-  --color-fg-foreground: oklch(0.985 0 0);
+  --color-bg-brand: oklch(0.696 0.17 150.5);
+  --color-fg-default: oklch(0.985 0 0);
   --color-fg-muted: oklch(0.708 0 0);
   --color-border-main: oklch(0.371 0 0);
 
+  /* Shadows ≥ 2× light opacity, rings ≥ 1.5× alpha — L-011 */
   --shadow-sh-md: 0 4px 6px -1px oklch(0 0 0 / 0.4), ...;
+  --color-ring-brand: color-mix(in oklch, oklch(0.696 0.17 150.5) 33%, transparent);
 }`}</CodeBlock>
         <p className="text-paragraph-sm text-fg-muted">
           Components don't need any dark mode logic — CSS vars resolve to the correct values automatically.
@@ -241,27 +246,27 @@ export function TransformTokensDoc() {
         </p>
         <CodeBlock>{`/* app.css */
 @import "tailwindcss";
-@import "@igreen/design-system-v2/theme.css";`}</CodeBlock>
+@import "@igreen/design-system/theme.css";`}</CodeBlock>
         <p className="text-paragraph-sm text-fg-muted">
           All DS utility classes are now available in your Tailwind markup:
         </p>
         <CodeBlock>{`<!-- Spacing -->
-<div className="p-sp-md gap-gp-xl px-pad-3xl">
+<div class="p-sp-md gap-gp-xl px-pad-3xl">
 
 <!-- Colors -->
-<p className="text-fg-default bg-bg-surface border-border-main">
+<p class="text-fg-default bg-bg-surface border-border-main">
 
 <!-- Typography preset -->
-<h2 className="text-heading-md">
+<h2 class="text-heading-md">
 
 <!-- Shape -->
-<div className="rounded-radius-base shadow-sh-lg">
+<div class="rounded-radius-base shadow-sh-lg">
 
 <!-- Sizing -->
-<button className="min-h-form-xl">
+<button class="min-h-form-xl">
 
-<!-- Focus ring -->
-<input className="focus-visible:ring-4 focus-visible:ring-ring-brand">`}</CodeBlock>
+<!-- Focus ring (per-color, never on base — L-001/L-003/L-004) -->
+<button class="focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand">`}</CodeBlock>
       </div>
     </DocLayout>
   );

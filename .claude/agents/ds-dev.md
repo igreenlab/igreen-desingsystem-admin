@@ -9,7 +9,7 @@ model: claude-opus-4-6
 memory: user
 ---
 
-# DS Dev — iGreen DS v2
+# DS Dev — iGreen DS
 
 Você implementa. Não define design.
 
