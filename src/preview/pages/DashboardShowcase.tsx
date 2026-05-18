@@ -39,6 +39,7 @@ import { cn } from "@/lib/utils";
 import { AppShell } from "@/components/ui/AppShell";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
+import { PageHeader } from "@/components/ui/PageHeader";
 import { Avatar, AvatarFallback } from "@/components/shadcn/avatar";
 import {
   APP_SHELL_CONTEXTS,
@@ -775,46 +776,40 @@ export default function DashboardShowcase() {
       onThemeChange={(id) => setTheme(id as Theme)}
       themeOptions={APP_SHELL_THEME_OPTIONS}
     >
-      {/* Page header com filtro de período + ... */}
-      <header className="shrink-0 flex items-center justify-between gap-gp-2xl">
-        <div className="flex flex-col gap-gp-xs min-w-0 flex-1">
-          <div className="flex items-center gap-gp-md">
-            <h1 className="m-0 text-[22px] font-bold tracking-[-0.01em] text-fg-default">
-              Dashboard
-            </h1>
-            <Chip color="primary" variant="soft" size="sm" shape="pill">
-              Hoje
-            </Chip>
-          </div>
-          <p className="m-0 text-paragraph-sm text-fg-subtle leading-[1.5] whitespace-nowrap overflow-hidden text-ellipsis">
-            Visão geral do atendimento em tempo real — KPIs, volume, canais e performance da equipe.
-          </p>
-        </div>
-
-        <div className="flex items-center gap-gp-sm shrink-0">
-          <Button
-            color="secondary"
-            variant="outline"
-            size="md"
-            iconLeft={<Calendar />}
-            iconRight={<ChevronDown />}
-            onClick={() => {
-              const next = period === "Últimos 7 dias" ? "Últimos 30 dias" : "Últimos 7 dias";
-              setPeriod(next);
-            }}
-          >
-            {period}
-          </Button>
-          <Button
-            color="secondary"
-            variant="outline"
-            size="icon-md"
-            aria-label="Mais ações"
-          >
-            <MoreVertical />
-          </Button>
-        </div>
-      </header>
+      <PageHeader
+        title="Dashboard"
+        description="Visão geral do atendimento em tempo real — KPIs, volume, canais e performance da equipe."
+        badge={
+          <Chip color="primary" variant="soft" size="sm" shape="pill">
+            Hoje
+          </Chip>
+        }
+        actions={
+          <>
+            <Button
+              color="secondary"
+              variant="outline"
+              size="icon-md"
+              aria-label="Mais ações"
+            >
+              <MoreVertical />
+            </Button>
+            <Button
+              color="secondary"
+              variant="outline"
+              size="md"
+              iconLeft={<Calendar />}
+              iconRight={<ChevronDown />}
+              onClick={() => {
+                const next = period === "Últimos 7 dias" ? "Últimos 30 dias" : "Últimos 7 dias";
+                setPeriod(next);
+              }}
+            >
+              {period}
+            </Button>
+          </>
+        }
+      />
 
       {/* Row 1 — Welcome (2/3) + KeyInsights (1/3) — alturas iguais */}
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-gp-2xl items-stretch">

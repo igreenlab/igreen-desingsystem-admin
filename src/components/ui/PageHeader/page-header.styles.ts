@@ -22,7 +22,7 @@ export const pageHeaderStyles = tv({
     topRow: "flex items-center justify-between gap-gp-2xl",
     textCol: "flex flex-col gap-gp-xs min-w-0 flex-1",
     titleRow: "flex items-center gap-gp-md",
-    title: "m-0 text-title-md font-bold tracking-[-0.01em] text-fg-default",
+    title: "m-0 text-title-lg font-bold tracking-[-0.01em] text-fg-default",
     description: [
       "m-0 text-paragraph-sm text-fg-subtle leading-[1.5]",
       "whitespace-nowrap overflow-hidden text-ellipsis",
