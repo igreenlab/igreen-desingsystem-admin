@@ -90,9 +90,7 @@ export default defineConfig({
         "preview/dashboard": path.resolve(__dirname, "src/preview/pages/DashboardShowcase.tsx"),
         "preview/mocks": path.resolve(__dirname, "src/preview/mocks/index.ts"),
       },
-      formats: ["es", "cjs"],
-      fileName: (format, entryName) =>
-        format === "es" ? `${entryName}.mjs` : `${entryName}.cjs`,
+      // formats não usado — definimos outputs explícitos no rollupOptions
     },
     rollupOptions: {
       external: [
@@ -117,11 +115,21 @@ export default defineConfig({
         "recharts",
         "tw-animate-css",
       ],
-      output: {
-        exports: "named",
-        // separar chunks compartilhados pra reduzir duplicação entre entries
-        chunkFileNames: "chunks/[name]-[hash].mjs",
-      },
+      // 2 outputs separados — cada um com sua extensão correta nos entries E nos chunks
+      output: [
+        {
+          format: "es",
+          entryFileNames: "[name].mjs",
+          chunkFileNames: "chunks/[name]-[hash].mjs",
+          exports: "named",
+        },
+        {
+          format: "cjs",
+          entryFileNames: "[name].cjs",
+          chunkFileNames: "chunks/[name]-[hash].cjs",
+          exports: "named",
+        },
+      ],
     },
   },
 });
