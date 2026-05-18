@@ -1,0 +1,90 @@
+---
+name: impl-shadcn
+description: >
+  Adicionar ou adaptar componente Shadcn ao DS.
+  Substituir classes Tailwind por tokens DS, aplicar tv().
+---
+
+# DS Dev — Componente Shadcn
+
+## Verificação obrigatória
+```
+shadcn/[nome].tsx já existe? → PARAR. Editar existente, não reinstalar.
+```
+
+## Como tokens iGreen chegam automaticamente
+
+```
+componente usa  → bg-primary
+Tailwind gera   → var(--primary)
+globals.css     → --primary: var(--color-bg-primary)  ← mapeamento automático
+resultado       → token iGreen ✓
+```
+
+Instalar + mover para `shadcn/` já é suficiente para cores.
+**Exceção:** focus ring — precisa substituição manual obrigatória.
+
+## Passos
+
+```bash
+# 1. Instalar
+npx shadcn@latest add [nome]
+
+# 2. Mover
+mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
+```
+
+```typescript
+// 3. Substituir focus ring (OBRIGATÓRIO)
+// ❌ Remover padrão Shadcn:
+"focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+
+// ✅ Padrão 1 — estático (selects, checkboxes, triggers):
+"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+
+// ✅ Padrão 2 — animado (inputs, textareas):
+// base: "ring-0 ring-ring-primary transition-[color,box-shadow,background-color] focus-visible:outline-none"
+// focus: "focus-visible:ring-4"
+```
+
+```typescript
+// 4. Substituições recomendadas (para código explícito)
+// Alturas — h-* fixo → min-h-form-* correspondente
+"h-7"              → "min-h-form-xs"   // 28px
+"h-8"              → "min-h-form-sm"   // 32px
+"h-9"              → "min-h-form-md"   // 36px  ← h-9 = 36px, NÃO form-lg
+"h-10"             → "min-h-form-lg"   // 40px
+"h-11"             → "min-h-form-xl"   // 44px
+
+// Tipografia
+"text-sm"                → "text-paragraph-sm"
+"text-sm font-medium"    → "text-label-sm"
+"text-xs"                → "text-paragraph-xs"
+"text-xs font-medium"    → "text-label-xs"
+
+// Spacing e shape
+"rounded-md"       → "rounded-radius-md"
+"shadow-md"        → "shadow-sh-md"
+"gap-2"            → "gap-gp-xs"
+"px-3"             → "px-pad-lg"
+```
+
+```typescript
+// 5. Barrel exports — DOIS arquivos obrigatórios
+// a) shadcn/index.ts — adicionar export do componente novo
+export { NomeComponente } from "./nome-componente"
+
+// b) src/components/index.ts — re-export para consumo externo
+export * from "./shadcn/nome-componente"
+```
+
+## Checklist
+
+- [ ] Em `shadcn/` (não em `ui/`)
+- [ ] Focus ring substituído
+- [ ] Lógica Radix preservada (handlers, aria, data-state)
+- [ ] Dark mode via CSS vars
+- [ ] Exports criados em AMBOS: `shadcn/index.ts` e `src/components/index.ts`
+- [ ] `component-inventory.md` atualizado
+- [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
+  Ex: `Assumption: "não existe componente Shadcn com lógica equivalente instalado anteriormente"`

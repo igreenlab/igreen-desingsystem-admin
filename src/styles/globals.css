@@ -1,0 +1,209 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "./theme/tailwind-theme.css";
+
+/* ── Geist font (variable) ─────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Font vars (sobrescreve o default do Tailwind) ─────────────────────────── */
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* Forçar dark mode via classe .dark apenas (ignorar prefers-color-scheme) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/**
+ * globals.css — Tailwind v4 + Shadcn compatibility + preview shell vars
+ *
+ * Tokens are loaded via @theme in tailwind-theme.css (auto-generated).
+ * Shadcn vars are mapped to iGreen tokens below.
+ * The preview shell uses its own CSS vars at the bottom (not DS tokens).
+ */
+
+/* ── Shadcn compatibility layer ──────────────────────────────────────────
+ * Registra as vars Shadcn no @theme inline para que o Tailwind v4 gere
+ * as utilities (bg-primary, text-foreground, border-border, etc.).
+ * Os valores reais são definidos no :root abaixo e trocados em .dark.
+ * ─────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --color-background:             var(--background);
+  --color-foreground:             var(--foreground);
+  --color-card:                   var(--card);
+  --color-card-foreground:        var(--card-foreground);
+  --color-popover:                var(--popover);
+  --color-popover-foreground:     var(--popover-foreground);
+  --color-primary:                var(--primary);
+  --color-primary-foreground:     var(--primary-foreground);
+  --color-secondary:              var(--secondary);
+  --color-secondary-foreground:   var(--secondary-foreground);
+  --color-muted:                  var(--muted);
+  --color-muted-foreground:       var(--muted-foreground);
+  --color-accent:                 var(--accent);
+  --color-accent-foreground:      var(--accent-foreground);
+  --color-destructive:            var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border:                 var(--border);
+  --color-input:                  var(--input);
+  --color-ring:                   var(--ring);
+}
+
+:root {
+  --background:             var(--color-bg-canvas);
+  --foreground:             var(--color-fg-default);
+  --card:                   var(--color-bg-surface);
+  --card-foreground:        var(--color-fg-default);
+  --popover:                var(--color-bg-surface);
+  --popover-foreground:     var(--color-fg-default);
+  --primary:                var(--color-bg-brand);
+  --primary-foreground:     var(--color-fg-on-brand);
+  --secondary:              var(--color-bg-muted);
+  --secondary-foreground:   var(--color-fg-default);
+  --muted:                  var(--color-bg-muted);
+  --muted-foreground:       var(--color-fg-muted);
+  --accent:                 var(--color-bg-muted);
+  --accent-foreground:      var(--color-fg-default);
+  --destructive:            var(--color-bg-danger);
+  --destructive-foreground: var(--color-fg-on-danger);
+  --border:                 var(--color-border-default);
+  --input:                  var(--color-border-input);
+  --ring:                   var(--color-ring-brand);
+  --radius:                 var(--radius-radius-base);
+}
+.dark {
+  --background:             var(--color-bg-canvas);
+  --foreground:             var(--color-fg-default);
+  --card:                   var(--color-bg-surface);
+  --card-foreground:        var(--color-fg-default);
+  --popover:                var(--color-bg-surface-elevated);
+  --popover-foreground:     var(--color-fg-default);
+  --primary:                var(--color-bg-brand);
+  --primary-foreground:     var(--color-fg-on-brand);
+  --secondary:              var(--color-bg-muted);
+  --secondary-foreground:   var(--color-fg-default);
+  --muted:                  var(--color-bg-muted);
+  --muted-foreground:       var(--color-fg-muted);
+  --accent:                 var(--color-bg-muted);
+  --accent-foreground:      var(--color-fg-default);
+  --destructive:            var(--color-bg-danger);
+  --destructive-foreground: var(--color-fg-on-danger);
+  --border:                 var(--color-border-default);
+  --input:                  var(--color-border-input);
+  --ring:                   var(--color-ring-brand);
+  --radius:                 var(--radius-radius-base);
+}
+
+/* ── HTML base ──────────────────────────────────────────────────────────────── */
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* ── Base resets ────────────────────────────────────────────────────────────── */
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* ── Outline float utility ─────────────────────────────────────────────────
+ * Outline de 6px pra elementos flutuantes (panels, drawers, modais,
+ * dropdowns, command). Consome --color-overlay-float (alterna por tema).
+ * Uso: <div className="... outline-float">
+ *
+ * Por que não `ring-*`? Ring usa box-shadow — conflitaria com `shadow-sh-*`
+ * do componente. Outline é propriedade separada, não conflita.
+ * ─────────────────────────────────────────────────────────────────────── */
+@utility outline-float {
+  outline: 6px solid var(--color-overlay-float);
+  outline-offset: 0;
+}
+
+/* ── Scrollbar sutil ──────────────────────────────────────────────────────
+ * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
+ * Thumb sempre visível (alpha-black-24 light / alpha-white-24 dark), realça no hover.
+ * ─────────────────────────────────────────────────────────────────────── */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0 0 0 / 0.24) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: oklch(0 0 0 / 0.24);
+  border-radius: 9999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: oklch(0 0 0 / 0.32);
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: oklch(1 0 0 / 0.24) transparent;
+}
+.dark .scrollbar-thin::-webkit-scrollbar-thumb {
+  background: oklch(1 0 0 / 0.24);
+}
+.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: oklch(1 0 0 / 0.32);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flow {
+  from { stroke-dashoffset: 20; }
+  to   { stroke-dashoffset: 0; }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.3; }
+}
+
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+
+@theme inline {
+  --animate-accordion-down: accordion-down 200ms ease-out;
+  --animate-accordion-up: accordion-up 200ms ease-out;
+}

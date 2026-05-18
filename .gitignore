@@ -1,0 +1,45 @@
+node_modules/
+dist/
+.vite/
+*.local
+
+# Generated theme CSS is committed because it's the published export
+# Regenerate with: npm run tokens:tw4
+
+# Arquivos pessoais — não commitar
+CLAUDE.local.md
+
+# Scratch pad de sessões — não commitar
+.ai/scratch/
+
+# Snapshots de devtools — não commitar
+snapshot*.txt
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Coverage / test artifacts
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor (manter .vscode/ pra share opcional)
+.idea/
+*.swp
+*.swo
+*~
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+*.tsbuildinfo

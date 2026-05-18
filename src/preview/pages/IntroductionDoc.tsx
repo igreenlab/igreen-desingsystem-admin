@@ -1,0 +1,135 @@
+﻿import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
+import { Badge } from "../../components/shadcn/badge";
+
+const TOC = [
+  { id: "what", label: "What is iGreen DS" },
+  { id: "principles", label: "Principles" },
+  { id: "architecture", label: "Architecture" },
+  { id: "why", label: "Why v2" },
+  { id: "status", label: "Status" },
+];
+
+export function IntroductionDoc() {
+  return (
+    <DocLayout toc={TOC}>
+      <DocHeader
+        category="Get Started"
+        title="Introduction"
+        description="A token-first, stack-agnostic design system for the iGreen ecosystem."
+      />
+      <DocSeparator />
+
+      {/* What */}
+      <SectionH2 id="what" title="What is iGreen DS" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">
+          iGreen Design System v2 is the visual foundation for all iGreen products — from the consumer app to the
+          licensed partner portal. It provides a unified set of <strong className="text-fg-default">design tokens</strong>,{" "}
+          <strong className="text-fg-default">UI components</strong>, and{" "}
+          <strong className="text-fg-default">documentation</strong> that ensure consistency across platforms and teams.
+        </p>
+        <p className="text-paragraph-sm text-fg-muted">
+          Unlike traditional component libraries that ship opinionated CSS, iGreen DS v2 is built from
+          tokens up. Tokens are the single source of truth — components are just one possible consumer.
+          The same token set can generate Tailwind CSS, vanilla CSS custom properties, DTCG JSON, or any
+          other format your stack requires.
+        </p>
+      </div>
+
+      {/* Principles */}
+      <SectionH2 id="principles" title="Principles" />
+      <div className="grid gap-gp-3xl mb-14">
+        {[
+          {
+            title: "Token-first",
+            desc: "Every visual decision (color, spacing, radius, shadow) starts as a token. Components consume tokens via CSS variables — never hardcoded values.",
+          },
+          {
+            title: "Stack-agnostic",
+            desc: "Tokens are plain TypeScript objects. Transforms generate output for Tailwind v4, CSS vars, or DTCG JSON. Shadcn and Tailwind are adapters, not the foundation.",
+          },
+          {
+            title: "Anti-collision prefixes",
+            desc: "All DS tokens use prefixed CSS variables (sp-, gp-, pad-, radius-radius-, sh-) to avoid overriding Tailwind built-in utilities like gap-4 or rounded-lg.",
+          },
+          {
+            title: "Dark mode via tokens",
+            desc: "Light and dark palettes are separate token files with the same contract. Toggling themes swaps CSS vars — no component logic needed.",
+          },
+          {
+            title: "Accessible by default",
+            desc: "Interactive elements meet WCAG 2.5.5 minimum target sizes (44px). Focus rings use visible ring tokens with built-in alpha.",
+          },
+        ].map((p) => (
+          <div key={p.title} className="flex gap-gp-2xl">
+            <div className="w-1 shrink-0 rounded-full bg-bg-brand" />
+            <div>
+              <p className="text-label-sm text-fg-default mb-gp-xs">{p.title}</p>
+              <p className="text-paragraph-sm text-fg-muted">{p.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Architecture */}
+      <SectionH2 id="architecture" title="Architecture Overview" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">The system is organized in 3 tiers:</p>
+        <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-relaxed">
+          <p className="text-fg-default font-semibold mb-gp-xl">Tier 1 — Primitives (private API)</p>
+          <p className="ml-sp-md mb-gp-md">color-palette.ts, scales.ts, fonts.ts, motion.ts</p>
+          <p className="text-fg-subtle mb-gp-2xl ml-sp-md">Raw values: OKLCH hues, base-4 scale, font stacks</p>
+
+          <p className="text-fg-default font-semibold mb-gp-xl">Tier 2 — Semantic (public API)</p>
+          <p className="ml-sp-md mb-gp-md">color-light.ts, color-dark.ts, spacing.ts, sizing.ts, shape.ts, elevation.ts, typography.ts</p>
+          <p className="text-fg-subtle mb-gp-2xl ml-sp-md">Meaningful names: bg.primary, gap.md, radius.base, shadow.md</p>
+
+          <p className="text-fg-default font-semibold mb-gp-xl">Tier 2.5 — Component Tokens</p>
+          <p className="ml-sp-md mb-gp-md">components/sizing.ts, components/spacing.ts</p>
+          <p className="text-fg-subtle ml-sp-md">Component-specific: form.lg, icon.md, padCard.base</p>
+        </div>
+        <p className="text-paragraph-sm text-fg-muted">
+          Components <strong className="text-fg-default">never</strong> import primitives directly.
+          They consume semantic tokens via Tailwind v4 CSS variables generated by the transform pipeline.
+        </p>
+      </div>
+
+      {/* Why v2 */}
+      <SectionH2 id="why" title="Why v2" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-paragraph-sm text-fg-muted">
+          v1 was tightly coupled to a single Tailwind config and relied on hardcoded design decisions
+          inside components. v2 was rebuilt from scratch with these goals:
+        </p>
+        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-paragraph-sm text-fg-muted">
+          <li>Decouple tokens from any specific CSS framework</li>
+          <li>Support multi-brand theming (same tokens, different palettes)</li>
+          <li>Anti-collision prefixes to coexist with Tailwind built-ins</li>
+          <li>AI-assisted pipeline: Designer → Dev → Reviewer agents</li>
+          <li>Unified spacing scale across gap, padding, and margin</li>
+        </ul>
+      </div>
+
+      {/* Status */}
+      <SectionH2 id="status" title="Status" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <div className="flex items-center gap-gp-xl">
+          <Badge color="success" variant="soft" size="md">Stable</Badge>
+          <span className="text-paragraph-sm text-fg-muted">Token architecture and transform pipeline</span>
+        </div>
+        <div className="flex items-center gap-gp-xl">
+          <Badge color="success" variant="soft" size="md">Stable</Badge>
+          <span className="text-paragraph-sm text-fg-muted">21 Shadcn components styled with DS tokens</span>
+        </div>
+        <div className="flex items-center gap-gp-xl">
+          <Badge color="warning" variant="soft" size="md">Preview</Badge>
+          <span className="text-paragraph-sm text-fg-muted">Documentation site (you're looking at it)</span>
+        </div>
+        <div className="flex items-center gap-gp-xl">
+          <Badge color="primary" variant="soft" size="md">Planned</Badge>
+          <span className="text-paragraph-sm text-fg-muted">NPM package distribution</span>
+        </div>
+      </div>
+    </DocLayout>
+  );
+}
