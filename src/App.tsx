@@ -66,6 +66,7 @@ import { IntroductionDoc } from "./preview/pages/IntroductionDoc";
 import { StructureDoc } from "./preview/pages/StructureDoc";
 import { TransformTokensDoc } from "./preview/pages/TransformTokensDoc";
 import { InstallationDoc } from "./preview/pages/InstallationDoc";
+import { UpdatesDoc } from "./preview/pages/UpdatesDoc";
 import { PipelineSkillsDoc } from "./preview/pages/PipelineSkillsDoc";
 import { PipelineCommandsDoc } from "./preview/pages/PipelineCommandsDoc";
 import { PipelineHooksDoc } from "./preview/pages/PipelineHooksDoc";
@@ -205,7 +206,7 @@ export function App() {
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
   const DOC_PAGES = [
     "button", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
-    "introduction", "structure", "installation", "transform-tokens",
+    "introduction", "structure", "installation", "transform-tokens", "updates",
     "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
     "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
     "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
@@ -295,6 +296,7 @@ export function App() {
           {activePage === "structure" && <StructureDoc />}
           {activePage === "transform-tokens" && <TransformTokensDoc />}
           {activePage === "installation" && <InstallationDoc />}
+          {activePage === "updates" && <UpdatesDoc />}
           {activePage === "pipeline-skills" && <PipelineSkillsDoc />}
           {activePage === "pipeline-commands" && <PipelineCommandsDoc />}
           {activePage === "pipeline-hooks" && <PipelineHooksDoc />}

@@ -130,7 +130,7 @@ export function StructureDoc() {
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
             <p className="text-label-sm text-fg-default mb-gp-md">ui/ — iGreen Components</p>
             <p className="text-paragraph-sm text-fg-muted">
-              17 custom components built from scratch using <code className="font-mono text-code-sm">tv()</code> from
+              Custom components built from scratch using <code className="font-mono text-code-sm">tv()</code> from
               <code className="font-mono text-code-sm"> @/utils/tv</code>. Each folder has <code className="font-mono text-code-sm">.tsx</code>,{" "}
               <code className="font-mono text-code-sm">.styles.ts</code>, <code className="font-mono text-code-sm">.types.ts</code>,{" "}
               <code className="font-mono text-code-sm">index.ts</code>, and <code className="font-mono text-code-sm">USAGE.md</code>.
@@ -139,7 +139,7 @@ export function StructureDoc() {
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
             <p className="text-label-sm text-fg-default mb-gp-md">shadcn/ — Adapted Shadcn</p>
             <p className="text-paragraph-sm text-fg-muted">
-              21 Shadcn components restyled with DS tokens. Radix primitives under the hood. Classes reference
+              Shadcn components restyled with DS tokens. Radix primitives under the hood. Classes reference
               CSS vars from the generated theme.
             </p>
           </div>

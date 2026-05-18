@@ -154,7 +154,7 @@ export function IntroductionDoc() {
         </div>
         <div className="flex items-center gap-gp-xl">
           <Badge color="success" variant="soft" size="md">Stable</Badge>
-          <span className="text-paragraph-sm text-fg-muted">21 Shadcn components + 17 iGreen components styled with DS tokens</span>
+          <span className="text-paragraph-sm text-fg-muted">Shadcn + iGreen components, all styled with DS tokens</span>
         </div>
         <div className="flex items-center gap-gp-xl">
           <Badge color="success" variant="soft" size="md">Stable</Badge>

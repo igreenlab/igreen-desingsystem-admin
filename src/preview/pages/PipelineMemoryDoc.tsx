@@ -7,7 +7,7 @@ const TOC = [
   { id: "user-memory", label: "User Memory" },
   { id: "project-memory", label: "Project Memory" },
   { id: "audit", label: "Audit Log + Assumption" },
-  { id: "lessons", label: "Lessons (L-001..L-014)" },
+  { id: "lessons", label: "Lessons" },
   { id: "lifecycle", label: "Lifecycle" },
 ];
 
@@ -102,7 +102,7 @@ export function PipelineMemoryDoc() {
           layer="4. Lessons"
           loc=".ai/status/lessons.md"
           loaded="Before every task"
-          desc="L-001 a L-014 — padrões de erro recorrentes capturados com fix canônico. Loop fechado de aprendizado."
+          desc="L-NNN entries — padrões de erro recorrentes capturados com fix canônico. Loop fechado de aprendizado."
           example="L-001: ring-ring-* já tem alpha. NUNCA usar /30 ou /20."
         />
       </div>
@@ -177,13 +177,18 @@ export function PipelineMemoryDoc() {
       </div>
 
       {/* Lessons */}
-      <SectionH2 id="lessons" title="Lessons (L-001..L-014)" />
+      <SectionH2 id="lessons" title="Lessons" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-paragraph-sm text-fg-muted">
-          As 14 lições são carregadas antes de qualquer tarefa do agente. Cada lição é um padrão de erro
+          As lições registradas são carregadas antes de qualquer tarefa do agente. Cada lição é um padrão de erro
           identificado uma vez — e nunca mais repetido. Fonte canônica:{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/status/lessons.md</code>.
           Resumo de 1 linha em <code className="font-mono text-code-sm">.claude/rules/ds-standards.md</code>.
+        </p>
+        <p className="text-paragraph-sm text-fg-muted">
+          <strong className="text-fg-default">Snapshot abaixo</strong> reflete o estado atual. Novas lições são adicionadas
+          pelo DS Reviewer quando um padrão de erro novo é identificado — consulte{" "}
+          <code className="font-mono text-code-sm">.ai/status/lessons.md</code> para a versão sempre atualizada.
         </p>
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
           <div className="grid grid-cols-[100px_1fr] gap-0 bg-bg-subtle border-b border-border-subtle">
