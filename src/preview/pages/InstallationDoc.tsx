@@ -145,12 +145,35 @@ npm run dev
           <li>React 19+ (peer dep)</li>
           <li>Tailwind CSS v4 instalado e configurado</li>
           <li>Importar <code className="font-mono text-code-sm">@snksergio/design-system/theme.css</code> uma vez no entry CSS</li>
+          <li>
+            <strong className="text-fg-default">Adicionar <code className="font-mono text-code-sm">@source</code></strong>{" "}
+            apontando pro <code className="font-mono text-code-sm">dist-lib/</code> do pacote — sem isso, os componentes
+            ficam sem estilo (cores aparecem, mas spacing/radius/shadow somem)
+          </li>
         </ul>
         <CodeBlock>{`# instala
 npm install @snksergio/design-system
 
 # atualiza pra última versão
 npm update @snksergio/design-system`}</CodeBlock>
+
+        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
+          <p className="text-label-sm text-fg-default mb-gp-md">⚠ Configuração obrigatória do CSS de entrada</p>
+          <p className="text-paragraph-sm text-fg-muted mb-gp-md">
+            Tailwind v4 ignora <code className="font-mono text-code-sm">node_modules</code> por default ao escanear classes.
+            Como os componentes do DS estão lá, você precisa instruir o Tailwind a escaneá-los — caso contrário,
+            classes como <code className="font-mono text-code-sm">gap-gp-md</code>,{" "}
+            <code className="font-mono text-code-sm">rounded-radius-base</code>,{" "}
+            <code className="font-mono text-code-sm">min-h-form-lg</code> ficam órfãs.
+          </p>
+          <CodeBlock>{`/* app/index.css ou globals.css */
+@import "tailwindcss";
+
+/* Obrigatório — escaneia os bundles do DS pra gerar utilities */
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
+
+@import "@snksergio/design-system/theme.css";`}</CodeBlock>
+        </div>
         <p className="text-paragraph-sm text-fg-muted">
           Importar componentes, theme, tokens e showcases:
         </p>

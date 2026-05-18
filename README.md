@@ -92,6 +92,23 @@ npm install @snksergio/design-system
 - React 19+ (peer dep)
 - Tailwind CSS v4 instalado e configurado
 - Importar `@snksergio/design-system/theme.css` uma vez no entry CSS
+- **Adicionar `@source` apontando pro `dist-lib/` do package** (ver abaixo) — sem isso, as classes utility usadas DENTRO dos componentes não são geradas pelo Tailwind v4
+
+**Configuração mínima do CSS de entrada (`index.css` ou `globals.css`):**
+
+```css
+@import "tailwindcss";
+
+/* Necessário: Tailwind v4 ignora node_modules por default.
+   Isso instrui ele a escanear os bundles do DS pra gerar
+   classes utility usadas DENTRO dos componentes
+   (gap-gp-md, rounded-radius-base, min-h-form-lg, etc.) */
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
+
+@import "@snksergio/design-system/theme.css";
+```
+
+⚠️ **Esse `@source` é obrigatório.** Sem ele, os componentes ficam sem estilo (cores aparecem via CSS vars, mas spacing/radius/shadow/sizing somem porque as classes utility ficam órfãs).
 
 **Uso:**
 
