@@ -5,7 +5,6 @@ dist-lib/
 *.local
 
 # Pastas locais de teste do package npm
-exemploinstall/
 teste-*/
 
 # CLI: node_modules locais (tanto do CLI quanto do template)
