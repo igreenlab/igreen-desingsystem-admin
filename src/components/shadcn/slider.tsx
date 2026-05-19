@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils"
  * Slider — alinhado com tokens v3.
  *
  * Specs:
- *   - Track: h:8px (h-2), bg-input (light) / bg-muted (dark), radius-full
+ *   - Track: h:8px (h-2), bg-emphasis (light, gray[100]) / bg-accent (dark, alpha 16%), radius-full
  *   - Range: bg-brand (filled portion)
  *   - Thumb: 24x16 (oval), white com shadow-sh-md
  *     - hover/focus: shadow-sh-ring (brand glow)
@@ -40,7 +40,7 @@ const Slider = React.forwardRef<
       )}
       {...props}
     >
-      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-radius-full bg-bg-input dark:bg-bg-muted">
+      <SliderPrimitive.Track className="relative h-2 w-full grow overflow-hidden rounded-radius-full bg-bg-emphasis dark:bg-bg-accent">
         <SliderPrimitive.Range className="absolute h-full bg-bg-brand" />
       </SliderPrimitive.Track>
       {Array.from({ length: thumbCount }, (_, i) => (

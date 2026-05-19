@@ -46,6 +46,75 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.3.0",
+    date: "2026-05-19",
+    tag: "preview",
+    title: "FloatingPanel + PageHeader + DataTable responsivo + CLI bootstrap",
+    summary:
+      "Release grande consolidando 2 componentes DS novos (FloatingPanel non-modal e PageHeader template), DataTable inteiramente responsivo (auto-switch table↔card em mobile, toolbar colapsável em <xl, skeleton pagination), AppShell com user menu + layout switcher, e a CLI @snksergio/create-design-system pra bootstrap. Também várias melhorias de cross-component (useTheme global sincronizado, hover tokens, dark mode contrast).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente FloatingPanel — drawer card flutuante non-modal com resize horizontal, maximize toggle e auto sheet bottom-up em mobile",
+          "Componente PageHeader (Templates) — title + description + badge + actions + slot children, mobile-ready (esconde texto e CTA vira fluido por default)",
+          "AppShell user menu — avatar do rail vira DropdownMenu com nome/email + layout (Fluido/Compacto) + tema (Sistema/Claro/Escuro) + Configurações + Sair",
+          "AppShell layout prop ('fluid' | 'compact') — modo compact limita body em var(--container-main-content-max) centralizado",
+          "AppShell mobileEdgeToEdge prop — zera padding mobile do body (chat-like screens)",
+          "DataTable auto-card mode em mobile — abaixo de cardBreakpoint (default 768px) cada row vira <TableCardRow> automaticamente; coluna isPrimary vira título do card",
+          "DataTable toolbar responsiva — sort/cols/density/export/moreMenu colapsam num icon-button dropdown via ToolbarMobileDialog em viewports <xl (1280px)",
+          "FooterTableSkeleton — skeleton silhouette pro footer durante isLoading do DataTable (server mode sem flash 1-página)",
+          "ClientesShowcase CRUD completo — NovoClienteDrawer (form), DetailDrawer (FloatingPanel) e AlertModal pro fluxo de delete (row action + bulk + drawer)",
+          "DashboardShowcase — KPIs primary/quality, charts (Volume stacked + Visits donut), tabela Traffic, padrão completo de admin dashboard",
+          "CLI @snksergio/create-design-system — bootstrap CLI pra criar novo projeto a partir do template default",
+          "Setup npm package (build de library) com multi-entry exports",
+          "Token container-main-content-max (1368px) — max-width canônico de body em modo compact",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Hook useTheme com 3 valores (light/dark/system) e sincronização entre instâncias via CustomEvent + storage (cross-tab)",
+          "DataTable row focused: bg-bg-table-row-selected + outline brand (mesmo visual do row selected via checkbox)",
+          "Hover token bg-input-hover consumido por Input/Select/Textarea/InputGroup (visível no light, alpha no dark)",
+          "DropdownMenu RadioItem com state checked: bg-bg-brand-subtle + text-fg-brand + Check icon (antes era Circle bullet)",
+          "Header title vertical alignment: leading-none no breadcrumb-item (antes empurrava pra cima)",
+          "Slider e Progress track: bg-bg-emphasis (light) / bg-bg-accent (dark) — antes era invisível no light",
+          "ShowcasePageV2: masonry layout via CSS columns, max-w 1660px centralizado, tabs FAQ fluid, dropdowns shadow-sh-xl no dark",
+          "DashboardShowcase: KPIs 1-por-linha no mobile, badges shape='pill', Volume IA cor brand-subtle, traffic +1 row Referral, header migrado pra PageHeader",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Token bg-input-hover light: gray[100] (0.94) → gray[50] (0.973) — hover mais sutil",
+          "ClientesShowcase refatorado em folder structure (pattern ChatV2): components/NovoClienteDrawer, components/DetailDrawer, mocks/types/styles separados",
+          "DataTable coluna type='actions': sem ícone no head e remove border-right da cell anterior (via data-purpose CSS sibling)",
+          "AppShell exports: tipos AppShellUser e AppShellLayoutOption expostos via index",
+          "DropdownMenu RadioItem indicator: Circle → Check (consistente com CheckboxItem)",
+          "ToolbarMobileDialog: prop desktopBreakpoint (md/lg/xl/2xl) controla quando o trigger esconde",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "CLI: usa cross-spawn pra resolver EINVAL no Windows",
+          "CLI: copy template robusto e args não quebram com shell:true no Windows",
+          "Tela branca causada por import inexistente em sidebar-rail.tsx (sidebarRailUserDefault)",
+          "DataTable bulk delete: cast selectedIds.map(String) pra evitar mismatch GridRowId vs string",
+        ],
+      },
+      {
+        type: "removed",
+        items: [
+          "Showcase v1 (ShowcasePage.tsx) — substituído por Showcase (antigo V2, renomeado)",
+          "Chat v1 (ChatShowcase.tsx) — substituído por Chat (antigo V2, renomeado)",
+          "@deprecated tag em ToolbarMobileDialog/Sheet (agora consumido oficialmente pelo DataTable)",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.2.0",
     date: "2026-05-18",
     tag: "preview",

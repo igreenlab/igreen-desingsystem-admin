@@ -29,6 +29,8 @@ Cada part é independente. Você compõe a **ordem visual** — toolbar não for
 | `ToolbarTabs` | Tabs custom (com X opcional no hover). Ex: views salvas. |
 | `ToolbarApplied` | Chips de filtros aplicados (abaixo da toolbar). Slot `renderChip` pra customizar. |
 | `BulkActionsBar` | Barra de "X selecionados" + ações em massa. Auto-hide quando count=0. |
+| `ToolbarMobileDialog` | Icon-button (default `md:hidden`) que abre um dialog centralizado pra agrupar controles colapsados no mobile. Consumido pelo `<DataTable>` por default. |
+| `ToolbarMobileSection` | Grupo lógico (title + stack vertical) dentro do `ToolbarMobileDialog`. Use múltiplas seções pra categorizar (Visualização / Organizar / Mais ações). |
 
 ### Popovers (estado interno OK, mas conteúdo controlado)
 | Part | Função |
@@ -156,7 +158,55 @@ O FilterPopover passa `value` como `unknown` — preserva arrays/tuplas/dates se
 
 `MoreMenu` cobre o caso "dropdown genérico do toolbar" — não precisa criar part específico pra Export.
 
-### 5. TableToolbarViews vs composição manual
+### 5. Mobile collapse (controles secundários num dropdown)
+
+Pattern adotado pelo `<DataTable>`: em viewports `<md`, controles secundários colapsam num `ToolbarMobileDialog` (icon button + dialog 384px). Search e Filter ficam sempre visíveis.
+
+```tsx
+<TableToolbar
+  left={
+    <>
+      <ToolbarSearch value={q} onChange={setQ} />
+      {/* Desktop only — display:contents preserva flex layout */}
+      <div className="hidden md:contents">
+        <ToolbarDivider />
+        <ToolbarToolButton icon={<RefreshCw />} onClick={refresh} />
+      </div>
+    </>
+  }
+  actions={
+    <>
+      {/* Sempre visível */}
+      <FilterPopover trigger={<ToolbarToolButton icon={<SlidersHorizontal />} />} />
+
+      {/* Desktop only */}
+      <div className="hidden md:contents">
+        <SortPopover trigger={<ToolbarToolButton icon={<ArrowUpDown />} />} />
+        <ColsPopover trigger={<ToolbarToolButton icon={<Columns />} />} />
+      </div>
+
+      {/* Mobile only — trigger md:hidden built-in */}
+      <ToolbarMobileDialog>
+        <ToolbarMobileSection title="Organizar">
+          <SortPopover trigger={
+            <Button variant="outline" fullWidth iconLeft={<ArrowUpDown />}>Ordenar</Button>
+          } />
+          <ColsPopover trigger={
+            <Button variant="outline" fullWidth iconLeft={<Columns />}>Colunas</Button>
+          } />
+        </ToolbarMobileSection>
+      </ToolbarMobileDialog>
+    </>
+  }
+/>
+```
+
+**Pontos críticos:**
+- **2 triggers, 1 estado**: cada popover (`Sort`/`Cols`/`Filter`) aceita `trigger` prop. Renderiza 2 triggers diferentes (icon-md desktop / fullWidth button mobile) — popover funciona via portal acima do dialog (Radix gerencia stacking)
+- **`display:contents`** preserva flex layout do parent — filhos do `hidden md:contents` se comportam como diretos do toolbar flex
+- **Dialog não bloqueia o conteúdo atrás** quando popover de sort/cols abre por cima (z-index do portal stacked depois)
+
+### 6. TableToolbarViews vs composição manual
 
 ```tsx
 {/* OPÇÃO A: compound pronto (fluxo padrão) */}

@@ -26,12 +26,29 @@ export type ToolbarMobileDialogProps = {
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
   /**
-   * className aplicada no trigger wrapper. Default vem com `md:hidden`
-   * (só aparece em mobile). Passe `md:block` pra sobrescrever.
+   * Breakpoint acima do qual o trigger fica escondido (= "desktop").
+   * Default: `"md"` (≥768px esconde). Use `"xl"` (≥1280px) pra colapsar mais
+   * cedo em laptops onde a toolbar começa a quebrar em multi-linha.
+   */
+  desktopBreakpoint?: "md" | "lg" | "xl" | "2xl";
+  /**
+   * className aplicada no trigger wrapper. Default vem com `{breakpoint}:hidden`
+   * (só aparece abaixo do breakpoint). Passe override se precisar.
    */
   className?: string;
   /** className do DialogContent (caso queira ajustar largura ou padding) */
   contentClassName?: string;
+};
+
+/** Mapa breakpoint → classe Tailwind literal (JIT detecta cada uma). */
+const HIDDEN_AT: Record<
+  NonNullable<ToolbarMobileDialogProps["desktopBreakpoint"]>,
+  string
+> = {
+  md: "md:hidden",
+  lg: "lg:hidden",
+  xl: "xl:hidden",
+  "2xl": "2xl:hidden",
 };
 
 /**
@@ -65,6 +82,7 @@ export function ToolbarMobileDialog({
   title = "Filtros e ações",
   open: openProp,
   onOpenChange,
+  desktopBreakpoint = "md",
   className,
   contentClassName,
 }: ToolbarMobileDialogProps) {
@@ -82,7 +100,7 @@ export function ToolbarMobileDialog({
             variant="outline"
             size="icon-md"
             aria-label="Mais opções"
-            className={cn("md:hidden", className)}
+            className={cn(HIDDEN_AT[desktopBreakpoint], className)}
           >
             <MoreHorizontal />
           </Button>

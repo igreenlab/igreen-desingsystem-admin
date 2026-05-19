@@ -87,6 +87,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Inline edit** | `editable: true` na coluna + `onCellEditCommit` |
 | **Server mode** | passe `fetchData` em vez de `rows` |
 | **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor, rows viram `<TableCardRow>` automaticamente — toolbar e footer continuam intactos. `cardBreakpoint={false}` desabilita. |
+| **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária. |
 | **Virtualização** | `enableVirtualization: true` + `estimatedRowHeight` |
 | **Row grouping** | `groupBy: ["status", "region"]` + (opcional) `groupMode: "free"` |
 | **Row expansion** | `rowExpansion: { renderExpanded: ({ row }) => <Detail row={row} /> }` |

@@ -60,6 +60,8 @@ import {
   ToolbarSegmented,
   ToolbarDivider,
   ToolbarApplied,
+  ToolbarMobileDialog,
+  ToolbarMobileSection,
   BulkActionsBar,
   FilterPopover,
   SortPopover,
@@ -142,6 +144,30 @@ const DENSITY_ITEMS: ToolbarSegmentedItem<TableDensity>[] = [
 const DEFAULT_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
   { value: "table",  children: <TableIcon />,  label: "Tabela" },
   { value: "kanban", children: <LayoutGrid />, label: "Kanban" },
+];
+
+/* ── View mode items pro mobile dialog (icon + label fluid) ──────────
+ * No mobile, os triggers viram fluid (full-width) e ganham texto ao lado
+ * do ícone — fica óbvio o que cada opção faz num touch target maior. */
+const MOBILE_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
+  {
+    value: "table",
+    label: "Tabela",
+    children: (
+      <span className="inline-flex items-center gap-gp-sm">
+        <TableIcon /> Tabela
+      </span>
+    ),
+  },
+  {
+    value: "kanban",
+    label: "Kanban",
+    children: (
+      <span className="inline-flex items-center gap-gp-sm">
+        <LayoutGrid /> Kanban
+      </span>
+    ),
+  },
 ];
 
 // Operator mapping consolidado em utils/operator-mapping.ts.
@@ -1275,7 +1301,7 @@ function DataTableInternal<T>(
           <TableToolbar
             left={
               <>
-                {/* Input area — Search + Refresh juntos (sem divider entre eles) */}
+                {/* Search — fluid no mobile, fixo 200px no desktop. Sempre visível. */}
                 {toolbarConfig.enableSearch !== false && (
                   <ToolbarSearch
                     value={search.inputValue}
@@ -1285,51 +1311,58 @@ function DataTableInternal<T>(
                     placeholder="Buscar..."
                   />
                 )}
-                {toolbarConfig.enableRefresh !== false && (
-                  <ToolbarToolButton
-                    icon={
-                      <RefreshCw
-                        className={isRefreshing ? "animate-spin" : ""}
-                      />
-                    }
-                    aria-label="Atualizar"
-                    onClick={handleRefresh}
-                  />
-                )}
 
-                {/* Divider — só aparece se há algo do lado direito */}
-                {(resolvedViewToggle || props.persistId || toolbarConfig.customLeft) && (
-                  <ToolbarDivider />
-                )}
+                {/* Visível a partir de ≥md — refresh + view toggle + saved views
+                   + customLeft. Em <md (mobile real), esses controles vão pro
+                   ToolbarMobileDialog. `display:contents` preserva o flex layout
+                   do parent sem criar wrapper visual extra. */}
+                <div className="hidden md:contents">
+                  {toolbarConfig.enableRefresh !== false && (
+                    <ToolbarToolButton
+                      icon={
+                        <RefreshCw
+                          className={isRefreshing ? "animate-spin" : ""}
+                        />
+                      }
+                      aria-label="Atualizar"
+                      onClick={handleRefresh}
+                    />
+                  )}
 
-                {/* View toggle (table/kanban) — slot dedicado, auto OU consumer-provided */}
-                {resolvedViewToggle}
+                  {/* Divider — só aparece se há algo do lado direito */}
+                  {(resolvedViewToggle || props.persistId || toolbarConfig.customLeft) && (
+                    <ToolbarDivider />
+                  )}
 
-                {/* Saved Views — opt-in via persistId */}
-                {props.persistId && (
-                  <TableToolbarViews
-                    views={viewsForToolbar}
-                    activeViewId={savedViews.currentViewId ?? undefined}
-                    onApply={handleViewApply}
-                    onApplyDefault={applyDefault}
-                    onDelete={savedViews.deleteView}
-                    onSave={async (data) => {
-                      await saveCurrentAsView(data.name, {
-                        isPublic: data.isPublic,
-                      });
-                    }}
-                    // Divider já foi colocado acima; views ficam coladas
-                    hideDivider
-                  />
-                )}
+                  {/* View toggle (table/kanban) — slot dedicado, auto OU consumer-provided */}
+                  {resolvedViewToggle}
 
-                {/* Slot livre (mantém retrocompat) */}
-                {toolbarConfig.customLeft}
+                  {/* Saved Views — opt-in via persistId */}
+                  {props.persistId && (
+                    <TableToolbarViews
+                      views={viewsForToolbar}
+                      activeViewId={savedViews.currentViewId ?? undefined}
+                      onApply={handleViewApply}
+                      onApplyDefault={applyDefault}
+                      onDelete={savedViews.deleteView}
+                      onSave={async (data) => {
+                        await saveCurrentAsView(data.name, {
+                          isPublic: data.isPublic,
+                        });
+                      }}
+                      // Divider já foi colocado acima; views ficam coladas
+                      hideDivider
+                    />
+                  )}
+
+                  {/* Slot livre (mantém retrocompat) */}
+                  {toolbarConfig.customLeft}
+                </div>
               </>
             }
             actions={
               <>
-                {/* FilterPopover — Filtrar */}
+                {/* FilterPopover — Filtrar (sempre visível, mobile + desktop) */}
                 {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
                   <FilterPopover
                     columns={filterPopoverColumns}
@@ -1363,155 +1396,385 @@ function DataTableInternal<T>(
                     }
                   />
                 )}
-                {/* SortPopover — Ordenar */}
-                <SortPopover
-                  columns={sortPopoverColumns}
-                  sortBy={sortPopoverCriteria}
-                  onSortByChange={handleSortChange}
-                  trigger={
-                    <ToolbarToolButton
-                      icon={<ArrowUpDown />}
-                      aria-label="Ordenar"
-                      hasIndicator={sortPopoverCriteria.length > 0}
-                    />
-                  }
-                />
-                {/* ColsPopover — Colunas */}
-                {toolbarConfig.enableColumns !== false && (
-                  <ColsPopover
-                    columns={colsPopoverColumns}
-                    visibleCols={visibleColsSet}
-                    onVisibleChange={handleVisibleChange}
-                    pinnedCols={pinnedColsSet}
-                    onPinnedChange={handlePinnedChange}
-                    onColumnsReorder={handleColumnsReorder}
+
+                {/* Desktop-only — controles secundários (sort/cols/density/export/more).
+                   `display:contents` preserva o flex layout sem wrapper visual. */}
+                <div className="hidden xl:contents">
+                  {/* SortPopover — Ordenar */}
+                  <SortPopover
+                    columns={sortPopoverColumns}
+                    sortBy={sortPopoverCriteria}
+                    onSortByChange={handleSortChange}
                     trigger={
                       <ToolbarToolButton
-                        icon={<Columns />}
-                        aria-label="Colunas"
+                        icon={<ArrowUpDown />}
+                        aria-label="Ordenar"
+                        hasIndicator={sortPopoverCriteria.length > 0}
                       />
                     }
                   />
-                )}
+                  {/* ColsPopover — Colunas */}
+                  {toolbarConfig.enableColumns !== false && (
+                    <ColsPopover
+                      columns={colsPopoverColumns}
+                      visibleCols={visibleColsSet}
+                      onVisibleChange={handleVisibleChange}
+                      pinnedCols={pinnedColsSet}
+                      onPinnedChange={handlePinnedChange}
+                      onColumnsReorder={handleColumnsReorder}
+                      trigger={
+                        <ToolbarToolButton
+                          icon={<Columns />}
+                          aria-label="Colunas"
+                        />
+                      }
+                    />
+                  )}
 
-                {/* Divider antes do Density */}
-                {toolbarConfig.enableDensity !== false && <ToolbarDivider />}
+                  {/* Divider antes do Density */}
+                  {toolbarConfig.enableDensity !== false && <ToolbarDivider />}
 
-                {/* Density toggle */}
-                {toolbarConfig.enableDensity !== false && (
-                  <ToolbarSegmented
-                    value={density.density}
-                    onValueChange={(v) => density.setDensity(v as TableDensity)}
-                    items={props.densityItems ?? DENSITY_ITEMS}
-                    ariaLabel="Densidade da tabela"
-                  />
-                )}
+                  {/* Density toggle */}
+                  {toolbarConfig.enableDensity !== false && (
+                    <ToolbarSegmented
+                      value={density.density}
+                      onValueChange={(v) => density.setDensity(v as TableDensity)}
+                      items={props.densityItems ?? DENSITY_ITEMS}
+                      ariaLabel="Densidade da tabela"
+                    />
+                  )}
 
-                {/* Divider antes da area de actions (Export/MoreMenu) */}
-                {(exportConfig || toolbarConfig.moreMenu?.items?.length) && (
-                  <ToolbarDivider />
-                )}
+                  {/* Divider antes da area de actions (Export/MoreMenu) */}
+                  {(exportConfig || toolbarConfig.moreMenu?.items?.length) && (
+                    <ToolbarDivider />
+                  )}
 
-                {/* Export dropdown — formatos + items append */}
-                {exportConfig && (
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <ToolbarToolButton
-                        icon={<Download />}
-                        label="Exportar"
-                      />
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      {exportConfig.formats.map((fmt) => {
-                        const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
-                        if (!isCsvDefault) {
-                          return (
-                            <DropdownMenuItem
-                              key={fmt.id}
-                              onClick={fmt.onSelect}
-                            >
-                              {fmt.icon}
-                              {fmt.label}
-                            </DropdownMenuItem>
-                          );
-                        }
-                        // CSV default: usa escopos internos
-                        return (
-                          <div key={fmt.id}>
-                            {isServerMode ? (
-                              <DropdownMenuItem onClick={() => exportHook.exportCsv("all")}>
+                  {/* Export dropdown — formatos + items append */}
+                  {exportConfig && (
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <ToolbarToolButton
+                          icon={<Download />}
+                          label="Exportar"
+                        />
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        {exportConfig.formats.map((fmt) => {
+                          const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
+                          if (!isCsvDefault) {
+                            return (
+                              <DropdownMenuItem
+                                key={fmt.id}
+                                onClick={fmt.onSelect}
+                              >
                                 {fmt.icon}
-                                {fmt.label} — Página atual
+                                {fmt.label}
                               </DropdownMenuItem>
-                            ) : (
-                              <>
+                            );
+                          }
+                          // CSV default: usa escopos internos
+                          return (
+                            <div key={fmt.id}>
+                              {isServerMode ? (
                                 <DropdownMenuItem onClick={() => exportHook.exportCsv("all")}>
                                   {fmt.icon}
-                                  {fmt.label} — Todos
+                                  {fmt.label} — Página atual
                                 </DropdownMenuItem>
-                                <DropdownMenuItem onClick={() => exportHook.exportCsv("filtered")}>
-                                  {fmt.icon}
-                                  {fmt.label} — Filtrados
+                              ) : (
+                                <>
+                                  <DropdownMenuItem onClick={() => exportHook.exportCsv("all")}>
+                                    {fmt.icon}
+                                    {fmt.label} — Todos
+                                  </DropdownMenuItem>
+                                  <DropdownMenuItem onClick={() => exportHook.exportCsv("filtered")}>
+                                    {fmt.icon}
+                                    {fmt.label} — Filtrados
+                                  </DropdownMenuItem>
+                                </>
+                              )}
+                              <DropdownMenuItem
+                                onClick={() => exportHook.exportCsv("selected")}
+                                disabled={selection.selectedCount === 0}
+                              >
+                                {fmt.icon}
+                                {fmt.label} — Selecionados ({selection.selectedCount})
+                              </DropdownMenuItem>
+                            </div>
+                          );
+                        })}
+                        {exportConfig.items.length > 0 && (
+                          <>
+                            <DropdownMenuItem disabled className="opacity-50">
+                              ───
+                            </DropdownMenuItem>
+                            {exportConfig.items.map((it) => (
+                              <DropdownMenuItem
+                                key={it.id}
+                                onClick={it.onSelect}
+                                disabled={it.disabled}
+                              >
+                                {it.icon}
+                                {it.label}
+                              </DropdownMenuItem>
+                            ))}
+                          </>
+                        )}
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  )}
+
+                  {/* MoreMenu — ⋯ padrao com items custom */}
+                  {toolbarConfig.moreMenu?.items?.length ? (
+                    <MoreMenu
+                      trigger={
+                        <ToolbarToolButton
+                          icon={<MoreHorizontal />}
+                          aria-label="Mais opções"
+                        />
+                      }
+                    >
+                      {toolbarConfig.moreMenu.items.map((it) => (
+                        <MoreMenuItemEl
+                          key={it.id}
+                          onSelect={it.onSelect}
+                          disabled={it.disabled}
+                          variant={it.destructive ? "destructive" : "default"}
+                        >
+                          {it.icon}
+                          {it.label}
+                        </MoreMenuItemEl>
+                      ))}
+                    </MoreMenu>
+                  ) : null}
+
+                  {/* Legacy slot — deprecated, mantem pra compat */}
+                  {toolbarConfig.customActions}
+                </div>
+
+                {/* Mobile/laptop pequeno — dropdown único agrupando os controles
+                   secundários colapsados. Ativo em viewports <xl (1280px), pq a
+                   partir dali a toolbar começa a quebrar em multi-linha. Sections
+                   (Visualização / Organizar / Mais ações) usam ToolbarMobileSection
+                   do DS. Popovers (Sort/Cols) abrem via portal sobre o dialog —
+                   Radix gerencia stacking. */}
+                <ToolbarMobileDialog desktopBreakpoint="xl">
+                  {/* Visualização — density (sempre <xl) + view toggle (só em <md
+                     pq em md-xl o view toggle já aparece no toolbar via slot left). */}
+                  {(toolbarConfig.enableDensity !== false || resolvedViewToggle) && (
+                    <ToolbarMobileSection title="Visualização">
+                      {toolbarConfig.enableDensity !== false && (
+                        <ToolbarSegmented
+                          fluid
+                          value={density.density}
+                          onValueChange={(v) =>
+                            density.setDensity(v as TableDensity)
+                          }
+                          items={props.densityItems ?? DENSITY_ITEMS}
+                          ariaLabel="Densidade da tabela"
+                        />
+                      )}
+                      {/* View mode toggle — só em <md (em md-xl aparece no toolbar `left`).
+                         Default (kanban auto): items custom com icon + texto e fluid.
+                         Consumer-provided override usa resolvedViewToggle direto. */}
+                      {resolvedViewToggle && (
+                        <div className="md:hidden">
+                          {props.kanbanConfig && props.toolbar?.viewToggle === undefined ? (
+                            <ToolbarSegmented
+                              fluid
+                              value={viewMode}
+                              onValueChange={handleViewModeChange}
+                              items={MOBILE_VIEW_MODE_ITEMS}
+                              ariaLabel="Modo de visualização"
+                            />
+                          ) : (
+                            resolvedViewToggle
+                          )}
+                        </div>
+                      )}
+                    </ToolbarMobileSection>
+                  )}
+
+                  {/* Organizar — sort + cols (triggers fullWidth, popover abre via portal) */}
+                  <ToolbarMobileSection title="Organizar">
+                    <SortPopover
+                      columns={sortPopoverColumns}
+                      sortBy={sortPopoverCriteria}
+                      onSortByChange={handleSortChange}
+                      trigger={
+                        <Button
+                          color="secondary"
+                          variant="outline"
+                          size="md"
+                          fullWidth
+                          iconLeft={<ArrowUpDown />}
+                          className="justify-start"
+                        >
+                          Ordenar
+                          {sortPopoverCriteria.length > 0 && (
+                            <span className="ml-auto text-fg-muted">
+                              {sortPopoverCriteria.length}
+                            </span>
+                          )}
+                        </Button>
+                      }
+                    />
+                    {toolbarConfig.enableColumns !== false && (
+                      <ColsPopover
+                        columns={colsPopoverColumns}
+                        visibleCols={visibleColsSet}
+                        onVisibleChange={handleVisibleChange}
+                        pinnedCols={pinnedColsSet}
+                        onPinnedChange={handlePinnedChange}
+                        onColumnsReorder={handleColumnsReorder}
+                        trigger={
+                          <Button
+                            color="secondary"
+                            variant="outline"
+                            size="md"
+                            fullWidth
+                            iconLeft={<Columns />}
+                            className="justify-start"
+                          >
+                            Colunas
+                          </Button>
+                        }
+                      />
+                    )}
+                  </ToolbarMobileSection>
+
+                  {/* Mais ações — refresh (só <md) + export + moreMenu agrupado */}
+                  {(toolbarConfig.enableRefresh !== false ||
+                    exportConfig ||
+                    toolbarConfig.moreMenu?.items?.length) && (
+                    <ToolbarMobileSection title="Mais ações">
+                      {toolbarConfig.enableRefresh !== false && (
+                        <Button
+                          color="secondary"
+                          variant="outline"
+                          size="md"
+                          fullWidth
+                          iconLeft={
+                            <RefreshCw
+                              className={isRefreshing ? "animate-spin" : ""}
+                            />
+                          }
+                          onClick={handleRefresh}
+                          className="md:hidden justify-start"
+                        >
+                          Atualizar
+                        </Button>
+                      )}
+                      {exportConfig && (
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              color="secondary"
+                              variant="outline"
+                              size="md"
+                              fullWidth
+                              iconLeft={<Download />}
+                              className="justify-start"
+                            >
+                              Exportar
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            {exportConfig.formats.map((fmt) => {
+                              const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
+                              if (!isCsvDefault) {
+                                return (
+                                  <DropdownMenuItem
+                                    key={fmt.id}
+                                    onClick={fmt.onSelect}
+                                  >
+                                    {fmt.icon}
+                                    {fmt.label}
+                                  </DropdownMenuItem>
+                                );
+                              }
+                              return (
+                                <div key={fmt.id}>
+                                  {isServerMode ? (
+                                    <DropdownMenuItem onClick={() => exportHook.exportCsv("all")}>
+                                      {fmt.icon}
+                                      {fmt.label} — Página atual
+                                    </DropdownMenuItem>
+                                  ) : (
+                                    <>
+                                      <DropdownMenuItem onClick={() => exportHook.exportCsv("all")}>
+                                        {fmt.icon}
+                                        {fmt.label} — Todos
+                                      </DropdownMenuItem>
+                                      <DropdownMenuItem onClick={() => exportHook.exportCsv("filtered")}>
+                                        {fmt.icon}
+                                        {fmt.label} — Filtrados
+                                      </DropdownMenuItem>
+                                    </>
+                                  )}
+                                  <DropdownMenuItem
+                                    onClick={() => exportHook.exportCsv("selected")}
+                                    disabled={selection.selectedCount === 0}
+                                  >
+                                    {fmt.icon}
+                                    {fmt.label} — Selecionados ({selection.selectedCount})
+                                  </DropdownMenuItem>
+                                </div>
+                              );
+                            })}
+                            {exportConfig.items.length > 0 && (
+                              <>
+                                <DropdownMenuItem disabled className="opacity-50">
+                                  ───
                                 </DropdownMenuItem>
+                                {exportConfig.items.map((it) => (
+                                  <DropdownMenuItem
+                                    key={it.id}
+                                    onClick={it.onSelect}
+                                    disabled={it.disabled}
+                                  >
+                                    {it.icon}
+                                    {it.label}
+                                  </DropdownMenuItem>
+                                ))}
                               </>
                             )}
-                            <DropdownMenuItem
-                              onClick={() => exportHook.exportCsv("selected")}
-                              disabled={selection.selectedCount === 0}
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      )}
+                      {/* MoreMenu — items reagrupados num único trigger "..." fullWidth.
+                         Dropdown abre via portal sobre o dialog (Radix gerencia stacking)
+                         em vez de explodir cada item como Button (pode crescer demais). */}
+                      {toolbarConfig.moreMenu?.items?.length ? (
+                        <MoreMenu
+                          trigger={
+                            <Button
+                              color="secondary"
+                              variant="outline"
+                              size="md"
+                              fullWidth
+                              iconLeft={<MoreHorizontal />}
+                              className="justify-start"
                             >
-                              {fmt.icon}
-                              {fmt.label} — Selecionados ({selection.selectedCount})
-                            </DropdownMenuItem>
-                          </div>
-                        );
-                      })}
-                      {exportConfig.items.length > 0 && (
-                        <>
-                          <DropdownMenuItem disabled className="opacity-50">
-                            ───
-                          </DropdownMenuItem>
-                          {exportConfig.items.map((it) => (
-                            <DropdownMenuItem
+                              Mais ações
+                            </Button>
+                          }
+                        >
+                          {toolbarConfig.moreMenu.items.map((it) => (
+                            <MoreMenuItemEl
                               key={it.id}
-                              onClick={it.onSelect}
+                              onSelect={it.onSelect}
                               disabled={it.disabled}
+                              variant={it.destructive ? "destructive" : "default"}
                             >
                               {it.icon}
                               {it.label}
-                            </DropdownMenuItem>
+                            </MoreMenuItemEl>
                           ))}
-                        </>
-                      )}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                )}
-
-                {/* MoreMenu — ⋯ padrao com items custom */}
-                {toolbarConfig.moreMenu?.items?.length ? (
-                  <MoreMenu
-                    trigger={
-                      <ToolbarToolButton
-                        icon={<MoreHorizontal />}
-                        aria-label="Mais opções"
-                      />
-                    }
-                  >
-                    {toolbarConfig.moreMenu.items.map((it) => (
-                      <MoreMenuItemEl
-                        key={it.id}
-                        onSelect={it.onSelect}
-                        disabled={it.disabled}
-                        variant={it.destructive ? "destructive" : "default"}
-                      >
-                        {it.icon}
-                        {it.label}
-                      </MoreMenuItemEl>
-                    ))}
-                  </MoreMenu>
-                ) : null}
-
-                {/* Legacy slot — deprecated, mantem pra compat */}
-                {toolbarConfig.customActions}
+                        </MoreMenu>
+                      ) : null}
+                    </ToolbarMobileSection>
+                  )}
+                </ToolbarMobileDialog>
               </>
             }
             bulkBar={

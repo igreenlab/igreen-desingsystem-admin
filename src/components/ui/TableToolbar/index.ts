@@ -27,9 +27,14 @@ export type {
 export { ToolbarApplied } from "./parts/toolbar-applied";
 export type { ToolbarAppliedProps } from "./parts/toolbar-applied";
 
-/** @deprecated Parts mobile não consumidos pelo DataTable. Mantidos por
- *  preview documentário (`TableToolbarDoc`). Avaliar remoção em V2 se nenhum
- *  consumer real aparecer. */
+/**
+ * Mobile collapse pattern — consumido pelo `<DataTable>` automaticamente
+ * (controles secundários colapsam em viewports < md). Também disponível
+ * pra `<TableToolbar>` custom: usar `ToolbarMobileDialog` como icon button
+ * trigger e `ToolbarMobileSection` pra agrupar items dentro do dialog.
+ *
+ * `ToolbarMobileSheet` é alias legado de `ToolbarMobileDialog` (mesmo componente).
+ */
 export {
   ToolbarMobileDialog,
   ToolbarMobileSheet,
