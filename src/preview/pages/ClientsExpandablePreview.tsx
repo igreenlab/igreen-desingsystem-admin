@@ -167,16 +167,16 @@ export default function ClientsExpandablePreview() {
               <div className="grid grid-cols-3 gap-gp-3xl max-w-[900px]">
                 {/* Bloco de contato */}
                 <div className="flex flex-col gap-gp-md">
-                  <h4 className="text-label-sm text-fg-muted uppercase tracking-wider">
+                  <h4 className="text-body-md font-medium text-fg-muted uppercase tracking-wider">
                     Contato
                   </h4>
                   <div className="flex items-start gap-gp-sm">
                     <Mail className="size-icon-sm text-fg-muted mt-[2px] shrink-0" />
                     <div className="flex flex-col gap-gp-2xs">
-                      <span className="text-paragraph-sm text-fg-strong break-all">
+                      <span className="text-body-md text-fg-strong break-all">
                         {row.email}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Email principal
                       </span>
                     </div>
@@ -184,10 +184,10 @@ export default function ClientsExpandablePreview() {
                   <div className="flex items-start gap-gp-sm">
                     <Phone className="size-icon-sm text-fg-muted mt-[2px] shrink-0" />
                     <div className="flex flex-col gap-gp-2xs">
-                      <span className="text-paragraph-sm text-fg-strong">
+                      <span className="text-body-md text-fg-strong">
                         {row.phone}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Telefone
                       </span>
                     </div>
@@ -195,10 +195,10 @@ export default function ClientsExpandablePreview() {
                   <div className="flex items-start gap-gp-sm">
                     <MapPin className="size-icon-sm text-fg-muted mt-[2px] shrink-0" />
                     <div className="flex flex-col gap-gp-2xs">
-                      <span className="text-paragraph-sm text-fg-strong">
+                      <span className="text-body-md text-fg-strong">
                         {row.location}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Localização
                       </span>
                     </div>
@@ -207,7 +207,7 @@ export default function ClientsExpandablePreview() {
 
                 {/* Bloco comercial */}
                 <div className="flex flex-col gap-gp-md">
-                  <h4 className="text-label-sm text-fg-muted uppercase tracking-wider">
+                  <h4 className="text-body-md font-medium text-fg-muted uppercase tracking-wider">
                     Comercial
                   </h4>
                   <div className="flex items-start gap-gp-sm">
@@ -216,7 +216,7 @@ export default function ClientsExpandablePreview() {
                       <span className="text-title-sm text-fg-brand font-semibold tabular-nums">
                         {formatCurrency(row.value as number)}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Valor anual
                       </span>
                     </div>
@@ -224,10 +224,10 @@ export default function ClientsExpandablePreview() {
                   <div className="flex items-start gap-gp-sm">
                     <Calendar className="size-icon-sm text-fg-muted mt-[2px] shrink-0" />
                     <div className="flex flex-col gap-gp-2xs">
-                      <span className="text-paragraph-sm text-fg-strong">
+                      <span className="text-body-md text-fg-strong">
                         {formatDateShort(row.createdAt as number)}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Cliente desde
                       </span>
                     </div>
@@ -235,10 +235,10 @@ export default function ClientsExpandablePreview() {
                   <div className="flex items-start gap-gp-sm">
                     <Activity className="size-icon-sm text-fg-muted mt-[2px] shrink-0" />
                     <div className="flex flex-col gap-gp-2xs">
-                      <span className="text-paragraph-sm text-fg-strong">
+                      <span className="text-body-md text-fg-strong">
                         {formatDateShort(row.lastContact as number)}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         Último contato
                       </span>
                     </div>
@@ -247,23 +247,23 @@ export default function ClientsExpandablePreview() {
 
                 {/* Bloco operacional */}
                 <div className="flex flex-col gap-gp-md">
-                  <h4 className="text-label-sm text-fg-muted uppercase tracking-wider">
+                  <h4 className="text-body-md font-medium text-fg-muted uppercase tracking-wider">
                     Operacional
                   </h4>
                   <div className="flex flex-col gap-gp-2xs">
-                    <span className="text-paragraph-xs text-fg-muted">
+                    <span className="text-body-xs font-normal text-fg-muted">
                       Atribuído a
                     </span>
                     <AgentCell agentId={row.agentId as keyof typeof AGENTS} />
                   </div>
                   <div className="flex flex-col gap-gp-2xs">
-                    <span className="text-paragraph-xs text-fg-muted">
+                    <span className="text-body-xs font-normal text-fg-muted">
                       Status
                     </span>
                     <StatusDot statusId={row.statusId as keyof typeof STATUSES} />
                   </div>
                   <div className="flex flex-col gap-gp-2xs">
-                    <span className="text-paragraph-xs text-fg-muted">
+                    <span className="text-body-xs font-normal text-fg-muted">
                       Categoria
                     </span>
                     <CategoryChip

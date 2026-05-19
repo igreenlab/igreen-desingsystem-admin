@@ -10,7 +10,7 @@ export type DateSeparatorProps = {
 export function DateSeparator({ label }: DateSeparatorProps) {
   return (
     <div className="flex items-center justify-center my-pad-md">
-      <span className="px-pad-lg py-pad-2xs rounded-radius-full bg-bg-muted text-[11px] text-fg-muted [font-variant-numeric:tabular-nums]">
+      <span className="px-pad-lg py-pad-2xs rounded-radius-full bg-bg-muted text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums]">
         {label}
       </span>
     </div>

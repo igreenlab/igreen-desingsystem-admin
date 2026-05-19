@@ -68,7 +68,7 @@ export function AppShellDoc() {
   /* Body de exemplo — apenas placeholder demonstrando o slot. */
   const sampleBody = (
     <div className="flex-1 min-h-[200px] flex items-center justify-center bg-bg-surface border-2 border-dashed border-border-subtle rounded-radius-lg">
-      <span className="text-paragraph-sm text-fg-muted font-mono">children</span>
+      <span className="text-body-md text-fg-muted font-mono">children</span>
     </div>
   );
 
@@ -126,11 +126,11 @@ export function AppShellDoc() {
 
       <SectionH2 id="body-slot" title="Body slot — gap + padding" />
 
-      <p className="text-paragraph-md text-fg-default mb-gp-lg max-w-[760px]">
+      <p className="text-body-lg text-fg-default mb-gp-lg max-w-[760px]">
         O body tem 3 propriedades de layout fixas (não-configuráveis):
       </p>
 
-      <ul className="text-paragraph-sm text-fg-muted mb-gp-2xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
+      <ul className="text-body-md text-fg-muted mb-gp-2xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
         <li>
           <code className="font-mono">gap-gp-md</code> (16px) — espaço vertical entre filhos diretos
         </li>
@@ -143,7 +143,7 @@ export function AppShellDoc() {
         </li>
       </ul>
 
-      <p className="text-paragraph-sm text-fg-muted mb-gp-3xl max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-3xl max-w-[760px]">
         Padronizado intencionalmente — todas as telas têm o mesmo respiro. Pra ajustes pontuais use
         <code className="font-mono">bodyClassName</code>. Pra trocar fundamentos (ex: padding diferente
         em telas full-bleed), o template precisa ser estendido ou consumer wrappa AppShell.
@@ -155,7 +155,7 @@ export function AppShellDoc() {
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
           AppShellProps
         </h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl max-w-[760px]">
+        <p className="text-body-md text-fg-muted mb-gp-3xl max-w-[760px]">
           Props divididas em 4 grupos: <strong>Sidebar</strong> (passthrough pra MenuSidebar),
           <strong> Header</strong> (passthrough), <strong>Menu collapse</strong> (state híbrido
           controlled/uncontrolled), <strong>Body</strong> (children + classNames).

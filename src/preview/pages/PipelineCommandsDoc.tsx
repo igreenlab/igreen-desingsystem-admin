@@ -26,7 +26,7 @@ function CmdCard({
         <code className="font-mono text-code-sm text-fg-brand">{cmd}</code>
         <Badge color="secondary" variant="outline" size="sm">{agent}</Badge>
       </div>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-md">{desc}</p>
+      <p className="text-body-md text-fg-muted mb-gp-md">{desc}</p>
       <p className="text-caption-sm text-fg-subtle">
         Loads skill: <code className="font-mono text-code-sm">{skill}</code>
       </p>
@@ -47,7 +47,7 @@ export function PipelineCommandsDoc() {
       {/* What */}
       <SectionH2 id="what" title="What are Commands" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A <strong className="text-fg-default">Slash Command</strong> is a Markdown file in{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/commands/</code> that
           gives the user a typed shortcut to invoke a pipeline route. Typing{" "}
@@ -56,14 +56,14 @@ export function PipelineCommandsDoc() {
         </p>
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Discoverable</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Discoverable</p>
+            <p className="text-body-md text-fg-muted">
               Type <code className="font-mono text-code-sm">/</code> in the chat to autocomplete. Each command lists its required arguments.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Verb-based naming</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Verb-based naming</p>
+            <p className="text-body-md text-fg-muted">
               <code className="font-mono text-code-sm">ds-create-*</code>, <code className="font-mono text-code-sm">ds-add-*</code>,{" "}
               <code className="font-mono text-code-sm">ds-extract-*</code>. Verbs map to common task buckets.
             </p>
@@ -129,7 +129,7 @@ export function PipelineCommandsDoc() {
       {/* Authoring */}
       <SectionH2 id="authoring" title="Authoring a Command" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A command file has YAML frontmatter and a short body describing the route. The frontmatter binds
           the command name and the skill(s) it loads.
         </p>
@@ -153,8 +153,8 @@ Gate obrigatório após spec — usuário aprova antes da implementação.`}</pr
       <SectionH2 id="vs-skills" title="Commands vs Skills" />
       <div className="grid grid-cols-2 gap-gp-3xl mb-14">
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Slash Command</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Slash Command</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Entrada do USUÁRIO</li>
             <li>Resolve para 1+ skills</li>
             <li>Aceita argumentos posicionais</li>
@@ -162,8 +162,8 @@ Gate obrigatório após spec — usuário aprova antes da implementação.`}</pr
           </ul>
         </div>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Skill</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Skill</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Procedimento técnico para o AGENTE</li>
             <li>Pode ser carregada por command OU por SkillTool</li>
             <li>Template + checklist + signal</li>

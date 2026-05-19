@@ -77,7 +77,7 @@ export const toolbarSearch = tv({
 export const toolbarSearchInput = tv({
   base: [
     "flex-1 min-w-0 bg-transparent border-0 outline-none",
-    "text-[13px] text-fg-default",
+    "text-body-sm font-normal text-fg-default",
     "placeholder:text-fg-muted",
   ],
 });
@@ -117,7 +117,7 @@ export const toolbarSegmentedButton = tv({
     "grid place-items-center",
     "h-[34px] min-w-[36px] px-pad-md",
     "rounded-radius-md border-0 bg-transparent cursor-pointer outline-none",
-    "text-[13px] text-fg-muted",
+    "text-body-sm font-normal text-fg-muted",
     "transition-[background-color,color,box-shadow] duration-150",
     "hover:text-fg-default",
     "focus-visible:shadow-sh-ring",
@@ -177,7 +177,7 @@ export const toolbarTabButton = tv({
   base: [
     "inline-flex items-center gap-gp-sm h-[34px] px-[14px]",
     "rounded-radius-md border-0 bg-transparent cursor-pointer outline-none",
-    "text-[13px] font-medium text-fg-muted whitespace-nowrap",
+    "text-body-sm font-medium text-fg-muted whitespace-nowrap",
     "transition-[color,padding-right] duration-[220ms] ease-[cubic-bezier(0.4,0,0.2,1)]",
     "hover:text-fg-default",
     "focus-visible:shadow-sh-ring",
@@ -240,7 +240,7 @@ export const toolbarAppliedChip = tv({
     "h-form-md pl-pad-sm pr-pad-lg",
     "bg-bg-surface dark:bg-bg-muted",
     "border border-dashed border-border-input rounded-radius-lg",
-    "text-[12px] text-fg-default",
+    "text-body-xs font-normal text-fg-default",
     "transition-[background-color,border-color] duration-150",
   ],
   variants: {
@@ -271,7 +271,7 @@ export const toolbarAppliedChipName = tv({
 });
 
 export const toolbarAppliedChipOp = tv({
-  base: "text-fg-muted text-[11.5px]",
+  base: "text-fg-muted text-caption-sm",
 });
 
 export const toolbarAppliedChipValue = tv({
@@ -279,13 +279,13 @@ export const toolbarAppliedChipValue = tv({
     "inline-flex items-center h-[22px] px-pad-md",
     "rounded-radius-sm",
     "bg-bg-muted dark:bg-bg-accent",
-    "text-[12px] font-medium text-fg-default",
+    "text-body-xs font-medium text-fg-default",
   ],
 });
 
 export const toolbarAppliedClearLink = tv({
   base: [
-    "ml-pad-sm text-[12px] font-medium text-fg-brand cursor-pointer outline-none",
+    "ml-pad-sm text-body-xs font-medium text-fg-brand cursor-pointer outline-none",
     "bg-transparent border-0 p-0",
     "transition-opacity duration-150",
     "hover:underline underline-offset-2",
@@ -312,7 +312,7 @@ export const bulkBarRoot = tv({
 export const bulkBarCount = tv({
   base: [
     "inline-flex items-center gap-gp-md shrink-0",
-    "text-[13px] font-semibold",
+    "text-body-sm font-semibold",
     "text-fg-brand dark:text-fg-default",
     "[&_svg]:size-[14px]",
   ],
@@ -329,7 +329,7 @@ export const bulkBarClear = tv({
   base: [
     "shrink-0 ml-auto",
     "bg-transparent border-0 p-0 cursor-pointer outline-none",
-    "text-[12px] font-semibold text-fg-brand",
+    "text-body-xs font-semibold text-fg-brand",
     "transition-opacity duration-150",
     "hover:underline underline-offset-2",
     "focus-visible:underline",

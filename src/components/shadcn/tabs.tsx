@@ -35,7 +35,7 @@ const TabsTrigger = React.forwardRef<
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(
-      "inline-flex h-[34px] items-center justify-center gap-gp-sm whitespace-nowrap px-[14px] rounded-radius-md text-[13px] font-medium text-fg-muted transition-colors",
+      "inline-flex h-[34px] items-center justify-center gap-gp-sm whitespace-nowrap px-[14px] rounded-radius-md text-body-sm font-medium text-fg-muted transition-colors",
       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary",
       "hover:text-fg-default",
       "disabled:pointer-events-none disabled:opacity-50",
@@ -54,7 +54,7 @@ const TabsContent = React.forwardRef<
   <TabsPrimitive.Content
     ref={ref}
     className={cn(
-      "mt-sp-md flex-1 text-paragraph-sm outline-none",
+      "mt-sp-md flex-1 text-body-md outline-none",
       className
     )}
     {...props}

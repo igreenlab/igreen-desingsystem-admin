@@ -569,7 +569,7 @@ function CardModeExample() {
             header={
               <>
                 <Checkbox aria-label={`Selecionar ${row.name}`} />
-                <strong className="text-paragraph-md text-fg-strong">{row.name}</strong>
+                <strong className="text-body-lg text-fg-strong">{row.name}</strong>
               </>
             }
             headerActions={
@@ -662,7 +662,7 @@ export function formatCurrency(value: number): string {
 export function ClientAvatar({ initials, color, sm = false }: { initials: string; color: string; sm?: boolean }) {
   return (
     <span
-      className={`inline-grid place-items-center rounded-radius-full text-white font-bold shrink-0 ${sm ? "size-[22px] text-[10px]" : "size-[28px] text-[11px]"}`}
+      className={`inline-grid place-items-center rounded-radius-full text-white font-bold shrink-0 ${sm ? "size-[22px] text-caption-xs" : "size-[28px] text-caption-sm"}`}
       style={{ background: color }}
       aria-hidden
     >

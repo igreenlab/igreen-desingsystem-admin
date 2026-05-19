@@ -8,9 +8,9 @@ export const messageBubbleStyles = tv({
     bubble:
       "max-w-[70%] px-pad-xl py-pad-md rounded-radius-xl shadow-sh-sm",
     /** Texto da mensagem. */
-    text: "text-[13.5px] leading-[1.45] whitespace-pre-wrap break-words",
+    text: "text-body-md leading-[1.45] whitespace-pre-wrap break-words",
     /** Footer com horário + status icon. */
-    meta: "flex items-center justify-end gap-[4px] mt-[2px] text-[10.5px]",
+    meta: "flex items-center justify-end gap-[4px] mt-[2px] text-caption-xs",
     /** Span do horário (tabular-nums pra alinhar). */
     time: "[font-variant-numeric:tabular-nums]",
   },

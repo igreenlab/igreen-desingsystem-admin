@@ -139,7 +139,7 @@ onCardMove={async (cardId, from, to) => {
     <>
       <div className="flex items-center gap-gp-md">
         {card.avatar}
-        <span className="text-label-sm flex-1 truncate">{card.title}</span>
+        <span className="text-body-md font-medium flex-1 truncate">{card.title}</span>
         {open && <Eye className="size-icon-sm text-fg-brand" />}
       </div>
       <Timeline events={card.description} />

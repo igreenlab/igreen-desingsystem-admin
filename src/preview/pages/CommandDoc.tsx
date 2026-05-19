@@ -83,9 +83,9 @@ function HotkeyExample() {
 
   return (
     <div className="flex flex-col gap-gp-md">
-      <p className="text-paragraph-sm text-fg-muted">
-        Pressione <kbd className="inline-flex items-center justify-center h-[20px] px-pad-xs rounded-radius-xs bg-bg-canvas border border-border-subtle text-[10px] font-semibold text-fg-muted">⌘K</kbd> ou{" "}
-        <kbd className="inline-flex items-center justify-center h-[20px] px-pad-xs rounded-radius-xs bg-bg-canvas border border-border-subtle text-[10px] font-semibold text-fg-muted">Ctrl+K</kbd> pra abrir.
+      <p className="text-body-md text-fg-muted">
+        Pressione <kbd className="inline-flex items-center justify-center h-[20px] px-pad-xs rounded-radius-xs bg-bg-canvas border border-border-subtle text-caption-xs font-semibold text-fg-muted">⌘K</kbd> ou{" "}
+        <kbd className="inline-flex items-center justify-center h-[20px] px-pad-xs rounded-radius-xs bg-bg-canvas border border-border-subtle text-caption-xs font-semibold text-fg-muted">Ctrl+K</kbd> pra abrir.
       </p>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Digite um comando..." />

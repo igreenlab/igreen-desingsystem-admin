@@ -249,7 +249,7 @@ const KANBAN_CONFIG: DataTableKanbanConfig<ClientRow> = {
       subtitle: row.id,
       avatar: (
         <Avatar className="size-[28px]" style={{ background: row.avatarColor }}>
-          <AvatarFallback className="bg-transparent text-white text-[11px] font-bold">
+          <AvatarFallback className="bg-transparent text-white text-caption-sm font-bold">
             {row.initials}
           </AvatarFallback>
         </Avatar>
@@ -268,17 +268,17 @@ const KANBAN_CONFIG: DataTableKanbanConfig<ClientRow> = {
       footerLeft: agent ? (
         <span className="inline-flex items-center gap-gp-sm min-w-0 flex-1">
           <Avatar className="size-[22px]" style={{ background: agent.color }}>
-            <AvatarFallback className="bg-transparent text-white text-[10px] font-bold">
+            <AvatarFallback className="bg-transparent text-white text-caption-xs font-bold">
               {agentInitials}
             </AvatarFallback>
           </Avatar>
-          <span className="text-[12px] text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
+          <span className="text-body-xs font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
             {agent.name}
           </span>
         </span>
       ) : null,
       footerRight: (
-        <span className="inline-flex items-center gap-[4px] text-[11.5px] text-fg-muted [font-variant-numeric:tabular-nums] shrink-0">
+        <span className="inline-flex items-center gap-[4px] text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums] shrink-0">
           <Clock size={11} strokeWidth={1.8} aria-hidden />
           {formatShortDate(row.lastContact)}
         </span>

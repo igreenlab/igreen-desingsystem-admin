@@ -60,13 +60,13 @@ export function ElevationDoc() {
 
       {/* Shadows */}
       <SectionH2 id="shadows" title="Shadows" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Hierarchical shadow scale. Dark mode uses 2-3x higher opacity. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">sh-</code></p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Hierarchical shadow scale. Dark mode uses 2-3x higher opacity. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">sh-</code></p>
       <div className="grid grid-cols-4 gap-gp-4xl mb-14">
         {SHADOWS.map(s => (
           <div key={s.name} className="flex flex-col items-center gap-gp-xl">
             <div className={`size-20 rounded-radius-xl bg-bg-surface shadow-sh-${s.name}`} />
             <div className="text-center">
-              <p className="text-label-xs text-fg-default">sh-{s.name}</p>
+              <p className="text-body-xs text-fg-default">sh-{s.name}</p>
               <p className="text-caption-sm text-fg-subtle">{s.use}</p>
             </div>
           </div>
@@ -79,7 +79,7 @@ export function ElevationDoc() {
         {OPACITY.map(o => (
           <div key={o.name} className="flex items-center gap-gp-xl">
             <div className="size-8 rounded-radius-md bg-bg-brand shrink-0" style={{ opacity: Number(o.value) }} />
-            <span className="text-label-xs text-fg-default w-24">{o.name}</span>
+            <span className="text-body-xs text-fg-default w-24">{o.name}</span>
             <Badge color="secondary" variant="outline" size="sm" className="font-mono">{o.value}</Badge>
             <span className="text-caption-sm text-fg-subtle">{o.use}</span>
           </div>
@@ -88,7 +88,7 @@ export function ElevationDoc() {
 
       {/* Blur */}
       <SectionH2 id="blur" title="Blur (Tailwind native)" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Uses Tailwind built-in blur utilities. Not tokenized — use directly: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">blur-sm</code>, <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">blur-md</code>, etc.</p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Uses Tailwind built-in blur utilities. Not tokenized — use directly: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">blur-sm</code>, <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">blur-md</code>, etc.</p>
       <div className="grid grid-cols-4 gap-gp-4xl mb-14">
         {BLUR.map(b => (
           <div key={b.name} className="flex flex-col items-center gap-gp-xl">
@@ -96,7 +96,7 @@ export function ElevationDoc() {
               <div className={`size-full backdrop-blur-${b.name}`} />
             </div>
             <div className="text-center">
-              <p className="text-label-xs text-fg-default">blur-{b.name}</p>
+              <p className="text-body-xs text-fg-default">blur-{b.name}</p>
               <p className="text-caption-sm text-fg-subtle">{b.value}</p>
             </div>
           </div>
@@ -105,11 +105,11 @@ export function ElevationDoc() {
 
       {/* Z-Index */}
       <SectionH2 id="z-index" title="Z-Index" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Stacking order for overlays, modals, tooltips.</p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Stacking order for overlays, modals, tooltips.</p>
       <div className="flex flex-col gap-gp-md mb-14">
         {ZINDEX.map(z => (
           <div key={z.name} className="flex items-center gap-gp-xl">
-            <span className="text-label-xs text-fg-default w-20">{z.name}</span>
+            <span className="text-body-xs text-fg-default w-20">{z.name}</span>
             <div className="flex-1 h-3 bg-bg-moderate rounded-full overflow-hidden">
               <div className="h-full bg-bg-brand rounded-full" style={{ width: `${Math.max(2, (Number(z.value) + 1) / 7)}%` }} />
             </div>

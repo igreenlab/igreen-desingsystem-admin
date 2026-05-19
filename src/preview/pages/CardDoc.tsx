@@ -37,7 +37,7 @@ export function CardDoc() {
     <CardDescription>Card description goes here.</CardDescription>
   </CardHeader>
   <CardContent>
-    <p className="text-paragraph-sm text-fg-muted">
+    <p className="text-body-md text-fg-muted">
       Content area for any layout.
     </p>
   </CardContent>
@@ -53,7 +53,7 @@ export function CardDoc() {
               <CardDescription>Card description goes here.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-paragraph-sm text-fg-muted">Content area for any layout.</p>
+              <p className="text-body-md text-fg-muted">Content area for any layout.</p>
             </CardContent>
             <CardFooter>
               <Button color="primary" variant="filled" size="sm">Action</Button>
@@ -80,7 +80,7 @@ export function CardDoc() {
     <div className="flex flex-col gap-gp-lg">
       <div className="flex items-center justify-between">
         <Label>Password</Label>
-        <a href="#" className="text-label-xs text-fg-brand hover:underline">
+        <a href="#" className="text-body-xs text-fg-brand hover:underline">
           Forgot password?
         </a>
       </div>
@@ -90,7 +90,7 @@ export function CardDoc() {
       Login
     </Button>
     <div className="relative flex items-center justify-center">
-      <span className="bg-bg-surface px-pad-md text-label-xs text-fg-muted relative z-10">
+      <span className="bg-bg-surface px-pad-md text-body-xs text-fg-muted relative z-10">
         or continue with
       </span>
       <div className="absolute inset-0 flex items-center">
@@ -117,13 +117,13 @@ export function CardDoc() {
               <div className="flex flex-col gap-gp-lg">
                 <div className="flex items-center justify-between">
                   <Label>Password</Label>
-                  <a href="#" className="text-label-xs text-fg-brand hover:underline">Forgot password?</a>
+                  <a href="#" className="text-body-xs text-fg-brand hover:underline">Forgot password?</a>
                 </div>
                 <Input size="sm" type="password" placeholder="••••••••" />
               </div>
               <Button color="primary" variant="filled" size="sm" className="w-full">Login</Button>
               <div className="relative flex items-center justify-center">
-                <span className="bg-bg-surface px-pad-md text-label-xs text-fg-muted relative z-10">or continue with</span>
+                <span className="bg-bg-surface px-pad-md text-body-xs text-fg-muted relative z-10">or continue with</span>
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-border-subtle" />
                 </div>
@@ -141,7 +141,7 @@ export function CardDoc() {
         description="Card with an image area, badge, title, description and call-to-action."
         code={`<Card className="overflow-hidden">
   <div className="bg-bg-muted h-48 flex items-center justify-center">
-    <span className="text-label-sm text-fg-subtle">Image placeholder</span>
+    <span className="text-body-md font-medium text-fg-subtle">Image placeholder</span>
   </div>
   <CardHeader>
     <div className="flex items-center gap-gp-md">
@@ -160,7 +160,7 @@ export function CardDoc() {
         <div className="max-w-sm w-full">
           <Card className="overflow-hidden">
             <div className="bg-bg-muted h-48 flex items-center justify-center">
-              <span className="text-label-sm text-fg-subtle">Image placeholder</span>
+              <span className="text-body-md font-medium text-fg-subtle">Image placeholder</span>
             </div>
             <CardHeader>
               <div className="flex items-center gap-gp-md">
@@ -187,7 +187,7 @@ export function CardDoc() {
     <CardTitle className="text-heading-lg">$45,231.89</CardTitle>
   </CardHeader>
   <CardContent>
-    <p className="text-label-xs text-fg-muted">
+    <p className="text-body-xs text-fg-muted">
       <span className="text-fg-success">+20.1%</span> from last month
     </p>
   </CardContent>
@@ -200,7 +200,7 @@ export function CardDoc() {
               <CardTitle className="text-heading-lg">$45,231.89</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-label-xs text-fg-muted">
+              <p className="text-body-xs text-fg-muted">
                 <span className="text-fg-success">+20.1%</span> from last month
               </p>
             </CardContent>
@@ -221,7 +221,7 @@ export function CardDoc() {
     </CardDescription>
   </CardHeader>
   <CardContent>
-    <p className="text-paragraph-sm text-fg-muted">
+    <p className="text-body-md text-fg-muted">
       You are about to update your billing address and payment method.
       This action will take effect immediately.
     </p>
@@ -239,7 +239,7 @@ export function CardDoc() {
               <CardDescription>Review your updates before saving.</CardDescription>
             </CardHeader>
             <CardContent>
-              <p className="text-paragraph-sm text-fg-muted">
+              <p className="text-body-md text-fg-muted">
                 You are about to update your billing address and payment method. This action will take effect immediately.
               </p>
             </CardContent>

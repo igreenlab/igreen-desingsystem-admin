@@ -161,10 +161,10 @@ const [pageSize, setPageSize] = useState(10);
       >
         <div className="w-full rounded-radius-lg border border-border-default overflow-hidden">
           {/* Mock table */}
-          <div className="bg-bg-muted border-b border-border-default px-pad-2xl py-pad-md text-[12px] font-semibold text-fg-muted uppercase tracking-wider">
+          <div className="bg-bg-muted border-b border-border-default px-pad-2xl py-pad-md text-body-xs font-semibold text-fg-muted uppercase tracking-wider">
             Tabela mock — apenas pra contexto visual
           </div>
-          <div className="px-pad-2xl py-pad-3xl text-[13px] text-fg-muted">
+          <div className="px-pad-2xl py-pad-3xl text-body-sm font-normal text-fg-muted">
             (linhas da tabela viriam aqui)
           </div>
           <div className="border-t border-border-default px-pad-2xl py-pad-md">

@@ -60,7 +60,7 @@ const CONTAINER_CLASSES = [
 const ITEM_BASE = [
   "relative flex cursor-default select-none items-center",
   "gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm",
-  "text-[13px] font-medium",
+  "text-body-sm font-medium",
   "outline-none transition-colors",
   "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
   "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
@@ -260,7 +260,7 @@ const DropdownMenuShortcut = ({
 }: React.HTMLAttributes<HTMLSpanElement>) => {
   return (
     <span
-      className={cn("ml-auto text-[11px] tracking-wider text-fg-subtle", className)}
+      className={cn("ml-auto text-caption-sm tracking-wider text-fg-subtle", className)}
       {...props}
     />
   )

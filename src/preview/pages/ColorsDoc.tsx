@@ -23,7 +23,7 @@ function Swatch({ name, value, dark }: { name: string; value: string; dark?: boo
     <div className="flex flex-col rounded-radius-xl overflow-hidden ring-1 ring-border-subtle">
       <div className="h-16" style={{ backgroundColor: value }} />
       <div className="px-pad-xl py-pad-md bg-bg-surface">
-        <p className={`text-label-xs ${dark ? "text-fg-default" : "text-fg-default"}`}>{name}</p>
+        <p className={`text-body-xs ${dark ? "text-fg-default" : "text-fg-default"}`}>{name}</p>
         <p className="text-caption-sm text-fg-subtle font-mono">{value}</p>
       </div>
     </div>
@@ -49,7 +49,7 @@ function SemanticRow({ name, cssVar }: { name: string; cssVar: string }) {
     <div className="flex items-center gap-gp-xl">
       <div className="size-10 rounded-radius-lg shrink-0 ring-1 ring-border-subtle" style={{ backgroundColor: `var(${cssVar})` }} />
       <div>
-        <p className="text-label-xs text-fg-default">{name}</p>
+        <p className="text-body-xs text-fg-default">{name}</p>
         <p className="text-caption-sm text-fg-subtle font-mono">{cssVar}</p>
       </div>
     </div>

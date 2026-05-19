@@ -13,24 +13,24 @@ export const conversationListItemStyles = tv({
     /** Row 1 — nome + horário. */
     rowTop: "flex items-center gap-gp-sm",
     /** Nome (ellipsis). */
-    name: "text-[13px] font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis flex-1 min-w-0",
+    name: "text-body-sm font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis flex-1 min-w-0",
     /** Horário. */
-    time: "text-[11px] text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]",
+    time: "text-caption-sm text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]",
     /** Row 2 — preview + badge unread. */
     rowMid: "flex items-center gap-gp-sm",
     /** Preview da última mensagem (ellipsis). */
     preview:
-      "text-[12px] text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis flex-1 min-w-0",
+      "text-body-xs font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis flex-1 min-w-0",
     /** Badge contador de não lidas — usa `subheading-strong-md` (11px/700) como
         base e força `font-bold` + `leading-none` inline pra preservar o weight
         e a centralização vertical do número dentro do círculo (preset DS sozinho
         usa lineHeight 0.875rem, que descentraliza o conteúdo). */
     unread:
-      "inline-flex items-center justify-center min-w-[18px] h-[18px] px-[5px] rounded-radius-full bg-bg-brand text-fg-on-brand text-[10.5px] font-bold leading-none shrink-0 [font-variant-numeric:tabular-nums]",
+      "inline-flex items-center justify-center min-w-[18px] h-[18px] px-[5px] rounded-radius-full bg-bg-brand text-fg-on-brand text-caption-xs font-bold leading-none shrink-0 [font-variant-numeric:tabular-nums]",
     /** Row 3 — canal + tag + ID. */
     rowBot: "flex items-center gap-gp-sm",
     /** ID da conversa (canto inferior direito). */
-    id: "ml-auto text-[10.5px] text-fg-subtle shrink-0 [font-variant-numeric:tabular-nums]",
+    id: "ml-auto text-caption-xs text-fg-subtle shrink-0 [font-variant-numeric:tabular-nums]",
   },
   variants: {
     isActive: {

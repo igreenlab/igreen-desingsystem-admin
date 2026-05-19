@@ -35,7 +35,7 @@ function MultiSelectDropdown({
   return (
     <div className="flex flex-col gap-gp-3xs p-pad-2xs min-w-[200px]">
       {options.length === 0 && (
-        <p className="text-paragraph-xs text-fg-muted px-pad-md py-pad-sm">
+        <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
           Sem opções disponíveis
         </p>
       )}
@@ -47,7 +47,7 @@ function MultiSelectDropdown({
             className={cn(
               "flex items-center gap-gp-md w-full",
               "px-pad-md py-pad-sm rounded-radius-md",
-              "text-paragraph-sm text-fg-default text-left cursor-pointer",
+              "text-body-md text-fg-default text-left cursor-pointer",
               "hover:bg-bg-muted focus-within:bg-bg-muted",
               "transition-colors duration-100",
             )}

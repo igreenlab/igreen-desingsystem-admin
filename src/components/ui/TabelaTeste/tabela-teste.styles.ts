@@ -44,7 +44,7 @@ export const tabelaStyles = {
     base: [
       "relative flex items-center gap-gp-sm",
       "py-0 pl-[14px] pr-[38px]",
-      "h-[42px] text-[13px] font-semibold leading-none",
+      "h-[42px] text-body-sm font-semibold leading-none",
       "text-fg-muted cursor-pointer select-none",
       "[flex:1_0_auto]",
       "hover:text-fg-default",
@@ -105,7 +105,7 @@ export const tabelaStyles = {
       "min-w-[18px] h-[18px] px-[5px]",
       "rounded-radius-sm",
       "bg-bg-brand text-fg-on-brand",
-      "text-[10.5px] font-bold leading-none",
+      "text-caption-xs font-bold leading-none",
       "[font-variant-numeric:tabular-nums]",
     ],
   }),
@@ -193,9 +193,9 @@ export const tabelaStyles = {
     ],
     variants: {
       density: {
-        compact:     "h-[40px] text-[12px]",
-        comfortable: "h-[56px] text-[13px]",
-        spacious:    "h-[64px] text-[13px]",
+        compact:     "h-[40px] text-body-xs font-normal",
+        comfortable: "h-[56px] text-body-sm font-normal",
+        spacious:    "h-[64px] text-body-sm font-normal",
       },
     },
     defaultVariants: { density: "comfortable" },
@@ -260,7 +260,7 @@ export const tabelaStyles = {
 
   /* ── Cells específicas ────────────────────────────────────────────── */
   cellId: tv({
-    base: "text-[13px] text-fg-muted [font-variant-numeric:tabular-nums]",
+    base: "text-body-sm font-normal text-fg-muted [font-variant-numeric:tabular-nums]",
   }),
   cellCurrency: tv({
     base: "[font-variant-numeric:tabular-nums] font-semibold",
@@ -269,7 +269,7 @@ export const tabelaStyles = {
     base: "[font-variant-numeric:tabular-nums] text-fg-muted",
   }),
   cellStatus: tv({
-    base: "inline-flex items-center gap-gp-md text-[13px] text-fg-default dark:text-fg-muted",
+    base: "inline-flex items-center gap-gp-md text-body-sm font-normal text-fg-default dark:text-fg-muted",
   }),
   dot: tv({
     base: "size-[8px] rounded-radius-full shrink-0",
@@ -289,14 +289,14 @@ export const tabelaStyles = {
     base: [
       "grid place-items-center shrink-0",
       "size-[28px] rounded-radius-full",
-      "text-white text-[11px] font-bold",
+      "text-white text-caption-sm font-bold",
     ],
   }),
   avatarSm: tv({
     base: [
       "grid place-items-center shrink-0",
       "size-[22px] rounded-radius-full",
-      "text-white text-[10px] font-bold",
+      "text-white text-caption-xs font-bold",
     ],
   }),
 
@@ -336,7 +336,7 @@ export const tabelaStyles = {
     base: [
       "inline-flex items-center gap-[4px]",
       "h-[22px] px-[8px] rounded-radius-full",
-      "text-[11px] font-semibold leading-none whitespace-nowrap",
+      "text-caption-sm font-semibold leading-none whitespace-nowrap",
     ],
     variants: {
       kind: {

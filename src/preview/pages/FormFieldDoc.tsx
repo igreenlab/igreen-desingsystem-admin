@@ -412,12 +412,12 @@ export function FormFieldDoc() {
       </ExampleSection>
 
       <SectionH2 id="api" title="API Reference" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg">
+      <p className="text-body-md text-fg-muted mb-gp-lg">
         Props comuns (FormFieldInput / FormFieldTextarea / FormFieldCheckbox / FormFieldSwitch / FormField):
       </p>
       <PropsTable items={BASE_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         FormFieldSelect adiciona:
       </p>
       <PropsTable items={SELECT_PROPS.slice(BASE_PROPS.length)} />

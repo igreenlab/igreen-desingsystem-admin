@@ -113,7 +113,7 @@ export function SortPopover({
       >
         {/* Header separado — padrao igual FilterPopover/ColsPopover */}
         <div className="flex-none flex items-center justify-between gap-gp-md px-pad-xl py-pad-lg border-b border-border-default">
-          <h3 className="text-[11px] font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
+          <h3 className="text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
             {title}
           </h3>
         </div>
@@ -129,7 +129,7 @@ export function SortPopover({
           {/* ── Section: Critérios atuais ───────────────────────── */}
           <section className="px-pad-xl py-pad-lg border-b border-border-default">
             {sortBy.length === 0 ? (
-              <p className="text-[12px] text-fg-muted m-0 py-pad-sm">
+              <p className="text-body-xs font-normal text-fg-muted m-0 py-pad-sm">
                 {emptyMessage}
               </p>
             ) : (
@@ -141,10 +141,10 @@ export function SortPopover({
                       key={s.key}
                       className="group/row flex items-center gap-gp-md px-pad-md py-[4px] rounded-radius-md hover:bg-bg-muted"
                     >
-                      <span className="text-[11px] text-fg-subtle shrink-0">
+                      <span className="text-caption-sm text-fg-subtle shrink-0">
                         {i === 0 ? "Por" : "depois por"}
                       </span>
-                      <span className="flex-1 text-[13px] font-medium text-fg-default truncate">
+                      <span className="flex-1 text-body-sm font-medium text-fg-default truncate">
                         {col?.label ?? s.key}
                       </span>
                       <button
@@ -152,7 +152,7 @@ export function SortPopover({
                         onClick={() => toggleDir(i)}
                         className={cn(
                           "inline-flex items-center gap-gp-xs h-[22px] px-pad-md shrink-0",
-                          "rounded-radius-sm bg-bg-muted text-fg-default text-[11.5px] font-medium",
+                          "rounded-radius-sm bg-bg-muted text-fg-default text-caption-sm font-medium",
                           "outline-none cursor-pointer",
                           "hover:bg-bg-muted-hover focus-visible:bg-bg-muted-hover",
                           "[&_svg]:size-[12px]",
@@ -193,7 +193,7 @@ export function SortPopover({
           {/* ── Section: Adicionar ─────────────────────────────── */}
           {available.length > 0 && (
             <section className="px-pad-xl py-pad-lg">
-              <h4 className="text-[11px] font-semibold text-fg-muted uppercase tracking-wide leading-none m-0 mb-pad-md">
+              <h4 className="text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0 mb-pad-md">
                 {addSectionLabel}
               </h4>
               <div className="flex flex-col gap-[2px]">
@@ -215,7 +215,7 @@ export function SortPopover({
                       {Icon && (
                         <Icon className="size-[14px] shrink-0 text-fg-muted" />
                       )}
-                      <span className="flex-1 text-[13px] font-medium text-fg-default truncate">
+                      <span className="flex-1 text-body-sm font-medium text-fg-default truncate">
                         {col.label}
                       </span>
                       <Plus
@@ -236,7 +236,7 @@ export function SortPopover({
             <button
               type="button"
               onClick={clearAll}
-              className="text-[12px] font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
+              className="text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
             >
               {clearLabel}
             </button>

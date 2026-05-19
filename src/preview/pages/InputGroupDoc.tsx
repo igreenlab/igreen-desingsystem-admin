@@ -262,15 +262,15 @@ export function InputGroupDoc() {
       </ExampleSection>
 
       <SectionH2 id="api" title="API Reference" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg">InputGroup</p>
+      <p className="text-body-md text-fg-muted mb-gp-lg">InputGroup</p>
       <PropsTable items={GROUP_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         InputGroupAddon
       </p>
       <PropsTable items={ADDON_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         InputGroupButton
       </p>
       <PropsTable items={BUTTON_PROPS} />

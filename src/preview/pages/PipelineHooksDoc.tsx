@@ -32,7 +32,7 @@ function HookCard({
           <Badge color="secondary" variant="outline" size="sm">{matcher}</Badge>
         </div>
       </div>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-md">{desc}</p>
+      <p className="text-body-md text-fg-muted mb-gp-md">{desc}</p>
       {blocks && (
         <div className="border-t border-border-subtle pt-pad-md">
           <p className="text-caption-sm text-fg-subtle mb-gp-sm">Blocks / handles:</p>
@@ -60,7 +60,7 @@ export function PipelineHooksDoc() {
       {/* What */}
       <SectionH2 id="what" title="What are Hooks" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A <strong className="text-fg-default">Hook</strong> is a shell script that the harness runs around the
           agent's tool calls. It receives the tool input on <code className="font-mono text-code-sm">stdin</code> as JSON
           and can either let the call proceed, block it, or run a side-effect afterwards. Hooks live in{" "}
@@ -69,15 +69,15 @@ export function PipelineHooksDoc() {
         </p>
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Run by the harness, not the agent</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Run by the harness, not the agent</p>
+            <p className="text-body-md text-fg-muted">
               The agent doesn't decide when a hook fires. The Claude Code harness fires it based on the matcher.
               This is what makes hooks reliable for security.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Idempotent on success</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Idempotent on success</p>
+            <p className="text-body-md text-fg-muted">
               A PostToolUse hook should always return exit 0 unless something is wrong.
               A PreToolUse hook returns exit 1 to block — the message on stderr is shown to the agent.
             </p>
@@ -90,19 +90,19 @@ export function PipelineHooksDoc() {
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
           <div className="grid grid-cols-[180px_1fr_180px] gap-0 border-b border-border-subtle bg-bg-subtle">
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">Event</div>
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">When it fires</div>
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">Can block?</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">Event</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">When it fires</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">Can block?</div>
           </div>
           <div className="grid grid-cols-[180px_1fr_180px] gap-0 border-b border-border-subtle">
             <div className="py-pad-md px-pad-xl"><Badge color="primary" variant="soft" size="sm">PreToolUse</Badge></div>
-            <div className="py-pad-md px-pad-xl text-paragraph-sm text-fg-muted">Antes do agente executar a tool</div>
-            <div className="py-pad-md px-pad-xl text-paragraph-sm text-fg-default">Sim (exit 1 + msg stderr)</div>
+            <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">Antes do agente executar a tool</div>
+            <div className="py-pad-md px-pad-xl text-body-md text-fg-default">Sim (exit 1 + msg stderr)</div>
           </div>
           <div className="grid grid-cols-[180px_1fr_180px] gap-0">
             <div className="py-pad-md px-pad-xl"><Badge color="success" variant="soft" size="sm">PostToolUse</Badge></div>
-            <div className="py-pad-md px-pad-xl text-paragraph-sm text-fg-muted">Depois da tool retornar com sucesso</div>
-            <div className="py-pad-md px-pad-xl text-paragraph-sm text-fg-muted">Não — efeito colateral</div>
+            <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">Depois da tool retornar com sucesso</div>
+            <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">Não — efeito colateral</div>
           </div>
         </div>
       </div>
@@ -136,7 +136,7 @@ export function PipelineHooksDoc() {
       {/* settings.json */}
       <SectionH2 id="settings" title="settings.json" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Hooks are registered in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/settings.json</code>.
           Each hook gets a matcher (which tool name) and a command (the script path).
         </p>
@@ -174,7 +174,7 @@ export function PipelineHooksDoc() {
       {/* Logs */}
       <SectionH2 id="logs" title="Hook Logs" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Both <code className="font-mono text-code-sm">format-on-save.sh</code> and{" "}
           <code className="font-mono text-code-sm">block-sensitive-edit.sh</code> log entries to{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/scratch/hook-log.txt</code>.
@@ -186,7 +186,7 @@ export function PipelineHooksDoc() {
 [2026-05-18 14:54:03] block-sensitive: BLOCK env  /path/to/.env
 [2026-05-18 14:55:11] format-on-save: FAIL src/foo.tsx (prettier exit non-zero)`}</pre>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The directory <code className="font-mono text-code-sm">.ai/scratch/</code> is gitignored. Hook logs never leave the local machine.
         </p>
       </div>
@@ -194,7 +194,7 @@ export function PipelineHooksDoc() {
       {/* Authoring */}
       <SectionH2 id="authoring" title="Authoring a Hook" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A hook reads <code className="font-mono text-code-sm">stdin</code> as JSON with the tool input, decides whether to
           act, and returns an exit code. For PreToolUse, exit 1 blocks the call — for PostToolUse, the exit code is ignored.
         </p>
@@ -213,7 +213,7 @@ esac
 
 exit 0`}</pre>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tornar executável: <code className="font-mono text-code-sm">chmod +x .claude/hooks/seu-hook.sh</code>.
           Registrar em <code className="font-mono text-code-sm">settings.json</code> e reiniciar a sessão Claude.
         </p>

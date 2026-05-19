@@ -33,10 +33,10 @@ const inputGroupVariants = cva(
   {
     variants: {
       size: {
-        xxs: "min-h-form-xs px-pad-md gap-gp-xs rounded-radius-md text-[13px]",
-        xs:  "min-h-form-sm px-pad-xl gap-gp-md rounded-radius-md text-[13px]",
-        sm:  "min-h-form-md px-pad-xl gap-gp-md rounded-radius-lg text-[13px]",
-        md:  "min-h-form-lg px-pad-xl gap-gp-md rounded-radius-lg text-[13px]",
+        xxs: "min-h-form-xs px-pad-md gap-gp-xs rounded-radius-md text-body-sm font-normal",
+        xs:  "min-h-form-sm px-pad-xl gap-gp-md rounded-radius-md text-body-sm font-normal",
+        sm:  "min-h-form-md px-pad-xl gap-gp-md rounded-radius-lg text-body-sm font-normal",
+        md:  "min-h-form-lg px-pad-xl gap-gp-md rounded-radius-lg text-body-sm font-normal",
       },
       state: {
         default: "focus-within:border-border-brand          focus-within:shadow-sh-ring",
@@ -71,7 +71,7 @@ InputGroup.displayName = "InputGroup";
 /* ── Input (sem bg/border — herda do wrapper) ─────────────────────────── */
 const inputGroupInputVariants = cva([
   "flex-1 min-w-0 bg-transparent border-0 outline-none",
-  "text-[13px] text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
+  "text-body-sm font-normal text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
   "disabled:cursor-not-allowed",
   "file:inline-flex file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-fg-default",
 ]);
@@ -97,7 +97,7 @@ InputGroupInput.displayName = "InputGroupInput";
 const inputGroupTextareaVariants = cva([
   "flex-1 min-w-0 bg-transparent border-0 outline-none resize-y",
   "py-pad-md",
-  "text-[13px] leading-[1.5] text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
+  "text-body-sm font-normal leading-[1.5] text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
   "disabled:cursor-not-allowed",
 ]);
 
@@ -187,7 +187,7 @@ export const InputGroupText = React.forwardRef<
     ref={ref}
     data-slot="input-group-text"
     className={cn(
-      "text-[12.5px] font-medium text-fg-muted whitespace-nowrap",
+      "text-body-xs text-fg-muted whitespace-nowrap",
       className,
     )}
     {...props}
@@ -207,9 +207,9 @@ const inputGroupButtonVariants = cva(
   {
     variants: {
       size: {
-        xs:        "h-form-xs px-pad-md gap-gp-xs text-[12px]",
+        xs:        "h-form-xs px-pad-md gap-gp-xs text-body-xs font-normal",
         "icon-xs": "size-form-xs",
-        sm:        "h-form-sm px-pad-lg gap-gp-md text-[12.5px]",
+        sm:        "h-form-sm px-pad-lg gap-gp-md text-body-xs font-normal",
         "icon-sm": "size-form-sm",
       },
       variant: {

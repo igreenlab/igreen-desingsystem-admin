@@ -1,28 +1,44 @@
 /**
  * typography.ts — Semantic typography tokens (composite)
  *
+ * 6 roles: display | heading | title | body | caption | code
+ * 23 presets totais
+ *
  * REGRAS:
- * - Presets compostos: combinam fontSize + fontWeight + lineHeight + letterSpacing.
- * - Nomenclatura: {role}-{scale}-{weight?}
+ * - Presets compostos: combinam fontSize + lineHeight + fontWeight + letterSpacing + fontFamily.
+ * - Nomenclatura: {role}-{tier}
  * - Valores em rem (acessibilidade: respeita preferência de fonte do usuário).
- * - display/heading (≥32px desktop) usam clamp() para fluid typography responsiva.
+ * - display/heading (≥ 32px desktop) usam clamp() para fluid typography.
  * - Presets menores usam rem estático (fluid não faz diferença abaixo de 32px).
- * - Line heights de presets fluidos: unitless (escala com o font-size).
- * - Line heights de presets estáticos: rem.
+ *
+ * WEIGHT DEFAULT POR ROLE:
+ *   - display:  varia por tier (semibold → bold)
+ *   - heading:  500 (medium) para fluid; 500 para heading-xs estático
+ *   - title:    600 (semibold) — mais usado no projeto
+ *   - body-xs/sm: 500 (medium) — interactive (button, dropdown, input, table cell)
+ *   - body-md/lg/xl/2xl: 400 (regular) — body corrido
+ *   - caption:  400 (regular)
+ *   - code:     400 (regular, mono)
+ *
+ * OVERRIDE CONVENCIONAL via Tailwind nativo:
+ *   - font-bold/semibold/medium/normal — peso diferente
+ *   - leading-X — line-height
+ *   - tracking-X — letter-spacing
  *
  * HIERARQUIA:
  *   display    → hero sections, marketing (muito grande, fluid)
  *   heading    → títulos de página, modais (grande, fluid a partir de sm)
- *   title      → títulos de card, seção (médio, estático)
- *   label      → labels de UI, botões, tabs (peso 500, estático)
- *   paragraph  → texto corrido, parágrafos (peso 400, estático)
- *   caption    → texto auxiliar, metadados (estático)
- *   subheading → categoria acima de conteúdo (uppercase, estático)
- *   overline   → decorativo (legacy alias para subheading)
- *   code       → código inline e blocos (estático)
+ *   title      → títulos de card, seção (médio, estático, weight 600)
+ *   body       → texto corrido + interactive (estático)
+ *   caption    → texto auxiliar, metadados, microlabels (estático)
+ *   code       → código inline e blocos (estático, mono)
+ *
+ * Migration log:
+ *   - 2026-05-19: rewrite enxuto. Removidos paragraph-*, label-*, subheading-* (32→23 presets).
+ *                 Decimais e órfãos (10.5/11.5/12.5/13.5/14.5/15/17/22/26) já eliminados nas Ondas 1-4.
  */
 
-import { fontWeight, fontFamily, letterSpacing } from "../primitives/fonts";
+import { fontWeight, fontFamily } from "../primitives/fonts";
 
 // Tipo base para um preset tipográfico
 interface TypographyPreset {
@@ -66,7 +82,7 @@ export const display: Record<string, TypographyPreset> = {
   },
 } as const;
 
-// ─── Heading (fluid sm→xl, estático xs/2xs) ──────────────────────────────────
+// ─── Heading (fluid sm→xl, estático xs) ───────────────────────────────────────
 // Títulos de página, modais, dialogs.
 export const heading: Record<string, TypographyPreset> = {
   "heading-xl": {
@@ -104,151 +120,89 @@ export const heading: Record<string, TypographyPreset> = {
     letterSpacing: "0em",
     fontFamily:    fontFamily.sans,
   },
-  // NOTE: heading-2xs removido — era duplicata pura de title-lg (ambos 20px/500/0em).
-  // Consumidores migrados para text-title-lg.
 } as const;
 
-// ─── Title (estático — rem) ──────────────────────────────────────────────────
-// Títulos de card, seção, sidebar item ativo.
+// ─── Title (estático — weight 600 default) ────────────────────────────────────
+// Títulos de card, seção, modal, panel. Weight 600 (semibold).
 export const title: Record<string, TypographyPreset> = {
   "title-lg": {
     fontSize:      "1.25rem",      // 20px
     lineHeight:    "1.75rem",      // 28px
-    fontWeight:    fontWeight.medium,
+    fontWeight:    fontWeight.semibold,
     letterSpacing: "0em",
     fontFamily:    fontFamily.sans,
   },
   "title-md": {
     fontSize:      "1rem",         // 16px
     lineHeight:    "1.5rem",       // 24px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0em",
+    fontWeight:    fontWeight.semibold,
+    letterSpacing: "-0.011em",
     fontFamily:    fontFamily.sans,
   },
   "title-sm": {
     fontSize:      "0.875rem",     // 14px
     lineHeight:    "1.25rem",      // 20px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0em",
-    fontFamily:    fontFamily.sans,
-  },
-} as const;
-
-// ─── Label (estático — rem) ──────────────────────────────────────────────────
-// Labels de UI: botões, inputs, tabs, nav items (peso 500).
-export const label: Record<string, TypographyPreset> = {
-  "label-xl": {
-    fontSize:      "1.5rem",       // 24px
-    lineHeight:    "2rem",         // 32px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "-0.015em",
-    fontFamily:    fontFamily.sans,
-  },
-  "label-lg": {
-    fontSize:      "1.125rem",     // 18px
-    lineHeight:    "1.5rem",       // 24px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "-0.015em",
-    fontFamily:    fontFamily.sans,
-  },
-  "label-md": {
-    fontSize:      "1rem",         // 16px
-    lineHeight:    "1.5rem",       // 24px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "-0.011em",
-    fontFamily:    fontFamily.sans,
-  },
-  "label-sm": {
-    fontSize:      "0.875rem",     // 14px
-    lineHeight:    "1.25rem",      // 20px
-    fontWeight:    fontWeight.medium,
+    fontWeight:    fontWeight.semibold,
     letterSpacing: "-0.006em",
     fontFamily:    fontFamily.sans,
   },
-  "label-xs": {
-    fontSize:      "0.75rem",      // 12px
-    lineHeight:    "1rem",         // 16px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0em",
-    fontFamily:    fontFamily.sans,
-  },
-  // ★ NOVO — preenche tier 11px no namespace label (interactive, weight 500).
-  // Casos: micro label, hint count, rail tooltip.
-  "label-2xs": {
-    fontSize:      "0.6875rem",    // 11px
-    lineHeight:    "0.875rem",     // 14px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0em",
-    fontFamily:    fontFamily.sans,
-  },
-  // ★ NOVO — preenche tier 13px no namespace label (body default interativo do projeto).
-  // Casos: button sm, dropdown item, input value, tab default.
-  "label-base": {
-    fontSize:      "0.8125rem",    // 13px
-    lineHeight:    "1.125rem",     // 18px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "-0.003em",
-    fontFamily:    fontFamily.sans,
-  },
 } as const;
 
-// ─── Paragraph (estático — rem) ──────────────────────────────────────────────
-// Texto corrido, parágrafos, descrições (peso 400).
-export const paragraph: Record<string, TypographyPreset> = {
-  "paragraph-xl": {
+// ─── Body (estático — interactive xs/sm = 500; corrido md/lg/xl/2xl = 400) ────
+// Texto corrido, body de leitura, labels interativos (button, dropdown, input).
+export const body: Record<string, TypographyPreset> = {
+  "body-2xl": {
     fontSize:      "1.5rem",       // 24px
     lineHeight:    "2rem",         // 32px
     fontWeight:    fontWeight.regular,
     letterSpacing: "-0.015em",
     fontFamily:    fontFamily.sans,
   },
-  "paragraph-lg": {
+  "body-xl": {
     fontSize:      "1.125rem",     // 18px
     lineHeight:    "1.5rem",       // 24px
     fontWeight:    fontWeight.regular,
     letterSpacing: "-0.015em",
     fontFamily:    fontFamily.sans,
   },
-  "paragraph-md": {
+  "body-lg": {
     fontSize:      "1rem",         // 16px
     lineHeight:    "1.5rem",       // 24px
     fontWeight:    fontWeight.regular,
     letterSpacing: "-0.011em",
     fontFamily:    fontFamily.sans,
   },
-  "paragraph-sm": {
+  "body-md": {
     fontSize:      "0.875rem",     // 14px
     lineHeight:    "1.25rem",      // 20px
     fontWeight:    fontWeight.regular,
     letterSpacing: "-0.006em",
     fontFamily:    fontFamily.sans,
   },
-  "paragraph-xs": {
-    fontSize:      "0.75rem",      // 12px
-    lineHeight:    "1rem",         // 16px
-    fontWeight:    fontWeight.regular,
-    letterSpacing: "0em",
-    fontFamily:    fontFamily.sans,
-  },
-  // ★ NOVO — preenche tier 13px no namespace paragraph (body default do projeto).
-  // Casos: body small, msg bubble, table cell, command item, dropdown item.
-  "paragraph-base": {
+  // body-sm — 13px — body default do projeto (button, dropdown, input, table cell)
+  "body-sm": {
     fontSize:      "0.8125rem",    // 13px
     lineHeight:    "1.125rem",     // 18px
-    fontWeight:    fontWeight.regular,
+    fontWeight:    fontWeight.medium,
     letterSpacing: "-0.003em",
+    fontFamily:    fontFamily.sans,
+  },
+  // body-xs — 12px — interactive small (chip, sub-item)
+  "body-xs": {
+    fontSize:      "0.75rem",      // 12px
+    lineHeight:    "1rem",         // 16px
+    fontWeight:    fontWeight.medium,
+    letterSpacing: "0em",
     fontFamily:    fontFamily.sans,
   },
 } as const;
 
-// NOTE: body-* removido — eram aliases legacy de paragraph-*. Sem consumidores.
-
-// ─── Caption (estático — rem) ────────────────────────────────────────────────
-// Texto auxiliar, timestamps, metadados.
+// ─── Caption (estático — peso 400) ────────────────────────────────────────────
+// Texto auxiliar, timestamps, metadados, helpers, microlabels.
 export const caption: Record<string, TypographyPreset> = {
   "caption-md": {
-    fontSize:      "0.8125rem",    // 13px
-    lineHeight:    "1.125rem",     // 18px
+    fontSize:      "0.75rem",      // 12px
+    lineHeight:    "1rem",         // 16px
     fontWeight:    fontWeight.regular,
     letterSpacing: "0em",
     fontFamily:    fontFamily.sans,
@@ -260,8 +214,6 @@ export const caption: Record<string, TypographyPreset> = {
     letterSpacing: "0em",
     fontFamily:    fontFamily.sans,
   },
-  // ★ NOVO — preenche tier 10px (faltava completamente no DS).
-  // Casos: micro caption (bubble meta, conv ID, history meta).
   "caption-xs": {
     fontSize:      "0.625rem",     // 10px
     lineHeight:    "0.75rem",      // 12px
@@ -271,61 +223,7 @@ export const caption: Record<string, TypographyPreset> = {
   },
 } as const;
 
-// ─── Subheading (estático — rem) ─────────────────────────────────────────────
-// Texto acima de seções (ex: "CATEGORIAS", "NOVO") — uppercase.
-export const subheading: Record<string, TypographyPreset> = {
-  "subheading-md": {
-    fontSize:      "1rem",         // 16px
-    lineHeight:    "1.5rem",       // 24px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0.06em",
-    fontFamily:    fontFamily.sans,
-  },
-  "subheading-sm": {
-    fontSize:      "0.875rem",     // 14px
-    lineHeight:    "1.25rem",      // 20px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0.06em",
-    fontFamily:    fontFamily.sans,
-  },
-  "subheading-xs": {
-    fontSize:      "0.75rem",      // 12px
-    lineHeight:    "1rem",         // 16px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0.04em",
-    fontFamily:    fontFamily.sans,
-  },
-  "subheading-2xs": {
-    fontSize:      "0.6875rem",    // 11px
-    lineHeight:    "0.75rem",      // 12px
-    fontWeight:    fontWeight.medium,
-    letterSpacing: "0.02em",
-    fontFamily:    fontFamily.sans,
-  },
-  // ★ NOVO — variante "strong" weight 700 + tracking apertado (+0.06em).
-  // Substitui o pattern literal `text-[Npx] font-bold tracking-[0.06em] uppercase`.
-  // Casos: FILTERS/CATEGORIAS section title, table thead, MenuSidebar section header.
-  "subheading-strong-md": {
-    fontSize:      "0.6875rem",    // 11px
-    lineHeight:    "0.875rem",     // 14px
-    fontWeight:    fontWeight.bold,
-    letterSpacing: "0.06em",
-    fontFamily:    fontFamily.sans,
-  },
-  // ★ NOVO — versão 10px do strong subheading.
-  // Casos: chip counter, unread badge, header tab count, agent rank.
-  "subheading-strong-sm": {
-    fontSize:      "0.625rem",     // 10px
-    lineHeight:    "0.75rem",      // 12px
-    fontWeight:    fontWeight.bold,
-    letterSpacing: "0.06em",
-    fontFamily:    fontFamily.sans,
-  },
-} as const;
-
-// NOTE: overline-* removido — eram aliases legacy de subheading. Sem consumidores.
-
-// ─── Code (estático — rem) ───────────────────────────────────────────────────
+// ─── Code (estático — mono regular) ──────────────────────────────────────────
 export const code: Record<string, TypographyPreset> = {
   "code-md": {
     fontSize:      "1rem",         // 16px
@@ -343,15 +241,13 @@ export const code: Record<string, TypographyPreset> = {
   },
 } as const;
 
-// ─── Export agrupado ───────────────────────────────────────────────────────────
+// ─── Export agrupado ──────────────────────────────────────────────────────────
 export const typography = {
   ...display,
   ...heading,
   ...title,
-  ...label,
-  ...paragraph,
+  ...body,
   ...caption,
-  ...subheading,
   ...code,
 } as const;
 

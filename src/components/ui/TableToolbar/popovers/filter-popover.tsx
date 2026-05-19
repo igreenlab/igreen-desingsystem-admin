@@ -137,7 +137,7 @@ type FilterRowEditorProps = {
 const FIELD_BASE = cn(
   "min-h-form-md h-form-md min-w-0 w-full",
   "rounded-radius-md",
-  "text-[13px]",
+  "text-body-sm font-normal",
 );
 
 const INPUT_FIELD = cn(
@@ -190,7 +190,7 @@ function FilterRowEditor({
         "flex flex-col sm:flex-row sm:items-center gap-gp-md",
       )}
     >
-      <span className="text-[11px] text-fg-muted shrink-0 sm:w-[18px] sm:text-center">
+      <span className="text-caption-sm text-fg-muted shrink-0 sm:w-[18px] sm:text-center">
         {index === 0 ? conjLabels.first : conjLabels.rest}
       </span>
       {/* Campo (flex 1) */}
@@ -443,7 +443,7 @@ export function FilterPopover({
       >
         {/* Header com tabs */}
         <div className="flex-none flex items-center justify-between gap-gp-md px-pad-xl py-pad-lg border-b border-border-default">
-          <h3 className="text-[11px] font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
+          <h3 className="text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
             {title}
           </h3>
           {enableAdvanced && (
@@ -457,7 +457,7 @@ export function FilterPopover({
                 aria-selected={mode === "visual"}
                 onClick={() => setMode("visual")}
                 className={cn(
-                  "h-[30px] px-pad-lg rounded-radius-sm text-[12px] font-medium cursor-pointer outline-none",
+                  "h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none",
                   "transition-[background-color,color,box-shadow] duration-150",
                   mode === "visual"
                     ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"
@@ -472,7 +472,7 @@ export function FilterPopover({
                 aria-selected={mode === "advanced"}
                 onClick={() => setMode("advanced")}
                 className={cn(
-                  "h-[30px] px-pad-lg rounded-radius-sm text-[12px] font-medium cursor-pointer outline-none",
+                  "h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none",
                   "transition-[background-color,color,box-shadow] duration-150",
                   mode === "advanced"
                     ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"
@@ -493,10 +493,10 @@ export function FilterPopover({
                 strokeWidth={1.6}
                 className="size-[20px] text-fg-muted mb-pad-xl"
               />
-              <p className="text-[13px] font-semibold text-fg-default m-0">
+              <p className="text-body-sm font-semibold text-fg-default m-0">
                 Nenhuma condição
               </p>
-              <p className="text-[12px] text-fg-muted m-0 mt-pad-2xs mb-pad-2xl">
+              <p className="text-body-xs font-normal text-fg-muted m-0 mt-pad-2xs mb-pad-2xl">
                 Adicione filtros pra refinar a lista.
               </p>
               <button
@@ -505,7 +505,7 @@ export function FilterPopover({
                 className={cn(
                   "inline-flex items-center gap-gp-sm h-form-md px-pad-2xl rounded-radius-lg",
                   "bg-bg-brand text-fg-on-brand",
-                  "text-[13px] font-semibold cursor-pointer outline-none",
+                  "text-body-sm font-semibold cursor-pointer outline-none",
                   "transition-[background-color] duration-150",
                   "hover:bg-bg-brand-hover focus-visible:shadow-sh-ring",
                   "[&_svg]:size-[14px]",
@@ -553,7 +553,7 @@ export function FilterPopover({
                     "min-h-form-md px-pad-xl rounded-radius-md",
                     "bg-transparent text-fg-muted",
                     "border border-dashed border-border-default",
-                    "text-[13px] font-medium cursor-pointer outline-none",
+                    "text-body-sm font-medium cursor-pointer outline-none",
                     "transition-[background-color,color,border-color] duration-150",
                     "hover:bg-bg-muted hover:text-fg-default hover:border-border-default",
                     "focus-visible:bg-bg-muted focus-visible:text-fg-default",
@@ -568,7 +568,7 @@ export function FilterPopover({
           )
         ) : (
           <div className="flex-1 min-h-0 flex flex-col gap-gp-md p-pad-xl overflow-y-auto">
-            <span className="text-[11px] text-fg-muted">
+            <span className="text-caption-sm text-fg-muted">
               Editor livre — sintaxe estilo SQL. Operadores: <code>=</code>{" "}
               <code>!=</code> <code>&gt;</code> <code>&lt;</code>{" "}
               <code>contains</code>. Conectores: <code>AND</code>{" "}
@@ -588,7 +588,7 @@ export function FilterPopover({
                 "bg-bg-input dark:bg-bg-muted",
                 "border",
                 advancedError ? "border-border-critical" : "border-border-input",
-                "text-[12px] font-mono text-fg-default placeholder:text-fg-muted",
+                "text-body-xs font-normal font-mono text-fg-default placeholder:text-fg-muted",
                 "outline-none resize-y",
                 "transition-[border-color,box-shadow] duration-150",
                 advancedError
@@ -597,7 +597,7 @@ export function FilterPopover({
               )}
             />
             {advancedError && (
-              <p className="text-[11px] text-fg-critical">
+              <p className="text-caption-sm text-fg-critical">
                 {advancedError}
               </p>
             )}
@@ -607,7 +607,7 @@ export function FilterPopover({
               className={cn(
                 "self-end px-pad-xl h-form-md rounded-radius-md",
                 "bg-bg-brand text-fg-on-brand",
-                "text-[12px] font-semibold",
+                "text-body-xs font-semibold",
                 "hover:bg-bg-brand-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
                 "transition-[background-color,box-shadow] duration-150",
               )}
@@ -624,14 +624,14 @@ export function FilterPopover({
             onClick={clearAll}
             disabled={filters.length === 0}
             className={cn(
-              "text-[12px] font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none",
+              "text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none",
               "hover:underline focus-visible:underline underline-offset-2",
               "disabled:opacity-50 disabled:pointer-events-none disabled:no-underline",
             )}
           >
             Limpar todos
           </button>
-          <span className="text-[11px] text-fg-muted">
+          <span className="text-caption-sm text-fg-muted">
             {validCount === 0
               ? "Nenhum filtro ativo"
               : `${validCount} ${

@@ -96,12 +96,12 @@ function IconGrid({ icons, filter }: { icons: typeof ICON_GROUPS; filter: string
         if (filtered.length === 0) return null;
         return (
           <div key={group.title}>
-            <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-xl">{group.title}</p>
+            <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-xl">{group.title}</p>
             <div className="grid grid-cols-6 gap-gp-md">
               {filtered.map(({ name, Icon }) => (
                 <div key={name} className="flex flex-col items-center gap-gp-xs p-pad-xl rounded-radius-base hover:bg-bg-muted/50 transition-colors cursor-default group">
                   <Icon className="size-5 text-fg-default" />
-                  <span className="text-[10px] text-fg-subtle group-hover:text-fg-muted truncate max-w-full">{name}</span>
+                  <span className="text-caption-xs text-fg-subtle group-hover:text-fg-muted truncate max-w-full">{name}</span>
                 </div>
               ))}
             </div>
@@ -129,20 +129,20 @@ export function IconsDoc() {
       <SectionH2 id="usage" title="Usage" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-          <p className="text-label-sm text-fg-default mb-gp-2xl">Installation</p>
+          <p className="text-body-md font-medium text-fg-default mb-gp-2xl">Installation</p>
           <div className="rounded-radius-sm bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted">
             npm install lucide-react
           </div>
         </div>
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-          <p className="text-label-sm text-fg-default mb-gp-2xl">Import</p>
+          <p className="text-body-md font-medium text-fg-default mb-gp-2xl">Import</p>
           <div className="rounded-radius-sm bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted leading-relaxed">
             <p>{"import { Search, Home, Settings } from \"lucide-react\";"}</p>
             <p className="mt-gp-xl text-fg-subtle">// Each icon is tree-shaken — only imported icons are bundled</p>
           </div>
         </div>
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-          <p className="text-label-sm text-fg-default mb-gp-2xl">Sizing with DS tokens</p>
+          <p className="text-body-md font-medium text-fg-default mb-gp-2xl">Sizing with DS tokens</p>
           <div className="rounded-radius-sm bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted leading-relaxed">
             <p>{"<Search className=\"size-icon-sm\" />  // 16px"}</p>
             <p>{"<Search className=\"size-icon-md\" />  // 20px (default)"}</p>
@@ -255,15 +255,15 @@ import { Plus, Download } from "lucide-react";
       >
         <div className="flex items-center gap-gp-xl">
           {/* Using the actual Button component would require importing it — keeping it simple with styled divs */}
-          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base bg-bg-brand text-fg-on-brand text-label-sm">
+          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base bg-bg-brand text-fg-on-brand text-body-md font-medium">
             <Plus className="size-icon-md" />
             Create
           </div>
-          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base border border-border-brand text-fg-brand text-label-sm shadow-sh-sm">
+          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base border border-border-brand text-fg-brand text-body-md font-medium shadow-sh-sm">
             Export
             <Download className="size-icon-md" />
           </div>
-          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base bg-bg-brand-subtle text-fg-brand text-label-sm">
+          <div className="inline-flex items-center gap-gp-md min-h-form-lg px-pad-2xl rounded-radius-base bg-bg-brand-subtle text-fg-brand text-body-md font-medium">
             <Search className="size-icon-md" />
             Search
           </div>
@@ -319,30 +319,30 @@ import { Plus, Download } from "lucide-react";
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Sizing</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Sizing</p>
+            <p className="text-body-md text-fg-muted">
               Use <code className="font-mono text-code-sm text-fg-brand">size-icon-md</code> (20px) as default.
               Use <code className="font-mono text-code-sm text-fg-brand">size-icon-sm</code> (16px) for compact UI.
               Never use raw px values.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Color</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Color</p>
+            <p className="text-body-md text-fg-muted">
               Icons inherit color via <code className="font-mono text-code-sm text-fg-brand">text-fg-*</code> tokens.
               Never hardcode hex. Use <code className="font-mono text-code-sm">currentColor</code> when possible.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Accessibility</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Accessibility</p>
+            <p className="text-body-md text-fg-muted">
               Decorative icons: no extra attributes needed (Lucide hides them from screen readers).
               Meaningful icons without text: add <code className="font-mono text-code-sm text-fg-brand">aria-label</code> on the parent button.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Consistency</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Consistency</p>
+            <p className="text-body-md text-fg-muted">
               Always use <Badge color="primary" variant="soft" size="sm">lucide-react</Badge> — never mix with other icon libraries
               (Heroicons, Phosphor, etc.). One library ensures uniform stroke width and style.
             </p>
@@ -353,8 +353,8 @@ import { Plus, Download } from "lucide-react";
           <table className="w-full">
             <thead>
               <tr className="bg-bg-subtle">
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Do</th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Don't</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">Do</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">Don't</th>
               </tr>
             </thead>
             <tbody>

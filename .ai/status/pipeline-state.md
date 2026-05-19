@@ -1599,6 +1599,49 @@
   - **L-016** Componentes novos precisam atualizar `inventory.md` no MESMO commit (não em commits separados). Sem isso, próxima sessão pode duplicar trabalho. Adicionar como item explícito no checklist do `impl-igreen.md`
 - Aprovação parcial: trabalhos visualmente OK + TS limpo + nenhuma regressão. Mas governance teve dívida técnica registrada agora
 
+> NOTA: as menções a "L-015" (Pipeline gate informal) e "L-016" (inventory.md no commit) acima
+> são propostas RETROATIVAS desta entry — não foram promovidas ao `lessons.md` canônico. As lições
+> oficiais L-015 e L-016 no `lessons.md` têm conteúdos diferentes (scrollbar-width e typography
+> preset/tv.ts respectivamente).
+
+### 2026-05-19 | DS DEV (typography pipeline) | Limpeza decimais + órfãos | CONCLUÍDO
+- Input: usuário pediu auditoria + limpeza da escala tipográfica (decimais e órfãos eliminados)
+- Output: 4 Ondas executadas — `text-[10.5/11.5/12.5/13.5/14.5/15/17/22/26 px]` eliminados em 24 arquivos. Escala discreta resultante: 10/11/12/13/14/16/18/20/24 px
+- Decisões:
+  - Tier KPI Dashboard `text-[26px]` → 24px (sem preset novo)
+  - Body padrão do projeto permanece 13px (tables, dropdowns, inputs)
+  - Decimais convertidos caso-a-caso (10.5→10, 11.5→11, 12.5→12 ou 13 dependendo do contexto)
+  - Modal title `text-[17px]` → `text-[16px]` (alinhado com title tier)
+  - 14.5px (sidebar panel title) → 16px (subiu tier)
+- Audit pré: `.ai/audits/typography-inventory-2026-05-18.md` (snapshot read-only)
+- Assumption: pixels da escala discreta cobrem todos os contextos visuais sem regressão perceptível
+
+### 2026-05-19 | DS DEV (typography pipeline) | Rewrite typography.ts (32→23 presets) | CONCLUÍDO
+- Input: usuário pediu "tipografia REAL com tokens primitivos + compostos, enxuto, sem duplicidade"
+- Output: `typography.ts` reescrito completamente — 32 presets em 8 namespaces → **23 presets em 6 roles** (display/heading/title/body/caption/code)
+  - Removidos: `paragraph-*` (6), `label-*` (7), `subheading-*` (6) — 19 presets eliminados
+  - Adicionados: `body-*` (6 tiers xs/sm/md/lg/xl/2xl), `caption-md` (12/400)
+  - Title weight default: 500 → 600 (semibold) — alinhado com uso real (56× semibold vs 2× bold)
+  - Body-xs/sm interactive = 500; body-md+ corrido = 400
+- Migração em 14 ondas:
+  - Ondas 1-4: decimais e órfãos eliminados (ver entry anterior)
+  - Onda 5: typography.ts aditivo (legados + novos co-existindo)
+  - Ondas 6-10: migração de presets antigos → novos via sed (mesmos valores → zero diff visual)
+  - Ondas 11-13: substituição de literais `text-[Npx]` por presets (199 → 4 exceções)
+  - Onda 14: remoção de legados + renomear `title-*-new` → `title-*` + adicionar `caption-md` novo
+- Audit pós: `.ai/audits/typography-inventory-2026-05-19.md`
+- Spec do rewrite: `.ai/specs/typography-rewrite-2026-05-19.md`
+- Bug crítico encontrado durante validação visual (via Chrome DevTools MCP): após rewrite, botões e textos perderam font-size — caíam no default browser (16px). Root cause: `src/utils/tv.ts` (`twMergeConfig`) tinha lista desatualizada (legados, sem `body-*`) → `tailwind-merge` removia silenciosamente as classes `text-body-*` por confundir com `text-fg-X`. Fix: lista atualizada com os 23 presets novos. Promovido para lição L-016.
+- Lições novas:
+  - **L-016 (canônico em `lessons.md`)** — Novo preset em `typography.ts` exige registro IMEDIATO em `src/utils/tv.ts > twMergeConfig.extend.classGroups["font-size"][0].text`. Senão o `tailwind-merge` (usado por `tv()`) confunde com `text-fg-X` (color) e remove a classe do output final. Visual quebra silenciosamente sem erro de tsc/build.
+- Decisões arquiteturais:
+  - **6 roles** (vs 8 anteriores) — eliminação de label/paragraph/subheading namespaces, consolidação em `body` com weight default por tier
+  - **Override convencional via Tailwind nativo** — preset cobre size+lh+tracking+family; weight via `font-bold/semibold/medium/normal`; leading via `leading-X`
+  - **`caption-md` é 12/400** (não 13/400 como era no legado) — mudança semântica: caption-tier 12 era cobertura órfã, agora é o caption-padrão
+  - **`body-sm` é 13/500** (interactive) — body default do projeto. Para texto corrido 13/400, usar `text-body-sm font-normal` (override)
+  - 4 exceções de `text-[Npx]` aceitas: ícones Unicode (`text-[2rem]`, `text-[20px]` ✦/✅) + DocHeader h1 fluid (`text-[2rem]`)
+- Assumption: 23 presets cobrem 100% dos casos de uso reais sem precisar de variantes adicionais. Override via Tailwind nativo é confiável quando `twMergeConfig` está sincronizado com `typography.ts` (L-016).
+
 ---
 
 ## Índice de decisões arquiteturais
@@ -1613,3 +1656,7 @@
 | 2026-04 | bg-white em thumbs Switch/Slider | Token DS no thumb seria invisível em dark mode (L-014) |
 | 2026-04 | Skills segregadas por agente | Redução de contexto por tarefa melhora precisão sem perder informação |
 | 2026-04 | Gate obrigatório para tokens novos | Tokens são decisões de design — requerem validação humana como componentes |
+| 2026-05-19 | Typography 6 roles enxutos | 23 presets cobrem 100% dos casos sem variantes adicionais; override de weight via Tailwind nativo é semântico |
+| 2026-05-19 | Title default = weight 600 | 56× font-semibold no código real vs 2× font-bold (medição direta) |
+| 2026-05-19 | body-xs/sm default = weight 500 | Esses tiers são quase sempre interactive (button/dropdown/input); raro como texto corrido |
+| 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts | Senão tailwind-merge remove classes silenciosamente (L-016) |

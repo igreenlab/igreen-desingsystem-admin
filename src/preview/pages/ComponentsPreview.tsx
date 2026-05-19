@@ -85,7 +85,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 function Example({ label, children }: { label?: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-gp-lg">
-      {label && <p className="text-label-xs text-fg-muted uppercase tracking-wider">{label}</p>}
+      {label && <p className="text-body-xs text-fg-muted uppercase tracking-wider">{label}</p>}
       <div>{children}</div>
     </div>
   );
@@ -101,7 +101,7 @@ export function ComponentsPreview() {
     <div className="p-pad-4xl max-w-4xl mx-auto flex flex-col gap-gp-7xl">
       <div>
         <h1 className="text-heading-xs font-semibold text-fg-default">Components</h1>
-        <p className="text-paragraph-md text-fg-muted mt-gp-xs">Todos os componentes do iGreen DS.</p>
+        <p className="text-body-lg text-fg-muted mt-gp-xs">Todos os componentes do iGreen DS.</p>
       </div>
 
       {/* ── Button ──────────────────────────────────────────────────────── */}
@@ -239,11 +239,11 @@ export function ComponentsPreview() {
           <div className="flex items-center gap-gp-4xl">
             <div className="flex items-center gap-gp-xl">
               <Switch defaultChecked />
-              <span className="text-paragraph-sm">Enabled</span>
+              <span className="text-body-md">Enabled</span>
             </div>
             <div className="flex items-center gap-gp-xl">
               <Switch />
-              <span className="text-paragraph-sm">Disabled</span>
+              <span className="text-body-md">Disabled</span>
             </div>
           </div>
         </Example>
@@ -256,13 +256,13 @@ export function ComponentsPreview() {
         <Example>
           <div className="flex flex-col gap-gp-xl">
             <label className="flex items-center gap-gp-xl">
-              <Checkbox defaultChecked /> <span className="text-paragraph-sm">Checked</span>
+              <Checkbox defaultChecked /> <span className="text-body-md">Checked</span>
             </label>
             <label className="flex items-center gap-gp-xl">
-              <Checkbox /> <span className="text-paragraph-sm">Unchecked</span>
+              <Checkbox /> <span className="text-body-md">Unchecked</span>
             </label>
             <label className="flex items-center gap-gp-xl">
-              <Checkbox disabled /> <span className="text-paragraph-sm text-fg-muted">Disabled</span>
+              <Checkbox disabled /> <span className="text-body-md text-fg-muted">Disabled</span>
             </label>
           </div>
         </Example>
@@ -275,13 +275,13 @@ export function ComponentsPreview() {
         <Example>
           <RadioGroup defaultValue="option-1">
             <label className="flex items-center gap-gp-xl">
-              <RadioGroupItem value="option-1" /> <span className="text-paragraph-sm">Option 1</span>
+              <RadioGroupItem value="option-1" /> <span className="text-body-md">Option 1</span>
             </label>
             <label className="flex items-center gap-gp-xl">
-              <RadioGroupItem value="option-2" /> <span className="text-paragraph-sm">Option 2</span>
+              <RadioGroupItem value="option-2" /> <span className="text-body-md">Option 2</span>
             </label>
             <label className="flex items-center gap-gp-xl">
-              <RadioGroupItem value="option-3" /> <span className="text-paragraph-sm">Option 3</span>
+              <RadioGroupItem value="option-3" /> <span className="text-body-md">Option 3</span>
             </label>
           </RadioGroup>
         </Example>
@@ -294,7 +294,7 @@ export function ComponentsPreview() {
         <Example>
           <div className="max-w-sm flex flex-col gap-gp-lg">
             <Slider value={sliderVal} onValueChange={setSliderVal} />
-            <p className="text-paragraph-sm text-fg-muted">Value: {sliderVal[0]}</p>
+            <p className="text-body-md text-fg-muted">Value: {sliderVal[0]}</p>
           </div>
         </Example>
       </Section>
@@ -308,7 +308,7 @@ export function ComponentsPreview() {
             <Progress value={progress} />
             <div className="flex gap-gp-lg">
               <Button color="secondary" variant="outline" size="2xs" onClick={() => setProgress(Math.max(0, progress - 10))}>-10</Button>
-              <span className="text-paragraph-sm text-fg-muted">{progress}%</span>
+              <span className="text-body-md text-fg-muted">{progress}%</span>
               <Button color="secondary" variant="outline" size="2xs" onClick={() => setProgress(Math.min(100, progress + 10))}>+10</Button>
             </div>
           </div>
@@ -326,9 +326,9 @@ export function ComponentsPreview() {
               <TabsTrigger value="tab2">Password</TabsTrigger>
               <TabsTrigger value="tab3">Settings</TabsTrigger>
             </TabsList>
-            <TabsContent value="tab1"><p className="text-paragraph-sm text-fg-muted py-pad-2xl">Account settings content.</p></TabsContent>
-            <TabsContent value="tab2"><p className="text-paragraph-sm text-fg-muted py-pad-2xl">Password settings content.</p></TabsContent>
-            <TabsContent value="tab3"><p className="text-paragraph-sm text-fg-muted py-pad-2xl">General settings content.</p></TabsContent>
+            <TabsContent value="tab1"><p className="text-body-md text-fg-muted py-pad-2xl">Account settings content.</p></TabsContent>
+            <TabsContent value="tab2"><p className="text-body-md text-fg-muted py-pad-2xl">Password settings content.</p></TabsContent>
+            <TabsContent value="tab3"><p className="text-body-md text-fg-muted py-pad-2xl">General settings content.</p></TabsContent>
           </Tabs>
         </Example>
       </Section>
@@ -345,7 +345,7 @@ export function ComponentsPreview() {
                 <CardDescription>Card description goes here.</CardDescription>
               </CardHeader>
               <CardContent>
-                <p className="text-paragraph-sm text-fg-muted">Card content with some text.</p>
+                <p className="text-body-md text-fg-muted">Card content with some text.</p>
               </CardContent>
               <CardFooter>
                 <Button color="primary" variant="filled" size="sm">Action</Button>
@@ -412,7 +412,7 @@ export function ComponentsPreview() {
                 <DialogTitle>Dialog Title</DialogTitle>
                 <DialogDescription>This is a description of the dialog content.</DialogDescription>
               </DialogHeader>
-              <p className="text-paragraph-sm text-fg-muted">Dialog body content goes here.</p>
+              <p className="text-body-md text-fg-muted">Dialog body content goes here.</p>
               <DialogFooter>
                 <Button color="secondary" variant="ghost" size="sm">Cancel</Button>
                 <Button color="primary" variant="filled" size="sm">Confirm</Button>
@@ -451,9 +451,9 @@ export function ComponentsPreview() {
       <Section title="Separator">
         <Example>
           <div className="flex flex-col gap-gp-2xl">
-            <p className="text-paragraph-sm">Content above</p>
+            <p className="text-body-md">Content above</p>
             <Separator />
-            <p className="text-paragraph-sm">Content below</p>
+            <p className="text-body-md">Content below</p>
           </div>
         </Example>
       </Section>
@@ -515,7 +515,7 @@ export function ComponentsPreview() {
             >
               Abrir command palette
             </Button>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md text-fg-muted">
               Em apps reais, o trigger é tipicamente um fake input no header (ver Header template).
             </p>
             <CommandDialog open={commandOpen} onOpenChange={setCommandOpen}>

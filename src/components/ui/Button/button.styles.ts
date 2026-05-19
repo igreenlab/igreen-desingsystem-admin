@@ -4,7 +4,7 @@ import { tv, type VariantProps } from "@/utils/tv";
  * Button styles — V3 tokens (alinhado com /design-and-table-v2)
  *
  * Specs base:
- *   - font-size 13px (text-label-sm = 0.8125rem / 600)
+ *   - font-size 13px (text-body-md font-medium = 0.8125rem / 600)
  *   - border-radius 10px (rounded-radius-lg)
  *   - secondary usa fg-secondary
  *   - rings cor-pura via ring.{brand|danger|success|warning|secondary}
@@ -26,7 +26,7 @@ export const buttonVariants = tv({
     "select-none whitespace-nowrap",
     "focus-visible:outline-none",
     "border border-transparent",
-    "text-[13px] font-semibold leading-none",  // 13px / 600 — alinhado com sandbox btn
+    "text-body-sm font-semibold leading-none",  // 13px / 600 — alinhado com sandbox btn
     "[&_svg]:shrink-0",                        // SVG não diminui; tamanho controlado por size
     "transition-all duration-200 ease-out",
     "cursor-pointer",

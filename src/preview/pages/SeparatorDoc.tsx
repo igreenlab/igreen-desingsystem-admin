@@ -15,9 +15,9 @@ export function SeparatorDoc() {
       <SectionH2 id="examples" title="Examples" />
       <ExampleSection id="ex-default" title="Default" description="Horizontal separator between text blocks.">
         <div className="flex flex-col gap-gp-2xl w-full max-w-sm">
-          <p className="text-paragraph-sm">Content above</p>
+          <p className="text-body-md">Content above</p>
           <Separator />
-          <p className="text-paragraph-sm">Content below</p>
+          <p className="text-body-md">Content below</p>
         </div>
       </ExampleSection>
       <SectionH2 id="api" title="API Reference" />

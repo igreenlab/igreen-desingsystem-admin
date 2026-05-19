@@ -65,7 +65,7 @@ export function RadioGroupDoc() {
     <RadioGroupItem value="email" id="r-desc-email" className="mt-1" />
     <div className="flex flex-col gap-gp-xs">
       <Label htmlFor="r-desc-email">Email</Label>
-      <p className="text-paragraph-sm text-fg-muted">
+      <p className="text-body-md text-fg-muted">
         Get notified via email.
       </p>
     </div>
@@ -83,7 +83,7 @@ export function RadioGroupDoc() {
               <RadioGroupItem value={item.value} id={`r-desc-${item.value}`} className="mt-1" />
               <div className="flex flex-col gap-gp-xs">
                 <Label htmlFor={`r-desc-${item.value}`}>{item.label}</Label>
-                <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                <p className="text-body-md text-fg-muted">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -99,8 +99,8 @@ export function RadioGroupDoc() {
   <label className="rounded-radius-base border border-border-subtle p-pad-3xl flex items-start gap-gp-xl cursor-pointer has-[[data-state=checked]]:bg-bg-subtle">
     <RadioGroupItem value="standard" id="r-card-standard" />
     <div className="flex flex-col gap-gp-xs">
-      <span className="text-label-sm">Standard</span>
-      <span className="text-paragraph-sm text-fg-muted">4-10 business days</span>
+      <span className="text-body-md font-medium">Standard</span>
+      <span className="text-body-md text-fg-muted">4-10 business days</span>
     </div>
   </label>
   ...
@@ -118,8 +118,8 @@ export function RadioGroupDoc() {
             >
               <RadioGroupItem value={item.value} id={`r-card-${item.value}`} />
               <div className="flex flex-col gap-gp-xs">
-                <span className="text-label-sm text-fg-default">{item.label}</span>
-                <span className="text-paragraph-sm text-fg-muted">{item.desc}</span>
+                <span className="text-body-md font-medium text-fg-default">{item.label}</span>
+                <span className="text-body-md text-fg-muted">{item.desc}</span>
               </div>
             </label>
           ))}

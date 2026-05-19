@@ -149,7 +149,7 @@ export function ModalDoc() {
             onClick: () => setOpenTertiary(false),
           }}
         >
-          <p className="text-paragraph-sm text-fg-default">
+          <p className="text-body-md text-fg-default">
             Conteúdo do modal aqui. O botão "Apagar" fica à esquerda porque é a
             ação terciária — destaca semântica destrutiva sem competir com o CTA
             primário.
@@ -183,7 +183,7 @@ export function ModalDoc() {
           }}
           secondaryAction={{ label: "Cancelar" }}
         >
-          <p className="text-paragraph-sm text-fg-default">
+          <p className="text-body-md text-fg-default">
             Quando você continua, o registro vai pra lixeira e fica disponível
             por 30 dias.
           </p>
@@ -220,7 +220,7 @@ export function ModalDoc() {
               <a
                 href="#"
                 onClick={(e) => e.preventDefault()}
-                className="text-paragraph-sm text-fg-brand font-medium hover:underline"
+                className="text-body-md text-fg-brand font-medium hover:underline"
               >
                 Ler termos completos
               </a>
@@ -235,7 +235,7 @@ export function ModalDoc() {
             </>
           }
         >
-          <p className="text-paragraph-sm text-fg-default">
+          <p className="text-body-md text-fg-default">
             Ao continuar, você concorda com nossos termos de uso e política de
             privacidade. O footer dessa modal é totalmente custom — o link à
             esquerda usa justify-between automático (Modal aplica quando o footer
@@ -278,7 +278,7 @@ export function ModalDoc() {
           primaryAction={{ label: "Salvar", onClick: () => setOpenMd(false) }}
           secondaryAction={{ label: "Cancelar" }}
         >
-          <p className="text-paragraph-sm text-fg-muted">Conteúdo de exemplo.</p>
+          <p className="text-body-md text-fg-muted">Conteúdo de exemplo.</p>
         </Modal>
         <Modal
           open={openLg}
@@ -316,7 +316,7 @@ export function ModalDoc() {
           title="Aviso"
           description="Conteúdo informativo — feche pelo X ou pressione ESC"
         >
-          <p className="text-paragraph-sm text-fg-default">
+          <p className="text-body-md text-fg-default">
             Este modal não tem footer. O usuário só consegue fechar pelo botão X
             no canto superior direito, clicando fora do modal (overlay), ou
             pressionando ESC.
@@ -328,7 +328,7 @@ export function ModalDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Modal</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Composto sobre <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">Dialog</code> do shadcn (Radix Dialog).
           O X de fechar, lock de scroll, ESC handler e overlay vêm prontos.
         </p>
@@ -337,7 +337,7 @@ export function ModalDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">ModalAction</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Shape passado em <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">primaryAction</code>,
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">secondaryAction</code> e
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">tertiaryAction</code>.

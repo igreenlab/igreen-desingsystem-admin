@@ -242,7 +242,7 @@ export function DialogDoc() {
       </DialogDescription>
     </DialogHeader>
     <div className="max-h-[300px] overflow-y-auto pr-pad-md">
-      <div className="flex flex-col gap-gp-3xl text-paragraph-sm text-fg-muted">
+      <div className="flex flex-col gap-gp-3xl text-body-md text-fg-muted">
         <p>...</p>
       </div>
     </div>
@@ -269,7 +269,7 @@ export function DialogDoc() {
               </DialogDescription>
             </DialogHeader>
             <div className="max-h-[300px] overflow-y-auto pr-pad-md">
-              <div className="flex flex-col gap-gp-3xl text-paragraph-sm text-fg-muted">
+              <div className="flex flex-col gap-gp-3xl text-body-md text-fg-muted">
                 <p>
                   This Software License Agreement ("Agreement") is entered into
                   as of the date of acceptance by the end user ("Licensee") and

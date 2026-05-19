@@ -33,12 +33,12 @@ function TierCard({
       style={{ borderLeftWidth: 4, borderLeftColor: color }}
     >
       <div className="flex items-center justify-between gap-gp-md mb-gp-md">
-        <p className="text-label-sm font-semibold text-fg-default">
+        <p className="text-body-md font-medium font-semibold text-fg-default">
           <span style={{ color }}>Tier {num}</span> — {label}
         </p>
         <Badge color="secondary" variant="outline" size="sm">{consumers}</Badge>
       </div>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-md">{desc}</p>
+      <p className="text-body-md text-fg-muted mb-gp-md">{desc}</p>
       <div className="border-t border-border-subtle pt-pad-md">
         <p className="text-caption-sm text-fg-subtle mb-gp-sm">Files:</p>
         <div className="flex flex-wrap gap-gp-xs">
@@ -66,10 +66,10 @@ function PrefixRow({
 }) {
   return (
     <tr className="border-b border-border-subtle">
-      <td className="py-pad-md pr-pad-xl text-label-xs text-fg-default font-mono">{prefix}</td>
+      <td className="py-pad-md pr-pad-xl text-body-xs text-fg-default font-mono">{prefix}</td>
       <td className="py-pad-md pr-pad-xl text-code-sm text-fg-brand font-mono">{cssVar}</td>
       <td className="py-pad-md pr-pad-xl text-code-sm text-fg-default font-mono">{cssClass}</td>
-      <td className="py-pad-md pr-pad-xl text-paragraph-sm text-fg-muted">{example}</td>
+      <td className="py-pad-md pr-pad-xl text-body-md text-fg-muted">{example}</td>
       <td className="py-pad-md text-caption-sm text-fg-subtle line-through">{avoid}</td>
     </tr>
   );
@@ -88,7 +88,7 @@ export function TokensOverviewDoc() {
       {/* Why */}
       <SectionH2 id="what" title="Why Tokens" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tokens são a única fonte de verdade do visual. Cada cor, spacing, radius, shadow e tipografia é
           declarada uma vez em um arquivo TypeScript. O transform principal gera o tema Tailwind v4 — toda
           mudança em um token atualiza automaticamente cada classe consumida pelos componentes.
@@ -101,8 +101,8 @@ export function TokensOverviewDoc() {
             { title: "Reversible", desc: "Tokens em git. Auditoria de mudança é git log/blame — sem mistério." },
           ].map((p) => (
             <div key={p.title} className="rounded-radius-base border border-border-subtle p-pad-3xl">
-              <p className="text-label-sm text-fg-default mb-gp-sm">{p.title}</p>
-              <p className="text-paragraph-sm text-fg-muted">{p.desc}</p>
+              <p className="text-body-md font-medium text-fg-default mb-gp-sm">{p.title}</p>
+              <p className="text-body-md text-fg-muted">{p.desc}</p>
             </div>
           ))}
         </div>
@@ -111,7 +111,7 @@ export function TokensOverviewDoc() {
       {/* Tiers */}
       <SectionH2 id="tiers" title="3 Tiers" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A arquitetura é estritamente hierárquica. Tier 1 nunca aparece em componente. Tier 2 é a API pública.
           Tier 2.5 cobre escalas component-specific (form, icon, container).
         </p>
@@ -154,7 +154,7 @@ export function TokensOverviewDoc() {
       {/* Folders */}
       <SectionH2 id="folders" title="Folder Layout" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tudo vive em <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">tokens/brands/default/</code>.
           A pasta <code className="font-mono text-code-sm">brands/</code> existe para multi-brand futuro — hoje só temos a default.
         </p>
@@ -190,7 +190,7 @@ export function TokensOverviewDoc() {
       {/* Naming */}
       <SectionH2 id="naming" title="Naming Convention (V3)" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           O DS usa nomenclatura V3: <strong className="text-fg-default">brand</strong> em vez de <code className="font-mono text-code-sm">primary</code>,{" "}
           <strong className="text-fg-default">danger</strong> em vez de <code className="font-mono text-code-sm">critical</code>,{" "}
           <strong className="text-fg-default">default</strong> em vez de <code className="font-mono text-code-sm">foreground</code>.
@@ -198,9 +198,9 @@ export function TokensOverviewDoc() {
         </p>
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
           <div className="grid grid-cols-[160px_160px_1fr] gap-0 bg-bg-subtle border-b border-border-subtle">
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">V2 (obsoleto)</div>
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">V3 (atual)</div>
-            <div className="py-pad-md px-pad-xl text-label-xs text-fg-default font-medium">Onde aparece</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">V2 (obsoleto)</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">V3 (atual)</div>
+            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">Onde aparece</div>
           </div>
           {[
             { old: "primary", new: "brand", where: "Cor da marca (bg-bg-brand, ring-ring-brand, fg-on-brand)" },
@@ -211,7 +211,7 @@ export function TokensOverviewDoc() {
             <div key={r.old} className="grid grid-cols-[160px_160px_1fr] gap-0 border-t border-border-subtle">
               <div className="py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-subtle line-through">{r.old}</code></div>
               <div className="py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">{r.new}</code></div>
-              <div className="py-pad-md px-pad-xl text-paragraph-sm text-fg-muted">{r.where}</div>
+              <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">{r.where}</div>
             </div>
           ))}
         </div>
@@ -220,7 +220,7 @@ export function TokensOverviewDoc() {
       {/* Prefixes */}
       <SectionH2 id="prefixes" title="Anti-collision Prefixes" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tailwind v4 gera utility classes a partir de <code className="font-mono text-code-sm">@theme</code>.
           Sem prefixos, nossos tokens sobrescreveriam classes nativas (<code className="font-mono text-code-sm">gap-md</code>,{" "}
           <code className="font-mono text-code-sm">rounded-lg</code>). Os prefixos resolvem.
@@ -229,11 +229,11 @@ export function TokensOverviewDoc() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-border-subtle">
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">Token</th>
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">CSS Var</th>
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">Class</th>
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">Example</th>
-                <th className="pb-pad-md text-label-xs text-fg-default">Avoids</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">Token</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">CSS Var</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">Class</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">Example</th>
+                <th className="pb-pad-md text-body-xs text-fg-default">Avoids</th>
               </tr>
             </thead>
             <tbody>
@@ -253,27 +253,27 @@ export function TokensOverviewDoc() {
       {/* Aliases */}
       <SectionH2 id="aliases" title="Aliases & on-* Pattern" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           O DS tem dois padrões de "texto sobre fundo" — eles parecem similares mas resolvem problemas diferentes.
         </p>
         <div className="grid grid-cols-2 gap-gp-3xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md"><code className="font-mono text-code-sm">on-*</code> — texto sobre cor de marca</p>
-            <p className="text-paragraph-sm text-fg-muted mb-gp-md">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md"><code className="font-mono text-code-sm">on-*</code> — texto sobre cor de marca</p>
+            <p className="text-body-md text-fg-muted mb-gp-md">
               Quando o fundo É uma cor específica (bg.brand, bg.danger). Existe pra cada cor semântica.
             </p>
-            <ul className="list-disc pl-sp-md flex flex-col gap-gp-xs text-paragraph-sm text-fg-muted">
+            <ul className="list-disc pl-sp-md flex flex-col gap-gp-xs text-body-md text-fg-muted">
               <li><code className="font-mono text-code-sm">fg.on-brand</code> → texto sobre bg.brand</li>
               <li><code className="font-mono text-code-sm">fg.on-danger</code> → texto sobre bg.danger</li>
               <li><code className="font-mono text-code-sm">fg.on-success</code> → texto sobre bg.success</li>
             </ul>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md"><code className="font-mono text-code-sm">*-inverted</code> — papel neutro invertido</p>
-            <p className="text-paragraph-sm text-fg-muted mb-gp-md">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md"><code className="font-mono text-code-sm">*-inverted</code> — papel neutro invertido</p>
+            <p className="text-body-md text-fg-muted mb-gp-md">
               Quando o papel é o mesmo mas o contexto inverteu (ex: tooltip escuro num tema light).
             </p>
-            <ul className="list-disc pl-sp-md flex flex-col gap-gp-xs text-paragraph-sm text-fg-muted">
+            <ul className="list-disc pl-sp-md flex flex-col gap-gp-xs text-body-md text-fg-muted">
               <li><code className="font-mono text-code-sm">fg.default-inverted</code> → texto sobre surface invertida</li>
               <li><code className="font-mono text-code-sm">bg.surface-inverted</code> → tooltip, toast escuro</li>
             </ul>
@@ -284,7 +284,7 @@ export function TokensOverviewDoc() {
       {/* Dark Mode */}
       <SectionH2 id="dark-mode" title="Dark Mode" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Dark mode é só um override de CSS vars sob <code className="font-mono text-code-sm">.dark {"{}"}</code>.
           Componentes não precisam de lógica — CSS resolve sozinho.
         </p>
@@ -299,7 +299,7 @@ export function TokensOverviewDoc() {
   --color-ring-brand: color-mix(in oklch, oklch(0.696 0.17 150.5) 33%, transparent);
 }`}</pre>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Regras críticas do dark (L-008 a L-011): hierarquia bg crescente (canvas {"<"} surface {"<"} subtle {"<"} muted),
           border ≥ surface + 6% lightness, shadows {"≥"} 2× light, rings {"≥"} 1.5× alpha.
         </p>
@@ -308,7 +308,7 @@ export function TokensOverviewDoc() {
       {/* Flow */}
       <SectionH2 id="flow" title="Token-to-CSS Flow" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           O fluxo é unidirecional. Você edita um arquivo <code className="font-mono text-code-sm">.ts</code>,
           roda o transform, e o CSS gerado é importado pelo app.
         </p>
@@ -325,7 +325,7 @@ export function TokensOverviewDoc() {
           <span className="text-fg-subtle">→</span>
           <Badge color="secondary" variant="outline" size="md">Component</Badge>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Para detalhes do transform e como o <code className="font-mono text-code-sm">@theme</code> block é gerado,
           veja <strong className="text-fg-default">Get Started → Transform Tokens</strong>.
         </p>

@@ -8,7 +8,7 @@ export const drawerFormStyles = tv({
   slots: {
     twoCols: "grid grid-cols-2 gap-gp-xl",
     fieldLabel:
-      "text-[12.5px] font-semibold tracking-[0.01em] leading-none text-fg-default dark:text-fg-muted select-none",
+      "text-body-sm font-semibold tracking-[0.01em] leading-none text-fg-default dark:text-fg-muted select-none",
     statusDot: "inline-block size-[8px] rounded-radius-full mr-gp-xs shrink-0",
   },
 });

@@ -23,10 +23,10 @@ function CodeBlock({ children }: { children: string }) {
 function PrefixRow({ token, cssVar, cssClass, avoids }: { token: string; cssVar: string; cssClass: string; avoids: string }) {
   return (
     <tr className="border-b border-border-subtle">
-      <td className="py-pad-md pr-pad-xl text-label-xs text-fg-default font-mono">{token}</td>
+      <td className="py-pad-md pr-pad-xl text-body-xs text-fg-default font-mono">{token}</td>
       <td className="py-pad-md pr-pad-xl text-code-sm text-fg-brand font-mono">{cssVar}</td>
       <td className="py-pad-md pr-pad-xl text-code-sm text-fg-default font-mono">{cssClass}</td>
-      <td className="py-pad-md text-paragraph-sm text-fg-muted">{avoids}</td>
+      <td className="py-pad-md text-body-md text-fg-muted">{avoids}</td>
     </tr>
   );
 }
@@ -44,12 +44,12 @@ export function TransformTokensDoc() {
       {/* Overview */}
       <SectionH2 id="overview" title="Overview" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tokens are authored as plain TypeScript objects. A <strong className="text-fg-default">transform</strong> reads
           these objects and generates output for a target platform. The primary transform generates a
           Tailwind v4 theme CSS file that maps every token to a CSS custom property.
         </p>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           This approach means tokens are the single source of truth — changing a value in{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">spacing.ts</code> automatically
           updates every Tailwind class that references it after running the transform command.
@@ -59,7 +59,7 @@ export function TransformTokensDoc() {
       {/* Pipeline */}
       <SectionH2 id="pipeline" title="Pipeline" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">The data flows in one direction:</p>
+        <p className="text-body-md text-fg-muted">The data flows in one direction:</p>
         <div className="flex items-center gap-gp-xl flex-wrap">
           <Badge color="secondary" variant="outline" size="md">Primitives (.ts)</Badge>
           <span className="text-fg-subtle">→</span>
@@ -76,11 +76,11 @@ export function TransformTokensDoc() {
           <Badge color="secondary" variant="outline" size="md">Component</Badge>
         </div>
 
-        <p className="text-paragraph-sm text-fg-muted mt-gp-xl">
+        <p className="text-body-md text-fg-muted mt-gp-xl">
           The transform file <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">to-tailwind-v4.ts</code> imports
           all semantic token files, flattens nested objects into CSS variable names, and outputs three blocks:
         </p>
-        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-paragraph-sm text-fg-muted">
+        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
           <li><strong className="text-fg-default">@theme {"{ }"}</strong> — CSS vars that Tailwind v4 registers as utility classes</li>
           <li><strong className="text-fg-default">.dark {"{ }"}</strong> — Color and shadow overrides for dark mode</li>
           <li><strong className="text-fg-default">@utility text-* {"{ }"}</strong> — Composite typography presets</li>
@@ -90,7 +90,7 @@ export function TransformTokensDoc() {
       {/* Prefixes */}
       <SectionH2 id="prefixes" title="Anti-Collision Prefixes" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Tailwind v4 automatically creates utility classes from CSS vars registered in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">@theme</code>.
           Without prefixes, our token names would override Tailwind built-ins (e.g.{" "}
           <code className="font-mono text-code-sm">--spacing-sm</code> would break{" "}
@@ -100,10 +100,10 @@ export function TransformTokensDoc() {
           <table className="w-full text-left">
             <thead>
               <tr className="border-b border-border-subtle">
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">Token</th>
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">CSS Var</th>
-                <th className="pb-pad-md pr-pad-xl text-label-xs text-fg-default">Class</th>
-                <th className="pb-pad-md text-label-xs text-fg-default">Avoids collision with</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">Token</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">CSS Var</th>
+                <th className="pb-pad-md pr-pad-xl text-body-xs text-fg-default">Class</th>
+                <th className="pb-pad-md text-body-xs text-fg-default">Avoids collision with</th>
               </tr>
             </thead>
             <tbody>
@@ -123,7 +123,7 @@ export function TransformTokensDoc() {
       {/* @theme block */}
       <SectionH2 id="theme-css" title="@theme Block" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">@theme</code> block
           registers CSS vars so Tailwind v4 generates utility classes automatically. Example output:
         </p>
@@ -159,7 +159,7 @@ export function TransformTokensDoc() {
       {/* Dark Mode */}
       <SectionH2 id="dark-mode" title="Dark Mode" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Dark mode is a simple CSS class override. The same variable names get different values:
         </p>
         <CodeBlock>{`.dark {
@@ -173,7 +173,7 @@ export function TransformTokensDoc() {
   --shadow-sh-md: 0 4px 6px -1px oklch(0 0 0 / 0.4), ...;
   --color-ring-brand: color-mix(in oklch, oklch(0.696 0.17 150.5) 33%, transparent);
 }`}</CodeBlock>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Components don't need any dark mode logic — CSS vars resolve to the correct values automatically.
           Toggle by adding/removing the <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.dark</code> class on the root element.
         </p>
@@ -182,11 +182,11 @@ export function TransformTokensDoc() {
       {/* Typography Utilities */}
       <SectionH2 id="typography-utils" title="Typography Utilities" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Typography presets are composite — they set font-size, line-height, weight, letter-spacing, and
           font-family in one class. These are generated as <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">@utility</code> blocks:
         </p>
-        <CodeBlock>{`@utility text-label-sm {
+        <CodeBlock>{`@utility text-body-md font-medium {
   font-size: 0.8125rem;
   line-height: 1.25rem;
   font-weight: 500;
@@ -194,7 +194,7 @@ export function TransformTokensDoc() {
   font-family: 'Geist', sans-serif;
 }
 
-@utility text-paragraph-sm {
+@utility text-body-md {
   font-size: 0.8125rem;
   line-height: 1.375rem;
   font-weight: 400;
@@ -209,8 +209,8 @@ export function TransformTokensDoc() {
   letter-spacing: -0.01em;
   font-family: 'Geist', sans-serif;
 }`}</CodeBlock>
-        <p className="text-paragraph-sm text-fg-muted">
-          Use these instead of raw Tailwind typography classes. <code className="font-mono text-code-sm">text-label-sm</code> replaces{" "}
+        <p className="text-body-md text-fg-muted">
+          Use these instead of raw Tailwind typography classes. <code className="font-mono text-code-sm">text-body-md font-medium</code> replaces{" "}
           <code className="font-mono text-code-sm">text-sm font-medium</code>.
         </p>
       </div>
@@ -221,19 +221,19 @@ export function TransformTokensDoc() {
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:tw4</code>
-            <span className="text-paragraph-sm text-fg-muted">Generate Tailwind v4 theme CSS (primary)</span>
+            <span className="text-body-md text-fg-muted">Generate Tailwind v4 theme CSS (primary)</span>
           </div>
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:css</code>
-            <span className="text-paragraph-sm text-fg-muted">Generate vanilla CSS custom properties</span>
+            <span className="text-body-md text-fg-muted">Generate vanilla CSS custom properties</span>
           </div>
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:dtcg</code>
-            <span className="text-paragraph-sm text-fg-muted">Generate JSON tokens for Figma import</span>
+            <span className="text-body-md text-fg-muted">Generate JSON tokens for Figma import</span>
           </div>
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl">
             <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:all</code>
-            <span className="text-paragraph-sm text-fg-muted">Run all transforms at once</span>
+            <span className="text-body-md text-fg-muted">Run all transforms at once</span>
           </div>
         </div>
       </div>
@@ -241,13 +241,13 @@ export function TransformTokensDoc() {
       {/* Consuming */}
       <SectionH2 id="consuming" title="Consuming Tokens" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           After running the transform, import the generated CSS in your app's stylesheet:
         </p>
         <CodeBlock>{`/* app.css */
 @import "tailwindcss";
 @import "@igreen/design-system/theme.css";`}</CodeBlock>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           All DS utility classes are now available in your Tailwind markup:
         </p>
         <CodeBlock>{`<!-- Spacing -->

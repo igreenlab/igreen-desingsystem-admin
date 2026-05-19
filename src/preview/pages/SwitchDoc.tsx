@@ -50,7 +50,7 @@ export function SwitchDoc() {
         code={`<div className="flex items-start gap-gp-3xl">
   <div className="flex flex-col gap-gp-xs flex-1">
     <Label htmlFor="sw-desc">Share across devices</Label>
-    <p className="text-paragraph-sm text-fg-muted">
+    <p className="text-body-md text-fg-muted">
       Focus mode is shared across all your signed-in devices.
     </p>
   </div>
@@ -60,7 +60,7 @@ export function SwitchDoc() {
         <div className="flex items-start gap-gp-3xl w-full max-w-sm">
           <div className="flex flex-col gap-gp-xs flex-1">
             <Label htmlFor="sw-desc">Share across devices</Label>
-            <p className="text-paragraph-sm text-fg-muted">Focus mode is shared across all your signed-in devices.</p>
+            <p className="text-body-md text-fg-muted">Focus mode is shared across all your signed-in devices.</p>
           </div>
           <Switch id="sw-desc" />
         </div>
@@ -74,15 +74,15 @@ export function SwitchDoc() {
         code={`<div className="rounded-radius-base border border-border-default divide-y divide-border-default w-full max-w-sm">
   <div className="flex items-center justify-between p-pad-3xl">
     <div className="flex flex-col gap-gp-xs">
-      <span className="text-label-sm">Wi-Fi</span>
-      <span className="text-paragraph-sm text-fg-muted">Connect to wireless networks.</span>
+      <span className="text-body-md font-medium">Wi-Fi</span>
+      <span className="text-body-md text-fg-muted">Connect to wireless networks.</span>
     </div>
     <Switch id="sw-wifi" defaultChecked />
   </div>
   <div className="flex items-center justify-between p-pad-3xl">
     <div className="flex flex-col gap-gp-xs">
-      <span className="text-label-sm">Bluetooth</span>
-      <span className="text-paragraph-sm text-fg-muted">Allow Bluetooth connections.</span>
+      <span className="text-body-md font-medium">Bluetooth</span>
+      <span className="text-body-md text-fg-muted">Allow Bluetooth connections.</span>
     </div>
     <Switch id="sw-bt" />
   </div>
@@ -96,8 +96,8 @@ export function SwitchDoc() {
           ].map((item) => (
             <div key={item.id} className="flex items-center justify-between p-pad-3xl">
               <div className="flex flex-col gap-gp-xs">
-                <span className="text-label-sm text-fg-default">{item.label}</span>
-                <span className="text-paragraph-sm text-fg-muted">{item.desc}</span>
+                <span className="text-body-md font-medium text-fg-default">{item.label}</span>
+                <span className="text-body-md text-fg-muted">{item.desc}</span>
               </div>
               <Switch id={item.id} defaultChecked={item.on} />
             </div>
@@ -161,7 +161,7 @@ function ControlledSwitchExample() {
     />
     <Label htmlFor="sw-controlled">Marketing emails</Label>
   </div>
-  <p className="text-paragraph-sm text-fg-muted">
+  <p className="text-body-md text-fg-muted">
     Marketing emails are {enabled ? "enabled" : "disabled"}.
   </p>
 </div>`}
@@ -175,7 +175,7 @@ function ControlledSwitchExample() {
           />
           <Label htmlFor="sw-controlled">Marketing emails</Label>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Marketing emails are {enabled ? "enabled" : "disabled"}.
         </p>
       </div>

@@ -130,7 +130,7 @@ export function DataTableGroupHeaderRow<T>({
             data-field={field}
             className={cn(
               "shrink-0 flex items-center px-pad-2xl gap-gp-md",
-              "text-label-sm text-fg-strong",
+              "text-body-md font-medium text-fg-strong",
               isPinned && "sticky z-[5] bg-bg-subtle",
             )}
             style={cellStyle}

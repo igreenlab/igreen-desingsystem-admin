@@ -160,7 +160,7 @@ export function PanelDoc() {
           title="Panel pequeno"
           description="Width 320px — útil pra filters ou inspectors."
         >
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Conteúdo do panel pequeno. Útil pra mostrar detalhes rápidos sem
             ocupar muito espaço.
           </p>
@@ -177,7 +177,7 @@ export function PanelDoc() {
             </Button>
           }
         >
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Conteúdo amplo aqui. 720px de largura cabe forms com 2 colunas, tabelas
             inline, etc.
           </p>
@@ -206,7 +206,7 @@ export function PanelDoc() {
           side="left"
           title="Panel à esquerda"
         >
-          <p className="text-paragraph-sm text-fg-muted">Slide-in da esquerda.</p>
+          <p className="text-body-md text-fg-muted">Slide-in da esquerda.</p>
         </Panel>
         <Panel
           open={openBottom}
@@ -214,7 +214,7 @@ export function PanelDoc() {
           side="bottom"
           title="Panel inferior"
         >
-          <p className="text-paragraph-sm text-fg-muted">Slide-in de baixo.</p>
+          <p className="text-body-md text-fg-muted">Slide-in de baixo.</p>
         </Panel>
       </ExampleSection>
 
@@ -238,16 +238,16 @@ export function PanelDoc() {
         >
           <dl className="flex flex-col gap-gp-2xl">
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">Nome</dt>
-              <dd className="text-paragraph-md text-fg-default mt-gp-xs">João Silva</dd>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">Nome</dt>
+              <dd className="text-body-lg text-fg-default mt-gp-xs">João Silva</dd>
             </div>
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">E-mail</dt>
-              <dd className="text-paragraph-md text-fg-default mt-gp-xs">joao@empresa.com</dd>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">E-mail</dt>
+              <dd className="text-body-lg text-fg-default mt-gp-xs">joao@empresa.com</dd>
             </div>
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">Telefone</dt>
-              <dd className="text-paragraph-md text-fg-default mt-gp-xs">+55 11 99999-9999</dd>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">Telefone</dt>
+              <dd className="text-body-lg text-fg-default mt-gp-xs">+55 11 99999-9999</dd>
             </div>
           </dl>
         </Panel>
@@ -277,7 +277,7 @@ export function PanelDoc() {
             </Button>
           }
         >
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vou repetir
             esse texto pra simular um documento longo...
           </p>
@@ -315,10 +315,10 @@ export function PanelDoc() {
           }
         >
           <div className="flex flex-col gap-gp-xl">
-            <p className="text-paragraph-md text-fg-default">
+            <p className="text-body-lg text-fg-default">
               Tem certeza que deseja excluir <strong>João Silva</strong>?
             </p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md text-fg-muted">
               Todos os tickets associados serão arquivados. Esta ação não pode
               ser desfeita.
             </p>

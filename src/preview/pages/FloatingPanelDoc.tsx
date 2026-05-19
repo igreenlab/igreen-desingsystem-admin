@@ -127,7 +127,7 @@ export function FloatingPanelDoc() {
           }
         >
           <div className="flex flex-col gap-gp-xl p-pad-3xl">
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md text-fg-muted">
               Conteúdo do detail panel. A tabela atrás <strong>continua interativa</strong>:
               você pode clicar em outras rows, scrollar, filtrar — tudo isso sem fechar o
               FloatingPanel.
@@ -160,7 +160,7 @@ export function FloatingPanelDoc() {
           resizable
           resizableStorageKey="doc.floating-panel.resizable-demo"
         >
-          <div className="flex flex-col gap-gp-xl p-pad-3xl text-paragraph-sm text-fg-muted">
+          <div className="flex flex-col gap-gp-xl p-pad-3xl text-body-md text-fg-muted">
             <p>
               Posicione o cursor no <strong>edge esquerdo</strong> do panel — uma linha
               vertical sutil aparece. Clique e arraste pra ajustar.
@@ -197,7 +197,7 @@ export function FloatingPanelDoc() {
             </Button>
           }
         >
-          <div className="flex flex-col gap-gp-xl p-pad-3xl text-paragraph-sm text-fg-muted">
+          <div className="flex flex-col gap-gp-xl p-pad-3xl text-body-md text-fg-muted">
             <p>
               Use o botão de <strong>maximize</strong> no header (próximo ao X) pra
               expandir o panel pra quase a tela inteira. Clique de novo no mesmo botão
@@ -238,7 +238,7 @@ export function FloatingPanelDoc() {
           title="Panel SM"
           description="320px — info / preview"
         >
-          <p className="text-paragraph-sm text-fg-muted p-pad-3xl">
+          <p className="text-body-md text-fg-muted p-pad-3xl">
             Tamanho mínimo confortável pra labels + valores curtos.
           </p>
         </FloatingPanel>
@@ -249,7 +249,7 @@ export function FloatingPanelDoc() {
           title="Panel LG"
           description="560px — forms ou conteúdo denso"
         >
-          <p className="text-paragraph-sm text-fg-muted p-pad-3xl">
+          <p className="text-body-md text-fg-muted p-pad-3xl">
             Cabe forms com 2 colunas ou listas com mais informação por row.
           </p>
         </FloatingPanel>
@@ -260,7 +260,7 @@ export function FloatingPanelDoc() {
           title="Panel XL"
           description="720px — máximo recomendado pra panel non-modal"
         >
-          <p className="text-paragraph-sm text-fg-muted p-pad-3xl">
+          <p className="text-body-md text-fg-muted p-pad-3xl">
             Pra conteúdo ainda maior, considere usar `&lt;Panel&gt;` (modal) ou uma tela
             dedicada — non-modal grande demais começa a competir com o conteúdo atrás.
           </p>
@@ -284,7 +284,7 @@ export function FloatingPanelDoc() {
           title="Panel à esquerda"
           resizable
         >
-          <p className="text-paragraph-sm text-fg-muted p-pad-3xl">
+          <p className="text-body-md text-fg-muted p-pad-3xl">
             Slide-in da esquerda. Resize handle no edge direito.
           </p>
         </FloatingPanel>
@@ -322,15 +322,15 @@ export function FloatingPanelDoc() {
           titleSlot={
             <div className="flex items-center gap-gp-md min-w-0">
               <Avatar className="size-[40px] shrink-0" style={{ background: "#0fc589" }}>
-                <AvatarFallback className="bg-transparent text-white text-[14px] font-bold">
+                <AvatarFallback className="bg-transparent text-white text-body-md font-bold">
                   MS
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col min-w-0 flex-1">
-                <div className="text-[15px] font-semibold text-fg-default truncate">
+                <div className="text-body-md font-semibold text-fg-default truncate">
                   Maria Silva
                 </div>
-                <div className="flex items-center gap-[6px] mt-[2px] text-[12px] text-fg-muted">
+                <div className="flex items-center gap-[6px] mt-[2px] text-body-xs font-normal text-fg-muted">
                   <span>CLI-2401</span>
                   <span className="opacity-50">·</span>
                   <Chip color="success" variant="soft" size="sm" shape="pill">
@@ -363,7 +363,7 @@ export function FloatingPanelDoc() {
             </>
           }
         >
-          <div className="flex flex-col gap-gp-xl p-pad-3xl text-paragraph-sm text-fg-muted">
+          <div className="flex flex-col gap-gp-xl p-pad-3xl text-body-md text-fg-muted">
             <p>
               Esse é o pattern usado no <strong>DetailDrawer</strong> da página de
               CRUD — header rico com avatar + nome + ID + status, mais botões de Edit e
@@ -394,15 +394,15 @@ export function FloatingPanelDoc() {
         >
           <dl className="flex flex-col gap-gp-2xl p-pad-3xl">
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">Nome</dt>
-              <dd className="text-paragraph-md text-fg-default mt-gp-xs">Maria Silva</dd>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">Nome</dt>
+              <dd className="text-body-lg text-fg-default mt-gp-xs">Maria Silva</dd>
             </div>
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">E-mail</dt>
-              <dd className="text-paragraph-md text-fg-default mt-gp-xs">maria@example.com</dd>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">E-mail</dt>
+              <dd className="text-body-lg text-fg-default mt-gp-xs">maria@example.com</dd>
             </div>
             <div>
-              <dt className="text-label-xs text-fg-subtle uppercase tracking-wider">Status</dt>
+              <dt className="text-body-xs text-fg-subtle uppercase tracking-wider">Status</dt>
               <dd className="mt-gp-xs">
                 <Chip color="success" variant="soft" size="sm" shape="pill">Ativo</Chip>
               </dd>

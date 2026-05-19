@@ -14,7 +14,7 @@ export function ExampleSection({ id, title, description, code, children }: {
   return (
     <div className="mb-14" id={id}>
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">{title}</h3>
-      {description && <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">{description}</p>}
+      {description && <p className="text-body-md text-fg-muted mb-gp-2xl">{description}</p>}
 
       {/* Tab bar */}
       <div className="flex items-center justify-between mb-gp-xl">

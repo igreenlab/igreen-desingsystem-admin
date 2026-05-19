@@ -25,7 +25,7 @@ function SkillRow({
     <div className="flex items-start gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
       <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-[260px]">{path}</code>
       <Badge color="secondary" variant="outline" size="sm" className="shrink-0 min-w-[100px]">{agent}</Badge>
-      <span className="text-paragraph-sm text-fg-muted flex-1">{desc}</span>
+      <span className="text-body-md text-fg-muted flex-1">{desc}</span>
       {tag && <Badge color="primary" variant="soft" size="sm" className="shrink-0">{tag}</Badge>}
     </div>
   );
@@ -44,7 +44,7 @@ export function PipelineSkillsDoc() {
       {/* What */}
       <SectionH2 id="what" title="What are Skills" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           A <strong className="text-fg-default">Skill</strong> is a single-purpose Markdown file under <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/skills/&lt;agent&gt;/</code>.
           It contains everything an agent needs to perform one task: input contract, template code, checklist,
           and the signal it must emit when done. Skills replace the &ldquo;super-prompt&rdquo; pattern with focused, swappable units.
@@ -57,8 +57,8 @@ export function PipelineSkillsDoc() {
             { title: "Invocable explicitly", desc: "Loaded via SkillTool or slash command — never relied on from session memory." },
           ].map((p) => (
             <div key={p.title} className="rounded-radius-base border border-border-subtle p-pad-3xl">
-              <p className="text-label-sm text-fg-default mb-gp-sm">{p.title}</p>
-              <p className="text-paragraph-sm text-fg-muted">{p.desc}</p>
+              <p className="text-body-md font-medium text-fg-default mb-gp-sm">{p.title}</p>
+              <p className="text-body-md text-fg-muted">{p.desc}</p>
             </div>
           ))}
         </div>
@@ -90,19 +90,19 @@ export function PipelineSkillsDoc() {
       {/* Loading */}
       <SectionH2 id="loading" title="How Skills Load" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">Two ways an agent loads a skill — both explicit, never implicit:</p>
+        <p className="text-body-md text-fg-muted">Two ways an agent loads a skill — both explicit, never implicit:</p>
         <div className="grid grid-cols-2 gap-gp-3xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">1. Slash command</p>
-            <p className="text-paragraph-sm text-fg-muted mb-gp-md">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">1. Slash command</p>
+            <p className="text-body-md text-fg-muted mb-gp-md">
               User types <code className="font-mono text-code-sm">/ds-create-component Button</code>. The command file in{" "}
               <code className="font-mono text-code-sm">.claude/commands/</code> points to the skill to load.
             </p>
             <Badge color="success" variant="soft" size="sm">User-triggered</Badge>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">2. SkillTool invocation</p>
-            <p className="text-paragraph-sm text-fg-muted mb-gp-md">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">2. SkillTool invocation</p>
+            <p className="text-body-md text-fg-muted mb-gp-md">
               Agent invokes <code className="font-mono text-code-sm">Skill(impl-igreen)</code> from within its workflow.
               The skill content is injected as a system message — never relied on from memory.
             </p>
@@ -114,7 +114,7 @@ export function PipelineSkillsDoc() {
       {/* Catalog */}
       <SectionH2 id="catalog" title="Skill Catalog" />
       <div className="flex flex-col gap-gp-xs mb-14">
-        <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">
+        <p className="text-body-md text-fg-muted mb-gp-2xl">
           Current skills shipped with the pipeline. Each one is callable via slash command or SkillTool.
         </p>
         <SkillRow path="spec-token-color" agent="DS Designer" desc="Specify new color tokens including dark mode + on-* variants" />
@@ -145,12 +145,12 @@ export function PipelineSkillsDoc() {
               { step: "5", title: "Audit", desc: "Entry appended to .ai/status/pipeline-state.md with the assumption that justified the decision." },
             ].map((item) => (
               <div key={item.step} className="flex gap-gp-2xl">
-                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold bg-bg-brand text-fg-on-brand">
+                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-body-md font-medium font-semibold bg-bg-brand text-fg-on-brand">
                   {item.step}
                 </div>
                 <div>
-                  <p className="text-label-sm text-fg-default mb-gp-xs">{item.title}</p>
-                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                  <p className="text-body-md font-medium text-fg-default mb-gp-xs">{item.title}</p>
+                  <p className="text-body-md text-fg-muted">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -162,8 +162,8 @@ export function PipelineSkillsDoc() {
       <SectionH2 id="vs-rules" title="Skills vs Rules" />
       <div className="grid grid-cols-2 gap-gp-3xl mb-14">
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Skills</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Skills</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Loaded on-demand</li>
             <li>One skill = one task</li>
             <li>Contains a template + checklist</li>
@@ -172,8 +172,8 @@ export function PipelineSkillsDoc() {
           </ul>
         </div>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Rules</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Rules</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Auto-loaded by glob match</li>
             <li>Cross-cutting constraints (anti-patterns, lessons)</li>
             <li>Reference text — no template</li>

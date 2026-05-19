@@ -146,7 +146,7 @@ function buildCards(): KanbanCardData[] {
     footerLeft: (
       <span className="inline-flex items-center gap-gp-sm min-w-0 flex-1">
         <Avatar size="xs" colorHex={r.agent.hex}>{r.agent.initials}</Avatar>
-        <span className="text-caption-md text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
+        <span className="text-body-sm font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
           {r.agent.name}
         </span>
       </span>
@@ -213,7 +213,7 @@ export function KanbanDoc() {
       <div className="flex items-center gap-gp-md">
         {card.avatar}
         <div className="flex-1 min-w-0">
-          <div className="text-label-sm text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
+          <div className="text-body-md font-medium text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
             {card.title}
           </div>
           <div className="flex items-center gap-gp-sm mt-sp-2xs">
@@ -368,7 +368,7 @@ export function KanbanDoc() {
     <div className="flex items-center gap-gp-md">
       {card.avatar}
       <div className="flex-1 min-w-0">
-        <div className="text-label-sm">{card.title}</div>
+        <div className="text-body-md font-medium">{card.title}</div>
         <div className="flex items-center gap-gp-sm mt-sp-2xs">
           {card.chip}
           <span>{card.value}</span>
@@ -394,7 +394,7 @@ export function KanbanDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Kanban</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Dumb data-driven. Recebe <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">columns</code> e <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">cards</code> e renderiza. Sem state interno de domínio.
         </p>
         <PropsTable items={KANBAN_PROPS} />
@@ -407,7 +407,7 @@ export function KanbanDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">KanbanCardData</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Cada slot (<code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">avatar</code>,{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">chip</code>,{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">value</code>,{" "}
@@ -420,7 +420,7 @@ export function KanbanDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">KanbanMenuItem</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Item padronizado de menu (card ou coluna). Usado em{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">getCardMenuItems</code> e{" "}
           <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">getColumnMenuItems</code>.

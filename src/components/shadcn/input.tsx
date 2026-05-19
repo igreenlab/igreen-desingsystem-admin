@@ -25,7 +25,7 @@ const inputVariants = cva(
     "hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover",
     "border border-border-input rounded-radius-lg",
     "px-pad-xl",
-    "text-[13px] text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
+    "text-body-sm font-normal text-fg-default placeholder:text-fg-muted placeholder:opacity-70",
     "transition-[border-color,box-shadow,background-color] outline-none",
     "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted",
     "file:inline-flex file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-fg-default",

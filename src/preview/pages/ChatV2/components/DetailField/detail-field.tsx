@@ -14,8 +14,8 @@ export type DetailFieldProps = {
 export function DetailField({ label, value }: DetailFieldProps) {
   return (
     <div className="flex items-baseline justify-between gap-gp-md py-pad-2xs">
-      <span className="text-[12px] text-fg-muted shrink-0">{label}</span>
-      <span className="text-[12.5px] text-fg-default text-right break-words min-w-0">
+      <span className="text-body-xs font-normal text-fg-muted shrink-0">{label}</span>
+      <span className="text-body-xs font-normal text-fg-default text-right break-words min-w-0">
         {value || "—"}
       </span>
     </div>

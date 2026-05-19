@@ -737,7 +737,7 @@ export function TableToolbarDoc() {
 </ToolbarMobileDialog>`}
       >
         <div className="flex flex-col gap-gp-md">
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Clique pra abrir o sheet:
           </p>
           <div>
@@ -1047,27 +1047,27 @@ const [activeId, setActiveId] = useState("all");
       </ExampleSection>
 
       <SectionH2 id="api" title="API Reference" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg">
+      <p className="text-body-md text-fg-muted mb-gp-lg">
         <strong className="text-fg-default">TableToolbar</strong> (root):
       </p>
       <PropsTable items={ROOT_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         Parts (exportadas de <code>ui/TableToolbar</code>):
       </p>
       <PropsTable items={PARTS_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         Popovers (Fase 2):
       </p>
       <PropsTable items={POPOVER_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         Bulk actions (selected mode):
       </p>
       <PropsTable items={BULK_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         Hooks (opcionais):
       </p>
       <PropsTable items={HOOKS_PROPS} />

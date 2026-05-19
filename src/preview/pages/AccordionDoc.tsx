@@ -222,7 +222,7 @@ export function AccordionDoc() {
   <AccordionItem value="item-2">
     <AccordionTrigger>Billing schedule</AccordionTrigger>
     <AccordionContent>
-      <table className="w-full text-label-sm">
+      <table className="w-full text-body-md font-medium">
         <thead>
           <tr className="border-b border-border-subtle">
             <th className="text-left pb-pad-sm ...">Month</th>
@@ -247,16 +247,16 @@ export function AccordionDoc() {
               <AccordionTrigger>Supported energy plans</AccordionTrigger>
               <AccordionContent>
                 <ul className="list-disc pl-sp-md flex flex-col gap-gp-xs">
-                  <li className="text-paragraph-sm text-fg-muted">Solar shared subscription</li>
-                  <li className="text-paragraph-sm text-fg-muted">Own generation via accredited plants</li>
-                  <li className="text-paragraph-sm text-fg-muted">Free market (large consumers)</li>
+                  <li className="text-body-md text-fg-muted">Solar shared subscription</li>
+                  <li className="text-body-md text-fg-muted">Own generation via accredited plants</li>
+                  <li className="text-body-md text-fg-muted">Free market (large consumers)</li>
                 </ul>
               </AccordionContent>
             </AccordionItem>
             <AccordionItem value="item-2">
               <AccordionTrigger>Billing schedule</AccordionTrigger>
               <AccordionContent>
-                <table className="w-full text-label-sm">
+                <table className="w-full text-body-md font-medium">
                   <thead>
                     <tr className="border-b border-border-subtle">
                       <th className="text-left pb-pad-sm text-fg-default">Month</th>
@@ -284,9 +284,9 @@ export function AccordionDoc() {
               <AccordionTrigger>Useful links</AccordionTrigger>
               <AccordionContent>
                 <div className="flex flex-col gap-gp-xs">
-                  <a href="#" className="text-label-sm text-fg-brand hover:underline">Documentation</a>
-                  <a href="#" className="text-label-sm text-fg-brand hover:underline">API Reference</a>
-                  <a href="#" className="text-label-sm text-fg-brand hover:underline">Support Center</a>
+                  <a href="#" className="text-body-md font-medium text-fg-brand hover:underline">Documentation</a>
+                  <a href="#" className="text-body-md font-medium text-fg-brand hover:underline">API Reference</a>
+                  <a href="#" className="text-body-md font-medium text-fg-brand hover:underline">Support Center</a>
                 </div>
               </AccordionContent>
             </AccordionItem>

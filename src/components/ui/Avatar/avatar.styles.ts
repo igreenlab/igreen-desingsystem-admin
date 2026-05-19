@@ -32,8 +32,8 @@ export const avatarVariants = tv({
       xs: "size-comp-2xs text-caption-sm",  // 20px / 11px
       sm: "size-comp-xs  text-caption-sm",  // 24px / 11px
       md: "size-comp-sm  text-caption-sm",  // 28px / 11px — default
-      lg: "size-comp-md  text-caption-md",  // 32px / 13px
-      xl: "size-comp-xl  text-label-sm",    // 40px / 14px
+      lg: "size-comp-md  text-body-sm font-normal",  // 32px / 13px
+      xl: "size-comp-xl  text-body-md font-medium",    // 40px / 14px
     },
 
     color: {

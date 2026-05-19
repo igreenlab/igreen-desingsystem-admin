@@ -66,7 +66,7 @@ const paginationLinkVariants = cva(
   [
     "inline-flex items-center justify-center",
     "min-w-[30px] h-[30px] px-pad-md",
-    "rounded-radius-md text-[13px] font-medium tabular-nums",
+    "rounded-radius-md text-body-sm font-medium tabular-nums",
     "outline-none cursor-pointer transition-[background-color,color,box-shadow]",
     "focus-visible:shadow-sh-ring",
     "disabled:opacity-50 disabled:pointer-events-none",
@@ -184,7 +184,7 @@ const PaginationEllipsis = ({
     aria-hidden="true"
     className={cn(
       "inline-flex items-center justify-center min-w-[22px] h-[30px]",
-      "text-[13px] text-fg-muted tracking-wider select-none",
+      "text-body-sm font-normal text-fg-muted tracking-wider select-none",
       className,
     )}
     {...props}

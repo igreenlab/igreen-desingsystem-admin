@@ -43,7 +43,7 @@ export function TOC({ items }: { items: TocItem[] }) {
 
   return (
     <nav>
-      <p className="text-[11px] font-semibold text-fg-subtle uppercase tracking-wider mb-gp-xl flex items-center gap-gp-sm">
+      <p className="text-caption-sm font-semibold text-fg-subtle uppercase tracking-wider mb-gp-xl flex items-center gap-gp-sm">
         <TocIcon /> ON THIS PAGE
       </p>
       <div className="flex flex-col gap-gp-2xs border-l-2 border-border-subtle pl-pad-2xl">
@@ -54,7 +54,7 @@ export function TOC({ items }: { items: TocItem[] }) {
               key={item.id}
               href={`#${item.id}`}
               className={[
-                "text-label-sm transition-colors leading-relaxed py-pad-xs",
+                "text-body-md font-medium transition-colors leading-relaxed py-pad-xs",
                 isActive
                   ? "text-fg-brand font-medium"
                   : "text-fg-muted font-normal hover:text-fg-brand",

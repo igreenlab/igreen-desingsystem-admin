@@ -14,7 +14,7 @@ export type ChannelDotProps = {
 export function ChannelDot({ channel, dotOnly = false }: ChannelDotProps) {
   return (
     <span
-      className="inline-flex items-center gap-[4px] text-[11px] text-fg-muted"
+      className="inline-flex items-center gap-[4px] text-caption-sm text-fg-muted"
       title={CHANNEL_LABEL[channel]}
     >
       <span

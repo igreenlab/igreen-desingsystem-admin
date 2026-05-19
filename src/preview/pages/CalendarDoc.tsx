@@ -76,7 +76,7 @@ function PresetsCalendarExample() {
   return (
     <div className="flex border border-border-subtle rounded-radius-base overflow-hidden">
       <div className="flex flex-col gap-gp-md border-r border-border-subtle p-pad-3xl">
-        <p className="text-label-xs text-fg-muted">Quick pick</p>
+        <p className="text-body-xs text-fg-muted">Quick pick</p>
         <Button color="secondary" variant="outline" size="2xs" fullWidth onClick={() => setDate(new Date())}>Today</Button>
         <Button color="secondary" variant="outline" size="2xs" fullWidth onClick={() => setDate(addDays(1))}>Tomorrow</Button>
         <Button color="secondary" variant="outline" size="2xs" fullWidth onClick={() => setDate(addDays(3))}>In 3 days</Button>
@@ -84,7 +84,7 @@ function PresetsCalendarExample() {
       </div>
       <div className="flex flex-col gap-gp-md p-pad-3xl">
         <Calendar mode="single" selected={date} onSelect={setDate} />
-        <p className="text-label-xs text-fg-muted text-center">
+        <p className="text-body-xs text-fg-muted text-center">
           {date ? date.toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" }) : "Pick a date"}
         </p>
       </div>
@@ -193,7 +193,7 @@ const addDays = (days: number) => {
         onClick={() => setDate(addDays(7))}>In a week</Button>
     </div>
     <Calendar mode="single" selected={date} onSelect={setDate} />
-    <p className="text-label-xs text-fg-muted text-center">
+    <p className="text-body-xs text-fg-muted text-center">
       {date ? date.toLocaleDateString(...) : "Pick a date"}
     </p>
   </CardContent>

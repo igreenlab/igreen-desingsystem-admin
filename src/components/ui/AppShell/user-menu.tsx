@@ -85,7 +85,7 @@ export function UserMenu({
           aria-label={`Menu do usuário (${user.name})`}
           className={[
             "grid place-items-center w-9 h-9 rounded-full shrink-0",
-            "bg-bg-brand text-fg-on-brand text-[11px] font-bold uppercase tracking-[0.02em]",
+            "bg-bg-brand text-fg-on-brand text-caption-sm font-bold uppercase tracking-[0.02em]",
             "cursor-pointer transition-opacity duration-150",
             "hover:opacity-90",
             "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary",
@@ -119,16 +119,16 @@ export function UserMenu({
             style={user.avatarColor ? { background: user.avatarColor } : undefined}
           >
             {user.avatarSrc && <AvatarImage src={user.avatarSrc} alt={user.name} />}
-            <AvatarFallback className="bg-bg-brand text-fg-on-brand text-[12px] font-bold uppercase">
+            <AvatarFallback className="bg-bg-brand text-fg-on-brand text-body-xs font-bold uppercase">
               {initials}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col min-w-0 flex-1">
-            <span className="text-[13px] font-medium text-fg-default truncate">
+            <span className="text-body-sm font-medium text-fg-default truncate">
               {user.name}
             </span>
             {user.email && (
-              <span className="text-[11px] text-fg-muted truncate">
+              <span className="text-caption-sm text-fg-muted truncate">
                 {user.email}
               </span>
             )}
@@ -144,7 +144,7 @@ export function UserMenu({
               <LayoutGrid />
               <span>Layout</span>
               {currentLayoutLabel && (
-                <span className="flex-1 text-right text-[11px] text-fg-subtle">
+                <span className="flex-1 text-right text-caption-sm text-fg-subtle">
                   {currentLayoutLabel}
                 </span>
               )}
@@ -175,7 +175,7 @@ export function UserMenu({
               <SunMoon />
               <span>Tema</span>
               {currentThemeLabel && (
-                <span className="flex-1 text-right text-[11px] text-fg-subtle">
+                <span className="flex-1 text-right text-caption-sm text-fg-subtle">
                   {currentThemeLabel}
                 </span>
               )}

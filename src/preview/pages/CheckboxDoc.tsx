@@ -51,7 +51,7 @@ export function CheckboxDoc() {
   <Checkbox id="cb-terms" className="mt-1" />
   <div className="flex flex-col gap-gp-xs">
     <Label htmlFor="cb-terms">Accept terms and conditions</Label>
-    <p className="text-paragraph-sm text-fg-muted">
+    <p className="text-body-md text-fg-muted">
       By checking this box, you agree to our Terms of Service and Privacy Policy.
     </p>
   </div>
@@ -61,7 +61,7 @@ export function CheckboxDoc() {
           <Checkbox id="cb-terms" className="mt-1" />
           <div className="flex flex-col gap-gp-xs">
             <Label htmlFor="cb-terms">Accept terms and conditions</Label>
-            <p className="text-paragraph-sm text-fg-muted">By checking this box, you agree to our Terms of Service and Privacy Policy.</p>
+            <p className="text-body-md text-fg-muted">By checking this box, you agree to our Terms of Service and Privacy Policy.</p>
           </div>
         </div>
       </ExampleSection>
@@ -104,7 +104,7 @@ export function CheckboxDoc() {
         title="Group"
         description="Multiple checkboxes presented as a selectable list."
         code={`<div className="flex flex-col gap-gp-2xl">
-  <Label className="text-label-sm">Select sidebar items</Label>
+  <Label className="text-body-md font-medium">Select sidebar items</Label>
   {items.map((item) => (
     <div key={item.id} className="flex items-center gap-gp-xl">
       <Checkbox id={item.id} defaultChecked={item.checked} />
@@ -114,7 +114,7 @@ export function CheckboxDoc() {
 </div>`}
       >
         <div className="flex flex-col gap-gp-2xl">
-          <span className="text-label-sm text-fg-default">Select sidebar items</span>
+          <span className="text-body-md font-medium text-fg-default">Select sidebar items</span>
           {[
             { id: "cb-g-hd", label: "Hard Disks", checked: true },
             { id: "cb-g-ext", label: "External Disks", checked: false },
@@ -160,7 +160,7 @@ function ControlledCheckboxExample() {
       Enable notifications
     </Label>
   </div>
-  <p className="text-paragraph-sm text-fg-muted">
+  <p className="text-body-md text-fg-muted">
     Notifications are {checked ? "enabled" : "disabled"}.
   </p>
 </div>`}
@@ -174,7 +174,7 @@ function ControlledCheckboxExample() {
           />
           <Label htmlFor="cb-controlled">Enable notifications</Label>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Notifications are {checked ? "enabled" : "disabled"}.
         </p>
       </div>

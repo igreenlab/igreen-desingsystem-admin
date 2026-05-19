@@ -17,7 +17,7 @@ function TypeSample({ preset, label, size, weight, lineHeight, tracking }: {
 }) {
   return (
     <div className="mb-14 scroll-mt-6">
-      <p className="text-label-xs text-fg-brand mb-gp-xl">{label}</p>
+      <p className="text-body-xs text-fg-brand mb-gp-xl">{label}</p>
       <p className={`${preset} text-fg-default mb-gp-4xl`}>The quick brown fox jumps over the lazy dog.</p>
       <div className="flex flex-wrap gap-gp-md">
         <Badge color="secondary" variant="outline" size="sm">Weight: {weight}</Badge>
@@ -67,25 +67,25 @@ export function TypographyDoc() {
 
       <div id="label" className="scroll-mt-6">
         <SectionH2 id="label" title="Label" />
-        <TypeSample preset="text-label-xl" label="Label / XL" size="1.5rem (24px)" weight="Medium / 500" lineHeight="2rem" tracking="-1.5%" />
-        <TypeSample preset="text-label-lg" label="Label / LG" size="1.125rem (18px)" weight="Medium / 500" lineHeight="1.5rem" tracking="-1.5%" />
-        <TypeSample preset="text-label-md" label="Label / MD" size="1rem (16px)" weight="Medium / 500" lineHeight="1.5rem" tracking="-1.1%" />
-        <TypeSample preset="text-label-sm" label="Label / SM" size="0.875rem (14px)" weight="Medium / 500" lineHeight="1.25rem" tracking="-0.6%" />
-        <TypeSample preset="text-label-xs" label="Label / XS" size="0.75rem (12px)" weight="Medium / 500" lineHeight="1rem" tracking="0" />
+        <TypeSample preset="text-body-2xl font-medium" label="Label / XL" size="1.5rem (24px)" weight="Medium / 500" lineHeight="2rem" tracking="-1.5%" />
+        <TypeSample preset="text-body-xl font-medium" label="Label / LG" size="1.125rem (18px)" weight="Medium / 500" lineHeight="1.5rem" tracking="-1.5%" />
+        <TypeSample preset="text-body-lg font-medium" label="Label / MD" size="1rem (16px)" weight="Medium / 500" lineHeight="1.5rem" tracking="-1.1%" />
+        <TypeSample preset="text-body-md font-medium" label="Label / SM" size="0.875rem (14px)" weight="Medium / 500" lineHeight="1.25rem" tracking="-0.6%" />
+        <TypeSample preset="text-body-xs" label="Label / XS" size="0.75rem (12px)" weight="Medium / 500" lineHeight="1rem" tracking="0" />
       </div>
 
       <div id="paragraph" className="scroll-mt-6">
         <SectionH2 id="paragraph" title="Paragraph" />
-        <TypeSample preset="text-paragraph-xl" label="Paragraph / XL" size="1.5rem (24px)" weight="Regular / 400" lineHeight="2rem" tracking="-1.5%" />
-        <TypeSample preset="text-paragraph-lg" label="Paragraph / LG" size="1.125rem (18px)" weight="Regular / 400" lineHeight="1.5rem" tracking="-1.5%" />
-        <TypeSample preset="text-paragraph-md" label="Paragraph / MD" size="1rem (16px)" weight="Regular / 400" lineHeight="1.5rem" tracking="-1.1%" />
-        <TypeSample preset="text-paragraph-sm" label="Paragraph / SM" size="0.875rem (14px)" weight="Regular / 400" lineHeight="1.25rem" tracking="-0.6%" />
-        <TypeSample preset="text-paragraph-xs" label="Paragraph / XS" size="0.75rem (12px)" weight="Regular / 400" lineHeight="1rem" tracking="0" />
+        <TypeSample preset="text-body-2xl" label="Paragraph / XL" size="1.5rem (24px)" weight="Regular / 400" lineHeight="2rem" tracking="-1.5%" />
+        <TypeSample preset="text-body-xl" label="Paragraph / LG" size="1.125rem (18px)" weight="Regular / 400" lineHeight="1.5rem" tracking="-1.5%" />
+        <TypeSample preset="text-body-lg" label="Paragraph / MD" size="1rem (16px)" weight="Regular / 400" lineHeight="1.5rem" tracking="-1.1%" />
+        <TypeSample preset="text-body-md" label="Paragraph / SM" size="0.875rem (14px)" weight="Regular / 400" lineHeight="1.25rem" tracking="-0.6%" />
+        <TypeSample preset="text-body-xs font-normal" label="Paragraph / XS" size="0.75rem (12px)" weight="Regular / 400" lineHeight="1rem" tracking="0" />
       </div>
 
       <div id="caption" className="scroll-mt-6">
         <SectionH2 id="caption" title="Caption" />
-        <TypeSample preset="text-caption-md" label="Caption / MD" size="0.8125rem (13px)" weight="Regular / 400" lineHeight="1.125rem" tracking="0" />
+        <TypeSample preset="text-body-sm font-normal" label="Caption / MD" size="0.8125rem (13px)" weight="Regular / 400" lineHeight="1.125rem" tracking="0" />
         <TypeSample preset="text-caption-sm" label="Caption / SM" size="0.6875rem (11px)" weight="Regular / 400" lineHeight="0.875rem" tracking="0" />
       </div>
 

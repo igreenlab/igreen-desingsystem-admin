@@ -44,7 +44,7 @@ export function SliderDoc() {
       >
         <div className="flex flex-col gap-gp-xl max-w-sm w-full">
           <Slider value={val} onValueChange={setVal} />
-          <p className="text-label-sm text-fg-muted text-center tabular-nums">Value: {val[0]}</p>
+          <p className="text-body-md font-medium text-fg-muted text-center tabular-nums">Value: {val[0]}</p>
         </div>
       </ExampleSection>
 
@@ -57,7 +57,7 @@ export function SliderDoc() {
       >
         <div className="flex flex-col gap-gp-xl max-w-sm w-full">
           <Slider value={range} onValueChange={setRange} max={100} step={1} />
-          <p className="text-label-sm text-fg-muted text-center tabular-nums">
+          <p className="text-body-md font-medium text-fg-muted text-center tabular-nums">
             Range: {range[0]} — {range[1]}
           </p>
         </div>
@@ -85,7 +85,7 @@ export function SliderDoc() {
         <div className="flex flex-col gap-gp-xl max-w-sm w-full">
           <div className="flex items-center justify-between">
             <Label>Temperature</Label>
-            <span className="text-label-sm text-fg-muted tabular-nums">{temp[0].toFixed(1)}</span>
+            <span className="text-body-md font-medium text-fg-muted tabular-nums">{temp[0].toFixed(1)}</span>
           </div>
           <Slider value={temp} onValueChange={setTemp} min={0} max={2} step={0.1} />
         </div>
@@ -113,7 +113,7 @@ export function SliderDoc() {
         <div className="flex flex-col gap-gp-xl max-w-sm w-full">
           <div className="flex items-center justify-between">
             <Label>Volume</Label>
-            <span className="text-label-xs text-fg-subtle">step=10</span>
+            <span className="text-body-xs text-fg-subtle">step=10</span>
           </div>
           <Slider defaultValue={[50]} max={100} step={10} />
           <div className="flex justify-between text-caption-sm text-fg-subtle">
@@ -130,7 +130,7 @@ export function SliderDoc() {
       <SectionH2 id="api" title="API Reference" />
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Slider</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Based on <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">@radix-ui/react-slider</code>.
           Accepts all standard div attributes.
         </p>

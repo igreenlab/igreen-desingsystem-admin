@@ -133,10 +133,21 @@ outline-none → focus-visible:outline-none  (acessibilidade)
 ### Tipografia avulsa
 
 ```typescript
-text-xs font-semibold → text-label-xs
-text-sm font-medium  → text-label-sm
-text-[14px] font-medium leading-5 → text-label-sm (preset composto)
+text-xs font-semibold → text-body-xs (12/500) ou caption-md font-semibold
+text-sm font-medium  → text-body-md font-medium (14/500)
+text-[14px] font-medium → text-body-md font-medium (preset + override de weight)
+text-[13px]            → text-body-sm font-normal (preserva 13/400)
+text-[Npx]             → preset DS sempre que houver tier equivalente
 ```
+
+**Novos roles (2026-05-19 rewrite)**: 23 presets em 6 roles —
+display / heading / title / body / caption / code. Detalhes em
+`.ai/context/tokens/typography.md`. Body padrão do projeto = `body-sm` (13/500).
+Title default = weight 600. Override de weight via `font-bold/semibold/medium/normal`.
+
+⚠️ **L-016**: ao adicionar novo preset, REGISTRAR em `src/utils/tv.ts`
+(`twMergeConfig.extend.classGroups["font-size"][0].text`) — senão
+`tailwind-merge` confunde com `text-fg-X` e remove a classe silenciosamente.
 
 ### Imports
 
@@ -213,7 +224,7 @@ className="bg-white"  // Switch/Slider thumb (L-014)
 
 ---
 
-## 14 Lições — resumo
+## 16 Lições — resumo
 
 Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 
@@ -226,7 +237,7 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 
 ### Variants & tipografia
 - **L-006** `disabled` SEMPRE último em `compoundVariants`. Senão é sobrescrito.
-- **L-007** `text-xs font-semibold` avulso → usar preset `text-label-xs`.
+- **L-007** `text-xs font-semibold` avulso → usar preset `text-body-xs` (ou equivalente).
 
 ### Dark mode (4 regras combinadas)
 - **L-008** Hierarquia bg crescente: `canvas < surface < subtle < muted`.
@@ -238,6 +249,10 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-012** Radix usa data attributes: `has-[[data-state=checked]]` (não `has-[:checked]`).
 - **L-013** Slider Radix: renderizar N `<SliderPrimitive.Thumb>` pra N valores.
 - **L-014** Switch/Slider thumb `bg-white` literal é exceção válida.
+
+### Tokens / Infra
+- **L-015** `scrollbar-width` CSS só aceita `auto/thin/none` — tamanhos px iguais no Firefox.
+- **L-016** Novo preset tipográfico em `typography.ts` → registrar em `src/utils/tv.ts` `twMergeConfig` senão `tailwind-merge` remove silenciosamente.
 
 ---
 

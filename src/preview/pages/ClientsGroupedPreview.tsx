@@ -164,7 +164,7 @@ export default function ClientsGroupedPreview() {
 
   const controls = (
     <div className="flex flex-wrap items-center gap-gp-sm">
-      <span className="text-label-xs text-fg-muted">Agrupar por:</span>
+      <span className="text-body-xs text-fg-muted">Agrupar por:</span>
       {GROUP_OPTIONS.map((opt) => (
         <Button
           key={opt.value}
@@ -176,7 +176,7 @@ export default function ClientsGroupedPreview() {
           {opt.label}
         </Button>
       ))}
-      <span className="text-label-xs text-fg-muted ml-pad-md">Modo:</span>
+      <span className="text-body-xs text-fg-muted ml-pad-md">Modo:</span>
       {RENDER_MODE_OPTIONS.map((opt) => (
         <Button
           key={opt.value}
@@ -224,7 +224,7 @@ export default function ClientsGroupedPreview() {
                       <span className="text-title-sm text-fg-strong">
                         {group.label}
                       </span>
-                      <span className="text-paragraph-xs text-fg-muted">
+                      <span className="text-body-xs font-normal text-fg-muted">
                         {group.count}{" "}
                         {group.count === 1 ? "cliente" : "clientes"} neste grupo
                       </span>
@@ -237,7 +237,7 @@ export default function ClientsGroupedPreview() {
             renderMode === "freeform"
               ? ({ group }) => (
                   <div className="w-full p-pad-3xl bg-bg-canvas">
-                    <p className="text-label-sm text-fg-muted mb-pad-lg">
+                    <p className="text-body-md font-medium text-fg-muted mb-pad-lg">
                       Vista compacta — layout livre, ignora colunas da tabela.
                     </p>
                     <div className="grid grid-cols-3 gap-gp-md">
@@ -246,16 +246,16 @@ export default function ClientsGroupedPreview() {
                           key={row.id}
                           className="flex flex-col gap-gp-2xs p-pad-lg rounded-radius-md border border-border-subtle bg-bg-table hover:border-border-default transition-colors"
                         >
-                          <span className="text-label-xs text-fg-muted">
+                          <span className="text-body-xs text-fg-muted">
                             {row.id}
                           </span>
-                          <span className="text-paragraph-sm text-fg-strong font-medium">
+                          <span className="text-body-md text-fg-strong font-medium">
                             {row.name}
                           </span>
-                          <span className="text-paragraph-xs text-fg-muted truncate">
+                          <span className="text-body-xs font-normal text-fg-muted truncate">
                             {row.email}
                           </span>
-                          <span className="text-paragraph-sm text-fg-brand font-semibold tabular-nums mt-pad-xs">
+                          <span className="text-body-md text-fg-brand font-semibold tabular-nums mt-pad-xs">
                             {formatCurrency(row.value as number)}
                           </span>
                         </div>

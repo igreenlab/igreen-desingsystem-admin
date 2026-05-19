@@ -25,7 +25,7 @@ export function DataTableFloatingBulkBar({
   if (count === 0) return null;
   return (
     <div className={styles.bulkBar()} role="region" aria-label="Acoes em massa">
-      <span className="text-label-sm whitespace-nowrap">
+      <span className="text-body-md font-medium whitespace-nowrap">
         {count} selecionado{count > 1 ? "s" : ""}
       </span>
       {actions && <div className="flex items-center gap-gp-sm">{actions}</div>}

@@ -45,10 +45,10 @@ export const floatingPanelStyles = tv({
     headerText: "flex flex-col gap-gp-2xs min-w-0 flex-1",
     headerTitle: [
       "flex items-center gap-gp-md min-w-0",
-      "text-[16px] font-bold tracking-[-0.01em] text-fg-default truncate",
+      "text-body-lg font-bold tracking-[-0.01em] text-fg-default truncate",
     ],
     headerTitleIcon: "size-[18px] text-fg-brand shrink-0",
-    headerDescription: "text-paragraph-sm text-fg-muted truncate",
+    headerDescription: "text-body-md text-fg-muted truncate",
     headerActions: "flex items-center gap-gp-xs flex-none",
     body: [
       "flex-1 overflow-y-auto scrollbar-thin",

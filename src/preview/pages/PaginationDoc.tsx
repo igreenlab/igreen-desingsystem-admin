@@ -222,7 +222,7 @@ getPaginationRange(1, 20)
 getPaginationRange(20, 20)
 // [1, 2, "ellipsis", 19, 20]`}
       >
-        <div className="font-mono text-[12px] text-fg-muted bg-bg-muted rounded-radius-md p-pad-2xl">
+        <div className="font-mono text-body-xs font-normal text-fg-muted bg-bg-muted rounded-radius-md p-pad-2xl">
           <div>getPaginationRange(1, 5) → [{getPaginationRange(1, 5).join(", ")}]</div>
           <div>getPaginationRange(5, 20) → [{getPaginationRange(5, 20).join(", ")}]</div>
           <div>getPaginationRange(1, 20) → [{getPaginationRange(1, 20).join(", ")}]</div>

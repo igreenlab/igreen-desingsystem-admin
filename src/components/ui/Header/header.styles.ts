@@ -83,10 +83,10 @@ export const breadcrumbItem = tv({
       true: "text-fg-default font-semibold",
       false: "text-fg-muted hover:text-fg-default cursor-pointer",
     },
-    /** Quando único item no breadcrumb (= título da página), font-size sobe pra 15px */
+    /** Quando único item no breadcrumb (= título da página), font-size sobe pra 16px */
     standalone: {
-      true: "text-[15px]",
-      false: "text-[13px]",
+      true: "text-body-lg",
+      false: "text-body-sm font-normal",
     },
   },
   defaultVariants: { current: false, standalone: false },
@@ -102,7 +102,7 @@ export const searchFakeInput = tv({
     "inline-flex items-center gap-gp-md h-form-md w-[180px]",
     "px-pad-xl rounded-radius-md",
     "bg-bg-subtle border border-border-subtle cursor-pointer",
-    "text-fg-subtle text-[13px]",
+    "text-fg-subtle text-body-sm font-normal",
     "transition-colors duration-150",
     "hover:bg-bg-muted hover:border-border-default",
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary",
@@ -122,7 +122,7 @@ export const searchFakeInputKbd = tv({
     "ml-auto inline-flex items-center justify-center",
     "h-[20px] px-pad-xs rounded-radius-xs",
     "bg-bg-canvas border border-border-subtle dark:bg-bg-muted",
-    "text-[10px] font-semibold text-fg-muted tabular-nums shrink-0",
+    "text-caption-xs font-semibold text-fg-muted tabular-nums shrink-0",
   ],
 });
 
@@ -159,14 +159,14 @@ export const hdHeader = tv({
 });
 
 export const hdTitle = tv({
-  base: "flex items-center gap-gp-sm text-[15px] font-semibold text-fg-default",
+  base: "flex items-center gap-gp-sm text-body-lg font-semibold text-fg-default",
 });
 
 export const hdTitleCount = tv({
   base: [
     "inline-flex items-center justify-center min-w-[20px] h-[20px] px-pad-xs",
     "rounded-radius-xs bg-bg-brand text-fg-on-brand",
-    "text-[11px] font-bold tabular-nums",
+    "text-caption-sm font-bold tabular-nums",
   ],
 });
 
@@ -190,7 +190,7 @@ export const hdSearchIcon = tv({
 });
 
 export const hdSearchInput = tv({
-  base: "flex-1 min-w-0 bg-transparent border-0 outline-none text-[13px] text-fg-default placeholder:text-fg-subtle",
+  base: "flex-1 min-w-0 bg-transparent border-0 outline-none text-body-sm font-normal text-fg-default placeholder:text-fg-subtle",
 });
 
 /* ── Tabs (filtros internos) ──────────────────────────────────────────────── */
@@ -202,7 +202,7 @@ export const hdTab = tv({
   base: [
     "inline-flex items-center justify-center gap-gp-xs",
     "h-[28px] px-[10px] rounded-radius-sm",
-    "text-[12px] font-medium text-fg-muted cursor-pointer",
+    "text-body-xs font-medium text-fg-muted cursor-pointer",
     "bg-transparent border-0",
     "transition-colors duration-150",
     "hover:text-fg-default",
@@ -216,7 +216,7 @@ export const hdTab = tv({
 });
 
 export const hdTabCount = tv({
-  base: "text-[10px] font-bold tabular-nums opacity-70",
+  base: "text-caption-xs font-bold tabular-nums opacity-70",
 });
 
 /* ── Body (lista scrollável) ──────────────────────────────────────────────── */
@@ -230,7 +230,7 @@ export const hdEmpty = tv({
 });
 
 export const hdEmptyText = tv({
-  base: "text-paragraph-sm",
+  base: "text-body-md",
 });
 
 /* ── Notification item ────────────────────────────────────────────────────── */
@@ -253,15 +253,15 @@ export const hdNotifBody = tv({
 });
 
 export const hdNotifTitle = tv({
-  base: "text-[13px] font-semibold text-fg-default leading-tight",
+  base: "text-body-sm font-semibold text-fg-default leading-tight",
 });
 
 export const hdNotifText = tv({
-  base: "text-[12px] text-fg-muted leading-snug line-clamp-2",
+  base: "text-body-xs font-normal text-fg-muted leading-snug line-clamp-2",
 });
 
 export const hdNotifTime = tv({
-  base: "text-[11px] text-fg-subtle",
+  base: "text-caption-sm text-fg-subtle",
 });
 
 export const hdNotifDot = tv({
@@ -282,7 +282,7 @@ export const hdMsg = tv({
 export const hdMsgAvatar = tv({
   base: [
     "flex-none grid place-items-center w-icon-lg h-icon-lg rounded-full",
-    "text-white text-[11px] font-bold uppercase tracking-[0.02em] leading-none",
+    "text-white text-caption-sm font-bold uppercase tracking-[0.02em] leading-none",
   ],
 });
 
@@ -295,11 +295,11 @@ export const hdMsgRow = tv({
 });
 
 export const hdMsgName = tv({
-  base: "text-[13px] font-semibold text-fg-default truncate",
+  base: "text-body-sm font-semibold text-fg-default truncate",
 });
 
 export const hdMsgTime = tv({
-  base: "text-[11px] text-fg-subtle shrink-0",
+  base: "text-caption-sm text-fg-subtle shrink-0",
 });
 
 export const hdMsgPreviewRow = tv({
@@ -307,7 +307,7 @@ export const hdMsgPreviewRow = tv({
 });
 
 export const hdMsgPreview = tv({
-  base: "flex-1 min-w-0 text-[12px] text-fg-muted truncate",
+  base: "flex-1 min-w-0 text-body-xs font-normal text-fg-muted truncate",
 });
 
 export const hdMsgDot = tv({
@@ -323,7 +323,7 @@ export const hdFooterLink = tv({
   base: [
     "inline-flex items-center justify-center gap-gp-sm",
     "h-form-sm px-pad-lg rounded-radius-md w-full",
-    "text-[13px] font-medium text-fg-brand no-underline",
+    "text-body-sm font-medium text-fg-brand no-underline",
     "transition-colors duration-150",
     "hover:bg-bg-brand-subtle",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand",

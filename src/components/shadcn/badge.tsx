@@ -43,9 +43,9 @@ const badgeVariants = tv({
     },
 
     size: {
-      sm: "h-comp-2xs px-pad-sm text-[10px] gap-gp-2xs [&_svg]:size-3",     // 20px / 6 / 10
-      md: "h-comp-xs px-pad-md text-label-xs gap-gp-xs [&_svg]:size-3.5",  // 24px / 8 / 12 (default)
-      lg: "h-comp-sm px-pad-lg text-[13px] gap-gp-sm [&_svg]:size-4",      // 28px / 10 / 13
+      sm: "h-comp-2xs px-pad-sm text-caption-xs gap-gp-2xs [&_svg]:size-3",     // 20px / 6 / 10
+      md: "h-comp-xs px-pad-md text-body-xs gap-gp-xs [&_svg]:size-3.5",  // 24px / 8 / 12 (default)
+      lg: "h-comp-sm px-pad-lg text-body-sm font-normal gap-gp-sm [&_svg]:size-4",      // 28px / 10 / 13
     },
 
     shape: {

@@ -164,7 +164,7 @@ export function ButtonDoc() {
           {/* Comparação rounded × pill */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-gp-2xl">
             <div className="flex flex-col gap-gp-md">
-              <span className="text-paragraph-sm font-medium text-fg-muted">rounded (default)</span>
+              <span className="text-body-md font-medium text-fg-muted">rounded (default)</span>
               <div className="flex flex-col items-start gap-gp-md">
                 <Button>Filled</Button>
                 <Button variant="outline">Outline</Button>
@@ -173,7 +173,7 @@ export function ButtonDoc() {
               </div>
             </div>
             <div className="flex flex-col gap-gp-md">
-              <span className="text-paragraph-sm font-medium text-fg-muted">pill</span>
+              <span className="text-body-md font-medium text-fg-muted">pill</span>
               <div className="flex flex-col items-start gap-gp-md">
                 <Button shape="pill">Filled</Button>
                 <Button shape="pill" variant="outline">Outline</Button>
@@ -185,7 +185,7 @@ export function ButtonDoc() {
 
           {/* Sizes em pill */}
           <div className="flex flex-col gap-gp-md">
-            <span className="text-paragraph-sm font-medium text-fg-muted">Sizes (pill)</span>
+            <span className="text-body-md font-medium text-fg-muted">Sizes (pill)</span>
             <div className="flex items-center gap-gp-md flex-wrap">
               <Button shape="pill" size="lg">Large</Button>
               <Button shape="pill" size="md">Medium</Button>
@@ -197,7 +197,7 @@ export function ButtonDoc() {
 
           {/* Icon buttons em pill */}
           <div className="flex flex-col gap-gp-md">
-            <span className="text-paragraph-sm font-medium text-fg-muted">Icon buttons (pill)</span>
+            <span className="text-body-md font-medium text-fg-muted">Icon buttons (pill)</span>
             <div className="flex items-center gap-gp-md flex-wrap">
               <Button shape="pill" size="icon-lg">✕</Button>
               <Button shape="pill" size="icon-md">✕</Button>
@@ -277,7 +277,7 @@ export function ButtonDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Button</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Based on the <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">&lt;button&gt;</code> element.
           Defaults to <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">type="button"</code>.
         </p>

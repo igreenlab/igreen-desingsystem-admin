@@ -144,7 +144,7 @@ export function ViewsPopover({
               onClick={() => setTab("all")}
               className={cn(
                 "flex-1 h-form-sm px-pad-lg rounded-radius-sm",
-                "text-[12px] font-medium cursor-pointer outline-none",
+                "text-body-xs font-medium cursor-pointer outline-none",
                 "transition-[background-color,color,box-shadow] duration-150",
                 tab === "all"
                   ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"
@@ -160,7 +160,7 @@ export function ViewsPopover({
               onClick={() => setTab("mine")}
               className={cn(
                 "flex-1 h-form-sm px-pad-lg rounded-radius-sm",
-                "text-[12px] font-medium cursor-pointer outline-none",
+                "text-body-xs font-medium cursor-pointer outline-none",
                 "transition-[background-color,color,box-shadow] duration-150",
                 tab === "mine"
                   ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"
@@ -186,7 +186,7 @@ export function ViewsPopover({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               autoFocus
-              className="flex-1 min-w-0 bg-transparent border-0 outline-none text-[13px] text-fg-default placeholder:text-fg-muted"
+              className="flex-1 min-w-0 bg-transparent border-0 outline-none text-body-sm font-normal text-fg-default placeholder:text-fg-muted"
             />
           </label>
         )}
@@ -203,7 +203,7 @@ export function ViewsPopover({
           )}
         >
           {filtered.length === 0 ? (
-            <p className="text-[12px] text-fg-muted m-0 px-pad-md py-pad-2xl text-center">
+            <p className="text-body-xs font-normal text-fg-muted m-0 px-pad-md py-pad-2xl text-center">
               {search.trim() ? emptySearchMessage(search.trim()) : emptyMessage}
             </p>
           ) : (
@@ -234,14 +234,14 @@ export function ViewsPopover({
                   >
                     <span
                       className={cn(
-                        "flex-1 text-[13px] truncate",
+                        "flex-1 text-body-sm font-normal truncate",
                         isActive ? "font-semibold" : "font-medium",
                       )}
                     >
                       {view.name}
                     </span>
                     {!isMine && view.ownerName && (
-                      <span className="text-[11px] text-fg-muted shrink-0">
+                      <span className="text-caption-sm text-fg-muted shrink-0">
                         por {view.ownerName}
                       </span>
                     )}
@@ -289,7 +289,7 @@ export function ViewsPopover({
                 "bg-bg-surface dark:bg-bg-muted",
                 "border border-border-subtle dark:border-border-input",
                 "shadow-sh-sm dark:shadow-sh-none",
-                "text-[13px] font-semibold text-fg-default dark:text-fg-muted",
+                "text-body-sm font-semibold text-fg-default dark:text-fg-muted",
                 "outline-none cursor-pointer",
                 "transition-[background-color,color,box-shadow] duration-150",
                 "hover:bg-bg-muted-hover hover:text-fg-default",

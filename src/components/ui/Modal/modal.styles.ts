@@ -74,21 +74,22 @@ export const headIcon = tv({
 export const headTitleWrap = tv({
   base: [
     "flex-1 min-w-0",
-    "pr-pad-3xl",   // reserva espaço pro X close (right-14 + 28px) — evita overlap
+    "flex flex-col justify-center",   // centraliza title+description verticalmente vs icon (40px) à esquerda
+    "pr-pad-3xl",                      // reserva espaço pro X close (right-14 + 28px) — evita overlap
   ],
 });
 
 export const title = tv({
   base: [
     "m-0 mb-[2px]",
-    "text-[17px] font-bold leading-[1.3]",
+    "text-body-lg font-bold leading-[1.3]",
     "text-fg-default",
     "tracking-[-0.01em]",
   ],
 });
 
 export const description = tv({
-  base: "m-0 text-[12.5px] text-fg-muted leading-[1.45]",
+  base: "m-0 text-body-xs font-normal text-fg-muted leading-[1.45]",
 });
 
 /* ── Body (children livre) ───────────────────────────────────────── */

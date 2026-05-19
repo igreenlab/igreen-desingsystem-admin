@@ -39,20 +39,20 @@ export function TabsDoc() {
           </TabsList>
           <TabsContent value="account">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-default font-medium mb-gp-xs">Account</p>
-              <p className="text-paragraph-sm text-fg-muted">Manage your account details, email address, and profile information.</p>
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Account</p>
+              <p className="text-body-md text-fg-muted">Manage your account details, email address, and profile information.</p>
             </div>
           </TabsContent>
           <TabsContent value="password">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-default font-medium mb-gp-xs">Password</p>
-              <p className="text-paragraph-sm text-fg-muted">Update your password. We recommend using a strong, unique password.</p>
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Password</p>
+              <p className="text-body-md text-fg-muted">Update your password. We recommend using a strong, unique password.</p>
             </div>
           </TabsContent>
           <TabsContent value="settings">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-default font-medium mb-gp-xs">Settings</p>
-              <p className="text-paragraph-sm text-fg-muted">Configure notifications, language preferences, and display options.</p>
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Settings</p>
+              <p className="text-body-md text-fg-muted">Configure notifications, language preferences, and display options.</p>
             </div>
           </TabsContent>
         </Tabs>
@@ -78,12 +78,12 @@ export function TabsDoc() {
           </TabsList>
           <TabsContent value="preview">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Live preview of the component rendered in the browser.</p>
+              <p className="text-body-md text-fg-muted">Live preview of the component rendered in the browser.</p>
             </div>
           </TabsContent>
           <TabsContent value="code">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted font-mono">{'<Button color="primary">Click me</Button>'}</p>
+              <p className="text-body-md text-fg-muted font-mono">{'<Button color="primary">Click me</Button>'}</p>
             </div>
           </TabsContent>
         </Tabs>
@@ -104,12 +104,12 @@ export function TabsDoc() {
           </TabsList>
           <TabsContent value="general">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">General preferences and account overview.</p>
+              <p className="text-body-md text-fg-muted">General preferences and account overview.</p>
             </div>
           </TabsContent>
           <TabsContent value="notifications">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Choose which notifications you want to receive.</p>
+              <p className="text-body-md text-fg-muted">Choose which notifications you want to receive.</p>
             </div>
           </TabsContent>
         </Tabs>
@@ -130,17 +130,17 @@ export function TabsDoc() {
           </TabsList>
           <TabsContent value="overview">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Dashboard overview with key metrics and summaries.</p>
+              <p className="text-body-md text-fg-muted">Dashboard overview with key metrics and summaries.</p>
             </div>
           </TabsContent>
           <TabsContent value="analytics">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Detailed analytics with charts and trends.</p>
+              <p className="text-body-md text-fg-muted">Detailed analytics with charts and trends.</p>
             </div>
           </TabsContent>
           <TabsContent value="reports">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Generated reports available for download.</p>
+              <p className="text-body-md text-fg-muted">Generated reports available for download.</p>
             </div>
           </TabsContent>
         </Tabs>
@@ -178,27 +178,27 @@ export function TabsDoc() {
           </TabsList>
           <TabsContent value="profile">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Edit your display name, bio, and avatar.</p>
+              <p className="text-body-md text-fg-muted">Edit your display name, bio, and avatar.</p>
             </div>
           </TabsContent>
           <TabsContent value="notifications">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Configure email, push, and in-app alerts.</p>
+              <p className="text-body-md text-fg-muted">Configure email, push, and in-app alerts.</p>
             </div>
           </TabsContent>
           <TabsContent value="security">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Two-factor authentication and active sessions.</p>
+              <p className="text-body-md text-fg-muted">Two-factor authentication and active sessions.</p>
             </div>
           </TabsContent>
           <TabsContent value="appearance">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Switch between light and dark themes.</p>
+              <p className="text-body-md text-fg-muted">Switch between light and dark themes.</p>
             </div>
           </TabsContent>
           <TabsContent value="settings">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
-              <p className="text-paragraph-sm text-fg-muted">Language, timezone, and data export options.</p>
+              <p className="text-body-md text-fg-muted">Language, timezone, and data export options.</p>
             </div>
           </TabsContent>
         </Tabs>
@@ -207,7 +207,7 @@ export function TabsDoc() {
       <SectionH2 id="api" title="API Reference" />
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Tabs</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Based on <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">@radix-ui/react-tabs</code>.
           Wraps TabsList, TabsTrigger, and TabsContent.
         </p>

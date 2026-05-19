@@ -236,6 +236,6 @@ Parts são **estáveis em isolamento**: cada um pode ser usado fora do DataTable
 
 ## Sincronia visual
 
-Tokens de design propagam automaticamente — toolbar usa `bg-bg-input`, `border-border-input`, `min-h-form-md`, `px-pad-xl`, `text-[13px]`. Se mudar esses tokens no DS, toolbar acompanha sem código novo.
+Tokens de design propagam automaticamente — toolbar usa `bg-bg-input`, `border-border-input`, `min-h-form-md`, `px-pad-xl`, `text-body-sm font-normal`. Se mudar esses tokens no DS, toolbar acompanha sem código novo.
 
 Custom styling de toolbar root: passe `className` que merge via `cn` (tw-merge resolve conflitos).

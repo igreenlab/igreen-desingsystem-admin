@@ -19,26 +19,26 @@ function IGreenCard() {
       <div className="flex flex-1 flex-col gap-6 px-6 py-3">
         {/* Amount field — usa Input component */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-label-sm text-fg-default">Amount to Invest</label>
+          <label className="text-body-md font-medium text-fg-default">Amount to Invest</label>
           <Input size="sm" defaultValue="1,000.00" />
         </div>
 
         {/* Order Type field — usa Input como select (estruturalmente) */}
         <div className="flex flex-col gap-1.5">
-          <label className="text-label-sm text-fg-default">Order Type</label>
+          <label className="text-body-md font-medium text-fg-default">Order Type</label>
           <Input size="sm" defaultValue="Market Order" />
-          <p className="text-paragraph-sm text-fg-muted">Market orders execute at the current price.</p>
+          <p className="text-body-md text-fg-muted">Market orders execute at the current price.</p>
         </div>
 
         {/* Info rows */}
         <div className="flex flex-col gap-2 pt-1">
           <div className="flex items-center justify-between">
-            <span className="text-paragraph-sm text-fg-muted">Estimated Shares</span>
-            <span className="text-label-sm font-semibold tabular-nums">1.95</span>
+            <span className="text-body-md text-fg-muted">Estimated Shares</span>
+            <span className="text-body-md font-medium font-semibold tabular-nums">1.95</span>
           </div>
           <div className="flex items-center justify-between">
-            <span className="text-paragraph-sm text-fg-muted">Buying Power</span>
-            <span className="text-label-sm font-semibold tabular-nums">$12,450.00</span>
+            <span className="text-body-md text-fg-muted">Buying Power</span>
+            <span className="text-body-md font-medium font-semibold tabular-nums">$12,450.00</span>
           </div>
         </div>
       </div>
@@ -48,7 +48,7 @@ function IGreenCard() {
         <Button color="primary" variant="filled" size="sm" fullWidth>
           Review Order
         </Button>
-        <p className="text-paragraph-sm text-fg-muted text-center">
+        <p className="text-body-md text-fg-muted text-center">
           Trades are typically executed within minutes during market hours.
         </p>
       </div>
@@ -61,7 +61,7 @@ export function DemoComparison() {
   return (
     <div className="p-10">
       <h1 className="text-title-lg font-semibold text-fg-default mb-2">Demo: Shadcn Original vs iGreen DS</h1>
-      <p className="text-paragraph-md text-fg-muted mb-8">
+      <p className="text-body-lg text-fg-muted mb-8">
         Esquerda: screenshot pixel-perfect do Shadcn Luma Green. Direita: recriação usando tokens e componentes do iGreen DS.
       </p>
 
@@ -69,10 +69,10 @@ export function DemoComparison() {
         {/* Left — Original (screenshot) */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-radius-3xl bg-bg-muted text-label-xs text-fg-muted font-medium">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-radius-3xl bg-bg-muted text-body-xs text-fg-muted font-medium">
               Original Shadcn
             </span>
-            <span className="text-paragraph-sm text-fg-subtle">Luma Green preset (screenshot)</span>
+            <span className="text-body-md text-fg-subtle">Luma Green preset (screenshot)</span>
           </div>
           <div className="flex justify-center">
             <img
@@ -86,10 +86,10 @@ export function DemoComparison() {
         {/* Right — iGreen DS */}
         <div>
           <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center px-2.5 py-1 rounded-radius-3xl bg-bg-brand-subtle text-label-xs text-fg-brand font-medium">
+            <span className="inline-flex items-center px-2.5 py-1 rounded-radius-3xl bg-bg-brand-subtle text-body-xs text-fg-brand font-medium">
               iGreen DS
             </span>
-            <span className="text-paragraph-sm text-fg-subtle">Tokens + Button component</span>
+            <span className="text-body-md text-fg-subtle">Tokens + Button component</span>
           </div>
           <div className="max-w-[380px]">
             <IGreenCard />
@@ -100,12 +100,12 @@ export function DemoComparison() {
       {/* Token mapping reference */}
       <div className="mt-12 rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
         <div className="bg-bg-muted px-6 py-3 border-b border-border-subtle">
-          <h2 className="text-label-sm font-medium text-fg-default">Mapeamento de tokens utilizados</h2>
+          <h2 className="text-body-md font-medium font-medium text-fg-default">Mapeamento de tokens utilizados</h2>
         </div>
         <div className="px-6 py-4">
-          <table className="w-full text-left text-paragraph-sm">
+          <table className="w-full text-left text-body-md">
             <thead>
-              <tr className="text-label-sm text-fg-muted">
+              <tr className="text-body-md font-medium text-fg-muted">
                 <th className="pb-2 font-medium">Elemento</th>
                 <th className="pb-2 font-medium">Token / Classe</th>
                 <th className="pb-2 font-medium">Valor</th>
@@ -121,8 +121,8 @@ export function DemoComparison() {
                 ["Input radius", "rounded-radius-base", "26px"],
                 ["Button", "Button primary/filled/md", "40px, green, rounded-radius-base"],
                 ["Title", "text-title-lg", "20px, semibold"],
-                ["Label", "text-label-sm", "14px, medium"],
-                ["Body text", "text-paragraph-sm", "14px, regular"],
+                ["Label", "text-body-md font-medium", "14px, medium"],
+                ["Body text", "text-body-md", "14px, regular"],
                 ["Primary color", "bg-bg-brand", "oklch(52.7% 0.154 150)"],
                 ["Muted text", "text-fg-muted", "oklch(52% 0 0)"],
               ].map(([el, token, val]) => (

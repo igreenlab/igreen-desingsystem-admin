@@ -21,8 +21,8 @@ function McpCard({
 }) {
   return (
     <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-      <p className="text-label-sm text-fg-default mb-gp-sm">{name}</p>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-md">{purpose}</p>
+      <p className="text-body-md font-medium text-fg-default mb-gp-sm">{name}</p>
+      <p className="text-body-md text-fg-muted mb-gp-md">{purpose}</p>
       <div className="border-t border-border-subtle pt-pad-md">
         <p className="text-caption-sm text-fg-subtle mb-gp-sm">Example tools:</p>
         <div className="flex flex-wrap gap-gp-xs">
@@ -48,7 +48,7 @@ export function PipelineMcpDoc() {
       {/* What */}
       <SectionH2 id="what" title="What is MCP" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           <strong className="text-fg-default">Model Context Protocol</strong> (MCP) is an open standard for connecting
           Claude to external systems. Each MCP server exposes a set of tools the agent can call —{" "}
           <code className="font-mono text-code-sm">read_file</code>, <code className="font-mono text-code-sm">take_screenshot</code>,{" "}
@@ -56,15 +56,15 @@ export function PipelineMcpDoc() {
         </p>
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Decoupled from the agent</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Decoupled from the agent</p>
+            <p className="text-body-md text-fg-muted">
               O agente não sabe como o MCP server funciona — só conhece os nomes das tools e os schemas dos
               parâmetros. Trocar o backend não exige mudar o agente.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-sm">Permission-gated</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-sm">Permission-gated</p>
+            <p className="text-body-md text-fg-muted">
               Cada tool MCP só pode ser usada se estiver listada em{" "}
               <code className="font-mono text-code-sm">.claude/settings.json</code> {" → "}{" "}
               <code className="font-mono text-code-sm">permissions.allow</code>.
@@ -111,7 +111,7 @@ export function PipelineMcpDoc() {
       {/* Figma */}
       <SectionH2 id="figma" title="Figma Integration" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           O servidor Figma é o mais usado pelo DS Designer. Fluxo típico de extração:
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
@@ -124,12 +124,12 @@ export function PipelineMcpDoc() {
               { step: "5", title: "[GATE]", desc: "Usuário aprova spec antes de Dev começar" },
             ].map((item) => (
               <div key={item.step} className="flex gap-gp-2xl">
-                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold bg-bg-brand text-fg-on-brand">
+                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-body-md font-medium font-semibold bg-bg-brand text-fg-on-brand">
                   {item.step}
                 </div>
                 <div>
-                  <p className="text-label-sm text-fg-default mb-gp-xs">{item.title}</p>
-                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                  <p className="text-body-md font-medium text-fg-default mb-gp-xs">{item.title}</p>
+                  <p className="text-body-md text-fg-muted">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -140,22 +140,22 @@ export function PipelineMcpDoc() {
       {/* Workspace */}
       <SectionH2 id="workspace" title="igreen-workspace Server" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Servidor de filesystem com escopo restrito. Útil quando você quer permissões granulares — tools
           MCP são mais auditáveis que <code className="font-mono text-code-sm">Bash(cat ...)</code>.
         </p>
         <div className="grid grid-cols-2 gap-gp-3xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">Tools permitidas (allowlist)</p>
-            <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">Tools permitidas (allowlist)</p>
+            <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
               <li><code className="font-mono text-code-sm">read_text_file</code></li>
               <li><code className="font-mono text-code-sm">list_directory</code></li>
               <li><code className="font-mono text-code-sm">write_file</code></li>
             </ul>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">Quando preferir Bash</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">Quando preferir Bash</p>
+            <p className="text-body-md text-fg-muted">
               Comandos compostos com pipes, scripts complexos, comandos que precisam de variáveis de ambiente.
               MCP é mais ergonômico para operações simples e auditáveis.
             </p>
@@ -166,7 +166,7 @@ export function PipelineMcpDoc() {
       {/* Permissions */}
       <SectionH2 id="permissions" title="Permission Allowlist" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           MCP tools só rodam se estiverem listadas. Sem allow, cada chamada solicita permissão ao usuário.
           Trecho do <code className="font-mono text-code-sm">settings.json</code>:
         </p>
@@ -191,8 +191,8 @@ export function PipelineMcpDoc() {
       <SectionH2 id="vs-bash" title="MCP vs Bash" />
       <div className="grid grid-cols-2 gap-gp-3xl mb-14">
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Use MCP quando…</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Use MCP quando…</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Você quer permissões granulares por tool</li>
             <li>O sistema externo é stateful (Figma, browser)</li>
             <li>Você precisa de tipagem estruturada</li>
@@ -200,8 +200,8 @@ export function PipelineMcpDoc() {
           </ul>
         </div>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-label-sm text-fg-default mb-gp-md">Use Bash quando…</p>
-          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Use Bash quando…</p>
+          <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
             <li>Comando composto com pipes</li>
             <li>Sem MCP server pro caso de uso</li>
             <li>Operação one-shot com variáveis</li>

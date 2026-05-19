@@ -74,7 +74,7 @@ const CommandInput = React.forwardRef<
       ref={ref}
       className={cn(
         "flex-1 min-w-0 bg-transparent border-0 outline-none",
-        "text-[13px] text-fg-default placeholder:text-fg-muted",
+        "text-body-sm font-normal text-fg-default placeholder:text-fg-muted",
         "disabled:cursor-not-allowed disabled:opacity-50",
         className
       )}
@@ -106,7 +106,7 @@ const CommandEmpty = React.forwardRef<
 >((props, ref) => (
   <CommandPrimitive.Empty
     ref={ref}
-    className="py-pad-5xl text-center text-paragraph-sm text-fg-muted"
+    className="py-pad-5xl text-center text-body-md text-fg-muted"
     {...props}
   />
 ))
@@ -123,7 +123,7 @@ const CommandGroup = React.forwardRef<
       "overflow-hidden text-fg-default",
       "[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center",
       "[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl",
-      "[&_[cmdk-group-heading]]:text-[10px] [&_[cmdk-group-heading]]:font-bold",
+      "[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold",
       "[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider",
       "[&_[cmdk-group-heading]]:text-fg-subtle",
       className
@@ -155,7 +155,7 @@ const CommandItem = React.forwardRef<
     className={cn(
       "relative flex cursor-default select-none items-center gap-gp-md",
       "rounded-radius-lg px-pad-xl py-pad-md",
-      "text-[13px] font-medium text-fg-muted",
+      "text-body-sm font-medium text-fg-muted",
       "outline-none transition-colors",
       "data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default",
       "data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50",
@@ -174,7 +174,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "ml-auto text-[11px] tracking-wider text-fg-subtle",
+        "ml-auto text-caption-sm tracking-wider text-fg-subtle",
         className
       )}
       {...props}

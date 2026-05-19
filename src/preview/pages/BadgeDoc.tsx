@@ -78,7 +78,7 @@ export function BadgeDoc() {
         <div className="flex flex-col gap-gp-2xl">
           {VARIANTS.map((v) => (
             <div key={v} className="flex items-center gap-gp-md">
-              <p className="w-[80px] text-label-xs text-fg-muted uppercase tracking-wider">{v}</p>
+              <p className="w-[80px] text-body-xs text-fg-muted uppercase tracking-wider">{v}</p>
               <div className="flex flex-wrap gap-gp-md">
                 {COLORS.map((c) => (
                   <Badge key={c} color={c} variant={v}>{c}</Badge>
@@ -124,7 +124,7 @@ export function BadgeDoc() {
       >
         <div className="flex flex-col gap-gp-2xl">
           <div className="flex flex-col gap-gp-md">
-            <p className="text-label-xs text-fg-muted uppercase tracking-wider">Default shape</p>
+            <p className="text-body-xs text-fg-muted uppercase tracking-wider">Default shape</p>
             <div className="flex items-center gap-gp-md">
               <Badge color="primary" variant="soft" size="sm">SM 20px</Badge>
               <Badge color="primary" variant="soft" size="md">MD 24px</Badge>
@@ -132,7 +132,7 @@ export function BadgeDoc() {
             </div>
           </div>
           <div className="flex flex-col gap-gp-md">
-            <p className="text-label-xs text-fg-muted uppercase tracking-wider">Pill shape</p>
+            <p className="text-body-xs text-fg-muted uppercase tracking-wider">Pill shape</p>
             <div className="flex items-center gap-gp-md">
               <Badge color="success" variant="soft" shape="pill" size="sm">Ativo</Badge>
               <Badge color="success" variant="soft" shape="pill" size="md">Ativo</Badge>

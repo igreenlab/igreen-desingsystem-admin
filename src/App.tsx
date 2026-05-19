@@ -156,7 +156,7 @@ function SidebarSection({
     <div>
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center justify-between w-full px-2 py-2 text-label-xs text-fg-default uppercase tracking-wider hover:text-fg-default transition-colors"
+        className="flex items-center justify-between w-full px-2 py-2 text-body-xs text-fg-default uppercase tracking-wider hover:text-fg-default transition-colors"
       >
         {section.title}
         <ChevronDown className={`size-3 text-fg-subtle transition-transform ${open ? "" : "-rotate-90"}`} />
@@ -170,7 +170,7 @@ function SidebarSection({
                 key={item.id}
                 onClick={() => onSelect(item.id)}
                 className={[
-                  "flex items-center gap-gp-md w-full px-pad-xl py-pad-md rounded-radius-md text-paragraph-sm transition-all text-left",
+                  "flex items-center gap-gp-md w-full px-pad-xl py-pad-md rounded-radius-md text-body-md transition-all text-left",
                   isActive
                     ? "bg-bg-surface text-fg-brand font-semibold shadow-sh-sm dark:bg-bg-sidebar-accent dark:shadow-sh-none"
                     : "text-fg-muted hover:text-fg-default hover:bg-bg-sidebar-accent",
@@ -317,9 +317,9 @@ export function App() {
       <aside className="w-[260px] shrink-0 border-r border-border-sidebar bg-bg-sidebar flex flex-col">
         {/* Logo */}
         <div className="flex items-center gap-gp-xl px-pad-3xl py-pad-2xl border-b border-border-sidebar">
-          <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-[13px]">iG</div>
+          <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-body-sm font-normal">iG</div>
           <div>
-            <div className="text-label-sm text-fg-default">iGreen DS</div>
+            <div className="text-body-md font-medium text-fg-default">iGreen DS</div>
             <div className="text-caption-sm text-fg-subtle">preview</div>
           </div>
         </div>
@@ -338,7 +338,7 @@ export function App() {
 
         {/* Theme toggle */}
         <div className="px-pad-3xl py-pad-2xl border-t border-border-sidebar">
-          <button onClick={toggle} className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-paragraph-sm text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors">
+          <button onClick={toggle} className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-body-md text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors">
             {theme === "dark" ? "☀️" : "🌙"} {theme}
           </button>
         </div>

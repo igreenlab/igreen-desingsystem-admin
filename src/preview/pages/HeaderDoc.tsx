@@ -150,7 +150,7 @@ function HeaderDemo({ children, tall }: { children: React.ReactNode; tall?: bool
     >
       {children}
       <div className="p-pad-4xl">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           (conteúdo da página fica aqui — o Header não é sticky por default, posição fica a cargo do template)
         </p>
       </div>
@@ -286,7 +286,7 @@ export function HeaderDoc() {
             menuCollapsed={menuCollapsed}
             showSearch={false}
           />
-          <div className="px-pad-4xl pb-pad-md text-paragraph-sm text-fg-muted">
+          <div className="px-pad-4xl pb-pad-md text-body-md text-fg-muted">
             Estado: panel {menuCollapsed ? "colapsado" : "aberto"}.
             Clique o ícone à esquerda do título pra alternar.
           </div>

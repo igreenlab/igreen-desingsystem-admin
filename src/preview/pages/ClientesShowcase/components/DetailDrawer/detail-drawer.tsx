@@ -136,15 +136,15 @@ export function DetailDrawer({
             className="size-[40px] shrink-0"
             style={{ background: row.avatarColor }}
           >
-            <AvatarFallback className="bg-transparent text-white text-[14px] font-bold">
+            <AvatarFallback className="bg-transparent text-white text-body-md font-bold">
               {row.initials}
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col min-w-0 flex-1">
-            <div className="text-[15px] font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
+            <div className="text-body-md font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
               {row.name}
             </div>
-            <div className="flex items-center gap-[6px] mt-[2px] text-[12px] text-fg-muted">
+            <div className="flex items-center gap-[6px] mt-[2px] text-body-xs font-normal text-fg-muted">
               <span>{row.id}</span>
               <span className="opacity-50">·</span>
               <span className="inline-flex items-center gap-[6px]">
@@ -266,7 +266,7 @@ export function DetailDrawer({
                   className="size-[22px]"
                   style={{ background: agent.color }}
                 >
-                  <AvatarFallback className="bg-transparent text-white text-[10px] font-bold">
+                  <AvatarFallback className="bg-transparent text-white text-caption-xs font-bold">
                     {agentInitials}
                   </AvatarFallback>
                 </Avatar>
@@ -294,7 +294,7 @@ export function DetailDrawer({
         onToggle={toggle}
         s={s}
       >
-        <p className="text-[12.5px] text-fg-muted">Sem anotações.</p>
+        <p className="text-body-xs font-normal text-fg-muted">Sem anotações.</p>
       </DetailSection>
     </FloatingPanel>
   );

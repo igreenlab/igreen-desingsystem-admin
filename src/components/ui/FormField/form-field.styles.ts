@@ -11,7 +11,7 @@ export const formFieldRoot = tv({
 
 export const formFieldLabel = tv({
   base: [
-    "text-[12.5px] font-semibold tracking-[0.01em] leading-none",
+    "text-body-sm font-semibold tracking-[0.01em] leading-none",
     "text-fg-default dark:text-fg-muted",
     "select-none",
   ],
@@ -27,7 +27,7 @@ export const formFieldRequired = tv({
 });
 
 export const formFieldMessage = tv({
-  base: "text-[11.5px] leading-snug",
+  base: "text-caption-sm leading-snug",
   variants: {
     state: {
       default: "text-fg-muted",

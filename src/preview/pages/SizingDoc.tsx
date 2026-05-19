@@ -13,7 +13,7 @@ function SizeRow({ name, px, cssClass }: { name: string; px: string; cssClass: s
   const pxNum = parseInt(px);
   return (
     <div className="flex items-center gap-gp-xl">
-      <span className="text-label-xs text-fg-default w-12 text-right font-mono">{name}</span>
+      <span className="text-body-xs text-fg-default w-12 text-right font-mono">{name}</span>
       <div className="bg-bg-brand rounded-radius-xs" style={{ width: `${Math.min(pxNum * 1.5, 300)}px`, height: 14 }} />
       <span className="text-caption-sm text-fg-subtle w-12">{px}px</span>
       <Badge color="secondary" variant="outline" size="sm" className="font-mono">{cssClass}</Badge>
@@ -29,7 +29,7 @@ export function SizingDoc() {
 
       {/* Comp */}
       <SectionH2 id="comp" title="Component Heights (comp)" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Generic component dimension scale. Base: 40px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">comp-</code></p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Generic component dimension scale. Base: 40px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">comp-</code></p>
       <div className="flex flex-col gap-gp-lg mb-14">
         {[
           { name: "base", px: "40", cls: "h-comp-base" },
@@ -48,7 +48,7 @@ export function SizingDoc() {
 
       {/* Form */}
       <SectionH2 id="form" title="Form Heights" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Subset for interactive controls. Ensures Button sm = Input sm = Select sm. Base: 40px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">form-</code></p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Subset for interactive controls. Ensures Button sm = Input sm = Select sm. Base: 40px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">form-</code></p>
       <div className="flex flex-col gap-gp-lg mb-14">
         {[
           { name: "base", px: "40", cls: "min-h-form-base" },
@@ -64,7 +64,7 @@ export function SizingDoc() {
 
       {/* Icon */}
       <SectionH2 id="icon" title="Icon Sizes" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Square dimensions for icons. Base: 20px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">icon-</code></p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Square dimensions for icons. Base: 20px. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">icon-</code></p>
       <div className="flex flex-col gap-gp-lg mb-14">
         {[
           { name: "base", px: "20", cls: "size-icon-base" },
@@ -81,7 +81,7 @@ export function SizingDoc() {
 
       {/* Layout */}
       <SectionH2 id="layout" title="Layout Heights" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Fixed heights for structural elements. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">layout-</code></p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Fixed heights for structural elements. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">layout-</code></p>
       <div className="flex flex-col gap-gp-lg mb-14">
         {[
           { name: "toolbar", px: "48", cls: "h-layout-toolbar" },
@@ -95,7 +95,7 @@ export function SizingDoc() {
 
       {/* Container */}
       <SectionH2 id="container" title="Container Widths" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">Max-width breakpoints and overlay widths.</p>
+      <p className="text-body-md text-fg-muted mb-gp-4xl">Max-width breakpoints and overlay widths.</p>
       <div className="grid grid-cols-2 gap-gp-xl mb-14">
         {[
           { name: "xs", val: "480px" }, { name: "sm", val: "640px" }, { name: "md", val: "768px" },
@@ -105,7 +105,7 @@ export function SizingDoc() {
           { name: "sidebar-sm", val: "240px" }, { name: "sidebar-md", val: "280px" }, { name: "sidebar-lg", val: "320px" },
         ].map(c => (
           <div key={c.name} className="flex items-center gap-gp-md">
-            <span className="text-label-xs text-fg-default font-mono w-24">{c.name}</span>
+            <span className="text-body-xs text-fg-default font-mono w-24">{c.name}</span>
             <span className="text-caption-sm text-fg-subtle">{c.val}</span>
           </div>
         ))}

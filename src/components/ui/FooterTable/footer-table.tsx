@@ -65,7 +65,7 @@ export function FooterTable({
         // Mobile: empilha vertical (left em cima, paginação embaixo)
         "flex flex-col sm:flex-row sm:items-center sm:justify-between",
         "gap-gp-2xl px-pad-xs pt-pad-xl",
-        "text-[13px] text-fg-default",
+        "text-body-sm font-normal text-fg-default",
         className,
       )}
     >

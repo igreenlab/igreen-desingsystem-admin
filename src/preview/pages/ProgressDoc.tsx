@@ -45,12 +45,12 @@ export function ProgressDoc() {
         id="ex-with-label"
         title="With Label"
         description="Progress bar with a descriptive label and percentage readout."
-        code={`<div className="w-full max-w-sm flex flex-col gap-gp-md">\n  <div className="flex items-center justify-between">\n    <Label>Upload progress</Label>\n    <span className="text-label-sm text-fg-muted tabular-nums">66%</span>\n  </div>\n  <Progress value={66} />\n</div>`}
+        code={`<div className="w-full max-w-sm flex flex-col gap-gp-md">\n  <div className="flex items-center justify-between">\n    <Label>Upload progress</Label>\n    <span className="text-body-md font-medium text-fg-muted tabular-nums">66%</span>\n  </div>\n  <Progress value={66} />\n</div>`}
       >
         <div className="w-full max-w-sm flex flex-col gap-gp-md">
           <div className="flex items-center justify-between">
             <Label>Upload progress</Label>
-            <span className="text-label-sm text-fg-muted tabular-nums">66%</span>
+            <span className="text-body-md font-medium text-fg-muted tabular-nums">66%</span>
           </div>
           <Progress value={66} />
         </div>
@@ -61,13 +61,13 @@ export function ProgressDoc() {
         id="ex-controlled"
         title="Controlled"
         description="Use state to drive the progress value with increment and decrement controls."
-        code={`const [val, setVal] = useState(40);\n\n<Progress value={val} />\n<div className="flex items-center gap-gp-xl justify-center">\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.max(0, val - 10))}>-10</Button>\n  <span className="text-label-sm text-fg-muted tabular-nums">{val}%</span>\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.min(100, val + 10))}>+10</Button>\n</div>`}
+        code={`const [val, setVal] = useState(40);\n\n<Progress value={val} />\n<div className="flex items-center gap-gp-xl justify-center">\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.max(0, val - 10))}>-10</Button>\n  <span className="text-body-md font-medium text-fg-muted tabular-nums">{val}%</span>\n  <Button color="secondary" variant="outline" size="2xs"\n    onClick={() => setVal(Math.min(100, val + 10))}>+10</Button>\n</div>`}
       >
         <div className="flex flex-col gap-gp-xl max-w-sm w-full">
           <Progress value={val} />
           <div className="flex items-center gap-gp-xl justify-center">
             <Button color="secondary" variant="outline" size="2xs" onClick={() => setVal(Math.max(0, val - 10))}>-10</Button>
-            <span className="text-label-sm text-fg-muted tabular-nums">{val}%</span>
+            <span className="text-body-md font-medium text-fg-muted tabular-nums">{val}%</span>
             <Button color="secondary" variant="outline" size="2xs" onClick={() => setVal(Math.min(100, val + 10))}>+10</Button>
           </div>
         </div>
@@ -82,19 +82,19 @@ export function ProgressDoc() {
       >
         <div className="flex flex-col gap-gp-3xl w-full max-w-sm">
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-label-xs text-fg-subtle">h-1 (4px)</span>
+            <span className="text-body-xs text-fg-subtle">h-1 (4px)</span>
             <Progress value={60} className="h-1" />
           </div>
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-label-xs text-fg-subtle">h-2 (8px) — default</span>
+            <span className="text-body-xs text-fg-subtle">h-2 (8px) — default</span>
             <Progress value={60} className="h-2" />
           </div>
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-label-xs text-fg-subtle">h-3 (12px)</span>
+            <span className="text-body-xs text-fg-subtle">h-3 (12px)</span>
             <Progress value={60} className="h-3" />
           </div>
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-label-xs text-fg-subtle">h-4 (16px)</span>
+            <span className="text-body-xs text-fg-subtle">h-4 (16px)</span>
             <Progress value={60} className="h-4" />
           </div>
         </div>
@@ -109,7 +109,7 @@ export function ProgressDoc() {
       >
         <div className="flex flex-col gap-gp-3xl w-full max-w-sm">
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-label-xs text-fg-subtle">Default (primary)</span>
+            <span className="text-body-xs text-fg-subtle">Default (primary)</span>
             <Progress value={75} />
           </div>
         </div>
@@ -118,7 +118,7 @@ export function ProgressDoc() {
       <SectionH2 id="api" title="API Reference" />
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">Progress</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
           Based on <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">@radix-ui/react-progress</code>.
           Accepts all standard div attributes.
         </p>

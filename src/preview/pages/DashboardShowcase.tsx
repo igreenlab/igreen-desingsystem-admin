@@ -236,7 +236,7 @@ function KpiCard({ kpi }: { kpi: KpiCardData }) {
   return (
     <article className="flex flex-col gap-gp-lg p-pad-3xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm">
       <header className="flex items-start justify-between gap-gp-md">
-        <h3 className="m-0 text-paragraph-sm font-semibold text-fg-default">{kpi.title}</h3>
+        <h3 className="m-0 text-body-md font-semibold text-fg-default">{kpi.title}</h3>
         <span
           className={cn(
             "grid place-items-center size-form-lg rounded-radius-lg shrink-0",
@@ -249,7 +249,7 @@ function KpiCard({ kpi }: { kpi: KpiCardData }) {
       </header>
       <div className="flex flex-col gap-gp-xs">
         <div className="flex items-center gap-gp-md flex-wrap">
-          <span className="text-[26px] font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
+          <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
             {kpi.value}
           </span>
           {kpi.delta && (
@@ -264,7 +264,7 @@ function KpiCard({ kpi }: { kpi: KpiCardData }) {
           )}
         </div>
         {kpi.delta && (
-          <span className="text-[11px] text-fg-subtle">{kpi.delta.label}</span>
+          <span className="text-caption-sm text-fg-subtle">{kpi.delta.label}</span>
         )}
       </div>
     </article>
@@ -277,11 +277,11 @@ function WelcomeBanner() {
     <article className="relative overflow-hidden bg-bg-brand rounded-radius-xl p-pad-4xl flex items-center gap-gp-2xl flex-1 w-full">
       {/* Texto à esquerda */}
       <div className="flex flex-col gap-gp-md flex-1 min-w-0 z-[1]">
-        <h2 className="m-0 flex items-center gap-gp-md text-[22px] font-bold text-fg-on-brand">
+        <h2 className="m-0 flex items-center gap-gp-md text-body-2xl font-bold text-fg-on-brand">
           Boa tarde, Sergio
           <Sun className="size-icon-md text-fg-warning" fill="currentColor" />
         </h2>
-        <p className="m-0 text-paragraph-sm text-fg-on-brand opacity-80 max-w-[480px]">
+        <p className="m-0 text-body-md text-fg-on-brand opacity-80 max-w-[480px]">
           Acompanhe a performance da sua equipe hoje.<br />
           Snapshot rápido das principais métricas do atendimento.
         </p>
@@ -307,14 +307,14 @@ function KeyInsightsCard() {
   return (
     <article className="flex flex-col gap-gp-md p-pad-3xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm h-full">
       <header className="flex items-center justify-between gap-gp-md">
-        <h3 className="m-0 text-[15px] font-bold text-fg-default">Key Insights</h3>
+        <h3 className="m-0 text-body-md font-medium font-bold text-fg-default">Key Insights</h3>
         <Button color="secondary" variant="ghost" size="icon-sm" aria-label="Mais opções">
           <MoreVertical />
         </Button>
       </header>
-      <p className="m-0 text-[12px] text-fg-muted">Receita acumulada (anual)</p>
+      <p className="m-0 text-body-xs font-normal text-fg-muted">Receita acumulada (anual)</p>
       <div className="flex items-center gap-gp-md flex-wrap">
-        <span className="text-[26px] font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
+        <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
           R$ 395.7k
         </span>
         <Chip color="success" variant="soft" size="sm" shape="pill">
@@ -329,7 +329,7 @@ function KeyInsightsCard() {
           <span className="bg-bg-warning"  style={{ flex: 3 }} aria-hidden />
           <span className="bg-bg-info"     style={{ flex: 4 }} aria-hidden />
         </div>
-        <div className="flex items-center gap-gp-lg flex-wrap text-[11px] text-fg-muted">
+        <div className="flex items-center gap-gp-lg flex-wrap text-caption-sm text-fg-muted">
           <span className="inline-flex items-center gap-[5px]">
             <span className="size-[8px] rounded-radius-full bg-bg-brand" aria-hidden />
             São Paulo
@@ -370,9 +370,9 @@ function SectionCard({
     >
       <header className="flex items-center justify-between gap-gp-md">
         <div className="flex flex-col gap-[2px] min-w-0">
-          <h3 className="m-0 text-[15px] font-bold text-fg-default">{title}</h3>
+          <h3 className="m-0 text-body-md font-medium font-bold text-fg-default">{title}</h3>
           {subtitle && (
-            <p className="m-0 text-[12px] text-fg-muted">{subtitle}</p>
+            <p className="m-0 text-body-xs font-normal text-fg-muted">{subtitle}</p>
           )}
         </div>
         {action ?? (
@@ -410,19 +410,19 @@ function VolumeStackedChart() {
       {/* Header com valor + chip delta + legend + selector ano */}
       <div className="flex items-center gap-gp-md flex-wrap">
         <div className="flex items-baseline gap-gp-md flex-wrap">
-          <span className="text-[26px] font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
+          <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
             R$ 395.7k
           </span>
           <Chip color="success" variant="soft" size="sm" shape="pill">
             +18%
           </Chip>
-          <span className="text-[12px] text-fg-muted">vs ano passado</span>
+          <span className="text-body-xs font-normal text-fg-muted">vs ano passado</span>
         </div>
         <div className="ml-auto flex items-center gap-gp-md">
-          <span className="inline-flex items-center gap-[4px] text-[11px] text-fg-muted">
+          <span className="inline-flex items-center gap-[4px] text-caption-sm text-fg-muted">
             <span className="size-[8px] rounded-radius-full bg-bg-brand" aria-hidden /> Humano
           </span>
-          <span className="inline-flex items-center gap-[4px] text-[11px] text-fg-muted">
+          <span className="inline-flex items-center gap-[4px] text-caption-sm text-fg-muted">
             <span className="size-[8px] rounded-radius-full bg-bg-brand-subtle" aria-hidden /> IA
           </span>
           <Button color="secondary" variant="outline" size="sm" iconRight={<ChevronDown />}>
@@ -514,8 +514,8 @@ function CurrentVisitsCard() {
         </ResponsiveContainer>
         {/* Total absolute no centro do donut */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-          <span className="text-[11px] text-fg-muted">Total</span>
-          <span className="text-[24px] font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
+          <span className="text-caption-sm text-fg-muted">Total</span>
+          <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
             {total.toLocaleString("pt-BR")}
           </span>
         </div>
@@ -529,8 +529,8 @@ function CurrentVisitsCard() {
               style={{ background: r.color }}
               aria-hidden
             />
-            <span className="flex-1 text-[12.5px] text-fg-default font-medium">{r.name}</span>
-            <span className="text-[12px] text-fg-default [font-variant-numeric:tabular-nums]">
+            <span className="flex-1 text-body-xs text-fg-default">{r.name}</span>
+            <span className="text-body-xs font-normal text-fg-default [font-variant-numeric:tabular-nums]">
               {r.value.toLocaleString("pt-BR")}
             </span>
             <Chip
@@ -549,7 +549,7 @@ function CurrentVisitsCard() {
 }
 
 function PersonAvatar({ initials, hex, size = "md" }: { initials: string; hex: string; size?: "sm" | "md" }) {
-  const cls = size === "sm" ? "size-[24px] text-[10px]" : "size-[32px] text-[12px]";
+  const cls = size === "sm" ? "size-[24px] text-caption-xs" : "size-[32px] text-body-xs font-normal";
   return (
     <Avatar className={cls} style={{ background: hex }}>
       <AvatarFallback className="bg-transparent text-white font-bold">{initials}</AvatarFallback>
@@ -570,14 +570,14 @@ function OpenConversationsList() {
             <PersonAvatar initials={c.initials} hex={c.hex} size="md" />
             <div className="flex-1 min-w-0 flex flex-col gap-[2px]">
               <div className="flex items-center gap-gp-sm">
-                <span className="text-[13px] font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
+                <span className="text-body-sm font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
                   {c.name}
                 </span>
-                <span className="text-[11px] text-fg-subtle [font-variant-numeric:tabular-nums] shrink-0">
+                <span className="text-caption-sm text-fg-subtle [font-variant-numeric:tabular-nums] shrink-0">
                   {c.id}
                 </span>
               </div>
-              <div className="flex items-center gap-gp-sm flex-wrap text-[11px] text-fg-muted">
+              <div className="flex items-center gap-gp-sm flex-wrap text-caption-sm text-fg-muted">
                 <span className="inline-flex items-center gap-[3px]">
                   <ChIcon size={11} strokeWidth={1.8} aria-hidden />
                   {CHANNELS.find((ch) => ch.id === c.channel)?.name ?? c.channel}
@@ -594,7 +594,7 @@ function OpenConversationsList() {
               <Chip color={STATUS_TONE[c.status]} variant="soft" size="sm" shape="pill">
                 {STATUS_LABEL[c.status]}
               </Chip>
-              <span className="inline-flex items-center gap-[3px] text-[11px] text-fg-muted [font-variant-numeric:tabular-nums]">
+              <span className="inline-flex items-center gap-[3px] text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums]">
                 <Clock size={10} strokeWidth={1.8} aria-hidden />
                 {c.waitTime}
               </span>
@@ -614,7 +614,7 @@ function AgentPerformanceList() {
           key={a.id}
           className="flex items-center gap-gp-md py-pad-lg border-b border-border-subtle last:border-b-0"
         >
-          <span className="grid place-items-center size-[20px] rounded-radius-full bg-bg-muted text-[11px] font-bold text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]">
+          <span className="grid place-items-center size-[20px] rounded-radius-full bg-bg-muted text-caption-sm font-bold text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]">
             {i + 1}
           </span>
           <div className="relative shrink-0">
@@ -628,14 +628,14 @@ function AgentPerformanceList() {
             />
           </div>
           <div className="flex-1 min-w-0 flex flex-col gap-[2px]">
-            <span className="text-[13px] font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
+            <span className="text-body-sm font-semibold text-fg-default whitespace-nowrap overflow-hidden text-ellipsis">
               {a.name}
             </span>
-            <span className="text-[11px] text-fg-muted">
+            <span className="text-caption-sm text-fg-muted">
               {a.resolved} resolvidos · {a.avgTime} médio
             </span>
           </div>
-          <div className="flex items-center gap-[3px] shrink-0 text-[12px] font-semibold text-fg-default">
+          <div className="flex items-center gap-[3px] shrink-0 text-body-xs font-semibold text-fg-default">
             <Star size={11} strokeWidth={2} className="text-fg-warning fill-current" aria-hidden />
             <span className="[font-variant-numeric:tabular-nums]">{a.csat.toFixed(1)}</span>
           </div>
@@ -664,8 +664,8 @@ function ChannelPerformanceList() {
               <Icon size={16} strokeWidth={1.8} />
             </span>
             <div className="flex-1 min-w-0 flex flex-col gap-[2px]">
-              <span className="text-[13px] font-semibold text-fg-default">{c.name}</span>
-              <span className="text-[11px] text-fg-muted">
+              <span className="text-body-sm font-semibold text-fg-default">{c.name}</span>
+              <span className="text-caption-sm text-fg-muted">
                 {c.volume} mensagens
               </span>
             </div>
@@ -696,15 +696,15 @@ function TrafficDataTable() {
           <input
             type="search"
             placeholder="Buscar..."
-            className="h-form-md pl-[34px] pr-pad-md w-full rounded-radius-md bg-bg-muted border border-border-input text-paragraph-sm text-fg-default placeholder:text-fg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand focus-visible:border-border-brand"
+            className="h-form-md pl-[34px] pr-pad-md w-full rounded-radius-md bg-bg-muted border border-border-input text-body-md text-fg-default placeholder:text-fg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand focus-visible:border-border-brand"
           />
         </div>
       }
     >
       <div className="overflow-x-auto -mx-pad-2xl px-pad-2xl">
-        <table className="w-full text-paragraph-sm border-separate border-spacing-0">
+        <table className="w-full text-body-md border-separate border-spacing-0">
           <thead>
-            <tr className="text-[11px] font-bold tracking-[0.04em] text-fg-subtle uppercase">
+            <tr className="text-caption-sm font-bold tracking-[0.04em] text-fg-subtle uppercase">
               <th className="text-left pb-pad-md border-b border-border-subtle font-bold">Fonte</th>
               <th className="text-right pb-pad-md border-b border-border-subtle font-bold">Visitas</th>
               <th className="text-left pb-pad-md pl-pad-2xl border-b border-border-subtle font-bold">Bounce</th>
@@ -713,7 +713,7 @@ function TrafficDataTable() {
           </thead>
           <tbody>
             {TRAFFIC_ROWS.map((r) => (
-              <tr key={r.source} className="text-[12.5px]">
+              <tr key={r.source} className="text-body-xs font-normal">
                 <td className="py-pad-lg border-b border-border-subtle text-fg-default font-medium">
                   {r.source}
                 </td>
@@ -731,7 +731,7 @@ function TrafficDataTable() {
                         style={{ width: `${r.goal}%`, background: r.goalColor }}
                       />
                     </div>
-                    <span className="text-[11px] font-semibold text-fg-default [font-variant-numeric:tabular-nums] shrink-0 min-w-[32px] text-right">
+                    <span className="text-caption-sm font-semibold text-fg-default [font-variant-numeric:tabular-nums] shrink-0 min-w-[32px] text-right">
                       {r.goal}%
                     </span>
                   </div>

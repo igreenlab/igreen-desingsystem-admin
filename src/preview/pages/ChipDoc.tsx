@@ -110,7 +110,7 @@ export function ChipDoc() {
         <div className="flex flex-col gap-gp-md">
           {COLORS.map((c) => (
             <div key={c} className="flex flex-wrap items-center gap-gp-md">
-              <span className="text-[12px] font-mono text-fg-muted w-[60px]">
+              <span className="text-body-xs font-normal font-mono text-fg-muted w-[60px]">
                 {c}
               </span>
               {VARIANTS.map((v) => (
@@ -156,7 +156,7 @@ export function ChipDoc() {
         <div className="flex flex-col gap-gp-lg">
           {SIZES.map((s) => (
             <div key={s} className="flex items-center gap-gp-md">
-              <span className="text-[11px] font-mono text-fg-muted w-[40px]">
+              <span className="text-caption-sm font-mono text-fg-muted w-[40px]">
                 {s}
               </span>
               <Chip size={s} shape="pill" color="primary">
@@ -238,7 +238,7 @@ export function ChipDoc() {
       >
         <div className="flex flex-col gap-gp-2xl">
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-[11px] font-mono text-fg-muted">
+            <span className="text-caption-sm font-mono text-fg-muted">
               default (inactive: neutral outline / active: primary soft-outline)
             </span>
             <ChipGroup
@@ -254,7 +254,7 @@ export function ChipDoc() {
           </div>
 
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-[11px] font-mono text-fg-muted">
+            <span className="text-caption-sm font-mono text-fg-muted">
               inactive: soft / active: success solid
             </span>
             <ChipGroup
@@ -273,7 +273,7 @@ export function ChipDoc() {
           </div>
 
           <div className="flex flex-col gap-gp-xs">
-            <span className="text-[11px] font-mono text-fg-muted">
+            <span className="text-caption-sm font-mono text-fg-muted">
               inactive: outline / active: danger outline
             </span>
             <ChipGroup
@@ -321,12 +321,12 @@ export function ChipDoc() {
       </ExampleSection>
 
       <SectionH2 id="api" title="API Reference" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg">
+      <p className="text-body-md text-fg-muted mb-gp-lg">
         <strong className="text-fg-default">Chip</strong>:
       </p>
       <PropsTable items={CHIP_PROPS} />
 
-      <p className="text-paragraph-sm text-fg-muted mt-gp-2xl mb-gp-lg">
+      <p className="text-body-md text-fg-muted mt-gp-2xl mb-gp-lg">
         <strong className="text-fg-default">ChipGroup</strong>:
       </p>
       <PropsTable items={GROUP_PROPS} />

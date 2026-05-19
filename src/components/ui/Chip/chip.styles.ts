@@ -22,10 +22,10 @@ export const chipVariants = tv({
   ],
   variants: {
     size: {
-      sm: "h-[24px] px-pad-md text-[11px] [&_svg]:size-[12px]",
-      md: "h-form-xs px-pad-lg text-[12px] [&_svg]:size-[12px]",  // 28px
-      lg: "h-form-sm px-pad-xl text-[13px] [&_svg]:size-[14px]",  // 32px
-      xl: "h-form-md px-pad-xl text-[13px] [&_svg]:size-[14px]",  // 36px (= Button md)
+      sm: "h-[24px] px-pad-md text-caption-sm [&_svg]:size-[12px]",
+      md: "h-form-xs px-pad-lg text-body-xs font-normal [&_svg]:size-[12px]",  // 28px
+      lg: "h-form-sm px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]",  // 32px
+      xl: "h-form-md px-pad-xl text-body-sm font-normal [&_svg]:size-[14px]",  // 36px (= Button md)
     },
     /**
      * `pill` = rounded-full (default — chip pílula clássico).
@@ -150,7 +150,7 @@ export type ChipVariantProps = VariantProps<typeof chipVariants>;
 export const chipCount = tv({
   base: [
     "inline-flex items-center justify-center min-w-[16px] h-[16px] px-[4px]",
-    "rounded-radius-full text-[10px] font-semibold leading-none",
+    "rounded-radius-full text-caption-xs font-semibold leading-none",
     "bg-bg-muted text-fg-default",
   ],
 });

@@ -22,7 +22,7 @@ export const FILTER_FIELD_CLASS = cn(
   "flex min-h-form-md h-form-md w-full items-center justify-between gap-gp-md",
   "rounded-radius-md px-pad-xl",
   // Tipografia
-  "text-[13px]",
+  "text-body-sm font-normal",
   // Visual
   "bg-bg-input dark:bg-bg-muted",
   "border border-border-input text-fg-default",

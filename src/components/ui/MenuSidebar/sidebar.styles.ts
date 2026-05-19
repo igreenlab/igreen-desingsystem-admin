@@ -122,7 +122,7 @@ export const sidebarRailTooltip = tv({
     "pointer-events-none absolute left-full ml-[14px] top-1/2 -translate-y-1/2",
     "px-pad-md py-[5px] rounded-radius-sm",
     "bg-fg-default text-bg-sidebar",
-    "text-[11.5px] font-semibold tracking-[0.01em] whitespace-nowrap",
+    "text-caption-sm font-semibold tracking-[0.01em] whitespace-nowrap",
     "opacity-0 group-hover/rail-item:opacity-100",
     "transition-opacity duration-150 z-50",
     "shadow-sh-md",
@@ -156,7 +156,7 @@ export const sidebarRailUserDefault = tv({
   base: [
     "grid place-items-center w-9 h-9 rounded-full",
     // tracking-[0.02em] preserva tracking original (preset usa +0.06em)
-    "bg-bg-brand text-fg-on-brand font-bold text-[11px] uppercase tracking-[0.02em]",
+    "bg-bg-brand text-fg-on-brand font-bold text-caption-sm uppercase tracking-[0.02em]",
   ],
 });
 
@@ -187,7 +187,7 @@ export const sidebarPanelTitle = tv({
     "flex-1 min-w-0 inline-flex items-center gap-gp-sm",
     "py-pad-sm px-pad-md rounded-radius-md",
     "bg-transparent border-0 cursor-pointer text-left",
-    "font-bold text-fg-default text-[14.5px]",
+    "text-body-md font-medium font-bold text-fg-default",
     "transition-colors hover:bg-bg-sidebar-accent-hover",
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary",
   ],
@@ -205,7 +205,7 @@ export const sidebarPanelGroup = tv({
 export const sidebarItem = tv({
   base: [
     "flex items-center gap-[11px] h-form-lg w-full px-pad-xl rounded-radius-md",
-    "text-fg-default text-[13px] font-medium text-left no-underline cursor-pointer",
+    "text-fg-default text-body-sm font-medium text-left no-underline cursor-pointer",
     "bg-transparent border-0",
     "transition-colors duration-150",
     // Hover usa sidebar-accent-hover (mineral subtle no light, alpha-12 no dark) —
@@ -223,7 +223,7 @@ export const sidebarItem = tv({
       ],
     },
     subitem: {
-      true: "h-form-sm px-pad-lg text-[12.5px] text-fg-muted hover:text-fg-default",
+      true: "h-form-sm px-pad-lg text-body-xs font-normal text-fg-muted hover:text-fg-default",
     },
   },
   compoundVariants: [
@@ -256,7 +256,7 @@ export const sidebarPill = tv({
     "inline-flex items-center justify-center flex-none",
     "min-w-[22px] h-[22px] px-[7px] rounded-radius-sm",
     // tracking-[0.02em] e leading-none preservam visual original (preset usa +0.06em e lineHeight 14px)
-    "text-[11px] font-bold leading-none tracking-[0.02em] tabular-nums",
+    "text-caption-sm font-bold leading-none tracking-[0.02em] tabular-nums",
   ],
   variants: {
     kind: {
@@ -312,7 +312,7 @@ export const sidebarSectionHeader = tv({
   base: [
     "flex items-center gap-gp-sm px-pad-lg pt-pad-sm pb-pad-md",
     "bg-transparent border-0 text-left cursor-pointer select-none w-full",
-    "text-[10px] font-bold uppercase tracking-[0.06em] text-fg-default",
+    "text-caption-xs font-bold uppercase tracking-[0.06em] text-fg-default",
     "transition-colors hover:text-fg-default",
     "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary rounded-radius-sm",
     // Dark: enfraquecer (mais sutil)
@@ -332,7 +332,7 @@ export const sidebarSectionChev = tv({
 export const sidebarSectionAdd = tv({
   base: [
     "ml-auto w-[18px] h-[18px] grid place-items-center rounded-radius-xs",
-    "text-fg-muted bg-transparent border-0 cursor-pointer text-[14px] leading-none",
+    "text-fg-muted bg-transparent border-0 cursor-pointer text-body-md leading-none",
     "transition-colors hover:bg-bg-sidebar-accent-hover hover:text-fg-default",
     "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-secondary",
   ],
@@ -357,7 +357,7 @@ export const sidebarSectionList = tv({
 export const sidebarSectionItem = tv({
   base: [
     "flex items-center gap-[11px] h-form-sm w-full px-pad-lg rounded-radius-md",
-    "text-[12.5px] font-medium text-fg-muted no-underline cursor-pointer",
+    "text-body-xs font-medium text-fg-muted no-underline cursor-pointer",
     "bg-transparent border-0 text-left",
     "transition-colors duration-150",
     "hover:bg-bg-sidebar-accent-hover hover:text-fg-default",
@@ -373,7 +373,7 @@ export const sidebarChatAvatar = tv({
   base: [
     "flex-none grid place-items-center w-icon-lg h-icon-lg rounded-full",
     // tracking-[0.02em] preserva o tracking original (preset usa +0.06em); leading-none mantém centralização vertical
-    "text-white text-[10px] font-bold uppercase tracking-[0.02em] leading-none",
+    "text-white text-caption-xs font-bold uppercase tracking-[0.02em] leading-none",
   ],
 });
 

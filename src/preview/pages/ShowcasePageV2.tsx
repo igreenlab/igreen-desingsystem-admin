@@ -27,7 +27,7 @@ import { LayoutDashboard, CreditCard, TrendingUp, Target, ClipboardList, FileTex
      - bg-bg-muted → bg-bg-muted (sem alpha modifier)
      - bg-[#hex] → tokens (bg-bg-warning / bg-bg-success / etc)
      - Cards ganham `shadow-sh-sm` + `border-border-subtle` padronizado
-     - Títulos `text-[15px] font-bold`, sub `text-[12px] text-fg-muted`
+     - Títulos `text-[15px] font-bold`, sub `text-body-xs font-normal text-fg-muted`
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Mini Bar Chart (divs) ──────────────────────────────────────────────── */
@@ -47,8 +47,8 @@ function BarChart({ data, color = "bg-primary", className = "h-20", barGap = "ga
 function StatRow({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-paragraph-sm text-fg-muted">{label}</span>
-      <span className="text-label-sm tabular-nums">{value}</span>
+      <span className="text-body-md text-fg-muted">{label}</span>
+      <span className="text-body-md font-medium tabular-nums">{value}</span>
     </div>
   );
 }
@@ -61,12 +61,12 @@ function TransactionItem({ icon, title, sub, date, amount, positive }: {
     <div className="flex items-center gap-gp-xl py-pad-xl">
       <Avatar className="size-10"><AvatarFallback className="bg-bg-muted">{icon}</AvatarFallback></Avatar>
       <div className="flex-1 min-w-0">
-        <p className="text-label-sm">{title}</p>
-        <p className="text-paragraph-sm text-fg-muted">{sub}</p>
+        <p className="text-body-md font-medium">{title}</p>
+        <p className="text-body-md text-fg-muted">{sub}</p>
       </div>
       <div className="text-right">
-        <p className={`text-label-sm tabular-nums ${positive ? "text-fg-success" : ""}`}>{amount}</p>
-        <p className="text-paragraph-sm text-fg-subtle">{date}</p>
+        <p className={`text-body-md font-medium tabular-nums ${positive ? "text-fg-success" : ""}`}>{amount}</p>
+        <p className="text-body-md text-fg-subtle">{date}</p>
       </div>
     </div>
   );
@@ -115,14 +115,14 @@ export function ShowcasePageV2() {
           {/* Info boxes — gap-xl (12px), rounded-2xl, pad-2xl (16px), gap-xs (4px) interno */}
           <div className="grid grid-cols-2 gap-gp-xl">
             <div className="bg-bg-muted border border-transparent rounded-radius-lg p-pad-2xl flex flex-col gap-gp-xs">
-              <p className="text-label-xs text-fg-muted uppercase tracking-wider">Upcoming</p>
-              <p className="text-label-sm font-semibold text-fg-default">May 25, 2024</p>
-              <p className="text-paragraph-xs text-fg-muted">$1,000 scheduled</p>
+              <p className="text-body-xs text-fg-muted uppercase tracking-wider">Upcoming</p>
+              <p className="text-body-md font-medium font-semibold text-fg-default">May 25, 2024</p>
+              <p className="text-body-xs font-normal text-fg-muted">$1,000 scheduled</p>
             </div>
             <div className="bg-bg-muted border border-transparent rounded-radius-lg p-pad-2xl flex flex-col gap-gp-xs">
-              <p className="text-label-xs text-fg-muted uppercase tracking-wider">Auto-Save Plan</p>
-              <p className="text-label-sm font-semibold text-fg-default">Accelerated</p>
-              <p className="text-paragraph-xs text-fg-muted">Recurring weekly</p>
+              <p className="text-body-xs text-fg-muted uppercase tracking-wider">Auto-Save Plan</p>
+              <p className="text-body-md font-medium font-semibold text-fg-default">Accelerated</p>
+              <p className="text-body-xs font-normal text-fg-muted">Recurring weekly</p>
             </div>
           </div>
         </CardContent>
@@ -158,7 +158,7 @@ export function ShowcasePageV2() {
               <span className="text-heading-xs font-semibold tabular-nums">$2500.00</span>
             </div>
             <Slider defaultValue={[2500]} min={50} max={10000} />
-            <div className="flex justify-between text-paragraph-sm text-fg-subtle">
+            <div className="flex justify-between text-body-md text-fg-subtle">
               <span>$50 (MIN)</span><span>$10,000 (MAX)</span>
             </div>
           </div>
@@ -185,23 +185,23 @@ export function ShowcasePageV2() {
           {/* Target boxes — bg-muted/50, rounded-2xl, gap-xl (12px) entre eles */}
           <div className="flex flex-col gap-gp-xl">
             <div className="bg-bg-muted border border-transparent rounded-radius-lg p-pad-2xl flex flex-col gap-gp-xl">
-              <p className="text-label-xs text-fg-muted uppercase tracking-wider">Retirement</p>
+              <p className="text-body-xs text-fg-muted uppercase tracking-wider">Retirement</p>
               <p className="text-heading-xs font-semibold">$420,000</p>
               <Progress value={65} />
-              <div className="flex justify-between text-paragraph-sm text-fg-muted">
+              <div className="flex justify-between text-body-md text-fg-muted">
                 <span>65% achieved</span><span className="tabular-nums">$273,000</span>
               </div>
             </div>
             <div className="bg-bg-muted border border-transparent rounded-radius-lg p-pad-2xl flex flex-col gap-gp-xl">
-              <p className="text-label-xs text-fg-muted uppercase tracking-wider">Real Estate</p>
+              <p className="text-body-xs text-fg-muted uppercase tracking-wider">Real Estate</p>
               <p className="text-heading-xs font-semibold">$85,000</p>
               <Progress value={32} />
-              <div className="flex justify-between text-paragraph-sm text-fg-muted">
+              <div className="flex justify-between text-body-md text-fg-muted">
                 <span>32% achieved</span><span className="tabular-nums">$27,200</span>
               </div>
             </div>
           </div>
-          <p className="text-paragraph-sm text-fg-muted">You have not met your targets for this year.</p>
+          <p className="text-body-md text-fg-muted">You have not met your targets for this year.</p>
         </CardContent>
       </Card>
 
@@ -223,7 +223,7 @@ export function ShowcasePageV2() {
                 <SelectItem value="stop">Stop Order</SelectItem>
               </SelectContent>
             </Select>
-            <p className="text-paragraph-sm text-fg-muted">Market orders execute at the current price.</p>
+            <p className="text-body-md text-fg-muted">Market orders execute at the current price.</p>
           </div>
           <div className="flex flex-col gap-gp-lg">
             <StatRow label="Estimated Shares" value="1.95" />
@@ -232,7 +232,7 @@ export function ShowcasePageV2() {
         </CardContent>
         <CardFooter className="flex-col gap-gp-2xl">
           <Button color="primary" variant="filled" size="sm" fullWidth>Review Order</Button>
-          <p className="text-paragraph-sm text-fg-muted text-center">Trades are typically executed within minutes during market hours.</p>
+          <p className="text-body-md text-fg-muted text-center">Trades are typically executed within minutes during market hours.</p>
         </CardFooter>
       </Card>
 
@@ -252,7 +252,7 @@ export function ShowcasePageV2() {
             <div className="flex flex-col gap-gp-lg">
               <div className="flex items-center justify-between">
                 <Label>Current Password</Label>
-                <a href="#" className="text-label-xs text-fg-muted uppercase tracking-wider">Forgot?</a>
+                <a href="#" className="text-body-xs text-fg-muted uppercase tracking-wider">Forgot?</a>
               </div>
               <Input size="sm" type="password" defaultValue="password123" />
             </div>
@@ -263,8 +263,8 @@ export function ShowcasePageV2() {
             <a href="#" className="flex items-start gap-gp-xl bg-bg-muted border border-transparent rounded-radius-lg px-pad-2xl py-pad-2xl">
               <CircleAlert className="size-4 text-fg-danger shrink-0 mt-sp-2xs" />
               <div className="flex flex-col gap-gp-sm flex-1">
-                <span className="text-label-sm text-fg-default">Danger Zone</span>
-                <span className="text-paragraph-sm text-fg-muted">Archive account and remove catalog</span>
+                <span className="text-body-md font-medium text-fg-default">Danger Zone</span>
+                <span className="text-body-md text-fg-muted">Archive account and remove catalog</span>
               </div>
               <span className="text-fg-muted shrink-0 self-center">→</span>
             </a>
@@ -275,9 +275,9 @@ export function ShowcasePageV2() {
       {/* ── 6. Distribute Track ─────────────────────────────────────────── */}
       <Card>
         <CardContent className="flex flex-col items-center text-center">
-          <div className="size-form-lg rounded-radius-full bg-bg-muted flex items-center justify-center text-paragraph-lg text-fg-muted">+</div>
+          <div className="size-form-lg rounded-radius-full bg-bg-muted flex items-center justify-center text-body-xl text-fg-muted">+</div>
           <p className="text-title-md font-medium mt-gp-4xl">Distribute Track</p>
-          <p className="text-paragraph-sm text-fg-muted mt-gp-lg">Upload your first master to start reaching listeners on Spotify, Apple Music, and more.</p>
+          <p className="text-body-md text-fg-muted mt-gp-lg">Upload your first master to start reaching listeners on Spotify, Apple Music, and more.</p>
           <div className="mt-gp-3xl"><Button color="primary" variant="filled" size="sm">Create Release</Button></div>
         </CardContent>
       </Card>
@@ -295,21 +295,21 @@ export function ShowcasePageV2() {
           {/* Stat box — bg-muted, rounded, com separadores internos */}
           <div className="bg-bg-muted border border-transparent rounded-radius-lg overflow-hidden">
             <div className="flex justify-between px-pad-2xl py-pad-xl">
-              <span className="text-paragraph-sm text-fg-muted">Net Royalties</span>
-              <span className="text-label-sm tabular-nums">$0.00</span>
+              <span className="text-body-md text-fg-muted">Net Royalties</span>
+              <span className="text-body-md font-medium tabular-nums">$0.00</span>
             </div>
             <Separator className="bg-border-default dark:bg-border-subtle" />
             <div className="flex justify-between px-pad-2xl py-pad-xl">
-              <span className="text-paragraph-sm text-fg-muted">Processing Fee</span>
-              <span className="text-label-sm tabular-nums">-$0.00</span>
+              <span className="text-body-md text-fg-muted">Processing Fee</span>
+              <span className="text-body-md font-medium tabular-nums">-$0.00</span>
             </div>
             <Separator className="bg-border-default dark:bg-border-subtle" />
             <div className="flex justify-between px-pad-2xl py-pad-xl">
-              <span className="text-paragraph-sm text-fg-default font-medium">Total Ready to Claim</span>
-              <span className="text-label-sm font-semibold tabular-nums">$0.00 USD</span>
+              <span className="text-body-md text-fg-default font-medium">Total Ready to Claim</span>
+              <span className="text-body-md font-medium font-semibold tabular-nums">$0.00 USD</span>
             </div>
           </div>
-          <p className="text-paragraph-sm text-fg-muted">Once your bank is connected, balances over $10.00 are automatically eligible for monthly distribution on the 15th of each month.</p>
+          <p className="text-body-md text-fg-muted">Once your bank is connected, balances over $10.00 are automatically eligible for monthly distribution on the 15th of each month.</p>
         </CardContent>
       </Card>
 
@@ -340,12 +340,12 @@ export function ShowcasePageV2() {
         <CardContent className="flex flex-col gap-gp-4xl">
           <div className="grid grid-cols-2 gap-gp-4xl">
             <div className="flex flex-col gap-gp-xs">
-              <p className="text-paragraph-sm text-fg-muted">Card Balance</p>
+              <p className="text-body-md text-fg-muted">Card Balance</p>
               <p className="text-heading-xs font-semibold">US$12.94</p>
-              <p className="text-paragraph-sm text-fg-muted">US$11,337.06 Available</p>
+              <p className="text-body-md text-fg-muted">US$11,337.06 Available</p>
             </div>
             <div className="text-right flex flex-col gap-gp-xs">
-              <p className="text-paragraph-sm text-fg-muted">Payment Due</p>
+              <p className="text-body-md text-fg-muted">Payment Due</p>
               <p className="text-heading-xs font-semibold">1 Apr</p>
               <div><Button color="secondary" variant="outline" size="2xs">Pay Early</Button></div>
             </div>
@@ -353,7 +353,7 @@ export function ShowcasePageV2() {
           <Separator />
           <div>
             <div className="flex items-center justify-between mb-sp-lg">
-              <p className="text-paragraph-sm text-fg-muted">Yearly Activity</p>
+              <p className="text-body-md text-fg-muted">Yearly Activity</p>
               <Badge color="primary" variant="soft" size="sm">+US$0.25 Daily Cash</Badge>
             </div>
             <BarChart data={[20, 30, 25, 35, 40, 45, 50, 55, 60, 70, 65, 80]} color="bg-bg-warning" className="h-28" />
@@ -386,15 +386,15 @@ export function ShowcasePageV2() {
           </div>
           <div className="flex items-center justify-between gap-gp-xl">
             <div className="flex flex-col gap-gp-xs">
-              <p className="text-label-sm">Public Statistics</p>
-              <p className="text-paragraph-sm text-fg-muted">Allow others to see your total stream count and listening activity</p>
+              <p className="text-body-md font-medium">Public Statistics</p>
+              <p className="text-body-md text-fg-muted">Allow others to see your total stream count and listening activity</p>
             </div>
             <Switch defaultChecked />
           </div>
           <div className="flex items-center justify-between gap-gp-xl">
             <div className="flex flex-col gap-gp-xs">
-              <p className="text-label-sm">Email Notifications</p>
-              <p className="text-paragraph-sm text-fg-muted">Monthly royalty reports and distribution updates</p>
+              <p className="text-body-md font-medium">Email Notifications</p>
+              <p className="text-body-md text-fg-muted">Monthly royalty reports and distribution updates</p>
             </div>
             <Switch defaultChecked />
           </div>
@@ -409,50 +409,50 @@ export function ShowcasePageV2() {
       <div className="grid grid-cols-2 gap-gp-xl">
         {/* Dropdown 1 — Overview + Planning */}
         <div className="rounded-radius-xl bg-bg-surface border border-border-subtle shadow-sh-md dark:shadow-sh-xl p-pad-sm">
-          <p className="px-pad-xl py-pad-lg text-label-xs text-fg-muted">Overview</p>
+          <p className="px-pad-xl py-pad-lg text-body-xs text-fg-muted">Overview</p>
           {[
             { icon: LayoutDashboard, label: "Dashboard", active: true },
             { icon: CreditCard, label: "Transactions" },
             { icon: TrendingUp, label: "Investments" },
           ].map(item => (
-            <div key={item.label} className={`flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-paragraph-sm font-medium cursor-pointer ${item.active ? "bg-bg-muted text-fg-default" : "text-fg-default hover:bg-bg-muted"}`}>
+            <div key={item.label} className={`flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-body-md font-medium cursor-pointer ${item.active ? "bg-bg-muted text-fg-default" : "text-fg-default hover:bg-bg-muted"}`}>
               <item.icon className="size-4 text-fg-muted" /> {item.label}
             </div>
           ))}
           <Separator className="my-sp-md" />
-          <p className="px-pad-xl py-pad-lg text-label-xs text-fg-muted">Planning</p>
+          <p className="px-pad-xl py-pad-lg text-body-xs text-fg-muted">Planning</p>
           {[
             { icon: Target, label: "Goals" },
             { icon: ClipboardList, label: "Budget" },
             { icon: FileText, label: "Reports" },
             { icon: FolderOpen, label: "Documents" },
           ].map(item => (
-            <div key={item.label} className="flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-paragraph-sm font-medium text-fg-default cursor-pointer hover:bg-bg-muted">
+            <div key={item.label} className="flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-body-md font-medium text-fg-default cursor-pointer hover:bg-bg-muted">
               <item.icon className="size-4 text-fg-muted" /> {item.label}
             </div>
           ))}
         </div>
         {/* Dropdown 2 — Account + Support */}
         <div className="rounded-radius-xl bg-bg-surface border border-border-subtle shadow-sh-md dark:shadow-sh-xl p-pad-sm">
-          <p className="px-pad-xl py-pad-lg text-label-xs text-fg-muted">Account</p>
+          <p className="px-pad-xl py-pad-lg text-body-xs text-fg-muted">Account</p>
           {[
             { icon: User, label: "Profile" },
             { icon: Receipt, label: "Billing", active: true },
             { icon: Bell, label: "Notifications" },
             { icon: Lock, label: "Security" },
           ].map(item => (
-            <div key={item.label} className={`flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-paragraph-sm font-medium cursor-pointer ${item.active ? "bg-bg-muted text-fg-default" : "text-fg-default hover:bg-bg-muted"}`}>
+            <div key={item.label} className={`flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-body-md font-medium cursor-pointer ${item.active ? "bg-bg-muted text-fg-default" : "text-fg-default hover:bg-bg-muted"}`}>
               <item.icon className="size-4 text-fg-muted" /> {item.label}
             </div>
           ))}
           <Separator className="my-sp-md" />
-          <p className="px-pad-xl py-pad-lg text-label-xs text-fg-muted">Support</p>
+          <p className="px-pad-xl py-pad-lg text-body-xs text-fg-muted">Support</p>
           {[
             { icon: HelpCircle, label: "Help Center" },
             { icon: Mail, label: "Contact Us" },
             { icon: Activity, label: "Status" },
           ].map(item => (
-            <div key={item.label} className="flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-paragraph-sm font-medium text-fg-default cursor-pointer hover:bg-bg-muted">
+            <div key={item.label} className="flex items-center gap-gp-md rounded-radius-lg px-pad-xl py-pad-md text-body-md font-medium text-fg-default cursor-pointer hover:bg-bg-muted">
               <item.icon className="size-4 text-fg-muted" /> {item.label}
             </div>
           ))}
@@ -486,8 +486,8 @@ export function ShowcasePageV2() {
                 </Accordion>
               </div>
             </TabsContent>
-            <TabsContent value="billing"><p className="text-paragraph-sm text-fg-muted py-sp-2xl">Billing FAQ content.</p></TabsContent>
-            <TabsContent value="goals"><p className="text-paragraph-sm text-fg-muted py-sp-2xl">Goals FAQ content.</p></TabsContent>
+            <TabsContent value="billing"><p className="text-body-md text-fg-muted py-sp-2xl">Billing FAQ content.</p></TabsContent>
+            <TabsContent value="goals"><p className="text-body-md text-fg-muted py-sp-2xl">Goals FAQ content.</p></TabsContent>
           </Tabs>
           <div className="mt-sp-2xl">
             <Button color="secondary" variant="outline" size="sm" fullWidth>Contact Support</Button>
@@ -517,8 +517,8 @@ export function ShowcasePageV2() {
               <a key={l.title} href="#" className={`flex items-start gap-gp-xl bg-bg-surface px-pad-2xl py-pad-2xl hover:bg-bg-muted transition-colors ${i < arr.length - 1 ? "border-b border-border-subtle" : ""}`}>
                 <l.Icon className="size-4 text-fg-muted shrink-0 mt-sp-2xs" />
                 <div className="flex flex-col gap-gp-xs flex-1">
-                  <p className="text-label-sm text-fg-default">{l.title}</p>
-                  <p className="text-paragraph-sm text-fg-muted">{l.desc}</p>
+                  <p className="text-body-md font-medium text-fg-default">{l.title}</p>
+                  <p className="text-body-md text-fg-muted">{l.desc}</p>
                 </div>
                 <ChevronRight className="size-4 text-fg-muted shrink-0 self-center" />
               </a>
@@ -592,8 +592,8 @@ export function ShowcasePageV2() {
             ].map(p => (
               <div key={p.title} className="flex items-center justify-between bg-bg-muted border border-transparent rounded-radius-lg px-pad-2xl py-pad-xl">
                 <div className="flex flex-col gap-gp-2xs">
-                  <span className="text-label-sm text-fg-default">{p.title}</span>
-                  <span className="text-paragraph-sm text-fg-muted">{p.date}</span>
+                  <span className="text-body-md font-medium text-fg-default">{p.title}</span>
+                  <span className="text-body-md text-fg-muted">{p.date}</span>
                 </div>
                 <Badge color="secondary" variant="soft" className="bg-bg-surface" size="sm">{p.amount}</Badge>
               </div>
@@ -630,7 +630,7 @@ export function ShowcasePageV2() {
             ].map(item => (
               <div key={item.label} className="flex items-center gap-gp-xl bg-bg-surface border border-border-subtle rounded-radius-lg px-pad-3xl py-pad-xl">
                 <span className="text-fg-muted shrink-0">{item.icon === "vol" ? <Volume2 className="size-4" /> : item.icon}</span>
-                <span className="text-label-sm shrink-0 w-24">{item.label}</span>
+                <span className="text-body-md font-medium shrink-0 w-24">{item.label}</span>
                 <div className="flex-1"><Slider defaultValue={[item.value]} /></div>
               </div>
             ))}
@@ -656,11 +656,11 @@ export function ShowcasePageV2() {
             <RadioGroup defaultValue="bank">
               <label className="flex items-center gap-gp-xl px-pad-2xl py-pad-xl rounded-radius-lg border border-border-subtle bg-bg-surface has-[[data-state=checked]]:bg-bg-muted">
                 <RadioGroupItem value="bank" />
-                <div><p className="text-label-sm">Bank Transfer</p><p className="text-paragraph-sm text-fg-muted">SWIFT / IBAN</p></div>
+                <div><p className="text-body-md font-medium">Bank Transfer</p><p className="text-body-md text-fg-muted">SWIFT / IBAN</p></div>
               </label>
               <label className="flex items-center gap-gp-xl px-pad-2xl py-pad-xl rounded-radius-lg border border-border-subtle bg-bg-surface has-[[data-state=checked]]:bg-bg-muted">
                 <RadioGroupItem value="paypal" />
-                <div><p className="text-label-sm">PayPal</p><p className="text-paragraph-sm text-fg-muted">Instant Payout</p></div>
+                <div><p className="text-body-md font-medium">PayPal</p><p className="text-body-md text-fg-muted">Instant Payout</p></div>
               </label>
             </RadioGroup>
           </div>
@@ -733,7 +733,7 @@ export function ShowcasePageV2() {
         <CardContent className="flex flex-col gap-gp-4xl">
           <label className="flex items-center gap-gp-xl">
             <Checkbox defaultChecked />
-            <span className="text-label-sm">Select all</span>
+            <span className="text-body-md font-medium">Select all</span>
           </label>
           {[
             { label: "Transaction alerts", desc: "Deposits, withdrawals, and transfers.", checked: true },
@@ -744,8 +744,8 @@ export function ShowcasePageV2() {
             <label key={n.label} className="flex items-start gap-gp-xl">
               <Checkbox defaultChecked={n.checked} className="mt-sp-2xs" />
               <div>
-                <p className="text-label-sm">{n.label}</p>
-                <p className="text-paragraph-sm text-fg-muted">{n.desc}</p>
+                <p className="text-body-md font-medium">{n.label}</p>
+                <p className="text-body-md text-fg-muted">{n.desc}</p>
               </div>
             </label>
           ))}
@@ -759,7 +759,7 @@ export function ShowcasePageV2() {
       <Card>
         <CardContent className="flex flex-col items-center text-center">
           <p className="text-title-md font-medium">Connect Bank</p>
-          <p className="text-paragraph-sm text-fg-muted mt-gp-lg">Link your payout method to receive monthly royalty distributions automatically.</p>
+          <p className="text-body-md text-fg-muted mt-gp-lg">Link your payout method to receive monthly royalty distributions automatically.</p>
           <div className="mt-gp-3xl"><Button color="primary" variant="filled" size="sm">Set Up Payouts</Button></div>
         </CardContent>
       </Card>
@@ -767,8 +767,8 @@ export function ShowcasePageV2() {
       {/* ── 22. Explore Catalog ─────────────────────────────────────────── */}
       <Card>
         <CardContent className="flex flex-col items-center text-center">
-          <span className="text-3xl">✦</span>
-          <p className="text-paragraph-sm text-fg-muted mt-gp-4xl">Check your ISRC codes, metadata, and visual assets before going live.</p>
+          <span className="text-[2rem]">✦</span>
+          <p className="text-body-md text-fg-muted mt-gp-4xl">Check your ISRC codes, metadata, and visual assets before going live.</p>
           <div className="mt-gp-3xl"><Button color="primary" variant="filled" size="sm">View Catalog</Button></div>
         </CardContent>
       </Card>
@@ -806,10 +806,10 @@ export function ShowcasePageV2() {
           </div>
           {/* Battery Level — primary */}
           <div>
-            <p className="text-paragraph-sm text-fg-muted mb-gp-md">Battery Level</p>
+            <p className="text-body-md text-fg-muted mb-gp-md">Battery Level</p>
             <div className="flex items-center gap-gp-xl">
               <Progress value={85} className="flex-1" />
-              <span className="text-label-sm tabular-nums">85%</span>
+              <span className="text-body-md font-medium tabular-nums">85%</span>
             </div>
           </div>
         </CardContent>
@@ -823,7 +823,7 @@ export function ShowcasePageV2() {
         </CardHeader>
         <CardContent className="flex flex-col gap-gp-4xl">
           <div className="h-24 rounded-radius-xl bg-bg-muted" />
-          <div className="flex items-center justify-between text-paragraph-sm text-fg-muted">
+          <div className="flex items-center justify-between text-body-md text-fg-muted">
             <span>OPEN</span>
             <div className="flex-1 mx-3"><Slider defaultValue={[50]} /></div>
             <span>CLOSE</span>

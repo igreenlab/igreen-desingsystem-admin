@@ -66,7 +66,7 @@ export const panelHeaderText = tv({
 export const panelTitle = tv({
   base: [
     "flex items-center gap-gp-md min-w-0",
-    "text-[16px] font-bold text-fg-default tracking-[-0.01em]",
+    "text-body-lg font-bold text-fg-default tracking-[-0.01em]",
     "truncate",
   ],
 });
@@ -76,7 +76,7 @@ export const panelTitleIcon = tv({
 });
 
 export const panelDescription = tv({
-  base: "text-paragraph-sm text-fg-muted",
+  base: "text-body-md text-fg-muted",
 });
 
 export const panelClose = tv({

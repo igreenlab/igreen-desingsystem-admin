@@ -31,12 +31,12 @@ const AvatarImage = React.forwardRef<
 AvatarImage.displayName = AvatarPrimitive.Image.displayName
 
 /**
- * AvatarFallback — `text-caption-md` (13px) como default mais compacto.
+ * AvatarFallback — `text-body-sm font-normal` (13px) como default mais compacto.
  *
- * Antes usava `text-label-sm` (14px) que ficava grande demais em avatares
+ * Antes usava `text-body-md font-medium` (14px) que ficava grande demais em avatares
  * pequenos (≤24px), forçando consumer a sobrescrever via className. Caption
- * é mais seguro como default — consumer ainda pode override (ex: `text-[10px]`
- * pra container muito pequeno, ou `text-label-md` pra avatar grande).
+ * é mais seguro como default — consumer ainda pode override (ex: `text-caption-xs`
+ * pra container muito pequeno, ou `text-body-lg font-medium` pra avatar grande).
  */
 const AvatarFallback = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Fallback>,
@@ -45,7 +45,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-bg-muted text-fg-muted text-caption-md",
+      "flex h-full w-full items-center justify-center rounded-full bg-bg-muted text-fg-muted text-body-sm font-normal",
       className
     )}
     {...props}

@@ -37,7 +37,7 @@ export const tableStyles = tv({
     headCell: [
       "relative flex items-center gap-gp-md shrink-0",
       "h-[42px] px-pad-2xl",
-      "text-[13px] font-semibold leading-none",
+      "text-body-sm font-semibold leading-none",
       "text-fg-muted",
       "select-none",
       "hover:text-fg-default",
@@ -57,7 +57,7 @@ export const tableStyles = tv({
     cell: [
       "flex items-center shrink-0",
       "px-pad-2xl",
-      "text-[13px] text-fg-default",
+      "text-body-sm font-normal text-fg-default",
       "whitespace-nowrap overflow-hidden",
     ],
     /* Drag handle do resize — barrinha invisível no edge direito.
@@ -91,7 +91,7 @@ export const tableStyles = tv({
       "inline-flex items-center justify-center shrink-0",
       "min-w-[18px] h-[18px] px-[5px]",
       "rounded-radius-xs bg-bg-brand text-fg-on-brand",
-      "text-[10.5px] font-bold leading-none tabular-nums",
+      "text-caption-xs font-bold leading-none tabular-nums",
     ],
     /* Stack absolute na borda direita do head cell — agrupa sort e headMenu.
        Largura dinâmica: encolhe quando itens estão "hidden", cresce quando aparecem no hover. */
@@ -145,11 +145,11 @@ export const tableStyles = tv({
     ],
     /* Card mode — label da coluna acima do valor. */
     cardLabel: [
-      "text-subheading-xs text-fg-muted",
+      "text-body-xs uppercase tracking-wider text-fg-muted",
     ],
     /* Card mode — valor abaixo do label. */
     cardValue: [
-      "text-paragraph-sm text-fg-default",
+      "text-body-md text-fg-default",
     ],
   },
   variants: {

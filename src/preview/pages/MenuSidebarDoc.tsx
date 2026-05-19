@@ -373,7 +373,7 @@ export function MenuSidebarDoc() {
             >
               Abrir menu (hamburger)
             </Button>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md text-fg-muted">
               Forçado em modo mobile aqui. No app real, breakpoint default = ≤ 767px.
             </p>
           </div>
@@ -395,7 +395,7 @@ export function MenuSidebarDoc() {
               <h4 className="text-title-md font-semibold text-fg-default">
                 Conteúdo do app
               </h4>
-              <p className="text-paragraph-sm text-fg-muted mt-gp-md">
+              <p className="text-body-md text-fg-muted mt-gp-md">
                 O drawer abre por cima sem empurrar este conteúdo. Clique no
                 backdrop ou no X pra fechar.
               </p>

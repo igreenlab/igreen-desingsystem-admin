@@ -84,7 +84,7 @@ const SC: Scenario[] = [
     steps: [
       { agent: "orchestrator", title: "Classifying", detail: "Figma extraction. Full route.", reads: ["CLAUDE.md"], duration: 1400 },
       { agent: "ds-designer", title: "Inventorying", detail: "Colors, spacings, typography, radius, shadows.", reads: ["tokens-color.md", "component-guide.md"], duration: 2000 },
-      { agent: "ds-designer", title: "Mapping", detail: "brand → bg-bg-brand · 14px → text-label-sm · 40px → min-h-form-lg", reads: ["tokens-sizing-shape-elevation.md"], duration: 2200 },
+      { agent: "ds-designer", title: "Mapping", detail: "brand → bg-bg-brand · 14px → text-body-md font-medium · 40px → min-h-form-lg", reads: ["tokens-sizing-shape-elevation.md"], duration: 2200 },
       { agent: "ds-designer", title: "Gaps", detail: "2 gaps + 2 warnings on fixed h-*.", signal: "SPEC_READY: dashboard", duration: 2000 },
       { agent: "ds-dev", title: "Creating tokens", detail: "color-light + elevation edited.", runs: ["npm run tokens:tw4"], duration: 1800 },
       { agent: "ds-dev", title: "Implementing", detail: "DashboardCard with tokens. Zero hardcode.", signal: "IMPL_READY: DashboardCard", duration: 2000 },
@@ -121,7 +121,7 @@ const SC: Scenario[] = [
     steps: [
       { agent: "orchestrator", title: "Classifying", detail: "Spec extraction. Mapping only.", reads: ["CLAUDE.md"], duration: 1200 },
       { agent: "ds-designer", title: "Inventorying", detail: "Colors, spacings, typography.", reads: ["tokens-color.md", "component-guide.md"], duration: 2000 },
-      { agent: "ds-designer", title: "Mapping", detail: "brand → bg-bg-brand · 14px → text-label-sm", reads: ["tokens-sizing-shape-elevation.md", "tokens-typography.md"], duration: 2200 },
+      { agent: "ds-designer", title: "Mapping", detail: "brand → bg-bg-brand · 14px → text-body-md font-medium", reads: ["tokens-sizing-shape-elevation.md", "tokens-typography.md"], duration: 2200 },
       { agent: "ds-designer", title: "Gaps", detail: "2 gaps + 2 warnings.", signal: "SPEC_READY: mapping complete", duration: 2000 },
     ],
   },
@@ -199,7 +199,7 @@ export function AgentsPreview() {
       {/* ── Section: Pipeline Structure ────────────────────────────── */}
       <SectionH2 id="structure" title="Pipeline Structure" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           O pipeline iGreen é composto por <strong className="text-fg-default">4 camadas</strong> que cooperam em toda
           tarefa: Orchestrator no topo (decide a rota), Subagentes especialistas no meio (executam), Infra horizontal
           dando suporte (skills, hooks, commands, output styles, MCP, memory), e Memória persistindo decisões.
@@ -208,35 +208,35 @@ export function AgentsPreview() {
           <div className="grid gap-gp-3xl">
             {/* Layer 1: Orchestrator */}
             <div>
-              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 1 — Orchestration</p>
+              <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 1 — Orchestration</p>
               <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderLeftWidth: 4, borderLeftColor: "#6366f1" }}>
-                <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#6366f1" }}>Orchestrator</p>
-                <p className="text-paragraph-sm text-fg-muted">Recebe toda tarefa, classifica o domínio, escolhe a rota, segura o gate. Nunca executa diretamente.</p>
+                <p className="text-body-md font-medium font-semibold mb-gp-xs" style={{ color: "#6366f1" }}>Orchestrator</p>
+                <p className="text-body-md text-fg-muted">Recebe toda tarefa, classifica o domínio, escolhe a rota, segura o gate. Nunca executa diretamente.</p>
               </div>
             </div>
 
             {/* Layer 2: Specialists */}
             <div>
-              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 2 — Specialist Subagents</p>
+              <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 2 — Specialist Subagents</p>
               <div className="grid grid-cols-3 gap-gp-2xl">
                 <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#f59e0b" }}>
-                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#f59e0b" }}>DS Designer</p>
-                  <p className="text-paragraph-sm text-fg-muted">Especifica tokens, components, Figma. Strategist perspective (alt + assumption).</p>
+                  <p className="text-body-md font-medium font-semibold mb-gp-xs" style={{ color: "#f59e0b" }}>DS Designer</p>
+                  <p className="text-body-md text-fg-muted">Especifica tokens, components, Figma. Strategist perspective (alt + assumption).</p>
                 </div>
                 <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#10b981" }}>
-                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#10b981" }}>DS Dev</p>
-                  <p className="text-paragraph-sm text-fg-muted">Implementa spec aprovada. tv() + tokens. Cascata se token faltar.</p>
+                  <p className="text-body-md font-medium font-semibold mb-gp-xs" style={{ color: "#10b981" }}>DS Dev</p>
+                  <p className="text-body-md text-fg-muted">Implementa spec aprovada. tv() + tokens. Cascata se token faltar.</p>
                 </div>
                 <div className="rounded-radius-base border border-border-subtle p-pad-3xl" style={{ borderTopWidth: 4, borderTopColor: "#3b82f6" }}>
-                  <p className="text-label-sm font-semibold mb-gp-xs" style={{ color: "#3b82f6" }}>DS Reviewer</p>
-                  <p className="text-paragraph-sm text-fg-muted">Regression sweep + 3 checklists + critique genuína + Assumption check.</p>
+                  <p className="text-body-md font-medium font-semibold mb-gp-xs" style={{ color: "#3b82f6" }}>DS Reviewer</p>
+                  <p className="text-body-md text-fg-muted">Regression sweep + 3 checklists + critique genuína + Assumption check.</p>
                 </div>
               </div>
             </div>
 
             {/* Layer 3: Pipeline Infra */}
             <div>
-              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 3 — Pipeline Infra (horizontal)</p>
+              <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 3 — Pipeline Infra (horizontal)</p>
               <div className="grid grid-cols-3 md:grid-cols-6 gap-gp-md">
                 {[
                   { label: "Skills", desc: "Atomic procedures" },
@@ -256,7 +256,7 @@ export function AgentsPreview() {
 
             {/* Layer 4: Memory */}
             <div>
-              <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 4 — Memory (persistence)</p>
+              <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-md">Camada 4 — Memory (persistence)</p>
               <div className="grid grid-cols-4 gap-gp-md">
                 {[
                   { label: "User Memory", desc: "~/.claude/.../memory/" },
@@ -278,7 +278,7 @@ export function AgentsPreview() {
       {/* ── Section: Hierarchy ─────────────────────────────────────── */}
       <SectionH2 id="hierarchy" title="Hierarchy" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Quando o usuário envia uma tarefa, a hierarquia é estritamente top-down: Orchestrator escolhe,
           Subagentes executam carregando suas Skills, Hooks e MCP intervêm em pontos específicos, Memory
           grava o que aconteceu.
@@ -317,7 +317,7 @@ export function AgentsPreview() {
       {/* ── Section: How a task flows ──────────────────────────────── */}
       <SectionH2 id="flow" title="How a Task Flows" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Sequência canônica de um pipeline completo (componente novo). Cada passo deixa um traço auditável.
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
@@ -332,18 +332,18 @@ export function AgentsPreview() {
               { step: "7", title: "Persist", desc: "Entry append em pipeline-state.md com Assumption. Se erro novo: lesson L-NNN criada." },
             ].map((item) => (
               <div key={item.step} className="flex gap-gp-2xl">
-                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold bg-bg-brand text-fg-on-brand">
+                <div className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-body-md font-medium font-semibold bg-bg-brand text-fg-on-brand">
                   {item.step}
                 </div>
                 <div>
-                  <p className="text-label-sm text-fg-default mb-gp-xs">{item.title}</p>
-                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                  <p className="text-body-md font-medium text-fg-default mb-gp-xs">{item.title}</p>
+                  <p className="text-body-md text-fg-muted">{item.desc}</p>
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Não todo cenário roda os 7 passos. Rotas que pulam Designer (Shadcn, visual edit) começam direto
           no passo 5. Use o simulador abaixo pra ver as rotas alternativas em ação.
         </p>
@@ -355,7 +355,7 @@ export function AgentsPreview() {
       {/* Active scenario info card */}
       <div className="rounded-radius-base border border-border-subtle bg-bg-surface p-pad-3xl shadow-sh-sm mb-gp-2xl">
         <div className="flex items-center gap-gp-md mb-gp-md">
-          <span className="text-paragraph-sm">{sc.emoji}</span>
+          <span className="text-body-md">{sc.emoji}</span>
           <span className="font-mono text-code-sm font-bold text-fg-default">{sc.command}</span>
           <Badge
             color={sc.routeTag.includes("Skip") || sc.routeTag.includes("only") ? "warning" : "success"}
@@ -365,7 +365,7 @@ export function AgentsPreview() {
             {sc.routeTag}
           </Badge>
         </div>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-md">{sc.description}</p>
+        <p className="text-body-md text-fg-muted mb-gp-md">{sc.description}</p>
         <div className="font-mono text-code-sm text-fg-subtle">
           {routeLabel}
         </div>
@@ -381,7 +381,7 @@ export function AgentsPreview() {
               type="button"
               onClick={() => select(s.id)}
               className={[
-                "inline-flex items-center gap-gp-xs rounded-radius-2xl border px-pad-xl py-pad-sm text-label-xs font-semibold transition-all cursor-pointer",
+                "inline-flex items-center gap-gp-xs rounded-radius-2xl border px-pad-xl py-pad-sm text-body-xs font-semibold transition-all cursor-pointer",
                 isSelected
                   ? "border-border-brand bg-bg-brand-subtle text-fg-brand shadow-sh-sm"
                   : "border-border-subtle bg-bg-surface text-fg-muted hover:border-border-main hover:text-fg-default",
@@ -503,7 +503,7 @@ export function AgentsPreview() {
             <div className="mt-gp-4xl rounded-radius-base bg-bg-success-subtle border border-border-success flex items-center gap-gp-md px-pad-3xl py-pad-xl">
               <span className="text-[20px]">✅</span>
               <div>
-                <div className="text-label-sm font-bold text-fg-success">Pipeline complete</div>
+                <div className="text-body-md font-medium font-bold text-fg-success">Pipeline complete</div>
                 <div className="text-caption-sm text-fg-muted">{sc.steps[sc.steps.length - 1]?.signal || "Done."}</div>
               </div>
             </div>
@@ -548,7 +548,7 @@ export function AgentsPreview() {
               $ awaiting execution...
             </div>
           )}
-          <table className="w-full text-[11px] font-mono">
+          <table className="w-full text-caption-sm font-mono">
             <tbody>
               {visible.map((s, i) => {
                 const cfg = AG[s.agent];
@@ -563,7 +563,7 @@ export function AgentsPreview() {
                     {/* Agent badge */}
                     <td className="py-pad-md px-pad-xl w-[100px] shrink-0">
                       <span
-                        className="inline-block px-pad-sm py-px rounded-radius-sm text-[10px] font-bold whitespace-nowrap"
+                        className="inline-block px-pad-sm py-px rounded-radius-sm text-caption-xs font-bold whitespace-nowrap"
                         style={{ background: cfg.color + "18", color: cfg.color }}
                       >
                         {cfg.label}
@@ -579,24 +579,24 @@ export function AgentsPreview() {
                             style={{ borderTopColor: "var(--color-fg-foreground)" }}
                           />
                         )}
-                        {isDone && <span className="text-fg-success text-[10px]">✓</span>}
+                        {isDone && <span className="text-fg-success text-caption-xs">✓</span>}
                       </div>
                       <span className="text-fg-subtle">{s.detail}</span>
                     </td>
                     {/* Files read / commands run */}
                     <td className="py-pad-md pr-pad-xl w-[200px] text-right">
                       {s.reads?.map((f) => (
-                        <div key={f} className="text-fg-muted text-[10px]">
+                        <div key={f} className="text-fg-muted text-caption-xs">
                           <span className="text-fg-subtle">read</span> {f}
                         </div>
                       ))}
                       {s.runs?.map((r) => (
-                        <div key={r} className="text-fg-success text-[10px]">
+                        <div key={r} className="text-fg-success text-caption-xs">
                           <span className="text-fg-subtle">run</span> {r}
                         </div>
                       ))}
                       {s.signal && (
-                        <div className="text-fg-brand text-[10px] font-semibold mt-gp-xs">
+                        <div className="text-fg-brand text-caption-xs font-semibold mt-gp-xs">
                           → {s.signal}
                         </div>
                       )}
@@ -660,14 +660,14 @@ function FlowNode({ id, isActive, isDone, isInRoute, isRoot, onInfo, onFiles }: 
           />
           <div>
             <span
-              className="text-label-sm font-bold"
+              className="text-body-md font-medium font-bold"
               style={{
                 color: isActive ? c.color : isDone ? "var(--color-fg-success)" : "var(--color-fg-foreground)",
               }}
             >
               {c.label}
             </span>
-            {isDone && <span className="ml-gp-xs text-fg-success text-label-xs">✓</span>}
+            {isDone && <span className="ml-gp-xs text-fg-success text-body-xs">✓</span>}
           </div>
         </div>
 
@@ -677,7 +677,7 @@ function FlowNode({ id, isActive, isDone, isInRoute, isRoot, onInfo, onFiles }: 
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); onInfo(); }}
-              className="bg-transparent border-none text-fg-subtle text-label-xs cursor-pointer p-px hover:text-fg-default transition-colors"
+              className="bg-transparent border-none text-fg-subtle text-body-xs cursor-pointer p-px hover:text-fg-default transition-colors"
               title="Info"
             >
               ⓘ
@@ -685,7 +685,7 @@ function FlowNode({ id, isActive, isDone, isInRoute, isRoot, onInfo, onFiles }: 
             <button
               type="button"
               onClick={(e) => { e.stopPropagation(); onFiles(); }}
-              className="bg-transparent border-none text-fg-subtle text-label-xs cursor-pointer p-px hover:text-fg-default transition-colors"
+              className="bg-transparent border-none text-fg-subtle text-body-xs cursor-pointer p-px hover:text-fg-default transition-colors"
               title="Files"
             >
               📂
@@ -722,12 +722,12 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
               className="w-2.5 h-2.5 rounded-full shrink-0"
               style={{ background: c.color }}
             />
-            <span className="text-label-sm font-bold" style={{ color: c.color }}>{c.label}</span>
+            <span className="text-body-md font-medium font-bold" style={{ color: c.color }}>{c.label}</span>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="bg-transparent border-none text-fg-muted text-[16px] cursor-pointer hover:text-fg-default transition-colors"
+            className="bg-transparent border-none text-fg-muted text-body-lg cursor-pointer hover:text-fg-default transition-colors"
           >
             ×
           </button>
@@ -740,7 +740,7 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
               key={t}
               type="button"
               onClick={() => onTab(t)}
-              className="flex-1 py-pad-xl bg-transparent border-none text-label-xs font-semibold cursor-pointer transition-colors"
+              className="flex-1 py-pad-xl bg-transparent border-none text-body-xs font-semibold cursor-pointer transition-colors"
               style={{
                 borderBottom: tab === t ? `2px solid ${c.color}` : "2px solid transparent",
                 color: tab === t ? c.color : "var(--color-fg-muted)",
@@ -754,7 +754,7 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
         {/* Modal body */}
         <div className="px-pad-3xl py-pad-xl overflow-y-auto max-h-[60vh]">
           {tab === "about" ? (
-            <div className="text-paragraph-sm text-fg-subtle leading-relaxed">
+            <div className="text-body-md text-fg-subtle leading-relaxed">
               <p className="mb-gp-xl">{c.description}</p>
               <div className="mb-gp-md">
                 <span className="text-fg-default font-semibold">When activated: </span>{c.whenActivated}
@@ -769,7 +769,7 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
               </div>
             </div>
           ) : (
-            <div className="text-paragraph-sm text-fg-subtle">
+            <div className="text-body-md text-fg-subtle">
               {c.files.map((g) => (
                 <div key={g.group} className="mb-gp-2xl">
                   <div className="text-caption-sm font-bold mb-gp-md" style={{ color: c.color }}>

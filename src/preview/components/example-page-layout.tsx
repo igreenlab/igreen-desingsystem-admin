@@ -60,11 +60,11 @@ export function ExamplePageLayout({
     <div className={cn("flex flex-col h-screen overflow-hidden bg-bg-canvas", className)}>
       {/* Header compacto */}
       <header className="shrink-0 px-pad-page-lg py-pad-2xl border-b border-border-subtle">
-        <p className="text-label-xs text-fg-brand uppercase tracking-wide">
+        <p className="text-body-xs text-fg-brand uppercase tracking-wide">
           {category}
         </p>
         <h1 className="text-title-lg text-fg-strong mt-sp-2xs">{title}</h1>
-        <p className="text-paragraph-sm text-fg-muted max-w-[640px] mt-sp-xs">
+        <p className="text-body-md text-fg-muted max-w-[640px] mt-sp-xs">
           {description}
         </p>
       </header>
@@ -98,7 +98,7 @@ export function ExamplePageLayout({
             }
           }}
         >
-          <div className="flex items-center gap-gp-sm text-label-sm font-medium text-fg-default">
+          <div className="flex items-center gap-gp-sm text-body-md font-medium font-medium text-fg-default">
             <Code className="size-icon-sm text-fg-muted" aria-hidden />
             <span>Ver código deste exemplo</span>
           </div>
@@ -113,7 +113,7 @@ export function ExamplePageLayout({
                 className={cn(
                   "inline-flex items-center gap-gp-2xs",
                   "px-pad-md py-pad-2xs rounded-radius-md",
-                  "text-caption-md text-fg-muted",
+                  "text-body-sm font-normal text-fg-muted",
                   "hover:bg-bg-muted-hover hover:text-fg-default",
                   "transition-[background-color,color] duration-150",
                   "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",

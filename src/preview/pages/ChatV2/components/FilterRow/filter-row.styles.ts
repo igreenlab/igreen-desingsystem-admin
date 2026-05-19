@@ -11,11 +11,11 @@ export const filterRowStyles = tv({
     leading: "shrink-0 inline-flex items-center justify-center size-[18px]",
     /** Label do filtro (ellipsis). */
     label:
-      "flex-1 min-w-0 text-[12.5px] font-medium whitespace-nowrap overflow-hidden text-ellipsis",
+      "flex-1 min-w-0 text-body-xs whitespace-nowrap overflow-hidden text-ellipsis",
     /** Dot brand 6px pra "tem novidades". */
     unreadDot: "size-[6px] rounded-radius-full bg-bg-brand shrink-0",
     /** Contador à direita. */
-    count: "text-[11px] text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]",
+    count: "text-caption-sm text-fg-muted shrink-0 [font-variant-numeric:tabular-nums]",
     /** Dot fallback (quando item não tem icon). */
     fallbackDot: "size-[8px] rounded-radius-full",
   },

@@ -16,7 +16,7 @@ function FileRow({ path, desc, tag }: { path: string; desc: string; tag?: string
   return (
     <div className="flex items-start gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
       <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-[240px]">{path}</code>
-      <span className="text-paragraph-sm text-fg-muted flex-1">{desc}</span>
+      <span className="text-body-md text-fg-muted flex-1">{desc}</span>
       {tag && <Badge color="secondary" variant="outline" size="sm" className="shrink-0">{tag}</Badge>}
     </div>
   );
@@ -35,7 +35,7 @@ export function StructureDoc() {
       {/* Overview */}
       <SectionH2 id="overview" title="Overview" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The project is organized in five main areas: <strong className="text-fg-default">tokens</strong> (source of truth),{" "}
           <strong className="text-fg-default">transforms</strong> (generate consumable formats),{" "}
           <strong className="text-fg-default">components</strong> (UI library + preview),{" "}
@@ -76,12 +76,12 @@ export function StructureDoc() {
       {/* Token Files */}
       <SectionH2 id="tokens" title="Token Files" />
       <div className="flex flex-col gap-gp-xs mb-14">
-        <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">
+        <p className="text-body-md text-fg-muted mb-gp-2xl">
           All tokens live in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">tokens/brands/default/</code>.
           Each file exports a typed object.
         </p>
 
-        <p className="text-label-sm text-fg-default mb-gp-xs">Primitives (private — never imported by components)</p>
+        <p className="text-body-md font-medium text-fg-default mb-gp-xs">Primitives (private — never imported by components)</p>
         <div className="mb-gp-3xl">
           <FileRow path="primitives/color-palette.ts" desc="OKLCH color scales: brand, neutral, feedback, alpha" tag="Tier 1" />
           <FileRow path="primitives/scales.ts" desc="Base-4 spatial system: sp(n) = n * 4px" tag="Tier 1" />
@@ -89,7 +89,7 @@ export function StructureDoc() {
           <FileRow path="primitives/motion.ts" desc="Duration, easing, motion presets" tag="Tier 1" />
         </div>
 
-        <p className="text-label-sm text-fg-default mb-gp-xs">Semantic (public API — consumed via CSS vars)</p>
+        <p className="text-body-md font-medium text-fg-default mb-gp-xs">Semantic (public API — consumed via CSS vars)</p>
         <div className="mb-gp-3xl">
           <FileRow path="semantic/color-light.ts" desc="bg.*, fg.*, border.*, ring.*, overlay.* (light)" tag="Tier 2" />
           <FileRow path="semantic/color-dark.ts" desc="Same contract, dark mode values" tag="Tier 2" />
@@ -100,7 +100,7 @@ export function StructureDoc() {
           <FileRow path="semantic/typography.ts" desc="Display, heading, title, body, label, code presets" tag="Tier 2" />
         </div>
 
-        <p className="text-label-sm text-fg-default mb-gp-xs">Component Tokens (component-specific scales)</p>
+        <p className="text-body-md font-medium text-fg-default mb-gp-xs">Component Tokens (component-specific scales)</p>
         <div>
           <FileRow path="components/sizing.ts" desc="form.*, layout.*, icon.*, container.* heights/widths" tag="Tier 2.5" />
           <FileRow path="components/spacing.ts" desc="padCard.*, padPage.* internal padding" tag="Tier 2.5" />
@@ -110,7 +110,7 @@ export function StructureDoc() {
       {/* Transforms */}
       <SectionH2 id="transforms" title="Transforms" />
       <div className="flex flex-col gap-gp-xs mb-14">
-        <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">
+        <p className="text-body-md text-fg-muted mb-gp-2xl">
           Transforms read token objects and output consumable formats. Run via npm scripts.
         </p>
         <FileRow path="transforms/to-tailwind-v4.ts" desc="Generates @theme CSS + .dark overrides + @utility presets" tag="Primary" />
@@ -123,13 +123,13 @@ export function StructureDoc() {
       {/* Components */}
       <SectionH2 id="components" title="Components" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Two component layers live in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">src/components/</code>:
         </p>
         <div className="grid grid-cols-2 gap-gp-3xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">ui/ — iGreen Components</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">ui/ — iGreen Components</p>
+            <p className="text-body-md text-fg-muted">
               Custom components built from scratch using <code className="font-mono text-code-sm">tv()</code> from
               <code className="font-mono text-code-sm"> @/utils/tv</code>. Each folder has <code className="font-mono text-code-sm">.tsx</code>,{" "}
               <code className="font-mono text-code-sm">.styles.ts</code>, <code className="font-mono text-code-sm">.types.ts</code>,{" "}
@@ -137,8 +137,8 @@ export function StructureDoc() {
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-md">shadcn/ — Adapted Shadcn</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">shadcn/ — Adapted Shadcn</p>
+            <p className="text-body-md text-fg-muted">
               Shadcn components restyled with DS tokens. Radix primitives under the hood. Classes reference
               CSS vars from the generated theme.
             </p>
@@ -149,7 +149,7 @@ export function StructureDoc() {
       {/* AI Pipeline */}
       <SectionH2 id="ai-pipeline" title="AI Pipeline Folders" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The pipeline lives in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/</code>.
           Each folder has a single responsibility — kept atomic on purpose.
         </p>
@@ -166,7 +166,7 @@ export function StructureDoc() {
       {/* Context */}
       <SectionH2 id="context" title="Project Context" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Long-form context, lessons and the audit log live in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/</code>.
           This area is what makes the pipeline reversible — every decision has an entry with its assumption.
         </p>
@@ -184,25 +184,25 @@ export function StructureDoc() {
       {/* Preview App */}
       <SectionH2 id="preview" title="Preview App" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           This documentation site is the preview app. It runs on Vite + React and serves as the living styleguide.
         </p>
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
           <div className="flex items-center gap-gp-xl py-pad-md px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand">npm run dev</code>
-            <span className="text-paragraph-sm text-fg-muted">→ localhost:3100 (regenera tokens antes)</span>
+            <span className="text-body-md text-fg-muted">→ localhost:3100 (regenera tokens antes)</span>
           </div>
           <div className="flex items-center gap-gp-xl py-pad-md px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand">npm run tokens:tw4</code>
-            <span className="text-paragraph-sm text-fg-muted">→ regenerate Tailwind v4 theme CSS from tokens</span>
+            <span className="text-body-md text-fg-muted">→ regenerate Tailwind v4 theme CSS from tokens</span>
           </div>
           <div className="flex items-center gap-gp-xl py-pad-md px-pad-3xl border-b border-border-subtle">
             <code className="font-mono text-code-sm text-fg-brand">npm run build</code>
-            <span className="text-paragraph-sm text-fg-muted">→ tokens + tsc -b + vite build</span>
+            <span className="text-body-md text-fg-muted">→ tokens + tsc -b + vite build</span>
           </div>
           <div className="flex items-center gap-gp-xl py-pad-md px-pad-3xl">
             <code className="font-mono text-code-sm text-fg-brand">npm run sync:agents</code>
-            <span className="text-paragraph-sm text-fg-muted">→ espelha .claude/agents/ em .cursor/rules/</span>
+            <span className="text-body-md text-fg-muted">→ espelha .claude/agents/ em .cursor/rules/</span>
           </div>
         </div>
       </div>

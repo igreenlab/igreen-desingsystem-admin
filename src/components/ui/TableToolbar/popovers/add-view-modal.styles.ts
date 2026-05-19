@@ -71,14 +71,14 @@ export const title = tv({
     "m-0 mb-[2px]",
     // leading-[1.3] balanceia o bloco verticalmente com o icon container 40px
     // (leading-none deixava o glyph colado no top → parecia subido).
-    "text-[17px] font-bold leading-[1.3]",
+    "text-body-lg font-bold leading-[1.3]",
     "text-fg-default",
     "tracking-[-0.01em]",
   ],
 });
 
 export const sub = tv({
-  base: "m-0 text-[12.5px] text-fg-muted leading-[1.45]",
+  base: "m-0 text-body-xs font-normal text-fg-muted leading-[1.45]",
 });
 
 export const body = tv({
@@ -118,11 +118,11 @@ export const toggleText = tv({
 });
 
 export const toggleLabel = tv({
-  base: "text-[13.5px] font-semibold text-fg-default leading-[1.3]",
+  base: "text-body-md font-semibold text-fg-default leading-[1.3]",
 });
 
 export const toggleDesc = tv({
-  base: "text-[12px] text-fg-muted leading-[1.45]",
+  base: "text-body-xs font-normal text-fg-muted leading-[1.45]",
 });
 
 export const foot = tv({

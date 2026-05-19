@@ -160,7 +160,7 @@ export function ToolbarMobileSection({
   return (
     <section className={cn("flex flex-col gap-gp-md", className)}>
       {title && (
-        <h3 className="text-[12px] font-medium text-fg-muted">{title}</h3>
+        <h3 className="text-body-xs font-medium text-fg-muted">{title}</h3>
       )}
       <div className="flex flex-col gap-gp-md">{children}</div>
     </section>

@@ -14,6 +14,6 @@ export const queueColumnStyles = tv({
       "absolute right-pad-md top-1/2 -translate-y-1/2 grid place-items-center size-[20px] rounded-radius-md text-fg-muted hover:bg-bg-muted hover:text-fg-default transition-colors",
     chipsWrap: "px-pad-md pb-pad-2xl",
     list: "flex-1 min-h-0 overflow-y-auto px-pad-md pb-pad-md flex flex-col gap-gp-xs",
-    empty: "py-pad-4xl px-pad-xl text-center text-[12px] text-fg-subtle",
+    empty: "py-pad-4xl px-pad-xl text-center text-body-xs font-normal text-fg-subtle",
   },
 });

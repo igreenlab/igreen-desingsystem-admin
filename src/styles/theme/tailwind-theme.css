@@ -406,7 +406,7 @@
 @utility text-title-lg {
   font-size: 1.25rem;
   line-height: 1.75rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
@@ -414,76 +414,20 @@
 @utility text-title-md {
   font-size: 1rem;
   line-height: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 0em;
+  font-weight: 600;
+  letter-spacing: -0.011em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
 @utility text-title-sm {
   font-size: 0.875rem;
   line-height: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-lg {
-  font-size: 1.125rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  letter-spacing: -0.015em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-md {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  letter-spacing: -0.011em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.006em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-label-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 500;
-  letter-spacing: 0em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-2xs {
-  font-size: 0.6875rem;
-  line-height: 0.875rem;
-  font-weight: 500;
-  letter-spacing: 0em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-label-base {
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
-  font-weight: 500;
-  letter-spacing: -0.003em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-paragraph-xl {
+@utility text-body-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
   font-weight: 400;
@@ -491,7 +435,7 @@
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-paragraph-lg {
+@utility text-body-xl {
   font-size: 1.125rem;
   line-height: 1.5rem;
   font-weight: 400;
@@ -499,7 +443,7 @@
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-paragraph-md {
+@utility text-body-lg {
   font-size: 1rem;
   line-height: 1.5rem;
   font-weight: 400;
@@ -507,7 +451,7 @@
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-paragraph-sm {
+@utility text-body-md {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 400;
@@ -515,25 +459,25 @@
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-paragraph-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 400;
-  letter-spacing: 0em;
+@utility text-body-sm {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+  font-weight: 500;
+  letter-spacing: -0.003em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
-@utility text-paragraph-base {
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
-  font-weight: 400;
-  letter-spacing: -0.003em;
+@utility text-body-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 500;
+  letter-spacing: 0em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
 @utility text-caption-md {
-  font-size: 0.8125rem;
-  line-height: 1.125rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
   font-weight: 400;
   letter-spacing: 0em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
@@ -552,54 +496,6 @@
   line-height: 0.75rem;
   font-weight: 400;
   letter-spacing: 0em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-md {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-xs {
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.04em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-2xs {
-  font-size: 0.6875rem;
-  line-height: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-strong-md {
-  font-size: 0.6875rem;
-  line-height: 0.875rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
-}
-
-@utility text-subheading-strong-sm {
-  font-size: 0.625rem;
-  line-height: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 

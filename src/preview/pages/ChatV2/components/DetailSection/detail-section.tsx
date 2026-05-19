@@ -26,7 +26,7 @@ export function DetailSection({
         aria-expanded={open}
         className="flex items-center justify-between w-full px-pad-sm py-pad-sm -mx-pad-sm rounded-radius-md cursor-pointer text-left transition-colors duration-150 hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand"
       >
-        <span className="text-[13px] font-semibold text-fg-default">{title}</span>
+        <span className="text-body-sm font-semibold text-fg-default">{title}</span>
         <ChevronDown
           size={14}
           className={[

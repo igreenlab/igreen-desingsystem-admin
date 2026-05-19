@@ -43,7 +43,7 @@ function Calendar({
           defaultClassNames.month_caption
         ),
         caption_label: cn(
-          "text-label-sm font-semibold select-none",
+          "text-body-md font-medium font-semibold select-none",
           captionLayout === "dropdown" ? "hidden" : "",
           defaultClassNames.caption_label
         ),
@@ -52,7 +52,7 @@ function Calendar({
           defaultClassNames.dropdowns
         ),
         dropdown: cn(
-          "cursor-pointer appearance-none bg-transparent text-label-sm font-semibold text-fg-default outline-none",
+          "cursor-pointer appearance-none bg-transparent text-body-md font-medium font-semibold text-fg-default outline-none",
           defaultClassNames.dropdown
         ),
         months_dropdown: cn("", defaultClassNames.months_dropdown),
@@ -60,7 +60,7 @@ function Calendar({
         table: "w-full border-collapse",
         weekdays: cn("flex", defaultClassNames.weekdays),
         weekday: cn(
-          "flex-1 min-w-8 max-w-12 text-[0.8rem] font-normal text-fg-muted select-none text-center",
+          "flex-1 min-w-8 max-w-12 text-body-sm font-normal text-fg-muted select-none text-center",
           defaultClassNames.weekday
         ),
         week: cn("mt-gp-md flex w-full", defaultClassNames.week),
@@ -122,7 +122,7 @@ function CalendarDayButton({
       data-range-end={isRangeEnd || undefined}
       data-range-middle={isRangeMiddle || undefined}
       className={cn(
-        "relative flex aspect-square w-full items-center justify-center text-paragraph-sm font-normal leading-none outline-none transition-colors",
+        "relative flex aspect-square w-full items-center justify-center text-body-md font-normal leading-none outline-none transition-colors",
 
         // Default shape
         "rounded-full",

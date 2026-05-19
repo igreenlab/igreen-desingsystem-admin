@@ -45,7 +45,7 @@ export function AgentOrchestratorDoc() {
             <h3 className="text-title-md font-semibold text-fg-default">Orchestrator</h3>
             <Badge color="secondary" variant="outline" size="sm">claude-sonnet-4-6</Badge>
           </div>
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Classifies &middot; Delegates
           </p>
         </div>
@@ -55,7 +55,7 @@ export function AgentOrchestratorDoc() {
       <SectionH2 id="role" title="Role" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             The Orchestrator is the{" "}
             <strong className="text-fg-default">entry point</strong> for every
             task in the pipeline. It never executes work directly — its job is to
@@ -84,10 +84,10 @@ export function AgentOrchestratorDoc() {
               key={item.title}
               className="rounded-radius-base border border-border-subtle p-pad-3xl"
             >
-              <p className="text-label-sm text-fg-default mb-gp-xs">
+              <p className="text-body-md font-medium text-fg-default mb-gp-xs">
                 {item.title}
               </p>
-              <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+              <p className="text-body-md text-fg-muted">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -96,7 +96,7 @@ export function AgentOrchestratorDoc() {
       {/* ── Routing Table ─────────────────────────────────────── */}
       <SectionH2 id="routing" title="Routing Table" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The Orchestrator matches the task description to one of these routing
           rules. Each row shows the task type, the agents involved, and the
           context files loaded.
@@ -106,13 +106,13 @@ export function AgentOrchestratorDoc() {
           <table className="w-full">
             <thead>
               <tr className="bg-bg-subtle">
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">
                   Task
                 </th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">
                   Route
                 </th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">
                   Context Files
                 </th>
               </tr>
@@ -223,7 +223,7 @@ export function AgentOrchestratorDoc() {
                 },
               ].map((row) => (
                 <tr key={row.task} className="border-t border-border-subtle">
-                  <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-default">
+                  <td className="py-pad-md px-pad-xl text-body-md text-fg-default">
                     {row.task}
                   </td>
                   <td className="py-pad-md px-pad-xl text-code-sm font-mono">
@@ -246,15 +246,15 @@ export function AgentOrchestratorDoc() {
           <table className="w-full">
             <tbody>
               <tr className="border-b border-border-subtle">
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
-                <td className="text-paragraph-sm text-fg-default py-pad-md px-pad-xl">User task in natural language</td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
+                <td className="text-body-md text-fg-default py-pad-md px-pad-xl">User task in natural language</td>
               </tr>
               <tr className="border-b border-border-subtle">
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
-                <td className="text-paragraph-sm py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">→ Delegating to [agent]</code></td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
+                <td className="text-body-md py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">→ Delegating to [agent]</code></td>
               </tr>
               <tr>
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
                 <td className="py-pad-md px-pad-xl flex flex-wrap gap-gp-md"><code className="font-mono text-code-sm text-fg-muted">CLAUDE.md</code> <code className="font-mono text-code-sm text-fg-muted">.ai/lessons.md</code> <code className="font-mono text-code-sm text-fg-muted">ds-standards.md</code></td>
               </tr>
             </tbody>
@@ -291,16 +291,16 @@ export function AgentOrchestratorDoc() {
             ].map((item) => (
               <div key={item.step} className="flex gap-gp-2xl">
                 <div
-                  className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold text-white"
+                  className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-body-md font-medium font-semibold text-white"
                   style={{ backgroundColor: ACCENT }}
                 >
                   {item.step}
                 </div>
                 <div>
-                  <p className="text-label-sm text-fg-default mb-gp-xs">
+                  <p className="text-body-md font-medium text-fg-default mb-gp-xs">
                     {item.title}
                   </p>
-                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                  <p className="text-body-md text-fg-muted">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -312,7 +312,7 @@ export function AgentOrchestratorDoc() {
       <SectionH2 id="cascade" title="Cascade Detection" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-          <p className="text-paragraph-sm text-fg-muted mb-gp-3xl">
+          <p className="text-body-md text-fg-muted mb-gp-3xl">
             When a task requires tokens or components that do not exist yet, the
             Orchestrator detects the dependency and triggers a sub-pipeline
             before resuming the original task.
@@ -343,16 +343,16 @@ export function AgentOrchestratorDoc() {
             ].map((item) => (
               <div key={item.step} className="flex gap-gp-2xl">
                 <div
-                  className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-label-sm font-semibold text-white"
+                  className="flex shrink-0 items-center justify-center w-8 h-8 rounded-full text-body-md font-medium font-semibold text-white"
                   style={{ backgroundColor: ACCENT }}
                 >
                   {item.step}
                 </div>
                 <div>
-                  <p className="text-label-sm text-fg-default mb-gp-xs">
+                  <p className="text-body-md font-medium text-fg-default mb-gp-xs">
                     {item.title}
                   </p>
-                  <p className="text-paragraph-sm text-fg-muted">{item.desc}</p>
+                  <p className="text-body-md text-fg-muted">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -360,10 +360,10 @@ export function AgentOrchestratorDoc() {
 
           {/* Example scenario */}
           <div className="rounded-radius-base bg-bg-subtle p-pad-3xl">
-            <p className="text-label-xs text-fg-subtle uppercase tracking-wider mb-gp-md">
+            <p className="text-body-xs text-fg-subtle uppercase tracking-wider mb-gp-md">
               Example scenario
             </p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md text-fg-muted">
               User asks for a{" "}
               <code className="font-mono text-code-sm bg-bg-surface px-pad-sm rounded-radius-sm">StatusIndicator</code>{" "}
               component that uses a new{" "}

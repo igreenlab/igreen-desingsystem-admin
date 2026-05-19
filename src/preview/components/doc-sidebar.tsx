@@ -20,9 +20,9 @@ export function DocSidebar({
     <nav className="w-[260px] min-w-[260px] shrink-0 sticky top-0 h-screen overflow-y-auto border-r border-border-sidebar bg-bg-sidebar scrollbar-thin flex flex-col">
       {/* Logo */}
       <div className="flex items-center gap-gp-xl px-pad-4xl py-pad-3xl border-b border-border-sidebar shrink-0">
-        <div className="w-8 h-8 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-[11px]">iG</div>
+        <div className="w-8 h-8 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-caption-sm">iG</div>
         <div>
-          <p className="text-label-sm text-fg-default leading-none">iGreen DS</p>
+          <p className="text-body-md font-medium text-fg-default leading-none">iGreen DS</p>
           <p className="text-caption-sm text-fg-subtle">preview</p>
         </div>
       </div>
@@ -40,7 +40,7 @@ export function DocSidebar({
                     type="button"
                     onClick={() => onNavigate?.(item.href)}
                     className={[
-                      "block py-pad-sm px-pad-xl rounded-radius-md text-[12px] font-medium transition-colors text-left w-full",
+                      "block py-pad-sm px-pad-xl rounded-radius-md text-body-xs font-medium transition-colors text-left w-full",
                       item.active
                         ? "text-fg-brand font-semibold bg-bg-surface shadow-sh-sm dark:bg-bg-sidebar-accent dark:shadow-sh-none"
                         : "text-fg-default hover:text-fg-brand hover:bg-bg-sidebar-accent",
@@ -65,7 +65,7 @@ export function DocSidebar({
               type="button"
               onClick={() => theme === "dark" && onToggleTheme()}
               className={[
-                "flex-1 flex items-center justify-center gap-gp-md rounded-full py-pad-md text-label-xs transition-all",
+                "flex-1 flex items-center justify-center gap-gp-md rounded-full py-pad-md text-body-xs transition-all",
                 theme === "light"
                   ? "bg-bg-surface text-fg-default shadow-sh-sm"
                   : "text-fg-muted hover:text-fg-default",
@@ -78,7 +78,7 @@ export function DocSidebar({
               type="button"
               onClick={() => theme === "light" && onToggleTheme()}
               className={[
-                "flex-1 flex items-center justify-center gap-gp-md rounded-full py-pad-md text-label-xs transition-all",
+                "flex-1 flex items-center justify-center gap-gp-md rounded-full py-pad-md text-body-xs transition-all",
                 theme === "dark"
                   ? "bg-bg-surface text-fg-default shadow-sh-sm"
                   : "text-fg-muted hover:text-fg-default",

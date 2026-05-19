@@ -52,7 +52,7 @@ export const columnDot = tv({
 
 export const columnTitle = tv({
   base: [
-    "m-0 text-label-sm text-fg-default",
+    "m-0 text-body-md font-medium text-fg-default",
     // Não expande (badge fica grudado à direita do título)
     "shrink min-w-0",
     "whitespace-nowrap overflow-hidden text-ellipsis",
@@ -93,7 +93,7 @@ export const columnEmpty = tv({
   base: [
     "flex flex-1 flex-col items-center justify-center gap-gp-sm",
     "py-pad-3xl px-pad-xl",
-    "text-center text-caption-md text-fg-subtle",
+    "text-center text-body-sm font-normal text-fg-subtle",
   ],
 });
 
@@ -114,7 +114,7 @@ export const columnAdd = tv({
     "mx-pad-md mb-pad-md mt-sp-2xs",
     "px-pad-lg min-h-form-sm",
     "bg-transparent border border-dashed border-border-input rounded-radius-md",
-    "text-caption-md font-medium text-fg-muted",
+    "text-body-sm font-medium text-fg-muted",
     "cursor-pointer",
     "transition-[background-color,color,border-color] duration-150",
     "hover:bg-bg-surface hover:text-fg-default hover:border-border-default",
@@ -216,7 +216,7 @@ export const cardTitleWrap = tv({
 
 export const cardTitle = tv({
   base: [
-    "text-label-sm text-fg-default leading-[1.3]",
+    "text-body-md font-medium text-fg-default leading-[1.3]",
     "whitespace-nowrap overflow-hidden text-ellipsis",
   ],
 });
@@ -228,7 +228,7 @@ export const cardSubtitle = tv({
 /** Descrição — line-clamp 2, fg-muted. */
 export const cardDesc = tv({
   base: [
-    "m-0 text-caption-md leading-[1.45] text-fg-muted",
+    "m-0 text-body-sm font-normal leading-[1.45] text-fg-muted",
     "[display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]",
     "overflow-hidden",
   ],
@@ -240,7 +240,7 @@ export const cardMeta = tv({
 });
 
 export const cardValue = tv({
-  base: "text-caption-md font-semibold text-fg-default [font-variant-numeric:tabular-nums]",
+  base: "text-body-sm font-semibold text-fg-default [font-variant-numeric:tabular-nums]",
 });
 
 /** Footer (agent + data) — separador solid no top. */

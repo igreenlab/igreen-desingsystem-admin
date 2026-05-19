@@ -26,7 +26,7 @@ const SelectTrigger = React.forwardRef<
       "bg-bg-input dark:bg-bg-muted",
       "hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover",
       "border border-border-input",
-      "text-[13px] text-fg-default",
+      "text-body-sm font-normal text-fg-default",
       "transition-[color,box-shadow,background-color,border-color] outline-none",
       "data-[placeholder]:text-fg-muted data-[placeholder]:opacity-70",
       state === "default" && "focus-visible:border-border-brand          data-[state=open]:border-border-brand          focus-visible:shadow-sh-ring          data-[state=open]:shadow-sh-ring",
@@ -126,7 +126,7 @@ const SelectLabel = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <SelectPrimitive.Label
     ref={ref}
-    className={cn("py-pad-sm pl-8 pr-2 text-label-sm text-fg-muted", className)}
+    className={cn("py-pad-sm pl-8 pr-2 text-body-md font-medium text-fg-muted", className)}
     {...props}
   />
 ))
@@ -141,7 +141,7 @@ const SelectItem = React.forwardRef<
     className={cn(
       "relative flex w-full cursor-default select-none items-center gap-pad-md",
       "rounded-radius-sm py-pad-md pl-8 pr-pad-lg",
-      "text-[13px] font-medium text-fg-muted",
+      "text-body-sm font-medium text-fg-muted",
       "outline-none transition-colors",
       "focus:bg-bg-muted focus:text-fg-default",
       "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",

@@ -102,7 +102,7 @@ const AlertDialogTitle = React.forwardRef<
   <AlertDialogPrimitive.Title
     ref={ref}
     className={cn(
-      "text-[18px] font-bold tracking-[-0.01em] text-fg-default leading-tight",
+      "text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight",
       className,
     )}
     {...props}
@@ -117,7 +117,7 @@ const AlertDialogDescription = React.forwardRef<
   <AlertDialogPrimitive.Description
     ref={ref}
     className={cn(
-      "text-[13px] leading-[1.5] text-fg-muted max-w-[340px]",
+      "text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]",
       className,
     )}
     {...props}

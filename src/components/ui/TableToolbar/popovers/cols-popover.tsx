@@ -143,7 +143,7 @@ export function ColsPopover({
       >
         {/* Header */}
         <div className="flex-none px-pad-xl py-pad-2xl border-b border-border-default">
-          <h3 className="text-[11px] font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
+          <h3 className="text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0">
             {title}
           </h3>
         </div>
@@ -213,7 +213,7 @@ export function ColsPopover({
                 )}
                 <label
                   htmlFor={`col-vis-${col.key}`}
-                  className="flex-1 text-[13px] font-medium text-fg-default cursor-pointer truncate"
+                  className="flex-1 text-body-sm font-medium text-fg-default cursor-pointer truncate"
                 >
                   {col.label}
                 </label>
@@ -259,7 +259,7 @@ export function ColsPopover({
               <button
                 type="button"
                 onClick={showAll}
-                className="text-[12px] font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
+                className="text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
               >
                 {showAllLabel}
               </button>
@@ -270,7 +270,7 @@ export function ColsPopover({
               <button
                 type="button"
                 onClick={onlyPinned}
-                className="text-[12px] font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
+                className="text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none hover:underline focus-visible:underline underline-offset-2"
               >
                 {onlyPinnedLabel}
               </button>

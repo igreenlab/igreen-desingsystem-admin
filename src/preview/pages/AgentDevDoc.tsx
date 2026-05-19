@@ -38,7 +38,7 @@ export function AgentDevDoc() {
             <h3 className="text-title-md font-semibold text-fg-default">DS Dev</h3>
             <Badge color="secondary" variant="outline" size="sm">claude-opus-4-6</Badge>
           </div>
-          <p className="text-paragraph-sm text-fg-muted">
+          <p className="text-body-md text-fg-muted">
             Implements the spec received. Creates tokens, components (tv() + semantic classes), adapters.
           </p>
         </div>
@@ -47,7 +47,7 @@ export function AgentDevDoc() {
       {/* Role */}
       <SectionH2 id="role" title="Role" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           The DS Dev agent receives approved specs and turns them into working code.
           It creates token files, components using tv() with semantic classes, and
           transform adapters. After any token change, it always runs{" "}
@@ -56,22 +56,22 @@ export function AgentDevDoc() {
         </p>
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Token Implementation</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Token Implementation</p>
+            <p className="text-body-md text-fg-muted">
               Creates Tier 2 and 2.5 token files, runs the transform pipeline,
               and verifies generated CSS vars are correct.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Component Creation</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Component Creation</p>
+            <p className="text-body-md text-fg-muted">
               Builds .styles.ts, .tsx, .types.ts, and barrel exports following
               the exact spec from the Designer.
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl col-span-2">
-            <p className="text-label-sm text-fg-default mb-gp-xs">Transform Adapters</p>
-            <p className="text-paragraph-sm text-fg-muted">
+            <p className="text-body-md font-medium text-fg-default mb-gp-xs">Transform Adapters</p>
+            <p className="text-body-md text-fg-muted">
               Maintains to-tailwind-v4.ts and Shadcn adapter mappings so that
               all tokens are consumable as CSS vars and Tailwind classes.
             </p>
@@ -82,7 +82,7 @@ export function AgentDevDoc() {
       {/* Anti-Collision Prefixes */}
       <SectionH2 id="anti-collision" title="Anti-Collision Prefixes" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           All DS tokens use prefixed CSS variables to avoid overriding Tailwind
           built-in utilities. Using unprefixed classes will break the native scale.
         </p>
@@ -90,10 +90,10 @@ export function AgentDevDoc() {
           <table className="w-full">
             <thead>
               <tr className="bg-bg-subtle">
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Token</th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">CSS Var</th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Class</th>
-                <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Avoids</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">Token</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">CSS Var</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">Class</th>
+                <th className="text-left text-body-xs text-fg-muted font-medium py-pad-md px-pad-xl">Avoids</th>
               </tr>
             </thead>
             <tbody>
@@ -108,10 +108,10 @@ export function AgentDevDoc() {
                 { token: "icon", cssVar: "--spacing-icon-*", cls: "size-icon-md", avoids: "size-5 (numeric)" },
               ].map((row) => (
                 <tr key={row.token} className="border-t border-border-subtle">
-                  <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-default font-mono">{row.token}</td>
-                  <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-default font-mono">{row.cssVar}</td>
-                  <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-default font-mono">{row.cls}</td>
-                  <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-muted">{row.avoids}</td>
+                  <td className="py-pad-md px-pad-xl text-body-md text-fg-default font-mono">{row.token}</td>
+                  <td className="py-pad-md px-pad-xl text-body-md text-fg-default font-mono">{row.cssVar}</td>
+                  <td className="py-pad-md px-pad-xl text-body-md text-fg-default font-mono">{row.cls}</td>
+                  <td className="py-pad-md px-pad-xl text-body-md text-fg-muted">{row.avoids}</td>
                 </tr>
               ))}
             </tbody>
@@ -122,13 +122,13 @@ export function AgentDevDoc() {
       {/* Focus Ring Patterns */}
       <SectionH2 id="focus-ring" title="Focus Ring Patterns" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Two focus ring patterns are used throughout the system. Using the wrong
           pattern will trigger a REVIEW_FAILED from the Reviewer.
         </p>
         <div className="grid grid-cols-2 gap-gp-2xl">
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-            <p className="text-label-sm text-fg-default mb-gp-2xl">
+            <p className="text-body-md font-medium text-fg-default mb-gp-2xl">
               Pattern 1 — Static (buttons, selects)
             </p>
             <div className="rounded-radius-sm bg-bg-subtle p-pad-2xl font-mono text-code-sm text-fg-muted leading-relaxed">
@@ -141,7 +141,7 @@ export function AgentDevDoc() {
             </p>
           </div>
           <div className="rounded-radius-base border border-border-subtle bg-bg-surface shadow-sh-sm p-pad-4xl">
-            <p className="text-label-sm text-fg-default mb-gp-2xl">
+            <p className="text-body-md font-medium text-fg-default mb-gp-2xl">
               Pattern 2 — Animated (inputs, textareas)
             </p>
             <div className="rounded-radius-sm bg-bg-subtle p-pad-2xl font-mono text-code-sm text-fg-muted leading-relaxed">
@@ -163,7 +163,7 @@ export function AgentDevDoc() {
       {/* Component Structure */}
       <SectionH2 id="component-structure" title="Component Structure" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Every iGreen component follows this file structure. Deviating from it
           will cause a Reviewer rejection.
         </p>
@@ -190,7 +190,7 @@ export function AgentDevDoc() {
       <SectionH2 id="prohibited" title="Prohibited" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <div className="rounded-radius-base border border-border-danger-muted/50 bg-bg-danger-muted p-pad-4xl">
-          <h4 className="text-label-sm text-fg-danger mb-gp-2xl">
+          <h4 className="text-body-md font-medium text-fg-danger mb-gp-2xl">
             Violations below will always cause REVIEW_FAILED
           </h4>
           <div className="flex flex-col gap-gp-xl">
@@ -205,7 +205,7 @@ export function AgentDevDoc() {
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-gp-xl">
                 <span className="text-fg-danger mt-0.5 shrink-0">{"\u2715"}</span>
-                <span className="text-paragraph-sm text-fg-muted">{item}</span>
+                <span className="text-body-md text-fg-muted">{item}</span>
               </div>
             ))}
           </div>
@@ -219,15 +219,15 @@ export function AgentDevDoc() {
           <table className="w-full">
             <tbody>
               <tr className="border-b border-border-subtle">
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
-                <td className="text-paragraph-sm py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">SPEC_PRONTA: [name]</code> from Orchestrator gate</td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
+                <td className="text-body-md py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">SPEC_PRONTA: [name]</code> from Orchestrator gate</td>
               </tr>
               <tr className="border-b border-border-subtle">
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
-                <td className="text-paragraph-sm py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">IMPL_PRONTA: [name]</code> triggers DS Reviewer</td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
+                <td className="text-body-md py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">IMPL_PRONTA: [name]</code> triggers DS Reviewer</td>
               </tr>
               <tr>
-                <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
+                <td className="text-body-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
                 <td className="py-pad-md px-pad-xl font-mono text-code-sm text-fg-muted">*.styles.ts, *.tsx, *.types.ts, to-tailwind-v4.ts</td>
               </tr>
             </tbody>

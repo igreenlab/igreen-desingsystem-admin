@@ -69,7 +69,7 @@ export function DataTableTotalizerRow<T>({
             pinOffset={stickyOffsets[field]}
             align={col.align}
             ellipsis={col.ellipsis}
-            className="text-label-sm text-fg-strong bg-bg-table-head"
+            className="text-body-md font-medium text-fg-strong bg-bg-table-head"
           >
             {content}
           </TableCell>

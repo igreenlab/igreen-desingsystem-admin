@@ -89,7 +89,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
                   checked={selected.has(String(o.value))}
                   onCheckedChange={() => toggle(String(o.value))}
                 />
-                <span className="text-paragraph-sm text-fg-default">{o.label}</span>
+                <span className="text-body-md text-fg-default">{o.label}</span>
               </label>
             ))}
           </div>
@@ -116,7 +116,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
               checked={selected.has(String(o.value))}
               onCheckedChange={() => toggle(String(o.value))}
             />
-            <span className="text-paragraph-sm text-fg-default">{o.label}</span>
+            <span className="text-body-md text-fg-default">{o.label}</span>
           </label>
         ))}
       </div>

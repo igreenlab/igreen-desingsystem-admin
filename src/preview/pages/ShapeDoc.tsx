@@ -30,7 +30,7 @@ export function ShapeDoc() {
 
       {/* Radius */}
       <SectionH2 id="radius" title="Border Radius" />
-      <p className="text-paragraph-sm text-fg-muted mb-gp-4xl">
+      <p className="text-body-md text-fg-muted mb-gp-4xl">
         Multiplicative scale based on <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">RADIUS_BASE = 0.625rem (10px)</code>.
         Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">radius-</code>
       </p>
@@ -42,7 +42,7 @@ export function ShapeDoc() {
               style={{ borderRadius: r.px === "9999" ? "9999px" : `${r.px}px` }}
             />
             <div className="text-center">
-              <p className="text-label-xs text-fg-default">{r.step}</p>
+              <p className="text-body-xs text-fg-default">{r.step}</p>
               <p className="text-caption-sm text-fg-subtle">{r.px}px</p>
               <Badge color="secondary" variant="outline" size="sm" className="font-mono mt-gp-xs">×{r.mult}</Badge>
             </div>
@@ -54,7 +54,7 @@ export function ShapeDoc() {
       <div id="knob" className="mb-14 scroll-mt-6">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-4xl">Radius Knob</h3>
         <div className="bg-bg-subtle rounded-radius-2xl p-pad-4xl">
-          <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">Changing <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">RADIUS_BASE</code> in <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">shape.ts</code> scales every radius proportionally.</p>
+          <p className="text-body-md text-fg-muted mb-gp-2xl">Changing <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">RADIUS_BASE</code> in <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">shape.ts</code> scales every radius proportionally.</p>
           <div className="font-mono text-code-sm text-fg-default bg-bg-surface rounded-radius-xl p-pad-2xl">
             <p>export const RADIUS_BASE = "0.625rem"; // 10px</p>
             <p className="text-fg-muted mt-gp-md">// radius.base = RADIUS_BASE × 2.6 = 26px</p>
@@ -75,7 +75,7 @@ export function ShapeDoc() {
         ].map(b => (
           <div key={b.name} className="flex items-center gap-gp-xl">
             <div className="w-24 border-border-brand" style={{ borderBottomWidth: b.px, borderBottomStyle: "solid" }} />
-            <span className="text-label-xs text-fg-default w-12">{b.name}</span>
+            <span className="text-body-xs text-fg-default w-12">{b.name}</span>
             <span className="text-caption-sm text-fg-subtle">{b.px}</span>
             <span className="text-caption-sm text-fg-muted">{b.use}</span>
           </div>
@@ -85,16 +85,16 @@ export function ShapeDoc() {
       {/* Outline */}
       <SectionH2 id="outline" title="Outline (Focus Ring)" />
       <div className="bg-bg-subtle rounded-radius-2xl p-pad-4xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">Focus rings use <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">ring-4</code> with semantic ring color tokens. Two patterns:</p>
+        <p className="text-body-md text-fg-muted mb-gp-2xl">Focus rings use <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">ring-4</code> with semantic ring color tokens. Two patterns:</p>
         <div className="grid grid-cols-2 gap-gp-4xl mt-gp-4xl">
           <div>
-            <p className="text-label-xs text-fg-default mb-gp-md">Static (buttons, selects)</p>
+            <p className="text-body-xs text-fg-default mb-gp-md">Static (buttons, selects)</p>
             <div className="font-mono text-code-sm text-fg-muted bg-bg-surface rounded-radius-xl p-pad-2xl">
               focus-visible:ring-4<br />focus-visible:ring-ring-brand
             </div>
           </div>
           <div>
-            <p className="text-label-xs text-fg-default mb-gp-md">Animated (inputs)</p>
+            <p className="text-body-xs text-fg-default mb-gp-md">Animated (inputs)</p>
             <div className="font-mono text-code-sm text-fg-muted bg-bg-surface rounded-radius-xl p-pad-2xl">
               ring-0 ring-ring-brand<br />focus-visible:ring-4
             </div>

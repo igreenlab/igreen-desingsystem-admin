@@ -71,7 +71,7 @@ export function UpdatesDoc() {
 
       {/* Intro */}
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-paragraph-sm text-fg-muted">
+        <p className="text-body-md text-fg-muted">
           Esta página é uma fonte amigável para acompanhar a evolução do DS sem precisar ler o histórico do git.
           Cada release agrupa as mudanças por tipo (adicionado, alterado, corrigido, etc).
           Para adicionar uma nova entry, edite{" "}
@@ -119,13 +119,13 @@ export function UpdatesDoc() {
                 </header>
 
                 {/* Título da release */}
-                <p className="text-paragraph-md text-fg-default font-medium mb-gp-md">
+                <p className="text-body-lg text-fg-default font-medium mb-gp-md">
                   {release.title}
                 </p>
 
                 {/* Summary opcional */}
                 {release.summary && (
-                  <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">
+                  <p className="text-body-md text-fg-muted mb-gp-2xl">
                     {release.summary}
                   </p>
                 )}
@@ -150,7 +150,7 @@ export function UpdatesDoc() {
                           {group.items.length === 1 ? "item" : "items"}
                         </span>
                       </div>
-                      <ul className="flex flex-col gap-gp-sm pl-sp-md list-disc text-paragraph-sm text-fg-muted marker:text-fg-subtle">
+                      <ul className="flex flex-col gap-gp-sm pl-sp-md list-disc text-body-md text-fg-muted marker:text-fg-subtle">
                         {group.items.map((item, i) => (
                           <li key={i}>{item}</li>
                         ))}
@@ -166,10 +166,10 @@ export function UpdatesDoc() {
 
       {/* How to add */}
       <div className="mt-20 rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-4xl">
-        <p className="text-label-sm text-fg-default mb-gp-md">
+        <p className="text-body-md font-medium text-fg-default mb-gp-md">
           Como adicionar uma nova entry
         </p>
-        <ol className="list-decimal pl-sp-md flex flex-col gap-gp-sm text-paragraph-sm text-fg-muted">
+        <ol className="list-decimal pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
           <li>
             Abra{" "}
             <code className="font-mono text-code-sm bg-bg-surface px-pad-sm rounded-radius-sm">

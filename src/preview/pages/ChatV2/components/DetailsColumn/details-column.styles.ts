@@ -11,20 +11,20 @@ export const detailsColumnStyles = tv({
     title: "m-0 text-title-md text-fg-default flex-1",
     body: "flex-1 min-h-0 overflow-y-auto px-pad-2xl py-pad-md flex flex-col gap-gp-2xl",
     contactHead: "flex flex-col items-center gap-gp-md pb-pad-md",
-    contactName: "text-[14px] font-semibold text-fg-default text-center",
+    contactName: "text-body-md font-semibold text-fg-default text-center",
     tagsRow: "flex flex-col gap-gp-sm pt-pad-xs",
-    tagsLabel: "text-[12px] text-fg-muted",
+    tagsLabel: "text-body-xs font-normal text-fg-muted",
     tagsChips: "flex items-center gap-gp-xs flex-wrap",
     tagAddBtn:
-      "inline-flex items-center gap-[3px] px-pad-md h-[22px] rounded-radius-full border border-dashed border-border-input text-[11px] font-medium text-fg-muted hover:bg-bg-muted hover:text-fg-default transition-colors",
-    historyEmpty: "text-[12px] text-fg-subtle text-center py-pad-md",
+      "inline-flex items-center gap-[3px] px-pad-md h-[22px] rounded-radius-full border border-dashed border-border-input text-caption-sm font-medium text-fg-muted hover:bg-bg-muted hover:text-fg-default transition-colors",
+    historyEmpty: "text-body-xs font-normal text-fg-subtle text-center py-pad-md",
     historyList: "m-0 p-0 list-none flex flex-col gap-gp-sm",
     historyItem:
       "flex gap-gp-md p-pad-md rounded-radius-md bg-bg-muted border border-border-subtle",
     historyId:
-      "text-[11px] text-fg-muted shrink-0 [font-variant-numeric:tabular-nums] pt-[1px]",
+      "text-caption-sm text-fg-muted shrink-0 [font-variant-numeric:tabular-nums] pt-[1px]",
     historyBody: "flex-1 min-w-0 flex flex-col gap-[1px]",
-    historySubject: "text-[12.5px] font-medium text-fg-default",
-    historyMeta: "text-[11px] text-fg-muted",
+    historySubject: "text-body-xs text-fg-default",
+    historyMeta: "text-caption-sm text-fg-muted",
   },
 });

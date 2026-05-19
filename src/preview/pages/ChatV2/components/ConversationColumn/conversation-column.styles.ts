@@ -10,7 +10,7 @@ export const conversationColumnStyles = tv({
     headerName:
       "text-title-md text-fg-default whitespace-nowrap overflow-hidden text-ellipsis",
     headerMetaRow:
-      "flex flex-wrap items-center gap-x-gp-sm gap-y-[2px] text-[11.5px] text-fg-muted min-w-0",
+      "flex flex-wrap items-center gap-x-gp-sm gap-y-[2px] text-caption-sm text-fg-muted min-w-0",
     headerActions: "flex items-center gap-gp-sm shrink-0",
     statusInner: "inline-flex items-center gap-[4px]",
     statusDot: "size-[6px] rounded-radius-full shrink-0",

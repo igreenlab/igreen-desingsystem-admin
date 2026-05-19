@@ -216,7 +216,7 @@ export function DataTableDoc() {
 
       <SectionH2 id="overview" title="Overview" />
 
-      <p className="text-paragraph-md text-fg-default mb-gp-2xl max-w-[760px]">
+      <p className="text-body-lg text-fg-default mb-gp-2xl max-w-[760px]">
         O DataTable é o "smart wrapper" da família data-display do iGreen DS.
         Internamente orquestra 17+ hooks SRP (filter, sort, search, pagination,
         selection, density, query, export, saved views, etc) e delega renderização
@@ -281,11 +281,11 @@ export function DataTableDoc() {
 
       <SectionH2 id="saved-views" title="Saved Views & Presets" />
 
-      <p className="text-paragraph-sm text-fg-default mb-gp-lg max-w-[760px]">
+      <p className="text-body-md text-fg-default mb-gp-lg max-w-[760px]">
         Views são snapshots nomeados da configuração da tabela (filtros, sort, layout, density, viewMode, groupBy, rows expandidas). Há dois tipos:
       </p>
 
-      <ul className="text-paragraph-sm text-fg-muted mb-gp-3xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
+      <ul className="text-body-md text-fg-muted mb-gp-3xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
         <li><strong>Saved views</strong> — criadas pelo usuário em runtime via "Salvar view"; persistem no localStorage (ou backend via{" "}
           <code>savedViewsService</code> custom). Públicas (compartilhadas) ou privadas. Editáveis e deletáveis.
         </li>
@@ -297,7 +297,7 @@ export function DataTableDoc() {
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
         Builder <code>presetView()</code> — declarar presets em código
       </h3>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         Helper com defaults razoáveis pra eliminar boilerplate. Receba apenas o que diferencia: id + name + (filters | sort | viewMode | groupBy | ...).
       </p>
 
@@ -325,7 +325,7 @@ export function DataTableDoc() {
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs mt-gp-4xl">
         O que uma view captura
       </h3>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         Snapshot é versionado em <code>DataTableSavedViewState</code> e idêntico entre saved e preset views.
       </p>
 
@@ -333,17 +333,17 @@ export function DataTableDoc() {
         <table className="w-full">
           <thead className="bg-bg-subtle">
             <tr>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Field</th>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Type</th>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Capturado</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Field</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Type</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Capturado</th>
             </tr>
           </thead>
           <tbody>
             {SAVED_VIEW_FIELDS.map((f, i) => (
               <tr key={f.field} className={i % 2 === 0 ? "bg-bg-surface" : "bg-bg-canvas"}>
-                <td className="px-pad-lg py-pad-md text-label-sm text-fg-default font-mono border-t border-border-subtle">{f.field}</td>
-                <td className="px-pad-lg py-pad-md text-caption-md text-fg-muted font-mono border-t border-border-subtle">{f.type}</td>
-                <td className="px-pad-lg py-pad-md text-paragraph-sm text-fg-muted border-t border-border-subtle">{f.captured}</td>
+                <td className="px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-mono border-t border-border-subtle">{f.field}</td>
+                <td className="px-pad-lg py-pad-md text-body-sm font-normal text-fg-muted font-mono border-t border-border-subtle">{f.type}</td>
+                <td className="px-pad-lg py-pad-md text-body-md text-fg-muted border-t border-border-subtle">{f.captured}</td>
               </tr>
             ))}
           </tbody>
@@ -353,14 +353,14 @@ export function DataTableDoc() {
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
         Persistência
       </h3>
-      <p className="text-paragraph-sm text-fg-muted mb-gp-3xl max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-3xl max-w-[760px]">
         Saved views requerem <code>persistId: string</code> (escopo de armazenamento). Default service usa localStorage (<code>savedViewsMockService</code>). Pra produção, implemente <code>SavedViewsService</code> custom (REST/GraphQL) e passe via prop{" "}
         <code>savedViewsService</code>. A última view aplicada é restaurada automaticamente no remount (cache do <code>lastActiveViewId</code> em localStorage por <code>persistId</code>).
       </p>
 
       <SectionH2 id="server-mode" title="Server mode" />
 
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         Passe <code>fetchData</code> em vez de <code>rows</code>. O DataTable
         re-dispara a função em mudança de filter/sort/search/page e mostra
         spinner default durante loading. <code>ref.current.refresh()</code>
@@ -383,7 +383,7 @@ export function DataTableDoc() {
 
       <SectionH2 id="features" title="Features built-in" />
 
-      <p className="text-paragraph-sm text-fg-muted mb-gp-lg max-w-[760px]">
+      <p className="text-body-md text-fg-muted mb-gp-lg max-w-[760px]">
         Resumo do que está embutido. Cada uma tem props dedicadas em{" "}
         <code>DataTableProps</code> e exemplos focados nos itens "Example: ..."
         do menu lateral.
@@ -393,15 +393,15 @@ export function DataTableDoc() {
         <table className="w-full">
           <thead className="bg-bg-subtle">
             <tr>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Capability</th>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Como ativar</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Capability</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Como ativar</th>
             </tr>
           </thead>
           <tbody>
             {CAPABILITIES.map((c, i) => (
               <tr key={c.name} className={i % 2 === 0 ? "bg-bg-surface" : "bg-bg-canvas"}>
-                <td className="px-pad-lg py-pad-md text-label-sm text-fg-default font-medium border-t border-border-subtle">{c.name}</td>
-                <td className="px-pad-lg py-pad-md text-paragraph-sm text-fg-muted border-t border-border-subtle">{c.how}</td>
+                <td className="px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium border-t border-border-subtle">{c.name}</td>
+                <td className="px-pad-lg py-pad-md text-body-md text-fg-muted border-t border-border-subtle">{c.how}</td>
               </tr>
             ))}
           </tbody>
@@ -412,7 +412,7 @@ export function DataTableDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">DataTableProps — Core</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-lg">
+        <p className="text-body-md text-fg-muted mb-gp-lg">
           Props essenciais. Tipos completos em{" "}
           <code>src/components/ui/DataTable/data-table.types.ts</code>.
         </p>
@@ -431,7 +431,7 @@ export function DataTableDoc() {
 
       <div className="mb-gp-4xl">
         <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">DataTableKanbanConfig&lt;T&gt;</h3>
-        <p className="text-paragraph-sm text-fg-muted mb-gp-lg">
+        <p className="text-body-md text-fg-muted mb-gp-lg">
           Paridade 1:1 com <code>KanbanProps</code>; bridges automáticos resolvem
           <code>cardId → row</code> onde aplicável.
         </p>
@@ -444,17 +444,17 @@ export function DataTableDoc() {
         <table className="w-full">
           <thead className="bg-bg-subtle">
             <tr>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Sintoma</th>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Causa</th>
-              <th className="text-left px-pad-lg py-pad-md text-label-sm text-fg-default font-medium">Fix</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Sintoma</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Causa</th>
+              <th className="text-left px-pad-lg py-pad-md text-body-md font-medium text-fg-default font-medium">Fix</th>
             </tr>
           </thead>
           <tbody>
             {TROUBLESHOOTING.map((t, i) => (
               <tr key={t.symptom} className={i % 2 === 0 ? "bg-bg-surface" : "bg-bg-canvas"}>
-                <td className="px-pad-lg py-pad-md text-paragraph-sm text-fg-default border-t border-border-subtle">{t.symptom}</td>
-                <td className="px-pad-lg py-pad-md text-paragraph-sm text-fg-muted border-t border-border-subtle">{t.cause}</td>
-                <td className="px-pad-lg py-pad-md text-paragraph-sm text-fg-muted border-t border-border-subtle">{t.fix}</td>
+                <td className="px-pad-lg py-pad-md text-body-md text-fg-default border-t border-border-subtle">{t.symptom}</td>
+                <td className="px-pad-lg py-pad-md text-body-md text-fg-muted border-t border-border-subtle">{t.cause}</td>
+                <td className="px-pad-lg py-pad-md text-body-md text-fg-muted border-t border-border-subtle">{t.fix}</td>
               </tr>
             ))}
           </tbody>

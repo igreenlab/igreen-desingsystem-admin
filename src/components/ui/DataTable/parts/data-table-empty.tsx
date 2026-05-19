@@ -35,7 +35,7 @@ export function DataTableEmpty({
       </div>
       <div className="flex flex-col gap-gp-2xs items-center">
         <p className="text-title-md text-fg-strong">{title}</p>
-        <p className="text-paragraph-sm text-fg-muted max-w-[360px]">
+        <p className="text-body-md text-fg-muted max-w-[360px]">
           {description}
         </p>
       </div>

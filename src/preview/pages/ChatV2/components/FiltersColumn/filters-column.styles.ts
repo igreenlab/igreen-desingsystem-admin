@@ -16,7 +16,7 @@ export const filtersColumnStyles = tv({
     /** Header de section (título all-caps). Usa `subheading-strong-sm` —
         token DS criado especificamente pra este caso (10px/700/+0.06em). */
     sectionTitle:
-      "px-pad-md pt-pad-2xs pb-pad-2xs text-[10px] font-bold tracking-[0.06em] text-fg-subtle uppercase",
+      "px-pad-md pt-pad-2xs pb-pad-2xs text-caption-xs font-bold tracking-[0.06em] text-fg-subtle uppercase",
     /** Group wrapper (rail) — divider entre grupos. */
     railGroup: "w-full flex flex-col items-center gap-gp-xs px-pad-md",
     /** Modifier de divisor pros grupos não-primeiros (rail). */

@@ -151,7 +151,7 @@ export default function ClientsKanbanPreview() {
             <Avatar size="xs" colorHex={agent.color}>
               {agent.name.split(" ").map((s) => s[0]).join("").slice(0, 2)}
             </Avatar>
-            <span className="text-caption-md text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
+            <span className="text-body-sm font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis">
               {agent.name}
             </span>
           </span>

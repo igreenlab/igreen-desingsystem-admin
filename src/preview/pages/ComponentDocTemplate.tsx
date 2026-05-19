@@ -16,11 +16,11 @@ function DocHeader({ category, title, description, dependency }: {
 }) {
   return (
     <header className="mb-0">
-      <p className="text-label-sm text-fg-brand mb-2">{category}</p>
+      <p className="text-body-md font-medium text-fg-brand mb-2">{category}</p>
       <h1 className="text-[2rem] font-semibold text-fg-default tracking-tight leading-tight mb-2">{title}</h1>
-      <p className="text-paragraph-md text-fg-muted mb-4">{description}</p>
+      <p className="text-body-lg text-fg-muted mb-4">{description}</p>
       {dependency && (
-        <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-bg-muted text-label-xs text-fg-muted">
+        <span className="inline-flex items-center gap-1.5 px-2 py-1 rounded-lg bg-bg-muted text-body-xs text-fg-muted">
           {dependency}
           <ExternalIcon />
         </span>
@@ -47,7 +47,7 @@ function ExampleSection({ id, title, description, children }: { id: string; titl
   return (
     <div className="mb-14" id={id}>
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">{title}</h3>
-      {description && <p className="text-paragraph-sm text-fg-muted mb-gp-2xl">{description}</p>}
+      {description && <p className="text-body-md text-fg-muted mb-gp-2xl">{description}</p>}
 
       {/* Tab bar */}
       <div className="flex items-center justify-between mb-gp-xl">
@@ -86,17 +86,17 @@ function PropsTable({ items }: { items: { name: string; type: string; defaultVal
       <table className="w-full text-left">
         <thead className="bg-bg-muted">
           <tr>
-            <th className="py-2.5 px-5 text-label-sm text-fg-muted font-medium">Prop</th>
-            <th className="py-2.5 px-5 text-label-sm text-fg-muted font-medium">Type</th>
-            <th className="py-2.5 px-5 text-label-sm text-fg-muted font-medium">Default</th>
+            <th className="py-2.5 px-5 text-body-md font-medium text-fg-muted font-medium">Prop</th>
+            <th className="py-2.5 px-5 text-body-md font-medium text-fg-muted font-medium">Type</th>
+            <th className="py-2.5 px-5 text-body-md font-medium text-fg-muted font-medium">Default</th>
           </tr>
         </thead>
         <tbody>
           {items.map((p) => (
             <tr key={p.name} className="border-t border-border-subtle">
-              <td className="py-3 px-5 font-mono text-paragraph-sm text-fg-default">{p.name}</td>
-              <td className="py-3 px-5 font-mono text-paragraph-sm text-fg-muted">{p.type}</td>
-              <td className="py-3 px-5 font-mono text-paragraph-sm text-fg-subtle">{p.defaultVal}</td>
+              <td className="py-3 px-5 font-mono text-body-md text-fg-default">{p.name}</td>
+              <td className="py-3 px-5 font-mono text-body-md text-fg-muted">{p.type}</td>
+              <td className="py-3 px-5 font-mono text-body-md text-fg-subtle">{p.defaultVal}</td>
             </tr>
           ))}
         </tbody>
@@ -144,7 +144,7 @@ function TOC({ items }: { items: { id: string; label: string; indent?: boolean }
 
   return (
     <nav>
-      <p className="text-[11px] font-semibold text-fg-subtle uppercase tracking-wider mb-3 flex items-center gap-1.5">
+      <p className="text-caption-sm font-semibold text-fg-subtle uppercase tracking-wider mb-3 flex items-center gap-1.5">
         <TocIcon /> ON THIS PAGE
       </p>
       <div className="flex flex-col gap-1 border-l-2 border-border-subtle pl-4">
@@ -155,7 +155,7 @@ function TOC({ items }: { items: { id: string; label: string; indent?: boolean }
               key={item.id}
               href={`#${item.id}`}
               className={[
-                "text-label-sm transition-colors leading-relaxed py-0.5",
+                "text-body-md font-medium transition-colors leading-relaxed py-0.5",
                 isActive
                   ? "text-fg-brand font-medium"
                   : "text-fg-muted font-normal hover:text-fg-brand",
@@ -286,7 +286,7 @@ function DocSidebar() {
                   key={item.label}
                   href={item.href}
                   className={[
-                    "block py-pad-sm px-pad-xl rounded-radius-base text-[12px] font-medium transition-colors",
+                    "block py-pad-sm px-pad-xl rounded-radius-base text-body-xs font-medium transition-colors",
                     item.active
                       ? "text-fg-brand font-medium bg-bg-brand-subtle"
                       : "text-fg-default hover:text-fg-brand hover:bg-bg-muted/50",
@@ -413,9 +413,9 @@ export function ComponentDocTemplate() {
 
         <div className="mb-8">
           <h3 className="text-title-lg font-semibold text-fg-default mb-1">Button</h3>
-          <p className="text-paragraph-sm text-fg-muted mb-5">
-            Based on the <code className="font-mono text-paragraph-sm bg-bg-muted px-1.5 py-0.5 rounded-md">&lt;button&gt;</code> element.
-            Defaults to <code className="font-mono text-paragraph-sm bg-bg-muted px-1.5 py-0.5 rounded-md">type="button"</code>.
+          <p className="text-body-md text-fg-muted mb-5">
+            Based on the <code className="font-mono text-body-md bg-bg-muted px-1.5 py-0.5 rounded-md">&lt;button&gt;</code> element.
+            Defaults to <code className="font-mono text-body-md bg-bg-muted px-1.5 py-0.5 rounded-md">type="button"</code>.
           </p>
           <PropsTable items={PROPS} />
         </div>

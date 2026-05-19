@@ -31,7 +31,7 @@ export const dataTableStyles = tv({
       "text-title-md text-fg-default",
     ],
     emptyDescription: [
-      "text-paragraph-sm text-fg-muted text-center max-w-[360px]",
+      "text-body-md text-fg-muted text-center max-w-[360px]",
     ],
     bulkBar: [
       "fixed bottom-pad-3xl left-1/2 -translate-x-1/2 z-[var(--z-index-toast,600)]",

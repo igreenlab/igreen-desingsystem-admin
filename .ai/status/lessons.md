@@ -209,6 +209,49 @@ canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < stro
 
 ---
 
+## [L-016] Preset tipográfico novo sem registro em `tv.ts` é silenciosamente removido pelo tailwind-merge
+
+**Erro cometido:** adicionar novo preset (ex: `body-sm`) ao `typography.ts` e ao
+CSS gerado (`@utility text-body-sm`), mas **esquecer** de registrar o nome em
+`src/utils/tv.ts` (`twMergeConfig.extend.classGroups["font-size"][0].text`).
+Resultado: o `tailwind-merge` (usado pelo `tv()`) trata o novo `text-body-sm`
+como `text-color` (por causa do prefixo `text-`), e quando o componente também
+tem `text-fg-default` (color real), considera AMBOS conflitantes e **remove o
+`text-body-sm`** do className final. No DOM, o elemento perde font-size, lineHeight,
+weight, tracking, family — e cai no default do browser (16px). Visual quebrado
+silenciosamente — sem erro de tsc, sem warning.
+
+**Regra derivada:** Sempre que adicionar/renomear preset tipográfico no
+`typography.ts`, IMEDIATAMENTE atualizar a lista em
+`src/utils/tv.ts > twMergeConfig.extend.classGroups["font-size"][0].text`.
+A lista deve estar 1:1 com os presets exportados.
+
+```ts
+// src/utils/tv.ts
+const twMergeConfig = {
+  extend: {
+    classGroups: {
+      "font-size": [
+        { text: [
+          "display-2xl", "display-xl", ..., "code-md", "code-sm"
+        ] },
+      ],
+    },
+  },
+};
+```
+
+**Verificação rápida:** depois de qualquer mudança em `typography.ts`, abrir
+DevTools no browser, inspecionar um elemento com a nova classe, e checar se
+`text-X` aparece na className final. Se não aparecer, é certeza que o
+`twMergeConfig` está desatualizado.
+
+**Contexto:** qualquer alteração em `tokens/brands/default/semantic/typography.ts`
+— adição, remoção ou renomeação de preset. Atinge especialmente componentes que
+usam `tv()` + `text-fg-X` no mesmo array de classes (a maioria deles).
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

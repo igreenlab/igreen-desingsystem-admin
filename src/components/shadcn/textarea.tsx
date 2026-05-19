@@ -24,7 +24,7 @@ const textareaVariants = cva(
     "hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover",
     "border border-border-input rounded-radius-lg",
     "px-pad-xl py-pad-lg",
-    "text-[13px] leading-[1.5] text-fg-default",
+    "text-body-sm font-normal leading-[1.5] text-fg-default",
     "placeholder:text-fg-muted placeholder:opacity-70",
     "transition-[color,box-shadow,background-color,border-color] outline-none",
     "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted",

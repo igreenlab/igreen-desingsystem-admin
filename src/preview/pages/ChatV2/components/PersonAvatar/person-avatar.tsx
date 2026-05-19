@@ -11,9 +11,9 @@ export type PersonAvatarProps = {
 };
 
 const SIZE_CLASSES: Record<PersonAvatarSize, string> = {
-  sm: "size-[28px] text-[11px]",
-  md: "size-[36px] text-[13px]",
-  lg: "size-[40px] text-[14px]",
+  sm: "size-[28px] text-caption-sm",
+  md: "size-[36px] text-body-sm font-normal",
+  lg: "size-[40px] text-body-md",
 };
 
 /**
