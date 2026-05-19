@@ -73,6 +73,7 @@
 | `container.lg` | 1024px | `max-w-container-lg` |
 | `container.xl` | 1280px | `max-w-container-xl` |
 | `container.2xl` | 1440px | `max-w-container-2xl` |
+| `container.main-content-max` | 1368px | `max-w-container-main-content-max` — body do AppShell em `layout="compact"` |
 | `container.sidebar-md` | 280px | `max-w-container-sidebar-md` |
 | `container.modal-md` | 640px | `max-w-container-modal-md` |
 | `container.dropdown-md` | 240px | `max-w-container-dropdown-md` |

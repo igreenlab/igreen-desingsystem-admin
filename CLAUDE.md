@@ -152,6 +152,7 @@ TIER 2.5 — Component tokens
 | Revisar token | — | `ds-reviewer/SKILL.md` |
 | Revisar componente | — | `ds-reviewer/review-component.md` |
 | Atualizar Updates timeline | `src/preview/pages/updates-data.ts` | `ds-dev/update-changelog.md` |
+| Release completa (changelog + bump + commit + PR) | `updates-data.ts` + `package.json` + git | `ds-dev/release.md` |
 
 ---
 

@@ -62,6 +62,8 @@ Dev encontra token inexistente → PARAR → sinalizar Orchestrator → registra
 | DS Dev | componente composto | `impl-composite.md` |
 | DS Reviewer | revisar token | `ds-reviewer/SKILL.md` |
 | DS Reviewer | revisar componente | `review-component.md` |
+| DS Dev | atualizar Updates timeline | `update-changelog.md` |
+| DS Dev | release completa (changelog + bump + commit + PR) | `release.md` |
 
 Path base: `.claude/skills/<agent>/<skill>`
 

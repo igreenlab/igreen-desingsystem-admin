@@ -46,6 +46,41 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.3.1",
+    date: "2026-05-19",
+    tag: "patch",
+    title: "Pipeline governance — auditoria retroativa v0.3.0 + nova skill /ds-release",
+    summary:
+      "Patch de documentação e governança. v0.3.0 foi entregue por colaboração direta, sem passar pelo pipeline formal DS Designer → Gate → Dev → Reviewer. Este release fecha o débito: inventário atualizado, audit log registrado retroativamente, token container-main-content-max documentado, e nova infraestrutura (skill ds-dev/release.md + comando /ds-release) pra automatizar a próxima release ponta-a-ponta (changelog + bump + branch + commit + push + PR).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Skill ds-dev/release.md — orquestra release completa em 7 passos (verificações → coletar → classificar/bump → preview gate → aplicar mudanças → publicar via git/gh → handoff)",
+          "Comando /ds-release [tag] — entry point pra release ponta-a-ponta (wrapper do skill release.md)",
+          "Lições L-015 e L-016 em pipeline-state.md — gate informal via diálogo é válido mas exige registro retroativo (L-015); inventory.md deve ser atualizado no mesmo commit do componente (L-016)",
+          "Entry retroativa de FloatingPanel, PageHeader e container.main-content-max em pipeline-state.md (seção Auditoria retroativa v0.3.0) com triads DESIGNER+DEV+REVIEWER completas",
+          "Token container.main-content-max (1368px) registrado em .ai/context/tokens/sizing-shape-elevation.md — antes existia em código mas faltava doc",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Inventário .ai/context/components/inventory.md atualizado pra refletir v0.3.0: FloatingPanel + PageHeader (Templates) adicionados, AppShell estendido (user/layout/mobileEdgeToEdge), DataTable com toolbar responsiva e auto-card mobile",
+          "ds-standards.md ganhou rows pra update-changelog.md e release.md no mapa Skills por tarefa",
+          "CLAUDE.md ganhou row pra release completa no mapa 'Onde cada tarefa começa'",
+          "update-changelog.md aponta pra release.md no fim — se a tarefa for além de timeline, redireciona",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Workflow de release: antes era manual (bump + commit + push + PR à mão) — agora é uma skill orquestrada via /ds-release com gate de preview antes de aplicar",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.3.0",
     date: "2026-05-19",
     tag: "preview",
