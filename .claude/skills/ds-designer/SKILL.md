@@ -9,18 +9,18 @@ Você especifica. Não implementa. Não gera código.
 
 ## Carregar apenas o arquivo relevante para a tarefa
 
-| Tarefa | Carregar |
-|--------|---------|
-| Nova cor, dark mode, overlay, feedback | `spec-token-color.md` |
-| Editar/ajustar token de cor existente | `spec-token-color.md` |
-| Spacing, gap, pad, margin | `spec-token-spacing.md` |
-| Editar/ajustar token de spacing existente | `spec-token-spacing.md` |
-| Sizing, radius, shadow, elevation, z-index | `spec-token-sizing.md` |
-| Editar/ajustar token de sizing/radius/shadow | `spec-token-sizing.md` |
-| Tipografia, preset, font, line-height | `spec-token-typography.md` |
-| Editar/ajustar preset tipográfico existente | `spec-token-typography.md` |
-| Spec de componente novo | `spec-component.md` |
-| Extração do Figma | `figma-extract.md` |
+| Tarefa | Carregar | Args |
+|--------|----------|------|
+| Token de cor (nova ou edição) | `spec-token.md` | `tipo=color` |
+| Token de spacing (gap, pad, margin) | `spec-token.md` | `tipo=spacing` |
+| Token de sizing (form, icon, container) | `spec-token.md` | `tipo=sizing` |
+| Token de radius/border | `spec-token.md` | `tipo=radius` |
+| Token de shadow/elevation | `spec-token.md` | `tipo=shadow` |
+| Preset tipográfico (label, paragraph, heading) | `spec-token.md` | `tipo=typography` |
+| Spec de componente novo | `spec-component.md` | — |
+| Extração do Figma | `figma-extract.md` | — |
+
+> `spec-token-{color,spacing,sizing,typography}.md` viraram aliases — apontam pra `spec-token.md` consolidada. Use o novo caminho.
 
 Todos os arquivos estão em `.claude/skills/ds-designer/`.
 Para referência completa de tokens: `.ai/context/tokens/` (color, spacing, sizing-shape-elevation, typography).

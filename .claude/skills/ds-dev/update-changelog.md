@@ -170,3 +170,7 @@ Sinal final: `UPDATE_APPLIED: v<X.Y.Z>`
 - `git commit` ou `git push` — manter como decisão consciente
 - Edits em entries antigas do array — append-only no topo
 - Reordenar entries — array já está em ordem (mais recente primeiro)
+
+## Quer mais que só atualizar a timeline?
+
+Pra **release completa** (timeline + bump `package.json` + commit + branch + push + abrir PR num único fluxo), use [`release.md`](./release.md) (slash command `/ds-release`). Engloba este skill como passos 1–4 e adiciona os passos 6–9 de publicação git.

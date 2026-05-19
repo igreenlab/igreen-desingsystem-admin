@@ -36,11 +36,13 @@ NÃO pular o DS Designer para ir direto ao DS Dev.
 
 ## Passo 1 — DS Designer especifica
 
-Carregar `.claude/skills/ds-designer/SKILL.md` e sub-skill correspondente:
-- Cor → `spec-token-color.md`
-- Spacing → `spec-token-spacing.md`
-- Sizing/radius/shadow → `spec-token-sizing.md`
-- Tipografia → `spec-token-typography.md`
+Carregar `.claude/skills/ds-designer/spec-token.md` com argumento `tipo`:
+- Cor → `spec-token.md` (tipo=color)
+- Spacing → `spec-token.md` (tipo=spacing)
+- Sizing → `spec-token.md` (tipo=sizing)
+- Radius → `spec-token.md` (tipo=radius)
+- Shadow → `spec-token.md` (tipo=shadow)
+- Tipografia → `spec-token.md` (tipo=typography)
 
 A spec deve incluir **obrigatoriamente** a perspectiva Strategist:
 ```

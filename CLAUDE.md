@@ -79,10 +79,28 @@ h-9?      → min-h-form-md (36px)  |   h-10? → min-h-form-lg (40px)
 ## Leitura automática no início de qualquer sessão
 
 `.claude/rules/ds-standards.md` é carregado automaticamente (rules/).
-Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-014.
+Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-016.
 
 Para referência de código detalhada (padrão tv() completo, tabela de tokens, naming):
 → `.ai/rules/coding-standards.md`
+
+---
+
+## Hooks automáticos (pipeline autônomo)
+
+Não precisam ser invocados. Rodam em todo Edit/Write:
+
+| Hook | Quando dispara | O que faz |
+|------|----------------|-----------|
+| `format-on-save.sh` | qualquer .ts/.tsx/.md | prettier nos arquivos editados |
+| `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | greps L-001/L-002/L-003/L-004/L-005/L-007 — warning em stderr quando encontra anti-pattern |
+| `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente ou inventory.md não menciona o componente (L-016) |
+| `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
+| `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
+
+Os 3 primeiros são informativos — nunca bloqueiam o Edit, só sinalizam pelo stderr. Quando ver o aviso, corrija antes de continuar.
+
+Logs em `.ai/scratch/hook-log.txt`.
 
 ---
 
@@ -136,12 +154,12 @@ TIER 2.5 — Component tokens
 
 | Tarefa | Arquivo a editar | Skill do agente |
 |--------|------------------|----------------|
-| Nova cor semântica | `color-light.ts` + `color-dark.ts` | `ds-designer/spec-token-color.md` |
-| Novo spacing | `spacing.ts` | `ds-designer/spec-token-spacing.md` |
-| Novo sizing/height | `components/sizing.ts` | `ds-designer/spec-token-sizing.md` |
-| Novo radius/border | `shape.ts` | `ds-designer/spec-token-sizing.md` |
-| Nova shadow | `elevation.ts` | `ds-designer/spec-token-sizing.md` |
-| Novo preset tipográfico | `typography.ts` | `ds-designer/spec-token-typography.md` |
+| Nova cor semântica | `color-light.ts` + `color-dark.ts` | `ds-designer/spec-token.md` (tipo=color) |
+| Novo spacing | `spacing.ts` | `ds-designer/spec-token.md` (tipo=spacing) |
+| Novo sizing/height | `components/sizing.ts` | `ds-designer/spec-token.md` (tipo=sizing) |
+| Novo radius/border | `shape.ts` | `ds-designer/spec-token.md` (tipo=radius) |
+| Nova shadow | `elevation.ts` | `ds-designer/spec-token.md` (tipo=shadow) |
+| Novo preset tipográfico | `typography.ts` | `ds-designer/spec-token.md` (tipo=typography) |
 | Spec de componente novo | — | `ds-designer/spec-component.md` |
 | Extração do Figma | — | `ds-designer/figma-extract.md` |
 | Implementar token | arquivo semântico | `ds-dev/impl-token.md` |
@@ -152,6 +170,7 @@ TIER 2.5 — Component tokens
 | Revisar token | — | `ds-reviewer/SKILL.md` |
 | Revisar componente | — | `ds-reviewer/review-component.md` |
 | Atualizar Updates timeline | `src/preview/pages/updates-data.ts` | `ds-dev/update-changelog.md` |
+| Release completa (changelog + bump + commit + PR) | `updates-data.ts` + `package.json` + git | `ds-dev/release.md` |
 
 ---
 

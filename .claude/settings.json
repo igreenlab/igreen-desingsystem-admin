@@ -41,7 +41,9 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/format-on-save.sh" }
+          { "type": "command", "command": ".claude/hooks/format-on-save.sh" },
+          { "type": "command", "command": ".claude/hooks/ds-lint-styles.sh" },
+          { "type": "command", "command": ".claude/hooks/ds-inventory-check.sh" }
         ]
       }
     ],

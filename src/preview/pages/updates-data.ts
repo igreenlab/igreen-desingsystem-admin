@@ -46,6 +46,49 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.3.1",
+    date: "2026-05-19",
+    tag: "patch",
+    title: "Pipeline governance — autonomia + auditoria retroativa v0.3.0",
+    summary:
+      "Patch grande de governança. Fecha duas frentes: (1) auditoria retroativa da v0.3.0, que passou sem o pipeline formal DS Designer → Gate → Dev → Reviewer; (2) autonomia automática do pipeline via hooks PostToolUse + skill consolidada de spec-token + auto-review no /ds-release. Resultado: o pipeline deixa de depender de invocação manual em cada Edit — anti-patterns são sinalizados automaticamente enquanto o componente está sendo editado.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Hook ds-lint-styles.sh (PostToolUse) — grep automático de L-001/L-002/L-003/L-004/L-005/L-007 + import de tv em arquivos *.styles.{ts,tsx} dentro de src/components/. Warning em stderr (não bloqueia), Claude vê e corrige na hora",
+          "Hook ds-inventory-check.sh (PostToolUse) — alerta quando componente em src/components/ui/<Nome>/ não tem USAGE.md ou não consta no inventory.md (L-016 vira automação)",
+          "Skill ds-designer/spec-token.md consolidada — substitui spec-token-{color,spacing,sizing,typography}.md em 1 router único com argumento tipo. Os 4 antigos viraram aliases que apontam pra ela",
+          "Passo 1.5 em ds-dev/release.md — auto-review do diff desde a última entry antes do bump. Violações aparecem no preview do gate; usuário decide se corrige, aceita débito ou cancela",
+          "Skill ds-dev/release.md — orquestra release completa em 7 passos (verificações → auto-review → coletar → classificar/bump → preview gate → aplicar mudanças → publicar via git/gh → handoff)",
+          "Comando /ds-release [tag] — entry point pra release ponta-a-ponta",
+          "Lições L-015 e L-016 em pipeline-state.md — gate informal exige registro retroativo (L-015); inventory.md no mesmo commit do componente (L-016)",
+          "Entry retroativa de FloatingPanel, PageHeader e container.main-content-max em pipeline-state.md (seção Auditoria retroativa v0.3.0) com triads DESIGNER+DEV+REVIEWER completas",
+          "Token container.main-content-max (1368px) registrado em .ai/context/tokens/sizing-shape-elevation.md",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Inventário .ai/context/components/inventory.md atualizado pra refletir v0.3.0: FloatingPanel + PageHeader (Templates) adicionados, AppShell estendido (user/layout/mobileEdgeToEdge), DataTable com toolbar responsiva e auto-card mobile",
+          "Settings.json carrega os 3 hooks PostToolUse (format + ds-lint-styles + ds-inventory-check) automaticamente",
+          "Fallback node nos hooks (jq não disponível no Git Bash do Windows) — parsing JSON de stdin funciona em qualquer ambiente que tenha node",
+          "ds-standards.md ganhou seção 'Hooks automáticos (autonomia do pipeline)' descrevendo cada hook + auto-review na release",
+          "CLAUDE.md ganhou seção 'Hooks automáticos (pipeline autônomo)' acima da arquitetura de tokens",
+          "ds-add-token.md aponta pro spec-token.md consolidado com argumentos por tipo",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "spec-token-{color,spacing,sizing,typography}.md viraram aliases curtos — fonte única passa a ser spec-token.md com arg tipo. Reduz 4 arquivos de ~80 linhas cada pra 1 router de 200 linhas + 4 stubs de 15 linhas",
+          "Workflow de release: agora orquestrado via /ds-release com auto-review antes do bump (antes era 100% manual)",
+          "ds-standards.md atualizada pra L-001..L-016 (era L-001..L-014)",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.3.0",
     date: "2026-05-19",
     tag: "preview",

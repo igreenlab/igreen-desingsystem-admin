@@ -3,7 +3,7 @@
 > Fonte de verdade sobre o que existe.
 > Atualizar sempre que criar ou remover componente.
 > Verificar aqui ANTES de criar qualquer componente novo.
-> Última atualização: 2026-05-12
+> Última atualização: 2026-05-19 (v0.3.0 — FloatingPanel + PageHeader + auditoria retroativa)
 
 ---
 
@@ -52,16 +52,18 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (4 componentes)
+## Componentes — ui/ (iGreen puro) (6 componentes principais + compostos)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
 | Avatar | `ui/Avatar/avatar.styles.ts` | `src/components/ui/Avatar/` | ✅ implementado |
 | Button | `ui/Button/button.styles.ts` | `src/components/ui/Button/` | ✅ implementado |
 | Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
-| DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 6 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL |
+| DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 6 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border) |
+| **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts` | `src/components/ui/FloatingPanel/` | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita |
+| **PageHeader** | `ui/PageHeader/page-header.styles.ts` | `src/components/ui/PageHeader/` | ✅ **v0.3.0** (Templates) — title + description + badge + actions + slot `children` (tabs/filtros). Mobile-ready built-in (`hideTextOnMobile` default true, `fluidPrimaryOnMobile` default true) |
 
-**Nota**: `ViewFormModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab + Tabs visiveis + Popover overflow + modal) ficam em `ui/TableToolbar/`. Saved Views eh UI do toolbar — DataTable so passa props/handlers.
+**Nota**: `ViewFormModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab + Tabs visiveis + Popover overflow + modal) ficam em `ui/TableToolbar/`. Saved Views eh UI do toolbar — DataTable so passa props/handlers. `ToolbarMobileDialog` + `ToolbarMobileSection` (em `ui/TableToolbar/parts/`) foram promovidos a uso oficial pelo DataTable em v0.3.0 (não-deprecated mais).
 
 ---
 
@@ -318,12 +320,83 @@ Out of scope (planos seguintes):
 
 | Componente | Tipo | Pasta | Prioridade |
 |------------|------|-------|------------|
-| FormField | Composto | `ui/` | 🔴 alta — Input + Label + HelperText |
 | Toast / Sonner | Shadcn | `shadcn/` | 🟡 média |
 | Tooltip | Shadcn | `shadcn/` | 🟡 média |
-| Popover | Shadcn | `shadcn/` | 🟡 média |
-| Skeleton | iGreen | `ui/` | 🟢 baixa |
-| Command/Combobox | Shadcn | `shadcn/` | 🟡 média |
+| Skeleton | iGreen | `ui/` | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
+
+---
+
+## FloatingPanel API (resumo) — v0.3.0
+
+```
+Props essenciais:
+  open: boolean (required)
+  onOpenChange: (open: boolean) => void
+  side: "left" | "right"             # default "right"
+  size: "sm"|"md"|"lg"|"xl" | number # default "md" (400px); número = px arbitrário
+  title?: string
+  description?: string
+  titleSlot?: ReactNode              # substitui o bloco padrão (ex: avatar + nome + status)
+  titleIcon?: LucideIcon
+  headerActions?: ReactNode          # canto sup. direito antes do close
+  hideClose?: boolean
+  footer?: ReactNode
+  resizable?: boolean
+  resizableMinWidth: number          # default 320
+  resizableMaxWidth: number          # default 800
+  resizableStorageKey?: string       # localStorage opcional
+  maximizable?: boolean
+  defaultMaximized?: boolean
+  closeOnEscape: boolean             # default true
+  className?: string
+  children: ReactNode (body, required)
+
+Mobile (<md): vira sheet bottom-up automaticamente (slide-in-from-bottom + h-[85dvh])
+Render: createPortal em document.body (escapa overflow/transform de ancestrais)
+Hook auxiliar: useFloatingPanelResize(side, min, max, storageKey?)
+```
+- Fonte de verdade: `src/components/ui/FloatingPanel/floating-panel.tsx` + USAGE.md
+
+---
+
+## PageHeader API (resumo) — v0.3.0
+
+```
+Props:
+  title?: string                     # h1 renderizado com text-title-lg
+  description?: string               # text-paragraph-sm fg-subtle, truncate
+  badge?: ReactNode                  # geralmente Chip ao lado do title
+  actions?: ReactNode                # buttons à direita
+  children?: ReactNode               # slot extra abaixo (tabs/filtros)
+  hideTextOnMobile: boolean          # default true (AppShell header já mostra título)
+  fluidPrimaryOnMobile: boolean      # default true (último filho de actions ganha flex-1)
+  className?: string
+```
+- Fonte de verdade: `src/components/ui/PageHeader/page-header.tsx` + USAGE.md
+- Categoria: **Templates** (renderizado dentro do body do AppShell)
+
+---
+
+## AppShell API expandida (v0.3.0)
+
+Adições à API anterior (props novas):
+
+```
+user?: AppShellUser                  # { name, email?, avatarSrc?, initials?, avatarColor? }
+                                      # quando passado, renderiza UserMenu no avatar do rail
+layout?: string                       # "fluid" (default) | "compact"
+onLayoutChange?: (id: string) => void
+layoutOptions?: AppShellLayoutOption[] # { id, label, icon: LucideIcon }
+onSettings?: () => void               # callback "Configurações" no UserMenu
+onLogout?: () => void                 # callback "Sair" no UserMenu
+mobileEdgeToEdge?: boolean            # default false — zera padding mobile do body
+```
+
+Tipos exportados via `@/components/ui/AppShell`: `AppShellUser`, `AppShellLayoutOption`.
+
+UserMenu (componente interno do AppShell) renderiza Avatar clicável → `DropdownMenu` com sections (header info + layout + tema + settings + logout). Submenus pra Layout e Tema usam `DropdownMenuSub`. Item selecionado nos radio groups usa `data-[state=checked]:bg-bg-brand-subtle + Check icon` (mudança aplicada no shadcn `DropdownMenuRadioItem`).
+
+`layout="compact"` aplica `max-w-[var(--container-main-content-max)] mx-auto` no body. Layout=fluid mantém comportamento anterior (100% da largura).
 
 ---
 

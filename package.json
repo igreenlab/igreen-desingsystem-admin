@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/design-system",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "type": "module",
   "main": "./dist-lib/index.cjs",

@@ -44,16 +44,32 @@ Toda entrada CONCLUÍDO, APROVADO e PAUSADO (gate) inclui `Assumption`. Torna de
 ### Cascata (token faltante)
 Dev encontra token inexistente → PARAR → sinalizar Orchestrator → registrar PAUSADO em pipeline-state → Designer cria token (gate) → retomar implementação.
 
+### Hooks automáticos (autonomia do pipeline)
+
+Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. Eles fecham os loops das lições mais comuns sem depender de invocação manual de DS Reviewer:
+
+| Hook | Trigger | O que faz |
+|------|---------|-----------|
+| `format-on-save.sh` | qualquer Edit/Write | Roda prettier nos arquivos editados |
+| `ds-lint-styles.sh` | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Grep das lições L-001 a L-007 + import de tv. Warning em stderr — não bloqueia, mas Claude vê |
+| `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**` | Alerta se USAGE.md ausente ou se componente não consta no `inventory.md` (L-016) |
+
+Logs em `.ai/scratch/hook-log.txt`. Bloqueio só acontece em `block-rm-rf.sh` (Bash perigoso) e `block-sensitive-edit.sh` (.env, credentials, migrations) — os hooks DS são informativos por design.
+
+### Auto-review na release (`/ds-release`)
+
+Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde a última entry antes de propor bump. Violação encontrada → aparece no preview do gate; usuário decide se corrige antes, aceita débito ou cancela.
+
 ---
 
 ## Skills por tarefa
 
 | Agente | Tarefa | Skill |
 |---|---|---|
-| DS Designer | cor / dark mode | `spec-token-color.md` |
-| DS Designer | spacing / gap / pad | `spec-token-spacing.md` |
-| DS Designer | sizing / radius / shadow | `spec-token-sizing.md` |
-| DS Designer | tipografia | `spec-token-typography.md` |
+| DS Designer | cor / dark mode | `spec-token.md` (args `tipo=color`) |
+| DS Designer | spacing / gap / pad | `spec-token.md` (args `tipo=spacing`) |
+| DS Designer | sizing / radius / shadow | `spec-token.md` (args `tipo=sizing\|radius\|shadow`) |
+| DS Designer | tipografia | `spec-token.md` (args `tipo=typography`) |
 | DS Designer | componente novo | `spec-component.md` |
 | DS Designer | extração Figma | `figma-extract.md` |
 | DS Dev | implementar token | `impl-token.md` |
@@ -62,6 +78,8 @@ Dev encontra token inexistente → PARAR → sinalizar Orchestrator → registra
 | DS Dev | componente composto | `impl-composite.md` |
 | DS Reviewer | revisar token | `ds-reviewer/SKILL.md` |
 | DS Reviewer | revisar componente | `review-component.md` |
+| DS Dev | atualizar Updates timeline | `update-changelog.md` |
+| DS Dev | release completa (changelog + bump + commit + PR) | `release.md` |
 
 Path base: `.claude/skills/<agent>/<skill>`
 
