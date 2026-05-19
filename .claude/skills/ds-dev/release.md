@@ -63,73 +63,35 @@ Se algo falha → reportar e PARAR (não tente recuperar silenciosamente).
 
 ---
 
-## Passo 1.5 — Auto-review do diff (NOVO)
+## Passo 1.5 — Pre-commit check (DS Reviewer)
 
-Antes de classificar commits ou montar o plano, validar o diff contra as lições DS. Funciona como um DS Reviewer automático que dispara sem precisar invocar `ds-reviewer/review-component.md` manualmente.
+Antes de classificar commits ou montar o plano, invocar a skill
+`ds-reviewer/pre-commit-check.md`. Ela faz um gate amplo do diff completo —
+mapeia escopo (tokens, componentes, DocPages, pipeline, memory), valida
+sincronias técnicas (twMergeConfig L-016, dark mode mirrors), valida que
+USAGE.md / DocPages do showcase / pipeline-state / lessons / memory
+acompanharam a mudança, e roda os greps L-001..L-007 sobre arquivos
+modificados.
 
-### O que checar
+### Como invocar
 
-```bash
-# 1. Lista arquivos *.styles.ts ou *.tsx em src/components/ui/ modificados
-#    desde o commit da última release (lastVersion encontrada no Passo 1)
-LAST_TAG="<lastDate da entry[0]>"  # ou v<lastVersion> se houver tag
-CHANGED=$(git log --since="$LAST_TAG" --name-only --pretty=format: -- \
-  'src/components/ui/**/*.styles.ts' 'src/components/ui/**/*.tsx' \
-  | sort -u | grep -v '^$')
-```
+Carregar `.claude/skills/ds-reviewer/pre-commit-check.md` via SkillTool e
+seguir o checklist completo dela:
 
-### Rodar greps L-001..L-007 em cada arquivo
-
-| Lição | Regex (ripgrep) | Ação se encontrado |
-|-------|-----------------|---------------------|
-| L-001 | `ring-ring-[a-z-]+/[0-9]+` | reportar — token já tem alpha |
-| L-002 (gap) | `\bgap-(0\|1\|2\|3\|4\|5\|6\|7\|8\|10\|12\|16\|20\|24)\b` | reportar — usar gap-gp-* |
-| L-002 (pad) | `\b(px\|py\|p)-(0\|1\|2\|3\|4\|5\|6\|7\|8\|10\|12\|16)\b` | reportar — usar p-sp-* ou px-pad-* |
-| L-002 (height) | `\b(h\|min-h)-(7\|8\|9\|10\|11\|12)\b` | reportar — usar min-h-form-* |
-| L-002 (rounded) | `\brounded-(none\|sm\|md\|lg\|xl\|2xl\|3xl\|full)\b` | reportar — usar rounded-radius-* |
-| L-002 (shadow) | `\bshadow-(sm\|md\|lg\|xl\|2xl)\b` | reportar — usar shadow-sh-* |
-| L-003 | `\bring-3\b` | reportar — ring-3 não existe, usar ring-4 |
-| L-004 | `(^\|[^:])outline-none\b` | reportar — exige focus-visible:outline-none |
-| L-005 | `bg-input/[0-9]+` | reportar — usar bg-bg-surface |
-| L-007 | `text-(xs\|sm)\s+font-(semibold\|medium\|bold)` | reportar — usar preset text-label-* |
-| tv import | `from\s+"tailwind-variants"` | reportar — usar @/utils/tv |
-
-### Checar componentes novos (L-016)
-
-Pra cada componente novo (pasta nova em `src/components/ui/`):
-- Existe `USAGE.md` ao lado? Se não → reportar
-- Consta em `.ai/context/components/inventory.md`? Se não → reportar
-
-### Resultado
-
-Montar um relatório:
-
-```
-🔍 Auto-review do diff (v<lastVersion> → HEAD)
-
-Arquivos analisados: <N>
-Violações encontradas: <M>
-
-[se M = 0]
-  ✅ Tudo limpo. Pode prosseguir.
-
-[se M > 0]
-  ⚠️  Violações detectadas:
-  • src/components/ui/Foo/foo.styles.ts:42 — L-002 (gap-4)
-  • src/components/ui/Bar/bar.styles.ts:18 — L-001 (ring-ring-primary/30)
-  • src/components/ui/Baz/        — USAGE.md ausente (L-016)
-  • Baz não consta em inventory.md (L-016)
-```
+1. Mapear escopo do diff (categorias)
+2. Rodar checklist por categoria
+3. Capturar output: `PRE_COMMIT_OK` ou `PRE_COMMIT_BLOCKED`
 
 ### Decisão
 
-- **0 violações** → continuar pro Passo 2 silenciosamente
-- **≥ 1 violação** → reportar ao usuário no preview do gate (Passo 5) como bloco "🔍 Auto-review" e perguntar:
-  - "corrigir antes de prosseguir" (default sugerido) → PAUSAR pipeline, abrir cascata pra DS Dev limpar
-  - "aplicar mesmo assim e abrir ticket" → continuar, registrar violations no PR body como débito conhecido
+- **PRE_COMMIT_OK** → continuar pro Passo 2 silenciosamente
+- **PRE_COMMIT_BLOCKED com pendências CRÍTICAS/ALTAS** → reportar ao usuário no preview do gate (Passo 5) como bloco "🔍 Pre-commit check" e perguntar:
+  - "corrigir antes de prosseguir" (default sugerido) → PAUSAR pipeline, DS Dev resolve cada pendência (USAGE.md, DocPage, sync, etc) → re-invocar pre-commit
+  - "aplicar mesmo assim e abrir ticket" → continuar, registrar pendências no PR body como débito conhecido (somente MÉDIAS/BAIXAS)
   - "cancelar release" → abortar
+- **PRE_COMMIT_BLOCKED com apenas pendências MÉDIAS/BAIXAS** → reportar como aviso, deixar usuário decidir
 
-Sinal intermediário: `RELEASE_REVIEW: <N>arquivos / <M>violações`
+Sinal intermediário: `RELEASE_REVIEW: <escopo> / <N>pendências`
 
 ---
 
@@ -227,8 +189,8 @@ Apresentar TUDO de uma vez em markdown:
 **Baseline:** v<lastVersion> (<lastDate>)
 **Bump:** <MAJOR|MINOR|PATCH> → v<X.Y.Z> (tag <tag>)
 
-### 🔍 Auto-review (Passo 1.5)
-  <relatório do auto-review — limpo OU lista de violações>
+### 🔍 Pre-commit check (Passo 1.5)
+  <relatório do pre-commit-check — PRE_COMMIT_OK OU lista de pendências por severidade>
 
 ### Commits considerados
   <hash>  <subject>

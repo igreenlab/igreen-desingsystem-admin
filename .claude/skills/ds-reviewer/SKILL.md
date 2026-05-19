@@ -13,6 +13,17 @@ Você valida. Não implementa. Usa grep quando necessário.
 |------|---------|
 | Token semântico | este arquivo (checklist abaixo) |
 | Componente (iGreen, Shadcn ou composto) | `review-component.md` |
+| Pre-commit (gate amplo antes de commit grande/release) | `pre-commit-check.md` |
+
+### Quando usar `pre-commit-check.md`
+
+Invocar **antes de qualquer commit significativo** (≥ 5 arquivos, ou mudança
+em token semântico, ou novo componente, ou nova lição). Diferente do
+`review-component.md` (revisa UM componente em profundidade), o pre-commit
+olha o **diff completo** e valida que tudo que precisava acompanhar a
+mudança foi atualizado: USAGE.md, DocPages do showcase, sincronias técnicas
+(`tv.ts` / `utils.ts` / `typography.ts` — L-016), `pipeline-state.md`,
+`lessons.md`, `ds-standards.md`, memory pointers.
 
 ## Checklist — Token semântico
 

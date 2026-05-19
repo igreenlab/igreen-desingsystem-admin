@@ -14,7 +14,7 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 
 ---
 
-## ⛔ Regras de comportamento (6)
+## ⛔ Regras de comportamento (7)
 
 1. **NUNCA** criar token sem verificar se já existe em `.ai/context/tokens/`
 2. **NUNCA** criar componente sem verificar `.ai/context/components/inventory.md`
@@ -22,6 +22,7 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 4. **Gate obrigatório** para tokens novos e componentes novos (sem exceção)
 5. Classes DS sempre antes de Tailwind literal
 6. Self-interrupt: "estou criando algo novo?" → verificar primeiro
+7. **Gate de pre-commit obrigatório** antes de commit significativo (release, refactor amplo, token novo, componente novo, lição nova) → invocar `ds-reviewer/pre-commit-check.md`
 
 ---
 
@@ -78,6 +79,7 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | DS Dev | componente composto | `impl-composite.md` |
 | DS Reviewer | revisar token | `ds-reviewer/SKILL.md` |
 | DS Reviewer | revisar componente | `review-component.md` |
+| DS Reviewer | gate pre-commit amplo (antes de release / refactor / token / componente novo) | `pre-commit-check.md` |
 | DS Dev | atualizar Updates timeline | `update-changelog.md` |
 | DS Dev | release completa (changelog + bump + commit + PR) | `release.md` |
 
