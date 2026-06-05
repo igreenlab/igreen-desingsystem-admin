@@ -2,6 +2,7 @@
   "name": "@snksergio/design-system",
   "version": "0.5.0",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
+  "license": "UNLICENSED",
   "type": "module",
   "main": "./dist-lib/index.cjs",
   "module": "./dist-lib/index.mjs",
@@ -12,16 +13,21 @@
     "dist-lib/theme.css",
     "dist-lib/preview/**",
     "dist-lib/chunks/**",
+    "dist-lib/src/**",
+    "dist-lib/tokens/**",
     "README.md"
   ],
+  "engines": {
+    "node": ">=20.0.0"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/snksergio/igreen-desingsystem-admin.git"
+    "url": "git+https://github.com/igreenlab/igreen-desingsystem-admin.git"
   },
   "bugs": {
-    "url": "https://github.com/snksergio/igreen-desingsystem-admin/issues"
+    "url": "https://github.com/igreenlab/igreen-desingsystem-admin/issues"
   },
-  "homepage": "https://github.com/snksergio/igreen-desingsystem-admin#readme",
+  "homepage": "https://github.com/igreenlab/igreen-desingsystem-admin#readme",
   "exports": {
     ".": {
       "types": "./dist-lib/index.d.ts",
