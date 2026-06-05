@@ -10,6 +10,27 @@
 
 @import "@snksergio/design-system/theme.css";
 
+/*
+ * Fontes Geist (sans + mono) carregadas do package `geist` em node_modules.
+ * O Vite resolve esses caminhos via module resolution. Sem isso, font-family
+ * cai pro fallback system-ui (Segoe UI no Windows, San Francisco no Mac).
+ */
+@font-face {
+  font-family: "Geist";
+  src: url("geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("geist/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 html,
 body {
   background: var(--color-bg-canvas);

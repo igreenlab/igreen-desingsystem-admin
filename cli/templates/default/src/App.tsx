@@ -32,7 +32,7 @@ export default function App() {
           </div>
           <div>
             <h1 className="text-heading-md text-fg-default m-0">Exemplo de Consumo</h1>
-            <p className="text-paragraph-sm text-fg-muted m-0">
+            <p className="text-body-sm text-fg-muted m-0">
               @snksergio/design-system instalado via npm
             </p>
           </div>
@@ -59,10 +59,10 @@ export default function App() {
             <h2 className="text-title-md text-fg-default m-0 mb-gp-md">
               4 componentes do DS em ação
             </h2>
-            <p className="text-paragraph-sm text-fg-muted m-0">
+            <p className="text-body-sm text-fg-muted m-0">
               Tudo o que aparece aqui — incluindo o toggle de tema acima — vem do pacote
               <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm mx-gp-xs">
-                @snksergio/design-system@0.1.1
+                @snksergio/design-system@0.5.1
               </code>
               consumido por <code className="font-mono text-code-sm">npm install</code>.
               O tema CSS está sendo carregado de
@@ -77,7 +77,7 @@ export default function App() {
 
       {/* Section 1 — Buttons */}
       <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-label-md text-fg-default m-0 uppercase tracking-wider">
+        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
           1. Button (color × variant)
         </h3>
         <div className="flex flex-wrap items-center gap-gp-md">
@@ -96,7 +96,7 @@ export default function App() {
 
       {/* Section 2 — Chips */}
       <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-label-md text-fg-default m-0 uppercase tracking-wider">
+        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
           2. Chip (status / tags)
         </h3>
         <div className="flex flex-wrap items-center gap-gp-sm">
@@ -112,23 +112,23 @@ export default function App() {
 
       {/* Section 3 — Badges + Avatars */}
       <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-label-md text-fg-default m-0 uppercase tracking-wider">
+        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
           3. Badge + Avatar (do shadcn restilizado)
         </h3>
         <div className="flex flex-wrap items-center gap-gp-xl">
           <div className="flex items-center gap-gp-md">
             <Avatar size="md" color="brand">SV</Avatar>
-            <span className="text-paragraph-sm text-fg-default">Sergio Vieira</span>
+            <span className="text-body-sm text-fg-default">Sergio Vieira</span>
             <Badge color="primary" variant="soft">Admin</Badge>
           </div>
           <div className="flex items-center gap-gp-md">
             <Avatar size="md" color="success">MA</Avatar>
-            <span className="text-paragraph-sm text-fg-default">Maria Andrade</span>
+            <span className="text-body-sm text-fg-default">Maria Andrade</span>
             <Badge color="success" variant="soft">Online</Badge>
           </div>
           <div className="flex items-center gap-gp-md">
             <Avatar size="md" colorHex="#7c3aed">PR</Avatar>
-            <span className="text-paragraph-sm text-fg-default">Pedro Ribeiro</span>
+            <span className="text-body-sm text-fg-default">Pedro Ribeiro</span>
             <Badge color="warning" variant="soft">Idle</Badge>
           </div>
         </div>
@@ -136,7 +136,7 @@ export default function App() {
 
       {/* Section 4 — AlertModal */}
       <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-label-md text-fg-default m-0 uppercase tracking-wider">
+        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
           4. AlertModal (Radix dialog restilizado)
         </h3>
         <div className="flex items-center gap-gp-md">
@@ -148,7 +148,7 @@ export default function App() {
           >
             Abrir confirmação
           </Button>
-          <span className="text-paragraph-sm text-fg-muted">
+          <span className="text-body-sm text-fg-muted">
             Modal acessível com focus trap, Esc, backdrop click
           </span>
         </div>
@@ -156,7 +156,7 @@ export default function App() {
         <AlertModal
           open={modalOpen}
           onOpenChange={setModalOpen}
-          tone="critical"
+          tone="danger"
           title="Excluir cliente?"
           description="Essa ação não pode ser desfeita. Maria Hernandez será removida permanentemente."
           confirmLabel="Sim, excluir"
