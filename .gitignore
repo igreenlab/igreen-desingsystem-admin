@@ -20,6 +20,10 @@ cli/templates/default/package-lock.json
 CLAUDE.local.md
 .claude/settings.local.json
 
+# Referências temporárias do operador — não commitar
+DESIGN.md
+design-tabela/
+
 # Scratch pad de sessões — não commitar
 .ai/scratch/
 

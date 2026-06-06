@@ -12,13 +12,29 @@ description: >
 > **Skill obrigatória.** Carregue este arquivo via SkillTool antes de
 > processar `/ds-release` — não confie em memória de sessão anterior.
 
+> ⚠️ **L-020 — Não burle este fluxo por urgência percebida.** TODA release
+> que toca `package.json.version` OU envolve `npm publish` DEVE usar este
+> skill — incluindo **patches** e **hotfixes urgentes**. Direct commits no
+> `main` pra release quebram a convenção do projeto (releases v0.3-v0.5
+> vieram via PR — `Merge pull request #1..#4 from <user>/release/vX.Y.Z`).
+> O gate humano + auto-review + rastreabilidade via PR são parte do design,
+> não obstáculo. Sessão 2026-06-05 burlou isso ao publicar v0.5.1 direto;
+> a lição L-020 registra a exceção pra não repetir.
+
 ## Quando usar este skill
 
 - Trabalho acumulado pronto pra release no remote
 - Auto-pilot: timeline + bump + branch + commit + PR num único fluxo
 - Mais simples que invocar `update-changelog` + git manual quando o objetivo final é PR
+- **Releases de TODOS os tamanhos** — major, minor, patch, hotfix
 
 Pra atualizar **apenas** a timeline (sem commit/PR), use [`update-changelog.md`](./update-changelog.md) direto.
+
+## Heurística pré-skill
+
+*"Tem `npm publish` ou bump em `package.json.version` no escopo?"*
+- **SIM** → `/ds-release` obrigatório (este skill). Não importa o tamanho da mudança.
+- **NÃO** → commit normal direto. Chores e infra (`.gitignore`, docs, skills, rules, hooks) podem ir direto.
 
 ---
 
