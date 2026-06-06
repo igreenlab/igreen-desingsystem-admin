@@ -341,6 +341,34 @@ grep -rln "{padrão-antigo}" \
 
 ---
 
+## [L-020] Não burlar `/ds-release` mesmo em "patch urgente"
+
+**Erro cometido:** sessão 2026-06-05 publicou v0.5.1 com **6 commits direct no `main`** (sem branch `release/v0.5.1` nem PR), por considerar a urgência do fix crítico de types do npm justificativa pra pular o fluxo. Releases anteriores (v0.3.0, v0.3.1, v0.4.0, v0.5.0) seguiram rigorosamente o padrão branch + PR via skill `/ds-release` — evidência no git log (`Merge pull request #1..#4 from <user>/release/vX.Y.Z`). Convenção quebrada, rastreabilidade do release perdida no histórico. Sem auto-review do diff via `pre-commit-check.md`. Sem gate humano via preview.
+
+**Regra derivada:** TODA release que toca `package.json.version` ou envolve `npm publish` DEVE usar `/ds-release` (skill `.claude/skills/ds-dev/release.md`). Isso inclui:
+- Major bumps
+- Minor bumps
+- **Patches** (mesmo que pareçam "fix de 1 linha")
+- **Hotfixes** (mesmo quando urgentes — o gate humano é PARTE do design, não obstáculo)
+
+Chores e infra (sem bump de version) podem ir direto via commit normal — mas releases NÃO.
+
+**Heurística pré-commit:** *"Tem `npm publish` ou bump em `package.json.version` no escopo? Se sim → `/ds-release` obrigatório."*
+
+**Verificação retroativa:** se o git log da release tem padrão `Merge pull request #N from <user>/release/vX.Y.Z`, é porque o pipeline foi seguido. Direct commits no `main` com tag de version quebram esse padrão.
+
+**Por que isso importa (não é só convenção):**
+- `/ds-release` invoca `pre-commit-check.md` que valida USAGE.md, DocPages, sincronias técnicas (L-016 twMergeConfig), pipeline-state, lessons sincronizados com o diff
+- Gate humano via preview consolidado permite ver tudo antes de commit irreversível
+- Branch + PR criam ponto de revisão (mesmo solo-dev, é checkpoint de "sanity check")
+- Histórico de releases via PR mantém rastreabilidade pra rollback e auditoria
+
+**Contexto:** qualquer trabalho que termine em `npm publish`. Adicionar verificação explícita no Passo 1 do `release.md` ("rejeitar se invocado em main já com bump aplicado por commit direto"). Adicionar nota explícita no preamble da skill `release.md`.
+
+**Validação aplicada:** o próprio PR que registra esta lição (`chore/release-skill-discipline-l020`) é feito via branch + PR — demonstrando o padrão correto sendo seguido.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
