@@ -157,7 +157,7 @@ Requisitos: Node 20+, npm 10+ (ou pnpm/yarn).
 
 ```bash
 # 1. Clone
-git clone https://github.com/snksergio/igreen-desingsystem-admin.git
+git clone https://github.com/igreenlab/igreen-desingsystem-admin.git
 cd igreen-desingsystem-admin
 
 # 2. Install

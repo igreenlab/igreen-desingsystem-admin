@@ -62,7 +62,22 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
-### [2026-05-16] | DS REVIEWER | Token de scrollbar + utility variant | APROVADO (apos fix)
+### [2026-06-05] | INFRA RELEASE | Pipeline drift fix pós v0.5.1 publish | CONCLUÍDO
+- Input: após publicar @snksergio/design-system@0.5.1 + @snksergio/create-design-system@0.1.4 (fix de types + URLs igreenlab + license + template), simulação teórica de consumer revelou drift do pipeline interno em relação ao estado real do CSS gerado.
+- Output: 3 frentes aplicadas em 17 arquivos.
+  - **Frente 1 (consumer-facing):** repo URLs `snksergio` → `igreenlab` no README.md + src/preview/pages/InstallationDoc.tsx.
+  - **Frente 2 (pipeline interno):** typography presets removidos no rewrite 2026-05-19 ainda eram exibidos como pattern canônico em 14 arquivos. Substituições aplicadas (`text-label-sm` → `text-body-sm font-semibold`, `text-label-xs` → `text-caption-sm font-semibold`, `text-paragraph-sm` → `text-body-sm`, `text-subheading-2xs` → `text-title-sm`):
+    - `.ai/rules/coding-standards.md`, `.claude/skills/ds-dev/impl-{igreen,shadcn,composite}.md`, `.claude/skills/ds-designer/{spec-token,figma-extract}.md`, `.claude/skills/frontend-design/SKILL.md`, `.claude/commands/ds-extract-figma.md`, `.claude/hooks/ds-lint-styles.sh`, `.ai/context/components/{guide,inventory,shadcn-token-map}.md`, `.ai/context/doc-guide.md`, `README-PIPELINE-WORKFLOW.md` (adicionado bloco "Nota histórica" preservando exemplos didáticos como snapshot).
+  - **Frente 3 (audit logs):** L-007 atualizada (recomendação apontava preset removido), L-017 (npm types broken), L-018 (CLI template desync), L-019 (grep all scopes ao remover token) adicionadas em `.ai/status/lessons.md`. Resumo correspondente em `.claude/rules/ds-standards.md` atualizado. Entry v0.5.1 em `src/preview/pages/updates-data.ts`.
+- Decisões:
+  - Audits/specs/archives intocados (preservar snapshots históricos)
+  - `pipeline-state.md` mantido com refs históricas a presets removidos (log append-only — preservar contexto)
+  - README-PIPELINE-WORKFLOW.md exemplos didáticos mantidos com nota histórica explicando
+- Assumption: substituições `text-label-sm` → `text-body-sm font-semibold` preservam intent visual (13px + peso 600 em ambos). Verificar manualmente próximo uso real em componente novo.
+- Lições novas: L-017 (files + .d.ts), L-018 (CLI template sync), L-019 (grep all scopes). L-007 atualizada.
+- Validação: `grep` final em arquivos vivos confirmou zero drift remanescente fora dos snapshots históricos esperados.
+
+
 - Spec verificada: sim — entrada PAUSADO (gate) confirmada no pipeline-state.md com alternativas descartadas e assumption central
 - Gate verificado: sim
 - Assumption verificada: agora valida — `scrollbar-width: auto` em scrollbar-default entrega scrollbar do sistema no Firefox (~16px nativo), enquanto `scrollbar-thin` permanece `thin`. No webkit (Chrome/Safari/Edge) a distincao e 8px vs 6px via `--scrollbar-width-default` / `--scrollbar-width-thin`. Distincao real existe em todos os browsers-alvo.

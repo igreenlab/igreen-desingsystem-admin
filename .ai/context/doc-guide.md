@@ -148,8 +148,8 @@ Agent accent colors (inline style only):
 ```tsx
 <div className="grid grid-cols-2 gap-gp-2xl">
   <div className="rounded-radius-base border border-border bg-bg-surface shadow-sh-sm p-pad-card-sm">
-    <p className="text-label-sm text-fg-foreground mb-gp-xs">Title</p>
-    <p className="text-paragraph-sm text-fg-muted">Description</p>
+    <p className="text-body-sm font-semibold text-fg-foreground mb-gp-xs">Title</p>
+    <p className="text-body-sm text-fg-muted">Description</p>
   </div>
 </div>
 ```
@@ -160,12 +160,12 @@ Agent accent colors (inline style only):
   <table className="w-full">
     <thead>
       <tr className="bg-bg-subtle">
-        <th className="text-left text-label-xs text-fg-muted font-medium py-pad-md px-pad-xl">Header</th>
+        <th className="text-left text-caption-sm font-semibold text-fg-muted font-medium py-pad-md px-pad-xl">Header</th>
       </tr>
     </thead>
     <tbody>
       <tr className="border-t border-border-subtle">
-        <td className="py-pad-md px-pad-xl text-paragraph-sm text-fg-foreground">Value</td>
+        <td className="py-pad-md px-pad-xl text-body-sm text-fg-foreground">Value</td>
       </tr>
     </tbody>
   </table>
@@ -194,15 +194,15 @@ Agent accent colors (inline style only):
   <table className="w-full">
     <tbody>
       <tr className="border-b border-border-subtle">
-        <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
-        <td className="text-paragraph-sm text-fg-foreground py-pad-md px-pad-xl">Value</td>
+        <td className="text-caption-sm font-semibold text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">Input</td>
+        <td className="text-body-sm text-fg-foreground py-pad-md px-pad-xl">Value</td>
       </tr>
       <tr className="border-b border-border-subtle">
-        <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
-        <td className="text-paragraph-sm py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-primary">SIGNAL</code></td>
+        <td className="text-caption-sm font-semibold text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Output</td>
+        <td className="text-body-sm py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-primary">SIGNAL</code></td>
       </tr>
       <tr>
-        <td className="text-label-xs text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
+        <td className="text-caption-sm font-semibold text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl">Files</td>
         <td className="py-pad-md px-pad-xl font-mono text-code-sm text-fg-muted">file1.md, file2.md</td>
       </tr>
     </tbody>

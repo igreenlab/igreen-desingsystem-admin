@@ -116,7 +116,7 @@ npm create @snksergio/design-system@0.1.0 my-app`}</CodeBlock>
           and you're ready to run the preview app.
         </p>
         <CodeBlock>{`# 1. Clone the repo
-git clone https://github.com/snksergio/igreen-desingsystem-admin.git
+git clone https://github.com/igreenlab/igreen-desingsystem-admin.git
 cd igreen-desingsystem-admin
 
 # 2. Install dependencies

@@ -56,11 +56,11 @@ mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
 "h-10"             → "min-h-form-lg"   // 40px
 "h-11"             → "min-h-form-xl"   // 44px
 
-// Tipografia
-"text-sm"                → "text-paragraph-sm"
-"text-sm font-medium"    → "text-label-sm"
-"text-xs"                → "text-paragraph-xs"
-"text-xs font-medium"    → "text-label-xs"
+// Tipografia (typography rewrite 2026-05-19 — só 6 roles: display/heading/title/body/caption/code)
+"text-sm"                → "text-body-sm"           // 13/500
+"text-sm font-medium"    → "text-body-sm font-semibold"  // 13/600
+"text-xs"                → "text-body-xs"           // 12/500
+"text-xs font-medium"    → "text-caption-sm font-semibold"  // 11/600
 
 // Spacing e shape
 "rounded-md"       → "rounded-radius-md"

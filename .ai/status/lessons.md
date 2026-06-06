@@ -114,11 +114,13 @@ Para focus rings do DS usar sempre `ring-4`.
 **Regra derivada:**
 ```typescript
 // ❌
-"text-xs font-semibold" → "text-label-xs"
-"text-sm font-medium"   → "text-label-sm"
+"text-xs font-semibold" → "text-caption-sm font-semibold"  // 11/600
+"text-sm font-medium"   → "text-body-sm font-semibold"     // 13/600
 ```
 
 **Contexto:** badge, tab, qualquer componente com texto de UI
+
+**Nota histórica (atualizada 2026-06-05):** o typography rewrite 2026-05-19 removeu os presets `label-*`, `paragraph-*` e `subheading-*`. Os 6 roles atuais são `display | heading | title | body | caption | code`. Override de peso via Tailwind nativo sobre o preset. Esta lição foi atualizada porque a recomendação anterior (`text-label-xs`/`text-label-sm`) apontava pra presets que não existem mais. Ver L-019.
 
 ---
 
@@ -249,6 +251,93 @@ DevTools no browser, inspecionar um elemento com a nova classe, e checar se
 **Contexto:** qualquer alteração em `tokens/brands/default/semantic/typography.ts`
 — adição, remoção ou renomeação de preset. Atinge especialmente componentes que
 usam `tv()` + `text-fg-X` no mesmo array de classes (a maioria deles).
+
+---
+
+## [L-017] `files` no package.json deve incluir paths das declarações TypeScript
+
+**Erro cometido:** publicar lib no npm com `vite-plugin-dts` gerando `.d.ts` que referenciam paths preservados do source (`./src/components/index`, `./tokens/index`) que **NÃO estavam listados em `files`** do `package.json`. Resultado: tarball publicado tinha `dist-lib/index.d.ts` e `dist-lib/tokens.d.ts` apontando pra arquivos fantasma. Consumers TypeScript instalavam o package mas qualquer `import` retornava `any` ou erro "Cannot find module". **Bug afetou v0.1.0 até v0.5.0 silenciosamente** (4 releases) — corrigido em v0.5.1.
+
+**Regra derivada:** ao publicar lib que usa `vite-plugin-dts` com estrutura preservada, o `files` do `package.json` DEVE incluir os paths emitidos:
+
+```json
+"files": [
+  "dist-lib/index.*",
+  "dist-lib/tokens.*",
+  "dist-lib/preview/**",
+  "dist-lib/chunks/**",
+  "dist-lib/src/**",       // ← types preservam estrutura do source
+  "dist-lib/tokens/**",    // ← idem
+  "dist-lib/theme.css",
+  "README.md"
+]
+```
+
+**Verificação obrigatória antes de cada publish:**
+```bash
+npm pack --dry-run --json | grep -E '"path".*(src/components|tokens/index)' | head -5
+# Deve retornar arquivos. Se vazio → bug presente, NÃO publicar.
+```
+
+Alternativa mais robusta: configurar `vite-plugin-dts` com `rollupTypes: true` pra gerar um único `dist-lib/index.d.ts` self-contained, eliminando a dependência de paths preservados.
+
+**Contexto:** qualquer release de lib npm com TypeScript + múltiplos entries no mapa `exports`. Bug é silencioso (build passa, runtime JS funciona, só types quebram).
+
+---
+
+## [L-018] Template do CLI bootstrap precisa sincronizar com versão atual da lib
+
+**Erro cometido:** ao bumpar `@snksergio/design-system` de v0.1.1 → v0.5.0 sem revisar o template default do `@snksergio/create-design-system` (CLI bootstrap), o template continuou pinando `^0.1.1` da lib. Projetos novos criados via `npx @snksergio/create-design-system` instalavam versão 5 minor atrasada. Plus: o template usava classes de tipografia REMOVIDAS no rewrite 2026-05-19 (`text-paragraph-sm`, `text-label-md`), props inválidas (`tone="critical"` em AlertModal — só aceita `default/neutral/danger/warning/success`), e strings JSX hardcoded mostrando "@0.1.1" como se fosse versão atual. Resultado: primeiro consumer que rodou `npx create-...` viu UI com tipografia quebrada + texto desinformado.
+
+**Regra derivada:** toda release minor ou major da lib principal DEVE incluir, na mesma rodada:
+1. **Bump do pin** em `cli/templates/default/package.json` (`@snksergio/design-system: ^X.Y.Z`)
+2. **Auditoria do template** (`cli/templates/default/src/App.tsx` + `src/index.css`) contra API atual — greppar todas as classes/props usadas e validar que existem
+3. **Atualizar strings JSX** que exibam versão como label
+4. **Bump da CLI** (`cli/package.json`) e republish do `@snksergio/create-design-system`
+
+Releases patch da lib não precisam bump da CLI **se** template não muda. Mas mesmo em patch, vale grep rápido de classes do template no diff da lib.
+
+**Contexto:** qualquer release minor/major. Adicionar como item obrigatório no skill `ds-dev/release.md`.
+
+---
+
+## [L-019] Remover/renomear token exige grep em TODOS os consumers (não só `src/`)
+
+**Erro cometido:** o typography rewrite 2026-05-19 consolidou 32→23 presets (removeu `paragraph-*`, `label-*`, `subheading-*`). A migration foi executada cuidadosamente em `src/` (Ondas 1-5 documentadas em `.ai/audits/typography-inventory-2026-05-19.md`), MAS deixou 14+ arquivos vivos no pipeline com pattern morto, **descobertos 17 dias depois** (2026-06-05):
+
+- `cli/templates/default/src/App.tsx` — quebrou onboarding de consumers novos via CLI bootstrap
+- `.claude/skills/ds-dev/impl-{igreen,shadcn,composite}.md` — exemplos canônicos seguidos pelo DS Dev em criação de novos componentes
+- `.claude/skills/ds-designer/{spec-token,figma-extract}.md` — recomendações de spec
+- `.claude/skills/frontend-design/SKILL.md` — guia frontend
+- `.claude/commands/ds-extract-figma.md` — comando slash
+- `.claude/hooks/ds-lint-styles.sh` — mensagem de erro do lint mencionava preset removido
+- `.ai/rules/coding-standards.md` — regras canônicas com Button.styles desatualizado
+- `.ai/context/{components/guide,components/inventory,components/shadcn-token-map,doc-guide}.md` — context guides
+- `.ai/status/lessons.md` — a própria L-007 recomendava preset removido
+
+**Regra derivada:** ao remover/renomear QUALQUER token (typography, color, spacing, sizing, etc.), grep TODOS os scopes do projeto antes de fechar o rewrite:
+
+```bash
+grep -rln "{padrão-antigo}" \
+  --include="*.{ts,tsx,md,sh,css}" \
+  --exclude-dir={node_modules,dist*,audits,archive,specs} \
+  .
+```
+
+**Scopes a sempre cobrir:**
+- `src/` — código
+- `cli/templates/**/` — bootstrap consumer
+- `.claude/**/` — skills, hooks, commands, rules
+- `.ai/context/**/` e `.ai/rules/**/` — context guides + rules canônicas
+- `.ai/status/lessons.md` — lições podem mencionar pattern (atualizar a recomendação, não a história)
+
+**Scopes a PRESERVAR (snapshots históricos):**
+- `.ai/audits/` — fotografias de momentos pré/pós migration
+- `.ai/specs/` — specs de quando o rewrite foi planejado
+- `.ai/status/archive/` — planos arquivados
+- `.ai/status/pipeline-state.md` — log append-only, contexto histórico
+
+**Contexto:** qualquer rewrite/migration de token semântico. Especialmente crítico em typography (mais consumidores que color/spacing).
 
 ---
 

@@ -256,6 +256,11 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-015** `scrollbar-width` CSS só aceita `auto/thin/none` — tamanhos px iguais no Firefox.
 - **L-016** Novo preset tipográfico em `typography.ts` → registrar em `src/utils/tv.ts` `twMergeConfig` senão `tailwind-merge` remove silenciosamente.
 
+### Release / npm (lições 2026-06-05)
+- **L-017** `files` do `package.json` DEVE incluir `dist-lib/src/**` e `dist-lib/tokens/**` quando usar `vite-plugin-dts` sem `rollupTypes`. Bug afetou v0.1.0-v0.5.0 (types quebrados silenciosamente). Validar via `npm pack --dry-run` antes de publish.
+- **L-018** Release minor/major da lib → bump pin no `cli/templates/default/package.json` + auditoria do template + bump CLI na mesma rodada.
+- **L-019** Remover/renomear token → grep TODOS os scopes (`src/`, `cli/templates/**`, `.claude/**`, `.ai/context/**`, `.ai/rules/**`, `lessons.md`). Preservar `audits/`, `specs/`, `archive/`, `pipeline-state.md`.
+
 ---
 
 ## USAGE.md por componente

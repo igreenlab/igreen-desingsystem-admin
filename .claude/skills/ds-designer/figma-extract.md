@@ -48,7 +48,7 @@ description: >
 | Fundo botão primário | #338449 | bg.primary | bg-bg-primary |
 | Texto botão | #FFFFFF | fg.on-primary | text-fg-on-primary |
 | Border-radius botão | 26px | radius.base | rounded-radius-base |
-| Font-size label | 14px | label-sm | text-label-sm |
+| Font-size label | 14px | title-sm | text-title-sm |
 | Gap icon-to-text | 8px | gap.md | gap-gp-md |
 
 ## Gaps identificados (tokens faltantes — verificados como ausentes)

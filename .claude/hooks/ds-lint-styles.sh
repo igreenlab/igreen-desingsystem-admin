@@ -12,7 +12,7 @@
 #   L-003  ring-3                       → não existe no Tailwind, usar ring-4
 #   L-004  outline-none avulso          → exige focus-visible:outline-none
 #   L-005  bg-input/50                  → usar bg-bg-surface (token DS)
-#   L-007  text-xs font-semibold avulso → usar preset text-label-xs
+#   L-007  text-xs font-semibold avulso → usar preset text-caption-sm font-semibold (typography rewrite 2026-05-19)
 #
 # Pula: arquivos que não são src/components/**/*.styles.ts ou *.tsx em ui/.
 
@@ -85,7 +85,7 @@ check '"[^"]*(^|[ "])outline-none[^"]*"' "L-004 — outline-none sem focus-visib
 check '"[^"]*\bbg-input/[0-9]+[^"]*"' "L-005 — bg-input/N detectado (use bg-bg-surface ou bg-bg-muted)"
 
 # L-007 — text-xs font-semibold/medium avulso (sugerir preset)
-check '"[^"]*\btext-xs\s+font-(semibold|medium|bold)\b[^"]*"' "L-007 — text-xs + font-* avulso (use text-label-xs)"
+check '"[^"]*\btext-xs\s+font-(semibold|medium|bold)\b[^"]*"' "L-007 — text-xs + font-* avulso (use text-caption-sm font-semibold ou text-body-xs font-semibold)"
 
 # tv import de tailwind-variants ao invés de @/utils/tv
 check 'from\s+"tailwind-variants"' "import errado — use 'import { tv } from \"@/utils/tv\"'"

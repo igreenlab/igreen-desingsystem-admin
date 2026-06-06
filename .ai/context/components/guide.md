@@ -72,10 +72,10 @@ export const nomeVariants = tv({
     },
     size: {
       // Prefixos obrigatórios: gap-gp-*, px-pad-*, rounded-radius-*, min-h-form-*
-      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-label-sm",
-      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-label-sm",
+      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-body-sm font-semibold",
+      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-body-sm font-semibold",
     },
     fullWidth: { true: "w-full flex-1" },
     disabled:  { true: "pointer-events-none" },

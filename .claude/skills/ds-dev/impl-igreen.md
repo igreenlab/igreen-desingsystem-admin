@@ -56,10 +56,10 @@ export const nomeVariants = tv({
     variant: { filled: "", outline: "", soft: "", ghost: "bg-transparent" },
     size: {
       // NUNCA: gap-4, rounded-lg, shadow-md, px-3, h-10
-      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-label-sm",
-      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-label-sm",
+      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-body-sm font-semibold",
+      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-body-sm font-semibold",
     },
     fullWidth: { true: "w-full flex-1" },
     disabled:  { true: "pointer-events-none" },
@@ -171,7 +171,7 @@ focus: "focus-visible:ring-4"
 ### Tamanhos (L-002)
 - `min-h-form-{xs/sm/md/lg/xl}` — nunca `h-*` fixo
 - Padding via `px-pad-*`, gap via `gap-gp-*`
-- Tipografia via preset (`text-label-sm`, etc) — nunca `text-[Npx] font-*` avulso (L-007)
+- Tipografia via preset (`text-body-sm font-semibold`, etc) — nunca `text-[Npx] font-*` avulso (L-007)
 
 ### Variants order (L-006)
 - `disabled` SEMPRE último em `compoundVariants`

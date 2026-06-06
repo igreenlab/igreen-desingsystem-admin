@@ -40,8 +40,9 @@ min-h-form-lg   min-h-form-xl   size-icon-md   rounded-radius-base
 // Shadow
 shadow-sh-sm   shadow-sh-md   shadow-sh-lg
 
-// Typography — presets compostos
-text-label-sm   text-paragraph-md   text-heading-sm   text-title-md
+// Typography — 23 presets em 6 roles (display/heading/title/body/caption/code)
+text-body-sm     text-body-md       text-title-md     text-heading-sm
+// Override de weight via Tailwind nativo (font-semibold, font-medium, etc.) sobre o preset
 ```
 
 ## O que NÃO fazer no iGreen DS

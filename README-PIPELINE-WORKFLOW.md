@@ -405,10 +405,17 @@ Regra: `{ disabled: true }` SEMPRE por último no array.
 
 **L-007 — text-xs font-semibold em vez de preset tipográfico**
 O que aconteceu: agente usou combinações avulsas `text-xs font-semibold` para texto
-de label. O problema: o DS tem presets tipográficos compostos (`text-label-xs`,
-`text-label-sm`) que encapsulam tamanho, peso, line-height e letter-spacing corretos.
+de label. O problema: o DS tem presets tipográficos compostos (`text-caption-sm font-semibold`,
+`text-body-sm font-semibold`) que encapsulam tamanho, peso, line-height e letter-spacing corretos.
 Usar classes avulsas gera inconsistência tipográfica.
 Regra: sempre usar presets para texto de UI.
+
+> **Nota histórica:** o typography rewrite 2026-05-19 consolidou 32→23 presets em 6 roles
+> (display/heading/title/body/caption/code). Os presets antigos `label-*`, `paragraph-*` e
+> `subheading-*` foram removidos. Substituições canônicas: `label-sm` → `body-sm font-semibold`,
+> `label-xs` → `caption-sm font-semibold`, `paragraph-sm` → `body-sm`. Exemplos didáticos
+> em outras seções deste documento podem ainda mencionar os nomes antigos — são snapshots
+> históricos do processo, não recomendações atuais. Ver L-019 em lessons.md.
 
 **L-008 — Dark mode bg hierarchy invertida**
 O que aconteceu: ao criar tokens de background para dark mode, agente definiu

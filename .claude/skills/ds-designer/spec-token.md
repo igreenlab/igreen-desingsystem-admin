@@ -255,10 +255,10 @@ Regras:
 "text-[14px] font-medium leading-5"
 "text-sm font-semibold"
 
-// ✅ SEMPRE preset composto
-"text-label-sm"
-"text-paragraph-sm"
-"text-subheading-2xs"
+// ✅ SEMPRE preset composto (typography rewrite 2026-05-19 — 23 presets em 6 roles)
+"text-body-sm font-semibold"   // 13/600 — Button labels, interactive
+"text-body-sm"                  // 13/500 — body default do projeto
+"text-title-sm"                 // 14/600 — section titles
 ```
 
-`label` vs `paragraph` = mesmo tamanho, peso diferente (500 vs 400). `subheading` = letter-spacing positivo. `caption` ≠ `subheading-2xs` (caption tem letter-spacing neutro).
+Os 6 roles são `display | heading | title | body | caption | code`. **Não existem mais** `paragraph-*`, `label-*` ou `subheading-*` — substituições no shadcn-token-map.md. Override de peso via Tailwind nativo (`font-semibold`, `font-medium`, etc.) sobre o preset.

@@ -364,7 +364,7 @@ Hook auxiliar: useFloatingPanelResize(side, min, max, storageKey?)
 ```
 Props:
   title?: string                     # h1 renderizado com text-title-lg
-  description?: string               # text-paragraph-sm fg-subtle, truncate
+  description?: string               # text-body-sm fg-subtle, truncate
   badge?: ReactNode                  # geralmente Chip ao lado do title
   actions?: ReactNode                # buttons à direita
   children?: ReactNode               # slot extra abaixo (tabs/filtros)

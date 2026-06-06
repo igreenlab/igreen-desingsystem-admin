@@ -35,8 +35,8 @@ import { tv, type VariantProps } from "@/utils/tv"
 export const formFieldStyles = tv({
   slots: {
     root:     "flex flex-col gap-gp-xs",
-    label:    "text-label-sm text-fg-foreground",
-    helper:   "text-paragraph-xs",
+    label:    "text-body-sm font-semibold text-fg-foreground",
+    helper:   "text-body-xs",
     required: "text-fg-danger ml-0.5",
   },
   variants: {

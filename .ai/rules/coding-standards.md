@@ -35,10 +35,10 @@ export const componentVariants = tv({
     },
     variant: { filled: "", outline: "", soft: "", ghost: "bg-transparent" },
     size: {
-      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-label-sm",
-      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-label-sm",
-      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-label-sm",
+      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
+      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-body-sm font-semibold",
+      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-body-sm font-semibold",
     },
     fullWidth: { true: "w-full flex-1" },
     disabled:  { true: "pointer-events-none" },
@@ -159,7 +159,7 @@ src/components/ui/NomeComponente/
 | border-radius | `rounded-radius-base` | `rounded-lg` |
 | shadow | `shadow-sh-md` | `shadow-md` |
 | height interativo | `min-h-form-lg` | `h-10`, `h-[40px]` |
-| tipografia | `text-label-sm` | `text-sm font-medium` |
+| tipografia | `text-body-sm font-semibold` | `text-sm font-medium` |
 | cor de fundo | `bg-bg-primary` | `bg-blue-600` |
 | cor de texto | `text-fg-foreground` | `text-gray-900` |
 | cor de borda | `border-border-main` | `border-gray-200` |

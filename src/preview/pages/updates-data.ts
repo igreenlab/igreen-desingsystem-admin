@@ -46,6 +46,41 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.5.1",
+    date: "2026-06-05",
+    tag: "patch",
+    title: "Fix crítico de types no npm + transferência de repo + pipeline drift",
+    summary:
+      "Patch que destrava o consumo TypeScript do pacote. Versões v0.1.0 até v0.5.0 publicavam .d.ts referenciando paths fora do tarball (vite-plugin-dts preservava estrutura de source, mas o `files` do package.json não incluía `dist-lib/src/**` nem `dist-lib/tokens/**`). Consumers TypeScript instalavam mas não tinham IntelliSense — import retornava `any`. Bug silencioso por 4 releases. Plus: repositório transferido pra organização `igreenlab/igreen-desingsystem-admin`, licença declarada explicitamente (UNLICENSED), engines.node >=20.0.0 documentado. CLI bootstrap (@snksergio/create-design-system) também subiu pra v0.1.4 com template alinhado: pin atualizado pra ^0.5.1, classes de tipografia migradas pro novo schema (typography rewrite 2026-05-19), Geist font carregada via @font-face. Pipeline interno auditado: 14 arquivos de skills/rules/context tinham presets removidos (`text-label-*`, `text-paragraph-*`) ainda como pattern canônico — corrigidos.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "Types TypeScript funcionando — tarball agora inclui `dist-lib/src/**` e `dist-lib/tokens/**` (era o bug crítico que afetou v0.1.0-v0.5.0). Consumers ganham IntelliSense completo ao instalar (L-017)",
+          "Template do CLI bootstrap (@snksergio/create-design-system@0.1.4) alinhado com lib atual: classes `text-paragraph-sm`/`text-label-md` substituídas pelos presets atuais (text-body-sm, text-caption-md font-semibold), AlertModal `tone='critical'` corrigido pra `tone='danger'`, strings JSX exibindo versão atualizadas pra @0.5.1 (L-018)",
+          "Pipeline interno auditado — 14 arquivos de skills/rules/context guides tinham presets typography removidos (rewrite 2026-05-19) ainda como pattern canônico. Próximos componentes criados via /ds-create-component agora seguem o schema atual (L-019)",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Repositório transferido de `snksergio/igreen-desingsystem-admin` para `igreenlab/igreen-desingsystem-admin` (organização). package.json (lib + CLI), README.md e InstallationDoc atualizados",
+          "Licença declarada explicitamente: `\"license\": \"UNLICENSED\"` (antes ausente — npm exibia \"Proprietary\" como default)",
+          "Engines declarado: `engines.node: \">=20.0.0\"`",
+          "CLI template default agora pinha `\"geist\": \"^1.7.0\"` explicitamente (antes era transitive via design-system) — fonte Geist carregada via @font-face no index.css apontando pro node_modules/geist",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "L-017 em lessons.md — files do package.json deve incluir paths emitidos por vite-plugin-dts",
+          "L-018 em lessons.md — release minor/major da lib exige bump do template CLI bootstrap",
+          "L-019 em lessons.md — remover/renomear token exige grep em TODOS os scopes (não só src/)",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.5.0",
     date: "2026-05-20",
     tag: "preview",

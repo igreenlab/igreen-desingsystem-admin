@@ -71,8 +71,8 @@ Usar apenas quando quiser código mais explícito com nomes iGreen.
 | `text-foreground` | `text-fg-foreground` | opcional |
 | `border-border` | `border-border-main` | opcional |
 | `ring-ring` | `ring-ring-primary` | opcional |
-| `text-xs font-semibold` | `text-label-xs` | recomendado |
-| `text-sm font-medium` | `text-label-sm` | recomendado |
+| `text-xs font-semibold` | `text-caption-sm font-semibold` | recomendado (typography rewrite 2026-05-19) |
+| `text-sm font-medium` | `text-body-sm font-semibold` | recomendado (typography rewrite 2026-05-19) |
 
 ---
 
