@@ -18,6 +18,7 @@ cli/templates/default/package-lock.json
 
 # Arquivos pessoais — não commitar
 CLAUDE.local.md
+.claude/settings.local.json
 
 # Scratch pad de sessões — não commitar
 .ai/scratch/
