@@ -92,6 +92,8 @@ npm run dev
 
 O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git. Em ~30 segundos você tem um app rodando em `http://localhost:3200` com 4 componentes do DS demonstrados. Sem precisar configurar nada manualmente, sem gotcha do `@source` do Tailwind v4.
 
+**A partir de v0.1.5 (junho 2026):** o template default inclui também um `CLAUDE.md` na raiz com onboarding consumer-facing pra Claude Code / Cursor / agentes AI — lista de componentes, anti-patterns proibidos e padrões obrigatórios. Permite que qualquer agente AI gere UI consistente com o DS desde o primeiro prompt. **Mas o pipeline AI completo do DS (agents/skills/hooks/rules — ver seção [AI Pipeline](#ai-pipeline) abaixo) NÃO vem via CLI** — vive só neste repositório. Pra ter o pipeline completo, clone o repo.
+
 Ver detalhes: [`cli/README.md`](cli/README.md).
 
 ---
@@ -148,6 +150,10 @@ import { APP_SHELL_CONTEXTS, chatMocks } from "@snksergio/design-system/preview/
 **Modelo evergreen:** sem versionamento semver disciplinado. Apps usam `^0.1.0` no `package.json` e `npm update` puxa as últimas mudanças.
 
 **Sub-paths disponíveis:** `.`, `/theme.css`, `/tokens`, `/preview/chat`, `/preview/clientes`, `/preview/dashboard`, `/preview/mocks`.
+
+**⚠️ O que VEM via `npm install`:** build dos componentes + types TypeScript + theme.css + tokens + 4 preview entries + README.md. **Apenas isso.**
+
+**O que NÃO vem via npm:** agents (`.claude/agents/`), skills (`.claude/skills/`), hooks (`.claude/hooks/`), rules auto-carregadas (`.claude/rules/`), context guides (`.ai/context/`), lições documentadas (`.ai/status/lessons.md`), arquitetura completa do pipeline (`README-PIPELINE-WORKFLOW.md`), nem o source TypeScript dos componentes (`src/components/`). Tudo isso vive **só neste repositório**. Pra ter acesso, ver [Setup (desenvolvimento no DS)](#setup-desenvolvimento-no-ds) abaixo.
 
 ---
 
@@ -206,16 +212,30 @@ Tokens DS usam prefixos para não colidir com utilities nativas do Tailwind:
 
 ## AI Pipeline
 
-Pipeline de 4 agentes configurado em `.claude/agents/` (Claude Code) e espelhado em `.cursor/rules/` (Cursor).
+> **⚠️ Esta infra vive APENAS neste repositório de desenvolvimento.**
+> Não é distribuída via npm nem via CLI bootstrap. Apps que apenas
+> *consomem* o DS recebem componentes buildados + types + theme.css.
+> Quem quer agents, skills, hooks, slash commands e rules
+> auto-carregadas precisa clonar o repo (ver [Setup](#setup-desenvolvimento-no-ds)).
+>
+> Apps criados via `npm create @snksergio/design-system` recebem um
+> arquivo `CLAUDE.md` de onboarding (a partir de v0.1.5) — suficiente
+> pra Claude Code / Cursor gerar UI usando os tokens do DS, mas
+> sem a infra de pipeline (gates de approval, auto-review,
+> changelog automation, etc.).
 
-| Agente | Responsabilidade | Modelo |
-|---|---|---|
-| `orchestrator` | Classifica a tarefa e delega | Sonnet |
-| `ds-designer` | Especifica tokens e componentes (com gate) | Sonnet |
-| `ds-dev` | Implementa a spec aprovada | Opus |
-| `ds-reviewer` | Valida antes do merge (regression sweep + critique genuína) | Sonnet |
+Pipeline de 6 agentes (4 ativos + 2 placeholders 🚧 aguardando primeira tela do app desktop) configurado em `.claude/agents/` (Claude Code) e espelhado em `.cursor/rules/` (Cursor).
 
-**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`
+| Agente | Responsabilidade | Modelo | Status |
+|---|---|---|---|
+| `orchestrator` | Classifica a tarefa e delega | Sonnet | ✅ ativo |
+| `ds-designer` | Especifica tokens e componentes (com gate) | Sonnet | ✅ ativo |
+| `ds-dev` | Implementa a spec aprovada | Opus | ✅ ativo |
+| `ds-reviewer` | Valida antes do merge (regression sweep + critique genuína) | Sonnet | ✅ ativo |
+| `app-designer` | Especifica telas/fluxos do app consumidor | Sonnet | 🚧 placeholder (aguardando primeira tela) |
+| `app-dev-react` | Implementa telas com componentes DS existentes | Opus | 🚧 placeholder (aguardando primeira tela) |
+
+**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`, `/ds-release` (release completa com branch + PR), `/ds-update` (timeline de updates)
 
 A infraestrutura inclui:
 - **Skills** atômicas por agente (`.claude/skills/`)
