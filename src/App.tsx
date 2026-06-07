@@ -28,6 +28,7 @@ import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ModalDoc } from "./preview/pages/ModalDoc";
 import ClientsCRUDPreview from "./preview/pages/ClientsCRUDPreview";
 import ClientsCRUDServerPreview from "./preview/pages/ClientsCRUDServerPreview";
+import ClientsPreFilteredPreview from "./preview/pages/ClientsPreFilteredPreview";
 import ClientsVirtualizedPreview from "./preview/pages/ClientsVirtualizedPreview";
 import ClientsGroupedPreview from "./preview/pages/ClientsGroupedPreview";
 import ClientsExpandablePreview from "./preview/pages/ClientsExpandablePreview";
@@ -212,7 +213,7 @@ export function App() {
     "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
     "switch", "checkbox", "radio-group", "slider", "progress",
     "accordion", "alert", "dialog", "dropdown-menu",
-    "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+    "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
   ];
   const isDocPage = DOC_PAGES.includes(activePage);
 
@@ -250,6 +251,7 @@ export function App() {
           {activePage === "modal" && <ModalDoc />}
           {activePage === "clients-crud" && <ClientsCRUDPreview />}
           {activePage === "clients-crud-server" && <ClientsCRUDServerPreview />}
+          {activePage === "clients-pre-filtered" && <ClientsPreFilteredPreview />}
           {activePage === "clients-virtualized" && <ClientsVirtualizedPreview />}
           {activePage === "clients-grouped" && <ClientsGroupedPreview />}
           {activePage === "clients-expandable" && <ClientsExpandablePreview />}
