@@ -124,16 +124,59 @@ export function useFilterPopoverAdapter<T>({
     [effectiveColumns, rows],
   );
 
-  const filterPopoverEntries = useMemo<FilterPopoverEntry[]>(
-    () =>
-      filterModel.items.map((item) => ({
-        id: item.id,
-        columnKey: item.field,
-        op: FILTER_OP_TO_POPOVER_OP[item.operator] ?? item.operator,
-        value: item.value ?? "",
-      })),
-    [filterModel],
-  );
+  /** Operadores que tradicionalmente agrupam múltiplos valores numa única
+   *  condição UI (chip+popover) — multiSelect, tags, etc usam isAnyOf/isNoneOf
+   *  e o filterModel guarda 1 item por valor (spread). Pra renderizar no popover
+   *  de "Filtros" como 1 entry com value=array, agrupamos aqui. */
+  const MULTI_VALUE_OPERATORS = new Set<FilterItem["operator"]>(["isAnyOf", "isNoneOf"]);
+
+  const filterPopoverEntries = useMemo<FilterPopoverEntry[]>(() => {
+    // 1ª passada: coletar items por chave multi (field|operator)
+    const multiGroups = new Map<string, FilterItem[]>();
+    for (const item of filterModel.items) {
+      if (MULTI_VALUE_OPERATORS.has(item.operator)) {
+        const key = `${item.field}|${item.operator}`;
+        if (!multiGroups.has(key)) multiGroups.set(key, []);
+        multiGroups.get(key)!.push(item);
+      }
+    }
+
+    // 2ª passada: emitir entries NA ORDEM ORIGINAL do filterModel.
+    // Multi groups são emitidos UMA vez, na posição do primeiro item do grupo
+    // (preserva visual position quando user toggla valores). Sem isso, multi
+    // groups eram empurrados pro fim e o chip pulava de posição ao editar.
+    const seenMultiKeys = new Set<string>();
+    const result: FilterPopoverEntry[] = [];
+    for (const item of filterModel.items) {
+      if (MULTI_VALUE_OPERATORS.has(item.operator)) {
+        const key = `${item.field}|${item.operator}`;
+        if (seenMultiKeys.has(key)) continue;
+        seenMultiKeys.add(key);
+        const groupItems = multiGroups.get(key)!;
+        result.push({
+          // ⚠️ ID ESTÁVEL = `${field}|${operator}` (não groupItems[0].id que
+          // muda a cada spread no handleFiltersChange). Sem isso, key do
+          // FilterRowEditor mudava → unmount/remount → Popover interno do
+          // MultiSelectFieldDropdown perdia state e FECHAVA a cada toggle.
+          id: key,
+          columnKey: groupItems[0].field,
+          op: FILTER_OP_TO_POPOVER_OP[groupItems[0].operator] ?? groupItems[0].operator,
+          value: groupItems
+            .map((it) => it.value)
+            .filter((v) => v != null && v !== ""),
+        });
+      } else {
+        result.push({
+          id: item.id,
+          columnKey: item.field,
+          op: FILTER_OP_TO_POPOVER_OP[item.operator] ?? item.operator,
+          value: item.value ?? "",
+        });
+      }
+    }
+
+    return result;
+  }, [filterModel]);
 
   const appliedGroups = useMemo<FilterGroup<T>[]>(() => {
     const grouped = new Map<string, FilterItem[]>();
@@ -159,6 +202,22 @@ export function useFilterPopoverAdapter<T>({
         const col = colsByField.get(g.field);
         const columnLabel = colLabelMap[g.field] ?? g.field;
 
+        // Chip placeholder: grupo cujos items todos têm value vazio.
+        // Acontece em 2 cenários:
+        //   1) Filter shortcut do header (chip "fantasma" via pendingOpenChipKey)
+        //   2) showEmptyFilterChips=true com filterModel pré-ativos vazios
+        // ToolbarApplied usa isEmpty pra renderizar apenas o columnLabel.
+        const allItemsEmpty = g.items.every((it) => isFilterValueEmpty(it.value));
+        if (allItemsEmpty) {
+          return {
+            id: g.key,
+            columnLabel,
+            op: FILTER_OP_TO_POPOVER_OP[g.operator] ?? g.operator,
+            value: [],
+            isEmpty: true,
+          };
+        }
+
         const labelOf = (v: unknown): string => {
           const opt = col?.filterOptions?.find(
             (o) => String(o.value) === String(v),
@@ -169,8 +228,11 @@ export function useFilterPopoverAdapter<T>({
         const typeId = col?.filterType ?? col?.type ?? "text";
         const typeDef = columnTypeRegistry.get(typeId);
         if (typeDef.renderChipValue && g.items.length > 0) {
+          // Passa options pro renderChipValue resolver value → label friendly.
+          // Sem isso, o chip mostrava o RAW value (ex: "active" em vez de "Ativo").
+          const chipOptions = col?.filterOptions as ColumnOption[] | undefined;
           const chipValues = g.items.map((it) =>
-            typeDef.renderChipValue!(it.value as never),
+            typeDef.renderChipValue!(it.value as never, chipOptions),
           );
           const filteredChips = chipValues.filter(
             (v) => v != null && v !== "",
@@ -222,15 +284,30 @@ export function useFilterPopoverAdapter<T>({
   const updateGroupValue = (groupKey: string, newValue: unknown) => {
     const group = appliedGroups.find((g) => g.key === groupKey);
     if (!group) return;
-    const otherItems = filterModel.items.filter(
-      (i) => !group.items.some((gi) => gi.id === i.id),
-    );
+    const groupIds = new Set(group.items.map((i) => i.id));
     const newId = () =>
       typeof crypto !== "undefined" && "randomUUID" in crypto
         ? crypto.randomUUID()
         : `f-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const newItems: FilterItem[] = [];
     const isTupleOperator = group.operator === "between";
+
+    // Auto-promote operator escalar → multi quando filterType=multiSelect e value
+    // chegou como array (widget multiSelect SEMPRE manda array, mesmo com 1 valor).
+    // Sem esse normalize, filter shortcut do header em coluna multiSelect persiste
+    // operator "eq" e cria N items separados — bug que aparece no popover Filtros
+    // como N linhas em vez de 1 agrupada.
+    const col = colsByField.get(group.field);
+    const widgetIsMulti = col?.filterType === "multiSelect";
+    const effectiveOperator: FilterItem["operator"] =
+      Array.isArray(newValue) &&
+      widgetIsMulti &&
+      !MULTI_VALUE_OPERATORS.has(group.operator)
+        ? group.operator === "neq"
+          ? "isNoneOf"
+          : "isAnyOf"
+        : group.operator;
+
     if (isTupleOperator) {
       const isEmpty =
         newValue == null ||
@@ -242,7 +319,7 @@ export function useFilterPopoverAdapter<T>({
         newItems.push({
           id: newId(),
           field: group.field,
-          operator: group.operator,
+          operator: effectiveOperator,
           value: newValue as FilterItem["value"],
         });
       }
@@ -256,15 +333,32 @@ export function useFilterPopoverAdapter<T>({
         newItems.push({
           id: newId(),
           field: group.field,
-          operator: group.operator,
+          operator: effectiveOperator,
           value: v as FilterItem["value"],
         });
       }
     }
-    setFilterModel({
-      ...filterModel,
-      items: [...otherItems, ...newItems],
-    });
+    // Preserva a POSIÇÃO ORIGINAL do grupo no array — sem isso, o chip era
+    // empurrado pro fim ao editar valor (visualmente confuso quando há 3+ chips).
+    // Substituímos os items do grupo IN-PLACE pelos newItems, na posição da
+    // primeira ocorrência.
+    const reconstructed: FilterItem[] = [];
+    let inserted = false;
+    for (const item of filterModel.items) {
+      if (groupIds.has(item.id)) {
+        if (!inserted) {
+          reconstructed.push(...newItems);
+          inserted = true;
+        }
+        // demais items do grupo: skip (já adicionados via spread acima)
+      } else {
+        reconstructed.push(item);
+      }
+    }
+    // Fallback defensivo: se grupo não foi achado (edge case), append no fim
+    if (!inserted) reconstructed.push(...newItems);
+
+    setFilterModel({ ...filterModel, items: reconstructed });
   };
 
   const getGroupOptions = (groupKey: string): ColumnOption[] => {
@@ -290,12 +384,57 @@ export function useFilterPopoverAdapter<T>({
   };
 
   const handleFiltersChange = (entries: FilterPopoverEntry[]) => {
-    const items: FilterItem[] = entries.map((e) => ({
-      id: e.id,
-      field: e.columnKey,
-      operator: POPOVER_OP_TO_FILTER_OP[e.op] ?? (e.op as FilterItem["operator"]),
-      value: e.value as FilterItem["value"],
-    }));
+    const newId = () =>
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `f-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+
+    const items: FilterItem[] = [];
+    for (const e of entries) {
+      const rawOperator =
+        POPOVER_OP_TO_FILTER_OP[e.op] ?? (e.op as FilterItem["operator"]);
+
+      // Auto-promote operator pra `isAnyOf`/`isNoneOf` quando o widget mandou
+      // array mas o operator é escalar (eq/neq). Acontece quando preset/saved
+      // view foi declarado com `{ field, value }` (default operator="equals")
+      // mas a column.filterType="multiSelect" — o widget MultiSelectFieldDropdown
+      // sempre togglea com array, então o operator escalar fica inconsistente
+      // (chip mostraria "Status = active, pending" em vez de "é um de").
+      const col = colsByField.get(e.columnKey);
+      const widgetIsMulti = col?.filterType === "multiSelect";
+      const operator: FilterItem["operator"] =
+        Array.isArray(e.value) &&
+        widgetIsMulti &&
+        !MULTI_VALUE_OPERATORS.has(rawOperator)
+          ? rawOperator === "neq"
+            ? "isNoneOf"
+            : "isAnyOf"
+          : rawOperator;
+
+      // Operadores multi (isAnyOf/isNoneOf): popover passa value=array
+      // (vimos como 1 entry agrupada em filterPopoverEntries); spreadar
+      // de volta em N items no filterModel (1 por valor), pra match com
+      // a representação interna que outros caminhos como updateGroupValue
+      // já esperam (1 item por valor selecionado).
+      if (MULTI_VALUE_OPERATORS.has(operator) && Array.isArray(e.value)) {
+        for (const v of e.value as unknown[]) {
+          if (v == null || v === "") continue;
+          items.push({
+            id: newId(),
+            field: e.columnKey,
+            operator,
+            value: v as FilterItem["value"],
+          });
+        }
+      } else {
+        items.push({
+          id: e.id,
+          field: e.columnKey,
+          operator,
+          value: e.value as FilterItem["value"],
+        });
+      }
+    }
     setFilterModel({ ...filterModel, items });
   };
 

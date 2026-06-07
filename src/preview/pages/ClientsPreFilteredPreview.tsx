@@ -225,41 +225,67 @@ const DEFAULT_VIEWS: DataTablePresetView[] = [
   }),
 ];
 
-/* ── Filter model padrão — 3 filtros pré-ativos vazios ──────────
- * O DataTable aceita `filterModel` controlado. Ao passar items com
- * `value: undefined`, os chips de filtro aparecem como "aplicados" na
- * toolbar desde o load inicial, sem valor preenchido — usuário só
- * precisa clicar em cada chip pra escolher o valor.
+/* ── showEmptyFilterChips — chips placeholder nativos na toolbar ─
  *
- * Use case típico: dashboard onde sabe-se de antemão quais 3 filtros
- * o usuário sempre vai querer ajustar (Status / Categoria / Atribuído).
+ * A prop `showEmptyFilterChips` (v0.6.0+) é um array de field names que
+ * renderizam como chips placeholder na toolbar do DataTable. Cada chip
+ * mostra APENAS o nome da coluna (sem operador, sem value), pronto pra
+ * usuário clicar e preencher.
  *
- * Diferença vs `defaultFilterValue` na column def:
- *   - defaultFilterValue: só preenche valor inicial QUANDO usuário ativa
- *     o filtro manualmente clicando no ícone do header.
- *   - filterModel controlado: pré-ATIVA o filtro (chip aparece na toolbar
- *     desde o carregamento), mesmo sem valor.
+ * Use case: dashboards onde o set de filtros relevantes é conhecido de
+ * antemão (Status / Categoria / Atribuído) — reduz cliques de
+ * "abrir popover de Filtros + adicionar filtro" pra zero.
+ *
+ * Comportamento:
+ *   - Chip placeholder fica visível enquanto a coluna NÃO tem filtro com
+ *     valor no filterModel. Quando user preenche valor, vira filtro normal
+ *     e o placeholder some. Quando user remove o valor (X no chip), o
+ *     placeholder reaparece automaticamente.
+ *   - Placeholders NÃO aparecem no popover de "Filtros" (esse popover lista
+ *     apenas filtros reais com valor).
+ *   - Cleanup automático de filtros vazios em outros lugares é PRESERVADO
+ *     intacto — esta prop só adiciona chips extras na toolbar.
+ *   - Quando user clica no X de um chip placeholder, ele é "descartado" pra
+ *     a sessão (state interno). Pra trazê-lo de volta, recarregue a página.
+ *
+ * Diferença vs outras abordagens:
+ *   - `defaultFilterValue` na column def: só preenche valor inicial QUANDO
+ *     usuário ativa o filtro manualmente clicando no ícone do header.
+ *   - `filterModel` controlado com items.value undefined: não funciona —
+ *     cleanup automático suprime chips vazios da toolbar (regra padrão).
+ *   - `showEmptyFilterChips={fields[]}` ⭐: chips placeholder visíveis
+ *     desde load, prontos pra preencher. Implementação separada do
+ *     filterModel (placeholders vivem no state interno do DataTable).
  */
-const INITIAL_FILTER_MODEL: FilterModel = {
-  items: [
-    { id: "f_status",   field: "statusId",   operator: "isAnyOf", value: undefined },
-    { id: "f_category", field: "categoryId", operator: "isAnyOf", value: undefined },
-    { id: "f_agent",    field: "agentId",    operator: "isAnyOf", value: undefined },
-  ],
-  logicOperator: "AND",
-};
+// Mix de filterTypes pra validar que showEmptyFilterChips funciona com tipos
+// diferentes — multiSelect (Status/Categoria/Atribuído), text (Email),
+// date (Criado em), number (Valor).
+const NATIVE_FILTER_FIELDS = [
+  "statusId",     // multiSelect → isAnyOf
+  "categoryId",   // multiSelect → isAnyOf
+  "agentId",      // multiSelect → isAnyOf
+  "email",        // text         → contains
+  "createdAt",    // date         → between
+  "value",        // number       → equals
+];
 
 export default function ClientsPreFilteredPreview() {
   const columns = useMemo(() => COLUMNS, []);
   const [rows, setRows] = useState<ClientRow[]>(() => CLIENTS_50);
-  const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTER_MODEL);
+  // filterModel começa VAZIO — chips placeholder vêm da prop showEmptyFilterChips,
+  // não do filterModel. Filtros reais (com valor) vão acumulando aqui conforme
+  // user preenche.
+  const [filterModel, setFilterModel] = useState<FilterModel>({
+    items: [],
+    logicOperator: "AND",
+  });
   const tableRef = useRef<DataTableRef>(null);
 
   return (
     <ExamplePageLayout
       category="Data Table Examples"
-      title="Pre-filtered"
-      description="DataTable com filterModel controlado — 3 filtros pré-ativos vazios (Status / Categoria / Atribuído) já aparecem como chips aplicados na toolbar no carregamento inicial, prontos pra usuário preencher. Use case: dashboards onde o set de filtros relevantes é conhecido de antemão e poupar 3 cliques de 'abrir filtros + adicionar filtro' melhora o fluxo."
+      title="Pre-filtered (chips placeholder nativos)"
+      description="DataTable com showEmptyFilterChips (v0.6.0) — 6 chips placeholder cobrindo filterTypes diferentes (multiSelect: Status/Categoria/Atribuído · text: Email · date: Criado em · number: Valor) aparecem na toolbar no load inicial, mostrando apenas o nome da coluna. Click no chip ativa o filtro (popover abre com o widget correto pra cada tipo). Preenchido vira filtro normal. X descarta o placeholder na sessão. Use case: dashboards onde o set de filtros relevantes é conhecido de antemão — reduz cliques de 'abrir popover de filtros + adicionar filtro' pra zero. Cleanup automático em outros casos (filtros vazios criados via popover) é preservado intacto."
       code={CODE}
     >
       <DataTable<ClientRow>
@@ -271,6 +297,7 @@ export default function ClientsPreFilteredPreview() {
         defaultViews={DEFAULT_VIEWS}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
+        showEmptyFilterChips={NATIVE_FILTER_FIELDS}
         toolbar={{
           title: "Clientes (pre-filtered)",
           enableSearch: true,
@@ -327,20 +354,26 @@ export default function ClientsPreFilteredPreview() {
 }
 
 const CODE = `import { useState } from "react";
-import { DataTable, type FilterModel } from "@/components/ui/DataTable";
+import { DataTable, type FilterModel } from "@snksergio/design-system";
 
-// 3 filtros pré-ativos vazios — chips aparecem como aplicados no load
-const INITIAL_FILTER_MODEL: FilterModel = {
-  items: [
-    { id: "f_status",   field: "statusId",   operator: "isAnyOf", value: undefined },
-    { id: "f_category", field: "categoryId", operator: "isAnyOf", value: undefined },
-    { id: "f_agent",    field: "agentId",    operator: "isAnyOf", value: undefined },
-  ],
-  logicOperator: "AND",
-};
+// Lista de fields que aparecem como chips placeholder na toolbar.
+// A prop é filterType-agnostic — o popover abre o widget correto pra cada tipo
+// (multiSelect → dropdown, text → input, date → range, number → numeric input).
+const NATIVE_FILTER_FIELDS = [
+  "statusId",     // multiSelect → isAnyOf
+  "categoryId",   // multiSelect → isAnyOf
+  "agentId",      // multiSelect → isAnyOf
+  "email",        // text         → contains
+  "createdAt",    // date         → between
+  "value",        // number       → equals
+];
 
 export default function PreFilteredExample() {
-  const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTER_MODEL);
+  // filterModel começa vazio — placeholders vivem fora do filterModel
+  const [filterModel, setFilterModel] = useState<FilterModel>({
+    items: [],
+    logicOperator: "AND",
+  });
   const [rows, setRows] = useState<ClientRow[]>(MOCK_50);
 
   return (
@@ -350,9 +383,14 @@ export default function PreFilteredExample() {
       getRowId={(r) => r.id}
       persistId="clients-pre-filtered-demo"
 
-      // Filtros controlados — passa o modelo inicial + handler de mudança
       filterModel={filterModel}
       onFilterModelChange={setFilterModel}
+
+      // ⭐ Array de field names que renderizam como chips placeholder
+      //    na toolbar (visíveis desde o load, prontos pra preencher).
+      //    Chips placeholder somem quando a coluna ganha valor real.
+      //    Filtros adicionados via popover "Filtros" funcionam normal.
+      showEmptyFilterChips={NATIVE_FILTER_FIELDS}
 
       toolbar={{ title: "Clientes", enableSearch: true, enableFilters: true /* ... */ }}
       paginationConfig={{ enabled: true, initialPageSize: 25 }}
@@ -361,15 +399,24 @@ export default function PreFilteredExample() {
   );
 }
 
-// Comportamento esperado no load inicial:
-//   - 3 chips de filtro aparecem como aplicados na toolbar
-//     (Status, Categoria, Atribuído) — todos sem valor
-//   - Usuário clica num chip → popover abre para preencher valor
-//   - Tabela mostra todas as rows (filtros vazios não filtram)
-//   - Filtros vazios podem ser removidos pelo X do chip
+// Comportamento esperado:
+//   - 6 chips placeholder aparecem na toolbar no load cobrindo filterTypes diversos
+//     (multiSelect: Status / Categoria / Atribuído · text: Email · date: Criado em ·
+//     number: Valor) mostrando APENAS o nome da coluna (sem operador, sem value)
+//   - User clica num chip → popover abre com widget correto pra cada filterType
+//   - User preenche valor → chip vira filtro normal (com X funcionando)
+//   - User remove valor (X no chip preenchido) → placeholder volta automaticamente
+//   - User remove placeholder (X no chip vazio) → descartado pra sessão
+//   - User adiciona filtro via "Filtros" → vai pra filterModel normalmente
+//   - Filtros vazios criados via popover "Filtros" são limpos automaticamente
+//     ao fechar (cleanup automático preservado intacto)
 //
-// Diferença vs defaultFilterValue por coluna:
-//   - defaultFilterValue: só preenche valor inicial quando user
-//     ativa o filtro manualmente (clica no ícone do header)
-//   - filterModel controlado: pré-ATIVA o filtro (chip aparece na
-//     toolbar desde o carregamento), mesmo sem valor`;
+// Vantagens vs outras abordagens:
+//   - defaultFilterValue por coluna: só preenche valor inicial quando
+//     user ativa o filtro manualmente clicando no ícone do header
+//   - filterModel com items.value undefined: não funciona — cleanup
+//     automático suprime chips vazios da toolbar (regra padrão)
+//   - showEmptyFilterChips array ⭐: prop separada e simples, lista os
+//     fields que devem ter chip placeholder. Implementação interna do
+//     DataTable mantém filterModel limpo — placeholders vivem em state
+//     local do componente, não poluem a fonte de verdade dos filtros`;

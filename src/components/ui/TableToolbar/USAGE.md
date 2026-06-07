@@ -141,6 +141,26 @@ const [pendingId, setPendingId] = useState<string | null>(null);
 
 O FilterPopover passa `value` como `unknown` — preserva arrays/tuplas/dates sem stringify.
 
+### 3b. FilterPopover com operators column-aware
+
+Sem `getOperatorsForColumn`, o dropdown de operadores mostra **todos** os 10 default
+(`eq/neq/contains/.../isAnyOf/...`) — confuso e às vezes inválido pro `filterType` da
+coluna. Use o callback pra restringir baseado no column-type:
+
+```tsx
+<FilterPopover
+  columns={[...]}
+  getOperatorsForColumn={(column) => {
+    const typeId = column.filterType ?? column.type ?? "text";
+    const def = columnTypeRegistry.get(typeId);
+    return def.operators?.map((o) => ({ id: o.id, label: o.label }));
+  }}
+/>
+```
+
+O DataTable já passa esse callback automaticamente — só relevante se você usar
+`FilterPopover` standalone fora do DataTable.
+
 ### 4. Export dropdown via MoreMenu
 
 ```tsx

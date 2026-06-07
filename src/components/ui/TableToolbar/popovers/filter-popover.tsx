@@ -79,6 +79,13 @@ export type FilterPopoverProps = {
     onChange: (next: unknown) => void;
   }) => ReactNode;
 
+  /** Operators column-aware — consumer decide quais operators aparecem no
+   *  dropdown baseado na coluna (filterType/type). Usado pra restringir
+   *  multiSelect a `isAnyOf`/`isNoneOf`, evitando que "é um de" coexista
+   *  com "é" (eq) no mesmo dropdown. Quando retorna undefined ou esta prop
+   *  não é passada, usa `operators` (default global). */
+  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;
+
   /** Alinhamento */
   align?: "start" | "center" | "end";
   open?: boolean;
@@ -87,11 +94,16 @@ export type FilterPopoverProps = {
 };
 
 export const DEFAULT_FILTER_OPERATORS: FilterPopoverOperator[] = [
-  { id: "eq",       label: "é" },
-  { id: "neq",      label: "não é" },
-  { id: "contains", label: "contém" },
-  { id: "gt",       label: "maior que" },
-  { id: "lt",       label: "menor que" },
+  { id: "eq",         label: "é" },
+  { id: "neq",        label: "não é" },
+  { id: "contains",   label: "contém" },
+  { id: "gt",         label: "maior que" },
+  { id: "lt",         label: "menor que" },
+  { id: "isAnyOf",    label: "é um de" },
+  { id: "isNoneOf",   label: "não é" },
+  { id: "between",    label: "entre" },
+  { id: "isEmpty",    label: "está vazio" },
+  { id: "isNotEmpty", label: "não está vazio" },
 ];
 
 function generateId(): string {
@@ -128,6 +140,16 @@ type FilterRowEditorProps = {
    *  ao consumer (que conhece o tipo via registry). Quando undefined, usa
    *  fallback nativo (select/number/text). */
   renderValueInput?: FilterPopoverProps["renderValueInput"];
+  /** Quando true, o Select "Campo" abre o dropdown imediatamente no mount
+   *  (usado pelo "Adicionar condição" pra o user escolher coluna sem clique
+   *  extra). */
+  autoOpenField?: boolean;
+  /** Resolve operators do column-type da nova coluna ao trocar o Campo. Usado
+   *  pra evitar que `filter.op` fique inválido quando a coluna selecionada
+   *  não suporta o operator antigo (ex: nova condição com `op=eq` default e
+   *  user escolhe coluna multiSelect que só aceita isAnyOf/isNoneOf — sem
+   *  isso, o Select de operador fica VAZIO). */
+  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;
 };
 
 /**
@@ -159,10 +181,25 @@ function FilterRowEditor({
   onChange,
   onRemove,
   renderValueInput,
+  autoOpenField,
+  getOperatorsForColumn,
 }: FilterRowEditorProps) {
   const col = columns.find((c) => c.key === filter.columnKey);
   const isSelect = col?.type === "select";
   const inputType = col?.type === "number" ? "number" : "text";
+  // Defensive: se filter.op não está nos operators do column atual (consumer
+  // passou um filterModel controlado com operator legado tipo "equals" pra
+  // multiSelect), faz FALLBACK pro primeiro operator disponível. Sem isso, o
+  // Select de operador renderiza VAZIO. Também propaga a normalização via
+  // useEffect → o filterModel real é corrigido.
+  const opValid = operators.some((o) => o.id === filter.op);
+  const effectiveOp = opValid ? filter.op : (operators[0]?.id ?? filter.op);
+  useEffect(() => {
+    if (!opValid && effectiveOp !== filter.op) {
+      onChange({ ...filter, op: effectiveOp });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [opValid, effectiveOp, filter.id]);
   // Quando consumer passa renderValueInput, delega 100% (registry-aware).
   // Senão, usa fallback nativo (select/number/text).
   const customValueInput =
@@ -197,9 +234,19 @@ function FilterRowEditor({
       <div className="w-full sm:flex-[1_1_0%] sm:basis-0 min-w-0">
         <Select
           value={filter.columnKey}
-          onValueChange={(v) =>
-            onChange({ ...filter, columnKey: v, value: "" })
-          }
+          defaultOpen={autoOpenField}
+          onValueChange={(v) => {
+            // Ao trocar a coluna, valida se filter.op continua válido nos
+            // operators do novo column-type. Se NÃO estiver, ajusta pro primeiro
+            // operator do novo column. Sem isso, o Select de operador fica
+            // VAZIO quando o operator antigo não bate com os do novo column.
+            const newCol = columns.find((c) => c.key === v);
+            const newOperators =
+              (newCol && getOperatorsForColumn?.(newCol)) ?? operators;
+            const opValid = newOperators.some((o) => o.id === filter.op);
+            const nextOp = opValid ? filter.op : (newOperators[0]?.id ?? filter.op);
+            onChange({ ...filter, columnKey: v, op: nextOp, value: "" });
+          }}
         >
           <SelectTrigger
             className={cn(FIELD_BASE, "px-pad-xl gap-gp-md")}
@@ -219,7 +266,7 @@ function FilterRowEditor({
       {/* Operador (flex 0.7 em desktop — menor, dá mais espaço pro valor) */}
       <div className="w-full sm:flex-[0.7_1_0%] sm:basis-0 min-w-0 sm:min-w-[80px]">
         <Select
-          value={filter.op}
+          value={effectiveOp}
           onValueChange={(v) => onChange({ ...filter, op: v })}
         >
           <SelectTrigger
@@ -312,6 +359,7 @@ export function FilterPopover({
   title = "Filtros",
   conjLabels = { first: "Se", rest: "E" },
   renderValueInput,
+  getOperatorsForColumn,
   align = "end",
   open,
   onOpenChange,
@@ -320,6 +368,16 @@ export function FilterPopover({
   const [mode, setMode] = useState<"visual" | "advanced">("visual");
   const [advancedText, setAdvancedText] = useState("");
   const [advancedError, setAdvancedError] = useState<string | null>(null);
+  // ID do último row adicionado via "Adicionar condição" — usado pra abrir o
+  // Select de Campo automaticamente. Reset após 1 render via useEffect.
+  const [pendingOpenFieldId, setPendingOpenFieldId] = useState<string | null>(null);
+  useEffect(() => {
+    if (pendingOpenFieldId == null) return;
+    // Limpa no próximo tick pra que o row recém-criado mostre `defaultOpen`
+    // no mount mas re-renders subsequentes não reabram.
+    const t = setTimeout(() => setPendingOpenFieldId(null), 0);
+    return () => clearTimeout(t);
+  }, [pendingOpenFieldId]);
 
   // Quando entra no modo advanced, hidrata textarea com filters atuais
   useEffect(() => {
@@ -356,15 +414,23 @@ export function FilterPopover({
   const addRow = () => {
     const firstCol = columns[0];
     if (!firstCol) return;
-    onFiltersChange([
-      ...filters,
-      {
-        id: generateId(),
-        columnKey: firstCol.key,
-        op: operators[0]?.id ?? "eq",
-        value: "",
-      },
-    ]);
+    // Usa operators do column-type da PRIMEIRA coluna pra escolher um op default
+    // válido. Sem isso, o op default era sempre `operators[0]` (global), que
+    // pode não bater com os operators do column-type da firstCol — resultando
+    // em Select de operador vazio até user trocar/escolher manualmente.
+    const colOperators =
+      getOperatorsForColumn?.(firstCol) ?? operators;
+    const newRow: FilterPopoverEntry = {
+      id: generateId(),
+      columnKey: firstCol.key,
+      op: colOperators[0]?.id ?? "eq",
+      value: "",
+    };
+    // Insere no TOPO da lista (evita scroll quando há muitas condições e dá
+    // visibilidade imediata pra escolher o campo). O Select Campo abre
+    // automaticamente via pendingOpenFieldId → autoOpenField no FilterRowEditor.
+    onFiltersChange([newRow, ...filters]);
+    setPendingOpenFieldId(newRow.id);
   };
 
   const clearAll = () => onFiltersChange([]);
@@ -528,19 +594,26 @@ export function FilterPopover({
                 )}
               >
                 <div className="flex flex-col gap-gp-2xl sm:gap-gp-md p-pad-xl">
-                  {filters.map((f, i) => (
-                    <FilterRowEditor
-                      key={f.id}
-                      filter={f}
-                      index={i}
-                      columns={columns}
-                      operators={operators}
-                      conjLabels={conjLabels}
-                      onChange={(next) => updateRow(f.id, next)}
-                      onRemove={() => removeRow(f.id)}
-                      renderValueInput={renderValueInput}
-                    />
-                  ))}
+                  {filters.map((f, i) => {
+                    const col = columns.find((c) => c.key === f.columnKey);
+                    const rowOperators =
+                      (col && getOperatorsForColumn?.(col)) ?? operators;
+                    return (
+                      <FilterRowEditor
+                        key={f.id}
+                        filter={f}
+                        index={i}
+                        columns={columns}
+                        operators={rowOperators}
+                        conjLabels={conjLabels}
+                        onChange={(next) => updateRow(f.id, next)}
+                        onRemove={() => removeRow(f.id)}
+                        renderValueInput={renderValueInput}
+                        autoOpenField={pendingOpenFieldId === f.id}
+                        getOperatorsForColumn={getOperatorsForColumn}
+                      />
+                    );
+                  })}
                 </div>
               </div>
               {/* Add button — fora do scroll, full-width, dashed */}

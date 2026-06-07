@@ -113,8 +113,13 @@ export const UserColumnType: ColumnTypeDefinition = {
     if (operator === "equals") return cell === String(filterValue ?? "");
     if (operator === "neq") return cell !== String(filterValue ?? "");
     if (operator === "isAnyOf") {
-      if (!Array.isArray(filterValue)) return null;
-      return filterValue.map(String).includes(cell);
+      // Aceita escalar (do preset) ou array — normaliza pra array.
+      const arr = Array.isArray(filterValue)
+        ? filterValue.map(String)
+        : filterValue == null
+          ? []
+          : [String(filterValue)];
+      return arr.includes(cell);
     }
     return null;
   },

@@ -35,6 +35,36 @@ const NOOP_FETCH = async (_params: GridFetchParams): Promise<GridFetchResult<nev
 
 const DEFAULT_GET_ROW_ID = (row: any): GridRowId => row.id;
 
+/**
+ * Normaliza filterModel ao hidratar de presetView/savedView — promove operator
+ * escalar (`equals`/`neq`) pra multi (`isAnyOf`/`isNoneOf`) quando a column
+ * declarada tem `filterType: "multiSelect"`. Sem isso, presets declarados via
+ * `presetView({ filters: [{ field, value }] })` ficam com operator default
+ * "equals" e quebram o widget MultiSelectFieldDropdown (que sempre toggla com
+ * array, gerando inconsistência entre operator e shape do value).
+ */
+function normalizeFilterModelForColumns<T>(
+  filterModel: import("../data-table.types").FilterModel,
+  columns: readonly import("../data-table.types").DataTableColumnDef<T>[],
+): import("../data-table.types").FilterModel {
+  const colByField = new Map(columns.map((c) => [String(c.field), c]));
+  let touched = false;
+  const items = filterModel.items.map((item) => {
+    const col = colByField.get(item.field);
+    if (col?.filterType !== "multiSelect") return item;
+    if (item.operator === "equals") {
+      touched = true;
+      return { ...item, operator: "isAnyOf" as const };
+    }
+    if (item.operator === "neq") {
+      touched = true;
+      return { ...item, operator: "isNoneOf" as const };
+    }
+    return item;
+  });
+  return touched ? { ...filterModel, items } : filterModel;
+}
+
 export function useDataTableController<T>(
   props: DataTableProps<T>,
   ref: Ref<DataTableRef>,
@@ -91,7 +121,14 @@ export function useDataTableController<T>(
     onFilterModelChange: props.onFilterModelChange,
     // Hidrata filtros do workspace Default (v4+). Quando uma view custom estava
     // ativa no último mount, o effect de restore (linha ~410) aplica a view depois.
-    initialFilterModel: persistedInitial?.filterModel,
+    //
+    // Normaliza ANTES de hidratar — filterModels persistidos antes do fix #10
+    // (preset hydration) podem ter operator="equals" pra colunas multiSelect.
+    // Sem normalizar aqui, o operator dropdown do popover ficava vazio (porque
+    // "equals" não está em MultiSelectColumnType.operators).
+    initialFilterModel: persistedInitial?.filterModel
+      ? normalizeFilterModelForColumns(persistedInitial.filterModel, props.columns)
+      : undefined,
   });
 
   const search = useDataTableSearch({
@@ -390,7 +427,12 @@ export function useDataTableController<T>(
     (id: string, state: import("../services/saved-views.types").DataTableSavedViewState) => {
       density.setDensity(state.density);
       sort.setSortModels(state.sortModel);
-      filters.setFilterModel(state.filterModel);
+      // Normaliza filterModel ANTES de aplicar — promove operator escalar pra
+      // multi quando coluna é multiSelect (ver helper acima). Fix raiz pro
+      // problema do preset com `{field, value}` sem operator.
+      filters.setFilterModel(
+        normalizeFilterModelForColumns(state.filterModel, props.columns),
+      );
       cols.applyColumnState({
         columnWidths: state.columnWidths,
         pinnedColumns: state.pinnedColumns,

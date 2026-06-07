@@ -46,6 +46,49 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.6.0",
+    date: "2026-06-07",
+    tag: "preview",
+    title: "DataTable — prop showEmptyFilterChips (chips de filtro vazios pré-ativos) + harden de filtros + 5 novos operators",
+    summary:
+      "Release maior em funcionalidade e correção de filtros. Highlight: nova prop opt-in `showEmptyFilterChips?: string[]` lista fields que aparecem como chips placeholder na toolbar mesmo sem valor (use case: dashboards com filtros pré-abertos esperando user preencher). Combine com `filterModel` controlado pra ter chips placeholder visíveis desde o load. Nova página de exemplo `ClientsPreFilteredPreview` demonstra o pattern. Plus: harden completo do sistema de filtros (auto-promote operator escalar→multi, normalização defensiva de operator legado, popover Filtros agora respeita operators column-aware, 5 novos operators expressivos no query builder).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Prop `showEmptyFilterChips?: string[]` em `DataTableProps` — array de field names que renderizam como chips placeholder na toolbar (visíveis desde o load, prontos pra preencher). Cada chip mostra APENAS o nome da coluna; click ativa popover com widget correto pra cada `filterType` (multiSelect/text/date/number). Filterstype-agnostic — `inferOperatorFromFilterType` resolve o operator correto a partir do `ColumnTypeRegistry`. Placeholders vivem em state local do componente (não poluem `filterModel`).",
+          "Nova página de exemplo `ClientsPreFilteredPreview` (`src/preview/pages/ClientsPreFilteredPreview.tsx`) demonstrando o pattern com 6 chips placeholder cobrindo filterTypes diversos (multiSelect: Status/Categoria/Atribuído · text: Email · date: Criado em · number: Valor).",
+          "5 novos operators de query builder no `FilterOperator` type: `notContains`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty`. `TextColumnType` agora expõe 8 operators no popover Filtros (era 3). `isEmpty`/`isNotEmpty` adicionados também em `SelectColumnType` e `MultiSelectColumnType` — operator se basta, sem precisar de input.",
+          "Nova prop `getOperatorsForColumn?: (column) => FilterPopoverOperator[]` em `FilterPopover` — consumer decide quais operators aparecem no dropdown baseado na coluna. DataTable passa automaticamente consultando o `ColumnTypeRegistry`, restringindo o dropdown ao subset relevante por `filterType` (ex: multiSelect mostra só `isAnyOf`/`isNoneOf`/`isEmpty`/`isNotEmpty`, não os 10 globais).",
+          "Helper `normalizeFilterModelForColumns(filterModel, columns)` em `useDataTableController` — normaliza operator escalar (equals/neq) pra multi (isAnyOf/isNoneOf) quando `filterType=multiSelect`. Aplicado em 2 pontos: hidratação inicial via `persistedInitial.filterModel` (resolve workspaces antigos persistidos no localStorage) + `applyViewState` quando user troca de view/preset.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Filtros aplicados via preset/savedView com `operator: 'equals'` em coluna `filterType='multiSelect'` agora renderizam corretamente no popover Filtros (Select de operador mostrava VAZIO porque 'equals' não está em `MultiSelectColumnType.operators`). Fix em 3 camadas: (1) `normalizeFilterModelForColumns` na hidratação do controller; (2) `FilterRowEditor` faz fallback defensivo via `effectiveOp` + auto-corrige via `useEffect → onChange` quando filter.op não está nos operators atuais; (3) `getOperatorsForColumn` callback wire no DataTable.",
+          "Multi-select dropdown não fecha mais a cada checkbox click no popover Filtros — `filterPopoverEntries` agora usa `id` estável `${field}|${operator}` (era `items[0].id` que mudava a cada spread no `handleFiltersChange`, causando unmount/remount do FilterRowEditor → o Popover interno do MultiSelectFieldDropdown perdia state).",
+          "Chips de filtro mantêm posição original ao editar valor — `updateGroupValue` substitui in-place preservando ordem (era empurrado pro fim do array, fazendo o chip pular de posição quando user toggla valores). `filterPopoverEntries` agrupa multi-items na 1ª ocorrência (não no fim).",
+          "Auto-promote operator escalar → multi quando widget multi passa array no `handleFiltersChange` E `updateGroupValue`. Resolve cenário: preset declara `operator: 'equals'` (default do builder) + column é multiSelect → ao togglar 2º valor, operator é promovido pra `isAnyOf` automaticamente.",
+          "Chip toolbar mostra value friendly (`Status é Ativo`) em vez de raw (`Status é active`) — adapter `appliedFilters` agora passa `col.filterOptions` pro `renderChipValue` resolver value→label.",
+          "Múltiplos chips do mesmo field renderizam corretamente quando operators diferentes (ex: `Email contém X` + `Email = Y`) — `enhancedAppliedFilters` usa `Map<field, chip[]>` (era Map<field, 1chip> que descartava extras).",
+          "Placeholder de `showEmptyFilterChips` não some quando user adiciona condição vazia do mesmo field via popover Filtros — `fieldsWithFilter` ignora items com value vazio. Placeholder só some quando há filtro real com valor preenchido.",
+          "`MultiSelectColumnType.renderFilterInput`/`renderFastFilterInput` agora aceitam value escalar (preset/savedView com `value: 'active'` em vez de `['active']`) via helper `toArray` interno. Sem isso, o widget renderizava placeholder 'Selecione...' mesmo com valor presente.",
+          "`SelectColumnType` faz `toScalar(value)` defensivo (aceita escalar OU array). `BadgeColumnType.matchesFilter` e `UserColumnType.matchesFilter` aceitam value escalar em `isAnyOf` (normalizam pra `[v]`).",
+          "`MultiSelectColumnType.operators` labels alinhados com `DEFAULT_OP_LABELS` do `ToolbarApplied` — `isAnyOf` agora é 'é' (era 'é um de'), `isNoneOf` é 'não é' (era 'não é nenhum de'). Chip e popover Filtros mostram o MESMO label.",
+          "`DEFAULT_OP_LABELS` no `ToolbarApplied` expandido com `notContains` ('não contém'), `startsWith` ('começa com'), `endsWith` ('termina com'). `eq`/`neq` agora são textuais ('é'/'não é') em vez de símbolos ('='/'≠') — consistente com isAnyOf.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "`FilterPopover.addRow` (botão 'Adicionar condição') agora insere no TOPO da lista (era no fim) — visibilidade imediata pra escolher o campo, sem scroll. Select de Campo abre automaticamente via `pendingOpenFieldId` + nova prop `autoOpenField` no `FilterRowEditor`. Default operator da nova condição é resolvido via `getOperatorsForColumn(firstCol)` (era sempre `operators[0]` global).",
+          "Documentação atualizada em `DataTable/USAGE.md` (nova seção '⚠️ filterModel controlado — operator correto por filterType' com tabela completa e exemplo errado vs correto) e `TableToolbar/USAGE.md` (nova seção '3b. FilterPopover com operators column-aware').",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.5.1",
     date: "2026-06-05",
     tag: "patch",

@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@snksergio/design-system": "^0.5.1",
+    "@snksergio/design-system": "^0.6.0",
     "geist": "^1.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"

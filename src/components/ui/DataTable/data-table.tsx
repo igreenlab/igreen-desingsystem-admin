@@ -371,6 +371,169 @@ function DataTableInternal<T>(
     pendingOpenChipKey,
   });
 
+  /* ── Empty filter chips placeholders (prop `showEmptyFilterChips`) ───
+   *  Lista de fields que aparecem como chips placeholder na toolbar mesmo
+   *  sem filtro com valor. Chips são CALCULADOS — não vivem em filterModel.
+   *  Quando user clica num placeholder: cria item vazio no filterModel +
+   *  abre popover via pendingOpenChipKey (mecanismo já existente).
+   *  Quando user remove (X): adiciona ao set local `dismissedPlaceholders`.
+   *  Cleanup automático em outros lugares fica intacto. */
+  const [dismissedPlaceholders, setDismissedPlaceholders] = useState<Set<string>>(
+    () => new Set(),
+  );
+
+  /** Infere operator default a partir do filterType da coluna. */
+  const inferOperatorFromFilterType = (
+    filterType: string | undefined,
+  ): FilterItem["operator"] => {
+    switch (filterType) {
+      case "multiSelect":
+        return "isAnyOf";
+      case "select":
+        return "equals";
+      case "date":
+        return "between";
+      case "number":
+        return "equals";
+      case "boolean":
+        return "equals";
+      default:
+        return "contains";
+    }
+  };
+
+  /** Fields que JÁ TÊM item COM VALOR no filterModel — placeholders desses fields
+   *  são suprimidos. Items vazios (sem valor preenchido) NÃO contam — assim quando
+   *  user adiciona condição via popover Filtros e seleciona o field, o chip
+   *  placeholder permanece visível até receber valor. Sem essa checagem o
+   *  placeholder sumia da toolbar no momento que o user escolhia o field e só
+   *  voltava se ele tirasse o item via cleanup automático. */
+  const fieldsWithFilter = useMemo(
+    () =>
+      new Set(
+        filters.filterModel.items
+          .filter((i) => !isFilterValueEmpty(i.value))
+          .map((i) => i.field),
+      ),
+    [filters.filterModel, isFilterValueEmpty],
+  );
+
+  /** Lista efetiva de placeholders a renderizar. */
+  const effectivePlaceholderFields = useMemo(() => {
+    if (!props.showEmptyFilterChips?.length) return [] as string[];
+    return props.showEmptyFilterChips.filter(
+      (field) => !fieldsWithFilter.has(field) && !dismissedPlaceholders.has(field),
+    );
+  }, [props.showEmptyFilterChips, fieldsWithFilter, dismissedPlaceholders]);
+
+  /** Placeholders renderizados como AppliedFilter "virtuais" — id prefixado pra detectar. */
+  const PLACEHOLDER_ID_PREFIX = "__placeholder__";
+  const placeholderFilters = useMemo<typeof appliedFilters>(() => {
+    return effectivePlaceholderFields.map((field) => ({
+      id: `${PLACEHOLDER_ID_PREFIX}${field}`,
+      columnLabel: colLabelMap[field] ?? field,
+      op: "",
+      value: [],
+      isEmpty: true,
+    }));
+  }, [effectivePlaceholderFields, colLabelMap]);
+
+  /** Lista final de chips na toolbar — **ordenada pela ordem dos fields em
+   *  showEmptyFilterChips**. Quando user preenche um placeholder, ele vira
+   *  filtro real mas mantém a posição original (não "pula" pro fim).
+   *  Filtros reais de fields NÃO listados em showEmptyFilterChips aparecem
+   *  após os "nativos" (na ordem do filterModel). */
+  const enhancedAppliedFilters = useMemo(() => {
+    const showFields = props.showEmptyFilterChips ?? [];
+    if (showFields.length === 0) return appliedFilters;
+
+    // Map id (group.key) -> field via appliedGroups
+    const fieldByGroupKey = new Map<string, string>();
+    for (const g of appliedGroups) {
+      fieldByGroupKey.set(g.key, g.field);
+    }
+
+    // Map field -> chip (placeholder OU real)
+    const placeholderByField = new Map(
+      placeholderFilters.map((f) => [
+        f.id.slice(PLACEHOLDER_ID_PREFIX.length),
+        f,
+      ]),
+    );
+    // ⚠️ Um field pode ter MÚLTIPLOS chips reais (ex: 2 filtros de Email com
+    //    operators diferentes — `contém` e `=`). Por isso armazenamos array,
+    //    não 1 chip único. Renderizamos todos preservando a ordem do filterModel.
+    const realChipsByField = new Map<string, typeof appliedFilters>();
+    for (const f of appliedFilters) {
+      const field = fieldByGroupKey.get(String(f.id));
+      if (!field) continue;
+      if (!realChipsByField.has(field)) realChipsByField.set(field, []);
+      realChipsByField.get(field)!.push(f);
+    }
+
+    // Chips "nativos" — ordem do array showEmptyFilterChips.
+    // Se há filtros reais → renderiza TODOS (1+) na posição do field.
+    // Se não há filtros reais e o placeholder não foi descartado → renderiza placeholder.
+    const orderedNativeChips: typeof appliedFilters = [];
+    for (const field of showFields) {
+      const realChips = realChipsByField.get(field);
+      if (realChips && realChips.length > 0) {
+        orderedNativeChips.push(...realChips);
+      } else {
+        const placeholder = placeholderByField.get(field);
+        if (placeholder) orderedNativeChips.push(placeholder);
+      }
+    }
+
+    // Filtros reais de fields NÃO listados em showEmptyFilterChips (aparecem depois)
+    const showFieldsSet = new Set(showFields);
+    const otherChips = appliedFilters.filter((f) => {
+      const field = fieldByGroupKey.get(String(f.id));
+      return !field || !showFieldsSet.has(field);
+    });
+
+    return [...orderedNativeChips, ...otherChips];
+  }, [placeholderFilters, appliedFilters, appliedGroups, props.showEmptyFilterChips]);
+
+  /** Handler de remove que intercepta placeholders. */
+  const handleRemoveFilter = useCallback(
+    (id: string) => {
+      if (id.startsWith(PLACEHOLDER_ID_PREFIX)) {
+        const field = id.slice(PLACEHOLDER_ID_PREFIX.length);
+        setDismissedPlaceholders((prev) => {
+          const next = new Set(prev);
+          next.add(field);
+          return next;
+        });
+        return;
+      }
+      removeGroup(id);
+    },
+    [removeGroup],
+  );
+
+  /** Click num placeholder: cria item vazio + abre popover via pendingOpenChipKey. */
+  const handleActivatePlaceholder = useCallback(
+    (field: string) => {
+      const col = colsByField.get(field);
+      if (!col) return;
+      const operator = inferOperatorFromFilterType(col.filterType);
+      const newId =
+        typeof crypto !== "undefined" && "randomUUID" in crypto
+          ? crypto.randomUUID()
+          : `f_${field}_${Date.now()}`;
+      filters.setFilterModel({
+        ...filters.filterModel,
+        items: [
+          ...filters.filterModel.items,
+          { id: newId, field, operator, value: undefined },
+        ],
+      });
+      setPendingOpenChipKey(`${field}|${operator}`);
+    },
+    [colsByField, filters],
+  );
+
   /* ── Adapters: ColumnDef → SortPopover props (extraído em hook) ── */
 
   const {
@@ -1387,6 +1550,20 @@ function DataTableInternal<T>(
                         options: column.options,
                       });
                     }}
+                    // Operators column-aware — restringe o dropdown aos operators
+                    // declarados pelo column-type (ex: multiSelect tem só
+                    // isAnyOf/isNoneOf com labels "é"/"não é"). Sem isso, o popover
+                    // exibia DEFAULT_FILTER_OPERATORS pra TODAS as colunas, criando
+                    // inconsistência (chip mostrava "é" mas dropdown "é um de" pra
+                    // multiSelect e não deixava trocar pra "é").
+                    getOperatorsForColumn={(column) => {
+                      const typeId = column.filterType ?? column.type ?? "text";
+                      const def = columnTypeRegistry.get(typeId);
+                      return def.operators?.map((o) => ({
+                        id: o.id,
+                        label: o.label,
+                      }));
+                    }}
                     trigger={
                       <ToolbarToolButton
                         icon={<SlidersHorizontal />}
@@ -1793,12 +1970,33 @@ function DataTableInternal<T>(
               `pendingOpenId` deixa ToolbarApplied controlar visual de "abrir auto" sem
               o DataTable precisar saber qual chip está pendente (state mora no toolbar). */}
           <ToolbarApplied
-            filters={appliedFilters}
-            onRemove={removeGroup}
+            filters={enhancedAppliedFilters}
+            onRemove={handleRemoveFilter}
             onClearAll={filters.clearFilters}
             pendingOpenId={pendingOpenChipKey}
             onPendingOpenIdChange={setPendingOpenChipKey}
             renderChip={(f, defaultChip, isPendingOpen) => {
+              // Chip placeholder (showEmptyFilterChips array). Não tem group no
+              // appliedGroups — clica → ativa o filtro (cria item vazio + abre popover).
+              if (f.id.startsWith(PLACEHOLDER_ID_PREFIX)) {
+                const field = f.id.slice(PLACEHOLDER_ID_PREFIX.length);
+                return (
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => handleActivatePlaceholder(field)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        handleActivatePlaceholder(field);
+                      }
+                    }}
+                    className="contents cursor-pointer"
+                  >
+                    {defaultChip}
+                  </div>
+                );
+              }
               const group = appliedGroups.find((g) => g.key === f.id);
               if (!group) return defaultChip;
               const col = colsByField.get(group.field);

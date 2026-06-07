@@ -240,11 +240,26 @@ Service contract em `services/saved-views.types.ts` — `listViews / saveView / 
 ```tsx
 const RatingColumnType: ColumnTypeDefinition = {
   type: "rating",
-  operators: ["eq", "gt", "lt"],
+  // operators: array de { id, label } — id usa nomes canônicos do FilterOperator
+  // (equals, neq, contains, notContains, startsWith, endsWith, gt, lt, gte, lte,
+  // isAnyOf, isNoneOf, between, isEmpty, isNotEmpty). Label aparece no dropdown
+  // de operadores do popover Filtros + chip toolbar (via DEFAULT_OP_LABELS).
+  operators: [
+    { id: "equals", label: "é" },
+    { id: "gt",     label: "maior que" },
+    { id: "lt",     label: "menor que" },
+  ],
   renderCell: ({ value }) => <Stars n={Number(value) || 0} />,
   renderFilterInput: ({ value, onChange }) =>
     <NumberInput min={0} max={5} value={value} onChange={onChange} />,
-  matchFilter: (cellValue, op, filterValue) => /* runtime check */ true,
+  matchesFilter: (cellValue, filterValue, operator) => {
+    const n = Number(cellValue) || 0;
+    const f = Number(filterValue) || 0;
+    if (operator === "equals") return n === f;
+    if (operator === "gt") return n > f;
+    if (operator === "lt") return n < f;
+    return null;
+  },
 };
 
 // Registro feito uma vez na boot:
@@ -253,6 +268,51 @@ columnTypeRegistry.register(RatingColumnType);
 // Uso:
 { field: "rating", headerName: "Rating", type: "rating" as any }
 ```
+
+---
+
+## ⚠️ filterModel controlado — operator correto por filterType
+
+**Quando passar `filterModel` como prop controlada (em vez de uncontrolled), use o operator
+correto pro `filterType` da coluna.** Operator errado = popover Filtros mostra o Select de
+operador **vazio** porque o operator não está nos `operators` do column-type.
+
+| `filterType` da coluna | Operators válidos | Default sugerido |
+|---|---|---|
+| `multiSelect` | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty` | `isAnyOf` |
+| `select` | `equals`, `neq`, `isEmpty`, `isNotEmpty` | `equals` |
+| `text` (default) | `contains`, `notContains`, `equals`, `neq`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty` | `contains` |
+| `number` | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`, `between` | `equals` |
+| `date` | `between`, `equals`, `gt`, `lt` | `between` |
+| `boolean` | `equals` | `equals` |
+
+```tsx
+// ❌ ERRADO — Status é multiSelect mas operator é "equals"
+// → Popover Filtros mostra Select operador VAZIO
+const INITIAL_FILTERS: FilterModel = {
+  items: [
+    { id: "f1", field: "statusId", operator: "equals", value: "active" },
+  ],
+  logicOperator: "AND",
+};
+
+// ✅ CORRETO — operator bate com filterType=multiSelect
+const INITIAL_FILTERS: FilterModel = {
+  items: [
+    { id: "f1", field: "statusId", operator: "isAnyOf", value: "active" },
+  ],
+  logicOperator: "AND",
+};
+```
+
+**Defesa em profundidade:** `FilterRowEditor` detecta operator inválido e faz fallback pro
+primeiro operator do column-type + auto-normaliza via `onChange`. Mas é melhor declarar
+correto desde o início.
+
+**Atalho pra presets uncontrolled:** se você usar `defaultViews={[presetView({...})]}` em
+vez de filterModel controlled, o controller normaliza automaticamente via
+`normalizeFilterModelForColumns` na hidratação. Só recomendado se você não precisa de
+controle externo do filterModel.
 
 ---
 
