@@ -10,7 +10,9 @@ import {
 } from "lucide-react";
 import {
   DataTable,
+  presetView,
   type DataTableColumnDef,
+  type DataTablePresetView,
   type DataTableRef,
 } from "@/components/ui/DataTable";
 import { AppShell } from "@/components/ui/AppShell";
@@ -106,13 +108,25 @@ function buildColumns(
         </span>
       ),
     },
-    // Conta bancária — bank icon (initials + cor) + agência/conta
+    // Conta bancária — bank icon (initials + cor) + agência/conta.
+    // valueGetter retorna `bank` (id do banco) — viabiliza filtro/preset
+    // por banco sem precisar de coluna espelho separada. O `render` continua
+    // mostrando o avatar + nome + agência/conta como antes.
     {
       field: "bankAccount",
       headerName: "Conta bancária",
       type: "text",
       width: 240,
-      enableColumnFilter: false,
+      enableColumnFilter: true,
+      filterType: "select",
+      filterOptions: [
+        { value: "bb",        label: "Banco do Brasil" },
+        { value: "itau",      label: "Itaú" },
+        { value: "nubank",    label: "Nubank" },
+        { value: "santander", label: "Santander" },
+        { value: "bradesco",  label: "Bradesco" },
+      ],
+      valueGetter: (row) => row.bankAccount.bank,
       render: ({ row }) => {
         const meta = BANKS[row.bankAccount.bank];
         return (
@@ -177,6 +191,34 @@ function buildColumns(
     },
   ];
 }
+
+/* ── Preset Views (filtros pré-aplicados) ───────────────────────── */
+
+/**
+ * Views pré-configuradas que aparecem como tabs após "Default".
+ *
+ * 1. **Digitais** — só Nubank (banco online/digital nativo)
+ * 2. **Alto valor** — saldo ≥ R$ 5.000 (alinha com o KPI High-value do header)
+ *
+ * Filtro por banco usa `field: "bankAccount"` — a coluna define
+ * `valueGetter: (row) => row.bankAccount.bank` então o equals match
+ * direto contra o id do banco ("nubank", "bb" etc).
+ */
+const DEFAULT_VIEWS: DataTablePresetView[] = [
+  presetView({
+    id: "preset:digitais",
+    name: "Digitais",
+    filters: [{ field: "bankAccount", value: "nubank" }],
+  }),
+  presetView({
+    id: "preset:alto-valor",
+    name: "Alto valor (≥ R$ 5k)",
+    filters: [
+      { field: "availableBalance", operator: "gte", value: 5000 },
+    ],
+    sort: [{ field: "availableBalance", direction: "desc" }],
+  }),
+];
 
 /* ── KPI Card (alinhado com pattern do DashboardShowcase) ───────── */
 
@@ -365,10 +407,11 @@ export default function ClientesFinanceiroShowcase() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
-        // Bumpado pra v2 — reset reorder/visibility/widths persistidos da v1
-        // (havia columns reorder antigo de testes que empurrava actions pro
-        // meio em vez do pinned right).
-        persistId="showcase-finance-crud-v2"
+        // Bumpado pra v3 — reset reorder/visibility/widths persistidos
+        // das versões anteriores. v3 inclui filterOptions + valueGetter em
+        // bankAccount pra suportar presetViews por banco.
+        persistId="showcase-finance-crud-v3"
+        defaultViews={DEFAULT_VIEWS}
         // SimpleFilter ON — UX recomendada pro consumer (split button + drawer)
         simpleFilter={{ enabled: true }}
         toolbar={{
