@@ -35,13 +35,35 @@ import { Avatar } from "@/components/ui/Avatar";
 | `info`     | `bg-bg-info`       | `fg-on-info`       |
 | `muted`    | `bg-bg-muted`      | `fg-muted`         |
 
-## colorHex override
+## colorHex override + auto contrast (v0.7.1+)
 
-When `colorHex` is provided (string starting with `#`), the background is set via
-inline style and text becomes white. The `color` prop is ignored.
+When `colorHex` is provided (string starting with `#`), the background is set
+via inline style and **a cor de texto é escolhida automaticamente** pra ter
+o maior contraste WCAG entre `white` ou `black`. O prop `color` é ignorado.
+
+| Hex bg               | Texto auto-pickado | Motivo (WCAG ratio)                    |
+|----------------------|--------------------|----------------------------------------|
+| `#FAE128` (BB)       | `black`            | white 1.29 vs black 16.3 → preto vence |
+| `#820AD1` (Nubank)   | `white`            | white 6.2 vs black 3.4 → branco vence  |
+| `#EC7000` (Itaú)     | `black`            | white 2.7 vs black 7.8 → preto vence   |
+| `#CC092F` (Bradesco) | `white`            | white 6.5 vs black 3.2 → branco vence  |
+| `#FFFFFF`            | `black`            | óbvio                                   |
+| `#000000`            | `white`            | óbvio                                   |
+
+A escolha vem de `getContrastTextColor()` em `@/utils/color-contrast.ts`
+(WCAG 2.x relative luminance + contrast ratio).
 
 ```tsx
-<Avatar colorHex="#f59e0b">MS</Avatar>
+<Avatar colorHex="#FAE128">BB</Avatar>      // texto preto auto
+<Avatar colorHex="#820AD1">NU</Avatar>      // texto branco auto
+```
+
+**Override manual:** se precisar forçar uma cor específica (caso raro de
+brand guideline), passe via `className`:
+
+```tsx
+<Avatar colorHex="#FAE128" className="text-white">BB</Avatar>
+// (não recomendado — quebra WCAG AA)
 ```
 
 ## Accessibility

@@ -114,6 +114,22 @@ rounded-lg → rounded-radius-lg
 shadow-md  → shadow-sh-md
 ```
 
+### Form layout — usar `gap-form-gap` (L-024, v0.7.1+)
+
+```typescript
+// ❌ ERRADO — semântico genérico em form
+<form className="flex flex-col gap-gp-lg">    // 12px — apertado
+<form className="flex flex-col gap-gp-xl">    // 16px — ainda curto
+<div className="grid grid-cols-2 gap-gp-md">  // grids dentro de form
+
+// ✅ CORRETO — token DS específico
+<form className="flex flex-col gap-form-gap">          // 20px DS
+<div className="grid grid-cols-2 gap-form-gap">        // mesmo no grid
+
+// Aplica-se a: drawers (NovoClienteDrawer), modais (SacarDialog),
+// pages de formulário, sections com 2+ FormField units empilhados.
+```
+
 ### Heights fixos proibidos
 
 ```typescript
@@ -266,6 +282,12 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-021** Compound component wrapper que serve de **anchor pra Radix Popover/Tooltip/etc** PRECISA usar `forwardRef`. Sem isso, `asChild` não consegue obter o DOM node ref e o popover ancora em `top=-506` (fora do viewport). Caso real: `ButtonGroupRoot` sem forwardRef → popover advanced do DataTable simpleFilter quebrou posicionamento. Fix: refatorar pra `forwardRef<HTMLDivElement, Props>`.
 - **L-022** Split button com Radix Popover: usar `<PopoverAnchor asChild>` (NÃO `<PopoverTrigger asChild>`) quando o wrapper tem 2+ onClick handlers separados (ex: ButtonGroup Primary + Chevron). PopoverTrigger asChild faz merge do onClick com o wrapper → qualquer click bubble dispara o toggle interno do Radix, conflitando com handlers de filho específicos (race condition mesmo com `e.stopPropagation()` + `e.preventDefault()`). Anchor só posiciona; consumer controla `open`/`onOpenChange` externamente via state. Pattern aplicado em `<FilterPopover>` v0.7.0 — nova prop `anchor?: ReactNode` substitui `trigger` quando consumer quer split button externo.
 - **L-023** **Forms PRECISAM usar `<FormField>` (ou `<FormFieldInput/Select/Textarea>`) do DS**. Nunca `<label>` raw com classes manuais — divergência visual silenciosa do padrão (font-weight diferente, cor errada no dark mode). FormField encapsula `formFieldLabel()` (`text-body-sm font-semibold tracking-[0.01em] text-fg-default dark:text-fg-muted`) + spacing + id htmlFor + helper text + error/warning/success states. Pra widget custom (vindo de registry, slot, etc), use `<FormField label="..."><{() => myWidget}></FormField>` (children é render-prop). Caso real: `<ToolbarSimpleFilterDrawer>` v0.7.0 inicial usava `<label class="text-body-sm font-medium text-fg-default">` raw — peso 500 (DS é 600) e sem dark-mode-aware → labels ficaram MAIS FORTES no dark que o padrão NovoClienteDrawer (FormField). Fix: trocar pra `<FormField>` wrap. **Regra pra IA**: ao implementar qualquer form/drawer com label+input, IMPORTAR `FormField` antes de escrever `<label>` na unha.
+
+### Form spacing + Card inputs (lições 2026-06-09, v0.7.1)
+- **L-024** **Forms usam `gap-form-gap` (20px) entre fields — token DS dedicado**. Antes (v0.7.0-): cada drawer/modal escolhia `gap-gp-lg` (12px) ou `gap-gp-xl` (16px) ad-hoc → inconsistência visual e correção repetida em PRs. Solução v0.7.1: token `formGap = scale[5]` em `tokens/.../components/spacing.ts` → CSS var `--spacing-form-gap` → classe `gap-form-gap`. **Regra pra IA**: ao implementar qualquer formulário (vertical ou grid 2-col interno), usar `className="flex flex-col gap-form-gap"` ou `"grid grid-cols-2 gap-form-gap"`. Não usar `gap-gp-*` semânticos pra spacing entre FormField units — eles permanecem pra cards, icon-to-text, section spacing. Padrão validado em SacarDialog "Outra conta" + NovoClienteDrawer.
+- **L-025** **Componente "card variant" de input precisa de `<label htmlFor>` nativo wrap**, não `<button onClick>`. Caso: `CardCheckbox` v0.7.1. Usar `<button>` quebra acessibilidade (screen reader anuncia "button" em vez de "checkbox"), form integration (sem name/value pra submit nativo) e click target (stopPropagation no checkbox interno faz clique no card mas não no checkbox). Pattern correto: `<label htmlFor={id}><Checkbox id={id} ... /><div>...</div></label>` — label nativo propaga clique pro checkbox real, semântica preservada. Aplicar ao criar futuros `CardRadio`, `CardSwitch`, etc.
+- **L-026** **TableHeadCell right-aligned reserva `pr-[60px]` SOMENTE quando sort ativo**, não pra hover-only icons. Bug pré-fix: o `pr-[60px]` era aplicado sempre que `sortable || headMenu` → reservava 60px de "vazio" no header mesmo sem sort/hover. Headers `align="right"` (ex: coluna `Saldo disponível`) ficavam com texto artificialmente deslocado da borda. **Solução:** condicionar a `isSorted` apenas. Hover-only icons (sort hint + headMenu) usam `headRightStack` absolute com `bg-bg-table-head` → mascaram texto durante hover (UX padrão). Regra pra IA: ao revisar layout de table header com align right, NÃO reservar padding fixo pra ícones hover-only.
+- **L-027** **Avatar (e qualquer componente com bg arbitrário) escolhe cor de texto via WCAG contrast — não aplica `text-white` cego.** Utility: `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` (luminância WCAG 2.x + contrast ratio). Avatar v0.7.1 refatorado: branch `colorHex` calcula `white` vs `black` automaticamente. Caso real: BB #FAE128 + branco = ratio 1.29:1 (fail AA) → agora preto 16.3:1 (AAA). **Regra pra IA**: ao criar novo componente que aceita bg dinâmico/externo (lookup de marca, persona, status custom), usar `getContrastTextColor()` em vez de hard-code. NÃO aplicar a pares semânticos DS pré-validados (`bg-bg-brand-subtle` + `text-fg-brand` etc — esses já foram casados em `color-light/dark.ts`).
 
 ---
 

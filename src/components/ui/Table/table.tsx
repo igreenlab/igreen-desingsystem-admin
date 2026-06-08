@@ -361,11 +361,14 @@ export const TableHeadCell = forwardRef<HTMLDivElement, TableHeadCellProps>(func
             : align === "right"
               ? cn(
                   "truncate text-right",
-                  // Reserva espaço pro headRightStack (absolute right-pad-md ~8px +
-                  // sort badge + sort indicator + headMenu button + gaps) quando há
-                  // algo a renderizar. Sem isso, o texto right-aligned é coberto pelo
-                  // stack quando aparece no hover (bg-bg-table-head do stack mascara).
-                  (sortable || headMenu) && "pr-[60px]",
+                  // Reserva espaço pro headRightStack APENAS quando sort está
+                  // ATIVO (sort badge + indicator visíveis permanentemente).
+                  // Para hover-only icons (sortable hint sem sort + headMenu),
+                  // NÃO reserva espaço — headRightStack tem `bg-bg-table-head`
+                  // que mascara o texto durante hover. Texto right-aligned
+                  // encosta corretamente na borda quando sem hover (antes
+                  // ficava com ~60px de "vazio" reservado pros ícones invisíveis).
+                  isSorted && "pr-[60px]",
                 )
               : "truncate text-left",
         )}
