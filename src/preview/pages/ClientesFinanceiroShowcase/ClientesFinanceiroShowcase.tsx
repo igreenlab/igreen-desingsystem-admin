@@ -2,6 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { useTheme, type Theme } from "@/hooks/useTheme";
 import {
   Banknote,
+  CheckCircle2,
   MoreHorizontal,
   Pencil,
   Plus,
@@ -15,6 +16,7 @@ import {
   type DataTablePresetView,
   type DataTableRef,
 } from "@/components/ui/DataTable";
+import { AlertModal } from "@/components/ui/AlertModal";
 import { AppShell } from "@/components/ui/AppShell";
 import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button/button";
@@ -37,13 +39,19 @@ import {
   formatBRL,
 } from "./clientes-financeiro-mocks";
 import { SacarDialog } from "./components/SacarDialog";
-import type { FinanceClientRow } from "./clientes-financeiro.types";
+import { FinanceDetailDrawer } from "./components/FinanceDetailDrawer";
+import {
+  FINANCE_STATUS_META,
+  type FinanceClientRow,
+  type FinanceStatus,
+} from "./clientes-financeiro.types";
 
 /* ── Columns financeiras ────────────────────────────────────────── */
 
 type ColumnHandlers = {
   onEdit: (row: FinanceClientRow) => void;
   onSacar: (row: FinanceClientRow) => void;
+  onOpenDetail: (row: FinanceClientRow) => void;
 };
 
 function buildColumns(
@@ -57,11 +65,21 @@ function buildColumns(
       type: "text",
       sortable: true,
       width: 240,
+      // Nome clicável — abre FinanceDetailDrawer com dados do licenciado
+      // (mesmo pattern do DetailDrawer da ClientesShowcase mas variante
+      // financeira). text-fg-brand + underline-on-hover sinaliza link.
       render: ({ row }) => (
         <div className="flex flex-col gap-gp-3xs min-w-0">
-          <span className="text-body-sm font-medium text-fg-default truncate">
+          <button
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              handlers.onOpenDetail(row);
+            }}
+            className="text-body-sm font-medium text-fg-brand truncate text-left hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring-brand rounded-radius-xs cursor-pointer"
+          >
             {row.name}
-          </span>
+          </button>
           <span className="text-caption-md text-fg-muted truncate">
             {row.email}
           </span>
@@ -154,6 +172,28 @@ function buildColumns(
         );
       },
     },
+    // Status financeiro — Chip semântico (warning/success/neutral)
+    {
+      field: "financeStatus",
+      headerName: "Status",
+      type: "select",
+      width: 160,
+      sortable: true,
+      enableColumnFilter: true,
+      filterType: "select",
+      filterOptions: (Object.keys(FINANCE_STATUS_META) as FinanceStatus[]).map(
+        (id) => ({ value: id, label: FINANCE_STATUS_META[id].label }),
+      ),
+      render: ({ value }) => {
+        const meta = FINANCE_STATUS_META[value as FinanceStatus];
+        if (!meta) return null;
+        return (
+          <Chip color={meta.color} variant="soft" size="sm" shape="rounded">
+            {meta.label}
+          </Chip>
+        );
+      },
+    },
     {
       field: "createdAt",
       headerName: "Cliente desde",
@@ -198,7 +238,8 @@ function buildColumns(
  * Views pré-configuradas que aparecem como tabs após "Default".
  *
  * 1. **Digitais** — só Nubank (banco online/digital nativo)
- * 2. **Alto valor** — saldo ≥ R$ 5.000 (alinha com o KPI High-value do header)
+ * 2. **Saques pendentes** — `financeStatus = "pending_withdrawal"`
+ *    (clientes que estão aguardando processamento de saque)
  *
  * Filtro por banco usa `field: "bankAccount"` — a coluna define
  * `valueGetter: (row) => row.bankAccount.bank` então o equals match
@@ -211,11 +252,9 @@ const DEFAULT_VIEWS: DataTablePresetView[] = [
     filters: [{ field: "bankAccount", value: "nubank" }],
   }),
   presetView({
-    id: "preset:alto-valor",
-    name: "Alto valor (≥ R$ 5k)",
-    filters: [
-      { field: "availableBalance", operator: "gte", value: 5000 },
-    ],
+    id: "preset:saques-pendentes",
+    name: "Saques pendentes",
+    filters: [{ field: "financeStatus", value: "pending_withdrawal" }],
     sort: [{ field: "availableBalance", direction: "desc" }],
   }),
 ];
@@ -279,6 +318,14 @@ function KpiCard({
    Page — Clientes Financeiro (showcase com tema financeiro)
    ═══════════════════════════════════════════════════════════════════ */
 
+/** Dados do saque concluído pra exibir no AlertModal de sucesso. */
+type SacarSuccess = {
+  clientId: string;
+  clientName: string;
+  amount: number;
+  bankName: string;
+};
+
 export default function ClientesFinanceiroShowcase() {
   const { theme, setTheme } = useTheme();
   const [rows] = useState<FinanceClientRow[]>(FINANCE_CLIENTS);
@@ -286,6 +333,10 @@ export default function ClientesFinanceiroShowcase() {
   const [novoClienteOpen, setNovoClienteOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<FinanceClientRow | null>(null);
   const [sacarClient, setSacarClient] = useState<FinanceClientRow | null>(null);
+  /** Drawer "Detalhes do licenciado" — abre ao clicar no nome na coluna. */
+  const [detailClient, setDetailClient] = useState<FinanceClientRow | null>(null);
+  /** Feedback de saque concluído via <AlertModal tone="success">. */
+  const [sacarSuccess, setSacarSuccess] = useState<SacarSuccess | null>(null);
   const tableRef = useRef<DataTableRef>(null);
 
   const handleEdit = useCallback((row: FinanceClientRow) => {
@@ -296,22 +347,37 @@ export default function ClientesFinanceiroShowcase() {
     setSacarClient(row);
   }, []);
 
+  const handleOpenDetail = useCallback((row: FinanceClientRow) => {
+    setDetailClient(row);
+  }, []);
+
+  /** Confirmação do saque vinda do SacarDialog — dispara AlertModal de sucesso
+   *  em vez do `window.alert` legado pra feedback consistente com o DS. */
   const handleSacarConfirm = useCallback(
-    (data: { clientId: string; amount: number; account: { bankName: string } }) => {
-      // Mocado — só feedback visual (snackbar/alert)
-      window.alert(
-        `Saque de ${formatBRL(data.amount)} confirmado!\n\n` +
-          `Cliente: ${data.clientId}\n` +
-          `Conta destino: ${data.account.bankName}\n\n` +
-          `Disponível em até 1 dia útil.`,
-      );
+    (data: {
+      clientId: string;
+      amount: number;
+      account: { bankName: string };
+    }) => {
+      const sourceRow = rows.find((r) => r.id === data.clientId) ?? null;
+      setSacarSuccess({
+        clientId: data.clientId,
+        clientName: sourceRow?.name ?? "—",
+        amount: data.amount,
+        bankName: data.account.bankName,
+      });
     },
-    [],
+    [rows],
   );
 
   const columns = useMemo(
-    () => buildColumns({ onEdit: handleEdit, onSacar: handleSacar }),
-    [handleEdit, handleSacar],
+    () =>
+      buildColumns({
+        onEdit: handleEdit,
+        onSacar: handleSacar,
+        onOpenDetail: handleOpenDetail,
+      }),
+    [handleEdit, handleSacar, handleOpenDetail],
   );
 
   return (
@@ -319,7 +385,7 @@ export default function ClientesFinanceiroShowcase() {
       contexts={APP_SHELL_CONTEXTS}
       defaultActiveContextId="inbox"
       defaultActiveItemHref="#atendimentos"
-      breadcrumb={[{ label: "Financeiro" }, { label: "Clientes" }]}
+      breadcrumb={[{ label: "Financeiro" }]}
       commandGroups={APP_SHELL_COMMANDS}
       notifications={{
         items: APP_SHELL_NOTIFICATIONS,
@@ -344,11 +410,11 @@ export default function ClientesFinanceiroShowcase() {
       onLogout={() => {}}
     >
       <PageHeader
-        title="Clientes — Financeiro"
+        title="Financeiro"
         description="Acompanhe saldos disponíveis, contas bancárias e realize saques pra clientes da carteira."
         badge={
           <Chip color="primary" variant="soft" size="sm" shape="rounded">
-            {rows.length.toLocaleString("pt-BR")} clientes
+            {rows.length.toLocaleString("pt-BR")} licenciados
           </Chip>
         }
         actions={
@@ -368,7 +434,7 @@ export default function ClientesFinanceiroShowcase() {
               iconLeft={<Plus />}
               onClick={() => setNovoClienteOpen(true)}
             >
-              Novo cliente
+              Novo Licenciado
             </Button>
           </>
         }
@@ -407,10 +473,10 @@ export default function ClientesFinanceiroShowcase() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
-        // Bumpado pra v3 — reset reorder/visibility/widths persistidos
-        // das versões anteriores. v3 inclui filterOptions + valueGetter em
-        // bankAccount pra suportar presetViews por banco.
-        persistId="showcase-finance-crud-v3"
+        // v4 — adicionada coluna `financeStatus` (Status), view "Alto valor"
+        // renomeada pra "Saques pendentes" com filtro novo. Bump força
+        // reset de localStorage com schema antigo.
+        persistId="showcase-finance-crud-v4"
         defaultViews={DEFAULT_VIEWS}
         // SimpleFilter ON — UX recomendada pro consumer (split button + drawer)
         simpleFilter={{ enabled: true }}
@@ -464,6 +530,40 @@ export default function ClientesFinanceiroShowcase() {
         onOpenChange={(o) => !o && setSacarClient(null)}
         client={sacarClient}
         onConfirm={handleSacarConfirm}
+      />
+
+      {/* Detalhes do licenciado — abre ao clicar no nome (botão da coluna).
+       *  FloatingPanel non-modal (não bloqueia tabela atrás), resizable + max. */}
+      <FinanceDetailDrawer
+        row={detailClient}
+        onClose={() => setDetailClient(null)}
+        onEdit={(row) => {
+          setDetailClient(null);
+          setEditingClient(row);
+        }}
+        onSacar={(row) => {
+          setDetailClient(null);
+          setSacarClient(row);
+        }}
+      />
+
+      {/* Confirmação de saque — substitui o window.alert legado.
+       *  AlertModal tone="success" com ícone CheckCircle2 + descrição
+       *  estruturada. Botão único "OK" pra fechar (sem cancel). */}
+      <AlertModal
+        open={sacarSuccess !== null}
+        onOpenChange={(open) => !open && setSacarSuccess(null)}
+        tone="success"
+        icon={<CheckCircle2 />}
+        title="Saque confirmado!"
+        description={
+          sacarSuccess
+            ? `Saque de ${formatBRL(sacarSuccess.amount)} para o cliente ${sacarSuccess.clientName} (${sacarSuccess.clientId}) foi enviado pra conta ${sacarSuccess.bankName}. Disponível em até 1 dia útil.`
+            : ""
+        }
+        confirmLabel="OK"
+        hideCancel
+        onConfirm={() => setSacarSuccess(null)}
       />
     </AppShell>
   );

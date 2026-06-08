@@ -3,6 +3,7 @@ import type {
   BankAccount,
   BankId,
   FinanceClientRow,
+  FinanceStatus,
 } from "./clientes-financeiro.types";
 
 /* ── Banks (lookup com nome + cor temática) ─────────────────────── */
@@ -63,6 +64,18 @@ function makeCompanyName(idx: number, contactName: string): string {
   return `${firstName} ${suffix}`;
 }
 
+/**
+ * Status financeiro pseudo-determinístico distribuído em ~30% pendente,
+ * ~55% ativo, ~15% inativo (87 rows → ~26 pendentes, ~48 ativos, ~13
+ * inativos). Garante massa suficiente pra view "Saques pendentes".
+ */
+function makeFinanceStatus(idx: number): FinanceStatus {
+  const bucket = idx % 20;
+  if (bucket < 6) return "pending_withdrawal";   // 6/20 = 30%
+  if (bucket < 17) return "active";              // 11/20 = 55%
+  return "inactive";                             // 3/20 = 15%
+}
+
 /** CNPJ pseudo-determinístico — gera formato XX.XXX.XXX/0001-XX baseado no idx. */
 function makeCNPJ(idx: number): string {
   // Bloco 1: 2 dígitos
@@ -86,6 +99,7 @@ export const FINANCE_CLIENTS: FinanceClientRow[] = CLIENTS_87.map((c, idx) => ({
   availableBalance: makeBalance(idx),
   cnpj: makeCNPJ(idx),
   companyName: makeCompanyName(idx, c.name),
+  financeStatus: makeFinanceStatus(idx),
 }));
 
 /* ── Formatters ─────────────────────────────────────────────────── */
