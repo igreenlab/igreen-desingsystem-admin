@@ -12,9 +12,14 @@ const OPERATOR_PAIRS: ReadonlyArray<[string, FilterItem["operator"]]> = [
   ["eq", "equals"],
   ["neq", "neq"],
   ["contains", "contains"],
+  ["notContains", "notContains"],
+  ["startsWith", "startsWith"],
+  ["endsWith", "endsWith"],
   ["gt", "gt"],
   ["lt", "lt"],
   ["between", "between"],
+  ["isEmpty", "isEmpty"],
+  ["isNotEmpty", "isNotEmpty"],
 ];
 
 /** FilterPopover op (eq, neq, contains, gt, lt, between) → FilterModel operator (equals, …) */

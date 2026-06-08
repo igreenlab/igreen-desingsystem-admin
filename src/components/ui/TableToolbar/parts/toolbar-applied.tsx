@@ -56,11 +56,19 @@ export type ToolbarAppliedProps = {
 };
 
 const DEFAULT_OP_LABELS: Record<AppliedFilterOp, string> = {
-  eq:       "=",
-  neq:      "≠",
-  contains: "contém",
-  gt:       ">",
-  lt:       "<",
+  eq:          "é",
+  neq:         "não é",
+  contains:    "contém",
+  notContains: "não contém",
+  startsWith:  "começa com",
+  endsWith:    "termina com",
+  gt:          ">",
+  lt:          "<",
+  isAnyOf:     "é",
+  isNoneOf:    "não é",
+  between:     "entre",
+  isEmpty:     "vazio",
+  isNotEmpty:  "não vazio",
 };
 
 /**
@@ -107,17 +115,24 @@ export function ToolbarApplied({
               <CircleX strokeWidth={2} aria-hidden="true" />
             </button>
             <span className={toolbarAppliedChipName()}>{f.columnLabel}</span>
-            <span className={toolbarAppliedChipOp()}>{resolveOp(f.op)}</span>
-            {Array.isArray(f.value) ? (
-              <span className="inline-flex items-center gap-gp-2xs">
-                {(f.value as ReactNode[]).map((v, i) => (
-                  <span key={i} className={toolbarAppliedChipValue()}>
-                    {v}
+            {/* Quando isEmpty (chip placeholder pré-ativo aguardando valor), renderiza
+                apenas o nome da coluna — sem operador, sem value. Veja `showEmptyFilterChips`
+                na DataTableProps + flag isEmpty no adapter. */}
+            {!f.isEmpty && (
+              <>
+                <span className={toolbarAppliedChipOp()}>{resolveOp(f.op)}</span>
+                {Array.isArray(f.value) ? (
+                  <span className="inline-flex items-center gap-gp-2xs">
+                    {(f.value as ReactNode[]).map((v, i) => (
+                      <span key={i} className={toolbarAppliedChipValue()}>
+                        {v}
+                      </span>
+                    ))}
                   </span>
-                ))}
-              </span>
-            ) : (
-              <span className={toolbarAppliedChipValue()}>{f.value}</span>
+                ) : (
+                  <span className={toolbarAppliedChipValue()}>{f.value}</span>
+                )}
+              </>
             )}
           </span>
         );

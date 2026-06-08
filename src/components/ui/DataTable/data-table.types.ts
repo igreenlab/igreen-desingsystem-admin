@@ -151,7 +151,7 @@ export type FilterValue =
   | undefined;
 
 export type FilterOperator =
-  | "contains" | "equals" | "neq" | "startsWith" | "endsWith"
+  | "contains" | "notContains" | "equals" | "neq" | "startsWith" | "endsWith"
   | "isEmpty" | "isNotEmpty" | "isAnyOf" | "isNoneOf"
   | "gt" | "lt" | "gte" | "lte"
   // Fase F.2 — range/period filter (date e number)
@@ -477,6 +477,31 @@ export type DataTableProps<T> = {
   /** Filters controlados */
   filterModel?: FilterModel;
   onFilterModelChange?: (model: FilterModel) => void;
+
+  /** Lista de field names que devem aparecer como chips placeholder nativos na
+   *  toolbar — visíveis desde o load inicial mesmo sem valor preenchido.
+   *  Cada field listado renderiza um chip mostrando APENAS o nome da coluna
+   *  (sem operador, sem value), pronto pra usuário clicar e preencher.
+   *
+   *  Use case: dashboards onde o set de filtros relevantes é conhecido de
+   *  antemão (ex: Status, Categoria, Atribuído) — reduz cliques de
+   *  "abrir popover de Filtros + adicionar filtro" pra zero.
+   *
+   *  Comportamento:
+   *   - Chip placeholder fica visível enquanto a coluna NÃO tem filtro com valor
+   *     no `filterModel`. Quando user preenche valor (via click no chip ou via
+   *     popover de Filtros), o chip vira um filtro normal e o "placeholder" some
+   *     automaticamente. Quando user remove o valor (X), o placeholder reaparece.
+   *   - Items vazios persistentes NÃO aparecem no popover de Filtros (esse
+   *     popover lista apenas filtros reais com valor no filterModel).
+   *   - Cleanup automático de filtros vazios em outras situações é PRESERVADO
+   *     intacto — esta prop só adiciona chips placeholders extras na toolbar.
+   *   - Quando user clica no X de um chip placeholder, ele é "descartado" pra
+   *     a sessão (state interno do componente). Pra trazer de volta, reload.
+   *
+   *  Implementação: lista de fields é prop pura — não modifica `filterModel`.
+   */
+  showEmptyFilterChips?: string[];
 
   /** Search controlado */
   search?: string;

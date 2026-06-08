@@ -227,10 +227,13 @@ const DEFAULT_VIEWS: DataTablePresetView[] = [
 
 /* ── Filtros iniciais (Status=Ativo + Categoria=Royal — print) ─── */
 
+// statusId e categoryId são filterType="multiSelect" — operator correto é "isAnyOf"
+// (not "equals"). Sem isso, o popover Filtros mostrava o Select de operador VAZIO
+// porque "equals" não está nos operators de MultiSelectColumnType.
 const INITIAL_FILTERS: FilterModel = {
   items: [
-    { id: "filter-status-ativo", field: "statusId", operator: "equals", value: "active" },
-    { id: "filter-categoria-royal", field: "categoryId", operator: "equals", value: "royal" },
+    { id: "filter-status-ativo", field: "statusId", operator: "isAnyOf", value: "active" },
+    { id: "filter-categoria-royal", field: "categoryId", operator: "isAnyOf", value: "royal" },
   ],
   logicOperator: "AND",
 };

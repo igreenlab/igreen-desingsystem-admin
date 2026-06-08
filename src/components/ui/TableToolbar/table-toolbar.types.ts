@@ -42,4 +42,11 @@ export type AppliedFilter = {
    * ReactNode = múltiplas tags lado a lado (ex: "Ativo" "Pendente" "Pausado").
    */
   value: ReactNode | ReactNode[];
+  /**
+   * Quando true, o chip renderiza apenas o `columnLabel` (sem operador, sem
+   * valor). Usado pra chips "placeholder" pré-ativos vazios que aguardam o
+   * usuário escolher um valor (use case `showEmptyFilterChips` do DataTable).
+   * Default false.
+   */
+  isEmpty?: boolean;
 };

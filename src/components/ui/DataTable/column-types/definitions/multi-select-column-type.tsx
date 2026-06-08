@@ -18,13 +18,24 @@ import type {
  * Render do dropdown multiselect — lista checkboxes com toggle.
  * Usado em ambos os contextos (modal advanced + fast filter popover).
  */
+/** Normaliza value pra array — aceita string/number escalar OU array.
+ *  Cenário: presets/saved views podem hidratar o filterModel com `value: "active"`
+ *  (escalar) + `operator: "eq"`, mas o widget renderiza igual ao multiSelect
+ *  (filterType da column é "multiSelect"). Mesmo critério usado em
+ *  `renderChipValue` e `matchesFilter` mais abaixo. */
+const toArray = (value: unknown): Array<string | number> => {
+  if (Array.isArray(value)) return value as Array<string | number>;
+  if (value == null || value === "") return [];
+  return [value as string | number];
+};
+
 function MultiSelectDropdown({
   value,
   onChange,
   options = [],
   renderOption,
 }: FastFilterInputProps) {
-  const selected = Array.isArray(value) ? (value as Array<string | number>) : [];
+  const selected = toArray(value);
   const toggle = (val: string | number) => {
     const set = new Set(selected.map(String));
     if (set.has(String(val))) set.delete(String(val));
@@ -72,7 +83,7 @@ function MultiSelectDropdown({
  *  comparado a renderizar a lista de checkboxes inline. */
 function MultiSelectFieldDropdown(props: FilterInputProps) {
   const { value, options = [] } = props;
-  const selected = Array.isArray(value) ? (value as Array<string | number>) : [];
+  const selected = toArray(value);
   const labels = selected.map((v) => {
     const opt = options.find((o) => String(o.value) === String(v));
     return opt?.label ?? String(v);
@@ -105,16 +116,29 @@ function MultiSelectFieldDropdown(props: FilterInputProps) {
 
 export const MultiSelectColumnType: ColumnTypeDefinition = {
   type: "multiSelect",
+  // Labels alinhados com `DEFAULT_OP_LABELS` do ToolbarApplied — chip e popover
+  // devem usar o MESMO label pra cada operator (consistência visual). "é"/"não é"
+  // ao invés de "é um de"/"não é nenhum de" — mais curto e bate com o chip.
   operators: [
-    { id: "isAnyOf", label: "é um de" },
-    { id: "isNoneOf", label: "não é nenhum de" },
+    { id: "isAnyOf", label: "é" },
+    { id: "isNoneOf", label: "não é" },
+    { id: "isEmpty", label: "está vazio" },
+    { id: "isNotEmpty", label: "não está vazio" },
   ],
-  /** Modal advanced: trigger + popover (compacto). */
-  renderFilterInput: (props) => <MultiSelectFieldDropdown {...props} />,
+  /** Modal advanced: trigger + popover (compacto).
+   *  isEmpty/isNotEmpty: operator se basta — não precisa de input. */
+  renderFilterInput: (props) => {
+    if (props.operator === "isEmpty" || props.operator === "isNotEmpty") {
+      return <span className="text-fg-muted text-body-sm pl-pad-md">(sem valor)</span>;
+    }
+    return <MultiSelectFieldDropdown {...props} />;
+  },
   /** Chip fast filter: já está dentro de um popover, renderiza inline. */
   renderFastFilterInput: (props) => <MultiSelectDropdown {...props} />,
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = cellValue == null ? "" : String(cellValue);
+    if (operator === "isEmpty") return cell.length === 0;
+    if (operator === "isNotEmpty") return cell.length > 0;
     const arr = Array.isArray(filterValue)
       ? filterValue.map(String)
       : filterValue == null
