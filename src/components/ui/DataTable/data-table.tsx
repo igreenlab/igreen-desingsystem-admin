@@ -338,8 +338,11 @@ function DataTableInternal<T>(
 
   /** SimpleFilter — controlado internamente pelo <ToolbarFilterControl>.
    *  DataTable só passa config; state (drawer aberto, popover aberto) mora
-   *  no hook `useToolbarFilterControl` consumido pelo ToolbarFilterControl. */
-  const simpleFilterEnabled = props.simpleFilter?.enabled !== false;
+   *  no hook `useToolbarFilterControl` consumido pelo ToolbarFilterControl.
+   *
+   *  **Default OFF** (opt-IN) — botão Filtros único abre query builder direto.
+   *  Pra ativar split button + drawer: `simpleFilter={{ enabled: true }}`. */
+  const simpleFilterEnabled = props.simpleFilter?.enabled === true;
 
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(

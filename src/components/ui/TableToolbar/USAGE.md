@@ -168,7 +168,7 @@ function MyTableWithFilters() {
 | `columns` | `FilterPopoverColumn[]` | — | Lista de colunas filtráveis (vem do adapter) |
 | `entries` / `onEntriesChange` | `FilterPopoverEntry[]` | — | Filtros aplicados como entries (chip toolbar) |
 | `filterModel` / `onFilterModelChange` | `FilterModel` | — | Source of truth pro drawer simples (aplicação LIVE) |
-| `enabled` | `boolean` | `true` | `false` reverte ao botão único legado |
+| `enabled` | `boolean` | `false` | `true` ativa o split button + drawer simple. Default mantém botão único = query builder direto |
 | `hiddenFields` | `string[]` | `[]` | Fields que NÃO aparecem no drawer simple |
 | `drawerTitle` / `drawerSize` | `string` / `"sm"\|"md"\|"lg"\|"xl"` | `"Filtros"` / `"md"` | Customização do drawer |
 | `renderValueInput` | callback | undefined | Override do widget de valor (registry-aware) |

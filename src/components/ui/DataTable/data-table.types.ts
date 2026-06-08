@@ -504,17 +504,18 @@ export type DataTableProps<T> = {
   showEmptyFilterChips?: string[];
 
   /**
-   *  SimpleFilter — drawer lateral + split button no botão Filtros.
+   *  SimpleFilter — drawer lateral + split button no botão Filtros (opt-IN).
    *
-   *  **Default ON** (a partir de v0.7.0). Botão Filtros vira **split button**:
+   *  **Default OFF.** Sem essa prop, o botão Filtros é único e abre direto o
+   *  FilterPopover (query builder avançado) — comportamento default da tabela.
+   *
+   *  Quando ativado via `simpleFilter={{ enabled: true }}`, o botão Filtros
+   *  vira **split button**:
    *   - PRIMARY click abre drawer lateral com TODOS os filtros em lista vertical
    *     (1 linha por coluna, widget do registry, aplicação LIVE). Operator é
    *     inferido do filterType — user não escolhe operator no drawer.
    *   - CHEVRON click abre o query builder avançado (popover atual, com AND/OR
    *     + operadores explícitos + Adicionar condição).
-   *
-   *  **Opt-out:** passe `simpleFilter={{ enabled: false }}` pra reverter ao
-   *  comportamento legado (1 botão único = query builder direto).
    *
    *  Use case principal: dashboards/CRMs onde o user típico só precisa de
    *  filtros simples (1 valor por coluna). Operators complexos ficam disponíveis
@@ -522,8 +523,8 @@ export type DataTableProps<T> = {
    */
   simpleFilter?: {
     /**
-     * Liga/desliga o split button + drawer. **Default true** (ON).
-     * Use `false` pra opt-out e manter o botão Filtros único legado.
+     * Liga o split button + drawer. **Default false** (opt-IN).
+     * Sem essa flag, mantém o botão Filtros único (query builder direto).
      */
     enabled?: boolean;
     /**

@@ -51,8 +51,9 @@ export type ToolbarFilterControlProps = {
   onFilterModelChange: (model: FilterModel) => void;
 
   /**
-   * Liga o split button + drawer. **Default true** (a partir de v0.7.0).
-   * `false` reverte ao legado (botão único = query builder direto).
+   * Liga o split button + drawer. **Default false** (opt-IN).
+   * Botão Filtros único abre query builder direto até consumer ativar.
+   * Quando `true`: Primary do split → drawer simple; Chevron → query builder.
    */
   enabled?: boolean;
 
@@ -90,7 +91,7 @@ export function ToolbarFilterControl({
   onEntriesChange,
   filterModel,
   onFilterModelChange,
-  enabled = true,
+  enabled = false,
   hiddenFields,
   drawerTitle,
   drawerSize,
