@@ -369,6 +369,122 @@ Chores e infra (sem bump de version) podem ir direto via commit normal — mas r
 
 ---
 
+## [L-021] Compound component que serve de anchor pra Radix asChild PRECISA usar `forwardRef`
+
+**Erro cometido:** ao criar `<ButtonGroup>` (compound component v0.7.0), implementei `ButtonGroupRoot` como function component normal sem `forwardRef`. Tudo funcionava no preview standalone. Quando o DataTable usou ButtonGroup como `anchor` do `<FilterPopover>` (split button pattern via `PopoverAnchor asChild`), o popover advanced abriu mas em `top=-506px` — fora do viewport. Demorou pra diagnosticar porque o problema era invisível (popover existia no DOM com `data-state="open"`, mas posicionado fora).
+
+**Causa raiz:** Radix `*Anchor` / `*Trigger` com `asChild` clona o filho e injeta `ref` pra obter o DOM node como anchor de posicionamento. Compound sem `forwardRef` ignora o ref injetado → Radix não acha anchor → fallback posiciona em (0, default) que pode estar fora do viewport.
+
+**Regra derivada:** componente compound que possivelmente será wrap-ed por `PopoverAnchor/Trigger`, `TooltipTrigger`, `DropdownMenuTrigger`, `Slot` ou similar PRECISA usar `forwardRef`. Mesmo que hoje você não use anchor — facilita extensão futura. Custo é mínimo (~3 linhas).
+
+```tsx
+// ❌ Antes (componente compound sem ref)
+function ButtonGroupRoot({ children, ...props }: ButtonGroupProps) {
+  return <div role="group" {...props}>{children}</div>;
+}
+
+// ✅ Depois (forwardRef)
+const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
+  function ButtonGroupRoot({ children, ...props }, ref) {
+    return <div ref={ref} role="group" {...props}>{children}</div>;
+  },
+);
+```
+
+**Sintomas de diagnóstico:** popover/tooltip aparece com `data-state="open"` no DOM mas é invisível ou posicionado errado. `getBoundingClientRect()` retorna posição fora do viewport (top negativo grande, ou top=0 left=0 quando deveria estar no canto direito). React DevTools mostra o popover montado normalmente.
+
+**Contexto:** qualquer componente que será trigger/anchor de overlay Radix. Aplicar em todos os compound components novos do DS por default (Button já usa forwardRef, mas Card/Panel/etc deveriam).
+
+---
+
+## [L-022] Split button com Radix Popover: usar `PopoverAnchor` em vez de `PopoverTrigger`
+
+**Erro cometido:** ao montar split button (ButtonGroup com Primary=ação A + Chevron=ação B), envolvi o ButtonGroup inteiro em `<PopoverTrigger asChild>`. O Chevron tinha `onClick` próprio (toggle do popover) e o Primary tinha `onClick` próprio (abrir drawer). Mas o `PopoverTrigger asChild` faz merge do `onClick` interno do Radix com o wrapper — qualquer click dentro do wrapper bubble e dispara `onOpenChange` interno do Radix, conflitando com o setState do handler do filho. Race condition: meu state seta `open=true`, o Radix entende como trigger click e seta `open=false` no mesmo tick. Resultado: popover não abre OU abre e fecha imediatamente.
+
+**Tentativas que NÃO resolveram:**
+- `e.stopPropagation()` no onClick — Radix usa pointerDown, não click
+- `e.preventDefault()` + `e.stopPropagation()` no `onPointerDown` — Radix Slot ainda merge antes do handler do filho
+- `dispatchEvent` manual com pointerdown sintético — mesmo resultado
+
+**Solução:** usar `<PopoverAnchor asChild>` em vez de `<PopoverTrigger asChild>`. Anchor SÓ POSICIONA — não tem handler de toggle. Consumer controla `open` / `onOpenChange` externamente via state. Implementação na lib (`<FilterPopover>` v0.7.0):
+
+```tsx
+<Popover open={open} onOpenChange={handleOpenChange}>
+  {anchor ? (
+    // Anchor mode: posiciona mas NÃO dispara abertura — consumer controla via prop `open`
+    <PopoverAnchor asChild>{anchor}</PopoverAnchor>
+  ) : (
+    <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+  )}
+  <PopoverContent>{...}</PopoverContent>
+</Popover>
+```
+
+**Regra derivada:** Popover/Tooltip/HoverCard com **trigger composto** (2+ filhos com handlers diferentes) DEVE usar `Anchor` (posicionamento) + `open` controlled (consumer dispara). `Trigger` só é seguro quando o componente inteiro é 1 handler de toggle.
+
+**Heurística:** *"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."*
+
+**Contexto:** qualquer split button, button group com dropdown, ou wrap de Radix overlay com children que têm interactions próprias. Pattern aplicado em `FilterPopover` (nova prop `anchor?: ReactNode`). Replicar quando criar novos componentes com split pattern.
+
+---
+
+## [L-023] Forms PRECISAM usar `<FormField>` do DS — nunca `<label>` raw
+
+**Erro cometido:** ao implementar `<ToolbarSimpleFilterDrawer>` v0.7.0, montei manualmente:
+
+```tsx
+// ❌ ERRADO — label raw com classes na unha
+<div className="flex flex-col gap-gp-xs">
+  <label className="text-body-sm font-medium text-fg-default">
+    {col.label}
+  </label>
+  <div>{widget}</div>
+</div>
+```
+
+Tudo "funcionou" no light mode. No dark mode, Sergio notou que os labels do drawer estavam **MAIS FORTES** que o padrão do form "Novo cliente" (NovoClienteDrawer no mesmo projeto). Comparando:
+
+| Aspecto | Meu (errado) | DS (FormField) |
+|---|---|---|
+| font-weight | `font-medium` (500) | `font-semibold` (600) |
+| Cor light | `text-fg-default` | `text-fg-default` |
+| Cor dark | `text-fg-default` (BRANCO forte) | `text-fg-muted` (cinza suave) |
+| tracking | (nenhum) | `tracking-[0.01em]` |
+| leading | (default) | `leading-none` |
+
+Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs todos os outros forms do projeto. Inconsistência visual silenciosa — só vista em comparação direta com outra tela.
+
+**Causa raiz:** subestimei o pattern do DS. Pensei "label simples, vou só usar `<label>` com classes". Mas `<FormField>` encapsula MUITO mais que cor de label:
+- `formFieldLabel()` tv com peso/cor/tracking/leading corretos
+- `useId()` auto pra linkar `htmlFor` (a11y)
+- `disabled` propaga pro label visual (`opacity-50 cursor-not-allowed`)
+- `formFieldRequired()` pra asterisco vermelho
+- `formFieldMessage()` pra helper text / error / warning / success com state
+- Spacing consistente (`gap-[7px]`)
+
+**Solução:** sempre usar `<FormField>` (ou `<FormFieldInput/Select/Textarea>` se input é nativo). Pra widget custom (registry, slot, etc), `<FormField>` aceita children como render-prop:
+
+```tsx
+// ✅ CORRETO — FormField wrap qualquer widget
+<FormField label={col.label}>
+  {() => (
+    <div>{def.renderFilterInput({ ... })}</div>
+  )}
+</FormField>
+```
+
+**Regra derivada:** TODO form / drawer com label + input PRECISA usar `<FormField>` do DS. Não importa se o input é raw, do registry, custom — sempre wrap em FormField. Se o input já é nativo do DS, prefira `<FormFieldInput>` / `<FormFieldSelect>` / `<FormFieldTextarea>` (atalho que combina FormField + Input).
+
+**Regra pra IA:** ao escrever código que tem `<label className=...>` na unha + um input/select abaixo, PARE e considere usar `<FormField>`. 90% dos casos é o pattern correto. Sem prejuízo: FormField aceita widget custom via render-prop.
+
+**Hooks de detecção:**
+- `ds-lint-styles.sh` ou similar pode grep por `<label className="text-body-` em arquivos `src/components/**` (provável anti-pattern)
+- Reviewer manual: comparar visualmente com NovoClienteDrawer no dark mode — se label do novo componente tem peso/cor diferente, está errado
+
+**Contexto:** qualquer drawer/dialog/page de form. Aplicar retroativamente a componentes existentes se houver tempo. Showcase: `NovoClienteDrawer` é referência canônica do pattern.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

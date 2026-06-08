@@ -125,6 +125,7 @@ import {
   PopoverContent,
 } from "../../shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
+import { ToolbarFilterControl } from "../TableToolbar";
 import type { ColumnOption } from "./column-types";
 // DataTableFloatingBulkBar still exported from barrel for opt-in use;
 // default DataTable now uses inline BulkActionsBar via TableToolbar.bulkBar.
@@ -334,6 +335,14 @@ function DataTableInternal<T>(
    *  Mora aqui porque várias funções fora do adapter usam (handleFilterShortcut,
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
   const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
+
+  /** SimpleFilter — controlado internamente pelo <ToolbarFilterControl>.
+   *  DataTable só passa config; state (drawer aberto, popover aberto) mora
+   *  no hook `useToolbarFilterControl` consumido pelo ToolbarFilterControl.
+   *
+   *  **Default OFF** (opt-IN) — botão Filtros único abre query builder direto.
+   *  Pra ativar split button + drawer: `simpleFilter={{ enabled: true }}`. */
+  const simpleFilterEnabled = props.simpleFilter?.enabled === true;
 
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
@@ -1526,17 +1535,21 @@ function DataTableInternal<T>(
             }
             actions={
               <>
-                {/* FilterPopover — Filtrar (sempre visível, mobile + desktop) */}
+                {/* ToolbarFilterControl — orquestrador completo dos filtros
+                 *  (split button + SimpleFilterDrawer + FilterPopover advanced).
+                 *  Encapsula state, wire e render. DataTable só passa config. */}
                 {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
-                  <FilterPopover
+                  <ToolbarFilterControl
                     columns={filterPopoverColumns}
-                    filters={filterPopoverEntries}
-                    onFiltersChange={handleFiltersChange}
-                    enableAdvanced
-                    // Fase G.1 — delega input de valor pro registry, eliminando
-                    // o text input genérico pra date/multiSelect/boolean/etc.
-                    // FilterPopoverEntry.value agora é `unknown` — passa direto
-                    // sem stringify (preserva arrays/tuplas pra multiSelect/between).
+                    entries={filterPopoverEntries}
+                    onEntriesChange={handleFiltersChange}
+                    filterModel={filters.filterModel}
+                    onFilterModelChange={filters.setFilterModel}
+                    enabled={simpleFilterEnabled}
+                    hiddenFields={props.simpleFilter?.hiddenFields}
+                    drawerTitle={props.simpleFilter?.title}
+                    drawerSize={props.simpleFilter?.size}
+                    // Registry-aware: widget de valor + operators do column-type.
                     renderValueInput={({ column, operator, value, onChange }) => {
                       const typeId = column.filterType ?? column.type ?? "text";
                       const def = columnTypeRegistry.get(typeId);
@@ -1550,12 +1563,6 @@ function DataTableInternal<T>(
                         options: column.options,
                       });
                     }}
-                    // Operators column-aware — restringe o dropdown aos operators
-                    // declarados pelo column-type (ex: multiSelect tem só
-                    // isAnyOf/isNoneOf com labels "é"/"não é"). Sem isso, o popover
-                    // exibia DEFAULT_FILTER_OPERATORS pra TODAS as colunas, criando
-                    // inconsistência (chip mostrava "é" mas dropdown "é um de" pra
-                    // multiSelect e não deixava trocar pra "é").
                     getOperatorsForColumn={(column) => {
                       const typeId = column.filterType ?? column.type ?? "text";
                       const def = columnTypeRegistry.get(typeId);
@@ -1564,14 +1571,6 @@ function DataTableInternal<T>(
                         label: o.label,
                       }));
                     }}
-                    trigger={
-                      <ToolbarToolButton
-                        icon={<SlidersHorizontal />}
-                        label="Filtrar"
-                        isActive={filterPopoverEntries.length > 0}
-                        hasIndicator={filterPopoverEntries.length > 0}
-                      />
-                    }
                   />
                 )}
 

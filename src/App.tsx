@@ -6,6 +6,7 @@ import { DemoComparison } from "./preview/pages/DemoComparison";
 import { ShowcasePageV2 } from "./preview/pages/ShowcasePageV2";
 import { ComponentsPreview } from "./preview/pages/ComponentsPreview";
 import { ButtonDoc } from "./preview/pages/ButtonDoc";
+import { ButtonGroupDoc } from "./preview/pages/ButtonGroupDoc";
 import { BadgeDoc } from "./preview/pages/BadgeDoc";
 import { ChipDoc } from "./preview/pages/ChipDoc";
 import { InputDoc } from "./preview/pages/InputDoc";
@@ -206,7 +207,7 @@ export function App() {
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
   const DOC_PAGES = [
-    "button", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
+    "button", "button-group", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
     "introduction", "structure", "installation", "transform-tokens", "updates",
     "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
     "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
@@ -229,6 +230,7 @@ export function App() {
         <DocSidebar sections={getDocNavByHref(activePage)} onNavigate={setActivePage} theme={theme} onToggleTheme={toggle} />
         <main ref={contentRef} className="flex-1 overflow-auto bg-bg-canvas">
           {activePage === "button" && <ButtonDoc />}
+          {activePage === "button-group" && <ButtonGroupDoc />}
           {activePage === "badge" && <BadgeDoc />}
           {activePage === "chip" && <ChipDoc />}
           {activePage === "input" && <InputDoc />}

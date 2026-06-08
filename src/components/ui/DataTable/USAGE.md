@@ -271,6 +271,61 @@ columnTypeRegistry.register(RatingColumnType);
 
 ---
 
+## Filtros — split button + drawer simple (v0.7.0+, opt-IN)
+
+Por **default**, o botão Filtros é único e abre direto o query builder
+(FilterPopover). Pra ativar o pattern **split button + drawer lateral**,
+opt-IN explícito via prop `simpleFilter`:
+
+```tsx
+{/* Default — botão único = query builder direto (sem configuração) */}
+<DataTable rows={...} columns={...} />
+
+{/* Opt-IN — split button: Primary=drawer simple, Chevron=query builder */}
+<DataTable
+  rows={...}
+  columns={...}
+  simpleFilter={{ enabled: true }}
+/>
+
+{/* Customizar drawer (com enabled true): */}
+<DataTable
+  simpleFilter={{
+    enabled: true,
+    hiddenFields: ["internal"],   // não mostra no drawer (só no advanced)
+    title: "Refinar busca",
+    size: "lg",                   // 560px (default md = 400px)
+  }}
+/>
+```
+
+### Como funciona quando `enabled: true`
+
+- **Primary** do split → abre **drawer lateral direito** com TODOS os filtros em form vertical. Aplicação LIVE. Operator inferido do `filterType` (multiSelect → isAnyOf, text → contains, etc).
+- **Chevron** → abre o **query builder avançado** (popover com AND/OR + operadores explícitos + Adicionar condição).
+
+### Customizações
+
+| Prop | Tipo | Default | Quando usar |
+|---|---|---|---|
+| `simpleFilter.enabled` | `boolean` | `false` | `true` pra ativar split button + drawer simple |
+| `simpleFilter.hiddenFields` | `string[]` | `[]` | Fields que NÃO aparecem no drawer (só no advanced). Útil pra filtros técnicos |
+| `simpleFilter.title` | `string` | `"Filtros"` | Override do título do header do drawer |
+| `simpleFilter.size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` (400px) | Use `"lg"` (560px) se há muitos campos com widgets largos (dates/multi-select) |
+
+### Quando ativar
+
+Ative `enabled: true` quando:
+- O user típico precisa de filtros simples (1 valor por coluna) sem se preocupar com operators
+- Tabela tem 5+ colunas filtráveis (drawer aproveita o espaço vertical)
+- Quer reduzir cliques: "abrir popover + adicionar filtro + escolher coluna" → "abrir drawer + escolher campo"
+
+Mantenha **default off** quando:
+- Power users precisam sempre de operators complexos (AND/OR, gt/lt, between, etc)
+- Você renderiza filtros customizados em outro lugar e só quer o popover
+
+---
+
 ## ⚠️ filterModel controlado — operator correto por filterType
 
 **Quando passar `filterModel` como prop controlada (em vez de uncontrolled), use o operator
