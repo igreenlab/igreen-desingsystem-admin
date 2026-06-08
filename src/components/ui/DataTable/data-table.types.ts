@@ -503,6 +503,38 @@ export type DataTableProps<T> = {
    */
   showEmptyFilterChips?: string[];
 
+  /**
+   *  SimpleFilter — drawer lateral alternativo ao query builder.
+   *
+   *  Quando habilitado, o botão Filtros vira um **split button** (ButtonGroup):
+   *   - Click no PRIMARY abre um drawer lateral com TODOS os campos filtráveis
+   *     em forma de lista (1 linha por coluna, widget de filtro do registry).
+   *     Aplicação LIVE — não tem botão Aplicar, cada mudança vai pro filterModel.
+   *     Operator é inferido automaticamente do filterType.
+   *   - Click no CHEVRON abre o popover atual de Filtros (query builder
+   *     avançado com AND/OR + operadores explícitos + Adicionar condição).
+   *
+   *  Default `enabled: false` — botão Filtros mantém o comportamento atual
+   *  (1 botão único → query builder). Pra ativar, passe `{ enabled: true }`.
+   *
+   *  Use case: dashboards/CRMs onde o user típico só precisa de filtros
+   *  simples (1 valor por coluna) e operators complexos confundem mais que
+   *  ajudam. O advanced fica disponível via chevron pra power users.
+   */
+  simpleFilter?: {
+    /** Liga o split button + drawer. Default false. */
+    enabled?: boolean;
+    /**
+     * Fields que NÃO devem aparecer no drawer (mesmo sendo filtráveis).
+     * Útil pra ocultar filtros que só fazem sentido no advanced. Default [].
+     */
+    hiddenFields?: string[];
+    /** Override do título do drawer. Default "Filtros". */
+    title?: string;
+    /** Tamanho do drawer. Default "md" (400px). */
+    size?: "sm" | "md" | "lg" | "xl";
+  };
+
   /** Search controlado */
   search?: string;
   onSearchChange?: (search: string) => void;

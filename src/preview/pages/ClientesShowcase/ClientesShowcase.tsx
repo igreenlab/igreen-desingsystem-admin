@@ -414,6 +414,10 @@ export default function ClientesShowcase() {
         defaultViews={DEFAULT_VIEWS}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
+        // SimpleFilter drawer + ButtonGroup split — Primary abre drawer com
+        // todos os filtros listados (UX simples), Chevron abre o query builder
+        // (advanced). User pode alternar conforme necessidade.
+        simpleFilter={{ enabled: true, size: "md" }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         kanbanConfig={KANBAN_CONFIG}

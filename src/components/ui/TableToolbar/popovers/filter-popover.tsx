@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Filter, Plus, Trash2 } from "lucide-react";
 import {
   Popover,
+  PopoverAnchor,
   PopoverContent,
   PopoverTrigger,
 } from "../../../shadcn/popover";
@@ -46,8 +47,17 @@ export type FilterPopoverEntry = {
 };
 
 export type FilterPopoverProps = {
-  /** Botão que abre o popover */
+  /** Botão que abre o popover. Quando `anchor` é passado, este `trigger` é
+   *  ignorado — o popover é posicionado relativo ao `anchor` mas só abre
+   *  via prop `open` controlled (use case: split button externo). */
   trigger: ReactNode;
+  /**
+   * Anchor element pra posicionar o popover SEM disparar abertura via click.
+   * Usado quando o trigger é externo (ex: ButtonGroup.Chevron que controla
+   * `open` via state). Quando undefined, usa `trigger` como PopoverTrigger
+   * padrão (comportamento default).
+   */
+  anchor?: ReactNode;
 
   /** Lista de colunas filtráveis */
   columns: FilterPopoverColumn[];
@@ -351,6 +361,7 @@ function FilterRowEditor({
  */
 export function FilterPopover({
   trigger,
+  anchor,
   columns,
   operators = DEFAULT_FILTER_OPERATORS,
   filters,
@@ -499,7 +510,13 @@ export function FilterPopover({
 
   return (
     <Popover open={open} onOpenChange={handleOpenChange}>
-      <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+      {anchor ? (
+        // Anchor mode: posiciona o popover mas NÃO dispara abertura — consumer
+        // controla via prop `open` externa (split button pattern).
+        <PopoverAnchor asChild>{anchor}</PopoverAnchor>
+      ) : (
+        <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+      )}
       <PopoverContent
         align={align}
         className={cn(

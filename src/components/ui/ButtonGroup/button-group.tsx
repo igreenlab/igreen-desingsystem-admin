@@ -40,25 +40,24 @@ const ButtonGroupContext = createContext<ButtonGroupSharedProps | null>(null);
  * Props color/variant/size propagam aos slots via context. Cada slot pode
  * dar override passando essas props explicitamente.
  */
-function ButtonGroupRoot({
-  color,
-  variant,
-  size,
-  disabled,
-  children,
-  className,
-}: ButtonGroupProps) {
-  return (
-    <ButtonGroupContext.Provider value={{ color, variant, size, disabled }}>
-      <div
-        role="group"
-        className={cn(buttonGroupVariants(), className)}
-      >
-        {children}
-      </div>
-    </ButtonGroupContext.Provider>
-  );
-}
+const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
+  function ButtonGroupRoot(
+    { color, variant, size, disabled, children, className },
+    ref,
+  ) {
+    return (
+      <ButtonGroupContext.Provider value={{ color, variant, size, disabled }}>
+        <div
+          ref={ref}
+          role="group"
+          className={cn(buttonGroupVariants(), className)}
+        >
+          {children}
+        </div>
+      </ButtonGroupContext.Provider>
+    );
+  },
+);
 
 /**
  * Slot Primary — botão da ação principal. Aceita todas as props do Button.
