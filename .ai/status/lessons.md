@@ -564,6 +564,52 @@ Classe resultante: `gap-form-gap` (20px).
 
 ---
 
+## [L-026] TableHeadCell right-aligned: reservar `pr-[60px]` SOMENTE quando sort ativo, não pra hover-only icons
+
+**Sessão:** 2026-06-09 (descoberta visual pelo Sergio em viewport reduzido).
+
+**Bug observado:** colunas right-aligned (ex: `Saldo disponível`) tinham o texto do header artificialmente afastado da borda direita por ~60px, mesmo quando os ícones do hover-stack (sort hint, headMenu kebab) não estavam visíveis.
+
+```
+sem hover (errado, antes):  [        Saldo disponível          ]   ← 60px de "vazio" inexplicável
+                             ←----- texto deslocado ----→
+
+com hover (esperado):       [   Saldo disponível 1↓ ⋯ ]            ← ícones aparecem em absolute right-pad-md
+```
+
+**Causa raiz:** em `table.tsx` (`TableHeadCell`), a `<span>` do label tinha:
+```ts
+align === "right" && (sortable || headMenu) && "pr-[60px]"
+```
+
+O comentário original justificava: *"reserva espaço pro headRightStack pra não ser coberto no hover"*. Mas isso reservava espaço **permanentemente**, mesmo sem hover, **mesmo sem sort ativo**. Os ícones do hover-stack são `display: hidden` por default → não ocupam espaço no layout natural; o `pr-[60px]` introduzia um vazio gratuito.
+
+**Solução:** condicionar a reserva ao estado `isSorted` (quando `sortDirection !== null`):
+
+```ts
+align === "right" && (
+  // pr só quando sort ATIVO (sort badge + indicator visíveis sempre)
+  isSorted && "pr-[60px]"
+)
+```
+
+- **Sem sort, sem hover** → texto encosta na borda direita (correto)
+- **Sem sort, com hover** → ícones aparecem em `absolute right-pad-md` com `bg-bg-table-head`; mascaram texto natural durante hover (aceitável — UX padrão de tabelas)
+- **Sort ativo** → `pr-[60px]` preserva texto visível ao lado do sort badge
+
+**Detalhe do design original:** `headRightStack` tem:
+```ts
+"absolute right-pad-md top-1/2 -translate-y-1/2 z-[1]",
+"bg-bg-table-head pl-pad-xs",
+```
+Ele já tem `bg-bg-table-head` (cobre texto debaixo) e `z-[1]` (sobreposição). Logo, mascarar texto natural no hover é o comportamento intencional.
+
+**Regra pra IA:** ao revisar layout de header com `align="right"`, **não reservar espaço fixo pra ícones hover-only** — só pra elementos sempre visíveis (sort badge ativo, indicator). Para hover-only icons, confiar no `headRightStack` absolute + bg mask.
+
+**Arquivos tocados:** `src/components/ui/Table/table.tsx` — single line change (`(sortable || headMenu)` → `isSorted`).
+
+---
+
 ## [L-025] Componente "card variant" de input (CardCheckbox, futuros CardRadio etc) precisa de label htmlFor — não basta clique no checkbox
 
 **Sessão:** 2026-06-09, v0.7.1.

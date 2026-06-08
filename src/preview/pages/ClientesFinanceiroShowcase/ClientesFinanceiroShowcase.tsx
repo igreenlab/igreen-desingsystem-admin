@@ -148,9 +148,10 @@ function buildColumns(
       field: "_actions",
       headerName: "",
       type: "actions",
-      // 1 button icon-only (kebab menu) — não precisa de 72px;
-      // 48px = form-md (36) + padding lateral. Header continua vazio.
-      width: 48,
+      // 1 button icon-only (kebab 36px) → width 40px é o mínimo viável
+      // (36 do button + 2px de respiro lateral). 48 ainda dava "vazio
+      // perceptível" em viewports apertados; 40 cola sem invadir o button.
+      width: 40,
       pinned: "right",
       getActions: ({ row }) => [
         {
