@@ -6,8 +6,6 @@ import {
   MoreHorizontal,
   Pencil,
   Plus,
-  TrendingUp,
-  Wallet,
 } from "lucide-react";
 import {
   DataTable,
@@ -35,7 +33,6 @@ import { NovoClienteDrawer } from "../ClientesShowcase/components/NovoClienteDra
 import {
   BANKS,
   FINANCE_CLIENTS,
-  FINANCE_KPIS,
   formatBRL,
 } from "./clientes-financeiro-mocks";
 import { SacarDialog } from "./components/SacarDialog";
@@ -259,92 +256,6 @@ const DEFAULT_VIEWS: DataTablePresetView[] = [
   }),
 ];
 
-/* ── KPI Card (alinhado com pattern do DashboardShowcase) ───────── */
-
-type KpiTone = "brand" | "success" | "warning" | "info" | "danger" | "neutral";
-
-const KPI_TONE_CLASSES: Record<KpiTone, { bg: string; fg: string }> = {
-  brand:   { bg: "bg-bg-brand-subtle",   fg: "text-fg-brand" },
-  success: { bg: "bg-bg-success-muted",  fg: "text-fg-success" },
-  warning: { bg: "bg-bg-warning-muted",  fg: "text-fg-warning" },
-  info:    { bg: "bg-bg-info-muted",     fg: "text-fg-info" },
-  danger:  { bg: "bg-bg-danger-muted",   fg: "text-fg-danger" },
-  neutral: { bg: "bg-bg-muted",          fg: "text-fg-muted" },
-};
-
-/**
- * KpiCard responsivo — 2 layouts via breakpoint xl (1280px):
- *
- * - **Base (< xl, mobile/tablet/desktop pequeno)**: horizontal compacto.
- *   Icon à esquerda + title/value stack à direita. Altura ~80px.
- *
- * - **xl+ (≥ 1280px, desktop grande)**: vertical full (pattern do
- *   DashboardShowcase) — title no topo + icon no canto + value 2xl bold.
- *   Altura ~160px.
- *
- * Tom de cor via lookup `KPI_TONE_CLASSES` (brand/success/info/etc).
- * Wrapper `<article>` mantém bg-surface + border-subtle + rounded-xl + shadow-sm.
- */
-function KpiCard({
-  icon: Icon,
-  title,
-  value,
-  tone = "brand",
-}: {
-  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
-  title: string;
-  value: string;
-  tone?: KpiTone;
-}) {
-  const cls = KPI_TONE_CLASSES[tone];
-  return (
-    <article
-      className={[
-        // Base (mobile/medium): horizontal compacto
-        "flex items-center gap-gp-lg p-pad-2xl",
-        // xl+: vertical grande (pattern do Dashboard)
-        "xl:flex-col xl:items-stretch xl:gap-gp-lg xl:p-pad-3xl",
-        // Visual comum
-        "bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm",
-      ].join(" ")}
-    >
-      {/* xl+: header com title à esquerda + icon à direita.
-       *  Base: só icon (à esquerda do conteúdo). */}
-      <header
-        className={[
-          "flex items-center xl:items-start xl:justify-between gap-gp-md",
-          // Em base, header não tem flex-grow — só o icon ocupa
-          "shrink-0",
-          "xl:w-full",
-        ].join(" ")}
-      >
-        {/* Title — escondido no base (vai pro stack), visível xl+ */}
-        <h3 className="hidden xl:block m-0 text-body-md font-semibold text-fg-default">
-          {title}
-        </h3>
-        <span
-          className={`grid place-items-center size-form-lg rounded-radius-md xl:rounded-radius-lg shrink-0 ${cls.bg} ${cls.fg}`}
-          aria-hidden="true"
-        >
-          <Icon className="size-icon-md" strokeWidth={1.8} />
-        </span>
-      </header>
-
-      {/* Content stack — base: title+value lado a lado do icon.
-       *  xl+: só value (title já está no header). */}
-      <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs xl:gap-gp-xs">
-        {/* Title aparece só no base — xl+ o title está no header */}
-        <span className="xl:hidden text-caption-md text-fg-muted truncate leading-tight">
-          {title}
-        </span>
-        <span className="text-body-xl xl:text-body-2xl font-bold text-fg-default tabular-nums leading-tight xl:leading-none truncate">
-          {value}
-        </span>
-      </div>
-    </article>
-  );
-}
-
 /* ═══════════════════════════════════════════════════════════════════
    Page — Clientes Financeiro (showcase com tema financeiro)
    ═══════════════════════════════════════════════════════════════════ */
@@ -470,31 +381,6 @@ export default function ClientesFinanceiroShowcase() {
           </>
         }
       />
-
-      {/* KPI grid — alinhado com pattern do DashboardShowcase.
-       *  Sem padding lateral (Sergio pediu) — section ocupa full width do
-       *  container pai. Grid responsive: 1 col mobile, 2 cols sm, 3 cols lg.
-       *  Sem padding-bottom — espaçamento vem do `gap-gp-2xl` do AppShell. */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl">
-        <KpiCard
-          icon={Wallet}
-          title="Disponível total"
-          value={formatBRL(FINANCE_KPIS.totalAvailable)}
-          tone="brand"
-        />
-        <KpiCard
-          icon={TrendingUp}
-          title="High-value (≥ R$ 5k)"
-          value={`${FINANCE_KPIS.highValueCount} licenciados`}
-          tone="success"
-        />
-        <KpiCard
-          icon={Banknote}
-          title="Saldo médio por cliente"
-          value={formatBRL(FINANCE_KPIS.averageBalance)}
-          tone="info"
-        />
-      </section>
 
       {/* DataTable */}
       <DataTable<FinanceClientRow>
