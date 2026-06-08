@@ -271,6 +271,48 @@ columnTypeRegistry.register(RatingColumnType);
 
 ---
 
+## Filtros — split button + drawer (v0.7.0+, default ON)
+
+A partir de v0.7.0, o botão **Filtros** é um split button (`ButtonGroup`):
+
+- **Primary** → abre um **drawer lateral direito** com TODOS os filtros em form vertical. Aplicação LIVE. Operator inferido do `filterType` (multiSelect → isAnyOf, text → contains, etc).
+- **Chevron** → abre o **query builder avançado** (popover com AND/OR + operadores explícitos + Adicionar condição).
+
+```tsx
+{/* Default — split button automaticamente, sem precisar configurar nada: */}
+<DataTable rows={...} columns={...} />
+
+{/* Customizar drawer: */}
+<DataTable
+  simpleFilter={{
+    hiddenFields: ["internal"],   // não mostra no drawer (só no advanced)
+    title: "Refinar busca",
+    size: "lg",                   // 560px (default md = 400px)
+  }}
+/>
+
+{/* Opt-out — volta ao botão único legado (query builder direto): */}
+<DataTable simpleFilter={{ enabled: false }} />
+```
+
+### Customizações
+
+| Prop | Tipo | Default | Quando usar |
+|---|---|---|---|
+| `simpleFilter.enabled` | `boolean` | `true` | `false` pra reverter ao comportamento legado de 1 botão único |
+| `simpleFilter.hiddenFields` | `string[]` | `[]` | Lista de fields que NÃO aparecem no drawer (só no advanced). Útil pra filtros técnicos |
+| `simpleFilter.title` | `string` | `"Filtros"` | Override do título do header do drawer |
+| `simpleFilter.size` | `"sm" \| "md" \| "lg" \| "xl"` | `"md"` (400px) | Use `"lg"` (560px) se há muitos campos com widgets largos (dates/multi-select) |
+
+### Quando opt-out
+
+Reverta pra `simpleFilter={{ enabled: false }}` quando:
+- Power users precisam SEMPRE de operators complexos (não só "é"/"contém")
+- Tabela tem 1-2 colunas filtráveis apenas (drawer fica vazio demais)
+- Você renderiza filtros customizados em outro lugar e quer só o popover
+
+---
+
 ## ⚠️ filterModel controlado — operator correto por filterType
 
 **Quando passar `filterModel` como prop controlada (em vez de uncontrolled), use o operator

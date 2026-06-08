@@ -344,7 +344,10 @@ function DataTableInternal<T>(
    *  Quando desligado (default), o FilterPopover roda uncontrolled como antes. */
   const [simpleDrawerOpen, setSimpleDrawerOpen] = useState(false);
   const [advancedPopoverOpen, setAdvancedPopoverOpen] = useState(false);
-  const simpleFilterEnabled = props.simpleFilter?.enabled === true;
+  // Default ON — split button (SimpleFilter drawer + advanced popover via chevron)
+  // é a UX padrão. Opt-out explícito via `simpleFilter: { enabled: false }`
+  // mantém o botão Filtros único (query builder direto).
+  const simpleFilterEnabled = props.simpleFilter?.enabled !== false;
 
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
@@ -1588,7 +1591,10 @@ function DataTableInternal<T>(
                     {...(simpleFilterEnabled
                       ? {
                           anchor: (
-                            <ButtonGroup color="secondary" variant="outline" size="sm">
+                            // size="md" (40px) alinha com altura do ToolbarToolButton
+                            // (usado quando simpleFilter está desligado), garantindo
+                            // que a toolbar não tenha alturas mistas.
+                            <ButtonGroup color="secondary" variant="outline" size="md">
                               <ButtonGroup.Primary
                                 iconLeft={<SlidersHorizontal />}
                                 onClick={() => setSimpleDrawerOpen(true)}

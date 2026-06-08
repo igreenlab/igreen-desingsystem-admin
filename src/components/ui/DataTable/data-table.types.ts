@@ -504,25 +504,27 @@ export type DataTableProps<T> = {
   showEmptyFilterChips?: string[];
 
   /**
-   *  SimpleFilter — drawer lateral alternativo ao query builder.
+   *  SimpleFilter — drawer lateral + split button no botão Filtros.
    *
-   *  Quando habilitado, o botão Filtros vira um **split button** (ButtonGroup):
-   *   - Click no PRIMARY abre um drawer lateral com TODOS os campos filtráveis
-   *     em forma de lista (1 linha por coluna, widget de filtro do registry).
-   *     Aplicação LIVE — não tem botão Aplicar, cada mudança vai pro filterModel.
-   *     Operator é inferido automaticamente do filterType.
-   *   - Click no CHEVRON abre o popover atual de Filtros (query builder
-   *     avançado com AND/OR + operadores explícitos + Adicionar condição).
+   *  **Default ON** (a partir de v0.7.0). Botão Filtros vira **split button**:
+   *   - PRIMARY click abre drawer lateral com TODOS os filtros em lista vertical
+   *     (1 linha por coluna, widget do registry, aplicação LIVE). Operator é
+   *     inferido do filterType — user não escolhe operator no drawer.
+   *   - CHEVRON click abre o query builder avançado (popover atual, com AND/OR
+   *     + operadores explícitos + Adicionar condição).
    *
-   *  Default `enabled: false` — botão Filtros mantém o comportamento atual
-   *  (1 botão único → query builder). Pra ativar, passe `{ enabled: true }`.
+   *  **Opt-out:** passe `simpleFilter={{ enabled: false }}` pra reverter ao
+   *  comportamento legado (1 botão único = query builder direto).
    *
-   *  Use case: dashboards/CRMs onde o user típico só precisa de filtros
-   *  simples (1 valor por coluna) e operators complexos confundem mais que
-   *  ajudam. O advanced fica disponível via chevron pra power users.
+   *  Use case principal: dashboards/CRMs onde o user típico só precisa de
+   *  filtros simples (1 valor por coluna). Operators complexos ficam disponíveis
+   *  pelo chevron pra power users sem aparecer no caminho default.
    */
   simpleFilter?: {
-    /** Liga o split button + drawer. Default false. */
+    /**
+     * Liga/desliga o split button + drawer. **Default true** (ON).
+     * Use `false` pra opt-out e manter o botão Filtros único legado.
+     */
     enabled?: boolean;
     /**
      * Fields que NÃO devem aparecer no drawer (mesmo sendo filtráveis).
