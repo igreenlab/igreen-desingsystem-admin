@@ -82,6 +82,43 @@ Paddings recorrentes compartilhados por múltiplos componentes.
 | `padPage.base` | 24px | `px-pad-page-base` — default |
 | `padPage.lg` | 40px | `px-pad-page-lg` — desktop wide |
 
+### `formGap` — gap padrão entre fields de formulário (v0.7.1+)
+> CSS var: `--spacing-form-gap` → classe: `gap-form-gap` (20px)
+
+| Token | Valor | Classe | Uso |
+|-------|-------|--------|-----|
+| `formGap` | 20px | `gap-form-gap` | spacing entre FormField units num form |
+
+**REGRA DS (obrigatória):** todo formulário (drawer, modal, página) usa
+`gap-form-gap` entre `FormField*` units. Não usar `gap-gp-md/lg/xl` semânticos
+avulsos pra spacing de form — eles existem pra outros contextos (cards, icon-to-text,
+section spacing).
+
+**Por quê 20px:**
+- `gap-gp-lg` (12px) → fica apertado quando label + helper text empilham
+- `gap-gp-xl` (16px) → ainda visualmente curto pra 5+ fields num drawer
+- `gap-gp-2xl` (24px) → muito solto, desperdiça viewport vertical
+- `formGap = 20px` → bench validado em NovoClienteDrawer + SacarDialog
+
+**Aplicação:**
+```tsx
+// ✅ Form vertical
+<form className="flex flex-col gap-form-gap">
+  <FormFieldInput label="Nome" ... />
+  <FormFieldSelect label="País" ... />
+  <FormFieldInput label="Email" ... />
+</form>
+
+// ✅ Grid 2-col dentro do form (mantém consistência H × V)
+<div className="grid grid-cols-2 gap-form-gap">
+  <FormFieldInput label="Agência" ... />
+  <FormFieldInput label="Conta" ... />
+</div>
+```
+
+⚠️ **Não usar `gap-form-gap` fora de form context** — em cards, grids de
+KPI, listas de chip etc, continuar usando `gap-gp-*` semânticos.
+
 ---
 
 ## Como escolher o grupo correto
@@ -91,6 +128,7 @@ Paddings recorrentes compartilhados por múltiplos componentes.
 | Gap entre ícone e texto em botão | `gap` | `gap-gp-md` |
 | Gap entre cards na grid | `gap` | `gap-gp-xl` |
 | Gap entre seções de página | `gap` | `gap-gp-3xl` |
+| **Gap entre fields de formulário** | **`formGap`** | **`gap-form-gap`** |
 | Padding interno de botão/input | `pad` | `px-pad-lg` |
 | Padding interno de card | `padCard` | `p-pad-card-base` |
 | Padding lateral de página | `padPage` | `px-pad-page-base` |

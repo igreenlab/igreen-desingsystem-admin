@@ -1675,6 +1675,33 @@
 
 ---
 
+### [2026-06-09] | DS DESIGNER + DS DEV | Token `formGap` + componente `CardCheckbox` | CONCLUÍDO
+
+- **Input:** feedback Sergio durante refinamento do SacarDialog v0.7.0 — "gap entre inputs poderia ser 20px, criar token formGap... e o checkbox de salvar poderia ser um card checkbox igual o card radio".
+- **Output entregue:**
+  1. Token `formGap = scale[5]` (20px) em `tokens/brands/default/components/spacing.ts`
+  2. CSS var `--spacing-form-gap` gerada via `to-tailwind-v4.ts` → classe `gap-form-gap`
+  3. Componente novo `<CardCheckbox>` em `src/components/ui/CardCheckbox/`:
+     - `card-checkbox.styles.ts` (tv() — slots root/body/label/description, variants selected/disabled)
+     - `card-checkbox.tsx` (forwardRef, label htmlFor wrap, suporte a icon prop)
+     - `USAGE.md` (formato canônico DS)
+     - `index.ts` (barrel)
+  4. SacarDialog migrado: `gap-gp-lg` → `gap-form-gap` (form Outra conta vertical + grid Agência/Conta), `FormFieldCheckbox` → `CardCheckbox` (opção "Salvar conta pra usar depois")
+  5. Tabela ClientesFinanceiroShowcase: actions column width 72 → 48 (1 button icon), `showTotalizers` removido (footer com soma redundante com KPI "Disponível total" no header)
+- **Decisões:**
+  - `formGap` é valor único (não Record com base/sm/lg) — caso de uso é exatamente 20px; variantes não emergiram em bench
+  - `CardCheckbox` usa `<label htmlFor>` wrap (não `<button onClick>`) — preserva semântica accessibility (screen reader anuncia "checkbox", não "button") + form integration nativa + click target consistente
+  - Card visual idêntico aos radio cards (bg-success-muted + border-brand no selected + shadow-sh-sm) — Sergio pediu paridade visual explícita
+  - L-024 (formGap) + L-025 (label htmlFor wrap) adicionadas
+- **Cascata:** nenhuma adicional — token e componente novos foram criados juntos numa única sessão (token compõe componente, componente compõe SacarDialog). Estado pipeline-state inicia em CONCLUÍDO direto pelo agente unificado nesta sessão (DS Designer ad-hoc + DS Dev imediato em modo autônomo).
+- **Lições novas:** L-024 (formGap), L-025 (label htmlFor wrap em card inputs).
+- **Assumption:**
+  - `formGap = 20px` cobre 95%+ dos forms do projeto sem precisar de tier sm/lg
+  - `<label htmlFor>` wrap dispara checkbox toggle corretamente em todos os browsers (testado: Chrome devtools dark mode)
+  - 48px de width pra coluna actions é suficiente pra 1 button icon-only — se futuro adicionar 2+ icons inline, precisará revisar
+
+---
+
 ## Índice de decisões arquiteturais
 
 | Data | Decisão | Assumption |
@@ -1691,3 +1718,5 @@
 | 2026-05-19 | Title default = weight 600 | 56× font-semibold no código real vs 2× font-bold (medição direta) |
 | 2026-05-19 | body-xs/sm default = weight 500 | Esses tiers são quase sempre interactive (button/dropdown/input); raro como texto corrido |
 | 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts | Senão tailwind-merge remove classes silenciosamente (L-016) |
+| 2026-06-09 | Token `formGap = 20px` dedicado (não usar gap-gp-*) | 20px é sweet-spot entre 12px (apertado) e 24px (solto) pra forms com 3+ FormField units — bench validado em SacarDialog + NovoClienteDrawer |
+| 2026-06-09 | `CardCheckbox` usa `<label htmlFor>` (não `<button>`) | Label nativo preserva semântica accessibility + form submit nativo + click target consistente (L-025) |

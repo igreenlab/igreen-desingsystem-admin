@@ -148,7 +148,9 @@ function buildColumns(
       field: "_actions",
       headerName: "",
       type: "actions",
-      width: 72,
+      // 1 button icon-only (kebab menu) — não precisa de 72px;
+      // 48px = form-md (36) + padding lateral. Header continua vazio.
+      width: 48,
       pinned: "right",
       getActions: ({ row }) => [
         {
@@ -376,7 +378,9 @@ export default function ClientesFinanceiroShowcase() {
           pageSizeOptions: [10, 25, 50, 100],
         }}
         selectionConfig={{ enabled: true, enableGlobal: true }}
-        showTotalizers
+        // Sem showTotalizers — Sergio removeu o footer com soma da coluna
+        // Saldo disponível (somatória vinha dropdown do KPI "Disponível
+        // total" no header, era redundante).
         // flex-1 + min-h-0 + mb-pad-2xl: tabela limita altura ao container pai
         // (sem scroll de página inteira) + dá respiro embaixo pra paginação
         // não grudar no rodapé do AppShell.

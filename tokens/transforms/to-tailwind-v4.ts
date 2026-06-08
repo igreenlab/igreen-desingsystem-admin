@@ -121,6 +121,9 @@ function buildSizingVars(): Record<string, string> {
   flatten(componentSpacing.padCard, "--spacing-pad-card", result);
   flatten(componentSpacing.padPage, "--spacing-pad-page", result);
 
+  // ── Components: form-gap → --spacing-form-gap (gap padrão entre fields)
+  result["--spacing-form-gap"] = componentSpacing.formGap;
+
   return result;
 }
 

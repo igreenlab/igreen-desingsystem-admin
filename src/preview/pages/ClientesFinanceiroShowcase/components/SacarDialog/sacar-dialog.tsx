@@ -2,10 +2,10 @@ import { useEffect, useMemo, useState } from "react";
 import { Banknote, Check, Wallet } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import {
-  FormFieldCheckbox,
   FormFieldInput,
   FormFieldSelect,
 } from "@/components/ui/FormField";
+import { CardCheckbox } from "@/components/ui/CardCheckbox";
 import { Chip } from "@/components/ui/Chip";
 import {
   Tabs,
@@ -286,9 +286,10 @@ export function SacarDialog({
             </TabsContent>
 
             {/* Tab 2: outra conta — formulário pra cadastrar nova conta.
-             *  Campos: banco (select), agência, conta, + checkbox "salvar". */}
+             *  Campos: banco (select), agência, conta + CardCheckbox "salvar".
+             *  `gap-form-gap` (20px) = token DS pra spacing entre fields. */}
             <TabsContent value="outra" className="mt-pad-lg">
-              <div className="flex flex-col gap-gp-lg">
+              <div className="flex flex-col gap-form-gap">
                 <FormFieldSelect
                   label="Banco"
                   required
@@ -299,7 +300,7 @@ export function SacarDialog({
                     setNewAccount((s) => ({ ...s, bank: v as BankId }))
                   }
                 />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-gp-lg">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-form-gap">
                   <FormFieldInput
                     label="Agência"
                     required
@@ -319,9 +320,9 @@ export function SacarDialog({
                     }
                   />
                 </div>
-                <FormFieldCheckbox
+                <CardCheckbox
                   label="Salvar essa conta pra usar depois"
-                  helperText="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
+                  description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
                   checked={newAccount.saveForLater}
                   onCheckedChange={(v) =>
                     setNewAccount((s) => ({ ...s, saveForLater: v === true }))

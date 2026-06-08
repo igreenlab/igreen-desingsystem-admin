@@ -485,6 +485,112 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 
 ---
 
+## [L-024] Forms usam `gap-form-gap` (20px) — token DS dedicado pra spacing entre fields
+
+**Sessão:** 2026-06-09, v0.7.1.
+
+**Problema observado:** ao revisar SacarDialog v0.7.0 e NovoClienteDrawer, ficou evidente que cada formulário escolhia gap diferente entre `FormField` units:
+
+| Form | Gap usado antes | Resultado visual |
+|---|---|---|
+| NovoClienteDrawer | `gap-gp-lg` (12px) | Apertado, labels colando |
+| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px) | Mesma queixa |
+| ToolbarSimpleFilterDrawer | `gap-gp-xl` (16px) | Ainda curto pra 5+ filtros |
+| KPI cards grid (ClientesFinanceiro) | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
+
+Sergio notou diretamente: *"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"*.
+
+**Causa raiz:** os tokens `gap.*` semânticos (xs=4px / sm=6px / md=8px / lg=12px / xl=16px / 2xl=24px / 3xl=32px) **não têm tier exato em 20px**. Cada implementação escolhia o mais próximo conforme o gosto — gerava inconsistência horizontal entre forms do mesmo projeto.
+
+20px é o sweet-spot:
+- 12px (gap-gp-lg) → label colando no campo de cima, leitura prejudicada
+- 16px (gap-gp-xl) → ainda apertado quando há helper text embaixo do field
+- 20px → respira sem inflar viewport
+- 24px (gap-gp-2xl) → desperdício vertical em drawers com 5+ fields
+
+**Solução:** token dedicado `formGap = scale[5]` (20px) em `tokens/brands/default/components/spacing.ts`:
+
+```ts
+// tokens/brands/default/components/spacing.ts
+export const formGap = scale[5];   // 20px — gap entre fields de formulário
+export const componentSpacing = { padCard, padPage, formGap } as const;
+```
+
+Transform `to-tailwind-v4.ts` exporta como CSS var:
+
+```ts
+result["--spacing-form-gap"] = componentSpacing.formGap;
+```
+
+Classe resultante: `gap-form-gap` (20px).
+
+**Regra pra IA (obrigatória em forms):**
+
+```tsx
+// ✅ CORRETO — gap-form-gap pra form vertical
+<form className="flex flex-col gap-form-gap">
+  <FormFieldInput label="Nome" ... />
+  <FormFieldSelect label="País" ... />
+</form>
+
+// ✅ CORRETO — gap-form-gap pra grid 2-col DENTRO de form
+<div className="grid grid-cols-2 gap-form-gap">
+  <FormFieldInput label="Agência" ... />
+  <FormFieldInput label="Conta" ... />
+</div>
+
+// ❌ ERRADO — semântico genérico
+<form className="flex flex-col gap-gp-lg">    // 12px
+<form className="flex flex-col gap-gp-xl">    // 16px
+
+// ❌ ERRADO — Tailwind literal
+<form className="flex flex-col gap-5">        // 20px raw, sem token
+```
+
+**Aplica-se a:** drawers (NovoClienteDrawer, ToolbarSimpleFilterDrawer), modais (SacarDialog), páginas de formulário, qualquer section com 2+ `FormField` units empilhados.
+
+**Não aplica a:** cards em grid, lista de chips, icon-to-text spacing, section spacing — esses continuam usando `gap-gp-*` semânticos. O `formGap` é específico pra contexto de form.
+
+**Implementação confirmada em:**
+- `SacarDialog` aba "Outra conta" → 3 FormField units (Banco/Agência/Conta) + CardCheckbox final, todos com `gap-form-gap`
+- Próximo PR deve migrar NovoClienteDrawer + ToolbarSimpleFilterDrawer pra `gap-form-gap`
+
+**Atualização cascata:**
+1. `tokens/.../components/spacing.ts` → adicionar `formGap`
+2. `tokens/transforms/to-tailwind-v4.ts` → expor como `--spacing-form-gap`
+3. `npm run tokens:tw4` → gerar CSS
+4. `.ai/context/tokens/spacing.md` → seção "formGap" + regra obrigatória
+5. `.claude/rules/ds-standards.md` → anti-pattern + L-024 no resumo
+
+---
+
+## [L-025] Componente "card variant" de input (CardCheckbox, futuros CardRadio etc) precisa de label htmlFor — não basta clique no checkbox
+
+**Sessão:** 2026-06-09, v0.7.1.
+
+Ao criar `CardCheckbox`, primeiro impulso seria fazer `<button onClick={toggle}>` com `<Checkbox>` interno. Mas isso quebra:
+
+1. **Acessibilidade:** screen reader anuncia "button" em vez de "checkbox" — perde semântica
+2. **Form integration:** `<button>` não tem `name`/`value` → não submete em forms nativos
+3. **Click target ambíguo:** se checkbox tem `onClick stopPropagation`, clicar no checkbox NÃO toggla — clicar no card sim
+
+**Solução correta:** `<label htmlFor={id}>` wrapping `<Checkbox id={id}>`. O label nativo HTML propaga clique pro checkbox, mantém semântica accessibility, e o checkbox real fica embedado (com `onCheckedChange` controlando state).
+
+```tsx
+// ✅ CORRETO — label nativo wrap
+<label htmlFor={id} className="card-styles">
+  <Checkbox id={id} checked={x} onCheckedChange={setX} />
+  <div>
+    <span>Label</span>
+    <span>Description</span>
+  </div>
+</label>
+```
+
+**Aplicar quando criar:** `CardRadio`, `CardSwitch`, qualquer "form input visualizado como card grande".
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
