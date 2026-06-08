@@ -52,18 +52,21 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (6 componentes principais + compostos)
+## Componentes — ui/ (iGreen puro) (7 componentes principais + compostos)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
 | Avatar | `ui/Avatar/avatar.styles.ts` | `src/components/ui/Avatar/` | ✅ implementado |
 | Button | `ui/Button/button.styles.ts` | `src/components/ui/Button/` | ✅ implementado |
+| **ButtonGroup** | `ui/ButtonGroup/button-group.styles.ts` | `src/components/ui/ButtonGroup/` | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder) |
 | Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
-| DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 6 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border) |
+| DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 6 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado |
 | **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts` | `src/components/ui/FloatingPanel/` | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita |
 | **PageHeader** | `ui/PageHeader/page-header.styles.ts` | `src/components/ui/PageHeader/` | ✅ **v0.3.0** (Templates) — title + description + badge + actions + slot `children` (tabs/filtros). Mobile-ready built-in (`hideTextOnMobile` default true, `fluidPrimaryOnMobile` default true) |
 
 **Nota**: `ViewFormModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab + Tabs visiveis + Popover overflow + modal) ficam em `ui/TableToolbar/`. Saved Views eh UI do toolbar — DataTable so passa props/handlers. `ToolbarMobileDialog` + `ToolbarMobileSection` (em `ui/TableToolbar/parts/`) foram promovidos a uso oficial pelo DataTable em v0.3.0 (não-deprecated mais).
+
+**v0.7.0 — TableToolbar dono dos filtros**: novo `<ToolbarFilterControl>` em `ui/TableToolbar/parts/toolbar-filter-control.tsx` é o orquestrador único de filtros (split button + drawer simple + advanced popover). Composto por `<ToolbarSimpleFilterDrawer>` (parts/) + `<ButtonGroup>` (ui/) + `<FilterPopover>` (popovers/). Hook isolado `useToolbarFilterControl` (hooks/) gerencia state. DataTable consome via uma única instanciação — não monta mais ButtonGroup/Drawer/Popover manualmente. Coupling aceita TableToolbar → DataTable (`columnTypeRegistry`, `FilterModel` types) — mesmo pattern do `<FilterPopover>` que já importava `ColumnOption`. Coupling reverso (DataTable → TableToolbar) **continua proibido**.
 
 ---
 

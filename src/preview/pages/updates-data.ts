@@ -46,6 +46,45 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.7.0",
+    date: "2026-06-08",
+    tag: "preview",
+    title: "ButtonGroup + DataTable simpleFilter (opt-IN) — split button com drawer lateral + advanced popover",
+    summary:
+      "2 features grandes. (1) Novo componente `<ButtonGroup>` — split button (Primary + Chevron) que usa o `<Button>` próprio do DS via composição. (2) DataTable ganha prop opt-IN `simpleFilter` que transforma o botão Filtros em split button: Primary abre drawer lateral com lista vertical de TODOS os filtros (aplicação LIVE, operator inferido do filterType); Chevron abre o query builder avançado (FilterPopover atual). TableToolbar passa a ser o dono completo do controle de filtros via novo `<ToolbarFilterControl>` (parts/) + `useToolbarFilterControl` (hooks/) + `<ToolbarSimpleFilterDrawer>` (parts/). DataTable consome via 1 componente, sem montar manualmente. Default OFF mantém compatibilidade 100% com consumers atuais.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Novo componente `<ButtonGroup>` em `src/components/ui/ButtonGroup/` — compound `<Primary>` + `<Chevron>`. Wrapper inline-flex com radius colapsado entre slots. Chevron quadrado (size-form-*) alinhado com altura do Primary. color/variant/size propagam via Context; override individual permitido via prop. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron (TypeScript enforça — icon-only requer descrição). Page de docs em `/button-group` com 8 examples cobrindo Variants/Colors/Sizes/Disabled/Loading/Custom icon/Override.",
+          "Prop `simpleFilter?: { enabled, hiddenFields, title, size }` no `DataTableProps` — opt-IN (default false). Quando `enabled: true`, o botão Filtros vira split button (ButtonGroup) com Primary abrindo drawer lateral `<ToolbarSimpleFilterDrawer>` e Chevron abrindo `<FilterPopover>` advanced. Drawer renderiza lista vertical com TODOS os filtros (1 linha por coluna, widget do registry, aplicação LIVE sem botão Aplicar). Operator inferido do filterType (multiSelect → isAnyOf, text → contains, etc). `hiddenFields` permite ocultar filtros que só fazem sentido no advanced.",
+          "Novo `<ToolbarFilterControl>` em `src/components/ui/TableToolbar/parts/toolbar-filter-control.tsx` — orquestrador único de filtros. Encapsula ButtonGroup + ToolbarSimpleFilterDrawer + FilterPopover via composição. DataTable consome 1 componente em vez de montar manualmente. Consumers de TableToolbar standalone podem usar diretamente. State via `useToolbarFilterControl` (interno por default; consumer pode passar `controlState` externo pra deep-link/programatic).",
+          "Hook `useToolbarFilterControl` em `TableToolbar/hooks/` — encapsula state dos 2 modos (simpleDrawerOpen + advancedPopoverOpen) com handlers `openSimple()` / `toggleAdvanced()` / `closeAll()`. Importado standalone pra consumer customizar abertura programaticamente (atalho teclado, query param, etc).",
+          "Componente `<ToolbarSimpleFilterDrawer>` em `TableToolbar/parts/` — drawer FloatingPanel side=\"right\" com lista vertical de filtros. Aplicação LIVE (cada toggle atualiza filterModel direto). Operator inferido inline via switch do filterType. Preserva posição original dos items no array (reconstrução in-place — não empurra pro fim ao editar).",
+          "Nova prop `anchor?: ReactNode` em `FilterPopover` — posiciona o popover sem disparar abertura via click. Usado pelo split button (popover controlled via state). Resolve race condition do PopoverTrigger asChild + ButtonGroup wrapper. Quando `anchor` undefined, mantém `trigger` como PopoverTrigger padrão.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "ButtonGroupRoot agora usa `forwardRef` — necessário pra Radix `PopoverAnchor asChild` conseguir obter o DOM node ref. Sem isso, popover ficava posicionado em top=-506 (fora do viewport).",
+          "Chevron do ButtonGroup agora é QUADRADO (width = height alinhado com size-form-*) — antes era width compacta (~32px no md) que ficava acanhado vs altura 40px do Primary. Pattern alinhado com Shadcn/Linear/Notion.",
+          "Drawer `<ToolbarSimpleFilterDrawer>` ganhou padding interno `px-[18px] py-[14px]` alinhado com header/footer do FloatingPanel. O body do FloatingPanel é genérico (sem padding default); cada consumer define o seu.",
+          "Gap entre filtros no drawer aumentado de gp-xl (12px) pra gp-2xl (16px) — campos respiram visualmente sem inflar demais a altura do drawer.",
+          "Altura do ButtonGroup no DataTable alinhada com ToolbarToolButton (size=\"md\" = 40px) — antes estava sm (36px) e gerava discrepância visual com Exportar/Ordenar/Cols na toolbar.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "DataTable simplificou wire de filtros — antes montava manualmente `<FilterPopover>` + `<ButtonGroup>` + `<DataTableSimpleFilterDrawer>` separados com state local (~100 linhas). Agora instancia `<ToolbarFilterControl>` único (~30 linhas) passando config. State (drawer/popover open) mora no hook interno do ToolbarFilterControl.",
+          "Drawer movido de `DataTable/parts/data-table-simple-filter-drawer.tsx` → `TableToolbar/parts/toolbar-simple-filter-drawer.tsx` (renomeado `DataTableSimpleFilterDrawer` → `ToolbarSimpleFilterDrawer`). TableToolbar passa a ser o dono completo do controle de filtros. Coupling-aceita TableToolbar → DataTable (`columnTypeRegistry`, `FilterModel` types) — mesmo pattern de `<FilterPopover>` que já importava `ColumnOption`. Coupling reverso (DataTable → TableToolbar) **continua proibido**.",
+          "USAGE.md atualizados — DataTable ganhou seção \"Filtros — split button + drawer simple (v0.7.0+, opt-IN)\"; TableToolbar adicionou seção \"3-pre. ToolbarFilterControl\" + entries Compound + hook example. Inventory.md (`.ai/context/components/inventory.md`) adicionou ButtonGroup como 7º componente principal + nota sobre v0.7.0 do DataTable + ToolbarFilterControl.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.6.0",
     date: "2026-06-07",
     tag: "preview",

@@ -369,6 +369,65 @@ Chores e infra (sem bump de version) podem ir direto via commit normal — mas r
 
 ---
 
+## [L-021] Compound component que serve de anchor pra Radix asChild PRECISA usar `forwardRef`
+
+**Erro cometido:** ao criar `<ButtonGroup>` (compound component v0.7.0), implementei `ButtonGroupRoot` como function component normal sem `forwardRef`. Tudo funcionava no preview standalone. Quando o DataTable usou ButtonGroup como `anchor` do `<FilterPopover>` (split button pattern via `PopoverAnchor asChild`), o popover advanced abriu mas em `top=-506px` — fora do viewport. Demorou pra diagnosticar porque o problema era invisível (popover existia no DOM com `data-state="open"`, mas posicionado fora).
+
+**Causa raiz:** Radix `*Anchor` / `*Trigger` com `asChild` clona o filho e injeta `ref` pra obter o DOM node como anchor de posicionamento. Compound sem `forwardRef` ignora o ref injetado → Radix não acha anchor → fallback posiciona em (0, default) que pode estar fora do viewport.
+
+**Regra derivada:** componente compound que possivelmente será wrap-ed por `PopoverAnchor/Trigger`, `TooltipTrigger`, `DropdownMenuTrigger`, `Slot` ou similar PRECISA usar `forwardRef`. Mesmo que hoje você não use anchor — facilita extensão futura. Custo é mínimo (~3 linhas).
+
+```tsx
+// ❌ Antes (componente compound sem ref)
+function ButtonGroupRoot({ children, ...props }: ButtonGroupProps) {
+  return <div role="group" {...props}>{children}</div>;
+}
+
+// ✅ Depois (forwardRef)
+const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
+  function ButtonGroupRoot({ children, ...props }, ref) {
+    return <div ref={ref} role="group" {...props}>{children}</div>;
+  },
+);
+```
+
+**Sintomas de diagnóstico:** popover/tooltip aparece com `data-state="open"` no DOM mas é invisível ou posicionado errado. `getBoundingClientRect()` retorna posição fora do viewport (top negativo grande, ou top=0 left=0 quando deveria estar no canto direito). React DevTools mostra o popover montado normalmente.
+
+**Contexto:** qualquer componente que será trigger/anchor de overlay Radix. Aplicar em todos os compound components novos do DS por default (Button já usa forwardRef, mas Card/Panel/etc deveriam).
+
+---
+
+## [L-022] Split button com Radix Popover: usar `PopoverAnchor` em vez de `PopoverTrigger`
+
+**Erro cometido:** ao montar split button (ButtonGroup com Primary=ação A + Chevron=ação B), envolvi o ButtonGroup inteiro em `<PopoverTrigger asChild>`. O Chevron tinha `onClick` próprio (toggle do popover) e o Primary tinha `onClick` próprio (abrir drawer). Mas o `PopoverTrigger asChild` faz merge do `onClick` interno do Radix com o wrapper — qualquer click dentro do wrapper bubble e dispara `onOpenChange` interno do Radix, conflitando com o setState do handler do filho. Race condition: meu state seta `open=true`, o Radix entende como trigger click e seta `open=false` no mesmo tick. Resultado: popover não abre OU abre e fecha imediatamente.
+
+**Tentativas que NÃO resolveram:**
+- `e.stopPropagation()` no onClick — Radix usa pointerDown, não click
+- `e.preventDefault()` + `e.stopPropagation()` no `onPointerDown` — Radix Slot ainda merge antes do handler do filho
+- `dispatchEvent` manual com pointerdown sintético — mesmo resultado
+
+**Solução:** usar `<PopoverAnchor asChild>` em vez de `<PopoverTrigger asChild>`. Anchor SÓ POSICIONA — não tem handler de toggle. Consumer controla `open` / `onOpenChange` externamente via state. Implementação na lib (`<FilterPopover>` v0.7.0):
+
+```tsx
+<Popover open={open} onOpenChange={handleOpenChange}>
+  {anchor ? (
+    // Anchor mode: posiciona mas NÃO dispara abertura — consumer controla via prop `open`
+    <PopoverAnchor asChild>{anchor}</PopoverAnchor>
+  ) : (
+    <PopoverTrigger asChild>{trigger}</PopoverTrigger>
+  )}
+  <PopoverContent>{...}</PopoverContent>
+</Popover>
+```
+
+**Regra derivada:** Popover/Tooltip/HoverCard com **trigger composto** (2+ filhos com handlers diferentes) DEVE usar `Anchor` (posicionamento) + `open` controlled (consumer dispara). `Trigger` só é seguro quando o componente inteiro é 1 handler de toggle.
+
+**Heurística:** *"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."*
+
+**Contexto:** qualquer split button, button group com dropdown, ou wrap de Radix overlay com children que têm interactions próprias. Pattern aplicado em `FilterPopover` (nova prop `anchor?: ReactNode`). Replicar quando criar novos componentes com split pattern.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

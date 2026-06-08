@@ -262,6 +262,10 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-019** Remover/renomear token → grep TODOS os scopes (`src/`, `cli/templates/**`, `.claude/**`, `.ai/context/**`, `.ai/rules/**`, `lessons.md`). Preservar `audits/`, `specs/`, `archive/`, `pipeline-state.md`.
 - **L-020** Patches/hotfixes também usam `/ds-release` — branch + PR obrigatórios. **TODO `npm publish` ou bump em `package.json.version` exige o fluxo completo**, incluindo pre-commit-check e gate humano. Direct push no `main` pra release quebra a convenção do projeto (releases v0.3-v0.5 vieram via PR; sessão 2026-06-05 burlou isso por urgência percebida — não justifica).
 
+### Compound components + Radix (lições 2026-06-08, v0.7.0)
+- **L-021** Compound component wrapper que serve de **anchor pra Radix Popover/Tooltip/etc** PRECISA usar `forwardRef`. Sem isso, `asChild` não consegue obter o DOM node ref e o popover ancora em `top=-506` (fora do viewport). Caso real: `ButtonGroupRoot` sem forwardRef → popover advanced do DataTable simpleFilter quebrou posicionamento. Fix: refatorar pra `forwardRef<HTMLDivElement, Props>`.
+- **L-022** Split button com Radix Popover: usar `<PopoverAnchor asChild>` (NÃO `<PopoverTrigger asChild>`) quando o wrapper tem 2+ onClick handlers separados (ex: ButtonGroup Primary + Chevron). PopoverTrigger asChild faz merge do onClick com o wrapper → qualquer click bubble dispara o toggle interno do Radix, conflitando com handlers de filho específicos (race condition mesmo com `e.stopPropagation()` + `e.preventDefault()`). Anchor só posiciona; consumer controla `open`/`onOpenChange` externamente via state. Pattern aplicado em `<FilterPopover>` v0.7.0 — nova prop `anchor?: ReactNode` substitui `trigger` quando consumer quer split button externo.
+
 ---
 
 ## USAGE.md por componente

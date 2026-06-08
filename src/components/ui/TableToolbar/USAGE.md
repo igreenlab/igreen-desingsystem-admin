@@ -46,11 +46,17 @@ Cada part é independente. Você compõe a **ordem visual** — toolbar não for
 | Part | Função | Smart? |
 |---|---|---|
 | `TableToolbarViews` | Saved Views completo (Tabs + Popover + AddModal + DeleteAlert). | **Smart** — orquestra 4 filhos com state interno. Documentado. |
+| `ToolbarFilterControl` (v0.7.0+) | Controle de filtros completo — split button (`<ButtonGroup>`) + drawer simple (`<ToolbarSimpleFilterDrawer>`) + advanced popover (`<FilterPopover>`). Opt-IN via prop `enabled`. | **Smart** — orquestra 3 filhos. State via `useToolbarFilterControl` (interno por default). |
+| `ToolbarSimpleFilterDrawer` (v0.7.0+) | Drawer lateral (FloatingPanel right) com lista vertical de filtros — 1 linha por coluna, widget via registry, aplicação LIVE. Operator inferido do `filterType`. | Dumb — recebe `columns` + `filterModel` + handlers. |
 
 ## Hooks opcionais
 
 ```ts
-import { useToolbarFilters, useToolbarSort } from "@/components/ui/TableToolbar";
+import {
+  useToolbarFilters,
+  useToolbarSort,
+  useToolbarFilterControl,
+} from "@/components/ui/TableToolbar";
 
 // Filtros — opcional. Você pode usar useState direto.
 const filters = useToolbarFilters({ initial: [{ id, columnKey, op, value }] });
@@ -59,6 +65,14 @@ filters.add({ columnKey, op, value });
 // Sort — mesma ideia
 const sort = useToolbarSort({ initial: [] });
 sort.add({ columnKey: "name", direction: "asc" });
+
+// FilterControl state (v0.7.0+) — pra abrir drawer/popover programaticamente
+// (ex: deep-link via query param, atalho de teclado, etc).
+// Omitir → ToolbarFilterControl usa instância interna automaticamente.
+const filterCtl = useToolbarFilterControl();
+filterCtl.openSimple();        // abre drawer
+filterCtl.toggleAdvanced();    // toggle query builder popover
+filterCtl.closeAll();          // fecha ambos
 ```
 
 ## Patterns
