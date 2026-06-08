@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect } from "react";
+﻿import { useState, useRef, useEffect, useMemo } from "react";
 import { useTheme } from "./hooks/useTheme";
 import { AgentsPreview } from "./preview/pages/AgentsPreview";
 import { ComponentDocTemplate } from "./preview/pages/ComponentDocTemplate";
@@ -55,6 +55,7 @@ import { HeaderDoc } from "./preview/pages/HeaderDoc";
 import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
 import ClientesShowcase from "./preview/pages/ClientesShowcase";
+import ClientesFinanceiroShowcase from "./preview/pages/ClientesFinanceiroShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
 import DashboardShowcase from "./preview/pages/DashboardShowcase";
 import { ColorsDoc } from "./preview/pages/ColorsDoc";
@@ -204,6 +205,19 @@ export function App() {
   const { isDark, toggle } = useTheme();
   const theme = isDark ? "dark" : "light";
   const [activePage, setActivePage] = useState<PageId>("button");
+
+  // Standalone apps via query param — renderiza fullscreen sem nav de docs.
+  // Ex: ?app=finance → ClientesFinanceiroShowcase (sem sidebar de DS).
+  // Detecta uma vez no mount; reload da página é necessário pra trocar.
+  // Hook chamado ANTES de qualquer early return pra respeitar Rules of Hooks.
+  const standaloneApp = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("app");
+  }, []);
+
+  if (standaloneApp === "finance") {
+    return <ClientesFinanceiroShowcase />;
+  }
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
   const DOC_PAGES = [
