@@ -2,6 +2,11 @@ import { useMemo } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { FloatingPanel } from "../../FloatingPanel";
 import { Button } from "../../Button/button";
+// FormField do DS — wrapper padrão pra label+input. Sem ele, labels têm
+// font-weight inconsistente (font-medium em vez de font-semibold) e cor
+// errada no dark (sempre fg-default em vez de fg-muted). Pattern obrigatório
+// pra qualquer form do projeto — ver lesson L-023.
+import { FormField } from "../../FormField";
 // Coupling-aceita: TableToolbar consome utilities do DataTable que são API
 // pública (ColumnTypeRegistry, operator mapping, FilterModel types). O mesmo
 // pattern já existe em FilterPopover que importa `ColumnOption`. Coupling
@@ -259,20 +264,27 @@ export function ToolbarSimpleFilterDrawer({
           const filterOp = POPOVER_OP_TO_FILTER_OP[operator] ?? operator;
           const options = (col.options ?? []) as ColumnOption[];
 
+          // Usa <FormField> do DS — garante label com font-semibold + cor
+          // dark-mode-aware (fg-default light / fg-muted dark). Children
+          // render-prop recebe id pra linkar htmlFor; o widget vem do
+          // columnTypeRegistry e não consome o id automaticamente, mas o
+          // padrão visual (label + spacing + dark mode) fica correto.
           return (
-            <div key={col.key} className="flex flex-col gap-gp-xs">
-              <label className="text-body-sm font-medium text-fg-default">
-                {col.label}
-              </label>
-              <div className="w-full">
-                {def.renderFilterInput({
-                  value: currentValue as never,
-                  onChange: (v: unknown) => updateFieldValue(col.key, v, col.filterType),
-                  operator: filterOp as never,
-                  options,
-                })}
-              </div>
-            </div>
+            <FormField
+              key={col.key}
+              label={typeof col.label === "string" ? col.label : String(col.label)}
+            >
+              {() => (
+                <div className="w-full">
+                  {def.renderFilterInput({
+                    value: currentValue as never,
+                    onChange: (v: unknown) => updateFieldValue(col.key, v, col.filterType),
+                    operator: filterOp as never,
+                    options,
+                  })}
+                </div>
+              )}
+            </FormField>
           );
         })}
       </div>
