@@ -273,42 +273,40 @@ const KPI_TONE_CLASSES: Record<KpiTone, { bg: string; fg: string }> = {
 };
 
 /**
- * KpiCard alinhado com `DashboardShowcase.tsx` — header (title + icon
- * tone-based), value 2xl bold tabular-nums, hint opcional embaixo.
- * Usa <article> com bg-surface + border-subtle + rounded-xl + shadow-sm.
+ * KpiCard compacto — layout horizontal pra altura ~50% menor que o card
+ * "vertical" do DashboardShowcase. Ícone à esquerda + stack title/value à
+ * direita. Hint removido (info do contexto já implícita).
+ *
+ * Altura aproximada: ~68px (vs ~160px do layout anterior). Mantém
+ * `<article>` + bg-surface + border-subtle + rounded-xl + shadow-sm.
  */
 function KpiCard({
   icon: Icon,
   title,
   value,
-  hint,
   tone = "brand",
 }: {
   icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   title: string;
   value: string;
-  hint?: string;
   tone?: KpiTone;
 }) {
   const cls = KPI_TONE_CLASSES[tone];
   return (
-    <article className="flex flex-col gap-gp-lg p-pad-3xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm">
-      <header className="flex items-start justify-between gap-gp-md">
-        <h3 className="m-0 text-body-md font-semibold text-fg-default">{title}</h3>
-        <span
-          className={`grid place-items-center size-form-lg rounded-radius-lg shrink-0 ${cls.bg} ${cls.fg}`}
-          aria-hidden="true"
-        >
-          <Icon className="size-icon-md" strokeWidth={1.8} />
+    <article className="flex items-center gap-gp-lg p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm">
+      <span
+        className={`grid place-items-center size-form-lg rounded-radius-md shrink-0 ${cls.bg} ${cls.fg}`}
+        aria-hidden="true"
+      >
+        <Icon className="size-icon-md" strokeWidth={1.8} />
+      </span>
+      <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs">
+        <span className="text-caption-md text-fg-muted truncate leading-tight">
+          {title}
         </span>
-      </header>
-      <div className="flex flex-col gap-gp-xs">
-        <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
+        <span className="text-body-xl font-bold text-fg-default tabular-nums leading-tight truncate">
           {value}
         </span>
-        {hint && (
-          <span className="text-caption-sm text-fg-subtle">{hint}</span>
-        )}
       </div>
     </article>
   );
@@ -448,21 +446,18 @@ export default function ClientesFinanceiroShowcase() {
           icon={Wallet}
           title="Disponível total"
           value={formatBRL(FINANCE_KPIS.totalAvailable)}
-          hint="Soma de todos os saldos"
           tone="brand"
         />
         <KpiCard
           icon={TrendingUp}
           title="High-value (≥ R$ 5k)"
-          value={String(FINANCE_KPIS.highValueCount)}
-          hint="Clientes acima de R$ 5.000"
+          value={`${FINANCE_KPIS.highValueCount} licenciados`}
           tone="success"
         />
         <KpiCard
           icon={Banknote}
-          title="Saldo médio"
+          title="Saldo médio por cliente"
           value={formatBRL(FINANCE_KPIS.averageBalance)}
-          hint="Por cliente"
           tone="info"
         />
       </section>
@@ -482,10 +477,14 @@ export default function ClientesFinanceiroShowcase() {
         simpleFilter={{ enabled: true }}
         toolbar={{
           enableSearch: true,
+          // Sem refresh nessa tela — os dados são mockados, refresh visual
+          // não agrega valor pro usuário do financeiro.
+          enableRefresh: false,
           enableFilters: true,
           enableColumns: true,
           enableDensity: true,
-          enableExport: true,
+          // Sem export — financeiro não exporta dados sensíveis pelo UI.
+          enableExport: false,
         }}
         paginationConfig={{
           enabled: true,
