@@ -53,15 +53,35 @@ function buildColumns(
       headerName: "Cliente",
       type: "text",
       sortable: true,
-      width: 200,
+      width: 260,
+      render: ({ row }) => (
+        <div className="flex flex-col gap-gp-3xs min-w-0">
+          <div className="flex items-center gap-gp-sm">
+            <span className="text-body-sm font-medium text-fg-default truncate">
+              {row.name}
+            </span>
+            <Chip color="primary" variant="soft" size="sm" shape="rounded">
+              Licenciado
+            </Chip>
+          </div>
+          <span className="text-caption-md text-fg-muted truncate">
+            {row.email}
+          </span>
+        </div>
+      ),
     },
     {
-      field: "email",
-      headerName: "Email",
-      type: "email",
+      field: "cnpj",
+      headerName: "CNPJ",
+      type: "text",
+      width: 180,
       enableColumnFilter: true,
       filterType: "text",
-      width: 220,
+      render: ({ value }) => (
+        <span className="text-body-sm tabular-nums text-fg-default">
+          {value as string}
+        </span>
+      ),
     },
     // Saldo disponível — currency right-aligned, destaque em verde via render
     {
@@ -112,14 +132,6 @@ function buildColumns(
       },
     },
     {
-      field: "categoryId",
-      headerName: "Categoria",
-      type: "badge",
-      enableColumnFilter: true,
-      filterType: "multiSelect",
-      width: 140,
-    },
-    {
       field: "createdAt",
       headerName: "Cliente desde",
       type: "date",
@@ -154,34 +166,58 @@ function buildColumns(
   ];
 }
 
-/* ── KPI Card (mini stat card pra header da página) ─────────────── */
+/* ── KPI Card (alinhado com pattern do DashboardShowcase) ───────── */
 
+type KpiTone = "brand" | "success" | "warning" | "info" | "danger" | "neutral";
+
+const KPI_TONE_CLASSES: Record<KpiTone, { bg: string; fg: string }> = {
+  brand:   { bg: "bg-bg-brand-subtle",   fg: "text-fg-brand" },
+  success: { bg: "bg-bg-success-muted",  fg: "text-fg-success" },
+  warning: { bg: "bg-bg-warning-muted",  fg: "text-fg-warning" },
+  info:    { bg: "bg-bg-info-muted",     fg: "text-fg-info" },
+  danger:  { bg: "bg-bg-danger-muted",   fg: "text-fg-danger" },
+  neutral: { bg: "bg-bg-muted",          fg: "text-fg-muted" },
+};
+
+/**
+ * KpiCard alinhado com `DashboardShowcase.tsx` — header (title + icon
+ * tone-based), value 2xl bold tabular-nums, hint opcional embaixo.
+ * Usa <article> com bg-surface + border-subtle + rounded-xl + shadow-sm.
+ */
 function KpiCard({
-  icon,
-  label,
+  icon: Icon,
+  title,
   value,
   hint,
+  tone = "brand",
 }: {
-  icon: React.ReactNode;
-  label: string;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
+  title: string;
   value: string;
   hint?: string;
+  tone?: KpiTone;
 }) {
+  const cls = KPI_TONE_CLASSES[tone];
   return (
-    <div className="flex items-center gap-gp-lg p-pad-xl rounded-radius-lg border border-border-default bg-bg-surface shadow-sh-sm min-w-[200px]">
-      <div className="size-form-lg rounded-radius-md bg-bg-brand-subtle text-fg-brand grid place-items-center shrink-0 [&_svg]:size-icon-md">
-        {icon}
-      </div>
-      <div className="flex flex-col min-w-0">
-        <span className="text-caption-md font-medium text-fg-muted">{label}</span>
-        <span className="text-heading-sm font-bold text-fg-default tabular-nums">
+    <article className="flex flex-col gap-gp-lg p-pad-3xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm">
+      <header className="flex items-start justify-between gap-gp-md">
+        <h3 className="m-0 text-body-md font-semibold text-fg-default">{title}</h3>
+        <span
+          className={`grid place-items-center size-form-lg rounded-radius-lg shrink-0 ${cls.bg} ${cls.fg}`}
+          aria-hidden="true"
+        >
+          <Icon className="size-icon-md" strokeWidth={1.8} />
+        </span>
+      </header>
+      <div className="flex flex-col gap-gp-xs">
+        <span className="text-body-2xl font-bold text-fg-default leading-none [font-variant-numeric:tabular-nums]">
           {value}
         </span>
         {hint && (
-          <span className="text-caption-sm text-fg-muted truncate">{hint}</span>
+          <span className="text-caption-sm text-fg-subtle">{hint}</span>
         )}
       </div>
-    </div>
+    </article>
   );
 }
 
@@ -284,27 +320,33 @@ export default function ClientesFinanceiroShowcase() {
         }
       />
 
-      {/* KPI row — 3 cards estatísticos sobre a carteira */}
-      <div className="flex flex-wrap gap-gp-lg px-pad-3xl pb-pad-2xl">
+      {/* KPI grid — alinhado com pattern do DashboardShowcase.
+       *  Mesmas classes do PageHeader pra padding lateral (px-pad-3xl) bater
+       *  com o padding da PageHeader acima e da tabela abaixo. Grid responsive:
+       *  1 col mobile, 2 cols sm, 3 cols lg. */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl px-pad-3xl pb-pad-2xl">
         <KpiCard
-          icon={<Wallet />}
-          label="Disponível total"
+          icon={Wallet}
+          title="Disponível total"
           value={formatBRL(FINANCE_KPIS.totalAvailable)}
           hint="Soma de todos os saldos"
+          tone="brand"
         />
         <KpiCard
-          icon={<TrendingUp />}
-          label="High-value (≥ R$ 5k)"
+          icon={TrendingUp}
+          title="High-value (≥ R$ 5k)"
           value={String(FINANCE_KPIS.highValueCount)}
           hint="Clientes acima de R$ 5.000"
+          tone="success"
         />
         <KpiCard
-          icon={<Banknote />}
-          label="Saldo médio"
+          icon={Banknote}
+          title="Saldo médio"
           value={formatBRL(FINANCE_KPIS.averageBalance)}
           hint="Por cliente"
+          tone="info"
         />
-      </div>
+      </section>
 
       {/* DataTable */}
       <DataTable<FinanceClientRow>

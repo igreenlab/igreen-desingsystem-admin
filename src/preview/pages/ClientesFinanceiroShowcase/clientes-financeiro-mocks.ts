@@ -47,12 +47,28 @@ function makeBalance(idx: number): number {
   return Math.round(base * 100) / 100;
 }
 
+/** CNPJ pseudo-determinístico — gera formato XX.XXX.XXX/0001-XX baseado no idx. */
+function makeCNPJ(idx: number): string {
+  // Bloco 1: 2 dígitos
+  const b1 = String(10 + (idx * 13) % 89).padStart(2, "0");
+  // Bloco 2: 3 dígitos
+  const b2 = String(100 + (idx * 71) % 899).padStart(3, "0");
+  // Bloco 3: 3 dígitos
+  const b3 = String(100 + (idx * 127) % 899).padStart(3, "0");
+  // DV: 2 dígitos
+  const dv = String(10 + (idx * 53) % 89).padStart(2, "0");
+  return `${b1}.${b2}.${b3}/0001-${dv}`;
+}
+
 /* ── Dataset financeiro — 87 clientes com banco + saldo ─────────── */
 
 export const FINANCE_CLIENTS: FinanceClientRow[] = CLIENTS_87.map((c, idx) => ({
   ...c,
+  // Force categoria "licenciado" pra tema financeiro (afiliados/parceiros PJ)
+  categoryId: "licenciado",
   bankAccount: makeAccount(idx),
   availableBalance: makeBalance(idx),
+  cnpj: makeCNPJ(idx),
 }));
 
 /* ── Formatters ─────────────────────────────────────────────────── */

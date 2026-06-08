@@ -23,6 +23,8 @@ export type FinanceClientRow = ClientRow & {
   availableBalance: number;
   /** Dados bancários do cliente. */
   bankAccount: BankAccount;
+  /** CNPJ do cliente (formato XX.XXX.XXX/0001-XX). */
+  cnpj: string;
 };
 
 /**
