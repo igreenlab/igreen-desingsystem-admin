@@ -14,6 +14,7 @@ import {
   type DataTableRef,
 } from "@/components/ui/DataTable";
 import { AppShell } from "@/components/ui/AppShell";
+import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -116,13 +117,17 @@ function buildColumns(
         const meta = BANKS[row.bankAccount.bank];
         return (
           <div className="flex items-center gap-gp-md min-w-0">
-            <div
-              className="size-form-sm rounded-full grid place-items-center text-white text-caption-md font-bold shrink-0"
-              style={{ backgroundColor: meta.color }}
-              aria-hidden="true"
+            {/* Avatar do banco — bg via colorHex, texto auto-contrast (L-027).
+             *  BB amarelo agora aparece com texto PRETO (antes branco = ratio
+             *  1.29:1 falhava WCAG AA); roxos/vermelhos/laranjas escuros
+             *  continuam com branco. */}
+            <Avatar
+              size="lg"
+              colorHex={meta.color}
+              className="text-caption-md font-bold"
             >
               {meta.initials}
-            </div>
+            </Avatar>
             <div className="flex flex-col min-w-0">
               <span className="text-body-sm font-medium text-fg-default truncate">
                 {row.bankAccount.bankName}

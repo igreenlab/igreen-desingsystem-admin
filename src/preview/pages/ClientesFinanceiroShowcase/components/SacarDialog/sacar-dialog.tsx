@@ -6,6 +6,7 @@ import {
   FormFieldSelect,
 } from "@/components/ui/FormField";
 import { CardCheckbox } from "@/components/ui/CardCheckbox";
+import { Avatar } from "@/components/ui/Avatar";
 import { Chip } from "@/components/ui/Chip";
 import {
   Tabs,
@@ -249,13 +250,13 @@ export function SacarDialog({
                           : "border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted",
                       ].join(" ")}
                     >
-                      <div
-                        className="size-form-md rounded-full grid place-items-center text-white text-body-sm font-bold shrink-0"
-                        style={{ backgroundColor: bankMeta.color }}
-                        aria-hidden="true"
+                      <Avatar
+                        size="lg"
+                        colorHex={bankMeta.color}
+                        className="text-body-sm font-bold"
                       >
                         {bankMeta.initials}
-                      </div>
+                      </Avatar>
                       <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs">
                         <div className="flex items-center gap-gp-sm">
                           <span className="text-body-sm font-semibold text-fg-default truncate">

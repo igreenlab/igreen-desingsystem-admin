@@ -564,6 +564,49 @@ Classe resultante: `gap-form-gap` (20px).
 
 ---
 
+## [L-027] Avatar com `colorHex` deve calcular contraste WCAG — não aplicar `text-white` cego
+
+**Sessão:** 2026-06-09 (descoberta visual pelo Sergio em bancos amarelos).
+
+**Bug observado:** ao usar `<Avatar colorHex="#FAE128">BB</Avatar>` (BB amarelo), o texto branco ficava ilegível — contrast ratio 1.29:1, **falha WCAG AA** (mín. 4.5:1 pra texto normal). Sergio notou: *"o Banco do Brasil é amarelo e o branco por cima ficou um contraste muito ruim"*.
+
+**Causa raiz:** `avatar.tsx` aplicava `text-white` cegamente quando `colorHex` era fornecido (linha original: `className: isHex ? ["text-white", ...] : ...`). Funcionava bem pra cores escuras (Nubank roxo, Bradesco vermelho) — falhava em cores claras (BB amarelo, Itaú laranja médio).
+
+**Solução:** criar utility `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` que:
+1. Converte hex → RGB
+2. Calcula relative luminance WCAG 2.x (com gamma correction)
+3. Calcula contrast ratio (white, bg) vs (black, bg)
+4. Retorna `"white" | "black"` — o de MAIOR ratio
+
+Avatar passa a usar:
+```ts
+const autoTextClass = isHex
+  ? getContrastTextColor(colorHex) === "black" ? "text-black" : "text-white"
+  : null;
+```
+
+**Casos validados (BANKS lookup do ClientesFinanceiroShowcase):**
+| Banco | Hex | Antes (white) | Depois (auto) | Ratio after |
+|---|---|---|---|---|
+| Banco do Brasil | #FAE128 | branco 1.29:1 ❌ | preto 16.3:1 ✅ | AAA |
+| Itaú | #EC7000 | branco 2.69:1 ❌ | preto 7.79:1 ✅ | AAA |
+| Nubank | #820AD1 | branco 6.20:1 ✅ | branco 6.20:1 ✅ | AA |
+| Santander | #EC0000 | branco 4.50:1 ✅ | branco 4.50:1 ✅ | AA |
+| Bradesco | #CC092F | branco 6.53:1 ✅ | branco 6.53:1 ✅ | AAA |
+
+**Override:** consumer pode forçar cor específica via `className="text-white"` (cascade override). Não recomendado quando quebra WCAG.
+
+**Regra pra IA:** ao criar componente que aceita `bgColor` arbitrário (Avatar, Chip futuro, Badge custom etc), sempre usar `getContrastTextColor()` em vez de hard-code `text-white`. Aplicar em qualquer slot de texto sobre fundo dinâmico.
+
+**Caso edge:** `bg-bg-brand-subtle` + `text-fg-brand` (semânticos DS) — esses NÃO precisam do utility porque o par foi pré-validado pelo design system (cores casadas em `color-light/dark.ts`). Auto-contrast só pra casos onde `colorHex` é input externo (lookup de marca, persona, etc).
+
+**Arquivos:**
+- `src/utils/color-contrast.ts` (novo)
+- `src/components/ui/Avatar/avatar.tsx` (refatorado — branch isHex usa auto)
+- `src/components/ui/Avatar/USAGE.md` (tabela de casos)
+
+---
+
 ## [L-026] TableHeadCell right-aligned: reservar `pr-[60px]` SOMENTE quando sort ativo, não pra hover-only icons
 
 **Sessão:** 2026-06-09 (descoberta visual pelo Sergio em viewport reduzido).

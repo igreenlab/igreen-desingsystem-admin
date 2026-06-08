@@ -1,4 +1,5 @@
 import { forwardRef } from "react";
+import { getContrastTextColor } from "@/utils/color-contrast";
 import { avatarVariants } from "./avatar.styles";
 import type { AvatarProps } from "./avatar.types";
 
@@ -8,8 +9,15 @@ import type { AvatarProps } from "./avatar.types";
  * Supports semantic `color` presets (brand, success, warning, critical, info, muted)
  * and a `colorHex` override for person-specific hex colors.
  *
- * When `colorHex` is provided, background is set via inline style and text
- * becomes `text-white` (decorative text over solid color — analogous to L-014).
+ * Auto contrast (v0.7.1, L-027): quando `colorHex` é fornecido, calcula o
+ * contraste WCAG entre branco/preto e o bg, escolhendo a cor de texto com
+ * MAIOR ratio. Antes aplicava `text-white` cego — quebrava em cores claras
+ * (ex: BB amarelo #FAE128 → ratio 1.29:1, falha WCAG AA). Agora respeita
+ * o threshold dinâmico baseado em luminância (Y > 0.5 → preto, else branco).
+ *
+ * Override: pra forçar uma cor específica (caso de marca que exige X), passe
+ * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada
+ * pela ordem de cascade.
  *
  * Accessibility:
  * - With `aria-label` → role="img" (semantic avatar)
@@ -31,10 +39,21 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
   ) {
     const isHex = typeof colorHex === "string" && colorHex.startsWith("#");
 
+    // Cor de texto auto-calculada quando hex é fornecido — sempre o maior
+    // contraste WCAG entre white/black. Fallback "white" pra hex inválido
+    // (preserva comportamento legado).
+    const autoTextClass = isHex
+      ? getContrastTextColor(colorHex) === "black"
+        ? "text-black"
+        : "text-white"
+      : null;
+
     const computedClassName = avatarVariants({
       size,
       color: isHex ? "_custom" : color,
-      className: isHex ? ["text-white", className].filter(Boolean).join(" ") : className,
+      className: isHex
+        ? [autoTextClass, className].filter(Boolean).join(" ")
+        : className,
     });
 
     const computedStyle = isHex
