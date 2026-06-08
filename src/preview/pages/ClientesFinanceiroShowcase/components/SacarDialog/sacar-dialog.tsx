@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import { Banknote, Check, Plus, Wallet } from "lucide-react";
+import { Banknote, Check, Wallet } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
-import { FormFieldInput } from "@/components/ui/FormField";
+import {
+  FormFieldCheckbox,
+  FormFieldInput,
+  FormFieldSelect,
+} from "@/components/ui/FormField";
 import { Chip } from "@/components/ui/Chip";
 import {
   Tabs,
@@ -48,6 +52,29 @@ export type SacarDialogProps = {
  *   - amount <= availableBalance (caso contrário, helper red)
  *   - alguma conta selecionada
  */
+/** Aba ativa no seletor de "Conta de destino". */
+type AccountTab = "cadastradas" | "outra";
+
+/** Form da aba "Outra conta" — cadastro de nova conta bancária. */
+type NewAccountForm = {
+  bank: BankId | "";
+  agency: string;
+  account: string;
+  saveForLater: boolean;
+};
+
+const EMPTY_NEW_ACCOUNT: NewAccountForm = {
+  bank: "",
+  agency: "",
+  account: "",
+  saveForLater: true,
+};
+
+const BANK_SELECT_OPTIONS = (Object.keys(BANKS) as BankId[]).map((id) => ({
+  value: id,
+  label: BANKS[id].name,
+}));
+
 export function SacarDialog({
   open,
   onOpenChange,
@@ -56,12 +83,16 @@ export function SacarDialog({
 }: SacarDialogProps) {
   const [amountStr, setAmountStr] = useState("");
   const [selectedBank, setSelectedBank] = useState<BankId | null>(null);
+  const [activeTab, setActiveTab] = useState<AccountTab>("cadastradas");
+  const [newAccount, setNewAccount] = useState<NewAccountForm>(EMPTY_NEW_ACCOUNT);
 
   // Reset ao abrir
   useEffect(() => {
     if (open) {
       setAmountStr("");
       setSelectedBank(SACAR_ACCOUNT_OPTIONS[0]?.bank ?? null);
+      setActiveTab("cadastradas");
+      setNewAccount(EMPTY_NEW_ACCOUNT);
     }
   }, [open]);
 
@@ -72,12 +103,37 @@ export function SacarDialog({
   }, [amountStr]);
 
   const overLimit = amount > limit;
-  const canSubmit = !!client && amount > 0 && !overLimit && !!selectedBank;
+
+  // Form da nova conta: válido quando bank + agency + account preenchidos
+  const newAccountValid = !!(
+    newAccount.bank &&
+    newAccount.agency.trim() &&
+    newAccount.account.trim()
+  );
+
+  // canSubmit depende da aba ativa
+  const canSubmit =
+    !!client &&
+    amount > 0 &&
+    !overLimit &&
+    (activeTab === "cadastradas" ? !!selectedBank : newAccountValid);
 
   const handleConfirm = () => {
-    if (!canSubmit || !client || !selectedBank) return;
-    const account = SACAR_ACCOUNT_OPTIONS.find((a) => a.bank === selectedBank);
+    if (!canSubmit || !client) return;
+
+    let account: BankAccount | undefined;
+    if (activeTab === "cadastradas" && selectedBank) {
+      account = SACAR_ACCOUNT_OPTIONS.find((a) => a.bank === selectedBank);
+    } else if (activeTab === "outra" && newAccountValid && newAccount.bank) {
+      account = {
+        bank: newAccount.bank,
+        bankName: BANKS[newAccount.bank].name,
+        agency: newAccount.agency.trim(),
+        account: newAccount.account.trim(),
+      };
+    }
     if (!account) return;
+
     onConfirm?.({
       clientId: client.id,
       amount,
@@ -110,19 +166,19 @@ export function SacarDialog({
     >
       <div className="flex flex-col gap-gp-2xl">
         {/* Saldo disponível — highlight financeiro
-         *  Spacing maior entre ícone e label/valor (gap-gp-xl em vez de md).
-         *  Label cor mais forte (fg-default dark:fg-muted em semibold) e valor
-         *  com font-size menor (body-lg em vez de heading-md). */}
+         *  - Label `text-fg-strong` (preto light / branco dark, sem fade).
+         *  - Gap label↔valor = 4px (gp-xs) pra dar respiro.
+         *  - Valor agora text-body-xl (18px, +2px do anterior body-lg=16px). */}
         <div className="flex items-center justify-between p-pad-2xl rounded-radius-lg bg-bg-brand-subtle border border-border-brand">
           <div className="flex items-center gap-gp-xl">
             <div className="size-form-md rounded-radius-md bg-bg-brand text-white grid place-items-center">
               <Wallet className="size-icon-sm" />
             </div>
-            <div className="flex flex-col gap-gp-3xs">
-              <span className="text-caption-md font-semibold text-fg-default dark:text-fg-muted">
+            <div className="flex flex-col gap-gp-xs">
+              <span className="text-caption-md font-semibold text-fg-strong">
                 Saldo disponível pra saque
               </span>
-              <span className="text-body-lg font-bold text-fg-brand tabular-nums leading-none">
+              <span className="text-body-xl font-bold text-fg-brand tabular-nums leading-none">
                 {formatBRL(limit)}
               </span>
             </div>
@@ -154,7 +210,11 @@ export function SacarDialog({
             Conta de destino
           </label>
 
-          <Tabs defaultValue="cadastradas" className="w-full">
+          <Tabs
+            value={activeTab}
+            onValueChange={(v) => setActiveTab(v as AccountTab)}
+            className="w-full"
+          >
             <TabsList className="w-full">
               <TabsTrigger value="cadastradas" className="flex-1">
                 Contas cadastradas
@@ -181,10 +241,11 @@ export function SacarDialog({
                         "border text-left",
                         "transition-[border-color,background-color,box-shadow] duration-150",
                         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-                        // Selected: bg verde claro (success-muted) + border-success
-                        // Sergio pediu "verde fraco" pra reforçar visualmente o item.
+                        // Selected: bg verde fraco (success-muted) + border-brand
+                        // (padrão igual ao card do Saldo disponível) — antes
+                        // border-success deixava a borda branca no dark mode.
                         isSelected
-                          ? "border-border-success bg-bg-success-muted shadow-sh-sm"
+                          ? "border-border-brand bg-bg-success-muted shadow-sh-sm"
                           : "border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted",
                       ].join(" ")}
                     >
@@ -224,20 +285,48 @@ export function SacarDialog({
               </div>
             </TabsContent>
 
-            {/* Tab 2: outra conta — placeholder pra cadastro futuro */}
+            {/* Tab 2: outra conta — formulário pra cadastrar nova conta.
+             *  Campos: banco (select), agência, conta, + checkbox "salvar". */}
             <TabsContent value="outra" className="mt-pad-lg">
-              <div className="flex flex-col items-center justify-center gap-gp-md p-pad-3xl rounded-radius-lg border border-dashed border-border-default bg-bg-muted">
-                <div className="size-form-lg rounded-full bg-bg-brand-subtle text-fg-brand grid place-items-center">
-                  <Plus className="size-icon-md" />
+              <div className="flex flex-col gap-gp-lg">
+                <FormFieldSelect
+                  label="Banco"
+                  required
+                  placeholder="Selecione o banco"
+                  options={BANK_SELECT_OPTIONS}
+                  value={newAccount.bank || undefined}
+                  onValueChange={(v) =>
+                    setNewAccount((s) => ({ ...s, bank: v as BankId }))
+                  }
+                />
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-gp-lg">
+                  <FormFieldInput
+                    label="Agência"
+                    required
+                    placeholder="0000"
+                    value={newAccount.agency}
+                    onChange={(e) =>
+                      setNewAccount((s) => ({ ...s, agency: e.target.value }))
+                    }
+                  />
+                  <FormFieldInput
+                    label="Conta"
+                    required
+                    placeholder="00000-0"
+                    value={newAccount.account}
+                    onChange={(e) =>
+                      setNewAccount((s) => ({ ...s, account: e.target.value }))
+                    }
+                  />
                 </div>
-                <div className="flex flex-col items-center gap-gp-3xs text-center">
-                  <span className="text-body-sm font-semibold text-fg-default">
-                    Cadastrar nova conta
-                  </span>
-                  <span className="text-caption-md text-fg-muted">
-                    Informe os dados de uma conta diferente das já cadastradas
-                  </span>
-                </div>
+                <FormFieldCheckbox
+                  label="Salvar essa conta pra usar depois"
+                  helperText="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
+                  checked={newAccount.saveForLater}
+                  onCheckedChange={(v) =>
+                    setNewAccount((s) => ({ ...s, saveForLater: v === true }))
+                  }
+                />
               </div>
             </TabsContent>
           </Tabs>
