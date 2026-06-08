@@ -25,6 +25,8 @@ export type FinanceClientRow = ClientRow & {
   bankAccount: BankAccount;
   /** CNPJ do cliente (formato XX.XXX.XXX/0001-XX). */
   cnpj: string;
+  /** Razão social da empresa (nome PJ). */
+  companyName: string;
 };
 
 /**

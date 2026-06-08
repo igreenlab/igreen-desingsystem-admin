@@ -47,6 +47,22 @@ function makeBalance(idx: number): number {
   return Math.round(base * 100) / 100;
 }
 
+/** Razão social pseudo-determinística — combina nome do contato + sufixo. */
+const COMPANY_SUFFIXES = [
+  "Solar Energy LTDA",
+  "Energia Renovável ME",
+  "Eco Solutions S.A.",
+  "Green Power LTDA",
+  "Solar Tech ME",
+  "Energy Brasil S.A.",
+];
+function makeCompanyName(idx: number, contactName: string): string {
+  // Pega o primeiro nome do contato e combina com sufixo PJ
+  const firstName = contactName.split(" ")[0];
+  const suffix = COMPANY_SUFFIXES[idx % COMPANY_SUFFIXES.length];
+  return `${firstName} ${suffix}`;
+}
+
 /** CNPJ pseudo-determinístico — gera formato XX.XXX.XXX/0001-XX baseado no idx. */
 function makeCNPJ(idx: number): string {
   // Bloco 1: 2 dígitos
@@ -69,6 +85,7 @@ export const FINANCE_CLIENTS: FinanceClientRow[] = CLIENTS_87.map((c, idx) => ({
   bankAccount: makeAccount(idx),
   availableBalance: makeBalance(idx),
   cnpj: makeCNPJ(idx),
+  companyName: makeCompanyName(idx, c.name),
 }));
 
 /* ── Formatters ─────────────────────────────────────────────────── */

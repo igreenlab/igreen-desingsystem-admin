@@ -50,25 +50,29 @@ function buildColumns(
     { field: "id", headerName: "ID", type: "text", width: 100 },
     {
       field: "name",
-      headerName: "Cliente",
+      headerName: "Licenciado",
       type: "text",
       sortable: true,
-      width: 260,
+      width: 240,
       render: ({ row }) => (
         <div className="flex flex-col gap-gp-3xs min-w-0">
-          <div className="flex items-center gap-gp-sm">
-            <span className="text-body-sm font-medium text-fg-default truncate">
-              {row.name}
-            </span>
-            <Chip color="primary" variant="soft" size="sm" shape="rounded">
-              Licenciado
-            </Chip>
-          </div>
+          <span className="text-body-sm font-medium text-fg-default truncate">
+            {row.name}
+          </span>
           <span className="text-caption-md text-fg-muted truncate">
             {row.email}
           </span>
         </div>
       ),
+    },
+    {
+      field: "companyName",
+      headerName: "Razão Social",
+      type: "text",
+      sortable: true,
+      enableColumnFilter: true,
+      filterType: "text",
+      width: 240,
     },
     {
       field: "cnpj",
@@ -113,7 +117,7 @@ function buildColumns(
         return (
           <div className="flex items-center gap-gp-md min-w-0">
             <div
-              className="size-form-sm rounded-full grid place-items-center text-fg-on-brand text-caption-md font-bold shrink-0"
+              className="size-form-sm rounded-full grid place-items-center text-white text-caption-md font-bold shrink-0"
               style={{ backgroundColor: meta.color }}
               aria-hidden="true"
             >
@@ -321,10 +325,9 @@ export default function ClientesFinanceiroShowcase() {
       />
 
       {/* KPI grid — alinhado com pattern do DashboardShowcase.
-       *  Mesmas classes do PageHeader pra padding lateral (px-pad-3xl) bater
-       *  com o padding da PageHeader acima e da tabela abaixo. Grid responsive:
-       *  1 col mobile, 2 cols sm, 3 cols lg. */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl px-pad-3xl pb-pad-2xl">
+       *  Sem padding lateral (Sergio pediu) — section ocupa full width do
+       *  container pai. Grid responsive: 1 col mobile, 2 cols sm, 3 cols lg. */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl pb-pad-2xl">
         <KpiCard
           icon={Wallet}
           title="Disponível total"
@@ -354,7 +357,10 @@ export default function ClientesFinanceiroShowcase() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
-        persistId="showcase-finance-crud"
+        // Bumpado pra v2 — reset reorder/visibility/widths persistidos da v1
+        // (havia columns reorder antigo de testes que empurrava actions pro
+        // meio em vez do pinned right).
+        persistId="showcase-finance-crud-v2"
         // SimpleFilter ON — UX recomendada pro consumer (split button + drawer)
         simpleFilter={{ enabled: true }}
         toolbar={{
@@ -371,7 +377,10 @@ export default function ClientesFinanceiroShowcase() {
         }}
         selectionConfig={{ enabled: true, enableGlobal: true }}
         showTotalizers
-        className="max-h-full"
+        // flex-1 + min-h-0 + mb-pad-2xl: tabela limita altura ao container pai
+        // (sem scroll de página inteira) + dá respiro embaixo pra paginação
+        // não grudar no rodapé do AppShell.
+        className="flex-1 min-h-0 mb-pad-2xl"
       />
 
       {/* Drawers + Modals */}
