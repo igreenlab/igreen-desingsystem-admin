@@ -127,3 +127,17 @@ export type {
   ToolbarSortEntry,
   UseToolbarSortOptions,
 } from "./hooks/use-toolbar-sort";
+
+export { useToolbarFilterControl } from "./hooks/use-toolbar-filter-control";
+export type { UseToolbarFilterControlReturn } from "./hooks/use-toolbar-filter-control";
+
+/* ── Filter Control built-in (v0.7.0+) ──────────────────────────
+ * Orquestrador completo de filtros (split button + drawer + advanced popover).
+ * DataTable usa internamente; consumers de TableToolbar standalone podem
+ * instanciar diretamente passando columns + filterModel + handlers.
+ */
+export { ToolbarFilterControl } from "./parts/toolbar-filter-control";
+export type { ToolbarFilterControlProps } from "./parts/toolbar-filter-control";
+
+export { ToolbarSimpleFilterDrawer } from "./parts/toolbar-simple-filter-drawer";
+export type { ToolbarSimpleFilterDrawerProps } from "./parts/toolbar-simple-filter-drawer";

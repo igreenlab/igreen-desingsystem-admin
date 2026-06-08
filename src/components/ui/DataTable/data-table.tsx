@@ -125,8 +125,7 @@ import {
   PopoverContent,
 } from "../../shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
-import { ButtonGroup } from "../ButtonGroup";
-import { DataTableSimpleFilterDrawer } from "./parts/data-table-simple-filter-drawer";
+import { ToolbarFilterControl } from "../TableToolbar";
 import type { ColumnOption } from "./column-types";
 // DataTableFloatingBulkBar still exported from barrel for opt-in use;
 // default DataTable now uses inline BulkActionsBar via TableToolbar.bulkBar.
@@ -337,16 +336,9 @@ function DataTableInternal<T>(
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
   const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
 
-  /** SimpleFilter — drawer + advanced popover state (controlled).
-   *  Quando props.simpleFilter?.enabled, o botão Filtros vira split button:
-   *   - Primary: setSimpleDrawerOpen(true)
-   *   - Chevron: setAdvancedPopoverOpen(true) (abre o FilterPopover existente)
-   *  Quando desligado (default), o FilterPopover roda uncontrolled como antes. */
-  const [simpleDrawerOpen, setSimpleDrawerOpen] = useState(false);
-  const [advancedPopoverOpen, setAdvancedPopoverOpen] = useState(false);
-  // Default ON — split button (SimpleFilter drawer + advanced popover via chevron)
-  // é a UX padrão. Opt-out explícito via `simpleFilter: { enabled: false }`
-  // mantém o botão Filtros único (query builder direto).
+  /** SimpleFilter — controlado internamente pelo <ToolbarFilterControl>.
+   *  DataTable só passa config; state (drawer aberto, popover aberto) mora
+   *  no hook `useToolbarFilterControl` consumido pelo ToolbarFilterControl. */
   const simpleFilterEnabled = props.simpleFilter?.enabled !== false;
 
   /** Column label lookup for applied filter chips. */
@@ -1540,25 +1532,21 @@ function DataTableInternal<T>(
             }
             actions={
               <>
-                {/* FilterPopover — Filtrar (sempre visível, mobile + desktop)
-                 *  Quando simpleFilter.enabled, o trigger vira ButtonGroup:
-                 *   - Primary abre o SimpleFilterDrawer (lateral)
-                 *   - Chevron abre o FilterPopover em controlled mode
-                 *  Quando desligado (default), comportamento atual mantido. */}
+                {/* ToolbarFilterControl — orquestrador completo dos filtros
+                 *  (split button + SimpleFilterDrawer + FilterPopover advanced).
+                 *  Encapsula state, wire e render. DataTable só passa config. */}
                 {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
-                  <FilterPopover
+                  <ToolbarFilterControl
                     columns={filterPopoverColumns}
-                    filters={filterPopoverEntries}
-                    onFiltersChange={handleFiltersChange}
-                    enableAdvanced
-                    // Controlled mode quando simpleFilter — chevron do ButtonGroup controla.
-                    {...(simpleFilterEnabled
-                      ? { open: advancedPopoverOpen, onOpenChange: setAdvancedPopoverOpen }
-                      : {})}
-                    // Fase G.1 — delega input de valor pro registry, eliminando
-                    // o text input genérico pra date/multiSelect/boolean/etc.
-                    // FilterPopoverEntry.value agora é `unknown` — passa direto
-                    // sem stringify (preserva arrays/tuplas pra multiSelect/between).
+                    entries={filterPopoverEntries}
+                    onEntriesChange={handleFiltersChange}
+                    filterModel={filters.filterModel}
+                    onFilterModelChange={filters.setFilterModel}
+                    enabled={simpleFilterEnabled}
+                    hiddenFields={props.simpleFilter?.hiddenFields}
+                    drawerTitle={props.simpleFilter?.title}
+                    drawerSize={props.simpleFilter?.size}
+                    // Registry-aware: widget de valor + operators do column-type.
                     renderValueInput={({ column, operator, value, onChange }) => {
                       const typeId = column.filterType ?? column.type ?? "text";
                       const def = columnTypeRegistry.get(typeId);
@@ -1572,12 +1560,6 @@ function DataTableInternal<T>(
                         options: column.options,
                       });
                     }}
-                    // Operators column-aware — restringe o dropdown aos operators
-                    // declarados pelo column-type (ex: multiSelect tem só
-                    // isAnyOf/isNoneOf com labels "é"/"não é"). Sem isso, o popover
-                    // exibia DEFAULT_FILTER_OPERATORS pra TODAS as colunas, criando
-                    // inconsistência (chip mostrava "é" mas dropdown "é um de" pra
-                    // multiSelect e não deixava trocar pra "é").
                     getOperatorsForColumn={(column) => {
                       const typeId = column.filterType ?? column.type ?? "text";
                       const def = columnTypeRegistry.get(typeId);
@@ -1586,58 +1568,6 @@ function DataTableInternal<T>(
                         label: o.label,
                       }));
                     }}
-                    // Anchor mode (split button) — só posiciona o popover, não
-                    // dispara abertura. Chevron controla open via state.
-                    {...(simpleFilterEnabled
-                      ? {
-                          anchor: (
-                            // size="md" (40px) alinha com altura do ToolbarToolButton
-                            // (usado quando simpleFilter está desligado), garantindo
-                            // que a toolbar não tenha alturas mistas.
-                            <ButtonGroup color="secondary" variant="outline" size="md">
-                              <ButtonGroup.Primary
-                                iconLeft={<SlidersHorizontal />}
-                                onClick={() => setSimpleDrawerOpen(true)}
-                              >
-                                Filtrar
-                                {filterPopoverEntries.length > 0 && (
-                                  <span className="ml-pad-xs inline-flex items-center justify-center min-w-[18px] h-[18px] px-pad-xs rounded-radius-full text-caption-md font-semibold bg-bg-brand text-fg-on-brand">
-                                    {filterPopoverEntries.length}
-                                  </span>
-                                )}
-                              </ButtonGroup.Primary>
-                              <ButtonGroup.Chevron
-                                aria-label="Filtros avançados (query builder)"
-                                onClick={() => setAdvancedPopoverOpen((o) => !o)}
-                              />
-                            </ButtonGroup>
-                          ),
-                          trigger: null,
-                        }
-                      : {
-                          trigger: (
-                            <ToolbarToolButton
-                              icon={<SlidersHorizontal />}
-                              label="Filtrar"
-                              isActive={filterPopoverEntries.length > 0}
-                              hasIndicator={filterPopoverEntries.length > 0}
-                            />
-                          ),
-                        })}
-                  />
-                )}
-
-                {/* SimpleFilterDrawer — só monta se simpleFilter habilitado. */}
-                {simpleFilterEnabled && filterPopoverColumns.length > 0 && (
-                  <DataTableSimpleFilterDrawer
-                    open={simpleDrawerOpen}
-                    onOpenChange={setSimpleDrawerOpen}
-                    columns={filterPopoverColumns}
-                    filterModel={filters.filterModel}
-                    onFilterModelChange={filters.setFilterModel}
-                    hiddenFields={props.simpleFilter?.hiddenFields}
-                    title={props.simpleFilter?.title}
-                    size={props.simpleFilter?.size}
                   />
                 )}
 

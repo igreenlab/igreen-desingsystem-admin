@@ -2,15 +2,19 @@ import { useMemo } from "react";
 import { SlidersHorizontal, X } from "lucide-react";
 import { FloatingPanel } from "../../FloatingPanel";
 import { Button } from "../../Button/button";
-import { columnTypeRegistry } from "../column-types";
-import type { ColumnOption } from "../column-types";
-import { POPOVER_OP_TO_FILTER_OP } from "../utils/operator-mapping";
+// Coupling-aceita: TableToolbar consome utilities do DataTable que são API
+// pública (ColumnTypeRegistry, operator mapping, FilterModel types). O mesmo
+// pattern já existe em FilterPopover que importa `ColumnOption`. Coupling
+// reverso (DataTable → TableToolbar) continua proibido.
+import { columnTypeRegistry } from "../../DataTable/column-types";
+import type { ColumnOption } from "../../DataTable/column-types";
+import { POPOVER_OP_TO_FILTER_OP } from "../../DataTable/utils/operator-mapping";
 import type {
   FilterItem,
   FilterModel,
   FilterOperator,
-} from "../data-table.types";
-import type { FilterPopoverColumn } from "../../TableToolbar";
+} from "../../DataTable/data-table.types";
+import type { FilterPopoverColumn } from "../popovers/filter-popover";
 
 /**
  * SimpleFilterDrawer — alternativa simplificada ao query builder do FilterPopover.
@@ -32,7 +36,7 @@ import type { FilterPopoverColumn } from "../../TableToolbar";
  *   - Drawer é non-modal — coexiste com tabela atrás
  */
 
-export type DataTableSimpleFilterDrawerProps = {
+export type ToolbarSimpleFilterDrawerProps = {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 
@@ -86,7 +90,7 @@ function isEmpty(v: unknown): boolean {
   return false;
 }
 
-export function DataTableSimpleFilterDrawer({
+export function ToolbarSimpleFilterDrawer({
   open,
   onOpenChange,
   columns,
@@ -96,7 +100,7 @@ export function DataTableSimpleFilterDrawer({
   title = "Filtros",
   description,
   size = "md",
-}: DataTableSimpleFilterDrawerProps) {
+}: ToolbarSimpleFilterDrawerProps) {
   const hiddenSet = useMemo(
     () => new Set(hiddenFields ?? []),
     [hiddenFields],
