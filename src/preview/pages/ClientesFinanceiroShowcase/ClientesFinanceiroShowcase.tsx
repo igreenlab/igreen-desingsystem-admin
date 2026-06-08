@@ -273,12 +273,17 @@ const KPI_TONE_CLASSES: Record<KpiTone, { bg: string; fg: string }> = {
 };
 
 /**
- * KpiCard compacto — layout horizontal pra altura ~50% menor que o card
- * "vertical" do DashboardShowcase. Ícone à esquerda + stack title/value à
- * direita. Hint removido (info do contexto já implícita).
+ * KpiCard responsivo — 2 layouts via breakpoint xl (1280px):
  *
- * Altura aproximada: ~68px (vs ~160px do layout anterior). Mantém
- * `<article>` + bg-surface + border-subtle + rounded-xl + shadow-sm.
+ * - **Base (< xl, mobile/tablet/desktop pequeno)**: horizontal compacto.
+ *   Icon à esquerda + title/value stack à direita. Altura ~80px.
+ *
+ * - **xl+ (≥ 1280px, desktop grande)**: vertical full (pattern do
+ *   DashboardShowcase) — title no topo + icon no canto + value 2xl bold.
+ *   Altura ~160px.
+ *
+ * Tom de cor via lookup `KPI_TONE_CLASSES` (brand/success/info/etc).
+ * Wrapper `<article>` mantém bg-surface + border-subtle + rounded-xl + shadow-sm.
  */
 function KpiCard({
   icon: Icon,
@@ -293,18 +298,46 @@ function KpiCard({
 }) {
   const cls = KPI_TONE_CLASSES[tone];
   return (
-    <article className="flex items-center gap-gp-lg p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm">
-      <span
-        className={`grid place-items-center size-form-lg rounded-radius-md shrink-0 ${cls.bg} ${cls.fg}`}
-        aria-hidden="true"
+    <article
+      className={[
+        // Base (mobile/medium): horizontal compacto
+        "flex items-center gap-gp-lg p-pad-2xl",
+        // xl+: vertical grande (pattern do Dashboard)
+        "xl:flex-col xl:items-stretch xl:gap-gp-lg xl:p-pad-3xl",
+        // Visual comum
+        "bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm",
+      ].join(" ")}
+    >
+      {/* xl+: header com title à esquerda + icon à direita.
+       *  Base: só icon (à esquerda do conteúdo). */}
+      <header
+        className={[
+          "flex items-center xl:items-start xl:justify-between gap-gp-md",
+          // Em base, header não tem flex-grow — só o icon ocupa
+          "shrink-0",
+          "xl:w-full",
+        ].join(" ")}
       >
-        <Icon className="size-icon-md" strokeWidth={1.8} />
-      </span>
-      <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs">
-        <span className="text-caption-md text-fg-muted truncate leading-tight">
+        {/* Title — escondido no base (vai pro stack), visível xl+ */}
+        <h3 className="hidden xl:block m-0 text-body-md font-semibold text-fg-default">
+          {title}
+        </h3>
+        <span
+          className={`grid place-items-center size-form-lg rounded-radius-md xl:rounded-radius-lg shrink-0 ${cls.bg} ${cls.fg}`}
+          aria-hidden="true"
+        >
+          <Icon className="size-icon-md" strokeWidth={1.8} />
+        </span>
+      </header>
+
+      {/* Content stack — base: title+value lado a lado do icon.
+       *  xl+: só value (title já está no header). */}
+      <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs xl:gap-gp-xs">
+        {/* Title aparece só no base — xl+ o title está no header */}
+        <span className="xl:hidden text-caption-md text-fg-muted truncate leading-tight">
           {title}
         </span>
-        <span className="text-body-xl font-bold text-fg-default tabular-nums leading-tight truncate">
+        <span className="text-body-xl xl:text-body-2xl font-bold text-fg-default tabular-nums leading-tight xl:leading-none truncate">
           {value}
         </span>
       </div>
@@ -440,8 +473,9 @@ export default function ClientesFinanceiroShowcase() {
 
       {/* KPI grid — alinhado com pattern do DashboardShowcase.
        *  Sem padding lateral (Sergio pediu) — section ocupa full width do
-       *  container pai. Grid responsive: 1 col mobile, 2 cols sm, 3 cols lg. */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl pb-pad-2xl">
+       *  container pai. Grid responsive: 1 col mobile, 2 cols sm, 3 cols lg.
+       *  Sem padding-bottom — espaçamento vem do `gap-gp-2xl` do AppShell. */}
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-gp-2xl">
         <KpiCard
           icon={Wallet}
           title="Disponível total"
@@ -495,10 +529,12 @@ export default function ClientesFinanceiroShowcase() {
         // Sem showTotalizers — Sergio removeu o footer com soma da coluna
         // Saldo disponível (somatória vinha dropdown do KPI "Disponível
         // total" no header, era redundante).
-        // flex-1 + min-h-0 + mb-pad-2xl: tabela limita altura ao container pai
-        // (sem scroll de página inteira) + dá respiro embaixo pra paginação
-        // não grudar no rodapé do AppShell.
-        className="flex-1 min-h-0 mb-pad-2xl"
+        // flex-1 + min-h-0: tabela limita altura ao container pai (sem
+        // scroll de página inteira). `[&_footer]:!pt-0` zera o padding-top
+        // da paginação (FooterTable é compartilhado e tem `pt-pad-xl`
+        // hardcoded — override só nessa tela). Sem `mb-pad-2xl` agora —
+        // o AppShell já tem o respiro inferior.
+        className="flex-1 min-h-0 [&_footer]:!pt-0"
       />
 
       {/* Drawers + Modals */}
