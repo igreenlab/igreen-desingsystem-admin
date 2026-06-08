@@ -40,19 +40,28 @@ export const buttonGroupSlot = tv({
 });
 
 /**
- * Width compacta do Chevron por size — não usa a `size` quadrada (icon-*) do Button
- * porque queremos um chevron MAIS ESTREITO que um icon button normal. Pad reduzido.
+ * Dimensões do Chevron por size — QUADRADO (width = height), alinhado com
+ * a `size` correspondente do Button no Primary. Pad reduzido pro chevron
+ * preencher o espaço sem ficar acanhado.
  *
- * Heights mantém min-h-form-* da size correspondente do Button pra alinhar visualmente.
+ * Tabela de equivalência (size do Button → dimensão chevron):
+ *   2xs (28px) → 28x28 (size-form-xs)
+ *   xs  (32px) → 32x32 (size-form-sm)
+ *   sm  (36px) → 36x36 (size-form-md)
+ *   md  (40px) → 40x40 (size-form-lg)
+ *   lg  (44px) → 44x44 (size-form-xl)
+ *
+ * Visual coeso: o chevron parece um "espelho" quadrado do Primary, não um
+ * appendice estreito. Pattern Shadcn/Linear/Notion segue essa proporção.
  */
 export const buttonGroupChevronSize = tv({
   variants: {
     size: {
-      "2xs": "min-w-[20px] px-pad-sm",
-      xs:    "min-w-[24px] px-pad-sm",
-      sm:    "min-w-[28px] px-pad-md",
-      md:    "min-w-[32px] px-pad-md",
-      lg:    "min-w-[36px] px-pad-lg",
+      "2xs": "size-form-xs px-0",
+      xs:    "size-form-sm px-0",
+      sm:    "size-form-md px-0",
+      md:    "size-form-lg px-0",
+      lg:    "size-form-xl px-0",
     },
   },
   defaultVariants: {

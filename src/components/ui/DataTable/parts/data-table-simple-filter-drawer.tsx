@@ -218,7 +218,11 @@ export function DataTableSimpleFilterDrawer({
         </div>
       }
     >
-      <div className="flex flex-col gap-gp-xl py-pad-md">
+      {/* Padding interno alinhado com header/footer do FloatingPanel (px-[18px] py-[14px]).
+       *  O body do FloatingPanel é genérico (sem padding default) — cada consumer
+       *  define o seu. Aqui usamos os mesmos valores do header/footer pra ter
+       *  alinhamento visual consistente quando user lê o drawer de cima até a base. */}
+      <div className="flex flex-col gap-gp-xl px-[18px] py-[14px]">
         {visibleColumns.length === 0 && (
           <p className="text-body-sm text-fg-muted text-center py-pad-2xl">
             Nenhuma coluna filtrável disponível.
