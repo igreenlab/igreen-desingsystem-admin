@@ -64,6 +64,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Chip", href: "chip" },
       { label: "Breadcrumb", href: "breadcrumb" },
       { label: "Button", href: "button" },
+      { label: "ButtonGroup", href: "button-group" },
       { label: "Calendar", href: "calendar" },
       { label: "Card", href: "card" },
       { label: "Checkbox", href: "checkbox" },
