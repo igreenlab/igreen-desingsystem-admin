@@ -18,6 +18,11 @@ import type {
   FilterModel,
   FilterOperator,
 } from "../../DataTable/data-table.types";
+import {
+  genFilterId,
+  filterValueIsEmpty as isEmpty,
+  promoteOperatorForFilterType,
+} from "../../DataTable/utils/filter-ops";
 import type { FilterPopoverColumn } from "../popovers/filter-popover";
 
 /**
@@ -84,15 +89,6 @@ function inferOperator(filterType: string | undefined): FilterOperator {
   }
 }
 
-/** True se o value é vazio (não preenchido) pelos critérios do isFilterValueEmpty. */
-function isEmpty(v: unknown): boolean {
-  if (v == null) return true;
-  if (typeof v === "string") return v.length === 0;
-  if (Array.isArray(v)) {
-    return v.every(x => x == null || (typeof x === "string" && x.length === 0));
-  }
-  return false;
-}
 
 export function ToolbarSimpleFilterDrawer({
   open,
@@ -132,23 +128,15 @@ export function ToolbarSimpleFilterDrawer({
     [filterModel],
   );
 
-  const newId = () =>
-    typeof crypto !== "undefined" && "randomUUID" in crypto
-      ? crypto.randomUUID()
-      : `f-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-
   /** Atualiza valor de um field — substitui items existentes pelo novo array
    *  de items (1 por valor pra multi; 1 single pros demais). Mantém posição
    *  original dos items NO array preservando ordem de outros fields. */
   const updateFieldValue = (field: string, newValue: unknown, filterType: string | undefined) => {
-    const operator = inferOperator(filterType);
-    const widgetIsMulti = filterType === "multiSelect";
-
-    // Resolve operator efetivo — promove eq → isAnyOf quando widget multi passa array
-    const effectiveOperator: FilterOperator =
-      Array.isArray(newValue) && widgetIsMulti && operator === "equals"
-        ? "isAnyOf"
-        : operator;
+    // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForFilterType).
+    const effectiveOperator: FilterOperator = promoteOperatorForFilterType(
+      inferOperator(filterType),
+      filterType,
+    );
 
     // Constrói os novos items pro field
     const newItems: FilterItem[] = [];
@@ -156,17 +144,17 @@ export function ToolbarSimpleFilterDrawer({
       const arr = Array.isArray(newValue) ? newValue : (newValue != null && newValue !== "" ? [newValue] : []);
       for (const v of arr) {
         if (v == null || v === "") continue;
-        newItems.push({ id: newId(), field, operator: effectiveOperator, value: v as FilterItem["value"] });
+        newItems.push({ id: genFilterId(), field, operator: effectiveOperator, value: v as FilterItem["value"] });
       }
     } else if (effectiveOperator === "between") {
       // Date/number range — value é tupla
       if (!isEmpty(newValue)) {
-        newItems.push({ id: newId(), field, operator: effectiveOperator, value: newValue as FilterItem["value"] });
+        newItems.push({ id: genFilterId(), field, operator: effectiveOperator, value: newValue as FilterItem["value"] });
       }
     } else {
       // Single value (text/number/select)
       if (!isEmpty(newValue)) {
-        newItems.push({ id: newId(), field, operator: effectiveOperator, value: newValue as FilterItem["value"] });
+        newItems.push({ id: genFilterId(), field, operator: effectiveOperator, value: newValue as FilterItem["value"] });
       }
     }
 

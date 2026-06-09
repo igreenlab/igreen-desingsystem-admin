@@ -12,19 +12,12 @@ import type {
   FilterItem,
   FilterModel,
 } from "../data-table.types";
-
-/** True quando um FilterValue é "vazio" (sem efeito) — null, string vazia,
- *  ou tupla com todos sides nulos/strings vazias. */
-function isFilterValueEmpty(v: unknown): boolean {
-  if (v == null) return true;
-  if (typeof v === "string") return v.length === 0;
-  if (Array.isArray(v)) {
-    return v.every(
-      (x) => x == null || (typeof x === "string" && x.length === 0),
-    );
-  }
-  return false;
-}
+import {
+  MULTI_VALUE_OPERATORS,
+  genFilterId,
+  filterValueIsEmpty as isFilterValueEmpty,
+  promoteOperatorForColumn,
+} from "../utils/filter-ops";
 
 export type FilterGroup<T> = {
   key: string;
@@ -119,12 +112,6 @@ export function useFilterPopoverAdapter<T>({
         }),
     [effectiveColumns, rows],
   );
-
-  /** Operadores que tradicionalmente agrupam múltiplos valores numa única
-   *  condição UI (chip+popover) — multiSelect, tags, etc usam isAnyOf/isNoneOf
-   *  e o filterModel guarda 1 item por valor (spread). Pra renderizar no popover
-   *  de "Filtros" como 1 entry com value=array, agrupamos aqui. */
-  const MULTI_VALUE_OPERATORS = new Set<FilterItem["operator"]>(["isAnyOf", "isNoneOf"]);
 
   const filterPopoverEntries = useMemo<FilterPopoverEntry[]>(() => {
     // 1ª passada: coletar items por chave multi (field|operator)
@@ -293,28 +280,12 @@ export function useFilterPopoverAdapter<T>({
     const group = appliedGroups.find((g) => g.key === groupKey);
     if (!group) return;
     const groupIds = new Set(group.items.map((i) => i.id));
-    const newId = () =>
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `f-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
     const newItems: FilterItem[] = [];
     const isTupleOperator = group.operator === "between";
 
-    // Auto-promote operator escalar → multi quando filterType=multiSelect e value
-    // chegou como array (widget multiSelect SEMPRE manda array, mesmo com 1 valor).
-    // Sem esse normalize, filter shortcut do header em coluna multiSelect persiste
-    // operator "equals" e cria N items separados — bug que aparece no popover Filtros
-    // como N linhas em vez de 1 agrupada.
+    // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForColumn).
     const col = colsByField.get(group.field);
-    const widgetIsMulti = col?.filterType === "multiSelect";
-    const effectiveOperator: FilterItem["operator"] =
-      Array.isArray(newValue) &&
-      widgetIsMulti &&
-      !MULTI_VALUE_OPERATORS.has(group.operator)
-        ? group.operator === "neq"
-          ? "isNoneOf"
-          : "isAnyOf"
-        : group.operator;
+    const effectiveOperator = promoteOperatorForColumn(group.operator, col);
 
     if (isTupleOperator) {
       const isEmpty =
@@ -325,7 +296,7 @@ export function useFilterPopoverAdapter<T>({
           ));
       if (!isEmpty) {
         newItems.push({
-          id: newId(),
+          id: genFilterId(),
           field: group.field,
           operator: effectiveOperator,
           value: newValue as FilterItem["value"],
@@ -339,7 +310,7 @@ export function useFilterPopoverAdapter<T>({
           : [];
       for (const v of arr) {
         newItems.push({
-          id: newId(),
+          id: genFilterId(),
           field: group.field,
           operator: effectiveOperator,
           value: v as FilterItem["value"],
@@ -392,32 +363,14 @@ export function useFilterPopoverAdapter<T>({
   };
 
   const handleFiltersChange = (entries: FilterPopoverEntry[]) => {
-    const newId = () =>
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `f-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-
     const items: FilterItem[] = [];
     for (const e of entries) {
       // op já vem em id longo do FilterModel (vocabulário único) — sem remap.
       const rawOperator = e.op as FilterItem["operator"];
 
-      // Auto-promote operator pra `isAnyOf`/`isNoneOf` quando o widget mandou
-      // array mas o operator é escalar (eq/neq). Acontece quando preset/saved
-      // view foi declarado com `{ field, value }` (default operator="equals")
-      // mas a column.filterType="multiSelect" — o widget MultiSelectFieldDropdown
-      // sempre togglea com array, então o operator escalar fica inconsistente
-      // (chip mostraria "Status = active, pending" em vez de "é um de").
+      // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForColumn).
       const col = colsByField.get(e.columnKey);
-      const widgetIsMulti = col?.filterType === "multiSelect";
-      const operator: FilterItem["operator"] =
-        Array.isArray(e.value) &&
-        widgetIsMulti &&
-        !MULTI_VALUE_OPERATORS.has(rawOperator)
-          ? rawOperator === "neq"
-            ? "isNoneOf"
-            : "isAnyOf"
-          : rawOperator;
+      const operator = promoteOperatorForColumn(rawOperator, col);
 
       // Operadores multi (isAnyOf/isNoneOf): popover passa value=array
       // (vimos como 1 entry agrupada em filterPopoverEntries); spreadar
@@ -428,7 +381,7 @@ export function useFilterPopoverAdapter<T>({
         for (const v of e.value as unknown[]) {
           if (v == null || v === "") continue;
           items.push({
-            id: newId(),
+            id: genFilterId(),
             field: e.columnKey,
             operator,
             value: v as FilterItem["value"],

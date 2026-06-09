@@ -3,6 +3,7 @@ import type {
   DataTableColumnDef,
   DataTableActionItem,
 } from "../data-table.types";
+import { ACTIONS_COLUMN_WIDTH } from "../data-table.constants";
 
 /**
  * Column builders — reduzem boilerplate de `DataTableColumnDef` em casos comuns.
@@ -112,7 +113,7 @@ export function actionColumn<T>(opts: {
     field: "_actions",
     headerName: "",
     type: "actions",
-    width: opts.width ?? 120,
+    width: opts.width ?? ACTIONS_COLUMN_WIDTH,
     pinned: "right",
     getActions: opts.getActions,
   };

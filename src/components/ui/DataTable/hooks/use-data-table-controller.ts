@@ -27,6 +27,7 @@ import { useDataTableStatePersistence } from "./use-data-table-state-persistence
 import { loadPersistedState, clearPersistedState } from "./state-persistence-utils";
 import { useDataTableSavedViews } from "./use-data-table-saved-views";
 import type { SavedView, SavedViewsService } from "../services/saved-views.types";
+import { promoteOperatorForColumn } from "../utils/filter-ops";
 // Side-effect: registra os tipos default no ColumnTypeRegistry
 import "../column-types";
 
@@ -51,16 +52,10 @@ function normalizeFilterModelForColumns<T>(
   let touched = false;
   const items = filterModel.items.map((item) => {
     const col = colByField.get(item.field);
-    if (col?.filterType !== "multiSelect") return item;
-    if (item.operator === "equals") {
-      touched = true;
-      return { ...item, operator: "isAnyOf" as const };
-    }
-    if (item.operator === "neq") {
-      touched = true;
-      return { ...item, operator: "isNoneOf" as const };
-    }
-    return item;
+    const operator = promoteOperatorForColumn(item.operator, col);
+    if (operator === item.operator) return item;
+    touched = true;
+    return { ...item, operator };
   });
   return touched ? { ...filterModel, items } : filterModel;
 }

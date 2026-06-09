@@ -153,6 +153,9 @@ export const tableStyles = tv({
     ],
   },
   variants: {
+    // ⚠️ Alturas de row por densidade. DEVEM casar com `DENSITY_ROW_HEIGHT` em
+    // `DataTable/data-table.constants.ts` (usado pela estimativa do virtualizer).
+    // Mudou aqui → mudar lá, senão o scroll virtual desalinha.
     density: {
       compact:     { row: "h-[40px]", cell: "py-0", headCell: "" },
       standard:    { row: "h-[56px]", cell: "py-0", headCell: "" },

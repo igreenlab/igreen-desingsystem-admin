@@ -96,6 +96,12 @@ import type {
 } from "./data-table.types";
 import type { TableDensity } from "../Table";
 import { dataTableStyles } from "./data-table.styles";
+import {
+  DEFAULT_CARD_BREAKPOINT,
+  DEFAULT_OVERSCAN,
+  MIN_REFRESH_SPINNER_MS,
+  DENSITY_ROW_HEIGHT,
+} from "./data-table.constants";
 import { DataTableProvider } from "./context/data-table-context";
 import { useDataTableController } from "./hooks/use-data-table-controller";
 import { DataTableEmpty } from "./parts/data-table-empty";
@@ -622,7 +628,7 @@ function DataTableInternal<T>(
       query.refresh();
     }
     // Mantem o spinner visivel por 400ms minimo (UX feedback)
-    setTimeout(() => setIsRefreshing(false), 400);
+    setTimeout(() => setIsRefreshing(false), MIN_REFRESH_SPINNER_MS);
   };
 
   /* ── Export config tipada ─────────────────────────────────────── */
@@ -925,13 +931,8 @@ function DataTableInternal<T>(
    * row height deriva de density (compact=40, standard=56, comfortable=64).
    * Consumer pode override via props.estimateRowHeight.
    * scrollContainerRef vem do controller (compartilhado com useColumnAutoWidth). */
-  const defaultRowHeight =
-    density.density === "compact"
-      ? 40
-      : density.density === "comfortable"
-        ? 64
-        : 56;
-  const estimateRowHeight = props.estimateRowHeight ?? defaultRowHeight;
+  const estimateRowHeight =
+    props.estimateRowHeight ?? DENSITY_ROW_HEIGHT[density.density];
   const virtualize = props.virtualize === true;
 
   const rowVirtualizer = useVirtualizer({
@@ -939,7 +940,7 @@ function DataTableInternal<T>(
     count: virtualize ? finalItems.length : 0,
     getScrollElement: () => scrollContainerRef.current,
     estimateSize: () => estimateRowHeight,
-    overscan: props.overscan ?? 10,
+    overscan: props.overscan ?? DEFAULT_OVERSCAN,
   });
 
   /* ── Body content (Table primitivo) ───────────────────────────── */
@@ -952,7 +953,7 @@ function DataTableInternal<T>(
     >
     <Table
       density={density.density}
-      cardBreakpoint={props.cardBreakpoint ?? 768}
+      cardBreakpoint={props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT}
       className="min-h-0 max-h-full"
       scrollRef={scrollContainerRef}
     >
@@ -1368,7 +1369,7 @@ function DataTableInternal<T>(
    *   - Inline editing (double-click pra editar)
    *   - Column reordering / pinning / resize (sem sentido num card vertical)
    */
-  const cardBp = props.cardBreakpoint ?? 768;
+  const cardBp = props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT;
   const cardModeQuery =
     cardBp === false ? "(max-width: 0px)" : `(max-width: ${cardBp - 1}px)`;
   const isCardMode =
