@@ -2,6 +2,7 @@ import { Percent } from "lucide-react";
 import { Input } from "../../../../shadcn/input";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
+import { toNumber } from "../_shared";
 
 /** typeOptions esperadas (opcional): { decimals?: number, locale?: string } */
 type PercentageTypeOptions = {
@@ -23,12 +24,6 @@ function toPercent(value: unknown, opts?: PercentageTypeOptions): string {
   } catch {
     return `${num.toFixed(decimals)}%`;
   }
-}
-
-function toNumber(v: unknown): number | null {
-  if (v == null || v === "") return null;
-  const n = Number(v);
-  return Number.isNaN(n) ? null : n;
 }
 
 export const PercentageColumnType: ColumnTypeDefinition = {

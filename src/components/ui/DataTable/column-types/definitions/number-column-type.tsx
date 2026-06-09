@@ -2,12 +2,7 @@ import { Hash } from "lucide-react";
 import { Input } from "../../../../shadcn/input";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
-
-function toNum(v: unknown): number | null {
-  if (v == null || v === "") return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
-}
+import { toNumber } from "../_shared";
 
 export const NumberColumnType: ColumnTypeDefinition = {
   type: "number",
@@ -39,8 +34,8 @@ export const NumberColumnType: ColumnTypeDefinition = {
     />
   ),
   matchesFilter: (cellValue, filterValue, operator) => {
-    const cell = toNum(cellValue);
-    const filter = toNum(filterValue);
+    const cell = toNumber(cellValue);
+    const filter = toNumber(filterValue);
     if (cell === null || filter === null) return false;
     if (operator === "equals") return cell === filter;
     if (operator === "neq") return cell !== filter;
@@ -53,12 +48,12 @@ export const NumberColumnType: ColumnTypeDefinition = {
 
   /* G.2 — number alinhado à direita, formato locale-aware */
   renderCell: ({ value }) => {
-    const n = toNum(value);
+    const n = toNumber(value);
     if (n === null) return null;
     return <span className="tabular-nums">{n.toLocaleString("pt-BR")}</span>;
   },
   formatValue: (v) => {
-    const n = toNum(v);
+    const n = toNumber(v);
     return n === null ? "" : n.toLocaleString("pt-BR");
   },
   defaultAlign: "right",

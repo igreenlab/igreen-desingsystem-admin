@@ -8,40 +8,8 @@ import {
 } from "../../../../shadcn/select";
 import { Chip } from "../../../Chip/chip";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
-import type { ColumnTypeDefinition, ColumnOption } from "../column-types.types";
-
-/** Mapeia option.color → Chip color variant.
- *  Aceita preset names (primary/neutral/danger/warning/success/info) OU
- *  qualquer string custom (ex: "blue", "purple") que cai em `neutral` default. */
-type ChipColor = "primary" | "neutral" | "danger" | "warning" | "success" | "info";
-const VALID_COLORS: ReadonlyArray<ChipColor> = [
-  "primary",
-  "neutral",
-  "danger",
-  "warning",
-  "success",
-  "info",
-];
-
-function resolveChipColor(raw: string | undefined): ChipColor {
-  if (!raw) return "neutral";
-  if (VALID_COLORS.includes(raw as ChipColor)) return raw as ChipColor;
-  // Mapeamentos comuns
-  const aliases: Record<string, ChipColor> = {
-    green: "success",
-    red: "danger",
-    yellow: "warning",
-    blue: "info",
-    gray: "neutral",
-    grey: "neutral",
-  };
-  return aliases[raw.toLowerCase()] ?? "neutral";
-}
-
-function findOption(value: unknown, options?: ColumnOption[]): ColumnOption | null {
-  if (value == null) return null;
-  return options?.find((o) => String(o.value) === String(value)) ?? null;
-}
+import type { ColumnTypeDefinition } from "../column-types.types";
+import { resolveChipColor, findOption } from "../_shared";
 
 export const BadgeColumnType: ColumnTypeDefinition = {
   type: "badge",

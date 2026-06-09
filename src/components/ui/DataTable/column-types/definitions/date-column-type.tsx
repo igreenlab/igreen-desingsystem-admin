@@ -7,37 +7,9 @@ import {
 } from "../../../../shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
+import { toDateMs, dayStart, toDate, toIsoDate } from "../_shared";
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
-
-function toDateMs(v: unknown): number | null {
-  if (v == null || v === "") return null;
-  if (typeof v === "number") return v;
-  if (v instanceof Date) return v.getTime();
-  const d = new Date(String(v));
-  return Number.isNaN(d.getTime()) ? null : d.getTime();
-}
-
-function dayStart(ms: number): number {
-  const d = new Date(ms);
-  d.setHours(0, 0, 0, 0);
-  return d.getTime();
-}
-
-/** Converte qualquer valor em Date pro Calendar (ou undefined). */
-function toDate(v: unknown): Date | undefined {
-  const ms = toDateMs(v);
-  return ms == null ? undefined : new Date(ms);
-}
-
-/** Serializa Date pra ISO string (sem hora — só "YYYY-MM-DD" estável). */
-function toIsoDate(d: Date | undefined | null): string | null {
-  if (!d) return null;
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const day = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${day}`;
-}
 
 const ptBrShort = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",

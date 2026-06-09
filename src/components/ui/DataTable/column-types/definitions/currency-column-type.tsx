@@ -2,6 +2,7 @@ import { DollarSign } from "lucide-react";
 import { Input } from "../../../../shadcn/input";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
+import { toNumber } from "../_shared";
 
 /** typeOptions esperadas (opcional): { currency?: "BRL" | "USD" | "EUR" | string, locale?: string } */
 type CurrencyTypeOptions = {
@@ -24,12 +25,6 @@ function toCurrency(value: unknown, opts?: CurrencyTypeOptions): string {
   } catch {
     return num.toFixed(2);
   }
-}
-
-function toNumber(v: unknown): number | null {
-  if (v == null || v === "") return null;
-  const n = Number(v);
-  return Number.isNaN(n) ? null : n;
 }
 
 export const CurrencyColumnType: ColumnTypeDefinition = {
