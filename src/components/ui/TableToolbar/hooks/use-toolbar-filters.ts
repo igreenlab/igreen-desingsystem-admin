@@ -40,7 +40,7 @@ function defaultId(): string {
  * Uso (opcional — vc pode usar useState direto também):
  *
  *   const filters = useToolbarFilters({ initial: [...] });
- *   filters.add({ columnKey: "status", op: "eq", value: "active" });
+ *   filters.add({ columnKey: "status", op: "equals", value: "active" });
  *   filters.remove("f_abc");
  */
 export function useToolbarFilters<T extends ToolbarFilterEntry = ToolbarFilterEntry>(

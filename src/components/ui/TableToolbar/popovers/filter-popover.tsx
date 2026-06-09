@@ -47,7 +47,7 @@ export type FilterPopoverEntry = {
 };
 
 export const DEFAULT_FILTER_OPERATORS: FilterPopoverOperator[] = [
-  { id: "eq",         label: "é" },
+  { id: "equals",     label: "é" },
   { id: "neq",        label: "não é" },
   { id: "contains",   label: "contém" },
   { id: "gt",         label: "maior que" },
@@ -360,7 +360,7 @@ export function FilterPanel({
     const newRow: FilterPopoverEntry = {
       id: generateId(),
       columnKey: firstCol.key,
-      op: colOperators[0]?.id ?? "eq",
+      op: colOperators[0]?.id ?? "equals",
       value: "",
     };
     onFiltersChange([newRow, ...filters]);

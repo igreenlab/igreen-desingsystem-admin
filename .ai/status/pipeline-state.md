@@ -62,6 +62,14 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-06-09] | DS REVIEWER | refactor/filter-operators — Pre-commit gate | PRE_COMMIT_BLOCKED
+
+- Assumption verificada: A assumption central ("eliminar dual-namespace eliminando operator-mapping.ts e usando ids longos ponta a ponta") é válida e o refactor a cumpre corretamente no fluxo principal. Porém dois problemas residuais foram encontrados que a comprometem parcialmente.
+- Critique genuína aplicada: Além do checklist mecânico, examinei: (1) o round-trip completo SQL-parser → FilterRowEditor → matchesFilter → chip para os 5 tipos numéricos; (2) o fallback `?? "eq"` em `addRow` no filterPopover canônico — que sobreviveu ao refactor e introduz um "eq" curto no estado quando `getOperatorsForColumn` retorna undefined; (3) a paridade entre `operators[]` e `matchesFilter` nos 5 tipos com gte/lte; (4) os operadores `between/isAnyOf/isNoneOf` que não faziam parte do OPERATOR_PAIRS — confirmado que passam direto sem remap e continuam corretos; (5) o Deprecated drawer com `gap-gp-2xl` em vez de `gap-form-gap` (L-024).
+- Escopo revisado: 16 arquivos (15 modificados + operator-mapping.ts deletado). Sem toque em tokens, componentes de estilo, ou typography — categorias token/CSS/twMergeConfig estão fora do escopo e não requerem verificação.
+- Pendências encontradas: 2 ALTO + 1 MÉDIO + 1 BAIXO (ver saída no output do agente).
+- Lições novas: nenhuma — achados cobertos por lições existentes (L-002/L-024).
+
 ### [2026-06-05] | INFRA RELEASE | Pipeline drift fix pós v0.5.1 publish | CONCLUÍDO
 - Input: após publicar @snksergio/design-system@0.5.1 + @snksergio/create-design-system@0.1.4 (fix de types + URLs igreenlab + license + template), simulação teórica de consumer revelou drift do pipeline interno em relação ao estado real do CSS gerado.
 - Output: 3 frentes aplicadas em 17 arquivos.
@@ -1769,3 +1777,36 @@
   - 1 preview (pre-filtered) mantido na deprecada pra não perder cobertura de regressão do path `<DataTable deprecatedToolbar>`.
 - Assumption: o barrel ex-v2 é superset exato do ex-v1 (mesmos nomes de parts/popovers/types) — confirmado: tsc 0 sem repointar os imports compartilhados do DataTable/adapters.
 - Lições novas: nenhuma — usar `\bTableToolbar\b` (word-boundary) no sed preserva `TableToolbarViews`/`TableToolbarProps` ao renomear o root (registrado como nota, não L-NNN).
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit gate — feat/table-toolbar-v2 finalização (swap + bugs + soloLabel + clamp) | PRE_COMMIT_OK
+- Spec verificada: sim — pipeline-state.md tem entry CONCLUÍDO do swap com Assumption documentada
+- Gate verificado: N/A — não é componente novo; é promoção de nome + bug fixes (gate gate anterior fac6443 aprovado)
+- Assumption verificada: **barrel ex-v2 é superset exato do ex-v1** — VÁLIDA. Diff entre `TableToolbarV2/index.ts@fac6443` e `TableToolbar/index.ts` HEAD mostra apenas renomeação do root export (`TableToolbarV2`→`TableToolbar`, `TableToolbarV2Props`→`TableToolbarProps`). Todos os outros exports idênticos. tsc 0 confirma.
+- Critique genuína aplicada:
+  - Clamp useEffect (use-data-table-controller.ts:265): loop-safety confirmado — `setPage(lastPage)` só dispara quando `page > lastPage`; após clamp `page === lastPage` → guard falso → sem segundo dispatch. Deps são primitivos (`effectiveTotal`, `page`, `pageSize`) — não cria instabilidade.
+  - `handleFilterShortcut` fix (data-table.tsx:710): `currency` não está em `filterType` enum; cai em `default:"contains"` tanto no código ANTIGO quanto no novo — sem regressão introduzida. Fix real é para `number` que caía em `contains` no inline antigo e agora recebe `equals` via `inferOperatorFromFilterType`.
+  - `initialValue` após fix: `operator === "between" ? [null, null] : ""` cobre corretamente todos os casos (date→between, number→equals→"", etc).
+  - Memo de tabs (`table-toolbar-views.tsx:146`): auto-include de `activeViewId` é puramente visual (não muta `tabViewIds` state). `soloLabel` muda `defaultName` apenas quando `customTabs.length === 0` — não interfere com push-out ou activeViewId inclusion. Deps do memo incluem `soloLabel` e `activeViewId` corretamente.
+  - `soloLabel` passado para `TableToolbarViews` em AMBOS os branches do DataTable (deprecated:1542 + canonical:2007). Deprecated usa `TableToolbarViews` importado do barrel canônico (que tem `soloLabel`) — consistente.
+  - Orphan sweep: zero referências a `TableToolbarV2` ou `toolbarVersion` em `src/` (apenas histórico em `pipeline-state.md`).
+  - L-004 (`outline-none` bare): todos os casos no `table-toolbar.styles.ts` têm `focus-visible:shadow-sh-ring` ou `focus-visible:underline` ou são wrappados por `focus-within:shadow-sh-ring` — pré-existentes em fac6443, não introduzidos neste delta.
+- Regressões L-xxx encontradas: nenhuma no delta
+- Lições novas: nenhuma
+
+---
+
+### [2026-06-09] | DS DEV | Frente A — unificação do vocabulário de operadores de filtro | CONCLUÍDO
+- Input: padronização "ampla" (1ª frente) — eliminar o dual-namespace de operadores (popover `eq` curto vs FilterModel `equals` longo) que gerou o bug "É".
+- Output:
+  - Vocabulário ÚNICO (ids longos do FilterModel) ponta a ponta: sql-parser, DEFAULT_FILTER_OPERATORS, DEFAULT_OP_LABELS, AppliedFilterOp, adapter, data-table, drawers.
+  - **`utils/operator-mapping.ts` DELETADO** + removidos todos os remaps (FILTER_OP_TO_POPOVER_OP / POPOVER_OP_TO_FILTER_OP).
+  - gte/lte viraram first-class: adicionados a `matchesFilter` E ao array `operators` de number/currency/percentage/date/datetime (antes o SQL `>=` era resetado pra equals pelo opValid defensivo).
+  - Label do chip resolvido via registry (`opLabel`), DEFAULT_OP_LABELS como fallback — mata divergência currency "maior que" vs ">".
+- Decisões:
+  - Unificar pra id longo (não curto) — o registry e o FilterModel já usavam longo; só o popover/parser usavam curto.
+  - gte/lte first-class em vez de remover do parser — `>=`/`<=` agora filtram de verdade e aparecem no dropdown visual.
+- Assumption: nenhum caminho de operador depende mais do id curto `eq`; `between`/`isAnyOf`/`isNoneOf` nunca passaram pelo mapping (sempre diretos). Confirmado: tsc 0 + grep sem `"eq"` órfão em código vivo.
+- Gate: DS Reviewer PRE_COMMIT_BLOCKED (4 itens: fallback `?? "eq"`, comentário stale, L-024 no drawer Deprecated, JSDoc) → todos corrigidos → OK.
+- Lições novas: nenhuma (reforço de L-023/opValid: operador fora do registry sofre reset defensivo — por isso gte/lte precisam estar no registry).

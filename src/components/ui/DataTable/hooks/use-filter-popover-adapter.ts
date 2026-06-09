@@ -12,10 +12,6 @@ import type {
   FilterItem,
   FilterModel,
 } from "../data-table.types";
-import {
-  FILTER_OP_TO_POPOVER_OP,
-  POPOVER_OP_TO_FILTER_OP,
-} from "../utils/operator-mapping";
 
 /** True quando um FilterValue é "vazio" (sem efeito) — null, string vazia,
  *  ou tupla com todos sides nulos/strings vazias. */
@@ -160,12 +156,10 @@ export function useFilterPopoverAdapter<T>({
           // MultiSelectFieldDropdown perdia state e FECHAVA a cada toggle.
           id: key,
           columnKey: groupItems[0].field,
-          // op SEM remap: o FilterRowEditor compara contra os operators do
-          // REGISTRY (getOperatorsForColumn → ids longos: "equals", "neq"…).
-          // Remapear pra short ("eq") quebrava o "É" do email — opValid falhava
-          // (registry tem "equals", não "eq") → reset defensivo pra "contains".
-          // Os CHIPS (appliedFilters) seguem remapeando pq seu label dict é
-          // popover-space ("eq" → "é").
+          // Vocabulário único: op em id longo do FilterModel ("equals", "neq"…)
+          // em todo o fluxo — sem tradução curto↔longo. Os CHIPS resolvem o
+          // LABEL via `opLabel` (registry do column-type), com DEFAULT_OP_LABELS
+          // (também ids longos) como fallback.
           op: groupItems[0].operator,
           value: groupItems
             .map((it) => it.value)
@@ -208,6 +202,14 @@ export function useFilterPopoverAdapter<T>({
         const col = colsByField.get(g.field);
         const columnLabel = colLabelMap[g.field] ?? g.field;
 
+        // Label do operador resolvido pelo REGISTRY do tipo da coluna — fonte
+        // única, casa com o que o popover mostra (ex: currency `gt` = "maior que",
+        // não ">"). ToolbarApplied usa `opLabel` quando presente; senão cai no
+        // DEFAULT_OP_LABELS (fallback genérico pra uso standalone).
+        const typeId = col?.filterType ?? col?.type ?? "text";
+        const typeDef = columnTypeRegistry.get(typeId);
+        const opLabel = typeDef.operators?.find((o) => o.id === g.operator)?.label;
+
         // Chip placeholder: grupo cujos items todos têm value vazio.
         // Acontece em 2 cenários:
         //   1) Filter shortcut do header (chip "fantasma" via pendingOpenChipKey)
@@ -218,7 +220,8 @@ export function useFilterPopoverAdapter<T>({
           return {
             id: g.key,
             columnLabel,
-            op: FILTER_OP_TO_POPOVER_OP[g.operator] ?? g.operator,
+            op: g.operator,
+            opLabel,
             value: [],
             isEmpty: true,
           };
@@ -231,8 +234,6 @@ export function useFilterPopoverAdapter<T>({
           return opt?.label ?? String(v);
         };
 
-        const typeId = col?.filterType ?? col?.type ?? "text";
-        const typeDef = columnTypeRegistry.get(typeId);
         if (typeDef.renderChipValue && g.items.length > 0) {
           // Passa options pro renderChipValue resolver value → label friendly.
           // Sem isso, o chip mostrava o RAW value (ex: "active" em vez de "Ativo").
@@ -252,7 +253,7 @@ export function useFilterPopoverAdapter<T>({
           return {
             id: g.key,
             columnLabel,
-            op: FILTER_OP_TO_POPOVER_OP[g.operator] ?? g.operator,
+            op: g.operator,
             value,
           };
         }
@@ -270,7 +271,8 @@ export function useFilterPopoverAdapter<T>({
         return {
           id: g.key,
           columnLabel,
-          op: FILTER_OP_TO_POPOVER_OP[g.operator] ?? g.operator,
+          op: g.operator,
+          opLabel,
           value,
         };
       }),
@@ -301,7 +303,7 @@ export function useFilterPopoverAdapter<T>({
     // Auto-promote operator escalar → multi quando filterType=multiSelect e value
     // chegou como array (widget multiSelect SEMPRE manda array, mesmo com 1 valor).
     // Sem esse normalize, filter shortcut do header em coluna multiSelect persiste
-    // operator "eq" e cria N items separados — bug que aparece no popover Filtros
+    // operator "equals" e cria N items separados — bug que aparece no popover Filtros
     // como N linhas em vez de 1 agrupada.
     const col = colsByField.get(group.field);
     const widgetIsMulti = col?.filterType === "multiSelect";
@@ -397,8 +399,8 @@ export function useFilterPopoverAdapter<T>({
 
     const items: FilterItem[] = [];
     for (const e of entries) {
-      const rawOperator =
-        POPOVER_OP_TO_FILTER_OP[e.op] ?? (e.op as FilterItem["operator"]);
+      // op já vem em id longo do FilterModel (vocabulário único) — sem remap.
+      const rawOperator = e.op as FilterItem["operator"];
 
       // Auto-promote operator pra `isAnyOf`/`isNoneOf` quando o widget mandou
       // array mas o operator é escalar (eq/neq). Acontece quando preset/saved

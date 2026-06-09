@@ -13,7 +13,6 @@ import { FormField } from "../../FormField";
 // reverso (DataTable → TableToolbar) continua proibido.
 import { columnTypeRegistry } from "../../DataTable/column-types";
 import type { ColumnOption } from "../../DataTable/column-types";
-import { POPOVER_OP_TO_FILTER_OP } from "../../DataTable/utils/operator-mapping";
 import type {
   FilterItem,
   FilterModel,
@@ -232,9 +231,9 @@ export function ToolbarSimpleFilterDrawer({
        *  define o seu. Aqui usamos os mesmos valores do header/footer pra ter
        *  alinhamento visual consistente quando user lê o drawer de cima até a base.
        *
-       *  Gap entre campos: gp-2xl (16px). Antes era gp-xl (12px) mas ficava grudado
-       *  visualmente com label + widget acima/abaixo. +4px dá respiro suficiente. */}
-      <div className="flex flex-col gap-gp-2xl px-[18px] py-[14px]">
+       *  Gap entre campos: form-gap (20px) — token DS dedicado pra forms com
+       *  FormField units empilhados (L-024). */}
+      <div className="flex flex-col gap-form-gap px-[18px] py-[14px]">
         {visibleColumns.length === 0 && (
           <p className="text-body-sm text-fg-muted text-center py-pad-2xl">
             Nenhuma coluna filtrável disponível.
@@ -261,7 +260,7 @@ export function ToolbarSimpleFilterDrawer({
               ? items[0]?.value
               : items[0]?.value;
 
-          const filterOp = POPOVER_OP_TO_FILTER_OP[operator] ?? operator;
+          const filterOp = operator;
           const options = (col.options ?? []) as ColumnOption[];
 
           // Usa <FormField> do DS — garante label com font-semibold + cor

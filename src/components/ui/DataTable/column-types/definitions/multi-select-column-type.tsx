@@ -20,7 +20,7 @@ import type {
  */
 /** Normaliza value pra array — aceita string/number escalar OU array.
  *  Cenário: presets/saved views podem hidratar o filterModel com `value: "active"`
- *  (escalar) + `operator: "eq"`, mas o widget renderiza igual ao multiSelect
+ *  (escalar) + `operator: "equals"`, mas o widget renderiza igual ao multiSelect
  *  (filterType da column é "multiSelect"). Mesmo critério usado em
  *  `renderChipValue` e `matchesFilter` mais abaixo. */
 const toArray = (value: unknown): Array<string | number> => {

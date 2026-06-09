@@ -58,6 +58,8 @@ export const DateColumnType: ColumnTypeDefinition = {
     { id: "equals", label: "é" },
     { id: "gt", label: "depois de" },
     { id: "lt", label: "antes de" },
+    { id: "gte", label: "em ou depois de" },
+    { id: "lte", label: "em ou antes de" },
     { id: "between", label: "entre" },
   ],
   /** Modal Filtros (advanced): trigger compacto que abre Calendar em popover.
@@ -182,6 +184,8 @@ export const DateColumnType: ColumnTypeDefinition = {
     if (operator === "equals") return cellDay === filterDay;
     if (operator === "gt") return cellDay > filterDay;
     if (operator === "lt") return cellDay < filterDay;
+    if (operator === "gte") return cellDay >= filterDay;
+    if (operator === "lte") return cellDay <= filterDay;
     return null;
   },
 

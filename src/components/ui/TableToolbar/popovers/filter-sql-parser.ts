@@ -12,8 +12,8 @@
  *
  * Output: { entries, logicOperator } ou { error: string }.
  *
- * Mapeamento de operadores texto → FilterPopoverEntry.op:
- *   = | ==     → "eq"
+ * Mapeamento de operadores texto → FilterPopoverEntry.op (ids longos do FilterModel):
+ *   = | ==     → "equals"
  *   != | <>    → "neq"
  *   contains   → "contains"
  *   like       → "contains"
@@ -25,7 +25,7 @@
 
 export type ParsedFilterEntry = {
   field: string;
-  op: "eq" | "neq" | "contains" | "gt" | "lt" | "gte" | "lte";
+  op: "equals" | "neq" | "contains" | "gt" | "lt" | "gte" | "lte";
   value: string;
 };
 
@@ -34,8 +34,8 @@ export type ParseResult =
   | { ok: false; error: string };
 
 const OP_MAP: Record<string, ParsedFilterEntry["op"]> = {
-  "=": "eq",
-  "==": "eq",
+  "=": "equals",
+  "==": "equals",
   "!=": "neq",
   "<>": "neq",
   ">": "gt",
@@ -105,7 +105,7 @@ export function entriesToSql(
   logicOperator: "AND" | "OR" = "AND",
 ): string {
   const opText: Record<ParsedFilterEntry["op"], string> = {
-    eq: "=",
+    equals: "=",
     neq: "!=",
     contains: "contains",
     gt: ">",

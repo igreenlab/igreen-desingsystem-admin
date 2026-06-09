@@ -111,10 +111,6 @@ import { DataTableGroupContentRow } from "./parts/data-table-group-content-row";
 import { groupRows, isGroupRow, isGroupContent } from "./utils/group-rows";
 import { DataTableRowExpansion } from "./parts/data-table-row-expansion";
 import { expandRows, isExpansionRow } from "./utils/expand-rows";
-import {
-  POPOVER_OP_TO_FILTER_OP,
-  FILTER_OP_TO_POPOVER_OP,
-} from "./utils/operator-mapping";
 import { useSortPopoverAdapter } from "./hooks/use-sort-popover-adapter";
 import { useColsPopoverAdapter } from "./hooks/use-cols-popover-adapter";
 import { useFilterPopoverAdapter } from "./hooks/use-filter-popover-adapter";
@@ -183,8 +179,6 @@ const MOBILE_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
     ),
   },
 ];
-
-// Operator mapping consolidado em utils/operator-mapping.ts.
 
 /**
  * Resolve o valor de uma cell — delega pro shared `applyValueGetter`
@@ -1570,9 +1564,8 @@ function DataTableInternal<T>(
                     renderValueInput={({ column, operator, value, onChange }) => {
                       const typeId = column.filterType ?? column.type ?? "text";
                       const def = columnTypeRegistry.get(typeId);
-                      const filterOp =
-                        POPOVER_OP_TO_FILTER_OP[operator] ??
-                        (operator as FilterItem["operator"]);
+                      // op já em id longo do FilterModel (vocabulário único) — sem remap.
+                      const filterOp = operator as FilterItem["operator"];
                       return def.renderFilterInput({
                         value: value as never,
                         onChange: (v) => onChange(v),
@@ -2080,9 +2073,8 @@ function DataTableInternal<T>(
                               renderValueInput={({ column, operator, value, onChange }) => {
                                 const typeId = column.filterType ?? column.type ?? "text";
                                 const def = columnTypeRegistry.get(typeId);
-                                const filterOp =
-                                  POPOVER_OP_TO_FILTER_OP[operator] ??
-                                  (operator as FilterItem["operator"]);
+                                // op já em id longo do FilterModel — sem remap.
+                                const filterOp = operator as FilterItem["operator"];
                                 return def.renderFilterInput({
                                   value: value as never,
                                   onChange: (v) => onChange(v),

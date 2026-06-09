@@ -55,8 +55,8 @@ export type ToolbarAppliedProps = {
   className?: string;
 };
 
-const DEFAULT_OP_LABELS: Record<AppliedFilterOp, string> = {
-  eq:          "é",
+const DEFAULT_OP_LABELS: Record<string, string> = {
+  equals:      "é",
   neq:         "não é",
   contains:    "contém",
   notContains: "não contém",
@@ -64,6 +64,8 @@ const DEFAULT_OP_LABELS: Record<AppliedFilterOp, string> = {
   endsWith:    "termina com",
   gt:          ">",
   lt:          "<",
+  gte:         "≥",
+  lte:         "≤",
   isAnyOf:     "é",
   isNoneOf:    "não é",
   between:     "entre",
@@ -120,7 +122,7 @@ export function ToolbarApplied({
                 na DataTableProps + flag isEmpty no adapter. */}
             {!f.isEmpty && (
               <>
-                <span className={toolbarAppliedChipOp()}>{resolveOp(f.op)}</span>
+                <span className={toolbarAppliedChipOp()}>{f.opLabel ?? resolveOp(f.op)}</span>
                 {Array.isArray(f.value) ? (
                   <span className="inline-flex items-center gap-gp-2xs">
                     {(f.value as ReactNode[]).map((v, i) => (

@@ -513,7 +513,7 @@ Tudo proveniente do `<Table>` primitive: `role="grid"`, `role="row"`, `role="col
 ## Padrões internos (referência rápida)
 
 - **God component evitado** — DataTable orquestra; lógica pesada em hooks (`use-filter-popover-adapter`, `use-sort-popover-adapter`, `use-cols-popover-adapter`, `use-data-table-processor`, etc)
-- **Operator mapping centralizado** — `utils/operator-mapping.ts` é fonte única dos mapas POPOVER ↔ FILTER
+- **Vocabulário único de operador** — ids longos do `FilterModel` (`equals`, `neq`, `gt`, `gte`…) em todo o fluxo (popover, parser SQL, chips, adapter). Sem tradução curto↔longo. Label do chip vem do registry do column-type (`opLabel`), com `DEFAULT_OP_LABELS` como fallback
 - **Value resolution shared** — `utils/resolve-value.ts` (`getFieldValue / applyValueGetter / applyFormatter`) usado por processor, group-rows e cell render
 - **Column types via registry** — `column-types/column-type-registry.ts`; `console.warn` em duplicate (não throw, suporta hot reload)
 - **Row variants discriminadas** — `groupRow / groupContentRow / expansionRow / dataRow` via Symbol-as-discriminator (type-safe)
