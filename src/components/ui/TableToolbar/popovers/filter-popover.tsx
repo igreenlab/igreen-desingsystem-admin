@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "../../../shadcn/popover";
-import { parseSqlFilter, entriesToSql } from "./filter-sql-parser";
+import { parseSqlFilter, entriesToSql, type ParsedFilterEntry } from "./filter-sql-parser";
 import {
   Select,
   SelectContent,
@@ -329,13 +329,14 @@ export function FilterPanel({
         entriesToSql(
           filters.map((f) => ({
             field: f.columnKey,
-            op: f.op as any,
-            value:
-              typeof f.value === "string"
-                ? f.value
-                : f.value == null
-                  ? ""
-                  : String(f.value),
+            op: f.op as ParsedFilterEntry["op"],
+            // value bruto (string | array) — entriesToSql serializa listas/tuplas
+            // como `[a, b]` pros ops estruturais (round-trip-safe).
+            value: Array.isArray(f.value)
+              ? (f.value as string[]).map((v) => String(v))
+              : f.value == null
+                ? ""
+                : String(f.value),
           })),
           "AND",
         ),

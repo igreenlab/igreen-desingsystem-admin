@@ -1905,3 +1905,28 @@
   - promoteOperator unificado com a invariante "multiSelect ⇒ sempre isAnyOf/isNoneOf" (lógica do controller, superset; corrige drawer que perdia neq→isNoneOf).
 - Assumption: a unificação é behavior-preserving (a promotion sem array-check é equivalente pq o widget multiSelect sempre manda array; o totalizer respeitar valueGetter não afeta previews atuais — colunas agregadas não têm valueGetter). Confirmado: tsc 0 + browser (chip "Status é Ativo Pendente" = isAnyOf agrupado; totalizers count+sum OK).
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS DEV | Auditoria PR2 — dead-code simpleFilter + SQL round-trip-safe | CONCLUÍDO
+- Input: PR2 da auditoria — fixes de comportamento.
+- Output:
+  - **#1 dead-code simpleFilter**: removido import órfão `ToolbarFilterControl` (nunca renderizado) + const `simpleFilterEnabled` (nunca usado) do data-table.tsx. Removida a prop no-op `simpleFilter.enabled` do DataTableProps (a doc descrevia split-button que não existe mais na v2). Mantidos hiddenFields/title/size (config real do drawer). 2 previews que passavam `{enabled:true}` ajustados.
+  - **#3 SQL round-trip-safe**: reescrito `filter-sql-parser.ts` pra suportar o conjunto COMPLETO de operadores. Estruturais usam sintaxe de colchetes (`in [a,b]`, `not in [...]`, `between [x,y]`) — não conflitam com o split AND/OR. Keywords pra `is empty`/`is not empty`/`starts with`/`ends with`/`not contains`. Antes, `entriesToSql` gerava `undefined` pra esses ops → textarea corrompido ao alternar Visual→Avançado.
+- Decisões:
+  - Sintaxe de colchetes pros ops de lista/intervalo — evita o conflito `between x and y` ↔ split por AND.
+  - `ParsedFilterEntry.value` agora `string | string[]`.
+- Assumption: round-trip serialize↔parse é estável e semanticamente fiel. Confirmado: teste tsx puro 12/12 casos OK (incl. in/not in/between + multi-AND). tsc 0.
+- Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit PR2 — dead-code simpleFilter + SQL round-trip-safe | PRE_COMMIT_BLOCKED
+
+- Spec verificada: sim (pipeline-state entrada anterior)
+- Gate verificado: n/a (refactor/bugfix — não é token/componente novo)
+- Assumption verificada: Assumption "round-trip serialize↔parse estável" confirmada — lógica correta, tsc 0, 12/12 testes OK. Assumption "dead-code removal behavior-neutral" confirmada — barrel intacto, simpleFilter?.hiddenFields/title/size ainda válidos.
+- Critique genuína aplicada: USAGE.md DataTable documenta `simpleFilter={{ enabled: true }}` como API ativa. Um agente lendo USAGE.md implementaria a prop removida sem erro de TypeScript (object literal extra em prop opcional aceita silenciosamente pelo compilador); split button não ativaria e o comportamento seria divergente sem feedback. Isso é divergência silenciosa de comportamento — classificado ALTO.
+- Regressões L-001..L-027 encontradas: nenhuma nas linhas adicionadas pelo diff.
+- Pendências: 3 itens (1 ALTO, 2 MÉDIO). Ver resultado PRE_COMMIT_BLOCKED no output do reviewer.
+- Lições novas: nenhuma.

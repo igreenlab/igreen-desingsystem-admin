@@ -412,8 +412,6 @@ export default function ClientesFinanceiroShowcase() {
         // bankAccount pra suportar presetViews por banco.
         persistId="showcase-finance-crud-v3"
         defaultViews={DEFAULT_VIEWS}
-        // SimpleFilter ON — UX recomendada pro consumer (split button + drawer)
-        simpleFilter={{ enabled: true }}
         toolbar={{
           enableSearch: true,
           enableFilters: true,

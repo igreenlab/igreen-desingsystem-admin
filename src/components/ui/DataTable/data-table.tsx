@@ -128,7 +128,6 @@ import {
   PopoverContent,
 } from "../../shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
-import { ToolbarFilterControl } from "../TableToolbar";
 // Settings drill-down + panels do layout canônico (default). Já importados
 // do barrel `../TableToolbar` (TableToolbar/ToolbarSearch/etc acima).
 import {
@@ -345,14 +344,6 @@ function DataTableInternal<T>(
    *  Mora aqui porque várias funções fora do adapter usam (handleFilterShortcut,
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
   const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
-
-  /** SimpleFilter — controlado internamente pelo <ToolbarFilterControl>.
-   *  DataTable só passa config; state (drawer aberto, popover aberto) mora
-   *  no hook `useToolbarFilterControl` consumido pelo ToolbarFilterControl.
-   *
-   *  **Default OFF** (opt-IN) — botão Filtros único abre query builder direto.
-   *  Pra ativar split button + drawer: `simpleFilter={{ enabled: true }}`. */
-  const simpleFilterEnabled = props.simpleFilter?.enabled === true;
 
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
