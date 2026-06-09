@@ -1,15 +1,13 @@
 # TableToolbar — toolbar opinativa de tabela
 
-Toolbar **padrão** do DataTable. Layout OPINATIVO: slots semânticos em ordem fixa
-(o consumer não monta a ordem — impossível montar errado). O layout dumb antigo
-(slots livres `left`/`actions`) vive em `<TableToolbarDeprecated>`.
+Toolbar **padrão** (e única) do DataTable. Layout OPINATIVO: slots semânticos em
+ordem fixa — o consumer não monta a ordem, impossível montar errado.
 
 ## Quando usar
 
 - Você está montando uma toolbar de tabela custom (fora do DataTable) e quer o
   visual/UX canônico do DS.
-- Dentro do DataTable é automático — não precisa instanciar à mão (a prop
-  `deprecatedToolbar` troca pro layout legado).
+- Dentro do DataTable é automático — não precisa instanciar à mão.
 
 ## Ordem renderizada (fixa)
 
@@ -71,7 +69,6 @@ import {
 - **bulkBar substitui tudo**: passe `<BulkActionsBar>` (auto-some quando `count=0`)
   condicionalmente — `selectedIds.size > 0 ? <BulkActionsBar/> : undefined`.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.
-- Layout legado (slots `left`/`actions` livres) → `<TableToolbarDeprecated>` (será removido).
 
 ## Acoplamento DataTable ↔ TableToolbar
 
