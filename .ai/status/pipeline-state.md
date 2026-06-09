@@ -1750,3 +1750,22 @@
 - **Critique genuína aplicada:** delta limitado a 7 pontos; verificado que nenhuma correção introduziu regressão nova. Todos os 7 pontos confirmados nos arquivos.
 - **Regressões L-xxx encontradas:** nenhuma no delta
 - **Lições novas:** nenhuma
+
+---
+
+### [2026-06-09] | DS DEV | Swap de nomes: TableToolbar canônica + Deprecated | CONCLUÍDO
+- Input: tornar a toolbar nova (ex-v2) o padrão sob o nome `TableToolbar`; renomear a antiga pra `TableToolbarDeprecated`; default da prop invertido; remover preview "Table Toolbar v2 — CRUD"; ClientesShowcase na toolbar nova.
+- Output:
+  - Pastas: `ui/TableToolbar/` (v1) → `ui/TableToolbarDeprecated/`; `ui/TableToolbarV2/` → `ui/TableToolbar/` (canônica).
+  - Root: ex-v2 `TableToolbarV2`/`TableToolbarV2Props` → `TableToolbar`/`TableToolbarProps`; ex-v1 `TableToolbar`/`TableToolbarProps` → `TableToolbarDeprecated`/`TableToolbarDeprecatedProps`.
+  - DataTable: prop `toolbarVersion?: "v1"|"v2"` (default v1) → `deprecatedToolbar?: boolean` (default false = nova). Branch deprecada renderiza `<TableToolbarDeprecated>`; resto importa do barrel canônico (superset).
+  - Barrel raiz: re-export do canônico + `TableToolbarDeprecated`.
+  - Docs: `TableToolbarDoc` (v1) → `TableToolbarDeprecatedDoc`; `TableToolbarV2Doc` → `TableToolbarDoc`. Removido `TableToolbarV2CrudPreview` + rota/nav `table-toolbar-v2`/`-crud`; nova rota `table-toolbar-deprecated`.
+  - Previews: 7 previews que usavam `toolbarVersion="v2"` agora herdam a nova por default; `clients-pre-filtered` recebe `deprecatedToolbar` como exemplo de regressão da legada. ClientesShowcase auto-migrado pelo flip.
+  - USAGE.md canônico reescrito pra API opinativa; Deprecated marcado; inventory.md atualizado (2 linhas: TableToolbar + TableToolbarDeprecated).
+- Decisões:
+  - Swap FÍSICO de pastas (não só labels) — resolve a raiz: `import { TableToolbar } from "@/components/ui/TableToolbar"` agora = a opinativa, evitando IA/terceiros consumirem a legada por engano.
+  - Prop booleana `deprecatedToolbar` (não `toolbarVersion` invertido) — semântica clara: "a toolbar" vs "a deprecada".
+  - 1 preview (pre-filtered) mantido na deprecada pra não perder cobertura de regressão do path `<DataTable deprecatedToolbar>`.
+- Assumption: o barrel ex-v2 é superset exato do ex-v1 (mesmos nomes de parts/popovers/types) — confirmado: tsc 0 sem repointar os imports compartilhados do DataTable/adapters.
+- Lições novas: nenhuma — usar `\bTableToolbar\b` (word-boundary) no sed preserva `TableToolbarViews`/`TableToolbarProps` ao renomear o root (registrado como nota, não L-NNN).

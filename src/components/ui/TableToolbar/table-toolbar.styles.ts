@@ -25,6 +25,9 @@ export const toolbarLeft = tv({
     "flex flex-1 items-center flex-wrap min-w-0",
     "gap-gp-sm md:gap-[10px]",  // 6px → 10px
     "[&>*]:shrink-0",            // items hug, sem squeeze interno
+    // Mobile (<md): toggle Kanban/Lista + abas + adicionar colapsam pro menu
+    // de Configurações; a barra fica só com busca + ações à direita.
+    "max-md:hidden",
   ],
 });
 
@@ -33,6 +36,8 @@ export const toolbarActions = tv({
     "flex items-center flex-wrap shrink-0",
     "gap-gp-sm md:gap-gp-md",  // 6px → 8px
     "[&>*]:shrink-0",          // items hug, sem squeeze interno
+    // Mobile: ocupa a linha toda pra a busca ficar fluida (flex-1 no search).
+    "max-md:w-full max-md:flex-1",
   ],
 });
 

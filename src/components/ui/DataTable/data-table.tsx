@@ -127,16 +127,18 @@ import {
 } from "../../shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
 import { ToolbarFilterControl } from "../TableToolbar";
-// Toolbar v2 (opt-in via prop `toolbar="v2"`) — layout opinativo + settings
-// drill-down + comportamento mobile. Coexiste com a v1 sem quebrá-la.
+// Settings drill-down + panels do layout canônico (default). Já importados
+// do barrel `../TableToolbar` (TableToolbar/ToolbarSearch/etc acima).
 import {
-  TableToolbarV2,
   ToolbarSettingsMenu,
   SortPanel,
   ColsPanel,
   FilterPanel,
-  ToolbarSimpleFilterDrawer as SimpleFilterDrawerV2,
-} from "../TableToolbarV2";
+  ToolbarSimpleFilterDrawer as SimpleFilterDrawer,
+} from "../TableToolbar";
+// Toolbar DEPRECADA (opt-in via prop `deprecatedToolbar`) — layout legado.
+// Mantida pra não quebrar consumidores que dependem do visual antigo.
+import { TableToolbarDeprecated } from "../TableToolbarDeprecated";
 import type { ColumnOption } from "./column-types";
 // DataTableFloatingBulkBar still exported from barrel for opt-in use;
 // default DataTable now uses inline BulkActionsBar via TableToolbar.bulkBar.
@@ -619,7 +621,7 @@ function DataTableInternal<T>(
 
   // Toolbar v2 (opt-in). `v2FilterOpen` controla o drawer do funil simples
   // (na v2 o filtro avançado vive no menu de Configurações, não no split button).
-  const toolbarVariant = props.toolbarVersion ?? "v1";
+  const useDeprecatedToolbar = props.deprecatedToolbar ?? false;
   const [v2FilterOpen, setV2FilterOpen] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -702,15 +704,12 @@ function DataTableInternal<T>(
    *  - demais (text/number) → contains */
   const handleFilterShortcut = (col: DataTableColumnDef<T>) => {
     const field = String(col.field);
-    const isSelectish = col.filterType === "select" || col.filterType === "multiSelect";
-    const isDate = col.filterType === "date";
-    const operator: FilterItem["operator"] = isSelectish
-      ? "equals"
-      : isDate
-        ? "between"
-        : "contains";
+    // Fonte única: mesma inferência usada no resto do DataTable. Evita a
+    // divergência anterior (number/currency caíam em "contains", que esses
+    // tipos nem suportam → filtro inerte).
+    const operator = inferOperatorFromFilterType(col.filterType);
     const chipKey = `${field}|${operator}`;
-    const initialValue: FilterValue = isDate ? [null, null] : "";
+    const initialValue: FilterValue = operator === "between" ? [null, null] : "";
 
     // Se ja existe grupo pra essa coluna+operator, so abre. Senao, adiciona vazio + abre.
     const existing = filters.filterModel.items.find(
@@ -1487,8 +1486,8 @@ function DataTableInternal<T>(
       <div className={cn(styles.root(), props.className)}>
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
-          {toolbarVariant !== "v2" && (
-          <TableToolbar
+          {useDeprecatedToolbar && (
+          <TableToolbarDeprecated
             left={
               <>
                 {/* Search — fluid no mobile, fixo 200px no desktop. Sempre visível. */}
@@ -1540,6 +1539,7 @@ function DataTableInternal<T>(
                           isPublic: data.isPublic,
                         });
                       }}
+                      soloLabel={toolbarConfig.title}
                       // Divider já foi colocado acima; views ficam coladas
                       hideDivider
                     />
@@ -1989,9 +1989,9 @@ function DataTableInternal<T>(
              configurações(drill-down) · ⋯. Mobile colapsa esquerda+refresh;
              view toggle/visões migram pro menu. Reaproveita os mesmos
              adapters/handlers da v1. Chips ficam abaixo (compartilhados). */}
-          {toolbarVariant === "v2" && (
+          {!useDeprecatedToolbar && (
             <>
-              <TableToolbarV2
+              <TableToolbar
                 viewToggle={resolvedViewToggle}
                 savedViews={
                   props.persistId ? (
@@ -2004,6 +2004,7 @@ function DataTableInternal<T>(
                       onSave={async (data) => {
                         await saveCurrentAsView(data.name, { isPublic: data.isPublic });
                       }}
+                      soloLabel={toolbarConfig.title}
                       hideDivider
                     />
                   ) : undefined
@@ -2207,7 +2208,7 @@ function DataTableInternal<T>(
               />
               {/* Drawer do filtro simples (funil) — só v2 */}
               {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
-                <SimpleFilterDrawerV2
+                <SimpleFilterDrawer
                   open={v2FilterOpen}
                   onOpenChange={setV2FilterOpen}
                   columns={filterPopoverColumns}

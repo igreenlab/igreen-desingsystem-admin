@@ -144,7 +144,7 @@ export function ViewsPopover({
               onClick={() => setTab("all")}
               className={cn(
                 "flex-1 h-form-sm px-pad-lg rounded-radius-sm",
-                "text-body-xs font-medium cursor-pointer outline-none",
+                "text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring",
                 "transition-[background-color,color,box-shadow] duration-150",
                 tab === "all"
                   ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"
@@ -160,7 +160,7 @@ export function ViewsPopover({
               onClick={() => setTab("mine")}
               className={cn(
                 "flex-1 h-form-sm px-pad-lg rounded-radius-sm",
-                "text-body-xs font-medium cursor-pointer outline-none",
+                "text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring",
                 "transition-[background-color,color,box-shadow] duration-150",
                 tab === "mine"
                   ? "bg-bg-accent text-fg-default font-semibold shadow-sh-sm"

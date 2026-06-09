@@ -1,6 +1,6 @@
-/* ── Root (v2 opinativo) ──────────────────────────────────────── */
-export { TableToolbarV2 } from "./table-toolbar";
-export type { TableToolbarV2Props } from "./table-toolbar";
+/* ── Root ─────────────────────────────────────────────────────── */
+export { TableToolbarDeprecated } from "./table-toolbar";
+export type { TableToolbarDeprecatedProps } from "./table-toolbar";
 
 /* ── Parts ────────────────────────────────────────────────────── */
 export { ToolbarSearch } from "./parts/toolbar-search";
@@ -73,17 +73,15 @@ export {
 } from "./popovers/more-menu";
 export type { MoreMenuProps } from "./popovers/more-menu";
 
-export { ColsPopover, ColsPanel } from "./popovers/cols-popover";
+export { ColsPopover } from "./popovers/cols-popover";
 export type {
   ColsPopoverProps,
-  ColsPanelProps,
   ColsPopoverColumn,
 } from "./popovers/cols-popover";
 
-export { SortPopover, SortPanel } from "./popovers/sort-popover";
+export { SortPopover } from "./popovers/sort-popover";
 export type {
   SortPopoverProps,
-  SortPanelProps,
   SortPopoverColumn,
   SortPopoverCriterion,
 } from "./popovers/sort-popover";
@@ -108,26 +106,14 @@ export type {
 
 export {
   FilterPopover,
-  FilterPanel,
   DEFAULT_FILTER_OPERATORS,
 } from "./popovers/filter-popover";
 export type {
   FilterPopoverProps,
-  FilterPanelProps,
   FilterPopoverColumn,
   FilterPopoverOperator,
   FilterPopoverEntry,
 } from "./popovers/filter-popover";
-
-/* ── Settings menu (drill-down v2) ──────────────────────────────
- * Menu "Configurações da tabela" com navegação em níveis. Reaproveita
- * SortPanel/ColsPanel/FilterPanel via render-prop (recebe onBack).
- */
-export { ToolbarSettingsMenu } from "./parts/toolbar-settings-menu";
-export type {
-  ToolbarSettingsMenuProps,
-  ToolbarSettingsMenuView,
-} from "./parts/toolbar-settings-menu";
 
 /* ── Hooks opcionais ──────────────────────────────────────────── */
 export { useToolbarFilters } from "./hooks/use-toolbar-filters";

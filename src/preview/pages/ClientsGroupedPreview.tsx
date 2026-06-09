@@ -203,7 +203,6 @@ export default function ClientsGroupedPreview() {
           rows={rows}
           columns={columns}
           getRowId={(r) => r.id}
-          toolbarVersion="v2"
           // Fase F.4 — agrupamento por field. Default expanded.
           groupBy={groupBy}
           // Modo "Livre": passa renderGroupHeader + renderGroupContent.

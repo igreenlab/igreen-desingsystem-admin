@@ -539,13 +539,16 @@ export type DataTableProps<T> = {
   };
 
   /**
-   * Versão da toolbar. **Default `"v1"`** (dumb, slots left/actions — atual).
-   * `"v2"` usa a `<TableToolbarV2>` opinativa: direita = busca · filtrar (funil →
-   * drawer simples) · configurações (drill-down sort/cols/filtro-avançado/densidade)
-   * · ⋯; mobile colapsa lado esquerdo + refresh, view toggle/visões migram pro
-   * menu. Opt-in pra coexistir com a v1 sem quebrar consumers existentes.
+   * Usa a toolbar **DEPRECADA** (layout legado: slots dumb left/actions).
+   * **Default `false`** → toolbar canônica (`<TableToolbar>` opinativa: direita =
+   * busca · filtrar (funil → drawer simples) · configurações (drill-down
+   * sort/cols/filtro-avançado/densidade) · ⋯; mobile colapsa lado esquerdo +
+   * refresh, view toggle/visões migram pro menu).
+   *
+   * Passe `deprecatedToolbar` apenas se o consumer ainda depende do visual antigo;
+   * a `<TableToolbarDeprecated>` será removida numa versão futura.
    */
-  toolbarVersion?: "v1" | "v2";
+  deprecatedToolbar?: boolean;
 
   /** Search controlado */
   search?: string;

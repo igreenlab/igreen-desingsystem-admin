@@ -407,7 +407,6 @@ export default function ClientesFinanceiroShowcase() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
-        toolbarVersion="v2"
         // Bumpado pra v3 — reset reorder/visibility/widths persistidos
         // das versões anteriores. v3 inclui filterOptions + valueGetter em
         // bankAccount pra suportar presetViews por banco.

@@ -254,7 +254,6 @@ export default function ClientsCRUDPreview() {
           getRowId={(r) => r.id}
           persistId="clients-crud-demo"
           defaultViews={DEFAULT_VIEWS}
-          toolbarVersion="v2"
           toolbar={{
             title: "Clientes",
             enableSearch: true,

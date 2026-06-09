@@ -1,13 +1,15 @@
-# TableToolbar — toolbar dumb e estilizável
+# TableToolbarDeprecated — toolbar dumb (DEPRECADA)
+
+⚠️ **Deprecada** — use a `TableToolbar` canônica. Mantida só pra compat. 
 
 Toolbar de barra horizontal pra tabelas / listas / qualquer surface que precise de busca, filtros, ordenação, controles de view, e bulk actions. **Dumb**: não armazena state de dados, recebe slots e props.
 
 ## Princípio dumb
 
-`TableToolbar` aceita 3 slots:
+`TableToolbarDeprecated` aceita 3 slots:
 
 ```tsx
-<TableToolbar
+<TableToolbarDeprecated
   left={/* ToolbarSearch + ToolbarDivider + Refresh + Views */}
   actions={/* FilterPopover + SortPopover + ColsPopover + Density + Export */}
   bulkBar={/* BulkActionsBar quando selectedCount > 0 */}
@@ -56,7 +58,7 @@ import {
   useToolbarFilters,
   useToolbarSort,
   useToolbarFilterControl,
-} from "@/components/ui/TableToolbar";
+} from "@/components/ui/TableToolbarDeprecated";
 
 // Filtros — opcional. Você pode usar useState direto.
 const filters = useToolbarFilters({ initial: [{ id, columnKey, op, value }] });
@@ -80,7 +82,7 @@ filterCtl.closeAll();          // fecha ambos
 ### 1. Composição mínima
 
 ```tsx
-<TableToolbar
+<TableToolbarDeprecated
   left={
     <ToolbarSearch
       value={searchInput}
@@ -144,7 +146,7 @@ Controle de filtros completo, plug-and-play. Encapsula ButtonGroup (split button
 import {
   ToolbarFilterControl,
   useToolbarFilterControl,
-} from "@/components/ui/TableToolbar";
+} from "@/components/ui/TableToolbarDeprecated";
 import { columnTypeRegistry } from "@/components/ui/DataTable";
 
 function MyTableWithFilters() {
@@ -153,7 +155,7 @@ function MyTableWithFilters() {
   const [entries, setEntries] = useState([]);
 
   return (
-    <TableToolbar
+    <TableToolbarDeprecated
       actions={
         <ToolbarFilterControl
           columns={filterPopoverColumns}
@@ -259,7 +261,7 @@ O DataTable já passa esse callback automaticamente — só relevante se você u
 Pattern adotado pelo `<DataTable>`: em viewports `<md`, controles secundários colapsam num `ToolbarMobileDialog` (icon button + dialog 384px). Search e Filter ficam sempre visíveis.
 
 ```tsx
-<TableToolbar
+<TableToolbarDeprecated
   left={
     <>
       <ToolbarSearch value={q} onChange={setQ} />
@@ -324,9 +326,9 @@ Pattern adotado pelo `<DataTable>`: em viewports `<md`, controles secundários c
 </>
 ```
 
-## Acoplamento DataTable ↔ TableToolbar
+## Acoplamento DataTable ↔ TableToolbarDeprecated
 
-**Regra de ouro**: o DataTable consome parts do TableToolbar via composição. Se você mudar a ordem dos itens no toolbar do DataTable amanhã, é uma edição **no DataTable**, não no TableToolbar — porque o toolbar não força nenhuma ordem.
+**Regra de ouro**: o DataTable consome parts do TableToolbarDeprecated via composição. Se você mudar a ordem dos itens no toolbar do DataTable amanhã, é uma edição **no DataTable**, não no TableToolbarDeprecated — porque o toolbar não força nenhuma ordem.
 
 Parts são **estáveis em isolamento**: cada um pode ser usado fora do DataTable em qualquer surface (drawer com toolbar, modal com filtros, header de seção, etc).
 

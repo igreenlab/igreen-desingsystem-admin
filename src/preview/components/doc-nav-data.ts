@@ -94,8 +94,7 @@ const BASE_NAV: DocNavSection[] = [
       // Componentes da família data-display
       { label: "Table", href: "table" },
       { label: "Table Toolbar", href: "table-toolbar" },
-      { label: "Table Toolbar v2", href: "table-toolbar-v2" },
-      { label: "Table Toolbar v2 — CRUD", href: "table-toolbar-v2-crud" },
+      { label: "Table Toolbar (Deprecated)", href: "table-toolbar-deprecated" },
       { label: "Footer Table", href: "footer-table" },
       { label: "Tabela Teste", href: "tabela-teste" },
       { label: "Kanban", href: "kanban" },

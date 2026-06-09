@@ -22,8 +22,7 @@ import { ProgressDoc } from "./preview/pages/ProgressDoc";
 import { PaginationDoc } from "./preview/pages/PaginationDoc";
 import { FooterTableDoc } from "./preview/pages/FooterTableDoc";
 import { TableToolbarDoc } from "./preview/pages/TableToolbarDoc";
-import { TableToolbarV2Doc } from "./preview/pages/TableToolbarV2Doc";
-import TableToolbarV2CrudPreview from "./preview/pages/TableToolbarV2CrudPreview";
+import { TableToolbarDeprecatedDoc } from "./preview/pages/TableToolbarDeprecatedDoc";
 import TableDoc from "./preview/pages/TableDoc";
 import DataTableDoc from "./preview/pages/DataTableDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
@@ -153,7 +152,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "switch", "checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table-toolbar-v2", "table-toolbar-v2-crud", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table-toolbar-deprecated", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -276,12 +275,6 @@ export function App() {
     };
   }, []);
 
-  // Tela "real" standalone — tem AppShell próprio, renderiza fullscreen sem o
-  // DocSidebar (evita sidebar dupla). Acessível via #/table-toolbar-v2-crud.
-  if (activePage === "table-toolbar-v2-crud") {
-    return <TableToolbarV2CrudPreview />;
-  }
-
   if (isDocPage) {
     return (
       <DocNavProvider onNavigate={setActivePage}>
@@ -305,7 +298,7 @@ export function App() {
           {activePage === "pagination" && <PaginationDoc />}
           {activePage === "footer-table" && <FooterTableDoc />}
           {activePage === "table-toolbar" && <TableToolbarDoc />}
-          {activePage === "table-toolbar-v2" && <TableToolbarV2Doc />}
+          {activePage === "table-toolbar-deprecated" && <TableToolbarDeprecatedDoc />}
           {activePage === "table" && <TableDoc />}
           {activePage === "data-table" && <DataTableDoc />}
           {activePage === "tabela-teste" && <TabelaTesteDoc />}
