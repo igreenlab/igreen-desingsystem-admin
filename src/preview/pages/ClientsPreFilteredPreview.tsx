@@ -293,9 +293,6 @@ export default function ClientsPreFilteredPreview() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
-        // Único preview com a toolbar DEPRECADA — cobertura de regressão do
-        // layout legado via DataTable. Demais previews usam a toolbar canônica.
-        deprecatedToolbar
         persistId="clients-pre-filtered-demo"
         defaultViews={DEFAULT_VIEWS}
         filterModel={filterModel}

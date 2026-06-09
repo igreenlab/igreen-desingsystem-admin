@@ -41,10 +41,8 @@
 - Tipo de retorno explícito `*Result` (renomear `UseToolbarFilterControlReturn`); `exportHook`→`exportCsv`.
 - Documentar fronteira `useToolbar*` (standalone, NÃO usados pela DataTable).
 
-**Toolbar Deprecated:**
-- **Remover `TableToolbarDeprecated/`** quando o branch `deprecatedToolbar` do DataTable
-  não for mais necessário (1.705 LOC duplicadas vivas; a11y `focus-visible:shadow-sh-ring`
-  ficou só na canônica). Decidir prazo.
+**Toolbar Deprecated:** ✅ FEITO (Frente D) — `TableToolbarDeprecated/` + branch
+`deprecatedToolbar` + DocPage removidos. ~1.700 LOC dup eliminadas.
 
 **Infra (repo-wide, separado):**
 - Line endings: repo é CRLF-wide (412 arquivos); `core.autocrlf=true` normaliza no commit,

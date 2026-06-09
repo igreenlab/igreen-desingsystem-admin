@@ -7,8 +7,7 @@ import { ToolbarDivider } from "./parts/toolbar-divider";
  * TableToolbar — toolbar de tabela com layout OPINATIVO (padrão do DataTable).
  *
  * Recebe slots SEMÂNTICOS e renderiza numa ordem fixa. O consumer não monta a
- * ordem — impossível montar errado. (O layout dumb antigo, com slots livres
- * `left`/`actions`, vive em `<TableToolbarDeprecated>`.)
+ * ordem — impossível montar errado.
  *
  * Ordem renderizada:
  *   Esquerda:  viewToggle · ⟨divider⟩ · savedViews

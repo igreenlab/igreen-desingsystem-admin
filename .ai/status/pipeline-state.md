@@ -1831,3 +1831,40 @@
   - **Factories NÃO feitas** (text/email/phone/url): são similares mas com diferenças reais (normalize por tipo, operadores, renderCell). Fatorar seria premature abstraction — a duplicação real eram os helpers idênticos, já capturados pelo _shared.
 - Assumption: os helpers extraídos são behavior-equivalentes (exceto toNumber rejeitar Infinity, que não ocorre nos dados). Confirmado: tsc 0 + finance showcase renderiza (currency/date/chips OK).
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS DEV | Frente D — remoção do TableToolbarDeprecated | CONCLUÍDO
+- Input: 3ª frente — remover o layout dumb legado (`TableToolbarDeprecated`) e o opt-out `deprecatedToolbar`, agora que a toolbar canônica é a única usada.
+- Output:
+  - Deletada a pasta `ui/TableToolbarDeprecated/` inteira (~28 arquivos, ~1.700 LOC, a maioria dup da canônica).
+  - data-table.tsx: removido o branch JSX legado (~500 LOC), o const `useDeprecatedToolbar`, o import. O fragment da toolbar canônica agora renderiza incondicional.
+  - data-table.types.ts: removida a prop `deprecatedToolbar`.
+  - Barrel raiz (index.ts): removido export de TableToolbarDeprecated.
+  - clients-pre-filtered: removido `deprecatedToolbar` (volta à canônica).
+  - App.tsx + nav: removida rota/DocPage/nav `table-toolbar-deprecated`; deletado `TableToolbarDeprecatedDoc.tsx`.
+  - inventory.md, USAGE.md, BACKLOG.md atualizados.
+- Decisões:
+  - Remoção total (não só deprecação) — único consumidor era o preview pre-filtered (exemplo de regressão), migrado pra canônica. Nenhum consumidor real dependia do layout antigo.
+  - Feita ANTES da Frente C (slim data-table.tsx) de propósito: remover o branch legado já cortou ~500 LOC do data-table.tsx e deixou um único branch de toolbar, simplificando o slim que vem depois.
+- Assumption: nada fora do preview pre-filtered usava `deprecatedToolbar` nem importava `TableToolbarDeprecated`. Confirmado: grep órfão = 0 em código; tsc 0; pre-filtered renderiza na canônica (27 rows, 0 console errors).
+- Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit check — Frente D (refactor/remove-deprecated-toolbar) | APROVADO
+- Escopo: remoção de componente (`TableToolbarDeprecated`), DocPage, prop opt-out, barrel export, rotas, nav entry.
+- Assumption verificada: grep src/ + .ai/ + .claude/ retorna zero refs funcionais a `TableToolbarDeprecated`/`deprecatedToolbar`/`table-toolbar-deprecated`. Única ocorrência restante é prosa histórica em `inventory.md:64` ("foi removida") — não é import nem prop.
+- Checklist executado:
+  - [x] Zero refs órfãs em src/ (imports, props, rotas, DocPage, nav).
+  - [x] toolbarWrap div balanceado: abre L1478, fecha L1818. Fragment `<>...</>` (L1479–L1707) + `<ToolbarApplied>` (L1712) dentro.
+  - [x] Toolbar canônica renderiza incondicionalmente (sem guard condicional no novo caminho).
+  - [x] `v2FilterOpen` / `setV2FilterOpen` ativos (L613/L615, usados em L1525 e L1697).
+  - [x] L-001..L-007 + import tv: zero hits nos arquivos tocados.
+  - [x] pipeline-state.md tem entry CONCLUÍDO com Assumption documentada.
+  - [x] inventory.md, USAGE.md canônico, BACKLOG.md atualizados.
+  - [x] App.tsx + doc-nav-data.ts: rota/nav limpos.
+  - [x] data-table.types.ts: prop `deprecatedToolbar` removida.
+  - [x] barrel index.ts: export removido.
+- Critique genuína: remoção limpa — não é apenas confirmação de ausência; a invariante "toolbar canônica renderiza sempre" foi ativamente verificada no JSX (sem condicional morto envolvendo o fragmento). Não há mudança funcional no código que permanece, apenas remoção.
+- Lições novas: nenhuma.

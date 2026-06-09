@@ -104,14 +104,6 @@ export type {
   UseToolbarSortOptions,
 } from "./ui/TableToolbar";
 
-/**
- * TableToolbar DEPRECADA — layout legado. Disponível só pra consumers que ainda
- * dependem do visual antigo (via `<DataTable deprecatedToolbar>`). Será removida
- * numa versão futura; novos usos devem consumir `TableToolbar` acima.
- */
-export { TableToolbarDeprecated } from "./ui/TableToolbarDeprecated";
-export type { TableToolbarDeprecatedProps } from "./ui/TableToolbarDeprecated";
-
 /* ── Shadcn adapted (DS tokens) ─────────────────────────────────── */
 export { Badge, badgeVariants } from "./shadcn";
 export type { BadgeProps } from "./shadcn";
