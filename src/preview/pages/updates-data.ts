@@ -46,6 +46,45 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.7.1",
+    date: "2026-06-09",
+    tag: "preview",
+    title:
+      "Mobile sheet nos overlays + CardCheckbox + token formGap + Avatar WCAG + showcase Financeiro",
+    summary:
+      "Release que padroniza o comportamento mobile (<md) dos overlays como sheet bottom-up colado nas bordas do device (Panel, FloatingPanel e DropdownMenu), adiciona deep-linking via hash no preview, o componente `<CardCheckbox>`, o token `formGap` (gap-form-gap), o util `getContrastTextColor` (contraste WCAG no Avatar) e a tela exemplo standalone ClientesFinanceiroShowcase. Bump também faz o catch-up do package.json (estava em 0.6.0, atrás da timeline que já tinha 0.7.0).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `<CardCheckbox>` em `src/components/ui/CardCheckbox/` — checkbox apresentado como card clicável (área grande, label + description visíveis, ícone opcional à esquerda). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). `<label htmlFor>` nativo wrap (não `<button>`) preserva acessibilidade + form integration (L-025). Uso atual: SacarDialog aba \"Outra conta\".",
+          "Token `formGap` (20px = scale[5]) em `tokens/.../components/spacing.ts` → CSS var `--spacing-form-gap` → classe `gap-form-gap`. Spacing dedicado entre FormField units em forms/drawers/modais (vertical ou grid 2-col). Substitui o uso ad-hoc de `gap-gp-lg`/`gap-gp-xl` (L-024).",
+          "Util `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` — calcula `white` vs `black` por luminância + contrast ratio WCAG 2.x. Pra componentes com bg dinâmico/externo (lookup de marca, persona, status custom).",
+          "Prop `mobileSheet` em `DropdownMenuContent` (default `true`) — em telas <md o menu vira sheet bottom-up colado nas bordas, full-width, com backdrop suave (toque fora fecha via dismiss do Radix). Wrapper do Radix Popper reposicionado via globals.css (`[data-radix-popper-content-wrapper]:has([data-mobile-sheet])`). `false` mantém popover ancorado no trigger.",
+          "Deep-linking no preview app (`App.tsx`) — a navegação sincroniza com a URL via hash (`#/<id>`): `pushState` por página, `popstate`/`hashchange` pra back/forward + edição manual, init valida o hash contra a lista de páginas. Sem libs novas; funciona com o build estático do Vite.",
+          "Tela exemplo `ClientesFinanceiroShowcase` (standalone via `?app=finance`) — KPIs no pattern Dashboard, tabela financeira, `SacarDialog` (saldo + form \"Outra conta\") e 2 preset views (Digitais · Alto valor ≥ R$ 5k).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Panel + FloatingPanel: em mobile (<md) viram sheet bottom-up colado nas bordas do device — flush nas laterais + bottom, só cantos superiores arredondados (`rounded-b-none`), sem outline/shadow, `max-height: 92vh`. Body com `min-h-0` (scroll automático robusto, header/footer fixos). FloatingPanel ganha backdrop suave (`md:hidden`, desktop segue non-modal); Panel já tinha backdrop modal (SheetOverlay) e agora tem `slideAnimation` responsivo (direcional no desktop, bottom-up no mobile).",
+          "Footer fluido em Panel + FloatingPanel — `flex-wrap` + `[&>*]:flex-1 [&>*]:min-w-[140px]`: botões crescem lado a lado e empilham quando não cabem. Não precisa passar `fullWidth` nos Buttons.",
+          "Avatar: cor de texto sobre `colorHex` agora é escolhida por contraste WCAG via `getContrastTextColor` (era `text-white` cego). Caso real: BB #FAE128 + branco = 1.29:1 (fail AA) → agora preto 16.3:1 (AAA). Migração das avatares de banco (L-027).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Panel mobile: removido `inset-y-auto` que o `tailwind-merge` tratava como superset de `bottom` e zerava a âncora `bottom-0` — o painel colapsava sem âncora vertical. `top-auto` + `bottom-0` já sobrescrevem o `inset-y-pad-4xl` do desktop via media query.",
+          "Table: header right-aligned só reserva `pr-[60px]` quando sort ativo (era sempre que `sortable || headMenu`, deslocando o texto de colunas `align=\"right\"` como Saldo). Ícones hover-only usam stack absolute mascarado. Coluna `actions` 40px (L-026).",
+          "DropdownMenu: backdrop renderizado em Portal próprio — cada Portal Radix aceita 1 filho (Presence/Slot), evitando `React.Children.only`.",
+          "SacarDialog: form \"Outra conta\" usa `<FormField>` do DS em vez de `<label>` raw — peso/cor corretos e dark-mode-aware (L-023). Saldo maior + label strong.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.7.0",
     date: "2026-06-08",
     tag: "preview",
