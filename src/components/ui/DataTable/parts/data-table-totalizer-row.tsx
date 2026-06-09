@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { TableCell } from "../../Table";
 import type { DataTableColumnDef } from "../data-table.types";
+import { renderAggregate } from "../utils/aggregate";
 
 export type DataTableTotalizerRowProps<T> = {
   /** Colunas efetivas (apos hidden/order) — mesma fonte do header. */
@@ -59,7 +60,7 @@ export function DataTableTotalizerRow<T>({
       )}
       {columns.map((col) => {
         const field = String(col.field);
-        const content = resolveTotalizerContent(col, rows, overrides?.[field]);
+        const content = renderAggregate(col, rows, overrides?.[field]);
         return (
           <TableCell
             key={field}
@@ -79,58 +80,3 @@ export function DataTableTotalizerRow<T>({
   );
 }
 
-/* ── Helpers ─────────────────────────────────────────────────────── */
-
-function resolveTotalizerContent<T>(
-  col: DataTableColumnDef<T>,
-  rows: T[],
-  override: ReactNode | undefined,
-): ReactNode {
-  if (override !== undefined) return override;
-  if (col.aggregate === undefined) return null;
-
-  // Custom function
-  if (typeof col.aggregate === "function") {
-    return col.aggregate(rows);
-  }
-
-  // Built-in keyword
-  const field = String(col.field);
-  const values = rows
-    .map((r) => getFieldValue(r, field))
-    .filter((v): v is number => typeof v === "number" && !isNaN(v));
-
-  let result: number;
-  switch (col.aggregate) {
-    case "sum":
-      result = values.reduce((acc, v) => acc + v, 0);
-      break;
-    case "avg":
-      result = values.length === 0 ? 0 : values.reduce((acc, v) => acc + v, 0) / values.length;
-      break;
-    case "count":
-      result = rows.length;
-      break;
-    case "min":
-      result = values.length === 0 ? 0 : Math.min(...values);
-      break;
-    case "max":
-      result = values.length === 0 ? 0 : Math.max(...values);
-      break;
-    default:
-      return null;
-  }
-
-  const formatter = col.aggregateFormatter ?? col.valueFormatter;
-  return formatter ? formatter(result) : String(result);
-}
-
-function getFieldValue<T>(row: T, field: string): unknown {
-  if (!field.includes(".")) return (row as Record<string, unknown>)[field];
-  return field
-    .split(".")
-    .reduce<unknown>(
-      (acc, key) => (acc as Record<string, unknown> | null | undefined)?.[key],
-      row,
-    );
-}

@@ -2,6 +2,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { DataTableColumnDef } from "../data-table.types";
 import type { DataTableGroupRow } from "../utils/group-rows";
+import { renderAggregate } from "../utils/aggregate";
 
 export type DataTableGroupHeaderRowProps<T> = {
   group: DataTableGroupRow<T>;
@@ -165,53 +166,7 @@ function GroupAggregate<T>({
   column: DataTableColumnDef<T>;
   rows: T[];
 }) {
-  const content = resolveAggregate(column, rows);
+  const content = renderAggregate(column, rows);
   if (content == null || content === "") return null;
   return <span className="text-fg-muted">{content}</span>;
-}
-
-function resolveAggregate<T>(
-  col: DataTableColumnDef<T>,
-  rows: T[],
-): React.ReactNode {
-  if (col.aggregate === undefined) return null;
-  if (typeof col.aggregate === "function") return col.aggregate(rows);
-
-  const field = String(col.field);
-  const values = rows
-    .map((r) => {
-      if (col.valueGetter) return col.valueGetter(r);
-      if (!field.includes(".")) return (r as Record<string, unknown>)[field];
-      return field
-        .split(".")
-        .reduce<unknown>(
-          (acc, key) => (acc as Record<string, unknown> | null | undefined)?.[key],
-          r,
-        );
-    })
-    .filter((v): v is number => typeof v === "number" && !isNaN(v));
-
-  let result: number;
-  switch (col.aggregate) {
-    case "sum":
-      result = values.reduce((acc, v) => acc + v, 0);
-      break;
-    case "avg":
-      result = values.length === 0 ? 0 : values.reduce((acc, v) => acc + v, 0) / values.length;
-      break;
-    case "count":
-      result = rows.length;
-      break;
-    case "min":
-      result = values.length === 0 ? 0 : Math.min(...values);
-      break;
-    case "max":
-      result = values.length === 0 ? 0 : Math.max(...values);
-      break;
-    default:
-      return null;
-  }
-
-  const formatter = col.aggregateFormatter ?? col.valueFormatter;
-  return formatter ? formatter(result) : String(result);
 }

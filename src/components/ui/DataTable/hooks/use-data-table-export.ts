@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import type { DataTableColumnDef, GridRowId } from "../data-table.types";
+import { applyFormatter } from "../utils/resolve-value";
 
 export type ExportScope = "all" | "filtered" | "selected";
 
@@ -74,25 +75,10 @@ function escapeCsvCell(value: string): string {
   return value;
 }
 
-function getCellValue<T>(row: T, col: DataTableColumnDef<T>): string {
-  let value: unknown;
-  if (col.valueGetter) {
-    value = col.valueGetter(row);
-  } else {
-    const field = String(col.field);
-    value = field.includes(".")
-      ? field.split(".").reduce<unknown>((acc, k) => (acc as Record<string, unknown> | null)?.[k], row)
-      : (row as Record<string, unknown>)[field];
-  }
-  if (col.valueFormatter) return col.valueFormatter(value);
-  if (value == null) return "";
-  return String(value);
-}
-
 function generateCsv<T>(rows: T[], columns: DataTableColumnDef<T>[]): string {
   const header = columns.map((c) => escapeCsvCell(c.headerName)).join(",");
   const lines = rows.map((row) =>
-    columns.map((col) => escapeCsvCell(getCellValue(row, col))).join(","),
+    columns.map((col) => escapeCsvCell(applyFormatter(row, col))).join(","),
   );
   return [header, ...lines].join("\n");
 }
