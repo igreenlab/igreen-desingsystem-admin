@@ -414,10 +414,6 @@ export default function ClientesShowcase() {
         defaultViews={DEFAULT_VIEWS}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
-        // SimpleFilter é opt-IN (default off) — habilita aqui pra demonstrar
-        // o split button + drawer lateral nessa showcase. Pra reverter ao botão
-        // único legado (query builder direto), remova essa prop.
-        simpleFilter={{ enabled: true }}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         kanbanConfig={KANBAN_CONFIG}

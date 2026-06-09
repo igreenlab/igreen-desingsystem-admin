@@ -504,29 +504,16 @@ export type DataTableProps<T> = {
   showEmptyFilterChips?: string[];
 
   /**
-   *  SimpleFilter — drawer lateral + split button no botão Filtros (opt-IN).
+   *  Configuração do drawer de Filtros (funil). O botão funil da toolbar abre um
+   *  drawer lateral com TODOS os filtros em lista vertical (1 linha por coluna,
+   *  widget do registry, aplicação LIVE — operator inferido do filterType). O
+   *  query builder avançado (AND/OR + operadores explícitos + SQL) vive no menu
+   *  de Configurações da toolbar.
    *
-   *  **Default OFF.** Sem essa prop, o botão Filtros é único e abre direto o
-   *  FilterPopover (query builder avançado) — comportamento default da tabela.
-   *
-   *  Quando ativado via `simpleFilter={{ enabled: true }}`, o botão Filtros
-   *  vira **split button**:
-   *   - PRIMARY click abre drawer lateral com TODOS os filtros em lista vertical
-   *     (1 linha por coluna, widget do registry, aplicação LIVE). Operator é
-   *     inferido do filterType — user não escolhe operator no drawer.
-   *   - CHEVRON click abre o query builder avançado (popover atual, com AND/OR
-   *     + operadores explícitos + Adicionar condição).
-   *
-   *  Use case principal: dashboards/CRMs onde o user típico só precisa de
-   *  filtros simples (1 valor por coluna). Operators complexos ficam disponíveis
-   *  pelo chevron pra power users sem aparecer no caminho default.
+   *  Prop OPCIONAL — só pra customizar o drawer; o funil aparece sempre que
+   *  `toolbar.enableFilters !== false` e há colunas filtráveis.
    */
   simpleFilter?: {
-    /**
-     * Liga o split button + drawer. **Default false** (opt-IN).
-     * Sem essa flag, mantém o botão Filtros único (query builder direto).
-     */
-    enabled?: boolean;
     /**
      * Fields que NÃO devem aparecer no drawer (mesmo sendo filtráveis).
      * Útil pra ocultar filtros que só fazem sentido no advanced. Default [].
