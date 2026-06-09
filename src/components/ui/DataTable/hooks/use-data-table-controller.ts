@@ -612,7 +612,10 @@ export function useDataTableController<T>(
     resetPersistedState: () => {
       clearPersistedState(props.persistId);
     },
-  }), [getState, selection, isServerMode, query, exportHook, props.persistId]);
+    setColumnOrder: (order: string[]) => {
+      cols.handleReorder(order);
+    },
+  }), [getState, selection, isServerMode, query, exportHook, props.persistId, cols]);
 
   /* ── Context value memoizado ─────────────────────────────────── */
 

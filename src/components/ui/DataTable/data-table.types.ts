@@ -734,4 +734,9 @@ export type DataTableRef = {
   exportCsv: (scope: "all" | "filtered" | "selected") => void;
   /** Limpa o estado persistido no localStorage (no-op se persistId nao foi passado). */
   resetPersistedState: () => void;
+  /** Reordena colunas imperativamente — usado por consumers que renderizam seu
+   *  próprio ColsPopover (ex: FinanceCustomToolbar). `order` é um array de
+   *  field strings na nova ordem. Fields ausentes na tabela são ignorados;
+   *  fields existentes mas não listados são apendados ao final. */
+  setColumnOrder: (order: string[]) => void;
 };
