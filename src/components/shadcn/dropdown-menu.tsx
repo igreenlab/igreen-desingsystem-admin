@@ -39,6 +39,9 @@ const DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup
 /* ── Container (Content + SubContent) ─────────────────────────────────────── */
 const CONTAINER_CLASSES = [
   "relative z-50 min-w-[180px] overflow-hidden",
+  // Clamp width — evita que dropdowns largos (advanced filter 560px etc)
+  // vazem fora do viewport em telas narrow. 16px gutter de cada lado.
+  "max-w-[calc(100vw-32px)]",
   "flex flex-col gap-px",
   "rounded-[12px] bg-bg-dropdown p-pad-sm",
   "border border-border-default shadow-sh-lg",

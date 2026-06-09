@@ -22,6 +22,11 @@ export const dialog = tv({
     "outline-float",
     "flex flex-col overflow-hidden",
     "w-[calc(100%-32px)]",
+    // Clamp altura — Modal nunca pode ultrapassar viewport. Quando o conteúdo
+    // é maior, o body interno scrolla (`flex-1 min-h-0 overflow-y-auto`).
+    // Antes faltava esse limite e o Modal vazava bottom no mobile (form longo
+    // de Sacar empurrava footer pra fora do viewport).
+    "max-h-[calc(100dvh-32px)]",
   ],
   variants: {
     size: {
@@ -95,7 +100,14 @@ export const description = tv({
 /* ── Body (children livre) ───────────────────────────────────────── */
 
 export const body = tv({
-  base: "flex flex-col gap-[18px] px-pad-4xl py-[22px]",
+  base: [
+    "flex flex-col gap-[18px] px-pad-4xl py-[22px]",
+    // Body scrolla internamente quando o conteúdo excede a altura disponível
+    // do Modal (header fixo + footer fixo + max-h no container). `min-h-0` é
+    // obrigatório pra flex-1 funcionar dentro de flex column. `overflow-y-auto`
+    // + `scrollbar-thin` consistente com Panel/FloatingPanel.
+    "flex-1 min-h-0 overflow-y-auto scrollbar-thin",
+  ],
 });
 
 /* ── Footer ──────────────────────────────────────────────────────── */

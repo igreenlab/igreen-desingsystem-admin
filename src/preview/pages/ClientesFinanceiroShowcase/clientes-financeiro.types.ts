@@ -17,6 +17,19 @@ export type BankAccount = {
   account: string;  // ex: "98765-4"
 };
 
+/** Status financeiro do licenciado. */
+export type FinanceStatus = "pending_withdrawal" | "active" | "inactive";
+
+/** Meta visual de cada status — usado pra render do Chip. */
+export const FINANCE_STATUS_META: Record<
+  FinanceStatus,
+  { label: string; color: "warning" | "success" | "neutral" }
+> = {
+  pending_withdrawal: { label: "Saque pendente", color: "warning" },
+  active:             { label: "Ativo",          color: "success" },
+  inactive:           { label: "Inativo",        color: "neutral" },
+};
+
 /** Cliente com dados financeiros — estende ClientRow. */
 export type FinanceClientRow = ClientRow & {
   /** Saldo disponível pra saque (BRL). */
@@ -27,6 +40,8 @@ export type FinanceClientRow = ClientRow & {
   cnpj: string;
   /** Razão social da empresa (nome PJ). */
   companyName: string;
+  /** Status financeiro pra ações/filtros (saques pendentes, ativo, inativo). */
+  financeStatus: FinanceStatus;
 };
 
 /**

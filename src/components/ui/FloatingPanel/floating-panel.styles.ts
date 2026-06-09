@@ -17,6 +17,11 @@ export const floatingPanelStyles = tv({
       "fixed z-50 flex flex-col overflow-hidden",
       "bg-bg-surface dark:bg-bg-canvas text-fg-default",
       "rounded-radius-xl border border-border-default outline-float shadow-sh-2xl",
+      // Clamp width pra nunca exceder viewport (mesmo no md+ com sm-md
+      // entre 768-900px). Sem isso, panel de 720px em viewport de 800px
+      // vaza pra fora. `max-w-[calc(100vw-32px)]` garante 16px gutter
+      // simétrico em qualquer largura.
+      "max-w-[calc(100vw-32px)]",
       // Desktop (md+) — gutter top/bottom 24px
       "md:top-pad-4xl md:bottom-pad-4xl",
       // Mobile (max-md) — sheet bottom-up

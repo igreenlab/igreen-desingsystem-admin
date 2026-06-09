@@ -69,8 +69,11 @@ export function FooterTable({
         className,
       )}
     >
-      {/* ── Left: pageSize + range + selection ───────────────────── */}
-      <div className="flex flex-wrap items-center gap-gp-2xl">
+      {/* ── Left: pageSize + range + selection ─────────────────────
+       *  Mobile: escondido (max-md:hidden) — footer compacto mostra apenas
+       *  paginação à direita. Consumer pode forçar visibilidade override
+       *  via className do FooterTable se precisar. */}
+      <div className="max-md:hidden flex flex-wrap items-center gap-gp-2xl">
         {!hidePageSize && (
           <label className="inline-flex items-center gap-gp-md text-fg-muted">
             <span className="font-medium">{pageSizeLabel}</span>

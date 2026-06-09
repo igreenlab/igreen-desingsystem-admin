@@ -34,6 +34,12 @@ export type TableToolbarProps = {
    */
   bulkBar?: ReactNode;
   className?: string;
+  /** Override do className do slot left (merge com defaults). Útil pra esconder
+   *  o slot em viewports específicos via `max-md:hidden` etc. */
+  leftClassName?: string;
+  /** Override do className do slot actions (merge com defaults). Útil pra deixar
+   *  o slot ocupar full width em mobile (`max-md:flex-1 max-md:min-w-0`). */
+  actionsClassName?: string;
 };
 
 export function TableToolbar({
@@ -41,14 +47,16 @@ export function TableToolbar({
   actions,
   bulkBar,
   className,
+  leftClassName,
+  actionsClassName,
 }: TableToolbarProps) {
   if (bulkBar) {
     return <div className={cn("w-full", className)}>{bulkBar}</div>;
   }
   return (
     <div className={cn(toolbarRoot(), className)}>
-      <div className={toolbarLeft()}>{left}</div>
-      <div className={toolbarActions()}>{actions}</div>
+      <div className={cn(toolbarLeft(), leftClassName)}>{left}</div>
+      <div className={cn(toolbarActions(), actionsClassName)}>{actions}</div>
     </div>
   );
 }
