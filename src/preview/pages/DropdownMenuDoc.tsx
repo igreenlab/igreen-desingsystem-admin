@@ -48,6 +48,7 @@ const TOC = [
 const PROPS = [
   { name: "open", type: "boolean", defaultVal: "—" },
   { name: "onOpenChange", type: "(open: boolean) => void", defaultVal: "—" },
+  { name: "mobileSheet", type: "boolean (DropdownMenuContent)", defaultVal: "true" },
 ];
 
 function CheckboxExample() {
@@ -117,7 +118,7 @@ export function DropdownMenuDoc() {
       <DocHeader
         category="Navigation"
         title="Dropdown Menu"
-        description="Contextual menu with glassmorphism backdrop."
+        description="Contextual menu with glassmorphism backdrop. Em telas <md vira **sheet bottom-up** colado nas bordas, com backdrop suave (toque fora fecha) — controlável via `mobileSheet` no `DropdownMenuContent` (default `true`)."
         dependency="@radix-ui/react-dropdown-menu"
       />
       <DocSeparator />

@@ -50,6 +50,8 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 
 ## Cuidados / Gotchas
 - Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais
-- Em mobile (<md) vira sheet bottom-up automaticamente
-- **Sem backdrop** — página atrás fica clicável; pra modal use `<Modal>` ou `<AlertModal>`
+- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`
+- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`
+- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola
+- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons
 - `maximizable=true` adiciona botão de expandir; estado controlado internamente

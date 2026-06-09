@@ -52,7 +52,8 @@ import {
 ```
 
 ## Cuidados / Gotchas
-- **Modal** (com backdrop) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`
-- Gutter encolhe no mobile (`max-md:` classes ajustam)
-- Body é único elemento scrollável — header e footer ficam sticky
-- Pra `side="top"` ou `side="bottom"`, layout vira sheet com altura 70vh
+- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`
+- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua
+- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente
+- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons
+- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)

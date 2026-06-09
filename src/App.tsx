@@ -140,6 +140,30 @@ const NAV_SECTIONS: NavSection[] = [
 const ALL_PAGE_IDS = NAV_SECTIONS.flatMap(s => s.items.map(i => i.id));
 type PageId = string;
 
+// Páginas que têm seu próprio DocSidebar (renderizam full width).
+// Module-scope pra permitir validação do hash já no mount (deep-link).
+const DOC_PAGES = [
+  "button", "button-group", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
+  "introduction", "structure", "installation", "transform-tokens", "updates",
+  "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
+  "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
+  "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
+  "switch", "checkbox", "radio-group", "slider", "progress",
+  "accordion", "alert", "dialog", "dropdown-menu",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+];
+
+// Conjunto completo de páginas válidas pra deep-link via #/<id>.
+const ALL_VALID_PAGES = new Set<string>([...DOC_PAGES, "components", "demo"]);
+
+// Lê o id da página a partir do hash (#/button → "button"). null se vazio/inválido.
+function readPageFromHash(): PageId | null {
+  if (typeof window === "undefined") return null;
+  const raw = window.location.hash.replace(/^#\/?/, "").trim();
+  if (!raw) return null;
+  return ALL_VALID_PAGES.has(raw) ? raw : null;
+}
+
 /* ═══════════════════════════════════════════════════════════════════════════
    Collapsible Section
    ═══════════════════════════════════════════════════════════════════════════ */
@@ -204,7 +228,7 @@ function SidebarSection({
 export function App() {
   const { isDark, toggle } = useTheme();
   const theme = isDark ? "dark" : "light";
-  const [activePage, setActivePage] = useState<PageId>("button");
+  const [activePage, setActivePage] = useState<PageId>(() => readPageFromHash() ?? "button");
 
   // Standalone apps via query param — renderiza fullscreen sem nav de docs.
   // Ex: ?app=finance → ClientesFinanceiroShowcase (sem sidebar de DS).
@@ -220,22 +244,34 @@ export function App() {
   }
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
-  const DOC_PAGES = [
-    "button", "button-group", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
-    "introduction", "structure", "installation", "transform-tokens", "updates",
-    "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
-    "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
-    "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
-    "switch", "checkbox", "radio-group", "slider", "progress",
-    "accordion", "alert", "dialog", "dropdown-menu",
-    "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
-  ];
   const isDocPage = DOC_PAGES.includes(activePage);
 
   const contentRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     contentRef.current?.scrollTo(0, 0);
   }, [activePage]);
+
+  // activePage → URL: cada navegação vira uma entry no histórico (#/<id>).
+  useEffect(() => {
+    const target = `#/${activePage}`;
+    if (window.location.hash !== target) {
+      window.history.pushState(null, "", target);
+    }
+  }, [activePage]);
+
+  // URL → activePage: back/forward do browser + edição manual do hash.
+  useEffect(() => {
+    const syncFromHash = () => {
+      const fromHash = readPageFromHash();
+      if (fromHash) setActivePage(fromHash);
+    };
+    window.addEventListener("popstate", syncFromHash);
+    window.addEventListener("hashchange", syncFromHash);
+    return () => {
+      window.removeEventListener("popstate", syncFromHash);
+      window.removeEventListener("hashchange", syncFromHash);
+    };
+  }, []);
 
   if (isDocPage) {
     return (

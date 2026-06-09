@@ -19,11 +19,20 @@ export const floatingPanelStyles = tv({
       "rounded-radius-xl border border-border-default outline-float shadow-sh-2xl",
       // Desktop (md+) — gutter top/bottom 24px
       "md:top-pad-4xl md:bottom-pad-4xl",
-      // Mobile (max-md) — sheet bottom-up
-      "max-md:inset-x-pad-md max-md:bottom-pad-md max-md:top-auto max-md:!w-auto max-md:h-[85dvh]",
+      // Mobile (max-md) — sheet bottom-up colado nas bordas do device:
+      // flush nas laterais + bottom, só top arredondado, sem outline/shadow, cap 92vh
+      "max-md:inset-x-0 max-md:bottom-0 max-md:top-auto max-md:!w-auto",
+      "max-md:max-h-[92vh] max-md:rounded-b-none max-md:border-x-0 max-md:border-b-0",
+      "max-md:outline-none max-md:shadow-none",
       // Entrada animada
       "ease-[cubic-bezier(0.4,0,0.2,1)] duration-[220ms]",
       "animate-in fade-in-0",
+    ],
+    // Backdrop suave — renderizado só em mobile (md:hidden). No desktop o
+    // FloatingPanel permanece non-modal (sem scrim, página atrás interativa).
+    backdrop: [
+      "fixed inset-0 z-40 bg-overlay-scrim md:hidden",
+      "animate-in fade-in-0 duration-[220ms]",
     ],
     handle: [
       "absolute top-0 bottom-0 w-[6px] cursor-col-resize z-10",
@@ -51,10 +60,14 @@ export const floatingPanelStyles = tv({
     headerDescription: "text-body-md text-fg-muted truncate",
     headerActions: "flex items-center gap-gp-xs flex-none",
     body: [
-      "flex-1 overflow-y-auto scrollbar-thin",
+      // min-h-0 garante que o flex-1 encolha e o scroll ative (em vez de
+      // empurrar header/footer). Scroll automático independente de viewport.
+      "flex-1 min-h-0 overflow-y-auto scrollbar-thin",
     ],
     footer: [
-      "flex items-center justify-end gap-gp-md flex-none",
+      // Botões fluidos lado a lado; quebram pra empilhados quando não cabem.
+      "flex flex-wrap items-center gap-gp-md flex-none",
+      "[&>*]:flex-1 [&>*]:min-w-[140px]",
       "px-[18px] py-[14px]",
       "border-t border-border-default",
     ],

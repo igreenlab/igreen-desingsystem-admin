@@ -146,6 +146,28 @@ body {
   outline-offset: 0;
 }
 
+/* ── DropdownMenu — bottom sheet em mobile (<md) ───────────────────────────
+ * O Radix Popper envolve o Content num wrapper [data-radix-popper-content-wrapper]
+ * posicionado via `transform` inline — fora do alcance do className do Content.
+ * Quando o Content carrega [data-mobile-sheet], colamos o wrapper no rodapé
+ * (full-width, sem transform) em telas <md. O Content recebe o estilo de sheet
+ * (cantos superiores, flush, max-h 92vh) via classes `max-md:`. O backdrop suave
+ * é renderizado pelo próprio componente (md:hidden).
+ *
+ * Breakpoint `width < 768px` casa exatamente com o `md` (48rem) do Tailwind v4.
+ * ─────────────────────────────────────────────────────────────────────── */
+@media (width < 768px) {
+  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    transform: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    z-index: 50 !important;
+  }
+}
+
 /* ── Scrollbar sutil ──────────────────────────────────────────────────────
  * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
  * Thumb sempre visível (alpha-black-24 light / alpha-white-24 dark), realça no hover.

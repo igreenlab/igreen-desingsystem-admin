@@ -56,6 +56,22 @@ const CONTAINER_CLASSES = [
   "origin-[--radix-dropdown-menu-content-transform-origin]",
 ].join(" ")
 
+/* ── Mobile sheet (só Content, <md) ───────────────────────────────────────
+ * Em telas <md o Content vira sheet bottom-up colado nas bordas: full-width,
+ * só cantos superiores arredondados, flush, sem outline/shadow, cap 92vh.
+ * O reposicionamento do wrapper Radix é feito no globals.css via [data-mobile-sheet].
+ * Animação: neutraliza o zoom e desliza de baixo (sobrescreve os slides por side).
+ */
+const MOBILE_SHEET_CLASSES = [
+  "max-md:w-full max-md:min-w-0 max-md:max-w-none",
+  "max-md:!max-h-[92vh]",
+  "max-md:rounded-b-none max-md:rounded-t-[12px]",
+  "max-md:border-x-0 max-md:border-b-0",
+  "max-md:outline-none max-md:shadow-none",
+  "max-md:data-[state=open]:zoom-in-100 max-md:data-[state=closed]:zoom-out-100",
+  "max-md:data-[state=open]:slide-in-from-bottom-12 max-md:data-[state=closed]:slide-out-to-bottom-12",
+].join(" ")
+
 /* ── Item base ────────────────────────────────────────────────────────────── */
 const ITEM_BASE = [
   "relative flex cursor-default select-none items-center",
@@ -118,20 +134,43 @@ DropdownMenuSubContent.displayName =
 /* ── Content ──────────────────────────────────────────────────────────────── */
 const DropdownMenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 8, ...props }, ref) => (
-  <DropdownMenuPrimitive.Portal>
-    <DropdownMenuPrimitive.Content
-      ref={ref}
-      sideOffset={sideOffset}
-      className={cn(
-        CONTAINER_CLASSES,
-        "max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto overflow-x-hidden",
-        className
-      )}
-      {...props}
-    />
-  </DropdownMenuPrimitive.Portal>
+  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & {
+    /**
+     * Em telas <md, transforma o menu em sheet bottom-up colado nas bordas,
+     * com backdrop suave (toque fora fecha via dismiss do Radix). Default true.
+     * Passe `false` pra manter o popover ancorado no trigger também em mobile.
+     */
+    mobileSheet?: boolean
+  }
+>(({ className, sideOffset = 8, mobileSheet = true, ...props }, ref) => (
+  <>
+    {/* Backdrop suave — só mobile (md:hidden), em Portal próprio (cada Portal
+        Radix aceita 1 filho e é montado/desmontado junto com o menu via Presence).
+        pointer-events-auto garante que o toque registre → Radix detecta interação
+        fora do Content → fecha. */}
+    {mobileSheet && (
+      <DropdownMenuPrimitive.Portal>
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 z-40 bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150"
+        />
+      </DropdownMenuPrimitive.Portal>
+    )}
+    <DropdownMenuPrimitive.Portal>
+      <DropdownMenuPrimitive.Content
+        ref={ref}
+        sideOffset={sideOffset}
+        data-mobile-sheet={mobileSheet ? "" : undefined}
+        className={cn(
+          CONTAINER_CLASSES,
+          "max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto overflow-x-hidden",
+          mobileSheet && MOBILE_SHEET_CLASSES,
+          className
+        )}
+        {...props}
+      />
+    </DropdownMenuPrimitive.Portal>
+  </>
 ))
 DropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName
 

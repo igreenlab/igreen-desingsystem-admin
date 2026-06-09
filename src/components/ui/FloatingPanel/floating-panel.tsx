@@ -18,14 +18,16 @@ function resolveInitialWidth(size: FloatingPanelProps["size"]): number {
 /**
  * FloatingPanel — drawer "card flutuante" non-modal.
  *
- * Diferente do `<Panel>`, NÃO renderiza backdrop nem trap de foco — a página
- * atrás continua interativa. Útil pra detail panels, side info, configurações
- * secundárias que precisam coexistir com a tela principal.
+ * No desktop, diferente do `<Panel>`, NÃO renderiza backdrop nem trap de foco —
+ * a página atrás continua interativa. Útil pra detail panels, side info,
+ * configurações secundárias que precisam coexistir com a tela principal.
  *
  * Features:
  *   - Resize horizontal (drag handle no edge) com persistência opcional
  *   - Maximize toggle (botão no header) — ocupa quase a tela toda
- *   - Responsive: vira sheet bottom-up em max-md
+ *   - Responsive: vira sheet bottom-up colado nas bordas em max-md, com
+ *     backdrop suave (toque fecha) — só em mobile; desktop segue non-modal
+ *   - max-height 92vh em mobile; body com scroll automático
  *   - ESC fecha (configurável)
  *   - Renderizado via portal em document.body (escapa de overflow/transform de ancestrais)
  *
@@ -120,7 +122,11 @@ export function FloatingPanel({
   const widthValue = resizable ? resize.width : initialWidth;
 
   return createPortal(
-    <aside
+    <>
+      {/* Backdrop suave — só em mobile (md:hidden). Toque fecha o panel. */}
+      <div className={s.backdrop()} aria-hidden="true" onClick={() => onOpenChange(false)} />
+
+      <aside
       role="dialog"
       aria-modal="false"
       aria-labelledby={title ? titleId : undefined}
@@ -200,7 +206,8 @@ export function FloatingPanel({
 
       {/* Footer */}
       {footer && <footer className={s.footer()}>{footer}</footer>}
-    </aside>,
+      </aside>
+    </>,
     document.body,
   );
 }
