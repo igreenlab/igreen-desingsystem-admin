@@ -171,6 +171,7 @@ export default function ClientsVirtualizedPreview() {
           rows={rows}
           columns={columns}
           getRowId={(r) => r.id}
+          toolbarVersion="v2"
           // Fase F.3 — virtualização ativa.
           // Sem isso, renderizar 10k rows trava o browser por 3-5s na inicialização.
           virtualize

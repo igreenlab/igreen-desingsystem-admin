@@ -538,6 +538,15 @@ export type DataTableProps<T> = {
     size?: "sm" | "md" | "lg" | "xl";
   };
 
+  /**
+   * Versão da toolbar. **Default `"v1"`** (dumb, slots left/actions — atual).
+   * `"v2"` usa a `<TableToolbarV2>` opinativa: direita = busca · filtrar (funil →
+   * drawer simples) · configurações (drill-down sort/cols/filtro-avançado/densidade)
+   * · ⋯; mobile colapsa lado esquerdo + refresh, view toggle/visões migram pro
+   * menu. Opt-in pra coexistir com a v1 sem quebrar consumers existentes.
+   */
+  toolbarVersion?: "v1" | "v2";
+
   /** Search controlado */
   search?: string;
   onSearchChange?: (search: string) => void;

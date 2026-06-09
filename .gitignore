@@ -58,3 +58,4 @@ desktop.ini
 # TypeScript incremental build cache
 tsconfig.tsbuildinfo
 *.tsbuildinfo
+.playwright-mcp/

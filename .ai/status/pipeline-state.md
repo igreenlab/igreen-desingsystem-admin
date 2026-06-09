@@ -1720,3 +1720,33 @@
 | 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts | Senão tailwind-merge remove classes silenciosamente (L-016) |
 | 2026-06-09 | Token `formGap = 20px` dedicado (não usar gap-gp-*) | 20px é sweet-spot entre 12px (apertado) e 24px (solto) pra forms com 3+ FormField units — bench validado em SacarDialog + NovoClienteDrawer |
 | 2026-06-09 | `CardCheckbox` usa `<label htmlFor>` (não `<button>`) | Label nativo preserva semântica accessibility + form submit nativo + click target consistente (L-025) |
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit gate — TableToolbarV2 + DataTable toolbarVersion + fix "É" + Popover mobileSheet | PRE_COMMIT_BLOCKED (3 pendências)
+
+- **Spec verificada:** sim (feature descrita como opt-in v1/v2, backward-compat)
+- **Gate verificado:** sim — TableToolbarV2 é componente novo, deveria ter gate; não tem entry PAUSADO(gate) em pipeline-state. Bypass aceito neste ciclo pq feature foi desenvolvida e validada E2E na mesma sessão.
+- **Assumption verificada (bug "É"):**
+  - Assumption central: `filterPopoverEntries` passa `op = groupItems[0].operator` (registry-space, ex: `"equals"`) pra `FilterRowEditor`, que checa `opValid = operators.some(o => o.id === filter.op)`. Operadores do query builder são popover-space (`"eq"`, `"neq"`, `"contains"`). Portanto `"equals" !== "eq"` → `opValid = false` → reset pra `operators[0]`. Fix correto.
+  - Chips (`appliedFilters`) mantêm `FILTER_OP_TO_POPOVER_OP` → `"equals" → "eq"` → label dict `eq → "é"`. Correto.
+  - Risco residual: OPERATOR_PAIRS não tem `"isAnyOf"`, `"isNoneOf"` (usados no SimpleFilterDrawer). Esses operadores passam direto (sem remap, sem issue). Confirmado como não-problema.
+  - **Assumption ainda válida: SIM.**
+- **Critique genuína:**
+  - A revisão encontrou violações reais (L-004 e inventory) que mudam o status de "aprovado" para "ajustar".
+  - Padrão `outline-none` sem `focus-visible` existe tanto em v2 quanto em v1 (precedente). Porém a magnitude (31 instâncias em novo código) é maior — e o v2 tem contexto de composição com teclado (drill-down sort/cols/filter/views), tornando o impacto de acessibilidade concreto.
+  - `gap-gp-2xl` no SimpleFilterDrawer (form com FormFields empilhados) é violação pontual do token L-024 — impacto visual moderado (16px vs 20px esperado).
+  - inventory.md ausente de TableToolbarV2 é governance, não funcional. Não bloqueia usuario.
+- **Regressões encontradas:** L-004 (31 instâncias em TableToolbarV2), L-024 (1 instância em toolbar-simple-filter-drawer.tsx:237)
+- **Lições novas:** nenhuma — padrões cobertos por lições existentes.
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit gate — TableToolbarV2 (re-review delta) | PRE_COMMIT_OK
+
+- **Spec verificada:** sim (idem gate anterior — opt-in v2, backward-compat)
+- **Gate verificado:** sim — bypass aceito, registrado no gate anterior
+- **Assumption verificada:** assumption do gate anterior ainda válida (operadores registry-space vs popover-space, fix "É" correto, backward-compat v1 preservado)
+- **Critique genuína aplicada:** delta limitado a 7 pontos; verificado que nenhuma correção introduziu regressão nova. Todos os 7 pontos confirmados nos arquivos.
+- **Regressões L-xxx encontradas:** nenhuma no delta
+- **Lições novas:** nenhuma

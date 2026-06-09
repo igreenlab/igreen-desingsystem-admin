@@ -221,6 +221,7 @@ export default function ClientsCRUDServerPreview() {
           fetchData={fetchData}
           columns={columns}
           getRowId={(r) => r.id}
+          toolbarVersion="v2"
           toolbar={{
             title: "Clientes",
             enableSearch: true,

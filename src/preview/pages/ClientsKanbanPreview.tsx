@@ -188,6 +188,7 @@ export default function ClientsKanbanPreview() {
         rows={rows}
         columns={columns}
         getRowId={(r) => r.id}
+        toolbarVersion="v2"
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         kanbanConfig={kanbanConfig}

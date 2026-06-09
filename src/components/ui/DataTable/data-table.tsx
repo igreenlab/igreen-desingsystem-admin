@@ -46,6 +46,7 @@ import {
   ChevronRight,
   LayoutGrid,
   Table as TableIcon,
+  Settings2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -126,6 +127,16 @@ import {
 } from "../../shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
 import { ToolbarFilterControl } from "../TableToolbar";
+// Toolbar v2 (opt-in via prop `toolbar="v2"`) — layout opinativo + settings
+// drill-down + comportamento mobile. Coexiste com a v1 sem quebrá-la.
+import {
+  TableToolbarV2,
+  ToolbarSettingsMenu,
+  SortPanel,
+  ColsPanel,
+  FilterPanel,
+  ToolbarSimpleFilterDrawer as SimpleFilterDrawerV2,
+} from "../TableToolbarV2";
 import type { ColumnOption } from "./column-types";
 // DataTableFloatingBulkBar still exported from barrel for opt-in use;
 // default DataTable now uses inline BulkActionsBar via TableToolbar.bulkBar.
@@ -605,6 +616,11 @@ function DataTableInternal<T>(
   };
 
   /* ── Refresh: server dispara refetch; client pisca spinner ────── */
+
+  // Toolbar v2 (opt-in). `v2FilterOpen` controla o drawer do funil simples
+  // (na v2 o filtro avançado vive no menu de Configurações, não no split button).
+  const toolbarVariant = props.toolbarVersion ?? "v1";
+  const [v2FilterOpen, setV2FilterOpen] = useState(false);
 
   const [isRefreshing, setIsRefreshing] = useState(false);
   const handleRefresh = () => {
@@ -1471,6 +1487,7 @@ function DataTableInternal<T>(
       <div className={cn(styles.root(), props.className)}>
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
+          {toolbarVariant !== "v2" && (
           <TableToolbar
             left={
               <>
@@ -1965,6 +1982,245 @@ function DataTableInternal<T>(
               ) : undefined
             }
           />
+          )}
+
+          {/* ── Toolbar v2 (opt-in) ─────────────────────────────────
+             Layout opinativo: direita = busca · filtrar(funil→drawer) ·
+             configurações(drill-down) · ⋯. Mobile colapsa esquerda+refresh;
+             view toggle/visões migram pro menu. Reaproveita os mesmos
+             adapters/handlers da v1. Chips ficam abaixo (compartilhados). */}
+          {toolbarVariant === "v2" && (
+            <>
+              <TableToolbarV2
+                viewToggle={resolvedViewToggle}
+                savedViews={
+                  props.persistId ? (
+                    <TableToolbarViews
+                      views={viewsForToolbar}
+                      activeViewId={savedViews.currentViewId ?? undefined}
+                      onApply={handleViewApply}
+                      onApplyDefault={applyDefault}
+                      onDelete={savedViews.deleteView}
+                      onSave={async (data) => {
+                        await saveCurrentAsView(data.name, { isPublic: data.isPublic });
+                      }}
+                      hideDivider
+                    />
+                  ) : undefined
+                }
+                refresh={
+                  toolbarConfig.enableRefresh !== false ? (
+                    <ToolbarToolButton
+                      icon={<RefreshCw className={isRefreshing ? "animate-spin" : ""} />}
+                      aria-label="Atualizar"
+                      onClick={handleRefresh}
+                    />
+                  ) : undefined
+                }
+                search={
+                  toolbarConfig.enableSearch !== false ? (
+                    <ToolbarSearch
+                      value={search.inputValue}
+                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        search.setInputValue(e.target.value)
+                      }
+                      placeholder="Buscar..."
+                    />
+                  ) : undefined
+                }
+                filter={
+                  toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 ? (
+                    <ToolbarToolButton
+                      icon={<FilterIcon />}
+                      aria-label="Filtros"
+                      isActive={filterPopoverEntries.length > 0}
+                      hasIndicator={filterPopoverEntries.length > 0}
+                      onClick={() => setV2FilterOpen(true)}
+                    />
+                  ) : undefined
+                }
+                settings={
+                  <ToolbarSettingsMenu
+                    trigger={
+                      <ToolbarToolButton icon={<Settings2 />} aria-label="Configurações da tabela" />
+                    }
+                    sortPanel={(onBack) => (
+                      <SortPanel
+                        onBack={onBack}
+                        columns={sortPopoverColumns}
+                        sortBy={sortPopoverCriteria}
+                        onSortByChange={handleSortChange}
+                      />
+                    )}
+                    colsPanel={
+                      toolbarConfig.enableColumns !== false
+                        ? (onBack) => (
+                            <ColsPanel
+                              onBack={onBack}
+                              columns={colsPopoverColumns}
+                              visibleCols={visibleColsSet}
+                              onVisibleChange={handleVisibleChange}
+                              pinnedCols={pinnedColsSet}
+                              onPinnedChange={handlePinnedChange}
+                              onColumnsReorder={handleColumnsReorder}
+                            />
+                          )
+                        : undefined
+                    }
+                    filterPanel={
+                      toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0
+                        ? (onBack) => (
+                            <FilterPanel
+                              onBack={onBack}
+                              columns={filterPopoverColumns}
+                              filters={filterPopoverEntries}
+                              onFiltersChange={handleFiltersChange}
+                              enableAdvanced
+                              renderValueInput={({ column, operator, value, onChange }) => {
+                                const typeId = column.filterType ?? column.type ?? "text";
+                                const def = columnTypeRegistry.get(typeId);
+                                const filterOp =
+                                  POPOVER_OP_TO_FILTER_OP[operator] ??
+                                  (operator as FilterItem["operator"]);
+                                return def.renderFilterInput({
+                                  value: value as never,
+                                  onChange: (v) => onChange(v),
+                                  operator: filterOp,
+                                  options: column.options,
+                                });
+                              }}
+                              getOperatorsForColumn={(column) => {
+                                const typeId = column.filterType ?? column.type ?? "text";
+                                const def = columnTypeRegistry.get(typeId);
+                                return def.operators?.map((o) => ({ id: o.id, label: o.label }));
+                              }}
+                            />
+                          )
+                        : undefined
+                    }
+                    density={
+                      toolbarConfig.enableDensity !== false ? (
+                        <ToolbarSegmented
+                          fluid
+                          value={density.density}
+                          onValueChange={(v) => density.setDensity(v as TableDensity)}
+                          items={props.densityItems ?? DENSITY_ITEMS}
+                          ariaLabel="Densidade da tabela"
+                        />
+                      ) : undefined
+                    }
+                    mobileViewToggle={
+                      resolvedViewToggle
+                        ? props.kanbanConfig && props.toolbar?.viewToggle === undefined
+                          ? (
+                              <ToolbarSegmented
+                                fluid
+                                value={viewMode}
+                                onValueChange={handleViewModeChange}
+                                items={MOBILE_VIEW_MODE_ITEMS}
+                                ariaLabel="Modo de visualização"
+                              />
+                            )
+                          : resolvedViewToggle
+                        : undefined
+                    }
+                    mobileViews={
+                      props.persistId && (props.defaultViews?.length ?? 0) > 0
+                        ? {
+                            items: viewsForToolbar
+                              .filter((v) => v.owner === "preset")
+                              .map((v) => ({ id: v.id, name: v.name })),
+                            activeId: savedViews.currentViewId ?? undefined,
+                            onSelect: handleViewApply,
+                          }
+                        : undefined
+                    }
+                  />
+                }
+                more={
+                  exportConfig || toolbarConfig.moreMenu?.items?.length ? (
+                    <MoreMenu
+                      trigger={
+                        <ToolbarToolButton icon={<MoreHorizontal />} aria-label="Opções" />
+                      }
+                    >
+                      {exportConfig &&
+                        exportConfig.formats.map((fmt) => {
+                          const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
+                          if (!isCsvDefault) {
+                            return (
+                              <MoreMenuItemEl key={fmt.id} onSelect={fmt.onSelect}>
+                                {fmt.icon}
+                                {fmt.label}
+                              </MoreMenuItemEl>
+                            );
+                          }
+                          return isServerMode ? (
+                            <MoreMenuItemEl key={fmt.id} onSelect={() => exportHook.exportCsv("all")}>
+                              {fmt.icon}
+                              {fmt.label} — Página atual
+                            </MoreMenuItemEl>
+                          ) : (
+                            <span key={fmt.id} className="contents">
+                              <MoreMenuItemEl onSelect={() => exportHook.exportCsv("all")}>
+                                {fmt.icon}
+                                {fmt.label} — Todos
+                              </MoreMenuItemEl>
+                              <MoreMenuItemEl onSelect={() => exportHook.exportCsv("filtered")}>
+                                {fmt.icon}
+                                {fmt.label} — Filtrados
+                              </MoreMenuItemEl>
+                              <MoreMenuItemEl
+                                onSelect={() => exportHook.exportCsv("selected")}
+                                disabled={selection.selectedCount === 0}
+                              >
+                                {fmt.icon}
+                                {fmt.label} — Selecionados ({selection.selectedCount})
+                              </MoreMenuItemEl>
+                            </span>
+                          );
+                        })}
+                      {exportConfig && toolbarConfig.moreMenu?.items?.length ? (
+                        <MoreMenuSeparator />
+                      ) : null}
+                      {toolbarConfig.moreMenu?.items?.map((it) => (
+                        <MoreMenuItemEl
+                          key={it.id}
+                          onSelect={it.onSelect}
+                          disabled={it.disabled}
+                          variant={it.destructive ? "destructive" : "default"}
+                        >
+                          {it.icon}
+                          {it.label}
+                        </MoreMenuItemEl>
+                      ))}
+                    </MoreMenu>
+                  ) : undefined
+                }
+                bulkBar={
+                  selectionConfig.enabled && selection.selectedCount > 0 ? (
+                    <BulkActionsBar count={selection.selectedCount} onClear={selection.clear}>
+                      {selectionConfig.actions?.(selection.selectedIds, selection.clear)}
+                    </BulkActionsBar>
+                  ) : undefined
+                }
+              />
+              {/* Drawer do filtro simples (funil) — só v2 */}
+              {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
+                <SimpleFilterDrawerV2
+                  open={v2FilterOpen}
+                  onOpenChange={setV2FilterOpen}
+                  columns={filterPopoverColumns}
+                  filterModel={filters.filterModel}
+                  onFilterModelChange={filters.setFilterModel}
+                  hiddenFields={props.simpleFilter?.hiddenFields}
+                  title={props.simpleFilter?.title}
+                  size={props.simpleFilter?.size}
+                />
+              )}
+            </>
+          )}
+
           {/* Applied filter chips — agrupados por field+operator, clicaveis via renderChip → Popover.
               `pendingOpenId` deixa ToolbarApplied controlar visual de "abrir auto" sem
               o DataTable precisar saber qual chip está pendente (state mora no toolbar). */}

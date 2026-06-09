@@ -356,7 +356,9 @@ export const TableHeadCell = forwardRef<HTMLDivElement, TableHeadCellProps>(func
       <span
         className={cn(
           "flex-1 min-w-0",
-          align === "center"
+          // Coluna de seleção (checkbox) centraliza por padrão — sem precisar
+          // de align="center" no consumer (alinha com o purpose="selection").
+          align === "center" || purpose === "selection"
             ? "flex items-center justify-center"
             : align === "right"
               ? cn(

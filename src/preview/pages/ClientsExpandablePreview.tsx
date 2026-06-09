@@ -161,6 +161,7 @@ export default function ClientsExpandablePreview() {
           rows={rows}
           columns={columns}
           getRowId={(r) => r.id}
+          toolbarVersion="v2"
           // Fase F.4b — row expansion
           renderRowExpansion={({ row }) => (
             <div className="w-full p-pad-3xl bg-bg-subtle">

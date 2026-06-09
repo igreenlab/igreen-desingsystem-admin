@@ -70,7 +70,7 @@ import { SELECTION_COLUMN_WIDTH } from "@/components/ui/Table";
 </TableCell>
 ```
 
-`purpose="selection"` remove `px-pad-2xl` interno pra checkbox ficar centralizado em 56px.
+`purpose="selection"` é o **padrão pra coluna de checkbox**: remove o padding interno **e centraliza o checkbox** (header + body) automaticamente nos 56px — **não precisa** passar `align="center"`. Vale tanto no `<TableHeadCell>` quanto no `<TableCell>`. Use `width={SELECTION_COLUMN_WIDTH}` (56px) pra largura.
 
 ### 2. Resize column com state externo
 
