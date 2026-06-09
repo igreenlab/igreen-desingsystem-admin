@@ -32,20 +32,26 @@ function resolveSize(size?: PanelSize | string): string {
 /**
  * Slide-in animations por side. Distância 12 (= 48px ≈ 8% do panel md 560px) +
  * duration 220ms + easing custom (matching .tbl-form-drawer do sandbox).
+ *
+ * Desktop (md+): slide direcional conforme `side`.
+ * Mobile (max-md): independente do side, slide bottom-up (sheet colado embaixo).
  */
 function slideAnimation(side: PanelSide): string {
-  const anim = {
-    right: "data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12",
-    left: "data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12",
-    top: "data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12",
-    bottom: "data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12",
+  const desktop = {
+    right: "md:data-[state=closed]:slide-out-to-right-12 md:data-[state=open]:slide-in-from-right-12",
+    left: "md:data-[state=closed]:slide-out-to-left-12 md:data-[state=open]:slide-in-from-left-12",
+    top: "md:data-[state=closed]:slide-out-to-top-12 md:data-[state=open]:slide-in-from-top-12",
+    bottom: "md:data-[state=closed]:slide-out-to-bottom-12 md:data-[state=open]:slide-in-from-bottom-12",
   }[side];
+  const mobile =
+    "max-md:data-[state=closed]:slide-out-to-bottom-12 max-md:data-[state=open]:slide-in-from-bottom-12";
   return cn(
     "ease-[cubic-bezier(0.4,0,0.2,1)]",
     "data-[state=open]:animate-in data-[state=closed]:animate-out",
     "data-[state=closed]:duration-[220ms] data-[state=open]:duration-[220ms]",
     "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
-    anim
+    desktop,
+    mobile
   );
 }
 
@@ -56,7 +62,8 @@ function slideAnimation(side: PanelSide): string {
  *   - Slide-in lateral (default: right) com gutter de 24px do viewport
  *   - Radius 14px + halo outline + shadow-2xl
  *   - Header (title + close X) + Body scrollável + Footer (actions)
- *   - Mobile-adapt: gutter reduzido, full-width responsivo
+ *   - Mobile-adapt: vira sheet bottom-up colado nas bordas (flush x + bottom,
+ *     só topo arredondado, sem outline/shadow, max-height 92vh)
  *
  * Construído direto sobre SheetPrimitive.Content pra controle total do
  * positioning (evita conflito com inset-y-0/right-0/h-full do SheetContent).

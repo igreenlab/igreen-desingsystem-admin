@@ -21,6 +21,7 @@ import {
 const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default — detail panel" },
+  { id: "ex-scroll", label: "Scroll + footer fluido" },
   { id: "ex-resizable", label: "Resizable" },
   { id: "ex-maximizable", label: "Maximizable" },
   { id: "ex-sizes", label: "Sizes" },
@@ -56,6 +57,7 @@ const PROPS_FLOATING_PANEL = [
 
 export function FloatingPanelDoc() {
   const [openDefault, setOpenDefault] = useState(false);
+  const [openScroll, setOpenScroll] = useState(false);
   const [openResize, setOpenResize] = useState(false);
   const [openMax, setOpenMax] = useState(false);
   const [openSm, setOpenSm] = useState(false);
@@ -132,6 +134,62 @@ export function FloatingPanelDoc() {
               você pode clicar em outras rows, scrollar, filtrar — tudo isso sem fechar o
               FloatingPanel.
             </p>
+          </div>
+        </FloatingPanel>
+      </ExampleSection>
+
+      {/* Scroll + footer fluido */}
+      <ExampleSection
+        id="ex-scroll"
+        title="Scroll + footer fluido"
+        description="Conteúdo longo → o body ganha scroll automático (header e footer ficam fixos). O footer deixa os botões fluidos lado a lado e os empilha quando não cabem. Em mobile, o panel cola nas bordas do device (sheet bottom-up, max-height 92vh, cantos inferiores retos) com backdrop suave — toque fora fecha."
+        code={`<FloatingPanel
+  open={open}
+  onOpenChange={setOpen}
+  title="Termos de uso"
+  description="Role pra ler o conteúdo completo"
+  footer={<>
+    <Button variant="outline" color="secondary" size="sm">Recusar</Button>
+    <Button variant="soft" color="secondary" size="sm">Mais tarde</Button>
+    <Button variant="filled" color="primary" size="sm">Aceitar</Button>
+  </>}
+>
+  {/* vários parágrafos — body scrolla sozinho */}
+</FloatingPanel>`}
+      >
+        <Button color="primary" variant="filled" size="sm" onClick={() => setOpenScroll(true)}>
+          Open conteúdo longo
+        </Button>
+        <FloatingPanel
+          open={openScroll}
+          onOpenChange={setOpenScroll}
+          title="Termos de uso"
+          description="Role pra ler o conteúdo completo"
+          footer={
+            <>
+              <Button variant="outline" color="secondary" size="sm" onClick={() => setOpenScroll(false)}>
+                Recusar
+              </Button>
+              <Button variant="soft" color="secondary" size="sm">
+                Mais tarde
+              </Button>
+              <Button variant="filled" color="primary" size="sm" onClick={() => setOpenScroll(false)}>
+                Aceitar
+              </Button>
+            </>
+          }
+        >
+          <div className="flex flex-col gap-gp-xl p-pad-3xl text-body-md text-fg-muted">
+            {Array.from({ length: 14 }).map((_, i) => (
+              <p key={i}>
+                <strong className="text-fg-default">§ {i + 1}.</strong> Lorem ipsum dolor
+                sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+                labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
+                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident.
+              </p>
+            ))}
           </div>
         </FloatingPanel>
       </ExampleSection>

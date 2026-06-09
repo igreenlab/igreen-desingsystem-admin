@@ -17,6 +17,7 @@ import { UserPlus, Trash2, AlertTriangle } from "lucide-react";
 const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default — form drawer" },
+  { id: "ex-scroll", label: "Conteúdo longo (scroll)" },
   { id: "ex-sizes", label: "Sizes" },
   { id: "ex-sides", label: "Sides" },
   { id: "ex-no-footer", label: "Sem footer (read-only)" },
@@ -43,6 +44,7 @@ const PROPS_PANEL = [
 
 export function PanelDoc() {
   const [openDefault, setOpenDefault] = useState(false);
+  const [openScroll, setOpenScroll] = useState(false);
   const [openSm, setOpenSm] = useState(false);
   const [openLg, setOpenLg] = useState(false);
   const [openLeft, setOpenLeft] = useState(false);
@@ -133,6 +135,54 @@ export function PanelDoc() {
             <Label htmlFor="notes">Observações</Label>
             <Textarea id="notes" placeholder="Notas internas..." rows={4} />
           </div>
+        </Panel>
+      </ExampleSection>
+
+      {/* Conteúdo longo — scroll */}
+      <ExampleSection
+        id="ex-scroll"
+        title="Conteúdo longo (scroll)"
+        description="Conteúdo que excede a altura → o body ganha scroll automático (header e footer ficam fixos). Em mobile, o panel cola nas bordas do device (sheet bottom-up, max-height 92vh, cantos inferiores retos) com o backdrop suave já modal — toque fora fecha."
+        code={`<Panel
+  open={open}
+  onOpenChange={setOpen}
+  title="Termos de uso"
+  description="Role pra ler o conteúdo completo"
+  footer={
+    <Button color="primary" onClick={() => setOpen(false)}>Aceitar</Button>
+  }
+>
+  {/* vários parágrafos — body scrolla sozinho */}
+</Panel>`}
+      >
+        <Button color="primary" variant="filled" size="sm" onClick={() => setOpenScroll(true)}>
+          Open conteúdo longo
+        </Button>
+        <Panel
+          open={openScroll}
+          onOpenChange={setOpenScroll}
+          title="Termos de uso"
+          description="Role pra ler o conteúdo completo"
+          footer={
+            <>
+              <Button color="secondary" variant="outline" size="md" onClick={() => setOpenScroll(false)}>
+                Recusar
+              </Button>
+              <Button color="primary" variant="filled" size="md" onClick={() => setOpenScroll(false)}>
+                Aceitar
+              </Button>
+            </>
+          }
+        >
+          {Array.from({ length: 14 }).map((_, i) => (
+            <p key={i} className="text-body-md text-fg-muted">
+              <strong className="text-fg-default">§ {i + 1}.</strong> Lorem ipsum dolor sit
+              amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
+              et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+              ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+              in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+          ))}
         </Panel>
       </ExampleSection>
 
