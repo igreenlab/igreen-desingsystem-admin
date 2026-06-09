@@ -225,6 +225,11 @@ export function FinanceCustomToolbar({
 
   return (
     <TableToolbar
+      // Mobile: flex-nowrap (não quebra) + slot left esconde (tabs hidden) +
+      // slot actions vira flex-1 (search fluido até preencher viewport).
+      className="max-md:flex-nowrap"
+      leftClassName="max-md:hidden"
+      actionsClassName="max-md:flex-1 max-md:min-w-0"
       left={
         // TableToolbarViews — compound smart do DS. Orquestra:
         //  - ToolbarTabs (Default + views pinadas, X em tab faz unpin)
@@ -232,6 +237,7 @@ export function FinanceCustomToolbar({
         //  - AddViewModal (criar nova view)
         //  - AlertModal danger (confirma exclusão permanente)
         // Pattern 100% igual ao master DataTable — só mudou o LUGAR onde renderiza.
+        // No mobile o wrapper externo (slot left) está escondido via leftClassName.
         <TableToolbarViews
           views={views}
           activeViewId={activeViewId}
@@ -244,10 +250,14 @@ export function FinanceCustomToolbar({
       }
       actions={
         <>
+          {/* `wrapperClassName` no mobile: força search a expandir até preencher
+            * (override do `[&>*]:shrink-0` do toolbarActions parent que travaria
+            * o flex-1). Desktop mantém o width fixo do toolbarSearch default. */}
           <ToolbarSearch
             value={searchValue}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Buscar..."
+            wrapperClassName="max-md:!flex-1 max-md:!w-auto"
           />
 
           {/* Filtro simples — icon only, abre drawer panel.
