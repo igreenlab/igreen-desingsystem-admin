@@ -280,7 +280,7 @@ export function useDataTableController<T>(
 
   /* ── Export (CSV) ─────────────────────────────────────────────── */
 
-  const exportHook = useDataTableExport({
+  const exporter = useDataTableExport({
     columns: props.columns,
     rowsCurrentPage: effectiveRows,
     rowsAfterFilter: allPagesProcessed,
@@ -621,11 +621,11 @@ export function useDataTableController<T>(
     getSelectedIds: () => selection.selectedIds,
     getSelectedCount: () => selection.selectedCount,
     clearSelection: selection.clear,
-    exportCsv: exportHook.exportCsv,
+    exportCsv: exporter.exportCsv,
     resetPersistedState: () => {
       clearPersistedState(props.persistId);
     },
-  }), [getState, selection, isServerMode, query, exportHook, props.persistId]);
+  }), [getState, selection, isServerMode, query, exporter, props.persistId]);
 
   /* ── Context value memoizado ─────────────────────────────────── */
 
@@ -686,7 +686,7 @@ export function useDataTableController<T>(
     density,
     search,
     filters,
-    exportHook,
+    exporter,
     isServerMode,
     savedViews,
     applyView,

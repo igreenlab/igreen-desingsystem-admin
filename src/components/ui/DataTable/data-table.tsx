@@ -209,7 +209,7 @@ function DataTableInternal<T>(
     density,
     search,
     filters,
-    exportHook,
+    exporter,
     isServerMode,
     savedViews,
     applyView,
@@ -1642,22 +1642,22 @@ function DataTableInternal<T>(
                             );
                           }
                           return isServerMode ? (
-                            <MoreMenuItemEl key={fmt.id} onSelect={() => exportHook.exportCsv("all")}>
+                            <MoreMenuItemEl key={fmt.id} onSelect={() => exporter.exportCsv("all")}>
                               {fmt.icon}
                               {fmt.label} — Página atual
                             </MoreMenuItemEl>
                           ) : (
                             <span key={fmt.id} className="contents">
-                              <MoreMenuItemEl onSelect={() => exportHook.exportCsv("all")}>
+                              <MoreMenuItemEl onSelect={() => exporter.exportCsv("all")}>
                                 {fmt.icon}
                                 {fmt.label} — Todos
                               </MoreMenuItemEl>
-                              <MoreMenuItemEl onSelect={() => exportHook.exportCsv("filtered")}>
+                              <MoreMenuItemEl onSelect={() => exporter.exportCsv("filtered")}>
                                 {fmt.icon}
                                 {fmt.label} — Filtrados
                               </MoreMenuItemEl>
                               <MoreMenuItemEl
-                                onSelect={() => exportHook.exportCsv("selected")}
+                                onSelect={() => exporter.exportCsv("selected")}
                                 disabled={selection.selectedCount === 0}
                               >
                                 {fmt.icon}

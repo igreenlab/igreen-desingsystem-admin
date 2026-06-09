@@ -134,16 +134,18 @@ export { useToolbarFilters } from "./hooks/use-toolbar-filters";
 export type {
   ToolbarFilterEntry,
   UseToolbarFiltersOptions,
+  UseToolbarFiltersResult,
 } from "./hooks/use-toolbar-filters";
 
 export { useToolbarSort } from "./hooks/use-toolbar-sort";
 export type {
   ToolbarSortEntry,
   UseToolbarSortOptions,
+  UseToolbarSortResult,
 } from "./hooks/use-toolbar-sort";
 
 export { useToolbarFilterControl } from "./hooks/use-toolbar-filter-control";
-export type { UseToolbarFilterControlReturn } from "./hooks/use-toolbar-filter-control";
+export type { UseToolbarFilterControlResult } from "./hooks/use-toolbar-filter-control";
 
 /* ── Filter Control built-in (v0.7.0+) ──────────────────────────
  * Orquestrador completo de filtros (split button + drawer + advanced popover).

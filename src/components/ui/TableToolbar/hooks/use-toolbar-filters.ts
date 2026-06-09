@@ -18,6 +18,17 @@ export type UseToolbarFiltersOptions<T extends ToolbarFilterEntry = ToolbarFilte
   generateId?: () => string;
 };
 
+export type UseToolbarFiltersResult<T extends ToolbarFilterEntry = ToolbarFilterEntry> = {
+  list: T[];
+  add: (entry: Omit<T, "id"> & { id?: string }) => void;
+  remove: (id: string) => void;
+  update: (id: string, patch: Partial<T>) => void;
+  clear: () => void;
+  replaceAll: (next: T[]) => void;
+  /** Total de filtros com `value` truthy (válidos pra aplicar). */
+  count: number;
+};
+
 function defaultId(): string {
   if (typeof crypto !== "undefined" && "randomUUID" in crypto) {
     return crypto.randomUUID();
@@ -26,7 +37,12 @@ function defaultId(): string {
 }
 
 /**
- * useToolbarFilters — helper opcional pra gerenciar estado de filtros.
+ * useToolbarFilters — helper opcional **standalone** pra gerenciar estado de
+ * filtros num `<TableToolbar>` montado à mão (fora do DataTable).
+ *
+ * ⚠️ **Fronteira**: NÃO é usado pelo DataTable — ele tem seu próprio pipeline
+ * (`useDataTableFilters` + `FilterModel` + adapters). Use este apenas em toolbars
+ * custom standalone. (`ToolbarFilterEntry` aqui ≠ `FilterItem` do DataTable.)
  *
  * Retorna:
  *   - `list`: array de filtros
@@ -45,7 +61,7 @@ function defaultId(): string {
  */
 export function useToolbarFilters<T extends ToolbarFilterEntry = ToolbarFilterEntry>(
   options?: UseToolbarFiltersOptions<T>,
-) {
+): UseToolbarFiltersResult<T> {
   const { initial = [], generateId = defaultId } = options ?? {};
   const [list, setList] = useState<T[]>(initial as T[]);
 
@@ -83,5 +99,5 @@ export function useToolbarFilters<T extends ToolbarFilterEntry = ToolbarFilterEn
     [list],
   );
 
-  return { list, add, remove, update, clear, replaceAll, count } as const;
+  return { list, add, remove, update, clear, replaceAll, count };
 }
