@@ -16,10 +16,14 @@ import type { PanelProps, PanelSide, PanelSize } from "./panel.types";
  * Aceita também string CSS arbitrária (ex: "720px", "60vw").
  */
 const SIZE_MAP: Record<PanelSize, string> = {
-  sm: "w-[320px]",
-  md: "w-[560px]",
-  lg: "w-[720px]",
-  xl: "w-[920px]",
+  // `max-md:!w-auto` força width auto em mobile — sem isso, panels de 560/720/920px
+  // vazam o viewport (375-500px) já que o panelContainer aplica inset-x-pad-md
+  // (16px gutter) mas o width fixo sobrescreve. Com `!w-auto`, o inset-x define
+  // o width total = viewport - 32px.
+  sm: "w-[320px] max-md:!w-auto",
+  md: "w-[560px] max-md:!w-auto",
+  lg: "w-[720px] max-md:!w-auto",
+  xl: "w-[920px] max-md:!w-auto",
   full: "w-[calc(100vw-48px)] max-md:w-[calc(100vw-16px)]",
 };
 
