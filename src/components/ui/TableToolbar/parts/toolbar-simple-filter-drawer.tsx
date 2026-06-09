@@ -13,7 +13,6 @@ import { FormField } from "../../FormField";
 // reverso (DataTable → TableToolbar) continua proibido.
 import { columnTypeRegistry } from "../../DataTable/column-types";
 import type { ColumnOption } from "../../DataTable/column-types";
-import { POPOVER_OP_TO_FILTER_OP } from "../../DataTable/utils/operator-mapping";
 import type {
   FilterItem,
   FilterModel,
@@ -261,7 +260,7 @@ export function ToolbarSimpleFilterDrawer({
               ? items[0]?.value
               : items[0]?.value;
 
-          const filterOp = POPOVER_OP_TO_FILTER_OP[operator] ?? operator;
+          const filterOp = operator;
           const options = (col.options ?? []) as ColumnOption[];
 
           // Usa <FormField> do DS — garante label com font-semibold + cor

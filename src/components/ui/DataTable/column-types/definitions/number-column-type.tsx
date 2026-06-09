@@ -15,6 +15,8 @@ export const NumberColumnType: ColumnTypeDefinition = {
     { id: "equals", label: "=" },
     { id: "gt", label: ">" },
     { id: "lt", label: "<" },
+    { id: "gte", label: "≥" },
+    { id: "lte", label: "≤" },
     { id: "neq", label: "≠" },
   ],
   renderFilterInput: ({ value, onChange, placeholder }) => (
@@ -44,6 +46,8 @@ export const NumberColumnType: ColumnTypeDefinition = {
     if (operator === "neq") return cell !== filter;
     if (operator === "gt") return cell > filter;
     if (operator === "lt") return cell < filter;
+    if (operator === "gte") return cell >= filter;
+    if (operator === "lte") return cell <= filter;
     return null;
   },
 

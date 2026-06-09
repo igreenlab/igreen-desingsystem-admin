@@ -38,6 +38,8 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
     { id: "equals", label: "é" },
     { id: "gt", label: "maior que" },
     { id: "lt", label: "menor que" },
+    { id: "gte", label: "maior ou igual a" },
+    { id: "lte", label: "menor ou igual a" },
     { id: "between", label: "entre" },
   ],
   renderFilterInput: ({ value, onChange, operator }) => {
@@ -112,6 +114,8 @@ export const CurrencyColumnType: ColumnTypeDefinition = {
     if (operator === "equals") return cell === filter;
     if (operator === "gt") return cell > filter;
     if (operator === "lt") return cell < filter;
+    if (operator === "gte") return cell >= filter;
+    if (operator === "lte") return cell <= filter;
     return null;
   },
   renderChipValue: (value) => {

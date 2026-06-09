@@ -21,13 +21,23 @@ export type ToolbarTab = {
   custom?: boolean;
 };
 
-/** Operador de filtro suportado pelo applied chips */
+/** Operador de filtro suportado pelo applied chips (ids longos do FilterModel) */
 export type AppliedFilterOp =
-  | "eq"
+  | "equals"
   | "neq"
   | "contains"
+  | "notContains"
+  | "startsWith"
+  | "endsWith"
   | "gt"
   | "lt"
+  | "gte"
+  | "lte"
+  | "isAnyOf"
+  | "isNoneOf"
+  | "between"
+  | "isEmpty"
+  | "isNotEmpty"
   | string; // permite custom
 
 /** Filtro aplicado (chip individual) */
@@ -35,8 +45,14 @@ export type AppliedFilter = {
   id: string;
   /** Label legível da coluna (ex "Status") */
   columnLabel: ReactNode;
-  /** Operador (resolvido pra símbolo internamente: eq → "=", contains → "contém"…) */
+  /** Operador (resolvido pra símbolo via DEFAULT_OP_LABELS quando `opLabel` ausente). */
   op: AppliedFilterOp;
+  /**
+   * Label do operador já resolvido (ex: do registry do column-type). Quando
+   * presente, vence o DEFAULT_OP_LABELS — garante que o chip mostre o mesmo
+   * texto do popover (ex: currency `gt` = "maior que", não ">").
+   */
+  opLabel?: ReactNode;
   /**
    * Valor já formatado pra exibição. String/ReactNode = 1 tag. Array de
    * ReactNode = múltiplas tags lado a lado (ex: "Ativo" "Pendente" "Pausado").
