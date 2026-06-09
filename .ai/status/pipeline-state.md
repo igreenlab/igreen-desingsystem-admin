@@ -1958,3 +1958,29 @@
   - `filterType` aberto via `(string & {})` (mesmo padrão do ColumnTypeId) — evita import circular data-table.types ↔ column-types.
 - Assumption: derivar default do registry é correto pra todos os tipos (confirmado: teste tsx 13/13, incl. date→between + currency→equals); any→unknown não quebra consumers (eles já fazem `value as X`) — confirmado tsc 0, zero cascade.
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS DEV | Auditoria PR4 — memoização de linha (#11) | CONCLUÍDO
+- Input: PR4 (última) — o único ganho de perf real do audit; o mais arriscado (render loop).
+- Output:
+  - Novo `parts/data-table-row.tsx`: `DataTableRow` = `React.memo` com o body do antigo `renderRow` (~190 linhas) movido as-is.
+  - data-table.tsx: `renderRow` removido; `renderItem` renderiza `<DataTableRow>` com props reativas por-row (selected/focused/expanded/editState/virtualStyle) + dados de render (columns/widths/stickyOffsets).
+  - Handlers via **latest-ref pattern** (`rowHandlersRef` atualizado a cada render) — ref estável não invalida o memo, `.current` fresh evita stale closure, sem precisar useCallback em todos (evita dep-hell).
+- Decisões:
+  - editState bundled (`{field,isLoading,error}|null`) — só a row em edição recebe objeto novo; isLoading/error não vazam pras outras (não re-renderizam).
+  - Barreira: row só re-renderiza quando suas props reativas mudam OU columns/widths mudam. Foco em outra row / refresh / abrir popover NÃO repinta rows não-afetadas.
+- Assumption: memoização é behavior-equivalent (lógica movida as-is) + a barreira não quebra edit/expansão/seleção/foco/virtualize. Confirmado: tsc 0 + sweep browser (crud seleção+edit, expandable expansão, virtualized 29/10k, grouped 56+headers, kanban, finance — todos renderizam, 0 erros em load completo).
+- Lições novas: nenhuma — (nota: a Frente C foi pulada por extração ser net-negativa; #11 foi feita pq a memoização traz ganho concreto, justificando a mesma extração).
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit PR4 — memoização de linha (DataTableRow) | PRE_COMMIT_BLOCKED
+
+- Spec verificada: sim (pipeline-state entrada PR4 acima)
+- Gate verificado: n/a (refactor interno — não é token/componente novo público)
+- Assumption verificada: "memoização é behavior-equivalent + barreira correta" — PARCIALMENTE QUEBRADA. Ver pendências.
+- Critique genuína aplicada: a lógica movida (fallback chain / tooltip / cellRootProps) é textualmente idêntica ao `renderRow` original — nenhum branch perdido. Equivalência semântica `applyValueGetter` == `resolveCellValue` confirmada (resolveCellValue é wrapper vazio de applyValueGetter). `key` migrou corretamente para o site de chamada (`<DataTableRow key=...>`). editState bundled correto — só row editando recebe objeto novo. registerRef via callback-ref em TableRow (forwardRef<HTMLDivElement>) — funcional. rowRefs.current usado apenas em event-time (handleRowKeyDown) — correto. O que muda a direção: o latest-ref pattern está implementado pela metade. Ver pendência 1.
+- Regressões L-001..L-027 encontradas: nenhuma nas linhas do novo arquivo.
+- Pendências: 2 itens — 1 MÉDIO, 1 BAIXO. Ver resultado PRE_COMMIT_BLOCKED no output do reviewer.
+- Lições novas: nenhuma (padrão já coberto pelo design do latest-ref pattern; falha é de implementação parcial, não de lição nova).
