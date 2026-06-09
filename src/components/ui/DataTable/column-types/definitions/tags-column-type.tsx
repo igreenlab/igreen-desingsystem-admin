@@ -7,41 +7,8 @@ import {
   PopoverTrigger,
 } from "../../../../shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
-import type { ColumnTypeDefinition, ColumnOption } from "../column-types.types";
-
-/** Resolve cor do chip — mesma logica do badge type. */
-type ChipColor = "primary" | "neutral" | "danger" | "warning" | "success" | "info";
-const VALID_COLORS: ReadonlyArray<ChipColor> = [
-  "primary",
-  "neutral",
-  "danger",
-  "warning",
-  "success",
-  "info",
-];
-function resolveChipColor(raw: string | undefined): ChipColor {
-  if (!raw) return "neutral";
-  if (VALID_COLORS.includes(raw as ChipColor)) return raw as ChipColor;
-  const aliases: Record<string, ChipColor> = {
-    green: "success",
-    red: "danger",
-    yellow: "warning",
-    blue: "info",
-    gray: "neutral",
-    grey: "neutral",
-  };
-  return aliases[raw.toLowerCase()] ?? "neutral";
-}
-
-function toArray(v: unknown): string[] {
-  if (v == null) return [];
-  if (Array.isArray(v)) return v.map(String);
-  return [String(v)];
-}
-
-function findOption(value: string, options?: ColumnOption[]): ColumnOption | null {
-  return options?.find((o) => String(o.value) === value) ?? null;
-}
+import type { ColumnTypeDefinition } from "../column-types.types";
+import { resolveChipColor, findOption, toStringArray } from "../_shared";
 
 export const TagsColumnType: ColumnTypeDefinition = {
   type: "tags",
@@ -51,7 +18,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
     { id: "contains", label: "contém" },
   ],
   renderFilterInput: ({ value, onChange, options }) => {
-    const selected = new Set(toArray(value));
+    const selected = new Set(toStringArray(value));
     const toggle = (v: string) => {
       const next = new Set(selected);
       if (next.has(v)) next.delete(v);
@@ -98,7 +65,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
     );
   },
   renderFastFilterInput: ({ value, onChange, options }) => {
-    const selected = new Set(toArray(value));
+    const selected = new Set(toStringArray(value));
     const toggle = (v: string) => {
       const next = new Set(selected);
       if (next.has(v)) next.delete(v);
@@ -123,15 +90,15 @@ export const TagsColumnType: ColumnTypeDefinition = {
     );
   },
   matchesFilter: (cellValue, filterValue, operator) => {
-    const cell = toArray(cellValue);
-    const filter = toArray(filterValue);
+    const cell = toStringArray(cellValue);
+    const filter = toStringArray(filterValue);
     if (operator === "isAnyOf") return filter.some((f) => cell.includes(f));
     if (operator === "isNoneOf") return !filter.some((f) => cell.includes(f));
     if (operator === "contains") return filter.every((f) => cell.includes(f));
     return null;
   },
   renderChipValue: (value, options) => {
-    const arr = toArray(value);
+    const arr = toStringArray(value);
     if (arr.length === 0) return "";
     const labels = arr.map(
       (v) => findOption(v, options)?.label ?? v,
@@ -141,7 +108,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
   },
 
   renderCell: ({ value, options }) => {
-    const arr = toArray(value);
+    const arr = toStringArray(value);
     if (arr.length === 0) return null;
     return (
       <span className="inline-flex items-center flex-wrap gap-gp-2xs">
@@ -156,7 +123,7 @@ export const TagsColumnType: ColumnTypeDefinition = {
       </span>
     );
   },
-  formatValue: (v) => toArray(v).join(", "),
+  formatValue: (v) => toStringArray(v).join(", "),
   defaultAlign: "left",
   defaultWidth: 200,
   defaultEllipsis: true,

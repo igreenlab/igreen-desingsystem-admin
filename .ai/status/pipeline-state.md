@@ -62,6 +62,14 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-06-09] | DS REVIEWER | refactor/column-types-shared — Pre-commit gate | PRE_COMMIT_OK
+- Assumption verificada: sim — "helpers extraídos são behavior-equivalentes, exceto toNumber rejeitar Infinity (não ocorre nos dados)" confirmada. Nenhum caminho de matchesFilter/formatValue/renderCell produz Infinity como valor de entrada real: o filterInput é `<Input type="number">` que só emite valores finitos ou null; dados de célula financeiros (R$) são sempre finitos. `Number.isNaN(Number(Infinity))` = false na `toCurrency`/`toPercent` formatter — essas funções usam `Number.isNaN` apenas no formatter de exibição (não no filter), portanto a mudança de `!Number.isNaN` → `Number.isFinite` em matchesFilter é segura e correta.
+- Critique genuína aplicada: Além do checklist mecânico examinei: (1) o único ponto suspeito — `Number.isNaN(Number(value)) ? null : n` (antigo currency/percentage) vs `Number.isFinite(n) ? n : null` (novo): o único delta são valores `Infinity`/`-Infinity`, que o `<Input type="number">` nunca produz e dados de BD não contêm — a mudança é correta, não uma regressão; (2) `findOption(value: unknown, ...)` em _shared vs `findOption(value: string, ...)` no tags antigo: a assinatura mais larga (`unknown`) é backwards-compatible — tags sempre passa strings (`v` extraído de `toStringArray`), a comparação é `String(o.value) === String(value)` em ambos, resultado idêntico; (3) `multi-select` ainda tem seu próprio `toArray` local — não é uma cópia esquecida, é um array tipado diferente (`Array<string | number>` vs `string[]`) com lógica de hidratação específica (comentário explica), portanto corretamente fora do `_shared`; (4) os `Number.isNaN` remanescentes em currency/percentage são nos formatters de *exibição* (`toCurrency`/`toPercent`) — completamente corretos e fora do escopo do _shared (são funções locais, não foram migradas).
+- Escopo do diff: 1 arquivo novo (_shared.ts) + 7 arquivos modificados (6 definitions + pipeline-state.md). Zero toque em tokens, CSS, typography, tv.ts — categorias de sincronia crítica (L-016) estão fora do escopo.
+- Regressões L-001..L-027: nenhuma — _shared.ts é helpers puros (sem classes CSS, sem tv(), sem tokens). Definitions tocadas não introduziram anti-patterns.
+- Pendências encontradas: nenhuma.
+- Lições novas: nenhuma.
+
 ### [2026-06-09] | DS REVIEWER | refactor/filter-operators — Pre-commit gate | PRE_COMMIT_BLOCKED
 
 - Assumption verificada: A assumption central ("eliminar dual-namespace eliminando operator-mapping.ts e usando ids longos ponta a ponta") é válida e o refactor a cumpre corretamente no fluxo principal. Porém dois problemas residuais foram encontrados que a comprometem parcialmente.
@@ -1810,3 +1818,16 @@
 - Assumption: nenhum caminho de operador depende mais do id curto `eq`; `between`/`isAnyOf`/`isNoneOf` nunca passaram pelo mapping (sempre diretos). Confirmado: tsc 0 + grep sem `"eq"` órfão em código vivo.
 - Gate: DS Reviewer PRE_COMMIT_BLOCKED (4 itens: fallback `?? "eq"`, comentário stale, L-024 no drawer Deprecated, JSDoc) → todos corrigidos → OK.
 - Lições novas: nenhuma (reforço de L-023/opValid: operador fora do registry sofre reset defensivo — por isso gte/lte precisam estar no registry).
+
+---
+
+### [2026-06-09] | DS DEV | Frente B — column-types _shared helpers | CONCLUÍDO
+- Input: 2ª frente da padronização — dedup dos helpers duplicados entre column-type definitions.
+- Output:
+  - Novo `column-types/_shared.ts`: `toNumber` (canônico, Number.isFinite), date helpers (`toDateMs/dayStart/toDate/toIsoDate`), `ChipColor/CHIP_COLORS/resolveChipColor`, `findOption`, `toStringArray`.
+  - Consumido por number/currency/percentage (toNumber), date/datetime (date helpers), badge/tags (color + findOption + toStringArray). ~120 LOC duplicadas removidas.
+- Decisões:
+  - `toNumber` unificado em `Number.isFinite` (number já usava; currency/percentage usavam `!Number.isNaN` → aceitavam Infinity). Number.isFinite é mais correto — Infinity não é valor de célula/filtro válido.
+  - **Factories NÃO feitas** (text/email/phone/url): são similares mas com diferenças reais (normalize por tipo, operadores, renderCell). Fatorar seria premature abstraction — a duplicação real eram os helpers idênticos, já capturados pelo _shared.
+- Assumption: os helpers extraídos são behavior-equivalentes (exceto toNumber rejeitar Infinity, que não ocorre nos dados). Confirmado: tsc 0 + finance showcase renderiza (currency/date/chips OK).
+- Lições novas: nenhuma.
