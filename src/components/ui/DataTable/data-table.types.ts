@@ -199,7 +199,7 @@ export type GridFetchResult<T> = {
  *
  * `disabled` e `hidden` aceitam booleano fixo ou função que recebe a row.
  */
-export type DataTableActionItem<T = any> = {
+export type DataTableActionItem<T = unknown> = {
   /** Identificador unico (key do React + analytics). */
   id: string;
   /** Texto exibido como tooltip (inline) ou label (no menu). */
@@ -275,14 +275,27 @@ export type DataTableColumnDef<T> = {
 
   /** Filtros (F4 + F6) */
   enableColumnFilter?: boolean;
-  filterType?: "text" | "select" | "multiSelect" | "date" | "boolean" | "number";
-  filterOptions?: Array<{ label: string; value: any; color?: string }>;
+  /**
+   * Tipo de filtro da coluna — escolhe o widget + operadores do registry,
+   * independente do `type` (render de célula). União ABERTA: aceita qualquer
+   * column-type registrado (ex: `"currency"`, `"tags"`) além dos comuns. Cai em
+   * `"text"` se o tipo não estiver registrado.
+   */
+  filterType?:
+    | "text"
+    | "select"
+    | "multiSelect"
+    | "date"
+    | "boolean"
+    | "number"
+    | (string & {});
+  filterOptions?: Array<{ label: string; value: string | number; color?: string }>;
   defaultFilterValue?: FilterValue;
 
   /** Render customizado */
-  render?: (params: { row: T; value: any }) => ReactNode;
-  valueGetter?: (row: T) => any;
-  valueFormatter?: (value: any) => string;
+  render?: (params: { row: T; value: unknown }) => ReactNode;
+  valueGetter?: (row: T) => unknown;
+  valueFormatter?: (value: unknown) => string;
 
   /** Ícone do tipo no header (lucide). */
   icon?: React.ComponentType<{ className?: string; size?: number; strokeWidth?: number; "aria-hidden"?: boolean }>;
@@ -309,8 +322,8 @@ export type DataTableColumnDef<T> = {
    *  Se omitido, DataTable renderiza editor default baseado em `editType`. */
   renderEdit?: (params: {
     row: T;
-    value: any;
-    onChange: (next: any) => void;
+    value: unknown;
+    onChange: (next: unknown) => void;
     onCommit: () => void;
     onCancel: () => void;
   }) => ReactNode;
@@ -544,8 +557,8 @@ export type DataTableProps<T> = {
   onCellEditCommit?: (params: {
     id: GridRowId;
     field: string;
-    value: any;
-    oldValue: any;
+    value: unknown;
+    oldValue: unknown;
     row: T;
   }) => void | Promise<void>;
 

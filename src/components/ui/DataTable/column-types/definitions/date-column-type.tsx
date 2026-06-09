@@ -26,13 +26,15 @@ function formatShort(v: unknown): string {
 
 export const DateColumnType: ColumnTypeDefinition = {
   type: "date",
+  // `between` (período) é o operador DEFAULT pra datas (operators[0]) — preset
+  // mais útil e alinhado com o shortcut do header.
   operators: [
+    { id: "between", label: "entre" },
     { id: "equals", label: "é" },
     { id: "gt", label: "depois de" },
     { id: "lt", label: "antes de" },
     { id: "gte", label: "em ou depois de" },
     { id: "lte", label: "em ou antes de" },
-    { id: "between", label: "entre" },
   ],
   /** Modal Filtros (advanced): trigger compacto que abre Calendar em popover.
    *  Trigger mostra valor formatado ("15 fev" ou "15 fev → 28 fev") ou placeholder. */
