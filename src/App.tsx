@@ -22,6 +22,7 @@ import { ProgressDoc } from "./preview/pages/ProgressDoc";
 import { PaginationDoc } from "./preview/pages/PaginationDoc";
 import { FooterTableDoc } from "./preview/pages/FooterTableDoc";
 import { TableToolbarDoc } from "./preview/pages/TableToolbarDoc";
+import { TableToolbarDeprecatedDoc } from "./preview/pages/TableToolbarDeprecatedDoc";
 import TableDoc from "./preview/pages/TableDoc";
 import DataTableDoc from "./preview/pages/DataTableDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
@@ -45,6 +46,7 @@ import { BreadcrumbDoc } from "./preview/pages/BreadcrumbDoc";
 import { CalendarDoc } from "./preview/pages/CalendarDoc";
 import { CommandDoc } from "./preview/pages/CommandDoc";
 import { PanelDoc } from "./preview/pages/PanelDoc";
+import { PopoverDoc } from "./preview/pages/PopoverDoc";
 import { FloatingPanelDoc } from "./preview/pages/FloatingPanelDoc";
 import { TextareaDoc } from "./preview/pages/TextareaDoc";
 import { FormFieldDoc } from "./preview/pages/FormFieldDoc";
@@ -150,7 +152,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "switch", "checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table-toolbar-deprecated", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -296,6 +298,7 @@ export function App() {
           {activePage === "pagination" && <PaginationDoc />}
           {activePage === "footer-table" && <FooterTableDoc />}
           {activePage === "table-toolbar" && <TableToolbarDoc />}
+          {activePage === "table-toolbar-deprecated" && <TableToolbarDeprecatedDoc />}
           {activePage === "table" && <TableDoc />}
           {activePage === "data-table" && <DataTableDoc />}
           {activePage === "tabela-teste" && <TabelaTesteDoc />}
@@ -319,6 +322,7 @@ export function App() {
           {activePage === "calendar" && <CalendarDoc />}
           {activePage === "command" && <CommandDoc />}
           {activePage === "panel" && <PanelDoc />}
+          {activePage === "popover" && <PopoverDoc />}
           {activePage === "floating-panel" && <FloatingPanelDoc />}
           {activePage === "textarea" && <TextareaDoc />}
           {activePage === "form-field" && <FormFieldDoc />}

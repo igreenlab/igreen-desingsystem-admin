@@ -1,7 +1,59 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-04
+> Última revisão: 2026-06-09
+
+---
+
+## 🔜 Próxima PR — Padronização DataTable + TableToolbar ("AMPLO")
+
+> Origem: auditoria pré-PR de 2026-06-09 (5 revisores) durante o swap TableToolbar
+> canônica/Deprecated. Escopo deliberadamente adiado pra um PR dedicado de
+> padronização (o PR do swap ficou "enxuto": só 3 bugs latentes + @deprecated).
+
+**Filtros / operadores (débito de fundo do bug "É"):**
+- Unificar vocabulário de operador pra id longo único (`equals`) ponta a ponta →
+  **deletar `utils/operator-mapping.ts`** (mapa de 11 pares onde só eq↔equals diverge).
+  Toca: `DEFAULT_FILTER_OPERATORS`, `filter-sql-parser` OP_MAP, `AppliedFilterOp`.
+- Resolver label de operador **pelo registry** (não `DEFAULT_OP_LABELS` paralelo —
+  já divergiu: currency popover "maior que" vs chip ">").
+- Extrair `promoteOperatorForColumn` (multiSelect→isAnyOf) pra util — hoje triplicada
+  (adapter:307,409 + controller:46).
+- `filter-sql-parser` emite `gte`/`lte` que nenhuma definition implementa → filtro
+  silenciosamente ignorado. Implementar ou remover do parser.
+- Util `filter-value.ts`: `isFilterValueEmpty` (3×) + `genId` (4×) compartilhados.
+
+**column-types:**
+- `_shared.ts` com `toNumber`/`toDate`/`resolveChipColor` (duplicados ~150 LOC; divergência
+  sutil: number usa `Number.isFinite`, currency/percentage `!Number.isNaN`).
+- Factories `makeTextColumnType`/`makeSelectColumnType` (text/email/phone/url e select/user/badge
+  viram declarativos).
+
+**data-table.tsx (2428 LOC):**
+- Extrair `parts/data-table-toolbar.tsx` + `parts/data-table-toolbar-legacy.tsx` (corta ~700 LOC,
+  isola a branch legada).
+- Extrair `parts/data-table-body.tsx` (IIFE de ~256 LOC com renderRow/renderItem/virtualização).
+- `useExportMenuItems()` — lógica de export-menu triplicada 3×.
+- `enhancedAppliedFilters` (~50 LOC no render) → mover pro filter adapter.
+
+**Hooks (naming/consistência):**
+- Adapters: prefixo `handle*` uniforme + `useCallback` nos handlers (sort/cols/filter falam línguas diferentes).
+- Tipo de retorno explícito `*Result` (renomear `UseToolbarFilterControlReturn`); `exportHook`→`exportCsv`.
+- Documentar fronteira `useToolbar*` (standalone, NÃO usados pela DataTable).
+
+**Toolbar Deprecated:**
+- **Remover `TableToolbarDeprecated/`** quando o branch `deprecatedToolbar` do DataTable
+  não for mais necessário (1.705 LOC duplicadas vivas; a11y `focus-visible:shadow-sh-ring`
+  ficou só na canônica). Decidir prazo.
+
+**Infra (repo-wide, separado):**
+- Line endings: repo é CRLF-wide (412 arquivos); `core.autocrlf=true` normaliza no commit,
+  então NÃO é problema de PR — mas considerar `.gitattributes` (`* text=auto eol=lf`) +
+  renormalização repo-wide num PR de infra próprio.
+
+**Menores:** `group-rows.ts` key colide valores não-primitivos; `viewNameToString` helper (coerção
+`String(name)` em 4 lugares); tokens de altura na Table (`h-[40px/56px/64px/42px]` → cascata DS Designer);
+`owner`/`ownerName` no tipo `SavedView` (hoje injetado fora do tipo).
 
 ---
 

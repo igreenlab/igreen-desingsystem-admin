@@ -77,6 +77,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Pagination", href: "pagination" },
       { label: "Label", href: "label" },
       { label: "Panel", href: "panel" },
+      { label: "Popover", href: "popover" },
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
       { label: "Select", href: "select" },
@@ -93,6 +94,7 @@ const BASE_NAV: DocNavSection[] = [
       // Componentes da família data-display
       { label: "Table", href: "table" },
       { label: "Table Toolbar", href: "table-toolbar" },
+      { label: "Table Toolbar (Deprecated)", href: "table-toolbar-deprecated" },
       { label: "Footer Table", href: "footer-table" },
       { label: "Tabela Teste", href: "tabela-teste" },
       { label: "Kanban", href: "kanban" },

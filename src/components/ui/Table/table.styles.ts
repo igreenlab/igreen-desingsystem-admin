@@ -216,8 +216,11 @@ export const tableStyles = tv({
     purpose: {
       default: {},
       selection: {
-        headCell: "px-0 py-0",
-        cell: "px-0 py-0",
+        // Sem padding + centralizado: checkbox 28px fica no meio dos 56px.
+        // justify-center sobrescreve o align default (left) — coluna de seleção
+        // sempre centraliza, sem o consumer precisar passar align="center".
+        headCell: "px-0 py-0 justify-center",
+        cell: "px-0 py-0 justify-center",
       },
       actions: {
         headCell: "!border-r-0 px-pad-md",

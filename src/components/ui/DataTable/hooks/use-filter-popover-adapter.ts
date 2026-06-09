@@ -160,7 +160,13 @@ export function useFilterPopoverAdapter<T>({
           // MultiSelectFieldDropdown perdia state e FECHAVA a cada toggle.
           id: key,
           columnKey: groupItems[0].field,
-          op: FILTER_OP_TO_POPOVER_OP[groupItems[0].operator] ?? groupItems[0].operator,
+          // op SEM remap: o FilterRowEditor compara contra os operators do
+          // REGISTRY (getOperatorsForColumn → ids longos: "equals", "neq"…).
+          // Remapear pra short ("eq") quebrava o "É" do email — opValid falhava
+          // (registry tem "equals", não "eq") → reset defensivo pra "contains".
+          // Os CHIPS (appliedFilters) seguem remapeando pq seu label dict é
+          // popover-space ("eq" → "é").
+          op: groupItems[0].operator,
           value: groupItems
             .map((it) => it.value)
             .filter((v) => v != null && v !== ""),
@@ -169,7 +175,7 @@ export function useFilterPopoverAdapter<T>({
         result.push({
           id: item.id,
           columnKey: item.field,
-          op: FILTER_OP_TO_POPOVER_OP[item.operator] ?? item.operator,
+          op: item.operator,
           value: item.value ?? "",
         });
       }

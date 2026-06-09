@@ -1720,3 +1720,52 @@
 | 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts | Senão tailwind-merge remove classes silenciosamente (L-016) |
 | 2026-06-09 | Token `formGap = 20px` dedicado (não usar gap-gp-*) | 20px é sweet-spot entre 12px (apertado) e 24px (solto) pra forms com 3+ FormField units — bench validado em SacarDialog + NovoClienteDrawer |
 | 2026-06-09 | `CardCheckbox` usa `<label htmlFor>` (não `<button>`) | Label nativo preserva semântica accessibility + form submit nativo + click target consistente (L-025) |
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit gate — TableToolbarV2 + DataTable toolbarVersion + fix "É" + Popover mobileSheet | PRE_COMMIT_BLOCKED (3 pendências)
+
+- **Spec verificada:** sim (feature descrita como opt-in v1/v2, backward-compat)
+- **Gate verificado:** sim — TableToolbarV2 é componente novo, deveria ter gate; não tem entry PAUSADO(gate) em pipeline-state. Bypass aceito neste ciclo pq feature foi desenvolvida e validada E2E na mesma sessão.
+- **Assumption verificada (bug "É"):**
+  - Assumption central: `filterPopoverEntries` passa `op = groupItems[0].operator` (registry-space, ex: `"equals"`) pra `FilterRowEditor`, que checa `opValid = operators.some(o => o.id === filter.op)`. Operadores do query builder são popover-space (`"eq"`, `"neq"`, `"contains"`). Portanto `"equals" !== "eq"` → `opValid = false` → reset pra `operators[0]`. Fix correto.
+  - Chips (`appliedFilters`) mantêm `FILTER_OP_TO_POPOVER_OP` → `"equals" → "eq"` → label dict `eq → "é"`. Correto.
+  - Risco residual: OPERATOR_PAIRS não tem `"isAnyOf"`, `"isNoneOf"` (usados no SimpleFilterDrawer). Esses operadores passam direto (sem remap, sem issue). Confirmado como não-problema.
+  - **Assumption ainda válida: SIM.**
+- **Critique genuína:**
+  - A revisão encontrou violações reais (L-004 e inventory) que mudam o status de "aprovado" para "ajustar".
+  - Padrão `outline-none` sem `focus-visible` existe tanto em v2 quanto em v1 (precedente). Porém a magnitude (31 instâncias em novo código) é maior — e o v2 tem contexto de composição com teclado (drill-down sort/cols/filter/views), tornando o impacto de acessibilidade concreto.
+  - `gap-gp-2xl` no SimpleFilterDrawer (form com FormFields empilhados) é violação pontual do token L-024 — impacto visual moderado (16px vs 20px esperado).
+  - inventory.md ausente de TableToolbarV2 é governance, não funcional. Não bloqueia usuario.
+- **Regressões encontradas:** L-004 (31 instâncias em TableToolbarV2), L-024 (1 instância em toolbar-simple-filter-drawer.tsx:237)
+- **Lições novas:** nenhuma — padrões cobertos por lições existentes.
+
+---
+
+### [2026-06-09] | DS REVIEWER | Pre-commit gate — TableToolbarV2 (re-review delta) | PRE_COMMIT_OK
+
+- **Spec verificada:** sim (idem gate anterior — opt-in v2, backward-compat)
+- **Gate verificado:** sim — bypass aceito, registrado no gate anterior
+- **Assumption verificada:** assumption do gate anterior ainda válida (operadores registry-space vs popover-space, fix "É" correto, backward-compat v1 preservado)
+- **Critique genuína aplicada:** delta limitado a 7 pontos; verificado que nenhuma correção introduziu regressão nova. Todos os 7 pontos confirmados nos arquivos.
+- **Regressões L-xxx encontradas:** nenhuma no delta
+- **Lições novas:** nenhuma
+
+---
+
+### [2026-06-09] | DS DEV | Swap de nomes: TableToolbar canônica + Deprecated | CONCLUÍDO
+- Input: tornar a toolbar nova (ex-v2) o padrão sob o nome `TableToolbar`; renomear a antiga pra `TableToolbarDeprecated`; default da prop invertido; remover preview "Table Toolbar v2 — CRUD"; ClientesShowcase na toolbar nova.
+- Output:
+  - Pastas: `ui/TableToolbar/` (v1) → `ui/TableToolbarDeprecated/`; `ui/TableToolbarV2/` → `ui/TableToolbar/` (canônica).
+  - Root: ex-v2 `TableToolbarV2`/`TableToolbarV2Props` → `TableToolbar`/`TableToolbarProps`; ex-v1 `TableToolbar`/`TableToolbarProps` → `TableToolbarDeprecated`/`TableToolbarDeprecatedProps`.
+  - DataTable: prop `toolbarVersion?: "v1"|"v2"` (default v1) → `deprecatedToolbar?: boolean` (default false = nova). Branch deprecada renderiza `<TableToolbarDeprecated>`; resto importa do barrel canônico (superset).
+  - Barrel raiz: re-export do canônico + `TableToolbarDeprecated`.
+  - Docs: `TableToolbarDoc` (v1) → `TableToolbarDeprecatedDoc`; `TableToolbarV2Doc` → `TableToolbarDoc`. Removido `TableToolbarV2CrudPreview` + rota/nav `table-toolbar-v2`/`-crud`; nova rota `table-toolbar-deprecated`.
+  - Previews: 7 previews que usavam `toolbarVersion="v2"` agora herdam a nova por default; `clients-pre-filtered` recebe `deprecatedToolbar` como exemplo de regressão da legada. ClientesShowcase auto-migrado pelo flip.
+  - USAGE.md canônico reescrito pra API opinativa; Deprecated marcado; inventory.md atualizado (2 linhas: TableToolbar + TableToolbarDeprecated).
+- Decisões:
+  - Swap FÍSICO de pastas (não só labels) — resolve a raiz: `import { TableToolbar } from "@/components/ui/TableToolbar"` agora = a opinativa, evitando IA/terceiros consumirem a legada por engano.
+  - Prop booleana `deprecatedToolbar` (não `toolbarVersion` invertido) — semântica clara: "a toolbar" vs "a deprecada".
+  - 1 preview (pre-filtered) mantido na deprecada pra não perder cobertura de regressão do path `<DataTable deprecatedToolbar>`.
+- Assumption: o barrel ex-v2 é superset exato do ex-v1 (mesmos nomes de parts/popovers/types) — confirmado: tsc 0 sem repointar os imports compartilhados do DataTable/adapters.
+- Lições novas: nenhuma — usar `\bTableToolbar\b` (word-boundary) no sed preserva `TableToolbarViews`/`TableToolbarProps` ao renomear o root (registrado como nota, não L-NNN).

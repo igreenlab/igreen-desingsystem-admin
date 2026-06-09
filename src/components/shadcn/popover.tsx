@@ -21,6 +21,33 @@ const PopoverTrigger = PopoverPrimitive.Trigger;
 const PopoverAnchor = PopoverPrimitive.Anchor;
 const PopoverClose = PopoverPrimitive.Close;
 
+/* ── Mobile sheet (<md) ───────────────────────────────────────────────
+ * Em telas <md o conteúdo vira sheet bottom-up colado nas bordas: full-width,
+ * só cantos superiores arredondados, flush, sem outline/shadow, cap 92vh.
+ * O wrapper do Radix Popper é reposicionado no globals.css via a regra
+ * `[data-radix-popper-content-wrapper]:has([data-mobile-sheet])` (mesma usada
+ * pelo DropdownMenu). Animação: neutraliza o zoom e desliza de baixo. */
+const POPOVER_MOBILE_SHEET = [
+  "max-md:w-full max-md:min-w-0 max-md:max-w-none",
+  "max-md:!max-h-[92vh]",
+  "max-md:rounded-b-none max-md:rounded-t-[12px]",
+  "max-md:border-x-0 max-md:border-b-0",
+  "max-md:outline-none max-md:shadow-none",
+  // Respiro de 20px (pad-3xl) no rodapé pra o conteúdo (footer/última seção)
+  // não colar na borda inferior do device quando vira sheet.
+  "max-md:pb-pad-3xl",
+  "max-md:data-[state=open]:zoom-in-100 max-md:data-[state=closed]:zoom-out-100",
+  "max-md:data-[state=open]:slide-in-from-bottom-12 max-md:data-[state=closed]:slide-out-to-bottom-12",
+].join(" ");
+
+/** Backdrop suave — só mobile (md:hidden). Toque fecha via dismiss do Radix. */
+const PopoverSheetBackdrop = () => (
+  <div
+    aria-hidden="true"
+    className="fixed inset-0 z-40 bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150"
+  />
+);
+
 type PopoverContentProps = React.ComponentPropsWithoutRef<
   typeof PopoverPrimitive.Content
 > & {
@@ -30,6 +57,13 @@ type PopoverContentProps = React.ComponentPropsWithoutRef<
    * Default `false` (usa portal — comportamento padrão).
    */
   disablePortal?: boolean;
+  /**
+   * Em telas <md, transforma o popover em **sheet bottom-up** colado nas bordas,
+   * com backdrop suave (toque fora fecha). No desktop não muda nada. Default `true`.
+   * Passe `false` pra manter o popover ancorado no trigger também em mobile.
+   * (Mesmo nome da prop do `DropdownMenu` — comportamento consistente.)
+   */
+  mobileSheet?: boolean;
 };
 
 const PopoverContent = React.forwardRef<
@@ -37,7 +71,7 @@ const PopoverContent = React.forwardRef<
   PopoverContentProps
 >(
   (
-    { className, align = "center", sideOffset = 6, disablePortal, ...props },
+    { className, align = "center", sideOffset = 6, disablePortal, mobileSheet = true, ...props },
     ref,
   ) => {
     const content = (
@@ -45,6 +79,7 @@ const PopoverContent = React.forwardRef<
         ref={ref}
         align={align}
         sideOffset={sideOffset}
+        data-mobile-sheet={mobileSheet ? "" : undefined}
         className={cn(
           "relative z-50",
           // Unificado com DropdownMenu/Select: bg-bg-dropdown (frosted no dark)
@@ -60,15 +95,37 @@ const PopoverContent = React.forwardRef<
           "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
           "data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2",
           "data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+          mobileSheet && POPOVER_MOBILE_SHEET,
           className,
         )}
         {...props}
       />
     );
 
-    if (disablePortal) return content;
+    if (disablePortal) {
+      // Sem portal: backdrop inline (fixed escapa do flow mesmo assim).
+      return mobileSheet ? (
+        <>
+          <PopoverSheetBackdrop />
+          {content}
+        </>
+      ) : (
+        content
+      );
+    }
 
-    return <PopoverPrimitive.Portal>{content}</PopoverPrimitive.Portal>;
+    // Com portal: backdrop em Portal próprio (cada Portal Radix aceita 1 filho
+    // e é montado/desmontado junto com o popover via Presence).
+    return (
+      <>
+        {mobileSheet && (
+          <PopoverPrimitive.Portal>
+            <PopoverSheetBackdrop />
+          </PopoverPrimitive.Portal>
+        )}
+        <PopoverPrimitive.Portal>{content}</PopoverPrimitive.Portal>
+      </>
+    );
   },
 );
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;

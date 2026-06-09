@@ -41,14 +41,6 @@ export type TableToolbarViewsProps = {
   divider?: ReactNode;
   /** Esconde o divider default — usado quando ja ha um divider adjacente. */
   hideDivider?: boolean;
-  /**
-   * Label da tab Default **quando ela é a única** (sem nenhuma view pré-definida
-   * nem salva). Evita a barra "vazia" mostrando só "Default" — troque por um
-   * título genérico do contexto (ex: "Lista de Clientes"). Default `"Default"`.
-   * Assim que houver ≥ 1 outra view, a tab volta a se chamar "Default" pra
-   * distinguir das views nomeadas.
-   */
-  soloLabel?: string;
 };
 
 /**
@@ -101,7 +93,6 @@ export function TableToolbarViews({
   myOwnerKey = "me",
   divider,
   hideDivider,
-  soloLabel = "Default",
 }: TableToolbarViewsProps) {
   const maxCustomTabs = Math.max(0, maxTabs - 1);
 
@@ -144,18 +135,7 @@ export function TableToolbarViews({
   /* ── Tabs effective: Default + views pinadas ────────────────────── */
 
   const tabs = useMemo(() => {
-    // Garante que a view ATIVA sempre apareça como tab — mesmo que não esteja
-    // pinada (ex: reload restaura uma view salva fora das N primeiras, ou a barra
-    // estava cheia). Sem isso, a tab ativa some e nenhuma fica destacada (a view
-    // aplicada fica "invisível"). Inclusão é só visual (não muta tabViewIds).
-    const renderIds =
-      activeViewId &&
-      activeViewId !== DEFAULT_VIEW_ID &&
-      !tabViewIds.includes(activeViewId) &&
-      views.some((v) => v.id === activeViewId)
-        ? [...tabViewIds, activeViewId]
-        : tabViewIds;
-    const customTabs = renderIds
+    const customTabs = tabViewIds
       .map((id) => views.find((v) => v.id === id))
       .filter((v): v is TableToolbarViewsItem => !!v)
       .map((v) => ({
@@ -163,12 +143,8 @@ export function TableToolbarViews({
         name: typeof v.name === "string" ? v.name : String(v.name),
         custom: v.owner === myOwnerKey,
       }));
-    // Tab Default sozinha (sem views) → label genérico configurável (soloLabel),
-    // pra barra não ficar com um único "Default" solto. Com ≥ 1 outra view,
-    // volta a "Default" pra distinguir das nomeadas.
-    const defaultName = customTabs.length === 0 ? soloLabel : "Default";
-    return [{ id: DEFAULT_VIEW_ID, name: defaultName, custom: false }, ...customTabs];
-  }, [tabViewIds, views, myOwnerKey, soloLabel, activeViewId]);
+    return [{ id: DEFAULT_VIEW_ID, name: "Default", custom: false }, ...customTabs];
+  }, [tabViewIds, views, myOwnerKey]);
 
   const effectiveActiveId = activeViewId ?? DEFAULT_VIEW_ID;
 

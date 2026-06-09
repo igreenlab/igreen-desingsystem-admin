@@ -258,6 +258,19 @@ export function useDataTableController<T>(
     : processed.totalAfterFilter;
   const allPagesProcessed = isServerMode ? query.rowsToRender : processed.rowsAllPagesProcessed;
 
+  // Clamp de página fora de range: quando o total encolhe (ex: filtro reduz
+  // resultados em server/controlled mode) e a página atual passou a ser maior
+  // que a última válida, corrige o STATE — não só o render do footer. Sem isso,
+  // em server/controlled o fetch podia rodar com page inválida até o user clicar.
+  useEffect(() => {
+    if (props.paginationConfig?.enabled === false) return;
+    const { page, pageSize } = pagination.paginationModel;
+    if (pageSize <= 0) return;
+    const lastPage = Math.max(1, Math.ceil(effectiveTotal / pageSize));
+    if (page > lastPage) pagination.setPage(lastPage);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectiveTotal, pagination.paginationModel.page, pagination.paginationModel.pageSize]);
+
   const selection = useDataTableSelection({
     rows: allPagesProcessed,
     getRowId,
