@@ -43,7 +43,6 @@ import {
   FileText,
   FileSpreadsheet,
   Filter as FilterIcon,
-  ChevronRight,
   LayoutGrid,
   Table as TableIcon,
   Settings2,
@@ -111,8 +110,8 @@ import { DataTableNoResults } from "./parts/data-table-no-results";
 import { DataTableColumnMenu } from "./parts/data-table-column-menu";
 import { DataTableActionsCell } from "./parts/data-table-actions-cell";
 import { DataTableSortableHeadCell } from "./parts/sortable-head-cell";
-import { DataTableEditCell } from "./parts/data-table-edit-cell";
 import { DataTableTotalizerRow } from "./parts/data-table-totalizer-row";
+import { DataTableRow, type DataTableRowHandlers } from "./parts/data-table-row";
 import { DataTableGroupHeaderRow } from "./parts/data-table-group-header-row";
 import { DataTableGroupContentRow } from "./parts/data-table-group-content-row";
 import { groupRows, isGroupRow, isGroupContent } from "./utils/group-rows";
@@ -899,6 +898,32 @@ function DataTableInternal<T>(
     contextValue,
   ]);
 
+  // Handlers da row via REF estável (latest-ref pattern): o objeto ref nunca
+  // muda → não invalida o memo do <DataTableRow>; o `.current` é atualizado a
+  // cada render → sem stale closure no event time. Permite memoizar rows sem
+  // precisar useCallback em todos os handlers (que teriam dep-hell).
+  const rowHandlersRef = useRef<DataTableRowHandlers<T>>(null as never);
+  rowHandlersRef.current = {
+    getRowId: contextValue.getRowId,
+    onRowClick: (row, index) => {
+      setFocusedRowIndex(index);
+      props.onRowClick?.(row);
+    },
+    onRowKeyDown: (e, index, row) => handleRowKeyDown(e, index, row),
+    onRowFocus: (index) => {
+      if (focusedRowIndex !== index) setFocusedRowIndex(index);
+    },
+    toggleRowSelection: (row) => selection.toggleRow(row),
+    toggleRowExpansion,
+    startEditingCell: (rowId, field) => setEditingCell({ rowId, field }),
+    onCellEditCommit: handleCellEditCommit,
+    onCellEditCancel: handleCellEditCancel,
+    registerRef: (index, el) => {
+      if (el) rowRefs.current.set(index, el);
+      else rowRefs.current.delete(index);
+    },
+  };
+
   /* ── Virtualização — Fase F.3 ──────────────────────────────────────
    * Quando props.virtualize, renderiza apenas rows visíveis. Estimate de
    * row height deriva de density (compact=40, standard=56, comfortable=64).
@@ -1099,198 +1124,33 @@ function DataTableInternal<T>(
               );
             }
             const row = item as T;
-            return renderRow(row, index, virtualStyle);
-          };
-
-          const renderRow = (
-            row: T,
-            index: number,
-            virtualStyle?: React.CSSProperties,
-          ) => {
-          const isSel = selection.isRowSelected(row);
-          const rowClass = props.getRowClassName?.({ row, index });
-          const isRowFocused = focusedRowIndex === index;
-          return (
-            <TableRow
-              key={String(contextValue.getRowId(row))}
-              ref={(el) => {
-                if (el) rowRefs.current.set(index, el);
-                else rowRefs.current.delete(index);
-              }}
-              selected={isSel}
-              focused={isRowFocused}
-              clickable={!!props.onRowClick}
-              onClick={() => {
-                setFocusedRowIndex(index);
-                props.onRowClick?.(row);
-              }}
-              rootProps={{
-                onKeyDown: (e) => handleRowKeyDown(e, index, row),
-                onFocus: () => {
-                  // Atualiza focused quando Tab traz foco direto (sem keyDown anterior)
-                  if (focusedRowIndex !== index) setFocusedRowIndex(index);
-                },
-                style: virtualStyle,
-              }}
-              className={rowClass}
-            >
-              {selectionConfig.enabled && (
-                <TableCell width={SELECTION_COLUMN_WIDTH} align="center" purpose="selection">
-                  <Checkbox
-                    checked={isSel}
-                    onCheckedChange={() => selection.toggleRow(row)}
-                    onClick={(e) => e.stopPropagation()}
-                    aria-label="Selecionar linha"
-                  />
-                </TableCell>
-              )}
-              {cols.effectiveColumns.map((col) => {
-                const field = String(col.field);
-                const isActionsCol = col.type === "actions";
-                const value = isActionsCol ? undefined : resolveCellValue(row, col);
-                const rowId = contextValue.getRowId(row);
-                const isEditingThisCell =
-                  editingCell?.rowId === rowId && editingCell.field === field;
-                const isEditable = !isActionsCol && col.editable === true;
-                // Fase F.4b — coluna marcada como expand trigger.
-                // Mostra chevron + cursor pointer; click toggla expansão da row.
-                const isExpandableCol =
-                  useRowExpansion && col.expandable === true && field === expandableColField;
-                const isRowExpanded = expandedRowIds.has(rowId);
-
-                // Actions column com getActions → auto-renderiza DataTableActionsCell.
-                // Se consumer passar `render` numa coluna actions, render ganha (escape hatch).
-                // Inline edit (isEditingThisCell) → DataTableEditCell substitui o content.
-                // Expandable col → prefixa chevron antes do content.
-                // Fase G.2 — fallback chain:
-                //   1. col.render (consumer custom)
-                //   2. registry.renderCell (tipo prebuilt)
-                //   3. col.valueFormatter
-                //   4. registry.formatValue
-                //   5. raw value
-                const typeDef = col.type
-                  ? columnTypeRegistry.get(col.type)
-                  : undefined;
-                const baseContent = isEditingThisCell
-                  ? (
-                      <DataTableEditCell
-                        column={col}
-                        row={row}
-                        initialValue={value}
-                        isLoading={editLoading}
-                        error={editError}
-                        onCommit={(newValue) =>
-                          handleCellEditCommit({
-                            row,
-                            field,
-                            value: newValue,
-                            oldValue: value,
-                          })
-                        }
-                        onCancel={handleCellEditCancel}
-                      />
-                    )
-                  : isActionsCol && col.getActions && !col.render
-                    ? (
-                        <DataTableActionsCell
-                          row={row}
-                          actions={col.getActions({ row })}
-                        />
-                      )
-                    : col.render
-                      ? col.render({ row, value })
-                      : typeDef?.renderCell
-                        ? typeDef.renderCell({
-                            value,
-                            row,
-                            options: col.filterOptions,
-                            column: {
-                              field: String(col.field),
-                              headerName: col.headerName,
-                              valueFormatter: col.valueFormatter,
-                              typeOptions: col.typeOptions,
-                            },
-                          })
-                        : col.valueFormatter
-                          ? col.valueFormatter(value)
-                          : typeDef?.formatValue
-                            ? typeDef.formatValue(value)
-                            : value;
-                const content = isExpandableCol ? (
-                  <span className="flex items-center gap-gp-md w-full">
-                    <ChevronRight
-                      className={cn(
-                        "shrink-0 size-icon-sm text-fg-muted transition-transform duration-150",
-                        isRowExpanded && "rotate-90",
-                      )}
-                      aria-hidden
-                    />
-                    <span className="flex-1 min-w-0">{baseContent as ReactNode}</span>
-                  </span>
-                ) : (
-                  baseContent
-                );
-                // Tooltip nativo: string formatada quando ellipsis ou texto plano (sem custom render)
-                // Nao aplica em colunas actions (icones tem proprio title) ou em cell em edicao.
-                const tooltipText =
-                  isActionsCol || isEditingThisCell
-                    ? undefined
-                    : col.ellipsis || !col.render
-                      ? col.valueFormatter
-                        ? col.valueFormatter(value)
-                        : value != null
-                          ? String(value)
-                          : undefined
-                      : undefined;
-                // onDoubleClick em celulas editaveis entra em edit mode.
-                // onClick em cells expandable toggla expansão da row.
-                // stopPropagation em ambos evita disparar onRowClick.
-                const cellRootProps: React.HTMLAttributes<HTMLDivElement> | undefined =
-                  isEditable || isExpandableCol
-                    ? {
-                        ...(isEditable && {
-                          onDoubleClick: (e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            setEditingCell({ rowId, field });
-                          },
-                          "data-editable": "true",
-                        }),
-                        ...(isExpandableCol && {
-                          onClick: (e: React.MouseEvent) => {
-                            e.stopPropagation();
-                            toggleRowExpansion(rowId);
-                          },
-                          "data-expandable": "true",
-                          "aria-expanded": isRowExpanded,
-                          style: { cursor: "pointer" },
-                        }),
-                      }
-                    : undefined;
-                // Fase G.2 — defaults vindos do registry quando consumer não override
-                const effectiveAlign = col.align ?? typeDef?.defaultAlign;
-                const effectiveEllipsis = col.ellipsis ?? typeDef?.defaultEllipsis;
-                return (
-                  <TableCell
-                    key={field}
-                    field={field}
-                    width={cols.columnWidths[field]}
-                    pinned={col.pinned}
-                    pinOffset={cols.stickyOffsets[field]}
-                    align={effectiveAlign}
-                    ellipsis={effectiveEllipsis}
-                    purpose={isActionsCol ? "actions" : undefined}
-                    label={col.headerName}
-                    tooltip={tooltipText}
-                    rootProps={cellRootProps}
-                    // Celula em edicao remove padding pra editor ocupar 100% sem margem
-                    className={isEditingThisCell ? "!px-pad-xs !py-0" : undefined}
-                  >
-                    {content as ReactNode}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
+            const rowId = contextValue.getRowId(row);
+            const editState =
+              editingCell?.rowId === rowId
+                ? { field: editingCell.field, isLoading: editLoading, error: editError }
+                : null;
+            return (
+              <DataTableRow<T>
+                key={String(rowId)}
+                row={row}
+                index={index}
+                rowId={rowId}
+                selected={selection.isRowSelected(row)}
+                focused={focusedRowIndex === index}
+                expanded={expandedRowIds.has(rowId)}
+                editState={editState}
+                rowClassName={props.getRowClassName?.({ row, index })}
+                virtualStyle={virtualStyle}
+                columns={cols.effectiveColumns}
+                columnWidths={cols.columnWidths}
+                stickyOffsets={cols.stickyOffsets}
+                selectionEnabled={selectionConfig.enabled === true}
+                clickable={!!props.onRowClick}
+                useRowExpansion={useRowExpansion}
+                expandableColField={expandableColField}
+                handlers={rowHandlersRef}
+              />
+            );
           };
 
           // Render: virtualizado vs todos as rows. `finalItems` cobre rows
