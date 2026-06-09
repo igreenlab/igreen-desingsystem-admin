@@ -22,6 +22,7 @@ import {
   genFilterId,
   filterValueIsEmpty as isEmpty,
   promoteOperatorForFilterType,
+  defaultOperatorForFilterType,
 } from "../../DataTable/utils/filter-ops";
 import type { FilterPopoverColumn } from "../popovers/filter-popover";
 
@@ -76,18 +77,6 @@ export type ToolbarSimpleFilterDrawerProps = {
   size?: "sm" | "md" | "lg" | "xl";
 };
 
-/** Infere operator default do filterType — alinha com inferOperatorFromFilterType
- *  do DataTable. NÃO duplicar lógica: se mudar lá, mudar aqui. */
-function inferOperator(filterType: string | undefined): FilterOperator {
-  switch (filterType) {
-    case "multiSelect": return "isAnyOf";
-    case "select":      return "equals";
-    case "date":        return "between";
-    case "number":      return "equals";
-    case "boolean":     return "equals";
-    default:            return "contains";
-  }
-}
 
 
 export function ToolbarSimpleFilterDrawer({
@@ -134,7 +123,7 @@ export function ToolbarSimpleFilterDrawer({
   const updateFieldValue = (field: string, newValue: unknown, filterType: string | undefined) => {
     // multiSelect ⇒ operador sempre isAnyOf/isNoneOf (ver promoteOperatorForFilterType).
     const effectiveOperator: FilterOperator = promoteOperatorForFilterType(
-      inferOperator(filterType),
+      defaultOperatorForFilterType(filterType),
       filterType,
     );
 
@@ -230,7 +219,7 @@ export function ToolbarSimpleFilterDrawer({
 
         {visibleColumns.map((col) => {
           const items = itemsByField.get(col.key) ?? [];
-          const operator = inferOperator(col.filterType);
+          const operator = defaultOperatorForFilterType(col.filterType);
           const typeId = col.filterType ?? col.type ?? "text";
           const def = columnTypeRegistry.get(typeId);
 

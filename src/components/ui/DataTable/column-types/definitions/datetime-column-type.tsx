@@ -35,13 +35,14 @@ function formatShortTime(v: unknown): string {
 
 export const DatetimeColumnType: ColumnTypeDefinition = {
   type: "datetime",
+  // `between` é o default pra datas (operators[0]) — ver date-column-type.
   operators: [
+    { id: "between", label: "entre" },
     { id: "equals", label: "é" },
     { id: "gt", label: "depois de" },
     { id: "lt", label: "antes de" },
     { id: "gte", label: "em ou depois de" },
     { id: "lte", label: "em ou antes de" },
-    { id: "between", label: "entre" },
   ],
   renderFilterInput: ({ value, onChange, operator }) => {
     const isRange = operator === "between";

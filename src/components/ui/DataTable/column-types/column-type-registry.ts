@@ -32,6 +32,14 @@ class ColumnTypeRegistry {
     if (typeId && this.types.has(typeId)) {
       return this.types.get(typeId)!;
     }
+    // Typo guard (dev): diferencia "sem tipo" (undefined → text é intencional)
+    // de "tipo desconhecido" (provável typo). Sem isso, `type="curency"` degrada
+    // silenciosamente pra text plano.
+    if (typeId && import.meta.env?.DEV) {
+      console.warn(
+        `[columnTypeRegistry] type "${typeId}" não registrado — usando fallback "text". Typo? Tipos disponíveis: ${Array.from(this.types.keys()).join(", ")}.`,
+      );
+    }
     const fallback = this.types.get("text");
     if (!fallback) {
       throw new Error(

@@ -10,6 +10,7 @@ import type {
   DataTableColumnDef,
   FilterOperator,
 } from "../data-table.types";
+import { columnTypeRegistry } from "../column-types";
 
 /**
  * Operadores que carregam MÚLTIPLOS valores numa condição (chip+popover) —
@@ -76,4 +77,17 @@ export function promoteOperatorForColumn<T>(
   col: DataTableColumnDef<T> | undefined,
 ): FilterOperator {
   return promoteOperatorForFilterType(operator, col?.filterType);
+}
+
+/**
+ * Operador default de um tipo de filtro — derivado do REGISTRY (`operators[0]`),
+ * fonte única. Sem switch hardcoded: um column-type novo já traz seu default
+ * correto (ex: currency → equals, date → between, multiSelect → isAnyOf), e
+ * nunca cai num `"contains"` que o tipo não suporta.
+ */
+export function defaultOperatorForFilterType(
+  filterType: string | undefined,
+): FilterOperator {
+  const def = columnTypeRegistry.get(filterType ?? "text");
+  return (def.operators?.[0]?.id as FilterOperator) ?? "contains";
 }

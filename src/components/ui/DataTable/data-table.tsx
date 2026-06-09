@@ -102,6 +102,7 @@ import {
   MIN_REFRESH_SPINNER_MS,
   DENSITY_ROW_HEIGHT,
 } from "./data-table.constants";
+import { defaultOperatorForFilterType } from "./utils/filter-ops";
 import { DataTableProvider } from "./context/data-table-context";
 import { useDataTableController } from "./hooks/use-data-table-controller";
 import { DataTableEmpty } from "./parts/data-table-empty";
@@ -392,25 +393,6 @@ function DataTableInternal<T>(
     () => new Set(),
   );
 
-  /** Infere operator default a partir do filterType da coluna. */
-  const inferOperatorFromFilterType = (
-    filterType: string | undefined,
-  ): FilterItem["operator"] => {
-    switch (filterType) {
-      case "multiSelect":
-        return "isAnyOf";
-      case "select":
-        return "equals";
-      case "date":
-        return "between";
-      case "number":
-        return "equals";
-      case "boolean":
-        return "equals";
-      default:
-        return "contains";
-    }
-  };
 
   /** Fields que JÁ TÊM item COM VALOR no filterModel — placeholders desses fields
    *  são suprimidos. Items vazios (sem valor preenchido) NÃO contam — assim quando
@@ -527,7 +509,7 @@ function DataTableInternal<T>(
     (field: string) => {
       const col = colsByField.get(field);
       if (!col) return;
-      const operator = inferOperatorFromFilterType(col.filterType);
+      const operator = defaultOperatorForFilterType(col.filterType);
       const newId =
         typeof crypto !== "undefined" && "randomUUID" in crypto
           ? crypto.randomUUID()
@@ -694,7 +676,7 @@ function DataTableInternal<T>(
     // Fonte única: mesma inferência usada no resto do DataTable. Evita a
     // divergência anterior (number/currency caíam em "contains", que esses
     // tipos nem suportam → filtro inerte).
-    const operator = inferOperatorFromFilterType(col.filterType);
+    const operator = defaultOperatorForFilterType(col.filterType);
     const chipKey = `${field}|${operator}`;
     const initialValue: FilterValue = operator === "between" ? [null, null] : "";
 
@@ -1561,7 +1543,7 @@ function DataTableInternal<T>(
                                 // op já em id longo do FilterModel — sem remap.
                                 const filterOp = operator as FilterItem["operator"];
                                 return def.renderFilterInput({
-                                  value: value as never,
+                                  value: value as FilterValue,
                                   onChange: (v) => onChange(v),
                                   operator: filterOp,
                                   options: column.options,
@@ -1798,7 +1780,7 @@ function DataTableInternal<T>(
                   <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
                   <PopoverContent align="start" className="p-0">
                     {def.renderFastFilterInput({
-                      value: currentValue as never,
+                      value: currentValue as FilterValue,
                       onChange: (v) => updateGroupValue(group.key, v),
                       options,
                     })}
