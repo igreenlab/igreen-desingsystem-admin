@@ -1868,3 +1868,18 @@
   - [x] barrel index.ts: export removido.
 - Critique genuína: remoção limpa — não é apenas confirmação de ausência; a invariante "toolbar canônica renderiza sempre" foi ativamente verificada no JSX (sem condicional morto envolvendo o fragmento). Não há mudança funcional no código que permanece, apenas remoção.
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-09] | DS DEV | Frente E — naming/consistência de hooks + avaliação da Frente C | CONCLUÍDO
+- Input: última frente da padronização — polish de naming/consistência de hooks.
+- Output (Frente E):
+  - `UseToolbarFilterControlReturn` → `UseToolbarFilterControlResult` (alinha com convenção `*Result`).
+  - Campo de retorno do controller `exportHook` → `exporter` (evita `exportHook.exportCsv` redundante; clareza).
+  - `useToolbarFilters`/`useToolbarSort`: tipo de retorno explícito (`UseToolbarFiltersResult`/`UseToolbarSortResult`, exportados nos barrels) + removido `as const` + JSDoc documentando a FRONTEIRA (standalone, NÃO usados pelo DataTable — evita confusão de duplicação com useDataTableFilters/Sort).
+- Frente C (slim data-table.tsx): **AVALIADA E NÃO FEITA**. Pós-Frente D (~500 LOC já cortadas) o arquivo é complexidade essencial de orquestrador. Extrair DataTableBody/toolbar exigiria prop-drilling de 25+ deps — net-negativo. useExportMenuItems virou moot (triplicação removida na D). Decisão registrada no BACKLOG.
+- Decisões:
+  - `useCallback`/`handle*` rename dos adapters NÃO feito (audit marcou BAIXA — popovers não são hot path; churn alto pra valor marginal).
+  - Não splitar data-table.tsx mecanicamente — "god component" aqui é aparência (LOC), não essência.
+- Assumption: os renames são puramente de nome/tipo (sem mudança de comportamento). Confirmado: tsc 0.
+- Lições novas: nenhuma — reforço: nem todo arquivo grande deve ser splitado; prop-drilling pode piorar manutenção.

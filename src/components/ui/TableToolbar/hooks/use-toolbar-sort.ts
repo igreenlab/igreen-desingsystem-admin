@@ -15,8 +15,24 @@ export type UseToolbarSortOptions = {
   maxColumns?: number;
 };
 
+export type UseToolbarSortResult = {
+  list: ToolbarSortEntry[];
+  toggle: (columnKey: string) => void;
+  set: (columnKey: string, direction: SortDirection) => void;
+  remove: (columnKey: string) => void;
+  clear: () => void;
+  replaceAll: (next: ToolbarSortEntry[]) => void;
+  count: number;
+  directionOf: (columnKey: string) => SortDirection | undefined;
+};
+
 /**
- * useToolbarSort — helper opcional pra ordenação multi-coluna.
+ * useToolbarSort — helper opcional **standalone** pra ordenação multi-coluna
+ * num `<TableToolbar>` montado à mão (fora do DataTable).
+ *
+ * ⚠️ **Fronteira**: NÃO é usado pelo DataTable — ele tem seu próprio pipeline
+ * (`useDataTableSort` + `SortModel` + adapter). Use este apenas em toolbars
+ * custom standalone.
  *
  * Retorna:
  *   - `list`: array de { columnKey, direction }
@@ -28,7 +44,7 @@ export type UseToolbarSortOptions = {
  *   - `count`: tamanho da lista
  *   - `directionOf(columnKey)`: lookup helper
  */
-export function useToolbarSort(options?: UseToolbarSortOptions) {
+export function useToolbarSort(options?: UseToolbarSortOptions): UseToolbarSortResult {
   const { initial = [], maxColumns = Infinity } = options ?? {};
   const [list, setList] = useState<ToolbarSortEntry[]>(initial);
 
@@ -98,5 +114,5 @@ export function useToolbarSort(options?: UseToolbarSortOptions) {
     replaceAll,
     count: list.length,
     directionOf,
-  } as const;
+  };
 }

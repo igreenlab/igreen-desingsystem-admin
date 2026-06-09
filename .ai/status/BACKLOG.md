@@ -29,17 +29,18 @@
 - Factories `makeTextColumnType`/`makeSelectColumnType` (text/email/phone/url e select/user/badge
   viram declarativos).
 
-**data-table.tsx (2428 LOC):**
-- Extrair `parts/data-table-toolbar.tsx` + `parts/data-table-toolbar-legacy.tsx` (corta ~700 LOC,
-  isola a branch legada).
-- Extrair `parts/data-table-body.tsx` (IIFE de ~256 LOC com renderRow/renderItem/virtualização).
-- `useExportMenuItems()` — lógica de export-menu triplicada 3×.
-- `enhancedAppliedFilters` (~50 LOC no render) → mover pro filter adapter.
+**data-table.tsx (slim — Frente C):** ⏭️ AVALIADA E NÃO FEITA. Pós-Frente D o
+arquivo caiu pra ~1.400 LOC e o resto é complexidade essencial de orquestrador.
+`useExportMenuItems` virou moot (triplicação era das cópias deprecadas, removidas
+na D). Extrair `DataTableBody`/toolbar JSX exigiria prop-drilling de 25+ deps (ou
+expor 25+ valores no Provider) — net-negativo (relocaliza complexidade + indireção).
+`enhancedAppliedFilters` poderia ir pro adapter mas acopla state de UI; ganho modesto.
+**Conclusão:** não splitar mecanicamente. Reabrir só se a complexidade essencial crescer.
 
-**Hooks (naming/consistência):**
-- Adapters: prefixo `handle*` uniforme + `useCallback` nos handlers (sort/cols/filter falam línguas diferentes).
-- Tipo de retorno explícito `*Result` (renomear `UseToolbarFilterControlReturn`); `exportHook`→`exportCsv`.
-- Documentar fronteira `useToolbar*` (standalone, NÃO usados pela DataTable).
+**Hooks (naming/consistência — Frente E):** ✅ FEITO — `*Return`→`*Result`,
+`exportHook`→`exporter`, return types explícitos + fronteira standalone documentada
+nos `useToolbar*`. `useCallback`/rename `handle*` dos adapters NÃO feito (BAIXA no
+audit — popovers não são hot path; churn alto, valor marginal).
 
 **Toolbar Deprecated:** ✅ FEITO (Frente D) — `TableToolbarDeprecated/` + branch
 `deprecatedToolbar` + DocPage removidos. ~1.700 LOC dup eliminadas.

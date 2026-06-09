@@ -11,7 +11,7 @@ import { ToolbarToolButton } from "./toolbar-tool-button";
 import { ToolbarSimpleFilterDrawer } from "./toolbar-simple-filter-drawer";
 import {
   useToolbarFilterControl,
-  type UseToolbarFilterControlReturn,
+  type UseToolbarFilterControlResult,
 } from "../hooks/use-toolbar-filter-control";
 // Types do DataTable — coupling-aceita pra type safety. Mesmo pattern do
 // FilterPopover. Coupling reverso (DataTable → TableToolbar) continua proibido.
@@ -82,7 +82,7 @@ export type ToolbarFilterControlProps = {
    * tudo automaticamente. Útil quando consumer precisa abrir drawer
    * programaticamente (ex: query-param `?filters=true` → openSimple()).
    */
-  controlState?: UseToolbarFilterControlReturn;
+  controlState?: UseToolbarFilterControlResult;
 };
 
 export function ToolbarFilterControl({

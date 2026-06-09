@@ -100,8 +100,10 @@ export type {
   FilterPopoverEntry,
   ToolbarFilterEntry,
   UseToolbarFiltersOptions,
+  UseToolbarFiltersResult,
   ToolbarSortEntry,
   UseToolbarSortOptions,
+  UseToolbarSortResult,
 } from "./ui/TableToolbar";
 
 /* ── Shadcn adapted (DS tokens) ─────────────────────────────────── */

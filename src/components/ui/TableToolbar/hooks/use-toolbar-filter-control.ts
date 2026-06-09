@@ -22,7 +22,7 @@ import { useCallback, useState } from "react";
  * />
  * ```
  */
-export type UseToolbarFilterControlReturn = {
+export type UseToolbarFilterControlResult = {
   /** Estado: drawer simples aberto. */
   simpleDrawerOpen: boolean;
   /** Estado: popover avançado aberto. */
@@ -39,7 +39,7 @@ export type UseToolbarFilterControlReturn = {
   closeAll: () => void;
 };
 
-export function useToolbarFilterControl(): UseToolbarFilterControlReturn {
+export function useToolbarFilterControl(): UseToolbarFilterControlResult {
   const [simpleDrawerOpen, setSimpleDrawerOpen] = useState(false);
   const [advancedPopoverOpen, setAdvancedPopoverOpen] = useState(false);
 
