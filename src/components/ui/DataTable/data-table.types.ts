@@ -653,9 +653,10 @@ export type DataTableProps<T> = {
   loading?: boolean;
 
   /**
-   * Opt-in pra persistir estado da tabela no localStorage.
-   * Quando presente, persiste: density, sortModel, pageSize, columnWidths, pinnedColumns, hiddenColumns, columnOrder.
-   * Nao persiste: filters, search, page (ephemeros entre sessoes).
+   * Opt-in pra persistir estado da tabela no localStorage (schema v4 — workspace "Default").
+   * Persiste: density, sortModel, pageSize, currentPage, columnWidths, pinnedColumns,
+   * hiddenColumns, columnOrder, filterModel, search, viewMode, groupBy, expandedRowIds,
+   * lastActiveViewId. Ver `hooks/state-persistence-utils.ts` (fonte de verdade do shape).
    * Use ids estaveis por tela (ex: "clients-table"). Chame `ref.current.resetPersistedState()` pra limpar.
    */
   persistId?: string;
