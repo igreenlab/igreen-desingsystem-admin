@@ -623,7 +623,10 @@ igreen-ds/
 │   │   ├── ds-create-component.md  ← /ds-create-component
 │   │   ├── ds-add-shadcn.md        ← /ds-add-shadcn
 │   │   ├── ds-create-composite.md  ← /ds-create-composite
-│   │   └── ds-extract-figma.md     ← /ds-extract-figma
+│   │   ├── ds-extract-figma.md     ← /ds-extract-figma
+│   │   ├── ds-update.md            ← /ds-update [tag]
+│   │   ├── ds-release.md           ← /ds-release [tag]
+│   │   └── ds-create-crud.md       ← /ds-create-crud [hint]
 │   │
 │   ├── skills/
 │   │   PAPEL: Lógica técnica segregada por agente e por sub-tarefa. O mecanismo
@@ -636,6 +639,7 @@ igreen-ds/
 │   │   ├── app-designer/       ← 🚧 Pendente
 │   │   ├── app-dev-react/      ← 🚧 Pendente
 │   │   ├── frontend-design/    ← Skill de interface iGreen (CRM/admin)
+│   │   ├── crud-builder/       ← Construtor de telas CRUD/tabela (/ds-create-crud)
 │   │   ├── igreen-page/        ← 🚧 Pendente — padrões de página
 │   │   └── _deprecated/        ← Skills substituídas. NÃO CARREGAR.
 │   │       ├── igreen-component/    (substituída por ds-dev/impl-igreen.md)
@@ -717,6 +721,7 @@ errado — isso é um sinal de que ele não delegou corretamente.
 | Componente composto | `/ds-create-composite` | ds-dev | → ds-reviewer |
 | Editar visual de existente | — | ds-dev | → ds-reviewer |
 | Extração do Figma | `/ds-extract-figma` | ds-designer | → GATE → ds-dev |
+| Tela CRUD/tabela (DataTable) | `/ds-create-crud` | crud-builder | entrevista → GATE blueprint → geração |
 | Adapter / transform | — | ds-dev | (sem reviewer para tarefas técnicas simples) |
 | Tarefa de App | — | — | ⛔ Domínio não operacional — informar usuário |
 
@@ -1038,6 +1043,42 @@ Conteúdo operacional: 5 passos completos de revisão, todos os comandos grep co
 padrões regex para cada lição (L-001 a L-014), checklist estrutural separado por
 tipo (iGreen/Shadcn/composto), critério de critique genuína, formato obrigatório
 de registro no pipeline-state.md.
+
+### Usando skills quando o DS é subprojeto
+
+O Claude Code só descobre `.claude/commands/` e `.claude/skills/` da pasta onde
+a sessão foi aberta (+ `~/.claude/` do usuário). Se o DS está numa subpasta
+(monorepo, `vendor/`, git submodule) e a sessão roda na raiz do projeto PAI, os
+slash commands do DS **não aparecem**. Três formas de usar o pipeline mesmo assim:
+
+**1. Abrir a sessão na subpasta do DS** — `cd packages/igreen-ds && claude`.
+Tudo funciona nativo (commands, skills, hooks, rules).
+
+**2. Copiar pro `.claude/` do projeto pai** — ex. pro CRUD builder:
+`ds-create-crud.md` → `meu-app/.claude/commands/` e a pasta `crud-builder/` →
+`meu-app/.claude/skills/`. O command vira nativo no pai; a skill detecta que
+está num consumer (via `package.json.name`) e adapta imports/paths.
+
+**3. Invocação por prompt (ler-e-seguir)** — sem copiar nada. Skills são
+markdown: a IA da sessão pai lê os arquivos do subprojeto e os segue como
+instruções autoritativas. O prompt precisa APONTAR a porta de entrada — um
+pedido vago ("cria uma tabela usando o DS") deixa a IA improvisar. Template
+copy-paste:
+
+```
+Tenho o iGreen Design System como subprojeto em <path>. Ele tem um pipeline
+de skills pro Claude Code. Leia e siga
+<path>/.claude/skills/crud-builder/SKILL.md (e os arquivos que ele encadeia)
+pra criar uma página de tabela de <entidade> no meu app. Trate os .md como
+instruções autoritativas — não improvise fora deles. Meus dados: <sample
+JSON | endpoint | interface TS>.
+```
+
+A skill cobre esse caminho explicitamente (seção "Invocação por prompt" do
+`crud-builder/SKILL.md`): mesma ordem de carga, mesmos guardrails, e o gate de
+blueprint continua obrigatório. Vantagem do cenário subprojeto: os exemplos
+canônicos (`src/preview/pages/Clients*`) existem no disco — a IA lê a fonte
+real antes de gerar, sem depender de fallback.
 
 ---
 
@@ -1710,6 +1751,37 @@ Verificações de entrada:
 O output do DS Designer é uma tabela de mapeamento com Perspectiva Strategist,
 identificando gaps (valores Figma sem token DS equivalente) que precisam ser criados
 via /ds-add-token antes da implementação.
+
+### /ds-update
+
+**Arquivo:** `ds-update.md`
+**Quando usar:** registrar mudanças acumuladas na timeline Updates (sem release)
+**Fluxo:** DS Dev (update-changelog.md) → GATE preview → grava entry em updates-data.ts
+
+Lê o git log desde a última entry, classifica por prefixo convencional e propõe
+uma ReleaseEntry typed. Não faz bump nem commit — só a timeline.
+
+### /ds-release
+
+**Arquivo:** `ds-release.md`
+**Quando usar:** fechar versão — TODO bump de `package.json.version` passa por aqui (L-020)
+**Fluxo:** DS Dev (release.md) → pre-commit-check → GATE preview → bump + branch + commit + push + PR via gh
+
+Engloba o /ds-update e adiciona os passos de publicação git. Releases de todos os
+tamanhos (major/minor/patch/hotfix) usam este fluxo — direct push no main quebra a
+convenção do projeto.
+
+### /ds-create-crud
+
+**Arquivo:** `ds-create-crud.md`
+**Quando usar:** criar tela de tabela/CRUD consumindo o DataTable
+**Fluxo:** crud-builder (entrevista 6 fases) → GATE blueprint → geração lendo exemplos canônicos
+
+Entrevista híbrida (fases com defaults + drill-down por coluna; aceita sample
+JSON/interface TS/descrição de endpoint quando os dados vêm de API), consolida
+blueprint com pré-validações (operador×filterType, colisão de page id) e só gera
+após aprovação — espelhando os exemplos `Clients*Preview`/showcases. Funciona
+também com o DS como subprojeto via invocação por prompt (ver seção 8).
 
 ---
 

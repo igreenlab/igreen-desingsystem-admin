@@ -88,15 +88,15 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Server mode** | passe `fetchData` em vez de `rows` |
 | **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor, rows viram `<TableCardRow>` automaticamente — toolbar e footer continuam intactos. `cardBreakpoint={false}` desabilita. |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária. |
-| **Virtualização** | `enableVirtualization: true` + `estimatedRowHeight` |
-| **Row grouping** | `groupBy: ["status", "region"]` + (opcional) `groupMode: "free"` |
-| **Row expansion** | `rowExpansion: { renderExpanded: ({ row }) => <Detail row={row} /> }` |
+| **Virtualização** | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais) |
+| **Row grouping** | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form |
+| **Row expansion** | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />` |
 | **Saved views** | `savedViewsService` (use `savedViewsMockService` em dev) |
 | **State persistence** | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
 | **Auto-fit das colunas** | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui espaço sobrando. Override com `col.width` mantém largura fixa. `autoFit={false}` desliga (comportamento legacy). |
 | **Resize manual de colunas** | Default ativo em todas as colunas exceto `type: "actions"` ou `purpose: "selection"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`. |
 | **Export** | `toolbar.enableExport: true` + handlers em `onExport` |
-| **Totalizer row** | `totalizers: [{ field: "value", agg: "sum", format: formatBRL }]` |
+| **Totalizer row** | `showTotalizers` na DataTable + `aggregate: "sum"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow` |
 | **Keyboard navigation** | Auto — setas, Home/End, PgUp/PgDn no body |
 
 ---
@@ -106,9 +106,9 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 ### Server mode (refetch async + paginação remota)
 
 ```tsx
-const fetchData = useCallback(async ({ pagination, sort, filter, search }: GridFetchParams) => {
-  const res = await api.get("/clients", { params: serialize({ pagination, sort, filter, search }) });
-  return { rows: res.data.items, total: res.data.total };
+const fetchData = useCallback(async ({ pagination, sort, filters, search }: GridFetchParams) => {
+  const res = await api.get("/clients", { params: serialize({ pagination, sort, filters, search }) });
+  return { data: res.data.items, total: res.data.total };  // GridFetchResult<T>
 }, []);
 
 <DataTable<Client>
@@ -132,14 +132,14 @@ const columns: DataTableColumnDef<Client>[] = [
 <DataTable<Client>
   rows={clients}
   columns={columns}
-  onCellEditCommit={async ({ row, field, newValue }) => {
-    await api.patch(`/clients/${row.id}`, { [field]: newValue });
+  onCellEditCommit={async ({ id, field, value, oldValue, row }) => {
+    await api.patch(`/clients/${id}`, { [field]: value });
     refreshClients();
   }}
 />
 ```
 
-Click numa cell `editable` → input inline; Enter commita; Esc cancela; loading bloqueia outras edições.
+Double-click numa cell `editable` → input inline; Enter commita; Esc cancela; loading bloqueia outras edições.
 
 ### Mobile auto-switch para card
 
@@ -181,13 +181,14 @@ const columns = [
 <DataTable<Client>
   rows={tenThousandClients}
   columns={columns}
-  enableVirtualization
-  estimatedRowHeight={42}     // default 42 (matches TABLE_HEADER_HEIGHT)
+  virtualize
+  estimateRowHeight={56}      // opcional — default deriva da density (40/56/64)
+  overscan={10}               // opcional — rows extras fora da viewport
   paginationConfig={{ enabled: false }} // virtualização geralmente exclui paginação
 />
 ```
 
-Usa `@tanstack/react-virtual`. Sticky header e seleção mantêm-se. Performance fica linear até ~100k rows.
+Usa `@tanstack/react-virtual`. Sticky header e seleção mantêm-se. Performance fica linear até ~100k rows. Requer container com altura definida (`flex-1 min-h-0` ou height fixa).
 
 ### Row grouping
 
@@ -195,31 +196,36 @@ Usa `@tanstack/react-virtual`. Sticky header e seleção mantêm-se. Performance
 <DataTable<Client>
   rows={clients}
   columns={columns}
-  groupBy={["status"]}            // multi-nível: ["region", "status"]
-  groupMode="column-aligned"      // ou "free" para header customizado
-  renderGroupHeader={({ group, level, count, isExpanded, onToggle }) =>
-    <span>{group.label} ({count})</span>
-  }
+  groupBy="status"                // controlled (string, 1 field na V1) — ou defaultGroupBy uncontrolled
+  onGroupByChange={setGroupBy}
+  // Default (sem overrides): header column-aligned com chevron + label + count + subtotals.
+  // Free-form: passe os 2 overrides abaixo.
+  renderGroupHeader={({ group, toggle }) => (
+    <span onClick={toggle}>{group.label} ({group.count})</span>
+  )}
+  renderGroupContent={({ group }) => <CardsGrid rows={group.rows} />}
 />
 ```
 
-`column-aligned`: header alinhado às colunas, mantém grid layout.
-`free`: header full-width, ideal pra hierarquias complexas.
+Pagination é desligada **automaticamente** quando `groupBy` está ativo. Sem os overrides, o default é column-aligned (mantém grid layout); com `renderGroupHeader`/`renderGroupContent`, o grupo vira free-form (full-width, ideal pra hierarquias complexas). Referência: `src/preview/pages/ClientsGroupedPreview.tsx` (2 modos).
 
 ### Row expansion (painel detalhe)
 
 ```tsx
+const columns = [
+  { field: "id", headerName: "ID", expandable: true },  // ← chevron + click trigger
+  // ...
+];
+
 <DataTable<Client>
   rows={clients}
   columns={columns}
-  rowExpansion={{
-    renderExpanded: ({ row }) => <ClientDetailPanel client={row} />,
-    expandIcon: "chevron",
-  }}
+  renderRowExpansion={({ row }) => <ClientDetailPanel client={row} />}
+  singleExpand   // opcional — default false (múltiplas rows abertas)
 />
 ```
 
-Chevron column injetada à esquerda; um row expandido por vez (ou multi-row, configurável).
+O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
 
 ### Saved views
 
@@ -376,13 +382,17 @@ tableRef.current?.refresh();          // server mode: re-disparar fetchData
 
 - `title?` — string no canto esquerdo
 - `enableSearch?` (true) — ToolbarSearch slot
-- `enableFilters?` (true) — FilterPopover (só aparece se ao menos uma coluna tem `enableColumnFilter`)
+- `enableRefresh?` (true) — botão Refresh após o search (server mode refetch; client mode spinner)
+- `enableFilters?` (true) — controle de filtros (só aparece se ao menos uma coluna tem `enableColumnFilter`)
 - `enableColumns?` (true) — ColsPopover (show/hide, pin, reorder via drag)
 - `enableDensity?` (true) — ToolbarSegmented compact/standard/comfortable
-- `enableExport?` (false) — botão Export + handlers via `onExport`
-- `moreMenuItems?` — items extras no `<MoreMenu>`
-- `bulkActions?` — ReactNode renderizado no `<BulkActionsBar>` quando há seleção
-- `presetViews?` — DataTablePresetView[] (tabs no topo da toolbar)
+- `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom
+- `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito
+- `customLeft?` — ReactNode livre após search/refresh (controls custom)
+- `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado
+
+> Bulk actions vão em `selectionConfig.actions` (não no toolbar). Preset views vão na prop
+> `defaultViews` da DataTable (não no toolbar).
 
 ### `paginationConfig`
 - `enabled` (true)
@@ -464,8 +474,8 @@ ref.current?.resetPersistedState();   // remove entry inteira do localStorage
 - `columns` **deve** ser memoizado com `useMemo` no pai
 - O processor (filter → search → sort → paginate) usa useMemo cascateado — mudar só de página NÃO re-roda filter/search/sort
 - Provider value é memoizado — re-render do pai não dispara cascade em rows
-- Use `enableVirtualization` para > ~500 rows visíveis (ou desde sempre se UX permite)
-- Saved views + persistKey: ambos consomem o mesmo `DataTableState`, podem coexistir
+- Use `virtualize` para > ~500 rows visíveis (ou desde sempre se UX permite)
+- Saved views + persistId: ambos consomem o mesmo `DataTableState`, podem coexistir
 
 ---
 
@@ -483,12 +493,12 @@ Tudo proveniente do `<Table>` primitive: `role="grid"`, `role="row"`, `role="col
 | Filter chip não aparece | Coluna sem `enableColumnFilter: true` | Adicionar flag |
 | Filter popover vazio | Nenhuma coluna com `enableColumnFilter` | Adicionar a pelo menos 1 coluna |
 | Sort não funciona | Coluna sem `sortable: true` | Adicionar flag |
-| Density não persiste | `persistKey` ausente | Adicionar `persistKey="meu-table"` |
+| Density não persiste | `persistId` ausente | Adicionar `persistId="meu-table"` |
 | Server mode loop infinito | `fetchData` não memoizado | `useCallback(fetchData, [deps])` |
 | Virtualização "pula" | `estimatedRowHeight` muito diferente do real | Ajustar pro height médio observado |
 | Inline edit não salva | `onCellEditCommit` retorna sem await | Retornar Promise; controller aguarda |
 | Saved views não persiste | `savedViewsMockService` em prod | Implementar `SavedViewsService` real |
-| Group header sem totalizer | `totalizers` declara field não-aggregável | Garantir `agg: "sum" \| "avg" \| "count"` |
+| Group header sem totalizer | Coluna sem `aggregate` declarado | Definir `aggregate: "sum" \| "avg" \| "count" \| "min" \| "max" \| fn` na coluna |
 | Coluna actions com filter chip | `type: "actions"` deveria desabilitar filter | Reportar — esse type bloqueia sort/filter por design |
 
 ---

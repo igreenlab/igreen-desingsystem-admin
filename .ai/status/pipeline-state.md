@@ -1984,3 +1984,50 @@
 - Regressões L-001..L-027 encontradas: nenhuma nas linhas do novo arquivo.
 - Pendências: 2 itens — 1 MÉDIO, 1 BAIXO. Ver resultado PRE_COMMIT_BLOCKED no output do reviewer.
 - Lições novas: nenhuma (padrão já coberto pelo design do latest-ref pattern; falha é de implementação parcial, não de lição nova).
+
+---
+
+### [2026-06-10] | DS DEV | Skill crud-builder + /ds-create-crud (construtor de CRUD) | CONCLUÍDO
+- Input: pedido do usuário — agente/skill que entrevista (AppShell, filtros pré-definidos,
+  colunas filtráveis/pinned, views, kanban guiado, virtualização etc) e gera telas de
+  tabela consumindo o DataTable sem fugir dos exemplos/documentação. Decisões de gate:
+  command→skill; gera no preview mas portável pro CLI template; entrevista híbrida
+  (fases+defaults + drill-down por coluna, suporta dados vindos de API); escopo só CRUD/tabela.
+- Output:
+  - `.claude/commands/ds-create-crud.md` — entry point (verificações ⛔ + gate + handoff CRUD_PRONTO).
+  - `.claude/skills/crud-builder/` — SKILL.md (router, 3 estágios, precedência de fontes,
+    14 guardrails, parâmetros de ambiente p/ portabilidade) + interview.md (6 fases +
+    inferência determinística de tipos valor→nome→text) + blueprint.md (gate + pré-validações
+    operador×filterType / colisão page id / lanes×options) + generate.md (matriz cenário→exemplo
+    canônico, esqueletos, receita de registro App.tsx+doc-nav-data, checklist) + kanban-design.md
+    (sub-fluxo lanes/cores/slots/DnD, carga sob demanda).
+  - Pré-passo: corrigido DRIFT real em `DataTable/USAGE.md` (enableVirtualization→virtualize,
+    estimatedRowHeight→estimateRowHeight, rowExpansion{renderExpanded}→expandable+renderRowExpansion,
+    groupBy array/groupMode→groupBy string+overrides, totalizers→showTotalizers+aggregate,
+    onCellEditCommit newValue→{id,field,value,oldValue,row}, fetchData {rows}→{data}+filters,
+    toolbar moreMenuItems/bulkActions/presetViews→moreMenu/selectionConfig.actions/defaultViews,
+    persistKey→persistId) + comentário stale de persistId em data-table.types.ts (schema v4
+    persiste filterModel/search/page sim).
+  - Pipeline sync: ds-standards.md (linha na tabela Skills + adendo path base p/ skills
+    standalone), CLAUDE.md (linha "Onde cada tarefa começa"), BACKLOG.md (CRUD builder saiu;
+    create-page/feature/hook seguem futuros; pendência de cópia pro CLI template),
+    PipelineCommandsDoc.tsx (tree + catalog: ds-release e ds-create-crud).
+- Decisões: router+sub-skills (carga incremental por estágio — interview no início, blueprint
+  no gate, generate só pós-aprovação, kanban sob demanda) em vez de skill única (~1.000 linhas);
+  regra de precedência de fontes (types.ts+exemplo > USAGE.md > snippet da skill > memória) por
+  causa do drift real encontrado; única duplicação deliberada = mini-tabela de operadores
+  (bug silencioso real do Select vazio); inventory.md NÃO tocado (página ≠ componente).
+- Assumption: a API do DataTable está estável o suficiente pra matriz de referência valer
+  por release; os 10 exemplos canônicos permanecem nos paths src/preview/pages/Clients*.
+- Lições novas: nenhuma (o drift USAGE↔types reforça a precedência de fontes, já codificada na skill).
+
+---
+
+### [2026-06-10] | DS REVIEWER | Pre-commit — Frente 1 (bugfix filtros) + Frente 2 (crud-builder skill + docs) | PRE_COMMIT_BLOCKED → RESOLVIDO
+
+- Spec verificada: sim — pipeline-state entrada CONCLUÍDO (2026-06-10, DS DEV, crud-builder + /ds-create-crud) presente com Assumption documentada.
+- Gate verificado: n/a — sem token novo nem componente UI iGreen novo. Frente 1 é bugfix; Frente 2 é skill/pipeline.
+- Assumption verificada: "API do DataTable estável o suficiente para a matriz de referência valer por release" — VÁLIDA. USAGE.md foi corrigido neste mesmo diff com os drifts reais (virtualize, estimateRowHeight, expandable, persistId, etc.), portanto a skill parte de base saneada.
+- Critique genuína: revisão encontrou 1 gap real (README desatualizado em 3 pontos), nenhum que mude direção do código. L-028 no FilterPanel implementado mais cuidadosamente que no DataTableRow do PR anterior — `latestRef.current` lido dentro da closure de unmount (fire-time), não capturado no topo. `isFilterEntryActive` export não cria breaking change nem dep circular (grep confirma: só usada em src/). `tsc --noEmit` limpo. L-001..L-007 limpos nos 3 arquivos de componente. Cross-refs das 3 seções novas (SKILL.md §Invocação por prompt, command, README §subprojeto) mutuamente consistentes.
+- Pendências: 1 item MÉDIO — README-PIPELINE-WORKFLOW.md (file tree seção 6 sem ds-create-crud/crud-builder, tabela de flows seção 9, entradas seção 16). RESOLVIDO no mesmo diff antes do commit: tree de commands ganhou ds-update/ds-release/ds-create-crud, skills tree ganhou crud-builder/, flows ganhou linha Tela CRUD/tabela, seção 16 ganhou as 3 entradas (/ds-update, /ds-release, /ds-create-crud).
+- Lições novas: nenhuma.

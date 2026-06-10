@@ -82,6 +82,8 @@ export function PipelineCommandsDoc() {
           <p className="ml-sp-md">ds-add-token.md            <span className="text-fg-subtle">← /ds-add-token &lt;name&gt;</span></p>
           <p className="ml-sp-md">ds-extract-figma.md        <span className="text-fg-subtle">← /ds-extract-figma &lt;url&gt;</span></p>
           <p className="ml-sp-md">ds-update.md               <span className="text-fg-subtle">← /ds-update [tag]</span></p>
+          <p className="ml-sp-md">ds-release.md              <span className="text-fg-subtle">← /ds-release [tag]</span></p>
+          <p className="ml-sp-md">ds-create-crud.md          <span className="text-fg-subtle">← /ds-create-crud [hint]</span></p>
         </div>
       </div>
 
@@ -123,6 +125,18 @@ export function PipelineCommandsDoc() {
           desc="Lê git log desde a última entry, classifica as mudanças e propõe uma ReleaseEntry para a timeline Updates. Gate de revisão antes de gravar."
           agent="Dev → [GATE preview]"
           skill="update-changelog"
+        />
+        <CmdCard
+          cmd="/ds-release [tag]"
+          desc="Release completa: changelog + bump package.json + branch + commit + push + PR via gh. Engloba /ds-update."
+          agent="Dev → [GATE preview] → git/PR"
+          skill="release + pre-commit-check"
+        />
+        <CmdCard
+          cmd="/ds-create-crud [hint]"
+          desc="Construtor guiado de tela CRUD/tabela com DataTable. Entrevista híbrida (suporta dados de API) → blueprint → gate → geração espelhando os exemplos canônicos."
+          agent="Entrevista → [GATE blueprint] → geração"
+          skill="crud-builder (router + 4 sub-skills)"
         />
       </div>
 

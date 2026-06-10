@@ -69,7 +69,7 @@ function generateId(): string {
 /** Filter row tem valor real preenchido?
  *  - String vazia, null, array vazio/só nulls = vazio (pula)
  *  - Operadores isEmpty/isNotEmpty não precisam de valor (sempre ativos) */
-function isFilterEntryActive(entry: FilterPopoverEntry): boolean {
+export function isFilterEntryActive(entry: FilterPopoverEntry): boolean {
   if (entry.op === "isEmpty" || entry.op === "isNotEmpty") return true;
   const v = entry.value;
   if (v == null) return false;
@@ -321,6 +321,22 @@ export function FilterPanel({
     const t = setTimeout(() => setPendingOpenFieldId(null), 0);
     return () => clearTimeout(t);
   }, [pendingOpenFieldId]);
+
+  // Purge de linhas em branco ao DESMONTAR o painel — fonte única de limpeza.
+  // O FilterPanel só vive enquanto o filtro avançado está aberto: fechar o
+  // popover, fechar o settings menu ou voltar pro nível root desmonta o painel.
+  // Aí removemos toda entry sem valor real (user clicou "+ Adicionar" e não
+  // preencheu) pra não poluir o filterModel nem ativar o indicador "verde".
+  // Latest-ref (L-028): lê filters/onFiltersChange no unmount-time, sem stale.
+  const latestRef = useRef({ filters, onFiltersChange });
+  latestRef.current = { filters, onFiltersChange };
+  useEffect(() => {
+    return () => {
+      const { filters: cur, onFiltersChange: change } = latestRef.current;
+      const active = cur.filter(isFilterEntryActive);
+      if (active.length !== cur.length) change(active);
+    };
+  }, []);
 
   // Quando entra no modo advanced, hidrata textarea com filters atuais
   useEffect(() => {
@@ -640,8 +656,10 @@ export type FilterPopoverProps = FilterPanelProps & {
 
 /**
  * FilterPopover — popover de filtros estilo query builder.
- * Wrapper fino: renderiza o `<FilterPanel>` dentro do PopoverContent + faz a
- * limpeza de linhas em branco ao fechar (lifecycle do popover).
+ * Wrapper fino: renderiza o `<FilterPanel>` dentro do PopoverContent. A limpeza
+ * de linhas em branco (user clicou "+ Adicionar" mas não preencheu valor) mora
+ * no PRÓPRIO `FilterPanel` (unmount-purge) — fonte única que cobre este popover,
+ * o drill-down do settings menu e o split button, independente de COMO fechou.
  *
  * Dumb: `filters` (array de entries) vem do consumer. Use o hook
  * `useToolbarFilters()` se quiser gerenciamento de estado pronto.
@@ -655,40 +673,8 @@ export function FilterPopover({
   className,
   ...panel
 }: FilterPopoverProps) {
-  const { filters, onFiltersChange } = panel;
-
-  // Ao fechar o popover, remove linhas em branco (user clicou "+ Adicionar"
-  // mas não preencheu valor). Delay de 500ms pra evitar piscada durante a
-  // animação de close-out. Se reabrir antes do timeout, cancela cleanup.
-  const cleanupTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const handleOpenChange = (next: boolean) => {
-    if (cleanupTimeoutRef.current) {
-      clearTimeout(cleanupTimeoutRef.current);
-      cleanupTimeoutRef.current = null;
-    }
-    if (!next) {
-      cleanupTimeoutRef.current = setTimeout(() => {
-        const active = filters.filter(isFilterEntryActive);
-        if (active.length !== filters.length) {
-          onFiltersChange(active);
-        }
-        cleanupTimeoutRef.current = null;
-      }, 500);
-    }
-    onOpenChange?.(next);
-  };
-
-  // Cleanup no unmount — evita memory leak se desmontar com timer ativo
-  useEffect(() => {
-    return () => {
-      if (cleanupTimeoutRef.current) {
-        clearTimeout(cleanupTimeoutRef.current);
-      }
-    };
-  }, []);
-
   return (
-    <Popover open={open} onOpenChange={handleOpenChange}>
+    <Popover open={open} onOpenChange={onOpenChange}>
       {anchor ? (
         // Anchor mode: posiciona o popover mas NÃO dispara abertura — consumer
         // controla via prop `open` externa (split button pattern).

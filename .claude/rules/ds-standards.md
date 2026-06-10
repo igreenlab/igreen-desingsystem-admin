@@ -82,8 +82,11 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | DS Reviewer | gate pre-commit amplo (antes de release / refactor / token / componente novo) | `pre-commit-check.md` |
 | DS Dev | atualizar Updates timeline | `update-changelog.md` |
 | DS Dev | release completa (changelog + bump + commit + PR) | `release.md` |
+| — | tela CRUD/tabela consumindo DataTable (entrevista guiada) | `crud-builder/SKILL.md` via `/ds-create-crud` |
 
-Path base: `.claude/skills/<agent>/<skill>`
+Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
+(`crud-builder`, `frontend-design`, `igreen-page`) vivem direto em
+`.claude/skills/<nome>/`.
 
 ---
 

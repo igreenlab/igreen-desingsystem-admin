@@ -1,6 +1,6 @@
 import { SlidersHorizontal } from "lucide-react";
 import { ButtonGroup } from "../../ButtonGroup";
-import { FilterPopover } from "../popovers/filter-popover";
+import { FilterPopover, isFilterEntryActive } from "../popovers/filter-popover";
 import type {
   FilterPopoverColumn,
   FilterPopoverEntry,
@@ -103,7 +103,11 @@ export function ToolbarFilterControl({
   const internalCtl = useToolbarFilterControl();
   const ctl = controlState ?? internalCtl;
 
-  const filterCount = entries.length;
+  // Conta apenas entries com valor real — uma linha recém-adicionada e ainda
+  // vazia (value="") NÃO ativa o badge/indicador. O purge no close do popover
+  // remove a linha em branco; até lá ela existe no model mas não conta como
+  // filtro ativo (senão o botão fica "verde" indicando filtro inexistente).
+  const filterCount = entries.filter(isFilterEntryActive).length;
 
   // Modo legado: botão único = abre query builder direto (uncontrolled).
   if (!enabled) {

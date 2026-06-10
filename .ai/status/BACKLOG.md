@@ -125,7 +125,12 @@ audit — popovers não são hot path; churn alto, valor marginal).
 - TanStack Table + tokens iGreen · sorting, pagination, row selection
 
 ### Templates de arquitetura
-- `/create-page`, `/create-feature`, `/create-hook` expandindo o modelo de `/create-component`
+- ✅ `/ds-create-crud` — CRUD builder SAIU (2026-06-10): `.claude/skills/crud-builder/`
+  (router + interview + blueprint gate + generate + kanban-design). Escopo: telas de
+  tabela/DataTable. Pendência: copiar pro `cli/templates/default/.claude/` após ≥1 uso
+  real validado neste repo (template hoje não tem `.claude/`).
+- `/create-page`, `/create-feature`, `/create-hook` expandindo o modelo — futuros
+  (skills IRMÃS do crud-builder, não inchaço dele)
 
 ### Toast / Sonner · Tooltip · Popover · Command/Combobox
 - Componentes Shadcn restantes via `/add-shadcn-component`
