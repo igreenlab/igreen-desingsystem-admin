@@ -55,7 +55,8 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">components/shadcn/               <span className="text-fg-subtle">← Shadcn styled</span></p>
           <p className="ml-sp-2xl">styles/theme/                    <span className="text-fg-subtle">← Generated CSS</span></p>
           <p className="ml-sp-2xl">preview/pages/                   <span className="text-fg-subtle">← Doc pages</span></p>
-          <p className="ml-sp-2xl">utils/                           <span className="text-fg-subtle">← tv(), cn()</span></p>
+          <p className="ml-sp-2xl">utils/                           <span className="text-fg-subtle">← tv(), color-contrast</span></p>
+          <p className="ml-sp-2xl">lib/                             <span className="text-fg-subtle">← cn()</span></p>
           <p className="ml-sp-md">.claude/                           <span className="text-fg-subtle">← Pipeline orchestration</span></p>
           <p className="ml-sp-2xl">agents/                          <span className="text-fg-subtle">← 4 agents + 2 pending</span></p>
           <p className="ml-sp-2xl">skills/                          <span className="text-fg-subtle">← Atomic procedures</span></p>
@@ -68,7 +69,7 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">context/                         <span className="text-fg-subtle">← Architecture, tokens, components</span></p>
           <p className="ml-sp-2xl">rules/coding-standards.md        <span className="text-fg-subtle">← Long-form tv() reference</span></p>
           <p className="ml-sp-2xl">status/pipeline-state.md         <span className="text-fg-subtle">← Audit log (append-only)</span></p>
-          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-014</span></p>
+          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-028</span></p>
           <p className="ml-sp-md">memory/                            <span className="text-fg-subtle">← Project-level memory</span></p>
         </div>
       </div>
@@ -157,7 +158,7 @@ export function StructureDoc() {
         <FileRow path=".claude/skills/" desc="Atomic skills per agent: spec-token-*, impl-igreen, review-component, etc." tag="Procedure" />
         <FileRow path=".claude/commands/" desc="Slash commands as entry points: /ds-create-component, /ds-add-token..." tag="Entry" />
         <FileRow path=".claude/hooks/" desc="format-on-save, block-rm-rf, block-sensitive-edit (logged to .ai/scratch/)" tag="Triggers" />
-        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 6 behavior rules + 14 lessons" tag="Rules" />
+        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 7 behavior rules + 28 lessons" tag="Rules" />
         <FileRow path=".claude/output-styles/" desc="terse.md — caps response shape across the project" tag="Style" />
         <FileRow path=".claude/settings.json" desc="Permissions, hooks registration, outputStyle binding" tag="Config" />
         <FileRow path=".claude/scripts/" desc="sync-agents-to-cursor.cjs — mirrors agents to .cursor/rules" tag="Tooling" />
@@ -176,7 +177,7 @@ export function StructureDoc() {
         <FileRow path=".ai/context/components/guide.md" desc="Long-form component guide (variants, compounds, patterns)" tag="Guide" />
         <FileRow path=".ai/rules/coding-standards.md" desc="Long-form tv() pattern reference (sub-skill load)" tag="Rules" />
         <FileRow path=".ai/status/pipeline-state.md" desc="Audit log (append-only): every decision + Assumption field" tag="Audit" />
-        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-014 (full descriptions, examples)" tag="Lessons" />
+        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-028 (full descriptions, examples)" tag="Lessons" />
         <FileRow path=".ai/status/BACKLOG.md" desc="Pending features queued for the pipeline" tag="Queue" />
         <FileRow path="memory/" desc="Project-level memory (MEMORY.md index + project_*.md notes)" tag="Memory" />
       </div>

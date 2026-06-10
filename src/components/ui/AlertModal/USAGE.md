@@ -17,13 +17,15 @@ import { AlertModal } from "@/components/ui/AlertModal";
 | `open` | boolean | — | Controla visibilidade |
 | `onOpenChange` | (open: boolean) => void | — | Callback de fechamento |
 | `tone` | "default" \| "neutral" \| "danger" \| "warning" \| "success" | "default" | Cor semântica |
-| `title` | string | — | Título do modal |
-| `description` | string | — | Texto explicativo |
-| `confirmLabel` | string | "Confirmar" | Texto do botão primary |
-| `cancelLabel` | string | "Cancelar" | Texto do botão secondary |
+| `title` | ReactNode | — | Título do modal |
+| `description` | ReactNode | — | Texto explicativo |
+| `confirmLabel` | ReactNode | "Confirmar" | Conteúdo do botão primary |
+| `cancelLabel` | ReactNode | "Cancelar" | Conteúdo do botão secondary |
+| `hideCancel` | boolean | false | Esconde o botão Cancel (modal de aviso só com OK) |
+| `hideClose` | boolean | false | Esconde o botão X de fechar no canto superior direito |
 | `onConfirm` | () => void | — | Ação ao confirmar |
 | `loading` | boolean | false | Trava interação durante async |
-| `icon` | ReactNode | — | Ícone customizado (default por tone) |
+| `icon` | ReactNode \| null | — | Ícone customizado; `null` esconde; omitir usa o default do tone |
 
 ## Exemplo mínimo
 ```tsx
@@ -40,4 +42,6 @@ import { AlertModal } from "@/components/ui/AlertModal";
 ## Cuidados / Gotchas
 - Quando `loading=true`, modal **não fecha automaticamente** — consumer chama `onOpenChange(false)` após async terminar
 - `tone="danger"` aplica cor critical ao botão de confirm
+- `icon={null}` esconde o ícone; **omitir** a prop usa o ícone default do tone (`tone="default"` não tem ícone)
+- Pra forçar decisão explícita (sem escape pelo X), use `hideClose`; pra modal informativo só com OK, use `hideCancel`
 - Pra "alert" não-destrutivo, prefira `<Modal>` simples

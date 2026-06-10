@@ -1,0 +1,797 @@
+{
+  "total": 99,
+  "findings": [
+    {
+      "title": "11 componentes ui/ públicos ausentes da tabela do inventário (AlertModal, AppShell, Chip, FooterTable, FormField, Header, Kanban, MenuSidebar, Modal, Panel, TabelaTeste)",
+      "severity": "ALTA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:55-67 — \"## Componentes — ui/ (iGreen puro) (8 componentes principais + compostos)\" lista apenas Avatar, Button, ButtonGroup, CardCheckbox, Table, DataTable, TableToolbar, FloatingPanel e PageHeader. Disco tem 20 pastas em src/components/ui/, e todas as 11 ausentes são públicas via barrel — src/components/index.ts:12-28: \"export * from \\\"./ui/AlertModal\\\"; ... export * from \\\"./ui/TabelaTeste\\\";\". Agravante: FormField é obrigatório por L-023 (\"Forms PRECISAM usar <FormField>\") e nem consta no inventário; AppShell tem seção de API (linhas 395-414) mas está fora da tabela principal, violando a Regra 2 do CLAUDE.md (verificar inventário antes de criar componente).",
+      "recomendacao": "Adicionar as 11 entradas à tabela ui/ com pasta, styles e status. Avaliar se TabelaTeste é componente de teste — se for, remover do barrel público ou marcá-lo explicitamente como interno no inventário.",
+      "fonte": "inventario"
+    },
+    {
+      "title": "6 componentes shadcn/ reais ausentes do inventário (alert-dialog, command, input-group, pagination, popover, sheet)",
+      "severity": "ALTA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:28 — \"## Componentes — shadcn/ (20 componentes)\" e a tabela (linhas 32-51) não contém alert-dialog, command, input-group, pagination, popover nem sheet. Disco: src/components/shadcn/ tem 26 arquivos .tsx incluindo alert-dialog.tsx, command.tsx, input-group.tsx, pagination.tsx, popover.tsx e sheet.tsx.",
+      "recomendacao": "Adicionar as 6 entradas à tabela shadcn/ e corrigir a contagem do header para 26. Popover é dependência crítica do DataTable/TableToolbar (FilterPopover, SortPopover) — sua ausência no inventário aumenta risco de duplicação.",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Referência stale: `ViewFormModal` não existe mais — componente real é `AddViewModal`",
+      "severity": "ALTA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:69 — \"**Nota**: `ViewFormModal` (modes create/edit) e `TableToolbarViews` (compound...) ficam em `ui/TableToolbar/`\". Grep por \"ViewFormModal\" em src/ retorna zero ocorrências. O componente existente é AddViewModal (src/components/ui/TableToolbar/popovers/add-view-modal.tsx), exportado no barrel em src/components/index.ts:59 (\"AddViewModal,\").",
+      "recomendacao": "Substituir `ViewFormModal` por `AddViewModal` na nota da linha 69 (TableToolbarViews existe e está correto).",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Comandos slash inexistentes referenciados na tabela de roteamento (/add-shadcn-component, /create-component, /create-composite)",
+      "severity": "ALTA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:22-24 — \"| Componente existe no Shadcn | `shadcn/` | `/add-shadcn-component` |\", \"| Componente novo sem base no Shadcn | `ui/` | `/create-component` |\", \"| Composição de existentes (FormField, etc.) | `ui/` | `/create-composite` |\". Os comandos reais em .claude/commands/ são: ds-add-shadcn.md, ds-create-component.md, ds-create-composite.md — nenhum arquivo com os nomes citados existe.",
+      "recomendacao": "Atualizar a coluna Command para /ds-add-shadcn, /ds-create-component e /ds-create-composite.",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Contagem errada do ColumnTypeRegistry: inventário diz 6 tipos (e lista registry de 8 tipos como 'deferido'), disco tem 15 definitions implementadas",
+      "severity": "MEDIA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:64 — \"ColumnTypeRegistry com 6 tipos extensiveis\"; e inventory.md:326 (seção Out of scope) — \"ColumnTypes registry com 8 tipos (deferido — column.type já existe no def)\". Disco: src/components/ui/DataTable/column-types/definitions/ contém 15 arquivos: badge, boolean, currency, date, datetime, email, multi-select, number, percentage, phone, select, tags, text, url, user.",
+      "recomendacao": "Corrigir para 15 tipos na linha 64 e remover o item 'deferido' da seção Out of scope (o registry está implementado e expandido).",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Contagem errada de hooks do DataTable: '(17 + 3 adapters)' mas existem 15 hooks + 3 adapters",
+      "severity": "MEDIA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:274 — \"Hooks SRP internos (17 + 3 adapters):\" seguido da listagem de apenas 15 hooks (useDataTableQuery ... useColumnAutoWidth). Disco: src/components/ui/DataTable/hooks/ tem 19 arquivos = 15 hooks não-adapter + 3 adapters (use-cols/filter/sort-popover-adapter.ts) + 1 utils (state-persistence-utils.ts).",
+      "recomendacao": "Corrigir o headline para '(15 + 3 adapters)' — a listagem em si está correta e completa.",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Entrada DataTable desatualizada pós-v0.8.0: 8 parts e 4 utils existentes no disco não documentados",
+      "severity": "MEDIA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:6 — \"Última atualização: 2026-06-09 (v0.7.1 — CardCheckbox + token formGap)\" enquanto package.json:3 está em \"version\": \"0.8.0\". A seção \"Parts default\" (linhas 296-301) lista 5 parts, mas src/components/ui/DataTable/parts/ tem 13 arquivos — faltam: data-table-actions-cell, data-table-column-menu, data-table-edit-cell, data-table-group-content-row, data-table-group-header-row, data-table-row-expansion, data-table-totalizer-row, sortable-head-cell. A seção \"Utils internos\" (linhas 303-307) lista 3 utils, mas utils/ tem 7 — faltam: calculate-column-widths.ts, expand-rows.ts, group-rows.ts, measure-text.ts. Os diretórios builders/ (column-builders.ts, preset-view.ts), column-types/ e context/ também não aparecem na estrutura documentada.",
+      "recomendacao": "Atualizar a entrada DataTable com as features v0.8.0 (grouping, row expansion, totalizer, edit cells, builders) e refazer as listas de parts/utils a partir do disco.",
+      "fonte": "inventario"
+    },
+    {
+      "title": "ButtonGroup e CardCheckbox documentados como implementados mas ausentes do barrel público src/components/index.ts (viola a própria Regra de adição nº 3 do inventário)",
+      "severity": "MEDIA",
+      "file": "src/components/index.ts",
+      "evidence": "inventory.md:422 — \"Após criar: atualizar este arquivo + exportar em `src/components/index.ts`\". Grep por \"ButtonGroup|CardCheckbox\" em src/components/index.ts retorna zero ocorrências; o bloco de exports ui/ (linhas 12-28) pula de \"export * from \\\"./ui/Button\\\"\" direto para \"./ui/Chip\" sem ButtonGroup nem CardCheckbox. Consumidores do pacote @snksergio/design-system não conseguem importar esses componentes pelo entry point.",
+      "recomendacao": "Adicionar `export * from \"./ui/ButtonGroup\"` e `export * from \"./ui/CardCheckbox\"` ao barrel raiz (checar colisão de nomes antes, padrão já usado pro TableToolbar).",
+      "fonte": "inventario"
+    },
+    {
+      "title": "Header da seção ui/ diz '8 componentes principais' mas a tabela tem 9 linhas",
+      "severity": "BAIXA",
+      "file": ".ai/context/components/inventory.md",
+      "evidence": "inventory.md:55 — \"## Componentes — ui/ (iGreen puro) (8 componentes principais + compostos)\" — a tabela abaixo (linhas 59-67) contém 9 entradas: Avatar, Button, ButtonGroup, CardCheckbox, Table, DataTable, TableToolbar, FloatingPanel, PageHeader.",
+      "recomendacao": "Corrigir a contagem do header junto com a adição dos 11 componentes faltantes (finding 1).",
+      "fonte": "inventario"
+    },
+    {
+      "title": "CardCheckbox (ui/) sem página de doc/preview — único componente ui/ sem cobertura",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/CardCheckbox/USAGE.md",
+      "evidence": "USAGE.md declara componente público: \"# CardCheckbox ... **Status:** Disponível v0.7.0+.\" (linhas 1-4), porém grep \"CardCheckbox\" em src/ retorna apenas src/components/ui/CardCheckbox/*, src/preview/pages/ClientesFinanceiroShowcase/components/SacarDialog/sacar-dialog.tsx e updates-data.ts — não existe CardCheckboxDoc.tsx, não há \"card-checkbox\" no array DOC_PAGES (src/App.tsx:146-155) nem href em src/preview/components/doc-nav-data.ts (hrefs de Components vão de accordion a textarea, linhas 57-88, sem card-checkbox).",
+      "recomendacao": "Criar CardCheckboxDoc.tsx (seguindo o padrão CheckboxDoc/ChipDoc), registrar \"card-checkbox\" em DOC_PAGES + render em App.tsx e adicionar href na seção Components de doc-nav-data.ts.",
+      "fonte": "showcase"
+    },
+    {
+      "title": "Item \"Showcase\" do sidebar legado aponta pra id sem render — clique resulta em página em branco",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/App.tsx",
+      "evidence": "App.tsx:134: { id: \"showcase\", label: \"Showcase\", icon: LayoutGrid }, — mas \"showcase\" não está em DOC_PAGES (linhas 146-155, que contém \"showcase-v2\") nem em ALL_VALID_PAGES, e o branch não-doc renderiza apenas {activePage === \"components\" && <ComponentsPreview />} e {activePage === \"demo\" && <DemoComparison />} (linhas 405-406). Clicar em \"Showcase\" no sidebar legado deixa o <main> vazio; o hash #/showcase gravado via pushState (linha 256-261) é rejeitado por readPageFromHash no reload.",
+      "recomendacao": "Trocar o id do item pra \"showcase-v2\" (página existente, App.tsx:344) ou remover o item do NAV_SECTIONS legado.",
+      "fonte": "showcase"
+    },
+    {
+      "title": "ui/Avatar (componente DS público, exportado no barrel) sem doc própria — o href \"avatar\" documenta apenas o primitivo shadcn",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/preview/pages/AvatarDoc.tsx",
+      "evidence": "AvatarDoc.tsx:1: import { Avatar, AvatarImage, AvatarFallback } from \"../../components/shadcn/avatar\"; — nenhuma menção a ui/Avatar, colorHex ou getContrastTextColor (grep sem matches no arquivo). O ui/Avatar é API pública (src/components/index.ts:14: export * from \"./ui/Avatar\";) com USAGE.md e API distinta (colorHex + contraste WCAG, L-027), mas só aparece incidentalmente como elemento de apoio em KanbanDoc/DataTableDoc/ClientsKanbanPreview — sem doc/showcase próprio de sua API.",
+      "recomendacao": "Adicionar seção \"DS Avatar (ui/)\" no AvatarDoc documentando colorHex/getContrastTextColor e diferenças vs shadcn/avatar, ou criar página dedicada e distinguir os dois na nav.",
+      "fonte": "showcase"
+    },
+    {
+      "title": "Páginas órfãs \"docs\" e \"docs-template\" em DOC_PAGES + render, mas ausentes da nav (acessíveis só via hash direto)",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/App.tsx",
+      "evidence": "App.tsx:147: DOC_PAGES inclui \"docs\", \"docs-template\"; renders em App.tsx:362-363: {activePage === \"docs\" && <ComponentDocTemplate />} / {activePage === \"docs-template\" && <ComponentDocTemplate />} — porém nenhum href \"docs\" ou \"docs-template\" existe em doc-nav-data.ts (hrefs verificados, linhas 12-127). São alcançáveis apenas via deep-link #/docs.",
+      "recomendacao": "Se o template é intencional como página oculta, documentar isso num comentário em DOC_PAGES; caso contrário, remover um dos dois ids duplicados (ambos renderizam ComponentDocTemplate) e/ou adicionar à nav.",
+      "fonte": "showcase"
+    },
+    {
+      "title": "ClientesFinanceiroShowcase renderiza somente via query param ?app=finance — fora dos 3 conjuntos (nav, DOC_PAGES, hash-router)",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/App.tsx",
+      "evidence": "App.tsx:243-245: if (standaloneApp === \"finance\") { return <ClientesFinanceiroShowcase />; } — comentário nas linhas 234-236 indica intencionalidade (\"Standalone apps via query param — renderiza fullscreen sem nav de docs.\"), mas a página showcase não tem item na nav (doc-nav-data.ts seção Showcase Pages, linhas 124-127, lista apenas showcase-v2/clientes-showcase/chat-v2/dashboard-showcase) nem entry em DOC_PAGES — zero descobribilidade pelo preview.",
+      "recomendacao": "Adicionar item na seção \"Showcase Pages\" da nav apontando pro modo standalone (ou registrar o entry ?app=finance na doc de Introduction/Structure) pra tornar o showcase descobrível.",
+      "fonte": "showcase"
+    },
+    {
+      "title": "ButtonGroup não é exportado no barrel da lib npm — componente documentado (USAGE.md + DocPage + inventory v0.7.0) inacessível para consumers",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/index.ts",
+      "evidence": "O bloco de exports iGreen (linhas 12-28) lista AlertModal, AppShell, Avatar, Button, Chip, DataTable, FloatingPanel, FooterTable, FormField, Header, Kanban, MenuSidebar, Modal, PageHeader, Panel, Table, TabelaTeste — não existe linha `export * from \"./ui/ButtonGroup\"`. O componente existe e é público: src/components/ui/ButtonGroup/index.ts + USAGE.md presentes, DocPage src/preview/pages/ButtonGroupDoc.tsx registrada na nav (doc-nav-data.ts:67 `{ label: \"ButtonGroup\", href: \"button-group\" }`) e inventory.md:61 marca '✅ **v0.7.0** — split button pattern'. vite.lib.config.ts:86 confirma que src/components/index.ts é o entry `index` do pacote — consumer npm não consegue `import { ButtonGroup } from \"@snksergio/design-system\"`.",
+      "recomendacao": "Adicionar `export * from \"./ui/ButtonGroup\";` ao bloco iGreen do barrel raiz (verificar colisão de nomes antes, como foi feito com TableToolbar.SortDirection).",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "CardCheckbox não é exportado no barrel da lib npm — componente v0.7.1 com USAGE.md e inventory, mas consumer não consegue importar",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/index.ts",
+      "evidence": "Não existe `export * from \"./ui/CardCheckbox\"` no barrel (bloco linhas 12-28). O componente é público e documentado: src/components/ui/CardCheckbox/index.ts + USAGE.md existem, e inventory.md:62 registra '✅ **v0.7.1** — checkbox apresentado como card clicável'. Sem o re-export, o componente só funciona dentro do repo (alias @/), nunca no pacote npm.",
+      "recomendacao": "Adicionar `export * from \"./ui/CardCheckbox\";` ao barrel raiz. Bonus: CardCheckbox também não tem DocPage (não existe CardCheckboxDoc.tsx em src/preview/pages/) nem entrada na doc-nav-data.ts — considerar criar junto.",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "API v0.7.0+ do TableToolbar (ToolbarFilterControl, ToolbarSettingsMenu, ToolbarSimpleFilterDrawer, useToolbarFilterControl, SortPanel/ColsPanel/FilterPanel, isFilterEntryActive) omitida do re-export seletivo do barrel raiz — docs instruem o consumer a usá-la, mas ela não sai no pacote npm",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/index.ts",
+      "evidence": "O re-export seletivo do TableToolbar no barrel raiz (linhas 35-107) termina em `useToolbarSort` e NÃO inclui: ToolbarFilterControl, ToolbarSimpleFilterDrawer, ToolbarSettingsMenu, useToolbarFilterControl, SortPanel, ColsPanel, FilterPanel, isFilterEntryActive (nem seus types). Todos existem no barrel local src/components/ui/TableToolbar/index.ts (linhas 76, 83, 111-112, 127, 148, 156, 159), cujo comentário (linhas 151-155) promete: 'consumers de TableToolbar standalone podem instanciar diretamente passando columns + filterModel + handlers'. O próprio USAGE.md (src/components/ui/TableToolbar/USAGE.md:38-55) mostra exemplo importando `ToolbarSettingsMenu` e usando `<SortPanel>`, `<ColsPanel>`, `<FilterPanel>` — imports que falham para consumer npm. inventory.md:65 também afirma que o barrel 'exporta todos os parts/popovers/types + ToolbarFilterControl' — verdadeiro só para o barrel local, não para o entry do pacote.",
+      "recomendacao": "Estender o bloco seletivo do barrel raiz com os exports v0.7.0+: ToolbarFilterControl, ToolbarSimpleFilterDrawer, ToolbarSettingsMenu, useToolbarFilterControl, SortPanel, ColsPanel, FilterPanel, isFilterEntryActive + types correspondentes (ToolbarFilterControlProps, ToolbarSettingsMenuProps, ToolbarSettingsMenuView, UseToolbarFilterControlResult, SortPanelProps, ColsPanelProps, FilterPanelProps, ToolbarSimpleFilterDrawerProps).",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "InputGroup exportado publicamente no barrel mas com ZERO menção no inventory.md — Regra 2 (verificar inventário antes de criar) falharia em encontrá-lo",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/.ai/context/components/inventory.md",
+      "evidence": "Barrel raiz exporta a família completa (src/components/index.ts:115-132: InputGroup, InputGroupInput, InputGroupTextarea, InputGroupAddon, InputGroupText, InputGroupButton + 8 types) e existe DocPage (src/preview/pages/InputGroupDoc.tsx), mas grep case-insensitive por 'InputGroup' e 'input-group' em .ai/context/components/inventory.md retorna zero matches — a tabela de componentes shadcn (linhas 35-51) pula de Input (linha 42) para Label (linha 43) sem listar input-group.tsx.",
+      "recomendacao": "Adicionar linha `| InputGroup | shadcn/input-group.tsx | InputGroup, InputGroupInput, InputGroupTextarea, InputGroupAddon, InputGroupText, InputGroupButton | ✅ implementado |` na tabela shadcn do inventory.md.",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "TabelaTeste exportado publicamente no barrel da lib npm mas ausente do inventory.md",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/.ai/context/components/inventory.md",
+      "evidence": "src/components/index.ts:28 contém `export * from \"./ui/TabelaTeste\";` e o componente tem USAGE.md + DocPage (src/preview/pages/TabelaTesteDoc.tsx), porém grep por 'TabelaTeste' em .ai/context/components/inventory.md retorna zero matches — não consta na tabela ui/ (linhas 57-67).",
+      "recomendacao": "Registrar TabelaTeste no inventory.md (tabela ui/). Avaliar também se um componente chamado 'TabelaTeste' deveria mesmo fazer parte da API pública do pacote npm — se for experimental, remover do barrel; se for oficial, renomear.",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "inventory.md referencia componente inexistente `ViewFormModal` — nome não existe em nenhum arquivo de src/",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/.ai/context/components/inventory.md",
+      "evidence": "inventory.md:69: '**Nota**: `ViewFormModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab...) ficam em `ui/TableToolbar/`.' — porém grep por 'ViewFormModal' em todo src/ retorna zero arquivos. O barrel local ui/TableToolbar/index.ts:97 exporta `AddViewModal` (popovers/add-view-modal.tsx), nome atual do componente de criação/edição de views.",
+      "recomendacao": "Atualizar a nota do inventory.md trocando `ViewFormModal` por `AddViewModal` (+ `AddViewModalSubmit`), refletindo o nome real exportado.",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "Barrel raiz omite types/variants que o barrel shadcn expõe (BadgeVariantProps, InputVariantProps, InputState, inputGroupVariants, InputGroupVariantProps) — API assimétrica para consumer npm",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/index.ts",
+      "evidence": "src/components/shadcn/index.ts exporta `BadgeVariantProps` (linha 2), `InputVariantProps, InputState` (linha 5), `inputGroupVariants` (linha 14) e `InputGroupVariantProps` (linha 25), mas o barrel raiz só re-exporta `Badge, badgeVariants` + `BadgeProps` (linhas 110-111) e `Input, inputVariants` + `InputProps` (linhas 112-113) — consumer npm não consegue nomear InputState nem os VariantProps, embora InputGroupState (linha 131) tenha sido incluído.",
+      "recomendacao": "Alinhar o re-export seletivo do bloco shadcn no barrel raiz com tudo que shadcn/index.ts expõe (ou trocar por `export * from \"./shadcn\"` se não houver colisão).",
+      "fonte": "api-publica"
+    },
+    {
+      "title": "Classe gap-gp-3xs não existe no theme gerado — gap silenciosamente zero em showcase e em 2 componentes DS públicos",
+      "severity": "ALTA",
+      "file": "src/preview/pages/ClientesFinanceiroShowcase/ClientesFinanceiroShowcase.tsx",
+      "evidence": "ClientesFinanceiroShowcase.tsx:61: `<div className=\"flex flex-col gap-gp-3xs min-w-0\">` — porém src/styles/theme/tailwind-theme.css define apenas `--spacing-gp-2xs: 2px;` (linha 99) até `--spacing-gp-7xl: 48px;` (linha 110); não existe `--spacing-gp-3xs`. Mesma classe quebrada em src/components/ui/CardCheckbox/card-checkbox.styles.ts:22 (`body: \"flex flex-col flex-1 min-w-0 gap-gp-3xs\"`), src/components/ui/DataTable/column-types/definitions/multi-select-column-type.tsx:47 e sacar-dialog.tsx:260.",
+      "recomendacao": "Trocar `gap-gp-3xs` por `gap-gp-2xs` (2px) ou criar o token `gp-3xs` via cascata (spec-token tipo=spacing) e regenerar com npm run tokens:tw4. Priorizar CardCheckbox e multi-select-column-type por serem componentes públicos da lib.",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "Hook público useTheme usado em todos os showcases sem doc em lugar nenhum e ausente do barrel da lib",
+      "severity": "ALTA",
+      "file": "src/hooks/useTheme.ts",
+      "evidence": "Usado em 5 páginas exportadas/canônicas: ClientesShowcase.tsx:2, ClientesFinanceiroShowcase.tsx:2, DashboardShowcase.tsx:2, ChatV2.tsx:3 e AppShellDoc.tsx:2 — `import { useTheme, type Theme } from \"@/hooks/useTheme\";`. Não há USAGE.md, DocPage nem entrada no inventory.md; `src/components/index.ts` exporta só `./ui/*` e shadcn (nenhum `export` de hooks). Única menção em doc é .ai/context/architecture.md:135 \"hooks/useTheme.ts ← toggle light/dark\" — desatualizada (o hook é 3 valores light/dark/system desde o refactor 2026-05-19, pipeline-state.md:1617).",
+      "recomendacao": "Documentar useTheme (USAGE.md ou seção na InstallationDoc/doc de theming) e decidir explicitamente se entra no root export da lib — os showcases exportados via preview/* o usam internamente, então consumidor que copia o exemplo canônico não encontra doc nem export.",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "SacarDialog usa <label> raw com classes manuais — contradiz L-023 (FormField obrigatório, render-prop pra widget custom)",
+      "severity": "MEDIA",
+      "file": "src/preview/pages/ClientesFinanceiroShowcase/components/SacarDialog/sacar-dialog.tsx",
+      "evidence": "sacar-dialog.tsx:210: `<label className=\"text-body-sm font-semibold tracking-[0.01em] text-fg-default dark:text-fg-muted\">` (label \"Conta de destino\" sobre o widget Tabs). ds-standards.md L-023: \"Nunca `<label>` raw com classes manuais... Pra widget custom (vindo de registry, slot, etc), use `<FormField label=\"...\">...</FormField>` (children é render-prop)\". O changelog v0.7.1 (updates-data.ts:135) anuncia exatamente o fix L-023 neste arquivo, mas este label replicado na unha permaneceu.",
+      "recomendacao": "Envolver o bloco Tabs em `<FormField label=\"Conta de destino\">{() => <Tabs .../>}</FormField>` — elimina a duplicação manual das classes de formFieldLabel() (risco de drift silencioso que a L-023 documenta).",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "NovoClienteDrawer (exemplo canônico citado pela L-024) usa gap-gp-xl (12px) nos grids 2-col em vez de gap-form-gap (20px)",
+      "severity": "MEDIA",
+      "file": "src/preview/pages/ClientesShowcase/clientes-showcase.styles.ts",
+      "evidence": "clientes-showcase.styles.ts:9: `twoCols: \"grid grid-cols-2 gap-gp-xl\"` — consumido em novo-cliente-drawer.tsx:105 e :177 (pares Email+WhatsApp, Cidade+Valor). ds-standards.md L-024: \"✅ CORRETO — `<div className=\"grid grid-cols-2 gap-form-gap\">` // mesmo no grid ... Não usar `gap-gp-*` semânticos pra spacing entre FormField units\" e afirma \"Padrão validado em SacarDialog 'Outra conta' + NovoClienteDrawer\". gp-xl=12px vs form-gap=20px (tailwind-theme.css:104 e :188) — divergência visual real no showcase que a doc aponta como referência.",
+      "recomendacao": "Trocar `gap-gp-xl` por `gap-form-gap` no slot twoCols, ou corrigir a L-024 se a decisão for que grids horizontais de pares usam gap menor — hoje doc e exemplo canônico se contradizem.",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "Util cn() usado nos showcases sem doc canônica — e a única menção em doc (StructureDoc) aponta localização errada",
+      "severity": "MEDIA",
+      "file": "src/preview/pages/StructureDoc.tsx",
+      "evidence": "StructureDoc.tsx:58: `<p className=\"ml-sp-2xl\">utils/ <span className=\"text-fg-subtle\">← tv(), cn()</span></p>` — mas cn() vive em src/lib/utils.ts (DashboardShowcase.tsx:38: `import { cn } from \"@/lib/utils\";`), não em src/utils/ (que contém só tv.ts e color-contrast.ts). Fora isso, cn não aparece em CLAUDE.md, .ai/rules/coding-standards.md nem inventory — só em planos arquivados (.ai/status/archive/).",
+      "recomendacao": "Corrigir a árvore do StructureDoc (utils/ ← tv(); lib/ ← cn()) e adicionar 1 linha sobre cn() em coding-standards.md, já que showcases públicos (DashboardShowcase, ChatV2) o usam como padrão de composição de className.",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "StructureDoc desatualizado: anuncia \"Lessons L-001..L-014\" quando o projeto já está em L-028",
+      "severity": "MEDIA",
+      "file": "src/preview/pages/StructureDoc.tsx",
+      "evidence": "StructureDoc.tsx:71: `status/lessons.md <span className=\"text-fg-subtle\">← Lessons L-001..L-014</span>` — ds-standards.md já lista lições até L-028 (\"L-028 Componente memoizado (React.memo)...\").",
+      "recomendacao": "Atualizar pra faixa atual (ou remover o range numérico da árvore pra não estagnar de novo — ex: \"← Lessons L-NNN\").",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "Classes de font-weight conflitantes (font-medium + font-bold) no mesmo elemento em DashboardShowcase e AgentsPreview",
+      "severity": "BAIXA",
+      "file": "src/preview/pages/DashboardShowcase.tsx",
+      "evidence": "DashboardShowcase.tsx:373: `<h3 className=\"m-0 text-body-md font-medium font-bold text-fg-default\">{title}</h3>` (também linha 310; e AgentsPreview.tsx:506, :663, :725). Sem twMerge no string literal, as duas classes coexistem e o weight efetivo depende da ordem do CSS gerado — frágil e contradiz o padrão de override único de weight da doc de tipografia (\"Override de weight via font-bold/semibold/medium/normal\").",
+      "recomendacao": "Manter apenas um weight por elemento (provavelmente `font-semibold` ou `font-bold` pros títulos de card).",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "Slot fieldLabel morto em clientes-showcase.styles.ts duplicando manualmente as classes do formFieldLabel()",
+      "severity": "BAIXA",
+      "file": "src/preview/pages/ClientesShowcase/clientes-showcase.styles.ts",
+      "evidence": "clientes-showcase.styles.ts:10-11: `fieldLabel: \"text-body-sm font-semibold tracking-[0.01em] leading-none text-fg-default dark:text-fg-muted select-none\"` — nenhum uso de `s.fieldLabel()` restante no ClientesShowcase (o único fieldLabel usado é o próprio do DetailDrawer em detail-drawer.styles.ts:25). Resíduo pré-L-023 que replica as classes de formFieldLabel() do FormField.",
+      "recomendacao": "Remover o slot morto — cópia manual das classes do FormField é exatamente o vetor de drift que a L-023 proíbe.",
+      "fonte": "uso-nao-doc"
+    },
+    {
+      "title": "Prop pública `hideCancel` existe no código mas não é mencionada no USAGE.md",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AlertModal/USAGE.md",
+      "evidence": "alert-modal.types.ts:26-27 declara `/** Esconde o botão Cancel (modal de aviso sem opção de cancelar) */ hideCancel?: boolean;` e alert-modal.tsx:106 usa `{!hideCancel && (<AlertDialogCancel asChild>` — mas a tabela 'Props essenciais' do USAGE.md (linhas 15-26) não lista `hideCancel`.",
+      "recomendacao": "Adicionar linha `| hideCancel | boolean | false | Esconde o botão Cancel (modal de aviso sem cancelar) |` na tabela de Props essenciais do USAGE.md. É caso de uso comum (modal informativo só com OK).",
+      "fonte": "drift:AlertModal"
+    },
+    {
+      "title": "Prop pública `hideClose` existe no código mas não é mencionada no USAGE.md",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AlertModal/USAGE.md",
+      "evidence": "alert-modal.types.ts:28-29 declara `/** Esconde o botão X (close) no canto superior direito. Default: false. */ hideClose?: boolean;` e alert-modal.tsx:83 renderiza `{!hideClose && (<button ... aria-label=\"Fechar\"` — mas o USAGE.md não menciona `hideClose` em nenhuma linha (tabela linhas 15-26 nem Gotchas linhas 40-43). O USAGE sequer documenta que o modal TEM um botão X de fechar.",
+      "recomendacao": "Adicionar `| hideClose | boolean | false | Esconde o botão X de fechar no canto superior direito |` à tabela do USAGE.md. Relevante pra fluxos onde o consumer quer forçar decisão explícita (confirmar/cancelar) sem escape pelo X.",
+      "fonte": "drift:AlertModal"
+    },
+    {
+      "title": "Tipos de `title`/`description`/`confirmLabel`/`cancelLabel` documentados como `string`, mas código aceita `ReactNode`",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AlertModal/USAGE.md",
+      "evidence": "USAGE.md linhas 20-23 documentam `| title | string | ... |`, `| description | string | ... |`, `| confirmLabel | string | \"Confirmar\" | ... |`, `| cancelLabel | string | \"Cancelar\" | ... |` — porém alert-modal.types.ts:20-25 tipa `title: ReactNode; description?: ReactNode; confirmLabel?: ReactNode; cancelLabel?: ReactNode;`. A doc é mais restritiva que o código (string compila, então nada quebra, mas o consumer não sabe que pode passar JSX — ex: description com <strong>).",
+      "recomendacao": "Atualizar a coluna Tipo dessas 4 props pra `ReactNode` no USAGE.md.",
+      "fonte": "drift:AlertModal"
+    },
+    {
+      "title": "USAGE não documenta `icon={null}` pra esconder o ícone (shape `ReactNode | null` com semântica especial)",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AlertModal/USAGE.md",
+      "evidence": "USAGE.md linha 26: `| icon | ReactNode | — | Ícone customizado (default por tone) |`. O código distingue undefined de null: alert-modal.types.ts:34-35 `/** Override do ícone default. Passe `null` pra esconder o ícone. */ icon?: ReactNode | null;` e alert-modal.tsx:68 `const iconNode = icon === undefined ? TONE_ICON[tone] : icon;`.",
+      "recomendacao": "Acrescentar no USAGE (coluna Função ou Gotchas): `icon={null}` esconde o ícone; omitir usa o default do tone.",
+      "fonte": "drift:AlertModal"
+    },
+    {
+      "title": "USAGE não documenta as props controladas de navegação (activeContextId/onContextChange, activeItemHref/onItemClick) — essenciais pra integrar com router",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AppShell/USAGE.md",
+      "evidence": "app-shell.types.ts:62-68 — \"activeContextId?: string; onContextChange?: (id: string) => void; ... activeItemHref?: string; onItemClick?: (item: SidebarMenuItem) => void;\" — a tabela de props do USAGE (linhas 15-29) só lista os modos uncontrolled `defaultActiveContextId` e `defaultActiveItemHref`; nenhum dos 4 controlados/callbacks aparece.",
+      "recomendacao": "Adicionar à tabela de props: `activeContextId`/`onContextChange` (workspace controlado) e `activeItemHref`/`onItemClick` (navegação controlada). Sem `onItemClick` o consumer não tem como ligar o sidebar ao router — é a prop mais importante pra uso real fora do preview.",
+      "fonte": "drift:AppShell"
+    },
+    {
+      "title": "USAGE documenta `layout` mas omite `onLayoutChange` e `layoutOptions` — o switcher Fluido/Compacto do user menu fica inoperante sem o callback",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AppShell/USAGE.md",
+      "evidence": "app-shell.types.ts:96-99 — \"layout?: string; onLayoutChange?: (id: string) => void; layoutOptions?: AppShellLayoutOption[];\" — o USAGE linha 29 lista só `layout` (\"fluid\" | \"compact\" | default \"fluid\"), sem o callback nem as opções. O tipo `AppShellLayoutOption` é exportado publicamente em index.ts:5.",
+      "recomendacao": "Documentar o trio completo (`layout` + `onLayoutChange` + `layoutOptions`), no mesmo padrão usado pro tema (`theme`/`onThemeChange`/`themeOptions`), que o USAGE já documenta corretamente.",
+      "fonte": "drift:AppShell"
+    },
+    {
+      "title": "USAGE omite props públicas relevantes: collapse do sidebar (menuCollapsed/defaultMenuCollapsed/onMenuCollapseChange), headerRightSlot e onSettings",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/AppShell/USAGE.md",
+      "evidence": "app-shell.types.ts:110-112 — \"menuCollapsed?: boolean; defaultMenuCollapsed?: boolean; onMenuCollapseChange?: (collapsed: boolean) => void;\"; :87 — \"headerRightSlot?: ReactNode;\" (\"Slot extra no canto direito do header\"); :101 — \"onSettings?: () => void;\" (\"Callback 'Configurações' no user menu\"). Nenhuma aparece na tabela do USAGE (linhas 15-29), embora `onLogout` (par do `onSettings`) esteja documentado na linha 28.",
+      "recomendacao": "Adicionar à tabela: o trio de collapse (necessário pra persistir o estado do menu entre sessões), `headerRightSlot` (extension point do header) e `onSettings` (par do `onLogout` já documentado).",
+      "fonte": "drift:AppShell"
+    },
+    {
+      "title": "USAGE documenta size \"xxs\" que não existe no código — o valor real é \"2xs\"",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Button/USAGE.md",
+      "evidence": "USAGE.md linha 34: \"| `xxs` | 28px (`formHeight.xs`) | Toolbars compactas, inline actions |\" e linha 47: \"| `size` | `\\\"xxs\\\" \\| \\\"xs\\\" \\| \\\"sm\\\" \\| \\\"md\\\"` | `\\\"md\\\"` | Tamanho |\". No código (button.styles.ts linhas 52-54) a key é \"2xs\": `size: { \"2xs\": \"min-h-form-xs px-pad-lg gap-gp-sm rounded-radius-md [&_svg]:size-[12px]\", ... }` — não existe \"xxs\". `<Button size=\"xxs\">` não compila (erro de tipo via VariantProps).",
+      "recomendacao": "Renomear `xxs` → `2xs` na tabela de Tamanhos (linha 34) e no tipo da prop `size` (linha 47) do USAGE.md.",
+      "fonte": "drift:Button"
+    },
+    {
+      "title": "USAGE omite os sizes \"lg\" (44px) e os 5 icon sizes (\"icon-2xs\" a \"icon-lg\") que existem no código",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Button/USAGE.md",
+      "evidence": "USAGE.md linha 3 afirma \"Suporta 5 cores, 4 variantes e 4 tamanhos\" e a tabela (linhas 32-37) lista só xxs/xs/sm/md. button.styles.ts linha 62: `lg: \"min-h-form-xl px-pad-2xl gap-gp-md rounded-radius-lg [&_svg]:size-[16px]\"` (comentário: \"h44 / pad 16 / gap 8 / radius 10 / icon 16\") e linhas 66-70: `\"icon-2xs\"`, `\"icon-xs\"`, `\"icon-sm\"`, `\"icon-md\"`, `\"icon-lg\"` (\"Icon buttons — width = height (square)\") — total de 10 sizes no código.",
+      "recomendacao": "Adicionar `lg` (44px, WCAG touch) e os 5 icon sizes à tabela de Tamanhos e ao tipo da prop `size` no USAGE.md; corrigir o \"4 tamanhos\" da linha 3.",
+      "fonte": "drift:Button"
+    },
+    {
+      "title": "Prop pública `shape` (rounded | pill) existe no código mas não aparece no USAGE",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Button/USAGE.md",
+      "evidence": "button.styles.ts linhas 82-85: `shape: { rounded: \"\", pill: \"!rounded-full\" }` com default `shape: \"rounded\"` (linha 199) e doc no source: \"pill: força `rounded-full` (override com `!` pra ganhar do size)\". button.tsx linha 11 destrutura `shape` e repassa ao buttonVariants (linha 35). A tabela de Props do USAGE.md (linhas 43-54) não menciona `shape`.",
+      "recomendacao": "Adicionar linha `shape | \"rounded\" \\| \"pill\" | \"rounded\"` à tabela de Props do USAGE.md.",
+      "fonte": "drift:Button"
+    },
+    {
+      "title": "Orientação WCAG do USAGE está errada: cita formHeight.lg como 44px e recomenda override via className, mas 44px é formHeight.xl e já existe size=\"lg\" nativo",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Button/USAGE.md",
+      "evidence": "USAGE.md linha 39: \"Para WCAG touch target (44px), usar `formHeight.lg` via className override.\" — mas formHeight.lg = 40px (button.styles.ts linha 60: `md: \"min-h-form-lg ...\"` com comentário \"h40\") e 44px é form-xl, já coberto nativamente: linha 62 `lg: \"min-h-form-xl ...\"` (comentário \"h44\").",
+      "recomendacao": "Substituir a linha 39 por: \"Para WCAG touch target (44px), usar `size=\\\"lg\\\"` (min-h-form-xl)\".",
+      "fonte": "drift:Button"
+    },
+    {
+      "title": "USAGE descreve Chevron como 'mais estreito' que icon button, mas o código o renderiza quadrado (width = height, mesma dimensão do icon button)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/ButtonGroup/USAGE.md",
+      "evidence": "USAGE.md linha 68: \"Icon button compacto — **mais estreito** que um icon button normal (`size-form-md` = 36px).\" — contradito por button-group.styles.ts linhas 43-52: \"Dimensões do Chevron por size — QUADRADO (width = height) ... md (40px) → 40x40 (size-form-lg) ... o chevron parece um 'espelho' quadrado do Primary, não um appendice estreito.\" e linha 63: `md: \"size-form-lg px-0\"`. No size default (md) o Chevron é 40×40 — exatamente a mesma dimensão do icon button `icon-md` do Button (`size-form-lg`, button.styles.ts linha 69) — não é mais estreito, e a referência `size-form-md` = 36px no USAGE não corresponde ao mapeamento atual (md → size-form-lg = 40px).",
+      "recomendacao": "Atualizar a descrição do slot Chevron no USAGE.md (linha 68) para refletir o comportamento atual: chevron quadrado com width = height, espelhando a size do Primary (2xs→28×28 ... md→40×40 ... lg→44×44). Revisar também o gotcha da linha 160 (\"o Chevron já tem width própria\") e os comentários stale em button-group.types.ts linha 36 (\"Largura compacta (mais estreita que icon-* size do Button)\") e button-group.tsx linha 96 (\"alinha com primary mas estreito\"), que carregam a mesma descrição desatualizada.",
+      "fonte": "drift:ButtonGroup"
+    },
+    {
+      "title": "USAGE afirma que CardCheckbox aceita 'todas as props do CheckboxPrimitive.Root', mas o código omite `id` (e redefine `className` pro card root, não pro checkbox)",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/CardCheckbox/USAGE.md",
+      "evidence": "USAGE.md linhas 44-45: \"Aceita também todas as props do `CheckboxPrimitive.Root` do Radix (`name`, `required`, etc).\" — porém card-checkbox.tsx linhas 7-10 prova a exclusão: `export type CardCheckboxProps = Omit<ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, \"id\" | \"className\">` — `id` é gerado internamente via `useId()` (card-checkbox.tsx:55) e passar `id` causa erro de tipo. Além disso, o `className` re-adicionado vai pro `<label>` root (card-checkbox.tsx:17-18, 63-65), não pro checkbox Radix.",
+      "recomendacao": "Ajustar a frase pra: \"Aceita também as demais props do `CheckboxPrimitive.Root` do Radix (`name`, `required`, etc), EXCETO `id` (gerado automaticamente via useId) e `className` (que é aplicado ao card root, não ao checkbox)\".",
+      "fonte": "drift:CardCheckbox"
+    },
+    {
+      "title": "Exemplo mínimo do USAGE usa `useState` sem importar — snippet não compila como está",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/CardCheckbox/USAGE.md",
+      "evidence": "USAGE.md linhas 50-54: o bloco tsx contém apenas `import { CardCheckbox } from \"@/components/ui/CardCheckbox\";` e na linha 54 chama `const [save, setSave] = useState(true);` — `useState` nunca é importado, gerando erro TS \"Cannot find name 'useState'\".",
+      "recomendacao": "Adicionar `import { useState } from \"react\";` ao exemplo mínimo.",
+      "fonte": "drift:CardCheckbox"
+    },
+    {
+      "title": "Prop `interactive` documentada no USAGE não funciona no Chip — componente ignora o valor passado e o calcula internamente",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Chip/USAGE.md",
+      "evidence": "USAGE.md linha 30: \"| `interactive` | boolean | Hover cursor (sem ser button) |\" — mas chip.tsx linha 52 sobrescreve qualquer valor passado: \"const interactive = Boolean(onClick) || asButton === true;\". A prop não é extraída no destructuring (linhas 37-49), então cai em `...rest` e é espalhada como atributo DOM no <span>/<button> (gera warning React de atributo non-boolean) sem aplicar as classes `cursor-pointer outline-none focus-visible:shadow-sh-ring` do variant `interactive` (chip.styles.ts linhas 52-55). Consumer que seguir o USAGE (passar `interactive` pra ter hover cursor sem button) obtém comportamento nulo.",
+      "recomendacao": "Ou (a) remover a linha `interactive` da tabela de Props essenciais do USAGE.md, ou (b) fazer chip.tsx respeitar a prop: destructurar `interactive` e computar `const isInteractive = interactive ?? (Boolean(onClick) || asButton === true)`. Hoje doc e código divergem.",
+      "fonte": "drift:Chip"
+    },
+    {
+      "title": "Props públicas de customização do ChipGroup ausentes do USAGE (inactiveColor/inactiveVariant/activeColor/activeVariant/size/shape/orientation)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Chip/USAGE.md",
+      "evidence": "chip-group.tsx linhas 59-73 define a API pública de estilização do grupo: \"inactiveColor?: ChipColor; ... inactiveVariant?: ChipVariant; ... activeColor?: ChipColor; ... activeVariant?: ChipVariant; ... size?: ChipSize; ... shape?: ChipShape; ... orientation?: \\\"horizontal\\\" | \\\"vertical\\\"\" (defaults: neutral/outline inativo, primary/soft-outline ativo — linhas 113-118). O USAGE.md só mostra ChipGroup no import (linha 13) e num exemplo mínimo (linhas 41-44), sem nenhuma tabela de props — o consumer não tem como saber que o visual ativo/inativo é configurável sem ler o source, contrariando o propósito do USAGE (\"consumir sem ler source\").",
+      "recomendacao": "Adicionar seção \"ChipGroup props\" ao USAGE.md com tabela: type (single|multiple), value/defaultValue/onValueChange, inactiveColor, inactiveVariant, activeColor, activeVariant, size, shape, orientation — com os defaults documentados no JSDoc do chip-group.tsx.",
+      "fonte": "drift:Chip"
+    },
+    {
+      "title": "USAGE documenta `selectionConfig.actions` como ReactNode, mas o código exige render-prop (função)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:408 — \"`actions?: ReactNode` — slot direto no BulkActionsBar\". Código (data-table.types.ts:426): `actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode;` e consumo em data-table.tsx:1531: `{selectionConfig.actions?.(selection.selectedIds, selection.clear)}`",
+      "recomendacao": "Corrigir o tipo no USAGE para `actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode` — quem passa ReactNode direto não compila/renderiza nada.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE documenta `getRowId` dentro de `selectionConfig`, mas a prop é top-level de DataTableProps",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:407 (seção `### selectionConfig`) — \"`getRowId?: (row) => string | number` — default `row.id`\". Código: `DataTableSelectionConfig` (data-table.types.ts:423-427) só tem `enabled`, `enableGlobal`, `actions`; `getRowId?: (row: T) => GridRowId` é prop top-level (data-table.types.ts:441).",
+      "recomendacao": "Mover o bullet `getRowId` da seção selectionConfig para as props raiz do DataTable no USAGE.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE referencia prop `searchableFields` que não existe em lugar nenhum do código",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:81 — \"**Search global** | `toolbar.enableSearch: true` (default) + `searchableFields` opcional\". Grep de `searchableFields` em src/ só encontra o próprio USAGE.md; não existe em data-table.types.ts (DataTableProps tem apenas `search`/`onSearchChange`, e GridFetchParams tem `searchField`).",
+      "recomendacao": "Remover a menção a `searchableFields` ou documentar o mecanismo real de escopo de busca (`searchField` do GridFetchParams em server mode).",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE referencia handler `onExport` que não existe — export é configurado via `toolbar.enableExport.formats[].onSelect`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:98 — \"**Export** | `toolbar.enableExport: true` + handlers em `onExport`\". Grep de `onExport` em src/ só encontra o USAGE.md. Código (data-table.types.ts:391-396): `enableExport?: boolean | { formats?: DataTableExportFormat[]; items?: DataTableMoreMenuItem[]; }` com handler em `DataTableExportFormat.onSelect` (linha 362).",
+      "recomendacao": "Trocar `onExport` por `enableExport: { formats: [{ id, label, onSelect }] }` na linha de capacidades.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE lista `mode?: \"client\" | \"server\"` em paginationConfig, mas a prop não existe no type",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:401 — \"`mode?: \\\"client\\\" | \\\"server\\\"` — derivado automaticamente de `rows` vs `fetchData`\". Código (data-table.types.ts:417-421): `DataTablePaginationConfig = { enabled?: boolean; initialPageSize?: number; pageSizeOptions?: number[]; }` — sem `mode`.",
+      "recomendacao": "Remover o bullet `mode` (ou reescrever como nota textual: 'o modo client/server é derivado automaticamente de rows vs fetchData — não é prop').",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE documenta contract de SavedViewsService com nomes de métodos errados (`listViews/saveView/deleteView`)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:242 — \"Service contract em `services/saved-views.types.ts` — `listViews / saveView / deleteView`\". Código (services/saved-views.types.ts:72-76): `export type SavedViewsService = { list: (persistId, ...) ...; save: (persistId, view) ...; delete: (persistId, id) ...; }`",
+      "recomendacao": "Corrigir para `list / save / delete` — quem implementar o adapter de produção pelos nomes do USAGE não satisfaz o type.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "Tabela de operators do USAGE inclui `between` como válido para filterType `number`, mas o NumberColumnType não suporta",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:329 — \"| `number` | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`, `between` | `equals` |\". Código (column-types/definitions/number-column-type.tsx:9-16): operators = equals, gt, lt, gte, lte, neq — sem `between` (between existe em currency, date e datetime).",
+      "recomendacao": "Remover `between` da linha `number` — usar `between` em filterModel controlado de coluna number causa exatamente o bug de 'Select de operador vazio' que a própria seção alerta. Aproveitar e completar a linha `date` (código também aceita `gte`/`lte`).",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "Exemplo de column-type custom (RatingColumnType) não compila — falta o campo obrigatório `renderFastFilterInput`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:247-269 — `const RatingColumnType: ColumnTypeDefinition = { type, operators, renderCell, renderFilterInput, matchesFilter }` (sem renderFastFilterInput). Código (column-types/column-types.types.ts:96): `renderFastFilterInput: (props: FastFilterInputProps) => ReactNode;` — propriedade required (sem `?`), TS acusa 'Property renderFastFilterInput is missing'.",
+      "recomendacao": "Adicionar `renderFastFilterInput` ao exemplo (mesmo que reutilize o widget do renderFilterInput).",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "API pública de Kanban (`viewMode`, `kanbanConfig`, `defaultViewMode`, `onViewModeChange`) não documentada no USAGE",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "Código (data-table.types.ts:687-696): `viewMode?: DataTableViewMode; defaultViewMode?: DataTableViewMode; onViewModeChange?: ...; kanbanConfig?: DataTableKanbanConfig<T>;` + `DataTableKanbanConfig` completo (linhas 37-119: groupByField, renderCard, enableDnD, onCardMove, etc). No USAGE, grep de 'kanban|viewMode' só acha menções de passagem: linha 392 (\"`viewToggle?` — override/esconde o segmented table/kanban auto-renderizado\") e linhas 95/454 (lista de persistência) — sem seção, capability row ou receita.",
+      "recomendacao": "Adicionar capability row + receita 'View Kanban' (viewMode + kanbanConfig com groupByField/renderCard/enableDnD) na seção Receitas comuns.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "Troubleshooting usa nome de prop errado `estimatedRowHeight` (real: `estimateRowHeight`)",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "USAGE.md:498 — \"| Virtualização \\\"pula\\\" | `estimatedRowHeight` muito diferente do real | ...\". Código (data-table.types.ts:580): `estimateRowHeight?: number;`. O próprio USAGE usa o nome correto na linha 185 (`estimateRowHeight={56}`).",
+      "recomendacao": "Corrigir o typo na tabela de troubleshooting para `estimateRowHeight`.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "Método `exportCsv(scope)` do DataTableRef ausente da seção 'Imperative ref'",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "Código (data-table.types.ts:735): `exportCsv: (scope: \"all\" | \"filtered\" | \"selected\") => void;` no `DataTableRef`. USAGE.md:365-375 lista apenas getSelectedIds/getSelectedCount/clearSelection/getState/refresh — grep de 'exportCsv' no USAGE retorna zero ocorrências.",
+      "recomendacao": "Adicionar `tableRef.current?.exportCsv(\"filtered\")` à lista da seção Imperative ref (export programático é caso de uso comum em bulk actions).",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "Prop pública `showEmptyFilterChips` (chips placeholder de filtro) não mencionada no USAGE",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/DataTable/USAGE.md",
+      "evidence": "Código (data-table.types.ts:494-517): `showEmptyFilterChips?: string[];` com doc-comment extenso (\"Lista de field names que devem aparecer como chips placeholder nativos na toolbar — visíveis desde o load inicial mesmo sem valor preenchido\" + use case de dashboards). Grep de 'showEmptyFilterChips' no USAGE.md: zero ocorrências.",
+      "recomendacao": "Adicionar uma linha na tabela de Capacidades ou na seção de Filtros documentando `showEmptyFilterChips={[\"status\", \"categoria\"]}`.",
+      "fonte": "drift:DataTable"
+    },
+    {
+      "title": "USAGE documenta `size` apenas como sm/md/lg/xl, mas o código aceita também `number` (px custom)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FloatingPanel/USAGE.md",
+      "evidence": "USAGE.md linha 19: \"| `size` | sm / md / lg / xl | md | sm=320, md=400, lg=560, xl=720px |\" — porém floating-panel.types.ts linha 23 declara `size?: FloatingPanelSize | number;` com doc nas linhas 8-10: \"Pra casos avançados use `number` (px) ou override via `className`.\"",
+      "recomendacao": "Atualizar a linha do `size` na tabela de Variants para `sm / md / lg / xl / number (px)`, mencionando que number define largura inicial custom (e vira width inicial quando `resizable`).",
+      "fonte": "drift:FloatingPanel"
+    },
+    {
+      "title": "Props públicas relevantes ausentes do USAGE: `titleIcon`, `hideClose`, `resizableMinWidth`, `resizableMaxWidth`, `resizableStorageKey`, `defaultMaximized`, `closeOnEscape`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FloatingPanel/USAGE.md",
+      "evidence": "floating-panel.types.ts declara props consumer-facing que não aparecem na tabela \"Props essenciais\" do USAGE (linhas 21-32): linha 30 `titleIcon?: LucideIcon;` (\"Header — ícone à esquerda do título\"), linha 41 `hideClose?: boolean;` (\"Esconde o botão X de fechar\"), linhas 52-56 `resizableMinWidth?: number; resizableMaxWidth?: number; resizableStorageKey?: string;` (\"Chave do localStorage pra persistir width entre sessões\"), linha 61 `defaultMaximized?: boolean;`, linha 64 `closeOnEscape?: boolean;` (\"Fecha com ESC. Default: true\"). O USAGE menciona `resizable` mas omite os bounds (320/800 default) e a persistência de width via localStorage — feature destacada no docblock do componente (floating-panel.tsx linha 26: \"Resize horizontal (drag handle no edge) com persistência opcional\").",
+      "recomendacao": "Adicionar à tabela de Props essenciais ao menos `titleIcon`, `hideClose` e `resizableStorageKey` (com defaults de min/max 320-800), e citar `closeOnEscape`/`defaultMaximized` nos Gotchas — o gotcha atual \"estado controlado internamente\" para maximize fica incompleto sem `defaultMaximized`.",
+      "fonte": "drift:FloatingPanel"
+    },
+    {
+      "title": "Gotcha descreve comportamento errado: selectionCount NÃO substitui o range — ambos aparecem juntos",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FooterTable/USAGE.md",
+      "evidence": "USAGE.md linha 43: \"`selectionCount > 0` mostra texto à esquerda; senão range aparece ali\" — implica que a seleção substitui o range. No código (footer-table.tsx linhas 101-118) os dois blocos são independentes: o range renderiza sempre que `!hideRange` (`{!hideRange && (<span ...>{fmt(start)}–{fmt(end)} de ...`) e a seleção renderiza como sufixo adicional `{selectionCount > 0 && (<span ...>· {selectionCount} selecionado...` — nunca um no lugar do outro. Também: USAGE linha 23 diz que mostra \"X selecionados\", mas o texto real é \"· N selecionado(s)\" (footer-table.tsx linha 116).",
+      "recomendacao": "Corrigir o gotcha para: \"selectionCount > 0 acrescenta '· N selecionado(s)' ao lado do range — não substitui o range; pra esconder o range use hideRange\".",
+      "fonte": "drift:FooterTable"
+    },
+    {
+      "title": "Props públicas de i18n/label ausentes do USAGE: rowLabel, pageSizeLabel e locale",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FooterTable/USAGE.md",
+      "evidence": "footer-table.types.ts linhas 17-22 declara: `pageSizeLabel?: string` (\"Label do select (default 'Linhas')\"), `rowLabel?: string` (\"Sufixo do range (ex 'rows', 'registros'). Default 'rows'\") e `locale?: string` (\"Locale pra formatar números (default 'pt-BR')\"). Nenhuma das três aparece na tabela de Props essenciais do USAGE (linhas 15-26). Relevante pro consumer: o default `rowLabel = \"rows\"` produz o texto misto \"1–10 de 87 rows\" — quem quer \"registros\" precisa saber que a prop existe. O USAGE linha 25 inclusive documenta hideRange como 'Esconde \"1-10 de 87\"' omitindo o sufixo \"rows\" do default.",
+      "recomendacao": "Adicionar rowLabel, pageSizeLabel e locale à tabela de props com seus defaults (\"rows\", \"Linhas\", \"pt-BR\").",
+      "fonte": "drift:FooterTable"
+    },
+    {
+      "title": "FooterTableSkeleton é export público mas o USAGE não o menciona",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FooterTable/USAGE.md",
+      "evidence": "index.ts linhas 1-2: `export { FooterTable, FooterTableSkeleton } from \"./footer-table\"; export type { FooterTableSkeletonProps } from \"./footer-table\";` — e footer-table.tsx linhas 169-185 define `FooterTableSkeletonProps` (`pageButtonCount?: number` default 5, `className?`) e o componente `FooterTableSkeleton` (\"Estado loading do FooterTable — usado pelo DataTable enquanto a primeira chamada de `fetchData` não retornou totalCount\"). O USAGE.md inteiro (linhas 1-44) não contém nenhuma referência a FooterTableSkeleton.",
+      "recomendacao": "Adicionar seção curta no USAGE documentando FooterTableSkeleton (quando usar: loading antes do primeiro totalCount; prop pageButtonCount, default 5).",
+      "fonte": "drift:FooterTable"
+    },
+    {
+      "title": "USAGE importa e usa FormFieldLabel e FormFieldMessage — componentes que nao existem no codigo (exemplo nao compila)",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FormField/USAGE.md",
+      "evidence": "USAGE.md linhas 11-15: `import { FormField, FormFieldLabel, FormFieldMessage } from \"@/components/ui/FormField\";` e linhas 36-38 usam `<FormFieldLabel>Email</FormFieldLabel>` e `<FormFieldMessage state=\"error\">`. Porem index.ts exporta apenas: `FormField`, `FormFieldInput`, `FormFieldTextarea`, `FormFieldSelect`, `FormFieldCheckbox`, `FormFieldSwitch` (+ types `FieldState`, `FormFieldBaseProps`). Nao ha nenhum export ou definicao de `FormFieldLabel` nem `FormFieldMessage` em nenhum arquivo da pasta — sao apenas slots internos de estilo (`formFieldLabel`, `formFieldMessage` em form-field.styles.ts), renderizados internamente pelo FormField. O import quebra a compilacao.",
+      "recomendacao": "Reescrever a secao Import/Exemplo com a API real: `import { FormField, FormFieldInput } from \"@/components/ui/FormField\"` — label e mensagem sao passados via props (`label`, `errorMessage`, `helperText`), nao via sub-componentes.",
+      "fonte": "drift:FormField"
+    },
+    {
+      "title": "USAGE documenta children como ReactNode (Label + Input + Message em ordem) — codigo exige render-prop obrigatorio `(ctx) => ReactNode`",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FormField/USAGE.md",
+      "evidence": "USAGE.md linha 31: `| children | ReactNode | Label + Input + Message (ordem) |` e o exemplo minimo (linhas 35-39) passa JSX direto como children. Codigo em form-field.tsx linha 14: `children: (ctx: { id: string; state: FieldState }) => ReactNode;` — children e uma funcao (render-prop) que recebe `{ id, state }`; passar ReactNode direto e erro de tipo e quebra em runtime (`children({ id, state })` na linha 74). O gotcha da linha 45 (\"todos respeitam o state via context\") tambem e falso — nao existe context; o state e propagado pelo argumento do render-prop.",
+      "recomendacao": "Documentar children como render-prop: `<FormField label=\"Email\" required state=\"error\" errorMessage=\"Email invalido\">{({ id, state }) => <Input id={id} state={state} ... />}</FormField>`, e corrigir o gotcha de \"context\" para \"render-prop ctx\".",
+      "fonte": "drift:FormField"
+    },
+    {
+      "title": "Wrappers publicos FormFieldInput/Textarea/Select/Checkbox/Switch (API recomendada pela L-023) e props centrais nao aparecem no USAGE",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FormField/USAGE.md",
+      "evidence": "index.ts exporta `FormFieldInput`, `FormFieldTextarea`, `FormFieldSelect` (+ `FormFieldSelectOption`), `FormFieldCheckbox`, `FormFieldSwitch` — nenhum citado no USAGE.md. Tambem ausentes as props publicas de `FormFieldBaseProps` (form-field.types.ts linhas 9-28): `label`, `helperText`, `state` (`\"default\" | \"error\" | \"warning\" | \"success\"`), `errorMessage`, `warningMessage`, `successMessage`, `id` — alem de `hideLabel` (form-field.tsx linha 16) e dos addons `startAddon`/`endAddon` do FormFieldInput (form-field-input.tsx linhas 26-28). O USAGE so lista `disabled`, `required` e `children`. A propria ds-standards (L-023) manda a IA usar `FormFieldInput/Select/Textarea` em forms — mas o atalho canonico do componente nao os documenta.",
+      "recomendacao": "Adicionar tabela de props baseada em FormFieldBaseProps + secao listando os 5 wrappers one-shot com exemplo de FormFieldInput (incluindo startAddon/endAddon), ja que sao a forma recomendada de consumo.",
+      "fonte": "drift:FormField"
+    },
+    {
+      "title": "Prop `disabled` documentada como \"opacity 50% em todos os children\" — codigo aplica disabled somente ao label",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/FormField/USAGE.md",
+      "evidence": "USAGE.md linha 29: `| disabled | boolean | Aplica opacity 50% em todos os children |`. Codigo: form-field.tsx linha 17 documenta `/** Marcar field como disabled (afeta cor do label) */` e linha 68 aplica apenas `formFieldLabel({ disabled })`; em form-field.styles.ts (linhas 18-22) o variant `disabled: { true: \"opacity-50 cursor-not-allowed\" }` existe so no slot do label — `formFieldRoot` (linhas 8-10) e um tv() base-only, sem nenhum variant, contrariando tambem a tabela de Variants do USAGE (linhas 21-22) que atribui `disabled`/`required` ao Container.",
+      "recomendacao": "Corrigir para: `disabled` esmaece apenas o label (opacity-50); o input filho deve receber seu proprio `disabled` (os wrappers FormFieldInput etc ja propagam automaticamente). Remover `disabled`/`required` da linha Container na tabela de Variants.",
+      "fonte": "drift:FormField"
+    },
+    {
+      "title": "Prop `onMenuToggle` documentada não existe — nome real é `onCollapseMenu`",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "USAGE.md:18 — \"| `onMenuToggle` | () => void | Botão de collapse do MenuSidebar |\" — mas header.types.ts:126 define: \"/** Collapse menu (integração com MenuSidebar) */ onCollapseMenu?: () => void;\". Não há `onMenuToggle` em lugar nenhum do código (grep zero hits fora do USAGE).",
+      "recomendacao": "Renomear na tabela para `onCollapseMenu` e documentar a prop par `menuCollapsed?: boolean` (header.types.ts:128, controla o ícone PanelLeftClose vs PanelLeftOpen). Consumer que copiar `onMenuToggle` do USAGE recebe erro de compilação TS.",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "Prop `onSearchClick` documentada não existe — search agora abre Command palette interno via `commandGroups`",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "USAGE.md:20 — \"| `onSearchClick` | () => void | Abre command palette ou modal de search |\" e USAGE.md:42 — \"Search é fake-input (visual) — `onSearchClick` deve abrir palette/modal real\". HeaderProps (header.types.ts:130-140) não tem `onSearchClick`; tem `showSearch`, `searchShortcut`, `commandGroups`, `commandPlaceholder`, `commandEmptyMessage`, e header.tsx:104-111 passa tudo direto pro `<HeaderSearch>` que gerencia o palette internamente.",
+      "recomendacao": "Remover `onSearchClick` da tabela e o gotcha da linha 42. Documentar o modelo real: o palette é interno ao componente e é populado via `commandGroups: HeaderCommandGroup[]` — sem isso \"o palette abre vazio\" (comentário em header.types.ts:135).",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "Gotcha de breadcrumb cita campo `current: true` que não existe no data model",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "USAGE.md:41 — \"Breadcrumb único com `current: true` aplica variant `standalone` (15px em vez de 13px)\". `HeaderBreadcrumbItem` (header.types.ts:6-11) só tem `label`, `href?`, `onClick?` — sem `current`. O variant standalone é automático: header-breadcrumb.tsx:34 — \"const isStandalone = items.length === 1;\".",
+      "recomendacao": "Corrigir gotcha para: \"Breadcrumb com 1 único item renderiza automaticamente como título standalone (15px); 2+ items viram cadeia (13px). Último item nunca é link.\"",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "Props públicas relevantes ausentes do USAGE: `commandGroups`, `menuCollapsed`, `showSearch`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "header.types.ts:135-136 — \"/** Grupos de comandos no Command palette. Sem isso, o palette abre vazio (ou consumer renderiza children custom). */ commandGroups?: HeaderCommandGroup[];\" — prop essencial pro search funcionar, não aparece em nenhuma linha do USAGE.md. Idem `menuCollapsed?: boolean` (linha 128) e `showSearch?: boolean` default true (linha 131).",
+      "recomendacao": "Adicionar à tabela de props essenciais: `commandGroups` (sem ela o palette abre vazio), `menuCollapsed` (estado do ícone de collapse) e `showSearch={false}` (desliga o fake-input).",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "`rightSlot` (slot livre à direita) não documentado",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "header.types.ts:153-154 — \"/** Slot livre à direita (custom buttons antes dos ícones default) */ rightSlot?: ReactNode;\" — renderizado em header.tsx:102 como primeiro filho de `headerRight()`. USAGE.md não menciona.",
+      "recomendacao": "Adicionar `rightSlot` à tabela de props — é o ponto de extensão pra botões custom no lado direito.",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "Tipo `ThemeOption[]` na tabela — nome exportado real é `HeaderThemeOption`",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Header/USAGE.md",
+      "evidence": "USAGE.md:22 — \"| `themeOptions` | ThemeOption[] | Lista de temas pro dropdown |\" — mas o tipo exportado é `HeaderThemeOption` (header.types.ts:113 \"export type HeaderThemeOption = {\" e index.ts:32). Não existe export `ThemeOption`.",
+      "recomendacao": "Corrigir para `HeaderThemeOption[]` na tabela.",
+      "fonte": "drift:Header"
+    },
+    {
+      "title": "Link relativo quebrado para ClientsKanbanPreview.tsx (resolve para src/components/preview/, que não existe)",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Kanban/USAGE.md",
+      "evidence": "USAGE.md linha 255: \"Veja [src/preview/pages/ClientsKanbanPreview.tsx](../../preview/pages/ClientsKanbanPreview.tsx) pra exemplo runnable\". A partir de src/components/ui/Kanban/, '../../preview/...' resolve para src/components/preview/pages/ClientsKanbanPreview.tsx — pasta inexistente (Glob 'src/components/preview/**' retorna 'No files found'). O arquivo real está em src/preview/pages/ClientsKanbanPreview.tsx.",
+      "recomendacao": "Corrigir o href para ../../../preview/pages/ClientsKanbanPreview.tsx (3 níveis acima, não 2). O texto visível do link já está correto.",
+      "fonte": "drift:Kanban"
+    },
+    {
+      "title": "USAGE afirma que a presença de `selectedIds` ativa o checkbox, mas o código condiciona a `onToggleSelect`",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Kanban/USAGE.md",
+      "evidence": "USAGE.md linha 266 (tabela KanbanProps): \"`selectedIds` | `Set<string>` | — | IDs selecionados; presença ativa checkbox\". No código, kanban.tsx linha 299 passa `showCheckbox={Boolean(onToggleSelect)}` — é `onToggleSelect` que ativa o checkbox, não `selectedIds`. O próprio USAGE confirma na linha 322 do Troubleshooting: \"variant `reserveCheck` só ativa quando `onToggleSelect` é fornecido\" (inconsistência interna da doc).",
+      "recomendacao": "Ajustar a descrição da linha 266 para algo como \"IDs selecionados; checkbox aparece quando `onToggleSelect` é fornecido\" (o JSDoc de `selectedIds` em kanban.types.ts linha 119 tem a mesma imprecisão e pode ser corrigido junto).",
+      "fonte": "drift:Kanban"
+    },
+    {
+      "title": "Prop `collapsed` documentada não existe — API real é `panelCollapsed`/`defaultPanelCollapsed`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "USAGE.md:22 \"| `collapsed` | boolean | Panel oculto (só rail visível) |\" — mas sidebar.types.ts:98-101 define: \"/** Panel colapsado (rail-only) — controlled */ panelCollapsed?: boolean; /** Panel colapsado — uncontrolled initial */ defaultPanelCollapsed?: boolean;\". Não existe prop `collapsed` em SidebarProps; consumer copiando da tabela teria erro de TS.",
+      "recomendacao": "Trocar a linha da tabela para `panelCollapsed` (controlled) + `defaultPanelCollapsed` (uncontrolled) + `onPanelCollapseChange`.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "Prop `floating` documentada não existe em SidebarProps — é interna do SidebarPanel, controlada via `expandOnHover`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "USAGE.md:23 \"| `floating` | boolean | Panel flutua sobre conteúdo (não empurra) |\" e USAGE.md:43 \"`floating=true` faz panel `absolute`\" — mas SidebarProps (sidebar.types.ts:74-131) não tem `floating`; ele só existe em sidebar-panel.tsx:26 (\"floating?: boolean;\", subcomponente) e no MenuSidebar é calculado internamente (menu-sidebar.tsx:114-115 \"const shouldFloat = !isMobile && !!expandOnHover && collapsed && (hoverExpanded || hoverExiting);\"). A prop pública equivalente é `expandOnHover` (sidebar.types.ts:110).",
+      "recomendacao": "Substituir `floating` por `expandOnHover` (default true) na tabela; mover a nota de `floating` para a seção de composição manual com SidebarPanel.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "Prop `mobile` documentada não existe — modo mobile é auto-detectado via `mobileBreakpoint` (matchMedia)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "USAGE.md:24 \"| `mobile` | boolean | Vira drawer fixed bottom-up |\" — mas SidebarProps não tem prop `mobile`; o código detecta via media query: sidebar.types.ts:121-125 \"/** Media query que ativa o modo mobile (drawer). Default: `(max-width: 767px)` */ mobileBreakpoint?: string;\" e menu-sidebar.tsx:60 \"const isMobile = useMediaQuery(mobileBreakpoint);\". Além disso o drawer é translate-x lateral, não \"bottom-up\".",
+      "recomendacao": "Remover `mobile` da tabela e documentar `mobileBreakpoint` (default \"(max-width: 767px)\") + `defaultMobileOpen`/`onMobileOpenChange`.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "Gotcha referencia componente inexistente `<SidebarMobileBackdrop>`",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "USAGE.md:42 \"Mobile: vira drawer overlay (translate-x) — backdrop separado via `<SidebarMobileBackdrop>`\" — não existe componente com esse nome em nenhum arquivo da pasta nem em index.ts (exports: MenuSidebar, SidebarRail, SidebarPanel, SidebarItem, SidebarPill, SidebarSubgroup, SidebarSection, SidebarBrandIcon). Só existe o style fn `sidebarMobileBackdrop` (sidebar.styles.ts:54), não exportado, e o backdrop é renderizado internamente pelo próprio MenuSidebar (menu-sidebar.tsx:131-137: \"{isMobile && openMobile && (<div className={sidebarMobileBackdrop()} onClick={() => setOpenMobile(false)} ... />)}\").",
+      "recomendacao": "Corrigir a nota: o backdrop é automático no modo mobile (renderizado pelo MenuSidebar); consumer não precisa renderizar nada.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "Shape de item hierárquico documentado errado: `{ label, href, children }` vs real `{ name, href?, subitems? }`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "USAGE.md:44 \"Items hierárquicos: `items: [{ label, href, children: [...] }]`\" — mas SidebarMenuItem (sidebar.types.ts:10-22) usa `name: string` (não `label`) e `subitems?: SidebarMenuItem[]` (não `children`): \"export type SidebarMenuItem = { name: string; icon?: LucideIcon; href?: string; ... subitems?: SidebarMenuItem[]; defaultOpen?: boolean; ... }\". Consumer seguindo o USAGE montaria um data model que não compila.",
+      "recomendacao": "Corrigir para `items: [{ name, href, subitems: [...] }]` e mencionar `defaultOpen` para grupos.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "Props públicas relevantes ausentes do USAGE: `expandOnHover`, `onItemClick` e `sections` no context",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/MenuSidebar/USAGE.md",
+      "evidence": "sidebar.types.ts:104-110 \"/** Comportamento de hover-to-expand quando panel está colapsado. Default: true. ... */ expandOnHover?: boolean;\" e sidebar.types.ts:96 \"onItemClick?: (item: SidebarMenuItem) => void;\" não aparecem em nenhuma linha do USAGE.md. Idem `sections?: SidebarSection[]` no SidebarContext (sidebar.types.ts:69) — variantes bookmark/chat do panel — enquanto USAGE.md:17 documenta o context só como \"{ id, label, icon, items }\".",
+      "recomendacao": "Adicionar `expandOnHover` e `onItemClick` à tabela de props e incluir `sections` no shape documentado de `contexts`.",
+      "fonte": "drift:MenuSidebar"
+    },
+    {
+      "title": "USAGE documenta subcomponentes ModalHeader/ModalBody/ModalFooter que não existem no código",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "USAGE.md linhas 12-17: `import { Modal, ModalHeader, ModalBody, ModalFooter } from \"@/components/ui/Modal\";` — mas index.ts (linhas 1-2) exporta apenas: `export { Modal } from \"./modal\"; export type { ModalProps, ModalAction, ModalSize } from \"./modal\";`. Nenhum ModalHeader/ModalBody/ModalFooter existe em modal.tsx — header/body/footer são renderizados internamente pelo próprio <Modal> via props (modal.tsx linhas 159-200).",
+      "recomendacao": "Reescrever a seção Import para `import { Modal } from \"@/components/ui/Modal\";` e remover todas as referências aos subcomponentes inexistentes.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "Prop `onOpenChange` documentada não existe — API real é `onClose`",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "USAGE.md linha 30: `| onOpenChange | (open: boolean) => void | Callback |` — mas modal.tsx linhas 40-41 definem: `/** Callback quando o modal pede pra fechar (X, ESC, overlay click, ou ação). */ onClose: () => void;`. Não há prop onOpenChange em ModalProps (linhas 37-100).",
+      "recomendacao": "Substituir `onOpenChange` por `onClose: () => void` (obrigatória) na tabela de props essenciais.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "Exemplo mínimo do USAGE não compila (onOpenChange + ModalBody + ModalFooter layout)",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "USAGE.md linhas 38-52: `<Modal open={open} onOpenChange={setOpen} ...> <ModalBody>...</ModalBody> <ModalFooter layout=\"end\">...</ModalFooter> </Modal>` — três erros de compilação: (1) `onOpenChange` não existe em ModalProps (modal.tsx:37-100, a prop é `onClose`); (2) `ModalBody` e `ModalFooter` não são exportados (index.ts:1-2); (3) não existe prop `layout` em componente algum — o layout do footer é derivado internamente: `layout: tertiaryAction ? \"between\" : \"end\"` (modal.tsx:190).",
+      "recomendacao": "Reescrever o exemplo com a API real: `<Modal open={open} onClose={() => setOpen(false)} title=\"...\" primaryAction={{ label: \"Salvar\", onClick: handleSave }} secondaryAction={{ label: \"Cancelar\" }}>...</Modal>`.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "Variant `Footer layout` documentada como API pública mas é interna (derivada de tertiaryAction)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "USAGE.md linha 24: `| Footer layout | end / between | end | \"between\" pra tertiary à esquerda |` (e linha 56 reforça: 'Footer layout=\"between\" exige tertiary à esquerda'). No código, `layout` é variant interna do slot tv() `foot` (modal.styles.ts:111-117) calculada automaticamente em modal.tsx:189-191: `className={foot({ layout: tertiaryAction ? \"between\" : \"end\" })}` — o consumer não passa layout; ele passa `tertiaryAction`.",
+      "recomendacao": "Remover `layout` da tabela de variants e explicar que passar `tertiaryAction` ativa automaticamente o justify-between.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "USAGE omite o footer estruturado (primaryAction/secondaryAction/tertiaryAction, ModalAction) e props footer/hideClose/closeOnOverlay",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "A tabela de props essenciais (USAGE.md linhas 27-34) lista apenas open/onOpenChange/title/description/icon/size. modal.tsx define a API principal de footer que o USAGE não menciona: `primaryAction?: ModalAction;` (linha 64), `secondaryAction?: ModalAction;` (linha 69), `tertiaryAction?: ModalAction;` (linha 75), `footer?: ReactNode;` escape hatch (linha 82), além de `hideClose?: boolean;` (linha 94) e `closeOnOverlay?: boolean;` (linha 96) e do type `ModalAction` ({ label, onClick, disabled, loading, danger }, linhas 24-35). Sem essas props, o consumer não tem como renderizar os botões do footer — a única via documentada (ModalFooter) não existe.",
+      "recomendacao": "Adicionar à tabela: primaryAction/secondaryAction/tertiaryAction (com o shape de ModalAction e o efeito do campo danger), footer (override), hideClose e closeOnOverlay.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "Gotcha 'Body é scrollável automaticamente (max-h interno)' não corresponde ao código",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Modal/USAGE.md",
+      "evidence": "USAGE.md linha 57: '- Body é scrollável automaticamente (max-h interno)'. O slot body em modal.styles.ts:97-99 é apenas `base: \"flex flex-col gap-[18px] px-pad-4xl py-[22px]\"` — sem max-h nem overflow-y. O container dialog tem `overflow-hidden` (modal.styles.ts:23), que CLIPA conteúdo excedente em vez de scrollar; o DialogContent shadcn também não define max-h/overflow (grep sem matches em src/components/shadcn/dialog.tsx).",
+      "recomendacao": "Corrigir o gotcha: o body não scrolla automaticamente — conteúdo maior que o viewport é clipado pelo overflow-hidden do container. Ou implementar max-h + overflow-y-auto no slot body se o comportamento documentado for o desejado.",
+      "fonte": "drift:Modal"
+    },
+    {
+      "title": "USAGE documenta title como text-title-md, mas o código usa text-title-lg",
+      "severity": "MEDIA",
+      "file": "src/components/ui/PageHeader/USAGE.md",
+      "evidence": "USAGE.md linha 23: \"| `title` | string | — | Título h1 (text-title-md) |\" — porém page-header.styles.ts linha 25 define: title: \"m-0 text-title-lg font-bold tracking-[-0.01em] text-fg-default\"",
+      "recomendacao": "Atualizar a célula 'Função' da prop `title` na tabela de props do USAGE.md para `text-title-lg` (o JSDoc em page-header.types.ts linha 4 também repete `text-title-md` e deve ser corrigido junto).",
+      "fonte": "drift:PageHeader"
+    },
+    {
+      "title": "Prop `onClose` documentada no USAGE não existe em PanelProps",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Panel/USAGE.md",
+      "evidence": "USAGE.md linha 33: \"| `onClose` | () => void | Callback explícito do X (além de onOpenChange) |\" — mas panel.types.ts (linhas 10-43) define PanelProps apenas com: open, defaultOpen, onOpenChange, trigger, side, size, title, description, titleIcon, hideClose, footer, children, className. Não há `onClose` nem em PanelHeaderProps (panel-header.tsx linhas 14-22). Passar `onClose` em <Panel> gera erro de excess property no TypeScript.",
+      "recomendacao": "Remover a linha `onClose` da tabela de Props essenciais do USAGE.md (o fechamento do X já chega via onOpenChange(false), pois o X é um SheetClose do Radix).",
+      "fonte": "drift:Panel"
+    },
+    {
+      "title": "Exemplo mínimo usa <PanelBody>/<PanelFooter> como children, contradizendo a API all-in-one (children auto-wrapped, footer via prop)",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Panel/USAGE.md",
+      "evidence": "USAGE.md linhas 44-50 colocam <PanelBody> e <PanelFooter> como filhos diretos de <Panel>. Mas panel.tsx linhas 108-109 fazem: `<PanelBody>{children}</PanelBody>` e `{footer && <PanelFooter>{footer}</PanelFooter>}` — children são SEMPRE embrulhados em PanelBody e o footer só renderiza via prop `footer` (panel.types.ts linha 36: `footer?: ReactNode`). Seguindo o exemplo, o PanelBody fica duplamente aninhado e o PanelFooter renderiza DENTRO do body scrollável — o footer não fica sticky, contradizendo o próprio USAGE linha 57 (\"header e footer ficam fixos\").",
+      "recomendacao": "Reescrever o Exemplo mínimo: conteúdo direto como children (sem <PanelBody>) e botões via prop `footer={<>...</>}`. Se quiser documentar composição manual, usar os exports PanelRoot/PanelTrigger/PanelContent do index.ts.",
+      "fonte": "drift:Panel"
+    },
+    {
+      "title": "Prop pública `size` (sm/md/lg/xl/full ou CSS arbitrário) ausente do USAGE — doc afirma largura fixa de 560px",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Panel/USAGE.md",
+      "evidence": "panel.types.ts linhas 22-23: \"/** Tamanho. Default: \\\"md\\\" (560px). Aceita também string CSS arbitrária. */ size?: PanelSize | string;\" com PanelSize = \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\" (linha 8) e SIZE_MAP em panel.tsx linhas 18-24 (320/560/720/920px/full). USAGE.md linha 3 e tabela de Variants (linhas 21-23) só listam `side` e descrevem \"560px\" como tamanho único.",
+      "recomendacao": "Adicionar `size` à tabela de Variants/Props com os 5 presets + suporte a string CSS arbitrária (ex: \"720px\", \"60vw\"), e ajustar a descrição \"560px\" para \"default md = 560px\".",
+      "fonte": "drift:Panel"
+    },
+    {
+      "title": "Props públicas relevantes `footer`, `trigger` e `titleIcon` não documentadas no USAGE",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Panel/USAGE.md",
+      "evidence": "panel.types.ts linha 36: `footer?: ReactNode` (\"Footer — geralmente botões de ação (Cancelar / Salvar)\"), linha 17: `trigger?: ReactNode`, linha 30: `titleIcon?: LucideIcon`. Nenhuma aparece na tabela \"Props essenciais\" do USAGE.md (linhas 25-33). `footer` é especialmente crítica porque é o único caminho para o footer sticky no modo all-in-one — sua ausência é o que induz o exemplo errado das linhas 44-50.",
+      "recomendacao": "Adicionar `footer` (obrigatória para o footer sticky), `trigger` (abre o panel sem state externo) e `titleIcon` à tabela de Props essenciais. `hideClose` e `defaultOpen` são opcionais de documentar.",
+      "fonte": "drift:Panel"
+    },
+    {
+      "title": "USAGE documenta 3 props (rows, density, onRowSelect) que não existem — componente não aceita prop nenhuma",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/TabelaTeste/USAGE.md",
+      "evidence": "USAGE.md:27-29 documenta `rows | TestRow[]`, `density | \"compact\" | \"comfortable\" | \"spacious\"` e `onRowSelect | (id: string) => void` como 'Props essenciais'. Mas tabela-teste.tsx:27 declara `export function TabelaTeste() {` — sem nenhum parâmetro — e o próprio JSDoc (tabela-teste.tsx:20) afirma: 'Hardcoded por design: sem props além do nada. 13 colunas fixas, 10 rows mock, densidade comfortable'. Os dados vêm de `ROWS_MOCK` interno (mock-data.ts:106), não de prop.",
+      "recomendacao": "Remover a tabela 'Props essenciais' do USAGE.md (ou substituí-la por 'Props: nenhuma — componente 100% hardcoded'), alinhando com o JSDoc do componente.",
+      "fonte": "drift:TabelaTeste"
+    },
+    {
+      "title": "Exemplo mínimo do USAGE não compila — passa props inexistentes e shape de row que não corresponde a nenhum tipo do código",
+      "severity": "ALTA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/TabelaTeste/USAGE.md",
+      "evidence": "USAGE.md:33-38 mostra `<TabelaTeste rows={[{ id: 1, name: \"João\", status: \"Ativo\", amount: \"R$ 1.200\" }]} density=\"comfortable\" />`. TS rejeitaria: `TabelaTeste()` não aceita props (tabela-teste.tsx:27). Além disso o shape do objeto não bate com o tipo real `TabelaRow` (mock-data.ts:65-79): `id` é `string` (não number), e os campos são `statusId`/`value: number` — `status` e `amount` não existem.",
+      "recomendacao": "Trocar o exemplo por `<TabelaTeste />` (uso real, sem props).",
+      "fonte": "drift:TabelaTeste"
+    },
+    {
+      "title": "Tipo `TestRow` citado no USAGE não existe no código — o tipo real é `TabelaRow`",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/TabelaTeste/USAGE.md",
+      "evidence": "USAGE.md:27 referencia o tipo `TestRow[]`. Grep de `TestRow` em todo `src/` retorna apenas a própria linha do USAGE.md — nenhuma declaração existe. O tipo de row real é `export type TabelaRow = { id: string; name: string; ... }` em mock-data.ts:65, que não é prop e não é exportado pelo index.ts (index.ts:1 exporta só `TabelaTeste`).",
+      "recomendacao": "Remover a referência a `TestRow` junto com a tabela de props; se quiser citar o shape interno, usar `TabelaRow` de mock-data.ts.",
+      "fonte": "drift:TabelaTeste"
+    },
+    {
+      "title": "Tabela 'Variants' apresenta `density` como variant pública, mas é variant interna do tv() nunca exposta — componente renderiza sempre com o default",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/TabelaTeste/USAGE.md",
+      "evidence": "USAGE.md:22 documenta `density | compact / comfortable / spacious | comfortable` como variant do componente. A variant existe só dentro de tabela-teste.styles.ts (linhas 169-172, `density: { compact: \"h-[40px]\", comfortable: \"h-[56px]\", spacious: \"h-[64px]\" }`), mas o componente nunca a parametriza — tabela-teste.tsx:76 chama `s.tr({ selected: isHighlighted })` sem density, e o JSDoc fixa 'densidade comfortable' (tabela-teste.tsx:21-22). Não há como o consumer escolher compact/spacious.",
+      "recomendacao": "Reclassificar no USAGE como detalhe interno ('estilos preparados pra 3 densidades, componente fixo em comfortable') ou remover a tabela Variants.",
+      "fonte": "drift:TabelaTeste"
+    },
+    {
+      "title": "Prop pública Table.cardBreakpoint não mencionada no USAGE — e o JSDoc dela em table.types.ts contradiz o USAGE (prop é no-op no Table puro)",
+      "severity": "MEDIA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Table/USAGE.md",
+      "evidence": "USAGE.md linha 130: \"Pro `<Table>` puro, o auto-switch row→card NÃO é automático — você decide via `matchMedia` ou ResizeObserver\". Porém table.types.ts:20-21 declara prop pública com comportamento oposto: \"/** Em px. Largura abaixo da qual o container vira card mode. `false` desativa. Default 768. */ cardBreakpoint?: number | false;\". Na implementação, table.tsx:62 só seta a CSS var: '({ \"--table-card-bp\": `${cardBreakpoint}px` } as React.CSSProperties)' — grep em todo src/ mostra que `--table-card-bp` nunca é consumida por nenhuma regra CSS/@container (única ocorrência é o set em table.tsx:62; table.styles.ts declara `[container-type:inline-size]` na linha 18 mas não tem nenhuma @container query de card mode). Ou seja: o USAGE descreve o comportamento real (sem auto-switch), mas omite a prop pública `cardBreakpoint`, cujo JSDoc promete um card mode automático que não existe.",
+      "recomendacao": "Resolver a contradição numa direção: (a) remover `cardBreakpoint` de TableProps (ou corrigir o JSDoc pra dizer que é reservada/no-op, consumida só pelo DataTable via JS) e manter o USAGE como está; ou (b) implementar a @container query que consome `--table-card-bp` e então documentar a prop no USAGE. Hoje um consumer que lê os types passa `cardBreakpoint` esperando card mode e nada acontece.",
+      "fonte": "drift:Table"
+    },
+    {
+      "title": "USAGE nomeia campo `stickyOffsets` que não existe no retorno de useColumnWidths — o campo real é `offsets`",
+      "severity": "BAIXA",
+      "file": "c:/Users/sergi/OneDrive/Área de Trabalho/DS/igreen-desingsystem-admin/src/components/ui/Table/USAGE.md",
+      "evidence": "USAGE.md linha 45 (tabela de hooks): \"`useColumnWidths(columns)` | Calcula `widths` efetivos + `stickyOffsets` cumulativos pra colunas pinned.\" — mas o ColumnWidthsResult em use-column-widths.ts:13-22 retorna `offsets`, não `stickyOffsets`: \"/** Offset sticky por field (px). Só faz sentido pra colunas pinned. */ offsets: Record<string, number>;\". O próprio exemplo do USAGE (linha 167) usa o nome correto: `const { widths, offsets } = useColumnWidths(cols);`.",
+      "recomendacao": "Trocar `stickyOffsets` por `offsets` na linha 45 do USAGE.md (alinhar a prosa com o ColumnWidthsResult e com o exemplo do Pattern 5).",
+      "fonte": "drift:Table"
+    },
+    {
+      "title": "Exemplo do USAGE passa setter de state direto em ToolbarSearch onChange — assinatura incompatível com a API real (event handler nativo)",
+      "severity": "MEDIA",
+      "file": "src/components/ui/TableToolbar/USAGE.md (linha 48) vs src/components/ui/TableToolbar/parts/toolbar-search.tsx (linhas 6-9)",
+      "evidence": "USAGE.md:48 — `search={<ToolbarSearch value={q} onChange={setQ} />}` — mas o types real é `export type ToolbarSearchProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, \"size\"> & {...}` (toolbar-search.tsx:6-9), ou seja `onChange` é o `ChangeEventHandler<HTMLInputElement>` nativo (recebe ChangeEvent, não string). `onChange={setQ}` é erro de tipo TS (Dispatch<SetStateAction<string>> não aceita ChangeEvent) e em runtime gravaria o objeto de evento no state. Os consumers reais do próprio repo usam a forma correta: TableToolbarDoc.tsx:228 `onChange={(e) => setSearch(e.target.value)}` e data-table.tsx:1349-1351 `onChange={(e: React.ChangeEvent<HTMLInputElement>) => search.setInputValue(e.target.value)}`.",
+      "recomendacao": "Corrigir o exemplo mínimo do USAGE para `onChange={(e) => setQ(e.target.value)}`, espelhando TableToolbarDoc.tsx:228.",
+      "fonte": "drift:TableToolbar"
+    },
+    {
+      "title": "Exemplo mínimo usa SortPanel, ColsPanel, FilterPanel e ToolbarSegmented sem incluí-los no bloco de import",
+      "severity": "BAIXA",
+      "file": "src/components/ui/TableToolbar/USAGE.md (linhas 38-59)",
+      "evidence": "O bloco de import (USAGE.md:38-45) lista apenas `TableToolbar, ToolbarSearch, ToolbarToolButton, ToolbarSettingsMenu, ToolbarApplied, MoreMenu`, mas o corpo do exemplo usa `<SortPanel ... onBack={onBack} />` (linha 52), `<ColsPanel ...>` (linha 53), `<FilterPanel ...>` (linha 54) e `<ToolbarSegmented items={DENSITY} ... />` (linha 55) — nenhum importado. Todos existem e são exportados pelo mesmo barrel (index.ts:76 `ColsPopover, ColsPanel`, index.ts:83 `SortPopover, SortPanel`, index.ts:110-114 `FilterPopover, FilterPanel`, index.ts:12 `ToolbarSegmented`), então é só omissão no import, não referência quebrada de API.",
+      "recomendacao": "Adicionar `SortPanel, ColsPanel, FilterPanel, ToolbarSegmented` ao bloco de import do exemplo (todos vêm do mesmo barrel `@/components/ui/TableToolbar`).",
+      "fonte": "drift:TableToolbar"
+    }
+  ]
+}

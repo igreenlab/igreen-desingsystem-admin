@@ -14,15 +14,21 @@ import { MenuSidebar } from "@/components/ui/MenuSidebar";
 ## Props essenciais
 | Prop | Tipo | Função |
 |---|---|---|
-| `contexts` | Context[] | Lista de workspaces (rail) — `{ id, label, icon, items }` |
+| `contexts` | SidebarContext[] | Lista de workspaces (rail) — `{ id, label, icon, items, sections? }` |
 | `activeContextId` | string | Context ativo (controlled) |
 | `defaultActiveContextId` | string | Context inicial (uncontrolled) |
-| `activeItemHref` | string | Item ativo no panel |
-| `onContextChange` | (id: string) => void | Callback |
-| `collapsed` | boolean | Panel oculto (só rail visível) |
-| `floating` | boolean | Panel flutua sobre conteúdo (não empurra) |
-| `mobile` | boolean | Vira drawer fixed bottom-up |
-| `mobileOpen` | boolean | Drawer aberto |
+| `onContextChange` | (id: string) => void | Callback de troca de context |
+| `activeItemHref` | string | Item ativo no panel (controlled, match por href) |
+| `defaultActiveItemHref` | string | Item ativo inicial (uncontrolled) |
+| `onItemClick` | (item: SidebarMenuItem) => void | Callback ao clicar em item do panel |
+| `panelCollapsed` | boolean | Panel colapsado — só rail visível (controlled) |
+| `defaultPanelCollapsed` | boolean | Panel colapsado inicial (uncontrolled) |
+| `onPanelCollapseChange` | (collapsed: boolean) => void | Callback do collapse |
+| `expandOnHover` | boolean (default `true`) | Com panel colapsado, hover abre o panel como overlay absoluto (não empurra conteúdo) |
+| `mobileOpen` | boolean | Drawer mobile aberto (controlled) |
+| `defaultMobileOpen` | boolean (default `false`) | Drawer mobile inicial (uncontrolled) |
+| `onMobileOpenChange` | (open: boolean) => void | Callback do drawer mobile |
+| `mobileBreakpoint` | string (default `"(max-width: 767px)"`) | Media query que ativa o modo mobile (matchMedia) |
 | `brand` | ReactNode | Logo/avatar no topo do rail |
 | `user` | ReactNode | Avatar+menu no bottom do rail |
 
@@ -39,6 +45,7 @@ import { MenuSidebar } from "@/components/ui/MenuSidebar";
 
 ## Cuidados / Gotchas
 - `w-fit` no root é crítico — sem isso o hover-to-expand dispararia em qualquer lugar do parent
-- Mobile: vira drawer overlay (translate-x) — backdrop separado via `<SidebarMobileBackdrop>`
-- `floating=true` faz panel `absolute` — útil pra hover-to-expand sem reflow
-- Items hierárquicos: `items: [{ label, href, children: [...] }]` — subitems renderizam indentados
+- Mobile é auto-detectado via `mobileBreakpoint` (matchMedia) — NÃO existe prop `mobile`. Vira drawer fixed overlay (translate-x lateral); backdrop scrim e botão de fechar (X) são renderizados automaticamente pelo próprio MenuSidebar. Consumer só controla `mobileOpen` (ex: hamburger no header)
+- `floating` NÃO é prop pública do MenuSidebar — é prop interna de `<SidebarPanel>` (composição manual). No all-in-one, o overlay flutuante é gerenciado por `expandOnHover` + panel colapsado
+- Items hierárquicos: `items: [{ name, href, subitems: [...] }]` — subitems renderizam indentados; `defaultOpen` define o estado inicial do grupo
+- Context pode ter `sections?: SidebarSection[]` (variants `bookmark` | `chat`) renderizadas abaixo dos items do panel

@@ -14,21 +14,32 @@ import { Header } from "@/components/ui/Header";
 ## Props essenciais
 | Prop | Tipo | Função |
 |---|---|---|
-| `breadcrumb` | `{ label, href? }[]` | Array de items (último = current) |
-| `onMenuToggle` | () => void | Botão de collapse do MenuSidebar |
+| `breadcrumb` | `HeaderBreadcrumbItem[]` (`{ label, href?, onClick? }`) | Array de items (último = página atual, nunca link) |
+| `onCollapseMenu` | () => void | Botão de collapse do MenuSidebar (omitido = botão escondido) |
+| `menuCollapsed` | boolean | Controla o ícone (PanelLeftClose vs PanelLeftOpen) |
+| `showSearch` | boolean (default `true`) | Mostra o fake-input de busca; `false` desliga |
 | `searchPlaceholder` | string | Texto do fake-input de busca |
-| `onSearchClick` | () => void | Abre command palette ou modal de search |
+| `commandGroups` | `HeaderCommandGroup[]` | Comandos do Command palette interno — sem isso o palette abre vazio |
 | `theme` | string | Tema ativo |
-| `themeOptions` | ThemeOption[] | Lista de temas pro dropdown |
+| `themeOptions` | HeaderThemeOption[] | Lista de temas pro dropdown |
 | `onThemeChange` | (id: string) => void | Callback |
 | `notifications` | { items, onMarkAllRead, onViewAll } | Dropdown sino |
 | `messages` | { items, onNewMessage, onExpand, onViewAll } | Dropdown chat |
+| `rightSlot` | ReactNode | Slot livre à direita (botões custom antes dos ícones default) |
 
 ## Exemplo mínimo
 ```tsx
 <Header
   breadcrumb={[{ label: "Clientes" }, { label: "Maria Silva" }]}
+  onCollapseMenu={() => setCollapsed((c) => !c)}
+  menuCollapsed={collapsed}
   searchPlaceholder="Buscar..."
+  commandGroups={[
+    {
+      heading: "Ações",
+      items: [{ label: "Novo cliente", onSelect: () => abrirDrawer() }],
+    },
+  ]}
   theme={theme}
   onThemeChange={setTheme}
   themeOptions={APP_SHELL_THEME_OPTIONS}
@@ -38,6 +49,6 @@ import { Header } from "@/components/ui/Header";
 
 ## Cuidados / Gotchas
 - Position é responsabilidade do consumer/template (Header só define altura + layout)
-- Breadcrumb único com `current: true` aplica variant `standalone` (15px em vez de 13px)
-- Search é fake-input (visual) — `onSearchClick` deve abrir palette/modal real
+- Breadcrumb com 1 único item renderiza automaticamente como título standalone (15px); 2+ items viram cadeia (13px). Último item nunca é link
+- Search é fake-input que abre o Command palette interno (⌘K / Ctrl+K) — popular via `commandGroups`, senão o palette abre vazio
 - Badge dot no icon button: `kind="brand"` (mensagens) vs `kind="danger"` (alertas)

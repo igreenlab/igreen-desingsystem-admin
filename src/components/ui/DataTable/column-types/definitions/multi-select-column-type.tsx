@@ -44,7 +44,7 @@ function MultiSelectDropdown({
   };
 
   return (
-    <div className="flex flex-col gap-gp-3xs p-pad-2xs min-w-[200px]">
+    <div className="flex flex-col gap-gp-2xs p-pad-2xs min-w-[200px]">
       {options.length === 0 && (
         <p className="text-body-xs font-normal text-fg-muted px-pad-md py-pad-sm">
           Sem opções disponíveis

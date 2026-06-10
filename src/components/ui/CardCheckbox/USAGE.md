@@ -41,12 +41,15 @@ visual ("salvar essa conta", "marcar como favorito", "ativar notificações").
 | `disabled`        | `boolean`               | `false` | Desativa o card inteiro                      |
 | `className`       | `string`                | —       | Override de classe no card root              |
 
-Aceita também todas as props do `CheckboxPrimitive.Root` do Radix
-(`name`, `required`, etc).
+Aceita também as demais props do `CheckboxPrimitive.Root` do Radix
+(`name`, `required`, etc), **exceto `id`** (gerado automaticamente via
+`useId()` pra vincular o `<label>` ao checkbox) e `className`, que é
+aplicado ao card root (`<label>`), não ao checkbox Radix.
 
 ## Exemplo mínimo
 
 ```tsx
+import { useState } from "react";
 import { CardCheckbox } from "@/components/ui/CardCheckbox";
 
 function MyForm() {

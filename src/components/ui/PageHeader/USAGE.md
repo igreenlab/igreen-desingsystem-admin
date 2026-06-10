@@ -20,7 +20,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 
 | Prop | Tipo | Default | Função |
 |---|---|---|---|
-| `title` | string | — | Título h1 (text-title-md) |
+| `title` | string | — | Título h1 (text-title-lg) |
 | `description` | string | — | Sub-linha (text-body-md fg-subtle) |
 | `badge` | ReactNode | — | Inline ao lado do title (geralmente `<Chip>`) |
 | `actions` | ReactNode | — | Bloco de ações à direita (Buttons, dropdowns) |

@@ -58,7 +58,7 @@ function buildColumns(
       sortable: true,
       width: 240,
       render: ({ row }) => (
-        <div className="flex flex-col gap-gp-3xs min-w-0">
+        <div className="flex flex-col gap-gp-2xs min-w-0">
           <span className="text-body-sm font-medium text-fg-default truncate">
             {row.name}
           </span>

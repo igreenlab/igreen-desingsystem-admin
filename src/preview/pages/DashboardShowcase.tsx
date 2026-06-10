@@ -307,7 +307,7 @@ function KeyInsightsCard() {
   return (
     <article className="flex flex-col gap-gp-md p-pad-3xl bg-bg-surface border border-border-subtle rounded-radius-xl shadow-sh-sm h-full">
       <header className="flex items-center justify-between gap-gp-md">
-        <h3 className="m-0 text-body-md font-medium font-bold text-fg-default">Key Insights</h3>
+        <h3 className="m-0 text-body-md font-medium text-fg-default">Key Insights</h3>
         <Button color="secondary" variant="ghost" size="icon-sm" aria-label="Mais opções">
           <MoreVertical />
         </Button>
@@ -370,7 +370,7 @@ function SectionCard({
     >
       <header className="flex items-center justify-between gap-gp-md">
         <div className="flex flex-col gap-[2px] min-w-0">
-          <h3 className="m-0 text-body-md font-medium font-bold text-fg-default">{title}</h3>
+          <h3 className="m-0 text-body-md font-medium text-fg-default">{title}</h3>
           {subtitle && (
             <p className="m-0 text-body-xs font-normal text-fg-muted">{subtitle}</p>
           )}

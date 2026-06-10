@@ -16,7 +16,7 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 | Variant | Valores | Default | Quando |
 |---|---|---|---|
 | `side` | left / right | right | Lado de ancoragem |
-| `size` | sm / md / lg / xl | md | sm=320, md=400, lg=560, xl=720px |
+| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |
 
 ## Props essenciais
 | Prop | Tipo | Função |
@@ -25,7 +25,11 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 | `onOpenChange` | (open: boolean) => void | Callback de fechamento |
 | `title` | string | Header title |
 | `description` | string | Header subtitle |
-| `resizable` | boolean | Habilita drag-resize |
+| `titleIcon` | LucideIcon | Ícone à esquerda do título |
+| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |
+| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |
+| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`) |
+| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |
 | `maximizable` | boolean | Botão de expandir pra fullscreen |
 | `headerActions` | ReactNode | Slots no header |
 | `footer` | ReactNode | Slot do footer sticky |
@@ -54,4 +58,5 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 - **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`
 - **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola
 - **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons
-- `maximizable=true` adiciona botão de expandir; estado controlado internamente
+- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado
+- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar

@@ -1,6 +1,6 @@
 # Button
 
-Componente interativo para ações. Suporta 5 cores, 4 variantes e 4 tamanhos.
+Componente interativo para ações. Suporta 5 cores, 4 variantes e 10 tamanhos (5 com label + 5 icon-only).
 
 ## Variantes
 
@@ -31,12 +31,19 @@ Componente interativo para ações. Suporta 5 cores, 4 variantes e 4 tamanhos.
 
 | size | Height | Uso |
 |------|--------|-----|
-| `xxs` | 28px (`formHeight.xs`) | Toolbars compactas, inline actions |
+| `2xs` | 28px (`formHeight.xs`) | Toolbars compactas, inline actions |
 | `xs` | 32px (`formHeight.sm`) | Formulários densos, filtros |
 | `sm` | 36px (`formHeight.md`) | Padrão desktop |
 | `md` | 40px (`formHeight.lg`) | Padrão mobile / CTA — touch-friendly |
+| `lg` | 44px (`formHeight.xl`) | WCAG touch target (44px) |
+| `icon-2xs` | 28×28px (quadrado) | Icon button — toolbars compactas |
+| `icon-xs` | 32×32px (quadrado) | Icon button — formulários densos |
+| `icon-sm` | 36×36px (quadrado) | Icon button — padrão desktop |
+| `icon-md` | 40×40px (quadrado) | Icon button — padrão mobile |
+| `icon-lg` | 44×44px (quadrado) | Icon button — WCAG touch target |
 
-Para WCAG touch target (44px), usar `formHeight.lg` via className override.
+Icon sizes são quadrados (width = height) com `p-0` — usar só com ícone, sem label.
+Para WCAG touch target (44px), usar `size="lg"` (`min-h-form-xl`).
 
 ## Props
 
@@ -44,7 +51,8 @@ Para WCAG touch target (44px), usar `formHeight.lg` via className override.
 |------|------|---------|-----------|
 | `color` | `"primary" \| "secondary" \| "critical" \| "success" \| "warning"` | `"primary"` | Cor/intenção semântica |
 | `variant` | `"filled" \| "outline" \| "soft" \| "ghost"` | `"filled"` | Estilo visual |
-| `size` | `"xxs" \| "xs" \| "sm" \| "md"` | `"md"` | Tamanho |
+| `size` | `"2xs" \| "xs" \| "sm" \| "md" \| "lg" \| "icon-2xs" \| "icon-xs" \| "icon-sm" \| "icon-md" \| "icon-lg"` | `"md"` | Tamanho (prefixo `icon-` = quadrado, icon-only) |
+| `shape` | `"rounded" \| "pill"` | `"rounded"` | Forma — `pill` força `rounded-full` (override do radius da size) |
 | `fullWidth` | `boolean` | `false` | Ocupa 100% da largura do container |
 | `disabled` | `boolean` | `false` | Estado desabilitado |
 | `loading` | `boolean` | `false` | Mostra spinner e desabilita |

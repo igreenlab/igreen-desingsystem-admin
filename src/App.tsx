@@ -16,6 +16,7 @@ import { TabsDoc } from "./preview/pages/TabsDoc";
 import { CardDoc } from "./preview/pages/CardDoc";
 import { SwitchDoc } from "./preview/pages/SwitchDoc";
 import { CheckboxDoc } from "./preview/pages/CheckboxDoc";
+import { CardCheckboxDoc } from "./preview/pages/CardCheckboxDoc";
 import { RadioGroupDoc } from "./preview/pages/RadioGroupDoc";
 import { SliderDoc } from "./preview/pages/SliderDoc";
 import { ProgressDoc } from "./preview/pages/ProgressDoc";
@@ -131,7 +132,7 @@ const NAV_SECTIONS: NavSection[] = [
     defaultOpen: true,
     items: [
       { id: "components", label: "All Components", icon: LayoutGrid },
-      { id: "showcase", label: "Showcase", icon: LayoutGrid },
+      { id: "showcase-v2", label: "Showcase", icon: LayoutGrid },
       { id: "demo", label: "Comparison", icon: LayoutGrid },
     ],
   },
@@ -143,13 +144,16 @@ type PageId = string;
 
 // Páginas que têm seu próprio DocSidebar (renderizam full width).
 // Module-scope pra permitir validação do hash já no mount (deep-link).
+// NOTA: "docs" e "docs-template" são templates internos (ComponentDocTemplate) —
+// decisão: ficam FORA da nav (doc-nav-data.ts) de propósito, acessíveis só via
+// deep-link #/docs ou #/docs-template (referência pra criar novas doc pages).
 const DOC_PAGES = [
   "button", "button-group", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
   "introduction", "structure", "installation", "transform-tokens", "updates",
   "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
   "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
-  "switch", "checkbox", "radio-group", "slider", "progress",
+  "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
@@ -235,6 +239,9 @@ export function App() {
   // Ex: ?app=finance → ClientesFinanceiroShowcase (sem sidebar de DS).
   // Detecta uma vez no mount; reload da página é necessário pra trocar.
   // Hook chamado ANTES de qualquer early return pra respeitar Rules of Hooks.
+  // NOTA: por decisão, esses apps ficam fora da nav, do DOC_PAGES e do
+  // hash-router — o entry point é SÓ o query param (?app=finance), simulando
+  // uma aplicação real consumindo o DS sem o chrome da documentação.
   const standaloneApp = useMemo(() => {
     if (typeof window === "undefined") return null;
     return new URLSearchParams(window.location.search).get("app");
@@ -291,6 +298,7 @@ export function App() {
           {activePage === "card" && <CardDoc />}
           {activePage === "switch" && <SwitchDoc />}
           {activePage === "checkbox" && <CheckboxDoc />}
+          {activePage === "card-checkbox" && <CardCheckboxDoc />}
           {activePage === "radio-group" && <RadioGroupDoc />}
           {activePage === "slider" && <SliderDoc />}
           {activePage === "progress" && <ProgressDoc />}

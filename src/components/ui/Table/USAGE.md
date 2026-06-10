@@ -30,7 +30,7 @@
 
 | Componente | Responsabilidade |
 |---|---|
-| `Table` | Root grid container. Aceita `scrollRef` externa (pra virtualization). |
+| `Table` | Root grid container. Aceita `scrollRef` externa (pra virtualization). Expõe `cardBreakpoint?: number \| false` (default `768`) — hoje **no-op** no Table puro (ver Pattern 4). |
 | `TableHead` | Sticky row group de headers. `sticky` toggle. `rootProps` pra HTMLAttributes. |
 | `TableHeadCell` | Cell de header. `forwardRef`. Suporta sort, resize, icon, headMenu slot. |
 | `TableBody` | Row group de body. `virtualized={{ totalHeight }}` ativa modo absolute layout. |
@@ -42,7 +42,7 @@
 
 | Hook | Pra que serve |
 |---|---|
-| `useColumnWidths(columns)` | Calcula `widths` efetivos + `stickyOffsets` cumulativos pra colunas pinned. |
+| `useColumnWidths(columns)` | Calcula `widths` efetivos + `offsets` cumulativos pra colunas pinned. |
 | `useColumnResize({ currentWidth, onResize, onResizeEnd, onResizeLiveDOM })` | Drag-to-resize handle. 3 callbacks: live DOM (síncrono), onResize (mousemove), onResizeEnd (mouseup). |
 
 ## Constants
@@ -128,6 +128,8 @@ const virtualizer = useVirtualizer({
 ### 4. Card mode manual (TableCardRow + matchMedia)
 
 Pro `<Table>` puro, o auto-switch row→card NÃO é automático — você decide via `matchMedia` ou ResizeObserver:
+
+> ⚠️ `TableProps` expõe `cardBreakpoint?: number | false` (default `768`), mas no `<Table>` puro a prop é **no-op**: ela só escreve a CSS var `--table-card-bp` no root — nenhuma regra CSS/`@container` consome essa var hoje. Não passe `cardBreakpoint` no `<Table>` esperando card mode automático; o auto-switch real é o do `<DataTable cardBreakpoint={...}>`, implementado via JS.
 
 ```tsx
 import { useMediaQuery } from "@/components/ui/MenuSidebar/use-media-query";

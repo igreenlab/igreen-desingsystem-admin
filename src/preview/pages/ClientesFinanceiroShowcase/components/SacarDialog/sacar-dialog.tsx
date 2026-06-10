@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Banknote, Check, Wallet } from "lucide-react";
 import { Modal } from "@/components/ui/Modal";
 import {
+  FormField,
   FormFieldInput,
   FormFieldSelect,
 } from "@/components/ui/FormField";
@@ -85,7 +86,8 @@ export function SacarDialog({
   const [amountStr, setAmountStr] = useState("");
   const [selectedBank, setSelectedBank] = useState<BankId | null>(null);
   const [activeTab, setActiveTab] = useState<AccountTab>("cadastradas");
-  const [newAccount, setNewAccount] = useState<NewAccountForm>(EMPTY_NEW_ACCOUNT);
+  const [newAccount, setNewAccount] =
+    useState<NewAccountForm>(EMPTY_NEW_ACCOUNT);
 
   // Reset ao abrir
   useEffect(() => {
@@ -201,140 +203,144 @@ export function SacarDialog({
               : `Limite: ${formatBRL(limit)}`
           }
           errorMessage={
-            overLimit ? `Valor acima do limite (${formatBRL(limit)})` : undefined
+            overLimit
+              ? `Valor acima do limite (${formatBRL(limit)})`
+              : undefined
           }
         />
 
-        {/* Conta de destino — Tabs separando contas cadastradas vs nova */}
-        <div className="flex flex-col gap-gp-md">
-          <label className="text-body-sm font-semibold tracking-[0.01em] text-fg-default dark:text-fg-muted">
-            Conta de destino
-          </label>
+        {/* Conta de destino — Tabs separando contas cadastradas vs nova.
+         *  FormField com children render-prop (L-023) — widget custom (Tabs)
+         *  herda o label padrão do DS sem replicar classes na unha. */}
+        <FormField label="Conta de destino">
+          {() => (
+            <Tabs
+              value={activeTab}
+              onValueChange={(v) => setActiveTab(v as AccountTab)}
+              className="w-full"
+            >
+              <TabsList className="w-full">
+                <TabsTrigger value="cadastradas" className="flex-1">
+                  Contas cadastradas
+                </TabsTrigger>
+                <TabsTrigger value="outra" className="flex-1">
+                  Outra conta
+                </TabsTrigger>
+              </TabsList>
 
-          <Tabs
-            value={activeTab}
-            onValueChange={(v) => setActiveTab(v as AccountTab)}
-            className="w-full"
-          >
-            <TabsList className="w-full">
-              <TabsTrigger value="cadastradas" className="flex-1">
-                Contas cadastradas
-              </TabsTrigger>
-              <TabsTrigger value="outra" className="flex-1">
-                Outra conta
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Tab 1: lista de contas existentes (radio cards) */}
-            <TabsContent value="cadastradas" className="mt-pad-lg">
-              <div className="grid grid-cols-1 gap-gp-md">
-                {SACAR_ACCOUNT_OPTIONS.map((acc, idx) => {
-                  const isSelected = selectedBank === acc.bank;
-                  const isRecommended = idx === 0;
-                  const bankMeta = BANKS[acc.bank];
-                  return (
-                    <button
-                      key={acc.bank}
-                      type="button"
-                      onClick={() => setSelectedBank(acc.bank)}
-                      className={[
-                        "flex items-center gap-gp-lg p-pad-xl rounded-radius-lg",
-                        "border text-left",
-                        "transition-[border-color,background-color,box-shadow] duration-150",
-                        "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-                        // Selected: bg verde fraco (success-muted) + border-brand
-                        // (padrão igual ao card do Saldo disponível) — antes
-                        // border-success deixava a borda branca no dark mode.
-                        isSelected
-                          ? "border-border-brand bg-bg-success-muted shadow-sh-sm"
-                          : "border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted",
-                      ].join(" ")}
-                    >
-                      <Avatar
-                        size="lg"
-                        colorHex={bankMeta.color}
-                        className="text-body-sm font-bold"
+              {/* Tab 1: lista de contas existentes (radio cards) */}
+              <TabsContent value="cadastradas" className="mt-pad-lg">
+                <div className="grid grid-cols-1 gap-gp-md">
+                  {SACAR_ACCOUNT_OPTIONS.map((acc, idx) => {
+                    const isSelected = selectedBank === acc.bank;
+                    const isRecommended = idx === 0;
+                    const bankMeta = BANKS[acc.bank];
+                    return (
+                      <button
+                        key={acc.bank}
+                        type="button"
+                        onClick={() => setSelectedBank(acc.bank)}
+                        className={[
+                          "flex items-center gap-gp-lg p-pad-xl rounded-radius-lg",
+                          "border text-left",
+                          "transition-[border-color,background-color,box-shadow] duration-150",
+                          "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+                          // Selected: bg verde fraco (success-muted) + border-brand
+                          // (padrão igual ao card do Saldo disponível) — antes
+                          // border-success deixava a borda branca no dark mode.
+                          isSelected
+                            ? "border-border-brand bg-bg-success-muted shadow-sh-sm"
+                            : "border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted",
+                        ].join(" ")}
                       >
-                        {bankMeta.initials}
-                      </Avatar>
-                      <div className="flex flex-col flex-1 min-w-0 gap-gp-3xs">
-                        <div className="flex items-center gap-gp-sm">
-                          <span className="text-body-sm font-semibold text-fg-default truncate">
-                            {acc.bankName}
+                        <Avatar
+                          size="lg"
+                          colorHex={bankMeta.color}
+                          className="text-body-sm font-bold"
+                        >
+                          {bankMeta.initials}
+                        </Avatar>
+                        <div className="flex flex-col flex-1 min-w-0 gap-gp-2xs">
+                          <div className="flex items-center gap-gp-sm">
+                            <span className="text-body-sm font-semibold text-fg-default truncate">
+                              {acc.bankName}
+                            </span>
+                            {isRecommended && (
+                              <Chip
+                                color="success"
+                                variant="soft"
+                                size="sm"
+                                shape="rounded"
+                              >
+                                Recomendado
+                              </Chip>
+                            )}
+                          </div>
+                          <span className="text-caption-md text-fg-muted tabular-nums">
+                            Ag {acc.agency} · Conta {acc.account}
                           </span>
-                          {isRecommended && (
-                            <Chip
-                              color="success"
-                              variant="soft"
-                              size="sm"
-                              shape="rounded"
-                            >
-                              Recomendado
-                            </Chip>
-                          )}
                         </div>
-                        <span className="text-caption-md text-fg-muted tabular-nums">
-                          Ag {acc.agency} · Conta {acc.account}
-                        </span>
-                      </div>
-                      {isSelected && (
-                        <Check className="size-icon-sm text-fg-success shrink-0" />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </TabsContent>
+                        {isSelected && (
+                          <Check className="size-icon-sm text-fg-success shrink-0" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </TabsContent>
 
-            {/* Tab 2: outra conta — formulário pra cadastrar nova conta.
-             *  Campos: banco (select), agência, conta + CardCheckbox "salvar".
-             *  `gap-form-gap` (20px) = token DS pra spacing entre fields. */}
-            <TabsContent value="outra" className="mt-pad-lg">
-              <div className="flex flex-col gap-form-gap">
-                <FormFieldSelect
-                  label="Banco"
-                  required
-                  placeholder="Selecione o banco"
-                  options={BANK_SELECT_OPTIONS}
-                  value={newAccount.bank || undefined}
-                  onValueChange={(v) =>
-                    setNewAccount((s) => ({ ...s, bank: v as BankId }))
-                  }
-                />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-form-gap">
-                  <FormFieldInput
-                    label="Agência"
+              {/* Tab 2: outra conta — formulário pra cadastrar nova conta.
+               *  Campos: banco (select), agência, conta + CardCheckbox "salvar".
+               *  `gap-form-gap` (20px) = token DS pra spacing entre fields. */}
+              <TabsContent value="outra" className="mt-pad-lg">
+                <div className="flex flex-col gap-form-gap">
+                  <FormFieldSelect
+                    label="Banco"
                     required
-                    placeholder="0000"
-                    value={newAccount.agency}
-                    onChange={(e) =>
-                      setNewAccount((s) => ({ ...s, agency: e.target.value }))
+                    placeholder="Selecione o banco"
+                    options={BANK_SELECT_OPTIONS}
+                    value={newAccount.bank || undefined}
+                    onValueChange={(v) =>
+                      setNewAccount((s) => ({ ...s, bank: v as BankId }))
                     }
                   />
-                  <FormFieldInput
-                    label="Conta"
-                    required
-                    placeholder="00000-0"
-                    value={newAccount.account}
-                    onChange={(e) =>
-                      setNewAccount((s) => ({ ...s, account: e.target.value }))
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-form-gap">
+                    <FormFieldInput
+                      label="Agência"
+                      required
+                      placeholder="0000"
+                      value={newAccount.agency}
+                      onChange={(e) =>
+                        setNewAccount((s) => ({ ...s, agency: e.target.value }))
+                      }
+                    />
+                    <FormFieldInput
+                      label="Conta"
+                      required
+                      placeholder="00000-0"
+                      value={newAccount.account}
+                      onChange={(e) =>
+                        setNewAccount((s) => ({
+                          ...s,
+                          account: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                  <CardCheckbox
+                    label="Salvar essa conta pra usar depois"
+                    description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
+                    checked={newAccount.saveForLater}
+                    onCheckedChange={(v) =>
+                      setNewAccount((s) => ({ ...s, saveForLater: v === true }))
                     }
                   />
                 </div>
-                <CardCheckbox
-                  label="Salvar essa conta pra usar depois"
-                  description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
-                  checked={newAccount.saveForLater}
-                  onCheckedChange={(v) =>
-                    setNewAccount((s) => ({ ...s, saveForLater: v === true }))
-                  }
-                />
-              </div>
-            </TabsContent>
-          </Tabs>
-        </div>
+              </TabsContent>
+            </Tabs>
+          )}
+        </FormField>
       </div>
     </Modal>
   );
 }
-

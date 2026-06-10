@@ -40,12 +40,16 @@ import {
   ToolbarSearch,
   ToolbarToolButton,
   ToolbarSettingsMenu,
+  ToolbarSegmented,
   ToolbarApplied,
   MoreMenu,
+  SortPanel,
+  ColsPanel,
+  FilterPanel,
 } from "@/components/ui/TableToolbar";
 
 <TableToolbar
-  search={<ToolbarSearch value={q} onChange={setQ} />}
+  search={<ToolbarSearch value={q} onChange={(e) => setQ(e.target.value)} />}
   settings={
     <ToolbarSettingsMenu
       trigger={<ToolbarToolButton icon={<SlidersHorizontal />} aria-label="Configurações da tabela" />}
