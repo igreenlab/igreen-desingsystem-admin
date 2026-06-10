@@ -157,6 +157,62 @@ import { APP_SHELL_CONTEXTS, chatMocks } from "@snksergio/design-system/preview/
 
 ---
 
+## Tutorial — produzir telas e CRUDs com IA (DS como subprojeto)
+
+> Cenário: seu app tem o DS clonado numa **subpasta** (monorepo, `vendor/`,
+> git submodule) e a sessão do Claude Code abre na raiz do SEU projeto.
+> Nesse caso o Claude **não** descobre o `.claude/` do DS sozinho — os slash
+> commands e skills do pipeline ficam invisíveis. A solução é **apontar**:
+> skills são markdown, e a IA lê e segue os arquivos quando o prompt indica
+> a porta de entrada.
+
+### Passo 1 — Bootstrap de contexto (início de toda sessão)
+
+Antes de qualquer tarefa que use o DS, mande (troque `<pasta-do-ds>` pelo
+caminho real, ex: `packages/igreen-ds`):
+
+```
+Tenho o iGreen Design System em <pasta-do-ds>. Leia o CLAUDE.md e o
+.claude/rules/ds-standards.md de lá pra ter o contexto real do design
+system (regras, tokens, componentes, lições, anti-patterns). Siga essas
+regras como autoritativas em tudo que fizer aqui. Quando precisar de um
+componente, consulte <pasta-do-ds>/.ai/context/components/inventory.md e
+o USAGE.md do componente antes de escrever código.
+```
+
+Isso carrega o mínimo certo (~regras + mapa). **Não** mande ler o
+`README-PIPELINE-WORKFLOW.md` inteiro — é referência humana (~90KB).
+
+### Passo 2 — Criar tela de tabela/CRUD (skill `crud-builder`)
+
+O DS tem uma skill guiada que entrevista você (colunas, filtros, views,
+kanban, virtualização…), monta um blueprint pra aprovação e só então gera a
+página — sempre espelhando os exemplos canônicos. Prompt:
+
+```
+Use a skill crud-builder que está em
+<pasta-do-ds>/.claude/skills/crud-builder/SKILL.md pra criar uma página de
+tabela de <entidade> no meu app. Siga os arquivos da skill à risca, sem
+improvisar fora deles. Meus dados: <cole um JSON de exemplo, a interface
+TS, ou descreva o endpoint>.
+```
+
+Funciona mesmo sem o shape completo dos dados (a skill infere colunas de um
+sample e confirma com você). Nada é gerado antes de você aprovar o blueprint.
+
+### Alternativas
+
+| Forma | Quando usar |
+|---|---|
+| **Apontar via prompt** (passos acima) | Default — zero setup, funciona em qualquer projeto |
+| **Abrir a sessão dentro da pasta do DS** | Quer o pipeline nativo (`/ds-create-crud`, hooks, rules auto-carregadas) |
+| **Copiar pro seu `.claude/`** | Copie `ds-create-crud.md` (commands) + `crud-builder/` (skills) pro `.claude/` do seu projeto — o slash command vira nativo; a skill detecta que está num consumer e adapta imports |
+| **Consumo só via npm** (sem o repo no disco) | A skill não está no pacote — aponte pros arquivos no GitHub (`igreenlab/igreen-desingsystem-admin` → `.claude/skills/crud-builder/`) ou clone o repo |
+
+Detalhes do mecanismo: [`README-PIPELINE-WORKFLOW.md`](README-PIPELINE-WORKFLOW.md) §8 "Usando skills quando o DS é subprojeto".
+
+---
+
 ## Setup (desenvolvimento no DS)
 
 Requisitos: Node 20+, npm 10+ (ou pnpm/yarn).
@@ -235,7 +291,7 @@ Pipeline de 6 agentes (4 ativos + 2 placeholders 🚧 aguardando primeira tela d
 | `app-designer` | Especifica telas/fluxos do app consumidor | Sonnet | 🚧 placeholder (aguardando primeira tela) |
 | `app-dev-react` | Implementa telas com componentes DS existentes | Opus | 🚧 placeholder (aguardando primeira tela) |
 
-**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`, `/ds-release` (release completa com branch + PR), `/ds-update` (timeline de updates)
+**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`, `/ds-release` (release completa com branch + PR), `/ds-update` (timeline de updates), `/ds-create-crud` (construtor guiado de telas CRUD/tabela — ver [Tutorial](#tutorial--produzir-telas-e-cruds-com-ia-ds-como-subprojeto))
 
 A infraestrutura inclui:
 - **Skills** atômicas por agente (`.claude/skills/`)
