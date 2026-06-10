@@ -2046,3 +2046,17 @@
 - Decisões: TabelaTeste mantido no barrel (remoção seria breaking — marcado "demo interno, não usar em apps" no inventory; débito pro próximo major). useTheme NÃO exportado na lib (hook do preview app — documentado no inventory). Agentes descartaram falso-positivos com verificação (ex: premissa "último className vence" refutada compilando o CSS real).
 - Assumption: os USAGE corrigidos refletem a API v0.8.0; próxima mudança de API de componente DEVE atualizar o USAGE no mesmo PR (regra já coberta pelo pre-commit-check).
 - Lições novas: nenhuma — o padrão de drift docs↔código já está mitigado pela precedência de fontes (crud-builder) e pelo pre-commit-check.
+
+---
+
+### [2026-06-10] | crud-builder + DS DEV | Reformulação ClientesFinanceiroShowcase (CRUD completo + Kanban) | CONCLUÍDO
+- Input: pedido pra atualizar a tela de finance desatualizada usando o novo DataTable "de forma redonda", + status + visão kanban. Via skill crud-builder (entrevista→blueprint→gate aprovado pelo usuário).
+- Output (4 arquivos editados + 2 criados):
+  - types: + AccountStatus (pendente/ativo/negociacao/bloqueado), FinanceTransaction, PaymentMethod + 7 campos (monthlyVolume, commissionRate, accountStatus, autoWithdraw, paymentMethods, lastMovement, transactions).
+  - mocks: geradores determinísticos pros campos novos + ACCOUNT_STATUS lookup + KPI atRiskCount + helpers formatRelativeDays/formatDateTimeShort.
+  - components/ExtratoExpansion/: painel de row expansion (extrato 5 mov + conta bancária + contato + resumo).
+  - ClientesFinanceiroShowcase.tsx: 7→14 colunas exercitando o registry quase inteiro (text/badge/currency×2/percentage/boolean/tags/user/datetime/date/actions); inline edit (commissionRate async); Switch toggle (autoWithdraw); row expansion (extrato); totalizers (Σ saldo/volume, avg comissão); 4 bulk actions; 4 preset views (Digitais/Alto valor/Inadimplentes/Saque auto); kanban por accountStatus (4 lanes + DnD optimistic + cards ricos); 4 KPIs; viewMode controlado.
+- Decisões: autoWithdraw via Switch direto (não inline-edit) — editType não tem "boolean"/"toggle", e toggle é melhor UX. accountStatus escolhido como eixo do kanban (pipeline financeiro real) e status canônico. persistId bumped v3→v4 (schema de colunas mudou).
+- Validação: tsc 0 · browser (Chrome DevTools): tabela 14 cols/87 rows/25 switches, kanban 4 lanes com cards completos, expansão renderiza extrato, 4 KPIs, presets, paginação. Warning benigno pré-existente do type:"actions" (caminho próprio no render, não passa pelo registry).
+- Assumption: os campos financeiros mocados são representativos o suficiente pra demonstrar o padrão; a tela é showcase (mock), não consome API real.
+- Lições novas: nenhuma.
