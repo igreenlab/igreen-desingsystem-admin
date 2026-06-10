@@ -19,7 +19,7 @@ export const cardCheckbox = tv({
       "transition-[border-color,background-color,box-shadow] duration-150",
       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
-    body: "flex flex-col flex-1 min-w-0 gap-gp-3xs",
+    body: "flex flex-col flex-1 min-w-0 gap-gp-2xs",
     label:
       "text-body-sm font-semibold text-fg-default leading-tight truncate",
     description: "text-caption-md text-fg-muted",

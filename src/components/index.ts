@@ -13,6 +13,8 @@ export * from "./ui/AlertModal";
 export * from "./ui/AppShell";
 export * from "./ui/Avatar";
 export * from "./ui/Button";
+export * from "./ui/ButtonGroup";
+export * from "./ui/CardCheckbox";
 export * from "./ui/Chip";
 export * from "./ui/DataTable";
 export * from "./ui/FloatingPanel";
@@ -54,14 +56,22 @@ export {
   MoreMenuSeparator,
   MoreMenuLabel,
   ColsPopover,
+  ColsPanel,
   SortPopover,
+  SortPanel,
   ViewsPopover,
   AddViewModal,
   TableToolbarViews,
   FilterPopover,
+  FilterPanel,
+  isFilterEntryActive,
   DEFAULT_FILTER_OPERATORS,
+  ToolbarFilterControl,
+  ToolbarSettingsMenu,
+  ToolbarSimpleFilterDrawer,
   useToolbarFilters,
   useToolbarSort,
+  useToolbarFilterControl,
 } from "./ui/TableToolbar";
 export type {
   TableToolbarProps,
@@ -95,10 +105,18 @@ export type {
   TableToolbarViewsProps,
   TableToolbarViewsItem,
   FilterPopoverProps,
+  FilterPanelProps,
   FilterPopoverColumn,
   FilterPopoverOperator,
   FilterPopoverEntry,
   ToolbarFilterEntry,
+  ColsPanelProps,
+  SortPanelProps,
+  ToolbarFilterControlProps,
+  ToolbarSettingsMenuProps,
+  ToolbarSettingsMenuView,
+  ToolbarSimpleFilterDrawerProps,
+  UseToolbarFilterControlResult,
   UseToolbarFiltersOptions,
   UseToolbarFiltersResult,
   ToolbarSortEntry,
@@ -108,9 +126,9 @@ export type {
 
 /* ── Shadcn adapted (DS tokens) ─────────────────────────────────── */
 export { Badge, badgeVariants } from "./shadcn";
-export type { BadgeProps } from "./shadcn";
+export type { BadgeProps, BadgeVariantProps } from "./shadcn";
 export { Input, inputVariants } from "./shadcn";
-export type { InputProps } from "./shadcn";
+export type { InputProps, InputVariantProps, InputState } from "./shadcn";
 
 export {
   InputGroup,
@@ -120,8 +138,10 @@ export {
   InputGroupText,
   InputGroupButton,
 } from "./shadcn";
+export { inputGroupVariants } from "./shadcn";
 export type {
   InputGroupProps,
+  InputGroupVariantProps,
   InputGroupInputProps,
   InputGroupTextareaProps,
   InputGroupAddonProps,

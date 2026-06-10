@@ -503,7 +503,7 @@ export function AgentsPreview() {
             <div className="mt-gp-4xl rounded-radius-base bg-bg-success-subtle border border-border-success flex items-center gap-gp-md px-pad-3xl py-pad-xl">
               <span className="text-[20px]">✅</span>
               <div>
-                <div className="text-body-md font-medium font-bold text-fg-success">Pipeline complete</div>
+                <div className="text-body-md font-medium text-fg-success">Pipeline complete</div>
                 <div className="text-caption-sm text-fg-muted">{sc.steps[sc.steps.length - 1]?.signal || "Done."}</div>
               </div>
             </div>
@@ -660,7 +660,7 @@ function FlowNode({ id, isActive, isDone, isInRoute, isRoot, onInfo, onFiles }: 
           />
           <div>
             <span
-              className="text-body-md font-medium font-bold"
+              className="text-body-md font-medium"
               style={{
                 color: isActive ? c.color : isDone ? "var(--color-fg-success)" : "var(--color-fg-foreground)",
               }}
@@ -722,7 +722,7 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
               className="w-2.5 h-2.5 rounded-full shrink-0"
               style={{ background: c.color }}
             />
-            <span className="text-body-md font-medium font-bold" style={{ color: c.color }}>{c.label}</span>
+            <span className="text-body-md font-medium" style={{ color: c.color }}>{c.label}</span>
           </div>
           <button
             type="button"
