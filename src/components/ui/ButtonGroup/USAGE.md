@@ -46,7 +46,7 @@ Visual:
 |------|------|---------|-----------|
 | `color` | `"primary" \| "secondary" \| "critical" \| "success" \| "warning"` | `"primary"` | Cor herdada do `<Button>`. Propaga aos slots via context. |
 | `variant` | `"filled" \| "outline" \| "soft" \| "ghost"` | `"filled"` | Estilo visual. Propaga aos slots. |
-| `size` | `"2xs" \| "xs" \| "sm" \| "md" \| "lg"` | `"md"` | Altura. Propaga aos slots. **Icon sizes (`icon-*`) não suportados** — o Chevron já é icon-only com width compacta. |
+| `size` | `"2xs" \| "xs" \| "sm" \| "md" \| "lg"` | `"md"` | Altura. Propaga aos slots. **Icon sizes (`icon-*`) não suportados** — o Chevron já é icon-only quadrado, com dimensão derivada da size do group. |
 | `disabled` | `boolean` | `false` | Desabilita os 2 slots simultaneamente. Override individual permitido. |
 | `children` | `ReactNode` | — | `<ButtonGroup.Primary>` + `<ButtonGroup.Chevron>` |
 | `className` | `string` | — | Override do wrapper externo. |
@@ -65,7 +65,7 @@ Aceita **todas as props do `<Button>`** exceto `shape` e `fullWidth`. Color/vari
 
 ### `<ButtonGroup.Chevron>` (slot secundário)
 
-Icon button compacto — **mais estreito** que um icon button normal (`size-form-md` = 36px). Renderiza `<ChevronDown />` por default.
+Icon button **quadrado** (width = height) — espelha a size do Primary, como um "split" da mesma proporção: `2xs`→28×28, `xs`→32×32, `sm`→36×36, `md`→40×40 (`size-form-lg`), `lg`→44×44. Mesma dimensão de um icon button `icon-*` equivalente do Button. Renderiza `<ChevronDown />` por default.
 
 | Prop | Tipo | Default | Descrição |
 |------|------|---------|-----------|
@@ -157,6 +157,6 @@ function SaveSplit() {
 
 - **`aria-label` é obrigatório** no `<ButtonGroup.Chevron>` — TypeScript reclama se omitir. Icon-only sem label viola WCAG 4.1.2.
 - **`shape="pill"` não funciona** com ButtonGroup — radius interno é forçado retangular pra encostar os 2 slots. Pra pill, use `<Button>` standalone.
-- **Icon sizes (`icon-*`)** não suportadas no group — o Chevron já tem width própria. Se quiser group "icon-only", use 2 `<Button>` standalone.
+- **Icon sizes (`icon-*`)** não suportadas no group — o Chevron já é quadrado com dimensão derivada da size do group. Se quiser group "icon-only", use 2 `<Button>` standalone.
 - **Border duplicado entre slots** — colapsado via `-ml-px` no Chevron. Funciona em filled/soft/ghost. Em **outline**, o efeito visual pode ter 1px de overlap; teste no contexto antes de promover.
 - **Override de `size` em slot individual** quebra alinhamento vertical — passe `size` só no group, não nos slots.

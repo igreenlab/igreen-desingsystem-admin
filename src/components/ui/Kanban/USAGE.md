@@ -252,7 +252,7 @@ const [openCardId, setOpenCardId] = useState<string>();
 />
 ```
 
-Veja [src/preview/pages/ClientsKanbanPreview.tsx](../../preview/pages/ClientsKanbanPreview.tsx) pra exemplo runnable com toggle table/kanban + DnD + filters compartilhados.
+Veja [src/preview/pages/ClientsKanbanPreview.tsx](../../../preview/pages/ClientsKanbanPreview.tsx) pra exemplo runnable com toggle table/kanban + DnD + filters compartilhados.
 
 ---
 
@@ -263,7 +263,7 @@ Veja [src/preview/pages/ClientsKanbanPreview.tsx](../../preview/pages/ClientsKan
 |---|---|---|---|
 | `columns` | `KanbanColumn[]` | — | Definição das colunas (ordem = visual) |
 | `cards` | `KanbanCardData[]` | — | Cards distribuídos via `columnId` |
-| `selectedIds` | `Set<string>` | — | IDs selecionados; presença ativa checkbox |
+| `selectedIds` | `Set<string>` | — | IDs selecionados (estado checked); checkbox aparece quando `onToggleSelect` é fornecido |
 | `onToggleSelect` | `(cardId: string) => void` | — | Toggle do checkbox |
 | `openCardId` | `string` | — | Card aberto no detail panel (strip brand) |
 | `onOpenCard` | `(cardId: string) => void` | — | Click no card |

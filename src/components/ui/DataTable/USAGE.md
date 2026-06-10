@@ -78,7 +78,8 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Sort multi** | `sortable: true` na coluna; toolbar Sort popover surge automaticamente |
 | **Filter chip rápido** | `enableColumnFilter: true` + `filterType: "text"\|"number"\|"date"\|"select"\|"multiSelect"\|"boolean"` |
 | **Filter avançado (AND/OR)** | Habilitado por default se houver coluna com `enableColumnFilter` |
-| **Search global** | `toolbar.enableSearch: true` (default) + `searchableFields` opcional |
+| **Filter chips placeholder** | `showEmptyFilterChips={["status", "categoria"]}` — chips nativos visíveis desde o load inicial, mesmo sem valor preenchido (user clica e preenche) |
+| **Search global** | `toolbar.enableSearch: true` (default). Client mode busca em todos os fields; server mode recebe `search` (debounced) + `searchField?` no `GridFetchParams` |
 | **Pagination** | `paginationConfig.enabled: true` (default) |
 | **Selection (bulk)** | `selectionConfig.enabled: true` |
 | **Visibility / pin / reorder** | `toolbar.enableColumns: true` (default) |
@@ -95,7 +96,8 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **State persistence** | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
 | **Auto-fit das colunas** | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui espaço sobrando. Override com `col.width` mantém largura fixa. `autoFit={false}` desliga (comportamento legacy). |
 | **Resize manual de colunas** | Default ativo em todas as colunas exceto `type: "actions"` ou `purpose: "selection"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`. |
-| **Export** | `toolbar.enableExport: true` + handlers em `onExport` |
+| **Export** | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }` |
+| **View Kanban (board)** | `viewMode="kanban"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar |
 | **Totalizer row** | `showTotalizers` na DataTable + `aggregate: "sum"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow` |
 | **Keyboard navigation** | Auto — setas, Home/End, PgUp/PgDn no body |
 
@@ -227,6 +229,28 @@ const columns = [
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
 
+### View Kanban (table ⇄ board)
+
+```tsx
+<DataTable<Client>
+  rows={clients}
+  columns={columns}
+  defaultViewMode="kanban"          // uncontrolled — ou viewMode + onViewModeChange (controlled)
+  kanbanConfig={{
+    groupByField: "status",         // valor do field define a coluna do board
+    renderCard: ({ row }) => ({     // slots do card — id/columnId são derivados automaticamente
+      title: row.name,
+      subtitle: row.email,
+      value: formatBRL(row.value),
+    }),
+    enableDnD: true,
+    onCardMove: (cardId, from, to) => patchStatus(cardId, to),
+  }}
+/>
+```
+
+Quando `viewMode`/`defaultViewMode` + `kanbanConfig` estão definidos, a toolbar auto-renderiza o segmented table/kanban (override/esconda via `toolbar.viewToggle`). Filter/search/sort/selection continuam aplicados às rows; paginação, density toggle e columns popover são desligados automaticamente no board. `kanbanConfig.columns` (opcional, `KanbanColumn[]`) fixa ordem/label/dotColor das colunas — sem ele, as colunas derivam dos valores únicos de `groupByField`. Outras opções do `kanbanConfig`: `renderCardContent` (override total do miolo do card), `getCardMenuItems`/`getColumnMenuItems` (menus "⋯"), `onAddCard`/`onAddInFooter`, `emptyLabel`/`addLabel`.
+
 ### Saved views
 
 ```tsx
@@ -239,7 +263,7 @@ import { savedViewsMockService } from "@/components/ui/DataTable";
 />
 ```
 
-Service contract em `services/saved-views.types.ts` — `listViews / saveView / deleteView`. Persiste sort+filter+search+visibility+density+pinned como JSON.
+Service contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds) como JSON — `search` e paginação são voláteis e NÃO entram na view.
 
 ### Tipo de coluna custom (registry)
 
@@ -257,6 +281,10 @@ const RatingColumnType: ColumnTypeDefinition = {
   ],
   renderCell: ({ value }) => <Stars n={Number(value) || 0} />,
   renderFilterInput: ({ value, onChange }) =>
+    <NumberInput min={0} max={5} value={value} onChange={onChange} />,
+  // obrigatório (sem `?` no type) — input do popover do chip rápido.
+  // Pode reusar o mesmo widget do renderFilterInput.
+  renderFastFilterInput: ({ value, onChange }) =>
     <NumberInput min={0} max={5} value={value} onChange={onChange} />,
   matchesFilter: (cellValue, filterValue, operator) => {
     const n = Number(cellValue) || 0;
@@ -326,8 +354,8 @@ operador **vazio** porque o operator não está nos `operators` do column-type.
 | `multiSelect` | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty` | `isAnyOf` |
 | `select` | `equals`, `neq`, `isEmpty`, `isNotEmpty` | `equals` |
 | `text` (default) | `contains`, `notContains`, `equals`, `neq`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty` | `contains` |
-| `number` | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`, `between` | `equals` |
-| `date` | `between`, `equals`, `gt`, `lt` | `between` |
+| `number` | `equals`, `neq`, `gt`, `lt`, `gte`, `lte` | `equals` |
+| `date` | `between`, `equals`, `gt`, `lt`, `gte`, `lte` | `between` |
 | `boolean` | `equals` | `equals` |
 
 ```tsx
@@ -372,6 +400,8 @@ tableRef.current?.getSelectedCount(); // number
 tableRef.current?.clearSelection();
 tableRef.current?.getState();         // DataTableState snapshot
 tableRef.current?.refresh();          // server mode: re-disparar fetchData
+tableRef.current?.exportCsv("filtered");  // download CSV — escopo "all" | "filtered" | "selected"
+tableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem persistId)
 ```
 
 ---
@@ -398,13 +428,16 @@ tableRef.current?.refresh();          // server mode: re-disparar fetchData
 - `enabled` (true)
 - `initialPageSize` (25)
 - `pageSizeOptions` ([10, 25, 50, 100])
-- `mode?: "client" | "server"` — derivado automaticamente de `rows` vs `fetchData`
+
+> O modo client/server **não é prop** — é derivado automaticamente de `rows` vs `fetchData`.
 
 ### `selectionConfig`
 - `enabled` (false)
 - `enableGlobal` (false) — "selecionar todos" com modo include/exclude
-- `actions?: ReactNode` — slot direto no BulkActionsBar
-- `getRowId?: (row) => string | number` — default `row.id`
+- `actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode` — render-prop chamada dentro do BulkActionsBar (NÃO é ReactNode direto)
+
+### `getRowId?: (row: T) => GridRowId` (prop raiz)
+Extrai o id da row — default `row.id`. É prop top-level da DataTable, **não** vai dentro de `selectionConfig`.
 
 ### `densityItems?: ToolbarSegmentedItem<TableDensity>[]`
 Customiza os 3 botões do segmented. Default: compact / standard / comfortable.
@@ -495,7 +528,7 @@ Tudo proveniente do `<Table>` primitive: `role="grid"`, `role="row"`, `role="col
 | Sort não funciona | Coluna sem `sortable: true` | Adicionar flag |
 | Density não persiste | `persistId` ausente | Adicionar `persistId="meu-table"` |
 | Server mode loop infinito | `fetchData` não memoizado | `useCallback(fetchData, [deps])` |
-| Virtualização "pula" | `estimatedRowHeight` muito diferente do real | Ajustar pro height médio observado |
+| Virtualização "pula" | `estimateRowHeight` muito diferente do real | Ajustar pro height médio observado |
 | Inline edit não salva | `onCellEditCommit` retorna sem await | Retornar Promise; controller aguarda |
 | Saved views não persiste | `savedViewsMockService` em prod | Implementar `SavedViewsService` real |
 | Group header sem totalizer | Coluna sem `aggregate` declarado | Definir `aggregate: "sum" \| "avg" \| "count" \| "min" \| "max" \| fn` na coluna |

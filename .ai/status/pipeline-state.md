@@ -2031,3 +2031,18 @@
 - Critique genuína: revisão encontrou 1 gap real (README desatualizado em 3 pontos), nenhum que mude direção do código. L-028 no FilterPanel implementado mais cuidadosamente que no DataTableRow do PR anterior — `latestRef.current` lido dentro da closure de unmount (fire-time), não capturado no topo. `isFilterEntryActive` export não cria breaking change nem dep circular (grep confirma: só usada em src/). `tsc --noEmit` limpo. L-001..L-007 limpos nos 3 arquivos de componente. Cross-refs das 3 seções novas (SKILL.md §Invocação por prompt, command, README §subprojeto) mutuamente consistentes.
 - Pendências: 1 item MÉDIO — README-PIPELINE-WORKFLOW.md (file tree seção 6 sem ds-create-crud/crud-builder, tabela de flows seção 9, entradas seção 16). RESOLVIDO no mesmo diff antes do commit: tree de commands ganhou ds-update/ds-release/ds-create-crud, skills tree ganhou crud-builder/, flows ganhou linha Tela CRUD/tabela, seção 16 ganhou as 3 entradas (/ds-update, /ds-release, /ds-create-crud).
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-10] | DS DEV + DS REVIEWER | Auditoria docs/showcase aplicada (99 findings) | CONCLUÍDO
+- Input: auditoria multi-agente (24 agentes: 4 varreduras transversais + 20 drift-checks USAGE↔código) → 99 findings (27 ALTA / 54 MEDIA / 18 BAIXA), persistidos em `.ai/audits/2026-06-10-audit-docs-showcase.json`. Usuário aprovou aplicar todos.
+- Output (22 agentes de correção + fixes inline, 34 arquivos):
+  - BUG runtime: classe `gap-gp-3xs` inexistente no theme → `gap-gp-2xs` em CardCheckbox styles, multiSelect column type e 2 showcases (gap renderizava 0).
+  - Barrel npm (`src/components/index.ts`): + ButtonGroup, CardCheckbox, API v0.7+ do TableToolbar (ToolbarFilterControl/SettingsMenu/SimpleFilterDrawer, Sort/Cols/FilterPanel, useToolbarFilterControl, isFilterEntryActive) + types shadcn assimétricos (BadgeVariantProps, InputVariantProps/State, inputGroupVariants).
+  - inventory.md sincronizado com o disco: +11 ui/ (incl. FormField/AppShell), +6 shadcn (header 26), ViewFormModal→AddViewModal, commands /ds-*, registry 6→15 tipos, hooks (15+3), DataTable parts/utils/builders completos, seção "Hooks e utils transversais" (useTheme/cn/getContrastTextColor/tv).
+  - 19 USAGE.md corrigidos contra o código (5 tinham exemplos que NÃO compilavam: FormField, Modal, TabelaTeste, Header, MenuSidebar; Button xxs→2xs; Panel/Chip/DataTable/FloatingPanel/FooterTable/AppShell/Kanban/Table/TableToolbar/PageHeader/AlertModal/ButtonGroup/CardCheckbox drifts pontuais).
+  - Preview: CardCheckboxDoc criado + registrado (era o único ui/ sem página); AvatarDoc ganhou seção do Avatar iGreen (colorHex WCAG); sidebar legado "Showcase" id showcase→showcase-v2 (era página em branco); comentários nas páginas órfãs intencionais.
+  - Showcases conformes às próprias lições: SacarDialog label raw→FormField (L-023), grids do NovoClienteDrawer gap-gp-xl→gap-form-gap (L-024), font-weights conflitantes removidos (verificação EMPÍRICA da ordem no CSS gerado), slot morto fieldLabel removido, StructureDoc L-014→L-028.
+- Decisões: TabelaTeste mantido no barrel (remoção seria breaking — marcado "demo interno, não usar em apps" no inventory; débito pro próximo major). useTheme NÃO exportado na lib (hook do preview app — documentado no inventory). Agentes descartaram falso-positivos com verificação (ex: premissa "último className vence" refutada compilando o CSS real).
+- Assumption: os USAGE corrigidos refletem a API v0.8.0; próxima mudança de API de componente DEVE atualizar o USAGE no mesmo PR (regra já coberta pelo pre-commit-check).
+- Lições novas: nenhuma — o padrão de drift docs↔código já está mitigado pela precedência de fontes (crud-builder) e pelo pre-commit-check.
