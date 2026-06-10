@@ -680,6 +680,37 @@ Ao criar `CardCheckbox`, primeiro impulso seria fazer `<button onClick={toggle}>
 
 ---
 
+## [L-028] Componente memoizado com handlers externos → latest-ref pattern (não `useCallback` em massa)
+
+Ao extrair uma linha/item pra `React.memo` (ex: `DataTableRow`), os handlers que vêm
+do componente pai NÃO devem ser passados como props diretas (mudam de identidade →
+invalidam o memo) nem exigir `useCallback` em cada um (dep-hell + risco de stale deps).
+
+**Pattern correto — latest-ref:**
+```typescript
+// No pai:
+const handlersRef = useRef<RowHandlers>(null as never);
+handlersRef.current = { onClick, onKeyDown, ... }; // reatribui TODO render → sempre fresh
+<MemoRow handlers={handlersRef} selected={...} editState={...} />  // ref é prop ESTÁVEL
+
+// No componente memoizado — ler `.current` NO CALL-TIME (dentro da closure do evento):
+onClick={() => handlers.current.onClick(row, index)}   // ✅ fresh
+// ❌ ERRADO: const h = handlers.current (no topo do render) → closures capturam snapshot
+//    stale quando o memo bloqueia o re-render. Foi exatamente o bug que o gate do PR4 pegou.
+```
+
+**Regras:**
+- Handlers (event-time) → ref estável, lido via `.current` DENTRO da closure.
+- Dados de RENDER (columns, widths, selected, editState) → props comparadas pelo memo
+  (mudam → re-renderiza, como deve). NUNCA ler dado de render via o ref (não re-renderizaria).
+- Estado reativo que afeta UMA linha (ex: edit) → bundle num objeto (`{field,isLoading,error}|null`)
+  passado só pra linha afetada; as outras recebem `null` (estável) e não re-renderizam.
+
+**Caso real:** `DataTableRow` (v0.8.0). Barreira de re-render — foco/refresh/popover em
+outra linha não repinta as demais.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

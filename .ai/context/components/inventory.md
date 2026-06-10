@@ -271,7 +271,7 @@ Props principais:
   persistId?: string                        → opt-in localStorage persist (density/sort/cols/pageSize)
   savedViewsService?: SavedViewsService     → service trocavel (default: mock localStorage)
 
-Hooks SRP internos (13):
+Hooks SRP internos (17 + 3 adapters):
   useDataTableQuery          → server mode fetcher (useEffect, request-id guard, refresh imperativo)
   useDataTableController     → agrega tudo + useImperativeHandle (refresh, getState, getSelectedIds, getSelectedCount, clearSelection, exportCsv, resetPersistedState)
                                → auto-detecta server mode via presença de `fetchData`
@@ -288,13 +288,23 @@ Hooks SRP internos (13):
   useDataTableExport         → CSV export via Blob (3 escopos: all, filtered, selected)
   useDataTableStatePersistence → save debounced (400ms) em localStorage; skip first render
   useDataTableSavedViews     → list no mount + saveView/deleteView via SavedViewsService + currentViewId + dev-warning em prod com mock
+  useDataTableViewMode       → table/kanban controlled/uncontrolled
+  useColumnAutoWidth         → ResizeObserver + rAF + bail-out de igualdade (auto-fit)
+  + 3 adapters de popover (filter/sort/cols — ver "Adapters internos")
 
 Parts default:
   DataTableEmpty           → Inbox + texto
   DataTableLoading         → Loader2 spinner
   DataTableNoResults       → SearchX + texto
+  DataTableRow             → row memoizada (React.memo) — barreira de re-render; props reativas por-row (selected/focused/expanded/editState) + handlers via latest-ref
   DataTableFloatingBulkBar → bulk bar floating (alternativa ao bulkBar do TableToolbar)
   (Saved Views UI delegada ao TableToolbarViews compound do TableToolbar, que agrega Tabs + ViewsPopover + AddViewModal)
+
+Utils internos:
+  utils/filter-ops.ts        → genFilterId, filterValueIsEmpty, MULTI_VALUE_OPERATORS, promoteOperatorForColumn/ForFilterType (multiSelect⇒isAnyOf), defaultOperatorForFilterType (default vem do registry operators[0])
+  utils/aggregate.ts         → computeAggregate + renderAggregate (sum/avg/count/min/max) — usado por totalizer + group header
+  utils/resolve-value.ts     → getFieldValue/applyValueGetter/applyFormatter (dot-path) — fonte única
+  data-table.constants.ts    → DEFAULT_CARD_BREAKPOINT, DENSITY_ROW_HEIGHT, DEFAULT_OVERSCAN, ACTIONS_COLUMN_WIDTH, MIN_REFRESH_SPINNER_MS
 
 Services (F7):
   SavedViewsService (interface)  → list/save/delete (async) — trocável
@@ -306,7 +316,7 @@ State persistence utils (F7):
   clearPersistedState(persistId)  → remove entry
 
 Adapters internos pros popovers existentes:
-  FilterPopover  → POPOVER_OP_TO_FILTER_OP / FILTER_OP_TO_POPOVER_OP (mapeia eq↔equals etc)
+  FilterPopover  → vocabulário ÚNICO de operador (ids longos ponta a ponta, sem mapa curto↔longo); promoteOperatorForColumn (filter-ops) garante multiSelect⇒isAnyOf; label do chip via registry (opLabel)
   SortPopover    → SortPopoverCriterion[] ↔ SortModel (single sort)
   ColsPopover    → visibleCols Set + pinnedCols Set + onColumnsReorder
   ToolbarApplied → AppliedFilter[] com lookup label das filterOptions
