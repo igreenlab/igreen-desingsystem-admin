@@ -46,6 +46,59 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.8.0",
+    date: "2026-06-09",
+    tag: "release",
+    title:
+      "DataTable + TableToolbar: toolbar opinionated canônica + auditoria profunda (premium/escalável)",
+    summary:
+      "Release de consolidação do par DataTable + TableToolbar. A `<TableToolbar>` opinionated (busca + filtros + ações + views) passa a ser a CANÔNICA — vira o default integrado ao DataTable e a versão antiga (dumb) foi removida junto com os opt-outs. Em cima disso, uma auditoria profunda (5 revisores) tornou o componente premium/escalável: vocabulário de operador único ponta a ponta, ponto de extensão único via columnTypeRegistry, dedup de utils triplicados, SQL parser round-trip-safe e a row memoizada como barreira de re-render. Breaking em 0.x: as props `deprecatedToolbar` e `simpleFilter.enabled` foram removidas — o default novo já cobre o caso.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`<TableToolbar>` opinionated integrada ao DataTable — busca, controle de filtros (split button: drawer simples + query builder avançado), ações em massa e saved views num único componente. DataTable consome via 1 wire; consumers standalone usam direto.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "A `<TableToolbar>` opinionated agora é a CANÔNICA (default). A versão antiga (dumb/sem opinião) foi renomeada e depois removida — não há mais escolha por prop; o DataTable renderiza a opinionated direto.",
+          "Vocabulário de operador de filtro UNIFICADO — ids longos (`equals`/`contains`/`isAnyOf`/`between`/…) ponta a ponta, do FilterModel ao chip. O dual-namespace curto↔longo (`utils/operator-mapping.ts`, eq↔equals) foi DELETADO. Resolve a classe de bug do operador \"É\" resetar pra \"contém\".",
+          "Operador default de cada filtro agora é DERIVADO do `columnTypeRegistry` (`registry.get(typeId).operators[0]`) em vez de switch hardcoded por filterType — adicionar tipo de coluna/filtro novo não exige mais editar a inferência.",
+          "`filterType` virou união ABERTA (`string & {}`) — consumers registram tipos custom no registry sem alterar o union fechado do core.",
+          "`gte`/`lte` implementados em number/currency/percentage/date/datetime + no SQL parser (antes só gt/lt).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Consolidação de utils internos do DataTable: `utils/filter-ops.ts` (`genFilterId`, `filterValueIsEmpty`, `promoteOperatorForColumn` — eram triplicados/quadruplicados), `utils/aggregate.ts` (`computeAggregate`/`renderAggregate`), `utils/resolve-value.ts` (dot-path) e `data-table.constants.ts` (breakpoint, overscan, larguras, density heights) centralizados.",
+          "`column-types/_shared.ts` — `toNumber`, helpers de data e `resolveChipColor` extraídos (dedup entre os tipos de coluna). Diferenças reais de normalize/operators/renderCell preservadas (sem factory prematura).",
+          "Naming/consistência dos hooks SRP: `*Return` → `*Result`, `exportHook` → `exporter`, return types explícitos e fronteira standalone documentada nos `useToolbar*`.",
+          "SQL-like filter parser reescrito ROUND-TRIP-SAFE — bracket syntax pra operadores de lista/intervalo (`in [a,b]`, `between [x,y]`); `parseSqlFilter`/`entriesToSql` preservam o modelo ida-e-volta (12/12 casos).",
+          "Perf: `<DataTableRow>` memoizada (`React.memo` + latest-ref pattern) — vira barreira de re-render. Foco em outra row, abrir popover ou refresh não repintam rows não-afetadas. Handlers via ref estável lidos no call-time evitam stale closure (L-028).",
+        ],
+      },
+      {
+        type: "removed",
+        items: [
+          "`TableToolbarDeprecated/` (componente + branch `deprecatedToolbar` + DocPage) — ~1.700 LOC duplicadas eliminadas.",
+          "Prop `deprecatedToolbar` do `DataTableProps` (opt-out da toolbar antiga — não há mais toolbar antiga).",
+          "Sub-prop `simpleFilter.enabled` — o split button de filtros agora é sempre o comportamento da toolbar canônica (dead-code do flag removido).",
+          "`utils/operator-mapping.ts` — mapa curto↔longo de operador (vocabulário agora é único).",
+        ],
+      },
+      {
+        type: "breaking",
+        items: [
+          "Quem passava `deprecatedToolbar` no DataTable: remover a prop — o default agora é a toolbar opinionated (que já cobre o caso da antiga).",
+          "Quem passava `simpleFilter={{ enabled: true }}`: remover o `enabled` — o controle de filtros split button é o padrão da toolbar canônica.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.7.1",
     date: "2026-06-09",
     tag: "preview",

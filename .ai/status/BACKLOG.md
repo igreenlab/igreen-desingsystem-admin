@@ -5,29 +5,23 @@
 
 ---
 
-## 🔜 Próxima PR — Padronização DataTable + TableToolbar ("AMPLO")
+## ✅ Padronização DataTable + TableToolbar ("AMPLO") — CONCLUÍDA (2026-06-09)
 
-> Origem: auditoria pré-PR de 2026-06-09 (5 revisores) durante o swap TableToolbar
-> canônica/Deprecated. Escopo deliberadamente adiado pra um PR dedicado de
-> padronização (o PR do swap ficou "enxuto": só 3 bugs latentes + @deprecated).
+> Origem: auditoria pré-PR de 2026-06-09 (5 revisores). Executada nas Frentes A/B/D/E
+> (PRs #15–#18) + auditoria profunda (PRs #19–#22). Todas mergeadas.
 
-**Filtros / operadores (débito de fundo do bug "É"):**
-- Unificar vocabulário de operador pra id longo único (`equals`) ponta a ponta →
-  **deletar `utils/operator-mapping.ts`** (mapa de 11 pares onde só eq↔equals diverge).
-  Toca: `DEFAULT_FILTER_OPERATORS`, `filter-sql-parser` OP_MAP, `AppliedFilterOp`.
-- Resolver label de operador **pelo registry** (não `DEFAULT_OP_LABELS` paralelo —
-  já divergiu: currency popover "maior que" vs chip ">").
-- Extrair `promoteOperatorForColumn` (multiSelect→isAnyOf) pra util — hoje triplicada
-  (adapter:307,409 + controller:46).
-- `filter-sql-parser` emite `gte`/`lte` que nenhuma definition implementa → filtro
-  silenciosamente ignorado. Implementar ou remover do parser.
-- Util `filter-value.ts`: `isFilterValueEmpty` (3×) + `genId` (4×) compartilhados.
+**Filtros / operadores (débito de fundo do bug "É"):** ✅ FEITO (PR1 #19 + PR3 #21)
+- ✅ Vocabulário de operador único (ids longos) ponta a ponta — `utils/operator-mapping.ts` DELETADO.
+- ✅ Label de operador pelo registry (`opLabel`), DEFAULT_OP_LABELS só fallback.
+- ✅ `promoteOperatorForColumn` extraído pra `utils/filter-ops.ts` (era triplicado).
+- ✅ `gte`/`lte` implementados em number/currency/percentage/date/datetime + parser.
+- ✅ `utils/filter-ops.ts`: `genFilterId` + `filterValueIsEmpty` consolidados (eram 4×/3×).
 
-**column-types:**
-- `_shared.ts` com `toNumber`/`toDate`/`resolveChipColor` (duplicados ~150 LOC; divergência
-  sutil: number usa `Number.isFinite`, currency/percentage `!Number.isNaN`).
-- Factories `makeTextColumnType`/`makeSelectColumnType` (text/email/phone/url e select/user/badge
-  viram declarativos).
+**column-types:** ✅ PARCIAL
+- ✅ `_shared.ts` com `toNumber`/date helpers/`resolveChipColor` (PR B) — dedup feito.
+- ⏭️ Factories `makeTextColumnType`/`makeSelectColumnType`: NÃO feitas (premature abstraction —
+  text/email/phone/url têm diferenças reais de normalize/operators/renderCell; o dedup real
+  eram os helpers idênticos, já capturados pelo `_shared`).
 
 **data-table.tsx (slim — Frente C):** ⏭️ AVALIADA E NÃO FEITA. Pós-Frente D o
 arquivo caiu pra ~1.400 LOC e o resto é complexidade essencial de orquestrador.
