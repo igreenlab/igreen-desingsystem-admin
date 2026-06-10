@@ -109,6 +109,7 @@ export type {
 export {
   FilterPopover,
   FilterPanel,
+  isFilterEntryActive,
   DEFAULT_FILTER_OPERATORS,
 } from "./popovers/filter-popover";
 export type {

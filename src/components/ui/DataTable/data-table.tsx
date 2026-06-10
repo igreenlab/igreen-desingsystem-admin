@@ -64,6 +64,7 @@ import {
   ToolbarMobileSection,
   BulkActionsBar,
   FilterPopover,
+  isFilterEntryActive,
   SortPopover,
   ColsPopover,
   TableToolbarViews,
@@ -380,6 +381,10 @@ function DataTableInternal<T>(
     colLabelMap,
     pendingOpenChipKey,
   });
+
+  // Há filtro REAL ativo? Ignora linhas em branco do query builder (entry sem
+  // valor) — senão o botão Filtros fica "verde" indicando filtro que não existe.
+  const hasActiveFilter = filterPopoverEntries.some(isFilterEntryActive);
 
   /* ── Empty filter chips placeholders (prop `showEmptyFilterChips`) ───
    *  Lista de fields que aparecem como chips placeholder na toolbar mesmo
@@ -1354,8 +1359,11 @@ function DataTableInternal<T>(
                     <ToolbarToolButton
                       icon={<FilterIcon />}
                       aria-label="Filtros"
-                      isActive={filterPopoverEntries.length > 0}
-                      hasIndicator={filterPopoverEntries.length > 0}
+                      // Conta só entries com valor real — uma linha recém-adicionada
+                      // no query builder e ainda vazia NÃO ativa o indicador. O
+                      // unmount-purge do FilterPanel remove a linha em branco ao fechar.
+                      isActive={hasActiveFilter}
+                      hasIndicator={hasActiveFilter}
                       onClick={() => setV2FilterOpen(true)}
                     />
                   ) : undefined
