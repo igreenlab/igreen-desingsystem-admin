@@ -32,11 +32,13 @@ export function SectionCard({
     <header
       className={cn(
         "flex items-center justify-between gap-gp-md",
+        // dense: pb 16px (pad-2xl) antes do divider full-bleed
         dense
-          ? "px-[18px] pt-[18px] pb-pad-lg border-b border-border-subtle"
+          ? "px-[18px] pt-[18px] pb-pad-2xl border-b border-border-subtle"
           : "mb-gp-2xl",
       )}
     >
+      {/* gap ícone↔título = 12px (gap-gp-md) */}
       <div className="flex items-center gap-gp-md">
         {icon && (
           <span className="grid size-8 shrink-0 place-items-center rounded-radius-md bg-bg-muted text-fg-muted">
@@ -44,7 +46,13 @@ export function SectionCard({
           </span>
         )}
         {title && (
-          <h2 className="text-title-md font-semibold text-fg-default">
+          <h2
+            className={cn(
+              "font-semibold text-fg-default",
+              // 15px não tem preset (tier órfão, L-016) → literal só no dense.
+              dense ? "text-[15px] leading-snug" : "text-title-md",
+            )}
+          >
             {title}
           </h2>
         )}
@@ -66,7 +74,7 @@ export function SectionCard({
       {header}
       <div
         className={cn(
-          dense && (hasHeader ? "px-[18px] pb-[18px] pt-pad-lg" : "p-[18px]"),
+          dense && (hasHeader ? "px-[18px] pb-[18px] pt-pad-2xl" : "p-[18px]"),
           bodyClassName,
         )}
       >
