@@ -7,10 +7,10 @@ import {
   History,
   Lock,
   MoreHorizontal,
-  PanelRight,
   Pause,
   Pencil,
   Plus,
+  SquareArrowOutUpRight,
   ShieldAlert,
   TrendingUp,
   Unlock,
@@ -129,27 +129,27 @@ function buildColumns(
       enableColumnFilter: true,
       filterType: "text",
       render: ({ row }) => (
-        // group/lic: revela a afordância de "abrir detalhe" (ícone fraco +
-        // underline no nome) no hover da célula, sinalizando que é clicável.
-        <div className="group/lic flex items-center gap-gp-md min-w-0">
+        // Afordância de "abrir detalhe": botão-ícone bordado sempre visível,
+        // encostado no fim da célula (estilo o atalho ⌘K do header). Sinaliza
+        // que o click na linha abre o painel de detalhe.
+        <div className="flex items-center gap-gp-md min-w-0 w-full">
           <Avatar size="md" colorHex={row.avatarColor}>
             {row.initials}
           </Avatar>
-          <div className="flex flex-col gap-gp-2xs min-w-0">
-            <span className="flex items-center gap-gp-2xs min-w-0">
-              <span className="text-body-sm font-medium text-fg-default truncate group-hover/lic:underline underline-offset-2 decoration-fg-subtle">
-                {row.name}
-              </span>
-              <PanelRight
-                className="size-icon-xs text-fg-subtle shrink-0 opacity-0 group-hover/lic:opacity-70 transition-opacity"
-                strokeWidth={2}
-                aria-hidden
-              />
+          <div className="flex flex-col gap-gp-2xs min-w-0 flex-1">
+            <span className="text-body-sm font-medium text-fg-default truncate">
+              {row.name}
             </span>
             <span className="text-caption-md text-fg-muted truncate">
               {row.email}
             </span>
           </div>
+          <span
+            className="shrink-0 grid place-items-center size-[24px] rounded-radius-sm border border-border-subtle bg-bg-canvas dark:bg-bg-muted shadow-sh-sm text-fg-muted [&_svg]:size-icon-xs"
+            aria-hidden
+          >
+            <SquareArrowOutUpRight strokeWidth={2} />
+          </span>
         </div>
       ),
     },
