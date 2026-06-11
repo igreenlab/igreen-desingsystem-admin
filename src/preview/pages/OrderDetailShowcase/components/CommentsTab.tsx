@@ -78,34 +78,32 @@ export function CommentsTab({ order }: { order: Order }) {
         </ul>
       </SectionCard>
 
-      {/* Composer — embaixo e fora do card */}
-      <div className="flex gap-gp-md">
-        <Avatar size="md" colorHex="#3B82F6" aria-label="Você">
-          SI
-        </Avatar>
-        <div className="flex-1 overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface transition-[border-color,box-shadow] focus-within:border-border-brand focus-within:shadow-sh-ring">
-          <Textarea
-            value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder="Escreva um comentário..."
-            rows={3}
-            className="resize-none border-0 bg-transparent px-pad-lg py-pad-md shadow-none focus-visible:ring-0"
-          />
-          <div className="flex items-center justify-between gap-gp-md border-t border-border-subtle px-pad-lg py-pad-sm">
-            <span className="text-caption-sm text-fg-subtle">
-              Visível para a equipe e o cliente.
-            </span>
-            <Button
-              variant="filled"
-              color="primary"
-              size="sm"
-              iconLeft={<Send />}
-              disabled={!draft.trim()}
-              onClick={submit}
-            >
-              Comentar
-            </Button>
-          </div>
+      {/* Composer — embaixo e fora do card; avatar no footer junto da legenda */}
+      <div className="overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface transition-[border-color,box-shadow] focus-within:border-border-brand focus-within:shadow-sh-ring">
+        <Textarea
+          value={draft}
+          onChange={(e) => setDraft(e.target.value)}
+          placeholder="Escreva um comentário..."
+          rows={3}
+          className="resize-none border-0 bg-transparent px-pad-lg py-pad-md shadow-none focus-visible:ring-0"
+        />
+        <div className="flex items-center justify-between gap-gp-md border-t border-border-subtle px-pad-lg py-pad-lg">
+          <span className="flex items-center gap-gp-sm text-caption-sm text-fg-subtle">
+            <Avatar size="xs" colorHex="#3B82F6" aria-label="Você">
+              SI
+            </Avatar>
+            Visível para a equipe e o cliente.
+          </span>
+          <Button
+            variant="filled"
+            color="primary"
+            size="sm"
+            iconLeft={<Send />}
+            disabled={!draft.trim()}
+            onClick={submit}
+          >
+            Comentar
+          </Button>
         </div>
       </div>
     </div>

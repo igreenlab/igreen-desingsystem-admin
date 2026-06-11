@@ -33,8 +33,6 @@ export function DetailsTab({ order }: { order: Order }) {
         {/* Coluna principal */}
         <div className="flex flex-col gap-gp-2xl lg:col-span-2">
           <SectionCard
-            dense
-            headerPadY={14}
             title="Informações do cliente"
             icon={<User className="size-icon-md" />}
           >
@@ -64,8 +62,6 @@ export function DetailsTab({ order }: { order: Order }) {
           </SectionCard>
 
           <SectionCard
-            dense
-            headerPadY={16}
             title="Informações de entrega"
             icon={<Truck className="size-icon-md" />}
           >
@@ -86,7 +82,6 @@ export function DetailsTab({ order }: { order: Order }) {
           </SectionCard>
 
           <SectionCard
-            dense
             title="Informações de cobrança"
             icon={<CreditCard className="size-icon-md" />}
           >
@@ -107,7 +102,6 @@ export function DetailsTab({ order }: { order: Order }) {
         {/* Coluna lateral */}
         <div className="flex flex-col gap-gp-2xl">
           <SectionCard
-            dense
             title="Resumo do pedido"
             icon={<FileText className="size-icon-md" />}
           >
@@ -143,7 +137,6 @@ export function DetailsTab({ order }: { order: Order }) {
           </SectionCard>
 
           <SectionCard
-            dense
             title="Notas internas"
             icon={<StickyNote className="size-icon-md" />}
           >
@@ -153,7 +146,6 @@ export function DetailsTab({ order }: { order: Order }) {
           </SectionCard>
 
           <SectionCard
-            dense
             title="Tags e rótulos"
             icon={<Tag className="size-icon-md" />}
           >
@@ -174,7 +166,6 @@ export function DetailsTab({ order }: { order: Order }) {
 
           {order.discountValue != null && (
             <SectionCard
-            dense
               title="Desconto aplicado"
               icon={<Percent className="size-icon-md" />}
             >
