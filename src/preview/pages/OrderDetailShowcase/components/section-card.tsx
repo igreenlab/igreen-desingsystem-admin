@@ -24,7 +24,7 @@ export function SectionCard({
   const hasHeader = !!(title || action);
   const header = hasHeader && (
     // Header: padding 16px (pad-2xl) + divider full-bleed embaixo.
-    <header className="flex items-center justify-between gap-gp-md border-b border-border-subtle p-pad-2xl">
+    <header className="flex items-center justify-between gap-gp-md border-b border-border-subtle bg-bg-subtle p-pad-2xl">
       {/* gap ícone↔título = 12px (gap-gp-md) */}
       <div className="flex items-center gap-gp-md">
         {icon && (
@@ -43,7 +43,7 @@ export function SectionCard({
   );
 
   return (
-    <section className={cn("rounded-radius-lg border border-border-subtle bg-bg-surface shadow-sh-sm", className)}>
+    <section className={cn("overflow-hidden rounded-radius-lg border border-border-subtle bg-bg-surface shadow-sh-sm", className)}>
       {header}
       {/* body: padding 16px (pad-2xl) — uniforme; abaixo do divider quando há header */}
       <div className={cn("p-pad-2xl", bodyClassName)}>{children}</div>
