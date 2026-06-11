@@ -2060,3 +2060,17 @@
 - Validação: tsc 0 · browser (Chrome DevTools): tabela 14 cols/87 rows/25 switches, kanban 4 lanes com cards completos, expansão renderiza extrato, 4 KPIs, presets, paginação. Warning benigno pré-existente do type:"actions" (caminho próprio no render, não passa pelo registry).
 - Assumption: os campos financeiros mocados são representativos o suficiente pra demonstrar o padrão; a tela é showcase (mock), não consome API real.
 - Lições novas: nenhuma.
+
+---
+
+### [2026-06-10] | DS DEV | Ajustes finance + 3 correções de DS core (FloatingPanel/Table/FooterTable) | CONCLUÍDO
+- Input: 5 ajustes pós-validação visual da tela finance — autorizado mexer em componentes "com cuidado".
+- Output:
+  1. **FloatingPanel** (DS core): nova prop `bodyPadded` (default `true` — padding interno padrão do body, parametrizável) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel. Refatorado FinanceDetailPanel pra usá-los (espelha o DetailDrawer da ClientesShowcase, que era a referência). `bodyPadded={false}` aplicado nos consumers que já gerenciam padding próprio (DetailDrawer, ToolbarSimpleFilterDrawer); FloatingPanelDoc migrado pra demonstrar o default (removido p-pad-3xl manual).
+  2. **Coluna nome (finance)**: afordância de clique — ícone `PanelRight` fraco + underline no hover (group/lic).
+  3. **FooterTable** (DS core): removido `pt-pad-xl` + `px-pad-xs` do wrapper da paginação (2 ocorrências — footer + skeleton). Paginação cola melhor à tabela.
+  4. **Table** (DS core) + **tokens**: pinned/sticky cells vazavam conteúdo sob row selecionada (bg-inherit herdava color-mix com `transparent`). Novos tokens `table-row-selected-solid` / `-hover-solid` (light+dark — mesmo mix sobre bg opaco da tabela). TableRow ganha `group/row` + `data-highlighted`; pinned cell troca pra token sólido via `group-data-[highlighted]/row:`. Cobre selected/open/focused.
+- Decisões: bodyPadded default `true` (consumers com padding próprio opt-out) — torna o padrão "AI acerta de primeira". Tokens solid via color-mix sobre bg opaco (self-consistente se a marca mudar) em vez de hardcode dos hexes que o usuário passou (#F0F8F4 / #1A2D27 = equivalentes).
+- Validação: tsc 0 · tokens:tw4 (4 vars geradas) · browser dark: detail panel com sections colapsáveis + padding (= referência), row selecionada → pinned cell opaco (oklch 0.275, sem alpha — CSS comprovado), footer com menos padding, bulk bar. Consumers de FloatingPanel auditados (DetailDrawer, SimpleFilterDrawer, FloatingPanelDoc) — sem regressão.
+- Assumption: nenhum outro consumer de FloatingPanel depende de body sem padding além dos 3 auditados (grep cobriu src/ inteiro).
+- Lições novas: candidata — "pinned/sticky cells precisam de bg OPACO; row bg com alpha (color-mix transparent) vaza conteúdo scrollado sob a coluna fixa → usar token -solid". Avaliar registrar como L-029 no review.

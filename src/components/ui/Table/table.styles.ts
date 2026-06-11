@@ -183,8 +183,17 @@ export const tableStyles = tv({
       false: {},
     },
     pinned: {
-      left:  { headCell: "sticky z-10 bg-bg-table-head", cell: "sticky z-[5] bg-inherit" },
-      right: { headCell: "sticky z-10 bg-bg-table-head", cell: "sticky z-[5] bg-inherit" },
+      // `bg-inherit` cobre o conteúdo scrollado nos estados normais (row bg opaco).
+      // Quando a row está destacada (`data-highlighted` via group/row), o bg da row
+      // é color-mix com transparent → trocamos pro token SÓLIDO pra não vazar.
+      left: {
+        headCell: "sticky z-10 bg-bg-table-head",
+        cell: "sticky z-[5] bg-inherit group-data-[highlighted]/row:bg-bg-table-row-selected-solid group-data-[highlighted]/row:group-hover/row:bg-bg-table-row-selected-hover-solid",
+      },
+      right: {
+        headCell: "sticky z-10 bg-bg-table-head",
+        cell: "sticky z-[5] bg-inherit group-data-[highlighted]/row:bg-bg-table-row-selected-solid group-data-[highlighted]/row:group-hover/row:bg-bg-table-row-selected-hover-solid",
+      },
     },
     align: {
       left:   { cell: "justify-start text-left",     headCell: "justify-start text-left" },

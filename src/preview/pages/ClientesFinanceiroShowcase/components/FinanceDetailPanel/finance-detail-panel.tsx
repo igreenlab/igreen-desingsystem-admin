@@ -1,6 +1,9 @@
-import type { ReactNode } from "react";
 import { Banknote, Pencil } from "lucide-react";
-import { FloatingPanel } from "@/components/ui/FloatingPanel";
+import {
+  FloatingPanel,
+  FloatingPanelSection,
+  FloatingPanelField,
+} from "@/components/ui/FloatingPanel";
 import { Avatar } from "@/components/ui/Avatar";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
@@ -30,32 +33,6 @@ function formatLongDate(ms: number): string {
     year: "numeric",
   });
 }
-
-/* ── Field + Section ────────────────────────────────────────────── */
-
-function Field({ label, value }: { label: string; value: ReactNode }) {
-  return (
-    <div className="flex items-baseline justify-between gap-gp-md">
-      <span className="text-body-sm text-fg-muted shrink-0">{label}</span>
-      <span className="text-body-sm font-medium text-fg-default text-right min-w-0">
-        {value || "—"}
-      </span>
-    </div>
-  );
-}
-
-function Section({ title, children }: { title: string; children: ReactNode }) {
-  return (
-    <section className="flex flex-col gap-gp-md">
-      <h4 className="m-0 text-caption-sm font-semibold text-fg-subtle uppercase tracking-wider">
-        {title}
-      </h4>
-      <div className="flex flex-col gap-gp-md">{children}</div>
-    </section>
-  );
-}
-
-/* ── FinanceDetailPanel ─────────────────────────────────────────── */
 
 export type FinanceDetailPanelProps = {
   row: FinanceClientRow | null;
@@ -87,6 +64,8 @@ export function FinanceDetailPanel({
       size="md"
       resizable
       maximizable
+      // Sections gerenciam o próprio padding edge-to-edge (divisórias full-width).
+      bodyPadded={false}
       resizableStorageKey="clientes-financeiro.detail-panel.width"
       titleSlot={
         <div className="flex items-center gap-gp-md min-w-0">
@@ -147,113 +126,116 @@ export function FinanceDetailPanel({
         </>
       }
     >
-      <div className="flex flex-col gap-gp-3xl">
-        {/* Saldo em destaque */}
+      {/* Saldo em destaque — gutter próprio (body não tem padding). */}
+      <div className="px-[18px] pt-pad-xl pb-pad-md">
         <div className="flex flex-col gap-gp-2xs p-pad-2xl bg-bg-success-muted rounded-radius-lg">
           <span className="text-caption-sm text-fg-muted">Saldo disponível</span>
           <span className="text-body-2xl font-bold text-fg-success leading-none tabular-nums">
             {formatBRL(row.availableBalance)}
           </span>
         </div>
-
-        <Section title="Empresa">
-          <Field label="Razão Social" value={row.companyName} />
-          <Field
-            label="CNPJ"
-            value={<span className="tabular-nums">{row.cnpj}</span>}
-          />
-        </Section>
-
-        <Section title="Conta bancária">
-          <div className="flex items-center gap-gp-md">
-            <Avatar size="lg" colorHex={bank.color} className="text-caption-md font-bold">
-              {bank.initials}
-            </Avatar>
-            <div className="flex flex-col min-w-0">
-              <span className="text-body-sm font-medium text-fg-default truncate">
-                {row.bankAccount.bankName}
-              </span>
-              <span className="text-caption-md text-fg-muted tabular-nums">
-                Ag {row.bankAccount.agency} · {row.bankAccount.account}
-              </span>
-            </div>
-          </div>
-        </Section>
-
-        <Section title="Financeiro">
-          <Field
-            label="Volume mensal"
-            value={<span className="tabular-nums">{formatBRL(row.monthlyVolume)}</span>}
-          />
-          <Field
-            label="Comissão"
-            value={
-              <span className="tabular-nums">
-                {row.commissionRate.toLocaleString("pt-BR", { minimumFractionDigits: 1 })}%
-              </span>
-            }
-          />
-          <Field
-            label="Saque automático"
-            value={row.autoWithdraw ? "Ativado" : "Desativado"}
-          />
-          <Field
-            label="Métodos"
-            value={
-              <span className="inline-flex flex-wrap gap-gp-2xs justify-end">
-                {row.paymentMethods.map((m) => (
-                  <Chip key={m} color="neutral" variant="soft" size="sm" shape="rounded">
-                    {PAYMENT_METHOD_LABEL[m]}
-                  </Chip>
-                ))}
-              </span>
-            }
-          />
-        </Section>
-
-        <Section title="Contato">
-          <Field
-            label="Email"
-            value={
-              <a href={`mailto:${row.email}`} className="text-fg-brand hover:underline">
-                {row.email}
-              </a>
-            }
-          />
-          <Field
-            label="Telefone"
-            value={
-              <a
-                href={`tel:${row.phone.replace(/\D/g, "")}`}
-                className="text-fg-brand hover:underline"
-              >
-                {row.phone}
-              </a>
-            }
-          />
-          <Field label="Localização" value={row.location} />
-        </Section>
-
-        <Section title="Gestão">
-          <Field
-            label="Gestor da conta"
-            value={
-              agent ? (
-                <span className="inline-flex items-center gap-gp-sm">
-                  <Avatar size="xs" colorHex={agent.color}>
-                    {agent.initials}
-                  </Avatar>
-                  {agent.name}
-                </span>
-              ) : (
-                "—"
-              )
-            }
-          />
-          <Field label="Cliente desde" value={formatLongDate(row.createdAt)} />
-          <Field label="Última movimentação" value={formatRelativeDays(row.lastMovement)} />
-        </Section>
       </div>
+
+      <FloatingPanelSection title="Empresa">
+        <FloatingPanelField label="Razão Social" value={row.companyName} />
+        <FloatingPanelField
+          label="CNPJ"
+          value={<span className="tabular-nums">{row.cnpj}</span>}
+        />
+      </FloatingPanelSection>
+
+      <FloatingPanelSection title="Conta bancária">
+        <div className="flex items-center gap-gp-md">
+          <Avatar size="lg" colorHex={bank.color} className="text-caption-md font-bold">
+            {bank.initials}
+          </Avatar>
+          <div className="flex flex-col min-w-0">
+            <span className="text-body-sm font-medium text-fg-default truncate">
+              {row.bankAccount.bankName}
+            </span>
+            <span className="text-caption-md text-fg-muted tabular-nums">
+              Ag {row.bankAccount.agency} · {row.bankAccount.account}
+            </span>
+          </div>
+        </div>
+      </FloatingPanelSection>
+
+      <FloatingPanelSection title="Financeiro">
+        <FloatingPanelField
+          label="Volume mensal"
+          value={<span className="tabular-nums">{formatBRL(row.monthlyVolume)}</span>}
+        />
+        <FloatingPanelField
+          label="Comissão"
+          value={
+            <span className="tabular-nums">
+              {row.commissionRate.toLocaleString("pt-BR", { minimumFractionDigits: 1 })}%
+            </span>
+          }
+        />
+        <FloatingPanelField
+          label="Saque automático"
+          value={row.autoWithdraw ? "Ativado" : "Desativado"}
+        />
+        <FloatingPanelField
+          label="Métodos"
+          value={
+            <span className="inline-flex flex-wrap gap-gp-2xs justify-end">
+              {row.paymentMethods.map((m) => (
+                <Chip key={m} color="neutral" variant="soft" size="sm" shape="rounded">
+                  {PAYMENT_METHOD_LABEL[m]}
+                </Chip>
+              ))}
+            </span>
+          }
+        />
+      </FloatingPanelSection>
+
+      <FloatingPanelSection title="Contato">
+        <FloatingPanelField
+          label="Email"
+          value={
+            <a href={`mailto:${row.email}`} className="text-fg-brand hover:underline">
+              {row.email}
+            </a>
+          }
+        />
+        <FloatingPanelField
+          label="Telefone"
+          value={
+            <a
+              href={`tel:${row.phone.replace(/\D/g, "")}`}
+              className="text-fg-brand hover:underline"
+            >
+              {row.phone}
+            </a>
+          }
+        />
+        <FloatingPanelField label="Localização" value={row.location} />
+      </FloatingPanelSection>
+
+      <FloatingPanelSection title="Gestão">
+        <FloatingPanelField
+          label="Gestor da conta"
+          value={
+            agent ? (
+              <span className="inline-flex items-center gap-gp-sm">
+                <Avatar size="xs" colorHex={agent.color}>
+                  {agent.initials}
+                </Avatar>
+                {agent.name}
+              </span>
+            ) : (
+              "—"
+            )
+          }
+        />
+        <FloatingPanelField label="Cliente desde" value={formatLongDate(row.createdAt)} />
+        <FloatingPanelField
+          label="Última movimentação"
+          value={formatRelativeDays(row.lastMovement)}
+        />
+      </FloatingPanelSection>
     </FloatingPanel>
   );
 }

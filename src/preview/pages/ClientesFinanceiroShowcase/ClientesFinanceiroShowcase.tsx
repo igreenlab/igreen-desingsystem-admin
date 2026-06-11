@@ -7,6 +7,7 @@ import {
   History,
   Lock,
   MoreHorizontal,
+  PanelRight,
   Pause,
   Pencil,
   Plus,
@@ -128,13 +129,22 @@ function buildColumns(
       enableColumnFilter: true,
       filterType: "text",
       render: ({ row }) => (
-        <div className="flex items-center gap-gp-md min-w-0">
+        // group/lic: revela a afordância de "abrir detalhe" (ícone fraco +
+        // underline no nome) no hover da célula, sinalizando que é clicável.
+        <div className="group/lic flex items-center gap-gp-md min-w-0">
           <Avatar size="md" colorHex={row.avatarColor}>
             {row.initials}
           </Avatar>
           <div className="flex flex-col gap-gp-2xs min-w-0">
-            <span className="text-body-sm font-medium text-fg-default truncate">
-              {row.name}
+            <span className="flex items-center gap-gp-2xs min-w-0">
+              <span className="text-body-sm font-medium text-fg-default truncate group-hover/lic:underline underline-offset-2 decoration-fg-subtle">
+                {row.name}
+              </span>
+              <PanelRight
+                className="size-icon-xs text-fg-subtle shrink-0 opacity-0 group-hover/lic:opacity-70 transition-opacity"
+                strokeWidth={2}
+                aria-hidden
+              />
             </span>
             <span className="text-caption-md text-fg-muted truncate">
               {row.email}

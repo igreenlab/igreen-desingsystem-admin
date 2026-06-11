@@ -171,6 +171,11 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
   const { density } = useTableContext();
   const isClickable = clickable ?? !!onClick;
   const highlighted = selected || open;
+  // Pinned/sticky cells precisam de bg OPACO quando a row está destacada
+  // (selected/open/focused) — o bg da row é color-mix com transparent e deixaria
+  // o conteúdo scrollado vazar sob a coluna fixa. `data-highlighted` + `group/row`
+  // permitem o table.styles aplicar o token sólido só nessas cells.
+  const solidPinned = highlighted || focused;
   const dataState = selected && open
     ? "selected open"
     : selected
@@ -187,8 +192,10 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
       aria-selected={selected || undefined}
       data-state={dataState}
       data-focused={focused || undefined}
+      data-highlighted={solidPinned || undefined}
       tabIndex={focused ? 0 : -1}
       className={cn(
+        "group/row",
         tableStyles({ selected: highlighted, clickable: isClickable, density }).row(),
         // Focus visual — bg tinted (match checkbox selected) + outline brand interno.
         // Outline em vez de ring/border pra não interferir com sticky/bordas.

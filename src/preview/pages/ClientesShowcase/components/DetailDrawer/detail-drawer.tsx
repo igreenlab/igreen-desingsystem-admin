@@ -129,6 +129,8 @@ export function DetailDrawer({
       size="md"
       resizable
       maximizable
+      // Sections internas (DetailSection) gerenciam o próprio padding edge-to-edge.
+      bodyPadded={false}
       resizableStorageKey="clientes-showcase.detail-drawer.width"
       titleSlot={
         <div className="flex items-center gap-gp-md min-w-0">

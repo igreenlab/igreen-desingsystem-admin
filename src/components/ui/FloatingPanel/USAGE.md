@@ -9,7 +9,11 @@ Drawer card flutuante non-modal — resizável, maximizável, coexiste com pági
 
 ## Import
 ```tsx
-import { FloatingPanel } from "@/components/ui/FloatingPanel";
+import {
+  FloatingPanel,
+  FloatingPanelSection, // seção colapsável (detail panel)
+  FloatingPanelField,   // linha label : valor
+} from "@/components/ui/FloatingPanel";
 ```
 
 ## Variants
@@ -34,8 +38,9 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
 | `headerActions` | ReactNode | Slots no header |
 | `footer` | ReactNode | Slot do footer sticky |
 | `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |
+| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |
 
-## Exemplo mínimo
+## Exemplo mínimo (conteúdo livre — padding automático)
 ```tsx
 <FloatingPanel
   open={panelOpen}
@@ -48,9 +53,29 @@ import { FloatingPanel } from "@/components/ui/FloatingPanel";
   maximizable
   footer={<><Button variant="ghost">Cancelar</Button><Button>Salvar</Button></>}
 >
+  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}
   <ClientDetails />
 </FloatingPanel>
 ```
+
+## Detail panel padrão (sections colapsáveis)
+Pattern canônico de painel de detalhe — espelha o DetailDrawer da showcase de
+Clientes. Use `bodyPadded={false}` (as sections têm padding + divisória própria):
+
+```tsx
+<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>
+  <FloatingPanelSection title="Contato">          {/* colapsável (default) */}
+    <FloatingPanelField label="Email" value={<a href={...}>{email}</a>} />
+    <FloatingPanelField label="Telefone" value={phone} />
+  </FloatingPanelSection>
+  <FloatingPanelSection title="Financeiro" defaultOpen={false}>
+    <FloatingPanelField label="Saldo" value={formatBRL(saldo)} />
+  </FloatingPanelSection>
+</FloatingPanel>
+```
+
+- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).
+- `FloatingPanelField` — props: `label`, `value` (fallback "—" quando vazio).
 
 ## Cuidados / Gotchas
 - Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais

@@ -45,6 +45,8 @@
   --color-bg-table-row-hover: oklch(0.973 0 0);
   --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);
   --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));
   --color-bg-dropdown: var(--color-bg-canvas);
   --color-fg-strong: oklch(0.15 0 0);
   --color-fg-default: oklch(0.15 0 0);
@@ -281,6 +283,8 @@
   --color-bg-table-row-hover: oklch(0.252 0 0);
   --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);
   --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));
   --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);
   --color-fg-strong: oklch(1 0 0);
   --color-fg-default: oklch(0.98 0 0);

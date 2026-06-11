@@ -63,6 +63,14 @@ export type FloatingPanelProps = {
   /** Fecha com ESC. Default: true */
   closeOnEscape?: boolean;
 
+  /**
+   * Padding interno padrão do body (gutter 18px lateral + vertical). Default:
+   * `true` — conteúdo livre já respira sem o consumer adicionar padding.
+   * Use `false` quando o conteúdo são `<FloatingPanelSection>` edge-to-edge
+   * (sections gerenciam o próprio padding + divisórias full-width).
+   */
+  bodyPadded?: boolean;
+
   /** className extra no `<aside>` */
   className?: string;
 };
