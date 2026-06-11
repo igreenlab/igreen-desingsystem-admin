@@ -1,0 +1,75 @@
+import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
+
+/**
+ * Card de seção flat — bg-surface + borda sutil, sem elevação pesada.
+ * Espelha o visual dos blocos da referência (Products ordered, Customer, etc).
+ * Composição local do showcase consumindo tokens DS via classes.
+ */
+export function SectionCard({
+  title,
+  icon,
+  action,
+  children,
+  className,
+  bodyClassName,
+}: {
+  title?: ReactNode;
+  icon?: ReactNode;
+  action?: ReactNode;
+  children: ReactNode;
+  className?: string;
+  bodyClassName?: string;
+}) {
+  return (
+    <section
+      className={cn(
+        "rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-4xl",
+        className,
+      )}
+    >
+      {(title || action) && (
+        <header className="mb-gp-xl flex items-center justify-between gap-gp-md">
+          <div className="flex items-center gap-gp-sm">
+            {icon && <span className="text-fg-muted">{icon}</span>}
+            {title && (
+              <h2 className="text-title-md font-semibold text-fg-default">
+                {title}
+              </h2>
+            )}
+          </div>
+          {action}
+        </header>
+      )}
+      <div className={bodyClassName}>{children}</div>
+    </section>
+  );
+}
+
+/** Par label-uppercase + valor (grid de Customer/Shipping/Billing Information). */
+export function Field({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: ReactNode;
+  /** Destaca o valor com a cor de marca (links, ids de transação, etc). */
+  accent?: boolean;
+}) {
+  return (
+    <div className="flex flex-col gap-gp-2xs">
+      <span className="text-caption-sm font-medium uppercase tracking-wider text-fg-muted">
+        {label}
+      </span>
+      <span
+        className={cn(
+          "text-body-md",
+          accent ? "text-fg-brand" : "text-fg-default",
+        )}
+      >
+        {value}
+      </span>
+    </div>
+  );
+}
