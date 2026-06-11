@@ -257,7 +257,7 @@ export function App() {
     return <OrderDetailShowcase />;
   }
 
-  if (standaloneApp === "order-edit") {
+  if (standaloneApp === "edit-page") {
     return <OrderEditShowcase />;
   }
 

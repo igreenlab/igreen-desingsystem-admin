@@ -126,6 +126,10 @@ const BASE_NAV: DocNavSection[] = [
       { label: "CRUD", href: "clientes-showcase" },
       { label: "Chat", href: "chat-v2" },
       { label: "Dashboard", href: "dashboard-showcase" },
+      // Apps standalone (fullscreen via ?app=) — abrem fora do chrome de docs.
+      { label: "Finance", href: "finance", url: "?app=finance" },
+      { label: "Order Detail", href: "order-detail", url: "?app=order-detail" },
+      { label: "Edit Page", href: "edit-page", url: "?app=edit-page" },
     ],
   },
 ];

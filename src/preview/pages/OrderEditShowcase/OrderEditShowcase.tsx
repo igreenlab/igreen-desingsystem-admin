@@ -73,7 +73,7 @@ const DDI_OPTIONS = ["+55", "+1", "+351"];
 
 /**
  * OrderEditShowcase — tela de edição de pedido (formulário em etapas), via
- * `?app=order-edit`. Mesmo modelo de design da OrderDetail (SectionCard) +
+ * `?app=edit-page`. Mesmo modelo de design da OrderDetail (SectionCard) +
  * nav lateral (stepper). Toggle de layout: 1 coluna (igual à referência) ou
  * 2 colunas. Domínio iGreen (energia solar).
  */

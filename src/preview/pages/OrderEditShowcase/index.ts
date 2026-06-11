@@ -1,5 +1,5 @@
 /**
- * Barrel da OrderEditShowcase — tela standalone (fullscreen) via `?app=order-edit`.
+ * Barrel da OrderEditShowcase — tela standalone (fullscreen) via `?app=edit-page`.
  *
  * Formulário de edição de pedido em etapas (nav lateral stepper + seções em
  * SectionCard), seguindo o mesmo modelo de design da OrderDetailShowcase.
