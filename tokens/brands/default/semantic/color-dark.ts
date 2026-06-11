@@ -80,9 +80,11 @@ export const bg = {
   "table-row-selected":       `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
   "table-row-selected-hover": `color-mix(in oklch, ${brandContrast[400]} 14%, transparent)`,
   // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
-  // de trás. Mesmo mix, mas sobre o bg sólido da tabela (surface escuro).
-  "table-row-selected-solid":       `color-mix(in oklch, ${brandContrast[400]} 10%, oklch(0.225 0 0))`,
-  "table-row-selected-hover-solid": `color-mix(in oklch, ${brandContrast[400]} 14%, oklch(0.225 0 0))`,
+  // de trás. Mix em SRGB (não oklch): misturar em oklch com o bg achromático
+  // (hue 0) contamina o hue → tinge de vermelho. Em srgb dá o mesmo alpha-over
+  // do token transparente sobre o bg sólido da tabela (surface escuro).
+  "table-row-selected-solid":       `color-mix(in srgb, ${brandContrast[400]} 10%, oklch(0.225 0 0))`,
+  "table-row-selected-hover-solid": `color-mix(in srgb, ${brandContrast[400]} 14%, oklch(0.225 0 0))`,
 
   // Dropdown/Popover — frosted-glass: bg-canvas com 70% opacidade
   // (combina com backdrop-blur no componente pra efeito vidro fosco)
