@@ -24,6 +24,8 @@ export type SidebarPanelProps = {
   collapsed?: boolean;
   /** Quando true: panel renderiza como overlay absoluto (hover-to-expand) */
   floating?: boolean;
+  /** Quando true (mobile): panel preenche o drawer full-screen (flex-1). */
+  mobile?: boolean;
   activeItemHref?: string;
   onItemClick?: (item: SidebarMenuItem) => void;
   /** Quando passados, o título vira um dropdown switcher de contextos */
@@ -40,6 +42,7 @@ export function SidebarPanel({
   context,
   collapsed,
   floating,
+  mobile,
   activeItemHref,
   onItemClick,
   contexts,
@@ -52,7 +55,7 @@ export function SidebarPanel({
 
   return (
     <aside
-      className={cn(sidebarPanel({ collapsed, floating }), className)}
+      className={cn(sidebarPanel({ collapsed, floating, mobile }), className)}
       aria-hidden={collapsed}
     >
       <div className={sidebarPanelHeader()}>

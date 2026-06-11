@@ -55,6 +55,7 @@ import {
 import { SacarDialog } from "./components/SacarDialog";
 import { ExtratoExpansion } from "./components/ExtratoExpansion";
 import { FinanceDetailPanel } from "./components/FinanceDetailPanel";
+import { EditarFinanceDrawer } from "./components/EditarFinanceDrawer";
 import type {
   AccountStatus,
   FinanceClientRow,
@@ -787,7 +788,7 @@ export default function ClientesFinanceiroShowcase() {
             </>
           ),
         }}
-        className="flex-1 min-h-0 mb-pad-2xl"
+        className="flex-1 min-h-0"
       />
 
       {/* Drawers + Modals */}
@@ -796,12 +797,35 @@ export default function ClientesFinanceiroShowcase() {
         onOpenChange={setNovoClienteOpen}
         onSubmit={() => window.alert("Cliente criado com sucesso! (mock)")}
       />
-      <NovoClienteDrawer
-        open={editingClient !== null}
+      <EditarFinanceDrawer
+        client={editingClient}
         onOpenChange={(o) => !o && setEditingClient(null)}
-        onSubmit={() =>
-          window.alert(`Cliente ${editingClient?.name ?? ""} atualizado! (mock)`)
-        }
+        onSave={(id, p) => {
+          setRows((prev) =>
+            prev.map((r) =>
+              r.id === id
+                ? {
+                    ...r,
+                    name: p.name,
+                    email: p.email,
+                    phone: p.phone,
+                    companyName: p.companyName,
+                    cnpj: p.cnpj,
+                    accountStatus: p.accountStatus,
+                    commissionRate: p.commissionRate,
+                    autoWithdraw: p.autoWithdraw,
+                    paymentMethods: p.paymentMethods,
+                    agentId: p.agentId as FinanceClientRow["agentId"],
+                    bankAccount: {
+                      ...r.bankAccount,
+                      bank: p.bank,
+                      bankName: BANKS[p.bank].name,
+                    },
+                  }
+                : r,
+            ),
+          );
+        }}
       />
       <SacarDialog
         open={sacarClient !== null}

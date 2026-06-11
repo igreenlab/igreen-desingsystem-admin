@@ -139,7 +139,8 @@ export function ToolbarApplied({
           </span>
         );
         return (
-          <div key={f.id} className="inline-flex">
+          // shrink-0: no scroll horizontal mobile (flex-nowrap) os chips não comprimem.
+          <div key={f.id} className="inline-flex shrink-0">
             {renderChip
               ? renderChip(f, defaultChip, isPendingOpen)
               : defaultChip}
@@ -150,7 +151,7 @@ export function ToolbarApplied({
         <button
           type="button"
           onClick={onClearAll}
-          className={toolbarAppliedClearLink()}
+          className={cn(toolbarAppliedClearLink(), "shrink-0")}
         >
           {clearLabel}
         </button>

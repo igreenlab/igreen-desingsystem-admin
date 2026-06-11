@@ -70,6 +70,10 @@ import {
 - **Ordem é fixa** — não dá (nem precisa) reordenar. Cada controle tem seu slot semântico.
 - **Mobile**: o `refresh` é escondido em `< md` via `hidden md:contents`; o
   `<ToolbarSettingsMenu>` expõe Visualização/Visões inline dentro do menu nesse breakpoint.
+- **`mobileDisplayToggle?: ReactNode`** (ToolbarSettingsMenu): slot pro toggle
+  **"Exibição" (Linhas/Cards)** — só renderiza em `< md`. O DataTable passa um
+  `<ToolbarSegmented>` aqui quando a tela cabe em card mode; permite o usuário
+  forçar tabela mesmo abaixo do `cardBreakpoint` (default mobile = **tabela**).
 - **bulkBar substitui tudo**: passe `<BulkActionsBar>` (auto-some quando `count=0`)
   condicionalmente — `selectedIds.size > 0 ? <BulkActionsBar/> : undefined`.
 - **Chips ficam fora** da toolbar: renderize `<ToolbarApplied>` como irmão abaixo.

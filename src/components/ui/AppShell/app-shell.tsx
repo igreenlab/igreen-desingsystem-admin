@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Header } from "../Header";
 import { MenuSidebar } from "../MenuSidebar";
+import { useMediaQuery } from "../MenuSidebar/use-media-query";
 import { UserMenu } from "./user-menu";
 import * as s from "./app-shell.styles";
 import type { AppShellProps } from "./app-shell.types";
@@ -67,11 +68,22 @@ export function AppShell({
   const [internalCollapsed, setInternalCollapsed] = useState<boolean>(defaultMenuCollapsed);
   const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;
 
+  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),
+  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no
+  // panelCollapsed → no mobile o menu nunca abria.
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const toggleMenuCollapsed = useCallback(() => {
     const next = !menuCollapsed;
     if (controlledCollapsed === undefined) setInternalCollapsed(next);
     onMenuCollapseChange?.(next);
   }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);
+
+  const handleToggleMenu = useCallback(() => {
+    if (isMobile) setMobileMenuOpen((o) => !o);
+    else toggleMenuCollapsed();
+  }, [isMobile, toggleMenuCollapsed]);
 
   const userNode = user ? (
     <UserMenu
@@ -103,12 +115,14 @@ export function AppShell({
           if (controlledCollapsed === undefined) setInternalCollapsed(next);
           onMenuCollapseChange?.(next);
         }}
+        mobileOpen={mobileMenuOpen}
+        onMobileOpenChange={setMobileMenuOpen}
       />
 
       <div className={s.main()}>
         <Header
           breadcrumb={breadcrumb}
-          onCollapseMenu={toggleMenuCollapsed}
+          onCollapseMenu={handleToggleMenu}
           menuCollapsed={menuCollapsed}
           commandGroups={commandGroups}
           commandPlaceholder={commandPlaceholder}

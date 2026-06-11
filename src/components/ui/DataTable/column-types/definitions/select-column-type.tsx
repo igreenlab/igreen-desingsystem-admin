@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../../shadcn/select";
-import { FILTER_FIELD_SIZE } from "../_filter-field";
+import { FILTER_FIELD_SIZE, FastSingleSelectList } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 
 /** Normaliza value pra string — aceita escalar OU array (extrai 1º elemento).
@@ -45,25 +45,17 @@ export const SelectColumnType: ColumnTypeDefinition = {
     );
   },
   renderFastFilterInput: ({ value, onChange, options, onClose }) => (
-    <Select
-      value={toScalar(value)}
-      onValueChange={(v) => {
+    <FastSingleSelectList
+      options={(options ?? []).map((opt) => ({
+        value: String(opt.value),
+        label: opt.label,
+      }))}
+      selected={toScalar(value)}
+      onSelect={(v) => {
         onChange(v);
         onClose?.();
       }}
-      open
-    >
-      <SelectTrigger className="sr-only">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {options?.map((opt) => (
-          <SelectItem key={String(opt.value)} value={String(opt.value)}>
-            {opt.label}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
+    />
   ),
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = cellValue == null ? "" : String(cellValue);

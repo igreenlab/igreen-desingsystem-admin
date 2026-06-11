@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../../shadcn/select";
-import { FILTER_FIELD_SIZE } from "../_filter-field";
+import { FILTER_FIELD_SIZE, FastSingleSelectList } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 
 function toBool(v: unknown): boolean | null {
@@ -15,12 +15,22 @@ function toBool(v: unknown): boolean | null {
   return null;
 }
 
+/** Radix Select exige `value` STRING. O filterModel guarda boolean (true/false),
+ *  então `(value as string)` passava um boolean cru pro Select → nunca casava o
+ *  SelectItem ("true"/"false"), o valor não aparecia e o popover do chip quebrava
+ *  posicionamento/fechamento. Normaliza pra "true"/"false"/"" (mesma estratégia
+ *  do `toScalar` do select-column-type). */
+function toBoolStr(v: unknown): string {
+  const b = toBool(v);
+  return b === null ? "" : b ? "true" : "false";
+}
+
 export const BooleanColumnType: ColumnTypeDefinition = {
   type: "boolean",
   operators: [{ id: "equals", label: "é" }],
   renderFilterInput: ({ value, onChange }) => (
     <Select
-      value={(value as string) ?? ""}
+      value={toBoolStr(value)}
       onValueChange={(v) => onChange(v === "true")}
     >
       <SelectTrigger className={FILTER_FIELD_SIZE}>
@@ -33,22 +43,17 @@ export const BooleanColumnType: ColumnTypeDefinition = {
     </Select>
   ),
   renderFastFilterInput: ({ value, onChange, onClose }) => (
-    <Select
-      value={(value as string) ?? ""}
-      onValueChange={(v) => {
+    <FastSingleSelectList
+      options={[
+        { value: "true", label: "Sim" },
+        { value: "false", label: "Não" },
+      ]}
+      selected={toBoolStr(value)}
+      onSelect={(v) => {
         onChange(v === "true");
         onClose?.();
       }}
-      open
-    >
-      <SelectTrigger className="sr-only">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="true">Sim</SelectItem>
-        <SelectItem value="false">Não</SelectItem>
-      </SelectContent>
-    </Select>
+    />
   ),
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = toBool(cellValue);

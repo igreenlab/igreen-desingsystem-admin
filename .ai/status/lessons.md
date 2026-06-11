@@ -711,6 +711,51 @@ outra linha não repinta as demais.
 
 ---
 
+## [L-029] Fast-filter de chip nunca usa `<Select open>` aninhado — renderiza lista direta
+**Erro cometido:** o `renderFastFilterInput` de boolean/select renderizava um
+`<Select open>` (Radix Select forçado-aberto) dentro do `PopoverContent` do chip
+aplicado. O listbox do Radix Select ancora no SEU PRÓPRIO trigger (`sr-only`, ~0px)
+→ o popover do chip aparecia deslocado pra baixo, com um "dot" residual visível, e o
+layer sempre-aberto travava o dismiss por clique-fora (precisava refresh pra fechar).
+**Regra derivada:** o conteúdo de um `renderFastFilterInput` (que já vive DENTRO de um
+PopoverContent) deve renderizar as opções **direto** — lista de `<button role="option">`
+ou checkboxes — nunca um segundo popper aninhado. Usar `FastSingleSelectList`
+(`column-types/_filter-field.tsx`) pra single-select e `MultiSelectDropdown` pra multi.
+**Contexto:** `boolean-column-type.tsx`, `select-column-type.tsx` (v0.8.x). Vale pra
+qualquer column-type novo com fast-filter. Selecionar fecha via `onClose` (passado pelo
+DataTable ao `renderFastFilterInput`); clique-fora fecha porque não há layer aninhado.
+
+---
+
+## [L-030] Sheet/popover acionado DE DENTRO de um overlay z-50 precisa de z-index acima
+**Erro cometido:** o mobile-sheet (DropdownMenu/Popover com `mobileSheet`) usava wrapper
+z-50 e backdrop z-40. Quando acionado de dentro do drawer mobile do MenuSidebar (também
+z-50), o sheet **empatava** em z-50 → renderizava atrás de forma intermitente ("aparece
+por trás"), e o backdrop z-40 ficava atrás do drawer, sem cobrir nem capturar clique-fora.
+**Regra derivada:** a app inteira usa z-50 como "camada-topo". Mobile-sheets (UI transiente
+de maior prioridade) devem ficar **acima** disso: wrapper **z-60** (globals.css, regra
+`[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])`) + backdrop **z-[55]**
+(dropdown-menu/popover shadcn). Não confiar em empate resolvido por ordem de DOM — é frágil.
+**Contexto:** v0.8.x. Surgiu no UserMenu (avatar no rail) dentro do drawer mobile. Combina
+com [[L-031]].
+
+---
+
+## [L-031] `DropdownMenu` dentro de drawer/overlay → `modal={false}` + backdrop `pointer-events-none`
+**Erro cometido:** o DropdownMenu do UserMenu (acionado dentro do drawer mobile) abria no
+`pointerdown` e fechava no `click`/`pointerup` do MESMO toque — "aparece e some", exigindo
+2-3 toques. O modo `modal` (default) do Radix injeta dismiss/scroll-lock que corre com o
+gesto de abertura; e o backdrop `pointer-events-auto` do sheet montava no meio do gesto e
+interceptava o `pointerup`.
+**Regra derivada:** DropdownMenu acionado de dentro de outro overlay (drawer, sheet) usa
+`modal={false}`. O backdrop do mobile-sheet do dropdown vira `pointer-events-none` — o
+dismiss por toque-fora continua funcionando via DismissableLayer (escuta `pointerdown` a
+nível de document, independente do backdrop capturar). Popover não sofre (abre no `click`,
+gesto completa antes do backdrop montar) → mantém `pointer-events-auto`.
+**Contexto:** `AppShell/user-menu.tsx` + `shadcn/dropdown-menu.tsx` (v0.8.x). Combina com [[L-030]].
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

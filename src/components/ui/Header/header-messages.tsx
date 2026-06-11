@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { MessageSquare, PenLine, Maximize2, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../Button/button";
@@ -9,9 +9,12 @@ import {
   InputGroupInput,
 } from "../../shadcn/input-group";
 import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "../../shadcn/popover";
+import {
   headerIconBtnBadge,
-  hdWrap,
-  hdDropdown,
   hdTop,
   hdHeader,
   hdTitle,
@@ -65,25 +68,8 @@ export function HeaderMessages({ config, className }: HeaderMessagesProps) {
   const [open, setOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState(filters[0]?.id ?? "all");
   const [search, setSearch] = useState("");
-  const wrapRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = items.filter((m) => m.unread).length;
-
-  useEffect(() => {
-    if (!open) return;
-    const onClick = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
-    };
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    document.addEventListener("keydown", onEsc);
-    return () => {
-      document.removeEventListener("mousedown", onClick);
-      document.removeEventListener("keydown", onEsc);
-    };
-  }, [open]);
 
   const filtered = items
     .filter(filters.find((f) => f.id === activeFilter)?.predicate ?? (() => true))
@@ -92,25 +78,31 @@ export function HeaderMessages({ config, className }: HeaderMessagesProps) {
     );
 
   return (
-    <div ref={wrapRef} className={cn(hdWrap(), className)}>
-      <Button
-        color="secondary"
-        variant="outline"
-        size="icon-sm"
-        className="rounded-radius-md relative"
-        aria-label="Mensagens"
-        title="Mensagens"
-        aria-expanded={open}
-        onClick={() => setOpen((o) => !o)}
-      >
-        <MessageSquare />
-        {unreadCount > 0 && (
-          <span className={headerIconBtnBadge({ kind: "brand" })} aria-hidden="true" />
-        )}
-      </Button>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          color="secondary"
+          variant="outline"
+          size="icon-sm"
+          className="rounded-radius-md relative"
+          aria-label="Mensagens"
+          title="Mensagens"
+        >
+          <MessageSquare />
+          {unreadCount > 0 && (
+            <span className={headerIconBtnBadge({ kind: "brand" })} aria-hidden="true" />
+          )}
+        </Button>
+      </PopoverTrigger>
 
-      {open && (
-        <div className={hdDropdown()} role="dialog" aria-label="Mensagens">
+      <PopoverContent
+        align="end"
+        className={cn(
+          "w-[380px] max-w-[calc(100vw-32px)] max-h-[520px] p-0 flex flex-col overflow-hidden",
+          className,
+        )}
+        aria-label="Mensagens"
+      >
           <div className={hdTop()}>
             <div className={hdHeader()}>
               <div className={hdTitle()}>
@@ -206,9 +198,8 @@ export function HeaderMessages({ config, className }: HeaderMessagesProps) {
               </a>
             </div>
           )}
-        </div>
-      )}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 

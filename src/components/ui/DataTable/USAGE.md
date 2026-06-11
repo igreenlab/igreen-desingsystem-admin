@@ -87,7 +87,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Column types registry** | `type: "currency"` etc — renderiza display + filter input via registry |
 | **Inline edit** | `editable: true` na coluna + `onCellEditCommit` |
 | **Server mode** | passe `fetchData` em vez de `rows` |
-| **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor, rows viram `<TableCardRow>` automaticamente — toolbar e footer continuam intactos. `cardBreakpoint={false}` desabilita. |
+| **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo. |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária. |
 | **Virtualização** | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais) |
 | **Row grouping** | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form |

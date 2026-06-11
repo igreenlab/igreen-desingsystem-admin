@@ -346,6 +346,12 @@ function DataTableInternal<T>(
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
   const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
 
+  /** Chip de filtro aplicado aberto via clique (controlado). Necessário pra
+   *  `onClose` do renderFastFilterInput funcionar — selects/boolean usam
+   *  `<Select open>` forçado, que trava o dismiss por clique-fora; sem open
+   *  controlado o popover não fecha ao escolher o valor (item 8). */
+  const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
     () =>
@@ -1210,8 +1216,13 @@ function DataTableInternal<T>(
   const cardBp = props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT;
   const cardModeQuery =
     cardBp === false ? "(max-width: 0px)" : `(max-width: ${cardBp - 1}px)`;
-  const isCardMode =
-    useMediaQuery(cardModeQuery) && cardBp !== false && !isKanban;
+  const isMobileViewport = useMediaQuery(cardModeQuery);
+  // Preferência de exibição no mobile: TABELA por default (antes era card forçado).
+  // O user troca pra "card" via toggle no Configurações da tabela (só mobile).
+  // Live (sem reload). cardBreakpoint={false} desabilita o card de vez.
+  const cardPossible = isMobileViewport && cardBp !== false && !isKanban;
+  const [mobileDisplay, setMobileDisplay] = useState<"table" | "card">("table");
+  const isCardMode = cardPossible && mobileDisplay === "card";
 
   /** Render do conteúdo de uma cell — versão simplificada (sem edit/expansion). */
   const getCardCellContent = (
@@ -1350,6 +1361,14 @@ function DataTableInternal<T>(
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         search.setInputValue(e.target.value)
                       }
+                      // Enter/Escape tiram o foco → no mobile o teclado fecha
+                      // (busca é live, não precisa de submit; o "ir" do teclado
+                      // não tinha efeito e o teclado ficava preso).
+                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                        if (e.key === "Enter" || e.key === "Escape") {
+                          e.currentTarget.blur();
+                        }
+                      }}
                       placeholder="Buscar..."
                     />
                   ) : undefined
@@ -1451,6 +1470,38 @@ function DataTableInternal<T>(
                             )
                           : resolvedViewToggle
                         : undefined
+                    }
+                    mobileDisplayToggle={
+                      // Linhas vs Cards — só faz sentido quando o card é possível
+                      // (viewport mobile + cardBreakpoint != false + não-kanban).
+                      cardPossible ? (
+                        <ToolbarSegmented
+                          fluid
+                          value={mobileDisplay}
+                          onValueChange={(v) => setMobileDisplay(v as "table" | "card")}
+                          items={[
+                            {
+                              value: "table",
+                              label: "Linhas",
+                              children: (
+                                <span className="inline-flex items-center gap-gp-sm">
+                                  <Rows3 /> Linhas
+                                </span>
+                              ),
+                            },
+                            {
+                              value: "card",
+                              label: "Cards",
+                              children: (
+                                <span className="inline-flex items-center gap-gp-sm">
+                                  <LayoutGrid /> Cards
+                                </span>
+                              ),
+                            },
+                          ]}
+                          ariaLabel="Exibição da tabela"
+                        />
+                      ) : undefined
                     }
                     mobileViews={
                       props.persistId && (props.defaultViews?.length ?? 0) > 0
@@ -1625,24 +1676,34 @@ function DataTableInternal<T>(
               // controla quando setar via `setPendingOpenChipKey`.
               // Ao fechar, se o grupo só tem itens com valor vazio (caso do
               // shortcut que abriu mas user nao digitou nada), remove do filterModel.
+              // Open controlado: pending (shortcut do header) OU clique no chip.
+              // Controlar o open é o que permite o `onClose` fechar o popover
+              // mesmo quando o `<Select open>` interno trava o clique-fora.
+              const closeChip = () => {
+                setOpenChipKey(null);
+                if (isPendingOpen) setPendingOpenChipKey(null);
+                // Cleanup: remove itens vazios deste grupo do filterModel
+                const groupItems = group.items;
+                const allEmpty = groupItems.every((it) =>
+                  isFilterValueEmpty(it.value),
+                );
+                if (allEmpty) {
+                  const ids = new Set(groupItems.map((it) => it.id));
+                  filters.setFilterModel({
+                    ...filters.filterModel,
+                    items: filters.filterModel.items.filter((it) => !ids.has(it.id)),
+                  });
+                }
+              };
               return (
                 <Popover
-                  open={isPendingOpen || undefined}
+                  open={isPendingOpen || openChipKey === f.id}
                   onOpenChange={(o) => {
-                    if (o) return;
-                    if (isPendingOpen) setPendingOpenChipKey(null);
-                    // Cleanup: remove itens vazios deste grupo do filterModel
-                    const groupItems = group.items;
-                    const allEmpty = groupItems.every((it) =>
-                      isFilterValueEmpty(it.value),
-                    );
-                    if (allEmpty) {
-                      const ids = new Set(groupItems.map((it) => it.id));
-                      filters.setFilterModel({
-                        ...filters.filterModel,
-                        items: filters.filterModel.items.filter((it) => !ids.has(it.id)),
-                      });
+                    if (o) {
+                      setOpenChipKey(f.id);
+                      return;
                     }
+                    closeChip();
                   }}
                 >
                   <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
@@ -1651,6 +1712,7 @@ function DataTableInternal<T>(
                       value: currentValue as FilterValue,
                       onChange: (v) => updateGroupValue(group.key, v),
                       options,
+                      onClose: closeChip,
                     })}
                   </PopoverContent>
                 </Popover>

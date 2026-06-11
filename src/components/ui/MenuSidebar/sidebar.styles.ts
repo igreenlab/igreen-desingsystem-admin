@@ -30,7 +30,8 @@ export const sidebarRoot = tv({
   base: "relative flex h-screen w-fit bg-bg-sidebar text-fg-default font-sans",
   variants: {
     mobile: {
-      true: "fixed inset-y-0 left-0 z-50 h-screen w-auto transition-transform duration-200 ease-out",
+      // w-screen: drawer ocupa 100vw (rail + panel preenchendo) e h-screen (100vh).
+      true: "fixed inset-y-0 left-0 z-50 h-screen w-screen max-w-full transition-transform duration-200 ease-out",
       false: "",
     },
     mobileOpen: {
@@ -174,6 +175,10 @@ export const sidebarPanel = tv({
     /** Quando true: overlay absoluto sobre o conteúdo (hover-to-expand). */
     floating: {
       true: "absolute left-[64px] top-0 h-full z-40",
+    },
+    /** Mobile: panel preenche o resto do drawer (100vw - rail) em vez de 264px fixo. */
+    mobile: {
+      true: "!w-auto flex-1",
     },
   },
 });

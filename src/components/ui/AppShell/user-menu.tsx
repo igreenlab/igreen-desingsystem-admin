@@ -78,7 +78,12 @@ export function UserMenu({
       : undefined;
 
   return (
-    <DropdownMenu>
+    // modal={false}: dentro do drawer mobile (overlay próprio), o modo modal do
+    // Radix injeta um dismiss/scroll-lock que entra em corrida com o gesto de
+    // abertura → o menu abre no pointerdown e fecha no click/pointerup do mesmo
+    // toque ("aparece e some", precisa 2-3 toques). Sem modal, o dismiss por
+    // toque-fora continua via DismissableLayer, sem a corrida.
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <button
           type="button"

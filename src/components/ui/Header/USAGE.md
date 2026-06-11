@@ -23,8 +23,8 @@ import { Header } from "@/components/ui/Header";
 | `theme` | string | Tema ativo |
 | `themeOptions` | HeaderThemeOption[] | Lista de temas pro dropdown |
 | `onThemeChange` | (id: string) => void | Callback |
-| `notifications` | { items, onMarkAllRead, onViewAll } | Dropdown sino |
-| `messages` | { items, onNewMessage, onExpand, onViewAll } | Dropdown chat |
+| `notifications` | { items, onMarkAllRead, onViewAll } | Popover sino (vira bottom-sheet no mobile via `mobileSheet`) |
+| `messages` | { items, onNewMessage, onExpand, onViewAll } | Popover chat (vira bottom-sheet no mobile via `mobileSheet`) |
 | `rightSlot` | ReactNode | Slot livre à direita (botões custom antes dos ícones default) |
 
 ## Exemplo mínimo
