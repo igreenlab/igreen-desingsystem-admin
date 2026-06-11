@@ -1210,8 +1210,13 @@ function DataTableInternal<T>(
   const cardBp = props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT;
   const cardModeQuery =
     cardBp === false ? "(max-width: 0px)" : `(max-width: ${cardBp - 1}px)`;
-  const isCardMode =
-    useMediaQuery(cardModeQuery) && cardBp !== false && !isKanban;
+  const isMobileViewport = useMediaQuery(cardModeQuery);
+  // Preferência de exibição no mobile: TABELA por default (antes era card forçado).
+  // O user troca pra "card" via toggle no Configurações da tabela (só mobile).
+  // Live (sem reload). cardBreakpoint={false} desabilita o card de vez.
+  const cardPossible = isMobileViewport && cardBp !== false && !isKanban;
+  const [mobileDisplay, setMobileDisplay] = useState<"table" | "card">("table");
+  const isCardMode = cardPossible && mobileDisplay === "card";
 
   /** Render do conteúdo de uma cell — versão simplificada (sem edit/expansion). */
   const getCardCellContent = (
@@ -1459,6 +1464,38 @@ function DataTableInternal<T>(
                             )
                           : resolvedViewToggle
                         : undefined
+                    }
+                    mobileDisplayToggle={
+                      // Linhas vs Cards — só faz sentido quando o card é possível
+                      // (viewport mobile + cardBreakpoint != false + não-kanban).
+                      cardPossible ? (
+                        <ToolbarSegmented
+                          fluid
+                          value={mobileDisplay}
+                          onValueChange={(v) => setMobileDisplay(v as "table" | "card")}
+                          items={[
+                            {
+                              value: "table",
+                              label: "Linhas",
+                              children: (
+                                <span className="inline-flex items-center gap-gp-sm">
+                                  <Rows3 /> Linhas
+                                </span>
+                              ),
+                            },
+                            {
+                              value: "card",
+                              label: "Cards",
+                              children: (
+                                <span className="inline-flex items-center gap-gp-sm">
+                                  <LayoutGrid /> Cards
+                                </span>
+                              ),
+                            },
+                          ]}
+                          ariaLabel="Exibição da tabela"
+                        />
+                      ) : undefined
                     }
                     mobileViews={
                       props.persistId && (props.defaultViews?.length ?? 0) > 0

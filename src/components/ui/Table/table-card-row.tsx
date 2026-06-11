@@ -53,6 +53,22 @@ export function TableCardRow({
 }: TableCardRowProps) {
   const isClickable = clickable ?? !!onClick;
   const highlighted = selected || open;
+
+  // Guard cross-device: ignora o click da row quando ele vem de um controle
+  // interativo do card (kebab de ações, checkbox, link). Em touch o
+  // stopPropagation do botão nem sempre impede o onClick do card — checar o
+  // alvo é robusto e evita abrir o detalhe junto com o dropdown de ações.
+  const handleClick = (e: MouseEvent<HTMLDivElement>) => {
+    if (!onClick) return;
+    if (
+      (e.target as HTMLElement).closest(
+        'button, a, input, label, [role="menu"], [role="menuitem"], [data-slot="card-actions"]',
+      )
+    ) {
+      return;
+    }
+    onClick(e);
+  };
   const dataState = selected && open
     ? "selected open"
     : selected
@@ -70,12 +86,17 @@ export function TableCardRow({
         tableStyles({ selected: highlighted, clickable: isClickable }).cardWrap(),
         className,
       )}
-      onClick={onClick}
+      onClick={handleClick}
     >
       <div className={styles.cardHeader()}>
         <div className="flex items-center gap-gp-md min-w-0">{header}</div>
         {headerActions && (
-          <div className="flex items-center gap-gp-xs shrink-0">{headerActions}</div>
+          <div
+            className="flex items-center gap-gp-xs shrink-0"
+            data-slot="card-actions"
+          >
+            {headerActions}
+          </div>
         )}
       </div>
 

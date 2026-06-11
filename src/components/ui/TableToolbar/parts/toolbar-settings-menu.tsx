@@ -61,6 +61,12 @@ export type ToolbarSettingsMenuProps = {
    */
   mobileViewToggle?: ReactNode;
   /**
+   * Toggle de EXIBIÇÃO da tabela no mobile (Linhas/Cards) — seção inline
+   * só-mobile (`md:hidden`). Eixo independente do `mobileViewToggle`
+   * (table/kanban): controla se a tabela renderiza como linhas ou cards.
+   */
+  mobileDisplayToggle?: ReactNode;
+  /**
    * Visões pré-definidas — entrada drill-down só-mobile (`md:hidden`). Lista só
    * as views default da montagem (sem salvas, sem adicionar). A selecionada
    * aparece à direita da entrada.
@@ -79,6 +85,7 @@ export type ToolbarSettingsMenuProps = {
   colsLabel?: ReactNode;
   filterLabel?: ReactNode;
   viewToggleLabel?: ReactNode;
+  mobileDisplayLabel?: ReactNode;
   viewsLabel?: ReactNode;
 
   align?: "start" | "center" | "end";
@@ -129,6 +136,7 @@ export function ToolbarSettingsMenu({
   filterPanel,
   density,
   mobileViewToggle,
+  mobileDisplayToggle,
   mobileViews,
   title = "Configurações da tabela",
   densityLabel = "Densidade",
@@ -136,6 +144,7 @@ export function ToolbarSettingsMenu({
   colsLabel = "Colunas",
   filterLabel = "Filtros avançados",
   viewToggleLabel = "Visualização",
+  mobileDisplayLabel = "Exibição",
   viewsLabel = "Visões",
   align = "end",
   open,
@@ -247,6 +256,15 @@ export function ToolbarSettingsMenu({
                 <div className={MENU_SEP} />
                 <div className={cn(MENU_LABEL, "pb-pad-lg")}>{viewToggleLabel}</div>
                 <div className={MENU_FIELD}>{mobileViewToggle}</div>
+              </div>
+            )}
+
+            {/* Exibição (Linhas/Cards) — só-mobile, inline igual Densidade. */}
+            {mobileDisplayToggle && (
+              <div className="md:hidden flex flex-col">
+                <div className={MENU_SEP} />
+                <div className={cn(MENU_LABEL, "pb-pad-lg")}>{mobileDisplayLabel}</div>
+                <div className={MENU_FIELD}>{mobileDisplayToggle}</div>
               </div>
             )}
 
