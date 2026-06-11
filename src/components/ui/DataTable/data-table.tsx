@@ -550,6 +550,21 @@ function DataTableInternal<T>(
 
   /* ── Adapters: ColumnDef → ColsPopover props (extraído em hook) ── */
 
+  // Colunas na ORDEM ATUAL (columnOrder), incl. ocultas — pro popover refletir
+  // o estado real. Passar props.columns (ordem original) fazia o popover ignorar
+  // reorders anteriores e embaralhar ao arrastar.
+  const orderedAllColumns = useMemo(() => {
+    const byField = new Map(
+      props.columns.map((c) => [String(c.field), c] as const),
+    );
+    const inOrder = new Set(cols.columnOrder);
+    const ordered = cols.columnOrder
+      .map((f) => byField.get(f))
+      .filter((c): c is (typeof props.columns)[number] => Boolean(c));
+    const rest = props.columns.filter((c) => !inOrder.has(String(c.field)));
+    return [...ordered, ...rest];
+  }, [props.columns, cols.columnOrder]);
+
   const {
     colsPopoverColumns,
     visibleColsSet,
@@ -558,7 +573,7 @@ function DataTableInternal<T>(
     handlePinnedChange,
     handleColumnsReorder,
   } = useColsPopoverAdapter({
-    columns: props.columns,
+    columns: orderedAllColumns,
     hiddenColumns: cols.hiddenColumns,
     pinnedColumns: cols.pinnedColumns,
     handleShow: cols.handleShow,

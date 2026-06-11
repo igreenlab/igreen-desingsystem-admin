@@ -155,7 +155,14 @@ export function useDataTableColumns<T>({
   }, []);
 
   const handleReorder = useCallback((newOrder: string[]) => {
-    setColumnOrder(newOrder);
+    // newOrder pode vir INCOMPLETO — o popover de colunas exclui a coluna
+    // `actions` (e qualquer não-listada). Mesclar os campos ausentes preserva-os
+    // (senão somem da tabela, pois effectiveColumns só itera columnOrder).
+    setColumnOrder((prev) => {
+      const inNew = new Set(newOrder);
+      const missing = prev.filter((f) => !inNew.has(f));
+      return [...newOrder, ...missing];
+    });
   }, []);
 
   const applyColumnState = useCallback((state: {
