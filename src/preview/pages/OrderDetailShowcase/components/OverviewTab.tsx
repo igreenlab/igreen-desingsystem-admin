@@ -1,7 +1,7 @@
 import { Mail, Phone } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { Chip } from "@/components/ui/Chip";
-import { SectionCard } from "./section-card";
+import { SectionCard, SectionDivider } from "./section-card";
 import { formatBRL } from "../order-mocks";
 import type { Order } from "../order.types";
 
@@ -107,7 +107,9 @@ export function OverviewTab({ order }: { order: Order }) {
             </div>
           </div>
 
-          <div className="mt-gp-xl flex flex-col gap-gp-md">
+          <SectionDivider className="my-gp-2xl" />
+
+          <div className="flex flex-col gap-gp-md">
             <a
               href={`mailto:${c.email}`}
               className="flex items-center gap-gp-sm text-body-sm text-fg-default hover:text-fg-brand"
@@ -121,7 +123,7 @@ export function OverviewTab({ order }: { order: Order }) {
             </span>
           </div>
 
-          <Divider />
+          <SectionDivider className="my-gp-2xl" />
 
           <AddressBlock
             title="Endereço de entrega"
@@ -133,16 +135,17 @@ export function OverviewTab({ order }: { order: Order }) {
               addr.country,
             ]}
           />
-          <div className="mt-gp-xl">
-            <AddressBlock
-              title="Endereço de cobrança"
-              lines={[
-                order.billing.address,
-                order.billing.cityState,
-                order.billing.country,
-              ]}
-            />
-          </div>
+
+          <SectionDivider className="my-gp-2xl" />
+
+          <AddressBlock
+            title="Endereço de cobrança"
+            lines={[
+              order.billing.address,
+              order.billing.cityState,
+              order.billing.country,
+            ]}
+          />
         </SectionCard>
 
         <SectionCard title="Observação do cliente">
@@ -177,10 +180,6 @@ function Row({
       </dd>
     </div>
   );
-}
-
-function Divider() {
-  return <div className="my-gp-xl h-px bg-border-subtle" />;
 }
 
 function AddressBlock({ title, lines }: { title: string; lines: (string | undefined)[] }) {

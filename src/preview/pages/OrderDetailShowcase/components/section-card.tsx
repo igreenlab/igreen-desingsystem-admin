@@ -30,8 +30,12 @@ export function SectionCard({
     >
       {(title || action) && (
         <header className="mb-gp-xl flex items-center justify-between gap-gp-md">
-          <div className="flex items-center gap-gp-sm">
-            {icon && <span className="text-fg-muted">{icon}</span>}
+          <div className="flex items-center gap-gp-md">
+            {icon && (
+              <span className="grid size-8 shrink-0 place-items-center rounded-radius-md bg-bg-muted text-fg-muted">
+                {icon}
+              </span>
+            )}
             {title && (
               <h2 className="text-title-md font-semibold text-fg-default">
                 {title}
@@ -44,6 +48,11 @@ export function SectionCard({
       <div className={bodyClassName}>{children}</div>
     </section>
   );
+}
+
+/** Divisória sutil de seção. `my` controla o respiro vertical (default md). */
+export function SectionDivider({ className }: { className?: string }) {
+  return <div className={cn("h-px bg-border-subtle", className)} />;
 }
 
 /** Par label-uppercase + valor (grid de Customer/Shipping/Billing Information). */

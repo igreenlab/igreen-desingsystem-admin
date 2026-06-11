@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 import { Avatar } from "@/components/ui/Avatar";
 import { Chip } from "@/components/ui/Chip";
-import { SectionCard, Field } from "./section-card";
+import { SectionCard, SectionDivider, Field } from "./section-card";
 import { formatBRL } from "../order-mocks";
 import type { Order } from "../order.types";
 
@@ -40,7 +40,7 @@ export function DetailsTab({ order }: { order: Order }) {
               <Avatar size="xl" colorHex={c.colorHex} aria-label={`${c.firstName} ${c.lastName}`}>
                 {c.initials}
               </Avatar>
-              <div className="grid flex-1 grid-cols-1 gap-gp-xl sm:grid-cols-3">
+              <div className="grid flex-1 grid-cols-1 gap-x-gp-2xl gap-y-gp-2xl sm:grid-cols-3">
                 <Field label="Nome" value={c.firstName} />
                 <Field label="Nome do meio" value={c.middleName ?? "—"} />
                 <Field label="Sobrenome" value={c.lastName} />
@@ -65,13 +65,16 @@ export function DetailsTab({ order }: { order: Order }) {
             title="Informações de entrega"
             icon={<Truck className="size-icon-md" />}
           >
-            <div className="grid grid-cols-1 gap-gp-xl sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-x-gp-2xl gap-y-gp-2xl sm:grid-cols-3">
               <Field label="Endereço linha 1" value={a.line1} />
               <Field label="Endereço linha 2" value={a.line2 ?? "—"} />
               <Field label="Cidade" value={a.city} />
               <Field label="Estado" value={a.state} />
               <Field label="CEP" value={a.zip} />
               <Field label="País" value={a.country} />
+            </div>
+            <SectionDivider className="my-gp-2xl" />
+            <div className="grid grid-cols-1 gap-x-gp-2xl gap-y-gp-2xl sm:grid-cols-3">
               <Field label="Transportadora" value={a.carrier} />
               <Field label="Rastreamento" value={a.tracking} accent />
               <Field label="Previsão de entrega" value={a.eta} />
@@ -82,10 +85,13 @@ export function DetailsTab({ order }: { order: Order }) {
             title="Informações de cobrança"
             icon={<CreditCard className="size-icon-md" />}
           >
-            <div className="grid grid-cols-1 gap-gp-xl sm:grid-cols-3">
+            <div className="grid grid-cols-1 gap-x-gp-2xl gap-y-gp-2xl sm:grid-cols-3">
               <Field label="Endereço de cobrança" value={b.address} />
               <Field label="Cidade / Estado" value={b.cityState} />
               <Field label="País" value={b.country} />
+            </div>
+            <SectionDivider className="my-gp-2xl" />
+            <div className="grid grid-cols-1 gap-x-gp-2xl gap-y-gp-2xl sm:grid-cols-3">
               <Field label="Forma de pagamento" value={b.method} />
               <Field label="ID da transação" value={b.transactionId} accent />
               <Field label="Data do pagamento" value={b.paymentDate} />
@@ -99,7 +105,7 @@ export function DetailsTab({ order }: { order: Order }) {
             title="Resumo do pedido"
             icon={<FileText className="size-icon-md" />}
           >
-            <div className="grid grid-cols-2 gap-gp-xl">
+            <div className="grid grid-cols-2 gap-x-gp-2xl gap-y-gp-2xl">
               <Field label="ID do pedido" value={`#${order.id}`} />
               <Field label="Data" value="8 jan 2024" />
               <Field label="Itens" value={`${order.items.length} produtos`} />
@@ -163,7 +169,7 @@ export function DetailsTab({ order }: { order: Order }) {
               title="Desconto aplicado"
               icon={<Percent className="size-icon-md" />}
             >
-              <div className="grid grid-cols-2 gap-gp-xl">
+              <div className="grid grid-cols-2 gap-x-gp-2xl gap-y-gp-2xl">
                 <Field label="Cupom" value={order.discountCode} />
                 <Field
                   label="Desconto"

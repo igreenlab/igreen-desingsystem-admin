@@ -21,16 +21,16 @@ export function ActivityTab({ order }: { order: Order }) {
         </Chip>
       }
     >
-      <div className="flex flex-col gap-gp-2xl">
+      <div className="flex flex-col gap-gp-5xl">
         {groups.map((g) => (
           <div key={g.date}>
-            <p className="mb-gp-md text-caption-sm font-semibold uppercase tracking-wider text-fg-muted">
+            <p className="mb-gp-lg text-caption-sm font-semibold uppercase tracking-wider text-fg-muted">
               {g.date}
             </p>
             <ol className="relative flex flex-col">
               {g.items.map((ev, i) => (
                 <Fragment key={ev.id}>
-                  <li className="relative flex gap-gp-lg pb-pad-xl last:pb-0">
+                  <li className="relative flex gap-gp-lg pb-pad-3xl last:pb-0">
                     {/* trilha + dot */}
                     <div className="relative flex w-3 shrink-0 justify-center">
                       {i < g.items.length - 1 && (
