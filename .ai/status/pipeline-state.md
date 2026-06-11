@@ -2074,3 +2074,25 @@
 - Validação: tsc 0 · tokens:tw4 (4 vars geradas) · browser dark: detail panel com sections colapsáveis + padding (= referência), row selecionada → pinned cell opaco (oklch 0.275, sem alpha — CSS comprovado), footer com menos padding, bulk bar. Consumers de FloatingPanel auditados (DetailDrawer, SimpleFilterDrawer, FloatingPanelDoc) — sem regressão.
 - Assumption: nenhum outro consumer de FloatingPanel depende de body sem padding além dos 3 auditados (grep cobriu src/ inteiro).
 - Lições novas: candidata — "pinned/sticky cells precisam de bg OPACO; row bg com alpha (color-mix transparent) vaza conteúdo scrollado sob a coluna fixa → usar token -solid". Avaliar registrar como L-029 no review.
+
+---
+
+### [2026-06-11] | DS DEV | 12 ajustes responsivos/UX (DataTable, AppShell, Header, Calendar, Finance) | CONCLUÍDO
+- Input: lote de 12 ajustes de responsividade/UX listados pelo usuário — "muitos ajustes em diferentes áreas mas todas importantes; com cuidado pra não quebrar". Branch `fix/responsive-table-adjustments`, 6 commits.
+- Output (por item):
+  1. **Finance** — removido `mb-pad-2xl` redundante do DataTable (bodyInner já tem padding).
+  2. **DataTable** — mobile default = TABELA (era card); toggle "Exibição" (Linhas/Cards) novo na ToolbarSettingsMenu, gated em `cardPossible`. `mobileDisplay` state + `isCardMode` derivado.
+  3. **Header** — notificações/mensagens migrados de dropdown custom (hdWrap/hdDropdown) pra `<Popover>` do DS + `mobileSheet` no mobile (bottom-sheet 100vw).
+  4. **ToolbarSearch** — Enter/Escape dão blur (fecha teclado mobile); busca segue real-time.
+  5. **Table card** — click no kebab (data-slot=card-actions) não abre mais o detail modal junto (guard no handleClick por closest()).
+  6. **Finance** — `EditarFinanceDrawer` novo: campos REAIS da row (FormFieldInput/Select, ChipGroup single+multiple, Switch) em vez do form genérico de criação.
+  7. **AppShell** — menu mobile abre no hamburger (isMobile → mobileOpen drawer, separado do panelCollapsed desktop); ocupa 100vw×100vh.
+  8. **Filtro boolean** — (a) valor não aparecia: boolean cru ia pro Radix Select (exige string) → `toBoolStr()` normaliza pra "true"/"false"/""; (b) popover do chip não fechava: `<Select open>` forçado trava clique-fora + `onClose` não era passado ao renderFastFilterInput → popover do chip agora controlado (openChipKey) e `onClose` fecha + cleanup. Afeta select também (mesma raiz).
+  9. **multiSelect** — `mobileSheet={false}` no dropdown (dropdown abaixo do campo no mobile, como select normal).
+  10. **Calendar** — dias alinham com colunas dos weekdays (`flex-1` no day cell; antes aspect-square desalinhava).
+  11. **ToolbarApplied** — chips de filtro com scroll horizontal no mobile (flex-nowrap + overflow-x-auto, scrollbar oculta) em vez de empurrar a tabela.
+  12. **FooterTable** — paginação centralizada no mobile + range "Linhas X 1–N de M rows" oculto (max-sm:hidden).
+- Decisões: mobile default tabela (densidade > cards pra power user financeiro); EditarFinanceDrawer via Panel + FormField (L-023); toggle Exibição na settings menu (não toolbar — secundário); chip popover controlado pra destravar onClose sem refatorar o forced-open Select.
+- Validação: tsc 0 (cada batch) · browser (Chrome DevTools): item 2 (default TABELA + seção Exibição), 3 (bottom-sheet width=vw), 6 (drawer "Editar — Carlos Oliveira" com 11 campos pré-preenchidos), 7 (menu 100vw×100vh), 8 (ciclo completo: abre chip → valor "Não" exibido + checkmark → seleciona → popover FECHA + re-filtra 29 rows), 12 (paginação centrada). Estado de filtro persiste no reload.
+- Assumption: o lote é showcase/preview (mock) — nenhum consome API real; os componentes DS core tocados (Calendar, Header Popover, FooterTable, ToolbarApplied, DataTable) não têm outros consumers que dependam do comportamento antigo (mobile-card-default, dropdown custom do header).
+- Lições novas: candidata — "fast-filter chip com `<Select open>` forçado precisa de Popover controlado + `onClose` wired; senão o listbox sempre-aberto trava o dismiss por clique-fora". Avaliar registrar no review/release.
