@@ -106,6 +106,9 @@ function MultiSelectFieldDropdown(props: FilterInputProps) {
       </PopoverTrigger>
       <PopoverContent
         align="start"
+        // mobileSheet OFF: como select normal, o dropdown abre ancorado abaixo do
+        // trigger no mobile (em vez de virar sheet bottom-up) — facilita a seleção.
+        mobileSheet={false}
         className="p-0 w-[var(--radix-popover-trigger-width)] min-w-[200px]"
       >
         <MultiSelectDropdown {...props} />

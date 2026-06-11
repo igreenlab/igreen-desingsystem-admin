@@ -1350,6 +1350,14 @@ function DataTableInternal<T>(
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                         search.setInputValue(e.target.value)
                       }
+                      // Enter/Escape tiram o foco → no mobile o teclado fecha
+                      // (busca é live, não precisa de submit; o "ir" do teclado
+                      // não tinha efeito e o teclado ficava preso).
+                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                        if (e.key === "Enter" || e.key === "Escape") {
+                          e.currentTarget.blur();
+                        }
+                      }}
                       placeholder="Buscar..."
                     />
                   ) : undefined

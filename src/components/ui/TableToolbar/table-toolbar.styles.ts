@@ -223,7 +223,14 @@ export const toolbarTabClose = tv({
  * conteúdo interno (chips) do border.
  */
 export const toolbarApplied = tv({
-  base: "flex items-center flex-wrap gap-gp-md",
+  // Mobile: scroll horizontal (flex-nowrap + overflow-x-auto) em vez de quebrar
+  // os chips em várias linhas e empurrar a tabela pra baixo. Scrollbar oculta.
+  // sm+: volta ao flex-wrap normal.
+  base: [
+    "flex items-center gap-gp-md",
+    "flex-nowrap overflow-x-auto sm:flex-wrap sm:overflow-x-visible",
+    "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+  ],
   variants: {
     /**
      * Separator (margem topo 16px + border + padding 16px) entre toolbar

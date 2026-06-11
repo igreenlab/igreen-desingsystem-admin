@@ -62,15 +62,15 @@ export function FooterTable({
   return (
     <footer
       className={cn(
-        // Mobile: empilha vertical (left em cima, paginação embaixo)
-        "flex flex-col sm:flex-row sm:items-center sm:justify-between",
+        // Mobile: só a paginação, centralizada (o bloco esquerdo some).
+        "flex flex-col sm:flex-row max-sm:items-center sm:items-center sm:justify-between",
         "gap-gp-2xl",
         "text-body-sm font-normal text-fg-default",
         className,
       )}
     >
-      {/* ── Left: pageSize + range + selection ───────────────────── */}
-      <div className="flex flex-wrap items-center gap-gp-2xl">
+      {/* ── Left: pageSize + range + selection — oculto no mobile ──── */}
+      <div className="flex flex-wrap items-center gap-gp-2xl max-sm:hidden">
         {!hidePageSize && (
           <label className="inline-flex items-center gap-gp-md text-fg-muted">
             <span className="font-medium">{pageSizeLabel}</span>
@@ -118,8 +118,8 @@ export function FooterTable({
         )}
       </div>
 
-      {/* ── Right: Pagination ────────────────────────────────────── */}
-      <Pagination>
+      {/* ── Right: Pagination (centralizada no mobile) ─────────────── */}
+      <Pagination className="max-sm:w-full max-sm:justify-center">
         {!hideFirstLast && (
           <PaginationFirst
             onClick={() => onPageChange(1)}
