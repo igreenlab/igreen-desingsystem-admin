@@ -33,12 +33,12 @@ export function CommentsTab({ order }: { order: Order }) {
       <SectionCard
         title="Comentários"
         action={
-          <span className="rounded-radius-full bg-bg-muted px-pad-md py-[2px] text-caption-sm font-semibold text-fg-muted">
+          <span className="rounded-radius-full bg-bg-muted px-pad-md py-pad-2xs text-caption-sm font-semibold text-fg-muted">
             {comments.length}
           </span>
         }
       >
-        <ul className="flex flex-col gap-gp-2xl">
+        <ul className="flex flex-col gap-gp-4xl">
           {comments.map((cm) => (
             <li key={cm.id} className="flex gap-gp-md">
               <Avatar size="md" colorHex={cm.colorHex} aria-label={cm.author}>
@@ -54,7 +54,7 @@ export function CommentsTab({ order }: { order: Order }) {
                       {cm.when}
                     </span>
                   </div>
-                  <p className="mt-gp-xs text-body-sm leading-relaxed text-fg-default">
+                  <p className="mt-gp-xs text-body-sm leading-relaxed text-fg-muted">
                     {cm.text}
                   </p>
                 </div>

@@ -23,9 +23,8 @@ export function SectionCard({
 }) {
   const hasHeader = !!(title || action);
   const header = hasHeader && (
-    // Header: padding lateral 18px + vertical 14px, divider full-bleed embaixo.
-    // (14px e 18px são literais — não há token; ver nota de cascata.)
-    <header className="flex items-center justify-between gap-gp-md border-b border-border-subtle px-[18px] py-[14px]">
+    // Header: padding 16px (pad-2xl) + divider full-bleed embaixo.
+    <header className="flex items-center justify-between gap-gp-md border-b border-border-subtle p-pad-2xl">
       {/* gap ícone↔título = 12px (gap-gp-md) */}
       <div className="flex items-center gap-gp-md">
         {icon && (
@@ -34,8 +33,7 @@ export function SectionCard({
           </span>
         )}
         {title && (
-          // 15px não tem preset (tier órfão, L-016) → literal.
-          <h2 className="text-[15px] font-semibold leading-snug text-fg-default">
+          <h2 className="text-title-md font-semibold text-fg-default">
             {title}
           </h2>
         )}
@@ -47,15 +45,8 @@ export function SectionCard({
   return (
     <section className={cn("rounded-radius-lg border border-border-subtle bg-bg-surface", className)}>
       {header}
-      <div
-        className={cn(
-          // body: 18px lateral/inferior + 16px (pad-2xl) abaixo do divider
-          hasHeader ? "px-[18px] pb-[18px] pt-pad-2xl" : "p-[18px]",
-          bodyClassName,
-        )}
-      >
-        {children}
-      </div>
+      {/* body: padding 16px (pad-2xl) — uniforme; abaixo do divider quando há header */}
+      <div className={cn("p-pad-2xl", bodyClassName)}>{children}</div>
     </section>
   );
 }
