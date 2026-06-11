@@ -28,7 +28,9 @@ export const pageHeaderStyles = tv({
       "whitespace-nowrap overflow-hidden text-ellipsis",
     ],
     actionsRow: "flex items-center gap-gp-sm shrink-0",
-    extraRow: "w-full",
+    // mt-gp-xl: +20px somados ao gap-gp-md (12px) do root = ~32px de respiro
+    // entre o título/descrição e o slot de conteúdo (tabs/filtros).
+    extraRow: "w-full mt-gp-xl",
   },
   variants: {
     hideTextOnMobile: {

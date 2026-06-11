@@ -2,7 +2,15 @@
 
 export type DocNavSection = {
   title: string;
-  items: { label: string; href: string; active?: boolean; badge?: string }[];
+  items: {
+    label: string;
+    href: string;
+    active?: boolean;
+    badge?: string;
+    /** Abre uma app standalone (fullscreen, fora do chrome de docs) via URL
+     *  `?app=...` em vez de navegar pelo hash router interno. */
+    url?: string;
+  }[];
 };
 
 export function DocSidebar({
@@ -38,15 +46,20 @@ export function DocSidebar({
                   <button
                     key={item.label}
                     type="button"
-                    onClick={() => onNavigate?.(item.href)}
+                    onClick={() =>
+                      item.url
+                        ? (window.location.href = item.url)
+                        : onNavigate?.(item.href)
+                    }
                     className={[
-                      "block py-pad-sm px-pad-xl rounded-radius-md text-body-xs font-medium transition-colors text-left w-full",
+                      "flex items-center py-pad-sm px-pad-xl rounded-radius-md text-body-xs font-medium transition-colors text-left w-full",
                       item.active
                         ? "text-fg-brand font-semibold bg-bg-surface shadow-sh-sm dark:bg-bg-sidebar-accent dark:shadow-sh-none"
                         : "text-fg-default hover:text-fg-brand hover:bg-bg-sidebar-accent",
                     ].join(" ")}
                   >
                     {item.label}
+                    {item.url && <span className="ml-gp-sm text-caption-sm text-fg-subtle" aria-hidden="true">↗</span>}
                     {item.badge && <span className={`ml-gp-md text-caption-sm ${item.badge === "new" ? "text-fg-brand" : "text-fg-subtle"}`}>●</span>}
                   </button>
                 ))}

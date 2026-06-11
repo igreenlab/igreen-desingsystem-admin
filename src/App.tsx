@@ -58,6 +58,8 @@ import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
 import ClientesShowcase from "./preview/pages/ClientesShowcase";
 import ClientesFinanceiroShowcase from "./preview/pages/ClientesFinanceiroShowcase";
+import OrderDetailShowcase from "./preview/pages/OrderDetailShowcase";
+import OrderEditShowcase from "./preview/pages/OrderEditShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
 import DashboardShowcase from "./preview/pages/DashboardShowcase";
 import { ColorsDoc } from "./preview/pages/ColorsDoc";
@@ -249,6 +251,14 @@ export function App() {
 
   if (standaloneApp === "finance") {
     return <ClientesFinanceiroShowcase />;
+  }
+
+  if (standaloneApp === "order-detail") {
+    return <OrderDetailShowcase />;
+  }
+
+  if (standaloneApp === "edit-page") {
+    return <OrderEditShowcase />;
   }
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
