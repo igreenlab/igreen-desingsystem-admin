@@ -46,6 +46,53 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.9.0",
+    date: "2026-06-11",
+    tag: "release",
+    title:
+      "Responsividade mobile + CRUD builder + filtros boolean/select robustos",
+    summary:
+      "Consolidação pós-0.8.0. A DataTable e o app shell ganham comportamento mobile de primeira classe (menu drawer, default tabela com toggle de exibição, paginação/chips/busca adaptados); o Header passa a usar Popover (vira bottom-sheet no mobile); e os filtros de chip boolean/select foram refeitos pra abrir, posicionar e fechar corretamente. Soma o construtor guiado de telas CRUD (skill crud-builder + /ds-create-crud), o showcase ClientesFinanceiro reformulado (CRUD + Kanban) e a sincronização ampla de docs (inventory + 19 USAGE + lições L-029..L-031).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Skill `crud-builder` + comando `/ds-create-crud` — entrevista guiada que gera tela CRUD/tabela consumindo a DataTable.",
+          "DataTable: toggle **\"Exibição\" (Linhas/Cards)** no mobile via nova prop `mobileDisplayToggle` da ToolbarSettingsMenu — usuário força tabela ou cards abaixo do `cardBreakpoint`.",
+          "Showcase ClientesFinanceiro reformulado: CRUD completo + Kanban + `EditarFinanceDrawer` com campos reais da row (selects, chips, switch).",
+          "README: tutorial de como produzir telas e CRUDs com IA usando o DS como subprojeto.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "DataTable no mobile: **default agora é tabela** (antes virava card automaticamente) — densidade primeiro; cards viram opção via toggle.",
+          "Header: notificações e mensagens migradas de dropdown custom pra `<Popover>` do DS — viram bottom-sheet no mobile (`mobileSheet`).",
+          "Fast-filter de chip boolean/select renderiza lista direta (`FastSingleSelectList`) em vez de `<Select open>` aninhado — posiciona certo e fecha no clique-fora (L-029).",
+          "Mobile-sheet (Popover/DropdownMenu) sobe pra z-60 (wrapper) + z-[55] (backdrop); DropdownMenu dentro de drawer usa `modal={false}` — corrige menu que abria atrás/sumia (L-030, L-031).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Filtro boolean: valor selecionado não aparecia (boolean cru → Radix Select exige string, `toBoolStr()`) e o popover do chip não fechava — ambos resolvidos.",
+          "AppShell: menu mobile abre no hambúrguer e ocupa 100vw×100vh.",
+          "Menu do usuário (avatar) abre de forma confiável no mobile — corrida open/close do modo modal do Radix.",
+          "Calendar: dias alinhados com as colunas dos weekdays (`flex-1`).",
+          "Mobile: busca dá blur no Enter/Esc, chips de filtro com scroll horizontal, paginação centralizada com range oculto, multiSelect sem mobileSheet.",
+          "Pinned/sticky cell: bg correto no hover/seleção (token sólido, sem vazar conteúdo) + afordância de abrir detalhe; footer com menos padding.",
+          "Query builder: purga linha em branco ao fechar e o badge conta só filtros ativos.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Docs sincronizados com o código: inventory + 19 USAGE.md (auditoria v0.8.0), depois USAGEs (Header/TableToolbar/DataTable) + lições L-029/L-030/L-031 dos novos patterns de fast-filter e overlays mobile.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.8.0",
     date: "2026-06-09",
     tag: "release",
