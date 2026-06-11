@@ -141,7 +141,7 @@ export default function OrderEditShowcase() {
         }
       />
 
-      <div className="grid grid-cols-1 items-start gap-gp-2xl pb-pad-6xl lg:grid-cols-[260px_1fr]">
+      <div className="grid grid-cols-1 items-start gap-gp-4xl pb-pad-6xl lg:grid-cols-[260px_1fr]">
         {/* Nav lateral */}
         <StepNav
           steps={STEPS}
