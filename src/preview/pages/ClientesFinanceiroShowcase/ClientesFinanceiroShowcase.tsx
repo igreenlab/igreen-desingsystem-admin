@@ -787,7 +787,7 @@ export default function ClientesFinanceiroShowcase() {
             </>
           ),
         }}
-        className="flex-1 min-h-0 mb-pad-2xl"
+        className="flex-1 min-h-0"
       />
 
       {/* Drawers + Modals */}

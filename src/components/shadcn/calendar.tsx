@@ -65,7 +65,9 @@ function Calendar({
         ),
         week: cn("mt-gp-md flex w-full", defaultClassNames.week),
         day: cn(
-          "group/day relative aspect-square min-w-8 max-w-12 p-0 text-center select-none",
+          // flex-1: cada dia ocupa 1/7 igual ao header de weekdays (que usa flex-1).
+          // Sem isso o dia dimensionava por aspect-square e desalinhava das colunas.
+          "group/day relative flex-1 aspect-square min-w-8 max-w-12 p-0 text-center select-none",
           defaultClassNames.day
         ),
         range_start: cn("rounded-l-full", defaultClassNames.range_start),
