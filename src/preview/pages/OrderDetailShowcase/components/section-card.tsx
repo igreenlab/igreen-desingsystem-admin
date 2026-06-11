@@ -13,6 +13,7 @@ export function SectionCard({
   children,
   className,
   bodyClassName,
+  dense,
 }: {
   title?: ReactNode;
   icon?: ReactNode;
@@ -20,16 +21,19 @@ export function SectionCard({
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
+  /** Padding interno menor (20px em vez de 24px) — telas mais densas. */
+  dense?: boolean;
 }) {
   return (
     <section
       className={cn(
-        "rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-4xl",
+        "rounded-radius-lg border border-border-subtle bg-bg-surface",
+        dense ? "p-pad-3xl" : "p-pad-4xl",
         className,
       )}
     >
       {(title || action) && (
-        <header className="mb-gp-xl flex items-center justify-between gap-gp-md">
+        <header className="mb-gp-2xl flex items-center justify-between gap-gp-md">
           <div className="flex items-center gap-gp-md">
             {icon && (
               <span className="grid size-8 shrink-0 place-items-center rounded-radius-md bg-bg-muted text-fg-muted">
