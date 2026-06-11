@@ -44,7 +44,7 @@ const POPOVER_MOBILE_SHEET = [
 const PopoverSheetBackdrop = () => (
   <div
     aria-hidden="true"
-    className="fixed inset-0 z-40 bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150"
+    className="fixed inset-0 z-[55] bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150"
   />
 );
 

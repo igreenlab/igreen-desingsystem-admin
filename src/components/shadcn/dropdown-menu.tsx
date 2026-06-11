@@ -146,13 +146,20 @@ const DropdownMenuContent = React.forwardRef<
   <>
     {/* Backdrop suave — só mobile (md:hidden), em Portal próprio (cada Portal
         Radix aceita 1 filho e é montado/desmontado junto com o menu via Presence).
-        pointer-events-auto garante que o toque registre → Radix detecta interação
-        fora do Content → fecha. */}
+
+        ⚠️ pointer-events-NONE (não auto). O DropdownMenu do Radix abre no
+        `pointerdown`; o backdrop monta via React no meio do gesto e, com
+        pointer-events-auto, captura o `pointerup`/`click` seguinte → o menu
+        abre e fecha no mesmo toque (bug do avatar/UserMenu dentro do drawer
+        mobile). Com pointer-events-none o gesto de abertura passa direto e o
+        dismiss por toque-fora continua funcionando (Radix escuta pointerdown
+        a nível de document, independente do backdrop capturar). z-[55] fica
+        acima do drawer mobile (z-50) só pra escurecer; o Content vai a z-60. */}
     {mobileSheet && (
       <DropdownMenuPrimitive.Portal>
         <div
           aria-hidden="true"
-          className="fixed inset-0 z-40 bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150"
+          className="fixed inset-0 z-[55] bg-overlay-scrim pointer-events-none md:hidden animate-in fade-in-0 duration-150"
         />
       </DropdownMenuPrimitive.Portal>
     )}

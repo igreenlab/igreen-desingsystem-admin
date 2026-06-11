@@ -164,7 +164,11 @@ body {
     min-width: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
-    z-index: 50 !important;
+    /* z-60: acima de qualquer surface z-50 (sidebar drawer mobile, dialog, sheet).
+     * Sem isso, um sheet aberto DE DENTRO do drawer (ex: UserMenu no rail) empata
+     * em z-50 com o drawer → renderiza atrás de forma intermitente e o backdrop
+     * (abaixo) não captura o clique-fora. Ver backdrop z-[55] em dropdown/popover. */
+    z-index: 60 !important;
   }
 }
 
