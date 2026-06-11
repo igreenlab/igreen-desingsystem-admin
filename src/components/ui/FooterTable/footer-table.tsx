@@ -64,7 +64,7 @@ export function FooterTable({
       className={cn(
         // Mobile: empilha vertical (left em cima, paginação embaixo)
         "flex flex-col sm:flex-row sm:items-center sm:justify-between",
-        "gap-gp-2xl px-pad-xs pt-pad-xl",
+        "gap-gp-2xl",
         "text-body-sm font-normal text-fg-default",
         className,
       )}
@@ -189,7 +189,7 @@ export function FooterTableSkeleton({
       aria-label="Carregando paginação"
       className={cn(
         "flex flex-col sm:flex-row sm:items-center sm:justify-between",
-        "gap-gp-2xl px-pad-xs pt-pad-xl",
+        "gap-gp-2xl",
         className,
       )}
     >

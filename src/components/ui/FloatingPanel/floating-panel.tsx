@@ -77,6 +77,7 @@ export function FloatingPanel({
   maximizable = false,
   defaultMaximized = false,
   closeOnEscape = true,
+  bodyPadded = true,
   className,
 }: FloatingPanelProps) {
   const initialWidth = resolveInitialWidth(size);
@@ -116,7 +117,7 @@ export function FloatingPanel({
   // SSR safety + render condicional
   if (typeof window === "undefined" || !open) return null;
 
-  const s = floatingPanelStyles({ side, maximized });
+  const s = floatingPanelStyles({ side, maximized, bodyPadded });
 
   // Width final aplicado no style (ignora em mobile via CSS max-md:!w-auto)
   const widthValue = resizable ? resize.width : initialWidth;

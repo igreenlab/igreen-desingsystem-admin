@@ -86,6 +86,13 @@ export const bg = {
   // (não usar `bg-brand-subtle` 14% — forte demais como bg de row)
   "table-row-selected":       `color-mix(in oklch, ${brand[600]} 6%, transparent)`,
   "table-row-selected-hover": `color-mix(in oklch, ${brand[600]} 10%, transparent)`,
+  // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
+  // de trás (color-mix com `transparent` deixa o conteúdo scrollado aparecer
+  // sob a coluna fixa). Mix em SRGB (não oklch): misturar em oklch com um bg
+  // achromático (hue 0) contamina o hue → tinge de vermelho. Em srgb o resultado
+  // é o mesmo alpha-over do token transparente sobre o bg da tabela (white).
+  "table-row-selected-solid":       `color-mix(in srgb, ${brand[600]} 6%, ${white})`,
+  "table-row-selected-hover-solid": `color-mix(in srgb, ${brand[600]} 10%, ${white})`,
 
   // Dropdown/Popover — referencia bg-canvas (white no light)
   "dropdown":         "var(--color-bg-canvas)",

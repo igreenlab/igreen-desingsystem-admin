@@ -1,8 +1,11 @@
 import { CLIENTS_87 } from "../ClientesShowcase/clientes-showcase-mocks";
 import type {
+  AccountStatus,
   BankAccount,
   BankId,
   FinanceClientRow,
+  FinanceTransaction,
+  PaymentMethod,
 } from "./clientes-financeiro.types";
 
 /* ── Banks (lookup com nome + cor temática) ─────────────────────── */
@@ -76,17 +79,101 @@ function makeCNPJ(idx: number): string {
   return `${b1}.${b2}.${b3}/0001-${dv}`;
 }
 
+/* ── Situação da conta (badge + eixo do Kanban) ─────────────────── */
+
+export const ACCOUNT_STATUS: Record<
+  AccountStatus,
+  { label: string; color: "warning" | "success" | "info" | "danger" }
+> = {
+  pendente:   { label: "Pendente",      color: "warning" },
+  ativo:      { label: "Ativo",         color: "success" },
+  negociacao: { label: "Em negociação", color: "info" },
+  bloqueado:  { label: "Bloqueado",     color: "danger" },
+};
+
+const ACCOUNT_STATUS_IDS: AccountStatus[] = [
+  "ativo",
+  "ativo",
+  "pendente",
+  "ativo",
+  "negociacao",
+  "ativo",
+  "bloqueado",
+]; // distribuição enviesada p/ "ativo" (realista) via módulo do índice
+
+const PAYMENT_METHOD_SETS: PaymentMethod[][] = [
+  ["pix"],
+  ["pix", "ted"],
+  ["pix", "boleto"],
+  ["pix", "ted", "boleto"],
+  ["ted", "boleto"],
+];
+
+const TRANSACTION_DESCRIPTIONS: Record<"in" | "out", string[]> = {
+  in: ["Comissão de venda", "Bônus de meta", "Repasse de royalty", "Estorno"],
+  out: ["Saque para conta", "Taxa de serviço", "Antecipação", "Ajuste de saldo"],
+};
+
+const NOW = new Date("2026-06-10T12:00:00Z").getTime();
+const DAY = 86400000;
+
+/** Status pseudo-determinístico baseado no índice. */
+function makeAccountStatus(idx: number): AccountStatus {
+  return ACCOUNT_STATUS_IDS[idx % ACCOUNT_STATUS_IDS.length];
+}
+
+/** Volume mensal pseudo-determinístico — R$ 2k a R$ 80k. */
+function makeMonthlyVolume(idx: number): number {
+  return Math.round((2000 + ((idx * 911) % 78000)) * 100) / 100;
+}
+
+/** Taxa de comissão 4%–14% (1 casa). */
+function makeCommissionRate(idx: number): number {
+  return Math.round((4 + ((idx * 37) % 100) / 10) * 10) / 10;
+}
+
+/** Última movimentação — entre 0 e ~45 dias atrás. */
+function makeLastMovement(idx: number): number {
+  return NOW - ((idx * 53) % 45) * DAY - ((idx * 17) % 24) * 3600000;
+}
+
+/** Extrato pseudo-determinístico — 4 a 6 movimentações recentes. */
+function makeTransactions(idx: number, lastMovement: number): FinanceTransaction[] {
+  const count = 4 + (idx % 3);
+  return Array.from({ length: count }, (_, i) => {
+    const type: "in" | "out" = (idx + i) % 3 === 0 ? "out" : "in";
+    const pool = TRANSACTION_DESCRIPTIONS[type];
+    return {
+      id: `TX-${idx}-${i}`,
+      date: lastMovement - i * (2 * DAY + ((idx * 7) % 5) * DAY),
+      type,
+      amount: Math.round((120 + ((idx * 211 + i * 67) % 9800)) * 100) / 100,
+      description: pool[(idx + i) % pool.length],
+    };
+  });
+}
+
 /* ── Dataset financeiro — 87 clientes com banco + saldo ─────────── */
 
-export const FINANCE_CLIENTS: FinanceClientRow[] = CLIENTS_87.map((c, idx) => ({
-  ...c,
-  // Force categoria "licenciado" pra tema financeiro (afiliados/parceiros PJ)
-  categoryId: "licenciado",
-  bankAccount: makeAccount(idx),
-  availableBalance: makeBalance(idx),
-  cnpj: makeCNPJ(idx),
-  companyName: makeCompanyName(idx, c.name),
-}));
+export const FINANCE_CLIENTS: FinanceClientRow[] = CLIENTS_87.map((c, idx) => {
+  const lastMovement = makeLastMovement(idx);
+  return {
+    ...c,
+    // Force categoria "licenciado" pra tema financeiro (afiliados/parceiros PJ)
+    categoryId: "licenciado",
+    bankAccount: makeAccount(idx),
+    availableBalance: makeBalance(idx),
+    monthlyVolume: makeMonthlyVolume(idx),
+    commissionRate: makeCommissionRate(idx),
+    accountStatus: makeAccountStatus(idx),
+    autoWithdraw: idx % 3 !== 0, // ~2/3 com saque automático
+    paymentMethods: PAYMENT_METHOD_SETS[idx % PAYMENT_METHOD_SETS.length],
+    lastMovement,
+    transactions: makeTransactions(idx, lastMovement),
+    cnpj: makeCNPJ(idx),
+    companyName: makeCompanyName(idx, c.name),
+  };
+});
 
 /* ── Formatters ─────────────────────────────────────────────────── */
 
@@ -111,6 +198,30 @@ export const FINANCE_KPIS = {
   highValueCount: FINANCE_CLIENTS.filter((c) => c.availableBalance > 5000).length,
   /** Saldo médio. */
   averageBalance: 0,
+  /** Contas em risco (negociação + bloqueado) — alinha com a preset "Inadimplentes". */
+  atRiskCount: FINANCE_CLIENTS.filter(
+    (c) => c.accountStatus === "negociacao" || c.accountStatus === "bloqueado",
+  ).length,
 };
 FINANCE_KPIS.averageBalance =
   FINANCE_KPIS.totalAvailable / FINANCE_CLIENTS.length;
+
+/** Label curto pra movimentação relativa ("hoje", "há 3 dias"). */
+export function formatRelativeDays(ts: number): string {
+  const days = Math.floor((NOW - ts) / DAY);
+  if (days <= 0) return "hoje";
+  if (days === 1) return "ontem";
+  if (days < 30) return `há ${days} dias`;
+  const months = Math.floor(days / 30);
+  return months === 1 ? "há 1 mês" : `há ${months} meses`;
+}
+
+/** Data curta "09 fev" / "09 fev, 14:30" pro extrato. */
+export function formatDateTimeShort(ts: number): string {
+  return new Date(ts).toLocaleString("pt-BR", {
+    day: "2-digit",
+    month: "short",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+}

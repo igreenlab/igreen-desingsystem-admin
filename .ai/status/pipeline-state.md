@@ -2046,3 +2046,31 @@
 - Decisões: TabelaTeste mantido no barrel (remoção seria breaking — marcado "demo interno, não usar em apps" no inventory; débito pro próximo major). useTheme NÃO exportado na lib (hook do preview app — documentado no inventory). Agentes descartaram falso-positivos com verificação (ex: premissa "último className vence" refutada compilando o CSS real).
 - Assumption: os USAGE corrigidos refletem a API v0.8.0; próxima mudança de API de componente DEVE atualizar o USAGE no mesmo PR (regra já coberta pelo pre-commit-check).
 - Lições novas: nenhuma — o padrão de drift docs↔código já está mitigado pela precedência de fontes (crud-builder) e pelo pre-commit-check.
+
+---
+
+### [2026-06-10] | crud-builder + DS DEV | Reformulação ClientesFinanceiroShowcase (CRUD completo + Kanban) | CONCLUÍDO
+- Input: pedido pra atualizar a tela de finance desatualizada usando o novo DataTable "de forma redonda", + status + visão kanban. Via skill crud-builder (entrevista→blueprint→gate aprovado pelo usuário).
+- Output (4 arquivos editados + 2 criados):
+  - types: + AccountStatus (pendente/ativo/negociacao/bloqueado), FinanceTransaction, PaymentMethod + 7 campos (monthlyVolume, commissionRate, accountStatus, autoWithdraw, paymentMethods, lastMovement, transactions).
+  - mocks: geradores determinísticos pros campos novos + ACCOUNT_STATUS lookup + KPI atRiskCount + helpers formatRelativeDays/formatDateTimeShort.
+  - components/ExtratoExpansion/: painel de row expansion (extrato 5 mov + conta bancária + contato + resumo).
+  - ClientesFinanceiroShowcase.tsx: 7→14 colunas exercitando o registry quase inteiro (text/badge/currency×2/percentage/boolean/tags/user/datetime/date/actions); inline edit (commissionRate async); Switch toggle (autoWithdraw); row expansion (extrato); totalizers (Σ saldo/volume, avg comissão); 4 bulk actions; 4 preset views (Digitais/Alto valor/Inadimplentes/Saque auto); kanban por accountStatus (4 lanes + DnD optimistic + cards ricos); 4 KPIs; viewMode controlado.
+- Decisões: autoWithdraw via Switch direto (não inline-edit) — editType não tem "boolean"/"toggle", e toggle é melhor UX. accountStatus escolhido como eixo do kanban (pipeline financeiro real) e status canônico. persistId bumped v3→v4 (schema de colunas mudou).
+- Validação: tsc 0 · browser (Chrome DevTools): tabela 14 cols/87 rows/25 switches, kanban 4 lanes com cards completos, expansão renderiza extrato, 4 KPIs, presets, paginação. Warning benigno pré-existente do type:"actions" (caminho próprio no render, não passa pelo registry).
+- Assumption: os campos financeiros mocados são representativos o suficiente pra demonstrar o padrão; a tela é showcase (mock), não consome API real.
+- Lições novas: nenhuma.
+
+---
+
+### [2026-06-10] | DS DEV | Ajustes finance + 3 correções de DS core (FloatingPanel/Table/FooterTable) | CONCLUÍDO
+- Input: 5 ajustes pós-validação visual da tela finance — autorizado mexer em componentes "com cuidado".
+- Output:
+  1. **FloatingPanel** (DS core): nova prop `bodyPadded` (default `true` — padding interno padrão do body, parametrizável) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel. Refatorado FinanceDetailPanel pra usá-los (espelha o DetailDrawer da ClientesShowcase, que era a referência). `bodyPadded={false}` aplicado nos consumers que já gerenciam padding próprio (DetailDrawer, ToolbarSimpleFilterDrawer); FloatingPanelDoc migrado pra demonstrar o default (removido p-pad-3xl manual).
+  2. **Coluna nome (finance)**: afordância de clique — ícone `PanelRight` fraco + underline no hover (group/lic).
+  3. **FooterTable** (DS core): removido `pt-pad-xl` + `px-pad-xs` do wrapper da paginação (2 ocorrências — footer + skeleton). Paginação cola melhor à tabela.
+  4. **Table** (DS core) + **tokens**: pinned/sticky cells vazavam conteúdo sob row selecionada (bg-inherit herdava color-mix com `transparent`). Novos tokens `table-row-selected-solid` / `-hover-solid` (light+dark — mesmo mix sobre bg opaco da tabela). TableRow ganha `group/row` + `data-highlighted`; pinned cell troca pra token sólido via `group-data-[highlighted]/row:`. Cobre selected/open/focused.
+- Decisões: bodyPadded default `true` (consumers com padding próprio opt-out) — torna o padrão "AI acerta de primeira". Tokens solid via color-mix sobre bg opaco (self-consistente se a marca mudar) em vez de hardcode dos hexes que o usuário passou (#F0F8F4 / #1A2D27 = equivalentes).
+- Validação: tsc 0 · tokens:tw4 (4 vars geradas) · browser dark: detail panel com sections colapsáveis + padding (= referência), row selecionada → pinned cell opaco (oklch 0.275, sem alpha — CSS comprovado), footer com menos padding, bulk bar. Consumers de FloatingPanel auditados (DetailDrawer, SimpleFilterDrawer, FloatingPanelDoc) — sem regressão.
+- Assumption: nenhum outro consumer de FloatingPanel depende de body sem padding além dos 3 auditados (grep cobriu src/ inteiro).
+- Lições novas: candidata — "pinned/sticky cells precisam de bg OPACO; row bg com alpha (color-mix transparent) vaza conteúdo scrollado sob a coluna fixa → usar token -solid". Avaliar registrar como L-029 no review.

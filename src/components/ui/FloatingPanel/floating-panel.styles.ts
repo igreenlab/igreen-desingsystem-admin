@@ -91,6 +91,17 @@ export const floatingPanelStyles = tv({
         handle: "md:hidden",
       },
     },
+    // Padding interno padrão do body (gutter 18px lateral, igual header/footer).
+    // Default ON — conteúdo livre já respira. Desligue (`bodyPadded={false}`)
+    // quando usar `<FloatingPanelSection>` (sections gerenciam o próprio padding
+    // edge-to-edge com divisórias full-width).
+    bodyPadded: {
+      true: { body: "px-[18px] py-pad-xl" },
+      false: {},
+    },
+  },
+  defaultVariants: {
+    bodyPadded: true,
   },
 });
 

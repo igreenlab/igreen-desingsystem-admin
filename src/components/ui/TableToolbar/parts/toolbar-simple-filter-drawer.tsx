@@ -177,6 +177,8 @@ export function ToolbarSimpleFilterDrawer({
       onOpenChange={onOpenChange}
       side="right"
       size={size}
+      // O corpo já aplica px-[18px] py-[14px] próprio abaixo.
+      bodyPadded={false}
       title={title}
       description={description ?? `${activeCount} ${activeCount === 1 ? "filtro ativo" : "filtros ativos"}`}
       titleIcon={SlidersHorizontal}

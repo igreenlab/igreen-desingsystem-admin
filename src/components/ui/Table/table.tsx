@@ -171,6 +171,11 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
   const { density } = useTableContext();
   const isClickable = clickable ?? !!onClick;
   const highlighted = selected || open;
+  // Pinned/sticky cells precisam de bg OPACO quando a row está destacada
+  // (selected/open/focused) — o bg da row é color-mix com transparent e deixaria
+  // o conteúdo scrollado vazar sob a coluna fixa. `data-highlighted` + `group/row`
+  // permitem o table.styles aplicar o token sólido só nessas cells.
+  const solidPinned = highlighted || focused;
   const dataState = selected && open
     ? "selected open"
     : selected
@@ -187,13 +192,17 @@ export const TableRow = forwardRef<HTMLDivElement, TableRowProps>(function Table
       aria-selected={selected || undefined}
       data-state={dataState}
       data-focused={focused || undefined}
+      data-highlighted={solidPinned || undefined}
       tabIndex={focused ? 0 : -1}
       className={cn(
+        "group/row",
         tableStyles({ selected: highlighted, clickable: isClickable, density }).row(),
-        // Focus visual — bg tinted (match checkbox selected) + outline brand interno.
-        // Outline em vez de ring/border pra não interferir com sticky/bordas.
+        // Focus visual — bg tinted (match checkbox selected) + borda brand interna.
+        // A borda vem de um overlay ::after com z-[7] (ACIMA do pinned cell z-[5]):
+        // `outline` no row era pintado SOB as sticky cells (bg opaco) e quebrava
+        // no topo/embaixo na coluna fixa. O overlay desenha por cima, contínuo.
         focused &&
-          "bg-bg-table-row-selected hover:bg-bg-table-row-selected-hover outline outline-2 outline-offset-[-2px] outline-bg-brand z-[6] relative",
+          "bg-bg-table-row-selected hover:bg-bg-table-row-selected-hover z-[6] relative after:content-[''] after:absolute after:inset-0 after:z-[7] after:pointer-events-none after:border-2 after:border-bg-brand",
         className,
       )}
       onClick={onClick}
