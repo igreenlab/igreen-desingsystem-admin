@@ -43,7 +43,7 @@ export function SectionCard({
   );
 
   return (
-    <section className={cn("rounded-radius-lg border border-border-subtle bg-bg-surface", className)}>
+    <section className={cn("rounded-radius-lg border border-border-subtle bg-bg-surface shadow-sh-sm", className)}>
       {header}
       {/* body: padding 16px (pad-2xl) — uniforme; abaixo do divider quando há header */}
       <div className={cn("p-pad-2xl", bodyClassName)}>{children}</div>
