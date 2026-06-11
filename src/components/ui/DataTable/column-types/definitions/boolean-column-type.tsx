@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../../../../shadcn/select";
-import { FILTER_FIELD_SIZE } from "../_filter-field";
+import { FILTER_FIELD_SIZE, FastSingleSelectList } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 
 function toBool(v: unknown): boolean | null {
@@ -43,22 +43,17 @@ export const BooleanColumnType: ColumnTypeDefinition = {
     </Select>
   ),
   renderFastFilterInput: ({ value, onChange, onClose }) => (
-    <Select
-      value={toBoolStr(value)}
-      onValueChange={(v) => {
+    <FastSingleSelectList
+      options={[
+        { value: "true", label: "Sim" },
+        { value: "false", label: "Não" },
+      ]}
+      selected={toBoolStr(value)}
+      onSelect={(v) => {
         onChange(v === "true");
         onClose?.();
       }}
-      open
-    >
-      <SelectTrigger className="sr-only">
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectItem value="true">Sim</SelectItem>
-        <SelectItem value="false">Não</SelectItem>
-      </SelectContent>
-    </Select>
+    />
   ),
   matchesFilter: (cellValue, filterValue, operator) => {
     const cell = toBool(cellValue);
