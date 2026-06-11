@@ -346,6 +346,12 @@ function DataTableInternal<T>(
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
   const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
 
+  /** Chip de filtro aplicado aberto via clique (controlado). Necessário pra
+   *  `onClose` do renderFastFilterInput funcionar — selects/boolean usam
+   *  `<Select open>` forçado, que trava o dismiss por clique-fora; sem open
+   *  controlado o popover não fecha ao escolher o valor (item 8). */
+  const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+
   /** Column label lookup for applied filter chips. */
   const colLabelMap = useMemo<Record<string, string>>(
     () =>
@@ -1670,24 +1676,34 @@ function DataTableInternal<T>(
               // controla quando setar via `setPendingOpenChipKey`.
               // Ao fechar, se o grupo só tem itens com valor vazio (caso do
               // shortcut que abriu mas user nao digitou nada), remove do filterModel.
+              // Open controlado: pending (shortcut do header) OU clique no chip.
+              // Controlar o open é o que permite o `onClose` fechar o popover
+              // mesmo quando o `<Select open>` interno trava o clique-fora.
+              const closeChip = () => {
+                setOpenChipKey(null);
+                if (isPendingOpen) setPendingOpenChipKey(null);
+                // Cleanup: remove itens vazios deste grupo do filterModel
+                const groupItems = group.items;
+                const allEmpty = groupItems.every((it) =>
+                  isFilterValueEmpty(it.value),
+                );
+                if (allEmpty) {
+                  const ids = new Set(groupItems.map((it) => it.id));
+                  filters.setFilterModel({
+                    ...filters.filterModel,
+                    items: filters.filterModel.items.filter((it) => !ids.has(it.id)),
+                  });
+                }
+              };
               return (
                 <Popover
-                  open={isPendingOpen || undefined}
+                  open={isPendingOpen || openChipKey === f.id}
                   onOpenChange={(o) => {
-                    if (o) return;
-                    if (isPendingOpen) setPendingOpenChipKey(null);
-                    // Cleanup: remove itens vazios deste grupo do filterModel
-                    const groupItems = group.items;
-                    const allEmpty = groupItems.every((it) =>
-                      isFilterValueEmpty(it.value),
-                    );
-                    if (allEmpty) {
-                      const ids = new Set(groupItems.map((it) => it.id));
-                      filters.setFilterModel({
-                        ...filters.filterModel,
-                        items: filters.filterModel.items.filter((it) => !ids.has(it.id)),
-                      });
+                    if (o) {
+                      setOpenChipKey(f.id);
+                      return;
                     }
+                    closeChip();
                   }}
                 >
                   <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
@@ -1696,6 +1712,7 @@ function DataTableInternal<T>(
                       value: currentValue as FilterValue,
                       onChange: (v) => updateGroupValue(group.key, v),
                       options,
+                      onClose: closeChip,
                     })}
                   </PopoverContent>
                 </Popover>
