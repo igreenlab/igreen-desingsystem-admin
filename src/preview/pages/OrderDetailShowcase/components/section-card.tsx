@@ -21,35 +21,57 @@ export function SectionCard({
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
-  /** Padding interno menor (20px em vez de 24px) — telas mais densas. */
+  /**
+   * Modo denso (teste aba Detalhes): padding 18px + divider full-bleed abaixo
+   * do título separando-o da seção. Sem `dense`: padding 24px + gap simples.
+   */
   dense?: boolean;
 }) {
+  const hasHeader = !!(title || action);
+  const header = hasHeader && (
+    <header
+      className={cn(
+        "flex items-center justify-between gap-gp-md",
+        dense
+          ? "px-[18px] pt-[18px] pb-pad-lg border-b border-border-subtle"
+          : "mb-gp-2xl",
+      )}
+    >
+      <div className="flex items-center gap-gp-md">
+        {icon && (
+          <span className="grid size-8 shrink-0 place-items-center rounded-radius-md bg-bg-muted text-fg-muted">
+            {icon}
+          </span>
+        )}
+        {title && (
+          <h2 className="text-title-md font-semibold text-fg-default">
+            {title}
+          </h2>
+        )}
+      </div>
+      {action}
+    </header>
+  );
+
   return (
     <section
       className={cn(
         "rounded-radius-lg border border-border-subtle bg-bg-surface",
-        dense ? "p-pad-3xl" : "p-pad-4xl",
+        // dense controla o padding pelo header/body (divider full-bleed);
+        // sem dense mantém o padding único de 24px no container.
+        !dense && "p-pad-4xl",
         className,
       )}
     >
-      {(title || action) && (
-        <header className="mb-gp-2xl flex items-center justify-between gap-gp-md">
-          <div className="flex items-center gap-gp-md">
-            {icon && (
-              <span className="grid size-8 shrink-0 place-items-center rounded-radius-md bg-bg-muted text-fg-muted">
-                {icon}
-              </span>
-            )}
-            {title && (
-              <h2 className="text-title-md font-semibold text-fg-default">
-                {title}
-              </h2>
-            )}
-          </div>
-          {action}
-        </header>
-      )}
-      <div className={bodyClassName}>{children}</div>
+      {header}
+      <div
+        className={cn(
+          dense && (hasHeader ? "px-[18px] pb-[18px] pt-pad-lg" : "p-[18px]"),
+          bodyClassName,
+        )}
+      >
+        {children}
+      </div>
     </section>
   );
 }
