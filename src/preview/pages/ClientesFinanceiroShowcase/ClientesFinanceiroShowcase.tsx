@@ -53,6 +53,7 @@ import {
 } from "./clientes-financeiro-mocks";
 import { SacarDialog } from "./components/SacarDialog";
 import { ExtratoExpansion } from "./components/ExtratoExpansion";
+import { FinanceDetailPanel } from "./components/FinanceDetailPanel";
 import type {
   AccountStatus,
   FinanceClientRow,
@@ -270,8 +271,8 @@ function buildColumns(
       field: "autoWithdraw",
       headerName: "Saque auto",
       type: "boolean",
-      width: 120,
-      align: "center",
+      width: 150,
+      align: "left",
       enableColumnFilter: true,
       filterType: "boolean",
       render: ({ row, value }) => (
@@ -298,7 +299,7 @@ function buildColumns(
       render: ({ value }) => (
         <div className="flex flex-wrap gap-gp-2xs">
           {(value as PaymentMethod[]).map((m) => (
-            <Chip key={m} color="neutral" variant="outline" size="sm" shape="rounded">
+            <Chip key={m} color="neutral" variant="soft" size="sm" shape="rounded">
               {PAYMENT_METHOD_LABEL[m]}
             </Chip>
           ))}
@@ -423,6 +424,12 @@ const KANBAN_COLUMNS: KanbanColumn[] = [
   { id: "bloqueado",  label: "Bloqueado",     dotColor: "var(--color-fg-danger)" },
 ];
 
+/**
+ * KPIs temporariamente ocultos (Sergio vai retrabalhá-los depois). Mantido o
+ * código + a section atrás da flag pra reativar trocando pra `true`.
+ */
+const SHOW_KPIS = false;
+
 /* ── KPI Card ───────────────────────────────────────────────────── */
 
 type KpiTone = "brand" | "success" | "warning" | "info" | "danger" | "neutral";
@@ -483,7 +490,12 @@ export default function ClientesFinanceiroShowcase() {
   const [novoClienteOpen, setNovoClienteOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<FinanceClientRow | null>(null);
   const [sacarClient, setSacarClient] = useState<FinanceClientRow | null>(null);
+  const [detailRowId, setDetailRowId] = useState<string | null>(null);
   const tableRef = useRef<DataTableRef>(null);
+
+  const detailRow = detailRowId
+    ? rows.find((r) => r.id === detailRowId) ?? null
+    : null;
 
   const handleEdit = useCallback((row: FinanceClientRow) => {
     setEditingClient(row);
@@ -569,7 +581,7 @@ export default function ClientesFinanceiroShowcase() {
           footerLeft: (
             <span className="inline-flex flex-wrap gap-gp-2xs min-w-0">
               {row.paymentMethods.map((m) => (
-                <Chip key={m} color="neutral" variant="outline" size="sm" shape="rounded">
+                <Chip key={m} color="neutral" variant="soft" size="sm" shape="rounded">
                   {PAYMENT_METHOD_LABEL[m]}
                 </Chip>
               ))}
@@ -656,37 +668,39 @@ export default function ClientesFinanceiroShowcase() {
         }
       />
 
-      {/* KPI grid — 4 cards. */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gp-2xl pb-pad-2xl">
-        <KpiCard
-          icon={Wallet}
-          title="Disponível total"
-          value={formatBRL(FINANCE_KPIS.totalAvailable)}
-          hint="Soma de todos os saldos"
-          tone="brand"
-        />
-        <KpiCard
-          icon={TrendingUp}
-          title="High-value (≥ R$ 5k)"
-          value={String(FINANCE_KPIS.highValueCount)}
-          hint="Clientes acima de R$ 5.000"
-          tone="success"
-        />
-        <KpiCard
-          icon={Banknote}
-          title="Saldo médio"
-          value={formatBRL(FINANCE_KPIS.averageBalance)}
-          hint="Por cliente"
-          tone="info"
-        />
-        <KpiCard
-          icon={ShieldAlert}
-          title="Em risco"
-          value={String(FINANCE_KPIS.atRiskCount)}
-          hint="Em negociação ou bloqueado"
-          tone="danger"
-        />
-      </section>
+      {/* KPI grid — 4 cards. Oculto por enquanto (SHOW_KPIS) — Sergio retrabalha depois. */}
+      {SHOW_KPIS && (
+        <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gp-2xl pb-pad-2xl">
+          <KpiCard
+            icon={Wallet}
+            title="Disponível total"
+            value={formatBRL(FINANCE_KPIS.totalAvailable)}
+            hint="Soma de todos os saldos"
+            tone="brand"
+          />
+          <KpiCard
+            icon={TrendingUp}
+            title="High-value (≥ R$ 5k)"
+            value={String(FINANCE_KPIS.highValueCount)}
+            hint="Clientes acima de R$ 5.000"
+            tone="success"
+          />
+          <KpiCard
+            icon={Banknote}
+            title="Saldo médio"
+            value={formatBRL(FINANCE_KPIS.averageBalance)}
+            hint="Por cliente"
+            tone="info"
+          />
+          <KpiCard
+            icon={ShieldAlert}
+            title="Em risco"
+            value={String(FINANCE_KPIS.atRiskCount)}
+            hint="Em negociação ou bloqueado"
+            tone="danger"
+          />
+        </section>
+      )}
 
       <DataTable<FinanceClientRow>
         ref={tableRef}
@@ -699,6 +713,8 @@ export default function ClientesFinanceiroShowcase() {
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         kanbanConfig={kanbanConfig}
+        // Click na row (no licenciado) abre o painel de detalhe (FloatingPanel).
+        onRowClick={(row) => setDetailRowId(row.id)}
         // Extrato da row (chevron na coluna ID).
         renderRowExpansion={({ row }) => <ExtratoExpansion row={row} />}
         // Inline edit da comissão (async, latência simulada).
@@ -782,6 +798,20 @@ export default function ClientesFinanceiroShowcase() {
         onOpenChange={(o) => !o && setSacarClient(null)}
         client={sacarClient}
         onConfirm={handleSacarConfirm}
+      />
+
+      {/* Detalhe do licenciado — FloatingPanel (abre no click da row). */}
+      <FinanceDetailPanel
+        row={detailRow}
+        onClose={() => setDetailRowId(null)}
+        onEdit={(row) => {
+          setDetailRowId(null);
+          setEditingClient(row);
+        }}
+        onSacar={(row) => {
+          setDetailRowId(null);
+          setSacarClient(row);
+        }}
       />
     </AppShell>
   );

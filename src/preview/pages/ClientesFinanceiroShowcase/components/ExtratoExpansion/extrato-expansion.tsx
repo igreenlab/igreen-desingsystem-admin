@@ -91,10 +91,10 @@ export function ExtratoExpansion({ row }: { row: FinanceClientRow }) {
   const recent = row.transactions.slice(0, 5);
 
   return (
-    <div className="w-full p-pad-3xl bg-bg-subtle">
-      <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_1fr] gap-gp-3xl max-w-[1100px]">
+    <div className="w-full p-pad-4xl bg-bg-subtle">
+      <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-gp-4xl lg:gap-gp-6xl max-w-[1100px]">
         {/* Extrato */}
-        <section className="flex flex-col gap-gp-md">
+        <section className="flex flex-col gap-gp-lg">
           <header className="flex items-center justify-between gap-gp-md">
             <h4 className="m-0 text-body-md font-semibold text-fg-muted uppercase tracking-wider">
               Extrato recente
@@ -110,8 +110,9 @@ export function ExtratoExpansion({ row }: { row: FinanceClientRow }) {
           </ul>
         </section>
 
-        {/* Dados bancários + contato + resumo */}
-        <div className="flex flex-col gap-gp-2xl">
+        {/* Dados bancários + contato + resumo — separados do extrato por
+            divisória sutil + respiro (evita poluição visual de "grudado"). */}
+        <div className="flex flex-col gap-gp-3xl lg:pl-gp-6xl lg:border-l lg:border-border-subtle">
           <section className="flex flex-col gap-gp-md">
             <h4 className="m-0 text-body-md font-semibold text-fg-muted uppercase tracking-wider">
               Conta bancária
