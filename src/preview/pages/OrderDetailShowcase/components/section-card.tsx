@@ -14,6 +14,7 @@ export function SectionCard({
   className,
   bodyClassName,
   dense,
+  headerPadY,
 }: {
   title?: ReactNode;
   icon?: ReactNode;
@@ -26,15 +27,20 @@ export function SectionCard({
    * do título separando-o da seção. Sem `dense`: padding 24px + gap simples.
    */
   dense?: boolean;
+  /** Padding vertical do header (dense) pra comparar valores. Default pt18/pb16. */
+  headerPadY?: 14 | 16;
 }) {
   const hasHeader = !!(title || action);
+  // Classes ESTÁTICAS (Tailwind JIT) — não interpolar px dinâmico.
+  const headerPadYClass =
+    headerPadY === 14 ? "py-[14px]" : headerPadY === 16 ? "py-[16px]" : "pt-[18px] pb-pad-2xl";
   const header = hasHeader && (
     <header
       className={cn(
         "flex items-center justify-between gap-gp-md",
-        // dense: pb 16px (pad-2xl) antes do divider full-bleed
+        // dense: padding vertical configurável + divider full-bleed
         dense
-          ? "px-[18px] pt-[18px] pb-pad-2xl border-b border-border-subtle"
+          ? cn("px-[18px] border-b border-border-subtle", headerPadYClass)
           : "mb-gp-2xl",
       )}
     >

@@ -34,6 +34,7 @@ export function DetailsTab({ order }: { order: Order }) {
         <div className="flex flex-col gap-gp-2xl lg:col-span-2">
           <SectionCard
             dense
+            headerPadY={14}
             title="Informações do cliente"
             icon={<User className="size-icon-md" />}
           >
@@ -64,6 +65,7 @@ export function DetailsTab({ order }: { order: Order }) {
 
           <SectionCard
             dense
+            headerPadY={16}
             title="Informações de entrega"
             icon={<Truck className="size-icon-md" />}
           >
