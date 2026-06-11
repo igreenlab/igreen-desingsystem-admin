@@ -1,12 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Bell, CheckCheck, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "../Button/button";
 import { ChipGroup, ChipGroupItem } from "../Chip";
 import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "../../shadcn/popover";
+import {
   headerIconBtnBadge,
-  hdWrap,
-  hdDropdown,
   hdTop,
   hdHeader,
   hdTitle,
@@ -55,51 +58,41 @@ export function HeaderNotifications({ config, className }: HeaderNotificationsPr
 
   const [open, setOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState(filters[0]?.id ?? "all");
-  const wrapRef = useRef<HTMLDivElement>(null);
 
   const unreadCount = items.filter((n) => n.unread).length;
-
-  // Click outside + Escape pra fechar
-  useEffect(() => {
-    if (!open) return;
-    const onClick = (e: MouseEvent) => {
-      if (!wrapRef.current?.contains(e.target as Node)) setOpen(false);
-    };
-    const onEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onClick);
-    document.addEventListener("keydown", onEsc);
-    return () => {
-      document.removeEventListener("mousedown", onClick);
-      document.removeEventListener("keydown", onEsc);
-    };
-  }, [open]);
 
   const filtered = items.filter(
     filters.find((f) => f.id === activeFilter)?.predicate ?? (() => true)
   );
 
   return (
-    <div ref={wrapRef} className={cn(hdWrap(), className)}>
-      <Button
-        color="secondary"
-        variant="outline"
-        size="icon-sm"
-        className="rounded-radius-md relative"
-        aria-label="Notificações"
-        title="Notificações"
-        aria-expanded={open}
-        onClick={() => setOpen((o) => !o)}
-      >
-        <Bell />
-        {unreadCount > 0 && (
-          <span className={headerIconBtnBadge({ kind: "danger" })} aria-hidden="true" />
-        )}
-      </Button>
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button
+          color="secondary"
+          variant="outline"
+          size="icon-sm"
+          className="rounded-radius-md relative"
+          aria-label="Notificações"
+          title="Notificações"
+        >
+          <Bell />
+          {unreadCount > 0 && (
+            <span className={headerIconBtnBadge({ kind: "danger" })} aria-hidden="true" />
+          )}
+        </Button>
+      </PopoverTrigger>
 
-      {open && (
-        <div className={hdDropdown()} role="dialog" aria-label="Notificações">
+      <PopoverContent
+        align="end"
+        // mobileSheet (default true): no mobile vira sheet bottom-up colado nas
+        // bordas em vez de popover cortando na tela.
+        className={cn(
+          "w-[380px] max-w-[calc(100vw-32px)] max-h-[520px] p-0 flex flex-col overflow-hidden",
+          className,
+        )}
+        aria-label="Notificações"
+      >
           <div className={hdTop()}>
             <div className={hdHeader()}>
               <div className={hdTitle()}>
@@ -181,9 +174,8 @@ export function HeaderNotifications({ config, className }: HeaderNotificationsPr
               </a>
             </div>
           )}
-        </div>
-      )}
-    </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 
