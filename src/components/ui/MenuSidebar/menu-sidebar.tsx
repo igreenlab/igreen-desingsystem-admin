@@ -188,6 +188,7 @@ export function MenuSidebar({
               isMobile ? false : hoverExpanded ? false : collapsed
             }
             floating={shouldFloat}
+            mobile={isMobile}
             activeItemHref={itemHref}
             onItemClick={handleItemClick}
             contexts={contexts}
