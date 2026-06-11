@@ -50,10 +50,12 @@ export function StepNav({
           >
             <span
               className={cn(
-                "grid size-8 shrink-0 place-items-center rounded-radius-md",
+                "grid size-8 shrink-0 place-items-center rounded-radius-md border",
                 active
-                  ? "bg-bg-brand text-fg-on-brand"
-                  : "bg-bg-muted text-fg-muted",
+                  ? "border-transparent bg-bg-brand text-fg-on-brand"
+                  // bg-surface (branco no light) + borda: contrasta tanto no card
+                  // quanto no hover cinza (senão o ícone funde com o hover).
+                  : "border-border-subtle bg-bg-surface text-fg-muted",
               )}
             >
               <Icon className="size-icon-sm" />

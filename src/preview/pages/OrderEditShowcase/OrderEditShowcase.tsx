@@ -154,8 +154,8 @@ export default function OrderEditShowcase() {
         <div
           className={
             cols === "two"
-              ? "grid grid-cols-1 items-start gap-gp-2xl xl:grid-cols-2"
-              : "flex flex-col gap-gp-2xl"
+              ? "grid grid-cols-1 items-start gap-gp-4xl xl:grid-cols-2"
+              : "flex flex-col gap-gp-4xl"
           }
         >
           <div ref={setRef("produtos")} className="scroll-mt-gp-2xl">
