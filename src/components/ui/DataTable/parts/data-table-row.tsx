@@ -13,6 +13,10 @@ import type {
 import { DataTableEditCell } from "./data-table-edit-cell";
 import { DataTableActionsCell } from "./data-table-actions-cell";
 import { DataTableTreeToggle, type DataTableTreeMeta } from "./data-table-tree-toggle";
+import {
+  DataTableReadMoreCell,
+  DataTableCopyCell,
+} from "./data-table-cell-addons";
 
 /**
  * Estado de edição inline da row (só não-null pra row com célula em edição).
@@ -178,6 +182,47 @@ function DataTableRowInner<T>({
                   : typeDef?.formatValue
                     ? typeDef.formatValue(value)
                     : value;
+
+        // Add-ons de célula (read-more / copy). Não aplicam em actions, célula
+        // em edição nem coluna de árvore (tree gerencia o próprio truncate).
+        // Texto puro derivado do formatter/value pra popover + clipboard.
+        const addonsEligible = !isActionsCol && !isEditingThisCell && !isTreeCol;
+        const plainText =
+          col.valueFormatter
+            ? col.valueFormatter(value)
+            : typeDef?.formatValue
+              ? typeDef.formatValue(value)
+              : value != null
+                ? String(value)
+                : "";
+        const contentWithAddons =
+          addonsEligible && col.readMore
+            ? (
+                <DataTableReadMoreCell
+                  text={plainText}
+                  config={col.readMore === true ? {} : col.readMore}
+                >
+                  {baseContent as ReactNode}
+                </DataTableReadMoreCell>
+              )
+            : addonsEligible && col.copyable
+              ? (() => {
+                  const cfg = col.copyable === true ? {} : col.copyable;
+                  const copyText =
+                    typeof cfg.value === "function"
+                      ? cfg.value(row)
+                      : cfg.value ?? plainText;
+                  return (
+                    <DataTableCopyCell
+                      copyText={copyText}
+                      config={{ label: cfg.label }}
+                    >
+                      {baseContent as ReactNode}
+                    </DataTableCopyCell>
+                  );
+                })()
+              : (baseContent as ReactNode);
+
         const content = isTreeCol ? (
           <DataTableTreeToggle
             meta={treeMeta!}
@@ -195,10 +240,10 @@ function DataTableRowInner<T>({
               )}
               aria-hidden
             />
-            <span className="flex-1 min-w-0">{baseContent as ReactNode}</span>
+            <span className="flex-1 min-w-0">{contentWithAddons}</span>
           </span>
         ) : (
-          baseContent
+          contentWithAddons
         );
         const tooltipText =
           isActionsCol || isEditingThisCell
@@ -232,9 +277,14 @@ function DataTableRowInner<T>({
               }
             : undefined;
         const effectiveAlign = col.align ?? typeDef?.defaultAlign;
-        // Tree col gerencia o próprio truncate dentro do DataTableTreeToggle —
-        // desativa o ellipsis da cell pra não clipar chevron/contagem.
-        const effectiveEllipsis = isTreeCol ? false : (col.ellipsis ?? typeDef?.defaultEllipsis);
+        // Tree col + add-ons (read-more/copy) gerenciam o próprio truncate —
+        // desativa o ellipsis da cell pra não clipar chevron/botão.
+        const hasAddons =
+          addonsEligible && (col.readMore != null || col.copyable != null);
+        const effectiveEllipsis =
+          isTreeCol || hasAddons
+            ? false
+            : (col.ellipsis ?? typeDef?.defaultEllipsis);
         return (
           <TableCell
             key={field}

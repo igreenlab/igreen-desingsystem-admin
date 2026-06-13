@@ -46,6 +46,8 @@ import {
   LayoutGrid,
   Table as TableIcon,
   Settings2,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -105,6 +107,7 @@ import {
 import { defaultOperatorForFilterType } from "./utils/filter-ops";
 import { DataTableProvider } from "./context/data-table-context";
 import { useDataTableController } from "./hooks/use-data-table-controller";
+import { useGrabToScroll } from "./hooks/use-grab-to-scroll";
 import { DataTableEmpty } from "./parts/data-table-empty";
 import { DataTableLoading } from "./parts/data-table-loading";
 import { DataTableNoResults } from "./parts/data-table-no-results";
@@ -239,6 +242,28 @@ function DataTableInternal<T>(
   const selectionConfig = props.selectionConfig ?? { enabled: false };
 
   const isKanban = viewMode === "kanban" && Boolean(props.kanbanConfig);
+
+  /* ── Grab-to-scroll horizontal (opt-in) ───────────────────────────
+   * Arrastar o corpo pra rolar lateralmente. Anexa pointer listeners ao
+   * mesmo `scrollContainerRef` que o `<Table>` usa. No-op em touch e abaixo
+   * do threshold (clique/seleção preservados). */
+  useGrabToScroll(scrollContainerRef, props.grabToScroll === true);
+
+  /* ── Fullscreen toggle (opt-in) ───────────────────────────────────
+   * Expande o container raiz pra ocupar a viewport inteira. Esc fecha. */
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const enableFullscreen = toolbarConfig.enableFullscreen === true;
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isFullscreen]);
 
   const handleViewModeChange = useCallback(
     (mode: DataTableViewMode) => {
@@ -1428,7 +1453,12 @@ function DataTableInternal<T>(
 
   return (
     <DataTableProvider value={contextValue}>
-      <div className={cn(styles.root(), props.className)}>
+      <div
+        className={cn(
+          dataTableStyles({ fullscreen: isFullscreen }).root(),
+          props.className,
+        )}
+      >
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
             <>
@@ -1489,6 +1519,16 @@ function DataTableInternal<T>(
                       isActive={hasActiveFilter}
                       hasIndicator={hasActiveFilter}
                       onClick={() => setV2FilterOpen(true)}
+                    />
+                  ) : undefined
+                }
+                fullscreen={
+                  enableFullscreen ? (
+                    <ToolbarToolButton
+                      icon={isFullscreen ? <Minimize2 /> : <Maximize2 />}
+                      aria-label={isFullscreen ? "Sair da tela cheia" : "Tela cheia"}
+                      isActive={isFullscreen}
+                      onClick={toggleFullscreen}
                     />
                   ) : undefined
                 }

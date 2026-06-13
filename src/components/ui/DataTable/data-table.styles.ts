@@ -41,4 +41,22 @@ export const dataTableStyles = tv({
       "shadow-sh-lg",
     ],
   },
+  variants: {
+    /**
+     * Tela cheia — container raiz vira overlay fixo ocupando a viewport, com
+     * bg do canvas + padding pra respiro. A tabela interna preenche o resto
+     * (min-h-0 já no `<Table className>`).
+     */
+    fullscreen: {
+      true: {
+        root: [
+          "fixed inset-0 z-[var(--z-index-modal,500)]",
+          "bg-bg-canvas p-pad-2xl overflow-auto",
+        ],
+      },
+    },
+  },
+  defaultVariants: {
+    fullscreen: false,
+  },
 });

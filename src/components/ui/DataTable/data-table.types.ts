@@ -307,6 +307,25 @@ export type DataTableColumnDef<T> = {
    *  - custom types: o que o tipo definir */
   typeOptions?: Record<string, unknown>;
 
+  /** Read-more — célula "Ler mais". Quando ativo, o conteúdo é truncado
+   *  (1 linha + reticências por default, ou N linhas via `{ lines }`) e um
+   *  gatilho "Ler mais" abre o texto completo num popover. Equivalente DS do
+   *  `ReadMoreCell` legado. Aceita `true` (1 linha, label "Ler mais") ou um
+   *  objeto `{ lines?, label? }`. Aplica-se ao render default ou ao `render`
+   *  custom (o nó renderizado é envolvido). Ignorado em `type: "actions"`,
+   *  células em edição e na coluna primária de tree-data. */
+  readMore?: boolean | { lines?: number; label?: string };
+
+  /** Copy-cell — ícone de copiar revelado no hover/foco da célula, com
+   *  feedback "Copiado!" (~2s). Sem dependência nova (`navigator.clipboard`).
+   *  Aceita `true` (copia o texto da célula) ou um objeto `{ value?, label? }`
+   *  pra customizar o texto copiado (string) ou o aria-label do botão. Quando
+   *  `value` é função, recebe a row. Ignorado em `type: "actions"`, células em
+   *  edição e na coluna primária de tree-data. */
+  copyable?:
+    | boolean
+    | { value?: string | ((row: T) => string); label?: string };
+
   /** Row expansion trigger — Fase F.4b. Quando true, células dessa coluna
    *  ganham chevron + cursor pointer e click toggla a expansão da row.
    *  Funciona apenas se DataTable também receber `renderRowExpansion`. */
@@ -408,6 +427,13 @@ export type DataTableToolbarConfig = {
   moreMenu?: { items: DataTableMoreMenuItem[] };
   /** @deprecated — use `moreMenu.items` em vez disso. */
   customActions?: ReactNode;
+  /**
+   * Toggle de tela cheia na toolbar (botão ⤢). Quando `true`, o DataTable
+   * renderiza um tool button que expande o container pra ocupar a viewport
+   * inteira (overlay full-screen) e volta ao normal no segundo clique ou Esc.
+   * Default `false`.
+   */
+  enableFullscreen?: boolean;
   /** Slot livre na esquerda apos search/refresh. Use pra inserir custom controls. */
   customLeft?: ReactNode;
   /**
@@ -446,6 +472,15 @@ export type DataTableProps<T> = {
   columns: DataTableColumnDef<T>[];
   /** Função pra extrair id da row. Default: row.id */
   getRowId?: (row: T) => GridRowId;
+
+  /**
+   * Grab-to-scroll horizontal — arrastar o corpo da tabela (mouse/pen) pra
+   * rolar lateralmente, equivalente ao `useGrabToScroll` legado. Um arrasto só
+   * inicia após cruzar um threshold (~6px), preservando clique/seleção de
+   * célula; o scroll por roda do mouse permanece intacto. Pulado em touch
+   * (scroll nativo já funciona). Default `false`.
+   */
+  grabToScroll?: boolean;
 
   /**
    * Auto-fit das colunas ao container. Quando true (default), o DataTable

@@ -86,6 +86,10 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Density toggle** | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop |
 | **Column types registry** | `type: "currency"` etc — renderiza display + filter input via registry |
 | **Inline edit** | `editable: true` na coluna + `onCellEditCommit` |
+| **Read-more (Ler mais)** | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo |
+| **Copy célula** | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback "Copiado!" (~2s) |
+| **Grab-to-scroll horizontal** | `grabToScroll: true` (prop raiz) — arrastar o corpo pra rolar lateralmente (desktop) |
+| **Tela cheia (fullscreen)** | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta) |
 | **Server mode** | passe `fetchData` em vez de `rows` |
 | **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo. |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária. |
@@ -284,6 +288,68 @@ const tableRef = useRef<DataTableRef>(null);
 
 Referência: `src/preview/pages/ClientsTreePreview.tsx`.
 
+### Polish de célula — Read-more (Ler mais)
+
+Trunca conteúdo longo e abre o texto completo num popover ao clicar em "Ler mais". Equivalente DS do `ReadMoreCell` legado (que usava tooltip).
+
+```tsx
+const columns = [
+  // 1 linha + reticências + gatilho "Ler mais" (default)
+  { field: "obs", headerName: "Observação", readMore: true },
+  // N linhas antes de truncar + label custom
+  { field: "bio", headerName: "Bio", readMore: { lines: 2, label: "Ver tudo" } },
+];
+```
+
+- `readMore: true` → 1 linha, label "Ler mais". `readMore: { lines?, label? }` customiza.
+- Desativa o `ellipsis` da cell automaticamente (a add-on gerencia o próprio truncate).
+- Aplica-se ao render default **ou** ao `render` custom (o nó é envolvido). Ignorado em `type: "actions"`, células em edição e na coluna primária de tree-data.
+- O texto do popover deriva do `valueFormatter`/`formatValue`/value (string) — pra HTML rico, passe um `render` que retorna o nó; ele é exibido no popover.
+
+### Polish de célula — Copy (copiar valor)
+
+Ícone de copiar revelado no hover/foco da célula, com feedback "Copiado!" por ~2s. Usa `navigator.clipboard` — **sem dependência nova**.
+
+```tsx
+const columns = [
+  // copia o texto renderizado da célula
+  { field: "email", headerName: "E-mail", copyable: true },
+  // copia um valor derivado da row (ex: id puro) + aria-label custom
+  { field: "doc", headerName: "CPF", copyable: { value: (row) => row.cpfRaw, label: "Copiar CPF" } },
+];
+```
+
+- `copyable: true` → copia o texto da célula. `copyable: { value?, label? }` customiza: `value` aceita string ou `(row) => string`; `label` é o aria-label/title do botão.
+- O ícone só aparece no hover/foco (não polui a célula). O click não dispara `onRowClick`/seleção.
+- `readMore` tem precedência: se ambos forem definidos na mesma coluna, vale `readMore`.
+
+### Grab-to-scroll horizontal
+
+Arrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao `useGrabToScroll` legado.
+
+```tsx
+<DataTable<Client> rows={clients} columns={columns} grabToScroll />
+```
+
+- Prop raiz `grabToScroll: boolean` (default `false`).
+- Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.
+- **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).
+
+### Tela cheia (fullscreen)
+
+Toggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo clique ou **Esc** volta.
+
+```tsx
+<DataTable<Client>
+  rows={clients}
+  columns={columns}
+  toolbar={{ enableFullscreen: true }}
+/>
+```
+
+- `toolbar.enableFullscreen: true` (default `false`) renderiza o tool button entre Filtros e Configurações.
+- O container raiz vira overlay `fixed inset-0` (z-index `--z-index-modal`) com bg do canvas. Estado interno uncontrolled.
+
 ### View Kanban (table ⇄ board)
 
 ```tsx
@@ -476,6 +542,7 @@ tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (n
 - `enableColumns?` (true) — ColsPopover (show/hide, pin, reorder via drag)
 - `enableDensity?` (true) — ToolbarSegmented compact/standard/comfortable
 - `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom
+- `enableFullscreen?` (false) — botão ⤢ na toolbar (entre Filtros e Configurações) que expande a tabela pra viewport inteira; Esc volta
 - `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito
 - `customLeft?` — ReactNode livre após search/refresh (controls custom)
 - `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado
@@ -534,6 +601,14 @@ const cols = [
   { field: "name" },                    // expandida pelo autoFit
   { field: "actions", type: "actions", width: 60 },
 ];
+```
+
+### `grabToScroll?: boolean` (default `false`)
+
+Liga o grab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Útil em tabelas com muitas colunas onde o overflow horizontal é comum.
+
+```tsx
+<DataTable rows={rows} columns={cols} grabToScroll />
 ```
 
 ### `persistId?: string` (workspace "Default" persistente — schema v4)
