@@ -28,6 +28,7 @@ import { loadPersistedState, clearPersistedState } from "./state-persistence-uti
 import { useDataTableSavedViews } from "./use-data-table-saved-views";
 import type { SavedView, SavedViewsService } from "../services/saved-views.types";
 import { promoteOperatorForColumn } from "../utils/filter-ops";
+import { collectExpandableTreeIds } from "../utils/tree-rows";
 // Side-effect: registra os tipos default no ColumnTypeRegistry
 import "../column-types";
 
@@ -608,6 +609,48 @@ export function useDataTableController<T>(
     savedViews.setCurrentViewId(null);
   }, [props.persistId, props.columns, density, sort, filters, search, pagination, cols, setViewMode, setGroupBy, setExpandedRowIds, savedViews]);
 
+  /* ── Tree-data: expand-all / collapse-all programático ───────────
+   *
+   * `expandedRowIds` guarda os ids que DIVERGEM do estado default de expansão
+   * (mesma semântica de buildTreeRows/group-rows): com `defaultExpanded=true`
+   * um id presente conta como COLAPSADO; com `defaultExpanded=false` conta como
+   * EXPANDIDO. Logo, "expandir/recolher tudo" é só escolher entre `[]` (todos no
+   * default) e "todos os ids expansíveis" (todos divergindo):
+   *
+   *   defaultExpanded=true  → expandAll = []                       | collapseAll = todos os ids
+   *   defaultExpanded=false → expandAll = todos os ids             | collapseAll = []
+   *
+   * `collectExpandableTreeIds` varre TODAS as rows pós-filtro/sort (não só a
+   * página atual — tree-data desliga paginação) e retorna os ids dos nós que têm
+   * filhos. No-op fora do modo tree-data (sem `getTreeDataPath`). */
+  const treeDefaultExpanded = props.treeData?.defaultExpanded !== false; // default true
+
+  const expandAllTree = useCallback(() => {
+    if (!props.getTreeDataPath) return;
+    if (treeDefaultExpanded) {
+      // Tudo já expandido por default → zera a divergência.
+      setExpandedRowIds([]);
+    } else {
+      // Cada nó com filhos precisa divergir do default colapsado.
+      setExpandedRowIds(
+        collectExpandableTreeIds(allPagesProcessed, props.getTreeDataPath, getRowId),
+      );
+    }
+  }, [props.getTreeDataPath, treeDefaultExpanded, allPagesProcessed, getRowId, setExpandedRowIds]);
+
+  const collapseAllTree = useCallback(() => {
+    if (!props.getTreeDataPath) return;
+    if (treeDefaultExpanded) {
+      // Cada nó com filhos precisa divergir do default expandido.
+      setExpandedRowIds(
+        collectExpandableTreeIds(allPagesProcessed, props.getTreeDataPath, getRowId),
+      );
+    } else {
+      // Tudo já colapsado por default → zera a divergência.
+      setExpandedRowIds([]);
+    }
+  }, [props.getTreeDataPath, treeDefaultExpanded, allPagesProcessed, getRowId, setExpandedRowIds]);
+
   /* ── Imperative ref ──────────────────────────────────────────── */
 
   useImperativeHandle(ref, () => ({
@@ -623,7 +666,9 @@ export function useDataTableController<T>(
     resetPersistedState: () => {
       clearPersistedState(props.persistId);
     },
-  }), [getState, selection, isServerMode, query, exporter, props.persistId]);
+    expandAllTree,
+    collapseAllTree,
+  }), [getState, selection, isServerMode, query, exporter, props.persistId, expandAllTree, collapseAllTree]);
 
   /* ── Context value memoizado ─────────────────────────────────── */
 
@@ -700,5 +745,11 @@ export function useDataTableController<T>(
     expandedRowIds,
     setExpandedRowIds,
     toggleRowExpansion,
+    /** Tree-data: expande/recolhe TODOS os nós de uma vez (programático).
+     *  Também expostos no imperative handle (`DataTableRef`). */
+    expandAllTree,
+    collapseAllTree,
+    /** Modo tree-data ativo? (há `getTreeDataPath` e não há groupBy). */
+    useTreeData: !!props.getTreeDataPath && !groupBy,
   };
 }

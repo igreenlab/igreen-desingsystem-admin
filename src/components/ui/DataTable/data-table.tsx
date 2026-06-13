@@ -969,12 +969,13 @@ function DataTableInternal<T>(
     [expandedRowIds, controllerSetExpandedRowIds],
   );
 
-  // NOTE (follow-up): expand-all / collapse-all programático da árvore ainda
-  // não tem UI nem método no imperative handle (`DataTableRef`). O util
-  // `collectExpandableTreeIds` (tree-rows.ts) já existe e está pronto pra montar
-  // o Set de divergência — basta expô-lo via ref (`expandAllTree`/
-  // `collapseAllTree`) quando o handle for estendido. Mantido fora deste slice
-  // pra não acoplar tree-state ao controller agora.
+  // Expand-all / collapse-all programático da árvore vive no controller
+  // (`expandAllTree`/`collapseAllTree`), exposto via imperative handle
+  // (`DataTableRef`). Usa `collectExpandableTreeIds` (tree-rows.ts) sobre todas
+  // as rows pós-filtro/sort pra montar o Set de divergência, respeitando
+  // `treeData.defaultExpanded`. O app dispara via `ref.current.expandAllTree()` /
+  // `ref.current.collapseAllTree()`; a toolbar do DS não embute botões (slice
+  // mantido só nos métodos do ref).
 
   // Array de items renderizados — quando há expansion/tree, intercala markers.
   // Precedência: groupBy > tree-data > row-expansion.

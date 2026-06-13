@@ -781,4 +781,16 @@ export type DataTableRef = {
   exportCsv: (scope: "all" | "filtered" | "selected") => void;
   /** Limpa o estado persistido no localStorage (no-op se persistId nao foi passado). */
   resetPersistedState: () => void;
+  /**
+   * Tree-data: expande TODOS os nós da árvore de uma vez. No-op quando a tabela
+   * não está em modo tree-data (sem `getTreeDataPath`). Opera sobre todas as
+   * rows pós-filtro/sort (tree-data desliga paginação), respeitando
+   * `treeData.defaultExpanded`. Pareia com `collapseAllTree`.
+   */
+  expandAllTree: () => void;
+  /**
+   * Tree-data: recolhe TODOS os nós da árvore de uma vez. No-op quando a tabela
+   * não está em modo tree-data (sem `getTreeDataPath`). Pareia com `expandAllTree`.
+   */
+  collapseAllTree: () => void;
 };

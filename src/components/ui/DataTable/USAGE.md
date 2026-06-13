@@ -271,7 +271,16 @@ Regras:
 - **Pagination desliga automaticamente** (paginar cortaria ramos). Não suportado em server mode — passe todas as rows do escopo + `virtualize` se necessário.
 - Precedência quando mais de um modo é passado: `groupBy` > `getTreeDataPath` > `renderRowExpansion`.
 - Search/sort operam sobre as rows; a árvore é reconstruída do resultado.
-- Expand-all / collapse-all programático ainda não tem método no ref (follow-up). O util `collectExpandableTreeIds` já existe para essa wiring.
+- **Expand-all / collapse-all** programático via imperative ref: `ref.current.expandAllTree()` / `ref.current.collapseAllTree()` (ver seção [Imperative ref](#imperative-ref)). No-op fora do modo tree-data. Respeita `treeData.defaultExpanded` e opera sobre todas as rows pós-filtro/sort. O DS não embute botões na toolbar — o consumer fia os botões e chama via ref.
+
+```tsx
+const tableRef = useRef<DataTableRef>(null);
+
+<button onClick={() => tableRef.current?.expandAllTree()}>Expandir tudo</button>
+<button onClick={() => tableRef.current?.collapseAllTree()}>Recolher tudo</button>
+
+<DataTable<NetworkRow> ref={tableRef} getTreeDataPath={getTreeDataPath} /* ... */ />
+```
 
 Referência: `src/preview/pages/ClientsTreePreview.tsx`.
 
@@ -448,7 +457,11 @@ tableRef.current?.getState();         // DataTableState snapshot
 tableRef.current?.refresh();          // server mode: re-disparar fetchData
 tableRef.current?.exportCsv("filtered");  // download CSV — escopo "all" | "filtered" | "selected"
 tableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem persistId)
+tableRef.current?.expandAllTree();        // tree-data: expande todos os nós (no-op fora de tree-data)
+tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (no-op fora de tree-data)
 ```
+
+`expandAllTree` / `collapseAllTree` só fazem efeito em modo tree-data (`getTreeDataPath`). Operam sobre todas as rows pós-filtro/sort (tree-data desliga paginação) via `collectExpandableTreeIds` e respeitam `treeData.defaultExpanded` — escrevem o Set de divergência correto (`[]` ou todos os ids expansíveis).
 
 ---
 

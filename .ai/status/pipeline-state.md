@@ -62,6 +62,22 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-06-13] | DS DEV | DataTable tree-data: expand-all / collapse-all programático no DataTableRef | CONCLUÍDO
+- Input: follow-up do tree-data (commit `658f50e`). O agente anterior deixou `collectExpandableTreeIds` (utils/tree-rows.ts) pronto mas NÃO expôs expand-all/collapse-all no imperative handle — exigia threadar tree-state no controller. Branch `feat/datatable-tree-expand-all` a partir de `main`. Sem push.
+- Output:
+  1. **`DataTableRef`** (`data-table.types.ts`) ganhou 2 métodos: `expandAllTree: () => void` e `collapseAllTree: () => void`. No-op fora de tree-data (sem `getTreeDataPath`).
+  2. **Controller** (`use-data-table-controller.ts`): import de `collectExpandableTreeIds`; 2 `useCallback` (`expandAllTree`/`collapseAllTree`) montados sobre `allPagesProcessed` (todas as rows pós-filtro/sort — tree-data desliga paginação) + `getRowId` + `props.getTreeDataPath`, respeitando `treeData.defaultExpanded`. Wired no `useImperativeHandle`. Também expostos no return do controller (`expandAllTree`/`collapseAllTree`/`useTreeData`) pra um eventual botão de toolbar.
+  3. **Semântica de divergência**: `expandedRowIds` guarda ids que DIFEREM do default. Logo `defaultExpanded=true` → expandAll=`[]`, collapseAll=todos os ids expansíveis; `defaultExpanded=false` → invertido. Reusa `setExpandedRowIds` (preserva controlled/uncontrolled + persistência).
+  4. **data-table.tsx**: removido o NOTE de follow-up; substituído por comentário apontando os métodos do controller/ref.
+  5. **Docs**: USAGE.md (seção Imperative ref + recipe Tree-data) com as 2 novas linhas + exemplo de botões fiados pelo consumer.
+- Decisões: NÃO embutir botões na toolbar do DS (sem slot natural óbvio; prompt deixou opcional e o app fará os botões) — só os métodos do ref. Toggle por-nó (`toggleTreeNode`) permanece intocado.
+- Tokens novos: NENHUM. Zero hardcode; nenhuma cascata necessária (a feature é puramente lógica/state — não toca styles).
+- Validação: `npm run build` verde (tokens:tw4 + `tsc -b` 0 erros + vite, 3817 módulos). `npm run dev` (3100) não testado — defeito pré-existente do optimizeDeps do lucide-react (documentado na entry anterior) afeta só o dev server; build prod basta.
+- Assumption: a semântica "Set = divergência do default" do `buildTreeRows` é a mesma que expand-all/collapse-all precisa inverter por `defaultExpanded` — verificado contra `isNodeExpanded` em tree-rows.ts (`expandedIds.has(id) ? !defaultExpanded : defaultExpanded`). `allPagesProcessed` cobre toda a árvore (paginação desligada em tree-data).
+- Lições novas: nenhuma.
+
+---
+
 ### [2026-06-09] | DS REVIEWER | PR3 auditoria-datatable — extensibilidade (operador default, filterType, warn, types) | PRE_COMMIT_OK
 - Assumption verificada: sim — "derivar default do registry é correto pra todos os tipos (teste tsx 13/13, incl. date→between + currency→equals); any→unknown não quebra consumers (eles já castam value)" — verificada:
   1. **#2 ciclo filter-ops → column-types**: `column-types/` não importa de `utils/filter-ops.ts` (grep retornou vazio). Único sentido de dependência é `utils/filter-ops → ../column-types` (e `utils/calculate-column-widths → ../column-types`). Sem ciclo.
