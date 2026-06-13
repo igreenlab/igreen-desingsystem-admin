@@ -66,7 +66,7 @@ export function DataTableTreeToggle({
             "size-icon-md rounded-radius-sm",
             "text-fg-muted hover:text-fg-strong hover:bg-bg-muted",
             "transition-colors duration-150",
-            "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+            "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
           )}
         >
           <ChevronRight
