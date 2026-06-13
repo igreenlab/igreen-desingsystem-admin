@@ -312,6 +312,13 @@ export type DataTableColumnDef<T> = {
    *  Funciona apenas se DataTable também receber `renderRowExpansion`. */
   expandable?: boolean;
 
+  /** Tree-data trigger — Fase F.4c. Quando true, esta é a coluna primária da
+   *  árvore: suas células ganham indentação por nível + chevron expand/collapse
+   *  + (opcional) contagem de descendentes. Funciona apenas se o DataTable
+   *  receber `getTreeDataPath`. Se nenhuma coluna marcar `treeColumn: true`, o
+   *  DataTable usa a primeira coluna não-`actions` automaticamente. */
+  treeColumn?: boolean;
+
   /** Inline edit — Fase D.
    *  `editable: true` ativa edit-on-double-click. `editType` define o input
    *  (default deriva de `type`: number → number input, select-like → Select).
@@ -644,6 +651,45 @@ export type DataTableProps<T> = {
   onExpandedRowIdsChange?: (ids: GridRowId[]) => void;
   /** Quando true, abrir uma row colapsa as demais. Default false (múltiplas abertas). */
   singleExpand?: boolean;
+
+  /* ── Tree-data (hierarquia multi-nível) — Fase F.4c ─────────────── */
+
+  /**
+   * Tree-data hierárquico multi-nível (padrão AG Grid). Recebe uma row FLAT e
+   * retorna o caminho hierárquico dela (ex: `["Ana"]`, `["Ana", "Bruno"]`,
+   * `["Ana", "Bruno", "Carla"]`). O DataTable reconstrói a árvore a partir
+   * desses caminhos e renderiza:
+   *   - Indentação por nível na coluna primária (ver `treeColumn`)
+   *   - Chevron expand/collapse por nó com filhos
+   *   - (Opcional) contagem de descendentes via `treeData.showDescendantCount`
+   *
+   * As rows continuam FLAT no `rows` prop — apenas o caminho define a hierarquia.
+   * Compatível com search/filter/sort (operam sobre as rows; a árvore é
+   * reconstruída do resultado). **Pagination é desligada automaticamente** —
+   * paginar quebraria a hierarquia. Em server-mode tree-data não é suportado
+   * (passe todas as rows do escopo via `rows` + `virtualize`).
+   *
+   * Mutuamente exclusivo com `groupBy` e `renderRowExpansion` — se mais de um
+   * estiver definido, a precedência é `groupBy` > `getTreeDataPath` >
+   * `renderRowExpansion`.
+   *
+   * O estado de expansão dos nós reusa `expandedRowIds` / `defaultExpandedRowIds`
+   * / `onExpandedRowIdsChange` (mesma máquina de row-expansion).
+   */
+  getTreeDataPath?: (row: T) => Array<string | number>;
+  /** Ajustes do modo tree-data. */
+  treeData?: {
+    /**
+     * Mostra a contagem de descendentes ao lado do label do nó (ex: "Ana (12)").
+     * Default `false`.
+     */
+    showDescendantCount?: boolean;
+    /**
+     * Estado de expansão default dos nós com filhos. `true` = árvore inteira
+     * começa aberta; `false` = só as raízes aparecem. Default `true`.
+     */
+    defaultExpanded?: boolean;
+  };
 
   /** Slots de feedback custom */
   renderEmpty?: ReactNode;

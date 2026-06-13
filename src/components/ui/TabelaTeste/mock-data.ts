@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 import {
   Hash, User, AtSign, Phone, CheckCircle2, Tag,
   Users, DollarSign, Calendar, Type,

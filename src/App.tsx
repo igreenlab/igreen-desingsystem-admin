@@ -34,6 +34,7 @@ import ClientsPreFilteredPreview from "./preview/pages/ClientsPreFilteredPreview
 import ClientsVirtualizedPreview from "./preview/pages/ClientsVirtualizedPreview";
 import ClientsGroupedPreview from "./preview/pages/ClientsGroupedPreview";
 import ClientsExpandablePreview from "./preview/pages/ClientsExpandablePreview";
+import ClientsTreePreview from "./preview/pages/ClientsTreePreview";
 import ClientsTypedPreview from "./preview/pages/ClientsTypedPreview";
 import ClientsKanbanPreview from "./preview/pages/ClientsKanbanPreview";
 import { AccordionDoc } from "./preview/pages/AccordionDoc";
@@ -157,7 +158,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -326,6 +327,7 @@ export function App() {
           {activePage === "clients-virtualized" && <ClientsVirtualizedPreview />}
           {activePage === "clients-grouped" && <ClientsGroupedPreview />}
           {activePage === "clients-expandable" && <ClientsExpandablePreview />}
+          {activePage === "clients-tree" && <ClientsTreePreview />}
           {activePage === "clients-typed" && <ClientsTypedPreview />}
           {activePage === "clients-kanban" && <ClientsKanbanPreview />}
           {activePage === "accordion" && <AccordionDoc />}

@@ -92,6 +92,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Virtualização** | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais) |
 | **Row grouping** | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form |
 | **Row expansion** | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />` |
+| **Tree-data (hierarquia)** | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente. |
 | **Saved views** | `savedViewsService` (use `savedViewsMockService` em dev) |
 | **State persistence** | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
 | **Auto-fit das colunas** | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui espaço sobrando. Override com `col.width` mantém largura fixa. `autoFit={false}` desliga (comportamento legacy). |
@@ -228,6 +229,51 @@ const columns = [
 ```
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
+
+### Tree-data (hierarquia multi-nível)
+
+Hierarquia tipo AG Grid: cada linha continua **FLAT** em `rows` e o **caminho** (`getTreeDataPath`) define a árvore. O DataTable reconstrói os níveis a partir dos caminhos e renderiza indentação + chevron na coluna primária.
+
+```tsx
+const columns = [
+  { field: "name", headerName: "Licenciado", treeColumn: true },  // ← coluna primária da árvore
+  // ...
+];
+
+// O path sobe a cadeia de patrocinador até a raiz: ["L-001", "L-010", "L-100"]
+const byId = new Map(rows.map((r) => [r.id, r]));
+const getTreeDataPath = (row: NetworkRow): string[] => {
+  const path: string[] = [];
+  let cur: NetworkRow | undefined = row;
+  while (cur) {
+    path.unshift(cur.id);
+    cur = cur.parentId ? byId.get(cur.parentId) : undefined;
+  }
+  return path;
+};
+
+<DataTable<NetworkRow>
+  rows={rows}                       // ← FLAT (não aninhadas)
+  columns={columns}
+  getRowId={(r) => r.id}
+  getTreeDataPath={getTreeDataPath}
+  treeData={{
+    defaultExpanded: true,          // árvore começa aberta (default true)
+    showDescendantCount: true,      // mostra "(N)" descendentes ao lado do nome
+  }}
+/>
+```
+
+Regras:
+- `getTreeDataPath(row)` retorna o array do caminho (`[raiz, ..., self]`). Linhas com path vazio são ignoradas da árvore.
+- Se **nenhuma** coluna marcar `treeColumn: true`, o DataTable usa a primeira coluna não-`actions`.
+- Estado de expansão reusa a máquina de row-expansion (`expandedRowIds` / `defaultExpandedRowIds` / `onExpandedRowIdsChange`). O Set guarda os ids que **divergem** do `defaultExpanded`.
+- **Pagination desliga automaticamente** (paginar cortaria ramos). Não suportado em server mode — passe todas as rows do escopo + `virtualize` se necessário.
+- Precedência quando mais de um modo é passado: `groupBy` > `getTreeDataPath` > `renderRowExpansion`.
+- Search/sort operam sobre as rows; a árvore é reconstruída do resultado.
+- Expand-all / collapse-all programático ainda não tem método no ref (follow-up). O util `collectExpandableTreeIds` já existe para essa wiring.
+
+Referência: `src/preview/pages/ClientsTreePreview.tsx`.
 
 ### View Kanban (table ⇄ board)
 

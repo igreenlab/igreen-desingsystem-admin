@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTheme, type Theme } from "@/hooks/useTheme";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 import {
   ArrowRight,
   ArrowUpRight,

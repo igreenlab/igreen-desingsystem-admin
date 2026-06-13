@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 import { cn } from "@/lib/utils";
 
 export type Step = {

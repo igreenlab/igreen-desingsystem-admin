@@ -216,10 +216,13 @@ export function useDataTableController<T>(
   //     todas as rows pra calcular scroll height total)
   //   - groupBy state (Fase F.4: agrupamento precisa de todas as rows pra montar
   //     grupos completos; paginar quebraria o conceito)
+  //   - getTreeDataPath (Fase F.4c: tree-data precisa de todas as rows pra
+  //     reconstruir a hierarquia completa; paginar cortaria ramos)
   const shouldPaginate =
     props.paginationConfig?.enabled !== false &&
     !props.virtualize &&
-    !groupBy;
+    !groupBy &&
+    !props.getTreeDataPath;
 
   const processed = useDataTableProcessor({
     rows: isServerMode ? [] : clientRows,

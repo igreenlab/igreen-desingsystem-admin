@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 
 /** Lado de entrada do panel — default: "right" */
 export type PanelSide = "left" | "right" | "top" | "bottom";
