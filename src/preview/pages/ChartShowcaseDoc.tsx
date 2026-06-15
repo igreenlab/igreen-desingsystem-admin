@@ -114,38 +114,61 @@ function CardHead({
   );
 }
 
+/* Cabeçalho de categoria (separa grupos de composições, full-width) */
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="w-full pt-pad-3xl">
+      <p className="text-caption-md font-semibold uppercase tracking-[0.06em] text-fg-muted">
+        {children}
+      </p>
+      <div className="mt-pad-md border-b border-border-subtle" />
+    </div>
+  );
+}
+
 const moreBtn = <MoreVertical className="size-icon-sm shrink-0 text-fg-muted" />;
 const brl = (n: number) =>
   n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
+/* Header KPI padrão (label pequeno + valor grande 30px) — usado nos cards
+   cujo cabeçalho é um número de destaque (SaaS revenue, Revenue Performance). */
+const KPI_LABEL = "text-caption-md text-fg-muted";
+const KPI_VALUE =
+  "text-[30px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]";
+
 const TOC = [
+  // Receita & Finanças
   { id: "saas-revenue", label: "SaaS revenue metrics" },
-  { id: "db-instance", label: "Database instance" },
+  { id: "revenue-performance", label: "Revenue Performance" },
   { id: "finance", label: "Finance + Report" },
   { id: "total-revenue", label: "Total Revenue + Growth" },
-  { id: "user-activity", label: "User Activity" },
   { id: "total-income", label: "Total Income + Report" },
   { id: "total-earning", label: "Total earning" },
-  { id: "anatomy", label: "Anatomy detected" },
-  { id: "weekly-overview", label: "Weekly overview" },
   { id: "total-sales", label: "Total sales" },
-  { id: "subscription", label: "Subscription Billing" },
-  { id: "acme-uptime", label: "Uptime status" },
-  { id: "system-status", label: "System Status" },
-  { id: "budget", label: "Budget Breakdown" },
-  { id: "crypto", label: "Crypto Portfolio" },
+  { id: "pnl", label: "P&L" },
+  // Usuários & Crescimento
   { id: "product-growth", label: "Product Growth Metrics" },
-  { id: "revenue-performance", label: "Revenue Performance" },
+  { id: "user-activity", label: "User Activity" },
+  { id: "user-acquisition", label: "User Acquisition" },
+  { id: "weekly-overview", label: "Weekly overview" },
+  { id: "anatomy", label: "Anatomy detected" },
+  // Operações & Status
+  { id: "db-instance", label: "Database instance" },
   { id: "cicd", label: "CI/CD Pipeline" },
   { id: "infra-cost", label: "Infrastructure cost" },
+  { id: "system-status", label: "System Status" },
+  { id: "acme-uptime", label: "Uptime status" },
+  { id: "support-tickets", label: "Support Tickets" },
+  { id: "vehicle", label: "Vehicle overview" },
+  { id: "release-timeline", label: "Release timeline" },
+  // Cobrança & Campanhas
+  { id: "subscription", label: "Subscription Billing" },
   { id: "email-campaign", label: "Email Campaign" },
   { id: "sales-lead", label: "Sales Lead" },
-  { id: "release-timeline", label: "Release timeline" },
-  { id: "vehicle", label: "Vehicle overview" },
-  { id: "support-tickets", label: "Support Tickets" },
+  { id: "budget", label: "Budget Breakdown" },
   { id: "traffic", label: "Traffic Sources" },
-  { id: "user-acquisition", label: "User Acquisition" },
-  { id: "pnl", label: "P&L" },
+  // Mercado
+  { id: "crypto", label: "Crypto Portfolio" },
   { id: "indices", label: "Indices Alerts" },
 ];
 
@@ -177,10 +200,8 @@ function SaaSRevenueCard() {
     <Panel id="saas-revenue">
       <div className="mb-pad-3xl flex flex-wrap items-start justify-between gap-gp-lg">
         <div>
-          <p className="text-caption-md text-fg-muted">SaaS revenue metrics</p>
-          <p className="text-display-md font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
-            $39,025.00
-          </p>
+          <p className={KPI_LABEL}>SaaS revenue metrics</p>
+          <p className={KPI_VALUE}>$39,025.00</p>
           <p className="text-body-sm">
             <span className="font-medium text-fg-success">+$1,840.00 (4.9%)</span>{" "}
             <span className="text-fg-muted">vs last month</span>
@@ -1214,8 +1235,8 @@ function RevenuePerformanceCard() {
   ];
   return (
     <Panel id="revenue-performance">
-      <p className="text-title-md font-semibold text-fg-default">Revenue Performance</p>
-      <p className="text-heading-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">$285,420.75</p>
+      <p className={KPI_LABEL}>Revenue Performance</p>
+      <p className={KPI_VALUE}>$285,420.75</p>
       <p className="mb-pad-3xl text-body-sm">
         <span className="font-medium text-fg-success">+$12,840.50 (4.7%)</span> <span className="text-fg-muted">Past 30 days</span>
       </p>
@@ -1782,40 +1803,42 @@ export function ChartShowcaseDoc() {
       <DocSeparator />
 
       <div className="flex flex-col items-center gap-gp-6xl">
+        <SectionLabel>Receita &amp; Finanças</SectionLabel>
         <SaaSRevenueCard />
-        <DbInstanceCard />
+        <RevenuePerformanceCard />
         <FinanceCard />
         <TotalRevenueCard />
-        <UserActivityCard />
         <TotalIncomeCard />
-
-        {/* Cards estreitos — cada um na própria row, largura fixa */}
         <TotalEarningCard />
-        <AnatomyCard />
-        <WeeklyOverviewCard />
         <TotalSalesCard />
-        <BudgetBreakdownCard />
-        <CryptoPortfolioCard />
+        <PnlCard />
 
-        <SubscriptionBillingCard />
-        <AcmeUptimeCard />
-        <SystemStatusCard />
-
-        {/* Lote 2 de composições */}
+        <SectionLabel>Usuários &amp; Crescimento</SectionLabel>
         <ProductGrowthCard />
-        <RevenuePerformanceCard />
+        <UserActivityCard />
+        <UserAcquisitionCard />
+        <WeeklyOverviewCard />
+        <AnatomyCard />
+
+        <SectionLabel>Operações &amp; Status</SectionLabel>
+        <DbInstanceCard />
         <CicdCard />
         <InfraCostCard />
-        <EmailCampaignCard />
-        <SalesLeadCard />
+        <SystemStatusCard />
+        <AcmeUptimeCard />
+        <SupportTicketsCard />
+        <VehicleOverviewCard />
         <ReleaseTimelineCard />
 
-        {/* Estreitos — cada um na própria row, largura fixa */}
-        <VehicleOverviewCard />
-        <SupportTicketsCard />
+        <SectionLabel>Cobrança &amp; Campanhas</SectionLabel>
+        <SubscriptionBillingCard />
+        <EmailCampaignCard />
+        <SalesLeadCard />
+        <BudgetBreakdownCard />
         <TrafficSourcesCard />
-        <UserAcquisitionCard />
-        <PnlCard />
+
+        <SectionLabel>Mercado</SectionLabel>
+        <CryptoPortfolioCard />
         <IndicesAlertsCard />
       </div>
     </DocLayout>
