@@ -31,6 +31,7 @@ import { LineChartDoc } from "./preview/pages/LineChartDoc";
 import { PieChartDoc } from "./preview/pages/PieChartDoc";
 import { RadarChartDoc } from "./preview/pages/RadarChartDoc";
 import { RadialChartDoc } from "./preview/pages/RadialChartDoc";
+import { ChartShowcaseDoc } from "./preview/pages/ChartShowcaseDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ModalDoc } from "./preview/pages/ModalDoc";
@@ -161,7 +162,7 @@ const DOC_PAGES = [
   "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
   "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
-  "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial",
+  "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
@@ -372,6 +373,7 @@ export function App() {
           {activePage === "chart-pie" && <PieChartDoc />}
           {activePage === "chart-radar" && <RadarChartDoc />}
           {activePage === "chart-radial" && <RadialChartDoc />}
+          {activePage === "chart-showcase" && <ChartShowcaseDoc />}
           {activePage === "showcase-v2" && <ShowcasePageV2 />}
           {activePage === "agents" && <AgentsPreview />}
           {activePage === "agents-overview" && <AgentsOverviewDoc />}
