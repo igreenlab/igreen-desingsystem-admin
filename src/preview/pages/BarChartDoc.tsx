@@ -30,16 +30,22 @@ import { DocLayout, DocHeader, DocSeparator } from "../components";
 /* ── Mock (domínio iGreen) ──────────────────────────────────────────── */
 const DATA = [
   { month: "Jan", gerada: 186, consumida: 80 },
-  { month: "Fev", gerada: 205, consumida: 120 },
-  { month: "Mar", gerada: 237, consumida: 150 },
-  { month: "Abr", gerada: 173, consumida: 190 },
-  { month: "Mai", gerada: 209, consumida: 170 },
-  { month: "Jun", gerada: 264, consumida: 210 },
+  { month: "Fev", gerada: 305, consumida: 200 },
+  { month: "Mar", gerada: 237, consumida: 120 },
+  { month: "Abr", gerada: 73, consumida: 190 },
+  { month: "Mai", gerada: 209, consumida: 130 },
+  { month: "Jun", gerada: 214, consumida: 140 },
 ];
 
 const config = {
   gerada: { label: "Gerada", color: "var(--color-chart-1)" },
   consumida: { label: "Consumida", color: "var(--color-chart-2)" },
+} satisfies ChartConfig;
+
+// Verde + âmbar (mais contraste que verde+teal) — usado em Multiple/Stacked.
+const configContrast = {
+  gerada: { label: "Gerada", color: "var(--color-chart-1)" },
+  consumida: { label: "Consumida", color: "var(--color-chart-4)" },
 } satisfies ChartConfig;
 
 // Geração por fonte (categórico — uma cor por fonte)
@@ -64,9 +70,9 @@ const configFontes = {
 const SALDO = [
   { month: "Jan", saldo: 106 },
   { month: "Fev", saldo: 85 },
-  { month: "Mar", saldo: 87 },
-  { month: "Abr", saldo: -17 },
-  { month: "Mai", saldo: 39 },
+  { month: "Mar", saldo: -42 },
+  { month: "Abr", saldo: -57 },
+  { month: "Mai", saldo: 79 },
   { month: "Jun", saldo: 54 },
 ];
 const configSaldo = { saldo: { label: "Saldo (kWh)" } } satisfies ChartConfig;
@@ -108,6 +114,11 @@ export function BarChartDoc() {
       />
       <DocSeparator />
 
+      {/* Interactive em destaque no topo (igual ao shadcn) */}
+      <Card id="interactive" className="mb-gp-2xl">
+        <InteractiveBarChart />
+      </Card>
+
       <div className="grid gap-gp-2xl md:grid-cols-2">
         {/* Default */}
         <Card id="default">
@@ -128,48 +139,41 @@ export function BarChartDoc() {
           <TrendFooter />
         </Card>
 
-        {/* Horizontal */}
+        {/* Horizontal (meses, cor única) */}
         <Card id="horizontal">
           <CardHeader>
             <CardTitle>Bar Chart — Horizontal</CardTitle>
-            <CardDescription>Geração por fonte</CardDescription>
+            <CardDescription>Energia gerada por mês</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={configFontes} className={CHART_CLASS}>
-              <BarChart data={FONTES} layout="vertical" margin={{ left: 8 }}>
+            <ChartContainer config={config} className={CHART_CLASS}>
+              <BarChart data={DATA} layout="vertical" margin={{ left: 8 }}>
                 <CartesianGrid horizontal={false} />
                 <YAxis
-                  dataKey="fonte"
+                  dataKey="month"
                   type="category"
                   tickLine={false}
                   axisLine={false}
                   tickMargin={8}
-                  width={72}
-                  tickFormatter={(v: string) =>
-                    configFontes[v as keyof typeof configFontes]?.label as string
-                  }
+                  width={40}
                 />
-                <XAxis dataKey="total" type="number" hide />
+                <XAxis dataKey="gerada" type="number" hide />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                <Bar dataKey="total" radius={5}>
-                  {FONTES.map((f) => (
-                    <Cell key={f.fonte} fill={f.fill} />
-                  ))}
-                </Bar>
+                <Bar dataKey="gerada" fill="var(--color-gerada)" radius={5} />
               </BarChart>
             </ChartContainer>
           </CardContent>
           <TrendFooter />
         </Card>
 
-        {/* Multiple */}
+        {/* Multiple (verde + âmbar) */}
         <Card id="multiple">
           <CardHeader>
             <CardTitle>Bar Chart — Multiple</CardTitle>
             <CardDescription>Gerada vs. consumida</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={config} className={CHART_CLASS}>
+            <ChartContainer config={configContrast} className={CHART_CLASS}>
               <BarChart data={DATA}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
@@ -182,14 +186,14 @@ export function BarChartDoc() {
           <TrendFooter />
         </Card>
 
-        {/* Stacked + Legend */}
+        {/* Stacked + Legend (verde + âmbar) */}
         <Card id="stacked">
           <CardHeader>
             <CardTitle>Bar Chart — Stacked + Legend</CardTitle>
             <CardDescription>Empilhado com legenda</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={config} className={CHART_CLASS}>
+            <ChartContainer config={configContrast} className={CHART_CLASS}>
               <BarChart data={DATA}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
@@ -202,7 +206,7 @@ export function BarChartDoc() {
           </CardContent>
         </Card>
 
-        {/* Label */}
+        {/* Label (valor acima) */}
         <Card id="label">
           <CardHeader>
             <CardTitle>Bar Chart — Label</CardTitle>
@@ -215,12 +219,7 @@ export function BarChartDoc() {
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                 <Bar dataKey="gerada" fill="var(--color-gerada)" radius={6}>
-                  <LabelList
-                    position="top"
-                    offset={8}
-                    className="fill-fg-default"
-                    fontSize={11}
-                  />
+                  <LabelList position="top" offset={8} className="fill-fg-default" fontSize={11} />
                 </Bar>
               </BarChart>
             </ChartContainer>
@@ -228,34 +227,28 @@ export function BarChartDoc() {
           <TrendFooter />
         </Card>
 
-        {/* Custom Label (dentro da barra) */}
+        {/* Custom Label (meses horizontal, rótulo dentro + valor) */}
         <Card id="custom-label">
           <CardHeader>
             <CardTitle>Bar Chart — Custom Label</CardTitle>
             <CardDescription>Rótulo dentro da barra</CardDescription>
           </CardHeader>
           <CardContent>
-            <ChartContainer config={configFontes} className={CHART_CLASS}>
-              <BarChart data={FONTES} layout="vertical" margin={{ right: 16 }}>
-                <YAxis dataKey="fonte" type="category" hide />
-                <XAxis dataKey="total" type="number" hide />
+            <ChartContainer config={config} className={CHART_CLASS}>
+              <BarChart data={DATA} layout="vertical" margin={{ right: 24, left: 0 }}>
+                <YAxis dataKey="month" type="category" hide />
+                <XAxis dataKey="gerada" type="number" hide />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-                <Bar dataKey="total" radius={5}>
-                  {FONTES.map((f) => (
-                    <Cell key={f.fonte} fill={f.fill} />
-                  ))}
+                <Bar dataKey="gerada" fill="var(--color-gerada)" radius={5}>
                   <LabelList
-                    dataKey="fonte"
+                    dataKey="month"
                     position="insideLeft"
                     offset={10}
                     className="fill-fg-on-brand"
                     fontSize={11}
-                    formatter={(v) =>
-                      (configFontes[v as keyof typeof configFontes]?.label as string) ?? String(v)
-                    }
                   />
                   <LabelList
-                    dataKey="total"
+                    dataKey="gerada"
                     position="right"
                     offset={8}
                     className="fill-fg-default"
@@ -268,7 +261,7 @@ export function BarChartDoc() {
           <TrendFooter />
         </Card>
 
-        {/* Mixed (cor por categoria) */}
+        {/* Mixed (cor por fonte) */}
         <Card id="mixed">
           <CardHeader>
             <CardTitle>Bar Chart — Mixed</CardTitle>
@@ -301,7 +294,7 @@ export function BarChartDoc() {
           <TrendFooter />
         </Card>
 
-        {/* Active (destaque numa barra) */}
+        {/* Active (mês de pico destacado com borda tracejada) */}
         <Card id="active">
           <CardHeader>
             <CardTitle>Bar Chart — Active</CardTitle>
@@ -314,13 +307,19 @@ export function BarChartDoc() {
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                 <Bar dataKey="gerada" radius={6}>
-                  {DATA.map((d, i) => (
-                    <Cell
-                      key={d.month}
-                      fill="var(--color-gerada)"
-                      fillOpacity={i === 5 ? 1 : 0.45}
-                    />
-                  ))}
+                  {DATA.map((d, i) => {
+                    const isPeak = i === 1; // Fev = pico
+                    return (
+                      <Cell
+                        key={d.month}
+                        fill="var(--color-gerada)"
+                        fillOpacity={isPeak ? 1 : 0.45}
+                        stroke={isPeak ? "var(--color-gerada)" : undefined}
+                        strokeWidth={isPeak ? 2 : 0}
+                        strokeDasharray={isPeak ? "4 4" : undefined}
+                      />
+                    );
+                  })}
                 </Bar>
               </BarChart>
             </ChartContainer>
@@ -341,6 +340,7 @@ export function BarChartDoc() {
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
                 <Bar dataKey="saldo" radius={5}>
+                  <LabelList position="top" offset={8} className="fill-fg-muted" fontSize={11} />
                   {SALDO.map((d) => (
                     <Cell
                       key={d.month}
@@ -353,24 +353,29 @@ export function BarChartDoc() {
           </CardContent>
           <TrendFooter />
         </Card>
-
-        {/* Interactive */}
-        <Card id="interactive" className="md:col-span-2">
-          <InteractiveBarChart />
-        </Card>
       </div>
     </DocLayout>
   );
 }
 
-/* ── Interactive (toggle de métrica com totais) ─────────────────────── */
+/* ── Interactive (diário, 3 meses, toggle por métrica com totais) ───── */
+const DAILY = Array.from({ length: 90 }, (_, i) => {
+  const d = new Date(2024, 3, 1);
+  d.setDate(d.getDate() + i);
+  return {
+    date: d.toISOString().slice(0, 10),
+    gerada: 120 + ((i * 13) % 130) + Math.round(40 * Math.sin(i / 5)),
+    consumida: 100 + ((i * 17) % 120) + Math.round(30 * Math.cos(i / 4)),
+  };
+});
+
 function InteractiveBarChart() {
   const [metric, setMetric] = useState<"gerada" | "consumida">("gerada");
 
   const totals = useMemo(
     () => ({
-      gerada: DATA.reduce((s, d) => s + d.gerada, 0),
-      consumida: DATA.reduce((s, d) => s + d.consumida, 0),
+      gerada: DAILY.reduce((s, d) => s + d.gerada, 0),
+      consumida: DAILY.reduce((s, d) => s + d.consumida, 0),
     }),
     [],
   );
@@ -385,7 +390,7 @@ function InteractiveBarChart() {
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b border-border-subtle p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-xl">
           <CardTitle>Bar Chart — Interativo</CardTitle>
-          <CardDescription>Total por métrica no semestre</CardDescription>
+          <CardDescription>Energia diária nos últimos 3 meses</CardDescription>
         </div>
         <div className="flex">
           {METRICS.map((m) => (
@@ -394,10 +399,10 @@ function InteractiveBarChart() {
               type="button"
               onClick={() => setMetric(m.id)}
               data-active={metric === m.id}
-              className="flex flex-1 flex-col justify-center gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-md text-left even:border-l data-[active=true]:bg-bg-muted sm:border-l sm:border-t-0 sm:px-pad-3xl"
+              className="flex flex-1 flex-col justify-center gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-md text-left even:border-l data-[active=true]:bg-bg-muted sm:min-w-[140px] sm:border-l sm:border-t-0 sm:px-pad-3xl sm:py-pad-lg"
             >
               <span className="text-caption-sm text-fg-muted">{m.label}</span>
-              <span className="text-title-md font-semibold leading-none text-fg-default">
+              <span className="text-title-lg font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]">
                 {totals[m.id].toLocaleString("pt-BR")}
               </span>
             </button>
@@ -405,12 +410,33 @@ function InteractiveBarChart() {
         </div>
       </CardHeader>
       <CardContent className="px-pad-2xl pt-pad-2xl">
-        <ChartContainer config={config} className="h-[280px] w-full">
-          <BarChart data={DATA} margin={{ left: 12, right: 12 }}>
+        <ChartContainer config={config} className="aspect-auto h-[280px] w-full">
+          <BarChart data={DAILY} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
-            <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Bar dataKey={metric} fill={`var(--color-${metric})`} radius={5} />
+            <XAxis
+              dataKey="date"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              minTickGap={32}
+              tickFormatter={(v: string) =>
+                new Date(v).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })
+              }
+            />
+            <ChartTooltip
+              content={
+                <ChartTooltipContent
+                  className="w-[150px]"
+                  labelFormatter={(v) =>
+                    new Date(v as string).toLocaleDateString("pt-BR", {
+                      day: "2-digit",
+                      month: "short",
+                    })
+                  }
+                />
+              }
+            />
+            <Bar dataKey={metric} fill={`var(--color-${metric})`} />
           </BarChart>
         </ChartContainer>
       </CardContent>
