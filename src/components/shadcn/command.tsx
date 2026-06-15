@@ -6,7 +6,7 @@ import { Command as CommandPrimitive } from "cmdk"
 import { Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Dialog, DialogContent } from "@/components/shadcn/dialog"
+import { Dialog, DialogContent, DialogTitle } from "@/components/shadcn/dialog"
 
 /**
  * Command — alinhado com o views-popover do design-and-table-v2.
@@ -41,6 +41,9 @@ const CommandDialog = ({ children, ...props }: DialogProps) => {
     <Dialog {...props}>
       <DialogContent
         hideClose
+        // A11y: Radix exige título; aqui é sr-only (paleta de comando não tem
+        // header visível) e opt-out de descrição.
+        aria-describedby={undefined}
         className={cn(
           "overflow-hidden p-0 gap-0 sm:max-w-[384px]",
           "rounded-[12px] border border-border-default",
@@ -48,6 +51,7 @@ const CommandDialog = ({ children, ...props }: DialogProps) => {
           "outline-float"
         )}
       >
+        <DialogTitle className="sr-only">Comando</DialogTitle>
         <Command>{children}</Command>
       </DialogContent>
     </Dialog>
