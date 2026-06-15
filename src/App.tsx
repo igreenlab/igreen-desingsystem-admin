@@ -26,6 +26,7 @@ import { TableToolbarDoc } from "./preview/pages/TableToolbarDoc";
 import TableDoc from "./preview/pages/TableDoc";
 import DataTableDoc from "./preview/pages/DataTableDoc";
 import { AreaChartDoc } from "./preview/pages/AreaChartDoc";
+import { BarChartDoc } from "./preview/pages/BarChartDoc";
 import { ChartComingSoonDoc } from "./preview/pages/ChartComingSoonDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
@@ -363,7 +364,7 @@ export function App() {
           {activePage === "sizing" && <SizingDoc />}
           {activePage === "icons" && <IconsDoc />}
           {activePage === "chart-area" && <AreaChartDoc />}
-          {activePage === "chart-bar" && <ChartComingSoonDoc title="Bar Chart" />}
+          {activePage === "chart-bar" && <BarChartDoc />}
           {activePage === "chart-line" && <ChartComingSoonDoc title="Line Chart" />}
           {activePage === "chart-pie" && <ChartComingSoonDoc title="Pie Chart" />}
           {activePage === "chart-radar" && <ChartComingSoonDoc title="Radar Chart" />}
