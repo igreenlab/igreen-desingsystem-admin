@@ -433,7 +433,7 @@ function InteractiveLineChart() {
   return (
     <>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b border-border-subtle p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-3xl">
+        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-3xl py-pad-3xl">
           <CardTitle>Line Chart — Interativo</CardTitle>
           <CardDescription>Energia diária nos últimos 2 meses</CardDescription>
         </div>
