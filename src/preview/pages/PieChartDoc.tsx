@@ -27,32 +27,43 @@ import {
 import { DocLayout, DocHeader, DocSeparator } from "../components";
 
 /* ── Mock (domínio iGreen: geração por fonte, kWh) ──────────────────── */
+// Paleta monocromática da brand: tons do verde (claro → escuro) derivados do
+// chart-1 (= primitive da brand) via color-mix. Acompanha mudanças da marca e
+// evita o visual "carnaval" de 5 hues distintos.
+const BRAND_SHADES = [
+  "var(--color-chart-1)", // brand
+  "color-mix(in oklch, var(--color-chart-1) 90%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 80%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 70%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 60%, black)", // escuro
+];
+
 const FONTES = [
-  { fonte: "solar", kwh: 275, fill: "var(--color-chart-1)" },
-  { fonte: "eolica", kwh: 200, fill: "var(--color-chart-2)" },
-  { fonte: "hidrica", kwh: 287, fill: "var(--color-chart-3)" },
-  { fonte: "biomassa", kwh: 173, fill: "var(--color-chart-4)" },
-  { fonte: "outros", kwh: 190, fill: "var(--color-chart-5)" },
+  { fonte: "solar", kwh: 275, fill: BRAND_SHADES[0] },
+  { fonte: "eolica", kwh: 200, fill: BRAND_SHADES[1] },
+  { fonte: "hidrica", kwh: 287, fill: BRAND_SHADES[2] },
+  { fonte: "biomassa", kwh: 173, fill: BRAND_SHADES[3] },
+  { fonte: "outros", kwh: 190, fill: BRAND_SHADES[4] },
 ];
 
 const TOTAL = FONTES.reduce((s, f) => s + f.kwh, 0);
 
 const config = {
   kwh: { label: "kWh" },
-  solar: { label: "Solar", color: "var(--color-chart-1)" },
-  eolica: { label: "Eólica", color: "var(--color-chart-2)" },
-  hidrica: { label: "Hídrica", color: "var(--color-chart-3)" },
-  biomassa: { label: "Biomassa", color: "var(--color-chart-4)" },
-  outros: { label: "Outros", color: "var(--color-chart-5)" },
+  solar: { label: "Solar", color: BRAND_SHADES[0] },
+  eolica: { label: "Eólica", color: BRAND_SHADES[1] },
+  hidrica: { label: "Hídrica", color: BRAND_SHADES[2] },
+  biomassa: { label: "Biomassa", color: BRAND_SHADES[3] },
+  outros: { label: "Outros", color: BRAND_SHADES[4] },
 } satisfies ChartConfig;
 
 // Ring secundária (ano anterior) — usada no Stacked
 const FONTES_2023 = [
-  { fonte: "solar", kwh: 240, fill: "var(--color-chart-1)" },
-  { fonte: "eolica", kwh: 180, fill: "var(--color-chart-2)" },
-  { fonte: "hidrica", kwh: 260, fill: "var(--color-chart-3)" },
-  { fonte: "biomassa", kwh: 150, fill: "var(--color-chart-4)" },
-  { fonte: "outros", kwh: 165, fill: "var(--color-chart-5)" },
+  { fonte: "solar", kwh: 240, fill: BRAND_SHADES[0] },
+  { fonte: "eolica", kwh: 180, fill: BRAND_SHADES[1] },
+  { fonte: "hidrica", kwh: 260, fill: BRAND_SHADES[2] },
+  { fonte: "biomassa", kwh: 150, fill: BRAND_SHADES[3] },
+  { fonte: "outros", kwh: 165, fill: BRAND_SHADES[4] },
 ];
 
 const PIE_CLASS = "mx-auto aspect-square max-h-[250px] [&_.recharts-pie-label-text]:fill-fg-default";
@@ -93,20 +104,19 @@ function centerLabel(primary: string, secondary: string) {
     <Label
       content={({ viewBox }) => {
         if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+          const cx = viewBox.cx ?? 0;
+          const cy = viewBox.cy ?? 0;
           return (
-            <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle" dominantBaseline="middle">
+            <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle">
               <tspan
-                x={viewBox.cx}
-                y={viewBox.cy}
-                className="fill-fg-default text-title-lg font-bold [font-variant-numeric:tabular-nums]"
+                x={cx}
+                y={cy - 4}
+                fontSize={22}
+                className="fill-fg-default font-bold [font-variant-numeric:tabular-nums]"
               >
                 {primary}
               </tspan>
-              <tspan
-                x={viewBox.cx}
-                y={(viewBox.cy ?? 0) + 22}
-                className="fill-fg-muted text-caption-sm"
-              >
+              <tspan x={cx} y={cy + 16} fontSize={12} className="fill-fg-muted">
                 {secondary}
               </tspan>
             </text>
