@@ -17,6 +17,7 @@ import {
 import { Button } from "../../Button/button";
 import { Combobox } from "../../Combobox";
 import { cn } from "@/lib/utils";
+import { normalizeText } from "@/lib/string-utils";
 
 /* ── Types ────────────────────────────────────────────────────────── */
 export type FilterPopoverColumn = {
@@ -65,6 +66,27 @@ function generateId(): string {
     return crypto.randomUUID();
   }
   return `f_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;
+}
+
+/**
+ * Resolve o campo digitado no Filtro Avançado → key física da coluna. O usuário
+ * digita o que VÊ na grade (o RÓTULO, ex.: `Cliente`), mas o pipeline trabalha
+ * com a key física (ex.: `nome cliente`). Aceita também a key crua e ignora
+ * acento/caixa. `null` quando nenhuma coluna casa.
+ * Ordem: key exata → key normalizada → rótulo normalizado.
+ */
+function resolveColumnKey(
+  field: string,
+  columns: FilterPopoverColumn[],
+): string | null {
+  const exact = columns.find((c) => c.key === field);
+  if (exact) return exact.key;
+  const n = normalizeText(field);
+  const byKey = columns.find((c) => normalizeText(c.key) === n);
+  if (byKey) return byKey.key;
+  const byLabel = columns.find((c) => normalizeText(c.label) === n);
+  if (byLabel) return byLabel.key;
+  return null;
 }
 
 /** Filter row tem valor real preenchido?
@@ -338,7 +360,9 @@ export function FilterPanel({
       setAdvancedText(
         entriesToSql(
           filters.map((f) => ({
-            field: f.columnKey,
+            // Mostra o RÓTULO (o que o user vê na grade), não a key física —
+            // entriesToSql adiciona aspas quando tem espaço (round-trip seguro).
+            field: columns.find((c) => c.key === f.columnKey)?.label ?? f.columnKey,
             op: f.op as ParsedFilterEntry["op"],
             // value bruto (string | array) — entriesToSql serializa listas/tuplas
             // como `[a, b]` pros ops estruturais (round-trip-safe).
@@ -387,24 +411,30 @@ export function FilterPanel({
       setAdvancedError(result.error);
       return;
     }
-    setAdvancedError(null);
-    const validKeys = new Set(columns.map((c) => c.key));
-    const valid = result.entries.filter((e) => validKeys.has(e.field));
-    const invalid = result.entries.filter((e) => !validKeys.has(e.field));
-    if (invalid.length > 0) {
+    // Resolve cada campo digitado (RÓTULO que o user vê, ou a key física, com/
+    // sem acento) → key física da coluna.
+    const resolved: FilterPopoverEntry[] = [];
+    const unknown: string[] = [];
+    for (const e of result.entries) {
+      const key = resolveColumnKey(e.field, columns);
+      if (!key) {
+        unknown.push(e.field);
+        continue;
+      }
+      resolved.push({ id: generateId(), columnKey: key, op: e.op, value: e.value });
+    }
+    if (unknown.length > 0) {
       setAdvancedError(
-        `Campos desconhecidos: ${invalid.map((e) => e.field).join(", ")}`,
+        `Campo desconhecido: ${unknown
+          .map((u) => `"${u}"`)
+          .join(", ")}. Campos disponíveis: ${columns
+          .map((c) => c.label)
+          .join(", ")}`,
       );
       return;
     }
-    onFiltersChange(
-      valid.map((e) => ({
-        id: generateId(),
-        columnKey: e.field,
-        op: e.op,
-        value: e.value,
-      })),
-    );
+    setAdvancedError(null);
+    onFiltersChange(resolved);
     setMode("visual");
   };
 
@@ -560,8 +590,26 @@ export function FilterPanel({
             Editor livre — sintaxe estilo SQL. Operadores: <code>=</code>{" "}
             <code>!=</code> <code>&gt;</code> <code>&lt;</code>{" "}
             <code>contains</code>. Conectores: <code>AND</code>{" "}
-            <code>OR</code>.
+            <code>OR</code>. Campo com espaço entre aspas:{" "}
+            <code>"nome cliente" = ana</code>.
           </span>
+          {columns.length > 0 && (
+            <details className="text-caption-sm text-fg-muted">
+              <summary className="cursor-pointer select-none hover:text-fg-default">
+                Campos disponíveis ({columns.length})
+              </summary>
+              <div className="mt-pad-md flex flex-wrap gap-gp-sm">
+                {columns.map((c) => (
+                  <code
+                    key={c.key}
+                    className="px-pad-md py-pad-2xs rounded-radius-sm bg-bg-muted text-fg-default"
+                  >
+                    {c.label}
+                  </code>
+                ))}
+              </div>
+            </details>
+          )}
           <textarea
             spellCheck={false}
             value={advancedText}

@@ -133,6 +133,47 @@ function matchOperator(
   return null;
 }
 
+/**
+ * Símbolos de operador — podem vir COLADOS ao campo (`value>1000`), por isso a
+ * detecção não exige espaço antes. Ordem por especificidade (>= antes de >).
+ */
+const OP_SYMBOLS = [">=", "<=", "!=", "<>", "==", "=", ">", "<"];
+/**
+ * Operadores em palavra — só contam num LIMITE de palavra (precedidos por
+ * espaço), pra um campo como `Status` não casar com `starts with` no meio. As
+ * frases são específicas (`is empty`, não um `is` solto) pra reduzir falso
+ * positivo em rótulos multi-palavra.
+ */
+const OP_PHRASE_START =
+  /^(not\s+in|in|between|not\s+contains|starts\s+with|ends\s+with|contains|like|is\s+not\s+empty|is\s+empty)\b/i;
+
+/** Índice onde o operador começa em `p` (campo à esquerda). -1 se não há. */
+function findOperatorStart(p: string): number {
+  for (let i = 1; i < p.length; i++) {
+    const rest = p.slice(i);
+    if (OP_SYMBOLS.some((s) => rest.startsWith(s))) return i;
+    if (/\s/.test(p[i - 1]!) && OP_PHRASE_START.test(rest)) return i;
+  }
+  return -1;
+}
+
+/**
+ * Separa `part` em `{ field, rest }` aceitando campo MULTI-PALAVRA:
+ *   - entre aspas:  `"nome cliente" = X`  /  `'nome cliente' = X`
+ *   - sem aspas:    `nome cliente = X`  (campo = tudo até o 1º operador)
+ * Sem operador → `rest` vazio (o chamador devolve "sem operador válido").
+ * Rótulos que contêm uma palavra-operador (raro, ex.: "Data in Revisão") devem
+ * usar aspas pra desambiguar — `entriesToSql` já as adiciona no round-trip.
+ */
+function splitFieldAndRest(part: string): { field: string; rest: string } {
+  const p = part.trim();
+  const qm = p.match(/^(["'])([\s\S]*?)\1\s*([\s\S]*)$/);
+  if (qm) return { field: qm[2]!.trim(), rest: qm[3]!.trim() };
+  const idx = findOperatorStart(p);
+  if (idx < 0) return { field: p, rest: "" };
+  return { field: p.slice(0, idx).trim(), rest: p.slice(idx).trim() };
+}
+
 const LIST_OPS = new Set<ParsedFilterOp>(["isAnyOf", "isNoneOf", "between"]);
 const NO_VALUE_OPS = new Set<ParsedFilterOp>(["isEmpty", "isNotEmpty"]);
 
@@ -156,13 +197,13 @@ export function parseSqlFilter(input: string): ParseResult {
 
   const entries: ParsedFilterEntry[] = [];
   for (const part of parts) {
-    // field = primeiro token (sem espaço); pode ter dots (user.name)
-    const fm = part.match(/^(\S+)\s*(.*)$/s);
-    const field = fm?.[1]?.trim();
+    // Campo: aceita multi-palavra / aspas (ex.: `"nome cliente" = X` ou
+    // `nome cliente = X`) — extrai tudo até o 1º operador. Ver splitFieldAndRest.
+    const { field, rest } = splitFieldAndRest(part);
     if (!field) {
       return { ok: false, error: `Campo ausente em "${part}".` };
     }
-    const matched = matchOperator(fm![2]);
+    const matched = matchOperator(rest);
     if (!matched) {
       return {
         ok: false,
@@ -230,19 +271,20 @@ export function entriesToSql(
 ): string {
   return entries
     .map((e) => {
-      if (e.op === "isEmpty") return `${e.field} is empty`;
-      if (e.op === "isNotEmpty") return `${e.field} is not empty`;
-      if (e.op === "isAnyOf") return `${e.field} in ${serializeList(e.value)}`;
-      if (e.op === "isNoneOf")
-        return `${e.field} not in ${serializeList(e.value)}`;
-      if (e.op === "between")
-        return `${e.field} between ${serializeList(e.value)}`;
+      // Campo entre aspas quando tem espaço/aspas — round-trip inequívoco com o
+      // parser (que reconhece `"nome cliente" = X`).
+      const f = quoteIfNeeded(e.field);
+      if (e.op === "isEmpty") return `${f} is empty`;
+      if (e.op === "isNotEmpty") return `${f} is not empty`;
+      if (e.op === "isAnyOf") return `${f} in ${serializeList(e.value)}`;
+      if (e.op === "isNoneOf") return `${f} not in ${serializeList(e.value)}`;
+      if (e.op === "between") return `${f} between ${serializeList(e.value)}`;
 
       const v = quoteIfNeeded(String(Array.isArray(e.value) ? e.value.join(",") : e.value));
       const sym = SYMBOL_OP[e.op];
-      if (sym) return `${e.field} ${sym} ${v}`;
+      if (sym) return `${f} ${sym} ${v}`;
       const phrase = PHRASE_OP[e.op];
-      return `${e.field} ${phrase ?? "contains"} ${v}`;
+      return `${f} ${phrase ?? "contains"} ${v}`;
     })
     .join(` ${logicOperator} `);
 }

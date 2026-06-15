@@ -1,15 +1,8 @@
 import { Type } from "lucide-react";
 import { Input } from "../../../../shadcn/input";
+import { normalizeText as normalize } from "../../../../../lib/string-utils";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
-
-function normalize(s: unknown): string {
-  if (s == null) return "";
-  return String(s)
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "");
-}
 
 export const TextColumnType: ColumnTypeDefinition = {
   type: "text",
