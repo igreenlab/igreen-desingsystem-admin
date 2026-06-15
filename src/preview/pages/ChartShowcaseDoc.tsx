@@ -1,15 +1,22 @@
 import {
   AlertTriangle,
+  CalendarDays,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Clock,
+  Code2,
   CreditCard,
   DollarSign,
+  Download,
   ExternalLink,
   Globe,
   MoreVertical,
   Store,
+  Tag,
   TrendingUp,
+  Truck,
+  Upload,
   Wallet,
 } from "lucide-react";
 import {
@@ -45,6 +52,8 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
   type ChartConfig,
 } from "../../components/ui/Chart";
 import { DocLayout, DocHeader, DocSeparator } from "../components";
@@ -125,6 +134,19 @@ const TOC = [
   { id: "system-status", label: "System Status" },
   { id: "budget", label: "Budget Breakdown" },
   { id: "crypto", label: "Crypto Portfolio" },
+  { id: "product-growth", label: "Product Growth Metrics" },
+  { id: "revenue-performance", label: "Revenue Performance" },
+  { id: "cicd", label: "CI/CD Pipeline" },
+  { id: "infra-cost", label: "Infrastructure cost" },
+  { id: "email-campaign", label: "Email Campaign" },
+  { id: "sales-lead", label: "Sales Lead" },
+  { id: "release-timeline", label: "Release timeline" },
+  { id: "vehicle", label: "Vehicle overview" },
+  { id: "support-tickets", label: "Support Tickets" },
+  { id: "traffic", label: "Traffic Sources" },
+  { id: "user-acquisition", label: "User Acquisition" },
+  { id: "pnl", label: "P&L" },
+  { id: "indices", label: "Indices Alerts" },
 ];
 
 /* ════════════════════════════════════════════════════════════════════
@@ -1058,6 +1080,695 @@ function CryptoPortfolioCard() {
   );
 }
 
+/* ════════════════════════════════════════════════════════════════════
+   16 — Vehicle overview (barra segmentada neutra + lista)
+   ════════════════════════════════════════════════════════════════════ */
+const VEHICLE = [
+  { label: "On the way", icon: Truck, time: "2hr 10min", pct: 33.3, shade: "var(--color-bg-emphasis)" },
+  { label: "Unloading", icon: Download, time: "3hr 15min", pct: 23.5, shade: "var(--color-bg-muted-hover)" },
+  { label: "Loading", icon: Upload, time: "1hr 24min", pct: 23.1, shade: "var(--color-bg-accent)" },
+  { label: "Waiting", icon: Clock, time: "5hr 19min", pct: 20.1, shade: "var(--color-fg-muted)" },
+];
+
+function VehicleOverviewCard() {
+  return (
+    <Panel id="vehicle" className="max-w-[420px]">
+      <CardHead title="Vehicle overview" action={moreBtn} className="mb-pad-3xl" />
+      <div className="mb-pad-md grid grid-cols-4 gap-gp-2xs text-caption-sm text-fg-muted">
+        {VEHICLE.map((v) => (
+          <div key={v.label} className="flex flex-col gap-gp-2xs">
+            <span className="truncate">{v.label}</span>
+            <span className="h-[10px] w-[2px] bg-border-default" />
+          </div>
+        ))}
+      </div>
+      <div className="flex h-[52px] gap-gp-2xs overflow-hidden rounded-radius-base">
+        {VEHICLE.map((v) => (
+          <div
+            key={v.label}
+            className="flex items-center px-pad-2xl text-body-md font-semibold text-fg-default"
+            style={{ width: `${v.pct}%`, background: v.shade }}
+          >
+            {v.pct}%
+          </div>
+        ))}
+      </div>
+      <div className="mt-pad-2xl flex flex-col">
+        {VEHICLE.map((v) => (
+          <div key={v.label} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-3xl last:border-0">
+            <v.icon className="size-icon-sm text-fg-muted" />
+            <span className="flex-1 text-body-md text-fg-default">{v.label}</span>
+            <span className="text-body-md font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{v.time}</span>
+            <span className="w-[44px] text-right text-body-sm text-fg-muted [font-variant-numeric:tabular-nums]">{v.pct}%</span>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   17 — Product Growth Metrics (KPIs + multi-line + date range)
+   ════════════════════════════════════════════════════════════════════ */
+const PG_DATA = Array.from({ length: 30 }, (_, i) => {
+  const t = i / 29;
+  return {
+    d: `02-${String(i + 1).padStart(2, "0")}`,
+    mrr: Math.round(8000 + t * 9000),
+    active: Math.round(1500 + t * 4500),
+    churn: Math.round(120 - t * 80),
+  };
+});
+const pgConfig = {
+  active: { label: "Active Users", color: C.green },
+  churn: { label: "Churned Users", color: C.amber },
+  mrr: { label: "MRR ($)", color: C.blue },
+} satisfies ChartConfig;
+
+function ProductGrowthCard() {
+  const kpis = [
+    { label: "Monthly Revenue", value: "$17,200", delta: "2.4%", up: true, color: C.blue },
+    { label: "Active Users", value: "6,200", delta: "6.9%", up: true, color: C.green },
+    { label: "Churned Users", value: "33", delta: "10.8%", up: false, color: C.amber },
+  ];
+  return (
+    <Panel id="product-growth">
+      <div className="flex flex-wrap items-start justify-between gap-gp-lg">
+        <CardHead title="Product Growth Metrics" subtitle="Track MRR, active users, and churn across a custom date window." />
+        <Chip color="neutral" variant="outline" size="sm">
+          <CalendarDays className="size-icon-xs" /> 31 Dec – 28 Feb, 2024
+        </Chip>
+      </div>
+      <div className="my-pad-3xl grid gap-gp-lg sm:grid-cols-3">
+        {kpis.map((k) => (
+          <div key={k.label} className="rounded-radius-base border border-border-subtle p-pad-3xl">
+            <p className="flex items-center gap-gp-2xs text-caption-sm text-fg-muted">
+              <span className="size-[8px] rounded-radius-full" style={{ background: k.color }} /> {k.label}
+            </p>
+            <p className="mt-pad-xs flex items-end justify-between gap-gp-md">
+              <span className="text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">{k.value}</span>
+              <span className={cn("text-body-sm font-medium", k.up ? "text-fg-success" : "text-fg-danger")}>
+                {k.up ? "↑" : "↓"} {k.delta}
+              </span>
+            </p>
+          </div>
+        ))}
+      </div>
+      <ChartContainer config={pgConfig} className="h-[300px] w-full">
+        <LineChart data={PG_DATA} margin={{ left: 4, right: 8, top: 8 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} minTickGap={28} />
+          <YAxis tickLine={false} axisLine={false} width={44} ticks={[0, 4500, 9000, 13500, 18000]} domain={[0, 18000]} interval={0} tickFormatter={(v) => (v === 0 ? "0" : `${v / 1000}k`)} />
+          <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+          <Line dataKey="mrr" type="monotone" stroke="var(--color-mrr)" strokeWidth={2} dot={false} />
+          <Line dataKey="active" type="monotone" stroke="var(--color-active)" strokeWidth={2} dot={false} />
+          <Line dataKey="churn" type="monotone" stroke="var(--color-churn)" strokeWidth={2} dot={false} />
+          <ChartLegend content={<ChartLegendContent />} />
+        </LineChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   18 — Revenue Performance (multi-line + summary grid)
+   ════════════════════════════════════════════════════════════════════ */
+const RP_DATA = Array.from({ length: 7 }, (_, i) => ({
+  d: `Sep ${20 + i}`,
+  product: Math.round(125 + 12 * Math.sin(i / 1.5) + i * 2),
+  service: Math.round(82 + 8 * Math.sin(i / 1.8 + 1) + i * 3),
+}));
+const rpConfig = {
+  product: { label: "Product Sales", color: C.red },
+  service: { label: "Service Revenue", color: C.amber },
+} satisfies ChartConfig;
+
+function RevenuePerformanceCard() {
+  const summary = [
+    { l: "Total Revenue", v: "$285,420.75" },
+    { l: "Operating Costs", v: "$142,680.25" },
+    { l: "Net Income", v: "$142,740.50" },
+    { l: "Growth Rate", v: "+12.5%", trend: true },
+    { l: "Profit Margin", v: "+50.0%", trend: true },
+    { l: "ROI", v: "+18.9%", trend: true },
+  ];
+  return (
+    <Panel id="revenue-performance">
+      <p className="text-caption-md text-fg-muted">Revenue Performance</p>
+      <p className="text-display-md font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">$285,420.75</p>
+      <p className="mb-pad-3xl text-body-sm">
+        <span className="font-medium text-fg-success">+$12,840.50 (4.7%)</span> <span className="text-fg-muted">Past 30 days</span>
+      </p>
+      <Tabs defaultValue="7d" className="mb-pad-3xl">
+        <TabsList>
+          <TabsTrigger value="7d">Last 7d</TabsTrigger>
+          <TabsTrigger value="30d">Last 30d</TabsTrigger>
+          <TabsTrigger value="max">Max</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <ChartContainer config={rpConfig} className="h-[260px] w-full">
+        <LineChart data={RP_DATA} margin={{ left: 4, right: 8, top: 8 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} width={44} ticks={[0, 40, 80, 120, 160]} domain={[0, 160]} interval={0} tickFormatter={(v) => `$${v}k`} />
+          <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+          <Line dataKey="product" type="monotone" stroke="var(--color-product)" strokeWidth={2} dot={false} />
+          <Line dataKey="service" type="monotone" stroke="var(--color-service)" strokeWidth={2} dot={false} />
+          <ChartLegend content={<ChartLegendContent />} />
+        </LineChart>
+      </ChartContainer>
+      <p className="mb-pad-md mt-pad-3xl text-title-sm font-semibold text-fg-default">Revenue Summary</p>
+      <div className="grid gap-gp-lg sm:grid-cols-3">
+        {summary.map((s) => (
+          <div key={s.l} className="rounded-radius-base border border-border-subtle p-pad-3xl">
+            <p className="text-caption-sm text-fg-muted">{s.l}</p>
+            <p className="mt-pad-2xs flex items-center gap-gp-sm text-body-lg font-semibold text-fg-default [font-variant-numeric:tabular-nums]">
+              {s.v}
+              {s.trend && (
+                <span className="flex size-[24px] items-center justify-center rounded-radius-full bg-bg-success-muted">
+                  <TrendingUp className="size-icon-xs text-fg-success" />
+                </span>
+              )}
+            </p>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   19 — CI/CD Pipeline Performance (barras + tooltip)
+   ════════════════════════════════════════════════════════════════════ */
+const CICD_DATA = [
+  { m: "Jan", runs: 310 }, { m: "Feb", runs: 280 }, { m: "Mar", runs: 395 },
+  { m: "Apr", runs: 335 }, { m: "May", runs: 410 }, { m: "Jun", runs: 350 },
+  { m: "Jul", runs: 445 }, { m: "Aug", runs: 400 }, { m: "Sep", runs: 355 },
+  { m: "Oct", runs: 470 }, { m: "Nov", runs: 510 }, { m: "Dec", runs: 490 },
+];
+const cicdConfig = { runs: { label: "Pipeline runs", color: C.green } } satisfies ChartConfig;
+
+function CicdCard() {
+  return (
+    <Panel id="cicd">
+      <CardHead title="CI/CD Pipeline Performance" subtitle="Monthly Build & Deployment Runs" action={moreBtn} className="mb-pad-3xl border-b border-border-subtle pb-pad-3xl" />
+      <ChartContainer config={cicdConfig} className="h-[300px] w-full">
+        <BarChart data={CICD_DATA} margin={{ left: 4, right: 4, top: 8 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} width={36} ticks={[0, 150, 300, 450, 600]} domain={[0, 600]} interval={0} />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+          <Bar dataKey="runs" fill="var(--color-runs)" radius={[6, 6, 0, 0]} />
+        </BarChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   20 — Support Tickets (stacked bars)
+   ════════════════════════════════════════════════════════════════════ */
+const TICKETS = Array.from({ length: 10 }, (_, i) => {
+  const m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"][i];
+  const base = 400 + Math.round(500 * Math.abs(Math.sin(i / 1.7)));
+  return { m, resolved: base, pending: Math.round(base * 0.5), escalated: Math.round(base * 0.12) };
+});
+const ticketsConfig = {
+  resolved: { label: "Resolved", color: C.green },
+  pending: { label: "Pending", color: C.violet },
+  escalated: { label: "Escalated", color: C.blue },
+} satisfies ChartConfig;
+
+function SupportTicketsCard() {
+  return (
+    <Panel id="support-tickets" className="max-w-[440px]">
+      <CardHead title="Support Tickets" subtitle="Monthly Ticket Resolution" action={moreBtn} className="mb-pad-3xl border-b border-border-subtle pb-pad-3xl" />
+      <ChartContainer config={ticketsConfig} className="h-[240px] w-full">
+        <BarChart data={TICKETS} margin={{ left: -16, right: 4 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} hide />
+          <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
+          <Bar dataKey="resolved" stackId="t" fill="var(--color-resolved)" />
+          <Bar dataKey="pending" stackId="t" fill="var(--color-pending)" />
+          <Bar dataKey="escalated" stackId="t" fill="var(--color-escalated)" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   21 — Traffic Sources (barras horizontais)
+   ════════════════════════════════════════════════════════════════════ */
+const TRAFFIC = [
+  { label: "Organic", value: 18500 },
+  { label: "Direct", value: 12400 },
+  { label: "Social", value: 9800 },
+  { label: "Referral", value: 7200 },
+  { label: "Paid", value: 5300 },
+  { label: "Email", value: 3100 },
+];
+const TRAFFIC_MAX = Math.max(...TRAFFIC.map((t) => t.value));
+
+function TrafficSourcesCard() {
+  return (
+    <Panel id="traffic" className="max-w-[440px]">
+      <div className="mb-pad-3xl flex items-center justify-between">
+        <p className="text-title-md font-semibold text-fg-default">Traffic Sources</p>
+        <Tabs defaultValue="week">
+          <TabsList>
+            <TabsTrigger value="week">This Week</TabsTrigger>
+            <TabsTrigger value="month">This Month</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
+      <div className="flex flex-col gap-gp-md">
+        {TRAFFIC.map((t) => (
+          <div key={t.label} className="flex items-center gap-gp-md">
+            <div
+              className="flex h-[36px] items-center rounded-radius-base px-pad-2xl text-body-sm font-medium text-fg-on-brand"
+              style={{ width: `${(t.value / TRAFFIC_MAX) * 100}%`, background: C.violet, minWidth: 72 }}
+            >
+              {t.label}
+            </div>
+            <span className="ml-auto text-body-sm font-semibold text-fg-default [font-variant-numeric:tabular-nums]">
+              {t.value.toLocaleString("en-US").replace(",", " ")}
+            </span>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   22 — Infrastructure cost by service (KPIs + barras)
+   ════════════════════════════════════════════════════════════════════ */
+const INFRA = Array.from({ length: 28 }, (_, i) => ({
+  d: `Feb ${String(i + 1).padStart(2, "0")}`,
+  cost: 28000 + Math.round(60000 * Math.abs(Math.sin(i / 2.2 + 0.6))),
+}));
+const infraConfig = { cost: { label: "Cost", color: C.green } } satisfies ChartConfig;
+
+function InfraCostCard() {
+  const kpis = [
+    { l: "Compute", v: "$0.9M", active: true },
+    { l: "Storage", v: "$0.4M" },
+    { l: "Network", v: "$0.3M" },
+  ];
+  return (
+    <Panel id="infra-cost">
+      <CardHead title="Infrastructure cost by service" subtitle="Monthly cloud spending breakdown across service types" />
+      <div className="my-pad-3xl grid gap-gp-lg sm:grid-cols-3">
+        {kpis.map((k) => (
+          <div key={k.l} className={cn("rounded-radius-base border p-pad-3xl", k.active ? "border-border-default" : "border-border-subtle")}>
+            <p className="text-caption-sm text-fg-muted">{k.l}</p>
+            <p className="text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">{k.v}</p>
+          </div>
+        ))}
+      </div>
+      <ChartContainer config={infraConfig} className="h-[280px] w-full">
+        <BarChart data={INFRA} margin={{ left: 4, right: 4 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} minTickGap={24} />
+          <YAxis tickLine={false} axisLine={false} width={48} ticks={[0, 25000, 50000, 75000, 100000]} domain={[0, 100000]} interval={0} tickFormatter={(v) => `$${v / 1000}K`} />
+          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+          <Bar dataKey="cost" fill="var(--color-cost)" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   23 — User Acquisition by Channel (tabs + stacked bars + lista)
+   ════════════════════════════════════════════════════════════════════ */
+const ACQ = Array.from({ length: 10 }, (_, i) => {
+  const m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct"][i];
+  const base = 700 + Math.round(900 * Math.abs(Math.sin(i / 1.9 + 0.4)));
+  return { m, novos: base, returning: Math.round(base * 0.55), churned: Math.round(base * 0.18) };
+});
+const acqConfig = {
+  novos: { label: "New Users", color: C.amber },
+  returning: { label: "Returning", color: C.violet },
+  churned: { label: "Churned", color: C.red },
+} satisfies ChartConfig;
+
+function UserAcquisitionCard() {
+  const totals = [
+    { label: "New Users", value: "12,390", color: C.amber },
+    { label: "Returning", value: "6,450", color: C.violet },
+    { label: "Churned", value: "1,390", color: C.red },
+  ];
+  return (
+    <Panel id="user-acquisition" className="max-w-[440px]">
+      <CardHead title="User Acquisition by Channel" action={moreBtn} className="mb-pad-2xl" />
+      <Tabs defaultValue="organic" className="mb-pad-2xl">
+        <TabsList className="w-full">
+          <TabsTrigger value="organic" className="flex-1">Organic</TabsTrigger>
+          <TabsTrigger value="paid" className="flex-1">Paid</TabsTrigger>
+          <TabsTrigger value="referral" className="flex-1">Referral</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <ChartContainer config={acqConfig} className="h-[220px] w-full">
+        <BarChart data={ACQ} margin={{ left: -16, right: 4 }}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} hide />
+          <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
+          <Bar dataKey="novos" stackId="a" fill="var(--color-novos)" />
+          <Bar dataKey="returning" stackId="a" fill="var(--color-returning)" />
+          <Bar dataKey="churned" stackId="a" fill="var(--color-churned)" radius={[4, 4, 0, 0]} />
+        </BarChart>
+      </ChartContainer>
+      <div className="mt-pad-2xl flex flex-col">
+        {totals.map((t) => (
+          <div key={t.label} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-lg last:border-0">
+            <span className="h-[3px] w-[16px] rounded-radius-full" style={{ background: t.color }} />
+            <span className="flex-1 text-body-md text-fg-default">{t.label}</span>
+            <span className="text-body-md font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{t.value}</span>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   24 — Email Campaign (tabs + area + linha)
+   ════════════════════════════════════════════════════════════════════ */
+const EMAIL = Array.from({ length: 12 }, (_, i) => {
+  const m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i];
+  return { m, delivered: Math.round(3000 + i * 650 + 800 * Math.sin(i / 1.5)), bounced: Math.round(120 + i * 8) };
+});
+const emailConfig = {
+  delivered: { label: "Delivered", color: C.green },
+  bounced: { label: "Bounced", color: C.blue },
+} satisfies ChartConfig;
+
+function EmailCampaignCard() {
+  return (
+    <Panel id="email-campaign">
+      <CardHead title="Email Campaign" subtitle="Campaign performance metrics" action={moreBtn} className="mb-pad-3xl" />
+      <Tabs defaultValue="delivery" className="mb-pad-3xl border-b border-border-subtle">
+        <TabsList>
+          <TabsTrigger value="delivery">Delivery stats</TabsTrigger>
+          <TabsTrigger value="engagement">Engagement</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <div className="mb-pad-2xl flex flex-wrap items-center justify-between gap-gp-lg">
+        <div className="flex items-center gap-pad-4xl">
+          <div className="border-l-2 pl-pad-md" style={{ borderColor: C.green }}>
+            <p className="text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">79,600</p>
+            <p className="text-body-sm text-fg-muted">Emails delivered</p>
+          </div>
+          <div className="border-l-2 pl-pad-md" style={{ borderColor: C.blue }}>
+            <p className="text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">1,965</p>
+            <p className="text-body-sm text-fg-muted">Bounced</p>
+          </div>
+        </div>
+        <Chip color="success" variant="soft" size="sm" shape="pill">Delivery rate · 97.6%</Chip>
+      </div>
+      <ChartContainer config={emailConfig} className="h-[260px] w-full">
+        <ComposedChart data={EMAIL} margin={{ left: -16, right: 8, top: 8 }}>
+          <defs>
+            <linearGradient id="fillEmail" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-delivered)" stopOpacity={0.6} />
+              <stop offset="95%" stopColor="var(--color-delivered)" stopOpacity={0.05} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} hide />
+          <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+          <Area dataKey="delivered" type="natural" stroke="var(--color-delivered)" strokeWidth={2} fill="url(#fillEmail)" />
+          <Line dataKey="bounced" type="natural" stroke="var(--color-bounced)" strokeWidth={2} dot={false} />
+        </ComposedChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   25 — Sales Lead (KPIs + stacked area)
+   ════════════════════════════════════════════════════════════════════ */
+const LEADS = Array.from({ length: 12 }, (_, i) => {
+  const m = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][i];
+  return {
+    m,
+    success: Math.round(300 + i * 90 + 220 * Math.sin(i / 1.4)),
+    failed: Math.round(60 + (i > 6 ? (i - 6) * 60 : 0)),
+  };
+});
+const leadsConfig = {
+  success: { label: "Successful", color: C.green },
+  failed: { label: "Failed", color: C.blue },
+} satisfies ChartConfig;
+
+function SalesLeadCard() {
+  const kpis = [
+    { l: "Successful Sales", v: "6276", color: C.green },
+    { l: "Failed Sales", v: "1080", color: C.blue },
+    { l: "Total", v: "7356", color: C.amber },
+  ];
+  return (
+    <Panel id="sales-lead">
+      <CardHead title="Sales Lead" subtitle="Sales leads performance chart" action={moreBtn} className="mb-pad-3xl" />
+      <div className="mb-pad-3xl grid gap-gp-lg sm:grid-cols-3">
+        {kpis.map((k) => (
+          <div key={k.l} className="border-l-2 pl-pad-md" style={{ borderColor: k.color }}>
+            <p className="text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">{k.v}</p>
+            <p className="text-body-sm text-fg-muted">{k.l}</p>
+          </div>
+        ))}
+      </div>
+      <ChartContainer config={leadsConfig} className="h-[280px] w-full">
+        <AreaChart data={LEADS} margin={{ left: -16, right: 8, top: 8 }}>
+          <defs>
+            <linearGradient id="fillSuccess" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-success)" stopOpacity={0.6} />
+              <stop offset="95%" stopColor="var(--color-success)" stopOpacity={0.05} />
+            </linearGradient>
+            <linearGradient id="fillFailed" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-failed)" stopOpacity={0.6} />
+              <stop offset="95%" stopColor="var(--color-failed)" stopOpacity={0.05} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+          <YAxis tickLine={false} axisLine={false} hide />
+          <ChartTooltip content={<ChartTooltipContent indicator="line" />} />
+          <Area dataKey="failed" type="natural" stackId="l" stroke="var(--color-failed)" strokeWidth={2} fill="url(#fillFailed)" />
+          <Area dataKey="success" type="natural" stackId="l" stroke="var(--color-success)" strokeWidth={2} fill="url(#fillSuccess)" />
+        </AreaChart>
+      </ChartContainer>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   26 — P&L (area mini + holdings)
+   ════════════════════════════════════════════════════════════════════ */
+const PL_DATA = [
+  { m: "Feb", v: 38 }, { m: "Apr", v: 34 }, { m: "Jun", v: 46 },
+  { m: "Aug", v: 40 }, { m: "Oct", v: 47 }, { m: "Dec", v: 52 },
+];
+const plConfig = { v: { label: "P&L", color: C.green } } satisfies ChartConfig;
+const HOLDINGS = [
+  { name: "Alience", shares: 130, delta: "-37.5%", up: false, value: "$41000" },
+  { name: "Foogle", shares: 80, delta: "+25.4%", up: true, value: "$32000" },
+  { name: "Mike", shares: 15, delta: "+130.4%", up: true, value: "$35000" },
+];
+
+function PnlCard() {
+  return (
+    <Panel id="pnl" className="max-w-[440px]">
+      <p className="text-caption-md text-fg-muted">P&amp;L</p>
+      <p className="mb-pad-2xl text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$50,232</p>
+      <ChartContainer config={plConfig} className="h-[120px] w-full">
+        <AreaChart data={PL_DATA} margin={{ left: 0, right: 0, top: 4 }}>
+          <defs>
+            <linearGradient id="fillPnl" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-v)" stopOpacity={0.4} />
+              <stop offset="95%" stopColor="var(--color-v)" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} fontSize={11} />
+          <Area dataKey="v" type="monotone" stroke="var(--color-v)" strokeWidth={2} fill="url(#fillPnl)" />
+        </AreaChart>
+      </ChartContainer>
+      <Tabs defaultValue="stocks" className="mt-pad-2xl mb-pad-md border-b border-border-subtle">
+        <TabsList>
+          <TabsTrigger value="stocks">Stocks</TabsTrigger>
+          <TabsTrigger value="funds">Mutual Funds</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <div className="flex flex-col">
+        {HOLDINGS.map((h) => (
+          <div key={h.name} className="flex items-center justify-between gap-gp-md border-b border-border-subtle py-pad-3xl last:border-0">
+            <div>
+              <p className="text-body-md font-semibold text-fg-default">{h.name}</p>
+              <p className="text-caption-sm text-fg-muted">{h.shares} shares</p>
+            </div>
+            <div className="text-right">
+              <p className={cn("text-body-sm font-medium", h.up ? "text-fg-success" : "text-fg-danger")}>{h.delta}</p>
+              <p className="text-body-md font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{h.value}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   27 — Indices Alerts (tabs + area + artigos)
+   ════════════════════════════════════════════════════════════════════ */
+const INDICES = [
+  { m: "Jan", v: 30 }, { m: "Feb", v: 42 }, { m: "Mar", v: 52 },
+  { m: "Apr", v: 64 }, { m: "May", v: 58 }, { m: "Jun", v: 60 },
+];
+const indicesConfig = { v: { label: "Nifty 50", color: C.green } } satisfies ChartConfig;
+const ARTICLES = [
+  { t: "FII selling in Nifty 50, should you be worried?", d: "Foreign Institutional Investors (FII) have been selling off their holdings in the Nifty 50 index, which has raised concerns among investors." },
+  { t: "Nifty 50 hits new high, what does it mean for investors?", d: "The Nifty 50 index has recently hit a new high, signaling strong market performance, driven by positive corporate results." },
+];
+
+function IndicesAlertsCard() {
+  return (
+    <Panel id="indices" className="max-w-[450px]">
+      <CardHead title="Indices Alerts" subtitle="Check this week's performance of your selected indices and take necessary actions." className="mb-pad-3xl" />
+      <Tabs defaultValue="nifty" className="mb-pad-3xl border-b border-border-subtle">
+        <TabsList>
+          <TabsTrigger value="nifty">Nifty 50</TabsTrigger>
+          <TabsTrigger value="nasdaq">NASDAQ</TabsTrigger>
+          <TabsTrigger value="nikkei">NIKKEI</TabsTrigger>
+        </TabsList>
+      </Tabs>
+      <ChartContainer config={indicesConfig} className="h-[160px] w-full">
+        <AreaChart data={INDICES} margin={{ left: 0, right: 0, top: 4 }}>
+          <defs>
+            <linearGradient id="fillIndices" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="var(--color-v)" stopOpacity={0.4} />
+              <stop offset="95%" stopColor="var(--color-v)" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
+          <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} fontSize={11} />
+          <Area dataKey="v" type="natural" stroke="var(--color-v)" strokeWidth={2} fill="url(#fillIndices)" />
+        </AreaChart>
+      </ChartContainer>
+      <div className="mt-pad-3xl flex flex-col gap-gp-md">
+        {ARTICLES.map((a) => (
+          <div key={a.t} className="rounded-radius-base bg-bg-muted p-pad-3xl">
+            <p className="text-body-md font-semibold text-fg-default">{a.t}</p>
+            <p className="mt-pad-2xs line-clamp-2 text-body-sm text-fg-muted">{a.d}</p>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   28 — Release timeline (overview + recent + per month)
+   ════════════════════════════════════════════════════════════════════ */
+const REL_MONTH = [
+  { m: "Aug", n: 2 }, { m: "Sep", n: 3 }, { m: "Oct", n: 1 },
+  { m: "Nov", n: 4 }, { m: "Dec", n: 2 }, { m: "Jan", n: 1 },
+];
+const relConfig = { n: { label: "Releases", color: C.green } } satisfies ChartConfig;
+const RELEASES = [
+  { v: "v2.4.0", date: "Jan 28, 2024", add: "+1,240", rem: "-380" },
+  { v: "v2.3.1", date: "Jan 14, 2024", add: "+94", rem: "-22" },
+  { v: "v2.3.0", date: "Dec 30, 2023", add: "+870", rem: "-210" },
+  { v: "v2.2.2", date: "Dec 12, 2023", add: "+55", rem: "-18" },
+];
+
+function ReleaseTimelineCard() {
+  const stats = [
+    { icon: Tag, v: "13", l: "Total Releases", c: C.green },
+    { icon: Clock, v: "12d", l: "Avg Interval", c: C.amber },
+    { icon: Code2, v: "+4.2k", l: "Lines Added", c: C.red },
+    { icon: CalendarDays, v: "3/mo", l: "Avg Cadence", c: C.green },
+  ];
+  return (
+    <Panel id="release-timeline">
+      <div className="mb-pad-3xl flex flex-wrap items-center justify-between gap-gp-lg">
+        <p className="text-title-md font-semibold text-fg-default">Aug 2023 – Jan 2024</p>
+        <Select defaultValue="6m">
+          <SelectTrigger className="w-[170px]"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value="6m">Last 6 Months</SelectItem>
+            <SelectItem value="12m">Last 12 Months</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div className="rounded-radius-base border border-border-subtle">
+        <p className="border-b border-border-subtle px-pad-3xl py-pad-2xl text-body-md font-semibold text-fg-default">Overview</p>
+        <div className="grid gap-pad-4xl p-pad-3xl sm:grid-cols-2">
+          <div>
+            <div className="h-[6px] overflow-hidden rounded-radius-full" style={{ background: C.green }} />
+            <p className="mt-pad-md text-body-sm"><span className="font-semibold text-fg-default">13</span> <span className="text-fg-muted">Total Releases</span></p>
+          </div>
+          <div>
+            <div className="flex h-[6px] gap-[3px] overflow-hidden rounded-radius-full">
+              <span style={{ width: "23%", background: C.amber }} />
+              <span style={{ width: "77%", background: C.red }} />
+            </div>
+            <p className="mt-pad-md text-body-sm"><span className="font-semibold text-fg-default">3</span> <span className="text-fg-muted">Major</span> <span className="font-semibold text-fg-default">10</span> <span className="text-fg-muted">Minor</span></p>
+          </div>
+        </div>
+        <div className="grid grid-cols-2 divide-x divide-border-subtle border-t border-border-subtle sm:grid-cols-4">
+          {stats.map((s) => (
+            <div key={s.l} className="flex flex-col items-center gap-gp-2xs px-pad-2xl py-pad-3xl text-center">
+              <s.icon className="size-icon-sm" style={{ color: s.c }} />
+              <span className="text-title-md font-bold text-fg-default [font-variant-numeric:tabular-nums]">{s.v}</span>
+              <span className="text-caption-sm text-fg-muted">{s.l}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-pad-4xl grid gap-pad-4xl lg:grid-cols-2">
+        <div>
+          <p className="mb-pad-md text-title-sm font-semibold text-fg-default">Recent Releases</p>
+          <div className="flex flex-col gap-gp-md">
+            {RELEASES.map((r) => (
+              <div key={r.v} className="flex items-center justify-between gap-gp-md rounded-radius-base border border-border-subtle px-pad-3xl py-pad-2xl">
+                <span className="flex items-center gap-gp-sm text-body-md font-semibold text-fg-default">
+                  <Tag className="size-icon-xs text-fg-muted" /> {r.v}
+                </span>
+                <div className="text-right">
+                  <p className="text-caption-sm text-fg-muted">{r.date}</p>
+                  <p className="text-caption-sm [font-variant-numeric:tabular-nums]">
+                    <span className="text-fg-success">{r.add}</span> <span className="text-fg-danger">{r.rem}</span>
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <p className="mb-pad-md text-title-sm font-semibold text-fg-default">Releases per Month</p>
+          <ChartContainer config={relConfig} className="h-[220px] w-full">
+            <BarChart data={REL_MONTH} margin={{ left: -24, right: 4 }}>
+              <CartesianGrid vertical={false} strokeDasharray="4 4" />
+              <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
+              <YAxis tickLine={false} axisLine={false} ticks={[0, 1, 2, 3, 4]} domain={[0, 4]} interval={0} width={28} />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+              <Bar dataKey="n" fill="var(--color-n)" radius={[6, 6, 0, 0]} barSize={28} />
+            </BarChart>
+          </ChartContainer>
+        </div>
+      </div>
+    </Panel>
+  );
+}
+
 /* ════════════════════════════════════════════════════════════════════ */
 export function ChartShowcaseDoc() {
   return (
@@ -1089,6 +1800,23 @@ export function ChartShowcaseDoc() {
         <SubscriptionBillingCard />
         <AcmeUptimeCard />
         <SystemStatusCard />
+
+        {/* Lote 2 de composições */}
+        <ProductGrowthCard />
+        <RevenuePerformanceCard />
+        <CicdCard />
+        <InfraCostCard />
+        <EmailCampaignCard />
+        <SalesLeadCard />
+        <ReleaseTimelineCard />
+
+        {/* Estreitos — cada um na própria row, largura fixa */}
+        <VehicleOverviewCard />
+        <SupportTicketsCard />
+        <TrafficSourcesCard />
+        <UserAcquisitionCard />
+        <PnlCard />
+        <IndicesAlertsCard />
       </div>
     </DocLayout>
   );
