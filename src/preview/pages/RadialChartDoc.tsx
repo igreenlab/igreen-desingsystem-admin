@@ -213,19 +213,18 @@ export function RadialChartDoc() {
             <ChartContainer config={config} className={CHART_CLASS}>
               <RadialBarChart
                 data={SINGLE}
-                startAngle={0}
-                endAngle={250}
-                innerRadius={80}
-                outerRadius={110}
+                startAngle={90}
+                endAngle={-270}
+                innerRadius={74}
+                outerRadius={104}
               >
-                <PolarGrid
-                  gridType="circle"
-                  radialLines={false}
-                  stroke="none"
-                  className="first:fill-bg-muted last:fill-bg-surface"
-                  polarRadius={[86, 74]}
+                <PolarAngleAxis type="number" domain={[0, 1700]} tick={false} axisLine={false} />
+                <RadialBar
+                  dataKey="kwh"
+                  cornerRadius={10}
+                  fill="var(--color-chart-1)"
+                  background={{ fill: "var(--color-bg-muted)" }}
                 />
-                <RadialBar dataKey="kwh" background cornerRadius={10} />
                 <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                   {centerLabel(SINGLE[0].kwh.toLocaleString("pt-BR"), "kWh")}
                 </PolarRadiusAxis>
@@ -245,18 +244,18 @@ export function RadialChartDoc() {
             <ChartContainer config={config} className={CHART_CLASS}>
               <RadialBarChart
                 data={SINGLE}
-                endAngle={100}
-                innerRadius={70}
-                outerRadius={110}
+                startAngle={210}
+                endAngle={-30}
+                innerRadius={74}
+                outerRadius={104}
               >
-                <PolarGrid
-                  gridType="circle"
-                  radialLines={false}
-                  stroke="none"
-                  className="first:fill-bg-muted last:fill-bg-surface"
-                  polarRadius={[76, 64]}
+                <PolarAngleAxis type="number" domain={[0, 2000]} tick={false} axisLine={false} />
+                <RadialBar
+                  dataKey="kwh"
+                  cornerRadius={10}
+                  fill="var(--color-chart-1)"
+                  background={{ fill: "var(--color-bg-muted)" }}
                 />
-                <RadialBar dataKey="kwh" background cornerRadius={10} />
                 <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                   {centerLabel(SINGLE[0].kwh.toLocaleString("pt-BR"), "kWh")}
                 </PolarRadiusAxis>
