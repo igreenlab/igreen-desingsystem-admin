@@ -1069,7 +1069,7 @@ export function ChartShowcaseDoc() {
       />
       <DocSeparator />
 
-      <div className="flex flex-col gap-gp-2xl">
+      <div className="flex flex-col items-center gap-gp-4xl">
         <SaaSRevenueCard />
         <DbInstanceCard />
         <FinanceCard />
