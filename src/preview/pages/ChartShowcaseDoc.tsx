@@ -368,8 +368,8 @@ const GROWTH = [{ k: "growth", pct: 78, fill: C.green }];
 
 function TotalRevenueCard() {
   return (
-    <Panel id="total-revenue" className="mx-auto w-full max-w-[800px]">
-      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_300px]">
+    <Panel id="total-revenue" className="mx-auto w-full max-w-[900px]">
+      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_320px]">
         <div>
           <CardHead title="Total Revenue" action={moreBtn} className="mb-pad-md" />
           <div className="mb-pad-2xl flex items-center gap-gp-lg text-caption-sm text-fg-muted">
@@ -401,7 +401,7 @@ function TotalRevenueCard() {
           </Select>
 
           {/* Gauge centrado verticalmente + label colado */}
-          <div className="flex flex-1 flex-col items-center justify-center gap-gp-2xs">
+          <div className="flex flex-1 flex-col items-center justify-center">
             <div className="relative flex w-full items-center justify-center">
               <ChartContainer config={{}} className="aspect-square h-[200px]">
                 <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={74} outerRadius={98}>
@@ -410,11 +410,11 @@ function TotalRevenueCard() {
                 </RadialBarChart>
               </ChartContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-display-xs font-bold text-fg-default">78%</span>
+                <span className="text-heading-xs font-bold leading-none text-fg-default">78%</span>
                 <span className="text-caption-sm text-fg-muted">Growth</span>
               </div>
             </div>
-            <p className="text-body-sm text-fg-muted">62% Company Growth</p>
+            <p className="-mt-pad-4xl text-body-sm text-fg-muted">62% Company Growth</p>
           </div>
 
           <div className="flex w-full items-center justify-between gap-gp-md pt-pad-3xl">
@@ -473,13 +473,13 @@ function UserActivityCard() {
       </div>
       <div className="mb-pad-2xl flex items-center gap-pad-4xl">
         <div>
-          <p className="flex items-center gap-gp-sm text-display-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">
+          <p className="flex items-center gap-gp-sm text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">
             <span className="size-[12px] rounded-[3px]" style={{ background: C.green }} />24,783
           </p>
           <p className="text-body-sm text-fg-muted">Active users</p>
         </div>
         <div>
-          <p className="flex items-center gap-gp-sm text-display-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">
+          <p className="flex items-center gap-gp-sm text-heading-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">
             <span className="size-[12px] rounded-[3px]" style={{ background: C.blue }} />1,397
           </p>
           <p className="text-body-sm text-fg-muted">Churned</p>
@@ -578,7 +578,7 @@ function TotalEarningCard() {
         <div className="flex flex-col">
           <CardHead title="Total earning" action={moreBtn} />
           <p className="mt-pad-md flex items-center gap-gp-sm">
-            <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">87%</span>
+            <span className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">87%</span>
             <span className="flex items-center gap-gp-2xs text-body-sm font-medium text-fg-success">
               <TrendingUp className="size-icon-xs" /> +38%
             </span>
@@ -638,7 +638,7 @@ function AnatomyCard() {
           </div>
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">96.5%</p>
+              <p className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">96.5%</p>
               <p className="text-body-sm text-fg-muted">Prediction 78%</p>
             </div>
             <Button color="secondary" variant="outline" size="sm" shape="pill">See details</Button>
@@ -693,7 +693,7 @@ function WeeklyOverviewCard() {
         <div className="flex flex-col gap-pad-3xl">
           <CardHead title="Weekly overview" action={moreBtn} />
           <div className="flex items-center gap-gp-lg">
-            <span className="text-display-xs font-bold text-fg-default">80%</span>
+            <span className="text-heading-xs font-bold text-fg-default">80%</span>
             <p className="flex-1 text-body-sm text-fg-muted">Your sales performance is 60% Better compare to Last month</p>
           </div>
           <Button color="secondary" variant="outline" className="w-full">Details</Button>
@@ -731,7 +731,7 @@ function TotalSalesCard() {
             <Button color="secondary" variant="outline" size="sm" shape="pill">Details</Button>
           </div>
           <p className="mb-pad-3xl flex items-center gap-gp-sm">
-            <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$2,150.00</span>
+            <span className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$2,150.00</span>
             <Chip color="neutral" variant="soft" size="sm" shape="pill">+5%</Chip>
           </p>
           <div className="flex flex-col gap-gp-md">
@@ -790,7 +790,7 @@ function SubscriptionBillingCard() {
 
       <div className="mt-pad-3xl rounded-radius-base border border-border-subtle p-pad-3xl">
         <p className="text-caption-md text-fg-muted">Monthly Recurring Revenue</p>
-        <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$48,320</p>
+        <p className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$48,320</p>
         <div className="mt-pad-2xl flex h-[8px] gap-[3px] overflow-hidden rounded-radius-full">
           {PLAN_SPLIT.map((p) => (
             <span key={p.label} style={{ width: `${p.pct}%`, background: p.color }} />
@@ -1049,7 +1049,7 @@ function CryptoPortfolioCard() {
       <div className="grid gap-pad-4xl lg:grid-cols-[280px_1fr]">
         <div>
           <p className="text-caption-md text-fg-muted">Crypto Portfolio</p>
-          <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$38,452.80</p>
+          <p className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$38,452.80</p>
           <p className="mb-pad-3xl text-body-sm">
             <span className="font-medium text-fg-danger">-$612.40 (-1.57%)</span>{" "}
             <span className="text-fg-muted">Today</span>
