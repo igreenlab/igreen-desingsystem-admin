@@ -115,7 +115,7 @@ export function BarChartDoc() {
       <DocSeparator />
 
       {/* Interactive em destaque no topo (igual ao shadcn) */}
-      <Card id="interactive" className="mb-gp-2xl">
+      <Card id="interactive" className="mb-gp-2xl gap-0 overflow-hidden py-0">
         <InteractiveBarChart />
       </Card>
 
@@ -397,7 +397,7 @@ function InteractiveBarChart() {
   return (
     <>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b border-border-subtle p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-lg">
+        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-3xl">
           <CardTitle>Bar Chart — Interativo</CardTitle>
           <CardDescription>Energia diária nos últimos 2 meses</CardDescription>
         </div>
@@ -408,7 +408,7 @@ function InteractiveBarChart() {
               type="button"
               onClick={() => setMetric(m.id)}
               data-active={metric === m.id}
-              className="flex flex-1 flex-col gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-lg text-left even:border-l data-[active=true]:bg-bg-muted sm:min-w-[140px] sm:border-l sm:border-t-0 sm:px-pad-3xl"
+              className="flex flex-1 flex-col justify-center gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-3xl text-left even:border-l data-[active=true]:bg-bg-muted sm:min-w-[140px] sm:border-l sm:border-t-0"
             >
               <span className="text-caption-sm text-fg-muted">{m.label}</span>
               <span className="text-title-lg font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]">
@@ -418,7 +418,7 @@ function InteractiveBarChart() {
           ))}
         </div>
       </CardHeader>
-      <CardContent className="px-pad-2xl pt-pad-2xl">
+      <CardContent className="px-pad-2xl pb-pad-2xl pt-pad-2xl">
         <ChartContainer config={config} className="aspect-auto h-[280px] w-full">
           <BarChart data={DAILY} margin={{ left: 12, right: 12 }}>
             <CartesianGrid vertical={false} />
