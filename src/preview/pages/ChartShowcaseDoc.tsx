@@ -315,7 +315,7 @@ function FinanceCard() {
             <BarChart data={FIN_DATA} margin={{ left: -16 }} barCategoryGap={20}>
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
               <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
-              <YAxis tickLine={false} axisLine={false} ticks={[0, 10, 20, 30, 40, 50]} domain={[0, 52]} />
+              <YAxis tickLine={false} axisLine={false} ticks={[0, 20, 40, 60]} domain={[0, 60]} />
               <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
               <Bar dataKey="a" stackId="f" fill="var(--color-a)" />
               <Bar dataKey="b" stackId="f" fill="var(--color-b)" />
@@ -675,7 +675,7 @@ function WeeklyOverviewCard() {
         <ComposedChart data={WEEK_DATA} margin={{ left: 4, right: 8, top: 8 }}>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} hide />
-          <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 95]} tickFormatter={(v) => `${v}k`} width={40} />
+          <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 90]} tickFormatter={(v) => `${v}k`} width={40} />
           <Bar dataKey="bar" radius={6} barSize={22}>
             {WEEK_DATA.map((d) => (
               <Cell key={d.d} fill={d.d === "Th" ? "var(--color-line)" : "color-mix(in oklch, var(--color-chart-1) 16%, transparent)"} />
