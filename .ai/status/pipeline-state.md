@@ -2096,3 +2096,18 @@
 - Validação: tsc 0 (cada batch) · browser (Chrome DevTools): item 2 (default TABELA + seção Exibição), 3 (bottom-sheet width=vw), 6 (drawer "Editar — Carlos Oliveira" com 11 campos pré-preenchidos), 7 (menu 100vw×100vh), 8 (ciclo completo: abre chip → valor "Não" exibido + checkmark → seleciona → popover FECHA + re-filtra 29 rows), 12 (paginação centrada). Estado de filtro persiste no reload.
 - Assumption: o lote é showcase/preview (mock) — nenhum consome API real; os componentes DS core tocados (Calendar, Header Popover, FooterTable, ToolbarApplied, DataTable) não têm outros consumers que dependam do comportamento antigo (mobile-card-default, dropdown custom do header).
 - Lições novas: candidata — "fast-filter chip com `<Select open>` forçado precisa de Popover controlado + `onClose` wired; senão o listbox sempre-aberto trava o dismiss por clique-fora". Avaliar registrar no review/release.
+
+---
+
+### [2026-06-15] | DS DEV | Charts: 6 tipos + showcase de composições + padrões no pipeline | CONCLUÍDO
+- Input: criar categoria "Charts" no preview (Area/Bars/Lines/Pies/Radars/Radials replicando shadcn com o DS), depois página "Compositions" com 28 composições de dashboard como inspiração, e por fim padronizar/documentar tudo como design system. Branch `feat/charts-area`.
+- Output:
+  1. **Componente `Chart`** (ui/Chart) — wrapper sobre Recharts 3 (ChartContainer + ChartTooltip/Content + ChartLegend/Content). Grid reescrito pro token `chart-grid`.
+  2. **Tokens `chart`** (color-light/dark): `chart.1`=brand primitive (verde, acompanha a marca), `chart.2..5` harmônicas, **`chart.grid`** (light gray[200] / dark branco 12%). `npm run tokens:tw4` → `--color-chart-1..5` + `--color-chart-grid`.
+  3. **Páginas doc**: Area(10) · Bars(10) · Lines(10) · Pies(11 + Donut+Legenda) · Radars(13) · Radials(6 + Progress) — fiéis ao shadcn com paleta/grid do DS.
+  4. **Compositions** (`#/chart-showcase`, `ChartShowcaseDoc.tsx`): 28 composições de dashboard, agrupadas em 5 categorias (Receita & Finanças, Usuários & Crescimento, Operações & Status, Cobrança & Campanhas, Mercado), 1 card por linha, gap 32px. Helpers: `Panel`, `CardHead`, `KPI_LABEL`/`KPI_VALUE` (label caption-md + valor 30px), `SectionLabel`.
+  5. **Docs/pipeline**: `.ai/context/components/chart-patterns.md` (canônico), `Chart/USAGE.md` ampliado, **L-032** (caveats Recharts 3), resumo em `ds-standards.md` (auto-load), `inventory.md`, `color.md` (namespace chart), `CLAUDE.md` (mapa de tarefas).
+- Decisões: chart.1 ancora no **primitive da brand** (muda a marca → muda o chart). Pizza = rampa monocromática da brand (não "carnaval"). 2 séries = verde+âmbar. Grid via token único (dark precisa de branco 12%, não border-subtle 0.04). Cards estreitos = coluna única + max-w fixo (não lado-a-lado).
+- Validação: tsc 0 em todos os lotes · browser (Chrome DevTools, dark+light): 6 tipos + 28 composições renderizando, grid visível nos 2 temas, headers KPI padronizados, categorias.
+- Assumption: showcase/preview (mock) — nenhuma composição consome API real; `Chart` é o único wrapper de Recharts (DashboardShowcase usa Recharts cru, fora do escopo do token de grid).
+- Lições novas: **L-032** registrada (caveats Recharts 3: display-sm/xs inexistentes → heading; Pie shape vs activeIndex; radial stack precisa PolarAngleAxis number; YAxis interval=0 + domain=maior tick; grid via token chart-grid).
