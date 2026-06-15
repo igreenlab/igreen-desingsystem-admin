@@ -11,7 +11,7 @@ import { ToolbarDivider } from "./parts/toolbar-divider";
  *
  * Ordem renderizada:
  *   Esquerda:  viewToggle · ⟨divider⟩ · savedViews
- *   Direita:   refresh · search · filter · settings · more
+ *   Direita:   refresh · search · filter · fullscreen · settings · more
  *
  * Consolida os controles secundários: Ordenação, Colunas, Filtros avançados
  * e Densidade vivem dentro do `settings` (`<ToolbarSettingsMenu>`, drill-down);
@@ -37,6 +37,8 @@ export type TableToolbarProps = {
   search?: ReactNode;
   /** Filtro simples — icon button funil → drawer (`<ToolbarSimpleFilterDrawer>`). */
   filter?: ReactNode;
+  /** Toggle de tela cheia — icon button ⤢ (opcional). */
+  fullscreen?: ReactNode;
   /** Configurações da tabela — icon button sliders → `<ToolbarSettingsMenu>`
    *  (drill-down com Ordenação · Colunas · Filtros avançados · Densidade). */
   settings?: ReactNode;
@@ -55,6 +57,7 @@ export function TableToolbar({
   refresh,
   search,
   filter,
+  fullscreen,
   settings,
   more,
   bulkBar,
@@ -79,6 +82,7 @@ export function TableToolbar({
         {refresh && <span className="hidden md:contents">{refresh}</span>}
         {search}
         {filter}
+        {fullscreen}
         {settings}
         {more}
       </div>

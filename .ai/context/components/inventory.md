@@ -58,7 +58,7 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (20 componentes)
+## Componentes — ui/ (iGreen puro) (21 componentes)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
@@ -69,6 +69,7 @@ src/components/
 | **ButtonGroup** | `ui/ButtonGroup/button-group.styles.ts` | `src/components/ui/ButtonGroup/` | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder) |
 | **CardCheckbox** | `ui/CardCheckbox/card-checkbox.styles.ts` | `src/components/ui/CardCheckbox/` | ✅ **v0.7.1** — checkbox apresentado como card clicável (área grande, label + description visíveis). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). Diferente de `FormFieldCheckbox` (compact horizontal). Props: `label` + `description` + opcional `icon` à esquerda. Toggle via clique no card inteiro (label htmlFor). Uso atual: SacarDialog aba "Outra conta" — opção "Salvar essa conta pra usar depois" |
 | Chip | `ui/Chip/chip.styles.ts` | `src/components/ui/Chip/` | ✅ implementado — pílula compacta para status, tags e filtros, dual-mode (span estático ou button interativo); inclui `ChipGroup`/`ChipGroupItem` |
+| **Combobox** | `ui/Combobox/combobox.styles.ts` | `src/components/ui/Combobox/` | ✅ **v0.9.x** — select de escolha única com **busca (autocomplete)** + lista **rolável**. Composto de `Popover` + `Command` (cmdk); trigger espelha 1:1 o `SelectTrigger` (parear com Selects irmãos). Para listas longas onde o usuário digita pra achar (ex.: 1 coluna entre 30). Seleção robusta via closure sobre `option.value` (não depende do arg normalizado do `onSelect` do cmdk). Uso atual: field-picker "Campo" do `FilterPopover` |
 | FooterTable | — (classes inline em `footer-table.tsx`, sem `.styles.ts`) | `src/components/ui/FooterTable/` | ✅ implementado — footer de tabela com paginação + page-size select + range display + selection count (embutido no DataTable) |
 | FormField | `ui/FormField/form-field.styles.ts` | `src/components/ui/FormField/` | ✅ implementado — container de form com label + input/select/textarea + mensagem de validação (error/warning/success). **Obrigatório em forms (L-023)** |
 | Header | `ui/Header/header.styles.ts` | `src/components/ui/Header/` | ✅ implementado — barra superior fixa (60px) com breadcrumb à esquerda + search/theme/notifications/messages/user à direita |

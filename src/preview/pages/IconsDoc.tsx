@@ -11,8 +11,10 @@ import {
   AlertCircle, AlertTriangle, CheckCircle, Info, HelpCircle, XCircle,
   Loader2, RefreshCw, ExternalLink, Link, Share2,
   FileText, Folder, Image, Camera, Video, Mic,
-  type LucideIcon,
 } from "lucide-react";
+// `lucide-react@1.7.0` não publica tipos — `LucideIcon` vem do shim local.
+// Ver src/lib/lucide-types.ts.
+import type { LucideIcon } from "@/lib/lucide-types";
 
 const TOC = [
   { id: "usage", label: "Usage" },

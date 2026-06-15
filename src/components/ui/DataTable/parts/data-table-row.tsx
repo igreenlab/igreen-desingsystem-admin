@@ -12,6 +12,11 @@ import type {
 } from "../data-table.types";
 import { DataTableEditCell } from "./data-table-edit-cell";
 import { DataTableActionsCell } from "./data-table-actions-cell";
+import { DataTableTreeToggle, type DataTableTreeMeta } from "./data-table-tree-toggle";
+import {
+  DataTableReadMoreCell,
+  DataTableCopyCell,
+} from "./data-table-cell-addons";
 
 /**
  * Estado de edição inline da row (só não-null pra row com célula em edição).
@@ -36,6 +41,8 @@ export type DataTableRowHandlers<T> = {
   onRowFocus: (index: number) => void;
   toggleRowSelection: (row: T) => void;
   toggleRowExpansion: (rowId: GridRowId) => void;
+  /** Toggle expand/collapse de um nó da árvore (modo tree-data). */
+  toggleTreeNode: (rowId: GridRowId) => void;
   startEditingCell: (rowId: GridRowId, field: string) => void;
   onCellEditCommit: (params: {
     row: T;
@@ -68,6 +75,13 @@ export type DataTableRowProps<T> = {
   clickable: boolean;
   useRowExpansion: boolean;
   expandableColField: string | null;
+  /* ── Tree-data (modo hierárquico) ─────────────────────────────── */
+  /** Field da coluna primária da árvore — recebe indentação + chevron. null = sem tree. */
+  treeColField: string | null;
+  /** Metadados de hierarquia da row (level/hasChildren/...). null fora do modo tree. */
+  treeMeta: DataTableTreeMeta | null;
+  /** Mostra contagem de descendentes "(N)" no nó. */
+  treeShowDescendantCount: boolean;
   /* ── Handlers (ref estável — NÃO comparado) ──────────────────── */
   handlers: MutableRefObject<DataTableRowHandlers<T>>;
 };
@@ -89,6 +103,9 @@ function DataTableRowInner<T>({
   clickable,
   useRowExpansion,
   expandableColField,
+  treeColField,
+  treeMeta,
+  treeShowDescendantCount,
   handlers,
 }: DataTableRowProps<T>) {
   return (
@@ -124,6 +141,7 @@ function DataTableRowInner<T>({
         const isEditable = !isActionsCol && col.editable === true;
         const isExpandableCol =
           useRowExpansion && col.expandable === true && field === expandableColField;
+        const isTreeCol = treeColField != null && field === treeColField && treeMeta != null;
 
         // Fallback chain de render:
         //   1. edit cell  2. actions  3. col.render  4. registry.renderCell
@@ -164,7 +182,56 @@ function DataTableRowInner<T>({
                   : typeDef?.formatValue
                     ? typeDef.formatValue(value)
                     : value;
-        const content = isExpandableCol ? (
+
+        // Add-ons de célula (read-more / copy). Não aplicam em actions, célula
+        // em edição nem coluna de árvore (tree gerencia o próprio truncate).
+        // Texto puro derivado do formatter/value pra popover + clipboard.
+        const addonsEligible = !isActionsCol && !isEditingThisCell && !isTreeCol;
+        const plainText =
+          col.valueFormatter
+            ? col.valueFormatter(value)
+            : typeDef?.formatValue
+              ? typeDef.formatValue(value)
+              : value != null
+                ? String(value)
+                : "";
+        const contentWithAddons =
+          addonsEligible && col.readMore
+            ? (
+                <DataTableReadMoreCell
+                  text={plainText}
+                  config={col.readMore === true ? {} : col.readMore}
+                >
+                  {baseContent as ReactNode}
+                </DataTableReadMoreCell>
+              )
+            : addonsEligible && col.copyable
+              ? (() => {
+                  const cfg = col.copyable === true ? {} : col.copyable;
+                  const copyText =
+                    typeof cfg.value === "function"
+                      ? cfg.value(row)
+                      : cfg.value ?? plainText;
+                  return (
+                    <DataTableCopyCell
+                      copyText={copyText}
+                      config={{ label: cfg.label }}
+                    >
+                      {baseContent as ReactNode}
+                    </DataTableCopyCell>
+                  );
+                })()
+              : (baseContent as ReactNode);
+
+        const content = isTreeCol ? (
+          <DataTableTreeToggle
+            meta={treeMeta!}
+            showDescendantCount={treeShowDescendantCount}
+            onToggle={() => handlers.current.toggleTreeNode(rowId)}
+          >
+            {baseContent as ReactNode}
+          </DataTableTreeToggle>
+        ) : isExpandableCol ? (
           <span className="flex items-center gap-gp-md w-full">
             <ChevronRight
               className={cn(
@@ -173,10 +240,10 @@ function DataTableRowInner<T>({
               )}
               aria-hidden
             />
-            <span className="flex-1 min-w-0">{baseContent as ReactNode}</span>
+            <span className="flex-1 min-w-0">{contentWithAddons}</span>
           </span>
         ) : (
-          baseContent
+          contentWithAddons
         );
         const tooltipText =
           isActionsCol || isEditingThisCell
@@ -210,7 +277,14 @@ function DataTableRowInner<T>({
               }
             : undefined;
         const effectiveAlign = col.align ?? typeDef?.defaultAlign;
-        const effectiveEllipsis = col.ellipsis ?? typeDef?.defaultEllipsis;
+        // Tree col + add-ons (read-more/copy) gerenciam o próprio truncate —
+        // desativa o ellipsis da cell pra não clipar chevron/botão.
+        const hasAddons =
+          addonsEligible && (col.readMore != null || col.copyable != null);
+        const effectiveEllipsis =
+          isTreeCol || hasAddons
+            ? false
+            : (col.ellipsis ?? typeDef?.defaultEllipsis);
         return (
           <TableCell
             key={field}

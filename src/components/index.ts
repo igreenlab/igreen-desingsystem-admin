@@ -16,6 +16,7 @@ export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
 export * from "./ui/Chip";
+export * from "./ui/Combobox";
 export * from "./ui/DataTable";
 export * from "./ui/FloatingPanel";
 export * from "./ui/FooterTable";

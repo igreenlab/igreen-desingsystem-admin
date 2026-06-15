@@ -86,12 +86,17 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(() => [
 | **Density toggle** | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop |
 | **Column types registry** | `type: "currency"` etc — renderiza display + filter input via registry |
 | **Inline edit** | `editable: true` na coluna + `onCellEditCommit` |
+| **Read-more (Ler mais)** | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo |
+| **Copy célula** | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback "Copiado!" (~2s) |
+| **Grab-to-scroll horizontal** | `grabToScroll: true` (prop raiz) — arrastar o corpo pra rolar lateralmente (desktop) |
+| **Tela cheia (fullscreen)** | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta) |
 | **Server mode** | passe `fetchData` em vez de `rows` |
 | **Card responsivo (mobile)** | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **"Exibição" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo. |
 | **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária. |
 | **Virtualização** | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais) |
 | **Row grouping** | `groupBy: "status"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form |
 | **Row expansion** | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />` |
+| **Tree-data (hierarquia)** | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente. |
 | **Saved views** | `savedViewsService` (use `savedViewsMockService` em dev) |
 | **State persistence** | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
 | **Auto-fit das colunas** | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui espaço sobrando. Override com `col.width` mantém largura fixa. `autoFit={false}` desliga (comportamento legacy). |
@@ -228,6 +233,122 @@ const columns = [
 ```
 
 O chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.
+
+### Tree-data (hierarquia multi-nível)
+
+Hierarquia tipo AG Grid: cada linha continua **FLAT** em `rows` e o **caminho** (`getTreeDataPath`) define a árvore. O DataTable reconstrói os níveis a partir dos caminhos e renderiza indentação + chevron na coluna primária.
+
+```tsx
+const columns = [
+  { field: "name", headerName: "Licenciado", treeColumn: true },  // ← coluna primária da árvore
+  // ...
+];
+
+// O path sobe a cadeia de patrocinador até a raiz: ["L-001", "L-010", "L-100"]
+const byId = new Map(rows.map((r) => [r.id, r]));
+const getTreeDataPath = (row: NetworkRow): string[] => {
+  const path: string[] = [];
+  let cur: NetworkRow | undefined = row;
+  while (cur) {
+    path.unshift(cur.id);
+    cur = cur.parentId ? byId.get(cur.parentId) : undefined;
+  }
+  return path;
+};
+
+<DataTable<NetworkRow>
+  rows={rows}                       // ← FLAT (não aninhadas)
+  columns={columns}
+  getRowId={(r) => r.id}
+  getTreeDataPath={getTreeDataPath}
+  treeData={{
+    defaultExpanded: true,          // árvore começa aberta (default true)
+    showDescendantCount: true,      // mostra "(N)" descendentes ao lado do nome
+  }}
+/>
+```
+
+Regras:
+- `getTreeDataPath(row)` retorna o array do caminho (`[raiz, ..., self]`). Linhas com path vazio são ignoradas da árvore.
+- Se **nenhuma** coluna marcar `treeColumn: true`, o DataTable usa a primeira coluna não-`actions`.
+- Estado de expansão reusa a máquina de row-expansion (`expandedRowIds` / `defaultExpandedRowIds` / `onExpandedRowIdsChange`). O Set guarda os ids que **divergem** do `defaultExpanded`.
+- **Pagination desliga automaticamente** (paginar cortaria ramos). Não suportado em server mode — passe todas as rows do escopo + `virtualize` se necessário.
+- Precedência quando mais de um modo é passado: `groupBy` > `getTreeDataPath` > `renderRowExpansion`.
+- Search/sort operam sobre as rows; a árvore é reconstruída do resultado.
+- **Expand-all / collapse-all** programático via imperative ref: `ref.current.expandAllTree()` / `ref.current.collapseAllTree()` (ver seção [Imperative ref](#imperative-ref)). No-op fora do modo tree-data. Respeita `treeData.defaultExpanded` e opera sobre todas as rows pós-filtro/sort. O DS não embute botões na toolbar — o consumer fia os botões e chama via ref.
+
+```tsx
+const tableRef = useRef<DataTableRef>(null);
+
+<button onClick={() => tableRef.current?.expandAllTree()}>Expandir tudo</button>
+<button onClick={() => tableRef.current?.collapseAllTree()}>Recolher tudo</button>
+
+<DataTable<NetworkRow> ref={tableRef} getTreeDataPath={getTreeDataPath} /* ... */ />
+```
+
+Referência: `src/preview/pages/ClientsTreePreview.tsx`.
+
+### Polish de célula — Read-more (Ler mais)
+
+Trunca conteúdo longo e abre o texto completo num popover ao clicar em "Ler mais". Equivalente DS do `ReadMoreCell` legado (que usava tooltip).
+
+```tsx
+const columns = [
+  // 1 linha + reticências + gatilho "Ler mais" (default)
+  { field: "obs", headerName: "Observação", readMore: true },
+  // N linhas antes de truncar + label custom
+  { field: "bio", headerName: "Bio", readMore: { lines: 2, label: "Ver tudo" } },
+];
+```
+
+- `readMore: true` → 1 linha, label "Ler mais". `readMore: { lines?, label? }` customiza.
+- Desativa o `ellipsis` da cell automaticamente (a add-on gerencia o próprio truncate).
+- Aplica-se ao render default **ou** ao `render` custom (o nó é envolvido). Ignorado em `type: "actions"`, células em edição e na coluna primária de tree-data.
+- O texto do popover deriva do `valueFormatter`/`formatValue`/value (string) — pra HTML rico, passe um `render` que retorna o nó; ele é exibido no popover.
+
+### Polish de célula — Copy (copiar valor)
+
+Ícone de copiar revelado no hover/foco da célula, com feedback "Copiado!" por ~2s. Usa `navigator.clipboard` — **sem dependência nova**.
+
+```tsx
+const columns = [
+  // copia o texto renderizado da célula
+  { field: "email", headerName: "E-mail", copyable: true },
+  // copia um valor derivado da row (ex: id puro) + aria-label custom
+  { field: "doc", headerName: "CPF", copyable: { value: (row) => row.cpfRaw, label: "Copiar CPF" } },
+];
+```
+
+- `copyable: true` → copia o texto da célula. `copyable: { value?, label? }` customiza: `value` aceita string ou `(row) => string`; `label` é o aria-label/title do botão.
+- O ícone só aparece no hover/foco (não polui a célula). O click não dispara `onRowClick`/seleção.
+- `readMore` tem precedência: se ambos forem definidos na mesma coluna, vale `readMore`.
+
+### Grab-to-scroll horizontal
+
+Arrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao `useGrabToScroll` legado.
+
+```tsx
+<DataTable<Client> rows={clients} columns={columns} grabToScroll />
+```
+
+- Prop raiz `grabToScroll: boolean` (default `false`).
+- Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.
+- **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).
+
+### Tela cheia (fullscreen)
+
+Toggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo clique ou **Esc** volta.
+
+```tsx
+<DataTable<Client>
+  rows={clients}
+  columns={columns}
+  toolbar={{ enableFullscreen: true }}
+/>
+```
+
+- `toolbar.enableFullscreen: true` (default `false`) renderiza o tool button entre Filtros e Configurações.
+- O container raiz vira overlay `fixed inset-0` (z-index `--z-index-modal`) com bg do canvas. Estado interno uncontrolled.
 
 ### View Kanban (table ⇄ board)
 
@@ -402,7 +523,11 @@ tableRef.current?.getState();         // DataTableState snapshot
 tableRef.current?.refresh();          // server mode: re-disparar fetchData
 tableRef.current?.exportCsv("filtered");  // download CSV — escopo "all" | "filtered" | "selected"
 tableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem persistId)
+tableRef.current?.expandAllTree();        // tree-data: expande todos os nós (no-op fora de tree-data)
+tableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (no-op fora de tree-data)
 ```
+
+`expandAllTree` / `collapseAllTree` só fazem efeito em modo tree-data (`getTreeDataPath`). Operam sobre todas as rows pós-filtro/sort (tree-data desliga paginação) via `collectExpandableTreeIds` e respeitam `treeData.defaultExpanded` — escrevem o Set de divergência correto (`[]` ou todos os ids expansíveis).
 
 ---
 
@@ -417,6 +542,7 @@ tableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem per
 - `enableColumns?` (true) — ColsPopover (show/hide, pin, reorder via drag)
 - `enableDensity?` (true) — ToolbarSegmented compact/standard/comfortable
 - `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom
+- `enableFullscreen?` (false) — botão ⤢ na toolbar (entre Filtros e Configurações) que expande a tabela pra viewport inteira; Esc volta
 - `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito
 - `customLeft?` — ReactNode livre após search/refresh (controls custom)
 - `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado
@@ -475,6 +601,14 @@ const cols = [
   { field: "name" },                    // expandida pelo autoFit
   { field: "actions", type: "actions", width: 60 },
 ];
+```
+
+### `grabToScroll?: boolean` (default `false`)
+
+Liga o grab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Útil em tabelas com muitas colunas onde o overflow horizontal é comum.
+
+```tsx
+<DataTable rows={rows} columns={cols} grabToScroll />
 ```
 
 ### `persistId?: string` (workspace "Default" persistente — schema v4)

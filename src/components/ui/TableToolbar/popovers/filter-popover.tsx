@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "../../../shadcn/select";
 import { Button } from "../../Button/button";
+import { Combobox } from "../../Combobox";
 import { cn } from "@/lib/utils";
 
 /* ── Types ────────────────────────────────────────────────────────── */
@@ -175,11 +176,13 @@ function FilterRowEditor({
       <span className="text-caption-sm text-fg-muted shrink-0 sm:w-[18px] sm:text-center">
         {index === 0 ? conjLabels.first : conjLabels.rest}
       </span>
-      {/* Campo (flex 1) */}
+      {/* Campo (flex 1) — Combobox: lista de colunas pode ser longa (ex.: ~30 em
+          MAPACLIENTES), então precisa de busca (autocomplete) + scroll. */}
       <div className="w-full sm:flex-[1_1_0%] sm:basis-0 min-w-0">
-        <Select
+        <Combobox
           value={filter.columnKey}
           defaultOpen={autoOpenField}
+          options={columns.map((c) => ({ value: c.key, label: c.label }))}
           onValueChange={(v) => {
             const newCol = columns.find((c) => c.key === v);
             const newOperators =
@@ -188,21 +191,12 @@ function FilterRowEditor({
             const nextOp = opValid ? filter.op : (newOperators[0]?.id ?? filter.op);
             onChange({ ...filter, columnKey: v, op: nextOp, value: "" });
           }}
-        >
-          <SelectTrigger
-            className={cn(FIELD_BASE, "px-pad-xl gap-gp-md")}
-            aria-label="Campo"
-          >
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {columns.map((c) => (
-              <SelectItem key={c.key} value={c.key}>
-                {c.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          className={cn(FIELD_BASE, "px-pad-xl gap-gp-md")}
+          align="start"
+          aria-label="Campo"
+          searchPlaceholder="Buscar campo…"
+          emptyMessage="Nenhum campo"
+        />
       </div>
       {/* Operador (flex 0.7 em desktop — menor, dá mais espaço pro valor) */}
       <div className="w-full sm:flex-[0.7_1_0%] sm:basis-0 min-w-0 sm:min-w-[80px]">

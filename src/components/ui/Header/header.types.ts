@@ -1,5 +1,5 @@
 import type { ReactNode, MouseEvent } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 
 /* ── Breadcrumb ────────────────────────────────────────────────────────────── */
 

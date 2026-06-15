@@ -46,6 +46,8 @@ import {
   LayoutGrid,
   Table as TableIcon,
   Settings2,
+  Maximize2,
+  Minimize2,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -105,6 +107,7 @@ import {
 import { defaultOperatorForFilterType } from "./utils/filter-ops";
 import { DataTableProvider } from "./context/data-table-context";
 import { useDataTableController } from "./hooks/use-data-table-controller";
+import { useGrabToScroll } from "./hooks/use-grab-to-scroll";
 import { DataTableEmpty } from "./parts/data-table-empty";
 import { DataTableLoading } from "./parts/data-table-loading";
 import { DataTableNoResults } from "./parts/data-table-no-results";
@@ -118,6 +121,8 @@ import { DataTableGroupContentRow } from "./parts/data-table-group-content-row";
 import { groupRows, isGroupRow, isGroupContent } from "./utils/group-rows";
 import { DataTableRowExpansion } from "./parts/data-table-row-expansion";
 import { expandRows, isExpansionRow } from "./utils/expand-rows";
+import { buildTreeRows, isTreeRow } from "./utils/tree-rows";
+import type { DataTableTreeMeta } from "./parts/data-table-tree-toggle";
 import { useSortPopoverAdapter } from "./hooks/use-sort-popover-adapter";
 import { useColsPopoverAdapter } from "./hooks/use-cols-popover-adapter";
 import { useFilterPopoverAdapter } from "./hooks/use-filter-popover-adapter";
@@ -228,6 +233,7 @@ function DataTableInternal<T>(
     setViewMode,
     groupBy,
     expandedRowIds: controllerExpandedRowIds,
+    setExpandedRowIds: controllerSetExpandedRowIds,
     toggleRowExpansion: controllerToggleRowExpansion,
   } = controller;
 
@@ -236,6 +242,28 @@ function DataTableInternal<T>(
   const selectionConfig = props.selectionConfig ?? { enabled: false };
 
   const isKanban = viewMode === "kanban" && Boolean(props.kanbanConfig);
+
+  /* ── Grab-to-scroll horizontal (opt-in) ───────────────────────────
+   * Arrastar o corpo pra rolar lateralmente. Anexa pointer listeners ao
+   * mesmo `scrollContainerRef` que o `<Table>` usa. No-op em touch e abaixo
+   * do threshold (clique/seleção preservados). */
+  useGrabToScroll(scrollContainerRef, props.grabToScroll === true);
+
+  /* ── Fullscreen toggle (opt-in) ───────────────────────────────────
+   * Expande o container raiz pra ocupar a viewport inteira. Esc fecha. */
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const enableFullscreen = toolbarConfig.enableFullscreen === true;
+  const toggleFullscreen = useCallback(() => {
+    setIsFullscreen((prev) => !prev);
+  }, []);
+  useEffect(() => {
+    if (!isFullscreen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsFullscreen(false);
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, [isFullscreen]);
 
   const handleViewModeChange = useCallback(
     (mode: DataTableViewMode) => {
@@ -907,10 +935,78 @@ function DataTableInternal<T>(
     return col ? String(col.field) : null;
   }, [props.columns, useRowExpansion]);
 
-  // Array de items renderizados — quando há expansion, intercala markers.
-  // Mutuamente exclusivo com groupBy (que tem precedência).
+  /* ── Tree-data — Fase F.4c ──────────────────────────────────────────
+   * Hierarquia multi-nível derivada de `getTreeDataPath`. Reconstrói a árvore
+   * a partir das rows (já filtradas/ordenadas) e produz TreeRows ordenadas com
+   * level/hasChildren/descendantCount. Reusa `expandedRowIds` como estado de
+   * expansão de nós. Mutuamente exclusivo com groupBy (groupBy tem precedência)
+   * e com row-expansion (tree tem precedência sobre row-expansion). */
+  const useTreeData = !!props.getTreeDataPath && !groupByField;
+  const treeDefaultExpanded = props.treeData?.defaultExpanded !== false; // default true
+  const treeShowDescendantCount = props.treeData?.showDescendantCount === true;
+
+  // Coluna primária da árvore: a que marca `treeColumn: true`, senão a primeira
+  // coluna não-actions.
+  const treeColField = useMemo(() => {
+    if (!useTreeData) return null;
+    const marked = props.columns.find((c) => c.treeColumn === true);
+    if (marked) return String(marked.field);
+    const firstData = props.columns.find((c) => c.type !== "actions");
+    return firstData ? String(firstData.field) : null;
+  }, [props.columns, useTreeData]);
+
+  const treeRows = useMemo(() => {
+    if (!useTreeData || !props.getTreeDataPath) return null;
+    return buildTreeRows(
+      rowsToRender,
+      props.getTreeDataPath,
+      contextValue.getRowId,
+      expandedRowIds,
+      treeDefaultExpanded,
+    );
+  }, [
+    useTreeData,
+    props.getTreeDataPath,
+    rowsToRender,
+    contextValue,
+    expandedRowIds,
+    treeDefaultExpanded,
+  ]);
+
+  /**
+   * Toggle de um nó da árvore = toggle de `expandedRowIds` (mesma máquina de
+   * row-expansion: o Set guarda ids que DIFEREM do default de expansão).
+   *
+   * NÃO reusa `toggleRowExpansion` do controller: aquele respeita `singleExpand`
+   * (abrir um colapsa os demais), o que CORROMPE a árvore — colapsar/expandir um
+   * ramo apagaria a divergência de ramos não relacionados. Em tree-data cada nó
+   * diverge do default de forma independente, então togglamos só a membership do
+   * id no Set via `controllerSetExpandedRowIds` (preserva controlled/
+   * uncontrolled + persistência).
+   */
+  const toggleTreeNode = useCallback(
+    (id: GridRowId) => {
+      const next = expandedRowIds.has(id)
+        ? Array.from(expandedRowIds).filter((x) => x !== id)
+        : [...Array.from(expandedRowIds), id];
+      controllerSetExpandedRowIds(next);
+    },
+    [expandedRowIds, controllerSetExpandedRowIds],
+  );
+
+  // Expand-all / collapse-all programático da árvore vive no controller
+  // (`expandAllTree`/`collapseAllTree`), exposto via imperative handle
+  // (`DataTableRef`). Usa `collectExpandableTreeIds` (tree-rows.ts) sobre todas
+  // as rows pós-filtro/sort pra montar o Set de divergência, respeitando
+  // `treeData.defaultExpanded`. O app dispara via `ref.current.expandAllTree()` /
+  // `ref.current.collapseAllTree()`; a toolbar do DS não embute botões (slice
+  // mantido só nos métodos do ref).
+
+  // Array de items renderizados — quando há expansion/tree, intercala markers.
+  // Precedência: groupBy > tree-data > row-expansion.
   const finalItems = useMemo(() => {
     if (groupByField) return groupedRows;
+    if (useTreeData && treeRows) return treeRows;
     if (useRowExpansion && expandedRowIds.size > 0) {
       return expandRows(rowsToRender, expandedRowIds, contextValue.getRowId);
     }
@@ -918,6 +1014,8 @@ function DataTableInternal<T>(
   }, [
     groupByField,
     groupedRows,
+    useTreeData,
+    treeRows,
     useRowExpansion,
     expandedRowIds,
     rowsToRender,
@@ -941,6 +1039,7 @@ function DataTableInternal<T>(
     },
     toggleRowSelection: (row) => selection.toggleRow(row),
     toggleRowExpansion,
+    toggleTreeNode,
     startEditingCell: (rowId, field) => setEditingCell({ rowId, field }),
     onCellEditCommit: handleCellEditCommit,
     onCellEditCancel: handleCellEditCancel,
@@ -1149,8 +1248,21 @@ function DataTableInternal<T>(
                 />
               );
             }
-            const row = item as T;
+            // Tree-data: desembrulha o TreeRow (mantém a row real intacta) e
+            // calcula a meta de hierarquia pra a coluna primária renderizar
+            // indentação + chevron.
+            const treeNode = isTreeRow<T>(item) ? item : null;
+            const row = (treeNode ? treeNode.row : item) as T;
             const rowId = contextValue.getRowId(row);
+            const treeMeta: DataTableTreeMeta | null = treeNode
+              ? {
+                  level: treeNode.level,
+                  hasChildren: treeNode.hasChildren,
+                  isExpanded: treeNode.isExpanded,
+                  descendantCount: treeNode.descendantCount,
+                  childCount: treeNode.childCount,
+                }
+              : null;
             const editState =
               editingCell?.rowId === rowId
                 ? { field: editingCell.field, isLoading: editLoading, error: editError }
@@ -1174,6 +1286,9 @@ function DataTableInternal<T>(
                 clickable={!!props.onRowClick}
                 useRowExpansion={useRowExpansion}
                 expandableColField={expandableColField}
+                treeColField={treeColField}
+                treeMeta={treeMeta}
+                treeShowDescendantCount={treeShowDescendantCount}
                 handlers={rowHandlersRef}
               />
             );
@@ -1338,7 +1453,12 @@ function DataTableInternal<T>(
 
   return (
     <DataTableProvider value={contextValue}>
-      <div className={cn(styles.root(), props.className)}>
+      <div
+        className={cn(
+          dataTableStyles({ fullscreen: isFullscreen }).root(),
+          props.className,
+        )}
+      >
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
             <>
@@ -1399,6 +1519,16 @@ function DataTableInternal<T>(
                       isActive={hasActiveFilter}
                       hasIndicator={hasActiveFilter}
                       onClick={() => setV2FilterOpen(true)}
+                    />
+                  ) : undefined
+                }
+                fullscreen={
+                  enableFullscreen ? (
+                    <ToolbarToolButton
+                      icon={isFullscreen ? <Minimize2 /> : <Maximize2 />}
+                      aria-label={isFullscreen ? "Sair da tela cheia" : "Tela cheia"}
+                      isActive={isFullscreen}
+                      onClick={toggleFullscreen}
                     />
                   ) : undefined
                 }
@@ -1797,7 +1927,7 @@ function DataTableInternal<T>(
         {/* Footer (paginação) — só na view table.
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
            evitar paginação "1 página" enquanto fetchData responde. */}
-        {!isKanban && paginationConfig.enabled !== false && (
+        {!isKanban && !useTreeData && paginationConfig.enabled !== false && (
           isLoading ? (
             <div className={styles.footerWrap()}>
               <FooterTableSkeleton />

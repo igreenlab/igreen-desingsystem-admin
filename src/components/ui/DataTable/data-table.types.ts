@@ -307,10 +307,36 @@ export type DataTableColumnDef<T> = {
    *  - custom types: o que o tipo definir */
   typeOptions?: Record<string, unknown>;
 
+  /** Read-more — célula "Ler mais". Quando ativo, o conteúdo é truncado
+   *  (1 linha + reticências por default, ou N linhas via `{ lines }`) e um
+   *  gatilho "Ler mais" abre o texto completo num popover. Equivalente DS do
+   *  `ReadMoreCell` legado. Aceita `true` (1 linha, label "Ler mais") ou um
+   *  objeto `{ lines?, label? }`. Aplica-se ao render default ou ao `render`
+   *  custom (o nó renderizado é envolvido). Ignorado em `type: "actions"`,
+   *  células em edição e na coluna primária de tree-data. */
+  readMore?: boolean | { lines?: number; label?: string };
+
+  /** Copy-cell — ícone de copiar revelado no hover/foco da célula, com
+   *  feedback "Copiado!" (~2s). Sem dependência nova (`navigator.clipboard`).
+   *  Aceita `true` (copia o texto da célula) ou um objeto `{ value?, label? }`
+   *  pra customizar o texto copiado (string) ou o aria-label do botão. Quando
+   *  `value` é função, recebe a row. Ignorado em `type: "actions"`, células em
+   *  edição e na coluna primária de tree-data. */
+  copyable?:
+    | boolean
+    | { value?: string | ((row: T) => string); label?: string };
+
   /** Row expansion trigger — Fase F.4b. Quando true, células dessa coluna
    *  ganham chevron + cursor pointer e click toggla a expansão da row.
    *  Funciona apenas se DataTable também receber `renderRowExpansion`. */
   expandable?: boolean;
+
+  /** Tree-data trigger — Fase F.4c. Quando true, esta é a coluna primária da
+   *  árvore: suas células ganham indentação por nível + chevron expand/collapse
+   *  + (opcional) contagem de descendentes. Funciona apenas se o DataTable
+   *  receber `getTreeDataPath`. Se nenhuma coluna marcar `treeColumn: true`, o
+   *  DataTable usa a primeira coluna não-`actions` automaticamente. */
+  treeColumn?: boolean;
 
   /** Inline edit — Fase D.
    *  `editable: true` ativa edit-on-double-click. `editType` define o input
@@ -401,6 +427,13 @@ export type DataTableToolbarConfig = {
   moreMenu?: { items: DataTableMoreMenuItem[] };
   /** @deprecated — use `moreMenu.items` em vez disso. */
   customActions?: ReactNode;
+  /**
+   * Toggle de tela cheia na toolbar (botão ⤢). Quando `true`, o DataTable
+   * renderiza um tool button que expande o container pra ocupar a viewport
+   * inteira (overlay full-screen) e volta ao normal no segundo clique ou Esc.
+   * Default `false`.
+   */
+  enableFullscreen?: boolean;
   /** Slot livre na esquerda apos search/refresh. Use pra inserir custom controls. */
   customLeft?: ReactNode;
   /**
@@ -439,6 +472,15 @@ export type DataTableProps<T> = {
   columns: DataTableColumnDef<T>[];
   /** Função pra extrair id da row. Default: row.id */
   getRowId?: (row: T) => GridRowId;
+
+  /**
+   * Grab-to-scroll horizontal — arrastar o corpo da tabela (mouse/pen) pra
+   * rolar lateralmente, equivalente ao `useGrabToScroll` legado. Um arrasto só
+   * inicia após cruzar um threshold (~6px), preservando clique/seleção de
+   * célula; o scroll por roda do mouse permanece intacto. Pulado em touch
+   * (scroll nativo já funciona). Default `false`.
+   */
+  grabToScroll?: boolean;
 
   /**
    * Auto-fit das colunas ao container. Quando true (default), o DataTable
@@ -645,6 +687,45 @@ export type DataTableProps<T> = {
   /** Quando true, abrir uma row colapsa as demais. Default false (múltiplas abertas). */
   singleExpand?: boolean;
 
+  /* ── Tree-data (hierarquia multi-nível) — Fase F.4c ─────────────── */
+
+  /**
+   * Tree-data hierárquico multi-nível (padrão AG Grid). Recebe uma row FLAT e
+   * retorna o caminho hierárquico dela (ex: `["Ana"]`, `["Ana", "Bruno"]`,
+   * `["Ana", "Bruno", "Carla"]`). O DataTable reconstrói a árvore a partir
+   * desses caminhos e renderiza:
+   *   - Indentação por nível na coluna primária (ver `treeColumn`)
+   *   - Chevron expand/collapse por nó com filhos
+   *   - (Opcional) contagem de descendentes via `treeData.showDescendantCount`
+   *
+   * As rows continuam FLAT no `rows` prop — apenas o caminho define a hierarquia.
+   * Compatível com search/filter/sort (operam sobre as rows; a árvore é
+   * reconstruída do resultado). **Pagination é desligada automaticamente** —
+   * paginar quebraria a hierarquia. Em server-mode tree-data não é suportado
+   * (passe todas as rows do escopo via `rows` + `virtualize`).
+   *
+   * Mutuamente exclusivo com `groupBy` e `renderRowExpansion` — se mais de um
+   * estiver definido, a precedência é `groupBy` > `getTreeDataPath` >
+   * `renderRowExpansion`.
+   *
+   * O estado de expansão dos nós reusa `expandedRowIds` / `defaultExpandedRowIds`
+   * / `onExpandedRowIdsChange` (mesma máquina de row-expansion).
+   */
+  getTreeDataPath?: (row: T) => Array<string | number>;
+  /** Ajustes do modo tree-data. */
+  treeData?: {
+    /**
+     * Mostra a contagem de descendentes ao lado do label do nó (ex: "Ana (12)").
+     * Default `false`.
+     */
+    showDescendantCount?: boolean;
+    /**
+     * Estado de expansão default dos nós com filhos. `true` = árvore inteira
+     * começa aberta; `false` = só as raízes aparecem. Default `true`.
+     */
+    defaultExpanded?: boolean;
+  };
+
   /** Slots de feedback custom */
   renderEmpty?: ReactNode;
   renderLoading?: ReactNode;
@@ -735,4 +816,16 @@ export type DataTableRef = {
   exportCsv: (scope: "all" | "filtered" | "selected") => void;
   /** Limpa o estado persistido no localStorage (no-op se persistId nao foi passado). */
   resetPersistedState: () => void;
+  /**
+   * Tree-data: expande TODOS os nós da árvore de uma vez. No-op quando a tabela
+   * não está em modo tree-data (sem `getTreeDataPath`). Opera sobre todas as
+   * rows pós-filtro/sort (tree-data desliga paginação), respeitando
+   * `treeData.defaultExpanded`. Pareia com `collapseAllTree`.
+   */
+  expandAllTree: () => void;
+  /**
+   * Tree-data: recolhe TODOS os nós da árvore de uma vez. No-op quando a tabela
+   * não está em modo tree-data (sem `getTreeDataPath`). Pareia com `expandAllTree`.
+   */
+  collapseAllTree: () => void;
 };

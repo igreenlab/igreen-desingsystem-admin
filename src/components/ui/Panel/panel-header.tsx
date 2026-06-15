@@ -9,7 +9,7 @@ import {
   panelDescription,
   panelClose,
 } from "./panel.styles";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/lib/lucide-types";
 
 export type PanelHeaderProps = {
   title?: string;
