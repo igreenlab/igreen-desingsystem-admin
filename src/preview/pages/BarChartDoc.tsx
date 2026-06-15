@@ -305,7 +305,7 @@ export function BarChartDoc() {
               <BarChart data={DATA}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel hideIndicator />} />
                 <Bar dataKey="gerada" radius={6}>
                   {DATA.map((d, i) => {
                     const isPeak = i === 1; // Fev = pico
@@ -338,7 +338,7 @@ export function BarChartDoc() {
               <BarChart data={SALDO}>
                 <CartesianGrid vertical={false} />
                 <XAxis dataKey="month" tickLine={false} axisLine={false} tickMargin={8} />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel hideIndicator />} />
                 <Bar dataKey="saldo" radius={5}>
                   <LabelList position="top" offset={8} className="fill-fg-muted" fontSize={11} />
                   {SALDO.map((d) => (
@@ -358,14 +358,23 @@ export function BarChartDoc() {
   );
 }
 
-/* ── Interactive (diário, 3 meses, toggle por métrica com totais) ───── */
-const DAILY = Array.from({ length: 90 }, (_, i) => {
+/* ── Interactive (diário, toggle por métrica com totais) ────────────── */
+// Pseudo-random determinístico (LCG) — varia barra-a-barra sem o padrão de
+// "montanhas" da senoide. 63 dias (~30% menos barras, visual mais harmônico).
+function lcg(seed: number) {
+  let s = seed % 2147483647;
+  if (s <= 0) s += 2147483646;
+  return () => (s = (s * 16807) % 2147483647) / 2147483647;
+}
+const randG = lcg(42);
+const randC = lcg(1337);
+const DAILY = Array.from({ length: 63 }, (_, i) => {
   const d = new Date(2024, 3, 1);
   d.setDate(d.getDate() + i);
   return {
     date: d.toISOString().slice(0, 10),
-    gerada: 120 + ((i * 13) % 130) + Math.round(40 * Math.sin(i / 5)),
-    consumida: 100 + ((i * 17) % 120) + Math.round(30 * Math.cos(i / 4)),
+    gerada: 140 + Math.round(randG() * 240),
+    consumida: 120 + Math.round(randC() * 210),
   };
 });
 
@@ -388,9 +397,9 @@ function InteractiveBarChart() {
   return (
     <>
       <CardHeader className="flex flex-col items-stretch space-y-0 border-b border-border-subtle p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-xl">
+        <div className="flex flex-1 flex-col justify-center gap-gp-2xs px-pad-2xl py-pad-lg">
           <CardTitle>Bar Chart — Interativo</CardTitle>
-          <CardDescription>Energia diária nos últimos 3 meses</CardDescription>
+          <CardDescription>Energia diária nos últimos 2 meses</CardDescription>
         </div>
         <div className="flex">
           {METRICS.map((m) => (
@@ -399,7 +408,7 @@ function InteractiveBarChart() {
               type="button"
               onClick={() => setMetric(m.id)}
               data-active={metric === m.id}
-              className="flex flex-1 flex-col justify-center gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-md text-left even:border-l data-[active=true]:bg-bg-muted sm:min-w-[140px] sm:border-l sm:border-t-0 sm:px-pad-3xl sm:py-pad-lg"
+              className="flex flex-1 flex-col gap-gp-2xs border-t border-border-subtle px-pad-2xl py-pad-lg text-left even:border-l data-[active=true]:bg-bg-muted sm:min-w-[140px] sm:border-l sm:border-t-0 sm:px-pad-3xl"
             >
               <span className="text-caption-sm text-fg-muted">{m.label}</span>
               <span className="text-title-lg font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]">
