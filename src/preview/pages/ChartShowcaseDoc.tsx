@@ -574,7 +574,7 @@ const earnConfig = {
 
 function TotalEarningCard() {
   return (
-    <Panel id="total-earning">
+    <Panel id="total-earning" className="max-w-[460px]">
       <CardHead title="Total earning" action={moreBtn} />
       <p className="mt-pad-md flex items-center gap-gp-sm">
         <span className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">87%</span>
@@ -621,7 +621,7 @@ const ANATOMY = [
 
 function AnatomyCard() {
   return (
-    <Panel id="anatomy" className="bg-bg-subtle">
+    <Panel id="anatomy" className="max-w-[420px] bg-bg-subtle">
       <div className="flex items-start justify-between gap-gp-md">
         <div className="flex flex-col gap-gp-2xs">
           <p className="text-title-lg font-bold text-fg-default">Anatomy detected</p>
@@ -668,7 +668,7 @@ const weekConfig = { line: { label: "Vendas", color: C.green } } satisfies Chart
 
 function WeeklyOverviewCard() {
   return (
-    <Panel id="weekly-overview">
+    <Panel id="weekly-overview" className="max-w-[340px]">
       <CardHead title="Weekly overview" action={moreBtn} className="mb-pad-2xl" />
       <ChartContainer config={weekConfig} className="h-[200px] w-full">
         <ComposedChart data={WEEK_DATA} margin={{ left: -16, right: 8, top: 8 }}>
@@ -707,7 +707,7 @@ const salesConfig = { line: { label: "Vendas", color: C.green } } satisfies Char
 
 function TotalSalesCard() {
   return (
-    <Panel id="total-sales">
+    <Panel id="total-sales" className="max-w-[400px]">
       <div className="mb-pad-md flex items-center justify-between">
         <span className="flex items-center gap-gp-sm">
           <span className="flex size-[28px] items-center justify-center rounded-radius-base bg-bg-success-muted">
@@ -953,7 +953,7 @@ const BUDGET_TOTAL = BUDGET.reduce((s, b) => s + b.value, 0);
 
 function BudgetBreakdownCard() {
   return (
-    <Panel id="budget">
+    <Panel id="budget" className="max-w-[450px]">
       <CardHead title="Budget Breakdown" subtitle="Spend distribution across teams and cost categories." />
       <Tabs defaultValue="team" className="mt-pad-3xl">
         <TabsList className="w-full">
@@ -1026,7 +1026,7 @@ function CryptoSpark({ data, up }: { data: { i: number; v: number }[]; up: boole
 
 function CryptoPortfolioCard() {
   return (
-    <Panel id="crypto">
+    <Panel id="crypto" className="max-w-[512px]">
       <p className="text-caption-md text-fg-muted">Crypto Portfolio</p>
       <p className="text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$38,452.80</p>
       <p className="text-body-sm">
@@ -1077,15 +1077,13 @@ export function ChartShowcaseDoc() {
         <UserActivityCard />
         <TotalIncomeCard />
 
-        {/* Cards estreitos (coluna única) — 2 por linha no container wide */}
-        <div className="grid items-start gap-gp-2xl md:grid-cols-2">
-          <TotalEarningCard />
-          <AnatomyCard />
-          <WeeklyOverviewCard />
-          <TotalSalesCard />
-          <BudgetBreakdownCard />
-          <CryptoPortfolioCard />
-        </div>
+        {/* Cards estreitos — cada um na própria row, largura fixa */}
+        <TotalEarningCard />
+        <AnatomyCard />
+        <WeeklyOverviewCard />
+        <TotalSalesCard />
+        <BudgetBreakdownCard />
+        <CryptoPortfolioCard />
 
         <SubscriptionBillingCard />
         <AcmeUptimeCard />
