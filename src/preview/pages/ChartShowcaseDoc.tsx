@@ -672,10 +672,10 @@ function WeeklyOverviewCard() {
     <Panel id="weekly-overview" className="max-w-[340px]">
       <CardHead title="Weekly overview" action={moreBtn} className="mb-pad-2xl" />
       <ChartContainer config={weekConfig} className="h-[200px] w-full">
-        <ComposedChart data={WEEK_DATA} margin={{ left: -16, right: 8, top: 8 }}>
+        <ComposedChart data={WEEK_DATA} margin={{ left: 4, right: 8, top: 8 }}>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} hide />
-          <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 95]} tickFormatter={(v) => `${v}k`} width={32} />
+          <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 95]} tickFormatter={(v) => `${v}k`} width={40} />
           <Bar dataKey="bar" radius={6} barSize={22}>
             {WEEK_DATA.map((d) => (
               <Cell key={d.d} fill={d.d === "Th" ? "var(--color-line)" : "color-mix(in oklch, var(--color-chart-1) 16%, transparent)"} />

@@ -87,6 +87,7 @@
   --color-chart-3: oklch(0.55 0.15 250);
   --color-chart-4: oklch(0.76 0.15 80);
   --color-chart-5: oklch(0.56 0.18 300);
+  --color-chart-grid: oklch(0.9076 0 0);
   --spacing-sp-0: 0px;
   --spacing-sp-base: 16px;
   --spacing-sp-px: 1px;
@@ -330,6 +331,7 @@
   --color-chart-3: oklch(0.68 0.15 250);
   --color-chart-4: oklch(0.80 0.15 80);
   --color-chart-5: oklch(0.70 0.17 300);
+  --color-chart-grid: oklch(1 0 0 / 0.12);
   --shadow-sh-none: none;
   --shadow-sh-sm: none;
   --shadow-sh-md: 0 0 0 1px oklch(0.2645 0 0);

@@ -170,6 +170,7 @@ export const chart = {
   "3": "oklch(0.68 0.15 250)", // azul
   "4": "oklch(0.80 0.15 80)",  // âmbar
   "5": "oklch(0.70 0.17 300)", // violeta
+  grid: "oklch(1 0 0 / 0.12)", // linhas-guia dos gráficos — branco 12% (visível na surface escura)
 } as const;
 
 export const colorDark = { bg, fg, border, ring, overlay, chart };

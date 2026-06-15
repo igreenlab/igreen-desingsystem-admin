@@ -178,6 +178,7 @@ export const chart = {
   "3": "oklch(0.55 0.15 250)", // azul
   "4": "oklch(0.76 0.15 80)",  // âmbar
   "5": "oklch(0.56 0.18 300)", // violeta
+  grid: gray[200],             // linhas-guia dos gráficos (CartesianGrid/PolarGrid)
 } as const;
 
 export const colorLight = { bg, fg, border, ring, overlay, chart };
