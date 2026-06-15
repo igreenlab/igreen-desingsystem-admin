@@ -28,6 +28,7 @@ import DataTableDoc from "./preview/pages/DataTableDoc";
 import { AreaChartDoc } from "./preview/pages/AreaChartDoc";
 import { BarChartDoc } from "./preview/pages/BarChartDoc";
 import { LineChartDoc } from "./preview/pages/LineChartDoc";
+import { PieChartDoc } from "./preview/pages/PieChartDoc";
 import { ChartComingSoonDoc } from "./preview/pages/ChartComingSoonDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
@@ -367,7 +368,7 @@ export function App() {
           {activePage === "chart-area" && <AreaChartDoc />}
           {activePage === "chart-bar" && <BarChartDoc />}
           {activePage === "chart-line" && <LineChartDoc />}
-          {activePage === "chart-pie" && <ChartComingSoonDoc title="Pie Chart" />}
+          {activePage === "chart-pie" && <PieChartDoc />}
           {activePage === "chart-radar" && <ChartComingSoonDoc title="Radar Chart" />}
           {activePage === "chart-radial" && <ChartComingSoonDoc title="Radial Chart" />}
           {activePage === "showcase-v2" && <ShowcasePageV2 />}
