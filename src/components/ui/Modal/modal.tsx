@@ -19,7 +19,7 @@ import {
  * Types
  * ───────────────────────────────────────────────────────────────── */
 
-export type ModalSize = "sm" | "md" | "lg";
+export type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
 
 export type ModalAction = {
   /** Texto do botão. */
@@ -87,6 +87,8 @@ export type ModalProps = {
    *   - sm: 440px
    *   - md: 540px (default — match TblViewsModal sandbox)
    *   - lg: 720px
+   *   - xl: 1100px (modais de dados)
+   *   - full: min(1400px, 92vw) — escala com a viewport, mantém margens
    */
   size?: ModalSize;
 
