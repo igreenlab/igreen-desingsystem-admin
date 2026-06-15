@@ -82,7 +82,7 @@
   --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);
   --color-overlay-scrim: oklch(0 0 0 / 0.55);
   --color-overlay-float: oklch(0.55 0 0 / 0.12);
-  --color-chart-1: oklch(0.63 0.16 152);
+  --color-chart-1: oklch(0.58 0.140 151);
   --color-chart-2: oklch(0.66 0.12 195);
   --color-chart-3: oklch(0.55 0.15 250);
   --color-chart-4: oklch(0.76 0.15 80);
@@ -325,7 +325,7 @@
   --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);
   --color-overlay-scrim: oklch(0 0 0 / 0.55);
   --color-overlay-float: oklch(1 0 0 / 0.08);
-  --color-chart-1: oklch(0.70 0.17 152);
+  --color-chart-1: oklch(0.7289 0.1571 162.3);
   --color-chart-2: oklch(0.72 0.13 195);
   --color-chart-3: oklch(0.68 0.15 250);
   --color-chart-4: oklch(0.80 0.15 80);

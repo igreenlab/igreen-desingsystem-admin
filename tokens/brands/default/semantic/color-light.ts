@@ -173,7 +173,7 @@ export const overlay = {
 // verde da marca; as demais são harmônicas (teal → azul → âmbar → violeta).
 // Light: levemente mais escuras pra contraste sobre superfícies claras.
 export const chart = {
-  "1": "oklch(0.63 0.16 152)", // verde marca
+  "1": brand[500],             // verde da marca (primitive — acompanha a brand)
   "2": "oklch(0.66 0.12 195)", // teal
   "3": "oklch(0.55 0.15 250)", // azul
   "4": "oklch(0.76 0.15 80)",  // âmbar

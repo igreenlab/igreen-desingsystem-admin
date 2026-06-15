@@ -165,7 +165,7 @@ export const overlay = {
 // Espelha o chart do light, porém mais clara/saturada pra contraste sobre fundos
 // escuros. chart-1 ancora no verde da marca.
 export const chart = {
-  "1": "oklch(0.70 0.17 152)", // verde marca
+  "1": brandContrast[400],     // verde da marca (primitive dark — acompanha a brand)
   "2": "oklch(0.72 0.13 195)", // teal
   "3": "oklch(0.68 0.15 250)", // azul
   "4": "oklch(0.80 0.15 80)",  // âmbar
