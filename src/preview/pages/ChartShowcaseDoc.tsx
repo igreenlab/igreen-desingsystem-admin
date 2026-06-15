@@ -35,6 +35,13 @@ import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 import { Tabs, TabsList, TabsTrigger } from "../../components/shadcn/tabs";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../../components/shadcn/select";
+import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
@@ -149,7 +156,7 @@ function SaaSRevenueCard() {
       <div className="mb-pad-3xl flex flex-wrap items-start justify-between gap-gp-lg">
         <div>
           <p className="text-caption-md text-fg-muted">SaaS revenue metrics</p>
-          <p className="text-display-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+          <p className="text-display-md font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
             $39,025.00
           </p>
           <p className="text-body-sm">
@@ -237,13 +244,13 @@ function DbInstanceCard() {
             Instance ID: <span className="font-medium text-fg-default">db_mX4kR9p</span>
           </p>
         </div>
-        <div className="flex items-center gap-pad-4xl">
+        <div className="flex items-center divide-x divide-border-subtle">
           {[
             { l: "Avg Query Time", v: "42 ms" },
             { l: "Slow Queries", v: "1,243" },
             { l: "Uptime", v: "99.97%" },
           ].map((s) => (
-            <div key={s.l} className="text-right">
+            <div key={s.l} className="px-pad-4xl text-right first:pl-0 last:pr-0">
               <p className="text-caption-sm text-fg-muted">{s.l}</p>
               <p className="text-body-lg font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{s.v}</p>
             </div>
@@ -375,14 +382,24 @@ function TotalRevenueCard() {
               <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
               <YAxis tickLine={false} axisLine={false} ticks={[-20, -10, 0, 10, 20, 30]} domain={[-20, 30]} />
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Bar dataKey="y2024" fill="var(--color-fg-default)" radius={[6, 6, 0, 0]} barSize={10} />
-              <Bar dataKey="y2023" fill="var(--color-bg-muted)" radius={[0, 0, 6, 6]} barSize={10} />
+              <Bar dataKey="y2024" stackId="rev" fill="var(--color-fg-default)" radius={[6, 6, 0, 0]} barSize={12} />
+              <Bar dataKey="y2023" stackId="rev" fill="var(--color-bg-muted)" radius={[0, 0, 6, 6]} barSize={12} />
             </BarChart>
           </ChartContainer>
         </div>
 
         <div className="flex flex-col items-center gap-gp-md border-border-subtle lg:border-l lg:pl-pad-4xl">
-          <div className="relative flex w-full items-center justify-center">
+          <Select defaultValue="report">
+            <SelectTrigger className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="report">Report</SelectItem>
+              <SelectItem value="forecast">Forecast</SelectItem>
+              <SelectItem value="actuals">Actuals</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="relative mt-pad-2xl flex w-full items-center justify-center">
             <ChartContainer config={{}} className="aspect-square h-[190px]">
               <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={72} outerRadius={96}>
                 <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
