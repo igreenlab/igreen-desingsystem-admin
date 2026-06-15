@@ -31,7 +31,18 @@ export function toDateMs(v: unknown): number | null {
   if (v == null || v === "") return null;
   if (typeof v === "number") return v;
   if (v instanceof Date) return v.getTime();
-  const d = new Date(String(v));
+  const s = String(v);
+  // Date-only "YYYY-MM-DD": parseia como LOCAL. `new Date("2026-06-01")` é
+  // interpretado como UTC; em fusos negativos (BR = UTC-3) isso volta pro dia
+  // ANTERIOR — o off-by-one do picker (clica 1/jun → mostra 31/mai). Como
+  // `toIsoDate` serializa com getters LOCAIS, o parse também tem de ser local
+  // pra o round-trip fechar.
+  const ymd = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (ymd) {
+    const d = new Date(Number(ymd[1]), Number(ymd[2]) - 1, Number(ymd[3]));
+    return Number.isNaN(d.getTime()) ? null : d.getTime();
+  }
+  const d = new Date(s);
   return Number.isNaN(d.getTime()) ? null : d.getTime();
 }
 

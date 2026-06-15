@@ -1,6 +1,7 @@
 ﻿import * as React from "react"
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react"
 import { DayPicker, getDefaultClassNames, type DayButton } from "react-day-picker"
+import { ptBR } from "react-day-picker/locale"
 
 import { cn } from "@/lib/utils"
 
@@ -9,6 +10,9 @@ function Calendar({
   classNames,
   showOutsideDays = true,
   captionLayout = "label",
+  // Locale padrão pt-BR (nomes de mês/semana). react-day-picker é en-US por
+  // default → o calendário aparecia em inglês. Override via prop `locale`.
+  locale = ptBR,
   components,
   ...props
 }: React.ComponentProps<typeof DayPicker>) {
@@ -16,6 +20,7 @@ function Calendar({
 
   return (
     <DayPicker
+      locale={locale}
       showOutsideDays={showOutsideDays}
       className={cn(
         "group/calendar bg-transparent p-0 [--cell-size:2.5rem]",
