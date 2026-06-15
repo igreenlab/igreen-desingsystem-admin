@@ -1092,11 +1092,11 @@ const VEHICLE = [
 
 function VehicleOverviewCard() {
   return (
-    <Panel id="vehicle" className="max-w-[420px]">
+    <Panel id="vehicle" className="max-w-[520px]">
       <CardHead title="Vehicle overview" action={moreBtn} className="mb-pad-3xl" />
-      <div className="mb-pad-md grid grid-cols-4 gap-gp-2xs text-caption-sm text-fg-muted">
+      <div className="mb-pad-md flex gap-gp-2xs text-caption-sm text-fg-muted">
         {VEHICLE.map((v) => (
-          <div key={v.label} className="flex flex-col gap-gp-2xs">
+          <div key={v.label} className="flex flex-col gap-gp-2xs" style={{ width: `${v.pct}%` }}>
             <span className="truncate">{v.label}</span>
             <span className="h-[10px] w-[2px] bg-border-default" />
           </div>
@@ -1115,7 +1115,7 @@ function VehicleOverviewCard() {
       </div>
       <div className="mt-pad-2xl flex flex-col">
         {VEHICLE.map((v) => (
-          <div key={v.label} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-3xl last:border-0">
+          <div key={v.label} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-lg last:border-0">
             <v.icon className="size-icon-sm text-fg-muted" />
             <span className="flex-1 text-body-md text-fg-default">{v.label}</span>
             <span className="text-body-md font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{v.time}</span>
@@ -1214,8 +1214,8 @@ function RevenuePerformanceCard() {
   ];
   return (
     <Panel id="revenue-performance">
-      <p className="text-caption-md text-fg-muted">Revenue Performance</p>
-      <p className="text-display-md font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">$285,420.75</p>
+      <p className="text-title-md font-semibold text-fg-default">Revenue Performance</p>
+      <p className="text-heading-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">$285,420.75</p>
       <p className="mb-pad-3xl text-body-sm">
         <span className="font-medium text-fg-success">+$12,840.50 (4.7%)</span> <span className="text-fg-muted">Past 30 days</span>
       </p>
@@ -1302,7 +1302,7 @@ const ticketsConfig = {
 function SupportTicketsCard() {
   return (
     <Panel id="support-tickets" className="max-w-[440px]">
-      <CardHead title="Support Tickets" subtitle="Monthly Ticket Resolution" action={moreBtn} className="mb-pad-3xl border-b border-border-subtle pb-pad-3xl" />
+      <CardHead title="Support Tickets" subtitle="Monthly Ticket Resolution" action={moreBtn} className="mb-pad-3xl" />
       <ChartContainer config={ticketsConfig} className="h-[240px] w-full">
         <BarChart data={TICKETS} margin={{ left: -16, right: 4 }}>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
@@ -1585,8 +1585,8 @@ function PnlCard() {
   return (
     <Panel id="pnl" className="max-w-[440px]">
       <p className="text-caption-md text-fg-muted">P&amp;L</p>
-      <p className="mb-pad-2xl text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$50,232</p>
-      <ChartContainer config={plConfig} className="h-[120px] w-full">
+      <p className="mb-pad-md text-heading-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$50,232</p>
+      <ChartContainer config={plConfig} className="h-[180px] w-full">
         <AreaChart data={PL_DATA} margin={{ left: 0, right: 0, top: 4 }}>
           <defs>
             <linearGradient id="fillPnl" x1="0" y1="0" x2="0" y2="1">
@@ -1599,7 +1599,7 @@ function PnlCard() {
           <Area dataKey="v" type="monotone" stroke="var(--color-v)" strokeWidth={2} fill="url(#fillPnl)" />
         </AreaChart>
       </ChartContainer>
-      <Tabs defaultValue="stocks" className="mt-pad-2xl mb-pad-md border-b border-border-subtle">
+      <Tabs defaultValue="stocks" className="mb-pad-2xs mt-pad-2xl">
         <TabsList>
           <TabsTrigger value="stocks">Stocks</TabsTrigger>
           <TabsTrigger value="funds">Mutual Funds</TabsTrigger>
@@ -1607,7 +1607,7 @@ function PnlCard() {
       </Tabs>
       <div className="flex flex-col">
         {HOLDINGS.map((h) => (
-          <div key={h.name} className="flex items-center justify-between gap-gp-md border-b border-border-subtle py-pad-3xl last:border-0">
+          <div key={h.name} className="flex items-center justify-between gap-gp-md border-b border-border-subtle py-pad-lg last:border-0">
             <div>
               <p className="text-body-md font-semibold text-fg-default">{h.name}</p>
               <p className="text-caption-sm text-fg-muted">{h.shares} shares</p>
@@ -1640,7 +1640,7 @@ function IndicesAlertsCard() {
   return (
     <Panel id="indices" className="max-w-[450px]">
       <CardHead title="Indices Alerts" subtitle="Check this week's performance of your selected indices and take necessary actions." className="mb-pad-3xl" />
-      <Tabs defaultValue="nifty" className="mb-pad-3xl border-b border-border-subtle">
+      <Tabs defaultValue="nifty" className="mb-pad-3xl">
         <TabsList>
           <TabsTrigger value="nifty">Nifty 50</TabsTrigger>
           <TabsTrigger value="nasdaq">NASDAQ</TabsTrigger>
@@ -1733,7 +1733,7 @@ function ReleaseTimelineCard() {
         </div>
       </div>
 
-      <div className="mt-pad-4xl grid gap-pad-4xl lg:grid-cols-2">
+      <div className="mt-pad-4xl grid items-stretch gap-pad-4xl lg:grid-cols-2">
         <div>
           <p className="mb-pad-md text-title-sm font-semibold text-fg-default">Recent Releases</p>
           <div className="flex flex-col gap-gp-md">
@@ -1752,7 +1752,7 @@ function ReleaseTimelineCard() {
             ))}
           </div>
         </div>
-        <div>
+        <div className="flex flex-col justify-center">
           <p className="mb-pad-md text-title-sm font-semibold text-fg-default">Releases per Month</p>
           <ChartContainer config={relConfig} className="h-[220px] w-full">
             <BarChart data={REL_MONTH} margin={{ left: -24, right: 4 }}>
