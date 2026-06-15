@@ -133,6 +133,18 @@ Pausa obrigatória após spec do DS Designer.
 Posso acionar DS Dev para implementar?
 ```
 
+### Operador não-técnico (ex.: Orlando) — traduza o gate
+
+Quando quem aprova NÃO é dev, o gate acima continua valendo, mas APRESENTE assim:
+- Resumo em 2–3 frases, em português claro: o que o componente faz e onde aparece.
+- Uma RECOMENDAÇÃO ("sugiro X porque…") + as opções, sem jargão (nada de `tv()`,
+  "slots", "VariantProps" no texto do gate).
+- Se possível, suba o preview (`npm run dev`, porta 3100) e MOSTRE o componente
+  vivo (print) antes de pedir o "pode".
+- Os campos Strategist (alternativas/assumption) continuam sendo produzidos — o
+  DS Reviewer os checa depois — mas ficam ABAIXO do resumo, não no lugar dele.
+- Só aciona o DS Dev após um "pode/sim" explícito.
+
 ---
 
 ## Rollback após REVIEW_FALHOU

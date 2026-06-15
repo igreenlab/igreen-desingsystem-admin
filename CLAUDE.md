@@ -74,6 +74,20 @@ h-9?      → min-h-form-md (36px)  |   h-10? → min-h-form-lg (40px)
 "Estou prestes a criar algo novo?" → verificar se já existe antes de prosseguir
 ```
 
+### Regra 7 — Branch, push e release: trabalho seguro (multi-agente)
+```
+1. Trabalhe numa BRANCH própria da tarefa — nunca commite direto em `main`.
+2. NUNCA dê `git push`, `npm publish`, release ou bump de versão sozinho → é
+   decisão do mantenedor (Leandro). Pare e peça.
+3. UM agente por componente/área por vez. Antes de editar, cheque o
+   pipeline-state.md e avise se outro agente estiver na mesma área.
+4. Sessão DS = componente / token / visual. Pedido de TELA/PÁGINA/fluxo é Domínio
+   App (🚧 não operacional aqui) → vai no repo do app, não no DS.
+```
+
+> Prompt de início de sessão colável (use no começo de cada conversa, sobretudo
+> com operador não-técnico): [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
+
 ---
 
 ## Leitura automática no início de qualquer sessão
