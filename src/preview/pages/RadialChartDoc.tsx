@@ -2,6 +2,7 @@ import { TrendingUp } from "lucide-react";
 import {
   Label,
   LabelList,
+  PolarAngleAxis,
   PolarGrid,
   PolarRadiusAxis,
   RadialBar,
@@ -83,14 +84,16 @@ function TrendFooter() {
   );
 }
 
-// Texto central reutilizável (Text / Shape / Stacked)
-function centerLabel(primary: string, secondary: string) {
+// Texto central reutilizável (Text / Shape / Stacked).
+// offsetY desloca o bloco — necessário no Stacked (meia-lua), cujo centro
+// geométrico fica na base do arco; sem o shift o número cai fora do dome.
+function centerLabel(primary: string, secondary: string, offsetY = 0) {
   return (
     <Label
       content={({ viewBox }) => {
         if (viewBox && "cx" in viewBox && "cy" in viewBox) {
           const cx = viewBox.cx ?? 0;
-          const cy = viewBox.cy ?? 0;
+          const cy = (viewBox.cy ?? 0) + offsetY;
           return (
             <text x={cx} y={cy} textAnchor="middle" dominantBaseline="middle">
               <tspan
@@ -243,15 +246,15 @@ export function RadialChartDoc() {
               <RadialBarChart
                 data={SINGLE}
                 endAngle={100}
-                innerRadius={80}
-                outerRadius={140}
+                innerRadius={70}
+                outerRadius={110}
               >
                 <PolarGrid
                   gridType="circle"
                   radialLines={false}
                   stroke="none"
                   className="first:fill-bg-muted last:fill-bg-surface"
-                  polarRadius={[86, 74]}
+                  polarRadius={[76, 64]}
                 />
                 <RadialBar dataKey="kwh" background cornerRadius={10} />
                 <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
@@ -277,12 +280,18 @@ export function RadialChartDoc() {
               <RadialBarChart
                 data={STACK}
                 endAngle={180}
-                innerRadius={80}
-                outerRadius={130}
+                innerRadius={70}
+                outerRadius={110}
               >
                 <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+                <PolarAngleAxis
+                  type="number"
+                  domain={[0, STACK_TOTAL]}
+                  tick={false}
+                  axisLine={false}
+                />
                 <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-                  {centerLabel(STACK_TOTAL.toLocaleString("pt-BR"), "kWh totais")}
+                  {centerLabel(STACK_TOTAL.toLocaleString("pt-BR"), "kWh totais", -14)}
                 </PolarRadiusAxis>
                 <RadialBar
                   dataKey="gerada"
