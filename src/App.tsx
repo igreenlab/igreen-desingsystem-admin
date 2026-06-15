@@ -29,7 +29,8 @@ import { AreaChartDoc } from "./preview/pages/AreaChartDoc";
 import { BarChartDoc } from "./preview/pages/BarChartDoc";
 import { LineChartDoc } from "./preview/pages/LineChartDoc";
 import { PieChartDoc } from "./preview/pages/PieChartDoc";
-import { ChartComingSoonDoc } from "./preview/pages/ChartComingSoonDoc";
+import { RadarChartDoc } from "./preview/pages/RadarChartDoc";
+import { RadialChartDoc } from "./preview/pages/RadialChartDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ModalDoc } from "./preview/pages/ModalDoc";
@@ -369,8 +370,8 @@ export function App() {
           {activePage === "chart-bar" && <BarChartDoc />}
           {activePage === "chart-line" && <LineChartDoc />}
           {activePage === "chart-pie" && <PieChartDoc />}
-          {activePage === "chart-radar" && <ChartComingSoonDoc title="Radar Chart" />}
-          {activePage === "chart-radial" && <ChartComingSoonDoc title="Radial Chart" />}
+          {activePage === "chart-radar" && <RadarChartDoc />}
+          {activePage === "chart-radial" && <RadialChartDoc />}
           {activePage === "showcase-v2" && <ShowcasePageV2 />}
           {activePage === "agents" && <AgentsPreview />}
           {activePage === "agents-overview" && <AgentsOverviewDoc />}
