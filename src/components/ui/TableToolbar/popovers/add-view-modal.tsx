@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Eye, Users, X } from "lucide-react";
-import { Dialog, DialogContent, DialogClose } from "../../../shadcn/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+  DialogTitle,
+  DialogDescription,
+} from "../../../shadcn/dialog";
 import { Switch } from "../../../shadcn/switch";
 import { Button } from "../../Button/button";
 import { FormFieldInput } from "../../FormField/form-field-input";
@@ -64,12 +70,7 @@ export function AddViewModal({ open, onClose, onSubmit }: AddViewModalProps) {
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent
-        className={dialog()}
-        hideClose
-        aria-labelledby="add-view-modal-title"
-        aria-describedby="add-view-modal-sub"
-      >
+      <DialogContent className={dialog()} hideClose>
         <DialogClose className={closeBtn()} aria-label="Fechar">
           <X className="size-icon-sm" />
         </DialogClose>
@@ -79,12 +80,14 @@ export function AddViewModal({ open, onClose, onSubmit }: AddViewModalProps) {
             <Eye className="size-icon-md" strokeWidth={1.7} />
           </span>
           <div className={headTitleWrap()}>
-            <h3 id="add-view-modal-title" className={title()}>
-              Adicionar nova visão
-            </h3>
-            <p id="add-view-modal-sub" className={sub()}>
-              Salve sua configuração atual de filtros e colunas
-            </p>
+            <DialogTitle asChild>
+              <h3 className={title()}>Adicionar nova visão</h3>
+            </DialogTitle>
+            <DialogDescription asChild>
+              <p className={sub()}>
+                Salve sua configuração atual de filtros e colunas
+              </p>
+            </DialogDescription>
           </div>
         </header>
 
