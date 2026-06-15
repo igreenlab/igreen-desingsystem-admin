@@ -28,6 +28,10 @@ export const dialog = tv({
       sm: "!max-w-[440px]",
       md: "!max-w-[540px]",
       lg: "!max-w-[720px]",
+      // Modais de dados (grades com muitas colunas). `full` escala com a viewport
+      // mas mantém margens (não vira tela cheia) e limita em telas ultrawide.
+      xl: "!max-w-[1100px]",
+      full: "!max-w-[min(1400px,92vw)]",
     },
   },
   defaultVariants: { size: "md" },
