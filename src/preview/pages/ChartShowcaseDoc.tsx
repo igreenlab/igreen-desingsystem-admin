@@ -400,21 +400,22 @@ function TotalRevenueCard() {
             </SelectContent>
           </Select>
 
-          {/* Gauge centrado verticalmente + label colado */}
-          <div className="flex flex-1 flex-col items-center justify-center">
-            <div className="relative flex w-full items-center justify-center">
+          {/* Gauge opticamente centrado (o -mb absorve o vazio inferior do arco)
+              + legenda colada */}
+          <div className="flex flex-1 flex-col items-center justify-center gap-gp-md">
+            <div className="relative -mb-[44px] flex w-full items-center justify-center">
               <ChartContainer config={{}} className="aspect-square h-[200px]">
                 <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={74} outerRadius={98}>
                   <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
                   <RadialBar dataKey="pct" cornerRadius={8} fill={C.green} background={{ fill: "var(--color-bg-muted)" }} />
                 </RadialBarChart>
               </ChartContainer>
-              <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+              <div className="pointer-events-none absolute inset-0 bottom-[44px] flex flex-col items-center justify-center">
                 <span className="text-heading-xs font-bold leading-none text-fg-default">78%</span>
                 <span className="text-caption-sm text-fg-muted">Growth</span>
               </div>
             </div>
-            <p className="-mt-pad-4xl text-body-sm text-fg-muted">62% Company Growth</p>
+            <p className="text-body-sm text-fg-muted">62% Company Growth</p>
           </div>
 
           <div className="flex w-full items-center justify-between gap-gp-md pt-pad-3xl">
