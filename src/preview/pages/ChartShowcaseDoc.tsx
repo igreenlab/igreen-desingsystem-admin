@@ -1492,7 +1492,7 @@ function EmailCampaignCard() {
   return (
     <Panel id="email-campaign">
       <CardHead title="Email Campaign" subtitle="Campaign performance metrics" action={moreBtn} className="mb-pad-3xl" />
-      <Tabs defaultValue="delivery" className="mb-pad-3xl border-b border-border-subtle">
+      <Tabs defaultValue="delivery" className="mb-pad-3xl">
         <TabsList>
           <TabsTrigger value="delivery">Delivery stats</TabsTrigger>
           <TabsTrigger value="engagement">Engagement</TabsTrigger>
