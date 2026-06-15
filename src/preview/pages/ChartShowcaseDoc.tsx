@@ -584,6 +584,7 @@ function TotalEarningCard() {
       </p>
       <ChartContainer config={earnConfig} className="mt-pad-3xl h-[180px] w-full">
         <BarChart data={EARN_DATA} margin={{ left: 0, right: 0 }} barCategoryGap={16}>
+          <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <Bar dataKey="base" stackId="e" fill="transparent" />
           <Bar dataKey="low" stackId="e" fill="var(--color-low)" barSize={16} />
           <Bar dataKey="high" stackId="e" fill="var(--color-high)" radius={[8, 8, 0, 0]} barSize={16} />
