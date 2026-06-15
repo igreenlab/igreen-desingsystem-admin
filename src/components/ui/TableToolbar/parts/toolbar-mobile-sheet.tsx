@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "../../Button/button";
 import {
@@ -89,7 +89,6 @@ export function ToolbarMobileDialog({
   const [internalOpen, setInternalOpen] = useState(false);
   const open = openProp ?? internalOpen;
   const setOpen = onOpenChange ?? setInternalOpen;
-  const titleId = useId();
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -108,7 +107,10 @@ export function ToolbarMobileDialog({
       </DialogTrigger>
       <DialogContent
         hideClose
-        aria-labelledby={titleId}
+        // Diálogo de ações/filtros não tem descrição — opt-out explícito do
+        // warning do Radix. O título (sr-only) é gerenciado pelo próprio Radix
+        // via DialogTitle (sem id custom, senão a detecção do Radix quebra).
+        aria-describedby={undefined}
         className={cn(
           // Visual alinhado com CommandDialog
           "overflow-hidden p-0 gap-0 sm:max-w-[384px]",
@@ -116,9 +118,7 @@ export function ToolbarMobileDialog({
           contentClassName,
         )}
       >
-        <DialogTitle id={titleId} className="sr-only">
-          {title}
-        </DialogTitle>
+        <DialogTitle className="sr-only">{title}</DialogTitle>
         <div className="flex flex-col gap-gp-3xl p-pad-2xl max-h-[85vh] overflow-y-auto">
           {children}
         </div>
