@@ -58,7 +58,7 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (21 componentes)
+## Componentes — ui/ (iGreen puro) (22 componentes)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
@@ -73,6 +73,7 @@ src/components/
 | FooterTable | — (classes inline em `footer-table.tsx`, sem `.styles.ts`) | `src/components/ui/FooterTable/` | ✅ implementado — footer de tabela com paginação + page-size select + range display + selection count (embutido no DataTable) |
 | FormField | `ui/FormField/form-field.styles.ts` | `src/components/ui/FormField/` | ✅ implementado — container de form com label + input/select/textarea + mensagem de validação (error/warning/success). **Obrigatório em forms (L-023)** |
 | Header | `ui/Header/header.styles.ts` | `src/components/ui/Header/` | ✅ implementado — barra superior fixa (60px) com breadcrumb à esquerda + search/theme/notifications/messages/user à direita |
+| **Icon** | `ui/Icon/icon.styles.ts` | `src/components/ui/Icon/` | ✅ **v0.9.x** — biblioteca de ícones **própria da iGreen** (SVG fixo, só o `d` muda via prop `name`; viewBox por prefixo `line-`=18 / `fill-`=24). `size` preset (`size-icon-*`) ou arbitrário; cor por `currentColor`/`tone` (fg.*)/`color` arbitrário; a11y (decorativo por padrão, `title`/`aria-label` → role img). Biblioteca em `icons.ts` (45 ícones). Doc `#/icon` (catálogo com busca + copiar nome). Complementa o `lucide-react` (set genérico de UI) — este é o set da marca |
 | Kanban | `ui/Kanban/kanban.styles.ts` | `src/components/ui/Kanban/` | ✅ implementado — primitive dumb (recebe `columns` + `cards` via props) que renderiza board horizontal de estágios; state de domínio controlado externamente |
 | Chart | `ui/Chart/chart.tsx` | `src/components/ui/Chart/` | ✅ implementado — wrapper sobre Recharts 3: `ChartContainer` (injeta paleta `--color-chart-1..5` via CSS vars escopadas) + `ChartTooltip`/`ChartTooltipContent` + `ChartLegend`/`ChartLegendContent` + grid via token `--color-chart-grid`, estilizados com tokens iGreen. Sem `.styles.ts` (CSS vars + classes utilitárias). Docs: Area/Bars/Lines/Pies/Radars/Radials + **Compositions** (`#/chart-showcase`, 28 composições). **Padrões canônicos: `.ai/context/components/chart-patterns.md`** + `Chart/USAGE.md`. Ver L-032 |
 | MenuSidebar | `ui/MenuSidebar/sidebar.styles.ts` | `src/components/ui/MenuSidebar/` | ✅ implementado — sidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável) |

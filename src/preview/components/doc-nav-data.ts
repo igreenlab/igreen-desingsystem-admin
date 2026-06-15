@@ -73,6 +73,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Dialog", href: "dialog" },
       { label: "Dropdown Menu", href: "dropdown-menu" },
       { label: "FormField", href: "form-field" },
+      { label: "Icon", href: "icon" },
       { label: "Input", href: "input" },
       { label: "Input Group", href: "input-group" },
       { label: "Pagination", href: "pagination" },
