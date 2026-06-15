@@ -281,13 +281,13 @@ export function RadialChartDoc() {
                 data={PROGRESS}
                 startAngle={90}
                 endAngle={-270}
-                innerRadius={74}
-                outerRadius={104}
+                innerRadius={80}
+                outerRadius={98}
               >
                 <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
                 <RadialBar
                   dataKey="pct"
-                  cornerRadius={10}
+                  cornerRadius={9}
                   fill="var(--color-chart-1)"
                   background={{ fill: "var(--color-bg-muted)" }}
                 />
