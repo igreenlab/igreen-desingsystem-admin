@@ -24,6 +24,7 @@ import {
   ChartLegendContent,
   type ChartConfig,
 } from "../../components/ui/Chart";
+import { Chip } from "@/components/ui/Chip";
 import { DocLayout, DocHeader, DocSeparator } from "../components";
 
 /* ── Mock (domínio iGreen: geração por fonte, kWh) ──────────────────── */
@@ -66,6 +67,22 @@ const FONTES_2023 = [
   { fonte: "outros", kwh: 165, fill: BRAND_SHADES[4] },
 ];
 
+// Donut + legenda lateral (estilo "Origem dos atendimentos" do dashboard).
+// Cores categóricas (verde marca / âmbar / violeta) — caso de comparação entre
+// poucas categorias com tendência, onde a distinção de cor ajuda a leitura.
+const REGIOES = [
+  { name: "São Paulo", value: 1650, fill: "var(--color-chart-1)", delta: "+4.7%", positive: true },
+  { name: "Rio de Janeiro", value: 350, fill: "var(--color-chart-4)", delta: "+2.1%", positive: true },
+  { name: "Belo Horizonte", value: 498, fill: "var(--color-chart-5)", delta: "-1.7%", positive: false },
+];
+const REGIOES_TOTAL = REGIOES.reduce((s, r) => s + r.value, 0);
+const configRegioes = {
+  value: { label: "Atendimentos" },
+  "São Paulo": { label: "São Paulo", color: "var(--color-chart-1)" },
+  "Rio de Janeiro": { label: "Rio de Janeiro", color: "var(--color-chart-4)" },
+  "Belo Horizonte": { label: "Belo Horizonte", color: "var(--color-chart-5)" },
+} satisfies ChartConfig;
+
 const PIE_CLASS = "mx-auto aspect-square max-h-[250px] [&_.recharts-pie-label-text]:fill-fg-default";
 
 // recharts 3 não exporta publicamente o tipo do setor; as props são repassadas
@@ -84,6 +101,7 @@ const TOC = [
   { id: "donut-active", label: "Donut Active" },
   { id: "donut-text", label: "Donut with Text" },
   { id: "stacked", label: "Stacked" },
+  { id: "legend-list", label: "Donut + Legenda" },
   { id: "interactive", label: "Interactive" },
 ];
 
@@ -391,6 +409,71 @@ export function PieChartDoc() {
             </ChartContainer>
           </CardContent>
           <TrendFooter />
+        </Card>
+
+        {/* Donut + Legenda (estilo "Origem dos atendimentos") */}
+        <Card id="legend-list" className="flex flex-col">
+          <CardHeader className="items-center pb-0 text-center">
+            <CardTitle>Pie Chart — Donut + Legenda</CardTitle>
+            <CardDescription>Total no centro + lista com tendência</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-1 flex-col gap-gp-xl pb-pad-2xl">
+            <div className="relative mx-auto flex items-center justify-center">
+              <ChartContainer
+                config={configRegioes}
+                className="mx-auto aspect-square h-[200px]"
+              >
+                <PieChart>
+                  <ChartTooltip
+                    cursor={false}
+                    content={<ChartTooltipContent hideLabel nameKey="name" />}
+                  />
+                  <Pie
+                    data={REGIOES}
+                    dataKey="value"
+                    nameKey="name"
+                    innerRadius={62}
+                    outerRadius={88}
+                    paddingAngle={3}
+                    strokeWidth={0}
+                    startAngle={90}
+                    endAngle={-270}
+                  />
+                </PieChart>
+              </ChartContainer>
+              {/* Total absoluto no centro do donut */}
+              <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-caption-sm text-fg-muted">Total</span>
+                <span className="text-title-lg font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]">
+                  {REGIOES_TOTAL.toLocaleString("pt-BR")}
+                </span>
+              </div>
+            </div>
+            {/* Lista de regiões com valor + badge de tendência */}
+            <div className="flex flex-col gap-gp-md">
+              {REGIOES.map((r) => (
+                <div key={r.name} className="flex items-center gap-gp-md">
+                  <span
+                    className="size-[10px] shrink-0 rounded-radius-full"
+                    style={{ background: r.fill }}
+                    aria-hidden
+                  />
+                  <span className="flex-1 text-body-xs text-fg-default">{r.name}</span>
+                  <span className="text-body-xs text-fg-default [font-variant-numeric:tabular-nums]">
+                    {r.value.toLocaleString("pt-BR")}
+                  </span>
+                  <Chip
+                    color={r.positive ? "success" : "danger"}
+                    variant="soft"
+                    size="sm"
+                    shape="pill"
+                  >
+                    {r.delta}
+                  </Chip>
+                </div>
+              ))}
+            </div>
+          </CardContent>
         </Card>
       </div>
     </DocLayout>

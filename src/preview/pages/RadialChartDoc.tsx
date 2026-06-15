@@ -62,6 +62,9 @@ const configStack = {
 } satisfies ChartConfig;
 const STACK_TOTAL = STACK[0].gerada + STACK[0].consumida;
 
+// Progresso de meta (círculo completo, barra parcial dentro da faixa-guia)
+const PROGRESS = [{ label: "meta", pct: 78, fill: "var(--color-chart-1)" }];
+
 const CHART_CLASS = "mx-auto aspect-square max-h-[250px]";
 
 const TOC = [
@@ -70,6 +73,7 @@ const TOC = [
   { id: "grid", label: "Grid" },
   { id: "text", label: "Text" },
   { id: "shape", label: "Shape" },
+  { id: "progress", label: "Progress" },
   { id: "stacked", label: "Stacked" },
 ];
 
@@ -258,6 +262,37 @@ export function RadialChartDoc() {
                 />
                 <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
                   {centerLabel(SINGLE[0].kwh.toLocaleString("pt-BR"), "kWh")}
+                </PolarRadiusAxis>
+              </RadialBarChart>
+            </ChartContainer>
+          </CardContent>
+          <TrendFooter />
+        </Card>
+
+        {/* Progress (círculo completo, progresso de meta) */}
+        <Card id="progress" className="flex flex-col">
+          <CardHeader className="items-center pb-0 text-center">
+            <CardTitle>Radial Chart — Progress</CardTitle>
+            <CardDescription>Meta de geração</CardDescription>
+          </CardHeader>
+          <CardContent className="flex-1 pb-0">
+            <ChartContainer config={config} className={CHART_CLASS}>
+              <RadialBarChart
+                data={PROGRESS}
+                startAngle={90}
+                endAngle={-270}
+                innerRadius={74}
+                outerRadius={104}
+              >
+                <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
+                <RadialBar
+                  dataKey="pct"
+                  cornerRadius={10}
+                  fill="var(--color-chart-1)"
+                  background={{ fill: "var(--color-bg-muted)" }}
+                />
+                <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+                  {centerLabel(`${PROGRESS[0].pct}%`, "da meta")}
                 </PolarRadiusAxis>
               </RadialBarChart>
             </ChartContainer>
