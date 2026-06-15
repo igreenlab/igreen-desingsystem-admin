@@ -59,6 +59,12 @@ const config = {
 Use os tokens `var(--color-chart-1)` … `var(--color-chart-5)` no `config`.
 Paleta verde-marca + harmônicas (teal/azul/âmbar/violeta), light/dark-aware.
 
+## Grid (linhas-guia)
+
+`<CartesianGrid vertical={false} strokeDasharray="4 4" />` — **sem** passar
+`stroke`. O container já reescreve o stroke default pro token `--color-chart-grid`
+(visível em light e dark). Mesmo vale pro `PolarGrid` (radar/radial).
+
 ## Gotchas
 
 - `ChartContainer` já embute o `ResponsiveContainer` — passe só o gráfico (ex:
@@ -66,3 +72,21 @@ Paleta verde-marca + harmônicas (teal/azul/âmbar/violeta), light/dark-aware.
 - Defina **altura** via `className` (ex: `h-[260px]`) — o aspect default é `video`.
 - Recharts 3: `dataKey` precisa casar com a chave do `config` pra `--color-{key}`
   resolver.
+
+### Recharts 3 — caveats que quebram silenciosamente
+
+- **`text-display-sm` / `text-display-xs` NÃO existem** como utility (renderizam
+  14px). Em KPIs use `text-heading-sm` (24–32px) / `text-heading-xs` (24px) ou
+  `text-display-md` (28–39px).
+- **Pizza**: não há `activeIndex`/`activeShape` no `Pie` — usar a prop
+  `shape={(props, index) => <Sector .../>}` (render por setor).
+- **Radial empilhado**: precisa de `<PolarAngleAxis type="number" domain={[0,total]} />`
+  senão só 1 segmento aparece.
+- **Eixo Y omite ticks de borda** (ex: o `0`): `interval={0}` força todos.
+- **Linha-guia duplicada no topo**: o `domain` máximo deve ser igual ao maior
+  `tick` (ex: `domain={[0,90]}` com tick 90, não `[0,95]`).
+
+## Composições de dashboard
+
+Catálogo + padrões de header/card/categoria/largura em
+`.ai/context/components/chart-patterns.md` (rota `#/chart-showcase`).

@@ -172,6 +172,7 @@ TIER 2.5 — Component tokens
 | Atualizar Updates timeline | `src/preview/pages/updates-data.ts` | `ds-dev/update-changelog.md` |
 | Release completa (changelog + bump + commit + PR) | `updates-data.ts` + `package.json` + git | `ds-dev/release.md` |
 | Tela CRUD/tabela (DataTable) | `src/preview/pages/<Nome>Preview.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `crud-builder/SKILL.md` via `/ds-create-crud` |
+| Gráfico / composição de dashboard | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
 
 ---
 

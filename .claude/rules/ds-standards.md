@@ -298,6 +298,19 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-030** **Mobile-sheet acionado de dentro de overlay z-50 precisa ficar ACIMA.** App usa z-50 como camada-topo; o drawer mobile do MenuSidebar também é z-50 → sheet empatava e renderizava atrás ("aparece por trás"). Wrapper do mobile-sheet vai a **z-60** (globals.css) + backdrop **z-[55]** (dropdown-menu/popover). Não confiar em empate por ordem de DOM. Combina com L-031.
 - **L-031** **`DropdownMenu` dentro de drawer/overlay → `modal={false}` + backdrop `pointer-events-none`.** Modo modal do Radix injeta dismiss/scroll-lock que corre com o gesto → abre no pointerdown e fecha no click do mesmo toque ("some", precisa 2-3 toques). Backdrop `pointer-events-auto` do dropdown intercepta o pointerup. Fix: `modal={false}` no consumer + backdrop do dropdown `pointer-events-none` (dismiss segue via DismissableLayer a nível de document). Popover não sofre (abre no click). Caso: `AppShell/user-menu.tsx` v0.8.x.
 
+### Charts / Recharts 3 (lições v0.9.x)
+- **L-032** **Recharts 3 tem caveats que quebram mudo.** (1) `text-display-sm`/`text-display-xs` **não existem** (renderizam 14px) → KPI usa `heading-sm`/`heading-xs`/`display-md`. (2) Pizza: sem `activeIndex`/`activeShape` → prop `shape={(props,index)=><Sector/>}`. (3) Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0,total]} />`. (4) Eixo Y omite tick de borda (ex: `0`) → `interval={0}`; e `domain` máximo **= maior tick** (senão linha-guia duplicada no topo). (5) Grid via token `chart-grid` (`--color-chart-grid`), reescrito no `ChartContainer` — não passar `stroke`. Padrões completos: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md`.
+
+### Padrão de chart (resumo)
+```
+Gráfico SEMPRE em <ChartContainer config={...}>; cor SÓ por token (chart-1..5 / config keys).
+2 séries = verde(chart-1)+âmbar(chart-4) · pizza = rampa monocromática da brand.
+Grid: <CartesianGrid vertical={false} strokeDasharray="4 4" /> (token chart-grid, sem stroke).
+Card: Panel + CardHead (título+subtítulo) ou KPI_LABEL/KPI_VALUE (label caption-md + valor 30px).
+Estreito = max-w fixo + coluna única (nunca lado-a-lado). 1 card por linha; categorias via SectionLabel.
+Catálogo vivo: #/chart-showcase (ChartShowcaseDoc.tsx).
+```
+
 ---
 
 ## USAGE.md por componente
