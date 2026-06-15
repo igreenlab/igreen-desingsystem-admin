@@ -61,7 +61,7 @@ const ChartContainer = React.forwardRef<
         className={cn(
           "flex aspect-video justify-center text-caption-sm",
           "[&_.recharts-cartesian-axis-tick_text]:fill-fg-muted",
-          "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border-default",
+          "[&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border-subtle",
           "[&_.recharts-curve.recharts-tooltip-cursor]:stroke-border-default",
           "[&_.recharts-dot[stroke='#fff']]:stroke-transparent",
           "[&_.recharts-layer]:outline-none",

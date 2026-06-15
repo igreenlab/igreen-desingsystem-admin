@@ -621,7 +621,7 @@ const ANATOMY = [
 
 function AnatomyCard() {
   return (
-    <Panel id="anatomy" className="max-w-[420px] bg-bg-subtle">
+    <Panel id="anatomy" className="max-w-[420px]">
       <div className="flex items-start justify-between gap-gp-md">
         <div className="flex flex-col gap-gp-2xs">
           <p className="text-title-lg font-bold text-fg-default">Anatomy detected</p>
@@ -636,7 +636,7 @@ function AnatomyCard() {
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <Bar dataKey="v" radius={[4, 4, 0, 0]}>
             {ANATOMY.map((d) => (
-              <Cell key={d.i} fill={d.i === 3 ? "var(--color-fg-default)" : "var(--color-bg-muted)"} />
+              <Cell key={d.i} fill={d.i === 3 ? "var(--color-fg-default)" : "var(--color-border-default)"} />
             ))}
           </Bar>
         </BarChart>
