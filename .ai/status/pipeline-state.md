@@ -2179,3 +2179,18 @@
 - Validação: `npm run build` (DS) VERDE (tokens:tw4 + tsc -b + vite, 3823 módulos). Pareado com 2 fixes no VO (mesmo PR de feature no app): gate `isActiveFilterItem` no `ui/lib/datatable.ts` (fetchView/exportView) + guard `isApplicableFilter` no motor da API (`filters.service`, pula filtro incompleto/IN vazio/BETWEEN sem 2 lados → nunca 500). 27/27 testes da API verdes.
 - Assumption: (a) o conjunto ATIVO (via `filterValueIsEmpty` + nulários) é o gatilho correto de refetch — escolher campo/operador com valor vazio é no-op; (b) JSON.stringify do modelo ativo é assinatura estável o bastante p/ detectar mudança (ordem de itens preservada); (c) passar só os ativos ao `fetchData` não quebra consumers (o adapter do app já gateava no fetchView; agora é defesa dupla); (d) debounce só no filtro (pagination/sort imediatos) é o trade-off certo de UX.
 - Lições novas: candidata — "DataTable server-mode: o gatilho de refetch deve ser a assinatura dos filtros ATIVOS (não o filterModel cru), senão escolher campo/operador dispara request boba; + debounce no filtro. Guard de 'filtro incompleto' em 3 camadas (DS trigger, adapter de payload, motor SQL)." Avaliar no review.
+
+---
+
+### [2026-06-15] | DS DEV | Charts: 6 tipos + showcase de composições + padrões no pipeline | CONCLUÍDO
+- Input: criar categoria "Charts" no preview (Area/Bars/Lines/Pies/Radars/Radials replicando shadcn com o DS), depois página "Compositions" com 28 composições de dashboard como inspiração, e por fim padronizar/documentar tudo como design system. Branch `feat/charts-area`.
+- Output:
+  1. **Componente `Chart`** (ui/Chart) — wrapper sobre Recharts 3 (ChartContainer + ChartTooltip/Content + ChartLegend/Content). Grid reescrito pro token `chart-grid`.
+  2. **Tokens `chart`** (color-light/dark): `chart.1`=brand primitive (verde, acompanha a marca), `chart.2..5` harmônicas, **`chart.grid`** (light gray[200] / dark branco 12%). `npm run tokens:tw4` → `--color-chart-1..5` + `--color-chart-grid`.
+  3. **Páginas doc**: Area(10) · Bars(10) · Lines(10) · Pies(11 + Donut+Legenda) · Radars(13) · Radials(6 + Progress) — fiéis ao shadcn com paleta/grid do DS.
+  4. **Compositions** (`#/chart-showcase`, `ChartShowcaseDoc.tsx`): 28 composições de dashboard, agrupadas em 5 categorias (Receita & Finanças, Usuários & Crescimento, Operações & Status, Cobrança & Campanhas, Mercado), 1 card por linha, gap 32px. Helpers: `Panel`, `CardHead`, `KPI_LABEL`/`KPI_VALUE` (label caption-md + valor 30px), `SectionLabel`.
+  5. **Docs/pipeline**: `.ai/context/components/chart-patterns.md` (canônico), `Chart/USAGE.md` ampliado, **L-032** (caveats Recharts 3), resumo em `ds-standards.md` (auto-load), `inventory.md`, `color.md` (namespace chart), `CLAUDE.md` (mapa de tarefas).
+- Decisões: chart.1 ancora no **primitive da brand** (muda a marca → muda o chart). Pizza = rampa monocromática da brand (não "carnaval"). 2 séries = verde+âmbar. Grid via token único (dark precisa de branco 12%, não border-subtle 0.04). Cards estreitos = coluna única + max-w fixo (não lado-a-lado).
+- Validação: tsc 0 em todos os lotes · browser (Chrome DevTools, dark+light): 6 tipos + 28 composições renderizando, grid visível nos 2 temas, headers KPI padronizados, categorias.
+- Assumption: showcase/preview (mock) — nenhuma composição consome API real; `Chart` é o único wrapper de Recharts (DashboardShowcase usa Recharts cru, fora do escopo do token de grid).
+- Lições novas: **L-032** registrada (caveats Recharts 3: display-sm/xs inexistentes → heading; Pie shape vs activeIndex; radial stack precisa PolarAngleAxis number; YAxis interval=0 + domain=maior tick; grid via token chart-grid).

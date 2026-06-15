@@ -90,6 +90,18 @@ const BASE_NAV: DocNavSection[] = [
     ],
   },
   {
+    title: "Charts",
+    items: [
+      { label: "Area", href: "chart-area" },
+      { label: "Bars", href: "chart-bar" },
+      { label: "Lines", href: "chart-line" },
+      { label: "Pies", href: "chart-pie" },
+      { label: "Radars", href: "chart-radar" },
+      { label: "Radials", href: "chart-radial" },
+      { label: "Compositions", href: "chart-showcase" },
+    ],
+  },
+  {
     title: "Data Table Components",
     items: [
       // Componentes da família data-display

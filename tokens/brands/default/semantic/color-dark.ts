@@ -161,4 +161,16 @@ export const overlay = {
   float: "oklch(1 0 0 / 0.08)",
 } as const;
 
-export const colorDark = { bg, fg, border, ring, overlay };
+// ─── Chart (paleta categórica — verde da marca + harmônicas) ──────────────────
+// Espelha o chart do light, porém mais clara/saturada pra contraste sobre fundos
+// escuros. chart-1 ancora no verde da marca.
+export const chart = {
+  "1": brandContrast[400],     // verde da marca (primitive dark — acompanha a brand)
+  "2": "oklch(0.72 0.13 195)", // teal
+  "3": "oklch(0.68 0.15 250)", // azul
+  "4": "oklch(0.80 0.15 80)",  // âmbar
+  "5": "oklch(0.70 0.17 300)", // violeta
+  grid: "oklch(1 0 0 / 0.12)", // linhas-guia dos gráficos — branco 12% (visível na surface escura)
+} as const;
+
+export const colorDark = { bg, fg, border, ring, overlay, chart };

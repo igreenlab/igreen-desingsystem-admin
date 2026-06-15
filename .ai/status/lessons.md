@@ -756,6 +756,30 @@ gesto completa antes do backdrop montar) → mantém `pointer-events-auto`.
 
 ---
 
+## [L-032] Recharts 3 — caveats de chart que quebram silenciosamente
+**Erro cometido:** ao construir os gráficos do showcase (Area/Bar/Line/Pie/Radar/Radial +
+28 composições de dashboard), vários comportamentos do Recharts 3 falharam mudos: (1) KPIs
+com `text-display-sm`/`text-display-xs` renderizaram **14px** porque esses utilities **não
+existem** no DS; (2) `Pie` ignorou `activeIndex`/`activeShape` (saíram da API no v3); (3)
+radial empilhado mostrou só 1 segmento; (4) o eixo Y omitiu o tick `0`; (5) `domain` máximo
+diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid usava
+`border-subtle/60` (no dark = 0.04 alpha) → imperceptível.
+**Regra derivada:**
+- Tipografia de KPI: usar `text-heading-sm` (24–32) / `heading-xs` (24) / `display-md`
+  (28–39). **Nunca** `display-sm`/`display-xs` (inexistentes).
+- Pizza com setor ativo → prop **`shape={(props, index) => <Sector/>}`**, não `activeIndex`.
+- Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0, total]} />`.
+- `YAxis`: `interval={0}` força todos os ticks; **`domain` máximo = maior tick**.
+- Grid: token dedicado **`chart-grid`** (`--color-chart-grid`, light `gray[200]` / dark
+  branco 12%), reescrito no `ChartContainer` pro stroke default `#ccc`. Não passar `stroke`.
+- Cor só por token (`chart-1..5`); 2 séries = verde+âmbar; pizza = rampa monocromática da
+  brand. Header padrão: `CardHead` (título+subtítulo) ou `KPI_LABEL`+`KPI_VALUE` (30px).
+**Contexto:** `src/components/ui/Chart/chart.tsx`, `ChartShowcaseDoc.tsx`, tokens `chart`
+(color-light/dark). Catálogo + padrões completos em
+`.ai/context/components/chart-patterns.md` e `Chart/USAGE.md` (v0.9.x).
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

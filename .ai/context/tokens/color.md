@@ -104,6 +104,16 @@ fg.on-danger → texto que vai SOBRE bg.danger
 | `ring.primary` | Focus ring padrão — alpha.brand[20] (20% opacidade) |
 | `ring.danger` | Focus ring em estado de erro — alpha.danger[20] |
 | `ring.neutral` | Focus ring neutro — alpha.neutral[20] |
+| **chart (data-viz)** | usados **só** em gráficos (Recharts via `Chart`) |
+| `chart.1` | série principal — **verde da marca** (primitive; acompanha a brand) |
+| `chart.2`–`chart.5` | harmônicas — teal / azul / âmbar / violeta |
+| `chart.grid` | linhas-guia (CartesianGrid/PolarGrid). light `gray[200]` / dark branco 12% |
+
+> Paleta categórica de gráficos. Editar em `tokens/.../semantic/color-light.ts` +
+> `color-dark.ts` (namespace `chart`) → `npm run tokens:tw4`. Consumo: `var(--color-chart-*)`
+> no `config` do `ChartContainer`, nunca em componentes comuns. Convenções de uso
+> (1 série / 2 séries verde+âmbar / pizza monocromática / status) e caveats do Recharts 3:
+> `.ai/context/components/chart-patterns.md` + L-032.
 
 ---
 

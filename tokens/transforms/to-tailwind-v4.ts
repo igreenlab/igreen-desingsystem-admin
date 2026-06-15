@@ -67,6 +67,7 @@ function buildColorVars(
     ...flatten(colors.border, `${prefix}-border`),
     ...flatten(colors.ring, `${prefix}-ring`),
     ...flatten(colors.overlay, `${prefix}-overlay`),
+    ...flatten(colors.chart, `${prefix}-chart`),
   };
 }
 
