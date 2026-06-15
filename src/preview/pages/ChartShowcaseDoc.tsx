@@ -368,8 +368,8 @@ const GROWTH = [{ k: "growth", pct: 78, fill: C.green }];
 
 function TotalRevenueCard() {
   return (
-    <Panel id="total-revenue">
-      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_320px]">
+    <Panel id="total-revenue" className="mx-auto w-full max-w-[800px]">
+      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_300px]">
         <div>
           <CardHead title="Total Revenue" action={moreBtn} className="mb-pad-md" />
           <div className="mb-pad-2xl flex items-center gap-gp-lg text-caption-sm text-fg-muted">
@@ -388,7 +388,7 @@ function TotalRevenueCard() {
           </ChartContainer>
         </div>
 
-        <div className="flex flex-col items-center gap-gp-md border-border-subtle lg:border-l lg:pl-pad-4xl">
+        <div className="flex flex-col border-border-subtle lg:border-l lg:pl-pad-4xl">
           <Select defaultValue="report">
             <SelectTrigger className="w-full">
               <SelectValue />
@@ -399,36 +399,41 @@ function TotalRevenueCard() {
               <SelectItem value="actuals">Actuals</SelectItem>
             </SelectContent>
           </Select>
-          <div className="relative mt-pad-2xl flex w-full items-center justify-center">
-            <ChartContainer config={{}} className="aspect-square h-[190px]">
-              <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={72} outerRadius={96}>
-                <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
-                <RadialBar dataKey="pct" cornerRadius={8} fill={C.green} background={{ fill: "var(--color-bg-muted)" }} />
-              </RadialBarChart>
-            </ChartContainer>
-            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-              <span className="text-title-lg font-bold text-fg-default">78%</span>
-              <span className="text-caption-sm text-fg-muted">Growth</span>
+
+          {/* Gauge centrado verticalmente + label colado */}
+          <div className="flex flex-1 flex-col items-center justify-center gap-gp-2xs">
+            <div className="relative flex w-full items-center justify-center">
+              <ChartContainer config={{}} className="aspect-square h-[200px]">
+                <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={74} outerRadius={98}>
+                  <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
+                  <RadialBar dataKey="pct" cornerRadius={8} fill={C.green} background={{ fill: "var(--color-bg-muted)" }} />
+                </RadialBarChart>
+              </ChartContainer>
+              <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+                <span className="text-display-xs font-bold text-fg-default">78%</span>
+                <span className="text-caption-sm text-fg-muted">Growth</span>
+              </div>
             </div>
+            <p className="text-body-sm text-fg-muted">62% Company Growth</p>
           </div>
-          <p className="text-body-sm text-fg-muted">62% Company Growth</p>
-          <div className="mt-auto flex w-full items-center justify-between gap-gp-md pt-pad-2xl">
-            <div className="flex items-center gap-gp-sm">
-              <span className="flex size-[32px] items-center justify-center rounded-radius-base bg-bg-success-muted">
-                <DollarSign className="size-icon-xs text-fg-success" />
+
+          <div className="flex w-full items-center justify-between gap-gp-md pt-pad-3xl">
+            <div className="flex items-center gap-gp-md">
+              <span className="flex size-[44px] items-center justify-center rounded-radius-base bg-bg-success-muted">
+                <DollarSign className="size-icon-md text-fg-success" />
               </span>
               <div>
                 <p className="text-caption-sm text-fg-muted">2024</p>
-                <p className="text-body-md font-semibold text-fg-default">$32.5K</p>
+                <p className="text-body-lg font-semibold text-fg-default">$32.5K</p>
               </div>
             </div>
-            <div className="flex items-center gap-gp-sm">
-              <span className="flex size-[32px] items-center justify-center rounded-radius-base bg-bg-info-muted">
-                <Wallet className="size-icon-xs text-fg-info" />
+            <div className="flex items-center gap-gp-md">
+              <span className="flex size-[44px] items-center justify-center rounded-radius-base bg-bg-info-muted">
+                <Wallet className="size-icon-md text-fg-info" />
               </span>
               <div>
                 <p className="text-caption-sm text-fg-muted">2023</p>
-                <p className="text-body-md font-semibold text-fg-default">$41.2K</p>
+                <p className="text-body-lg font-semibold text-fg-default">$41.2K</p>
               </div>
             </div>
           </div>
