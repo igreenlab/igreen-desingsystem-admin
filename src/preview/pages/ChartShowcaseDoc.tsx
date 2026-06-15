@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AlertTriangle,
   ChevronDown,
@@ -43,7 +42,7 @@ import {
 } from "../../components/ui/Chart";
 import { DocLayout, DocHeader, DocSeparator } from "../components";
 
-/* ── Paleta do showcase (tokens de chart + semânticos) ──────────────── */
+/* ── Paleta do showcase ─────────────────────────────────────────────── */
 const C = {
   green: "var(--color-chart-1)",
   teal: "var(--color-chart-2)",
@@ -53,7 +52,7 @@ const C = {
   red: "var(--color-fg-danger)",
 };
 
-/* Wrapper de card (replica o Card do DS com controle de padding) */
+/* Wrapper de card */
 function Panel({
   id,
   className,
@@ -67,7 +66,7 @@ function Panel({
     <section
       id={id}
       className={cn(
-        "rounded-radius-lg bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-foreground/5 dark:ring-foreground/10",
+        "w-full rounded-radius-lg bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-foreground/5 dark:ring-foreground/10",
         className,
       )}
     >
@@ -75,6 +74,33 @@ function Panel({
     </section>
   );
 }
+
+/* Cabeçalho padrão (título + subtítulo + ação) — referência: "Total Income" */
+function CardHead({
+  title,
+  subtitle,
+  action,
+  className,
+}: {
+  title: string;
+  subtitle?: string;
+  action?: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex items-start justify-between gap-gp-md", className)}>
+      <div className="flex flex-col gap-gp-2xs">
+        <p className="text-title-md font-semibold leading-tight text-fg-default">{title}</p>
+        {subtitle && <p className="text-body-sm text-fg-muted">{subtitle}</p>}
+      </div>
+      {action}
+    </div>
+  );
+}
+
+const moreBtn = <MoreVertical className="size-icon-sm shrink-0 text-fg-muted" />;
+const brl = (n: number) =>
+  n.toLocaleString("en-US", { style: "currency", currency: "USD" });
 
 const TOC = [
   { id: "saas-revenue", label: "SaaS revenue metrics" },
@@ -95,7 +121,7 @@ const TOC = [
 ];
 
 /* ════════════════════════════════════════════════════════════════════
-   1 — SaaS revenue metrics (multi-line + tabela de planos)
+   1 — SaaS revenue metrics
    ════════════════════════════════════════════════════════════════════ */
 const REV_DATA = Array.from({ length: 27 }, (_, i) => {
   const t = i / 26;
@@ -106,26 +132,21 @@ const REV_DATA = Array.from({ length: 27 }, (_, i) => {
     starter: Math.round(60 + t * 70 + 20 * Math.sin(i / 2.6 + 2)),
   };
 });
-
 const PLANS = [
   { plan: "Enterprise", color: C.blue, subs: 214, mrr: 21400, churn: "0.9%", churnUp: true, upgrades: "+14", ltv: 3555.56 },
   { plan: "Pro", color: C.amber, subs: 865, mrr: 12975, churn: "1.8%", churnUp: false, upgrades: "+62", ltv: 833.33 },
   { plan: "Starter", color: C.red, subs: 1240, mrr: 4650, churn: "2.4%", churnUp: false, upgrades: "+38", ltv: 193.75 },
 ];
-
 const revConfig = {
   enterprise: { label: "Enterprise", color: C.blue },
   pro: { label: "Pro", color: C.amber },
   starter: { label: "Starter", color: C.red },
 } satisfies ChartConfig;
 
-const brl = (n: number) =>
-  n.toLocaleString("en-US", { style: "currency", currency: "USD" });
-
 function SaaSRevenueCard() {
   return (
-    <Panel id="saas-revenue" className="lg:col-span-2">
-      <div className="mb-pad-3xl flex items-start justify-between">
+    <Panel id="saas-revenue">
+      <div className="mb-pad-3xl flex flex-wrap items-start justify-between gap-gp-lg">
         <div>
           <p className="text-caption-md text-fg-muted">SaaS revenue metrics</p>
           <p className="text-display-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
@@ -146,25 +167,11 @@ function SaaSRevenueCard() {
         </div>
       </div>
 
-      <ChartContainer config={revConfig} className="h-[260px] w-full">
+      <ChartContainer config={revConfig} className="h-[280px] w-full">
         <LineChart data={REV_DATA} margin={{ left: 4, right: 8, top: 8 }}>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
-          <XAxis
-            dataKey="day"
-            tickLine={false}
-            axisLine={false}
-            tickMargin={8}
-            minTickGap={28}
-            interval={1}
-          />
-          <YAxis
-            tickLine={false}
-            axisLine={false}
-            width={44}
-            tickFormatter={(v) => `$${v}k`}
-            ticks={[0, 30, 60, 90, 120, 150]}
-            domain={[0, 150]}
-          />
+          <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} minTickGap={28} interval={1} />
+          <YAxis tickLine={false} axisLine={false} width={44} tickFormatter={(v) => `$${v}k`} ticks={[0, 30, 60, 90, 120, 150]} domain={[0, 150]} />
           <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="line" />} />
           <Line dataKey="enterprise" type="monotone" stroke="var(--color-enterprise)" strokeWidth={2} dot={false} />
           <Line dataKey="pro" type="monotone" stroke="var(--color-pro)" strokeWidth={2} dot={false} />
@@ -172,53 +179,49 @@ function SaaSRevenueCard() {
         </LineChart>
       </ChartContainer>
 
-      {/* Tabela de planos */}
-      <table className="mt-pad-3xl w-full text-body-sm">
-        <thead>
-          <tr className="border-b border-border-subtle text-caption-md text-fg-muted">
-            <th className="py-pad-md text-left font-medium">Plan</th>
-            <th className="py-pad-md text-right font-medium">Subscribers</th>
-            <th className="py-pad-md text-right font-medium">MRR</th>
-            <th className="py-pad-md text-right font-medium">Churn</th>
-            <th className="py-pad-md text-right font-medium">Upgrades</th>
-            <th className="py-pad-md text-right font-medium">LTV</th>
-          </tr>
-        </thead>
-        <tbody className="[font-variant-numeric:tabular-nums]">
-          {PLANS.map((p) => (
-            <tr key={p.plan} className="border-b border-border-subtle last:border-0">
-              <td className="py-pad-lg">
-                <span className="flex items-center gap-gp-md font-medium text-fg-default">
-                  <span className="h-[16px] w-[3px] rounded-radius-full" style={{ background: p.color }} />
-                  {p.plan}
-                </span>
-              </td>
-              <td className="py-pad-lg text-right">{p.subs.toLocaleString("en-US")}</td>
-              <td className="py-pad-lg text-right">{brl(p.mrr)}</td>
-              <td className={cn("py-pad-lg text-right", p.churnUp ? "text-fg-success" : "text-fg-danger")}>
-                {p.churn}
-              </td>
-              <td className="py-pad-lg text-right text-fg-success">{p.upgrades}</td>
-              <td className="py-pad-lg text-right">{brl(p.ltv)}</td>
+      <div className="mt-pad-3xl overflow-x-auto">
+        <table className="w-full min-w-[640px] text-body-sm">
+          <thead>
+            <tr className="border-b border-border-subtle text-caption-md text-fg-muted">
+              <th className="py-pad-md text-left font-medium">Plan</th>
+              <th className="py-pad-md text-right font-medium">Subscribers</th>
+              <th className="py-pad-md text-right font-medium">MRR</th>
+              <th className="py-pad-md text-right font-medium">Churn</th>
+              <th className="py-pad-md text-right font-medium">Upgrades</th>
+              <th className="py-pad-md text-right font-medium">LTV</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="[font-variant-numeric:tabular-nums]">
+            {PLANS.map((p) => (
+              <tr key={p.plan} className="border-b border-border-subtle last:border-0">
+                <td className="py-pad-lg">
+                  <span className="flex items-center gap-gp-md font-medium text-fg-default">
+                    <span className="h-[16px] w-[3px] rounded-radius-full" style={{ background: p.color }} />
+                    {p.plan}
+                  </span>
+                </td>
+                <td className="py-pad-lg text-right">{p.subs.toLocaleString("en-US")}</td>
+                <td className="py-pad-lg text-right">{brl(p.mrr)}</td>
+                <td className={cn("py-pad-lg text-right", p.churnUp ? "text-fg-success" : "text-fg-danger")}>{p.churn}</td>
+                <td className="py-pad-lg text-right text-fg-success">{p.upgrades}</td>
+                <td className="py-pad-lg text-right">{brl(p.ltv)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   2 — Database instance (stacked bars + stats + range nav)
+   2 — Database instance
    ════════════════════════════════════════════════════════════════════ */
-const DB_DATA = Array.from({ length: 28 }, (_, i) => {
-  const base = 4200 + Math.round(2600 * Math.abs(Math.sin(i / 3.1)));
-  return {
-    day: `Feb ${String(i + 1).padStart(2, "0")}`,
-    fast: base,
-    slow: Math.round(300 + 900 * Math.abs(Math.sin(i / 2.3 + 1))),
-  };
-});
+const DB_DATA = Array.from({ length: 28 }, (_, i) => ({
+  day: `Feb ${String(i + 1).padStart(2, "0")}`,
+  fast: 4200 + Math.round(2600 * Math.abs(Math.sin(i / 3.1))),
+  slow: Math.round(300 + 900 * Math.abs(Math.sin(i / 2.3 + 1))),
+}));
 const dbConfig = {
   fast: { label: "Normais", color: C.green },
   slow: { label: "Lentas", color: C.blue },
@@ -226,10 +229,10 @@ const dbConfig = {
 
 function DbInstanceCard() {
   return (
-    <Panel id="db-instance" className="lg:col-span-2">
+    <Panel id="db-instance">
       <div className="flex flex-wrap items-start justify-between gap-gp-lg">
-        <div>
-          <p className="text-title-md font-semibold text-fg-default">prod-db-primary</p>
+        <div className="flex flex-col gap-gp-2xs">
+          <p className="text-title-md font-semibold leading-tight text-fg-default">prod-db-primary</p>
           <p className="text-body-sm text-fg-muted">
             Instance ID: <span className="font-medium text-fg-default">db_mX4kR9p</span>
           </p>
@@ -248,11 +251,9 @@ function DbInstanceCard() {
         </div>
       </div>
 
-      <div className="my-pad-3xl flex items-center justify-between border-t border-border-subtle pt-pad-3xl">
-        <div className="flex items-center gap-gp-md">
-          <Chip color="success" variant="soft" size="sm" shape="pill">Healthy</Chip>
-          <span className="text-body-sm text-fg-muted">PostgreSQL 16.2 · last analyzed Feb 28, 2026</span>
-        </div>
+      <div className="my-pad-3xl flex items-center gap-gp-md border-t border-border-subtle pt-pad-3xl">
+        <Chip color="success" variant="soft" size="sm" shape="pill">Healthy</Chip>
+        <span className="text-body-sm text-fg-muted">PostgreSQL 16.2 · last analyzed Feb 28, 2026</span>
       </div>
 
       <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
@@ -264,20 +265,13 @@ function DbInstanceCard() {
             <ChevronRight className="size-icon-sm" />
           </div>
         </div>
-        <ChartContainer config={dbConfig} className="h-[240px] w-full">
+        <ChartContainer config={dbConfig} className="h-[260px] w-full">
           <BarChart data={DB_DATA} margin={{ left: 4, right: 4 }}>
             <CartesianGrid vertical={false} strokeDasharray="4 4" />
             <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} minTickGap={24} />
-            <YAxis
-              tickLine={false}
-              axisLine={false}
-              width={36}
-              tickFormatter={(v) => (v === 0 ? "0k" : `${v / 1000}k`)}
-              ticks={[0, 2500, 5000, 7500, 10000]}
-              domain={[0, 10000]}
-            />
+            <YAxis tickLine={false} axisLine={false} width={36} tickFormatter={(v) => (v === 0 ? "0k" : `${v / 1000}k`)} ticks={[0, 2500, 5000, 7500, 10000]} domain={[0, 10000]} />
             <ChartTooltip content={<ChartTooltipContent indicator="dot" />} />
-            <Bar dataKey="fast" stackId="q" fill="var(--color-fast)" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="fast" stackId="q" fill="var(--color-fast)" />
             <Bar dataKey="slow" stackId="q" fill="var(--color-slow)" radius={[4, 4, 0, 0]} />
           </BarChart>
         </ChartContainer>
@@ -287,7 +281,7 @@ function DbInstanceCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   3 — Finance (stacked bars) + Report panel
+   3 — Finance + Report
    ════════════════════════════════════════════════════════════════════ */
 const FIN_DATA = [
   { m: "Jan", a: 20, b: 0, c: 0 },
@@ -306,18 +300,11 @@ const finConfig = {
 
 function FinanceCard() {
   return (
-    <Panel id="finance" className="lg:col-span-2">
-      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_280px]">
-        {/* Gráfico */}
+    <Panel id="finance">
+      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_300px]">
         <div>
-          <div className="mb-pad-2xl flex items-start justify-between">
-            <div>
-              <p className="text-title-md font-semibold text-fg-default">Finance</p>
-              <p className="text-body-sm text-fg-muted">Yearly report overview</p>
-            </div>
-            <MoreVertical className="size-icon-sm text-fg-muted" />
-          </div>
-          <ChartContainer config={finConfig} className="h-[260px] w-full">
+          <CardHead title="Finance" subtitle="Yearly report overview" action={moreBtn} className="mb-pad-2xl" />
+          <ChartContainer config={finConfig} className="h-[280px] w-full">
             <BarChart data={FIN_DATA} margin={{ left: -16 }} barCategoryGap={20}>
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
               <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
@@ -330,15 +317,8 @@ function FinanceCard() {
           </ChartContainer>
         </div>
 
-        {/* Report panel */}
         <div className="flex flex-col gap-gp-lg border-border-subtle lg:border-l lg:pl-pad-4xl">
-          <div className="mb-pad-md flex items-start justify-between">
-            <div>
-              <p className="text-title-md font-semibold text-fg-default">Report</p>
-              <p className="text-body-sm text-fg-muted">Monthly Avg. $45.578k</p>
-            </div>
-            <MoreVertical className="size-icon-sm text-fg-muted" />
-          </div>
+          <CardHead title="Report" subtitle="Monthly Avg. $45.578k" action={moreBtn} className="mb-pad-md" />
           {[
             { icon: DollarSign, label: "Total Profit", value: "$48,568.20", bg: "bg-bg-success-muted", fg: "text-fg-success" },
             { icon: Wallet, label: "Total Income", value: "$38,453.25", bg: "bg-bg-info-muted", fg: "text-fg-info" },
@@ -354,9 +334,7 @@ function FinanceCard() {
               </div>
             </div>
           ))}
-          <Button color="secondary" variant="outline" className="mt-auto w-full">
-            View Report
-          </Button>
+          <Button color="secondary" variant="outline" className="mt-auto w-full">View Report</Button>
         </div>
       </div>
     </Panel>
@@ -364,7 +342,7 @@ function FinanceCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   4 — Total Revenue (bars +/-) + radial Growth gauge
+   4 — Total Revenue + Growth
    ════════════════════════════════════════════════════════════════════ */
 const TR_DATA = [
   { m: "Jan", y2024: 20, y2023: -13 },
@@ -383,18 +361,15 @@ const GROWTH = [{ k: "growth", pct: 78, fill: C.green }];
 
 function TotalRevenueCard() {
   return (
-    <Panel id="total-revenue" className="lg:col-span-2">
-      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_300px]">
+    <Panel id="total-revenue">
+      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_320px]">
         <div>
-          <div className="mb-pad-md flex items-center justify-between">
-            <p className="text-title-md font-semibold text-fg-default">Total Revenue</p>
-            <MoreVertical className="size-icon-sm text-fg-muted" />
-          </div>
+          <CardHead title="Total Revenue" action={moreBtn} className="mb-pad-md" />
           <div className="mb-pad-2xl flex items-center gap-gp-lg text-caption-sm text-fg-muted">
             <span className="flex items-center gap-gp-2xs"><span className="size-[8px] rounded-radius-full bg-fg-default" />2024</span>
             <span className="flex items-center gap-gp-2xs"><span className="size-[8px] rounded-radius-full bg-bg-muted" />2023</span>
           </div>
-          <ChartContainer config={trConfig} className="h-[260px] w-full">
+          <ChartContainer config={trConfig} className="h-[280px] w-full">
             <BarChart data={TR_DATA} margin={{ left: -16 }} barCategoryGap={8} stackOffset="sign">
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
               <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} />
@@ -406,11 +381,10 @@ function TotalRevenueCard() {
           </ChartContainer>
         </div>
 
-        {/* Growth side */}
         <div className="flex flex-col items-center gap-gp-md border-border-subtle lg:border-l lg:pl-pad-4xl">
           <div className="relative flex w-full items-center justify-center">
-            <ChartContainer config={{}} className="aspect-square h-[180px]">
-              <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={70} outerRadius={95}>
+            <ChartContainer config={{}} className="aspect-square h-[190px]">
+              <RadialBarChart data={GROWTH} startAngle={210} endAngle={-30} innerRadius={72} outerRadius={96}>
                 <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
                 <RadialBar dataKey="pct" cornerRadius={8} fill={C.green} background={{ fill: "var(--color-bg-muted)" }} />
               </RadialBarChart>
@@ -421,7 +395,7 @@ function TotalRevenueCard() {
             </div>
           </div>
           <p className="text-body-sm text-fg-muted">62% Company Growth</p>
-          <div className="mt-auto flex w-full items-center justify-between gap-gp-md">
+          <div className="mt-auto flex w-full items-center justify-between gap-gp-md pt-pad-2xl">
             <div className="flex items-center gap-gp-sm">
               <span className="flex size-[32px] items-center justify-center rounded-radius-base bg-bg-success-muted">
                 <DollarSign className="size-icon-xs text-fg-success" />
@@ -448,7 +422,7 @@ function TotalRevenueCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   5 — User Activity (tabs + stacked bars + métricas)
+   5 — User Activity
    ════════════════════════════════════════════════════════════════════ */
 const UA_DATA = Array.from({ length: 28 }, (_, i) => ({
   day: `Feb ${String(i + 1).padStart(2, "0")}`,
@@ -462,15 +436,8 @@ const uaConfig = {
 
 function UserActivityCard() {
   return (
-    <Panel id="user-activity" className="lg:col-span-2">
-      <div className="mb-pad-2xl flex items-start justify-between">
-        <div>
-          <p className="text-title-md font-semibold text-fg-default">User Activity</p>
-          <p className="text-body-sm text-fg-muted">Track your active users and churn over the month</p>
-        </div>
-        <MoreVertical className="size-icon-sm text-fg-muted" />
-      </div>
-
+    <Panel id="user-activity">
+      <CardHead title="User Activity" subtitle="Track your active users and churn over the month" action={moreBtn} className="mb-pad-2xl" />
       <div className="mb-pad-2xl flex items-center justify-between">
         <Tabs defaultValue="ratio">
           <TabsList>
@@ -482,7 +449,6 @@ function UserActivityCard() {
           <span className="size-[8px] rounded-radius-full bg-bg-success" /> Recently Updated
         </span>
       </div>
-
       <div className="mb-pad-2xl flex items-center gap-pad-4xl">
         <div>
           <p className="flex items-center gap-gp-sm text-display-xs font-bold text-fg-default [font-variant-numeric:tabular-nums]">
@@ -497,8 +463,7 @@ function UserActivityCard() {
           <p className="text-body-sm text-fg-muted">Churned</p>
         </div>
       </div>
-
-      <ChartContainer config={uaConfig} className="h-[260px] w-full">
+      <ChartContainer config={uaConfig} className="h-[280px] w-full">
         <BarChart data={UA_DATA} margin={{ left: -8 }}>
           <CartesianGrid vertical={false} strokeDasharray="4 4" />
           <XAxis dataKey="day" tickLine={false} axisLine={false} tickMargin={8} minTickGap={24} />
@@ -513,94 +478,21 @@ function UserActivityCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   6 — Total earning (range bars laranja/rosa + lista)
-   ════════════════════════════════════════════════════════════════════ */
-const EARN_DATA = [
-  { d: "1", base: 1, low: 3, high: 3 },
-  { d: "2", base: 1, low: 2, high: 3 },
-  { d: "3", base: 0, low: 4, high: 4 },
-  { d: "4", base: 2, low: 2, high: 2 },
-  { d: "5", base: 1, low: 2, high: 2 },
-  { d: "6", base: 2, low: 3, high: 3 },
-  { d: "7", base: 2, low: 3, high: 4 },
-  { d: "8", base: 1, low: 2, high: 2 },
-];
-const earnConfig = {
-  low: { label: "Pagamentos", color: C.amber },
-  high: { label: "Vendas", color: C.red },
-} satisfies ChartConfig;
-
-function TotalEarningCard() {
-  return (
-    <Panel id="total-earning">
-      <div className="mb-pad-md flex items-start justify-between">
-        <p className="text-title-md font-semibold text-fg-default">Total earning</p>
-        <MoreVertical className="size-icon-sm text-fg-muted" />
-      </div>
-      <p className="mb-pad-3xl flex items-center gap-gp-sm">
-        <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">87%</span>
-        <span className="flex items-center gap-gp-2xs text-body-sm font-medium text-fg-success">
-          <TrendingUp className="size-icon-xs" /> +38%
-        </span>
-      </p>
-
-      <ChartContainer config={earnConfig} className="h-[160px] w-full">
-        <BarChart data={EARN_DATA} margin={{ left: 0, right: 0 }} barCategoryGap={14}>
-          <Bar dataKey="base" stackId="e" fill="transparent" />
-          <Bar dataKey="low" stackId="e" fill="var(--color-low)" barSize={14} />
-          <Bar dataKey="high" stackId="e" fill="var(--color-high)" radius={[8, 8, 0, 0]} barSize={14} />
-          <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
-        </BarChart>
-      </ChartContainer>
-
-      <div className="mt-pad-3xl flex flex-col gap-gp-lg">
-        {[
-          { icon: DollarSign, t: "Total revenue", s: "Successful payments", v: "+$250" },
-          { icon: Store, t: "Total sales", s: "Refund", v: "+$80" },
-        ].map((r) => (
-          <div key={r.t} className="flex items-center gap-gp-md">
-            <span className="flex size-[36px] items-center justify-center rounded-radius-base bg-bg-muted">
-              <r.icon className="size-icon-sm text-fg-muted" />
-            </span>
-            <div className="flex-1">
-              <p className="text-body-md font-medium text-fg-default">{r.t}</p>
-              <p className="text-caption-sm text-fg-muted">{r.s}</p>
-            </div>
-            <span className="text-body-md font-semibold text-fg-default">{r.v}</span>
-          </div>
-        ))}
-      </div>
-    </Panel>
-  );
-}
-
-/* ════════════════════════════════════════════════════════════════════
-   7 — Total Income (area + Report cards)
+   6 — Total Income + Report
    ════════════════════════════════════════════════════════════════════ */
 const INCOME_DATA = [
-  { d: "MO", v: 3 },
-  { d: "TU", v: 3 },
-  { d: "WE", v: 5 },
-  { d: "TH", v: 5 },
-  { d: "FR", v: 4 },
-  { d: "SA", v: 4 },
-  { d: "SU", v: 6 },
+  { d: "MO", v: 3 }, { d: "TU", v: 3 }, { d: "WE", v: 5 }, { d: "TH", v: 5 },
+  { d: "FR", v: 4 }, { d: "SA", v: 4 }, { d: "SU", v: 6 },
 ];
 const incomeConfig = { v: { label: "Income", color: C.green } } satisfies ChartConfig;
 
 function TotalIncomeCard() {
   return (
-    <Panel id="total-income" className="lg:col-span-2">
-      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_280px]">
+    <Panel id="total-income">
+      <div className="grid gap-pad-4xl lg:grid-cols-[1fr_300px]">
         <div>
-          <div className="mb-pad-2xl flex items-start justify-between">
-            <div>
-              <p className="text-title-md font-semibold text-fg-default">Total Income</p>
-              <p className="text-body-sm text-fg-muted">Weekly report overview</p>
-            </div>
-            <MoreVertical className="size-icon-sm text-fg-muted" />
-          </div>
-          <ChartContainer config={incomeConfig} className="h-[240px] w-full">
+          <CardHead title="Total Income" subtitle="Weekly report overview" action={moreBtn} className="mb-pad-2xl" />
+          <ChartContainer config={incomeConfig} className="h-[260px] w-full">
             <AreaChart data={INCOME_DATA} margin={{ left: 4, right: 8 }}>
               <defs>
                 <linearGradient id="fillIncome" x1="0" y1="0" x2="0" y2="1">
@@ -610,25 +502,14 @@ function TotalIncomeCard() {
               </defs>
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
               <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} />
-              <YAxis
-                tickLine={false}
-                axisLine={false}
-                width={40}
-                tickFormatter={(v) => `$${v}K`}
-                ticks={[1, 2, 3, 4, 5, 6]}
-                domain={[1, 6]}
-              />
+              <YAxis tickLine={false} axisLine={false} width={40} tickFormatter={(v) => `$${v}K`} ticks={[1, 2, 3, 4, 5, 6]} domain={[1, 6]} />
               <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
               <Area dataKey="v" type="linear" stroke="var(--color-v)" strokeWidth={2} fill="url(#fillIncome)" />
             </AreaChart>
           </ChartContainer>
         </div>
-
         <div className="flex flex-col justify-center gap-gp-lg border-border-subtle lg:border-l lg:pl-pad-4xl">
-          <div className="mb-pad-md">
-            <p className="text-title-md font-semibold text-fg-default">Report</p>
-            <p className="text-body-sm text-fg-muted">Weekly activity</p>
-          </div>
+          <CardHead title="Report" subtitle="Weekly activity" className="mb-pad-md" />
           {[
             { icon: Wallet, t: "Income", v: "$5,550", bg: "bg-bg-success-muted", fg: "text-fg-success" },
             { icon: CreditCard, t: "Expense", v: "$3,520", bg: "bg-bg-info-muted", fg: "text-fg-info" },
@@ -651,7 +532,68 @@ function TotalIncomeCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   8 — Anatomy detected (mini bars + 96.5%)
+   7 — Total earning
+   ════════════════════════════════════════════════════════════════════ */
+const EARN_DATA = [
+  { d: "1", base: 1, low: 3, high: 3 },
+  { d: "2", base: 1, low: 2, high: 3 },
+  { d: "3", base: 0, low: 4, high: 4 },
+  { d: "4", base: 2, low: 2, high: 2 },
+  { d: "5", base: 1, low: 2, high: 2 },
+  { d: "6", base: 2, low: 3, high: 3 },
+  { d: "7", base: 2, low: 3, high: 4 },
+  { d: "8", base: 1, low: 2, high: 2 },
+];
+const earnConfig = {
+  low: { label: "Pagamentos", color: C.amber },
+  high: { label: "Vendas", color: C.red },
+} satisfies ChartConfig;
+
+function TotalEarningCard() {
+  return (
+    <Panel id="total-earning">
+      <div className="grid gap-pad-4xl lg:grid-cols-2">
+        <div className="flex flex-col">
+          <CardHead title="Total earning" action={moreBtn} />
+          <p className="mt-pad-md flex items-center gap-gp-sm">
+            <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">87%</span>
+            <span className="flex items-center gap-gp-2xs text-body-sm font-medium text-fg-success">
+              <TrendingUp className="size-icon-xs" /> +38%
+            </span>
+          </p>
+          <div className="mt-auto flex flex-col gap-gp-lg pt-pad-3xl">
+            {[
+              { icon: DollarSign, t: "Total revenue", s: "Successful payments", v: "+$250" },
+              { icon: Store, t: "Total sales", s: "Refund", v: "+$80" },
+            ].map((r) => (
+              <div key={r.t} className="flex items-center gap-gp-md">
+                <span className="flex size-[36px] items-center justify-center rounded-radius-base bg-bg-muted">
+                  <r.icon className="size-icon-sm text-fg-muted" />
+                </span>
+                <div className="flex-1">
+                  <p className="text-body-md font-medium text-fg-default">{r.t}</p>
+                  <p className="text-caption-sm text-fg-muted">{r.s}</p>
+                </div>
+                <span className="text-body-md font-semibold text-fg-default">{r.v}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <ChartContainer config={earnConfig} className="h-[220px] w-full">
+          <BarChart data={EARN_DATA} margin={{ left: 0, right: 0 }} barCategoryGap={18}>
+            <Bar dataKey="base" stackId="e" fill="transparent" />
+            <Bar dataKey="low" stackId="e" fill="var(--color-low)" barSize={16} />
+            <Bar dataKey="high" stackId="e" fill="var(--color-high)" radius={[8, 8, 0, 0]} barSize={16} />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
+          </BarChart>
+        </ChartContainer>
+      </div>
+    </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   8 — Anatomy detected
    ════════════════════════════════════════════════════════════════════ */
 const ANATOMY = [
   { i: 0, v: 40 }, { i: 1, v: 62 }, { i: 2, v: 52 }, { i: 3, v: 96 },
@@ -661,38 +603,42 @@ const ANATOMY = [
 function AnatomyCard() {
   return (
     <Panel id="anatomy" className="bg-bg-subtle">
-      <div className="mb-pad-3xl flex items-start justify-between">
-        <div>
-          <p className="text-title-lg font-bold text-fg-default">Anatomy detected</p>
-          <p className="text-body-sm text-fg-muted">Your product reach increasing beyond our predictions.</p>
+      <div className="grid items-center gap-pad-4xl lg:grid-cols-2">
+        <div className="flex flex-col gap-pad-3xl">
+          <div className="flex items-start justify-between gap-gp-md">
+            <div className="flex flex-col gap-gp-2xs">
+              <p className="text-title-lg font-bold text-fg-default">Anatomy detected</p>
+              <p className="text-body-sm text-fg-muted">Your product reach increasing beyond our predictions.</p>
+            </div>
+            <span className="flex size-[40px] shrink-0 items-center justify-center rounded-radius-base bg-bg-muted">
+              <AlertTriangle className="size-icon-sm text-fg-default" />
+            </span>
+          </div>
+          <div className="flex items-end justify-between">
+            <div>
+              <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">96.5%</p>
+              <p className="text-body-sm text-fg-muted">Prediction 78%</p>
+            </div>
+            <Button color="secondary" variant="outline" size="sm" shape="pill">See details</Button>
+          </div>
         </div>
-        <span className="flex size-[40px] items-center justify-center rounded-radius-base bg-bg-muted">
-          <AlertTriangle className="size-icon-sm text-fg-default" />
-        </span>
-      </div>
-      <ChartContainer config={{}} className="h-[140px] w-full">
-        <BarChart data={ANATOMY} margin={{ left: 0, right: 0 }} barCategoryGap={10}>
-          <CartesianGrid vertical={false} strokeDasharray="4 4" />
-          <Bar dataKey="v" radius={[4, 4, 0, 0]}>
-            {ANATOMY.map((d) => (
-              <Cell key={d.i} fill={d.i === 3 ? "var(--color-fg-default)" : "var(--color-bg-muted)"} />
-            ))}
-          </Bar>
-        </BarChart>
-      </ChartContainer>
-      <div className="mt-pad-2xl flex items-end justify-between">
-        <div>
-          <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">96.5%</p>
-          <p className="text-body-sm text-fg-muted">Prediction 78%</p>
-        </div>
-        <Button color="secondary" variant="outline" size="sm" shape="pill">See details</Button>
+        <ChartContainer config={{}} className="h-[180px] w-full">
+          <BarChart data={ANATOMY} margin={{ left: 0, right: 0 }} barCategoryGap={10}>
+            <CartesianGrid vertical={false} strokeDasharray="4 4" />
+            <Bar dataKey="v" radius={[4, 4, 0, 0]}>
+              {ANATOMY.map((d) => (
+                <Cell key={d.i} fill={d.i === 3 ? "var(--color-fg-default)" : "var(--color-bg-muted)"} />
+              ))}
+            </Bar>
+          </BarChart>
+        </ChartContainer>
       </div>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   9 — Weekly overview (line sobre barras + 80%)
+   9 — Weekly overview
    ════════════════════════════════════════════════════════════════════ */
 const WEEK_DATA = [
   { d: "Mo", line: 38, bar: 60 },
@@ -708,46 +654,42 @@ const weekConfig = { line: { label: "Vendas", color: C.green } } satisfies Chart
 function WeeklyOverviewCard() {
   return (
     <Panel id="weekly-overview">
-      <div className="mb-pad-2xl flex items-start justify-between">
-        <p className="text-title-md font-semibold text-fg-default">Weekly overview</p>
-        <MoreVertical className="size-icon-sm text-fg-muted" />
+      <div className="grid items-center gap-pad-4xl lg:grid-cols-2">
+        <ChartContainer config={weekConfig} className="h-[200px] w-full">
+          <ComposedChart data={WEEK_DATA} margin={{ left: -16, right: 8, top: 8 }}>
+            <CartesianGrid vertical={false} strokeDasharray="4 4" />
+            <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} hide />
+            <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 95]} tickFormatter={(v) => `${v}k`} width={32} />
+            <Bar dataKey="bar" radius={6} barSize={22}>
+              {WEEK_DATA.map((d) => (
+                <Cell key={d.d} fill={d.d === "Th" ? "var(--color-line)" : "color-mix(in oklch, var(--color-chart-1) 16%, transparent)"} />
+              ))}
+            </Bar>
+            <Line dataKey="line" type="monotone" stroke="var(--color-line)" strokeWidth={2} dot={{ r: 3, fill: "var(--color-line)" }} />
+          </ComposedChart>
+        </ChartContainer>
+        <div className="flex flex-col gap-pad-3xl">
+          <CardHead title="Weekly overview" action={moreBtn} />
+          <div className="flex items-center gap-gp-lg">
+            <span className="text-display-xs font-bold text-fg-default">80%</span>
+            <p className="flex-1 text-body-sm text-fg-muted">Your sales performance is 60% Better compare to Last month</p>
+          </div>
+          <Button color="secondary" variant="outline" className="w-full">Details</Button>
+        </div>
       </div>
-      <ChartContainer config={weekConfig} className="h-[180px] w-full">
-        <ComposedChart data={WEEK_DATA} margin={{ left: -16, right: 8, top: 8 }}>
-          <CartesianGrid vertical={false} strokeDasharray="4 4" />
-          <XAxis dataKey="d" tickLine={false} axisLine={false} tickMargin={8} hide />
-          <YAxis tickLine={false} axisLine={false} ticks={[0, 30, 60, 90]} domain={[0, 95]} tickFormatter={(v) => `${v}k`} width={32} />
-          <Bar dataKey="bar" radius={6} barSize={18}>
-            {WEEK_DATA.map((d) => (
-              <Cell key={d.d} fill={d.d === "Th" ? "var(--color-line)" : "color-mix(in oklch, var(--color-chart-1) 16%, transparent)"} />
-            ))}
-          </Bar>
-          <Line dataKey="line" type="monotone" stroke="var(--color-line)" strokeWidth={2} dot={{ r: 3, fill: "var(--color-line)" }} />
-        </ComposedChart>
-      </ChartContainer>
-      <div className="mt-pad-3xl flex items-center gap-gp-lg">
-        <span className="text-display-xs font-bold text-fg-default">80%</span>
-        <p className="flex-1 text-body-sm text-fg-muted">Your sales performance is 60% Better compare to Last month</p>
-      </div>
-      <Button color="secondary" variant="outline" className="mt-pad-2xl w-full">Details</Button>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   10 — Total sales (bars + line + lojas)
+   10 — Total sales
    ════════════════════════════════════════════════════════════════════ */
 const SALES_DATA = [
-  { t: "10:00", bar: 40, line: 42 },
-  { t: "11:00", bar: 40, line: 50 },
-  { t: "12:00", bar: 40, line: 50 },
-  { t: "13:00", bar: 40, line: 44 },
-  { t: "14:00", bar: 40, line: 44 },
-  { t: "15:00", bar: 40, line: 38 },
-  { t: "16:00", bar: 40, line: 38 },
-  { t: "17:00", bar: 40, line: 50 },
-  { t: "18:00", bar: 40, line: 56 },
-  { t: "19:00", bar: 40, line: 64 },
+  { t: "10:00", bar: 40, line: 42 }, { t: "11:00", bar: 40, line: 50 },
+  { t: "12:00", bar: 40, line: 50 }, { t: "13:00", bar: 40, line: 44 },
+  { t: "14:00", bar: 40, line: 44 }, { t: "15:00", bar: 40, line: 38 },
+  { t: "16:00", bar: 40, line: 38 }, { t: "17:00", bar: 40, line: 50 },
+  { t: "18:00", bar: 40, line: 56 }, { t: "19:00", bar: 40, line: 64 },
   { t: "20:00", bar: 40, line: 64 },
 ];
 const salesConfig = { line: { label: "Vendas", color: C.green } } satisfies ChartConfig;
@@ -755,45 +697,49 @@ const salesConfig = { line: { label: "Vendas", color: C.green } } satisfies Char
 function TotalSalesCard() {
   return (
     <Panel id="total-sales">
-      <div className="mb-pad-md flex items-center justify-between">
-        <span className="flex items-center gap-gp-sm">
-          <span className="flex size-[28px] items-center justify-center rounded-radius-base bg-bg-success-muted">
-            <TrendingUp className="size-icon-xs text-fg-success" />
-          </span>
-          <span className="text-body-md font-semibold text-fg-default">Total sales</span>
-        </span>
-        <Button color="secondary" variant="outline" size="sm" shape="pill">Details</Button>
-      </div>
-      <p className="mb-pad-3xl flex items-center gap-gp-sm">
-        <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$2,150.00</span>
-        <Chip color="neutral" variant="soft" size="sm" shape="pill">+5%</Chip>
-      </p>
-      <div className="flex flex-col gap-gp-md border-b border-border-subtle pb-pad-3xl">
-        {[
-          { icon: Globe, t: "Online Store", v: "$20k", d: "+12.6%", up: true },
-          { icon: Store, t: "Offline Store", v: "$20k", d: "-4.2%", up: false },
-        ].map((r) => (
-          <div key={r.t} className="flex items-center gap-gp-md">
-            <r.icon className="size-icon-sm text-fg-muted" />
-            <span className="flex-1 text-body-sm text-fg-default">{r.t}</span>
-            <span className="text-body-sm font-medium text-fg-default">{r.v}</span>
-            <span className={cn("text-body-sm font-medium", r.up ? "text-fg-success" : "text-fg-danger")}>{r.d}</span>
+      <div className="grid gap-pad-4xl lg:grid-cols-2">
+        <div>
+          <div className="mb-pad-md flex items-center justify-between">
+            <span className="flex items-center gap-gp-sm">
+              <span className="flex size-[28px] items-center justify-center rounded-radius-base bg-bg-success-muted">
+                <TrendingUp className="size-icon-xs text-fg-success" />
+              </span>
+              <span className="text-title-md font-semibold text-fg-default">Total sales</span>
+            </span>
+            <Button color="secondary" variant="outline" size="sm" shape="pill">Details</Button>
           </div>
-        ))}
+          <p className="mb-pad-3xl flex items-center gap-gp-sm">
+            <span className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$2,150.00</span>
+            <Chip color="neutral" variant="soft" size="sm" shape="pill">+5%</Chip>
+          </p>
+          <div className="flex flex-col gap-gp-md">
+            {[
+              { icon: Globe, t: "Online Store", v: "$20k", d: "+12.6%", up: true },
+              { icon: Store, t: "Offline Store", v: "$20k", d: "-4.2%", up: false },
+            ].map((r) => (
+              <div key={r.t} className="flex items-center gap-gp-md">
+                <r.icon className="size-icon-sm text-fg-muted" />
+                <span className="flex-1 text-body-sm text-fg-default">{r.t}</span>
+                <span className="text-body-sm font-medium text-fg-default">{r.v}</span>
+                <span className={cn("text-body-sm font-medium", r.up ? "text-fg-success" : "text-fg-danger")}>{r.d}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <ChartContainer config={salesConfig} className="h-[180px] w-full self-end">
+          <ComposedChart data={SALES_DATA} margin={{ left: 0, right: 0, top: 8 }}>
+            <Bar dataKey="bar" barSize={16} fill="color-mix(in oklch, var(--color-chart-1) 16%, transparent)" radius={4} />
+            <Line dataKey="line" type="monotone" stroke="var(--color-line)" strokeWidth={2} dot={false} />
+            <XAxis dataKey="t" tickLine={false} axisLine={false} tickMargin={8} minTickGap={24} fontSize={10} />
+          </ComposedChart>
+        </ChartContainer>
       </div>
-      <ChartContainer config={salesConfig} className="mt-pad-2xl h-[120px] w-full">
-        <ComposedChart data={SALES_DATA} margin={{ left: 0, right: 0, top: 8 }}>
-          <Bar dataKey="bar" barSize={14} fill="color-mix(in oklch, var(--color-chart-1) 16%, transparent)" radius={4} />
-          <Line dataKey="line" type="monotone" stroke="var(--color-line)" strokeWidth={2} dot={false} />
-          <XAxis dataKey="t" tickLine={false} axisLine={false} tickMargin={8} minTickGap={24} fontSize={10} />
-        </ComposedChart>
-      </ChartContainer>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   11 — Subscription Billing (barra segmentada + tabela)
+   11 — Subscription Billing
    ════════════════════════════════════════════════════════════════════ */
 const PLAN_SPLIT = [
   { label: "Pro", pct: 55, color: C.blue },
@@ -810,14 +756,8 @@ const INVOICES = [
 
 function SubscriptionBillingCard() {
   return (
-    <Panel id="subscription" className="lg:col-span-2">
-      <div className="flex items-start justify-between">
-        <div>
-          <p className="text-title-md font-semibold text-fg-default">Subscription Billing</p>
-          <p className="text-body-sm text-fg-muted">Monitor your plans, revenue, and billing activity.</p>
-        </div>
-        <MoreVertical className="size-icon-sm text-fg-muted" />
-      </div>
+    <Panel id="subscription">
+      <CardHead title="Subscription Billing" subtitle="Monitor your plans, revenue, and billing activity." action={moreBtn} />
 
       <Tabs defaultValue="summary" className="mt-pad-3xl">
         <TabsList>
@@ -826,80 +766,61 @@ function SubscriptionBillingCard() {
         </TabsList>
       </Tabs>
 
-      <div className="mt-pad-3xl grid gap-pad-4xl lg:grid-cols-[1fr_320px]">
-        {/* MRR + barra segmentada + alerta */}
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-caption-md text-fg-muted">Monthly Recurring Revenue</p>
-          <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$48,320</p>
-
-          <div className="mt-pad-2xl flex h-[8px] gap-[3px] overflow-hidden rounded-radius-full">
-            {PLAN_SPLIT.map((p) => (
-              <span key={p.label} style={{ width: `${p.pct}%`, background: p.color }} className="first:rounded-l-radius-full last:rounded-r-radius-full" />
-            ))}
-          </div>
-          <div className="mt-pad-md flex flex-wrap gap-gp-lg">
-            {PLAN_SPLIT.map((p) => (
-              <span key={p.label} className="flex items-center gap-gp-2xs text-caption-sm text-fg-muted">
-                <span className="size-[8px] rounded-[2px]" style={{ background: p.color }} />
-                <span className="font-semibold text-fg-default">{p.pct}%</span> {p.label}
-              </span>
-            ))}
-          </div>
-
-          <div className="my-pad-3xl border-t border-border-subtle" />
-          <p className="text-body-md font-semibold text-fg-default">14 renewals due this week</p>
-          <div className="mt-pad-md flex items-center justify-between rounded-radius-base bg-bg-muted px-pad-3xl py-pad-2xl">
-            <span className="text-body-sm text-fg-muted">3 invoices pending payment – review before Mar 15.</span>
-            <span className="flex items-center gap-gp-2xs text-body-sm font-medium text-fg-info">
-              View invoices <ExternalLink className="size-icon-xs" />
-            </span>
-          </div>
+      <div className="mt-pad-3xl rounded-radius-base border border-border-subtle p-pad-3xl">
+        <p className="text-caption-md text-fg-muted">Monthly Recurring Revenue</p>
+        <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$48,320</p>
+        <div className="mt-pad-2xl flex h-[8px] gap-[3px] overflow-hidden rounded-radius-full">
+          {PLAN_SPLIT.map((p) => (
+            <span key={p.label} style={{ width: `${p.pct}%`, background: p.color }} />
+          ))}
         </div>
-
-        {/* Account manager */}
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-semibold text-fg-default">Need help?</p>
-          <p className="text-body-sm text-fg-muted">Contact your account manager</p>
-          <div className="mt-pad-3xl flex items-center gap-gp-md">
-            <span className="flex size-[40px] items-center justify-center rounded-radius-full bg-bg-muted text-body-sm font-semibold text-fg-default">SM</span>
-            <div>
-              <p className="text-body-md font-medium text-fg-default">Sara Mitchell</p>
-              <p className="text-body-sm text-fg-info">sara.mitchell@example.com</p>
-            </div>
-          </div>
+        <div className="mt-pad-md flex flex-wrap gap-gp-lg">
+          {PLAN_SPLIT.map((p) => (
+            <span key={p.label} className="flex items-center gap-gp-2xs text-caption-sm text-fg-muted">
+              <span className="size-[8px] rounded-[2px]" style={{ background: p.color }} />
+              <span className="font-semibold text-fg-default">{p.pct}%</span> {p.label}
+            </span>
+          ))}
+        </div>
+        <div className="my-pad-3xl border-t border-border-subtle" />
+        <p className="text-body-md font-semibold text-fg-default">14 renewals due this week</p>
+        <div className="mt-pad-md flex items-center justify-between gap-gp-md rounded-radius-base bg-bg-muted px-pad-3xl py-pad-2xl">
+          <span className="text-body-sm text-fg-muted">3 invoices pending payment – review before Mar 15.</span>
+          <span className="flex shrink-0 items-center gap-gp-2xs text-body-sm font-medium text-fg-info">
+            View invoices <ExternalLink className="size-icon-xs" />
+          </span>
         </div>
       </div>
 
-      {/* Recent invoices */}
       <p className="mb-pad-md mt-pad-4xl text-title-sm font-semibold text-fg-default">Recent Invoices</p>
-      <table className="w-full text-body-sm">
-        <thead>
-          <tr className="border-b border-border-subtle text-caption-md text-fg-muted">
-            <th className="py-pad-md text-left font-medium">Date</th>
-            <th className="py-pad-md text-left font-medium">Description</th>
-            <th className="py-pad-md text-left font-medium">Customer</th>
-            <th className="py-pad-md text-right font-medium">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {INVOICES.map((inv, i) => (
-            <tr key={i} className="border-b border-border-subtle last:border-0">
-              <td className="py-pad-lg font-medium text-fg-default">{inv.date}</td>
-              <td className="py-pad-lg text-fg-muted">{inv.desc}</td>
-              <td className="py-pad-lg text-fg-default">{inv.customer}</td>
-              <td className={cn("py-pad-lg text-right font-medium [font-variant-numeric:tabular-nums]", inv.up ? "text-fg-success" : "text-fg-danger")}>
-                {inv.amount}
-              </td>
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[620px] text-body-sm">
+          <thead>
+            <tr className="border-b border-border-subtle text-caption-md text-fg-muted">
+              <th className="py-pad-md text-left font-medium">Date</th>
+              <th className="py-pad-md text-left font-medium">Description</th>
+              <th className="py-pad-md text-left font-medium">Customer</th>
+              <th className="py-pad-md text-right font-medium">Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {INVOICES.map((inv, i) => (
+              <tr key={i} className="border-b border-border-subtle last:border-0">
+                <td className="py-pad-lg font-medium text-fg-default">{inv.date}</td>
+                <td className="py-pad-lg text-fg-muted">{inv.desc}</td>
+                <td className="py-pad-lg text-fg-default">{inv.customer}</td>
+                <td className={cn("py-pad-lg text-right font-medium [font-variant-numeric:tabular-nums]", inv.up ? "text-fg-success" : "text-fg-danger")}>{inv.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   12 / 13 — Uptime status (barras de status)
+   12 / 13 — Uptime status
    ════════════════════════════════════════════════════════════════════ */
 type Status = "ok" | "degraded" | "down" | "inactive";
 const STATUS_COLOR: Record<Status, string> = {
@@ -908,7 +829,6 @@ const STATUS_COLOR: Record<Status, string> = {
   down: C.red,
   inactive: "var(--color-bg-muted)",
 };
-// gera N status mayoritariamente "ok" com alguns eventos determinísticos
 function genStatuses(n: number, downAt: number[], degradedAt: number[]): Status[] {
   return Array.from({ length: n }, (_, i) =>
     downAt.includes(i) ? "down" : degradedAt.includes(i) ? "degraded" : "ok",
@@ -916,7 +836,7 @@ function genStatuses(n: number, downAt: number[], degradedAt: number[]): Status[
 }
 function StatusBars({ statuses }: { statuses: Status[] }) {
   return (
-    <div className="flex h-[36px] items-stretch gap-[2px]">
+    <div className="flex h-[40px] items-stretch gap-[3px]">
       {statuses.map((s, i) => (
         <span key={i} className="flex-1 rounded-[2px]" style={{ background: STATUS_COLOR[s] }} />
       ))}
@@ -942,9 +862,9 @@ const UPTIME_LEGEND = [
 ];
 
 function AcmeUptimeCard() {
-  const statuses = genStatuses(60, [22], [8, 41, 52]);
+  const statuses = genStatuses(72, [26], [9, 48, 61]);
   return (
-    <Panel id="acme-uptime" className="lg:col-span-2">
+    <Panel id="acme-uptime">
       <div className="mb-pad-3xl flex items-start justify-between">
         <p className="text-title-md font-semibold text-fg-default">acme-store.com</p>
         <Chip color="success" variant="outline" size="sm" shape="pill">Operational</Chip>
@@ -973,11 +893,11 @@ function AcmeUptimeCard() {
 
 function SystemStatusCard() {
   const rows = [
-    { name: "API Gateway", uptime: "99.68% uptime", statuses: genStatuses(48, [14], [6, 33]) },
-    { name: "CDN & Assets", uptime: "100% uptime", statuses: genStatuses(48, [], []) },
+    { name: "API Gateway", uptime: "99.68% uptime", statuses: genStatuses(60, [18], [7, 41]) },
+    { name: "CDN & Assets", uptime: "100% uptime", statuses: genStatuses(60, [], []) },
   ];
   return (
-    <Panel id="system-status" className="lg:col-span-2">
+    <Panel id="system-status">
       <div className="mb-pad-3xl flex items-center justify-between">
         <p className="text-title-md font-semibold text-fg-default">System Status</p>
         <span className="flex items-center gap-gp-2xs text-body-sm text-fg-muted">
@@ -1013,7 +933,7 @@ function SystemStatusCard() {
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   14 — Budget Breakdown (donut + lista por time)
+   14 — Budget Breakdown
    ════════════════════════════════════════════════════════════════════ */
 const BUDGET = [
   { team: "Engineering", value: 950, share: "35.8%", color: C.blue },
@@ -1027,8 +947,7 @@ const BUDGET_TOTAL = BUDGET.reduce((s, b) => s + b.value, 0);
 function BudgetBreakdownCard() {
   return (
     <Panel id="budget">
-      <p className="text-title-md font-semibold text-fg-default">Budget Breakdown</p>
-      <p className="text-body-sm text-fg-muted">Spend distribution across teams and cost categories.</p>
+      <CardHead title="Budget Breakdown" subtitle="Spend distribution across teams and cost categories." />
       <Tabs defaultValue="team" className="mt-pad-3xl">
         <TabsList className="w-full">
           <TabsTrigger value="team" className="flex-1">By Team</TabsTrigger>
@@ -1036,43 +955,47 @@ function BudgetBreakdownCard() {
         </TabsList>
       </Tabs>
 
-      <div className="relative mx-auto mt-pad-3xl flex items-center justify-center">
-        <ChartContainer config={{}} className="aspect-square h-[200px]">
-          <PieChart>
-            <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel nameKey="team" />} />
-            <Pie data={BUDGET} dataKey="value" nameKey="team" innerRadius={62} outerRadius={88} paddingAngle={3} strokeWidth={0}>
-              {BUDGET.map((b) => (
-                <Cell key={b.team} fill={b.color} />
-              ))}
-            </Pie>
-          </PieChart>
-        </ChartContainer>
-        <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-title-lg font-bold text-fg-default [font-variant-numeric:tabular-nums]">${BUDGET_TOTAL.toLocaleString("en-US")}</span>
-          <span className="text-caption-sm text-fg-muted">total spend</span>
-        </div>
-      </div>
-
-      <p className="mb-pad-md mt-pad-3xl text-caption-md text-fg-muted">
-        <span className="float-left">TEAM</span>
-        <span className="float-right">AMOUNT / SHARE</span>
-      </p>
-      <div className="clear-both flex flex-col">
-        {BUDGET.map((b) => (
-          <div key={b.team} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-lg last:border-0">
-            <span className="h-[16px] w-[3px] rounded-radius-full" style={{ background: b.color }} />
-            <span className="flex-1 text-body-sm font-medium text-fg-default">{b.team}</span>
-            <span className="text-body-sm font-semibold text-fg-default [font-variant-numeric:tabular-nums]">${b.value}</span>
-            <Chip color="neutral" variant="soft" size="sm" shape="pill">{b.share}</Chip>
+      <div className="mt-pad-3xl grid items-center gap-pad-4xl lg:grid-cols-2">
+        <div className="relative mx-auto flex items-center justify-center">
+          <ChartContainer config={{}} className="aspect-square h-[210px]">
+            <PieChart>
+              <ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel nameKey="team" />} />
+              <Pie data={BUDGET} dataKey="value" nameKey="team" innerRadius={64} outerRadius={92} paddingAngle={3} strokeWidth={0}>
+                {BUDGET.map((b) => (
+                  <Cell key={b.team} fill={b.color} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-title-lg font-bold text-fg-default [font-variant-numeric:tabular-nums]">${BUDGET_TOTAL.toLocaleString("en-US")}</span>
+            <span className="text-caption-sm text-fg-muted">total spend</span>
           </div>
-        ))}
+        </div>
+
+        <div>
+          <div className="mb-pad-md flex items-center justify-between text-caption-md text-fg-muted">
+            <span>TEAM</span>
+            <span>AMOUNT / SHARE</span>
+          </div>
+          <div className="flex flex-col">
+            {BUDGET.map((b) => (
+              <div key={b.team} className="flex items-center gap-gp-md border-b border-border-subtle py-pad-lg last:border-0">
+                <span className="h-[16px] w-[3px] rounded-radius-full" style={{ background: b.color }} />
+                <span className="flex-1 text-body-sm font-medium text-fg-default">{b.team}</span>
+                <span className="text-body-sm font-semibold text-fg-default [font-variant-numeric:tabular-nums]">${b.value}</span>
+                <Chip color="neutral" variant="soft" size="sm" shape="pill">{b.share}</Chip>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </Panel>
   );
 }
 
 /* ════════════════════════════════════════════════════════════════════
-   15 — Crypto Portfolio (tabs + sparklines)
+   15 — Crypto Portfolio
    ════════════════════════════════════════════════════════════════════ */
 const spark = (vals: number[]) => vals.map((v, i) => ({ i, v }));
 const COINS = [
@@ -1080,12 +1003,11 @@ const COINS = [
   { name: "Ethereum", price: "$3195", delta: "-6.57%", up: false, data: spark([40, 38, 36, 34, 30, 26, 22]) },
   { name: "Solana", price: "$199.1", delta: "+9.40%", up: true, data: spark([18, 20, 24, 28, 30, 36, 42]) },
 ];
-
 function CryptoSpark({ data, up }: { data: { i: number; v: number }[]; up: boolean }) {
   const color = up ? C.green : C.red;
   const id = `cryptoFill-${up ? "up" : "down"}`;
   return (
-    <ChartContainer config={{}} className="h-[44px] w-[110px]">
+    <ChartContainer config={{}} className="h-[48px] w-[140px]">
       <AreaChart data={data} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
         <defs>
           <linearGradient id={id} x1="0" y1="0" x2="0" y2="1">
@@ -1102,33 +1024,35 @@ function CryptoSpark({ data, up }: { data: { i: number; v: number }[]; up: boole
 function CryptoPortfolioCard() {
   return (
     <Panel id="crypto">
-      <p className="text-caption-md text-fg-muted">Crypto Portfolio</p>
-      <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$38,452.80</p>
-      <p className="mb-pad-3xl text-body-sm">
-        <span className="font-medium text-fg-danger">-$612.40 (-1.57%)</span>{" "}
-        <span className="text-fg-muted">Today</span>
-      </p>
-
-      <Tabs defaultValue="trending">
-        <TabsList className="w-full">
-          <TabsTrigger value="trending" className="flex-1">Trending</TabsTrigger>
-          <TabsTrigger value="altcoins" className="flex-1">Altcoins</TabsTrigger>
-        </TabsList>
-      </Tabs>
-
-      <div className="mt-pad-2xl flex flex-col">
-        {COINS.map((c) => (
-          <div key={c.name} className="flex items-center justify-between gap-gp-md border-b border-border-subtle py-pad-3xl last:border-0">
-            <div>
-              <p className="text-body-md text-fg-muted">{c.name}</p>
-              <p className="flex items-center gap-gp-sm">
-                <span className="text-body-lg font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{c.price}</span>
-                <span className={cn("text-caption-sm font-medium", c.up ? "text-fg-success" : "text-fg-danger")}>{c.delta}</span>
-              </p>
+      <div className="grid gap-pad-4xl lg:grid-cols-[280px_1fr]">
+        <div>
+          <p className="text-caption-md text-fg-muted">Crypto Portfolio</p>
+          <p className="text-display-sm font-bold text-fg-default [font-variant-numeric:tabular-nums]">$38,452.80</p>
+          <p className="mb-pad-3xl text-body-sm">
+            <span className="font-medium text-fg-danger">-$612.40 (-1.57%)</span>{" "}
+            <span className="text-fg-muted">Today</span>
+          </p>
+          <Tabs defaultValue="trending">
+            <TabsList className="w-full">
+              <TabsTrigger value="trending" className="flex-1">Trending</TabsTrigger>
+              <TabsTrigger value="altcoins" className="flex-1">Altcoins</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+        <div className="flex flex-col">
+          {COINS.map((c) => (
+            <div key={c.name} className="flex items-center justify-between gap-gp-md border-b border-border-subtle py-pad-3xl first:pt-0 last:border-0">
+              <div>
+                <p className="text-body-md text-fg-muted">{c.name}</p>
+                <p className="flex items-center gap-gp-sm">
+                  <span className="text-body-lg font-semibold text-fg-default [font-variant-numeric:tabular-nums]">{c.price}</span>
+                  <span className={cn("text-caption-sm font-medium", c.up ? "text-fg-success" : "text-fg-danger")}>{c.delta}</span>
+                </p>
+              </div>
+              <CryptoSpark data={c.data} up={c.up} />
             </div>
-            <CryptoSpark data={c.data} up={c.up} />
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </Panel>
   );
@@ -1137,7 +1061,7 @@ function CryptoPortfolioCard() {
 /* ════════════════════════════════════════════════════════════════════ */
 export function ChartShowcaseDoc() {
   return (
-    <DocLayout toc={TOC}>
+    <DocLayout toc={TOC} wide>
       <DocHeader
         category="Charts"
         title="Compositions"
@@ -1146,7 +1070,7 @@ export function ChartShowcaseDoc() {
       />
       <DocSeparator />
 
-      <div className="grid gap-gp-2xl lg:grid-cols-2">
+      <div className="flex flex-col gap-gp-2xl">
         <SaaSRevenueCard />
         <DbInstanceCard />
         <FinanceCard />
