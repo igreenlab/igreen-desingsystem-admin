@@ -25,6 +25,8 @@ import { FooterTableDoc } from "./preview/pages/FooterTableDoc";
 import { TableToolbarDoc } from "./preview/pages/TableToolbarDoc";
 import TableDoc from "./preview/pages/TableDoc";
 import DataTableDoc from "./preview/pages/DataTableDoc";
+import { AreaChartDoc } from "./preview/pages/AreaChartDoc";
+import { ChartComingSoonDoc } from "./preview/pages/ChartComingSoonDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ModalDoc } from "./preview/pages/ModalDoc";
@@ -155,6 +157,7 @@ const DOC_PAGES = [
   "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
   "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
+  "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
@@ -359,6 +362,12 @@ export function App() {
           {activePage === "elevation" && <ElevationDoc />}
           {activePage === "sizing" && <SizingDoc />}
           {activePage === "icons" && <IconsDoc />}
+          {activePage === "chart-area" && <AreaChartDoc />}
+          {activePage === "chart-bar" && <ChartComingSoonDoc title="Bar Chart" />}
+          {activePage === "chart-line" && <ChartComingSoonDoc title="Line Chart" />}
+          {activePage === "chart-pie" && <ChartComingSoonDoc title="Pie Chart" />}
+          {activePage === "chart-radar" && <ChartComingSoonDoc title="Radar Chart" />}
+          {activePage === "chart-radial" && <ChartComingSoonDoc title="Radial Chart" />}
           {activePage === "showcase-v2" && <ShowcasePageV2 />}
           {activePage === "agents" && <AgentsPreview />}
           {activePage === "agents-overview" && <AgentsOverviewDoc />}

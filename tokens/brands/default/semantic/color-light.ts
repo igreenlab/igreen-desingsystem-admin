@@ -168,4 +168,16 @@ export const overlay = {
   float: "oklch(0.55 0 0 / 0.12)",
 } as const;
 
-export const colorLight = { bg, fg, border, ring, overlay };
+// ─── Chart (paleta categórica — verde da marca + harmônicas) ──────────────────
+// Série de cores pra gráficos (Recharts via componente Chart). chart-1 ancora no
+// verde da marca; as demais são harmônicas (teal → azul → âmbar → violeta).
+// Light: levemente mais escuras pra contraste sobre superfícies claras.
+export const chart = {
+  "1": "oklch(0.63 0.16 152)", // verde marca
+  "2": "oklch(0.66 0.12 195)", // teal
+  "3": "oklch(0.55 0.15 250)", // azul
+  "4": "oklch(0.76 0.15 80)",  // âmbar
+  "5": "oklch(0.56 0.18 300)", // violeta
+} as const;
+
+export const colorLight = { bg, fg, border, ring, overlay, chart };
