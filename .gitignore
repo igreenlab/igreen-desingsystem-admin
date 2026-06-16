@@ -4,6 +4,10 @@ dist-lib/
 .vite/
 *.local
 
+# Registry build (shadcn build) — artefato gerado; o embed commitado é
+# registry-app/app/registry-data.ts. Regenerar com: npm run registry:build
+public/r/
+
 # Pastas locais de teste do package npm
 teste-*/
 
