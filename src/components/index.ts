@@ -22,6 +22,7 @@ export * from "./ui/FloatingPanel";
 export * from "./ui/FooterTable";
 export * from "./ui/FormField";
 export * from "./ui/Header";
+export * from "./ui/Icon";
 export * from "./ui/Kanban";
 export * from "./ui/MenuSidebar";
 export * from "./ui/Modal";

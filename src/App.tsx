@@ -9,6 +9,7 @@ import { ButtonDoc } from "./preview/pages/ButtonDoc";
 import { ButtonGroupDoc } from "./preview/pages/ButtonGroupDoc";
 import { BadgeDoc } from "./preview/pages/BadgeDoc";
 import { ChipDoc } from "./preview/pages/ChipDoc";
+import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { InputDoc } from "./preview/pages/InputDoc";
 import { InputGroupDoc } from "./preview/pages/InputGroupDoc";
 import { SelectDoc } from "./preview/pages/SelectDoc";
@@ -158,7 +159,7 @@ type PageId = string;
 // decisão: ficam FORA da nav (doc-nav-data.ts) de propósito, acessíveis só via
 // deep-link #/docs ou #/docs-template (referência pra criar novas doc pages).
 const DOC_PAGES = [
-  "button", "button-group", "badge", "chip", "input", "tabs", "card", "docs", "docs-template",
+  "button", "button-group", "badge", "chip", "icon", "input", "tabs", "card", "docs", "docs-template",
   "introduction", "structure", "installation", "transform-tokens", "updates",
   "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
   "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
@@ -310,6 +311,7 @@ export function App() {
           {activePage === "button-group" && <ButtonGroupDoc />}
           {activePage === "badge" && <BadgeDoc />}
           {activePage === "chip" && <ChipDoc />}
+          {activePage === "icon" && <IconLibraryDoc />}
           {activePage === "input" && <InputDoc />}
           {activePage === "input-group" && <InputGroupDoc />}
           {activePage === "select" && <SelectDoc />}
