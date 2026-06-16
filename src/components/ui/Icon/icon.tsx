@@ -9,15 +9,28 @@ const isPresetSize = (s: unknown): s is IconVariants["size"] =>
   typeof s === "string" && (PRESETS as readonly string[]).includes(s);
 
 /**
+ * Conjunto legado de ícones desenhados em viewBox 18 (primeiros `line-*` da
+ * iGreen). Todo o resto — `fill-*` e os `line-*` convertidos do Figma — é 24.
+ * Mantido explícito porque o prefixo não distingue 18 de 24 (ambos usam `line-`).
+ */
+const VIEWBOX_18 = new Set([
+  "line-outline", "line-close", "line-id", "line-help", "line-camera", "line-edit",
+  "line-upload-document", "line-add", "line-remove", "line-arrow-down", "line-key",
+  "line-bin", "line-status", "line-user", "line-building", "line-loading",
+  "line-calendar", "line-mail", "line-phone", "line-check", "line-circle-arrow-right",
+  "line-edit-doc", "line-arrow-back",
+]);
+
+/**
  * Icon — biblioteca de ícones iGreen. O `name` troca o `d` do path; o `viewBox`
- * é inferido pelo prefixo (`fill-*` = 24, demais = 18). Cor por `currentColor`
+ * é 18 só para o conjunto legado (`VIEWBOX_18`), senão 24. Cor por `currentColor`
  * (classe `text-*`), `tone` (token semântico) ou `color` (CSS arbitrário).
  */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = "md", color, tone, title, className, style, ...props }, ref) => {
     const preset = isPresetSize(size);
     const sizeStyle = preset ? undefined : { width: size, height: size };
-    const viewBox = name.startsWith("fill-") ? "0 0 24 24" : "0 0 18 18";
+    const viewBox = VIEWBOX_18.has(name) ? "0 0 18 18" : "0 0 24 24";
     const decorative = !title && !props["aria-label"] && !props["aria-labelledby"];
 
     return (

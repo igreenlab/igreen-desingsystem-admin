@@ -1,5 +1,6 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Icon, icons, type IconName, type IconTone } from "../../components/ui/Icon";
+import { Button } from "../../components/ui/Button";
 import { Input } from "../../components/shadcn/input";
 import {
   DocLayout,
@@ -31,15 +32,26 @@ const ICON_PROPS = [
 
 const TONES: IconTone[] = ["default", "muted", "brand", "danger", "success", "warning", "info"];
 
-/* Catálogo navegável — busca + clique copia o `name` */
+const PAGE_SIZE = 120;
+
+/* Catálogo navegável — busca + paginação; clique copia o `name` */
 function IconGrid() {
   const [query, setQuery] = useState("");
   const [copied, setCopied] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     return q ? ALL_NAMES.filter((n) => n.toLowerCase().includes(q)) : ALL_NAMES;
   }, [query]);
+
+  // volta pra primeira página sempre que a busca muda
+  useEffect(() => setPage(1), [query]);
+
+  const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+  const current = Math.min(page, totalPages);
+  const start = (current - 1) * PAGE_SIZE;
+  const paged = filtered.slice(start, start + PAGE_SIZE);
 
   const copy = (name: string) => {
     navigator.clipboard?.writeText(name);
@@ -57,19 +69,22 @@ function IconGrid() {
           className="max-w-[280px]"
         />
         <span className="text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums]">
-          {filtered.length} de {ALL_NAMES.length}
+          {filtered.length === ALL_NAMES.length
+            ? `${ALL_NAMES.length} ícones`
+            : `${filtered.length} de ${ALL_NAMES.length}`}
         </span>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(96px,1fr))] gap-gp-md">
-        {filtered.map((name) => (
+
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(80px,1fr))] gap-gp-sm">
+        {paged.map((name) => (
           <button
             key={name}
             type="button"
             onClick={() => copy(name)}
             title={`Copiar "${name}"`}
-            className="flex flex-col items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface px-pad-md py-pad-3xl text-fg-default transition-colors hover:border-border-default hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+            className="flex flex-col items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface px-pad-sm py-pad-2xl text-fg-default transition-colors hover:border-border-default hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
           >
-            <Icon name={name} size="lg" />
+            <Icon name={name} size="md" />
             <span className="line-clamp-1 w-full text-center text-caption-sm text-fg-muted">
               {copied === name ? "Copiado!" : name}
             </span>
@@ -81,6 +96,32 @@ function IconGrid() {
           </p>
         )}
       </div>
+
+      {totalPages > 1 && (
+        <div className="mt-gp-xl flex items-center justify-center gap-gp-md">
+          <Button
+            color="secondary"
+            variant="outline"
+            size="sm"
+            disabled={current <= 1}
+            onClick={() => setPage((p) => Math.max(1, p - 1))}
+          >
+            Anterior
+          </Button>
+          <span className="text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums]">
+            Página {current} de {totalPages}
+          </span>
+          <Button
+            color="secondary"
+            variant="outline"
+            size="sm"
+            disabled={current >= totalPages}
+            onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+          >
+            Próxima
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
@@ -130,13 +171,13 @@ export function IconLibraryDoc() {
         id="ex-tones"
         title="Tones"
         description="Tom semântico via token (fg.*)."
-        code={`<Icon name="fill-success" tone="brand" />
-<Icon name="fill-success" tone="danger" />
-<Icon name="fill-success" tone="success" />`}
+        code={`<Icon name="line-success" tone="brand" />
+<Icon name="line-success" tone="danger" />
+<Icon name="line-success" tone="success" />`}
       >
         <div className="flex items-center gap-gp-lg">
           {TONES.map((tone) => (
-            <Icon key={tone} name="fill-success" size="lg" tone={tone} title={tone} />
+            <Icon key={tone} name="line-success" size="lg" tone={tone} title={tone} />
           ))}
         </div>
       </ExampleSection>
