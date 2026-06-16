@@ -1,3 +1,4 @@
+// @igreen-stamp: igreen-ds · tv · v0.9.0 · 8694a32 · 2026-06-16
 // src/utils/tv.ts
 // tv() customizado que ensina o tailwind-merge a reconhecer
 // os presets tipográficos do iGreen como font-size, não text-color.

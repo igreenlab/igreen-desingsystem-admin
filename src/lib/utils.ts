@@ -1,3 +1,4 @@
+// @igreen-stamp: igreen-ds · utils · v0.9.0 · 8694a32 · 2026-06-16
 import { type ClassValue, clsx } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 

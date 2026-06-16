@@ -1,3 +1,4 @@
+<!-- @igreen-stamp: igreen-ds · button · v0.9.0 · 8694a32 · 2026-06-16 -->
 # Button
 
 Componente interativo para ações. Suporta 5 cores, 4 variantes e 10 tamanhos (5 com label + 5 icon-only).

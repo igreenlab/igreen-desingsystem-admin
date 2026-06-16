@@ -2194,3 +2194,17 @@
 - Validação: tsc 0 em todos os lotes · browser (Chrome DevTools, dark+light): 6 tipos + 28 composições renderizando, grid visível nos 2 temas, headers KPI padronizados, categorias.
 - Assumption: showcase/preview (mock) — nenhuma composição consome API real; `Chart` é o único wrapper de Recharts (DashboardShowcase usa Recharts cru, fora do escopo do token de grid).
 - Lições novas: **L-032** registrada (caveats Recharts 3: display-sm/xs inexistentes → heading; Pie shape vs activeIndex; radial stack precisa PolarAngleAxis number; YAxis interval=0 + domain=maior tick; grid via token chart-grid).
+
+### 2026-06-16 | DS DEV | Registry distribution — Fase 1 (infra) | CONCLUÍDO
+- Input: spec `.ai/specs/registry-distribution.md` (P1–P4 fechadas).
+- Output: `registry.json` (raiz, 5 items: utils/tv/theme/button/input), `scripts/registry-stamp.mjs` (carimbo no meta + header), `package.json` (+`registry:stamp`/`registry:build`), headers `@igreen-stamp` em 9 fontes.
+- Decisões: endpoint = deploy Next dedicado na Vercel + `Bearer` (P4); namespace único `@igreen` (P2); carimbo `igreen-ds · <nome> · v<version> · <hash> · data`, version = `package.json.version` (P1); revert via git do consumidor (P3); `tv.ts` e `cn` como `registry:file` com salvaguarda de hash no doctor.
+- Assumption: modelo copy-in (componente vira código do consumidor, congelado); `rN` = `package.json.version` (tags do repo furadas). Item crítico aberto pra Fase 2: overwrite do `cn` no consumidor (o `shadcn init` planta o cn padrão; precisa forçar `--overwrite`).
+- Lições novas: nenhuma.
+
+### 2026-06-16 | DS REVIEWER | Registry Fase 1 | APROVADO
+- Spec verificada: sim. Gate verificado: sim.
+- Assumption verificada: válida (copy-in + `rN`=version).
+- Critique genuína: além do checklist, achei o ordering do `registry:build` (o `tokens:tw4` regenera o `theme.css` e apaga o stamp) → corrigido pra `tokens:tw4 → registry:stamp → shadcn build`. Headers em `tv.ts`/`utils.ts` são só comentário (+1 linha) — `twMergeConfig` intacto, **L-016 preservado** (`tv.ts ↔ typography` idêntico). tsc exit 0.
+- Regressões L-xxx encontradas: nenhuma.
+- Lições novas: nenhuma.

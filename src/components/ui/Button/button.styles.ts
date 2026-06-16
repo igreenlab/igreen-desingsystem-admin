@@ -1,3 +1,4 @@
+// @igreen-stamp: igreen-ds · button · v0.9.0 · 8694a32 · 2026-06-16
 import { tv, type VariantProps } from "@/utils/tv";
 
 /**
