@@ -57,14 +57,19 @@ agente) consomem sem montar config · governança viaja junto · manutenção le
    `-ui/-tokens/-ai` fica pra depois, só se surgir necessidade real.
 3. **Carimbo — `igreen-ds · <nome> · v<version> · <short-hash> · AAAA-MM-DD`**.
    A versão = **`package.json.version`** (não tag — as tags estão furadas) +
-   **short-hash do commit** + data do build. Gravado no `meta` do item e no header
-   do arquivo-fonte. **Ordem crítica:** o build do registry roda **depois do bump
-   da version**, senão carimba a anterior.
-   - ⚠️ **Validado local:** o header sobrevive em **`registry:file`** (tv, utils,
-     theme, USAGE.md) mas o transform do shadcn **remove o comentário de topo** nos
-     **`registry:ui`** (button.tsx/styles/types/index). → Para componente, a rev
-     vive no **`meta.stamp` + manifesto** (Fase 3), não no header. O header serve só
-     pros `registry:file`.
+   **short-hash do commit** + data do build. Gravado **SÓ no `meta.stamp`** do item
+   (+ manifesto, Fase 3). **Ordem crítica:** o build do registry roda **depois do
+   bump da version**, senão carimba a anterior.
+   - ✅ **Decisão 2026-06-16 — header-stamp DROPADO** (era injetado no topo de cada
+     arquivo-fonte; removido de fonte e cópia). A rev vive só no `meta.stamp` +
+     manifesto. Motivos: (1) **churn falso** — o header mudava a cada build só pela
+     data/hash, sem mudança de código → re-prompt de overwrite à toa no consumidor;
+     (2) **drift check robusto** — o hash de referência passa a ser do **código
+     puro**, sem ruído do carimbo, então o doctor acusa só edição real de `cn`/`tv`
+     (fortalece a salvaguarda L-016 / prefixos); (3) **consistência** — os
+     `registry:ui` já perdiam o header no transform do shadcn; agora **todos** os
+     items têm a rev no mesmo lugar. O `scripts/registry-stamp.mjs` só seta
+     `meta.stamp` e ainda **remove headers residuais** (limpeza idempotente).
 
 ### Decisões estruturais (do contexto, mantidas)
 - Fachada única `@igreen/<nome>` — origem `ui/` vs `shadcn/` **não vaza**.
@@ -112,6 +117,11 @@ cada componente foi adicionado).
   config) é compatível. Se faltar/adulterar/divergir → **alarme**, pra a L-016 e a
   resolução de prefixo DS nunca sumirem em silêncio. (Detalhe do overwrite do cn no
   consumo: ver item crítico da Fase 2.)
+  - **Hash de referência = código PURO** (sem header-stamp — dropado, §3). O doctor
+    compara o hash do `cn`/`tv` instalado no consumidor contra o hash do **conteúdo
+    de fonte** (idêntico ao `content` do JSON do registry). Como o carimbo não entra
+    mais no arquivo, o hash só muda quando o **código real** de `cn`/`tv` muda — o
+    alarme dispara em edição genuína, não em troca de versão/data.
 
 > **Governança no registry (escopo dos primeiros items):** só `USAGE.md` viaja
 > junto do componente. As **rules GLOBAIS** (`ds-standards`) ficam pra um **item de
@@ -137,8 +147,8 @@ simples; o registry ganha runtime pro token.
   `@igreen/input`).
 - `dependencies` (npm de terceiros: Radix, lucide) por item — extrair dos imports.
 - Foundational: distribuir `tv.ts` + `lib/utils.ts` (ver P2).
-- Passo de build que injeta o `rN` (`package.json.version` + short-hash) no `meta`
-  + header — **rodando depois do bump da version** (P1).
+- Passo de build que injeta o `rN` (`package.json.version` + short-hash) no
+  `meta.stamp` — **rodando depois do bump da version** (P1). Header-stamp dropado (§3).
 - `tv.ts` como `registry:file` (`target: src/utils/tv.ts`); cada componente declara
   a dependência (P2). `cn` via alias `utils`.
 - `shadcn build` → JSON; servidos pelo **deploy Next dedicado** com route handler +
@@ -167,11 +177,15 @@ simples; o registry ganha runtime pro token.
     (`shadcn init` → **remove `lib/utils.ts`** → `add @igreen/utils`) + doctor valida o
     cn por hash. `--overwrite` cego em todo add apagaria customização local em app
     persistente — por isso a salvaguarda é no setup, não por-add.
-  ⚠️ **Risco do stamp no header dos `registry:file`:** o header de `utils`/`tv` carrega
-    `v<version>·hash·data` → a cada release o conteúdo MUDA → um add subsequente vê
-    "difere" e re-pergunta/bloqueia em CI. **Recomendação (decisão aberta):** dropar o
-    header-stamp dos foundational `registry:file` (utils/tv/theme) e deixar a rev só no
-    `meta.stamp` + manifesto — mantém o conteúdo estável entre versões.
+  ✅ **Risco do stamp no header — RESOLVIDO (2026-06-16): header-stamp DROPADO.** Era:
+    o header de `utils`/`tv` carregava `v<version>·hash·data` → a cada release o
+    conteúdo dos `registry:file` MUDAVA → add subsequente via "difere" e
+    re-perguntava/bloqueava em CI. **Aplicado:** removido o header de todos os
+    arquivos (fonte + cópia); a rev vive só no `meta.stamp` + manifesto. Resultado:
+    conteúdo dos `registry:file` **estável entre versões** (só muda em mudança de
+    código real) → sem re-prompt falso; e o hash de referência do drift check fica
+    livre do ruído do carimbo (§3, P2). Re-gerado e verificado: zero `@igreen-stamp`
+    no `content` de qualquer JSON; `meta.stamp` presente nos 5 items.
 
 **Fase 2 — CLI de scaffold (consumidor)**
 - Vite + React + TS, Tailwind v4 (versões travadas), `shadcn init`, grava
@@ -193,12 +207,15 @@ simples; o registry ganha runtime pro token.
   aplicado, namespace, e o **cn do DS instalado (hash confere)**, zero config manual.
 
 **Fase 3 — Versionamento + governança no consumidor** ⬆️ **prioridade elevada**
-- **Manifesto = ESSENCIAL (não opcional).** Validação local mostrou que o header de
-  carimbo **some** nos `registry:ui` (transform do shadcn). Logo o manifesto
-  (`.igreen-ds/manifest.json`: componente → rev, atualizado a cada add) é a **única
-  rastreabilidade por-componente no consumidor** — não dá pra depender do header.
-- Drift check (CI): hash local vs rev do registry → acusa edição fora do DS.
-  Valida também `lib/utils.ts` (cn) e `tv.ts` por hash (salvaguarda L-016 + prefixo).
+- **Manifesto = ESSENCIAL (não opcional).** O header de carimbo foi **dropado** (§3) —
+  não existe mais em arquivo nenhum (e já sumia nos `registry:ui` pelo transform do
+  shadcn). Logo o manifesto (`.igreen-ds/manifest.json`: componente → rev, atualizado
+  a cada add, lendo o `meta.stamp` do JSON) é a **única rastreabilidade por-componente
+  no consumidor**.
+- Drift check (CI): hash do **código puro** local vs hash do `content` do registry →
+  acusa edição fora do DS. Valida `lib/utils.ts` (cn) e `tv.ts` por hash (salvaguarda
+  L-016 + prefixo). Como o carimbo não está no arquivo, o hash de referência não tem
+  ruído de versão/data — o alarme só dispara em **edição real** do código (§5 P2).
 - Governança passiva (rules/USAGE) como `registry:file` nos caminhos do consumidor.
 - **Pronto quando:** manifesto mostra a rev de cada componente e o drift check
   acusa uma edição local proposital.
@@ -227,5 +244,6 @@ simples; o registry ganha runtime pro token.
   o `rN` é camada nossa por cima.
 - **Namespace `@igreen`:** alias do registry no `components.json` do consumidor.
   Diferente de `@shadcn` (registry oficial — nunca nas deps internas).
-- **Carimbo `rN`:** indicador de versão por componente (meta + header).
+- **Carimbo `rN`:** indicador de versão por componente, gravado só no `meta.stamp`
+  do item + manifesto (header-stamp dropado em 2026-06-16 — §3).
 - **Manifesto:** arquivo no consumidor que lista a rev de cada componente.

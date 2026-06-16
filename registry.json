@@ -20,7 +20,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · utils · v0.9.0 · 8694a32 · 2026-06-16"
+        "stamp": "igreen-ds · utils · v0.9.0 · c4f806a · 2026-06-16"
       }
     },
     {
@@ -39,7 +39,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tv · v0.9.0 · 8694a32 · 2026-06-16"
+        "stamp": "igreen-ds · tv · v0.9.0 · c4f806a · 2026-06-16"
       }
     },
     {
@@ -59,7 +59,7 @@
       ],
       "meta": {
         "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-        "stamp": "igreen-ds · theme · v0.9.0 · 8694a32 · 2026-06-16"
+        "stamp": "igreen-ds · theme · v0.9.0 · c4f806a · 2026-06-16"
       }
     },
     {
@@ -99,7 +99,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button · v0.9.0 · 8694a32 · 2026-06-16"
+        "stamp": "igreen-ds · button · v0.9.0 · c4f806a · 2026-06-16"
       }
     },
     {
@@ -121,7 +121,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input · v0.9.0 · 8694a32 · 2026-06-16"
+        "stamp": "igreen-ds · input · v0.9.0 · c4f806a · 2026-06-16"
       }
     }
   ]

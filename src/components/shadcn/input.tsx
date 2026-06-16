@@ -1,4 +1,3 @@
-// @igreen-stamp: igreen-ds · input · v0.9.0 · 8694a32 · 2026-06-16
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
