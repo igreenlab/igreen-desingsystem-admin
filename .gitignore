@@ -63,3 +63,5 @@ desktop.ini
 tsconfig.tsbuildinfo
 *.tsbuildinfo
 .playwright-mcp/
+.vercel
+.env*

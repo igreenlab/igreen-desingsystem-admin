@@ -135,6 +135,20 @@ escopo futuro, exigiria endpoints versionados.)
 **P4 — Deploy dedicado (Next mínimo) na Vercel**, NÃO o preview Vite. Template
 oficial de registry do shadcn + route handler + auth `Bearer`. Preview segue
 simples; o registry ganha runtime pro token.
+- 🔴 **Furo de auth real em prod (2026-06-16) — estático fura o Bearer.** `curl` sem
+  token voltou **200** + JSON. Causa: arquivos servidos como **estático pelo CDN**
+  (`X-Vercel-Cache: HIT`, `Content-Disposition: filename`), porque o projeto Vercel
+  apontava pra **raiz do DS (Vite)** — `vite build` copia `public/r/*.json` pro
+  `dist/` e o edge serve cru em `/r/*`, **antes/fora do route handler**. Regra de
+  ouro: no Next, **nada em `public/` passa por middleware/handler**. **Correções
+  aplicadas:** (1) Root Directory do projeto Vercel = **`registry-app`** (Next), não
+  a raiz do DS; (2) `registry-app` **sem `public/`** — a entrega só via route handler
+  lendo do embed `registry-data.ts`; (3) rota `force-dynamic` + `Cache-Control:
+  no-store` (anti cache-poisoning: CDN não cacheia um 200 autorizado pra servir a
+  request sem token); (4) token lido em **runtime** (`process.env` dentro do GET).
+  **Validar SEMPRE em modo produção** (`next build && next start`, não `next dev` —
+  o dev não replica o edge). Checagem de aceite: `GET /r/button.json` sem header →
+  **401**.
 
 ---
 

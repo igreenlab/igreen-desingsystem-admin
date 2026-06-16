@@ -2,7 +2,7 @@
   "name": "igreen-registry",
   "private": true,
   "version": "0.0.0",
-  "description": "Deploy dedicado do registry iGreen (Next mínimo). Serve public/r do DS com auth Bearer ${IGREEN_TOKEN}.",
+  "description": "Deploy dedicado do registry iGreen (Next mínimo). Serve o embed app/registry-data.ts via route handler com auth Bearer ${IGREEN_TOKEN}. NÃO usa public/ (estático fura a auth).",
   "scripts": {
     "predev": "node scripts/copy-registry.mjs",
     "prebuild": "node scripts/copy-registry.mjs",
