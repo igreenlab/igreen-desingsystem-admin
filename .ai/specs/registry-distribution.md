@@ -60,6 +60,11 @@ agente) consomem sem montar config · governança viaja junto · manutenção le
    **short-hash do commit** + data do build. Gravado no `meta` do item e no header
    do arquivo-fonte. **Ordem crítica:** o build do registry roda **depois do bump
    da version**, senão carimba a anterior.
+   - ⚠️ **Validado local:** o header sobrevive em **`registry:file`** (tv, utils,
+     theme, USAGE.md) mas o transform do shadcn **remove o comentário de topo** nos
+     **`registry:ui`** (button.tsx/styles/types/index). → Para componente, a rev
+     vive no **`meta.stamp` + manifesto** (Fase 3), não no header. O header serve só
+     pros `registry:file`.
 
 ### Decisões estruturais (do contexto, mantidas)
 - Fachada única `@igreen/<nome>` — origem `ui/` vs `shadcn/` **não vaza**.
@@ -144,6 +149,30 @@ simples; o registry ganha runtime pro token.
 - **Pronto quando:** de um projeto de teste com `@igreen` configurado,
   `shadcn add @igreen/<componente>` traz código + deps corretas.
 
+**Validação local — resultados (2026-06-16, projeto descartável + registry HTTP local):**
+- `npx shadcn build` → 5 items + index; content embutido, stamp no `meta`, deps OK,
+  fachada preservada (`input` → `components/ui/input.tsx`). Nenhum path/dep furado.
+- `shadcn add @igreen/button` → trouxe `button` **+ `tv`** (registryDependency
+  resolvida), instalou `tailwind-variants`, **tsc 0** (App renderizando `<Button>`).
+- 🔴 **`cn`-overwrite CONFIRMADO** (o risco P2/Fase 2): `shadcn add @igreen/input`
+  **sem `--overwrite`** (mesmo com `--yes`) → o shadcn **pergunta** "utils.ts already
+  exists, overwrite? (y/N)" (default N); em não-interativo **não escreve nada** (cn
+  fica o padrão, `input.tsx` nem cai). **Com `--overwrite --yes`** → cn vira o do DS
+  (`extendTailwindMerge` + prefixos), `input.tsx` cai, **tsc 0**.
+  - **Add subsequente (cn do DS já instalado):** o shadcn **PULA o utils em silêncio**
+    (`Skipped — files might be identical`) e instala o componente normal — **sem
+    bloquear, sem re-perguntar**. Só re-pergunta se o conteúdo do utils **diferir**
+    (cn real mudou OU o stamp do header bumpou de versão).
+  → **Salvaguarda no SETUP, não `--overwrite` cego:** o scaffold resolve o cn UMA vez
+    (`shadcn init` → **remove `lib/utils.ts`** → `add @igreen/utils`) + doctor valida o
+    cn por hash. `--overwrite` cego em todo add apagaria customização local em app
+    persistente — por isso a salvaguarda é no setup, não por-add.
+  ⚠️ **Risco do stamp no header dos `registry:file`:** o header de `utils`/`tv` carrega
+    `v<version>·hash·data` → a cada release o conteúdo MUDA → um add subsequente vê
+    "difere" e re-pergunta/bloqueia em CI. **Recomendação (decisão aberta):** dropar o
+    header-stamp dos foundational `registry:file` (utils/tv/theme) e deixar a rev só no
+    `meta.stamp` + manifesto — mantém o conteúdo estável entre versões.
+
 **Fase 2 — CLI de scaffold (consumidor)**
 - Vite + React + TS, Tailwind v4 (versões travadas), `shadcn init`, grava
   `@igreen` + token no `components.json` e `.env.local`, puxa o tema
@@ -163,9 +192,13 @@ simples; o registry ganha runtime pro token.
 - **Pronto quando:** `npm create @snksergio/design-system <app>` roda com tema
   aplicado, namespace, e o **cn do DS instalado (hash confere)**, zero config manual.
 
-**Fase 3 — Versionamento + governança no consumidor**
-- Manifesto (`.igreen-ds/manifest.json`): componente → rev, atualizado a cada add.
+**Fase 3 — Versionamento + governança no consumidor** ⬆️ **prioridade elevada**
+- **Manifesto = ESSENCIAL (não opcional).** Validação local mostrou que o header de
+  carimbo **some** nos `registry:ui` (transform do shadcn). Logo o manifesto
+  (`.igreen-ds/manifest.json`: componente → rev, atualizado a cada add) é a **única
+  rastreabilidade por-componente no consumidor** — não dá pra depender do header.
 - Drift check (CI): hash local vs rev do registry → acusa edição fora do DS.
+  Valida também `lib/utils.ts` (cn) e `tv.ts` por hash (salvaguarda L-016 + prefixo).
 - Governança passiva (rules/USAGE) como `registry:file` nos caminhos do consumidor.
 - **Pronto quando:** manifesto mostra a rev de cada componente e o drift check
   acusa uma edição local proposital.
