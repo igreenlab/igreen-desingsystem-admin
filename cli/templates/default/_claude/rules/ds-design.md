@@ -22,6 +22,7 @@ contexto em `DESIGN.md` (raiz). API de cada componente em
 gap-4 → gap-gp-md      p-4 → p-sp-md/p-pad-2xl    rounded-lg → rounded-radius-lg
 shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-icon-md
 ```
+- **Prefira o token de COMPONENTE ao genérico**: altura `min-h-form-*` (não `h-9/10`), gap de form `gap-form-gap`, ícone `size-icon-*` (não `size-5`), padding de card `p-pad-card-*`, gutter `px-pad-page-*`, chrome `h-layout-*`, largura `max-w-container-*`. Genérico (`gap-gp-*`/`p-sp-*`/`px-pad-*`) só como fallback. Cheat-sheet completo em `DESIGN.md` ("Tokens de componente").
 - Foco: `focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-{color}` (ring já tem alpha — nunca `/30`, nunca `ring-3`).
 - Cor só por token semântico (`bg-bg-brand`, `text-fg-default`...). Zero hex em className. Destrutivo na API = `color="critical"`.
 
