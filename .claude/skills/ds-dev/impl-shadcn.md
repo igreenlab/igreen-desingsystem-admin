@@ -85,6 +85,10 @@ export * from "./shadcn/nome-componente"
 - [ ] Lógica Radix preservada (handlers, aria, data-state)
 - [ ] Dark mode via CSS vars
 - [ ] Exports criados em AMBOS: `shadcn/index.ts` e `src/components/index.ts`
+- [ ] Usa `cn` de `@/lib/utils` / `tv` de `@/utils/tv` (alias) — distribuível
 - [ ] `component-inventory.md` atualizado
+- [ ] **Registry (distribuição):** `node scripts/registry-add-item.mjs <nome>` → revisar a
+  entrada proposta (registryDeps + deps) → adicionar ao `registry.json`. Distribuição efetiva
+  no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível via `@igreen/<nome>`.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
   Ex: `Assumption: "não existe componente Shadcn com lógica equivalente instalado anteriormente"`

@@ -198,7 +198,12 @@ import { tv, type VariantProps } from "@/utils/tv"  // NUNCA "tailwind-variants"
 - [ ] Tipografia via presets; `min-h-form-*` (nunca `h-*`)
 - [ ] **`USAGE.md` criado** em `src/components/ui/NomeComponente/USAGE.md`
 - [ ] Exports em DOIS arquivos: `ui/[Nome]/index.ts` (criado) + `src/components/index.ts` (atualizado)
+- [ ] Imports de outros componentes via alias específico `@/components/(shadcn|ui)/<x>`
+  (NUNCA relativo cross-dir `../../shadcn/x` nem barrel — quebra a distribuição copy-in)
 - [ ] `.ai/context/components/inventory.md` atualizado
+- [ ] **Registry (distribuição):** `node scripts/registry-add-item.mjs <Nome>` → revisar a
+  entrada proposta (registryDeps + deps + ⚠ imports cross-dir) → adicionar ao `registry.json`.
+  A distribuição entra no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
 
 Exemplo Assumption:

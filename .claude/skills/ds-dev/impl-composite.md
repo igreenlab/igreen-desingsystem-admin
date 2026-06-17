@@ -81,8 +81,14 @@ export const FormField = ({ id, label, helperText, errorMessage, required, ...in
 
 ## Regras
 
-1. API limpa — consumidor não importa as bases diretamente
-2. Importar bases via barrel: `import { X } from "@/components/shadcn"` — nunca `@/components/shadcn/x`
+1. API limpa — consumidor não importa as bases diretamente (sobre o que o composite
+   **exporta**, não sobre seus imports internos)
+2. **Importar bases por caminho ESPECÍFICO com alias `@/`** — `import { Input } from
+   "@/components/shadcn/input"`. ⚠️ **NUNCA barrel** (`@/components/shadcn`) **nem relativo
+   cross-dir** (`../../shadcn/input`): ambos **quebram a distribuição copy-in** (o transform
+   do shadcn só reescreve import específico de um registryDependency; barrel e relativo não
+   são reescritos → o consumidor importa de um lugar que não existe). Ver
+   `.ai/specs/registry-distribution.md` (regra de distribuibilidade).
 3. Não reescrever lógica das bases
 4. `htmlFor`, `aria-describedby`, `aria-invalid` obrigatórios onde aplicável
 5. Estilos do wrapper em `.styles.ts` — zero hardcode no `.tsx`
@@ -91,8 +97,12 @@ export const FormField = ({ id, label, helperText, errorMessage, required, ...in
 ## Checklist
 
 - [ ] Bases existem e não foram alteradas
-- [ ] Barrel imports usados: `@/components/shadcn` (não `@/components/shadcn/x`)
+- [ ] Imports específicos com alias: `@/components/shadcn/<x>` / `@/components/ui/<X>`
+  (NUNCA barrel `@/components/shadcn` nem relativo cross-dir `../../shadcn/x` — quebra copy-in)
 - [ ] `tv` de `@/utils/tv`; zero hardcode; acessibilidade
 - [ ] inventory atualizado (tipo: "composto"); USAGE.md criado
+- [ ] **Registry:** `node scripts/registry-add-item.mjs <Nome>` → revisar entrada proposta
+  (registryDeps + deps + ⚠ imports cross-dir) → adicionar ao `registry.json`. Distribuição
+  efetiva entra no próximo `/ds-release` (Passo 6.2b). Sem isso o composite não é consumível.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
   Ex: `Assumption: "não existe composto existente que combine estas bases desta forma"`
