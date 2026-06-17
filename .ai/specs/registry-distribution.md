@@ -160,16 +160,24 @@ simples; o registry ganha runtime pro token.
   (next build/start, não dev): sem token → 401, token errado → 401, token certo →
   200 + `Cache-Control: no-store`, inexistente → 404. `shadcn add @igreen/button`
   remoto trouxe `button` + `tv`; sem/errado token → não autorizado, 0 arquivos.
-- ✅ **Dívida de deploy RESOLVIDA (2026-06-17).** O projeto Vercel tinha conexão Git
-  buildando a **raiz como Vite** a cada push (estático, sem `/r` → 401/404/público).
-  **Fix aplicado no dashboard:** **Root Directory = `registry-app`** + **Framework
-  Preset = Next.js** + "Include files outside root" = Enabled. Agora o build Git entra
-  em `registry-app/` (com o `vercel.json` forçando `next build`) → **push na main =
-  deploy automático Next correto**, sem `vercel --prod` manual. Validado: deploy Git
-  de um commit na main → 4 curls verdes (sem token 401, errado 401, certo 200 +
-  `no-store`, inexistente 404). ⚠️ Deploy via CLI agora tem que vir da **raiz do
-  repo** (não de dentro de `registry-app`, senão a Vercel procura
-  `registry-app/registry-app`); o caminho normal passou a ser o Git.
+- ✅ **Furo do estático RESOLVIDO (2026-06-17).** O projeto Vercel buildava a **raiz
+  como Vite** (estático, sem `/r` → registry público). **Fix no dashboard:** **Root
+  Directory = `registry-app`** + **Framework Preset = Next.js** + "Include files
+  outside root" = Enabled → o build entra em `registry-app/` (com o `vercel.json`
+  forçando `next build`) e serve a route handler autenticada.
+- 🟡 **DEPLOY É MANUAL (git auto-deploy NÃO está firando).** Procedimento correto:
+  ```
+  npm run registry:build && (cd registry-app && node scripts/copy-registry.mjs)
+  git add -A && git commit ... && git push mirror main      # versiona
+  vercel --prod --yes                                        # da RAIZ do repo — publica
+  ```
+  ⚠️ O `vercel --prod` **tem que sair da raiz do repo** (com `.vercel/project.json`
+  linkando o projeto) — a Vercel aplica `Root Directory=registry-app` e entra na
+  subpasta. Rodar de **dentro** de `registry-app` falha (`registry-app/registry-app`
+  não existe). **O push na main por si só NÃO publica** — confirmado: o push do
+  embed do lote 1 não gerou deployment; quem publicou foi o `vercel --prod` da raiz.
+  (Reconectar Git com root=registry-app pra auto-deploy real fica como melhoria.)
+  Aceite pós-deploy: `curl …/r/<novo-item>.json` com token → 200.
 - ⚠️ **`IGREEN_TOKEN` é sensível na Vercel:** `vercel env pull` devolve **vazio**
   (`""`) — o plaintext não sai no pull. Distribuir o valor aos consumidores
   **out-of-band** (quem seta o token guarda o valor), não via pull.
