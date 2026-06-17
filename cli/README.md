@@ -41,6 +41,7 @@ my-app/
 ├── tsconfig.json              # paths @/* → ./src/*
 ├── scripts/doctor.mjs         # valida cn/tv contra o registry (L-016)
 ├── scripts/igreen-add.mjs     # wrapper de `shadcn add` que mantém o manifesto
+├── scripts/igreen-update.mjs  # atualiza componentes (protege edição local; --all/--force)
 ├── scripts/igreen-drift.mjs   # drift check (edição local + defasagem) — CI
 ├── .igreen-ds/manifest.json   # rev + hash de cada componente (gerado por igreen:add; commite)
 └── src/

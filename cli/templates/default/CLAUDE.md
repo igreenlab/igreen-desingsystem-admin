@@ -18,11 +18,17 @@ npm run igreen:add -- button form-field card badge dialog
 
 # 3. valide integridade/defasagem (use em CI):
 npm run igreen:drift
+
+# 4. atualize componentes com segurança (protege edição local; --all / --force):
+npm run igreen:update -- button card        # ou: --all
 ```
 
-> **Manifesto + drift:** `npm run igreen:add` grava cada componente (rev + hash) em
+> **Manifesto + drift + update:** `npm run igreen:add` grava cada componente (rev + hash) em
 > `.igreen-ds/manifest.json` (commite-o). `npm run igreen:drift` falha (exit 1) se
 > algum componente foi **editado localmente** e avisa se está **defasado** vs o registry.
+> `npm run igreen:update -- <x>` (ou `--all`) atualiza com segurança: **pula** componentes
+> editados localmente (não sobrescreve tua edição) salvo `--force`, e re-baseline o manifesto.
+> Commite antes — se quebrar, `git restore` volta a versão antiga.
 > `npm run doctor` valida o `cn`/`tv` contra o registry. Pode usar `npx shadcn add`
 > direto, mas aí o manifesto não acompanha (o drift acusaria como não-gerenciado).
 

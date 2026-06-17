@@ -10,6 +10,7 @@
     "typecheck": "tsc --noEmit",
     "doctor": "node scripts/doctor.mjs",
     "igreen:add": "node scripts/igreen-add.mjs",
+    "igreen:update": "node scripts/igreen-update.mjs",
     "igreen:drift": "node scripts/igreen-drift.mjs"
   },
   "dependencies": {
