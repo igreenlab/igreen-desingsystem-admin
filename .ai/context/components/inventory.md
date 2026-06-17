@@ -3,7 +3,18 @@
 > Fonte de verdade sobre o que existe.
 > Atualizar sempre que criar ou remover componente.
 > Verificar aqui ANTES de criar qualquer componente novo.
-> Última atualização: 2026-06-10 (v0.8.0 — auditoria docs/showcase)
+> Última atualização: 2026-06-17 (distribuição via registry — 49 items)
+
+## Distribuição via registry shadcn (`@igreen/*`)
+
+49 items publicados em `igreen-registry.vercel.app` (privado, Bearer). **Distribuíveis
+e validados:** todos os 27 primitivos shadcn + 14 composites ui/ (`form-field`,
+`alert-modal`, `button-group`, `floating-panel`, `modal`, `panel`, `footer-table`,
+`kanban`, `combobox`, `card-checkbox`, `chip`, `icon`, `page-header`, `avatar-ig`) +
+5 app-level (`chart`, `table`, `menu-sidebar`, `header`, `app-shell`) + foundational
+(`utils`, `tv`, `theme`). **NÃO distribuídos (deferidos):** `DataTable` e `TableToolbar`
+(grafo enorme/circular — ver `.ai/specs/registry-distribution.md`). `TabelaTeste` é demo.
+Regra de distribuibilidade + procedimento de deploy manual: na spec.
 
 ---
 

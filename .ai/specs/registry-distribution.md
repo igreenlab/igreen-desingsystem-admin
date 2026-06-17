@@ -182,32 +182,51 @@ simples; o registry ganha runtime pro token.
   (`""`) — o plaintext não sai no pull. Distribuir o valor aos consumidores
   **out-of-band** (quem seta o token guarda o valor), não via pull.
 
-### Cobertura de componentes (2026-06-17) — 30 items publicados e validados
-Foundational (3): `utils`, `tv`, `theme`. Componentes (27 — TODOS os primitivos shadcn):
-`button` `input` `label` `textarea` `select` `card` `badge` `separator` `checkbox`
-`accordion` `alert` `alert-dialog` `avatar` `breadcrumb` `calendar` `command` `dialog`
-`dropdown-menu` `input-group` `pagination` `popover` `progress` `radio-group` `sheet`
-`slider` `switch` `tabs`. Cada um validado via `shadcn add` no `consumer-demo` (compila
-+ renderiza estilizado). `command` registry-depende de `@igreen/dialog`; `badge` de
-`@igreen/tv`; os demais de `@igreen/utils`.
+### Cobertura de componentes (2026-06-17) — 49 items publicados e validados
+Distribuição **finalizada**. Foundational (3): `utils`, `tv`, `theme`.
 
-⚠️ **ACHADO — composites com import relativo cross-dir NÃO são copy-in (defer).**
-`FormField` (lote 3) foi REVERTIDO: seus sub-componentes importam via caminho
-**relativo** `../../shadcn/input` / `../../shadcn/select` / `../../shadcn/switch` /
-`../../shadcn/textarea` / `../../shadcn/input-group`. No copy-in isso quebra (TS2307):
-o consumidor não tem `src/components/shadcn/`, e o transform do shadcn só reescreve
-imports **com alias `@/`**, não relativos cross-dir. **Regra:** um componente `ui/` só é
-distribuível se seus imports forem (a) **same-dir relativos** (copiados juntos — caso do
-`Button`: `./button.styles`) ou (b) **alias `@/`** (transformados). Antes de distribuir
-qualquer composite que reusa siblings (`FormField`, e provavelmente `ButtonGroup`,
-`Combobox`, `AlertModal`, `Modal`…), refatorar os imports relativos cross-dir → alias
-`@/components/ui/<x>` + declarar os `registryDependencies` correspondentes. Backlog.
+**Primitivos shadcn (27):** `button` `input` `label` `textarea` `select` `card` `badge`
+`separator` `checkbox` `accordion` `alert` `alert-dialog` `avatar` `breadcrumb`
+`calendar` `command` `dialog` `dropdown-menu` `input-group` `pagination` `popover`
+`progress` `radio-group` `sheet` `slider` `switch` `tabs`.
 
-**Deferidos (não distribuídos):** composites que reusam siblings (FormField & cia —
-ver acima) e os **app-level** multi-arquivo profundos (`DataTable`, `TableToolbar`,
-`AppShell`, `MenuSidebar`, `Chart`, `Kanban`, `Header`, `Table`) — exigem tratamento
-dedicado por-componente (enumerar dezenas de arquivos + dezenas de registryDeps),
-fora do escopo de um lote autônomo.
+**Composites ui/ (14):** `form-field` `alert-modal` `button-group` `floating-panel`
+`modal` `panel` `footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon`
+`page-header` `avatar-ig` (Avatar iGreen — nome distinto pra não colidir com o
+primitivo `avatar`).
+
+**App-level (5):** `chart` (Recharts) `table` `menu-sidebar` `header` `app-shell`.
+
+Cada um validado via `shadcn add` no `consumer-demo` (resolve registryDeps + compila +
+renderiza). e2e final: FormField (composite refatorado) + primitivos → build + render OK.
+
+### Como composites/app-level ficaram distribuíveis (refactor aplicado)
+shadcn **reescreve imports `import ... from "@/..."`** de registryDependencies pro
+target do consumidor (ex.: `@/components/shadcn/dialog` → `@/components/ui/dialog`).
+**NÃO reescreve:** (1) imports **relativos cross-dir** (`../../shadcn/x`); (2)
+**`export ... from "@/..."`** (barrel re-export). Refactors feitos no DS (tsc + build:lib
+verdes — DS intacto):
+- **relativo cross-dir → alias `@/`**: FormField, AlertModal, ButtonGroup, FloatingPanel,
+  Modal, Panel, FooterTable, Kanban, Header, MenuSidebar, AppShell.
+- **`export...from` → `import` + `export` local**: Panel/index.ts (re-export de Sheet).
+- **arquivos auxiliares não-item bundlados como `registry:file`** no(s) item(ns) que usam:
+  `src/lib/lucide-types.ts` (FloatingPanel, Panel, MenuSidebar, Header, AppShell),
+  `src/utils/color-contrast.ts` (avatar-ig), `MenuSidebar/use-media-query.ts` (table).
+
+**Regra de distribuibilidade (canônica):** um `ui/` só é copy-in se seus imports forem
+(a) same-dir relativo (`./x`, copiado junto), (b) alias `@/` de um registryDependency
+(reescrito) ou (c) alias `@/` de arquivo auxiliar bundlado como `registry:file`. Import
+relativo cross-dir e `export...from` cross-component **quebram** — refatorar antes.
+
+### Não-distribuídos (deferidos, com motivo)
+- **`DataTable`** (74 arquivos) e **`TableToolbar`** (27 arquivos): grafo de dependência
+  enorme e **circular** (DataTable ↔ TableToolbar; DataTable puxa Table, Kanban, Chip,
+  Avatar, FooterTable, column-types, services, utils…). Distribuir exige enumerar dezenas
+  de arquivos + dezenas de registryDeps e quebrar a circularidade — esforço alto, risco de
+  gambiarra. **Deferido** (qualidade > completar). `TabelaTeste`: demo interno, não-API.
+- Caminho futuro: tratar DataTable como item grande próprio (com Table/Kanban/Chip/etc.
+  como registryDeps já publicados) numa sessão dedicada, resolvendo a circularidade
+  DataTable↔TableToolbar primeiro.
 - `registry.json` na raiz: componentes (`ui/` + `shadcn/`), tema/tokens, ≥1 item
   de governança passiva.
 - `registryDependencies` com namespace explícito entre componentes (`form` →
