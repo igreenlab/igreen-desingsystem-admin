@@ -1,54 +1,63 @@
 ---
 name: ds-kit
 description: >
-  Orquestrador de construção de telas com o iGreen DS. Use SEMPRE que o usuário
-  pedir pra montar/criar uma tela, página, lista, tabela, CRUD, formulário, tela
-  de edição/cadastro, detalhamento/ficha, dashboard, painel, gráfico, financeiro
-  ou "uma tela igual ao exemplo X". Identifica a intenção e roteia pro fluxo
-  certo (skill guiada ou exemplo pra copiar), aplicando os padrões de DESIGN.md.
+  Orquestrador (front-door) de construção de telas com o iGreen DS. Use SEMPRE
+  que o usuário pedir pra montar/criar/fazer uma tela, página, layout, lista,
+  tabela, CRUD, formulário, cadastro, edição, detalhamento, ficha, dashboard,
+  painel, KPIs, gráfico/chart, financeiro/extrato, chat/inbox, drawer/painel,
+  cards, ou "uma tela igual ao exemplo X". Identifica a intenção e roteia pro
+  fluxo certo (skill guiada ou exemplo pra copiar), aplicando DESIGN.md.
 ---
 
 # ds-kit — Orquestrador de telas (iGreen DS)
 
-Você identifica **o que** o usuário quer montar e roteia pro caminho certo. Não
-gera a tela inteira de memória: ou delega pra uma skill guiada, ou puxa o
-**exemplo** canônico e adapta. Sempre seguindo `DESIGN.md` (raiz) +
-`src/components/ui/<Nome>/USAGE.md`.
+Você é a **porta de entrada** de construção de UI neste projeto. Identifica **o
+que** o usuário quer montar e roteia. Não gera a tela inteira de memória: delega
+pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
+`DESIGN.md` (raiz) + `src/components/ui/<Nome>/USAGE.md`.
 
-## Passo 1 — Classifique a intenção
+> Por que skill e não subagente: roteamento por skill é **nativo e barato** (sem
+> custo de uma janela de contexto separada). Subagente só pra trabalho pesado em
+> paralelo (ex.: montar várias telas de uma vez) — não pra rotear.
 
-| Sinais na fala do usuário | Rota |
+## Passo 1 — Classifique a intenção → rota
+
+| Sinais na fala do usuário | Rota (skill / exemplo) |
 |---|---|
-| "tabela", "lista", "listagem", "crud", "grid de dados", "datatable" | → **CRUD** (skill `crud-builder` / `/ds-create-crud`) |
-| "formulário", "cadastro", "tela de edição", "editar X", "novo X" | → **Edição** (exemplo `example-edit-page` + `FormField`) |
-| "detalhe", "detalhamento", "ficha", "página de X com abas" | → **Detalhe** (exemplo `example-order-detail`) |
-| "dashboard", "painel", "visão geral", "KPIs", "gráfico", "chart" | → **Dashboard** (exemplo `example-dashboard` + `USAGE` do `Chart`) |
-| "financeiro", "extrato", "saldo", "transações" | → **Financeiro** (exemplo `example-finance`) |
-| "drawer/painel de criar/editar/detalhe" | → **Drawers** (padrão do `example-finance`: NovoClienteDrawer / FinanceDetailPanel) |
-| "igual ao exemplo de <X>", "estrutura do <X>" | → puxar `example-<X>` e adaptar |
-| cabeçalho, shell, menu lateral, topbar | → componentes `page-header` / `app-shell` / `menu-sidebar` / `header` |
+| "tabela", "lista", "listagem", "crud", "grid de dados", "datatable" | **skill `crud-builder`** (`/ds-create-crud`) — entrevista guiada |
+| "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step" | **skill `page-edit`** → `example-edit-page` |
+| "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido" | **skill `page-detail`** → `example-order-detail` |
+| "dashboard", "painel", "visão geral", "KPIs", "indicadores" | **skill `dashboard`** → `example-dashboard` |
+| "gráfico", "chart", "barras/linha/área/pizza" | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard` |
+| "financeiro", "extrato", "saldo", "transações" | `example-finance` (puxar + adaptar) |
+| "chat", "inbox", "conversas", "atendimento" | **skill `chat`** → `example-chat` |
+| "drawer/painel de criar/editar/ver detalhe" | **skill `drawers`** → drawers do `example-finance` |
+| "cards", "blocos", "painéis soltos", "seções" | **skill `cards`** → `Card`/`Panel` + showcase |
+| "igual ao exemplo de <X>" / "estrutura do <X>" | puxar `example-<X>` e adaptar |
+| cabeçalho de página | componente `PageHeader` |
+| shell / menu lateral / topbar | `app-shell` / `menu-sidebar` / `header` |
 
-Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir.
+Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") = combine rotas (`example-dashboard` + `crud-builder`).
 
 ## Passo 2 — Execute a rota
 
-**CRUD (o principal, fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` e siga a entrevista → blueprint (gate) → geração. É question-driven: pergunta colunas, filtros, views, kanban etc. NÃO pule o gate.
+**CRUD (fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` → entrevista → blueprint [GATE] → geração. É question-driven; NÃO pule o gate.
 
-**Demais rotas (baseadas em exemplo):**
-1. Puxe o exemplo: `npm run igreen:add -- example-<x>` (traz a tela + componentes).
-2. **Leia** o arquivo puxado (`src/examples/<x>/...`) e o `USAGE.md` dos componentes que ele usa.
-3. Adapte ao caso do usuário (campos, dados, textos) — preservando a estrutura/espaçamento do exemplo.
-4. Renderize a tela no roteador/local que o usuário indicar, dentro de um wrapper com altura (ver DESIGN.md "Anatomia").
+**Demais rotas (baseadas em exemplo):** carregue a skill correspondente em `.claude/skills/<rota>/SKILL.md` (ela tem os gotchas do tipo de tela). O padrão é sempre:
+1. `npm run igreen:add -- <item/componente>` (traz a tela/componente + deps).
+2. **Leia** o que foi puxado (`src/examples/<x>/...`) + `USAGE.md` dos componentes.
+3. Adapte ao caso do usuário preservando estrutura/espaçamento do exemplo.
+4. Renderize no roteador/local indicado, em wrapper com altura (DESIGN.md "Anatomia").
 5. `npx tsc --noEmit` limpo antes de entregar.
 
 ## Passo 3 — Sempre aplique os padrões
 
-- `DESIGN.md` (raiz): anatomia de tela, ritmo de espaçamento (24px pós-PageHeader, `gap-form-gap` em form), do/don't, responsividade.
+- `DESIGN.md` (raiz): anatomia, ritmo de espaçamento, cor, do/don't, responsividade.
 - `.claude/rules/ds-design.md` já está auto-carregado (regras duras).
-- API do componente = `USAGE.md` ao lado dele. Nunca inventar prop/variante.
+- API do componente = `USAGE.md`. Nunca inventar prop/variante.
 
 ## Princípio
 
-Cada tipo de tela tem um **exemplo de produção** como referência viva (extração 1:1 dos showcases). O melhor código é o exemplo adaptado — não o escrito do zero. Sua função é levar o usuário ao exemplo/skill certo e garantir que o resultado siga o DESIGN.md.
+Cada tipo de tela tem um **exemplo de produção** como referência viva (extração 1:1 dos showcases). O melhor código é o exemplo adaptado — não o escrito do zero. Sua função: levar ao exemplo/skill certo e garantir aderência ao DESIGN.md.
 
-> Crescível: novos tipos de tela entram como nova linha na tabela do Passo 1 + (se guiado) nova skill em `.claude/skills/`. Mantenha este roteador curto.
+> Crescível: novo tipo de tela = nova linha na tabela do Passo 1 + nova skill em `.claude/skills/`. Mantenha este roteador curto.
