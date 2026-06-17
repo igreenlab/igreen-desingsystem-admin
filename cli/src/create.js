@@ -104,12 +104,111 @@ function listTemplates() {
   });
 }
 
+/* ── starter: AppShell + tutorial + exemplos no menu ─────────────── */
+
+const EXAMPLE_SCREENS = [
+  { item: "example-clientes", comp: "ClientesScreen", path: "@/examples/clientes", label: "Clientes", icon: "Users", hash: "clientes" },
+  { item: "example-finance", comp: "FinanceScreen", path: "@/examples/finance", label: "Financeiro", icon: "Wallet", hash: "finance" },
+  { item: "example-dashboard", comp: "DashboardScreen", path: "@/examples/dashboard", label: "Dashboard", icon: "LayoutDashboard", hash: "dashboard" },
+  { item: "example-order-detail", comp: "OrderDetailScreen", path: "@/examples/order-detail", label: "Detalhe do pedido", icon: "FileText", hash: "order-detail" },
+  { item: "example-edit-page", comp: "EditPageScreen", path: "@/examples/edit-page", label: "Edição", icon: "PencilLine", hash: "edit-page" },
+  { item: "example-chat", comp: "ChatScreen", path: "@/examples/chat", label: "Chat", icon: "MessagesSquare", hash: "chat" },
+];
+
+/** Gera o src/App.tsx: AppShell + nav (Início→tutorial + exemplos instalados) com hash-routing. */
+function buildAppShellApp(examples) {
+  const iconSet = ["Rocket", "Sun", "Moon", ...new Set(examples.map((e) => e.icon))].join(", ");
+  const exImports = examples.map((e) => `import { ${e.comp} } from "${e.path}";`).join("\n");
+  const navItems = [
+    `{ name: "Início", icon: Rocket, href: "#inicio" }`,
+    ...examples.map((e) => `{ name: "${e.label}", icon: ${e.icon}, href: "#${e.hash}" }`),
+  ].join(",\n      ");
+  const screenMap = [
+    `inicio: <Welcome />`,
+    ...examples.map((e) => `"${e.hash}": <${e.comp} />`),
+  ].join(",\n    ");
+  return `import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { ${iconSet} } from "lucide-react";
+import { AppShell } from "@/components/ui/AppShell";
+import { Welcome } from "@/welcome";
+${exImports}
+
+type Theme = "light" | "dark";
+
+const CONTEXTS = [
+  {
+    id: "app",
+    label: "Telas",
+    icon: Rocket,
+    items: [
+      ${navItems},
+    ],
+  },
+];
+
+const THEME_OPTIONS = [
+  { id: "light", label: "Claro", icon: Sun },
+  { id: "dark", label: "Escuro", icon: Moon },
+];
+
+function useHashRoute() {
+  const [hash, setHash] = useState(() =>
+    typeof window === "undefined" ? "inicio" : window.location.hash.replace("#", "") || "inicio",
+  );
+  useEffect(() => {
+    const fn = () => setHash(window.location.hash.replace("#", "") || "inicio");
+    window.addEventListener("hashchange", fn);
+    return () => window.removeEventListener("hashchange", fn);
+  }, []);
+  return hash;
+}
+
+export default function App() {
+  const [theme, setTheme] = useState<Theme>("light");
+  const route = useHashRoute();
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
+  const SCREENS: Record<string, ReactNode> = {
+    ${screenMap},
+  };
+
+  return (
+    <AppShell
+      contexts={CONTEXTS}
+      defaultActiveContextId="app"
+      defaultActiveItemHref="#inicio"
+      breadcrumb={[{ label: "iGreen DS" }]}
+      theme={theme}
+      onThemeChange={(id) => setTheme(id as Theme)}
+      themeOptions={THEME_OPTIONS}
+      user={{ name: "Você", email: "voce@empresa.com", initials: "VC" }}
+    >
+      {SCREENS[route] ?? <Welcome />}
+    </AppShell>
+  );
+}
+`;
+}
+
 /* ── main ────────────────────────────────────────────────────────── */
 
 async function main() {
-  console.log();
-  console.log(pc.green(pc.bold("◇ @snksergio/create-design-system")));
-  console.log(pc.dim("  Bootstrap a project consuming the iGreen Design System"));
+  const BANNER = [
+    "",
+    "   _  ____                     ",
+    "  (_)/ ___|_ __ ___  ___ _ __  ",
+    "  | | |  _| '__/ _ \\/ _ \\ '_ \\ ",
+    "  | | |_| | | |  __/  __/ | | |",
+    "  |_|\\____|_|  \\___|\\___|_| |_|",
+    "",
+  ];
+  console.log(pc.green(pc.bold(BANNER.join("\n"))));
+  console.log(pc.green(pc.bold("  iGreen Design System")) + pc.dim("  ·  create-design-system"));
+  console.log(pc.dim("  Bootstrap de um projeto que consome o iGreen DS (registry + kit de telas)"));
   console.log();
 
   const argName = process.argv[2];
@@ -163,6 +262,12 @@ async function main() {
       },
       {
         type: "confirm",
+        name: "installExamples",
+        message: "Instalar as páginas de exemplo (clientes, finance, dashboard, detalhe, edição, chat) já no menu?",
+        initial: true,
+      },
+      {
+        type: "confirm",
         name: "initGit",
         message: "Initialize a git repository?",
         initial: true,
@@ -179,7 +284,7 @@ async function main() {
 
   const projectName = argName || answers.projectName;
   const template = answers.template || DEFAULT_TEMPLATE;
-  const { packageManager, installDeps, initGit, igreenToken } = answers;
+  const { packageManager, installDeps, initGit, igreenToken, installExamples } = answers;
 
   // Step 2: validate destination
   const projectDir = resolve(process.cwd(), projectName);
@@ -248,11 +353,12 @@ async function main() {
   // Step 5c: tela inicial AppShell (asset `_app-appshell.tsx`). Guarda o conteúdo
   // e remove o stray do projeto. Só vira `src/App.tsx` quando há token (precisa puxar
   // @igreen/app-shell do registry) — feito no Step 6b. Sem token, fica a tela de boas-vindas.
-  const appShellAsset = join(projectDir, "_app-appshell.tsx");
-  let appShellContent = null;
-  if (existsSync(appShellAsset)) {
-    appShellContent = readFileSync(appShellAsset, "utf8");
-    unlinkSync(appShellAsset);
+  // Tela de boas-vindas/tutorial (asset → src/welcome.tsx só quando há componentes).
+  const welcomeAsset = join(projectDir, "_welcome.tsx");
+  let welcomeContent = null;
+  if (existsSync(welcomeAsset)) {
+    welcomeContent = readFileSync(welcomeAsset, "utf8");
+    unlinkSync(welcomeAsset);
   }
 
   // Step 6: install deps
@@ -270,14 +376,25 @@ async function main() {
   // Step 6b: monta a tela inicial com AppShell (só com token + deps instaladas).
   // Puxa o set inicial do registry e promove o asset AppShell a src/App.tsx.
   // Falhou (sem rede / token inválido)? Mantém a tela de boas-vindas padrão.
-  if (token && installDeps && appShellContent) {
-    console.log(pc.cyan("→ Montando a tela inicial com AppShell (puxando componentes do registry)…"));
+  if (token && installDeps && welcomeContent) {
+    const exList = installExamples ? EXAMPLE_SCREENS : [];
+    const addArgs = ["app-shell", "button", "card", "badge", "chip", "page-header", ...exList.map((e) => e.item)];
+    console.log(
+      pc.cyan(
+        `→ Montando a tela inicial (AppShell + tutorial${exList.length ? " + " + exList.length + " exemplos no menu" : ""})…`,
+      ),
+    );
     try {
-      await run(packageManager, ["run", "igreen:add", "--", "app-shell", "button", "card", "badge"], projectDir);
-      writeFileSync(join(projectDir, "src", "App.tsx"), appShellContent, "utf8");
-      console.log(pc.green("  ✓ Tela AppShell pronta (sidebar + header + troca de tema)."));
+      await run(packageManager, ["run", "igreen:add", "--", ...addArgs], projectDir);
+      writeFileSync(join(projectDir, "src", "welcome.tsx"), welcomeContent, "utf8");
+      writeFileSync(join(projectDir, "src", "App.tsx"), buildAppShellApp(exList), "utf8");
+      console.log(
+        pc.green(
+          `  ✓ Tela inicial pronta (tutorial${exList.length ? " + " + exList.length + " exemplos navegáveis no menu" : ""}).`,
+        ),
+      );
     } catch (err) {
-      console.log(pc.yellow(`  ⚠ Não consegui montar a tela AppShell (${err.message}). Mantida a tela inicial padrão.`));
+      console.log(pc.yellow(`  ⚠ Não consegui montar a tela inicial (${err.message}). Mantida a tela de boas-vindas padrão.`));
     }
   }
 
