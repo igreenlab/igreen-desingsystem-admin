@@ -154,7 +154,22 @@ simples; o registry ganha runtime pro token.
 
 ## 6. Escopo faseado
 
-**Fase 1 — Publicar o DS como registry (provedor)**
+**Fase 1 — Publicar o DS como registry (provedor)** ✅ **CONCLUÍDA (2026-06-16)**
+- **Fechamento:** PR #1 (snksergio) mergeado na `main` — merge commit `ecdef94`.
+  Endpoint privado autenticado `igreen-registry.vercel.app` validado em **produção**
+  (next build/start, não dev): sem token → 401, token errado → 401, token certo →
+  200 + `Cache-Control: no-store`, inexistente → 404. `shadcn add @igreen/button`
+  remoto trouxe `button` + `tv`; sem/errado token → não autorizado, 0 arquivos.
+- ⚠️ **Dívida de deploy (não bloqueia a Fase 1, resolver na ida pra produção real):**
+  o projeto Vercel **tem conexão Git** e builda a **raiz do repo como Vite** a cada
+  push na `main` → serve estático sem a rota `/r` (registry público/404). Hoje o
+  deploy correto é **manual** (`vercel --prod` de dentro de `registry-app`, que o
+  `vercel.json` força a Next). **Fix durável:** setar **Root Directory =
+  `registry-app`** no projeto (+ Framework Preset = Next) pra o build Git usar o app
+  Next. Até lá, todo push na main exige um `vercel --prod` de correção.
+- ⚠️ **`IGREEN_TOKEN` é sensível na Vercel:** `vercel env pull` devolve **vazio**
+  (`""`) — o plaintext não sai no pull. Distribuir o valor aos consumidores
+  **out-of-band** (quem seta o token guarda o valor), não via pull.
 - `registry.json` na raiz: componentes (`ui/` + `shadcn/`), tema/tokens, ≥1 item
   de governança passiva.
 - `registryDependencies` com namespace explícito entre componentes (`form` →
