@@ -20,7 +20,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · utils · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · utils · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -39,7 +39,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tv · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · tv · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -59,7 +59,7 @@
       ],
       "meta": {
         "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-        "stamp": "igreen-ds · theme · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · theme · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -99,7 +99,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · button · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -121,7 +121,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · input · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -144,7 +144,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · label · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · label · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -166,7 +166,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · textarea · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · textarea · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -189,7 +189,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · select · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · select · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -209,7 +209,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · card · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -229,7 +229,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · badge · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · badge · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -251,7 +251,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · separator · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · separator · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -274,7 +274,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · checkbox · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · checkbox · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -297,7 +297,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · accordion · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · accordion · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -319,7 +319,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · alert · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -341,7 +341,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert-dialog · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · alert-dialog · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -363,7 +363,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · avatar · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · avatar · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -386,7 +386,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · breadcrumb · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · breadcrumb · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -409,7 +409,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · calendar · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · calendar · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -434,7 +434,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · command · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · command · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -457,7 +457,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dialog · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · dialog · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -480,7 +480,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -502,7 +502,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input-group · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · input-group · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -525,7 +525,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · pagination · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · pagination · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -547,7 +547,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · popover · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · popover · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -569,7 +569,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · progress · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · progress · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -591,7 +591,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · radio-group · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · radio-group · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -615,7 +615,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · sheet · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · sheet · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -637,7 +637,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · slider · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · slider · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -659,7 +659,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · switch · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · switch · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -681,7 +681,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tabs · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · tabs · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -756,7 +756,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · form-field · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · form-field · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -800,7 +800,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · alert-modal · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · alert-modal · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -845,7 +845,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button-group · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · button-group · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -904,7 +904,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · floating-panel · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · floating-panel · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -943,7 +943,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · modal · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · modal · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1008,7 +1008,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · panel · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · panel · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1045,7 +1045,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · footer-table · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · footer-table · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1097,7 +1097,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · kanban · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · kanban · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1142,7 +1142,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · combobox · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · combobox · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1180,7 +1180,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card-checkbox · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · card-checkbox · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1223,7 +1223,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · chip · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · chip · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1269,7 +1269,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · icon · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · icon · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1310,7 +1310,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · page-header · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · page-header · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1355,7 +1355,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · avatar-ig · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · avatar-ig · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1387,7 +1387,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · chart · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · chart · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1455,7 +1455,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · table · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · table · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1544,7 +1544,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · menu-sidebar · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · menu-sidebar · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1623,7 +1623,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · header · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · header · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1680,7 +1680,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · app-shell · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · app-shell · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
@@ -1715,6 +1715,7 @@
         "@dnd-kit/core@^6.3.1",
         "@dnd-kit/sortable@^10.0.0",
         "@dnd-kit/utilities@^3.2.2",
+        "@tanstack/react-virtual@^3.13.24",
         "lucide-react@^1.7.0"
       ],
       "files": [
@@ -2240,124 +2241,357 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · data-table · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · data-table · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
       "name": "example-clientes",
       "type": "registry:ui",
-      "title": "Exemplo — Clientes (DataTable)",
-      "description": "Tela completa de Clientes pronta pra rodar/estudar: DataTable (busca, sort, status, ações) + PageHeader. Renderize <ClientesScreen/>.",
+      "title": "Exemplo — Clientes (CRUD, showcase real)",
+      "description": "Extração 1:1 do showcase ClientesShowcase: DataTable (busca, sort, filtros, seleção, ações em massa, totalizador), PageHeader com badge, NovoClienteDrawer, DetailDrawer e AlertModal de confirmação. Conteúdo da página (sem shell). Renderize <ClientesScreen/>.",
       "registryDependencies": [
         "@igreen/data-table",
+        "@igreen/button",
+        "@igreen/chip",
         "@igreen/page-header",
-        "@igreen/button"
+        "@igreen/alert-modal",
+        "@igreen/panel",
+        "@igreen/form-field",
+        "@igreen/floating-panel",
+        "@igreen/avatar"
       ],
       "dependencies": [],
       "files": [
         {
-          "path": "src/examples/clientes-screen.tsx",
+          "path": "src/examples/clientes/clientes-screen.tsx",
           "type": "registry:ui",
-          "target": "examples/clientes-screen.tsx"
+          "target": "examples/clientes/clientes-screen.tsx"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase-mocks.ts"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase.styles.ts"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase.types.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase.types.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.styles.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.tsx"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.types.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.types.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/NovoClienteDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/NovoClienteDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/NovoClienteDrawer/novo-cliente-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/NovoClienteDrawer/novo-cliente-drawer.tsx"
+        },
+        {
+          "path": "src/examples/clientes/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/_table-data.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/_table-data.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-clientes · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · example-clientes · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
       "name": "example-finance",
       "type": "registry:ui",
-      "title": "Exemplo — Financeiro (KPIs + DataTable)",
-      "description": "Tela de extrato financeiro: 3 KPI cards (saldo/entradas/saídas) + DataTable de transações (status, moeda, data). Renderize <FinanceScreen/>.",
+      "title": "Exemplo — Financeiro (CRUD + Kanban, showcase real)",
+      "description": "Extração 1:1 do showcase ClientesFinanceiro: DataTable completa (avatar de banco, inline-edit de comissão, saque-auto toggle, totalizador), Kanban por situação, preset views, SacarDialog, EditarFinanceDrawer, NovoClienteDrawer, FinanceDetailPanel e ExtratoExpansion. Conteúdo da página (sem shell). Renderize <FinanceScreen/>.",
       "registryDependencies": [
         "@igreen/data-table",
-        "@igreen/card",
+        "@igreen/kanban",
         "@igreen/page-header",
-        "@igreen/button"
+        "@igreen/button",
+        "@igreen/avatar-ig",
+        "@igreen/chip",
+        "@igreen/panel",
+        "@igreen/modal",
+        "@igreen/floating-panel",
+        "@igreen/form-field",
+        "@igreen/card-checkbox",
+        "@igreen/switch",
+        "@igreen/tabs"
       ],
       "dependencies": [],
       "files": [
         {
-          "path": "src/examples/finance-screen.tsx",
+          "path": "src/examples/finance/clientes-financeiro-mocks.ts",
           "type": "registry:ui",
-          "target": "examples/finance-screen.tsx"
+          "target": "examples/finance/clientes-financeiro-mocks.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-financeiro.types.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-financeiro.types.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase-mocks.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase.styles.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase.types.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase.types.ts"
+        },
+        {
+          "path": "src/examples/finance/components/EditarFinanceDrawer/editar-finance-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/EditarFinanceDrawer/editar-finance-drawer.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/EditarFinanceDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/EditarFinanceDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/ExtratoExpansion/extrato-expansion.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/ExtratoExpansion/extrato-expansion.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/ExtratoExpansion/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/ExtratoExpansion/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/FinanceDetailPanel/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/FinanceDetailPanel/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/NovoClienteDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/NovoClienteDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/NovoClienteDrawer/novo-cliente-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/NovoClienteDrawer/novo-cliente-drawer.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/SacarDialog/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/SacarDialog/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/SacarDialog/sacar-dialog.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/SacarDialog/sacar-dialog.tsx"
+        },
+        {
+          "path": "src/examples/finance/finance-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/finance-screen.tsx"
+        },
+        {
+          "path": "src/examples/finance/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/index.ts"
+        },
+        {
+          "path": "src/examples/finance/_table-data.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/_table-data.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-finance · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · example-finance · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
       "name": "example-edit-page",
       "type": "registry:ui",
-      "title": "Exemplo — Edição (formulário)",
-      "description": "Tela de edição/cadastro: PageHeader + Card + FormField (input, select, textarea, switch) com validação inline. Renderize <EditPageScreen/>.",
+      "title": "Exemplo — Edição multi-step (showcase real)",
+      "description": "Extração 1:1 do showcase OrderEditShowcase: formulário multi-step com StepNav lateral, FormField (input/select), ChipGroup e cards de seção. Conteúdo da página (sem shell). Renderize <EditPageScreen/>.",
       "registryDependencies": [
-        "@igreen/form-field",
-        "@igreen/card",
+        "@igreen/button",
+        "@igreen/chip",
         "@igreen/page-header",
-        "@igreen/button"
+        "@igreen/form-field",
+        "@igreen/input",
+        "@igreen/select"
       ],
       "dependencies": [],
       "files": [
         {
-          "path": "src/examples/edit-page-screen.tsx",
+          "path": "src/examples/edit-page/components/section-card.tsx",
           "type": "registry:ui",
-          "target": "examples/edit-page-screen.tsx"
+          "target": "examples/edit-page/components/section-card.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/components/StepNav.tsx",
+          "type": "registry:ui",
+          "target": "examples/edit-page/components/StepNav.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/edit-page-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/edit-page/edit-page-screen.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/index.ts",
+          "type": "registry:ui",
+          "target": "examples/edit-page/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-edit-page · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · example-edit-page · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
       "name": "example-order-detail",
       "type": "registry:ui",
-      "title": "Exemplo — Detalhamento (abas)",
-      "description": "Página de detalhe/detalhamento: PageHeader com badge de status + Tabs (visão geral/itens/histórico) + Cards. Renderize <OrderDetailScreen/>.",
+      "title": "Exemplo — Detalhamento de pedido (showcase real)",
+      "description": "Extração 1:1 do showcase OrderDetailShowcase: PageHeader + Tabs (visão geral, detalhes, atividade, comentários, anexos) com cards de seção. Conteúdo da página (sem shell). Renderize <OrderDetailScreen/>.",
       "registryDependencies": [
-        "@igreen/tabs",
-        "@igreen/card",
-        "@igreen/badge",
+        "@igreen/button",
+        "@igreen/chip",
         "@igreen/page-header",
-        "@igreen/button"
+        "@igreen/avatar-ig",
+        "@igreen/tabs",
+        "@igreen/textarea"
       ],
       "dependencies": [],
       "files": [
         {
-          "path": "src/examples/order-detail-screen.tsx",
+          "path": "src/examples/order-detail/components/ActivityTab.tsx",
           "type": "registry:ui",
-          "target": "examples/order-detail-screen.tsx"
+          "target": "examples/order-detail/components/ActivityTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/AttachmentsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/AttachmentsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/CommentsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/CommentsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/DetailsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/DetailsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/OverviewTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/OverviewTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/section-card.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/section-card.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/index.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/index.ts"
+        },
+        {
+          "path": "src/examples/order-detail/order-detail-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order-detail-screen.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/order-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order-mocks.ts"
+        },
+        {
+          "path": "src/examples/order-detail/order.types.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order.types.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-order-detail · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · example-order-detail · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     },
     {
       "name": "example-dashboard",
       "type": "registry:ui",
-      "title": "Exemplo — Dashboard (KPIs + gráfico)",
-      "description": "Dashboard: 3 KPI cards com tendência + gráfico de área (Chart/Recharts) Receita vs Meta. Renderize <DashboardScreen/>.",
+      "title": "Exemplo — Dashboard (showcase real)",
+      "description": "Extração 1:1 do showcase DashboardShowcase: KPIs, gráficos (barras/pizza via Recharts), regiões/canais e tabela de tráfego. Conteúdo da página (sem shell). Renderize <DashboardScreen/>.",
       "registryDependencies": [
-        "@igreen/chart",
-        "@igreen/card",
-        "@igreen/badge",
-        "@igreen/page-header"
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/page-header",
+        "@igreen/avatar"
       ],
       "dependencies": [
         "recharts@^3.8.1"
       ],
       "files": [
         {
-          "path": "src/examples/dashboard-screen.tsx",
+          "path": "src/examples/dashboard/dashboard-screen.tsx",
           "type": "registry:ui",
-          "target": "examples/dashboard-screen.tsx"
+          "target": "examples/dashboard/dashboard-screen.tsx"
+        },
+        {
+          "path": "src/examples/dashboard/index.ts",
+          "type": "registry:ui",
+          "target": "examples/dashboard/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · example-dashboard · v0.9.0 · 6f2a13c · 2026-06-17"
+        "stamp": "igreen-ds · example-dashboard · v0.9.0 · 13db5f8 · 2026-06-17"
       }
     }
   ]

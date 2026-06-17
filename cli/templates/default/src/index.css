@@ -11,6 +11,29 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ── Geist (fonte do DS) ──────────────────────────────────────────────────
+ * Arquivos variáveis em public/fonts/. Sem isto o projeto cai em system-ui
+ * e diverge dos showcases. Mantém o mesmo @font-face do DS.
+ */
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@theme inline {
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "Fira Code", monospace;
+}
+
 /*
  * Bridge shadcn → iGreen. Mapeia o vocabulário BASE do shadcn (bg-primary,
  * bg-background, border-border, etc.) pros tokens iGreen. Assim QUALQUER componente
@@ -49,6 +72,6 @@ html,
 body {
   background: var(--color-bg-canvas);
   color: var(--color-fg-default);
-  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans, system-ui, -apple-system, "Segoe UI", sans-serif);
   min-height: 100vh;
 }
