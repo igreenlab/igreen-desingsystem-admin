@@ -20,7 +20,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · utils · v0.9.0 · c4f806a · 2026-06-16"
+        "stamp": "igreen-ds · utils · v0.9.0 · b46b933 · 2026-06-17"
       }
     },
     {
@@ -39,7 +39,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tv · v0.9.0 · c4f806a · 2026-06-16"
+        "stamp": "igreen-ds · tv · v0.9.0 · b46b933 · 2026-06-17"
       }
     },
     {
@@ -59,7 +59,7 @@
       ],
       "meta": {
         "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-        "stamp": "igreen-ds · theme · v0.9.0 · c4f806a · 2026-06-16"
+        "stamp": "igreen-ds · theme · v0.9.0 · b46b933 · 2026-06-17"
       }
     },
     {
@@ -99,7 +99,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button · v0.9.0 · c4f806a · 2026-06-16"
+        "stamp": "igreen-ds · button · v0.9.0 · b46b933 · 2026-06-17"
       }
     },
     {
@@ -121,7 +121,160 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input · v0.9.0 · c4f806a · 2026-06-16"
+        "stamp": "igreen-ds · input · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Label acessivel (Radix) adaptado aos tokens DS. Base de FormField e forms.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-label@^2.1.8",
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/label.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/label.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · label · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Textarea (cva) com tokens DS e focus animado. Completa o trio de inputs do FormField.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/textarea.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/textarea.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · textarea · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Select (Radix) adaptado aos tokens DS. Forms e filtros. Origem interna shadcn/ - nao vaza.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-select@^2.2.6",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/select.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · select · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Card + Header/Footer/Title/Description/Content. Tokens DS. KPIs/billing/dashboard.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/shadcn/card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · card · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Badge (tv()) - 5 cores x 4 variants x 3 sizes. Status/tags em tabelas e dashboards.",
+      "registryDependencies": [
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/shadcn/badge.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/badge.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · badge · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Separator (Radix) horizontal/vertical com token de borda DS. Divisoria de secoes.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-separator@^1.1.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/separator.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · separator · v0.9.0 · b46b933 · 2026-06-17"
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox (Radix) com estado checked/indeterminate e tokens DS. Forms e selecao de tabela.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox@^1.3.3",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/checkbox.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · checkbox · v0.9.0 · b46b933 · 2026-06-17"
       }
     }
   ]

@@ -1,5 +1,27 @@
 // AUTO-GERADO por scripts/copy-registry.mjs — não editar.
 export const registry: Record<string, unknown> = {
+  "badge": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "badge",
+    "title": "Badge",
+    "description": "Badge (tv()) - 5 cores x 4 variants x 3 sizes. Status/tags em tabelas e dashboards.",
+    "dependencies": [],
+    "registryDependencies": [
+      "@igreen/tv"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/badge.tsx",
+        "content": "import * as React from \"react\";\r\nimport { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Badge — pill/tag visual indicator alinhado com sandbox.\r\n *\r\n * Patterns suportados:\r\n *   - Counter (.tbl-page-count): default shape (radius-sm 6px), soft primary\r\n *   - Status chip (.chip): shape=\"pill\" (radius-full), soft + colored\r\n *   - Inline tag: default shape, qualquer cor\r\n *\r\n * API:\r\n *   color:   primary | secondary | critical | success | warning | info\r\n *   variant: solid | soft | outline | ghost\r\n *   size:    sm (20px) | md (24px, default) | lg (28px)\r\n *   shape:   default (radius 6px) | pill (radius full)\r\n */\r\nconst badgeVariants = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center\",\r\n    \"border border-transparent\",\r\n    \"font-semibold leading-none whitespace-nowrap\",\r\n    \"transition-colors\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary\",\r\n    \"[&_svg]:pointer-events-none [&_svg]:shrink-0\",\r\n  ],\r\n\r\n  variants: {\r\n    color: {\r\n      primary: \"\",\r\n      secondary: \"\",\r\n      critical: \"\",\r\n      success: \"\",\r\n      warning: \"\",\r\n      info: \"\",\r\n    },\r\n\r\n    variant: {\r\n      solid: \"\",\r\n      soft: \"\",\r\n      outline: \"bg-transparent\",\r\n      ghost: \"bg-transparent border-transparent\",\r\n    },\r\n\r\n    size: {\r\n      sm: \"h-comp-2xs px-pad-sm text-caption-xs gap-gp-2xs [&_svg]:size-3\",     // 20px / 6 / 10\r\n      md: \"h-comp-xs px-pad-md text-body-xs gap-gp-xs [&_svg]:size-3.5\",  // 24px / 8 / 12 (default)\r\n      lg: \"h-comp-sm px-pad-lg text-body-sm font-normal gap-gp-sm [&_svg]:size-4\",      // 28px / 10 / 13\r\n    },\r\n\r\n    shape: {\r\n      default: \"rounded-radius-sm\",   // 6px — counter, value tags\r\n      pill: \"rounded-radius-full\",    // pill — status chips\r\n    },\r\n  },\r\n\r\n  compoundVariants: [\r\n    /* ── Primary (brand) ─────────────────────────────────────────────── */\r\n    { color: \"primary\", variant: \"solid\",   class: \"bg-bg-brand text-fg-on-brand\" },\r\n    { color: \"primary\", variant: \"soft\",    class: \"bg-bg-brand-subtle text-fg-brand\" },\r\n    { color: \"primary\", variant: \"outline\", class: \"border-border-brand text-fg-brand\" },\r\n    { color: \"primary\", variant: \"ghost\",   class: \"text-fg-brand\" },\r\n\r\n    /* ── Secondary (neutral) ─────────────────────────────────────────── */\r\n    { color: \"secondary\", variant: \"solid\",   class: \"bg-bg-emphasis text-fg-default\" },\r\n    { color: \"secondary\", variant: \"soft\",    class: \"bg-bg-muted text-fg-muted\" },\r\n    { color: \"secondary\", variant: \"outline\", class: \"border-border-default text-fg-default\" },\r\n    { color: \"secondary\", variant: \"ghost\",   class: \"text-fg-muted\" },\r\n\r\n    /* ── Critical (danger) ───────────────────────────────────────────── */\r\n    { color: \"critical\", variant: \"solid\",   class: \"bg-bg-danger text-fg-on-danger\" },\r\n    { color: \"critical\", variant: \"soft\",    class: \"bg-bg-danger-muted text-fg-danger\" },\r\n    { color: \"critical\", variant: \"outline\", class: \"border-border-danger-muted text-fg-danger\" },\r\n    { color: \"critical\", variant: \"ghost\",   class: \"text-fg-danger\" },\r\n\r\n    /* ── Success ─────────────────────────────────────────────────────── */\r\n    { color: \"success\", variant: \"solid\",   class: \"bg-bg-success text-fg-on-success\" },\r\n    { color: \"success\", variant: \"soft\",    class: \"bg-bg-success-muted text-fg-success\" },\r\n    { color: \"success\", variant: \"outline\", class: \"border-border-success-muted text-fg-success\" },\r\n    { color: \"success\", variant: \"ghost\",   class: \"text-fg-success\" },\r\n\r\n    /* ── Warning ─────────────────────────────────────────────────────── */\r\n    { color: \"warning\", variant: \"solid\",   class: \"bg-bg-warning text-fg-on-warning\" },\r\n    { color: \"warning\", variant: \"soft\",    class: \"bg-bg-warning-muted text-fg-warning\" },\r\n    { color: \"warning\", variant: \"outline\", class: \"border-border-warning-muted text-fg-warning\" },\r\n    { color: \"warning\", variant: \"ghost\",   class: \"text-fg-warning\" },\r\n\r\n    /* ── Info ────────────────────────────────────────────────────────── */\r\n    { color: \"info\", variant: \"solid\",   class: \"bg-bg-info text-fg-on-info\" },\r\n    { color: \"info\", variant: \"soft\",    class: \"bg-bg-info-muted text-fg-info\" },\r\n    { color: \"info\", variant: \"outline\", class: \"border-border-info-muted text-fg-info\" },\r\n    { color: \"info\", variant: \"ghost\",   class: \"text-fg-info\" },\r\n  ],\r\n\r\n  defaultVariants: {\r\n    color: \"secondary\",\r\n    variant: \"soft\",\r\n    size: \"md\",\r\n    shape: \"default\",\r\n  },\r\n});\r\n\r\nexport type BadgeVariantProps = VariantProps<typeof badgeVariants>;\r\n\r\nexport interface BadgeProps\r\n  extends Omit<React.HTMLAttributes<HTMLSpanElement>, \"color\">,\r\n    BadgeVariantProps {\r\n  asChild?: boolean;\r\n}\r\n\r\nfunction Badge({ className, color, variant, size, shape, ...props }: BadgeProps) {\r\n  return (\r\n    <span\r\n      className={badgeVariants({ color, variant, size, shape, className })}\r\n      {...props}\r\n    />\r\n  );\r\n}\r\n\r\nexport { Badge, badgeVariants };\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/badge.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · badge · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
   "button": {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "button",
@@ -42,7 +64,54 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.9.0 · c4f806a · 2026-06-16"
+      "stamp": "igreen-ds · button · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "card": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "card",
+    "title": "Card",
+    "description": "Card + Header/Footer/Title/Description/Content. Tokens DS. KPIs/billing/dashboard.",
+    "dependencies": [],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/card.tsx",
+        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface py-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-foreground/5 dark:ring-foreground/10\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCard.displayName = \"Card\"\r\n\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"grid auto-rows-min items-start gap-gp-sm px-pad-4xl\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-title-md font-medium text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div ref={ref} className={cn(\"px-pad-4xl\", className)} {...props} />\r\n))\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"flex items-center px-pad-4xl\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/card.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · card · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "checkbox": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "checkbox",
+    "title": "Checkbox",
+    "description": "Checkbox (Radix) com estado checked/indeterminate e tokens DS. Forms e selecao de tabela.",
+    "dependencies": [
+      "@radix-ui/react-checkbox@^1.3.3",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/checkbox.tsx",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as CheckboxPrimitive from \"@radix-ui/react-checkbox\"\r\nimport { Check, Minus } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Checkbox — alinhado com `.tbl-checkbox` do design-and-table-v2.\r\n *\r\n * Specs:\r\n *   - 16x16, border 1.5px border-input, radius 4px (radius-xs)\r\n *   - bg-input (light) / dark:bg-bg-muted\r\n *   - hover: border-default (mais visível)\r\n *   - checked/indeterminate: bg-brand + border-brand\r\n *   - check icon: branco (fg-on-brand)\r\n *   - focus: shadow-sh-ring (brand glow)\r\n */\r\nconst Checkbox = React.forwardRef<\r\n  React.ElementRef<typeof CheckboxPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>\r\n>(({ className, ...props }, ref) => (\r\n  <CheckboxPrimitive.Root\r\n    ref={ref}\r\n    className={cn(\r\n      \"peer relative flex size-4 shrink-0 items-center justify-center cursor-pointer\",\r\n      \"rounded-radius-xs\",\r\n      \"bg-bg-input dark:bg-bg-muted\",\r\n      \"border-[1.5px] border-border-input\",\r\n      \"transition-[background-color,border-color,box-shadow] outline-none\",\r\n      \"hover:border-border-default\",\r\n      \"focus-visible:shadow-sh-ring\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n      \"data-[state=checked]:bg-bg-brand data-[state=checked]:border-border-brand\",\r\n      \"data-[state=indeterminate]:bg-bg-brand data-[state=indeterminate]:border-border-brand\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <CheckboxPrimitive.Indicator\r\n      className={cn(\"grid place-content-center text-fg-on-brand\")}\r\n    >\r\n      {props.checked === \"indeterminate\" ? (\r\n        <Minus className=\"size-3\" strokeWidth={3} />\r\n      ) : (\r\n        <Check className=\"size-3\" strokeWidth={3} />\r\n      )}\r\n    </CheckboxPrimitive.Indicator>\r\n  </CheckboxPrimitive.Root>\r\n))\r\nCheckbox.displayName = CheckboxPrimitive.Root.displayName\r\n\r\nexport { Checkbox }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/checkbox.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · checkbox · v0.9.0 · b46b933 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -66,7 +135,105 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.9.0 · c4f806a · 2026-06-16"
+      "stamp": "igreen-ds · input · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "label": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "label",
+    "title": "Label",
+    "description": "Label acessivel (Radix) adaptado aos tokens DS. Base de FormField e forms.",
+    "dependencies": [
+      "@radix-ui/react-label@^2.1.8",
+      "class-variance-authority@^0.7.1"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/label.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport * as LabelPrimitive from \"@radix-ui/react-label\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Label — alinhado com `.tbl-form-label` do design-and-table-v2.\r\n * Specs: 13px / 600 / fg-default / tracking 0.01em — boa prática WCAG\r\n * pra labels de form (contraste maior que helper text).\r\n *\r\n * Nota: usa `text-[13px]` literal (não preset `body-sm`) pra manter\r\n * `leading-none` previsível na inspeção — preset DS carrega lineHeight\r\n * 18px que pode conflitar com leading-none em alguns navegadores.\r\n */\r\nconst labelVariants = cva(\r\n  \"text-body-sm font-semibold tracking-[0.01em] text-fg-default dark:text-fg-muted leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70\"\r\n)\r\n\r\nconst Label = React.forwardRef<\r\n  React.ElementRef<typeof LabelPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root> &\r\n    VariantProps<typeof labelVariants>\r\n>(({ className, ...props }, ref) => (\r\n  <LabelPrimitive.Root\r\n    ref={ref}\r\n    className={cn(labelVariants(), className)}\r\n    {...props}\r\n  />\r\n))\r\nLabel.displayName = LabelPrimitive.Root.displayName\r\n\r\nexport { Label }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/label.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · label · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "select": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "select",
+    "title": "Select",
+    "description": "Select (Radix) adaptado aos tokens DS. Forms e filtros. Origem interna shadcn/ - nao vaza.",
+    "dependencies": [
+      "@radix-ui/react-select@^2.2.6",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/select.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport * as SelectPrimitive from \"@radix-ui/react-select\"\r\nimport { Check, ChevronDown, ChevronUp } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Select = SelectPrimitive.Root\r\n\r\nconst SelectGroup = SelectPrimitive.Group\r\n\r\nconst SelectValue = SelectPrimitive.Value\r\n\r\nexport type SelectTriggerState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\nconst SelectTrigger = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {\r\n    state?: SelectTriggerState;\r\n  }\r\n>(({ className, children, state = \"default\", ...props }, ref) => (\r\n  <SelectPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex min-h-form-lg w-full items-center justify-between gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl\",\r\n      \"bg-bg-input dark:bg-bg-muted\",\r\n      \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\",\r\n      \"border border-border-input\",\r\n      \"text-body-sm font-normal text-fg-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] outline-none\",\r\n      \"data-[placeholder]:text-fg-muted data-[placeholder]:opacity-70\",\r\n      state === \"default\" && \"focus-visible:border-border-brand          data-[state=open]:border-border-brand          focus-visible:shadow-sh-ring          data-[state=open]:shadow-sh-ring\",\r\n      state === \"error\"   && \"border-border-danger-muted  focus-visible:border-border-danger-muted  data-[state=open]:border-border-danger-muted  focus-visible:shadow-sh-ring-danger  data-[state=open]:shadow-sh-ring-danger\",\r\n      state === \"warning\" && \"border-border-warning-muted focus-visible:border-border-warning-muted data-[state=open]:border-border-warning-muted focus-visible:shadow-sh-ring-warning data-[state=open]:shadow-sh-ring-warning\",\r\n      state === \"success\" && \"border-border-success-muted focus-visible:border-border-success-muted data-[state=open]:border-border-success-muted focus-visible:shadow-sh-ring-success data-[state=open]:shadow-sh-ring-success\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted\",\r\n      \"[&>span]:line-clamp-1\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <SelectPrimitive.Icon asChild>\r\n      <ChevronDown className=\"size-4 text-fg-muted shrink-0\" />\r\n    </SelectPrimitive.Icon>\r\n  </SelectPrimitive.Trigger>\r\n))\r\nSelectTrigger.displayName = SelectPrimitive.Trigger.displayName\r\n\r\nconst SelectScrollUpButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollUpButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronUp className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollUpButton>\r\n))\r\nSelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName\r\n\r\nconst SelectScrollDownButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollDownButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronDown className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollDownButton>\r\n))\r\nSelectScrollDownButton.displayName =\r\n  SelectPrimitive.ScrollDownButton.displayName\r\n\r\nconst SelectContent = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>\r\n>(({ className, children, position = \"popper\", ...props }, ref) => (\r\n  <SelectPrimitive.Portal>\r\n    <SelectPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden\",\r\n        \"rounded-[12px] bg-bg-dropdown border border-border-default shadow-sh-lg outline-float\",\r\n        \"before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150\",\r\n        \"text-fg-default\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n        \"origin-[--radix-select-content-transform-origin]\",\r\n        position === \"popper\" &&\r\n          \"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\",\r\n        className\r\n      )}\r\n      position={position}\r\n      {...props}\r\n    >\r\n      <SelectScrollUpButton />\r\n      <SelectPrimitive.Viewport\r\n        className={cn(\r\n          \"p-pad-sm\",\r\n          position === \"popper\" &&\r\n            \"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]\"\r\n        )}\r\n      >\r\n        {children}\r\n      </SelectPrimitive.Viewport>\r\n      <SelectScrollDownButton />\r\n    </SelectPrimitive.Content>\r\n  </SelectPrimitive.Portal>\r\n))\r\nSelectContent.displayName = SelectPrimitive.Content.displayName\r\n\r\nconst SelectLabel = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\"py-pad-sm pl-8 pr-2 text-body-md font-medium text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectLabel.displayName = SelectPrimitive.Label.displayName\r\n\r\nconst SelectItem = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>\r\n>(({ className, children, ...props }, ref) => (\r\n  <SelectPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex w-full cursor-default select-none items-center gap-pad-md\",\r\n      \"rounded-radius-sm py-pad-md pl-8 pr-pad-lg\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"focus:bg-bg-muted focus:text-fg-default\",\r\n      \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      \"focus:[&_svg]:text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <SelectPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </SelectPrimitive.ItemIndicator>\r\n    </span>\r\n\r\n    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\r\n  </SelectPrimitive.Item>\r\n))\r\nSelectItem.displayName = SelectPrimitive.Item.displayName\r\n\r\nconst SelectSeparator = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-border\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectSeparator.displayName = SelectPrimitive.Separator.displayName\r\n\r\nexport {\r\n  Select,\r\n  SelectGroup,\r\n  SelectValue,\r\n  SelectTrigger,\r\n  SelectContent,\r\n  SelectLabel,\r\n  SelectItem,\r\n  SelectSeparator,\r\n  SelectScrollUpButton,\r\n  SelectScrollDownButton,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/select.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · select · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "separator": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "separator",
+    "title": "Separator",
+    "description": "Separator (Radix) horizontal/vertical com token de borda DS. Divisoria de secoes.",
+    "dependencies": [
+      "@radix-ui/react-separator@^1.1.8"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/separator.tsx",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Separator = React.forwardRef<\r\n  React.ElementRef<typeof SeparatorPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>\r\n>(\r\n  (\r\n    { className, orientation = \"horizontal\", decorative = true, ...props },\r\n    ref\r\n  ) => (\r\n    <SeparatorPrimitive.Root\r\n      ref={ref}\r\n      decorative={decorative}\r\n      orientation={orientation}\r\n      className={cn(\r\n        \"shrink-0 bg-border\",\r\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n)\r\nSeparator.displayName = SeparatorPrimitive.Root.displayName\r\n\r\nexport { Separator }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/separator.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · separator · v0.9.0 · b46b933 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "textarea": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "textarea",
+    "title": "Textarea",
+    "description": "Textarea (cva) com tokens DS e focus animado. Completa o trio de inputs do FormField.",
+    "dependencies": [
+      "class-variance-authority@^0.7.1"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/textarea.tsx",
+        "content": "import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Textarea — alinhado com `.tbl-form-textarea` do design-and-table-v2.\r\n *\r\n * Specs:\r\n *   - min-h: 100px, padding: 10px 12px, radius: 10px\r\n *   - bg-input (light) / dark:bg-bg-muted, border-input 1px\r\n *   - font: 13px, line-height: 1.5, resize vertical\r\n *   - focus: border-brand + shadow-sh-ring\r\n *\r\n * Features: state prop (default | error | warning | success) pra feedback visual.\r\n */\r\n\r\nexport type TextareaState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\nconst textareaVariants = cva(\r\n  [\r\n    \"flex min-h-[100px] w-full resize-y\",\r\n    \"bg-bg-input dark:bg-bg-muted\",\r\n    \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\",\r\n    \"border border-border-input rounded-radius-lg\",\r\n    \"px-pad-xl py-pad-lg\",\r\n    \"text-body-sm font-normal leading-[1.5] text-fg-default\",\r\n    \"placeholder:text-fg-muted placeholder:opacity-70\",\r\n    \"transition-[color,box-shadow,background-color,border-color] outline-none\",\r\n    \"disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted\",\r\n  ],\r\n  {\r\n    variants: {\r\n      state: {\r\n        default: \"focus-visible:border-border-brand          focus-visible:shadow-sh-ring\",\r\n        error:   \"border-border-danger-muted  focus-visible:border-border-danger-muted  focus-visible:shadow-sh-ring-danger\",\r\n        warning: \"border-border-warning-muted focus-visible:border-border-warning-muted focus-visible:shadow-sh-ring-warning\",\r\n        success: \"border-border-success-muted focus-visible:border-border-success-muted focus-visible:shadow-sh-ring-success\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      state: \"default\",\r\n    },\r\n  }\r\n);\r\n\r\nexport interface TextareaProps\r\n  extends React.ComponentProps<\"textarea\">,\r\n    VariantProps<typeof textareaVariants> {}\r\n\r\nconst Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(\r\n  ({ className, state, ...props }, ref) => {\r\n    return (\r\n      <textarea\r\n        className={cn(textareaVariants({ state }), className)}\r\n        ref={ref}\r\n        {...props}\r\n      />\r\n    )\r\n  }\r\n)\r\nTextarea.displayName = \"Textarea\"\r\n\r\nexport { Textarea, textareaVariants }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/textarea.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · textarea · v0.9.0 · b46b933 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -88,7 +255,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.9.0 · c4f806a · 2026-06-16"
+      "stamp": "igreen-ds · theme · v0.9.0 · b46b933 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -109,7 +276,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.9.0 · c4f806a · 2026-06-16"
+      "stamp": "igreen-ds · tv · v0.9.0 · b46b933 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -131,7 +298,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.9.0 · c4f806a · 2026-06-16"
+      "stamp": "igreen-ds · utils · v0.9.0 · b46b933 · 2026-06-17"
     },
     "type": "registry:file"
   }
