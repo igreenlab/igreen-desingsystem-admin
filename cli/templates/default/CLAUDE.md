@@ -102,6 +102,25 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 > **adaptar um exemplo** a escrever uma tela na unha — é a garantia de produção que o
 > showcase promete.
 
+## 🛠️ Kit de construção (orquestrador + skills + DESIGN.md)
+
+Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
+
+- **`DESIGN.md`** (raiz) — guia de composição: anatomia de tela, ritmo de espaçamento
+  (24px pós-PageHeader, `gap-form-gap` em form), do/don't de tokens, responsividade.
+  **Leia antes de montar qualquer tela.** A API de cada componente fica no
+  `USAGE.md` ao lado dele (`src/components/ui/<Nome>/USAGE.md`).
+- **`.claude/rules/ds-design.md`** — regras duras, **auto-carregadas** (você aplica
+  sem ser pedido: gap do PageHeader, FormField em form, classes DS antes de Tailwind).
+- **`.claude/skills/ds-kit`** — orquestrador: identifica a intenção da tela e roteia.
+- **Skill `crud-builder`** (`/ds-create-crud`) — monta tabela/CRUD por **entrevista
+  guiada** (colunas, filtros, views, kanban, drawers). É o fluxo principal.
+- **`/ds-build-page`** — entrada genérica que roteia qualquer tela pelo orquestrador.
+
+**Como a IA deve agir:** pedido de tela → orquestrador `ds-kit` classifica → CRUD vai
+pra `crud-builder` (entrevista); demais tipos puxam o `example-*` e adaptam — sempre
+aplicando `DESIGN.md`. Drawers de criar/editar/detalhe espelham o `example-finance`.
+
 ## Anti-patterns proibidos
 
 ```ts
