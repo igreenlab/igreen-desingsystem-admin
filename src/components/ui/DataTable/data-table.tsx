@@ -132,7 +132,7 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { columnTypeRegistry } from "./column-types";
 // Settings drill-down + panels do layout canônico (default). Já importados
 // do barrel `../TableToolbar` (TableToolbar/ToolbarSearch/etc acima).

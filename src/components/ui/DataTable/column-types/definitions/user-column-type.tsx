@@ -5,7 +5,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../../shadcn/select";
+} from "@/components/shadcn/select";
 import { Avatar } from "../../../Avatar";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";

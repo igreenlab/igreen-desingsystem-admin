@@ -9,7 +9,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../shadcn/dropdown-menu";
+} from "@/components/shadcn/dropdown-menu";
 
 export type MoreMenuProps = {
   /** Botão que dispara o menu (geralmente `<ToolbarToolButton icon={<MoreHorizontal />}>`) */

@@ -4,7 +4,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { cn } from "@/lib/utils";
 import type { SortDirection } from "../table-toolbar.types";
 

@@ -1,5 +1,5 @@
 import { DollarSign } from "lucide-react";
-import { Input } from "../../../../shadcn/input";
+import { Input } from "@/components/shadcn/input";
 import { FILTER_FIELD_SIZE } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 import { toNumber } from "../_shared";

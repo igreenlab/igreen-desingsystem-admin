@@ -5,7 +5,7 @@ import {
   PopoverAnchor,
   PopoverContent,
   PopoverTrigger,
-} from "../../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { parseSqlFilter, entriesToSql, type ParsedFilterEntry } from "./filter-sql-parser";
 import {
   Select,
@@ -13,7 +13,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../shadcn/select";
+} from "@/components/shadcn/select";
 import { Button } from "../../Button/button";
 import { Combobox } from "../../Combobox";
 import { cn } from "@/lib/utils";

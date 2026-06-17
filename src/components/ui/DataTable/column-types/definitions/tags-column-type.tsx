@@ -1,11 +1,11 @@
 import { Tags, ChevronDown } from "lucide-react";
 import { Chip } from "../../../Chip/chip";
-import { Checkbox } from "../../../../shadcn/checkbox";
+import { Checkbox } from "@/components/shadcn/checkbox";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 import { resolveChipColor, findOption, toStringArray } from "../_shared";

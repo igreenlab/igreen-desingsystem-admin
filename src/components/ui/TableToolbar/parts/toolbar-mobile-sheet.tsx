@@ -6,7 +6,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "../../../shadcn/dialog";
+} from "@/components/shadcn/dialog";
 import { cn } from "@/lib/utils";
 
 export type ToolbarMobileDialogProps = {
