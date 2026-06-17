@@ -218,15 +218,30 @@ verdes — DS intacto):
 (reescrito) ou (c) alias `@/` de arquivo auxiliar bundlado como `registry:file`. Import
 relativo cross-dir e `export...from` cross-component **quebram** — refatorar antes.
 
-### Não-distribuídos (deferidos, com motivo)
-- **`DataTable`** (74 arquivos) e **`TableToolbar`** (27 arquivos): grafo de dependência
-  enorme e **circular** (DataTable ↔ TableToolbar; DataTable puxa Table, Kanban, Chip,
-  Avatar, FooterTable, column-types, services, utils…). Distribuir exige enumerar dezenas
-  de arquivos + dezenas de registryDeps e quebrar a circularidade — esforço alto, risco de
-  gambiarra. **Deferido** (qualidade > completar). `TabelaTeste`: demo interno, não-API.
-- Caminho futuro: tratar DataTable como item grande próprio (com Table/Kanban/Chip/etc.
-  como registryDeps já publicados) numa sessão dedicada, resolvendo a circularidade
-  DataTable↔TableToolbar primeiro.
+### DataTable + TableToolbar — DISTRIBUÍDO (2026-06-17, lote 6) ✅
+Item único **`@igreen/data-table`** (104 arquivos) bundla **DataTable + TableToolbar**
+— resolve o acoplamento **circular** (DataTable ↔ TableToolbar) tratando os dois como
+UMA unidade. **Técnica:** targets espelham a estrutura (`components/ui/DataTable/**` +
+`components/ui/TableToolbar/**`) → imports intra-bundle E sibling-ui (`../Kanban`,
+`../../Button/button`, etc.) resolvem **via mirror** sem reescrita; só os `shadcn/`
+relativos viraram alias `@/` (reescritos pra `ui/` no copy-in). registryDeps: 21 folhas
+já publicadas (table, kanban, chip, avatar-ig, footer-table, combobox, alert-modal,
+floating-panel, form-field, button-group + 8 primitivos shadcn + utils/tv). npm:
+`@dnd-kit/{core,sortable,utilities}` + lucide. `use-media-query` bundlado.
+- **Validado em consumidor LIMPO (template do CLI):** `shadcn add @igreen/data-table` →
+  184 arquivos (item + todas as deps), `vite build` exit 0, `tsc --noEmit` exit 0.
+- ⚠️ **Caveats conhecidos:**
+  - **Colisão de case `avatar` vs `avatar-ig`:** o primitivo shadcn vira `ui/avatar.tsx`
+    e o avatar-ig vira `ui/Avatar/` — diferem só no case → quebra em FS case-insensitive
+    (Windows/macOS) se o consumidor instalar **os dois**. `data-table` usa só `avatar-ig`.
+    Consumidor que precise dos dois: cuidado (futuro: renomear target do avatar-ig).
+  - **Imports mortos no `data-table.tsx`** (DS): ~24 imports não usados que o build do DS
+    e o `vite build`/template do CLI toleram, mas um tsconfig com `noUnusedLocals: true`
+    rejeita. Débito de limpeza no DS (não bloqueia o consumidor padrão do CLI).
+  - **`import.meta.env`:** o DataTable usa → o consumidor precisa de `vite/client` types
+    (`src/vite-env.d.ts`). Já incluído no template do CLI (v0.3.1).
+
+`TabelaTeste`: demo interno, não-API — não distribuído.
 - `registry.json` na raiz: componentes (`ui/` + `shadcn/`), tema/tokens, ≥1 item
   de governança passiva.
 - `registryDependencies` com namespace explícito entre componentes (`form` →

@@ -7,14 +7,16 @@
 
 ## Distribuição via registry shadcn (`@igreen/*`)
 
-49 items publicados em `igreen-registry.vercel.app` (privado, Bearer). **Distribuíveis
+**50 items** publicados em `igreen-registry.vercel.app` (privado, Bearer). **Distribuíveis
 e validados:** todos os 27 primitivos shadcn + 14 composites ui/ (`form-field`,
 `alert-modal`, `button-group`, `floating-panel`, `modal`, `panel`, `footer-table`,
 `kanban`, `combobox`, `card-checkbox`, `chip`, `icon`, `page-header`, `avatar-ig`) +
-5 app-level (`chart`, `table`, `menu-sidebar`, `header`, `app-shell`) + foundational
-(`utils`, `tv`, `theme`). **NÃO distribuídos (deferidos):** `DataTable` e `TableToolbar`
-(grafo enorme/circular — ver `.ai/specs/registry-distribution.md`). `TabelaTeste` é demo.
-Regra de distribuibilidade + procedimento de deploy manual: na spec.
+5 app-level (`chart`, `table`, `menu-sidebar`, `header`, `app-shell`) + **`data-table`**
+(bundle DataTable+TableToolbar, 104 arquivos, circularidade resolvida) + foundational
+(`utils`, `tv`, `theme`). **NÃO distribuído:** `TabelaTeste` (demo interno). Caveats do
+`data-table` (colisão avatar/avatar-ig, imports mortos sob noUnusedLocals): ver spec.
+Consumo via CLI: `npm create @snksergio/design-system@latest` (v0.3.1) +
+`npm run igreen:add -- <componente>`. Regra de distribuibilidade + deploy manual: na spec.
 
 ---
 
