@@ -34,6 +34,12 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 - Leu o `USAGE.md` do componente? Não invente prop/variante.
 - `npx tsc --noEmit` limpo antes de entregar.
 
+## ⛔ Arquivos protegidos — NÃO editar (integridade do DS)
+- **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update. (Um hook bloqueia isso.)
+- **Não edite o `.styles.ts`/internals de um componente do DS** pra "ajustar visual" de uma tela. Isso vira edição local (drift) e diverge do padrão. **Customize na COMPOSIÇÃO**: escolha variantes/props do componente + classes DS na SUA tela.
+- Quer outra cor/tom? Use o **token/variante semântico** que já existe (`color="..."`, `bg-bg-*`). Não invente hex nem reescreva o token.
+- Pra evoluir o tema de fato → re-sincronize com o DS (`npm run igreen:add -- theme`), não edite à mão.
+
 ## Puxar componentes/exemplos (manifesto)
 - **SEMPRE** `npm run igreen:add -- <item> [<item> ...]` — o wrapper instala E registra no `.igreen-ds/manifest.json` (baseline pro `igreen:drift`/`igreen:update`).
 - **NUNCA** `npx shadcn add @igreen/...` cru: o componente instala mas fica **fora do manifesto** (o `igreen:drift` acusa "não gerenciado"). Se acontecer, recupere rodando `npm run igreen:add -- <os mesmos itens>` (idempotente; re-baseline sem sobrescrever edição).
