@@ -1,0 +1,5 @@
+node_modules/
+.next/
+next-env.d.ts
+# app/registry-data.ts É COMMITADO (embed do registry, fonte pro deploy).
+# Regenerado por scripts/copy-registry.mjs quando ../public/r existe.

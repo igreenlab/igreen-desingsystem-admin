@@ -1,0 +1,23 @@
+{
+  "name": "igreen-registry",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Deploy dedicado do registry iGreen (Next mínimo). Serve o embed app/registry-data.ts via route handler com auth Bearer ${IGREEN_TOKEN}. NÃO usa public/ (estático fura a auth).",
+  "scripts": {
+    "predev": "node scripts/copy-registry.mjs",
+    "prebuild": "node scripts/copy-registry.mjs",
+    "dev": "next dev -p 4000",
+    "build": "next build",
+    "start": "next start -p 4000"
+  },
+  "dependencies": {
+    "next": "^15.5.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "typescript": "^5.6.0"
+  }
+}

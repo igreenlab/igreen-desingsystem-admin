@@ -78,6 +78,8 @@
     "tokens:dtcg": "tsx tokens/transforms/to-dtcg.ts > dist/tokens.tokens.json",
     "tokens:all": "npm run tokens:tw4 && npm run tokens:css && npm run tokens:dtcg",
     "tokens:check": "tsc --noEmit",
+    "registry:stamp": "node scripts/registry-stamp.mjs",
+    "registry:build": "npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",

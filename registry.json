@@ -1,0 +1,128 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "igreen",
+  "homepage": "https://igreen-registry.vercel.app",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:file",
+      "title": "cn (tailwind-merge configurado p/ DS)",
+      "description": "cn() com extendTailwindMerge: presets tipograficos como font-size (L-016) + prefixos DS (pad/sp/gp/radius/sh/form) resolvidos como conflitantes. NAO e o cn padrao do shadcn.",
+      "dependencies": [
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.0.0"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:file",
+          "target": "src/lib/utils.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · utils · v0.9.0 · c4f806a · 2026-06-16"
+      }
+    },
+    {
+      "name": "tv",
+      "type": "registry:file",
+      "title": "tv (tailwind-variants + twMergeConfig DS)",
+      "description": "tv() que injeta os 23 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
+      "dependencies": [
+        "tailwind-variants@^3.0.0"
+      ],
+      "files": [
+        {
+          "path": "src/utils/tv.ts",
+          "type": "registry:file",
+          "target": "src/utils/tv.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · tv · v0.9.0 · c4f806a · 2026-06-16"
+      }
+    },
+    {
+      "name": "theme",
+      "type": "registry:file",
+      "title": "Tema iGreen (Tailwind v4 @theme)",
+      "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas.",
+      "dependencies": [
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "src/styles/theme/tailwind-theme.css",
+          "type": "registry:file",
+          "target": "src/styles/theme/tailwind-theme.css"
+        }
+      ],
+      "meta": {
+        "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
+        "stamp": "igreen-ds · theme · v0.9.0 · c4f806a · 2026-06-16"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Botao iGreen (tv()). 5 cores x 4 variants x sizes, shape, fullWidth, disabled.",
+      "registryDependencies": [
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/Button/button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.tsx"
+        },
+        {
+          "path": "src/components/ui/Button/button.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Button/button.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.types.ts"
+        },
+        {
+          "path": "src/components/ui/Button/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/index.ts"
+        },
+        {
+          "path": "src/components/ui/Button/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Button/USAGE.md"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · button · v0.9.0 · c4f806a · 2026-06-16"
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Input adaptado aos tokens DS (cva). Origem interna shadcn/ - nao vaza.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · input · v0.9.0 · c4f806a · 2026-06-16"
+      }
+    }
+  ]
+}
