@@ -20,7 +20,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · utils · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · utils · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -39,7 +39,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · tv · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · tv · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -59,7 +59,7 @@
       ],
       "meta": {
         "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-        "stamp": "igreen-ds · theme · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · theme · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -99,7 +99,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · button · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · button · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -121,7 +121,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · input · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · input · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -144,7 +144,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · label · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · label · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -166,7 +166,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · textarea · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · textarea · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -189,7 +189,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · select · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · select · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -209,7 +209,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · card · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · card · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -229,7 +229,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · badge · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · badge · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -251,7 +251,7 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · separator · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · separator · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     },
     {
@@ -274,7 +274,414 @@
         }
       ],
       "meta": {
-        "stamp": "igreen-ds · checkbox · v0.9.0 · b46b933 · 2026-06-17"
+        "stamp": "igreen-ds · checkbox · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Accordion (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-accordion@^1.2.12",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/accordion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/accordion.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · accordion · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alert (cva) - feedback inline com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/alert.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · alert · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "AlertDialog",
+      "description": "AlertDialog (Radix) - confirmacao destrutiva.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog@^1.1.15"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/alert-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · alert-dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar (Radix) Image/Fallback com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar@^1.1.11"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/avatar.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · avatar · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot@^1.2.4",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/breadcrumb.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · breadcrumb · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar (react-day-picker) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0",
+        "react-day-picker@^9.14.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/calendar.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · calendar · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Command palette (cmdk) com tokens DS. Usa o Dialog do DS.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/dialog"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "cmdk@^1.1.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/command.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/command.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · command · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Dialog (Radix) modal centrado com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dialog.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "DropdownMenu",
+      "description": "DropdownMenu (Radix) com sub/checkbox/radio e tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu@^2.1.16",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dropdown-menu.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "InputGroup",
+      "description": "InputGroup (cva) - input com addons/botoes.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/input-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input-group.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · input-group · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Pagination (cva) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pagination.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · pagination · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Popover (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-popover@^1.1.15"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/popover.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · popover · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress (Radix) barra com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-progress@^1.1.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/progress.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/progress.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · progress · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "RadioGroup",
+      "description": "RadioGroup (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-radio-group@^1.3.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radio-group.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · radio-group · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Sheet (Radix Dialog) drawer lateral com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sheet.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · sheet · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider (Radix) single/range com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slider@^1.3.6"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/slider.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/slider.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · slider · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Switch (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-switch@^1.2.6"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/switch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/switch.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · switch · v0.9.0 · 88f9b19 · 2026-06-17"
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-tabs@^1.1.13"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tabs.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · tabs · v0.9.0 · 88f9b19 · 2026-06-17"
       }
     }
   ]

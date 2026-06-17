@@ -1,5 +1,102 @@
 // AUTO-GERADO por scripts/copy-registry.mjs — não editar.
 export const registry: Record<string, unknown> = {
+  "accordion": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "accordion",
+    "title": "Accordion",
+    "description": "Accordion (Radix) com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-accordion@^1.2.12",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/accordion.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport * as AccordionPrimitive from \"@radix-ui/react-accordion\"\r\nimport { ChevronDown } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Accordion = AccordionPrimitive.Root\r\n\r\nconst AccordionItem = React.forwardRef<\r\n  React.ElementRef<typeof AccordionPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <AccordionPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\"border-b border-border-subtle\", className)}\r\n    {...props}\r\n  />\r\n))\r\nAccordionItem.displayName = \"AccordionItem\"\r\n\r\nconst AccordionTrigger = React.forwardRef<\r\n  React.ElementRef<typeof AccordionPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>\r\n>(({ className, children, ...props }, ref) => (\r\n  <AccordionPrimitive.Header className=\"flex\">\r\n    <AccordionPrimitive.Trigger\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-1 items-center justify-between py-pad-2xl text-body-md font-medium text-fg-default transition-all hover:underline [&[data-state=open]>svg]:rotate-180\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      <ChevronDown className=\"h-4 w-4 shrink-0 text-fg-muted transition-transform duration-200\" />\r\n    </AccordionPrimitive.Trigger>\r\n  </AccordionPrimitive.Header>\r\n))\r\nAccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName\r\n\r\nconst AccordionContent = React.forwardRef<\r\n  React.ElementRef<typeof AccordionPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>\r\n>(({ className, children, ...props }, ref) => (\r\n  <AccordionPrimitive.Content\r\n    ref={ref}\r\n    className=\"overflow-hidden text-body-md text-fg-muted transition-all data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down\"\r\n    {...props}\r\n  >\r\n    <div className={cn(\"pb-pad-2xl pt-0\", className)}>{children}</div>\r\n  </AccordionPrimitive.Content>\r\n))\r\n\r\nAccordionContent.displayName = AccordionPrimitive.Content.displayName\r\n\r\nexport { Accordion, AccordionItem, AccordionTrigger, AccordionContent }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/accordion.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · accordion · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "alert-dialog": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "alert-dialog",
+    "title": "AlertDialog",
+    "description": "AlertDialog (Radix) - confirmacao destrutiva.",
+    "dependencies": [
+      "@radix-ui/react-alert-dialog@^1.1.15"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/alert-dialog.tsx",
+        "content": "import * as React from \"react\";\r\nimport * as AlertDialogPrimitive from \"@radix-ui/react-alert-dialog\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.\r\n *\r\n * Diferenças vs. Dialog:\r\n *   - role=\"alertdialog\" (assistive tech anuncia diferente)\r\n *   - Foco vai pro botão `Cancel` (mais seguro como ação default)\r\n *   - Não fecha ao clicar fora ou apertar ESC (decisão forçada)\r\n *\r\n * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,\r\n * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.\r\n *\r\n * Pra um wrapper \"one-shot\" com tone + ícone + botões → use <AlertModal>.\r\n */\r\n\r\nconst AlertDialog = AlertDialogPrimitive.Root;\r\nconst AlertDialogTrigger = AlertDialogPrimitive.Trigger;\r\nconst AlertDialogPortal = AlertDialogPrimitive.Portal;\r\n\r\nconst AlertDialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;\r\n\r\nconst AlertDialogContent = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPortal>\r\n    <AlertDialogOverlay />\r\n    <AlertDialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]\",\r\n        \"translate-x-[-50%] translate-y-[-50%]\",\r\n        \"rounded-radius-2xl bg-bg-surface text-fg-default\",\r\n        \"border border-border-default shadow-sh-2xl outline-float\",\r\n        \"duration-200\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  </AlertDialogPortal>\r\n));\r\nAlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;\r\n\r\nconst AlertDialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col items-center text-center gap-gp-lg\",\r\n      \"px-pad-4xl pt-[32px] pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogHeader.displayName = \"AlertDialogHeader\";\r\n\r\nconst AlertDialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)\r\n  // sm+: lado a lado horizontal\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse items-stretch gap-gp-md sm:flex-row\",\r\n      \"px-pad-3xl pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogFooter.displayName = \"AlertDialogFooter\";\r\n\r\nconst AlertDialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;\r\n\r\nconst AlertDialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogDescription.displayName =\r\n  AlertDialogPrimitive.Description.displayName;\r\n\r\nconst AlertDialogAction = AlertDialogPrimitive.Action;\r\nconst AlertDialogCancel = AlertDialogPrimitive.Cancel;\r\n\r\nexport {\r\n  AlertDialog,\r\n  AlertDialogTrigger,\r\n  AlertDialogPortal,\r\n  AlertDialogOverlay,\r\n  AlertDialogContent,\r\n  AlertDialogHeader,\r\n  AlertDialogFooter,\r\n  AlertDialogTitle,\r\n  AlertDialogDescription,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n};\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/alert-dialog.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · alert-dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "alert": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "alert",
+    "title": "Alert",
+    "description": "Alert (cva) - feedback inline com tokens DS.",
+    "dependencies": [
+      "class-variance-authority@^0.7.1"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/alert.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst alertVariants = cva(\r\n  \"relative w-full rounded-radius-2xl border px-pad-2xl py-pad-xl text-body-md [&>svg~*]:pl-7 [&>svg+div]:translate-y-[-3px] [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-fg-default\",\r\n  {\r\n    variants: {\r\n      variant: {\r\n        default: \"bg-bg-surface text-fg-default border-border-subtle\",\r\n        destructive:\r\n          \"border-border-danger-muted/50 text-fg-danger [&>svg]:text-fg-danger\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      variant: \"default\",\r\n    },\r\n  }\r\n)\r\n\r\nconst Alert = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>\r\n>(({ className, variant, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    role=\"alert\"\r\n    className={cn(alertVariants({ variant }), className)}\r\n    {...props}\r\n  />\r\n))\r\nAlert.displayName = \"Alert\"\r\n\r\nconst AlertTitle = React.forwardRef<\r\n  HTMLParagraphElement,\r\n  React.HTMLAttributes<HTMLHeadingElement>\r\n>(({ className, ...props }, ref) => (\r\n  <h5\r\n    ref={ref}\r\n    className={cn(\"text-body-md font-medium text-fg-default mb-sp-xs leading-none tracking-tight\", className)}\r\n    {...props}\r\n  />\r\n))\r\nAlertTitle.displayName = \"AlertTitle\"\r\n\r\nconst AlertDescription = React.forwardRef<\r\n  HTMLParagraphElement,\r\n  React.HTMLAttributes<HTMLParagraphElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted [&_p]:leading-relaxed\", className)}\r\n    {...props}\r\n  />\r\n))\r\nAlertDescription.displayName = \"AlertDescription\"\r\n\r\nexport { Alert, AlertTitle, AlertDescription }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/alert.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · alert · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "avatar": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "avatar",
+    "title": "Avatar",
+    "description": "Avatar (Radix) Image/Fallback com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-avatar@^1.1.11"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/avatar.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as AvatarPrimitive from \"@radix-ui/react-avatar\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Avatar = React.forwardRef<\r\n  React.ElementRef<typeof AvatarPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>\r\n>(({ className, ...props }, ref) => (\r\n  <AvatarPrimitive.Root\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex size-8 shrink-0 overflow-hidden rounded-full\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nAvatar.displayName = AvatarPrimitive.Root.displayName\r\n\r\nconst AvatarImage = React.forwardRef<\r\n  React.ElementRef<typeof AvatarPrimitive.Image>,\r\n  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Image>\r\n>(({ className, ...props }, ref) => (\r\n  <AvatarPrimitive.Image\r\n    ref={ref}\r\n    className={cn(\"aspect-square h-full w-full\", className)}\r\n    {...props}\r\n  />\r\n))\r\nAvatarImage.displayName = AvatarPrimitive.Image.displayName\r\n\r\n/**\r\n * AvatarFallback — `text-body-sm font-normal` (13px) como default mais compacto.\r\n *\r\n * Antes usava `text-body-md font-medium` (14px) que ficava grande demais em avatares\r\n * pequenos (≤24px), forçando consumer a sobrescrever via className. Caption\r\n * é mais seguro como default — consumer ainda pode override (ex: `text-caption-xs`\r\n * pra container muito pequeno, ou `text-body-lg font-medium` pra avatar grande).\r\n */\r\nconst AvatarFallback = React.forwardRef<\r\n  React.ElementRef<typeof AvatarPrimitive.Fallback>,\r\n  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Fallback>\r\n>(({ className, ...props }, ref) => (\r\n  <AvatarPrimitive.Fallback\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-full w-full items-center justify-center rounded-full bg-bg-muted text-fg-muted text-body-sm font-normal\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nAvatarFallback.displayName = AvatarPrimitive.Fallback.displayName\r\n\r\nexport { Avatar, AvatarImage, AvatarFallback }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/avatar.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · avatar · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
   "badge": {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "badge",
@@ -18,7 +115,32 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · badge · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "breadcrumb": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "breadcrumb",
+    "title": "Breadcrumb",
+    "description": "Breadcrumb com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-slot@^1.2.4",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/breadcrumb.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport { Slot } from \"@radix-ui/react-slot\"\r\nimport { ChevronRight, MoreHorizontal } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Breadcrumb = React.forwardRef<\r\n  HTMLElement,\r\n  React.ComponentPropsWithoutRef<\"nav\"> & {\r\n    separator?: React.ReactNode\r\n  }\r\n>(({ ...props }, ref) => <nav ref={ref} aria-label=\"breadcrumb\" {...props} />)\r\nBreadcrumb.displayName = \"Breadcrumb\"\r\n\r\nconst BreadcrumbList = React.forwardRef<\r\n  HTMLOListElement,\r\n  React.ComponentPropsWithoutRef<\"ol\">\r\n>(({ className, ...props }, ref) => (\r\n  <ol\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex flex-wrap items-center gap-gp-sm break-words text-body-md text-fg-muted sm:gap-gp-lg\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nBreadcrumbList.displayName = \"BreadcrumbList\"\r\n\r\nconst BreadcrumbItem = React.forwardRef<\r\n  HTMLLIElement,\r\n  React.ComponentPropsWithoutRef<\"li\">\r\n>(({ className, ...props }, ref) => (\r\n  <li\r\n    ref={ref}\r\n    className={cn(\"inline-flex items-center gap-gp-sm\", className)}\r\n    {...props}\r\n  />\r\n))\r\nBreadcrumbItem.displayName = \"BreadcrumbItem\"\r\n\r\nconst BreadcrumbLink = React.forwardRef<\r\n  HTMLAnchorElement,\r\n  React.ComponentPropsWithoutRef<\"a\"> & {\r\n    asChild?: boolean\r\n  }\r\n>(({ asChild, className, ...props }, ref) => {\r\n  const Comp = asChild ? Slot : \"a\"\r\n\r\n  return (\r\n    <Comp\r\n      ref={ref}\r\n      className={cn(\"transition-colors hover:text-fg-default\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nBreadcrumbLink.displayName = \"BreadcrumbLink\"\r\n\r\nconst BreadcrumbPage = React.forwardRef<\r\n  HTMLSpanElement,\r\n  React.ComponentPropsWithoutRef<\"span\">\r\n>(({ className, ...props }, ref) => (\r\n  <span\r\n    ref={ref}\r\n    role=\"link\"\r\n    aria-disabled=\"true\"\r\n    aria-current=\"page\"\r\n    className={cn(\"font-normal text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nBreadcrumbPage.displayName = \"BreadcrumbPage\"\r\n\r\nconst BreadcrumbSeparator = ({\r\n  children,\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"li\">) => (\r\n  <li\r\n    role=\"presentation\"\r\n    aria-hidden=\"true\"\r\n    className={cn(\"[&>svg]:w-3.5 [&>svg]:h-3.5 text-fg-subtle\", className)}\r\n    {...props}\r\n  >\r\n    {children ?? <ChevronRight />}\r\n  </li>\r\n)\r\nBreadcrumbSeparator.displayName = \"BreadcrumbSeparator\"\r\n\r\nconst BreadcrumbEllipsis = ({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"span\">) => (\r\n  <span\r\n    role=\"presentation\"\r\n    aria-hidden=\"true\"\r\n    className={cn(\"flex h-9 w-9 items-center justify-center text-fg-subtle\", className)}\r\n    {...props}\r\n  >\r\n    <MoreHorizontal className=\"h-4 w-4\" />\r\n    <span className=\"sr-only\">More</span>\r\n  </span>\r\n)\r\nBreadcrumbEllipsis.displayName = \"BreadcrumbElipssis\"\r\n\r\nexport {\r\n  Breadcrumb,\r\n  BreadcrumbList,\r\n  BreadcrumbItem,\r\n  BreadcrumbLink,\r\n  BreadcrumbPage,\r\n  BreadcrumbSeparator,\r\n  BreadcrumbEllipsis,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/breadcrumb.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · breadcrumb · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -64,7 +186,32 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · button · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "calendar": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "calendar",
+    "title": "Calendar",
+    "description": "Calendar (react-day-picker) com tokens DS.",
+    "dependencies": [
+      "lucide-react@^1.7.0",
+      "react-day-picker@^9.14.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/calendar.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport { ChevronLeftIcon, ChevronRightIcon } from \"lucide-react\"\r\nimport { DayPicker, getDefaultClassNames, type DayButton } from \"react-day-picker\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nfunction Calendar({\r\n  className,\r\n  classNames,\r\n  showOutsideDays = true,\r\n  captionLayout = \"label\",\r\n  components,\r\n  ...props\r\n}: React.ComponentProps<typeof DayPicker>) {\r\n  const defaultClassNames = getDefaultClassNames()\r\n\r\n  return (\r\n    <DayPicker\r\n      showOutsideDays={showOutsideDays}\r\n      className={cn(\r\n        \"group/calendar bg-transparent p-0 [--cell-size:2.5rem]\",\r\n        className\r\n      )}\r\n      captionLayout={captionLayout}\r\n      classNames={{\r\n        root: cn(\"w-full\", defaultClassNames.root),\r\n        months: cn(\"relative flex flex-col gap-gp-2xl sm:flex-row sm:gap-gp-4xl\", defaultClassNames.months),\r\n        month: cn(\"flex w-full flex-col gap-gp-2xl\", defaultClassNames.month),\r\n        nav: cn(\r\n          \"absolute inset-x-0 top-0 flex w-full items-center justify-between\",\r\n          defaultClassNames.nav\r\n        ),\r\n        button_previous: cn(\r\n          \"inline-flex items-center justify-center size-[--cell-size] rounded-full text-fg-muted hover:bg-bg-muted transition-colors select-none aria-disabled:opacity-30\",\r\n          defaultClassNames.button_previous\r\n        ),\r\n        button_next: cn(\r\n          \"inline-flex items-center justify-center size-[--cell-size] rounded-full text-fg-muted hover:bg-bg-muted transition-colors select-none aria-disabled:opacity-30\",\r\n          defaultClassNames.button_next\r\n        ),\r\n        month_caption: cn(\r\n          \"flex h-[--cell-size] w-full items-center justify-center px-[--cell-size]\",\r\n          defaultClassNames.month_caption\r\n        ),\r\n        caption_label: cn(\r\n          \"text-body-md font-medium font-semibold select-none\",\r\n          captionLayout === \"dropdown\" ? \"hidden\" : \"\",\r\n          defaultClassNames.caption_label\r\n        ),\r\n        dropdowns: cn(\r\n          \"flex items-center gap-gp-md\",\r\n          defaultClassNames.dropdowns\r\n        ),\r\n        dropdown: cn(\r\n          \"cursor-pointer appearance-none bg-transparent text-body-md font-medium font-semibold text-fg-default outline-none\",\r\n          defaultClassNames.dropdown\r\n        ),\r\n        months_dropdown: cn(\"\", defaultClassNames.months_dropdown),\r\n        years_dropdown: cn(\"\", defaultClassNames.years_dropdown),\r\n        table: \"w-full border-collapse\",\r\n        weekdays: cn(\"flex\", defaultClassNames.weekdays),\r\n        weekday: cn(\r\n          \"flex-1 min-w-8 max-w-12 text-body-sm font-normal text-fg-muted select-none text-center\",\r\n          defaultClassNames.weekday\r\n        ),\r\n        week: cn(\"mt-gp-md flex w-full\", defaultClassNames.week),\r\n        day: cn(\r\n          // flex-1: cada dia ocupa 1/7 igual ao header de weekdays (que usa flex-1).\r\n          // Sem isso o dia dimensionava por aspect-square e desalinhava das colunas.\r\n          \"group/day relative flex-1 aspect-square min-w-8 max-w-12 p-0 text-center select-none\",\r\n          defaultClassNames.day\r\n        ),\r\n        range_start: cn(\"rounded-l-full\", defaultClassNames.range_start),\r\n        range_end: cn(\"rounded-r-full\", defaultClassNames.range_end),\r\n        range_middle: cn(\"\", defaultClassNames.range_middle),\r\n        today: cn(\"\", defaultClassNames.today),\r\n        outside: cn(\r\n          \"text-fg-subtle opacity-40\",\r\n          defaultClassNames.outside\r\n        ),\r\n        disabled: cn(\"text-fg-disabled opacity-50\", defaultClassNames.disabled),\r\n        hidden: cn(\"invisible\", defaultClassNames.hidden),\r\n        ...classNames,\r\n      }}\r\n      components={{\r\n        Root: ({ className: rootCn, rootRef, ...rootProps }) => (\r\n          <div data-slot=\"calendar\" ref={rootRef} className={cn(rootCn)} {...rootProps} />\r\n        ),\r\n        Chevron: ({ orientation }) => {\r\n          if (orientation === \"left\") return <ChevronLeftIcon className=\"size-4\" />\r\n          return <ChevronRightIcon className=\"size-4\" />\r\n        },\r\n        DayButton: CalendarDayButton,\r\n        ...components,\r\n      }}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nfunction CalendarDayButton({\r\n  className,\r\n  day,\r\n  modifiers,\r\n  ...props\r\n}: React.ComponentProps<typeof DayButton>) {\r\n  const ref = React.useRef<HTMLButtonElement>(null)\r\n  React.useEffect(() => {\r\n    if (modifiers.focused) ref.current?.focus()\r\n  }, [modifiers.focused])\r\n\r\n  const isRangeStart = modifiers.range_start;\r\n  const isRangeEnd = modifiers.range_end;\r\n  const isRangeMiddle = modifiers.range_middle;\r\n  const isSingleSelected =\r\n    modifiers.selected && !isRangeStart && !isRangeEnd && !isRangeMiddle;\r\n\r\n  return (\r\n    <button\r\n      ref={ref}\r\n      type=\"button\"\r\n      data-selected-single={isSingleSelected}\r\n      data-range-start={isRangeStart || undefined}\r\n      data-range-end={isRangeEnd || undefined}\r\n      data-range-middle={isRangeMiddle || undefined}\r\n      className={cn(\r\n        \"relative flex aspect-square w-full items-center justify-center text-body-md font-normal leading-none outline-none transition-colors\",\r\n\r\n        // Default shape\r\n        \"rounded-full\",\r\n\r\n        // Hover\r\n        \"hover:bg-bg-muted\",\r\n\r\n        // Single selected\r\n        \"data-[selected-single=true]:bg-bg-brand data-[selected-single=true]:text-fg-on-brand data-[selected-single=true]:hover:bg-bg-brand\",\r\n\r\n        // Range start\r\n        \"data-[range-start]:bg-bg-brand data-[range-start]:text-fg-on-brand data-[range-start]:rounded-full data-[range-start]:hover:bg-bg-brand\",\r\n\r\n        // Range end\r\n        \"data-[range-end]:bg-bg-brand data-[range-end]:text-fg-on-brand data-[range-end]:rounded-full data-[range-end]:hover:bg-bg-brand\",\r\n\r\n        // Range middle\r\n        \"data-[range-middle]:bg-bg-brand-subtle data-[range-middle]:text-fg-brand data-[range-middle]:rounded-none\",\r\n\r\n        // Today\r\n        modifiers.today && !isSingleSelected && !isRangeStart && !isRangeEnd && !isRangeMiddle &&\r\n          \"bg-bg-brand text-fg-on-brand font-semibold hover:bg-bg-brand\",\r\n\r\n        // Outside\r\n        modifiers.outside && \"text-fg-subtle opacity-40 hover:bg-transparent\",\r\n\r\n        // Disabled\r\n        modifiers.disabled && \"opacity-30 pointer-events-none\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\n\r\nexport { Calendar, CalendarDayButton }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/calendar.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · calendar · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -86,7 +233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · card · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -111,7 +258,108 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · checkbox · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "command": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "command",
+    "title": "Command",
+    "description": "Command palette (cmdk) com tokens DS. Usa o Dialog do DS.",
+    "dependencies": [
+      "@radix-ui/react-dialog@^1.1.15",
+      "cmdk@^1.1.1",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils",
+      "@igreen/dialog"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/command.tsx",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { type DialogProps } from \"@radix-ui/react-dialog\"\r\nimport { Command as CommandPrimitive } from \"cmdk\"\r\nimport { Search } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Dialog, DialogContent } from \"@/components/shadcn/dialog\"\r\n\r\n/**\r\n * Command — alinhado com o views-popover do design-and-table-v2.\r\n *\r\n * Estrutura:\r\n *   - <Command> raiz (flex column)\r\n *   - <CommandInput> = input \"real\" boxed (bg-input + border + radius-lg + shadow)\r\n *   - <CommandList> com padding 4px\r\n *   - <CommandGroup> heading uppercase + items\r\n *   - <CommandItem> radius-lg (10px), px 12, py 8, font 13px, ícones 18px\r\n *\r\n * Pattern do input replica `.tbl-views-pop-search` exatamente.\r\n */\r\n\r\nconst Command = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-full w-full flex-col overflow-hidden p-pad-xl bg-popover text-popover-foreground\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommand.displayName = CommandPrimitive.displayName\r\n\r\nconst CommandDialog = ({ children, ...props }: DialogProps) => {\r\n  return (\r\n    <Dialog {...props}>\r\n      <DialogContent\r\n        hideClose\r\n        className={cn(\r\n          \"overflow-hidden p-0 gap-0 sm:max-w-[384px]\",\r\n          \"rounded-[12px] border border-border-default\",\r\n          // Outline padrão de elementos flutuantes\r\n          \"outline-float\"\r\n        )}\r\n      >\r\n        <Command>{children}</Command>\r\n      </DialogContent>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\n/* ── Input boxed (igual views-popover search) ─────────────────────────────── */\r\nconst CommandInput = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Input>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    cmdk-input-wrapper=\"\"\r\n    className={cn(\r\n      \"flex items-center gap-gp-md h-form-md px-pad-xl rounded-radius-lg\",\r\n      \"bg-bg-input border border-border-subtle shadow-sh-sm\",\r\n      \"transition-[border-color,box-shadow,background-color] duration-150\",\r\n      \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n      \"dark:bg-bg-muted dark:border-border-input dark:shadow-sh-none\"\r\n    )}\r\n  >\r\n    <Search className=\"size-[14px] text-fg-muted shrink-0\" strokeWidth={1.8} />\r\n    <CommandPrimitive.Input\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n        \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </div>\r\n))\r\nCommandInput.displayName = CommandPrimitive.Input.displayName\r\n\r\n/* ── List ─────────────────────────────────────────────────────────────────── */\r\nconst CommandList = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"max-h-[300px] overflow-y-auto overflow-x-hidden mt-pad-md scrollbar-thin\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandList.displayName = CommandPrimitive.List.displayName\r\n\r\nconst CommandEmpty = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Empty>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>\r\n>((props, ref) => (\r\n  <CommandPrimitive.Empty\r\n    ref={ref}\r\n    className=\"py-pad-5xl text-center text-body-md text-fg-muted\"\r\n    {...props}\r\n  />\r\n))\r\nCommandEmpty.displayName = CommandPrimitive.Empty.displayName\r\n\r\n/* ── Group (heading uppercase 28px, sem padding extra no group) ──────────── */\r\nconst CommandGroup = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Group>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Group\r\n    ref={ref}\r\n    className={cn(\r\n      \"overflow-hidden text-fg-default\",\r\n      \"[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center\",\r\n      \"[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl\",\r\n      \"[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold\",\r\n      \"[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider\",\r\n      \"[&_[cmdk-group-heading]]:text-fg-subtle\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandGroup.displayName = CommandPrimitive.Group.displayName\r\n\r\nconst CommandSeparator = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCommandSeparator.displayName = CommandPrimitive.Separator.displayName\r\n\r\n/* ── Item: px-12 py-8, radius-lg (10px), font 13px, ícones 18px ───────────── */\r\nconst CommandItem = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl py-pad-md\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default\",\r\n      \"data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandItem.displayName = CommandPrimitive.Item.displayName\r\n\r\nconst CommandShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nCommandShortcut.displayName = \"CommandShortcut\"\r\n\r\nexport {\r\n  Command,\r\n  CommandDialog,\r\n  CommandInput,\r\n  CommandList,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandItem,\r\n  CommandShortcut,\r\n  CommandSeparator,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/command.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · command · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "dialog": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "dialog",
+    "title": "Dialog",
+    "description": "Dialog (Radix) modal centrado com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-dialog@^1.1.15",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/dialog.tsx",
+        "content": "﻿import * as React from \"react\"\r\nimport * as DialogPrimitive from \"@radix-ui/react-dialog\"\r\nimport { X } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Dialog = DialogPrimitive.Root\r\n\r\nconst DialogTrigger = DialogPrimitive.Trigger\r\n\r\nconst DialogPortal = DialogPrimitive.Portal\r\n\r\nconst DialogClose = DialogPrimitive.Close\r\n\r\nconst DialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof DialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <DialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDialogOverlay.displayName = DialogPrimitive.Overlay.displayName\r\n\r\nconst DialogContent = React.forwardRef<\r\n  React.ElementRef<typeof DialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Content> & {\r\n    /** Esconde o botão \"X\" (Close) no canto superior direito. Default: false. */\r\n    hideClose?: boolean;\r\n  }\r\n>(({ className, children, hideClose, ...props }, ref) => (\r\n  <DialogPortal>\r\n    <DialogOverlay />\r\n    <DialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] translate-x-[-50%] translate-y-[-50%] gap-gp-4xl rounded-radius-base bg-bg-surface p-pad-4xl text-body-md text-fg-default shadow-sh-xl outline-float duration-200 sm:max-w-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {!hideClose && (\r\n        <DialogPrimitive.Close className=\"absolute right-4 top-4 rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 outline-none ring-0 ring-ring-brand focus-visible:ring-4 disabled:pointer-events-none data-[state=open]:bg-bg-muted data-[state=open]:text-fg-muted\">\r\n          <X className=\"h-4 w-4\" />\r\n          <span className=\"sr-only\">Close</span>\r\n        </DialogPrimitive.Close>\r\n      )}\r\n    </DialogPrimitive.Content>\r\n  </DialogPortal>\r\n))\r\nDialogContent.displayName = DialogPrimitive.Content.displayName\r\n\r\nconst DialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\"flex flex-col gap-gp-sm\", className)}\r\n    {...props}\r\n  />\r\n)\r\nDialogHeader.displayName = \"DialogHeader\"\r\n\r\nconst DialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse gap-gp-md sm:flex-row sm:justify-end\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n)\r\nDialogFooter.displayName = \"DialogFooter\"\r\n\r\nconst DialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof DialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <DialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-title-md font-medium text-fg-default leading-none\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDialogTitle.displayName = DialogPrimitive.Title.displayName\r\n\r\nconst DialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof DialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof DialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <DialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDialogDescription.displayName = DialogPrimitive.Description.displayName\r\n\r\nexport {\r\n  Dialog,\r\n  DialogPortal,\r\n  DialogOverlay,\r\n  DialogClose,\r\n  DialogTrigger,\r\n  DialogContent,\r\n  DialogHeader,\r\n  DialogFooter,\r\n  DialogTitle,\r\n  DialogDescription,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/dialog.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "dropdown-menu": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "dropdown-menu",
+    "title": "DropdownMenu",
+    "description": "DropdownMenu (Radix) com sub/checkbox/radio e tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-dropdown-menu@^2.1.16",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/dropdown-menu.tsx",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as DropdownMenuPrimitive from \"@radix-ui/react-dropdown-menu\"\r\nimport { Check, ChevronRight } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * DropdownMenu — alinhado com `.tbl-row-actions-menu` / `.tbl-more-menu`\r\n * do design-and-table-v2.\r\n *\r\n * Container:\r\n *   - bg-bg-dropdown (token frosted-glass — solid no light, 70% transparent + blur no dark)\r\n *   - border 1px + radius 12px + padding 6px + shadow-lg\r\n *   - min-w 180px, items separados por 1px (gap-px)\r\n *\r\n * Item:\r\n *   - h variavel, padding 8/10, radius 6px, gap 10, font 13px medium\r\n *   - rest: fg-muted (texto + ícone), hover/focus: bg-muted + fg-default\r\n *   - variant=\"destructive\": fg-danger + hover bg-danger-muted\r\n *\r\n * Divider:\r\n *   - 1px bg-border-default com margin 4px (não estende além do padding)\r\n */\r\n\r\nconst DropdownMenu = DropdownMenuPrimitive.Root\r\n\r\nconst DropdownMenuTrigger = DropdownMenuPrimitive.Trigger\r\n\r\nconst DropdownMenuGroup = DropdownMenuPrimitive.Group\r\n\r\nconst DropdownMenuPortal = DropdownMenuPrimitive.Portal\r\n\r\nconst DropdownMenuSub = DropdownMenuPrimitive.Sub\r\n\r\nconst DropdownMenuRadioGroup = DropdownMenuPrimitive.RadioGroup\r\n\r\n/* ── Container (Content + SubContent) ─────────────────────────────────────── */\r\nconst CONTAINER_CLASSES = [\r\n  \"relative z-50 min-w-[180px] overflow-hidden\",\r\n  \"flex flex-col gap-px\",\r\n  \"rounded-[12px] bg-bg-dropdown p-pad-sm\",\r\n  \"border border-border-default shadow-sh-lg\",\r\n  // Outline padrão de elementos flutuantes\r\n  \"outline-float\",\r\n  \"text-fg-muted\",\r\n  // Frosted-glass blur (necessário pra fazer o bg-dropdown semi-transparent render correto no dark)\r\n  \"before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150\",\r\n  // Animações Radix\r\n  \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n  \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n  \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n  \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\r\n  \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n  \"origin-[--radix-dropdown-menu-content-transform-origin]\",\r\n].join(\" \")\r\n\r\n/* ── Mobile sheet (só Content, <md) ───────────────────────────────────────\r\n * Em telas <md o Content vira sheet bottom-up colado nas bordas: full-width,\r\n * só cantos superiores arredondados, flush, sem outline/shadow, cap 92vh.\r\n * O reposicionamento do wrapper Radix é feito no globals.css via [data-mobile-sheet].\r\n * Animação: neutraliza o zoom e desliza de baixo (sobrescreve os slides por side).\r\n */\r\nconst MOBILE_SHEET_CLASSES = [\r\n  \"max-md:w-full max-md:min-w-0 max-md:max-w-none\",\r\n  \"max-md:!max-h-[92vh]\",\r\n  \"max-md:rounded-b-none max-md:rounded-t-[12px]\",\r\n  \"max-md:border-x-0 max-md:border-b-0\",\r\n  \"max-md:outline-none max-md:shadow-none\",\r\n  \"max-md:data-[state=open]:zoom-in-100 max-md:data-[state=closed]:zoom-out-100\",\r\n  \"max-md:data-[state=open]:slide-in-from-bottom-12 max-md:data-[state=closed]:slide-out-to-bottom-12\",\r\n].join(\" \")\r\n\r\n/* ── Item base ────────────────────────────────────────────────────────────── */\r\nconst ITEM_BASE = [\r\n  \"relative flex cursor-default select-none items-center\",\r\n  \"gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm\",\r\n  \"text-body-sm font-medium\",\r\n  \"outline-none transition-colors\",\r\n  \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n  \"[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0\",\r\n].join(\" \")\r\n\r\nconst ITEM_VARIANT_DEFAULT = [\r\n  \"text-fg-muted [&_svg]:text-fg-muted\",\r\n  \"focus:bg-bg-muted focus:text-fg-default focus:[&_svg]:text-fg-default\",\r\n].join(\" \")\r\n\r\nconst ITEM_VARIANT_DESTRUCTIVE = [\r\n  \"text-fg-danger [&_svg]:text-fg-danger\",\r\n  \"focus:bg-bg-danger-muted focus:text-fg-danger focus:[&_svg]:text-fg-danger\",\r\n].join(\" \")\r\n\r\n/* ── SubTrigger ───────────────────────────────────────────────────────────── */\r\nconst DropdownMenuSubTrigger = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubTrigger> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, children, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.SubTrigger\r\n    ref={ref}\r\n    className={cn(\r\n      ITEM_BASE,\r\n      ITEM_VARIANT_DEFAULT,\r\n      \"data-[state=open]:bg-bg-muted data-[state=open]:text-fg-default\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <ChevronRight className=\"ml-auto\" />\r\n  </DropdownMenuPrimitive.SubTrigger>\r\n))\r\nDropdownMenuSubTrigger.displayName =\r\n  DropdownMenuPrimitive.SubTrigger.displayName\r\n\r\n/* ── SubContent ───────────────────────────────────────────────────────────── */\r\nconst DropdownMenuSubContent = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.SubContent>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.SubContent>\r\n>(({ className, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.SubContent\r\n    ref={ref}\r\n    className={cn(CONTAINER_CLASSES, className)}\r\n    {...props}\r\n  />\r\n))\r\nDropdownMenuSubContent.displayName =\r\n  DropdownMenuPrimitive.SubContent.displayName\r\n\r\n/* ── Content ──────────────────────────────────────────────────────────────── */\r\nconst DropdownMenuContent = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content> & {\r\n    /**\r\n     * Em telas <md, transforma o menu em sheet bottom-up colado nas bordas,\r\n     * com backdrop suave (toque fora fecha via dismiss do Radix). Default true.\r\n     * Passe `false` pra manter o popover ancorado no trigger também em mobile.\r\n     */\r\n    mobileSheet?: boolean\r\n  }\r\n>(({ className, sideOffset = 8, mobileSheet = true, ...props }, ref) => (\r\n  <>\r\n    {/* Backdrop suave — só mobile (md:hidden), em Portal próprio (cada Portal\r\n        Radix aceita 1 filho e é montado/desmontado junto com o menu via Presence).\r\n\r\n        ⚠️ pointer-events-NONE (não auto). O DropdownMenu do Radix abre no\r\n        `pointerdown`; o backdrop monta via React no meio do gesto e, com\r\n        pointer-events-auto, captura o `pointerup`/`click` seguinte → o menu\r\n        abre e fecha no mesmo toque (bug do avatar/UserMenu dentro do drawer\r\n        mobile). Com pointer-events-none o gesto de abertura passa direto e o\r\n        dismiss por toque-fora continua funcionando (Radix escuta pointerdown\r\n        a nível de document, independente do backdrop capturar). z-[55] fica\r\n        acima do drawer mobile (z-50) só pra escurecer; o Content vai a z-60. */}\r\n    {mobileSheet && (\r\n      <DropdownMenuPrimitive.Portal>\r\n        <div\r\n          aria-hidden=\"true\"\r\n          className=\"fixed inset-0 z-[55] bg-overlay-scrim pointer-events-none md:hidden animate-in fade-in-0 duration-150\"\r\n        />\r\n      </DropdownMenuPrimitive.Portal>\r\n    )}\r\n    <DropdownMenuPrimitive.Portal>\r\n      <DropdownMenuPrimitive.Content\r\n        ref={ref}\r\n        sideOffset={sideOffset}\r\n        data-mobile-sheet={mobileSheet ? \"\" : undefined}\r\n        className={cn(\r\n          CONTAINER_CLASSES,\r\n          \"max-h-[var(--radix-dropdown-menu-content-available-height)] overflow-y-auto overflow-x-hidden\",\r\n          mobileSheet && MOBILE_SHEET_CLASSES,\r\n          className\r\n        )}\r\n        {...props}\r\n      />\r\n    </DropdownMenuPrimitive.Portal>\r\n  </>\r\n))\r\nDropdownMenuContent.displayName = DropdownMenuPrimitive.Content.displayName\r\n\r\n/* ── Item ─────────────────────────────────────────────────────────────────── */\r\nconst DropdownMenuItem = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {\r\n    inset?: boolean\r\n    /** Variante semântica — \"destructive\" pinta fg-danger e usa bg-danger-muted no hover */\r\n    variant?: \"default\" | \"destructive\"\r\n  }\r\n>(({ className, inset, variant = \"default\", ...props }, ref) => (\r\n  <DropdownMenuPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      ITEM_BASE,\r\n      variant === \"destructive\" ? ITEM_VARIANT_DESTRUCTIVE : ITEM_VARIANT_DEFAULT,\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDropdownMenuItem.displayName = DropdownMenuPrimitive.Item.displayName\r\n\r\n/* ── CheckboxItem ─────────────────────────────────────────────────────────── */\r\nconst DropdownMenuCheckboxItem = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.CheckboxItem>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.CheckboxItem>\r\n>(({ className, children, checked, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.CheckboxItem\r\n    ref={ref}\r\n    className={cn(\r\n      ITEM_BASE,\r\n      ITEM_VARIANT_DEFAULT,\r\n      \"pl-8 pr-pad-lg\",\r\n      className\r\n    )}\r\n    checked={checked}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-pad-md flex h-3.5 w-3.5 items-center justify-center\">\r\n      <DropdownMenuPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </DropdownMenuPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </DropdownMenuPrimitive.CheckboxItem>\r\n))\r\nDropdownMenuCheckboxItem.displayName =\r\n  DropdownMenuPrimitive.CheckboxItem.displayName\r\n\r\n/* ── RadioItem ────────────────────────────────────────────────────────────── */\r\n/**\r\n * RadioItem — item selecionado ganha tom brand:\r\n *   - rest:    fg-muted (igual default item)\r\n *   - hover:   bg-muted + fg-default (igual default item)\r\n *   - checked: bg-bg-brand-subtle + fg-fg-brand (estado ativo destacado)\r\n *\r\n * Indicator: `<Check />` consistente com `<DropdownMenuCheckboxItem>` (antes era `<Circle />`).\r\n */\r\nconst DropdownMenuRadioItem = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.RadioItem>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.RadioItem>\r\n>(({ className, children, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.RadioItem\r\n    ref={ref}\r\n    className={cn(\r\n      ITEM_BASE,\r\n      ITEM_VARIANT_DEFAULT,\r\n      \"pl-8 pr-pad-lg\",\r\n      // Selected state — brand tint (mantém no focus pra não voltar pra muted)\r\n      \"data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand\",\r\n      \"data-[state=checked]:[&_svg]:text-fg-brand\",\r\n      \"data-[state=checked]:focus:bg-bg-brand-subtle data-[state=checked]:focus:text-fg-brand\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-pad-md flex h-3.5 w-3.5 items-center justify-center\">\r\n      <DropdownMenuPrimitive.ItemIndicator>\r\n        <Check className=\"size-4\" />\r\n      </DropdownMenuPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </DropdownMenuPrimitive.RadioItem>\r\n))\r\nDropdownMenuRadioItem.displayName = DropdownMenuPrimitive.RadioItem.displayName\r\n\r\n/* ── Label ────────────────────────────────────────────────────────────────── */\r\nconst DropdownMenuLabel = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\r\n      \"px-pad-lg py-pad-sm text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDropdownMenuLabel.displayName = DropdownMenuPrimitive.Label.displayName\r\n\r\n/* ── Separator (divider) ──────────────────────────────────────────────────── */\r\nconst DropdownMenuSeparator = React.forwardRef<\r\n  React.ElementRef<typeof DropdownMenuPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <DropdownMenuPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDropdownMenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName\r\n\r\n/* ── Shortcut (texto à direita do item) ───────────────────────────────────── */\r\nconst DropdownMenuShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\"ml-auto text-caption-sm tracking-wider text-fg-subtle\", className)}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nDropdownMenuShortcut.displayName = \"DropdownMenuShortcut\"\r\n\r\nexport {\r\n  DropdownMenu,\r\n  DropdownMenuTrigger,\r\n  DropdownMenuContent,\r\n  DropdownMenuItem,\r\n  DropdownMenuCheckboxItem,\r\n  DropdownMenuRadioItem,\r\n  DropdownMenuLabel,\r\n  DropdownMenuSeparator,\r\n  DropdownMenuShortcut,\r\n  DropdownMenuGroup,\r\n  DropdownMenuPortal,\r\n  DropdownMenuSub,\r\n  DropdownMenuSubContent,\r\n  DropdownMenuSubTrigger,\r\n  DropdownMenuRadioGroup,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/dropdown-menu.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "input-group": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "input-group",
+    "title": "InputGroup",
+    "description": "InputGroup (cva) - input com addons/botoes.",
+    "dependencies": [
+      "class-variance-authority@^0.7.1"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/input-group.tsx",
+        "content": "import * as React from \"react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * InputGroup — composição rica pra inputs com addons (prefixo, sufixo, ícone, botão).\r\n *\r\n * Estrutura:\r\n *   <InputGroup>\r\n *     <InputGroupAddon align=\"inline-start\"><Icon /></InputGroupAddon>\r\n *     <InputGroupInput placeholder=\"...\" />\r\n *     <InputGroupAddon align=\"inline-end\">\r\n *       <InputGroupButton><X /></InputGroupButton>\r\n *     </InputGroupAddon>\r\n *   </InputGroup>\r\n *\r\n * Visual alinhado com `.tbl-form-input` (mesmo bg/border/radius do <Input>).\r\n * State (default/error/warning/success) afeta borda + focus ring (shadow-sh-ring-*).\r\n */\r\n\r\nexport type InputGroupState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\n/* ── Wrapper ─────────────────────────────────────────────────────────────── */\r\nconst inputGroupVariants = cva(\r\n  [\r\n    \"group/input-group relative flex w-full items-center\",\r\n    \"bg-bg-input dark:bg-bg-muted\",\r\n    \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\",\r\n    \"border border-border-input rounded-radius-lg\",\r\n    \"transition-[border-color,box-shadow,background-color] outline-none\",\r\n    \"has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-50 has-[input:disabled]:hover:bg-bg-input dark:has-[input:disabled]:hover:bg-bg-muted\",\r\n  ],\r\n  {\r\n    variants: {\r\n      size: {\r\n        xxs: \"min-h-form-xs px-pad-md gap-gp-xs rounded-radius-md text-body-sm font-normal\",\r\n        xs:  \"min-h-form-sm px-pad-xl gap-gp-md rounded-radius-md text-body-sm font-normal\",\r\n        sm:  \"min-h-form-md px-pad-xl gap-gp-md rounded-radius-lg text-body-sm font-normal\",\r\n        md:  \"min-h-form-lg px-pad-xl gap-gp-md rounded-radius-lg text-body-sm font-normal\",\r\n      },\r\n      state: {\r\n        default: \"focus-within:border-border-brand          focus-within:shadow-sh-ring\",\r\n        error:   \"border-border-danger-muted  focus-within:border-border-danger-muted  focus-within:shadow-sh-ring-danger\",\r\n        warning: \"border-border-warning-muted focus-within:border-border-warning-muted focus-within:shadow-sh-ring-warning\",\r\n        success: \"border-border-success-muted focus-within:border-border-success-muted focus-within:shadow-sh-ring-success\",\r\n      },\r\n    },\r\n    defaultVariants: { size: \"md\", state: \"default\" },\r\n  },\r\n);\r\n\r\nexport type InputGroupVariantProps = VariantProps<typeof inputGroupVariants>;\r\n\r\nexport interface InputGroupProps\r\n  extends React.HTMLAttributes<HTMLDivElement>,\r\n    InputGroupVariantProps {}\r\n\r\nexport const InputGroup = React.forwardRef<HTMLDivElement, InputGroupProps>(\r\n  ({ className, size, state, ...props }, ref) => (\r\n    <div\r\n      ref={ref}\r\n      role=\"group\"\r\n      data-slot=\"input-group\"\r\n      className={cn(inputGroupVariants({ size, state }), className)}\r\n      {...props}\r\n    />\r\n  ),\r\n);\r\nInputGroup.displayName = \"InputGroup\";\r\n\r\n/* ── Input (sem bg/border — herda do wrapper) ─────────────────────────── */\r\nconst inputGroupInputVariants = cva([\r\n  \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n  \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted placeholder:opacity-70\",\r\n  \"disabled:cursor-not-allowed\",\r\n  \"file:inline-flex file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-fg-default\",\r\n]);\r\n\r\nexport interface InputGroupInputProps\r\n  extends React.InputHTMLAttributes<HTMLInputElement> {}\r\n\r\nexport const InputGroupInput = React.forwardRef<\r\n  HTMLInputElement,\r\n  InputGroupInputProps\r\n>(({ className, type, ...props }, ref) => (\r\n  <input\r\n    ref={ref}\r\n    type={type}\r\n    data-slot=\"input-group-input\"\r\n    className={cn(inputGroupInputVariants(), className)}\r\n    {...props}\r\n  />\r\n));\r\nInputGroupInput.displayName = \"InputGroupInput\";\r\n\r\n/* ── Textarea ──────────────────────────────────────────────────────────── */\r\nconst inputGroupTextareaVariants = cva([\r\n  \"flex-1 min-w-0 bg-transparent border-0 outline-none resize-y\",\r\n  \"py-pad-md\",\r\n  \"text-body-sm font-normal leading-[1.5] text-fg-default placeholder:text-fg-muted placeholder:opacity-70\",\r\n  \"disabled:cursor-not-allowed\",\r\n]);\r\n\r\nexport interface InputGroupTextareaProps\r\n  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {}\r\n\r\nexport const InputGroupTextarea = React.forwardRef<\r\n  HTMLTextAreaElement,\r\n  InputGroupTextareaProps\r\n>(({ className, ...props }, ref) => (\r\n  <textarea\r\n    ref={ref}\r\n    data-slot=\"input-group-textarea\"\r\n    className={cn(inputGroupTextareaVariants(), className)}\r\n    {...props}\r\n  />\r\n));\r\nInputGroupTextarea.displayName = \"InputGroupTextarea\";\r\n\r\n/* ── Addon (prefix/suffix slot) ───────────────────────────────────────── */\r\nconst inputGroupAddonVariants = cva(\r\n  \"flex items-center text-fg-muted shrink-0 select-none [&_svg]:size-4 [&_svg]:shrink-0\",\r\n  {\r\n    variants: {\r\n      align: {\r\n        // Inline = horizontal (start/end do eixo do texto)\r\n        \"inline-start\": \"\",\r\n        \"inline-end\":   \"\",\r\n        // Block = vertical (top/bottom — multi-linha em textarea)\r\n        \"block-start\":  \"\",\r\n        \"block-end\":    \"\",\r\n      },\r\n    },\r\n    defaultVariants: { align: \"inline-start\" },\r\n  },\r\n);\r\n\r\nexport type InputGroupAddonAlign =\r\n  | \"inline-start\"\r\n  | \"inline-end\"\r\n  | \"block-start\"\r\n  | \"block-end\";\r\n\r\nexport interface InputGroupAddonProps\r\n  extends React.HTMLAttributes<HTMLDivElement> {\r\n  align?: InputGroupAddonAlign;\r\n}\r\n\r\nexport const InputGroupAddon = React.forwardRef<\r\n  HTMLDivElement,\r\n  InputGroupAddonProps\r\n>(({ className, align = \"inline-start\", onClick, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    role=\"group\"\r\n    data-slot=\"input-group-addon\"\r\n    data-align={align}\r\n    className={cn(inputGroupAddonVariants({ align }), className)}\r\n    onClick={(e) => {\r\n      // Click no addon (ícone, texto, espaço vazio) → foca o input do grupo.\r\n      // Botões dentro do addon (`InputGroupButton`) continuam funcionando.\r\n      if ((e.target as HTMLElement).closest(\"button\")) {\r\n        onClick?.(e);\r\n        return;\r\n      }\r\n      e.currentTarget.parentElement\r\n        ?.querySelector<HTMLInputElement | HTMLTextAreaElement>(\r\n          \"input, textarea\",\r\n        )\r\n        ?.focus();\r\n      onClick?.(e);\r\n    }}\r\n    {...props}\r\n  />\r\n));\r\nInputGroupAddon.displayName = \"InputGroupAddon\";\r\n\r\n/* ── Text (texto formatado dentro do addon) ───────────────────────────── */\r\nexport interface InputGroupTextProps\r\n  extends React.HTMLAttributes<HTMLSpanElement> {}\r\n\r\nexport const InputGroupText = React.forwardRef<\r\n  HTMLSpanElement,\r\n  InputGroupTextProps\r\n>(({ className, ...props }, ref) => (\r\n  <span\r\n    ref={ref}\r\n    data-slot=\"input-group-text\"\r\n    className={cn(\r\n      \"text-body-xs text-fg-muted whitespace-nowrap\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nInputGroupText.displayName = \"InputGroupText\";\r\n\r\n/* ── Button (botão dentro do addon — ex copy/clear) ───────────────────── */\r\nconst inputGroupButtonVariants = cva(\r\n  [\r\n    \"inline-flex items-center justify-center shrink-0\",\r\n    \"rounded-radius-md transition-colors outline-none cursor-pointer\",\r\n    \"focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n    \"[&_svg]:size-4 [&_svg]:shrink-0\",\r\n  ],\r\n  {\r\n    variants: {\r\n      size: {\r\n        xs:        \"h-form-xs px-pad-md gap-gp-xs text-body-xs font-normal\",\r\n        \"icon-xs\": \"size-form-xs\",\r\n        sm:        \"h-form-sm px-pad-lg gap-gp-md text-body-xs font-normal\",\r\n        \"icon-sm\": \"size-form-sm\",\r\n      },\r\n      variant: {\r\n        default:     \"bg-bg-muted text-fg-default hover:bg-bg-muted-hover\",\r\n        destructive: \"bg-bg-danger text-fg-on-danger hover:bg-bg-danger-hover\",\r\n        outline:     \"border border-border-input bg-transparent text-fg-default hover:bg-bg-muted\",\r\n        secondary:   \"bg-bg-emphasis text-fg-default hover:bg-bg-muted-hover\",\r\n        ghost:       \"bg-transparent text-fg-muted hover:bg-bg-muted hover:text-fg-default\",\r\n        link:        \"bg-transparent text-fg-brand underline-offset-4 hover:underline\",\r\n      },\r\n    },\r\n    defaultVariants: { size: \"xs\", variant: \"ghost\" },\r\n  },\r\n);\r\n\r\nexport interface InputGroupButtonProps\r\n  extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, \"size\">,\r\n    VariantProps<typeof inputGroupButtonVariants> {}\r\n\r\nexport const InputGroupButton = React.forwardRef<\r\n  HTMLButtonElement,\r\n  InputGroupButtonProps\r\n>(({ className, size, variant, type = \"button\", ...props }, ref) => (\r\n  <button\r\n    ref={ref}\r\n    type={type}\r\n    data-slot=\"input-group-button\"\r\n    className={cn(inputGroupButtonVariants({ size, variant }), className)}\r\n    {...props}\r\n  />\r\n));\r\nInputGroupButton.displayName = \"InputGroupButton\";\r\n\r\nexport {\r\n  inputGroupVariants,\r\n  inputGroupInputVariants,\r\n  inputGroupTextareaVariants,\r\n  inputGroupAddonVariants,\r\n  inputGroupButtonVariants,\r\n};\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/input-group.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · input-group · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -135,7 +383,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · input · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -160,7 +408,104 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · label · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "pagination": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "pagination",
+    "title": "Pagination",
+    "description": "Pagination (cva) com tokens DS.",
+    "dependencies": [
+      "class-variance-authority@^0.7.1",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/pagination.tsx",
+        "content": "import * as React from \"react\";\r\nimport {\r\n  ChevronLeft,\r\n  ChevronRight,\r\n  ChevronsLeft,\r\n  ChevronsRight,\r\n  MoreHorizontal,\r\n} from \"lucide-react\";\r\nimport { cva, type VariantProps } from \"class-variance-authority\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * Pagination — primitives baixo nível pra paginação.\r\n *\r\n * Visual alinhado com `.tbl-footer-right` do design-and-table-v2:\r\n *   - Nav buttons (« ‹ › »): 36×36 com border, radius-lg\r\n *   - Pages container: bg-muted, radius-lg, padding 3px (segmented look)\r\n *   - Page item: 30×30 transparente; active = bg-accent + shadow-sm + font-semibold\r\n *\r\n * Pra um wrapper \"one-shot\" com pageSize + range + nav → use <FooterTable>.\r\n */\r\n\r\n/* ── Root nav ────────────────────────────────────────────────────────── */\r\nconst Pagination = ({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"nav\">) => (\r\n  <nav\r\n    role=\"navigation\"\r\n    aria-label=\"Paginação\"\r\n    className={cn(\"inline-flex items-center gap-gp-xs\", className)}\r\n    {...props}\r\n  />\r\n);\r\nPagination.displayName = \"Pagination\";\r\n\r\n/* ── Content (container das page items — visual segmented) ──────────── */\r\nconst PaginationContent = React.forwardRef<\r\n  HTMLUListElement,\r\n  React.ComponentProps<\"ul\">\r\n>(({ className, ...props }, ref) => (\r\n  <ul\r\n    ref={ref}\r\n    className={cn(\r\n      \"inline-flex items-center gap-[2px]\",\r\n      \"bg-bg-muted rounded-radius-lg p-[3px] mx-gp-sm h-form-md\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nPaginationContent.displayName = \"PaginationContent\";\r\n\r\n/* ── Item wrapper (li) ───────────────────────────────────────────────── */\r\nconst PaginationItem = React.forwardRef<\r\n  HTMLLIElement,\r\n  React.ComponentProps<\"li\">\r\n>(({ className, ...props }, ref) => (\r\n  <li ref={ref} className={cn(\"\", className)} {...props} />\r\n));\r\nPaginationItem.displayName = \"PaginationItem\";\r\n\r\n/* ── Link (número) — dentro do PaginationContent ──────────────────── */\r\nconst paginationLinkVariants = cva(\r\n  [\r\n    \"inline-flex items-center justify-center\",\r\n    \"min-w-[30px] h-[30px] px-pad-md\",\r\n    \"rounded-radius-md text-body-sm font-medium tabular-nums\",\r\n    \"outline-none cursor-pointer transition-[background-color,color,box-shadow]\",\r\n    \"focus-visible:shadow-sh-ring\",\r\n    \"disabled:opacity-50 disabled:pointer-events-none\",\r\n  ],\r\n  {\r\n    variants: {\r\n      isActive: {\r\n        true:  \"bg-bg-accent text-fg-default font-semibold shadow-sh-sm\",\r\n        false: \"bg-transparent text-fg-muted hover:text-fg-default\",\r\n      },\r\n    },\r\n    defaultVariants: { isActive: false },\r\n  },\r\n);\r\n\r\nexport type PaginationLinkProps = {\r\n  isActive?: boolean;\r\n} & React.ButtonHTMLAttributes<HTMLButtonElement> &\r\n  VariantProps<typeof paginationLinkVariants>;\r\n\r\nconst PaginationLink = React.forwardRef<\r\n  HTMLButtonElement,\r\n  PaginationLinkProps\r\n>(({ className, isActive, type = \"button\", ...props }, ref) => (\r\n  <button\r\n    ref={ref}\r\n    type={type}\r\n    aria-current={isActive ? \"page\" : undefined}\r\n    className={cn(paginationLinkVariants({ isActive }), className)}\r\n    {...props}\r\n  />\r\n));\r\nPaginationLink.displayName = \"PaginationLink\";\r\n\r\n/* ── Nav buttons (« ‹ › ») — fora do Content, com border individual ── */\r\nconst paginationNavVariants = cva([\r\n  \"inline-flex items-center justify-center shrink-0\",\r\n  \"size-form-md rounded-radius-lg\",\r\n  \"border border-border-default bg-transparent text-fg-default\",\r\n  \"outline-none cursor-pointer transition-[background-color,color,opacity,border-color,box-shadow]\",\r\n  \"hover:bg-bg-muted\",\r\n  \"focus-visible:shadow-sh-ring\",\r\n  \"disabled:opacity-35 disabled:pointer-events-none\",\r\n  \"[&_svg]:size-4\",\r\n]);\r\n\r\ntype NavBtnProps = React.ButtonHTMLAttributes<HTMLButtonElement>;\r\n\r\nconst PaginationPrevious = React.forwardRef<HTMLButtonElement, NavBtnProps>(\r\n  ({ className, type = \"button\", \"aria-label\": ariaLabel, ...props }, ref) => (\r\n    <button\r\n      ref={ref}\r\n      type={type}\r\n      aria-label={ariaLabel ?? \"Página anterior\"}\r\n      className={cn(paginationNavVariants(), className)}\r\n      {...props}\r\n    >\r\n      <ChevronLeft />\r\n    </button>\r\n  ),\r\n);\r\nPaginationPrevious.displayName = \"PaginationPrevious\";\r\n\r\nconst PaginationNext = React.forwardRef<HTMLButtonElement, NavBtnProps>(\r\n  ({ className, type = \"button\", \"aria-label\": ariaLabel, ...props }, ref) => (\r\n    <button\r\n      ref={ref}\r\n      type={type}\r\n      aria-label={ariaLabel ?? \"Próxima página\"}\r\n      className={cn(paginationNavVariants(), className)}\r\n      {...props}\r\n    >\r\n      <ChevronRight />\r\n    </button>\r\n  ),\r\n);\r\nPaginationNext.displayName = \"PaginationNext\";\r\n\r\nconst PaginationFirst = React.forwardRef<HTMLButtonElement, NavBtnProps>(\r\n  ({ className, type = \"button\", \"aria-label\": ariaLabel, ...props }, ref) => (\r\n    <button\r\n      ref={ref}\r\n      type={type}\r\n      aria-label={ariaLabel ?? \"Primeira página\"}\r\n      className={cn(paginationNavVariants(), className)}\r\n      {...props}\r\n    >\r\n      <ChevronsLeft />\r\n    </button>\r\n  ),\r\n);\r\nPaginationFirst.displayName = \"PaginationFirst\";\r\n\r\nconst PaginationLast = React.forwardRef<HTMLButtonElement, NavBtnProps>(\r\n  ({ className, type = \"button\", \"aria-label\": ariaLabel, ...props }, ref) => (\r\n    <button\r\n      ref={ref}\r\n      type={type}\r\n      aria-label={ariaLabel ?? \"Última página\"}\r\n      className={cn(paginationNavVariants(), className)}\r\n      {...props}\r\n    >\r\n      <ChevronsRight />\r\n    </button>\r\n  ),\r\n);\r\nPaginationLast.displayName = \"PaginationLast\";\r\n\r\n/* ── Ellipsis ────────────────────────────────────────────────────────── */\r\nconst PaginationEllipsis = ({\r\n  className,\r\n  ...props\r\n}: React.ComponentProps<\"span\">) => (\r\n  <span\r\n    aria-hidden=\"true\"\r\n    className={cn(\r\n      \"inline-flex items-center justify-center min-w-[22px] h-[30px]\",\r\n      \"text-body-sm font-normal text-fg-muted tracking-wider select-none\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  >\r\n    <MoreHorizontal className=\"size-4\" />\r\n  </span>\r\n);\r\nPaginationEllipsis.displayName = \"PaginationEllipsis\";\r\n\r\n/**\r\n * Helper — gera array de páginas com ellipsis.\r\n *\r\n * Regras:\r\n *   - Total ≤ 7 páginas → mostra todas\r\n *   - Senão → [1, 2, …, page-1, page, page+1, …, last-1, last]\r\n *\r\n * Retorna `number[]` com `\"ellipsis\"` como string nos gaps.\r\n *\r\n * Ex (page=5, total=20): [1, 2, \"ellipsis\", 4, 5, 6, \"ellipsis\", 19, 20]\r\n */\r\nexport function getPaginationRange(page: number, total: number): (number | \"ellipsis\")[] {\r\n  if (total <= 7) return Array.from({ length: total }, (_, i) => i + 1);\r\n  const set = new Set([1, 2, total - 1, total, page - 1, page, page + 1]);\r\n  const sorted = [...set]\r\n    .filter((n) => n >= 1 && n <= total)\r\n    .sort((a, b) => a - b);\r\n  const out: (number | \"ellipsis\")[] = [];\r\n  sorted.forEach((n, i) => {\r\n    if (i > 0 && n - sorted[i - 1] > 1) out.push(\"ellipsis\");\r\n    out.push(n);\r\n  });\r\n  return out;\r\n}\r\n\r\nexport {\r\n  Pagination,\r\n  PaginationContent,\r\n  PaginationItem,\r\n  PaginationLink,\r\n  PaginationPrevious,\r\n  PaginationNext,\r\n  PaginationFirst,\r\n  PaginationLast,\r\n  PaginationEllipsis,\r\n  paginationLinkVariants,\r\n  paginationNavVariants,\r\n};\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/pagination.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · pagination · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "popover": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "popover",
+    "title": "Popover",
+    "description": "Popover (Radix) com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-popover@^1.1.15"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/popover.tsx",
+        "content": "import * as React from \"react\";\r\nimport * as PopoverPrimitive from \"@radix-ui/react-popover\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * Popover — primitives baixo nível pra menus flutuantes (Cols, Sort, Filter, Views).\r\n *\r\n * Visual unificado com DropdownMenu/Select: bg-bg-dropdown (frosted-glass no\r\n * dark via `before:backdrop-blur-2xl`), border-default, radius 12px, shadow-lg\r\n * + outline-float (halo). Padronizado pra evitar inconsistência visual entre\r\n * menus de ação (DropdownMenu) e menus de configuração (Popover de Filtros,\r\n * Sort, Cols, Views).\r\n *\r\n * Não tem `Item` próprio — o consumer monta o conteúdo do popover livremente.\r\n * Pra menus de ação com items semânticos, prefira `DropdownMenu`.\r\n */\r\n\r\nconst Popover = PopoverPrimitive.Root;\r\nconst PopoverTrigger = PopoverPrimitive.Trigger;\r\nconst PopoverAnchor = PopoverPrimitive.Anchor;\r\nconst PopoverClose = PopoverPrimitive.Close;\r\n\r\n/* ── Mobile sheet (<md) ───────────────────────────────────────────────\r\n * Em telas <md o conteúdo vira sheet bottom-up colado nas bordas: full-width,\r\n * só cantos superiores arredondados, flush, sem outline/shadow, cap 92vh.\r\n * O wrapper do Radix Popper é reposicionado no globals.css via a regra\r\n * `[data-radix-popper-content-wrapper]:has([data-mobile-sheet])` (mesma usada\r\n * pelo DropdownMenu). Animação: neutraliza o zoom e desliza de baixo. */\r\nconst POPOVER_MOBILE_SHEET = [\r\n  \"max-md:w-full max-md:min-w-0 max-md:max-w-none\",\r\n  \"max-md:!max-h-[92vh]\",\r\n  \"max-md:rounded-b-none max-md:rounded-t-[12px]\",\r\n  \"max-md:border-x-0 max-md:border-b-0\",\r\n  \"max-md:outline-none max-md:shadow-none\",\r\n  // Respiro de 20px (pad-3xl) no rodapé pra o conteúdo (footer/última seção)\r\n  // não colar na borda inferior do device quando vira sheet.\r\n  \"max-md:pb-pad-3xl\",\r\n  \"max-md:data-[state=open]:zoom-in-100 max-md:data-[state=closed]:zoom-out-100\",\r\n  \"max-md:data-[state=open]:slide-in-from-bottom-12 max-md:data-[state=closed]:slide-out-to-bottom-12\",\r\n].join(\" \");\r\n\r\n/** Backdrop suave — só mobile (md:hidden). Toque fecha via dismiss do Radix. */\r\nconst PopoverSheetBackdrop = () => (\r\n  <div\r\n    aria-hidden=\"true\"\r\n    className=\"fixed inset-0 z-[55] bg-overlay-scrim pointer-events-auto md:hidden animate-in fade-in-0 duration-150\"\r\n  />\r\n);\r\n\r\ntype PopoverContentProps = React.ComponentPropsWithoutRef<\r\n  typeof PopoverPrimitive.Content\r\n> & {\r\n  /**\r\n   * Renderiza o conteúdo SEM `<Portal>`. Útil quando o conteúdo interno usa\r\n   * libs como dnd-kit que conflitam com o transform do Floating UI do Portal.\r\n   * Default `false` (usa portal — comportamento padrão).\r\n   */\r\n  disablePortal?: boolean;\r\n  /**\r\n   * Em telas <md, transforma o popover em **sheet bottom-up** colado nas bordas,\r\n   * com backdrop suave (toque fora fecha). No desktop não muda nada. Default `true`.\r\n   * Passe `false` pra manter o popover ancorado no trigger também em mobile.\r\n   * (Mesmo nome da prop do `DropdownMenu` — comportamento consistente.)\r\n   */\r\n  mobileSheet?: boolean;\r\n};\r\n\r\nconst PopoverContent = React.forwardRef<\r\n  React.ElementRef<typeof PopoverPrimitive.Content>,\r\n  PopoverContentProps\r\n>(\r\n  (\r\n    { className, align = \"center\", sideOffset = 6, disablePortal, mobileSheet = true, ...props },\r\n    ref,\r\n  ) => {\r\n    const content = (\r\n      <PopoverPrimitive.Content\r\n        ref={ref}\r\n        align={align}\r\n        sideOffset={sideOffset}\r\n        data-mobile-sheet={mobileSheet ? \"\" : undefined}\r\n        className={cn(\r\n          \"relative z-50\",\r\n          // Unificado com DropdownMenu/Select: bg-bg-dropdown (frosted no dark)\r\n          // + border-border-default + outline-float. O `before` pseudo-element\r\n          // aplica o blur backdrop (necessário pra bg-bg-dropdown semi-transparente\r\n          // render correto no dark mode).\r\n          \"bg-bg-dropdown\",\r\n          \"border border-border-default rounded-[12px] shadow-sh-lg outline-float\",\r\n          \"before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150\",\r\n          \"text-fg-default\",\r\n          \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n          \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n          \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n          \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\r\n          \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n          mobileSheet && POPOVER_MOBILE_SHEET,\r\n          className,\r\n        )}\r\n        {...props}\r\n      />\r\n    );\r\n\r\n    if (disablePortal) {\r\n      // Sem portal: backdrop inline (fixed escapa do flow mesmo assim).\r\n      return mobileSheet ? (\r\n        <>\r\n          <PopoverSheetBackdrop />\r\n          {content}\r\n        </>\r\n      ) : (\r\n        content\r\n      );\r\n    }\r\n\r\n    // Com portal: backdrop em Portal próprio (cada Portal Radix aceita 1 filho\r\n    // e é montado/desmontado junto com o popover via Presence).\r\n    return (\r\n      <>\r\n        {mobileSheet && (\r\n          <PopoverPrimitive.Portal>\r\n            <PopoverSheetBackdrop />\r\n          </PopoverPrimitive.Portal>\r\n        )}\r\n        <PopoverPrimitive.Portal>{content}</PopoverPrimitive.Portal>\r\n      </>\r\n    );\r\n  },\r\n);\r\nPopoverContent.displayName = PopoverPrimitive.Content.displayName;\r\n\r\nexport { Popover, PopoverTrigger, PopoverAnchor, PopoverClose, PopoverContent };\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/popover.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · popover · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "progress": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "progress",
+    "title": "Progress",
+    "description": "Progress (Radix) barra com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-progress@^1.1.8"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/progress.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as ProgressPrimitive from \"@radix-ui/react-progress\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Progress — barra de progresso linear.\r\n *\r\n * Specs:\r\n *   - Track: h:12px (h-3), bg-emphasis (light, gray[100]) / bg-accent (dark, alpha 16%), radius-full\r\n *   - Indicator: bg-bg-brand (verde brand)\r\n */\r\nconst Progress = React.forwardRef<\r\n  React.ElementRef<typeof ProgressPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root>\r\n>(({ className, value, ...props }, ref) => (\r\n  <ProgressPrimitive.Root\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex h-3 w-full items-center overflow-hidden rounded-radius-full\",\r\n      \"bg-bg-emphasis dark:bg-bg-accent\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ProgressPrimitive.Indicator\r\n      className=\"size-full flex-1 bg-bg-brand transition-all\"\r\n      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}\r\n    />\r\n  </ProgressPrimitive.Root>\r\n))\r\nProgress.displayName = ProgressPrimitive.Root.displayName\r\n\r\nexport { Progress }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/progress.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · progress · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "radio-group": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "radio-group",
+    "title": "RadioGroup",
+    "description": "RadioGroup (Radix) com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-radio-group@^1.3.8"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/radio-group.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as RadioGroupPrimitive from \"@radix-ui/react-radio-group\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * RadioGroup — alinhado com o pattern do Checkbox/Input do design-and-table-v2.\r\n *\r\n * Specs:\r\n *   - 16x16, border 1.5px border-input, radius-full\r\n *   - bg-input (light) / dark:bg-bg-muted\r\n *   - hover: border-default\r\n *   - checked: bg-brand + border-brand + inner dot white\r\n *   - focus: shadow-sh-ring\r\n */\r\nconst RadioGroup = React.forwardRef<\r\n  React.ElementRef<typeof RadioGroupPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Root>\r\n>(({ className, ...props }, ref) => {\r\n  return (\r\n    <RadioGroupPrimitive.Root\r\n      className={cn(\"grid w-full gap-gp-xl\", className)}\r\n      {...props}\r\n      ref={ref}\r\n    />\r\n  )\r\n})\r\nRadioGroup.displayName = RadioGroupPrimitive.Root.displayName\r\n\r\nconst RadioGroupItem = React.forwardRef<\r\n  React.ElementRef<typeof RadioGroupPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof RadioGroupPrimitive.Item>\r\n>(({ className, ...props }, ref) => {\r\n  return (\r\n    <RadioGroupPrimitive.Item\r\n      ref={ref}\r\n      className={cn(\r\n        \"peer relative flex aspect-square size-4 shrink-0 cursor-pointer\",\r\n        \"rounded-radius-full\",\r\n        \"bg-bg-input dark:bg-bg-muted\",\r\n        \"border-[1.5px] border-border-input\",\r\n        \"transition-[background-color,border-color,box-shadow] outline-none\",\r\n        \"hover:border-border-default\",\r\n        \"focus-visible:shadow-sh-ring\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        \"data-[state=checked]:bg-bg-brand data-[state=checked]:border-border-brand\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <RadioGroupPrimitive.Indicator className=\"flex size-full items-center justify-center\">\r\n        <span className=\"size-[6px] rounded-radius-full bg-fg-on-brand\" />\r\n      </RadioGroupPrimitive.Indicator>\r\n    </RadioGroupPrimitive.Item>\r\n  )\r\n})\r\nRadioGroupItem.displayName = RadioGroupPrimitive.Item.displayName\r\n\r\nexport { RadioGroup, RadioGroupItem }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/radio-group.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · radio-group · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -185,7 +530,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · select · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -209,7 +554,105 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · separator · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "sheet": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "sheet",
+    "title": "Sheet",
+    "description": "Sheet (Radix Dialog) drawer lateral com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-dialog@^1.1.15",
+      "class-variance-authority@^0.7.1",
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/sheet.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as SheetPrimitive from \"@radix-ui/react-dialog\"\r\nimport { cva, type VariantProps } from \"class-variance-authority\"\r\nimport { X } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Sheet = SheetPrimitive.Root\r\n\r\nconst SheetTrigger = SheetPrimitive.Trigger\r\n\r\nconst SheetClose = SheetPrimitive.Close\r\n\r\nconst SheetPortal = SheetPrimitive.Portal\r\n\r\nconst SheetOverlay = React.forwardRef<\r\n  React.ElementRef<typeof SheetPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <SheetPrimitive.Overlay\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-overlay-scrim data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className\r\n    )}\r\n    {...props}\r\n    ref={ref}\r\n  />\r\n))\r\nSheetOverlay.displayName = SheetPrimitive.Overlay.displayName\r\n\r\nconst sheetVariants = cva(\r\n  \"fixed z-50 bg-bg-surface dark:bg-bg-canvas text-fg-default shadow-sh-2xl ease-[cubic-bezier(0.4,0,0.2,1)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:duration-[220ms] data-[state=open]:duration-[220ms] data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0\",\r\n  {\r\n    variants: {\r\n      side: {\r\n        top: \"inset-x-0 top-0 border-b border-border-default data-[state=closed]:slide-out-to-top-12 data-[state=open]:slide-in-from-top-12\",\r\n        bottom:\r\n          \"inset-x-0 bottom-0 border-t border-border-default data-[state=closed]:slide-out-to-bottom-12 data-[state=open]:slide-in-from-bottom-12\",\r\n        left: \"inset-y-0 left-0 h-full w-3/4 border-r border-border-default data-[state=closed]:slide-out-to-left-12 data-[state=open]:slide-in-from-left-12 sm:max-w-sm\",\r\n        right:\r\n          \"inset-y-0 right-0 h-full w-3/4 border-l border-border-default data-[state=closed]:slide-out-to-right-12 data-[state=open]:slide-in-from-right-12 sm:max-w-sm\",\r\n      },\r\n    },\r\n    defaultVariants: {\r\n      side: \"right\",\r\n    },\r\n  }\r\n)\r\n\r\ninterface SheetContentProps\r\n  extends React.ComponentPropsWithoutRef<typeof SheetPrimitive.Content>,\r\n    VariantProps<typeof sheetVariants> {\r\n  /** Esconde o botão \"X\" (Close) no canto superior direito. Default: false. */\r\n  hideClose?: boolean\r\n}\r\n\r\nconst SheetContent = React.forwardRef<\r\n  React.ElementRef<typeof SheetPrimitive.Content>,\r\n  SheetContentProps\r\n>(({ side = \"right\", className, children, hideClose, ...props }, ref) => (\r\n  <SheetPortal>\r\n    <SheetOverlay />\r\n    <SheetPrimitive.Content\r\n      ref={ref}\r\n      className={cn(sheetVariants({ side }), className)}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {!hideClose && (\r\n        <SheetPrimitive.Close className=\"absolute right-pad-2xl top-pad-2xl rounded-radius-sm opacity-70 transition-opacity hover:opacity-100 focus:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary disabled:pointer-events-none data-[state=open]:bg-bg-muted text-fg-muted\">\r\n          <X className=\"h-4 w-4\" />\r\n          <span className=\"sr-only\">Close</span>\r\n        </SheetPrimitive.Close>\r\n      )}\r\n    </SheetPrimitive.Content>\r\n  </SheetPortal>\r\n))\r\nSheetContent.displayName = SheetPrimitive.Content.displayName\r\n\r\nconst SheetHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col gap-gp-sm text-left\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n)\r\nSheetHeader.displayName = \"SheetHeader\"\r\n\r\nconst SheetFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse gap-gp-md sm:flex-row sm:justify-end\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n)\r\nSheetFooter.displayName = \"SheetFooter\"\r\n\r\nconst SheetTitle = React.forwardRef<\r\n  React.ElementRef<typeof SheetPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <SheetPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\"text-body-lg font-medium font-semibold text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSheetTitle.displayName = SheetPrimitive.Title.displayName\r\n\r\nconst SheetDescription = React.forwardRef<\r\n  React.ElementRef<typeof SheetPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof SheetPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <SheetPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSheetDescription.displayName = SheetPrimitive.Description.displayName\r\n\r\nexport {\r\n  Sheet,\r\n  SheetPortal,\r\n  SheetOverlay,\r\n  SheetTrigger,\r\n  SheetClose,\r\n  SheetContent,\r\n  SheetHeader,\r\n  SheetFooter,\r\n  SheetTitle,\r\n  SheetDescription,\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/sheet.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · sheet · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "slider": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "slider",
+    "title": "Slider",
+    "description": "Slider (Radix) single/range com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-slider@^1.3.6"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/slider.tsx",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as SliderPrimitive from \"@radix-ui/react-slider\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Slider — alinhado com tokens v3.\r\n *\r\n * Specs:\r\n *   - Track: h:8px (h-2), bg-emphasis (light, gray[100]) / bg-accent (dark, alpha 16%), radius-full\r\n *   - Range: bg-brand (filled portion)\r\n *   - Thumb: 24x16 (oval), white com shadow-sh-md\r\n *     - hover/focus: shadow-sh-ring (brand glow)\r\n */\r\nconst THUMB_CLASS = cn(\r\n  \"block h-4 w-6 shrink-0 rounded-radius-full bg-white\",\r\n  \"shadow-sh-md\",\r\n  \"transition-[box-shadow] select-none outline-none\",\r\n  \"hover:shadow-sh-ring\",\r\n  \"focus-visible:shadow-sh-ring\",\r\n  \"disabled:pointer-events-none disabled:opacity-50\"\r\n);\r\n\r\nconst Slider = React.forwardRef<\r\n  React.ElementRef<typeof SliderPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>\r\n>(({ className, defaultValue, value, ...props }, ref) => {\r\n  const thumbCount = (value ?? defaultValue ?? [0]).length;\r\n\r\n  return (\r\n    <SliderPrimitive.Root\r\n      ref={ref}\r\n      defaultValue={defaultValue}\r\n      value={value}\r\n      className={cn(\r\n        \"relative flex w-full touch-none select-none items-center\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <SliderPrimitive.Track className=\"relative h-2 w-full grow overflow-hidden rounded-radius-full bg-bg-emphasis dark:bg-bg-accent\">\r\n        <SliderPrimitive.Range className=\"absolute h-full bg-bg-brand\" />\r\n      </SliderPrimitive.Track>\r\n      {Array.from({ length: thumbCount }, (_, i) => (\r\n        <SliderPrimitive.Thumb key={i} className={THUMB_CLASS} />\r\n      ))}\r\n    </SliderPrimitive.Root>\r\n  );\r\n})\r\nSlider.displayName = SliderPrimitive.Root.displayName\r\n\r\nexport { Slider }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/slider.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · slider · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "switch": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "switch",
+    "title": "Switch",
+    "description": "Switch (Radix) com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-switch@^1.2.6"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/switch.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as SwitchPrimitives from \"@radix-ui/react-switch\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Switch — alinhado com `.tbl-toggle` do design-and-table-v2.\r\n *\r\n * Specs:\r\n *   - Track: 42x24, radius-full\r\n *     - off light: bg-emphasis (gray[100] — visível em fundo branco)\r\n *     - off dark:  bg-accent (alpha branco 12% — visível em fundo escuro)\r\n *     - on:        bg-brand\r\n *   - Thumb: 20x20, white com shadow, transform 0.18s\r\n *   - Focus: shadow-sh-ring (brand glow)\r\n */\r\nconst Switch = React.forwardRef<\r\n  React.ElementRef<typeof SwitchPrimitives.Root>,\r\n  React.ComponentPropsWithoutRef<typeof SwitchPrimitives.Root>\r\n>(({ className, ...props }, ref) => (\r\n  <SwitchPrimitives.Root\r\n    className={cn(\r\n      \"peer relative inline-flex h-[24px] w-[42px] shrink-0 cursor-pointer items-center\",\r\n      \"rounded-radius-full\",\r\n      \"transition-[background-color,box-shadow] duration-150 outline-none\",\r\n      \"data-[state=unchecked]:bg-bg-emphasis dark:data-[state=unchecked]:bg-bg-accent\",\r\n      \"data-[state=checked]:bg-bg-brand\",\r\n      \"focus-visible:shadow-sh-ring\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n      className\r\n    )}\r\n    {...props}\r\n    ref={ref}\r\n  >\r\n    <SwitchPrimitives.Thumb\r\n      className={cn(\r\n        \"pointer-events-none block size-[20px] rounded-radius-full bg-white\",\r\n        \"shadow-[0_1px_2px_rgba(0,0,0,0.10)]\",\r\n        \"transition-transform duration-[180ms] ease-[cubic-bezier(0.4,0,0.2,1)]\",\r\n        \"data-[state=unchecked]:translate-x-[2px]\",\r\n        \"data-[state=checked]:translate-x-[20px]\"\r\n      )}\r\n    />\r\n  </SwitchPrimitives.Root>\r\n))\r\nSwitch.displayName = SwitchPrimitives.Root.displayName\r\n\r\nexport { Switch }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/switch.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · switch · v0.9.0 · 88f9b19 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "tabs": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "tabs",
+    "title": "Tabs",
+    "description": "Tabs (Radix) com tokens DS.",
+    "dependencies": [
+      "@radix-ui/react-tabs@^1.1.13"
+    ],
+    "registryDependencies": [
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/shadcn/tabs.tsx",
+        "content": "import * as React from \"react\"\r\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Tabs — segmented group pattern.\r\n * Alinhado com tbl-views-group / tbl-density-btn do design-and-table-v2.\r\n *\r\n * Container: h-form-lg (40px), bg-muted, p-[3px], gap-gp-2xs (2px), radius-lg (10px)\r\n * Tab:       h-[34px], px-[14px], gap-gp-sm (6px), radius-md (8px), 13px + medium\r\n * Active:    bg-accent + text-default + font-semibold + shadow-sm (auto-none em dark)\r\n */\r\nconst Tabs = TabsPrimitive.Root\r\n\r\nconst TabsList = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <TabsPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"inline-flex h-form-lg w-fit items-center bg-bg-muted p-[3px] gap-gp-2xs rounded-radius-lg\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nTabsList.displayName = TabsPrimitive.List.displayName\r\n\r\nconst TabsTrigger = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>\r\n>(({ className, ...props }, ref) => (\r\n  <TabsPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"inline-flex h-[34px] items-center justify-center gap-gp-sm whitespace-nowrap px-[14px] rounded-radius-md text-body-sm font-medium text-fg-muted transition-colors\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary\",\r\n      \"hover:text-fg-default\",\r\n      \"disabled:pointer-events-none disabled:opacity-50\",\r\n      \"data-[state=active]:bg-bg-accent data-[state=active]:text-fg-default data-[state=active]:font-semibold data-[state=active]:shadow-sh-sm\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nTabsTrigger.displayName = TabsPrimitive.Trigger.displayName\r\n\r\nconst TabsContent = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <TabsPrimitive.Content\r\n    ref={ref}\r\n    className={cn(\r\n      \"mt-sp-md flex-1 text-body-md outline-none\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nTabsContent.displayName = TabsPrimitive.Content.displayName\r\n\r\nexport { Tabs, TabsList, TabsTrigger, TabsContent }\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/tabs.tsx"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · tabs · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -233,7 +676,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · textarea · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -255,7 +698,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · theme · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -276,7 +719,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · tv · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -298,7 +741,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.9.0 · b46b933 · 2026-06-17"
+      "stamp": "igreen-ds · utils · v0.9.0 · 88f9b19 · 2026-06-17"
     },
     "type": "registry:file"
   }
