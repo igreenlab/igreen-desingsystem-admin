@@ -1,7 +1,7 @@
 import { forwardRef, useId, type ReactNode } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Checkbox } from "../../shadcn/checkbox";
+import { Checkbox } from "@/components/shadcn/checkbox";
 import { cn } from "@/lib/utils";
 import {
   formFieldRoot,

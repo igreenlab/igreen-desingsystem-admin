@@ -17,7 +17,7 @@ export {
   SheetTrigger as PanelTrigger,
   SheetClose as PanelCloseAction,
   SheetContent as PanelContent,
-} from "../../shadcn/sheet";
+} from "@/components/shadcn/sheet";
 
 /* Styles (pra override em casos custom) */
 export { panelContainer } from "./panel.styles";

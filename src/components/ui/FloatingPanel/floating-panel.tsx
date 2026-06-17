@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { Maximize2, Minimize2, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button/button";
+import { Button } from "@/components/ui/Button/button";
 import { floatingPanelStyles, FLOATING_PANEL_SIZE_PX } from "./floating-panel.styles";
 import { useFloatingPanelResize } from "./use-floating-panel-resize";
 import type { FloatingPanelProps, FloatingPanelSize } from "./floating-panel.types";

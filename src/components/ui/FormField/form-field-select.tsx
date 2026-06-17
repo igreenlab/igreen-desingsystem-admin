@@ -6,7 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
   type SelectTriggerState,
-} from "../../shadcn/select";
+} from "@/components/shadcn/select";
 import { FormField } from "./form-field";
 import type { FormFieldBaseProps } from "./form-field.types";
 

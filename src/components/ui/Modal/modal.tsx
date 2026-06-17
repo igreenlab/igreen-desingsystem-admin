@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
-import { Dialog, DialogContent, DialogClose } from "../../shadcn/dialog";
-import { Button } from "../Button/button";
+import { Dialog, DialogContent, DialogClose } from "@/components/shadcn/dialog";
+import { Button } from "@/components/ui/Button/button";
 import {
   dialog,
   closeBtn,

@@ -1,11 +1,11 @@
 import { forwardRef, type ReactNode } from "react";
-import { Input, type InputProps } from "../../shadcn/input";
+import { Input, type InputProps } from "@/components/shadcn/input";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "../../shadcn/input-group";
+} from "@/components/shadcn/input-group";
 import { FormField } from "./form-field";
 import type { FormFieldBaseProps } from "./form-field.types";
 

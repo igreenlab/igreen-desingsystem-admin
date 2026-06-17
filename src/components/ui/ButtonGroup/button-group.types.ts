@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import type { ButtonProps } from "../Button/button.types";
+import type { ButtonProps } from "@/components/ui/Button/button.types";
 
 /**
  * Props compartilhadas pelo group e pelos slots Primary/Chevron.

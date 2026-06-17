@@ -1,7 +1,7 @@
 import { forwardRef, useId, type ReactNode } from "react";
 import type { ComponentPropsWithoutRef, ElementRef } from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { Switch } from "../../shadcn/switch";
+import { Switch } from "@/components/shadcn/switch";
 import { cn } from "@/lib/utils";
 import {
   formFieldRoot,
