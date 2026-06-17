@@ -231,6 +231,15 @@ async function main() {
   if (existsSync(mcpSrc)) {
     renameSync(mcpSrc, mcpDst);
   }
+
+  // Step 5b3: kit de construção — rename _claude → .claude (rules auto-carregadas,
+  // skills crud-builder/ds-kit, commands). É o que faz o projeto nascer com o
+  // orquestrador + skill de CRUD + DESIGN.md sabendo dos padrões do DS.
+  const claudeSrc = join(projectDir, "_claude");
+  const claudeDst = join(projectDir, ".claude");
+  if (existsSync(claudeSrc)) {
+    renameSync(claudeSrc, claudeDst);
+  }
   const token = (igreenToken || "").trim();
   if (token) {
     writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, "utf8");
@@ -311,6 +320,9 @@ async function main() {
   console.log(pc.cyan("  npx shadcn@latest add @igreen/button") + pc.dim("   # puxe componentes do registry"));
   console.log(pc.cyan(`  ${runCmd}`));
   console.log();
+  console.log();
+  console.log(pc.dim("Kit de telas incluso: peça à IA \"monte uma tabela de X\" ou use /ds-create-crud."));
+  console.log(pc.dim("Padrões de design em DESIGN.md (raiz) + regras auto-carregadas em .claude/."));
   console.log(pc.dim("Tema/cn/tv do DS já vêm configurados. `npm run doctor` valida a integridade do cn/tv."));
   console.log(pc.dim("Preview will open at http://localhost:3200"));
   console.log();
