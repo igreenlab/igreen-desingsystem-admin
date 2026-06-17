@@ -53,6 +53,23 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 
 > Densa, **não apertada**: 24px é o respiro padrão entre blocos; 8px entre label e input. Espaçamento sempre via token, nunca px avulso. Divisória (`border-border-subtle`) entre seções heterogêneas (toolbar/tabela/footer); whitespace puro entre homogêneas (lista de cards).
 
+### Tokens de componente (use o ESPECÍFICO, não valor genérico)
+
+O DS tem tokens orientados a composição — prefira-os a `h-10`/`gap-4`/`size-5`. Caia no genérico (`gp`/`sp`/`pad`) só pro que não tem token de componente.
+
+| Família | Classes | Quando usar |
+|---|---|---|
+| **Altura de form** | `min-h-form-xs`(28) `sm`(32) `md`(36) `lg`(40 ⭐) `xl`(44) | Botões, inputs, selects, chips. `lg`=desktop default · `xl`=touch WCAG mobile. Nunca `h-9`/`h-10`. |
+| **Gap de form** | `gap-form-gap`(20) | Entre fields de um formulário (vertical ou grid). Nunca `gap-gp-*` em form. |
+| **Ícone** | `size-icon-2xs`(8) `xs`(12) `sm`(16) `md`(20 ⭐) `lg`(24) `xl`(32) `2xl`(40) | Tamanho de ícone. Nunca `size-5`/`w-4 h-4`. |
+| **Padding de card** | `p-pad-card-base`(24 ⭐) `p-pad-card-sm`(16) | Padding interno de Card/Panel/Modal/Drawer. |
+| **Gutter de página** | `px-pad-page-sm`(16, mobile) `base`(24) `lg`(40, wide) | Margem lateral do conteúdo (o AppShell normalmente já aplica). |
+| **Altura de chrome** | `h-layout-navbar`(64) `h-layout-toolbar`(48) `h-layout-tab-bar`(56) `h-layout-header-{sm,md,lg}` | Topbar, toolbar de tabela, tab-bar mobile, hero de página. |
+| **Largura/container** | `max-w-container-{lg,xl,2xl}`(1024/1280/1440) · `max-w-container-drawer-{sm,md,lg}` · `max-w-container-dropdown-*` | Cap de conteúdo / largura de drawer/dropdown. Nunca `max-w-md`. |
+| **Genéricos** | `gap-gp-*` (gaps) · `p-sp-*` (margin/offset) · `px-pad-*` (padding) | Só quando não há token de componente acima. |
+
+Regra: **se existe token de componente pra aquilo (form/icon/padCard/padPage/layout/container), use ele**; o genérico é fallback.
+
 ---
 
 ## 3. Cores e tokens
