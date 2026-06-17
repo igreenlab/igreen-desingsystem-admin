@@ -33,3 +33,8 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 - Existe exemplo/skill pra isso? (tabela→`/ds-create-crud`; ver `DESIGN.md` mapa de intenção). Puxe e adapte em vez de escrever do zero.
 - Leu o `USAGE.md` do componente? Não invente prop/variante.
 - `npx tsc --noEmit` limpo antes de entregar.
+
+## Puxar componentes/exemplos (manifesto)
+- **SEMPRE** `npm run igreen:add -- <item> [<item> ...]` — o wrapper instala E registra no `.igreen-ds/manifest.json` (baseline pro `igreen:drift`/`igreen:update`).
+- **NUNCA** `npx shadcn add @igreen/...` cru: o componente instala mas fica **fora do manifesto** (o `igreen:drift` acusa "não gerenciado"). Se acontecer, recupere rodando `npm run igreen:add -- <os mesmos itens>` (idempotente; re-baseline sem sobrescrever edição).
+- Commite o `.igreen-ds/manifest.json`.
