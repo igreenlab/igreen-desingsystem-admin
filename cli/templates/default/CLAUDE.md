@@ -89,6 +89,7 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "tela de edição", "cadastro", "formulário", "editar X", "novo X" | `example-edit-page` | FormField |
 | "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail` | Tabs + Cards |
 | "dashboard", "painel", "visão geral", "gráfico", "indicadores" | `example-dashboard` | Chart + KPI cards |
+| "chat", "inbox", "conversas", "atendimento", "mensagens" | `example-chat` | ConversationColumn + thread |
 | "shell do app", "layout com menu lateral", "casca", "estrutura base" | `app-shell` (template) | AppShell |
 | "menu lateral", "sidebar", "navegação lateral" | `menu-sidebar` (template) | MenuSidebar |
 | "cabeçalho do app", "topbar", "header com usuário" | `header` (template) | Header |
@@ -112,14 +113,24 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
   `USAGE.md` ao lado dele (`src/components/ui/<Nome>/USAGE.md`).
 - **`.claude/rules/ds-design.md`** — regras duras, **auto-carregadas** (você aplica
   sem ser pedido: gap do PageHeader, FormField em form, classes DS antes de Tailwind).
-- **`.claude/skills/ds-kit`** — orquestrador: identifica a intenção da tela e roteia.
-- **Skill `crud-builder`** (`/ds-create-crud`) — monta tabela/CRUD por **entrevista
-  guiada** (colunas, filtros, views, kanban, drawers). É o fluxo principal.
+- **`.claude/skills/ds-kit`** — **orquestrador (front-door)**: identifica a intenção da
+  tela e roteia pra skill/exemplo certo. É a porta de entrada de qualquer pedido de UI.
+- **Skills focadas** (cada uma dispara pela própria descrição, ou via ds-kit):
+  - `crud-builder` (`/ds-create-crud`) — tabela/CRUD por **entrevista guiada**. Fluxo principal.
+  - `page-edit` — edição/cadastro/formulário (→ `example-edit-page`).
+  - `page-detail` — detalhe/ficha com abas (→ `example-order-detail`).
+  - `dashboard` — KPIs + gráficos (→ `example-dashboard`).
+  - `charts` — gráficos isolados (Chart/Recharts, caveats).
+  - `chat` — inbox/conversas (→ `example-chat`).
+  - `drawers` — criar/editar/detalhe (→ drawers do `example-finance`).
+  - `cards` — composição de cards/painéis soltos.
 - **`/ds-build-page`** — entrada genérica que roteia qualquer tela pelo orquestrador.
 
-**Como a IA deve agir:** pedido de tela → orquestrador `ds-kit` classifica → CRUD vai
-pra `crud-builder` (entrevista); demais tipos puxam o `example-*` e adaptam — sempre
-aplicando `DESIGN.md`. Drawers de criar/editar/detalhe espelham o `example-finance`.
+**Como a IA deve agir:** pedido de tela → `ds-kit` classifica a intenção → CRUD vai pra
+`crud-builder` (entrevista com gate); demais tipos carregam a skill focada, que puxa o
+`example-*`/componente e adapta — sempre aplicando `DESIGN.md` + as regras auto-carregadas.
+Roteamento é por **skill** (nativo, barato) — sem subagente pra rotear; subagente só pra
+trabalho pesado em paralelo (ex.: montar várias telas de uma vez).
 
 ## Anti-patterns proibidos
 
