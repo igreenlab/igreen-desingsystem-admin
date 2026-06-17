@@ -1,40 +1,20 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /*
- * Diz pro Tailwind v4 escanear os bundles do DS dentro de node_modules.
- * Sem isso, as classes utility usadas DENTRO dos componentes do package
- * (gap-gp-md, rounded-radius-base, min-h-form-lg, etc.) não são geradas,
- * porque por default o Tailwind ignora node_modules/.
+ * Tema iGreen (tokens OKLCH) — copy-in via @igreen/theme, vive em src/.
+ * Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes,
+ * senão as classes geradas (gap-gp-*, rounded-radius-*, min-h-form-*) ficam
+ * órfãs (sem as CSS vars do @theme). Re-sincronizar com `shadcn add @igreen/theme`.
  */
-@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
+@import "./styles/theme/tailwind-theme.css";
 
-@import "@snksergio/design-system/theme.css";
-
-/*
- * Fontes Geist (sans + mono) carregadas do package `geist` em node_modules.
- * O Vite resolve esses caminhos via module resolution. Sem isso, font-family
- * cai pro fallback system-ui (Segoe UI no Windows, San Francisco no Mac).
- */
-@font-face {
-  font-family: "Geist";
-  src: url("geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2-variations");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("geist/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2-variations");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
+@custom-variant dark (&:is(.dark *));
 
 html,
 body {
   background: var(--color-bg-canvas);
   color: var(--color-fg-default);
-  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   min-height: 100vh;
 }

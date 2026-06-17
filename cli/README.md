@@ -1,75 +1,71 @@
 # @snksergio/create-design-system
 
-CLI to bootstrap a new project consuming [`@snksergio/design-system`](https://www.npmjs.com/package/@snksergio/design-system).
+CLI to bootstrap a new project that consumes the **iGreen Design System via the
+shadcn registry (copy-in model)** — not as an npm dependency.
 
-Pre-configures React 19 + Vite + Tailwind CSS v4 + the DS theme, with a working example page demonstrating Button, Chip, Avatar, Badge and AlertModal — including dark/light theme toggle.
+Pre-configures React 19 + Vite + Tailwind CSS v4, with the DS **theme, `cn` and
+`tv` already baked in** and the `@igreen` registry wired in `components.json`. You
+then pull components on demand with `shadcn add @igreen/<name>`.
 
 ## Quick start
 
 ```bash
 npm create @snksergio/design-system my-app
 cd my-app
+cp .env.local.example .env.local         # paste the IGREEN_TOKEN (ask the maintainer)
+npx shadcn@latest add @igreen/button     # pull components from the registry
 npm run dev
 ```
 
-That's it. Browser opens at `http://localhost:3200` showing the example page.
+Browser opens at `http://localhost:3200`. The starter page works with zero
+components installed (uses theme tokens only) and lists the next steps.
 
 ## What the CLI does
 
 1. Asks for the project name (or takes from arg)
-2. Detects your package manager (npm/pnpm/yarn/bun) — you can override
-3. Copies the `default` template into a fresh folder
-4. Substitutes the `name` field in `package.json`
-5. Installs dependencies (optional)
-6. Initializes a git repository with first commit (optional)
-7. Prints next steps
+2. Optionally takes the `IGREEN_TOKEN` (writes `.env.local`) — Enter to skip and paste later
+3. Detects your package manager (npm/pnpm/yarn/bun) — you can override
+4. Copies the `default` template into a fresh folder
+5. Renames `_gitignore` → `.gitignore` and `_env.local.example` → `.env.local.example`
+6. Installs dependencies (optional) + git init (optional)
+7. Prints next steps (token + `shadcn add`)
 
 ## What's in the template
 
 ```
 my-app/
-├── index.html
-├── package.json              # @snksergio/design-system + React + Vite
-├── tsconfig.json
-├── vite.config.ts
-├── .gitignore
+├── components.json            # @igreen registry + Bearer ${IGREEN_TOKEN} wired
+├── .env.local.example         # IGREEN_TOKEN=
+├── vite.config.ts             # @ alias + @tailwindcss/vite
+├── tsconfig.json              # paths @/* → ./src/*
+├── scripts/doctor.mjs         # valida integridade do cn/tv (L-016) por hash
 └── src/
-    ├── main.tsx
-    ├── index.css             # Tailwind v4 + @source + theme.css imports
-    └── App.tsx               # Example page with 4 DS components + theme toggle
+    ├── index.css              # tailwindcss + tw-animate-css + theme (na ordem certa)
+    ├── lib/utils.ts           # cn do DS (extendTailwindMerge p/ prefixos DS) — BAKED
+    ├── utils/tv.ts            # tv do DS (twMergeConfig) — BAKED
+    ├── styles/theme/tailwind-theme.css   # tokens OKLCH — BAKED
+    └── App.tsx                # starter (tokens only) + próximos passos
 ```
 
-The CSS already has the required `@source` directive — without it, Tailwind v4 ignores `node_modules/` and the DS components render unstyled. The CLI bakes this in so you never hit that pitfall.
+**Por que `cn`/`tv`/`theme` vêm baked:** evita o problema do `shadcn init` plantar o
+`cn` padrão (que quebra a resolução de classe DS em silêncio — L-016). Como já são os
+do DS, um `shadcn add @igreen/<x>` que traga `@igreen/utils`/`@igreen/tv` os vê
+**idênticos e pula** — sem overwrite, sem pegadinha. `npm run doctor` valida a integridade.
 
 ## Requirements
 
 - Node.js ≥ 20
-
-## Other usage
-
-```bash
-# Without args (prompts will ask)
-npm create @snksergio/design-system
-
-# With explicit package manager
-pnpm create @snksergio/design-system my-app
-yarn create @snksergio/design-system my-app
-
-# Force latest CLI version (bypass npx cache)
-npm create @snksergio/design-system@latest my-app
-
-# Specific version
-npm create @snksergio/design-system@0.1.1 my-app
-```
+- `IGREEN_TOKEN` (Bearer do registry privado) pra `shadcn add`
 
 ## Note about npx cache
 
-`npm create XXX` is sugar for `npx create-XXX`. npx caches downloaded
-packages in `~/AppData/Local/npm-cache/_npx/` and reuses them, even when
-you don't pin a version. After a fresh `npm publish`, you may need to
-explicitly request `@latest` (or a specific version) to bypass cache and
-get the new release.
+`npm create XXX` = `npx create-XXX`. npx caches packages; após um publish novo,
+peça `@latest` (ou versão específica) pra furar o cache:
+
+```bash
+npm create @snksergio/design-system@latest my-app
+```
 
 ## License
 
-Internal — iGreen. No public distribution intended beyond installing into iGreen apps.
+Internal — iGreen. No public distribution intended beyond iGreen apps.

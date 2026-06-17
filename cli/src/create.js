@@ -138,6 +138,11 @@ async function main() {
         initial: 0,
       },
       {
+        type: "password",
+        name: "igreenToken",
+        message: "IGREEN_TOKEN (Bearer do registry — Enter pra pular e colar depois)?",
+      },
+      {
         type: "select",
         name: "packageManager",
         message: "Package manager?",
@@ -173,7 +178,7 @@ async function main() {
 
   const projectName = argName || answers.projectName;
   const template = answers.template || DEFAULT_TEMPLATE;
-  const { packageManager, installDeps, initGit } = answers;
+  const { packageManager, installDeps, initGit, igreenToken } = answers;
 
   // Step 2: validate destination
   const projectDir = resolve(process.cwd(), projectName);
@@ -208,6 +213,18 @@ async function main() {
   const gitignoreDst = join(projectDir, ".gitignore");
   if (existsSync(gitignoreSrc)) {
     renameSync(gitignoreSrc, gitignoreDst);
+  }
+
+  // Step 5b: env do registry — rename _env.local.example → .env.local.example
+  // e, se o token foi informado, grava .env.local (gitignored) já pronto.
+  const envExSrc = join(projectDir, "_env.local.example");
+  const envExDst = join(projectDir, ".env.local.example");
+  if (existsSync(envExSrc)) {
+    renameSync(envExSrc, envExDst);
+  }
+  const token = (igreenToken || "").trim();
+  if (token) {
+    writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, "utf8");
   }
 
   // Step 6: install deps
@@ -255,8 +272,13 @@ async function main() {
   if (!installDeps) {
     console.log(pc.cyan(`  ${packageManager} install`));
   }
+  if (!token) {
+    console.log(pc.cyan("  cp .env.local.example .env.local") + pc.dim("   # cole o IGREEN_TOKEN"));
+  }
+  console.log(pc.cyan("  npx shadcn@latest add @igreen/button") + pc.dim("   # puxe componentes do registry"));
   console.log(pc.cyan(`  ${runCmd}`));
   console.log();
+  console.log(pc.dim("Tema/cn/tv do DS já vêm configurados. `npm run doctor` valida a integridade do cn/tv."));
   console.log(pc.dim("Preview will open at http://localhost:3200"));
   console.log();
 }

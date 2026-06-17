@@ -1,7 +1,6 @@
 node_modules/
 dist/
 .vite/
-*.local
 
 # OS
 .DS_Store
@@ -14,7 +13,8 @@ Thumbs.db
 # TypeScript incremental cache
 *.tsbuildinfo
 
-# Environment
+# Environment — token do registry NUNCA vai no git
 .env
-.env.*
-!.env.example
+.env.local
+.env.*.local
+!.env.local.example

@@ -273,10 +273,26 @@ relativo cross-dir e `export...from` cross-component **quebram** — refatorar a
     livre do ruído do carimbo (§3, P2). Re-gerado e verificado: zero `@igreen-stamp`
     no `content` de qualquer JSON; `meta.stamp` presente nos 5 items.
 
-**Fase 2 — CLI de scaffold (consumidor)**
-- Vite + React + TS, Tailwind v4 (versões travadas), `shadcn init`, grava
-  `@igreen` + token no `components.json` e `.env.local`, puxa o tema
-  (`@igreen/theme`) importando antes dos componentes.
+**Fase 2 — CLI de scaffold (consumidor)** ✅ **CONCLUÍDA (2026-06-17)**
+- **Entregue:** `cli/` (`@snksergio/create-design-system` v0.2.0) reescrito do modelo
+  npm pro modelo registry. Template `cli/templates/default/` agora traz: `components.json`
+  com registry `@igreen` + Bearer; `_env.local.example` (→ `.env.local`); `vite.config`
+  com alias `@/`; `tsconfig` com paths; `index.css` (tailwindcss + tw-animate-css + theme
+  na ordem certa); **`cn`/`tv`/`theme` BAKED** (`src/lib/utils.ts`, `src/utils/tv.ts`,
+  `src/styles/theme/tailwind-theme.css`, + `lucide-types.ts`); `scripts/doctor.mjs`
+  (hash do cn/tv); `App.tsx` starter (tokens-only) + próximos passos. `create.js` ganhou
+  prompt opcional do `IGREEN_TOKEN` (grava `.env.local`), rename do `_env.local.example`,
+  e next-steps do modelo registry.
+- **Salvaguarda do cn — resolvida por BAKING (decisão).** Em vez de depender de
+  `--overwrite` no add, o template **já nasce com o cn/tv do DS** → o `shadcn add` que
+  traga `@igreen/utils`/`@igreen/tv` os vê **idênticos e PULA** (sem overwrite, sem o cn
+  padrão do shadcn entrar). Validado: scaffold → install → build → `shadcn add @igreen/button`
+  (utils **Skipped**, integridade mantida) → `add @igreen/form-field` (16 arquivos) →
+  `doctor` ✓ (cn/tv íntegros) → build exit 0.
+- **Validação:** simulei o scaffold do CLI (copy+renames) num projeto limpo, install +
+  build + doctor + typecheck verdes, e os `add` reais contra o registry autenticado OK.
+- Original (referência histórica): Vite + React + TS, Tailwind v4, `shadcn init`, grava
+  `@igreen` + token no `components.json` e `.env.local`, puxa o tema antes dos componentes.
 - **🔴 ITEM CRÍTICO — overwrite do `cn`.** O `shadcn init` planta um
   `src/lib/utils.ts` com o **cn padrão** (`twMerge(clsx())` sem config). Quando o
   consumidor puxar `@igreen/utils`, esse arquivo **PRECISA ser sobrescrito** —
