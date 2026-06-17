@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { MessageSquare, PenLine, Maximize2, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button/button";
-import { ChipGroup, ChipGroupItem } from "../Chip";
+import { Button } from "@/components/ui/Button/button";
+import { ChipGroup, ChipGroupItem } from "@/components/ui/Chip";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
-} from "../../shadcn/input-group";
+} from "@/components/shadcn/input-group";
 import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import {
   headerIconBtnBadge,
   hdTop,

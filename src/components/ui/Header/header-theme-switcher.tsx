@@ -5,8 +5,8 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "../../shadcn/dropdown-menu";
-import { Button } from "../Button/button";
+} from "@/components/shadcn/dropdown-menu";
+import { Button } from "@/components/ui/Button/button";
 import type { HeaderThemeOption } from "./header.types";
 
 const DEFAULT_OPTIONS: HeaderThemeOption[] = [

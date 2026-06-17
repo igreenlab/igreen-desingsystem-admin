@@ -1,5 +1,5 @@
 import { LayoutGrid, LogOut, Settings, SunMoon } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "../../shadcn/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/shadcn/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +11,8 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "../../shadcn/dropdown-menu";
-import type { HeaderThemeOption } from "../Header";
+} from "@/components/shadcn/dropdown-menu";
+import type { HeaderThemeOption } from "@/components/ui/Header";
 import type { AppShellLayoutOption, AppShellUser } from "./app-shell.types";
 
 export type UserMenuProps = {

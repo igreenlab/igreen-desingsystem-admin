@@ -6,7 +6,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "../../shadcn/dropdown-menu";
+} from "@/components/shadcn/dropdown-menu";
 import {
   sidebarPanel,
   sidebarPanelHeader,

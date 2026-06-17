@@ -6,8 +6,8 @@ import type {
   HeaderMessagesConfig,
   HeaderNotificationsConfig,
   HeaderThemeOption,
-} from "../Header";
-import type { SidebarContext, SidebarMenuItem } from "../MenuSidebar";
+} from "@/components/ui/Header";
+import type { SidebarContext, SidebarMenuItem } from "@/components/ui/MenuSidebar";
 
 /**
  * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)

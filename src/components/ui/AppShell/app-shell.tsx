@@ -1,8 +1,8 @@
 import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Header } from "../Header";
-import { MenuSidebar } from "../MenuSidebar";
-import { useMediaQuery } from "../MenuSidebar/use-media-query";
+import { Header } from "@/components/ui/Header";
+import { MenuSidebar } from "@/components/ui/MenuSidebar";
+import { useMediaQuery } from "@/components/ui/MenuSidebar/use-media-query";
 import { UserMenu } from "./user-menu";
 import * as s from "./app-shell.styles";
 import type { AppShellProps } from "./app-shell.types";
