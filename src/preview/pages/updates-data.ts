@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.10.0",
+    date: "2026-06-17",
+    tag: "milestone",
+    title: "Distribuição completa: registry + CLI + kit de construção no consumidor",
+    summary:
+      "Marco da distribuição. O DS vira consumível ponta-a-ponta: registry shadcn privado (copy-in) com 56 itens — incl. 6 telas-exemplo extraídas 1:1 dos showcases (clientes, finance, dashboard, order-detail, edit-page, chat) — + o CLI `@snksergio/create-design-system` que scaffolda projeto pronto (banner, tela de boas-vindas/tutorial, exemplos navegáveis no menu) + um KIT embutido no consumidor (orquestrador `ds-kit` + skills crud-builder/page-edit/page-detail/dashboard/charts/chat/drawers/cards + DESIGN.md + regras auto-carregadas) pra IA montar telas por intenção. Integridade protegida por hook. Pipeline do DS ganha cobertura (hooks de registry/tokens, drift-check examples↔showcase, CI) e o bug do DataTable (react-virtual ausente no item) foi corrigido.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Registry shadcn privado completo (56 itens) + 6 telas-exemplo (`example-clientes/finance/dashboard/order-detail/edit-page/chat`) extraídas 1:1 dos showcases (conteúdo de página, sem shell).",
+          "CLI `@snksergio/create-design-system`: banner, tela de boas-vindas/tutorial, prompt pra instalar exemplos no menu, AppShell com hash-routing. Fontes Geist embutidas no template.",
+          "Kit de construção no consumidor (`.claude/`): orquestrador `ds-kit` (intenção→rota), skills focadas (crud-builder, page-edit, page-detail, dashboard, charts, chat, drawers, cards), `DESIGN.md` enxuto, regras auto-carregadas e hook `protect-ds` (bloqueia edição de tema/tokens/fundação).",
+          "Pipeline DS: `registry-check.mjs` (consistência paths+embed), `examples-drift-check.mjs` (examples↔showcase), CI GitHub Actions (tsc+test+consistência+drift), hooks `ds-tokens-check` e cobertura de registry no `ds-inventory-check`.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Item `@igreen/data-table` não declarava `@tanstack/react-virtual` → DataTable crashava (Invalid hook call) em consumidor limpo. Corrigido.",
+          "Template do CLI: fonte Geist não carregava (caía em system-ui) — `@font-face` + woff2 + `--font-sans` adicionados.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Auditoria de saúde: remoção de órfão (ChartComingSoonDoc), docs de path corrigidas, `TabelaTeste` fora do barrel público, placeholder do registry-add-item.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.9.0",
     date: "2026-06-11",
     tag: "release",

@@ -302,6 +302,13 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 ### Charts / Recharts 3 (lições v0.9.x)
 - **L-032** **Recharts 3 tem caveats que quebram mudo.** (1) `text-display-sm`/`text-display-xs` **não existem** (renderizam 14px) → KPI usa `heading-sm`/`heading-xs`/`display-md`. (2) Pizza: sem `activeIndex`/`activeShape` → prop `shape={(props,index)=><Sector/>}`. (3) Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0,total]} />`. (4) Eixo Y omite tick de borda (ex: `0`) → `interval={0}`; e `domain` máximo **= maior tick** (senão linha-guia duplicada no topo). (5) Grid via token `chart-grid` (`--color-chart-grid`), reescrito no `ChartContainer` — não passar `stroke`. Padrões completos: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md`.
 
+### Distribuição / consumidor (lições v0.10.0)
+- **L-033** Copy-in: integridade se protege por **hook** (`protect-ds.mjs` bloqueia tema/tokens/`cn`/`tv`; avisa em componente) + regra, não travando arquivo. IA do consumidor customiza na **composição**, nunca nos tokens/internals.
+- **L-034** `example-*` = **extração 1:1 do showcase real**, nunca toy. Strip `AppShell` → `<div flex flex-col h-full min-h-0 gap-gp-2xl>`, `TableDoc`→`_table-data.ts`, rewrite imports, validar render no consumidor.
+- **L-035** examples↔preview são cópias paralelas → **drift-check** (`examples-drift-check.mjs`, hash da fonte) avisa quando o showcase muda; re-sync `--baseline`.
+- **L-036** Roteamento de intenção no consumidor = **skill** (nativo/barato pela description), não agente. `ds-kit` é o front-door; subagente só pra trabalho pesado.
+- **L-037** Item de registry declara **todas** as deps reais (`data-table` precisa `@tanstack/react-virtual`; quem usa `@/lib/lucide-types` embute o arquivo). Validar com render em consumidor, não só tsc.
+
 ### Padrão de chart (resumo)
 ```
 Gráfico SEMPRE em <ChartContainer config={...}>; cor SÓ por token (chart-1..5 / config keys).
