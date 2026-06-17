@@ -38,6 +38,14 @@ import { Button } from "@/components/ui/Button";
 import { FormFieldInput } from "@/components/ui/FormField";
 ```
 
+### MCP — descoberta assistida por IA (já configurado)
+O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** já consegue
+**listar / buscar / ver / adicionar** componentes `@igreen` por conta própria (lê o
+`components.json` + o `IGREEN_TOKEN` do `.env.local`). Peça à IA: *"liste os componentes
+@igreen"*, *"como uso o DataTable?"*, *"adicione o form-field"*. Cada componente traz seu
+`USAGE.md` no copy-in — a IA lê pra saber a API. Pra **Cursor / VSCode / Codex**:
+`npx shadcn mcp init --client cursor` (ou `vscode`/`codex`).
+
 ### Já vem configurado (não mexa sem motivo)
 - `src/lib/utils.ts` (`cn`) e `src/utils/tv.ts` (`tv`) — **configurados pros prefixos
   DS** (pad/sp/gp/radius/sh/form) + presets tipográficos (L-016). Se sobrescrever pelo

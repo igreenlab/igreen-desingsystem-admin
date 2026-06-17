@@ -35,6 +35,7 @@ components installed (uses theme tokens only) and lists the next steps.
 
 ```
 my-app/
+├── .mcp.json                  # servidor shadcn MCP → IA (Claude Code) descobre/adiciona @igreen
 ├── components.json            # @igreen registry + Bearer ${IGREEN_TOKEN} wired
 ├── .env.local.example         # IGREEN_TOKEN=
 ├── vite.config.ts             # @ alias + @tailwindcss/vite

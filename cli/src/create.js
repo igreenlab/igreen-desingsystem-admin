@@ -223,6 +223,14 @@ async function main() {
   if (existsSync(envExSrc)) {
     renameSync(envExSrc, envExDst);
   }
+
+  // Step 5b2: MCP — rename _mcp.json → .mcp.json (projeto nasce MCP-ready p/ Claude Code;
+  // a IA do consumidor descobre/adiciona @igreen via o servidor `shadcn mcp`).
+  const mcpSrc = join(projectDir, "_mcp.json");
+  const mcpDst = join(projectDir, ".mcp.json");
+  if (existsSync(mcpSrc)) {
+    renameSync(mcpSrc, mcpDst);
+  }
   const token = (igreenToken || "").trim();
   if (token) {
     writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, "utf8");
