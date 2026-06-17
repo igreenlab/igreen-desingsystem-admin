@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/create-design-system",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Bootstrap projects consuming the iGreen DS via shadcn registry (copy-in) — React 19 + Vite + Tailwind v4, cn/tv/theme + registry @igreen pre-configured, com manifesto + drift check (igreen:add / igreen:drift).",
   "type": "module",
   "bin": {

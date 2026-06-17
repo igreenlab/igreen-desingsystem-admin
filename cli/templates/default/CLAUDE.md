@@ -38,6 +38,15 @@ import { Button } from "@/components/ui/Button";
 import { FormFieldInput } from "@/components/ui/FormField";
 ```
 
+### Componente do shadcn OFICIAL (não-@igreen) → já vem iGreen-tematizado
+O `index.css` tem um **bridge shadcn→iGreen** (`@theme inline`) que mapeia o vocabulário
+base do shadcn (`bg-primary`, `bg-background`, `border`, `rounded-md`…) pros tokens iGreen.
+Então se você puxar um componente do registry **oficial** (ex.: `npx shadcn add skeleton`,
+sem `@igreen/`), ele nasce **iGreen-tematizado automaticamente** (brand no primary, etc.),
+light + dark. ⚠️ Componentes oficiais podem precisar de deps próprias (ex.: `radix-ui`,
+`class-variance-authority`) — se o `shadcn add` não instalar, rode `npm i <dep>`. Isso é do
+componente oficial, não do DS.
+
 ### MCP — descoberta assistida por IA (já configurado)
 O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** já consegue
 **listar / buscar / ver / adicionar** componentes `@igreen` por conta própria (lê o

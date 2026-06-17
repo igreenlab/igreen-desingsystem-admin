@@ -11,6 +11,40 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Bridge shadcn → iGreen. Mapeia o vocabulário BASE do shadcn (bg-primary,
+ * bg-background, border-border, etc.) pros tokens iGreen. Assim QUALQUER componente
+ * do shadcn OFICIAL puxado ad-hoc (ex.: `npx shadcn add skeleton`) nasce
+ * iGreen-tematizado automaticamente — e segue dark/light (os tokens iGreen já trocam
+ * sob .dark). Componentes @igreen usam o vocabulário iGreen direto e não dependem disto.
+ */
+@theme inline {
+  --color-background: var(--color-bg-canvas);
+  --color-foreground: var(--color-fg-default);
+  --color-card: var(--color-bg-surface);
+  --color-card-foreground: var(--color-fg-default);
+  --color-popover: var(--color-bg-dropdown);
+  --color-popover-foreground: var(--color-fg-default);
+  --color-primary: var(--color-bg-brand);
+  --color-primary-foreground: var(--color-fg-on-brand);
+  --color-secondary: var(--color-bg-subtle);
+  --color-secondary-foreground: var(--color-fg-default);
+  --color-muted: var(--color-bg-muted);
+  --color-muted-foreground: var(--color-fg-muted);
+  --color-accent: var(--color-bg-accent);
+  --color-accent-foreground: var(--color-fg-default);
+  --color-destructive: var(--color-bg-danger);
+  --color-destructive-foreground: var(--color-fg-on-danger);
+  --color-border: var(--color-border-default);
+  --color-input: var(--color-border-input);
+  --color-ring: var(--color-bg-brand);
+  --radius: var(--radius-radius-base);
+  --radius-sm: var(--radius-radius-sm);
+  --radius-md: var(--radius-radius-base);
+  --radius-lg: var(--radius-radius-lg);
+  --radius-xl: var(--radius-radius-lg);
+}
+
 html,
 body {
   background: var(--color-bg-canvas);
