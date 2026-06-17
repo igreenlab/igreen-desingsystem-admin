@@ -319,8 +319,23 @@ relativo cross-dir e `export...from` cross-component **quebram** — refatorar a
 - **Pronto quando:** `npm create @snksergio/design-system <app>` roda com tema
   aplicado, namespace, e o **cn do DS instalado (hash confere)**, zero config manual.
 
-**Fase 3 — Versionamento + governança no consumidor** ⬆️ **prioridade elevada**
-- **Manifesto = ESSENCIAL (não opcional).** O header de carimbo foi **dropado** (§3) —
+**Fase 3 — Versionamento + governança no consumidor** ✅ **CONCLUÍDA (2026-06-17)**
+- **Entregue (CLI v0.3.0):** `scripts/igreen-add.mjs` (`npm run igreen:add -- <x>`) — wrapper
+  do `shadcn add` que grava `.igreen-ds/manifest.json` `{ items: { <nome>: { rev (meta.stamp),
+  hash (dos arquivos instalados), files, addedAt } } }`. `scripts/igreen-drift.mjs`
+  (`npm run igreen:drift`, CI) — re-hasheia os arquivos vs baseline do manifesto (pega
+  **edição local** → exit 1) + compara a rev vs registry (pega **defasagem** → aviso). O
+  `doctor.mjs` cobre cn/tv contra o registry. Manifesto é commitável (rev por-componente).
+- **Decisão (wrapper, não scan/hook):** manifesto cresce incrementalmente a cada `igreen:add`,
+  registrando os `files[].target` do item + hash pós-transform → drift detecta edição sem
+  precisar reverter o import-rewrite do shadcn (compara o instalado vs o instalado-no-add).
+- **Caveat resolvido:** `process.exit()` com `fetch` keep-alive pendente crasha o libuv no
+  Windows (assertion UV_HANDLE_CLOSING → exit 127). Fix: `process.exitCode` nos scripts.
+- **Validado:** scaffold → `igreen:add button card` → manifesto com rev+files → `igreen:drift`
+  exit 0; edição local → `✗ EDITADO` exit 1 (limpo, sem 127); re-`igreen:add` re-baseline → exit 0.
+- Governança passiva (rules/USAGE) como `registry:file`: **diferido** (escopo futuro; USAGE.md
+  já viaja junto de cada componente).
+- _Histórico:_ **Manifesto = ESSENCIAL (não opcional).** O header de carimbo foi **dropado** (§3) —
   não existe mais em arquivo nenhum (e já sumia nos `registry:ui` pelo transform do
   shadcn). Logo o manifesto (`.igreen-ds/manifest.json`: componente → rev, atualizado
   a cada add, lendo o `meta.stamp` do JSON) é a **única rastreabilidade por-componente

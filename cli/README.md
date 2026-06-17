@@ -12,8 +12,9 @@ then pull components on demand with `shadcn add @igreen/<name>`.
 ```bash
 npm create @snksergio/design-system my-app
 cd my-app
-cp .env.local.example .env.local         # paste the IGREEN_TOKEN (ask the maintainer)
-npx shadcn@latest add @igreen/button     # pull components from the registry
+cp .env.local.example .env.local              # paste the IGREEN_TOKEN (ask the maintainer)
+npm run igreen:add -- button form-field       # pull components + register in manifest
+npm run igreen:drift                          # verify integrity (CI-friendly)
 npm run dev
 ```
 
@@ -38,7 +39,10 @@ my-app/
 ├── .env.local.example         # IGREEN_TOKEN=
 ├── vite.config.ts             # @ alias + @tailwindcss/vite
 ├── tsconfig.json              # paths @/* → ./src/*
-├── scripts/doctor.mjs         # valida integridade do cn/tv (L-016) por hash
+├── scripts/doctor.mjs         # valida cn/tv contra o registry (L-016)
+├── scripts/igreen-add.mjs     # wrapper de `shadcn add` que mantém o manifesto
+├── scripts/igreen-drift.mjs   # drift check (edição local + defasagem) — CI
+├── .igreen-ds/manifest.json   # rev + hash de cada componente (gerado por igreen:add; commite)
 └── src/
     ├── index.css              # tailwindcss + tw-animate-css + theme (na ordem certa)
     ├── lib/utils.ts           # cn do DS (extendTailwindMerge p/ prefixos DS) — BAKED

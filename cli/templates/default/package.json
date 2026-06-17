@@ -8,7 +8,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
-    "doctor": "node scripts/doctor.mjs"
+    "doctor": "node scripts/doctor.mjs",
+    "igreen:add": "node scripts/igreen-add.mjs",
+    "igreen:drift": "node scripts/igreen-drift.mjs"
   },
   "dependencies": {
     "clsx": "^2.1.1",

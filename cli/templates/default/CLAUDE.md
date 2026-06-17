@@ -12,11 +12,19 @@ Os componentes do DS são **copiados pro seu projeto** via `shadcn add @igreen/<
 # 1. token do registry privado no .env.local (peça ao mantenedor)
 cp .env.local.example .env.local   # cole o IGREEN_TOKEN
 
-# 2. puxe componentes sob demanda
-npx shadcn@latest add @igreen/button
-npx shadcn@latest add @igreen/form-field   # composite (traz input/select/textarea/checkbox/switch)
-npx shadcn@latest add @igreen/card @igreen/badge @igreen/dialog
+# 2. puxe componentes sob demanda — PREFIRA o wrapper (mantém o manifesto):
+npm run igreen:add -- button form-field card badge dialog
+#   (equivale a `npx shadcn add @igreen/<x>` + registra rev/hash no manifesto)
+
+# 3. valide integridade/defasagem (use em CI):
+npm run igreen:drift
 ```
+
+> **Manifesto + drift:** `npm run igreen:add` grava cada componente (rev + hash) em
+> `.igreen-ds/manifest.json` (commite-o). `npm run igreen:drift` falha (exit 1) se
+> algum componente foi **editado localmente** e avisa se está **defasado** vs o registry.
+> `npm run doctor` valida o `cn`/`tv` contra o registry. Pode usar `npx shadcn add`
+> direto, mas aí o manifesto não acompanha (o drift acusaria como não-gerenciado).
 
 ```tsx
 // import sempre via alias @/ (copy-in), nunca de package npm

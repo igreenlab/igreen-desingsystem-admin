@@ -81,4 +81,6 @@ for (const { local, item } of CHECKS) {
   }
 }
 
-process.exit(ok ? 0 : 1);
+// process.exitCode (não process.exit) — process.exit() com fetch keep-alive pendente
+// crasha o libuv no Windows (assertion UV_HANDLE_CLOSING). Deixa o Node drenar.
+process.exitCode = ok ? 0 : 1;
