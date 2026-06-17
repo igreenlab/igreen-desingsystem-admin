@@ -780,6 +780,40 @@ diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid us
 
 ---
 
+### Distribuição / consumidor (lições 2026-06-17, v0.10.0)
+
+**[L-033] Copy-in: integridade se protege por HOOK + regra, não travando arquivo.**
+O código é do consumidor (repo dele) — não dá pra impedir edição. O template embute
+`.claude/hooks/protect-ds.mjs`: **bloqueia** (exit 2) edição de tema/tokens
+(`src/styles/theme/**`) e fundação (`cn`/`tv`/`lucide-types`); **avisa** (exit 1) edição
+de componente do DS (drift); libera telas. Regra pra IA do consumidor: **customizar na
+COMPOSIÇÃO** (props/variantes + classes na tela), nunca nos tokens/internals.
+
+**[L-034] `example-*` do registry = extração 1:1 do showcase real, nunca "toy".**
+Toy inventado (KPIs/colunas que o showcase não tem) fura a "garantia de produção conforme
+os showcases". Extração: espelhar a árvore, strip do `AppShell` (vira `<div flex flex-col
+h-full min-h-0 gap-gp-2xl>`), inline de `TableDoc` → `_table-data.ts`, rewrite de imports
+relativos, manter `@/components/ui|shadcn/*`, validar tsc + render no consumidor.
+
+**[L-035] examples↔preview são cópias paralelas SEM geração automática → drift-check.**
+`scripts/examples-drift-check.mjs` guarda hash da fonte (`examples-sources.lock.json`) e
+**avisa** quando um showcase muda sem o example re-extraído (roda no `registry:build`).
+Re-sync após re-extrair: `--baseline`. Decisão: extração manual + check em vez de
+geração/inversão (refatorar a catálogo viva = risco).
+
+**[L-036] Roteamento de intenção no consumidor = SKILL, não AGENTE.**
+Skill dispara nativo/barato pela `description` (sem custo de janela de contexto separada).
+Agente de roteamento seria caro/lento. `ds-kit` é o front-door (skill); subagente só pra
+trabalho pesado em paralelo. (Diferente do orquestrador-agente do próprio DS, multi-etapa.)
+
+**[L-037] Item de registry precisa declarar TODAS as deps reais.**
+`@igreen/data-table` não declarava `@tanstack/react-virtual` → DataTable crashava
+(Invalid hook call) em consumidor limpo. Itens que importam `@/lib/lucide-types` devem
+**embutir** `lib/lucide-types.ts` (`registry:file`) se não puxam via dep que já o entrega
+(panel/floating-panel). Validar com render em consumidor real, não só tsc no DS.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

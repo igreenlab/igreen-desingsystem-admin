@@ -2208,3 +2208,22 @@
 - Critique genuína: além do checklist, achei o ordering do `registry:build` (o `tokens:tw4` regenera o `theme.css` e apaga o stamp) → corrigido pra `tokens:tw4 → registry:stamp → shadcn build`. Headers em `tv.ts`/`utils.ts` são só comentário (+1 linha) — `twMergeConfig` intacto, **L-016 preservado** (`tv.ts ↔ typography` idêntico). tsc exit 0.
 - Regressões L-xxx encontradas: nenhuma.
 - Lições novas: nenhuma.
+
+---
+
+### 2026-06-17 | ORCHESTRATOR | Distribuição completa + kit consumidor + auditoria | CONCLUÍDO (milestone v0.10.0)
+
+Sessão longa de distribuição ponta-a-ponta (repo pessoal snksergio; origin igreenlab NÃO tocado). Marcos:
+
+- **Registry shadcn (copy-in)** finalizado: 56 itens, deploy Vercel (igreen-registry, Bearer). Embed via registry-data.ts.
+- **6 telas-exemplo extração 1:1** dos showcases (clientes, finance, dashboard, order-detail, edit-page, chat) — conteúdo de página sem shell, validadas em consumidor real (shadcn add + tsc 0 + render). Antes eram toys inventados (corrigido — L-034).
+- **CLI `@snksergio/create-design-system`** evoluiu 0.7.0 → 0.12.0: banner ASCII, tela de boas-vindas/tutorial, prompt de exemplos + menu navegável, fontes Geist embutidas.
+- **Kit de construção no consumidor** (`.claude/` no template): orquestrador `ds-kit` (intenção→rota, skill não-agente — L-036) + skills crud-builder/page-edit/page-detail/dashboard/charts/chat/drawers/cards + `DESIGN.md` enxuto + regras auto-carregadas + hook `protect-ds` (bloqueia tema/tokens/fundação — L-033).
+- **Bug corrigido**: `@igreen/data-table` sem `@tanstack/react-virtual` → DataTable crashava em consumidor limpo (L-037).
+- **Pipeline DS**: hooks `ds-tokens-check` + cobertura registry no `ds-inventory-check`; `examples-drift-check` (examples↔showcase, L-035); `registry-check`; **CI GitHub Actions** (tsc+test+consistência+drift).
+- **Auditoria de saúde**: registry íntegro (0 paths faltando), tsc 0, testes 22/22; órfão removido (ChartComingSoonDoc), docs de path corrigidas, TabelaTeste fora do barrel público, scratch de tools/ limpo.
+
+- **Assumption**: distribuição via copy-in (registry) + CLI é o modelo correto pro caso (CRM com telas sob medida + IA copia/adapta). npm-lib seria controle centralizado ao custo de flexibilidade — descartado. Lib npm `@snksergio/design-system@0.5.1` é vestigial (a depreciar).
+- **Lições novas**: L-033 a L-037 (`.ai/status/lessons.md` + resumo em ds-standards).
+- **Versão**: DS 0.9.0 → 0.10.0 (milestone, re-stamp do registry). CLI 0.12.0.
+- **Pendência do mantenedor**: remover Automation token npm usado nas publicações.
