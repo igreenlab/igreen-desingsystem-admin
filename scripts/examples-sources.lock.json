@@ -1,0 +1,26 @@
+{
+  "finance": {
+    "source": "src/preview/pages/ClientesFinanceiroShowcase",
+    "hash": "806ca46401ecfc4ba0718fdd50a5aa2aab0f0ab3dbbb503c4936166f56f37383"
+  },
+  "clientes": {
+    "source": "src/preview/pages/ClientesShowcase",
+    "hash": "17aa27c5554db3895d14e9c358bb4c1de92a22155e878c1d39a8cdd9b7c2ff64"
+  },
+  "dashboard": {
+    "source": "src/preview/pages/DashboardShowcase.tsx",
+    "hash": "4413753d5f24be1f600fe4961546ab6c264a7c779ffe7328e7b4c07b957c9b94"
+  },
+  "order-detail": {
+    "source": "src/preview/pages/OrderDetailShowcase",
+    "hash": "0377f9e79ed6f5a1cd81d1a61bbfd779527a35d08989ef0f95ad55ee9c06d667"
+  },
+  "edit-page": {
+    "source": "src/preview/pages/OrderEditShowcase",
+    "hash": "8f5e5c0360736d35cd8d67532a05efb1bcea2b3edd6866d766bb22c9731da265"
+  },
+  "chat": {
+    "source": "src/preview/pages/ChatV2",
+    "hash": "6cf44c42f0a7e993e564a5724d8ea42aa53f6660e825481d1f4feeec55607f2f"
+  }
+}

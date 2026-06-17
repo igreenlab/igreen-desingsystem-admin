@@ -29,7 +29,8 @@ export * from "./ui/Modal";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
 export * from "./ui/Table";
-export * from "./ui/TabelaTeste";
+// TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
+// pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
 
 /**
  * TableToolbar: re-exporta tudo, mas renomeia SortDirection para evitar

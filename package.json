@@ -79,12 +79,13 @@
     "tokens:all": "npm run tokens:tw4 && npm run tokens:css && npm run tokens:dtcg",
     "tokens:check": "tsc --noEmit",
     "registry:stamp": "node scripts/registry-stamp.mjs",
-    "registry:build": "npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
+    "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
     "cli:rebake": "node scripts/cli-rebake-foundationals.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
-    "sync:agents": "node .claude/scripts/sync-agents-to-cursor.cjs"
+    "sync:agents": "node .claude/scripts/sync-agents-to-cursor.cjs",
+    "examples:drift": "node scripts/examples-drift-check.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
