@@ -291,6 +291,17 @@ relativo cross-dir e `export...from` cross-component **quebram** — refatorar a
   `doctor` ✓ (cn/tv íntegros) → build exit 0.
 - **Validação:** simulei o scaffold do CLI (copy+renames) num projeto limpo, install +
   build + doctor + typecheck verdes, e os `add` reais contra o registry autenticado OK.
+- **Drift do baked — RESOLVIDO (não morde calado).** O baking congela cn/tv/theme; se o
+  DS atualizar os foundational, o baked diverge. Duas defesas:
+  1. **`doctor.mjs` valida CONTRA O REGISTRY** (não hash congelado): faz `fetch` de
+     `@igreen/utils`/`tv` com o token e compara hash (CRLF-agnóstico) do arquivo local
+     vs `content` do registry. Pega **edição local E drift do DS**; sem token/offline
+     sai 1 (nunca dá falso-OK). Validado: em-sincronia → ✓✓ exit 0; arquivo editado → ✗
+     exit 1.
+  2. **`npm run cli:rebake`** (`scripts/cli-rebake-foundationals.mjs`) re-copia os 4
+     foundational do DS pro template. **Regra no pre-commit-check (2.2):** mexeu em
+     cn/tv/lucide-types/theme → `cli:rebake` + bump `cli/package.json`. Evita que
+     projetos NOVOS nasçam defasados.
 - Original (referência histórica): Vite + React + TS, Tailwind v4, `shadcn init`, grava
   `@igreen` + token no `components.json` e `.env.local`, puxa o tema antes dos componentes.
 - **🔴 ITEM CRÍTICO — overwrite do `cn`.** O `shadcn init` planta um

@@ -106,6 +106,7 @@ Escopo do diff:
 
 - [ ] Lista de presets em `src/utils/tv.ts > twMergeConfig` está **1:1** com `typography.ts`?
 - [ ] Lista de presets em `src/lib/utils.ts > extendTailwindMerge` está **1:1** com `typography.ts`?
+- [ ] **Re-bake do CLI?** Se `src/lib/utils.ts`, `src/utils/tv.ts`, `src/lib/lucide-types.ts` ou `src/styles/theme/tailwind-theme.css` mudaram → rodar **`npm run cli:rebake`** (re-bakeia no `cli/templates/default/`) + **bump `cli/package.json`**. Senão projetos novos do CLI nascem com cn/tv/theme **defasados** vs registry. (O `doctor.mjs` do consumidor pega o drift contra o registry, mas o re-bake mata na origem — CRÍTICO, mesma raiz da L-016.)
 
 Comando rápido pra verificar:
 
