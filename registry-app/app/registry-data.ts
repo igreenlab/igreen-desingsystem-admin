@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · accordion · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · alert-dialog · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -69,7 +69,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · alert · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -93,7 +93,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · avatar · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -115,7 +115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · badge · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -140,7 +140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · breadcrumb · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -186,7 +186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · button · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -211,7 +211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · calendar · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -233,7 +233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · card · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · checkbox · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -285,7 +285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · command · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -310,7 +310,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · dialog · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -335,7 +335,87 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · dropdown-menu · v0.9.0 · 4225db6 · 2026-06-17"
+    },
+    "type": "registry:ui"
+  },
+  "form-field": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "form-field",
+    "title": "FormField",
+    "description": "Composite OBRIGATORIO de forms (L-023): label + input/select/textarea/checkbox/switch + helper/error/warning/success. Self-contained (tv + Radix). Substitui <label> raw.",
+    "dependencies": [
+      "@radix-ui/react-checkbox@^1.3.3",
+      "@radix-ui/react-switch@^1.2.6"
+    ],
+    "registryDependencies": [
+      "@igreen/utils",
+      "@igreen/tv"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/FormField/form-field.tsx",
+        "content": "import { useId } from \"react\";\r\nimport type { ReactNode } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  formFieldRoot,\r\n  formFieldLabel,\r\n  formFieldRequired,\r\n  formFieldMessage,\r\n} from \"./form-field.styles\";\r\nimport type { FormFieldBaseProps, FieldState } from \"./form-field.types\";\r\n\r\nexport type FormFieldProps = FormFieldBaseProps & {\r\n  /** O field em si (Input, Select, Textarea, Checkbox, Switch, etc) — recebe id automático */\r\n  children: (ctx: { id: string; state: FieldState }) => ReactNode;\r\n  /** Hide quando o field é \"self-contained\" (ex: Checkbox com label inline) */\r\n  hideLabel?: boolean;\r\n  /** Marcar field como disabled (afeta cor do label) */\r\n  disabled?: boolean;\r\n};\r\n\r\n/**\r\n * FormField — base wrapper compartilhado por FormFieldInput, FormFieldSelect, etc.\r\n *\r\n * Estrutura:\r\n *   [Label + required asterisk]   (top)\r\n *   [Field (passado via children render-prop)]\r\n *   [Helper text OR error/warning/success message]   (bottom)\r\n *\r\n * Mensagem é decidida pela prioridade: error → warning → success → helperText.\r\n * O `id` gerado é passado ao child via render-prop pra linkar `htmlFor` no label.\r\n */\r\nexport function FormField({\r\n  label,\r\n  required,\r\n  helperText,\r\n  state = \"default\",\r\n  errorMessage,\r\n  warningMessage,\r\n  successMessage,\r\n  className,\r\n  id: idProp,\r\n  children,\r\n  hideLabel,\r\n  disabled,\r\n}: FormFieldProps) {\r\n  const autoId = useId();\r\n  const id = idProp ?? autoId;\r\n\r\n  // Priority: error → warning → success → helper\r\n  let message: ReactNode = helperText;\r\n  let messageState: FieldState = \"default\";\r\n  if (state === \"error\" && errorMessage) {\r\n    message = errorMessage;\r\n    messageState = \"error\";\r\n  } else if (state === \"warning\" && warningMessage) {\r\n    message = warningMessage;\r\n    messageState = \"warning\";\r\n  } else if (state === \"success\" && successMessage) {\r\n    message = successMessage;\r\n    messageState = \"success\";\r\n  }\r\n\r\n  return (\r\n    <div className={cn(formFieldRoot(), className)}>\r\n      {label && !hideLabel && (\r\n        <label\r\n          htmlFor={id}\r\n          className={formFieldLabel({ disabled })}\r\n        >\r\n          {label}\r\n          {required && <span className={formFieldRequired()} aria-hidden=\"true\">*</span>}\r\n        </label>\r\n      )}\r\n      {children({ id, state })}\r\n      {message && (\r\n        <p\r\n          className={formFieldMessage({ state: messageState })}\r\n          role={messageState === \"error\" ? \"alert\" : undefined}\r\n        >\r\n          {message}\r\n        </p>\r\n      )}\r\n    </div>\r\n  );\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field.styles.ts",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * Form field styles — alinhado com `.tbl-form-field` do sandbox.\r\n *\r\n * Spec: flex column gap 7px (label / field / message).\r\n */\r\nexport const formFieldRoot = tv({\r\n  base: \"flex flex-col gap-[7px] w-full\",\r\n});\r\n\r\nexport const formFieldLabel = tv({\r\n  base: [\r\n    \"text-body-sm font-semibold tracking-[0.01em] leading-none\",\r\n    \"text-fg-default dark:text-fg-muted\",\r\n    \"select-none\",\r\n  ],\r\n  variants: {\r\n    disabled: {\r\n      true: \"opacity-50 cursor-not-allowed\",\r\n    },\r\n  },\r\n});\r\n\r\nexport const formFieldRequired = tv({\r\n  base: \"ml-[2px] text-fg-danger\",\r\n});\r\n\r\nexport const formFieldMessage = tv({\r\n  base: \"text-caption-sm leading-snug\",\r\n  variants: {\r\n    state: {\r\n      default: \"text-fg-muted\",\r\n      error:   \"text-fg-danger\",\r\n      warning: \"text-fg-warning\",\r\n      success: \"text-fg-success\",\r\n    },\r\n  },\r\n  defaultVariants: { state: \"default\" },\r\n});\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field.styles.ts"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field.types.ts",
+        "content": "import type { ReactNode } from \"react\";\r\n\r\n/** Estado visual de um field — feedback semântico */\r\nexport type FieldState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\n/**\r\n * Props compartilhados por todos os Form* wrappers (FormInput, FormSelect, etc).\r\n */\r\nexport type FormFieldBaseProps = {\r\n  /** Label exibido acima do field */\r\n  label?: string;\r\n  /** Marca como required (asterisco vermelho ao lado do label) */\r\n  required?: boolean;\r\n  /** Texto auxiliar abaixo do field (esconde quando state=\"error\" e errorMessage presente) */\r\n  helperText?: ReactNode;\r\n  /** Estado semântico do field — afeta cor da borda e mensagem exibida */\r\n  state?: FieldState;\r\n  /** Mensagem exibida quando state=\"error\" (substitui helperText) */\r\n  errorMessage?: ReactNode;\r\n  /** Mensagem exibida quando state=\"warning\" */\r\n  warningMessage?: ReactNode;\r\n  /** Mensagem exibida quando state=\"success\" */\r\n  successMessage?: ReactNode;\r\n  /** className do container externo */\r\n  className?: string;\r\n  /** id do field (linka label↔input via htmlFor) */\r\n  id?: string;\r\n};\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field.types.ts"
+      },
+      {
+        "path": "src/components/ui/FormField/index.ts",
+        "content": "export { FormField } from \"./form-field\";\r\nexport type { FormFieldProps } from \"./form-field\";\r\n\r\nexport { FormFieldInput } from \"./form-field-input\";\r\nexport type { FormFieldInputProps } from \"./form-field-input\";\r\n\r\nexport { FormFieldTextarea } from \"./form-field-textarea\";\r\nexport type { FormFieldTextareaProps } from \"./form-field-textarea\";\r\n\r\nexport { FormFieldSelect } from \"./form-field-select\";\r\nexport type {\r\n  FormFieldSelectProps,\r\n  FormFieldSelectOption,\r\n} from \"./form-field-select\";\r\n\r\nexport { FormFieldCheckbox } from \"./form-field-checkbox\";\r\nexport type { FormFieldCheckboxProps } from \"./form-field-checkbox\";\r\n\r\nexport { FormFieldSwitch } from \"./form-field-switch\";\r\nexport type { FormFieldSwitchProps } from \"./form-field-switch\";\r\n\r\nexport type { FieldState, FormFieldBaseProps } from \"./form-field.types\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/index.ts"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field-input.tsx",
+        "content": "import { forwardRef, type ReactNode } from \"react\";\r\nimport { Input, type InputProps } from \"../../shadcn/input\";\r\nimport {\r\n  InputGroup,\r\n  InputGroupAddon,\r\n  InputGroupInput,\r\n  InputGroupText,\r\n} from \"../../shadcn/input-group\";\r\nimport { FormField } from \"./form-field\";\r\nimport type { FormFieldBaseProps } from \"./form-field.types\";\r\n\r\n/**\r\n * FormFieldInput — wrapper \"one-shot\" pra um campo de texto.\r\n *\r\n * Renderização condicional:\r\n *   - sem addon → renderiza <Input> puro\r\n *   - com `startAddon` ou `endAddon` → renderiza <InputGroup> com InputGroupInput\r\n *\r\n * Os addons aceitam string (renderiza como InputGroupText, ex \"R$\") ou ReactNode\r\n * (ícone, botão — passa direto). Não há mais startIcon vs startAdornment: o\r\n * InputGroup trata ambos via composição.\r\n */\r\nexport type FormFieldInputProps = FormFieldBaseProps &\r\n  Omit<InputProps, \"state\" | \"id\"> & {\r\n    /** Conteúdo à esquerda. String vira `<InputGroupText>`, ReactNode (ícone/botão) passa direto. */\r\n    startAddon?: ReactNode;\r\n    /** Conteúdo à direita. Mesma regra do startAddon. */\r\n    endAddon?: ReactNode;\r\n  };\r\n\r\nfunction renderAddon(content: ReactNode, key: string): ReactNode {\r\n  if (typeof content === \"string\") {\r\n    return (\r\n      <InputGroupAddon key={key} align={key === \"start\" ? \"inline-start\" : \"inline-end\"}>\r\n        <InputGroupText>{content}</InputGroupText>\r\n      </InputGroupAddon>\r\n    );\r\n  }\r\n  return (\r\n    <InputGroupAddon key={key} align={key === \"start\" ? \"inline-start\" : \"inline-end\"}>\r\n      {content}\r\n    </InputGroupAddon>\r\n  );\r\n}\r\n\r\nexport const FormFieldInput = forwardRef<HTMLInputElement, FormFieldInputProps>(\r\n  (\r\n    {\r\n      label,\r\n      required,\r\n      helperText,\r\n      state,\r\n      errorMessage,\r\n      warningMessage,\r\n      successMessage,\r\n      className,\r\n      id,\r\n      startAddon,\r\n      endAddon,\r\n      ...inputProps\r\n    },\r\n    ref,\r\n  ) => {\r\n    const hasAddon = startAddon !== undefined || endAddon !== undefined;\r\n    // Separa o `size` do CVA pra usar no wrapper — InputGroupInput recebe os\r\n    // demais HTML attrs (sem o size, que no <input> nativo seria number).\r\n    const { size, ...inputHtmlProps } = inputProps;\r\n\r\n    return (\r\n      <FormField\r\n        label={label}\r\n        required={required}\r\n        helperText={helperText}\r\n        state={state}\r\n        errorMessage={errorMessage}\r\n        warningMessage={warningMessage}\r\n        successMessage={successMessage}\r\n        className={className}\r\n        id={id}\r\n        disabled={inputProps.disabled}\r\n      >\r\n        {({ id: fieldId, state: fieldState }) =>\r\n          hasAddon ? (\r\n            <InputGroup state={fieldState} size={size ?? undefined}>\r\n              {startAddon !== undefined && renderAddon(startAddon, \"start\")}\r\n              <InputGroupInput ref={ref} id={fieldId} {...inputHtmlProps} />\r\n              {endAddon !== undefined && renderAddon(endAddon, \"end\")}\r\n            </InputGroup>\r\n          ) : (\r\n            <Input\r\n              ref={ref}\r\n              id={fieldId}\r\n              state={fieldState}\r\n              size={size}\r\n              {...inputHtmlProps}\r\n            />\r\n          )\r\n        }\r\n      </FormField>\r\n    );\r\n  },\r\n);\r\nFormFieldInput.displayName = \"FormFieldInput\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field-input.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field-select.tsx",
+        "content": "import type { ReactNode } from \"react\";\r\nimport {\r\n  Select,\r\n  SelectContent,\r\n  SelectItem,\r\n  SelectTrigger,\r\n  SelectValue,\r\n  type SelectTriggerState,\r\n} from \"../../shadcn/select\";\r\nimport { FormField } from \"./form-field\";\r\nimport type { FormFieldBaseProps } from \"./form-field.types\";\r\n\r\nexport type FormFieldSelectOption = {\r\n  value: string;\r\n  label: ReactNode;\r\n  disabled?: boolean;\r\n};\r\n\r\n/**\r\n * FormFieldSelect — wrapper \"one-shot\" pra um select dropdown.\r\n *\r\n * Compõe FormField + Select (radix) — reutiliza os Select* primitives existentes.\r\n *\r\n * Uso simples via `options`:\r\n *   <FormFieldSelect label=\"País\" placeholder=\"Selecione...\" options={[\r\n *     { value: \"br\", label: \"Brasil\" },\r\n *     { value: \"us\", label: \"Estados Unidos\" },\r\n *   ]} />\r\n *\r\n * Pra casos avançados (groups, separators), use o Select primitive direto.\r\n */\r\nexport type FormFieldSelectProps = FormFieldBaseProps & {\r\n  options: FormFieldSelectOption[];\r\n  placeholder?: string;\r\n  value?: string;\r\n  defaultValue?: string;\r\n  onValueChange?: (value: string) => void;\r\n  disabled?: boolean;\r\n  /** className aplicado ao <SelectTrigger>. Pra estilizar o wrapper, use `className` (vai pro FormField root). */\r\n  triggerClassName?: string;\r\n  /** Largura/maxHeight customizada do dropdown */\r\n  contentClassName?: string;\r\n};\r\n\r\nexport function FormFieldSelect({\r\n  label,\r\n  required,\r\n  helperText,\r\n  state,\r\n  errorMessage,\r\n  warningMessage,\r\n  successMessage,\r\n  className,\r\n  id,\r\n  options,\r\n  placeholder,\r\n  value,\r\n  defaultValue,\r\n  onValueChange,\r\n  disabled,\r\n  triggerClassName,\r\n  contentClassName,\r\n}: FormFieldSelectProps) {\r\n  return (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      helperText={helperText}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      warningMessage={warningMessage}\r\n      successMessage={successMessage}\r\n      className={className}\r\n      id={id}\r\n      disabled={disabled}\r\n    >\r\n      {({ id: fieldId, state: fieldState }) => (\r\n        <Select\r\n          value={value}\r\n          defaultValue={defaultValue}\r\n          onValueChange={onValueChange}\r\n          disabled={disabled}\r\n        >\r\n          <SelectTrigger\r\n            id={fieldId}\r\n            state={fieldState as SelectTriggerState}\r\n            className={triggerClassName}\r\n          >\r\n            <SelectValue placeholder={placeholder} />\r\n          </SelectTrigger>\r\n          <SelectContent className={contentClassName}>\r\n            {options.map((opt) => (\r\n              <SelectItem\r\n                key={opt.value}\r\n                value={opt.value}\r\n                disabled={opt.disabled}\r\n              >\r\n                {opt.label}\r\n              </SelectItem>\r\n            ))}\r\n          </SelectContent>\r\n        </Select>\r\n      )}\r\n    </FormField>\r\n  );\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field-select.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field-textarea.tsx",
+        "content": "import { forwardRef } from \"react\";\r\nimport { Textarea, type TextareaProps } from \"../../shadcn/textarea\";\r\nimport { FormField } from \"./form-field\";\r\nimport type { FormFieldBaseProps } from \"./form-field.types\";\r\n\r\n/**\r\n * FormFieldTextarea — wrapper \"one-shot\" pra um campo multilinha.\r\n * Compõe FormField + Textarea (mesmo componente do shadcn/), sem reimplementação.\r\n */\r\nexport type FormFieldTextareaProps = FormFieldBaseProps &\r\n  Omit<TextareaProps, \"state\" | \"id\">;\r\n\r\nexport const FormFieldTextarea = forwardRef<\r\n  HTMLTextAreaElement,\r\n  FormFieldTextareaProps\r\n>(\r\n  (\r\n    {\r\n      label,\r\n      required,\r\n      helperText,\r\n      state,\r\n      errorMessage,\r\n      warningMessage,\r\n      successMessage,\r\n      className,\r\n      id,\r\n      ...textareaProps\r\n    },\r\n    ref,\r\n  ) => (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      helperText={helperText}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      warningMessage={warningMessage}\r\n      successMessage={successMessage}\r\n      className={className}\r\n      id={id}\r\n      disabled={textareaProps.disabled}\r\n    >\r\n      {({ id: fieldId, state: fieldState }) => (\r\n        <Textarea\r\n          ref={ref}\r\n          id={fieldId}\r\n          state={fieldState}\r\n          {...textareaProps}\r\n        />\r\n      )}\r\n    </FormField>\r\n  ),\r\n);\r\nFormFieldTextarea.displayName = \"FormFieldTextarea\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field-textarea.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field-checkbox.tsx",
+        "content": "import { forwardRef, useId, type ReactNode } from \"react\";\r\nimport type { ComponentPropsWithoutRef, ElementRef } from \"react\";\r\nimport * as CheckboxPrimitive from \"@radix-ui/react-checkbox\";\r\nimport { Checkbox } from \"../../shadcn/checkbox\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  formFieldRoot,\r\n  formFieldLabel,\r\n  formFieldRequired,\r\n  formFieldMessage,\r\n} from \"./form-field.styles\";\r\nimport type { FormFieldBaseProps, FieldState } from \"./form-field.types\";\r\n\r\n/**\r\n * FormFieldCheckbox — wrapper \"one-shot\" pra checkbox com label inline.\r\n *\r\n * Layout (diferente de FormFieldInput/Select):\r\n *   ┌──────────────────────────────────────┐\r\n *   │ [☑] Label texto                      │\r\n *   │     Helper / error message           │\r\n *   └──────────────────────────────────────┘\r\n *\r\n * Reaproveita o Checkbox do shadcn. O label fica à direita (não em cima).\r\n */\r\nexport type FormFieldCheckboxProps = Omit<FormFieldBaseProps, \"label\"> & {\r\n  /** Texto do label (inline à direita do checkbox) */\r\n  label?: ReactNode;\r\n  /** Props nativas do Radix Checkbox.Root */\r\n} & Omit<\r\n    ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,\r\n    \"id\" | \"className\"\r\n  >;\r\n\r\nexport const FormFieldCheckbox = forwardRef<\r\n  ElementRef<typeof CheckboxPrimitive.Root>,\r\n  FormFieldCheckboxProps\r\n>(\r\n  (\r\n    {\r\n      label,\r\n      required,\r\n      helperText,\r\n      state = \"default\",\r\n      errorMessage,\r\n      warningMessage,\r\n      successMessage,\r\n      className,\r\n      id: idProp,\r\n      disabled,\r\n      ...checkboxProps\r\n    },\r\n    ref,\r\n  ) => {\r\n    const autoId = useId();\r\n    const id = idProp ?? autoId;\r\n\r\n    let message: ReactNode = helperText;\r\n    let messageState: FieldState = \"default\";\r\n    if (state === \"error\" && errorMessage) {\r\n      message = errorMessage;\r\n      messageState = \"error\";\r\n    } else if (state === \"warning\" && warningMessage) {\r\n      message = warningMessage;\r\n      messageState = \"warning\";\r\n    } else if (state === \"success\" && successMessage) {\r\n      message = successMessage;\r\n      messageState = \"success\";\r\n    }\r\n\r\n    return (\r\n      <div className={cn(formFieldRoot(), \"gap-[5px]\", className)}>\r\n        <div className=\"flex items-center gap-gp-md\">\r\n          <Checkbox\r\n            ref={ref}\r\n            id={id}\r\n            disabled={disabled}\r\n            {...checkboxProps}\r\n          />\r\n          {label && (\r\n            <label\r\n              htmlFor={id}\r\n              className={cn(formFieldLabel({ disabled }), \"cursor-pointer\")}\r\n            >\r\n              {label}\r\n              {required && (\r\n                <span className={formFieldRequired()} aria-hidden=\"true\">\r\n                  *\r\n                </span>\r\n              )}\r\n            </label>\r\n          )}\r\n        </div>\r\n        {message && (\r\n          <p\r\n            className={cn(formFieldMessage({ state: messageState }), \"pl-[26px]\")}\r\n            role={messageState === \"error\" ? \"alert\" : undefined}\r\n          >\r\n            {message}\r\n          </p>\r\n        )}\r\n      </div>\r\n    );\r\n  },\r\n);\r\nFormFieldCheckbox.displayName = \"FormFieldCheckbox\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field-checkbox.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/form-field-switch.tsx",
+        "content": "import { forwardRef, useId, type ReactNode } from \"react\";\r\nimport type { ComponentPropsWithoutRef, ElementRef } from \"react\";\r\nimport * as SwitchPrimitive from \"@radix-ui/react-switch\";\r\nimport { Switch } from \"../../shadcn/switch\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  formFieldRoot,\r\n  formFieldLabel,\r\n  formFieldRequired,\r\n  formFieldMessage,\r\n} from \"./form-field.styles\";\r\nimport type { FormFieldBaseProps, FieldState } from \"./form-field.types\";\r\n\r\n/**\r\n * FormFieldSwitch — wrapper \"one-shot\" pra toggle switch com label inline.\r\n *\r\n * Layout: label à ESQUERDA, switch à DIREITA (padrão de toggle):\r\n *   ┌──────────────────────────────────────┐\r\n *   │ Label texto              [○──]       │\r\n *   │ Helper / error message               │\r\n *   └──────────────────────────────────────┘\r\n *\r\n * Reaproveita o Switch do shadcn.\r\n */\r\nexport type FormFieldSwitchProps = Omit<FormFieldBaseProps, \"label\"> & {\r\n  label?: ReactNode;\r\n  /** Posição do switch — default \"end\" (direita). \"start\" coloca à esquerda do label. */\r\n  switchPosition?: \"start\" | \"end\";\r\n} & Omit<\r\n    ComponentPropsWithoutRef<typeof SwitchPrimitive.Root>,\r\n    \"id\" | \"className\"\r\n  >;\r\n\r\nexport const FormFieldSwitch = forwardRef<\r\n  ElementRef<typeof SwitchPrimitive.Root>,\r\n  FormFieldSwitchProps\r\n>(\r\n  (\r\n    {\r\n      label,\r\n      required,\r\n      helperText,\r\n      state = \"default\",\r\n      errorMessage,\r\n      warningMessage,\r\n      successMessage,\r\n      className,\r\n      id: idProp,\r\n      disabled,\r\n      switchPosition = \"end\",\r\n      ...switchProps\r\n    },\r\n    ref,\r\n  ) => {\r\n    const autoId = useId();\r\n    const id = idProp ?? autoId;\r\n\r\n    let message: ReactNode = helperText;\r\n    let messageState: FieldState = \"default\";\r\n    if (state === \"error\" && errorMessage) {\r\n      message = errorMessage;\r\n      messageState = \"error\";\r\n    } else if (state === \"warning\" && warningMessage) {\r\n      message = warningMessage;\r\n      messageState = \"warning\";\r\n    } else if (state === \"success\" && successMessage) {\r\n      message = successMessage;\r\n      messageState = \"success\";\r\n    }\r\n\r\n    const switchEl = (\r\n      <Switch ref={ref} id={id} disabled={disabled} {...switchProps} />\r\n    );\r\n    const labelEl = label && (\r\n      <label\r\n        htmlFor={id}\r\n        className={cn(formFieldLabel({ disabled }), \"cursor-pointer flex-1\")}\r\n      >\r\n        {label}\r\n        {required && (\r\n          <span className={formFieldRequired()} aria-hidden=\"true\">\r\n            *\r\n          </span>\r\n        )}\r\n      </label>\r\n    );\r\n\r\n    return (\r\n      <div className={cn(formFieldRoot(), \"gap-[5px]\", className)}>\r\n        <div className=\"flex items-center gap-gp-md\">\r\n          {switchPosition === \"start\" ? (\r\n            <>\r\n              {switchEl}\r\n              {labelEl}\r\n            </>\r\n          ) : (\r\n            <>\r\n              {labelEl}\r\n              {switchEl}\r\n            </>\r\n          )}\r\n        </div>\r\n        {message && (\r\n          <p\r\n            className={formFieldMessage({ state: messageState })}\r\n            role={messageState === \"error\" ? \"alert\" : undefined}\r\n          >\r\n            {message}\r\n          </p>\r\n        )}\r\n      </div>\r\n    );\r\n  },\r\n);\r\nFormFieldSwitch.displayName = \"FormFieldSwitch\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/FormField/form-field-switch.tsx"
+      },
+      {
+        "path": "src/components/ui/FormField/USAGE.md",
+        "content": "# FormField — USAGE\r\n\r\nContainer de form com label + field + mensagem de validação (error/warning/success). Inclui wrappers \"one-shot\" (`FormFieldInput`, `FormFieldSelect`, etc) — a forma recomendada de consumo em forms (L-023).\r\n\r\n## Quando usar\r\n\r\n- Qualquer campo de formulário que tenha label + input + validação\r\n- Garantir spacing e tipografia consistente entre campos\r\n- NUNCA escrever `<label>` raw com classes manuais em forms (L-023)\r\n\r\n## Import\r\n\r\n```tsx\r\nimport {\r\n  FormField, // base (children render-prop) — para widgets custom\r\n  FormFieldInput, // wrappers one-shot (recomendados)\r\n  FormFieldTextarea,\r\n  FormFieldSelect,\r\n  FormFieldCheckbox,\r\n  FormFieldSwitch,\r\n} from \"@/components/ui/FormField\";\r\nimport type { FieldState, FormFieldSelectOption } from \"@/components/ui/FormField\";\r\n```\r\n\r\n## Props essenciais\r\n\r\n### `FormFieldBaseProps` — comuns a todos\r\n\r\n| Prop             | Tipo                                              | Default       | Função                                                       |\r\n| ---------------- | ------------------------------------------------- | ------------- | ------------------------------------------------------------ |\r\n| `label`          | `string`                                          | —             | Label acima do field (Checkbox/Switch: `ReactNode`, inline)  |\r\n| `required`       | boolean                                           | `false`       | Asterisco vermelho ao lado do label (só visual)              |\r\n| `helperText`     | `ReactNode`                                       | —             | Texto auxiliar abaixo do field                               |\r\n| `state`          | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"`  | `\"default\"`   | Estado semântico — afeta borda do field e mensagem exibida   |\r\n| `errorMessage`   | `ReactNode`                                       | —             | Exibida quando `state=\"error\"` (substitui o helperText)      |\r\n| `warningMessage` | `ReactNode`                                       | —             | Exibida quando `state=\"warning\"`                             |\r\n| `successMessage` | `ReactNode`                                       | —             | Exibida quando `state=\"success\"`                             |\r\n| `id`             | `string`                                          | auto (`useId`) | Linka label↔input via `htmlFor`                             |\r\n| `className`      | `string`                                          | —             | className do container externo                               |\r\n\r\n### Específicas do `FormField` (base)\r\n\r\n| Prop        | Tipo                                                  | Função                                                                       |\r\n| ----------- | ----------------------------------------------------- | ---------------------------------------------------------------------------- |\r\n| `children`  | `(ctx: { id: string; state: FieldState }) => ReactNode` | **Render-prop obrigatório** — recebe o id gerado + state pra repassar ao field |\r\n| `hideLabel` | boolean                                               | Esconde o label (field self-contained, ex: Checkbox com label inline)        |\r\n| `disabled`  | boolean                                               | Esmaece SÓ o label (opacity-50) — o field filho precisa do próprio `disabled` |\r\n\r\n### Wrappers one-shot (recomendados — L-023)\r\n\r\n| Componente          | Field interno                  | Extras                                                                                                                                        |\r\n| ------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------- |\r\n| `FormFieldInput`    | `Input` / `InputGroup` (shadcn) | `startAddon` / `endAddon` (`ReactNode`; string vira `InputGroupText`, ex `\"R$\"`) + props de `Input`                                            |\r\n| `FormFieldTextarea` | `Textarea` (shadcn)            | props de `Textarea`                                                                                                                            |\r\n| `FormFieldSelect`   | `Select` (radix/shadcn)        | `options: FormFieldSelectOption[]` (`{ value, label, disabled? }`), `placeholder`, `value`, `defaultValue`, `onValueChange`, `disabled`, `triggerClassName`, `contentClassName` |\r\n| `FormFieldCheckbox` | `Checkbox` (shadcn)            | label inline à direita do checkbox; props do Radix `Checkbox.Root`                                                                             |\r\n| `FormFieldSwitch`   | `Switch` (shadcn)              | label inline; `switchPosition?: \"start\" \\| \"end\"` (default `\"end\"`); props do Radix `Switch.Root`                                              |\r\n\r\n## Variants (slots internos de estilo)\r\n\r\n| Slot                        | Variant    | Valores                              | Default |\r\n| --------------------------- | ---------- | ------------------------------------ | ------- |\r\n| Label (`formFieldLabel`)    | `disabled` | true/false                           | false   |\r\n| Message (`formFieldMessage`) | `state`    | default / error / warning / success  | default |\r\n\r\nO container (`formFieldRoot`) não tem variants — é base-only (`flex flex-col gap-[7px] w-full`).\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n// Wrapper one-shot — forma recomendada\r\n<FormFieldInput\r\n  label=\"Email\"\r\n  required\r\n  type=\"email\"\r\n  state=\"error\"\r\n  errorMessage=\"Email inválido\"\r\n  value={email}\r\n  onChange={(e) => setEmail(e.target.value)}\r\n/>\r\n\r\n// Com addons\r\n<FormFieldInput label=\"Valor\" startAddon=\"R$\" placeholder=\"0,00\" />\r\n\r\n// Select\r\n<FormFieldSelect\r\n  label=\"País\"\r\n  placeholder=\"Selecione...\"\r\n  options={[\r\n    { value: \"br\", label: \"Brasil\" },\r\n    { value: \"us\", label: \"Estados Unidos\" },\r\n  ]}\r\n/>\r\n\r\n// Base com widget custom — children é render-prop\r\n<FormField label=\"Email\" required state=\"error\" errorMessage=\"Email inválido\">\r\n  {({ id, state }) => <Input id={id} state={state} type=\"email\" />}\r\n</FormField>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n\r\n- `children` do `FormField` base é **função** (render-prop), não JSX direto — passar ReactNode é erro de tipo e quebra em runtime\r\n- NÃO existem componentes `FormFieldLabel`/`FormFieldMessage` — label e mensagem são props (`label`, `errorMessage`, `helperText`...); esses nomes existem só como slots internos em `form-field.styles.ts`\r\n- Prioridade da mensagem: error → warning → success → helperText. A mensagem do state só aparece se a prop correspondente (`errorMessage`, etc) for passada\r\n- O `state` é propagado ao field via argumento do render-prop (`ctx.state`) — não há context; em widget custom, repasse `id` e `state` manualmente\r\n- `disabled` no `FormField` base esmaece apenas o label — passe `disabled` também ao field. Os wrappers (`FormFieldInput`, etc) propagam automaticamente\r\n- Mensagem com `state=\"error\"` recebe `role=\"alert\"` (acessibilidade)\r\n- Spacing label/field/message é do container — não adicionar margins customizados; entre fields empilhados use `gap-form-gap` (L-024)\r\n- `required` é só visual — validação real é responsabilidade do consumer\r\n",
+        "type": "registry:file",
+        "target": "components/ui/FormField/USAGE.md"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · form-field · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -359,7 +439,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · input-group · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -383,7 +463,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · input · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -408,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · label · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -433,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · pagination · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -457,7 +537,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · popover · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -481,7 +561,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · progress · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -505,7 +585,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · radio-group · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -530,7 +610,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · select · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -554,7 +634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · separator · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -580,7 +660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · sheet · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -604,7 +684,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · slider · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -628,7 +708,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · switch · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -652,7 +732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · tabs · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -676,7 +756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · textarea · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:ui"
   },
@@ -698,7 +778,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · theme · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -719,7 +799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · tv · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:file"
   },
@@ -741,7 +821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.9.0 · 88f9b19 · 2026-06-17"
+      "stamp": "igreen-ds · utils · v0.9.0 · 4225db6 · 2026-06-17"
     },
     "type": "registry:file"
   }
