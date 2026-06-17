@@ -132,6 +132,14 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
 Roteamento é por **skill** (nativo, barato) — sem subagente pra rotear; subagente só pra
 trabalho pesado em paralelo (ex.: montar várias telas de uma vez).
 
+### 🔒 Integridade do DS (protegido por hook)
+Tema/tokens (`src/styles/theme/**`) e a fundação (`cn`/`tv`/`lucide-types`) são
+**gerenciados** — um hook (`.claude/hooks/protect-ds.mjs`) **bloqueia** edição manual
+deles (quebram o visual todo e somem no update). Editar um componente do DS é
+**permitido mas avisado** (vira drift). A regra: **customize na composição da sua tela**
+(props/variantes + classes DS), não nos tokens nem nos internals do componente. Pra mudar
+o tema, re-sincronize com o DS. Cheque integridade com `npm run igreen:drift`.
+
 ## Anti-patterns proibidos
 
 ```ts
