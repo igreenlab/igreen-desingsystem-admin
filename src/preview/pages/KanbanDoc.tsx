@@ -3,7 +3,7 @@ import { Archive, Clock, Eye, Pencil, Trash2 } from "lucide-react";
 import { Kanban } from "../../components/ui/Kanban";
 import type { KanbanCardData, KanbanColumn, KanbanMenuItem } from "../../components/ui/Kanban";
 import { Chip } from "../../components/ui/Chip";
-import { Avatar } from "../../components/ui/Avatar";
+import { Avatar } from "../../components/ui/avatar-ig";
 import {
   DocLayout,
   DocHeader,

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Send } from "lucide-react";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Textarea } from "@/components/shadcn/textarea";
 import { SectionCard } from "./section-card";

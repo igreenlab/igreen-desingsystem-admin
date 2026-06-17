@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/DataTable";
 import type { KanbanColumn } from "@/components/ui/Kanban";
 import { Chip } from "@/components/ui/Chip";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { ExamplePageLayout } from "../components/example-page-layout";
 
 /* ── Dataset 30 linhas (suficiente pra demonstrar 4 colunas no board) ──── */

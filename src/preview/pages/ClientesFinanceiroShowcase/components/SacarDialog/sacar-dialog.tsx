@@ -7,7 +7,7 @@ import {
   FormFieldSelect,
 } from "@/components/ui/FormField";
 import { CardCheckbox } from "@/components/ui/CardCheckbox";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Chip } from "@/components/ui/Chip";
 import {
   Tabs,

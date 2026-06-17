@@ -11,7 +11,7 @@
 /* ── iGreen UI components (custom, tv()) ────────────────────────── */
 export * from "./ui/AlertModal";
 export * from "./ui/AppShell";
-export * from "./ui/Avatar";
+export * from "./ui/avatar-ig";
 export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";

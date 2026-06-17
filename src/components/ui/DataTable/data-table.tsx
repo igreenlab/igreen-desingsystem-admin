@@ -20,11 +20,9 @@ import { cn } from "@/lib/utils";
 import {
   Table,
   TableBody,
-  TableCell,
   TableCardRow,
   TableHead,
   TableHeadCell,
-  TableRow,
   SELECTION_COLUMN_WIDTH,
 } from "../Table";
 import { useMediaQuery } from "../MenuSidebar/use-media-query";
@@ -35,13 +33,8 @@ import {
   Rows2,
   Rows3,
   Rows4,
-  SlidersHorizontal,
-  ArrowUpDown,
-  Columns,
-  Download,
   RefreshCw,
   FileText,
-  FileSpreadsheet,
   Filter as FilterIcon,
   LayoutGrid,
   Table as TableIcon,
@@ -50,39 +43,19 @@ import {
   Minimize2,
 } from "lucide-react";
 import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from "@/components/shadcn/dropdown-menu";
-import {
   TableToolbar,
   ToolbarSearch,
   ToolbarToolButton,
   ToolbarSegmented,
-  ToolbarDivider,
   ToolbarApplied,
-  ToolbarMobileDialog,
-  ToolbarMobileSection,
   BulkActionsBar,
-  FilterPopover,
   isFilterEntryActive,
-  SortPopover,
-  ColsPopover,
   TableToolbarViews,
   MoreMenu,
   MoreMenuItem as MoreMenuItemEl,
   MoreMenuSeparator,
 } from "../TableToolbar";
-import type {
-  FilterPopoverColumn,
-  FilterPopoverEntry,
-  SortPopoverColumn,
-  SortPopoverCriterion,
-  ColsPopoverColumn,
-  ToolbarSegmentedItem,
-  AppliedFilter,
-} from "../TableToolbar";
+import type { ToolbarSegmentedItem } from "../TableToolbar";
 import { FooterTable, FooterTableSkeleton } from "../FooterTable";
 import { Kanban } from "../Kanban";
 import type {
@@ -143,7 +116,6 @@ import {
   FilterPanel,
   ToolbarSimpleFilterDrawer as SimpleFilterDrawer,
 } from "../TableToolbar";
-import type { ColumnOption } from "./column-types";
 // DataTableFloatingBulkBar still exported from barrel for opt-in use;
 // default DataTable now uses inline BulkActionsBar via TableToolbar.bulkBar.
 
@@ -223,7 +195,6 @@ function DataTableInternal<T>(
     exporter,
     isServerMode,
     savedViews,
-    applyView,
     applyViewById,
     applyDefault,
     saveCurrentAsView,
@@ -1405,7 +1376,7 @@ function DataTableInternal<T>(
 
   const cardBody = (
     <div className="flex flex-col gap-gp-md p-pad-2xl overflow-auto scrollbar-thin min-h-0 flex-1">
-      {rowsToRender.map((row, index) => {
+      {rowsToRender.map((row) => {
         const isSel = selection.isRowSelected(row);
         const rowId = contextValue.getRowId(row);
         return (

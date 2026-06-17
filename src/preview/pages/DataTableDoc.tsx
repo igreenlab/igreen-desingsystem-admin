@@ -6,7 +6,7 @@ import {
   type DataTableViewMode,
   presetView,
 } from "@/components/ui/DataTable";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Chip } from "@/components/ui/Chip";
 import {
   CLIENTS_MOCK,

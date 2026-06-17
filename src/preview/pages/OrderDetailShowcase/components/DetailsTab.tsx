@@ -7,7 +7,7 @@ import {
   Truck,
   User,
 } from "lucide-react";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Chip } from "@/components/ui/Chip";
 import { SectionCard, SectionDivider, Field } from "./section-card";
 import { formatBRL } from "../order-mocks";

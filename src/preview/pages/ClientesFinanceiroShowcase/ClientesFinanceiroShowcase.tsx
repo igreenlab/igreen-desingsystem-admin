@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/DataTable";
 import type { KanbanColumn } from "@/components/ui/Kanban";
 import { AppShell } from "@/components/ui/AppShell";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { PageHeader } from "@/components/ui/PageHeader";

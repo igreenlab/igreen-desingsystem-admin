@@ -6,7 +6,7 @@ import {
   type DataTableRef,
 } from "@/components/ui/DataTable";
 import { Button } from "@/components/ui/Button/button";
-import { Avatar } from "@/components/ui/Avatar/avatar";
+import { Avatar } from "@/components/ui/avatar-ig/avatar";
 import { ExamplePageLayout } from "../components/example-page-layout";
 
 /* ── Mock: rede de licenciados (sponsor → descendentes) ──────────────
