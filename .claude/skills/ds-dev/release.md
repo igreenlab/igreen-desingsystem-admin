@@ -50,8 +50,11 @@ Pra atualizar **apenas** a timeline (sem commit/PR), use [`update-changelog.md`]
 6.  Aplicar (após aprovação):
     a. Edit updates-data.ts (insert entry no topo)
     b. Edit package.json (bump version)
+    b2. DISTRIBUIÇÃO (registry) — se tocou componente/token/foundational:
+        registry:build (carimbo na versão nova) + embed; cli:rebake + bump CLI se
+        foundational (cn/tv/lucide-types/theme) mudou
     c. Validar TS (npx tsc --noEmit) — abortar se falhar
-    d. Stage arquivos do escopo
+    d. Stage arquivos do escopo (incluindo registry.json + embed + CLI se mudaram)
     e. Commit local
     f. Criar branch release/v<X.Y.Z>
     g. Reset main local pra origin/main (se commit foi em main)
@@ -222,6 +225,12 @@ Apresentar TUDO de uma vez em markdown:
 ### Bump package.json
   <old> → <new>
 
+### Distribuição (registry) — se aplicável
+  - registry:build → carimbo v<new> nos N items afetados + embed regenerado
+  - Componentes novos sem entrada no registry.json: <nenhum | lista> ⚠️
+  - CLI: <sem mudança | cli:rebake + bump cli X.Y.Z → publicar manual no npm>
+  - Deploy: automático no merge (Vercel/Git)
+
 ### Branch + PR
   - Branch: release/v<X.Y.Z>
   - Title: "release: v<X.Y.Z> — <título>"
@@ -251,6 +260,42 @@ Insere novo objeto no TOPO do array `RELEASES`.
 
 ### 6.2 Edit `package.json`
 `"version": "<old>"` → `"version": "<new>"`.
+
+### 6.2b Distribuição (registry shadcn) — condicional
+
+Só roda se o diff da release tocou **componente** (`src/components/**`), **token**
+(`tokens/**`, `tailwind-theme.css`) ou **foundational** (`src/lib/utils.ts`,
+`src/utils/tv.ts`, `src/lib/lucide-types.ts`). Chore/docs/skill puro → pular.
+
+O carimbo do registry é `package.json.version` + short-hash — por isso roda
+**DEPOIS do bump (6.2)**, pra carimbar a versão nova.
+
+```bash
+# 1. regenera os JSON do registry + carimbo na versão nova + embed do deploy
+npm run registry:build
+node registry-app/scripts/copy-registry.mjs   # de dentro de registry-app: cd registry-app && node scripts/copy-registry.mjs
+
+# 2. CLI: SÓ se foundational (cn/tv/lucide-types/theme) ou cli/templates/** mudaram
+npm run cli:rebake          # re-copia os foundational pro template do CLI
+# + bump manual de cli/package.json (patch/minor) — entra no mesmo commit
+```
+
+**Novo componente no diff?** Se a release adicionou `src/components/ui/<Novo>/` ou
+`src/components/shadcn/<novo>.tsx` que **não está em `registry.json`**, ele NÃO será
+distribuído. Use `node scripts/registry-add-item.mjs <Componente>` pra gerar a entrada
+(escaneia imports → registryDeps + deps + sinaliza imports cross-dir que precisam virar
+alias `@/`), revise e adicione ao `registry.json` ANTES do `registry:build`. (O
+pre-commit-check acusa essa lacuna.)
+
+**Arquivos que entram no stage (6.4):** `registry.json`, `registry-app/app/registry-data.ts`,
+`src/styles/theme/tailwind-theme.css`, e — se rebake — `cli/package.json` +
+`cli/templates/default/**`.
+
+**Deploy:** automático. O merge do PR → `main` → Vercel re-deploya o registry-app
+(Git conectado, Root Directory=`registry-app`). **Sem `vercel --prod` manual.**
+
+**Publish do CLI no npm:** **manual** (precisa OTP/token) — fica fora do fluxo do PR.
+Sinalizar no handoff se o CLI mudou (ver Passo final).
 
 ### 6.3 Validar TS
 ```bash
@@ -310,9 +355,15 @@ RELEASE_PUSHED: v<X.Y.Z>
 
 Próximos passos (humanos):
 1. Revisar o PR
-2. Merge → trigger auto-deploy (Vercel detecta push em main)
+2. Merge → trigger auto-deploy do registry (Vercel detecta push em main, Root=registry-app)
 3. Após merge, deletar branch release/v<X.Y.Z> (local + remote)
+4. CLI mudou? (rebake/bump) → publicar manual: cd cli && npm publish (OTP/token)
 ```
+
+> **Registry vs CLI no deploy:** o **registry** sobe sozinho no merge (Git+Vercel). O
+> **CLI** (`@snksergio/create-design-system`) é pacote npm separado — `npm publish` é
+> manual (2FA). Só republique o CLI quando `cli/**` mudou (rebake de foundational ou
+> feature de template).
 
 ---
 

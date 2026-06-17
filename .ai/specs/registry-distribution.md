@@ -371,6 +371,31 @@ floating-panel, form-field, button-group + 8 primitivos shadcn + utils/tv). npm:
 
 ---
 
+## Integração com o pipeline (release) — 2026-06-17
+
+A distribuição está **plugada no `/ds-release`** (Track A), não é mais passo manual solto:
+- **`release.md` Passo 6.2b (Distribuição):** se a release tocou componente/token/foundational,
+  roda `registry:build` (carimbo na versão **nova**, já que roda depois do bump) + embed
+  (`copy-registry`); se foundational (cn/tv/lucide-types/theme) mudou → `cli:rebake` + bump
+  `cli/package.json`. Esses artefatos entram no commit do release.
+- **Deploy = automático:** Git do projeto Vercel conectado (`snksergio/igreen-admin-desingsystem`,
+  Root Directory=`registry-app`, Framework=Next) → merge do PR na `main` re-deploya o registry.
+  **Sem `vercel --prod` manual.** O `npm publish` do CLI continua **manual** (2FA) — só quando `cli/**` muda.
+- **Versão:** o carimbo do registry segue `package.json.version` → o bump do `/ds-release`
+  (patch/minor/major que ele já pergunta) **já gera a versão nova** do registry. Sem prompt extra.
+  (Semver *por-componente* segue fora de escopo — opcional futuro.)
+- **`pre-commit-check.md` 2.8:** gate acusa componente novo sem entrada no `registry.json`,
+  registry não-rebuildado, e import cross-dir (`../../shadcn/x`) que quebra no copy-in.
+
+### Helper de criação: `scripts/registry-add-item.mjs`
+Pra **criar componente** novo distribuível sem montar a entrada na mão:
+`node scripts/registry-add-item.mjs <Componente>` escaneia os imports → propõe a entrada do
+`registry.json` (registryDependencies `@igreen/*` + dependencies npm com versão do package.json)
+e **sinaliza imports relativos cross-dir** que precisam virar alias `@/`. Não insere sozinho
+(humano revisa + cola). Fecha a lacuna "criei componente mas ele não vira distribuível".
+
+---
+
 ## 7. Fora de escopo
 - Tornar o DS stack-agnóstico (casamento Shadcn + Tailwind v4 mantido de propósito).
 - Servidor de runtime pro DS (registry/MCP só em build/generation-time).

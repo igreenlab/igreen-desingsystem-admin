@@ -173,6 +173,29 @@ Se foi adicionada L-NNN nova:
 
 ---
 
+### 2.8 — Registry / distribuição (quando componente ou token mudou)
+
+O DS é distribuído via registry shadcn (`@igreen/*`, ver `.ai/specs/registry-distribution.md`).
+Mudança em componente/token precisa refletir no registry, senão o consumidor recebe versão velha.
+
+- [ ] **Componente NOVO coberto?** Se o diff adicionou `src/components/ui/<Novo>/` ou
+  `src/components/shadcn/<novo>.tsx` → existe entrada correspondente em `registry.json`?
+  Se não → **ALTO**: o componente não é distribuível. Gerar com
+  `node scripts/registry-add-item.mjs <Componente>` (escaneia imports → registryDeps +
+  deps + flag de import cross-dir), revisar e adicionar.
+- [ ] **registry rebuildado?** Se tocou componente/token/`tailwind-theme.css` → o diff
+  inclui `registry.json` (meta.stamp na versão nova) **e** `registry-app/app/registry-data.ts`
+  (embed)? Senão → rodar `npm run registry:build` + `copy-registry` (Passo 6.2b do release).
+- [ ] **Foundational → CLI rebake?** Se `src/lib/utils.ts` / `src/utils/tv.ts` /
+  `src/lib/lucide-types.ts` / `tailwind-theme.css` mudaram → `npm run cli:rebake` rodou
+  (`cli/templates/default/**` no diff) + `cli/package.json` bumpado? (já no 2.2, reforço aqui)
+- [ ] **Import cross-dir em componente distribuível?** Componente em `registry.json` que
+  importa `../../shadcn/x` (relativo cross-dir) **quebra no copy-in** — tem que ser alias
+  `@/components/shadcn/x`. Grep rápido:
+  ```bash
+  git diff --name-only HEAD -- 'src/components/**' | while read f; do grep -lE 'from "(\.\./)+shadcn/' "$f" 2>/dev/null; done
+  ```
+
 ## Passo 3 — Output
 
 ### Se TODAS as checks OK

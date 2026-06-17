@@ -24,6 +24,11 @@ description: >
                   edit updates-data.ts + bump package.json
                                 │
                                 ▼
+              DISTRIBUIÇÃO (se tocou componente/token/foundational):
+              registry:build + embed · cli:rebake+bump se foundational
+              (deploy do registry = automático no merge; CLI publish = manual)
+                                │
+                                ▼
                        npx tsc --noEmit (abort se falhar)
                                 │
                                 ▼
