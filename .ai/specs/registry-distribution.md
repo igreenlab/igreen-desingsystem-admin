@@ -230,16 +230,17 @@ floating-panel, form-field, button-group + 8 primitivos shadcn + utils/tv). npm:
 `@dnd-kit/{core,sortable,utilities}` + lucide. `use-media-query` bundlado.
 - **Validado em consumidor LIMPO (template do CLI):** `shadcn add @igreen/data-table` →
   184 arquivos (item + todas as deps), `vite build` exit 0, `tsc --noEmit` exit 0.
-- ⚠️ **Caveats conhecidos:**
-  - **Colisão de case `avatar` vs `avatar-ig`:** o primitivo shadcn vira `ui/avatar.tsx`
-    e o avatar-ig vira `ui/Avatar/` — diferem só no case → quebra em FS case-insensitive
-    (Windows/macOS) se o consumidor instalar **os dois**. `data-table` usa só `avatar-ig`.
-    Consumidor que precise dos dois: cuidado (futuro: renomear target do avatar-ig).
-  - **Imports mortos no `data-table.tsx`** (DS): ~24 imports não usados que o build do DS
-    e o `vite build`/template do CLI toleram, mas um tsconfig com `noUnusedLocals: true`
-    rejeita. Débito de limpeza no DS (não bloqueia o consumidor padrão do CLI).
-  - **`import.meta.env`:** o DataTable usa → o consumidor precisa de `vite/client` types
-    (`src/vite-env.d.ts`). Já incluído no template do CLI (v0.3.1).
+- ✅ **Caveats RESOLVIDOS (2026-06-17):**
+  - **Colisão de case `avatar` vs `avatar-ig`:** RESOLVIDA. Dir do DS renomeado
+    `ui/Avatar/` → `ui/avatar-ig/` (+ barrel + todos os importers); o item targeta
+    `components/ui/avatar-ig/` → não colide com `ui/avatar.tsx` (primitivo). **Validado
+    em consumidor limpo: `avatar` + `avatar-ig` + `data-table` instalados JUNTOS →
+    coexistem, vite build + tsc exit 0.** O export segue `Avatar` (API da lib intacta).
+  - **Imports mortos no `data-table.tsx`:** RESOLVIDO. Removidos ~24 imports/locals não
+    usados (TableCell, TableRow, ícones lucide, dropdown-menu, popovers, tipos, applyView,
+    index). DS tsc 0 + build:lib 0. Não quebra mais sob `noUnusedLocals`.
+  - **`import.meta.env`:** o DataTable usa → consumidor precisa de `vite/client` types.
+    Já no template do CLI (`src/vite-env.d.ts`, v0.3.1).
 
 `TabelaTeste`: demo interno, não-API — não distribuído.
 - `registry.json` na raiz: componentes (`ui/` + `shadcn/`), tema/tokens, ≥1 item
