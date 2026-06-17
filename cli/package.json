@@ -17,13 +17,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/igreenlab/igreen-desingsystem-admin.git",
+    "url": "git+https://github.com/snksergio/igreen-admin-desingsystem.git",
     "directory": "cli"
   },
   "bugs": {
-    "url": "https://github.com/igreenlab/igreen-desingsystem-admin/issues"
+    "url": "https://github.com/snksergio/igreen-admin-desingsystem/issues"
   },
-  "homepage": "https://github.com/igreenlab/igreen-desingsystem-admin#readme",
+  "homepage": "https://github.com/snksergio/igreen-admin-desingsystem#readme",
   "publishConfig": {
     "access": "public"
   },
