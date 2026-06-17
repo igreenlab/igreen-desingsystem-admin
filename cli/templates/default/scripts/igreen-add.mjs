@@ -69,12 +69,20 @@ function hashFiles(targets) {
 
 const manifest = loadManifest();
 
+// Roda `npx shadcn add` cross-platform SEM shell:true (que dispara o DEP0190 e tem
+// risco de injeção). No Windows o npx é `.cmd` e o spawn direto dá EINVAL, então
+// vai via `cmd.exe /c`; no resto, chama o npx direto. Args fixos (sem interpolação
+// de input não-confiável além do nome do componente, que é validado pelo registry).
+function runShadcnAdd(name) {
+  const a = ["shadcn@latest", "add", `@igreen/${name}`, "--yes"];
+  return process.platform === "win32"
+    ? spawnSync("cmd.exe", ["/c", "npx", ...a], { stdio: "inherit" })
+    : spawnSync("npx", a, { stdio: "inherit" });
+}
+
 for (const name of names) {
   console.log(`\n→ shadcn add @igreen/${name}`);
-  const r = spawnSync("npx", ["shadcn@latest", "add", `@igreen/${name}`, "--yes"], {
-    stdio: "inherit",
-    shell: process.platform === "win32",
-  });
+  const r = runShadcnAdd(name);
   if (r.status !== 0) {
     console.error(`✗ add @igreen/${name} falhou — não registrado no manifesto.`);
     continue;
