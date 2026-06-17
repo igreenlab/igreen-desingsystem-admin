@@ -57,6 +57,19 @@ if [ -f "$INVENTORY" ]; then
   fi
 fi
 
+# 3. Não consta no registry.json → NÃO será distribuído via @igreen/* (gap de distribuição)
+#    registry.json referencia os arquivos por path src/components/ui/<Nome>/...
+#    (TabelaTeste é demo interno intencional — não avisa)
+REGISTRY="$PROJECT_ROOT/registry.json"
+if [ -f "$REGISTRY" ] && [ "$COMP_NAME" != "TabelaTeste" ]; then
+  if ! grep -q "src/components/ui/$COMP_NAME/" "$REGISTRY" 2>/dev/null; then
+    MISSING="$MISSING
+  • $COMP_NAME não consta em registry.json → NÃO será distribuído (consumidor não recebe via @igreen/*)
+       → node scripts/registry-add-item.mjs $COMP_NAME → revisar/adicionar ao registry.json → npm run registry:build
+       (mudança em componente já distribuído também exige registry:build + bump de versão via /ds-release)"
+  fi
+fi
+
 if [ -n "$MISSING" ]; then
   echo "[$TS] ds-inventory-check: WARN $COMP_NAME ($FILE)" >> "$LOG_FILE" 2>/dev/null
   {
