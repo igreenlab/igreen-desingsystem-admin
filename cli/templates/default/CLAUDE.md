@@ -70,7 +70,37 @@ Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separat
 `sheet` `slider` `switch` `tabs`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
 `footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`.
-App-level: `chart` `table` `menu-sidebar` `header` `app-shell`.
+App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
+Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
+`example-edit-page` `example-order-detail` `example-dashboard`.
+
+## 🧭 Mapa de intenção → referência (IA: USE ISTO PRIMEIRO)
+
+Quando o usuário pedir uma **tela / página / fluxo**, NÃO comece do zero. Primeiro
+puxe o **exemplo** mais próximo (`npm run igreen:add -- <item>`) — é uma tela completa,
+pronta de produção, nos padrões do DS. Depois **edite o copy-in** pro caso dele (é código
+dele). O catálogo visual hospedado mostra como cada um fica:
+**https://igreen-desingsystem-admin.vercel.app**.
+
+| Usuário diz algo como… | Puxe este item | Componente-chave |
+|---|---|---|
+| "crud", "lista", "tabela", "grid de dados", "listagem de X" | `example-clientes` | DataTable |
+| "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela" | `example-finance` | DataTable + KPI cards |
+| "tela de edição", "cadastro", "formulário", "editar X", "novo X" | `example-edit-page` | FormField |
+| "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail` | Tabs + Cards |
+| "dashboard", "painel", "visão geral", "gráfico", "indicadores" | `example-dashboard` | Chart + KPI cards |
+| "shell do app", "layout com menu lateral", "casca", "estrutura base" | `app-shell` (template) | AppShell |
+| "menu lateral", "sidebar", "navegação lateral" | `menu-sidebar` (template) | MenuSidebar |
+| "cabeçalho do app", "topbar", "header com usuário" | `header` (template) | Header |
+| "cabeçalho de página", "título + ações + breadcrumb" | `page-header` (template) | PageHeader |
+| "gráfico de barras/linha/área/pizza" | `chart` (componente) | ChartContainer |
+
+> **Regra pra IA**: "quero igual ao exemplo de Finance" / "seguir a estrutura do Finance"
+> → `npm run igreen:add -- example-finance` e adapte. Combine livremente: um dashboard com
+> tabela embaixo = `example-dashboard` + `example-clientes` como base. Cada exemplo traz
+> seus `registryDependencies` (os componentes vêm juntos automaticamente). Sempre prefira
+> **adaptar um exemplo** a escrever uma tela na unha — é a garantia de produção que o
+> showcase promete.
 
 ## Anti-patterns proibidos
 
