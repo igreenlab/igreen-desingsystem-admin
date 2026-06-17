@@ -23,6 +23,7 @@ import {
   copyFileSync,
   renameSync,
   statSync,
+  unlinkSync,
 } from "node:fs";
 import spawn from "cross-spawn";
 import prompts from "prompts";
@@ -227,6 +228,16 @@ async function main() {
     writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, "utf8");
   }
 
+  // Step 5c: tela inicial AppShell (asset `_app-appshell.tsx`). Guarda o conteúdo
+  // e remove o stray do projeto. Só vira `src/App.tsx` quando há token (precisa puxar
+  // @igreen/app-shell do registry) — feito no Step 6b. Sem token, fica a tela de boas-vindas.
+  const appShellAsset = join(projectDir, "_app-appshell.tsx");
+  let appShellContent = null;
+  if (existsSync(appShellAsset)) {
+    appShellContent = readFileSync(appShellAsset, "utf8");
+    unlinkSync(appShellAsset);
+  }
+
   // Step 6: install deps
   if (installDeps) {
     console.log(pc.cyan(`→ Installing dependencies with ${packageManager}…`));
@@ -236,6 +247,20 @@ async function main() {
       console.log();
       console.log(pc.yellow(`⚠ Failed to install dependencies: ${err.message}`));
       console.log(pc.dim(`  You can run "${packageManager} install" manually later.`));
+    }
+  }
+
+  // Step 6b: monta a tela inicial com AppShell (só com token + deps instaladas).
+  // Puxa o set inicial do registry e promove o asset AppShell a src/App.tsx.
+  // Falhou (sem rede / token inválido)? Mantém a tela de boas-vindas padrão.
+  if (token && installDeps && appShellContent) {
+    console.log(pc.cyan("→ Montando a tela inicial com AppShell (puxando componentes do registry)…"));
+    try {
+      await run(packageManager, ["run", "igreen:add", "--", "app-shell", "button", "card", "badge"], projectDir);
+      writeFileSync(join(projectDir, "src", "App.tsx"), appShellContent, "utf8");
+      console.log(pc.green("  ✓ Tela AppShell pronta (sidebar + header + troca de tema)."));
+    } catch (err) {
+      console.log(pc.yellow(`  ⚠ Não consegui montar a tela AppShell (${err.message}). Mantida a tela inicial padrão.`));
     }
   }
 
