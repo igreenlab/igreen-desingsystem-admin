@@ -79,7 +79,7 @@ for (const f of files) {
 
 const targetBase = isDir ? `components/ui/${dirName}` : `components/ui/${dirName}`;
 const item = {
-  name, type: "registry:ui", title: dirName, description: `TODO descrição de ${dirName}.`,
+  name, type: "registry:ui", title: dirName, description: `Componente ${dirName} do iGreen DS.`,
   registryDependencies: [...registryDeps].sort(),
   dependencies: [...deps.values()].sort(),
   files: files.map((f) => ({

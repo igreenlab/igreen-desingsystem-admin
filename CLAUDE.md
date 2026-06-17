@@ -121,14 +121,16 @@ Logs em `.ai/scratch/hook-log.txt`.
 ## Arquitetura de tokens (3 tiers)
 
 ```
-TIER 1 — Primitives (API privada, nunca em componentes)
+# Base path real dos arquivos abaixo: tokens/brands/default/
+#   primitives/* · semantic/* · components/*
+TIER 1 — Primitives (API privada, nunca em componentes) — em primitives/
   color-palette.ts · scales.ts · fonts.ts · motion.ts
 
-TIER 2 — Semantic (API pública via CSS vars)
+TIER 2 — Semantic (API pública via CSS vars) — em semantic/
   color-light.ts / color-dark.ts
   spacing.ts · sizing.ts · shape.ts · elevation.ts · typography.ts
 
-TIER 2.5 — Component tokens
+TIER 2.5 — Component tokens — em components/
   components/sizing.ts  → form.* · layout.* · icon.* · container.*
   components/spacing.ts → padCard.* · padPage.*
 

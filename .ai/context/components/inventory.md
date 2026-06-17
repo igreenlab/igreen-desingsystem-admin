@@ -77,7 +77,7 @@ src/components/
 |------------|--------|-------|--------|
 | AlertModal | `ui/AlertModal/alert-modal.styles.ts` | `src/components/ui/AlertModal/` | ✅ implementado — modal de confirmação destrutiva com tone semântico (danger/warning/success/neutral) |
 | AppShell | `ui/AppShell/app-shell.styles.ts` | `src/components/ui/AppShell/` | ✅ implementado — template de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre |
-| Avatar | `ui/Avatar/avatar.styles.ts` | `src/components/ui/Avatar/` | ✅ implementado |
+| Avatar | `ui/avatar-ig/avatar.styles.ts` | `src/components/ui/avatar-ig/` | ✅ implementado (dir `avatar-ig` — distinto do primitivo shadcn `avatar`) |
 | Button | `ui/Button/button.styles.ts` | `src/components/ui/Button/` | ✅ implementado |
 | **ButtonGroup** | `ui/ButtonGroup/button-group.styles.ts` | `src/components/ui/ButtonGroup/` | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder) |
 | **CardCheckbox** | `ui/CardCheckbox/card-checkbox.styles.ts` | `src/components/ui/CardCheckbox/` | ✅ **v0.7.1** — checkbox apresentado como card clicável (área grande, label + description visíveis). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). Diferente de `FormFieldCheckbox` (compact horizontal). Props: `label` + `description` + opcional `icon` à esquerda. Toggle via clique no card inteiro (label htmlFor). Uso atual: SacarDialog aba "Outra conta" — opção "Salvar essa conta pra usar depois" |
@@ -115,7 +115,7 @@ colorHex: string (hex override — bg via inline style, text-white)
 ```
 - Non-interactive (no focus, no disabled).
 - Accessibility: `aria-label` present → `role="img"`, absent → `aria-hidden="true"`.
-- Fonte de verdade: `src/components/ui/Avatar/avatar.styles.ts`
+- Fonte de verdade: `src/components/ui/avatar-ig/avatar.styles.ts`
 
 ### Button (ui/)
 ```
