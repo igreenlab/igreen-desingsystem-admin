@@ -160,13 +160,16 @@ simples; o registry ganha runtime pro token.
   (next build/start, não dev): sem token → 401, token errado → 401, token certo →
   200 + `Cache-Control: no-store`, inexistente → 404. `shadcn add @igreen/button`
   remoto trouxe `button` + `tv`; sem/errado token → não autorizado, 0 arquivos.
-- ⚠️ **Dívida de deploy (não bloqueia a Fase 1, resolver na ida pra produção real):**
-  o projeto Vercel **tem conexão Git** e builda a **raiz do repo como Vite** a cada
-  push na `main` → serve estático sem a rota `/r` (registry público/404). Hoje o
-  deploy correto é **manual** (`vercel --prod` de dentro de `registry-app`, que o
-  `vercel.json` força a Next). **Fix durável:** setar **Root Directory =
-  `registry-app`** no projeto (+ Framework Preset = Next) pra o build Git usar o app
-  Next. Até lá, todo push na main exige um `vercel --prod` de correção.
+- ✅ **Dívida de deploy RESOLVIDA (2026-06-17).** O projeto Vercel tinha conexão Git
+  buildando a **raiz como Vite** a cada push (estático, sem `/r` → 401/404/público).
+  **Fix aplicado no dashboard:** **Root Directory = `registry-app`** + **Framework
+  Preset = Next.js** + "Include files outside root" = Enabled. Agora o build Git entra
+  em `registry-app/` (com o `vercel.json` forçando `next build`) → **push na main =
+  deploy automático Next correto**, sem `vercel --prod` manual. Validado: deploy Git
+  de um commit na main → 4 curls verdes (sem token 401, errado 401, certo 200 +
+  `no-store`, inexistente 404). ⚠️ Deploy via CLI agora tem que vir da **raiz do
+  repo** (não de dentro de `registry-app`, senão a Vercel procura
+  `registry-app/registry-app`); o caminho normal passou a ser o Git.
 - ⚠️ **`IGREEN_TOKEN` é sensível na Vercel:** `vercel env pull` devolve **vazio**
   (`""`) — o plaintext não sai no pull. Distribuir o valor aos consumidores
   **out-of-band** (quem seta o token guarda o valor), não via pull.
