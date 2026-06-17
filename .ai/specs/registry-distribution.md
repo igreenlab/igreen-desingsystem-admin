@@ -181,6 +181,33 @@ simples; o registry ganha runtime pro token.
 - ⚠️ **`IGREEN_TOKEN` é sensível na Vercel:** `vercel env pull` devolve **vazio**
   (`""`) — o plaintext não sai no pull. Distribuir o valor aos consumidores
   **out-of-band** (quem seta o token guarda o valor), não via pull.
+
+### Cobertura de componentes (2026-06-17) — 30 items publicados e validados
+Foundational (3): `utils`, `tv`, `theme`. Componentes (27 — TODOS os primitivos shadcn):
+`button` `input` `label` `textarea` `select` `card` `badge` `separator` `checkbox`
+`accordion` `alert` `alert-dialog` `avatar` `breadcrumb` `calendar` `command` `dialog`
+`dropdown-menu` `input-group` `pagination` `popover` `progress` `radio-group` `sheet`
+`slider` `switch` `tabs`. Cada um validado via `shadcn add` no `consumer-demo` (compila
++ renderiza estilizado). `command` registry-depende de `@igreen/dialog`; `badge` de
+`@igreen/tv`; os demais de `@igreen/utils`.
+
+⚠️ **ACHADO — composites com import relativo cross-dir NÃO são copy-in (defer).**
+`FormField` (lote 3) foi REVERTIDO: seus sub-componentes importam via caminho
+**relativo** `../../shadcn/input` / `../../shadcn/select` / `../../shadcn/switch` /
+`../../shadcn/textarea` / `../../shadcn/input-group`. No copy-in isso quebra (TS2307):
+o consumidor não tem `src/components/shadcn/`, e o transform do shadcn só reescreve
+imports **com alias `@/`**, não relativos cross-dir. **Regra:** um componente `ui/` só é
+distribuível se seus imports forem (a) **same-dir relativos** (copiados juntos — caso do
+`Button`: `./button.styles`) ou (b) **alias `@/`** (transformados). Antes de distribuir
+qualquer composite que reusa siblings (`FormField`, e provavelmente `ButtonGroup`,
+`Combobox`, `AlertModal`, `Modal`…), refatorar os imports relativos cross-dir → alias
+`@/components/ui/<x>` + declarar os `registryDependencies` correspondentes. Backlog.
+
+**Deferidos (não distribuídos):** composites que reusam siblings (FormField & cia —
+ver acima) e os **app-level** multi-arquivo profundos (`DataTable`, `TableToolbar`,
+`AppShell`, `MenuSidebar`, `Chart`, `Kanban`, `Header`, `Table`) — exigem tratamento
+dedicado por-componente (enumerar dezenas de arquivos + dezenas de registryDeps),
+fora do escopo de um lote autônomo.
 - `registry.json` na raiz: componentes (`ui/` + `shadcn/`), tema/tokens, ≥1 item
   de governança passiva.
 - `registryDependencies` com namespace explícito entre componentes (`form` →
