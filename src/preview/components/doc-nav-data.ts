@@ -11,6 +11,7 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "Introduction", href: "introduction" },
       { label: "Structure", href: "structure" },
+      { label: "Distribution", href: "distribution" },
       { label: "Installation", href: "installation" },
       { label: "Transform Tokens", href: "transform-tokens" },
       { label: "Updates", href: "updates" },

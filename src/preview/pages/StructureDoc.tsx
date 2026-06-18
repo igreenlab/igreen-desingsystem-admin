@@ -57,6 +57,7 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">preview/pages/                   <span className="text-fg-subtle">← Doc pages</span></p>
           <p className="ml-sp-2xl">utils/                           <span className="text-fg-subtle">← tv(), color-contrast</span></p>
           <p className="ml-sp-2xl">lib/                             <span className="text-fg-subtle">← cn()</span></p>
+          <p className="ml-sp-2xl">examples/                        <span className="text-fg-subtle">← Telas-exemplo distribuíveis (registry)</span></p>
           <p className="ml-sp-md">.claude/                           <span className="text-fg-subtle">← Pipeline orchestration</span></p>
           <p className="ml-sp-2xl">agents/                          <span className="text-fg-subtle">← 4 agents + 2 pending</span></p>
           <p className="ml-sp-2xl">skills/                          <span className="text-fg-subtle">← Atomic procedures</span></p>
@@ -69,9 +70,16 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">context/                         <span className="text-fg-subtle">← Architecture, tokens, components</span></p>
           <p className="ml-sp-2xl">rules/coding-standards.md        <span className="text-fg-subtle">← Long-form tv() reference</span></p>
           <p className="ml-sp-2xl">status/pipeline-state.md         <span className="text-fg-subtle">← Audit log (append-only)</span></p>
-          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-028</span></p>
+          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-037</span></p>
           <p className="ml-sp-md">memory/                            <span className="text-fg-subtle">← Project-level memory</span></p>
+          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← Manifesto do registry (distribuição)</span></p>
+          <p className="ml-sp-md">registry-app/                      <span className="text-fg-subtle">← App Vercel que serve o registry</span></p>
+          <p className="ml-sp-md">cli/                               <span className="text-fg-subtle">← CLI npm (scaffold do consumidor)</span></p>
         </div>
+        <p className="text-body-md text-fg-muted">
+          A camada de <strong className="text-fg-default">distribuição</strong> (registry, deploy, como registrar/versionar, kit do consumidor) tem página própria:
+          veja <strong className="text-fg-default">Get Started → Distribution</strong>.
+        </p>
       </div>
 
       {/* Token Files */}
@@ -177,7 +185,7 @@ export function StructureDoc() {
         <FileRow path=".ai/context/components/guide.md" desc="Long-form component guide (variants, compounds, patterns)" tag="Guide" />
         <FileRow path=".ai/rules/coding-standards.md" desc="Long-form tv() pattern reference (sub-skill load)" tag="Rules" />
         <FileRow path=".ai/status/pipeline-state.md" desc="Audit log (append-only): every decision + Assumption field" tag="Audit" />
-        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-028 (full descriptions, examples)" tag="Lessons" />
+        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-037 (full descriptions, examples)" tag="Lessons" />
         <FileRow path=".ai/status/BACKLOG.md" desc="Pending features queued for the pipeline" tag="Queue" />
         <FileRow path="memory/" desc="Project-level memory (MEMORY.md index + project_*.md notes)" tag="Memory" />
       </div>
