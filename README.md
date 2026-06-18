@@ -8,6 +8,7 @@ Design system interno da iGreen para SaaS CRM, painéis admin e dashboards.
 
 Escolha o caminho conforme seu objetivo:
 
+- **Quero ver o DS funcionando** → catálogo + documentação viva em **[igreen-desingsystem-admin.vercel.app](https://igreen-desingsystem-admin.vercel.app/#/introduction)** (componentes, tokens, exemplos e pipeline).
 - **Quero consumir o DS num projeto** → veja [`## Consumir em outro projeto`](#consumir-em-outro-projeto) (CLI/registry) e [`DISTRIBUICAO.md`](DISTRIBUICAO.md).
 - **Quero desenvolver no DS** → veja [`## Setup (desenvolvimento no DS)`](#setup-desenvolvimento-no-ds) e [`CLAUDE.md`](CLAUDE.md).
 - **Sou operador (não-dev)** → veja [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
@@ -100,9 +101,9 @@ cd my-app
 npm run dev
 ```
 
-O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git. Em ~30 segundos você tem um app rodando em `http://localhost:3200` com 4 componentes do DS demonstrados. Sem precisar configurar nada manualmente, sem gotcha do `@source` do Tailwind v4.
+O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git, e o `IGREEN_TOKEN` do registry (pode pular e colar depois). Em ~30 segundos você tem um app rodando em `http://localhost:3200` com tela de boas-vindas, exemplos navegáveis no menu e tema claro/escuro/sistema. Sem configurar nada manualmente, sem gotcha do `@source` do Tailwind v4.
 
-**A partir de v0.1.5 (junho 2026):** o template default inclui também um `CLAUDE.md` na raiz com onboarding consumer-facing pra Claude Code / Cursor / agentes AI — lista de componentes, anti-patterns proibidos e padrões obrigatórios. Permite que qualquer agente AI gere UI consistente com o DS desde o primeiro prompt. **Mas o pipeline AI completo do DS (agents/skills/hooks/rules — ver seção [AI Pipeline](#ai-pipeline) abaixo) NÃO vem via CLI** — vive só neste repositório. Pra ter o pipeline completo, clone o repo.
+O template default já inclui um `CLAUDE.md` de onboarding **+ um kit de IA pro consumidor** (orquestrador `ds-kit`, skills de tela, `DESIGN.md`, hook de proteção) — pra Claude Code / Cursor montarem telas no padrão por intenção. **Mas o pipeline de desenvolvimento do DS** (agents/skills/hooks/rules de criação de token/componente — ver [AI Pipeline](#ai-pipeline)) **NÃO vem via CLI** — vive só neste repositório. Pra ter o pipeline completo, clone o repo.
 
 Ver detalhes: [`cli/README.md`](cli/README.md).
 
@@ -320,6 +321,10 @@ Mudar o visual = mudar **só** o `.styles.ts`. Componentes Shadcn ficam em `src/
 ---
 
 ## Documentação completa
+
+Online (sempre na última versão publicada): **[igreen-desingsystem-admin.vercel.app/#/introduction](https://igreen-desingsystem-admin.vercel.app/#/introduction)**.
+
+Ou localmente, refletindo o estado atual do código:
 
 ```bash
 npm run dev
