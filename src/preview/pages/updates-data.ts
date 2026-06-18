@@ -46,6 +46,35 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "CLI 0.13.1",
+    date: "2026-06-18",
+    tag: "patch",
+    title: "Tela inicial do scaffold redesenhada + tema “Sistema”",
+    summary:
+      "Refino da experiência de primeiro contato no projeto scaffoldado pelo `@snksergio/create-design-system`. A tela de boas-vindas passa a usar `PageHeader` (no mesmo modelo das páginas de exemplo), ganha seção de tokens de cor (swatches que trocam sozinhos light/dark), bloco de prompt de bootstrap copy-paste pra dar contexto à IA, e a vitrine do kit de construção (ds-kit + crud-builder + skills + protect-ds). Os prompts viram lista (1 coluna) e o “Como funciona” vira timeline vertical — leitura mais harmônica. O App gerado passa a oferecer o tema “Sistema” (default, segue `prefers-color-scheme`): quem usa o SO em dark abre o scaffold em dark (antes nascia branco). Inclui também o fix do `--overwrite` no `igreen:add`/`igreen:update` (sem mais prompt interativo travando a instalação de exemplos/tabelas/cruds).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Tema “Sistema” no App gerado (`Theme = light|dark|system`, default `system`) com observer de `prefers-color-scheme` — OS dark abre o scaffold em dark.",
+          "Tela inicial: seção “Cores do sistema” (swatches de tokens semânticos), bloco de prompt de bootstrap pra IA e vitrine do kit (ds-kit, crud-builder, skills, protect-ds).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Welcome consome `PageHeader` (+ Badge) no padrão das páginas de exemplo; prompts em formato de lista; “Como funciona” em timeline vertical; espaçamentos calibrados (gap entre seções, título↔subtítulo justos) e padding de página (cards não cortam nas bordas).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "`igreen:add`/`igreen:update` passam `--overwrite` ao `shadcn add` → fim do prompt interativo `overwrite? (y/N)` que travava a instalação de exemplos/tabelas/cruds com deps compartilhadas.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.10.0",
     date: "2026-06-17",
     tag: "milestone",
