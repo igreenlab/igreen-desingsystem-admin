@@ -98,62 +98,23 @@ Ver detalhes: [`cli/README.md`](cli/README.md).
 
 ---
 
-## Install in external apps
+## Consumir em outro projeto
 
-Se você prefere adicionar o DS num projeto JÁ existente (ao invés de usar o CLI), é publicado como pacote NPM público (`@snksergio/design-system`):
+O iGreen DS é distribuído por **copy-in via registry** (padrão shadcn) — **não** como pacote npm. O código de cada componente é **copiado pro seu projeto** (`src/`), virando código seu, editável.
+
+**Projeto novo (recomendado):**
 
 ```bash
-npm install @snksergio/design-system
+npx @snksergio/create-design-system@latest meu-app
 ```
 
-**Pre-requisitos no app consumidor:**
-- React 19+ (peer dep)
-- Tailwind CSS v4 instalado e configurado
-- Importar `@snksergio/design-system/theme.css` uma vez no entry CSS
-- **Adicionar `@source` apontando pro `dist-lib/` do package** (ver abaixo) — sem isso, as classes utility usadas DENTRO dos componentes não são geradas pelo Tailwind v4
+Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela de boas-vindas, exemplos navegáveis e o kit de IA pra montar telas por intenção.
 
-**Configuração mínima do CSS de entrada (`index.css` ou `globals.css`):**
+**Projeto existente:** configure o registry `@igreen` no `components.json` (Bearer `IGREEN_TOKEN`) e puxe componentes com `npx shadcn add @igreen/<nome>` (ou o wrapper `npm run igreen:add` no scaffold, que mantém o manifesto).
 
-```css
-@import "tailwindcss";
+> ⚠️ O pacote npm `@snksergio/design-system` está **DEPRECIADO** (era uma tentativa antiga de virar lib). **Não use `npm install` dele** — o canal vivo é o registry/CLI acima. Modelo e versionamento explicados em `DISTRIBUICAO.md` e na página **Distribution** do catálogo.
 
-/* Necessário: Tailwind v4 ignora node_modules por default.
-   Isso instrui ele a escanear os bundles do DS pra gerar
-   classes utility usadas DENTRO dos componentes
-   (gap-gp-md, rounded-radius-base, min-h-form-lg, etc.) */
-@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
-
-@import "@snksergio/design-system/theme.css";
-```
-
-⚠️ **Esse `@source` é obrigatório.** Sem ele, os componentes ficam sem estilo (cores aparecem via CSS vars, mas spacing/radius/shadow/sizing somem porque as classes utility ficam órfãs).
-
-**Uso:**
-
-```tsx
-// app.tsx — entry CSS
-import "@snksergio/design-system/theme.css";
-
-// componentes
-import { Button, AppShell, DataTable } from "@snksergio/design-system";
-
-// tokens (acesso programático)
-import { colorLight, spacing } from "@snksergio/design-system/tokens";
-
-// showcases prontas (com mocks)
-import ChatV2 from "@snksergio/design-system/preview/chat";
-
-// mocks reutilizáveis
-import { APP_SHELL_CONTEXTS, chatMocks } from "@snksergio/design-system/preview/mocks";
-```
-
-**Modelo evergreen:** sem versionamento semver disciplinado. Apps usam `^0.1.0` no `package.json` e `npm update` puxa as últimas mudanças.
-
-**Sub-paths disponíveis:** `.`, `/theme.css`, `/tokens`, `/preview/chat`, `/preview/clientes`, `/preview/dashboard`, `/preview/mocks`.
-
-**⚠️ O que VEM via `npm install`:** build dos componentes + types TypeScript + theme.css + tokens + 4 preview entries + README.md. **Apenas isso.**
-
-**O que NÃO vem via npm:** agents (`.claude/agents/`), skills (`.claude/skills/`), hooks (`.claude/hooks/`), rules auto-carregadas (`.claude/rules/`), context guides (`.ai/context/`), lições documentadas (`.ai/status/lessons.md`), arquitetura completa do pipeline (`README-PIPELINE-WORKFLOW.md`), nem o source TypeScript dos componentes (`src/components/`). Tudo isso vive **só neste repositório**. Pra ter acesso, ver [Setup (desenvolvimento no DS)](#setup-desenvolvimento-no-ds) abaixo.
+**O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
 ---
 

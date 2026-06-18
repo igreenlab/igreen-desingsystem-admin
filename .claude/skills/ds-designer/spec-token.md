@@ -42,7 +42,7 @@ Toda spec entregue ao Orchestrator pra gate inclui:
 
 - **Token proposto** — nome, valor, role
 - **Alternativas descartadas** — quais tokens existentes foram considerados e por que não servem
-- **Assumption central** — o que precisa ser verdade pra essa decisão funcionar (ex: "valor 0.625rem cobre o gap entre paragraph-xs (0.75rem) e a próxima escala menor")
+- **Assumption central** — o que precisa ser verdade pra essa decisão funcionar (ex: "valor 0.625rem cobre o gap entre caption-md (0.75rem) e a próxima escala menor")
 - **Impacto** — quais componentes esperam usar
 
 ---
@@ -218,36 +218,33 @@ Sistema:
 - Presets **< 32px** → `rem` estático, lineHeight em rem
 - **NUNCA px** em nenhum preset (Figma mostra px → dividir por 16 pra rem)
 
-Presets por categoria:
+Presets por role (6 roles, 23 presets — rewrite 2026-05-19):
 
-**display** (hero — fluid): `display-2xl` clamp(2.5→4.75rem) · `display-xl` clamp(2.25→3.8rem) · `display-lg` clamp(2→3rem) · `display-md` clamp(1.75→2.4rem)
+**display** (hero — fluid `clamp()`): `display-2xl` · `display-xl` · `display-lg` · `display-md`
 
-**heading** (títulos de página): fluido `heading-xl/lg/md/sm` (clamp); estático `heading-xs` 1.5rem · `heading-2xs` 1.25rem
+**heading** (títulos de página): fluido `heading-xl/lg/md/sm` (clamp); estático `heading-xs` 1.5rem/24px
 
-**title** (cards — estático, weight 500): `title-lg` 1.25rem · `title-md` 1rem · `title-sm` 0.875rem
+**title** (cards/seções — weight **600** default): `title-lg` 1.25rem/20 · `title-md` 1rem/16 · `title-sm` 0.875rem/14
 
-**label** (botões, inputs, tabs — weight 500): `label-xl` 1.5rem · `label-lg` 1.125rem · `label-md` 1rem · `label-sm` 0.875rem · `label-xs` 0.75rem
+**body** (interativo + leitura): `body-2xl` · `body-xl` · `body-lg` · `body-md` 0.875rem/14 (leitura, w400) · **`body-sm` 0.8125rem/13 — DEFAULT do projeto; interativo = w500** · `body-xs` 0.75rem/12 (w500)
 
-**paragraph** (texto corrido — weight 400, mesmos tamanhos que label): `paragraph-xl/lg/md/sm/xs`
-
-**subheading** (categorias — letter-spacing positivo): `subheading-md` 1rem · `subheading-sm` 0.875rem · `subheading-xs` 0.75rem · `subheading-2xs` 0.6875rem
-
-**caption** (auxiliar): `caption-md` 0.8125rem · `caption-sm` 0.6875rem
+**caption** (auxiliar/metadados — w400): `caption-md` 0.75rem/12 · `caption-sm` 0.6875rem/11 · `caption-xs` 0.625rem/10
 
 **code**: `code-md` 1rem · `code-sm` 0.8125rem
+
+> ⚠️ **NÃO existem** `label-*`, `paragraph-*` nem `subheading-*` (removidos no rewrite 2026-05-19). Peso vem por override Tailwind sobre o preset (`font-semibold`/`font-medium`/`font-normal`), nunca por preset separado. Ao criar preset novo: registrar em `src/utils/tv.ts` `twMergeConfig` (L-016).
 
 Uso por componente:
 
 | Componente | Preset |
 |------------|--------|
-| Button | `label-sm` |
-| Input value | `paragraph-sm` |
-| Label de campo | `label-sm` |
-| Helper text | `paragraph-xs` |
-| Badge sm | `subheading-2xs` |
-| Badge md | `label-xs` |
-| Tabs item | `label-sm` |
-| Card title | `label-md` |
+| Button | `body-sm font-semibold` (13/600) |
+| Input value / Select | `body-sm` |
+| Label de campo (FormField) | `body-sm font-semibold` |
+| Helper text | `caption-md` |
+| Badge / Chip | `body-xs` (ou `caption-md`) |
+| Tabs item | `body-sm` |
+| Card title | `title-md` |
 
 Regras:
 ```typescript
