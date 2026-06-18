@@ -35,20 +35,34 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - Busca global? (`enableSearch`)
 - Filtros por coluna? quais colunas e tipo de filtro (text/number/date/select/multiSelect/boolean)?
 - Ações por linha (editar, excluir, ...)? (coluna `actions`, `getActions`).
+  **Toda ação destrutiva (Excluir) → confirmação OBRIGATÓRIA via `AlertModal`** (nunca
+  deletar direto). Pergunte o texto do confirm.
 - Seleção + ações em massa (exportar, etc.)? (`selectionConfig` + bulk actions).
+- Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
 
 ## Fase 3 — Views, paginação & densidade
-- Preset views salvas? (ex.: "Ativos", "Alto valor") → `defaultViews` / `presetView`.
+- Views (ver bloco obrigatório). Dois sabores, pergunte os dois:
+  - **Presets fixos** que VOCÊ define (`defaultViews`/`presetView`, ex.: "Ativos", "Alto valor").
+  - **Views do usuário**: ele cria/salva/persiste as próprias (`savedViewsService` + `persistId`).
 - Paginação (tamanho inicial, opções) ou virtualização (10k+ linhas)?
 - Totalizadores no rodapé? (`showTotalizers` + `aggregate`).
 
 ## Fase 4 — Criar/editar/detalhe (drawers)
 - Precisa criar/editar registro? → drawer estilo `NovoClienteDrawer` (Panel + FormField).
+  - **Quais campos no form?** (default: espelha as colunas editáveis). Pra cada campo:
+    **obrigatório?** **máscara** (CNPJ / telefone / CEP / moeda)? **validação** (formato,
+    min/max)? Todo label via `<FormField>` (nunca `<label>` cru) + `gap-form-gap`.
 - Precisa ver detalhe ao clicar na linha? → `FinanceDetailPanel` (FloatingPanel).
 - (Puxar `example-finance` na geração pra reusar esses padrões.)
 
 ## Fase 5 — Kanban (opcional)
 - Quer alternar tabela↔kanban? Se sim: qual campo agrupa as colunas (ex.: status)?
   Cada lane = uma option desse campo. (`viewMode` controlado + `kanbanConfig`.)
+
+## Fase 6 — Estados (SEMPRE perguntar — sai faltando se não)
+- **Loading** (`loading` + `renderLoading`): skeleton enquanto carrega — obrigatório em server mode.
+- **Vazio** (`renderEmpty`): sem nenhum registro → "Nenhuma `<entidade>` ainda" + CTA *Adicionar*.
+- **Sem resultado** (`renderNoResults`): filtro/busca sem match → "Nenhum resultado" + *Limpar filtros*.
+- (Aceite defaults sensatos se o usuário não quiser customizar — mas **sempre wire os três**.)
 
 Ao terminar: resuma as escolhas e siga pro `blueprint.md` (gate).

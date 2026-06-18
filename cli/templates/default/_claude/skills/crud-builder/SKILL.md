@@ -59,6 +59,9 @@ Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 8. Página registrada no roteador do usuário — página órfã = tarefa incompleta.
 9. `npx tsc --noEmit` limpo antes do handoff (abort-on-error).
 10. LER o exemplo canônico ANTES de gerar — nunca de memória.
+11. Ação destrutiva (excluir) ⇒ **confirmação via `AlertModal`** — nunca deletar direto.
+12. Sempre wire os 3 estados: `loading`/`renderLoading` (skeleton), `renderEmpty` (sem
+    registros + CTA *Adicionar*), `renderNoResults` (filtro sem match). Faltou = incompleto.
 
 ## Drawers (criar/editar/detalhe) — ligado ao CRUD
 Se o CRUD precisa de criar/editar/ver-detalhe, espelhe o padrão do `example-finance`:
