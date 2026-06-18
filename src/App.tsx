@@ -80,6 +80,7 @@ import { SizingDoc } from "./preview/pages/SizingDoc";
 import { ShapeDoc } from "./preview/pages/ShapeDoc";
 import { IntroductionDoc } from "./preview/pages/IntroductionDoc";
 import { StructureDoc } from "./preview/pages/StructureDoc";
+import { DistributionDoc } from "./preview/pages/DistributionDoc";
 import { TransformTokensDoc } from "./preview/pages/TransformTokensDoc";
 import { InstallationDoc } from "./preview/pages/InstallationDoc";
 import { UpdatesDoc } from "./preview/pages/UpdatesDoc";
@@ -115,6 +116,7 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { id: "introduction", label: "Introduction", icon: Zap },
       { id: "structure", label: "Structure", icon: Layers },
+      { id: "distribution", label: "Distribution", icon: Box },
       { id: "installation", label: "Installation", icon: Download },
       { id: "transform-tokens", label: "Transform Tokens", icon: Box },
     ],
@@ -160,7 +162,7 @@ type PageId = string;
 // deep-link #/docs ou #/docs-template (referência pra criar novas doc pages).
 const DOC_PAGES = [
   "button", "button-group", "badge", "chip", "icon", "input", "tabs", "card", "docs", "docs-template",
-  "introduction", "structure", "installation", "transform-tokens", "updates",
+  "introduction", "structure", "distribution", "installation", "transform-tokens", "updates",
   "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
   "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
@@ -387,6 +389,7 @@ export function App() {
           {activePage === "agent-reviewer" && <AgentReviewerDoc />}
           {activePage === "introduction" && <IntroductionDoc />}
           {activePage === "structure" && <StructureDoc />}
+          {activePage === "distribution" && <DistributionDoc />}
           {activePage === "transform-tokens" && <TransformTokensDoc />}
           {activePage === "installation" && <InstallationDoc />}
           {activePage === "updates" && <UpdatesDoc />}
