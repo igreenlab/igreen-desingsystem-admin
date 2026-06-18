@@ -199,10 +199,14 @@ export function PipelineHooksDoc() {
       <SectionH2 id="logs" title="Hook Logs" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          Both <code className="font-mono text-code-sm">format-on-save.sh</code> and{" "}
-          <code className="font-mono text-code-sm">block-sensitive-edit.sh</code> log entries to{" "}
-          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/scratch/hook-log.txt</code>.
-          Useful for debugging when a hook silently fails or skips a file.
+          Os hooks DS escrevem em{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/scratch/hook-log.txt</code>:{" "}
+          <code className="font-mono text-code-sm">format-on-save</code>,{" "}
+          <code className="font-mono text-code-sm">ds-lint-styles</code>,{" "}
+          <code className="font-mono text-code-sm">ds-inventory-check</code>,{" "}
+          <code className="font-mono text-code-sm">ds-tokens-check</code> e{" "}
+          <code className="font-mono text-code-sm">block-sensitive-edit</code>.
+          Útil pra depurar quando um hook falha ou pula um arquivo em silêncio.
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted overflow-x-auto">
           <pre className="whitespace-pre leading-relaxed">{`[2026-05-18 14:39:21] format-on-save: OK  src/components/ui/Button/button.styles.ts
