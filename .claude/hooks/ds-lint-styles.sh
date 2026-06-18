@@ -72,7 +72,7 @@ check '"[^"]*\bgap-(0|1|2|3|4|5|6|7|8|10|12|16|20|24)\b[^"]*"' "L-002 — gap-N 
 check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(0|1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"' "L-002 — pad/space literal (use p-sp-* ou px-pad-*)"
 check '"[^"]*\b(h|min-h)-(7|8|9|10|11|12)\b[^"]*"' "L-002 — height fixo h-N (use min-h-form-{xs,sm,md,lg,xl})"
 check '"[^"]*\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b[^"]*"' "L-002 — rounded-N nativo (use rounded-radius-*)"
-check '"[^"]*\bshadow-(sm|md|lg|xl|2xl)\b(?!-)' "L-002 — shadow-N nativo (use shadow-sh-*)"
+check '"[^"]*\bshadow-(sm|md|lg|xl|2xl)\b[^"]*"' "L-002 — shadow-N nativo (use shadow-sh-*)"
 
 # L-003 — ring-3 não existe
 check '"[^"]*\bring-3\b[^"]*"' "L-003 — ring-3 não existe no Tailwind (use ring-4)"

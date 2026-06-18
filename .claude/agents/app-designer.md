@@ -4,7 +4,6 @@ description: >
   🚧 AGUARDANDO FLUXO DE DESENVOLVIMENTO — agente não operacional.
   Especifica layout, fluxo e UX de telas do app desktop iGreen.
   NÃO confundir com DS Designer — este agente trabalha com produto.
-model: claude-sonnet-4-6
 memory: user
 status: PENDING
 ---

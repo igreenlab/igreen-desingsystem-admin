@@ -19,8 +19,8 @@ import { createHash } from "node:crypto";
 
 const REGISTRY = "https://igreen-registry.vercel.app/r";
 const CHECKS = [
-  { local: "src/lib/utils.ts", item: "utils" },
-  { local: "src/utils/tv.ts", item: "tv" },
+  { local: "src/lib/utils.ts", item: "utils", endsWith: "utils.ts" },
+  { local: "src/utils/tv.ts", item: "tv", endsWith: "tv.ts" },
 ];
 
 const norm = (s) => s.replace(/\r/g, ""); // CRLF/LF agnóstico
@@ -45,7 +45,7 @@ if (!token) {
 }
 
 let ok = true;
-for (const { local, item } of CHECKS) {
+for (const { local, item, endsWith } of CHECKS) {
   if (!existsSync(local)) {
     console.error(`✗ ${local} AUSENTE — npx shadcn@latest add @igreen/${item} --overwrite`);
     ok = false;
@@ -67,7 +67,11 @@ for (const { local, item } of CHECKS) {
       continue;
     }
     const json = await res.json();
-    const remote = json?.files?.[0]?.content ?? "";
+    // Casa o arquivo pelo TARGET (não pelo índice 0 — o item do registry pode ter
+    // múltiplos files e a ordem não é garantida). Fallback pro [0] se nenhum casar.
+    const files = json?.files ?? [];
+    const match = files.find((f) => (f?.target ?? "").endsWith(endsWith)) ?? files[0];
+    const remote = match?.content ?? "";
     if (hash(remote) === localHash) {
       console.log(`✓ ${local} == @igreen/${item} (registry)`);
     } else {

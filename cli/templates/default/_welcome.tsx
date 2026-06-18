@@ -27,7 +27,7 @@ const PROMPTS = [
 
 const STRUCTURE = [
   { icon: Boxes, path: "src/components/ui/", desc: "Os componentes do DS (Button, DataTable, FormField...). Cada um tem um USAGE.md ao lado explicando a API." },
-  { icon: FolderTree, path: "src/examples/", desc: "Telas de referência prontas (extraídas dos showcases). Copie e adapte — é seu código." },
+  { icon: FolderTree, path: "src/examples/", desc: "Telas de referência (vêm sob demanda quando você roda igreen:add example-*). Copie e adapte — é seu código." },
   { icon: BookOpen, path: "DESIGN.md", desc: "O guia de design: espaçamento, cores, tokens e padrões de tela. Leia antes de montar." },
   { icon: Bot, path: ".claude/", desc: 'O "cérebro" da IA: orquestrador, skills e regras que mantêm tudo no padrão automaticamente.' },
 ];

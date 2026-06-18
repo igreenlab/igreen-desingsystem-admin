@@ -4,7 +4,6 @@ description: >
   Agente principal do iGreen DS. Ativar para qualquer tarefa recebida.
   Classifica domínio (DS ou App), detecta cascata, delega para subagente correto.
   Gerencia gate de aprovação e retomada após cascata.
-model: claude-sonnet-4-6
 memory: user
 ---
 
@@ -64,6 +63,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 | Extração Figma | `/ds-extract-figma` | `ds-designer` → **[GATE]** → `ds-dev` |
 | Adapter / transform | — | `ds-dev` |
 | Atualizar Updates timeline | `/ds-update` | `ds-dev` (skill `update-changelog`) → **[GATE preview]** → apply |
+| Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
 
 ---
 
@@ -88,6 +88,8 @@ Por enquanto, tarefas de App precisam ser feitas sem o pipeline automatizado."
 |---|---|---|
 | `app-designer.md` | `skills/app-designer/SKILL.md` | 🚧 Pendente |
 | `app-dev-react.md` | `skills/app-dev-react/SKILL.md` | 🚧 Pendente |
+
+⛔ Os agents `app-designer` e `app-dev-react` NÃO devem ser oferecidos como rota até a ativação do Domínio App — não roteie tarefas pra eles.
 
 ---
 

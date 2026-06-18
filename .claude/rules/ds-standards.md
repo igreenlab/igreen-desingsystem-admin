@@ -246,7 +246,7 @@ className="bg-white"  // Switch/Slider thumb (L-014)
 
 ---
 
-## 16 Lições — resumo
+## 37 Lições — resumo
 
 Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 

@@ -283,6 +283,16 @@ async function main() {
   );
 
   const projectName = argName || answers.projectName;
+  // argName pula o prompt → o `validate` do prompts não roda nele. Valida aqui
+  // pra não gerar pkg.name/pasta inválidos quando vier por argumento.
+  if (argName) {
+    const valid = validateProjectName(projectName);
+    if (valid !== true) {
+      console.log();
+      console.log(pc.red(`✗ ${valid}`));
+      process.exit(1);
+    }
+  }
   const template = answers.template || DEFAULT_TEMPLATE;
   const { packageManager, installDeps, initGit, igreenToken, installExamples } = answers;
 
@@ -375,7 +385,9 @@ async function main() {
 
   // Step 6b: monta a tela inicial com AppShell (só com token + deps instaladas).
   // Puxa o set inicial do registry e promove o asset AppShell a src/App.tsx.
-  // Falhou (sem rede / token inválido)? Mantém a tela de boas-vindas padrão.
+  // Falhou (sem rede / token inválido)? Mantém a tela de boas-vindas padrão —
+  // NÃO escreve o App rico, que importaria componentes que não vieram (quebra em runtime).
+  let examplesInstalled = false;
   if (token && installDeps && welcomeContent) {
     const exList = installExamples ? EXAMPLE_SCREENS : [];
     const addArgs = ["app-shell", "button", "card", "badge", "chip", "page-header", ...exList.map((e) => e.item)];
@@ -386,8 +398,11 @@ async function main() {
     );
     try {
       await run(packageManager, ["run", "igreen:add", "--", ...addArgs], projectDir);
+      // Só promove o App rico + welcome DEPOIS do igreen:add ter sucesso — senão
+      // o App importaria componentes ausentes. No catch, mantém o App estático padrão.
       writeFileSync(join(projectDir, "src", "welcome.tsx"), welcomeContent, "utf8");
       writeFileSync(join(projectDir, "src", "App.tsx"), buildAppShellApp(exList), "utf8");
+      examplesInstalled = installExamples;
       console.log(
         pc.green(
           `  ✓ Tela inicial pronta (tutorial${exList.length ? " + " + exList.length + " exemplos navegáveis no menu" : ""}).`,
@@ -436,6 +451,20 @@ async function main() {
   }
   console.log(pc.cyan("  npx shadcn@latest add @igreen/button") + pc.dim("   # puxe componentes do registry"));
   console.log(pc.cyan(`  ${runCmd}`));
+  // O usuário pediu exemplos, mas eles não foram instalados (sem token e/ou sem deps,
+  // ou o igreen:add inicial falhou). Avisa como puxá-los depois — em vez de silêncio.
+  if (installExamples && !examplesInstalled) {
+    console.log();
+    console.log(
+      pc.yellow("⚠ Exemplos não instalados (faltou token/deps).") +
+        pc.dim(" Depois:"),
+    );
+    console.log(
+      pc.cyan(
+        "  npm run igreen:add -- example-clientes example-finance example-dashboard example-order-detail example-edit-page example-chat",
+      ),
+    );
+  }
   console.log();
   console.log();
   console.log(pc.dim("Kit de telas incluso: peça à IA \"monte uma tabela de X\" ou use /ds-create-crud."));

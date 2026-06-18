@@ -4,6 +4,16 @@ Design system interno da iGreen para SaaS CRM, painéis admin e dashboards.
 
 ---
 
+## Comece aqui
+
+Escolha o caminho conforme seu objetivo:
+
+- **Quero consumir o DS num projeto** → veja [`## Consumir em outro projeto`](#consumir-em-outro-projeto) (CLI/registry) e [`DISTRIBUICAO.md`](DISTRIBUICAO.md).
+- **Quero desenvolver no DS** → veja [`## Setup (desenvolvimento no DS)`](#setup-desenvolvimento-no-ds) e [`CLAUDE.md`](CLAUDE.md).
+- **Sou operador (não-dev)** → veja [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
+
+---
+
 ## O que é
 
 Biblioteca de componentes, tokens e padrões usada pelas plataformas internas da iGreen — admin do CRM, dashboards operacionais, painéis de licenciamento e demais interfaces administrativas.

@@ -5,7 +5,6 @@ description: >
   Ativar após gate aprovado pelo usuário, ou para: adaptar componente Shadcn,
   editar .styles.ts de componente existente, implementar adapter/transform.
   NÃO define design — implementa spec recebida.
-model: claude-opus-4-6
 memory: user
 ---
 

@@ -29,5 +29,8 @@ jobs:
       - name: Registry consistency (paths + embed)
         run: node scripts/registry-check.mjs
 
+      - name: Foundationals sync (DS ↔ CLI baked)
+        run: node scripts/check-foundationals.mjs
+
       - name: Examples ↔ showcase drift
         run: node scripts/examples-drift-check.mjs --ci
