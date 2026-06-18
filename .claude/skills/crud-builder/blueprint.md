@@ -25,6 +25,8 @@ Rodar e corrigir silenciosamente (ou reportar no blueprint se exigir decisão):
    controlado.
 5. **Memoização** — plano de geração marca `columns` useMemo + `fetchData`
    useCallback (server).
+6. **Excluir confirma** — toda action `destructive` tem `AlertModal` no plano.
+7. **Estados definidos** — loading/vazio/sem-resultado presentes (ainda que default).
 
 ## Formato do blueprint (apresentar TUDO de uma vez)
 
@@ -49,7 +51,15 @@ Rodar e corrigir silenciosamente (ou reportar no blueprint se exigir decisão):
 ### Comportamento
 pagination <N> · selection+bulk [<actions>] · persistId "<page-id>" ·
 totalizers [<cols>] · inline edit [<cols>] · virtualize <on|off> ·
-groupBy <field|off> · expansion <on|off> · export <on|off> · views [<presets>]
+groupBy <field|off> · expansion <on|off> · export <on|off|escopo> ·
+views presets [<...>] · views usuário <on|off> (savedViewsService)
+
+### Estados
+loading <skeleton> · vazio <msg + CTA Adicionar> · sem-resultado <msg + limpar>
+
+### Form criar/editar (se houver drawer)
+campos: <campo:obrigatório?:máscara?>, ... (via FormField · gap-form-gap) ·
+excluir: confirma via AlertModal
 
 ### Kanban
 <não | groupByField `<campo>` · lanes: <id(dotColor)>... · card: title=<f>,

@@ -19,6 +19,11 @@ Modo expresso e inferência NÃO valem pra estas duas — sempre explícitas:
    (ex.: Ativos, Alto valor) — o usuário troca de recorte num clique, sem tela nova
    pra cada um. Quer alguma?"* Default = nenhuma, mas só após perguntar.
 
+**Guardrails sempre aplicados** (não precisam pergunta, mas o plano DEVE conter):
+- Excluir (action destructive) ⇒ confirmação via `AlertModal` — nunca deletar direto.
+- Os 3 estados sempre wirados: `renderLoading` (skeleton) · `renderEmpty` (+ CTA) ·
+  `renderNoResults` (+ limpar filtros). Tabela sem estados = incompleta.
+
 Princípios:
 
 - **Fases agrupadas com defaults explícitos** — cada pergunta mostra o default;
@@ -133,6 +138,7 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
    - `sortable: true` geral (registry/DataTable default), exceto actions.
    - Coluna **`actions`** oferecida por default (Editar / Excluir destructive)
      via `actionColumn`/`getActions` — padrão `ClientsCRUDServerPreview`.
+     **Excluir (destructive) ⇒ confirmação OBRIGATÓRIA via `AlertModal`** (nunca direto).
 
 3. Drill-down individual SÓ nas colunas que o usuário citar:
    `pinned` ("left"/"right") · `width` fixo (senão autoFit resolve) ·
@@ -178,12 +184,15 @@ Oferecer a alternativa: se não precisa de controle externo do filterModel,
 | Totalizers | `showTotalizers` + `aggregate` por coluna | off |
 | Grouping | `groupBy`? (avisar: pagination auto-off; default column-aligned, free-form via overrides) | off |
 | Row expansion | coluna `expandable` + `renderRowExpansion` + `singleExpand`? (excludente com groupBy) | off |
-| Export | `toolbar.enableExport` | off |
+| Export | `toolbar.enableExport` + escopo (tudo/filtrado/selecionado) | off |
 | Density | `toolbar.enableDensity` | on |
 | `persistId` | persistir workspace (localStorage v4)? | on, valor = page id |
-| Preset views | abas pré-definidas (`defaultViews` + `presetView`)? quais (nome + filtros + sort)? | off |
+| Views (presets) | abas pré-definidas (`defaultViews` + `presetView`)? quais (nome + filtros + sort)? | off |
+| Views (usuário) | usuário cria/salva/persiste as próprias? (`savedViewsService` + `persistId`) | off |
 | Refresh | `toolbar.enableRefresh` | on (default da API) |
 | moreMenu | items extras (⋯)? | off |
+| **Estados** | loading (`renderLoading` skeleton) · vazio (`renderEmpty` + CTA *Adicionar*) · sem-resultado (`renderNoResults` + limpar) — **sempre definir os 3** | defaults sensatos |
+| **Form criar/editar** | campos (default = colunas editáveis) · obrigatório? · máscara (CNPJ/tel/CEP/moeda)? · validação? — via `FormField` (L-023) + `gap-form-gap` (L-024) | espelha colunas |
 
 ---
 
