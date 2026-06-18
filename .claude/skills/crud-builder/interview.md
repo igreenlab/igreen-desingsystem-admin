@@ -7,6 +7,18 @@ description: >
 
 # CRUD Builder — Entrevista
 
+## ⛔ Perguntas obrigatórias (NUNCA pular, mesmo que dê pra inferir)
+
+Modo expresso e inferência NÃO valem pra estas duas — sempre explícitas:
+
+1. **Colunas (Fase 2)** — mesmo inferindo, APRESENTAR a tabela de colunas e
+   **confirmar em lote** + perguntar particularidades. Nunca gerar com colunas só
+   inferidas sem o usuário ver/confirmar.
+2. **Views salvas (Fase 4)** — **OFERECER e explicar o valor**, não tratar como
+   "off" silencioso: *"abas com filtros + ordenação + colunas pré-configurados
+   (ex.: Ativos, Alto valor) — o usuário troca de recorte num clique, sem tela nova
+   pra cada um. Quer alguma?"* Default = nenhuma, mas só após perguntar.
+
 Princípios:
 
 - **Fases agrupadas com defaults explícitos** — cada pergunta mostra o default;
