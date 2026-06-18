@@ -68,6 +68,7 @@ function hashFiles(targets) {
 }
 
 const manifest = loadManifest();
+const failed = [];
 
 // Roda `npx shadcn add` cross-platform SEM shell:true (que dispara o DEP0190 e tem
 // risco de injeção). No Windows o npx é `.cmd` e o spawn direto dá EINVAL, então
@@ -85,6 +86,7 @@ for (const name of names) {
   const r = runShadcnAdd(name);
   if (r.status !== 0) {
     console.error(`✗ add @igreen/${name} falhou — não registrado no manifesto.`);
+    failed.push(name);
     continue;
   }
   let item;
@@ -96,6 +98,7 @@ for (const name of names) {
     item = await res.json();
   } catch (e) {
     console.error(`⚠ não consegui ler rev de @igreen/${name} (${e.message}) — instalado, mas fora do manifesto.`);
+    failed.push(name);
     continue;
   }
   const targets = (item.files || []).map((f) => f.target);
@@ -112,3 +115,10 @@ for (const name of names) {
 mkdirSync(dirname(MANIFEST), { recursive: true });
 writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + "\n", "utf8");
 console.log(`\n📋 ${MANIFEST} atualizado (${Object.keys(manifest.items).length} componentes).`);
+
+// Falha parcial NÃO pode sair 0 (mascararia o erro em CI / no create). Sinaliza
+// via exitCode (não process.exit() — evita o crash do libuv com fetch keep-alive pendente).
+if (failed.length) {
+  console.error(`\n✗ falharam: ${failed.join(", ")}`);
+  process.exitCode = 1;
+}

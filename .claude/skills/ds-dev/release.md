@@ -176,7 +176,7 @@ release: v<X.Y.Z> — <título da release>
 
 Bump package.json X.Y.Z (motivo, se sincroniza com baseline desalinhada).
 
-Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
+Co-Authored-By: Claude Opus <noreply@anthropic.com>
 ```
 
 ### 4.3 PR body

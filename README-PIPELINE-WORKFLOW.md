@@ -1,6 +1,8 @@
 # Multi-Agent Design System Pipeline
 ## Referência completa de arquitetura, agentes, memória, aprendizado e workflow
 
+> ⚠️ **SNAPSHOT HISTÓRICO (era v0.x).** Contagens (lições, componentes) podem estar congeladas. Fontes vivas: lições atuais em `.ai/status/lessons.md` (L-001..L-037); regras em `.claude/rules/ds-standards.md` (os antigos `ds-lessons.md`/`ds-forbidden.md` foram consolidados nele); distribuição em `DISTRIBUICAO.md`.
+
 > ⚠️ **Este arquivo é referência HUMANA** (~91KB). Para sessões com agentes da IA, **não carregar**.
 > Use os arquivos curtos (≤ 4KB) carregados sob demanda:
 > - `.claude/rules/ds-standards.md` — regras essenciais (auto-load)

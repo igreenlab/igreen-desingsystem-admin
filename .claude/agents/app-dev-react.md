@@ -4,7 +4,6 @@ description: >
   🚧 AGUARDANDO FLUXO DE DESENVOLVIMENTO — agente não operacional.
   Implementa telas e features do app desktop iGreen em React.
   NÃO confundir com DS Dev — este agente constrói produto.
-model: claude-opus-4-6
 memory: user
 status: PENDING
 ---

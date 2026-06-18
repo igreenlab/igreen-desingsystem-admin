@@ -72,7 +72,7 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 `footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`.
 App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
 Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
-`example-edit-page` `example-order-detail` `example-dashboard`.
+`example-edit-page` `example-order-detail` `example-dashboard` `example-chat`.
 
 ## 🧭 Mapa de intenção → referência (IA: USE ISTO PRIMEIRO)
 
@@ -152,7 +152,7 @@ h-9 → min-h-form-md   h-10 → min-h-form-lg   h-11 → min-h-form-xl (WCAG mo
 ring-ring-primary/30 → ring-ring-primary   ring-3 → ring-4
 outline-none → focus-visible:outline-none
 // ❌ Tipografia avulsa
-text-sm font-medium → text-body-sm font-semibold
+text-sm font-medium → text-body-md font-medium
 text-[14px] → text-body-md
 ```
 

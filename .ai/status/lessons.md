@@ -821,3 +821,17 @@ Quando o Claude cometer um erro não listado aqui:
 2. Adicionar no formato `[L-NNN]` no final deste arquivo
 3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado
    (é o arquivo auto-carregado — deve ter o resumo de todas as lições)
+
+---
+
+## Política de arquivamento
+
+Quando este arquivo passar de ~50KB, mover para `.ai/status/lessons-archive.md` as
+lições já ABSORVIDAS em hook ou regra (ex.: greps do `ds-lint-styles.sh`, prefixos
+DS em `ds-standards.md`) — elas continuam valendo, mas o pipeline já as aplica
+automaticamente, então não dependem mais de disciplina humana no dia-a-dia.
+
+Manter no ativo as lições que AINDA dependem de disciplina humana (decisões de
+arquitetura, padrões Radix/forwardRef, caveats de libs externas, regras de release).
+O resumo 1-linha de TODAS as lições (ativas + arquivadas) permanece em
+`.claude/rules/ds-standards.md` — é a fonte auto-carregada.

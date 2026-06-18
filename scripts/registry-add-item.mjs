@@ -13,19 +13,28 @@
  * Regras (ver .ai/specs/registry-distribution.md):
  *   - import alias @/components/(shadcn|ui)/X  → registryDependency @igreen/<kebab>
  *   - import RELATIVO cross-dir (../../shadcn/x) → FLAG: refatorar pra alias antes
- *   - npm (@radix-ui/*, lucide-react, cmdk, ...) → dependencies (versão do package.json)
+ *   - npm (qualquer import bare cujo pacote esteja em dependencies/devDependencies
+ *     da raiz) → dependencies (versão saída de package.json.dependencies)
  *   - @/lib/utils → @igreen/utils · @/utils/tv → @igreen/tv
  */
 import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
-const pkg = JSON.parse(readFileSync("package.json", "utf8")).dependencies || {};
-const NPM = new Set([
-  "lucide-react", "cmdk", "recharts", "react-day-picker", "class-variance-authority",
-  "tailwind-variants", "clsx", "tailwind-merge",
-]);
-const isNpm = (s) => s.startsWith("@radix-ui/") || s.startsWith("@dnd-kit/") || NPM.has(s);
+const rootPkg = JSON.parse(readFileSync("package.json", "utf8"));
+// versão sai SÓ de dependencies (o que o consumidor instala); detecção considera
+// também devDependencies pra não classificar erroneamente bare imports de tooling.
+const pkg = rootPkg.dependencies || {};
+const allDeps = { ...(rootPkg.devDependencies || {}), ...(rootPkg.dependencies || {}) };
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+
+// Nome do pacote npm a partir de um import bare: 2 primeiros segmentos se escopo
+// (@scope/pkg), senão o 1º. Subpaths (lucide-react/icons) colapsam pro pacote raiz.
+const pkgName = (s) => (s.startsWith("@") ? s.split("/").slice(0, 2).join("/") : s.split("/")[0]);
+
+// Bare = não é alias (@/...), nem relativo (./ ../), nem absoluto (/...).
+// É npm SE o pacote constar em dependencies OU devDependencies da raiz.
+const isBare = (s) => !s.startsWith("@/") && !s.startsWith(".") && !s.startsWith("/");
+const isNpm = (s) => isBare(s) && Object.prototype.hasOwnProperty.call(allDeps, pkgName(s));
 
 const arg = process.argv[2];
 if (!arg) { console.error("uso: node scripts/registry-add-item.mjs <Componente|caminho>"); process.exit(1); }
@@ -71,8 +80,8 @@ for (const f of files) {
       registryDeps.add(`@igreen/${kebab(seg)}`);
       warnings.push(`⚠ REFATORAR: ${f} importa "${s}" (relativo cross-dir) → vira "@/components/shadcn/${seg}" (quebra no copy-in)`);
     } else if (isNpm(s)) {
-      const p = s.startsWith("@") ? s.split("/").slice(0, 2).join("/") : s.split("/")[0];
-      if (pkg[p]) deps.set(p, `${p}@${pkg[p]}`); else { deps.set(p, p); warnings.push(`⚠ ${p} não está no package.json — confirme a versão`); }
+      const p = pkgName(s);
+      if (pkg[p]) deps.set(p, `${p}@${pkg[p]}`); else { deps.set(p, p); warnings.push(`⚠ ${p} está só em devDependencies — confirme a versão no item`); }
     }
   }
 }

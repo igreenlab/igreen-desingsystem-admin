@@ -5,8 +5,11 @@
  * Lê o `.igreen-ds/manifest.json` (gerado pelo `igreen:add`) e, pra cada componente:
  *   - EDIÇÃO LOCAL: re-hasheia os arquivos instalados e compara com o hash do
  *     manifesto (baseline do add). Diferente → editado fora do DS → FALHA (exit 1).
- *   - DEFASAGEM: busca a rev atual no registry e compara com a rev do manifesto.
- *     Diferente → há versão nova no DS → aviso (não falha).
+ *   - DEFASAGEM: busca o item atual no registry e compara o HASH DO CONTEÚDO dos
+ *     arquivos (registry files[].content) com o conteúdo local correspondente.
+ *     Diferente → há versão nova de fato no DS → aviso (não falha).
+ *     (Comparar a `rev`/stamp daria falso-positivo: o stamp muda a CADA release
+ *      no re-stamp global, mesmo sem mudança de código no item.)
  *
  * Roda em CI: `npm run igreen:drift`. Requer IGREEN_TOKEN só pra checar defasagem;
  * a checagem de edição local funciona offline.
@@ -39,11 +42,26 @@ const token = readToken();
 const norm = (s) => s.replace(/\r/g, "");
 const localPath = (target) => (target.startsWith("src/") ? target : "src/" + target);
 
+// Hash dos arquivos LOCAIS — mesma fórmula usada pelo igreen:add (baseline do manifesto).
 function hashFiles(targets) {
   const h = createHash("sha256");
   for (const t of [...targets].sort()) {
     const p = localPath(t);
     if (existsSync(p)) h.update(t + "\n" + norm(readFileSync(p, "utf8")));
+  }
+  return h.digest("hex");
+}
+
+// Hash do CONTEÚDO do registry — restrito aos targets que existem localmente, na
+// MESMA fórmula do hashFiles(local). Igual ⇒ o conteúdo do DS == o local (não defasado).
+// Diferente ⇒ o DS mudou o código do item de fato (não é só re-stamp).
+function hashRegistryContent(files, targets) {
+  const byTarget = new Map((files || []).map((f) => [f?.target, f?.content ?? ""]));
+  const h = createHash("sha256");
+  for (const t of [...targets].sort()) {
+    const p = localPath(t);
+    // só considera arquivos presentes localmente (paridade com hashFiles local)
+    if (existsSync(p) && byTarget.has(t)) h.update(t + "\n" + norm(byTarget.get(t)));
   }
   return h.digest("hex");
 }
@@ -71,14 +89,21 @@ for (const [name, rec] of items) {
     edited++;
     continue;
   }
-  // 2. defasagem vs registry (precisa token)
+  // 2. defasagem vs registry POR CONTEÚDO (precisa token).
+  // Compara o hash do conteúdo do registry com o conteúdo local (= `current`, já
+  // que `current === rec.hash` aqui — não foi editado localmente). Só acusa
+  // "defasado" se o CÓDIGO difere — re-stamp global (mudança só de meta.stamp) NÃO
+  // dispara falso-positivo. `live`/`rec.rev` agora servem só pra contexto na msg.
   if (token) {
     try {
       const res = await fetch(`${REGISTRY}/${name}.json`, { headers: { Authorization: `Bearer ${token}` } });
       if (res.ok) {
-        const live = (await res.json())?.meta?.stamp ?? null;
-        if (live && rec.rev && live !== rec.rev) {
-          console.warn(`⚠ ${name}: DEFASADO — manifesto ${rec.rev} · registry ${live}. Atualize: npm run igreen:add -- ${name}`);
+        const json = await res.json();
+        const live = json?.meta?.stamp ?? null;
+        const remoteHash = hashRegistryContent(json?.files, rec.files || []);
+        if (remoteHash !== current) {
+          const ctx = live && rec.rev ? ` (manifesto ${rec.rev} · registry ${live})` : "";
+          console.warn(`⚠ ${name}: ATUALIZAÇÃO DISPONÍVEL — conteúdo difere do registry${ctx}. Atualize: npm run igreen:add -- ${name}`);
           stale++;
         } else {
           console.log(`✓ ${name}: íntegro e atualizado`);

@@ -4,7 +4,6 @@ description: >
   Valida tokens e componentes do iGreen Design System antes do merge.
   Ativar após DS Dev sinalizar IMPL_PRONTA.
   Executa varredura de regressões, checklist estrutural e critique genuína.
-model: claude-sonnet-4-6
 memory: user
 ---
 
