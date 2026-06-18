@@ -1,197 +1,248 @@
-# iGreen Design System — Como funciona a distribuição
+# iGreen Design System — Distribuição & Arquitetura (técnico)
 
-> Documento de apresentação. Explica **como o Design System chega nos projetos**,
-> **como funciona o versionamento** e **por que escolhemos esse caminho**.
-> Escrito pra dev entender a fundo e pra pessoal de produto (com um pouco de dev)
-> acompanhar. Sem enrolação técnica desnecessária.
-
----
-
-## 1. Resumo em 30 segundos
-
-O iGreen DS é uma **biblioteca de componentes e tokens** (botões, tabelas, cores,
-espaçamentos…) que vários projetos vão consumir. Em vez de virar um "pacote" fechado,
-ele entrega o **código-fonte de cada componente direto pro projeto** que consome — o
-componente vira **código do próprio projeto**, editável. Isso é servido por um
-**catálogo online (registry)** na Vercel, e um **CLI** cria projetos novos já conectados.
-Há **uma versão única** pro sistema inteiro; cada projeto atualiza **quando quiser**.
-
-Resultado: o time tem **liberdade pra customizar telas** sem brigar com a biblioteca, e
-o mantenedor cuida de **um repositório só**, sem a burocracia de publicar pacote a cada
-mudança.
+> Documento técnico. Cobre **arquitetura, modelo de distribuição, versionamento,
+> stack** e o **pipeline de IA** (DS-side: agents/commands/skills/hooks; consumer-side:
+> orquestrador + skills que produzem telas padronizadas). Público: dev (a fundo) e
+> produto técnico (acompanha). Para a versão de apresentação resumida, ver o deck.
 
 ---
 
-## 2. O problema que estamos resolvendo
+## 1. Modelo de distribuição: copy-in via registry shadcn
 
-Vários produtos da iGreen precisam das **mesmas peças visuais** (a mesma cara: verde da
-marca, mesma tabela, mesmos formulários). Sem um Design System, cada time recria tudo —
-inconsistência, retrabalho, bug repetido.
+O DS **não** é publicado como pacote npm consumível. É distribuído via **registry
+shadcn (copy-in)**: o código-fonte de cada componente é **copiado para o `src/` do
+projeto consumidor** no momento do `add`, passando a ser código do consumidor
+(editável, versionado no Git dele).
 
-Mas tem um detalhe: nossos produtos são **CRMs/operações com telas muito sob medida**.
-Cada projeto precisa **ajustar** os componentes pro caso dele. Então a pergunta foi:
-
-> Como compartilhar as peças **mantendo a consistência**, mas **sem engessar** quem consome?
-
----
-
-## 3. A decisão: "copy-in" via registry (não pacote npm)
-
-Existem dois jeitos clássicos de distribuir uma biblioteca de UI:
-
-| | **Pacote npm** (jeito "fechado") | **Copy-in via registry** (nosso jeito) |
+| Eixo | Pacote npm | Copy-in via registry (adotado) |
 |---|---|---|
-| Como chega | `npm install` — vem pronto, dentro de `node_modules` | o **código é copiado** pro projeto (`src/`) |
-| Quem pode editar | ninguém (é "lacrado") | o time **edita à vontade** (é código dele) |
-| Atualização | automática, mas **arriscada** (muda pra todo mundo de uma vez) | **opt-in** — cada projeto atualiza quando quiser |
-| Manutenção pro mantenedor | pesada: build de pacote, semver rígido, coordenar quebras | leve: **um repositório**, publica no catálogo |
+| Entrega | artefato buildado em `node_modules` | fonte `.tsx`/`.ts` copiada para `src/components/ui/` |
+| Edição pelo consumidor | inviável (código de terceiro) | livre (é código dele) |
+| Atualização | `npm update` (semver, push a todos) | `igreen:update` opt-in, por componente |
+| Acoplamento de build | peer deps + Tailwind config + `@source` em node_modules | nenhum — o código vive no projeto |
+| Manutenção (mantenedor) | build de lib, types, matriz semver, breaking coordenado | um repositório; publica no registry |
 
-**Analogia:** não entregamos o **prato pronto** (pacote), entregamos a **receita** —
-o time copia pra cozinha dele e adapta o tempero. A consistência vem da receita; a
-liberdade vem de ser código deles.
-
-**Por que copy-in venceu pro nosso caso:** telas sob medida exigem editar componentes;
-e queremos que a **IA do consumidor copie e adapte** os exemplos. Com pacote npm, o
-código fica trancado em `node_modules` — nada disso funcionaria. (O custo do copy-in é
-que a atualização é manual/opt-in — e isso é justamente o que dá segurança.)
-
-> Esse mecanismo é o mesmo do **shadcn/ui** (padrão de mercado pra isso). Não inventamos
-> a roda — usamos um padrão consolidado.
+**Justificativa técnica:** os produtos são CRMs/operações com telas sob medida — o
+consumidor precisa **editar** componentes e a IA dele precisa **copiar/adaptar**
+exemplos. Em `node_modules` isso é inviável. O custo (atualização opt-in) é mitigado
+por manifesto + drift-check (§4). Mecanismo idêntico ao **shadcn/ui** (padrão de
+mercado), sobre a infra `shadcn build` / `shadcn add`.
 
 ---
 
-## 4. Como funciona, na prática (o fluxo)
+## 2. Organização do repositório
 
 ```
-   FONTE (código real)          PUBLICAÇÃO              CONSUMO
-   ──────────────────          ───────────             ───────
-   src/  (componentes,    →    catálogo online    →    projeto do time
-   tokens, exemplos)           (registry/Vercel)        (copia pro src/ dele)
-
-   você edita aqui             servido com senha         npm run igreen:add
-        │                                                       │
-        └──── /ds-release ────► merge no Git ────► Vercel publica sozinha
+igreen-ds/
+├─ tokens/brands/default/        # fonte dos design tokens (3 tiers)
+│   ├─ primitives/               #   Tier 1 — paleta OKLCH, escalas, fonts, motion (privado)
+│   ├─ semantic/                 #   Tier 2 — color-light/dark, spacing, sizing, shape, elevation, typography
+│   ├─ components/               #   Tier 2.5 — form.*, layout.*, icon.*, padCard.*, padPage.*
+│   └─ transforms/to-tailwind-v4.ts   # gera o CSS @theme (tokens:tw4)
+├─ src/
+│   ├─ components/ui/<Nome>/     # componentes iGreen (tv()): .tsx + .styles.ts + .types.ts + USAGE.md
+│   ├─ components/shadcn/<nome>  # primitivos shadcn tematizados (Radix)
+│   ├─ styles/theme/tailwind-theme.css   # CSS gerado (CSS vars OKLCH) — NÃO editar à mão
+│   ├─ utils/tv.ts               # tv() + twMergeConfig (prefixos DS + presets tipográficos)
+│   ├─ lib/utils.ts              # cn() (extendTailwindMerge)
+│   ├─ examples/<tela>/          # telas-exemplo (extração 1:1 dos showcases) — itens example-*
+│   └─ preview/pages/*Doc.tsx    # catálogo/styleguide (este preview)
+├─ registry.json                 # MANIFESTO canônico do registry (itens, files, deps)
+├─ public/r/                     # JSON por item gerado por `shadcn build` (gitignored)
+├─ registry-app/                 # app Next.js que SERVE o registry na Vercel
+│   ├─ app/r/[name]/route.ts     #   route handler com auth Bearer + no-store
+│   └─ app/registry-data.ts      #   EMBED dos JSON (commitado — fonte do deploy serverless)
+├─ scripts/                      # registry-stamp, registry-add-item, registry-check,
+│                                #   examples-drift-check, check-foundationals, cli-rebake
+├─ cli/                          # CLI npm @snksergio/create-design-system
+│   └─ templates/default/        #   o projeto gerado no scaffold (com .claude/ + DESIGN.md)
+├─ .claude/                      # pipeline de IA do DS (agents/skills/commands/hooks/rules)
+└─ .ai/                          # contexto técnico, lições (L-001..L-037), audit log
 ```
 
-Passo a passo:
-1. **Fonte:** todo componente vive em `src/` no repositório do DS. **É a única fonte
-   de verdade.**
-2. **Lista (registry):** um arquivo (`registry.json`) diz quais itens existem e quais
-   arquivos cada um usa.
-3. **Build:** um comando lê essa lista, pega os arquivos reais e gera um "pacotinho
-   JSON" por componente.
-4. **Catálogo online:** esses JSON ficam num site na **Vercel** (com senha/token), que é
-   de onde os projetos baixam.
-5. **Consumo:** no projeto do time, `npm run igreen:add -- button` baixa e **copia o
-   código** pro `src/` dele.
-6. **Publicação:** quando damos **merge** no repositório, a **Vercel republica o catálogo
-   sozinha**. Sem deploy manual.
+**Fonte única:** o registry referencia **sempre `src/`** (os `files[].path` apontam pra
+`src/components/...`). `dist-lib/` (build de lib npm) é **vestigial/depreciado** e não
+participa da distribuição.
 
 ---
 
-## 5. As peças (o que é cada coisa)
+## 3. Pipeline de distribuição (fonte → consumidor)
 
-| Peça | O que é | Em uma frase |
+```
+src/ + registry.json
+   │  npm run registry:build  =  tokens:tw4 → registry:stamp → shadcn build
+   ▼
+public/r/<item>.json   (conteúdo embutido + import paths)
+   │  registry-app/scripts/copy-registry.mjs
+   ▼
+registry-app/app/registry-data.ts   (EMBED commitado)
+   │  git merge em main  →  Vercel auto-deploy (Root=registry-app)
+   ▼
+https://igreen-registry.vercel.app/r/<item>.json   (Bearer-protected)
+   │  consumidor: npm run igreen:add -- <item>   (= npx shadcn add @igreen/<item>)
+   ▼
+src/components/ui/<Nome>/...   no projeto do consumidor
+```
+
+**Detalhes técnicos relevantes:**
+
+- **Schema do item** (`registry.json`): `name`, `type` (`registry:ui` | `registry:file`),
+  `registryDependencies` (namespaced `@igreen/*`), `dependencies` (npm, ex.:
+  `@tanstack/react-virtual@^3.13.24`), `files[]` (`path` em `src/…`, `target` em
+  `components/ui/…`), `meta.stamp`.
+- **Reescrita de import no `add`** (copy-in transform): imports `@/components/shadcn/X`
+  de um componente que é `registryDependency` são reescritos para o alias do consumidor
+  `@/components/ui/X`. Imports relativos (`./`, `../`) são preservados — por isso os
+  exemplos multi-arquivo espelham a estrutura de pastas.
+- **Embed vs `public/r`:** o serverless da Vercel não lê `../public/r` fora do root dir;
+  por isso o conteúdo é embutido em `registry-data.ts` (commitado) e servido por um
+  **route handler** (`force-dynamic` + `no-store`, valida `Authorization: Bearer`).
+  Sem isso, servir estático vazava 200 sem token via CDN.
+- **Bundle data-table:** `@igreen/data-table` empacota DataTable + TableToolbar (104
+  arquivos) num único item, resolvendo a dependência circular entre eles.
+
+---
+
+## 4. Versionamento
+
+- **Versão global única** = `package.json.version` (hoje `0.10.0`). **Não** há semver
+  por-componente. Cada item do registry carrega `meta.stamp = essa versão` — inclusive
+  `@igreen/theme` (tokens/tema). Logo **tokens e tema são versionados** junto.
+- **Carimbo só em `meta.stamp`**, nunca no conteúdo do arquivo — assim o re-stamp de uma
+  release não altera o `content`, e o `shadcn add` subsequente não força re-download.
+- **Lado mantenedor:** `/ds-release` → bump `package.json` + entry no changelog
+  (`updates-data.ts`) + `registry:build` (re-stamp + embed) + commit/PR. Merge → deploy.
+- **Lado consumidor:**
+  - `igreen:add` grava no `.igreen-ds/manifest.json`, **por componente**: `rev`
+    (=stamp na hora) + `hash` do conteúdo instalado (baseline).
+  - `igreen:drift` compara **hash de conteúdo** local vs registry → só acusa
+    "atualização disponível" quando o **código** difere (não no re-stamp global);
+    e acusa "editado localmente" quando o hash local ≠ baseline.
+  - `igreen:update [-- <itens> | --all]` atualiza **pulando** componentes editados
+    localmente (salvo `--force`) e re-baselina.
+- **Rollback por componente:** via Git do consumidor (é código dele) — reverter só a
+  pasta do componente. O registry serve **apenas a versão atual** (não é arquivo
+  histórico); versão histórica por-componente é evolução futura (endpoints versionados).
+
+---
+
+## 5. Kit do consumidor — telas padronizadas via IA
+
+Todo projeto scaffoldado nasce com um **pipeline de IA embutido** (`.claude/` +
+`DESIGN.md`) que faz a IA do consumidor montar telas no padrão **por intenção, em
+linguagem natural** — sem prompt técnico. Roteamento é por **skill** (mecanismo nativo
+do Claude Code, disparado pela `description` — barato), **não por subagente** (que
+custaria uma janela de contexto por requisição).
+
+**Componentes do kit:**
+
+| Peça | Arquivo | Função |
 |---|---|---|
-| **Registry** | site na Vercel que serve o código (com token) | "o balcão de entrega" — de onde o código é copiado |
-| **Catálogo visual** | o preview público (este styleguide) | "a vitrine" — onde se **vê** os componentes rodando |
-| **CLI** | um comando `npx …` que cria projeto novo | "o kit de montar a cozinha do cliente do zero" |
-| **Kit do consumidor** | guias + automações que vão junto no projeto | "o manual + assistente" pra IA montar telas no padrão |
+| Orquestrador (front-door) | `.claude/skills/ds-kit/SKILL.md` | classifica a intenção da tela → roteia pra skill/exemplo |
+| Skill CRUD (entrevista) | `.claude/skills/crud-builder/` | tabela/CRUD: entrevista → blueprint (GATE) → geração espelhando `example-clientes` |
+| Skills focadas | `page-edit`, `page-detail`, `dashboard`, `charts`, `chat`, `drawers`, `cards` | cada tipo de tela ancorado no seu `example-*`/componente |
+| Slash commands | `.claude/commands/ds-create-crud.md`, `ds-build-page.md` | portas de entrada explícitas |
+| Regras auto-carregadas | `.claude/rules/ds-design.md` (glob `**/*.tsx`) | aplica padrões sem ser pedido (anatomia de tela, `gap-form-gap`, tokens DS) |
+| Guia de composição | `DESIGN.md` (raiz) | anatomia, ritmo de espaçamento, do/don't, responsividade; aponta pros `USAGE.md` |
+| Hook de integridade | `.claude/hooks/protect-ds.mjs` (PreToolUse, exit 2) | bloqueia edição de tema/tokens/`cn`/`tv`; avisa edição de componente |
+| Descoberta | `.mcp.json` (shadcn MCP) | a IA lista/adiciona `@igreen/*` por conta própria |
 
-> Detalhe técnico (pode pular): há uma pasta `dist-lib` no repositório que é **sobra** de
-> uma tentativa antiga de virar pacote npm. Ela **não participa** da distribuição atual —
-> está depreciada. O registry lê **sempre a fonte real (`src/`)**, nunca essa sobra.
-
----
-
-## 6. Versionamento (como as versões funcionam)
-
-- **Existe uma versão única pro DS inteiro** (hoje, por exemplo, `0.10.0`). Não é uma
-  versão por componente — é **uma só**, que vale pra todos.
-- Quando lançamos, **cada componente recebe um "carimbo" com essa versão** — inclusive
-  o tema e os tokens. Ou seja: **cores, espaçamentos e temas também são versionados.**
-
-**Como sobe uma versão nova (lado do DS):**
+**Fluxo de intenção → tela:**
 ```
-edita componente/token → /ds-release → (sobe o número + changelog + republica) → merge → Vercel publica
+usuário: "monte uma tabela de produtos"
+   → ds-kit classifica (tabela/lista/crud) → carrega crud-builder
+   → entrevista (colunas, filtros, kanban) → blueprint [GATE]
+   → igreen:add example-clientes + data-table → lê o exemplo → gera a tela
+   → aplica DESIGN.md (wrapper flex h-full, gap pós-PageHeader, FormField em form)
+   → npx tsc --noEmit → entrega
 ```
-Um comando só (`/ds-release`) cuida de: subir o número, registrar a mudança no histórico
-("Updates"), reconstruir o catálogo e abrir o pedido de publicação.
-
-**Como cada projeto "anda" de versão (lado do consumidor):**
-- **Pra frente:** `npm run igreen:update` — pega o novo e **protege o que o time editou**.
-- **Pra trás / componente a componente:** como o código é do projeto, o time usa o **Git
-  dele** — pode voltar **um componente específico** (ex.: reverter só a pasta do botão)
-  sem afetar os outros. Um "manifesto" anota, por componente, de qual versão veio.
-
-> ⚠️ Importante (pra não criar expectativa errada): o catálogo serve **só a versão atual**.
-> Não dá pra pedir "a versão antiga do botão" direto do catálogo — voltar é via Git do
-> projeto. Versão histórica por-componente seria uma evolução futura.
+Cada tipo de tela tem um **exemplo de produção** (extração 1:1 dos showcases) como
+referência viva: `example-clientes` (CRUD), `example-finance` (KPIs+DataTable+drawers),
+`example-dashboard` (Recharts), `example-order-detail` (tabs), `example-edit-page`
+(multi-step form), `example-chat` (inbox). A IA **adapta o exemplo**, não escreve do zero.
 
 ---
 
-## 7. Por que a IA do consumidor não bagunça o padrão
+## 6. Governança / integridade (sem manutenção recorrente)
 
-Como o código vira do time, em tese alguém (ou a IA dele) poderia mexer nos tokens e
-quebrar o visual. Pra evitar isso **sem trabalho recorrente**, todo projeto novo já nasce
-com 3 camadas de proteção:
+Copy-in = código do consumidor; não dá pra travar arquivo. A integridade é garantida em
+3 camadas, todas embutidas no scaffold:
 
-1. **Orientação:** um guia (`DESIGN.md`) + regras que a IA lê automaticamente.
-2. **Trava automática:** um "guarda" que **bloqueia** edição do tema/tokens/fundação
-   (o que quebraria tudo) e **avisa** ao editar um componente.
-3. **Detecção:** um comando que avisa se algo foi alterado fora do padrão.
+1. **Orientação** — `DESIGN.md` + `.claude/rules/ds-design.md` (auto-load).
+2. **Trava (hook `protect-ds.mjs`)** — `exit 2` (bloqueia) em `src/styles/theme/**`,
+   `src/lib/utils.ts` (cn), `src/utils/tv.ts` (tv), `src/lib/lucide-types.ts`;
+   `exit 1` (avisa) em `src/components/ui/**`.
+3. **Detecção** — `igreen:drift` (conteúdo vs registry + edição local).
 
-A regra de ouro pro consumidor: **customize na composição da sua tela** (escolhendo
-variantes e classes), **não** mexendo nos tokens do sistema.
-
-E mais: o projeto nasce com um **assistente de telas** — o time pede em português
-("monte uma tabela de produtos", "uma tela de edição") e a IA monta seguindo o padrão,
-reaproveitando exemplos de produção.
+Regra de ouro: **customizar na composição** (variantes/props + classes na tela), nunca
+nos tokens/internals. Mudar tema = re-sincronizar com o DS.
 
 ---
 
-## 8. Por que essas escolhas (o racional, resumido)
+## 7. Pipeline do DS (lado mantenedor)
 
-| Escolha | Por quê |
+O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
+
+- **Agents** (`.claude/agents/`): `orchestrator` (classifica/roteia), `ds-designer`
+  (especifica token/componente), `ds-dev` (implementa), `ds-reviewer` (valida). Fluxo:
+  designer → **[GATE humano]** → dev → reviewer. (`app-designer`/`app-dev-react` são
+  reservados, não-operacionais.)
+- **Commands** (`.claude/commands/`): `/ds-add-token`, `/ds-create-component`,
+  `/ds-add-shadcn`, `/ds-create-composite`, `/ds-extract-figma`, `/ds-create-crud`,
+  `/ds-update`, `/ds-release`.
+- **Skills** (`.claude/skills/<agent>/`): procedimentos (spec-token, impl-igreen/shadcn/
+  composite, review-component, pre-commit-check, release, crud-builder…).
+- **Hooks** (`.claude/settings.json`): PostToolUse — `format-on-save`, `ds-lint-styles`
+  (L-001..L-007 em `*.styles.*`), `ds-inventory-check` (USAGE/inventory/registry),
+  `ds-tokens-check` (avisa `tokens:tw4`+release). PreToolUse — `block-rm-rf`,
+  `block-sensitive-edit` (`.env`/credenciais, exit 2).
+- **CI** (`.github/workflows/ci.yml`): `tsc` + `vitest` + `registry-check`
+  (paths/embed/backslash) + `examples-drift-check` + `check-foundationals` (sync CLI↔DS).
+- **Rules/contexto**: `.claude/rules/ds-standards.md` (auto-load) + `.ai/status/lessons.md`
+  (L-001..L-037) + `.ai/status/pipeline-state.md` (audit log).
+
+---
+
+## 8. Stack
+
+- **UI:** React 19 · TypeScript · Vite · Tailwind CSS v4 (`@theme`/`@theme inline`).
+- **Estilo:** `tailwind-variants` (`tv()` via `@/utils/tv`) + `cn` (extendTailwindMerge
+  com prefixos DS) · Radix UI (primitivos shadcn) · cores **OKLCH** + `color-mix()`.
+- **Dados/UX:** `@tanstack/react-virtual` (DataTable) · `@dnd-kit` (Kanban) ·
+  `recharts` (Chart) · `lucide-react` · `react-day-picker` · Geist (fonte).
+- **Distribuição:** shadcn registry (`shadcn build`/`add`) · Next.js (registry-app) ·
+  Vercel (deploy + auth Bearer) · npm (apenas o CLI `@snksergio/create-design-system`).
+- **Qualidade:** Vitest · GitHub Actions · hooks Claude Code.
+
+---
+
+## 9. Decisões de arquitetura (racional)
+
+| Decisão | Racional técnico |
 |---|---|
-| **Copy-in, não npm** | telas sob medida precisam editar; IA precisa copiar/adaptar. npm trancaria o código. |
-| **Registry (Vercel)** | servir o código de forma central e privada, atualizando sozinho no merge. |
-| **Versão única (não por componente)** | simplicidade pra um mantenedor só; menos cerimônia. (Per-componente fica pra depois, se precisar.) |
-| **CLI + kit no projeto** | quem instala já começa produtivo, com IA que entende o padrão — sem ler manual técnico. |
-| **Proteção por "guarda" (hook)** | impossível trancar arquivo (é código do time); então a gente **orienta + avisa + detecta**, sem manutenção. |
+| Copy-in (não npm) | telas sob medida exigem editar; IA copia/adapta; sem acoplamento de build em node_modules |
+| Registry na Vercel + embed | serve central/privado; serverless não lê fora do root → embed commitado + route handler com Bearer |
+| Versão global única | 1 mantenedor; menos cerimônia; stamp em `meta` evita churn de download; per-componente fica pra escala |
+| Drift por hash de conteúdo | re-stamp global não gera falso "defasado"; só conteúdo real conta |
+| Roteamento por skill (não agente) | nativo/barato (description-triggered); subagente só pra trabalho pesado paralelo |
+| Integridade por hook (não lock) | impossível travar código do consumidor → orienta + bloqueia o crítico + detecta |
+| Exemplos = extração 1:1 | garantia de produção conforme showcases; drift-check alerta divergência da fonte |
 
 ---
 
-## 9. Perguntas comuns (FAQ)
+## 10. FAQ
 
-**É um pacote npm?** Não. O único `npx` é o CLI que cria o projeto. Os componentes são
-copiados (copy-in), não instalados como dependência.
-
-**Se eu editar um componente, perco na próxima atualização?** Não. A atualização
-**protege edições locais** (pula o que você mexeu) — ou você decide sobrescrever.
-
-**Tokens e tema são versionados?** Sim — junto com tudo, pelo carimbo da versão global.
-
-**Consigo voltar a versão de um componente só?** Sim, **no seu projeto, via Git** (é seu
-código). Do catálogo, não — ele só tem a versão atual.
-
-**Quem aprova/publica?** O mantenedor: toda release passa por revisão e merge no Git;
-a Vercel publica automaticamente depois.
+**É pacote npm?** Não — só o CLI é npm. Componentes são copy-in.
+**Editar quebra no update?** Não — `igreen:update` pula editados (ou `--force`).
+**Tokens/tema versionados?** Sim, pelo stamp da versão global.
+**Voltar versão de um componente?** Sim, via Git do projeto (é código dele); o registry
+serve só a versão atual.
+**Como a IA garante o padrão?** Kit no scaffold: `ds-kit` roteia a intenção, skills
+geram a partir dos exemplos, `DESIGN.md`+rules aplicam espaçamento/tokens, `protect-ds`
+bloqueia edição do núcleo.
 
 ---
 
-## 10. Glossário rápido
-
-- **Registry** — catálogo online que serve o código dos componentes.
-- **Copy-in** — modelo onde o código é **copiado** pro projeto (vira código dele), em vez
-  de instalado como pacote.
-- **Token** — valor de design reutilizável (uma cor, um espaçamento, um tamanho).
-- **Stamp (carimbo)** — a marca de versão em cada item do registry.
-- **CLI** — comando que cria um projeto novo já conectado ao DS.
-- **Drift** — quando o código local "descolou" do padrão (editado ou defasado).
-- **`/ds-release`** — o comando único que fecha uma versão e publica.
-
----
-
-*Fonte de verdade técnica: a página **Distribution** no catálogo do DS e o
-`README-PIPELINE-WORKFLOW.md`. Este documento é a versão de apresentação.*
+*Referência viva: página **Distribution** + **Structure** no catálogo do DS;
+`README-PIPELINE-WORKFLOW.md` (pipeline completo). Distribuição/versão são estampadas
+por release via `/ds-release`.*
