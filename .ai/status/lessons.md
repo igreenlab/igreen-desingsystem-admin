@@ -812,6 +812,20 @@ trabalho pesado em paralelo. (Diferente do orquestrador-agente do próprio DS, m
 **embutir** `lib/lucide-types.ts` (`registry:file`) se não puxam via dep que já o entrega
 (panel/floating-panel). Validar com render em consumidor real, não só tsc no DS.
 
+**[L-038] Default vindo do `type` (column-type) tem que ser resolvido na FONTE ÚNICA, não por render-site.**
+DataTable: `align`/`ellipsis` do column-type (`defaultAlign`/`defaultEllipsis`) só chegavam
+ao BODY — que fazia `col.align ?? typeDef?.defaultAlign` localmente
+(`data-table-row.tsx`). HEADER (`data-table.tsx`) e FOOTER/totalizer
+(`data-table-totalizer-row.tsx`) liam só `col.align` cru → coluna `type:"currency"/"number"`
+(defaultAlign "right") alinhava o body à direita, mas header/label e footer/total à esquerda.
+**Não reproduzia no showcase** porque lá as colunas setam `align:"right"` explícito; só
+aparecia no CONSUMIDOR que confia no default do tipo. Fix: resolver `align`/`ellipsis` no
+merge de `effectiveColumns` (`use-data-table-columns.ts`) — o comentário já PROMETIA isso,
+o código só herdava `width/sortable/pinned`. **Regra pra IA**: quando um valor pode vir do
+column-type como default, resolva-o UMA vez no merge das colunas efetivas (fonte única) —
+nunca deixe cada render-site (header/body/footer) re-resolver, senão um esquece e diverge.
+Validar SEMPRE no cenário sem o override explícito (= o que o consumidor faz).
+
 ---
 
 ## Como adicionar nova lição

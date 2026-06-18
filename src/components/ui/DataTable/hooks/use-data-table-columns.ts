@@ -111,6 +111,12 @@ export function useDataTableColumns<T>({
           col.width ??
           typeDef?.defaultWidth,
         sortable: col.sortable ?? typeDef?.defaultSortable,
+        // align/ellipsis vêm do tipo quando não passados — resolvidos aqui (fonte
+        // única) pra que HEADER e FOOTER (que leem só `col.align`) fiquem coerentes
+        // com o BODY. Sem isso, `type: "currency/number"` (defaultAlign "right")
+        // alinhava só o body à direita; header/footer caíam à esquerda.
+        align: col.align ?? typeDef?.defaultAlign,
+        ellipsis: col.ellipsis ?? typeDef?.defaultEllipsis,
         pinned: field in pinnedOverrides ? pinnedOverrides[field] : col.pinned,
       });
     }
