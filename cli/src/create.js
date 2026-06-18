@@ -117,7 +117,7 @@ const EXAMPLE_SCREENS = [
 
 /** Gera o src/App.tsx: AppShell + nav (Início→tutorial + exemplos instalados) com hash-routing. */
 function buildAppShellApp(examples) {
-  const iconSet = ["Rocket", "Sun", "Moon", ...new Set(examples.map((e) => e.icon))].join(", ");
+  const iconSet = ["Rocket", "Monitor", "Sun", "Moon", ...new Set(examples.map((e) => e.icon))].join(", ");
   const exImports = examples.map((e) => `import { ${e.comp} } from "${e.path}";`).join("\n");
   const navItems = [
     `{ name: "Início", icon: Rocket, href: "#inicio" }`,
@@ -134,7 +134,7 @@ import { AppShell } from "@/components/ui/AppShell";
 import { Welcome } from "@/welcome";
 ${exImports}
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "system";
 
 const CONTEXTS = [
   {
@@ -148,6 +148,7 @@ const CONTEXTS = [
 ];
 
 const THEME_OPTIONS = [
+  { id: "system", label: "Sistema", icon: Monitor },
   { id: "light", label: "Claro", icon: Sun },
   { id: "dark", label: "Escuro", icon: Moon },
 ];
@@ -165,11 +166,20 @@ function useHashRoute() {
 }
 
 export default function App() {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("system");
   const route = useHashRoute();
 
   useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    const root = document.documentElement;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => {
+      const dark = theme === "dark" || (theme === "system" && mq.matches);
+      root.classList.toggle("dark", dark);
+    };
+    apply();
+    if (theme !== "system") return;
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
   }, [theme]);
 
   const SCREENS: Record<string, ReactNode> = {
