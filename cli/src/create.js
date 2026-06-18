@@ -466,9 +466,9 @@ async function main() {
     packageManager === "npm" ? "npm run dev" : `${packageManager} dev`;
 
   console.log();
-  // Logo iGreen (100 cols). Só imprime se o terminal comporta — senão a arte
+  // Logo iGreen (~50 cols). Só imprime se o terminal comporta — senão a arte
   // quebra na borda e fica pior que ausente (o banner inicial já mostrou a marca).
-  if (LOGO_ASCII && (process.stdout.columns ?? 80) >= 100) {
+  if (LOGO_ASCII && (process.stdout.columns ?? 80) >= 50) {
     console.log(pc.green(LOGO_ASCII));
     console.log();
   }
