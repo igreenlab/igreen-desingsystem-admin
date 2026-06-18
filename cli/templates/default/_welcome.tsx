@@ -15,8 +15,8 @@ import {
   Compass,
   ShieldCheck,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { Card, CardContent } from "@/components/ui/card";
 import { Chip } from "@/components/ui/Chip";
 import { Badge } from "@/components/ui/badge";
 
@@ -50,6 +50,12 @@ const KIT = [
   { icon: ShieldCheck, title: "protect-ds (hook)", desc: "Bloqueia editar tema/tokens; mantém o visual íntegro. Customize na composição." },
 ];
 
+const STEPS = [
+  { t: "Você descreve", d: "Em português, o que a tela faz (\"uma lista de clientes com filtro\")." },
+  { t: "A IA roteia", d: "O orquestrador identifica o tipo e puxa o exemplo/componente certo." },
+  { t: "Adapta no padrão", d: "Segue o DESIGN.md (espaçamento, cores, tokens). Tela pronta de produção." },
+];
+
 const STRUCTURE = [
   { icon: Boxes, path: "src/components/ui/", desc: "Componentes do DS (Button, DataTable, FormField…). Cada um traz seu USAGE.md." },
   { icon: FolderTree, path: "src/examples/", desc: "Telas de referência (vêm via igreen:add example-*). Copie e adapte — é seu código." },
@@ -73,60 +79,70 @@ example-* mais próximo com "npm run igreen:add", adapte seguindo o DESIGN.md e
 rode "npx tsc --noEmit". Não edite tokens/tema (o hook protect-ds bloqueia) —
 customize na composição da tela.`;
 
-function SectionTitle({ children }: { children: React.ReactNode }) {
-  return <h2 className="text-title-md font-semibold text-fg-default">{children}</h2>;
+function SectionHead({ title, subtitle, icon: Icon }: { title: string; subtitle?: string; icon?: LucideIcon }) {
+  return (
+    <div className="flex flex-col gap-gp-xs">
+      <h2 className="text-title-md font-semibold text-fg-default inline-flex items-center gap-gp-sm">
+        {Icon && <Icon className="size-icon-sm text-fg-brand" />}
+        {title}
+      </h2>
+      {subtitle && <p className="text-body-sm text-fg-muted">{subtitle}</p>}
+    </div>
+  );
 }
 
 export function Welcome() {
   return (
-    <div className="flex flex-col h-full min-h-0 gap-gp-2xl overflow-y-auto">
+    <div className="flex flex-col h-full min-h-0 overflow-y-auto px-pad-page-base py-pad-page-base gap-gp-6xl">
       <PageHeader
         title="Bem-vindo ao iGreen DS 👋"
         description="Seu projeto já vem com o design system pronto. Você cria telas conversando com a IA — em português, sem comandos complexos."
         badge={<Badge color="success" variant="soft">design system pronto</Badge>}
       />
 
-      {/* Crie telas conversando com a IA */}
-      <section className="flex flex-col gap-gp-md">
-        <SectionTitle>Crie telas conversando com a IA</SectionTitle>
-        <p className="text-body-sm text-fg-muted">
-          Abra o Claude Code (ou Cursor) neste projeto e diga o que quer. A IA identifica a intenção e monta a tela no padrão.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gp-md">
+      {/* Crie telas conversando — lista */}
+      <section className="flex flex-col gap-gp-2xl">
+        <SectionHead
+          title="Crie telas conversando com a IA"
+          subtitle="Abra o Claude Code (ou Cursor) neste projeto e diga o que quer — a IA monta a tela no padrão."
+        />
+        <ul className="flex flex-col gap-gp-md">
           {PROMPTS.map((p) => (
-            <Card key={p.say} className="transition-colors hover:border-border-brand-subtle">
-              <CardContent className="flex flex-col gap-gp-sm pt-pad-card-base">
-                <div className="flex items-center justify-between gap-gp-sm">
-                  <span className="grid place-items-center size-icon-2xl rounded-radius-lg bg-bg-brand-subtle text-fg-brand shrink-0">
-                    <p.icon className="size-icon-md" strokeWidth={1.8} />
-                  </span>
-                  <Chip color="primary" variant="soft" size="sm" shape="rounded">você diz</Chip>
-                </div>
+            <li
+              key={p.say}
+              className="flex items-center gap-gp-lg p-pad-card-base bg-bg-surface border border-border-subtle rounded-radius-lg transition-colors hover:border-border-brand-subtle"
+            >
+              <span className="grid place-items-center size-icon-2xl rounded-radius-lg bg-bg-brand-subtle text-fg-brand shrink-0">
+                <p.icon className="size-icon-md" strokeWidth={1.8} />
+              </span>
+              <div className="flex flex-col gap-gp-2xs min-w-0 flex-1">
                 <p className="text-body-md font-medium text-fg-default">“{p.say}”</p>
                 <p className="text-caption-md text-fg-muted">{p.does}</p>
-              </CardContent>
-            </Card>
+              </div>
+              <Chip color="primary" variant="soft" size="sm" shape="rounded" className="shrink-0">você diz</Chip>
+            </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* Prompt de bootstrap */}
-      <section className="flex flex-col gap-gp-md">
-        <SectionTitle>Comece: dê o contexto pra IA</SectionTitle>
-        <p className="text-body-sm text-fg-muted">
-          Na primeira mensagem da sessão, cole isto pra IA entender o projeto e o pipeline:
-        </p>
+      <section className="flex flex-col gap-gp-2xl">
+        <SectionHead
+          title="Comece: dê o contexto pra IA"
+          subtitle="Na primeira mensagem da sessão, cole isto pra IA entender o projeto e o pipeline:"
+        />
         <div className="rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
           <pre className="whitespace-pre-wrap text-code-sm text-fg-default font-mono leading-relaxed">{BOOTSTRAP}</pre>
         </div>
       </section>
 
       {/* Cores do sistema */}
-      <section className="flex flex-col gap-gp-md">
-        <SectionTitle>
-          <span className="inline-flex items-center gap-gp-sm"><Palette className="size-icon-sm text-fg-brand" /> Cores do sistema</span>
-        </SectionTitle>
-        <p className="text-body-sm text-fg-muted">Tokens semânticos — trocam sozinhos entre claro/escuro. Use pelos nomes, nunca hex.</p>
+      <section className="flex flex-col gap-gp-2xl">
+        <SectionHead
+          title="Cores do sistema"
+          subtitle="Tokens semânticos — trocam sozinhos entre claro/escuro. Use pelos nomes, nunca hex."
+          icon={Palette}
+        />
         <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-gp-md">
           {SWATCHES.map((s) => (
             <div key={s.name} className="flex flex-col gap-gp-xs">
@@ -138,8 +154,8 @@ export function Welcome() {
       </section>
 
       {/* O kit de IA */}
-      <section className="flex flex-col gap-gp-md">
-        <SectionTitle>A IA já vem com um kit de construção</SectionTitle>
+      <section className="flex flex-col gap-gp-2xl">
+        <SectionHead title="A IA já vem com um kit de construção" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-gp-md">
           {KIT.map((k) => (
             <div key={k.title} className="flex items-start gap-gp-md p-pad-card-base bg-bg-surface border border-border-subtle rounded-radius-lg">
@@ -155,28 +171,31 @@ export function Welcome() {
         </div>
       </section>
 
-      {/* Como funciona */}
-      <section className="flex flex-col gap-gp-md">
-        <SectionTitle>Como funciona</SectionTitle>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-gp-md">
-          {[
-            { n: "1", t: "Você descreve", d: "Em português, o que a tela faz (\"uma lista de clientes com filtro\")." },
-            { n: "2", t: "A IA roteia", d: "O orquestrador identifica o tipo e puxa o exemplo/componente certo." },
-            { n: "3", t: "Adapta no padrão", d: "Segue o DESIGN.md (espaçamento, cores, tokens). Tela pronta de produção." },
-          ].map((s) => (
-            <div key={s.n} className="flex flex-col gap-gp-xs p-pad-card-base bg-bg-surface border border-border-subtle rounded-radius-lg">
-              <span className="grid place-items-center size-icon-2xl rounded-radius-full bg-bg-brand text-fg-on-brand text-body-md font-bold">{s.n}</span>
-              <p className="text-body-md font-semibold text-fg-default">{s.t}</p>
-              <p className="text-caption-md text-fg-muted">{s.d}</p>
-            </div>
+      {/* Como funciona — timeline */}
+      <section className="flex flex-col gap-gp-2xl">
+        <SectionHead title="Como funciona" />
+        <ol className="flex flex-col">
+          {STEPS.map((s, i) => (
+            <li key={s.t} className="flex gap-gp-lg">
+              <div className="flex flex-col items-center">
+                <span className="grid place-items-center size-icon-xl rounded-radius-full bg-bg-brand text-fg-on-brand text-caption-md font-bold shrink-0">
+                  {i + 1}
+                </span>
+                {i < STEPS.length - 1 && <span className="w-px flex-1 bg-border-default" />}
+              </div>
+              <div className={`flex flex-col gap-gp-2xs min-w-0 ${i < STEPS.length - 1 ? "pb-gp-2xl" : ""}`}>
+                <p className="text-body-md font-semibold text-fg-default">{s.t}</p>
+                <p className="text-caption-md text-fg-muted">{s.d}</p>
+              </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </section>
 
       {/* Estrutura + comandos */}
-      <section className="grid grid-cols-1 lg:grid-cols-2 gap-gp-2xl">
-        <div className="flex flex-col gap-gp-md">
-          <SectionTitle>Estrutura do projeto</SectionTitle>
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-gp-6xl">
+        <div className="flex flex-col gap-gp-2xl">
+          <SectionHead title="Estrutura do projeto" />
           <div className="flex flex-col gap-gp-xs">
             {STRUCTURE.map((s) => (
               <div key={s.path} className="flex items-start gap-gp-md p-pad-card-sm bg-bg-surface border border-border-subtle rounded-radius-lg">
@@ -191,8 +210,8 @@ export function Welcome() {
             ))}
           </div>
         </div>
-        <div className="flex flex-col gap-gp-md">
-          <SectionTitle>Comandos úteis</SectionTitle>
+        <div className="flex flex-col gap-gp-2xl">
+          <SectionHead title="Comandos úteis" />
           <div className="flex flex-col gap-gp-xs">
             {COMMANDS.map((c) => (
               <div key={c.cmd} className="flex items-center gap-gp-md p-pad-card-sm bg-bg-canvas border border-border-subtle rounded-radius-lg">
