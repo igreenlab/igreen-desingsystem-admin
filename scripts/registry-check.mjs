@@ -27,6 +27,19 @@ for (const it of r.items) {
 if (missing) { console.error(`✗ ${missing} path(s) de registry.json não existem no disco.`); fail = 1; }
 else console.log(`✓ registry.json: ${r.items.length} itens, todos os files[].path existem.`);
 
+// 1b. separador de path tem que ser "/" — backslash quebra o copy-in em Linux/Mac
+let bs = 0;
+for (const it of r.items) {
+  for (const f of it.files || []) {
+    if (`${f.path}${f.target ?? ""}`.includes("\\")) {
+      console.error(`✗ ${it.name}: path/target com backslash (Windows) → ${f.path}`);
+      bs++;
+    }
+  }
+}
+if (bs) { console.error(`✗ ${bs} path(s) com "\\" — normalize pra "/" (quebra consumidor não-Windows).`); fail = 1; }
+else console.log(`✓ separadores de path ok (sem backslash).`);
+
 // 2. embed em sync
 const EMBED = "registry-app/app/registry-data.ts";
 if (existsSync(EMBED)) {
