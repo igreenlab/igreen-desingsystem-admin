@@ -3,6 +3,22 @@
 Pergunte em fases, **uma pergunta de cada vez quando possível**, acumulando as
 escolhas. NÃO edite arquivo nenhum aqui. Ao fim, vá pro `blueprint.md`.
 
+## ⛔ Perguntas obrigatórias (NUNCA pular, mesmo que dê pra inferir)
+
+A IA tende a inferir tudo e ir direto pro blueprint — **não faça isso**. Estas duas
+são sempre explícitas:
+
+1. **Colunas** — mesmo que dê pra inferir do nome da entidade, **LISTE** as colunas
+   inferidas (campo · rótulo · tipo) e **confirme** (adicionar/remover/reordenar) +
+   pergunte se **alguma tem particularidade** (ordenável, editável inline, alinhamento,
+   fixar/pin, largura, filtro, totalizador). Nunca gere com colunas só inferidas.
+2. **Views salvas** — **sempre OFEREÇA e explique** (não trate como "off" silencioso):
+   > "Quer **views salvas**? São abas com filtros + ordenação + colunas/densidade
+   > pré-configurados (ex.: *Ativos*, *Alto valor*, *Atrasados*). O usuário troca de
+   > recorte num clique — sem precisar de uma tela nova pra cada um."
+
+   Pergunte quais (nome + filtro + sort). Default = nenhuma, **mas só depois de perguntar**.
+
 ## Fase 0 — Entidade & origem dos dados
 - Qual entidade? (ex.: Clientes, Pedidos, Faturas) → vira o nome da tela/tipo.
 - Dados **client-side** (array em memória/mock) ou **server-side** (fetch paginado da API)?
