@@ -35,6 +35,15 @@ const CLI_ROOT = resolve(__dirname, "..");
 const TEMPLATES_DIR = join(CLI_ROOT, "templates");
 const DEFAULT_TEMPLATE = "default";
 
+// Logo iGreen em ASCII — splash verde no fim do scaffold. Arte opcional: se o
+// arquivo sumir do pacote, segue sem ela (não quebra o CLI).
+let LOGO_ASCII = "";
+try {
+  LOGO_ASCII = readFileSync(join(__dirname, "logo-ascii.txt"), "utf8").replace(/\n+$/, "");
+} catch {
+  /* arte ausente — ignora */
+}
+
 /* ── helpers ─────────────────────────────────────────────────────── */
 
 function detectPackageManager() {
@@ -334,6 +343,17 @@ async function main() {
     writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n", "utf8");
   }
 
+  // Step 4b: título do browser = "iGreen - <projeto>" (antes era fixo "Exemplo —
+  // iGreen Design System"). Favicon já é a logo iGreen (public/favicon.svg).
+  const indexHtmlPath = join(projectDir, "index.html");
+  if (existsSync(indexHtmlPath)) {
+    const html = readFileSync(indexHtmlPath, "utf8").replace(
+      /<title>.*?<\/title>/,
+      `<title>iGreen - ${projectName}</title>`,
+    );
+    writeFileSync(indexHtmlPath, html, "utf8");
+  }
+
   // Step 5: rename _gitignore → .gitignore
   const gitignoreSrc = join(projectDir, "_gitignore");
   const gitignoreDst = join(projectDir, ".gitignore");
@@ -446,6 +466,12 @@ async function main() {
     packageManager === "npm" ? "npm run dev" : `${packageManager} dev`;
 
   console.log();
+  // Logo iGreen (100 cols). Só imprime se o terminal comporta — senão a arte
+  // quebra na borda e fica pior que ausente (o banner inicial já mostrou a marca).
+  if (LOGO_ASCII && (process.stdout.columns ?? 80) >= 100) {
+    console.log(pc.green(LOGO_ASCII));
+    console.log();
+  }
   console.log(pc.green(pc.bold("✨ Done!")));
   console.log();
   console.log(pc.bold("Next steps:"));
