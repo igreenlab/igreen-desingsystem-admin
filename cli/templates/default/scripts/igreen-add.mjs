@@ -75,7 +75,12 @@ const failed = [];
 // vai via `cmd.exe /c`; no resto, chama o npx direto. Args fixos (sem interpolação
 // de input não-confiável além do nome do componente, que é validado pelo registry).
 function runShadcnAdd(name) {
-  const a = ["shadcn@latest", "add", `@igreen/${name}`, "--yes"];
+  // --overwrite: sem ele, quando um item traz um arquivo já instalado por outro
+  // (ex.: dropdown-menu compartilhado), o shadcn ABRE prompt interativo (y/N) e
+  // TRAVA a automação. `--yes` só confirma "proceed", não o overwrite por-arquivo.
+  // Em `add` (instalar), sobrescrever a dep compartilhada com a versão do registry é
+  // o comportamento correto; edição local é protegida no `igreen:update`, não aqui.
+  const a = ["shadcn@latest", "add", `@igreen/${name}`, "--yes", "--overwrite"];
   return process.platform === "win32"
     ? spawnSync("cmd.exe", ["/c", "npx", ...a], { stdio: "inherit" })
     : spawnSync("npx", a, { stdio: "inherit" });
