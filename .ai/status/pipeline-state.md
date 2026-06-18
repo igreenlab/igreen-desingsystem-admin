@@ -1040,3 +1040,17 @@ Sessão longa de distribuição ponta-a-ponta (repo pessoal snksergio; origin ig
 - **Lições novas**: L-033 a L-037 (`.ai/status/lessons.md` + resumo em ds-standards).
 - **Versão**: DS 0.9.0 → 0.10.0 (milestone, re-stamp do registry). CLI 0.12.0.
 - **Pendência do mantenedor**: remover Automation token npm usado nas publicações.
+
+---
+
+### 2026-06-18 | DS DEV | Tela inicial do scaffold (welcome) + tema "Sistema" | CONCLUÍDO (CLI 0.13.0 → 0.13.1)
+
+Continuação da distribuição (snksergio; origin igreenlab NÃO tocado). Só `cli/` — não toca registry/componentes/tokens.
+
+- **0.13.0**: redesenho da `_welcome.tsx` (PageHeader + Badge, cards de prompt, seção "Cores do sistema" com swatches de tokens, bloco de prompt de bootstrap pra IA, vitrine do kit). `buildAppShellApp` (create.js) passa a gerar `Theme = light|dark|system`, default `system`, com observer de `prefers-color-scheme` + opção "Sistema" (ícone Monitor). Fix do bug "OS dark → scaffold branco".
+- **0.13.1**: refino de layout sobre o render real — `px/py-pad-page-base` (cards não cortam), `gap-gp-6xl` entre seções, `SectionHead` com `gap-gp-xs` (título↔subtítulo justos), prompts viram **lista** (1 coluna), "Como funciona" vira **timeline** vertical.
+- Validado: tsc limpo + render light/dark no consumer-demo (screenshots). `--overwrite` no `igreen:add`/`igreen:update` confirmado cobrindo todos os caminhos (sem mais prompt interativo).
+- PRs #21 + #22 (mirror), merged. Publicados npm: `@snksergio/create-design-system@0.13.0` e `@0.13.1` (latest).
+- **Assumption**: tela inicial é primeiro contato → vale investir em onboarding (prompts copy-paste + kit visível + tema correto). Mudança é template-only; não afeta consumidores já scaffoldados (pegam via novo `create` ou copy manual).
+- **Lições novas**: nenhuma (padrões já cobertos: list/timeline são composição de tokens DS existentes).
+- **Pendência do mantenedor**: revogar o Automation token npm usado nas publicações.
