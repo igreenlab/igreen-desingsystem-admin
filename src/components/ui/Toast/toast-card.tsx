@@ -96,38 +96,40 @@ export function ToastCard({
 
   return (
     <div className={s.root()}>
-      <span className={s.iconChip()}>{icon ?? DEFAULT_ICON[status]}</span>
+      {/* linha principal — tudo centralizado verticalmente */}
+      <div className={s.row()}>
+        <span className={s.iconChip()}>{icon ?? DEFAULT_ICON[status]}</span>
 
-      <div className={s.body()}>
-        <div className={s.header()}>
+        <div className={s.content()}>
           <div className={s.title()}>{title}</div>
-          {(meta || inlineAction || onClose) && (
-            <div className={s.rightCluster()}>
-              {meta && <span className={s.meta()}>{meta}</span>}
-              {inlineAction && <ActionButton action={inlineAction} />}
-              {onClose && (
-                <Button
-                  color="secondary"
-                  variant="ghost"
-                  size="icon-2xs"
-                  aria-label="Fechar"
-                  iconLeft={<X />}
-                  onClick={handleClose}
-                />
-              )}
-            </div>
-          )}
+          {description && <div className={s.description()}>{description}</div>}
         </div>
 
-        {description && <div className={s.description()}>{description}</div>}
-
-        {hasFooter && (
-          <div className={s.footer()}>
-            {cancel && <ActionButton action={{ tone: "neutral", ...cancel }} />}
-            {action && <ActionButton action={action} />}
+        {(meta || inlineAction || onClose) && (
+          <div className={s.rightCluster()}>
+            {meta && <span className={s.meta()}>{meta}</span>}
+            {inlineAction && <ActionButton action={inlineAction} />}
+            {onClose && (
+              <Button
+                color="secondary"
+                variant="ghost"
+                size="icon-2xs"
+                aria-label="Fechar"
+                iconLeft={<X />}
+                onClick={handleClose}
+              />
+            )}
           </div>
         )}
       </div>
+
+      {/* rodapé — 2 botões juntos, à direita, gap 4px */}
+      {hasFooter && (
+        <div className={s.footer()}>
+          {cancel && <ActionButton action={{ tone: "neutral", ...cancel }} />}
+          {action && <ActionButton action={action} />}
+        </div>
+      )}
     </div>
   );
 }
