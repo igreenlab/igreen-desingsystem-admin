@@ -72,12 +72,12 @@ Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separat
 `carousel` `aspect-ratio` `drawer`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
 `footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
-`date-picker`.
+`date-picker` `toast`.
 
 > **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
 > `navigation-menu` `hover-card` `tooltip`) seguem a MESMA receita visual do DS
 > (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
-> **Feedback**: `sonner` (toasts — monte `<Toaster/>` 1× no root) · `skeleton` (loading)
+> **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
 > · `tooltip`/`hover-card` (dica/prévia no hover).
 App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
 Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
