@@ -882,6 +882,26 @@ encerrar uma implementação sem PR + link; nunca mergear/publicar sem "pode mer
 
 ---
 
+**[L-042] Componente novo toca 7 superfícies — o agente deve PREVER todas, não só código+USAGE.**
+Reincidência: ao criar o `Toast` (v0.12.0), ficou faltando registrá-lo no **catálogo do CLI**
+(`cli/templates/default/CLAUDE.md`) — só foi pego porque o humano perguntou. Mesmo padrão do
+`DOC_PAGES` (o Toast renderizou em branco até `"toast"` ser adicionado ao array de páginas válidas
+do `App.tsx`). **Causa:** o pipeline cobria USAGE + inventory + registry (hook `ds-inventory-check`),
+mas **não o catálogo do CLI nem o registro de showcase (DOC_PAGES)** — e não havia uma "Definição
+de Pronto" única que listasse TODAS as superfícies. **As 7 superfícies de um componente:**
+(1) código `ui/<Nome>/` ou `shadcn/<nome>.tsx`; (2) USAGE (`ui/<Nome>/USAGE.md` ou 1 linha no
+índice `shadcn/USAGE.md`); (3) `inventory.md` (+contador); (4) **showcase** = `<Nome>Doc.tsx` +
+`App.tsx` (import + render + **`DOC_PAGES`**) + `doc-nav-data.ts`; (5) `registry.json` (+build+embed);
+(6) **catálogo do CLI** (`cli/templates/default/CLAUDE.md` + bump `cli/package.json` + republicar);
+(7) changelog `updates-data.ts`. **Fix:** (a) hook `ds-inventory-check` agora acusa "no registry mas
+fora do catálogo do CLI"; (b) `handoff-pr.md` ganhou a tabela "Definição de Pronto" (7 superfícies);
+(c) `pre-commit-check` 2.8 e `release.md` 6.2b cobram o catálogo do CLI. **Cadência:** 1–4 no PR do
+componente; 5/6/7 no `/ds-release` (mas anotar no PR body que faltam). **Regra pra IA:** componente
+distribuído (no registry) SEM estar no catálogo do CLI = gap — qualquer toque em `cli/**` exige
+bump + `npm publish` manual.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
