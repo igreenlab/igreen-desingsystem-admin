@@ -65,18 +65,19 @@ export function NavigationMenuDoc() {
   </NavigationMenuList>
 </NavigationMenu>`}
       >
+        <div className="flex min-h-[360px] w-full items-start justify-center pt-pad-md">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger>Produtos</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[420px] grid-cols-2 gap-gp-sm p-pad-card-base">
+                <ul className="grid w-[300px] gap-gp-2xs p-pad-md">
                   {LINKS.map((l) => (
                     <li key={l.title}>
                       <NavigationMenuLink asChild>
-                        <a href="#" className="block rounded-radius-md p-pad-card-sm hover:bg-bg-muted">
-                          <div className="text-body-md font-semibold text-fg-default">{l.title}</div>
-                          <div className="text-caption-md text-fg-muted">{l.desc}</div>
+                        <a href="#" className="flex items-baseline gap-gp-sm rounded-radius-md px-pad-lg py-pad-md hover:bg-bg-muted">
+                          <span className="text-body-sm font-semibold text-fg-default">{l.title}</span>
+                          <span className="text-caption-sm text-fg-muted">{l.desc}</span>
                         </a>
                       </NavigationMenuLink>
                     </li>
@@ -91,6 +92,7 @@ export function NavigationMenuDoc() {
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
+        </div>
       </ExampleSection>
 
       <DocSeparator />

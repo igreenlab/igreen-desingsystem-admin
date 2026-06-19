@@ -826,6 +826,22 @@ column-type como default, resolva-o UMA vez no merge das colunas efetivas (fonte
 nunca deixe cada render-site (header/body/footer) re-resolver, senão um esquece e diverge.
 Validar SEMPRE no cenário sem o override explícito (= o que o consumidor faz).
 
+**[L-039] Tailwind v4: `border` (cru) é SÓ largura — a cor cai em `currentColor` (branca no dark, preta no light).**
+No Tailwind v3 a classe `border` aplicava largura **+** uma cor de borda default. No **v4 não**:
+`border`/`border-x`/`border-y`/`border-l|r|t|b` definem apenas `border-width`; sem uma classe
+de COR (`border-<token>`) a borda usa `currentColor` (a cor do texto) → no dark fica
+**branca grotesca**, no light **preta**, totalmente fora do layout. Caso real: componentes
+shadcn instalados via bridge (context-menu, hover-card, menubar, navigation-menu, drawer)
+mantiveram `rounded-md border bg-popover` cru → borda branca/preta no popover. O bridge mapeia
+`--border`, mas isso só vale quando a classe `border-border-*` é usada; o `border` cru não
+consome o token. **Regra pra IA**: SEMPRE que usar `border`/`border-{x,y,l,r,t,b}`, acompanhe
+de uma classe de cor de borda do DS — default `border border-border-default` (ou
+`border-border-subtle`/`-brand`/`-danger-muted`...). Exceção válida: base de `cva` com `border`
+cru SÓ quando TODAS as variantes setam uma cor de borda (ex.: `alert.tsx`). Nunca confie no
+"bridge cobre cor" pra borda — o bridge cobre `bg-*`/`text-*`, mas a borda precisa da classe de cor.
+Vale também pra `bg-popover`/`text-popover-foreground` etc.: preferir tokens DS explícitos
+(`bg-bg-surface`/`text-fg-default`) quando reescrever um componente.
+
 ---
 
 ## Como adicionar nova lição

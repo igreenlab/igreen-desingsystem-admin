@@ -309,6 +309,7 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-036** Roteamento de intenção no consumidor = **skill** (nativo/barato pela description), não agente. `ds-kit` é o front-door; subagente só pra trabalho pesado.
 - **L-037** Item de registry declara **todas** as deps reais (`data-table` precisa `@tanstack/react-virtual`; quem usa `@/lib/lucide-types` embute o arquivo). Validar com render em consumidor, não só tsc.
 - **L-038** Default vindo do column-type (`defaultAlign`/`defaultEllipsis`) deve ser resolvido na **fonte única** (`effectiveColumns` em `use-data-table-columns.ts`), nunca por render-site. Header/footer liam só `col.align` cru e divergiam do body em `type:"currency"/"number"` sem `align` explícito (não reproduz no showcase, só no consumidor). Validar no cenário SEM o override.
+- **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e preferir `bg-bg-surface`/`text-fg-default` a `bg-popover`/`text-popover-foreground`.
 
 ### Padrão de chart (resumo)
 ```

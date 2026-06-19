@@ -21,8 +21,13 @@ globals.css     → --primary: var(--color-bg-primary)  ← mapeamento automáti
 resultado       → token iGreen ✓
 ```
 
-Instalar + mover para `shadcn/` já é suficiente para cores.
-**Exceção:** focus ring — precisa substituição manual obrigatória.
+Instalar + mover para `shadcn/` já é suficiente para `bg-*`/`text-*`.
+**Exceção 1 — focus ring:** precisa substituição manual obrigatória (abaixo).
+**Exceção 2 — BORDA (L-039):** no Tailwind v4 a classe `border` (e `border-x/y/l/r/t/b`)
+define **só a largura** — sem uma classe de cor a borda usa `currentColor` (branca no
+dark / preta no light). O bridge NÃO cobre borda crua. **Sempre** trocar `border` →
+`border border-border-default` (ou `-subtle`/`-brand`/...). Ex.: `rounded-md border bg-popover`
+→ `rounded-radius-md border border-border-default bg-bg-surface`.
 
 ## Passos
 
