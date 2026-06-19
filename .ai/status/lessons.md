@@ -842,6 +842,29 @@ cru SÓ quando TODAS as variantes setam uma cor de borda (ex.: `alert.tsx`). Nun
 Vale também pra `bg-popover`/`text-popover-foreground` etc.: preferir tokens DS explícitos
 (`bg-bg-surface`/`text-fg-default`) quando reescrever um componente.
 
+**[L-040] Todo componente FLUTUANTE segue a RECEITA ÚNICA do DS (Popover/DropdownMenu/Select).**
+Menus e painéis flutuantes (DropdownMenu, Popover, Select, ContextMenu, Menubar,
+NavigationMenu, HoverCard…) devem ter o MESMO visual — senão o app fica inconsistente
+(caso real: os menus do batch 4 vieram com os defaults shadcn `bg-popover rounded-md
+shadow-md focus:bg-accent` → destoavam do DropdownMenu consolidado). **Receita canônica
+(copiar dos consolidados, não inventar):**
+- **Superfície**: `relative bg-bg-dropdown border border-border-default rounded-[12px]
+  shadow-sh-lg outline-float` + frosted `before:pointer-events-none before:absolute
+  before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl
+  before:backdrop-saturate-150` + `text-fg-default` (painel) ou `text-fg-muted` (menu) +
+  `p-pad-sm` (menu). Mobile-sheet (`max-md:rounded-b-none ...`) quando aplicável.
+- **Item**: `gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm text-fg-muted outline-none
+  transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a cor).
+  Destructive: `text-fg-danger focus:bg-bg-danger-muted`. Ativo/checked:
+  `data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand`.
+- **Separator** `mx-pad-xs my-pad-xs h-px bg-border-default` · **Label** `px-pad-lg py-pad-sm
+  text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
+  `ml-auto text-caption-sm tracking-wider text-fg-subtle`.
+**Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
+espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
+sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
+(o default Radix 700 é lento demais).
+
 ---
 
 ## Como adicionar nova lição

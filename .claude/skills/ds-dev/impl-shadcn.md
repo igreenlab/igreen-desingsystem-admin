@@ -28,6 +28,12 @@ define **só a largura** — sem uma classe de cor a borda usa `currentColor` (b
 dark / preta no light). O bridge NÃO cobre borda crua. **Sempre** trocar `border` →
 `border border-border-default` (ou `-subtle`/`-brand`/...). Ex.: `rounded-md border bg-popover`
 → `rounded-radius-md border border-border-default bg-bg-surface`.
+**Exceção 3 — FLUTUANTE (L-040):** menu/popover/painel (dropdown, context-menu, menubar,
+navigation-menu, hover-card, select…) segue a **receita única** — espelhar
+`dropdown-menu.tsx`/`popover.tsx`, NÃO os defaults shadcn. Superfície: `relative
+bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float`
++ frosted `before:backdrop-blur-2xl ...`. Item: `px-pad-lg py-pad-md rounded-radius-sm
+text-fg-muted focus:bg-bg-muted focus:text-fg-default`. Separator/Label/Shortcut por token.
 
 ## Passos
 
