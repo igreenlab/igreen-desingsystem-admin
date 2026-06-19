@@ -63,6 +63,14 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 | Extração Figma | `/ds-extract-figma` | `ds-designer` → **[GATE]** → `ds-dev` |
 | Adapter / transform | — | `ds-dev` |
 | Atualizar Updates timeline | `/ds-update` | `ds-dev` (skill `update-changelog`) → **[GATE preview]** → apply |
+
+> **⛔ Handoff obrigatório (Regra 8 / L-041):** TODO fluxo que cria/altera componente
+> (ou faz mudança significativa) **NÃO termina no `ds-reviewer`** — fecha com
+> `ds-dev/handoff-pr.md`: **branch → commit descritivo → push `mirror` → `gh pr create`
+> → reportar o LINK do PR pro gate humano**. A IA executa branch/commit/push/PR
+> automaticamente e **PARA no merge** (merge/`npm publish`/deploy só com autorização
+> explícita do usuário). Distribuição (registry/embed/bump) consolida no `/ds-release`;
+> vários componentes = batches (1 PR cada) + 1 release no fim.
 | Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
 
 ---
