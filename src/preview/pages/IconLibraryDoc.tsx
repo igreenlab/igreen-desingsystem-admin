@@ -12,9 +12,11 @@ import {
 } from "../components";
 
 const ALL_NAMES = Object.keys(icons) as IconName[];
+const IGREEN_NAMES = ALL_NAMES.filter((n) => n.startsWith("igreen-"));
 
 const TOC = [
   { id: "library", label: "Library" },
+  { id: "igreen", label: "iGreen oficiais" },
   { id: "examples", label: "Examples" },
   { id: "ex-sizes", label: "Sizes" },
   { id: "ex-tones", label: "Tones" },
@@ -138,10 +140,31 @@ export function IconLibraryDoc() {
 
       <SectionH2 id="library" title="Library" />
       <p className="mb-gp-lg text-body-md text-fg-muted">
-        Clique num ícone pra copiar o <code className="text-fg-default">name</code>. Prefixo{" "}
-        <code className="text-fg-default">line-*</code> = contorno, <code className="text-fg-default">fill-*</code> = preenchido.
+        Clique num ícone pra copiar o <code className="text-fg-default">name</code>. Prefixos:{" "}
+        <code className="text-fg-default">line-*</code> = contorno, <code className="text-fg-default">fill-*</code> = preenchido,{" "}
+        <code className="text-fg-default">igreen-*</code> = ícones oficiais de marca (produtos).
       </p>
       <IconGrid />
+
+      <DocSeparator />
+      <SectionH2 id="igreen" title="iGreen — ícones oficiais" />
+      <p className="mb-gp-lg text-body-md text-fg-muted">
+        Ícones de marca dos produtos iGreen (prefixo <code className="text-fg-default">igreen-*</code>).
+        Herdam <code className="text-fg-default">currentColor</code>/<code className="text-fg-default">tone</code> como qualquer ícone — sem cor fixa.
+      </p>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(120px,1fr))] gap-gp-md">
+        {IGREEN_NAMES.map((name) => (
+          <div
+            key={name}
+            className="flex flex-col items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface px-pad-sm py-pad-2xl"
+          >
+            <Icon name={name} size="xl" tone="brand" />
+            <span className="line-clamp-1 w-full text-center text-caption-sm text-fg-muted">
+              {name}
+            </span>
+          </div>
+        ))}
+      </div>
 
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />

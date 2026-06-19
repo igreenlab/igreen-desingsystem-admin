@@ -43,15 +43,19 @@ import { Icon } from "@/components/ui/Icon";
 
 ## Convenção de nomes
 
-- Prefixo `line-*` → contorno (viewBox `0 0 18 18`).
+- Prefixo `line-*` → contorno (viewBox `0 0 18 18` no set legado, senão 24).
 - Prefixo `fill-*` → preenchido (viewBox `0 0 24 24`).
+- Prefixo `igreen-*` → **ícones oficiais de marca** (produtos: green, livre, placas,
+  club, solar, telecom, licenciado, seguro, clientes). viewBox 24, herdam
+  `currentColor`/`tone` como qualquer ícone (sem cor fixa).
 - O `viewBox` é inferido automaticamente pelo prefixo.
 
 ## Adicionar um ícone novo
 
-1. Adicionar a entrada `"line-foo": "M…"` (ou `"fill-foo"`) em `icons.ts`.
+1. Adicionar a entrada `"line-foo": "M…"` (ou `"fill-foo"` / `"igreen-foo"`) em `icons.ts`.
 2. O `IconName` atualiza sozinho (deriva das chaves). Sem mais nada.
-3. Path normalizado pro viewBox do prefixo (18 p/ line, 24 p/ fill).
+3. **Multi-path**: o valor pode ser `string` (1 path) **ou** `string[]` (vários paths
+   sobrepostos — ex.: `igreen-club`). Remova `fill=` hardcoded do SVG (herda `currentColor`).
 
 ## Gotchas
 
