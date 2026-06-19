@@ -38,7 +38,7 @@ src/components/
 
 ---
 
-## Componentes — shadcn/ (31 componentes)
+## Componentes — shadcn/ (34 componentes)
 
 | Componente | Arquivo | Subcomponentes exportados | Status |
 |------------|---------|--------------------------|--------|
@@ -56,6 +56,7 @@ src/components/
 | Dialog | `shadcn/dialog.tsx` | Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose | ✅ implementado |
 | DropdownMenu | `shadcn/dropdown-menu.tsx` | DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup | ✅ implementado |
 | Input | `shadcn/input.tsx` | Input | ✅ implementado |
+| Input OTP | `shadcn/input-otp.tsx` | InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator | ✅ implementado |
 | InputGroup | `shadcn/input-group.tsx` | InputGroup, InputGroupInput, InputGroupTextarea, InputGroupAddon, InputGroupText, InputGroupButton | ✅ implementado |
 | Label | `shadcn/label.tsx` | Label | ✅ implementado |
 | Pagination | `shadcn/pagination.tsx` | Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis | ✅ implementado |
@@ -71,6 +72,8 @@ src/components/
 | Skeleton | `shadcn/skeleton.tsx` | Skeleton | ✅ implementado |
 | Tabs | `shadcn/tabs.tsx` | Tabs, TabsList, TabsTrigger, TabsContent | ✅ implementado |
 | Textarea | `shadcn/textarea.tsx` | Textarea | ✅ implementado |
+| Toggle | `shadcn/toggle.tsx` | Toggle, toggleVariants | ✅ implementado |
+| Toggle Group | `shadcn/toggle-group.tsx` | ToggleGroup, ToggleGroupItem | ✅ implementado |
 | Toast (Sonner) | `shadcn/sonner.tsx` | Toaster (+ `toast` do pacote sonner) | ✅ implementado |
 | Tooltip | `shadcn/tooltip.tsx` | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider | ✅ implementado |
 

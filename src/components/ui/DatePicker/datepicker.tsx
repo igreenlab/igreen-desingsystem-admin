@@ -53,7 +53,7 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
             data-placeholder={value ? undefined : ""}
             className={cn(
               "flex min-h-form-lg w-full items-center gap-gp-sm rounded-radius-md border border-border-default bg-bg-surface px-pad-lg text-body-sm text-fg-default",
-              "transition-[color,box-shadow,background-color] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+              "transition-[color,box-shadow,background-color] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
               "disabled:cursor-not-allowed disabled:opacity-50",
               "data-[placeholder]:text-fg-muted",
               className,
