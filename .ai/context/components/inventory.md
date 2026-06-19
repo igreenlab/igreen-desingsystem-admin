@@ -38,7 +38,7 @@ src/components/
 
 ---
 
-## Componentes — shadcn/ (26 componentes)
+## Componentes — shadcn/ (29 componentes)
 
 | Componente | Arquivo | Subcomponentes exportados | Status |
 |------------|---------|--------------------------|--------|
@@ -66,8 +66,11 @@ src/components/
 | Sheet | `shadcn/sheet.tsx` | Sheet, SheetPortal, SheetOverlay, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription | ✅ implementado |
 | Slider | `shadcn/slider.tsx` | Slider | ✅ implementado |
 | Switch | `shadcn/switch.tsx` | Switch | ✅ implementado |
+| Skeleton | `shadcn/skeleton.tsx` | Skeleton | ✅ implementado |
 | Tabs | `shadcn/tabs.tsx` | Tabs, TabsList, TabsTrigger, TabsContent | ✅ implementado |
 | Textarea | `shadcn/textarea.tsx` | Textarea | ✅ implementado |
+| Toast (Sonner) | `shadcn/sonner.tsx` | Toaster (+ `toast` do pacote sonner) | ✅ implementado |
+| Tooltip | `shadcn/tooltip.tsx` | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider | ✅ implementado |
 
 ---
 
