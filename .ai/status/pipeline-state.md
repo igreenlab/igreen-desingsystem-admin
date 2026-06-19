@@ -1054,3 +1054,28 @@ Continuação da distribuição (snksergio; origin igreenlab NÃO tocado). Só `
 - **Assumption**: tela inicial é primeiro contato → vale investir em onboarding (prompts copy-paste + kit visível + tema correto). Mudança é template-only; não afeta consumidores já scaffoldados (pegam via novo `create` ou copy manual).
 - **Lições novas**: nenhuma (padrões já cobertos: list/timeline são composição de tokens DS existentes).
 - **Pendência do mantenedor**: revogar o Automation token npm usado nas publicações.
+
+---
+
+### 2026-06-19 | DS DEV+REVIEWER | Expansão catálogo shadcn (16 comp) + ícones marca + padronização flutuantes | CONCLUÍDO (release 0.11.0)
+
+Esforço grande de hoje (snksergio; origin igreenlab NÃO tocado). PRs #31–#35.
+
+- **16 componentes shadcn novos** tokenizados + DocPages + registry (4 batches):
+  Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group,
+  Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer.
+  + DatePicker composto (Popover+Calendar). Documentados Combobox/Sheet (existiam sem doc).
+- **Ícones de marca `igreen-*`** (9) no Icon + suporte multi-path (PR #31).
+- **Resizable PULADO**: react-resizable-panels v4 incompatível com o componente shadcn (v2/v3);
+  baixo uso em admin + DS já tem hook use-resizable. Dep desinstalada.
+- **Fixes**: DataTable align header/footer por column-type (L-038); borda branca/preta v4
+  (L-039); padronização TODOS os flutuantes na receita única (L-040); delays tooltip/hover-card.
+- **Distribuição**: registry.json 56→72 itens, registry:build (stamp v0.11.0) + embed sincronizado.
+  Consumíveis via `igreen:add <nome>`. Catálogo do consumer (template CLAUDE.md) atualizado.
+- **Pipeline**: L-038/L-039/L-040 em lessons.md + resumo ds-standards.md; skills impl-shadcn
+  (exceções borda/flutuante) e crud-builder (colunas/views/estados/exclusão/form) reforçadas.
+- **Versão**: DS 0.10.0 → 0.11.0 (milestone). CLI 0.13.5 → 0.13.6 (catálogo no template).
+- **Assumption**: bridge cobre bg/text mas NÃO borda crua (v4) nem garante consistência de
+  flutuante — por isso receita explícita + regra. Deploy do registry = automático no merge (Vercel).
+- **Lições novas**: L-038, L-039, L-040.
+- **Pendência do mantenedor**: revogar token npm; publicar CLI 0.13.6 (manual); deploy registry (auto no merge).

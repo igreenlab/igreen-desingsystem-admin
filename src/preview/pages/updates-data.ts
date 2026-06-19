@@ -46,6 +46,46 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.11.0",
+    date: "2026-06-19",
+    tag: "milestone",
+    title: "Expansão do catálogo: 16 componentes shadcn + ícones de marca + padronização dos flutuantes",
+    summary:
+      "Maior expansão de componentes do DS. Fecha as lacunas do catálogo shadcn com 16 primitivos/compostos novos (Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group, Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer) — todos tokenizados iGreen, documentados no showcase e registrados no registry (consumíveis via `igreen:add`). Documenta Combobox e Sheet (já existiam sem doc). Adiciona o set de ícones oficiais de marca `igreen-*` (9: green/livre/placas/club/solar/telecom/licenciado/seguro/clientes) com suporte a multi-path no Icon. Corrige bugs estruturais: alinhamento header/footer da DataTable por column-type (L-038), borda branca/preta no Tailwind v4 (L-039) e padroniza TODOS os flutuantes na receita única do DS (L-040). Pipeline reforçado pra não reincidir (lessons + ds-standards + skills crud/impl-shadcn).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "16 componentes shadcn tokenizados + DocPages + registry: Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group, Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer.",
+          "DatePicker composto (`ui/DatePicker`): Popover + Calendar + trigger estilo input do DS.",
+          "Ícones oficiais de marca `igreen-*` (9) no componente Icon, com suporte a multi-path (`igreen-club`).",
+          "Docs de showcase pra Combobox e Sheet (componentes que já existiam sem documentação).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "DataTable: alinhamento de header/footer não herdava o `defaultAlign` do column-type (currency/number/percentage saíam desalinhados no consumidor) — resolvido na fonte única `effectiveColumns` (L-038).",
+          "Borda branca/preta no Tailwind v4: classe `border` crua = só largura → `currentColor`; trocada por `border-border-default` nos flutuantes (L-039).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Padronização dos componentes flutuantes (Context Menu, Menubar, Navigation Menu, Hover Card) na receita única do DS (bg-bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float; itens/separator/label/shortcut por token) — consistência com DropdownMenu/Popover (L-040).",
+          "Tooltip e Hover Card: delay default reduzido (200ms) — o default do Radix (700ms) era lento.",
+          "Skill crud-builder reforçada: força perguntar colunas + oferecer views; + estados (loading/vazio/sem-resultado), confirmação de exclusão, campos do form e views do usuário.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline anti-reincidência: lições L-038/L-039/L-040 (lessons.md + ds-standards.md auto-carregada) + skill impl-shadcn (exceções de borda e receita de flutuante).",
+        ],
+      },
+    ],
+  },
+  {
     version: "CLI 0.13.1",
     date: "2026-06-18",
     tag: "patch",
