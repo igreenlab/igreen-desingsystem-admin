@@ -86,7 +86,7 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (23 componentes)
+## Componentes — ui/ (iGreen puro) (24 componentes)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
@@ -109,6 +109,7 @@ src/components/
 | Panel | `ui/Panel/panel.styles.ts` | `src/components/ui/Panel/` | ✅ implementado — drawer flutuante lateral (right/left/top/bottom), 560px com header + body scrollável + footer sticky |
 | Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
 | DatePicker | `ui/DatePicker/datepicker.tsx` | `src/components/ui/DatePicker/` | ✅ implementado — seletor de data único (composto Popover + Calendar), trigger estilo input do DS |
+| Toast | `ui/Toast/toast.styles.ts` | `src/components/ui/Toast/` | ✅ implementado — card de notificação sobre o Sonner (`toast.custom`); helper `toast.success/.error/.warning/.info` + neutro com props title/description/icon/action/cancel/onClose/meta. Status muda só o icon-chip (bg `-muted` + ícone `fg-*`), card neutro. Mantém nativo do Sonner (grupo/slide/posições) |
 | DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 15 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado. **Toolbar**: usa a `<TableToolbar>` opinativa (única — a `TableToolbarDeprecated` dumb legada foi removida) |
 | **TableToolbar** | `ui/TableToolbar/table-toolbar.styles.ts` | `src/components/ui/TableToolbar/` | ✅ **toolbar padrão (opinativa)** — slots semânticos em ordem fixa (viewToggle · savedViews · refresh · search · filter · settings · more · bulkBar). Lado direito: Busca + Filtros (drawer simple) + **Configurações** (`<ToolbarSettingsMenu>`, drill-down via Popover espelhando o DropdownMenu: Ordenação/Colunas/Filtros avançados + Densidade inline) + Opções ⋯. Mobile = visualização-only (esconde left+refresh; search fluido; Visualização+Visões inline no settings). Consumida automaticamente pelo DataTable. Superset do barrel antigo (exporta todos os parts/popovers/types + ToolbarFilterControl). USAGE.md + DocPage (`TableToolbarDoc`) |
 | **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts` | `src/components/ui/FloatingPanel/` | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita. **v0.8.1**: `bodyPadded` (default `true` — padding interno padrão) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel; use `bodyPadded={false}` com sections |

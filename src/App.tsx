@@ -13,6 +13,7 @@ import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { TooltipDoc } from "./preview/pages/TooltipDoc";
 import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
 import { SonnerDoc } from "./preview/pages/SonnerDoc";
+import { ToastDoc } from "./preview/pages/ToastDoc";
 import { ComboboxDoc } from "./preview/pages/ComboboxDoc";
 import { SheetDoc } from "./preview/pages/SheetDoc";
 import { CollapsibleDoc } from "./preview/pages/CollapsibleDoc";
@@ -187,7 +188,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
-  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
+  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "toast", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
@@ -337,6 +338,7 @@ export function App() {
           {activePage === "tooltip" && <TooltipDoc />}
           {activePage === "skeleton" && <SkeletonDoc />}
           {activePage === "sonner" && <SonnerDoc />}
+          {activePage === "toast" && <ToastDoc />}
           {activePage === "combobox" && <ComboboxDoc />}
           {activePage === "sheet" && <SheetDoc />}
           {activePage === "collapsible" && <CollapsibleDoc />}

@@ -13,7 +13,7 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 
 | Componente | Gotcha (o não-óbvio) |
 |---|---|
-| `sonner` | Monte `<Toaster/>` **1× no root**; dispare com `toast.success/error/info/warning` do pacote `sonner`. Status colore ícone+fundo+borda (via `richColors` + CSS vars de token). Self-contained (segue `.dark`, sem next-themes). |
+| `sonner` | Monte `<Toaster/>` **1× no root**. Toast neutro (surface); status só troca o ícone. Self-contained (segue `.dark`, sem next-themes). **Pra card ergonômico (title/description/action/status), use o composto `ui/Toast`** — não estilizar status no Sonner. |
 | `tooltip` | Precisa de `<TooltipProvider>` ancestral (1× no root). `delayDuration` default = 200ms. |
 | `hover-card` | `openDelay` default = 200ms. Segue a receita flutuante (L-040). |
 | `context-menu`, `menubar`, `navigation-menu` | Superfície flutuante segue a **receita única** (L-040) — não reverter pros defaults shadcn. |
