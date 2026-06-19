@@ -38,7 +38,7 @@ src/components/
 
 ---
 
-## Componentes — shadcn/ (29 componentes)
+## Componentes — shadcn/ (31 componentes)
 
 | Componente | Arquivo | Subcomponentes exportados | Status |
 |------------|---------|--------------------------|--------|
@@ -51,6 +51,7 @@ src/components/
 | Calendar | `shadcn/calendar.tsx` | Calendar | ✅ implementado |
 | Card | `shadcn/card.tsx` | Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent | ✅ implementado |
 | Checkbox | `shadcn/checkbox.tsx` | Checkbox | ✅ implementado |
+| Collapsible | `shadcn/collapsible.tsx` | Collapsible, CollapsibleTrigger, CollapsibleContent | ✅ implementado |
 | Command | `shadcn/command.tsx` | Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator | ✅ implementado |
 | Dialog | `shadcn/dialog.tsx` | Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose | ✅ implementado |
 | DropdownMenu | `shadcn/dropdown-menu.tsx` | DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup | ✅ implementado |
@@ -61,6 +62,7 @@ src/components/
 | Popover | `shadcn/popover.tsx` | Popover, PopoverTrigger, PopoverAnchor, PopoverClose, PopoverContent | ✅ implementado |
 | Progress | `shadcn/progress.tsx` | Progress | ✅ implementado |
 | RadioGroup | `shadcn/radio-group.tsx` | RadioGroup, RadioGroupItem | ✅ implementado |
+| Scroll Area | `shadcn/scroll-area.tsx` | ScrollArea, ScrollBar | ✅ implementado |
 | Select | `shadcn/select.tsx` | Select, SelectTrigger, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectValue, SelectSeparator, SelectScrollUpButton, SelectScrollDownButton | ✅ implementado |
 | Separator | `shadcn/separator.tsx` | Separator | ✅ implementado |
 | Sheet | `shadcn/sheet.tsx` | Sheet, SheetPortal, SheetOverlay, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription | ✅ implementado |
@@ -74,7 +76,7 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (22 componentes)
+## Componentes — ui/ (iGreen puro) (23 componentes)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
@@ -96,6 +98,7 @@ src/components/
 | Modal | `ui/Modal/modal.styles.ts` | `src/components/ui/Modal/` | ✅ implementado — dialog modal centrado com header (icon + title + description), body livre e footer com actions |
 | Panel | `ui/Panel/panel.styles.ts` | `src/components/ui/Panel/` | ✅ implementado — drawer flutuante lateral (right/left/top/bottom), 560px com header + body scrollável + footer sticky |
 | Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
+| DatePicker | `ui/DatePicker/datepicker.tsx` | `src/components/ui/DatePicker/` | ✅ implementado — seletor de data único (composto Popover + Calendar), trigger estilo input do DS |
 | DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 15 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado. **Toolbar**: usa a `<TableToolbar>` opinativa (única — a `TableToolbarDeprecated` dumb legada foi removida) |
 | **TableToolbar** | `ui/TableToolbar/table-toolbar.styles.ts` | `src/components/ui/TableToolbar/` | ✅ **toolbar padrão (opinativa)** — slots semânticos em ordem fixa (viewToggle · savedViews · refresh · search · filter · settings · more · bulkBar). Lado direito: Busca + Filtros (drawer simple) + **Configurações** (`<ToolbarSettingsMenu>`, drill-down via Popover espelhando o DropdownMenu: Ordenação/Colunas/Filtros avançados + Densidade inline) + Opções ⋯. Mobile = visualização-only (esconde left+refresh; search fluido; Visualização+Visões inline no settings). Consumida automaticamente pelo DataTable. Superset do barrel antigo (exporta todos os parts/popovers/types + ToolbarFilterControl). USAGE.md + DocPage (`TableToolbarDoc`) |
 | **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts` | `src/components/ui/FloatingPanel/` | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita. **v0.8.1**: `bodyPadded` (default `true` — padding interno padrão) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel; use `bodyPadded={false}` com sections |

@@ -15,6 +15,9 @@ import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
 import { SonnerDoc } from "./preview/pages/SonnerDoc";
 import { ComboboxDoc } from "./preview/pages/ComboboxDoc";
 import { SheetDoc } from "./preview/pages/SheetDoc";
+import { CollapsibleDoc } from "./preview/pages/CollapsibleDoc";
+import { ScrollAreaDoc } from "./preview/pages/ScrollAreaDoc";
+import { DatePickerDoc } from "./preview/pages/DatePickerDoc";
 import { Toaster } from "./components/shadcn/sonner";
 import { InputDoc } from "./preview/pages/InputDoc";
 import { InputGroupDoc } from "./preview/pages/InputGroupDoc";
@@ -174,7 +177,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
-  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet",
+  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet", "collapsible", "scroll-area", "date-picker",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
@@ -326,6 +329,9 @@ export function App() {
           {activePage === "sonner" && <SonnerDoc />}
           {activePage === "combobox" && <ComboboxDoc />}
           {activePage === "sheet" && <SheetDoc />}
+          {activePage === "collapsible" && <CollapsibleDoc />}
+          {activePage === "scroll-area" && <ScrollAreaDoc />}
+          {activePage === "date-picker" && <DatePickerDoc />}
           {activePage === "input" && <InputDoc />}
           {activePage === "input-group" && <InputGroupDoc />}
           {activePage === "select" && <SelectDoc />}
