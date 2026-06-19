@@ -38,14 +38,21 @@ src/components/
 
 ---
 
-## Componentes — shadcn/ (34 componentes)
+## Componentes — shadcn/ (41 componentes)
 
 | Componente | Arquivo | Subcomponentes exportados | Status |
 |------------|---------|--------------------------|--------|
 | Accordion | `shadcn/accordion.tsx` | Accordion, AccordionItem, AccordionTrigger, AccordionContent | ✅ implementado |
 | Alert | `shadcn/alert.tsx` | Alert, AlertTitle, AlertDescription | ✅ implementado |
 | AlertDialog | `shadcn/alert-dialog.tsx` | AlertDialog, AlertDialogTrigger, AlertDialogPortal, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel | ✅ implementado |
+| Aspect Ratio | `shadcn/aspect-ratio.tsx` | AspectRatio | ✅ implementado |
 | Avatar | `shadcn/avatar.tsx` | Avatar, AvatarImage, AvatarFallback | ✅ implementado |
+| Carousel | `shadcn/carousel.tsx` | Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext (Button do DS) | ✅ implementado |
+| Context Menu | `shadcn/context-menu.tsx` | ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub* | ✅ implementado |
+| Drawer | `shadcn/drawer.tsx` | Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription (Vaul) | ✅ implementado |
+| Hover Card | `shadcn/hover-card.tsx` | HoverCard, HoverCardTrigger, HoverCardContent | ✅ implementado |
+| Menubar | `shadcn/menubar.tsx` | Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarShortcut, MenubarSub* | ✅ implementado |
+| Navigation Menu | `shadcn/navigation-menu.tsx` | NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, navigationMenuTriggerStyle | ✅ implementado |
 | Badge | `shadcn/badge.tsx` | Badge | ✅ implementado |
 | Breadcrumb | `shadcn/breadcrumb.tsx` | Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis | ✅ implementado |
 | Calendar | `shadcn/calendar.tsx` | Calendar | ✅ implementado |

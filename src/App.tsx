@@ -21,6 +21,13 @@ import { DatePickerDoc } from "./preview/pages/DatePickerDoc";
 import { ToggleDoc } from "./preview/pages/ToggleDoc";
 import { ToggleGroupDoc } from "./preview/pages/ToggleGroupDoc";
 import { InputOTPDoc } from "./preview/pages/InputOTPDoc";
+import { ContextMenuDoc } from "./preview/pages/ContextMenuDoc";
+import { HoverCardDoc } from "./preview/pages/HoverCardDoc";
+import { MenubarDoc } from "./preview/pages/MenubarDoc";
+import { NavigationMenuDoc } from "./preview/pages/NavigationMenuDoc";
+import { CarouselDoc } from "./preview/pages/CarouselDoc";
+import { AspectRatioDoc } from "./preview/pages/AspectRatioDoc";
+import { DrawerDoc } from "./preview/pages/DrawerDoc";
 import { Toaster } from "./components/shadcn/sonner";
 import { InputDoc } from "./preview/pages/InputDoc";
 import { InputGroupDoc } from "./preview/pages/InputGroupDoc";
@@ -180,7 +187,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
-  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp",
+  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
@@ -338,6 +345,13 @@ export function App() {
           {activePage === "toggle" && <ToggleDoc />}
           {activePage === "toggle-group" && <ToggleGroupDoc />}
           {activePage === "input-otp" && <InputOTPDoc />}
+          {activePage === "context-menu" && <ContextMenuDoc />}
+          {activePage === "hover-card" && <HoverCardDoc />}
+          {activePage === "menubar" && <MenubarDoc />}
+          {activePage === "navigation-menu" && <NavigationMenuDoc />}
+          {activePage === "carousel" && <CarouselDoc />}
+          {activePage === "aspect-ratio" && <AspectRatioDoc />}
+          {activePage === "drawer" && <DrawerDoc />}
           {activePage === "input" && <InputDoc />}
           {activePage === "input-group" && <InputGroupDoc />}
           {activePage === "select" && <SelectDoc />}

@@ -826,6 +826,45 @@ column-type como default, resolva-o UMA vez no merge das colunas efetivas (fonte
 nunca deixe cada render-site (header/body/footer) re-resolver, senão um esquece e diverge.
 Validar SEMPRE no cenário sem o override explícito (= o que o consumidor faz).
 
+**[L-039] Tailwind v4: `border` (cru) é SÓ largura — a cor cai em `currentColor` (branca no dark, preta no light).**
+No Tailwind v3 a classe `border` aplicava largura **+** uma cor de borda default. No **v4 não**:
+`border`/`border-x`/`border-y`/`border-l|r|t|b` definem apenas `border-width`; sem uma classe
+de COR (`border-<token>`) a borda usa `currentColor` (a cor do texto) → no dark fica
+**branca grotesca**, no light **preta**, totalmente fora do layout. Caso real: componentes
+shadcn instalados via bridge (context-menu, hover-card, menubar, navigation-menu, drawer)
+mantiveram `rounded-md border bg-popover` cru → borda branca/preta no popover. O bridge mapeia
+`--border`, mas isso só vale quando a classe `border-border-*` é usada; o `border` cru não
+consome o token. **Regra pra IA**: SEMPRE que usar `border`/`border-{x,y,l,r,t,b}`, acompanhe
+de uma classe de cor de borda do DS — default `border border-border-default` (ou
+`border-border-subtle`/`-brand`/`-danger-muted`...). Exceção válida: base de `cva` com `border`
+cru SÓ quando TODAS as variantes setam uma cor de borda (ex.: `alert.tsx`). Nunca confie no
+"bridge cobre cor" pra borda — o bridge cobre `bg-*`/`text-*`, mas a borda precisa da classe de cor.
+Vale também pra `bg-popover`/`text-popover-foreground` etc.: preferir tokens DS explícitos
+(`bg-bg-surface`/`text-fg-default`) quando reescrever um componente.
+
+**[L-040] Todo componente FLUTUANTE segue a RECEITA ÚNICA do DS (Popover/DropdownMenu/Select).**
+Menus e painéis flutuantes (DropdownMenu, Popover, Select, ContextMenu, Menubar,
+NavigationMenu, HoverCard…) devem ter o MESMO visual — senão o app fica inconsistente
+(caso real: os menus do batch 4 vieram com os defaults shadcn `bg-popover rounded-md
+shadow-md focus:bg-accent` → destoavam do DropdownMenu consolidado). **Receita canônica
+(copiar dos consolidados, não inventar):**
+- **Superfície**: `relative bg-bg-dropdown border border-border-default rounded-[12px]
+  shadow-sh-lg outline-float` + frosted `before:pointer-events-none before:absolute
+  before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl
+  before:backdrop-saturate-150` + `text-fg-default` (painel) ou `text-fg-muted` (menu) +
+  `p-pad-sm` (menu). Mobile-sheet (`max-md:rounded-b-none ...`) quando aplicável.
+- **Item**: `gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm text-fg-muted outline-none
+  transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a cor).
+  Destructive: `text-fg-danger focus:bg-bg-danger-muted`. Ativo/checked:
+  `data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand`.
+- **Separator** `mx-pad-xs my-pad-xs h-px bg-border-default` · **Label** `px-pad-lg py-pad-sm
+  text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
+  `ml-auto text-caption-sm tracking-wider text-fg-subtle`.
+**Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
+espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
+sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
+(o default Radix 700 é lento demais).
+
 ---
 
 ## Como adicionar nova lição

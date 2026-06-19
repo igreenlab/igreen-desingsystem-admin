@@ -67,9 +67,18 @@ O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** 
 Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separator`
 `checkbox` `accordion` `alert` `alert-dialog` `avatar` `breadcrumb` `calendar` `command`
 `dialog` `dropdown-menu` `input-group` `pagination` `popover` `progress` `radio-group`
-`sheet` `slider` `switch` `tabs`.
+`sheet` `slider` `switch` `tabs` `tooltip` `skeleton` `sonner` `collapsible` `scroll-area`
+`toggle` `toggle-group` `input-otp` `context-menu` `hover-card` `menubar` `navigation-menu`
+`carousel` `aspect-ratio` `drawer`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
-`footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`.
+`footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
+`date-picker`.
+
+> **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
+> `navigation-menu` `hover-card` `tooltip`) seguem a MESMA receita visual do DS
+> (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
+> **Feedback**: `sonner` (toasts — monte `<Toaster/>` 1× no root) · `skeleton` (loading)
+> · `tooltip`/`hover-card` (dica/prévia no hover).
 App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
 Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
 `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`.

@@ -9,7 +9,12 @@ import { cn } from "@/lib/utils";
  * Envolva a árvore com `<TooltipProvider>` (1× no root) e use
  * `Tooltip` + `TooltipTrigger asChild` + `TooltipContent`.
  */
-const TooltipProvider = TooltipPrimitive.Provider;
+const TooltipProvider = ({
+  delayDuration = 200,
+  ...props
+}: React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Provider>) => (
+  <TooltipPrimitive.Provider delayDuration={delayDuration} {...props} />
+);
 
 const Tooltip = TooltipPrimitive.Root;
 
