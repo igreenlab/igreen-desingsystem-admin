@@ -12,7 +12,7 @@ import { ChipDoc } from "./preview/pages/ChipDoc";
 import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { TooltipDoc } from "./preview/pages/TooltipDoc";
 import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
-import { ToastDoc } from "./preview/pages/ToastDoc";
+import { SonnerDoc } from "./preview/pages/SonnerDoc";
 import { ComboboxDoc } from "./preview/pages/ComboboxDoc";
 import { SheetDoc } from "./preview/pages/SheetDoc";
 import { Toaster } from "./components/shadcn/sonner";
@@ -174,7 +174,7 @@ const DOC_PAGES = [
   "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
-  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "toast", "combobox", "sheet",
+  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "combobox", "sheet",
   "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
@@ -323,7 +323,7 @@ export function App() {
           {activePage === "icon" && <IconLibraryDoc />}
           {activePage === "tooltip" && <TooltipDoc />}
           {activePage === "skeleton" && <SkeletonDoc />}
-          {activePage === "toast" && <ToastDoc />}
+          {activePage === "sonner" && <SonnerDoc />}
           {activePage === "combobox" && <ComboboxDoc />}
           {activePage === "sheet" && <SheetDoc />}
           {activePage === "input" && <InputDoc />}

@@ -92,7 +92,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Switch", href: "switch" },
       { label: "Tabs", href: "tabs" },
       { label: "Textarea", href: "textarea" },
-      { label: "Toast (Sonner)", href: "toast" },
+      { label: "Sonner", href: "sonner" },
       { label: "Tooltip", href: "tooltip" },
     ],
   },
