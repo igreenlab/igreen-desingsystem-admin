@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils"
 
 /**
  * InputOTP — entrada de código (OTP/2FA), tokenizado iGreen. Slots usam
- * `size-form-lg`, `border-border-default`, foco `ring-4 ring-ring-primary`.
+ * `size-form-lg`, `border-border-default`, foco `ring-4 ring-ring-brand`.
  * Componha: InputOTP > InputOTPGroup > InputOTPSlot (+ InputOTPSeparator).
  */
 const InputOTP = React.forwardRef<
@@ -45,7 +45,7 @@ const InputOTPSlot = React.forwardRef<
       ref={ref}
       className={cn(
         "relative flex size-form-lg items-center justify-center border-y border-r border-border-default text-body-md text-fg-default transition-all first:rounded-l-radius-md first:border-l last:rounded-r-radius-md",
-        isActive && "z-10 ring-4 ring-ring-primary",
+        isActive && "z-10 ring-4 ring-ring-brand",
         className
       )}
       {...props}
