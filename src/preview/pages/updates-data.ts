@@ -46,6 +46,37 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.12.0",
+    date: "2026-06-19",
+    tag: "preview",
+    title: "Componente Toast (card sobre o Sonner) + política de USAGE pro shadcn",
+    summary:
+      "Novo composto `Toast` (ui/Toast) que consome o Sonner via `toast.custom` — mantém todo o nativo (agrupamento, empilhamento, slide, swipe, posições) e adiciona uma API ergonômica: `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose, meta })` + neutro `toast({...})`. O status muda SÓ o icon-chip (bg fraco `-muted` + ícone forte `fg-*`) — o card continua neutro (surface), com texto de alto contraste. Layout em coluna: linha principal centralizada (ícone · título+descrição · meta/ação-inline/close) e, quando há 2 botões, rodapé à direita com gap 4px. Registrado no registry (consumível via `igreen:add toast`). O Sonner volta ao neutro (a 1ª tentativa de tingir o toast inteiro por status foi revertida). Pipeline: índice único `shadcn/USAGE.md` (só gotchas, não 1 arquivo por primitivo) + regra de quando documentar, e garantia de handoff via PR no fluxo de componente (Regra 8 / L-041).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `Toast` (`ui/Toast`): card de notificação sobre o Sonner via `toast.custom`. API espelha o Sonner (`toast.success/.error/.warning/.info({...})` + neutro), props `title/description/icon/action/cancel/onClose/meta`, passthrough de `promise/dismiss/custom/loading`. Showcase `#/toast` com preview estático (anatomia) + exemplos vivos. Registrado no registry (`igreen:add toast`).",
+          "Índice `src/components/shadcn/USAGE.md`: doc única de gotchas dos primitivos shadcn (setup no root, dep extra, receita flutuante, z-index) — em vez de 1 USAGE por arquivo.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Sonner revertido pro neutro: o status volta a trocar SÓ o ícone (sem tingir fundo/borda do toast inteiro). Cards ergonômicos/coloridos agora são feitos pelo composto `Toast`.",
+          "Toast — status no icon-chip: bg fraco (`bg-{status}-muted`) + ícone forte (`fg-{status}`); superfície neutra; texto `fg-default` (alto contraste em light/dark).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline — política de USAGE pro shadcn: `impl-shadcn` (decisão “tem gotcha? 1 linha : nada”), `pre-commit-check` (valida cobertura + reprova USAGE por-arquivo) e `ds-standards` (regra auto-carregada).",
+          "Pipeline — handoff via PR garantido no fluxo de componente (Regra 8 / L-041): branch + commit descritivo + PR no mirror + link pro gate humano; a IA para no merge. Skill `ds-dev/handoff-pr` + commands de componente + orchestrator.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.11.0",
     date: "2026-06-19",
     tag: "milestone",
