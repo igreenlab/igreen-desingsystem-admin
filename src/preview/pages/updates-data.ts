@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "CLI 0.13.7 + pipeline",
+    date: "2026-06-19",
+    tag: "patch",
+    title: "Toast no catálogo do CLI + garantia de completude das superfícies do componente (L-042)",
+    summary:
+      "Fecha os gaps que apareceram logo após o lançamento do Toast (v0.12.0). O catálogo que o CLI injeta nos projetos scaffoldados passou a listar o `toast` (CLI republicado 0.13.7) — antes, um projeto novo não sabia que o componente existia. E o pipeline ganhou uma garantia para a IA prever TODAS as superfícies de um componente novo, não só código+USAGE: o hook `ds-inventory-check` agora acusa, na hora da edição, quando o componente está no registry mas fora do catálogo do CLI, ou quando a DocPage existe mas não está registrada no `App.tsx`/`DOC_PAGES`+nav (o clássico render em branco). Mais a tabela “Definição de Pronto” (7 superfícies) no handoff e a lição L-042. Defesa em profundidade: hook na edição → checklist no fechamento → pre-commit/release antes de distribuir.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "Hook `ds-inventory-check`: além de USAGE/inventory/registry, agora acusa (1) componente no registry mas fora do catálogo do CLI e (2) DocPage criada sem rota no `App.tsx`/`DOC_PAGES`+nav (render em branco). Cobre 5 das 7 superfícies automaticamente, na edição.",
+          "Skill `handoff-pr`: tabela “Definição de Pronto” com as 7 superfícies de um componente (código · USAGE · inventory · showcase · registry · catálogo CLI · changelog) + cadência (1–4 no PR; 5/6/7 no /ds-release). L-042.",
+          "`pre-commit-check` e `release` passam a cobrar o catálogo do CLI (qualquer toque em `cli/**` → bump + publish).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Toast ausente no catálogo do CLI: adicionado aos composites + nota em Feedback; CLI republicado (`@snksergio/create-design-system` 0.13.6 → 0.13.7). Projetos novos agora conhecem o `toast`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.12.0",
     date: "2026-06-19",
     tag: "preview",
