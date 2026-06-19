@@ -894,7 +894,8 @@ de Pronto" única que listasse TODAS as superfícies. **As 7 superfícies de um 
 `App.tsx` (import + render + **`DOC_PAGES`**) + `doc-nav-data.ts`; (5) `registry.json` (+build+embed);
 (6) **catálogo do CLI** (`cli/templates/default/CLAUDE.md` + bump `cli/package.json` + republicar);
 (7) changelog `updates-data.ts`. **Fix:** (a) hook `ds-inventory-check` agora acusa "no registry mas
-fora do catálogo do CLI"; (b) `handoff-pr.md` ganhou a tabela "Definição de Pronto" (7 superfícies);
+fora do catálogo do CLI" **e** "DocPage existe mas não roteada no `App.tsx`/`DOC_PAGES` ou sem nav"
+(pega o render-em-branco); (b) `handoff-pr.md` ganhou a tabela "Definição de Pronto" (7 superfícies);
 (c) `pre-commit-check` 2.8 e `release.md` 6.2b cobram o catálogo do CLI. **Cadência:** 1–4 no PR do
 componente; 5/6/7 no `/ds-release` (mas anotar no PR body que faltam). **Regra pra IA:** componente
 distribuído (no registry) SEM estar no catálogo do CLI = gap — qualquer toque em `cli/**` exige

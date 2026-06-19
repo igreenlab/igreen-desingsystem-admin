@@ -54,7 +54,7 @@ Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. El
 |------|---------|-----------|
 | `format-on-save.sh` | qualquer Edit/Write | Roda prettier nos arquivos editados |
 | `ds-lint-styles.sh` | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Grep das lições L-001 a L-007 + import de tv. Warning em stderr — não bloqueia, mas Claude vê |
-| `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**` | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), ou se está no registry mas **fora do catálogo do CLI** (`cli/templates/default/CLAUDE.md` — L-042) |
+| `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**` | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), se está no registry mas **fora do catálogo do CLI** (`cli/templates/default/CLAUDE.md`), ou se a **DocPage existe mas não está roteada** no `App.tsx`/`DOC_PAGES`+nav (render em branco) — L-042 |
 | `ds-tokens-check.sh` | Edit/Write em `tokens/**/*.ts` | Alerta pra rodar `tokens:tw4` + lembra que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`). Tokens/theme versionados pelo stamp = `package.json.version` |
 
 Logs em `.ai/scratch/hook-log.txt`. Bloqueio só acontece em `block-rm-rf.sh` (Bash perigoso) e `block-sensitive-edit.sh` (.env, credentials, migrations) — os hooks DS são informativos por design.

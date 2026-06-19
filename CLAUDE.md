@@ -108,7 +108,7 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 |------|----------------|-----------|
 | `format-on-save.sh` | qualquer .ts/.tsx/.md | prettier nos arquivos editados |
 | `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | greps L-001/L-002/L-003/L-004/L-005/L-007 — warning em stderr quando encontra anti-pattern |
-| `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), **ou está no registry mas fora do catálogo do CLI** (L-042) |
+| `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do catálogo do CLI, **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042 |
 | `ds-tokens-check.sh` | `tokens/**/*.ts` | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |

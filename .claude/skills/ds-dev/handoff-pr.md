@@ -22,7 +22,9 @@ description: >
 > ⛔ Componente **NÃO** está pronto só com o código + USAGE. Um componente novo
 > (ou renomeado) toca **7 superfícies**. Antes de abrir o PR, percorra esta lista —
 > é o que o agente tem que **prever sozinho** (não esperar o humano lembrar).
-> O hook `ds-inventory-check` cobre 1/3/7 automaticamente; o resto é manual.
+> O hook `ds-inventory-check` cobre automaticamente **2, 3, 5, 6 e o registro de
+> showcase (4)** — avisa na hora da edição. Restam manuais: **1** (o código, via tsc)
+> e **7** (changelog, no `/ds-release`).
 
 | # | Superfície | Onde | Checagem |
 |---|-----------|------|----------|
