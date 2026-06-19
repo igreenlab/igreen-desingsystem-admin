@@ -328,6 +328,14 @@ Catálogo vivo: #/chart-showcase (ChartShowcaseDoc.tsx).
 
 ## USAGE.md por componente
 
+**Compostos iGreen (`ui/<Nome>/`)** → `USAGE.md` por componente (API custom, vale o atalho).
+**Primitivos shadcn (`shadcn/*.tsx`)** → **NÃO** criar USAGE por arquivo (API shadcn/Radix é
+padrão). Existe um **índice único** `src/components/shadcn/USAGE.md` que lista **só gotchas**
+(setup no root, dep extra, receita flutuante L-040, z-index L-030, ring fora do padrão).
+Ao adicionar/editar um shadcn: cria/edita 1 linha **só se houver gotcha**; sem gotcha →
+nada (não inflar / não estourar tokens). Doc viva do primitivo = showcase `#/<nome>`.
+Checklist em `impl-shadcn.md`; o `pre-commit-check.md` valida.
+
 Cada componente em `src/components/ui/<Nome>/` tem `USAGE.md` ao lado — atalho rápido pra IA consumir o componente sem ler source. Formato canônico:
 
 - O que é + categoria

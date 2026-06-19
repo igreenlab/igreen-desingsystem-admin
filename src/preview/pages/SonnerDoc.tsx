@@ -86,7 +86,7 @@ toast("Evento criado");`}
       <ExampleSection
         id="ex-status"
         title="Status"
-        description="Cada status traz seu ícone. Use pra feedback de ações (salvar, excluir, erro)."
+        description="Cada status colore ícone, fundo (tint sólido sobre surface) e borda — o feedback ganha peso visual, não só o ícone. Texto fica fg-default (alto contraste em light/dark). Use pra feedback de ações (salvar, excluir, erro)."
         code={`toast.success("Empresa salva");
 toast.error("Falha ao salvar");
 toast.info("Sincronizando…");
