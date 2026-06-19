@@ -14,9 +14,9 @@ const toggleVariants = cva(
           "border-border-default bg-transparent hover:bg-bg-muted hover:text-fg-default",
       },
       size: {
-        default: "min-h-form-lg px-pad-xl min-w-form-lg",
-        sm: "min-h-form-md px-pad-lg min-w-form-md",
-        lg: "min-h-form-xl px-sp-3xl min-w-form-xl",
+        default: "min-h-form-lg px-pad-lg min-w-form-lg",
+        sm: "min-h-form-md px-pad-md min-w-form-md",
+        lg: "min-h-form-xl px-pad-xl min-w-form-xl",
       },
     },
     defaultVariants: {
