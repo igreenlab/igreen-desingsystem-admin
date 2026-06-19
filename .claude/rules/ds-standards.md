@@ -14,7 +14,7 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 
 ---
 
-## ⛔ Regras de comportamento (7)
+## ⛔ Regras de comportamento (8)
 
 1. **NUNCA** criar token sem verificar se já existe em `.ai/context/tokens/`
 2. **NUNCA** criar componente sem verificar `.ai/context/components/inventory.md`
@@ -23,6 +23,7 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 5. Classes DS sempre antes de Tailwind literal
 6. Self-interrupt: "estou criando algo novo?" → verificar primeiro
 7. **Gate de pre-commit obrigatório** antes de commit significativo (release, refactor amplo, token novo, componente novo, lição nova) → invocar `ds-reviewer/pre-commit-check.md`
+8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `mirror`** → **`gh pr create`** → **reportar o link do PR pro gate humano**. A IA executa a parte mecânica (branch/commit/push/PR) automaticamente; **PARA no merge** — merge/`npm publish`/deploy só com autorização explícita do usuário na mesma sessão. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
 
 ---
 
@@ -311,6 +312,7 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-038** Default vindo do column-type (`defaultAlign`/`defaultEllipsis`) deve ser resolvido na **fonte única** (`effectiveColumns` em `use-data-table-columns.ts`), nunca por render-site. Header/footer liam só `col.align` cru e divergiam do body em `type:"currency"/"number"` sem `align` explícito (não reproduz no showcase, só no consumidor). Validar no cenário SEM o override.
 - **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e preferir `bg-bg-surface`/`text-fg-default` a `bg-popover`/`text-popover-foreground`.
 - **L-040** Componente **flutuante** (menu/popover/painel) segue a **receita única** do DS — espelhar `dropdown-menu.tsx`/`popover.tsx`, nunca os defaults shadcn. Superfície: `relative bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float` + frosted `before:backdrop-blur-2xl ...` + `text-fg-default/-muted`. Item: `px-pad-lg py-pad-md rounded-radius-sm text-fg-muted focus:bg-bg-muted focus:text-fg-default` (ativo `bg-bg-brand-subtle/fg-brand`, destructive danger). Separator/Label/Shortcut por token. Tooltip é exceção (menor). Delay default: Tooltip 200 / HoverCard openDelay 200 (Radix 700 é lento).
+- **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push mirror + `gh pr create` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
 
 ### Padrão de chart (resumo)
 ```

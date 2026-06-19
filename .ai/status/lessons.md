@@ -865,6 +865,21 @@ espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface
 sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
 (o default Radix 700 é lento demais).
 
+**[L-041] Trabalho de componente FECHA por PR + link pro gate humano — o pipeline deve garantir, não depender de instinto.**
+Antes, as skills de componente (`ds-add-shadcn`, `ds-create-component`, `ds-create-composite`,
+`impl-*`) terminavam em `IMPL_PRONTA → DS Reviewer` — o handoff git (branch + commit
+descritivo + PR + link) só estava no `/ds-release`. Resultado: a IA dependia de "instinto"
+pra abrir PR (na sessão de 16 componentes funcionou, mas não era garantido — risco de
+commit órfão em `main` ou "concluir" sem PR/aprovação). **Fix (Regra 8):** todo componente
+criado/alterado e toda mudança significativa fecha com **branch + commit descritivo
+(o quê + por quê) + push mirror + `gh pr create` + reportar o link**; a IA faz a parte
+mecânica e **PARA no merge** (humano aprova; merge/publish/deploy só com autorização
+explícita — L-020). Skill compartilhada: `ds-dev/handoff-pr.md`, referenciada pelos
+3 commands de componente + orchestrator. **Distribuição** (registry.json + embed + bump)
+NÃO vai no PR-de-componente — consolida no `/ds-release` ao fechar o conjunto; vários
+componentes = **batches** (1 PR por batch) + 1 release no fim. **Regra pra IA**: nunca
+encerrar uma implementação sem PR + link; nunca mergear/publicar sem "pode mergiar/publicar".
+
 ---
 
 ## Como adicionar nova lição

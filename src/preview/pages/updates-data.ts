@@ -81,6 +81,7 @@ export const RELEASES: ReleaseEntry[] = [
         type: "improved",
         items: [
           "Pipeline anti-reincidência: lições L-038/L-039/L-040 (lessons.md + ds-standards.md auto-carregada) + skill impl-shadcn (exceções de borda e receita de flutuante).",
+          "Pipeline garante handoff via PR (L-041 / Regra 8): todo trabalho de componente fecha com branch + commit descritivo + PR no mirror + link pro gate humano; a IA para no merge (merge/publish só autorizado). Nova skill `ds-dev/handoff-pr` + commands de componente + orchestrator atualizados.",
         ],
       },
     ],
