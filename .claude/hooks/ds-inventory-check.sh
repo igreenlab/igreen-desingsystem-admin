@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 # ds-inventory-check — alerta quando componente em src/components/ui/<Nome>/
-# tem .styles.ts mas falta USAGE.md OU não consta em .ai/context/components/inventory.md.
+# tem pendência de superfície: USAGE.md, inventory.md, registry.json,
+# (se já distribuído) catálogo do CLI (cli/templates/default/CLAUDE.md), OU
+# (se a DocPage existe) registro de showcase no App.tsx/DOC_PAGES + nav.
 #
 # Trigger: PostToolUse matcher "Edit|Write"
 # Input:   JSON via stdin com tool_input.file_path
@@ -39,6 +41,9 @@ COMP_NAME=$(echo "$FILE" | sed -nE 's|.*src/components/ui/([^/]+)/.*|\1|p')
 COMP_DIR="$PROJECT_ROOT/src/components/ui/$COMP_NAME"
 [ ! -d "$COMP_DIR" ] && exit 0
 
+# Nome kebab do registry/showcase (PascalCase → kebab): Toast→toast, DatePicker→date-picker
+KEBAB=$(echo "$COMP_NAME" | sed -E 's/([a-z0-9])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]')
+
 MISSING=""
 
 # 1. USAGE.md ausente
@@ -61,12 +66,50 @@ fi
 #    registry.json referencia os arquivos por path src/components/ui/<Nome>/...
 #    (TabelaTeste é demo interno intencional — não avisa)
 REGISTRY="$PROJECT_ROOT/registry.json"
+IN_REGISTRY=0
 if [ -f "$REGISTRY" ] && [ "$COMP_NAME" != "TabelaTeste" ]; then
-  if ! grep -q "src/components/ui/$COMP_NAME/" "$REGISTRY" 2>/dev/null; then
+  if grep -q "src/components/ui/$COMP_NAME/" "$REGISTRY" 2>/dev/null; then
+    IN_REGISTRY=1
+  else
     MISSING="$MISSING
   • $COMP_NAME não consta em registry.json → NÃO será distribuído (consumidor não recebe via @igreen/*)
        → node scripts/registry-add-item.mjs $COMP_NAME → revisar/adicionar ao registry.json → npm run registry:build
        (mudança em componente já distribuído também exige registry:build + bump de versão via /ds-release)"
+  fi
+fi
+
+# 4. Distribuído mas FORA do catálogo do CLI → scaffolds novos não conhecem o componente
+#    (catálogo usa nome kebab do registry: Toast→toast, DatePicker→date-picker)
+CLI_CATALOG="$PROJECT_ROOT/cli/templates/default/CLAUDE.md"
+if [ "$IN_REGISTRY" = "1" ] && [ -f "$CLI_CATALOG" ]; then
+  if ! grep -qiE "\`$KEBAB\`|\b$KEBAB\b" "$CLI_CATALOG" 2>/dev/null; then
+    MISSING="$MISSING
+  • $COMP_NAME (kebab: $KEBAB) está no registry mas NÃO no catálogo do CLI (cli/templates/default/CLAUDE.md)
+       → adicione ao catálogo (composites/feedback/etc) + bump cli/package.json + republicar CLI
+       (sem isso, projetos novos scaffoldados não sabem que o componente existe)"
+  fi
+fi
+
+# 5. Showcase — se existe a DocPage padrão <Nome>Doc.tsx, ela TEM que estar roteada
+#    no App.tsx (DOC_PAGES + activePage) E ter entrada na nav. Pega o caso clássico
+#    de DocPage criada mas não registrada (render em branco — bug do Toast/DOC_PAGES).
+#    Precisão > recall: só dispara quando há intenção clara de showcase (a DocPage existe).
+DOCPAGE="$PROJECT_ROOT/src/preview/pages/${COMP_NAME}Doc.tsx"
+APP_TSX="$PROJECT_ROOT/src/App.tsx"
+NAV_DATA="$PROJECT_ROOT/src/preview/components/doc-nav-data.ts"
+if [ -f "$DOCPAGE" ]; then
+  SHOWCASE_GAP=""
+  if [ -f "$APP_TSX" ] && ! grep -q "\"$KEBAB\"" "$APP_TSX" 2>/dev/null; then
+    SHOWCASE_GAP="$SHOWCASE_GAP
+       → id \"$KEBAB\" não está em src/App.tsx (DOC_PAGES + activePage===) → a rota #/$KEBAB renderiza EM BRANCO"
+  fi
+  if [ -f "$NAV_DATA" ] && ! grep -q "\"$KEBAB\"" "$NAV_DATA" 2>/dev/null; then
+    SHOWCASE_GAP="$SHOWCASE_GAP
+       → sem entrada de nav em src/preview/components/doc-nav-data.ts (href: \"$KEBAB\")"
+  fi
+  if [ -n "$SHOWCASE_GAP" ]; then
+    MISSING="$MISSING
+  • ${COMP_NAME}Doc.tsx existe mas o showcase não está totalmente registrado:$SHOWCASE_GAP"
   fi
 fi
 

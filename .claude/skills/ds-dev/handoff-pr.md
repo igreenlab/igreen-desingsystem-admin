@@ -17,6 +17,30 @@ description: >
 - Fix de comportamento/visual, refactor amplo, mudança de skill/regra/pipeline.
 - Em dúvida: **aplique**. O custo de um PR é baixo; o de um commit órfão em `main` é alto.
 
+## ✅ Definição de Pronto — TODAS as superfícies de um componente (L-042)
+
+> ⛔ Componente **NÃO** está pronto só com o código + USAGE. Um componente novo
+> (ou renomeado) toca **7 superfícies**. Antes de abrir o PR, percorra esta lista —
+> é o que o agente tem que **prever sozinho** (não esperar o humano lembrar).
+> O hook `ds-inventory-check` cobre automaticamente **2, 3, 5, 6 e o registro de
+> showcase (4)** — avisa na hora da edição. Restam manuais: **1** (o código, via tsc)
+> e **7** (changelog, no `/ds-release`).
+
+| # | Superfície | Onde | Checagem |
+|---|-----------|------|----------|
+| 1 | **Código** | `ui/<Nome>/` (styles+tsx+index) ou `shadcn/<nome>.tsx` | compila, tv() de `@/utils/tv` |
+| 2 | **USAGE** | `ui/<Nome>/USAGE.md` (composto) **ou** 1 linha em `shadcn/USAGE.md` se houver gotcha | existe/atualizado |
+| 3 | **Inventory** | `.ai/context/components/inventory.md` (+contador) | linha presente |
+| 4 | **Showcase** | `src/preview/pages/<Nome>Doc.tsx` **+** `App.tsx` (import + render + **`DOC_PAGES`**) **+** `doc-nav-data.ts` (entrada de nav) | rota `#/<nome>` renderiza (DOC_PAGES é o passo mais esquecido) |
+| 5 | **Registry** | `registry.json` (entrada + `registry:build` + embed) | distribuível via `@igreen/<nome>` |
+| 6 | **Catálogo do CLI** | `cli/templates/default/CLAUDE.md` (lista de componentes) **+ bump `cli/package.json` + republicar** | scaffolds novos conhecem o componente |
+| 7 | **Changelog** | `src/preview/pages/updates-data.ts` (entry da versão) | aparece na tela Updates |
+
+**Cadência:** 1–3 e 4 vão no **PR do componente** (mesmo commit). 5/6/7 (distribuição)
+consolidam no **`/ds-release`** — mas **anote no PR body** que faltam, pra não sumirem.
+No `/ds-release`, o passo 6.2b cobre 5; **6 (catálogo CLI) e 7 entram junto**. Componente
+distribuído (no registry) **sem** estar no catálogo do CLI = gap real (caso Toast v0.12.0).
+
 ## Sequência (após DS Reviewer aprovar)
 
 ```bash
