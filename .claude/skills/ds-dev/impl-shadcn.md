@@ -98,6 +98,14 @@ export * from "./shadcn/nome-componente"
 - [ ] Exports criados em AMBOS: `shadcn/index.ts` e `src/components/index.ts`
 - [ ] Usa `cn` de `@/lib/utils` / `tv` de `@/utils/tv` (alias) — distribuível
 - [ ] `component-inventory.md` atualizado
+- [ ] **USAGE (índice `shadcn/USAGE.md`) — decisão obrigatória, NÃO um arquivo por componente:**
+  - **Tem gotcha?** (setup obrigatório tipo `<Toaster/>`/`<TooltipProvider>` no root, dep extra
+    tipo `vaul`/`embla`, receita flutuante L-040, ring/acessibilidade fora do padrão, z-index L-030)
+    → adicionar/editar **1 linha** na tabela do `shadcn/USAGE.md` (curta — só o não-óbvio).
+  - **Sem gotcha?** (API shadcn/Radix padrão) → **não escrever nada na tabela**; se quiser, citar o
+    nome na lista "Padrão sem gotcha". A doc viva é o showcase (`#/<nome>`).
+  - ⛔ Não criar `USAGE.md` dentro de `shadcn/<nome>/` (primitivo é single-file; índice basta).
+    Manter o índice enxuto — não repetir a API; só o que pega o consumidor de surpresa.
 - [ ] **Registry (distribuição):** `node scripts/registry-add-item.mjs <nome>` → revisar a
   entrada proposta (registryDeps + deps) → adicionar ao `registry.json`. Distribuição efetiva
   no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível via `@igreen/<nome>`.

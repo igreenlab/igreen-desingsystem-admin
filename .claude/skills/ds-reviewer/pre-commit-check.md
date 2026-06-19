@@ -143,6 +143,12 @@ Para cada `src/components/ui/<Nome>/` no diff:
 - [ ] Se usou preset tipográfico → o nome existe em `typography.ts` atual?
 - [ ] DocPage correspondente (`InputDoc.tsx`, `SelectDoc.tsx`, etc) reflete a mudança?
 - [ ] Comentários do componente mencionam apenas presets que ainda existem (não legados)?
+- [ ] **Índice `shadcn/USAGE.md` — gotcha coberto?** Se o componente novo/editado tem
+  setup obrigatório (`<Toaster/>`/`<Provider>` no root), dep extra (`vaul`/`embla`/…),
+  receita flutuante (L-040), z-index (L-030) ou ring/acessibilidade fora do padrão →
+  há **1 linha** correspondente em `src/components/shadcn/USAGE.md`?
+  Se NÃO tem gotcha → **não exigir linha** (índice é só de pegadinhas; não inflar).
+  ⛔ Reprovar se alguém criou `USAGE.md` por-arquivo dentro de `shadcn/<nome>/`.
 
 ### 2.5 — Nova lição em `lessons.md`
 

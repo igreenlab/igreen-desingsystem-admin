@@ -106,6 +106,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Toggle", href: "toggle" },
       { label: "Toggle Group", href: "toggle-group" },
       { label: "Sonner", href: "sonner" },
+      { label: "Toast", href: "toast" },
       { label: "Tooltip", href: "tooltip" },
     ],
   },
