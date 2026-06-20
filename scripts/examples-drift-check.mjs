@@ -27,6 +27,7 @@ const MAP = {
   "order-detail": "src/preview/pages/OrderDetailShowcase",
   "edit-page": "src/preview/pages/OrderEditShowcase",
   chat: "src/preview/pages/ChatV2",
+  "mapa-rede": "src/preview/pages/MapaDeRedeShowcase",
 };
 
 const LOCK = "scripts/examples-sources.lock.json";
