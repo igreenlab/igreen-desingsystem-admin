@@ -63,6 +63,7 @@ export function DataList(props: DataListProps) {
     onReorder,
     onMove,
     persistKey,
+    fillHeight,
     className,
     emptyState,
   } = props;
@@ -100,7 +101,9 @@ export function DataList(props: DataListProps) {
   const dndEnabled = Boolean(enableDnD) && !useVirtual;
   if (virtualized && enableDnD && import.meta.env?.DEV) {
     // eslint-disable-next-line no-console
-    console.warn("[DataList] virtualized + enableDnD: DnD desligado (incompatível com virtualização).");
+    console.warn(
+      "[DataList] virtualized + enableDnD: DnD desligado (incompatível com virtualização).",
+    );
   }
 
   const count = mode === "server" ? total : ctrl.processedItems.length;
@@ -144,8 +147,31 @@ export function DataList(props: DataListProps) {
 
   const selCount = ctrl.selected.size;
 
+  // fillHeight: toolbar/chips/bulk fixos no topo; só a lista rola. Virtualizado
+  // já tem scroll próprio (height fixo) → não envolver.
+  const scrollBody = fillHeight && !useVirtual;
+
+  const listBlock = (
+    <>
+      {body}
+      {onLoadMore && !useVirtual && (
+        <DataListInfinite
+          onLoadMore={onLoadMore}
+          hasMore={Boolean(hasMore)}
+          loading={Boolean(loadingMore)}
+        />
+      )}
+    </>
+  );
+
   return (
-    <div className={cn("flex flex-col gap-gp-lg", className)}>
+    <div
+      className={cn(
+        "flex flex-col gap-gp-lg",
+        fillHeight && "min-h-0",
+        className,
+      )}
+    >
       <DataListToolbar
         title={title}
         count={count}
@@ -166,7 +192,9 @@ export function DataList(props: DataListProps) {
 
       {selectable && selCount > 0 && bulkActions && bulkActions.length > 0 && (
         <div className="flex items-center gap-gp-md rounded-radius-lg border border-border-brand-subtle bg-bg-brand-subtle px-pad-xl py-pad-md">
-          <span className="text-body-sm font-medium text-fg-default">{selCount} selecionado(s)</span>
+          <span className="text-body-sm font-medium text-fg-default">
+            {selCount} selecionado(s)
+          </span>
           <div className="ml-auto flex items-center gap-gp-sm">
             {bulkActions.map((a, i) => (
               <Button
@@ -180,21 +208,24 @@ export function DataList(props: DataListProps) {
                 {a.label}
               </Button>
             ))}
-            <Button size="sm" variant="ghost" color="secondary" onClick={ctrl.clearSelection}>
+            <Button
+              size="sm"
+              variant="ghost"
+              color="secondary"
+              onClick={ctrl.clearSelection}
+            >
               Limpar
             </Button>
           </div>
         </div>
       )}
 
-      {body}
-
-      {onLoadMore && !useVirtual && (
-        <DataListInfinite
-          onLoadMore={onLoadMore}
-          hasMore={Boolean(hasMore)}
-          loading={Boolean(loadingMore)}
-        />
+      {scrollBody ? (
+        <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin pr-pad-xs">
+          {listBlock}
+        </div>
+      ) : (
+        listBlock
       )}
     </div>
   );

@@ -48,6 +48,7 @@ o drawer de filtro é o MESMO `<ToolbarSimpleFilterDrawer>` da tabela.
 | `selectable` + `onSelectionChange` + `bulkActions` | seleção + bulk bar |
 | `enableDnD` + `onReorder`/`onMove` | DnD (passa pro List) |
 | `persistKey` | persiste a query (search+filtros) em localStorage |
+| `fillHeight` | ocupa 100% da altura do pai e faz **só a lista rolar** (toolbar/chips/bulk fixos). Dê altura ao pai + `className="flex-1 min-h-0"`. Não combinar com `virtualized` |
 
 ## Gotchas
 - **`virtualized` desliga o DnD** (mutuamente exclusivos: o `@hello-pangea/dnd` precisa

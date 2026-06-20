@@ -137,8 +137,13 @@ function Connector({
             </span>
           );
         }
-        // pass-through dos ancestrais — estende pra cima pelo gap (linha contínua)
-        const continues = row.ancestorHasNext[i];
+        // pass-through dos ancestrais — estende pra cima pelo gap (linha contínua).
+        // Coluna i (x = i*indent) hospeda o elbow de nós em depth i+1, então a
+        // continuação vertical depende do ancestral em depth i+1 ter irmão —
+        // ancestorHasNext[i+1], NÃO [i]. Com [i] (off-by-one) a guia sumia no
+        // último root (ancestorHasNext[0]=false); nos demais o root tinha next
+        // e mascarava o bug.
+        const continues = row.ancestorHasNext[i + 1];
         return (
           <span key={i} style={{ width: indentSize }} className={s.indent()}>
             {continues && (

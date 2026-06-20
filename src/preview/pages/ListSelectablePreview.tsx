@@ -14,23 +14,28 @@ export default function ListSelectablePreview() {
       description="DataList com selectable: checkbox por card + barra de ações em massa quando há seleção. Selecione cards pra ver a bulk bar (Editar / Arquivar / Excluir / Limpar). Busca e filtros Papel/Status continuam ativos sobre os 40 membros."
       code={CODE}
     >
-      <div className="flex flex-1 min-h-0 flex-col overflow-auto scrollbar-thin">
-        <DataList
-          title="Membros"
-          items={team}
-          searchable
-          searchPlaceholder="Buscar membro..."
-          filterFields={PERSON_FILTER_FIELDS}
-          selectable
-          bulkActions={[
-            { label: "Editar", icon: <Pencil />, onClick: () => {} },
-            { label: "Arquivar", icon: <Archive />, onClick: () => {} },
-            { label: "Excluir", icon: <Trash2 />, destructive: true, onClick: () => {} },
-          ]}
-          onSelectionChange={() => {}}
-          persistKey="list-example-selectable"
-        />
-      </div>
+      <DataList
+        fillHeight
+        className="flex-1 min-h-0"
+        title="Membros"
+        items={team}
+        searchable
+        searchPlaceholder="Buscar membro..."
+        filterFields={PERSON_FILTER_FIELDS}
+        selectable
+        bulkActions={[
+          { label: "Editar", icon: <Pencil />, onClick: () => {} },
+          { label: "Arquivar", icon: <Archive />, onClick: () => {} },
+          {
+            label: "Excluir",
+            icon: <Trash2 />,
+            destructive: true,
+            onClick: () => {},
+          },
+        ]}
+        onSelectionChange={() => {}}
+        persistKey="list-example-selectable"
+      />
     </ExamplePageLayout>
   );
 }

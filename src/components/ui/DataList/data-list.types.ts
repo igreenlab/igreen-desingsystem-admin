@@ -100,6 +100,13 @@ export type DataListProps = {
   /** Chave do localStorage pra persistir a query (search+filtros+view). */
   persistKey?: string;
 
+  /**
+   * Ocupa 100% da altura do pai e faz SÓ a lista rolar (toolbar/chips/bulk bar
+   * ficam fixos no topo). Use em telas dedicadas — dê altura ao pai e passe
+   * `className="flex-1 min-h-0"`. Não combinar com `virtualized` (já tem scroll).
+   */
+  fillHeight?: boolean;
+
   className?: string;
   emptyState?: ReactNode;
 };

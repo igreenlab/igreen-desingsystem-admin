@@ -8,7 +8,12 @@ import { makeTasks, TASK_GROUPS } from "./_list-example-data";
 export default function ListGroupedPreview() {
   const [tasks, setTasks] = useState<ListItemData[]>(() => makeTasks());
 
-  const handleMove = (id: string, _from: string, to: string, toIndex: number) => {
+  const handleMove = (
+    id: string,
+    _from: string,
+    to: string,
+    toIndex: number,
+  ) => {
     setTasks((prev) => {
       const moved = prev.find((t) => t.id === id);
       if (!moved) return prev;
@@ -44,26 +49,31 @@ export default function ListGroupedPreview() {
       description="DataList com layout='grouped': seções colapsáveis por status (To Do / In Progress / Done) sobre 24 tarefas. Arraste cards (handle no hover) entre grupos e reordene dentro — o consumer commita no onMove/onReorder. Busca filtra os cards mantendo os grupos."
       code={CODE}
     >
-      <div className="flex flex-1 min-h-0 flex-col overflow-auto scrollbar-thin">
-        <DataList
-          title="Backlog"
-          layout="grouped"
-          items={tasks}
-          groups={TASK_GROUPS}
-          groupSurface
-          enableDnD
-          onMove={handleMove}
-          onReorder={handleReorder}
-          searchable
-          searchPlaceholder="Buscar tarefa..."
-          defaultExpandedIds={new Set(["todo", "doing", "done"])}
-          getMenuItems={() => [
-            { label: "Editar", icon: <Pencil />, onClick: () => {} },
-            { separator: true },
-            { label: "Excluir", icon: <Trash2 />, destructive: true, onClick: () => {} },
-          ]}
-        />
-      </div>
+      <DataList
+        fillHeight
+        className="flex-1 min-h-0"
+        title="Backlog"
+        layout="grouped"
+        items={tasks}
+        groups={TASK_GROUPS}
+        groupSurface
+        enableDnD
+        onMove={handleMove}
+        onReorder={handleReorder}
+        searchable
+        searchPlaceholder="Buscar tarefa..."
+        defaultExpandedIds={new Set(["todo", "doing", "done"])}
+        getMenuItems={() => [
+          { label: "Editar", icon: <Pencil />, onClick: () => {} },
+          { separator: true },
+          {
+            label: "Excluir",
+            icon: <Trash2 />,
+            destructive: true,
+            onClick: () => {},
+          },
+        ]}
+      />
     </ExamplePageLayout>
   );
 }

@@ -19,17 +19,17 @@ export default function ListHierarchicalPreview() {
       description="DataList com layout='hierarchical': árvore-como-lista (empresa → manager → membro) com ~30 nós e linhas de conexão. Clique no chevron pra expandir/recolher cada nível. defaultExpandedIds abre as empresas e o 1º manager no load."
       code={CODE}
     >
-      <div className="flex flex-1 min-h-0 flex-col overflow-auto scrollbar-thin">
-        <DataList
-          title="Organização"
-          layout="hierarchical"
-          items={org}
-          defaultExpandedIds={expanded}
-          searchable
-          searchPlaceholder="Buscar empresa..."
-          getMenuItems={() => [{ label: "Ver perfil", icon: <User /> }]}
-        />
-      </div>
+      <DataList
+        fillHeight
+        className="flex-1 min-h-0"
+        title="Organização"
+        layout="hierarchical"
+        items={org}
+        defaultExpandedIds={expanded}
+        searchable
+        searchPlaceholder="Buscar empresa..."
+        getMenuItems={() => [{ label: "Ver perfil", icon: <User /> }]}
+      />
     </ExamplePageLayout>
   );
 }
