@@ -45,6 +45,7 @@ o drawer de filtro é o MESMO `<ToolbarSimpleFilterDrawer>` da tabela.
 | `virtualized` (+ `estimateItemSize`) | listas grandes — **só layout standard** |
 | `onLoadChildren(id)` | lazy-load de filhos (hierarchical) |
 | `defaultExpandedIds` | `Set<string>` — nós abertos no mount (hierarchical/grouped) |
+| `branchHighlight` | destaque de família (hierárquico, passa pro List): `none` · `block` (painéis) · `active` (ramo do último aberto) |
 | `selectable` + `onSelectionChange` + `bulkActions` | seleção + bulk bar |
 | `enableDnD` + `onReorder`/`onMove` | DnD (passa pro List) |
 | `persistKey` | persiste a query (search+filtros) em localStorage |

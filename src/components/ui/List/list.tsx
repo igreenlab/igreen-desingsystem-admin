@@ -42,6 +42,7 @@ export function List({
   onExpandedChange,
   showConnectors = true,
   indentSize = 24,
+  branchHighlight = "none",
   enableDnD = false,
   groupSurface,
   onReorder,
@@ -87,7 +88,12 @@ export function List({
         return;
       }
       if (layout === "grouped") {
-        onMove?.(draggableId, source.droppableId, destination.droppableId, destination.index);
+        onMove?.(
+          draggableId,
+          source.droppableId,
+          destination.droppableId,
+          destination.index,
+        );
       } else {
         onReorder?.(draggableId, destination.index);
       }
@@ -148,6 +154,7 @@ export function List({
         onToggleExpand={toggleExpand}
         showConnectors={showConnectors}
         indentSize={indentSize}
+        branchHighlight={branchHighlight}
         selectable={selectable}
         selectedIds={selected}
         openId={openId}

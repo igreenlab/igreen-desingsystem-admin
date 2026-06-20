@@ -56,6 +56,7 @@ export function DataList(props: DataListProps) {
     estimateItemSize = 76,
     onLoadChildren,
     defaultExpandedIds,
+    branchHighlight,
     selectable,
     onSelectionChange,
     bulkActions,
@@ -132,6 +133,7 @@ export function DataList(props: DataListProps) {
       openId={openId}
       groupSurface={groupSurface}
       density={density}
+      branchHighlight={branchHighlight}
       selectable={selectable}
       selectedIds={ctrl.selected}
       onSelectionChange={ctrl.replaceSelection}

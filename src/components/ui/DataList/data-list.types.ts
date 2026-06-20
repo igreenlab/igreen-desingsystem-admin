@@ -89,6 +89,12 @@ export type DataListProps = {
   onLoadChildren?: (id: string) => Promise<ListItemData[]>;
   /** Nós expandidos no mount (layout hierarchical / grouped). */
   defaultExpandedIds?: Set<string>;
+  /**
+   * Destaque de "família" no layout hierarchical (passa pro List):
+   * `"none"` (conectores) · `"block"` (painéis aninhados) · `"active"` (só o
+   * ramo do último nó aberto recebe o painel + trilha). Default `"none"`.
+   */
+  branchHighlight?: "none" | "block" | "active";
 
   /* ── seleção / dnd / persistência ─────────────────────────── */
   selectable?: boolean;

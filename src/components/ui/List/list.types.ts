@@ -122,6 +122,16 @@ export type ListProps = {
   showConnectors?: boolean;
   /** Indent por nível (px). Default 24. */
   indentSize?: number;
+  /**
+   * Destaque de "família" no layout hierarchical (substitui os conectores por
+   * painéis aninhados):
+   * - `"none"` (default) — conectores (elbow lines) clássicos.
+   * - `"block"` — filhos de um nó aberto ficam dentro de um painel sutil
+   *   (bg + borda esquerda de marca) → "1 bloco = 1 família".
+   * - `"active"` — só o ramo do último nó aberto recebe o painel (mesmo visual
+   *   do block); a trilha root→ativo ganha spine; o resto fica neutro.
+   */
+  branchHighlight?: "none" | "block" | "active";
 
   /* ── DnD ──────────────────────────────────────────────────── */
   /** Habilita drag-and-drop. Default false. */
