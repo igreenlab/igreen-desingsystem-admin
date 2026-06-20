@@ -72,6 +72,8 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 > explícita do usuário). Distribuição (registry/embed/bump) consolida no `/ds-release`;
 > vários componentes = batches (1 PR cada) + 1 release no fim.
 | Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
+| Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
+| Tela de dados (não sabe se tabela ou lista) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder` ou `list-builder` |
 
 ---
 
