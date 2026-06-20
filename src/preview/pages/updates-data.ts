@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.13.0",
+    date: "2026-06-20",
+    tag: "release",
+    title: "Componente List (cards) — standard / grouped+DnD / hierarchical + shadows dark-aware",
+    summary:
+      "Novo primitivo de listagem em cards `List` (como o `Table` é o primitivo de tabela; a versão com toolbar/busca/filtros, `DataList`, vem depois). 3 layouts: standard (lista plana), grouped (seções colapsáveis com drag-and-drop via @hello-pangea/dnd, físico/suave, + painel por grupo via `groupSurface`) e hierarchical (árvore-como-lista colapsável com linhas de conexão contínuas e contagem por nível, entidades mistas). Conteúdo do card por slots (leading/title/subtitle/description/meta-colunas/trailing) ou `renderItem` (cards ricos — ex.: orders com avatares, meta com ícones e footer de progresso). Seleção e colapso controlados-ou-não; DnD burro (emite onMove/onReorder, consumer commita). Registrado no registry (`igreen:add list`). Inclui um fix FOUNDATIONAL de elevação: as sombras agora são dark-aware de verdade — antes o Tailwind v4 inlinava o valor light na utility e o `.dark` não pegava (md virava um \"halo claro\"); agora via `@theme inline` + indireção (L-043), corrigindo o dark em todo o DS.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `List` (`ui/List`): 3 layouts (standard · grouped+DnD · hierarchical), card por slots ou `renderItem`, seleção/colapso controlado-ou-não, estados loading/empty, densidade. Showcase `#/list` + registry (`igreen:add list`).",
+          "Layout grouped: drag-and-drop com @hello-pangea/dnd (displacement suave + placeholder), realce da dropzone e elevação do card; `groupSurface` (painel por grupo).",
+          "Layout hierarchical: árvore-como-lista com colapso, linhas de conexão contínuas e indicador de quantidade por nível.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Shadows dark-aware (FOUNDATIONAL): Tailwind v4 inlinava o valor light da sombra na utility, então `.dark { --shadow-* }` não tinha efeito (md = \"halo claro\" no dark). Corrigido via `@theme inline` + vars de indireção `--ds-sh-*` em :root/.dark (L-043). Afeta todo componente que usa `shadow-sh-*` no dark.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline: lição L-043 (gotcha de shadow no Tailwind v4) + resumo em ds-standards.",
+        ],
+      },
+    ],
+  },
+  {
     version: "CLI 0.13.7 + pipeline",
     date: "2026-06-19",
     tag: "patch",
