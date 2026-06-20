@@ -155,14 +155,30 @@ function buildShapeVars(): Record<string, string> {
 }
 
 // ── Shadow vars ───────────────────────────────────────────────────────────────
+//
+// IMPORTANTE (Tailwind v4): valores de shadow num `@theme` normal são INLINADOS
+// na utility (`.shadow-sh-md { box-shadow: <valor literal> }`) — NÃO usam var().
+// Logo, um override `.dark { --shadow-sh-md }` é código morto: a utility ignora.
+// Resultado: no dark a shadow ficava com o valor LIGHT (cinza-claro → "halo").
+//
+// Fix: indireção. A utility (via `@theme inline`) aponta pra `var(--ds-sh-*)`,
+// e `--ds-sh-*` é uma var comum definida em :root (light) e .dark (dark) — que
+// o cascade FAZ flipar. Assim shadow-sh-* fica dark-aware em todo o DS.
 
-function buildShadowVars(mode: "light" | "dark"): Record<string, string> {
+/** `@theme inline` — utility shadow-sh-* referencia a var de indireção. */
+function buildShadowThemeInline(): Record<string, string> {
   const result: Record<string, string> = {};
-  const shadows = elevation.shadow[mode];
-  for (const [key, value] of Object.entries(shadows)) {
-    // --shadow-sh-* gera shadow-sh-sm, shadow-sh-md etc
-    // Evita sobrescrever shadow-sm, shadow-md, shadow-lg do Tailwind nativo.
-    result[`--shadow-sh-${key}`] = value;
+  for (const key of Object.keys(elevation.shadow.light)) {
+    result[`--shadow-sh-${key}`] = `var(--ds-sh-${key})`;
+  }
+  return result;
+}
+
+/** Vars de indireção com os valores reais por modo (vão em :root / .dark). */
+function buildShadowIndirection(mode: "light" | "dark"): Record<string, string> {
+  const result: Record<string, string> = {};
+  for (const [key, value] of Object.entries(elevation.shadow[mode])) {
+    result[`--ds-sh-${key}`] = value;
   }
   return result;
 }
@@ -295,17 +311,20 @@ export function generateTailwindV4Css(): string {
     ...buildSpacingVars(),
     ...buildSizingVars(),
     ...buildShapeVars(),
-    ...buildShadowVars("light"),
     ...buildOpacityVars(),
     // blur removido — usa Tailwind nativo (blur-sm, blur-md, blur-lg, blur-xl)
     ...buildZIndexVars(),
     ...buildScrollbarVars(),
   };
 
-  // Dark mode overrides (only colors + shadows change)
+  // Shadows: @theme inline aponta pras vars de indireção (dark-aware) — ver nota.
+  const shadowThemeInline = buildShadowThemeInline();
+  const shadowLight = buildShadowIndirection("light");
+
+  // Dark mode overrides (cores + vars de indireção das shadows)
   const darkVars = {
     ...buildColorVars(colorDark),
-    ...buildShadowVars("dark"),
+    ...buildShadowIndirection("dark"),
   };
 
   return `/**
@@ -316,6 +335,16 @@ export function generateTailwindV4Css(): string {
 
 @theme {
 ${toBlock(themeVars)}
+}
+
+/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */
+
+@theme inline {
+${toBlock(shadowThemeInline)}
+}
+
+:root {
+${toBlock(shadowLight)}
 }
 
 /* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */
