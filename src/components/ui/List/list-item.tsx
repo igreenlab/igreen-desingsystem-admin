@@ -1,8 +1,8 @@
-import { Fragment, type MouseEvent, type ReactNode } from "react";
+import { Fragment, type HTMLAttributes, type MouseEvent, type ReactNode } from "react";
 import type {
-  DraggableAttributes,
-  DraggableSyntheticListeners,
-} from "@dnd-kit/core";
+  DraggableProvidedDraggableProps,
+  DraggableProvidedDragHandleProps,
+} from "@hello-pangea/dnd";
 import { GripVertical, MoreHorizontal } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
@@ -37,10 +37,10 @@ type ListItemProps = {
   /* hierarquia — toggle de expandir renderizado à esquerda */
   expandToggle?: ReactNode;
 
-  /* dnd (vindo do layout) */
-  setNodeRef?: (node: HTMLElement | null) => void;
-  attributes?: DraggableAttributes;
-  handleListeners?: DraggableSyntheticListeners;
+  /* dnd (vindo do layout via @hello-pangea Draggable) */
+  innerRef?: (el: HTMLElement | null) => void;
+  draggableProps?: DraggableProvidedDraggableProps;
+  dragHandleProps?: DraggableProvidedDragHandleProps | null;
   showHandle?: boolean;
 
   className?: string;
@@ -62,9 +62,9 @@ export function ListItem({
   selectable,
   onToggleSelect,
   expandToggle,
-  setNodeRef,
-  attributes,
-  handleListeners,
+  innerRef,
+  draggableProps,
+  dragHandleProps,
   showHandle,
   className,
 }: ListItemProps) {
@@ -93,19 +93,19 @@ export function ListItem({
 
   return (
     <div
-      ref={setNodeRef}
+      ref={innerRef}
       role="article"
       aria-selected={state.selected || undefined}
       className={cn(s.item(), className)}
       onClick={onClick ? handleClick : undefined}
-      {...attributes}
+      {...(draggableProps as HTMLAttributes<HTMLDivElement>)}
     >
       {showHandle && (
         <span
           className={s.handle()}
           aria-label="Arrastar"
-          {...handleListeners}
           onClick={stop}
+          {...dragHandleProps}
         >
           <GripVertical />
         </span>

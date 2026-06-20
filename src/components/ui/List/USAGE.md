@@ -44,11 +44,17 @@ checkbox, indent, conectores) é sempre do List.
 | `loading`/`skeletonCount` · `emptyState` · `density` | estados / densidade |
 
 ## Gotchas
-- **DnD é burro (como o Kanban):** o List emite `onMove`/`onReorder`; **o consumer
-  reposiciona** os dados (sem revert automático). `toIndex` já desconta a remoção do
-  item arrastado no mesmo grupo.
+- **DnD via `@hello-pangea/dnd`** (física natural de lista — displacement suave +
+  placeholder que abre espaço). Burro: o List emite `onMove(id, from, to, toIndex)`
+  (grouped) / `onReorder(id, toIndex)` (standard) e **o consumer commita** o estado.
+  `toIndex` é o `destination.index` do hello-pangea (índice final no grupo destino).
+- `groupSurface` envolve cada grupo num painel sutil ("card fino") pra diferenciar da
+  superfície. Realce da área de destino (`isDraggingOver`) e elevação do card em
+  arrasto (`isDragging`) são automáticos.
 - **Grupos abrem por padrão**; hierarquia **colapsa** por padrão (semeie `defaultExpandedIds`).
 - Hierarquia: a fonte canônica é a **árvore aninhada** (`children`), não `parentId`.
+  Hierárquico **não** tem DnD no v1.
 - `meta` (colunas) é escondido em telas estreitas (`hidden md:flex`) — use `trailing`/
   `subtitle` para info crítica em mobile.
-- Dep extra: `@dnd-kit/core` (já usado pelo Kanban).
+- Dep extra: `@hello-pangea/dnd` (List); o Kanban usa `@dnd-kit` — DnD libs distintas
+  por componente, por design (lista vertical favorece o hello-pangea).

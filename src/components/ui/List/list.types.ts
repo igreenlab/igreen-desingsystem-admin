@@ -94,6 +94,8 @@ export type ListProps = {
   items: ListItemData[];
   /** Definição/ordem dos grupos (layout "grouped"). */
   groups?: ListGroup[];
+  /** Painel sutil por grupo ("card fino" que diferencia da superfície). Default false. */
+  groupSurface?: boolean;
 
   /* ── Conteúdo / interação ─────────────────────────────────── */
   /** Render custom do miolo do card (wrapper continua do List). */

@@ -151,6 +151,7 @@ function GroupedTasksDemo() {
       layout="grouped"
       items={tasks}
       groups={TASK_GROUPS}
+      groupSurface
       enableDnD
       onMove={handleMove}
       getMenuItems={(item) => [
@@ -213,8 +214,8 @@ export function ListDoc() {
       <DocHeader
         category="Components"
         title="List"
-        description="Primitivo de listagem em cards (cada row é um card). 3 layouts: standard (plano), grouped (seções + drag-and-drop) e hierarchical (árvore-como-lista colapsável com conectores). Conteúdo via slots (leading/title/subtitle/description/meta/trailing) ou renderItem. Burro como o Table — a versão com toolbar/busca/filtros (DataList) vem no passo 2."
-        dependency="@dnd-kit/core"
+        description="Primitivo de listagem em cards (cada row é um card). 3 layouts: standard (plano), grouped (seções + drag-and-drop) e hierarchical (árvore-como-lista colapsável com conectores). Conteúdo via slots (leading/title/subtitle/description/meta/trailing) ou renderItem. DnD com física natural de lista (@hello-pangea/dnd). Burro como o Table — a versão com toolbar/busca/filtros (DataList) vem no passo 2."
+        dependency="@hello-pangea/dnd"
       />
       <DocSeparator />
 
@@ -322,6 +323,7 @@ export function ListDoc() {
           { name: "layout", type: '"standard" | "grouped" | "hierarchical"', defaultVal: '"standard"' },
           { name: "items", type: "ListItemData[] (children aninhados na hierarquia)", defaultVal: "—" },
           { name: "groups", type: "ListGroup[] (layout grouped)", defaultVal: "—" },
+          { name: "groupSurface", type: "painel sutil por grupo (card fino)", defaultVal: "false" },
           { name: "renderItem", type: "(item, state) => ReactNode — override do miolo", defaultVal: "—" },
           { name: "getMenuItems", type: "(item) => ListMenuItem[] — kebab", defaultVal: "—" },
           { name: "onItemClick / openId", type: "click no card / realce 'aberto'", defaultVal: "—" },

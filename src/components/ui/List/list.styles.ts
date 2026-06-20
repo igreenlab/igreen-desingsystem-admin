@@ -48,8 +48,11 @@ export const listStyles = tv({
     connector: "absolute bg-fg-subtle/55",
 
     /* dnd / estados */
-    dropIndicator:
-      "h-[3px] my-gp-2xs rounded-radius-full bg-bg-brand shrink-0",
+    /** Painel sutil por grupo (prop groupSurface) — "card fino" que diferencia da superfície. */
+    groupPanel: "rounded-radius-xl border border-border-subtle bg-bg-muted/50 p-pad-md",
+    /** Realce da área de destino durante drag (isDraggingOver). */
+    dropZoneActive:
+      "rounded-radius-lg bg-bg-brand-subtle/40 outline outline-1 outline-border-brand-subtle transition-colors",
     emptyState:
       "flex flex-col items-center justify-center gap-gp-sm py-pad-4xl px-pad-xl text-center text-body-sm text-fg-subtle",
     skeleton:
@@ -79,8 +82,9 @@ export const listStyles = tv({
     open: {
       true: { item: "!border-border-brand shadow-sh-ring" },
     },
+    /** Card em arrasto (hello-pangea move o próprio elemento): elevar, não esmaecer. */
     dragging: {
-      true: { item: "opacity-40" },
+      true: { item: "shadow-sh-lg !border-border-brand-subtle" },
     },
   },
 

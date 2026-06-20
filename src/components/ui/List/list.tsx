@@ -1,19 +1,17 @@
 import { useCallback, useMemo } from "react";
-import { DndContext, DragOverlay, closestCorners } from "@dnd-kit/core";
+import { DragDropContext, type DropResult } from "@hello-pangea/dnd";
 import { Inbox } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { listStyles } from "./list.styles";
-import { ListItem } from "./list-item";
 import { StandardLayout } from "./layouts/standard-layout";
 import { GroupedLayout } from "./layouts/grouped-layout";
 import { HierarchicalLayout } from "./layouts/hierarchical-layout";
 import { useSelectionSet } from "./hooks/use-selection-set";
 import { useDisclosureSet } from "./hooks/use-disclosure-set";
-import { useListDnD } from "./hooks/use-list-dnd";
 import { groupItems } from "./utils/group-items";
-import type { ListItemData, ListProps } from "./list.types";
+import type { ListProps } from "./list.types";
 
-const STANDARD_GROUP_ID = "__list__";
+const STANDARD_DROPPABLE_ID = "list-standard";
 
 /**
  * <List> — primitivo de listagem em cards (como `Table` é o primitivo de tabela).
@@ -22,6 +20,10 @@ const STANDARD_GROUP_ID = "__list__";
  *
  * Layouts: `standard` (lista plana) · `grouped` (seções + DnD) · `hierarchical`
  * (árvore-como-lista colapsável com conectores). Card via slots ou `renderItem`.
+ *
+ * DnD via @hello-pangea/dnd (física natural de lista: displacement suave dos
+ * irmãos + placeholder que abre espaço). Burro: emite `onMove`/`onReorder`,
+ * o consumer commita o estado.
  */
 export function List({
   layout = "standard",
@@ -41,6 +43,7 @@ export function List({
   showConnectors = true,
   indentSize = 24,
   enableDnD = false,
+  groupSurface,
   onReorder,
   onMove,
   loading,
@@ -73,51 +76,24 @@ export function List({
 
   const dndEnabled = enableDnD && layout !== "hierarchical";
 
-  const { itemsByGroup, itemGroupLookup, canReceive } = useMemo(() => {
-    const byGroup = new Map<string, string[]>();
-    const lookup = new Map<string, string>();
-    const recv = new Map<string, boolean>();
-    if (layout === "grouped" && groups) {
-      for (const g of groups) {
-        byGroup.set(g.id, []);
-        recv.set(g.id, g.canReceiveDrop !== false);
+  const handleDragEnd = useCallback(
+    (result: DropResult) => {
+      const { source, destination, draggableId } = result;
+      if (!destination) return;
+      if (
+        source.droppableId === destination.droppableId &&
+        source.index === destination.index
+      ) {
+        return;
       }
-      for (const it of items) {
-        if (it.groupId && byGroup.has(it.groupId)) {
-          byGroup.get(it.groupId)!.push(it.id);
-          lookup.set(it.id, it.groupId);
-        }
+      if (layout === "grouped") {
+        onMove?.(draggableId, source.droppableId, destination.droppableId, destination.index);
+      } else {
+        onReorder?.(draggableId, destination.index);
       }
-    } else {
-      byGroup.set(STANDARD_GROUP_ID, items.map((i) => i.id));
-      for (const it of items) lookup.set(it.id, STANDARD_GROUP_ID);
-      recv.set(STANDARD_GROUP_ID, true);
-    }
-    return { itemsByGroup: byGroup, itemGroupLookup: lookup, canReceive: recv };
-  }, [layout, groups, items]);
-
-  const handleDrop = useCallback(
-    (id: string, from: string, to: string, toIndex: number) => {
-      if (layout === "grouped") onMove?.(id, from, to, toIndex);
-      else onReorder?.(id, toIndex);
     },
     [layout, onMove, onReorder],
   );
-
-  const dnd = useListDnD({
-    enabled: dndEnabled,
-    itemsByGroup,
-    itemGroupLookup,
-    canReceive,
-    onDrop: handleDrop,
-  });
-
-  const itemById = useMemo(() => {
-    const m = new Map<string, ListItemData>();
-    for (const it of items) m.set(it.id, it);
-    return m;
-  }, [items]);
-  const activeItem = dnd.activeItemId ? itemById.get(dnd.activeItemId) ?? null : null;
 
   /* ── estados ───────────────────────────────────────────────── */
   if (loading) {
@@ -153,9 +129,7 @@ export function List({
         buckets={groupItems(items, groups ?? [])}
         density={density}
         enableDnD={dndEnabled}
-        activeItemId={dnd.activeItemId}
-        overGroupId={dnd.overGroupId}
-        overItemId={dnd.overItemId}
+        groupSurface={groupSurface}
         openGroups={expanded}
         onToggleGroup={toggleExpand}
         selectable={selectable}
@@ -185,12 +159,9 @@ export function List({
     ) : (
       <StandardLayout
         items={items}
-        groupId={STANDARD_GROUP_ID}
+        droppableId={STANDARD_DROPPABLE_ID}
         density={density}
         enableDnD={dndEnabled}
-        activeItemId={dnd.activeItemId}
-        overGroupId={dnd.overGroupId}
-        overItemId={dnd.overItemId}
         selectable={selectable}
         selectedIds={selected}
         openId={openId}
@@ -207,28 +178,7 @@ export function List({
 
   return (
     <div className={cn("w-full", className)}>
-      <DndContext
-        sensors={dnd.sensors}
-        collisionDetection={closestCorners}
-        onDragStart={dnd.handleDragStart}
-        onDragOver={dnd.handleDragOver}
-        onDragEnd={dnd.handleDragEnd}
-        onDragCancel={dnd.handleDragCancel}
-      >
-        {layoutEl}
-        <DragOverlay dropAnimation={null}>
-          {activeItem && (
-            <ListItem
-              item={activeItem}
-              state={{ selected: false, open: false, dragging: false, depth: 0 }}
-              density={density}
-              renderItem={renderItem}
-              getMenuItems={getMenuItems}
-              className="rotate-1 shadow-sh-lg"
-            />
-          )}
-        </DragOverlay>
-      </DndContext>
+      <DragDropContext onDragEnd={handleDragEnd}>{layoutEl}</DragDropContext>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { useDroppable } from "@dnd-kit/core";
+import { Droppable } from "@hello-pangea/dnd";
+import { cn } from "@/lib/utils";
 import { listStyles, type ListStyleVariants } from "../list.styles";
 import { SortableListItem } from "./_sortable-item";
-import { droppableIdForGroup } from "../hooks/use-list-dnd";
 import type {
   ListItemData,
   ListMenuItem,
@@ -11,12 +11,9 @@ import type {
 
 type StandardLayoutProps = {
   items: ListItemData[];
-  groupId: string;
+  droppableId: string;
   density: NonNullable<ListStyleVariants["density"]>;
   enableDnD: boolean;
-  activeItemId: string | null;
-  overGroupId: string | null;
-  overItemId: string | null;
   selectable?: boolean;
   selectedIds: Set<string>;
   openId?: string;
@@ -28,12 +25,9 @@ type StandardLayoutProps = {
 
 export function StandardLayout({
   items,
-  groupId,
+  droppableId,
   density,
   enableDnD,
-  activeItemId,
-  overGroupId,
-  overItemId,
   selectable,
   selectedIds,
   openId,
@@ -43,40 +37,40 @@ export function StandardLayout({
   getMenuItems,
 }: StandardLayoutProps) {
   const s = listStyles({ density });
-  const { setNodeRef } = useDroppable({
-    id: droppableIdForGroup(groupId),
-    disabled: !enableDnD,
-  });
 
-  const showEndIndicator =
-    enableDnD && activeItemId !== null && overGroupId === groupId && !overItemId;
+  const rows = items.map((item, index) => (
+    <SortableListItem
+      key={item.id}
+      item={item}
+      index={index}
+      density={density}
+      enableDnD={enableDnD}
+      open={openId === item.id}
+      selectable={selectable}
+      selected={selectedIds.has(item.id)}
+      onToggleSelect={onToggleSelect}
+      onClick={onItemClick}
+      renderItem={renderItem}
+      getMenuItems={getMenuItems}
+    />
+  ));
+
+  if (!enableDnD) {
+    return <div className={s.root({ density })}>{rows}</div>;
+  }
 
   return (
-    <div ref={enableDnD ? setNodeRef : undefined} className={s.root({ density })}>
-      {items.map((item) => (
-        <SortableListItem
-          key={item.id}
-          item={item}
-          groupId={groupId}
-          density={density}
-          enableDnD={enableDnD}
-          dragging={activeItemId === item.id}
-          showIndicatorBefore={
-            enableDnD &&
-            overItemId === item.id &&
-            activeItemId !== null &&
-            activeItemId !== item.id
-          }
-          open={openId === item.id}
-          selectable={selectable}
-          selected={selectedIds.has(item.id)}
-          onToggleSelect={onToggleSelect}
-          onClick={onItemClick}
-          renderItem={renderItem}
-          getMenuItems={getMenuItems}
-        />
-      ))}
-      {showEndIndicator && <div className={s.dropIndicator()} aria-hidden />}
-    </div>
+    <Droppable droppableId={droppableId}>
+      {(provided, snapshot) => (
+        <div
+          ref={provided.innerRef}
+          {...provided.droppableProps}
+          className={cn(s.root({ density }), snapshot.isDraggingOver && s.dropZoneActive())}
+        >
+          {rows}
+          {provided.placeholder}
+        </div>
+      )}
+    </Droppable>
   );
 }

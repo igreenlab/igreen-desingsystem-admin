@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
-import { useDroppable } from "@dnd-kit/core";
+import { Droppable } from "@hello-pangea/dnd";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { listStyles, type ListStyleVariants } from "../list.styles";
 import { SortableListItem } from "./_sortable-item";
-import { droppableIdForGroup } from "../hooks/use-list-dnd";
 import type { GroupedBucket } from "../utils/group-items";
 import type {
   ListItemData,
@@ -16,9 +15,8 @@ type GroupedLayoutProps = {
   buckets: GroupedBucket[];
   density: NonNullable<ListStyleVariants["density"]>;
   enableDnD: boolean;
-  activeItemId: string | null;
-  overGroupId: string | null;
-  overItemId: string | null;
+  /** Painel sutil por grupo ("card fino" que diferencia da superfície). */
+  groupSurface?: boolean;
   /** Set de grupos ABERTOS (expandido). */
   openGroups: Set<string>;
   onToggleGroup: (groupId: string) => void;
@@ -48,9 +46,7 @@ function GroupSection({
   styles: s,
   density,
   enableDnD,
-  activeItemId,
-  overGroupId,
-  overItemId,
+  groupSurface,
   openGroups,
   onToggleGroup,
   selectable,
@@ -66,16 +62,26 @@ function GroupSection({
 }) {
   const { group, items, count } = bucket;
   const open = openGroups.has(group.id);
-  const { setNodeRef } = useDroppable({
-    id: droppableIdForGroup(group.id),
-    disabled: !enableDnD,
-  });
 
-  const showEndIndicator =
-    enableDnD && activeItemId !== null && overGroupId === group.id && !overItemId;
+  const rows = items.map((item, index) => (
+    <SortableListItem
+      key={item.id}
+      item={item}
+      index={index}
+      density={density}
+      enableDnD={enableDnD && group.canReceiveDrop !== false}
+      open={openId === item.id}
+      selectable={selectable}
+      selected={selectedIds.has(item.id)}
+      onToggleSelect={onToggleSelect}
+      onClick={onItemClick}
+      renderItem={renderItem}
+      getMenuItems={getMenuItems}
+    />
+  ));
 
   return (
-    <section className={s.group()}>
+    <section className={cn(s.group(), groupSurface && s.groupPanel())}>
       <header className={s.groupHeader()}>
         <button
           type="button"
@@ -95,34 +101,27 @@ function GroupSection({
         <span className={s.groupCount()}>{count}</span>
       </header>
 
-      {open && (
-        <div ref={enableDnD ? setNodeRef : undefined} className={s.groupBody({ density })}>
-          {items.map((item) => (
-            <SortableListItem
-              key={item.id}
-              item={item}
-              groupId={group.id}
-              density={density}
-              enableDnD={enableDnD && group.canReceiveDrop !== false}
-              dragging={activeItemId === item.id}
-              showIndicatorBefore={
-                enableDnD &&
-                overItemId === item.id &&
-                activeItemId !== null &&
-                activeItemId !== item.id
-              }
-              open={openId === item.id}
-              selectable={selectable}
-              selected={selectedIds.has(item.id)}
-              onToggleSelect={onToggleSelect}
-              onClick={onItemClick}
-              renderItem={renderItem}
-              getMenuItems={getMenuItems}
-            />
-          ))}
-          {showEndIndicator && <div className={s.dropIndicator()} aria-hidden />}
-        </div>
-      )}
+      {open &&
+        (enableDnD ? (
+          <Droppable droppableId={group.id}>
+            {(provided, snapshot) => (
+              <div
+                ref={provided.innerRef}
+                {...provided.droppableProps}
+                className={cn(
+                  s.groupBody({ density }),
+                  "min-h-[44px]",
+                  snapshot.isDraggingOver && s.dropZoneActive(),
+                )}
+              >
+                {rows}
+                {provided.placeholder}
+              </div>
+            )}
+          </Droppable>
+        ) : (
+          <div className={s.groupBody({ density })}>{rows}</div>
+        ))}
     </section>
   );
 }
