@@ -9,9 +9,8 @@ export const listStyles = tv({
   slots: {
     root: "flex flex-col",
     /* grupos */
-    group: "flex flex-col",
-    groupHeader:
-      "flex items-center gap-gp-md px-pad-xs pb-pad-md select-none",
+    group: "flex flex-col gap-gp-md",
+    groupHeader: "flex items-center gap-gp-md px-pad-xs select-none",
     groupToggle:
       "inline-flex items-center justify-center size-[20px] shrink-0 rounded-radius-sm text-fg-muted transition-transform duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     groupDot: "size-[8px] rounded-radius-full shrink-0",

@@ -174,7 +174,7 @@ function renderOrderCard(item: ListItemData) {
         <MetaInline icon={<Layers />} value={o.category} />
       </div>
       {/* footer — divider + progresso + data */}
-      <div className="flex flex-wrap items-center gap-x-gp-md gap-y-gp-xs border-t border-border-subtle pt-pad-md">
+      <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-md gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
         <LoaderCircle className="size-icon-sm shrink-0 animate-spin text-fg-brand" />
         <span className="text-body-sm font-medium text-fg-default">
           {o.stage} <span className="text-fg-muted">({o.done}/{o.total})</span>

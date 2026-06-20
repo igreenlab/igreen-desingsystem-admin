@@ -43,12 +43,12 @@ export function HierarchicalLayout({
 }: HierarchicalLayoutProps) {
   const s = listStyles({ density });
   const rows = flattenTree(items, expanded);
-  // bridge das linhas: estende cada guia vertical pra cima pelo gap entre cards,
-  // pra os segmentos se encontrarem (linhas contínuas em vez de quebradas).
-  const gap = density === "compact" ? 6 : 8;
+  // gap entre cards (+4px vs densidade base) — o bridge dos conectores usa o
+  // MESMO valor pra estender cada guia vertical e manter as linhas contínuas.
+  const gap = density === "compact" ? 10 : 12;
 
   return (
-    <div className={s.root({ density })}>
+    <div className="flex flex-col" style={{ gap }}>
       {rows.map((row) => (
         <div key={row.item.id} className="flex items-stretch">
           {showConnectors && row.depth > 0 && (
