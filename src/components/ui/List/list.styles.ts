@@ -11,7 +11,7 @@ export const listStyles = tv({
     /* grupos */
     group: "flex flex-col",
     groupHeader:
-      "flex items-center gap-gp-md px-pad-xs pb-pad-sm pt-pad-md select-none",
+      "flex items-center gap-gp-md px-pad-xs pb-pad-md select-none",
     groupToggle:
       "inline-flex items-center justify-center size-[20px] shrink-0 rounded-radius-sm text-fg-muted transition-transform duration-150 hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     groupDot: "size-[8px] rounded-radius-full shrink-0",
@@ -48,8 +48,9 @@ export const listStyles = tv({
     connector: "absolute bg-fg-subtle/55",
 
     /* dnd / estados */
-    /** Painel sutil por grupo (prop groupSurface) — "card fino" que diferencia da superfície. */
-    groupPanel: "rounded-radius-xl border border-border-subtle bg-bg-muted/50 p-pad-md",
+    /** Painel sutil por grupo (prop groupSurface) — "card fino" que diferencia da superfície.
+     *  Padding uniforme (top == bottom); header tem só pb (gap pro 1º card). */
+    groupPanel: "rounded-radius-xl border border-border-subtle bg-bg-muted/50 p-pad-lg",
     /** Realce da área de destino durante drag (isDraggingOver). */
     dropZoneActive:
       "rounded-radius-lg bg-bg-brand-subtle/40 outline outline-1 outline-border-brand-subtle transition-colors",

@@ -1,5 +1,14 @@
 import { useState } from "react";
-import { Building2, Pencil, Trash2, User, Users } from "lucide-react";
+import {
+  Building2,
+  Layers,
+  LoaderCircle,
+  MapPin,
+  Pencil,
+  Trash2,
+  User,
+  Users,
+} from "lucide-react";
 import { List, type ListGroup, type ListItemData } from "../../components/ui/List";
 import { Button } from "../../components/ui/Button";
 import {
@@ -18,6 +27,7 @@ const TOC = [
   { id: "ex-grouped", label: "Grouped + DnD" },
   { id: "ex-hierarchical", label: "Hierarchical" },
   { id: "ex-variacoes", label: "Variações" },
+  { id: "ex-rich-card", label: "Card rico" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -75,6 +85,103 @@ function Tag({ children, tone = "muted" }: { children: React.ReactNode; tone?: "
     <span className={`inline-flex items-center rounded-radius-sm px-pad-md py-[2px] text-caption-sm font-semibold uppercase tracking-wider ${map[tone]}`}>
       {children}
     </span>
+  );
+}
+
+/* ── helpers do card rico (variação renderItem) ────────────────── */
+
+type OrderStatus = "progress" | "exception" | "draft" | "late";
+
+function StatusPill({ status }: { status: OrderStatus }) {
+  const map = {
+    progress: { label: "Em progresso", cls: "bg-bg-info-muted text-fg-info" },
+    exception: { label: "Exceção", cls: "bg-bg-warning-muted text-fg-warning" },
+    draft: { label: "Rascunho", cls: "bg-bg-muted text-fg-muted" },
+    late: { label: "Atrasado", cls: "bg-bg-danger-muted text-fg-danger" },
+  } as const;
+  const v = map[status];
+  return (
+    <span className={`inline-flex items-center rounded-radius-full px-pad-md py-[2px] text-caption-sm font-semibold ${v.cls}`}>
+      {v.label}
+    </span>
+  );
+}
+
+function AvatarStack({ n }: { n: number }) {
+  return (
+    <span className="flex shrink-0 items-center">
+      {Array.from({ length: Math.min(n, 3) }).map((_, i) => (
+        <span
+          key={i}
+          className="grid size-[24px] place-items-center rounded-radius-full border-2 border-bg-surface bg-bg-muted text-fg-muted [&>svg]:size-[12px] -ml-pad-sm first:ml-0"
+        >
+          <User />
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function MetaInline({ icon, value }: { icon: React.ReactNode; value: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-muted [&>svg]:size-icon-sm [&>svg]:text-fg-subtle">
+      {icon}
+      {value}
+    </span>
+  );
+}
+
+type OrderData = {
+  code: string; name: string; status: OrderStatus; people: number;
+  manufacturer: string; country: string; owner: string; category: string;
+  stage: string; done: number; total: number; updated: string;
+};
+
+const ORDERS: ListItemData[] = [
+  { id: "o1", title: "Summer Linen Jacket SS22", data: {
+    code: "80149", name: "Summer Linen Jacket SS22", status: "progress", people: 3,
+    manufacturer: "Bozkurt Konfeksiyon", country: "Turquia", owner: "Stephanie Carvalho", category: "Jaquetas",
+    stage: "Pré-produção", done: 2, total: 11, updated: "há 4 dias" } satisfies OrderData },
+  { id: "o2", title: "Tapered-Fit Jeans - AW", data: {
+    code: "79998", name: "Tapered-Fit Jeans - AW", status: "exception", people: 3,
+    manufacturer: "Taian Hongbang", country: "Índia", owner: "Kathaleen Marrlow", category: "Jeans",
+    stage: "Controle de qualidade", done: 6, total: 10, updated: "há 2 dias" } satisfies OrderData },
+  { id: "o3", title: "Thermo-Sealed Parka - AW22", data: {
+    code: "79948", name: "Thermo-Sealed Parka - AW22", status: "draft", people: 2,
+    manufacturer: "Bozkurt Konfeksiyon", country: "China", owner: "Sebastian Petravic", category: "Jaquetas",
+    stage: "Preparação do pedido", done: 1, total: 9, updated: "há 1 semana" } satisfies OrderData },
+];
+
+function renderOrderCard(item: ListItemData) {
+  const o = item.data as OrderData;
+  return (
+    <div className="flex w-full flex-col gap-gp-md">
+      {/* row 1 — id + nome + status · avatares à direita */}
+      <div className="flex items-start gap-gp-md">
+        <div className="flex min-w-0 flex-1 flex-wrap items-center gap-gp-md">
+          <span className="text-body-md font-semibold text-fg-default">
+            <span className="text-fg-muted">#{o.code}</span> — {o.name}
+          </span>
+          <StatusPill status={o.status} />
+        </div>
+        <AvatarStack n={o.people} />
+      </div>
+      {/* row 2 — meta com ícones */}
+      <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-xs">
+        <MetaInline icon={<Building2 />} value={o.manufacturer} />
+        <MetaInline icon={<MapPin />} value={o.country} />
+        <MetaInline icon={<User />} value={o.owner} />
+        <MetaInline icon={<Layers />} value={o.category} />
+      </div>
+      {/* footer — divider + progresso + data */}
+      <div className="flex flex-wrap items-center gap-x-gp-md gap-y-gp-xs border-t border-border-subtle pt-pad-md">
+        <LoaderCircle className="size-icon-sm shrink-0 animate-spin text-fg-brand" />
+        <span className="text-body-sm font-medium text-fg-default">
+          {o.stage} <span className="text-fg-muted">({o.done}/{o.total})</span>
+        </span>
+        <span className="text-body-sm text-fg-subtle">atualizado {o.updated}</span>
+      </div>
+    </div>
   );
 }
 
@@ -314,6 +421,19 @@ export function ListDoc() {
           <List items={[]} loading skeletonCount={3} />
           <List items={[]} />
         </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-rich-card"
+        title="Card rico (renderItem)"
+        description="Variação de layout via renderItem: row de título + id + status e avatares à direita; row de meta com ícone+valor; footer com divider, progresso e data. O wrapper (card, hover, click) continua do List."
+        code={`<List
+  items={orders}
+  onItemClick={open}
+  renderItem={(item) => <OrderCard order={item.data} />}
+/>`}
+      >
+        <List items={ORDERS} onItemClick={() => {}} renderItem={renderOrderCard} />
       </ExampleSection>
 
       <DocSeparator />
