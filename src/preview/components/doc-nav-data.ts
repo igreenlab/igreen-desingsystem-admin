@@ -131,7 +131,6 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Footer Table", href: "footer-table" },
       { label: "Tabela Teste", href: "tabela-teste" },
       { label: "Kanban", href: "kanban" },
-      { label: "List", href: "list" },
       { label: "DataTable", href: "data-table" },
       // Exemplos do DataTable
       { label: "Example: CRUD", href: "clients-crud" },
@@ -143,6 +142,13 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: Tree-data", href: "clients-tree" },
       { label: "Example: Column types", href: "clients-typed" },
       { label: "Example: Kanban view", href: "clients-kanban" },
+    ],
+  },
+  {
+    title: "List Components",
+    items: [
+      { label: "List", href: "list" },
+      { label: "DataList", href: "data-list" },
     ],
   },
   {
