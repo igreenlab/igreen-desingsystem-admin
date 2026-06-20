@@ -1,12 +1,5 @@
 import { useState } from "react";
-import {
-  Building2,
-  MessageSquare,
-  Pencil,
-  Trash2,
-  User,
-  UserPlus,
-} from "lucide-react";
+import { Building2, Pencil, Trash2, User, Users } from "lucide-react";
 import { List, type ListGroup, type ListItemData } from "../../components/ui/List";
 import { Button } from "../../components/ui/Button";
 import {
@@ -51,6 +44,23 @@ function StatusDot({ color, label }: { color: string; label: string }) {
     <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-default">
       <span className="size-[8px] rounded-radius-full" style={{ background: color }} />
       {label}
+    </span>
+  );
+}
+
+function CountBadge({ n }: { n: number }) {
+  return (
+    <span className="inline-flex items-center gap-gp-2xs rounded-radius-sm bg-bg-muted px-pad-md py-[2px] text-caption-sm text-fg-muted [&>svg]:size-[12px]">
+      <Users /> {n}
+    </span>
+  );
+}
+
+function Parent({ tone, label, n }: { tone: "brand" | "warning"; label: string; n: number }) {
+  return (
+    <span className="flex items-center gap-gp-md">
+      <Tag tone={tone}>{label}</Tag>
+      <CountBadge n={n} />
     </span>
   );
 }
@@ -157,11 +167,11 @@ function GroupedTasksDemo() {
 const ORG: ListItemData[] = [
   {
     id: "acme", leading: <IconChip><Building2 /></IconChip>, title: "Acme Corp", subtitle: "admin@acme.com",
-    trailing: <Tag tone="brand">Enterprise</Tag>,
+    trailing: <Parent tone="brand" label="Enterprise" n={2} />,
     children: [
       {
         id: "sarah", leading: <Avatar />, title: "Sarah Connor", subtitle: "sarah@acme.com",
-        trailing: <Tag tone="warning">Pro</Tag>,
+        trailing: <Parent tone="warning" label="Pro" n={2} />,
         children: [
           { id: "john", leading: <Avatar />, title: "John Doe", subtitle: "john@acme.com", trailing: <Tag>Free</Tag> },
           { id: "jane", leading: <Avatar />, title: "Jane Smith", subtitle: "jane@acme.com", trailing: <Tag>Free</Tag> },
@@ -172,7 +182,7 @@ const ORG: ListItemData[] = [
   },
   {
     id: "cyber", leading: <IconChip><Building2 /></IconChip>, title: "Cyberdyne Systems", subtitle: "hello@cyberdyne.com",
-    trailing: <Tag tone="brand">Enterprise</Tag>,
+    trailing: <Parent tone="brand" label="Enterprise" n={1} />,
     children: [
       { id: "miles", leading: <Avatar />, title: "Miles Dyson", subtitle: "miles@cyberdyne.com", trailing: <Tag tone="warning">Pro</Tag> },
     ],

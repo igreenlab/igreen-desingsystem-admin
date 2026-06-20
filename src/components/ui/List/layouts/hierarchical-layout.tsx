@@ -69,18 +69,19 @@ export function HierarchicalLayout({
             selectable={selectable}
             onToggleSelect={onToggleSelect}
             expandToggle={
-              <button
-                type="button"
-                className={cn(s.groupToggle(), !row.hasChildren && "invisible")}
-                aria-expanded={row.hasChildren ? row.expanded : undefined}
-                aria-label={row.expanded ? "Recolher" : "Expandir"}
-                disabled={!row.hasChildren}
-                onClick={() => row.hasChildren && onToggleExpand(row.item.id)}
-              >
-                <ChevronRight
-                  className={cn("size-[16px] transition-transform", row.expanded && "rotate-90")}
-                />
-              </button>
+              row.hasChildren ? (
+                <button
+                  type="button"
+                  className={s.groupToggle()}
+                  aria-expanded={row.expanded}
+                  aria-label={row.expanded ? "Recolher" : "Expandir"}
+                  onClick={() => onToggleExpand(row.item.id)}
+                >
+                  <ChevronRight
+                    className={cn("size-[16px] transition-transform", row.expanded && "rotate-90")}
+                  />
+                </button>
+              ) : undefined
             }
           />
         </div>

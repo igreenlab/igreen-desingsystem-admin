@@ -26,7 +26,7 @@ export const listStyles = tv({
     item:
       "group/list-item relative flex items-center gap-gp-lg w-full p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-lg text-left transition-[background-color,border-color,box-shadow,padding] duration-150 ease-out",
     handle:
-      "inline-flex items-center justify-center shrink-0 -ml-pad-xs size-[20px] text-fg-subtle cursor-grab active:cursor-grabbing opacity-0 group-hover/list-item:opacity-100 focus-visible:opacity-100 transition-opacity [&>svg]:size-[16px]",
+      "inline-flex items-center justify-center shrink-0 -ml-pad-xs size-[20px] text-fg-subtle hover:text-fg-muted cursor-grab active:cursor-grabbing transition-colors [&>svg]:size-[16px]",
     checkbox: "shrink-0",
     leading: "shrink-0 flex items-center",
     content: "flex min-w-0 flex-1 flex-col gap-gp-2xs",
@@ -45,7 +45,7 @@ export const listStyles = tv({
 
     /* hierarquia */
     indent: "shrink-0 self-stretch relative",
-    connector: "absolute bg-border-default",
+    connector: "absolute bg-fg-subtle/55",
 
     /* dnd / estados */
     dropIndicator:
