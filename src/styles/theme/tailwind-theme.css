@@ -333,8 +333,8 @@
   --color-chart-5: oklch(0.70 0.17 300);
   --color-chart-grid: oklch(1 0 0 / 0.12);
   --shadow-sh-none: none;
-  --shadow-sh-sm: none;
-  --shadow-sh-md: 0 0 0 1px oklch(0.2645 0 0);
+  --shadow-sh-sm: 0 1px 2px oklch(0 0 0 / 0.28);
+  --shadow-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);
   --shadow-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);
   --shadow-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);
   --shadow-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);

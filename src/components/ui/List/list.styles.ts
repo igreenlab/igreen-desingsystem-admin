@@ -62,8 +62,10 @@ export const listStyles = tv({
 
   variants: {
     density: {
-      comfortable: { groupBody: "gap-gp-md", root: "gap-gp-md" },
-      compact: { groupBody: "gap-gp-sm", root: "gap-gp-sm" },
+      // root = standard (+2px vs groupBody, a pedido); groupBody (grouped) e o
+      // gap inline do hierárquico não mudam.
+      comfortable: { groupBody: "gap-gp-md", root: "gap-gp-lg" },
+      compact: { groupBody: "gap-gp-sm", root: "gap-gp-md" },
     },
     clickable: {
       true: {
