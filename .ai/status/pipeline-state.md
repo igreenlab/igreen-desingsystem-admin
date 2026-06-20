@@ -1167,3 +1167,19 @@ Sessão longa, iterativa. Branch `feat/datalist` (mirror snksergio). Tudo via PR
   - consumer `list-builder` no `_claude` (modelo igreen:add) + ds-kit split tabela/lista;
   - tela de exemplo distribuível (clone fiel do example-finance trocando DataTable→DataList).
 - **Pendência do mantenedor**: merge do PR #44 (gate humano); rodar `/ds-release` do DataList.
+
+---
+
+### 2026-06-20 | DS DEV | DataList — DISTRIBUIÇÃO (bundle /ds-release) | CONCLUÍDO (no PR #44)
+
+Execução autônoma autorizada pelo usuário (sair e voltar só pra validar+mergiar). Tudo no PR #44 (mirror snksergio). **Não foi feito**: merge, `npm publish` e publish do CLI — gate do mantenedor (L-020).
+
+- **registry.json**: + `data-list` (registryDependencies: list/table-toolbar/data-table/button/dropdown-menu/utils; deps react-virtual/lucide) + `example-mapa-rede` (extração 1:1, `<MapaDeRedeScreen/>`). `registry:build` (re-stamp v0.14.0 + shadcn build) + `copy-registry` (embed registry-data.ts = 76 itens). `registry:check` ok; drift baseline (7 exemplos).
+- **src/examples/mapa-rede/**: extração distribuível (screen sem AppShell + mocks + types + ConsultorDetailPanel).
+- **CLI**: catálogo (CLAUDE.md) + data-list/example-mapa-rede + mapa de intenção split tabela×lista; bump CLI 0.13.8→0.13.9.
+- **Consumer `_claude`**: skill `list-builder` (copy-in, igreen:add) + commands `/ds-create-list` e `/ds-create-screen` + `ds-kit` roteando lista de cards → list-builder (fecha o gap "lista"→crud).
+- **Changelog** `updates-data.ts`: entry v0.14.0. **Bump DS** 0.13.0→0.14.0.
+- Validação: `tsc` 0 · `npm test` 22/22 · registry:check ok · visual (data-list, mapa-rede, updates) ok.
+- **Assumption**: registry:build re-stampa todos os itens pra v0.14.0 (esperado num release). Deploy do registry = automático no merge (Vercel); publish do CLI = manual (mantenedor).
+- **Lições novas**: nenhuma nova nesta fase (L-044..L-048 já registradas).
+- **Pendência do mantenedor**: validar + **merge do PR #44**; publish manual do CLI 0.13.9; revogar token npm.
