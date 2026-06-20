@@ -23,7 +23,7 @@ export const listStyles = tv({
 
     /* card (item) */
     item:
-      "group/list-item relative flex items-center gap-gp-lg w-full p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-lg shadow-sh-sm text-left transition-[background-color,border-color,box-shadow,padding] duration-150 ease-out",
+      "group/list-item relative flex items-center gap-gp-lg w-full p-pad-xl bg-bg-surface border border-border-subtle dark:border-border-default rounded-radius-lg shadow-sh-sm text-left transition-[background-color,border-color,box-shadow,padding] duration-150 ease-out",
     handle:
       "inline-flex items-center justify-center shrink-0 -ml-pad-xs size-[20px] text-fg-subtle hover:text-fg-muted cursor-grab active:cursor-grabbing transition-colors [&>svg]:size-[16px]",
     checkbox: "shrink-0",
