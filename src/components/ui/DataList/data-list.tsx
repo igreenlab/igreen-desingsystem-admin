@@ -55,6 +55,7 @@ export function DataList(props: DataListProps) {
     virtualized,
     estimateItemSize = 76,
     onLoadChildren,
+    defaultExpandedIds,
     selectable,
     onSelectionChange,
     bulkActions,
@@ -75,6 +76,7 @@ export function DataList(props: DataListProps) {
     filterFields,
     views,
     persistKey,
+    defaultExpandedIds,
     onQueryChange,
     onSelectionChange,
   });

@@ -39,6 +39,7 @@ type Options = {
   filterFields?: FilterableField[];
   views?: DataListView[];
   persistKey?: string;
+  defaultExpandedIds?: Set<string>;
   onQueryChange?: (q: DataListQuery) => void;
   onSelectionChange?: (ids: Set<string>) => void;
 };
@@ -54,6 +55,7 @@ export function useDataList({
   filterFields,
   views,
   persistKey,
+  defaultExpandedIds,
   onQueryChange,
   onSelectionChange,
 }: Options) {
@@ -62,7 +64,9 @@ export function useDataList({
   );
   const [activeViewId, setActiveViewId] = useState<string | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
-  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [expanded, setExpanded] = useState<Set<string>>(
+    () => defaultExpandedIds ?? new Set(),
+  );
 
   useEffect(() => {
     if (!persistKey || typeof localStorage === "undefined") return;

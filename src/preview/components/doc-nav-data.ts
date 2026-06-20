@@ -149,6 +149,12 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "List", href: "list" },
       { label: "DataList", href: "data-list" },
+      // Exemplos do DataList (telas dedicadas)
+      { label: "Example: Standard", href: "list-standard" },
+      { label: "Example: Grouped + DnD", href: "list-grouped" },
+      { label: "Example: Hierarchical", href: "list-hierarchical" },
+      { label: "Example: Selecionável", href: "list-selectable" },
+      { label: "Example: Card rico", href: "list-rich" },
     ],
   },
   {

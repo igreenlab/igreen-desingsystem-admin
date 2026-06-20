@@ -87,6 +87,8 @@ export type DataListProps = {
 
   /* ── hierarquia lazy ──────────────────────────────────────── */
   onLoadChildren?: (id: string) => Promise<ListItemData[]>;
+  /** Nós expandidos no mount (layout hierarchical / grouped). */
+  defaultExpandedIds?: Set<string>;
 
   /* ── seleção / dnd / persistência ─────────────────────────── */
   selectable?: boolean;
