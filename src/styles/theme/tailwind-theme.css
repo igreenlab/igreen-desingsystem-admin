@@ -353,7 +353,7 @@
   --color-chart-5: oklch(0.70 0.17 300);
   --color-chart-grid: oklch(1 0 0 / 0.12);
   --ds-sh-none: none;
-  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.20);
+  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);
   --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);
   --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);
   --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);

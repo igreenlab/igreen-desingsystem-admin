@@ -51,7 +51,7 @@ export const shadow = {
     // Drop shadows reais no dark (antes: sm=none, md=hairline cinza claro → parecia
     // "mais claro" no hover). Agora sm = sombra sutil, md = elevação mais profunda
     // (sempre mais escura que sm). L-011: dark ≥ 2× a opacidade do light.
-    sm:    "0 1px 2px oklch(0 0 0 / 0.20)",
+    sm:    "0 1px 2px oklch(0 0 0 / 0.15)",
     md:    "0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42)",
     lg:    "0 8px 24px oklch(0 0 0 / 0.30)",
     xl:    "0 12px 32px oklch(0 0 0 / 0.40)",

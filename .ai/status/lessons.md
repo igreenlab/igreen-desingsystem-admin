@@ -903,6 +903,22 @@ bump + `npm publish` manual.
 
 ---
 
+**[L-043] Tailwind v4 INLINA o valor de `shadow` da `@theme` na utility — `.dark { --shadow-* }` é código morto.**
+Diferente de cores (que viram `var(--color-*)` na utility e são dark-aware), os tokens de
+**shadow** num `@theme` normal são **inlinados** literalmente na classe
+(`.shadow-sh-md { box-shadow: <valor light> }`). Logo, sobrescrever `--shadow-sh-md` em
+`.dark {}` **não tem efeito** — no dark a sombra continua com o valor light. Como o `md` light
+usa cinza-claro (`rgba(145,158,171,…)`), no fundo escuro virava um **"halo claro"** (mesma raiz
+do bug antigo do Tooltip). **Sintoma:** `getComputedStyle(html)['--shadow-sh-md']` retorna o valor
+dark, mas o `box-shadow` computado do elemento é o light → prova do inline. **Fix (transform
+`to-tailwind-v4.ts`):** indireção — `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` (a utility
+passa a referenciar a var) + `:root { --ds-sh-*: <light> }` e `.dark { --ds-sh-*: <dark> }` (vars
+comuns que o cascade FAZ flipar). **Regra pra IA:** qualquer token que precise mudar no dark e seja
+INLINADO pelo Tailwind v4 (shadow, drop-shadow, text-shadow) → usar `@theme inline` + var de
+indireção, nunca confiar em `.dark { --shadow-* }` direto. Mudança é FOUNDATIONAL (rebake no release).
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
