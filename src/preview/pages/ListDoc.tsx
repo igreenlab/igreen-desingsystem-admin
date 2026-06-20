@@ -338,6 +338,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-standard"
+        plain
         title="Standard"
         description="Lista plana. Cada card tem leading + título/subtítulo + meta em colunas (Role/Status/Last seen) + menu. Click no card abre detalhe (onItemClick)."
         code={`<List
@@ -359,6 +360,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-grouped"
+        plain
         title="Grouped + Drag and Drop"
         description="Seções colapsáveis por status. Arraste cards (handle aparece no hover) entre grupos e reordene dentro. O consumer commita no onMove."
         code={`<List
@@ -374,6 +376,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-hierarchical"
+        plain
         title="Hierarchical"
         description="Árvore-como-lista: níveis e subníveis colapsáveis com linhas de conexão. Entidades mistas por nível (empresa → manager → usuário). Clique no chevron pra expandir/recolher."
         code={`<List
@@ -394,6 +397,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-selectable"
+        plain
         title="Selecionável"
         description="selectable mostra checkbox por card; estado controlado via selectedIds + onSelectionChange (a base pro bulk no DataList)."
         code={`<List items={team} selectable selectedIds={set} onSelectionChange={setSet} />`}
@@ -403,6 +407,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-compact"
+        plain
         title="Densidade compacta"
         description="density='compact' reduz o gap vertical entre cards."
         code={`<List items={team} density="compact" />`}
@@ -412,6 +417,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-states"
+        plain
         title="Estados (loading / vazio)"
         description="loading mostra skeletons; sem itens mostra o emptyState."
         code={`<List items={[]} loading />
@@ -425,6 +431,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-rich-card"
+        plain
         title="Card rico (renderItem)"
         description="Variação de layout via renderItem: row de título + id + status e avatares à direita; row de meta com ícone+valor; footer com divider, progresso e data. O wrapper (card, hover, click) continua do List."
         code={`<List

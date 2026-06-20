@@ -3,7 +3,6 @@ export type {
   DataListProps,
   FilterableField,
   FilterFieldType,
-  ActiveFilter,
   DataListQuery,
   DataListView,
   DataListMode,

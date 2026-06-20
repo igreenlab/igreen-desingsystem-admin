@@ -73,8 +73,8 @@ const FILTER_FIELDS: FilterableField[] = [
 ];
 
 const VIEWS: DataListView[] = [
-  { id: "admins", label: "Admins", query: { search: "", filters: [{ fieldId: "role", value: "admin" }] } },
-  { id: "ativos", label: "Ativos", query: { search: "", filters: [{ fieldId: "status", value: "active" }] } },
+  { id: "admins", label: "Admins", query: { search: "", filterModel: { logicOperator: "AND", items: [{ id: "va", field: "role", operator: "equals", value: "admin" }] } } },
+  { id: "ativos", label: "Ativos", query: { search: "", filterModel: { logicOperator: "AND", items: [{ id: "vs", field: "status", operator: "equals", value: "active" }] } } },
 ];
 
 // dataset grande pra virtualização
@@ -105,6 +105,7 @@ export function DataListDoc() {
 
       <ExampleSection
         id="ex-completo"
+        plain
         title="Completo"
         description="Visões + busca + filtros (Papel/Status) + refresh + seleção com bulk bar. A busca e os filtros rodam client-side; selecione cards pra ver a barra de ações."
         code={`<DataList
@@ -136,6 +137,7 @@ export function DataListDoc() {
 
       <ExampleSection
         id="ex-virtual"
+        plain
         title="Virtualizado (1.000 itens)"
         description="virtualized renderiza só os cards visíveis (layout standard). DnD fica desligado nesse modo. Busca/filtros continuam funcionando sobre os 1k."
         code={`<DataList items={big} virtualized searchable filterFields={...} />`}

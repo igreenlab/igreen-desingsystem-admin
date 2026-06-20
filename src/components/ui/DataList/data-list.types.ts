@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
 import type {
   ListGroup,
   ListItemData,
@@ -20,17 +21,11 @@ export type FilterableField = {
   options?: { label: string; value: string }[];
 };
 
-/** Um filtro ativo. */
-export type ActiveFilter = {
-  fieldId: string;
-  /** valor: string (text/select/date), boolean, ou number. */
-  value: string | number | boolean;
-};
-
-/** Query corrente (persistida / enviada ao server). */
+/** Query corrente (persistida / enviada ao server). Usa o FilterModel da
+ *  TableToolbar — assim o drawer de filtro é o MESMO da tabela. */
 export type DataListQuery = {
   search: string;
-  filters: ActiveFilter[];
+  filterModel: FilterModel;
 };
 
 /** Saved view (Visão) — um preset de query. */

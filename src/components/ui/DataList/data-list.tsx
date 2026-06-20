@@ -151,8 +151,8 @@ export function DataList(props: DataListProps) {
         search={ctrl.query.search}
         onSearch={ctrl.setSearch}
         filterFields={filterFields}
-        filters={ctrl.query.filters}
-        onFilters={ctrl.setFilters}
+        filterModel={ctrl.query.filterModel}
+        onFilterModelChange={ctrl.setFilterModel}
         onRefresh={onRefresh}
         moreActions={moreActions}
         loading={loading}

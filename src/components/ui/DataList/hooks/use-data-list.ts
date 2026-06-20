@@ -1,27 +1,33 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
 import type { ListItemData } from "@/components/ui/List";
 import type {
-  ActiveFilter,
   DataListMode,
   DataListQuery,
   DataListView,
   FilterableField,
 } from "../data-list.types";
+import { applyFilterModel } from "../utils/apply-filter-model";
 
-const EMPTY_QUERY: DataListQuery = { search: "", filters: [] };
+const EMPTY_MODEL: FilterModel = { items: [], logicOperator: "AND" };
+const EMPTY_QUERY: DataListQuery = { search: "", filterModel: EMPTY_MODEL };
 
 function asText(v: unknown): string {
   return typeof v === "string" || typeof v === "number" ? String(v) : "";
 }
 
-/** Carrega a query persistida (best-effort). */
 function loadPersisted(key?: string): DataListQuery | null {
   if (!key || typeof localStorage === "undefined") return null;
   try {
     const raw = localStorage.getItem(`ds-datalist:${key}`);
     if (!raw) return null;
     const p = JSON.parse(raw);
-    return { search: p.search ?? "", filters: Array.isArray(p.filters) ? p.filters : [] };
+    return {
+      search: p.search ?? "",
+      filterModel: p.filterModel?.items
+        ? { items: p.filterModel.items, logicOperator: p.filterModel.logicOperator ?? "AND" }
+        : EMPTY_MODEL,
+    };
   } catch {
     return null;
   }
@@ -38,9 +44,9 @@ type Options = {
 };
 
 /**
- * Controller do DataList — orquestra query (search + filtros), views, seleção,
- * expansão e persistência. No modo client filtra/busca localmente; no server
- * só serializa a query via onQueryChange (consumer faz o fetch).
+ * Controller do DataList — query (search + filterModel), views, seleção,
+ * expansão, persistência. Client filtra/busca localmente; server só serializa
+ * a query via onQueryChange. Usa o FilterModel da TableToolbar (drawer idêntico).
  */
 export function useDataList({
   items,
@@ -58,17 +64,15 @@ export function useDataList({
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
 
-  /* persistência */
   useEffect(() => {
     if (!persistKey || typeof localStorage === "undefined") return;
     try {
       localStorage.setItem(`ds-datalist:${persistKey}`, JSON.stringify(query));
     } catch {
-      /* ignore quota */
+      /* quota */
     }
   }, [persistKey, query]);
 
-  /* server: emite query (debounce no search) */
   const onQueryChangeRef = useRef(onQueryChange);
   onQueryChangeRef.current = onQueryChange;
   useEffect(() => {
@@ -77,15 +81,14 @@ export function useDataList({
     return () => clearTimeout(t);
   }, [mode, query]);
 
-  /* mutadores */
   const setSearch = useCallback((search: string) => {
     setActiveViewId(null);
     setQuery((q) => ({ ...q, search }));
   }, []);
 
-  const setFilters = useCallback((filters: ActiveFilter[]) => {
+  const setFilterModel = useCallback((filterModel: FilterModel) => {
     setActiveViewId(null);
-    setQuery((q) => ({ ...q, filters }));
+    setQuery((q) => ({ ...q, filterModel }));
   }, []);
 
   const applyView = useCallback((view: DataListView | null) => {
@@ -113,7 +116,6 @@ export function useDataList({
     });
   }, [onSelectionChange]);
 
-  /** Substitui o set inteiro (a List controla seleção pelo set completo). */
   const replaceSelection = useCallback(
     (next: Set<string>) => {
       setSelected(next);
@@ -130,7 +132,6 @@ export function useDataList({
     });
   }, []);
 
-  /* client: aplica busca + filtros (flat; em grouped/hierarchical filtra no nível raiz) */
   const fieldsById = useMemo(() => {
     const m = new Map<string, FilterableField>();
     for (const f of filterFields ?? []) m.set(f.id, f);
@@ -154,41 +155,19 @@ export function useDataList({
     [query.search, filterFields],
   );
 
-  const matchesFilters = useCallback(
-    (item: ListItemData) => {
-      for (const f of query.filters) {
-        const field = fieldsById.get(f.fieldId);
-        if (!field) continue;
-        const val = field.accessor(item);
-        if (field.type === "boolean") {
-          if (Boolean(val) !== Boolean(f.value)) return false;
-        } else if (field.type === "number") {
-          if (Number(val) !== Number(f.value)) return false;
-        } else {
-          // text / select / date → comparação por substring/igualdade textual
-          const a = asText(val).toLowerCase();
-          const b = String(f.value).toLowerCase();
-          if (field.type === "select" || field.type === "date") {
-            if (a !== b) return false;
-          } else if (!a.includes(b)) return false;
-        }
-      }
-      return true;
-    },
-    [query.filters, fieldsById],
-  );
-
   const processedItems = useMemo(() => {
-    if (mode === "server") return items; // server já manda filtrado
-    if (!query.search && query.filters.length === 0) return items;
-    return items.filter((it) => matchesSearch(it) && matchesFilters(it));
-  }, [mode, items, query.search, query.filters, matchesSearch, matchesFilters]);
+    if (mode === "server") return items;
+    const searched = query.search
+      ? items.filter(matchesSearch)
+      : items;
+    return applyFilterModel(searched, query.filterModel, fieldsById);
+  }, [mode, items, query.search, query.filterModel, matchesSearch, fieldsById]);
 
   return {
     query,
     activeViewId,
     setSearch,
-    setFilters,
+    setFilterModel,
     applyView,
     views: views ?? [],
     selected,
