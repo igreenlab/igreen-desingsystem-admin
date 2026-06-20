@@ -71,7 +71,7 @@ Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separat
 `toggle` `toggle-group` `input-otp` `context-menu` `hover-card` `menubar` `navigation-menu`
 `carousel` `aspect-ratio` `drawer`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
-`footer-table` `kanban` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
+`footer-table` `kanban` `list` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
 `date-picker` `toast`.
 
 > **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
