@@ -323,6 +323,7 @@ const DOC_PAGES = [
   "clients-typed",
   "clients-kanban",
   "clientes-showcase",
+  "mapa-rede",
   "chat-v2",
   "dashboard-showcase",
   "showcase-v2",
@@ -569,6 +570,7 @@ export function App() {
             {activePage === "app-shell" && <AppShellDoc />}
             {activePage === "page-header" && <PageHeaderDoc />}
             {activePage === "clientes-showcase" && <ClientesShowcase />}
+            {activePage === "mapa-rede" && <MapaDeRedeShowcase />}
             {activePage === "chat-v2" && <ChatV2 />}
             {activePage === "dashboard-showcase" && <DashboardShowcase />}
             {activePage === "tokens-overview" && <TokensOverviewDoc />}

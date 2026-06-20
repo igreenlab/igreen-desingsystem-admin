@@ -171,6 +171,7 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "Showcase", href: "showcase-v2" },
       { label: "CRUD", href: "clientes-showcase" },
+      { label: "Mapa de Rede (Lista)", href: "mapa-rede" },
       { label: "Chat", href: "chat-v2" },
       { label: "Dashboard", href: "dashboard-showcase" },
       // Apps standalone (fullscreen via ?app=) — abrem fora do chrome de docs.
@@ -183,9 +184,9 @@ const BASE_NAV: DocNavSection[] = [
 
 /** Retorna o nav com o item ativo marcado por label */
 export function getDocNav(activeLabel: string): DocNavSection[] {
-  return BASE_NAV.map(section => ({
+  return BASE_NAV.map((section) => ({
     ...section,
-    items: section.items.map(item => ({
+    items: section.items.map((item) => ({
       ...item,
       active: item.label === activeLabel,
     })),
@@ -194,9 +195,9 @@ export function getDocNav(activeLabel: string): DocNavSection[] {
 
 /** Retorna o nav com o item ativo marcado por href (page ID) */
 export function getDocNavByHref(activeHref: string): DocNavSection[] {
-  return BASE_NAV.map(section => ({
+  return BASE_NAV.map((section) => ({
     ...section,
-    items: section.items.map(item => ({
+    items: section.items.map((item) => ({
       ...item,
       active: item.href === activeHref,
     })),
