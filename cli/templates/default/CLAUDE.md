@@ -39,6 +39,7 @@ import { FormFieldInput } from "@/components/ui/FormField";
 ```
 
 ### Componente do shadcn OFICIAL (não-@igreen) → já vem iGreen-tematizado
+
 O `index.css` tem um **bridge shadcn→iGreen** (`@theme inline`) que mapeia o vocabulário
 base do shadcn (`bg-primary`, `bg-background`, `border`, `rounded-md`…) pros tokens iGreen.
 Então se você puxar um componente do registry **oficial** (ex.: `npx shadcn add skeleton`,
@@ -48,14 +49,16 @@ light + dark. ⚠️ Componentes oficiais podem precisar de deps próprias (ex.:
 componente oficial, não do DS.
 
 ### MCP — descoberta assistida por IA (já configurado)
+
 O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** já consegue
 **listar / buscar / ver / adicionar** componentes `@igreen` por conta própria (lê o
-`components.json` + o `IGREEN_TOKEN` do `.env.local`). Peça à IA: *"liste os componentes
-@igreen"*, *"como uso o DataTable?"*, *"adicione o form-field"*. Cada componente traz seu
+`components.json` + o `IGREEN_TOKEN` do `.env.local`). Peça à IA: _"liste os componentes
+@igreen"_, _"como uso o DataTable?"_, _"adicione o form-field"_. Cada componente traz seu
 `USAGE.md` no copy-in — a IA lê pra saber a API. Pra **Cursor / VSCode / Codex**:
 `npx shadcn mcp init --client cursor` (ou `vscode`/`codex`).
 
 ### Já vem configurado (não mexa sem motivo)
+
 - `src/lib/utils.ts` (`cn`) e `src/utils/tv.ts` (`tv`) — **configurados pros prefixos
   DS** (pad/sp/gp/radius/sh/form) + presets tipográficos (L-016). Se sobrescrever pelo
   cn padrão do shadcn, a resolução de classe quebra em silêncio. `npm run doctor` valida.
@@ -64,6 +67,7 @@ O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** 
 - `components.json` — registry `@igreen` + Bearer já apontados.
 
 ### Catálogo de componentes (`@igreen/<nome>`)
+
 Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separator`
 `checkbox` `accordion` `alert` `alert-dialog` `avatar` `breadcrumb` `calendar` `command`
 `dialog` `dropdown-menu` `input-group` `pagination` `popover` `progress` `radio-group`
@@ -71,7 +75,7 @@ Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separat
 `toggle` `toggle-group` `input-otp` `context-menu` `hover-card` `menubar` `navigation-menu`
 `carousel` `aspect-ratio` `drawer`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
-`footer-table` `kanban` `list` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
+`footer-table` `kanban` `list` `data-list` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
 `date-picker` `toast`.
 
 > **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
@@ -79,9 +83,10 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 > (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
 > **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
 > · `tooltip`/`hover-card` (dica/prévia no hover).
-App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
-Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
-`example-edit-page` `example-order-detail` `example-dashboard` `example-chat`.
+> App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
+> Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
+> `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
+> `example-mapa-rede`.
 
 ## 🧭 Mapa de intenção → referência (IA: USE ISTO PRIMEIRO)
 
@@ -91,19 +96,20 @@ pronta de produção, nos padrões do DS. Depois **edite o copy-in** pro caso de
 dele). O catálogo visual hospedado mostra como cada um fica:
 **https://igreen-desingsystem-admin.vercel.app**.
 
-| Usuário diz algo como… | Puxe este item | Componente-chave |
-|---|---|---|
-| "crud", "lista", "tabela", "grid de dados", "listagem de X" | `example-clientes` | DataTable |
-| "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela" | `example-finance` | DataTable + KPI cards |
-| "tela de edição", "cadastro", "formulário", "editar X", "novo X" | `example-edit-page` | FormField |
-| "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail` | Tabs + Cards |
-| "dashboard", "painel", "visão geral", "gráfico", "indicadores" | `example-dashboard` | Chart + KPI cards |
-| "chat", "inbox", "conversas", "atendimento", "mensagens" | `example-chat` | ConversationColumn + thread |
-| "shell do app", "layout com menu lateral", "casca", "estrutura base" | `app-shell` (template) | AppShell |
-| "menu lateral", "sidebar", "navegação lateral" | `menu-sidebar` (template) | MenuSidebar |
-| "cabeçalho do app", "topbar", "header com usuário" | `header` (template) | Header |
-| "cabeçalho de página", "título + ações + breadcrumb" | `page-header` (template) | PageHeader |
-| "gráfico de barras/linha/área/pizza" | `chart` (componente) | ChartContainer |
+| Usuário diz algo como…                                                                    | Puxe este item            | Componente-chave            |
+| ----------------------------------------------------------------------------------------- | ------------------------- | --------------------------- |
+| "crud", "tabela", "grade/colunas", "planilha", "grid de dados"                            | `example-clientes`        | DataTable                   |
+| "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela"           | `example-finance`         | DataTable + KPI cards       |
+| "lista de cards", "árvore/hierarquia", "rede/organograma", "níveis", "treeview", "feed"   | `example-mapa-rede`       | DataList                    |
+| "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`       | FormField                   |
+| "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`    | Tabs + Cards                |
+| "dashboard", "painel", "visão geral", "gráfico", "indicadores"                            | `example-dashboard`       | Chart + KPI cards           |
+| "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`            | ConversationColumn + thread |
+| "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)    | AppShell                    |
+| "menu lateral", "sidebar", "navegação lateral"                                            | `menu-sidebar` (template) | MenuSidebar                 |
+| "cabeçalho do app", "topbar", "header com usuário"                                        | `header` (template)       | Header                      |
+| "cabeçalho de página", "título + ações + breadcrumb"                                      | `page-header` (template)  | PageHeader                  |
+| "gráfico de barras/linha/área/pizza"                                                      | `chart` (componente)      | ChartContainer              |
 
 > **Regra pra IA**: "quero igual ao exemplo de Finance" / "seguir a estrutura do Finance"
 > → `npm run igreen:add -- example-finance` e adapte. Combine livremente: um dashboard com
@@ -142,6 +148,7 @@ Roteamento é por **skill** (nativo, barato) — sem subagente pra rotear; subag
 trabalho pesado em paralelo (ex.: montar várias telas de uma vez).
 
 ### 🔒 Integridade do DS (protegido por hook)
+
 Tema/tokens (`src/styles/theme/**`) e a fundação (`cn`/`tv`/`lucide-types`) são
 **gerenciados** — um hook (`.claude/hooks/protect-ds.mjs`) **bloqueia** edição manual
 deles (quebram o visual todo e somem no update). Editar um componente do DS é
@@ -176,8 +183,10 @@ text-body-sm font-semibold   // override de weight sobre preset
 ```
 
 ## Dark mode
+
 CSS vars `--color-*` (light) + `.dark { }` (dark). Aplique `.dark` no `<html>` —
 componentes consomem tokens, sem lógica condicional de tema.
 
 ## Pipeline completo do DS
+
 → https://github.com/snksergio/igreen-admin-desingsystem
