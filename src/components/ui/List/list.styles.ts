@@ -40,7 +40,7 @@ export const listStyles = tv({
       "text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle",
     metaValue: "text-body-sm text-fg-default",
     trailing: "shrink-0 flex items-center gap-gp-md",
-    actions: "shrink-0 flex items-center",
+    actions: "shrink-0 flex items-center ml-pad-xs",
 
     /* hierarquia */
     indent: "shrink-0 self-stretch relative",
