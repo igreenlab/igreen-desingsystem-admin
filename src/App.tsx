@@ -60,6 +60,7 @@ import { DataListDoc } from "./preview/pages/DataListDoc";
 import ListStandardPreview from "./preview/pages/ListStandardPreview";
 import ListGroupedPreview from "./preview/pages/ListGroupedPreview";
 import ListHierarchicalPreview from "./preview/pages/ListHierarchicalPreview";
+import ListHierarchicalSandboxPreview from "./preview/pages/ListHierarchicalSandboxPreview";
 import ListSelectablePreview from "./preview/pages/ListSelectablePreview";
 import ListRichPreview from "./preview/pages/ListRichPreview";
 import { ModalDoc } from "./preview/pages/ModalDoc";
@@ -196,7 +197,7 @@ const DOC_PAGES = [
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "toast", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "list", "data-list", "list-standard", "list-grouped", "list-hierarchical", "list-selectable", "list-rich", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "list", "data-list", "list-standard", "list-grouped", "list-hierarchical", "list-hierarchical-sandbox", "list-selectable", "list-rich", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -384,6 +385,7 @@ export function App() {
           {activePage === "list-standard" && <ListStandardPreview />}
           {activePage === "list-grouped" && <ListGroupedPreview />}
           {activePage === "list-hierarchical" && <ListHierarchicalPreview />}
+          {activePage === "list-hierarchical-sandbox" && <ListHierarchicalSandboxPreview />}
           {activePage === "list-selectable" && <ListSelectablePreview />}
           {activePage === "list-rich" && <ListRichPreview />}
           {activePage === "modal" && <ModalDoc />}

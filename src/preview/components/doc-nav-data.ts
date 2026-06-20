@@ -153,6 +153,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: Standard", href: "list-standard" },
       { label: "Example: Grouped + DnD", href: "list-grouped" },
       { label: "Example: Hierarchical", href: "list-hierarchical" },
+      { label: "Example: Hierarchical (sandbox)", href: "list-hierarchical-sandbox" },
       { label: "Example: Selecionável", href: "list-selectable" },
       { label: "Example: Card rico", href: "list-rich" },
     ],
