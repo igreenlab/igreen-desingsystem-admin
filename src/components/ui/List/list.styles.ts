@@ -23,7 +23,7 @@ export const listStyles = tv({
 
     /* card (item) */
     item:
-      "group/list-item relative flex items-center gap-gp-lg w-full p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-lg text-left transition-[background-color,border-color,box-shadow,padding] duration-150 ease-out",
+      "group/list-item relative flex items-center gap-gp-lg w-full p-pad-xl bg-bg-surface border border-border-subtle rounded-radius-lg shadow-sh-sm text-left transition-[background-color,border-color,box-shadow,padding] duration-150 ease-out",
     handle:
       "inline-flex items-center justify-center shrink-0 -ml-pad-xs size-[20px] text-fg-subtle hover:text-fg-muted cursor-grab active:cursor-grabbing transition-colors [&>svg]:size-[16px]",
     checkbox: "shrink-0",
@@ -67,7 +67,7 @@ export const listStyles = tv({
     },
     clickable: {
       true: {
-        item: "cursor-pointer hover:border-border-default hover:shadow-sh-sm dark:hover:bg-bg-canvas",
+        item: "cursor-pointer hover:border-border-default hover:shadow-sh-md dark:hover:bg-bg-canvas",
       },
     },
     selected: {
