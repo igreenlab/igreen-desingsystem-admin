@@ -43,13 +43,16 @@ export function HierarchicalLayout({
 }: HierarchicalLayoutProps) {
   const s = listStyles({ density });
   const rows = flattenTree(items, expanded);
+  // bridge das linhas: estende cada guia vertical pra cima pelo gap entre cards,
+  // pra os segmentos se encontrarem (linhas contínuas em vez de quebradas).
+  const gap = density === "compact" ? 6 : 8;
 
   return (
     <div className={s.root({ density })}>
       {rows.map((row) => (
         <div key={row.item.id} className="flex items-stretch">
           {showConnectors && row.depth > 0 && (
-            <Connector row={row} indentSize={indentSize} styles={s} />
+            <Connector row={row} indentSize={indentSize} gap={gap} styles={s} />
           )}
           {!showConnectors && row.depth > 0 && (
             <span style={{ width: row.depth * indentSize }} className="shrink-0" aria-hidden />
@@ -100,13 +103,16 @@ export function HierarchicalLayout({
 function Connector({
   row,
   indentSize,
+  gap,
   styles: s,
 }: {
   row: FlatRow;
   indentSize: number;
+  gap: number;
   styles: ReturnType<typeof listStyles>;
 }) {
   const cols = Array.from({ length: row.depth });
+  const vLine = { left: "50%", width: 1, transform: "translateX(-50%)" } as const;
   return (
     <div className="flex shrink-0" aria-hidden>
       {cols.map((_, i) => {
@@ -114,23 +120,29 @@ function Connector({
         if (isElbow) {
           return (
             <span key={i} style={{ width: indentSize }} className={s.indent()}>
-              {/* vertical: topo→centro */}
-              <span className={cn(s.connector(), "left-1/2 top-0 h-1/2 w-px -translate-x-1/2")} />
-              {/* vertical: centro→baixo (só se tem irmão) */}
+              {/* vertical: (gap acima) → centro do card */}
+              <span
+                className={s.connector()}
+                style={{ ...vLine, top: -gap, height: `calc(50% + ${gap}px)` }}
+              />
+              {/* vertical: centro → base (só se tem irmão depois) */}
               {!row.isLast && (
-                <span className={cn(s.connector(), "left-1/2 top-1/2 bottom-0 w-px -translate-x-1/2")} />
+                <span className={s.connector()} style={{ ...vLine, top: "50%", bottom: 0 }} />
               )}
-              {/* horizontal: centro→card */}
-              <span className={cn(s.connector(), "left-1/2 top-1/2 right-0 h-px -translate-y-1/2")} />
+              {/* horizontal: centro → card */}
+              <span
+                className={s.connector()}
+                style={{ left: "50%", right: 0, top: "50%", height: 1, transform: "translateY(-50%)" }}
+              />
             </span>
           );
         }
-        // pass-through dos ancestrais
+        // pass-through dos ancestrais — estende pra cima pelo gap (linha contínua)
         const continues = row.ancestorHasNext[i];
         return (
           <span key={i} style={{ width: indentSize }} className={s.indent()}>
             {continues && (
-              <span className={cn(s.connector(), "left-1/2 top-0 bottom-0 w-px -translate-x-1/2")} />
+              <span className={s.connector()} style={{ ...vLine, top: -gap, bottom: 0 }} />
             )}
           </span>
         );
