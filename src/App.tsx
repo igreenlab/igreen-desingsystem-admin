@@ -55,6 +55,7 @@ import { RadialChartDoc } from "./preview/pages/RadialChartDoc";
 import { ChartShowcaseDoc } from "./preview/pages/ChartShowcaseDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
+import { ListDoc } from "./preview/pages/ListDoc";
 import { ModalDoc } from "./preview/pages/ModalDoc";
 import ClientsCRUDPreview from "./preview/pages/ClientsCRUDPreview";
 import ClientsCRUDServerPreview from "./preview/pages/ClientsCRUDServerPreview";
@@ -189,7 +190,7 @@ const DOC_PAGES = [
   "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
   "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
   "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "toast", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "list", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -372,6 +373,7 @@ export function App() {
           {activePage === "data-table" && <DataTableDoc />}
           {activePage === "tabela-teste" && <TabelaTesteDoc />}
           {activePage === "kanban" && <KanbanDoc />}
+          {activePage === "list" && <ListDoc />}
           {activePage === "modal" && <ModalDoc />}
           {activePage === "clients-crud" && <ClientsCRUDPreview />}
           {activePage === "clients-crud-server" && <ClientsCRUDServerPreview />}

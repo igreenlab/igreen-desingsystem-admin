@@ -131,6 +131,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Footer Table", href: "footer-table" },
       { label: "Tabela Teste", href: "tabela-teste" },
       { label: "Kanban", href: "kanban" },
+      { label: "List", href: "list" },
       { label: "DataTable", href: "data-table" },
       // Exemplos do DataTable
       { label: "Example: CRUD", href: "clients-crud" },

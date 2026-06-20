@@ -210,18 +210,6 @@
   --border-width-xs: 1px;
   --border-width-sm: 2px;
   --border-width-md: 4px;
-  --shadow-sh-none: none;
-  --shadow-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);
-  --shadow-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;
-  --shadow-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);
-  --shadow-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);
-  --shadow-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);
-  --shadow-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);
-  --shadow-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);
-  --shadow-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
-  --shadow-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
-  --shadow-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
-  --shadow-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
   --opacity-disabled: 0.38;
   --opacity-hover: 0.08;
   --opacity-focus: 0.12;
@@ -244,6 +232,38 @@
   --z-index-tooltip: 700;
   --scrollbar-width-thin: 6px;
   --scrollbar-width-default: 8px;
+}
+
+/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */
+
+@theme inline {
+  --shadow-sh-none: var(--ds-sh-none);
+  --shadow-sh-sm: var(--ds-sh-sm);
+  --shadow-sh-md: var(--ds-sh-md);
+  --shadow-sh-lg: var(--ds-sh-lg);
+  --shadow-sh-xl: var(--ds-sh-xl);
+  --shadow-sh-2xl: var(--ds-sh-2xl);
+  --shadow-sh-aside: var(--ds-sh-aside);
+  --shadow-sh-ring: var(--ds-sh-ring);
+  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);
+  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);
+  --shadow-sh-ring-success: var(--ds-sh-ring-success);
+  --shadow-sh-ring-info: var(--ds-sh-ring-info);
+}
+
+:root {
+  --ds-sh-none: none;
+  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);
+  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;
+  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);
+  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);
+  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);
+  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);
+  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);
+  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
+  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
+  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
 }
 
 /* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */
@@ -332,18 +352,18 @@
   --color-chart-4: oklch(0.80 0.15 80);
   --color-chart-5: oklch(0.70 0.17 300);
   --color-chart-grid: oklch(1 0 0 / 0.12);
-  --shadow-sh-none: none;
-  --shadow-sh-sm: none;
-  --shadow-sh-md: 0 0 0 1px oklch(0.2645 0 0);
-  --shadow-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);
-  --shadow-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);
-  --shadow-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);
-  --shadow-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);
-  --shadow-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);
-  --shadow-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
-  --shadow-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
-  --shadow-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
-  --shadow-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
+  --ds-sh-none: none;
+  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);
+  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);
+  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);
+  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);
+  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);
+  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);
+  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);
+  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);
+  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);
+  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);
+  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
 }
 
 /* ── Typography utilities (composite presets) ─────────────────────────────── */
