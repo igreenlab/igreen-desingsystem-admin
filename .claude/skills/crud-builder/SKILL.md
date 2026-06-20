@@ -18,6 +18,9 @@ gera código de memória e NÃO toca em arquivo antes do gate ser aprovado.
 
 - ✅ Telas de tabela/CRUD: client/server mode, filtros, views, kanban,
   virtualização, grouping, expansion, inline edit, totalizers, bulk actions.
+- ⛔ **Lista de cards** (DataList) → skill IRMÃ `list-builder/` (`/ds-create-list`).
+  Se o caso for card/feed/árvore/agrupamento visual e NÃO grade de colunas, PARAR
+  e mandar pra lá. Front-door que desambigua: `/ds-create-screen`.
 - ⛔ Dashboards, forms standalone, wizards — fora de escopo. Expansão futura =
   skill IRMÃ (`page-builder/`, `form-builder/`), nunca inchaço desta.
 
