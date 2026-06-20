@@ -72,6 +72,14 @@ export type DataListProps = {
   /** Disparado quando a query muda (server faz o fetch). */
   onQueryChange?: (query: DataListQuery) => void;
 
+  /* ── infinite scroll ──────────────────────────────────────── */
+  /** Carrega a próxima página ao chegar no fim da lista (sentinel). */
+  onLoadMore?: () => void;
+  /** Há mais itens pra carregar (controla o sentinel + skeleton). */
+  hasMore?: boolean;
+  /** Carregando a próxima página — mostra cards skeleton no fim. */
+  loadingMore?: boolean;
+
   /* ── virtualização (só layout standard; exclui DnD) ───────── */
   virtualized?: boolean;
   /** Altura estimada de cada card (px) — virtualização. Default 76. */

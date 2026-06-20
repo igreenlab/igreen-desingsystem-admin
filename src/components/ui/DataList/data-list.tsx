@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/Button";
 import { useDataList } from "./hooks/use-data-list";
 import { DataListToolbar } from "./parts/data-list-toolbar";
 import { DataListVirtualized } from "./parts/data-list-virtualized";
+import { DataListInfinite } from "./parts/data-list-infinite";
 import type { DataListProps } from "./data-list.types";
 
 /** Injeta filhos carregados (lazy) nos nós correspondentes da árvore. */
@@ -48,6 +49,9 @@ export function DataList(props: DataListProps) {
     loading,
     total,
     onQueryChange,
+    onLoadMore,
+    hasMore,
+    loadingMore,
     virtualized,
     estimateItemSize = 76,
     onLoadChildren,
@@ -182,6 +186,14 @@ export function DataList(props: DataListProps) {
       )}
 
       {body}
+
+      {onLoadMore && !useVirtual && (
+        <DataListInfinite
+          onLoadMore={onLoadMore}
+          hasMore={Boolean(hasMore)}
+          loading={Boolean(loadingMore)}
+        />
+      )}
     </div>
   );
 }

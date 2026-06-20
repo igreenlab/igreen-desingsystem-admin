@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Archive, Pencil, Trash2, User } from "lucide-react";
 import { DataList, type FilterableField, type DataListView } from "../../components/ui/DataList";
 import type { ListItemData } from "../../components/ui/List";
@@ -15,6 +16,7 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-completo", label: "Completo" },
   { id: "ex-virtual", label: "Virtualizado" },
+  { id: "ex-infinite", label: "Infinite scroll" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -81,6 +83,38 @@ const VIEWS: DataListView[] = [
 const BIG: ListItemData[] = Array.from({ length: 1000 }, (_, i) =>
   person(`u${i}`, `Usuário ${i + 1}`, `user${i + 1}@example.com`, (["admin", "editor", "viewer"] as const)[i % 3], ["active", "pending", "inactive"][i % 3], `${(i % 59) + 1} min`),
 );
+
+// pool finito pra demonstrar paginação por scroll
+const POOL: ListItemData[] = Array.from({ length: 40 }, (_, i) =>
+  person(`p${i}`, `Pessoa ${i + 1}`, `pessoa${i + 1}@example.com`, (["admin", "editor", "viewer"] as const)[i % 3], ["active", "pending", "inactive"][i % 3], `${(i % 59) + 1} min`),
+);
+const PAGE_SIZE = 8;
+
+function InfiniteExample() {
+  const [items, setItems] = useState<ListItemData[]>(() => POOL.slice(0, PAGE_SIZE));
+  const [loadingMore, setLoadingMore] = useState(false);
+  const hasMore = items.length < POOL.length;
+
+  const loadMore = () => {
+    if (loadingMore || !hasMore) return;
+    setLoadingMore(true);
+    // simula latência de rede; em produção seria o fetch da próxima página
+    setTimeout(() => {
+      setItems((prev) => POOL.slice(0, prev.length + PAGE_SIZE));
+      setLoadingMore(false);
+    }, 900);
+  };
+
+  return (
+    <DataList
+      title="Atividade"
+      items={items}
+      onLoadMore={loadMore}
+      hasMore={hasMore}
+      loadingMore={loadingMore}
+    />
+  );
+}
 
 export function DataListDoc() {
   return (
@@ -152,6 +186,32 @@ export function DataListDoc() {
         />
       </ExampleSection>
 
+      <ExampleSection
+        id="ex-infinite"
+        plain
+        title="Infinite scroll + skeleton"
+        description="Ao chegar perto do fim da lista, onLoadMore dispara a próxima página (IntersectionObserver). Enquanto carrega, cards skeleton aparecem no fim. Role até embaixo pra ver."
+        code={`function Example() {
+  const [items, setItems] = useState(pool.slice(0, 8));
+  const [loadingMore, setLoadingMore] = useState(false);
+  const hasMore = items.length < pool.length;
+
+  const loadMore = () => {
+    setLoadingMore(true);
+    fetchNextPage().then((next) => {
+      setItems((prev) => [...prev, ...next]);
+      setLoadingMore(false);
+    });
+  };
+
+  return (
+    <DataList items={items} onLoadMore={loadMore} hasMore={hasMore} loadingMore={loadingMore} />
+  );
+}`}
+      >
+        <InfiniteExample />
+      </ExampleSection>
+
       <DocSeparator />
       <SectionH2 id="api" title="API Reference" />
       <PropsTable
@@ -160,6 +220,7 @@ export function DataListDoc() {
           { name: "title · searchable · filterFields · views · onRefresh · moreActions", type: "toolbar enxuta", defaultVal: "—" },
           { name: "filterFields", type: "{ id, label, accessor, type, options? }[]", defaultVal: "—" },
           { name: "mode + onQueryChange · loading · total", type: "server/async ('client' default)", defaultVal: '"client"' },
+          { name: "onLoadMore + hasMore + loadingMore", type: "infinite scroll (sentinel + skeleton)", defaultVal: "—" },
           { name: "virtualized + estimateItemSize", type: "listas grandes (só standard; desliga DnD)", defaultVal: "false / 76" },
           { name: "onLoadChildren(id)", type: "lazy-load de filhos (hierarchical)", defaultVal: "—" },
           { name: "selectable + onSelectionChange + bulkActions", type: "seleção + bulk bar", defaultVal: "—" },

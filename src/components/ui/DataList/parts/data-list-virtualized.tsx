@@ -35,11 +35,15 @@ export function DataListVirtualized({
   height = 480,
 }: Props) {
   const parentRef = useRef<HTMLDivElement>(null);
+  // mesmo gap do List não-virtualizado (root: comfortable=gap-gp-lg 10px / compact=gap-gp-md 8px)
   const gap = density === "compact" ? 8 : 10;
   const v = useVirtualizer({
     count: items.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => estimateItemSize,
+    // mede a altura REAL de cada card — sem isso o estimateItemSize (76) reservava
+    // mais espaço que o card renderizado e o excedente aparecia como "gap" grande.
+    measureElement: (el) => el.getBoundingClientRect().height,
     overscan: 8,
     gap,
   });
@@ -52,6 +56,8 @@ export function DataListVirtualized({
           return (
             <div
               key={item.id}
+              data-index={row.index}
+              ref={v.measureElement}
               style={{
                 position: "absolute",
                 top: 0,

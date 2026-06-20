@@ -9,7 +9,10 @@ cards "crus" sem toolbar, use `List`. Para tabela densa, `DataTable`.
 
 ## Toolbar (enxuta — sem colunas)
 Visões (ou `title`) · refresh · search · filtro · `⋯`. **Não tem** toggle de visão
-nem menu de configurações de colunas (é cards, não tabela).
+nem menu de configurações de colunas (é cards, não tabela). Reusa o `<TableToolbar>`
+(dumb): as **visões viram abas** (1ª aba = `title`/"Todos", igual à DataTable) e os
+filtros aplicados aparecem como **chips** (`<ToolbarApplied>`) abaixo da toolbar —
+o drawer de filtro é o MESMO `<ToolbarSimpleFilterDrawer>` da tabela.
 
 ## Exemplo
 ```tsx
@@ -23,7 +26,7 @@ nem menu de configurações de colunas (é cards, não tabela).
     { id: "status", label: "Status", type: "select", accessor: (i) => i.data.status,
       options: [{ label: "Ativo", value: "active" }, { label: "Pendente", value: "pending" }] },
   ]}
-  views={[{ id: "admins", label: "Admins", query: { search: "", filters: [{ fieldId: "role", value: "admin" }] } }]}
+  views={[{ id: "admins", label: "Admins", query: { search: "", filterModel: { logicOperator: "AND", items: [{ id: "v1", field: "role", operator: "equals", value: "admin" }] } } }]}
   selectable
   bulkActions={[{ label: "Arquivar", onClick: (ids) => archive(ids) }]}
   onRefresh={refetch}
@@ -38,6 +41,7 @@ nem menu de configurações de colunas (é cards, não tabela).
 | `title` · `searchable` · `filterFields` · `views` · `onRefresh` · `moreActions` | toolbar |
 | `filterFields` | `{ id, label, accessor, type: text/select/boolean/number/date, options? }` |
 | `mode` `"client"`/`"server"` + `onQueryChange` · `loading` · `total` | dados server/async |
+| `onLoadMore` + `hasMore` + `loadingMore` | infinite scroll (sentinel IntersectionObserver + cards skeleton) — **não virtualizado** |
 | `virtualized` (+ `estimateItemSize`) | listas grandes — **só layout standard** |
 | `onLoadChildren(id)` | lazy-load de filhos (hierarchical) |
 | `selectable` + `onSelectionChange` + `bulkActions` | seleção + bulk bar |
@@ -52,4 +56,8 @@ nem menu de configurações de colunas (é cards, não tabela).
   (debounce no search) e renderiza o que vier em `items` (use `loading`/`total`).
 - **Filtros por campos** (não colunas): o consumer declara `filterFields`. Busca textual
   cobre title/subtitle/description + accessors dos campos.
+- **Infinite scroll** (`onLoadMore`/`hasMore`/`loadingMore`): o consumer controla os `items`
+  (append da próxima página) — o DataList só dispara `onLoadMore` quando o sentinel entra na
+  viewport (rootMargin 200px) e mostra skeletons enquanto `loadingMore`. Incompatível com
+  `virtualized` (use um, não os dois).
 - A doc viva é o showcase `#/data-list`.

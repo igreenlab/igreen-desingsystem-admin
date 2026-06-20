@@ -1,9 +1,10 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { ChevronDown, MoreHorizontal, RefreshCw, SlidersHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { MoreHorizontal, RefreshCw, SlidersHorizontal } from "lucide-react";
 import {
   TableToolbar,
   ToolbarSearch,
+  ToolbarTabs,
+  ToolbarApplied,
   ToolbarToolButton,
   ToolbarSimpleFilterDrawer,
 } from "@/components/ui/TableToolbar";
@@ -15,9 +16,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
 import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
-import type { FilterPopoverColumn } from "@/components/ui/TableToolbar";
+import type {
+  AppliedFilter,
+  FilterPopoverColumn,
+  ToolbarTab,
+} from "@/components/ui/TableToolbar";
 import type { DataListView, FilterableField } from "../data-list.types";
 import type { ListMenuItem } from "@/components/ui/List";
+
+const ALL_VIEW_ID = "__all__";
 
 type Props = {
   title?: ReactNode;
@@ -49,9 +56,57 @@ function toColumns(fields: FilterableField[]): FilterPopoverColumn[] {
 }
 
 /**
+ * Converte o FilterModel (lista flat de items) → chips agrupados por
+ * field+operator (mesma representação visual da TableToolbar). Versão enxuta
+ * do `useFilterPopoverAdapter` da DataTable — sem ColumnDef/phantom/edit-on-click,
+ * só o necessário pra exibir e remover chips no DataList.
+ */
+function toAppliedFilters(
+  model: FilterModel,
+  fieldsById: Map<string, FilterableField>,
+): AppliedFilter[] {
+  const grouped = new Map<string, FilterModel["items"]>();
+  for (const item of model.items) {
+    const isEmpty =
+      item.operator !== "isEmpty" &&
+      item.operator !== "isNotEmpty" &&
+      (item.value == null ||
+        item.value === "" ||
+        (Array.isArray(item.value) && item.value.length === 0));
+    if (isEmpty) continue;
+    const key = `${item.field}|${item.operator}`;
+    if (!grouped.has(key)) grouped.set(key, []);
+    grouped.get(key)!.push(item);
+  }
+
+  return Array.from(grouped.entries()).map(([key, items]) => {
+    const field = fieldsById.get(items[0].field);
+    const columnLabel = field?.label ?? items[0].field;
+    const labelOf = (v: unknown): string =>
+      field?.options?.find((o) => o.value === String(v))?.label ?? String(v);
+
+    const values: string[] = [];
+    for (const it of items) {
+      if (Array.isArray(it.value)) for (const v of it.value) values.push(labelOf(v));
+      else if (it.value != null && it.value !== "") values.push(labelOf(it.value));
+    }
+    const value: ReactNode | ReactNode[] =
+      values.length <= 2 ? values : `${values.length} selecionados`;
+
+    return {
+      id: key,
+      columnLabel,
+      op: items[0].operator as AppliedFilter["op"],
+      value,
+    };
+  });
+}
+
+/**
  * Toolbar do DataList — reusa o `<TableToolbar>` (dumb, slot-based) passando só
- * os slots necessários (savedViews/título · refresh · search · filtro→drawer ·
- * ⋯). SEM viewToggle e SEM settings/colunas. O filtro é o MESMO drawer da tabela.
+ * os slots necessários (visões em abas/título · refresh · search · filtro→drawer ·
+ * ⋯). SEM viewToggle e SEM settings/colunas. O filtro é o MESMO drawer da tabela
+ * e os chips de filtro aplicado são o MESMO `<ToolbarApplied>`.
  */
 export function DataListToolbar({
   title,
@@ -71,45 +126,54 @@ export function DataListToolbar({
   loading,
 }: Props) {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const activeView = views.find((v) => v.id === activeViewId) ?? null;
   const columns = useMemo(() => toColumns(filterFields ?? []), [filterFields]);
-  const filterCount = useMemo(
-    () =>
-      filterModel.items.filter(
-        (i) =>
-          i.operator === "isEmpty" ||
-          i.operator === "isNotEmpty" ||
-          (i.value != null && i.value !== "" && !(Array.isArray(i.value) && i.value.length === 0)),
-      ).length,
-    [filterModel],
+  const fieldsById = useMemo(() => {
+    const m = new Map<string, FilterableField>();
+    for (const f of filterFields ?? []) m.set(f.id, f);
+    return m;
+  }, [filterFields]);
+  const appliedFilters = useMemo(
+    () => toAppliedFilters(filterModel, fieldsById),
+    [filterModel, fieldsById],
   );
+  const filterCount = appliedFilters.length;
 
-  const savedViewsSlot =
-    views.length > 0 ? (
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" color="secondary" size="sm" iconRight={<ChevronDown />}>
-            {activeView?.label ?? title ?? "Todos"}
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="start" sideOffset={4}>
-          <DropdownMenuItem onSelect={() => onApplyView(null)}>Todos</DropdownMenuItem>
-          <DropdownMenuSeparator />
-          {views.map((v) => (
-            <DropdownMenuItem key={v.id} onSelect={() => onApplyView(v)}>
-              {v.label}
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-    ) : title ? (
-      <h2 className="text-title-md font-semibold text-fg-default">
-        {title}
-        {typeof count === "number" && (
-          <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">{count}</span>
-        )}
-      </h2>
-    ) : undefined;
+  // Visões em ABAS (igual DataTable): 1ª aba = "Todos" (ou o título), demais = views.
+  const tabs: ToolbarTab[] | undefined =
+    views.length > 0
+      ? [
+          { id: ALL_VIEW_ID, name: title ?? "Todos" },
+          ...views.map((v) => ({ id: v.id, name: v.label })),
+        ]
+      : undefined;
+
+  const savedViewsSlot = tabs ? (
+    <ToolbarTabs
+      tabs={tabs}
+      activeId={activeViewId ?? ALL_VIEW_ID}
+      onSelect={(id) =>
+        onApplyView(id === ALL_VIEW_ID ? null : views.find((v) => v.id === id) ?? null)
+      }
+      ariaLabel="Visões"
+    />
+  ) : title ? (
+    <h2 className="text-title-md font-semibold text-fg-default">
+      {title}
+      {typeof count === "number" && (
+        <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">{count}</span>
+      )}
+    </h2>
+  ) : undefined;
+
+  const removeFilter = (groupKey: string) => {
+    const [field, operator] = groupKey.split("|");
+    onFilterModelChange({
+      ...filterModel,
+      items: filterModel.items.filter(
+        (i) => !(i.field === field && i.operator === operator),
+      ),
+    });
+  };
 
   return (
     <>
@@ -171,6 +235,15 @@ export function DataListToolbar({
             </DropdownMenu>
           ) : undefined
         }
+      />
+
+      {/* Chips dos filtros aplicados — mesmo componente da DataTable. O wrapper
+          do DataList já controla o gap (flex-col gap-gp-lg) → separator={false}. */}
+      <ToolbarApplied
+        filters={appliedFilters}
+        onRemove={removeFilter}
+        onClearAll={() => onFilterModelChange({ ...filterModel, items: [] })}
+        separator={false}
       />
 
       {filterFields && filterFields.length > 0 && (
