@@ -321,9 +321,7 @@ function NestedTree({
                     styles={s}
                     onClick={() => onToggle(node.id)}
                   />
-                ) : (
-                  <span className="size-[20px] shrink-0" aria-hidden />
-                )
+                ) : undefined
               }
             />
             {isOpen && (
