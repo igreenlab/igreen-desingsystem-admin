@@ -46,6 +46,23 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.14.1",
+    date: "2026-06-21",
+    tag: "patch",
+    title:
+      "Mapa de Rede repaginado — card rico + conectores + filtros/abas/refresh",
+    summary:
+      "Polimento do exemplo Mapa de Rede (`#/mapa-rede` · `igreen:add example-mapa-rede`): muito mais dados (rede multi-raiz realista por regiões, ~30 consultores em vários níveis), card no estilo 'card rico' com avatar colorido + ícones (GP, clientes, agregado da subárvore, região, última atividade) e graduação/PRO em chips, layout hierarchical com destaque de **conectores** (linhas de árvore), e toolbar completa: **abas** (visões PRO / Diretoria / Sudeste), busca, **filtros** (graduação / região / PRO) e botão de **refresh**. Painel de detalhe enriquecido (telefone, região, última atividade). Menu renomeado pra 'Mapa de Rede'.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "Exemplo Mapa de Rede: card rico (avatar + ícones + chips), conectores, mais dados (multi-raiz por região), abas/filtros/busca/refresh na toolbar e painel de detalhe enriquecido. Showcase + `example-mapa-rede` (registry) sincronizados.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.14.0",
     date: "2026-06-20",
     tag: "release",

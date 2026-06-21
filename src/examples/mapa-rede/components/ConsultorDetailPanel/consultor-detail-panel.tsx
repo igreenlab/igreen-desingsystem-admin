@@ -4,12 +4,15 @@ import {
   FloatingPanelSection,
   FloatingPanelField,
 } from "@/components/ui/FloatingPanel";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import {
   GRADUACAO,
+  REGIAO,
   formatLongDate,
   formatNum,
+  initials,
   subtreeLabel,
 } from "../../mapa-de-rede-mocks";
 import type { Consultor } from "../../mapa-de-rede.types";
@@ -45,23 +48,32 @@ export function ConsultorDetailPanel({
       bodyPadded={false}
       resizableStorageKey="mapa-de-rede.detail-panel.width"
       titleSlot={
-        <div className="flex min-w-0 flex-col gap-gp-2xs">
-          <span className="truncate text-body-md font-semibold text-fg-default">
-            {consultor.name}
-          </span>
-          <span className="flex items-center gap-gp-sm">
-            <Chip color="neutral" variant="soft" size="sm" shape="pill">
-              {consultor.level}
-            </Chip>
-            <Chip color={grad.color} variant="soft" size="sm" shape="pill">
-              {grad.label}
-            </Chip>
-            {consultor.pro && (
-              <Chip color="success" variant="soft" size="sm" shape="pill">
-                PRO
+        <div className="flex min-w-0 items-center gap-gp-md">
+          <Avatar
+            size="md"
+            colorHex={consultor.avatarColor}
+            className="shrink-0 text-caption-md font-bold"
+          >
+            {initials(consultor.name)}
+          </Avatar>
+          <div className="flex min-w-0 flex-col gap-gp-2xs">
+            <span className="truncate text-body-md font-semibold text-fg-default">
+              {consultor.name}
+            </span>
+            <span className="flex flex-wrap items-center gap-gp-sm">
+              <Chip color="neutral" variant="soft" size="sm" shape="pill">
+                {consultor.level}
               </Chip>
-            )}
-          </span>
+              <Chip color={grad.color} variant="soft" size="sm" shape="pill">
+                {grad.label}
+              </Chip>
+              {consultor.pro && (
+                <Chip color="success" variant="soft" size="sm" shape="pill">
+                  PRO
+                </Chip>
+              )}
+            </span>
+          </div>
         </div>
       }
       footer={
@@ -126,12 +138,18 @@ export function ConsultorDetailPanel({
         )}
       </FloatingPanelSection>
 
-      <FloatingPanelSection title="Contato">
+      <FloatingPanelSection title="Contato & atuação">
         <FloatingPanelField label="Email" value={consultor.email} />
+        <FloatingPanelField label="Telefone" value={consultor.phone} />
         <FloatingPanelField label="Localização" value={consultor.location} />
+        <FloatingPanelField label="Região" value={REGIAO[consultor.regiao]} />
         <FloatingPanelField
           label="Consultor desde"
           value={formatLongDate(consultor.since)}
+        />
+        <FloatingPanelField
+          label="Última atividade"
+          value={consultor.lastActive}
         />
       </FloatingPanelSection>
     </FloatingPanel>
