@@ -9,7 +9,15 @@
 
 set +e
 
-CMD=$(jq -r '.tool_input.command // empty' 2>/dev/null)
+# jq não existe em todo ambiente (Git Bash/Windows) → fallback pra node.
+INPUT_JSON=$(cat)
+if command -v jq >/dev/null 2>&1; then
+  CMD=$(printf '%s' "$INPUT_JSON" | jq -r '.tool_input.command // empty' 2>/dev/null)
+elif command -v node >/dev/null 2>&1; then
+  CMD=$(printf '%s' "$INPUT_JSON" | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const j=JSON.parse(d);process.stdout.write(j?.tool_input?.command||'')}catch(e){}})" 2>/dev/null)
+else
+  CMD=""
+fi
 [ -z "$CMD" ] && exit 0
 
 # Whitelist de paths seguros pra rm -rf

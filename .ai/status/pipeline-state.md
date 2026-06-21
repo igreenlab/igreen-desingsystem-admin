@@ -8,6 +8,7 @@
 ## Formatos de entrada por status
 
 ### CONCLUÍDO / APROVADO
+
 ```
 ### [YYYY-MM-DD] | AGENTE | TAREFA | STATUS
 - Input: o que foi recebido
@@ -23,6 +24,7 @@
 > você verifica qual assumption quebrou — e sabe exatamente o que revisar.
 
 ### REPROVADO
+
 ```
 ### [YYYY-MM-DD] | DS REVIEWER | [Nome] | REPROVADO
 - Spec verificada: sim/não — onde encontrada
@@ -33,6 +35,7 @@
 ```
 
 ### PAUSADO (gate) — aguardando aprovação do usuário
+
 ```
 ### [YYYY-MM-DD] | ORCHESTRATOR | [Nome] | PAUSADO (gate)
 - Spec entregue por: ds-designer
@@ -43,6 +46,7 @@
 ```
 
 ### CASCATA — token ausente detectado durante implementação
+
 ```
 ### [YYYY-MM-DD] | DS DEV | [NomeComponente] | CASCATA
 - Token ausente: [nome-do-token]
@@ -63,6 +67,7 @@
 <!-- NOVA ENTRADA AQUI -->
 
 ### 2026-06-18 | ORCHESTRATOR | Arquivamento do pipeline-state.md | CONCLUÍDO
+
 - Input: arquivo ativo passou de ~296KB / 2229 linhas — muito além do gatilho (~100 entradas / ~50KB).
 - Output: 62 entradas CONCLUÍDO/APROVADO/REPROVADO do bloco 2026-05-12 a 2026-05-16 (DataTable Fases A–G, Table primitivo, Saved Views, hooks, column-type system) movidas para `.ai/status/archive/2026-06.md`.
 - Decisões: mantidas no ativo as entradas de junho/2026, o cluster 2026-05-16 (contém PAUSADO/CASCATA/RETOMADO), a entrada-marco 2026-06-17 (milestone v0.10.0), a sessão de setup 2026-04 e as seções de referência (Índice de componentes, Auditoria retroativa v0.3.0, Índice de decisões). Nenhuma entrada PAUSADO/CASCATA aberta foi movida.
@@ -70,6 +75,7 @@
 - Lições novas: nenhuma.
 
 ### [2026-06-13] | DS DEV | DataTable tree-data: expand-all / collapse-all programático no DataTableRef | CONCLUÍDO
+
 - Input: follow-up do tree-data (commit `658f50e`). O agente anterior deixou `collectExpandableTreeIds` (utils/tree-rows.ts) pronto mas NÃO expôs expand-all/collapse-all no imperative handle — exigia threadar tree-state no controller. Branch `feat/datatable-tree-expand-all` a partir de `main`. Sem push.
 - Output:
   1. **`DataTableRef`** (`data-table.types.ts`) ganhou 2 métodos: `expandAllTree: () => void` e `collapseAllTree: () => void`. No-op fora de tree-data (sem `getTreeDataPath`).
@@ -86,6 +92,7 @@
 ---
 
 ### [2026-06-09] | DS REVIEWER | PR3 auditoria-datatable — extensibilidade (operador default, filterType, warn, types) | PRE_COMMIT_OK
+
 - Assumption verificada: sim — "derivar default do registry é correto pra todos os tipos (teste tsx 13/13, incl. date→between + currency→equals); any→unknown não quebra consumers (eles já castam value)" — verificada:
   1. **#2 ciclo filter-ops → column-types**: `column-types/` não importa de `utils/filter-ops.ts` (grep retornou vazio). Único sentido de dependência é `utils/filter-ops → ../column-types` (e `utils/calculate-column-widths → ../column-types`). Sem ciclo.
   2. **#2 date reorder operators[0]=between**: `DateColumnType.operators[0]` = `between` confirmado (linha 32 do date-column-type.tsx). `defaultOperatorForFilterType("date")` retorna `between`. `FilterRowEditor` lê `operators` da definição → "entre" aparece primeiro na lista do dropdown. `renderFilterInput` do date já usa `operator === "between"` → range mode (isRange=true). Sem regressão no widget.
@@ -99,18 +106,20 @@
 - Lições novas: nenhuma.
 
 ### [2026-06-09] | DS REVIEWER | PR1 auditoria-datatable — consolidação filter-ops/aggregate/constants | PRE_COMMIT_OK
+
 - Assumption verificada: sim — "unificação é behavior-preserving; promotion sem array-check é equivalente pq widget multiSelect sempre emite array; totalizer respeitar valueGetter não afeta previews (colunas agregadas atuais não têm valueGetter)" — verificada nos 5 pontos de atenção abaixo.
-- Critique genuína aplicada: (1) **promoteOperator sem array-check**: revisado o path completo — array-check só existia no adapter para decidir o *spread* (N itens vs 1), nunca para decidir a *promoção*. `promoteOperatorForFilterType` olha apenas `filterType`, que é o gate semântico correto. multiSelect widget (`multi-select-column-type.tsx` l.43) sempre emite `Array.from(set)` — path escalar não existe. Sem regressão. (2) **totalizer agora respeita valueGetter**: original `resolveTotalizerContent` usava local `getFieldValue(r, field)` (dot-path puro, sem `valueGetter`). Novo `computeAggregate` usa `applyValueGetter(r, col)` — colunas sem `valueGetter` seguem o dot-path (comportamento idêntico); colunas com `valueGetter` agora somam o valor transformado (consistência com group-header, que já fazia isso). Melhoria confirmada. (3) **renderAggregate ordem**: idêntica a ambas as originais — override → custom fn → built-in keyword switch → null (default). Formatter: `aggregateFormatter ?? valueFormatter` — idêntico. `computeAggregate` retorna `null` para keyword não-built-in (default do switch). (4) **genFilterId**: `crypto.randomUUID()` + fallback timestamp+random. IDs são identidade in-memory de FilterItem (não persistem entre sessions — filterModel é estado React). Nenhuma estabilidade exigida além do ciclo de vida do render. (5) **imports órfãos**: `export type { FilterValue }` em `filter-ops.ts` l.83 re-exporta tipo que nenhum consumer importa dali. Dead re-export inerte (não é bug).
+- Critique genuína aplicada: (1) **promoteOperator sem array-check**: revisado o path completo — array-check só existia no adapter para decidir o _spread_ (N itens vs 1), nunca para decidir a _promoção_. `promoteOperatorForFilterType` olha apenas `filterType`, que é o gate semântico correto. multiSelect widget (`multi-select-column-type.tsx` l.43) sempre emite `Array.from(set)` — path escalar não existe. Sem regressão. (2) **totalizer agora respeita valueGetter**: original `resolveTotalizerContent` usava local `getFieldValue(r, field)` (dot-path puro, sem `valueGetter`). Novo `computeAggregate` usa `applyValueGetter(r, col)` — colunas sem `valueGetter` seguem o dot-path (comportamento idêntico); colunas com `valueGetter` agora somam o valor transformado (consistência com group-header, que já fazia isso). Melhoria confirmada. (3) **renderAggregate ordem**: idêntica a ambas as originais — override → custom fn → built-in keyword switch → null (default). Formatter: `aggregateFormatter ?? valueFormatter` — idêntico. `computeAggregate` retorna `null` para keyword não-built-in (default do switch). (4) **genFilterId**: `crypto.randomUUID()` + fallback timestamp+random. IDs são identidade in-memory de FilterItem (não persistem entre sessions — filterModel é estado React). Nenhuma estabilidade exigida além do ciclo de vida do render. (5) **imports órfãos**: `export type { FilterValue }` em `filter-ops.ts` l.83 re-exporta tipo que nenhum consumer importa dali. Dead re-export inerte (não é bug).
 - Escopo do diff: 3 arquivos novos (utils/filter-ops.ts, utils/aggregate.ts, data-table.constants.ts) + 7 arquivos modificados (use-filter-popover-adapter, use-data-table-controller, use-data-table-export, toolbar-simple-filter-drawer, data-table-totalizer-row, data-table-group-header-row, data-table.tsx) + 1 comment-only (table.styles.ts cross-ref) + pipeline-state.md. Zero toque em tokens, CSS, typography, tv.ts.
 - Regressões L-001..L-027: nenhuma — novos utils são lógica pura (sem CSS classes, sem tv(), sem tokens).
 - Pendências: nenhuma bloqueante. [BAIXO] `export type { FilterValue }` em `utils/filter-ops.ts` l.83 é dead re-export — remover a qualquer momento.
 - Lições novas: nenhuma.
 
 ### [2026-06-09] | DS REVIEWER | refactor/column-types-shared — Pre-commit gate | PRE_COMMIT_OK
+
 - Assumption verificada: sim — "helpers extraídos são behavior-equivalentes, exceto toNumber rejeitar Infinity (não ocorre nos dados)" confirmada. Nenhum caminho de matchesFilter/formatValue/renderCell produz Infinity como valor de entrada real: o filterInput é `<Input type="number">` que só emite valores finitos ou null; dados de célula financeiros (R$) são sempre finitos. `Number.isNaN(Number(Infinity))` = false na `toCurrency`/`toPercent` formatter — essas funções usam `Number.isNaN` apenas no formatter de exibição (não no filter), portanto a mudança de `!Number.isNaN` → `Number.isFinite` em matchesFilter é segura e correta.
-- Critique genuína aplicada: Além do checklist mecânico examinei: (1) o único ponto suspeito — `Number.isNaN(Number(value)) ? null : n` (antigo currency/percentage) vs `Number.isFinite(n) ? n : null` (novo): o único delta são valores `Infinity`/`-Infinity`, que o `<Input type="number">` nunca produz e dados de BD não contêm — a mudança é correta, não uma regressão; (2) `findOption(value: unknown, ...)` em _shared vs `findOption(value: string, ...)` no tags antigo: a assinatura mais larga (`unknown`) é backwards-compatible — tags sempre passa strings (`v` extraído de `toStringArray`), a comparação é `String(o.value) === String(value)` em ambos, resultado idêntico; (3) `multi-select` ainda tem seu próprio `toArray` local — não é uma cópia esquecida, é um array tipado diferente (`Array<string | number>` vs `string[]`) com lógica de hidratação específica (comentário explica), portanto corretamente fora do `_shared`; (4) os `Number.isNaN` remanescentes em currency/percentage são nos formatters de *exibição* (`toCurrency`/`toPercent`) — completamente corretos e fora do escopo do _shared (são funções locais, não foram migradas).
-- Escopo do diff: 1 arquivo novo (_shared.ts) + 7 arquivos modificados (6 definitions + pipeline-state.md). Zero toque em tokens, CSS, typography, tv.ts — categorias de sincronia crítica (L-016) estão fora do escopo.
-- Regressões L-001..L-027: nenhuma — _shared.ts é helpers puros (sem classes CSS, sem tv(), sem tokens). Definitions tocadas não introduziram anti-patterns.
+- Critique genuína aplicada: Além do checklist mecânico examinei: (1) o único ponto suspeito — `Number.isNaN(Number(value)) ? null : n` (antigo currency/percentage) vs `Number.isFinite(n) ? n : null` (novo): o único delta são valores `Infinity`/`-Infinity`, que o `<Input type="number">` nunca produz e dados de BD não contêm — a mudança é correta, não uma regressão; (2) `findOption(value: unknown, ...)` em \_shared vs `findOption(value: string, ...)` no tags antigo: a assinatura mais larga (`unknown`) é backwards-compatible — tags sempre passa strings (`v` extraído de `toStringArray`), a comparação é `String(o.value) === String(value)` em ambos, resultado idêntico; (3) `multi-select` ainda tem seu próprio `toArray` local — não é uma cópia esquecida, é um array tipado diferente (`Array<string | number>` vs `string[]`) com lógica de hidratação específica (comentário explica), portanto corretamente fora do `_shared`; (4) os `Number.isNaN` remanescentes em currency/percentage são nos formatters de _exibição_ (`toCurrency`/`toPercent`) — completamente corretos e fora do escopo do \_shared (são funções locais, não foram migradas).
+- Escopo do diff: 1 arquivo novo (\_shared.ts) + 7 arquivos modificados (6 definitions + pipeline-state.md). Zero toque em tokens, CSS, typography, tv.ts — categorias de sincronia crítica (L-016) estão fora do escopo.
+- Regressões L-001..L-027: nenhuma — \_shared.ts é helpers puros (sem classes CSS, sem tv(), sem tokens). Definitions tocadas não introduziram anti-patterns.
 - Pendências encontradas: nenhuma.
 - Lições novas: nenhuma.
 
@@ -123,6 +132,7 @@
 - Lições novas: nenhuma — achados cobertos por lições existentes (L-002/L-024).
 
 ### [2026-06-05] | INFRA RELEASE | Pipeline drift fix pós v0.5.1 publish | CONCLUÍDO
+
 - Input: após publicar @snksergio/design-system@0.5.1 + @snksergio/create-design-system@0.1.4 (fix de types + URLs igreenlab + license + template), simulação teórica de consumer revelou drift do pipeline interno em relação ao estado real do CSS gerado.
 - Output: 3 frentes aplicadas em 17 arquivos.
   - **Frente 1 (consumer-facing):** repo URLs `snksergio` → `igreenlab` no README.md + src/preview/pages/InstallationDoc.tsx.
@@ -137,7 +147,6 @@
 - Lições novas: L-017 (files + .d.ts), L-018 (CLI template sync), L-019 (grep all scopes). L-007 atualizada.
 - Validação: `grep` final em arquivos vivos confirmou zero drift remanescente fora dos snapshots históricos esperados.
 
-
 - Spec verificada: sim — entrada PAUSADO (gate) confirmada no pipeline-state.md com alternativas descartadas e assumption central
 - Gate verificado: sim
 - Assumption verificada: agora valida — `scrollbar-width: auto` em scrollbar-default entrega scrollbar do sistema no Firefox (~16px nativo), enquanto `scrollbar-thin` permanece `thin`. No webkit (Chrome/Safari/Edge) a distincao e 8px vs 6px via `--scrollbar-width-default` / `--scrollbar-width-thin`. Distincao real existe em todos os browsers-alvo.
@@ -146,6 +155,7 @@
 - Lições novas: nenhuma (L-015 ja registrada no ciclo anterior)
 
 ### [2026-05-16] | DS DEV | Token de scrollbar | RETOMADO (fix da reprovacao)
+
 - Input: REPROVADO pelo ds-reviewer; correcao aplicada conforme Opcao A
 - Output: scrollbar-default agora usa `scrollbar-width: auto` (era thin)
 - Decisoes: optei pela Opcao A em vez de B (manter thin + documentar) porque Opcao A entrega diferenca visual real em todos os browsers; semanticamente mais alinhado com naming "default"
@@ -154,6 +164,7 @@
 - Assumption: `scrollbar-width: auto` no Firefox ativa a scrollbar padrao do sistema (~16px); no Chrome/Safari/Edge o `::-webkit-scrollbar` com `--scrollbar-width-default` (8px) tem precedencia. Resultado: distincao real entre `scrollbar-thin` e `scrollbar-default` em todos os browsers.
 
 ### [2026-05-16] | DS REVIEWER | Token de scrollbar + utility variant | REPROVADO
+
 - Spec verificada: sim — entrada "ORCHESTRATOR | Token de scrollbar + utility variant | PAUSADO (gate)" confirmada no pipeline-state.md
 - Gate verificado: sim — entrada PAUSADO (gate) presente com spec completa, alternativas descartadas e assumption central documentada
 - Assumption verificada: **parcialmente válida** — a assumption "scrollbar-width CSS standard + ::-webkit-scrollbar cobrem browsers-alvo" é correta. Porém a assumption implícita de que `scrollbar-default` (8px) se comporta diferente de `scrollbar-thin` (6px) no Firefox é **falsa**: `scrollbar-width` CSS aceita apenas `auto`/`thin`/`none` — não aceita px. Ambas as utilities entregam `scrollbar-width: thin` no Firefox, tornando-as visualmente idênticas nesse browser. A distinção de 6px vs 8px só existe no Chrome/Safari/Edge via `::webkit-scrollbar`. Isso não quebra a assumption do gate (que não faz promessa sobre Firefox pixel-width), mas é uma limitação de design não documentada.
@@ -163,6 +174,7 @@
 - Lições novas: L-015 — `@utility scrollbar-*` com duas larguras distintas: `scrollbar-width` CSS aceita apenas `auto`/`thin`/`none`. Distinção px entre utilities só existe em Chrome/Safari/Edge via `::webkit-scrollbar`. No Firefox, toda utility custom com `scrollbar-width: thin` é visualmente idêntica. Se houver 2 utilities com tamanhos distintos, documentar esse comportamento ou usar `auto` para a "maior" (que ativa scroll bar default do browser).
 
 ### [2026-05-16] | DS DEV | Token de scrollbar + utility variant | CONCLUÍDO
+
 - Input: spec aprovada em [2026-05-16] — gate "ORCHESTRATOR | Token de scrollbar + utility variant | PAUSADO (gate)"
 - Output: IMPL_PRONTA sinalizado — tokens + utilities + transform fn + 3 migrations executadas
   - 2 tokens: `scrollbar.width.thin` (6px) + `scrollbar.width.default` (8px) em `tokens/brands/default/components/sizing.ts`
@@ -177,9 +189,10 @@
   - Scrollbar utilities emitidas após bloco de typography utilities — mesma seção de "@utility blocks" do output
   - TabelaTeste migrado de `bg-bg-muted` → `scrollbar-default` (que usa `bg-muted-hover`) conforme spec aprovada — mudança sutil de cor do thumb rest state
 - Assumption: scrollbar utilities aplicam corretamente em Chrome/Safari/Firefox/Edge — validar manualmente na próxima fase
-- Lições novas: nenhuma — padrão de @utility token-driven é análogo ao já estabelecido para text-* presets. Nota: spec original usava `var(--radius-full)` nos utilities, corrigido para `var(--radius-radius-full)` durante implementação — dentro de `@utility` o CSS var precisa do nome completo conforme declarado no `@theme {}`, não do sufixo de classe Tailwind
+- Lições novas: nenhuma — padrão de @utility token-driven é análogo ao já estabelecido para text-\* presets. Nota: spec original usava `var(--radius-full)` nos utilities, corrigido para `var(--radius-radius-full)` durante implementação — dentro de `@utility` o CSS var precisa do nome completo conforme declarado no `@theme {}`, não do sufixo de classe Tailwind
 
 ### [2026-05-16] | ORCHESTRATOR | Token de scrollbar + utility variant | PAUSADO (gate)
+
 - Spec entregue por: ds-designer
 - Cascata origem: [2026-05-16] DS DEV Kanban Fase C — Cascata 2
 - Escopo:
@@ -192,12 +205,13 @@
   1. Status quo (hardcoded em cada consumer) — descartado: duplicação cresce linearmente, popovers já mostram divergência sem governance
   2. Token `scrollbar-thumb-color` dedicado — descartado: `bg-muted-hover` já é o token semântico correto; indireção não adiciona flexibilidade real
   3. Variant `scrollbar` via `tv()` puro (sem @utility) — descartado: tv() não resolve pseudo-elements; a verbosidade hardcoded se manteria dentro do tv()
-  4. Arquivo CSS separado (`scrollbar.css`) — descartado: fragmentação sem ganho; @utility de scrollbar é da mesma natureza dos @utility text-* já existentes no mesmo arquivo
+  4. Arquivo CSS separado (`scrollbar.css`) — descartado: fragmentação sem ganho; @utility de scrollbar é da mesma natureza dos @utility text-\* já existentes no mesmo arquivo
 - Assumption central: scrollbar-width CSS standard (Firefox) + ::-webkit-scrollbar (Chrome/Safari/Edge) cobrem os browsers-alvo do produto CRM. Safari mobile não exibe scrollbar (overlaid) por padrão — utility não causa regressão, apenas sem efeito visível no iOS. Assumption quebra se produto tiver target de browser legacy (Firefox <64) ou requisito de scrollbar sempre visível em mobile.
 - Aguardando: aprovação do usuário
 - Retomar: após "sim" → acionar ds-dev com skill `impl-token.md` para: (1) adicionar `scrollbar` em `components/sizing.ts`, (2) adicionar `buildScrollbarVars()` no transform + incluir no `themeVars`, (3) adicionar `@utility scrollbar-thin` + `@utility scrollbar-default` no template string do transform, (4) rodar `npm run tokens:tw4`, (5) migrar Kanban `board`+`columnBody` + TabelaTeste → `"scrollbar-thin"` / `"scrollbar-default"`, (6) rodar `npx tsc --noEmit`
 
 ### [2026-05-16] | DS REVIEWER | Avatar iGreen (ui/) | APROVADO
+
 - Spec verificada: sim — entrada "ORCHESTRATOR | Avatar iGreen (ui/) | PAUSADO (gate)" em pipeline-state.md (linha 78–91)
 - Assumption verificada: sim — `text-white` sobre colorHex mantém legibilidade decorativa aceitável. A implementação não adicionou warning/check de contraste (correto — assumption transfere risco ao consumer). Cor `#f9a47a` (peach, Lúcia Almeida) no KanbanDoc é a mais próxima do limite de contraste (~1.4:1 com branco), mas o DS Dev usou essa cor deliberadamente em contexto decorativo dentro de um card que já apresenta o nome textualmente. Assumption não quebrou — cabe ao consumer evitar cores muito claras se contraste for requisito. Caso patológico (`#ffeb3b`) é silenciosamente quebrado, como documentado na assumption do gate.
 - Critique genuína: (1) API Opção B (`color` + `colorHex?` separados): na prática KanbanDoc e user-column-type usam exclusivamente `colorHex` — prop `color` semântico é usado zero vezes nas migrations. Isso confirma que o uso dominante do Avatar no produto é pessoa-específico (hex). A prop `color` ainda tem valor para avatars genéricos (status/categoria), mas não é o caminho principal. Decisão de API ainda correta — não muda direção, mas é um sinal de onde o DS pode evoluir (preset de paleta pra pessoas, ou `colorHex` com fallback automático de contraste). (2) `_custom` interno: solução é elegante — não é um hack. O tv() não suporta `color: undefined` desativando o defaultVariant de forma limpa; `_custom: ""` é o padrão correto para "sem classe, sem override do default". A variante não vaza: types.ts faz `Omit<AvatarVariantProps, "color">` e redefine `color` como union explícita sem `_custom` — TypeScript bloqueia em compile time. (3) `text-caption-sm` (11px) em `xs` (20px): DS Dev manteve o preset em vez de usar `text-[9px]`. Avaliação: aceitável. O literal `text-[9px]` anterior (PersonAvatar) era não-documentado e inconsistente. `caption-sm` (11px) em 20px de container resulta em uma letra que ocupa ~55% do diâmetro — um pouco maior que o ideal, mas dentro do tolerável para uso decorativo. Não há token menor que `caption-sm` no DS, e criar `caption-2xs` foi explicitamente descartado na spec. (4) `h-[640px]` encontrado no KanbanDoc: pertence ao container de preview do Kanban (layout da página de doc), não ao Avatar — fora do escopo desta revisão.
@@ -205,6 +219,7 @@
 - Lições novas: nenhuma
 
 ### [2026-05-16] | DS DEV | Avatar iGreen (ui/) | CONCLUIDO
+
 - Input: gate aprovado em [2026-05-16] — spec "ORCHESTRATOR | Avatar iGreen (ui/) | PAUSADO (gate)"
 - Output: 4 arquivos criados (`avatar.styles.ts`, `avatar.types.ts`, `avatar.tsx`, `index.ts`, `USAGE.md`) + 2 migrations executadas (KanbanDoc.tsx, user-column-type.tsx)
 - Decisoes:
@@ -218,11 +233,12 @@
 - Validacao: `npx tsc --noEmit` exit 0
 
 ### [2026-05-16] | ORCHESTRATOR | Avatar iGreen (ui/) | PAUSADO (gate)
+
 - Spec entregue por: ds-designer
 - Cascata origem: [2026-05-16] DS DEV Kanban Fase C — Cascata 1
 - Escopo: componente iGreen puro em `ui/Avatar/` (sem Radix, sem AvatarImage, sem AvatarStack). Children = ReactNode (initials fornecidas pelo consumer).
 - Variants: `size` (xs/sm/md/lg/xl → tokens comp.2xs–comp.xl) + `color` (brand/success/warning/critical/info/muted) + `colorHex?: string` (override hex literal pra cor de pessoa — exceção L-014)
-- Tokens consumidos: todos existentes (comp.*, radius.full, bg.*, fg.on-*, text-caption-sm/md, text-label-xs). Zero tokens novos. Zero cascatas abertas.
+- Tokens consumidos: todos existentes (comp._, radius.full, bg._, fg.on-\*, text-caption-sm/md, text-label-xs). Zero tokens novos. Zero cascatas abertas.
 - Alternativas descartadas:
   1. Estender Avatar shadcn com className externo — não resolve hardcode no consumer.
   2. Usar AvatarFallback Radix como base — overengineering sem AvatarImage no escopo.
@@ -233,6 +249,7 @@
 - Retomar: após "sim" → acionar ds-dev com skill `impl-igreen.md` para criar `src/components/ui/Avatar/` (4 arquivos) + migrar PersonAvatar em KanbanDoc.tsx + migrar UserAvatar em user-column-type.tsx
 
 ### [2026-05-16] | DS DEV | Kanban Refinement V1 — Fase A (DS conformance) + Fase B (features) | CONCLUÍDO
+
 - Input: usuário pediu auditoria completa do `<Kanban>` existente após decisão arquitetural (caminho D — primitive dumb, igual `<Table>`/`<TableToolbar>`). Achados: bug checkbox focus-within, 3 botões raw, ~10 hardcoded tokens, 0 DnD, sem `renderCard`, menus só via callback.
 - Output Fase A — Bugs + DS conformance:
   - **Fix checkbox visibility bug**: `cardCheck` styles trocou `group-focus-within` → `group-focus-visible`. Resolve: checkbox antes permanecia visível ao desmarcar (focus retido no input). Agora some corretamente. Mesmo fix aplicado em `cardMenuSlot` e na variante hover/focus do `card`.
@@ -255,6 +272,7 @@
 - Lições novas: nenhuma.
 
 ### [2026-05-16] | DS DEV | Kanban Fase C — Cascatas DS sinalizadas (não executadas) | CASCATA
+
 - Cascata 1 — **`<Avatar>` iGreen** (componente novo):
   - **Necessidade**: Avatar shadcn não tem variants `size` — consumer fica fazendo `className="size-[22px] text-[10px]"` hardcoded. Quebra hierarquia tipográfica (fallback default é `text-label-sm`, sobrescrito por literal arbitrário).
   - **Uso esperado**: `<Avatar size="xs|sm|md|lg|xl" color="brand|warning|success|info|critical|muted">MS</Avatar>` + suporte a `color={hex literal}` pra cores de pessoa (avatars coloridos por entidade no Kanban).
@@ -274,6 +292,7 @@
 ## Sessão 2026-04 — Setup inicial do pipeline
 
 ### [2026-04] | SISTEMA | Setup | CONCLUÍDO
+
 - Input: Projeto iGreen DS v2 criado do zero
 - Output: Pipeline completo: 4 agentes DS + 2 App (aguardando) + 14 lições + skills segregadas
 - Decisões:
@@ -283,7 +302,7 @@
   - Dark mode: hierarquia crescente obrigatória (L-008 a L-011)
   - Domínio App estruturado como 🚧 aguardando
   - Skills segregadas por agente: ~70% redução de contexto por tarefa
-- Assumption: prefixos DS (gap-gp-*, rounded-radius-*, etc.) evitam colisão com Tailwind nativo sem custo de runtime
+- Assumption: prefixos DS (gap-gp-_, rounded-radius-_, etc.) evitam colisão com Tailwind nativo sem custo de runtime
 - Componentes criados: Button (iGreen) + 20 Shadcn adaptados
 - Lições registradas: L-001 a L-014
 
@@ -291,35 +310,35 @@
 
 ## Índice de componentes
 
-| Data | Componente | Tipo | Status |
-|------|------------|------|--------|
-| 2026-04 | Button | iGreen ui/ | APROVADO |
-| 2026-04 | Badge | Shadcn | APROVADO |
-| 2026-04 | Input | Shadcn | APROVADO |
-| 2026-04 | Select | Shadcn | APROVADO |
-| 2026-04 | Dialog | Shadcn | APROVADO |
-| 2026-04 | Tabs | Shadcn | APROVADO |
-| 2026-04 | Checkbox | Shadcn | APROVADO |
-| 2026-04 | Switch | Shadcn | APROVADO |
-| 2026-04 | Slider | Shadcn | APROVADO |
-| 2026-04 | RadioGroup | Shadcn | APROVADO |
-| 2026-04 | Progress | Shadcn | APROVADO |
-| 2026-04 | Accordion | Shadcn | APROVADO |
-| 2026-04 | Alert | Shadcn | APROVADO |
-| 2026-04 | Avatar | Shadcn | APROVADO |
-| 2026-04 | Breadcrumb | Shadcn | APROVADO |
-| 2026-04 | Calendar | Shadcn | APROVADO |
-| 2026-04 | Card | Shadcn | APROVADO |
-| 2026-04 | DropdownMenu | Shadcn | APROVADO |
-| 2026-04 | Label | Shadcn | APROVADO |
-| 2026-04 | Separator | Shadcn | APROVADO |
-| 2026-04 | Textarea | Shadcn | APROVADO |
-| 2026-05-12 | Table | iGreen ui/ | APROVADO |
-| 2026-05-16 | Avatar | iGreen ui/ | IMPL_PRONTA |
-| 2026-05-19 | FloatingPanel | iGreen ui/ | CONCLUÍDO (retroativo) |
-| 2026-05-19 | PageHeader | iGreen ui/ | CONCLUÍDO (retroativo) |
-| 2026-05-19 | container.main-content-max | Token (components/sizing) | CONCLUÍDO (retroativo) |
-| 2026-05-19 | AppShell v0.3.0 extension | iGreen ui/ (UserMenu interno + props) | CONCLUÍDO (retroativo) |
+| Data       | Componente                 | Tipo                                                      | Status                 |
+| ---------- | -------------------------- | --------------------------------------------------------- | ---------------------- |
+| 2026-04    | Button                     | iGreen ui/                                                | APROVADO               |
+| 2026-04    | Badge                      | Shadcn                                                    | APROVADO               |
+| 2026-04    | Input                      | Shadcn                                                    | APROVADO               |
+| 2026-04    | Select                     | Shadcn                                                    | APROVADO               |
+| 2026-04    | Dialog                     | Shadcn                                                    | APROVADO               |
+| 2026-04    | Tabs                       | Shadcn                                                    | APROVADO               |
+| 2026-04    | Checkbox                   | Shadcn                                                    | APROVADO               |
+| 2026-04    | Switch                     | Shadcn                                                    | APROVADO               |
+| 2026-04    | Slider                     | Shadcn                                                    | APROVADO               |
+| 2026-04    | RadioGroup                 | Shadcn                                                    | APROVADO               |
+| 2026-04    | Progress                   | Shadcn                                                    | APROVADO               |
+| 2026-04    | Accordion                  | Shadcn                                                    | APROVADO               |
+| 2026-04    | Alert                      | Shadcn                                                    | APROVADO               |
+| 2026-04    | Avatar                     | Shadcn                                                    | APROVADO               |
+| 2026-04    | Breadcrumb                 | Shadcn                                                    | APROVADO               |
+| 2026-04    | Calendar                   | Shadcn                                                    | APROVADO               |
+| 2026-04    | Card                       | Shadcn                                                    | APROVADO               |
+| 2026-04    | DropdownMenu               | Shadcn                                                    | APROVADO               |
+| 2026-04    | Label                      | Shadcn                                                    | APROVADO               |
+| 2026-04    | Separator                  | Shadcn                                                    | APROVADO               |
+| 2026-04    | Textarea                   | Shadcn                                                    | APROVADO               |
+| 2026-05-12 | Table                      | iGreen ui/                                                | APROVADO               |
+| 2026-05-16 | Avatar                     | iGreen ui/                                                | IMPL_PRONTA            |
+| 2026-05-19 | FloatingPanel              | iGreen ui/                                                | CONCLUÍDO (retroativo) |
+| 2026-05-19 | PageHeader                 | iGreen ui/                                                | CONCLUÍDO (retroativo) |
+| 2026-05-19 | container.main-content-max | Token (components/sizing)                                 | CONCLUÍDO (retroativo) |
+| 2026-05-19 | AppShell v0.3.0 extension  | iGreen ui/ (UserMenu interno + props)                     | CONCLUÍDO (retroativo) |
 | 2026-05-19 | DataTable v0.3.0 extension | iGreen ui/ (toolbar mobile + card auto-switch + skeleton) | CONCLUÍDO (retroativo) |
 
 ---
@@ -329,6 +348,7 @@
 > Trabalhos desta release foram implementados em colaboração direta com o usuário durante sessão Claude Code, sem invocação formal das skills do pipeline (`spec-component.md` / `impl-igreen.md` / `review-component.md`) nem entries em tempo real neste log. Registro retroativo abaixo pra preservar rastreabilidade e auditabilidade futura.
 
 ### 2026-05-19 | DS DESIGNER (retroativo) | container.main-content-max | CONCLUÍDO
+
 - Input: Necessidade de max-width canônico pro body do AppShell em modo `layout=compact` (proposta do usuário: 1368px pra evitar conteúdo "esticar" em ultrawide)
 - Output: Token `container.main-content-max = "1368px"` adicionado em `tokens/brands/default/components/sizing.ts` + CSS var `--container-main-content-max: 1368px` em `tailwind-theme.css`
 - Decisões: usar a sub-categoria `container` (não criar nova) — é uma largura semântica de body, encaixa no namespace existente
@@ -339,6 +359,7 @@
 - Lições novas: nenhuma (token sólido, segue pattern existente)
 
 ### 2026-05-19 | DS DEV (retroativo) | container.main-content-max | CONCLUÍDO
+
 - Input: spec acima
 - Output: token criado em `components/sizing.ts:63` + CSS var gerado em `tailwind-theme.css:167`
 - Consumido por: `AppShell/app-shell.styles.ts` (variant `layout.compact`) via `max-w-[var(--container-main-content-max)]`. Também consumido inicialmente em `ShowcasePageV2.tsx` (depois trocado pra `max-w-[1660px]` arbitrário a pedido do usuário pra essa página específica)
@@ -347,6 +368,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS REVIEWER (retroativo) | container.main-content-max | APROVADO
+
 - Spec verificada: sim — entry acima
 - Assumption verificada: sim — token funcional em ambos os temas (não há override dark pra container width); valor 1368 é consistente com uso em layouts ultrawide; nome verboso é justificável
 - Critique genuína: examinei se a sub-categoria `container` é o lugar certo pra tokens semânticos de layout (vs criar nova categoria `layout-width`). Conclusão: `container` cobre, mas estamos misturando "page containers genéricos" (xs..3xl) com "containers semânticos especiais" (main-content-max, modal-md, drawer-sm). Pode ser refatorado futuramente em sub-namespace `container.layout.*` se crescer
@@ -354,6 +376,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS DESIGNER (retroativo) | FloatingPanel | CONCLUÍDO
+
 - Input: Necessidade de drawer não-modal que coexista com interação atrás (caso de uso: DetailDrawer da CRUD)
 - Output: Spec do FloatingPanel — drawer flutuante com `position:fixed`, sem backdrop modal, sem foco trap, resize horizontal opcional, maximize toggle, sheet bottom-up em mobile
 - Decisões:
@@ -367,6 +390,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS DEV (retroativo) | FloatingPanel | CONCLUÍDO
+
 - Input: spec acima
 - Output: `src/components/ui/FloatingPanel/` com 5 arquivos canônicos:
   - `floating-panel.tsx` — componente principal
@@ -380,6 +404,7 @@
 - Lições novas: nenhuma — pattern segue Panel mas sem Sheet primitive
 
 ### 2026-05-19 | DS REVIEWER (retroativo) | FloatingPanel | APROVADO
+
 - Spec verificada: sim — entry acima
 - Assumption verificada: sim — o caso de uso single (DetailDrawer) provou viabilidade; doc page `/floating-panel` com 5 exemplos cobre os patterns mais comuns
 - Critique genuína: examinei se a duplicação de "shell visual" entre `<Panel>` e `<FloatingPanel>` é justificada. Conclusão: SIM — semânticas diferentes (modal vs non-modal), comportamento Radix Dialog não-overridável sem hacks, manter isolados é cleaner que adicionar prop `modal={false}` no Panel (que precisaria de branching em portal/overlay/foco trap)
@@ -387,6 +412,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS DESIGNER (retroativo) | PageHeader | CONCLUÍDO
+
 - Input: Repetição de markup "title + description + badge + actions" em ClientesShowcase + DashboardShowcase (2+ ocorrências). Necessidade de Templates component canônico pra page headers
 - Output: Spec do PageHeader na categoria Templates, com slot `children` pra row extra (tabs/filtros), e responsividade mobile built-in (`hideTextOnMobile` + `fluidPrimaryOnMobile`)
 - Decisões: NÃO incluir back button / breadcrumb (delegado ao AppShell global); `badge` é ReactNode (não só Chip) pra flexibilidade
@@ -397,6 +423,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS DEV (retroativo) | PageHeader | CONCLUÍDO
+
 - Input: spec acima
 - Output: `src/components/ui/PageHeader/` com 4 arquivos:
   - `page-header.tsx`
@@ -412,6 +439,7 @@
 - Consumido por: ClientesShowcase + DashboardShowcase em v0.3.0
 
 ### 2026-05-19 | DS REVIEWER (retroativo) | PageHeader | APROVADO
+
 - Spec verificada: sim
 - Assumption verificada: sim — 2 consumers já (CRUD + Dashboard); responsivo testado em ambos
 - Critique genuína: examinei se faria sentido o PageHeader também aceitar uma prop `breadcrumb?: BreadcrumbItem[]` pra cobrir páginas sem AppShell global. Conclusão: NÃO nesta versão — adicionar quando aparecer caso de uso real (premature otimization); o slot `children` já permite o consumer adicionar Breadcrumb manualmente
@@ -419,6 +447,7 @@
 - Lições novas: nenhuma
 
 ### 2026-05-19 | DS DEV (retroativo) | AppShell v0.3.0 extension | CONCLUÍDO
+
 - Input: Necessidade de user menu funcional (avatar do rail vira dropdown com layout/tema/settings/logout), layout switcher (fluid/compact), e edge-to-edge no mobile pra páginas chat-like
 - Output: Props novas no AppShellProps + UserMenu component interno em `ui/AppShell/user-menu.tsx`
 - Decisões:
@@ -430,6 +459,7 @@
 - Consumido por: ClientesShowcase, DashboardShowcase, ChatV2 (todas migradas)
 
 ### 2026-05-19 | DS DEV (retroativo) | DataTable v0.3.0 extension | CONCLUÍDO
+
 - Input: Necessidade de DataTable responsivo (mobile usability ruim na CRUD), skeleton pagination, polish na coluna actions
 - Output:
   1. **Auto-card mode em mobile** — `cardBreakpoint` (default 768px); abaixo dele `rowsToRender` vira lista de `<TableCardRow>` automaticamente, mapeando colunas pra `header`/`headerActions`/`items` com base em `isPrimary` + `type==="actions"`
@@ -444,6 +474,7 @@
 - Assumption: o pattern "1280px = laptop pequeno onde toolbar quebra" é razoável. Se aparecer device com viewport diferente quebrando, ajustar `desktopBreakpoint` no prop ou criar `xl-mid` breakpoint custom
 
 ### 2026-05-19 | DS DEV (retroativo) | useTheme refactor (3 valores + sync) | CONCLUÍDO
+
 - Input: ClientesShowcase tinha state local `theme` que dessincronizava do useTheme global (DocSidebar). Bug: entrar na CRUD com tema dark global forçava reset pra light
 - Output: `src/hooks/useTheme.ts` refatorado pra:
   - Type `Theme = "light" | "dark" | "system"` (era apenas light/dark)
@@ -455,6 +486,7 @@
 - Migrou: ChatShowcase, ChatV2, DashboardShowcase, AppShellDoc, ClientesShowcase pra usar `useTheme()` em vez de `useState<string>("light")` local
 
 ### 2026-05-19 | DS DEV (retroativo) | Slider/Progress track + Input hover | CONCLUÍDO
+
 - Input: Track do Slider/Progress invisível no light (`bg-bg-input` = white) e fraco demais no dark (`bg-bg-muted` alpha 4%). Hover do Input/Select/Textarea sem variante visual
 - Output:
   - **Slider/Progress track**: `bg-bg-emphasis dark:bg-bg-accent` (gray[100] light + alpha 16% dark — visíveis em ambos)
@@ -463,6 +495,7 @@
 - Decisões: usar `bg-emphasis` no light pq é o único cinza sólido com contraste suficiente sobre white; `bg-accent` no dark pq alpha 16% supera o `bg-muted` 4% sem ser overkill como `accent-hover` 12%/16%
 
 ### 2026-05-19 | DS DEV (retroativo) | DropdownMenu RadioItem brand state | CONCLUÍDO
+
 - Input: RadioItem com state `data-state=checked` usava Circle bullet — visualmente fraco e inconsistente com CheckboxItem (Check icon)
 - Output: `DropdownMenuRadioItem` atualizado:
   - Indicator trocado de `<Circle h-2 w-2 fill-current>` pra `<Check size-4>`
@@ -471,6 +504,7 @@
 - Decisões: padrão visual brand-tint é consistente com Chip selected + Table row selected — refoça a "cor de identidade" em estados ativos
 
 ### 2026-05-19 | DS REVIEWER (retroativo) | v0.3.0 release bundle | APROVADO (parcial)
+
 - Critique genuína: a maioria dos trabalhos passou pelo "gate informal" do usuário (cada peça aprovada via diálogo da conversa), mas:
   1. **Sem entries em tempo real** no pipeline-state.md — comprometeu auditabilidade
   2. **Inventory.md não atualizado** — FloatingPanel/PageHeader não estavam registrados pra próximas sessões encontrarem
@@ -486,6 +520,7 @@
 > preset/tv.ts respectivamente).
 
 ### 2026-05-19 | DS DEV (typography pipeline) | Limpeza decimais + órfãos | CONCLUÍDO
+
 - Input: usuário pediu auditoria + limpeza da escala tipográfica (decimais e órfãos eliminados)
 - Output: 4 Ondas executadas — `text-[10.5/11.5/12.5/13.5/14.5/15/17/22/26 px]` eliminados em 24 arquivos. Escala discreta resultante: 10/11/12/13/14/16/18/20/24 px
 - Decisões:
@@ -498,6 +533,7 @@
 - Assumption: pixels da escala discreta cobrem todos os contextos visuais sem regressão perceptível
 
 ### 2026-05-19 | DS DEV (typography pipeline) | Rewrite typography.ts (32→23 presets) | CONCLUÍDO
+
 - Input: usuário pediu "tipografia REAL com tokens primitivos + compostos, enxuto, sem duplicidade"
 - Output: `typography.ts` reescrito completamente — 32 presets em 8 namespaces → **23 presets em 6 roles** (display/heading/title/body/caption/code)
   - Removidos: `paragraph-*` (6), `label-*` (7), `subheading-*` (6) — 19 presets eliminados
@@ -524,6 +560,7 @@
 - Assumption: 23 presets cobrem 100% dos casos de uso reais sem precisar de variantes adicionais. Override via Tailwind nativo é confiável quando `twMergeConfig` está sincronizado com `typography.ts` (L-016).
 
 ### 2026-05-20 | DS DEV | DataTable autoFit + persist v4 | CONCLUÍDO
+
 - Input: usuário reportou (1) tabela com poucas colunas não preenche container (espaço vazio à direita) e (2) "alguns filtros salvam outros não" entre sessões/views
 - Output: duas features novas na DataTable em release v0.5.0 (minor, opt-in zero):
   1. **AutoFit em 3 layers** (Type Heuristics + Smart Content Sampling via canvas + Flex Distribution). ResizeObserver mantém widths sincronizados. Default `true`. Resize manual continua override.
@@ -570,22 +607,22 @@
 
 ## Índice de decisões arquiteturais
 
-| Data | Decisão | Assumption |
-|------|---------|------------|
-| 2026-04 | Prefixo `radius-radius-*` | `rounded-sm/md/lg` do Tailwind nativo tem valores diferentes |
-| 2026-04 | Prefixo `shadow-sh-*` | `shadow-sm/md` do TW nativo conflitaria sem prefixo |
-| 2026-04 | Prefixo `gap-gp-*` | `gap-gap-*` seria verboso demais; `gp` é suficientemente distinto |
-| 2026-04 | clamp() apenas ≥ 32px | Ganho de responsividade abaixo de 32px é insignificante vs complexidade |
-| 2026-04 | Responsive via componente, não token | Token com valor responsivo quebra a granularidade semântica |
-| 2026-04 | bg-white em thumbs Switch/Slider | Token DS no thumb seria invisível em dark mode (L-014) |
-| 2026-04 | Skills segregadas por agente | Redução de contexto por tarefa melhora precisão sem perder informação |
-| 2026-04 | Gate obrigatório para tokens novos | Tokens são decisões de design — requerem validação humana como componentes |
-| 2026-05-19 | Typography 6 roles enxutos | 23 presets cobrem 100% dos casos sem variantes adicionais; override de weight via Tailwind nativo é semântico |
-| 2026-05-19 | Title default = weight 600 | 56× font-semibold no código real vs 2× font-bold (medição direta) |
-| 2026-05-19 | body-xs/sm default = weight 500 | Esses tiers são quase sempre interactive (button/dropdown/input); raro como texto corrido |
-| 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts | Senão tailwind-merge remove classes silenciosamente (L-016) |
-| 2026-06-09 | Token `formGap = 20px` dedicado (não usar gap-gp-*) | 20px é sweet-spot entre 12px (apertado) e 24px (solto) pra forms com 3+ FormField units — bench validado em SacarDialog + NovoClienteDrawer |
-| 2026-06-09 | `CardCheckbox` usa `<label htmlFor>` (não `<button>`) | Label nativo preserva semântica accessibility + form submit nativo + click target consistente (L-025) |
+| Data       | Decisão                                               | Assumption                                                                                                                                  |
+| ---------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| 2026-04    | Prefixo `radius-radius-*`                             | `rounded-sm/md/lg` do Tailwind nativo tem valores diferentes                                                                                |
+| 2026-04    | Prefixo `shadow-sh-*`                                 | `shadow-sm/md` do TW nativo conflitaria sem prefixo                                                                                         |
+| 2026-04    | Prefixo `gap-gp-*`                                    | `gap-gap-*` seria verboso demais; `gp` é suficientemente distinto                                                                           |
+| 2026-04    | clamp() apenas ≥ 32px                                 | Ganho de responsividade abaixo de 32px é insignificante vs complexidade                                                                     |
+| 2026-04    | Responsive via componente, não token                  | Token com valor responsivo quebra a granularidade semântica                                                                                 |
+| 2026-04    | bg-white em thumbs Switch/Slider                      | Token DS no thumb seria invisível em dark mode (L-014)                                                                                      |
+| 2026-04    | Skills segregadas por agente                          | Redução de contexto por tarefa melhora precisão sem perder informação                                                                       |
+| 2026-04    | Gate obrigatório para tokens novos                    | Tokens são decisões de design — requerem validação humana como componentes                                                                  |
+| 2026-05-19 | Typography 6 roles enxutos                            | 23 presets cobrem 100% dos casos sem variantes adicionais; override de weight via Tailwind nativo é semântico                               |
+| 2026-05-19 | Title default = weight 600                            | 56× font-semibold no código real vs 2× font-bold (medição direta)                                                                           |
+| 2026-05-19 | body-xs/sm default = weight 500                       | Esses tiers são quase sempre interactive (button/dropdown/input); raro como texto corrido                                                   |
+| 2026-05-19 | tv.ts twMergeConfig 1:1 com typography.ts             | Senão tailwind-merge remove classes silenciosamente (L-016)                                                                                 |
+| 2026-06-09 | Token `formGap = 20px` dedicado (não usar gap-gp-\*)  | 20px é sweet-spot entre 12px (apertado) e 24px (solto) pra forms com 3+ FormField units — bench validado em SacarDialog + NovoClienteDrawer |
+| 2026-06-09 | `CardCheckbox` usa `<label htmlFor>` (não `<button>`) | Label nativo preserva semântica accessibility + form submit nativo + click target consistente (L-025)                                       |
 
 ---
 
@@ -620,6 +657,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Swap de nomes: TableToolbar canônica + Deprecated | CONCLUÍDO
+
 - Input: tornar a toolbar nova (ex-v2) o padrão sob o nome `TableToolbar`; renomear a antiga pra `TableToolbarDeprecated`; default da prop invertido; remover preview "Table Toolbar v2 — CRUD"; ClientesShowcase na toolbar nova.
 - Output:
   - Pastas: `ui/TableToolbar/` (v1) → `ui/TableToolbarDeprecated/`; `ui/TableToolbarV2/` → `ui/TableToolbar/` (canônica).
@@ -639,6 +677,7 @@
 ---
 
 ### [2026-06-09] | DS REVIEWER | Pre-commit gate — feat/table-toolbar-v2 finalização (swap + bugs + soloLabel + clamp) | PRE_COMMIT_OK
+
 - Spec verificada: sim — pipeline-state.md tem entry CONCLUÍDO do swap com Assumption documentada
 - Gate verificado: N/A — não é componente novo; é promoção de nome + bug fixes (gate gate anterior fac6443 aprovado)
 - Assumption verificada: **barrel ex-v2 é superset exato do ex-v1** — VÁLIDA. Diff entre `TableToolbarV2/index.ts@fac6443` e `TableToolbar/index.ts` HEAD mostra apenas renomeação do root export (`TableToolbarV2`→`TableToolbar`, `TableToolbarV2Props`→`TableToolbarProps`). Todos os outros exports idênticos. tsc 0 confirma.
@@ -656,6 +695,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Frente A — unificação do vocabulário de operadores de filtro | CONCLUÍDO
+
 - Input: padronização "ampla" (1ª frente) — eliminar o dual-namespace de operadores (popover `eq` curto vs FilterModel `equals` longo) que gerou o bug "É".
 - Output:
   - Vocabulário ÚNICO (ids longos do FilterModel) ponta a ponta: sql-parser, DEFAULT_FILTER_OPERATORS, DEFAULT_OP_LABELS, AppliedFilterOp, adapter, data-table, drawers.
@@ -671,20 +711,22 @@
 
 ---
 
-### [2026-06-09] | DS DEV | Frente B — column-types _shared helpers | CONCLUÍDO
+### [2026-06-09] | DS DEV | Frente B — column-types \_shared helpers | CONCLUÍDO
+
 - Input: 2ª frente da padronização — dedup dos helpers duplicados entre column-type definitions.
 - Output:
   - Novo `column-types/_shared.ts`: `toNumber` (canônico, Number.isFinite), date helpers (`toDateMs/dayStart/toDate/toIsoDate`), `ChipColor/CHIP_COLORS/resolveChipColor`, `findOption`, `toStringArray`.
   - Consumido por number/currency/percentage (toNumber), date/datetime (date helpers), badge/tags (color + findOption + toStringArray). ~120 LOC duplicadas removidas.
 - Decisões:
   - `toNumber` unificado em `Number.isFinite` (number já usava; currency/percentage usavam `!Number.isNaN` → aceitavam Infinity). Number.isFinite é mais correto — Infinity não é valor de célula/filtro válido.
-  - **Factories NÃO feitas** (text/email/phone/url): são similares mas com diferenças reais (normalize por tipo, operadores, renderCell). Fatorar seria premature abstraction — a duplicação real eram os helpers idênticos, já capturados pelo _shared.
+  - **Factories NÃO feitas** (text/email/phone/url): são similares mas com diferenças reais (normalize por tipo, operadores, renderCell). Fatorar seria premature abstraction — a duplicação real eram os helpers idênticos, já capturados pelo \_shared.
 - Assumption: os helpers extraídos são behavior-equivalentes (exceto toNumber rejeitar Infinity, que não ocorre nos dados). Confirmado: tsc 0 + finance showcase renderiza (currency/date/chips OK).
 - Lições novas: nenhuma.
 
 ---
 
 ### [2026-06-09] | DS DEV | Frente D — remoção do TableToolbarDeprecated | CONCLUÍDO
+
 - Input: 3ª frente — remover o layout dumb legado (`TableToolbarDeprecated`) e o opt-out `deprecatedToolbar`, agora que a toolbar canônica é a única usada.
 - Output:
   - Deletada a pasta `ui/TableToolbarDeprecated/` inteira (~28 arquivos, ~1.700 LOC, a maioria dup da canônica).
@@ -703,6 +745,7 @@
 ---
 
 ### [2026-06-09] | DS REVIEWER | Pre-commit check — Frente D (refactor/remove-deprecated-toolbar) | APROVADO
+
 - Escopo: remoção de componente (`TableToolbarDeprecated`), DocPage, prop opt-out, barrel export, rotas, nav entry.
 - Assumption verificada: grep src/ + .ai/ + .claude/ retorna zero refs funcionais a `TableToolbarDeprecated`/`deprecatedToolbar`/`table-toolbar-deprecated`. Única ocorrência restante é prosa histórica em `inventory.md:64` ("foi removida") — não é import nem prop.
 - Checklist executado:
@@ -722,6 +765,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Frente E — naming/consistência de hooks + avaliação da Frente C | CONCLUÍDO
+
 - Input: última frente da padronização — polish de naming/consistência de hooks.
 - Output (Frente E):
   - `UseToolbarFilterControlReturn` → `UseToolbarFilterControlResult` (alinha com convenção `*Result`).
@@ -737,6 +781,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Auditoria profunda PR1 — consolidação de filtros/aggregate/constantes | CONCLUÍDO
+
 - Input: auditoria profunda (5 analistas) pós-padronização. PR1 = consolidação (dedup interno, zero mudança de comportamento esperada).
 - Output:
   - **`utils/filter-ops.ts`** (novo): `MULTI_VALUE_OPERATORS`, `genFilterId`, `filterValueIsEmpty`, `promoteOperatorForColumn`/`promoteOperatorForFilterType`. Consolidou operator-promotion (estava em 4 cópias: adapter ×2, controller, drawer — com 3 comportamentos divergentes; drawer só fazia equals→isAnyOf) + genId (5 cópias, 2 formatos) + isEmpty (várias cópias).
@@ -751,6 +796,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Auditoria PR2 — dead-code simpleFilter + SQL round-trip-safe | CONCLUÍDO
+
 - Input: PR2 da auditoria — fixes de comportamento.
 - Output:
   - **#1 dead-code simpleFilter**: removido import órfão `ToolbarFilterControl` (nunca renderizado) + const `simpleFilterEnabled` (nunca usado) do data-table.tsx. Removida a prop no-op `simpleFilter.enabled` do DataTableProps (a doc descrevia split-button que não existe mais na v2). Mantidos hiddenFields/title/size (config real do drawer). 2 previews que passavam `{enabled:true}` ajustados.
@@ -776,6 +822,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Auditoria PR3 — extensibilidade (operador default, filterType, warn, types) | CONCLUÍDO
+
 - Input: PR3 da auditoria — extensibilidade pra adicionar tipos/filtros novos.
 - Output:
   - **#2** operador default do REGISTRY: novo `defaultOperatorForFilterType` (deriva de `operators[0]`), substitui o switch hardcoded `inferOperatorFromFilterType` (data-table.tsx) + `inferOperator` (drawer). Date/datetime reordenados pra `between` ser operators[0]. Corrige bug latente: currency/percentage/badge/email caíam em "contains" (que não suportam) → agora pegam o default correto.
@@ -791,6 +838,7 @@
 ---
 
 ### [2026-06-09] | DS DEV | Auditoria PR4 — memoização de linha (#11) | CONCLUÍDO
+
 - Input: PR4 (última) — o único ganho de perf real do audit; o mais arriscado (render loop).
 - Output:
   - Novo `parts/data-table-row.tsx`: `DataTableRow` = `React.memo` com o body do antigo `renderRow` (~190 linhas) movido as-is.
@@ -817,6 +865,7 @@
 ---
 
 ### [2026-06-10] | DS DEV | Skill crud-builder + /ds-create-crud (construtor de CRUD) | CONCLUÍDO
+
 - Input: pedido do usuário — agente/skill que entrevista (AppShell, filtros pré-definidos,
   colunas filtráveis/pinned, views, kanban guiado, virtualização etc) e gera telas de
   tabela consumindo o DataTable sem fugir dos exemplos/documentação. Decisões de gate:
@@ -847,7 +896,7 @@
   causa do drift real encontrado; única duplicação deliberada = mini-tabela de operadores
   (bug silencioso real do Select vazio); inventory.md NÃO tocado (página ≠ componente).
 - Assumption: a API do DataTable está estável o suficiente pra matriz de referência valer
-  por release; os 10 exemplos canônicos permanecem nos paths src/preview/pages/Clients*.
+  por release; os 10 exemplos canônicos permanecem nos paths src/preview/pages/Clients\*.
 - Lições novas: nenhuma (o drift USAGE↔types reforça a precedência de fontes, já codificada na skill).
 
 ---
@@ -864,11 +913,12 @@
 ---
 
 ### [2026-06-10] | DS DEV + DS REVIEWER | Auditoria docs/showcase aplicada (99 findings) | CONCLUÍDO
+
 - Input: auditoria multi-agente (24 agentes: 4 varreduras transversais + 20 drift-checks USAGE↔código) → 99 findings (27 ALTA / 54 MEDIA / 18 BAIXA), persistidos em `.ai/audits/2026-06-10-audit-docs-showcase.json`. Usuário aprovou aplicar todos.
 - Output (22 agentes de correção + fixes inline, 34 arquivos):
   - BUG runtime: classe `gap-gp-3xs` inexistente no theme → `gap-gp-2xs` em CardCheckbox styles, multiSelect column type e 2 showcases (gap renderizava 0).
   - Barrel npm (`src/components/index.ts`): + ButtonGroup, CardCheckbox, API v0.7+ do TableToolbar (ToolbarFilterControl/SettingsMenu/SimpleFilterDrawer, Sort/Cols/FilterPanel, useToolbarFilterControl, isFilterEntryActive) + types shadcn assimétricos (BadgeVariantProps, InputVariantProps/State, inputGroupVariants).
-  - inventory.md sincronizado com o disco: +11 ui/ (incl. FormField/AppShell), +6 shadcn (header 26), ViewFormModal→AddViewModal, commands /ds-*, registry 6→15 tipos, hooks (15+3), DataTable parts/utils/builders completos, seção "Hooks e utils transversais" (useTheme/cn/getContrastTextColor/tv).
+  - inventory.md sincronizado com o disco: +11 ui/ (incl. FormField/AppShell), +6 shadcn (header 26), ViewFormModal→AddViewModal, commands /ds-\*, registry 6→15 tipos, hooks (15+3), DataTable parts/utils/builders completos, seção "Hooks e utils transversais" (useTheme/cn/getContrastTextColor/tv).
   - 19 USAGE.md corrigidos contra o código (5 tinham exemplos que NÃO compilavam: FormField, Modal, TabelaTeste, Header, MenuSidebar; Button xxs→2xs; Panel/Chip/DataTable/FloatingPanel/FooterTable/AppShell/Kanban/Table/TableToolbar/PageHeader/AlertModal/ButtonGroup/CardCheckbox drifts pontuais).
   - Preview: CardCheckboxDoc criado + registrado (era o único ui/ sem página); AvatarDoc ganhou seção do Avatar iGreen (colorHex WCAG); sidebar legado "Showcase" id showcase→showcase-v2 (era página em branco); comentários nas páginas órfãs intencionais.
   - Showcases conformes às próprias lições: SacarDialog label raw→FormField (L-023), grids do NovoClienteDrawer gap-gp-xl→gap-form-gap (L-024), font-weights conflitantes removidos (verificação EMPÍRICA da ordem no CSS gerado), slot morto fieldLabel removido, StructureDoc L-014→L-028.
@@ -879,6 +929,7 @@
 ---
 
 ### [2026-06-10] | crud-builder + DS DEV | Reformulação ClientesFinanceiroShowcase (CRUD completo + Kanban) | CONCLUÍDO
+
 - Input: pedido pra atualizar a tela de finance desatualizada usando o novo DataTable "de forma redonda", + status + visão kanban. Via skill crud-builder (entrevista→blueprint→gate aprovado pelo usuário).
 - Output (4 arquivos editados + 2 criados):
   - types: + AccountStatus (pendente/ativo/negociacao/bloqueado), FinanceTransaction, PaymentMethod + 7 campos (monthlyVolume, commissionRate, accountStatus, autoWithdraw, paymentMethods, lastMovement, transactions).
@@ -893,6 +944,7 @@
 ---
 
 ### [2026-06-10] | DS DEV | Ajustes finance + 3 correções de DS core (FloatingPanel/Table/FooterTable) | CONCLUÍDO
+
 - Input: 5 ajustes pós-validação visual da tela finance — autorizado mexer em componentes "com cuidado".
 - Output:
   1. **FloatingPanel** (DS core): nova prop `bodyPadded` (default `true` — padding interno padrão do body, parametrizável) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel. Refatorado FinanceDetailPanel pra usá-los (espelha o DetailDrawer da ClientesShowcase, que era a referência). `bodyPadded={false}` aplicado nos consumers que já gerenciam padding próprio (DetailDrawer, ToolbarSimpleFilterDrawer); FloatingPanelDoc migrado pra demonstrar o default (removido p-pad-3xl manual).
@@ -907,6 +959,7 @@
 ---
 
 ### [2026-06-11] | DS DEV | 12 ajustes responsivos/UX (DataTable, AppShell, Header, Calendar, Finance) | CONCLUÍDO
+
 - Input: lote de 12 ajustes de responsividade/UX listados pelo usuário — "muitos ajustes em diferentes áreas mas todas importantes; com cuidado pra não quebrar". Branch `fix/responsive-table-adjustments`, 6 commits.
 - Output (por item):
   1. **Finance** — removido `mb-pad-2xl` redundante do DataTable (bodyInner já tem padding).
@@ -929,6 +982,7 @@
 ---
 
 ### [2026-06-13] | DS DEV | Tree-data hierárquico multi-nível no DataTable (Fase F.4c) — finalização | CONCLUÍDO
+
 - Input: feature começada por agente anterior (interrompido por queda de energia ANTES de comitar/verificar). Estado: uncommitted no repo DS, branch `main`. Arquivos: NOVO `utils/tree-rows.ts` (wrapper `DataTableTreeRow<T>` Symbol-discriminated + `buildTreeRows` + `collectExpandableTreeIds` + `isTreeRow`), NOVO `parts/data-table-tree-toggle.tsx` (chevron + indentação), MODIFICADOS `data-table.tsx`/`data-table.types.ts`/`use-data-table-controller.ts`/`parts/data-table-row.tsx`. Missão: completar com qualidade, build verde, showcase, USAGE, branch + commit (sem push).
 - API final: prop `getTreeDataPath?: (row: T) => Array<string|number>` + `treeData?: { showDescendantCount?: boolean; defaultExpanded?: boolean }` + flag de coluna `treeColumn?: boolean`. Rows continuam FLAT; o path define a árvore. Precedência `groupBy` > tree > rowExpansion. Estado de expansão reusa `expandedRowIds` (Set = divergência do default). Pagination desliga automaticamente (`!props.getTreeDataPath` no `shouldPaginate`).
 - Output / o que foi completado:
@@ -945,6 +999,7 @@
 ---
 
 ### [2026-06-13] | DS DEV | 4 polish de célula/toolbar no DataTable (read-more · copy · grab-to-scroll · fullscreen) | CONCLUÍDO
+
 - Input: pedido pra adicionar 4 features de polish (gaps incrementais do audit) ESTENDENDO o DataTable (não reinventar). Modelos no legado: `ReadMoreCell` + `useGrabToScroll` (ui-igreen-virtual-office). Branch `feat/datatable-cell-polish` a partir de `main`. Commit sem push.
 - API final (pro app consumir):
   1. **Read-more** — flag de coluna `readMore?: boolean | { lines?: number; label?: string }`. `true` = 1 linha + reticências + "Ler mais"; objeto customiza nº de linhas (line-clamp) e label. Trunca + popover com texto completo (DS-equiv do tooltip legado).
@@ -967,6 +1022,7 @@
 ---
 
 ### [2026-06-15] | DS DEV | Combobox (select com busca + scroll) + uso no field-picker do FilterPopover | CONCLUÍDO
+
 - Input: o select de "Campo" do filtro (FilterPopover) usava `Select` (Radix) puro — sem autocomplete e com a lista cortada dentro do popover. Views como MAPACLIENTES têm ~30 colunas → escolher uma no meio é ruim. Pedido (gate aprovado): criar componente reutilizável `Combobox` no DS e trocar o field-picker. Motivado por bug correlato no VO (filtro por coluna com espaço, ex.: "data cadastro", já corrigido no backend).
 - Output / arquivos:
   - NOVO `ui/Combobox/` (4 arquivos + USAGE): `combobox.styles.ts` (tv, slots trigger/value/icon/content/itemLabel — trigger espelha 1:1 o `SelectTrigger`), `combobox.types.ts` (`ComboboxProps` + `ComboboxOption`), `combobox.tsx` (`Popover` + `Command`/cmdk; forwardRef no `<button role="combobox">`; open controlado/não-controlado), `index.ts`, `USAGE.md`.
@@ -982,6 +1038,7 @@
 ---
 
 ### [2026-06-15] | DS DEV | DataTable server-mode: filtro "fino" (gate de ativo + debounce) no use-data-table-query | CONCLUÍDO
+
 - Input: no server-mode, escolher CAMPO ou OPERADOR no filtro (valor ainda vazio) já disparava o fetch — request boba e, em coluna tipada, payload malformado que estourava 500 no backend. Causa: `use-data-table-query` tinha `filterModel` direto nas deps do efeito (refetch a CADA mudança) e SEM debounce (digitar = 1 request/tecla). Edição de componente existente (sem gate).
 - Output / arquivos: MOD `DataTable/hooks/use-data-table-query.ts`:
   - `isActiveFilterItem(item)` (reusa `filterValueIsEmpty` de `utils/filter-ops`; nulários isEmpty/isNotEmpty sempre ativos) → `activeFilterModel` (useMemo) com só os itens ATIVOS.
@@ -996,6 +1053,7 @@
 ---
 
 ### [2026-06-15] | DS DEV | Charts: 6 tipos + showcase de composições + padrões no pipeline | CONCLUÍDO
+
 - Input: criar categoria "Charts" no preview (Area/Bars/Lines/Pies/Radars/Radials replicando shadcn com o DS), depois página "Compositions" com 28 composições de dashboard como inspiração, e por fim padronizar/documentar tudo como design system. Branch `feat/charts-area`.
 - Output:
   1. **Componente `Chart`** (ui/Chart) — wrapper sobre Recharts 3 (ChartContainer + ChartTooltip/Content + ChartLegend/Content). Grid reescrito pro token `chart-grid`.
@@ -1009,6 +1067,7 @@
 - Lições novas: **L-032** registrada (caveats Recharts 3: display-sm/xs inexistentes → heading; Pie shape vs activeIndex; radial stack precisa PolarAngleAxis number; YAxis interval=0 + domain=maior tick; grid via token chart-grid).
 
 ### 2026-06-16 | DS DEV | Registry distribution — Fase 1 (infra) | CONCLUÍDO
+
 - Input: spec `.ai/specs/registry-distribution.md` (P1–P4 fechadas).
 - Output: `registry.json` (raiz, 5 items: utils/tv/theme/button/input), `scripts/registry-stamp.mjs` (carimbo no meta + header), `package.json` (+`registry:stamp`/`registry:build`), headers `@igreen-stamp` em 9 fontes.
 - Decisões: endpoint = deploy Next dedicado na Vercel + `Bearer` (P4); namespace único `@igreen` (P2); carimbo `igreen-ds · <nome> · v<version> · <hash> · data`, version = `package.json.version` (P1); revert via git do consumidor (P3); `tv.ts` e `cn` como `registry:file` com salvaguarda de hash no doctor.
@@ -1016,6 +1075,7 @@
 - Lições novas: nenhuma.
 
 ### 2026-06-16 | DS REVIEWER | Registry Fase 1 | APROVADO
+
 - Spec verificada: sim. Gate verificado: sim.
 - Assumption verificada: válida (copy-in + `rN`=version).
 - Critique genuína: além do checklist, achei o ordering do `registry:build` (o `tokens:tw4` regenera o `theme.css` e apaga o stamp) → corrigido pra `tokens:tw4 → registry:stamp → shadcn build`. Headers em `tv.ts`/`utils.ts` são só comentário (+1 linha) — `twMergeConfig` intacto, **L-016 preservado** (`tv.ts ↔ typography` idêntico). tsc exit 0.
@@ -1064,7 +1124,7 @@ Esforço grande de hoje (snksergio; origin igreenlab NÃO tocado). PRs #31–#35
 - **16 componentes shadcn novos** tokenizados + DocPages + registry (4 batches):
   Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group,
   Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer.
-  + DatePicker composto (Popover+Calendar). Documentados Combobox/Sheet (existiam sem doc).
+  - DatePicker composto (Popover+Calendar). Documentados Combobox/Sheet (existiam sem doc).
 - **Ícones de marca `igreen-*`** (9) no Icon + suporte multi-path (PR #31).
 - **Resizable PULADO**: react-resizable-panels v4 incompatível com o componente shadcn (v2/v3);
   baixo uso em admin + DS já tem hook use-resizable. Dep desinstalada.
@@ -1079,3 +1139,47 @@ Esforço grande de hoje (snksergio; origin igreenlab NÃO tocado). PRs #31–#35
   flutuante — por isso receita explícita + regra. Deploy do registry = automático no merge (Vercel).
 - **Lições novas**: L-038, L-039, L-040.
 - **Pendência do mantenedor**: revogar token npm; publicar CLI 0.13.6 (manual); deploy registry (auto no merge).
+
+---
+
+### 2026-06-20 | DS DEV + ORCHESTRATOR | DataList (família lista) + pipeline | EM ANDAMENTO (PR #44)
+
+Sessão longa, iterativa. Branch `feat/datalist` (mirror snksergio). Tudo via PR #44.
+
+- **DataList — features**: visões em abas (ToolbarTabs) + chips de filtro (ToolbarApplied) +
+  `measureElement` (gap virtualizado) + infinite scroll (sentinel + skeleton) + `fillHeight`
+  (scroll no container, toolbar fixa) + `branchHighlight` (`none`/`block`/`active`) no List
+  hierarchical. Fix do connector off-by-one (guia do último nó). Folha sem placeholder de chevron.
+- **5 telas de exemplo** dedicadas (List\*Preview: standard/grouped/hierarchical/selectable/rich)
+  - módulo `_list-example-data.tsx`. Showcase `#/list` ganhou exemplos block/active interativos.
+- **Pipeline**: skill irmã `list-builder` + commands `/ds-create-list` e `/ds-create-screen`
+  (front-door desambigua tabela×lista) + cross-links (orchestrator, ds-standards, CLAUDE.md).
+  Dois smoke tests OK (skill é lida; "lista de produtos" desambiguada corretamente).
+- **Hooks reparados (L-044)**: jq ausente + path Windows deixavam os 6 hooks cegos a sessão
+  toda → fallback node + normalização de separador. Rede de segurança de volta.
+- **Lições novas**: L-044 (hooks cegos), L-045 (connector off-by-one), L-046 (padrões DataList),
+  L-047 (DoD de skill builder), L-048 (block-rm-rf falso-positivo em commit msg).
+- **Assumption**: DataList é cliente pesado de TableToolbar/List/FilterModel → registry precisa
+  declarar registryDependencies (não é standalone).
+- **PENDENTE (bundle /ds-release — NÃO feito)**: DataList NÃO está distribuível. Faltam 3/7
+  superfícies (L-042): (1) entry `data-list` em `registry.json` + registry:build + embed;
+  (2) catálogo CLI (`cli/.../CLAUDE.md`) + bump CLI; (3) changelog (`updates-data.ts`).
+  - consumer `list-builder` no `_claude` (modelo igreen:add) + ds-kit split tabela/lista;
+  - tela de exemplo distribuível (clone fiel do example-finance trocando DataTable→DataList).
+- **Pendência do mantenedor**: merge do PR #44 (gate humano); rodar `/ds-release` do DataList.
+
+---
+
+### 2026-06-20 | DS DEV | DataList — DISTRIBUIÇÃO (bundle /ds-release) | CONCLUÍDO (no PR #44)
+
+Execução autônoma autorizada pelo usuário (sair e voltar só pra validar+mergiar). Tudo no PR #44 (mirror snksergio). **Não foi feito**: merge, `npm publish` e publish do CLI — gate do mantenedor (L-020).
+
+- **registry.json**: + `data-list` (registryDependencies: list/table-toolbar/data-table/button/dropdown-menu/utils; deps react-virtual/lucide) + `example-mapa-rede` (extração 1:1, `<MapaDeRedeScreen/>`). `registry:build` (re-stamp v0.14.0 + shadcn build) + `copy-registry` (embed registry-data.ts = 76 itens). `registry:check` ok; drift baseline (7 exemplos).
+- **src/examples/mapa-rede/**: extração distribuível (screen sem AppShell + mocks + types + ConsultorDetailPanel).
+- **CLI**: catálogo (CLAUDE.md) + data-list/example-mapa-rede + mapa de intenção split tabela×lista; bump CLI 0.13.8→0.13.9.
+- **Consumer `_claude`**: skill `list-builder` (copy-in, igreen:add) + commands `/ds-create-list` e `/ds-create-screen` + `ds-kit` roteando lista de cards → list-builder (fecha o gap "lista"→crud).
+- **Changelog** `updates-data.ts`: entry v0.14.0. **Bump DS** 0.13.0→0.14.0.
+- Validação: `tsc` 0 · `npm test` 22/22 · registry:check ok · visual (data-list, mapa-rede, updates) ok.
+- **Assumption**: registry:build re-stampa todos os itens pra v0.14.0 (esperado num release). Deploy do registry = automático no merge (Vercel); publish do CLI = manual (mantenedor).
+- **Lições novas**: nenhuma nova nesta fase (L-044..L-048 já registradas).
+- **Pendência do mantenedor**: validar + **merge do PR #44**; publish manual do CLI 0.13.9; revogar token npm.

@@ -56,6 +56,12 @@ import { ChartShowcaseDoc } from "./preview/pages/ChartShowcaseDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ListDoc } from "./preview/pages/ListDoc";
+import { DataListDoc } from "./preview/pages/DataListDoc";
+import ListStandardPreview from "./preview/pages/ListStandardPreview";
+import ListGroupedPreview from "./preview/pages/ListGroupedPreview";
+import ListHierarchicalPreview from "./preview/pages/ListHierarchicalPreview";
+import ListSelectablePreview from "./preview/pages/ListSelectablePreview";
+import ListRichPreview from "./preview/pages/ListRichPreview";
 import { ModalDoc } from "./preview/pages/ModalDoc";
 import ClientsCRUDPreview from "./preview/pages/ClientsCRUDPreview";
 import ClientsCRUDServerPreview from "./preview/pages/ClientsCRUDServerPreview";
@@ -88,6 +94,7 @@ import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
 import ClientesShowcase from "./preview/pages/ClientesShowcase";
 import ClientesFinanceiroShowcase from "./preview/pages/ClientesFinanceiroShowcase";
+import MapaDeRedeShowcase from "./preview/pages/MapaDeRedeShowcase";
 import OrderDetailShowcase from "./preview/pages/OrderDetailShowcase";
 import OrderEditShowcase from "./preview/pages/OrderEditShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
@@ -117,8 +124,22 @@ import { AgentDesignerDoc } from "./preview/pages/AgentDesignerDoc";
 import { IconsDoc } from "./preview/pages/IconsDoc";
 import { AgentDevDoc } from "./preview/pages/AgentDevDoc";
 import { AgentReviewerDoc } from "./preview/pages/AgentReviewerDoc";
-import { DocNavProvider, DocSidebar, getDocNavByHref } from "./preview/components";
-import { Zap, Download, Bot, Palette, Type, Layers, Box, LayoutGrid, ChevronDown } from "lucide-react";
+import {
+  DocNavProvider,
+  DocSidebar,
+  getDocNavByHref,
+} from "./preview/components";
+import {
+  Zap,
+  Download,
+  Bot,
+  Palette,
+  Type,
+  Layers,
+  Box,
+  LayoutGrid,
+  ChevronDown,
+} from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Sidebar Navigation Structure
@@ -127,7 +148,12 @@ import { Zap, Download, Bot, Palette, Type, Layers, Box, LayoutGrid, ChevronDown
 type NavSection = {
   title: string;
   defaultOpen?: boolean;
-  items: { id: string; label: string; icon?: React.ComponentType<{ className?: string }>; badge?: string }[];
+  items: {
+    id: string;
+    label: string;
+    icon?: React.ComponentType<{ className?: string }>;
+    badge?: string;
+  }[];
 };
 
 const NAV_SECTIONS: NavSection[] = [
@@ -173,7 +199,7 @@ const NAV_SECTIONS: NavSection[] = [
 ];
 
 // Collect all valid page IDs
-const ALL_PAGE_IDS = NAV_SECTIONS.flatMap(s => s.items.map(i => i.id));
+const ALL_PAGE_IDS = NAV_SECTIONS.flatMap((s) => s.items.map((i) => i.id));
 type PageId = string;
 
 // Páginas que têm seu próprio DocSidebar (renderizam full width).
@@ -182,15 +208,125 @@ type PageId = string;
 // decisão: ficam FORA da nav (doc-nav-data.ts) de propósito, acessíveis só via
 // deep-link #/docs ou #/docs-template (referência pra criar novas doc pages).
 const DOC_PAGES = [
-  "button", "button-group", "badge", "chip", "icon", "input", "tabs", "card", "docs", "docs-template",
-  "introduction", "structure", "distribution", "installation", "transform-tokens", "updates",
-  "agents", "agents-overview", "agent-orchestrator", "agent-designer", "agent-dev", "agent-reviewer",
-  "pipeline-skills", "pipeline-commands", "pipeline-hooks", "pipeline-output-styles", "pipeline-mcp", "pipeline-memory",
-  "tokens-overview", "colors", "typography", "spacing", "shape", "elevation", "sizing", "icons",
-  "chart-area", "chart-bar", "chart-line", "chart-pie", "chart-radar", "chart-radial", "chart-showcase",
-  "switch", "checkbox", "card-checkbox", "radio-group", "slider", "progress",
-  "accordion", "alert", "dialog", "dropdown-menu", "tooltip", "skeleton", "sonner", "toast", "combobox", "sheet", "collapsible", "scroll-area", "date-picker", "toggle", "toggle-group", "input-otp", "context-menu", "hover-card", "menubar", "navigation-menu", "carousel", "aspect-ratio", "drawer",
-  "avatar", "breadcrumb", "calendar", "command", "panel", "popover", "floating-panel", "textarea", "label", "separator", "select", "menu-sidebar", "header", "app-shell", "page-header", "form-field", "input-group", "alert-modal", "modal", "pagination", "footer-table", "table-toolbar", "table", "data-table", "list", "tabela-teste", "kanban", "clients-crud", "clients-crud-server", "clients-pre-filtered", "clients-virtualized", "clients-grouped", "clients-expandable", "clients-tree", "clients-typed", "clients-kanban", "clientes-showcase", "chat-v2", "dashboard-showcase", "showcase-v2",
+  "button",
+  "button-group",
+  "badge",
+  "chip",
+  "icon",
+  "input",
+  "tabs",
+  "card",
+  "docs",
+  "docs-template",
+  "introduction",
+  "structure",
+  "distribution",
+  "installation",
+  "transform-tokens",
+  "updates",
+  "agents",
+  "agents-overview",
+  "agent-orchestrator",
+  "agent-designer",
+  "agent-dev",
+  "agent-reviewer",
+  "pipeline-skills",
+  "pipeline-commands",
+  "pipeline-hooks",
+  "pipeline-output-styles",
+  "pipeline-mcp",
+  "pipeline-memory",
+  "tokens-overview",
+  "colors",
+  "typography",
+  "spacing",
+  "shape",
+  "elevation",
+  "sizing",
+  "icons",
+  "chart-area",
+  "chart-bar",
+  "chart-line",
+  "chart-pie",
+  "chart-radar",
+  "chart-radial",
+  "chart-showcase",
+  "switch",
+  "checkbox",
+  "card-checkbox",
+  "radio-group",
+  "slider",
+  "progress",
+  "accordion",
+  "alert",
+  "dialog",
+  "dropdown-menu",
+  "tooltip",
+  "skeleton",
+  "sonner",
+  "toast",
+  "combobox",
+  "sheet",
+  "collapsible",
+  "scroll-area",
+  "date-picker",
+  "toggle",
+  "toggle-group",
+  "input-otp",
+  "context-menu",
+  "hover-card",
+  "menubar",
+  "navigation-menu",
+  "carousel",
+  "aspect-ratio",
+  "drawer",
+  "avatar",
+  "breadcrumb",
+  "calendar",
+  "command",
+  "panel",
+  "popover",
+  "floating-panel",
+  "textarea",
+  "label",
+  "separator",
+  "select",
+  "menu-sidebar",
+  "header",
+  "app-shell",
+  "page-header",
+  "form-field",
+  "input-group",
+  "alert-modal",
+  "modal",
+  "pagination",
+  "footer-table",
+  "table-toolbar",
+  "table",
+  "data-table",
+  "list",
+  "data-list",
+  "list-standard",
+  "list-grouped",
+  "list-hierarchical",
+  "list-selectable",
+  "list-rich",
+  "tabela-teste",
+  "kanban",
+  "clients-crud",
+  "clients-crud-server",
+  "clients-pre-filtered",
+  "clients-virtualized",
+  "clients-grouped",
+  "clients-expandable",
+  "clients-tree",
+  "clients-typed",
+  "clients-kanban",
+  "clientes-showcase",
+  "mapa-rede",
+  "chat-v2",
+  "dashboard-showcase",
+  "showcase-v2",
 ];
 
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
@@ -226,7 +362,9 @@ function SidebarSection({
         className="flex items-center justify-between w-full px-2 py-2 text-body-xs text-fg-default uppercase tracking-wider hover:text-fg-default transition-colors"
       >
         {section.title}
-        <ChevronDown className={`size-3 text-fg-subtle transition-transform ${open ? "" : "-rotate-90"}`} />
+        <ChevronDown
+          className={`size-3 text-fg-subtle transition-transform ${open ? "" : "-rotate-90"}`}
+        />
       </button>
       {open && (
         <div className="flex flex-col">
@@ -247,7 +385,9 @@ function SidebarSection({
                 {!item.icon && <span className="w-4" />}
                 {item.label}
                 {item.badge && (
-                  <span className={`ml-auto text-caption-sm font-medium ${item.badge === "PRO" ? "text-fg-danger" : "text-fg-subtle"}`}>
+                  <span
+                    className={`ml-auto text-caption-sm font-medium ${item.badge === "PRO" ? "text-fg-danger" : "text-fg-subtle"}`}
+                  >
                     {item.badge}
                   </span>
                 )}
@@ -268,7 +408,9 @@ function SidebarSection({
 export function App() {
   const { isDark, toggle } = useTheme();
   const theme = isDark ? "dark" : "light";
-  const [activePage, setActivePage] = useState<PageId>(() => readPageFromHash() ?? "button");
+  const [activePage, setActivePage] = useState<PageId>(
+    () => readPageFromHash() ?? "button",
+  );
 
   // Standalone apps via query param — renderiza fullscreen sem nav de docs.
   // Ex: ?app=finance → ClientesFinanceiroShowcase (sem sidebar de DS).
@@ -284,6 +426,10 @@ export function App() {
 
   if (standaloneApp === "finance") {
     return <ClientesFinanceiroShowcase />;
+  }
+
+  if (standaloneApp === "mapa-rede") {
+    return <MapaDeRedeShowcase />;
   }
 
   if (standaloneApp === "order-detail") {
@@ -327,124 +473,146 @@ export function App() {
   if (isDocPage) {
     return (
       <DocNavProvider onNavigate={setActivePage}>
-      <div className="flex h-screen overflow-hidden">
-        <Toaster />
-        <DocSidebar sections={getDocNavByHref(activePage)} onNavigate={setActivePage} theme={theme} onToggleTheme={toggle} />
-        <main ref={contentRef} className="flex-1 overflow-auto bg-bg-canvas">
-          {activePage === "button" && <ButtonDoc />}
-          {activePage === "button-group" && <ButtonGroupDoc />}
-          {activePage === "badge" && <BadgeDoc />}
-          {activePage === "chip" && <ChipDoc />}
-          {activePage === "icon" && <IconLibraryDoc />}
-          {activePage === "tooltip" && <TooltipDoc />}
-          {activePage === "skeleton" && <SkeletonDoc />}
-          {activePage === "sonner" && <SonnerDoc />}
-          {activePage === "toast" && <ToastDoc />}
-          {activePage === "combobox" && <ComboboxDoc />}
-          {activePage === "sheet" && <SheetDoc />}
-          {activePage === "collapsible" && <CollapsibleDoc />}
-          {activePage === "scroll-area" && <ScrollAreaDoc />}
-          {activePage === "date-picker" && <DatePickerDoc />}
-          {activePage === "toggle" && <ToggleDoc />}
-          {activePage === "toggle-group" && <ToggleGroupDoc />}
-          {activePage === "input-otp" && <InputOTPDoc />}
-          {activePage === "context-menu" && <ContextMenuDoc />}
-          {activePage === "hover-card" && <HoverCardDoc />}
-          {activePage === "menubar" && <MenubarDoc />}
-          {activePage === "navigation-menu" && <NavigationMenuDoc />}
-          {activePage === "carousel" && <CarouselDoc />}
-          {activePage === "aspect-ratio" && <AspectRatioDoc />}
-          {activePage === "drawer" && <DrawerDoc />}
-          {activePage === "input" && <InputDoc />}
-          {activePage === "input-group" && <InputGroupDoc />}
-          {activePage === "select" && <SelectDoc />}
-          {activePage === "tabs" && <TabsDoc />}
-          {activePage === "card" && <CardDoc />}
-          {activePage === "switch" && <SwitchDoc />}
-          {activePage === "checkbox" && <CheckboxDoc />}
-          {activePage === "card-checkbox" && <CardCheckboxDoc />}
-          {activePage === "radio-group" && <RadioGroupDoc />}
-          {activePage === "slider" && <SliderDoc />}
-          {activePage === "progress" && <ProgressDoc />}
-          {activePage === "pagination" && <PaginationDoc />}
-          {activePage === "footer-table" && <FooterTableDoc />}
-          {activePage === "table-toolbar" && <TableToolbarDoc />}
-          {activePage === "table" && <TableDoc />}
-          {activePage === "data-table" && <DataTableDoc />}
-          {activePage === "tabela-teste" && <TabelaTesteDoc />}
-          {activePage === "kanban" && <KanbanDoc />}
-          {activePage === "list" && <ListDoc />}
-          {activePage === "modal" && <ModalDoc />}
-          {activePage === "clients-crud" && <ClientsCRUDPreview />}
-          {activePage === "clients-crud-server" && <ClientsCRUDServerPreview />}
-          {activePage === "clients-pre-filtered" && <ClientsPreFilteredPreview />}
-          {activePage === "clients-virtualized" && <ClientsVirtualizedPreview />}
-          {activePage === "clients-grouped" && <ClientsGroupedPreview />}
-          {activePage === "clients-expandable" && <ClientsExpandablePreview />}
-          {activePage === "clients-tree" && <ClientsTreePreview />}
-          {activePage === "clients-typed" && <ClientsTypedPreview />}
-          {activePage === "clients-kanban" && <ClientsKanbanPreview />}
-          {activePage === "accordion" && <AccordionDoc />}
-          {activePage === "alert" && <AlertDoc />}
-          {activePage === "alert-modal" && <AlertModalDoc />}
-          {activePage === "dialog" && <DialogDoc />}
-          {activePage === "dropdown-menu" && <DropdownMenuDoc />}
-          {activePage === "avatar" && <AvatarDoc />}
-          {activePage === "breadcrumb" && <BreadcrumbDoc />}
-          {activePage === "calendar" && <CalendarDoc />}
-          {activePage === "command" && <CommandDoc />}
-          {activePage === "panel" && <PanelDoc />}
-          {activePage === "popover" && <PopoverDoc />}
-          {activePage === "floating-panel" && <FloatingPanelDoc />}
-          {activePage === "textarea" && <TextareaDoc />}
-          {activePage === "form-field" && <FormFieldDoc />}
-          {activePage === "label" && <LabelDoc />}
-          {activePage === "separator" && <SeparatorDoc />}
-          {activePage === "menu-sidebar" && <MenuSidebarDoc />}
-          {activePage === "header" && <HeaderDoc />}
-          {activePage === "app-shell" && <AppShellDoc />}
-          {activePage === "page-header" && <PageHeaderDoc />}
-          {activePage === "clientes-showcase" && <ClientesShowcase />}
-          {activePage === "chat-v2" && <ChatV2 />}
-          {activePage === "dashboard-showcase" && <DashboardShowcase />}
-          {activePage === "tokens-overview" && <TokensOverviewDoc />}
-          {activePage === "colors" && <ColorsDoc />}
-          {activePage === "typography" && <TypographyDoc />}
-          {activePage === "spacing" && <SpacingDoc />}
-          {activePage === "shape" && <ShapeDoc />}
-          {activePage === "elevation" && <ElevationDoc />}
-          {activePage === "sizing" && <SizingDoc />}
-          {activePage === "icons" && <IconsDoc />}
-          {activePage === "chart-area" && <AreaChartDoc />}
-          {activePage === "chart-bar" && <BarChartDoc />}
-          {activePage === "chart-line" && <LineChartDoc />}
-          {activePage === "chart-pie" && <PieChartDoc />}
-          {activePage === "chart-radar" && <RadarChartDoc />}
-          {activePage === "chart-radial" && <RadialChartDoc />}
-          {activePage === "chart-showcase" && <ChartShowcaseDoc />}
-          {activePage === "showcase-v2" && <ShowcasePageV2 />}
-          {activePage === "agents" && <AgentsPreview />}
-          {activePage === "agents-overview" && <AgentsOverviewDoc />}
-          {activePage === "agent-orchestrator" && <AgentOrchestratorDoc />}
-          {activePage === "agent-designer" && <AgentDesignerDoc />}
-          {activePage === "agent-dev" && <AgentDevDoc />}
-          {activePage === "agent-reviewer" && <AgentReviewerDoc />}
-          {activePage === "introduction" && <IntroductionDoc />}
-          {activePage === "structure" && <StructureDoc />}
-          {activePage === "distribution" && <DistributionDoc />}
-          {activePage === "transform-tokens" && <TransformTokensDoc />}
-          {activePage === "installation" && <InstallationDoc />}
-          {activePage === "updates" && <UpdatesDoc />}
-          {activePage === "pipeline-skills" && <PipelineSkillsDoc />}
-          {activePage === "pipeline-commands" && <PipelineCommandsDoc />}
-          {activePage === "pipeline-hooks" && <PipelineHooksDoc />}
-          {activePage === "pipeline-output-styles" && <PipelineOutputStylesDoc />}
-          {activePage === "pipeline-mcp" && <PipelineMcpDoc />}
-          {activePage === "pipeline-memory" && <PipelineMemoryDoc />}
-          {activePage === "docs" && <ComponentDocTemplate />}
-          {activePage === "docs-template" && <ComponentDocTemplate />}
-        </main>
-      </div>
+        <div className="flex h-screen overflow-hidden">
+          <Toaster />
+          <DocSidebar
+            sections={getDocNavByHref(activePage)}
+            onNavigate={setActivePage}
+            theme={theme}
+            onToggleTheme={toggle}
+          />
+          <main ref={contentRef} className="flex-1 overflow-auto bg-bg-canvas">
+            {activePage === "button" && <ButtonDoc />}
+            {activePage === "button-group" && <ButtonGroupDoc />}
+            {activePage === "badge" && <BadgeDoc />}
+            {activePage === "chip" && <ChipDoc />}
+            {activePage === "icon" && <IconLibraryDoc />}
+            {activePage === "tooltip" && <TooltipDoc />}
+            {activePage === "skeleton" && <SkeletonDoc />}
+            {activePage === "sonner" && <SonnerDoc />}
+            {activePage === "toast" && <ToastDoc />}
+            {activePage === "combobox" && <ComboboxDoc />}
+            {activePage === "sheet" && <SheetDoc />}
+            {activePage === "collapsible" && <CollapsibleDoc />}
+            {activePage === "scroll-area" && <ScrollAreaDoc />}
+            {activePage === "date-picker" && <DatePickerDoc />}
+            {activePage === "toggle" && <ToggleDoc />}
+            {activePage === "toggle-group" && <ToggleGroupDoc />}
+            {activePage === "input-otp" && <InputOTPDoc />}
+            {activePage === "context-menu" && <ContextMenuDoc />}
+            {activePage === "hover-card" && <HoverCardDoc />}
+            {activePage === "menubar" && <MenubarDoc />}
+            {activePage === "navigation-menu" && <NavigationMenuDoc />}
+            {activePage === "carousel" && <CarouselDoc />}
+            {activePage === "aspect-ratio" && <AspectRatioDoc />}
+            {activePage === "drawer" && <DrawerDoc />}
+            {activePage === "input" && <InputDoc />}
+            {activePage === "input-group" && <InputGroupDoc />}
+            {activePage === "select" && <SelectDoc />}
+            {activePage === "tabs" && <TabsDoc />}
+            {activePage === "card" && <CardDoc />}
+            {activePage === "switch" && <SwitchDoc />}
+            {activePage === "checkbox" && <CheckboxDoc />}
+            {activePage === "card-checkbox" && <CardCheckboxDoc />}
+            {activePage === "radio-group" && <RadioGroupDoc />}
+            {activePage === "slider" && <SliderDoc />}
+            {activePage === "progress" && <ProgressDoc />}
+            {activePage === "pagination" && <PaginationDoc />}
+            {activePage === "footer-table" && <FooterTableDoc />}
+            {activePage === "table-toolbar" && <TableToolbarDoc />}
+            {activePage === "table" && <TableDoc />}
+            {activePage === "data-table" && <DataTableDoc />}
+            {activePage === "tabela-teste" && <TabelaTesteDoc />}
+            {activePage === "kanban" && <KanbanDoc />}
+            {activePage === "list" && <ListDoc />}
+            {activePage === "data-list" && <DataListDoc />}
+            {activePage === "list-standard" && <ListStandardPreview />}
+            {activePage === "list-grouped" && <ListGroupedPreview />}
+            {activePage === "list-hierarchical" && <ListHierarchicalPreview />}
+            {activePage === "list-selectable" && <ListSelectablePreview />}
+            {activePage === "list-rich" && <ListRichPreview />}
+            {activePage === "modal" && <ModalDoc />}
+            {activePage === "clients-crud" && <ClientsCRUDPreview />}
+            {activePage === "clients-crud-server" && (
+              <ClientsCRUDServerPreview />
+            )}
+            {activePage === "clients-pre-filtered" && (
+              <ClientsPreFilteredPreview />
+            )}
+            {activePage === "clients-virtualized" && (
+              <ClientsVirtualizedPreview />
+            )}
+            {activePage === "clients-grouped" && <ClientsGroupedPreview />}
+            {activePage === "clients-expandable" && (
+              <ClientsExpandablePreview />
+            )}
+            {activePage === "clients-tree" && <ClientsTreePreview />}
+            {activePage === "clients-typed" && <ClientsTypedPreview />}
+            {activePage === "clients-kanban" && <ClientsKanbanPreview />}
+            {activePage === "accordion" && <AccordionDoc />}
+            {activePage === "alert" && <AlertDoc />}
+            {activePage === "alert-modal" && <AlertModalDoc />}
+            {activePage === "dialog" && <DialogDoc />}
+            {activePage === "dropdown-menu" && <DropdownMenuDoc />}
+            {activePage === "avatar" && <AvatarDoc />}
+            {activePage === "breadcrumb" && <BreadcrumbDoc />}
+            {activePage === "calendar" && <CalendarDoc />}
+            {activePage === "command" && <CommandDoc />}
+            {activePage === "panel" && <PanelDoc />}
+            {activePage === "popover" && <PopoverDoc />}
+            {activePage === "floating-panel" && <FloatingPanelDoc />}
+            {activePage === "textarea" && <TextareaDoc />}
+            {activePage === "form-field" && <FormFieldDoc />}
+            {activePage === "label" && <LabelDoc />}
+            {activePage === "separator" && <SeparatorDoc />}
+            {activePage === "menu-sidebar" && <MenuSidebarDoc />}
+            {activePage === "header" && <HeaderDoc />}
+            {activePage === "app-shell" && <AppShellDoc />}
+            {activePage === "page-header" && <PageHeaderDoc />}
+            {activePage === "clientes-showcase" && <ClientesShowcase />}
+            {activePage === "mapa-rede" && <MapaDeRedeShowcase />}
+            {activePage === "chat-v2" && <ChatV2 />}
+            {activePage === "dashboard-showcase" && <DashboardShowcase />}
+            {activePage === "tokens-overview" && <TokensOverviewDoc />}
+            {activePage === "colors" && <ColorsDoc />}
+            {activePage === "typography" && <TypographyDoc />}
+            {activePage === "spacing" && <SpacingDoc />}
+            {activePage === "shape" && <ShapeDoc />}
+            {activePage === "elevation" && <ElevationDoc />}
+            {activePage === "sizing" && <SizingDoc />}
+            {activePage === "icons" && <IconsDoc />}
+            {activePage === "chart-area" && <AreaChartDoc />}
+            {activePage === "chart-bar" && <BarChartDoc />}
+            {activePage === "chart-line" && <LineChartDoc />}
+            {activePage === "chart-pie" && <PieChartDoc />}
+            {activePage === "chart-radar" && <RadarChartDoc />}
+            {activePage === "chart-radial" && <RadialChartDoc />}
+            {activePage === "chart-showcase" && <ChartShowcaseDoc />}
+            {activePage === "showcase-v2" && <ShowcasePageV2 />}
+            {activePage === "agents" && <AgentsPreview />}
+            {activePage === "agents-overview" && <AgentsOverviewDoc />}
+            {activePage === "agent-orchestrator" && <AgentOrchestratorDoc />}
+            {activePage === "agent-designer" && <AgentDesignerDoc />}
+            {activePage === "agent-dev" && <AgentDevDoc />}
+            {activePage === "agent-reviewer" && <AgentReviewerDoc />}
+            {activePage === "introduction" && <IntroductionDoc />}
+            {activePage === "structure" && <StructureDoc />}
+            {activePage === "distribution" && <DistributionDoc />}
+            {activePage === "transform-tokens" && <TransformTokensDoc />}
+            {activePage === "installation" && <InstallationDoc />}
+            {activePage === "updates" && <UpdatesDoc />}
+            {activePage === "pipeline-skills" && <PipelineSkillsDoc />}
+            {activePage === "pipeline-commands" && <PipelineCommandsDoc />}
+            {activePage === "pipeline-hooks" && <PipelineHooksDoc />}
+            {activePage === "pipeline-output-styles" && (
+              <PipelineOutputStylesDoc />
+            )}
+            {activePage === "pipeline-mcp" && <PipelineMcpDoc />}
+            {activePage === "pipeline-memory" && <PipelineMemoryDoc />}
+            {activePage === "docs" && <ComponentDocTemplate />}
+            {activePage === "docs-template" && <ComponentDocTemplate />}
+          </main>
+        </div>
       </DocNavProvider>
     );
   }
@@ -455,9 +623,13 @@ export function App() {
       <aside className="w-[260px] shrink-0 border-r border-border-sidebar bg-bg-sidebar flex flex-col">
         {/* Logo */}
         <div className="flex items-center gap-gp-xl px-pad-3xl py-pad-2xl border-b border-border-sidebar">
-          <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-body-sm font-normal">iG</div>
+          <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-body-sm font-normal">
+            iG
+          </div>
           <div>
-            <div className="text-body-md font-medium text-fg-default">iGreen DS</div>
+            <div className="text-body-md font-medium text-fg-default">
+              iGreen DS
+            </div>
             <div className="text-caption-sm text-fg-subtle">preview</div>
           </div>
         </div>
@@ -476,7 +648,10 @@ export function App() {
 
         {/* Theme toggle */}
         <div className="px-pad-3xl py-pad-2xl border-t border-border-sidebar">
-          <button onClick={toggle} className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-body-md text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors">
+          <button
+            onClick={toggle}
+            className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-body-md text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors"
+          >
             {theme === "dark" ? "☀️" : "🌙"} {theme}
           </button>
         </div>

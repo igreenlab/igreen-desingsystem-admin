@@ -34,7 +34,10 @@ estiver respondido.
 
 ```
 1. DataTable existe e está estável? (src/components/ui/DataTable/)
-2. A tela é de TABELA/CRUD? Dashboard/form/wizard → fora de escopo (skill irmã futura).
+2. A tela é de TABELA/CRUD (grade de colunas)? Se for LISTA DE CARDS (card/feed/
+   árvore/agrupamento visual) → `/ds-create-list` (skill irmã `list-builder`).
+   Na dúvida tabela-vs-lista, use o front-door `/ds-create-screen`.
+   Dashboard/form/wizard → fora de escopo (skill irmã futura).
 3. Já existe exemplo/showcase cobrindo exatamente esse caso?
    Sim → apontar o existente e perguntar se ainda quer criar.
 4. Resolver parâmetros do ambiente (repo DS vs consumer) — ver SKILL.md.

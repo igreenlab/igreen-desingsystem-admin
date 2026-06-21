@@ -23,11 +23,12 @@
 
 **Regra derivada:** tokens `ring-ring-*` já possuem alpha de 20% embutido via OKLCH.
 Usar sempre sem modificador:
+
 ```typescript
 // ✅
-"focus-visible:ring-4 focus-visible:ring-ring-primary"
+"focus-visible:ring-4 focus-visible:ring-ring-primary";
 // ❌ NUNCA
-"focus-visible:ring-4 focus-visible:ring-ring-primary/30"
+"focus-visible:ring-4 focus-visible:ring-ring-primary/30";
 ```
 
 **Contexto:** qualquer componente com focus ring
@@ -39,6 +40,7 @@ Usar sempre sem modificador:
 **Erro cometido:** usar `gap-4`, `rounded-lg`, `shadow-md`, `p-4` quando existem tokens DS equivalentes
 
 **Regra derivada:** sempre verificar se existe token DS antes de usar Tailwind puro:
+
 ```typescript
 gap-4      → gap-gp-md      (8px)
 gap-2      → gap-gp-xs      (4px)
@@ -70,11 +72,12 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** usar `outline-none` na base sem o prefix `focus-visible:`
 
 **Regra derivada:**
+
 ```typescript
 // ✅
-"focus-visible:outline-none"
+"focus-visible:outline-none";
 // ❌
-"outline-none"
+"outline-none";
 ```
 
 **Contexto:** base de qualquer componente interativo
@@ -86,11 +89,12 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** manter `bg-input/50` ao adaptar componente Shadcn
 
 **Regra derivada:**
+
 ```typescript
 // ❌
-"bg-input/50"
+"bg-input/50";
 // ✅
-"bg-bg-surface"
+"bg-bg-surface";
 ```
 
 **Contexto:** componentes Shadcn migrados para tokens iGreen
@@ -112,6 +116,7 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** usar classes Tailwind avulsas `text-xs font-semibold`, `text-sm font-medium`
 
 **Regra derivada:**
+
 ```typescript
 // ❌
 "text-xs font-semibold" → "text-caption-sm font-semibold"  // 11/600
@@ -129,6 +134,7 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** definir `bg.subtle` e `bg.muted` mais escuros que `bg.canvas` no dark mode.
 
 **Regra derivada:** hierarquia DEVE ser monotonicamente crescente em luminosidade:
+
 ```
 canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < strong (52%)
 ```
@@ -152,6 +158,7 @@ canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < stro
 **Erro cometido:** vars em `.dark {}` do globals.css apontavam para mesmo token do light.
 
 **Regra derivada:** no `.dark {}`:
+
 - `--border` → `--color-bg-subtle` (24%)
 - `--input` → `--color-bg-moderate` (32%)
 
@@ -164,6 +171,7 @@ canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < stro
 **Erro cometido:** mesma opacidade de shadow e ring no dark e no light.
 
 **Regra derivada:**
+
 - Shadows dark: opacidade ≥2x do light
 - Rings dark: alpha 1.5x do light
 
@@ -274,6 +282,7 @@ usam `tv()` + `text-fg-X` no mesmo array de classes (a maioria deles).
 ```
 
 **Verificação obrigatória antes de cada publish:**
+
 ```bash
 npm pack --dry-run --json | grep -E '"path".*(src/components|tokens/index)' | head -5
 # Deve retornar arquivos. Se vazio → bug presente, NÃO publicar.
@@ -290,6 +299,7 @@ Alternativa mais robusta: configurar `vite-plugin-dts` com `rollupTypes: true` p
 **Erro cometido:** ao bumpar `@snksergio/design-system` de v0.1.1 → v0.5.0 sem revisar o template default do `@snksergio/create-design-system` (CLI bootstrap), o template continuou pinando `^0.1.1` da lib. Projetos novos criados via `npx @snksergio/create-design-system` instalavam versão 5 minor atrasada. Plus: o template usava classes de tipografia REMOVIDAS no rewrite 2026-05-19 (`text-paragraph-sm`, `text-label-md`), props inválidas (`tone="critical"` em AlertModal — só aceita `default/neutral/danger/warning/success`), e strings JSX hardcoded mostrando "@0.1.1" como se fosse versão atual. Resultado: primeiro consumer que rodou `npx create-...` viu UI com tipografia quebrada + texto desinformado.
 
 **Regra derivada:** toda release minor ou major da lib principal DEVE incluir, na mesma rodada:
+
 1. **Bump do pin** em `cli/templates/default/package.json` (`@snksergio/design-system: ^X.Y.Z`)
 2. **Auditoria do template** (`cli/templates/default/src/App.tsx` + `src/index.css`) contra API atual — greppar todas as classes/props usadas e validar que existem
 3. **Atualizar strings JSX** que exibam versão como label
@@ -325,6 +335,7 @@ grep -rln "{padrão-antigo}" \
 ```
 
 **Scopes a sempre cobrir:**
+
 - `src/` — código
 - `cli/templates/**/` — bootstrap consumer
 - `.claude/**/` — skills, hooks, commands, rules
@@ -332,6 +343,7 @@ grep -rln "{padrão-antigo}" \
 - `.ai/status/lessons.md` — lições podem mencionar pattern (atualizar a recomendação, não a história)
 
 **Scopes a PRESERVAR (snapshots históricos):**
+
 - `.ai/audits/` — fotografias de momentos pré/pós migration
 - `.ai/specs/` — specs de quando o rewrite foi planejado
 - `.ai/status/archive/` — planos arquivados
@@ -346,6 +358,7 @@ grep -rln "{padrão-antigo}" \
 **Erro cometido:** sessão 2026-06-05 publicou v0.5.1 com **6 commits direct no `main`** (sem branch `release/v0.5.1` nem PR), por considerar a urgência do fix crítico de types do npm justificativa pra pular o fluxo. Releases anteriores (v0.3.0, v0.3.1, v0.4.0, v0.5.0) seguiram rigorosamente o padrão branch + PR via skill `/ds-release` — evidência no git log (`Merge pull request #1..#4 from <user>/release/vX.Y.Z`). Convenção quebrada, rastreabilidade do release perdida no histórico. Sem auto-review do diff via `pre-commit-check.md`. Sem gate humano via preview.
 
 **Regra derivada:** TODA release que toca `package.json.version` ou envolve `npm publish` DEVE usar `/ds-release` (skill `.claude/skills/ds-dev/release.md`). Isso inclui:
+
 - Major bumps
 - Minor bumps
 - **Patches** (mesmo que pareçam "fix de 1 linha")
@@ -353,11 +366,12 @@ grep -rln "{padrão-antigo}" \
 
 Chores e infra (sem bump de version) podem ir direto via commit normal — mas releases NÃO.
 
-**Heurística pré-commit:** *"Tem `npm publish` ou bump em `package.json.version` no escopo? Se sim → `/ds-release` obrigatório."*
+**Heurística pré-commit:** _"Tem `npm publish` ou bump em `package.json.version` no escopo? Se sim → `/ds-release` obrigatório."_
 
 **Verificação retroativa:** se o git log da release tem padrão `Merge pull request #N from <user>/release/vX.Y.Z`, é porque o pipeline foi seguido. Direct commits no `main` com tag de version quebram esse padrão.
 
 **Por que isso importa (não é só convenção):**
+
 - `/ds-release` invoca `pre-commit-check.md` que valida USAGE.md, DocPages, sincronias técnicas (L-016 twMergeConfig), pipeline-state, lessons sincronizados com o diff
 - Gate humano via preview consolidado permite ver tudo antes de commit irreversível
 - Branch + PR criam ponto de revisão (mesmo solo-dev, é checkpoint de "sanity check")
@@ -380,13 +394,21 @@ Chores e infra (sem bump de version) podem ir direto via commit normal — mas r
 ```tsx
 // ❌ Antes (componente compound sem ref)
 function ButtonGroupRoot({ children, ...props }: ButtonGroupProps) {
-  return <div role="group" {...props}>{children}</div>;
+  return (
+    <div role="group" {...props}>
+      {children}
+    </div>
+  );
 }
 
 // ✅ Depois (forwardRef)
 const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
   function ButtonGroupRoot({ children, ...props }, ref) {
-    return <div ref={ref} role="group" {...props}>{children}</div>;
+    return (
+      <div ref={ref} role="group" {...props}>
+        {children}
+      </div>
+    );
   },
 );
 ```
@@ -402,6 +424,7 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 **Erro cometido:** ao montar split button (ButtonGroup com Primary=ação A + Chevron=ação B), envolvi o ButtonGroup inteiro em `<PopoverTrigger asChild>`. O Chevron tinha `onClick` próprio (toggle do popover) e o Primary tinha `onClick` próprio (abrir drawer). Mas o `PopoverTrigger asChild` faz merge do `onClick` interno do Radix com o wrapper — qualquer click dentro do wrapper bubble e dispara `onOpenChange` interno do Radix, conflitando com o setState do handler do filho. Race condition: meu state seta `open=true`, o Radix entende como trigger click e seta `open=false` no mesmo tick. Resultado: popover não abre OU abre e fecha imediatamente.
 
 **Tentativas que NÃO resolveram:**
+
 - `e.stopPropagation()` no onClick — Radix usa pointerDown, não click
 - `e.preventDefault()` + `e.stopPropagation()` no `onPointerDown` — Radix Slot ainda merge antes do handler do filho
 - `dispatchEvent` manual com pointerdown sintético — mesmo resultado
@@ -422,7 +445,7 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 
 **Regra derivada:** Popover/Tooltip/HoverCard com **trigger composto** (2+ filhos com handlers diferentes) DEVE usar `Anchor` (posicionamento) + `open` controlled (consumer dispara). `Trigger` só é seguro quando o componente inteiro é 1 handler de toggle.
 
-**Heurística:** *"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."*
+**Heurística:** _"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."_
 
 **Contexto:** qualquer split button, button group com dropdown, ou wrap de Radix overlay com children que têm interactions próprias. Pattern aplicado em `FilterPopover` (nova prop `anchor?: ReactNode`). Replicar quando criar novos componentes com split pattern.
 
@@ -444,17 +467,18 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 
 Tudo "funcionou" no light mode. No dark mode, Sergio notou que os labels do drawer estavam **MAIS FORTES** que o padrão do form "Novo cliente" (NovoClienteDrawer no mesmo projeto). Comparando:
 
-| Aspecto | Meu (errado) | DS (FormField) |
-|---|---|---|
-| font-weight | `font-medium` (500) | `font-semibold` (600) |
-| Cor light | `text-fg-default` | `text-fg-default` |
-| Cor dark | `text-fg-default` (BRANCO forte) | `text-fg-muted` (cinza suave) |
-| tracking | (nenhum) | `tracking-[0.01em]` |
-| leading | (default) | `leading-none` |
+| Aspecto     | Meu (errado)                     | DS (FormField)                |
+| ----------- | -------------------------------- | ----------------------------- |
+| font-weight | `font-medium` (500)              | `font-semibold` (600)         |
+| Cor light   | `text-fg-default`                | `text-fg-default`             |
+| Cor dark    | `text-fg-default` (BRANCO forte) | `text-fg-muted` (cinza suave) |
+| tracking    | (nenhum)                         | `tracking-[0.01em]`           |
+| leading     | (default)                        | `leading-none`                |
 
 Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs todos os outros forms do projeto. Inconsistência visual silenciosa — só vista em comparação direta com outra tela.
 
 **Causa raiz:** subestimei o pattern do DS. Pensei "label simples, vou só usar `<label>` com classes". Mas `<FormField>` encapsula MUITO mais que cor de label:
+
 - `formFieldLabel()` tv com peso/cor/tracking/leading corretos
 - `useId()` auto pra linkar `htmlFor` (a11y)
 - `disabled` propaga pro label visual (`opacity-50 cursor-not-allowed`)
@@ -478,6 +502,7 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 **Regra pra IA:** ao escrever código que tem `<label className=...>` na unha + um input/select abaixo, PARE e considere usar `<FormField>`. 90% dos casos é o pattern correto. Sem prejuízo: FormField aceita widget custom via render-prop.
 
 **Hooks de detecção:**
+
 - `ds-lint-styles.sh` ou similar pode grep por `<label className="text-body-` em arquivos `src/components/**` (provável anti-pattern)
 - Reviewer manual: comparar visualmente com NovoClienteDrawer no dark mode — se label do novo componente tem peso/cor diferente, está errado
 
@@ -491,18 +516,19 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 
 **Problema observado:** ao revisar SacarDialog v0.7.0 e NovoClienteDrawer, ficou evidente que cada formulário escolhia gap diferente entre `FormField` units:
 
-| Form | Gap usado antes | Resultado visual |
-|---|---|---|
-| NovoClienteDrawer | `gap-gp-lg` (12px) | Apertado, labels colando |
-| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px) | Mesma queixa |
-| ToolbarSimpleFilterDrawer | `gap-gp-xl` (16px) | Ainda curto pra 5+ filtros |
-| KPI cards grid (ClientesFinanceiro) | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
+| Form                                  | Gap usado antes     | Resultado visual                               |
+| ------------------------------------- | ------------------- | ---------------------------------------------- |
+| NovoClienteDrawer                     | `gap-gp-lg` (12px)  | Apertado, labels colando                       |
+| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px)  | Mesma queixa                                   |
+| ToolbarSimpleFilterDrawer             | `gap-gp-xl` (16px)  | Ainda curto pra 5+ filtros                     |
+| KPI cards grid (ClientesFinanceiro)   | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
 
-Sergio notou diretamente: *"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"*.
+Sergio notou diretamente: _"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"_.
 
 **Causa raiz:** os tokens `gap.*` semânticos (xs=4px / sm=6px / md=8px / lg=12px / xl=16px / 2xl=24px / 3xl=32px) **não têm tier exato em 20px**. Cada implementação escolhia o mais próximo conforme o gosto — gerava inconsistência horizontal entre forms do mesmo projeto.
 
 20px é o sweet-spot:
+
 - 12px (gap-gp-lg) → label colando no campo de cima, leitura prejudicada
 - 16px (gap-gp-xl) → ainda apertado quando há helper text embaixo do field
 - 20px → respira sem inflar viewport
@@ -512,7 +538,7 @@ Sergio notou diretamente: *"o gap entre os inputs poderia ser 20px... deixar iss
 
 ```ts
 // tokens/brands/default/components/spacing.ts
-export const formGap = scale[5];   // 20px — gap entre fields de formulário
+export const formGap = scale[5]; // 20px — gap entre fields de formulário
 export const componentSpacing = { padCard, padPage, formGap } as const;
 ```
 
@@ -552,10 +578,12 @@ Classe resultante: `gap-form-gap` (20px).
 **Não aplica a:** cards em grid, lista de chips, icon-to-text spacing, section spacing — esses continuam usando `gap-gp-*` semânticos. O `formGap` é específico pra contexto de form.
 
 **Implementação confirmada em:**
+
 - `SacarDialog` aba "Outra conta" → 3 FormField units (Banco/Agência/Conta) + CardCheckbox final, todos com `gap-form-gap`
 - Próximo PR deve migrar NovoClienteDrawer + ToolbarSimpleFilterDrawer pra `gap-form-gap`
 
 **Atualização cascata:**
+
 1. `tokens/.../components/spacing.ts` → adicionar `formGap`
 2. `tokens/transforms/to-tailwind-v4.ts` → expor como `--spacing-form-gap`
 3. `npm run tokens:tw4` → gerar CSS
@@ -568,20 +596,24 @@ Classe resultante: `gap-form-gap` (20px).
 
 **Sessão:** 2026-06-09 (descoberta visual pelo Sergio em bancos amarelos).
 
-**Bug observado:** ao usar `<Avatar colorHex="#FAE128">BB</Avatar>` (BB amarelo), o texto branco ficava ilegível — contrast ratio 1.29:1, **falha WCAG AA** (mín. 4.5:1 pra texto normal). Sergio notou: *"o Banco do Brasil é amarelo e o branco por cima ficou um contraste muito ruim"*.
+**Bug observado:** ao usar `<Avatar colorHex="#FAE128">BB</Avatar>` (BB amarelo), o texto branco ficava ilegível — contrast ratio 1.29:1, **falha WCAG AA** (mín. 4.5:1 pra texto normal). Sergio notou: _"o Banco do Brasil é amarelo e o branco por cima ficou um contraste muito ruim"_.
 
 **Causa raiz:** `avatar.tsx` aplicava `text-white` cegamente quando `colorHex` era fornecido (linha original: `className: isHex ? ["text-white", ...] : ...`). Funcionava bem pra cores escuras (Nubank roxo, Bradesco vermelho) — falhava em cores claras (BB amarelo, Itaú laranja médio).
 
 **Solução:** criar utility `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` que:
+
 1. Converte hex → RGB
 2. Calcula relative luminance WCAG 2.x (com gamma correction)
 3. Calcula contrast ratio (white, bg) vs (black, bg)
 4. Retorna `"white" | "black"` — o de MAIOR ratio
 
 Avatar passa a usar:
+
 ```ts
 const autoTextClass = isHex
-  ? getContrastTextColor(colorHex) === "black" ? "text-black" : "text-white"
+  ? getContrastTextColor(colorHex) === "black"
+    ? "text-black"
+    : "text-white"
   : null;
 ```
 
@@ -601,6 +633,7 @@ const autoTextClass = isHex
 **Caso edge:** `bg-bg-brand-subtle` + `text-fg-brand` (semânticos DS) — esses NÃO precisam do utility porque o par foi pré-validado pelo design system (cores casadas em `color-light/dark.ts`). Auto-contrast só pra casos onde `colorHex` é input externo (lookup de marca, persona, etc).
 
 **Arquivos:**
+
 - `src/utils/color-contrast.ts` (novo)
 - `src/components/ui/Avatar/avatar.tsx` (refatorado — branch isHex usa auto)
 - `src/components/ui/Avatar/USAGE.md` (tabela de casos)
@@ -621,19 +654,20 @@ com hover (esperado):       [   Saldo disponível 1↓ ⋯ ]            ← íco
 ```
 
 **Causa raiz:** em `table.tsx` (`TableHeadCell`), a `<span>` do label tinha:
+
 ```ts
-align === "right" && (sortable || headMenu) && "pr-[60px]"
+align === "right" && (sortable || headMenu) && "pr-[60px]";
 ```
 
-O comentário original justificava: *"reserva espaço pro headRightStack pra não ser coberto no hover"*. Mas isso reservava espaço **permanentemente**, mesmo sem hover, **mesmo sem sort ativo**. Os ícones do hover-stack são `display: hidden` por default → não ocupam espaço no layout natural; o `pr-[60px]` introduzia um vazio gratuito.
+O comentário original justificava: _"reserva espaço pro headRightStack pra não ser coberto no hover"_. Mas isso reservava espaço **permanentemente**, mesmo sem hover, **mesmo sem sort ativo**. Os ícones do hover-stack são `display: hidden` por default → não ocupam espaço no layout natural; o `pr-[60px]` introduzia um vazio gratuito.
 
 **Solução:** condicionar a reserva ao estado `isSorted` (quando `sortDirection !== null`):
 
 ```ts
-align === "right" && (
+align === "right" &&
   // pr só quando sort ATIVO (sort badge + indicator visíveis sempre)
-  isSorted && "pr-[60px]"
-)
+  isSorted &&
+  "pr-[60px]";
 ```
 
 - **Sem sort, sem hover** → texto encosta na borda direita (correto)
@@ -641,10 +675,12 @@ align === "right" && (
 - **Sort ativo** → `pr-[60px]` preserva texto visível ao lado do sort badge
 
 **Detalhe do design original:** `headRightStack` tem:
+
 ```ts
 "absolute right-pad-md top-1/2 -translate-y-1/2 z-[1]",
 "bg-bg-table-head pl-pad-xs",
 ```
+
 Ele já tem `bg-bg-table-head` (cobre texto debaixo) e `z-[1]` (sobreposição). Logo, mascarar texto natural no hover é o comportamento intencional.
 
 **Regra pra IA:** ao revisar layout de header com `align="right"`, **não reservar espaço fixo pra ícones hover-only** — só pra elementos sempre visíveis (sort badge ativo, indicator). Para hover-only icons, confiar no `headRightStack` absolute + bg mask.
@@ -687,6 +723,7 @@ do componente pai NÃO devem ser passados como props diretas (mudam de identidad
 invalidam o memo) nem exigir `useCallback` em cada um (dep-hell + risco de stale deps).
 
 **Pattern correto — latest-ref:**
+
 ```typescript
 // No pai:
 const handlersRef = useRef<RowHandlers>(null as never);
@@ -700,6 +737,7 @@ onClick={() => handlers.current.onClick(row, index)}   // ✅ fresh
 ```
 
 **Regras:**
+
 - Handlers (event-time) → ref estável, lido via `.current` DENTRO da closure.
 - Dados de RENDER (columns, widths, selected, editState) → props comparadas pelo memo
   (mudam → re-renderiza, como deve). NUNCA ler dado de render via o ref (não re-renderizaria).
@@ -712,6 +750,7 @@ outra linha não repinta as demais.
 ---
 
 ## [L-029] Fast-filter de chip nunca usa `<Select open>` aninhado — renderiza lista direta
+
 **Erro cometido:** o `renderFastFilterInput` de boolean/select renderizava um
 `<Select open>` (Radix Select forçado-aberto) dentro do `PopoverContent` do chip
 aplicado. O listbox do Radix Select ancora no SEU PRÓPRIO trigger (`sr-only`, ~0px)
@@ -728,6 +767,7 @@ DataTable ao `renderFastFilterInput`); clique-fora fecha porque não há layer a
 ---
 
 ## [L-030] Sheet/popover acionado DE DENTRO de um overlay z-50 precisa de z-index acima
+
 **Erro cometido:** o mobile-sheet (DropdownMenu/Popover com `mobileSheet`) usava wrapper
 z-50 e backdrop z-40. Quando acionado de dentro do drawer mobile do MenuSidebar (também
 z-50), o sheet **empatava** em z-50 → renderizava atrás de forma intermitente ("aparece
@@ -742,6 +782,7 @@ com [[L-031]].
 ---
 
 ## [L-031] `DropdownMenu` dentro de drawer/overlay → `modal={false}` + backdrop `pointer-events-none`
+
 **Erro cometido:** o DropdownMenu do UserMenu (acionado dentro do drawer mobile) abria no
 `pointerdown` e fechava no `click`/`pointerup` do MESMO toque — "aparece e some", exigindo
 2-3 toques. O modo `modal` (default) do Radix injeta dismiss/scroll-lock que corre com o
@@ -757,6 +798,7 @@ gesto completa antes do backdrop montar) → mantém `pointer-events-auto`.
 ---
 
 ## [L-032] Recharts 3 — caveats de chart que quebram silenciosamente
+
 **Erro cometido:** ao construir os gráficos do showcase (Area/Bar/Line/Pie/Radar/Radial +
 28 composições de dashboard), vários comportamentos do Recharts 3 falharam mudos: (1) KPIs
 com `text-display-sm`/`text-display-xs` renderizaram **14px** porque esses utilities **não
@@ -765,6 +807,7 @@ radial empilhado mostrou só 1 segmento; (4) o eixo Y omitiu o tick `0`; (5) `do
 diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid usava
 `border-subtle/60` (no dark = 0.04 alpha) → imperceptível.
 **Regra derivada:**
+
 - Tipografia de KPI: usar `text-heading-sm` (24–32) / `heading-xs` (24) / `display-md`
   (28–39). **Nunca** `display-sm`/`display-xs` (inexistentes).
 - Pizza com setor ativo → prop **`shape={(props, index) => <Sector/>}`**, não `activeIndex`.
@@ -774,9 +817,9 @@ diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid us
   branco 12%), reescrito no `ChartContainer` pro stroke default `#ccc`. Não passar `stroke`.
 - Cor só por token (`chart-1..5`); 2 séries = verde+âmbar; pizza = rampa monocromática da
   brand. Header padrão: `CardHead` (título+subtítulo) ou `KPI_LABEL`+`KPI_VALUE` (30px).
-**Contexto:** `src/components/ui/Chart/chart.tsx`, `ChartShowcaseDoc.tsx`, tokens `chart`
-(color-light/dark). Catálogo + padrões completos em
-`.ai/context/components/chart-patterns.md` e `Chart/USAGE.md` (v0.9.x).
+  **Contexto:** `src/components/ui/Chart/chart.tsx`, `ChartShowcaseDoc.tsx`, tokens `chart`
+  (color-light/dark). Catálogo + padrões completos em
+  `.ai/context/components/chart-patterns.md` e `Chart/USAGE.md` (v0.9.x).
 
 ---
 
@@ -848,22 +891,23 @@ NavigationMenu, HoverCard…) devem ter o MESMO visual — senão o app fica inc
 (caso real: os menus do batch 4 vieram com os defaults shadcn `bg-popover rounded-md
 shadow-md focus:bg-accent` → destoavam do DropdownMenu consolidado). **Receita canônica
 (copiar dos consolidados, não inventar):**
+
 - **Superfície**: `relative bg-bg-dropdown border border-border-default rounded-[12px]
-  shadow-sh-lg outline-float` + frosted `before:pointer-events-none before:absolute
-  before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl
-  before:backdrop-saturate-150` + `text-fg-default` (painel) ou `text-fg-muted` (menu) +
+shadow-sh-lg outline-float` + frosted `before:pointer-events-none before:absolute
+before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl
+before:backdrop-saturate-150` + `text-fg-default` (painel) ou `text-fg-muted` (menu) +
   `p-pad-sm` (menu). Mobile-sheet (`max-md:rounded-b-none ...`) quando aplicável.
 - **Item**: `gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm text-fg-muted outline-none
-  transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a cor).
+transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a cor).
   Destructive: `text-fg-danger focus:bg-bg-danger-muted`. Ativo/checked:
   `data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand`.
 - **Separator** `mx-pad-xs my-pad-xs h-px bg-border-default` · **Label** `px-pad-lg py-pad-sm
   text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
   `ml-auto text-caption-sm tracking-wider text-fg-subtle`.
-**Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
-espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
-sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
-(o default Radix 700 é lento demais).
+  **Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
+  espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
+  sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
+  (o default Radix 700 é lento demais).
 
 **[L-041] Trabalho de componente FECHA por PR + link pro gate humano — o pipeline deve garantir, não depender de instinto.**
 Antes, as skills de componente (`ds-add-shadcn`, `ds-create-component`, `ds-create-composite`,
@@ -919,9 +963,63 @@ indireção, nunca confiar em `.dark { --shadow-* }` direto. Mudança é FOUNDAT
 
 ---
 
+## [L-044] Hooks bash dependem de jq + path forward-slash → no Windows ficam CEGOS
+
+Os hooks PostToolUse (format-on-save, ds-lint-styles, ds-inventory-check, etc) extraíam
+`file_path` via `jq`. **`jq` não existe no Git Bash/Windows** → file_path vazio → todos
+`skip` silencioso. Pior: os que tinham fallback node casavam path com `/` enquanto o
+harness no Windows manda `\` → extração ok mas matching falhava sem log. **Resultado: a
+rede de segurança (lint L-001..L-007, registry/L-042, tokens) ficou no-op uma sessão
+inteira — o gap de registry do DataList passou batido.** **Fix:** fallback `node` (sempre
+presente em projeto JS) pra parsear o JSON + `tr '\\' '/'` antes de qualquer matching de
+path (padrão que o `ds-tokens-check` já tinha). **Regra pra IA:** hook que depende de
+ambiente externo (jq, python) PRECISA de fallback + self-test; ao auditar pipeline,
+checar `.ai/scratch/hook-log.txt` — só `skip` = hook morto.
+
+## [L-045] Hierarchical connector: coluna pass-through usa `ancestorHasNext[i+1]`, não `[i]`
+
+No tree-as-list, a coluna de indent `i` (x = i·indent) hospeda o elbow de nós em **depth
+i+1**, então a continuação vertical da guia depende do ancestral em depth i+1 ter irmão.
+Usar `[i]` (off-by-one) era mascarado nos roots não-últimos (ancestorHasNext[0]=true), mas
+no **último root** virava false → a guia sumia só no último ramo. **Regra pra IA:** bug que
+"só aparece no último/primeiro item" geralmente é off-by-one mascarado por um valor que
+coincide nos demais — teste sempre o caso de borda (último root, lista vazia, 1 item).
+
+## [L-046] DataList: padrões de tela (fillHeight, measureElement, folha sem chevron)
+
+(1) **Scroll no container, não na tela**: prop `fillHeight` faz a DataList ocupar a altura
+do pai e só a lista rolar (toolbar/chips/bulk fixos) — pai com altura + `className="flex-1
+min-h-0"`. Não combinar com `virtualized`. (2) **Virtualizado**: usar `measureElement` —
+sem ele o `estimateItemSize` reserva mais que a altura real e o excedente vira "gap" falso.
+(3) **Nó-folha** (sem filhos) no hierarchical NÃO recebe placeholder de chevron
+(`expandToggle={undefined}`, igual ao modo conectores) — senão um espaço vazio empurra o
+conteúdo. (4) `branchHighlight` (`block`/`active`) só em `layout="hierarchical"`; ramo ativo
+usa o MESMO painel do block (não cor de marca fraca).
+
+## [L-047] Nova skill builder toca 4 superfícies de roteamento — DoD de skill
+
+Criar uma skill builder (ex: `list-builder`) não basta criar os `.md` — precisa registrar
+em: (1) **orchestrator** (`.claude/agents/orchestrator.md` tabela de roteamento), (2)
+**ds-kit** consumer (`cli/templates/default/_claude/skills/ds-kit/SKILL.md` se for
+distribuída), (3) **command(s)** (`/ds-create-<x>`), (4) **front-door** se houver
+desambiguação. O smoke test pegou que o orchestrator não tinha a linha de lista — sem o
+teste, um pedido via agente orquestrador não acharia o builder. **Regra pra IA:** ao criar
+skill/command, rodar um smoke test (invocar de verdade) + checar os 4 pontos de registro.
+
+## [L-048] `block-rm-rf` casa o padrão em qualquer ponto do comando (inclusive commit message)
+
+O hook greps `rm -rf <path>` no comando inteiro → **falso-positivo quando a string aparece
+dentro de uma commit message** (heredoc do `git commit -m`). Bloqueou um commit cuja
+mensagem citava `rm -rf src/`. **Workaround imediato:** não escrever `rm -rf <path>` literal
+em mensagens/echos. **Melhoria do hook (backlog):** ignorar quando o comando começa com
+`git commit`/`git`, ou só casar `rm` como token inicial de um segmento de comando.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
+
 1. Identificar o padrão do erro
 2. Adicionar no formato `[L-NNN]` no final deste arquivo
 3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado

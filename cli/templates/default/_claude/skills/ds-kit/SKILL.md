@@ -22,28 +22,33 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 
 ## Passo 1 — Classifique a intenção → rota
 
-| Sinais na fala do usuário | Rota (skill / exemplo) |
-|---|---|
-| "tabela", "lista", "listagem", "crud", "grid de dados", "datatable" | **skill `crud-builder`** (`/ds-create-crud`) — entrevista guiada |
-| "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step" | **skill `page-edit`** → `example-edit-page` |
-| "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido" | **skill `page-detail`** → `example-order-detail` |
-| "dashboard", "painel", "visão geral", "KPIs", "indicadores" | **skill `dashboard`** → `example-dashboard` |
-| "gráfico", "chart", "barras/linha/área/pizza" | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard` |
-| "financeiro", "extrato", "saldo", "transações" | `example-finance` (puxar + adaptar) |
-| "chat", "inbox", "conversas", "atendimento" | **skill `chat`** → `example-chat` |
-| "drawer/painel de criar/editar/ver detalhe" | **skill `drawers`** → drawers do `example-finance` |
-| "cards", "blocos", "painéis soltos", "seções" | **skill `cards`** → `Card`/`Panel` + showcase |
-| "igual ao exemplo de <X>" / "estrutura do <X>" | puxar `example-<X>` e adaptar |
-| cabeçalho de página | componente `PageHeader` |
-| shell / menu lateral / topbar | `app-shell` / `menu-sidebar` / `header` |
+| Sinais na fala do usuário                                                                           | Rota (skill / exemplo)                                                                                           |
+| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| "tabela", "grade", "grid de dados", "crud", "datatable", "planilha", "colunas"                      | **skill `crud-builder`** (`/ds-create-crud`) — entrevista guiada                                                 |
+| "lista de cards", "árvore", "hierarquia", "rede/organograma", "níveis", "treeview", "feed de cards" | **skill `list-builder`** (`/ds-create-list`) — entrevista guiada                                                 |
+| "lista" / "listagem de X" (ambíguo: grade ou cards?)                                                | **PERGUNTE** "grade de colunas ou cards?" → `crud-builder` ou `list-builder` (ou front-door `/ds-create-screen`) |
+| "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step"                      | **skill `page-edit`** → `example-edit-page`                                                                      |
+| "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido"                 | **skill `page-detail`** → `example-order-detail`                                                                 |
+| "dashboard", "painel", "visão geral", "KPIs", "indicadores"                                         | **skill `dashboard`** → `example-dashboard`                                                                      |
+| "gráfico", "chart", "barras/linha/área/pizza"                                                       | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard`                                                      |
+| "financeiro", "extrato", "saldo", "transações"                                                      | `example-finance` (puxar + adaptar)                                                                              |
+| "chat", "inbox", "conversas", "atendimento"                                                         | **skill `chat`** → `example-chat`                                                                                |
+| "drawer/painel de criar/editar/ver detalhe"                                                         | **skill `drawers`** → drawers do `example-finance`                                                               |
+| "cards", "blocos", "painéis soltos", "seções"                                                       | **skill `cards`** → `Card`/`Panel` + showcase                                                                    |
+| "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                    |
+| cabeçalho de página                                                                                 | componente `PageHeader`                                                                                          |
+| shell / menu lateral / topbar                                                                       | `app-shell` / `menu-sidebar` / `header`                                                                          |
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") = combine rotas (`example-dashboard` + `crud-builder`).
 
 ## Passo 2 — Execute a rota
 
-**CRUD (fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` → entrevista → blueprint [GATE] → geração. É question-driven; NÃO pule o gate.
+**CRUD/tabela (fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` → entrevista → blueprint [GATE] → geração. É question-driven; NÃO pule o gate.
+
+**Lista de cards (fluxo guiado):** carregue `.claude/skills/list-builder/SKILL.md` → mesmo fluxo (entrevista → blueprint [GATE] → geração), consumindo `DataList` + `example-mapa-rede`. Use quando for card/árvore/hierarquia/rede, não grade de colunas.
 
 **Demais rotas (baseadas em exemplo):** carregue a skill correspondente em `.claude/skills/<rota>/SKILL.md` (ela tem os gotchas do tipo de tela). O padrão é sempre:
+
 1. `npm run igreen:add -- <item/componente>` (traz a tela/componente + deps).
 2. **Leia** o que foi puxado (`src/examples/<x>/...`) + `USAGE.md` dos componentes.
 3. Adapte ao caso do usuário preservando estrutura/espaçamento do exemplo.

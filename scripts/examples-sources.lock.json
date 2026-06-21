@@ -22,5 +22,9 @@
   "chat": {
     "source": "src/preview/pages/ChatV2",
     "hash": "6cf44c42f0a7e993e564a5724d8ea42aa53f6660e825481d1f4feeec55607f2f"
+  },
+  "mapa-rede": {
+    "source": "src/preview/pages/MapaDeRedeShowcase",
+    "hash": "4d1e557056f70bc58f68c86f59d5030bbff83859f16b8c3763cb690ba7c9053d"
   }
 }

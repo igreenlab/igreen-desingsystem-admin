@@ -2,12 +2,15 @@
 import { Button } from "../../components/ui/Button/button";
 import { EyeIcon, CodeIcon, CopyIcon } from "./doc-icons";
 
-export function ExampleSection({ id, title, description, code, children }: {
+export function ExampleSection({ id, title, description, code, children, plain }: {
   id: string;
   title: string;
   description?: string;
   code?: string;
   children: React.ReactNode;
+  /** Preview como container simples (largura total, topo, sem card/min-h/centralização).
+   *  Útil pra componentes grandes (List/DataList) que ficam apertados no card padrão. */
+  plain?: boolean;
 }) {
   const [tab, setTab] = useState<"preview" | "code">("preview");
 
@@ -25,12 +28,22 @@ export function ExampleSection({ id, title, description, code, children }: {
         <Button color="secondary" variant="soft" size="2xs" iconLeft={<CopyIcon />}>Copy</Button>
       </div>
 
-      {/* Card */}
-      <div className="rounded-radius-base ring-1 ring-border-subtle shadow-sh-lg overflow-hidden">
+      {/* Card (ou container simples quando plain) */}
+      <div
+        className={
+          plain
+            ? "overflow-hidden"
+            : "rounded-radius-base ring-1 ring-border-subtle shadow-sh-lg overflow-hidden"
+        }
+      >
         {tab === "preview" ? (
-          <div className="flex items-center justify-center min-h-[256px] p-pad-4xl bg-bg-surface">
-            {children}
-          </div>
+          plain ? (
+            <div className="py-pad-md">{children}</div>
+          ) : (
+            <div className="flex items-center justify-center min-h-[256px] p-pad-4xl bg-bg-surface">
+              {children}
+            </div>
+          )
         ) : (
           <div className="p-pad-3xl bg-bg-subtle font-mono text-code-sm text-fg-muted overflow-x-auto">
             <pre className="whitespace-pre-wrap leading-relaxed">

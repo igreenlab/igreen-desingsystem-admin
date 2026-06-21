@@ -9,7 +9,11 @@ import {
   User,
   Users,
 } from "lucide-react";
-import { List, type ListGroup, type ListItemData } from "../../components/ui/List";
+import {
+  List,
+  type ListGroup,
+  type ListItemData,
+} from "../../components/ui/List";
 import { Button } from "../../components/ui/Button";
 import {
   DocLayout,
@@ -26,6 +30,8 @@ const TOC = [
   { id: "ex-standard", label: "Standard" },
   { id: "ex-grouped", label: "Grouped + DnD" },
   { id: "ex-hierarchical", label: "Hierarchical" },
+  { id: "ex-hier-block", label: "Hierarchical — bloco" },
+  { id: "ex-hier-active", label: "Hierarchical — ramo ativo" },
   { id: "ex-variacoes", label: "Variações" },
   { id: "ex-rich-card", label: "Card rico" },
   { id: "api", label: "API Reference" },
@@ -52,7 +58,10 @@ function IconChip({ children }: { children: React.ReactNode }) {
 function StatusDot({ color, label }: { color: string; label: string }) {
   return (
     <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-default">
-      <span className="size-[8px] rounded-radius-full" style={{ background: color }} />
+      <span
+        className="size-[8px] rounded-radius-full"
+        style={{ background: color }}
+      />
       {label}
     </span>
   );
@@ -66,7 +75,15 @@ function CountBadge({ n }: { n: number }) {
   );
 }
 
-function Parent({ tone, label, n }: { tone: "brand" | "warning"; label: string; n: number }) {
+function Parent({
+  tone,
+  label,
+  n,
+}: {
+  tone: "brand" | "warning";
+  label: string;
+  n: number;
+}) {
   return (
     <span className="flex items-center gap-gp-md">
       <Tag tone={tone}>{label}</Tag>
@@ -75,14 +92,22 @@ function Parent({ tone, label, n }: { tone: "brand" | "warning"; label: string; 
   );
 }
 
-function Tag({ children, tone = "muted" }: { children: React.ReactNode; tone?: "muted" | "brand" | "warning" }) {
+function Tag({
+  children,
+  tone = "muted",
+}: {
+  children: React.ReactNode;
+  tone?: "muted" | "brand" | "warning";
+}) {
   const map = {
     muted: "bg-bg-muted text-fg-muted",
     brand: "bg-bg-brand-subtle text-fg-brand",
     warning: "bg-bg-warning-muted text-fg-warning",
   } as const;
   return (
-    <span className={`inline-flex items-center rounded-radius-sm px-pad-md py-[2px] text-caption-sm font-semibold uppercase tracking-wider ${map[tone]}`}>
+    <span
+      className={`inline-flex items-center rounded-radius-sm px-pad-md py-[2px] text-caption-sm font-semibold uppercase tracking-wider ${map[tone]}`}
+    >
       {children}
     </span>
   );
@@ -101,7 +126,9 @@ function StatusPill({ status }: { status: OrderStatus }) {
   } as const;
   const v = map[status];
   return (
-    <span className={`inline-flex items-center rounded-radius-full px-pad-md py-[2px] text-caption-sm font-semibold ${v.cls}`}>
+    <span
+      className={`inline-flex items-center rounded-radius-full px-pad-md py-[2px] text-caption-sm font-semibold ${v.cls}`}
+    >
       {v.label}
     </span>
   );
@@ -122,7 +149,13 @@ function AvatarStack({ n }: { n: number }) {
   );
 }
 
-function MetaInline({ icon, value }: { icon: React.ReactNode; value: React.ReactNode }) {
+function MetaInline({
+  icon,
+  value,
+}: {
+  icon: React.ReactNode;
+  value: React.ReactNode;
+}) {
   return (
     <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-muted [&>svg]:size-icon-sm [&>svg]:text-fg-subtle">
       {icon}
@@ -132,24 +165,75 @@ function MetaInline({ icon, value }: { icon: React.ReactNode; value: React.React
 }
 
 type OrderData = {
-  code: string; name: string; status: OrderStatus; people: number;
-  manufacturer: string; country: string; owner: string; category: string;
-  stage: string; done: number; total: number; updated: string;
+  code: string;
+  name: string;
+  status: OrderStatus;
+  people: number;
+  manufacturer: string;
+  country: string;
+  owner: string;
+  category: string;
+  stage: string;
+  done: number;
+  total: number;
+  updated: string;
 };
 
 const ORDERS: ListItemData[] = [
-  { id: "o1", title: "Summer Linen Jacket SS22", data: {
-    code: "80149", name: "Summer Linen Jacket SS22", status: "progress", people: 3,
-    manufacturer: "Bozkurt Konfeksiyon", country: "Turquia", owner: "Stephanie Carvalho", category: "Jaquetas",
-    stage: "Pré-produção", done: 2, total: 11, updated: "há 4 dias" } satisfies OrderData },
-  { id: "o2", title: "Tapered-Fit Jeans - AW", data: {
-    code: "79998", name: "Tapered-Fit Jeans - AW", status: "exception", people: 3,
-    manufacturer: "Taian Hongbang", country: "Índia", owner: "Kathaleen Marrlow", category: "Jeans",
-    stage: "Controle de qualidade", done: 6, total: 10, updated: "há 2 dias" } satisfies OrderData },
-  { id: "o3", title: "Thermo-Sealed Parka - AW22", data: {
-    code: "79948", name: "Thermo-Sealed Parka - AW22", status: "draft", people: 2,
-    manufacturer: "Bozkurt Konfeksiyon", country: "China", owner: "Sebastian Petravic", category: "Jaquetas",
-    stage: "Preparação do pedido", done: 1, total: 9, updated: "há 1 semana" } satisfies OrderData },
+  {
+    id: "o1",
+    title: "Summer Linen Jacket SS22",
+    data: {
+      code: "80149",
+      name: "Summer Linen Jacket SS22",
+      status: "progress",
+      people: 3,
+      manufacturer: "Bozkurt Konfeksiyon",
+      country: "Turquia",
+      owner: "Stephanie Carvalho",
+      category: "Jaquetas",
+      stage: "Pré-produção",
+      done: 2,
+      total: 11,
+      updated: "há 4 dias",
+    } satisfies OrderData,
+  },
+  {
+    id: "o2",
+    title: "Tapered-Fit Jeans - AW",
+    data: {
+      code: "79998",
+      name: "Tapered-Fit Jeans - AW",
+      status: "exception",
+      people: 3,
+      manufacturer: "Taian Hongbang",
+      country: "Índia",
+      owner: "Kathaleen Marrlow",
+      category: "Jeans",
+      stage: "Controle de qualidade",
+      done: 6,
+      total: 10,
+      updated: "há 2 dias",
+    } satisfies OrderData,
+  },
+  {
+    id: "o3",
+    title: "Thermo-Sealed Parka - AW22",
+    data: {
+      code: "79948",
+      name: "Thermo-Sealed Parka - AW22",
+      status: "draft",
+      people: 2,
+      manufacturer: "Bozkurt Konfeksiyon",
+      country: "China",
+      owner: "Sebastian Petravic",
+      category: "Jaquetas",
+      stage: "Preparação do pedido",
+      done: 1,
+      total: 9,
+      updated: "há 1 semana",
+    } satisfies OrderData,
+  },
 ];
 
 function renderOrderCard(item: ListItemData) {
@@ -177,9 +261,14 @@ function renderOrderCard(item: ListItemData) {
       <div className="mt-gp-xs flex flex-wrap items-center gap-x-gp-md gap-y-gp-xs border-t border-border-subtle pt-pad-xl">
         <LoaderCircle className="size-icon-sm shrink-0 animate-spin text-fg-brand" />
         <span className="text-body-sm font-medium text-fg-default">
-          {o.stage} <span className="text-fg-muted">({o.done}/{o.total})</span>
+          {o.stage}{" "}
+          <span className="text-fg-muted">
+            ({o.done}/{o.total})
+          </span>
         </span>
-        <span className="text-body-sm text-fg-subtle">atualizado {o.updated}</span>
+        <span className="text-body-sm text-fg-subtle">
+          atualizado {o.updated}
+        </span>
       </div>
     </div>
   );
@@ -188,30 +277,65 @@ function renderOrderCard(item: ListItemData) {
 /* ── 1. STANDARD — Team Members (meta em colunas) ──────────────── */
 
 const TEAM: ListItemData[] = [
-  { id: "alice", leading: <Avatar />, title: "Alice Smith", subtitle: "alice@example.com",
+  {
+    id: "alice",
+    leading: <Avatar />,
+    title: "Alice Smith",
+    subtitle: "alice@example.com",
     meta: [
-      { label: "Role", value: <StatusDot color="var(--color-fg-success)" label="Admin" /> },
-      { label: "Status", value: <StatusDot color="var(--color-fg-success)" label="Active" /> },
+      {
+        label: "Role",
+        value: <StatusDot color="var(--color-fg-success)" label="Admin" />,
+      },
+      {
+        label: "Status",
+        value: <StatusDot color="var(--color-fg-success)" label="Active" />,
+      },
       { label: "Last seen", value: "2 min atrás", align: "end" },
-    ] },
-  { id: "bob", leading: <Avatar />, title: "Bob Jones", subtitle: "bob@example.com",
+    ],
+  },
+  {
+    id: "bob",
+    leading: <Avatar />,
+    title: "Bob Jones",
+    subtitle: "bob@example.com",
     meta: [
       { label: "Role", value: "Editor" },
-      { label: "Status", value: <StatusDot color="var(--color-fg-success)" label="Active" /> },
+      {
+        label: "Status",
+        value: <StatusDot color="var(--color-fg-success)" label="Active" />,
+      },
       { label: "Last seen", value: "1 hora atrás", align: "end" },
-    ] },
-  { id: "charlie", leading: <Avatar />, title: "Charlie Davis", subtitle: "charlie@example.com",
+    ],
+  },
+  {
+    id: "charlie",
+    leading: <Avatar />,
+    title: "Charlie Davis",
+    subtitle: "charlie@example.com",
     meta: [
       { label: "Role", value: "Viewer" },
-      { label: "Status", value: <StatusDot color="var(--color-fg-warning)" label="Pending" /> },
+      {
+        label: "Status",
+        value: <StatusDot color="var(--color-fg-warning)" label="Pending" />,
+      },
       { label: "Last seen", value: "Nunca", align: "end" },
-    ] },
-  { id: "diana", leading: <Avatar />, title: "Diana Prince", subtitle: "diana@example.com",
+    ],
+  },
+  {
+    id: "diana",
+    leading: <Avatar />,
+    title: "Diana Prince",
+    subtitle: "diana@example.com",
     meta: [
       { label: "Role", value: "Editor" },
-      { label: "Status", value: <StatusDot color="var(--color-fg-subtle)" label="Inativo" /> },
+      {
+        label: "Status",
+        value: <StatusDot color="var(--color-fg-subtle)" label="Inativo" />,
+      },
       { label: "Last seen", value: "2 dias atrás", align: "end" },
-    ] },
+    ],
+  },
 ];
 
 /* ── 2. GROUPED — Tarefas com DnD (stateful) ───────────────────── */
@@ -223,22 +347,52 @@ const TASK_GROUPS: ListGroup[] = [
 ];
 
 const INITIAL_TASKS: ListItemData[] = [
-  { id: "t1", groupId: "todo", title: "Atualizar tokens de cor", description: "Sincronizar HSL no Figma.",
-    trailing: <Tag tone="warning">Medium</Tag> },
-  { id: "t2", groupId: "todo", title: "Auditar raios dos botões", description: "Garantir radius consistente.",
-    trailing: <Tag tone="warning">Urgent</Tag> },
-  { id: "t3", groupId: "doing", title: "Implementar grouped list", description: "Lista vertical com drag and drop.",
-    trailing: <Tag tone="brand">Em progresso</Tag> },
-  { id: "t4", groupId: "done", title: "Revisão de tipografia", description: "Conferir letter-spacing.",
-    trailing: <Tag>Low</Tag> },
-  { id: "t5", groupId: "done", title: "Atualizar readmes", description: "Documentar usos de componentes.",
-    trailing: <Tag>Low</Tag> },
+  {
+    id: "t1",
+    groupId: "todo",
+    title: "Atualizar tokens de cor",
+    description: "Sincronizar HSL no Figma.",
+    trailing: <Tag tone="warning">Medium</Tag>,
+  },
+  {
+    id: "t2",
+    groupId: "todo",
+    title: "Auditar raios dos botões",
+    description: "Garantir radius consistente.",
+    trailing: <Tag tone="warning">Urgent</Tag>,
+  },
+  {
+    id: "t3",
+    groupId: "doing",
+    title: "Implementar grouped list",
+    description: "Lista vertical com drag and drop.",
+    trailing: <Tag tone="brand">Em progresso</Tag>,
+  },
+  {
+    id: "t4",
+    groupId: "done",
+    title: "Revisão de tipografia",
+    description: "Conferir letter-spacing.",
+    trailing: <Tag>Low</Tag>,
+  },
+  {
+    id: "t5",
+    groupId: "done",
+    title: "Atualizar readmes",
+    description: "Documentar usos de componentes.",
+    trailing: <Tag>Low</Tag>,
+  },
 ];
 
 function GroupedTasksDemo() {
   const [tasks, setTasks] = useState(INITIAL_TASKS);
 
-  const handleMove = (id: string, _from: string, to: string, toIndex: number) => {
+  const handleMove = (
+    id: string,
+    _from: string,
+    to: string,
+    toIndex: number,
+  ) => {
     setTasks((prev) => {
       const moved = prev.find((t) => t.id === id);
       if (!moved) return prev;
@@ -264,7 +418,12 @@ function GroupedTasksDemo() {
       getMenuItems={(item) => [
         { label: "Editar", icon: <Pencil />, onClick: () => {} },
         { separator: true },
-        { label: "Excluir", icon: <Trash2 />, destructive: true, onClick: () => {} },
+        {
+          label: "Excluir",
+          icon: <Trash2 />,
+          destructive: true,
+          onClick: () => {},
+        },
       ]}
     />
   );
@@ -274,25 +433,66 @@ function GroupedTasksDemo() {
 
 const ORG: ListItemData[] = [
   {
-    id: "acme", leading: <IconChip><Building2 /></IconChip>, title: "Acme Corp", subtitle: "admin@acme.com",
+    id: "acme",
+    leading: (
+      <IconChip>
+        <Building2 />
+      </IconChip>
+    ),
+    title: "Acme Corp",
+    subtitle: "admin@acme.com",
     trailing: <Parent tone="brand" label="Enterprise" n={2} />,
     children: [
       {
-        id: "sarah", leading: <Avatar />, title: "Sarah Connor", subtitle: "sarah@acme.com",
+        id: "sarah",
+        leading: <Avatar />,
+        title: "Sarah Connor",
+        subtitle: "sarah@acme.com",
         trailing: <Parent tone="warning" label="Pro" n={2} />,
         children: [
-          { id: "john", leading: <Avatar />, title: "John Doe", subtitle: "john@acme.com", trailing: <Tag>Free</Tag> },
-          { id: "jane", leading: <Avatar />, title: "Jane Smith", subtitle: "jane@acme.com", trailing: <Tag>Free</Tag> },
+          {
+            id: "john",
+            leading: <Avatar />,
+            title: "John Doe",
+            subtitle: "john@acme.com",
+            trailing: <Tag>Free</Tag>,
+          },
+          {
+            id: "jane",
+            leading: <Avatar />,
+            title: "Jane Smith",
+            subtitle: "jane@acme.com",
+            trailing: <Tag>Free</Tag>,
+          },
         ],
       },
-      { id: "kyle", leading: <Avatar />, title: "Kyle Reese", subtitle: "kyle@acme.com", trailing: <Tag tone="warning">Pro</Tag> },
+      {
+        id: "kyle",
+        leading: <Avatar />,
+        title: "Kyle Reese",
+        subtitle: "kyle@acme.com",
+        trailing: <Tag tone="warning">Pro</Tag>,
+      },
     ],
   },
   {
-    id: "cyber", leading: <IconChip><Building2 /></IconChip>, title: "Cyberdyne Systems", subtitle: "hello@cyberdyne.com",
+    id: "cyber",
+    leading: (
+      <IconChip>
+        <Building2 />
+      </IconChip>
+    ),
+    title: "Cyberdyne Systems",
+    subtitle: "hello@cyberdyne.com",
     trailing: <Parent tone="brand" label="Enterprise" n={1} />,
     children: [
-      { id: "miles", leading: <Avatar />, title: "Miles Dyson", subtitle: "miles@cyberdyne.com", trailing: <Tag tone="warning">Pro</Tag> },
+      {
+        id: "miles",
+        leading: <Avatar />,
+        title: "Miles Dyson",
+        subtitle: "miles@cyberdyne.com",
+        trailing: <Tag tone="warning">Pro</Tag>,
+      },
     ],
   },
 ];
@@ -303,7 +503,9 @@ function SelectableDemo() {
   const [selected, setSelected] = useState<Set<string>>(new Set(["bob"]));
   return (
     <div className="flex flex-col gap-gp-md">
-      <span className="text-body-sm text-fg-muted">{selected.size} selecionado(s)</span>
+      <span className="text-body-sm text-fg-muted">
+        {selected.size} selecionado(s)
+      </span>
       <List
         items={TEAM}
         selectable
@@ -328,8 +530,10 @@ export function ListDoc() {
 
       <SectionH2 id="construcao" title="Construção" />
       <p className="mb-gp-lg text-body-md text-fg-muted">
-        Monte com <code className="text-fg-default">{"<List items={...} />"}</code>. O estado de UI
-        (seleção, colapso, ordem) é controlado/não-controlado; DnD via <code className="text-fg-default">enableDnD</code> + callbacks
+        Monte com{" "}
+        <code className="text-fg-default">{"<List items={...} />"}</code>. O
+        estado de UI (seleção, colapso, ordem) é controlado/não-controlado; DnD
+        via <code className="text-fg-default">enableDnD</code> + callbacks
         (consumer faz o commit, como no Kanban).
       </p>
 
@@ -338,6 +542,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-standard"
+        plain
         title="Standard"
         description="Lista plana. Cada card tem leading + título/subtítulo + meta em colunas (Role/Status/Last seen) + menu. Click no card abre detalhe (onItemClick)."
         code={`<List
@@ -352,13 +557,19 @@ export function ListDoc() {
           getMenuItems={(item) => [
             { label: "Editar", icon: <Pencil />, onClick: () => {} },
             { separator: true },
-            { label: "Remover", icon: <Trash2 />, destructive: true, onClick: () => {} },
+            {
+              label: "Remover",
+              icon: <Trash2 />,
+              destructive: true,
+              onClick: () => {},
+            },
           ]}
         />
       </ExampleSection>
 
       <ExampleSection
         id="ex-grouped"
+        plain
         title="Grouped + Drag and Drop"
         description="Seções colapsáveis por status. Arraste cards (handle aparece no hover) entre grupos e reordene dentro. O consumer commita no onMove."
         code={`<List
@@ -374,6 +585,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-hierarchical"
+        plain
         title="Hierarchical"
         description="Árvore-como-lista: níveis e subníveis colapsáveis com linhas de conexão. Entidades mistas por nível (empresa → manager → usuário). Clique no chevron pra expandir/recolher."
         code={`<List
@@ -390,10 +602,53 @@ export function ListDoc() {
         />
       </ExampleSection>
 
+      <ExampleSection
+        id="ex-hier-block"
+        plain
+        title="Hierarchical — bloco/painel"
+        description="branchHighlight='block': em vez de conectores, os filhos de um nó aberto ficam dentro de um painel sutil (bg + borda esquerda de marca) — lê como '1 bloco = 1 família', bom pra árvores grandes onde a linha fina se perde."
+        code={`<List
+  layout="hierarchical"
+  items={org}
+  branchHighlight="block"
+  defaultExpandedIds={new Set(["acme", "sarah"])}
+/>`}
+      >
+        <List
+          layout="hierarchical"
+          items={ORG}
+          branchHighlight="block"
+          defaultExpandedIds={new Set(["acme", "sarah", "cyber"])}
+          getMenuItems={() => [{ label: "Ver perfil", icon: <User /> }]}
+        />
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-hier-active"
+        plain
+        title="Hierarchical — ramo ativo"
+        description="branchHighlight='active': só o ramo do último nó aberto recebe o painel (mesmo visual do bloco) + a trilha root→ativo ganha um spine de marca; o resto fica neutro. Foco em 'onde estou'. Clique em chevrons diferentes pra ver o realce acompanhar."
+        code={`<List
+  layout="hierarchical"
+  items={org}
+  branchHighlight="active"
+  defaultExpandedIds={new Set(["acme", "sarah"])}
+/>`}
+      >
+        <List
+          layout="hierarchical"
+          items={ORG}
+          branchHighlight="active"
+          defaultExpandedIds={new Set(["acme", "sarah", "cyber"])}
+          getMenuItems={() => [{ label: "Ver perfil", icon: <User /> }]}
+        />
+      </ExampleSection>
+
       <SectionH2 id="ex-variacoes" title="Variações" />
 
       <ExampleSection
         id="ex-selectable"
+        plain
         title="Selecionável"
         description="selectable mostra checkbox por card; estado controlado via selectedIds + onSelectionChange (a base pro bulk no DataList)."
         code={`<List items={team} selectable selectedIds={set} onSelectionChange={setSet} />`}
@@ -403,6 +658,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-compact"
+        plain
         title="Densidade compacta"
         description="density='compact' reduz o gap vertical entre cards."
         code={`<List items={team} density="compact" />`}
@@ -412,6 +668,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-states"
+        plain
         title="Estados (loading / vazio)"
         description="loading mostra skeletons; sem itens mostra o emptyState."
         code={`<List items={[]} loading />
@@ -425,6 +682,7 @@ export function ListDoc() {
 
       <ExampleSection
         id="ex-rich-card"
+        plain
         title="Card rico (renderItem)"
         description="Variação de layout via renderItem: row de título + id + status e avatares à direita; row de meta com ícone+valor; footer com divider, progresso e data. O wrapper (card, hover, click) continua do List."
         code={`<List
@@ -433,26 +691,82 @@ export function ListDoc() {
   renderItem={(item) => <OrderCard order={item.data} />}
 />`}
       >
-        <List items={ORDERS} onItemClick={() => {}} renderItem={renderOrderCard} />
+        <List
+          items={ORDERS}
+          onItemClick={() => {}}
+          renderItem={renderOrderCard}
+        />
       </ExampleSection>
 
       <DocSeparator />
       <SectionH2 id="api" title="API Reference" />
       <PropsTable
         items={[
-          { name: "layout", type: '"standard" | "grouped" | "hierarchical"', defaultVal: '"standard"' },
-          { name: "items", type: "ListItemData[] (children aninhados na hierarquia)", defaultVal: "—" },
-          { name: "groups", type: "ListGroup[] (layout grouped)", defaultVal: "—" },
-          { name: "groupSurface", type: "painel sutil por grupo (card fino)", defaultVal: "false" },
-          { name: "renderItem", type: "(item, state) => ReactNode — override do miolo", defaultVal: "—" },
-          { name: "getMenuItems", type: "(item) => ListMenuItem[] — kebab", defaultVal: "—" },
-          { name: "onItemClick / openId", type: "click no card / realce 'aberto'", defaultVal: "—" },
-          { name: "selectable + selectedIds/defaultSelectedIds/onSelectionChange", type: "seleção (controlado/não-controlado)", defaultVal: "—" },
-          { name: "expandedIds/defaultExpandedIds/onExpandedChange", type: "colapso (grupos/hierarquia)", defaultVal: "—" },
-          { name: "showConnectors / indentSize", type: "linhas de conexão / indent (px)", defaultVal: "true / 24" },
-          { name: "enableDnD + onReorder/onMove", type: "drag-and-drop (standard/grouped)", defaultVal: "false" },
-          { name: "loading / skeletonCount / emptyState", type: "estados", defaultVal: "— / 4 / —" },
-          { name: "density", type: '"comfortable" | "compact"', defaultVal: '"comfortable"' },
+          {
+            name: "layout",
+            type: '"standard" | "grouped" | "hierarchical"',
+            defaultVal: '"standard"',
+          },
+          {
+            name: "items",
+            type: "ListItemData[] (children aninhados na hierarquia)",
+            defaultVal: "—",
+          },
+          {
+            name: "groups",
+            type: "ListGroup[] (layout grouped)",
+            defaultVal: "—",
+          },
+          {
+            name: "groupSurface",
+            type: "painel sutil por grupo (card fino)",
+            defaultVal: "false",
+          },
+          {
+            name: "renderItem",
+            type: "(item, state) => ReactNode — override do miolo",
+            defaultVal: "—",
+          },
+          {
+            name: "getMenuItems",
+            type: "(item) => ListMenuItem[] — kebab",
+            defaultVal: "—",
+          },
+          {
+            name: "onItemClick / openId",
+            type: "click no card / realce 'aberto'",
+            defaultVal: "—",
+          },
+          {
+            name: "selectable + selectedIds/defaultSelectedIds/onSelectionChange",
+            type: "seleção (controlado/não-controlado)",
+            defaultVal: "—",
+          },
+          {
+            name: "expandedIds/defaultExpandedIds/onExpandedChange",
+            type: "colapso (grupos/hierarquia)",
+            defaultVal: "—",
+          },
+          {
+            name: "showConnectors / indentSize",
+            type: "linhas de conexão / indent (px)",
+            defaultVal: "true / 24",
+          },
+          {
+            name: "enableDnD + onReorder/onMove",
+            type: "drag-and-drop (standard/grouped)",
+            defaultVal: "false",
+          },
+          {
+            name: "loading / skeletonCount / emptyState",
+            type: "estados",
+            defaultVal: "— / 4 / —",
+          },
+          {
+            name: "density",
+            type: '"comfortable" | "compact"',
+            defaultVal: '"comfortable"',
+          },
         ]}
       />
     </DocLayout>

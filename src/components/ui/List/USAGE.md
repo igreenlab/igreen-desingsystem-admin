@@ -41,6 +41,7 @@ checkbox, indent, conectores) é sempre do List.
 | `expandedIds`/`defaultExpandedIds`/`onExpandedChange` | colapso de grupos/hierarquia |
 | `enableDnD` + `onReorder`(standard)/`onMove`(grouped) | drag-and-drop |
 | `showConnectors` / `indentSize` | conectores / indent px (hierárquico) |
+| `branchHighlight` | destaque de família (hierárquico): `none` (conectores, default) · `block` (painéis aninhados = 1 bloco por família) · `active` (só o ramo do último nó aberto recebe o painel + trilha) |
 | `loading`/`skeletonCount` · `emptyState` · `density` | estados / densidade |
 
 ## Gotchas
