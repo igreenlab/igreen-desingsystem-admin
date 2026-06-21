@@ -1,8 +1,20 @@
 import { useMemo, useState } from "react";
+import {
+  Clock,
+  Coins,
+  Eye,
+  MapPin,
+  MoreHorizontal,
+  Network,
+  Pencil,
+  RefreshCw,
+  UserMinus,
+  UserPlus,
+  Users,
+} from "lucide-react";
 import { useTheme, type Theme } from "@/hooks/useTheme";
-import { MoreHorizontal, Pencil, UserMinus, UserPlus, Eye } from "lucide-react";
 import { DataList } from "@/components/ui/DataList";
-import type { ListItemData } from "@/components/ui/List";
+import type { ListItemData, ListRenderState } from "@/components/ui/List";
 import { AppShell } from "@/components/ui/AppShell";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
@@ -18,8 +30,11 @@ import {
   APP_SHELL_USER,
 } from "../../mocks/app-shell-mocks";
 import {
+  FILTER_FIELDS,
   GRADUACAO,
   NETWORK,
+  REGIAO,
+  VIEWS,
   countNetwork,
   findConsultor,
   formatNum,
@@ -28,67 +43,73 @@ import {
 import type { Consultor } from "./mapa-de-rede.types";
 import { ConsultorDetailPanel } from "./components/ConsultorDetailPanel";
 
-/* ── Card do consultor (renderItem do DataList hierárquico) ───────── */
+/* ── Card rico do consultor (renderItem do DataList hierárquico) ──── */
 
-function Stat({ label, value }: { label: string; value: string }) {
+function MetaInline({
+  icon,
+  children,
+}: {
+  icon: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
-    <div className="hidden w-[84px] shrink-0 flex-col gap-gp-2xs md:flex">
-      <span className="text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle">
-        {label}
-      </span>
-      <span className="text-body-sm text-fg-default [font-variant-numeric:tabular-nums]">
-        {value}
-      </span>
-    </div>
+    <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-muted [&>svg]:size-icon-sm [&>svg]:text-fg-subtle">
+      {icon}
+      {children}
+    </span>
   );
 }
 
-function renderConsultorCard(item: ListItemData) {
+function renderConsultorCard(item: ListItemData, state: ListRenderState) {
   const c = item.data as Consultor;
   const grad = GRADUACAO[c.graduacao];
   return (
     <div className="flex w-full items-center gap-gp-xl">
-      {/* CONSULTOR — nome + nível */}
-      <div className="flex min-w-0 flex-1 items-center gap-gp-sm">
-        <span className="truncate text-body-md font-semibold text-fg-default">
-          {c.name}
-        </span>
-        <Chip color="neutral" variant="soft" size="sm" shape="pill">
-          {c.level}
-        </Chip>
-      </div>
+      {/* nível por profundidade (N1 = líder), mesma cor pra todos —
+          quadrado arredondado na altura de título + subtítulo (centralizado). */}
+      <span className="grid size-form-md shrink-0 place-items-center rounded-radius-md bg-bg-muted text-caption-sm font-semibold text-fg-muted [font-variant-numeric:tabular-nums]">
+        N{state.depth + 1}
+      </span>
 
-      {/* GRADUAÇÃO */}
-      <div className="hidden w-[110px] shrink-0 md:block">
-        <Chip color={grad.color} variant="soft" size="sm" shape="pill">
-          {grad.label}
-        </Chip>
-      </div>
-
-      {/* GP PRÓPRIO · CLIENTES */}
-      <Stat label="GP próprio" value={formatNum(c.gpProprio)} />
-      <Stat label="Clientes" value={formatNum(c.clientes)} />
-
-      {/* SUBÁRVORE (agregado) */}
-      <div className="hidden w-[260px] shrink-0 flex-col gap-gp-2xs lg:flex">
-        <span className="text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle">
-          Subárvore
-        </span>
-        <span className="truncate text-body-sm text-fg-muted">
-          {subtreeLabel(c)}
-        </span>
-      </div>
-
-      {/* PRO */}
-      <div className="hidden w-[52px] shrink-0 justify-end sm:flex">
-        {c.pro ? (
-          <Chip color="success" variant="soft" size="sm" shape="pill">
-            PRO
+      <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
+        {/* identidade */}
+        <div className="flex flex-wrap items-center gap-gp-sm">
+          <span className="truncate text-body-md font-semibold text-fg-default">
+            {c.name}
+          </span>
+          <Chip color={grad.color} variant="soft" size="sm" shape="pill">
+            {grad.label}
           </Chip>
-        ) : (
-          <span className="text-body-sm text-fg-subtle">—</span>
-        )}
+          {c.pro && (
+            <Chip color="success" variant="soft" size="sm" shape="pill">
+              PRO
+            </Chip>
+          )}
+        </div>
+
+        {/* métricas com ícones */}
+        <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-2xs">
+          <MetaInline icon={<Coins />}>
+            <strong className="font-semibold text-fg-default [font-variant-numeric:tabular-nums]">
+              {formatNum(c.gpProprio)}
+            </strong>{" "}
+            GP
+          </MetaInline>
+          <MetaInline icon={<Users />}>
+            <strong className="font-semibold text-fg-default [font-variant-numeric:tabular-nums]">
+              {formatNum(c.clientes)}
+            </strong>{" "}
+            clientes
+          </MetaInline>
+          <MetaInline icon={<Network />}>{subtreeLabel(c)}</MetaInline>
+          <MetaInline icon={<MapPin />}>{REGIAO[c.regiao]}</MetaInline>
+        </div>
       </div>
+
+      <span className="hidden shrink-0 items-center gap-gp-xs whitespace-nowrap text-caption-sm text-fg-subtle md:inline-flex [&>svg]:size-icon-xs">
+        <Clock />
+        {c.lastActive}
+      </span>
     </div>
   );
 }
@@ -113,12 +134,6 @@ export default function MapaDeRedeShowcase() {
   const items = useMemo(() => NETWORK.map(toItem), []);
   const total = useMemo(() => countNetwork(NETWORK), []);
   const detail = detailId ? findConsultor(NETWORK, detailId) : null;
-
-  // Você + N1s expandidos no mount
-  const expanded = useMemo(
-    () => new Set(["voce", ...(NETWORK[0].children?.map((c) => c.id) ?? [])]),
-    [],
-  );
 
   return (
     <AppShell
@@ -151,7 +166,7 @@ export default function MapaDeRedeShowcase() {
     >
       <PageHeader
         title="Mapa de Rede"
-        description="Navegue a rede de consultores por níveis (Você → N1 → N2…). Cada card mostra graduação, GP próprio, clientes e o agregado da subárvore. Clique para expandir um ramo ou ver o detalhe do consultor."
+        description="Navegue a rede de consultores por níveis (líderes → N1 → N2…). Cada card mostra graduação, GP próprio, clientes e o agregado da subárvore. Use as abas, a busca e os filtros pra recortar; clique no card pra ver o detalhe."
         badge={
           <Chip color="primary" variant="soft" size="sm" shape="rounded">
             {total.toLocaleString("pt-BR")} consultores
@@ -185,11 +200,14 @@ export default function MapaDeRedeShowcase() {
         title="Consultores"
         items={items}
         layout="hierarchical"
-        branchHighlight="block"
-        defaultExpandedIds={expanded}
+        branchHighlight="none"
         renderItem={renderConsultorCard}
         searchable
         searchPlaceholder="Buscar consultor..."
+        filterFields={FILTER_FIELDS}
+        views={VIEWS}
+        onRefresh={() => {}}
+        persistKey="mapa-de-rede"
         onItemClick={(id) => setDetailId(id)}
         getMenuItems={(item) => {
           const c = item.data as Consultor;
@@ -213,6 +231,10 @@ export default function MapaDeRedeShowcase() {
             },
           ];
         }}
+        moreActions={[
+          { label: "Atualizar rede", icon: <RefreshCw />, onClick: () => {} },
+          { label: "Exportar CSV", onClick: () => {} },
+        ]}
       />
 
       <ConsultorDetailPanel

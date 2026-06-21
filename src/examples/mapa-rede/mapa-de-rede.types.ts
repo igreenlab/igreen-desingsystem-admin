@@ -7,6 +7,9 @@ export type Graduacao =
   | "pleno"
   | "junior";
 
+/** Região comercial (filtro). */
+export type Regiao = "sudeste" | "sul" | "nordeste" | "centro-oeste" | "norte";
+
 /** Agregado da subárvore (descendentes) de um consultor. `null` = folha. */
 export type Subtree = {
   /** Nº de consultores descendentes (toda a subárvore). */
@@ -21,23 +24,30 @@ export type Subtree = {
 export type Consultor = {
   id: string;
   name: string;
-  /** Rótulo de nível relativo ("Você", "N1", "N2"...). */
+  /** Rótulo de nível relativo ("Líder", "N1", "N2"...). */
   level: string;
   graduacao: Graduacao;
+  regiao: Regiao;
   /** GP gerado pelo próprio consultor. */
   gpProprio: number;
   /** Clientes diretos. */
   clientes: number;
   /** Plano PRO ativo. */
   pro: boolean;
+  /** Cor do avatar (hex) — calibrada por contraste no Avatar. */
+  avatarColor: string;
   /** Agregado dos descendentes (calculado); `null` em folhas. */
   subtree: Subtree;
   /** Email/contato (detalhe). */
   email: string;
+  /** Telefone (detalhe). */
+  phone: string;
   /** Cidade/UF (detalhe). */
   location: string;
   /** Consultor desde (ms epoch). */
   since: number;
+  /** Última atividade (texto relativo). */
+  lastActive: string;
   /** Descendentes diretos. */
   children?: Consultor[];
 };
