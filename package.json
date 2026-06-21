@@ -81,6 +81,8 @@
     "tokens:check": "tsc --noEmit",
     "registry:stamp": "node scripts/registry-stamp.mjs",
     "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
+    "release:check": "node scripts/registry-check.mjs && node scripts/distribution-debt.mjs && node scripts/examples-drift-check.mjs",
+    "distribution:debt": "node scripts/distribution-debt.mjs",
     "cli:rebake": "node scripts/cli-rebake-foundationals.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
