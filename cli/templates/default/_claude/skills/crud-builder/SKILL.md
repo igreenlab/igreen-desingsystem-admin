@@ -14,14 +14,19 @@ Você guia a criação de uma tela de tabela que consome `<DataTable>` **sem fug
 do exemplo e da documentação do projeto**. NÃO inventa API de props, NÃO gera
 código de memória, NÃO toca em arquivo antes do gate aprovado.
 
+> **Kanban / board / funil / pipeline de vendas** caem AQUI: kanban é uma `viewMode`
+> do DataTable (mesmos dados/colunas/filtros, só muda a exibição). "Quero um kanban/
+> funil" → esta skill; a Fase 5 do interview configura as lanes pela coluna de
+> status/etapa. Funil = board agrupado por etapa. Ref. visual: `example-finance`.
+
 ## Ambiente (este é um projeto CONSUMIDOR, copy-in)
 
-| Variável | Valor |
-|---|---|
-| `IMPORT_PATH` | `@/components/ui/DataTable`, `@/components/ui/Button`, etc (copy-in via alias) |
-| `EXEMPLO_CANÔNICO` | `example-clientes` → `npm run igreen:add -- example-clientes` → ler `src/examples/clientes/clientes-screen.tsx` |
-| `DOC` | `src/components/ui/DataTable/USAGE.md` (após `igreen:add data-table`) + types ao lado |
-| `PAGES_DIR` / `REGISTRO` | perguntar ao usuário (onde mora a página + como registra rota) |
+| Variável                 | Valor                                                                                                           |
+| ------------------------ | --------------------------------------------------------------------------------------------------------------- |
+| `IMPORT_PATH`            | `@/components/ui/DataTable`, `@/components/ui/Button`, etc (copy-in via alias)                                  |
+| `EXEMPLO_CANÔNICO`       | `example-clientes` → `npm run igreen:add -- example-clientes` → ler `src/examples/clientes/clientes-screen.tsx` |
+| `DOC`                    | `src/components/ui/DataTable/USAGE.md` (após `igreen:add data-table`) + types ao lado                           |
+| `PAGES_DIR` / `REGISTRO` | perguntar ao usuário (onde mora a página + como registra rota)                                                  |
 
 Se o componente/exemplo ainda não está no disco, **puxe via `igreen:add`** antes de ler — nunca gere de memória.
 
@@ -40,15 +45,18 @@ Se o componente/exemplo ainda não está no disco, **puxe via `igreen:add`** ant
 Carregue cada sub-arquivo só no estágio correspondente: `interview.md` agora, `blueprint.md` ao fim da entrevista, `generate.md` só após o gate.
 
 ## ⚠️ Precedência de fontes (anti-drift)
+
 ```
 1. src/examples/clientes/clientes-screen.tsx  (exemplo real, vence tudo)
 2. src/components/ui/DataTable/USAGE.md + types ao lado
 3. Snippets desta skill
 4. Memória da IA  ← NUNCA confiar sozinha
 ```
+
 Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 
 ## Guardrails (não-negociáveis)
+
 1. `columns` SEMPRE em `useMemo`; `fetchData` (server mode) SEMPRE em `useCallback` (senão loop de refetch).
 2. Operador de filtro válido pro filterType (multiSelect⇒`isAnyOf`, text⇒`contains`, date⇒`between`...).
 3. `virtualize: true` ⇒ paginação desligada + container com altura (`flex-1 min-h-0` num pai `h-full`).
@@ -61,14 +69,16 @@ Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 10. LER o exemplo canônico ANTES de gerar — nunca de memória.
 11. Ação destrutiva (excluir) ⇒ **confirmação via `AlertModal`** — nunca deletar direto.
 12. Sempre wire os 3 estados: `loading`/`renderLoading` (skeleton), `renderEmpty` (sem
-    registros + CTA *Adicionar*), `renderNoResults` (filtro sem match). Faltou = incompleto.
+    registros + CTA _Adicionar_), `renderNoResults` (filtro sem match). Faltou = incompleto.
 
 ## Drawers (criar/editar/detalhe) — ligado ao CRUD
+
 Se o CRUD precisa de criar/editar/ver-detalhe, espelhe o padrão do `example-finance`:
 `NovoClienteDrawer` (criar/editar via `Panel` + `FormField`) e `FinanceDetailPanel`
 (detalhe via `FloatingPanel`). Puxe `example-finance`, leia esses componentes e
 reuse a estrutura — mesmo design de drawer do DS.
 
 ## Handoff
+
 - Entrevista pronta → `BLUEPRINT_PRONTO: <Entidade> — aguardando gate`
 - Pós-geração → `CRUD_PRONTO: <Entidade>` (+ onde foi registrada)

@@ -22,22 +22,23 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 
 ## Passo 1 — Classifique a intenção → rota
 
-| Sinais na fala do usuário                                                                           | Rota (skill / exemplo)                                                                                           |
-| --------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| "tabela", "grade", "grid de dados", "crud", "datatable", "planilha", "colunas"                      | **skill `crud-builder`** (`/ds-create-crud`) — entrevista guiada                                                 |
-| "lista de cards", "árvore", "hierarquia", "rede/organograma", "níveis", "treeview", "feed de cards" | **skill `list-builder`** (`/ds-create-list`) — entrevista guiada                                                 |
-| "lista" / "listagem de X" (ambíguo: grade ou cards?)                                                | **PERGUNTE** "grade de colunas ou cards?" → `crud-builder` ou `list-builder` (ou front-door `/ds-create-screen`) |
-| "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step"                      | **skill `page-edit`** → `example-edit-page`                                                                      |
-| "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido"                 | **skill `page-detail`** → `example-order-detail`                                                                 |
-| "dashboard", "painel", "visão geral", "KPIs", "indicadores"                                         | **skill `dashboard`** → `example-dashboard`                                                                      |
-| "gráfico", "chart", "barras/linha/área/pizza"                                                       | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard`                                                      |
-| "financeiro", "extrato", "saldo", "transações"                                                      | `example-finance` (puxar + adaptar)                                                                              |
-| "chat", "inbox", "conversas", "atendimento"                                                         | **skill `chat`** → `example-chat`                                                                                |
-| "drawer/painel de criar/editar/ver detalhe"                                                         | **skill `drawers`** → drawers do `example-finance`                                                               |
-| "cards", "blocos", "painéis soltos", "seções"                                                       | **skill `cards`** → `Card`/`Panel` + showcase                                                                    |
-| "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                    |
-| cabeçalho de página                                                                                 | componente `PageHeader`                                                                                          |
-| shell / menu lateral / topbar                                                                       | `app-shell` / `menu-sidebar` / `header`                                                                          |
+| Sinais na fala do usuário                                                                           | Rota (skill / exemplo)                                                                                                        |
+| --------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| "tabela", "grade", "grid de dados", "crud", "datatable", "planilha", "colunas"                      | **skill `crud-builder`** (`/ds-create-crud`) — entrevista guiada                                                              |
+| "kanban", "board", "funil", "pipeline de vendas", "quadro por status/etapa"                         | **skill `crud-builder`** (`/ds-create-crud`) — kanban é `viewMode` do DataTable; ref. `example-finance` (kanban por situação) |
+| "lista de cards", "árvore", "hierarquia", "rede/organograma", "níveis", "treeview", "feed de cards" | **skill `list-builder`** (`/ds-create-list`) — entrevista guiada                                                              |
+| "lista" / "listagem de X" (ambíguo: grade ou cards?)                                                | **PERGUNTE** "grade de colunas ou cards?" → `crud-builder` ou `list-builder` (ou front-door `/ds-create-screen`)              |
+| "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step"                      | **skill `page-edit`** → `example-edit-page`                                                                                   |
+| "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido"                 | **skill `page-detail`** → `example-order-detail`                                                                              |
+| "dashboard", "painel", "visão geral", "KPIs", "indicadores"                                         | **skill `dashboard`** → `example-dashboard`                                                                                   |
+| "gráfico", "chart", "barras/linha/área/pizza"                                                       | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard`                                                                   |
+| "financeiro", "extrato", "saldo", "transações"                                                      | `example-finance` (puxar + adaptar)                                                                                           |
+| "chat", "inbox", "conversas", "atendimento"                                                         | **skill `chat`** → `example-chat`                                                                                             |
+| "drawer/painel de criar/editar/ver detalhe"                                                         | **skill `drawers`** → drawers do `example-finance`                                                                            |
+| "cards", "blocos", "painéis soltos", "seções"                                                       | **skill `cards`** → `Card`/`Panel` + showcase                                                                                 |
+| "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                                 |
+| cabeçalho de página                                                                                 | componente `PageHeader`                                                                                                       |
+| shell / menu lateral / topbar                                                                       | `app-shell` / `menu-sidebar` / `header`                                                                                       |
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") = combine rotas (`example-dashboard` + `crud-builder`).
 
