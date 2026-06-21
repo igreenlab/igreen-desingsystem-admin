@@ -1183,3 +1183,24 @@ Execução autônoma autorizada pelo usuário (sair e voltar só pra validar+mer
 - **Assumption**: registry:build re-stampa todos os itens pra v0.14.0 (esperado num release). Deploy do registry = automático no merge (Vercel); publish do CLI = manual (mantenedor).
 - **Lições novas**: nenhuma nova nesta fase (L-044..L-048 já registradas).
 - **Pendência do mantenedor**: validar + **merge do PR #44**; publish manual do CLI 0.13.9; revogar token npm.
+
+---
+
+### 2026-06-21 | DS DEV | Backlog de maturidade do pipeline | CONCLUÍDO (branch chore/pipeline-maturity)
+
+Fecha os itens de processo levantados na auditoria. Branch própria (mirror snksergio).
+
+- **block-rm-rf (L-048)**: detecta `rm -rf`/`git push --force` só em BOUNDARY de comando
+  (flatten 1-linha + `^|;&|(`) — não dispara mais com "rm -rf" dentro de mensagem de commit.
+  Testado: bloqueia destrutivo real (exit 2), libera `git commit` com o padrão na msg (exit 0).
+- **distribution-debt.mjs** (novo) + npm `release:check`/`distribution:debt`: sweep que varre
+  `ui/*` vs registry + catálogo CLI. **Achou bug real**: `data-list` listava
+  `@igreen/table-toolbar` como registryDependency, mas table-toolbar é **bundlado** no
+  `data-table` (sem item próprio) → dep dangling → `igreen:add data-list` quebraria. Removido;
+  registry:build + embed refeitos (76 itens, em sync). + `data-table` adicionado ao catálogo CLI.
+- **handoff-pr.md**: novo passo obrigatório — escrever pipeline-state + lições no MESMO commit.
+- **ds-standards.md**: DoD "nova skill builder" (4 superfícies de roteamento, L-047) como checklist ativo.
+- **Lições novas**: L-049 (registryDependency dangling pra componente bundlado).
+- Validação: tsc 0 · 22/22 · registry-check ok · distribution-debt limpo.
+- **Pendência do mantenedor**: validar/merge do PR desta branch; **publish manual do CLI 0.13.9**
+  (npm whoami = 401, token do ~/.npmrc inválido/revogado — precisa `npm login`); revogar token npm.

@@ -83,7 +83,7 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 > (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
 > **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
 > · `tooltip`/`hover-card` (dica/prévia no hover).
-> App-level (templates de layout): `chart` `table` `menu-sidebar` `header` `app-shell`.
+> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `header` `app-shell`.
 > Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
 > `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
 > `example-mapa-rede`.

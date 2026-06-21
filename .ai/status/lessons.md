@@ -902,7 +902,7 @@ transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a 
   Destructive: `text-fg-danger focus:bg-bg-danger-muted`. Ativo/checked:
   `data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand`.
 - **Separator** `mx-pad-xs my-pad-xs h-px bg-border-default` · **Label** `px-pad-lg py-pad-sm
-  text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
+text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
   `ml-auto text-caption-sm tracking-wider text-fg-subtle`.
   **Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
   espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
@@ -1013,6 +1013,18 @@ dentro de uma commit message** (heredoc do `git commit -m`). Bloqueou um commit 
 mensagem citava `rm -rf src/`. **Workaround imediato:** não escrever `rm -rf <path>` literal
 em mensagens/echos. **Melhoria do hook (backlog):** ignorar quando o comando começa com
 `git commit`/`git`, ou só casar `rm` como token inicial de um segmento de comando.
+
+## [L-049] registryDependency pode ficar "dangling" pra componente bundlado em outro item
+
+`registry-add-item.mjs` gera registryDependencies a partir dos imports — `data-list`
+importa `@/components/ui/TableToolbar`, então gerou `@igreen/table-toolbar`. Mas o
+TableToolbar **não tem item próprio** no registry: é **bundlado** dentro do `data-table`
+("acoplamento circular"). Logo `@igreen/table-toolbar` é um dep que **não resolve** →
+`igreen:add data-list` quebraria. Fix: remover o dep e confiar no `@igreen/data-table`
+(que o data-list já depende e que traz os arquivos do TableToolbar embutidos). **Regra
+pra IA:** ao adicionar/editar item no registry, valide que cada `registryDependency`
+existe como item OU é bundlado por outro dep já listado — `npm run distribution:debt`
+(novo) + conferir os deps gerados pelo `registry-add-item` (ele não sabe o que é bundlado).
 
 ---
 
