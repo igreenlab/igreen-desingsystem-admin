@@ -53,10 +53,10 @@ function renderConsultorCard(item: ListItemData, state: ListRenderState) {
   const c = item.data as Consultor;
   const grad = GRADUACAO[c.graduacao];
   return (
-    <div className="flex w-full items-center gap-gp-lg">
-      {/* nível por profundidade (N1 = líder), mesma cor — círculo na altura
-          de título + subtítulo (centralizado). */}
-      <span className="grid size-form-md shrink-0 place-items-center rounded-radius-full bg-bg-muted text-caption-sm font-semibold text-fg-muted [font-variant-numeric:tabular-nums]">
+    <div className="flex w-full items-center gap-gp-xl">
+      {/* nível por profundidade (N1 = líder), mesma cor — quadrado arredondado
+          na altura de título + subtítulo (centralizado). */}
+      <span className="grid size-form-md shrink-0 place-items-center rounded-radius-md bg-bg-muted text-caption-sm font-semibold text-fg-muted [font-variant-numeric:tabular-nums]">
         N{state.depth + 1}
       </span>
 
@@ -123,14 +123,6 @@ export function MapaDeRedeScreen() {
   const total = useMemo(() => countNetwork(NETWORK), []);
   const detail = detailId ? findConsultor(NETWORK, detailId) : null;
 
-  const expanded = useMemo(
-    () =>
-      new Set(
-        NETWORK.flatMap((r) => [r.id, ...(r.children?.map((c) => c.id) ?? [])]),
-      ),
-    [],
-  );
-
   return (
     <div className="flex h-full min-h-0 flex-col gap-gp-2xl">
       <PageHeader
@@ -170,7 +162,6 @@ export function MapaDeRedeScreen() {
         items={items}
         layout="hierarchical"
         branchHighlight="none"
-        defaultExpandedIds={expanded}
         renderItem={renderConsultorCard}
         searchable
         searchPlaceholder="Buscar consultor..."
