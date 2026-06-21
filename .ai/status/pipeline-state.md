@@ -1204,3 +1204,20 @@ Fecha os itens de processo levantados na auditoria. Branch própria (mirror snks
 - Validação: tsc 0 · 22/22 · registry-check ok · distribution-debt limpo.
 - **Pendência do mantenedor**: validar/merge do PR desta branch; **publish manual do CLI 0.13.9**
   (npm whoami = 401, token do ~/.npmrc inválido/revogado — precisa `npm login`); revogar token npm.
+
+---
+
+### 2026-06-21 | DS DEV | Roteamento de kanban/funil (intenção) | CONCLUÍDO (branch feat/kanban-funil-routing)
+
+Gap de roteamento: kanban é `viewMode` do DataTable (o crud-builder trata na Fase 5),
+mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fechado nos 2 lados:
+
+- **Repo**: orchestrator (linha kanban/board/funil → /ds-create-crud) · crud-builder SKILL
+  (escopo cita kanban/funil) · front-door /ds-create-screen (nota: kanban/funil = rota tabela).
+- **Consumer (CLI)**: ds-kit (linha de roteamento) · CLAUDE.md (mapa de intenção, ref.
+  example-finance/kanban) · crud-builder SKILL consumer · ds-create-screen consumer.
+- **Decisão**: funil = board/kanban agrupado por etapa (pipeline de vendas) — não é gráfico
+  de funil dedicado. List-builder JÁ cobre todos os tipos de lista (slots vs renderItem,
+  standard/grouped/hierarchical + branchHighlight, virtualização/infinite) — verificado, sem gap.
+- **Bump CLI 0.13.9 → 0.13.10** (template mudou). Só docs/roteamento — nenhum componente tocado.
+- **Pendência do mantenedor**: **publish manual do CLI 0.13.10** (npm whoami = 401 — `npm login` antes); revogar token npm.

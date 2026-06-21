@@ -16,6 +16,11 @@ Pergunte, descrevendo por **uso** (não pela palavra):
 
 Se o $ARGUMENTS já deixar claro, confirme em 1 linha e siga. Na dúvida, pergunte.
 
+> **Kanban / board / funil / pipeline de vendas** → rota **Tabela**. Kanban é uma
+> `viewMode` do DataTable (mesmos dados, só muda a exibição); funil = board agrupado
+> por etapa. Roteie pro `crud-builder` — a Fase 5 configura as lanes pela coluna de
+> status/etapa. Não é um 3º builder.
+
 ## Passo 2 — Delegar
 
 - **Tabela** → carregue `.claude/skills/crud-builder/SKILL.md` e siga o fluxo dele.

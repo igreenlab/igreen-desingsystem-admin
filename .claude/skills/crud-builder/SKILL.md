@@ -18,6 +18,10 @@ gera código de memória e NÃO toca em arquivo antes do gate ser aprovado.
 
 - ✅ Telas de tabela/CRUD: client/server mode, filtros, views, kanban,
   virtualização, grouping, expansion, inline edit, totalizers, bulk actions.
+- ✅ **Kanban / board / funil (pipeline de vendas)** caem AQUI: kanban é uma
+  `viewMode` do DataTable — mesmos dados/colunas/filtros, só muda a exibição pra
+  board. "Quero um kanban/funil" → esta skill (a Fase 5 + `kanban-design.md`
+  configuram as lanes pela coluna de status/etapa). Funil = board agrupado por etapa.
 - ⛔ **Lista de cards** (DataList) → skill IRMÃ `list-builder/` (`/ds-create-list`).
   Se o caso for card/feed/árvore/agrupamento visual e NÃO grade de colunas, PARAR
   e mandar pra lá. Front-door que desambigua: `/ds-create-screen`.
@@ -41,12 +45,12 @@ gera código de memória e NÃO toca em arquivo antes do gate ser aprovado.
 
 Carregue cada sub-skill SOMENTE no estágio correspondente (economia de contexto):
 
-| Estágio | Arquivo | Quando carregar |
-|---|---|---|
-| Entrevista | `interview.md` | Imediatamente após este router |
+| Estágio            | Arquivo            | Quando carregar                        |
+| ------------------ | ------------------ | -------------------------------------- |
+| Entrevista         | `interview.md`     | Imediatamente após este router         |
 | Kanban (sub-fluxo) | `kanban-design.md` | SÓ se o usuário quiser kanban (Fase 5) |
-| Blueprint/gate | `blueprint.md` | Quando a entrevista terminar |
-| Geração | `generate.md` | SÓ após aprovação do gate |
+| Blueprint/gate     | `blueprint.md`     | Quando a entrevista terminar           |
+| Geração            | `generate.md`      | SÓ após aprovação do gate              |
 
 ## ⚠️ Regra de precedência de fontes (anti-drift)
 
@@ -67,12 +71,12 @@ sinalize o drift pro usuário corrigir a doc.
 
 Detecte onde a skill está rodando e fixe estas 4 variáveis:
 
-| Variável | Neste repo (DS) | Consumer app (CLI template) |
-|---|---|---|
-| `IMPORT_PATH` | `@/components/ui/DataTable` etc | `@snksergio/design-system` |
-| `PAGES_DIR` | `src/preview/pages/` | perguntar (ex: `src/pages/`) |
-| `REGISTRO` | receita App.tsx + doc-nav-data.ts (ver generate.md) | perguntar (router do app) |
-| `EXEMPLOS` | paths locais `src/preview/pages/Clients*` | fallback (ver "Adaptação consumer") |
+| Variável      | Neste repo (DS)                                     | Consumer app (CLI template)         |
+| ------------- | --------------------------------------------------- | ----------------------------------- |
+| `IMPORT_PATH` | `@/components/ui/DataTable` etc                     | `@snksergio/design-system`          |
+| `PAGES_DIR`   | `src/preview/pages/`                                | perguntar (ex: `src/pages/`)        |
+| `REGISTRO`    | receita App.tsx + doc-nav-data.ts (ver generate.md) | perguntar (router do app)           |
+| `EXEMPLOS`    | paths locais `src/preview/pages/Clients*`           | fallback (ver "Adaptação consumer") |
 
 Detecção: `package.json.name === "@snksergio/design-system"` → repo DS; senão
 consumer.

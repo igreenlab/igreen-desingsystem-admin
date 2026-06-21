@@ -15,14 +15,19 @@ a confirmação, porque "lista" é usado pra tabela com frequência.
 
 Perguntar (use `AskUserQuestion`), descrevendo por **uso**, não pela palavra:
 
-| Opção | Sinais | Exemplos | Roteia pra |
-|---|---|---|---|
-| **Tabela (grade)** | colunas × linhas · muitos campos por registro · comparar/ordenar/filtrar **por coluna** · editar célula · somatórios · densa | clientes, financeiro, pedidos | `crud-builder` |
+| Opção              | Sinais                                                                                                                          | Exemplos                                           | Roteia pra     |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------- | -------------- |
+| **Tabela (grade)** | colunas × linhas · muitos campos por registro · comparar/ordenar/filtrar **por coluna** · editar célula · somatórios · densa    | clientes, financeiro, pedidos                      | `crud-builder` |
 | **Lista de cards** | cada item é um **card** · poucos campos em destaque (avatar/título/subtítulo/meta) · visual · hierarquia/agrupamento/DnD · feed | membros, tarefas, organização (árvore), atividades | `list-builder` |
 
 Se o `hint` do usuário já deixar claro (ex: "tabela de clientes com colunas e
 edição inline"), confirme em 1 linha e siga — não force a pergunta redundante.
 Na dúvida, **pergunte**.
+
+> **Kanban / board / funil / pipeline de vendas** → é a rota **Tabela**. Kanban é
+> uma `viewMode` do DataTable (mesmos dados/colunas/filtros, só muda a exibição pra
+> board); funil = board agrupado por etapa. Roteie pro `crud-builder` — a Fase 5 do
+> interview configura as lanes pela coluna de status/etapa. **Não é um 3º builder.**
 
 ## Passo 2 — Delegar
 

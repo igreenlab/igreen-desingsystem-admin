@@ -100,6 +100,7 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | ----------------------------------------------------------------------------------------- | ------------------------- | --------------------------- |
 | "crud", "tabela", "grade/colunas", "planilha", "grid de dados"                            | `example-clientes`        | DataTable                   |
 | "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela"           | `example-finance`         | DataTable + KPI cards       |
+| "kanban", "board", "funil", "pipeline de vendas", "quadro por status/etapa"               | `example-finance`         | DataTable (viewMode kanban) |
 | "lista de cards", "árvore/hierarquia", "rede/organograma", "níveis", "treeview", "feed"   | `example-mapa-rede`       | DataList                    |
 | "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`       | FormField                   |
 | "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`    | Tabs + Cards                |
