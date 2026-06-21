@@ -13,6 +13,7 @@ import {
   formatLongDate,
   formatNum,
   initials,
+  levelOf,
   subtreeLabel,
 } from "../../mapa-de-rede-mocks";
 import type { Consultor } from "../../mapa-de-rede.types";
@@ -62,7 +63,7 @@ export function ConsultorDetailPanel({
             </span>
             <span className="flex flex-wrap items-center gap-gp-sm">
               <Chip color="neutral" variant="soft" size="sm" shape="pill">
-                {consultor.level}
+                {levelOf(consultor.id)}
               </Chip>
               <Chip color={grad.color} variant="soft" size="sm" shape="pill">
                 {grad.label}

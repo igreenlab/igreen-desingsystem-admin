@@ -555,6 +555,21 @@ export function countNetwork(nodes: Consultor[]): number {
   );
 }
 
+/** Nível por profundidade na árvore: raiz (líder) = N1, filhos = N2, etc. */
+export function levelOf(id: string): string {
+  const walk = (nodes: Consultor[], depth: number): string | null => {
+    for (const node of nodes) {
+      if (node.id === id) return `N${depth + 1}`;
+      if (node.children) {
+        const r = walk(node.children, depth + 1);
+        if (r) return r;
+      }
+    }
+    return null;
+  };
+  return walk(NETWORK, 0) ?? "N1";
+}
+
 /* ── toolbar: filtros + visões ────────────────────────────────────── */
 
 export const FILTER_FIELDS: FilterableField[] = [

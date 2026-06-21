@@ -14,9 +14,8 @@ import {
 } from "lucide-react";
 import { useTheme, type Theme } from "@/hooks/useTheme";
 import { DataList } from "@/components/ui/DataList";
-import type { ListItemData } from "@/components/ui/List";
+import type { ListItemData, ListRenderState } from "@/components/ui/List";
 import { AppShell } from "@/components/ui/AppShell";
-import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -39,7 +38,6 @@ import {
   countNetwork,
   findConsultor,
   formatNum,
-  initials,
   subtreeLabel,
 } from "./mapa-de-rede-mocks";
 import type { Consultor } from "./mapa-de-rede.types";
@@ -62,28 +60,23 @@ function MetaInline({
   );
 }
 
-function renderConsultorCard(item: ListItemData) {
+function renderConsultorCard(item: ListItemData, state: ListRenderState) {
   const c = item.data as Consultor;
   const grad = GRADUACAO[c.graduacao];
   return (
-    <div className="flex w-full items-start gap-gp-lg">
-      <Avatar
-        size="md"
-        colorHex={c.avatarColor}
-        className="shrink-0 text-caption-md font-bold"
-      >
-        {initials(c.name)}
-      </Avatar>
+    <div className="flex w-full items-center gap-gp-lg">
+      {/* nível por profundidade (N1 = líder), mesma cor pra todos —
+          círculo no tamanho da altura de título + subtítulo (centralizado). */}
+      <span className="grid size-form-md shrink-0 place-items-center rounded-radius-full bg-bg-muted text-caption-sm font-semibold text-fg-muted [font-variant-numeric:tabular-nums]">
+        N{state.depth + 1}
+      </span>
 
-      <div className="flex min-w-0 flex-1 flex-col gap-gp-xs">
+      <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
         {/* identidade */}
         <div className="flex flex-wrap items-center gap-gp-sm">
           <span className="truncate text-body-md font-semibold text-fg-default">
             {c.name}
           </span>
-          <Chip color="neutral" variant="soft" size="sm" shape="pill">
-            {c.level}
-          </Chip>
           <Chip color={grad.color} variant="soft" size="sm" shape="pill">
             {grad.label}
           </Chip>
@@ -95,7 +88,7 @@ function renderConsultorCard(item: ListItemData) {
         </div>
 
         {/* métricas com ícones */}
-        <div className="flex flex-wrap items-center gap-x-gp-xl gap-y-gp-2xs">
+        <div className="flex flex-wrap items-center gap-x-gp-2xl gap-y-gp-2xs">
           <MetaInline icon={<Coins />}>
             <strong className="font-semibold text-fg-default [font-variant-numeric:tabular-nums]">
               {formatNum(c.gpProprio)}
@@ -113,7 +106,7 @@ function renderConsultorCard(item: ListItemData) {
         </div>
       </div>
 
-      <span className="hidden shrink-0 items-center gap-gp-xs whitespace-nowrap pt-[2px] text-caption-sm text-fg-subtle md:inline-flex [&>svg]:size-icon-xs">
+      <span className="hidden shrink-0 items-center gap-gp-xs whitespace-nowrap text-caption-sm text-fg-subtle md:inline-flex [&>svg]:size-icon-xs">
         <Clock />
         {c.lastActive}
       </span>
