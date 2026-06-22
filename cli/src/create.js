@@ -39,7 +39,10 @@ const DEFAULT_TEMPLATE = "default";
 // arquivo sumir do pacote, segue sem ela (não quebra o CLI).
 let LOGO_ASCII = "";
 try {
-  LOGO_ASCII = readFileSync(join(__dirname, "logo-ascii.txt"), "utf8").replace(/\n+$/, "");
+  LOGO_ASCII = readFileSync(join(__dirname, "logo-ascii.txt"), "utf8").replace(
+    /\n+$/,
+    "",
+  );
 } catch {
   /* arte ausente — ignora */
 }
@@ -83,7 +86,10 @@ function run(cmd, args, cwd) {
     const child = spawn(cmd, args, { cwd, stdio: "inherit" });
     child.on("close", (code) => {
       if (code === 0) resolveRun();
-      else rejectRun(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`));
+      else
+        rejectRun(
+          new Error(`${cmd} ${args.join(" ")} exited with code ${code}`),
+        );
     });
     child.on("error", (err) => rejectRun(err));
   });
@@ -116,21 +122,81 @@ function listTemplates() {
 /* ── starter: AppShell + tutorial + exemplos no menu ─────────────── */
 
 const EXAMPLE_SCREENS = [
-  { item: "example-clientes", comp: "ClientesScreen", path: "@/examples/clientes", label: "Clientes", icon: "Users", hash: "clientes" },
-  { item: "example-finance", comp: "FinanceScreen", path: "@/examples/finance", label: "Financeiro", icon: "Wallet", hash: "finance" },
-  { item: "example-dashboard", comp: "DashboardScreen", path: "@/examples/dashboard", label: "Dashboard", icon: "LayoutDashboard", hash: "dashboard" },
-  { item: "example-order-detail", comp: "OrderDetailScreen", path: "@/examples/order-detail", label: "Detalhe do pedido", icon: "FileText", hash: "order-detail" },
-  { item: "example-edit-page", comp: "EditPageScreen", path: "@/examples/edit-page", label: "Edição", icon: "PencilLine", hash: "edit-page" },
-  { item: "example-chat", comp: "ChatScreen", path: "@/examples/chat", label: "Chat", icon: "MessagesSquare", hash: "chat" },
+  {
+    item: "example-clientes",
+    comp: "ClientesScreen",
+    path: "@/examples/clientes",
+    label: "Clientes",
+    icon: "Users",
+    hash: "clientes",
+  },
+  {
+    item: "example-finance",
+    comp: "FinanceScreen",
+    path: "@/examples/finance",
+    label: "Financeiro",
+    icon: "Wallet",
+    hash: "finance",
+  },
+  {
+    item: "example-dashboard",
+    comp: "DashboardScreen",
+    path: "@/examples/dashboard",
+    label: "Dashboard",
+    icon: "LayoutDashboard",
+    hash: "dashboard",
+  },
+  {
+    item: "example-order-detail",
+    comp: "OrderDetailScreen",
+    path: "@/examples/order-detail",
+    label: "Detalhe do pedido",
+    icon: "FileText",
+    hash: "order-detail",
+  },
+  {
+    item: "example-edit-page",
+    comp: "EditPageScreen",
+    path: "@/examples/edit-page",
+    label: "Edição",
+    icon: "PencilLine",
+    hash: "edit-page",
+  },
+  {
+    item: "example-chat",
+    comp: "ChatScreen",
+    path: "@/examples/chat",
+    label: "Chat",
+    icon: "MessagesSquare",
+    hash: "chat",
+  },
+  {
+    item: "example-mapa-rede",
+    comp: "MapaDeRedeScreen",
+    path: "@/examples/mapa-rede",
+    label: "Mapa de Rede",
+    icon: "Network",
+    hash: "mapa-rede",
+  },
 ];
 
 /** Gera o src/App.tsx: AppShell + nav (Início→tutorial + exemplos instalados) com hash-routing. */
 function buildAppShellApp(examples) {
-  const iconSet = ["Rocket", "Monitor", "Sun", "Moon", ...new Set(examples.map((e) => e.icon))].join(", ");
-  const exImports = examples.map((e) => `import { ${e.comp} } from "${e.path}";`).join("\n");
+  const iconSet = [
+    "Rocket",
+    "Monitor",
+    "Sun",
+    "Moon",
+    ...new Set(examples.map((e) => e.icon)),
+  ].join(", ");
+  const exImports = examples
+    .map((e) => `import { ${e.comp} } from "${e.path}";`)
+    .join("\n");
   const navItems = [
     `{ name: "Início", icon: Rocket, href: "#inicio" }`,
-    ...examples.map((e) => `{ name: "${e.label}", icon: ${e.icon}, href: "#${e.hash}" }`),
+    ...examples.map(
+      (e) => `{ name: "${e.label}", icon: ${e.icon}, href: "#${e.hash}" }`,
+    ),
   ].join(",\n      ");
   const screenMap = [
     `inicio: <Welcome />`,
@@ -226,8 +292,15 @@ async function main() {
     "",
   ];
   console.log(pc.green(pc.bold(BANNER.join("\n"))));
-  console.log(pc.green(pc.bold("  iGreen Design System")) + pc.dim("  ·  create-design-system"));
-  console.log(pc.dim("  Bootstrap de um projeto que consome o iGreen DS (registry + kit de telas)"));
+  console.log(
+    pc.green(pc.bold("  iGreen Design System")) +
+      pc.dim("  ·  create-design-system"),
+  );
+  console.log(
+    pc.dim(
+      "  Bootstrap de um projeto que consome o iGreen DS (registry + kit de telas)",
+    ),
+  );
   console.log();
 
   const argName = process.argv[2];
@@ -259,7 +332,8 @@ async function main() {
       {
         type: "password",
         name: "igreenToken",
-        message: "IGREEN_TOKEN (Bearer do registry — Enter pra pular e colar depois)?",
+        message:
+          "IGREEN_TOKEN (Bearer do registry — Enter pra pular e colar depois)?",
       },
       {
         type: "select",
@@ -282,7 +356,8 @@ async function main() {
       {
         type: "confirm",
         name: "installExamples",
-        message: "Instalar as páginas de exemplo (clientes, finance, dashboard, detalhe, edição, chat) já no menu?",
+        message:
+          "Instalar as páginas de exemplo (clientes, finance, dashboard, detalhe, edição, chat) já no menu?",
         initial: true,
       },
       {
@@ -298,7 +373,7 @@ async function main() {
         console.log(pc.yellow("✗ Cancelled."));
         process.exit(0);
       },
-    }
+    },
   );
 
   const projectName = argName || answers.projectName;
@@ -313,20 +388,25 @@ async function main() {
     }
   }
   const template = answers.template || DEFAULT_TEMPLATE;
-  const { packageManager, installDeps, initGit, igreenToken, installExamples } = answers;
+  const { packageManager, installDeps, initGit, igreenToken, installExamples } =
+    answers;
 
   // Step 2: validate destination
   const projectDir = resolve(process.cwd(), projectName);
   if (existsSync(projectDir) && !isDirectoryEmpty(projectDir)) {
     console.log();
-    console.log(pc.red(`✗ Directory "${projectName}" already exists and is not empty.`));
+    console.log(
+      pc.red(`✗ Directory "${projectName}" already exists and is not empty.`),
+    );
     process.exit(1);
   }
 
   // Step 3: copy template
   const templateDir = join(TEMPLATES_DIR, template);
   if (!existsSync(templateDir)) {
-    console.log(pc.red(`✗ Template "${template}" not found in ${TEMPLATES_DIR}`));
+    console.log(
+      pc.red(`✗ Template "${template}" not found in ${TEMPLATES_DIR}`),
+    );
     process.exit(1);
   }
 
@@ -387,7 +467,11 @@ async function main() {
   }
   const token = (igreenToken || "").trim();
   if (token) {
-    writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, "utf8");
+    writeFileSync(
+      join(projectDir, ".env.local"),
+      `IGREEN_TOKEN=${token}\n`,
+      "utf8",
+    );
   }
 
   // Step 5c: tela inicial AppShell (asset `_app-appshell.tsx`). Guarda o conteúdo
@@ -408,8 +492,12 @@ async function main() {
       await run(packageManager, ["install"], projectDir);
     } catch (err) {
       console.log();
-      console.log(pc.yellow(`⚠ Failed to install dependencies: ${err.message}`));
-      console.log(pc.dim(`  You can run "${packageManager} install" manually later.`));
+      console.log(
+        pc.yellow(`⚠ Failed to install dependencies: ${err.message}`),
+      );
+      console.log(
+        pc.dim(`  You can run "${packageManager} install" manually later.`),
+      );
     }
   }
 
@@ -420,18 +508,38 @@ async function main() {
   let examplesInstalled = false;
   if (token && installDeps && welcomeContent) {
     const exList = installExamples ? EXAMPLE_SCREENS : [];
-    const addArgs = ["app-shell", "button", "card", "badge", "chip", "page-header", ...exList.map((e) => e.item)];
+    const addArgs = [
+      "app-shell",
+      "button",
+      "card",
+      "badge",
+      "chip",
+      "page-header",
+      ...exList.map((e) => e.item),
+    ];
     console.log(
       pc.cyan(
         `→ Montando a tela inicial (AppShell + tutorial${exList.length ? " + " + exList.length + " exemplos no menu" : ""})…`,
       ),
     );
     try {
-      await run(packageManager, ["run", "igreen:add", "--", ...addArgs], projectDir);
+      await run(
+        packageManager,
+        ["run", "igreen:add", "--", ...addArgs],
+        projectDir,
+      );
       // Só promove o App rico + welcome DEPOIS do igreen:add ter sucesso — senão
       // o App importaria componentes ausentes. No catch, mantém o App estático padrão.
-      writeFileSync(join(projectDir, "src", "welcome.tsx"), welcomeContent, "utf8");
-      writeFileSync(join(projectDir, "src", "App.tsx"), buildAppShellApp(exList), "utf8");
+      writeFileSync(
+        join(projectDir, "src", "welcome.tsx"),
+        welcomeContent,
+        "utf8",
+      );
+      writeFileSync(
+        join(projectDir, "src", "App.tsx"),
+        buildAppShellApp(exList),
+        "utf8",
+      );
       examplesInstalled = installExamples;
       console.log(
         pc.green(
@@ -439,7 +547,11 @@ async function main() {
         ),
       );
     } catch (err) {
-      console.log(pc.yellow(`  ⚠ Não consegui montar a tela inicial (${err.message}). Mantida a tela de boas-vindas padrão.`));
+      console.log(
+        pc.yellow(
+          `  ⚠ Não consegui montar a tela inicial (${err.message}). Mantida a tela de boas-vindas padrão.`,
+        ),
+      );
     }
   }
 
@@ -451,13 +563,17 @@ async function main() {
       await run("git", ["add", "."], projectDir);
       await run(
         "git",
-        ["commit", "-m", "chore: initial commit from create-snksergio-design-system"],
-        projectDir
+        [
+          "commit",
+          "-m",
+          "chore: initial commit from create-snksergio-design-system",
+        ],
+        projectDir,
       );
     } catch (err) {
       console.log();
       console.log(pc.yellow(`⚠ Failed to initialize git: ${err.message}`));
-      console.log(pc.dim("  You can run \"git init\" manually later."));
+      console.log(pc.dim('  You can run "git init" manually later.'));
     }
   }
 
@@ -483,9 +599,15 @@ async function main() {
     console.log(pc.cyan(`  ${packageManager} install`));
   }
   if (!token) {
-    console.log(pc.cyan("  cp .env.local.example .env.local") + pc.dim("   # cole o IGREEN_TOKEN"));
+    console.log(
+      pc.cyan("  cp .env.local.example .env.local") +
+        pc.dim("   # cole o IGREEN_TOKEN"),
+    );
   }
-  console.log(pc.cyan("  npx shadcn@latest add @igreen/button") + pc.dim("   # puxe componentes do registry"));
+  console.log(
+    pc.cyan("  npx shadcn@latest add @igreen/button") +
+      pc.dim("   # puxe componentes do registry"),
+  );
   console.log(pc.cyan(`  ${runCmd}`));
   // O usuário pediu exemplos, mas eles não foram instalados (sem token e/ou sem deps,
   // ou o igreen:add inicial falhou). Avisa como puxá-los depois — em vez de silêncio.
@@ -497,15 +619,27 @@ async function main() {
     );
     console.log(
       pc.cyan(
-        "  npm run igreen:add -- example-clientes example-finance example-dashboard example-order-detail example-edit-page example-chat",
+        `  npm run igreen:add -- ${EXAMPLE_SCREENS.map((e) => e.item).join(" ")}`,
       ),
     );
   }
   console.log();
   console.log();
-  console.log(pc.dim("Kit de telas incluso: peça à IA \"monte uma tabela de X\" ou use /ds-create-crud."));
-  console.log(pc.dim("Padrões de design em DESIGN.md (raiz) + regras auto-carregadas em .claude/."));
-  console.log(pc.dim("Tema/cn/tv do DS já vêm configurados. `npm run doctor` valida a integridade do cn/tv."));
+  console.log(
+    pc.dim(
+      'Kit de telas incluso: peça à IA "monte uma tabela de X" ou use /ds-create-crud.',
+    ),
+  );
+  console.log(
+    pc.dim(
+      "Padrões de design em DESIGN.md (raiz) + regras auto-carregadas em .claude/.",
+    ),
+  );
+  console.log(
+    pc.dim(
+      "Tema/cn/tv do DS já vêm configurados. `npm run doctor` valida a integridade do cn/tv.",
+    ),
+  );
   console.log(pc.dim("Preview will open at http://localhost:3200"));
   console.log();
 }
