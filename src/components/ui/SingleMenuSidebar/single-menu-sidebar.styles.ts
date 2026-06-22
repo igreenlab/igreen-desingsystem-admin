@@ -117,10 +117,13 @@ export const styles = {
     dropdownItem: "flex items-center gap-gp-lg cursor-pointer",
     // selecionado: realça a linha (bg-brand-subtle) + label/check em fg-brand
     dropdownItemSelected: "bg-bg-brand-subtle text-fg-brand",
+    // [&>svg]:!text-fg-on-brand: o DropdownMenuItem força [&_svg]:text-fg-muted
+    // (+ fg-default no hover) em TODOS os svgs descendentes — o ! garante que o
+    // ícone do chip siga fg-on-brand igual ao trigger (branco light / preto dark).
     dropdownItemIcon:
-      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-fg-on-brand [&>svg]:size-icon-sm",
+      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand [&>svg]:size-icon-sm [&>svg]:!text-fg-on-brand",
     dropdownItemLabel: "flex-1 text-body-md font-medium",
-    dropdownItemCheck: "ml-auto shrink-0 size-icon-sm text-fg-brand",
+    dropdownItemCheck: "ml-auto shrink-0 size-icon-sm !text-fg-brand",
   },
 
   // Search
