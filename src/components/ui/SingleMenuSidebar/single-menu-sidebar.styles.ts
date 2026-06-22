@@ -37,19 +37,12 @@ export const category = tv({
     chevron: "size-icon-sm shrink-0 transition-transform",
   },
   variants: {
-    // selected = página atual (folha ou pai no rail) → card cheio
-    // group    = pai expandido que contém o item ativo → verde, SEM card
-    // default  = nada marcado
+    // selected = folha ativa OU pai que contém o item ativo → card cheio
+    // default  = nada marcado (inclui pai apenas aberto, sem filho ativo)
     state: {
       selected: {
         root: "bg-bg-sidebar-accent shadow-sh-sm",
         text: "font-bold text-fg-brand",
-        icon: "text-fg-brand",
-        chevron: "text-fg-brand",
-      },
-      group: {
-        root: "hover:bg-bg-sidebar-accent",
-        text: "font-semibold text-fg-brand",
         icon: "text-fg-brand",
         chevron: "text-fg-brand",
       },

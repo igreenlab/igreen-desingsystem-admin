@@ -43,17 +43,10 @@ export function SingleMenuCategory({
   const containsActive =
     hasItems && items!.some((item) => item.id === activeItemId);
 
-  // Rail (recolhido): card também no pai que contém o ativo (não dá pra expandir).
-  // Expandido: folha ativa = card; pai com ativo dentro = verde sem card.
-  const state = !expanded
-    ? isLeafActive || containsActive
-      ? "selected"
-      : "default"
-    : isLeafActive
-      ? "selected"
-      : containsActive
-        ? "group"
-        : "default";
+  // Marcado (card) = folha ativa OU pai que contém o item ativo.
+  // Abrir um pai SEM filho ativo não marca (continua default mesmo aberto).
+  const isSelected = isLeafActive || containsActive;
+  const state = isSelected ? "selected" : "default";
 
   const s = category({ state, collapsed: !expanded });
 
