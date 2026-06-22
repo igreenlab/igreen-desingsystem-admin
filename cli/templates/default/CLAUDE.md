@@ -83,7 +83,7 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 > (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
 > **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
 > · `tooltip`/`hover-card` (dica/prévia no hover).
-> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `header` `app-shell`.
+> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `single-menu-sidebar` `header` `app-shell`.
 > Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
 > `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
 > `example-mapa-rede`.
@@ -96,21 +96,22 @@ pronta de produção, nos padrões do DS. Depois **edite o copy-in** pro caso de
 dele). O catálogo visual hospedado mostra como cada um fica:
 **https://igreen-desingsystem-admin.vercel.app**.
 
-| Usuário diz algo como…                                                                    | Puxe este item            | Componente-chave            |
-| ----------------------------------------------------------------------------------------- | ------------------------- | --------------------------- |
-| "crud", "tabela", "grade/colunas", "planilha", "grid de dados"                            | `example-clientes`        | DataTable                   |
-| "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela"           | `example-finance`         | DataTable + KPI cards       |
-| "kanban", "board", "funil", "pipeline de vendas", "quadro por status/etapa"               | `example-finance`         | DataTable (viewMode kanban) |
-| "lista de cards", "árvore/hierarquia", "rede/organograma", "níveis", "treeview", "feed"   | `example-mapa-rede`       | DataList                    |
-| "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`       | FormField                   |
-| "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`    | Tabs + Cards                |
-| "dashboard", "painel", "visão geral", "gráfico", "indicadores"                            | `example-dashboard`       | Chart + KPI cards           |
-| "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`            | ConversationColumn + thread |
-| "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)    | AppShell                    |
-| "menu lateral", "sidebar", "navegação lateral"                                            | `menu-sidebar` (template) | MenuSidebar                 |
-| "cabeçalho do app", "topbar", "header com usuário"                                        | `header` (template)       | Header                      |
-| "cabeçalho de página", "título + ações + breadcrumb"                                      | `page-header` (template)  | PageHeader                  |
-| "gráfico de barras/linha/área/pizza"                                                      | `chart` (componente)      | ChartContainer              |
+| Usuário diz algo como…                                                                    | Puxe este item                   | Componente-chave            |
+| ----------------------------------------------------------------------------------------- | -------------------------------- | --------------------------- |
+| "crud", "tabela", "grade/colunas", "planilha", "grid de dados"                            | `example-clientes`               | DataTable                   |
+| "financeiro", "extrato", "saldo/entradas/saídas", "transações", "KPIs + tabela"           | `example-finance`                | DataTable + KPI cards       |
+| "kanban", "board", "funil", "pipeline de vendas", "quadro por status/etapa"               | `example-finance`                | DataTable (viewMode kanban) |
+| "lista de cards", "árvore/hierarquia", "rede/organograma", "níveis", "treeview", "feed"   | `example-mapa-rede`              | DataList                    |
+| "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`              | FormField                   |
+| "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`           | Tabs + Cards                |
+| "dashboard", "painel", "visão geral", "gráfico", "indicadores"                            | `example-dashboard`              | Chart + KPI cards           |
+| "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`                   | ConversationColumn + thread |
+| "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
+| "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
+| "menu lateral simples", "sidebar de nível único", "menu sem rail/contextos"               | `single-menu-sidebar` (template) | SingleMenuSidebar           |
+| "cabeçalho do app", "topbar", "header com usuário"                                        | `header` (template)              | Header                      |
+| "cabeçalho de página", "título + ações + breadcrumb"                                      | `page-header` (template)         | PageHeader                  |
+| "gráfico de barras/linha/área/pizza"                                                      | `chart` (componente)             | ChartContainer              |
 
 > **Regra pra IA**: "quero igual ao exemplo de Finance" / "seguir a estrutura do Finance"
 > → `npm run igreen:add -- example-finance` e adapte. Combine livremente: um dashboard com

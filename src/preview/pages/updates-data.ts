@@ -46,6 +46,22 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.15.0",
+    date: "2026-06-22",
+    tag: "release",
+    title: "Componente SingleMenuSidebar — navegação lateral de nível único",
+    summary:
+      "Nova sidebar template (App-level) como alternativa enxuta ao MenuSidebar: categoria → sub-itens em accordion (1 aberto por vez), sem rail nem múltiplos contextos. Seleção única (folha, sub-item ou pai aberto). Toggle + hover-to-expand (sem 'piscar' ao recolher). **Responsivo**: 100% da largura no mobile e some ao recolher (rail é só desktop). **Módulos com menu próprio** (`modules`): trocar no seletor atualiza o módulo ativo + as categorias. **Busca via Command** (⌘K) listando os itens do menu (customizável). 100% sobre tokens do DS, sem variantes. Showcase `#/single-menu-sidebar`; distribuído via `igreen:add single-menu-sidebar`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `SingleMenuSidebar` (`ui/SingleMenuSidebar`): navegação de nível único (accordion), seleção única, toggle + hover-to-expand, módulos com menu próprio (`modules`), busca via Command (⌘K, customizável) e rodapé de usuário com dropdown. Responsivo (100% no mobile, some ao recolher). Showcase `#/single-menu-sidebar` + registry (`igreen:add single-menu-sidebar`).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.14.1",
     date: "2026-06-21",
     tag: "patch",
