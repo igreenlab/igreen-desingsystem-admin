@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTheme } from "@/hooks/useTheme";
 import {
   DocLayout,
   DocHeader,
@@ -30,6 +31,8 @@ import {
   LogOut,
   UserCog,
   Leaf,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -97,7 +100,7 @@ const MOCK_CATEGORIES: SingleMenuCategory[] = [
 const MOCK_MODULE: SingleMenuModule = {
   icon: <Zap className="size-icon-md" />,
   title: "Créditos",
-  subtitle: "Módulo ativo",
+  subtitle: "Módulo selecionado",
   options: [
     {
       id: "creditos",
@@ -120,14 +123,14 @@ const MODULES: SingleMenuModuleConfig[] = [
     id: "creditos",
     icon: <Zap className="size-icon-md" />,
     title: "Créditos",
-    subtitle: "Módulo ativo",
+    subtitle: "Módulo selecionado",
     categories: MOCK_CATEGORIES,
   },
   {
     id: "energia",
     icon: <Leaf className="size-icon-md" />,
     title: "Energia",
-    subtitle: "Geração",
+    subtitle: "Módulo selecionado",
     categories: [
       { id: "energia-dashboard", icon: <LayoutGrid />, label: "Visão geral" },
       {
@@ -147,7 +150,7 @@ const MODULES: SingleMenuModuleConfig[] = [
     id: "rede",
     icon: <Network className="size-icon-md" />,
     title: "Rede",
-    subtitle: "Consultores",
+    subtitle: "Módulo selecionado",
     categories: [
       { id: "rede-dashboard", icon: <LayoutGrid />, label: "Visão geral" },
       {
@@ -275,6 +278,28 @@ const PROPS_DATA = [
 export function SingleMenuSidebarDoc() {
   const [expanded, setExpanded] = useState(true);
   const [activeItemId, setActiveItemId] = useState("dashboard");
+  const { isDark, toggle: toggleTheme } = useTheme();
+
+  // Usuário do exemplo com uma ação de trocar tema no dropdown pessoal
+  const demoUser: SingleMenuUser = {
+    ...MOCK_USER,
+    actions: [
+      ...MOCK_USER.actions!.filter((a) => a.id !== "logout"),
+      {
+        id: "theme",
+        label: isDark ? "Tema claro" : "Tema escuro",
+        icon: isDark ? (
+          <Sun className="size-icon-sm" />
+        ) : (
+          <Moon className="size-icon-sm" />
+        ),
+      },
+      ...MOCK_USER.actions!.filter((a) => a.id === "logout"),
+    ],
+    onAction: (id) => {
+      if (id === "theme") toggleTheme();
+    },
+  };
 
   return (
     <DocLayout toc={TOC}>
@@ -313,7 +338,7 @@ export function SingleMenuSidebarDoc() {
             title="iGreen System"
             modules={MODULES}
             defaultModuleId="creditos"
-            user={MOCK_USER}
+            user={demoUser}
             activeItemId={activeItemId}
             onItemClick={setActiveItemId}
           />
@@ -340,7 +365,7 @@ export function SingleMenuSidebarDoc() {
             logo={LOGO}
             title="iGreen System"
             categories={MOCK_CATEGORIES}
-            user={MOCK_USER}
+            user={demoUser}
             defaultExpanded
             activeItemId="comissoes"
           />
@@ -388,7 +413,7 @@ export function SingleMenuSidebarDoc() {
               title="iGreen System"
               module={MOCK_MODULE}
               categories={MOCK_CATEGORIES}
-              user={MOCK_USER}
+              user={demoUser}
               expanded={expanded}
               onExpandedChange={setExpanded}
               activeItemId={activeItemId}
@@ -438,7 +463,7 @@ function AppNav({ mobileOpen, onClose, ...props }) {
               title="iGreen System"
               module={MOCK_MODULE}
               categories={MOCK_CATEGORIES}
-              user={MOCK_USER}
+              user={demoUser}
               activeItemId="dashboard"
             />
           </div>
@@ -464,7 +489,7 @@ function AppNav({ mobileOpen, onClose, ...props }) {
             title="iGreen System"
             showSearch={false}
             categories={MOCK_CATEGORIES}
-            user={MOCK_USER}
+            user={demoUser}
           />
         </SidebarDemo>
       </ExampleSection>
