@@ -33,16 +33,40 @@ export function SingleMenuCategory({
 
   // Accordion: esta categoria abre só se for a selecionada
   const isOpen = hasItems ? openCategoryId === id : false;
-  const isActive = hasItems ? isOpen : active;
 
-  const s = category({ active: isActive, collapsed: !expanded });
+  // Fonte única de "marcado" = activeItemId.
+  // Folha (sem items): ativa quando activeItemId === id (fallback: prop `active`
+  // p/ uso não-controlado). Pai (com items): nunca é "página" — só fica verde
+  // (group) quando CONTÉM o item ativo. Abrir um pai sem selecionar não marca.
+  const isLeafActive =
+    !hasItems && (activeItemId !== undefined ? activeItemId === id : !!active);
+  const containsActive =
+    hasItems && items!.some((item) => item.id === activeItemId);
+
+  // Rail (recolhido): card também no pai que contém o ativo (não dá pra expandir).
+  // Expandido: folha ativa = card; pai com ativo dentro = verde sem card.
+  const state = !expanded
+    ? isLeafActive || containsActive
+      ? "selected"
+      : "default"
+    : isLeafActive
+      ? "selected"
+      : containsActive
+        ? "group"
+        : "default";
+
+  const s = category({ state, collapsed: !expanded });
 
   const handleToggle = () => {
     if (hasItems) {
-      // Accordion: alterna esta, fecha as outras
+      // Pai: só alterna o accordion (NÃO vira a seleção)
       setOpenCategoryId(isOpen ? null : id);
+      onCategoryClick?.();
+    } else {
+      // Folha: É um item navegável → vira a seleção (desmarca os outros)
+      onItemClick?.(id);
+      onCategoryClick?.();
     }
-    onCategoryClick?.();
   };
 
   // Sidebar recolhida: só ícone com tooltip, centralizado

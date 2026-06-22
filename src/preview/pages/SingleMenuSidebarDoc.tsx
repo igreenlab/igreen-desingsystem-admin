@@ -211,7 +211,7 @@ const PROPS_DATA = [
 
 export function SingleMenuSidebarDoc() {
   const [expanded, setExpanded] = useState(true);
-  const [activeItemId, setActiveItemId] = useState("contratos-inst");
+  const [activeItemId, setActiveItemId] = useState("dashboard");
 
   return (
     <DocLayout toc={TOC}>
