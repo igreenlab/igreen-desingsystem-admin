@@ -1,4 +1,9 @@
-import { isValidElement, type ReactNode } from "react";
+import {
+  createElement,
+  isValidElement,
+  type ComponentType,
+  type ReactNode,
+} from "react";
 
 import { Button } from "@/components/ui/Button";
 import type { LucideIcon } from "@/lib/lucide-types";
@@ -35,9 +40,19 @@ function isActionConfig(
  * wrapper aplica cor (`fg-subtle`) e tamanho (`size-icon-*`) via styles.
  */
 function renderIcon(icon: LucideIcon | ReactNode): ReactNode {
-  if (typeof icon === "function") {
-    const IconComponent = icon as LucideIcon;
-    return <IconComponent aria-hidden="true" />;
+  // Já é um elemento (<Icon />, ilustração) → renderiza direto.
+  if (icon == null || isValidElement(icon)) return icon;
+  // Tipo de componente: função OU objeto forwardRef/memo (lucide-react v1 expõe
+  // ícones como forwardRef → typeof "object" com $$typeof, NÃO "function").
+  // Instanciar via createElement cobre os três casos.
+  if (
+    typeof icon === "function" ||
+    (typeof icon === "object" && "$$typeof" in icon)
+  ) {
+    return createElement(
+      icon as ComponentType<{ "aria-hidden"?: boolean }>,
+      { "aria-hidden": true },
+    );
   }
   return icon;
 }
