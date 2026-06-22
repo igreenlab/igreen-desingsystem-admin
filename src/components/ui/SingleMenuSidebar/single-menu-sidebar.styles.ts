@@ -32,13 +32,13 @@ export const category = tv({
   slots: {
     root: "flex items-center rounded-radius-lg cursor-pointer transition-all",
     text: "flex-1 text-left text-body-sm whitespace-nowrap overflow-hidden text-ellipsis",
-    icon: "size-icon-md shrink-0",
-    chevron: "shrink-0 transition-transform",
+    icon: "size-icon-sm shrink-0",
+    chevron: "size-icon-sm shrink-0 transition-transform",
   },
   variants: {
     active: {
       true: {
-        root: "bg-bg-surface shadow-sh-sm",
+        root: "bg-bg-sidebar-accent shadow-sh-sm",
         text: "font-bold text-fg-brand",
         icon: "text-fg-brand",
         chevron: "text-fg-brand",
@@ -90,28 +90,29 @@ export const styles = {
   // Header
   header: {
     wrapper:
-      "flex h-20 items-center overflow-hidden px-pad-4xl py-pad-2xl shrink-0",
-    inner: "flex items-center gap-gp-xl",
-    logo: "size-[38px] shrink-0",
-    title: "text-title-md font-bold text-fg-default whitespace-nowrap",
+      "flex h-16 items-center overflow-hidden px-pad-4xl py-pad-md shrink-0",
+    wrapperCollapsed: "justify-center px-0",
+    inner: "flex items-center gap-gp-md",
+    logo: "shrink-0",
+    title: "text-title-sm font-bold text-fg-default whitespace-nowrap",
     collapseBtn:
       "ml-auto shrink-0 cursor-pointer rounded-radius-md p-pad-xs text-fg-subtle hover:bg-bg-sidebar-accent hover:text-fg-muted transition-colors",
     expandBtn:
-      "absolute right-0 top-20 translate-x-1/2 z-10 cursor-pointer rounded-radius-full bg-bg-surface border border-border-default p-pad-xs shadow-sh-sm text-fg-subtle hover:text-fg-muted transition-colors",
+      "absolute right-0 top-16 translate-x-1/2 z-10 cursor-pointer rounded-radius-full bg-bg-surface border border-border-default p-pad-xs shadow-sh-sm text-fg-subtle hover:text-fg-muted transition-colors",
     expandBtnIcon: "size-icon-sm",
   },
 
   // Module selector
   module: {
     trigger:
-      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-md bg-bg-surface py-pad-md pl-pad-md pr-pad-2xl shadow-sh-sm transition-colors hover:bg-bg-muted",
+      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-md bg-bg-sidebar-accent py-pad-md pl-pad-md pr-pad-2xl shadow-sh-sm transition-colors hover:bg-bg-sidebar-accent-hover",
     iconContainer:
       "flex size-icon-xl shrink-0 items-center justify-center rounded-radius-md bg-bg-brand text-fg-on-brand",
     textContainer: "flex flex-col items-start gap-gp-xs overflow-hidden",
     title:
       "text-body-md font-bold leading-4 text-fg-default truncate text-left",
     subtitle: "text-caption-sm font-semibold text-fg-subtle text-left",
-    chevron: "ml-auto shrink-0 text-fg-subtle",
+    chevron: "ml-auto shrink-0 size-icon-sm text-fg-subtle",
     dropdownItem: "flex items-center gap-gp-lg cursor-pointer",
     dropdownItemIcon:
       "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-fg-on-brand",
@@ -143,7 +144,7 @@ export const styles = {
     name: "text-body-sm font-semibold text-fg-default truncate w-full text-left",
     email:
       "text-caption-sm font-medium text-fg-muted truncate w-full text-left",
-    chevron: "ml-auto shrink-0 text-fg-subtle",
+    chevron: "ml-auto shrink-0 size-icon-sm text-fg-subtle",
     dropdownLabel: "flex flex-col gap-gp-2xs px-pad-sm py-pad-xs",
     dropdownLabelName: "text-body-md font-semibold",
     dropdownLabelEmail: "text-caption-md font-normal text-fg-muted",
@@ -158,7 +159,7 @@ export const styles = {
   sectionPadding:
     "flex flex-col gap-gp-2xl px-pad-3xl py-pad-4xl shrink-0 overflow-hidden",
   navContainer:
-    "flex flex-1 flex-col overflow-y-auto overflow-x-hidden py-pad-4xl",
+    "scrollbar-thin flex flex-1 flex-col overflow-y-auto overflow-x-hidden py-pad-4xl",
   navContainerExpanded: "px-pad-3xl",
   navContainerCollapsed: "items-center",
   navList: "flex flex-col",

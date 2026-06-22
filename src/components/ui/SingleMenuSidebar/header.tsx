@@ -18,7 +18,12 @@ export function SingleMenuHeader({
   const isFlipped = isHoverExpand || !expanded;
 
   return (
-    <div className={styles.header.wrapper}>
+    <div
+      className={cn(
+        styles.header.wrapper,
+        !expanded && styles.header.wrapperCollapsed,
+      )}
+    >
       <div className={styles.header.inner}>
         <div className={styles.header.logo}>{logo}</div>
         {expanded && (

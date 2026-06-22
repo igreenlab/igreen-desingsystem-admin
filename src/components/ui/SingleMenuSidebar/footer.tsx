@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronsUpDown, User } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -45,7 +46,9 @@ export function SingleMenuFooter({
   if (!actions || actions.length === 0) {
     return (
       <div className={s.wrapper}>
-        <div className={s.button}>{triggerContent}</div>
+        <div className={cn(s.button, !expanded && "justify-center px-0")}>
+          {triggerContent}
+        </div>
       </div>
     );
   }
@@ -54,7 +57,9 @@ export function SingleMenuFooter({
   return (
     <div className={s.wrapper}>
       <DropdownMenu>
-        <DropdownMenuTrigger className={s.button}>
+        <DropdownMenuTrigger
+          className={cn(s.button, !expanded && "justify-center px-0")}
+        >
           {triggerContent}
         </DropdownMenuTrigger>
         <DropdownMenuContent

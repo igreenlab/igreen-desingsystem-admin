@@ -9,6 +9,7 @@ import {
 } from "../components";
 import { Button } from "../../components/ui/Button/button";
 import { SingleMenuSidebar } from "../../components/ui/SingleMenuSidebar";
+import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import type {
   SingleMenuCategory,
   SingleMenuModule,
@@ -95,7 +96,7 @@ const MOCK_CATEGORIES: SingleMenuCategory[] = [
 const MOCK_MODULE: SingleMenuModule = {
   icon: <Zap className="size-icon-md" />,
   title: "Créditos",
-  subtitle: "MÓDULO ATIVO",
+  subtitle: "Módulo ativo",
   options: [
     {
       id: "creditos",
@@ -137,8 +138,8 @@ const MOCK_USER: SingleMenuUser = {
 };
 
 const LOGO = (
-  <div className="flex size-[38px] items-center justify-center rounded-radius-md bg-bg-brand text-fg-on-brand">
-    <Leaf className="size-icon-md" />
+  <div className="grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand">
+    <SidebarBrandIcon size={18} />
   </div>
 );
 
@@ -231,7 +232,7 @@ export function SingleMenuSidebarDoc() {
         description="Passe logo + title + categories + user. Categorias com `items` viram accordion; sem `items` são links simples. `module` e busca são opcionais."
         code={`<SingleMenuSidebar
   logo={<Logo />}
-  title="Sólis iGreen"
+  title="iGreen System"
   module={{ icon, title: "Créditos", subtitle: "MÓDULO ATIVO", options }}
   categories={CATEGORIES}
   user={{ name: "Sérgio", email: "sergio@igreen.com.br", actions }}
@@ -242,7 +243,7 @@ export function SingleMenuSidebarDoc() {
         <SidebarDemo>
           <SingleMenuSidebar
             logo={LOGO}
-            title="Sólis iGreen"
+            title="iGreen System"
             module={MOCK_MODULE}
             categories={MOCK_CATEGORIES}
             user={MOCK_USER}
@@ -270,7 +271,7 @@ export function SingleMenuSidebarDoc() {
         <SidebarDemo>
           <SingleMenuSidebar
             logo={LOGO}
-            title="Sólis iGreen"
+            title="iGreen System"
             categories={MOCK_CATEGORIES}
             user={MOCK_USER}
             defaultExpanded
@@ -293,7 +294,7 @@ export function SingleMenuSidebarDoc() {
         <SidebarDemo>
           <SingleMenuSidebar
             logo={LOGO}
-            title="Sólis iGreen"
+            title="iGreen System"
             module={MOCK_MODULE}
             categories={MOCK_CATEGORIES}
             user={MOCK_USER}
@@ -341,7 +342,7 @@ export function SingleMenuSidebarDoc() {
           <SidebarDemo>
             <SingleMenuSidebar
               logo={LOGO}
-              title="Sólis iGreen"
+              title="iGreen System"
               module={MOCK_MODULE}
               categories={MOCK_CATEGORIES}
               user={MOCK_USER}
@@ -361,7 +362,7 @@ export function SingleMenuSidebarDoc() {
         description="Omita `module` e passe `showSearch={false}` para uma navegação minimalista — só logo, categorias e usuário."
         code={`<SingleMenuSidebar
   logo={<Logo />}
-  title="Sólis iGreen"
+  title="iGreen System"
   showSearch={false}
   categories={CATEGORIES}
   user={USER}
@@ -370,7 +371,7 @@ export function SingleMenuSidebarDoc() {
         <SidebarDemo>
           <SingleMenuSidebar
             logo={LOGO}
-            title="Sólis iGreen"
+            title="iGreen System"
             showSearch={false}
             categories={MOCK_CATEGORIES}
             user={MOCK_USER}
