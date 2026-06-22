@@ -39,8 +39,8 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-full", label: "Sidebar completa" },
   { id: "ex-accordion", label: "Accordion (sub-itens)" },
-  { id: "ex-collapsed", label: "Recolhida (rail)" },
   { id: "ex-interactive", label: "Toggle controlado" },
+  { id: "ex-mobile", label: "Responsivo (mobile)" },
   { id: "ex-minimal", label: "Sem módulo / sem busca" },
   { id: "api", label: "API Reference" },
   { id: "api-sidebar", label: "<SingleMenuSidebar>" },
@@ -280,30 +280,6 @@ export function SingleMenuSidebarDoc() {
         </SidebarDemo>
       </ExampleSection>
 
-      {/* Collapsed */}
-      <ExampleSection
-        id="ex-collapsed"
-        title="Recolhida (rail)"
-        description="Com `defaultExpanded={false}` abre como rail de ícones. Cada categoria mostra um tooltip no hover; passar o mouse sobre a sidebar a expande temporariamente (hover-to-expand)."
-        code={`<SingleMenuSidebar
-  /* ... */
-  defaultExpanded={false}
-  showToggleIndicator
-/>`}
-      >
-        <SidebarDemo>
-          <SingleMenuSidebar
-            logo={LOGO}
-            title="iGreen System"
-            module={MOCK_MODULE}
-            categories={MOCK_CATEGORIES}
-            user={MOCK_USER}
-            defaultExpanded={false}
-            showToggleIndicator
-          />
-        </SidebarDemo>
-      </ExampleSection>
-
       {/* Interactive */}
       <ExampleSection
         id="ex-interactive"
@@ -352,6 +328,53 @@ export function SingleMenuSidebarDoc() {
               onItemClick={setActiveItemId}
             />
           </SidebarDemo>
+        </div>
+      </ExampleSection>
+
+      {/* Mobile / responsivo */}
+      <ExampleSection
+        id="ex-mobile"
+        title="Responsivo (mobile)"
+        description="Abaixo de `md` (768px) a sidebar ocupa 100% da largura — pronta pra um drawer mobile. A sidebar é dumb: exibir/ocultar é responsabilidade do consumidor (um toggle controlado pelo seu app). No desktop ela mantém a largura fixa (280px)."
+        code={`// A sidebar só PREENCHE 100% no mobile — o toggle/visibilidade é do SEU app.
+function AppNav({ mobileOpen, onClose, ...props }) {
+  return (
+    <>
+      {/* Desktop: largura fixa, sempre visível */}
+      <div className="hidden md:block h-full">
+        <SingleMenuSidebar {...props} />
+      </div>
+
+      {/* Mobile: drawer 100% controlado externamente */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden">
+          <div className="absolute inset-0 bg-overlay-scrim" onClick={onClose} />
+          <div className="absolute inset-y-0 left-0 w-full max-w-[88%]">
+            <SingleMenuSidebar {...props} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}`}
+      >
+        <div className="flex flex-col gap-gp-md">
+          <p className="text-body-sm text-fg-muted">
+            Simulação do mobile — a sidebar preenchendo 100% da largura do
+            container (no app real, dentro de um drawer que o seu código abre/
+            fecha):
+          </p>
+          <div className="h-[560px] w-full max-w-[380px] overflow-hidden rounded-radius-base bg-bg-canvas ring-1 ring-border-subtle">
+            <SingleMenuSidebar
+              className="!w-full"
+              logo={LOGO}
+              title="iGreen System"
+              module={MOCK_MODULE}
+              categories={MOCK_CATEGORIES}
+              user={MOCK_USER}
+              activeItemId="dashboard"
+            />
+          </div>
         </div>
       </ExampleSection>
 
