@@ -32,7 +32,8 @@ export const category = tv({
   slots: {
     root: "flex items-center rounded-radius-lg cursor-pointer transition-all",
     text: "flex-1 text-left text-body-sm whitespace-nowrap overflow-hidden text-ellipsis",
-    icon: "size-icon-sm shrink-0",
+    // SVG do consumidor (ícone bare do lucide vem 24px) dimensionado no slot → 18px
+    icon: "grid size-[18px] shrink-0 place-items-center [&>svg]:size-[18px]",
     chevron: "size-icon-sm shrink-0 transition-transform",
   },
   variants: {
