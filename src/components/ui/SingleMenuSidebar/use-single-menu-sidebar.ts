@@ -48,6 +48,10 @@ export function useSingleMenuSidebarState(
   const [lockedOpen, setLockedOpen] = useState(defaultExpanded);
   const [hoverOpen, setHoverOpen] = useState(false);
   const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Suprime o hover-expand logo após colapsar manualmente — senão, com o mouse
+  // ainda por cima, ele re-expande na hora ("pisca e cresce de novo").
+  const suppressHoverRef = useRef(false);
+  const suppressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const setExpanded = useCallback(
     (v: boolean) => {
@@ -62,12 +66,22 @@ export function useSingleMenuSidebarState(
     const next = !lockedOpen;
     setLockedOpen(next);
     setHoverOpen(false);
+    // Colapsou manualmente → bloqueia hover-expand por um instante (e até o
+    // mouse sair) pra retrair de fato mesmo com o cursor ainda por cima.
+    if (!next) {
+      suppressHoverRef.current = true;
+      if (suppressTimerRef.current) clearTimeout(suppressTimerRef.current);
+      suppressTimerRef.current = setTimeout(() => {
+        suppressHoverRef.current = false;
+      }, 500);
+    }
     setExpanded(next);
   }, [lockedOpen, setExpanded]);
 
   // Hover enter: se travada fechada, expande temporariamente
   const onMouseEnter = useCallback(() => {
     if (lockedOpen) return; // já aberta, hover desnecessário
+    if (suppressHoverRef.current) return; // recém-colapsada: ignora o hover
     if (hoverTimeoutRef.current) {
       clearTimeout(hoverTimeoutRef.current);
       hoverTimeoutRef.current = null;
@@ -88,6 +102,7 @@ export function useSingleMenuSidebarState(
   useEffect(() => {
     return () => {
       if (hoverTimeoutRef.current) clearTimeout(hoverTimeoutRef.current);
+      if (suppressTimerRef.current) clearTimeout(suppressTimerRef.current);
     };
   }, []);
 
