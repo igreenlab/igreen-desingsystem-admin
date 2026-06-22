@@ -34,30 +34,36 @@ export function SingleMenuCategory({
   // Accordion: esta categoria abre só se for a selecionada
   const isOpen = hasItems ? openCategoryId === id : false;
 
-  // Fonte única de "marcado" = activeItemId.
-  // Folha (sem items): ativa quando activeItemId === id (fallback: prop `active`
-  // p/ uso não-controlado). Pai (com items): nunca é "página" — só fica verde
-  // (group) quando CONTÉM o item ativo. Abrir um pai sem selecionar não marca.
+  // Marcação com fonte única — sempre 1 item marcado:
+  // • Pai aberto É o marcado (abrir = marcar; suprime a folha enquanto aberto).
+  // • Folha marcada quando é a ativa E nenhum pai está aberto.
+  // No rail (recolhido) não há expansão → o pai marca quando CONTÉM o ativo.
   const isLeafActive =
     !hasItems && (activeItemId !== undefined ? activeItemId === id : !!active);
   const containsActive =
     hasItems && items!.some((item) => item.id === activeItemId);
 
-  // Marcado (card) = folha ativa OU pai que contém o item ativo.
-  // Abrir um pai SEM filho ativo não marca (continua default mesmo aberto).
-  const isSelected = isLeafActive || containsActive;
-  const state = isSelected ? "selected" : "default";
+  const selected = !expanded
+    ? hasItems
+      ? isOpen || containsActive
+      : isLeafActive
+    : hasItems
+      ? isOpen
+      : isLeafActive && openCategoryId == null;
+
+  const state = selected ? "selected" : "default";
 
   const s = category({ state, collapsed: !expanded });
 
   const handleToggle = () => {
     if (hasItems) {
-      // Pai: só alterna o accordion (NÃO vira a seleção)
+      // Pai: alterna o accordion — abrir vira o marcado (suprime a folha)
       setOpenCategoryId(isOpen ? null : id);
       onCategoryClick?.();
     } else {
-      // Folha: É um item navegável → vira a seleção (desmarca os outros)
+      // Folha: vira a seleção e fecha qualquer pai aberto (assume a marca)
       onItemClick?.(id);
+      setOpenCategoryId(null);
       onCategoryClick?.();
     }
   };
