@@ -118,7 +118,7 @@ export const styles = {
     // selecionado: realça a linha (bg-brand-subtle) + label/check em fg-brand
     dropdownItemSelected: "bg-bg-brand-subtle text-fg-brand",
     dropdownItemIcon:
-      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-white [&>svg]:size-icon-sm",
+      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-fg-on-brand [&>svg]:size-icon-sm",
     dropdownItemLabel: "flex-1 text-body-md font-medium",
     dropdownItemCheck: "ml-auto shrink-0 size-icon-sm text-fg-brand",
   },
