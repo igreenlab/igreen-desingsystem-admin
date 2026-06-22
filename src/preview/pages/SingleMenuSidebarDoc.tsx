@@ -13,6 +13,7 @@ import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import type {
   SingleMenuCategory,
   SingleMenuModule,
+  SingleMenuModuleConfig,
   SingleMenuUser,
 } from "../../components/ui/SingleMenuSidebar";
 import {
@@ -113,6 +114,56 @@ const MOCK_MODULE: SingleMenuModule = {
   onModuleChange: () => {},
 };
 
+/* Módulos com menu próprio — trocar no seletor troca o módulo + o menu. */
+const MODULES: SingleMenuModuleConfig[] = [
+  {
+    id: "creditos",
+    icon: <Zap className="size-icon-md" />,
+    title: "Créditos",
+    subtitle: "Módulo ativo",
+    categories: MOCK_CATEGORIES,
+  },
+  {
+    id: "energia",
+    icon: <Leaf className="size-icon-md" />,
+    title: "Energia",
+    subtitle: "Geração",
+    categories: [
+      { id: "energia-dashboard", icon: <LayoutGrid />, label: "Visão geral" },
+      {
+        id: "usinas",
+        icon: <Zap />,
+        label: "Usinas",
+        items: [
+          { id: "usinas-ativas", label: "Ativas" },
+          { id: "usinas-manutencao", label: "Em manutenção" },
+        ],
+      },
+      { id: "energia-faturas", icon: <FileText />, label: "Faturas" },
+      { id: "energia-config", icon: <Settings />, label: "Configurações" },
+    ],
+  },
+  {
+    id: "rede",
+    icon: <Network className="size-icon-md" />,
+    title: "Rede",
+    subtitle: "Consultores",
+    categories: [
+      { id: "rede-dashboard", icon: <LayoutGrid />, label: "Visão geral" },
+      {
+        id: "rede-consultores",
+        icon: <Users />,
+        label: "Consultores",
+        items: [
+          { id: "rede-todos", label: "Todos" },
+          { id: "rede-hierarquia", label: "Hierarquia" },
+        ],
+      },
+      { id: "rede-comissoes", icon: <Wallet />, label: "Comissões" },
+    ],
+  },
+];
+
 const MOCK_USER: SingleMenuUser = {
   name: "Sérgio Vieira",
   email: "sergio@igreen.com.br",
@@ -156,18 +207,25 @@ function SidebarDemo({ children }: { children: React.ReactNode }) {
 const PROPS_SIDEBAR = [
   { name: "logo", type: "ReactNode", defaultVal: "—", required: true },
   { name: "title", type: "string", defaultVal: "—", required: true },
+  { name: "user", type: "SingleMenuUser", defaultVal: "—", required: true },
   {
     name: "categories",
     type: "SingleMenuCategory[]",
     defaultVal: "—",
-    required: true,
+    required: false,
   },
-  { name: "user", type: "SingleMenuUser", defaultVal: "—", required: true },
-  { name: "module", type: "SingleMenuModule", defaultVal: "—" },
+  { name: "modules", type: "SingleMenuModuleConfig[]", defaultVal: "—" },
+  { name: "activeModuleId", type: "string", defaultVal: "—" },
+  { name: "defaultModuleId", type: "string", defaultVal: "modules[0].id" },
+  { name: "onModuleChange", type: "(id: string) => void", defaultVal: "—" },
+  { name: "module", type: "SingleMenuModule (modo simples)", defaultVal: "—" },
   { name: "showSearch", type: "boolean", defaultVal: "true" },
   { name: "searchPlaceholder", type: "string", defaultVal: '"Buscar"' },
-  { name: "searchValue", type: "string", defaultVal: "—" },
-  { name: "onSearchChange", type: "(value: string) => void", defaultVal: "—" },
+  {
+    name: "searchCommand",
+    type: "ReactNode (custom da busca)",
+    defaultVal: "auto",
+  },
   { name: "activeItemId", type: "string", defaultVal: "—" },
   { name: "onItemClick", type: "(id: string) => void", defaultVal: "—" },
   { name: "defaultExpanded", type: "boolean", defaultVal: "true" },
@@ -187,6 +245,11 @@ const PROPS_DATA = [
     defaultVal: "—",
   },
   { name: "SingleMenuSubItem", type: "{ id, label, href? }", defaultVal: "—" },
+  {
+    name: "SingleMenuModuleConfig",
+    type: "{ id, icon, title, subtitle?, categories }",
+    defaultVal: "—",
+  },
   {
     name: "SingleMenuModule",
     type: "{ icon, title, subtitle, options?, onModuleChange? }",
@@ -229,12 +292,16 @@ export function SingleMenuSidebarDoc() {
       <ExampleSection
         id="ex-full"
         title="Sidebar completa"
-        description="Passe logo + title + categories + user. Categorias com `items` viram accordion; sem `items` são links simples. `module` e busca são opcionais."
+        description="Com `modules`, cada módulo tem seu próprio menu — trocar no seletor atualiza o módulo ativo E as categorias. A busca (⌘K ou clique) abre uma paleta listando os itens do menu. Categorias com `items` viram accordion; sem `items` são links simples."
         code={`<SingleMenuSidebar
   logo={<Logo />}
   title="iGreen System"
-  module={{ icon, title: "Créditos", subtitle: "MÓDULO ATIVO", options }}
-  categories={CATEGORIES}
+  modules={[
+    { id: "creditos", icon, title: "Créditos", subtitle: "Módulo ativo", categories: [...] },
+    { id: "energia",  icon, title: "Energia",  subtitle: "Geração",     categories: [...] },
+  ]}
+  defaultModuleId="creditos"
+  onModuleChange={(id) => ...}
   user={{ name: "Sérgio", email: "sergio@igreen.com.br", actions }}
   activeItemId={activeItemId}
   onItemClick={setActiveItemId}
@@ -244,8 +311,8 @@ export function SingleMenuSidebarDoc() {
           <SingleMenuSidebar
             logo={LOGO}
             title="iGreen System"
-            module={MOCK_MODULE}
-            categories={MOCK_CATEGORIES}
+            modules={MODULES}
+            defaultModuleId="creditos"
             user={MOCK_USER}
             activeItemId={activeItemId}
             onItemClick={setActiveItemId}

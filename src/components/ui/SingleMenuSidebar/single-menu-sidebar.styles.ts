@@ -17,11 +17,11 @@ export const sidebarRoot = tv({
     "transition-[width] duration-300 ease-in-out",
   ],
   variants: {
-    // Mobile (< md): 100% da largura — pronto pra drawer controlado pelo app.
+    // Mobile (< md): expandida = 100% da largura; recolhida = SOME (hidden).
     // Desktop (md+): largura fixa, expandida (280px) ou recolhida (rail 80px).
     expanded: {
       true: "w-full md:w-[280px]",
-      false: "w-full md:w-20",
+      false: "hidden md:flex md:w-20",
     },
   },
   defaultVariants: {

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/shadcn/tooltip";
 import {
@@ -11,9 +11,13 @@ import { sidebarRoot, styles } from "./single-menu-sidebar.styles";
 import { SingleMenuHeader } from "./header";
 import { SingleMenuModuleSelector } from "./module-selector";
 import { SingleMenuSearch } from "./search";
+import { SingleMenuCommand } from "./command";
 import { SingleMenuCategory } from "./category";
 import { SingleMenuFooter } from "./footer";
-import type { SingleMenuSidebarProps } from "./single-menu-sidebar.types";
+import type {
+  SingleMenuModule,
+  SingleMenuSidebarProps,
+} from "./single-menu-sidebar.types";
 
 /* ══════════════════════════════════════════════════════════════════════════
    SingleMenuSidebar — Container (view only, sem business logic)
@@ -23,20 +27,24 @@ import type { SingleMenuSidebarProps } from "./single-menu-sidebar.types";
    zero store. Alternativa enxuta ao MenuSidebar (sem variantes).
 
    Comportamentos:
-   - Botão de toggle trava/destrava o estado expandido
-   - Recolhida, hover sobre a sidebar a expande temporariamente
-   - Apenas 1 categoria aberta por vez (accordion)
+   - Toggle trava/destrava o expandido; recolhida, hover expande temporariamente
+   - 1 categoria aberta por vez (accordion); seleção única
+   - `modules`: cada módulo tem seu próprio menu — trocar atualiza tudo
+   - Busca abre uma paleta (Command) com os itens do menu (⌘K)
+   - Mobile (< md): expandida = 100% width; recolhida = some
    ══════════════════════════════════════════════════════════════════════════ */
 
 export function SingleMenuSidebar({
   logo,
   title,
   module,
+  modules,
+  activeModuleId,
+  defaultModuleId,
+  onModuleChange,
   showSearch = true,
   searchPlaceholder,
-  searchValue,
-  onSearchChange,
-  searchRef,
+  searchCommand,
   categories,
   activeItemId,
   onItemClick,
@@ -62,10 +70,64 @@ export function SingleMenuSidebar({
     onExpandedChange,
   );
 
+  // ── Módulos (opcional): cada um com seu próprio menu ──
+  const hasModules = !!modules && modules.length > 0;
+  const [internalModuleId, setInternalModuleId] = useState(
+    defaultModuleId ?? modules?.[0]?.id,
+  );
+  const currentModuleId = activeModuleId ?? internalModuleId;
+  const activeModule = hasModules
+    ? (modules!.find((m) => m.id === currentModuleId) ?? modules![0])
+    : undefined;
+
+  const handleModuleChange = (id: string) => {
+    if (activeModuleId === undefined) setInternalModuleId(id);
+    onModuleChange?.(id);
+  };
+
+  // Display do seletor + categorias efetivas dependem do modo (modules vs simples)
+  const moduleDisplay: SingleMenuModule | undefined = hasModules
+    ? {
+        icon: activeModule!.icon,
+        title: activeModule!.title,
+        subtitle: activeModule!.subtitle ?? "",
+        options: modules!.map((m) => ({
+          id: m.id,
+          label: m.title,
+          icon: m.icon,
+        })),
+        onModuleChange: handleModuleChange,
+      }
+    : module;
+
+  const effectiveCategories = hasModules
+    ? activeModule!.categories
+    : (categories ?? []);
+
+  // ── Busca (Command palette) ──
+  const [commandOpen, setCommandOpen] = useState(false);
+
+  useEffect(() => {
+    if (!showSearch) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setCommandOpen((o) => !o);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [showSearch]);
+
+  const selectFromSearch = (id: string, parentId?: string) => {
+    onItemClick?.(id);
+    setOpenCategoryId(parentId ?? null);
+  };
+
   // Categoria aberta — do accordion ou derivada do activeItemId
   const resolvedOpenCategoryId =
     openCategoryId ??
-    categories.find((cat) =>
+    effectiveCategories.find((cat) =>
       cat.items?.some((item) => item.id === activeItemId),
     )?.id ??
     null;
@@ -105,15 +167,13 @@ export function SingleMenuSidebar({
 
           <div className={styles.divider} />
 
-          {expanded && (module || showSearch) && (
+          {expanded && (moduleDisplay || showSearch) && (
             <div className={cn(styles.sectionPadding, styles.textFadeIn)}>
-              {module && <SingleMenuModuleSelector {...module} />}
+              {moduleDisplay && <SingleMenuModuleSelector {...moduleDisplay} />}
               {showSearch && (
                 <SingleMenuSearch
                   placeholder={searchPlaceholder}
-                  value={searchValue}
-                  onChange={onSearchChange}
-                  inputRef={searchRef}
+                  onOpen={() => setCommandOpen(true)}
                 />
               )}
             </div>
@@ -130,7 +190,7 @@ export function SingleMenuSidebar({
             )}
           >
             <div className={styles.navList}>
-              {categories.map((cat) => (
+              {effectiveCategories.map((cat) => (
                 <SingleMenuCategory
                   key={cat.id}
                   {...cat}
@@ -144,6 +204,17 @@ export function SingleMenuSidebar({
           <SingleMenuFooter {...user} />
         </aside>
       </TooltipProvider>
+
+      {showSearch && (
+        <SingleMenuCommand
+          open={commandOpen}
+          onOpenChange={setCommandOpen}
+          categories={effectiveCategories}
+          placeholder={searchPlaceholder}
+          onSelect={selectFromSearch}
+          custom={searchCommand}
+        />
+      )}
     </SingleMenuSidebarContext.Provider>
   );
 }

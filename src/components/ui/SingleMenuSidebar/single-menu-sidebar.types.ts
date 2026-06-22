@@ -65,6 +65,23 @@ export interface SingleMenuModule {
   onModuleChange?: (id: string) => void;
 }
 
+/**
+ * Módulo com menu próprio. Quando `modules` é passado à sidebar, trocar de
+ * módulo no seletor atualiza o módulo ativo E o conjunto de categorias exibido.
+ */
+export interface SingleMenuModuleConfig {
+  /** Identificador único */
+  id: string;
+  /** Ícone do módulo */
+  icon: ReactNode;
+  /** Nome do módulo (vira o título do seletor) */
+  title: string;
+  /** Subtítulo / descrição */
+  subtitle?: string;
+  /** Categorias deste módulo (o menu exibido quando ele está ativo) */
+  categories: SingleMenuCategory[];
+}
+
 /** Ação no dropdown do usuário (ex.: "Perfil", "Sair"). */
 export interface SingleMenuUserAction {
   /** Identificador único */
@@ -147,20 +164,30 @@ export interface SingleMenuSidebarProps extends Omit<
   logo: ReactNode;
   /** Título do app exibido quando expandido */
   title: string;
-  /** Config do seletor de módulo (com dropdown opcional) */
+  /** Config do seletor de módulo (com dropdown opcional). Ignorado se `modules`. */
   module?: SingleMenuModule;
+  /**
+   * Módulos com menu próprio. Quando presente, o seletor lista os módulos e
+   * trocar atualiza o módulo ativo + as categorias exibidas (sobrepõe `categories`).
+   */
+  modules?: SingleMenuModuleConfig[];
+  /** Módulo ativo (controlado) */
+  activeModuleId?: string;
+  /** Módulo ativo inicial (não-controlado). Default: 1º de `modules` */
+  defaultModuleId?: string;
+  /** Callback ao trocar de módulo */
+  onModuleChange?: (id: string) => void;
   /** Exibe o campo de busca */
   showSearch?: boolean;
-  /** Placeholder do campo de busca */
+  /**
+   * Conteúdo customizado do CommandDialog da busca (dentro do `<CommandList>`).
+   * Default: lista os itens do menu (categorias + sub-itens).
+   */
+  searchCommand?: ReactNode;
+  /** Placeholder do campo de busca / da paleta Command */
   searchPlaceholder?: string;
-  /** Valor controlado da busca */
-  searchValue?: string;
-  /** Callback de mudança da busca */
-  onSearchChange?: (value: string) => void;
-  /** Ref encaminhada ao `<input>` da busca */
-  searchRef?: Ref<HTMLInputElement>;
-  /** Array de categorias de navegação */
-  categories: SingleMenuCategory[];
+  /** Array de categorias de navegação. Opcional se `modules` for usado. */
+  categories?: SingleMenuCategory[];
   /** Sub-item selecionado (global, entre todas as categorias) */
   activeItemId?: string;
   /** Callback ao clicar em qualquer sub-item */

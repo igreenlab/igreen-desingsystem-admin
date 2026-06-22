@@ -7,6 +7,7 @@ export type {
   SingleMenuCategory,
   SingleMenuSubItem,
   SingleMenuModule,
+  SingleMenuModuleConfig,
   SingleMenuModuleOption,
   SingleMenuUser,
   SingleMenuUserAction,
