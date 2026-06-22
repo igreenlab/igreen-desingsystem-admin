@@ -89,6 +89,7 @@ import { FormFieldDoc } from "./preview/pages/FormFieldDoc";
 import { LabelDoc } from "./preview/pages/LabelDoc";
 import { SeparatorDoc } from "./preview/pages/SeparatorDoc";
 import { MenuSidebarDoc } from "./preview/pages/MenuSidebarDoc";
+import { SingleMenuSidebarDoc } from "./preview/pages/SingleMenuSidebarDoc";
 import { HeaderDoc } from "./preview/pages/HeaderDoc";
 import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
@@ -292,6 +293,7 @@ const DOC_PAGES = [
   "separator",
   "select",
   "menu-sidebar",
+  "single-menu-sidebar",
   "header",
   "app-shell",
   "page-header",
@@ -566,6 +568,7 @@ export function App() {
             {activePage === "label" && <LabelDoc />}
             {activePage === "separator" && <SeparatorDoc />}
             {activePage === "menu-sidebar" && <MenuSidebarDoc />}
+            {activePage === "single-menu-sidebar" && <SingleMenuSidebarDoc />}
             {activePage === "header" && <HeaderDoc />}
             {activePage === "app-shell" && <AppShellDoc />}
             {activePage === "page-header" && <PageHeaderDoc />}
