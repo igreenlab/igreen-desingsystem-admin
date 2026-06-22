@@ -30,93 +30,94 @@ src/components/
 └── index.ts   ← barrel export de tudo
 ```
 
-| Situação | Pasta | Command |
-|----------|-------|---------|
-| Componente existe no Shadcn | `shadcn/` | `/ds-add-shadcn` |
-| Componente novo sem base no Shadcn | `ui/` | `/ds-create-component` |
-| Composição de existentes (FormField, etc.) | `ui/` | `/ds-create-composite` |
+| Situação                                   | Pasta     | Command                |
+| ------------------------------------------ | --------- | ---------------------- |
+| Componente existe no Shadcn                | `shadcn/` | `/ds-add-shadcn`       |
+| Componente novo sem base no Shadcn         | `ui/`     | `/ds-create-component` |
+| Composição de existentes (FormField, etc.) | `ui/`     | `/ds-create-composite` |
 
 ---
 
 ## Componentes — shadcn/ (41 componentes)
 
-| Componente | Arquivo | Subcomponentes exportados | Status |
-|------------|---------|--------------------------|--------|
-| Accordion | `shadcn/accordion.tsx` | Accordion, AccordionItem, AccordionTrigger, AccordionContent | ✅ implementado |
-| Alert | `shadcn/alert.tsx` | Alert, AlertTitle, AlertDescription | ✅ implementado |
-| AlertDialog | `shadcn/alert-dialog.tsx` | AlertDialog, AlertDialogTrigger, AlertDialogPortal, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel | ✅ implementado |
-| Aspect Ratio | `shadcn/aspect-ratio.tsx` | AspectRatio | ✅ implementado |
-| Avatar | `shadcn/avatar.tsx` | Avatar, AvatarImage, AvatarFallback | ✅ implementado |
-| Carousel | `shadcn/carousel.tsx` | Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext (Button do DS) | ✅ implementado |
-| Context Menu | `shadcn/context-menu.tsx` | ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub* | ✅ implementado |
-| Drawer | `shadcn/drawer.tsx` | Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription (Vaul) | ✅ implementado |
-| Hover Card | `shadcn/hover-card.tsx` | HoverCard, HoverCardTrigger, HoverCardContent | ✅ implementado |
-| Menubar | `shadcn/menubar.tsx` | Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarShortcut, MenubarSub* | ✅ implementado |
-| Navigation Menu | `shadcn/navigation-menu.tsx` | NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, navigationMenuTriggerStyle | ✅ implementado |
-| Badge | `shadcn/badge.tsx` | Badge | ✅ implementado |
-| Breadcrumb | `shadcn/breadcrumb.tsx` | Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis | ✅ implementado |
-| Calendar | `shadcn/calendar.tsx` | Calendar | ✅ implementado |
-| Card | `shadcn/card.tsx` | Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent | ✅ implementado |
-| Checkbox | `shadcn/checkbox.tsx` | Checkbox | ✅ implementado |
-| Collapsible | `shadcn/collapsible.tsx` | Collapsible, CollapsibleTrigger, CollapsibleContent | ✅ implementado |
-| Command | `shadcn/command.tsx` | Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator | ✅ implementado |
-| Dialog | `shadcn/dialog.tsx` | Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose | ✅ implementado |
-| DropdownMenu | `shadcn/dropdown-menu.tsx` | DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup | ✅ implementado |
-| Input | `shadcn/input.tsx` | Input | ✅ implementado |
-| Input OTP | `shadcn/input-otp.tsx` | InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator | ✅ implementado |
-| InputGroup | `shadcn/input-group.tsx` | InputGroup, InputGroupInput, InputGroupTextarea, InputGroupAddon, InputGroupText, InputGroupButton | ✅ implementado |
-| Label | `shadcn/label.tsx` | Label | ✅ implementado |
-| Pagination | `shadcn/pagination.tsx` | Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis | ✅ implementado |
-| Popover | `shadcn/popover.tsx` | Popover, PopoverTrigger, PopoverAnchor, PopoverClose, PopoverContent | ✅ implementado |
-| Progress | `shadcn/progress.tsx` | Progress | ✅ implementado |
-| RadioGroup | `shadcn/radio-group.tsx` | RadioGroup, RadioGroupItem | ✅ implementado |
-| Scroll Area | `shadcn/scroll-area.tsx` | ScrollArea, ScrollBar | ✅ implementado |
-| Select | `shadcn/select.tsx` | Select, SelectTrigger, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectValue, SelectSeparator, SelectScrollUpButton, SelectScrollDownButton | ✅ implementado |
-| Separator | `shadcn/separator.tsx` | Separator | ✅ implementado |
-| Sheet | `shadcn/sheet.tsx` | Sheet, SheetPortal, SheetOverlay, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription | ✅ implementado |
-| Slider | `shadcn/slider.tsx` | Slider | ✅ implementado |
-| Switch | `shadcn/switch.tsx` | Switch | ✅ implementado |
-| Skeleton | `shadcn/skeleton.tsx` | Skeleton | ✅ implementado |
-| Tabs | `shadcn/tabs.tsx` | Tabs, TabsList, TabsTrigger, TabsContent | ✅ implementado |
-| Textarea | `shadcn/textarea.tsx` | Textarea | ✅ implementado |
-| Toggle | `shadcn/toggle.tsx` | Toggle, toggleVariants | ✅ implementado |
-| Toggle Group | `shadcn/toggle-group.tsx` | ToggleGroup, ToggleGroupItem | ✅ implementado |
-| Toast (Sonner) | `shadcn/sonner.tsx` | Toaster (+ `toast` do pacote sonner) | ✅ implementado |
-| Tooltip | `shadcn/tooltip.tsx` | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider | ✅ implementado |
+| Componente      | Arquivo                      | Subcomponentes exportados                                                                                                                                                                                                                                                       | Status          |
+| --------------- | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------- |
+| Accordion       | `shadcn/accordion.tsx`       | Accordion, AccordionItem, AccordionTrigger, AccordionContent                                                                                                                                                                                                                    | ✅ implementado |
+| Alert           | `shadcn/alert.tsx`           | Alert, AlertTitle, AlertDescription                                                                                                                                                                                                                                             | ✅ implementado |
+| AlertDialog     | `shadcn/alert-dialog.tsx`    | AlertDialog, AlertDialogTrigger, AlertDialogPortal, AlertDialogOverlay, AlertDialogContent, AlertDialogHeader, AlertDialogFooter, AlertDialogTitle, AlertDialogDescription, AlertDialogAction, AlertDialogCancel                                                                | ✅ implementado |
+| Aspect Ratio    | `shadcn/aspect-ratio.tsx`    | AspectRatio                                                                                                                                                                                                                                                                     | ✅ implementado |
+| Avatar          | `shadcn/avatar.tsx`          | Avatar, AvatarImage, AvatarFallback                                                                                                                                                                                                                                             | ✅ implementado |
+| Carousel        | `shadcn/carousel.tsx`        | Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext (Button do DS)                                                                                                                                                                                          | ✅ implementado |
+| Context Menu    | `shadcn/context-menu.tsx`    | ContextMenu, ContextMenuTrigger, ContextMenuContent, ContextMenuItem, ContextMenuCheckboxItem, ContextMenuRadioItem, ContextMenuLabel, ContextMenuSeparator, ContextMenuShortcut, ContextMenuSub\*                                                                              | ✅ implementado |
+| Drawer          | `shadcn/drawer.tsx`          | Drawer, DrawerTrigger, DrawerClose, DrawerContent, DrawerHeader, DrawerFooter, DrawerTitle, DrawerDescription (Vaul)                                                                                                                                                            | ✅ implementado |
+| Hover Card      | `shadcn/hover-card.tsx`      | HoverCard, HoverCardTrigger, HoverCardContent                                                                                                                                                                                                                                   | ✅ implementado |
+| Menubar         | `shadcn/menubar.tsx`         | Menubar, MenubarMenu, MenubarTrigger, MenubarContent, MenubarItem, MenubarSeparator, MenubarShortcut, MenubarSub\*                                                                                                                                                              | ✅ implementado |
+| Navigation Menu | `shadcn/navigation-menu.tsx` | NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink, navigationMenuTriggerStyle                                                                                                                            | ✅ implementado |
+| Badge           | `shadcn/badge.tsx`           | Badge                                                                                                                                                                                                                                                                           | ✅ implementado |
+| Breadcrumb      | `shadcn/breadcrumb.tsx`      | Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis                                                                                                                                                             | ✅ implementado |
+| Calendar        | `shadcn/calendar.tsx`        | Calendar                                                                                                                                                                                                                                                                        | ✅ implementado |
+| Card            | `shadcn/card.tsx`            | Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent                                                                                                                                                                                                           | ✅ implementado |
+| Checkbox        | `shadcn/checkbox.tsx`        | Checkbox                                                                                                                                                                                                                                                                        | ✅ implementado |
+| Collapsible     | `shadcn/collapsible.tsx`     | Collapsible, CollapsibleTrigger, CollapsibleContent                                                                                                                                                                                                                             | ✅ implementado |
+| Command         | `shadcn/command.tsx`         | Command, CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut, CommandSeparator                                                                                                                                                   | ✅ implementado |
+| Dialog          | `shadcn/dialog.tsx`          | Dialog, DialogTrigger, DialogContent, DialogHeader, DialogFooter, DialogTitle, DialogDescription, DialogClose                                                                                                                                                                   | ✅ implementado |
+| DropdownMenu    | `shadcn/dropdown-menu.tsx`   | DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuCheckboxItem, DropdownMenuRadioItem, DropdownMenuGroup, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuRadioGroup | ✅ implementado |
+| Input           | `shadcn/input.tsx`           | Input                                                                                                                                                                                                                                                                           | ✅ implementado |
+| Input OTP       | `shadcn/input-otp.tsx`       | InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator                                                                                                                                                                                                                        | ✅ implementado |
+| InputGroup      | `shadcn/input-group.tsx`     | InputGroup, InputGroupInput, InputGroupTextarea, InputGroupAddon, InputGroupText, InputGroupButton                                                                                                                                                                              | ✅ implementado |
+| Label           | `shadcn/label.tsx`           | Label                                                                                                                                                                                                                                                                           | ✅ implementado |
+| Pagination      | `shadcn/pagination.tsx`      | Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationFirst, PaginationLast, PaginationEllipsis                                                                                                                          | ✅ implementado |
+| Popover         | `shadcn/popover.tsx`         | Popover, PopoverTrigger, PopoverAnchor, PopoverClose, PopoverContent                                                                                                                                                                                                            | ✅ implementado |
+| Progress        | `shadcn/progress.tsx`        | Progress                                                                                                                                                                                                                                                                        | ✅ implementado |
+| RadioGroup      | `shadcn/radio-group.tsx`     | RadioGroup, RadioGroupItem                                                                                                                                                                                                                                                      | ✅ implementado |
+| Scroll Area     | `shadcn/scroll-area.tsx`     | ScrollArea, ScrollBar                                                                                                                                                                                                                                                           | ✅ implementado |
+| Select          | `shadcn/select.tsx`          | Select, SelectTrigger, SelectContent, SelectItem, SelectGroup, SelectLabel, SelectValue, SelectSeparator, SelectScrollUpButton, SelectScrollDownButton                                                                                                                          | ✅ implementado |
+| Separator       | `shadcn/separator.tsx`       | Separator                                                                                                                                                                                                                                                                       | ✅ implementado |
+| Sheet           | `shadcn/sheet.tsx`           | Sheet, SheetPortal, SheetOverlay, SheetTrigger, SheetClose, SheetContent, SheetHeader, SheetFooter, SheetTitle, SheetDescription                                                                                                                                                | ✅ implementado |
+| Slider          | `shadcn/slider.tsx`          | Slider                                                                                                                                                                                                                                                                          | ✅ implementado |
+| Switch          | `shadcn/switch.tsx`          | Switch                                                                                                                                                                                                                                                                          | ✅ implementado |
+| Skeleton        | `shadcn/skeleton.tsx`        | Skeleton                                                                                                                                                                                                                                                                        | ✅ implementado |
+| Tabs            | `shadcn/tabs.tsx`            | Tabs, TabsList, TabsTrigger, TabsContent                                                                                                                                                                                                                                        | ✅ implementado |
+| Textarea        | `shadcn/textarea.tsx`        | Textarea                                                                                                                                                                                                                                                                        | ✅ implementado |
+| Toggle          | `shadcn/toggle.tsx`          | Toggle, toggleVariants                                                                                                                                                                                                                                                          | ✅ implementado |
+| Toggle Group    | `shadcn/toggle-group.tsx`    | ToggleGroup, ToggleGroupItem                                                                                                                                                                                                                                                    | ✅ implementado |
+| Toast (Sonner)  | `shadcn/sonner.tsx`          | Toaster (+ `toast` do pacote sonner)                                                                                                                                                                                                                                            | ✅ implementado |
+| Tooltip         | `shadcn/tooltip.tsx`         | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider                                                                                                                                                                                                                        | ✅ implementado |
 
 ---
 
 ## Componentes — ui/ (iGreen puro) (26 componentes)
 
-| Componente | Styles | Pasta | Status |
-|------------|--------|-------|--------|
-| AlertModal | `ui/AlertModal/alert-modal.styles.ts` | `src/components/ui/AlertModal/` | ✅ implementado — modal de confirmação destrutiva com tone semântico (danger/warning/success/neutral) |
-| AppShell | `ui/AppShell/app-shell.styles.ts` | `src/components/ui/AppShell/` | ✅ implementado — template de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre |
-| Avatar | `ui/avatar-ig/avatar.styles.ts` | `src/components/ui/avatar-ig/` | ✅ implementado (dir `avatar-ig` — distinto do primitivo shadcn `avatar`) |
-| Button | `ui/Button/button.styles.ts` | `src/components/ui/Button/` | ✅ implementado |
-| **ButtonGroup** | `ui/ButtonGroup/button-group.styles.ts` | `src/components/ui/ButtonGroup/` | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder) |
-| **CardCheckbox** | `ui/CardCheckbox/card-checkbox.styles.ts` | `src/components/ui/CardCheckbox/` | ✅ **v0.7.1** — checkbox apresentado como card clicável (área grande, label + description visíveis). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). Diferente de `FormFieldCheckbox` (compact horizontal). Props: `label` + `description` + opcional `icon` à esquerda. Toggle via clique no card inteiro (label htmlFor). Uso atual: SacarDialog aba "Outra conta" — opção "Salvar essa conta pra usar depois" |
-| Chip | `ui/Chip/chip.styles.ts` | `src/components/ui/Chip/` | ✅ implementado — pílula compacta para status, tags e filtros, dual-mode (span estático ou button interativo); inclui `ChipGroup`/`ChipGroupItem` |
-| **Combobox** | `ui/Combobox/combobox.styles.ts` | `src/components/ui/Combobox/` | ✅ **v0.9.x** — select de escolha única com **busca (autocomplete)** + lista **rolável**. Composto de `Popover` + `Command` (cmdk); trigger espelha 1:1 o `SelectTrigger` (parear com Selects irmãos). Para listas longas onde o usuário digita pra achar (ex.: 1 coluna entre 30). Seleção robusta via closure sobre `option.value` (não depende do arg normalizado do `onSelect` do cmdk). Uso atual: field-picker "Campo" do `FilterPopover` |
-| FooterTable | — (classes inline em `footer-table.tsx`, sem `.styles.ts`) | `src/components/ui/FooterTable/` | ✅ implementado — footer de tabela com paginação + page-size select + range display + selection count (embutido no DataTable) |
-| FormField | `ui/FormField/form-field.styles.ts` | `src/components/ui/FormField/` | ✅ implementado — container de form com label + input/select/textarea + mensagem de validação (error/warning/success). **Obrigatório em forms (L-023)** |
-| Header | `ui/Header/header.styles.ts` | `src/components/ui/Header/` | ✅ implementado — barra superior fixa (60px) com breadcrumb à esquerda + search/theme/notifications/messages/user à direita |
-| **Icon** | `ui/Icon/icon.styles.ts` | `src/components/ui/Icon/` | ✅ **v0.9.x** — biblioteca de ícones **própria da iGreen** (SVG fixo, só o `d` muda via prop `name`; viewBox por prefixo `line-`=18 / `fill-`=24). `size` preset (`size-icon-*`) ou arbitrário; cor por `currentColor`/`tone` (fg.*)/`color` arbitrário; a11y (decorativo por padrão, `title`/`aria-label` → role img). Biblioteca em `icons.ts` (45 ícones). Doc `#/icon` (catálogo com busca + copiar nome). Complementa o `lucide-react` (set genérico de UI) — este é o set da marca |
-| Kanban | `ui/Kanban/kanban.styles.ts` | `src/components/ui/Kanban/` | ✅ implementado — primitive dumb (recebe `columns` + `cards` via props) que renderiza board horizontal de estágios; state de domínio controlado externamente |
-| List | `ui/List/list.styles.ts` | `src/components/ui/List/` | ✅ implementado — primitivo de listagem em cards (burro, como Table). 3 layouts: standard · grouped (seções colapsáveis + DnD via @hello-pangea/dnd, com `groupSurface` p/ painel por grupo) · hierarchical (árvore-como-lista colapsável + conectores contínuos). Card via slots (leading/title/subtitle/description/meta/trailing) ou `renderItem`. Seleção/colapso controlado-ou-não; DnD emite onMove/onReorder (consumer commita). Hooks: use-disclosure-set + use-selection-set + utils group-items/flatten-tree. |
-| DataList | `ui/DataList/data-list.tsx` | `src/components/ui/DataList/` | ✅ implementado — inteligente sobre o List (como DataTable sobre Table). Toolbar enxuta (Visões/título · refresh · search · filtro · ⋯ — sem viewToggle nem menu de colunas) + busca + filtros por campos (`FilterableField[]`) + saved-views + persistência (localStorage) + seleção/bulk + server/async (`onQueryChange`) + virtualização (standard, `@tanstack/react-virtual`, desliga DnD) + lazy-load (`onLoadChildren`). Controller `use-data-list`. |
-| Chart | `ui/Chart/chart.tsx` | `src/components/ui/Chart/` | ✅ implementado — wrapper sobre Recharts 3: `ChartContainer` (injeta paleta `--color-chart-1..5` via CSS vars escopadas) + `ChartTooltip`/`ChartTooltipContent` + `ChartLegend`/`ChartLegendContent` + grid via token `--color-chart-grid`, estilizados com tokens iGreen. Sem `.styles.ts` (CSS vars + classes utilitárias). Docs: Area/Bars/Lines/Pies/Radars/Radials + **Compositions** (`#/chart-showcase`, 28 composições). **Padrões canônicos: `.ai/context/components/chart-patterns.md`** + `Chart/USAGE.md`. Ver L-032 |
-| MenuSidebar | `ui/MenuSidebar/sidebar.styles.ts` | `src/components/ui/MenuSidebar/` | ✅ implementado — sidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável) |
-| Modal | `ui/Modal/modal.styles.ts` | `src/components/ui/Modal/` | ✅ implementado — dialog modal centrado com header (icon + title + description), body livre e footer com actions |
-| Panel | `ui/Panel/panel.styles.ts` | `src/components/ui/Panel/` | ✅ implementado — drawer flutuante lateral (right/left/top/bottom), 560px com header + body scrollável + footer sticky |
-| Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
-| DatePicker | `ui/DatePicker/datepicker.tsx` | `src/components/ui/DatePicker/` | ✅ implementado — seletor de data único (composto Popover + Calendar), trigger estilo input do DS |
-| Toast | `ui/Toast/toast.styles.ts` | `src/components/ui/Toast/` | ✅ implementado — card de notificação sobre o Sonner (`toast.custom`); helper `toast.success/.error/.warning/.info` + neutro com props title/description/icon/action/cancel/onClose/meta. Status muda só o icon-chip (bg `-muted` + ícone `fg-*`), card neutro. Mantém nativo do Sonner (grupo/slide/posições) |
-| DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 15 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado. **Toolbar**: usa a `<TableToolbar>` opinativa (única — a `TableToolbarDeprecated` dumb legada foi removida) |
-| **TableToolbar** | `ui/TableToolbar/table-toolbar.styles.ts` | `src/components/ui/TableToolbar/` | ✅ **toolbar padrão (opinativa)** — slots semânticos em ordem fixa (viewToggle · savedViews · refresh · search · filter · settings · more · bulkBar). Lado direito: Busca + Filtros (drawer simple) + **Configurações** (`<ToolbarSettingsMenu>`, drill-down via Popover espelhando o DropdownMenu: Ordenação/Colunas/Filtros avançados + Densidade inline) + Opções ⋯. Mobile = visualização-only (esconde left+refresh; search fluido; Visualização+Visões inline no settings). Consumida automaticamente pelo DataTable. Superset do barrel antigo (exporta todos os parts/popovers/types + ToolbarFilterControl). USAGE.md + DocPage (`TableToolbarDoc`) |
-| **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts` | `src/components/ui/FloatingPanel/` | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita. **v0.8.1**: `bodyPadded` (default `true` — padding interno padrão) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel; use `bodyPadded={false}` com sections |
-| **PageHeader** | `ui/PageHeader/page-header.styles.ts` | `src/components/ui/PageHeader/` | ✅ **v0.3.0** (Templates) — title + description + badge + actions + slot `children` (tabs/filtros). Mobile-ready built-in (`hideTextOnMobile` default true, `fluidPrimaryOnMobile` default true) |
-| TabelaTeste | `ui/TabelaTeste/tabela-teste.styles.ts` | `src/components/ui/TabelaTeste/` | ⚠️ demo interno (exportado no barrel por compat — não usar em apps) — réplica visual hardcoded do sandbox `/design-and-table-v2`; em produção usar `<Table>` ou `<DataTable>` |
+| Componente        | Styles                                                     | Pasta                                  | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ----------------- | ---------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| AlertModal        | `ui/AlertModal/alert-modal.styles.ts`                      | `src/components/ui/AlertModal/`        | ✅ implementado — modal de confirmação destrutiva com tone semântico (danger/warning/success/neutral)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| AppShell          | `ui/AppShell/app-shell.styles.ts`                          | `src/components/ui/AppShell/`          | ✅ implementado — template de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Avatar            | `ui/avatar-ig/avatar.styles.ts`                            | `src/components/ui/avatar-ig/`         | ✅ implementado (dir `avatar-ig` — distinto do primitivo shadcn `avatar`)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Button            | `ui/Button/button.styles.ts`                               | `src/components/ui/Button/`            | ✅ implementado                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| **ButtonGroup**   | `ui/ButtonGroup/button-group.styles.ts`                    | `src/components/ui/ButtonGroup/`       | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-\*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| **CardCheckbox**  | `ui/CardCheckbox/card-checkbox.styles.ts`                  | `src/components/ui/CardCheckbox/`      | ✅ **v0.7.1** — checkbox apresentado como card clicável (área grande, label + description visíveis). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). Diferente de `FormFieldCheckbox` (compact horizontal). Props: `label` + `description` + opcional `icon` à esquerda. Toggle via clique no card inteiro (label htmlFor). Uso atual: SacarDialog aba "Outra conta" — opção "Salvar essa conta pra usar depois"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| Chip              | `ui/Chip/chip.styles.ts`                                   | `src/components/ui/Chip/`              | ✅ implementado — pílula compacta para status, tags e filtros, dual-mode (span estático ou button interativo); inclui `ChipGroup`/`ChipGroupItem`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| **Combobox**      | `ui/Combobox/combobox.styles.ts`                           | `src/components/ui/Combobox/`          | ✅ **v0.9.x** — select de escolha única com **busca (autocomplete)** + lista **rolável**. Composto de `Popover` + `Command` (cmdk); trigger espelha 1:1 o `SelectTrigger` (parear com Selects irmãos). Para listas longas onde o usuário digita pra achar (ex.: 1 coluna entre 30). Seleção robusta via closure sobre `option.value` (não depende do arg normalizado do `onSelect` do cmdk). Uso atual: field-picker "Campo" do `FilterPopover`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| FooterTable       | — (classes inline em `footer-table.tsx`, sem `.styles.ts`) | `src/components/ui/FooterTable/`       | ✅ implementado — footer de tabela com paginação + page-size select + range display + selection count (embutido no DataTable)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| FormField         | `ui/FormField/form-field.styles.ts`                        | `src/components/ui/FormField/`         | ✅ implementado — container de form com label + input/select/textarea + mensagem de validação (error/warning/success). **Obrigatório em forms (L-023)**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| Header            | `ui/Header/header.styles.ts`                               | `src/components/ui/Header/`            | ✅ implementado — barra superior fixa (60px) com breadcrumb à esquerda + search/theme/notifications/messages/user à direita                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| **Icon**          | `ui/Icon/icon.styles.ts`                                   | `src/components/ui/Icon/`              | ✅ **v0.9.x** — biblioteca de ícones **própria da iGreen** (SVG fixo, só o `d` muda via prop `name`; viewBox por prefixo `line-`=18 / `fill-`=24). `size` preset (`size-icon-*`) ou arbitrário; cor por `currentColor`/`tone` (fg.\*)/`color` arbitrário; a11y (decorativo por padrão, `title`/`aria-label` → role img). Biblioteca em `icons.ts` (45 ícones). Doc `#/icon` (catálogo com busca + copiar nome). Complementa o `lucide-react` (set genérico de UI) — este é o set da marca                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Kanban            | `ui/Kanban/kanban.styles.ts`                               | `src/components/ui/Kanban/`            | ✅ implementado — primitive dumb (recebe `columns` + `cards` via props) que renderiza board horizontal de estágios; state de domínio controlado externamente                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+| List              | `ui/List/list.styles.ts`                                   | `src/components/ui/List/`              | ✅ implementado — primitivo de listagem em cards (burro, como Table). 3 layouts: standard · grouped (seções colapsáveis + DnD via @hello-pangea/dnd, com `groupSurface` p/ painel por grupo) · hierarchical (árvore-como-lista colapsável + conectores contínuos). Card via slots (leading/title/subtitle/description/meta/trailing) ou `renderItem`. Seleção/colapso controlado-ou-não; DnD emite onMove/onReorder (consumer commita). Hooks: use-disclosure-set + use-selection-set + utils group-items/flatten-tree.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| DataList          | `ui/DataList/data-list.tsx`                                | `src/components/ui/DataList/`          | ✅ implementado — inteligente sobre o List (como DataTable sobre Table). Toolbar enxuta (Visões/título · refresh · search · filtro · ⋯ — sem viewToggle nem menu de colunas) + busca + filtros por campos (`FilterableField[]`) + saved-views + persistência (localStorage) + seleção/bulk + server/async (`onQueryChange`) + virtualização (standard, `@tanstack/react-virtual`, desliga DnD) + lazy-load (`onLoadChildren`). Controller `use-data-list`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Chart             | `ui/Chart/chart.tsx`                                       | `src/components/ui/Chart/`             | ✅ implementado — wrapper sobre Recharts 3: `ChartContainer` (injeta paleta `--color-chart-1..5` via CSS vars escopadas) + `ChartTooltip`/`ChartTooltipContent` + `ChartLegend`/`ChartLegendContent` + grid via token `--color-chart-grid`, estilizados com tokens iGreen. Sem `.styles.ts` (CSS vars + classes utilitárias). Docs: Area/Bars/Lines/Pies/Radars/Radials + **Compositions** (`#/chart-showcase`, 28 composições). **Padrões canônicos: `.ai/context/components/chart-patterns.md`** + `Chart/USAGE.md`. Ver L-032                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| MenuSidebar       | `ui/MenuSidebar/sidebar.styles.ts`                         | `src/components/ui/MenuSidebar/`       | ✅ implementado — sidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| SingleMenuSidebar | `ui/SingleMenuSidebar/single-menu-sidebar.styles.ts`       | `src/components/ui/SingleMenuSidebar/` | ✅ implementado — sidebar de nível único (280px): categoria → sub-itens em accordion, toggle + hover-to-expand, módulo/busca/usuário opcionais. Alternativa enxuta ao MenuSidebar. Sem variantes                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Modal             | `ui/Modal/modal.styles.ts`                                 | `src/components/ui/Modal/`             | ✅ implementado — dialog modal centrado com header (icon + title + description), body livre e footer com actions                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| Panel             | `ui/Panel/panel.styles.ts`                                 | `src/components/ui/Panel/`             | ✅ implementado — drawer flutuante lateral (right/left/top/bottom), 560px com header + body scrollável + footer sticky                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Table             | `ui/Table/table.styles.ts`                                 | `src/components/ui/Table/`             | ✅ implementado                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| DatePicker        | `ui/DatePicker/datepicker.tsx`                             | `src/components/ui/DatePicker/`        | ✅ implementado — seletor de data único (composto Popover + Calendar), trigger estilo input do DS                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| Toast             | `ui/Toast/toast.styles.ts`                                 | `src/components/ui/Toast/`             | ✅ implementado — card de notificação sobre o Sonner (`toast.custom`); helper `toast.success/.error/.warning/.info` + neutro com props title/description/icon/action/cancel/onClose/meta. Status muda só o icon-chip (bg `-muted` + ícone `fg-*`), card neutro. Mantém nativo do Sonner (grupo/slide/posições)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| DataTable         | `ui/DataTable/data-table.styles.ts`                        | `src/components/ui/DataTable/`         | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 15 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado. **Toolbar**: usa a `<TableToolbar>` opinativa (única — a `TableToolbarDeprecated` dumb legada foi removida) |
+| **TableToolbar**  | `ui/TableToolbar/table-toolbar.styles.ts`                  | `src/components/ui/TableToolbar/`      | ✅ **toolbar padrão (opinativa)** — slots semânticos em ordem fixa (viewToggle · savedViews · refresh · search · filter · settings · more · bulkBar). Lado direito: Busca + Filtros (drawer simple) + **Configurações** (`<ToolbarSettingsMenu>`, drill-down via Popover espelhando o DropdownMenu: Ordenação/Colunas/Filtros avançados + Densidade inline) + Opções ⋯. Mobile = visualização-only (esconde left+refresh; search fluido; Visualização+Visões inline no settings). Consumida automaticamente pelo DataTable. Superset do barrel antigo (exporta todos os parts/popovers/types + ToolbarFilterControl). USAGE.md + DocPage (`TableToolbarDoc`)                                                                                                                                                                                                                                                                                                    |
+| **FloatingPanel** | `ui/FloatingPanel/floating-panel.styles.ts`                | `src/components/ui/FloatingPanel/`     | ✅ **v0.3.0** — drawer non-modal (sem backdrop, sem foco trap), resize horizontal opcional, maximize toggle, sheet bottom-up em max-md. Suporta `titleSlot` ReactNode pra header rico, `headerActions` à direita. **v0.8.1**: `bodyPadded` (default `true` — padding interno padrão) + compounds `FloatingPanelSection` (colapsável) / `FloatingPanelField` (label:valor) = pattern canônico de detail panel; use `bodyPadded={false}` com sections                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+| **PageHeader**    | `ui/PageHeader/page-header.styles.ts`                      | `src/components/ui/PageHeader/`        | ✅ **v0.3.0** (Templates) — title + description + badge + actions + slot `children` (tabs/filtros). Mobile-ready built-in (`hideTextOnMobile` default true, `fluidPrimaryOnMobile` default true)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| TabelaTeste       | `ui/TabelaTeste/tabela-teste.styles.ts`                    | `src/components/ui/TabelaTeste/`       | ⚠️ demo interno (exportado no barrel por compat — não usar em apps) — réplica visual hardcoded do sandbox `/design-and-table-v2`; em produção usar `<Table>` ou `<DataTable>`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 **Nota**: `AddViewModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab + Tabs visiveis + Popover overflow + modal) ficam em `ui/TableToolbar/`. Saved Views eh UI do toolbar — DataTable so passa props/handlers. `ToolbarMobileDialog` + `ToolbarMobileSection` (em `ui/TableToolbar/parts/`) foram promovidos a uso oficial pelo DataTable em v0.3.0 (não-deprecated mais).
 
@@ -127,16 +128,19 @@ src/components/
 ## Variantes e API por componente
 
 ### Avatar (ui/)
+
 ```
 size:     xs (20px) | sm (24px) | md (28px) | lg (32px) | xl (40px)
 color:    brand | success | warning | critical | info | muted
 colorHex: string (hex override — bg via inline style, text-white)
 ```
+
 - Non-interactive (no focus, no disabled).
 - Accessibility: `aria-label` present → `role="img"`, absent → `aria-hidden="true"`.
 - Fonte de verdade: `src/components/ui/avatar-ig/avatar.styles.ts`
 
 ### Button (ui/)
+
 ```
 color:     primary | secondary | critical | success | warning
 variant:   filled | outline | soft | ghost
@@ -144,140 +148,180 @@ size:      xxs (28px) | xs (32px) | sm (36px) | md (40px)
 fullWidth: boolean
 disabled:  boolean
 ```
+
 - Focus: Padrão 1 estático — `focus-visible:ring-4 ring-ring-{color}`
 - Fonte de verdade: `src/components/ui/Button/button.styles.ts`
 
 ### Badge (shadcn/)
+
 ```
 color:   primary | secondary | critical | success | warning
 variant: filled | outline | soft | ghost
 size:    sm (20px) | md (24px) | lg (28px)
 ```
+
 - Fonte de verdade: `src/components/shadcn/badge.tsx`
 
 ### Input (shadcn/)
+
 ```
 size: xxs (28px) | xs (32px) | sm (36px) | md (40px)
 ```
+
 - Focus: Padrão 2 animado — `ring-0 ring-ring-primary` base + `focus-visible:ring-4`
 - Fonte de verdade: `src/components/shadcn/input.tsx`
 
 ### Tabs (shadcn/)
+
 ```
 Radix Root/List/Trigger/Content
 ```
+
 - TabsList: `h-9 rounded-full bg-bg-muted`
 - Fonte de verdade: `src/components/shadcn/tabs.tsx`
 
 ### Dialog (shadcn/)
+
 ```
 Radix Root/Trigger/Content/Header/Footer/Title/Description/Close
 ```
+
 - Overlay: `bg-overlay-scrim`
 - Fonte de verdade: `src/components/shadcn/dialog.tsx`
 
 ### Select (shadcn/)
+
 ```
 Radix Root/Trigger/Content/Item/Group/Label/Value/Separator
 ```
+
 - Fonte de verdade: `src/components/shadcn/select.tsx`
 
 ### Accordion (shadcn/)
+
 ```
 Radix Root/Item/Trigger/Content
 type: single | multiple
 collapsible: boolean
 ```
+
 - Fonte de verdade: `src/components/shadcn/accordion.tsx`
 
 ### DropdownMenu (shadcn/)
+
 ```
 Radix Root/Trigger/Content/Item/Label/Separator
 Suporte: CheckboxItem, RadioItem, Sub menus
 ```
+
 - Fonte de verdade: `src/components/shadcn/dropdown-menu.tsx`
 
 ### Checkbox (shadcn/)
+
 ```
 Radix Root — checked | unchecked | indeterminate
 ```
+
 - Fonte de verdade: `src/components/shadcn/checkbox.tsx`
 
 ### Switch (shadcn/)
+
 ```
 Radix Root — checked | unchecked
 ```
+
 - Thumb: `bg-white` fixo (exceção L-014)
 - Fonte de verdade: `src/components/shadcn/switch.tsx`
 
 ### Slider (shadcn/)
+
 ```
 Radix Root
 value/defaultValue: number[] (1 ou 2 valores para range)
 min, max, step
 ```
+
 - Thumb: `bg-white` fixo (exceção L-014)
 - Multi-thumb: render dinâmico (L-013)
 - Fonte de verdade: `src/components/shadcn/slider.tsx`
 
 ### RadioGroup (shadcn/)
+
 ```
 Radix Root/Item
 ```
+
 - State via `data-state=checked` (não `:checked` nativo — L-012)
 - Fonte de verdade: `src/components/shadcn/radio-group.tsx`
 
 ### Progress (shadcn/)
+
 ```
 Radix Root — value: number (0-100)
 ```
+
 - Fonte de verdade: `src/components/shadcn/progress.tsx`
 
 ### Textarea (shadcn/)
+
 ```
 HTML textarea nativo
 ```
+
 - Focus: Padrão 2 animado (mesma lógica do Input)
 - Fonte de verdade: `src/components/shadcn/textarea.tsx`
 
 ### Card (shadcn/)
+
 ```
 Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent
 ```
+
 - Fonte de verdade: `src/components/shadcn/card.tsx`
 
 ### Avatar (shadcn/)
+
 ```
 Radix Root/Image/Fallback
 ```
+
 - Fonte de verdade: `src/components/shadcn/avatar.tsx`
 
 ### Label (shadcn/)
+
 ```
 Radix Root — htmlFor obrigatório para acessibilidade
 ```
+
 - Fonte de verdade: `src/components/shadcn/label.tsx`
 
 ### Separator (shadcn/)
+
 ```
 Radix Root — orientation: horizontal | vertical
 ```
+
 - Fonte de verdade: `src/components/shadcn/separator.tsx`
 
 ### Breadcrumb (shadcn/)
+
 ```
 Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink,
 BreadcrumbPage, BreadcrumbSeparator, BreadcrumbEllipsis
 ```
+
 - Fonte de verdade: `src/components/shadcn/breadcrumb.tsx`
 
 ### Calendar (shadcn/)
+
 ```
 react-day-picker — selected, onSelect, mode (single | range | multiple)
 ```
+
 - Fonte de verdade: `src/components/shadcn/calendar.tsx`
 
 ### Table (ui/)
+
 ```
 Componentes:
   Table          → root grid container (role="grid")
@@ -301,9 +345,11 @@ Hooks expostos:
   useColumnWidths(columns)  → { widths, offsets, totalPinLeft, totalPinRight }
   useColumnResize(params)    → { onMouseDown, isDragging }
 ```
+
 - Fonte de verdade: `src/components/ui/Table/table.styles.ts`
 
 ### DataTable (ui/)
+
 ```
 Props principais:
   rows: T[]
@@ -400,17 +446,18 @@ Out of scope (planos seguintes):
   - Export server-side endpoint (F8 cobre apenas client)
   - Modal Dialog custom no onCreate de saved views (atualmente usa window.prompt — produto pode trocar depois)
 ```
+
 - Fonte de verdade: `src/components/ui/DataTable/data-table.tsx` (Maestro)
 
 ---
 
 ## Componentes planejados (não implementados)
 
-| Componente | Tipo | Pasta | Prioridade |
-|------------|------|-------|------------|
-| Toast / Sonner | Shadcn | `shadcn/` | 🟡 média |
-| Tooltip | Shadcn | `shadcn/` | 🟡 média |
-| Skeleton | iGreen | `ui/` | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
+| Componente     | Tipo   | Pasta     | Prioridade                                                                                 |
+| -------------- | ------ | --------- | ------------------------------------------------------------------------------------------ |
+| Toast / Sonner | Shadcn | `shadcn/` | 🟡 média                                                                                   |
+| Tooltip        | Shadcn | `shadcn/` | 🟡 média                                                                                   |
+| Skeleton       | iGreen | `ui/`     | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
 
 ---
 
@@ -443,6 +490,7 @@ Mobile (<md): vira sheet bottom-up automaticamente (slide-in-from-bottom + h-[85
 Render: createPortal em document.body (escapa overflow/transform de ancestrais)
 Hook auxiliar: useFloatingPanelResize(side, min, max, storageKey?)
 ```
+
 - Fonte de verdade: `src/components/ui/FloatingPanel/floating-panel.tsx` + USAGE.md
 
 ---
@@ -460,6 +508,7 @@ Props:
   fluidPrimaryOnMobile: boolean      # default true (último filho de actions ganha flex-1)
   className?: string
 ```
+
 - Fonte de verdade: `src/components/ui/PageHeader/page-header.tsx` + USAGE.md
 - Categoria: **Templates** (renderizado dentro do body do AppShell)
 
@@ -490,12 +539,12 @@ UserMenu (componente interno do AppShell) renderiza Avatar clicável → `Dropdo
 
 ## Hooks e utils transversais
 
-| Item | Arquivo | O que é |
-|------|---------|---------|
-| `useTheme` | `src/hooks/useTheme.ts` | Hook do preview app — tema `"light" \| "dark" \| "system"`, persiste em localStorage e aplica `.dark` no `<html>`. **NÃO exportado na lib** |
-| `cn` | `src/lib/utils.ts` | Compositor de className (clsx + tailwind-merge estendido pros prefixos DS pad/sp/gp/radius/sh/form + presets tipográficos) — usado nos showcases |
-| `getContrastTextColor` | `src/utils/color-contrast.ts` | Escolhe `white`/`black` via contraste WCAG pra bg arbitrário (L-027 — usado pelo Avatar `colorHex`) |
-| `tv` | `src/utils/tv.ts` | Wrapper obrigatório do tailwind-variants com `twMergeConfig` do DS — **nunca importar de `tailwind-variants` direto** |
+| Item                   | Arquivo                       | O que é                                                                                                                                          |
+| ---------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `useTheme`             | `src/hooks/useTheme.ts`       | Hook do preview app — tema `"light" \| "dark" \| "system"`, persiste em localStorage e aplica `.dark` no `<html>`. **NÃO exportado na lib**      |
+| `cn`                   | `src/lib/utils.ts`            | Compositor de className (clsx + tailwind-merge estendido pros prefixos DS pad/sp/gp/radius/sh/form + presets tipográficos) — usado nos showcases |
+| `getContrastTextColor` | `src/utils/color-contrast.ts` | Escolhe `white`/`black` via contraste WCAG pra bg arbitrário (L-027 — usado pelo Avatar `colorHex`)                                              |
+| `tv`                   | `src/utils/tv.ts`             | Wrapper obrigatório do tailwind-variants com `twMergeConfig` do DS — **nunca importar de `tailwind-variants` direto**                            |
 
 ---
 
