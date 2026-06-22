@@ -110,7 +110,7 @@ export const styles = {
   // Module selector
   module: {
     trigger:
-      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-md bg-bg-sidebar-accent py-pad-md pl-pad-md pr-pad-2xl shadow-sh-sm transition-colors hover:bg-bg-sidebar-accent-hover",
+      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-md bg-bg-sidebar-accent py-pad-md pl-pad-md pr-pad-2xl shadow-sh-sm transition-colors hover:bg-bg-sidebar-accent-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     iconContainer:
       "flex size-icon-xl shrink-0 items-center justify-center rounded-radius-md bg-bg-brand text-fg-on-brand",
     textContainer: "flex flex-col items-start gap-gp-xs overflow-hidden",
@@ -147,7 +147,7 @@ export const styles = {
   footer: {
     wrapper: "px-pad-lg py-pad-xl",
     button:
-      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-lg bg-bg-sidebar-accent px-pad-2xl py-pad-xl transition-colors hover:bg-bg-sidebar-accent-hover",
+      "flex w-full cursor-pointer items-center gap-gp-lg rounded-radius-lg bg-bg-sidebar-accent px-pad-2xl py-pad-xl transition-colors hover:bg-bg-sidebar-accent-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     avatar:
       "flex size-form-sm shrink-0 items-center justify-center rounded-radius-full bg-bg-muted overflow-hidden",
     avatarIcon: "shrink-0 size-icon-sm text-fg-muted",
