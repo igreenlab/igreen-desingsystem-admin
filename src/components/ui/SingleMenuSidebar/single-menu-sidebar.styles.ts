@@ -115,9 +115,12 @@ export const styles = {
     subtitle: "text-caption-sm font-semibold text-fg-subtle text-left",
     chevron: "ml-auto shrink-0 size-icon-sm text-fg-subtle",
     dropdownItem: "flex items-center gap-gp-lg cursor-pointer",
+    // selecionado: realça a linha (bg-brand-subtle) + label/check em fg-brand
+    dropdownItemSelected: "bg-bg-brand-subtle text-fg-brand",
     dropdownItemIcon:
-      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-fg-on-brand",
-    dropdownItemLabel: "text-body-md font-medium",
+      "flex size-icon-lg shrink-0 items-center justify-center rounded-radius-sm bg-bg-brand text-white [&>svg]:size-icon-sm",
+    dropdownItemLabel: "flex-1 text-body-md font-medium",
+    dropdownItemCheck: "ml-auto shrink-0 size-icon-sm text-fg-brand",
   },
 
   // Search
@@ -146,7 +149,8 @@ export const styles = {
     email:
       "text-caption-sm font-medium text-fg-muted truncate w-full text-left",
     chevron: "ml-auto shrink-0 size-icon-sm text-fg-subtle",
-    dropdownLabel: "flex flex-col gap-gp-2xs px-pad-sm py-pad-xs",
+    dropdownLabel:
+      "flex flex-col gap-gp-2xs px-pad-sm py-pad-xs normal-case tracking-normal",
     dropdownLabelName: "text-body-md font-semibold",
     dropdownLabelEmail: "text-caption-md font-normal text-fg-muted",
     dropdownItem: "flex items-center gap-gp-md cursor-pointer",

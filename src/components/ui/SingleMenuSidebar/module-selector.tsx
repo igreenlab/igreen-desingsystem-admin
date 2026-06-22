@@ -1,6 +1,7 @@
 "use client";
 
-import { ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -42,16 +43,24 @@ export function SingleMenuModuleSelector({
         {triggerContent}
       </DropdownMenuTrigger>
       <DropdownMenuContent side="bottom" sideOffset={4} align="start">
-        {options.map((option) => (
-          <DropdownMenuItem
-            key={option.id}
-            className={s.dropdownItem}
-            onClick={() => onModuleChange?.(option.id)}
-          >
-            <div className={s.dropdownItemIcon}>{option.icon}</div>
-            <span className={s.dropdownItemLabel}>{option.label}</span>
-          </DropdownMenuItem>
-        ))}
+        {options.map((option) => {
+          // módulo atual = o que está exibido no trigger (title)
+          const isSelected = option.label === title;
+          return (
+            <DropdownMenuItem
+              key={option.id}
+              className={cn(
+                s.dropdownItem,
+                isSelected && s.dropdownItemSelected,
+              )}
+              onClick={() => onModuleChange?.(option.id)}
+            >
+              <div className={s.dropdownItemIcon}>{option.icon}</div>
+              <span className={s.dropdownItemLabel}>{option.label}</span>
+              {isSelected && <Check className={s.dropdownItemCheck} />}
+            </DropdownMenuItem>
+          );
+        })}
       </DropdownMenuContent>
     </DropdownMenu>
   );
