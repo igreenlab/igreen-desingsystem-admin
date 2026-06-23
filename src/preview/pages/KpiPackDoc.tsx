@@ -370,21 +370,25 @@ const barsBrandCfg = {
 
 function HighlightModel() {
   return (
-    <div className="grid w-full grid-cols-1 gap-gp-2xl md:grid-cols-3">
-      {/* Total Sales — area sparkline */}
-      <Panel className="relative overflow-hidden">
-        <p className={KPI_LABEL}>Total Sales</p>
-        <p className="text-title-md font-semibold text-fg-default">
-          WrapPixel Store
-        </p>
-        <p className={cn(KPI_VALUE, "mt-pad-md")}>$98,452.76</p>
-        <div className="mt-gp-xs flex items-center gap-gp-xs text-fg-success">
-          <TrendingUp className="size-icon-sm" />
-          <span className="text-body-sm font-medium">+32.8%</span>
+    <div className="grid w-full grid-cols-1 gap-gp-2xl md:grid-cols-3 lg:grid-cols-[1.4fr_1fr_1fr]">
+      {/* Total Sales — valor à esquerda, area sparkline AO LADO */}
+      <Panel className="flex items-center justify-between gap-gp-2xl overflow-hidden p-pad-3xl">
+        <div className="min-w-0">
+          <p className={KPI_LABEL}>Total Sales</p>
+          <p className="text-title-sm font-semibold text-fg-default">
+            WrapPixel Store
+          </p>
+          <p className="mt-gp-md text-[26px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+            $98,452.76
+          </p>
+          <div className="mt-gp-xs flex items-center gap-gp-xs text-fg-success">
+            <TrendingUp className="size-icon-sm" />
+            <span className="text-body-sm font-medium">+32.8%</span>
+          </div>
         </div>
         <ChartContainer
           config={areaCfg}
-          className="pointer-events-none mt-pad-md h-[72px] w-full"
+          className="pointer-events-none h-[88px] w-[44%] shrink-0"
         >
           <AreaChart
             data={AREA}
@@ -408,16 +412,16 @@ function HighlightModel() {
       </Panel>
 
       {/* Monthly Sales — card de marca preenchido */}
-      <Panel className="border-0 bg-bg-brand text-fg-on-brand shadow-sh-md ring-0">
-        <p className="text-title-md font-semibold">Monthly Sales</p>
-        <p className="mt-pad-3xl text-[30px] font-bold leading-tight [font-variant-numeric:tabular-nums]">
+      <Panel className="border-0 bg-bg-brand p-pad-3xl text-fg-on-brand shadow-sh-md ring-0">
+        <p className="text-title-sm font-semibold">Monthly Sales</p>
+        <p className="mt-pad-md text-[26px] font-bold leading-tight [font-variant-numeric:tabular-nums]">
           $36,890
         </p>
         <div className="mt-gp-md flex items-end justify-between gap-gp-lg">
           <span className="inline-flex items-center gap-gp-xs rounded-radius-full bg-bg-surface/20 px-pad-md py-pad-2xs text-caption-md">
             vs last month <span className="font-semibold">↑ +18.4%</span>
           </span>
-          <ChartContainer config={barsBrandCfg} className="h-[48px] w-[120px]">
+          <ChartContainer config={barsBrandCfg} className="h-[44px] w-[110px]">
             <BarChart data={BARS2}>
               <Bar
                 dataKey="v"
@@ -431,16 +435,18 @@ function HighlightModel() {
       </Panel>
 
       {/* Revenue Growth — card de marca subtle */}
-      <Panel className="border-0 bg-bg-brand-subtle ring-0">
+      <Panel className="border-0 bg-bg-brand-subtle p-pad-3xl ring-0">
         <div className="flex items-start justify-between">
-          <p className="text-title-md font-semibold text-fg-default">
+          <p className="text-title-sm font-semibold text-fg-default">
             Revenue Growth
           </p>
           <span className="grid size-form-lg place-items-center rounded-radius-full bg-bg-brand text-fg-on-brand">
             <LineChartIcon className="size-icon-sm" />
           </span>
         </div>
-        <p className={cn(KPI_VALUE, "mt-pad-4xl")}>+24%</p>
+        <p className="mt-pad-3xl text-[26px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+          +24%
+        </p>
         <p className="mt-gp-xs text-body-sm text-fg-muted">
           Compared to Last Month
         </p>
