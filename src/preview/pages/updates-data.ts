@@ -46,6 +46,24 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.16.1",
+    date: "2026-06-23",
+    tag: "patch",
+    title:
+      "DataTable: actions sempre por último + auto-width robusto; crud-builder filtra todas as colunas",
+    summary:
+      'Correções vindas do consumo real via CLI. DataTable: a coluna type:"actions" agora ancora à direita e fica sempre por último na renderização por default (mesmo declarada no meio do array), com largura estreita fixa — e fica fora da distribuição flex do auto-width (antes podia esticar/empurrar o conteúdo). crud-builder (repo + template do CLI): reforço explícito de que todas as colunas de dados recebem enableColumnFilter (o funil só lista colunas filtráveis — antes a geração marcava só 2), que actions vai por último sem pinned/width, e que não se seta width nas colunas (autoFit distribui). Nota: o checkbox dos filtros está correto na fonte — se aparecer sem cor no consumidor, é cópia desatualizada → re-pull (igreen:add checkbox/data-table).',
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: coluna actions auto-ancorada à direita + sempre por último + largura estreita, e excluída do flex do auto-width (não estica mais nem empurra o conteúdo).",
+          "crud-builder (repo + CLI): regra de coluna explícita — todas as colunas filtram (enableColumnFilter), actions por último sem pinned/width, sem width manual (autoFit distribui). Corrige 'filtra só 2 colunas' e '1ª coluna esticada'.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.16.0",
     date: "2026-06-23",
     tag: "release",

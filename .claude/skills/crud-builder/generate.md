@@ -14,20 +14,20 @@ description: >
 
 ## 1. Matriz cenário → exemplo canônico (ler só os presentes no blueprint)
 
-| Cenário no blueprint | Arquivo a ler |
-|---|---|
-| CRUD client base · bulk · totalizers · inline edit | `src/preview/pages/ClientsCRUDPreview.tsx` |
-| Server mode (`fetchData`/`getRowId`) · coluna actions | `src/preview/pages/ClientsCRUDServerPreview.tsx` |
-| Filtros pré-aplicados · showEmptyFilterChips | `src/preview/pages/ClientsPreFilteredPreview.tsx` |
-| Virtualização | `src/preview/pages/ClientsVirtualizedPreview.tsx` |
-| Grouping (column-aligned + free-form) | `src/preview/pages/ClientsGroupedPreview.tsx` |
-| Row expansion | `src/preview/pages/ClientsExpandablePreview.tsx` |
-| Colunas 100% declarativas por type | `src/preview/pages/ClientsTypedPreview.tsx` |
-| Kanban view | `src/preview/pages/ClientsKanbanPreview.tsx` |
-| AppShell + PageHeader + drawers + AlertModal | `src/preview/pages/ClientesShowcase/ClientesShowcase.tsx` |
-| valueGetter lookup · render com Avatar · KPIs | `src/preview/pages/ClientesFinanceiroShowcase/` |
-| API de props (qualquer dúvida) | `src/components/ui/DataTable/USAGE.md` + `data-table.types.ts` |
-| Toolbar / Kanban / AppShell / PageHeader / FormField | `src/components/ui/<X>/USAGE.md` |
+| Cenário no blueprint                                  | Arquivo a ler                                                  |
+| ----------------------------------------------------- | -------------------------------------------------------------- |
+| CRUD client base · bulk · totalizers · inline edit    | `src/preview/pages/ClientsCRUDPreview.tsx`                     |
+| Server mode (`fetchData`/`getRowId`) · coluna actions | `src/preview/pages/ClientsCRUDServerPreview.tsx`               |
+| Filtros pré-aplicados · showEmptyFilterChips          | `src/preview/pages/ClientsPreFilteredPreview.tsx`              |
+| Virtualização                                         | `src/preview/pages/ClientsVirtualizedPreview.tsx`              |
+| Grouping (column-aligned + free-form)                 | `src/preview/pages/ClientsGroupedPreview.tsx`                  |
+| Row expansion                                         | `src/preview/pages/ClientsExpandablePreview.tsx`               |
+| Colunas 100% declarativas por type                    | `src/preview/pages/ClientsTypedPreview.tsx`                    |
+| Kanban view                                           | `src/preview/pages/ClientsKanbanPreview.tsx`                   |
+| AppShell + PageHeader + drawers + AlertModal          | `src/preview/pages/ClientesShowcase/ClientesShowcase.tsx`      |
+| valueGetter lookup · render com Avatar · KPIs         | `src/preview/pages/ClientesFinanceiroShowcase/`                |
+| API de props (qualquer dúvida)                        | `src/components/ui/DataTable/USAGE.md` + `data-table.types.ts` |
+| Toolbar / Kanban / AppShell / PageHeader / FormField  | `src/components/ui/<X>/USAGE.md`                               |
 
 ## 2. Esqueleto — página standalone (`ExamplePageLayout`)
 
@@ -104,18 +104,38 @@ Miolo (ler `ClientesShowcase.tsx` pro shape real de AppShell props):
 </AppShell>
 ```
 
+## Regras de coluna (OBRIGATÓRIO — pega bugs comuns)
+
+1. **Filtro em TODAS as colunas de dados.** Cada coluna ganha
+   `enableColumnFilter: true` + `filterType` derivado do `type` (text→`"text"`,
+   number/currency/percentage→`"number"`, date/datetime→`"date"`,
+   badge/status/select→`"select"`, multiSelect/tags→`"multiSelect"`). Só ficam de
+   fora `actions` e render-custom sem valor filtrável. ⚠️ **NÃO marque só as
+   badge/status** — o funil de filtros (e o drawer) só lista colunas com
+   `enableColumnFilter`. Marcar só 2 = bug "filtra só 2 colunas".
+
+2. **Coluna `actions` por ÚLTIMO** no array, `type: "actions"` (via
+   `actionColumn`/`getActions`). O DataTable já **ancora à direita e estreita por
+   default** — não precisa `pinned`/`width`. (Mesmo se declarada no meio, ela é
+   movida pro fim na renderização.)
+
+3. **Largura: NÃO setar `width` nas colunas de dados.** `autoFit` é **default ON**
+   e distribui pra preencher o container (tabela "de verdade", sem scroll, sem 1ª
+   coluna esticada). Fixe `width` só em casos pontuais (ex.: id/código curto).
+   Nunca passe `autoFit: false` sem motivo.
+
 ## 4. Snippets críticos
 
 ### INITIAL_FILTERS (controlled) — operador SEMPRE da tabela
 
-| filterType | default | demais válidos |
-|---|---|---|
-| multiSelect | `isAnyOf` | isNoneOf, isEmpty, isNotEmpty |
-| select | `equals` | neq, isEmpty, isNotEmpty |
-| text | `contains` | notContains, equals, neq, startsWith, endsWith, isEmpty, isNotEmpty |
-| number | `equals` | neq, gt, lt, gte, lte, between |
-| date | `between` | equals, gt, lt |
-| boolean | `equals` | — |
+| filterType  | default    | demais válidos                                                      |
+| ----------- | ---------- | ------------------------------------------------------------------- |
+| multiSelect | `isAnyOf`  | isNoneOf, isEmpty, isNotEmpty                                       |
+| select      | `equals`   | neq, isEmpty, isNotEmpty                                            |
+| text        | `contains` | notContains, equals, neq, startsWith, endsWith, isEmpty, isNotEmpty |
+| number      | `equals`   | neq, gt, lt, gte, lte, between                                      |
+| date        | `between`  | equals, gt, lt                                                      |
+| boolean     | `equals`   | —                                                                   |
 
 (Tabela completa + exemplos ❌/✅ do bug real: `DataTable/USAGE.md`
 §"filterModel controlado". Errado = Select de operador VAZIO no popover.)
@@ -137,7 +157,7 @@ const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTERS);
 const fetchData = useCallback(async (params: GridFetchParams) => {
   // params: { pagination, sort, filters, search, searchField? }
   const res = await api.get("/<entidade>", { params: serialize(params) });
-  return { data: res.items, total: res.total };   // GridFetchResult<T>
+  return { data: res.items, total: res.total }; // GridFetchResult<T>
 }, []);
 ```
 
