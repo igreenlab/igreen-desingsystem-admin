@@ -83,7 +83,7 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 > (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
 > **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
 > · `tooltip`/`hover-card` (dica/prévia no hover).
-> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `single-menu-sidebar` `header` `app-shell`.
+> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `single-menu-sidebar` `kpi` `header` `app-shell`.
 > Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
 > `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
 > `example-mapa-rede`.
@@ -109,6 +109,7 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
 | "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
 | "menu lateral simples", "sidebar de nível único", "menu sem rail/contextos"               | `single-menu-sidebar` (template) | SingleMenuSidebar           |
+| "kpi", "card de métrica", "indicador", "stat card", "row de métricas/dashboard cards"     | `kpi` (componente)               | Kpi / KpiGroup / KpiDelta   |
 | "cabeçalho do app", "topbar", "header com usuário"                                        | `header` (template)              | Header                      |
 | "cabeçalho de página", "título + ações + breadcrumb"                                      | `page-header` (template)         | PageHeader                  |
 | "gráfico de barras/linha/área/pizza"                                                      | `chart` (componente)             | ChartContainer              |

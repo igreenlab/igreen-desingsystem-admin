@@ -54,7 +54,7 @@ export const kpiGroup = tv({
     },
     divided: {
       // 1 card único com divisórias (linha no mobile, coluna no sm+)
-      true: "gap-0 overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm divide-y divide-border-subtle sm:divide-y-0 sm:divide-x",
+      true: "overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface shadow-sh-sm divide-y divide-border-subtle sm:divide-y-0 sm:divide-x",
       false: "gap-gp-2xl",
     },
   },
