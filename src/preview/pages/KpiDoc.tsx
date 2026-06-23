@@ -35,8 +35,15 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
+import { Kpi, KpiGroup, KpiDelta } from "@/components/ui/Kpi";
 import { ChartContainer, type ChartConfig } from "../../components/ui/Chart";
-import { DocLayout, DocHeader, DocSeparator } from "../components";
+import {
+  DocLayout,
+  DocHeader,
+  DocSeparator,
+  SectionH2,
+  PropsTable,
+} from "../components";
 
 /* ══════════════════════════════════════════════════════════════════════════
    KPI Pack — galeria de modelos de cards de KPI/estatística
@@ -921,70 +928,334 @@ function TradingModel() {
   );
 }
 
-/* ── Page ─────────────────────────────────────────────────────────────── */
-const TOC = [
-  { id: "simples", label: "Simples & ícone" },
-  { id: "row", label: "KPI row + ícone" },
-  { id: "atendimento", label: "KPI row (atendimento)" },
-  { id: "quad", label: "Quad 2×2" },
-  { id: "sparkline", label: "Com sparkline" },
-  { id: "spark-cards", label: "KPI + sparkline" },
-  { id: "leads", label: "KPI + bars + nota" },
-  { id: "perf", label: "Faixa de métricas" },
-  { id: "trading", label: "Trading row" },
-  { id: "destaque", label: "Destaque & detalhe" },
-  { id: "feature", label: "Feature + split + CTA" },
-  { id: "highlight", label: "Destaque brand / area" },
-  { id: "detail", label: "Detail strip" },
+/* ════════════════════════════════════════════════════════════════════════
+   Demarcação de exemplo — `kpi/<id>` (pra IA/consumidor referenciar o modelo)
+   ════════════════════════════════════════════════════════════════════════ */
+function Example({
+  id,
+  title,
+  desc,
+  children,
+}: {
+  id: string;
+  title: string;
+  desc?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="flex scroll-mt-6 flex-col gap-gp-lg">
+      <div className="flex flex-col gap-gp-2xs">
+        <div className="flex flex-wrap items-center gap-gp-md">
+          <code className="rounded-radius-sm bg-bg-muted px-pad-md py-pad-2xs text-caption-sm font-medium text-fg-muted">
+            kpi/{id}
+          </code>
+          <span className="text-body-md font-semibold text-fg-default">
+            {title}
+          </span>
+        </div>
+        {desc && <p className="text-body-sm text-fg-muted">{desc}</p>}
+      </div>
+      {children}
+    </section>
+  );
+}
+
+/* ── Primitivos em uso (Kpi / KpiGroup / KpiDelta) ────────────────────── */
+function PrimGroupCards() {
+  return (
+    <KpiGroup columns={4}>
+      {KPIS_ATEND.map((k) => {
+        const Icon = k.icon;
+        return (
+          <Kpi
+            key={k.id}
+            label={k.title}
+            value={k.value}
+            icon={<Icon strokeWidth={1.8} />}
+            tone={k.tone}
+            delta={
+              k.delta && (
+                <KpiDelta
+                  value={k.delta.value}
+                  tone={k.delta.positive ? "success" : "danger"}
+                />
+              )
+            }
+            hint={k.delta?.label}
+          />
+        );
+      })}
+    </KpiGroup>
+  );
+}
+
+function PrimGroupDivided() {
+  return (
+    <KpiGroup columns={4} divided>
+      {KPIS_ATEND.map((k) => {
+        const Icon = k.icon;
+        return (
+          <Kpi
+            key={k.id}
+            label={k.title}
+            value={k.value}
+            icon={<Icon strokeWidth={1.8} />}
+            tone={k.tone}
+            delta={
+              k.delta && (
+                <KpiDelta
+                  value={k.delta.value}
+                  tone={k.delta.positive ? "success" : "danger"}
+                />
+              )
+            }
+            hint={k.delta?.label}
+          />
+        );
+      })}
+    </KpiGroup>
+  );
+}
+
+function PrimSparkline() {
+  return (
+    <div className="max-w-[320px]">
+      <Kpi
+        label="Total Income"
+        value="$6,280"
+        delta={<KpiDelta value="+18%" direction="up" />}
+        hint="vs last month"
+      >
+        <ChartContainer config={sparkCfg} className="h-[64px] w-full">
+          <LineChart data={SPARK_LINE} margin={{ top: 6, bottom: 6 }}>
+            <Line
+              dataKey="v"
+              type="monotone"
+              stroke={C.teal}
+              strokeWidth={2}
+              dot={false}
+            />
+          </LineChart>
+        </ChartContainer>
+      </Kpi>
+    </div>
+  );
+}
+
+function PrimDeltas() {
+  return (
+    <div className="flex flex-wrap items-center gap-gp-lg">
+      <KpiDelta value="+18%" direction="up" />
+      <KpiDelta value="-5%" tone="danger" direction="down" />
+      <KpiDelta value="+24" />
+      <KpiDelta value="0%" tone="neutral" />
+      <KpiDelta value="+34.2% yr" />
+    </div>
+  );
+}
+
+/* ── API tables ───────────────────────────────────────────────────────── */
+const PROPS_KPI = [
+  { name: "label", type: "string", defaultVal: "—", required: true },
+  { name: "value", type: "ReactNode", defaultVal: "—", required: true },
+  { name: "delta", type: "ReactNode (use <KpiDelta>)", defaultVal: "—" },
+  { name: "hint", type: "ReactNode (sublabel)", defaultVal: "—" },
+  { name: "icon", type: "ReactNode", defaultVal: "—" },
+  {
+    name: "tone",
+    type: "brand·success·warning·info·danger·neutral",
+    defaultVal: "neutral",
+  },
+  { name: "footnote", type: "ReactNode", defaultVal: "—" },
+  {
+    name: "children",
+    type: "ReactNode (slot sparkline/chart)",
+    defaultVal: "—",
+  },
+  { name: "surface", type: "card · plain", defaultVal: "herda do KpiGroup" },
+];
+const PROPS_GROUP = [
+  { name: "columns", type: "2·3·4·5·6", defaultVal: "4" },
+  {
+    name: "divided",
+    type: "boolean (1 card c/ divisórias)",
+    defaultVal: "false",
+  },
+];
+const PROPS_DELTA = [
+  { name: "value", type: "ReactNode", defaultVal: "—", required: true },
+  { name: "tone", type: "success · danger · neutral", defaultVal: "success" },
+  { name: "direction", type: "up · down (seta)", defaultVal: "—" },
 ];
 
-export function KpiPackDoc() {
+/* ── Page ─────────────────────────────────────────────────────────────── */
+const TOC = [
+  { id: "primitivos", label: "Primitivos" },
+  { id: "kpi-group-cards", label: "KpiGroup · cards" },
+  { id: "kpi-group-divided", label: "KpiGroup · divided" },
+  { id: "kpi-sparkline", label: "Kpi + sparkline" },
+  { id: "kpi-delta", label: "KpiDelta" },
+  { id: "api", label: "API" },
+  { id: "composicoes", label: "Composições (modelos)" },
+  { id: "row", label: "row + ícone" },
+  { id: "atendimento", label: "row (atendimento)" },
+  { id: "quad", label: "quad 2×2" },
+  { id: "spark-cards", label: "sparkline (bars/line/donut)" },
+  { id: "leads", label: "leads + bars" },
+  { id: "perf", label: "faixa de métricas" },
+  { id: "trading", label: "trading row" },
+  { id: "feature", label: "feature + split" },
+  { id: "highlight", label: "destaque brand / area" },
+  { id: "detail", label: "detail strip" },
+];
+
+export function KpiDoc() {
   return (
     <DocLayout toc={TOC} wide>
       <DocHeader
         category="Templates"
-        title="KPI Pack"
-        description="Galeria de modelos de cards de KPI/estatística — para inspirar e copiar. 100% sobre tokens do DS (theme-aware), sparklines via Chart e delta via Chip. Não é um componente: são padrões prontos pra compor dashboards."
+        title="KPI"
+        description="Componente de KPI composável — Kpi + KpiGroup + KpiDelta — pra montar cards de métrica, mais uma galeria de modelos prontos (Composições) pra copiar/referenciar. 100% sobre tokens do DS (theme-aware); sparklines via Chart, delta via Chip."
         dependency="recharts"
       />
       <DocSeparator />
 
-      <div className="flex flex-col gap-gp-4xl">
-        <SectionLabel>Simples &amp; ícone</SectionLabel>
-        <div id="row">
+      <div className="flex flex-col gap-gp-6xl">
+        {/* ── PRIMITIVOS ── */}
+        <SectionH2 id="primitivos" title="Primitivos" />
+        <p className="-mt-gp-2xl max-w-[640px] text-body-md text-fg-muted">
+          Três peças componíveis: <strong>Kpi</strong> (card base),{" "}
+          <strong>KpiGroup</strong> (layout: columns/divided) e{" "}
+          <strong>KpiDelta</strong> (pílula de variação). Importe de{" "}
+          <code className="rounded-radius-sm bg-bg-muted px-pad-xs py-[1px] text-caption-sm">
+            @/components/ui/Kpi
+          </code>
+          .
+        </p>
+        <Example
+          id="kpi-group-cards"
+          title="KpiGroup — cards"
+          desc="columns={4}; cada Kpi é um card próprio. (Mesmo visual do modelo kpi/atendimento, agora componível.)"
+        >
+          <PrimGroupCards />
+        </Example>
+        <Example
+          id="kpi-group-divided"
+          title="KpiGroup — divided"
+          desc="divided: vira 1 card único com divisórias entre os KPIs (os filhos viram surface plain automaticamente)."
+        >
+          <PrimGroupDivided />
+        </Example>
+        <Example
+          id="kpi-sparkline"
+          title="Kpi + sparkline"
+          desc="Slot children = um ChartContainer (bars/line/area/donut) abaixo do valor."
+        >
+          <PrimSparkline />
+        </Example>
+        <Example
+          id="kpi-delta"
+          title="KpiDelta"
+          desc="Pílula de variação sobre o Chip — tom semântico (o consumidor decide: subir nem sempre é positivo) + seta opcional."
+        >
+          <PrimDeltas />
+        </Example>
+
+        {/* ── API ── */}
+        <SectionH2 id="api" title="API" />
+        <div className="flex flex-col gap-gp-2xl">
+          <div className="scroll-mt-6">
+            <h3 className="mb-gp-md text-title-md font-semibold text-fg-default">
+              {"<Kpi>"}
+            </h3>
+            <PropsTable items={PROPS_KPI} />
+          </div>
+          <div className="scroll-mt-6">
+            <h3 className="mb-gp-md text-title-md font-semibold text-fg-default">
+              {"<KpiGroup>"}
+            </h3>
+            <PropsTable items={PROPS_GROUP} />
+          </div>
+          <div className="scroll-mt-6">
+            <h3 className="mb-gp-md text-title-md font-semibold text-fg-default">
+              {"<KpiDelta>"}
+            </h3>
+            <PropsTable items={PROPS_DELTA} />
+          </div>
+        </div>
+
+        {/* ── COMPOSIÇÕES (modelos) ── */}
+        <SectionH2 id="composicoes" title="Composições (modelos)" />
+        <p className="-mt-gp-2xl max-w-[640px] text-body-md text-fg-muted">
+          Modelos prontos pra copiar e referenciar (cada um com seu id{" "}
+          <code className="rounded-radius-sm bg-bg-muted px-pad-xs py-[1px] text-caption-sm">
+            kpi/&lt;id&gt;
+          </code>
+          ). Os que encaixam usam os primitivos; os mais específicos (brand,
+          detail) são composição custom sobre os tokens do DS.
+        </p>
+        <Example id="row" title="KPI row + ícone" desc="ref: statistics-02">
           <KpiRowModel />
-        </div>
-        <div id="atendimento">
+        </Example>
+        <Example
+          id="atendimento"
+          title="KPI row (atendimento)"
+          desc="Réplica do DashboardShowcase — mesmo resultado de kpi/group-cards."
+        >
           <DashKpiRowModel />
-        </div>
-        <div id="quad" className="flex justify-center">
+        </Example>
+        <Example
+          id="quad"
+          title="Quad 2×2"
+          desc="ref: 4.png (product analytics)"
+        >
           <QuadModel />
-        </div>
-
-        <SectionLabel>Com sparkline</SectionLabel>
-        <div id="spark-cards">
+        </Example>
+        <Example
+          id="spark-cards"
+          title="KPI + sparkline (bars/line/donut)"
+          desc="ref: statistics-03"
+        >
           <KpiSparklineModel />
-        </div>
-        <div id="leads" className="flex justify-center">
+        </Example>
+        <Example
+          id="leads"
+          title="Leads + bars + nota"
+          desc="ref: 1.png — 2 cards lado a lado (up/down)"
+        >
           <LeadsModel />
-        </div>
-        <div id="perf">
+        </Example>
+        <Example
+          id="perf"
+          title="Faixa de métricas"
+          desc="ref: 2.png (performance summary) — divisórias + sparkline por métrica"
+        >
           <PerfStripModel />
-        </div>
-        <div id="trading">
+        </Example>
+        <Example id="trading" title="Trading row" desc="ref: igreen-dashboard">
           <TradingModel />
-        </div>
-
-        <SectionLabel>Destaque &amp; detalhe</SectionLabel>
-        <div id="feature">
+        </Example>
+        <Example
+          id="feature"
+          title="Feature + split + CTA"
+          desc="ref: statistics-01"
+        >
           <FeatureSplitModel />
-        </div>
-        <div id="highlight">
+        </Example>
+        <Example
+          id="highlight"
+          title="Destaque brand / area"
+          desc="ref: statistics-05 — composição custom (cards de marca)"
+        >
           <HighlightModel />
-        </div>
-        <div id="detail">
+        </Example>
+        <Example
+          id="detail"
+          title="Detail strip"
+          desc="ref: 3.png (company details) — composição custom"
+        >
           <DetailStripModel />
-        </div>
+        </Example>
       </div>
     </DocLayout>
   );

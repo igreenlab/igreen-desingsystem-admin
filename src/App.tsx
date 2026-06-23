@@ -90,7 +90,7 @@ import { LabelDoc } from "./preview/pages/LabelDoc";
 import { SeparatorDoc } from "./preview/pages/SeparatorDoc";
 import { MenuSidebarDoc } from "./preview/pages/MenuSidebarDoc";
 import { SingleMenuSidebarDoc } from "./preview/pages/SingleMenuSidebarDoc";
-import { KpiPackDoc } from "./preview/pages/KpiPackDoc";
+import { KpiDoc } from "./preview/pages/KpiDoc";
 import { HeaderDoc } from "./preview/pages/HeaderDoc";
 import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
@@ -295,7 +295,7 @@ const DOC_PAGES = [
   "select",
   "menu-sidebar",
   "single-menu-sidebar",
-  "kpi-pack",
+  "kpi",
   "header",
   "app-shell",
   "page-header",
@@ -571,7 +571,7 @@ export function App() {
             {activePage === "separator" && <SeparatorDoc />}
             {activePage === "menu-sidebar" && <MenuSidebarDoc />}
             {activePage === "single-menu-sidebar" && <SingleMenuSidebarDoc />}
-            {activePage === "kpi-pack" && <KpiPackDoc />}
+            {activePage === "kpi" && <KpiDoc />}
             {activePage === "header" && <HeaderDoc />}
             {activePage === "app-shell" && <AppShellDoc />}
             {activePage === "page-header" && <PageHeaderDoc />}

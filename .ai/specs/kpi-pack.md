@@ -1,16 +1,18 @@
-# Spec — KPI Pack (showcase de modelos)
+# Spec — KPI (componente + galeria de modelos)
 
-**Data:** 2026-06-23 · **Tipo:** template (showcase) · **Branch:** `feat/kpi-pack`
+**Data:** 2026-06-23 · **Tipo:** componente (ui) + showcase · **Branch:** `feat/kpi-pack`
 
 ## O que é
 
-Um **pack de KPIs**: galeria de ~9 variações distintas de cards de KPI/estatística,
-construídas 100% com o iGreen DS, para servir de **modelos copy-paste** ("inspirar e
-usar"). **Não é um componente** com props — é uma página de showcase com exemplos.
-Categoria: **Templates**.
+Componente **KPI** composável + galeria de modelos. Evoluiu de showcase ("pack")
+para **componente real** (decisão do usuário após validar a galeria):
 
-> Primitivo (`KpiCard`/`Stat`) fica para depois — só quando os padrões se repetirem
-> e justificarem extração (decisão do usuário).
+- **Primitivos** (`src/components/ui/Kpi/`): `Kpi` (card base) · `KpiGroup`
+  (layout columns/divided) · `KpiDelta` (pílula de variação). tv() + tokens,
+  theme-aware. Composição `<KpiGroup><Kpi .../></KpiGroup>` + slot p/ sparkline.
+- **Doc** (`#/kpi`, `KpiDoc.tsx`): Primitivos (exemplos demarcados `kpi/<id>`) +
+  API (PropsTable dos 3) + Composições (os 9 modelos, mantidos pra comparar; os
+  que encaixam usam os primitivos, os bespoke são composição custom).
 
 ## Decisões (gate)
 
