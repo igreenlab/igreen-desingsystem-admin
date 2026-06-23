@@ -25,6 +25,7 @@
 
 import type { DataTableColumnDef } from "../data-table.types";
 import { columnTypeRegistry } from "../column-types";
+import { ACTIONS_COLUMN_WIDTH } from "../data-table.constants";
 import { measureTextWidth } from "./measure-text";
 import { applyValueGetter, applyFormatter } from "./resolve-value";
 
@@ -78,6 +79,15 @@ export function calculateColumnWidths<T>(
       continue;
     }
 
+    // `actions`: largura fixa estreita (ícone/menu). Não mede conteúdo nem
+    // entra no flex (Layer 3) — senão vira 160px e/ou estica.
+    if (col.type === "actions") {
+      const w = col.minWidth ?? ACTIONS_COLUMN_WIDTH;
+      widths[field] = w;
+      totalContentWidth += w;
+      continue;
+    }
+
     // Layer 1 — Type Heuristics
     const typeDef = col.type ? columnTypeRegistry.get(col.type) : undefined;
     let calculatedWidth = typeDef?.defaultWidth ?? DEFAULT_COLUMN_WIDTH;
@@ -117,11 +127,19 @@ export function calculateColumnWidths<T>(
     const remainingSpace = containerWidth - totalContentWidth;
 
     // Distribui entre colunas SEM width explícito do consumer.
-    // Fallback: se todas as colunas têm width fixo, distribui em todas (apenas
-    // quando autoFit: true — comportamento agressivo opt-in).
-    const flexibleColumns = columns.filter((col) => col.width === undefined);
+    // `actions`/`checkbox` NUNCA entram no flex — são colunas de largura fixa
+    // (ícone), senão "esticam" e empurram o conteúdo (bug do auto-width).
+    const isFixed = (col: DataTableColumnDef<T>) =>
+      col.type === "actions" || col.type === "checkbox";
+    const flexibleColumns = columns.filter(
+      (col) => col.width === undefined && !isFixed(col),
+    );
     const targets =
-      flexibleColumns.length > 0 ? flexibleColumns : autoFit ? columns : [];
+      flexibleColumns.length > 0
+        ? flexibleColumns
+        : autoFit
+          ? columns.filter((col) => !isFixed(col))
+          : [];
 
     if (targets.length > 0) {
       const extraPerColumn = Math.floor(remainingSpace / targets.length);

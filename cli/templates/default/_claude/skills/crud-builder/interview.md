@@ -13,34 +13,39 @@ são sempre explícitas:
    pergunte se **alguma tem particularidade** (ordenável, editável inline, alinhamento,
    fixar/pin, largura, filtro, totalizador). Nunca gere com colunas só inferidas.
 2. **Views salvas** — **sempre OFEREÇA e explique** (não trate como "off" silencioso):
+
    > "Quer **views salvas**? São abas com filtros + ordenação + colunas/densidade
-   > pré-configurados (ex.: *Ativos*, *Alto valor*, *Atrasados*). O usuário troca de
+   > pré-configurados (ex.: _Ativos_, _Alto valor_, _Atrasados_). O usuário troca de
    > recorte num clique — sem precisar de uma tela nova pra cada um."
 
    Pergunte quais (nome + filtro + sort). Default = nenhuma, **mas só depois de perguntar**.
 
 ## Fase 0 — Entidade & origem dos dados
+
 - Qual entidade? (ex.: Clientes, Pedidos, Faturas) → vira o nome da tela/tipo.
 - Dados **client-side** (array em memória/mock) ou **server-side** (fetch paginado da API)?
   - Server: qual o endpoint/forma de buscar? (vira `fetchData` em `useCallback`).
 - Onde a página vai morar e como registra a rota? (`PAGES_DIR`/`REGISTRO`).
 
 ## Fase 1 — Colunas
+
 Pra cada coluna: campo, rótulo, **tipo** (text, number, currency, percentage, date,
 datetime, email, phone, url, status/badge, boolean, user, tags, actions), e se é
 sortable / editável (inline). Pergunte quais colunas o usuário quer e em que ordem.
 Marque a coluna "primária" (a que abre detalhe / leva avatar).
 
 ## Fase 2 — Busca, filtros & ações
+
 - Busca global? (`enableSearch`)
-- Filtros por coluna? quais colunas e tipo de filtro (text/number/date/select/multiSelect/boolean)?
-- Ações por linha (editar, excluir, ...)? (coluna `actions`, `getActions`).
+- Filtros por coluna? **Default = TODAS as colunas de dados filtram** (`enableColumnFilter: true` + `filterType` por tipo) — pergunte só "alguma NÃO deve filtrar?". O funil/drawer só lista colunas com `enableColumnFilter`; marcar só 2 = bug. (Ver §Regras de coluna em `generate.md`.)
+- Ações por linha (editar, excluir, ...)? (coluna `actions`, `getActions`) — vai por **último**; o DataTable ancora à direita/estreita sozinho (sem `pinned`/`width`). NÃO setar `width` nas demais (autoFit distribui).
   **Toda ação destrutiva (Excluir) → confirmação OBRIGATÓRIA via `AlertModal`** (nunca
   deletar direto). Pergunte o texto do confirm.
 - Seleção + ações em massa (exportar, etc.)? (`selectionConfig` + bulk actions).
 - Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
 
 ## Fase 3 — Views, paginação & densidade
+
 - Views (ver bloco obrigatório). Dois sabores, pergunte os dois:
   - **Presets fixos** que VOCÊ define (`defaultViews`/`presetView`, ex.: "Ativos", "Alto valor").
   - **Views do usuário**: ele cria/salva/persiste as próprias (`savedViewsService` + `persistId`).
@@ -48,6 +53,7 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - Totalizadores no rodapé? (`showTotalizers` + `aggregate`).
 
 ## Fase 4 — Criar/editar/detalhe (drawers)
+
 - Precisa criar/editar registro? → drawer estilo `NovoClienteDrawer` (Panel + FormField).
   - **Quais campos no form?** (default: espelha as colunas editáveis). Pra cada campo:
     **obrigatório?** **máscara** (CNPJ / telefone / CEP / moeda)? **validação** (formato,
@@ -56,13 +62,15 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - (Puxar `example-finance` na geração pra reusar esses padrões.)
 
 ## Fase 5 — Kanban (opcional)
+
 - Quer alternar tabela↔kanban? Se sim: qual campo agrupa as colunas (ex.: status)?
   Cada lane = uma option desse campo. (`viewMode` controlado + `kanbanConfig`.)
 
 ## Fase 6 — Estados (SEMPRE perguntar — sai faltando se não)
+
 - **Loading** (`loading` + `renderLoading`): skeleton enquanto carrega — obrigatório em server mode.
-- **Vazio** (`renderEmpty`): sem nenhum registro → "Nenhuma `<entidade>` ainda" + CTA *Adicionar*.
-- **Sem resultado** (`renderNoResults`): filtro/busca sem match → "Nenhum resultado" + *Limpar filtros*.
+- **Vazio** (`renderEmpty`): sem nenhum registro → "Nenhuma `<entidade>` ainda" + CTA _Adicionar_.
+- **Sem resultado** (`renderNoResults`): filtro/busca sem match → "Nenhum resultado" + _Limpar filtros_.
 - (Aceite defaults sensatos se o usuário não quiser customizar — mas **sempre wire os três**.)
 
 Ao terminar: resuma as escolhas e siga pro `blueprint.md` (gate).
