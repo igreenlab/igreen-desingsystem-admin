@@ -519,9 +519,12 @@ function PerfStripModel() {
       <p className="mt-gp-2xs text-body-sm text-fg-muted">
         View your key performance metrics
       </p>
-      <div className="mt-pad-4xl grid grid-cols-2 gap-gp-2xl sm:grid-cols-3 lg:grid-cols-5">
+      <div className="mt-pad-4xl grid grid-cols-2 gap-x-gp-2xl gap-y-pad-4xl sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-0 lg:divide-x lg:divide-border-subtle">
         {PERF.map((m) => (
-          <div key={m.label}>
+          <div
+            key={m.label}
+            className="lg:px-pad-2xl lg:first:pl-0 lg:last:pr-0"
+          >
             <p className="text-caption-md text-fg-muted">{m.label}</p>
             <div className="mt-gp-2xs flex items-center justify-between gap-gp-md">
               <span className="text-[22px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
