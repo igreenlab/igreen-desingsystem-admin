@@ -163,6 +163,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Header", href: "header" },
       { label: "MenuSidebar", href: "menu-sidebar" },
       { label: "SingleMenuSidebar", href: "single-menu-sidebar" },
+      { label: "KPI Pack", href: "kpi-pack" },
       { label: "App Shell", href: "app-shell" },
       { label: "Page Header", href: "page-header" },
     ],
