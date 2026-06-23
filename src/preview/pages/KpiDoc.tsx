@@ -943,7 +943,10 @@ function Example({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="flex scroll-mt-6 flex-col gap-gp-lg">
+    <section
+      id={id}
+      className="flex scroll-mt-6 flex-col gap-gp-xl border-b border-border-subtle pb-gp-6xl last:border-0 last:pb-0"
+    >
       <div className="flex flex-col gap-gp-2xs">
         <div className="flex flex-wrap items-center gap-gp-md">
           <code className="rounded-radius-sm bg-bg-muted px-pad-md py-pad-2xs text-caption-sm font-medium text-fg-muted">
@@ -1096,7 +1099,7 @@ const TOC = [
   { id: "kpi-sparkline", label: "Kpi + sparkline" },
   { id: "kpi-delta", label: "KpiDelta" },
   { id: "api", label: "API" },
-  { id: "composicoes", label: "Composições (modelos)" },
+  { id: "examples", label: "Examples" },
   { id: "row", label: "row + ícone" },
   { id: "atendimento", label: "row (atendimento)" },
   { id: "quad", label: "quad 2×2" },
@@ -1120,7 +1123,7 @@ export function KpiDoc() {
       />
       <DocSeparator />
 
-      <div className="flex flex-col gap-gp-6xl">
+      <div className="flex flex-col gap-gp-7xl">
         {/* ── PRIMITIVOS ── */}
         <SectionH2 id="primitivos" title="Primitivos" />
         <p className="-mt-gp-2xl max-w-[640px] text-body-md text-fg-muted">
@@ -1184,16 +1187,19 @@ export function KpiDoc() {
           </div>
         </div>
 
-        {/* ── COMPOSIÇÕES (modelos) ── */}
-        <SectionH2 id="composicoes" title="Composições (modelos)" />
+        {/* ── EXAMPLES (modelos) ── */}
+        <SectionH2 id="examples" title="Examples" />
         <p className="-mt-gp-2xl max-w-[640px] text-body-md text-fg-muted">
           Modelos prontos pra copiar e referenciar (cada um com seu id{" "}
           <code className="rounded-radius-sm bg-bg-muted px-pad-xs py-[1px] text-caption-sm">
             kpi/&lt;id&gt;
           </code>
-          ). Os que encaixam usam os primitivos; os mais específicos (brand,
-          detail) são composição custom sobre os tokens do DS.
+          ), agrupados por categoria. Os que encaixam usam os primitivos; os
+          mais específicos (brand, detail) são composição custom sobre os tokens
+          do DS.
         </p>
+
+        <SectionLabel>Simples &amp; ícone</SectionLabel>
         <Example id="row" title="KPI row + ícone" desc="ref: statistics-02">
           <KpiRowModel />
         </Example>
@@ -1211,6 +1217,8 @@ export function KpiDoc() {
         >
           <QuadModel />
         </Example>
+
+        <SectionLabel>Com sparkline</SectionLabel>
         <Example
           id="spark-cards"
           title="KPI + sparkline (bars/line/donut)"
@@ -1235,6 +1243,8 @@ export function KpiDoc() {
         <Example id="trading" title="Trading row" desc="ref: igreen-dashboard">
           <TradingModel />
         </Example>
+
+        <SectionLabel>Destaque &amp; detalhe</SectionLabel>
         <Example
           id="feature"
           title="Feature + split + CTA"
