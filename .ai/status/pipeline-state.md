@@ -1221,3 +1221,12 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
   standard/grouped/hierarchical + branchHighlight, virtualização/infinite) — verificado, sem gap.
 - **Bump CLI 0.13.9 → 0.13.10** (template mudou). Só docs/roteamento — nenhum componente tocado.
 - **Pendência do mantenedor**: **publish manual do CLI 0.13.10** (npm whoami = 401 — `npm login` antes); revogar token npm.
+
+### 2026-06-23 | DS REVIEWER + DEV | Kpi (componente) | APROVADO
+- Spec: `.ai/specs/kpi-pack.md` (evoluiu de showcase "KPI Pack" → componente, gate via AskUserQuestion).
+- Assumption: o padrão Panel/Chip/Chart cobre os 9 refs sem token/componente novo — confirmada (Kpi/KpiGroup/KpiDelta + slot cobrem; bespoke brand/detail ficam como composição). Válida.
+- Critique genuína: examinei se um primitivo único bastava — não; `KpiGroup` (layout) + `KpiDelta` (indicador) + `Kpi` (card c/ slot) é a divisão mínima que dá composição real. Surface via context (card/plain) evita prop drilling.
+- Regressões L-001..L-007: nenhuma. Pendências corrigidas no review: `gap-0` redundante removido (L-002); barrel `src/components/index.ts` faltava `Kpi` **e** `SingleMenuSidebar` (gap pré-existente) → ambos adicionados.
+- Distribuição (L-042 5/6/7): registry.json (`kpi`, deps chip/tv/utils+lucide) + registry:build (stamp v0.16.0) + embed (78 items) · catálogo CLI (CLAUDE.md App-level + intenção) + bump cli 0.13.13 · changelog v0.16.0 + bump DS 0.16.0.
+- Lições novas: nenhuma.
+- **Pendência do mantenedor**: merge do PR (deploy registry automático) + publish manual do CLI 0.13.13 (npm).

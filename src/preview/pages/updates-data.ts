@@ -46,6 +46,22 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.16.0",
+    date: "2026-06-23",
+    tag: "release",
+    title: "Componente KPI (Kpi + KpiGroup + KpiDelta) + galeria de modelos",
+    summary:
+      "Novo componente template **KPI** composável: `Kpi` (card base — label + ícone por tone + valor + delta + hint + slot pra sparkline + footnote), `KpiGroup` (layout: `columns` 2–6 responsivo + `divided` = 1 card com divisórias) e `KpiDelta` (pílula de variação sobre o Chip, tom semântico + seta). 100% sobre tokens do DS (theme-aware). A doc `#/kpi` traz Primitivos (exemplos demarcados `kpi/<id>` pra referência), tabelas de API e uma seção **Examples** com 9 modelos prontos por categoria (inspirados em shadcnspace statistics-01/02/03/05, prints e o igreen-dashboard) — os que encaixam usam os primitivos, os mais específicos (brand/area, detail strip) são composição custom. Distribuído via `igreen:add kpi`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `Kpi` (`ui/Kpi`): `Kpi` + `KpiGroup` (columns/divided) + `KpiDelta`. Composável (slot pra sparkline via Chart), theme-aware. Doc `#/kpi` (Primitivos + API + Examples/9 modelos). Registry `igreen:add kpi`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.15.0",
     date: "2026-06-22",
     tag: "release",

@@ -24,10 +24,12 @@ export * from "./ui/FormField";
 export * from "./ui/Header";
 export * from "./ui/Icon";
 export * from "./ui/Kanban";
+export * from "./ui/Kpi";
 export * from "./ui/MenuSidebar";
 export * from "./ui/Modal";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
+export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Table";
 // TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
 // pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
