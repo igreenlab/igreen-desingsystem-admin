@@ -317,14 +317,6 @@ const KPIS_ATEND: DashKpi[] = [
     icon: Clock,
     tone: "neutral",
   },
-  {
-    id: "wait",
-    title: "Tempo médio espera",
-    value: "1m 18s",
-    delta: { value: "-8s", positive: true, label: "melhorou" },
-    icon: Timer,
-    tone: "neutral",
-  },
 ];
 
 /** Réplica exata do KpiCard do DashboardShowcase. */
@@ -375,7 +367,7 @@ function DashKpiCard({ kpi }: { kpi: DashKpi }) {
 }
 function DashKpiRowModel() {
   return (
-    <div className="grid w-full grid-cols-1 gap-gp-2xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+    <div className="grid w-full grid-cols-1 gap-gp-2xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
       {KPIS_ATEND.map((kpi) => (
         <DashKpiCard key={kpi.id} kpi={kpi} />
       ))}
