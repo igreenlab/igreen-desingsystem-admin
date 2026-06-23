@@ -3,13 +3,16 @@ import {
   Bookmark,
   Box,
   CalendarDays,
+  CheckCircle2,
   Flame,
   LayoutGrid,
   LineChart as LineChartIcon,
   MoreVertical,
   Package,
+  Phone,
   ShoppingBag,
   Star,
+  Timer,
   TrendingUp,
   UserPlus,
   Users,
@@ -250,6 +253,133 @@ function KpiRowModel() {
         ))}
       </div>
     </Panel>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════════════
+   2b — KPI row de atendimento (réplica do DashboardShowcase)
+   ════════════════════════════════════════════════════════════════════════ */
+type KpiTone = "brand" | "success" | "warning" | "info" | "danger" | "neutral";
+const TONE_CLASSES: Record<KpiTone, { bg: string; fg: string }> = {
+  brand: { bg: "bg-bg-brand-subtle", fg: "text-fg-brand" },
+  success: { bg: "bg-bg-success-muted", fg: "text-fg-success" },
+  warning: { bg: "bg-bg-warning-muted", fg: "text-fg-warning" },
+  info: { bg: "bg-bg-info-muted", fg: "text-fg-info" },
+  danger: { bg: "bg-bg-danger-muted", fg: "text-fg-danger" },
+  neutral: { bg: "bg-bg-muted", fg: "text-fg-muted" },
+};
+type DashKpi = {
+  id: string;
+  title: string;
+  value: string;
+  delta?: { value: string; positive: boolean; label: string };
+  icon: typeof Box;
+  tone: KpiTone;
+};
+const KPIS_ATEND: DashKpi[] = [
+  {
+    id: "in-conv",
+    title: "Em atendimento",
+    value: "12",
+    delta: { value: "+3", positive: true, label: "vs ontem" },
+    icon: Phone,
+    tone: "success",
+  },
+  {
+    id: "waiting",
+    title: "Em espera",
+    value: "4",
+    delta: { value: "+1", positive: false, label: "vs ontem" },
+    icon: Timer,
+    tone: "warning",
+  },
+  {
+    id: "finished",
+    title: "Resolvidos hoje",
+    value: "87",
+    delta: { value: "+12%", positive: true, label: "vs semana" },
+    icon: CheckCircle2,
+    tone: "info",
+  },
+  {
+    id: "new",
+    title: "Novos contatos",
+    value: "260",
+    delta: { value: "+24", positive: true, label: "vs ontem" },
+    icon: UserPlus,
+    tone: "brand",
+  },
+  {
+    id: "talk",
+    title: "Tempo médio atend.",
+    value: "4m 32s",
+    delta: { value: "-12s", positive: true, label: "melhorou" },
+    icon: Clock,
+    tone: "neutral",
+  },
+  {
+    id: "wait",
+    title: "Tempo médio espera",
+    value: "1m 18s",
+    delta: { value: "-8s", positive: true, label: "melhorou" },
+    icon: Timer,
+    tone: "neutral",
+  },
+];
+
+/** Réplica exata do KpiCard do DashboardShowcase. */
+function DashKpiCard({ kpi }: { kpi: DashKpi }) {
+  const Icon = kpi.icon;
+  const cls = TONE_CLASSES[kpi.tone];
+  return (
+    <article className="flex flex-col gap-gp-lg rounded-radius-xl border border-border-subtle bg-bg-surface p-pad-3xl shadow-sh-sm">
+      <header className="flex items-start justify-between gap-gp-md">
+        <h3 className="m-0 text-body-md font-semibold text-fg-default">
+          {kpi.title}
+        </h3>
+        <span
+          className={cn(
+            "grid size-form-lg shrink-0 place-items-center rounded-radius-lg",
+            cls.bg,
+            cls.fg,
+          )}
+          aria-hidden
+        >
+          <Icon className="size-icon-md" strokeWidth={1.8} />
+        </span>
+      </header>
+      <div className="flex flex-col gap-gp-xs">
+        <div className="flex flex-wrap items-center gap-gp-md">
+          <span className="text-body-2xl font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]">
+            {kpi.value}
+          </span>
+          {kpi.delta && (
+            <Chip
+              color={kpi.delta.positive ? "success" : "danger"}
+              variant="soft"
+              size="sm"
+              shape="pill"
+            >
+              {kpi.delta.value}
+            </Chip>
+          )}
+        </div>
+        {kpi.delta && (
+          <span className="text-caption-sm text-fg-subtle">
+            {kpi.delta.label}
+          </span>
+        )}
+      </div>
+    </article>
+  );
+}
+function DashKpiRowModel() {
+  return (
+    <div className="grid w-full grid-cols-1 gap-gp-2xl sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6">
+      {KPIS_ATEND.map((kpi) => (
+        <DashKpiCard key={kpi.id} kpi={kpi} />
+      ))}
+    </div>
   );
 }
 
@@ -811,6 +941,7 @@ function TradingModel() {
 const TOC = [
   { id: "simples", label: "Simples & ícone" },
   { id: "row", label: "KPI row + ícone" },
+  { id: "atendimento", label: "KPI row (atendimento)" },
   { id: "quad", label: "Quad 2×2" },
   { id: "sparkline", label: "Com sparkline" },
   { id: "spark-cards", label: "KPI + sparkline" },
@@ -838,6 +969,9 @@ export function KpiPackDoc() {
         <SectionLabel>Simples &amp; ícone</SectionLabel>
         <div id="row">
           <KpiRowModel />
+        </div>
+        <div id="atendimento">
+          <DashKpiRowModel />
         </div>
         <div id="quad" className="flex justify-center">
           <QuadModel />
