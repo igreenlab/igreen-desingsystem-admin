@@ -232,15 +232,17 @@ function KpiRowModel() {
     <Panel className="w-full !p-0">
       <div className="grid grid-cols-1 divide-y divide-border-subtle sm:grid-cols-2 sm:divide-y-0 lg:grid-cols-4 [&>div]:border-border-subtle sm:[&>div]:border-l sm:[&>div:first-child]:border-l-0 lg:[&>div:nth-child(3)]:border-l">
         {ROW_KPIS.map((k) => (
-          <div key={k.label} className="p-pad-4xl">
+          <div key={k.label} className="p-pad-3xl">
             <div className="flex items-start justify-between">
-              <p className="text-title-md font-semibold text-fg-default">
+              <p className="text-title-sm font-semibold text-fg-default">
                 {k.label}
               </p>
               <IconCircle icon={k.icon} />
             </div>
-            <p className={cn(KPI_VALUE, "mt-pad-md")}>{k.value}</p>
-            <div className="mt-gp-md flex items-center gap-gp-md">
+            <p className="mt-gp-xs text-[24px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+              {k.value}
+            </p>
+            <div className="mt-gp-2xs flex items-center gap-gp-md">
               <span className="text-caption-md text-fg-muted">Last 7 days</span>
               <Delta value={k.delta} down={k.down} />
             </div>
