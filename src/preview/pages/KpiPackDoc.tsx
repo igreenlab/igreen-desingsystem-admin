@@ -458,39 +458,65 @@ function HighlightModel() {
 /* ════════════════════════════════════════════════════════════════════════
    5 — KPI + bars + nota (ref: 1.png — New Leads Generated)
    ════════════════════════════════════════════════════════════════════════ */
-const LEAD_BARS = [
-  { x: 0, v: 30, hl: false },
-  { x: 1, v: 42, hl: false },
-  { x: 2, v: 36, hl: false },
-  { x: 3, v: 64, hl: true },
-  { x: 4, v: 44, hl: false },
+const LEADS = [
+  {
+    title: "New Leads Generated",
+    value: "1,560",
+    delta: "+25%",
+    down: false,
+    note: "Highest lead volume recorded this quarter from all channels.",
+    bars: [
+      { x: 0, v: 30 },
+      { x: 1, v: 42 },
+      { x: 2, v: 36 },
+      { x: 3, v: 64 },
+      { x: 4, v: 44 },
+    ],
+    hl: 3,
+  },
+  {
+    title: "Qualified Leads",
+    value: "842",
+    delta: "-8%",
+    down: true,
+    note: "Conversion dipped slightly after the campaign pause last week.",
+    bars: [
+      { x: 0, v: 52 },
+      { x: 1, v: 60 },
+      { x: 2, v: 48 },
+      { x: 3, v: 40 },
+      { x: 4, v: 34 },
+    ],
+    hl: 4,
+  },
 ];
-function LeadsModel() {
+function LeadCard({ lead }: { lead: (typeof LEADS)[number] }) {
+  const accent = lead.down ? "var(--color-fg-danger)" : C.green;
   return (
-    <Panel className="w-full max-w-[460px]">
+    <Panel className="flex flex-col">
       <div className="flex items-center justify-between">
         <p className="text-title-md font-semibold text-fg-default">
-          New Leads Generated
+          {lead.title}
         </p>
         <MoreVertical className="size-icon-sm text-fg-muted" />
       </div>
       <div className="mt-pad-3xl flex items-end justify-between gap-gp-lg">
         <div>
           <div className="flex items-center gap-gp-md">
-            <span className={KPI_VALUE}>1,560</span>
-            <Delta value="+25%" arrow />
+            <span className={KPI_VALUE}>{lead.value}</span>
+            <Delta value={lead.delta} down={lead.down} arrow />
           </div>
           <p className="mt-gp-xs text-body-sm text-fg-muted">
             Compare from last month
           </p>
         </div>
         <ChartContainer config={sparkCfg} className="h-[64px] w-[160px]">
-          <BarChart data={LEAD_BARS}>
+          <BarChart data={lead.bars}>
             <Bar dataKey="v" radius={4}>
-              {LEAD_BARS.map((b) => (
+              {lead.bars.map((b, i) => (
                 <Cell
                   key={b.x}
-                  fill={b.hl ? C.green : "var(--color-bg-muted)"}
+                  fill={i === lead.hl ? accent : "var(--color-bg-muted)"}
                 />
               ))}
             </Bar>
@@ -498,11 +524,18 @@ function LeadsModel() {
         </ChartContainer>
       </div>
       <div className="mt-pad-4xl border-t border-border-subtle pt-pad-lg">
-        <p className="text-caption-md text-fg-muted">
-          Highest lead volume recorded this quarter from all channels.
-        </p>
+        <p className="text-caption-md text-fg-muted">{lead.note}</p>
       </div>
     </Panel>
+  );
+}
+function LeadsModel() {
+  return (
+    <div className="grid w-full max-w-[940px] grid-cols-1 gap-gp-2xl md:grid-cols-2">
+      {LEADS.map((lead) => (
+        <LeadCard key={lead.title} lead={lead} />
+      ))}
+    </div>
   );
 }
 
