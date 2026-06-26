@@ -10,7 +10,11 @@ const STORAGE_PREFIX = "igreen-datatable:";
 // v4: filterModel/search/currentPage persistem como parte do workspace "Default".
 // Quando uma view custom está ativa, esses campos refletem o snapshot Default
 // (não o state da view), pra preservar o workspace pessoal entre sessões.
-const SCHEMA_VERSION = 4;
+// v5: `columnWidths` passa a guardar SÓ resize manual (widthOverrides), não as
+// larguras efetivas (que incluíam autoFit). Persistir efetivas congelava o
+// layout e matava o autoFit no reload. Bump invalida o persist antigo (com
+// widths congelados) → autoFit recalcula limpo na próxima carga.
+const SCHEMA_VERSION = 5;
 
 /**
  * Subset persistido — workspace "Default" completo.

@@ -46,6 +46,23 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.19.1",
+    date: "2026-06-26",
+    tag: "patch",
+    title: "DataTable: autoFit deixa de ser congelado pelo persist",
+    summary:
+      "Fix do autoFit que não preenchia 'de novo' em tabelas com `persistId`. O persist estava salvando as larguras EFETIVAS (que já incluem o autoFit) como se fossem resize manual; no reload elas viravam `widthOverrides` (precedência máxima) e congelavam o layout — o autoFit nunca mais re-preenchia se o container mudasse. Agora o persist guarda SÓ o resize manual do usuário; o autoFit recalcula livre a cada carga. Schema do persist bumpado (v5) pra descartar os widths congelados já salvos.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: persist (workspace Default + saved views) guarda só o resize manual (`widthOverrides`), não as larguras efetivas com autoFit — antes congelava o layout e matava o autoFit no reload (sobrava espaço à direita 'de novo').",
+          "DataTable: SCHEMA_VERSION do persist → v5 (invalida o state antigo com widths congelados; autoFit recalcula limpo na próxima carga).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.19.0",
     date: "2026-06-26",
     tag: "release",
