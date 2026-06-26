@@ -13,7 +13,7 @@ ordem fixa — o consumer não monta a ordem, impossível montar errado.
 
 ```
 Esquerda:  viewToggle · ⟨divider⟩ · savedViews
-Direita:   refresh · search · filter · actions · settings · more
+Direita:   refresh · actions · search · filter · settings · more
 ```
 
 Em `< md`: o `refresh` some (o menu Configurações cobre o resto).

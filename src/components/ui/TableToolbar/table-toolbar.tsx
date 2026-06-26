@@ -15,7 +15,7 @@ import { ToolbarDivider } from "./parts/toolbar-divider";
  *
  * Ordem renderizada:
  *   Esquerda:  viewToggle · ⟨divider⟩ · savedViews
- *   Direita:   refresh · search · filter · actions · fullscreen · settings · more
+ *   Direita:   refresh · actions · search · filter · fullscreen · settings · more
  *
  * Consolida os controles secundários: Ordenação, Colunas, Filtros avançados
  * e Densidade vivem dentro do `settings` (`<ToolbarSettingsMenu>`, drill-down);
@@ -87,9 +87,9 @@ export function TableToolbar({
           Refresh some em <md (o menu de Configurações cobre o resto). */}
       <div className={toolbarActions()}>
         {refresh && <span className="hidden md:contents">{refresh}</span>}
+        {actions}
         {search}
         {filter}
-        {actions}
         {fullscreen}
         {settings}
         {more}

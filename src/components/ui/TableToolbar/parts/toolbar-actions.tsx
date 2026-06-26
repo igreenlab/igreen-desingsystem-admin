@@ -41,7 +41,12 @@ export type ToolbarAction =
       isActive?: boolean;
       disabled?: boolean;
     })
-  | (ActionBase & { kind: "dropdown"; items: ToolbarActionMenuItem[] })
+  | (ActionBase & {
+      kind: "dropdown";
+      items: ToolbarActionMenuItem[];
+      /** Esconde o chevron ▾ ao lado do label (default false). */
+      hideChevron?: boolean;
+    })
   | (ActionBase & {
       kind: "input";
       value: string;
@@ -121,10 +126,14 @@ function InlineAction({ action }: { action: ToolbarAction }) {
           <ToolbarToolButton
             icon={action.icon}
             label={
-              <span className="inline-flex items-center gap-gp-xs">
-                {action.label}
-                <ChevronDown className="size-[14px]" />
-              </span>
+              action.hideChevron ? (
+                action.label
+              ) : (
+                <span className="inline-flex items-center gap-gp-xs">
+                  {action.label}
+                  <ChevronDown className="size-[14px]" />
+                </span>
+              )
             }
           />
         </DropdownMenuTrigger>
