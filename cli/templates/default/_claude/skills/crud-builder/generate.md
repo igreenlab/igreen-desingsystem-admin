@@ -28,9 +28,22 @@ Nunca gere props de memória — copie a forma do exemplo.
 
 1. **Filtro em TODAS as colunas de dados**: cada coluna ganha `enableColumnFilter: true` + `filterType` (text→`"text"`, number/currency/percentage→`"number"`, date→`"date"`, badge/status/select→`"select"`, multiSelect/tags→`"multiSelect"`). Só ficam de fora `actions` e render-custom sem valor. ⚠️ O funil/drawer de filtros só lista colunas com `enableColumnFilter` — marcar só 2 = bug "filtra só 2 colunas".
 2. **Coluna `actions` por ÚLTIMO**, `type: "actions"` (via `actionColumn`/`getActions`). O DataTable ancora à direita e estreita por default — não precisa `pinned`/`width`.
-3. **NÃO setar `width`** nas colunas de dados — `autoFit` (default ON) distribui pra preencher o container (sem 1ª coluna esticada, sem scroll). Fixar só id/código curto. Nunca `autoFit: false` sem motivo.
+3. **NÃO setar `width`** nas colunas de dados — `autoFit` (default ON) distribui pra preencher o container (sem 1ª coluna esticada, sem scroll). Fixar só id/UF/nível curto. ⚠️ Setar `width` em todas = sobra espaço à direita. Nunca `autoFit: false` sem motivo.
 
-- Drawers (se houver): espelhe `NovoClienteDrawer` (Panel + FormField + `gap-form-gap`) e `FinanceDetailPanel` (FloatingPanel), ligados via estado da página (igual ao `finance-screen.tsx`).
+### Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
+
+Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempre antes de markup manual**:
+
+- **Coluna primária (nome)**: `isPrimary` + `render` com `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` num `size-[24px] rounded-radius-sm border bg-bg-canvas shadow-sh-sm`) quando o row click abre painel.
+- **Status / badge**: `type: "badge"` + `render` com `<Chip variant="soft" size="sm" shape="pill">` (cor semântica). Nunca pill na unha com `<span>` estilizado.
+- **Avatar**: `size="md"` na tabela (não `sm`). **Números/moeda/%**: `tabular-nums` + `type` (`currency`/`percentage`) + `align: "right"`. **Tags**: `type: "tags"` + `<Chip soft sm rounded>`.
+
+### Detail panel (row click → painel)
+
+Espelhe `FinanceDetailPanel` — **sempre** `<FloatingPanel>` (não markup solto):
+`titleSlot` (Avatar lg + nome + `ID · Chip status`) · `headerActions`/`footer` com `<Button>` · `bodyPadded={false}` · **agrupar por categoria** em `<FloatingPanelSection title>` · cada dado simples = **uma linha** `<FloatingPanelField label value/>` (lista) · destaque (saldo/progresso) = bloco próprio · conteúdo rico (checklist/extrato) mantém formato próprio dentro da Section (NÃO forçar em Field).
+
+- Drawers de criar/editar: espelhe `NovoClienteDrawer` (Panel + FormField + `gap-form-gap`), ligados via estado da página (igual ao `finance-screen.tsx`).
 - Tokens/spacing/typography conforme `.claude/rules/ds-design.md` + `DESIGN.md`.
 
 ## 4. Registrar a rota
