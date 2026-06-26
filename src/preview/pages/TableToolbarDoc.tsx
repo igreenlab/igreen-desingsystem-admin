@@ -241,9 +241,6 @@ export function TableToolbarDoc() {
         { id: "ex-full", label: "Drill-down (Configurações)" },
         { id: "ex-actions", label: "Ações custom (slot actions)" },
         { id: "api-reference", label: "API Reference" },
-        { id: "api-action", label: "ToolbarAction" },
-        { id: "api-menu-item", label: "ToolbarActionMenuItem" },
-        { id: "api-exposure", label: "Onde é exposto" },
       ]}
     >
       <DocHeader
@@ -514,17 +511,49 @@ export function TableToolbarDoc() {
         </div>
       </ExampleSection>
 
-      <SectionH2 id="api-reference" title="API Reference · ToolbarActions" />
-      <PropsTable items={PROPS_TOOLBAR_ACTIONS} />
+      <SectionH2 id="api-reference" title="API Reference" />
 
-      <SectionH2 id="api-action" title="ToolbarAction" />
-      <PropsTable items={PROPS_TOOLBAR_ACTION} />
+      <div className="mb-gp-4xl" id="api-actions-props">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarActions
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          Props do componente <code>&lt;ToolbarActions&gt;</code> usado no slot{" "}
+          <code>actions</code> do TableToolbar.
+        </p>
+        <PropsTable items={PROPS_TOOLBAR_ACTIONS} />
+      </div>
 
-      <SectionH2 id="api-menu-item" title="ToolbarActionMenuItem" />
-      <PropsTable items={PROPS_ACTION_MENU_ITEM} />
+      <div className="mb-gp-4xl" id="api-action">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarAction
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          União discriminada por <code>kind</code>. Os campos marcados com ·
+          button/dropdown/input pertencem só àquela forma.
+        </p>
+        <PropsTable items={PROPS_TOOLBAR_ACTION} />
+      </div>
 
-      <SectionH2 id="api-exposure" title="Onde é exposto" />
-      <PropsTable items={PROPS_EXPOSURE} />
+      <div className="mb-gp-4xl" id="api-menu-item">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarActionMenuItem
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          Item de um <code>dropdown</code> (e de <code>extraItems</code>).
+        </p>
+        <PropsTable items={PROPS_ACTION_MENU_ITEM} />
+      </div>
+
+      <div className="mb-gp-4xl" id="api-exposure">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          Onde é exposto
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          O mesmo slot chega aos componentes inteligentes.
+        </p>
+        <PropsTable items={PROPS_EXPOSURE} />
+      </div>
     </DocLayout>
   );
 }

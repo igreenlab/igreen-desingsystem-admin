@@ -1026,6 +1026,19 @@ pra IA:** ao adicionar/editar item no registry, valide que cada `registryDepende
 existe como item OU é bundlado por outro dep já listado — `npm run distribution:debt`
 (novo) + conferir os deps gerados pelo `registry-add-item` (ele não sabe o que é bundlado).
 
+## [L-050] Showcase API Reference: `PropsTable` direto, nunca dentro de `ExampleSection`
+
+`ExampleSection` é o **card de preview** (ring + shadow + min-h + centralização). `PropsTable`
+**já tem superfície própria** (ring). Renderizar `<PropsTable>` dentro de `<ExampleSection>`
+vira **card-dentro-de-card** — visual quebrado (caso real: API Reference do TableToolbarDoc).
+Pattern correto (igual `SliderDoc`): `SectionH2 "API Reference"` → `PropsTable` **direto**;
+pra 2+ tabelas, cada uma num wrapper `<div className="mb-gp-4xl"><h3 text-title-lg/><p/><PropsTable/></div>`.
+**Segundo erro do mesmo caso:** usei vários `SectionH2` pras sub-tabelas e elas coladas —
+`SectionH2` tem `mb-12` mas **sem margin-top**, então tabela seguida de heading cola. Sub-seções
+de API usam `h3 text-title-lg` (não `SectionH2`) + wrapper `mb-gp-4xl` pro espaçamento.
+Doc atualizada: `.ai/context/doc-guide.md` → "API Reference — padrão obrigatório". **Regra pra
+IA:** ao documentar API no showcase, `PropsTable` nunca aninhado; espelhar `SliderDoc`.
+
 ---
 
 ## Como adicionar nova lição
