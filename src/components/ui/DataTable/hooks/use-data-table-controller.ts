@@ -357,7 +357,10 @@ export function useDataTableController<T>(
     // só "captura" esses valores quando a Default está ativa. Aplicar uma view custom
     // não polui o Default (o save sempre usa defaultSnapshotRef, não persistedSnapshot).
     currentPage: pagination.paginationModel.page,
-    columnWidths: cols.columnWidths,
+    // Persistir SÓ resize manual (widthOverrides) — NUNCA as larguras efetivas
+    // (cols.columnWidths inclui autoFit). Persistir efetivas congelava o layout
+    // e matava o autoFit no reload (vira override de precedência máxima).
+    columnWidths: cols.widthOverrides,
     pinnedColumns: cols.pinnedColumns,
     hiddenColumns: Array.from(cols.hiddenColumns),
     columnOrder: cols.columnOrder,
@@ -374,7 +377,7 @@ export function useDataTableController<T>(
     sort.sortModels,
     pagination.paginationModel.pageSize,
     pagination.paginationModel.page,
-    cols.columnWidths,
+    cols.widthOverrides,
     cols.pinnedColumns,
     cols.hiddenColumns,
     cols.columnOrder,
@@ -527,7 +530,9 @@ export function useDataTableController<T>(
           filterModel: filters.filterModel,
           sortModel: sort.sortModels,
           density: density.density,
-          columnWidths: cols.columnWidths,
+          // Só resize manual (não as efetivas c/ autoFit) — senão a view congela
+          // o layout e mata o autoFit ao ser aplicada.
+          columnWidths: cols.widthOverrides,
           pinnedColumns: cols.pinnedColumns,
           hiddenColumns: Array.from(cols.hiddenColumns),
           columnOrder: cols.columnOrder,
@@ -544,7 +549,7 @@ export function useDataTableController<T>(
       filters.filterModel,
       sort.sortModels,
       density.density,
-      cols.columnWidths,
+      cols.widthOverrides,
       cols.pinnedColumns,
       cols.hiddenColumns,
       cols.columnOrder,

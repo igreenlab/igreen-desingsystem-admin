@@ -22,8 +22,10 @@ export type UseDataTableColumnsParams<T> = {
 export type UseDataTableColumnsResult<T> = {
   /** Colunas após aplicar hiddenColumns e columnOrder. */
   effectiveColumns: DataTableColumnDef<T>[];
-  /** Widths em px por field. */
+  /** Widths em px por field (efetivas — incluem autoFit). Use pra RENDER. */
   columnWidths: Record<string, number>;
+  /** Resize manual do usuário (sem autoFit). Use pra PERSISTIR (não as efetivas). */
+  widthOverrides: Record<string, number>;
   /** Sticky offsets por field. */
   stickyOffsets: Record<string, number>;
   /** Hidden columns state. */
@@ -227,6 +229,10 @@ export function useDataTableColumns<T>({
   return {
     effectiveColumns,
     columnWidths: widths,
+    /** Larguras de resize MANUAL do usuário (sem autoFit). Persistir SÓ isto —
+     *  persistir `columnWidths` (efetivas, c/ autoFit) congela o layout e mata o
+     *  autoFit no reload (vira widthOverrides de precedência máxima). */
+    widthOverrides,
     stickyOffsets: offsets,
     hiddenColumns,
     pinnedColumns,
