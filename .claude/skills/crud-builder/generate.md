@@ -26,8 +26,13 @@ description: >
 | Kanban view                                           | `src/preview/pages/ClientsKanbanPreview.tsx`                   |
 | AppShell + PageHeader + drawers + AlertModal          | `src/preview/pages/ClientesShowcase/ClientesShowcase.tsx`      |
 | valueGetter lookup · render com Avatar · KPIs         | `src/preview/pages/ClientesFinanceiroShowcase/`                |
+| **Célula rica (avatar/chip) + detail panel por categoria** ⭐ | `src/examples/finance/finance-screen.tsx` + `src/examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx` |
 | API de props (qualquer dúvida)                        | `src/components/ui/DataTable/USAGE.md` + `data-table.types.ts` |
 | Toolbar / Kanban / AppShell / PageHeader / FormField  | `src/components/ui/<X>/USAGE.md`                               |
+
+> ⭐ **O finance é a referência de CONSISTÊNCIA visual** (tamanhos de fonte,
+> avatar, badges, disposição, detail panel). Toda tabela nova deve sair com o
+> mesmo "feeling" — ver as duas seções de padrões abaixo.
 
 ## 2. Esqueleto — página standalone (`ExamplePageLayout`)
 
@@ -121,8 +126,42 @@ Miolo (ler `ClientesShowcase.tsx` pro shape real de AppShell props):
 
 3. **Largura: NÃO setar `width` nas colunas de dados.** `autoFit` é **default ON**
    e distribui pra preencher o container (tabela "de verdade", sem scroll, sem 1ª
-   coluna esticada). Fixe `width` só em casos pontuais (ex.: id/código curto).
-   Nunca passe `autoFit: false` sem motivo.
+   coluna esticada). Fixe `width` só em casos pontuais (ex.: id/código curto,
+   UF, nível). Nunca passe `autoFit: false` sem motivo. ⚠️ Se você setar `width`
+   em todas as colunas, o autoFit não tem o que esticar → sobra espaço à direita.
+
+## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
+
+Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
+
+| Conteúdo da célula        | Padrão                                                                                                  |
+| ------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Coluna primária (nome)**| `isPrimary` + `render`: `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` em `size-[24px] rounded-radius-sm border bg-bg-canvas shadow-sh-sm`) quando o row click abre painel |
+| **Status / badge**        | `type: "badge"` + `render`: `<Chip variant="soft" size="sm" shape="pill">` (cor semântica). **Nunca** pill na unha com classes manuais |
+| **Avatar**                | `size="md"` na tabela (não `sm`); `colorHex` p/ cor de marca, senão `color` semântico                  |
+| **Números / moeda / %**   | `tabular-nums`; moeda/percent via `type` (`currency`/`percentage`) + `align: "right"`                   |
+| **Tags / métodos**        | `type: "tags"` + `render` com `<Chip variant="soft" size="sm" shape="rounded">`                         |
+| **Datas**                 | `type: "date"`/`"datetime"` + formatter pt-BR                                                           |
+
+Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
+Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
+
+## Padrões de DETAIL PANEL (consistência finance — quando há row click → painel)
+
+Espelhar `FinanceDetailPanel`. **Sempre** que o blueprint tiver "row click →
+painel de detalhe", usar `<FloatingPanel>` (não markup solto):
+
+- `titleSlot`: `<Avatar size="lg">` + nome (`text-body-md font-semibold`) +
+  linha `ID · <Chip status>`.
+- `headerActions` (ícones) + `footer` (ações primárias) — `<Button>` do DS.
+- `bodyPadded={false}` + **agrupar por categoria** em `<FloatingPanelSection title="...">`.
+- Cada dado simples = **uma linha** `<FloatingPanelField label value />` (formato lista).
+- Destaque (saldo/progresso) = bloco próprio com gutter `px-[18px]`.
+- Conteúdo rico não-tabular (checklist, timeline, extrato) **mantém o formato visual
+  próprio** dentro de uma `FloatingPanelSection` — NÃO forçar em `FloatingPanelField`.
+
+Imports: `FloatingPanel, FloatingPanelSection, FloatingPanelField` de
+`@/components/ui/FloatingPanel`.
 
 ## 4. Snippets críticos
 
@@ -213,6 +252,9 @@ Deep-link `#/<page-id>` funciona automaticamente (`ALL_VALID_PAGES` deriva de
 - [ ] Página criada e espelha o(s) exemplo(s) canônico(s) lido(s)
 - [ ] `columns` em useMemo; `fetchData` em useCallback (se server)
 - [ ] Operadores de filtro válidos (re-grep no arquivo gerado)
+- [ ] **Padrões de célula** (avatar `md`, badges via `<Chip>`, `tabular-nums`, ícone abrir-detalhe na primária) — consistente com finance
+- [ ] **Colunas de dados sem `width`** fixo (autoFit preenche) — só id/UF/nível curtos podem fixar
+- [ ] **Detail panel** (se houver) = `FloatingPanel` + `Section` (por categoria) + `Field` (lista); conteúdo rico mantém formato próprio
 - [ ] Zero Tailwind literal com equivalente DS · zero hardcode
 - [ ] Registro completo (4 edits) — deep-link funciona
 - [ ] `npx tsc --noEmit` limpo
