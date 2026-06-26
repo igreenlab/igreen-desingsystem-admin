@@ -838,10 +838,17 @@ export type DataTableListConfig<T> = {
   /** Render do card de cada row (recebe a row + estado de árvore). */
   renderItem: (row: T, state: DataTableListRenderState) => ReactNode;
   /**
-   * Lista em árvore — aninha por `getTreeDataPath` (mesmo path do tree-data).
-   * Requer `getTreeDataPath`. Default `false` (lista flat).
+   * Lista em árvore — aninha por caminho raiz→self. Default `false` (lista flat).
+   * Usa `listConfig.getPath` se definido, senão o `getTreeDataPath` do DataTable.
+   * Permite tabela FLAT (paginada) + lista em ÁRVORE no mesmo DataTable.
    */
   hierarchical?: boolean;
+  /**
+   * Caminho raiz→self pra aninhar SÓ a view Lista — independente do tree-data
+   * da tabela. Sem ele, cai no `getTreeDataPath` do DataTable (que também liga o
+   * tree-data na tabela e desliga paginação).
+   */
+  getPath?: (row: T) => Array<string | number>;
   /** Nós expandidos no mount (hierárquico). Default `true`. */
   defaultExpanded?: boolean;
   /** Menu "⋯" por item (reusa o do `<List>`). */
