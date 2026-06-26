@@ -46,6 +46,32 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.18.0",
+    date: "2026-06-26",
+    tag: "release",
+    title: "DataTable: view Lista (toggle Tabela ↔ Lista)",
+    summary:
+      "Nova view no DataTable: `viewMode: \"list\"` + `listConfig`. Igual ao kanban, o DataTable mantém a MESMA toolbar (busca/filtros/views/ações/totalizadores) e só troca o corpo por uma lista de cards (`<List>` do DS) alimentada pelas rows processadas. O toggle Tabela/Lista aparece automático na toolbar quando há `listConfig`. Com `listConfig.hierarchical` + `getTreeDataPath`, a lista vira árvore (indentação/conectores + `depth` por nível). Showcase em `#/clients-list-view`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `viewMode: \"list\"` + `listConfig={{ renderItem, hierarchical?, defaultExpanded?, getMenuItems? }}` — 3ª view com toggle Tabela/Lista automático (e Kanban se `kanbanConfig`). Mesma toolbar; corpo vira `<List>` com as rows processadas.",
+          "DataTable: lista em árvore via `listConfig.hierarchical` + `getTreeDataPath` (mesmo path do tree-data) — `renderItem(row, { depth, open })`.",
+          "Showcase `#/clients-list-view` (ClientsListViewPreview) demonstrando o toggle.",
+          "Tipos exportados: `DataTableListConfig`, `DataTableListRenderState`.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "crud-builder (repo + CLI) + list-builder: roteamento atualizado — \"tabela + lista no mesmo lugar (toggle)\" usa `viewMode:\"list\"` do DataTable, não um `<DataList>` paralelo + toggle na mão.",
+          "DataTable/USAGE.md: seção \"View Lista (table ⇄ list)\".",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.17.1",
     date: "2026-06-26",
     tag: "patch",

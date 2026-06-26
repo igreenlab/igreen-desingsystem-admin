@@ -11,7 +11,7 @@ import type { SavedViewsService } from "./services/saved-views.types";
 
 /* ── View mode (table OR kanban) ─────────────────────────────────── */
 
-export type DataTableViewMode = "table" | "kanban";
+export type DataTableViewMode = "table" | "kanban" | "list";
 
 /** Parâmetros do `renderCardContent` na view Kanban via DataTable. */
 export type DataTableKanbanRenderCardParams<T> = {
@@ -812,6 +812,40 @@ export type DataTableProps<T> = {
    * Veja `DataTableKanbanConfig` para detalhes.
    */
   kanbanConfig?: DataTableKanbanConfig<T>;
+  /**
+   * Configuração da view Lista — obrigatório quando `viewMode="list"`.
+   * Renderiza as rows processadas (filter+search+sort) como cards de lista,
+   * reusando o `<List>` do DS (mesma toolbar do DataTable; só o corpo troca).
+   * `hierarchical` aninha por `getTreeDataPath` (árvore). Veja `DataTableListConfig`.
+   */
+  listConfig?: DataTableListConfig<T>;
+};
+
+/** Estado passado ao `renderItem` da view Lista. */
+export type DataTableListRenderState = {
+  /** Profundidade na árvore (0 = raiz). Sempre 0 em lista flat. */
+  depth: number;
+  /** Nó expandido (hierárquico). */
+  open: boolean;
+};
+
+/**
+ * Configuração da view Lista do DataTable (`viewMode="list"`).
+ * O DataTable mantém a própria toolbar (busca/filtros/views/ações) e só
+ * substitui o corpo por um `<List>` alimentado pelas rows processadas.
+ */
+export type DataTableListConfig<T> = {
+  /** Render do card de cada row (recebe a row + estado de árvore). */
+  renderItem: (row: T, state: DataTableListRenderState) => ReactNode;
+  /**
+   * Lista em árvore — aninha por `getTreeDataPath` (mesmo path do tree-data).
+   * Requer `getTreeDataPath`. Default `false` (lista flat).
+   */
+  hierarchical?: boolean;
+  /** Nós expandidos no mount (hierárquico). Default `true`. */
+  defaultExpanded?: boolean;
+  /** Menu "⋯" por item (reusa o do `<List>`). */
+  getMenuItems?: (row: T) => import("../List").ListMenuItem[];
 };
 
 /** View pre-definida pelo dev (read-only) — passada via prop `defaultViews`.

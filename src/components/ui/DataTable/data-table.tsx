@@ -45,6 +45,7 @@ import {
   Filter as FilterIcon,
   LayoutGrid,
   Table as TableIcon,
+  List as ListIcon,
   Settings2,
   Maximize2,
   Minimize2,
@@ -67,6 +68,8 @@ import {
 import type { ToolbarSegmentedItem } from "../TableToolbar";
 import { FooterTable, FooterTableSkeleton } from "../FooterTable";
 import { Kanban } from "../Kanban";
+import { List } from "../List";
+import type { ListItemData } from "../List";
 import type {
   DataTableProps,
   DataTableColumnDef,
@@ -141,36 +144,8 @@ const DENSITY_ITEMS: ToolbarSegmentedItem<TableDensity>[] = [
   { value: "comfortable", children: <Rows2 />, label: "Confortável" },
 ];
 
-/* ── View mode toggle items (stable ref) ───────────────────────────── */
-
-const DEFAULT_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
-  { value: "table", children: <TableIcon />, label: "Tabela" },
-  { value: "kanban", children: <LayoutGrid />, label: "Kanban" },
-];
-
-/* ── View mode items pro mobile dialog (icon + label fluid) ──────────
- * No mobile, os triggers viram fluid (full-width) e ganham texto ao lado
- * do ícone — fica óbvio o que cada opção faz num touch target maior. */
-const MOBILE_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
-  {
-    value: "table",
-    label: "Tabela",
-    children: (
-      <span className="inline-flex items-center gap-gp-sm">
-        <TableIcon /> Tabela
-      </span>
-    ),
-  },
-  {
-    value: "kanban",
-    label: "Kanban",
-    children: (
-      <span className="inline-flex items-center gap-gp-sm">
-        <LayoutGrid /> Kanban
-      </span>
-    ),
-  },
-];
+/* View mode toggle items: montados dinamicamente no componente (table +
+   list? + kanban?) conforme listConfig/kanbanConfig — ver resolvedViewToggle. */
 
 /**
  * Resolve o valor de uma cell — delega pro shared `applyValueGetter`
@@ -222,6 +197,7 @@ function DataTableInternal<T>(
   const selectionConfig = props.selectionConfig ?? { enabled: false };
 
   const isKanban = viewMode === "kanban" && Boolean(props.kanbanConfig);
+  const isList = viewMode === "list" && Boolean(props.listConfig);
 
   /* ── Grab-to-scroll horizontal (opt-in) ───────────────────────────
    * Arrastar o corpo pra rolar lateralmente. Anexa pointer listeners ao
@@ -260,21 +236,96 @@ function DataTableInternal<T>(
   const resolvedViewToggle = useMemo<ReactNode>(() => {
     if (props.toolbar?.viewToggle !== undefined)
       return props.toolbar.viewToggle;
-    if (!props.kanbanConfig) return null;
+    // Auto-render quando há ao menos uma view alternativa (kanban e/ou lista).
+    if (!props.kanbanConfig && !props.listConfig) return null;
+    const items: ToolbarSegmentedItem<DataTableViewMode>[] = [
+      { value: "table", children: <TableIcon />, label: "Tabela" },
+    ];
+    if (props.listConfig)
+      items.push({ value: "list", children: <ListIcon />, label: "Lista" });
+    if (props.kanbanConfig)
+      items.push({ value: "kanban", children: <LayoutGrid />, label: "Kanban" });
     return (
       <ToolbarSegmented
         value={viewMode}
         onValueChange={handleViewModeChange}
-        items={DEFAULT_VIEW_MODE_ITEMS}
+        items={items}
         aria-label="Modo de visualização"
       />
     );
   }, [
     props.toolbar?.viewToggle,
     props.kanbanConfig,
+    props.listConfig,
     viewMode,
     handleViewModeChange,
   ]);
+
+  /* ── List view — items processados (filter+search+sort), aninhados se
+       hierarchical (mesmo path do tree-data). Só quando viewMode=list. ── */
+  const listItems = useMemo<ListItemData[]>(() => {
+    const cfg = props.listConfig;
+    if (!isList || !cfg) return [];
+    const getRowId = contextValue.getRowId;
+    const rows = rowsAllPagesProcessed;
+    if (cfg.hierarchical && props.getTreeDataPath) {
+      const pathOf = props.getTreeDataPath;
+      const shells = new Map<string, ListItemData & { children?: ListItemData[] }>();
+      for (const r of rows) {
+        const id = String(getRowId(r));
+        shells.set(id, { id, title: "", data: r, children: [] });
+      }
+      const out: ListItemData[] = [];
+      for (const r of rows) {
+        const path = pathOf(r).map(String);
+        const id = path[path.length - 1];
+        const parentId = path.length > 1 ? path[path.length - 2] : null;
+        const item = shells.get(id);
+        if (!item) continue;
+        const parent = parentId ? shells.get(parentId) : undefined;
+        if (parent) (parent.children as ListItemData[]).push(item);
+        else out.push(item);
+      }
+      for (const it of shells.values())
+        if (it.children && it.children.length === 0) delete it.children;
+      return out;
+    }
+    return rows.map((r) => ({ id: String(getRowId(r)), title: "", data: r }));
+  }, [
+    isList,
+    props.listConfig,
+    props.getTreeDataPath,
+    rowsAllPagesProcessed,
+    contextValue.getRowId,
+  ]);
+
+  const listDefaultExpandedIds = useMemo<Set<string> | undefined>(() => {
+    const cfg = props.listConfig;
+    if (!isList || !cfg?.hierarchical || cfg.defaultExpanded === false)
+      return undefined;
+    return new Set(rowsAllPagesProcessed.map((r) => String(contextValue.getRowId(r))));
+  }, [isList, props.listConfig, rowsAllPagesProcessed, contextValue.getRowId]);
+
+  /* ── View mode items do mobile (icon + label fluid), dinâmico ─────── */
+  const mobileViewItems = useMemo<ToolbarSegmentedItem<DataTableViewMode>[]>(() => {
+    const mk = (
+      value: DataTableViewMode,
+      icon: ReactNode,
+      label: string,
+    ): ToolbarSegmentedItem<DataTableViewMode> => ({
+      value,
+      label,
+      children: (
+        <span className="inline-flex items-center gap-gp-sm">
+          {icon} {label}
+        </span>
+      ),
+    });
+    const items = [mk("table", <TableIcon />, "Tabela")];
+    if (props.listConfig) items.push(mk("list", <ListIcon />, "Lista"));
+    if (props.kanbanConfig) items.push(mk("kanban", <LayoutGrid />, "Kanban"));
+    return items;
+  }, [props.listConfig, props.kanbanConfig]);
 
   /* ── Kanban transformer (somente quando viewMode=kanban) ──────── */
   const kanbanView = useDataTableViewMode({
@@ -1648,13 +1699,13 @@ function DataTableInternal<T>(
                   }
                   mobileViewToggle={
                     resolvedViewToggle ? (
-                      props.kanbanConfig &&
+                      (props.kanbanConfig || props.listConfig) &&
                       props.toolbar?.viewToggle === undefined ? (
                         <ToolbarSegmented
                           fluid
                           value={viewMode}
                           onValueChange={handleViewModeChange}
-                          items={MOBILE_VIEW_MODE_ITEMS}
+                          items={mobileViewItems}
                           ariaLabel="Modo de visualização"
                         />
                       ) : (
@@ -1979,6 +2030,38 @@ function DataTableInternal<T>(
             emptyLabel={props.kanbanConfig?.emptyLabel}
             addLabel={props.kanbanConfig?.addLabel}
           />
+        ) : isList && props.listConfig ? (
+          // Lista: corpo trocado por <List> (mesma toolbar do DataTable).
+          // Rows já filtradas/buscadas/ordenadas via rowsAllPagesProcessed.
+          <div className="min-h-0 flex-1 overflow-auto scrollbar-thin p-pad-2xl">
+            <List
+              items={listItems}
+              layout={props.listConfig.hierarchical ? "hierarchical" : "standard"}
+              branchHighlight="none"
+              defaultExpandedIds={listDefaultExpandedIds}
+              renderItem={(item, state) =>
+                props.listConfig!.renderItem(item.data as T, {
+                  depth: state.depth,
+                  open: state.open,
+                })
+              }
+              onItemClick={
+                props.onRowClick
+                  ? (id) => {
+                      const row = rowsAllPagesProcessed.find(
+                        (r) => String(contextValue.getRowId(r)) === id,
+                      );
+                      if (row) props.onRowClick!(row);
+                    }
+                  : undefined
+              }
+              getMenuItems={
+                props.listConfig.getMenuItems
+                  ? (item) => props.listConfig!.getMenuItems!(item.data as T)
+                  : undefined
+              }
+            />
+          </div>
         ) : isDataEmpty ? (
           (props.renderEmpty ?? <DataTableEmpty />)
         ) : isNoResults ? (
@@ -2000,6 +2083,7 @@ function DataTableInternal<T>(
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
            evitar paginação "1 página" enquanto fetchData responde. */}
         {!isKanban &&
+          !isList &&
           !useTreeData &&
           paginationConfig.enabled !== false &&
           (isLoading ? (

@@ -26,6 +26,8 @@ export type {
   DataTableViewMode,
   DataTableKanbanConfig,
   DataTableKanbanRenderCardParams,
+  DataTableListConfig,
+  DataTableListRenderState,
   SortModel,
   PaginationModel,
   GridRowId,

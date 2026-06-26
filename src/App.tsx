@@ -70,6 +70,7 @@ import ClientsVirtualizedPreview from "./preview/pages/ClientsVirtualizedPreview
 import ClientsGroupedPreview from "./preview/pages/ClientsGroupedPreview";
 import ClientsExpandablePreview from "./preview/pages/ClientsExpandablePreview";
 import ClientsTreePreview from "./preview/pages/ClientsTreePreview";
+import ClientsListViewPreview from "./preview/pages/ClientsListViewPreview";
 import ClientsTypedPreview from "./preview/pages/ClientsTypedPreview";
 import ClientsKanbanPreview from "./preview/pages/ClientsKanbanPreview";
 import { AccordionDoc } from "./preview/pages/AccordionDoc";
@@ -324,6 +325,7 @@ const DOC_PAGES = [
   "clients-grouped",
   "clients-expandable",
   "clients-tree",
+  "clients-list-view",
   "clients-typed",
   "clients-kanban",
   "clientes-showcase",
@@ -551,6 +553,7 @@ export function App() {
               <ClientsExpandablePreview />
             )}
             {activePage === "clients-tree" && <ClientsTreePreview />}
+            {activePage === "clients-list-view" && <ClientsListViewPreview />}
             {activePage === "clients-typed" && <ClientsTypedPreview />}
             {activePage === "clients-kanban" && <ClientsKanbanPreview />}
             {activePage === "accordion" && <AccordionDoc />}
