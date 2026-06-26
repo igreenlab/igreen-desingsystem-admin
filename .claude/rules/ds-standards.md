@@ -213,6 +213,17 @@ compoundVariants: [
 - DS Dev cria token inline → **PARAR** → sinalizar cascata ao Orchestrator
 - Componente novo sem verificar `inventory.md` primeiro → proibido
 
+### Filtro em tabela/lista → nativo, NUNCA form acima (L-051)
+
+Intenção de "adicionar filtro" numa tabela/lista (select de status em cima, campo de
+período, "filtrar por X") → **proibido** gerar form/selects soltos acima da grade. Use o
+motor reativo do componente (chips clicáveis/editáveis):
+
+- **coluna/campo** → `enableColumnFilter`/`filterFields`; já filtrado → **pré-aplicar**
+  (`defaultViews`/`presetView`/`filterModel` · DataList: `views`/`filterModel`) → chip aplicado.
+- **não-coluna** + 1–2 → `toolbar.actions`/`toolbarActions` (dropdown/button no toolbar).
+- **muitos** → sempre nativos (drawer "Filtros"). As skills crud/list + ds-kit sugerem isso.
+
 ---
 
 ## ✅ Obrigatório sempre

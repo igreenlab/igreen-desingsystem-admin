@@ -119,6 +119,19 @@ avatar-stack) → `renderItem={(item) => <Card .../>}`. Espelhar
 A toolbar do DataList é enxuta (reusa o TableToolbar): visões(abas)/título ·
 refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 
+> ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da lista.** Intenção de
+> "adicionar filtro" (select de status em cima, campo de período, "filtrar por X") →
+> **sugira o padrão certo** (o DataList já filtra reativo, com chips clicáveis/editáveis):
+>
+> - **Filtro por campo** (status/categoria/tipo/data…) → declare em `filterFields`. Quer
+>   abrir já filtrado? **pré-aplique** via `views` ou `filterModel` → abre com o **chip
+>   aplicado**, editável, reativo. Pode pré-setar **vários** de uma vez.
+> - **Controle que NÃO é campo** (período/mês, escopo) e **1–2 no máx** → `toolbarActions`
+>   (dropdown/button no toolbar). Nunca um form.
+> - **Muitos filtros** → sempre os nativos (drawer "Filtros" + chips). Nunca empilhar selects.
+>
+> Regra de ouro: **filtro é recurso do DataList (reativo), não UI montada na unha.**
+
 | Item               | Pergunta                                                                                                                                                                                            | Default                                     |
 | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
 | Título OU views    | título à esquerda, ou abas de visão?                                                                                                                                                                | título (plural)                             |

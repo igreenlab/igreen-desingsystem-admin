@@ -36,6 +36,20 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 
 ## Fase 2 — Busca, filtros & ações
 
+> ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Intenção de
+> "adicionar filtro" (select de status em cima, campo de período, "filtrar por X") →
+> **sugira o padrão certo** (a tabela já filtra reativo, com chips clicáveis/editáveis):
+>
+> - **Filtro por COLUNA** (status/categoria/tipo/data…) → `enableColumnFilter` +
+>   `filterType`. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/`presetView`
+>   ou `filterModel`) → abre com o **chip aplicado**, editável, reativo. Pode pré-setar
+>   **vários** (id/período/status/…), sem campos.
+> - **Controle que NÃO é coluna** (período/mês, escopo) e **1–2 no máx** → `toolbar.actions`
+>   (dropdown/button no toolbar). Nunca um form.
+> - **Muitos filtros** → sempre os nativos (drawer "Filtros" + chips). Nunca empilhar selects.
+>
+> Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
+
 - Busca global? (`enableSearch`)
 - Filtros por coluna? **Default = TODAS as colunas de dados filtram** (`enableColumnFilter: true` + `filterType` por tipo) — pergunte só "alguma NÃO deve filtrar?". O funil/drawer só lista colunas com `enableColumnFilter`; marcar só 2 = bug. (Ver §Regras de coluna em `generate.md`.)
 - Ações por linha (editar, excluir, ...)? (coluna `actions`, `getActions`) — vai por **último**; o DataTable ancora à direita/estreita sozinho (sem `pinned`/`width`). NÃO setar `width` nas demais (autoFit distribui).

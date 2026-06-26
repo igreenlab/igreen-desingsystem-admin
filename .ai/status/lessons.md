@@ -1039,6 +1039,26 @@ de API usam `h3 text-title-lg` (não `SectionH2`) + wrapper `mb-gp-4xl` pro espa
 Doc atualizada: `.ai/context/doc-guide.md` → "API Reference — padrão obrigatório". **Regra pra
 IA:** ao documentar API no showcase, `PropsTable` nunca aninhado; espelhar `SliderDoc`.
 
+## [L-051] Intenção de "adicionar filtro" em tabela/lista → filtro nativo, nunca form acima
+
+Vibe-coders (gerando via IA) pedem "um select de status em cima da tabela" / "filtrar por
+período" e a IA monta **form/selects soltos acima da grade** — feio, código extra, fora do
+padrão. A tabela/lista do DS já tem **motor de filtro reativo** (chips clicáveis/editáveis,
+zero código). Roteamento que as skills (crud-builder/list-builder/ds-kit, repo + CLI) devem
+sugerir automaticamente nessa intenção:
+
+- **por COLUNA/campo** (status/categoria/tipo/data) → filtro nativo (`enableColumnFilter`/
+  `filterFields`); quer já filtrado → **pré-aplicar** (`defaultViews`/`presetView`/`filterModel`
+  no DataTable; `views`/`filterModel` no DataList) → abre com **chip aplicado**, editável. Pode
+  pré-setar vários de uma vez.
+- **não-coluna** (período/mês, escopo) e **1–2** → `toolbar.actions`/`toolbarActions` (dropdown/
+  button no toolbar; foi o gatilho de criar o slot de ações).
+- **muitos** → sempre nativos (drawer "Filtros" + chips). Nunca empilhar campos.
+  Regra de ouro: **filtro é recurso da tabela/lista, não UI na unha.** Coberto nas 6 superfícies:
+  crud-builder + list-builder (repo `.claude/skills` e CLI `cli/templates/default/_claude/skills`)
+
+* ds-kit (CLI) + esta lição/`ds-standards`.
+
 ---
 
 ## Como adicionar nova lição

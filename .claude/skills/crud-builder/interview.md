@@ -158,6 +158,22 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 
 ## Fase 3 — Filtros e busca (agrupada)
 
+> ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Quando o
+> usuário mostrar intenção de "adicionar filtro" (um select de status em cima, um campo
+> de período, "filtrar por X"), **sugira o padrão certo** — a tabela já tem motor de
+> filtro reativo (chips clicáveis/editáveis, zero código extra):
+>
+> - **Filtro por COLUNA** (status/categoria/tipo/data…) → `enableColumnFilter` +
+>   `filterType` na coluna. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/
+>   `presetView` ou `filterModel`) → a tela abre com o **chip aplicado**, editável e
+>   reativo. Pode pré-setar **vários** de uma vez (id/período/status/…), sem campos.
+> - **Controle que NÃO é coluna** (período/mês, escopo global) e **1–2 no máximo** →
+>   `toolbar.actions` (dropdown/button no toolbar). Inline no desktop, ⋯ no mobile.
+> - **Muitos filtros** → SEMPRE os nativos (drawer "Filtros" + chips). Nunca empilhar
+>   selects acima da grade.
+>
+> Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
+
 | Item                      | Pergunta                                                                             | Default                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | Colunas filtráveis        | "Todas filtram, exceto...?"                                                          | todas com `enableColumnFilter: true`, exceto `actions` e render-custom sem valor filtrável |
