@@ -17,7 +17,15 @@ import {
   type DataTableViewMode,
 } from "@/components/ui/DataTable";
 import { Avatar } from "@/components/ui/avatar-ig";
+import { Chip } from "@/components/ui/Chip";
 import { ExamplePageLayout } from "../components/example-page-layout";
+
+const STATUS_CHIP: Record<string, "success" | "warning" | "info" | "neutral"> = {
+  active: "success",
+  pending: "warning",
+  paused: "info",
+  inactive: "neutral",
+};
 
 const CLIENTS_40: ClientRow[] = Array.from({ length: 4 }, (_, batch) =>
   CLIENTS_MOCK.map((row, i) => ({ ...row, id: `CLI-${4200 + batch * 10 + i}` })),
@@ -112,8 +120,15 @@ export default function ClientsListViewPreview() {
             </span>
             <span className="truncate text-caption-md text-fg-muted">{row.email}</span>
           </div>
-          <StatusDot statusId={row.statusId} />
-          <span className="hidden shrink-0 font-semibold tabular-nums text-fg-default sm:block">
+          <Chip
+            color={STATUS_CHIP[row.statusId]}
+            variant="soft"
+            size="sm"
+            shape="pill"
+          >
+            {STATUSES[row.statusId].label}
+          </Chip>
+          <span className="hidden shrink-0 text-body-sm font-semibold tabular-nums text-fg-muted sm:block">
             {formatCurrency(row.value)}
           </span>
         </div>

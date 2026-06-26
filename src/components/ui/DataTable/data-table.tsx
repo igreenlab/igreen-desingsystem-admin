@@ -2033,7 +2033,7 @@ function DataTableInternal<T>(
         ) : isList && props.listConfig ? (
           // Lista: corpo trocado por <List> (mesma toolbar do DataTable).
           // Rows já filtradas/buscadas/ordenadas via rowsAllPagesProcessed.
-          <div className="min-h-0 flex-1 overflow-auto scrollbar-thin p-pad-2xl">
+          <div className="min-h-0 flex-1 overflow-auto scrollbar-thin">
             <List
               items={listItems}
               layout={props.listConfig.hierarchical ? "hierarchical" : "standard"}
