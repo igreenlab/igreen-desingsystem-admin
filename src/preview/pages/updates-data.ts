@@ -59,6 +59,12 @@ export const RELEASES: ReleaseEntry[] = [
           "DataTable: `listConfig.getPath?: (row) => (string|number)[]` — caminho da árvore só pra view Lista, independente do `getTreeDataPath` (que liga tree-data na tabela). Fallback pro `getTreeDataPath` quando ausente. Permite tabela paginada + lista em árvore.",
         ],
       },
+      {
+        type: "changed",
+        items: [
+          "crud-builder (repo + CLI): nota de roteamento atualizada — `listConfig.getPath` pra tabela FLAT paginada + lista em ÁRVORE (vs `getTreeDataPath`, que liga tree-data na tabela). USAGE + DataTableDoc documentam a prop.",
+        ],
+      },
     ],
   },
   {

@@ -37,10 +37,15 @@ description: >
 
 > 🔀 **Tabela + Lista no mesmo lugar (toggle):** quando o usuário quer alternar
 > entre tabela e uma **lista de cards** (em vez de kanban), use `viewMode` +
-> `listConfig={{ renderItem(row), hierarchical?, getMenuItems? }}` no PRÓPRIO
-> DataTable — a toolbar é a mesma e o toggle Tabela/Lista aparece automático.
-> Com `hierarchical: true` + `getTreeDataPath`, a lista vira árvore. NÃO monte
-> um `<DataList>` paralelo + toggle na mão. Ref: `ClientsListViewPreview.tsx`.
+> `listConfig={{ renderItem(row), hierarchical?, getPath?, getMenuItems? }}` no
+> PRÓPRIO DataTable — a toolbar é a mesma e o toggle Tabela/Lista aparece automático.
+> NÃO monte um `<DataList>` paralelo + toggle na mão. Ref: `ClientsListViewPreview.tsx`.
+>
+> - **Lista em árvore + tabela em árvore** → `listConfig.hierarchical` + `getTreeDataPath`
+>   (liga tree-data nos dois; a tabela NÃO pagina).
+> - **Tabela FLAT paginada + lista em ÁRVORE** → `listConfig.hierarchical` +
+>   **`listConfig.getPath`** (caminho raiz→self) e **NÃO** passe `getTreeDataPath`
+>   (senão a tabela vira tree-data e perde a paginação). Ref real: Mapa de Rede.
 
 ## 2. Esqueleto — página standalone (`ExamplePageLayout`)
 
