@@ -268,8 +268,9 @@ function DataTableInternal<T>(
     if (!isList || !cfg) return [];
     const getRowId = contextValue.getRowId;
     const rows = rowsAllPagesProcessed;
-    if (cfg.hierarchical && props.getTreeDataPath) {
-      const pathOf = props.getTreeDataPath;
+    const pathFn = cfg.getPath ?? props.getTreeDataPath;
+    if (cfg.hierarchical && pathFn) {
+      const pathOf = pathFn;
       const shells = new Map<string, ListItemData & { children?: ListItemData[] }>();
       for (const r of rows) {
         const id = String(getRowId(r));

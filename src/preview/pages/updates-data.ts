@@ -46,6 +46,22 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.19.0",
+    date: "2026-06-26",
+    tag: "release",
+    title: "DataTable: listConfig.getPath — tabela paginada + lista em árvore",
+    summary:
+      "Complemento da view Lista: `listConfig.getPath` desacopla a árvore da LISTA do tree-data da TABELA. Antes, lista hierárquica exigia `getTreeDataPath`, que também ligava o tree-data na tabela e desligava a paginação. Agora dá pra ter tabela FLAT (paginada/ordenável) + lista em ÁRVORE no mesmo DataTable: passe `listConfig.getPath` (caminho raiz→self) e NÃO passe `getTreeDataPath`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `listConfig.getPath?: (row) => (string|number)[]` — caminho da árvore só pra view Lista, independente do `getTreeDataPath` (que liga tree-data na tabela). Fallback pro `getTreeDataPath` quando ausente. Permite tabela paginada + lista em árvore.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.18.0",
     date: "2026-06-26",
     tag: "release",

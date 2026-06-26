@@ -329,7 +329,12 @@ const LIST_CONFIG_PROPS = [
     type: "(row, { depth, open }) => ReactNode",
     defaultVal: "—",
   },
-  { name: "hierarchical", type: "boolean (requer getTreeDataPath)", defaultVal: "false" },
+  { name: "hierarchical", type: "boolean", defaultVal: "false" },
+  {
+    name: "getPath",
+    type: "(row) => (string|number)[]",
+    defaultVal: "getTreeDataPath (fallback)",
+  },
   { name: "defaultExpanded", type: "boolean", defaultVal: "true" },
   { name: "getMenuItems", type: "(row) => ListMenuItem[]", defaultVal: "—" },
 ];
