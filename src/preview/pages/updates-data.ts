@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.17.1",
+    date: "2026-06-26",
+    tag: "patch",
+    title: "DataTable: footer compacto + autoFit fluido no 1º paint",
+    summary:
+      "Ajustes de consistência da tabela vindos do consumo real. O footer de totalizadores (`showTotalizers`) fica menor e semibold (`text-body-xs`/600) — hierarquia mais limpa, peso alinhado ao header. O `autoFit` passa a medir o container por content-box (`clientWidth`) já no primeiro paint, igual ao ResizeObserver — antes a 1ª medição usava border-box (incluía a scrollbar vertical) e as colunas saíam largas demais quando havia scroll-Y no mount (ex.: com `showTotalizers`). A skill `crud-builder` (repo + template do CLI) ganhou padrões explícitos de célula e de detail panel espelhando o exemplo Finance.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: footer (totalizers) agora `text-body-xs font-semibold` (12px/600) — antes `body-md`/500, pesado e destoante do header.",
+          "DataTable: `autoFit` mede content-box (`clientWidth`) no 1º paint, alinhado ao `contentRect` do ResizeObserver. Corrige colunas largas demais quando há scroll-Y no mount (`showTotalizers`/altura forçada).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          'crud-builder (repo + CLI): padrões de CÉLULA explícitos (Avatar size="md", status/badges via <Chip soft pill sm>, coluna primária com avatar + nome + secundária + ícone abrir-detalhe, tabular-nums) e de DETAIL PANEL (FloatingPanel + Section por categoria + Field em lista) — espelhando o exemplo Finance como referência de consistência visual.',
+        ],
+      },
+    ],
+  },
+  {
     version: "0.17.0",
     date: "2026-06-26",
     tag: "release",
