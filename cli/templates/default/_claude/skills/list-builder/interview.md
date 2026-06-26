@@ -126,9 +126,11 @@ refresh · busca · filtro(drawer) · ⋯. Sem colunas/toggle de visão.
 > - **Filtro por campo** (status/categoria/tipo/data…) → declare em `filterFields`. Quer
 >   abrir já filtrado? **pré-aplique** via `views` ou `filterModel` → abre com o **chip
 >   aplicado**, editável, reativo. Pode pré-setar **vários** de uma vez.
-> - **Controle que NÃO é campo** (período/mês, escopo) e **1–2 no máx** → `toolbarActions`
->   (dropdown/button no toolbar). Nunca um form.
-> - **Muitos filtros** → sempre os nativos (drawer "Filtros" + chips). Nunca empilhar selects.
+> - **toolbarActions é SÓ pra caso pequeno e simples que NÃO reage com campo** (ex.:
+>   data/período, escopo) — **label curta**, **máx ~2**. Se mexe com os campos, é grande,
+>   ou são muitos → **NÃO use o toolbar.**
+> - **Muitos filtros, ou ligados a campo** → SEMPRE os nativos **pré-aplicados** (chips no
+>   load) + drawer "Filtros". Nunca empilhar selects.
 >
 > Regra de ouro: **filtro é recurso do DataList (reativo), não UI montada na unha.**
 

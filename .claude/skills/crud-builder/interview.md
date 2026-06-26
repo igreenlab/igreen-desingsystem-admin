@@ -167,10 +167,11 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 >   `filterType` na coluna. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/
 >   `presetView` ou `filterModel`) → a tela abre com o **chip aplicado**, editável e
 >   reativo. Pode pré-setar **vários** de uma vez (id/período/status/…), sem campos.
-> - **Controle que NÃO é coluna** (período/mês, escopo global) e **1–2 no máximo** →
->   `toolbar.actions` (dropdown/button no toolbar). Inline no desktop, ⋯ no mobile.
-> - **Muitos filtros** → SEMPRE os nativos (drawer "Filtros" + chips). Nunca empilhar
->   selects acima da grade.
+> - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
+>   data/período, escopo global) — **label curta**, **máx ~2**. Se o controle mexe com
+>   coluna da tabela, é grande/complexo, ou são muitos → **NÃO use o toolbar.**
+> - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips
+>   no load) + drawer "Filtros". Nunca empilhar selects acima da grade.
 >
 > Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
 

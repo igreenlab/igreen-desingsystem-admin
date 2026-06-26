@@ -55,10 +55,12 @@ editáveis, zero código). Sugira automaticamente:
   (`defaultViews`/`presetView`/`filterModel` no DataTable; `views`/`filterModel` no
   DataList) → a tela abre com o **chip aplicado**, editável. Pode pré-setar **vários**
   de uma vez (id/período/status/…) sem nenhum campo.
-- **Controle que NÃO é coluna** (período/mês, escopo global) e **1–2 no máximo** →
-  `toolbar.actions` (DataTable) / `toolbarActions` (DataList) — dropdown/button no
-  toolbar (inline no desktop, ⋯ no mobile).
-- **Muitos filtros** → sempre os nativos (drawer "Filtros" + chips). Nunca empilhar selects.
+- **toolbar.actions/toolbarActions é SÓ pra caso pequeno e simples que NÃO reage com
+  coluna/campo** (ex.: data/período, escopo global) — **label curta**, **máx ~2**.
+  Se o controle mexe com coluna da tabela, é grande/complexo, ou são muitos → **NÃO**
+  use o toolbar.
+- **Muitos filtros, ou ligados a coluna/campo** → SEMPRE os nativos **pré-aplicados**
+  (chips no load) + drawer "Filtros". Nunca empilhar selects.
 
 Regra de ouro: **filtro é recurso da tabela/lista (reativo), não UI montada na unha.**
 

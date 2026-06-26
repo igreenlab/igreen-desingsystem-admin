@@ -1051,9 +1051,11 @@ sugerir automaticamente nessa intenção:
   `filterFields`); quer já filtrado → **pré-aplicar** (`defaultViews`/`presetView`/`filterModel`
   no DataTable; `views`/`filterModel` no DataList) → abre com **chip aplicado**, editável. Pode
   pré-setar vários de uma vez.
-- **não-coluna** (período/mês, escopo) e **1–2** → `toolbar.actions`/`toolbarActions` (dropdown/
-  button no toolbar; foi o gatilho de criar o slot de ações).
-- **muitos** → sempre nativos (drawer "Filtros" + chips). Nunca empilhar campos.
+- **toolbar.actions/toolbarActions SÓ pra caso pequeno e simples não-coluna** (ex.: data/
+  período, escopo) — **label curta, máx ~2**. Mexe com coluna, grande/complexo ou muitos →
+  **não** use o toolbar (foi o gatilho de criar o slot, mas é pra casos simples).
+- **muitos ou ligados a coluna/campo** → sempre nativos **pré-aplicados (chips)**. Nunca
+  empilhar campos.
   Regra de ouro: **filtro é recurso da tabela/lista, não UI na unha.** Coberto nas 6 superfícies:
   crud-builder + list-builder (repo `.claude/skills` e CLI `cli/templates/default/_claude/skills`)
 

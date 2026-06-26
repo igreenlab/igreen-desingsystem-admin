@@ -221,8 +221,10 @@ motor reativo do componente (chips clicáveis/editáveis):
 
 - **coluna/campo** → `enableColumnFilter`/`filterFields`; já filtrado → **pré-aplicar**
   (`defaultViews`/`presetView`/`filterModel` · DataList: `views`/`filterModel`) → chip aplicado.
-- **não-coluna** + 1–2 → `toolbar.actions`/`toolbarActions` (dropdown/button no toolbar).
-- **muitos** → sempre nativos (drawer "Filtros"). As skills crud/list + ds-kit sugerem isso.
+- **toolbar.actions/toolbarActions SÓ pra caso pequeno/simples não-coluna** (ex.: data),
+  label curta, **máx ~2**. Mexe com coluna, grande ou muitos → **não** use o toolbar.
+- **muitos ou ligados a coluna** → sempre nativos **pré-aplicados (chips)**. As skills
+  crud/list + ds-kit sugerem isso.
 
 ---
 

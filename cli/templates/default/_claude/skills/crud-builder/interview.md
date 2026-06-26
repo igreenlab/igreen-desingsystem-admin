@@ -44,9 +44,11 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 >   `filterType`. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/`presetView`
 >   ou `filterModel`) → abre com o **chip aplicado**, editável, reativo. Pode pré-setar
 >   **vários** (id/período/status/…), sem campos.
-> - **Controle que NÃO é coluna** (período/mês, escopo) e **1–2 no máx** → `toolbar.actions`
->   (dropdown/button no toolbar). Nunca um form.
-> - **Muitos filtros** → sempre os nativos (drawer "Filtros" + chips). Nunca empilhar selects.
+> - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
+>   data/período, escopo) — **label curta**, **máx ~2**. Se mexe com coluna, é grande, ou
+>   são muitos → **NÃO use o toolbar.**
+> - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips no
+>   load) + drawer "Filtros". Nunca empilhar selects.
 >
 > Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
 
