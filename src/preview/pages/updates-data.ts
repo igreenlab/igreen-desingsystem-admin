@@ -46,6 +46,33 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.17.0",
+    date: "2026-06-26",
+    tag: "release",
+    title:
+      "Toolbar: slot de ações custom (button/dropdown/input) com colapso mobile",
+    summary:
+      "Novo slot de ações no toolbar do TableToolbar — exposto em DataTable (`toolbar.actions`) e DataList (`toolbarActions`). Aceita ações `button`, `dropdown` (ex.: seletor de período/mês) e `input`. No desktop renderizam inline (entre Filtros e ⋯); no mobile colapsam automaticamente num único ⋯ (no DataList, junto com os `moreActions`, via `extraItems`) pra manter a responsividade. Componente `<ToolbarActions>` exportado do TableToolbar. Exemplo vivo no showcase `#/list-standard` (seletor de Período).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "TableToolbar: novo slot `actions` + componente `<ToolbarActions>` (tipos `ToolbarAction` / `ToolbarActionMenuItem`) — ações custom button/dropdown/input. Renderiza ANTES da busca (reload · ações · busca · filtro · …); dropdown aceita `hideChevron`.",
+          "DataList: prop `toolbarActions` (colapsa no ⋯ no mobile junto com `moreActions`).",
+          "DataList: chips de filtro aplicado agora são CLICÁVEIS — abrem o fast-filter do column-type pra editar o valor inline (paridade com o DataTable).",
+          "DataTable: `toolbar.actions` (ToolbarAction[]) — inline no desktop, ⋯ próprio no mobile.",
+          "Showcase: exemplo de seletor de Período (dropdown) no `#/list-standard`.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "TableToolbar: novo `<ToolbarFilterButton>` (funil, icon-only) — fonte única do botão de Filtros, usado por DataTable e DataList (antes cada um montava o seu: DataList vinha com `SlidersHorizontal` + label 'Filtros'; DataTable com funil). Padroniza ícone/affordance no componente.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.16.1",
     date: "2026-06-23",
     tag: "patch",

@@ -1026,6 +1026,41 @@ pra IA:** ao adicionar/editar item no registry, valide que cada `registryDepende
 existe como item OU é bundlado por outro dep já listado — `npm run distribution:debt`
 (novo) + conferir os deps gerados pelo `registry-add-item` (ele não sabe o que é bundlado).
 
+## [L-050] Showcase API Reference: `PropsTable` direto, nunca dentro de `ExampleSection`
+
+`ExampleSection` é o **card de preview** (ring + shadow + min-h + centralização). `PropsTable`
+**já tem superfície própria** (ring). Renderizar `<PropsTable>` dentro de `<ExampleSection>`
+vira **card-dentro-de-card** — visual quebrado (caso real: API Reference do TableToolbarDoc).
+Pattern correto (igual `SliderDoc`): `SectionH2 "API Reference"` → `PropsTable` **direto**;
+pra 2+ tabelas, cada uma num wrapper `<div className="mb-gp-4xl"><h3 text-title-lg/><p/><PropsTable/></div>`.
+**Segundo erro do mesmo caso:** usei vários `SectionH2` pras sub-tabelas e elas coladas —
+`SectionH2` tem `mb-12` mas **sem margin-top**, então tabela seguida de heading cola. Sub-seções
+de API usam `h3 text-title-lg` (não `SectionH2`) + wrapper `mb-gp-4xl` pro espaçamento.
+Doc atualizada: `.ai/context/doc-guide.md` → "API Reference — padrão obrigatório". **Regra pra
+IA:** ao documentar API no showcase, `PropsTable` nunca aninhado; espelhar `SliderDoc`.
+
+## [L-051] Intenção de "adicionar filtro" em tabela/lista → filtro nativo, nunca form acima
+
+Vibe-coders (gerando via IA) pedem "um select de status em cima da tabela" / "filtrar por
+período" e a IA monta **form/selects soltos acima da grade** — feio, código extra, fora do
+padrão. A tabela/lista do DS já tem **motor de filtro reativo** (chips clicáveis/editáveis,
+zero código). Roteamento que as skills (crud-builder/list-builder/ds-kit, repo + CLI) devem
+sugerir automaticamente nessa intenção:
+
+- **por COLUNA/campo** (status/categoria/tipo/data) → filtro nativo (`enableColumnFilter`/
+  `filterFields`); quer já filtrado → **pré-aplicar** (`defaultViews`/`presetView`/`filterModel`
+  no DataTable; `views`/`filterModel` no DataList) → abre com **chip aplicado**, editável. Pode
+  pré-setar vários de uma vez.
+- **toolbar.actions/toolbarActions SÓ pra caso pequeno e simples não-coluna** (ex.: data/
+  período, escopo) — **label curta, máx ~2**. Mexe com coluna, grande/complexo ou muitos →
+  **não** use o toolbar (foi o gatilho de criar o slot, mas é pra casos simples).
+- **muitos ou ligados a coluna/campo** → sempre nativos **pré-aplicados (chips)**. Nunca
+  empilhar campos.
+  Regra de ouro: **filtro é recurso da tabela/lista, não UI na unha.** Coberto nas 6 superfícies:
+  crud-builder + list-builder (repo `.claude/skills` e CLI `cli/templates/default/_claude/skills`)
+
+* ds-kit (CLI) + esta lição/`ds-standards`.
+
 ---
 
 ## Como adicionar nova lição

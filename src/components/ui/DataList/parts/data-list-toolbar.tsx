@@ -1,12 +1,18 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { MoreHorizontal, RefreshCw, SlidersHorizontal } from "lucide-react";
+import { MoreHorizontal, RefreshCw } from "lucide-react";
 import {
   TableToolbar,
   ToolbarSearch,
   ToolbarTabs,
   ToolbarApplied,
   ToolbarToolButton,
+  ToolbarActions,
+  ToolbarFilterButton,
   ToolbarSimpleFilterDrawer,
+} from "@/components/ui/TableToolbar";
+import type {
+  ToolbarAction,
+  ToolbarActionMenuItem,
 } from "@/components/ui/TableToolbar";
 import {
   DropdownMenu,
@@ -15,7 +21,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
-import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/shadcn/popover";
+import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
+import type { ColumnOption } from "@/components/ui/DataTable/column-types";
+import type {
+  FilterModel,
+  FilterValue,
+  FilterOperator,
+} from "@/components/ui/DataTable/data-table.types";
 import type {
   AppliedFilter,
   FilterPopoverColumn,
@@ -40,6 +57,7 @@ type Props = {
   filterModel: FilterModel;
   onFilterModelChange: (m: FilterModel) => void;
   onRefresh?: () => void;
+  toolbarActions?: ToolbarAction[];
   moreActions?: ListMenuItem[];
   loading?: boolean;
 };
@@ -50,7 +68,8 @@ function toColumns(fields: FilterableField[]): FilterPopoverColumn[] {
     key: f.id,
     label: f.label,
     filterType: f.type,
-    type: f.type === "select" ? "select" : f.type === "number" ? "number" : "text",
+    type:
+      f.type === "select" ? "select" : f.type === "number" ? "number" : "text",
     options: f.options,
   }));
 }
@@ -87,8 +106,10 @@ function toAppliedFilters(
 
     const values: string[] = [];
     for (const it of items) {
-      if (Array.isArray(it.value)) for (const v of it.value) values.push(labelOf(v));
-      else if (it.value != null && it.value !== "") values.push(labelOf(it.value));
+      if (Array.isArray(it.value))
+        for (const v of it.value) values.push(labelOf(v));
+      else if (it.value != null && it.value !== "")
+        values.push(labelOf(it.value));
     }
     const value: ReactNode | ReactNode[] =
       values.length <= 2 ? values : `${values.length} selecionados`;
@@ -122,9 +143,20 @@ export function DataListToolbar({
   filterModel,
   onFilterModelChange,
   onRefresh,
+  toolbarActions,
   moreActions,
   loading,
 }: Props) {
+  const hasActions = !!toolbarActions && toolbarActions.length > 0;
+  // moreActions vira itens de menu (entram no ⋯; no mobile, dentro do ToolbarActions).
+  const moreItems: ToolbarActionMenuItem[] = (moreActions ?? []).map((a) => ({
+    label: a.label,
+    icon: a.icon,
+    onClick: a.onClick,
+    destructive: a.destructive,
+    disabled: a.disabled,
+    separator: a.separator,
+  }));
   const [drawerOpen, setDrawerOpen] = useState(false);
   const columns = useMemo(() => toColumns(filterFields ?? []), [filterFields]);
   const fieldsById = useMemo(() => {
@@ -137,6 +169,80 @@ export function DataListToolbar({
     [filterModel, fieldsById],
   );
   const filterCount = appliedFilters.length;
+
+  // Edição do chip in-place (igual DataTable): clicar abre popover com o
+  // fast-filter do column-type; muda o valor direto no chip.
+  const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+
+  const isEmptyVal = (v: unknown) =>
+    v == null || v === "" || (Array.isArray(v) && v.length === 0);
+
+  /** Substitui o(s) item(ns) de um grupo field|operator no filterModel. */
+  const setGroupValue = (
+    field: string,
+    operator: string,
+    value: FilterValue,
+  ) => {
+    const rest = filterModel.items.filter(
+      (i) => !(i.field === field && i.operator === operator),
+    );
+    const next = isEmptyVal(value)
+      ? rest
+      : [
+          ...rest,
+          {
+            id: `${field}-${operator}`,
+            field,
+            operator: operator as FilterOperator,
+            value,
+          },
+        ];
+    onFilterModelChange({ ...filterModel, items: next });
+  };
+
+  /** Chip clicável → popover de edição (fast-filter por column-type). */
+  const renderEditableChip = (f: AppliedFilter, defaultChip: ReactNode) => {
+    const [field, operator] = f.id.split("|");
+    const fieldDef = fieldsById.get(field);
+    if (!fieldDef) return defaultChip;
+
+    const isMulti = operator === "isAnyOf" || operator === "isNoneOf";
+    const isTuple = operator === "between";
+    const regType = isMulti ? "multiSelect" : fieldDef.type;
+    const def = columnTypeRegistry.get(regType);
+
+    const groupItems = filterModel.items.filter(
+      (i) => i.field === field && i.operator === operator,
+    );
+    const currentValue: FilterValue = isTuple
+      ? (groupItems[0]?.value as FilterValue)
+      : isMulti
+        ? (groupItems.flatMap((i) =>
+            Array.isArray(i.value)
+              ? (i.value as unknown[])
+              : i.value != null
+                ? [i.value]
+                : [],
+          ) as FilterValue)
+        : (groupItems[0]?.value as FilterValue);
+
+    return (
+      <Popover
+        open={openChipKey === f.id}
+        onOpenChange={(o) => setOpenChipKey(o ? f.id : null)}
+      >
+        <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
+        <PopoverContent align="start" className="p-0">
+          {def.renderFastFilterInput({
+            value: currentValue,
+            onChange: (v) => setGroupValue(field, operator, v),
+            options: fieldDef.options as ColumnOption[] | undefined,
+            onClose: () => setOpenChipKey(null),
+          })}
+        </PopoverContent>
+      </Popover>
+    );
+  };
 
   // Visões em ABAS (igual DataTable): 1ª aba = "Todos" (ou o título), demais = views.
   const tabs: ToolbarTab[] | undefined =
@@ -152,7 +258,9 @@ export function DataListToolbar({
       tabs={tabs}
       activeId={activeViewId ?? ALL_VIEW_ID}
       onSelect={(id) =>
-        onApplyView(id === ALL_VIEW_ID ? null : views.find((v) => v.id === id) ?? null)
+        onApplyView(
+          id === ALL_VIEW_ID ? null : (views.find((v) => v.id === id) ?? null),
+        )
       }
       ariaLabel="Visões"
     />
@@ -160,7 +268,9 @@ export function DataListToolbar({
     <h2 className="text-title-md font-semibold text-fg-default">
       {title}
       {typeof count === "number" && (
-        <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">{count}</span>
+        <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">
+          {count}
+        </span>
       )}
     </h2>
   ) : undefined;
@@ -182,7 +292,9 @@ export function DataListToolbar({
         refresh={
           onRefresh ? (
             <ToolbarToolButton
-              icon={<RefreshCw className={loading ? "animate-spin" : undefined} />}
+              icon={
+                <RefreshCw className={loading ? "animate-spin" : undefined} />
+              }
               aria-label="Atualizar"
               title="Atualizar"
               onClick={onRefresh}
@@ -200,20 +312,29 @@ export function DataListToolbar({
         }
         filter={
           filterFields && filterFields.length > 0 ? (
-            <ToolbarToolButton
-              icon={<SlidersHorizontal />}
-              label="Filtros"
+            <ToolbarFilterButton
               isActive={filterCount > 0}
               hasIndicator={filterCount > 0}
               onClick={() => setDrawerOpen(true)}
             />
           ) : undefined
         }
+        actions={
+          hasActions ? (
+            <ToolbarActions actions={toolbarActions!} extraItems={moreItems} />
+          ) : undefined
+        }
+        // Com toolbarActions, o ⋯ dos moreActions é absorvido pelo ToolbarActions
+        // (desktop + mobile). Sem toolbarActions, mantém o ⋯ clássico.
         more={
-          moreActions && moreActions.length > 0 ? (
+          !hasActions && moreActions && moreActions.length > 0 ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <ToolbarToolButton icon={<MoreHorizontal />} aria-label="Mais ações" title="Mais ações" />
+                <ToolbarToolButton
+                  icon={<MoreHorizontal />}
+                  aria-label="Mais ações"
+                  title="Mais ações"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" sideOffset={4}>
                 {moreActions.map((a, i) =>
@@ -244,6 +365,7 @@ export function DataListToolbar({
         onRemove={removeFilter}
         onClearAll={() => onFilterModelChange({ ...filterModel, items: [] })}
         separator={false}
+        renderChip={(f, defaultChip) => renderEditableChip(f, defaultChip)}
       />
 
       {filterFields && filterFields.length > 0 && (

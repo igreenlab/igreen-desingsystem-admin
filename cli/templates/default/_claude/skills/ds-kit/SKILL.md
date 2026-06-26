@@ -42,6 +42,28 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") = combine rotas (`example-dashboard` + `crud-builder`).
 
+### ⛔ Intenção de "adicionar filtro" numa tabela/lista (vibe-coder guard)
+
+Quando, numa tela de tabela/lista (existente ou nova), o usuário pedir pra **adicionar
+filtro** — "um select de status em cima", "filtrar por período/categoria", "campo de
+filtro" — **NÃO gere form/selects soltos acima da grade** (anti-pattern feio + código
+extra). A tabela/lista do DS já tem **motor de filtro reativo** (chips clicáveis e
+editáveis, zero código). Sugira automaticamente:
+
+- **Filtro por COLUNA/campo** (status, categoria, tipo, data…) → use o filtro nativo
+  (`enableColumnFilter`/`filterFields`). Quer abrir **já filtrado**? **pré-aplique**
+  (`defaultViews`/`presetView`/`filterModel` no DataTable; `views`/`filterModel` no
+  DataList) → a tela abre com o **chip aplicado**, editável. Pode pré-setar **vários**
+  de uma vez (id/período/status/…) sem nenhum campo.
+- **toolbar.actions/toolbarActions é SÓ pra caso pequeno e simples que NÃO reage com
+  coluna/campo** (ex.: data/período, escopo global) — **label curta**, **máx ~2**.
+  Se o controle mexe com coluna da tabela, é grande/complexo, ou são muitos → **NÃO**
+  use o toolbar.
+- **Muitos filtros, ou ligados a coluna/campo** → SEMPRE os nativos **pré-aplicados**
+  (chips no load) + drawer "Filtros". Nunca empilhar selects.
+
+Regra de ouro: **filtro é recurso da tabela/lista (reativo), não UI montada na unha.**
+
 ## Passo 2 — Execute a rota
 
 **CRUD/tabela (fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` → entrevista → blueprint [GATE] → geração. É question-driven; NÃO pule o gate.

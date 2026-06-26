@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
+import type { ToolbarAction } from "@/components/ui/TableToolbar";
 import type {
   ListGroup,
   ListItemData,
@@ -61,6 +62,11 @@ export type DataListProps = {
   views?: DataListView[];
   /** Botão refresh (callback). */
   onRefresh?: () => void;
+  /**
+   * Ações custom do toolbar (button/dropdown/input) — ex.: seletor de período.
+   * Desktop: inline; mobile: colapsam no ⋯ junto com `moreActions`.
+   */
+  toolbarActions?: ToolbarAction[];
   /** Itens do botão "⋯" (opcional). */
   moreActions?: ListMenuItem[];
 
@@ -99,10 +105,20 @@ export type DataListProps = {
   /* ── seleção / dnd / persistência ─────────────────────────── */
   selectable?: boolean;
   onSelectionChange?: (ids: Set<string>) => void;
-  bulkActions?: { label: string; icon?: ReactNode; onClick: (ids: Set<string>) => void; destructive?: boolean }[];
+  bulkActions?: {
+    label: string;
+    icon?: ReactNode;
+    onClick: (ids: Set<string>) => void;
+    destructive?: boolean;
+  }[];
   enableDnD?: boolean;
   onReorder?: (id: string, toIndex: number) => void;
-  onMove?: (id: string, fromGroupId: string, toGroupId: string, toIndex: number) => void;
+  onMove?: (
+    id: string,
+    fromGroupId: string,
+    toGroupId: string,
+    toIndex: number,
+  ) => void;
   /** Chave do localStorage pra persistir a query (search+filtros+view). */
   persistKey?: string;
 

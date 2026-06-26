@@ -158,6 +158,23 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 
 ## Fase 3 — Filtros e busca (agrupada)
 
+> ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Quando o
+> usuário mostrar intenção de "adicionar filtro" (um select de status em cima, um campo
+> de período, "filtrar por X"), **sugira o padrão certo** — a tabela já tem motor de
+> filtro reativo (chips clicáveis/editáveis, zero código extra):
+>
+> - **Filtro por COLUNA** (status/categoria/tipo/data…) → `enableColumnFilter` +
+>   `filterType` na coluna. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/
+>   `presetView` ou `filterModel`) → a tela abre com o **chip aplicado**, editável e
+>   reativo. Pode pré-setar **vários** de uma vez (id/período/status/…), sem campos.
+> - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
+>   data/período, escopo global) — **label curta**, **máx ~2**. Se o controle mexe com
+>   coluna da tabela, é grande/complexo, ou são muitos → **NÃO use o toolbar.**
+> - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips
+>   no load) + drawer "Filtros". Nunca empilhar selects acima da grade.
+>
+> Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
+
 | Item                      | Pergunta                                                                             | Default                                                                                    |
 | ------------------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
 | Colunas filtráveis        | "Todas filtram, exceto...?"                                                          | todas com `enableColumnFilter: true`, exceto `actions` e render-custom sem valor filtrável |
@@ -182,25 +199,26 @@ Oferecer a alternativa: se não precisa de controle externo do filterModel,
 
 ## Fase 4 — Comportamento (agrupada, tabela de defaults)
 
-| Item                  | Pergunta                                                                                                                                            | Default                                     |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
-| Pagination            | pageSize inicial + options                                                                                                                          | 25 · [10, 25, 50, 100]                      |
-| **Virtualização**     | auto-propor se volume > ~1.000 client-mode: "ativar `virtualize` + pagination off?"                                                                 | off                                         |
-| Selection + bulk      | habilitar? quais bulk actions (`selectionConfig.actions`)? `enableGlobal`?                                                                          | off                                         |
-| Row click             | nada / DetailDrawer / navegação                                                                                                                     | nada (standalone) · DetailDrawer (AppShell) |
-| Inline edit           | quais colunas `editable` + `onCellEditCommit` async                                                                                                 | off                                         |
-| Totalizers            | `showTotalizers` + `aggregate` por coluna                                                                                                           | off                                         |
-| Grouping              | `groupBy`? (avisar: pagination auto-off; default column-aligned, free-form via overrides)                                                           | off                                         |
-| Row expansion         | coluna `expandable` + `renderRowExpansion` + `singleExpand`? (excludente com groupBy)                                                               | off                                         |
-| Export                | `toolbar.enableExport` + escopo (tudo/filtrado/selecionado)                                                                                         | off                                         |
-| Density               | `toolbar.enableDensity`                                                                                                                             | on                                          |
-| `persistId`           | persistir workspace (localStorage v4)?                                                                                                              | on, valor = page id                         |
-| Views (presets)       | abas pré-definidas (`defaultViews` + `presetView`)? quais (nome + filtros + sort)?                                                                  | off                                         |
-| Views (usuário)       | usuário cria/salva/persiste as próprias? (`savedViewsService` + `persistId`)                                                                        | off                                         |
-| Refresh               | `toolbar.enableRefresh`                                                                                                                             | on (default da API)                         |
-| moreMenu              | items extras (⋯)?                                                                                                                                   | off                                         |
-| **Estados**           | loading (`renderLoading` skeleton) · vazio (`renderEmpty` + CTA _Adicionar_) · sem-resultado (`renderNoResults` + limpar) — **sempre definir os 3** | defaults sensatos                           |
-| **Form criar/editar** | campos (default = colunas editáveis) · obrigatório? · máscara (CNPJ/tel/CEP/moeda)? · validação? — via `FormField` (L-023) + `gap-form-gap` (L-024) | espelha colunas                             |
+| Item                  | Pergunta                                                                                                                                                                           | Default                                     |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- |
+| Pagination            | pageSize inicial + options                                                                                                                                                         | 25 · [10, 25, 50, 100]                      |
+| **Virtualização**     | auto-propor se volume > ~1.000 client-mode: "ativar `virtualize` + pagination off?"                                                                                                | off                                         |
+| Selection + bulk      | habilitar? quais bulk actions (`selectionConfig.actions`)? `enableGlobal`?                                                                                                         | off                                         |
+| Row click             | nada / DetailDrawer / navegação                                                                                                                                                    | nada (standalone) · DetailDrawer (AppShell) |
+| Inline edit           | quais colunas `editable` + `onCellEditCommit` async                                                                                                                                | off                                         |
+| Totalizers            | `showTotalizers` + `aggregate` por coluna                                                                                                                                          | off                                         |
+| Grouping              | `groupBy`? (avisar: pagination auto-off; default column-aligned, free-form via overrides)                                                                                          | off                                         |
+| Row expansion         | coluna `expandable` + `renderRowExpansion` + `singleExpand`? (excludente com groupBy)                                                                                              | off                                         |
+| Export                | `toolbar.enableExport` + escopo (tudo/filtrado/selecionado)                                                                                                                        | off                                         |
+| Density               | `toolbar.enableDensity`                                                                                                                                                            | on                                          |
+| `persistId`           | persistir workspace (localStorage v4)?                                                                                                                                             | on, valor = page id                         |
+| Views (presets)       | abas pré-definidas (`defaultViews` + `presetView`)? quais (nome + filtros + sort)?                                                                                                 | off                                         |
+| Views (usuário)       | usuário cria/salva/persiste as próprias? (`savedViewsService` + `persistId`)                                                                                                       | off                                         |
+| Refresh               | `toolbar.enableRefresh`                                                                                                                                                            | on (default da API)                         |
+| **toolbar.actions**   | ações custom no toolbar (`button`/`dropdown`/`input`, ex.: seletor de período). Inline no desktop; **colapsam no ⋯ no mobile**. Oferecer quando pedir botão/seletor extra na barra | off                                         |
+| moreMenu              | items extras (⋯)?                                                                                                                                                                  | off                                         |
+| **Estados**           | loading (`renderLoading` skeleton) · vazio (`renderEmpty` + CTA _Adicionar_) · sem-resultado (`renderNoResults` + limpar) — **sempre definir os 3**                                | defaults sensatos                           |
+| **Form criar/editar** | campos (default = colunas editáveis) · obrigatório? · máscara (CNPJ/tel/CEP/moeda)? · validação? — via `FormField` (L-023) + `gap-form-gap` (L-024)                                | espelha colunas                             |
 
 ---
 

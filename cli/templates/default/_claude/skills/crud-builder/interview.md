@@ -36,6 +36,22 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 
 ## Fase 2 — Busca, filtros & ações
 
+> ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Intenção de
+> "adicionar filtro" (select de status em cima, campo de período, "filtrar por X") →
+> **sugira o padrão certo** (a tabela já filtra reativo, com chips clicáveis/editáveis):
+>
+> - **Filtro por COLUNA** (status/categoria/tipo/data…) → `enableColumnFilter` +
+>   `filterType`. Quer abrir já filtrado? **pré-aplique** (`defaultViews`/`presetView`
+>   ou `filterModel`) → abre com o **chip aplicado**, editável, reativo. Pode pré-setar
+>   **vários** (id/período/status/…), sem campos.
+> - **toolbar.actions é SÓ pra caso pequeno e simples que NÃO reage com coluna** (ex.:
+>   data/período, escopo) — **label curta**, **máx ~2**. Se mexe com coluna, é grande, ou
+>   são muitos → **NÃO use o toolbar.**
+> - **Muitos filtros, ou ligados a coluna** → SEMPRE os nativos **pré-aplicados** (chips no
+>   load) + drawer "Filtros". Nunca empilhar selects.
+>
+> Regra de ouro: **filtro é recurso da tabela (reativo), não UI montada na unha.**
+
 - Busca global? (`enableSearch`)
 - Filtros por coluna? **Default = TODAS as colunas de dados filtram** (`enableColumnFilter: true` + `filterType` por tipo) — pergunte só "alguma NÃO deve filtrar?". O funil/drawer só lista colunas com `enableColumnFilter`; marcar só 2 = bug. (Ver §Regras de coluna em `generate.md`.)
 - Ações por linha (editar, excluir, ...)? (coluna `actions`, `getActions`) — vai por **último**; o DataTable ancora à direita/estreita sozinho (sem `pinned`/`width`). NÃO setar `width` nas demais (autoFit distribui).
@@ -43,6 +59,7 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
   deletar direto). Pergunte o texto do confirm.
 - Seleção + ações em massa (exportar, etc.)? (`selectionConfig` + bulk actions).
 - Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
+- Ação custom no toolbar (ex.: seletor de período/mês, botão extra)? `toolbar.actions: ToolbarAction[]` (`button`/`dropdown`/`input`) — inline no desktop, colapsa no ⋯ no mobile. Oferecer só se o usuário pedir.
 
 ## Fase 3 — Views, paginação & densidade
 
