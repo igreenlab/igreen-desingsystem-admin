@@ -313,7 +313,8 @@ export function DataListToolbar({
           filterFields && filterFields.length > 0 ? (
             <ToolbarToolButton
               icon={<SlidersHorizontal />}
-              label="Filtros"
+              aria-label="Filtros"
+              title="Filtros"
               isActive={filterCount > 0}
               hasIndicator={filterCount > 0}
               onClick={() => setDrawerOpen(true)}

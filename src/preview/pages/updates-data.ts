@@ -64,6 +64,12 @@ export const RELEASES: ReleaseEntry[] = [
           "Showcase: exemplo de seletor de Período (dropdown) no `#/list-standard`.",
         ],
       },
+      {
+        type: "changed",
+        items: [
+          "DataList: botão de Filtros agora é icon-only (só o funil), igual ao DataTable — antes vinha com label 'Filtros'.",
+        ],
+      },
     ],
   },
   {
