@@ -116,6 +116,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Resize manual de colunas**    | Default ativo em todas as colunas exceto `type: "actions"` ou `purpose: "selection"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`.                                                                                      |
 | **Export**                      | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }`                                                                                                                                                                                                            |
 | **View Kanban (board)**         | `viewMode="kanban"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar                                                                                                                                                                                                           |
+| **View Lista (cards)**          | `viewMode="list"` + `listConfig={{ renderItem(row) }}` — toggle Tabela/Lista auto na toolbar; mesma toolbar, corpo vira `<List>`. `hierarchical: true` + `getTreeDataPath` = lista em árvore. Showcase `#/clients-list-view`                                                                                                                                            |
 | **Totalizer row**               | `showTotalizers` na DataTable + `aggregate: "sum"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow`                                                                                                                                                                                                                              |
 | **Keyboard navigation**         | Auto — setas, Home/End, PgUp/PgDn no body                                                                                                                                                                                                                                                                                                                            |
 
@@ -404,6 +405,33 @@ Toggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo
 ```
 
 Quando `viewMode`/`defaultViewMode` + `kanbanConfig` estão definidos, a toolbar auto-renderiza o segmented table/kanban (override/esconda via `toolbar.viewToggle`). Filter/search/sort/selection continuam aplicados às rows; paginação, density toggle e columns popover são desligados automaticamente no board. `kanbanConfig.columns` (opcional, `KanbanColumn[]`) fixa ordem/label/dotColor das colunas — sem ele, as colunas derivam dos valores únicos de `groupByField`. Outras opções do `kanbanConfig`: `renderCardContent` (override total do miolo do card), `getCardMenuItems`/`getColumnMenuItems` (menus "⋯"), `onAddCard`/`onAddInFooter`, `emptyLabel`/`addLabel`.
+
+### View Lista (table ⇄ list)
+
+```tsx
+<DataTable<Client>
+  rows={clients}
+  columns={columns}
+  viewMode={viewMode}            // "table" | "list" | "kanban"
+  onViewModeChange={setViewMode} // ou defaultViewMode (uncontrolled)
+  listConfig={{
+    renderItem: (row, { depth }) => (
+      <div className="flex w-full items-center gap-gp-lg">
+        <Avatar size="md" colorHex={row.avatarColor}>{row.initials}</Avatar>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className="truncate text-body-md font-semibold">{row.name}</span>
+          <span className="truncate text-caption-md text-fg-muted">{row.email}</span>
+        </div>
+        <Chip color="success" variant="soft" size="sm" shape="pill">Ativo</Chip>
+      </div>
+    ),
+    // hierarchical: true,  // + getTreeDataPath → lista em ÁRVORE (conectores)
+    // getMenuItems: (row) => [...],  // menu "⋯" por item
+  }}
+/>
+```
+
+`listConfig` habilita a 3ª view: o toggle vira **Tabela / Lista** (+ Kanban se `kanbanConfig`). O DataTable mantém a **MESMA toolbar** (busca/filtros/views/ações/totalizadores) e só troca o corpo por um `<List>` do DS, alimentado pelas rows processadas (`filter+search+sort`, sem paginação — igual ao kanban). `listConfig.renderItem(row, { depth, open })` desenha o card de cada item. Com `hierarchical: true` + `getTreeDataPath`, a lista aninha em árvore (mesmo path do tree-data) com indentação/conectores e `depth` por nível. Showcase: `#/clients-list-view`.
 
 ### Saved views
 

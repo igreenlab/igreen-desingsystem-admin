@@ -34,6 +34,11 @@ que o caso é mesmo lista de cards — senão a pessoa cria a coisa errada:
 
 Caso for tabela → **PARAR** e mandar pro `crud-builder` (`/ds-create-crud`).
 
+> 🔀 **Tabela + Lista no MESMO lugar (toggle Tabela/Lista)?** Não é esta skill —
+> é o **`viewMode: "list"` do DataTable** (`listConfig`), que mantém a toolbar e
+> alterna corpo (igual ao kanban). Vai pro `crud-builder`. Esta skill é só pra
+> tela de **lista standalone** (sem tabela ao lado).
+
 ## Escopo (fixo)
 
 - ✅ Telas de lista de cards: layouts `standard`/`grouped`(+DnD)/`hierarchical`

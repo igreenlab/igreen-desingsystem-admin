@@ -43,6 +43,7 @@ Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempr
 Espelhe `FinanceDetailPanel` — **sempre** `<FloatingPanel>` (não markup solto):
 `titleSlot` (Avatar lg + nome + `ID · Chip status`) · `headerActions`/`footer` com `<Button>` · `bodyPadded={false}` · **agrupar por categoria** em `<FloatingPanelSection title>` · cada dado simples = **uma linha** `<FloatingPanelField label value/>` (lista) · destaque (saldo/progresso) = bloco próprio · conteúdo rico (checklist/extrato) mantém formato próprio dentro da Section (NÃO forçar em Field).
 
+- **Tabela + Lista (toggle)**: se o usuário quer alternar entre tabela e uma **lista de cards** (não kanban), use `viewMode` + `listConfig={{ renderItem(row), hierarchical?, getMenuItems? }}` no próprio `<DataTable>` — mesma toolbar, toggle Tabela/Lista automático. `hierarchical: true` + `getTreeDataPath` = lista em árvore. NÃO monte um `<DataList>` paralelo + toggle na mão.
 - Drawers de criar/editar: espelhe `NovoClienteDrawer` (Panel + FormField + `gap-form-gap`), ligados via estado da página (igual ao `finance-screen.tsx`).
 - Tokens/spacing/typography conforme `.claude/rules/ds-design.md` + `DESIGN.md`.
 

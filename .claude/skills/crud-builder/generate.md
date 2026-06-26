@@ -24,6 +24,7 @@ description: >
 | Row expansion                                         | `src/preview/pages/ClientsExpandablePreview.tsx`               |
 | Colunas 100% declarativas por type                    | `src/preview/pages/ClientsTypedPreview.tsx`                    |
 | Kanban view                                           | `src/preview/pages/ClientsKanbanPreview.tsx`                   |
+| **View Lista (toggle Tabela/Lista)** ⭐               | `src/preview/pages/ClientsListViewPreview.tsx`                 |
 | AppShell + PageHeader + drawers + AlertModal          | `src/preview/pages/ClientesShowcase/ClientesShowcase.tsx`      |
 | valueGetter lookup · render com Avatar · KPIs         | `src/preview/pages/ClientesFinanceiroShowcase/`                |
 | **Célula rica (avatar/chip) + detail panel por categoria** ⭐ | `src/examples/finance/finance-screen.tsx` + `src/examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx` |
@@ -33,6 +34,13 @@ description: >
 > ⭐ **O finance é a referência de CONSISTÊNCIA visual** (tamanhos de fonte,
 > avatar, badges, disposição, detail panel). Toda tabela nova deve sair com o
 > mesmo "feeling" — ver as duas seções de padrões abaixo.
+
+> 🔀 **Tabela + Lista no mesmo lugar (toggle):** quando o usuário quer alternar
+> entre tabela e uma **lista de cards** (em vez de kanban), use `viewMode` +
+> `listConfig={{ renderItem(row), hierarchical?, getMenuItems? }}` no PRÓPRIO
+> DataTable — a toolbar é a mesma e o toggle Tabela/Lista aparece automático.
+> Com `hierarchical: true` + `getTreeDataPath`, a lista vira árvore. NÃO monte
+> um `<DataList>` paralelo + toggle na mão. Ref: `ClientsListViewPreview.tsx`.
 
 ## 2. Esqueleto — página standalone (`ExamplePageLayout`)
 

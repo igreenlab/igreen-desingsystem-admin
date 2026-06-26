@@ -142,6 +142,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: Tree-data", href: "clients-tree" },
       { label: "Example: Column types", href: "clients-typed" },
       { label: "Example: Kanban view", href: "clients-kanban" },
+      { label: "Example: List view (toggle)", href: "clients-list-view" },
     ],
   },
   {
