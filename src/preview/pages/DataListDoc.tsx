@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { Archive, Pencil, Trash2, User } from "lucide-react";
-import { DataList, type FilterableField, type DataListView } from "../../components/ui/DataList";
+import {
+  DataList,
+  type FilterableField,
+  type DataListView,
+} from "../../components/ui/DataList";
 import type { ListItemData } from "../../components/ui/List";
 import {
   DocLayout,
@@ -30,7 +34,10 @@ function Avatar() {
 function StatusDot({ color, label }: { color: string; label: string }) {
   return (
     <span className="inline-flex items-center gap-gp-xs text-body-sm text-fg-default">
-      <span className="size-[8px] rounded-radius-full" style={{ background: color }} />
+      <span
+        className="size-[8px] rounded-radius-full"
+        style={{ background: color }}
+      />
       {label}
     </span>
   );
@@ -44,54 +51,169 @@ const STATUS_COLOR: Record<string, string> = {
   pending: "var(--color-fg-warning)",
   inactive: "var(--color-fg-subtle)",
 };
-const STATUS_LABEL: Record<string, string> = { active: "Ativo", pending: "Pendente", inactive: "Inativo" };
+const STATUS_LABEL: Record<string, string> = {
+  active: "Ativo",
+  pending: "Pendente",
+  inactive: "Inativo",
+};
 
-function person(id: string, name: string, email: string, role: keyof typeof ROLE, status: string, seen: string): ListItemData {
+function person(
+  id: string,
+  name: string,
+  email: string,
+  role: keyof typeof ROLE,
+  status: string,
+  seen: string,
+): ListItemData {
   return {
-    id, leading: <Avatar />, title: name, subtitle: email,
+    id,
+    leading: <Avatar />,
+    title: name,
+    subtitle: email,
     data: { role, status } satisfies Person,
     meta: [
       { label: "Papel", value: ROLE[role] },
-      { label: "Status", value: <StatusDot color={STATUS_COLOR[status]} label={STATUS_LABEL[status]} /> },
+      {
+        label: "Status",
+        value: (
+          <StatusDot
+            color={STATUS_COLOR[status]}
+            label={STATUS_LABEL[status]}
+          />
+        ),
+      },
       { label: "Visto", value: seen, align: "end" },
     ],
   };
 }
 
 const PEOPLE: ListItemData[] = [
-  person("alice", "Alice Smith", "alice@example.com", "admin", "active", "2 min"),
+  person(
+    "alice",
+    "Alice Smith",
+    "alice@example.com",
+    "admin",
+    "active",
+    "2 min",
+  ),
   person("bob", "Bob Jones", "bob@example.com", "editor", "active", "1 h"),
-  person("charlie", "Charlie Davis", "charlie@example.com", "viewer", "pending", "—"),
-  person("diana", "Diana Prince", "diana@example.com", "editor", "inactive", "2 dias"),
-  person("ethan", "Ethan Hunt", "ethan@example.com", "viewer", "active", "5 min"),
-  person("fiona", "Fiona Gallagher", "fiona@example.com", "admin", "pending", "3 h"),
+  person(
+    "charlie",
+    "Charlie Davis",
+    "charlie@example.com",
+    "viewer",
+    "pending",
+    "—",
+  ),
+  person(
+    "diana",
+    "Diana Prince",
+    "diana@example.com",
+    "editor",
+    "inactive",
+    "2 dias",
+  ),
+  person(
+    "ethan",
+    "Ethan Hunt",
+    "ethan@example.com",
+    "viewer",
+    "active",
+    "5 min",
+  ),
+  person(
+    "fiona",
+    "Fiona Gallagher",
+    "fiona@example.com",
+    "admin",
+    "pending",
+    "3 h",
+  ),
 ];
 
 const FILTER_FIELDS: FilterableField[] = [
-  { id: "role", label: "Papel", type: "select", accessor: (i) => (i.data as Person).role,
-    options: [{ label: "Admin", value: "admin" }, { label: "Editor", value: "editor" }, { label: "Viewer", value: "viewer" }] },
-  { id: "status", label: "Status", type: "select", accessor: (i) => (i.data as Person).status,
-    options: [{ label: "Ativo", value: "active" }, { label: "Pendente", value: "pending" }, { label: "Inativo", value: "inactive" }] },
+  {
+    id: "role",
+    label: "Papel",
+    type: "select",
+    accessor: (i) => (i.data as Person).role,
+    options: [
+      { label: "Admin", value: "admin" },
+      { label: "Editor", value: "editor" },
+      { label: "Viewer", value: "viewer" },
+    ],
+  },
+  {
+    id: "status",
+    label: "Status",
+    type: "select",
+    accessor: (i) => (i.data as Person).status,
+    options: [
+      { label: "Ativo", value: "active" },
+      { label: "Pendente", value: "pending" },
+      { label: "Inativo", value: "inactive" },
+    ],
+  },
 ];
 
 const VIEWS: DataListView[] = [
-  { id: "admins", label: "Admins", query: { search: "", filterModel: { logicOperator: "AND", items: [{ id: "va", field: "role", operator: "equals", value: "admin" }] } } },
-  { id: "ativos", label: "Ativos", query: { search: "", filterModel: { logicOperator: "AND", items: [{ id: "vs", field: "status", operator: "equals", value: "active" }] } } },
+  {
+    id: "admins",
+    label: "Admins",
+    query: {
+      search: "",
+      filterModel: {
+        logicOperator: "AND",
+        items: [
+          { id: "va", field: "role", operator: "equals", value: "admin" },
+        ],
+      },
+    },
+  },
+  {
+    id: "ativos",
+    label: "Ativos",
+    query: {
+      search: "",
+      filterModel: {
+        logicOperator: "AND",
+        items: [
+          { id: "vs", field: "status", operator: "equals", value: "active" },
+        ],
+      },
+    },
+  },
 ];
 
 // dataset grande pra virtualização
 const BIG: ListItemData[] = Array.from({ length: 1000 }, (_, i) =>
-  person(`u${i}`, `Usuário ${i + 1}`, `user${i + 1}@example.com`, (["admin", "editor", "viewer"] as const)[i % 3], ["active", "pending", "inactive"][i % 3], `${(i % 59) + 1} min`),
+  person(
+    `u${i}`,
+    `Usuário ${i + 1}`,
+    `user${i + 1}@example.com`,
+    (["admin", "editor", "viewer"] as const)[i % 3],
+    ["active", "pending", "inactive"][i % 3],
+    `${(i % 59) + 1} min`,
+  ),
 );
 
 // pool finito pra demonstrar paginação por scroll
 const POOL: ListItemData[] = Array.from({ length: 40 }, (_, i) =>
-  person(`p${i}`, `Pessoa ${i + 1}`, `pessoa${i + 1}@example.com`, (["admin", "editor", "viewer"] as const)[i % 3], ["active", "pending", "inactive"][i % 3], `${(i % 59) + 1} min`),
+  person(
+    `p${i}`,
+    `Pessoa ${i + 1}`,
+    `pessoa${i + 1}@example.com`,
+    (["admin", "editor", "viewer"] as const)[i % 3],
+    ["active", "pending", "inactive"][i % 3],
+    `${(i % 59) + 1} min`,
+  ),
 );
 const PAGE_SIZE = 8;
 
 function InfiniteExample() {
-  const [items, setItems] = useState<ListItemData[]>(() => POOL.slice(0, PAGE_SIZE));
+  const [items, setItems] = useState<ListItemData[]>(() =>
+    POOL.slice(0, PAGE_SIZE),
+  );
   const [loadingMore, setLoadingMore] = useState(false);
   const hasMore = items.length < POOL.length;
 
@@ -129,8 +251,11 @@ export function DataListDoc() {
 
       <SectionH2 id="construcao" title="Construção" />
       <p className="mb-gp-lg text-body-md text-fg-muted">
-        <code className="text-fg-default">{"<DataList items={...} searchable filterFields={...} />"}</code> —
-        o controller cuida de busca/filtros/views/persistência e passa os itens processados pro
+        <code className="text-fg-default">
+          {"<DataList items={...} searchable filterFields={...} />"}
+        </code>{" "}
+        — o controller cuida de busca/filtros/views/persistência e passa os
+        itens processados pro
         <code className="text-fg-default"> List</code> por baixo.
       </p>
 
@@ -162,7 +287,12 @@ export function DataListDoc() {
           bulkActions={[
             { label: "Editar", icon: <Pencil />, onClick: () => {} },
             { label: "Arquivar", icon: <Archive />, onClick: () => {} },
-            { label: "Excluir", icon: <Trash2 />, destructive: true, onClick: () => {} },
+            {
+              label: "Excluir",
+              icon: <Trash2 />,
+              destructive: true,
+              onClick: () => {},
+            },
           ]}
           moreActions={[{ label: "Exportar CSV", onClick: () => {} }]}
           persistKey="datalist-demo-membros"
@@ -216,16 +346,61 @@ export function DataListDoc() {
       <SectionH2 id="api" title="API Reference" />
       <PropsTable
         items={[
-          { name: "items / layout / groups", type: "repassados ao List (layout fixo)", defaultVal: "—" },
-          { name: "title · searchable · filterFields · views · onRefresh · moreActions", type: "toolbar enxuta", defaultVal: "—" },
-          { name: "filterFields", type: "{ id, label, accessor, type, options? }[]", defaultVal: "—" },
-          { name: "mode + onQueryChange · loading · total", type: "server/async ('client' default)", defaultVal: '"client"' },
-          { name: "onLoadMore + hasMore + loadingMore", type: "infinite scroll (sentinel + skeleton)", defaultVal: "—" },
-          { name: "virtualized + estimateItemSize", type: "listas grandes (só standard; desliga DnD)", defaultVal: "false / 76" },
-          { name: "onLoadChildren(id)", type: "lazy-load de filhos (hierarchical)", defaultVal: "—" },
-          { name: "selectable + onSelectionChange + bulkActions", type: "seleção + bulk bar", defaultVal: "—" },
-          { name: "enableDnD + onReorder/onMove", type: "DnD (passa pro List)", defaultVal: "false" },
-          { name: "persistKey", type: "persiste query em localStorage", defaultVal: "—" },
+          {
+            name: "items / layout / groups",
+            type: "repassados ao List (layout fixo)",
+            defaultVal: "—",
+          },
+          {
+            name: "title · searchable · filterFields · views · onRefresh · moreActions",
+            type: "toolbar enxuta",
+            defaultVal: "—",
+          },
+          {
+            name: "toolbarActions",
+            type: "ToolbarAction[] — ações custom (button/dropdown/input); colapsa no ⋯ no mobile. Ver #/table-toolbar",
+            defaultVal: "—",
+          },
+          {
+            name: "filterFields",
+            type: "{ id, label, accessor, type, options? }[]",
+            defaultVal: "—",
+          },
+          {
+            name: "mode + onQueryChange · loading · total",
+            type: "server/async ('client' default)",
+            defaultVal: '"client"',
+          },
+          {
+            name: "onLoadMore + hasMore + loadingMore",
+            type: "infinite scroll (sentinel + skeleton)",
+            defaultVal: "—",
+          },
+          {
+            name: "virtualized + estimateItemSize",
+            type: "listas grandes (só standard; desliga DnD)",
+            defaultVal: "false / 76",
+          },
+          {
+            name: "onLoadChildren(id)",
+            type: "lazy-load de filhos (hierarchical)",
+            defaultVal: "—",
+          },
+          {
+            name: "selectable + onSelectionChange + bulkActions",
+            type: "seleção + bulk bar",
+            defaultVal: "—",
+          },
+          {
+            name: "enableDnD + onReorder/onMove",
+            type: "DnD (passa pro List)",
+            defaultVal: "false",
+          },
+          {
+            name: "persistKey",
+            type: "persiste query em localStorage",
+            defaultVal: "—",
+          },
         ]}
       />
     </DocLayout>

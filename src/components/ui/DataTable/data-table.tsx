@@ -56,6 +56,7 @@ import {
   ToolbarSegmented,
   ToolbarApplied,
   ToolbarActions,
+  ToolbarFilterButton,
   BulkActionsBar,
   isFilterEntryActive,
   TableToolbarViews,
@@ -1532,12 +1533,10 @@ function DataTableInternal<T>(
               filter={
                 toolbarConfig.enableFilters !== false &&
                 filterPopoverColumns.length > 0 ? (
-                  <ToolbarToolButton
-                    icon={<FilterIcon />}
-                    aria-label="Filtros"
-                    // Conta só entries com valor real — uma linha recém-adicionada
-                    // no query builder e ainda vazia NÃO ativa o indicador. O
-                    // unmount-purge do FilterPanel remove a linha em branco ao fechar.
+                  // Conta só entries com valor real — uma linha recém-adicionada
+                  // no query builder e ainda vazia NÃO ativa o indicador. O
+                  // unmount-purge do FilterPanel remove a linha em branco ao fechar.
+                  <ToolbarFilterButton
                     isActive={hasActiveFilter}
                     hasIndicator={hasActiveFilter}
                     onClick={() => setV2FilterOpen(true)}

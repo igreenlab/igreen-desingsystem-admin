@@ -67,7 +67,7 @@ export const RELEASES: ReleaseEntry[] = [
       {
         type: "changed",
         items: [
-          "DataList: botão de Filtros agora é icon-only (só o funil), igual ao DataTable — antes vinha com label 'Filtros'.",
+          "TableToolbar: novo `<ToolbarFilterButton>` (funil, icon-only) — fonte única do botão de Filtros, usado por DataTable e DataList (antes cada um montava o seu: DataList vinha com `SlidersHorizontal` + label 'Filtros'; DataTable com funil). Padroniza ícone/affordance no componente.",
         ],
       },
     ],

@@ -1,5 +1,5 @@
 import { useMemo, useState, type ReactNode } from "react";
-import { MoreHorizontal, RefreshCw, SlidersHorizontal } from "lucide-react";
+import { MoreHorizontal, RefreshCw } from "lucide-react";
 import {
   TableToolbar,
   ToolbarSearch,
@@ -7,6 +7,7 @@ import {
   ToolbarApplied,
   ToolbarToolButton,
   ToolbarActions,
+  ToolbarFilterButton,
   ToolbarSimpleFilterDrawer,
 } from "@/components/ui/TableToolbar";
 import type {
@@ -311,10 +312,7 @@ export function DataListToolbar({
         }
         filter={
           filterFields && filterFields.length > 0 ? (
-            <ToolbarToolButton
-              icon={<SlidersHorizontal />}
-              aria-label="Filtros"
-              title="Filtros"
+            <ToolbarFilterButton
               isActive={filterCount > 0}
               hasIndicator={filterCount > 0}
               onClick={() => setDrawerOpen(true)}

@@ -34,6 +34,9 @@ export type {
   ToolbarActionMenuItem,
 } from "./parts/toolbar-actions";
 
+export { ToolbarFilterButton } from "./parts/toolbar-filter-button";
+export type { ToolbarFilterButtonProps } from "./parts/toolbar-filter-button";
+
 /**
  * Mobile collapse pattern — consumido pelo `<DataTable>` automaticamente
  * (controles secundários colapsam em viewports < md). Também disponível

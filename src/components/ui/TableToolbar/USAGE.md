@@ -26,7 +26,7 @@ Em `< md`: o `refresh` some (o menu Configurações cobre o resto).
 | `savedViews` | Abas de visões + adicionar (`<TableToolbarViews>` + `<ViewsPopover>`)                                                                                                           |
 | `refresh`    | Botão atualizar (`<ToolbarToolButton>`)                                                                                                                                         |
 | `search`     | Campo de busca (`<ToolbarSearch>`)                                                                                                                                              |
-| `filter`     | Filtro simples: funil → drawer (`<ToolbarSimpleFilterDrawer>`)                                                                                                                  |
+| `filter`     | Filtro simples: use `<ToolbarFilterButton onClick isActive hasIndicator />` (funil, icon-only — **mesmo botão** no DataTable e DataList) → abre `<ToolbarSimpleFilterDrawer>`   |
 | `actions`    | Ações custom: `<ToolbarActions actions={[...]} />` (`button`/`dropdown`/`input`). Inline no desktop; **colapsam no ⋯ no mobile** (passe `extraItems` p/ absorver o ⋯ existente) |
 | `settings`   | Configurações: sliders → drill-down (`<ToolbarSettingsMenu>` com Ordenação · Colunas · Filtros avançados · Densidade)                                                           |
 | `more`       | Menu "⋯" (`<MoreMenu>`) — export + ações                                                                                                                                        |

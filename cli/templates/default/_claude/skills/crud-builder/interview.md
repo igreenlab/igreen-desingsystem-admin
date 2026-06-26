@@ -43,6 +43,7 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
   deletar direto). Pergunte o texto do confirm.
 - Seleção + ações em massa (exportar, etc.)? (`selectionConfig` + bulk actions).
 - Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
+- Ação custom no toolbar (ex.: seletor de período/mês, botão extra)? `toolbar.actions: ToolbarAction[]` (`button`/`dropdown`/`input`) — inline no desktop, colapsa no ⋯ no mobile. Oferecer só se o usuário pedir.
 
 ## Fase 3 — Views, paginação & densidade
 
