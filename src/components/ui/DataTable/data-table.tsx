@@ -1,4 +1,11 @@
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { Ref, ReactNode } from "react";
 import {
   DndContext,
@@ -48,6 +55,7 @@ import {
   ToolbarToolButton,
   ToolbarSegmented,
   ToolbarApplied,
+  ToolbarActions,
   BulkActionsBar,
   isFilterEntryActive,
   TableToolbarViews,
@@ -88,7 +96,10 @@ import { DataTableColumnMenu } from "./parts/data-table-column-menu";
 import { DataTableActionsCell } from "./parts/data-table-actions-cell";
 import { DataTableSortableHeadCell } from "./parts/sortable-head-cell";
 import { DataTableTotalizerRow } from "./parts/data-table-totalizer-row";
-import { DataTableRow, type DataTableRowHandlers } from "./parts/data-table-row";
+import {
+  DataTableRow,
+  type DataTableRowHandlers,
+} from "./parts/data-table-row";
 import { DataTableGroupHeaderRow } from "./parts/data-table-group-header-row";
 import { DataTableGroupContentRow } from "./parts/data-table-group-content-row";
 import { groupRows, isGroupRow, isGroupContent } from "./utils/group-rows";
@@ -124,15 +135,15 @@ const styles = dataTableStyles();
 /* ── Density toggle items (stable ref) ────────────────────────────── */
 
 const DENSITY_ITEMS: ToolbarSegmentedItem<TableDensity>[] = [
-  { value: "compact",     children: <Rows4 />, label: "Compacto" },
-  { value: "standard",    children: <Rows3 />, label: "Padrão" },
+  { value: "compact", children: <Rows4 />, label: "Compacto" },
+  { value: "standard", children: <Rows3 />, label: "Padrão" },
   { value: "comfortable", children: <Rows2 />, label: "Confortável" },
 ];
 
 /* ── View mode toggle items (stable ref) ───────────────────────────── */
 
 const DEFAULT_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
-  { value: "table",  children: <TableIcon />,  label: "Tabela" },
+  { value: "table", children: <TableIcon />, label: "Tabela" },
   { value: "kanban", children: <LayoutGrid />, label: "Kanban" },
 ];
 
@@ -164,10 +175,7 @@ const MOBILE_VIEW_MODE_ITEMS: ToolbarSegmentedItem<"table" | "kanban">[] = [
  * Resolve o valor de uma cell — delega pro shared `applyValueGetter`
  * (utils/resolve-value.ts) pra evitar duplicação com processor + group-rows.
  */
-function resolveCellValue<T>(
-  row: T,
-  col: DataTableColumnDef<T>,
-): unknown {
+function resolveCellValue<T>(row: T, col: DataTableColumnDef<T>): unknown {
   return applyValueGetter(row, col);
 }
 
@@ -249,7 +257,8 @@ function DataTableInternal<T>(
    * NÃO foi explicitamente passado (undefined = "use default"; null = "esconder").
    */
   const resolvedViewToggle = useMemo<ReactNode>(() => {
-    if (props.toolbar?.viewToggle !== undefined) return props.toolbar.viewToggle;
+    if (props.toolbar?.viewToggle !== undefined)
+      return props.toolbar.viewToggle;
     if (!props.kanbanConfig) return null;
     return (
       <ToolbarSegmented
@@ -259,7 +268,12 @@ function DataTableInternal<T>(
         aria-label="Modo de visualização"
       />
     );
-  }, [props.toolbar?.viewToggle, props.kanbanConfig, viewMode, handleViewModeChange]);
+  }, [
+    props.toolbar?.viewToggle,
+    props.kanbanConfig,
+    viewMode,
+    handleViewModeChange,
+  ]);
 
   /* ── Kanban transformer (somente quando viewMode=kanban) ──────── */
   const kanbanView = useDataTableViewMode({
@@ -324,7 +338,11 @@ function DataTableInternal<T>(
   const kanbanRenderCardContent = useMemo(() => {
     if (!isKanban || !props.kanbanConfig?.renderCardContent) return undefined;
     const userFn = props.kanbanConfig.renderCardContent;
-    return (params: { card: { id: string }; selected: boolean; open: boolean }) => {
+    return (params: {
+      card: { id: string };
+      selected: boolean;
+      open: boolean;
+    }) => {
       const row = kanbanCardIdToRow.get(params.card.id);
       if (!row) return null;
       return userFn({
@@ -343,7 +361,9 @@ function DataTableInternal<T>(
   /** Filter shortcut state — chip a abrir auto após click no header icon.
    *  Mora aqui porque várias funções fora do adapter usam (handleFilterShortcut,
    *  renderChip onOpenChange, isFilterValueEmpty cleanup). O adapter consome via prop. */
-  const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(null);
+  const [pendingOpenChipKey, setPendingOpenChipKey] = useState<string | null>(
+    null,
+  );
 
   /** Chip de filtro aplicado aberto via clique (controlado). Necessário pra
    *  `onClose` do renderFastFilterInput funcionar — selects/boolean usam
@@ -398,10 +418,9 @@ function DataTableInternal<T>(
    *  abre popover via pendingOpenChipKey (mecanismo já existente).
    *  Quando user remove (X): adiciona ao set local `dismissedPlaceholders`.
    *  Cleanup automático em outros lugares fica intacto. */
-  const [dismissedPlaceholders, setDismissedPlaceholders] = useState<Set<string>>(
-    () => new Set(),
-  );
-
+  const [dismissedPlaceholders, setDismissedPlaceholders] = useState<
+    Set<string>
+  >(() => new Set());
 
   /** Fields que JÁ TÊM item COM VALOR no filterModel — placeholders desses fields
    *  são suprimidos. Items vazios (sem valor preenchido) NÃO contam — assim quando
@@ -423,7 +442,8 @@ function DataTableInternal<T>(
   const effectivePlaceholderFields = useMemo(() => {
     if (!props.showEmptyFilterChips?.length) return [] as string[];
     return props.showEmptyFilterChips.filter(
-      (field) => !fieldsWithFilter.has(field) && !dismissedPlaceholders.has(field),
+      (field) =>
+        !fieldsWithFilter.has(field) && !dismissedPlaceholders.has(field),
     );
   }, [props.showEmptyFilterChips, fieldsWithFilter, dismissedPlaceholders]);
 
@@ -494,7 +514,12 @@ function DataTableInternal<T>(
     });
 
     return [...orderedNativeChips, ...otherChips];
-  }, [placeholderFilters, appliedFilters, appliedGroups, props.showEmptyFilterChips]);
+  }, [
+    placeholderFilters,
+    appliedFilters,
+    appliedGroups,
+    props.showEmptyFilterChips,
+  ]);
 
   /** Handler de remove que intercepta placeholders. */
   const handleRemoveFilter = useCallback(
@@ -537,15 +562,12 @@ function DataTableInternal<T>(
 
   /* ── Adapters: ColumnDef → SortPopover props (extraído em hook) ── */
 
-  const {
-    sortPopoverColumns,
-    sortPopoverCriteria,
-    handleSortChange,
-  } = useSortPopoverAdapter({
-    effectiveColumns: cols.effectiveColumns,
-    sortModels: sort.sortModels,
-    setSortModels: sort.setSortModels,
-  });
+  const { sortPopoverColumns, sortPopoverCriteria, handleSortChange } =
+    useSortPopoverAdapter({
+      effectiveColumns: cols.effectiveColumns,
+      sortModels: sort.sortModels,
+      setSortModels: sort.setSortModels,
+    });
 
   /* ── Adapters: ColumnDef → ColsPopover props (extraído em hook) ── */
 
@@ -653,7 +675,9 @@ function DataTableInternal<T>(
    */
   const dndSensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
   );
 
   const handleColumnDragEnd = (event: DragEndEvent) => {
@@ -702,7 +726,8 @@ function DataTableInternal<T>(
     // tipos nem suportam → filtro inerte).
     const operator = defaultOperatorForFilterType(col.filterType);
     const chipKey = `${field}|${operator}`;
-    const initialValue: FilterValue = operator === "between" ? [null, null] : "";
+    const initialValue: FilterValue =
+      operator === "between" ? [null, null] : "";
 
     // Se ja existe grupo pra essa coluna+operator, so abre. Senao, adiciona vazio + abre.
     const existing = filters.filterModel.items.find(
@@ -1045,255 +1070,274 @@ function DataTableInternal<T>(
       collisionDetection={closestCenter}
       onDragEnd={handleColumnDragEnd}
     >
-    <Table
-      density={density.density}
-      cardBreakpoint={props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT}
-      className="min-h-0 max-h-full"
-      scrollRef={scrollContainerRef}
-    >
-      <TableHead>
-        {selectionConfig.enabled && (
-          <TableHeadCell width={SELECTION_COLUMN_WIDTH} align="center" purpose="selection">
-            <Checkbox
-              checked={
-                selection.isPageSelected(rowsToRender)
-                  ? true
-                  : selection.isPageIndeterminate(rowsToRender)
-                    ? "indeterminate"
-                    : false
-              }
-              onCheckedChange={() => selection.togglePage(rowsToRender)}
-              aria-label="Selecionar página"
-            />
-          </TableHeadCell>
-        )}
-        <SortableContext items={sortableIds} strategy={horizontalListSortingStrategy}>
-        {cols.effectiveColumns.map((col) => {
-          const field = String(col.field);
-          const isActions = col.type === "actions";
-          return (
-            <DataTableSortableHeadCell
-              key={field}
-              sortableId={field}
-              disableDrag={isActions}
-              field={field}
-              width={cols.columnWidths[field]}
-              pinned={col.pinned}
-              pinOffset={cols.stickyOffsets[field]}
-              align={col.align}
-              purpose={isActions ? "actions" : undefined}
-              sortable={!isActions && col.sortable !== false}
-              sortDirection={
-                sort.sortModels.find((s) => s.field === field)?.direction ?? null
-              }
-              sortIndex={(() => {
-                // Mostra badge 1/2/3... apenas quando ha multi-sort (>= 2 criterios).
-                if (sort.sortModels.length < 2) return undefined;
-                const idx = sort.sortModels.findIndex((s) => s.field === field);
-                return idx >= 0 ? idx + 1 : undefined;
-              })()}
-              onSortClick={() => sort.handleSort(field)}
-              resizable={!isActions && col.resizable !== false}
-              // Comita no state APENAS no mouseup — durante o drag a largura
-              // é atualizada via DOM direto pelo TableHeadCell (sem re-render
-              // do DataTable a cada mousemove, que parecia "atualizando").
-              onResizeEnd={(w) => cols.handleResize(field, w)}
-              icon={
-                isActions
-                  ? undefined
-                  : col.icon ??
-                    (col.type ? columnTypeRegistry.get(col.type).defaultIcon : undefined)
-              }
-              headMenu={
-                !isActions ? (
-                  <>
-                    {/* Filter shortcut — abre popover do chip da coluna pra digitar valor.
-                        Se ja existe filtro, reabre. Visivel apenas em colunas enableColumnFilter. */}
-                    {col.enableColumnFilter && (
-                      <Button
-                        size="icon-2xs"
-                        variant="ghost"
-                        color="secondary"
-                        aria-label={`Filtrar ${col.headerName}`}
-                        title={`Filtrar ${col.headerName}`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleFilterShortcut(col);
-                        }}
-                        onPointerDown={(e) => e.stopPropagation()}
-                        onMouseDown={(e) => e.stopPropagation()}
-                      >
-                        <FilterIcon />
-                      </Button>
-                    )}
-                    {col.enableColumnMenu !== false && (
-                      <DataTableColumnMenu
-                        columnName={col.headerName}
-                        sortDirection={
-                          sort.sortModels.find((s) => s.field === field)?.direction ?? null
-                        }
-                        pinned={
-                          cols.pinnedColumns[field] === "left"
-                            ? "left"
-                            : cols.pinnedColumns[field] === "right"
-                              ? "right"
-                              : null
-                        }
-                        canHide={col.hideable !== false}
-                        onSortAsc={() =>
-                          sort.setSortModels([{ field, direction: "asc" }])
-                        }
-                        onSortDesc={() =>
-                          sort.setSortModels([{ field, direction: "desc" }])
-                        }
-                        onSortClear={() => sort.setSortModels([])}
-                        onPinLeft={() => cols.handlePin(field, "left")}
-                        onPinRight={() => cols.handlePin(field, "right")}
-                        onUnpin={() => cols.handlePin(field, undefined)}
-                        onHide={() => cols.handleHide(field)}
-                        extraItems={col.columnMenuItems}
-                      />
-                    )}
-                  </>
-                ) : undefined
-              }
-            >
-              {/* Header da coluna actions é sempre vazio — independe do `headerName`
-                  passado pelo consumer (uniformiza padrão de UX). */}
-              {isActions ? null : col.headerName}
-            </DataTableSortableHeadCell>
-          );
-        })}
-        </SortableContext>
-      </TableHead>
-      <TableBody
-        // Modo virtualizado é prop do TableBody primitive — aplica
-        // height/position/block internamente. Sem hardcode no DataTable.
-        virtualized={
-          virtualize ? { totalHeight: rowVirtualizer.getTotalSize() } : undefined
-        }
+      <Table
+        density={density.density}
+        cardBreakpoint={props.cardBreakpoint ?? DEFAULT_CARD_BREAKPOINT}
+        className="min-h-0 max-h-full"
+        scrollRef={scrollContainerRef}
       >
-        {(() => {
-          // Branching: GroupHeader / GroupContent / DataRow.
-          //  - GroupHeader: column-aligned default, ou free-form via renderGroupHeader.
-          //  - GroupContent: slot custom (só aparece quando renderGroupContent definido) —
-          //    substitui as N child rows por 1 row full-width com conteudo livre.
-          //  - DataRow: fluxo normal (TableRow + cells).
-          const renderItem = (
-            item: T | (typeof groupedRows[number] & { __type?: symbol }),
-            index: number,
-            virtualStyle?: React.CSSProperties,
-          ) => {
-            if (isGroupRow<T>(item)) {
+        <TableHead>
+          {selectionConfig.enabled && (
+            <TableHeadCell
+              width={SELECTION_COLUMN_WIDTH}
+              align="center"
+              purpose="selection"
+            >
+              <Checkbox
+                checked={
+                  selection.isPageSelected(rowsToRender)
+                    ? true
+                    : selection.isPageIndeterminate(rowsToRender)
+                      ? "indeterminate"
+                      : false
+                }
+                onCheckedChange={() => selection.togglePage(rowsToRender)}
+                aria-label="Selecionar página"
+              />
+            </TableHeadCell>
+          )}
+          <SortableContext
+            items={sortableIds}
+            strategy={horizontalListSortingStrategy}
+          >
+            {cols.effectiveColumns.map((col) => {
+              const field = String(col.field);
+              const isActions = col.type === "actions";
               return (
-                <DataTableGroupHeaderRow
-                  key={item.key}
-                  group={item}
+                <DataTableSortableHeadCell
+                  key={field}
+                  sortableId={field}
+                  disableDrag={isActions}
+                  field={field}
+                  width={cols.columnWidths[field]}
+                  pinned={col.pinned}
+                  pinOffset={cols.stickyOffsets[field]}
+                  align={col.align}
+                  purpose={isActions ? "actions" : undefined}
+                  sortable={!isActions && col.sortable !== false}
+                  sortDirection={
+                    sort.sortModels.find((s) => s.field === field)?.direction ??
+                    null
+                  }
+                  sortIndex={(() => {
+                    // Mostra badge 1/2/3... apenas quando ha multi-sort (>= 2 criterios).
+                    if (sort.sortModels.length < 2) return undefined;
+                    const idx = sort.sortModels.findIndex(
+                      (s) => s.field === field,
+                    );
+                    return idx >= 0 ? idx + 1 : undefined;
+                  })()}
+                  onSortClick={() => sort.handleSort(field)}
+                  resizable={!isActions && col.resizable !== false}
+                  // Comita no state APENAS no mouseup — durante o drag a largura
+                  // é atualizada via DOM direto pelo TableHeadCell (sem re-render
+                  // do DataTable a cada mousemove, que parecia "atualizando").
+                  onResizeEnd={(w) => cols.handleResize(field, w)}
+                  icon={
+                    isActions
+                      ? undefined
+                      : (col.icon ??
+                        (col.type
+                          ? columnTypeRegistry.get(col.type).defaultIcon
+                          : undefined))
+                  }
+                  headMenu={
+                    !isActions ? (
+                      <>
+                        {/* Filter shortcut — abre popover do chip da coluna pra digitar valor.
+                        Se ja existe filtro, reabre. Visivel apenas em colunas enableColumnFilter. */}
+                        {col.enableColumnFilter && (
+                          <Button
+                            size="icon-2xs"
+                            variant="ghost"
+                            color="secondary"
+                            aria-label={`Filtrar ${col.headerName}`}
+                            title={`Filtrar ${col.headerName}`}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleFilterShortcut(col);
+                            }}
+                            onPointerDown={(e) => e.stopPropagation()}
+                            onMouseDown={(e) => e.stopPropagation()}
+                          >
+                            <FilterIcon />
+                          </Button>
+                        )}
+                        {col.enableColumnMenu !== false && (
+                          <DataTableColumnMenu
+                            columnName={col.headerName}
+                            sortDirection={
+                              sort.sortModels.find((s) => s.field === field)
+                                ?.direction ?? null
+                            }
+                            pinned={
+                              cols.pinnedColumns[field] === "left"
+                                ? "left"
+                                : cols.pinnedColumns[field] === "right"
+                                  ? "right"
+                                  : null
+                            }
+                            canHide={col.hideable !== false}
+                            onSortAsc={() =>
+                              sort.setSortModels([{ field, direction: "asc" }])
+                            }
+                            onSortDesc={() =>
+                              sort.setSortModels([{ field, direction: "desc" }])
+                            }
+                            onSortClear={() => sort.setSortModels([])}
+                            onPinLeft={() => cols.handlePin(field, "left")}
+                            onPinRight={() => cols.handlePin(field, "right")}
+                            onUnpin={() => cols.handlePin(field, undefined)}
+                            onHide={() => cols.handleHide(field)}
+                            extraItems={col.columnMenuItems}
+                          />
+                        )}
+                      </>
+                    ) : undefined
+                  }
+                >
+                  {/* Header da coluna actions é sempre vazio — independe do `headerName`
+                  passado pelo consumer (uniformiza padrão de UX). */}
+                  {isActions ? null : col.headerName}
+                </DataTableSortableHeadCell>
+              );
+            })}
+          </SortableContext>
+        </TableHead>
+        <TableBody
+          // Modo virtualizado é prop do TableBody primitive — aplica
+          // height/position/block internamente. Sem hardcode no DataTable.
+          virtualized={
+            virtualize
+              ? { totalHeight: rowVirtualizer.getTotalSize() }
+              : undefined
+          }
+        >
+          {(() => {
+            // Branching: GroupHeader / GroupContent / DataRow.
+            //  - GroupHeader: column-aligned default, ou free-form via renderGroupHeader.
+            //  - GroupContent: slot custom (só aparece quando renderGroupContent definido) —
+            //    substitui as N child rows por 1 row full-width com conteudo livre.
+            //  - DataRow: fluxo normal (TableRow + cells).
+            const renderItem = (
+              item: T | ((typeof groupedRows)[number] & { __type?: symbol }),
+              index: number,
+              virtualStyle?: React.CSSProperties,
+            ) => {
+              if (isGroupRow<T>(item)) {
+                return (
+                  <DataTableGroupHeaderRow
+                    key={item.key}
+                    group={item}
+                    columns={cols.effectiveColumns}
+                    columnWidths={cols.columnWidths}
+                    stickyOffsets={cols.stickyOffsets}
+                    hasSelection={selectionConfig.enabled === true}
+                    onToggle={() => toggleGroup(item.key)}
+                    style={virtualStyle}
+                    renderHeader={props.renderGroupHeader}
+                  />
+                );
+              }
+              if (isGroupContent<T>(item) && props.renderGroupContent) {
+                return (
+                  <DataTableGroupContentRow
+                    key={`${item.key}-content`}
+                    group={item.group}
+                    render={props.renderGroupContent}
+                    style={virtualStyle}
+                  />
+                );
+              }
+              if (isExpansionRow<T>(item) && props.renderRowExpansion) {
+                return (
+                  <DataTableRowExpansion
+                    key={`exp-${String(item.id)}`}
+                    row={item.row}
+                    render={props.renderRowExpansion}
+                    style={virtualStyle}
+                  />
+                );
+              }
+              // Tree-data: desembrulha o TreeRow (mantém a row real intacta) e
+              // calcula a meta de hierarquia pra a coluna primária renderizar
+              // indentação + chevron.
+              const treeNode = isTreeRow<T>(item) ? item : null;
+              const row = (treeNode ? treeNode.row : item) as T;
+              const rowId = contextValue.getRowId(row);
+              const treeMeta: DataTableTreeMeta | null = treeNode
+                ? {
+                    level: treeNode.level,
+                    hasChildren: treeNode.hasChildren,
+                    isExpanded: treeNode.isExpanded,
+                    descendantCount: treeNode.descendantCount,
+                    childCount: treeNode.childCount,
+                  }
+                : null;
+              const editState =
+                editingCell?.rowId === rowId
+                  ? {
+                      field: editingCell.field,
+                      isLoading: editLoading,
+                      error: editError,
+                    }
+                  : null;
+              return (
+                <DataTableRow<T>
+                  key={String(rowId)}
+                  row={row}
+                  index={index}
+                  rowId={rowId}
+                  selected={selection.isRowSelected(row)}
+                  focused={focusedRowIndex === index}
+                  expanded={expandedRowIds.has(rowId)}
+                  editState={editState}
+                  rowClassName={props.getRowClassName?.({ row, index })}
+                  virtualStyle={virtualStyle}
                   columns={cols.effectiveColumns}
                   columnWidths={cols.columnWidths}
                   stickyOffsets={cols.stickyOffsets}
-                  hasSelection={selectionConfig.enabled === true}
-                  onToggle={() => toggleGroup(item.key)}
-                  style={virtualStyle}
-                  renderHeader={props.renderGroupHeader}
+                  selectionEnabled={selectionConfig.enabled === true}
+                  clickable={!!props.onRowClick}
+                  useRowExpansion={useRowExpansion}
+                  expandableColField={expandableColField}
+                  treeColField={treeColField}
+                  treeMeta={treeMeta}
+                  treeShowDescendantCount={treeShowDescendantCount}
+                  handlers={rowHandlersRef}
                 />
               );
-            }
-            if (isGroupContent<T>(item) && props.renderGroupContent) {
-              return (
-                <DataTableGroupContentRow
-                  key={`${item.key}-content`}
-                  group={item.group}
-                  render={props.renderGroupContent}
-                  style={virtualStyle}
-                />
-              );
-            }
-            if (isExpansionRow<T>(item) && props.renderRowExpansion) {
-              return (
-                <DataTableRowExpansion
-                  key={`exp-${String(item.id)}`}
-                  row={item.row}
-                  render={props.renderRowExpansion}
-                  style={virtualStyle}
-                />
-              );
-            }
-            // Tree-data: desembrulha o TreeRow (mantém a row real intacta) e
-            // calcula a meta de hierarquia pra a coluna primária renderizar
-            // indentação + chevron.
-            const treeNode = isTreeRow<T>(item) ? item : null;
-            const row = (treeNode ? treeNode.row : item) as T;
-            const rowId = contextValue.getRowId(row);
-            const treeMeta: DataTableTreeMeta | null = treeNode
-              ? {
-                  level: treeNode.level,
-                  hasChildren: treeNode.hasChildren,
-                  isExpanded: treeNode.isExpanded,
-                  descendantCount: treeNode.descendantCount,
-                  childCount: treeNode.childCount,
-                }
-              : null;
-            const editState =
-              editingCell?.rowId === rowId
-                ? { field: editingCell.field, isLoading: editLoading, error: editError }
-                : null;
-            return (
-              <DataTableRow<T>
-                key={String(rowId)}
-                row={row}
-                index={index}
-                rowId={rowId}
-                selected={selection.isRowSelected(row)}
-                focused={focusedRowIndex === index}
-                expanded={expandedRowIds.has(rowId)}
-                editState={editState}
-                rowClassName={props.getRowClassName?.({ row, index })}
-                virtualStyle={virtualStyle}
-                columns={cols.effectiveColumns}
-                columnWidths={cols.columnWidths}
-                stickyOffsets={cols.stickyOffsets}
-                selectionEnabled={selectionConfig.enabled === true}
-                clickable={!!props.onRowClick}
-                useRowExpansion={useRowExpansion}
-                expandableColField={expandableColField}
-                treeColField={treeColField}
-                treeMeta={treeMeta}
-                treeShowDescendantCount={treeShowDescendantCount}
-                handlers={rowHandlersRef}
-              />
-            );
-          };
+            };
 
-          // Render: virtualizado vs todos as rows. `finalItems` cobre rows
-          // simples + agrupadas + com expansion intercalada.
-          if (virtualize) {
-            return rowVirtualizer.getVirtualItems().map((vi) =>
-              renderItem(finalItems[vi.index], vi.index, {
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: `${vi.size}px`,
-                transform: `translateY(${vi.start}px)`,
-              }),
-            );
-          }
-          return finalItems.map((item, i) => renderItem(item, i));
-        })()}
-        {/* Totalizer footer row (Fase E.2) — sticky no bottom do body */}
-        {props.showTotalizers && (
-          <DataTableTotalizerRow
-            columns={cols.effectiveColumns}
-            rows={rowsAllPagesProcessed}
-            overrides={props.aggregateRow}
-            columnWidths={cols.columnWidths}
-            stickyOffsets={cols.stickyOffsets}
-            hasSelection={selectionConfig.enabled === true}
-          />
-        )}
-      </TableBody>
-    </Table>
+            // Render: virtualizado vs todos as rows. `finalItems` cobre rows
+            // simples + agrupadas + com expansion intercalada.
+            if (virtualize) {
+              return rowVirtualizer.getVirtualItems().map((vi) =>
+                renderItem(finalItems[vi.index], vi.index, {
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  width: "100%",
+                  height: `${vi.size}px`,
+                  transform: `translateY(${vi.start}px)`,
+                }),
+              );
+            }
+            return finalItems.map((item, i) => renderItem(item, i));
+          })()}
+          {/* Totalizer footer row (Fase E.2) — sticky no bottom do body */}
+          {props.showTotalizers && (
+            <DataTableTotalizerRow
+              columns={cols.effectiveColumns}
+              rows={rowsAllPagesProcessed}
+              overrides={props.aggregateRow}
+              columnWidths={cols.columnWidths}
+              stickyOffsets={cols.stickyOffsets}
+              hasSelection={selectionConfig.enabled === true}
+            />
+          )}
+        </TableBody>
+      </Table>
     </DndContext>
   );
 
@@ -1362,8 +1406,8 @@ function DataTableInternal<T>(
 
   // Resolve colunas especiais uma vez fora do map (evita re-cálculo por row)
   const cardPrimaryCol = isCardMode
-    ? cols.effectiveColumns.find((c) => c.isPrimary) ??
-      cols.effectiveColumns.find((c) => c.type !== "actions")
+    ? (cols.effectiveColumns.find((c) => c.isPrimary) ??
+      cols.effectiveColumns.find((c) => c.type !== "actions"))
     : undefined;
   const cardActionsCol = isCardMode
     ? cols.effectiveColumns.find((c) => c.type === "actions")
@@ -1432,276 +1476,331 @@ function DataTableInternal<T>(
       >
         {/* Toolbar */}
         <div className={styles.toolbarWrap()}>
-            <>
-              <TableToolbar
-                viewToggle={resolvedViewToggle}
-                savedViews={
-                  props.persistId ? (
-                    <TableToolbarViews
-                      views={viewsForToolbar}
-                      activeViewId={savedViews.currentViewId ?? undefined}
-                      onApply={handleViewApply}
-                      onApplyDefault={applyDefault}
-                      onDelete={savedViews.deleteView}
-                      onSave={async (data) => {
-                        await saveCurrentAsView(data.name, { isPublic: data.isPublic });
-                      }}
-                      soloLabel={toolbarConfig.title}
-                      hideDivider
-                    />
-                  ) : undefined
-                }
-                refresh={
-                  toolbarConfig.enableRefresh !== false ? (
-                    <ToolbarToolButton
-                      icon={<RefreshCw className={isRefreshing ? "animate-spin" : ""} />}
-                      aria-label="Atualizar"
-                      onClick={handleRefresh}
-                    />
-                  ) : undefined
-                }
-                search={
-                  toolbarConfig.enableSearch !== false ? (
-                    <ToolbarSearch
-                      value={search.inputValue}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        search.setInputValue(e.target.value)
-                      }
-                      // Enter/Escape tiram o foco → no mobile o teclado fecha
-                      // (busca é live, não precisa de submit; o "ir" do teclado
-                      // não tinha efeito e o teclado ficava preso).
-                      onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
-                        if (e.key === "Enter" || e.key === "Escape") {
-                          e.currentTarget.blur();
-                        }
-                      }}
-                      placeholder="Buscar..."
-                    />
-                  ) : undefined
-                }
-                filter={
-                  toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 ? (
-                    <ToolbarToolButton
-                      icon={<FilterIcon />}
-                      aria-label="Filtros"
-                      // Conta só entries com valor real — uma linha recém-adicionada
-                      // no query builder e ainda vazia NÃO ativa o indicador. O
-                      // unmount-purge do FilterPanel remove a linha em branco ao fechar.
-                      isActive={hasActiveFilter}
-                      hasIndicator={hasActiveFilter}
-                      onClick={() => setV2FilterOpen(true)}
-                    />
-                  ) : undefined
-                }
-                fullscreen={
-                  enableFullscreen ? (
-                    <ToolbarToolButton
-                      icon={isFullscreen ? <Minimize2 /> : <Maximize2 />}
-                      aria-label={isFullscreen ? "Sair da tela cheia" : "Tela cheia"}
-                      isActive={isFullscreen}
-                      onClick={toggleFullscreen}
-                    />
-                  ) : undefined
-                }
-                settings={
-                  <ToolbarSettingsMenu
-                    trigger={
-                      <ToolbarToolButton icon={<Settings2 />} aria-label="Configurações da tabela" />
-                    }
-                    sortPanel={(onBack) => (
-                      <SortPanel
-                        onBack={onBack}
-                        columns={sortPopoverColumns}
-                        sortBy={sortPopoverCriteria}
-                        onSortByChange={handleSortChange}
-                      />
-                    )}
-                    colsPanel={
-                      toolbarConfig.enableColumns !== false
-                        ? (onBack) => (
-                            <ColsPanel
-                              onBack={onBack}
-                              columns={colsPopoverColumns}
-                              visibleCols={visibleColsSet}
-                              onVisibleChange={handleVisibleChange}
-                              pinnedCols={pinnedColsSet}
-                              onPinnedChange={handlePinnedChange}
-                              onColumnsReorder={handleColumnsReorder}
-                            />
-                          )
-                        : undefined
-                    }
-                    filterPanel={
-                      toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0
-                        ? (onBack) => (
-                            <FilterPanel
-                              onBack={onBack}
-                              columns={filterPopoverColumns}
-                              filters={filterPopoverEntries}
-                              onFiltersChange={handleFiltersChange}
-                              enableAdvanced
-                              renderValueInput={({ column, operator, value, onChange }) => {
-                                const typeId = column.filterType ?? column.type ?? "text";
-                                const def = columnTypeRegistry.get(typeId);
-                                // op já em id longo do FilterModel — sem remap.
-                                const filterOp = operator as FilterItem["operator"];
-                                return def.renderFilterInput({
-                                  value: value as FilterValue,
-                                  onChange: (v) => onChange(v),
-                                  operator: filterOp,
-                                  options: column.options,
-                                });
-                              }}
-                              getOperatorsForColumn={(column) => {
-                                const typeId = column.filterType ?? column.type ?? "text";
-                                const def = columnTypeRegistry.get(typeId);
-                                return def.operators?.map((o) => ({ id: o.id, label: o.label }));
-                              }}
-                            />
-                          )
-                        : undefined
-                    }
-                    density={
-                      toolbarConfig.enableDensity !== false ? (
-                        <ToolbarSegmented
-                          fluid
-                          value={density.density}
-                          onValueChange={(v) => density.setDensity(v as TableDensity)}
-                          items={props.densityItems ?? DENSITY_ITEMS}
-                          ariaLabel="Densidade da tabela"
-                        />
-                      ) : undefined
-                    }
-                    mobileViewToggle={
-                      resolvedViewToggle
-                        ? props.kanbanConfig && props.toolbar?.viewToggle === undefined
-                          ? (
-                              <ToolbarSegmented
-                                fluid
-                                value={viewMode}
-                                onValueChange={handleViewModeChange}
-                                items={MOBILE_VIEW_MODE_ITEMS}
-                                ariaLabel="Modo de visualização"
-                              />
-                            )
-                          : resolvedViewToggle
-                        : undefined
-                    }
-                    mobileDisplayToggle={
-                      // Linhas vs Cards — só faz sentido quando o card é possível
-                      // (viewport mobile + cardBreakpoint != false + não-kanban).
-                      cardPossible ? (
-                        <ToolbarSegmented
-                          fluid
-                          value={mobileDisplay}
-                          onValueChange={(v) => setMobileDisplay(v as "table" | "card")}
-                          items={[
-                            {
-                              value: "table",
-                              label: "Linhas",
-                              children: (
-                                <span className="inline-flex items-center gap-gp-sm">
-                                  <Rows3 /> Linhas
-                                </span>
-                              ),
-                            },
-                            {
-                              value: "card",
-                              label: "Cards",
-                              children: (
-                                <span className="inline-flex items-center gap-gp-sm">
-                                  <LayoutGrid /> Cards
-                                </span>
-                              ),
-                            },
-                          ]}
-                          ariaLabel="Exibição da tabela"
-                        />
-                      ) : undefined
-                    }
-                    mobileViews={
-                      props.persistId && (props.defaultViews?.length ?? 0) > 0
-                        ? {
-                            items: viewsForToolbar
-                              .filter((v) => v.owner === "preset")
-                              .map((v) => ({ id: v.id, name: v.name })),
-                            activeId: savedViews.currentViewId ?? undefined,
-                            onSelect: handleViewApply,
-                          }
-                        : undefined
-                    }
+          <>
+            <TableToolbar
+              viewToggle={resolvedViewToggle}
+              savedViews={
+                props.persistId ? (
+                  <TableToolbarViews
+                    views={viewsForToolbar}
+                    activeViewId={savedViews.currentViewId ?? undefined}
+                    onApply={handleViewApply}
+                    onApplyDefault={applyDefault}
+                    onDelete={savedViews.deleteView}
+                    onSave={async (data) => {
+                      await saveCurrentAsView(data.name, {
+                        isPublic: data.isPublic,
+                      });
+                    }}
+                    soloLabel={toolbarConfig.title}
+                    hideDivider
                   />
-                }
-                more={
-                  exportConfig || toolbarConfig.moreMenu?.items?.length ? (
-                    <MoreMenu
-                      trigger={
-                        <ToolbarToolButton icon={<MoreHorizontal />} aria-label="Opções" />
+                ) : undefined
+              }
+              refresh={
+                toolbarConfig.enableRefresh !== false ? (
+                  <ToolbarToolButton
+                    icon={
+                      <RefreshCw
+                        className={isRefreshing ? "animate-spin" : ""}
+                      />
+                    }
+                    aria-label="Atualizar"
+                    onClick={handleRefresh}
+                  />
+                ) : undefined
+              }
+              search={
+                toolbarConfig.enableSearch !== false ? (
+                  <ToolbarSearch
+                    value={search.inputValue}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      search.setInputValue(e.target.value)
+                    }
+                    // Enter/Escape tiram o foco → no mobile o teclado fecha
+                    // (busca é live, não precisa de submit; o "ir" do teclado
+                    // não tinha efeito e o teclado ficava preso).
+                    onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+                      if (e.key === "Enter" || e.key === "Escape") {
+                        e.currentTarget.blur();
                       }
-                    >
-                      {exportConfig &&
-                        exportConfig.formats.map((fmt) => {
-                          const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
-                          if (!isCsvDefault) {
-                            return (
-                              <MoreMenuItemEl key={fmt.id} onSelect={fmt.onSelect}>
-                                {fmt.icon}
-                                {fmt.label}
-                              </MoreMenuItemEl>
-                            );
-                          }
-                          return isServerMode ? (
-                            <MoreMenuItemEl key={fmt.id} onSelect={() => exporter.exportCsv("all")}>
+                    }}
+                    placeholder="Buscar..."
+                  />
+                ) : undefined
+              }
+              filter={
+                toolbarConfig.enableFilters !== false &&
+                filterPopoverColumns.length > 0 ? (
+                  <ToolbarToolButton
+                    icon={<FilterIcon />}
+                    aria-label="Filtros"
+                    // Conta só entries com valor real — uma linha recém-adicionada
+                    // no query builder e ainda vazia NÃO ativa o indicador. O
+                    // unmount-purge do FilterPanel remove a linha em branco ao fechar.
+                    isActive={hasActiveFilter}
+                    hasIndicator={hasActiveFilter}
+                    onClick={() => setV2FilterOpen(true)}
+                  />
+                ) : undefined
+              }
+              actions={
+                toolbarConfig.actions && toolbarConfig.actions.length > 0 ? (
+                  <ToolbarActions actions={toolbarConfig.actions} />
+                ) : undefined
+              }
+              fullscreen={
+                enableFullscreen ? (
+                  <ToolbarToolButton
+                    icon={isFullscreen ? <Minimize2 /> : <Maximize2 />}
+                    aria-label={
+                      isFullscreen ? "Sair da tela cheia" : "Tela cheia"
+                    }
+                    isActive={isFullscreen}
+                    onClick={toggleFullscreen}
+                  />
+                ) : undefined
+              }
+              settings={
+                <ToolbarSettingsMenu
+                  trigger={
+                    <ToolbarToolButton
+                      icon={<Settings2 />}
+                      aria-label="Configurações da tabela"
+                    />
+                  }
+                  sortPanel={(onBack) => (
+                    <SortPanel
+                      onBack={onBack}
+                      columns={sortPopoverColumns}
+                      sortBy={sortPopoverCriteria}
+                      onSortByChange={handleSortChange}
+                    />
+                  )}
+                  colsPanel={
+                    toolbarConfig.enableColumns !== false
+                      ? (onBack) => (
+                          <ColsPanel
+                            onBack={onBack}
+                            columns={colsPopoverColumns}
+                            visibleCols={visibleColsSet}
+                            onVisibleChange={handleVisibleChange}
+                            pinnedCols={pinnedColsSet}
+                            onPinnedChange={handlePinnedChange}
+                            onColumnsReorder={handleColumnsReorder}
+                          />
+                        )
+                      : undefined
+                  }
+                  filterPanel={
+                    toolbarConfig.enableFilters !== false &&
+                    filterPopoverColumns.length > 0
+                      ? (onBack) => (
+                          <FilterPanel
+                            onBack={onBack}
+                            columns={filterPopoverColumns}
+                            filters={filterPopoverEntries}
+                            onFiltersChange={handleFiltersChange}
+                            enableAdvanced
+                            renderValueInput={({
+                              column,
+                              operator,
+                              value,
+                              onChange,
+                            }) => {
+                              const typeId =
+                                column.filterType ?? column.type ?? "text";
+                              const def = columnTypeRegistry.get(typeId);
+                              // op já em id longo do FilterModel — sem remap.
+                              const filterOp =
+                                operator as FilterItem["operator"];
+                              return def.renderFilterInput({
+                                value: value as FilterValue,
+                                onChange: (v) => onChange(v),
+                                operator: filterOp,
+                                options: column.options,
+                              });
+                            }}
+                            getOperatorsForColumn={(column) => {
+                              const typeId =
+                                column.filterType ?? column.type ?? "text";
+                              const def = columnTypeRegistry.get(typeId);
+                              return def.operators?.map((o) => ({
+                                id: o.id,
+                                label: o.label,
+                              }));
+                            }}
+                          />
+                        )
+                      : undefined
+                  }
+                  density={
+                    toolbarConfig.enableDensity !== false ? (
+                      <ToolbarSegmented
+                        fluid
+                        value={density.density}
+                        onValueChange={(v) =>
+                          density.setDensity(v as TableDensity)
+                        }
+                        items={props.densityItems ?? DENSITY_ITEMS}
+                        ariaLabel="Densidade da tabela"
+                      />
+                    ) : undefined
+                  }
+                  mobileViewToggle={
+                    resolvedViewToggle ? (
+                      props.kanbanConfig &&
+                      props.toolbar?.viewToggle === undefined ? (
+                        <ToolbarSegmented
+                          fluid
+                          value={viewMode}
+                          onValueChange={handleViewModeChange}
+                          items={MOBILE_VIEW_MODE_ITEMS}
+                          ariaLabel="Modo de visualização"
+                        />
+                      ) : (
+                        resolvedViewToggle
+                      )
+                    ) : undefined
+                  }
+                  mobileDisplayToggle={
+                    // Linhas vs Cards — só faz sentido quando o card é possível
+                    // (viewport mobile + cardBreakpoint != false + não-kanban).
+                    cardPossible ? (
+                      <ToolbarSegmented
+                        fluid
+                        value={mobileDisplay}
+                        onValueChange={(v) =>
+                          setMobileDisplay(v as "table" | "card")
+                        }
+                        items={[
+                          {
+                            value: "table",
+                            label: "Linhas",
+                            children: (
+                              <span className="inline-flex items-center gap-gp-sm">
+                                <Rows3 /> Linhas
+                              </span>
+                            ),
+                          },
+                          {
+                            value: "card",
+                            label: "Cards",
+                            children: (
+                              <span className="inline-flex items-center gap-gp-sm">
+                                <LayoutGrid /> Cards
+                              </span>
+                            ),
+                          },
+                        ]}
+                        ariaLabel="Exibição da tabela"
+                      />
+                    ) : undefined
+                  }
+                  mobileViews={
+                    props.persistId && (props.defaultViews?.length ?? 0) > 0
+                      ? {
+                          items: viewsForToolbar
+                            .filter((v) => v.owner === "preset")
+                            .map((v) => ({ id: v.id, name: v.name })),
+                          activeId: savedViews.currentViewId ?? undefined,
+                          onSelect: handleViewApply,
+                        }
+                      : undefined
+                  }
+                />
+              }
+              more={
+                exportConfig || toolbarConfig.moreMenu?.items?.length ? (
+                  <MoreMenu
+                    trigger={
+                      <ToolbarToolButton
+                        icon={<MoreHorizontal />}
+                        aria-label="Opções"
+                      />
+                    }
+                  >
+                    {exportConfig &&
+                      exportConfig.formats.map((fmt) => {
+                        const isCsvDefault = fmt.id === "csv" && !fmt.onSelect;
+                        if (!isCsvDefault) {
+                          return (
+                            <MoreMenuItemEl
+                              key={fmt.id}
+                              onSelect={fmt.onSelect}
+                            >
                               {fmt.icon}
-                              {fmt.label} — Página atual
+                              {fmt.label}
                             </MoreMenuItemEl>
-                          ) : (
-                            <span key={fmt.id} className="contents">
-                              <MoreMenuItemEl onSelect={() => exporter.exportCsv("all")}>
-                                {fmt.icon}
-                                {fmt.label} — Todos
-                              </MoreMenuItemEl>
-                              <MoreMenuItemEl onSelect={() => exporter.exportCsv("filtered")}>
-                                {fmt.icon}
-                                {fmt.label} — Filtrados
-                              </MoreMenuItemEl>
-                              <MoreMenuItemEl
-                                onSelect={() => exporter.exportCsv("selected")}
-                                disabled={selection.selectedCount === 0}
-                              >
-                                {fmt.icon}
-                                {fmt.label} — Selecionados ({selection.selectedCount})
-                              </MoreMenuItemEl>
-                            </span>
                           );
-                        })}
-                      {exportConfig && toolbarConfig.moreMenu?.items?.length ? (
-                        <MoreMenuSeparator />
-                      ) : null}
-                      {toolbarConfig.moreMenu?.items?.map((it) => (
-                        <MoreMenuItemEl
-                          key={it.id}
-                          onSelect={it.onSelect}
-                          disabled={it.disabled}
-                          variant={it.destructive ? "destructive" : "default"}
-                        >
-                          {it.icon}
-                          {it.label}
-                        </MoreMenuItemEl>
-                      ))}
-                    </MoreMenu>
-                  ) : undefined
-                }
-                bulkBar={
-                  selectionConfig.enabled && selection.selectedCount > 0 ? (
-                    <BulkActionsBar count={selection.selectedCount} onClear={selection.clear}>
-                      {selectionConfig.actions?.(selection.selectedIds, selection.clear)}
-                    </BulkActionsBar>
-                  ) : undefined
-                }
-              />
-              {/* Drawer do filtro simples (funil) — só v2 */}
-              {toolbarConfig.enableFilters !== false && filterPopoverColumns.length > 0 && (
+                        }
+                        return isServerMode ? (
+                          <MoreMenuItemEl
+                            key={fmt.id}
+                            onSelect={() => exporter.exportCsv("all")}
+                          >
+                            {fmt.icon}
+                            {fmt.label} — Página atual
+                          </MoreMenuItemEl>
+                        ) : (
+                          <span key={fmt.id} className="contents">
+                            <MoreMenuItemEl
+                              onSelect={() => exporter.exportCsv("all")}
+                            >
+                              {fmt.icon}
+                              {fmt.label} — Todos
+                            </MoreMenuItemEl>
+                            <MoreMenuItemEl
+                              onSelect={() => exporter.exportCsv("filtered")}
+                            >
+                              {fmt.icon}
+                              {fmt.label} — Filtrados
+                            </MoreMenuItemEl>
+                            <MoreMenuItemEl
+                              onSelect={() => exporter.exportCsv("selected")}
+                              disabled={selection.selectedCount === 0}
+                            >
+                              {fmt.icon}
+                              {fmt.label} — Selecionados (
+                              {selection.selectedCount})
+                            </MoreMenuItemEl>
+                          </span>
+                        );
+                      })}
+                    {exportConfig && toolbarConfig.moreMenu?.items?.length ? (
+                      <MoreMenuSeparator />
+                    ) : null}
+                    {toolbarConfig.moreMenu?.items?.map((it) => (
+                      <MoreMenuItemEl
+                        key={it.id}
+                        onSelect={it.onSelect}
+                        disabled={it.disabled}
+                        variant={it.destructive ? "destructive" : "default"}
+                      >
+                        {it.icon}
+                        {it.label}
+                      </MoreMenuItemEl>
+                    ))}
+                  </MoreMenu>
+                ) : undefined
+              }
+              bulkBar={
+                selectionConfig.enabled && selection.selectedCount > 0 ? (
+                  <BulkActionsBar
+                    count={selection.selectedCount}
+                    onClear={selection.clear}
+                  >
+                    {selectionConfig.actions?.(
+                      selection.selectedIds,
+                      selection.clear,
+                    )}
+                  </BulkActionsBar>
+                ) : undefined
+              }
+            />
+            {/* Drawer do filtro simples (funil) — só v2 */}
+            {toolbarConfig.enableFilters !== false &&
+              filterPopoverColumns.length > 0 && (
                 <SimpleFilterDrawer
                   open={v2FilterOpen}
                   onOpenChange={setV2FilterOpen}
@@ -1713,7 +1812,7 @@ function DataTableInternal<T>(
                   size={props.simpleFilter?.size}
                 />
               )}
-            </>
+          </>
 
           {/* Applied filter chips — agrupados por field+operator, clicaveis via renderChip → Popover.
               `pendingOpenId` deixa ToolbarApplied controlar visual de "abrir auto" sem
@@ -1769,7 +1868,8 @@ function DataTableInternal<T>(
                   group.operator === "isAnyOf" ||
                   group.operator === "isNoneOf" ||
                   col?.filterType === "multiSelect" ||
-                  (col?.filterType === "select" && (col?.filterOptions?.length ?? 0) > 0));
+                  (col?.filterType === "select" &&
+                    (col?.filterOptions?.length ?? 0) > 0));
               const def = columnTypeRegistry.get(
                 isTupleOperator
                   ? (col?.filterType ?? "text")
@@ -1807,7 +1907,9 @@ function DataTableInternal<T>(
                   const ids = new Set(groupItems.map((it) => it.id));
                   filters.setFilterModel({
                     ...filters.filterModel,
-                    items: filters.filterModel.items.filter((it) => !ids.has(it.id)),
+                    items: filters.filterModel.items.filter(
+                      (it) => !ids.has(it.id),
+                    ),
                   });
                 }
               };
@@ -1839,7 +1941,7 @@ function DataTableInternal<T>(
 
         {/* Conteúdo */}
         {isLoading ? (
-          props.renderLoading ?? <DataTableLoading />
+          (props.renderLoading ?? <DataTableLoading />)
         ) : isKanban ? (
           // Kanban gerencia seu próprio empty state interno (coluna sem cards).
           // Filter/search/sort/selection já estão aplicados via rowsAllPagesProcessed.
@@ -1848,9 +1950,7 @@ function DataTableInternal<T>(
             cards={kanbanView.cards}
             // Selection (bridge)
             selectedIds={kanbanSelectedIds}
-            onToggleSelect={
-              kanbanSelectedIds ? kanbanToggleSelect : undefined
-            }
+            onToggleSelect={kanbanSelectedIds ? kanbanToggleSelect : undefined}
             // Detail panel (controlled) + click
             openCardId={props.kanbanConfig?.openCardId}
             onOpenCard={kanbanOnOpenCard}
@@ -1861,7 +1961,9 @@ function DataTableInternal<T>(
             // Menus (auto via items OU manual via callback — items ganham se ambos definidos)
             getCardMenuItems={kanbanGetCardMenuItems}
             onCardMenu={
-              kanbanGetCardMenuItems ? undefined : props.kanbanConfig?.onCardMenu
+              kanbanGetCardMenuItems
+                ? undefined
+                : props.kanbanConfig?.onCardMenu
             }
             getColumnMenuItems={props.kanbanConfig?.getColumnMenuItems}
             onColumnMenu={
@@ -1879,16 +1981,16 @@ function DataTableInternal<T>(
             addLabel={props.kanbanConfig?.addLabel}
           />
         ) : isDataEmpty ? (
-          props.renderEmpty ?? <DataTableEmpty />
+          (props.renderEmpty ?? <DataTableEmpty />)
         ) : isNoResults ? (
-          props.renderNoResults ?? (
+          (props.renderNoResults ?? (
             <DataTableNoResults
               onClearFilters={() => {
                 filters.setFilterModel({ items: [], logicOperator: "AND" });
                 search.setInputValue("");
               }}
             />
-          )
+          ))
         ) : isCardMode ? (
           cardBody
         ) : (
@@ -1898,25 +2000,28 @@ function DataTableInternal<T>(
         {/* Footer (paginação) — só na view table.
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
            evitar paginação "1 página" enquanto fetchData responde. */}
-        {!isKanban && !useTreeData && paginationConfig.enabled !== false && (
-          isLoading ? (
+        {!isKanban &&
+          !useTreeData &&
+          paginationConfig.enabled !== false &&
+          (isLoading ? (
             <div className={styles.footerWrap()}>
               <FooterTableSkeleton />
             </div>
-          ) : !isDataEmpty && (
-            <div className={styles.footerWrap()}>
-              <FooterTable
-                totalCount={totalAfterFilter}
-                page={pagination.paginationModel.page}
-                pageSize={pagination.paginationModel.pageSize}
-                onPageChange={pagination.setPage}
-                onPageSizeChange={pagination.setPageSize}
-                pageSizeOptions={paginationConfig.pageSizeOptions}
-                selectionCount={selection.selectedCount}
-              />
-            </div>
-          )
-        )}
+          ) : (
+            !isDataEmpty && (
+              <div className={styles.footerWrap()}>
+                <FooterTable
+                  totalCount={totalAfterFilter}
+                  page={pagination.paginationModel.page}
+                  pageSize={pagination.paginationModel.pageSize}
+                  onPageChange={pagination.setPage}
+                  onPageSizeChange={pagination.setPageSize}
+                  pageSizeOptions={paginationConfig.pageSizeOptions}
+                  selectionCount={selection.selectedCount}
+                />
+              </div>
+            )
+          ))}
       </div>
     </DataTableProvider>
   );

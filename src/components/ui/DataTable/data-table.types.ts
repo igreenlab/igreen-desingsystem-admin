@@ -1,6 +1,11 @@
 import type { ReactNode } from "react";
-import type { TableDensity, SortDirection, ColumnPinned, CellAlign } from "../Table";
-import type { ToolbarSegmentedItem } from "../TableToolbar";
+import type {
+  TableDensity,
+  SortDirection,
+  ColumnPinned,
+  CellAlign,
+} from "../Table";
+import type { ToolbarSegmentedItem, ToolbarAction } from "../TableToolbar";
 import type { KanbanCardData, KanbanColumn, KanbanMenuItem } from "../Kanban";
 import type { SavedViewsService } from "./services/saved-views.types";
 
@@ -109,7 +114,11 @@ export type DataTableKanbanConfig<T> = {
    * Callback ao mover card entre colunas. Consumer comita via `rows` props
    * (optimistic update) ou via PATCH async. Primitive não faz revert.
    */
-  onCardMove?: (cardId: string, from: string, to: string) => void | Promise<unknown>;
+  onCardMove?: (
+    cardId: string,
+    from: string,
+    to: string,
+  ) => void | Promise<unknown>;
 
   /* ── Textos ────────────────────────────────────────────────── */
   /** Texto do empty state (coluna sem cards). */
@@ -126,7 +135,7 @@ export type SortModel = {
 };
 
 export type PaginationModel = {
-  page: number;       // 1-based
+  page: number; // 1-based
   pageSize: number;
 };
 
@@ -151,9 +160,20 @@ export type FilterValue =
   | undefined;
 
 export type FilterOperator =
-  | "contains" | "notContains" | "equals" | "neq" | "startsWith" | "endsWith"
-  | "isEmpty" | "isNotEmpty" | "isAnyOf" | "isNoneOf"
-  | "gt" | "lt" | "gte" | "lte"
+  | "contains"
+  | "notContains"
+  | "equals"
+  | "neq"
+  | "startsWith"
+  | "endsWith"
+  | "isEmpty"
+  | "isNotEmpty"
+  | "isAnyOf"
+  | "isNoneOf"
+  | "gt"
+  | "lt"
+  | "gte"
+  | "lte"
   // Fase F.2 — range/period filter (date e number)
   | "between";
 
@@ -257,10 +277,10 @@ export type DataTableColumnDef<T> = {
   ellipsis?: boolean;
 
   /** Comportamento */
-  resizable?: boolean;     // default true (exceto type=actions ou checkbox)
-  sortable?: boolean;      // default true
-  hideable?: boolean;      // default true
-  isPrimary?: boolean;     // título no card mode
+  resizable?: boolean; // default true (exceto type=actions ou checkbox)
+  sortable?: boolean; // default true
+  hideable?: boolean; // default true
+  isPrimary?: boolean; // título no card mode
   /** Mostra menu 3-pontos no header. Default true. False esconde. */
   enableColumnMenu?: boolean;
   /** Items extras no menu da coluna (slot apos sort/pin/hide). */
@@ -289,7 +309,11 @@ export type DataTableColumnDef<T> = {
     | "boolean"
     | "number"
     | (string & {});
-  filterOptions?: Array<{ label: string; value: string | number; color?: string }>;
+  filterOptions?: Array<{
+    label: string;
+    value: string | number;
+    color?: string;
+  }>;
   defaultFilterValue?: FilterValue;
 
   /** Render customizado */
@@ -298,7 +322,12 @@ export type DataTableColumnDef<T> = {
   valueFormatter?: (value: unknown) => string;
 
   /** Ícone do tipo no header (lucide). */
-  icon?: React.ComponentType<{ className?: string; size?: number; strokeWidth?: number; "aria-hidden"?: boolean }>;
+  icon?: React.ComponentType<{
+    className?: string;
+    size?: number;
+    strokeWidth?: number;
+    "aria-hidden"?: boolean;
+  }>;
 
   /** Opções específicas do `type` — Fase G.2/G.3. Estrutura depende do tipo:
    *  - `user`: { users: Record<id, { name, avatar?, initials? }> }
@@ -414,17 +443,25 @@ export type DataTableToolbarConfig = {
    * Dropdown "Exportar" no canto direito. `true` = ativo com CSV default.
    * Objeto = configuracao avancada (formatos custom + items append).
    */
-  enableExport?: boolean | {
-    /** Formatos disponiveis. Quando omitido, mostra so "CSV". */
-    formats?: DataTableExportFormat[];
-    /** Items adicionais (apend depois dos formatos). */
-    items?: DataTableMoreMenuItem[];
-  };
+  enableExport?:
+    | boolean
+    | {
+        /** Formatos disponiveis. Quando omitido, mostra so "CSV". */
+        formats?: DataTableExportFormat[];
+        /** Items adicionais (apend depois dos formatos). */
+        items?: DataTableMoreMenuItem[];
+      };
   /**
    * MoreMenu (⋯) no canto direito. Sem items, o botao nao renderiza.
    * Items aceitam icone, destructive, disabled.
    */
   moreMenu?: { items: DataTableMoreMenuItem[] };
+  /**
+   * Ações custom do toolbar (button/dropdown/input) — ex.: seletor de período.
+   * Renderizadas inline no desktop (entre Filtros e ⋯) e colapsadas num ⋯
+   * próprio no mobile. Veja `ToolbarAction` (`<ToolbarActions>`).
+   */
+  actions?: ToolbarAction[];
   /** @deprecated — use `moreMenu.items` em vez disso. */
   customActions?: ReactNode;
   /**

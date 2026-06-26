@@ -6,7 +6,12 @@ import {
   ToolbarTabs,
   ToolbarApplied,
   ToolbarToolButton,
+  ToolbarActions,
   ToolbarSimpleFilterDrawer,
+} from "@/components/ui/TableToolbar";
+import type {
+  ToolbarAction,
+  ToolbarActionMenuItem,
 } from "@/components/ui/TableToolbar";
 import {
   DropdownMenu,
@@ -40,6 +45,7 @@ type Props = {
   filterModel: FilterModel;
   onFilterModelChange: (m: FilterModel) => void;
   onRefresh?: () => void;
+  toolbarActions?: ToolbarAction[];
   moreActions?: ListMenuItem[];
   loading?: boolean;
 };
@@ -50,7 +56,8 @@ function toColumns(fields: FilterableField[]): FilterPopoverColumn[] {
     key: f.id,
     label: f.label,
     filterType: f.type,
-    type: f.type === "select" ? "select" : f.type === "number" ? "number" : "text",
+    type:
+      f.type === "select" ? "select" : f.type === "number" ? "number" : "text",
     options: f.options,
   }));
 }
@@ -87,8 +94,10 @@ function toAppliedFilters(
 
     const values: string[] = [];
     for (const it of items) {
-      if (Array.isArray(it.value)) for (const v of it.value) values.push(labelOf(v));
-      else if (it.value != null && it.value !== "") values.push(labelOf(it.value));
+      if (Array.isArray(it.value))
+        for (const v of it.value) values.push(labelOf(v));
+      else if (it.value != null && it.value !== "")
+        values.push(labelOf(it.value));
     }
     const value: ReactNode | ReactNode[] =
       values.length <= 2 ? values : `${values.length} selecionados`;
@@ -122,9 +131,20 @@ export function DataListToolbar({
   filterModel,
   onFilterModelChange,
   onRefresh,
+  toolbarActions,
   moreActions,
   loading,
 }: Props) {
+  const hasActions = !!toolbarActions && toolbarActions.length > 0;
+  // moreActions vira itens de menu (entram no ⋯; no mobile, dentro do ToolbarActions).
+  const moreItems: ToolbarActionMenuItem[] = (moreActions ?? []).map((a) => ({
+    label: a.label,
+    icon: a.icon,
+    onClick: a.onClick,
+    destructive: a.destructive,
+    disabled: a.disabled,
+    separator: a.separator,
+  }));
   const [drawerOpen, setDrawerOpen] = useState(false);
   const columns = useMemo(() => toColumns(filterFields ?? []), [filterFields]);
   const fieldsById = useMemo(() => {
@@ -152,7 +172,9 @@ export function DataListToolbar({
       tabs={tabs}
       activeId={activeViewId ?? ALL_VIEW_ID}
       onSelect={(id) =>
-        onApplyView(id === ALL_VIEW_ID ? null : views.find((v) => v.id === id) ?? null)
+        onApplyView(
+          id === ALL_VIEW_ID ? null : (views.find((v) => v.id === id) ?? null),
+        )
       }
       ariaLabel="Visões"
     />
@@ -160,7 +182,9 @@ export function DataListToolbar({
     <h2 className="text-title-md font-semibold text-fg-default">
       {title}
       {typeof count === "number" && (
-        <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">{count}</span>
+        <span className="ml-gp-sm text-body-sm font-normal text-fg-muted">
+          {count}
+        </span>
       )}
     </h2>
   ) : undefined;
@@ -182,7 +206,9 @@ export function DataListToolbar({
         refresh={
           onRefresh ? (
             <ToolbarToolButton
-              icon={<RefreshCw className={loading ? "animate-spin" : undefined} />}
+              icon={
+                <RefreshCw className={loading ? "animate-spin" : undefined} />
+              }
               aria-label="Atualizar"
               title="Atualizar"
               onClick={onRefresh}
@@ -209,11 +235,22 @@ export function DataListToolbar({
             />
           ) : undefined
         }
+        actions={
+          hasActions ? (
+            <ToolbarActions actions={toolbarActions!} extraItems={moreItems} />
+          ) : undefined
+        }
+        // Com toolbarActions, o ⋯ dos moreActions é absorvido pelo ToolbarActions
+        // (desktop + mobile). Sem toolbarActions, mantém o ⋯ clássico.
         more={
-          moreActions && moreActions.length > 0 ? (
+          !hasActions && moreActions && moreActions.length > 0 ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <ToolbarToolButton icon={<MoreHorizontal />} aria-label="Mais ações" title="Mais ações" />
+                <ToolbarToolButton
+                  icon={<MoreHorizontal />}
+                  aria-label="Mais ações"
+                  title="Mais ações"
+                />
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" sideOffset={4}>
                 {moreActions.map((a, i) =>

@@ -1,6 +1,10 @@
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
-import { toolbarActions, toolbarLeft, toolbarRoot } from "./table-toolbar.styles";
+import {
+  toolbarActions,
+  toolbarLeft,
+  toolbarRoot,
+} from "./table-toolbar.styles";
 import { ToolbarDivider } from "./parts/toolbar-divider";
 
 /**
@@ -11,7 +15,7 @@ import { ToolbarDivider } from "./parts/toolbar-divider";
  *
  * Ordem renderizada:
  *   Esquerda:  viewToggle · ⟨divider⟩ · savedViews
- *   Direita:   refresh · search · filter · fullscreen · settings · more
+ *   Direita:   refresh · search · filter · actions · fullscreen · settings · more
  *
  * Consolida os controles secundários: Ordenação, Colunas, Filtros avançados
  * e Densidade vivem dentro do `settings` (`<ToolbarSettingsMenu>`, drill-down);
@@ -37,6 +41,8 @@ export type TableToolbarProps = {
   search?: ReactNode;
   /** Filtro simples — icon button funil → drawer (`<ToolbarSimpleFilterDrawer>`). */
   filter?: ReactNode;
+  /** Ações custom (button/dropdown/input) — use `<ToolbarActions>` (colapsa no ⋯ no mobile). */
+  actions?: ReactNode;
   /** Toggle de tela cheia — icon button ⤢ (opcional). */
   fullscreen?: ReactNode;
   /** Configurações da tabela — icon button sliders → `<ToolbarSettingsMenu>`
@@ -57,6 +63,7 @@ export function TableToolbar({
   refresh,
   search,
   filter,
+  actions,
   fullscreen,
   settings,
   more,
@@ -82,6 +89,7 @@ export function TableToolbar({
         {refresh && <span className="hidden md:contents">{refresh}</span>}
         {search}
         {filter}
+        {actions}
         {fullscreen}
         {settings}
         {more}

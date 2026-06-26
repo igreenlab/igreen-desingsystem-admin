@@ -13,24 +13,25 @@ ordem fixa — o consumer não monta a ordem, impossível montar errado.
 
 ```
 Esquerda:  viewToggle · ⟨divider⟩ · savedViews
-Direita:   refresh · search · filter · settings · more
+Direita:   refresh · search · filter · actions · settings · more
 ```
 
 Em `< md`: o `refresh` some (o menu Configurações cobre o resto).
 
 ## Slots (props)
 
-| Slot | O que vai aqui |
-|------|----------------|
-| `viewToggle` | Toggle Kanban/Lista (`<ToolbarSegmented>`) |
-| `savedViews` | Abas de visões + adicionar (`<TableToolbarViews>` + `<ViewsPopover>`) |
-| `refresh` | Botão atualizar (`<ToolbarToolButton>`) |
-| `search` | Campo de busca (`<ToolbarSearch>`) |
-| `filter` | Filtro simples: funil → drawer (`<ToolbarSimpleFilterDrawer>`) |
-| `settings` | Configurações: sliders → drill-down (`<ToolbarSettingsMenu>` com Ordenação · Colunas · Filtros avançados · Densidade) |
-| `more` | Menu "⋯" (`<MoreMenu>`) — export + ações |
-| `bulkBar` | Substitui a toolbar inteira pela barra de ações em massa |
-| `className` | — |
+| Slot         | O que vai aqui                                                                                                                                                                  |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `viewToggle` | Toggle Kanban/Lista (`<ToolbarSegmented>`)                                                                                                                                      |
+| `savedViews` | Abas de visões + adicionar (`<TableToolbarViews>` + `<ViewsPopover>`)                                                                                                           |
+| `refresh`    | Botão atualizar (`<ToolbarToolButton>`)                                                                                                                                         |
+| `search`     | Campo de busca (`<ToolbarSearch>`)                                                                                                                                              |
+| `filter`     | Filtro simples: funil → drawer (`<ToolbarSimpleFilterDrawer>`)                                                                                                                  |
+| `actions`    | Ações custom: `<ToolbarActions actions={[...]} />` (`button`/`dropdown`/`input`). Inline no desktop; **colapsam no ⋯ no mobile** (passe `extraItems` p/ absorver o ⋯ existente) |
+| `settings`   | Configurações: sliders → drill-down (`<ToolbarSettingsMenu>` com Ordenação · Colunas · Filtros avançados · Densidade)                                                           |
+| `more`       | Menu "⋯" (`<MoreMenu>`) — export + ações                                                                                                                                        |
+| `bulkBar`    | Substitui a toolbar inteira pela barra de ações em massa                                                                                                                        |
+| `className`  | —                                                                                                                                                                               |
 
 ## Exemplo mínimo
 

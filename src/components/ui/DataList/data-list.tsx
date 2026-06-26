@@ -44,6 +44,7 @@ export function DataList(props: DataListProps) {
     filterFields,
     views,
     onRefresh,
+    toolbarActions,
     moreActions,
     mode = "client",
     loading,
@@ -188,6 +189,7 @@ export function DataList(props: DataListProps) {
         filterModel={ctrl.query.filterModel}
         onFilterModelChange={ctrl.setFilterModel}
         onRefresh={onRefresh}
+        toolbarActions={toolbarActions}
         moreActions={moreActions}
         loading={loading}
       />

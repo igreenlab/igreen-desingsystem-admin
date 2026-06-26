@@ -27,6 +27,13 @@ export type {
 export { ToolbarApplied } from "./parts/toolbar-applied";
 export type { ToolbarAppliedProps } from "./parts/toolbar-applied";
 
+export { ToolbarActions } from "./parts/toolbar-actions";
+export type {
+  ToolbarActionsProps,
+  ToolbarAction,
+  ToolbarActionMenuItem,
+} from "./parts/toolbar-actions";
+
 /**
  * Mobile collapse pattern — consumido pelo `<DataTable>` automaticamente
  * (controles secundários colapsam em viewports < md). Também disponível
