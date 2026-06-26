@@ -29,7 +29,7 @@ import {
 const TOC = [
   { id: "overview", label: "Overview" },
   { id: "quick-start", label: "Quick start" },
-  { id: "view-mode", label: "ViewMode (Table × Kanban)" },
+  { id: "view-mode", label: "ViewMode (Table × Kanban × Lista)" },
   { id: "saved-views", label: "Saved Views & Presets" },
   { id: "server-mode", label: "Server mode" },
   { id: "features", label: "Features built-in" },
@@ -63,7 +63,7 @@ const SAVED_VIEW_FIELDS: Array<{
   },
   { field: "hiddenColumns", type: "string[]", captured: "✅ Quando há oculta" },
   { field: "columnOrder", type: "string[]", captured: "✅ Quando reordenado" },
-  { field: "viewMode", type: "'table' | 'kanban'", captured: "✅ NOVO" },
+  { field: "viewMode", type: "'table' | 'kanban' | 'list'", captured: "✅ NOVO" },
   { field: "groupBy", type: "string | undefined", captured: "✅ NOVO" },
   { field: "expandedRowIds", type: "GridRowId[]", captured: "✅ NOVO" },
   { field: "search", type: "string", captured: "❌ Volátil (sessão)" },
@@ -162,6 +162,10 @@ const CAPABILITIES: Array<{ name: string; how: string }> = [
   {
     name: "View mode (Kanban)",
     how: "viewMode + kanbanConfig — alterna entre Table e Kanban com mesma fonte de dados",
+  },
+  {
+    name: "View mode (Lista)",
+    how: "viewMode='list' + listConfig={{ renderItem, hierarchical?, getMenuItems? }} — toggle Tabela/Lista na toolbar; corpo vira <List> com as rows processadas. hierarchical + getTreeDataPath = árvore. Ver #/clients-list-view",
   },
   {
     name: "Card responsivo (mobile)",
@@ -317,6 +321,17 @@ const KANBAN_CONFIG_PROPS = [
     type: "boolean + (cardId, from, to) => void | Promise",
     defaultVal: "false",
   },
+];
+
+const LIST_CONFIG_PROPS = [
+  {
+    name: "renderItem",
+    type: "(row, { depth, open }) => ReactNode",
+    defaultVal: "—",
+  },
+  { name: "hierarchical", type: "boolean (requer getTreeDataPath)", defaultVal: "false" },
+  { name: "defaultExpanded", type: "boolean", defaultVal: "true" },
+  { name: "getMenuItems", type: "(row) => ListMenuItem[]", defaultVal: "—" },
 ];
 
 /* ── Troubleshooting ──────────────────────────────────────────── */
@@ -749,6 +764,19 @@ export function DataTableDoc() {
           <code>cardId → row</code> onde aplicável.
         </p>
         <PropsTable items={KANBAN_CONFIG_PROPS} />
+      </div>
+
+      <div className="mb-gp-4xl">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          DataTableListConfig&lt;T&gt;
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-lg">
+          Habilita a view <strong>Lista</strong> (<code>viewMode="list"</code>): a
+          toolbar é a mesma e o corpo vira um <code>&lt;List&gt;</code> com as rows
+          processadas. <code>hierarchical</code> + <code>getTreeDataPath</code> =
+          lista em árvore. Showcase: <code>#/clients-list-view</code>.
+        </p>
+        <PropsTable items={LIST_CONFIG_PROPS} />
       </div>
 
       <SectionH2 id="troubleshooting" title="Troubleshooting" />

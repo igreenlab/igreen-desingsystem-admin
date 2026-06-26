@@ -2002,6 +2002,7 @@
         "@igreen/dialog",
         "@igreen/table",
         "@igreen/kanban",
+        "@igreen/list",
         "@igreen/chip",
         "@igreen/avatar-ig",
         "@igreen/footer-table",
