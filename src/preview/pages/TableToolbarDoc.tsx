@@ -60,9 +60,68 @@ import {
   DocSeparator,
   SectionH2,
   ExampleSection,
+  PropsTable,
 } from "../components";
 
 const PERIODOS = ["Junho de 2026", "Maio de 2026", "Abril de 2026"];
+
+/* ── API Reference — ToolbarActions ──────────────────────────────── */
+const PROPS_TOOLBAR_ACTIONS = [
+  { name: "actions", type: "ToolbarAction[]", defaultVal: "— (obrigatório)" },
+  { name: "extraItems", type: "ToolbarActionMenuItem[]", defaultVal: "—" },
+  { name: "className", type: "string", defaultVal: "—" },
+];
+const PROPS_TOOLBAR_ACTION = [
+  {
+    name: "kind",
+    type: '"button" | "dropdown" | "input"',
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "id", type: "string", defaultVal: "— (obrigatório)" },
+  { name: "label", type: "string", defaultVal: "— (obrigatório)" },
+  { name: "icon", type: "ReactNode", defaultVal: "—" },
+  {
+    name: "onClick · button",
+    type: "() => void",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "isActive · button", type: "boolean", defaultVal: "false" },
+  { name: "disabled · button", type: "boolean", defaultVal: "false" },
+  {
+    name: "items · dropdown",
+    type: "ToolbarActionMenuItem[]",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "value · input", type: "string", defaultVal: "— (obrigatório)" },
+  {
+    name: "onChange · input",
+    type: "(v: string) => void",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "placeholder · input", type: "string", defaultVal: "—" },
+];
+const PROPS_ACTION_MENU_ITEM = [
+  { name: "label", type: "ReactNode", defaultVal: "— (obrigatório)" },
+  { name: "icon", type: "ReactNode", defaultVal: "—" },
+  { name: "onClick", type: "() => void", defaultVal: "—" },
+  { name: "active", type: "boolean", defaultVal: "false" },
+  { name: "destructive", type: "boolean", defaultVal: "false" },
+  { name: "disabled", type: "boolean", defaultVal: "false" },
+  { name: "separator", type: "boolean", defaultVal: "false" },
+];
+const PROPS_EXPOSURE = [
+  {
+    name: "TableToolbar.actions",
+    type: "ReactNode (use <ToolbarActions>)",
+    defaultVal: "—",
+  },
+  {
+    name: "DataTable.toolbar.actions",
+    type: "ToolbarAction[]",
+    defaultVal: "—",
+  },
+  { name: "DataList.toolbarActions", type: "ToolbarAction[]", defaultVal: "—" },
+];
 
 const VIEW_TABS = [
   { id: "all", name: "Todos" },
@@ -182,6 +241,7 @@ export function TableToolbarDoc() {
         { id: "ex-full", label: "Drill-down (Configurações)" },
         { id: "ex-actions", label: "Ações custom (slot actions)" },
         { id: "api-actions", label: "API — ToolbarActions" },
+        { id: "api-reference", label: "API Reference" },
       ]}
     >
       <DocHeader
@@ -488,6 +548,40 @@ type ToolbarActionsProps = {
             <code>moreActions</code>).
           </p>
         </div>
+      </ExampleSection>
+
+      <SectionH2 id="api-reference" title="API Reference" />
+
+      <ExampleSection
+        id="api-ref-actions"
+        title="ToolbarActionsProps"
+        description="Props do componente `<ToolbarActions>` (slot `actions` do TableToolbar)."
+      >
+        <PropsTable items={PROPS_TOOLBAR_ACTIONS} />
+      </ExampleSection>
+
+      <ExampleSection
+        id="api-ref-action"
+        title="ToolbarAction"
+        description="União discriminada por `kind` (button/dropdown/input). Campos marcados com · button/dropdown/input pertencem só àquela forma."
+      >
+        <PropsTable items={PROPS_TOOLBAR_ACTION} />
+      </ExampleSection>
+
+      <ExampleSection
+        id="api-ref-menu-item"
+        title="ToolbarActionMenuItem"
+        description="Item de um `dropdown` (e de `extraItems`)."
+      >
+        <PropsTable items={PROPS_ACTION_MENU_ITEM} />
+      </ExampleSection>
+
+      <ExampleSection
+        id="api-ref-exposure"
+        title="Onde é exposto"
+        description="O mesmo slot chega aos componentes inteligentes."
+      >
+        <PropsTable items={PROPS_EXPOSURE} />
       </ExampleSection>
     </DocLayout>
   );
