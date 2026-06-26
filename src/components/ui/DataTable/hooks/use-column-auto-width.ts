@@ -111,9 +111,12 @@ export function useColumnAutoWidth<T>(
       });
     };
 
-    // Cálculo inicial — usa contentRect via getBoundingClientRect
-    const initialRect = el.getBoundingClientRect();
-    recalculate(initialRect.width);
+    // Cálculo inicial — usa `clientWidth` (content-box, EXCLUI scrollbar) pra ficar
+    // consistente com `entry.contentRect.width` do ResizeObserver. Antes usava
+    // getBoundingClientRect().width (border-box, INCLUI scrollbar vertical), o que
+    // sobre-estimava a largura no 1º paint quando já havia scroll-Y (totalizer/altura
+    // forçada) → colunas largas demais até o 1º resize. clientWidth alinha as duas vias.
+    recalculate(el.clientWidth);
 
     const observer = new ResizeObserver((entries) => {
       const entry = entries[0];
