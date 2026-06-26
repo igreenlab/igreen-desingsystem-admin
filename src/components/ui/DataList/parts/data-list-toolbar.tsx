@@ -20,7 +20,18 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
-import type { FilterModel } from "@/components/ui/DataTable/data-table.types";
+import {
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@/components/shadcn/popover";
+import { columnTypeRegistry } from "@/components/ui/DataTable/column-types";
+import type { ColumnOption } from "@/components/ui/DataTable/column-types";
+import type {
+  FilterModel,
+  FilterValue,
+  FilterOperator,
+} from "@/components/ui/DataTable/data-table.types";
 import type {
   AppliedFilter,
   FilterPopoverColumn,
@@ -158,6 +169,80 @@ export function DataListToolbar({
   );
   const filterCount = appliedFilters.length;
 
+  // Edição do chip in-place (igual DataTable): clicar abre popover com o
+  // fast-filter do column-type; muda o valor direto no chip.
+  const [openChipKey, setOpenChipKey] = useState<string | null>(null);
+
+  const isEmptyVal = (v: unknown) =>
+    v == null || v === "" || (Array.isArray(v) && v.length === 0);
+
+  /** Substitui o(s) item(ns) de um grupo field|operator no filterModel. */
+  const setGroupValue = (
+    field: string,
+    operator: string,
+    value: FilterValue,
+  ) => {
+    const rest = filterModel.items.filter(
+      (i) => !(i.field === field && i.operator === operator),
+    );
+    const next = isEmptyVal(value)
+      ? rest
+      : [
+          ...rest,
+          {
+            id: `${field}-${operator}`,
+            field,
+            operator: operator as FilterOperator,
+            value,
+          },
+        ];
+    onFilterModelChange({ ...filterModel, items: next });
+  };
+
+  /** Chip clicável → popover de edição (fast-filter por column-type). */
+  const renderEditableChip = (f: AppliedFilter, defaultChip: ReactNode) => {
+    const [field, operator] = f.id.split("|");
+    const fieldDef = fieldsById.get(field);
+    if (!fieldDef) return defaultChip;
+
+    const isMulti = operator === "isAnyOf" || operator === "isNoneOf";
+    const isTuple = operator === "between";
+    const regType = isMulti ? "multiSelect" : fieldDef.type;
+    const def = columnTypeRegistry.get(regType);
+
+    const groupItems = filterModel.items.filter(
+      (i) => i.field === field && i.operator === operator,
+    );
+    const currentValue: FilterValue = isTuple
+      ? (groupItems[0]?.value as FilterValue)
+      : isMulti
+        ? (groupItems.flatMap((i) =>
+            Array.isArray(i.value)
+              ? (i.value as unknown[])
+              : i.value != null
+                ? [i.value]
+                : [],
+          ) as FilterValue)
+        : (groupItems[0]?.value as FilterValue);
+
+    return (
+      <Popover
+        open={openChipKey === f.id}
+        onOpenChange={(o) => setOpenChipKey(o ? f.id : null)}
+      >
+        <PopoverTrigger asChild>{defaultChip}</PopoverTrigger>
+        <PopoverContent align="start" className="p-0">
+          {def.renderFastFilterInput({
+            value: currentValue,
+            onChange: (v) => setGroupValue(field, operator, v),
+            options: fieldDef.options as ColumnOption[] | undefined,
+            onClose: () => setOpenChipKey(null),
+          })}
+        </PopoverContent>
+      </Popover>
+    );
+  };
+
   // Visões em ABAS (igual DataTable): 1ª aba = "Todos" (ou o título), demais = views.
   const tabs: ToolbarTab[] | undefined =
     views.length > 0
@@ -281,6 +366,7 @@ export function DataListToolbar({
         onRemove={removeFilter}
         onClearAll={() => onFilterModelChange({ ...filterModel, items: [] })}
         separator={false}
+        renderChip={(f, defaultChip) => renderEditableChip(f, defaultChip)}
       />
 
       {filterFields && filterFields.length > 0 && (

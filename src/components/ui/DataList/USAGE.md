@@ -13,7 +13,9 @@ Visões (ou `title`) · refresh · search · filtro · `⋯`. **Não tem** toggl
 nem menu de configurações de colunas (é cards, não tabela). Reusa o `<TableToolbar>`
 (dumb): as **visões viram abas** (1ª aba = `title`/"Todos", igual à DataTable) e os
 filtros aplicados aparecem como **chips** (`<ToolbarApplied>`) abaixo da toolbar —
-o drawer de filtro é o MESMO `<ToolbarSimpleFilterDrawer>` da tabela.
+o drawer de filtro é o MESMO `<ToolbarSimpleFilterDrawer>` da tabela. Os **chips são
+clicáveis**: abrem o fast-filter do column-type (via `columnTypeRegistry`) pra editar o
+valor inline — mesma UX do DataTable (sem precisar reabrir o drawer).
 
 ## Exemplo
 

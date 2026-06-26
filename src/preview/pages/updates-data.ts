@@ -59,6 +59,7 @@ export const RELEASES: ReleaseEntry[] = [
         items: [
           "TableToolbar: novo slot `actions` + componente `<ToolbarActions>` (tipos `ToolbarAction` / `ToolbarActionMenuItem`) — ações custom button/dropdown/input.",
           "DataList: prop `toolbarActions` (colapsa no ⋯ no mobile junto com `moreActions`).",
+          "DataList: chips de filtro aplicado agora são CLICÁVEIS — abrem o fast-filter do column-type pra editar o valor inline (paridade com o DataTable).",
           "DataTable: `toolbar.actions` (ToolbarAction[]) — inline no desktop, ⋯ próprio no mobile.",
           "Showcase: exemplo de seletor de Período (dropdown) no `#/list-standard`.",
         ],
