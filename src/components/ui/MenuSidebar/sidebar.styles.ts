@@ -374,6 +374,16 @@ export const sidebarBookmarkDot = tv({
   base: "flex-none w-[10px] h-[10px] rounded-full",
 });
 
+export const sidebarBookmarkIcon = tv({
+  base: [
+    // mesmo footprint do dot/avatar → alinhamento consistente; ícone herda a
+    // cor via `color` inline (currentColor), sem caixa de fundo
+    "flex-none grid place-items-center w-icon-lg h-icon-lg",
+    // menor que o ícone de categoria (17px) → menos destaque, perto do peso do dot
+    "[&>svg]:size-icon-xs",
+  ],
+});
+
 export const sidebarChatAvatar = tv({
   base: [
     "flex-none grid place-items-center w-icon-lg h-icon-lg rounded-full",

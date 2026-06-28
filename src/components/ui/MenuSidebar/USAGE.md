@@ -49,3 +49,4 @@ import { MenuSidebar } from "@/components/ui/MenuSidebar";
 - `floating` NÃO é prop pública do MenuSidebar — é prop interna de `<SidebarPanel>` (composição manual). No all-in-one, o overlay flutuante é gerenciado por `expandOnHover` + panel colapsado
 - Items hierárquicos: `items: [{ name, href, subitems: [...] }]` — subitems renderizam indentados; `defaultOpen` define o estado inicial do grupo
 - Context pode ter `sections?: SidebarSection[]` (variants `bookmark` | `chat`) renderizadas abaixo dos items do panel
+- Bookmark item aceita `icon?` opcional: presente → ícone colorido (tingido com `color`, sem fundo; estilo atalho, ex.: ferramentas/integrações); ausente → dot redondo. `color` vale pra ambos. `onAdd?` na section renderiza o botão "+" no header (ex.: abrir catálogo)

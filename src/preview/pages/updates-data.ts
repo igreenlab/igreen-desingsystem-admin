@@ -46,6 +46,28 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.20.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "MenuSidebar: ícone opcional em bookmark section (atalhos)",
+    summary:
+      "Bookmark section item ganhou a prop opcional `icon?`. Quando presente, renderiza um ícone colorido (tingido com `color` via currentColor, sem caixa de fundo, ~12px — menor que o ícone de categoria) no lugar do dot. Ideal pra atalhos de ferramentas/integrações, combinando com `onAdd` (botão '+' no header da section) pra padrões tipo catálogo de plugins. Totalmente aditivo e retrocompatível: itens sem `icon` continuam com o dot redondo.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "MenuSidebar: `SidebarBookmarkItem.icon?: LucideIcon` opcional — ícone colorido (currentColor via `color`, `size-icon-xs`/12px, sem fundo) no lugar do dot quando presente. Novo style `sidebarBookmarkIcon`.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "MenuSidebarDoc: showcase de sections agora demonstra a variante bookmark com ícone + botão `onAdd` (\"+\"); USAGE e PROPS_DATA atualizados.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.19.1",
     date: "2026-06-26",
     tag: "patch",

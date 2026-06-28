@@ -25,8 +25,14 @@ export type SidebarMenuItem = {
 
 export type SidebarBookmarkItem = {
   name: string;
-  /** Cor do dot indicador (qualquer cor CSS válida) */
+  /** Cor do dot indicador / caixa de ícone (qualquer cor CSS válida) */
   color: string;
+  /**
+   * Ícone opcional. Quando presente, renderiza uma caixinha colorida com o
+   * ícone (estilo "atalho/app") no lugar do dot. Útil pra atalhos de
+   * ferramentas/integrações. Ausente → dot redondo (default).
+   */
+  icon?: LucideIcon;
   href?: string;
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 };
