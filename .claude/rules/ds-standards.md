@@ -226,6 +226,15 @@ motor reativo do componente (chips clicáveis/editáveis):
 - **muitos ou ligados a coluna** → sempre nativos **pré-aplicados (chips)**. As skills
   crud/list + ds-kit sugerem isso.
 
+### DataTable autoFit — header-floor, fill proporcional, toggle (L-052b/v0.22.0)
+
+`autoFit` do DataTable (v0.22.0): (1) a largura mínima de cada coluna inclui o **header
+inteiro** (`headerName` + ícone/sort/menu) — título nunca trunca em "..."; (2) a sobra de
+espaço é distribuída **proporcionalmente** e **`col.width` virou base/piso** (não trava
+fixa) que entra no rateio — pra travar use `width`+`maxWidth` iguais; (3) toggle de view
+re-mede via `recalcKey: viewMode`. Regra: prefira NÃO fixar `width`. Detalhe em
+`lessons.md` L-053 + skills crud-builder.
+
 ### DataTable view Lista — paginação opt-in (L-052)
 
 `DataTable` na view Lista (`viewMode="list"` + `listConfig`) **não pagina por padrão** —

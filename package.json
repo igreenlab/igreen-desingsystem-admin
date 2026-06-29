@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/design-system",
-  "version": "0.21.0",
+  "version": "0.22.0",
   "//distribuicao": "Canal vivo = registry shadcn (copy-in) + CLI @snksergio/create-design-system. O pacote npm @snksergio/design-system está DEPRECIADO. Ver DISTRIBUICAO.md.",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "license": "UNLICENSED",

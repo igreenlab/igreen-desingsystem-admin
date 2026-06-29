@@ -82,6 +82,17 @@ export function useDataTableController<T>(
   // (medição do contentRect.width). data-table.tsx consome via controller.
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // viewMode (estado interno read-only) elevado pra ANTES do autoFit — o hook
+  // precisa dele como `recalcKey`: ao alternar Tabela↔Lista o corpo da tabela
+  // (que carrega o `scrollRef`) desmonta e remonta sem trocar a ref, então o
+  // ResizeObserver precisa ser re-instalado e o autoFit re-medido. O setter e os
+  // callbacks completos ficam mais abaixo (precisam de `props.onViewModeChange`).
+  const [internalViewMode, setInternalViewMode] = useState<DataTableViewMode>(
+    // Hidrata do localStorage (v3+) com fallback pra prop `defaultViewMode`
+    persistedInitial?.viewMode ?? props.defaultViewMode ?? "table",
+  );
+  const viewMode: DataTableViewMode = props.viewMode ?? internalViewMode;
+
   // AutoFit: calcula widths fluidas em 3 layers (type heuristic / canvas measure / flex distribution).
   // Default true — opt-out via `autoFit: false` em DataTableProps.
   const autoFitEnabled = props.autoFit !== false;
@@ -94,7 +105,14 @@ export function useDataTableController<T>(
     scrollContainerRef,
     props.columns,
     props.rows ?? [],
-    { enabled: autoFitEnabled, reservedWidth: selectionReservedWidth },
+    {
+      enabled: autoFitEnabled,
+      reservedWidth: selectionReservedWidth,
+      // Re-attach/re-medir quando o corpo da tabela remonta (toggle de view).
+      // Só "table" carrega o scrollRef observado; usar viewMode garante que ao
+      // voltar pra Tabela o observer reata no node novo e re-mede do zero.
+      recalcKey: viewMode,
+    },
   );
 
   const cols = useDataTableColumns({
@@ -161,11 +179,8 @@ export function useDataTableController<T>(
    *  Saved views podem alternar esses 3 fields via `applyView` (sempre dispara
    *  o callback). Builder `presetView()` pode declarar `viewMode/groupBy/
    *  expandedRowIds` em presets read-only. */
-  const [internalViewMode, setInternalViewMode] = useState<DataTableViewMode>(
-    // Hidrata do localStorage (v3+) com fallback pra prop `defaultViewMode`
-    persistedInitial?.viewMode ?? props.defaultViewMode ?? "table",
-  );
-  const viewMode: DataTableViewMode = props.viewMode ?? internalViewMode;
+  // (internalViewMode/viewMode declarados acima — antes do autoFit, que os usa
+  //  como recalcKey). Aqui só o setter + os demais states de view.
   const setViewMode = useCallback((mode: DataTableViewMode) => {
     if (props.viewMode === undefined) setInternalViewMode(mode);
     props.onViewModeChange?.(mode);

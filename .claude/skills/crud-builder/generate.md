@@ -141,11 +141,17 @@ Miolo (ler `ClientesShowcase.tsx` pro shape real de AppShell props):
    default** — não precisa `pinned`/`width`. (Mesmo se declarada no meio, ela é
    movida pro fim na renderização.)
 
-3. **Largura: NÃO setar `width` nas colunas de dados.** `autoFit` é **default ON**
-   e distribui pra preencher o container (tabela "de verdade", sem scroll, sem 1ª
-   coluna esticada). Fixe `width` só em casos pontuais (ex.: id/código curto,
-   UF, nível). Nunca passe `autoFit: false` sem motivo. ⚠️ Se você setar `width`
-   em todas as colunas, o autoFit não tem o que esticar → sobra espaço à direita.
+3. **Largura: prefira NÃO setar `width` nas colunas de dados.** `autoFit` é
+   **default ON** e distribui pra preencher o container (tabela "de verdade", sem
+   scroll, sem 1ª coluna esticada). Nunca passe `autoFit: false` sem motivo.
+   - **(v0.22.0+) `col.width` virou BASE/piso, não trava fixa**: o autoFit usa o
+     `width` como largura mínima e ainda distribui o espaço que sobra
+     proporcionalmente entre as colunas. Ou seja, setar `width` em várias colunas
+     **não** deixa mais "sobra à direita" — preenche. Pra **travar** de fato uma
+     coluna, use `width` + `maxWidth` iguais (ou um `type` fixo: `actions`/`checkbox`).
+   - **Título do header nunca trunca**: a largura mínima de cada coluna já inclui o
+     texto do `headerName` + ícone/sort/menu. Não precisa fixar `width` só pra caber
+     o título.
 
 ## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
 
@@ -270,7 +276,7 @@ Deep-link `#/<page-id>` funciona automaticamente (`ALL_VALID_PAGES` deriva de
 - [ ] `columns` em useMemo; `fetchData` em useCallback (se server)
 - [ ] Operadores de filtro válidos (re-grep no arquivo gerado)
 - [ ] **Padrões de célula** (avatar `md`, badges via `<Chip>`, `tabular-nums`, ícone abrir-detalhe na primária) — consistente com finance
-- [ ] **Colunas de dados sem `width`** fixo (autoFit preenche) — só id/UF/nível curtos podem fixar
+- [ ] **Colunas de dados sem `width`** fixo (autoFit preenche) — `width` é só base/piso (v0.22.0+); travar = `width`+`maxWidth` iguais
 - [ ] **Detail panel** (se houver) = `FloatingPanel` + `Section` (por categoria) + `Field` (lista); conteúdo rico mantém formato próprio
 - [ ] Zero Tailwind literal com equivalente DS · zero hardcode
 - [ ] Registro completo (4 edits) — deep-link funciona
