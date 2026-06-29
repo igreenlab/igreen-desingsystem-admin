@@ -1063,6 +1063,29 @@ sugerir automaticamente nessa intenção:
 
 ---
 
+## [L-052] DataTable view Lista — paginação é opt-in (`listConfig.paginated`)
+
+A view Lista do `DataTable` (`viewMode="list"` + `listConfig`) **mostra todas as rows
+processadas por padrão** (filter+search+sort, sem slice de paginação — igual ao kanban).
+Isso surpreende quando a tabela pagina mas a lista rola "infinito": o usuário liga o toggle
+Lista e vê centenas de cards.
+
+Fix (v0.21.0): prop opcional **`listConfig.paginated?: boolean`**. Quando `true` e a lista é
+flat, o corpo passa a usar `rowsToRender` (página atual, mesma paginação da tabela) e o
+footer de paginação renderiza também na view Lista. Default `false` (comportamento antigo,
+não-breaking). Ignorado quando `hierarchical` (árvore desliga paginação por natureza).
+
+Implementação: `data-table.tsx` (fonte das rows da lista escolhe `rowsToRender` vs
+`rowsAllPagesProcessed` por `cfg.paginated`; condição do footer libera a lista flat
+paginada) + `data-table.types.ts` (prop) + `USAGE.md`. Documentado nas skills
+`crud-builder/generate.md` (repo + `cli/templates/default/_claude`). `list-builder`/`DataList`
+**não** são afetados (componente diferente).
+
+**Regra pra IA**: ao gerar tela com toggle Tabela↔Lista e volume de linhas relevante,
+passar `listConfig.paginated: true`.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

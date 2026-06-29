@@ -46,6 +46,28 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.21.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "DataTable: paginação opt-in na view Lista (listConfig.paginated)",
+    summary:
+      "A view Lista do DataTable (viewMode=\"list\" + listConfig) mostrava todas as rows por padrão — surpreendia quando a tabela paginava mas a lista rolava 'infinito'. Nova prop opcional `listConfig.paginated`: quando true e a lista é flat, o corpo usa a página atual (mesma paginação da tabela) e o footer de paginação passa a renderizar também na Lista. Totalmente opt-in e retrocompatível (default: mostra todas, sem footer); ignorado quando hierarchical.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `listConfig.paginated?: boolean` — pagina a view Lista flat com a mesma paginação da tabela + mostra o footer. Default false (comportamento atual). Ignorado em `hierarchical`.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Skills crud-builder (repo + cli/templates) + USAGE.md do DataTable documentam a opção `paginated` da lista. L-052 registrada.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.20.0",
     date: "2026-06-28",
     tag: "release",

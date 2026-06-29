@@ -1230,3 +1230,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Distribuição (L-042 5/6/7): registry.json (`kpi`, deps chip/tv/utils+lucide) + registry:build (stamp v0.16.0) + embed (78 items) · catálogo CLI (CLAUDE.md App-level + intenção) + bump cli 0.13.13 · changelog v0.16.0 + bump DS 0.16.0.
 - Lições novas: nenhuma.
 - **Pendência do mantenedor**: merge do PR (deploy registry automático) + publish manual do CLI 0.13.13 (npm).
+
+---
+
+### 2026-06-28 | DS DEV | DataTable — listConfig.paginated | CONCLUÍDO
+- Input: pedido de paginação na view Lista do DataTable (tela Cidades do app consumer paginava só na tabela; lista mostrava todas as rows e rolava "infinito").
+- Output: nova prop opcional `listConfig.paginated?: boolean` (data-table.types.ts). Quando true + lista flat, o corpo usa `rowsToRender` (página atual) e o footer de paginação renderiza na view Lista (data-table.tsx). Default false (comportamento atual: mostra todas, sem footer). Ignorado em `hierarchical`.
+- Decisões: opt-in pra não quebrar consumidores existentes de viewMode="list" (que esperam ver tudo). Footer reusa o mesmo FooterTable; sem novo componente/token.
+- Assumption: paginar a lista flat usando a mesma paginação da tabela é o comportamento esperado quando o dev liga `paginated` — válida (a tela Cidades confirma).
+- Regressões L-001..L-007: nenhuma (sem styles novos; só lógica + tipo + doc).
+- Docs/skills: USAGE.md (DataTable) + crud-builder/generate.md (repo + cli/templates) atualizados com a opção. list-builder NÃO afetado (usa DataList, componente diferente).
+- Distribuição (L-042 5/6/7): registry:build (re-stamp data-table) + embed · cli/templates tocado (skill) → bump CLI + publish · changelog v0.21.0 + bump DS 0.21.0.
