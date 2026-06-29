@@ -232,9 +232,20 @@ defaultViews={[
     name: "<Label da aba>",
     filters: [{ field: "<f>", operator: "<op-válido>", value: <v> }],
     sort: [{ field: "<f>", direction: "desc" }],   // opcional
+    viewMode: "list",             // opcional — só se ESTE preset abre numa view fixa
   }),
 ]}
 ```
+
+> **Visões read-only (`allowCreateView={false}`, v0.23.0+)** — quando a tela só
+> deve oferecer as visões pré-definidas (abas nativas, sem o usuário salvar
+> visões próprias), passe `allowCreateView={false}` no `<DataTable>`: esconde o
+> botão "+". Default `true`. Use junto de `defaultViews` + `persistId`.
+>
+> **viewMode "sticky" (v0.23.0+)** — trocar de visão só muda Tabela↔Lista↔Kanban
+> se o preset definir `viewMode` explícito (ver acima). Presets sem `viewMode`
+> mantêm o que o usuário está vendo. Por isso só declare `viewMode` no
+> `presetView` quando aquela visão DEVE forçar uma view específica.
 
 ## 5. Receita de registro no preview (4 edits, âncoras TEXTUAIS)
 

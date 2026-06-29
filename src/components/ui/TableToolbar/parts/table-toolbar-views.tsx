@@ -42,6 +42,12 @@ export type TableToolbarViewsProps = {
   /** Esconde o divider default — usado quando ja ha um divider adjacente. */
   hideDivider?: boolean;
   /**
+   * Permite o usuário criar/salvar novas visões (botão "+" / popover de views).
+   * Default `true`. Passe `false` pra exibir SÓ as visões pré-definidas (sem o
+   * "+") — read-only views.
+   */
+  allowCreate?: boolean;
+  /**
    * Label da tab Default **quando ela é a única** (sem nenhuma view pré-definida
    * nem salva). Evita a barra "vazia" mostrando só "Default" — troque por um
    * título genérico do contexto (ex: "Lista de Clientes"). Default `"Default"`.
@@ -102,6 +108,7 @@ export function TableToolbarViews({
   divider,
   hideDivider,
   soloLabel = "Default",
+  allowCreate = true,
 }: TableToolbarViewsProps) {
   const maxCustomTabs = Math.max(0, maxTabs - 1);
 
@@ -233,27 +240,31 @@ export function TableToolbarViews({
         ariaLabel="Visões salvas"
       />
 
-      <ViewsPopover
-        open={popoverOpen}
-        onOpenChange={setPopoverOpen}
-        trigger={
-          <ToolbarSaveButton aria-label="Visões salvas">
-            <Plus strokeWidth={2.4} />
-          </ToolbarSaveButton>
-        }
-        views={views}
-        activeViewId={activeViewId ?? undefined}
-        myOwnerKey={myOwnerKey}
-        onApply={handlePopoverItemClick}
-        onDelete={handleAskDelete}
-        onCreate={handleCreateClick}
-      />
+      {allowCreate && (
+        <ViewsPopover
+          open={popoverOpen}
+          onOpenChange={setPopoverOpen}
+          trigger={
+            <ToolbarSaveButton aria-label="Visões salvas">
+              <Plus strokeWidth={2.4} />
+            </ToolbarSaveButton>
+          }
+          views={views}
+          activeViewId={activeViewId ?? undefined}
+          myOwnerKey={myOwnerKey}
+          onApply={handlePopoverItemClick}
+          onDelete={handleAskDelete}
+          onCreate={handleCreateClick}
+        />
+      )}
 
-      <AddViewModal
-        open={addModalOpen}
-        onClose={() => setAddModalOpen(false)}
-        onSubmit={onSave}
-      />
+      {allowCreate && (
+        <AddViewModal
+          open={addModalOpen}
+          onClose={() => setAddModalOpen(false)}
+          onSubmit={onSave}
+        />
+      )}
 
       <AlertModal
         tone="danger"

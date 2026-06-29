@@ -23,7 +23,7 @@ Em `< md`: o `refresh` some (o menu Configurações cobre o resto).
 | Slot         | O que vai aqui                                                                                                                                                                  |
 | ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `viewToggle` | Toggle Kanban/Lista (`<ToolbarSegmented>`)                                                                                                                                      |
-| `savedViews` | Abas de visões + adicionar (`<TableToolbarViews>` + `<ViewsPopover>`)                                                                                                           |
+| `savedViews` | Abas de visões + adicionar (`<TableToolbarViews>` + `<ViewsPopover>`). `<TableToolbarViews allowCreate={false}>` (v0.23.0) esconde o "+" e o modal de nova visão → só as visões pré-definidas (read-only). No DataTable use a prop `allowCreateView`. |
 | `refresh`    | Botão atualizar (`<ToolbarToolButton>`)                                                                                                                                         |
 | `search`     | Campo de busca (`<ToolbarSearch>`)                                                                                                                                              |
 | `filter`     | Filtro simples: use `<ToolbarFilterButton onClick isActive hasIndicator />` (funil, icon-only — **mesmo botão** no DataTable e DataList) → abre `<ToolbarSimpleFilterDrawer>`   |

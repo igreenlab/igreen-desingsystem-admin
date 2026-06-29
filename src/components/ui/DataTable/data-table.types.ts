@@ -795,6 +795,13 @@ export type DataTableProps<T> = {
    */
   defaultViews?: DataTablePresetView[];
 
+  /**
+   * Permite o usuário criar/salvar novas visões (botão "+" das views). Default
+   * `true`. Passe `false` pra exibir SÓ as visões pré-definidas (`defaultViews`
+   * + Default) — sem o "+", read-only.
+   */
+  allowCreateView?: boolean;
+
   /* ── View mode (table OR kanban) ──────────────────────────────── */
 
   /**

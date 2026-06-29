@@ -580,6 +580,24 @@ export function DataTableDoc() {
         </li>
       </ul>
 
+      <div className="border border-border-subtle rounded-radius-lg bg-bg-subtle p-pad-2xl mb-gp-3xl max-w-[760px] space-y-gp-md">
+        <p className="text-body-md text-fg-default">
+          <strong>
+            <code>allowCreateView={"{false}"}</code> (v0.23.0)
+          </strong>{" "}
+          — esconde o botão "+" das visões. A tabela exibe só os{" "}
+          <code>defaultViews</code> (+ Default), read-only — o usuário não cria
+          nem salva visões. Default <code>true</code> (não-breaking).
+        </p>
+        <p className="text-body-md text-fg-default">
+          <strong>viewMode "sticky" ao trocar de visão (v0.23.0)</strong> —
+          aplicar uma visão só troca Tabela↔Lista↔Kanban se a visão{" "}
+          <strong>definir</strong> um <code>viewMode</code> explícito. Presets
+          sem <code>viewMode</code> (o caso comum) mantêm o que o usuário está
+          vendo; clicar "Default" também não flipa a view.
+        </p>
+      </div>
+
       <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
         Builder <code>presetView()</code> — declarar presets em código
       </h3>

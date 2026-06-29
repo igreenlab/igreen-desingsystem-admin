@@ -447,6 +447,10 @@ import { savedViewsMockService } from "@/components/ui/DataTable";
 
 Service contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds) como JSON — `search` e paginação são voláteis e NÃO entram na view.
 
+**`allowCreateView` (v0.23.0)** — `allowCreateView={false}` esconde o botão "+" das visões (exibe SÓ os `defaultViews` + Default, read-only; o usuário não cria/salva visões). Default `true`.
+
+**viewMode "sticky" ao trocar de visão (v0.23.0)** — aplicar uma visão (preset/Default) só troca o `viewMode` se a visão **definir um explicitamente** (ex.: preset salvo em Lista/Kanban). Presets sem `viewMode` (o caso comum) **mantêm** o que o usuário está vendo — alternar de visão não flipa Tabela↔Lista↔Kanban. Pra um preset abrir numa view específica, passe `viewMode` no `presetView({ ... })`.
+
 ### Tipo de coluna custom (registry)
 
 ```tsx

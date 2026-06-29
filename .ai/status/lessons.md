@@ -1112,6 +1112,33 @@ trava (travar = `width`+`maxWidth`). Hook de ResizeObserver preso a ref estável
 
 ---
 
+## [L-054] DataTable — viewMode "sticky" ao trocar de visão + `allowCreateView` read-only
+
+Dois ajustes de saved-views do DataTable (v0.23.0), ambos vindos de uso real na tela Cidades
+(2+ visões + toggle Tabela/Lista):
+
+1. **viewMode "sticky" ao aplicar visão.** Antes, aplicar qualquer visão (preset ou clicar
+   "Default") forçava `setViewMode(state.viewMode ?? "table")` — então com 2-3 visões, mudar
+   uma pra Lista e clicar em outra **voltava pra Tabela** (a outra visão não definia viewMode
+   → caía no fallback `"table"`). Comportamento errado: trocar de visão flipava a view que o
+   usuário escolheu. Fix: `applyViewState` só chama `setViewMode` **se `state.viewMode !==
+   undefined`** (a visão define explicitamente); `applyDefault` (branch persistId) **não**
+   reseta viewMode. Resultado: a view (table/list/kanban) é "sticky" — só muda quando o
+   preset declara `viewMode` de propósito. Arquivo: `use-data-table-controller.ts`.
+2. **`allowCreateView={false}` (opt-out, default `true`).** Esconde o botão "+" das visões +
+   o modal de criar visão (`TableToolbarViews` ganhou prop `allowCreate`). Pra telas que só
+   oferecem `defaultViews` pré-definidas (abas nativas read-only), sem o usuário salvar visões
+   próprias. Não-breaking (default mantém o "+"). Arquivos: `data-table.types.ts` (prop),
+   `data-table.tsx` (`allowCreate={props.allowCreateView !== false}`),
+   `parts/table-toolbar-views.tsx` (gate de render do ViewsPopover + AddViewModal).
+
+**Regra pra IA**: ao montar tela com `defaultViews` como abas fixas, passe
+`allowCreateView={false}`; e só declare `viewMode` num `presetView` quando aquela visão DEVE
+forçar uma view específica — senão deixe sem (sticky). Coberto nas skills crud-builder (repo +
+`cli/templates`) + USAGE do DataTable/TableToolbar + showcase DataTableDoc.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
