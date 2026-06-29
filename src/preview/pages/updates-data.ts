@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.23.0",
+    date: "2026-06-29",
+    tag: "release",
+    title: "DataTable: visões pré-definidas read-only (`allowCreateView`) + viewMode sticky ao trocar de visão",
+    summary:
+      "Dois ajustes nas visões (saved views) do DataTable, vindos de uso real. (1) Nova prop `allowCreateView` (default `true`): passe `false` pra esconder o botão '+' e exibir SÓ as visões pré-definidas (`defaultViews` + Default) — read-only, o usuário não cria nem salva visões próprias. Ideal pra abas nativas da tela. (2) O viewMode (Tabela/Lista/Kanban) virou 'sticky': trocar de visão só flipa a view se aquela visão DEFINIR um viewMode explícito (ex.: preset salvo em Lista). Antes, clicar em outra visão que não definia viewMode voltava sempre pra Tabela — então alternar entre visões perdia a Lista/Kanban que o usuário estava vendo. Ambos opt-in/não-breaking.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: prop `allowCreateView?: boolean` (default `true`). `false` esconde o botão '+' das visões + o modal de criar visão → exibe só `defaultViews` + Default (read-only).",
+          "TableToolbarViews: prop `allowCreate?: boolean` (gate do ViewsPopover '+' + AddViewModal) — base da `allowCreateView` do DataTable.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "DataTable: trocar de visão não flipa mais a view (Tabela/Lista/Kanban) que o usuário está vendo — viewMode agora é 'sticky', só muda quando o preset declara `viewMode` explícito. Antes, visões sem viewMode caíam no fallback 'table' e perdiam a Lista/Kanban ao alternar entre visões.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.22.0",
     date: "2026-06-28",
     tag: "release",

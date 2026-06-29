@@ -469,8 +469,10 @@ export function useDataTableController<T>(
         hiddenColumns: state.hiddenColumns,
         columnOrder: state.columnOrder,
       });
-      // Features novas — fallback explícito quando campo ausente (views antigas)
-      setViewMode(state.viewMode ?? "table");
+      // viewMode é "sticky": só troca se a visão definir um explicitamente
+      // (ex.: preset de kanban). Presets sem viewMode mantêm o que o usuário
+      // está vendo (table/list/kanban) — trocar de view não deve flipar a view.
+      if (state.viewMode !== undefined) setViewMode(state.viewMode);
       setGroupBy(state.groupBy);
       setExpandedRowIds(state.expandedRowIds ?? []);
       savedViews.setCurrentViewId(id);
@@ -599,7 +601,7 @@ export function useDataTableController<T>(
         hiddenColumns: snapshot.hiddenColumns ?? [],
         columnOrder: snapshot.columnOrder ?? props.columns.map((c) => String(c.field)),
       });
-      setViewMode(snapshot.viewMode ?? "table");
+      // viewMode sticky: clicar "Default" não flipa a view atual (table/list/kanban).
       setGroupBy(snapshot.groupBy);
       setExpandedRowIds(snapshot.expandedRowIds ?? []);
       // v4 — restaura filters/search/page do workspace Default

@@ -1552,6 +1552,7 @@ function DataTableInternal<T>(
                     }}
                     soloLabel={toolbarConfig.title}
                     hideDivider
+                    allowCreate={props.allowCreateView !== false}
                   />
                 ) : undefined
               }

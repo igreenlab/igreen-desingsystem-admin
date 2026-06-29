@@ -244,6 +244,17 @@ Opt-in/não-breaking; ignorado quando `hierarchical` (árvore desliga paginaçã
 em `crud-builder/generate.md` (repo + `cli/templates`). Use sempre que a lista flat puder
 ter muitas linhas (senão rola "infinito" enquanto a tabela pagina).
 
+### DataTable saved-views — viewMode sticky + `allowCreateView` (L-054/v0.23.0)
+
+Dois ajustes de visões do `DataTable`: (1) **viewMode "sticky"** — aplicar uma visão (preset
+ou "Default") só troca Tabela↔Lista↔Kanban se a visão **declarar `viewMode` explícito**;
+presets sem `viewMode` (o caso comum) mantêm a view que o usuário está vendo (antes,
+qualquer troca de visão voltava pra Tabela). (2) **`allowCreateView={false}`** — esconde o
+botão "+" das visões (read-only: só `defaultViews` + Default, o usuário não salva visões
+próprias). Default `true`, não-breaking. **Regra**: abas fixas → `allowCreateView={false}`;
+só declare `viewMode` no `presetView` que DEVE forçar uma view. Detalhe em `lessons.md` L-054
++ skills crud-builder + USAGE DataTable/TableToolbar.
+
 ---
 
 ## ✅ Obrigatório sempre
@@ -298,7 +309,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 43 Lições — resumo
+## 44 Lições — resumo
 
 Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 

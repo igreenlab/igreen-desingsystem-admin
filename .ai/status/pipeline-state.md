@@ -1252,3 +1252,27 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma (lógica de medição/distribuição; sem styles/tokens novos).
 - Distribuição (L-042 5/6/7): registry:build (re-stamp data-table) + embed · cli/templates tocado (skill) → bump CLI + publish · changelog v0.22.0 + bump DS 0.22.0.
 - Lições novas: L-053.
+
+---
+
+### 2026-06-29 | DS DEV | DataTable — viewMode sticky + allowCreateView | CONCLUÍDO
+- Input: 2 ajustes de saved-views vindos da tela Cidades (consumer, 2+ visões + toggle Tabela/Lista): (1) mudar uma visão pra Lista e clicar em outra voltava pra Tabela — trocar de visão flipava a view; (2) pedido de desabilitar o botão "+" (criar visão) em telas com visões pré-definidas read-only.
+- Output: (1) viewMode "sticky" — `applyViewState` só chama `setViewMode` se `state.viewMode !== undefined`; `applyDefault` (branch persistId) não reseta viewMode (`use-data-table-controller.ts`). (2) prop `allowCreateView?: boolean` (default true) em `data-table.types.ts`; `data-table.tsx` passa `allowCreate={props.allowCreateView !== false}` pro `TableToolbarViews`; `parts/table-toolbar-views.tsx` ganhou prop `allowCreate` que faz gate do ViewsPopover ("+") + AddViewModal.
+- Decisões: ambos opt-in/não-breaking — default `allowCreateView=true` mantém o "+"; viewMode sticky só muda comportamento de quem tinha visões sem viewMode (o caso comum era o bug). Consumer (10 telas) passou `allowCreateView={false}`.
+- Assumption: trocar de visão NÃO deve flipar a view que o usuário escolheu, exceto quando o preset declara viewMode de propósito; e telas com abas fixas não querem o "+". Válida (tela Cidades confirma).
+- Regressões L-001..L-007: nenhuma (lógica de controller + tipo + gate de render; sem styles/tokens novos).
+- Docs/skills: USAGE DataTable + TableToolbar, showcase DataTableDoc.tsx (props + nota), crud-builder/generate.md (repo + cli/templates), ds-standards.md resumo, L-054.
+- Distribuição (L-042 5/6/7): registry:build (re-stamp data-table) + embed · cli/templates tocado (skill) → bump CLI + publish · changelog v0.23.0 + bump DS 0.23.0.
+- Lições novas: L-054.
+
+---
+
+### 2026-06-29 | DS REVIEWER | DataTable v0.23.0 (viewMode sticky + allowCreateView) | APROVADO
+- Spec verificada: sim (pedido do usuário na sessão; 2 ajustes da tela Cidades).
+- Gate verificado: n/a (edição de comportamento de componente existente — não é token/componente novo; não exige gate de spec).
+- Assumption verificada: válida. "Trocar de visão não deve flipar a view escolhida exceto quando o preset declara viewMode" — confirmada na tela Cidades; user-saved views carregam viewMode próprio (flip esperado), só `defaultViews` sem viewMode ficam sticky.
+- Critique genuína aplicada: examinei se o `setViewMode("table")` remanescente (use-data-table-controller.ts:624) regrediria — está no branch SEM persistId (hard-reset legado, sem UI de views), fora do escopo sticky; a UI de visões só existe com persistId (branch :604, correto). Não é regressão. Default `allowCreateView=true` mantém o "+" → não-breaking confirmado.
+- Escopo do diff (12 arquivos DS): DataTable (types/tsx/hook/USAGE) + TableToolbar (parts/USAGE) + DataTableDoc + crud-builder generate (repo+cli) + ds-standards + pipeline-state + lessons.
+- Regressões L-001..L-007: nenhuma (nenhum `.styles.ts` tocado; só lógica de controller + tipo + gate de render). L-016 n/a (sem typography/tv.ts). CLI rebake n/a (foundational cn/tv/theme intactos).
+- Pendência de distribuição (release): registry:build + embed (re-stamp data-table) + bump DS 0.23.0 + bump/publish CLI — a executar no /ds-release.
+- Lições novas: nenhuma (L-054 já registrada pelo DS Dev + resumo em ds-standards + contador 43→44).
