@@ -226,6 +226,15 @@ motor reativo do componente (chips clicáveis/editáveis):
 - **muitos ou ligados a coluna** → sempre nativos **pré-aplicados (chips)**. As skills
   crud/list + ds-kit sugerem isso.
 
+### DataTable view Lista — paginação opt-in (L-052)
+
+`DataTable` na view Lista (`viewMode="list"` + `listConfig`) **não pagina por padrão** —
+mostra todas as rows processadas (igual kanban). Pra paginar a **lista flat** (mesma
+paginação da tabela + footer) passe **`listConfig.paginated: true`** (v0.21.0+).
+Opt-in/não-breaking; ignorado quando `hierarchical` (árvore desliga paginação). Documentado
+em `crud-builder/generate.md` (repo + `cli/templates`). Use sempre que a lista flat puder
+ter muitas linhas (senão rola "infinito" enquanto a tabela pagina).
+
 ---
 
 ## ✅ Obrigatório sempre

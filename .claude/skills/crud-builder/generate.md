@@ -37,10 +37,14 @@ description: >
 
 > 🔀 **Tabela + Lista no mesmo lugar (toggle):** quando o usuário quer alternar
 > entre tabela e uma **lista de cards** (em vez de kanban), use `viewMode` +
-> `listConfig={{ renderItem(row), hierarchical?, getPath?, getMenuItems? }}` no
-> PRÓPRIO DataTable — a toolbar é a mesma e o toggle Tabela/Lista aparece automático.
+> `listConfig={{ renderItem(row), paginated?, hierarchical?, getPath?, getMenuItems? }}`
+> no PRÓPRIO DataTable — a toolbar é a mesma e o toggle Tabela/Lista aparece automático.
 > NÃO monte um `<DataList>` paralelo + toggle na mão. Ref: `ClientsListViewPreview.tsx`.
 >
+> - **Lista flat paginada** → `listConfig.paginated: true` (v0.21.0+): a lista usa a
+>   MESMA paginação da tabela + mostra o footer. Default `false` (mostra todas as rows,
+>   sem footer). Ignorado quando `hierarchical`. Use sempre que a lista flat puder ter
+>   muitas linhas — senão ela rola "infinito" enquanto a tabela pagina.
 > - **Lista em árvore + tabela em árvore** → `listConfig.hierarchical` + `getTreeDataPath`
 >   (liga tree-data nos dois; a tabela NÃO pagina).
 > - **Tabela FLAT paginada + lista em ÁRVORE** → `listConfig.hierarchical` +

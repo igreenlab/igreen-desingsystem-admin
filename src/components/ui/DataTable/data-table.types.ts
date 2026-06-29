@@ -851,6 +851,12 @@ export type DataTableListConfig<T> = {
   getPath?: (row: T) => Array<string | number>;
   /** Nós expandidos no mount (hierárquico). Default `true`. */
   defaultExpanded?: boolean;
+  /**
+   * Pagina a view Lista (flat) usando a mesma paginação da tabela + mostra o
+   * footer. Default `false` (mostra todas as rows processadas). Ignorado quando
+   * `hierarchical` (árvore desliga paginação).
+   */
+  paginated?: boolean;
   /** Menu "⋯" por item (reusa o do `<List>`). */
   getMenuItems?: (row: T) => import("../List").ListMenuItem[];
 };

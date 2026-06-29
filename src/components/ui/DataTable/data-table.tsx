@@ -267,8 +267,12 @@ function DataTableInternal<T>(
     const cfg = props.listConfig;
     if (!isList || !cfg) return [];
     const getRowId = contextValue.getRowId;
-    const rows = rowsAllPagesProcessed;
     const pathFn = cfg.getPath ?? props.getTreeDataPath;
+    // Flat + paginated → usa a página atual (rowsToRender); senão todas.
+    const rows =
+      cfg.paginated && !(cfg.hierarchical && pathFn)
+        ? rowsToRender
+        : rowsAllPagesProcessed;
     if (cfg.hierarchical && pathFn) {
       const pathOf = pathFn;
       const shells = new Map<string, ListItemData & { children?: ListItemData[] }>();
@@ -297,6 +301,7 @@ function DataTableInternal<T>(
     props.listConfig,
     props.getTreeDataPath,
     rowsAllPagesProcessed,
+    rowsToRender,
     contextValue.getRowId,
   ]);
 
@@ -2084,7 +2089,8 @@ function DataTableInternal<T>(
            Durante loading mostra skeleton no lugar (mesma silhueta) pra
            evitar paginação "1 página" enquanto fetchData responde. */}
         {!isKanban &&
-          !isList &&
+          (!isList ||
+            (props.listConfig?.paginated && !props.listConfig?.hierarchical)) &&
           !useTreeData &&
           paginationConfig.enabled !== false &&
           (isLoading ? (
