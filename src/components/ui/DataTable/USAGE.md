@@ -642,11 +642,15 @@ Use `false` em telas onde o card mode não faz sentido (ex: tabela dentro de mod
 
 Auto-distribui as colunas para ocupar todo o container, em 3 camadas:
 
-1. **Type Heuristics** — cada `column.type` tem `defaultWidth` do registry. Se a coluna define `width`, esse vence.
+1. **Type Heuristics** — cada `column.type` tem `defaultWidth` do registry. Se a coluna define `width`, esse vira a **base/mínimo** da coluna (ver Flex Distribution).
 2. **Smart Content Sampling** — mede o texto do header + primeiras 20 rows via canvas (`measureText`) e ajusta width pra caber o conteúdo. Respeita `col.minWidth` e `col.maxWidth`.
-3. **Flex Distribution** — sobrando espaço no container, distribui entre colunas sem `width` explícito.
+3. **Flex Distribution (proporcional)** — sobrando espaço no container, distribui **proporcionalmente** entre as colunas (peso = largura-base de cada uma), como uma tabela flex faz naturalmente. Colunas pequenas crescem pouco, largas crescem mais — sem "coluna gigante" puxando 100% do espaço. Funciona pra qualquer nº de colunas.
 
-Observado via `ResizeObserver` no container — recalcula quando viewport muda.
+**Header nunca trunca (`...`):** toda coluna tem como piso a largura necessária pra mostrar o `headerName` inteiro (texto + ícone de tipo + reserva de sort/menu). Isso vale **inclusive** pra colunas com `width` explícito menor que o header — a width do consumer não pode esconder o título (só `maxWidth` menor que o header trunca, e aí é decisão explícita do consumer).
+
+**`col.width` é base, não trava fixa (v0.19.2+):** colunas com `width` explícito entram na distribuição proporcional usando a width como piso (crescem pra preencher, nunca encolhem abaixo dela). Antes a width era 100% fixa, o que jogava todo o espaço sobrando na única coluna sem width (virava "coluna gigante"). Pra travar uma coluna de fato, use `width` + `maxWidth` iguais (ou um `type` fixo como `actions`/`checkbox`, que ficam fora do flex). Se **todas** as colunas têm `width` explícito, o layout fixo do consumer é respeitado e o espaço sobrando fica vazio à direita.
+
+Observado via `ResizeObserver` no container — recalcula quando viewport muda. Re-mede e re-aplica de forma consistente ao alternar **Tabela ↔ Lista** (o corpo da tabela desmonta na view Lista; ao voltar, o autoFit reata o observer no node novo — mesma distribuição da 1ª carga).
 
 **Precedência de width:** resize manual (drag pelo user) > autoFit > `col.width` > `typeDef.defaultWidth`.
 
@@ -659,13 +663,19 @@ Observado via `ResizeObserver` no container — recalcula quando viewport muda.
 // Opt-out
 <DataTable rows={rows} columns={cols} autoFit={false} />
 
-// Coluna fixa dentro de tabela fluid (ex: actions, status com width travado)
+// width = BASE/mínimo (cresce proporcional p/ preencher). Pra TRAVAR de fato,
+// use width + maxWidth iguais, ou um type fixo (actions/checkbox).
 const cols = [
-  { field: "id", width: 80 },          // sempre 80px
-  { field: "name" },                    // expandida pelo autoFit
-  { field: "actions", type: "actions", width: 60 },
+  { field: "id", width: 80, maxWidth: 80 }, // travada em 80px
+  { field: "code", width: 120 },             // base 120, cresce no flex
+  { field: "name" },                          // sem width — flui pelo autoFit
+  { field: "actions", type: "actions", width: 60 }, // fixa (fora do flex)
 ];
 ```
+
+> Nota: o melhor padrão é **não** setar `width` nas colunas de dados e deixar o autoFit
+> distribuir (as skills `crud-builder`/`list-builder` geram assim). Setar `width` em
+> todas as colunas trava o layout e deixa espaço vazio à direita.
 
 ### `grabToScroll?: boolean` (default `false`)
 

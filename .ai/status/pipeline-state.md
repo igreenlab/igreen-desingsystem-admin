@@ -1241,3 +1241,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma (sem styles novos; só lógica + tipo + doc).
 - Docs/skills: USAGE.md (DataTable) + crud-builder/generate.md (repo + cli/templates) atualizados com a opção. list-builder NÃO afetado (usa DataList, componente diferente).
 - Distribuição (L-042 5/6/7): registry:build (re-stamp data-table) + embed · cli/templates tocado (skill) → bump CLI + publish · changelog v0.21.0 + bump DS 0.21.0.
+
+---
+
+### 2026-06-28 | DS DEV (subagente) | DataTable — autoFit (header-floor + fill proporcional + toggle) | CONCLUÍDO
+- Input: comportamentos do autoFit que incomodavam — (1) título do header truncava em "..." quando o conteúdo era mais estreito; (2) com poucas colunas, uma virava gigante e as outras minúsculas; (3) toggle Lista→Tabela bagunçava a distribuição (caso real: tela Cidades).
+- Output: 3 fixes em `hooks/use-column-auto-width.ts` (recalcKey: viewMode), `utils/calculate-column-widths.ts` (piso inclui header inteiro + fill proporcional; col.width vira base/piso), `hooks/use-data-table-controller.ts` (passa viewMode). USAGE atualizado.
+- Decisões: `col.width` passa a ser BASE/piso (não trava fixa) — entra no rateio proporcional. Trade-off: quem dependia de width 100% travada precisa de `width`+`maxWidth`. Documentado nas skills crud-builder (repo + cli/templates) + L-053.
+- Assumption: preencher a largura proporcionalmente (como tabela "de verdade") é o esperado; e o header é informação importante que não pode truncar. Válida (tela Cidades confirma).
+- Regressões L-001..L-007: nenhuma (lógica de medição/distribuição; sem styles/tokens novos).
+- Distribuição (L-042 5/6/7): registry:build (re-stamp data-table) + embed · cli/templates tocado (skill) → bump CLI + publish · changelog v0.22.0 + bump DS 0.22.0.
+- Lições novas: L-053.

@@ -35,6 +35,15 @@ export interface UseColumnAutoWidthOptions {
    * chamar `calculateColumnWidths`. Default 0.
    */
   reservedWidth?: number;
+  /**
+   * Chave de re-attach. Quando muda, o effect re-instala o ResizeObserver e
+   * re-mede do zero. Necessário quando o elemento observado DESMONTA e REMONTA
+   * sem que `containerRef` (objeto estável) mude de identidade — ex: toggle de
+   * view Tabela↔Lista, em que o corpo da tabela (e o `scrollRef`) é trocado por
+   * `<List>` e volta. Sem isso, o observer ficaria preso ao node antigo
+   * (destacado) e o autoFit reaplicaria larguras stale ao voltar pra Tabela.
+   */
+  recalcKey?: string | number;
 }
 
 export interface UseColumnAutoWidthResult {
@@ -56,7 +65,7 @@ export function useColumnAutoWidth<T>(
   rows: T[],
   options: UseColumnAutoWidthOptions,
 ): UseColumnAutoWidthResult {
-  const { enabled, sampleSize, reservedWidth = 0 } = options;
+  const { enabled, sampleSize, reservedWidth = 0, recalcKey } = options;
 
   const [autoWidths, setAutoWidths] = useState<Record<string, number>>({});
   const rafIdRef = useRef<number | null>(null);
@@ -150,6 +159,9 @@ export function useColumnAutoWidth<T>(
     containerRef,
     sampleSize,
     reservedWidth,
+    // Re-attach quando o elemento observado desmonta/remonta sem trocar a ref
+    // (toggle de view Tabela↔Lista). Sem isso o observer fica no node antigo.
+    recalcKey,
     columns.length,
     rows.length,
     // Inclui campos das columns pra recalcular quando consumer muda a schema

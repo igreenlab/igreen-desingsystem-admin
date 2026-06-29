@@ -1086,6 +1086,32 @@ passar `listConfig.paginated: true`.
 
 ---
 
+## [L-053] autoFit do DataTable — piso pelo header, fill proporcional, re-measure no toggle
+
+3 comportamentos do autoFit corrigidos (v0.22.0) porque incomodavam na prática:
+
+1. **Piso de cada coluna inclui o HEADER inteiro** (texto do `headerName` + ícone de tipo +
+   reserva de sort/menu), não só o conteúdo das células. Antes, quando o conteúdo era mais
+   estreito que o título, o **título** caía em "..." — e título é informação importante.
+2. **Preenchimento proporcional.** A sobra é distribuída **proporcionalmente** entre as
+   colunas (clamp por `maxWidth` + redistribuição do resíduo), em vez de uma coluna virar
+   "gigante". **`col.width` deixou de ser largura fixa e virou BASE/piso** que entra no
+   rateio — senão a única coluna sem `width` absorvia toda a sobra (caso real: tela Cidades,
+   "Cidade" com 1321px). Travar de fato = `width` + `maxWidth` iguais (ou `type` fixo).
+3. **Re-measure no toggle de view.** O corpo desmonta na view Lista; ao voltar pra Tabela o
+   ResizeObserver continuava preso ao nó antigo (ref estável) e reaplicava larguras stale.
+   Fix: `recalcKey: viewMode` no `useColumnAutoWidth` re-instala o observer e re-mede.
+
+Arquivos: `use-column-auto-width.ts` (recalcKey), `calculate-column-widths.ts` (piso header +
+fill proporcional), `use-data-table-controller.ts` (passa viewMode). Coberto nas skills
+crud-builder (repo + `cli/templates`) + USAGE do DataTable.
+
+**Regra pra IA**: prefira NÃO fixar `width` (autoFit distribui); `width` é base/piso, não
+trava (travar = `width`+`maxWidth`). Hook de ResizeObserver preso a ref estável precisa de
+`recalcKey` quando o nó observado desmonta/remonta sem trocar a ref.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

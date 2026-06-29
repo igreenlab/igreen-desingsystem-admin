@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.22.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "DataTable: autoFit melhor — header nunca trunca, fill proporcional, toggle consistente",
+    summary:
+      "Três melhorias no autoFit do DataTable. (1) A largura mínima de cada coluna passa a incluir o HEADER inteiro (título + ícone/sort/menu) — o título nunca mais trunca em '...' quando o conteúdo é mais estreito. (2) O espaço que sobra é distribuído PROPORCIONALMENTE entre as colunas (acabou o 'uma coluna gigante + as outras minúsculas'); `col.width` virou base/piso que entra no rateio, em vez de largura fixa. (3) Ao alternar Tabela↔Lista o autoFit re-mede de forma consistente (antes, voltar da Lista encolhia as colunas). ⚠️ Mudança de comportamento: pra travar uma coluna agora use `width` + `maxWidth` iguais (ou um `type` fixo).",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "DataTable autoFit: largura mínima da coluna inclui o header inteiro (headerName + ícone/sort/menu) — título nunca trunca.",
+          "DataTable autoFit: sobra de espaço distribuída proporcionalmente entre as colunas (fill 'tabela de verdade'), independente da quantidade de colunas.",
+          "DataTable autoFit: re-mede de forma consistente no toggle Tabela↔Lista (recalcKey por viewMode).",
+        ],
+      },
+      {
+        type: "breaking",
+        items: [
+          "DataTable: `col.width` agora é BASE/piso (entra no rateio do autoFit), não mais largura 100% fixa. Pra travar uma coluna: `width` + `maxWidth` iguais (ou `type` fixo: actions/checkbox). Skills crud-builder + USAGE + L-053 atualizados.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.21.0",
     date: "2026-06-28",
     tag: "release",

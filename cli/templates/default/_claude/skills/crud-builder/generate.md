@@ -28,7 +28,7 @@ Nunca gere props de memória — copie a forma do exemplo.
 
 1. **Filtro em TODAS as colunas de dados**: cada coluna ganha `enableColumnFilter: true` + `filterType` (text→`"text"`, number/currency/percentage→`"number"`, date→`"date"`, badge/status/select→`"select"`, multiSelect/tags→`"multiSelect"`). Só ficam de fora `actions` e render-custom sem valor. ⚠️ O funil/drawer de filtros só lista colunas com `enableColumnFilter` — marcar só 2 = bug "filtra só 2 colunas".
 2. **Coluna `actions` por ÚLTIMO**, `type: "actions"` (via `actionColumn`/`getActions`). O DataTable ancora à direita e estreita por default — não precisa `pinned`/`width`.
-3. **NÃO setar `width`** nas colunas de dados — `autoFit` (default ON) distribui pra preencher o container (sem 1ª coluna esticada, sem scroll). Fixar só id/UF/nível curto. ⚠️ Setar `width` em todas = sobra espaço à direita. Nunca `autoFit: false` sem motivo.
+3. **Prefira NÃO setar `width`** nas colunas de dados — `autoFit` (default ON) distribui pra preencher o container (sem 1ª coluna esticada, sem scroll). Nunca `autoFit: false` sem motivo. **(v0.22.0+)** `col.width` virou **base/piso** (não trava fixa): o autoFit usa como mínimo e ainda distribui a sobra proporcionalmente — setar `width` em várias colunas **não** deixa mais sobra à direita. Travar de fato = `width`+`maxWidth` iguais (ou `type` fixo). Título do header **nunca trunca** (a largura mínima já inclui o `headerName`).
 
 ### Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
 
