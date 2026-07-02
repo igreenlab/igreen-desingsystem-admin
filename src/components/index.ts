@@ -16,6 +16,7 @@ export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
 export * from "./ui/Chip";
+export * from "./ui/ChoroplethMap";
 export * from "./ui/Combobox";
 export * from "./ui/DataTable";
 export * from "./ui/FloatingPanel";
@@ -25,8 +26,10 @@ export * from "./ui/Header";
 export * from "./ui/Kanban";
 export * from "./ui/MenuSidebar";
 export * from "./ui/Modal";
+export * from "./ui/MonthYearPicker";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
+export * from "./ui/Spinner";
 export * from "./ui/Table";
 export * from "./ui/TabelaTeste";
 
@@ -128,6 +131,13 @@ export type {
 /* ── Shadcn adapted (DS tokens) ─────────────────────────────────── */
 export { Badge, badgeVariants } from "./shadcn";
 export type { BadgeProps, BadgeVariantProps } from "./shadcn";
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./shadcn";
 export { Input, inputVariants } from "./shadcn";
 export type { InputProps, InputVariantProps, InputState } from "./shadcn";
 

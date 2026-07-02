@@ -5,6 +5,13 @@ export { Input, inputVariants } from "./input";
 export type { InputProps, InputVariantProps, InputState } from "./input";
 
 export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./tooltip";
+
+export {
   InputGroup,
   InputGroupInput,
   InputGroupTextarea,

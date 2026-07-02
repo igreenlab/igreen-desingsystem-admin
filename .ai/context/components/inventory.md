@@ -25,7 +25,7 @@ src/components/
 
 ---
 
-## Componentes — shadcn/ (26 componentes)
+## Componentes — shadcn/ (27 componentes)
 
 | Componente | Arquivo | Subcomponentes exportados | Status |
 |------------|---------|--------------------------|--------|
@@ -55,10 +55,11 @@ src/components/
 | Switch | `shadcn/switch.tsx` | Switch | ✅ implementado |
 | Tabs | `shadcn/tabs.tsx` | Tabs, TabsList, TabsTrigger, TabsContent | ✅ implementado |
 | Textarea | `shadcn/textarea.tsx` | Textarea | ✅ implementado |
+| Tooltip | `shadcn/tooltip.tsx` | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider | ✅ implementado — dica flutuante (Radix) remapeada p/ tokens DS: bolha `bg-bg-emphasis` (não há surface invertida no DS), `text-caption-sm`, `rounded-radius-md`, `shadow-sh-md`, seta `fill-bg-emphasis`. `<Tooltip>` já embrulha `<TooltipProvider>` (funciona avulso). `<TooltipContent showArrow?>` |
 
 ---
 
-## Componentes — ui/ (iGreen puro) (21 componentes)
+## Componentes — ui/ (iGreen puro) (24 componentes)
 
 | Componente | Styles | Pasta | Status |
 |------------|--------|-------|--------|
@@ -69,6 +70,7 @@ src/components/
 | **ButtonGroup** | `ui/ButtonGroup/button-group.styles.ts` | `src/components/ui/ButtonGroup/` | ✅ **v0.7.0** — split button pattern (compound `<Primary>` + `<Chevron>`). Wrapper inline-flex com radius colapsado entre slots, Chevron quadrado (size-form-*) alinhando com altura do Primary. color/variant/size propagam via Context; override individual permitido. ChevronDown default; customizável via `icon` prop. `aria-label` obrigatório no Chevron. Uso atual: split do botão Filtros do DataTable (Primary=SimpleFilter / Chevron=advanced query builder) |
 | **CardCheckbox** | `ui/CardCheckbox/card-checkbox.styles.ts` | `src/components/ui/CardCheckbox/` | ✅ **v0.7.1** — checkbox apresentado como card clicável (área grande, label + description visíveis). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). Diferente de `FormFieldCheckbox` (compact horizontal). Props: `label` + `description` + opcional `icon` à esquerda. Toggle via clique no card inteiro (label htmlFor). Uso atual: SacarDialog aba "Outra conta" — opção "Salvar essa conta pra usar depois" |
 | Chip | `ui/Chip/chip.styles.ts` | `src/components/ui/Chip/` | ✅ implementado — pílula compacta para status, tags e filtros, dual-mode (span estático ou button interativo); inclui `ChipGroup`/`ChipGroupItem` |
+| **ChoroplethMap** | `ui/ChoroplethMap/choropleth-map.styles.ts` | `src/components/ui/ChoroplethMap/` | ✅ **v0.9.x** — primitiva genérica de mapa coroplético (regiões SVG coloridas por valor). Data-driven: `geography` (GeoJSON `FeatureCollection`/`Feature[]` ou `Topology` TopoJSON + `topologyObject`) + `values` (`id→número`). Escala default = gradiente sequencial `bg-surface → bg-{scaleToken}` via `color-mix` (fill inline data-driven, exceção tipo L-027); `colorScale` custom opcional. Wrapa `d3-geo` (projeção `geoMercator().fitSize` + `geoPath`) + `topojson-client` — **NÃO** `react-simple-maps` (peer trava em React ≤18). Hover reaproveita o `Tooltip` do DS (ancorado no centroide, 1 tooltip controlado que segue o cursor → escala p/ milhares de municípios). Legenda de gradiente. Uso: Rankings "Mapa de Cidades" (municípios IBGE). |
 | **Combobox** | `ui/Combobox/combobox.styles.ts` | `src/components/ui/Combobox/` | ✅ **v0.9.x** — select de escolha única com **busca (autocomplete)** + lista **rolável**. Composto de `Popover` + `Command` (cmdk); trigger espelha 1:1 o `SelectTrigger` (parear com Selects irmãos). Para listas longas onde o usuário digita pra achar (ex.: 1 coluna entre 30). Seleção robusta via closure sobre `option.value` (não depende do arg normalizado do `onSelect` do cmdk). Uso atual: field-picker "Campo" do `FilterPopover` |
 | FooterTable | — (classes inline em `footer-table.tsx`, sem `.styles.ts`) | `src/components/ui/FooterTable/` | ✅ implementado — footer de tabela com paginação + page-size select + range display + selection count (embutido no DataTable) |
 | FormField | `ui/FormField/form-field.styles.ts` | `src/components/ui/FormField/` | ✅ implementado — container de form com label + input/select/textarea + mensagem de validação (error/warning/success). **Obrigatório em forms (L-023)** |
@@ -76,7 +78,9 @@ src/components/
 | Kanban | `ui/Kanban/kanban.styles.ts` | `src/components/ui/Kanban/` | ✅ implementado — primitive dumb (recebe `columns` + `cards` via props) que renderiza board horizontal de estágios; state de domínio controlado externamente |
 | MenuSidebar | `ui/MenuSidebar/sidebar.styles.ts` | `src/components/ui/MenuSidebar/` | ✅ implementado — sidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável) |
 | Modal | `ui/Modal/modal.styles.ts` | `src/components/ui/Modal/` | ✅ implementado — dialog modal centrado com header (icon + title + description), body livre e footer com actions |
+| **MonthYearPicker** | `ui/MonthYearPicker/month-year-picker.styles.ts` | `src/components/ui/MonthYearPicker/` | ✅ **v0.9.x** — seletor de período mês+ano (o DS só tinha `calendar` de dia). Valor `"YYYY-MM"`; compõe `Popover` + navegação de ano (‹ 2026 ›) + grade 3×4 de meses (rótulos pt-BR via `Intl`, capitalizados). Trigger espelha 1:1 o `SelectTrigger`. Props `min`/`max` (`YYYY-MM`) desabilitam meses fora da faixa. Uso: Rankings "Ranking Verticais" (filtro de período). |
 | Panel | `ui/Panel/panel.styles.ts` | `src/components/ui/Panel/` | ✅ implementado — drawer flutuante lateral (right/left/top/bottom), 560px com header + body scrollável + footer sticky |
+| **Spinner** | `ui/Spinner/spinner.styles.ts` | `src/components/ui/Spinner/` | ✅ **v0.9.x** — indicador de loading (SVG que gira via `animate-spin`). Respeita `prefers-reduced-motion` (`motion-reduce:animate-none`). `size` sm/md/lg via `size-icon-*`; `color` current/default/muted/brand/on-brand via `text-fg-*` (traço `currentColor`). `role="status"` + `label` (ou `aria-hidden` p/ decorativo dentro de botão). |
 | Table | `ui/Table/table.styles.ts` | `src/components/ui/Table/` | ✅ implementado |
 | DataTable | `ui/DataTable/data-table.styles.ts` | `src/components/ui/DataTable/` | ✅ implementado: client+server, persist localStorage, Saved Views + presets, Column Menu, ColumnTypeRegistry com 15 tipos extensiveis, Chips agrupados (OR implicito), modal Filtros Visual+Avancado com parser SQL. **v0.3.0**: auto-card mode em mobile (`cardBreakpoint`), toolbar responsiva (controles secundários colapsam em <xl via `ToolbarMobileDialog`), `FooterTableSkeleton` durante `isLoading`, coluna `actions` polish (sem ícone/border). **v0.6.0**: harden filters (auto-promote operator escalar→multi, normalize legacy, 5 operators novos), `showEmptyFilterChips` opt-in pra chips placeholder pré-ativos. **v0.7.0**: prop `simpleFilter` opt-IN — split button via `<ToolbarFilterControl>` (TableToolbar nativo) com drawer simple lateral (Primary) + advanced popover (Chevron). Default OFF mantém botão único legado. **Toolbar**: usa a `<TableToolbar>` opinativa (única — a `TableToolbarDeprecated` dumb legada foi removida) |
 | **TableToolbar** | `ui/TableToolbar/table-toolbar.styles.ts` | `src/components/ui/TableToolbar/` | ✅ **toolbar padrão (opinativa)** — slots semânticos em ordem fixa (viewToggle · savedViews · refresh · search · filter · settings · more · bulkBar). Lado direito: Busca + Filtros (drawer simple) + **Configurações** (`<ToolbarSettingsMenu>`, drill-down via Popover espelhando o DropdownMenu: Ordenação/Colunas/Filtros avançados + Densidade inline) + Opções ⋯. Mobile = visualização-only (esconde left+refresh; search fluido; Visualização+Visões inline no settings). Consumida automaticamente pelo DataTable. Superset do barrel antigo (exporta todos os parts/popovers/types + ToolbarFilterControl). USAGE.md + DocPage (`TableToolbarDoc`) |
@@ -375,7 +379,6 @@ Out of scope (planos seguintes):
 | Componente | Tipo | Pasta | Prioridade |
 |------------|------|-------|------------|
 | Toast / Sonner | Shadcn | `shadcn/` | 🟡 média |
-| Tooltip | Shadcn | `shadcn/` | 🟡 média |
 | Skeleton | iGreen | `ui/` | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
 
 ---
