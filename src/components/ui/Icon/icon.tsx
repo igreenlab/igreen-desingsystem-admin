@@ -22,9 +22,12 @@ const VIEWBOX_18 = new Set([
 ]);
 
 /**
- * Icon — biblioteca de ícones iGreen. O `name` troca o `d` do path; o `viewBox`
+ * Icon — biblioteca de ícones iGreen. O `name` troca o(s) `d` do path; o `viewBox`
  * é 18 só para o conjunto legado (`VIEWBOX_18`), senão 24. Cor por `currentColor`
  * (classe `text-*`), `tone` (token semântico) ou `color` (CSS arbitrário).
+ *
+ * O valor em `icons[name]` pode ser uma string (1 path) ou um array de strings
+ * (multi-path — ex.: ícones de marca `igreen-*` com detalhe sobreposto).
  */
 export const Icon = forwardRef<SVGSVGElement, IconProps>(
   ({ name, size = "md", color, tone, title, className, style, ...props }, ref) => {
@@ -32,6 +35,8 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
     const sizeStyle = preset ? undefined : { width: size, height: size };
     const viewBox = VIEWBOX_18.has(name) ? "0 0 18 18" : "0 0 24 24";
     const decorative = !title && !props["aria-label"] && !props["aria-labelledby"];
+    const entry = icons[name];
+    const paths = Array.isArray(entry) ? entry : [entry];
 
     return (
       <svg
@@ -47,7 +52,9 @@ export const Icon = forwardRef<SVGSVGElement, IconProps>(
         {...props}
       >
         {title ? <title>{title}</title> : null}
-        <path d={icons[name]} />
+        {paths.map((d, i) => (
+          <path key={i} d={d} />
+        ))}
       </svg>
     );
   },
