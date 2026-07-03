@@ -16,6 +16,7 @@ export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
 export * from "./ui/Chip";
+export * from "./ui/ChoroplethMap";
 export * from "./ui/ColorPicker";
 export * from "./ui/Combobox";
 export * from "./ui/ConversationListItem";
@@ -36,8 +37,10 @@ export * from "./ui/MessageBubble";
 export * from "./ui/MessageComposer";
 export * from "./ui/MessageVariablesPicker";
 export * from "./ui/Modal";
+export * from "./ui/MonthYearPicker";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
+export * from "./ui/Spinner";
 export * from "./ui/Table";
 export * from "./ui/TabelaTeste";
 
