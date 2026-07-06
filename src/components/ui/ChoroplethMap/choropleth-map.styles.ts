@@ -11,9 +11,12 @@ export const choroplethStyles = tv({
   slots: {
     root: "relative w-full",
     svg: "block h-auto w-full",
-    // Traço das divisas — token de borda; hover reforça no próprio path (inline).
+    // Traço das divisas — `fg-muted` (mid-gray VISÍVEL nos DOIS temas: L≈0.50
+    // no light, L≈0.70 no dark). `border-default` era L≈0.91 no light → as
+    // divisas sumiam no fundo branco e só estados de alta penetração apareciam
+    // ("só 2 pontos"). hover reforça no próprio path (inline).
     path: [
-      "stroke-border-default",
+      "stroke-fg-muted",
       "transition-[fill,stroke] duration-150",
       "hover:stroke-fg-brand",
     ],
