@@ -141,7 +141,10 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       const t = range > 0 ? (value - min) / range : 1;
       const clamped = Math.max(0, Math.min(1, t));
       const pct = 12 + clamped * 88; // 12%..100% do token misturado na surface
-      return `color-mix(in oklch, ${scaleVar} ${pct}%, ${surfaceVar})`;
+      // SRGB de propósito: em oklch a interpolação roda o MATIZ entre o token
+      // (verde) e o surface (cinza-azulado) e as regiões saem marrons/oliva.
+      // Em srgb a cor só clareia/escurece — mesma família do legendGradient.
+      return `color-mix(in srgb, ${scaleVar} ${pct}%, ${surfaceVar})`;
     };
 
     const fmt =
@@ -213,7 +216,12 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                 style={{ left: `${hover?.ax ?? 0}%`, top: `${hover?.ay ?? 0}%` }}
               />
             </TooltipTrigger>
-            <TooltipContent showArrow={false}>
+            {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro translúcido
+                (12% branco) no dark — sobre o mapa fica esbranquiçado/ilegível. */}
+            <TooltipContent
+              showArrow={false}
+              className="border border-border-default bg-bg-surface-elevated shadow-sh-lg"
+            >
               {hover &&
                 (renderTooltip ? (
                   renderTooltip(hover)
