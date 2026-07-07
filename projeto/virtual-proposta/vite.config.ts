@@ -8,6 +8,9 @@ import path from "path";
 const DS_ROOT = path.resolve(__dirname, "../..");
 
 export default defineConfig({
+  // Servido como sub-caminho /demo/ dentro do deploy do showcase do DS
+  // (mesmo domínio, sem URL separada). Override com VP_BASE se precisar.
+  base: process.env.VP_BASE ?? "/demo/",
   plugins: [tailwindcss(), react()],
   resolve: {
     alias: {

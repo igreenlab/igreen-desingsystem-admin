@@ -188,11 +188,12 @@ const BASE_NAV: DocNavSection[] = [
     title: "Demos",
     items: [
       // App de demonstração de consumo real do DS — vive em projeto/virtual-proposta
-      // DENTRO deste repo. Link externo (↗) abre a pasta no GitHub p/ clonar/referência.
+      // DENTRO deste repo. Servido navegável no MESMO deploy do showcase, em /demo/
+      // (buildado junto via `build:showcase` + vercel.json). Abre no mesmo domínio.
       {
         label: "Virtual Proposta",
         href: "demo-virtual-proposta",
-        url: "https://github.com/igreenlab/igreen-desingsystem-admin/tree/main/projeto/virtual-proposta",
+        url: "/demo/",
       },
     ],
   },

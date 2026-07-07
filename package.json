@@ -68,6 +68,7 @@
   "scripts": {
     "dev": "npm run tokens:tw4 && vite",
     "build": "npm run tokens:tw4 && tsc -b && vite build",
+    "build:showcase": "npm run build && npm --prefix projeto/virtual-proposta install --no-audit --no-fund && npm --prefix projeto/virtual-proposta run build && cp -r projeto/virtual-proposta/dist dist/demo",
     "build:lib": "npm run tokens:tw4 && vite build --config vite.lib.config.ts",
     "preview": "vite preview",
     "prepublishOnly": "npm run build:lib",
