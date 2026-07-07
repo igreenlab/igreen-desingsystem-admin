@@ -184,6 +184,18 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Edit Page", href: "edit-page", url: "?app=edit-page" },
     ],
   },
+  {
+    title: "Demos",
+    items: [
+      // App de demonstração de consumo real do DS — vive em projeto/virtual-proposta
+      // DENTRO deste repo. Link externo (↗) abre a pasta no GitHub p/ clonar/referência.
+      {
+        label: "Virtual Proposta",
+        href: "demo-virtual-proposta",
+        url: "https://github.com/igreenlab/igreen-desingsystem-admin/tree/main/projeto/virtual-proposta",
+      },
+    ],
+  },
 ];
 
 /** Retorna o nav com o item ativo marcado por label */
