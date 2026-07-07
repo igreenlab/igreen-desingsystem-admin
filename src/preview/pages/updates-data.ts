@@ -46,6 +46,22 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.25.0",
+    date: "2026-07-07",
+    tag: "release",
+    title: "Tabs: variant `line` (underline)",
+    summary:
+      "Tabs ganha a variante `line` (underline) além da `segmented` (pill), setada via prop `variant` no `<Tabs>` (propagada por contexto). Aditivo, não-breaking. Distribuído via registry (copy-in) — `igreen:update tabs`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`Tabs` — prop `variant` (`segmented` default | `line`). `line` = underline sem chrome de pill, aba ativa com `border-border-brand`. Cobertura no showcase (#/tabs) + gotcha no índice USAGE shadcn.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.24.0",
     date: "2026-07-07",
     tag: "release",
