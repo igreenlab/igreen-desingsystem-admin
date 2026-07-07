@@ -5,7 +5,7 @@ Circular badge displaying user initials. Supports semantic colors and per-person
 ## Basic usage
 
 ```tsx
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 
 // Semantic color (default: muted)
 <Avatar size="md" color="brand">MS</Avatar>

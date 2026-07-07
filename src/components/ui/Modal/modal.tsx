@@ -1,7 +1,13 @@
 import type { ReactNode } from "react";
 import { X } from "lucide-react";
-import { Dialog, DialogContent, DialogClose } from "@/components/shadcn/dialog";
-import { Button } from "@/components/ui/Button/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+  DialogTitle,
+  DialogDescription,
+} from "../../shadcn/dialog";
+import { Button } from "../Button/button";
 import {
   dialog,
   closeBtn,
@@ -19,7 +25,7 @@ import {
  * Types
  * ───────────────────────────────────────────────────────────────── */
 
-export type ModalSize = "sm" | "md" | "lg";
+export type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
 
 export type ModalAction = {
   /** Texto do botão. */
@@ -87,6 +93,8 @@ export type ModalProps = {
    *   - sm: 440px
    *   - md: 540px (default — match TblViewsModal sandbox)
    *   - lg: 720px
+   *   - xl: 1100px (modais de dados)
+   *   - full: min(1400px, 92vw) — escala com a viewport, mantém margens
    */
   size?: ModalSize;
 
@@ -147,9 +155,14 @@ export function Modal({
       <DialogContent
         className={dialog({ size, className })}
         hideClose
-        aria-labelledby={title ? "modal-title" : undefined}
-        aria-describedby={description ? "modal-description" : undefined}
+        // Sem descrição → opt-out explícito do warning do Radix. Com descrição,
+        // o <DialogDescription> abaixo liga o aria-describedby automaticamente.
+        {...(description ? {} : { "aria-describedby": undefined })}
       >
+        {/* Radix exige um DialogTitle p/ acessibilidade. Quando o modal não tem
+            title visível, um título sr-only evita o warning sem mudar o layout. */}
+        {!title && <DialogTitle className="sr-only">Diálogo</DialogTitle>}
+
         {!hideClose && (
           <DialogClose className={closeBtn()} aria-label="Fechar">
             <X className="size-icon-sm" />
@@ -166,14 +179,12 @@ export function Modal({
             {(title || description) && (
               <div className={headTitleWrap()}>
                 {title && (
-                  <h3 id="modal-title" className={titleStyles()}>
-                    {title}
-                  </h3>
+                  <DialogTitle className={titleStyles()}>{title}</DialogTitle>
                 )}
                 {description && (
-                  <p id="modal-description" className={descStyles()}>
+                  <DialogDescription className={descStyles()}>
                     {description}
-                  </p>
+                  </DialogDescription>
                 )}
               </div>
             )}
