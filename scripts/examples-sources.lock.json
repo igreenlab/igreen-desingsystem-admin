@@ -9,7 +9,7 @@
   },
   "dashboard": {
     "source": "src/preview/pages/DashboardShowcase.tsx",
-    "hash": "6f4a76be06d730976673f2216436587d8f4156469c59e26a66631beda878d843"
+    "hash": "277f5f01963dd01689bf0ebdc2a27f41a4ef913247bf4255032109fbd5badb87"
   },
   "order-detail": {
     "source": "src/preview/pages/OrderDetailShowcase",

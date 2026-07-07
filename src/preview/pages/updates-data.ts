@@ -46,6 +46,33 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.24.0",
+    date: "2026-07-07",
+    tag: "release",
+    title: "Padrões de dashboard/KPI/lista viram receita canônica + dashboard-builder + doc de Maps",
+    summary:
+      "Captura as composições que viraram base da visualização (KPI-group \"Painel do Líder\", chart-cards, fusão KPI+evolução, card dividido, KPIs evolutivos com footer, KPI interno no footer, mapas por UF) numa fonte única de receitas + builder guiado, pra o Claude (DS e consumidor via CLI) atingir esse nível sem reinventar. Aditivo, não-breaking.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`dashboard-patterns.md` — fonte única com as receitas canônicas de dashboard/KPI/lista (referenciada por showcase, exemplos e builders).",
+          "`dashboard-builder` (skill guiada) + `/ds-create-dashboard` — entrevista → gate → geração de dashboards no padrão canônico; irmão do crud/list-builder. Roteado no orchestrator + front-door.",
+          "`KpiDelta` — prop `signed` (opt-in): deriva tom verde/vermelho + seta pelo sinal do valor. Backward-compat.",
+          "Doc **Maps** no showcase (categoria Charts, `#/chart-map`): coroplético do Brasil por UF em 3 variações (ranking, intensidade contínua, por região) — rampa verde por token + legenda.",
+          "example-dashboard enriquecido: KPI-group \"Painel do Líder\" (KpiGroup divided), KPIs evolutivos com footer, card radial de meta, card dividido com mapa do Brasil, e \"Crescimento da carteira\" (área + KPI interno + KPIs no footer).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "crud-builder/list-builder `generate.md` apontam pra distribuição canônica (§5/§6 do pattern doc).",
+          "Distribuição: `dashboard-builder` sincronizado no template do CLI (`_claude/`) + `ds-kit`/catálogo roteando pra ele (stub `dashboard` removido).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.23.0",
     date: "2026-06-29",
     tag: "release",

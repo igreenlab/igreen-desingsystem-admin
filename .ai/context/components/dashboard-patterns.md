@@ -128,6 +128,10 @@ vem do espaçamento, não de heading grande).
   · gap entre eles `gap-[2px]` · card `p-pad-3xl` + `gap-gp-2xl`.
 - **Chart** interno: `<ChartContainer className="h-[160px] w-full">`; cor SÓ por
   token (`var(--color-chart-*)`). Detalhes de eixo/grid/pizza em `chart-patterns.md`.
+- **Gauge radial** (meta/progresso): `<RadialBarChart innerRadius="72%" outerRadius="100%"
+  startAngle={90} endAngle={-270}>` + `<PolarAngleAxis type="number" domain={[0,100]} tick={false} />`
+  + `<RadialBar cornerRadius={8} fill="var(--color-chart-1)" background={{fill:"var(--color-bg-muted)"}} />`
+  com overlay central `text-[30px] font-bold` (L-032). Exemplo: "Meta do mês" no example-dashboard.
 - **Big-number** liderando o card (opcional): `text-[30px] font-bold leading-none
   tabular-nums` + subtítulo `text-title-md font-semibold`, e uma linha de variação
   `text-caption-sm font-medium text-fg-success`.
@@ -216,9 +220,20 @@ colunas + métrica headline com delta. Padrão pra rankings operacionais.
   `uppercase tracking-[0.04em]`.
 - Variante Licenciados: identidade `w-[240px]` com status badge quadrado; bloco à
   direita = status Chip + linha de vencimento em vez de Total.
-- **LeadKpiCard** do topo (3-up `grid-cols-1 md:grid-cols-3 gap-gp-2xl`): título
-  `title-md` + valor `text-[30px] font-bold` + Chip de delta + sparkline
-  `ChartContainer h-[64px] w-[150px]` + nota sob `border-t`.
+- **LeadKpiCard** (KPI evolutivo, 3-up `grid-cols-1 md:grid-cols-3 gap-gp-2xl`): título
+  `title-md` + valor `text-[30px] font-bold` + `<KpiDelta signed>` + sparkline
+  (`h-[64px] w-[150px]`, barra destacada = `chart-1`/`fg-danger`, resto `bg-bg-muted`) +
+  **FOOTER descritivo obrigatório**: `mt-auto border-t border-border-subtle pt-pad-lg` com
+  `text-caption-md text-fg-muted` (frase curta de contexto). ⚠️ o footer é o que fecha o card —
+  não deixar de fora.
+- **KPI interno no footer de card grande** (ex.: "Crescimento da carteira", "Resumo Geral"):
+  card com header de KPI grande (`text-[34px] font-bold` + delta em texto `text-fg-success`) +
+  gráfico + **footer de N mini-KPIs** num `grid sm:grid-cols-3 gap-gp-lg`, cada um
+  `rounded-radius-lg border border-border-subtle bg-bg-muted px-pad-xl py-pad-lg` com label
+  `caption-md` + valor `text-[22px] font-bold` + sub `caption-sm` (tom up/warn/neutral).
+- **Donut com legenda** (participação): `ChartContainer aspect-square w-[160px]` + overlay central
+  (valor `text-[22px]` + label `caption-sm`) + lista `flex flex-col gap-gp-xs` (dot `size-[10px]
+  rounded-radius-full` na cor + nome `flex-1` + `%` `font-semibold`).
 
 ---
 
@@ -247,6 +262,13 @@ tem o seu e abre com um `ColHead` (= head do SectionCard). O divisor vive no
 
 Layout externo comum: donut (largura fixa) + card dividido lado a lado —
 `grid grid-cols-1 gap-gp-2xl lg:grid-cols-[340px_minmax(0,1fr)]`.
+
+**Variante "por UF" (card único: mapa + legenda embaixo)** — do reference energia/seguros:
+mapa `<svg viewBox={BRAZIL_VIEWBOX} class="h-full max-h-[300px] w-full">` centralizado +
+legenda `ul.grid grid-cols-2 gap-x-gp-xl gap-y-gp-xs` (dot `size-[10px] rounded-radius-full` +
+UF `flex-1` + valor `font-semibold`). **Cor = rampa VERDE monocromática rankeada por valor**
+(top = `chart-1` puro, demais escurecendo via `color-mix(in oklch, var(--color-chart-1) N%, black)`),
+**não** cores de hue diferentes. A legenda usa a MESMA rampa na ordem do ranking.
 
 ---
 

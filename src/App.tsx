@@ -52,6 +52,7 @@ import { LineChartDoc } from "./preview/pages/LineChartDoc";
 import { PieChartDoc } from "./preview/pages/PieChartDoc";
 import { RadarChartDoc } from "./preview/pages/RadarChartDoc";
 import { RadialChartDoc } from "./preview/pages/RadialChartDoc";
+import { MapChartDoc } from "./preview/pages/MapChartDoc";
 import { ChartShowcaseDoc } from "./preview/pages/ChartShowcaseDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
@@ -253,6 +254,7 @@ const DOC_PAGES = [
   "chart-pie",
   "chart-radar",
   "chart-radial",
+  "chart-map",
   "chart-showcase",
   "switch",
   "checkbox",
@@ -596,6 +598,7 @@ export function App() {
             {activePage === "chart-pie" && <PieChartDoc />}
             {activePage === "chart-radar" && <RadarChartDoc />}
             {activePage === "chart-radial" && <RadialChartDoc />}
+            {activePage === "chart-map" && <MapChartDoc />}
             {activePage === "chart-showcase" && <ChartShowcaseDoc />}
             {activePage === "showcase-v2" && <ShowcasePageV2 />}
             {activePage === "agents" && <AgentsPreview />}

@@ -104,7 +104,8 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "lista de cards", "árvore/hierarquia", "rede/organograma", "níveis", "treeview", "feed"   | `example-mapa-rede`              | DataList                    |
 | "tela de edição", "cadastro", "formulário", "editar X", "novo X"                          | `example-edit-page`              | FormField                   |
 | "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`           | Tabs + Cards                |
-| "dashboard", "painel", "visão geral", "gráfico", "indicadores"                            | `example-dashboard`              | Chart + KPI cards           |
+| "dashboard", "painel", "visão geral", "indicadores" (2+ tipos de seção)                   | skill `dashboard-builder` (`/ds-create-dashboard`) → `example-dashboard` | Kpi/KpiGroup + Chart |
+| "gráfico isolado" (barras/linha/área/pizza, sem o resto do painel)                        | `chart` (componente)             | ChartContainer              |
 | "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`                   | ConversationColumn + thread |
 | "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
 | "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
@@ -135,9 +136,10 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
   tela e roteia pra skill/exemplo certo. É a porta de entrada de qualquer pedido de UI.
 - **Skills focadas** (cada uma dispara pela própria descrição, ou via ds-kit):
   - `crud-builder` (`/ds-create-crud`) — tabela/CRUD por **entrevista guiada**. Fluxo principal.
+  - `list-builder` (`/ds-create-list`) — lista de cards por **entrevista guiada** (→ `example-mapa-rede`).
+  - `dashboard-builder` (`/ds-create-dashboard`) — dashboard/painel (KPIs + gráficos + rankings) por **entrevista guiada** (→ `example-dashboard`). Delega tabela/lista embutida a crud/list-builder.
   - `page-edit` — edição/cadastro/formulário (→ `example-edit-page`).
   - `page-detail` — detalhe/ficha com abas (→ `example-order-detail`).
-  - `dashboard` — KPIs + gráficos (→ `example-dashboard`).
   - `charts` — gráficos isolados (Chart/Recharts, caveats).
   - `chat` — inbox/conversas (→ `example-chat`).
   - `drawers` — criar/editar/detalhe (→ drawers do `example-finance`).
