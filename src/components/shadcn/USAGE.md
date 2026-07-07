@@ -20,10 +20,11 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 | `carousel` | Usa o **DS `Button`** interno (não o button shadcn). Dep extra: `embla-carousel-react`. |
 | `input-otp` | Dep extra: `input-otp`. Foco usa `ring-ring-brand` (não `-primary`). |
 | `drawer` | Dep extra: `vaul`. Mobile dentro de overlay z-50 → wrapper a **z-60** (L-030). |
+| `tabs` | 2 variantes via prop **`variant` no `<Tabs>`** (propagada por contexto — NÃO em List/Trigger): `"segmented"` (default, pill) · `"line"` (underline, aba ativa com `border-border-brand`). |
 
 **Padrão sem gotcha** (use direto, doc no showcase): `accordion`, `alert`,
 `aspect-ratio`, `badge`, `breadcrumb`, `button`, `calendar`, `checkbox`,
 `collapsible`, `command`, `dialog`, `dropdown-menu`, `input`, `label`, `popover`,
 `progress`, `radio-group`, `scroll-area`, `select`, `separator`, `sheet`,
-`skeleton`, `slider`, `switch`, `table`, `tabs`, `textarea`, `toggle`,
+`skeleton`, `slider`, `switch`, `table`, `textarea`, `toggle`,
 `toggle-group`, `combobox`.
