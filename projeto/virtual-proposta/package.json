@@ -1,0 +1,13 @@
+{
+  "name": "virtual-proposta",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "//": "Consome o iGreen DS por alias (@ -> ../../src). Sem deps próprias: a resolução sobe pro node_modules da raiz do repo (React 19, Radix, lucide, tailwind v4, cmdk).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit"
+  }
+}
