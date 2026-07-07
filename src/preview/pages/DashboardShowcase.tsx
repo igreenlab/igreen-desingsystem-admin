@@ -24,22 +24,29 @@ import {
   UserPlus,
 } from "lucide-react";
 import {
+  Area,
+  AreaChart,
   Bar,
   BarChart,
   CartesianGrid,
   Cell,
   Pie,
   PieChart,
+  PolarAngleAxis,
+  RadialBar,
+  RadialBarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
 import { cn } from "@/lib/utils";
+import { BRAZIL_PATHS, BRAZIL_VIEWBOX } from "./_dashboard-brazil-map";
 import { AppShell } from "@/components/ui/AppShell";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { Kpi, KpiGroup, KpiDelta } from "@/components/ui/Kpi";
 import { Avatar, AvatarFallback } from "@/components/shadcn/avatar";
 import {
   APP_SHELL_CONTEXTS,
@@ -746,6 +753,212 @@ function TrafficDataTable() {
 }
 
 /* ─────────────────────────────────────────────────────────────
+ * KPI evolutivo (LeadKpiCard) — título + valor grande + delta + sparkline.
+ * Padrão dashboard-patterns.md §3 (LeadKpiCard).
+ * ───────────────────────────────────────────────────────────── */
+
+type LeadKpi = {
+  title: string;
+  value: string;
+  delta: string;
+  down?: boolean;
+  note: string;
+  footer: string;
+  bars: number[];
+  hl: number;
+};
+
+const LEAD_KPIS: LeadKpi[] = [
+  { title: "Receita recorrente", value: "R$ 42,8k", delta: "+12%", note: "vs mês anterior",
+    footer: "Maior receita recorrente registrada no trimestre.", bars: [28, 34, 30, 38, 42, 40, 48], hl: 6 },
+  { title: "Novos clientes", value: "318", delta: "+8%", note: "vs mês anterior",
+    footer: "Volume de novos clientes ativos no período.", bars: [22, 26, 31, 28, 34, 30, 36], hl: 6 },
+];
+
+/** KPI evolutivo — valor + delta + sparkline + FOOTER descritivo (divisória). §3 */
+function LeadKpiCard({ kpi }: { kpi: LeadKpi }) {
+  const accent = kpi.down ? "var(--color-fg-danger)" : "var(--color-chart-1)";
+  const data = kpi.bars.map((v, i) => ({ i, v }));
+  return (
+    <article className="flex flex-col rounded-radius-xl border border-border-subtle bg-bg-surface p-pad-3xl shadow-sh-sm">
+      <div className="flex items-center justify-between">
+        <p className="text-title-md font-semibold text-fg-default">{kpi.title}</p>
+        <MoreVertical className="size-icon-sm text-fg-muted" />
+      </div>
+      <div className="mt-pad-3xl flex items-end justify-between gap-gp-lg">
+        <div>
+          <div className="flex items-center gap-gp-md">
+            <span className="text-[30px] font-bold leading-tight tabular-nums text-fg-default">{kpi.value}</span>
+            <KpiDelta value={kpi.delta} signed />
+          </div>
+          <p className="mt-gp-xs text-body-sm text-fg-muted">{kpi.note}</p>
+        </div>
+        <div className="h-[64px] w-[150px]">
+          <ResponsiveContainer>
+            <BarChart data={data} margin={{ top: 0, right: 0, left: 0, bottom: 0 }}>
+              <Bar dataKey="v" radius={4}>
+                {data.map((b) => (
+                  <Cell key={b.i} fill={b.i === kpi.hl ? accent : "var(--color-bg-muted)"} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+      {/* footer descritivo sob divisória */}
+      <div className="mt-auto border-t border-border-subtle pt-pad-lg">
+        <p className="text-caption-md text-fg-muted">{kpi.footer}</p>
+      </div>
+    </article>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Card radial (gauge de meta) — RadialBar + PolarAngleAxis domain (L-032).
+ * ───────────────────────────────────────────────────────────── */
+
+const META_PCT = 78;
+
+function RadialGoalCard() {
+  return (
+    <SectionCard title="Meta do mês" subtitle="Resoluções vs objetivo" className="h-full">
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <div className="relative">
+          <div className="h-[180px] w-[180px]">
+            <ResponsiveContainer>
+              <RadialBarChart
+                data={[{ v: META_PCT }]}
+                innerRadius="72%"
+                outerRadius="100%"
+                startAngle={90}
+                endAngle={-270}
+              >
+                <PolarAngleAxis type="number" domain={[0, 100]} tick={false} axisLine={false} />
+                <RadialBar dataKey="v" cornerRadius={8} fill="var(--color-chart-1)" background={{ fill: "var(--color-bg-muted)" }} />
+              </RadialBarChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
+            <span className="text-[30px] font-bold leading-none tabular-nums text-fg-default">{META_PCT}%</span>
+            <span className="text-caption-sm text-fg-muted">da meta</span>
+          </div>
+        </div>
+        <p className="mt-gp-lg text-center text-body-sm text-fg-muted">
+          <span className="font-semibold text-fg-success">+6%</span> acima do ritmo esperado
+        </p>
+      </div>
+    </SectionCard>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * Card dividido em 2 (dados | mapa) — dashboard-patterns.md §4.
+ * ───────────────────────────────────────────────────────────── */
+
+const UF_TICKETS = [
+  { uf: "SP", value: 214 }, { uf: "RJ", value: 138 }, { uf: "MG", value: 96 },
+  { uf: "PR", value: 74 }, { uf: "BA", value: 61 }, { uf: "RS", value: 52 },
+];
+// Rampa VERDE monocromática (chart-1 escurecendo) — rankeada por valor (§4).
+const MAP_RAMP = [
+  "var(--color-chart-1)",
+  "color-mix(in oklch, var(--color-chart-1) 80%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 62%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 46%, black)",
+  "color-mix(in oklch, var(--color-chart-1) 34%, black)",
+];
+const ufTotal = UF_TICKETS.reduce((s, u) => s + u.value, 0);
+const rankedUf = [...UF_TICKETS].sort((a, b) => b.value - a.value);
+const fillByUf: Record<string, string> = {};
+rankedUf.forEach((u, i) => { fillByUf[u.uf] = MAP_RAMP[Math.min(i, MAP_RAMP.length - 1)]; });
+
+/** Card "por UF" — mapa centralizado + legenda 2-col (dots na rampa) embaixo. §4 */
+function RegionMapCard() {
+  return (
+    <SectionCard title="Tickets por UF" subtitle={`${UF_TICKETS.length} estados · ${ufTotal} no total`} className="h-full">
+      <div className="flex min-h-0 flex-1 items-center justify-center">
+        <svg viewBox={BRAZIL_VIEWBOX} className="h-full max-h-[300px] w-full" role="img" aria-label="Mapa de tickets por estado">
+          {BRAZIL_PATHS.map((p) => (
+            <path key={p.uf} d={p.d} fill={fillByUf[p.uf] ?? "var(--color-bg-muted)"} stroke="var(--color-bg-surface)" strokeWidth={1} />
+          ))}
+        </svg>
+      </div>
+      <ul className="grid grid-cols-2 gap-x-gp-xl gap-y-gp-xs">
+        {rankedUf.map((u, i) => (
+          <li key={u.uf} className="flex items-center gap-gp-sm">
+            <span className="size-[10px] shrink-0 rounded-radius-full" style={{ background: MAP_RAMP[Math.min(i, MAP_RAMP.length - 1)] }} aria-hidden />
+            <span className="flex-1 text-body-sm text-fg-default">{u.uf}</span>
+            <span className="text-body-sm font-semibold tabular-nums text-fg-default">{u.value}</span>
+          </li>
+        ))}
+      </ul>
+    </SectionCard>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+ * KPI interno no footer (MetricKpi mini-card) + card de crescimento
+ * (área + header de KPI grande + footer de 3 KPIs). §2/§3.
+ * ───────────────────────────────────────────────────────────── */
+
+function MetricKpi({ label, value, sub, tone = "neutral" }: { label: string; value: string; sub?: string; tone?: "up" | "warn" | "neutral" }) {
+  return (
+    <div className="rounded-radius-lg border border-border-subtle bg-bg-muted px-pad-xl py-pad-lg">
+      <p className="truncate text-caption-md text-fg-muted">{label}</p>
+      <p className="mt-gp-2xs text-[22px] font-bold leading-tight tabular-nums text-fg-default">{value}</p>
+      {sub && (
+        <p className={cn("mt-gp-2xs text-caption-sm font-medium",
+          tone === "up" ? "text-fg-success" : tone === "warn" ? "text-fg-warning" : "text-fg-muted")}>
+          {sub}
+        </p>
+      )}
+    </div>
+  );
+}
+
+const GROWTH = [
+  { m: "Ago", v: 1180 }, { m: "Set", v: 1290 }, { m: "Out", v: 1360 }, { m: "Nov", v: 1440 },
+  { m: "Dez", v: 1510 }, { m: "Jan", v: 1560 }, { m: "Fev", v: 1620 }, { m: "Mar", v: 1690 },
+  { m: "Abr", v: 1720 }, { m: "Mai", v: 1770 }, { m: "Jun", v: 1804 }, { m: "Jul", v: 1828 },
+];
+
+/** Crescimento da carteira — área + KPI grande interno no topo + 3 KPIs no footer. */
+function GrowthCard() {
+  return (
+    <SectionCard title="Crescimento da carteira" subtitle="Clientes ativos do segmento ao longo do tempo">
+      <div>
+        <p className="text-caption-md text-fg-muted">Clientes ativos no segmento</p>
+        <p className="text-[34px] font-bold leading-none tabular-nums text-fg-default">1.828</p>
+        <p className="mt-gp-2xs text-body-sm font-medium text-fg-success">
+          ↑ +124 clientes (8,6%) <span className="font-normal text-fg-muted">no último mês</span>
+        </p>
+      </div>
+      <div className="h-[220px] w-full">
+        <ResponsiveContainer>
+          <AreaChart data={GROWTH} margin={{ top: 8, right: 8, left: 0, bottom: 0 }}>
+            <defs>
+              <linearGradient id="fillGrowth" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--color-chart-1)" stopOpacity={0.35} />
+                <stop offset="100%" stopColor="var(--color-chart-1)" stopOpacity={0.02} />
+              </linearGradient>
+            </defs>
+            <CartesianGrid vertical={false} strokeDasharray="4 4" stroke="var(--color-border-subtle)" />
+            <XAxis dataKey="m" tickLine={false} axisLine={false} tickMargin={8} tick={{ fontSize: 11 }} />
+            <YAxis tickLine={false} axisLine={false} width={36} tickMargin={2} allowDecimals={false} tick={{ fontSize: 11 }} />
+            <Area type="monotone" dataKey="v" stroke="var(--color-chart-1)" strokeWidth={2} fill="url(#fillGrowth)" dot={{ r: 3, fill: "var(--color-chart-1)" }} activeDot={{ r: 5 }} />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="grid grid-cols-1 gap-gp-lg sm:grid-cols-3">
+        <MetricKpi label="Volume total" value="742 MWh" sub="por mês" />
+        <MetricKpi label="Economia estimada" value="R$ 122,9 mil" sub="gerada/mês" tone="warn" />
+        <MetricKpi label="Ticket médio" value="406 kWh" sub="por cliente" />
+      </div>
+    </SectionCard>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
  * Page
  * ───────────────────────────────────────────────────────────── */
 
@@ -819,14 +1032,32 @@ export default function DashboardShowcase() {
         <KeyInsightsCard />
       </section>
 
-      {/* Row 2 — KPIs primários (6) */}
-      <section
-        aria-label="KPIs principais"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-gp-2xl"
-      >
-        {KPIS_PRIMARY.map((kpi) => (
-          <KpiCard key={kpi.id} kpi={kpi} />
-        ))}
+      {/* Row 2 — KPIs primários (6) — padrão "Painel do Líder": card único com
+          divisores via KpiGroup divided + Kpi + KpiDelta (primitivos DS).
+          `tone` colore só o ícone; delta honra `positive` (sinal ≠ bom/ruim aqui:
+          "-12s" é melhora) — por isso tone explícito, não `signed`. */}
+      <section aria-label="KPIs principais">
+        <KpiGroup columns={6} divided>
+          {KPIS_PRIMARY.map((kpi) => (
+            <Kpi
+              key={kpi.id}
+              label={kpi.title}
+              value={kpi.value}
+              icon={<kpi.icon />}
+              tone={kpi.tone}
+              hint={kpi.delta?.label}
+              delta={
+                kpi.delta && (
+                  <KpiDelta
+                    value={kpi.delta.value}
+                    tone={kpi.delta.positive ? "success" : "danger"}
+                    direction={kpi.delta.direction}
+                  />
+                )
+              }
+            />
+          ))}
+        </KpiGroup>
       </section>
 
       {/* Row 3 — Volume stacked (2/3) + Current visits donut (1/3) — alturas iguais */}
@@ -849,6 +1080,24 @@ export default function DashboardShowcase() {
         {KPIS_QUALITY.map((kpi) => (
           <KpiCard key={kpi.id} kpi={kpi} />
         ))}
+      </section>
+
+      {/* Row 4.5 — 2 KPIs evolutivos (LeadKpiCard §3) + card radial de meta (§2) */}
+      <section className="grid grid-cols-1 lg:grid-cols-3 gap-gp-2xl items-stretch">
+        {LEAD_KPIS.map((k) => (
+          <LeadKpiCard key={k.title} kpi={k} />
+        ))}
+        <RadialGoalCard />
+      </section>
+
+      {/* Row 4.6 — Crescimento da carteira (área + KPI interno + footer KPIs) (2/3) + mapa por UF (1/3) */}
+      <section className="grid grid-cols-1 gap-gp-2xl lg:grid-cols-3 items-stretch">
+        <div className="lg:col-span-2 flex">
+          <div className="flex-1">
+            <GrowthCard />
+          </div>
+        </div>
+        <RegionMapCard />
       </section>
 
       {/* Row 5 — Open + Agents */}

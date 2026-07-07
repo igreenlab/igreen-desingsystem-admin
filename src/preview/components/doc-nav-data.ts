@@ -11,6 +11,7 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "Introduction", href: "introduction" },
       { label: "Structure", href: "structure" },
+      { label: "Distribution", href: "distribution" },
       { label: "Installation", href: "installation" },
       { label: "Transform Tokens", href: "transform-tokens" },
       { label: "Updates", href: "updates" },
@@ -55,6 +56,7 @@ const BASE_NAV: DocNavSection[] = [
     title: "Components",
     items: [
       { label: "Accordion", href: "accordion" },
+      { label: "Aspect Ratio", href: "aspect-ratio" },
       { label: "Alert", href: "alert" },
       { label: "Alert Modal", href: "alert-modal" },
       { label: "Modal", href: "modal" },
@@ -66,28 +68,46 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Button", href: "button" },
       { label: "ButtonGroup", href: "button-group" },
       { label: "Calendar", href: "calendar" },
+      { label: "Carousel", href: "carousel" },
       { label: "Card", href: "card" },
       { label: "Card Checkbox", href: "card-checkbox" },
       { label: "Checkbox", href: "checkbox" },
+      { label: "Collapsible", href: "collapsible" },
+      { label: "Combobox", href: "combobox" },
       { label: "Command", href: "command" },
+      { label: "Context Menu", href: "context-menu" },
+      { label: "Date Picker", href: "date-picker" },
       { label: "Dialog", href: "dialog" },
       { label: "Dropdown Menu", href: "dropdown-menu" },
+      { label: "Drawer", href: "drawer" },
+      { label: "Hover Card", href: "hover-card" },
       { label: "FormField", href: "form-field" },
       { label: "Icon", href: "icon" },
       { label: "Input", href: "input" },
       { label: "Input Group", href: "input-group" },
+      { label: "Input OTP", href: "input-otp" },
       { label: "Pagination", href: "pagination" },
       { label: "Label", href: "label" },
+      { label: "Menubar", href: "menubar" },
+      { label: "Navigation Menu", href: "navigation-menu" },
       { label: "Panel", href: "panel" },
       { label: "Popover", href: "popover" },
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
+      { label: "Scroll Area", href: "scroll-area" },
       { label: "Select", href: "select" },
       { label: "Separator", href: "separator" },
+      { label: "Sheet", href: "sheet" },
+      { label: "Skeleton", href: "skeleton" },
       { label: "Slider", href: "slider" },
       { label: "Switch", href: "switch" },
       { label: "Tabs", href: "tabs" },
       { label: "Textarea", href: "textarea" },
+      { label: "Toggle", href: "toggle" },
+      { label: "Toggle Group", href: "toggle-group" },
+      { label: "Sonner", href: "sonner" },
+      { label: "Toast", href: "toast" },
+      { label: "Tooltip", href: "tooltip" },
     ],
   },
   {
@@ -99,6 +119,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Pies", href: "chart-pie" },
       { label: "Radars", href: "chart-radar" },
       { label: "Radials", href: "chart-radial" },
+      { label: "Maps", href: "chart-map" },
       { label: "Compositions", href: "chart-showcase" },
     ],
   },
@@ -122,6 +143,20 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: Tree-data", href: "clients-tree" },
       { label: "Example: Column types", href: "clients-typed" },
       { label: "Example: Kanban view", href: "clients-kanban" },
+      { label: "Example: List view (toggle)", href: "clients-list-view" },
+    ],
+  },
+  {
+    title: "List Components",
+    items: [
+      { label: "List", href: "list" },
+      { label: "DataList", href: "data-list" },
+      // Exemplos do DataList (telas dedicadas)
+      { label: "Example: Standard", href: "list-standard" },
+      { label: "Example: Grouped + DnD", href: "list-grouped" },
+      { label: "Example: Hierarchical", href: "list-hierarchical" },
+      { label: "Example: Selecionável", href: "list-selectable" },
+      { label: "Example: Card rico", href: "list-rich" },
     ],
   },
   {
@@ -129,6 +164,8 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "Header", href: "header" },
       { label: "MenuSidebar", href: "menu-sidebar" },
+      { label: "SingleMenuSidebar", href: "single-menu-sidebar" },
+      { label: "KPI", href: "kpi" },
       { label: "App Shell", href: "app-shell" },
       { label: "Page Header", href: "page-header" },
     ],
@@ -138,6 +175,7 @@ const BASE_NAV: DocNavSection[] = [
     items: [
       { label: "Showcase", href: "showcase-v2" },
       { label: "CRUD", href: "clientes-showcase" },
+      { label: "Mapa de Rede", href: "mapa-rede" },
       { label: "Chat", href: "chat-v2" },
       { label: "Dashboard", href: "dashboard-showcase" },
       // Apps standalone (fullscreen via ?app=) — abrem fora do chrome de docs.
@@ -150,9 +188,9 @@ const BASE_NAV: DocNavSection[] = [
 
 /** Retorna o nav com o item ativo marcado por label */
 export function getDocNav(activeLabel: string): DocNavSection[] {
-  return BASE_NAV.map(section => ({
+  return BASE_NAV.map((section) => ({
     ...section,
-    items: section.items.map(item => ({
+    items: section.items.map((item) => ({
       ...item,
       active: item.label === activeLabel,
     })),
@@ -161,9 +199,9 @@ export function getDocNav(activeLabel: string): DocNavSection[] {
 
 /** Retorna o nav com o item ativo marcado por href (page ID) */
 export function getDocNavByHref(activeHref: string): DocNavSection[] {
-  return BASE_NAV.map(section => ({
+  return BASE_NAV.map((section) => ({
     ...section,
-    items: section.items.map(item => ({
+    items: section.items.map((item) => ({
       ...item,
       active: item.href === activeHref,
     })),

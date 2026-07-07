@@ -11,12 +11,11 @@
 /* ── iGreen UI components (custom, tv()) ────────────────────────── */
 export * from "./ui/AlertModal";
 export * from "./ui/AppShell";
-export * from "./ui/Avatar";
+export * from "./ui/avatar-ig";
 export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
 export * from "./ui/Chip";
-export * from "./ui/ChoroplethMap";
 export * from "./ui/ColorPicker";
 export * from "./ui/Combobox";
 export * from "./ui/ConversationListItem";
@@ -30,6 +29,7 @@ export * from "./ui/FormField";
 export * from "./ui/Header";
 export * from "./ui/Icon";
 export * from "./ui/Kanban";
+export * from "./ui/Kpi";
 export * from "./ui/MarkdownText";
 export * from "./ui/MenuSidebar";
 export * from "./ui/MessageAck";
@@ -40,9 +40,11 @@ export * from "./ui/Modal";
 export * from "./ui/MonthYearPicker";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
+export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
-export * from "./ui/TabelaTeste";
+// TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
+// pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
 
 /**
  * TableToolbar: re-exporta tudo, mas renomeia SortDirection para evitar

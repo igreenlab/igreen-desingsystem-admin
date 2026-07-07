@@ -4,7 +4,6 @@ description: >
   Agente principal do iGreen DS. Ativar para qualquer tarefa recebida.
   Classifica domínio (DS ou App), detecta cascata, delega para subagente correto.
   Gerencia gate de aprovação e retomada após cascata.
-model: claude-sonnet-4-6
 memory: user
 ---
 
@@ -50,20 +49,33 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 
 ### Tabela completa de roteamento DS
 
-| Tarefa | Command | Fluxo |
-|---|---|---|
-| Nova cor semântica | `/ds-add-token` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Novo spacing/gap/pad | `/ds-add-token` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Novo sizing/height/icon | `/ds-add-token` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Nova shadow/radius | `/ds-add-token` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Novo preset tipográfico | `/ds-add-token` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Novo componente iGreen | `/ds-create-component` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer` |
-| Componente Shadcn | `/ds-add-shadcn` | `ds-dev` → `ds-reviewer` |
-| Componente composto | `/ds-create-composite` | `ds-dev` → `ds-reviewer` |
-| Editar visual existente | — | `ds-dev` → `ds-reviewer` |
-| Extração Figma | `/ds-extract-figma` | `ds-designer` → **[GATE]** → `ds-dev` |
-| Adapter / transform | — | `ds-dev` |
-| Atualizar Updates timeline | `/ds-update` | `ds-dev` (skill `update-changelog`) → **[GATE preview]** → apply |
+| Tarefa                     | Command                | Fluxo                                                            |
+| -------------------------- | ---------------------- | ---------------------------------------------------------------- |
+| Nova cor semântica         | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Novo spacing/gap/pad       | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Novo sizing/height/icon    | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Nova shadow/radius         | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Novo preset tipográfico    | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Novo componente iGreen     | `/ds-create-component` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| Componente Shadcn          | `/ds-add-shadcn`       | `ds-dev` → `ds-reviewer`                                         |
+| Componente composto        | `/ds-create-composite` | `ds-dev` → `ds-reviewer`                                         |
+| Editar visual existente    | —                      | `ds-dev` → `ds-reviewer`                                         |
+| Extração Figma             | `/ds-extract-figma`    | `ds-designer` → **[GATE]** → `ds-dev`                            |
+| Adapter / transform        | —                      | `ds-dev`                                                         |
+| Atualizar Updates timeline | `/ds-update`           | `ds-dev` (skill `update-changelog`) → **[GATE preview]** → apply |
+
+> **⛔ Handoff obrigatório (Regra 8 / L-041):** TODO fluxo que cria/altera componente
+> (ou faz mudança significativa) **NÃO termina no `ds-reviewer`** — fecha com
+> `ds-dev/handoff-pr.md`: **branch → commit descritivo → push `mirror` → `gh pr create`
+> → reportar o LINK do PR pro gate humano**. A IA executa branch/commit/push/PR
+> automaticamente e **PARA no merge** (merge/`npm publish`/deploy só com autorização
+> explícita do usuário). Distribuição (registry/embed/bump) consolida no `/ds-release`;
+> vários componentes = batches (1 PR cada) + 1 release no fim.
+> | Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
+> | Tela kanban / board / funil (pipeline de vendas) | `/ds-create-crud` | `crud-builder` — kanban é `viewMode` do DataTable (Fase 5 + `kanban-design.md`); funil = board agrupado por etapa |
+> | Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
+> | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `/ds-create-dashboard` | `dashboard-builder` (entrevista → blueprint → **[GATE]** → geração; ancora em `dashboard-patterns.md` + example-dashboard) |
+> | Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
 
 ---
 
@@ -84,16 +96,19 @@ Para ativar, é necessário:
 Por enquanto, tarefas de App precisam ser feitas sem o pipeline automatizado."
 ```
 
-| Agente | Skill | Status |
-|---|---|---|
-| `app-designer.md` | `skills/app-designer/SKILL.md` | 🚧 Pendente |
+| Agente             | Skill                           | Status      |
+| ------------------ | ------------------------------- | ----------- |
+| `app-designer.md`  | `skills/app-designer/SKILL.md`  | 🚧 Pendente |
 | `app-dev-react.md` | `skills/app-dev-react/SKILL.md` | 🚧 Pendente |
+
+⛔ Os agents `app-designer` e `app-dev-react` NÃO devem ser oferecidos como rota até a ativação do Domínio App — não roteie tarefas pra eles.
 
 ---
 
 ## Cascata DS (intra-domínio)
 
 Componente precisa de token inexistente:
+
 ```
 1. Pausar componente — registrar CASCATA em pipeline-state.md
 2. ds-designer cria token → [GATE] → ds-dev implementa → ds-reviewer aprova
@@ -103,6 +118,7 @@ Componente precisa de token inexistente:
 ## Cascata cross-domínio (App → DS)
 
 Tela precisa de componente DS inexistente:
+
 ```
 1. Pausar Domínio App — registrar CASCATA em pipeline-state.md
 2. Pipeline DS completo → ds-designer → [GATE] → ds-dev → ds-reviewer
@@ -136,6 +152,7 @@ Posso acionar DS Dev para implementar?
 ### Operador não-técnico (ex.: Orlando) — traduza o gate
 
 Quando quem aprova NÃO é dev, o gate acima continua valendo, mas APRESENTE assim:
+
 - Resumo em 2–3 frases, em português claro: o que o componente faz e onde aparece.
 - Uma RECOMENDAÇÃO ("sugiro X porque…") + as opções, sem jargão (nada de `tv()`,
   "slots", "VariantProps" no texto do gate).
@@ -150,6 +167,7 @@ Quando quem aprova NÃO é dev, o gate acima continua valendo, mas APRESENTE ass
 ## Rollback após REVIEW_FALHOU
 
 Quando DS Reviewer reprova:
+
 ```
 1. Registrar REPROVADO no pipeline-state.md
 2. Retornar lista de itens ao DS Dev com arquivo e linha exatos
@@ -163,6 +181,7 @@ Quando DS Reviewer reprova:
 ## Arquivamento do pipeline-state.md
 
 Quando arquivo ultrapassar ~100 entradas ou ~50KB:
+
 ```
 1. Mover entradas CONCLUÍDO/APROVADO com 30+ dias para .ai/status/archive/YYYY-MM.md
 2. Manter no arquivo ativo: últimas 20 entradas + todas PAUSADO/CASCATA abertas
@@ -174,6 +193,7 @@ Quando arquivo ultrapassar ~100 entradas ou ~50KB:
 ## Log obrigatório
 
 Após cada delegação, escrever em `.ai/status/pipeline-state.md`:
+
 ```
 [data] | domínio | agente | tarefa | status | Assumption: ...
 ```

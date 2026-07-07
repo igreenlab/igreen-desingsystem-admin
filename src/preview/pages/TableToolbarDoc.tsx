@@ -2,8 +2,10 @@ import { useState } from "react";
 import {
   AtSign,
   Calendar,
+  CalendarDays,
   CheckCircle2,
   Copy,
+  Search,
   DollarSign,
   Download,
   FileText,
@@ -47,6 +49,7 @@ import {
   ToolbarSegmented,
   ToolbarTabs,
   ToolbarToolButton,
+  ToolbarActions,
   useToolbarFilters,
   type ToolbarFilterEntry,
 } from "../../components/ui/TableToolbar";
@@ -57,7 +60,68 @@ import {
   DocSeparator,
   SectionH2,
   ExampleSection,
+  PropsTable,
 } from "../components";
+
+const PERIODOS = ["Junho de 2026", "Maio de 2026", "Abril de 2026"];
+
+/* ── API Reference — ToolbarActions ──────────────────────────────── */
+const PROPS_TOOLBAR_ACTIONS = [
+  { name: "actions", type: "ToolbarAction[]", defaultVal: "— (obrigatório)" },
+  { name: "extraItems", type: "ToolbarActionMenuItem[]", defaultVal: "—" },
+  { name: "className", type: "string", defaultVal: "—" },
+];
+const PROPS_TOOLBAR_ACTION = [
+  {
+    name: "kind",
+    type: '"button" | "dropdown" | "input"',
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "id", type: "string", defaultVal: "— (obrigatório)" },
+  { name: "label", type: "string", defaultVal: "— (obrigatório)" },
+  { name: "icon", type: "ReactNode", defaultVal: "—" },
+  {
+    name: "onClick · button",
+    type: "() => void",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "isActive · button", type: "boolean", defaultVal: "false" },
+  { name: "disabled · button", type: "boolean", defaultVal: "false" },
+  {
+    name: "items · dropdown",
+    type: "ToolbarActionMenuItem[]",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "value · input", type: "string", defaultVal: "— (obrigatório)" },
+  {
+    name: "onChange · input",
+    type: "(v: string) => void",
+    defaultVal: "— (obrigatório)",
+  },
+  { name: "placeholder · input", type: "string", defaultVal: "—" },
+];
+const PROPS_ACTION_MENU_ITEM = [
+  { name: "label", type: "ReactNode", defaultVal: "— (obrigatório)" },
+  { name: "icon", type: "ReactNode", defaultVal: "—" },
+  { name: "onClick", type: "() => void", defaultVal: "—" },
+  { name: "active", type: "boolean", defaultVal: "false" },
+  { name: "destructive", type: "boolean", defaultVal: "false" },
+  { name: "disabled", type: "boolean", defaultVal: "false" },
+  { name: "separator", type: "boolean", defaultVal: "false" },
+];
+const PROPS_EXPOSURE = [
+  {
+    name: "TableToolbar.actions",
+    type: "ReactNode (use <ToolbarActions>)",
+    defaultVal: "—",
+  },
+  {
+    name: "DataTable.toolbar.actions",
+    type: "ToolbarAction[]",
+    defaultVal: "—",
+  },
+  { name: "DataList.toolbarActions", type: "ToolbarAction[]", defaultVal: "—" },
+];
 
 const VIEW_TABS = [
   { id: "all", name: "Todos" },
@@ -71,9 +135,21 @@ const VIEW_MODES = [
 ];
 
 const DENSITIES = [
-  { value: "compact", label: "Compacto", children: <Rows4 strokeWidth={1.8} /> },
-  { value: "comfortable", label: "Confortável", children: <Rows3 strokeWidth={1.8} /> },
-  { value: "spacious", label: "Espaçoso", children: <Rows2 strokeWidth={1.8} /> },
+  {
+    value: "compact",
+    label: "Compacto",
+    children: <Rows4 strokeWidth={1.8} />,
+  },
+  {
+    value: "comfortable",
+    label: "Confortável",
+    children: <Rows3 strokeWidth={1.8} />,
+  },
+  {
+    value: "spacious",
+    label: "Espaçoso",
+    children: <Rows2 strokeWidth={1.8} />,
+  },
 ];
 
 const FILTERABLE_COLUMNS: FilterPopoverColumn[] = [
@@ -89,7 +165,12 @@ const FILTERABLE_COLUMNS: FilterPopoverColumn[] = [
     ],
   },
   { key: "name", label: "Razão Social", type: "text", filterType: "text" },
-  { key: "value", label: "Saldo disponível", type: "number", filterType: "number" },
+  {
+    key: "value",
+    label: "Saldo disponível",
+    type: "number",
+    filterType: "number",
+  },
 ];
 
 const MOCK_VIEWS: ViewsPopoverView[] = [
@@ -118,11 +199,17 @@ export function TableToolbarDoc() {
   const [tabs, setTabs] = useState(VIEW_TABS);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
+  // Demo do slot `actions` (button/dropdown/input).
+  const [periodo, setPeriodo] = useState("Junho de 2026");
+  const [quick, setQuick] = useState("");
+
   const [colsOrder, setColsOrder] = useState<ColsPopoverColumn[]>(MOCK_COLUMNS);
   const [visibleCols, setVisibleCols] = useState<Set<string>>(
     () => new Set(MOCK_COLUMNS.map((c) => c.key)),
   );
-  const [pinnedCols, setPinnedCols] = useState<Set<string>>(() => new Set(["name"]));
+  const [pinnedCols, setPinnedCols] = useState<Set<string>>(
+    () => new Set(["name"]),
+  );
 
   const [sortBy, setSortBy] = useState<SortPopoverCriterion[]>([]);
 
@@ -152,6 +239,8 @@ export function TableToolbarDoc() {
       toc={[
         { id: "examples", label: "Examples" },
         { id: "ex-full", label: "Drill-down (Configurações)" },
+        { id: "ex-actions", label: "Ações custom (slot actions)" },
+        { id: "api-reference", label: "API Reference" },
       ]}
     >
       <DocHeader
@@ -201,7 +290,9 @@ export function TableToolbarDoc() {
                   tabs={tabs}
                   activeId={activeView}
                   onSelect={setActiveView}
-                  onClose={(id) => setTabs((prev) => prev.filter((t) => t.id !== id))}
+                  onClose={(id) =>
+                    setTabs((prev) => prev.filter((t) => t.id !== id))
+                  }
                 />
                 <ViewsPopover
                   trigger={
@@ -212,20 +303,27 @@ export function TableToolbarDoc() {
                   views={views}
                   activeViewId={activeViewId}
                   onApply={(v) => setActiveViewId(v.id)}
-                  onDelete={(id) => setViews((prev) => prev.filter((v) => v.id !== id))}
+                  onDelete={(id) =>
+                    setViews((prev) => prev.filter((v) => v.id !== id))
+                  }
                   onCreate={() => console.log("criar nova view")}
                 />
               </>
             }
             refresh={
               <ToolbarToolButton
-                icon={<RefreshCw className={isRefreshing ? "animate-spin" : ""} />}
+                icon={
+                  <RefreshCw className={isRefreshing ? "animate-spin" : ""} />
+                }
                 aria-label="Atualizar"
                 onClick={handleRefresh}
               />
             }
             search={
-              <ToolbarSearch value={search} onChange={(e) => setSearch(e.target.value)} />
+              <ToolbarSearch
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
             }
             filter={
               <ToolbarToolButton
@@ -286,7 +384,12 @@ export function TableToolbarDoc() {
             }
             more={
               <MoreMenu
-                trigger={<ToolbarToolButton icon={<MoreHorizontal />} aria-label="Opções" />}
+                trigger={
+                  <ToolbarToolButton
+                    icon={<MoreHorizontal />}
+                    aria-label="Opções"
+                  />
+                }
               >
                 <MoreMenuItem>
                   <FileText />
@@ -327,6 +430,130 @@ export function TableToolbarDoc() {
           />
         </div>
       </ExampleSection>
+
+      <ExampleSection
+        id="ex-actions"
+        title="Ações custom (slot actions)"
+        description="O slot `actions` aceita `<ToolbarActions>` com ações `button`, `dropdown` (ex.: seletor de período) e `input` (busca secundária). No desktop renderizam inline entre Filtros e ⋯; em < md colapsam automaticamente num único ⋯ — `extraItems` injeta itens extras (ex.: o ⋯ antigo) no mesmo menu. Diminua a janela pra ver o colapso."
+        code={`<TableToolbar
+  search={<ToolbarSearch ... />}
+  filter={<ToolbarToolButton icon={<Filter />} ... />}
+  actions={
+    <ToolbarActions
+      actions={[
+        { kind: "input",    id: "quick",   label: "Busca rápida", icon: <Search />,
+          value: quick, onChange: setQuick, placeholder: "Filtro rápido…" },
+        { kind: "dropdown", id: "periodo", label: periodo, icon: <CalendarDays />,
+          items: PERIODOS.map((p) => ({ label: p, active: p === periodo, onClick: () => setPeriodo(p) })) },
+        { kind: "button",   id: "novo",    label: "Novo", icon: <Plus />, onClick: () => {} },
+      ]}
+      extraItems={[{ label: "Exportar CSV", icon: <FileText />, onClick: () => {} }]}
+    />
+  }
+/>`}
+      >
+        <div className="w-full">
+          <TableToolbar
+            search={
+              <ToolbarSearch
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            }
+            filter={
+              <ToolbarToolButton
+                icon={<Filter />}
+                aria-label="Filtros"
+                onClick={() => setSimpleFilterOpen(true)}
+              />
+            }
+            actions={
+              <ToolbarActions
+                actions={[
+                  {
+                    kind: "input",
+                    id: "quick",
+                    label: "Busca rápida",
+                    icon: <Search />,
+                    value: quick,
+                    onChange: setQuick,
+                    placeholder: "Filtro rápido…",
+                  },
+                  {
+                    kind: "dropdown",
+                    id: "periodo",
+                    label: periodo,
+                    icon: <CalendarDays />,
+                    items: PERIODOS.map((p) => ({
+                      label: p,
+                      active: p === periodo,
+                      onClick: () => setPeriodo(p),
+                    })),
+                  },
+                  {
+                    kind: "button",
+                    id: "novo",
+                    label: "Novo",
+                    icon: <Plus />,
+                    onClick: () => {},
+                  },
+                ]}
+                extraItems={[
+                  {
+                    label: "Exportar CSV",
+                    icon: <FileText />,
+                    onClick: () => {},
+                  },
+                ]}
+              />
+            }
+          />
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="api-reference" title="API Reference" />
+
+      <div className="mb-gp-4xl" id="api-actions-props">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarActions
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          Props do componente <code>&lt;ToolbarActions&gt;</code> usado no slot{" "}
+          <code>actions</code> do TableToolbar.
+        </p>
+        <PropsTable items={PROPS_TOOLBAR_ACTIONS} />
+      </div>
+
+      <div className="mb-gp-4xl" id="api-action">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarAction
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          União discriminada por <code>kind</code>. Os campos marcados com ·
+          button/dropdown/input pertencem só àquela forma.
+        </p>
+        <PropsTable items={PROPS_TOOLBAR_ACTION} />
+      </div>
+
+      <div className="mb-gp-4xl" id="api-menu-item">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          ToolbarActionMenuItem
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          Item de um <code>dropdown</code> (e de <code>extraItems</code>).
+        </p>
+        <PropsTable items={PROPS_ACTION_MENU_ITEM} />
+      </div>
+
+      <div className="mb-gp-4xl" id="api-exposure">
+        <h3 className="text-title-lg font-semibold text-fg-default mb-gp-xs">
+          Onde é exposto
+        </h3>
+        <p className="text-body-md text-fg-muted mb-gp-3xl">
+          O mesmo slot chega aos componentes inteligentes.
+        </p>
+        <PropsTable items={PROPS_EXPOSURE} />
+      </div>
     </DocLayout>
   );
 }

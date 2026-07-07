@@ -1,8 +1,8 @@
 import { createContext, forwardRef, useContext } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button";
-import type { ButtonProps } from "../Button/button.types";
+import { Button } from "@/components/ui/Button";
+import type { ButtonProps } from "@/components/ui/Button/button.types";
 import {
   buttonGroupVariants,
   buttonGroupSlot,

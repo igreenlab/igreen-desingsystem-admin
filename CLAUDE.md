@@ -108,7 +108,8 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 |------|----------------|-----------|
 | `format-on-save.sh` | qualquer .ts/.tsx/.md | prettier nos arquivos editados |
 | `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | greps L-001/L-002/L-003/L-004/L-005/L-007 — warning em stderr quando encontra anti-pattern |
-| `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente ou inventory.md não menciona o componente (L-016) |
+| `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do catálogo do CLI, **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042 |
+| `ds-tokens-check.sh` | `tokens/**/*.ts` | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
 
@@ -121,14 +122,16 @@ Logs em `.ai/scratch/hook-log.txt`.
 ## Arquitetura de tokens (3 tiers)
 
 ```
-TIER 1 — Primitives (API privada, nunca em componentes)
+# Base path real dos arquivos abaixo: tokens/brands/default/
+#   primitives/* · semantic/* · components/*
+TIER 1 — Primitives (API privada, nunca em componentes) — em primitives/
   color-palette.ts · scales.ts · fonts.ts · motion.ts
 
-TIER 2 — Semantic (API pública via CSS vars)
+TIER 2 — Semantic (API pública via CSS vars) — em semantic/
   color-light.ts / color-dark.ts
   spacing.ts · sizing.ts · shape.ts · elevation.ts · typography.ts
 
-TIER 2.5 — Component tokens
+TIER 2.5 — Component tokens — em components/
   components/sizing.ts  → form.* · layout.* · icon.* · container.*
   components/spacing.ts → padCard.* · padPage.*
 
@@ -186,7 +189,10 @@ TIER 2.5 — Component tokens
 | Atualizar Updates timeline | `src/preview/pages/updates-data.ts` | `ds-dev/update-changelog.md` |
 | Release completa (changelog + bump + commit + PR) | `updates-data.ts` + `package.json` + git | `ds-dev/release.md` |
 | Tela CRUD/tabela (DataTable) | `src/preview/pages/<Nome>Preview.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `crud-builder/SKILL.md` via `/ds-create-crud` |
-| Gráfico / composição de dashboard | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
+| Tela lista de cards (DataList) | `src/preview/pages/<Nome>Preview.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `list-builder/SKILL.md` via `/ds-create-list` |
+| Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `src/preview/pages/<Nome>Showcase.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` (ancora em `.ai/context/components/dashboard-patterns.md`) |
+| Tela de dados (não sabe se tabela, lista ou dashboard) | — | front-door `/ds-create-screen` (desambigua e roteia) |
+| Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
 
 ---
 

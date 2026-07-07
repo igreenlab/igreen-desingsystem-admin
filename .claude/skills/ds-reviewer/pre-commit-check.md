@@ -106,6 +106,7 @@ Escopo do diff:
 
 - [ ] Lista de presets em `src/utils/tv.ts > twMergeConfig` está **1:1** com `typography.ts`?
 - [ ] Lista de presets em `src/lib/utils.ts > extendTailwindMerge` está **1:1** com `typography.ts`?
+- [ ] **Re-bake do CLI?** Se `src/lib/utils.ts`, `src/utils/tv.ts`, `src/lib/lucide-types.ts` ou `src/styles/theme/tailwind-theme.css` mudaram → rodar **`npm run cli:rebake`** (re-bakeia no `cli/templates/default/`) + **bump `cli/package.json`**. Senão projetos novos do CLI nascem com cn/tv/theme **defasados** vs registry. (O `doctor.mjs` do consumidor pega o drift contra o registry, mas o re-bake mata na origem — CRÍTICO, mesma raiz da L-016.)
 
 Comando rápido pra verificar:
 
@@ -142,6 +143,12 @@ Para cada `src/components/ui/<Nome>/` no diff:
 - [ ] Se usou preset tipográfico → o nome existe em `typography.ts` atual?
 - [ ] DocPage correspondente (`InputDoc.tsx`, `SelectDoc.tsx`, etc) reflete a mudança?
 - [ ] Comentários do componente mencionam apenas presets que ainda existem (não legados)?
+- [ ] **Índice `shadcn/USAGE.md` — gotcha coberto?** Se o componente novo/editado tem
+  setup obrigatório (`<Toaster/>`/`<Provider>` no root), dep extra (`vaul`/`embla`/…),
+  receita flutuante (L-040), z-index (L-030) ou ring/acessibilidade fora do padrão →
+  há **1 linha** correspondente em `src/components/shadcn/USAGE.md`?
+  Se NÃO tem gotcha → **não exigir linha** (índice é só de pegadinhas; não inflar).
+  ⛔ Reprovar se alguém criou `USAGE.md` por-arquivo dentro de `shadcn/<nome>/`.
 
 ### 2.5 — Nova lição em `lessons.md`
 
@@ -171,6 +178,35 @@ Se foi adicionada L-NNN nova:
 - [ ] **Audit antigo** marcado como histórico (se foi gerado audit novo)?
 
 ---
+
+### 2.8 — Registry / distribuição (quando componente ou token mudou)
+
+O DS é distribuído via registry shadcn (`@igreen/*`, ver `.ai/specs/registry-distribution.md`).
+Mudança em componente/token precisa refletir no registry, senão o consumidor recebe versão velha.
+
+- [ ] **Componente NOVO coberto?** Se o diff adicionou `src/components/ui/<Novo>/` ou
+  `src/components/shadcn/<novo>.tsx` → existe entrada correspondente em `registry.json`?
+  Se não → **ALTO**: o componente não é distribuível. Gerar com
+  `node scripts/registry-add-item.mjs <Componente>` (escaneia imports → registryDeps +
+  deps + flag de import cross-dir), revisar e adicionar.
+- [ ] **registry rebuildado?** Se tocou componente/token/`tailwind-theme.css` → o diff
+  inclui `registry.json` (meta.stamp na versão nova) **e** `registry-app/app/registry-data.ts`
+  (embed)? Senão → rodar `npm run registry:build` + `copy-registry` (Passo 6.2b do release).
+- [ ] **Foundational → CLI rebake?** Se `src/lib/utils.ts` / `src/utils/tv.ts` /
+  `src/lib/lucide-types.ts` / `tailwind-theme.css` mudaram → `npm run cli:rebake` rodou
+  (`cli/templates/default/**` no diff) + `cli/package.json` bumpado? (já no 2.2, reforço aqui)
+- [ ] **Componente novo no catálogo do CLI? (L-042)** Se o diff adicionou componente que
+  entrou (ou entrará) no `registry.json` → ele consta em `cli/templates/default/CLAUDE.md`
+  (lista de componentes — composites/feedback/etc)? Se NÃO → **ALTO**: scaffolds novos não
+  conhecem o componente. Adicionar ao catálogo + bump `cli/package.json` + republicar CLI.
+  (Gap real: Toast distribuído na v0.12.0 mas fora do catálogo até v0.13.7. O hook
+  `ds-inventory-check` acusa "no registry mas fora do catálogo".)
+- [ ] **Import cross-dir em componente distribuível?** Componente em `registry.json` que
+  importa `../../shadcn/x` (relativo cross-dir) **quebra no copy-in** — tem que ser alias
+  `@/components/shadcn/x`. Grep rápido:
+  ```bash
+  git diff --name-only HEAD -- 'src/components/**' | while read f; do grep -lE 'from "(\.\./)+shadcn/' "$f" 2>/dev/null; done
+  ```
 
 ## Passo 3 — Output
 

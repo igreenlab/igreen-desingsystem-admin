@@ -8,8 +8,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "../../shadcn/alert-dialog";
-import { Button } from "../Button/button";
+} from "@/components/shadcn/alert-dialog";
+import { Button } from "@/components/ui/Button/button";
 import { alertModalIcon } from "./alert-modal.styles";
 import type { AlertModalProps, AlertModalTone } from "./alert-modal.types";
 

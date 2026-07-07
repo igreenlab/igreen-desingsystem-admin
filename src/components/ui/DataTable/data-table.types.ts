@@ -1,12 +1,17 @@
 import type { ReactNode } from "react";
-import type { TableDensity, SortDirection, ColumnPinned, CellAlign } from "../Table";
-import type { ToolbarSegmentedItem } from "../TableToolbar";
+import type {
+  TableDensity,
+  SortDirection,
+  ColumnPinned,
+  CellAlign,
+} from "../Table";
+import type { ToolbarSegmentedItem, ToolbarAction } from "../TableToolbar";
 import type { KanbanCardData, KanbanColumn, KanbanMenuItem } from "../Kanban";
 import type { SavedViewsService } from "./services/saved-views.types";
 
 /* ── View mode (table OR kanban) ─────────────────────────────────── */
 
-export type DataTableViewMode = "table" | "kanban";
+export type DataTableViewMode = "table" | "kanban" | "list";
 
 /** Parâmetros do `renderCardContent` na view Kanban via DataTable. */
 export type DataTableKanbanRenderCardParams<T> = {
@@ -109,7 +114,11 @@ export type DataTableKanbanConfig<T> = {
    * Callback ao mover card entre colunas. Consumer comita via `rows` props
    * (optimistic update) ou via PATCH async. Primitive não faz revert.
    */
-  onCardMove?: (cardId: string, from: string, to: string) => void | Promise<unknown>;
+  onCardMove?: (
+    cardId: string,
+    from: string,
+    to: string,
+  ) => void | Promise<unknown>;
 
   /* ── Textos ────────────────────────────────────────────────── */
   /** Texto do empty state (coluna sem cards). */
@@ -126,7 +135,7 @@ export type SortModel = {
 };
 
 export type PaginationModel = {
-  page: number;       // 1-based
+  page: number; // 1-based
   pageSize: number;
 };
 
@@ -151,9 +160,20 @@ export type FilterValue =
   | undefined;
 
 export type FilterOperator =
-  | "contains" | "notContains" | "equals" | "neq" | "startsWith" | "endsWith"
-  | "isEmpty" | "isNotEmpty" | "isAnyOf" | "isNoneOf"
-  | "gt" | "lt" | "gte" | "lte"
+  | "contains"
+  | "notContains"
+  | "equals"
+  | "neq"
+  | "startsWith"
+  | "endsWith"
+  | "isEmpty"
+  | "isNotEmpty"
+  | "isAnyOf"
+  | "isNoneOf"
+  | "gt"
+  | "lt"
+  | "gte"
+  | "lte"
   // Fase F.2 — range/period filter (date e number)
   | "between";
 
@@ -257,10 +277,10 @@ export type DataTableColumnDef<T> = {
   ellipsis?: boolean;
 
   /** Comportamento */
-  resizable?: boolean;     // default true (exceto type=actions ou checkbox)
-  sortable?: boolean;      // default true
-  hideable?: boolean;      // default true
-  isPrimary?: boolean;     // título no card mode
+  resizable?: boolean; // default true (exceto type=actions ou checkbox)
+  sortable?: boolean; // default true
+  hideable?: boolean; // default true
+  isPrimary?: boolean; // título no card mode
   /** Mostra menu 3-pontos no header. Default true. False esconde. */
   enableColumnMenu?: boolean;
   /** Items extras no menu da coluna (slot apos sort/pin/hide). */
@@ -289,7 +309,11 @@ export type DataTableColumnDef<T> = {
     | "boolean"
     | "number"
     | (string & {});
-  filterOptions?: Array<{ label: string; value: string | number; color?: string }>;
+  filterOptions?: Array<{
+    label: string;
+    value: string | number;
+    color?: string;
+  }>;
   defaultFilterValue?: FilterValue;
 
   /** Render customizado */
@@ -298,7 +322,12 @@ export type DataTableColumnDef<T> = {
   valueFormatter?: (value: unknown) => string;
 
   /** Ícone do tipo no header (lucide). */
-  icon?: React.ComponentType<{ className?: string; size?: number; strokeWidth?: number; "aria-hidden"?: boolean }>;
+  icon?: React.ComponentType<{
+    className?: string;
+    size?: number;
+    strokeWidth?: number;
+    "aria-hidden"?: boolean;
+  }>;
 
   /** Opções específicas do `type` — Fase G.2/G.3. Estrutura depende do tipo:
    *  - `user`: { users: Record<id, { name, avatar?, initials? }> }
@@ -414,17 +443,25 @@ export type DataTableToolbarConfig = {
    * Dropdown "Exportar" no canto direito. `true` = ativo com CSV default.
    * Objeto = configuracao avancada (formatos custom + items append).
    */
-  enableExport?: boolean | {
-    /** Formatos disponiveis. Quando omitido, mostra so "CSV". */
-    formats?: DataTableExportFormat[];
-    /** Items adicionais (apend depois dos formatos). */
-    items?: DataTableMoreMenuItem[];
-  };
+  enableExport?:
+    | boolean
+    | {
+        /** Formatos disponiveis. Quando omitido, mostra so "CSV". */
+        formats?: DataTableExportFormat[];
+        /** Items adicionais (apend depois dos formatos). */
+        items?: DataTableMoreMenuItem[];
+      };
   /**
    * MoreMenu (⋯) no canto direito. Sem items, o botao nao renderiza.
    * Items aceitam icone, destructive, disabled.
    */
   moreMenu?: { items: DataTableMoreMenuItem[] };
+  /**
+   * Ações custom do toolbar (button/dropdown/input) — ex.: seletor de período.
+   * Renderizadas inline no desktop (entre Filtros e ⋯) e colapsadas num ⋯
+   * próprio no mobile. Veja `ToolbarAction` (`<ToolbarActions>`).
+   */
+  actions?: ToolbarAction[];
   /** @deprecated — use `moreMenu.items` em vez disso. */
   customActions?: ReactNode;
   /**
@@ -758,6 +795,13 @@ export type DataTableProps<T> = {
    */
   defaultViews?: DataTablePresetView[];
 
+  /**
+   * Permite o usuário criar/salvar novas visões (botão "+" das views). Default
+   * `true`. Passe `false` pra exibir SÓ as visões pré-definidas (`defaultViews`
+   * + Default) — sem o "+", read-only.
+   */
+  allowCreateView?: boolean;
+
   /* ── View mode (table OR kanban) ──────────────────────────────── */
 
   /**
@@ -775,6 +819,53 @@ export type DataTableProps<T> = {
    * Veja `DataTableKanbanConfig` para detalhes.
    */
   kanbanConfig?: DataTableKanbanConfig<T>;
+  /**
+   * Configuração da view Lista — obrigatório quando `viewMode="list"`.
+   * Renderiza as rows processadas (filter+search+sort) como cards de lista,
+   * reusando o `<List>` do DS (mesma toolbar do DataTable; só o corpo troca).
+   * `hierarchical` aninha por `getTreeDataPath` (árvore). Veja `DataTableListConfig`.
+   */
+  listConfig?: DataTableListConfig<T>;
+};
+
+/** Estado passado ao `renderItem` da view Lista. */
+export type DataTableListRenderState = {
+  /** Profundidade na árvore (0 = raiz). Sempre 0 em lista flat. */
+  depth: number;
+  /** Nó expandido (hierárquico). */
+  open: boolean;
+};
+
+/**
+ * Configuração da view Lista do DataTable (`viewMode="list"`).
+ * O DataTable mantém a própria toolbar (busca/filtros/views/ações) e só
+ * substitui o corpo por um `<List>` alimentado pelas rows processadas.
+ */
+export type DataTableListConfig<T> = {
+  /** Render do card de cada row (recebe a row + estado de árvore). */
+  renderItem: (row: T, state: DataTableListRenderState) => ReactNode;
+  /**
+   * Lista em árvore — aninha por caminho raiz→self. Default `false` (lista flat).
+   * Usa `listConfig.getPath` se definido, senão o `getTreeDataPath` do DataTable.
+   * Permite tabela FLAT (paginada) + lista em ÁRVORE no mesmo DataTable.
+   */
+  hierarchical?: boolean;
+  /**
+   * Caminho raiz→self pra aninhar SÓ a view Lista — independente do tree-data
+   * da tabela. Sem ele, cai no `getTreeDataPath` do DataTable (que também liga o
+   * tree-data na tabela e desliga paginação).
+   */
+  getPath?: (row: T) => Array<string | number>;
+  /** Nós expandidos no mount (hierárquico). Default `true`. */
+  defaultExpanded?: boolean;
+  /**
+   * Pagina a view Lista (flat) usando a mesma paginação da tabela + mostra o
+   * footer. Default `false` (mostra todas as rows processadas). Ignorado quando
+   * `hierarchical` (árvore desliga paginação).
+   */
+  paginated?: boolean;
+  /** Menu "⋯" por item (reusa o do `<List>`). */
+  getMenuItems?: (row: T) => import("../List").ListMenuItem[];
 };
 
 /** View pre-definida pelo dev (read-only) — passada via prop `defaultViews`.

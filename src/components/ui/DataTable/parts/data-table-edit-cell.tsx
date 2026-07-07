@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Loader2, AlertCircle } from "lucide-react";
-import { Input } from "../../../shadcn/input";
+import { Input } from "@/components/shadcn/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../../shadcn/select";
+} from "@/components/shadcn/select";
 import type { DataTableColumnDef } from "../data-table.types";
 import { columnTypeRegistry } from "../column-types";
 

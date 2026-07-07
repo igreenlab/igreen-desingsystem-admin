@@ -4,7 +4,7 @@ import {
   Sheet,
   SheetTrigger,
   SheetOverlay,
-} from "../../shadcn/sheet";
+} from "@/components/shadcn/sheet";
 import { panelContainer } from "./panel.styles";
 import { PanelHeader } from "./panel-header";
 import { PanelBody } from "./panel-body";

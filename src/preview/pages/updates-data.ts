@@ -46,6 +46,561 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.25.1",
+    date: "2026-07-07",
+    tag: "patch",
+    title: "Tabs `line`: underline reto (sem arredondar)",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "Tabs variant `line` — removido `rounded-radius-sm` do trigger: o underline (e o foco) ficava com cantos arredondados; agora é reto.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.25.0",
+    date: "2026-07-07",
+    tag: "release",
+    title: "Tabs: variant `line` (underline)",
+    summary:
+      "Tabs ganha a variante `line` (underline) além da `segmented` (pill), setada via prop `variant` no `<Tabs>` (propagada por contexto). Aditivo, não-breaking. Distribuído via registry (copy-in) — `igreen:update tabs`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`Tabs` — prop `variant` (`segmented` default | `line`). `line` = underline sem chrome de pill, aba ativa com `border-border-brand`. Cobertura no showcase (#/tabs) + gotcha no índice USAGE shadcn.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.24.0",
+    date: "2026-07-07",
+    tag: "release",
+    title: "Padrões de dashboard/KPI/lista viram receita canônica + dashboard-builder + doc de Maps",
+    summary:
+      "Captura as composições que viraram base da visualização (KPI-group \"Painel do Líder\", chart-cards, fusão KPI+evolução, card dividido, KPIs evolutivos com footer, KPI interno no footer, mapas por UF) numa fonte única de receitas + builder guiado, pra o Claude (DS e consumidor via CLI) atingir esse nível sem reinventar. Aditivo, não-breaking.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`dashboard-patterns.md` — fonte única com as receitas canônicas de dashboard/KPI/lista (referenciada por showcase, exemplos e builders).",
+          "`dashboard-builder` (skill guiada) + `/ds-create-dashboard` — entrevista → gate → geração de dashboards no padrão canônico; irmão do crud/list-builder. Roteado no orchestrator + front-door.",
+          "`KpiDelta` — prop `signed` (opt-in): deriva tom verde/vermelho + seta pelo sinal do valor. Backward-compat.",
+          "Doc **Maps** no showcase (categoria Charts, `#/chart-map`): coroplético do Brasil por UF em 3 variações (ranking, intensidade contínua, por região) — rampa verde por token + legenda.",
+          "example-dashboard enriquecido: KPI-group \"Painel do Líder\" (KpiGroup divided), KPIs evolutivos com footer, card radial de meta, card dividido com mapa do Brasil, e \"Crescimento da carteira\" (área + KPI interno + KPIs no footer).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "crud-builder/list-builder `generate.md` apontam pra distribuição canônica (§5/§6 do pattern doc).",
+          "Distribuição: `dashboard-builder` sincronizado no template do CLI (`_claude/`) + `ds-kit`/catálogo roteando pra ele (stub `dashboard` removido).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.23.0",
+    date: "2026-06-29",
+    tag: "release",
+    title: "DataTable: visões pré-definidas read-only (`allowCreateView`) + viewMode sticky ao trocar de visão",
+    summary:
+      "Dois ajustes nas visões (saved views) do DataTable, vindos de uso real. (1) Nova prop `allowCreateView` (default `true`): passe `false` pra esconder o botão '+' e exibir SÓ as visões pré-definidas (`defaultViews` + Default) — read-only, o usuário não cria nem salva visões próprias. Ideal pra abas nativas da tela. (2) O viewMode (Tabela/Lista/Kanban) virou 'sticky': trocar de visão só flipa a view se aquela visão DEFINIR um viewMode explícito (ex.: preset salvo em Lista). Antes, clicar em outra visão que não definia viewMode voltava sempre pra Tabela — então alternar entre visões perdia a Lista/Kanban que o usuário estava vendo. Ambos opt-in/não-breaking.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: prop `allowCreateView?: boolean` (default `true`). `false` esconde o botão '+' das visões + o modal de criar visão → exibe só `defaultViews` + Default (read-only).",
+          "TableToolbarViews: prop `allowCreate?: boolean` (gate do ViewsPopover '+' + AddViewModal) — base da `allowCreateView` do DataTable.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "DataTable: trocar de visão não flipa mais a view (Tabela/Lista/Kanban) que o usuário está vendo — viewMode agora é 'sticky', só muda quando o preset declara `viewMode` explícito. Antes, visões sem viewMode caíam no fallback 'table' e perdiam a Lista/Kanban ao alternar entre visões.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.22.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "DataTable: autoFit melhor — header nunca trunca, fill proporcional, toggle consistente",
+    summary:
+      "Três melhorias no autoFit do DataTable. (1) A largura mínima de cada coluna passa a incluir o HEADER inteiro (título + ícone/sort/menu) — o título nunca mais trunca em '...' quando o conteúdo é mais estreito. (2) O espaço que sobra é distribuído PROPORCIONALMENTE entre as colunas (acabou o 'uma coluna gigante + as outras minúsculas'); `col.width` virou base/piso que entra no rateio, em vez de largura fixa. (3) Ao alternar Tabela↔Lista o autoFit re-mede de forma consistente (antes, voltar da Lista encolhia as colunas). ⚠️ Mudança de comportamento: pra travar uma coluna agora use `width` + `maxWidth` iguais (ou um `type` fixo).",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "DataTable autoFit: largura mínima da coluna inclui o header inteiro (headerName + ícone/sort/menu) — título nunca trunca.",
+          "DataTable autoFit: sobra de espaço distribuída proporcionalmente entre as colunas (fill 'tabela de verdade'), independente da quantidade de colunas.",
+          "DataTable autoFit: re-mede de forma consistente no toggle Tabela↔Lista (recalcKey por viewMode).",
+        ],
+      },
+      {
+        type: "breaking",
+        items: [
+          "DataTable: `col.width` agora é BASE/piso (entra no rateio do autoFit), não mais largura 100% fixa. Pra travar uma coluna: `width` + `maxWidth` iguais (ou `type` fixo: actions/checkbox). Skills crud-builder + USAGE + L-053 atualizados.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.21.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "DataTable: paginação opt-in na view Lista (listConfig.paginated)",
+    summary:
+      "A view Lista do DataTable (viewMode=\"list\" + listConfig) mostrava todas as rows por padrão — surpreendia quando a tabela paginava mas a lista rolava 'infinito'. Nova prop opcional `listConfig.paginated`: quando true e a lista é flat, o corpo usa a página atual (mesma paginação da tabela) e o footer de paginação passa a renderizar também na Lista. Totalmente opt-in e retrocompatível (default: mostra todas, sem footer); ignorado quando hierarchical.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `listConfig.paginated?: boolean` — pagina a view Lista flat com a mesma paginação da tabela + mostra o footer. Default false (comportamento atual). Ignorado em `hierarchical`.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Skills crud-builder (repo + cli/templates) + USAGE.md do DataTable documentam a opção `paginated` da lista. L-052 registrada.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.20.0",
+    date: "2026-06-28",
+    tag: "release",
+    title: "MenuSidebar: ícone opcional em bookmark section (atalhos)",
+    summary:
+      "Bookmark section item ganhou a prop opcional `icon?`. Quando presente, renderiza um ícone colorido (tingido com `color` via currentColor, sem caixa de fundo, ~12px — menor que o ícone de categoria) no lugar do dot. Ideal pra atalhos de ferramentas/integrações, combinando com `onAdd` (botão '+' no header da section) pra padrões tipo catálogo de plugins. Totalmente aditivo e retrocompatível: itens sem `icon` continuam com o dot redondo.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "MenuSidebar: `SidebarBookmarkItem.icon?: LucideIcon` opcional — ícone colorido (currentColor via `color`, `size-icon-xs`/12px, sem fundo) no lugar do dot quando presente. Novo style `sidebarBookmarkIcon`.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "MenuSidebarDoc: showcase de sections agora demonstra a variante bookmark com ícone + botão `onAdd` (\"+\"); USAGE e PROPS_DATA atualizados.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.19.1",
+    date: "2026-06-26",
+    tag: "patch",
+    title: "DataTable: autoFit deixa de ser congelado pelo persist",
+    summary:
+      "Fix do autoFit que não preenchia 'de novo' em tabelas com `persistId`. O persist estava salvando as larguras EFETIVAS (que já incluem o autoFit) como se fossem resize manual; no reload elas viravam `widthOverrides` (precedência máxima) e congelavam o layout — o autoFit nunca mais re-preenchia se o container mudasse. Agora o persist guarda SÓ o resize manual do usuário; o autoFit recalcula livre a cada carga. Schema do persist bumpado (v5) pra descartar os widths congelados já salvos.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: persist (workspace Default + saved views) guarda só o resize manual (`widthOverrides`), não as larguras efetivas com autoFit — antes congelava o layout e matava o autoFit no reload (sobrava espaço à direita 'de novo').",
+          "DataTable: SCHEMA_VERSION do persist → v5 (invalida o state antigo com widths congelados; autoFit recalcula limpo na próxima carga).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.19.0",
+    date: "2026-06-26",
+    tag: "release",
+    title: "DataTable: listConfig.getPath — tabela paginada + lista em árvore",
+    summary:
+      "Complemento da view Lista: `listConfig.getPath` desacopla a árvore da LISTA do tree-data da TABELA. Antes, lista hierárquica exigia `getTreeDataPath`, que também ligava o tree-data na tabela e desligava a paginação. Agora dá pra ter tabela FLAT (paginada/ordenável) + lista em ÁRVORE no mesmo DataTable: passe `listConfig.getPath` (caminho raiz→self) e NÃO passe `getTreeDataPath`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `listConfig.getPath?: (row) => (string|number)[]` — caminho da árvore só pra view Lista, independente do `getTreeDataPath` (que liga tree-data na tabela). Fallback pro `getTreeDataPath` quando ausente. Permite tabela paginada + lista em árvore.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "crud-builder (repo + CLI): nota de roteamento atualizada — `listConfig.getPath` pra tabela FLAT paginada + lista em ÁRVORE (vs `getTreeDataPath`, que liga tree-data na tabela). USAGE + DataTableDoc documentam a prop.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.18.0",
+    date: "2026-06-26",
+    tag: "release",
+    title: "DataTable: view Lista (toggle Tabela ↔ Lista)",
+    summary:
+      "Nova view no DataTable: `viewMode: \"list\"` + `listConfig`. Igual ao kanban, o DataTable mantém a MESMA toolbar (busca/filtros/views/ações/totalizadores) e só troca o corpo por uma lista de cards (`<List>` do DS) alimentada pelas rows processadas. O toggle Tabela/Lista aparece automático na toolbar quando há `listConfig`. Com `listConfig.hierarchical` + `getTreeDataPath`, a lista vira árvore (indentação/conectores + `depth` por nível). Showcase em `#/clients-list-view`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "DataTable: `viewMode: \"list\"` + `listConfig={{ renderItem, hierarchical?, defaultExpanded?, getMenuItems? }}` — 3ª view com toggle Tabela/Lista automático (e Kanban se `kanbanConfig`). Mesma toolbar; corpo vira `<List>` com as rows processadas.",
+          "DataTable: lista em árvore via `listConfig.hierarchical` + `getTreeDataPath` (mesmo path do tree-data) — `renderItem(row, { depth, open })`.",
+          "Showcase `#/clients-list-view` (ClientsListViewPreview) demonstrando o toggle.",
+          "Tipos exportados: `DataTableListConfig`, `DataTableListRenderState`.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "crud-builder (repo + CLI) + list-builder: roteamento atualizado — \"tabela + lista no mesmo lugar (toggle)\" usa `viewMode:\"list\"` do DataTable, não um `<DataList>` paralelo + toggle na mão.",
+          "DataTable/USAGE.md: seção \"View Lista (table ⇄ list)\".",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.17.1",
+    date: "2026-06-26",
+    tag: "patch",
+    title: "DataTable: footer compacto + autoFit fluido no 1º paint",
+    summary:
+      "Ajustes de consistência da tabela vindos do consumo real. O footer de totalizadores (`showTotalizers`) fica menor e semibold (`text-body-xs`/600) — hierarquia mais limpa, peso alinhado ao header. O `autoFit` passa a medir o container por content-box (`clientWidth`) já no primeiro paint, igual ao ResizeObserver — antes a 1ª medição usava border-box (incluía a scrollbar vertical) e as colunas saíam largas demais quando havia scroll-Y no mount (ex.: com `showTotalizers`). A skill `crud-builder` (repo + template do CLI) ganhou padrões explícitos de célula e de detail panel espelhando o exemplo Finance.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: footer (totalizers) agora `text-body-xs font-semibold` (12px/600) — antes `body-md`/500, pesado e destoante do header.",
+          "DataTable: `autoFit` mede content-box (`clientWidth`) no 1º paint, alinhado ao `contentRect` do ResizeObserver. Corrige colunas largas demais quando há scroll-Y no mount (`showTotalizers`/altura forçada).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          'crud-builder (repo + CLI): padrões de CÉLULA explícitos (Avatar size="md", status/badges via <Chip soft pill sm>, coluna primária com avatar + nome + secundária + ícone abrir-detalhe, tabular-nums) e de DETAIL PANEL (FloatingPanel + Section por categoria + Field em lista) — espelhando o exemplo Finance como referência de consistência visual.',
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.17.0",
+    date: "2026-06-26",
+    tag: "release",
+    title:
+      "Toolbar: slot de ações custom (button/dropdown/input) com colapso mobile",
+    summary:
+      "Novo slot de ações no toolbar do TableToolbar — exposto em DataTable (`toolbar.actions`) e DataList (`toolbarActions`). Aceita ações `button`, `dropdown` (ex.: seletor de período/mês) e `input`. No desktop renderizam inline (entre Filtros e ⋯); no mobile colapsam automaticamente num único ⋯ (no DataList, junto com os `moreActions`, via `extraItems`) pra manter a responsividade. Componente `<ToolbarActions>` exportado do TableToolbar. Exemplo vivo no showcase `#/list-standard` (seletor de Período).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "TableToolbar: novo slot `actions` + componente `<ToolbarActions>` (tipos `ToolbarAction` / `ToolbarActionMenuItem`) — ações custom button/dropdown/input. Renderiza ANTES da busca (reload · ações · busca · filtro · …); dropdown aceita `hideChevron`.",
+          "DataList: prop `toolbarActions` (colapsa no ⋯ no mobile junto com `moreActions`).",
+          "DataList: chips de filtro aplicado agora são CLICÁVEIS — abrem o fast-filter do column-type pra editar o valor inline (paridade com o DataTable).",
+          "DataTable: `toolbar.actions` (ToolbarAction[]) — inline no desktop, ⋯ próprio no mobile.",
+          "Showcase: exemplo de seletor de Período (dropdown) no `#/list-standard`.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "TableToolbar: novo `<ToolbarFilterButton>` (funil, icon-only) — fonte única do botão de Filtros, usado por DataTable e DataList (antes cada um montava o seu: DataList vinha com `SlidersHorizontal` + label 'Filtros'; DataTable com funil). Padroniza ícone/affordance no componente.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.16.1",
+    date: "2026-06-23",
+    tag: "patch",
+    title:
+      "DataTable: actions sempre por último + auto-width robusto; crud-builder filtra todas as colunas",
+    summary:
+      'Correções vindas do consumo real via CLI. DataTable: a coluna type:"actions" agora ancora à direita e fica sempre por último na renderização por default (mesmo declarada no meio do array), com largura estreita fixa — e fica fora da distribuição flex do auto-width (antes podia esticar/empurrar o conteúdo). crud-builder (repo + template do CLI): reforço explícito de que todas as colunas de dados recebem enableColumnFilter (o funil só lista colunas filtráveis — antes a geração marcava só 2), que actions vai por último sem pinned/width, e que não se seta width nas colunas (autoFit distribui). Nota: o checkbox dos filtros está correto na fonte — se aparecer sem cor no consumidor, é cópia desatualizada → re-pull (igreen:add checkbox/data-table).',
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable: coluna actions auto-ancorada à direita + sempre por último + largura estreita, e excluída do flex do auto-width (não estica mais nem empurra o conteúdo).",
+          "crud-builder (repo + CLI): regra de coluna explícita — todas as colunas filtram (enableColumnFilter), actions por último sem pinned/width, sem width manual (autoFit distribui). Corrige 'filtra só 2 colunas' e '1ª coluna esticada'.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.16.0",
+    date: "2026-06-23",
+    tag: "release",
+    title: "Componente KPI (Kpi + KpiGroup + KpiDelta) + galeria de modelos",
+    summary:
+      "Novo componente template **KPI** composável: `Kpi` (card base — label + ícone por tone + valor + delta + hint + slot pra sparkline + footnote), `KpiGroup` (layout: `columns` 2–6 responsivo + `divided` = 1 card com divisórias) e `KpiDelta` (pílula de variação sobre o Chip, tom semântico + seta). 100% sobre tokens do DS (theme-aware). A doc `#/kpi` traz Primitivos (exemplos demarcados `kpi/<id>` pra referência), tabelas de API e uma seção **Examples** com 9 modelos prontos por categoria (inspirados em shadcnspace statistics-01/02/03/05, prints e o igreen-dashboard) — os que encaixam usam os primitivos, os mais específicos (brand/area, detail strip) são composição custom. Distribuído via `igreen:add kpi`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `Kpi` (`ui/Kpi`): `Kpi` + `KpiGroup` (columns/divided) + `KpiDelta`. Composável (slot pra sparkline via Chart), theme-aware. Doc `#/kpi` (Primitivos + API + Examples/9 modelos). Registry `igreen:add kpi`.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.15.0",
+    date: "2026-06-22",
+    tag: "release",
+    title: "Componente SingleMenuSidebar — navegação lateral de nível único",
+    summary:
+      "Nova sidebar template (App-level) como alternativa enxuta ao MenuSidebar: categoria → sub-itens em accordion (1 aberto por vez), sem rail nem múltiplos contextos. Seleção única (folha, sub-item ou pai aberto). Toggle + hover-to-expand (sem 'piscar' ao recolher). **Responsivo**: 100% da largura no mobile e some ao recolher (rail é só desktop). **Módulos com menu próprio** (`modules`): trocar no seletor atualiza o módulo ativo + as categorias. **Busca via Command** (⌘K) listando os itens do menu (customizável). 100% sobre tokens do DS, sem variantes. Showcase `#/single-menu-sidebar`; distribuído via `igreen:add single-menu-sidebar`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `SingleMenuSidebar` (`ui/SingleMenuSidebar`): navegação de nível único (accordion), seleção única, toggle + hover-to-expand, módulos com menu próprio (`modules`), busca via Command (⌘K, customizável) e rodapé de usuário com dropdown. Responsivo (100% no mobile, some ao recolher). Showcase `#/single-menu-sidebar` + registry (`igreen:add single-menu-sidebar`).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.14.1",
+    date: "2026-06-21",
+    tag: "patch",
+    title:
+      "Mapa de Rede repaginado — card rico + conectores + filtros/abas/refresh",
+    summary:
+      "Polimento do exemplo Mapa de Rede (`#/mapa-rede` · `igreen:add example-mapa-rede`): muito mais dados (rede multi-raiz realista por regiões, ~30 consultores em vários níveis), card no estilo 'card rico' com ícones (GP, clientes, agregado da subárvore, região, última atividade) e graduação/PRO em chips. O nível (N1=líder, N2, N3…) vira um círculo neutro à esquerda — na altura de título+subtítulo —, no lugar do avatar de iniciais. Layout hierarchical com destaque de **conectores** (linhas de árvore), e toolbar completa: **abas** (visões PRO / Diretoria / Sudeste), busca, **filtros** (graduação / região / PRO) e botão de **refresh**. Painel de detalhe enriquecido (telefone, região, última atividade). Menu renomeado pra 'Mapa de Rede'.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "Exemplo Mapa de Rede: card rico (círculo de nível N1/N2/N3 + ícones + chips), conectores, mais dados (multi-raiz por região), abas/filtros/busca/refresh na toolbar e painel de detalhe enriquecido. Showcase + `example-mapa-rede` (registry) sincronizados.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.14.0",
+    date: "2026-06-20",
+    tag: "release",
+    title:
+      "Componente DataList (lista inteligente) + builder de lista + tela Mapa de Rede",
+    summary:
+      "DataList é pro List o que o DataTable é pro Table: camada inteligente com toolbar enxuta (visões em ABAS · busca · filtros por campos com chips de filtro aplicado · ⋯), saved-views, persistência, seleção/bulk, server/async, virtualização ⊕ infinite-scroll, `fillHeight` (scroll no container, toolbar fixa) e — no layout hierarchical — `branchHighlight` (`none` conectores / `block` painéis aninhados / `active` ramo do último aberto), que destaca a 'família' em árvores grandes. Reusa o TableToolbar e o FilterModel da tabela. Acompanha 5 telas de exemplo (standard/grouped/hierarchical/selectable/card rico) + a tela **Mapa de Rede** (DataList hierárquico em árvore de consultores por níveis, estilo example-finance: AppShell + PageHeader + painel de detalhe + AlertModal). Distribuído via `igreen:add data-list` e `igreen:add example-mapa-rede`. Pipeline ganhou a skill irmã `list-builder` (`/ds-create-list`) + front-door `/ds-create-screen` que desambigua tabela-vs-lista, e os hooks de segurança foram reparados (estavam cegos no Windows).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `DataList` (`ui/DataList`): toolbar (abas de visão · busca · filtros + chips · ⋯), saved-views, persistência, seleção/bulk, server/async, virtualização, infinite-scroll, `fillHeight`. Showcase `#/data-list` + registry (`igreen:add data-list`).",
+          "`branchHighlight` no List/DataList hierarchical: `block` (painéis aninhados = 1 bloco por família) e `active` (só o ramo do último nó aberto recebe o painel + trilha) — pra não se perder em árvores grandes.",
+          "5 telas de exemplo do DataList (standard · grouped+DnD · hierarchical · selecionável · card rico) + a tela **Mapa de Rede** (`#/mapa-rede` e `?app=mapa-rede`) — árvore de consultores por níveis. Exemplo distribuível `igreen:add example-mapa-rede`.",
+          "Pipeline: skill `list-builder` + commands `/ds-create-list` e `/ds-create-screen` (front-door que desambigua tabela-vs-lista de cards), no repo e no consumidor (ds-kit roteia ambos).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "List hierarchical: guia (treeview) do último nó não era desenhada (off-by-one no connector, mascarado nos roots não-últimos) — corrigido (L-045). Nós-folha não reservam mais espaço de chevron.",
+          "Hooks de segurança do pipeline estavam cegos (jq ausente + path Windows com `\\`) → rodavam mas pulavam tudo; reparados com fallback node + normalização de separador (L-044).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Lições L-044..L-048 + auditoria do pipeline (rede de segurança, DoD de skill builder).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.13.0",
+    date: "2026-06-20",
+    tag: "release",
+    title:
+      "Componente List (cards) — standard / grouped+DnD / hierarchical + shadows dark-aware",
+    summary:
+      'Novo primitivo de listagem em cards `List` (como o `Table` é o primitivo de tabela; a versão com toolbar/busca/filtros, `DataList`, vem depois). 3 layouts: standard (lista plana), grouped (seções colapsáveis com drag-and-drop via @hello-pangea/dnd, físico/suave, + painel por grupo via `groupSurface`) e hierarchical (árvore-como-lista colapsável com linhas de conexão contínuas e contagem por nível, entidades mistas). Conteúdo do card por slots (leading/title/subtitle/description/meta-colunas/trailing) ou `renderItem` (cards ricos — ex.: orders com avatares, meta com ícones e footer de progresso). Seleção e colapso controlados-ou-não; DnD burro (emite onMove/onReorder, consumer commita). Registrado no registry (`igreen:add list`). Inclui um fix FOUNDATIONAL de elevação: as sombras agora são dark-aware de verdade — antes o Tailwind v4 inlinava o valor light na utility e o `.dark` não pegava (md virava um "halo claro"); agora via `@theme inline` + indireção (L-043), corrigindo o dark em todo o DS.',
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `List` (`ui/List`): 3 layouts (standard · grouped+DnD · hierarchical), card por slots ou `renderItem`, seleção/colapso controlado-ou-não, estados loading/empty, densidade. Showcase `#/list` + registry (`igreen:add list`).",
+          "Layout grouped: drag-and-drop com @hello-pangea/dnd (displacement suave + placeholder), realce da dropzone e elevação do card; `groupSurface` (painel por grupo).",
+          "Layout hierarchical: árvore-como-lista com colapso, linhas de conexão contínuas e indicador de quantidade por nível.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          'Shadows dark-aware (FOUNDATIONAL): Tailwind v4 inlinava o valor light da sombra na utility, então `.dark { --shadow-* }` não tinha efeito (md = "halo claro" no dark). Corrigido via `@theme inline` + vars de indireção `--ds-sh-*` em :root/.dark (L-043). Afeta todo componente que usa `shadow-sh-*` no dark.',
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline: lição L-043 (gotcha de shadow no Tailwind v4) + resumo em ds-standards.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "CLI 0.13.7 + pipeline",
+    date: "2026-06-19",
+    tag: "patch",
+    title:
+      "Toast no catálogo do CLI + garantia de completude das superfícies do componente (L-042)",
+    summary:
+      "Fecha os gaps que apareceram logo após o lançamento do Toast (v0.12.0). O catálogo que o CLI injeta nos projetos scaffoldados passou a listar o `toast` (CLI republicado 0.13.7) — antes, um projeto novo não sabia que o componente existia. E o pipeline ganhou uma garantia para a IA prever TODAS as superfícies de um componente novo, não só código+USAGE: o hook `ds-inventory-check` agora acusa, na hora da edição, quando o componente está no registry mas fora do catálogo do CLI, ou quando a DocPage existe mas não está registrada no `App.tsx`/`DOC_PAGES`+nav (o clássico render em branco). Mais a tabela “Definição de Pronto” (7 superfícies) no handoff e a lição L-042. Defesa em profundidade: hook na edição → checklist no fechamento → pre-commit/release antes de distribuir.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "Hook `ds-inventory-check`: além de USAGE/inventory/registry, agora acusa (1) componente no registry mas fora do catálogo do CLI e (2) DocPage criada sem rota no `App.tsx`/`DOC_PAGES`+nav (render em branco). Cobre 5 das 7 superfícies automaticamente, na edição.",
+          "Skill `handoff-pr`: tabela “Definição de Pronto” com as 7 superfícies de um componente (código · USAGE · inventory · showcase · registry · catálogo CLI · changelog) + cadência (1–4 no PR; 5/6/7 no /ds-release). L-042.",
+          "`pre-commit-check` e `release` passam a cobrar o catálogo do CLI (qualquer toque em `cli/**` → bump + publish).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Toast ausente no catálogo do CLI: adicionado aos composites + nota em Feedback; CLI republicado (`@snksergio/create-design-system` 0.13.6 → 0.13.7). Projetos novos agora conhecem o `toast`.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.12.0",
+    date: "2026-06-19",
+    tag: "preview",
+    title:
+      "Componente Toast (card sobre o Sonner) + política de USAGE pro shadcn",
+    summary:
+      "Novo composto `Toast` (ui/Toast) que consome o Sonner via `toast.custom` — mantém todo o nativo (agrupamento, empilhamento, slide, swipe, posições) e adiciona uma API ergonômica: `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose, meta })` + neutro `toast({...})`. O status muda SÓ o icon-chip (bg fraco `-muted` + ícone forte `fg-*`) — o card continua neutro (surface), com texto de alto contraste. Layout em coluna: linha principal centralizada (ícone · título+descrição · meta/ação-inline/close) e, quando há 2 botões, rodapé à direita com gap 4px. Registrado no registry (consumível via `igreen:add toast`). O Sonner volta ao neutro (a 1ª tentativa de tingir o toast inteiro por status foi revertida). Pipeline: índice único `shadcn/USAGE.md` (só gotchas, não 1 arquivo por primitivo) + regra de quando documentar, e garantia de handoff via PR no fluxo de componente (Regra 8 / L-041).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Componente `Toast` (`ui/Toast`): card de notificação sobre o Sonner via `toast.custom`. API espelha o Sonner (`toast.success/.error/.warning/.info({...})` + neutro), props `title/description/icon/action/cancel/onClose/meta`, passthrough de `promise/dismiss/custom/loading`. Showcase `#/toast` com preview estático (anatomia) + exemplos vivos. Registrado no registry (`igreen:add toast`).",
+          "Índice `src/components/shadcn/USAGE.md`: doc única de gotchas dos primitivos shadcn (setup no root, dep extra, receita flutuante, z-index) — em vez de 1 USAGE por arquivo.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Sonner revertido pro neutro: o status volta a trocar SÓ o ícone (sem tingir fundo/borda do toast inteiro). Cards ergonômicos/coloridos agora são feitos pelo composto `Toast`.",
+          "Toast — status no icon-chip: bg fraco (`bg-{status}-muted`) + ícone forte (`fg-{status}`); superfície neutra; texto `fg-default` (alto contraste em light/dark).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline — política de USAGE pro shadcn: `impl-shadcn` (decisão “tem gotcha? 1 linha : nada”), `pre-commit-check` (valida cobertura + reprova USAGE por-arquivo) e `ds-standards` (regra auto-carregada).",
+          "Pipeline — handoff via PR garantido no fluxo de componente (Regra 8 / L-041): branch + commit descritivo + PR no mirror + link pro gate humano; a IA para no merge. Skill `ds-dev/handoff-pr` + commands de componente + orchestrator.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.11.0",
+    date: "2026-06-19",
+    tag: "milestone",
+    title:
+      "Expansão do catálogo: 16 componentes shadcn + ícones de marca + padronização dos flutuantes",
+    summary:
+      "Maior expansão de componentes do DS. Fecha as lacunas do catálogo shadcn com 16 primitivos/compostos novos (Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group, Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer) — todos tokenizados iGreen, documentados no showcase e registrados no registry (consumíveis via `igreen:add`). Documenta Combobox e Sheet (já existiam sem doc). Adiciona o set de ícones oficiais de marca `igreen-*` (9: green/livre/placas/club/solar/telecom/licenciado/seguro/clientes) com suporte a multi-path no Icon. Corrige bugs estruturais: alinhamento header/footer da DataTable por column-type (L-038), borda branca/preta no Tailwind v4 (L-039) e padroniza TODOS os flutuantes na receita única do DS (L-040). Pipeline reforçado pra não reincidir (lessons + ds-standards + skills crud/impl-shadcn).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "16 componentes shadcn tokenizados + DocPages + registry: Tooltip, Skeleton, Sonner, Collapsible, Scroll Area, Date Picker, Toggle, Toggle Group, Input OTP, Context Menu, Hover Card, Menubar, Navigation Menu, Carousel, Aspect Ratio, Drawer.",
+          "DatePicker composto (`ui/DatePicker`): Popover + Calendar + trigger estilo input do DS.",
+          "Ícones oficiais de marca `igreen-*` (9) no componente Icon, com suporte a multi-path (`igreen-club`).",
+          "Docs de showcase pra Combobox e Sheet (componentes que já existiam sem documentação).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "DataTable: alinhamento de header/footer não herdava o `defaultAlign` do column-type (currency/number/percentage saíam desalinhados no consumidor) — resolvido na fonte única `effectiveColumns` (L-038).",
+          "Borda branca/preta no Tailwind v4: classe `border` crua = só largura → `currentColor`; trocada por `border-border-default` nos flutuantes (L-039).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Padronização dos componentes flutuantes (Context Menu, Menubar, Navigation Menu, Hover Card) na receita única do DS (bg-bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float; itens/separator/label/shortcut por token) — consistência com DropdownMenu/Popover (L-040).",
+          "Tooltip e Hover Card: delay default reduzido (200ms) — o default do Radix (700ms) era lento.",
+          "Skill crud-builder reforçada: força perguntar colunas + oferecer views; + estados (loading/vazio/sem-resultado), confirmação de exclusão, campos do form e views do usuário.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Pipeline anti-reincidência: lições L-038/L-039/L-040 (lessons.md + ds-standards.md auto-carregada) + skill impl-shadcn (exceções de borda e receita de flutuante).",
+          "Pipeline garante handoff via PR (L-041 / Regra 8): todo trabalho de componente fecha com branch + commit descritivo + PR no mirror + link pro gate humano; a IA para no merge (merge/publish só autorizado). Nova skill `ds-dev/handoff-pr` + commands de componente + orchestrator atualizados.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "CLI 0.13.1",
+    date: "2026-06-18",
+    tag: "patch",
+    title: "Tela inicial do scaffold redesenhada + tema “Sistema”",
+    summary:
+      "Refino da experiência de primeiro contato no projeto scaffoldado pelo `@snksergio/create-design-system`. A tela de boas-vindas passa a usar `PageHeader` (no mesmo modelo das páginas de exemplo), ganha seção de tokens de cor (swatches que trocam sozinhos light/dark), bloco de prompt de bootstrap copy-paste pra dar contexto à IA, e a vitrine do kit de construção (ds-kit + crud-builder + skills + protect-ds). Os prompts viram lista (1 coluna) e o “Como funciona” vira timeline vertical — leitura mais harmônica. O App gerado passa a oferecer o tema “Sistema” (default, segue `prefers-color-scheme`): quem usa o SO em dark abre o scaffold em dark (antes nascia branco). Inclui também o fix do `--overwrite` no `igreen:add`/`igreen:update` (sem mais prompt interativo travando a instalação de exemplos/tabelas/cruds).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Tema “Sistema” no App gerado (`Theme = light|dark|system`, default `system`) com observer de `prefers-color-scheme` — OS dark abre o scaffold em dark.",
+          "Tela inicial: seção “Cores do sistema” (swatches de tokens semânticos), bloco de prompt de bootstrap pra IA e vitrine do kit (ds-kit, crud-builder, skills, protect-ds).",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Welcome consome `PageHeader` (+ Badge) no padrão das páginas de exemplo; prompts em formato de lista; “Como funciona” em timeline vertical; espaçamentos calibrados (gap entre seções, título↔subtítulo justos) e padding de página (cards não cortam nas bordas).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "`igreen:add`/`igreen:update` passam `--overwrite` ao `shadcn add` → fim do prompt interativo `overwrite? (y/N)` que travava a instalação de exemplos/tabelas/cruds com deps compartilhadas.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.10.0",
+    date: "2026-06-17",
+    tag: "milestone",
+    title:
+      "Distribuição completa: registry + CLI + kit de construção no consumidor",
+    summary:
+      "Marco da distribuição. O DS vira consumível ponta-a-ponta: registry shadcn privado (copy-in) com 56 itens — incl. 6 telas-exemplo extraídas 1:1 dos showcases (clientes, finance, dashboard, order-detail, edit-page, chat) — + o CLI `@snksergio/create-design-system` que scaffolda projeto pronto (banner, tela de boas-vindas/tutorial, exemplos navegáveis no menu) + um KIT embutido no consumidor (orquestrador `ds-kit` + skills crud-builder/page-edit/page-detail/dashboard/charts/chat/drawers/cards + DESIGN.md + regras auto-carregadas) pra IA montar telas por intenção. Integridade protegida por hook. Pipeline do DS ganha cobertura (hooks de registry/tokens, drift-check examples↔showcase, CI) e o bug do DataTable (react-virtual ausente no item) foi corrigido.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Registry shadcn privado completo (56 itens) + 6 telas-exemplo (`example-clientes/finance/dashboard/order-detail/edit-page/chat`) extraídas 1:1 dos showcases (conteúdo de página, sem shell).",
+          "CLI `@snksergio/create-design-system`: banner, tela de boas-vindas/tutorial, prompt pra instalar exemplos no menu, AppShell com hash-routing. Fontes Geist embutidas no template.",
+          "Kit de construção no consumidor (`.claude/`): orquestrador `ds-kit` (intenção→rota), skills focadas (crud-builder, page-edit, page-detail, dashboard, charts, chat, drawers, cards), `DESIGN.md` enxuto, regras auto-carregadas e hook `protect-ds` (bloqueia edição de tema/tokens/fundação).",
+          "Pipeline DS: `registry-check.mjs` (consistência paths+embed), `examples-drift-check.mjs` (examples↔showcase), CI GitHub Actions (tsc+test+consistência+drift), hooks `ds-tokens-check` e cobertura de registry no `ds-inventory-check`.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Item `@igreen/data-table` não declarava `@tanstack/react-virtual` → DataTable crashava (Invalid hook call) em consumidor limpo. Corrigido.",
+          "Template do CLI: fonte Geist não carregava (caía em system-ui) — `@font-face` + woff2 + `--font-sans` adicionados.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Auditoria de saúde: remoção de órfão (ChartComingSoonDoc), docs de path corrigidas, `TabelaTeste` fora do barrel público, placeholder do registry-add-item.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.9.0",
     date: "2026-06-11",
     tag: "release",
@@ -58,7 +613,7 @@ export const RELEASES: ReleaseEntry[] = [
         type: "added",
         items: [
           "Skill `crud-builder` + comando `/ds-create-crud` — entrevista guiada que gera tela CRUD/tabela consumindo a DataTable.",
-          "DataTable: toggle **\"Exibição\" (Linhas/Cards)** no mobile via nova prop `mobileDisplayToggle` da ToolbarSettingsMenu — usuário força tabela ou cards abaixo do `cardBreakpoint`.",
+          'DataTable: toggle **"Exibição" (Linhas/Cards)** no mobile via nova prop `mobileDisplayToggle` da ToolbarSettingsMenu — usuário força tabela ou cards abaixo do `cardBreakpoint`.',
           "Showcase ClientesFinanceiro reformulado: CRUD completo + Kanban + `EditarFinanceDrawer` com campos reais da row (selects, chips, switch).",
           "README: tutorial de como produzir telas e CRUDs com IA usando o DS como subprojeto.",
         ],
@@ -111,7 +666,7 @@ export const RELEASES: ReleaseEntry[] = [
         type: "changed",
         items: [
           "A `<TableToolbar>` opinionated agora é a CANÔNICA (default). A versão antiga (dumb/sem opinião) foi renomeada e depois removida — não há mais escolha por prop; o DataTable renderiza a opinionated direto.",
-          "Vocabulário de operador de filtro UNIFICADO — ids longos (`equals`/`contains`/`isAnyOf`/`between`/…) ponta a ponta, do FilterModel ao chip. O dual-namespace curto↔longo (`utils/operator-mapping.ts`, eq↔equals) foi DELETADO. Resolve a classe de bug do operador \"É\" resetar pra \"contém\".",
+          'Vocabulário de operador de filtro UNIFICADO — ids longos (`equals`/`contains`/`isAnyOf`/`between`/…) ponta a ponta, do FilterModel ao chip. O dual-namespace curto↔longo (`utils/operator-mapping.ts`, eq↔equals) foi DELETADO. Resolve a classe de bug do operador "É" resetar pra "contém".',
           "Operador default de cada filtro agora é DERIVADO do `columnTypeRegistry` (`registry.get(typeId).operators[0]`) em vez de switch hardcoded por filterType — adicionar tipo de coluna/filtro novo não exige mais editar a inferência.",
           "`filterType` virou união ABERTA (`string & {}`) — consumers registram tipos custom no registry sem alterar o union fechado do core.",
           "`gte`/`lte` implementados em number/currency/percentage/date/datetime + no SQL parser (antes só gt/lt).",
@@ -157,12 +712,12 @@ export const RELEASES: ReleaseEntry[] = [
       {
         type: "added",
         items: [
-          "Componente `<CardCheckbox>` em `src/components/ui/CardCheckbox/` — checkbox apresentado como card clicável (área grande, label + description visíveis, ícone opcional à esquerda). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). `<label htmlFor>` nativo wrap (não `<button>`) preserva acessibilidade + form integration (L-025). Uso atual: SacarDialog aba \"Outra conta\".",
+          'Componente `<CardCheckbox>` em `src/components/ui/CardCheckbox/` — checkbox apresentado como card clicável (área grande, label + description visíveis, ícone opcional à esquerda). Mesma estética dos radio cards (bg-success-muted + border-brand no selected). `<label htmlFor>` nativo wrap (não `<button>`) preserva acessibilidade + form integration (L-025). Uso atual: SacarDialog aba "Outra conta".',
           "Token `formGap` (20px = scale[5]) em `tokens/.../components/spacing.ts` → CSS var `--spacing-form-gap` → classe `gap-form-gap`. Spacing dedicado entre FormField units em forms/drawers/modais (vertical ou grid 2-col). Substitui o uso ad-hoc de `gap-gp-lg`/`gap-gp-xl` (L-024).",
           "Util `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` — calcula `white` vs `black` por luminância + contrast ratio WCAG 2.x. Pra componentes com bg dinâmico/externo (lookup de marca, persona, status custom).",
           "Prop `mobileSheet` em `DropdownMenuContent` (default `true`) — em telas <md o menu vira sheet bottom-up colado nas bordas, full-width, com backdrop suave (toque fora fecha via dismiss do Radix). Wrapper do Radix Popper reposicionado via globals.css (`[data-radix-popper-content-wrapper]:has([data-mobile-sheet])`). `false` mantém popover ancorado no trigger.",
           "Deep-linking no preview app (`App.tsx`) — a navegação sincroniza com a URL via hash (`#/<id>`): `pushState` por página, `popstate`/`hashchange` pra back/forward + edição manual, init valida o hash contra a lista de páginas. Sem libs novas; funciona com o build estático do Vite.",
-          "Tela exemplo `ClientesFinanceiroShowcase` (standalone via `?app=finance`) — KPIs no pattern Dashboard, tabela financeira, `SacarDialog` (saldo + form \"Outra conta\") e 2 preset views (Digitais · Alto valor ≥ R$ 5k).",
+          'Tela exemplo `ClientesFinanceiroShowcase` (standalone via `?app=finance`) — KPIs no pattern Dashboard, tabela financeira, `SacarDialog` (saldo + form "Outra conta") e 2 preset views (Digitais · Alto valor ≥ R$ 5k).',
         ],
       },
       {
@@ -177,9 +732,9 @@ export const RELEASES: ReleaseEntry[] = [
         type: "fixed",
         items: [
           "Panel mobile: removido `inset-y-auto` que o `tailwind-merge` tratava como superset de `bottom` e zerava a âncora `bottom-0` — o painel colapsava sem âncora vertical. `top-auto` + `bottom-0` já sobrescrevem o `inset-y-pad-4xl` do desktop via media query.",
-          "Table: header right-aligned só reserva `pr-[60px]` quando sort ativo (era sempre que `sortable || headMenu`, deslocando o texto de colunas `align=\"right\"` como Saldo). Ícones hover-only usam stack absolute mascarado. Coluna `actions` 40px (L-026).",
+          'Table: header right-aligned só reserva `pr-[60px]` quando sort ativo (era sempre que `sortable || headMenu`, deslocando o texto de colunas `align="right"` como Saldo). Ícones hover-only usam stack absolute mascarado. Coluna `actions` 40px (L-026).',
           "DropdownMenu: backdrop renderizado em Portal próprio — cada Portal Radix aceita 1 filho (Presence/Slot), evitando `React.Children.only`.",
-          "SacarDialog: form \"Outra conta\" usa `<FormField>` do DS em vez de `<label>` raw — peso/cor corretos e dark-mode-aware (L-023). Saldo maior + label strong.",
+          'SacarDialog: form "Outra conta" usa `<FormField>` do DS em vez de `<label>` raw — peso/cor corretos e dark-mode-aware (L-023). Saldo maior + label strong.',
         ],
       },
     ],
@@ -188,7 +743,8 @@ export const RELEASES: ReleaseEntry[] = [
     version: "0.7.0",
     date: "2026-06-08",
     tag: "preview",
-    title: "ButtonGroup + DataTable simpleFilter (opt-IN) — split button com drawer lateral + advanced popover",
+    title:
+      "ButtonGroup + DataTable simpleFilter (opt-IN) — split button com drawer lateral + advanced popover",
     summary:
       "2 features grandes. (1) Novo componente `<ButtonGroup>` — split button (Primary + Chevron) que usa o `<Button>` próprio do DS via composição. (2) DataTable ganha prop opt-IN `simpleFilter` que transforma o botão Filtros em split button: Primary abre drawer lateral com lista vertical de TODOS os filtros (aplicação LIVE, operator inferido do filterType); Chevron abre o query builder avançado (FilterPopover atual). TableToolbar passa a ser o dono completo do controle de filtros via novo `<ToolbarFilterControl>` (parts/) + `useToolbarFilterControl` (hooks/) + `<ToolbarSimpleFilterDrawer>` (parts/). DataTable consome via 1 componente, sem montar manualmente. Default OFF mantém compatibilidade 100% com consumers atuais.",
     changes: [
@@ -199,7 +755,7 @@ export const RELEASES: ReleaseEntry[] = [
           "Prop `simpleFilter?: { enabled, hiddenFields, title, size }` no `DataTableProps` — opt-IN (default false). Quando `enabled: true`, o botão Filtros vira split button (ButtonGroup) com Primary abrindo drawer lateral `<ToolbarSimpleFilterDrawer>` e Chevron abrindo `<FilterPopover>` advanced. Drawer renderiza lista vertical com TODOS os filtros (1 linha por coluna, widget do registry, aplicação LIVE sem botão Aplicar). Operator inferido do filterType (multiSelect → isAnyOf, text → contains, etc). `hiddenFields` permite ocultar filtros que só fazem sentido no advanced.",
           "Novo `<ToolbarFilterControl>` em `src/components/ui/TableToolbar/parts/toolbar-filter-control.tsx` — orquestrador único de filtros. Encapsula ButtonGroup + ToolbarSimpleFilterDrawer + FilterPopover via composição. DataTable consome 1 componente em vez de montar manualmente. Consumers de TableToolbar standalone podem usar diretamente. State via `useToolbarFilterControl` (interno por default; consumer pode passar `controlState` externo pra deep-link/programatic).",
           "Hook `useToolbarFilterControl` em `TableToolbar/hooks/` — encapsula state dos 2 modos (simpleDrawerOpen + advancedPopoverOpen) com handlers `openSimple()` / `toggleAdvanced()` / `closeAll()`. Importado standalone pra consumer customizar abertura programaticamente (atalho teclado, query param, etc).",
-          "Componente `<ToolbarSimpleFilterDrawer>` em `TableToolbar/parts/` — drawer FloatingPanel side=\"right\" com lista vertical de filtros. Aplicação LIVE (cada toggle atualiza filterModel direto). Operator inferido inline via switch do filterType. Preserva posição original dos items no array (reconstrução in-place — não empurra pro fim ao editar).",
+          'Componente `<ToolbarSimpleFilterDrawer>` em `TableToolbar/parts/` — drawer FloatingPanel side="right" com lista vertical de filtros. Aplicação LIVE (cada toggle atualiza filterModel direto). Operator inferido inline via switch do filterType. Preserva posição original dos items no array (reconstrução in-place — não empurra pro fim ao editar).',
           "Nova prop `anchor?: ReactNode` em `FilterPopover` — posiciona o popover sem disparar abertura via click. Usado pelo split button (popover controlled via state). Resolve race condition do PopoverTrigger asChild + ButtonGroup wrapper. Quando `anchor` undefined, mantém `trigger` como PopoverTrigger padrão.",
         ],
       },
@@ -210,7 +766,7 @@ export const RELEASES: ReleaseEntry[] = [
           "Chevron do ButtonGroup agora é QUADRADO (width = height alinhado com size-form-*) — antes era width compacta (~32px no md) que ficava acanhado vs altura 40px do Primary. Pattern alinhado com Shadcn/Linear/Notion.",
           "Drawer `<ToolbarSimpleFilterDrawer>` ganhou padding interno `px-[18px] py-[14px]` alinhado com header/footer do FloatingPanel. O body do FloatingPanel é genérico (sem padding default); cada consumer define o seu.",
           "Gap entre filtros no drawer aumentado de gp-xl (12px) pra gp-2xl (16px) — campos respiram visualmente sem inflar demais a altura do drawer.",
-          "Altura do ButtonGroup no DataTable alinhada com ToolbarToolButton (size=\"md\" = 40px) — antes estava sm (36px) e gerava discrepância visual com Exportar/Ordenar/Cols na toolbar.",
+          'Altura do ButtonGroup no DataTable alinhada com ToolbarToolButton (size="md" = 40px) — antes estava sm (36px) e gerava discrepância visual com Exportar/Ordenar/Cols na toolbar.',
         ],
       },
       {
@@ -218,7 +774,7 @@ export const RELEASES: ReleaseEntry[] = [
         items: [
           "DataTable simplificou wire de filtros — antes montava manualmente `<FilterPopover>` + `<ButtonGroup>` + `<DataTableSimpleFilterDrawer>` separados com state local (~100 linhas). Agora instancia `<ToolbarFilterControl>` único (~30 linhas) passando config. State (drawer/popover open) mora no hook interno do ToolbarFilterControl.",
           "Drawer movido de `DataTable/parts/data-table-simple-filter-drawer.tsx` → `TableToolbar/parts/toolbar-simple-filter-drawer.tsx` (renomeado `DataTableSimpleFilterDrawer` → `ToolbarSimpleFilterDrawer`). TableToolbar passa a ser o dono completo do controle de filtros. Coupling-aceita TableToolbar → DataTable (`columnTypeRegistry`, `FilterModel` types) — mesmo pattern de `<FilterPopover>` que já importava `ColumnOption`. Coupling reverso (DataTable → TableToolbar) **continua proibido**.",
-          "USAGE.md atualizados — DataTable ganhou seção \"Filtros — split button + drawer simple (v0.7.0+, opt-IN)\"; TableToolbar adicionou seção \"3-pre. ToolbarFilterControl\" + entries Compound + hook example. Inventory.md (`.ai/context/components/inventory.md`) adicionou ButtonGroup como 7º componente principal + nota sobre v0.7.0 do DataTable + ToolbarFilterControl.",
+          'USAGE.md atualizados — DataTable ganhou seção "Filtros — split button + drawer simple (v0.7.0+, opt-IN)"; TableToolbar adicionou seção "3-pre. ToolbarFilterControl" + entries Compound + hook example. Inventory.md (`.ai/context/components/inventory.md`) adicionou ButtonGroup como 7º componente principal + nota sobre v0.7.0 do DataTable + ToolbarFilterControl.',
         ],
       },
     ],
@@ -227,7 +783,8 @@ export const RELEASES: ReleaseEntry[] = [
     version: "0.6.0",
     date: "2026-06-07",
     tag: "preview",
-    title: "DataTable — prop showEmptyFilterChips (chips de filtro vazios pré-ativos) + harden de filtros + 5 novos operators",
+    title:
+      "DataTable — prop showEmptyFilterChips (chips de filtro vazios pré-ativos) + harden de filtros + 5 novos operators",
     summary:
       "Release maior em funcionalidade e correção de filtros. Highlight: nova prop opt-in `showEmptyFilterChips?: string[]` lista fields que aparecem como chips placeholder na toolbar mesmo sem valor (use case: dashboards com filtros pré-abertos esperando user preencher). Combine com `filterModel` controlado pra ter chips placeholder visíveis desde o load. Nova página de exemplo `ClientsPreFilteredPreview` demonstra o pattern. Plus: harden completo do sistema de filtros (auto-promote operator escalar→multi, normalização defensiva de operator legado, popover Filtros agora respeita operators column-aware, 5 novos operators expressivos no query builder).",
     changes: [
@@ -270,7 +827,8 @@ export const RELEASES: ReleaseEntry[] = [
     version: "0.5.1",
     date: "2026-06-05",
     tag: "patch",
-    title: "Fix crítico de types no npm + transferência de repo + pipeline drift",
+    title:
+      "Fix crítico de types no npm + transferência de repo + pipeline drift",
     summary:
       "Patch que destrava o consumo TypeScript do pacote. Versões v0.1.0 até v0.5.0 publicavam .d.ts referenciando paths fora do tarball (vite-plugin-dts preservava estrutura de source, mas o `files` do package.json não incluía `dist-lib/src/**` nem `dist-lib/tokens/**`). Consumers TypeScript instalavam mas não tinham IntelliSense — import retornava `any`. Bug silencioso por 4 releases. Plus: repositório transferido pra organização `igreenlab/igreen-desingsystem-admin`, licença declarada explicitamente (UNLICENSED), engines.node >=20.0.0 documentado. CLI bootstrap (@snksergio/create-design-system) também subiu pra v0.1.4 com template alinhado: pin atualizado pra ^0.5.1, classes de tipografia migradas pro novo schema (typography rewrite 2026-05-19), Geist font carregada via @font-face. Pipeline interno auditado: 14 arquivos de skills/rules/context tinham presets removidos (`text-label-*`, `text-paragraph-*`) ainda como pattern canônico — corrigidos.",
     changes: [
@@ -286,9 +844,9 @@ export const RELEASES: ReleaseEntry[] = [
         type: "changed",
         items: [
           "Repositório transferido de `snksergio/igreen-desingsystem-admin` para `igreenlab/igreen-desingsystem-admin` (organização). package.json (lib + CLI), README.md e InstallationDoc atualizados",
-          "Licença declarada explicitamente: `\"license\": \"UNLICENSED\"` (antes ausente — npm exibia \"Proprietary\" como default)",
-          "Engines declarado: `engines.node: \">=20.0.0\"`",
-          "CLI template default agora pinha `\"geist\": \"^1.7.0\"` explicitamente (antes era transitive via design-system) — fonte Geist carregada via @font-face no index.css apontando pro node_modules/geist",
+          'Licença declarada explicitamente: `"license": "UNLICENSED"` (antes ausente — npm exibia "Proprietary" como default)',
+          'Engines declarado: `engines.node: ">=20.0.0"`',
+          'CLI template default agora pinha `"geist": "^1.7.0"` explicitamente (antes era transitive via design-system) — fonte Geist carregada via @font-face no index.css apontando pro node_modules/geist',
         ],
       },
       {
@@ -305,7 +863,8 @@ export const RELEASES: ReleaseEntry[] = [
     version: "0.5.0",
     date: "2026-05-20",
     tag: "preview",
-    title: "DataTable — fluid auto-fit + persistência completa do workspace Default",
+    title:
+      "DataTable — fluid auto-fit + persistência completa do workspace Default",
     summary:
       "Duas features grandes na DataTable, opt-in zero (default ligado, sem breaking change). (1) Auto-fit de colunas em 3 camadas: type heuristics + canvas measureText nos primeiros 20 rows + distribuição flex do espaço sobrando. ResizeObserver mantém widths sincronizados quando o container muda. Resolve o caso 'tabela com poucas colunas e espaço vazio à direita' que pesava em vários showcases. (2) Persistência completa do workspace Default: filterModel/search/currentPage agora também persistem em localStorage (schema v4) junto com sort/density/widths. Quando user aplica view custom, snapshot da Default fica congelado; voltar para Default restaura tudo intacto. Limpeza só manual.",
     changes: [
@@ -333,7 +892,7 @@ export const RELEASES: ReleaseEntry[] = [
       {
         type: "fixed",
         items: [
-          "Comportamento de persistência inconsistente reportado pelo user: \"alguns filtros salvam outros não\". Causa: por design v3, `filterModel/search/page` eram excluídos do save (`/** Subset persistido — exclui filters, search, page (volátil entre sessões). */`). Agora persistem no schema v4 com lógica de Default snapshot que isola do state de views custom",
+          'Comportamento de persistência inconsistente reportado pelo user: "alguns filtros salvam outros não". Causa: por design v3, `filterModel/search/page` eram excluídos do save (`/** Subset persistido — exclui filters, search, page (volátil entre sessões). */`). Agora persistem no schema v4 com lógica de Default snapshot que isola do state de views custom',
         ],
       },
     ],
@@ -542,7 +1101,7 @@ export const RELEASES: ReleaseEntry[] = [
         type: "changed",
         items: [
           "Package name: @igreen/design-system-v2 → @igreen/design-system (drop v2 suffix)",
-          "HTML <title>: \"iGreen DS v2 — Preview\" → \"iGreen Design System — Preview\"",
+          'HTML <title>: "iGreen DS v2 — Preview" → "iGreen Design System — Preview"',
           "Pipeline Simulator renomeado para Pipeline (com visão estrutural acima do simulador)",
           "Padronização de naming: critical → danger em todos os pipeline .md (alinha com tokens CSS reais)",
         ],
@@ -559,8 +1118,8 @@ export const RELEASES: ReleaseEntry[] = [
         type: "removed",
         items: [
           "Referências a outros design systems (Material 3, Carbon, Spectrum) no README e docs",
-          "Framing de Tailwind/Shadcn como \"adapters opcionais\" — agora são dependências diretas declaradas",
-          "Sufixo v2 e wording \"stack-agnostic\" das páginas visíveis ao usuário",
+          'Framing de Tailwind/Shadcn como "adapters opcionais" — agora são dependências diretas declaradas',
+          'Sufixo v2 e wording "stack-agnostic" das páginas visíveis ao usuário',
         ],
       },
     ],

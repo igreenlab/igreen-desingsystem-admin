@@ -8,15 +8,15 @@ import {
   useDroppable,
 } from "@dnd-kit/core";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button";
-import { Checkbox } from "../../shadcn/checkbox";
+import { Button } from "@/components/ui/Button";
+import { Checkbox } from "@/components/shadcn/checkbox";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../shadcn/dropdown-menu";
+} from "@/components/shadcn/dropdown-menu";
 import * as s from "./kanban.styles";
 import {
   droppableIdForCard,

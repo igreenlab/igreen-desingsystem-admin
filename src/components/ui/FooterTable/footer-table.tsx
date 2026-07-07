@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../../shadcn/select";
+} from "@/components/shadcn/select";
 import {
   Pagination,
   PaginationContent,
@@ -16,7 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
   getPaginationRange,
-} from "../../shadcn/pagination";
+} from "@/components/shadcn/pagination";
 import { cn } from "@/lib/utils";
 import type { FooterTableProps } from "./footer-table.types";
 

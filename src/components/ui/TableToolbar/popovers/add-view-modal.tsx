@@ -6,8 +6,8 @@ import {
   DialogClose,
   DialogTitle,
   DialogDescription,
-} from "../../../shadcn/dialog";
-import { Switch } from "../../../shadcn/switch";
+} from "@/components/shadcn/dialog";
+import { Switch } from "@/components/shadcn/switch";
 import { Button } from "../../Button/button";
 import { FormFieldInput } from "../../FormField/form-field-input";
 import {

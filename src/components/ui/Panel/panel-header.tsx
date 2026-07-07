@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { SheetClose, SheetTitle, SheetDescription } from "../../shadcn/sheet";
+import { SheetClose, SheetTitle, SheetDescription } from "@/components/shadcn/sheet";
 import { cn } from "@/lib/utils";
 import {
   panelHeader,

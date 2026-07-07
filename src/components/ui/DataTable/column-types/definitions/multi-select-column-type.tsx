@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Checkbox } from "../../../../shadcn/checkbox";
+import { Checkbox } from "@/components/shadcn/checkbox";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
 import type {
   ColumnTypeDefinition,

@@ -31,6 +31,9 @@ import {
   Plug,
   ListOrdered,
   Network,
+  ListChecks,
+  Zap,
+  Calculator,
 } from "lucide-react";
 
 /* ═══════════════════════════════════════════════════════════════════════════
@@ -91,6 +94,18 @@ const MOCK_CONTEXTS: SidebarContext[] = [
           { name: "Carlos Souza", initials: "CS", color: "#8754ec", status: "online" },
           { name: "Maria Lima", initials: "ML", color: "#ef4444", status: "offline" },
           { name: "João Pedro", initials: "JP", color: "#1cb280", status: "online" },
+        ],
+      },
+      {
+        // Bookmark com `icon` → ícone colorido (estilo atalho) no lugar do dot.
+        id: "ferramentas",
+        label: "Ferramentas",
+        variant: "bookmark",
+        onAdd: () => {},
+        items: [
+          { name: "Rotinas de CEO", color: "#1cb280", icon: ListChecks },
+          { name: "Conexão Express", color: "#f6b51e", icon: Zap },
+          { name: "Simulador", color: "#8754ec", icon: Calculator },
         ],
       },
     ],
@@ -206,7 +221,7 @@ const PROPS_SIDEBAR = [
 const PROPS_DATA = [
   { name: "SidebarContext", type: "{ id, label, icon, items, sections? }", defaultVal: "—" },
   { name: "SidebarMenuItem", type: "{ name, icon?, href?, badge?, badgeKind?, subitems? }", defaultVal: "—" },
-  { name: "SidebarSection (bookmark)", type: '{ id, label, variant:"bookmark", items:[{ name, color, href? }] }', defaultVal: "—" },
+  { name: "SidebarSection (bookmark)", type: '{ id, label, variant:"bookmark", items:[{ name, color, icon?, href? }] }', defaultVal: "—" },
   { name: "SidebarSection (chat)", type: '{ id, label, variant:"chat", items:[{ name, initials, color, status? }] }', defaultVal: "—" },
 ];
 
@@ -265,12 +280,15 @@ export function MenuSidebarDoc() {
       <ExampleSection
         id="ex-sections"
         title="Collapsible Sections"
-        description='Sections render below the main items. Two variants: `bookmark` (colored dot + name) and `chat` (avatar + name + status). Both are collapsible.'
+        description='Sections render below the main items. Two variants: `bookmark` (colored dot + name) and `chat` (avatar + name + status). Bookmark items aceitam `icon?` opcional → ícone colorido (estilo atalho, ex.: ferramentas) no lugar do dot. `onAdd?` mostra um botão "+" no header da section. Todas são colapsáveis.'
         code={`sections: [
   { id: "filtros", label: "Filtros rápidos", variant: "bookmark",
     items: [{ name: "Royais", color: "#1cb280" }, ...] },
   { id: "msgs", label: "Mensagens rápidas", variant: "chat",
     items: [{ name: "Aline", initials: "AC", color: "#f59e0b", status: "online" }, ...] },
+  // bookmark com ícone + botão "+" (atalhos/ferramentas)
+  { id: "tools", label: "Ferramentas", variant: "bookmark", onAdd: () => openCatalog(),
+    items: [{ name: "Rotinas de CEO", color: "#1cb280", icon: ListChecks }, ...] },
 ]`}
       >
         <MenuSidebarDemo>

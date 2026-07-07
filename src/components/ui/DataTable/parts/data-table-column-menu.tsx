@@ -15,7 +15,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
-} from "../../../shadcn/dropdown-menu";
+} from "@/components/shadcn/dropdown-menu";
 
 export type DataTableColumnMenuItem = {
   id: string;

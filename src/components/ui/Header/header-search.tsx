@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "../Button/button";
+import { Button } from "@/components/ui/Button/button";
 import {
   CommandDialog,
   CommandInput,
@@ -11,7 +11,7 @@ import {
   CommandItem,
   CommandSeparator,
   CommandShortcut,
-} from "../../shadcn/command";
+} from "@/components/shadcn/command";
 import {
   searchFakeInput,
   searchFakeInputIcon,

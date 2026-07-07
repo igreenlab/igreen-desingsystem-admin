@@ -1,0 +1,4 @@
+# Token do registry privado do iGreen DS (Bearer).
+# Peça ao mantenedor (Leandro/Sergio) e cole aqui. SEM aspas.
+# Necessário pra `npx shadcn add @igreen/<componente>`.
+IGREEN_TOKEN=

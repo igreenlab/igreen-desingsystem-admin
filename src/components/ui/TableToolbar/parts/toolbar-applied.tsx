@@ -125,8 +125,8 @@ export function ToolbarApplied({
                 <span className={toolbarAppliedChipOp()}>{f.opLabel ?? resolveOp(f.op)}</span>
                 {Array.isArray(f.value) ? (
                   <span className="inline-flex items-center gap-gp-2xs">
-                    {(f.value as ReactNode[]).map((v, i) => (
-                      <span key={i} className={toolbarAppliedChipValue()}>
+                    {(f.value as ReactNode[]).map((v) => (
+                      <span key={String(v)} className={toolbarAppliedChipValue()}>
                         {v}
                       </span>
                     ))}

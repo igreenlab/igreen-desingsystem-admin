@@ -6,7 +6,6 @@ description: >
   novo preset tipográfico, spec de componente novo, extração do Figma,
   edição de token existente.
   NÃO implementa código — só especifica.
-model: claude-sonnet-4-6
 memory: user
 ---
 

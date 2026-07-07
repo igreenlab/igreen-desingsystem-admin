@@ -1,7 +1,27 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-06-09
+> Última revisão: 2026-06-18
+
+---
+
+## 🔭 Roadmap de escala da distribuição (auditoria 2026-06-18)
+
+> NÃO são pendências/defeitos — são decisões de escala conscientemente adiadas.
+> Hoje (1 mantenedor, poucos consumidores) não valem o custo. Reabrir nos gatilhos.
+
+- **Multi-token / rotação no registry** (`registry-app/app/r/[name]/route.ts`): hoje 1
+  Bearer único compartilhado. Suportar `IGREEN_TOKENS` (lista CSV) + `crypto.timingSafeEqual`
+  permite revogar/rotacionar **por consumidor** sem quebrar os outros.
+  **Reabrir quando:** houver ≥2–3 consumidores externos com o token, ou exigência de auditoria/rotação.
+- **Versão histórica por-componente** no registry (endpoints `/r/v0.10/<item>.json` +
+  `components.json` pinado): hoje versão é global e rollback é via Git do consumidor.
+  **Reabrir quando:** ≥3 consumidores com cadências divergentes E necessidade de re-puxar
+  rev antiga direto do registry (não só via Git).
+- **`example-showcase`** (extrair `ShowcasePageV2`): galeria de cards/blocos avulsos.
+  Decisão atual: **coberto pela skill `cards`** (guia de composição) — não vira example
+  de tela (é galeria, não tela de produto). **Reabrir se:** quiserem o gallery navegável
+  no menu do scaffold como referência.
 
 ---
 

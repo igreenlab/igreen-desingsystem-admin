@@ -5,7 +5,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from "../../../shadcn/dropdown-menu";
+} from "@/components/shadcn/dropdown-menu";
 import type { DataTableActionItem } from "../data-table.types";
 
 export type DataTableActionsCellProps<T> = {

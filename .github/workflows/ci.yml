@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+      - name: Tests
+        run: npm test
+
+      - name: Registry consistency (paths + embed)
+        run: node scripts/registry-check.mjs
+
+      - name: Foundationals sync (DS ↔ CLI baked)
+        run: node scripts/check-foundationals.mjs
+
+      - name: Examples ↔ showcase drift
+        run: node scripts/examples-drift-check.mjs --ci

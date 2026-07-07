@@ -82,6 +82,17 @@ export function useDataTableController<T>(
   // (medição do contentRect.width). data-table.tsx consome via controller.
   const scrollContainerRef = useRef<HTMLDivElement | null>(null);
 
+  // viewMode (estado interno read-only) elevado pra ANTES do autoFit — o hook
+  // precisa dele como `recalcKey`: ao alternar Tabela↔Lista o corpo da tabela
+  // (que carrega o `scrollRef`) desmonta e remonta sem trocar a ref, então o
+  // ResizeObserver precisa ser re-instalado e o autoFit re-medido. O setter e os
+  // callbacks completos ficam mais abaixo (precisam de `props.onViewModeChange`).
+  const [internalViewMode, setInternalViewMode] = useState<DataTableViewMode>(
+    // Hidrata do localStorage (v3+) com fallback pra prop `defaultViewMode`
+    persistedInitial?.viewMode ?? props.defaultViewMode ?? "table",
+  );
+  const viewMode: DataTableViewMode = props.viewMode ?? internalViewMode;
+
   // AutoFit: calcula widths fluidas em 3 layers (type heuristic / canvas measure / flex distribution).
   // Default true — opt-out via `autoFit: false` em DataTableProps.
   const autoFitEnabled = props.autoFit !== false;
@@ -94,7 +105,14 @@ export function useDataTableController<T>(
     scrollContainerRef,
     props.columns,
     props.rows ?? [],
-    { enabled: autoFitEnabled, reservedWidth: selectionReservedWidth },
+    {
+      enabled: autoFitEnabled,
+      reservedWidth: selectionReservedWidth,
+      // Re-attach/re-medir quando o corpo da tabela remonta (toggle de view).
+      // Só "table" carrega o scrollRef observado; usar viewMode garante que ao
+      // voltar pra Tabela o observer reata no node novo e re-mede do zero.
+      recalcKey: viewMode,
+    },
   );
 
   const cols = useDataTableColumns({
@@ -161,11 +179,8 @@ export function useDataTableController<T>(
    *  Saved views podem alternar esses 3 fields via `applyView` (sempre dispara
    *  o callback). Builder `presetView()` pode declarar `viewMode/groupBy/
    *  expandedRowIds` em presets read-only. */
-  const [internalViewMode, setInternalViewMode] = useState<DataTableViewMode>(
-    // Hidrata do localStorage (v3+) com fallback pra prop `defaultViewMode`
-    persistedInitial?.viewMode ?? props.defaultViewMode ?? "table",
-  );
-  const viewMode: DataTableViewMode = props.viewMode ?? internalViewMode;
+  // (internalViewMode/viewMode declarados acima — antes do autoFit, que os usa
+  //  como recalcKey). Aqui só o setter + os demais states de view.
   const setViewMode = useCallback((mode: DataTableViewMode) => {
     if (props.viewMode === undefined) setInternalViewMode(mode);
     props.onViewModeChange?.(mode);
@@ -357,7 +372,10 @@ export function useDataTableController<T>(
     // só "captura" esses valores quando a Default está ativa. Aplicar uma view custom
     // não polui o Default (o save sempre usa defaultSnapshotRef, não persistedSnapshot).
     currentPage: pagination.paginationModel.page,
-    columnWidths: cols.columnWidths,
+    // Persistir SÓ resize manual (widthOverrides) — NUNCA as larguras efetivas
+    // (cols.columnWidths inclui autoFit). Persistir efetivas congelava o layout
+    // e matava o autoFit no reload (vira override de precedência máxima).
+    columnWidths: cols.widthOverrides,
     pinnedColumns: cols.pinnedColumns,
     hiddenColumns: Array.from(cols.hiddenColumns),
     columnOrder: cols.columnOrder,
@@ -374,7 +392,7 @@ export function useDataTableController<T>(
     sort.sortModels,
     pagination.paginationModel.pageSize,
     pagination.paginationModel.page,
-    cols.columnWidths,
+    cols.widthOverrides,
     cols.pinnedColumns,
     cols.hiddenColumns,
     cols.columnOrder,
@@ -451,8 +469,10 @@ export function useDataTableController<T>(
         hiddenColumns: state.hiddenColumns,
         columnOrder: state.columnOrder,
       });
-      // Features novas — fallback explícito quando campo ausente (views antigas)
-      setViewMode(state.viewMode ?? "table");
+      // viewMode é "sticky": só troca se a visão definir um explicitamente
+      // (ex.: preset de kanban). Presets sem viewMode mantêm o que o usuário
+      // está vendo (table/list/kanban) — trocar de view não deve flipar a view.
+      if (state.viewMode !== undefined) setViewMode(state.viewMode);
       setGroupBy(state.groupBy);
       setExpandedRowIds(state.expandedRowIds ?? []);
       savedViews.setCurrentViewId(id);
@@ -527,7 +547,9 @@ export function useDataTableController<T>(
           filterModel: filters.filterModel,
           sortModel: sort.sortModels,
           density: density.density,
-          columnWidths: cols.columnWidths,
+          // Só resize manual (não as efetivas c/ autoFit) — senão a view congela
+          // o layout e mata o autoFit ao ser aplicada.
+          columnWidths: cols.widthOverrides,
           pinnedColumns: cols.pinnedColumns,
           hiddenColumns: Array.from(cols.hiddenColumns),
           columnOrder: cols.columnOrder,
@@ -544,7 +566,7 @@ export function useDataTableController<T>(
       filters.filterModel,
       sort.sortModels,
       density.density,
-      cols.columnWidths,
+      cols.widthOverrides,
       cols.pinnedColumns,
       cols.hiddenColumns,
       cols.columnOrder,
@@ -579,7 +601,7 @@ export function useDataTableController<T>(
         hiddenColumns: snapshot.hiddenColumns ?? [],
         columnOrder: snapshot.columnOrder ?? props.columns.map((c) => String(c.field)),
       });
-      setViewMode(snapshot.viewMode ?? "table");
+      // viewMode sticky: clicar "Default" não flipa a view atual (table/list/kanban).
       setGroupBy(snapshot.groupBy);
       setExpandedRowIds(snapshot.expandedRowIds ?? []);
       // v4 — restaura filters/search/page do workspace Default

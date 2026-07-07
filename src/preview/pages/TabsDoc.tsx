@@ -5,6 +5,8 @@ import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTab
 const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-default", label: "Default" },
+  { id: "ex-line", label: "Line variant" },
+  { id: "ex-line-icons", label: "Line — ícones/full" },
   { id: "ex-icons", label: "With Icons" },
   { id: "ex-disabled", label: "Disabled" },
   { id: "ex-fullwidth", label: "Full Width" },
@@ -12,6 +14,7 @@ const TOC = [
   { id: "api", label: "API Reference" },
 ];
 const PROPS = [
+  { name: "variant", type: '"segmented" | "line"', defaultVal: '"segmented"' },
   { name: "defaultValue", type: "string", defaultVal: "—" },
   { name: "value", type: "string", defaultVal: "—" },
   { name: "onValueChange", type: "(value: string) => void", defaultVal: "—" },
@@ -20,7 +23,7 @@ const PROPS = [
 export function TabsDoc() {
   return (
     <DocLayout toc={TOC}>
-      <DocHeader category="Navigation" title="Tabs" description="Tab navigation built on Radix UI. Pill-shaped with smooth transitions." dependency="@radix-ui/react-tabs" />
+      <DocHeader category="Navigation" title="Tabs" description="Tab navigation built on Radix UI. Two variants: segmented (pill) e line (underline) — via prop variant no Tabs." dependency="@radix-ui/react-tabs" />
       <DocSeparator />
       <SectionH2 id="examples" title="Examples" />
 
@@ -53,6 +56,71 @@ export function TabsDoc() {
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
               <p className="text-body-md text-fg-default font-medium mb-gp-xs">Settings</p>
               <p className="text-body-md text-fg-muted">Configure notifications, language preferences, and display options.</p>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </ExampleSection>
+
+      {/* Line variant */}
+      <ExampleSection
+        id="ex-line"
+        title="Line variant"
+        description="Underline tabs (variant line) — sem chrome de pill, com borda inferior na aba ativa (border-brand). Ideal pra navegação de página/seção e headers de painel."
+        code={`<Tabs defaultValue="overview" variant="line" className="w-full max-w-md">\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="activity">Activity</TabsTrigger>\n    <TabsTrigger value="members">Members</TabsTrigger>\n  </TabsList>\n  <TabsContent value="overview">...</TabsContent>\n  <TabsContent value="activity">...</TabsContent>\n  <TabsContent value="members">...</TabsContent>\n</Tabs>`}
+      >
+        <Tabs defaultValue="overview" variant="line" className="w-full max-w-md">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="activity">Activity</TabsTrigger>
+            <TabsTrigger value="members">Members</TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview">
+            <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Overview</p>
+              <p className="text-body-md text-fg-muted">Resumo do projeto, métricas e status recentes.</p>
+            </div>
+          </TabsContent>
+          <TabsContent value="activity">
+            <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Activity</p>
+              <p className="text-body-md text-fg-muted">Histórico de eventos e ações da equipe.</p>
+            </div>
+          </TabsContent>
+          <TabsContent value="members">
+            <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
+              <p className="text-body-md text-fg-default font-medium mb-gp-xs">Members</p>
+              <p className="text-body-md text-fg-muted">Pessoas com acesso e seus papéis.</p>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </ExampleSection>
+
+      {/* Line + Icons + Full width (composição comum em headers) */}
+      <ExampleSection
+        id="ex-line-icons"
+        title="Line — ícones + full width"
+        description="A variant line combina com ícones e full width (flex-1) — comum em headers de página."
+        code={`<Tabs defaultValue="preview" variant="line" className="w-full">\n  <TabsList className="w-full">\n    <TabsTrigger value="preview" className="flex-1"><Eye /> Preview</TabsTrigger>\n    <TabsTrigger value="code" className="flex-1"><Code /> Code</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
+      >
+        <Tabs defaultValue="preview" variant="line" className="w-full max-w-lg">
+          <TabsList className="w-full">
+            <TabsTrigger value="preview" className="flex-1">
+              <Eye className="size-4" />
+              Preview
+            </TabsTrigger>
+            <TabsTrigger value="code" className="flex-1">
+              <Code className="size-4" />
+              Code
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="preview">
+            <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
+              <p className="text-body-md text-fg-muted">Live preview do componente.</p>
+            </div>
+          </TabsContent>
+          <TabsContent value="code">
+            <div className="p-pad-3xl rounded-radius-base bg-bg-muted">
+              <p className="text-body-md text-fg-muted font-mono">{'<Button color="primary">Click me</Button>'}</p>
             </div>
           </TabsContent>
         </Tabs>

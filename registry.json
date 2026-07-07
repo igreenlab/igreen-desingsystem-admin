@@ -1,0 +1,3626 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "igreen",
+  "homepage": "https://igreen-registry.vercel.app",
+  "items": [
+    {
+      "name": "utils",
+      "type": "registry:file",
+      "title": "cn (tailwind-merge configurado p/ DS)",
+      "description": "cn() com extendTailwindMerge: presets tipograficos como font-size (L-016) + prefixos DS (pad/sp/gp/radius/sh/form) resolvidos como conflitantes. NAO e o cn padrao do shadcn.",
+      "dependencies": [
+        "clsx@^2.1.1",
+        "tailwind-merge@^3.0.0"
+      ],
+      "files": [
+        {
+          "path": "src/lib/utils.ts",
+          "type": "registry:file",
+          "target": "src/lib/utils.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · utils · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "tv",
+      "type": "registry:file",
+      "title": "tv (tailwind-variants + twMergeConfig DS)",
+      "description": "tv() que injeta os 23 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
+      "dependencies": [
+        "tailwind-variants@^3.0.0"
+      ],
+      "files": [
+        {
+          "path": "src/utils/tv.ts",
+          "type": "registry:file",
+          "target": "src/utils/tv.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · tv · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "theme",
+      "type": "registry:file",
+      "title": "Tema iGreen (Tailwind v4 @theme)",
+      "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas.",
+      "dependencies": [
+        "tw-animate-css@^1.4.0"
+      ],
+      "files": [
+        {
+          "path": "src/styles/theme/tailwind-theme.css",
+          "type": "registry:file",
+          "target": "src/styles/theme/tailwind-theme.css"
+        }
+      ],
+      "meta": {
+        "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
+        "stamp": "igreen-ds · theme · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Botao iGreen (tv()). 5 cores x 4 variants x sizes, shape, fullWidth, disabled.",
+      "registryDependencies": [
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/Button/button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.tsx"
+        },
+        {
+          "path": "src/components/ui/Button/button.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Button/button.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/button.types.ts"
+        },
+        {
+          "path": "src/components/ui/Button/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Button/index.ts"
+        },
+        {
+          "path": "src/components/ui/Button/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Button/USAGE.md"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · button · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Input adaptado aos tokens DS (cva). Origem interna shadcn/ - nao vaza.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · input · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Label acessivel (Radix) adaptado aos tokens DS. Base de FormField e forms.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-label@^2.1.8",
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/label.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/label.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · label · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Textarea (cva) com tokens DS e focus animado. Completa o trio de inputs do FormField.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/textarea.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/textarea.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · textarea · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Select (Radix) adaptado aos tokens DS. Forms e filtros. Origem interna shadcn/ - nao vaza.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-select@^2.2.6",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/select.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · select · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Card + Header/Footer/Title/Description/Content. Tokens DS. KPIs/billing/dashboard.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/shadcn/card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · card · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "Badge (tv()) - 5 cores x 4 variants x 3 sizes. Status/tags em tabelas e dashboards.",
+      "registryDependencies": [
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/shadcn/badge.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/badge.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · badge · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Separator (Radix) horizontal/vertical com token de borda DS. Divisoria de secoes.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-separator@^1.1.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/separator.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · separator · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox (Radix) com estado checked/indeterminate e tokens DS. Forms e selecao de tabela.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox@^1.3.3",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/checkbox.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · checkbox · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Accordion (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-accordion@^1.2.12",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/accordion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/accordion.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · accordion · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Alert (cva) - feedback inline com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/alert.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · alert · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "AlertDialog",
+      "description": "AlertDialog (Radix) - confirmacao destrutiva.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-alert-dialog@^1.1.15"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/alert-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · alert-dialog · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Avatar (Radix) Image/Fallback com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-avatar@^1.1.11"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/avatar.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · avatar · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Breadcrumb com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slot@^1.2.4",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/breadcrumb.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · breadcrumb · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Calendar (react-day-picker) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0",
+        "react-day-picker@^9.14.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/calendar.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · calendar · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Command palette (cmdk) com tokens DS. Usa o Dialog do DS.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/dialog"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "cmdk@^1.1.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/command.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/command.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · command · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "Dialog (Radix) modal centrado com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dialog.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · dialog · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "DropdownMenu",
+      "description": "DropdownMenu (Radix) com sub/checkbox/radio e tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu@^2.1.16",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dropdown-menu.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · dropdown-menu · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "input-group",
+      "type": "registry:ui",
+      "title": "InputGroup",
+      "description": "InputGroup (cva) - input com addons/botoes.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/input-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input-group.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · input-group · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Pagination (cva) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pagination.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · pagination · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Popover (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-popover@^1.1.15"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/popover.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · popover · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress (Radix) barra com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-progress@^1.1.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/progress.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/progress.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · progress · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "RadioGroup",
+      "description": "RadioGroup (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-radio-group@^1.3.8"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radio-group.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · radio-group · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Sheet (Radix Dialog) drawer lateral com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sheet.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · sheet · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider (Radix) single/range com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-slider@^1.3.6"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/slider.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/slider.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · slider · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "Switch (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-switch@^1.2.6"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/switch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/switch.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · switch · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs (Radix) com tokens DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-tabs@^1.1.13"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tabs.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · tabs · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "form-field",
+      "type": "registry:ui",
+      "title": "FormField",
+      "description": "FormField composite OBRIGATORIO (L-023): label+input/select/textarea/checkbox/switch + estados.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/checkbox",
+        "@igreen/input",
+        "@igreen/input-group",
+        "@igreen/select",
+        "@igreen/switch",
+        "@igreen/textarea"
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox@^1.3.3",
+        "@radix-ui/react-switch@^1.2.6"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/FormField/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FormField/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field-checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field-checkbox.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field-input.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field-select.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field-switch.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field-switch.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field-textarea.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field-textarea.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field.styles.ts"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field.tsx"
+        },
+        {
+          "path": "src/components/ui/FormField/form-field.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/form-field.types.ts"
+        },
+        {
+          "path": "src/components/ui/FormField/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FormField/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · form-field · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "alert-modal",
+      "type": "registry:ui",
+      "title": "AlertModal",
+      "description": "Modal de confirmacao destrutiva (tone danger/warning/success/neutral).",
+      "registryDependencies": [
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/alert-dialog"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/AlertModal/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/AlertModal/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/AlertModal/alert-modal.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AlertModal/alert-modal.styles.ts"
+        },
+        {
+          "path": "src/components/ui/AlertModal/alert-modal.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/AlertModal/alert-modal.tsx"
+        },
+        {
+          "path": "src/components/ui/AlertModal/alert-modal.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AlertModal/alert-modal.types.ts"
+        },
+        {
+          "path": "src/components/ui/AlertModal/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AlertModal/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · alert-modal · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "button-group",
+      "type": "registry:ui",
+      "title": "ButtonGroup",
+      "description": "Split button (Primary + Chevron) com Popover. forwardRef p/ anchor Radix (L-021/022).",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/popover"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/ButtonGroup/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/ButtonGroup/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/ButtonGroup/button-group.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/ButtonGroup/button-group.styles.ts"
+        },
+        {
+          "path": "src/components/ui/ButtonGroup/button-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/ButtonGroup/button-group.tsx"
+        },
+        {
+          "path": "src/components/ui/ButtonGroup/button-group.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/ButtonGroup/button-group.types.ts"
+        },
+        {
+          "path": "src/components/ui/ButtonGroup/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/ButtonGroup/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · button-group · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "floating-panel",
+      "type": "registry:ui",
+      "title": "FloatingPanel",
+      "description": "Drawer non-modal resizable/maximizavel + sheet mobile.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/button"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/FloatingPanel/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FloatingPanel/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/floating-panel-parts.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/floating-panel-parts.tsx"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/floating-panel.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/floating-panel.styles.ts"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/floating-panel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/floating-panel.tsx"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/floating-panel.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/floating-panel.types.ts"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/index.ts"
+        },
+        {
+          "path": "src/components/ui/FloatingPanel/use-floating-panel-resize.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FloatingPanel/use-floating-panel-resize.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · floating-panel · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "modal",
+      "type": "registry:ui",
+      "title": "Modal",
+      "description": "Dialog modal centrado (header icon+title+desc, body, footer actions).",
+      "registryDependencies": [
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/dialog"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Modal/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Modal/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Modal/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Modal/index.ts"
+        },
+        {
+          "path": "src/components/ui/Modal/modal.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Modal/modal.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Modal/modal.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Modal/modal.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · modal · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "panel",
+      "type": "registry:ui",
+      "title": "Panel",
+      "description": "Drawer flutuante lateral (header+body scroll+footer sticky).",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/sheet"
+      ],
+      "dependencies": [
+        "@radix-ui/react-dialog@^1.1.15",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Panel/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Panel/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Panel/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/index.ts"
+        },
+        {
+          "path": "src/components/ui/Panel/panel-body.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel-body.tsx"
+        },
+        {
+          "path": "src/components/ui/Panel/panel-footer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel-footer.tsx"
+        },
+        {
+          "path": "src/components/ui/Panel/panel-header.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel-header.tsx"
+        },
+        {
+          "path": "src/components/ui/Panel/panel.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Panel/panel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel.tsx"
+        },
+        {
+          "path": "src/components/ui/Panel/panel.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Panel/panel.types.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · panel · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "footer-table",
+      "type": "registry:ui",
+      "title": "FooterTable",
+      "description": "Footer de tabela: paginacao + page-size + range + selection count.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/pagination",
+        "@igreen/select"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/FooterTable/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/FooterTable/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/FooterTable/footer-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/FooterTable/footer-table.tsx"
+        },
+        {
+          "path": "src/components/ui/FooterTable/footer-table.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FooterTable/footer-table.types.ts"
+        },
+        {
+          "path": "src/components/ui/FooterTable/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/FooterTable/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · footer-table · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "kanban",
+      "type": "registry:ui",
+      "title": "Kanban",
+      "description": "Board kanban dumb (columns+cards via props) com dnd-kit.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/checkbox",
+        "@igreen/dropdown-menu"
+      ],
+      "dependencies": [
+        "@dnd-kit/core@^6.3.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Kanban/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Kanban/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Kanban/hooks/use-kanban-dnd.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kanban/hooks/use-kanban-dnd.ts"
+        },
+        {
+          "path": "src/components/ui/Kanban/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kanban/index.ts"
+        },
+        {
+          "path": "src/components/ui/Kanban/kanban.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kanban/kanban.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Kanban/kanban.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Kanban/kanban.tsx"
+        },
+        {
+          "path": "src/components/ui/Kanban/kanban.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kanban/kanban.types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · kanban · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "list",
+      "type": "registry:ui",
+      "title": "List",
+      "description": "Listagem em cards: standard, grouped (drag-and-drop) e hierarchical (árvore-como-lista). Card por slots ou renderItem. Primitivo burro (como Table).",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/checkbox",
+        "@igreen/dropdown-menu",
+        "@igreen/tv",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@hello-pangea/dnd@^18.0.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/List/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/List/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/List/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/index.ts"
+        },
+        {
+          "path": "src/components/ui/List/list.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/list.tsx"
+        },
+        {
+          "path": "src/components/ui/List/list-item.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/list-item.tsx"
+        },
+        {
+          "path": "src/components/ui/List/list.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/list.styles.ts"
+        },
+        {
+          "path": "src/components/ui/List/list.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/list.types.ts"
+        },
+        {
+          "path": "src/components/ui/List/hooks/use-disclosure-set.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/hooks/use-disclosure-set.ts"
+        },
+        {
+          "path": "src/components/ui/List/hooks/use-selection-set.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/hooks/use-selection-set.ts"
+        },
+        {
+          "path": "src/components/ui/List/layouts/_sortable-item.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/layouts/_sortable-item.tsx"
+        },
+        {
+          "path": "src/components/ui/List/layouts/standard-layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/layouts/standard-layout.tsx"
+        },
+        {
+          "path": "src/components/ui/List/layouts/grouped-layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/layouts/grouped-layout.tsx"
+        },
+        {
+          "path": "src/components/ui/List/layouts/hierarchical-layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/List/layouts/hierarchical-layout.tsx"
+        },
+        {
+          "path": "src/components/ui/List/utils/group-items.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/utils/group-items.ts"
+        },
+        {
+          "path": "src/components/ui/List/utils/flatten-tree.ts",
+          "type": "registry:ui",
+          "target": "components/ui/List/utils/flatten-tree.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · list · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "data-list",
+      "type": "registry:ui",
+      "title": "DataList",
+      "description": "Componente inteligente sobre o List (como DataTable é sobre o Table): toolbar enxuta (visões em abas · busca · filtros por campos · ⋯) + chips de filtro aplicado + saved-views + persistência + seleção/bulk + server/async + virtualização ⊕ infinite-scroll + fillHeight (scroll no container) + branchHighlight no hierarchical. Reusa o TableToolbar e o FilterModel da tabela.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/data-table",
+        "@igreen/dropdown-menu",
+        "@igreen/list",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@tanstack/react-virtual@^3.13.24",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DataList/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/DataList/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/DataList/data-list.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/data-list.tsx"
+        },
+        {
+          "path": "src/components/ui/DataList/data-list.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/data-list.types.ts"
+        },
+        {
+          "path": "src/components/ui/DataList/hooks/use-data-list.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/hooks/use-data-list.ts"
+        },
+        {
+          "path": "src/components/ui/DataList/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/index.ts"
+        },
+        {
+          "path": "src/components/ui/DataList/parts/data-list-infinite.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/parts/data-list-infinite.tsx"
+        },
+        {
+          "path": "src/components/ui/DataList/parts/data-list-toolbar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/parts/data-list-toolbar.tsx"
+        },
+        {
+          "path": "src/components/ui/DataList/parts/data-list-virtualized.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/parts/data-list-virtualized.tsx"
+        },
+        {
+          "path": "src/components/ui/DataList/utils/apply-filter-model.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataList/utils/apply-filter-model.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · data-list · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Select com busca (autocomplete) — Popover+Command (cmdk).",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/command",
+        "@igreen/popover"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Combobox/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Combobox/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Combobox/combobox.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Combobox/combobox.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Combobox/combobox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Combobox/combobox.tsx"
+        },
+        {
+          "path": "src/components/ui/Combobox/combobox.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Combobox/combobox.types.ts"
+        },
+        {
+          "path": "src/components/ui/Combobox/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Combobox/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · combobox · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "card-checkbox",
+      "type": "registry:ui",
+      "title": "CardCheckbox",
+      "description": "Checkbox apresentado como card clicavel (label+description).",
+      "registryDependencies": [
+        "@igreen/tv",
+        "@igreen/checkbox"
+      ],
+      "dependencies": [
+        "@radix-ui/react-checkbox@^1.3.3"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/CardCheckbox/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/CardCheckbox/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/CardCheckbox/card-checkbox.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/CardCheckbox/card-checkbox.styles.ts"
+        },
+        {
+          "path": "src/components/ui/CardCheckbox/card-checkbox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/CardCheckbox/card-checkbox.tsx"
+        },
+        {
+          "path": "src/components/ui/CardCheckbox/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/CardCheckbox/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · card-checkbox · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "chip",
+      "type": "registry:ui",
+      "title": "Chip",
+      "description": "Pilula compacta (status/tags/filtros), span ou button + ChipGroup.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv"
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle-group@^1.1.11"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Chip/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Chip/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Chip/chip-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Chip/chip-group.tsx"
+        },
+        {
+          "path": "src/components/ui/Chip/chip.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Chip/chip.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Chip/chip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Chip/chip.tsx"
+        },
+        {
+          "path": "src/components/ui/Chip/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Chip/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · chip · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "icon",
+      "type": "registry:ui",
+      "title": "Icon",
+      "description": "Biblioteca de icones propria iGreen (SVG por prop name).",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/Icon/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Icon/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Icon/icon.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icon.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Icon/icon.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icon.tsx"
+        },
+        {
+          "path": "src/components/ui/Icon/icon.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icon.types.ts"
+        },
+        {
+          "path": "src/components/ui/Icon/icons.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/icons.ts"
+        },
+        {
+          "path": "src/components/ui/Icon/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Icon/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · icon · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "page-header",
+      "type": "registry:ui",
+      "title": "PageHeader",
+      "description": "Title+description+badge+actions+slot (tabs/filtros). Template.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/PageHeader/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/PageHeader/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/PageHeader/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/PageHeader/index.ts"
+        },
+        {
+          "path": "src/components/ui/PageHeader/page-header.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/PageHeader/page-header.styles.ts"
+        },
+        {
+          "path": "src/components/ui/PageHeader/page-header.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/PageHeader/page-header.tsx"
+        },
+        {
+          "path": "src/components/ui/PageHeader/page-header.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/PageHeader/page-header.types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · page-header · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "avatar-ig",
+      "type": "registry:ui",
+      "title": "Avatar (iGreen)",
+      "description": "Avatar iGreen: size/color presets + colorHex com contraste WCAG (L-027). Distinto do primitivo @igreen/avatar.",
+      "registryDependencies": [
+        "@igreen/tv"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/ui/avatar-ig/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/avatar-ig/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/avatar-ig/avatar.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/avatar-ig/avatar.styles.ts"
+        },
+        {
+          "path": "src/components/ui/avatar-ig/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/avatar-ig/avatar.tsx"
+        },
+        {
+          "path": "src/components/ui/avatar-ig/avatar.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/avatar-ig/avatar.types.ts"
+        },
+        {
+          "path": "src/components/ui/avatar-ig/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/avatar-ig/index.ts"
+        },
+        {
+          "path": "src/utils/color-contrast.ts",
+          "type": "registry:file",
+          "target": "src/utils/color-contrast.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · avatar-ig · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "chart",
+      "type": "registry:ui",
+      "title": "Chart",
+      "description": "Wrapper Recharts 3 com paleta/grid via tokens DS (ChartContainer/Tooltip/Legend).",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "recharts@^3.8.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Chart/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Chart/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Chart/chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Chart/chart.tsx"
+        },
+        {
+          "path": "src/components/ui/Chart/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Chart/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · chart · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Primitive de tabela (grid): Head/Body/Row/Cell, density, sticky, pin, resize.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Table/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Table/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Table/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/index.ts"
+        },
+        {
+          "path": "src/components/ui/Table/table-card-row.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Table/table-card-row.tsx"
+        },
+        {
+          "path": "src/components/ui/Table/table.constants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/table.constants.ts"
+        },
+        {
+          "path": "src/components/ui/Table/table.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/table.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Table/table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Table/table.tsx"
+        },
+        {
+          "path": "src/components/ui/Table/table.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/table.types.ts"
+        },
+        {
+          "path": "src/components/ui/Table/use-column-resize.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/use-column-resize.ts"
+        },
+        {
+          "path": "src/components/ui/Table/use-column-widths.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Table/use-column-widths.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
+          "type": "registry:file",
+          "target": "components/ui/MenuSidebar/use-media-query.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · table · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "menu-sidebar",
+      "type": "registry:ui",
+      "title": "MenuSidebar",
+      "description": "Sidebar composto: rail 64px + panel 264px colapsável.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/dropdown-menu"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/MenuSidebar/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/MenuSidebar/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/index.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/menu-sidebar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/menu-sidebar.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-brand.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-item.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-item.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-panel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-panel.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-rail.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-rail.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-section.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-section.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar-subgroup.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar-subgroup.tsx"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar.styles.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/sidebar.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/sidebar.types.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/use-media-query.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/use-sidebar-state.ts",
+          "type": "registry:ui",
+          "target": "components/ui/MenuSidebar/use-sidebar-state.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · menu-sidebar · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "single-menu-sidebar",
+      "type": "registry:ui",
+      "title": "SingleMenuSidebar",
+      "description": "Sidebar de nível único: categoria → sub-itens em accordion; toggle + hover-to-expand, módulos com menu próprio, busca via Command. Responsivo (100% no mobile). Sem variantes.",
+      "registryDependencies": [
+        "@igreen/collapsible",
+        "@igreen/command",
+        "@igreen/dropdown-menu",
+        "@igreen/tooltip",
+        "@igreen/tv",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/SingleMenuSidebar/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/SingleMenuSidebar/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/category.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/category.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/command.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/command.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/footer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/footer.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/header.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/header.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/index.ts"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/menu-item.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/menu-item.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/module-selector.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/module-selector.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/search.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/search.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/single-menu-sidebar.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/single-menu-sidebar.styles.ts"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/single-menu-sidebar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/single-menu-sidebar.tsx"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/single-menu-sidebar.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/single-menu-sidebar.types.ts"
+        },
+        {
+          "path": "src/components/ui/SingleMenuSidebar/use-single-menu-sidebar.ts",
+          "type": "registry:ui",
+          "target": "components/ui/SingleMenuSidebar/use-single-menu-sidebar.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · single-menu-sidebar · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "kpi",
+      "type": "registry:ui",
+      "title": "Kpi",
+      "description": "Primitivos composáveis de KPI: Kpi (card) + KpiGroup (layout columns/divided) + KpiDelta (pílula de variação). Theme-aware; sparkline via slot.",
+      "registryDependencies": [
+        "@igreen/chip",
+        "@igreen/tv",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Kpi/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Kpi/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Kpi/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/index.ts"
+        },
+        {
+          "path": "src/components/ui/Kpi/kpi-delta.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/kpi-delta.tsx"
+        },
+        {
+          "path": "src/components/ui/Kpi/kpi-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/kpi-group.tsx"
+        },
+        {
+          "path": "src/components/ui/Kpi/kpi.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/kpi.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Kpi/kpi.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/kpi.tsx"
+        },
+        {
+          "path": "src/components/ui/Kpi/kpi.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Kpi/kpi.types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · kpi · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "header",
+      "type": "registry:ui",
+      "title": "Header",
+      "description": "Barra superior fixa: breadcrumb + search/theme/notifications/user.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/command",
+        "@igreen/dropdown-menu",
+        "@igreen/input-group",
+        "@igreen/popover"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Header/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Header/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Header/header-breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header-breadcrumb.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header-messages.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header-messages.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header-notifications.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header-notifications.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header-search.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header-search.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header-theme-switcher.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header-theme-switcher.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Header/header.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header.tsx"
+        },
+        {
+          "path": "src/components/ui/Header/header.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Header/header.types.ts"
+        },
+        {
+          "path": "src/components/ui/Header/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Header/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · header · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "app-shell",
+      "type": "registry:ui",
+      "title": "AppShell",
+      "description": "Template de app: MenuSidebar + Header + body. UserMenu, layout, tema.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/header",
+        "@igreen/menu-sidebar",
+        "@igreen/avatar",
+        "@igreen/dropdown-menu"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/AppShell/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/AppShell/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/AppShell/app-shell.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AppShell/app-shell.styles.ts"
+        },
+        {
+          "path": "src/components/ui/AppShell/app-shell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/AppShell/app-shell.tsx"
+        },
+        {
+          "path": "src/components/ui/AppShell/app-shell.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AppShell/app-shell.types.ts"
+        },
+        {
+          "path": "src/components/ui/AppShell/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/AppShell/index.ts"
+        },
+        {
+          "path": "src/components/ui/AppShell/user-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/AppShell/user-menu.tsx"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · app-shell · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "data-table",
+      "type": "registry:ui",
+      "title": "DataTable + TableToolbar",
+      "description": "Tabela densa completa: client/server, filtros visual+SQL, saved views, column types, kanban, virtualização, export. Bundla DataTable + TableToolbar (acoplamento circular) num item.",
+      "registryDependencies": [
+        "@igreen/utils",
+        "@igreen/tv",
+        "@igreen/button",
+        "@igreen/checkbox",
+        "@igreen/dropdown-menu",
+        "@igreen/input",
+        "@igreen/select",
+        "@igreen/popover",
+        "@igreen/calendar",
+        "@igreen/switch",
+        "@igreen/dialog",
+        "@igreen/table",
+        "@igreen/kanban",
+        "@igreen/list",
+        "@igreen/chip",
+        "@igreen/avatar-ig",
+        "@igreen/footer-table",
+        "@igreen/combobox",
+        "@igreen/alert-modal",
+        "@igreen/floating-panel",
+        "@igreen/form-field",
+        "@igreen/button-group"
+      ],
+      "dependencies": [
+        "@dnd-kit/core@^6.3.1",
+        "@dnd-kit/sortable@^10.0.0",
+        "@dnd-kit/utilities@^3.2.2",
+        "@tanstack/react-virtual@^3.13.24",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DataTable/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/DataTable/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/DataTable/builders/column-builders.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/builders/column-builders.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/builders/preset-view.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/builders/preset-view.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/_filter-field.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/_filter-field.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/_shared.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/_shared.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/column-type-registry.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/column-type-registry.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/column-types.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/column-types.types.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/badge-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/badge-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/boolean-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/boolean-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/currency-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/currency-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/date-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/date-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/datetime-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/datetime-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/email-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/email-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/multi-select-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/multi-select-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/number-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/number-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/percentage-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/percentage-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/phone-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/phone-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/select-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/select-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/tags-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/tags-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/text-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/text-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/url-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/url-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/definitions/user-column-type.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/definitions/user-column-type.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/column-types/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/column-types/index.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/context/data-table-context.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/context/data-table-context.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/data-table.constants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/data-table.constants.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/data-table.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/data-table.styles.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/data-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/data-table.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/data-table.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/data-table.types.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/state-persistence-utils.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/state-persistence-utils.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-cols-popover-adapter.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-cols-popover-adapter.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-column-auto-width.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-column-auto-width.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-columns.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-columns.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-controller.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-controller.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-density.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-density.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-export.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-export.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-filters.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-filters.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-pagination.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-pagination.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-processor.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-processor.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-query.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-query.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-saved-views.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-saved-views.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-search.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-search.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-selection.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-selection.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-sort.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-sort.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-state-persistence.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-state-persistence.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-data-table-view-mode.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-data-table-view-mode.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-filter-popover-adapter.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-filter-popover-adapter.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-grab-to-scroll.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-grab-to-scroll.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/hooks/use-sort-popover-adapter.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/hooks/use-sort-popover-adapter.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/index.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-actions-cell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-actions-cell.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-cell-addons.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-cell-addons.styles.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-cell-addons.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-cell-addons.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-column-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-column-menu.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-edit-cell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-edit-cell.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-empty.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-empty.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-floating-bulk-bar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-floating-bulk-bar.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-group-content-row.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-group-content-row.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-group-header-row.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-group-header-row.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-loading.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-loading.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-no-results.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-no-results.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-row-expansion.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-row-expansion.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-row.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-row.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-totalizer-row.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-totalizer-row.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/data-table-tree-toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/data-table-tree-toggle.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/parts/sortable-head-cell.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/parts/sortable-head-cell.tsx"
+        },
+        {
+          "path": "src/components/ui/DataTable/services/saved-views-mock-service.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/services/saved-views-mock-service.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/services/saved-views.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/services/saved-views.types.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/aggregate.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/aggregate.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/calculate-column-widths.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/calculate-column-widths.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/expand-rows.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/expand-rows.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/filter-ops.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/filter-ops.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/group-rows.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/group-rows.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/measure-text.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/measure-text.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/resolve-value.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/resolve-value.ts"
+        },
+        {
+          "path": "src/components/ui/DataTable/utils/tree-rows.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/tree-rows.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/TableToolbar/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/hooks/use-toolbar-filter-control.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/hooks/use-toolbar-filter-control.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/hooks/use-toolbar-filters.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/hooks/use-toolbar-filters.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/hooks/use-toolbar-sort.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/hooks/use-toolbar-sort.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/index.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/bulk-actions-bar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/bulk-actions-bar.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/table-toolbar-views.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/table-toolbar-views.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-actions.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-actions.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-filter-button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-filter-button.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-applied.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-applied.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-divider.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-divider.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-filter-control.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-filter-control.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-mobile-sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-mobile-sheet.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-search.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-search.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-segmented.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-segmented.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-settings-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-settings-menu.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-simple-filter-drawer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-simple-filter-drawer.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-tabs.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/parts/toolbar-tool-button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/parts/toolbar-tool-button.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/add-view-modal.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/add-view-modal.styles.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/add-view-modal.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/add-view-modal.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/cols-popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/cols-popover.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/filter-popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/filter-popover.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/filter-sql-parser.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/filter-sql-parser.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/more-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/more-menu.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/sort-popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/sort-popover.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/popovers/views-popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/popovers/views-popover.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/table-toolbar.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/table-toolbar.styles.ts"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/table-toolbar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/table-toolbar.tsx"
+        },
+        {
+          "path": "src/components/ui/TableToolbar/table-toolbar.types.ts",
+          "type": "registry:ui",
+          "target": "components/ui/TableToolbar/table-toolbar.types.ts"
+        },
+        {
+          "path": "src/components/ui/MenuSidebar/use-media-query.ts",
+          "type": "registry:file",
+          "target": "components/ui/MenuSidebar/use-media-query.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · data-table · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-clientes",
+      "type": "registry:ui",
+      "title": "Exemplo — Clientes (CRUD, showcase real)",
+      "description": "Extração 1:1 do showcase ClientesShowcase: DataTable (busca, sort, filtros, seleção, ações em massa, totalizador), PageHeader com badge, NovoClienteDrawer, DetailDrawer e AlertModal de confirmação. Conteúdo da página (sem shell). Renderize <ClientesScreen/>.",
+      "registryDependencies": [
+        "@igreen/data-table",
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/page-header",
+        "@igreen/alert-modal",
+        "@igreen/panel",
+        "@igreen/form-field",
+        "@igreen/floating-panel",
+        "@igreen/avatar"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/clientes/clientes-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-screen.tsx"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase-mocks.ts"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase.styles.ts"
+        },
+        {
+          "path": "src/examples/clientes/clientes-showcase.types.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/clientes-showcase.types.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.styles.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.tsx"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/detail-drawer.types.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/detail-drawer.types.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/DetailDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/DetailDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/NovoClienteDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/NovoClienteDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/components/NovoClienteDrawer/novo-cliente-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/clientes/components/NovoClienteDrawer/novo-cliente-drawer.tsx"
+        },
+        {
+          "path": "src/examples/clientes/index.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/index.ts"
+        },
+        {
+          "path": "src/examples/clientes/_table-data.ts",
+          "type": "registry:ui",
+          "target": "examples/clientes/_table-data.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-clientes · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-finance",
+      "type": "registry:ui",
+      "title": "Exemplo — Financeiro (CRUD + Kanban, showcase real)",
+      "description": "Extração 1:1 do showcase ClientesFinanceiro: DataTable completa (avatar de banco, inline-edit de comissão, saque-auto toggle, totalizador), Kanban por situação, preset views, SacarDialog, EditarFinanceDrawer, NovoClienteDrawer, FinanceDetailPanel e ExtratoExpansion. Conteúdo da página (sem shell). Renderize <FinanceScreen/>.",
+      "registryDependencies": [
+        "@igreen/data-table",
+        "@igreen/kanban",
+        "@igreen/page-header",
+        "@igreen/button",
+        "@igreen/avatar-ig",
+        "@igreen/chip",
+        "@igreen/panel",
+        "@igreen/modal",
+        "@igreen/floating-panel",
+        "@igreen/form-field",
+        "@igreen/card-checkbox",
+        "@igreen/switch",
+        "@igreen/tabs"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/finance/clientes-financeiro-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-financeiro-mocks.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-financeiro.types.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-financeiro.types.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase-mocks.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase.styles.ts"
+        },
+        {
+          "path": "src/examples/finance/clientes-showcase.types.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/clientes-showcase.types.ts"
+        },
+        {
+          "path": "src/examples/finance/components/EditarFinanceDrawer/editar-finance-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/EditarFinanceDrawer/editar-finance-drawer.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/EditarFinanceDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/EditarFinanceDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/ExtratoExpansion/extrato-expansion.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/ExtratoExpansion/extrato-expansion.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/ExtratoExpansion/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/ExtratoExpansion/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/FinanceDetailPanel/finance-detail-panel.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/FinanceDetailPanel/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/FinanceDetailPanel/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/NovoClienteDrawer/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/NovoClienteDrawer/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/NovoClienteDrawer/novo-cliente-drawer.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/NovoClienteDrawer/novo-cliente-drawer.tsx"
+        },
+        {
+          "path": "src/examples/finance/components/SacarDialog/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/components/SacarDialog/index.ts"
+        },
+        {
+          "path": "src/examples/finance/components/SacarDialog/sacar-dialog.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/components/SacarDialog/sacar-dialog.tsx"
+        },
+        {
+          "path": "src/examples/finance/finance-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/finance/finance-screen.tsx"
+        },
+        {
+          "path": "src/examples/finance/index.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/index.ts"
+        },
+        {
+          "path": "src/examples/finance/_table-data.ts",
+          "type": "registry:ui",
+          "target": "examples/finance/_table-data.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-finance · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-mapa-rede",
+      "type": "registry:ui",
+      "title": "Exemplo — Mapa de Rede (DataList hierárquico)",
+      "description": "Extração 1:1 do showcase Mapa de Rede: árvore de consultores por níveis (Você → N1 → N2…) com DataList layout='hierarchical' + branchHighlight (painéis aninhados) + fillHeight. Card por consultor (graduação, GP próprio, clientes, agregado da subárvore, PRO), PageHeader, painel de detalhe (FloatingPanel) e AlertModal de remoção. Conteúdo da página (sem shell). Renderize <MapaDeRedeScreen/>.",
+      "registryDependencies": [
+        "@igreen/data-list",
+        "@igreen/page-header",
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/floating-panel",
+        "@igreen/alert-modal"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/mapa-rede/mapa-de-rede.types.ts",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/mapa-de-rede.types.ts"
+        },
+        {
+          "path": "src/examples/mapa-rede/mapa-de-rede-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/mapa-de-rede-mocks.ts"
+        },
+        {
+          "path": "src/examples/mapa-rede/components/ConsultorDetailPanel/consultor-detail-panel.tsx",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/components/ConsultorDetailPanel/consultor-detail-panel.tsx"
+        },
+        {
+          "path": "src/examples/mapa-rede/components/ConsultorDetailPanel/index.ts",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/components/ConsultorDetailPanel/index.ts"
+        },
+        {
+          "path": "src/examples/mapa-rede/mapa-rede-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/mapa-rede-screen.tsx"
+        },
+        {
+          "path": "src/examples/mapa-rede/index.ts",
+          "type": "registry:ui",
+          "target": "examples/mapa-rede/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-mapa-rede · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-edit-page",
+      "type": "registry:ui",
+      "title": "Exemplo — Edição multi-step (showcase real)",
+      "description": "Extração 1:1 do showcase OrderEditShowcase: formulário multi-step com StepNav lateral, FormField (input/select), ChipGroup e cards de seção. Conteúdo da página (sem shell). Renderize <EditPageScreen/>.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/page-header",
+        "@igreen/form-field",
+        "@igreen/input",
+        "@igreen/select"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/edit-page/components/section-card.tsx",
+          "type": "registry:ui",
+          "target": "examples/edit-page/components/section-card.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/components/StepNav.tsx",
+          "type": "registry:ui",
+          "target": "examples/edit-page/components/StepNav.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/edit-page-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/edit-page/edit-page-screen.tsx"
+        },
+        {
+          "path": "src/examples/edit-page/index.ts",
+          "type": "registry:ui",
+          "target": "examples/edit-page/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-edit-page · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-order-detail",
+      "type": "registry:ui",
+      "title": "Exemplo — Detalhamento de pedido (showcase real)",
+      "description": "Extração 1:1 do showcase OrderDetailShowcase: PageHeader + Tabs (visão geral, detalhes, atividade, comentários, anexos) com cards de seção. Conteúdo da página (sem shell). Renderize <OrderDetailScreen/>.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/page-header",
+        "@igreen/avatar-ig",
+        "@igreen/tabs",
+        "@igreen/textarea"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/order-detail/components/ActivityTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/ActivityTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/AttachmentsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/AttachmentsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/CommentsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/CommentsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/DetailsTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/DetailsTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/OverviewTab.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/OverviewTab.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/components/section-card.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/components/section-card.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/index.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/index.ts"
+        },
+        {
+          "path": "src/examples/order-detail/order-detail-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order-detail-screen.tsx"
+        },
+        {
+          "path": "src/examples/order-detail/order-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order-mocks.ts"
+        },
+        {
+          "path": "src/examples/order-detail/order.types.ts",
+          "type": "registry:ui",
+          "target": "examples/order-detail/order.types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-order-detail · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-dashboard",
+      "type": "registry:ui",
+      "title": "Exemplo — Dashboard (showcase real)",
+      "description": "Extração 1:1 do showcase DashboardShowcase: KPI-group \"Painel do Líder\" (Kpi/KpiGroup divided), gráficos (barras/pizza/radial via Recharts), KPIs evolutivos (sparkline), card dividido em 2 com mapa do Brasil, regiões/canais e tabela. Conteúdo da página (sem shell). Renderize <DashboardScreen/>.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/page-header",
+        "@igreen/avatar",
+        "@igreen/kpi"
+      ],
+      "dependencies": [
+        "recharts@^3.8.1"
+      ],
+      "files": [
+        {
+          "path": "src/examples/dashboard/dashboard-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/dashboard/dashboard-screen.tsx"
+        },
+        {
+          "path": "src/examples/dashboard/dashboard-brazil-map.ts",
+          "type": "registry:ui",
+          "target": "examples/dashboard/dashboard-brazil-map.ts"
+        },
+        {
+          "path": "src/examples/dashboard/index.ts",
+          "type": "registry:ui",
+          "target": "examples/dashboard/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-dashboard · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "example-chat",
+      "type": "registry:ui",
+      "title": "Exemplo — Chat / Inbox (showcase real)",
+      "description": "Extração 1:1 do showcase ChatV2: inbox de atendimento com coluna de filas/filtros, lista de conversas, thread de mensagens (bubbles), painel de detalhe redimensionável e menu de ações. Conteúdo da página (sem shell). Renderize <ChatScreen/>.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/chip",
+        "@igreen/avatar",
+        "@igreen/dropdown-menu",
+        "@igreen/input"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/examples/chat/chat-screen.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/chat-screen.tsx"
+        },
+        {
+          "path": "src/examples/chat/chat-v2-mocks.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/chat-v2-mocks.ts"
+        },
+        {
+          "path": "src/examples/chat/chat-v2.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/chat-v2.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/chat-v2.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/chat-v2.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ChannelDot/channel-dot.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ChannelDot/channel-dot.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationActionsMenu/conversation-actions-menu.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationActionsMenu/conversation-actions-menu.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationActionsMenu/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationActionsMenu/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationColumn/conversation-column.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationColumn/conversation-column.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationColumn/conversation-column.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationColumn/conversation-column.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationColumn/conversation-column.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationColumn/conversation-column.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationColumn/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationColumn/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationListItem/conversation-list-item.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationListItem/conversation-list-item.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationListItem/conversation-list-item.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationListItem/conversation-list-item.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationListItem/conversation-list-item.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationListItem/conversation-list-item.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/ConversationListItem/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/ConversationListItem/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/DateSeparator/date-separator.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DateSeparator/date-separator.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/DetailField/detail-field.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailField/detail-field.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/DetailsColumn/details-column.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailsColumn/details-column.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/DetailsColumn/details-column.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailsColumn/details-column.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/DetailsColumn/details-column.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailsColumn/details-column.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/DetailsColumn/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailsColumn/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/DetailSection/detail-section.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailSection/detail-section.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/DetailSection/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/DetailSection/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/FilterRow/filter-row.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FilterRow/filter-row.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/FilterRow/filter-row.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FilterRow/filter-row.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/FilterRow/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FilterRow/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/FiltersColumn/filters-column.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FiltersColumn/filters-column.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/FiltersColumn/filters-column.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FiltersColumn/filters-column.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/FiltersColumn/filters-column.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FiltersColumn/filters-column.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/FiltersColumn/filters-rail.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FiltersColumn/filters-rail.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/FiltersColumn/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/FiltersColumn/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/MessageBubble/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/MessageBubble/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/MessageBubble/message-bubble.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/MessageBubble/message-bubble.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/MessageBubble/message-bubble.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/MessageBubble/message-bubble.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/MessageBubble/message-bubble.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/MessageBubble/message-bubble.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/PersonAvatar/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/PersonAvatar/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/PersonAvatar/person-avatar.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/PersonAvatar/person-avatar.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/QueueColumn/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/QueueColumn/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/QueueColumn/queue-column.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/QueueColumn/queue-column.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/QueueColumn/queue-column.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/QueueColumn/queue-column.tsx"
+        },
+        {
+          "path": "src/examples/chat/components/QueueColumn/queue-column.types.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/QueueColumn/queue-column.types.ts"
+        },
+        {
+          "path": "src/examples/chat/components/RailItem/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/RailItem/index.ts"
+        },
+        {
+          "path": "src/examples/chat/components/RailItem/rail-item.styles.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/components/RailItem/rail-item.styles.ts"
+        },
+        {
+          "path": "src/examples/chat/components/RailItem/rail-item.tsx",
+          "type": "registry:ui",
+          "target": "examples/chat/components/RailItem/rail-item.tsx"
+        },
+        {
+          "path": "src/examples/chat/hooks/use-resizable.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/hooks/use-resizable.ts"
+        },
+        {
+          "path": "src/examples/chat/index.ts",
+          "type": "registry:ui",
+          "target": "examples/chat/index.ts"
+        },
+        {
+          "path": "src/lib/lucide-types.ts",
+          "type": "registry:file",
+          "target": "src/lib/lucide-types.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · example-chat · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Tooltip on-hover/focus (Radix) tokenizado. Requer TooltipProvider no root.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-tooltip@^1.2.10"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tooltip.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · tooltip · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Placeholder de carregamento (pulse) com tokens do DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [],
+      "files": [
+        {
+          "path": "src/components/shadcn/skeleton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/skeleton.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · skeleton · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "sonner",
+      "type": "registry:ui",
+      "title": "Sonner",
+      "description": "Toaster/toasts (Sonner) tokenizado e self-contained (segue o tema via .dark).",
+      "registryDependencies": [],
+      "dependencies": [
+        "lucide-react@^1.7.0",
+        "sonner@^2.0.7"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/sonner.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sonner.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · sonner · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Card de notificação sobre o Sonner — status no icon-chip (bg fraco + ícone forte), props ergonômicas (title/description/icon/action/cancel/onClose/meta). Mantém o nativo do Sonner.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/sonner",
+        "@igreen/tv"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0",
+        "sonner@^2.0.7"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/Toast/USAGE.md",
+          "type": "registry:file",
+          "target": "components/ui/Toast/USAGE.md"
+        },
+        {
+          "path": "src/components/ui/Toast/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Toast/index.ts"
+        },
+        {
+          "path": "src/components/ui/Toast/toast-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Toast/toast-card.tsx"
+        },
+        {
+          "path": "src/components/ui/Toast/toast.styles.ts",
+          "type": "registry:ui",
+          "target": "components/ui/Toast/toast.styles.ts"
+        },
+        {
+          "path": "src/components/ui/Toast/toast.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/Toast/toast.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · toast · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Mostra/esconde uma seção (Radix). Trigger + conteúdo expansível.",
+      "registryDependencies": [],
+      "dependencies": [
+        "@radix-ui/react-collapsible@^1.1.14"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/collapsible.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/collapsible.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · collapsible · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Área rolável com scrollbar estilizada (Radix), thumb tokenizado.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-scroll-area@^1.2.12"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/scroll-area.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/scroll-area.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · scroll-area · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Botão de dois estados (Radix), tokenizado; ativo em brand-subtle.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle@^1.1.12",
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/toggle.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · toggle · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Grupo de toggles (segmented), single/multiple.",
+      "registryDependencies": [
+        "@igreen/toggle",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-toggle-group@^1.1.13",
+        "class-variance-authority@^0.7.1"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/toggle-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/toggle-group.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · toggle-group · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "input-otp",
+      "type": "registry:ui",
+      "title": "Input OTP",
+      "description": "Entrada de código OTP/2FA com slots individuais, tokenizado.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "input-otp@^1.4.2",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/input-otp.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/input-otp.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · input-otp · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Menu de clique-direito (Radix) na receita de superfície do DS.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-context-menu@^2.3.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/context-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/context-menu.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · context-menu · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "Prévia em card on-hover (Radix), tokenizado (openDelay 200).",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-hover-card@^1.1.17"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/hover-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/hover-card.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · hover-card · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "Barra de menus estilo app desktop (Radix), tokenizado.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-menubar@^1.1.18",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/menubar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/menubar.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · menubar · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "Navegação com painéis/mega-menu (Radix), tokenizado.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "@radix-ui/react-navigation-menu@^1.2.16",
+        "class-variance-authority@^0.7.1",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/navigation-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/navigation-menu.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · navigation-menu · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Slides navegáveis (Embla); controles usam o Button do DS.",
+      "registryDependencies": [
+        "@igreen/button",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "embla-carousel-react@^8.6.0",
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/carousel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/carousel.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · carousel · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Mantém uma proporção fixa do conteúdo (Radix).",
+      "registryDependencies": [],
+      "dependencies": [
+        "@radix-ui/react-aspect-ratio@^1.1.10"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/aspect-ratio.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/aspect-ratio.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · aspect-ratio · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Painel deslizante com gesto de arrastar (Vaul), tokenizado.",
+      "registryDependencies": [
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "vaul@^1.1.2"
+      ],
+      "files": [
+        {
+          "path": "src/components/shadcn/drawer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/drawer.tsx"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · drawer · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    },
+    {
+      "name": "date-picker",
+      "type": "registry:ui",
+      "title": "Date Picker",
+      "description": "Seletor de data único (Popover + Calendar) com trigger estilo input do DS.",
+      "registryDependencies": [
+        "@igreen/calendar",
+        "@igreen/popover",
+        "@igreen/utils"
+      ],
+      "dependencies": [
+        "lucide-react@^1.7.0"
+      ],
+      "files": [
+        {
+          "path": "src/components/ui/DatePicker/datepicker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/DatePicker/datepicker.tsx"
+        },
+        {
+          "path": "src/components/ui/DatePicker/index.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DatePicker/index.ts"
+        }
+      ],
+      "meta": {
+        "stamp": "igreen-ds · date-picker · v0.25.1 · 02aaaf6 · 2026-07-07"
+      }
+    }
+  ]
+}

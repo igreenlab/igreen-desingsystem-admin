@@ -22,7 +22,7 @@
  *   ring    → focus de input/textarea/select (3px brand-tinted box-shadow)
  */
 
-import { brand, brandContrast, gray, danger, success, warning, info } from "../primitives/color-palette";
+import { brand, brandContrast, danger, success, warning, info } from "../primitives/color-palette";
 
 // ─── Shadow tokens ─────────────────────────────────────────────────────────────
 
@@ -48,8 +48,11 @@ export const shadow = {
   // ── Dark mode ────────────────────────────────────────────────────────────────
   dark: {
     none:  "none",
-    sm:    "none",
-    md:    `0 0 0 1px ${gray[800]}`,
+    // Drop shadows reais no dark (antes: sm=none, md=hairline cinza claro → parecia
+    // "mais claro" no hover). Agora sm = sombra sutil, md = elevação mais profunda
+    // (sempre mais escura que sm). L-011: dark ≥ 2× a opacidade do light.
+    sm:    "0 1px 2px oklch(0 0 0 / 0.15)",
+    md:    "0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42)",
     lg:    "0 8px 24px oklch(0 0 0 / 0.30)",
     xl:    "0 12px 32px oklch(0 0 0 / 0.40)",
     "2xl": "0 24px 56px oklch(0 0 0 / 0.45)",

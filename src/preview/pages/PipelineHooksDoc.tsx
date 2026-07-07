@@ -78,8 +78,8 @@ export function PipelineHooksDoc() {
           <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
             <p className="text-body-md font-medium text-fg-default mb-gp-sm">Idempotent on success</p>
             <p className="text-body-md text-fg-muted">
-              A PostToolUse hook should always return exit 0 unless something is wrong.
-              A PreToolUse hook returns exit 1 to block — the message on stderr is shown to the agent.
+              A PostToolUse hook should always return exit 0 (efeito colateral informativo).
+              A PreToolUse hook returns exit 2 to block — the message on stderr is shown to the agent (exit 1 não bloqueia).
             </p>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function PipelineHooksDoc() {
           <div className="grid grid-cols-[180px_1fr_180px] gap-0 border-b border-border-subtle">
             <div className="py-pad-md px-pad-xl"><Badge color="primary" variant="soft" size="sm">PreToolUse</Badge></div>
             <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">Antes do agente executar a tool</div>
-            <div className="py-pad-md px-pad-xl text-body-md text-fg-default">Sim (exit 1 + msg stderr)</div>
+            <div className="py-pad-md px-pad-xl text-body-md text-fg-default">Sim (exit 2 + msg stderr)</div>
           </div>
           <div className="grid grid-cols-[180px_1fr_180px] gap-0">
             <div className="py-pad-md px-pad-xl"><Badge color="success" variant="soft" size="sm">PostToolUse</Badge></div>
@@ -118,17 +118,38 @@ export function PipelineHooksDoc() {
           blocks={[".ts", ".tsx", ".js", ".jsx", ".json", ".md"]}
         />
         <HookCard
+          name=".claude/hooks/ds-lint-styles.sh"
+          event="PostToolUse"
+          matcher="Edit | Write"
+          desc="Dispara em src/components/**/*.styles.{ts,tsx}. Faz grep das lições L-001 a L-007 (ring com alpha, Tailwind literal com equivalente DS, ring-3, outline-none solto, bg-input, disabled fora de ordem, tipografia avulsa) + checa import de tv via @/utils/tv. Warning em stderr — informativo, não bloqueia."
+          blocks={["L-001", "L-002", "L-003", "L-004", "L-005", "L-006", "L-007", "import tv"]}
+        />
+        <HookCard
+          name=".claude/hooks/ds-inventory-check.sh"
+          event="PostToolUse"
+          matcher="Edit | Write"
+          desc="Dispara em src/components/ui/<Nome>/**. Alerta se USAGE.md está ausente, se o componente não consta no inventory.md (L-016) ou se não está em registry.json (gap de distribuição — não será distribuído). Informativo, não bloqueia."
+          blocks={["USAGE.md ausente", "inventory.md", "registry.json"]}
+        />
+        <HookCard
+          name=".claude/hooks/ds-tokens-check.sh"
+          event="PostToolUse"
+          matcher="Edit | Write"
+          desc="Dispara em tokens/**/*.ts. Lembra de rodar tokens:tw4 + avisa que token novo só chega no consumidor via registry:build + bump (/ds-release). Informativo, não bloqueia."
+          blocks={["tokens/**/*.ts", "tokens:tw4", "registry:build", "/ds-release"]}
+        />
+        <HookCard
           name=".claude/hooks/block-rm-rf.sh"
           event="PreToolUse"
           matcher="Bash"
-          desc="Bloqueia rm -rf perigoso (rm -rf /, rm -rf ., rm -rf ~). Permite rm -rf node_modules e dist."
+          desc="Bloqueia rm -rf perigoso (rm -rf /, rm -rf ., rm -rf ~) com exit 2. Permite rm -rf node_modules e dist."
           blocks={["rm -rf /", "rm -rf ~", "rm -rf .", "rm -rf *"]}
         />
         <HookCard
           name=".claude/hooks/block-sensitive-edit.sh"
           event="PreToolUse"
           matcher="Edit | Write"
-          desc="Bloqueia edição em arquivos sensíveis: .env, credentials, secrets, migrations, .git/. Log para hook-log.txt."
+          desc="Bloqueia edição em arquivos sensíveis: .env, credentials, secrets, migrations, .git/ — retorna exit 2 (exit 1 não bloquearia). Log para hook-log.txt."
           blocks={[".env", "credentials.json", "*.pem", "*.key", "migrations/", ".git/"]}
         />
       </div>
@@ -147,7 +168,10 @@ export function PipelineHooksDoc() {
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/format-on-save.sh" }
+          { "type": "command", "command": ".claude/hooks/format-on-save.sh" },
+          { "type": "command", "command": ".claude/hooks/ds-lint-styles.sh" },
+          { "type": "command", "command": ".claude/hooks/ds-inventory-check.sh" },
+          { "type": "command", "command": ".claude/hooks/ds-tokens-check.sh" }
         ]
       }
     ],
@@ -175,10 +199,14 @@ export function PipelineHooksDoc() {
       <SectionH2 id="logs" title="Hook Logs" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          Both <code className="font-mono text-code-sm">format-on-save.sh</code> and{" "}
-          <code className="font-mono text-code-sm">block-sensitive-edit.sh</code> log entries to{" "}
-          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/scratch/hook-log.txt</code>.
-          Useful for debugging when a hook silently fails or skips a file.
+          Os hooks DS escrevem em{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.ai/scratch/hook-log.txt</code>:{" "}
+          <code className="font-mono text-code-sm">format-on-save</code>,{" "}
+          <code className="font-mono text-code-sm">ds-lint-styles</code>,{" "}
+          <code className="font-mono text-code-sm">ds-inventory-check</code>,{" "}
+          <code className="font-mono text-code-sm">ds-tokens-check</code> e{" "}
+          <code className="font-mono text-code-sm">block-sensitive-edit</code>.
+          Útil pra depurar quando um hook falha ou pula um arquivo em silêncio.
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted overflow-x-auto">
           <pre className="whitespace-pre leading-relaxed">{`[2026-05-18 14:39:21] format-on-save: OK  src/components/ui/Button/button.styles.ts
@@ -196,7 +224,7 @@ export function PipelineHooksDoc() {
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
           A hook reads <code className="font-mono text-code-sm">stdin</code> as JSON with the tool input, decides whether to
-          act, and returns an exit code. For PreToolUse, exit 1 blocks the call — for PostToolUse, the exit code is ignored.
+          act, and returns an exit code. For PreToolUse, exit 2 blocks the call (exit 1 não bloqueia) — for PostToolUse, the exit code is ignored.
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl font-mono text-code-sm text-fg-muted overflow-x-auto">
           <pre className="whitespace-pre leading-relaxed">{`#!/usr/bin/env bash
@@ -207,7 +235,7 @@ FILE=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
 case "$FILE" in
   *.env|*/.env)
     echo "BLOQUEADO: edição em .env não permitida." >&2
-    exit 1
+    exit 2
     ;;
 esac
 

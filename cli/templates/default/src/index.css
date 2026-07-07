@@ -1,40 +1,77 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /*
- * Diz pro Tailwind v4 escanear os bundles do DS dentro de node_modules.
- * Sem isso, as classes utility usadas DENTRO dos componentes do package
- * (gap-gp-md, rounded-radius-base, min-h-form-lg, etc.) não são geradas,
- * porque por default o Tailwind ignora node_modules/.
+ * Tema iGreen (tokens OKLCH) — copy-in via @igreen/theme, vive em src/.
+ * Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes,
+ * senão as classes geradas (gap-gp-*, rounded-radius-*, min-h-form-*) ficam
+ * órfãs (sem as CSS vars do @theme). Re-sincronizar com `shadcn add @igreen/theme`.
  */
-@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
+@import "./styles/theme/tailwind-theme.css";
 
-@import "@snksergio/design-system/theme.css";
+@custom-variant dark (&:is(.dark *));
 
-/*
- * Fontes Geist (sans + mono) carregadas do package `geist` em node_modules.
- * O Vite resolve esses caminhos via module resolution. Sem isso, font-family
- * cai pro fallback system-ui (Segoe UI no Windows, San Francisco no Mac).
+/* ── Geist (fonte do DS) ──────────────────────────────────────────────────
+ * Arquivos variáveis em public/fonts/. Sem isto o projeto cai em system-ui
+ * e diverge dos showcases. Mantém o mesmo @font-face do DS.
  */
 @font-face {
   font-family: "Geist";
-  src: url("geist/dist/fonts/geist-sans/Geist-Variable.woff2") format("woff2-variations");
+  src: url("/fonts/Geist-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
-
 @font-face {
   font-family: "Geist Mono";
-  src: url("geist/dist/fonts/geist-mono/GeistMono-Variable.woff2") format("woff2-variations");
+  src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
+}
+@theme inline {
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "Fira Code", monospace;
+}
+
+/*
+ * Bridge shadcn → iGreen. Mapeia o vocabulário BASE do shadcn (bg-primary,
+ * bg-background, border-border, etc.) pros tokens iGreen. Assim QUALQUER componente
+ * do shadcn OFICIAL puxado ad-hoc (ex.: `npx shadcn add skeleton`) nasce
+ * iGreen-tematizado automaticamente — e segue dark/light (os tokens iGreen já trocam
+ * sob .dark). Componentes @igreen usam o vocabulário iGreen direto e não dependem disto.
+ */
+@theme inline {
+  --color-background: var(--color-bg-canvas);
+  --color-foreground: var(--color-fg-default);
+  --color-card: var(--color-bg-surface);
+  --color-card-foreground: var(--color-fg-default);
+  --color-popover: var(--color-bg-dropdown);
+  --color-popover-foreground: var(--color-fg-default);
+  --color-primary: var(--color-bg-brand);
+  --color-primary-foreground: var(--color-fg-on-brand);
+  --color-secondary: var(--color-bg-subtle);
+  --color-secondary-foreground: var(--color-fg-default);
+  --color-muted: var(--color-bg-muted);
+  --color-muted-foreground: var(--color-fg-muted);
+  --color-accent: var(--color-bg-accent);
+  --color-accent-foreground: var(--color-fg-default);
+  --color-destructive: var(--color-bg-danger);
+  --color-destructive-foreground: var(--color-fg-on-danger);
+  --color-border: var(--color-border-default);
+  --color-input: var(--color-border-input);
+  --color-ring: var(--color-bg-brand);
+  --radius: var(--radius-radius-base);
+  --radius-sm: var(--radius-radius-sm);
+  --radius-md: var(--radius-radius-base);
+  --radius-lg: var(--radius-radius-lg);
+  --radius-xl: var(--radius-radius-lg);
 }
 
 html,
 body {
   background: var(--color-bg-canvas);
   color: var(--color-fg-default);
-  font-family: "Geist", system-ui, -apple-system, sans-serif;
+  font-family: var(--font-sans, system-ui, -apple-system, "Segoe UI", sans-serif);
   min-height: 100vh;
 }

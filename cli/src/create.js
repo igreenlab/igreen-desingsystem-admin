@@ -23,6 +23,7 @@ import {
   copyFileSync,
   renameSync,
   statSync,
+  unlinkSync,
 } from "node:fs";
 import spawn from "cross-spawn";
 import prompts from "prompts";
@@ -33,6 +34,18 @@ const __dirname = dirname(__filename);
 const CLI_ROOT = resolve(__dirname, "..");
 const TEMPLATES_DIR = join(CLI_ROOT, "templates");
 const DEFAULT_TEMPLATE = "default";
+
+// Logo iGreen em ASCII — splash verde no fim do scaffold. Arte opcional: se o
+// arquivo sumir do pacote, segue sem ela (não quebra o CLI).
+let LOGO_ASCII = "";
+try {
+  LOGO_ASCII = readFileSync(join(__dirname, "logo-ascii.txt"), "utf8").replace(
+    /\n+$/,
+    "",
+  );
+} catch {
+  /* arte ausente — ignora */
+}
 
 /* ── helpers ─────────────────────────────────────────────────────── */
 
@@ -73,7 +86,10 @@ function run(cmd, args, cwd) {
     const child = spawn(cmd, args, { cwd, stdio: "inherit" });
     child.on("close", (code) => {
       if (code === 0) resolveRun();
-      else rejectRun(new Error(`${cmd} ${args.join(" ")} exited with code ${code}`));
+      else
+        rejectRun(
+          new Error(`${cmd} ${args.join(" ")} exited with code ${code}`),
+        );
     });
     child.on("error", (err) => rejectRun(err));
   });
@@ -103,12 +119,188 @@ function listTemplates() {
   });
 }
 
+/* ── starter: AppShell + tutorial + exemplos no menu ─────────────── */
+
+const EXAMPLE_SCREENS = [
+  {
+    item: "example-clientes",
+    comp: "ClientesScreen",
+    path: "@/examples/clientes",
+    label: "Clientes",
+    icon: "Users",
+    hash: "clientes",
+  },
+  {
+    item: "example-finance",
+    comp: "FinanceScreen",
+    path: "@/examples/finance",
+    label: "Financeiro",
+    icon: "Wallet",
+    hash: "finance",
+  },
+  {
+    item: "example-dashboard",
+    comp: "DashboardScreen",
+    path: "@/examples/dashboard",
+    label: "Dashboard",
+    icon: "LayoutDashboard",
+    hash: "dashboard",
+  },
+  {
+    item: "example-order-detail",
+    comp: "OrderDetailScreen",
+    path: "@/examples/order-detail",
+    label: "Detalhe do pedido",
+    icon: "FileText",
+    hash: "order-detail",
+  },
+  {
+    item: "example-edit-page",
+    comp: "EditPageScreen",
+    path: "@/examples/edit-page",
+    label: "Edição",
+    icon: "PencilLine",
+    hash: "edit-page",
+  },
+  {
+    item: "example-chat",
+    comp: "ChatScreen",
+    path: "@/examples/chat",
+    label: "Chat",
+    icon: "MessagesSquare",
+    hash: "chat",
+  },
+  {
+    item: "example-mapa-rede",
+    comp: "MapaDeRedeScreen",
+    path: "@/examples/mapa-rede",
+    label: "Mapa de Rede",
+    icon: "Network",
+    hash: "mapa-rede",
+  },
+];
+
+/** Gera o src/App.tsx: AppShell + nav (Início→tutorial + exemplos instalados) com hash-routing. */
+function buildAppShellApp(examples) {
+  const iconSet = [
+    "Rocket",
+    "Monitor",
+    "Sun",
+    "Moon",
+    ...new Set(examples.map((e) => e.icon)),
+  ].join(", ");
+  const exImports = examples
+    .map((e) => `import { ${e.comp} } from "${e.path}";`)
+    .join("\n");
+  const navItems = [
+    `{ name: "Início", icon: Rocket, href: "#inicio" }`,
+    ...examples.map(
+      (e) => `{ name: "${e.label}", icon: ${e.icon}, href: "#${e.hash}" }`,
+    ),
+  ].join(",\n      ");
+  const screenMap = [
+    `inicio: <Welcome />`,
+    ...examples.map((e) => `"${e.hash}": <${e.comp} />`),
+  ].join(",\n    ");
+  return `import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
+import { ${iconSet} } from "lucide-react";
+import { AppShell } from "@/components/ui/AppShell";
+import { Welcome } from "@/welcome";
+${exImports}
+
+type Theme = "light" | "dark" | "system";
+
+const CONTEXTS = [
+  {
+    id: "app",
+    label: "Telas",
+    icon: Rocket,
+    items: [
+      ${navItems},
+    ],
+  },
+];
+
+const THEME_OPTIONS = [
+  { id: "system", label: "Sistema", icon: Monitor },
+  { id: "light", label: "Claro", icon: Sun },
+  { id: "dark", label: "Escuro", icon: Moon },
+];
+
+function useHashRoute() {
+  const [hash, setHash] = useState(() =>
+    typeof window === "undefined" ? "inicio" : window.location.hash.replace("#", "") || "inicio",
+  );
+  useEffect(() => {
+    const fn = () => setHash(window.location.hash.replace("#", "") || "inicio");
+    window.addEventListener("hashchange", fn);
+    return () => window.removeEventListener("hashchange", fn);
+  }, []);
+  return hash;
+}
+
+export default function App() {
+  const [theme, setTheme] = useState<Theme>("system");
+  const route = useHashRoute();
+
+  useEffect(() => {
+    const root = document.documentElement;
+    const mq = window.matchMedia("(prefers-color-scheme: dark)");
+    const apply = () => {
+      const dark = theme === "dark" || (theme === "system" && mq.matches);
+      root.classList.toggle("dark", dark);
+    };
+    apply();
+    if (theme !== "system") return;
+    mq.addEventListener("change", apply);
+    return () => mq.removeEventListener("change", apply);
+  }, [theme]);
+
+  const SCREENS: Record<string, ReactNode> = {
+    ${screenMap},
+  };
+
+  return (
+    <AppShell
+      contexts={CONTEXTS}
+      defaultActiveContextId="app"
+      defaultActiveItemHref="#inicio"
+      breadcrumb={[{ label: "iGreen DS" }]}
+      theme={theme}
+      onThemeChange={(id) => setTheme(id as Theme)}
+      themeOptions={THEME_OPTIONS}
+      user={{ name: "Você", email: "voce@empresa.com", initials: "VC" }}
+    >
+      {SCREENS[route] ?? <Welcome />}
+    </AppShell>
+  );
+}
+`;
+}
+
 /* ── main ────────────────────────────────────────────────────────── */
 
 async function main() {
-  console.log();
-  console.log(pc.green(pc.bold("◇ @snksergio/create-design-system")));
-  console.log(pc.dim("  Bootstrap a project consuming the iGreen Design System"));
+  const BANNER = [
+    "",
+    "   _  ____                     ",
+    "  (_)/ ___|_ __ ___  ___ _ __  ",
+    "  | | |  _| '__/ _ \\/ _ \\ '_ \\ ",
+    "  | | |_| | | |  __/  __/ | | |",
+    "  |_|\\____|_|  \\___|\\___|_| |_|",
+    "",
+  ];
+  console.log(pc.green(pc.bold(BANNER.join("\n"))));
+  console.log(
+    pc.green(pc.bold("  iGreen Design System")) +
+      pc.dim("  ·  create-design-system"),
+  );
+  console.log(
+    pc.dim(
+      "  Bootstrap de um projeto que consome o iGreen DS (registry + kit de telas)",
+    ),
+  );
   console.log();
 
   const argName = process.argv[2];
@@ -138,6 +330,12 @@ async function main() {
         initial: 0,
       },
       {
+        type: "password",
+        name: "igreenToken",
+        message:
+          "IGREEN_TOKEN (Bearer do registry — Enter pra pular e colar depois)?",
+      },
+      {
         type: "select",
         name: "packageManager",
         message: "Package manager?",
@@ -157,6 +355,13 @@ async function main() {
       },
       {
         type: "confirm",
+        name: "installExamples",
+        message:
+          "Instalar as páginas de exemplo (clientes, finance, dashboard, detalhe, edição, chat) já no menu?",
+        initial: true,
+      },
+      {
+        type: "confirm",
         name: "initGit",
         message: "Initialize a git repository?",
         initial: true,
@@ -168,25 +373,40 @@ async function main() {
         console.log(pc.yellow("✗ Cancelled."));
         process.exit(0);
       },
-    }
+    },
   );
 
   const projectName = argName || answers.projectName;
+  // argName pula o prompt → o `validate` do prompts não roda nele. Valida aqui
+  // pra não gerar pkg.name/pasta inválidos quando vier por argumento.
+  if (argName) {
+    const valid = validateProjectName(projectName);
+    if (valid !== true) {
+      console.log();
+      console.log(pc.red(`✗ ${valid}`));
+      process.exit(1);
+    }
+  }
   const template = answers.template || DEFAULT_TEMPLATE;
-  const { packageManager, installDeps, initGit } = answers;
+  const { packageManager, installDeps, initGit, igreenToken, installExamples } =
+    answers;
 
   // Step 2: validate destination
   const projectDir = resolve(process.cwd(), projectName);
   if (existsSync(projectDir) && !isDirectoryEmpty(projectDir)) {
     console.log();
-    console.log(pc.red(`✗ Directory "${projectName}" already exists and is not empty.`));
+    console.log(
+      pc.red(`✗ Directory "${projectName}" already exists and is not empty.`),
+    );
     process.exit(1);
   }
 
   // Step 3: copy template
   const templateDir = join(TEMPLATES_DIR, template);
   if (!existsSync(templateDir)) {
-    console.log(pc.red(`✗ Template "${template}" not found in ${TEMPLATES_DIR}`));
+    console.log(
+      pc.red(`✗ Template "${template}" not found in ${TEMPLATES_DIR}`),
+    );
     process.exit(1);
   }
 
@@ -203,11 +423,66 @@ async function main() {
     writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n", "utf8");
   }
 
+  // Step 4b: título do browser = "iGreen - <projeto>" (antes era fixo "Exemplo —
+  // iGreen Design System"). Favicon já é a logo iGreen (public/favicon.svg).
+  const indexHtmlPath = join(projectDir, "index.html");
+  if (existsSync(indexHtmlPath)) {
+    const html = readFileSync(indexHtmlPath, "utf8").replace(
+      /<title>.*?<\/title>/,
+      `<title>iGreen - ${projectName}</title>`,
+    );
+    writeFileSync(indexHtmlPath, html, "utf8");
+  }
+
   // Step 5: rename _gitignore → .gitignore
   const gitignoreSrc = join(projectDir, "_gitignore");
   const gitignoreDst = join(projectDir, ".gitignore");
   if (existsSync(gitignoreSrc)) {
     renameSync(gitignoreSrc, gitignoreDst);
+  }
+
+  // Step 5b: env do registry — rename _env.local.example → .env.local.example
+  // e, se o token foi informado, grava .env.local (gitignored) já pronto.
+  const envExSrc = join(projectDir, "_env.local.example");
+  const envExDst = join(projectDir, ".env.local.example");
+  if (existsSync(envExSrc)) {
+    renameSync(envExSrc, envExDst);
+  }
+
+  // Step 5b2: MCP — rename _mcp.json → .mcp.json (projeto nasce MCP-ready p/ Claude Code;
+  // a IA do consumidor descobre/adiciona @igreen via o servidor `shadcn mcp`).
+  const mcpSrc = join(projectDir, "_mcp.json");
+  const mcpDst = join(projectDir, ".mcp.json");
+  if (existsSync(mcpSrc)) {
+    renameSync(mcpSrc, mcpDst);
+  }
+
+  // Step 5b3: kit de construção — rename _claude → .claude (rules auto-carregadas,
+  // skills crud-builder/ds-kit, commands). É o que faz o projeto nascer com o
+  // orquestrador + skill de CRUD + DESIGN.md sabendo dos padrões do DS.
+  const claudeSrc = join(projectDir, "_claude");
+  const claudeDst = join(projectDir, ".claude");
+  if (existsSync(claudeSrc)) {
+    renameSync(claudeSrc, claudeDst);
+  }
+  const token = (igreenToken || "").trim();
+  if (token) {
+    writeFileSync(
+      join(projectDir, ".env.local"),
+      `IGREEN_TOKEN=${token}\n`,
+      "utf8",
+    );
+  }
+
+  // Step 5c: tela inicial AppShell (asset `_app-appshell.tsx`). Guarda o conteúdo
+  // e remove o stray do projeto. Só vira `src/App.tsx` quando há token (precisa puxar
+  // @igreen/app-shell do registry) — feito no Step 6b. Sem token, fica a tela de boas-vindas.
+  // Tela de boas-vindas/tutorial (asset → src/welcome.tsx só quando há componentes).
+  const welcomeAsset = join(projectDir, "_welcome.tsx");
+  let welcomeContent = null;
+  if (existsSync(welcomeAsset)) {
+    welcomeContent = readFileSync(welcomeAsset, "utf8");
+    unlinkSync(welcomeAsset);
   }
 
   // Step 6: install deps
@@ -217,8 +492,66 @@ async function main() {
       await run(packageManager, ["install"], projectDir);
     } catch (err) {
       console.log();
-      console.log(pc.yellow(`⚠ Failed to install dependencies: ${err.message}`));
-      console.log(pc.dim(`  You can run "${packageManager} install" manually later.`));
+      console.log(
+        pc.yellow(`⚠ Failed to install dependencies: ${err.message}`),
+      );
+      console.log(
+        pc.dim(`  You can run "${packageManager} install" manually later.`),
+      );
+    }
+  }
+
+  // Step 6b: monta a tela inicial com AppShell (só com token + deps instaladas).
+  // Puxa o set inicial do registry e promove o asset AppShell a src/App.tsx.
+  // Falhou (sem rede / token inválido)? Mantém a tela de boas-vindas padrão —
+  // NÃO escreve o App rico, que importaria componentes que não vieram (quebra em runtime).
+  let examplesInstalled = false;
+  if (token && installDeps && welcomeContent) {
+    const exList = installExamples ? EXAMPLE_SCREENS : [];
+    const addArgs = [
+      "app-shell",
+      "button",
+      "card",
+      "badge",
+      "chip",
+      "page-header",
+      ...exList.map((e) => e.item),
+    ];
+    console.log(
+      pc.cyan(
+        `→ Montando a tela inicial (AppShell + tutorial${exList.length ? " + " + exList.length + " exemplos no menu" : ""})…`,
+      ),
+    );
+    try {
+      await run(
+        packageManager,
+        ["run", "igreen:add", "--", ...addArgs],
+        projectDir,
+      );
+      // Só promove o App rico + welcome DEPOIS do igreen:add ter sucesso — senão
+      // o App importaria componentes ausentes. No catch, mantém o App estático padrão.
+      writeFileSync(
+        join(projectDir, "src", "welcome.tsx"),
+        welcomeContent,
+        "utf8",
+      );
+      writeFileSync(
+        join(projectDir, "src", "App.tsx"),
+        buildAppShellApp(exList),
+        "utf8",
+      );
+      examplesInstalled = installExamples;
+      console.log(
+        pc.green(
+          `  ✓ Tela inicial pronta (tutorial${exList.length ? " + " + exList.length + " exemplos navegáveis no menu" : ""}).`,
+        ),
+      );
+    } catch (err) {
+      console.log(
+        pc.yellow(
+          `  ⚠ Não consegui montar a tela inicial (${err.message}). Mantida a tela de boas-vindas padrão.`,
+        ),
+      );
     }
   }
 
@@ -230,13 +563,17 @@ async function main() {
       await run("git", ["add", "."], projectDir);
       await run(
         "git",
-        ["commit", "-m", "chore: initial commit from create-snksergio-design-system"],
-        projectDir
+        [
+          "commit",
+          "-m",
+          "chore: initial commit from create-snksergio-design-system",
+        ],
+        projectDir,
       );
     } catch (err) {
       console.log();
       console.log(pc.yellow(`⚠ Failed to initialize git: ${err.message}`));
-      console.log(pc.dim("  You can run \"git init\" manually later."));
+      console.log(pc.dim('  You can run "git init" manually later.'));
     }
   }
 
@@ -245,6 +582,12 @@ async function main() {
     packageManager === "npm" ? "npm run dev" : `${packageManager} dev`;
 
   console.log();
+  // Logo iGreen (~50 cols). Só imprime se o terminal comporta — senão a arte
+  // quebra na borda e fica pior que ausente (o banner inicial já mostrou a marca).
+  if (LOGO_ASCII && (process.stdout.columns ?? 80) >= 50) {
+    console.log(pc.green(LOGO_ASCII));
+    console.log();
+  }
   console.log(pc.green(pc.bold("✨ Done!")));
   console.log();
   console.log(pc.bold("Next steps:"));
@@ -255,8 +598,48 @@ async function main() {
   if (!installDeps) {
     console.log(pc.cyan(`  ${packageManager} install`));
   }
+  if (!token) {
+    console.log(
+      pc.cyan("  cp .env.local.example .env.local") +
+        pc.dim("   # cole o IGREEN_TOKEN"),
+    );
+  }
+  console.log(
+    pc.cyan("  npx shadcn@latest add @igreen/button") +
+      pc.dim("   # puxe componentes do registry"),
+  );
   console.log(pc.cyan(`  ${runCmd}`));
+  // O usuário pediu exemplos, mas eles não foram instalados (sem token e/ou sem deps,
+  // ou o igreen:add inicial falhou). Avisa como puxá-los depois — em vez de silêncio.
+  if (installExamples && !examplesInstalled) {
+    console.log();
+    console.log(
+      pc.yellow("⚠ Exemplos não instalados (faltou token/deps).") +
+        pc.dim(" Depois:"),
+    );
+    console.log(
+      pc.cyan(
+        `  npm run igreen:add -- ${EXAMPLE_SCREENS.map((e) => e.item).join(" ")}`,
+      ),
+    );
+  }
   console.log();
+  console.log();
+  console.log(
+    pc.dim(
+      'Kit de telas incluso: peça à IA "monte uma tabela de X" ou use /ds-create-crud.',
+    ),
+  );
+  console.log(
+    pc.dim(
+      "Padrões de design em DESIGN.md (raiz) + regras auto-carregadas em .claude/.",
+    ),
+  );
+  console.log(
+    pc.dim(
+      "Tema/cn/tv do DS já vêm configurados. `npm run doctor` valida a integridade do cn/tv.",
+    ),
+  );
   console.log(pc.dim("Preview will open at http://localhost:3200"));
   console.log();
 }

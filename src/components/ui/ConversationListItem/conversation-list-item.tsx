@@ -6,7 +6,7 @@ import {
   type ReactNode,
 } from "react";
 
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { MarkdownText } from "@/components/ui/MarkdownText";
 
 import { conversationListItemStyles } from "./conversation-list-item.styles";

@@ -21,8 +21,19 @@ globals.css     → --primary: var(--color-bg-primary)  ← mapeamento automáti
 resultado       → token iGreen ✓
 ```
 
-Instalar + mover para `shadcn/` já é suficiente para cores.
-**Exceção:** focus ring — precisa substituição manual obrigatória.
+Instalar + mover para `shadcn/` já é suficiente para `bg-*`/`text-*`.
+**Exceção 1 — focus ring:** precisa substituição manual obrigatória (abaixo).
+**Exceção 2 — BORDA (L-039):** no Tailwind v4 a classe `border` (e `border-x/y/l/r/t/b`)
+define **só a largura** — sem uma classe de cor a borda usa `currentColor` (branca no
+dark / preta no light). O bridge NÃO cobre borda crua. **Sempre** trocar `border` →
+`border border-border-default` (ou `-subtle`/`-brand`/...). Ex.: `rounded-md border bg-popover`
+→ `rounded-radius-md border border-border-default bg-bg-surface`.
+**Exceção 3 — FLUTUANTE (L-040):** menu/popover/painel (dropdown, context-menu, menubar,
+navigation-menu, hover-card, select…) segue a **receita única** — espelhar
+`dropdown-menu.tsx`/`popover.tsx`, NÃO os defaults shadcn. Superfície: `relative
+bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float`
++ frosted `before:backdrop-blur-2xl ...`. Item: `px-pad-lg py-pad-md rounded-radius-sm
+text-fg-muted focus:bg-bg-muted focus:text-fg-default`. Separator/Label/Shortcut por token.
 
 ## Passos
 
@@ -85,6 +96,18 @@ export * from "./shadcn/nome-componente"
 - [ ] Lógica Radix preservada (handlers, aria, data-state)
 - [ ] Dark mode via CSS vars
 - [ ] Exports criados em AMBOS: `shadcn/index.ts` e `src/components/index.ts`
+- [ ] Usa `cn` de `@/lib/utils` / `tv` de `@/utils/tv` (alias) — distribuível
 - [ ] `component-inventory.md` atualizado
+- [ ] **USAGE (índice `shadcn/USAGE.md`) — decisão obrigatória, NÃO um arquivo por componente:**
+  - **Tem gotcha?** (setup obrigatório tipo `<Toaster/>`/`<TooltipProvider>` no root, dep extra
+    tipo `vaul`/`embla`, receita flutuante L-040, ring/acessibilidade fora do padrão, z-index L-030)
+    → adicionar/editar **1 linha** na tabela do `shadcn/USAGE.md` (curta — só o não-óbvio).
+  - **Sem gotcha?** (API shadcn/Radix padrão) → **não escrever nada na tabela**; se quiser, citar o
+    nome na lista "Padrão sem gotcha". A doc viva é o showcase (`#/<nome>`).
+  - ⛔ Não criar `USAGE.md` dentro de `shadcn/<nome>/` (primitivo é single-file; índice basta).
+    Manter o índice enxuto — não repetir a API; só o que pega o consumidor de surpresa.
+- [ ] **Registry (distribuição):** `node scripts/registry-add-item.mjs <nome>` → revisar a
+  entrada proposta (registryDeps + deps) → adicionar ao `registry.json`. Distribuição efetiva
+  no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível via `@igreen/<nome>`.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
   Ex: `Assumption: "não existe componente Shadcn com lógica equivalente instalado anteriormente"`

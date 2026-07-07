@@ -11,6 +11,7 @@ import {
   sidebarSectionItem,
   sidebarItemText,
   sidebarBookmarkDot,
+  sidebarBookmarkIcon,
   sidebarChatAvatar,
   sidebarChatStatus,
 } from "./sidebar.styles";
@@ -81,21 +82,34 @@ export function SidebarSection({
         className={sidebarSectionList({ collapsed, variant: section.variant })}
       >
         {section.variant === "bookmark" &&
-          section.items.map((item) => (
-            <SidebarSectionLink
-              key={item.name}
-              href={item.href}
-              onClick={item.onClick}
-              title={item.name}
-            >
-              <span
-                className={sidebarBookmarkDot()}
-                style={{ backgroundColor: item.color }}
-                aria-hidden="true"
-              />
-              <span className={sidebarItemText()}>{item.name}</span>
-            </SidebarSectionLink>
-          ))}
+          section.items.map((item) => {
+            const Icon = item.icon;
+            return (
+              <SidebarSectionLink
+                key={item.name}
+                href={item.href}
+                onClick={item.onClick}
+                title={item.name}
+              >
+                {Icon ? (
+                  <span
+                    className={sidebarBookmarkIcon()}
+                    style={{ color: item.color }}
+                    aria-hidden="true"
+                  >
+                    <Icon />
+                  </span>
+                ) : (
+                  <span
+                    className={sidebarBookmarkDot()}
+                    style={{ backgroundColor: item.color }}
+                    aria-hidden="true"
+                  />
+                )}
+                <span className={sidebarItemText()}>{item.name}</span>
+              </SidebarSectionLink>
+            );
+          })}
 
         {section.variant === "chat" &&
           section.items.map((item) => (

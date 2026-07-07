@@ -1,180 +1,76 @@
 import { useEffect, useState } from "react";
-import { Sun, Moon, Sparkles, Heart, AlertTriangle, Check } from "lucide-react";
-import {
-  Button,
-  Chip,
-  AlertModal,
-  Badge,
-  Avatar,
-} from "@snksergio/design-system";
+import { Moon, Sun, Terminal, Package } from "lucide-react";
 
 type Theme = "light" | "dark";
 
+const STEPS: { cmd: string; note: string }[] = [
+  { cmd: "cp .env.local.example .env.local", note: "cole o IGREEN_TOKEN (peça ao mantenedor)" },
+  { cmd: "npx shadcn@latest add @igreen/button", note: "puxa Button + tv (registryDependency)" },
+  { cmd: "npx shadcn@latest add @igreen/form-field", note: "composite obrigatório de forms" },
+];
+
 export default function App() {
   const [theme, setTheme] = useState<Theme>("light");
-  const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    const root = document.documentElement;
-    if (theme === "dark") root.classList.add("dark");
-    else root.classList.remove("dark");
+    document.documentElement.classList.toggle("dark", theme === "dark");
   }, [theme]);
 
-  const toggleTheme = () => setTheme((t) => (t === "light" ? "dark" : "light"));
-
   return (
-    <div className="min-h-screen p-pad-6xl flex flex-col gap-gp-6xl max-w-container-lg mx-auto">
-      {/* Header */}
-      <header className="flex items-center justify-between">
-        <div className="flex items-center gap-gp-xl">
-          <div className="w-10 h-10 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold">
+    <div className="min-h-screen flex flex-col gap-gp-xl p-sp-xl max-w-container-md mx-auto">
+      <header className="flex items-center justify-between pt-sp-lg">
+        <div className="flex items-center gap-gp-md">
+          <div className="size-10 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold">
             iG
           </div>
           <div>
-            <h1 className="text-heading-md text-fg-default m-0">Exemplo de Consumo</h1>
-            <p className="text-body-sm text-fg-muted m-0">
-              @snksergio/design-system instalado via npm
-            </p>
+            <h1 className="text-heading-md font-semibold text-fg-default">iGreen Design System</h1>
+            <p className="text-body-sm text-fg-muted">consumido via registry shadcn (@igreen/*)</p>
           </div>
         </div>
-
-        <Button
-          color="secondary"
-          variant="outline"
-          size="md"
-          iconLeft={theme === "light" ? <Moon /> : <Sun />}
-          onClick={toggleTheme}
+        <button
+          type="button"
+          onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
+          className="inline-flex items-center gap-gp-xs min-h-form-md px-pad-lg rounded-radius-base border border-border-default bg-bg-surface text-body-sm text-fg-default hover:bg-bg-subtle focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
         >
-          {theme === "light" ? "Dark mode" : "Light mode"}
-        </Button>
+          {theme === "light" ? <Moon className="size-icon-sm" /> : <Sun className="size-icon-sm" />}
+          {theme === "light" ? "Dark" : "Light"}
+        </button>
       </header>
 
-      {/* Info card */}
-      <section className="rounded-radius-base border border-border-subtle bg-bg-surface p-pad-4xl shadow-sh-sm">
-        <div className="flex items-start gap-gp-xl">
-          <div className="shrink-0 mt-1">
-            <Sparkles className="size-icon-md text-fg-brand" />
-          </div>
-          <div className="flex-1">
-            <h2 className="text-title-md text-fg-default m-0 mb-gp-md">
-              4 componentes do DS em ação
-            </h2>
-            <p className="text-body-sm text-fg-muted m-0">
-              Tudo o que aparece aqui — incluindo o toggle de tema acima — vem do pacote
-              <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm mx-gp-xs">
-                @snksergio/design-system@0.5.1
-              </code>
-              consumido por <code className="font-mono text-code-sm">npm install</code>.
-              O tema CSS está sendo carregado de
-              <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm mx-gp-xs">
-                @snksergio/design-system/theme.css
-              </code>
-              no <code className="font-mono text-code-sm">index.css</code>.
-            </p>
-          </div>
+      <section className="rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl shadow-sh-sm flex flex-col gap-gp-md">
+        <div className="flex items-center gap-gp-sm text-fg-brand">
+          <Package className="size-icon-md" />
+          <h2 className="text-title-md font-semibold text-fg-default">Projeto pronto</h2>
         </div>
+        <p className="text-body-sm text-fg-muted">
+          Tema (tokens OKLCH), <code className="text-code-sm">cn</code> e{" "}
+          <code className="text-code-sm">tv</code> do DS já vêm configurados — este toggle de
+          tema usa só classes de token, sem nenhum componente instalado ainda. Puxe os
+          componentes sob demanda pelo registry:
+        </p>
       </section>
 
-      {/* Section 1 — Buttons */}
-      <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
-          1. Button (color × variant)
-        </h3>
-        <div className="flex flex-wrap items-center gap-gp-md">
-          <Button color="primary" variant="filled">Primary filled</Button>
-          <Button color="primary" variant="outline">Outline</Button>
-          <Button color="primary" variant="soft">Soft</Button>
-          <Button color="primary" variant="ghost">Ghost</Button>
-          <Button color="critical" variant="filled" iconLeft={<AlertTriangle />}>
-            Critical
-          </Button>
-          <Button color="secondary" variant="outline" disabled>
-            Disabled
-          </Button>
+      <section className="flex flex-col gap-gp-sm">
+        <div className="flex items-center gap-gp-xs text-fg-default">
+          <Terminal className="size-icon-sm" />
+          <h3 className="text-caption-md font-semibold uppercase tracking-wider">Próximos passos</h3>
         </div>
+        <ol className="flex flex-col gap-gp-sm">
+          {STEPS.map((s, i) => (
+            <li key={i} className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-lg">
+              <code className="text-code-sm text-fg-default">{s.cmd}</code>
+              <p className="text-caption-sm text-fg-subtle mt-gp-xs">{s.note}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      {/* Section 2 — Chips */}
-      <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
-          2. Chip (status / tags)
-        </h3>
-        <div className="flex flex-wrap items-center gap-gp-sm">
-          <Chip color="primary" variant="soft">Em produção</Chip>
-          <Chip color="success" variant="soft" iconLeft={<Check />}>
-            Aprovado
-          </Chip>
-          <Chip color="warning" variant="soft">Pendente</Chip>
-          <Chip color="danger" variant="soft">Bloqueado</Chip>
-          <Chip color="primary" variant="outline">v0.1.1</Chip>
-        </div>
-      </section>
-
-      {/* Section 3 — Badges + Avatars */}
-      <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
-          3. Badge + Avatar (do shadcn restilizado)
-        </h3>
-        <div className="flex flex-wrap items-center gap-gp-xl">
-          <div className="flex items-center gap-gp-md">
-            <Avatar size="md" color="brand">SV</Avatar>
-            <span className="text-body-sm text-fg-default">Sergio Vieira</span>
-            <Badge color="primary" variant="soft">Admin</Badge>
-          </div>
-          <div className="flex items-center gap-gp-md">
-            <Avatar size="md" color="success">MA</Avatar>
-            <span className="text-body-sm text-fg-default">Maria Andrade</span>
-            <Badge color="success" variant="soft">Online</Badge>
-          </div>
-          <div className="flex items-center gap-gp-md">
-            <Avatar size="md" colorHex="#7c3aed">PR</Avatar>
-            <span className="text-body-sm text-fg-default">Pedro Ribeiro</span>
-            <Badge color="warning" variant="soft">Idle</Badge>
-          </div>
-        </div>
-      </section>
-
-      {/* Section 4 — AlertModal */}
-      <section className="flex flex-col gap-gp-2xl">
-        <h3 className="text-caption-md font-semibold text-fg-default m-0 uppercase tracking-wider">
-          4. AlertModal (Radix dialog restilizado)
-        </h3>
-        <div className="flex items-center gap-gp-md">
-          <Button
-            color="critical"
-            variant="filled"
-            iconLeft={<Heart />}
-            onClick={() => setModalOpen(true)}
-          >
-            Abrir confirmação
-          </Button>
-          <span className="text-body-sm text-fg-muted">
-            Modal acessível com focus trap, Esc, backdrop click
-          </span>
-        </div>
-
-        <AlertModal
-          open={modalOpen}
-          onOpenChange={setModalOpen}
-          tone="danger"
-          title="Excluir cliente?"
-          description="Essa ação não pode ser desfeita. Maria Hernandez será removida permanentemente."
-          confirmLabel="Sim, excluir"
-          cancelLabel="Cancelar"
-          onConfirm={() => {
-            setModalOpen(false);
-            console.log("confirmado");
-          }}
-        />
-      </section>
-
-      {/* Footer */}
-      <footer className="mt-auto pt-pad-3xl border-t border-border-subtle">
-        <p className="text-caption-sm text-fg-subtle m-0">
-          Tema atual: <strong className="text-fg-default">{theme}</strong> · Variáveis CSS
-          mudam automaticamente sob{" "}
-          <code className="font-mono text-code-sm">.dark</code>. Componentes não têm
-          lógica de tema — só consomem tokens.
+      <footer className="mt-auto pt-sp-lg border-t border-border-subtle">
+        <p className="text-caption-sm text-fg-subtle">
+          Tema: <strong className="text-fg-default">{theme}</strong> · CSS vars trocam sob{" "}
+          <code className="text-code-sm">.dark</code>. Rode <code className="text-code-sm">npm run doctor</code>{" "}
+          pra validar a integridade do <code className="text-code-sm">cn</code>/<code className="text-code-sm">tv</code>.
         </p>
       </footer>
     </div>

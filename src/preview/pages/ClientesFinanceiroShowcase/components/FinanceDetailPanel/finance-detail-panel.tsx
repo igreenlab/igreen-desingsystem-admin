@@ -4,7 +4,7 @@ import {
   FloatingPanelSection,
   FloatingPanelField,
 } from "@/components/ui/FloatingPanel";
-import { Avatar } from "@/components/ui/Avatar";
+import { Avatar } from "@/components/ui/avatar-ig";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { AGENTS } from "../../../TableDoc";

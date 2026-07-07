@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage, AvatarFallback } from "../../components/shadcn/avatar";
-import { Avatar as DSAvatar } from "../../components/ui/Avatar";
+import { Avatar as DSAvatar } from "../../components/ui/avatar-ig";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
@@ -60,7 +60,7 @@ export function AvatarDoc() {
         id="ex-ds-sizes"
         title="DS Sizes"
         description="5 sizes tokenizados — xs 20px, sm 24px, md 28px (default), lg 32px, xl 40px. Tipografia escala junto (caption-sm → body-md)."
-        code={`import { Avatar } from "@/components/ui/Avatar";\n\n<Avatar size="xs">XS</Avatar>\n<Avatar size="sm">SM</Avatar>\n<Avatar size="md">MD</Avatar>\n<Avatar size="lg">LG</Avatar>\n<Avatar size="xl">XL</Avatar>`}
+        code={`import { Avatar } from "@/components/ui/avatar-ig";\n\n<Avatar size="xs">XS</Avatar>\n<Avatar size="sm">SM</Avatar>\n<Avatar size="md">MD</Avatar>\n<Avatar size="lg">LG</Avatar>\n<Avatar size="xl">XL</Avatar>`}
       >
         <div className="flex items-center gap-gp-xl">
           <DSAvatar size="xs">XS</DSAvatar>

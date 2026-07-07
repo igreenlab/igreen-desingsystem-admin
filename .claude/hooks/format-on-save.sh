@@ -8,8 +8,17 @@
 
 set +e  # não abortar em erro
 
-# Lê file_path do stdin (JSON)
-FILE=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
+# Lê file_path do stdin (JSON). jq não existe em todo ambiente (ex: Git Bash no
+# Windows) → fallback pra node (sempre presente em projeto JS). Normaliza \ → /.
+INPUT_JSON=$(cat)
+if command -v jq >/dev/null 2>&1; then
+  FILE=$(printf '%s' "$INPUT_JSON" | jq -r '.tool_input.file_path // empty' 2>/dev/null)
+elif command -v node >/dev/null 2>&1; then
+  FILE=$(printf '%s' "$INPUT_JSON" | node -e "let d='';process.stdin.on('data',c=>d+=c);process.stdin.on('end',()=>{try{const j=JSON.parse(d);process.stdout.write(j?.tool_input?.file_path||'')}catch(e){}})" 2>/dev/null)
+else
+  FILE=""
+fi
+FILE=$(printf '%s' "$FILE" | tr '\\' '/')
 
 # Resolve raiz do projeto a partir da localização do script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

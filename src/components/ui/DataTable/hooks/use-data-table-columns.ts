@@ -22,8 +22,10 @@ export type UseDataTableColumnsParams<T> = {
 export type UseDataTableColumnsResult<T> = {
   /** Colunas após aplicar hiddenColumns e columnOrder. */
   effectiveColumns: DataTableColumnDef<T>[];
-  /** Widths em px por field. */
+  /** Widths em px por field (efetivas — incluem autoFit). Use pra RENDER. */
   columnWidths: Record<string, number>;
+  /** Resize manual do usuário (sem autoFit). Use pra PERSISTIR (não as efetivas). */
+  widthOverrides: Record<string, number>;
   /** Sticky offsets por field. */
   stickyOffsets: Record<string, number>;
   /** Hidden columns state. */
@@ -65,9 +67,9 @@ export function useDataTableColumns<T>({
     () => initialWidthOverrides ?? {},
   );
   // Pinned override (default vem do columnDef.pinned).
-  const [pinnedOverrides, setPinnedOverrides] = useState<Record<string, ColumnPinned>>(
-    () => initialPinnedOverrides ?? {},
-  );
+  const [pinnedOverrides, setPinnedOverrides] = useState<
+    Record<string, ColumnPinned>
+  >(() => initialPinnedOverrides ?? {});
   // Hidden state (uncontrolled).
   const [hiddenColumns, setHiddenColumns] = useState<Set<string>>(
     () => new Set(initialHiddenColumns ?? []),
@@ -103,6 +105,7 @@ export function useDataTableColumns<T>({
       const col = byField.get(field);
       if (!col || hiddenColumns.has(field)) continue;
       const typeDef = col.type ? columnTypeRegistry.get(col.type) : undefined;
+      const isActions = col.type === "actions";
       ordered.push({
         ...col,
         width:
@@ -111,11 +114,35 @@ export function useDataTableColumns<T>({
           col.width ??
           typeDef?.defaultWidth,
         sortable: col.sortable ?? typeDef?.defaultSortable,
-        pinned: field in pinnedOverrides ? pinnedOverrides[field] : col.pinned,
+        // align/ellipsis vêm do tipo quando não passados — resolvidos aqui (fonte
+        // única) pra que HEADER e FOOTER (que leem só `col.align`) fiquem coerentes
+        // com o BODY. Sem isso, `type: "currency/number"` (defaultAlign "right")
+        // alinhava só o body à direita; header/footer caíam à esquerda.
+        align: col.align ?? typeDef?.defaultAlign,
+        ellipsis: col.ellipsis ?? typeDef?.defaultEllipsis,
+        // Pin: override > col.pinned > default. Coluna `actions` ancora à DIREITA
+        // por padrão (mesmo sem o consumer/gerador passar `pinned`) — robustez:
+        // independe de onde a coluna foi declarada no array.
+        pinned:
+          field in pinnedOverrides
+            ? pinnedOverrides[field]
+            : (col.pinned ?? (isActions ? "right" : undefined)),
       });
     }
+    // `actions` SEMPRE por último na renderização (sort estável preserva o resto),
+    // mesmo se declarada no meio do array de colunas pelo consumer/gerador.
+    ordered.sort(
+      (a, b) => Number(a.type === "actions") - Number(b.type === "actions"),
+    );
     return ordered;
-  }, [columns, columnOrder, hiddenColumns, widthOverrides, pinnedOverrides, autoWidths]);
+  }, [
+    columns,
+    columnOrder,
+    hiddenColumns,
+    widthOverrides,
+    pinnedOverrides,
+    autoWidths,
+  ]);
 
   // Calcula offsets sticky via hook do Table primitivo
   const widthsInput = useMemo(
@@ -165,32 +192,36 @@ export function useDataTableColumns<T>({
     });
   }, []);
 
-  const applyColumnState = useCallback((state: {
-    columnWidths?: Record<string, number>;
-    pinnedColumns?: Record<string, ColumnPinned>;
-    hiddenColumns?: string[];
-    columnOrder?: string[];
-  }) => {
-    if (state.columnWidths) setWidthOverrides(state.columnWidths);
-    if (state.pinnedColumns) setPinnedOverrides(state.pinnedColumns);
-    if (state.hiddenColumns) setHiddenColumns(new Set(state.hiddenColumns));
-    if (state.columnOrder) {
-      // Filtra campos que nao existem mais (schema mudou)
-      const fieldSet = new Set(columns.map((c) => String(c.field)));
-      const valid = state.columnOrder.filter((f) => fieldSet.has(f));
-      const missing = columns
-        .map((c) => String(c.field))
-        .filter((f) => !valid.includes(f));
-      setColumnOrder([...valid, ...missing]);
-    }
-  }, [columns]);
+  const applyColumnState = useCallback(
+    (state: {
+      columnWidths?: Record<string, number>;
+      pinnedColumns?: Record<string, ColumnPinned>;
+      hiddenColumns?: string[];
+      columnOrder?: string[];
+    }) => {
+      if (state.columnWidths) setWidthOverrides(state.columnWidths);
+      if (state.pinnedColumns) setPinnedOverrides(state.pinnedColumns);
+      if (state.hiddenColumns) setHiddenColumns(new Set(state.hiddenColumns));
+      if (state.columnOrder) {
+        // Filtra campos que nao existem mais (schema mudou)
+        const fieldSet = new Set(columns.map((c) => String(c.field)));
+        const valid = state.columnOrder.filter((f) => fieldSet.has(f));
+        const missing = columns
+          .map((c) => String(c.field))
+          .filter((f) => !valid.includes(f));
+        setColumnOrder([...valid, ...missing]);
+      }
+    },
+    [columns],
+  );
 
   // pinnedColumns combinado (overrides + defaults)
   const pinnedColumns = useMemo<Record<string, ColumnPinned>>(() => {
     const result: Record<string, ColumnPinned> = {};
     for (const c of columns) {
       const field = String(c.field);
-      result[field] = field in pinnedOverrides ? pinnedOverrides[field] : c.pinned;
+      result[field] =
+        field in pinnedOverrides ? pinnedOverrides[field] : c.pinned;
     }
     return result;
   }, [columns, pinnedOverrides]);
@@ -198,6 +229,10 @@ export function useDataTableColumns<T>({
   return {
     effectiveColumns,
     columnWidths: widths,
+    /** Larguras de resize MANUAL do usuário (sem autoFit). Persistir SÓ isto —
+     *  persistir `columnWidths` (efetivas, c/ autoFit) congela o layout e mata o
+     *  autoFit no reload (vira widthOverrides de precedência máxima). */
+    widthOverrides,
     stickyOffsets: offsets,
     hiddenColumns,
     pinnedColumns,

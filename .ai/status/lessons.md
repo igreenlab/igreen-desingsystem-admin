@@ -23,11 +23,12 @@
 
 **Regra derivada:** tokens `ring-ring-*` já possuem alpha de 20% embutido via OKLCH.
 Usar sempre sem modificador:
+
 ```typescript
 // ✅
-"focus-visible:ring-4 focus-visible:ring-ring-primary"
+"focus-visible:ring-4 focus-visible:ring-ring-primary";
 // ❌ NUNCA
-"focus-visible:ring-4 focus-visible:ring-ring-primary/30"
+"focus-visible:ring-4 focus-visible:ring-ring-primary/30";
 ```
 
 **Contexto:** qualquer componente com focus ring
@@ -39,6 +40,7 @@ Usar sempre sem modificador:
 **Erro cometido:** usar `gap-4`, `rounded-lg`, `shadow-md`, `p-4` quando existem tokens DS equivalentes
 
 **Regra derivada:** sempre verificar se existe token DS antes de usar Tailwind puro:
+
 ```typescript
 gap-4      → gap-gp-md      (8px)
 gap-2      → gap-gp-xs      (4px)
@@ -70,11 +72,12 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** usar `outline-none` na base sem o prefix `focus-visible:`
 
 **Regra derivada:**
+
 ```typescript
 // ✅
-"focus-visible:outline-none"
+"focus-visible:outline-none";
 // ❌
-"outline-none"
+"outline-none";
 ```
 
 **Contexto:** base de qualquer componente interativo
@@ -86,11 +89,12 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** manter `bg-input/50` ao adaptar componente Shadcn
 
 **Regra derivada:**
+
 ```typescript
 // ❌
-"bg-input/50"
+"bg-input/50";
 // ✅
-"bg-bg-surface"
+"bg-bg-surface";
 ```
 
 **Contexto:** componentes Shadcn migrados para tokens iGreen
@@ -112,6 +116,7 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** usar classes Tailwind avulsas `text-xs font-semibold`, `text-sm font-medium`
 
 **Regra derivada:**
+
 ```typescript
 // ❌
 "text-xs font-semibold" → "text-caption-sm font-semibold"  // 11/600
@@ -129,6 +134,7 @@ Para focus rings do DS usar sempre `ring-4`.
 **Erro cometido:** definir `bg.subtle` e `bg.muted` mais escuros que `bg.canvas` no dark mode.
 
 **Regra derivada:** hierarquia DEVE ser monotonicamente crescente em luminosidade:
+
 ```
 canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < strong (52%)
 ```
@@ -152,6 +158,7 @@ canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < stro
 **Erro cometido:** vars em `.dark {}` do globals.css apontavam para mesmo token do light.
 
 **Regra derivada:** no `.dark {}`:
+
 - `--border` → `--color-bg-subtle` (24%)
 - `--input` → `--color-bg-moderate` (32%)
 
@@ -164,6 +171,7 @@ canvas (8%) < surface (18%) < subtle (24%) < muted (32%) < moderate (40%) < stro
 **Erro cometido:** mesma opacidade de shadow e ring no dark e no light.
 
 **Regra derivada:**
+
 - Shadows dark: opacidade ≥2x do light
 - Rings dark: alpha 1.5x do light
 
@@ -274,6 +282,7 @@ usam `tv()` + `text-fg-X` no mesmo array de classes (a maioria deles).
 ```
 
 **Verificação obrigatória antes de cada publish:**
+
 ```bash
 npm pack --dry-run --json | grep -E '"path".*(src/components|tokens/index)' | head -5
 # Deve retornar arquivos. Se vazio → bug presente, NÃO publicar.
@@ -290,6 +299,7 @@ Alternativa mais robusta: configurar `vite-plugin-dts` com `rollupTypes: true` p
 **Erro cometido:** ao bumpar `@snksergio/design-system` de v0.1.1 → v0.5.0 sem revisar o template default do `@snksergio/create-design-system` (CLI bootstrap), o template continuou pinando `^0.1.1` da lib. Projetos novos criados via `npx @snksergio/create-design-system` instalavam versão 5 minor atrasada. Plus: o template usava classes de tipografia REMOVIDAS no rewrite 2026-05-19 (`text-paragraph-sm`, `text-label-md`), props inválidas (`tone="critical"` em AlertModal — só aceita `default/neutral/danger/warning/success`), e strings JSX hardcoded mostrando "@0.1.1" como se fosse versão atual. Resultado: primeiro consumer que rodou `npx create-...` viu UI com tipografia quebrada + texto desinformado.
 
 **Regra derivada:** toda release minor ou major da lib principal DEVE incluir, na mesma rodada:
+
 1. **Bump do pin** em `cli/templates/default/package.json` (`@snksergio/design-system: ^X.Y.Z`)
 2. **Auditoria do template** (`cli/templates/default/src/App.tsx` + `src/index.css`) contra API atual — greppar todas as classes/props usadas e validar que existem
 3. **Atualizar strings JSX** que exibam versão como label
@@ -325,6 +335,7 @@ grep -rln "{padrão-antigo}" \
 ```
 
 **Scopes a sempre cobrir:**
+
 - `src/` — código
 - `cli/templates/**/` — bootstrap consumer
 - `.claude/**/` — skills, hooks, commands, rules
@@ -332,6 +343,7 @@ grep -rln "{padrão-antigo}" \
 - `.ai/status/lessons.md` — lições podem mencionar pattern (atualizar a recomendação, não a história)
 
 **Scopes a PRESERVAR (snapshots históricos):**
+
 - `.ai/audits/` — fotografias de momentos pré/pós migration
 - `.ai/specs/` — specs de quando o rewrite foi planejado
 - `.ai/status/archive/` — planos arquivados
@@ -346,6 +358,7 @@ grep -rln "{padrão-antigo}" \
 **Erro cometido:** sessão 2026-06-05 publicou v0.5.1 com **6 commits direct no `main`** (sem branch `release/v0.5.1` nem PR), por considerar a urgência do fix crítico de types do npm justificativa pra pular o fluxo. Releases anteriores (v0.3.0, v0.3.1, v0.4.0, v0.5.0) seguiram rigorosamente o padrão branch + PR via skill `/ds-release` — evidência no git log (`Merge pull request #1..#4 from <user>/release/vX.Y.Z`). Convenção quebrada, rastreabilidade do release perdida no histórico. Sem auto-review do diff via `pre-commit-check.md`. Sem gate humano via preview.
 
 **Regra derivada:** TODA release que toca `package.json.version` ou envolve `npm publish` DEVE usar `/ds-release` (skill `.claude/skills/ds-dev/release.md`). Isso inclui:
+
 - Major bumps
 - Minor bumps
 - **Patches** (mesmo que pareçam "fix de 1 linha")
@@ -353,11 +366,12 @@ grep -rln "{padrão-antigo}" \
 
 Chores e infra (sem bump de version) podem ir direto via commit normal — mas releases NÃO.
 
-**Heurística pré-commit:** *"Tem `npm publish` ou bump em `package.json.version` no escopo? Se sim → `/ds-release` obrigatório."*
+**Heurística pré-commit:** _"Tem `npm publish` ou bump em `package.json.version` no escopo? Se sim → `/ds-release` obrigatório."_
 
 **Verificação retroativa:** se o git log da release tem padrão `Merge pull request #N from <user>/release/vX.Y.Z`, é porque o pipeline foi seguido. Direct commits no `main` com tag de version quebram esse padrão.
 
 **Por que isso importa (não é só convenção):**
+
 - `/ds-release` invoca `pre-commit-check.md` que valida USAGE.md, DocPages, sincronias técnicas (L-016 twMergeConfig), pipeline-state, lessons sincronizados com o diff
 - Gate humano via preview consolidado permite ver tudo antes de commit irreversível
 - Branch + PR criam ponto de revisão (mesmo solo-dev, é checkpoint de "sanity check")
@@ -380,13 +394,21 @@ Chores e infra (sem bump de version) podem ir direto via commit normal — mas r
 ```tsx
 // ❌ Antes (componente compound sem ref)
 function ButtonGroupRoot({ children, ...props }: ButtonGroupProps) {
-  return <div role="group" {...props}>{children}</div>;
+  return (
+    <div role="group" {...props}>
+      {children}
+    </div>
+  );
 }
 
 // ✅ Depois (forwardRef)
 const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
   function ButtonGroupRoot({ children, ...props }, ref) {
-    return <div ref={ref} role="group" {...props}>{children}</div>;
+    return (
+      <div ref={ref} role="group" {...props}>
+        {children}
+      </div>
+    );
   },
 );
 ```
@@ -402,6 +424,7 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 **Erro cometido:** ao montar split button (ButtonGroup com Primary=ação A + Chevron=ação B), envolvi o ButtonGroup inteiro em `<PopoverTrigger asChild>`. O Chevron tinha `onClick` próprio (toggle do popover) e o Primary tinha `onClick` próprio (abrir drawer). Mas o `PopoverTrigger asChild` faz merge do `onClick` interno do Radix com o wrapper — qualquer click dentro do wrapper bubble e dispara `onOpenChange` interno do Radix, conflitando com o setState do handler do filho. Race condition: meu state seta `open=true`, o Radix entende como trigger click e seta `open=false` no mesmo tick. Resultado: popover não abre OU abre e fecha imediatamente.
 
 **Tentativas que NÃO resolveram:**
+
 - `e.stopPropagation()` no onClick — Radix usa pointerDown, não click
 - `e.preventDefault()` + `e.stopPropagation()` no `onPointerDown` — Radix Slot ainda merge antes do handler do filho
 - `dispatchEvent` manual com pointerdown sintético — mesmo resultado
@@ -422,7 +445,7 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 
 **Regra derivada:** Popover/Tooltip/HoverCard com **trigger composto** (2+ filhos com handlers diferentes) DEVE usar `Anchor` (posicionamento) + `open` controlled (consumer dispara). `Trigger` só é seguro quando o componente inteiro é 1 handler de toggle.
 
-**Heurística:** *"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."*
+**Heurística:** _"O wrapper tem mais de 1 onClick distinto? Se sim → use Anchor + controlled open."_
 
 **Contexto:** qualquer split button, button group com dropdown, ou wrap de Radix overlay com children que têm interactions próprias. Pattern aplicado em `FilterPopover` (nova prop `anchor?: ReactNode`). Replicar quando criar novos componentes com split pattern.
 
@@ -444,17 +467,18 @@ const ButtonGroupRoot = forwardRef<HTMLDivElement, ButtonGroupProps>(
 
 Tudo "funcionou" no light mode. No dark mode, Sergio notou que os labels do drawer estavam **MAIS FORTES** que o padrão do form "Novo cliente" (NovoClienteDrawer no mesmo projeto). Comparando:
 
-| Aspecto | Meu (errado) | DS (FormField) |
-|---|---|---|
-| font-weight | `font-medium` (500) | `font-semibold` (600) |
-| Cor light | `text-fg-default` | `text-fg-default` |
-| Cor dark | `text-fg-default` (BRANCO forte) | `text-fg-muted` (cinza suave) |
-| tracking | (nenhum) | `tracking-[0.01em]` |
-| leading | (default) | `leading-none` |
+| Aspecto     | Meu (errado)                     | DS (FormField)                |
+| ----------- | -------------------------------- | ----------------------------- |
+| font-weight | `font-medium` (500)              | `font-semibold` (600)         |
+| Cor light   | `text-fg-default`                | `text-fg-default`             |
+| Cor dark    | `text-fg-default` (BRANCO forte) | `text-fg-muted` (cinza suave) |
+| tracking    | (nenhum)                         | `tracking-[0.01em]`           |
+| leading     | (default)                        | `leading-none`                |
 
 Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs todos os outros forms do projeto. Inconsistência visual silenciosa — só vista em comparação direta com outra tela.
 
 **Causa raiz:** subestimei o pattern do DS. Pensei "label simples, vou só usar `<label>` com classes". Mas `<FormField>` encapsula MUITO mais que cor de label:
+
 - `formFieldLabel()` tv com peso/cor/tracking/leading corretos
 - `useId()` auto pra linkar `htmlFor` (a11y)
 - `disabled` propaga pro label visual (`opacity-50 cursor-not-allowed`)
@@ -478,6 +502,7 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 **Regra pra IA:** ao escrever código que tem `<label className=...>` na unha + um input/select abaixo, PARE e considere usar `<FormField>`. 90% dos casos é o pattern correto. Sem prejuízo: FormField aceita widget custom via render-prop.
 
 **Hooks de detecção:**
+
 - `ds-lint-styles.sh` ou similar pode grep por `<label className="text-body-` em arquivos `src/components/**` (provável anti-pattern)
 - Reviewer manual: comparar visualmente com NovoClienteDrawer no dark mode — se label do novo componente tem peso/cor diferente, está errado
 
@@ -491,18 +516,19 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 
 **Problema observado:** ao revisar SacarDialog v0.7.0 e NovoClienteDrawer, ficou evidente que cada formulário escolhia gap diferente entre `FormField` units:
 
-| Form | Gap usado antes | Resultado visual |
-|---|---|---|
-| NovoClienteDrawer | `gap-gp-lg` (12px) | Apertado, labels colando |
-| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px) | Mesma queixa |
-| ToolbarSimpleFilterDrawer | `gap-gp-xl` (16px) | Ainda curto pra 5+ filtros |
-| KPI cards grid (ClientesFinanceiro) | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
+| Form                                  | Gap usado antes     | Resultado visual                               |
+| ------------------------------------- | ------------------- | ---------------------------------------------- |
+| NovoClienteDrawer                     | `gap-gp-lg` (12px)  | Apertado, labels colando                       |
+| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px)  | Mesma queixa                                   |
+| ToolbarSimpleFilterDrawer             | `gap-gp-xl` (16px)  | Ainda curto pra 5+ filtros                     |
+| KPI cards grid (ClientesFinanceiro)   | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
 
-Sergio notou diretamente: *"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"*.
+Sergio notou diretamente: _"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"_.
 
 **Causa raiz:** os tokens `gap.*` semânticos (xs=4px / sm=6px / md=8px / lg=12px / xl=16px / 2xl=24px / 3xl=32px) **não têm tier exato em 20px**. Cada implementação escolhia o mais próximo conforme o gosto — gerava inconsistência horizontal entre forms do mesmo projeto.
 
 20px é o sweet-spot:
+
 - 12px (gap-gp-lg) → label colando no campo de cima, leitura prejudicada
 - 16px (gap-gp-xl) → ainda apertado quando há helper text embaixo do field
 - 20px → respira sem inflar viewport
@@ -512,7 +538,7 @@ Sergio notou diretamente: *"o gap entre os inputs poderia ser 20px... deixar iss
 
 ```ts
 // tokens/brands/default/components/spacing.ts
-export const formGap = scale[5];   // 20px — gap entre fields de formulário
+export const formGap = scale[5]; // 20px — gap entre fields de formulário
 export const componentSpacing = { padCard, padPage, formGap } as const;
 ```
 
@@ -552,10 +578,12 @@ Classe resultante: `gap-form-gap` (20px).
 **Não aplica a:** cards em grid, lista de chips, icon-to-text spacing, section spacing — esses continuam usando `gap-gp-*` semânticos. O `formGap` é específico pra contexto de form.
 
 **Implementação confirmada em:**
+
 - `SacarDialog` aba "Outra conta" → 3 FormField units (Banco/Agência/Conta) + CardCheckbox final, todos com `gap-form-gap`
 - Próximo PR deve migrar NovoClienteDrawer + ToolbarSimpleFilterDrawer pra `gap-form-gap`
 
 **Atualização cascata:**
+
 1. `tokens/.../components/spacing.ts` → adicionar `formGap`
 2. `tokens/transforms/to-tailwind-v4.ts` → expor como `--spacing-form-gap`
 3. `npm run tokens:tw4` → gerar CSS
@@ -568,20 +596,24 @@ Classe resultante: `gap-form-gap` (20px).
 
 **Sessão:** 2026-06-09 (descoberta visual pelo Sergio em bancos amarelos).
 
-**Bug observado:** ao usar `<Avatar colorHex="#FAE128">BB</Avatar>` (BB amarelo), o texto branco ficava ilegível — contrast ratio 1.29:1, **falha WCAG AA** (mín. 4.5:1 pra texto normal). Sergio notou: *"o Banco do Brasil é amarelo e o branco por cima ficou um contraste muito ruim"*.
+**Bug observado:** ao usar `<Avatar colorHex="#FAE128">BB</Avatar>` (BB amarelo), o texto branco ficava ilegível — contrast ratio 1.29:1, **falha WCAG AA** (mín. 4.5:1 pra texto normal). Sergio notou: _"o Banco do Brasil é amarelo e o branco por cima ficou um contraste muito ruim"_.
 
 **Causa raiz:** `avatar.tsx` aplicava `text-white` cegamente quando `colorHex` era fornecido (linha original: `className: isHex ? ["text-white", ...] : ...`). Funcionava bem pra cores escuras (Nubank roxo, Bradesco vermelho) — falhava em cores claras (BB amarelo, Itaú laranja médio).
 
 **Solução:** criar utility `getContrastTextColor(hex)` em `src/utils/color-contrast.ts` que:
+
 1. Converte hex → RGB
 2. Calcula relative luminance WCAG 2.x (com gamma correction)
 3. Calcula contrast ratio (white, bg) vs (black, bg)
 4. Retorna `"white" | "black"` — o de MAIOR ratio
 
 Avatar passa a usar:
+
 ```ts
 const autoTextClass = isHex
-  ? getContrastTextColor(colorHex) === "black" ? "text-black" : "text-white"
+  ? getContrastTextColor(colorHex) === "black"
+    ? "text-black"
+    : "text-white"
   : null;
 ```
 
@@ -601,6 +633,7 @@ const autoTextClass = isHex
 **Caso edge:** `bg-bg-brand-subtle` + `text-fg-brand` (semânticos DS) — esses NÃO precisam do utility porque o par foi pré-validado pelo design system (cores casadas em `color-light/dark.ts`). Auto-contrast só pra casos onde `colorHex` é input externo (lookup de marca, persona, etc).
 
 **Arquivos:**
+
 - `src/utils/color-contrast.ts` (novo)
 - `src/components/ui/Avatar/avatar.tsx` (refatorado — branch isHex usa auto)
 - `src/components/ui/Avatar/USAGE.md` (tabela de casos)
@@ -621,19 +654,20 @@ com hover (esperado):       [   Saldo disponível 1↓ ⋯ ]            ← íco
 ```
 
 **Causa raiz:** em `table.tsx` (`TableHeadCell`), a `<span>` do label tinha:
+
 ```ts
-align === "right" && (sortable || headMenu) && "pr-[60px]"
+align === "right" && (sortable || headMenu) && "pr-[60px]";
 ```
 
-O comentário original justificava: *"reserva espaço pro headRightStack pra não ser coberto no hover"*. Mas isso reservava espaço **permanentemente**, mesmo sem hover, **mesmo sem sort ativo**. Os ícones do hover-stack são `display: hidden` por default → não ocupam espaço no layout natural; o `pr-[60px]` introduzia um vazio gratuito.
+O comentário original justificava: _"reserva espaço pro headRightStack pra não ser coberto no hover"_. Mas isso reservava espaço **permanentemente**, mesmo sem hover, **mesmo sem sort ativo**. Os ícones do hover-stack são `display: hidden` por default → não ocupam espaço no layout natural; o `pr-[60px]` introduzia um vazio gratuito.
 
 **Solução:** condicionar a reserva ao estado `isSorted` (quando `sortDirection !== null`):
 
 ```ts
-align === "right" && (
+align === "right" &&
   // pr só quando sort ATIVO (sort badge + indicator visíveis sempre)
-  isSorted && "pr-[60px]"
-)
+  isSorted &&
+  "pr-[60px]";
 ```
 
 - **Sem sort, sem hover** → texto encosta na borda direita (correto)
@@ -641,10 +675,12 @@ align === "right" && (
 - **Sort ativo** → `pr-[60px]` preserva texto visível ao lado do sort badge
 
 **Detalhe do design original:** `headRightStack` tem:
+
 ```ts
 "absolute right-pad-md top-1/2 -translate-y-1/2 z-[1]",
 "bg-bg-table-head pl-pad-xs",
 ```
+
 Ele já tem `bg-bg-table-head` (cobre texto debaixo) e `z-[1]` (sobreposição). Logo, mascarar texto natural no hover é o comportamento intencional.
 
 **Regra pra IA:** ao revisar layout de header com `align="right"`, **não reservar espaço fixo pra ícones hover-only** — só pra elementos sempre visíveis (sort badge ativo, indicator). Para hover-only icons, confiar no `headRightStack` absolute + bg mask.
@@ -687,6 +723,7 @@ do componente pai NÃO devem ser passados como props diretas (mudam de identidad
 invalidam o memo) nem exigir `useCallback` em cada um (dep-hell + risco de stale deps).
 
 **Pattern correto — latest-ref:**
+
 ```typescript
 // No pai:
 const handlersRef = useRef<RowHandlers>(null as never);
@@ -700,6 +737,7 @@ onClick={() => handlers.current.onClick(row, index)}   // ✅ fresh
 ```
 
 **Regras:**
+
 - Handlers (event-time) → ref estável, lido via `.current` DENTRO da closure.
 - Dados de RENDER (columns, widths, selected, editState) → props comparadas pelo memo
   (mudam → re-renderiza, como deve). NUNCA ler dado de render via o ref (não re-renderizaria).
@@ -712,6 +750,7 @@ outra linha não repinta as demais.
 ---
 
 ## [L-029] Fast-filter de chip nunca usa `<Select open>` aninhado — renderiza lista direta
+
 **Erro cometido:** o `renderFastFilterInput` de boolean/select renderizava um
 `<Select open>` (Radix Select forçado-aberto) dentro do `PopoverContent` do chip
 aplicado. O listbox do Radix Select ancora no SEU PRÓPRIO trigger (`sr-only`, ~0px)
@@ -728,6 +767,7 @@ DataTable ao `renderFastFilterInput`); clique-fora fecha porque não há layer a
 ---
 
 ## [L-030] Sheet/popover acionado DE DENTRO de um overlay z-50 precisa de z-index acima
+
 **Erro cometido:** o mobile-sheet (DropdownMenu/Popover com `mobileSheet`) usava wrapper
 z-50 e backdrop z-40. Quando acionado de dentro do drawer mobile do MenuSidebar (também
 z-50), o sheet **empatava** em z-50 → renderizava atrás de forma intermitente ("aparece
@@ -742,6 +782,7 @@ com [[L-031]].
 ---
 
 ## [L-031] `DropdownMenu` dentro de drawer/overlay → `modal={false}` + backdrop `pointer-events-none`
+
 **Erro cometido:** o DropdownMenu do UserMenu (acionado dentro do drawer mobile) abria no
 `pointerdown` e fechava no `click`/`pointerup` do MESMO toque — "aparece e some", exigindo
 2-3 toques. O modo `modal` (default) do Radix injeta dismiss/scroll-lock que corre com o
@@ -757,6 +798,7 @@ gesto completa antes do backdrop montar) → mantém `pointer-events-auto`.
 ---
 
 ## [L-032] Recharts 3 — caveats de chart que quebram silenciosamente
+
 **Erro cometido:** ao construir os gráficos do showcase (Area/Bar/Line/Pie/Radar/Radial +
 28 composições de dashboard), vários comportamentos do Recharts 3 falharam mudos: (1) KPIs
 com `text-display-sm`/`text-display-xs` renderizaram **14px** porque esses utilities **não
@@ -765,6 +807,7 @@ radial empilhado mostrou só 1 segmento; (4) o eixo Y omitiu o tick `0`; (5) `do
 diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid usava
 `border-subtle/60` (no dark = 0.04 alpha) → imperceptível.
 **Regra derivada:**
+
 - Tipografia de KPI: usar `text-heading-sm` (24–32) / `heading-xs` (24) / `display-md`
   (28–39). **Nunca** `display-sm`/`display-xs` (inexistentes).
 - Pizza com setor ativo → prop **`shape={(props, index) => <Sector/>}`**, não `activeIndex`.
@@ -774,16 +817,366 @@ diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid us
   branco 12%), reescrito no `ChartContainer` pro stroke default `#ccc`. Não passar `stroke`.
 - Cor só por token (`chart-1..5`); 2 séries = verde+âmbar; pizza = rampa monocromática da
   brand. Header padrão: `CardHead` (título+subtítulo) ou `KPI_LABEL`+`KPI_VALUE` (30px).
-**Contexto:** `src/components/ui/Chart/chart.tsx`, `ChartShowcaseDoc.tsx`, tokens `chart`
-(color-light/dark). Catálogo + padrões completos em
-`.ai/context/components/chart-patterns.md` e `Chart/USAGE.md` (v0.9.x).
+  **Contexto:** `src/components/ui/Chart/chart.tsx`, `ChartShowcaseDoc.tsx`, tokens `chart`
+  (color-light/dark). Catálogo + padrões completos em
+  `.ai/context/components/chart-patterns.md` e `Chart/USAGE.md` (v0.9.x).
+
+---
+
+### Distribuição / consumidor (lições 2026-06-17, v0.10.0)
+
+**[L-033] Copy-in: integridade se protege por HOOK + regra, não travando arquivo.**
+O código é do consumidor (repo dele) — não dá pra impedir edição. O template embute
+`.claude/hooks/protect-ds.mjs`: **bloqueia** (exit 2) edição de tema/tokens
+(`src/styles/theme/**`) e fundação (`cn`/`tv`/`lucide-types`); **avisa** (exit 1) edição
+de componente do DS (drift); libera telas. Regra pra IA do consumidor: **customizar na
+COMPOSIÇÃO** (props/variantes + classes na tela), nunca nos tokens/internals.
+
+**[L-034] `example-*` do registry = extração 1:1 do showcase real, nunca "toy".**
+Toy inventado (KPIs/colunas que o showcase não tem) fura a "garantia de produção conforme
+os showcases". Extração: espelhar a árvore, strip do `AppShell` (vira `<div flex flex-col
+h-full min-h-0 gap-gp-2xl>`), inline de `TableDoc` → `_table-data.ts`, rewrite de imports
+relativos, manter `@/components/ui|shadcn/*`, validar tsc + render no consumidor.
+
+**[L-035] examples↔preview são cópias paralelas SEM geração automática → drift-check.**
+`scripts/examples-drift-check.mjs` guarda hash da fonte (`examples-sources.lock.json`) e
+**avisa** quando um showcase muda sem o example re-extraído (roda no `registry:build`).
+Re-sync após re-extrair: `--baseline`. Decisão: extração manual + check em vez de
+geração/inversão (refatorar a catálogo viva = risco).
+
+**[L-036] Roteamento de intenção no consumidor = SKILL, não AGENTE.**
+Skill dispara nativo/barato pela `description` (sem custo de janela de contexto separada).
+Agente de roteamento seria caro/lento. `ds-kit` é o front-door (skill); subagente só pra
+trabalho pesado em paralelo. (Diferente do orquestrador-agente do próprio DS, multi-etapa.)
+
+**[L-037] Item de registry precisa declarar TODAS as deps reais.**
+`@igreen/data-table` não declarava `@tanstack/react-virtual` → DataTable crashava
+(Invalid hook call) em consumidor limpo. Itens que importam `@/lib/lucide-types` devem
+**embutir** `lib/lucide-types.ts` (`registry:file`) se não puxam via dep que já o entrega
+(panel/floating-panel). Validar com render em consumidor real, não só tsc no DS.
+
+**[L-038] Default vindo do `type` (column-type) tem que ser resolvido na FONTE ÚNICA, não por render-site.**
+DataTable: `align`/`ellipsis` do column-type (`defaultAlign`/`defaultEllipsis`) só chegavam
+ao BODY — que fazia `col.align ?? typeDef?.defaultAlign` localmente
+(`data-table-row.tsx`). HEADER (`data-table.tsx`) e FOOTER/totalizer
+(`data-table-totalizer-row.tsx`) liam só `col.align` cru → coluna `type:"currency"/"number"`
+(defaultAlign "right") alinhava o body à direita, mas header/label e footer/total à esquerda.
+**Não reproduzia no showcase** porque lá as colunas setam `align:"right"` explícito; só
+aparecia no CONSUMIDOR que confia no default do tipo. Fix: resolver `align`/`ellipsis` no
+merge de `effectiveColumns` (`use-data-table-columns.ts`) — o comentário já PROMETIA isso,
+o código só herdava `width/sortable/pinned`. **Regra pra IA**: quando um valor pode vir do
+column-type como default, resolva-o UMA vez no merge das colunas efetivas (fonte única) —
+nunca deixe cada render-site (header/body/footer) re-resolver, senão um esquece e diverge.
+Validar SEMPRE no cenário sem o override explícito (= o que o consumidor faz).
+
+**[L-039] Tailwind v4: `border` (cru) é SÓ largura — a cor cai em `currentColor` (branca no dark, preta no light).**
+No Tailwind v3 a classe `border` aplicava largura **+** uma cor de borda default. No **v4 não**:
+`border`/`border-x`/`border-y`/`border-l|r|t|b` definem apenas `border-width`; sem uma classe
+de COR (`border-<token>`) a borda usa `currentColor` (a cor do texto) → no dark fica
+**branca grotesca**, no light **preta**, totalmente fora do layout. Caso real: componentes
+shadcn instalados via bridge (context-menu, hover-card, menubar, navigation-menu, drawer)
+mantiveram `rounded-md border bg-popover` cru → borda branca/preta no popover. O bridge mapeia
+`--border`, mas isso só vale quando a classe `border-border-*` é usada; o `border` cru não
+consome o token. **Regra pra IA**: SEMPRE que usar `border`/`border-{x,y,l,r,t,b}`, acompanhe
+de uma classe de cor de borda do DS — default `border border-border-default` (ou
+`border-border-subtle`/`-brand`/`-danger-muted`...). Exceção válida: base de `cva` com `border`
+cru SÓ quando TODAS as variantes setam uma cor de borda (ex.: `alert.tsx`). Nunca confie no
+"bridge cobre cor" pra borda — o bridge cobre `bg-*`/`text-*`, mas a borda precisa da classe de cor.
+Vale também pra `bg-popover`/`text-popover-foreground` etc.: preferir tokens DS explícitos
+(`bg-bg-surface`/`text-fg-default`) quando reescrever um componente.
+
+**[L-040] Todo componente FLUTUANTE segue a RECEITA ÚNICA do DS (Popover/DropdownMenu/Select).**
+Menus e painéis flutuantes (DropdownMenu, Popover, Select, ContextMenu, Menubar,
+NavigationMenu, HoverCard…) devem ter o MESMO visual — senão o app fica inconsistente
+(caso real: os menus do batch 4 vieram com os defaults shadcn `bg-popover rounded-md
+shadow-md focus:bg-accent` → destoavam do DropdownMenu consolidado). **Receita canônica
+(copiar dos consolidados, não inventar):**
+
+- **Superfície**: `relative bg-bg-dropdown border border-border-default rounded-[12px]
+shadow-sh-lg outline-float` + frosted `before:pointer-events-none before:absolute
+before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl
+before:backdrop-saturate-150` + `text-fg-default` (painel) ou `text-fg-muted` (menu) +
+  `p-pad-sm` (menu). Mobile-sheet (`max-md:rounded-b-none ...`) quando aplicável.
+- **Item**: `gap-pad-lg px-pad-lg py-pad-md rounded-radius-sm text-fg-muted outline-none
+transition-colors focus:bg-bg-muted focus:text-fg-default` (+ `[&_svg]` segue a cor).
+  Destructive: `text-fg-danger focus:bg-bg-danger-muted`. Ativo/checked:
+  `data-[state=checked]:bg-bg-brand-subtle data-[state=checked]:text-fg-brand`.
+- **Separator** `mx-pad-xs my-pad-xs h-px bg-border-default` · **Label** `px-pad-lg py-pad-sm
+text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shortcut**
+  `ml-auto text-caption-sm tracking-wider text-fg-subtle`.
+  **Regra pra IA**: ao adaptar/criar qualquer flutuante, NÃO deixar os defaults shadcn —
+  espelhar `dropdown-menu.tsx`/`popover.tsx`. Tooltip é exceção (menor: surface + body-sm,
+  sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
+  (o default Radix 700 é lento demais).
+
+**[L-041] Trabalho de componente FECHA por PR + link pro gate humano — o pipeline deve garantir, não depender de instinto.**
+Antes, as skills de componente (`ds-add-shadcn`, `ds-create-component`, `ds-create-composite`,
+`impl-*`) terminavam em `IMPL_PRONTA → DS Reviewer` — o handoff git (branch + commit
+descritivo + PR + link) só estava no `/ds-release`. Resultado: a IA dependia de "instinto"
+pra abrir PR (na sessão de 16 componentes funcionou, mas não era garantido — risco de
+commit órfão em `main` ou "concluir" sem PR/aprovação). **Fix (Regra 8):** todo componente
+criado/alterado e toda mudança significativa fecha com **branch + commit descritivo
+(o quê + por quê) + push mirror + `gh pr create` + reportar o link**; a IA faz a parte
+mecânica e **PARA no merge** (humano aprova; merge/publish/deploy só com autorização
+explícita — L-020). Skill compartilhada: `ds-dev/handoff-pr.md`, referenciada pelos
+3 commands de componente + orchestrator. **Distribuição** (registry.json + embed + bump)
+NÃO vai no PR-de-componente — consolida no `/ds-release` ao fechar o conjunto; vários
+componentes = **batches** (1 PR por batch) + 1 release no fim. **Regra pra IA**: nunca
+encerrar uma implementação sem PR + link; nunca mergear/publicar sem "pode mergiar/publicar".
+
+---
+
+**[L-042] Componente novo toca 7 superfícies — o agente deve PREVER todas, não só código+USAGE.**
+Reincidência: ao criar o `Toast` (v0.12.0), ficou faltando registrá-lo no **catálogo do CLI**
+(`cli/templates/default/CLAUDE.md`) — só foi pego porque o humano perguntou. Mesmo padrão do
+`DOC_PAGES` (o Toast renderizou em branco até `"toast"` ser adicionado ao array de páginas válidas
+do `App.tsx`). **Causa:** o pipeline cobria USAGE + inventory + registry (hook `ds-inventory-check`),
+mas **não o catálogo do CLI nem o registro de showcase (DOC_PAGES)** — e não havia uma "Definição
+de Pronto" única que listasse TODAS as superfícies. **As 7 superfícies de um componente:**
+(1) código `ui/<Nome>/` ou `shadcn/<nome>.tsx`; (2) USAGE (`ui/<Nome>/USAGE.md` ou 1 linha no
+índice `shadcn/USAGE.md`); (3) `inventory.md` (+contador); (4) **showcase** = `<Nome>Doc.tsx` +
+`App.tsx` (import + render + **`DOC_PAGES`**) + `doc-nav-data.ts`; (5) `registry.json` (+build+embed);
+(6) **catálogo do CLI** (`cli/templates/default/CLAUDE.md` + bump `cli/package.json` + republicar);
+(7) changelog `updates-data.ts`. **Fix:** (a) hook `ds-inventory-check` agora acusa "no registry mas
+fora do catálogo do CLI" **e** "DocPage existe mas não roteada no `App.tsx`/`DOC_PAGES` ou sem nav"
+(pega o render-em-branco); (b) `handoff-pr.md` ganhou a tabela "Definição de Pronto" (7 superfícies);
+(c) `pre-commit-check` 2.8 e `release.md` 6.2b cobram o catálogo do CLI. **Cadência:** 1–4 no PR do
+componente; 5/6/7 no `/ds-release` (mas anotar no PR body que faltam). **Regra pra IA:** componente
+distribuído (no registry) SEM estar no catálogo do CLI = gap — qualquer toque em `cli/**` exige
+bump + `npm publish` manual.
+
+---
+
+**[L-043] Tailwind v4 INLINA o valor de `shadow` da `@theme` na utility — `.dark { --shadow-* }` é código morto.**
+Diferente de cores (que viram `var(--color-*)` na utility e são dark-aware), os tokens de
+**shadow** num `@theme` normal são **inlinados** literalmente na classe
+(`.shadow-sh-md { box-shadow: <valor light> }`). Logo, sobrescrever `--shadow-sh-md` em
+`.dark {}` **não tem efeito** — no dark a sombra continua com o valor light. Como o `md` light
+usa cinza-claro (`rgba(145,158,171,…)`), no fundo escuro virava um **"halo claro"** (mesma raiz
+do bug antigo do Tooltip). **Sintoma:** `getComputedStyle(html)['--shadow-sh-md']` retorna o valor
+dark, mas o `box-shadow` computado do elemento é o light → prova do inline. **Fix (transform
+`to-tailwind-v4.ts`):** indireção — `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` (a utility
+passa a referenciar a var) + `:root { --ds-sh-*: <light> }` e `.dark { --ds-sh-*: <dark> }` (vars
+comuns que o cascade FAZ flipar). **Regra pra IA:** qualquer token que precise mudar no dark e seja
+INLINADO pelo Tailwind v4 (shadow, drop-shadow, text-shadow) → usar `@theme inline` + var de
+indireção, nunca confiar em `.dark { --shadow-* }` direto. Mudança é FOUNDATIONAL (rebake no release).
+
+---
+
+## [L-044] Hooks bash dependem de jq + path forward-slash → no Windows ficam CEGOS
+
+Os hooks PostToolUse (format-on-save, ds-lint-styles, ds-inventory-check, etc) extraíam
+`file_path` via `jq`. **`jq` não existe no Git Bash/Windows** → file_path vazio → todos
+`skip` silencioso. Pior: os que tinham fallback node casavam path com `/` enquanto o
+harness no Windows manda `\` → extração ok mas matching falhava sem log. **Resultado: a
+rede de segurança (lint L-001..L-007, registry/L-042, tokens) ficou no-op uma sessão
+inteira — o gap de registry do DataList passou batido.** **Fix:** fallback `node` (sempre
+presente em projeto JS) pra parsear o JSON + `tr '\\' '/'` antes de qualquer matching de
+path (padrão que o `ds-tokens-check` já tinha). **Regra pra IA:** hook que depende de
+ambiente externo (jq, python) PRECISA de fallback + self-test; ao auditar pipeline,
+checar `.ai/scratch/hook-log.txt` — só `skip` = hook morto.
+
+## [L-045] Hierarchical connector: coluna pass-through usa `ancestorHasNext[i+1]`, não `[i]`
+
+No tree-as-list, a coluna de indent `i` (x = i·indent) hospeda o elbow de nós em **depth
+i+1**, então a continuação vertical da guia depende do ancestral em depth i+1 ter irmão.
+Usar `[i]` (off-by-one) era mascarado nos roots não-últimos (ancestorHasNext[0]=true), mas
+no **último root** virava false → a guia sumia só no último ramo. **Regra pra IA:** bug que
+"só aparece no último/primeiro item" geralmente é off-by-one mascarado por um valor que
+coincide nos demais — teste sempre o caso de borda (último root, lista vazia, 1 item).
+
+## [L-046] DataList: padrões de tela (fillHeight, measureElement, folha sem chevron)
+
+(1) **Scroll no container, não na tela**: prop `fillHeight` faz a DataList ocupar a altura
+do pai e só a lista rolar (toolbar/chips/bulk fixos) — pai com altura + `className="flex-1
+min-h-0"`. Não combinar com `virtualized`. (2) **Virtualizado**: usar `measureElement` —
+sem ele o `estimateItemSize` reserva mais que a altura real e o excedente vira "gap" falso.
+(3) **Nó-folha** (sem filhos) no hierarchical NÃO recebe placeholder de chevron
+(`expandToggle={undefined}`, igual ao modo conectores) — senão um espaço vazio empurra o
+conteúdo. (4) `branchHighlight` (`block`/`active`) só em `layout="hierarchical"`; ramo ativo
+usa o MESMO painel do block (não cor de marca fraca).
+
+## [L-047] Nova skill builder toca 4 superfícies de roteamento — DoD de skill
+
+Criar uma skill builder (ex: `list-builder`) não basta criar os `.md` — precisa registrar
+em: (1) **orchestrator** (`.claude/agents/orchestrator.md` tabela de roteamento), (2)
+**ds-kit** consumer (`cli/templates/default/_claude/skills/ds-kit/SKILL.md` se for
+distribuída), (3) **command(s)** (`/ds-create-<x>`), (4) **front-door** se houver
+desambiguação. O smoke test pegou que o orchestrator não tinha a linha de lista — sem o
+teste, um pedido via agente orquestrador não acharia o builder. **Regra pra IA:** ao criar
+skill/command, rodar um smoke test (invocar de verdade) + checar os 4 pontos de registro.
+
+## [L-048] `block-rm-rf` casa o padrão em qualquer ponto do comando (inclusive commit message)
+
+O hook greps `rm -rf <path>` no comando inteiro → **falso-positivo quando a string aparece
+dentro de uma commit message** (heredoc do `git commit -m`). Bloqueou um commit cuja
+mensagem citava `rm -rf src/`. **Workaround imediato:** não escrever `rm -rf <path>` literal
+em mensagens/echos. **Melhoria do hook (backlog):** ignorar quando o comando começa com
+`git commit`/`git`, ou só casar `rm` como token inicial de um segmento de comando.
+
+## [L-049] registryDependency pode ficar "dangling" pra componente bundlado em outro item
+
+`registry-add-item.mjs` gera registryDependencies a partir dos imports — `data-list`
+importa `@/components/ui/TableToolbar`, então gerou `@igreen/table-toolbar`. Mas o
+TableToolbar **não tem item próprio** no registry: é **bundlado** dentro do `data-table`
+("acoplamento circular"). Logo `@igreen/table-toolbar` é um dep que **não resolve** →
+`igreen:add data-list` quebraria. Fix: remover o dep e confiar no `@igreen/data-table`
+(que o data-list já depende e que traz os arquivos do TableToolbar embutidos). **Regra
+pra IA:** ao adicionar/editar item no registry, valide que cada `registryDependency`
+existe como item OU é bundlado por outro dep já listado — `npm run distribution:debt`
+(novo) + conferir os deps gerados pelo `registry-add-item` (ele não sabe o que é bundlado).
+
+## [L-050] Showcase API Reference: `PropsTable` direto, nunca dentro de `ExampleSection`
+
+`ExampleSection` é o **card de preview** (ring + shadow + min-h + centralização). `PropsTable`
+**já tem superfície própria** (ring). Renderizar `<PropsTable>` dentro de `<ExampleSection>`
+vira **card-dentro-de-card** — visual quebrado (caso real: API Reference do TableToolbarDoc).
+Pattern correto (igual `SliderDoc`): `SectionH2 "API Reference"` → `PropsTable` **direto**;
+pra 2+ tabelas, cada uma num wrapper `<div className="mb-gp-4xl"><h3 text-title-lg/><p/><PropsTable/></div>`.
+**Segundo erro do mesmo caso:** usei vários `SectionH2` pras sub-tabelas e elas coladas —
+`SectionH2` tem `mb-12` mas **sem margin-top**, então tabela seguida de heading cola. Sub-seções
+de API usam `h3 text-title-lg` (não `SectionH2`) + wrapper `mb-gp-4xl` pro espaçamento.
+Doc atualizada: `.ai/context/doc-guide.md` → "API Reference — padrão obrigatório". **Regra pra
+IA:** ao documentar API no showcase, `PropsTable` nunca aninhado; espelhar `SliderDoc`.
+
+## [L-051] Intenção de "adicionar filtro" em tabela/lista → filtro nativo, nunca form acima
+
+Vibe-coders (gerando via IA) pedem "um select de status em cima da tabela" / "filtrar por
+período" e a IA monta **form/selects soltos acima da grade** — feio, código extra, fora do
+padrão. A tabela/lista do DS já tem **motor de filtro reativo** (chips clicáveis/editáveis,
+zero código). Roteamento que as skills (crud-builder/list-builder/ds-kit, repo + CLI) devem
+sugerir automaticamente nessa intenção:
+
+- **por COLUNA/campo** (status/categoria/tipo/data) → filtro nativo (`enableColumnFilter`/
+  `filterFields`); quer já filtrado → **pré-aplicar** (`defaultViews`/`presetView`/`filterModel`
+  no DataTable; `views`/`filterModel` no DataList) → abre com **chip aplicado**, editável. Pode
+  pré-setar vários de uma vez.
+- **toolbar.actions/toolbarActions SÓ pra caso pequeno e simples não-coluna** (ex.: data/
+  período, escopo) — **label curta, máx ~2**. Mexe com coluna, grande/complexo ou muitos →
+  **não** use o toolbar (foi o gatilho de criar o slot, mas é pra casos simples).
+- **muitos ou ligados a coluna/campo** → sempre nativos **pré-aplicados (chips)**. Nunca
+  empilhar campos.
+  Regra de ouro: **filtro é recurso da tabela/lista, não UI na unha.** Coberto nas 6 superfícies:
+  crud-builder + list-builder (repo `.claude/skills` e CLI `cli/templates/default/_claude/skills`)
+
+* ds-kit (CLI) + esta lição/`ds-standards`.
+
+---
+
+## [L-052] DataTable view Lista — paginação é opt-in (`listConfig.paginated`)
+
+A view Lista do `DataTable` (`viewMode="list"` + `listConfig`) **mostra todas as rows
+processadas por padrão** (filter+search+sort, sem slice de paginação — igual ao kanban).
+Isso surpreende quando a tabela pagina mas a lista rola "infinito": o usuário liga o toggle
+Lista e vê centenas de cards.
+
+Fix (v0.21.0): prop opcional **`listConfig.paginated?: boolean`**. Quando `true` e a lista é
+flat, o corpo passa a usar `rowsToRender` (página atual, mesma paginação da tabela) e o
+footer de paginação renderiza também na view Lista. Default `false` (comportamento antigo,
+não-breaking). Ignorado quando `hierarchical` (árvore desliga paginação por natureza).
+
+Implementação: `data-table.tsx` (fonte das rows da lista escolhe `rowsToRender` vs
+`rowsAllPagesProcessed` por `cfg.paginated`; condição do footer libera a lista flat
+paginada) + `data-table.types.ts` (prop) + `USAGE.md`. Documentado nas skills
+`crud-builder/generate.md` (repo + `cli/templates/default/_claude`). `list-builder`/`DataList`
+**não** são afetados (componente diferente).
+
+**Regra pra IA**: ao gerar tela com toggle Tabela↔Lista e volume de linhas relevante,
+passar `listConfig.paginated: true`.
+
+---
+
+## [L-053] autoFit do DataTable — piso pelo header, fill proporcional, re-measure no toggle
+
+3 comportamentos do autoFit corrigidos (v0.22.0) porque incomodavam na prática:
+
+1. **Piso de cada coluna inclui o HEADER inteiro** (texto do `headerName` + ícone de tipo +
+   reserva de sort/menu), não só o conteúdo das células. Antes, quando o conteúdo era mais
+   estreito que o título, o **título** caía em "..." — e título é informação importante.
+2. **Preenchimento proporcional.** A sobra é distribuída **proporcionalmente** entre as
+   colunas (clamp por `maxWidth` + redistribuição do resíduo), em vez de uma coluna virar
+   "gigante". **`col.width` deixou de ser largura fixa e virou BASE/piso** que entra no
+   rateio — senão a única coluna sem `width` absorvia toda a sobra (caso real: tela Cidades,
+   "Cidade" com 1321px). Travar de fato = `width` + `maxWidth` iguais (ou `type` fixo).
+3. **Re-measure no toggle de view.** O corpo desmonta na view Lista; ao voltar pra Tabela o
+   ResizeObserver continuava preso ao nó antigo (ref estável) e reaplicava larguras stale.
+   Fix: `recalcKey: viewMode` no `useColumnAutoWidth` re-instala o observer e re-mede.
+
+Arquivos: `use-column-auto-width.ts` (recalcKey), `calculate-column-widths.ts` (piso header +
+fill proporcional), `use-data-table-controller.ts` (passa viewMode). Coberto nas skills
+crud-builder (repo + `cli/templates`) + USAGE do DataTable.
+
+**Regra pra IA**: prefira NÃO fixar `width` (autoFit distribui); `width` é base/piso, não
+trava (travar = `width`+`maxWidth`). Hook de ResizeObserver preso a ref estável precisa de
+`recalcKey` quando o nó observado desmonta/remonta sem trocar a ref.
+
+---
+
+## [L-054] DataTable — viewMode "sticky" ao trocar de visão + `allowCreateView` read-only
+
+Dois ajustes de saved-views do DataTable (v0.23.0), ambos vindos de uso real na tela Cidades
+(2+ visões + toggle Tabela/Lista):
+
+1. **viewMode "sticky" ao aplicar visão.** Antes, aplicar qualquer visão (preset ou clicar
+   "Default") forçava `setViewMode(state.viewMode ?? "table")` — então com 2-3 visões, mudar
+   uma pra Lista e clicar em outra **voltava pra Tabela** (a outra visão não definia viewMode
+   → caía no fallback `"table"`). Comportamento errado: trocar de visão flipava a view que o
+   usuário escolheu. Fix: `applyViewState` só chama `setViewMode` **se `state.viewMode !==
+   undefined`** (a visão define explicitamente); `applyDefault` (branch persistId) **não**
+   reseta viewMode. Resultado: a view (table/list/kanban) é "sticky" — só muda quando o
+   preset declara `viewMode` de propósito. Arquivo: `use-data-table-controller.ts`.
+2. **`allowCreateView={false}` (opt-out, default `true`).** Esconde o botão "+" das visões +
+   o modal de criar visão (`TableToolbarViews` ganhou prop `allowCreate`). Pra telas que só
+   oferecem `defaultViews` pré-definidas (abas nativas read-only), sem o usuário salvar visões
+   próprias. Não-breaking (default mantém o "+"). Arquivos: `data-table.types.ts` (prop),
+   `data-table.tsx` (`allowCreate={props.allowCreateView !== false}`),
+   `parts/table-toolbar-views.tsx` (gate de render do ViewsPopover + AddViewModal).
+
+**Regra pra IA**: ao montar tela com `defaultViews` como abas fixas, passe
+`allowCreateView={false}`; e só declare `viewMode` num `presetView` quando aquela visão DEVE
+forçar uma view específica — senão deixe sem (sticky). Coberto nas skills crud-builder (repo +
+`cli/templates`) + USAGE do DataTable/TableToolbar + showcase DataTableDoc.
+
+---
+
+## [L-055] Composições de tela viram receita canônica (não componente novo) + `KpiDelta signed`
+
+Quando um conjunto de telas converge num **padrão de composição** (dashboard, KPI-group
+"Painel do Líder", fusão KPI+evolução, chart-card, card dividido, distribuição de
+tabela/lista), a forma de "deixar padrão" no DS **não é** criar um componente rígido pra
+cada — é **capturar a receita** usando os primitivos existentes (`Kpi`/`KpiGroup`/`Chart`/
+`Panel`/`DataTable`/`DataList`) numa fonte única (`.ai/context/components/dashboard-patterns.md`)
+que showcase + exemplos + builders (crud/list/dashboard) referenciam, e distribuir isso via
+CLI (ds-kit/catálogo + example pages). Componentiza-se só o gap real de componente — no caso,
+`KpiDelta` ganhou `signed` (deriva tom verde/vermelho + seta do SINAL do value; opt-in,
+backward-compat; `tone`/`direction` explícitos vencem). Motivo: a qualidade que levamos ~1
+sessão pra atingir no consumidor estava presa em ~13 reimplementações inline lá, sem voltar
+pro DS/exemplos/skills — então um consumidor novo (via CLI) não a alcançava sozinho. Receita
+> componente quando a composição varia; componente só pro átomo estável. Regra pra IA: ao
+padronizar "esse tipo de tela", escreva/estenda o pattern doc + aponte builders/exemplos pra
+ele — NÃO crie um mega-componente de página.
 
 ---
 
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
+
 1. Identificar o padrão do erro
 2. Adicionar no formato `[L-NNN]` no final deste arquivo
 3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado
    (é o arquivo auto-carregado — deve ter o resumo de todas as lições)
+
+---
+
+## Política de arquivamento
+
+Quando este arquivo passar de ~50KB, mover para `.ai/status/lessons-archive.md` as
+lições já ABSORVIDAS em hook ou regra (ex.: greps do `ds-lint-styles.sh`, prefixos
+DS em `ds-standards.md`) — elas continuam valendo, mas o pipeline já as aplica
+automaticamente, então não dependem mais de disciplina humana no dia-a-dia.
+
+Manter no ativo as lições que AINDA dependem de disciplina humana (decisões de
+arquitetura, padrões Radix/forwardRef, caveats de libs externas, regras de release).
+O resumo 1-linha de TODAS as lições (ativas + arquivadas) permanece em
+`.claude/rules/ds-standards.md` — é a fonte auto-carregada.

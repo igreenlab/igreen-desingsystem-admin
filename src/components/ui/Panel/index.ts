@@ -11,13 +11,20 @@ export type { PanelBodyProps } from "./panel-body";
 export { PanelFooter } from "./panel-footer";
 export type { PanelFooterProps } from "./panel-footer";
 
-/* Re-export primitives shadcn pra composição manual avançada */
+/* Re-export primitives shadcn pra composição manual avançada.
+   import-then-export (não `export...from`) pra o shadcn reescrever o alias no copy-in. */
+import {
+  Sheet,
+  SheetTrigger,
+  SheetClose,
+  SheetContent,
+} from "@/components/shadcn/sheet";
 export {
   Sheet as PanelRoot,
   SheetTrigger as PanelTrigger,
   SheetClose as PanelCloseAction,
   SheetContent as PanelContent,
-} from "../../shadcn/sheet";
+};
 
 /* Styles (pra override em casos custom) */
 export { panelContainer } from "./panel.styles";

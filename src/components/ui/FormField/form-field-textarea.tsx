@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { Textarea, type TextareaProps } from "../../shadcn/textarea";
+import { Textarea, type TextareaProps } from "@/components/shadcn/textarea";
 import { FormField } from "./form-field";
 import type { FormFieldBaseProps } from "./form-field.types";
 

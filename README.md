@@ -4,6 +4,17 @@ Design system interno da iGreen para SaaS CRM, painéis admin e dashboards.
 
 ---
 
+## Comece aqui
+
+Escolha o caminho conforme seu objetivo:
+
+- **Quero ver o DS funcionando** → catálogo + documentação viva em **[igreen-desingsystem-admin.vercel.app](https://igreen-desingsystem-admin.vercel.app/#/introduction)** (componentes, tokens, exemplos e pipeline).
+- **Quero consumir o DS num projeto** → veja [`## Consumir em outro projeto`](#consumir-em-outro-projeto) (CLI/registry) e [`DISTRIBUICAO.md`](DISTRIBUICAO.md).
+- **Quero desenvolver no DS** → veja [`## Setup (desenvolvimento no DS)`](#setup-desenvolvimento-no-ds) e [`CLAUDE.md`](CLAUDE.md).
+- **Sou operador (não-dev)** → veja [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
+
+---
+
 ## O que é
 
 Biblioteca de componentes, tokens e padrões usada pelas plataformas internas da iGreen — admin do CRM, dashboards operacionais, painéis de licenciamento e demais interfaces administrativas.
@@ -90,70 +101,31 @@ cd my-app
 npm run dev
 ```
 
-O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git. Em ~30 segundos você tem um app rodando em `http://localhost:3200` com 4 componentes do DS demonstrados. Sem precisar configurar nada manualmente, sem gotcha do `@source` do Tailwind v4.
+O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git, e o `IGREEN_TOKEN` do registry (pode pular e colar depois). Em ~30 segundos você tem um app rodando em `http://localhost:3200` com tela de boas-vindas, exemplos navegáveis no menu e tema claro/escuro/sistema. Sem configurar nada manualmente, sem gotcha do `@source` do Tailwind v4.
 
-**A partir de v0.1.5 (junho 2026):** o template default inclui também um `CLAUDE.md` na raiz com onboarding consumer-facing pra Claude Code / Cursor / agentes AI — lista de componentes, anti-patterns proibidos e padrões obrigatórios. Permite que qualquer agente AI gere UI consistente com o DS desde o primeiro prompt. **Mas o pipeline AI completo do DS (agents/skills/hooks/rules — ver seção [AI Pipeline](#ai-pipeline) abaixo) NÃO vem via CLI** — vive só neste repositório. Pra ter o pipeline completo, clone o repo.
+O template default já inclui um `CLAUDE.md` de onboarding **+ um kit de IA pro consumidor** (orquestrador `ds-kit`, skills de tela, `DESIGN.md`, hook de proteção) — pra Claude Code / Cursor montarem telas no padrão por intenção. **Mas o pipeline de desenvolvimento do DS** (agents/skills/hooks/rules de criação de token/componente — ver [AI Pipeline](#ai-pipeline)) **NÃO vem via CLI** — vive só neste repositório. Pra ter o pipeline completo, clone o repo.
 
 Ver detalhes: [`cli/README.md`](cli/README.md).
 
 ---
 
-## Install in external apps
+## Consumir em outro projeto
 
-Se você prefere adicionar o DS num projeto JÁ existente (ao invés de usar o CLI), é publicado como pacote NPM público (`@snksergio/design-system`):
+O iGreen DS é distribuído por **copy-in via registry** (padrão shadcn) — **não** como pacote npm. O código de cada componente é **copiado pro seu projeto** (`src/`), virando código seu, editável.
+
+**Projeto novo (recomendado):**
 
 ```bash
-npm install @snksergio/design-system
+npx @snksergio/create-design-system@latest meu-app
 ```
 
-**Pre-requisitos no app consumidor:**
-- React 19+ (peer dep)
-- Tailwind CSS v4 instalado e configurado
-- Importar `@snksergio/design-system/theme.css` uma vez no entry CSS
-- **Adicionar `@source` apontando pro `dist-lib/` do package** (ver abaixo) — sem isso, as classes utility usadas DENTRO dos componentes não são geradas pelo Tailwind v4
+Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela de boas-vindas, exemplos navegáveis e o kit de IA pra montar telas por intenção.
 
-**Configuração mínima do CSS de entrada (`index.css` ou `globals.css`):**
+**Projeto existente:** configure o registry `@igreen` no `components.json` (Bearer `IGREEN_TOKEN`) e puxe componentes com `npx shadcn add @igreen/<nome>` (ou o wrapper `npm run igreen:add` no scaffold, que mantém o manifesto).
 
-```css
-@import "tailwindcss";
+> ⚠️ O pacote npm `@snksergio/design-system` está **DEPRECIADO** (era uma tentativa antiga de virar lib). **Não use `npm install` dele** — o canal vivo é o registry/CLI acima. Modelo e versionamento explicados em `DISTRIBUICAO.md` e na página **Distribution** do catálogo.
 
-/* Necessário: Tailwind v4 ignora node_modules por default.
-   Isso instrui ele a escanear os bundles do DS pra gerar
-   classes utility usadas DENTRO dos componentes
-   (gap-gp-md, rounded-radius-base, min-h-form-lg, etc.) */
-@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
-
-@import "@snksergio/design-system/theme.css";
-```
-
-⚠️ **Esse `@source` é obrigatório.** Sem ele, os componentes ficam sem estilo (cores aparecem via CSS vars, mas spacing/radius/shadow/sizing somem porque as classes utility ficam órfãs).
-
-**Uso:**
-
-```tsx
-// app.tsx — entry CSS
-import "@snksergio/design-system/theme.css";
-
-// componentes
-import { Button, AppShell, DataTable } from "@snksergio/design-system";
-
-// tokens (acesso programático)
-import { colorLight, spacing } from "@snksergio/design-system/tokens";
-
-// showcases prontas (com mocks)
-import ChatV2 from "@snksergio/design-system/preview/chat";
-
-// mocks reutilizáveis
-import { APP_SHELL_CONTEXTS, chatMocks } from "@snksergio/design-system/preview/mocks";
-```
-
-**Modelo evergreen:** sem versionamento semver disciplinado. Apps usam `^0.1.0` no `package.json` e `npm update` puxa as últimas mudanças.
-
-**Sub-paths disponíveis:** `.`, `/theme.css`, `/tokens`, `/preview/chat`, `/preview/clientes`, `/preview/dashboard`, `/preview/mocks`.
-
-**⚠️ O que VEM via `npm install`:** build dos componentes + types TypeScript + theme.css + tokens + 4 preview entries + README.md. **Apenas isso.**
-
-**O que NÃO vem via npm:** agents (`.claude/agents/`), skills (`.claude/skills/`), hooks (`.claude/hooks/`), rules auto-carregadas (`.claude/rules/`), context guides (`.ai/context/`), lições documentadas (`.ai/status/lessons.md`), arquitetura completa do pipeline (`README-PIPELINE-WORKFLOW.md`), nem o source TypeScript dos componentes (`src/components/`). Tudo isso vive **só neste repositório**. Pra ter acesso, ver [Setup (desenvolvimento no DS)](#setup-desenvolvimento-no-ds) abaixo.
+**O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
 ---
 
@@ -349,6 +321,10 @@ Mudar o visual = mudar **só** o `.styles.ts`. Componentes Shadcn ficam em `src/
 ---
 
 ## Documentação completa
+
+Online (sempre na última versão publicada): **[igreen-desingsystem-admin.vercel.app/#/introduction](https://igreen-desingsystem-admin.vercel.app/#/introduction)**.
+
+Ou localmente, refletindo o estado atual do código:
 
 ```bash
 npm run dev

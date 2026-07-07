@@ -4,8 +4,8 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../shadcn/popover";
-import { Checkbox } from "../../../shadcn/checkbox";
+} from "@/components/shadcn/popover";
+import { Checkbox } from "@/components/shadcn/checkbox";
 import { cn } from "@/lib/utils";
 
 /* ── Types ────────────────────────────────────────────────────────── */

@@ -1,10 +1,10 @@
 import { Calendar as CalendarIcon } from "lucide-react";
-import { Calendar } from "../../../../shadcn/calendar";
+import { Calendar } from "@/components/shadcn/calendar";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "../../../../shadcn/popover";
+} from "@/components/shadcn/popover";
 import { FILTER_FIELD_CLASS } from "../_filter-field";
 import type { ColumnTypeDefinition } from "../column-types.types";
 import { toDateMs, dayStart, toDate, toIsoDate } from "../_shared";
