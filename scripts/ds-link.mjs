@@ -185,7 +185,11 @@ log(`  DS: v${dsVersion}  em  ${dsPathRel}`);
 log(`  alias: ${alias}${detected ? " (auto-detectado)" : " (default — confirme no seu tsconfig/vite)"}`);
 log("");
 
-const files = walk(PAYLOAD);
+// hooks/ + settings.json do payload são específicos de copy-in (protect-ds / ds-lint
+// miram `src/components/**`, layout que o submódulo não tem) → não projetar no submódulo.
+// Aproveita-se só o que é path-agnóstico: commands, skills, rules.
+const EXCLUDE = (rel) => rel === "settings.json" || rel.startsWith("hooks/");
+const files = walk(PAYLOAD).filter((rel) => !EXCLUDE(rel));
 const prev = readJSON(MANIFEST, { files: [] });
 const prevSet = new Set(prev.files || []);
 const written = [];

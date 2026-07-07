@@ -9,6 +9,7 @@ const TOC = [
   { id: "first-run", label: "First Run" },
   { id: "install-npm", label: "Install via NPM" },
   { id: "consume", label: "Consume in App" },
+  { id: "submodule", label: "Submodule + ds-link" },
   { id: "pipeline", label: "AI Pipeline" },
   { id: "troubleshoot", label: "Troubleshooting" },
 ];
@@ -277,6 +278,58 @@ import {
         <p className="text-body-md text-fg-muted">
           For dark mode, toggle the <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.dark</code> class
           on the root element — CSS vars resolve to the correct values automatically.
+        </p>
+      </div>
+
+      {/* Submodule + ds-link */}
+      <SectionH2 id="submodule" title="Consume as Git Submodule (ds-link)" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-body-md text-fg-muted">
+          Se você aponta o DS como <strong className="text-fg-default">git submódulo</strong> (uma
+          subpasta do seu projeto), o Claude Code <strong className="text-fg-default">não enxerga</strong>{" "}
+          as skills/commands do DS sozinho — ele só auto-descobre{" "}
+          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/</code>{" "}
+          na raiz do seu projeto, não desce pra{" "}
+          <code className="font-mono text-code-sm">&lt;submódulo&gt;/.claude/</code>. É normal: submódulo é
+          um apontamento externo. O <code className="font-mono text-code-sm">ds-link</code> resolve isso.
+        </p>
+        <p className="text-body-md text-fg-muted">
+          Ele projeta o mesmo kit de IA que o CLI npm instala (skills{" "}
+          <code className="font-mono text-code-sm">crud-builder</code>/<code className="font-mono text-code-sm">list-builder</code>/<code className="font-mono text-code-sm">dashboard-builder</code>,
+          commands, rules) pra dentro do{" "}
+          <code className="font-mono text-code-sm">.claude/</code> do seu projeto. Depois disso você tem{" "}
+          <code className="font-mono text-code-sm">/ds-create-crud</code>,{" "}
+          <code className="font-mono text-code-sm">/ds-create-dashboard</code> etc. descobríveis nativamente.
+        </p>
+        <p className="text-body-md font-medium text-fg-default">Setup (uma vez, na raiz do seu projeto):</p>
+        <CodeBlock>{`# ajuste "design-system" pro caminho real do submódulo
+npm --prefix design-system run ds:link
+# ou:  node design-system/scripts/ds-link.mjs`}</CodeBlock>
+        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
+          <li>Copia <code className="font-mono text-code-sm">commands</code> + <code className="font-mono text-code-sm">skills</code> + <code className="font-mono text-code-sm">rules</code> pro seu <code className="font-mono text-code-sm">.claude/</code> (não sobrescreve arquivos seus que colidam).</li>
+          <li>Escreve <code className="font-mono text-code-sm">.claude/ds-config.json</code> (<code className="font-mono text-code-sm">mode: "submodule"</code>) — as skills leem componentes/exemplos direto de <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>, sem <code className="font-mono text-code-sm">igreen:add</code>/registry.</li>
+          <li>Detecta o alias de import no seu <code className="font-mono text-code-sm">tsconfig</code>/<code className="font-mono text-code-sm">vite</code> (que aponta pra <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>); fallback <code className="font-mono text-code-sm">@ds</code>.</li>
+          <li>Adiciona um bloco gerenciado no seu <code className="font-mono text-code-sm">CLAUDE.md</code>.</li>
+        </ul>
+        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚠ Pré-requisito — o alias de import</p>
+          <p className="text-body-md text-fg-muted mb-gp-md">
+            As skills geram imports tipo <code className="font-mono text-code-sm">@ds/components/ui/DataTable</code>. Garanta
+            que seu <code className="font-mono text-code-sm">tsconfig</code> + bundler tenham o alias apontando pra{" "}
+            <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>:
+          </p>
+          <CodeBlock>{`// tsconfig.json
+{ "compilerOptions": { "paths": { "@ds/*": ["design-system/src/*"] } } }
+
+// vite.config.ts
+resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }`}</CodeBlock>
+        </div>
+        <p className="text-body-md text-fg-muted">
+          Ao atualizar o submódulo (<code className="font-mono text-code-sm">git pull --recurse-submodules</code>),{" "}
+          <strong className="text-fg-default">re-rode</strong> pra ressincronizar as skills — é idempotente e limpa
+          skills removidas upstream. <code className="font-mono text-code-sm">--unlink</code> desfaz tudo;{" "}
+          <code className="font-mono text-code-sm">--dry</code> mostra sem escrever. Guia completo em{" "}
+          <code className="font-mono text-code-sm">SUBMODULE-SETUP.md</code> (raiz do repo).
         </p>
       </div>
 

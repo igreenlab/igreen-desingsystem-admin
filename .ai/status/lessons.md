@@ -1158,6 +1158,34 @@ ele — NÃO crie um mega-componente de página.
 
 ---
 
+## [L-056] Consumidor via submódulo não recebe o kit de IA — `ds-link` projeta; skills precisam de modo submódulo
+
+O Claude Code só auto-descobre `.claude/` na **raiz do cwd** (+ `~/.claude`); **não desce**
+pra `<submodulo>/.claude/`. Então quem consome o DS como git submódulo (subpasta) fica **sem**
+as skills/commands do kit — ao contrário do consumidor npm, que recebe o payload copiado no
+scaffold. Zero-touch é impossível (submódulo é apontamento externo à árvore que o Claude
+varre) — o melhor é reduzir a **uma** ação idempotente. Solução: `scripts/ds-link.mjs`
+(`npm run ds:link`) projeta o **mesmo payload consumidor** (`cli/templates/default/_claude`)
+pro `.claude/` do pai. Três aprendizados que valem pra futuras mudanças:
+
+1. **A lógica de "modo" mora no PAYLOAD, não nas skills do repo.** O que aterrissa no
+   consumidor são as skills de `cli/templates/default/_claude/skills/*` — é lá que o 3º modo
+   "submódulo" foi adicionado (crud/list/dashboard + ds-kit), lendo `.claude/ds-config.json`
+   (gerado pelo ds-link) pra resolver `importBase` e **não** rodar `igreen:add` (não há
+   registry no submódulo; componentes/exemplos já estão em `<dsPath>/src`).
+2. **Nem todo payload serve pro submódulo.** `hooks/` + `settings.json` são específicos de
+   copy-in (protect-ds/ds-lint miram `src/components/**`, layout que o submódulo não tem) →
+   ds-link **exclui** esses; projeta só o path-agnóstico (commands/skills/rules).
+3. **Detectar o alias, não assumir.** O import do submódulo é o alias do consumidor pra
+   `<dsPath>/src` (`@`, `@ds`, etc.) — ds-link varre tsconfig/vite e cai em `@ds` com aviso.
+   Manifest (`.claude/.ds-linked.json`) torna re-run/`--unlink` limpos (inclui prune de dirs).
+
+Regra pra IA: paridade de experiência entre canais de distribuição (npm CLI vs submódulo) é
+requisito, não bônus — ao mexer no kit do consumidor, lembre que o submódulo é um 3º canal
+que consome o MESMO payload por um caminho diferente. Doc humana: `SUBMODULE-SETUP.md`.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

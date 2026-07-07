@@ -1305,3 +1305,13 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: as receitas + example + builder bastam pro Claude do consumidor reproduzir o nível (validado por smoke test em domínio novo — Painel de Suporte — sem copiar telas). tsc 0.
 - Regressões L-001..L-007: nenhuma (.styles.ts não tocado). L-037 corrigida (kpi nas deps do example-dashboard).
 - Lições novas: L-055 (já registrada).
+
+---
+
+### 2026-07-07 | DS DEV | ds-link (paridade de kit p/ consumidor via submódulo) | CONCLUÍDO
+- Input: consumidor que aponta o DS como git submódulo não recebe skills/commands do kit — o Claude Code só auto-descobre `.claude/` na raiz do cwd, não desce pra `<submodulo>/.claude/`. Ao contrário do npm (payload copiado no scaffold), o submódulo ficava sem `/ds-create-crud` etc. Pedido: dar a mesma experiência do npm ao submódulo.
+- Output (PR #43): (1) `scripts/ds-link.mjs` + `npm run ds:link` — copy-in idempotente do payload consumidor (`cli/templates/default/_claude`) pro `.claude/` do pai; auto-detecta alias (tsconfig/vite), escreve `.claude/ds-config.json` (mode:submodule) + bloco gerenciado no CLAUDE.md; manifest → re-run limpa obsoletos, `--unlink` desfaz (prune de dirs); exclui `hooks/`+`settings.json` (copy-in-specific). (2) 3º modo "submódulo" nas skills do payload (crud/list/dashboard + ds-kit): leem ds-config → importam via `importBase`, leem componentes/exemplos direto de `<dsPath>/src`, NÃO rodam igreen:add. (3) `SUBMODULE-SETUP.md` (guia humano). (4) doc: installation page (#/installation seção "Submodule + ds-link") + README (ds-link como caminho recomendado). (5) L-056 + resumo ds-standards.
+- Decisões: modo mora no PAYLOAD (é o que aterrissa no consumidor), não nas skills do repo; hooks/settings excluídos (miram src/components/**, layout ausente no submódulo); detectar alias, não assumir. Sem bump aqui — SKILL.md do payload mudaram → chegam ao npm no próximo republish CLI (consolidar no /ds-release).
+- Assumption: as skills do payload lendo `.claude/ds-config.json` bastam pra rotear/gerar em modo submódulo sem igreen:add. Validado por smoke real contra `projeto/virtual-proposta` (alias `@` auto-detectado, importBase `@/components/ui`, 25 arquivos, commands+skills presentes, unlink limpo, git status limpo). node --check OK; tsc a validar no gate.
+- Regressões L-001..L-007: nenhuma (.styles.ts não tocado; mudança é tooling + markdown).
+- Lições novas: L-056 (submódulo = 3º canal; ds-link dá paridade — já registrada).

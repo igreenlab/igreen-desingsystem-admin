@@ -134,11 +134,32 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 > Cenário: seu app tem o DS clonado numa **subpasta** (monorepo, `vendor/`,
 > git submodule) e a sessão do Claude Code abre na raiz do SEU projeto.
 > Nesse caso o Claude **não** descobre o `.claude/` do DS sozinho — os slash
-> commands e skills do pipeline ficam invisíveis. A solução é **apontar**:
-> skills são markdown, e a IA lê e segue os arquivos quando o prompt indica
-> a porta de entrada.
+> commands e skills do pipeline ficam invisíveis.
 
-### Passo 1 — Bootstrap de contexto (início de toda sessão)
+### Recomendado — `ds-link` (setup uma vez)
+
+Se o DS está no disco (submódulo/subpasta), rode o **`ds-link`** na raiz do SEU
+projeto: ele projeta o mesmo kit de IA que o CLI npm instala (skills
+`crud-builder`/`list-builder`/`dashboard-builder`, commands, rules) pra dentro do
+seu `.claude/` — aí `/ds-create-crud`, `/ds-create-dashboard` etc. viram
+**descobríveis nativamente**, sem bootstrap por sessão.
+
+```bash
+# ajuste "design-system" pro caminho real do submódulo
+npm --prefix design-system run ds:link
+# ou:  node design-system/scripts/ds-link.mjs
+```
+
+Escreve `.claude/ds-config.json` (`mode: submodule`) — as skills leem componentes/
+exemplos direto de `<submódulo>/src` (sem `igreen:add`/registry) e importam pelo
+alias detectado no seu `tsconfig`/`vite` (fallback `@ds`). Re-rode após
+`git pull --recurse-submodules` (idempotente); `--unlink` desfaz. Guia completo:
+[`SUBMODULE-SETUP.md`](SUBMODULE-SETUP.md).
+
+> Sem poder rodar o script? O caminho **manual** (apontar por prompt) abaixo
+> continua válido como fallback.
+
+### Passo 1 — Bootstrap de contexto (fallback manual, início de toda sessão)
 
 Antes de qualquer tarefa que use o DS, mande (troque `<pasta-do-ds>` pelo
 caminho real, ex: `packages/igreen-ds`):
@@ -176,10 +197,10 @@ sample e confirma com você). Nada é gerado antes de você aprovar o blueprint.
 
 | Forma | Quando usar |
 |---|---|
-| **Apontar via prompt** (passos acima) | Default — zero setup, funciona em qualquer projeto |
-| **Abrir a sessão dentro da pasta do DS** | Quer o pipeline nativo (`/ds-create-crud`, hooks, rules auto-carregadas) |
-| **Copiar pro seu `.claude/`** | Copie `ds-create-crud.md` (commands) + `crud-builder/` (skills) pro `.claude/` do seu projeto — o slash command vira nativo; a skill detecta que está num consumer e adapta imports |
-| **Consumo só via npm** (sem o repo no disco) | A skill não está no pacote — aponte pros arquivos no GitHub (`igreenlab/igreen-desingsystem-admin` → `.claude/skills/crud-builder/`) ou clone o repo |
+| **`ds-link`** (recomendado) | DS no disco (submódulo/subpasta) — projeta o kit no seu `.claude/`, slash commands nativos, sem bootstrap por sessão. `npm --prefix <ds> run ds:link` |
+| **Apontar via prompt** (Passo 1) | Fallback — não pode rodar o script; zero setup, funciona em qualquer projeto |
+| **Abrir a sessão dentro da pasta do DS** | Quer o pipeline de desenvolvimento nativo (agents/hooks/rules do DS, não só o kit de telas) |
+| **Consumo só via npm** (sem o repo no disco) | O kit vem no scaffold do CLI (`npx @snksergio/create-design-system`); num projeto já existente, aponte pros arquivos no GitHub ou clone o repo |
 
 Detalhes do mecanismo: [`README-PIPELINE-WORKFLOW.md`](README-PIPELINE-WORKFLOW.md) §8 "Usando skills quando o DS é subprojeto".
 
