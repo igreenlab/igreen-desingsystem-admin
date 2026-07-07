@@ -60,7 +60,7 @@ const TabsTrigger = React.forwardRef<
         "hover:text-fg-default",
         "disabled:pointer-events-none disabled:opacity-50",
         variant === "line"
-          ? "-mb-px h-[38px] px-[2px] pb-[8px] rounded-radius-sm border-b-2 border-transparent data-[state=active]:border-border-brand data-[state=active]:text-fg-default data-[state=active]:font-semibold"
+          ? "-mb-px h-[38px] px-[2px] pb-[8px] border-b-2 border-transparent data-[state=active]:border-border-brand data-[state=active]:text-fg-default data-[state=active]:font-semibold"
           : "h-[34px] px-[14px] rounded-radius-md data-[state=active]:bg-bg-accent data-[state=active]:text-fg-default data-[state=active]:font-semibold data-[state=active]:shadow-sh-sm",
         className
       )}
