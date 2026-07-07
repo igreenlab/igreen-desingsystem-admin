@@ -67,6 +67,11 @@ Regra de ouro: **filtro é recurso da tabela/lista (reativo), não UI montada na
 
 ## Passo 2 — Execute a rota
 
+> **Modo submódulo:** se existe `.claude/ds-config.json` com `"mode": "submodule"`, o DS é
+> consumido como submódulo (não copy-in) — os componentes/exemplos já estão em `<dsPath>/src`,
+> **não** rode `igreen:add`. Importe via `importBase` do config (ex.: `@ds/components/ui/*`) e
+> leia os exemplos direto do disco. As skills abaixo já tratam esse modo.
+
 **CRUD/tabela (fluxo guiado):** carregue `.claude/skills/crud-builder/SKILL.md` → entrevista → blueprint [GATE] → geração. É question-driven; NÃO pule o gate.
 
 **Lista de cards (fluxo guiado):** carregue `.claude/skills/list-builder/SKILL.md` → mesmo fluxo (entrevista → blueprint [GATE] → geração), consumindo `DataList` + `example-mapa-rede`. Use quando for card/árvore/hierarquia/rede, não grade de colunas.
