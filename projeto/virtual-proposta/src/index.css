@@ -1,0 +1,8 @@
+/* Reaproveita o globals do DS (tailwind import + tema + shadcn compat + outline-float
+   + keyframes de accordion). O caminho é relativo a ESTE arquivo. */
+@import "../../../src/styles/globals.css";
+
+/* Tailwind v4 precisa enxergar as classes usadas DENTRO dos componentes do DS
+   (na raiz do repo) e as deste app. Paths relativos a este arquivo. */
+@source "../../../src";
+@source "./";

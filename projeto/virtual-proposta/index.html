@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Virtual Proposta — iGreen</title>
+    <script>
+      // Demo: tema dark por padrão, independente do sistema. Roda antes do 1º
+      // paint (sem flash de claro). Respeita escolha explícita do usuário se já
+      // tiver alternado o tema; caso contrário, força dark.
+      (function () {
+        try {
+          var t = localStorage.getItem("igreen-ds-theme");
+          if (t !== "light" && t !== "dark" && t !== "system") {
+            t = "dark";
+            localStorage.setItem("igreen-ds-theme", "dark");
+          }
+          var dark = t === "dark" || (t === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
