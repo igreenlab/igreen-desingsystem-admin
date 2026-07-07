@@ -40,6 +40,7 @@ import { AppShell } from "@/components/ui/AppShell";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { Kpi, KpiGroup, KpiDelta } from "@/components/ui/Kpi";
 import { Avatar, AvatarFallback } from "@/components/shadcn/avatar";
 import {
   APP_SHELL_CONTEXTS,
@@ -819,14 +820,32 @@ export default function DashboardShowcase() {
         <KeyInsightsCard />
       </section>
 
-      {/* Row 2 — KPIs primários (6) */}
-      <section
-        aria-label="KPIs principais"
-        className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-gp-2xl"
-      >
-        {KPIS_PRIMARY.map((kpi) => (
-          <KpiCard key={kpi.id} kpi={kpi} />
-        ))}
+      {/* Row 2 — KPIs primários (6) — padrão "Painel do Líder": card único com
+          divisores via KpiGroup divided + Kpi + KpiDelta (primitivos DS).
+          `tone` colore só o ícone; delta honra `positive` (sinal ≠ bom/ruim aqui:
+          "-12s" é melhora) — por isso tone explícito, não `signed`. */}
+      <section aria-label="KPIs principais">
+        <KpiGroup columns={6} divided>
+          {KPIS_PRIMARY.map((kpi) => (
+            <Kpi
+              key={kpi.id}
+              label={kpi.title}
+              value={kpi.value}
+              icon={<kpi.icon />}
+              tone={kpi.tone}
+              hint={kpi.delta?.label}
+              delta={
+                kpi.delta && (
+                  <KpiDelta
+                    value={kpi.delta.value}
+                    tone={kpi.delta.positive ? "success" : "danger"}
+                    direction={kpi.delta.direction}
+                  />
+                )
+              }
+            />
+          ))}
+        </KpiGroup>
       </section>
 
       {/* Row 3 — Volume stacked (2/3) + Current visits donut (1/3) — alturas iguais */}
