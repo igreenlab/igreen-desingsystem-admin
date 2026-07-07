@@ -1139,6 +1139,25 @@ forçar uma view específica — senão deixe sem (sticky). Coberto nas skills c
 
 ---
 
+## [L-055] Composições de tela viram receita canônica (não componente novo) + `KpiDelta signed`
+
+Quando um conjunto de telas converge num **padrão de composição** (dashboard, KPI-group
+"Painel do Líder", fusão KPI+evolução, chart-card, card dividido, distribuição de
+tabela/lista), a forma de "deixar padrão" no DS **não é** criar um componente rígido pra
+cada — é **capturar a receita** usando os primitivos existentes (`Kpi`/`KpiGroup`/`Chart`/
+`Panel`/`DataTable`/`DataList`) numa fonte única (`.ai/context/components/dashboard-patterns.md`)
+que showcase + exemplos + builders (crud/list/dashboard) referenciam, e distribuir isso via
+CLI (ds-kit/catálogo + example pages). Componentiza-se só o gap real de componente — no caso,
+`KpiDelta` ganhou `signed` (deriva tom verde/vermelho + seta do SINAL do value; opt-in,
+backward-compat; `tone`/`direction` explícitos vencem). Motivo: a qualidade que levamos ~1
+sessão pra atingir no consumidor estava presa em ~13 reimplementações inline lá, sem voltar
+pro DS/exemplos/skills — então um consumidor novo (via CLI) não a alcançava sozinho. Receita
+> componente quando a composição varia; componente só pro átomo estável. Regra pra IA: ao
+padronizar "esse tipo de tela", escreva/estenda o pattern doc + aponte builders/exemplos pra
+ele — NÃO crie um mega-componente de página.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

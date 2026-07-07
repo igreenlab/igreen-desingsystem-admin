@@ -190,8 +190,9 @@ TIER 2.5 — Component tokens — em components/
 | Release completa (changelog + bump + commit + PR) | `updates-data.ts` + `package.json` + git | `ds-dev/release.md` |
 | Tela CRUD/tabela (DataTable) | `src/preview/pages/<Nome>Preview.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `crud-builder/SKILL.md` via `/ds-create-crud` |
 | Tela lista de cards (DataList) | `src/preview/pages/<Nome>Preview.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `list-builder/SKILL.md` via `/ds-create-list` |
-| Tela de dados (não sabe se tabela ou lista) | — | front-door `/ds-create-screen` (desambigua e roteia) |
-| Gráfico / composição de dashboard | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
+| Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `src/preview/pages/<Nome>Showcase.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` (ancora em `.ai/context/components/dashboard-patterns.md`) |
+| Tela de dados (não sabe se tabela, lista ou dashboard) | — | front-door `/ds-create-screen` (desambigua e roteia) |
+| Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
 
 ---
 

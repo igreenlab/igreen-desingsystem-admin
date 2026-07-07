@@ -1276,3 +1276,22 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma (nenhum `.styles.ts` tocado; só lógica de controller + tipo + gate de render). L-016 n/a (sem typography/tv.ts). CLI rebake n/a (foundational cn/tv/theme intactos).
 - Pendência de distribuição (release): registry:build + embed (re-stamp data-table) + bump DS 0.23.0 + bump/publish CLI — a executar no /ds-release.
 - Lições novas: nenhuma (L-054 já registrada pelo DS Dev + resumo em ds-standards + contador 43→44).
+
+---
+
+### 2026-07-07 | DS DEV | Padrões de dashboard/KPI/lista (PR1 — receitas + KpiDelta signed) | CONCLUÍDO
+- Input: usuário pediu pra tornar PADRÃO no DS+CLI as composições que viraram base da visualização (KPI-group "Painel do Líder", chart-cards, fusão KPI+evolução, card dividido/mapa, distribuição de tabela/lista) pra o Claude atingir esse nível automaticamente no consumidor, sem referenciar. Escopo aprovado: receitas + exemplos + builder (componentes atuais bastam); SEM refatorar o consumidor por ora.
+- Output (PR1): (1) `.ai/context/components/dashboard-patterns.md` novo — fonte única das 6 receitas canônicas, extraídas 1:1 das telas aprovadas do virtual-proposta. (2) `KpiDelta` ganhou prop `signed` (deriva tom verde/vermelho + seta do SINAL do value; opt-in, backward-compat, `tone`/`direction` explícitos vencem) — kpi.types.ts + kpi-delta.tsx. (3) Kpi/USAGE.md (prop + gotcha + pointer) + KpiDoc.tsx (demo signed + tabela de props). (4) crud-builder/generate.md e list-builder/generate.md apontam pro pattern doc §5/§6. (5) inventory.md (linha Kpi) + ds-standards.md (resumo L-055) + lessons.md (L-055).
+- Decisões: capturar receita > componentizar (composições variam; átomos já existem). Único gap de componente = KpiDelta signed. Distribuição (registry/embed/CLI/bump) fica pro /ds-release no fim; PR1 é só DS repo (docs + prop backward-compat).
+- Assumption: as 6 receitas refletem o resultado aprovado visualmente (Painel do Líder/Resumo/Cidades/Licenciados/Análise da Rede/financeiro); os primitivos DS bastam pra reproduzir sem componente novo. tsc DS = 0.
+- Lições novas: L-055.
+
+---
+
+### 2026-07-07 | DS DEV | dashboard-builder (PR3 — skill guiada + roteamento) | CONCLUÍDO
+- Input: continuação do escopo "padrões automáticos" — faltava o builder guiado que faz o Claude MONTAR dashboards no nível canônico (crud/list já existiam; dashboard não).
+- Output (PR3): (1) `.claude/skills/dashboard-builder/` (SKILL.md router + interview.md fases 0-6 + blueprint.md[gate] + generate.md), irmão do crud/list-builder, ancorado em `dashboard-patterns.md` (PR1) + example-dashboard (PR2). (2) `/ds-create-dashboard` command. (3) orchestrator.md — linha na tabela de roteamento. (4) front-door `ds-create-screen.md` — 3ª opção Dashboard + nota "dashboard com tabela/lista embutida delega a crud/list". (5) task maps: CLAUDE.md + ds-standards.md (tabela de skills + nota de skills sem agente).
+- Decisões: dashboard = composição (2+ tipos de seção), não componente → fonte primária é a receita, não um componente; tabela/lista embutida delega a crud/list-builder. Só markdown (sem tsc impact).
+- Assumption: as 4 superfícies de roteamento do DS-repo (skill/command/orchestrator/front-door) bastam pra o Claude rotear e montar; a 5ª (consumer CLI: sync do skill dashboard + ds-kit + bump) vai no /ds-release. Válida (smoke test: skill discoverable + 4 pontos citam).
+- Lições novas: nenhuma (aplica L-047 DoD — 5ª superfície pendente de release, anotada).
+- Pendência de distribuição (release): sync `dashboard-builder` → `cli/templates/default/_claude/skills/dashboard` (hoje stub) + `ds-kit`/catálogo apontando pro pattern doc + example rico; registry:build (re-stamp example-dashboard) + bump DS + bump/publish CLI.

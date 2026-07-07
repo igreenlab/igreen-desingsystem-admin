@@ -91,10 +91,11 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | DS Dev      | release completa (changelog + bump + commit + PR)                             | `release.md`                                         |
 | —           | tela CRUD/tabela consumindo DataTable (entrevista guiada)                     | `crud-builder/SKILL.md` via `/ds-create-crud`        |
 | —           | tela lista de cards consumindo DataList (entrevista guiada)                   | `list-builder/SKILL.md` via `/ds-create-list`        |
-| —           | tela de dados sem saber se é tabela ou lista (desambigua + roteia)            | front-door `/ds-create-screen`                       |
+| —           | tela dashboard/painel (KPIs + gráficos + rankings/resumos) — entrevista guiada | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` |
+| —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`crud-builder`, `list-builder`, `frontend-design`, `igreen-page`) vivem direto em
+(`crud-builder`, `list-builder`, `dashboard-builder`, `frontend-design`, `igreen-page`) vivem direto em
 `.claude/skills/<nome>/`.
 
 ### DoD — nova skill/command builder (L-047)
@@ -388,6 +389,19 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-042** Componente novo toca **7 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **catálogo do CLI** (`cli/templates/default/CLAUDE.md` + bump + republicar) · (7) changelog. 1–4 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do catálogo CLI = gap (caso Toast). Hook `ds-inventory-check` acusa.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push mirror + `gh pr create` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
+
+### Composições de dashboard/lista = receita, não componente (L-055)
+
+Telas convergindo num padrão (dashboard, **KPI-group "Painel do Líder"**, **fusão
+KPI+evolução**, **chart-card**, **card dividido em 2**, distribuição de **tabela/lista**)
+→ padronizar = **capturar a receita** com os primitivos existentes
+(`Kpi`/`KpiGroup`/`Chart`/`Panel`/`DataTable`/`DataList`) na fonte única
+`.ai/context/components/dashboard-patterns.md` (referenciada por showcase + exemplos +
+builders), **não** criar mega-componente de página. Componentiza-se só o gap de átomo —
+ex.: `KpiDelta` ganhou `signed` (tom verde/vermelho + seta pelo sinal do value; opt-in,
+`tone`/`direction` explícitos vencem). Dois recipes de ícone: KPI-group = **círculo**
+`size-form-lg rounded-radius-full`; mini-stat/legenda/status = **quadrado** `size-comp-lg
+rounded-radius-base`; rank = círculo pequeno `size-comp-sm`.
 
 ### Padrão de chart (resumo)
 

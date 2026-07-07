@@ -12,10 +12,17 @@ export type KpiTone =
 export interface KpiDeltaProps {
   /** Texto do delta (ex.: "+18%", "-12s"). */
   value: ReactNode;
-  /** Tom da pílula. Default: "success". */
+  /** Tom da pílula. Default: "success" (ou derivado do sinal quando `signed`). */
   tone?: "success" | "danger" | "neutral";
   /** Mostra seta ↑/↓ antes do valor. */
   direction?: "up" | "down";
+  /**
+   * Deriva `tone` + `direction` do SINAL do `value` (string): começa com "-"
+   * → danger/down, senão success/up. Opt-in; `tone`/`direction` explícitos
+   * sempre vencem. Use quando o delta é literalmente positivo/negativo (ex.:
+   * "+458", "-12"); NÃO use quando "subir" não é bom (ex.: tempo de espera).
+   */
+  signed?: boolean;
   className?: string;
 }
 

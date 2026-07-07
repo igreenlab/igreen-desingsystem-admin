@@ -42,11 +42,12 @@ veja as **Composições** em `#/kpi`.
 
 ### `KpiDelta`
 
-| Prop        | Tipo                         | Default   |
-| ----------- | ---------------------------- | --------- |
-| `value`     | `ReactNode`                  | —         |
-| `tone`      | `success · danger · neutral` | `success` |
-| `direction` | `up · down` (mostra seta)    | —         |
+| Prop        | Tipo                         | Default              |
+| ----------- | ---------------------------- | -------------------- |
+| `value`     | `ReactNode`                  | —                    |
+| `tone`      | `success · danger · neutral` | `success`            |
+| `direction` | `up · down` (mostra seta)    | —                    |
+| `signed`    | `boolean` — deriva tom+seta do sinal do `value` | `false` |
 
 ## Exemplo
 
@@ -77,6 +78,11 @@ import { Phone } from "lucide-react";
 
 - **`tone` é decisão do consumidor.** "Subir" nem sempre é positivo (tempo de
   espera ↑ é ruim) → escolha o `KpiDelta tone` certo, não derive cego da direção.
+  Atalho: `<KpiDelta value="+458" signed />` deriva verde/vermelho + seta do sinal
+  — use SÓ quando o delta é literalmente +/- bom/ruim.
+- **Composições de dashboard/lista** (Painel do Líder, fusão KPI+evolução,
+  chart-card, card dividido, distribuição de tabela/lista) → receitas canônicas em
+  `.ai/context/components/dashboard-patterns.md`. Doc viva: `#/dashboard-showcase`.
 - **`divided` controla a superfície** dos `Kpi` filhos (viram `plain`); fora de um
   group `divided`, cada `Kpi` é um card. Override com a prop `surface` se preciso.
 - **Sparkline via `Chart`** (Recharts) no slot `children` — id de `linearGradient`
