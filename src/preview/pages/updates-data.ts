@@ -46,6 +46,23 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.25.2",
+    date: "2026-07-07",
+    tag: "patch",
+    title: "DataTable saved-views owner/ownerName + registry embed atualizado",
+    summary:
+      "Correções de distribuição e multiusuário. Distribuído via registry (copy-in) — o CLI passa a baixar a versão atual dos componentes/exemplos.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "DataTable — saved views honram `owner`/`ownerName` reais (abas Pessoais/Todos + \"por {autor}\"); antes cravava `owner: \"me\"`. Backward-compat (sem `owner` do backend → tratada como própria). X na view ativa de outro só desafixa (não deleta).",
+          "Registry — regenerado o embed (`registry-app/app/registry-data.ts`) que estava defasado: `igreen:add example-dashboard` (e demais) passa a trazer a versão atual (KPI-group/radial/mapa/Crescimento, tabs `line`, kpi `signed`). O embed precisa ser regenerado+commitado a cada release que muda componente/exemplo.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.25.1",
     date: "2026-07-07",
     tag: "patch",
