@@ -126,6 +126,16 @@ Miolo (ler `ClientesShowcase.tsx` pro shape real de AppShell props):
 </AppShell>
 ```
 
+## Distribuição de infos (ordem/roles das colunas) — receita canônica
+
+Ordem esquerda→direita: **identidade → status → categóricos → secundários muted →
+numéricos/datas à direita**. Detalhe completo (props-chave + render por role) em
+`.ai/context/components/dashboard-patterns.md` §5. Resumo:
+primário `isPrimary`+`minWidth`+`font-medium text-fg-default truncate`; status
+`Chip variant="soft" size="sm" shape="rounded"` (cor por `STATUS_CHIP`); moeda/data
+`align:"right"` + `tabular-nums` (muted p/ contexto, `text-fg-default` só no headline);
+todo campo substantivo leva `icon` no header.
+
 ## Regras de coluna (OBRIGATÓRIO — pega bugs comuns)
 
 1. **Filtro em TODAS as colunas de dados.** Cada coluna ganha

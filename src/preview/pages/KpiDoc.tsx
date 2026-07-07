@@ -1053,6 +1053,9 @@ function PrimDeltas() {
       <KpiDelta value="+24" />
       <KpiDelta value="0%" tone="neutral" />
       <KpiDelta value="+34.2% yr" />
+      {/* signed — deriva verde/vermelho + seta do sinal do valor */}
+      <KpiDelta value="+458" signed />
+      <KpiDelta value="-12" signed />
     </div>
   );
 }
@@ -1089,6 +1092,7 @@ const PROPS_DELTA = [
   { name: "value", type: "ReactNode", defaultVal: "—", required: true },
   { name: "tone", type: "success · danger · neutral", defaultVal: "success" },
   { name: "direction", type: "up · down (seta)", defaultVal: "—" },
+  { name: "signed", type: "boolean — tom+seta pelo sinal do value", defaultVal: "false" },
 ];
 
 /* ── Page ─────────────────────────────────────────────────────────────── */

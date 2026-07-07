@@ -107,6 +107,15 @@ const hasMore = items.length < pool.length;
   onQueryChange={(q) => fetch(q)} />
 ```
 
+## 3.5 Distribuição de infos no card (slots) — receita canônica
+
+`renderItem` distribui em slots fixos: **linha1** = título bold `body-md` + `·`
+secundário muted; **linha2** = 1 linha muted `caption-md` juntando `lugar · pessoa ·
+data` com `·`; **status** = `Chip variant="soft" size="sm" shape="pill"` (cor por
+mapa); **valor** = moeda à direita, largura fixa, `font-semibold tabular-nums`.
+**Nunca botão de ação na linha.** Detalhe + class strings em
+`.ai/context/components/dashboard-patterns.md` §6 (inclui slots do kanban).
+
 ## 4. Receita de registro no preview (4 edits, âncoras TEXTUAIS)
 
 1. **`src/App.tsx` — import**: junto ao bloco dos exemplos de lista (após

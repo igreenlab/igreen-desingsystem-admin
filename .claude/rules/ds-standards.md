@@ -389,6 +389,19 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push mirror + `gh pr create` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
 
+### Composições de dashboard/lista = receita, não componente (L-055)
+
+Telas convergindo num padrão (dashboard, **KPI-group "Painel do Líder"**, **fusão
+KPI+evolução**, **chart-card**, **card dividido em 2**, distribuição de **tabela/lista**)
+→ padronizar = **capturar a receita** com os primitivos existentes
+(`Kpi`/`KpiGroup`/`Chart`/`Panel`/`DataTable`/`DataList`) na fonte única
+`.ai/context/components/dashboard-patterns.md` (referenciada por showcase + exemplos +
+builders), **não** criar mega-componente de página. Componentiza-se só o gap de átomo —
+ex.: `KpiDelta` ganhou `signed` (tom verde/vermelho + seta pelo sinal do value; opt-in,
+`tone`/`direction` explícitos vencem). Dois recipes de ícone: KPI-group = **círculo**
+`size-form-lg rounded-radius-full`; mini-stat/legenda/status = **quadrado** `size-comp-lg
+rounded-radius-base`; rank = círculo pequeno `size-comp-sm`.
+
 ### Padrão de chart (resumo)
 
 ```
