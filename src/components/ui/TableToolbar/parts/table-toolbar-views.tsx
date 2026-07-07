@@ -177,7 +177,10 @@ export function TableToolbarViews({
       .map((v) => ({
         id: v.id,
         name: typeof v.name === "string" ? v.name : String(v.name),
-        custom: v.owner === myOwnerKey,
+        // Mostra o "X" (desfixar/fechar) nas views do usuário E na view ATIVA no
+        // momento — assim dá pra fechar uma view pública de outro que foi aplicada
+        // (o X só desfixa/deseleciona; não deleta a view de ninguém).
+        custom: v.owner === myOwnerKey || v.id === activeViewId,
       }));
     // Tab Default sozinha (sem views) → label genérico configurável (soloLabel),
     // pra barra não ficar com um único "Default" solto. Com ≥ 1 outra view,
