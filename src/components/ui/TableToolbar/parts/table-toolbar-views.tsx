@@ -115,7 +115,13 @@ export function TableToolbarViews({
   /* ── State: tabs pinadas (IDs) ─────────────────────────────────── */
 
   const initialIds = useMemo(
-    () => views.slice(0, maxCustomTabs).map((v) => v.id),
+    // Só auto-pina views do próprio usuário (owner === myOwnerKey). As de outros
+    // (públicas) só viram tab quando explicitamente aplicadas (via activeViewId).
+    () =>
+      views
+        .filter((v) => v.owner === myOwnerKey)
+        .slice(0, maxCustomTabs)
+        .map((v) => v.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
@@ -135,11 +141,14 @@ export function TableToolbarViews({
       let next = prev.filter((id) => !removedIds.includes(id));
       for (const id of addedIds) {
         if (next.length >= maxCustomTabs) break;
+        // Só auto-pina views do próprio usuário; as de outros não viram atalho.
+        const v = views.find((vv) => vv.id === id);
+        if (v && v.owner !== myOwnerKey) continue;
         next = [...next, id];
       }
       return next;
     });
-  }, [views, maxCustomTabs]);
+  }, [views, maxCustomTabs, myOwnerKey]);
 
   /* ── State: modal create + popover open + confirm delete ──────── */
 
