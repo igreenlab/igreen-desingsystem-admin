@@ -1295,3 +1295,13 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: as 4 superfícies de roteamento do DS-repo (skill/command/orchestrator/front-door) bastam pra o Claude rotear e montar; a 5ª (consumer CLI: sync do skill dashboard + ds-kit + bump) vai no /ds-release. Válida (smoke test: skill discoverable + 4 pontos citam).
 - Lições novas: nenhuma (aplica L-047 DoD — 5ª superfície pendente de release, anotada).
 - Pendência de distribuição (release): sync `dashboard-builder` → `cli/templates/default/_claude/skills/dashboard` (hoje stub) + `ds-kit`/catálogo apontando pro pattern doc + example rico; registry:build (re-stamp example-dashboard) + bump DS + bump/publish CLI.
+
+---
+
+### 2026-07-07 | DS DEV | Release v0.24.0 (padrões dashboard + dashboard-builder + Maps + CLI) | RELEASE_PUSHED
+- Input: fechar a distribuição do trabalho de padronização (PR #64 já mergeado) + enriquecimentos pedidos (exemplos radial/mapa/KPIs evolutivos/crescimento com footer, doc de Maps) + sync CLI, pra o consumidor via CLI atingir o nível automaticamente. Autorizado publish.
+- Output: bump DS 0.23.0→0.24.0 + CLI 0.13.20→0.14.0; changelog updates-data.ts; registry:build (re-stamp kpi+example-dashboard @ v0.24.0, agora com signed + radial + mapa + growth footer + @igreen/kpi nas deps); doc Maps (#/chart-map, 3 variações) no showcase; dashboard-builder sincronizado no cli/templates/_claude + ds-kit/catálogo (stub dashboard removido). branch release/v0.24.0 + PR + npm publish CLI.
+- Decisões: aditivo/não-breaking; mapa (250KB) bundlado no example-dashboard por escolha do usuário; doc Maps é showcase (não item de registry). Registry redeploya no merge; CLI via npm publish.
+- Assumption: as receitas + example + builder bastam pro Claude do consumidor reproduzir o nível (validado por smoke test em domínio novo — Painel de Suporte — sem copiar telas). tsc 0.
+- Regressões L-001..L-007: nenhuma (.styles.ts não tocado). L-037 corrigida (kpi nas deps do example-dashboard).
+- Lições novas: L-055 (já registrada).

@@ -119,6 +119,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Pies", href: "chart-pie" },
       { label: "Radars", href: "chart-radar" },
       { label: "Radials", href: "chart-radial" },
+      { label: "Maps", href: "chart-map" },
       { label: "Compositions", href: "chart-showcase" },
     ],
   },
