@@ -91,10 +91,11 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | DS Dev      | release completa (changelog + bump + commit + PR)                             | `release.md`                                         |
 | —           | tela CRUD/tabela consumindo DataTable (entrevista guiada)                     | `crud-builder/SKILL.md` via `/ds-create-crud`        |
 | —           | tela lista de cards consumindo DataList (entrevista guiada)                   | `list-builder/SKILL.md` via `/ds-create-list`        |
-| —           | tela de dados sem saber se é tabela ou lista (desambigua + roteia)            | front-door `/ds-create-screen`                       |
+| —           | tela dashboard/painel (KPIs + gráficos + rankings/resumos) — entrevista guiada | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` |
+| —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`crud-builder`, `list-builder`, `frontend-design`, `igreen-page`) vivem direto em
+(`crud-builder`, `list-builder`, `dashboard-builder`, `frontend-design`, `igreen-page`) vivem direto em
 `.claude/skills/<nome>/`.
 
 ### DoD — nova skill/command builder (L-047)

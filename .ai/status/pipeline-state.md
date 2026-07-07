@@ -1285,3 +1285,13 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Decisões: capturar receita > componentizar (composições variam; átomos já existem). Único gap de componente = KpiDelta signed. Distribuição (registry/embed/CLI/bump) fica pro /ds-release no fim; PR1 é só DS repo (docs + prop backward-compat).
 - Assumption: as 6 receitas refletem o resultado aprovado visualmente (Painel do Líder/Resumo/Cidades/Licenciados/Análise da Rede/financeiro); os primitivos DS bastam pra reproduzir sem componente novo. tsc DS = 0.
 - Lições novas: L-055.
+
+---
+
+### 2026-07-07 | DS DEV | dashboard-builder (PR3 — skill guiada + roteamento) | CONCLUÍDO
+- Input: continuação do escopo "padrões automáticos" — faltava o builder guiado que faz o Claude MONTAR dashboards no nível canônico (crud/list já existiam; dashboard não).
+- Output (PR3): (1) `.claude/skills/dashboard-builder/` (SKILL.md router + interview.md fases 0-6 + blueprint.md[gate] + generate.md), irmão do crud/list-builder, ancorado em `dashboard-patterns.md` (PR1) + example-dashboard (PR2). (2) `/ds-create-dashboard` command. (3) orchestrator.md — linha na tabela de roteamento. (4) front-door `ds-create-screen.md` — 3ª opção Dashboard + nota "dashboard com tabela/lista embutida delega a crud/list". (5) task maps: CLAUDE.md + ds-standards.md (tabela de skills + nota de skills sem agente).
+- Decisões: dashboard = composição (2+ tipos de seção), não componente → fonte primária é a receita, não um componente; tabela/lista embutida delega a crud/list-builder. Só markdown (sem tsc impact).
+- Assumption: as 4 superfícies de roteamento do DS-repo (skill/command/orchestrator/front-door) bastam pra o Claude rotear e montar; a 5ª (consumer CLI: sync do skill dashboard + ds-kit + bump) vai no /ds-release. Válida (smoke test: skill discoverable + 4 pontos citam).
+- Lições novas: nenhuma (aplica L-047 DoD — 5ª superfície pendente de release, anotada).
+- Pendência de distribuição (release): sync `dashboard-builder` → `cli/templates/default/_claude/skills/dashboard` (hoje stub) + `ds-kit`/catálogo apontando pro pattern doc + example rico; registry:build (re-stamp example-dashboard) + bump DS + bump/publish CLI.
