@@ -46,6 +46,20 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.25.1",
+    date: "2026-07-07",
+    tag: "patch",
+    title: "Tabs `line`: underline reto (sem arredondar)",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "Tabs variant `line` — removido `rounded-radius-sm` do trigger: o underline (e o foco) ficava com cantos arredondados; agora é reto.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.25.0",
     date: "2026-07-07",
     tag: "release",
