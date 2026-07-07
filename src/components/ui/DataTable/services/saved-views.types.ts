@@ -63,6 +63,15 @@ export type SavedView = {
   state: DataTableSavedViewState;
   /** ISO date — usado pra ordenacao na lista. */
   createdAt: string;
+  /**
+   * Chave do dono da view. A UI separa "Pessoais" (owner === myOwnerKey) de
+   * "Todos" e mostra "por {ownerName}" nas views de outros. O backend deve
+   * enviar `"me"` (ou a chave do usuario logado) nas views do proprio usuario e
+   * a chave do autor nas publicas de outros. Ausente = tratada como "me".
+   */
+  owner?: string;
+  /** Nome do autor — exibido nas views de outros usuarios ("por {ownerName}"). */
+  ownerName?: string;
 };
 
 /**

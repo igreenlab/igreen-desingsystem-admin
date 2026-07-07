@@ -681,7 +681,10 @@ function DataTableInternal<T>(
       ...savedViews.views.map((v) => ({
         id: v.id,
         name: v.name,
-        owner: "me",
+        // Preserva o dono vindo do service (backend real). Ausente = "me"
+        // (compat com o mock, que nao tem multi-user).
+        owner: v.owner ?? "me",
+        ownerName: v.ownerName,
       })),
     ],
     [props.defaultViews, savedViews.views],
