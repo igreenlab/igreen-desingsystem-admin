@@ -162,8 +162,12 @@ export function GuidedTour({
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
-        // se há um popover (não-tour) aberto, deixa o Esc fechá-lo primeiro
-        if (document.querySelector('[role="dialog"]:not([aria-label="Tour guiado"])'))
+        // se há um popover/menu (não-tour) aberto, deixa o Esc fechá-lo primeiro
+        if (
+          document.querySelector(
+            '[role="dialog"]:not([aria-label="Tour guiado"]), [role="menu"]',
+          )
+        )
           return;
         close();
       } else if (e.key === "ArrowRight") go(1);

@@ -7,12 +7,12 @@ import { GuidedTour, type TourStep } from "../components/guided-tour";
 /**
  * FinanceTutorialShowcase — standalone (`?app=finance-tutorial`) que reusa a tela
  * financeira real (ClientesFinanceiroShowcase = AppShell + DataTable) e sobrepõe
- * um tour guiado (GuidedTour, DS-native) percorrendo todos os recursos da tabela.
+ * um tour guiado (GuidedTour, DS-native) percorrendo os recursos da tabela.
  *
- * Showcase-only: nenhum componente do DS é modificado. As âncoras dos passos são
- * resolvidas por ARIA/estrutura contra o container (scopeRef); alvo ausente cai
- * em balão centralizado. Passos de dropdown (Filtros/Config) abrem o popover no
- * onEnter e o fecham no onLeave.
+ * Showcase-only: nenhum componente do DS é modificado. Passos que precisam de
+ * estado (dropdown aberto, filtro aplicado, row detalhada) disparam a interação
+ * no onEnter (via click/pointer) e revertem no onLeave. Alvos são resolvidos por
+ * ARIA/estrutura; popovers são portados pro body (busca no document).
  */
 export default function FinanceTutorialShowcase() {
   const scopeRef = useRef<HTMLDivElement>(null);
@@ -20,26 +20,46 @@ export default function FinanceTutorialShowcase() {
   const [open, setOpen] = useState(true);
 
   const steps = useMemo<TourStep[]>(() => {
-    const q = (sel: string) => scopeRef.current?.querySelector(sel) ?? null;
-    // fecha qualquer popover Radix aberto via Esc (o tour ignora Esc enquanto
-    // houver popover não-tour aberto, então isso não fecha o tour).
-    const closePopover = () => {
-      // só dispara Esc se realmente há popover aberto — senão o Esc "solto"
-      // fecharia o próprio tour (o guard do tour ignora Esc com popover aberto).
-      if (document.querySelector('[role="dialog"]:not([aria-label="Tour guiado"])'))
-        document.dispatchEvent(
-          new KeyboardEvent("keydown", { key: "Escape", bubbles: true }),
-        );
+    const scope = () => scopeRef.current;
+    const q = (sel: string) => scope()?.querySelector(sel) ?? null;
+    const qa = (sel: string) => [...(scope()?.querySelectorAll(sel) ?? [])];
+
+    // dispara sequência de pointer (Radix abre no pointerdown, não no click puro).
+    const fire = (el: Element | null | undefined, type: string) =>
+      el?.dispatchEvent(
+        new PointerEvent(type, { bubbles: true, cancelable: true, pointerId: 1, button: 0 }),
+      );
+    const pointerClick = (el: Element | null | undefined) => {
+      fire(el, "pointerover");
+      fire(el, "pointerenter");
+      fire(el, "pointerdown");
+      fire(el, "pointerup");
+      (el as HTMLElement | null)?.click();
     };
-    // abre um popover pelo trigger, com atraso (UI precisa assentar após a
-    // transição de passo — clicar cedo demais não abre). O retry-measure ancora
-    // quando o popover aparecer. onLeave limpa o timer + fecha o popover.
-    const openStep = (triggerSel: string) => ({
+
+    const findDialog = (re: RegExp) =>
+      [...document.querySelectorAll('[role="dialog"],[role="menu"]')].find(
+        (d) => d.getAttribute("aria-label") !== "Tour guiado" && re.test(d.textContent ?? ""),
+      ) ?? null;
+
+    const anyPopoverOpen = () =>
+      !!document.querySelector('[role="dialog"]:not([aria-label="Tour guiado"]),[role="menu"]');
+    // Esc só quando há popover aberto (o tour ignora Esc nesse caso — fecha o
+    // popover, não o tour; sem popover, um Esc "solto" fecharia o próprio tour).
+    const closePopover = () => {
+      if (anyPopoverOpen())
+        document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    };
+
+    // abre um popover pelo trigger, com atraso (a UI precisa assentar após a
+    // troca de passo; o retry-measure do tour ancora quando aparecer).
+    const openStep = (getTrigger: () => Element | null, viaPointer = false) => ({
+      noScroll: true,
       onEnter: () => {
         clearTimeout(openTimer.current);
         openTimer.current = window.setTimeout(
-          () => (q(triggerSel) as HTMLElement)?.click(),
-          240,
+          () => (viaPointer ? pointerClick(getTrigger()) : (getTrigger() as HTMLElement)?.click()),
+          260,
         );
       },
       onLeave: () => {
@@ -47,91 +67,144 @@ export default function FinanceTutorialShowcase() {
         closePopover();
       },
     });
-    // popovers são portados pro body (fora do scopeRef) → busca no document,
-    // ignorando o próprio balão do tour.
-    const findDialog = (re: RegExp) =>
-      [...document.querySelectorAll('[role="dialog"]')].find(
-        (d) =>
-          d.getAttribute("aria-label") !== "Tour guiado" && re.test(d.textContent ?? ""),
-      ) ?? null;
 
     return [
       {
         title: "Busca global",
         body: (
           <>
-            Filtra <strong>todas as colunas</strong> ao digitar. Combina com filtros
-            e ordenação — é o jeito mais rápido de achar uma linha.
+            Filtra <strong>todas as colunas</strong> ao digitar. Combina com filtros e
+            ordenação — o jeito mais rápido de achar uma linha.
           </>
         ),
         placement: "bottom",
-        // ancora no wrapper (label) — o <input> sozinho é menor que a caixa visível.
         target: () => {
-          const inp = scopeRef.current?.querySelector("input[type=text]") ?? null;
+          const inp = q("input[type=text]");
           return (inp?.closest("label") as Element | null) ?? inp;
         },
       },
       {
-        title: "Ordenar e menu da coluna",
+        title: "Ordenar por coluna",
         body: (
           <>
-            Clique no cabeçalho pra <strong>ordenar</strong>. Passando o mouse, o menu{" "}
-            <code>⋯</code> da coluna dá ordenar, fixar, ocultar e filtrar só por ela.
+            Clique no <strong>cabeçalho</strong> pra ordenar (asc → desc → limpar).
+            Segure <code>Shift</code> pra ordenar por várias colunas.
+          </>
+        ),
+        placement: "bottom",
+        onEnter: () => {
+          // clica o cabeçalho pra ordenar — o título (não o botão ⋯ do menu).
+          const h = qa('[role="columnheader"]').find((x) => /Volume|Saldo/i.test(x.textContent ?? ""));
+          const title = [...(h?.querySelectorAll("*") ?? [])].find(
+            (e) => e.children.length === 0 && /Volume|Saldo/i.test(e.textContent ?? ""),
+          );
+          (title as HTMLElement)?.click();
+        },
+        target: () =>
+          qa('[role="columnheader"]').find((x) => /Volume|Saldo/i.test(x.textContent ?? "")) ?? null,
+      },
+      {
+        title: "Redimensionar coluna",
+        body: (
+          <>
+            <strong>Arraste a borda direita</strong> do cabeçalho pra alargar ou
+            estreitar a coluna. A largura fica salva na visão.
           </>
         ),
         placement: "bottom",
         target: () =>
-          [...(scopeRef.current?.querySelectorAll('[role="columnheader"]') ?? [])].find(
-            (h) => /Licenciado|Razão|ID/i.test(h.textContent ?? ""),
-          ) ??
-          scopeRef.current?.querySelector('[role="columnheader"]') ??
-          null,
+          qa('[role="columnheader"]').find((x) => /Razão|CNPJ/i.test(x.textContent ?? "")) ?? null,
+      },
+      {
+        title: "Menu da coluna",
+        body: (
+          <>
+            O menu <code>⋯</code> (aparece no hover do cabeçalho) traz{" "}
+            <strong>ordenar, fixar, ocultar</strong> e filtrar só por aquela coluna.
+          </>
+        ),
+        placement: "right",
+        ...openStep(() => {
+          const h = qa('[role="columnheader"]').find((x) => /Licenciado/i.test(x.textContent ?? ""));
+          fire(h, "pointerover");
+          fire(h, "mouseover");
+          return document.querySelector('[aria-label^="Menu da coluna Licenciado"]');
+        }, true),
+        target: () => findDialog(/Ordenar crescente|Fixar à esquerda|Ocultar/i),
       },
       {
         title: "Filtros por coluna",
         body: (
           <>
-            Cada coluna vira um filtro (tipo certo: texto, número, data, seleção). O que
-            for aplicado aparece como <strong>chip</strong> na toolbar — clicável pra
-            editar, removível pelo ×.
+            Cada coluna vira um filtro (tipo certo: texto, número, data, seleção). Abra
+            o painel pra montar os filtros de uma vez.
           </>
         ),
         placement: "left",
-        noScroll: true,
-        ...openStep('[aria-label="Filtros"]'),
+        ...openStep(() => q('[aria-label="Filtros"]')),
         target: () => findDialog(/filtros?\s*ativos|filtro ativo/i),
+      },
+      {
+        title: "Filtro aplicado vira chip",
+        body: (
+          <>
+            Todo filtro ativo aparece como <strong>chip</strong> na toolbar (aqui:{" "}
+            <em>Saldo ≥ R$ 5k</em>). O <code>×</code> remove; pelo painel de Filtros
+            você edita o valor.
+          </>
+        ),
+        placement: "bottom",
+        noScroll: true,
+        onEnter: () => {
+          clearTimeout(openTimer.current);
+          // abre o "+" de visões e aplica o preset "Alto valor" (aplica filtro+sort).
+          (q('button[aria-label="Visões salvas"]') as HTMLElement)?.click();
+          openTimer.current = window.setTimeout(() => {
+            const dlg = document.querySelector('[role="dialog"]');
+            const item = [...(dlg?.querySelectorAll("*") ?? [])].find(
+              (el) => el.children.length === 0 && /Alto valor/i.test(el.textContent ?? ""),
+            );
+            (item as HTMLElement)?.click();
+            // fecha o popover de visões — o chip (filtro aplicado) permanece.
+            window.setTimeout(closePopover, 220);
+          }, 260);
+        },
+        onLeave: () => {
+          clearTimeout(openTimer.current);
+          closePopover();
+        },
+        target: () => q('[aria-label^="Remover filtro"]')?.closest("span") ?? null,
       },
       {
         title: "Visões salvas — as abas",
         body: (
           <>
-            As visões já criadas aparecem como <strong>abas</strong> (ex.:{" "}
-            <em>Default</em>). Clicar numa aba aplica o recorte dela — filtros,
-            ordenação e colunas de uma vez.
+            As visões já criadas ficam como <strong>abas</strong> (ex.: <em>Default</em>,{" "}
+            <em>Alto valor</em>). Clicar aplica o recorte inteiro de uma vez.
           </>
         ),
         placement: "bottom",
         target: '[role="tablist"]',
       },
       {
-        title: "Criar nova visão — o +",
+        title: "Criar / buscar visões — o +",
         body: (
           <>
-            O <strong>+</strong> salva a combinação <em>atual</em> (filtros + ordenação
-            + colunas) como uma nova visão, pra reusar depois. Ótimo pra recortes
-            recorrentes (ex.: "High-value", "Bloqueados").
+            O <strong>+</strong> abre o gerenciador: <strong>salvar a visão atual</strong>{" "}
+            e alternar entre <em>Pessoais</em> e <em>Todos</em> — inclusive visões salvas
+            por <strong>outras pessoas</strong> do time.
           </>
         ),
-        placement: "bottom",
-        target: '[aria-label="Visões salvas"]',
+        placement: "left",
+        ...openStep(() => q('button[aria-label="Visões salvas"]')),
+        target: () => findDialog(/Salvar visão atual|Pessoais.*Todos|Todos.*Pessoais/i),
       },
       {
         title: "Tabela e Kanban",
         body: (
           <>
-            Os <strong>mesmos dados</strong> em visualizações diferentes: a{" "}
-            <strong>Tabela</strong> densa e o <strong>Kanban</strong> (funil por
-            status/etapa). O recorte é preservado ao trocar.
+            Os <strong>mesmos dados</strong> como Tabela densa ou Kanban (funil por
+            status). O recorte é preservado ao trocar.
           </>
         ),
         placement: "bottom",
@@ -142,7 +215,7 @@ export default function FinanceTutorialShowcase() {
         body: (
           <>
             Selecione linhas (checkbox) pra agir em lote — exportar, pausar, etc. A
-            barra de ações aparece com o total selecionado.
+            barra de ações mostra o total selecionado.
           </>
         ),
         placement: "top",
@@ -151,25 +224,74 @@ export default function FinanceTutorialShowcase() {
         target: ['[aria-label="Ações em massa"]', '[aria-label="Acoes em massa"]'],
       },
       {
-        title: "Colunas, densidade e export",
+        title: "Clique na linha → detalhe",
         body: (
           <>
-            Nas <strong>Configurações da tabela</strong>: escolha quais colunas
-            aparecem, ajuste a <strong>densidade</strong> das linhas e{" "}
-            <strong>exporte CSV</strong> (tudo ou só o selecionado).
+            Clicar numa linha abre o <strong>painel de detalhe</strong> (saldos, conta,
+            contato, ações) sem sair da tela.
           </>
         ),
         placement: "left",
         noScroll: true,
-        ...openStep('[aria-label="Configurações da tabela"]'),
+        onEnter: () => {
+          clearTimeout(openTimer.current);
+          closePopover();
+          openTimer.current = window.setTimeout(() => {
+            // clica a célula do NOME (não checkbox/switch/ações) pra abrir o detalhe.
+            const row = qa('[role="row"]').find((r) => /CLI-/i.test(r.textContent ?? ""));
+            const cells = [...(row?.querySelectorAll('[role="gridcell"]') ?? [])];
+            const nameCell =
+              cells.find((c) => /LTDA|ME|S\.A|Energy|Solar|Eco|@/i.test(c.textContent ?? "")) ??
+              cells[1] ??
+              cells[0];
+            (nameCell as HTMLElement)?.click();
+          }, 420);
+        },
+        onLeave: () => {
+          clearTimeout(openTimer.current);
+          closePopover();
+        },
+        target: () => findDialog(/Saldo dispon[íi]vel|Conta banc[áa]ria|Editar/i),
+      },
+      {
+        title: "Colunas, densidade e export",
+        body: (
+          <>
+            Em <strong>Configurações da tabela</strong>: escolha as colunas visíveis,
+            ajuste a <strong>densidade</strong> e <strong>exporte CSV</strong>.
+          </>
+        ),
+        placement: "left",
+        ...openStep(() => q('[aria-label="Configurações da tabela"]')),
         target: () => findDialog(/Configura[çc][õo]es da tabela|Ordena[çc][ãa]o.*Colunas/i),
+      },
+      {
+        title: "Totalizadores no rodapé",
+        body: (
+          <>
+            O rodapé soma/agrega as colunas numéricas (saldo, volume, média) — respeita o
+            recorte atual (filtros aplicados).
+          </>
+        ),
+        placement: "top",
+        target: () => {
+          const el = qa("*").find(
+            (e) => e.children.length === 0 && /\d+\s*clientes/i.test(e.textContent ?? ""),
+          );
+          let row: Element | null | undefined = el;
+          for (let i = 0; i < 6 && row; i++) {
+            if ((row as HTMLElement).offsetWidth > 600) break;
+            row = row.parentElement;
+          }
+          return row ?? el ?? null;
+        },
       },
       {
         title: "Paginação",
         body: (
           <>
             Navegue entre páginas e ajuste <strong>itens por página</strong>. Na Lista/
-            Kanban a paginação é opcional (rola tudo).
+            Kanban a paginação é opcional.
           </>
         ),
         placement: "top",
