@@ -403,6 +403,20 @@ ex.: `KpiDelta` ganhou `signed` (tom verde/vermelho + seta pelo sinal do value; 
 `size-form-lg rounded-radius-full`; mini-stat/legenda/status = **quadrado** `size-comp-lg
 rounded-radius-base`; rank = círculo pequeno `size-comp-sm`.
 
+### Consumidor via submódulo = 3º canal; `ds-link` dá paridade (L-056)
+
+Claude Code só auto-descobre `.claude/` na **raiz do cwd** — não desce pra
+`<submodulo>/.claude/`. Consumidor por **git submódulo** fica sem o kit de IA (ao contrário do
+npm, que recebe o payload no scaffold). `scripts/ds-link.mjs` (`npm run ds:link`) projeta o
+**mesmo payload consumidor** (`cli/templates/default/_claude`) pro `.claude/` do pai —
+idempotente, re-rodar pós-`git pull`; `--unlink` desfaz. Três regras: (1) o "modo submódulo"
+mora no **payload** (`cli/templates/default/_claude/skills/*` — crud/list/dashboard + ds-kit),
+que lê `.claude/ds-config.json` gerado pelo ds-link → resolve `importBase` e **não** roda
+`igreen:add` (lê componentes/exemplos direto de `<dsPath>/src`); (2) ds-link **exclui**
+`hooks/`+`settings.json` (copy-in-specific, miram `src/components/**`); (3) detecta o alias no
+tsconfig/vite (fallback `@ds`). Regra pra IA: ao mexer no kit do consumidor, lembrar que
+submódulo é um 3º canal que consome o MESMO payload. Doc: `SUBMODULE-SETUP.md` + L-056.
+
 ### Padrão de chart (resumo)
 
 ```

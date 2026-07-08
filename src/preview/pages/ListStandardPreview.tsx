@@ -62,7 +62,7 @@ export default function ListStandardPreview() {
   );
 }
 
-const CODE = `import { DataList } from "@snksergio/design-system";
+const CODE = `import { DataList } from "@/components/ui/DataList";
 
 <DataList
   title="Membros"

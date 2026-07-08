@@ -89,7 +89,8 @@
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
     "sync:agents": "node .claude/scripts/sync-agents-to-cursor.cjs",
-    "examples:drift": "node scripts/examples-drift-check.mjs"
+    "examples:drift": "node scripts/examples-drift-check.mjs",
+    "ds:link": "node scripts/ds-link.mjs"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",

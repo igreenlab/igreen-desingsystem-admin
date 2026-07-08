@@ -18,6 +18,11 @@ segue `DESIGN.md`. Para uma TELA inteira baseada em cards (dashboard), use a ski
 3. **Leia** os respectivos `USAGE.md`. Para ver variações montadas, consulte o **showcase hospedado**: https://igreen-desingsystem-admin.vercel.app
 4. Componha os cards na tela do usuário; `npx tsc --noEmit` limpo.
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Panel`)
+> e leia os `USAGE.md`/exemplos direto em `<dsPath>/src` — **NÃO** rode `igreen:add`.
+
 ## Gotchas do tipo
 - Card: `bg-bg-surface border border-border-default rounded-radius-lg shadow-sh-md`, padding `p-pad-card-base` (24px).
 - Grid de cards: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gp-md`.

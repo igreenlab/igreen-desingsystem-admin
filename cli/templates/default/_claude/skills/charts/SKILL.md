@@ -15,6 +15,12 @@ description: >
 3. Monte o gráfico dentro de `<ChartContainer config={...}>`; cor só por token.
 4. Registre a rota/local onde o usuário indicar. `npx tsc --noEmit` limpo.
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Chart`)
+> e leia `<dsPath>/src/components/ui/Chart/USAGE.md` + `<dsPath>/src/examples/dashboard/dashboard-screen.tsx`
+> direto — **NÃO** rode `igreen:add`.
+
 ## Gotchas do tipo
 - Gráfico SEMPRE em `<ChartContainer config={...}>`; cor só por token (`chart-1..5` / chaves do config). 2 séries = verde (`chart-1`) + âmbar (`chart-4`); pizza = rampa monocromática da marca.
 - Grid: `<CartesianGrid vertical={false} strokeDasharray="4 4" />` (token `chart-grid`, **sem** passar `stroke` — o `ChartContainer` reescreve via token).

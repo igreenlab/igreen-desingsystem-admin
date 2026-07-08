@@ -79,7 +79,7 @@ export default function ListGroupedPreview() {
 }
 
 const CODE = `import { useState } from "react";
-import { DataList } from "@snksergio/design-system";
+import { DataList } from "@/components/ui/DataList";
 
 const [tasks, setTasks] = useState(initialTasks);   // 24 tarefas, 3 grupos
 

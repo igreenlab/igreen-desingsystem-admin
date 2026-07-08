@@ -194,4 +194,4 @@ componentes consomem tokens, sem lógica condicional de tema.
 
 ## Pipeline completo do DS
 
-→ https://github.com/snksergio/igreen-admin-desingsystem
+→ https://github.com/igreenlab/igreen-desingsystem-admin

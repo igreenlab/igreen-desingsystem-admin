@@ -50,7 +50,7 @@ export function AvatarDoc() {
 
       <SectionH2 id="ds-avatar" title="Avatar iGreen (ui/)" />
       <p className="mb-gp-2xl text-body-md text-fg-muted">
-        Componente próprio do DS em <code className="font-mono text-code-sm text-fg-default">src/components/ui/Avatar</code> —
+        Componente próprio do DS em <code className="font-mono text-code-sm text-fg-default">src/components/ui/avatar-ig</code> —
         badge circular com iniciais (sem imagem). Diferente do primitivo shadcn acima: sizes tokenizados
         (<code className="font-mono text-code-sm">size-comp-*</code>), pares semânticos bg+fg pré-validados e{" "}
         <code className="font-mono text-code-sm text-fg-default">colorHex</code> com cor de texto automática por

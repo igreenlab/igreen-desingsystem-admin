@@ -16,7 +16,7 @@ import { Modal } from "@/components/ui/Modal";
 ## Variants
 | Variant | Valores | Default | Tamanho |
 |---|---|---|---|
-| `size` | sm / md / lg | md | 440 / 540 / 720px max-width |
+| `size` | sm / md / lg / xl / full | md | 440 / 540 / 720 / 1100px / min(1400px, 92vw) max-width |
 
 O layout do footer NÃO é prop: com `tertiaryAction` presente o footer vira
 `justify-between` (tertiary à esquerda, secondary+primary à direita);
@@ -35,7 +35,7 @@ sem tertiary, tudo fica à direita (`justify-end`).
 | `secondaryAction` | ModalAction | — | Botão outline secondary. `onClick` default = `onClose` |
 | `tertiaryAction` | ModalAction | — | Botão ghost à ESQUERDA (ativa justify-between). Ghost critical quando `danger: true` |
 | `footer` | ReactNode | — | Escape hatch — substitui inteiramente as 3 actions estruturadas |
-| `size` | "sm" \| "md" \| "lg" | "md" | Largura máxima |
+| `size` | "sm" \| "md" \| "lg" \| "xl" \| "full" | "md" | Largura máxima (xl = 1100px p/ modais de dados; full = min(1400px, 92vw)) |
 | `hideClose` | boolean | false | Esconde o X de fechar |
 | `closeOnOverlay` | boolean | true | Click no overlay fecha o modal |
 

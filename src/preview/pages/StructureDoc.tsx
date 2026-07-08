@@ -106,7 +106,7 @@ export function StructureDoc() {
           <FileRow path="semantic/sizing.ts" desc="Component dimension scale (comp-*)" tag="Tier 2" />
           <FileRow path="semantic/shape.ts" desc="RADIUS_BASE knob + multiplicative radius scale" tag="Tier 2" />
           <FileRow path="semantic/elevation.ts" desc="Shadows (light/dark), opacity, blur, z-index" tag="Tier 2" />
-          <FileRow path="semantic/typography.ts" desc="Display, heading, title, body, label, code presets" tag="Tier 2" />
+          <FileRow path="semantic/typography.ts" desc="Display, heading, title, body, caption, code presets" tag="Tier 2" />
         </div>
 
         <p className="text-body-md font-medium text-fg-default mb-gp-xs">Component Tokens (component-specific scales)</p>
@@ -166,7 +166,7 @@ export function StructureDoc() {
         <FileRow path=".claude/skills/" desc="Atomic skills per agent: spec-token-*, impl-igreen, review-component, etc." tag="Procedure" />
         <FileRow path=".claude/commands/" desc="Slash commands as entry points: /ds-create-component, /ds-add-token..." tag="Entry" />
         <FileRow path=".claude/hooks/" desc="format-on-save, block-rm-rf, block-sensitive-edit (logged to .ai/scratch/)" tag="Triggers" />
-        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 7 behavior rules + 28 lessons" tag="Rules" />
+        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 8 behavior rules + 56 lessons" tag="Rules" />
         <FileRow path=".claude/output-styles/" desc="terse.md — caps response shape across the project" tag="Style" />
         <FileRow path=".claude/settings.json" desc="Permissions, hooks registration, outputStyle binding" tag="Config" />
         <FileRow path=".claude/scripts/" desc="sync-agents-to-cursor.cjs — mirrors agents to .cursor/rules" tag="Tooling" />

@@ -18,6 +18,12 @@ Padrão de drawer do DS, ligado ao CRUD/detalhe. Três variantes, mesma família
    - Ver detalhe → `src/examples/finance/components/FinanceDetailPanel` (base: `FloatingPanel`, não-modal).
 3. Adapte os campos/conteúdo ao caso. Ligue ao estado da página (igual `finance-screen.tsx`: `open`/`onOpenChange` + registro selecionado).
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Panel`)
+> e leia os drawers-modelo direto em `<dsPath>/src/examples/finance/components/` —
+> **NÃO** rode `igreen:add`.
+
 ## Gotchas do tipo
 - **Criar/Editar** = `Panel` (drawer modal lateral) com form em `<FormField>` + `gap-form-gap`. Footer sticky com Cancelar/Salvar.
 - **Detalhe** = `FloatingPanel` (não-modal, não bloqueia a página; pode coexistir com a tabela). `shadow-sh-aside`.

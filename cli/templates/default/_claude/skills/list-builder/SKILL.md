@@ -38,6 +38,12 @@ Caso for tabela → **PARAR** e usar `crud-builder` (`/ds-create-crud`).
 
 Se o componente/exemplo ainda não está no disco, **puxe via `igreen:add`** antes de ler — nunca gere de memória.
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/<Nome>`)
+> e leia o exemplo canônico direto em `<dsPath>/src/examples/mapa-rede/mapa-rede-screen.tsx` —
+> **NÃO** rode `igreen:add`. `PAGES_DIR`/`REGISTRO` continuam do projeto pai.
+
 ## Fluxo — 3 estágios
 
 ```

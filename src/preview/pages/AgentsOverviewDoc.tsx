@@ -170,7 +170,7 @@ export function AgentsOverviewDoc() {
               { depth: 1, name: "rules/", isDir: true, desc: "Auto-loaded on every session" },
               { depth: 2, name: "ds-standards.md", desc: "Prohibited/required patterns + lesson summaries" },
               { depth: 0, name: ".ai/", isDir: true },
-              { depth: 1, name: "lessons.md", isDir: false, desc: "Error log — 14 lessons, loaded before every task" },
+              { depth: 1, name: "lessons.md", isDir: false, desc: "Error log — 56 lessons, loaded before every task" },
               { depth: 1, name: "rules/", isDir: true, desc: "Detailed coding standards" },
               { depth: 2, name: "coding-standards.md", desc: "Full rules: prefixes, rings, dark mode, a11y" },
               { depth: 1, name: "context/", isDir: true, desc: "Task-specific context (loaded on demand)" },

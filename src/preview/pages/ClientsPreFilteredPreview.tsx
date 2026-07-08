@@ -354,7 +354,7 @@ export default function ClientsPreFilteredPreview() {
 }
 
 const CODE = `import { useState } from "react";
-import { DataTable, type FilterModel } from "@snksergio/design-system";
+import { DataTable, type FilterModel } from "@/components/ui/DataTable";
 
 // Lista de fields que aparecem como chips placeholder na toolbar.
 // A prop é filterType-agnostic — o popover abre o widget correto pra cada tipo

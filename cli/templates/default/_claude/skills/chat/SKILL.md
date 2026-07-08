@@ -16,6 +16,12 @@ Tela de chat: coluna de conversas + thread de mensagens + composer.
 3. Adapte canais, conversas e mensagens aos dados do usuário.
 4. Registre a rota. `npx tsc --noEmit` limpo.
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Avatar`)
+> e leia o exemplo direto em `<dsPath>/src/examples/chat/chat-screen.tsx` —
+> **NÃO** rode `igreen:add`.
+
 ## Gotchas do tipo
 - Chat ocupa 100% da altura disponível: wrapper `flex flex-col h-full min-h-0` (sem o gap-2xl de página comum — a tela é edge-to-edge).
 - Layout em colunas: lista de conversas (largura fixa) + thread (flex-1) + opcional painel de detalhe.
