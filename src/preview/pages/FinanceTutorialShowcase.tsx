@@ -7,12 +7,11 @@ import { GuidedTour, type TourStep } from "../components/guided-tour";
 /**
  * FinanceTutorialShowcase — standalone (`?app=finance-tutorial`) que reusa a tela
  * financeira real (ClientesFinanceiroShowcase = AppShell + DataTable) e sobrepõe
- * um tour guiado (GuidedTour, DS-native) percorrendo os recursos da tabela.
+ * um tour guiado (GuidedTour, DS-native).
  *
- * Showcase-only: nenhum componente do DS é modificado. Passos que precisam de
- * estado (dropdown aberto, filtro aplicado, row detalhada) disparam a interação
- * no onEnter (via click/pointer) e revertem no onLeave. Alvos são resolvidos por
- * ARIA/estrutura; popovers são portados pro body (busca no document).
+ * Padrão "antes/depois": cada recurso que abre algo (menu de coluna, filtros, +
+ * de visões, configurações, detalhe da linha) tem 2 passos — primeiro o botão
+ * FECHADO (onde fica), depois ABERTO. Showcase-only: nada do DS é modificado.
  */
 export default function FinanceTutorialShowcase() {
   const scopeRef = useRef<HTMLDivElement>(null);
@@ -23,8 +22,9 @@ export default function FinanceTutorialShowcase() {
     const scope = () => scopeRef.current;
     const q = (sel: string) => scope()?.querySelector(sel) ?? null;
     const qa = (sel: string) => [...(scope()?.querySelectorAll(sel) ?? [])];
+    const header = (re: RegExp) =>
+      qa('[role="columnheader"]').find((h) => re.test(h.textContent ?? "")) ?? null;
 
-    // dispara sequência de pointer (Radix abre no pointerdown, não no click puro).
     const fire = (el: Element | null | undefined, type: string) =>
       el?.dispatchEvent(
         new PointerEvent(type, { bubbles: true, cancelable: true, pointerId: 1, button: 0 }),
@@ -36,6 +36,13 @@ export default function FinanceTutorialShowcase() {
       fire(el, "pointerup");
       (el as HTMLElement | null)?.click();
     };
+    // revela o botão ⋯ (hover-only) da coluna Licenciado e retorna ele.
+    const revealColMenuBtn = () => {
+      const h = header(/Licenciado/i);
+      fire(h, "pointerover");
+      fire(h, "mouseover");
+      return document.querySelector('[aria-label^="Menu da coluna Licenciado"]');
+    };
 
     const findDialog = (re: RegExp) =>
       [...document.querySelectorAll('[role="dialog"],[role="menu"]')].find(
@@ -43,16 +50,16 @@ export default function FinanceTutorialShowcase() {
       ) ?? null;
 
     const anyPopoverOpen = () =>
-      !!document.querySelector('[role="dialog"]:not([aria-label="Tour guiado"]),[role="menu"]');
-    // Esc só quando há popover aberto (o tour ignora Esc nesse caso — fecha o
-    // popover, não o tour; sem popover, um Esc "solto" fecharia o próprio tour).
+      !!document.querySelector(
+        '[role="dialog"]:not([aria-label="Tour guiado"]),[role="menu"]',
+      );
     const closePopover = () => {
       if (anyPopoverOpen())
         document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
     };
 
-    // abre um popover pelo trigger, com atraso (a UI precisa assentar após a
-    // troca de passo; o retry-measure do tour ancora quando aparecer).
+    // "depois": abre um popover pelo trigger, com atraso (a UI assenta após a
+    // troca de passo). onLeave limpa o timer e fecha o popover.
     const openStep = (getTrigger: () => Element | null, viaPointer = false) => ({
       noScroll: true,
       onEnter: () => {
@@ -93,15 +100,13 @@ export default function FinanceTutorialShowcase() {
         ),
         placement: "bottom",
         onEnter: () => {
-          // clica o cabeçalho pra ordenar — o título (não o botão ⋯ do menu).
-          const h = qa('[role="columnheader"]').find((x) => /Volume|Saldo/i.test(x.textContent ?? ""));
+          const h = header(/Volume|Saldo/i);
           const title = [...(h?.querySelectorAll("*") ?? [])].find(
             (e) => e.children.length === 0 && /Volume|Saldo/i.test(e.textContent ?? ""),
           );
           (title as HTMLElement)?.click();
         },
-        target: () =>
-          qa('[role="columnheader"]').find((x) => /Volume|Saldo/i.test(x.textContent ?? "")) ?? null,
+        target: () => header(/Volume|Saldo/i),
       },
       {
         title: "Redimensionar coluna",
@@ -112,32 +117,59 @@ export default function FinanceTutorialShowcase() {
           </>
         ),
         placement: "bottom",
-        target: () =>
-          qa('[role="columnheader"]').find((x) => /Razão|CNPJ/i.test(x.textContent ?? "")) ?? null,
+        target: () => header(/Razão|CNPJ/i),
       },
+
+      // ── Menu da coluna: antes (botão ⋯) → depois (menu aberto) ──────────
       {
-        title: "Menu da coluna",
+        title: "Menu da coluna — onde fica",
         body: (
           <>
-            O menu <code>⋯</code> (aparece no hover do cabeçalho) traz{" "}
-            <strong>ordenar, fixar, ocultar</strong> e filtrar só por aquela coluna.
+            Passe o mouse no cabeçalho e aparece o <code>⋯</code>. Ele concentra as
+            ações <strong>daquela coluna</strong>.
+          </>
+        ),
+        placement: "bottom",
+        noScroll: true,
+        // o ⋯ é hover-only (some na medição) → spotlight no cabeçalho inteiro,
+        // com o hover disparado pra o ⋯ aparecer dentro do recorte.
+        onEnter: () => revealColMenuBtn(),
+        target: () => {
+          revealColMenuBtn();
+          return header(/Licenciado/i);
+        },
+      },
+      {
+        title: "Menu da coluna — aberto",
+        body: (
+          <>
+            Aberto, traz <strong>ordenar</strong>, <strong>fixar</strong> à esquerda/
+            direita e <strong>ocultar</strong> a coluna.
           </>
         ),
         placement: "right",
-        ...openStep(() => {
-          const h = qa('[role="columnheader"]').find((x) => /Licenciado/i.test(x.textContent ?? ""));
-          fire(h, "pointerover");
-          fire(h, "mouseover");
-          return document.querySelector('[aria-label^="Menu da coluna Licenciado"]');
-        }, true),
+        ...openStep(revealColMenuBtn, true),
         target: () => findDialog(/Ordenar crescente|Fixar à esquerda|Ocultar/i),
       },
+
+      // ── Filtros: antes (botão) → depois (painel aberto) ────────────────
       {
-        title: "Filtros por coluna",
+        title: "Filtros — onde fica",
         body: (
           <>
-            Cada coluna vira um filtro (tipo certo: texto, número, data, seleção). Abra
-            o painel pra montar os filtros de uma vez.
+            O ícone de <strong>funil</strong> na toolbar abre o painel de filtros por
+            coluna.
+          </>
+        ),
+        placement: "bottom",
+        target: '[aria-label="Filtros"]',
+      },
+      {
+        title: "Filtros — painel aberto",
+        body: (
+          <>
+            Cada coluna vira um filtro do tipo certo (texto, número, data, seleção). Monte
+            vários de uma vez.
           </>
         ),
         placement: "left",
@@ -149,15 +181,14 @@ export default function FinanceTutorialShowcase() {
         body: (
           <>
             Todo filtro ativo aparece como <strong>chip</strong> na toolbar (aqui:{" "}
-            <em>Saldo ≥ R$ 5k</em>). O <code>×</code> remove; pelo painel de Filtros
-            você edita o valor.
+            <em>Saldo ≥ R$ 5k</em>). O <code>×</code> remove; pelo painel de Filtros você
+            edita o valor.
           </>
         ),
         placement: "bottom",
         noScroll: true,
         onEnter: () => {
           clearTimeout(openTimer.current);
-          // abre o "+" de visões e aplica o preset "Alto valor" (aplica filtro+sort).
           (q('button[aria-label="Visões salvas"]') as HTMLElement)?.click();
           openTimer.current = window.setTimeout(() => {
             const dlg = document.querySelector('[role="dialog"]');
@@ -165,8 +196,7 @@ export default function FinanceTutorialShowcase() {
               (el) => el.children.length === 0 && /Alto valor/i.test(el.textContent ?? ""),
             );
             (item as HTMLElement)?.click();
-            // fecha o popover de visões — o chip (filtro aplicado) permanece.
-            window.setTimeout(closePopover, 220);
+            window.setTimeout(closePopover, 220); // fecha o popover; o chip permanece
           }, 260);
         },
         onLeave: () => {
@@ -175,12 +205,14 @@ export default function FinanceTutorialShowcase() {
         },
         target: () => q('[aria-label^="Remover filtro"]')?.closest("span") ?? null,
       },
+
+      // ── Visões: abas → antes (botão +) → depois (gerenciador) ──────────
       {
         title: "Visões salvas — as abas",
         body: (
           <>
             As visões já criadas ficam como <strong>abas</strong> (ex.: <em>Default</em>,{" "}
-            <em>Alto valor</em>). Clicar aplica o recorte inteiro de uma vez.
+            <em>Alto valor</em>). Clicar aplica o recorte inteiro.
           </>
         ),
         placement: "bottom",
@@ -190,15 +222,26 @@ export default function FinanceTutorialShowcase() {
         title: "Criar / buscar visões — o +",
         body: (
           <>
-            O <strong>+</strong> abre o gerenciador: <strong>salvar a visão atual</strong>{" "}
-            e alternar entre <em>Pessoais</em> e <em>Todos</em> — inclusive visões salvas
-            por <strong>outras pessoas</strong> do time.
+            O <strong>+</strong> ao lado das abas abre o gerenciador de visões.
+          </>
+        ),
+        placement: "bottom",
+        target: 'button[aria-label="Visões salvas"]',
+      },
+      {
+        title: "Gerenciador de visões — aberto",
+        body: (
+          <>
+            <strong>Salvar a visão atual</strong> e alternar entre <em>Pessoais</em> e{" "}
+            <em>Todos</em> — inclusive visões salvas por <strong>outras pessoas</strong> do
+            time.
           </>
         ),
         placement: "left",
         ...openStep(() => q('button[aria-label="Visões salvas"]')),
         target: () => findDialog(/Salvar visão atual|Pessoais.*Todos|Todos.*Pessoais/i),
       },
+
       {
         title: "Tabela e Kanban",
         body: (
@@ -214,8 +257,8 @@ export default function FinanceTutorialShowcase() {
         title: "Seleção e ações em massa",
         body: (
           <>
-            Selecione linhas (checkbox) pra agir em lote — exportar, pausar, etc. A
-            barra de ações mostra o total selecionado.
+            Selecione linhas (checkbox) pra agir em lote — exportar, pausar, etc. A barra
+            de ações mostra o total selecionado.
           </>
         ),
         placement: "top",
@@ -223,12 +266,25 @@ export default function FinanceTutorialShowcase() {
         onLeave: () => (q('[aria-label="Selecionar linha"]') as HTMLElement)?.click(),
         target: ['[aria-label="Ações em massa"]', '[aria-label="Acoes em massa"]'],
       },
+
+      // ── Linha: antes (a linha) → depois (detalhe aberto) ───────────────
       {
-        title: "Clique na linha → detalhe",
+        title: "Clique numa linha",
         body: (
           <>
-            Clicar numa linha abre o <strong>painel de detalhe</strong> (saldos, conta,
-            contato, ações) sem sair da tela.
+            Qualquer linha é clicável (fora dos controles). Clicar abre o painel de
+            detalhe do cliente.
+          </>
+        ),
+        placement: "bottom",
+        target: () => qa('[role="row"]').find((r) => /CLI-/i.test(r.textContent ?? "")) ?? null,
+      },
+      {
+        title: "Painel de detalhe — aberto",
+        body: (
+          <>
+            Mostra saldos, conta bancária, contato, gestão e <strong>ações</strong> (sacar,
+            editar) sem sair da tela.
           </>
         ),
         placement: "left",
@@ -237,7 +293,6 @@ export default function FinanceTutorialShowcase() {
           clearTimeout(openTimer.current);
           closePopover();
           openTimer.current = window.setTimeout(() => {
-            // clica a célula do NOME (não checkbox/switch/ações) pra abrir o detalhe.
             const row = qa('[role="row"]').find((r) => /CLI-/i.test(r.textContent ?? ""));
             const cells = [...(row?.querySelectorAll('[role="gridcell"]') ?? [])];
             const nameCell =
@@ -253,38 +308,42 @@ export default function FinanceTutorialShowcase() {
         },
         target: () => findDialog(/Saldo dispon[íi]vel|Conta banc[áa]ria|Editar/i),
       },
+
+      // ── Configurações: antes (botão) → depois (painel aberto) ──────────
       {
-        title: "Colunas, densidade e export",
+        title: "Configurações da tabela — onde fica",
         body: (
           <>
-            Em <strong>Configurações da tabela</strong>: escolha as colunas visíveis,
-            ajuste a <strong>densidade</strong> e <strong>exporte CSV</strong>.
+            O ícone de <strong>ajustes</strong> na toolbar abre as configurações de
+            exibição.
+          </>
+        ),
+        placement: "bottom",
+        target: '[aria-label="Configurações da tabela"]',
+      },
+      {
+        title: "Colunas, densidade e export — aberto",
+        body: (
+          <>
+            Escolha as <strong>colunas</strong> visíveis, ajuste a <strong>densidade</strong>{" "}
+            das linhas e <strong>exporte CSV</strong>.
           </>
         ),
         placement: "left",
         ...openStep(() => q('[aria-label="Configurações da tabela"]')),
         target: () => findDialog(/Configura[çc][õo]es da tabela|Ordena[çc][ãa]o.*Colunas/i),
       },
+
       {
-        title: "Totalizadores no rodapé",
+        title: "Totais no rodapé",
         body: (
           <>
-            O rodapé soma/agrega as colunas numéricas (saldo, volume, média) — respeita o
-            recorte atual (filtros aplicados).
+            A linha fixa no rodapé (<em>N clientes</em>) soma/agrega as colunas numéricas —
+            saldo, volume, média — respeitando o recorte atual.
           </>
         ),
         placement: "top",
-        target: () => {
-          const el = qa("*").find(
-            (e) => e.children.length === 0 && /\d+\s*clientes/i.test(e.textContent ?? ""),
-          );
-          let row: Element | null | undefined = el;
-          for (let i = 0; i < 6 && row; i++) {
-            if ((row as HTMLElement).offsetWidth > 600) break;
-            row = row.parentElement;
-          }
-          return row ?? el ?? null;
-        },
+        target: () => qa('[role="row"]').find((r) => /\d+\s*clientes/i.test(r.textContent ?? "")) ?? null,
       },
       {
         title: "Paginação",
