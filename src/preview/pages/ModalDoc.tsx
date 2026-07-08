@@ -18,7 +18,7 @@ const TOC = [
   { id: "ex-tertiary", label: "3 actions (com danger à esquerda)" },
   { id: "ex-no-icon", label: "Sem icon" },
   { id: "ex-custom-footer", label: "Footer custom" },
-  { id: "ex-sizes", label: "Sizes (sm / md / lg)" },
+  { id: "ex-sizes", label: "Sizes (sm / md / lg / xl / full)" },
   { id: "ex-no-footer", label: "Sem footer (só conteúdo)" },
   { id: "api", label: "API Reference" },
 ];
@@ -34,7 +34,7 @@ const PROPS = [
   { name: "secondaryAction", type: "ModalAction", defaultVal: "—" },
   { name: "tertiaryAction", type: "ModalAction (vai pra esquerda)", defaultVal: "—" },
   { name: "footer", type: "ReactNode (override total das actions)", defaultVal: "—" },
-  { name: "size", type: '"sm" | "md" | "lg"', defaultVal: '"md"' },
+  { name: "size", type: '"sm" | "md" | "lg" | "xl" | "full"', defaultVal: '"md"' },
   { name: "hideClose", type: "boolean", defaultVal: "false" },
   { name: "closeOnOverlay", type: "boolean", defaultVal: "true" },
 ];
@@ -55,6 +55,8 @@ export function ModalDoc() {
   const [openSm, setOpenSm] = useState(false);
   const [openMd, setOpenMd] = useState(false);
   const [openLg, setOpenLg] = useState(false);
+  const [openXl, setOpenXl] = useState(false);
+  const [openFull, setOpenFull] = useState(false);
   const [openNoFooter, setOpenNoFooter] = useState(false);
 
   const [name, setName] = useState("");
@@ -247,16 +249,20 @@ export function ModalDoc() {
       {/* ── Sizes ───────────────────────────────────────────────────── */}
       <ExampleSection
         id="ex-sizes"
-        title="Sizes (sm / md / lg)"
-        description="3 tamanhos: sm = 440px (confirmações pequenas), md = 540px (default — match sandbox), lg = 720px (forms maiores ou conteúdo denso)."
+        title="Sizes (sm / md / lg / xl / full)"
+        description="5 tamanhos: sm = 440px (confirmações pequenas), md = 540px (default — match sandbox), lg = 720px (forms maiores ou conteúdo denso), xl = 1100px (modais de dados / grades com muitas colunas), full = min(1400px, 92vw) (escala com a viewport, mantém margens)."
         code={`<Modal size="sm" ... />   // 440px
 <Modal size="md" ... />   // 540px (default)
-<Modal size="lg" ... />   // 720px`}
+<Modal size="lg" ... />   // 720px
+<Modal size="xl" ... />   // 1100px (modais de dados)
+<Modal size="full" ... /> // min(1400px, 92vw)`}
       >
         <div className="flex flex-wrap gap-gp-md">
           <Button size="sm" onClick={() => setOpenSm(true)}>Abrir sm (440)</Button>
           <Button size="sm" onClick={() => setOpenMd(true)}>Abrir md (540)</Button>
           <Button size="sm" onClick={() => setOpenLg(true)}>Abrir lg (720)</Button>
+          <Button size="sm" onClick={() => setOpenXl(true)}>Abrir xl (1100)</Button>
+          <Button size="sm" onClick={() => setOpenFull(true)}>Abrir full (1400/92vw)</Button>
         </div>
         <Modal
           open={openSm}
@@ -296,6 +302,36 @@ export function ModalDoc() {
             <FormFieldInput label="Categoria" placeholder="Selecione" />
             <FormFieldInput label="Data" placeholder="DD/MM/AAAA" />
           </div>
+        </Modal>
+        <Modal
+          open={openXl}
+          onClose={() => setOpenXl(false)}
+          size="xl"
+          icon={<FileText className="size-icon-md" strokeWidth={1.7} />}
+          title="Modais de dados (xl)"
+          description="1100px — grades com muitas colunas ou conteúdo lado-a-lado denso"
+          primaryAction={{ label: "Aplicar", onClick: () => setOpenXl(false) }}
+          secondaryAction={{ label: "Cancelar" }}
+        >
+          <p className="text-body-md text-fg-muted">
+            Largura ideal pra tabelas embutidas e dashboards compactos dentro do
+            modal.
+          </p>
+        </Modal>
+        <Modal
+          open={openFull}
+          onClose={() => setOpenFull(false)}
+          size="full"
+          icon={<Settings className="size-icon-md" strokeWidth={1.7} />}
+          title="Full (min 1400px / 92vw)"
+          description="Escala com a viewport mantendo margens — não vira tela cheia e limita em telas ultrawide"
+          primaryAction={{ label: "Concluir", onClick: () => setOpenFull(false) }}
+          secondaryAction={{ label: "Cancelar" }}
+        >
+          <p className="text-body-md text-fg-muted">
+            Use pra fluxos amplos (editores complexos, comparações) sem perder o
+            enquadramento de modal.
+          </p>
         </Modal>
       </ExampleSection>
 

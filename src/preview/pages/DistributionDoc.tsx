@@ -3,7 +3,7 @@ import { Badge } from "../../components/shadcn/badge";
 
 const TOC = [
   { id: "overview", label: "Overview" },
-  { id: "pieces", label: "As 3 peças" },
+  { id: "pieces", label: "As peças" },
   { id: "folders", label: "Organização das pastas" },
   { id: "register", label: "Como registrar um componente" },
   { id: "change", label: "Alterar / nova versão" },
@@ -53,9 +53,10 @@ export function DistributionDoc() {
       <SectionH2 id="overview" title="Overview" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          O iGreen DS é distribuído por <strong className="text-fg-default">copy-in via registry shadcn</strong> — não como pacote npm.
-          O consumidor roda <C>npm run igreen:add -- &lt;item&gt;</C> e o <strong className="text-fg-default">código do componente é copiado pro projeto dele</strong> (vira código dele, editável).
-          O número da versão e o conteúdo vêm do registry hospedado na Vercel; o scaffold inicial vem do CLI npm.
+          O iGreen DS chega no consumidor por <strong className="text-fg-default">3 canais</strong>: (1) <strong className="text-fg-default">copy-in via registry shadcn</strong> — o consumidor roda <C>npm run igreen:add -- &lt;item&gt;</C> e o <strong className="text-fg-default">código do componente é copiado pro projeto dele</strong> (vira código dele, editável);
+          (2) o <strong className="text-fg-default">CLI npm</strong> (<C>@snksergio/create-design-system</C>), que scaffolda um projeto novo já consumindo o registry + kit;
+          e (3) <strong className="text-fg-default">git submódulo</strong> — o consumidor aponta o DS como submódulo e roda <C>ds-link</C> (<C>npm run ds:link</C>) pra projetar o kit de skills no <C>.claude/</C> dele (detalhe em <C>SUBMODULE-SETUP.md</C>).
+          O número da versão e o conteúdo vêm do registry hospedado na Vercel.
         </p>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
           <p className="text-body-md text-fg-default font-medium mb-gp-md">Fluxo macro</p>
@@ -66,11 +67,12 @@ export function DistributionDoc() {
       </div>
 
       {/* As 3 peças */}
-      <SectionH2 id="pieces" title="As 3 peças da distribuição" />
+      <SectionH2 id="pieces" title="As peças da distribuição" />
       <div className="flex flex-col gap-gp-xs mb-14">
         <FileRow path="Registry (Vercel)" desc="igreen-registry.vercel.app — serve o JSON de cada item (Bearer). É de onde o código é copiado. PRIVADO." tag="código" />
         <FileRow path="Catálogo (Vercel)" desc="igreen-desingsystem-admin.vercel.app — este preview público. Mostra os componentes/telas rodando." tag="visão" />
         <FileRow path="CLI (npm)" desc="@snksergio/create-design-system — scaffolda projeto novo já consumindo o registry + kit." tag="scaffold" />
+        <FileRow path="Submódulo (git)" desc="Consumidor aponta o DS como git submódulo e roda ds-link (npm run ds:link) pra projetar o kit de skills no .claude/ dele — paridade com o npm. Detalhe em SUBMODULE-SETUP.md." tag="submódulo" />
       </div>
 
       {/* Organização das pastas */}
@@ -81,7 +83,7 @@ export function DistributionDoc() {
         </p>
         <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-loose">
           <p className="text-fg-default font-semibold">igreen-ds/</p>
-          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 56 itens + files + deps</span></p>
+          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 78 itens + files + deps</span></p>
           <p className="ml-sp-md">public/r/                          <span className="text-fg-subtle">← JSON gerado por item (npx shadcn build) — gitignored</span></p>
           <p className="ml-sp-md">registry-app/                      <span className="text-fg-subtle">← app Next.js que SERVE o registry na Vercel</span></p>
           <p className="ml-sp-2xl">app/registry-data.ts            <span className="text-fg-subtle">← EMBED dos JSON (commitado — fonte do deploy)</span></p>

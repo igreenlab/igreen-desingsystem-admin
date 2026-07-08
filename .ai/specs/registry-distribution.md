@@ -378,7 +378,7 @@ A distribuição está **plugada no `/ds-release`** (Track A), não é mais pass
   roda `registry:build` (carimbo na versão **nova**, já que roda depois do bump) + embed
   (`copy-registry`); se foundational (cn/tv/lucide-types/theme) mudou → `cli:rebake` + bump
   `cli/package.json`. Esses artefatos entram no commit do release.
-- **Deploy = automático:** Git do projeto Vercel conectado (`snksergio/igreen-admin-desingsystem`,
+- **Deploy = automático:** Git do projeto Vercel conectado (`igreenlab/igreen-desingsystem-admin`,
   Root Directory=`registry-app`, Framework=Next) → merge do PR na `main` re-deploya o registry.
   **Sem `vercel --prod` manual.** O `npm publish` do CLI continua **manual** (2FA) — só quando `cli/**` muda.
 - **Versão:** o carimbo do registry segue `package.json.version` → o bump do `/ds-release`

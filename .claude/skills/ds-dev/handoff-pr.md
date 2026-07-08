@@ -2,7 +2,7 @@
 name: handoff-pr
 description: >
   Fecha o ciclo de QUALQUER trabalho de componente (criar/alterar) ou mudança
-  significativa: branch + commit descritivo + PR no mirror + link pro gate humano.
+  significativa: branch + commit descritivo + PR no origin + link pro gate humano.
   Regra 8 / L-041. Carregar ao terminar uma implementação, antes de "concluir".
 ---
 
@@ -71,9 +71,9 @@ git commit -F - <<'EOF'
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
 
-# 3. push + PR no mirror (snksergio HOJE — ver L-007/release p/ migração)
-git push -u mirror <tipo>/<escopo>
-gh pr create --repo snksergio/igreen-admin-desingsystem --base main \
+# 3. push + PR no origin (igreenlab/igreen-desingsystem-admin — repo canônico)
+git push -u origin <tipo>/<escopo>
+gh pr create --repo igreenlab/igreen-desingsystem-admin --base main \
   --head <tipo>/<escopo> --title "<title>" --body-file <body.md>
 ```
 

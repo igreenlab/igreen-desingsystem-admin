@@ -21,12 +21,10 @@ description: >
 > não obstáculo. Sessão 2026-06-05 burlou isso ao publicar v0.5.1 direto;
 > a lição L-020 registra a exceção pra não repetir.
 
-> 🔀 **REMOTE DE RELEASE — HOJE = `mirror` (snksergio), FUTURO = igreenlab.**
-> Esta iniciativa vive no `snksergio/igreen-admin-desingsystem` (remote `mirror`).
-> Todos os passos de git abaixo usam **`mirror`** e o `gh pr create` usa
-> **`--repo snksergio/igreen-admin-desingsystem`**. ⚠️ **Migração futura pra igreenlab:**
-> trocar `mirror` → o remote do igreenlab (ou renomear o remote) **APENAS aqui nos passos
-> 6.7/6.8/6.9 + no `--repo`** — é o único lugar. Não tocar no igreenlab até a migração ser decidida.
+> 🔀 **REMOTE DE RELEASE — `origin` = `igreenlab/igreen-desingsystem-admin` (canônico).**
+> A migração pro igreenlab **já ocorreu**: esta iniciativa vive no
+> `igreenlab/igreen-desingsystem-admin` (remote `origin`). Todos os passos de git abaixo
+> usam **`origin`** e o `gh pr create` usa **`--repo igreenlab/igreen-desingsystem-admin`**.
 
 ## Quando usar este skill
 
@@ -64,8 +62,8 @@ Pra atualizar **apenas** a timeline (sem commit/PR), use [`update-changelog.md`]
     d. Stage arquivos do escopo (incluindo registry.json + embed + CLI se mudaram)
     e. Commit local
     f. Criar branch release/v<X.Y.Z>
-    g. Reset main local pra mirror/main (se commit foi em main)
-    h. Push mirror/release/v<X.Y.Z>
+    g. Reset main local pra origin/main (se commit foi em main)
+    h. Push origin/release/v<X.Y.Z>
     i. Abrir PR via gh CLI
 7.  Reportar RELEASE_PUSHED com link do PR
 ```
@@ -334,29 +332,29 @@ EOF
 git branch release/v<X.Y.Z>
 ```
 
-### 6.7 Reset main local pra mirror
+### 6.7 Reset main local pra origin
 ```bash
-git fetch mirror
-git reset --hard mirror/main
+git fetch origin
+git reset --hard origin/main
 ```
-**Por que:** `main` local fica == `mirror/main` (snksergio). O commit fica preservado apenas na branch `release/v<X.Y.Z>`. (Remote `mirror` = snksergio HOJE — ver adendo no topo.)
+**Por que:** `main` local fica == `origin/main` (igreenlab). O commit fica preservado apenas na branch `release/v<X.Y.Z>`.
 
 > ⚠️ `reset --hard` é destrutivo. Como o commit foi preservado na branch lateral, não há perda. Mas confirmar com usuário antes se houver arquivos não-staged que deseja manter.
 
 ### 6.8 Switch + push da branch
 ```bash
 git checkout release/v<X.Y.Z>
-git push -u mirror release/v<X.Y.Z>
+git push -u origin release/v<X.Y.Z>
 ```
 
 Se push for bloqueado (policy main-only ou similar) → reportar + parar (branch local preservada).
 
 ### 6.9 Abrir PR
 ```bash
-gh pr create --repo snksergio/igreen-admin-desingsystem --base main --head release/v<X.Y.Z> \
+gh pr create --repo igreenlab/igreen-desingsystem-admin --base main --head release/v<X.Y.Z> \
   --title "<title>" --body-file <arquivo com body do Passo 4.3>
 ```
-(`--repo` explícito = snksergio HOJE. `--body-file` evita PR template auto-injetado — L da tabela de erros.)
+(`--repo` explícito = igreenlab. `--body-file` evita PR template auto-injetado — L da tabela de erros.)
 
 Capturar URL do PR retornada.
 
@@ -369,7 +367,7 @@ RELEASE_PUSHED: v<X.Y.Z>
 - Branch: release/v<X.Y.Z>
 - PR: <URL retornada pelo gh>
 - Commit local: <hash>
-- main local resetado pra mirror/main (limpo)
+- main local resetado pra origin/main (limpo)
 
 Próximos passos (humanos):
 1. Revisar o PR
@@ -411,7 +409,7 @@ Próximos passos (humanos):
 ## Checklist final (skill aprovada se TODOS true)
 
 - [ ] `RELEASE_PUSHED` sinal emitido com URL do PR válida
-- [ ] `main` local == `mirror/main` (sem commits órfãos)
+- [ ] `main` local == `origin/main` (sem commits órfãos)
 - [ ] Branch `release/v<X.Y.Z>` existe local + remote
 - [ ] `package.json.version` na branch == version da entry
 - [ ] TS build limpo

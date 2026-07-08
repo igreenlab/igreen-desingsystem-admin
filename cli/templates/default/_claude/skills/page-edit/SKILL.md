@@ -16,6 +16,12 @@ Tela de formulário (criar/editar). Não gere de memória — puxe e adapte o ex
 3. Adapte os campos ao caso do usuário (mantendo a estrutura de seções/steps).
 4. Registre a rota onde o usuário indicar. `npx tsc --noEmit` limpo.
 
+> **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
+> o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/FormField`)
+> e leia o exemplo direto em `<dsPath>/src/examples/edit-page/edit-page-screen.tsx` —
+> **NÃO** rode `igreen:add`.
+
 ## Gotchas do tipo
 - **Sempre `<FormField>`** (FormFieldInput/Select/Textarea/Switch) — nunca `<label>` cru (peso/cor/dark-mode divergem). Spacing entre campos = `gap-form-gap` (20px).
 - Validação inline via `errorMessage` no FormField; helper via `helperText`.

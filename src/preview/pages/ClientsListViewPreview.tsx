@@ -168,7 +168,7 @@ export default function ClientsListViewPreview() {
   );
 }
 
-const CODE = `import { DataTable, type DataTableListConfig } from "@snksergio/design-system";
+const CODE = `import { DataTable, type DataTableListConfig } from "@/components/ui/DataTable";
 
 const listConfig: DataTableListConfig<Row> = {
   renderItem: (row) => (

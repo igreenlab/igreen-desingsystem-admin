@@ -165,8 +165,8 @@ export function IntroductionDoc() {
           <span className="text-body-md text-fg-muted">Documentation site (you're looking at it)</span>
         </div>
         <div className="flex items-center gap-gp-xl">
-          <Badge color="primary" variant="soft" size="md">Planned</Badge>
-          <span className="text-body-md text-fg-muted">NPM package distribution</span>
+          <Badge color="success" variant="soft" size="md">Stable</Badge>
+          <span className="text-body-md text-fg-muted">Distribution: registry copy-in + npm CLI (@snksergio/create-design-system) + git submodule (ds-link)</span>
         </div>
       </div>
     </DocLayout>

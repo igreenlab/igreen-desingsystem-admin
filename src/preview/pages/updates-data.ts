@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "preview",
+    date: "2026-07-08",
+    tag: "preview",
+    title: "ds-link — kit de IA para consumidores via submódulo",
+    summary:
+      "Consumidor que aponta o DS como git submódulo não recebe as skills/commands: o Claude Code só descobre `.claude/` na raiz do cwd, não desce pra `<submodulo>/.claude/`.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "`scripts/ds-link.mjs` (`npm run ds:link`) projeta o mesmo payload consumidor pro `.claude/` do repo pai — skills crud/list/dashboard descobríveis nativamente, no modo submódulo (lê componentes de `<dsPath>/src`, sem `igreen:add`). Guia: `SUBMODULE-SETUP.md`; documentado na Installation page.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "preview",
+    date: "2026-07-08",
+    tag: "preview",
+    title: "Demo Virtual Proposta navegável no showcase",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "O app de demonstração `projeto/virtual-proposta` agora é servido no MESMO deploy do showcase em `/demo/` (via `build:showcase`), acessível pelo menu Demos — sem URL separada.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.25.2",
     date: "2026-07-07",
     tag: "patch",

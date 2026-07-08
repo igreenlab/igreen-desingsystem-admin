@@ -195,6 +195,16 @@ const CORE_PROPS = [
     type: "boolean",
     defaultVal: "false (recomendado em listas > 500 rows)",
   },
+  {
+    name: "autoFit",
+    type: "boolean — mede o header inteiro como piso e distribui a sobra proporcionalmente (col.width vira base/piso, não trava)",
+    defaultVal: "true (false = widths estáticos legacy)",
+  },
+  {
+    name: "grabToScroll",
+    type: "boolean — arrastar o corpo (mouse/pen) rola lateralmente após ~6px de threshold; pulado em touch",
+    defaultVal: "false",
+  },
 ];
 
 const TOOLBAR_PROPS = [
@@ -336,6 +346,11 @@ const LIST_CONFIG_PROPS = [
     defaultVal: "getTreeDataPath (fallback)",
   },
   { name: "defaultExpanded", type: "boolean", defaultVal: "true" },
+  {
+    name: "paginated",
+    type: "boolean — pagina a view Lista flat (mesma paginação da tabela + footer); ignorado quando hierarchical",
+    defaultVal: "false (mostra todas as rows processadas)",
+  },
   { name: "getMenuItems", type: "(row) => ListMenuItem[]", defaultVal: "—" },
 ];
 
