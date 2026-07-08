@@ -31,6 +31,8 @@ export type TourStep = {
   onLeave?: (scope: HTMLElement | null) => void;
   /** Padding do recorte do spotlight (px). Default 8. */
   padding?: number;
+  /** Não faz scrollIntoView ao entrar (ex.: passo de popover já visível). */
+  noScroll?: boolean;
 };
 
 type Rect = { top: number; left: number; width: number; height: number };
@@ -123,11 +125,13 @@ export function GuidedTour({
       setRect(null); // fallback: balão centralizado
     };
 
-    // scroll o alvo pra viewport ao entrar no passo
+    // scroll o alvo pra viewport ao entrar no passo (pulado em passos de popover)
     if (prevIndexRef.current !== index) {
       prevIndexRef.current = index;
-      const el = resolveTarget(step.target, scope);
-      el?.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      if (!step.noScroll) {
+        const el = resolveTarget(step.target, scope);
+        el?.scrollIntoView({ behavior: "smooth", block: "center", inline: "center" });
+      }
     }
 
     measure();
@@ -157,8 +161,12 @@ export function GuidedTour({
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      else if (e.key === "ArrowRight") go(1);
+      if (e.key === "Escape") {
+        // se há um popover (não-tour) aberto, deixa o Esc fechá-lo primeiro
+        if (document.querySelector('[role="dialog"]:not([aria-label="Tour guiado"])'))
+          return;
+        close();
+      } else if (e.key === "ArrowRight") go(1);
       else if (e.key === "ArrowLeft") go(-1);
     };
     window.addEventListener("keydown", onKey);
@@ -209,7 +217,7 @@ export function GuidedTour({
       {/* spotlight: box-shadow gigante cria o scrim; recorte no alvo */}
       {rect ? (
         <div
-          className="pointer-events-none absolute rounded-radius-base ring-4 ring-ring-primary transition-all duration-200"
+          className="pointer-events-none absolute rounded-radius-base border-[3px] border-border-brand ring-4 ring-ring-primary transition-all duration-200"
           style={{
             top: rect.top - pad,
             left: rect.left - pad,
