@@ -98,6 +98,7 @@ import { AppShellDoc } from "./preview/pages/AppShellDoc";
 import { PageHeaderDoc } from "./preview/pages/PageHeaderDoc";
 import ClientesShowcase from "./preview/pages/ClientesShowcase";
 import ClientesFinanceiroShowcase from "./preview/pages/ClientesFinanceiroShowcase";
+import FinanceTutorialShowcase from "./preview/pages/FinanceTutorialShowcase";
 import MapaDeRedeShowcase from "./preview/pages/MapaDeRedeShowcase";
 import OrderDetailShowcase from "./preview/pages/OrderDetailShowcase";
 import OrderEditShowcase from "./preview/pages/OrderEditShowcase";
@@ -434,6 +435,10 @@ export function App() {
 
   if (standaloneApp === "finance") {
     return <ClientesFinanceiroShowcase />;
+  }
+
+  if (standaloneApp === "finance-tutorial") {
+    return <FinanceTutorialShowcase />;
   }
 
   if (standaloneApp === "mapa-rede") {
