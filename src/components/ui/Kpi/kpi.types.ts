@@ -39,6 +39,11 @@ export interface KpiProps {
   icon?: ReactNode;
   /** Tom do container do ícone. Default: "neutral". */
   tone?: KpiTone;
+  /**
+   * Tamanho do valor de destaque (preset `stat-*`). Default "md" (24px) —
+   * idêntico ao comportamento anterior. Use "lg"/"xl" para KPIs hero.
+   */
+  size?: "sm" | "md" | "lg" | "xl";
   /** Nota no rodapé (com divisória acima). */
   footnote?: ReactNode;
   /** Slot livre (sparkline/chart) renderizado abaixo do valor. */

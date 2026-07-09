@@ -184,9 +184,11 @@ text-[13px]            → text-body-sm font-normal (preserva 13/400)
 text-[Npx]             → preset DS sempre que houver tier equivalente
 ```
 
-**Novos roles (2026-05-19 rewrite)**: 23 presets em 6 roles —
-display / heading / title / body / caption / code. Detalhes em
+**Roles**: 27 presets em 7 roles —
+display / heading / title / body / caption / **stat** / code. Detalhes em
 `.ai/context/tokens/typography.md`. Body padrão do projeto = `body-sm` (13/500).
+Valor de KPI/métrica = `stat-{sm|md|lg|xl}` (20/24/30/34px, estático, bold) +
+`tabular-nums` — nunca `text-[Npx]` na unha (o VP tinha ~33 desses; `stat` mata).
 Title default = weight 600. Override de weight via `font-bold/semibold/medium/normal`.
 
 ⚠️ **L-016**: ao adicionar novo preset, REGISTRAR em `src/utils/tv.ts`

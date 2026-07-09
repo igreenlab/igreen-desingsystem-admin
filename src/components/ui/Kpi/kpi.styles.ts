@@ -14,13 +14,22 @@ export const kpi = tv({
     main: "flex flex-col gap-gp-xs",
     valueRow: "flex flex-wrap items-center gap-gp-md",
     value:
-      "text-body-2xl font-bold leading-none text-fg-default [font-variant-numeric:tabular-nums]",
+      "leading-none text-fg-default [font-variant-numeric:tabular-nums]",
     hint: "text-caption-sm text-fg-subtle",
     chart: "mt-gp-xs",
     footnote:
       "mt-pad-md border-t border-border-subtle pt-pad-lg text-caption-md text-fg-muted",
   },
   variants: {
+    // Tamanho do valor de destaque — presets `stat-*` (número de métrica).
+    // Default `md` (24px) = idêntico ao antigo `body-2xl`. Weight/leading tight
+    // vêm do preset + slot; pareado com tabular-nums.
+    size: {
+      sm: { value: "text-stat-sm" },
+      md: { value: "text-stat-md" },
+      lg: { value: "text-stat-lg" },
+      xl: { value: "text-stat-xl" },
+    },
     surface: {
       card: {
         root: "rounded-radius-xl border border-border-subtle bg-bg-surface p-pad-3xl shadow-sh-sm",
@@ -37,6 +46,7 @@ export const kpi = tv({
     },
   },
   defaultVariants: {
+    size: "md",
     surface: "card",
     tone: "neutral",
   },

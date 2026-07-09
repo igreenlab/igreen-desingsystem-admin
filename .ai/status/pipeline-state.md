@@ -1354,3 +1354,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma.
 - Lições novas: nenhuma.
 - Pendência: npm publish do CLI 0.16.0 (manual/2FA) pro canal npm receber o catálogo. Registry redeploya no merge.
+
+---
+
+### 2026-07-09 | DS DESIGNER + DS DEV | Typography role `stat` (valor de KPI/métrica) | CONCLUÍDO
+- Input: análise do VP achou ~33 KPIs com `text-[18–34px] font-bold leading-none tabular-nums` avulso — único desvio de fidelidade sistemático. Gate aprovado pelo usuário ("prosseguir").
+- Output: novo role `stat` (4 presets estáticos: stat-sm 20 / stat-md 24 / stat-lg 30 / stat-xl 34, bold, leading tight) em `typography.ts` (23→27 presets, 6→7 roles). Registrado em `tv.ts` (L-016). `tokens:tw4` rebake (@utility text-stat-* gerados). Componente `Kpi` ganhou prop `size` (sm/md/lg/xl → text-stat-*, default md = idêntico ao antigo body-2xl). Docs: typography.md context, ds-standards.md, Kpi USAGE, KpiDoc (demo size + dogfood KPI_VALUE→stat-lg), TypographyDoc (role stat). tsc 0.
+- Decisões: role dedicado (não mapear pra display/heading) porque número de métrica é estático (não encolhe no mobile) + semântica própria; display=hero fluid, body=leitura. tabular-nums fica utility (não cabe no preset composto). Kpi default md preserva o visual atual (24px) — não-breaking.
+- Assumption: número de KPI/métrica é role recorrente (33 sites no VP) que merece token de 1ª classe — vs. `body-2xl`+`display-md` bastarem. Se falso, `stat` vira ruído no scale recém-enxugado (32→23).
+- Regressões L-001..L-007: nenhuma. L-016 cumprido (registro em tv.ts).
+- Lições novas: nenhuma.
+- Pendência: migração dos ~33 sites do VP `text-[Npx]` → `text-stat-*` (PR separado). Distribuição do token (registry:build reempacota theme.css + bump) consolida no próximo `/ds-release`.
