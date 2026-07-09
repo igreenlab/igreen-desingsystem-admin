@@ -46,53 +46,26 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
-    version: "preview",
+    version: "0.26.0",
     date: "2026-07-09",
-    tag: "preview",
-    title: "DataTable — grab-to-scroll nativo + coluna copiável",
+    tag: "release",
+    title: "DataTable: grab-to-scroll nativo + coluna copiável · tour guiado · ds-link (submódulo)",
     summary:
-      "Duas melhorias de tabela: arrastar pra rolar lateral agora vem ligado por padrão em todas as tabelas, e colunas podem revelar um botão de copiar no hover da célula.",
+      "Melhorias de tabela (arrastar pra rolar agora é nativo; colunas copiáveis), um tour de onboarding do DataTable no showcase, e paridade do kit de IA para consumidores via git submódulo.",
     changes: [
       {
         type: "changed",
         items: [
-          "**Grab-to-scroll agora é NATIVO** (`grabToScroll` default `true`): toda tabela rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção preservados, pulado em touch). Passe `grabToScroll={false}` pra desabilitar.",
+          "**DataTable — grab-to-scroll agora é NATIVO** (`grabToScroll` default `true`): toda tabela rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção preservados, pulado em touch). Passe `grabToScroll={false}` pra desabilitar.",
         ],
       },
       {
         type: "added",
         items: [
-          "Opção de coluna **`copyable`** (`true` ou `{ value?, label? }`): revela um ícone de copiar no hover/foco da célula, com feedback \"Copiado!\" (~2s, `navigator.clipboard`, sem dep nova). Habilitada no `example-finance` (CNPJ). Documentado em DataTableDoc + USAGE + skills crud-builder.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "preview",
-    date: "2026-07-08",
-    tag: "preview",
-    title: "ds-link — kit de IA para consumidores via submódulo",
-    summary:
-      "Consumidor que aponta o DS como git submódulo não recebe as skills/commands: o Claude Code só descobre `.claude/` na raiz do cwd, não desce pra `<submodulo>/.claude/`.",
-    changes: [
-      {
-        type: "added",
-        items: [
-          "`scripts/ds-link.mjs` (`npm run ds:link`) projeta o mesmo payload consumidor pro `.claude/` do repo pai — skills crud/list/dashboard descobríveis nativamente, no modo submódulo (lê componentes de `<dsPath>/src`, sem `igreen:add`). Guia: `SUBMODULE-SETUP.md`; documentado na Installation page.",
-        ],
-      },
-    ],
-  },
-  {
-    version: "preview",
-    date: "2026-07-08",
-    tag: "preview",
-    title: "Demo Virtual Proposta navegável no showcase",
-    changes: [
-      {
-        type: "added",
-        items: [
-          "O app de demonstração `projeto/virtual-proposta` agora é servido no MESMO deploy do showcase em `/demo/` (via `build:showcase`), acessível pelo menu Demos — sem URL separada.",
+          "**DataTable — coluna `copyable`** (`true` ou `{ value?, label? }`): ícone de copiar revelado no hover/foco da célula, com feedback \"Copiado!\" (~2s, `navigator.clipboard`, sem dep nova). Habilitada no `example-finance` (CNPJ). Doc em DataTableDoc + USAGE + skills crud-builder.",
+          "**Tour guiado do DataTable** no showcase (`?app=finance-tutorial`, menu Demos → Tutorial DataTable): navegação assistida DS-native de 19 passos (busca, ordenar, menu de coluna, filtros, chip, visões, Kanban, seleção, detalhe da linha, colunas/export, totalizadores, paginação) no padrão antes/depois.",
+          "**`ds-link`** (`npm run ds:link`, `scripts/ds-link.mjs`): projeta o mesmo payload consumidor pro `.claude/` do repo pai quando o DS é consumido como **git submódulo** — skills crud/list/dashboard descobríveis nativamente (modo submódulo lê componentes de `<dsPath>/src`, sem `igreen:add`). Guia: `SUBMODULE-SETUP.md`.",
+          "Demo **Virtual Proposta** navegável no mesmo deploy do showcase em `/demo/` (menu Demos), sem URL separada.",
         ],
       },
     ],
