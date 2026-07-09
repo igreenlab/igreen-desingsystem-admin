@@ -27,7 +27,7 @@ export function LoginPage() {
       {/* Fundo ambiente: a própria imagem borrada e escurecida — a imagem nítida
           do container "sobressai" por cima. */}
       <img
-        src="/login-bg.png"
+        src={`${import.meta.env.BASE_URL}login-bg.png`}
         aria-hidden
         alt=""
         className="pointer-events-none absolute inset-0 size-full scale-110 object-cover opacity-20 blur-[60px] saturate-150"
@@ -130,7 +130,7 @@ export function LoginPage() {
         {/* Direita — imagem (some no mobile) */}
         <div className="relative hidden bg-bg-brand-subtle lg:block">
           <img
-            src="/login-bg.png"
+            src={`${import.meta.env.BASE_URL}login-bg.png`}
             alt=""
             aria-hidden
             className="absolute inset-0 h-full w-full object-cover"
