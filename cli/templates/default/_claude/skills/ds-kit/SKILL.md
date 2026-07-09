@@ -40,6 +40,7 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 | "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                                 |
 | cabeçalho de página                                                                                 | componente `PageHeader`                                                                                                       |
 | shell / menu lateral / topbar                                                                       | `app-shell` / `menu-sidebar` / `header`                                                                                       |
+| "replica o módulo X igual ao Y", "mesma estrutura pra outro segmento/vertical", "clonar telas"      | **skill `module-replicator`** (`/ds-replicate-module`) — avalia copiar × parametrizar; troca dados/rótulos, mantém estrutura  |
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") → **`dashboard-builder`** (ele delega a tabela/lista embutida ao `crud-builder`/`list-builder` na Fase 5). 1 tabela/lista/gráfico só ≠ dashboard.
 
