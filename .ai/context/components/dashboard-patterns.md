@@ -330,6 +330,70 @@ true` quando puder ter muitas linhas (L-052).
 
 ---
 
+## 7. Estado compartilhado (página composta — várias peças que conversam)
+
+Quando a página tem **2+ peças que reagem entre si**, o estado NÃO mora em cada
+peça — sobe pro **componente da página** (single source of truth) e desce por
+props. Dois padrões cobrem quase tudo:
+
+### Master-detail (clicar num item abre o detalhe)
+
+Tabela/lista + painel/drawer de detalhe. A seleção vive na página; a grade recebe
+o handler, o detalhe recebe o id.
+
+```tsx
+function ClientesPage() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = selectedId ? findById(selectedId) : null;
+  return (
+    <div className="flex h-full min-h-0 gap-gp-2xl">
+      <DataTable
+        rows={rows}
+        columns={cols}
+        onRowClick={(row) => setSelectedId(row.id)}   // grade → estado
+        className="flex-1 min-h-0"
+      />
+      {/* detalhe lado a lado (FloatingPanel) OU drawer (Drawer/Sheet) */}
+      <DetailPanel item={selected} onClose={() => setSelectedId(null)} />
+    </div>
+  );
+}
+```
+
+- Fonte real: `example-finance` (tabela + `FinanceDetailPanel` + drawers) e
+  `example-mapa-rede` (lista hierárquica + `ConsultorDetailPanel`).
+- Detalhe **ao lado** = `FloatingPanel`/painel fixo; **por cima** = `Drawer`/`Sheet`.
+- Nunca duplique a linha no detalhe — passe só o `id`/objeto seleto.
+
+### Cross-filter (um controle alimenta várias peças)
+
+Um filtro de período/segmento no topo que muda KPIs + gráfico + tabela **juntos**.
+O filtro vive na página; o dataset filtrado (ou o `filterModel`) desce pra todas.
+
+```tsx
+function PainelPage() {
+  const [periodo, setPeriodo] = useState<Periodo>("mes");
+  const data = useMemo(() => filtrar(base, periodo), [periodo]);  // 1 fonte
+  return (
+    <div className="flex flex-col gap-gp-2xl">
+      <PageHeader actions={<PeriodSelector value={periodo} onChange={setPeriodo} />} />
+      <KpiGroup>{/* lê `data` */}</KpiGroup>
+      <ChartCard data={data} />
+      <DataTable rows={data.rows} columns={cols} />
+    </div>
+  );
+}
+```
+
+- **Um** `useMemo` deriva o dataset; todas as peças leem dele (não refazem fetch).
+- Filtro por COLUNA continua nativo/pré-aplicado (L-051); o cross-filter aqui é o
+  **escopo global** (período/segmento), tipicamente no `PageHeader.actions`.
+- Combina com master-detail: `selectedId` + `periodo` convivem no mesmo nível.
+
+**Regra:** estado que 2+ peças compartilham sobe pra página; peça isolada mantém o
+seu. O `screen-composer` (`/ds-create-screen`) monta cada peça pelos builders e
+cabeia esse estado no nível da página.
+
 ## Checklist de composição (pra o builder / revisor)
 
 - [ ] Shell: `flex flex-col gap-gp-2xl` + `PageHeader` + spacer de rodapé.
@@ -339,4 +403,5 @@ true` quando puder ter muitas linhas (L-052).
 - [ ] Dados + visual/mapa → card dividido em 2 (§4), divisor no 2º painel.
 - [ ] Tabela → ordem de roles (§5), filtros nativos pré-aplicados.
 - [ ] Lista/kanban → slots (§6), sem botão de ação na linha.
+- [ ] Página composta → estado compartilhado sobe pra página (§7): master-detail (`selectedId`) e/ou cross-filter (dataset derivado por 1 `useMemo`).
 - [ ] Zero hardcode de cor; **valor de número grande = `text-stat-*` (ou `Kpi size`)**, nunca `text-[Npx]`.

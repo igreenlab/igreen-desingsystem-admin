@@ -18,6 +18,13 @@ Pergunte, descrevendo por **uso** (não pela palavra):
 Se o $ARGUMENTS já deixar claro, confirme em 1 linha e siga. Na dúvida, pergunte.
 Dashboard = 2+ tipos de seção; 1 tabela/lista/gráfico só → não é dashboard.
 
+> **Página COMPOSTA (2+ peças que CONVERSAM entre si)** — "tabela + detalhe ao
+> lado que abre ao clicar", "filtro/período no topo que muda KPIs + gráfico +
+> tabela juntos", master-detail, cross-filter → **skill `screen-composer`**
+> (`.claude/skills/screen-composer/SKILL.md`). Ela monta cada peça pelos builders
+> e cabeia o **estado compartilhado** (dashboard-patterns §7). Diferente de
+> "dashboard com tabela embutida" (sem interação cruzada → dashboard-builder).
+
 > **Kanban / board / funil / pipeline de vendas** → rota **Tabela**. Kanban é uma
 > `viewMode` do DataTable (mesmos dados, só muda a exibição); funil = board agrupado
 > por etapa. Roteie pro `crud-builder` — a Fase 5 configura as lanes pela coluna de

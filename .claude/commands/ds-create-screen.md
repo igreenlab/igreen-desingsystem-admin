@@ -47,6 +47,13 @@ A partir daqui o builder escolhido assume; este command não interfere mais.
 > tabela embaixo") → rota **Dashboard**; o dashboard-builder delega a tabela/lista
 > ao crud/list-builder na Fase 5. Não precisa escolher os dois aqui.
 
+> **Página COMPOSTA (2+ peças que CONVERSAM entre si)** — master-detail ("tabela +
+> detalhe ao lado que abre ao clicar") ou cross-filter ("período no topo que muda
+> KPIs + gráfico + tabela juntos") → **skill `screen-composer`**
+> (`.claude/skills/screen-composer/SKILL.md`): monta cada peça pelos builders e
+> cabeia o **estado compartilhado** (dashboard-patterns §7). Distingue de "dashboard
+> com tabela embutida" (sem interação cruzada → dashboard-builder).
+
 ## Argumento opcional
 
 `hint` — contexto inicial (ex: `/ds-create-screen organização em árvore de
