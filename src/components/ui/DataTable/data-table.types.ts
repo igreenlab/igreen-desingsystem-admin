@@ -515,7 +515,8 @@ export type DataTableProps<T> = {
    * rolar lateralmente, equivalente ao `useGrabToScroll` legado. Um arrasto só
    * inicia após cruzar um threshold (~6px), preservando clique/seleção de
    * célula; o scroll por roda do mouse permanece intacto. Pulado em touch
-   * (scroll nativo já funciona). Default `false`.
+   * (scroll nativo já funciona). **Nativo — default `true`**; passe
+   * `grabToScroll={false}` pra desabilitar.
    */
   grabToScroll?: boolean;
 

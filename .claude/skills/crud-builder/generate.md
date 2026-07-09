@@ -162,6 +162,16 @@ todo campo substantivo leva `icon` no header.
    - **Título do header nunca trunca**: a largura mínima de cada coluna já inclui o
      texto do `headerName` + ícone/sort/menu. Não precisa fixar `width` só pra caber
      o título.
+4. **Copiar valor da célula** (`copyable`): em colunas cujo valor o usuário costuma
+   copiar (documento/CNPJ, e-mail, ID, número de conta, chave), marque
+   `copyable: true` — o DataTable revela um ícone de copiar no **hover/foco** da
+   célula, com feedback "Copiado!" (~2s, `navigator.clipboard`, sem dep nova). Pra
+   copiar um texto diferente do exibido (ex.: só o número da conta) use
+   `copyable: { value: (row) => "...", label: "Copiar conta" }`.
+5. **Grab-to-scroll é NATIVO** (`grabToScroll` default `true`, v0.26.0+): toda tabela
+   já rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção
+   preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por
+   algum motivo, quiser desabilitar.
 
 ## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
 

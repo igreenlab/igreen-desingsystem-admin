@@ -159,6 +159,7 @@ function buildColumns(
       width: 170,
       enableColumnFilter: true,
       filterType: "text",
+      copyable: true, // ícone de copiar no hover da célula + "Copiado!"
       render: ({ value }) => (
         <span className="text-body-sm tabular-nums text-fg-default">
           {value as string}

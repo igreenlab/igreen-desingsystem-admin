@@ -199,11 +199,12 @@ function DataTableInternal<T>(
   const isKanban = viewMode === "kanban" && Boolean(props.kanbanConfig);
   const isList = viewMode === "list" && Boolean(props.listConfig);
 
-  /* ── Grab-to-scroll horizontal (opt-in) ───────────────────────────
+  /* ── Grab-to-scroll horizontal (nativo, opt-out) ──────────────────
    * Arrastar o corpo pra rolar lateralmente. Anexa pointer listeners ao
    * mesmo `scrollContainerRef` que o `<Table>` usa. No-op em touch e abaixo
-   * do threshold (clique/seleção preservados). */
-  useGrabToScroll(scrollContainerRef, props.grabToScroll === true);
+   * do threshold (clique/seleção preservados). Ligado por padrão — passe
+   * `grabToScroll={false}` pra desabilitar. */
+  useGrabToScroll(scrollContainerRef, props.grabToScroll !== false);
 
   /* ── Fullscreen toggle (opt-in) ───────────────────────────────────
    * Expande o container raiz pra ocupar a viewport inteira. Esc fecha. */
