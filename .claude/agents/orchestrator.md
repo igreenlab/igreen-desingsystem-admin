@@ -76,6 +76,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 > | Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
 > | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `/ds-create-dashboard` | `dashboard-builder` (entrevista → blueprint → **[GATE]** → geração; ancora em `dashboard-patterns.md` + example-dashboard) |
 > | Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
+> | Esqueleto do app (shell + menu + topbar + navegação + rotas) | `/ds-create-app` | `app-builder` (skill focada: leia-e-adapte `example-app-shell`; rota declarativa, não if-chain) |
 
 ---
 

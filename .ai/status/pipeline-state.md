@@ -1354,3 +1354,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma.
 - Lições novas: nenhuma.
 - Pendência: npm publish do CLI 0.16.0 (manual/2FA) pro canal npm receber o catálogo. Registry redeploya no merge.
+
+---
+
+### 2026-07-09 | app-builder | P1 — esqueleto de app + example-app-shell (`/ds-create-app`) | CONCLUÍDO
+- Input: roadmap da análise do VP — "AppShell wiring" era o MAIOR gap (vibe-coder monta conteúdo mas não o app: shell + nav + rotas). Sequência aprovada; 1 PR por builder (branch da main). Skill FOCADA (decisão de gate do usuário).
+- Output: `example-app-shell` (`src/examples/app-shell/`): `nav-data.ts` (contextos/itens + helpers), `routes.tsx` (**mapa de rotas declarativo** href→tela + resolveRoute — substitui a cadeia de ~38 `if` do VP), `app-shell-example.tsx` (cabeamento AppShell: breadcrumb/⌘K/notificações derivados da nav + tema local + user). Skill `app-builder` nas 4 superfícies (L-047): repo + consumidor + `/ds-create-app` + orchestrator + ds-kit. Showcase: `?app=app-shell` (App.tsx) + item "App (esqueleto)" no doc-nav (href `app-shell-example` pra não colidir com a doc-page `app-shell` do componente). Fonte única (wrapper fino, sem drift). tsc 0.
+- Decisões: rota DECLARATIVA (mapa) e não if-chain — é a melhoria estrutural sobre o VP. Skill focada (leia-e-adapte) — esqueleto é editar arrays de nav + mapa. Fullscreen puro. Tema por state local (sem dep de hook não-distribuído). Conteúdo das telas fica com crud/list/dashboard (shell só navega).
+- Assumption: o esqueleto genérico (contextos + itens + rotas declarativas) cobre a maioria dos apps consumidores e adaptar arrays basta (sem entrevista). Se falso, vira builder guiado.
+- Regressões L-001..L-007: nenhuma. Utilities validadas.
+- Lições novas: nenhuma.
+- Pendência: distribuição (registry entry `example-app-shell` + catálogo CLI + bump) no `/ds-release`. Smoke visual do `?app=app-shell`. (Conflito trivial esperado no pipeline-state/orchestrator/ds-kit com o PR do P2 — append-only, resolver mantendo ambos.)
