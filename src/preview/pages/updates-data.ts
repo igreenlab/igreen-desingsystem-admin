@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.27.0",
+    date: "2026-07-09",
+    tag: "release",
+    title: "6 componentes distribuídos + índice \"Todos os componentes\"",
+    summary:
+      "Spinner, EmptyState, MarkdownText, FileUploadField, MonthYearPicker e ColorPicker agora vão pro registry/CLI (antes só existiam no código). Nova página de índice pesquisável dos componentes no showcase.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**6 componentes distribuídos** (registry `@igreen/*` + catálogo CLI): `spinner`, `empty-state`, `markdown-text`, `file-upload-field`, `month-year-picker`, `color-picker`. Cada um com DocPage no showcase + USAGE.md. `igreen:add <nome>` passa a trazê-los.",
+          "**Página \"Todos os componentes\"** (`#/components-overview`): índice pesquisável com ícone por card + 8 categorias; nav da seção Components reordenada A→Z.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Débito de distribuição zerado: os 6 utilitários entraram no registry; os componentes internos do `example-chat` (ConversationListItem, Message*, etc.) foram marcados como intencionais no `distribution-debt.mjs`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.26.0",
     date: "2026-07-09",
     tag: "release",
