@@ -1343,3 +1343,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma.
 - Lições novas: nenhuma.
 - Débito conhecido (pré-existente, não deste release): 12 componentes sem registry/catálogo (ColorPicker, Message*, Spinner, etc.) — distribution-debt.mjs. Backlog.
+
+---
+
+### 2026-07-09 | DS DEV | Showcase + distribuição dos 6 componentes órfãos (v0.27.0) | RELEASE_PUSHED
+- Input: 6 utilitários (Spinner, EmptyState, MarkdownText, FileUploadField, MonthYearPicker, ColorPicker) existiam no código mas sem showcase nem distribuição. Pedido: validar placement → showcase/USAGE → distribuir.
+- Output: (PR #48) validação de placement (todos ui/ corretos, zero relocação) + 6 DocPages + índice "Todos os componentes" (#/components-overview: busca + 8 categorias + ícone por card + nav A→Z). (release/v0.27.0) 6 itens no registry.json (deps reais; empty-state bundla lib/lucide-types, color-picker bundla utils/color-contrast) + inventory.md (L-016) + catálogo CLI + IGNORE dos 6 de chat no distribution-debt. registry:build + embed (78→84 itens, re-stamp @ v0.27.0). Bump DS 0.26.0→0.27.0 + CLI 0.15.0→0.16.0 + changelog.
+- Decisões: os 6 são compostos ui/ (não shadcn) → USAGE co-localizado (já existia), NÃO entram no shadcn/USAGE.md (índice shadcn-only); doc global = inventory + showcase. Chat components = internos do example-chat (IGNORE, não itens avulsos).
+- Assumption: registry-add-item detectou as deps; os 2 bundles cobrem os imports cross-dir. Validado: release:check = 84 itens, embed em sync, débito ZERO, examples em sync, 0 stamps pending. tsc 0.
+- Regressões L-001..L-007: nenhuma.
+- Lições novas: nenhuma.
+- Pendência: npm publish do CLI 0.16.0 (manual/2FA) pro canal npm receber o catálogo. Registry redeploya no merge.

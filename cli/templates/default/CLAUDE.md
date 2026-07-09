@@ -76,7 +76,7 @@ Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separat
 `carousel` `aspect-ratio` `drawer`.
 Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
 `footer-table` `kanban` `list` `data-list` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
-`date-picker` `toast`.
+`date-picker` `toast` `spinner` `empty-state` `markdown-text` `file-upload-field` `month-year-picker` `color-picker`.
 
 > **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
 > `navigation-menu` `hover-card` `tooltip`) seguem a MESMA receita visual do DS

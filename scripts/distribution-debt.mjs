@@ -28,7 +28,17 @@ const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 //   - tabela-teste: página de teste interna (não é componente distribuível).
 //   - table-toolbar: bundlado no item `data-table` (acoplamento circular), não tem
 //     item próprio no registry — chega no consumidor via `igreen:add data-table`.
-const IGNORE = new Set(["tabela-teste", "table-toolbar"]);
+const IGNORE = new Set([
+  "tabela-teste",
+  "table-toolbar",
+  // Internos do example-chat — distribuídos junto do exemplo, não como itens avulsos.
+  "conversation-list-item",
+  "date-separator-chip",
+  "message-ack",
+  "message-bubble",
+  "message-composer",
+  "message-variables-picker",
+]);
 
 const registry = JSON.parse(readFileSync("registry.json", "utf8"));
 const regNames = new Set((registry.items ?? []).map((i) => i.name));
