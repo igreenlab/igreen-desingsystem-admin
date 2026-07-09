@@ -256,6 +256,17 @@ próprias). Default `true`, não-breaking. **Regra**: abas fixas → `allowCreat
 só declare `viewMode` no `presetView` que DEVE forçar uma view. Detalhe em `lessons.md` L-054
 + skills crud-builder + USAGE DataTable/TableToolbar.
 
+### DataTable — grab-to-scroll nativo + coluna `copyable` (v0.26.0)
+
+Dois recursos: (1) **grab-to-scroll agora é NATIVO** — `grabToScroll` passou a **default
+`true`**: toda tabela rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px,
+clique/seleção preservados, pulado em touch). Não precisa ligar; `grabToScroll={false}`
+desabilita. (2) opção de coluna **`copyable`** (`true` ou `{ value?, label? }`) → ícone de
+copiar revelado no **hover/foco** da célula + feedback "Copiado!" (~2s, `navigator.clipboard`,
+sem dep nova). **Regra pra IA**: em colunas cujo valor o usuário copia (CNPJ/documento,
+e-mail, ID, conta) marque `copyable: true`; NÃO reimplemente scroll-drag (já é nativo). Doc:
+DataTableDoc + USAGE + skills crud-builder (repo + payload) + `example-finance`.
+
 ---
 
 ## ✅ Obrigatório sempre

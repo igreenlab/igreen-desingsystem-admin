@@ -202,8 +202,8 @@ const CORE_PROPS = [
   },
   {
     name: "grabToScroll",
-    type: "boolean — arrastar o corpo (mouse/pen) rola lateralmente após ~6px de threshold; pulado em touch",
-    defaultVal: "false",
+    type: "boolean — NATIVO: arrastar o corpo (mouse/pen) rola lateralmente após ~6px de threshold; pulado em touch. Passe false pra desabilitar",
+    defaultVal: "true",
   },
 ];
 
@@ -276,6 +276,12 @@ const COLUMN_DEF_PROPS = [
     defaultVal: "—",
   },
   { name: "editable", type: "boolean", defaultVal: "false" },
+  {
+    name: "copyable",
+    type: "boolean | { value?: string | (row) => string; label? } — ícone copiar revelado no hover/foco da célula + feedback 'Copiado!' (~2s, navigator.clipboard). value customiza o texto copiado; label o aria-label",
+    defaultVal: "false",
+  },
+  { name: "readMore", type: "boolean | { lines?, label? } — trunca + popover 'Ler mais'", defaultVal: "false" },
   {
     name: "expandable",
     type: "boolean (trigger row expansion)",

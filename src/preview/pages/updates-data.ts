@@ -47,6 +47,28 @@ export interface ReleaseEntry {
 export const RELEASES: ReleaseEntry[] = [
   {
     version: "preview",
+    date: "2026-07-09",
+    tag: "preview",
+    title: "DataTable — grab-to-scroll nativo + coluna copiável",
+    summary:
+      "Duas melhorias de tabela: arrastar pra rolar lateral agora vem ligado por padrão em todas as tabelas, e colunas podem revelar um botão de copiar no hover da célula.",
+    changes: [
+      {
+        type: "changed",
+        items: [
+          "**Grab-to-scroll agora é NATIVO** (`grabToScroll` default `true`): toda tabela rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção preservados, pulado em touch). Passe `grabToScroll={false}` pra desabilitar.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "Opção de coluna **`copyable`** (`true` ou `{ value?, label? }`): revela um ícone de copiar no hover/foco da célula, com feedback \"Copiado!\" (~2s, `navigator.clipboard`, sem dep nova). Habilitada no `example-finance` (CNPJ). Documentado em DataTableDoc + USAGE + skills crud-builder.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "preview",
     date: "2026-07-08",
     tag: "preview",
     title: "ds-link — kit de IA para consumidores via submódulo",

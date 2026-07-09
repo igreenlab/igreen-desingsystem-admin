@@ -725,8 +725,6 @@ export default function ClientesFinanceiroShowcase() {
         getRowId={(r) => r.id}
         // v4 — colunas + kanban + inline edit reformulados (auditoria 2026-06-10)
         persistId="showcase-finance-crud-v4"
-        // Arrastar o corpo (mouse/pen) rola lateralmente quando há overflow horizontal.
-        grabToScroll
 
         defaultViews={DEFAULT_VIEWS}
         viewMode={viewMode}

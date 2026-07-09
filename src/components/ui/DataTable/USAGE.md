@@ -100,7 +100,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |
 | **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |
 | **Copy célula**                 | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback "Copiado!" (~2s)                                                                                                                                                                                                                                                             |
-| **Grab-to-scroll horizontal**   | `grabToScroll: true` (prop raiz) — arrastar o corpo pra rolar lateralmente (desktop)                                                                                                                                                                                                                                                                                 |
+| **Grab-to-scroll horizontal**   | **nativo (default `true`)** — arrastar o corpo (mouse/pen) rola lateralmente; `grabToScroll={false}` desliga                                                                                                                                                                                                                                                          |
 | **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |
 | **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |
 | **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |
@@ -361,10 +361,11 @@ const columns = [
 Arrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao `useGrabToScroll` legado.
 
 ```tsx
-<DataTable<Client> rows={clients} columns={columns} grabToScroll />
+{/* nativo — nada a fazer; pra desligar: */}
+<DataTable<Client> rows={clients} columns={columns} grabToScroll={false} />
 ```
 
-- Prop raiz `grabToScroll: boolean` (default `false`).
+- Prop raiz `grabToScroll: boolean` — **nativo, default `true`** (todas as tabelas já vêm com ele; passe `false` pra desabilitar).
 - Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.
 - **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).
 
@@ -681,12 +682,13 @@ const cols = [
 > distribuir (as skills `crud-builder`/`list-builder` geram assim). Setar `width` em
 > todas as colunas trava o layout e deixa espaço vazio à direita.
 
-### `grabToScroll?: boolean` (default `false`)
+### `grabToScroll?: boolean` (**nativo — default `true`**)
 
-Liga o grab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Útil em tabelas com muitas colunas onde o overflow horizontal é comum.
+Grab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. **Já vem ligado em todas as tabelas** — não precisa configurar. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Passe `grabToScroll={false}` só se quiser desabilitar.
 
 ```tsx
-<DataTable rows={rows} columns={cols} grabToScroll />
+{/* nativo — nada a fazer. Pra desligar: */}
+<DataTable rows={rows} columns={cols} grabToScroll={false} />
 ```
 
 ### `persistId?: string` (workspace "Default" persistente — schema v4)
