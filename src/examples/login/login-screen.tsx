@@ -1,15 +1,13 @@
 import { useState } from "react";
-import { Eye, EyeOff, LifeBuoy, Leaf, ShieldCheck, Zap } from "lucide-react";
+import { Eye, EyeOff, LifeBuoy, Hexagon, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FormFieldInput, FormFieldCheckbox } from "@/components/ui/FormField";
 
 /**
  * LoginScreen — tela de login split (form à esquerda, painel de marca à direita).
- * Extração 1:1 do padrão do portal do licenciado (virtual-proposta), mas
- * **self-contained e sem asset externo**: o painel direito é composto 100% por
+ * **Self-contained e sem asset externo**: o painel direito é composto 100% por
  * tokens do DS (gradiente de marca + camadas decorativas + selling points), então
- * funciona igual no showcase e em qualquer consumidor — sem risco de imagem
- * quebrada.
+ * funciona igual em qualquer app — sem risco de imagem quebrada.
  *
  * Layout: split ≥lg, coluna única (só form) no mobile. Email + senha (com toggle
  * de visibilidade) + manter conectado + esqueci a senha + ajuda. Mockado:
@@ -19,8 +17,8 @@ import { FormFieldInput, FormFieldCheckbox } from "@/components/ui/FormField";
  * `entrar`. Mantém FormField (L-023) + gap-form-gap (L-024) + tokens.
  */
 const SELLING_POINTS = [
-  { icon: Zap, label: "Acompanhe sua rede e ganhos em tempo real" },
-  { icon: ShieldCheck, label: "Acesso seguro, provisionado por licença" },
+  { icon: Zap, label: "Acompanhe seus resultados em tempo real" },
+  { icon: ShieldCheck, label: "Acesso seguro à sua conta" },
 ];
 
 export function LoginScreen() {
@@ -41,7 +39,7 @@ export function LoginScreen() {
         <div className="flex flex-col justify-center gap-gp-3xl bg-bg-surface p-pad-4xl lg:px-[40px] lg:py-pad-6xl">
           <div className="mb-gp-md flex flex-col items-center gap-gp-lg text-center">
             <span className="grid size-[48px] place-items-center rounded-radius-2xl bg-bg-brand text-fg-on-brand shadow-sh-sm [&>svg]:size-icon-lg">
-              <Leaf strokeWidth={1.8} />
+              <Hexagon strokeWidth={1.8} />
             </span>
             <div className="flex flex-col gap-gp-2xs">
               <h1 className="text-heading-xs font-bold text-fg-default">
@@ -136,15 +134,15 @@ export function LoginScreen() {
 
           <div className="relative z-10 flex flex-col gap-gp-lg p-pad-6xl text-fg-on-brand">
             <span className="grid size-[44px] place-items-center rounded-radius-xl bg-fg-on-brand/15 [&>svg]:size-icon-md">
-              <Leaf strokeWidth={1.8} />
+              <Hexagon strokeWidth={1.8} />
             </span>
             <div className="flex flex-col gap-gp-md">
               <h2 className="text-heading-sm font-semibold leading-tight">
-                Energia que move o seu negócio.
+                Tudo o que você precisa, num só lugar.
               </h2>
               <p className="max-w-[340px] text-body-md text-fg-on-brand/80">
-                Gerencie sua rede, acompanhe resultados e cresça com o portal do
-                licenciado.
+                Gerencie seus dados, acompanhe resultados e cresça com a sua
+                equipe.
               </p>
             </div>
           </div>
