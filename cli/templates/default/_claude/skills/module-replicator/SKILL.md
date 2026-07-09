@@ -3,14 +3,14 @@ name: module-replicator
 description: >
   Replica uma FAMÍLIA de telas (um módulo/segmento) para um novo segmento,
   trocando dataset + rótulos e mantendo a estrutura. Use quando o app tem
-  segmentos espelhados — "cria o módulo Telecom igual ao Energia", "replica essas
+  segmentos/verticais espelhados — "cria o módulo B igual ao A", "replica essas
   telas pro segmento X", "mesma estrutura pra outra vertical". Evita o copy-paste
   manual (e sinaliza quando é melhor parametrizar em vez de copiar).
 ---
 
 # module-replicator — Replicar família de telas (segmento)
 
-Quando um app tem **módulos espelhados** (ex.: Energia / Telecom / Seguros com a
+Quando um app tem **módulos espelhados** (ex.: várias verticais/segmentos com a
 mesma estrutura de telas), replica a família trocando só o que varia.
 
 ## ⚠️ Antes de copiar: copiar OU parametrizar?
