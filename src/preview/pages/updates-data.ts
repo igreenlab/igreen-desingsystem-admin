@@ -46,6 +46,23 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.29.0",
+    date: "2026-07-09",
+    tag: "preview",
+    title: "Login com variantes de painel (imagem/texto) + fundo ambiente",
+    summary:
+      "O example-login virou configurável: painel direito em imagem, imagem+texto ou só marca (por tokens), fundo ambiente opcional e logo por prop. Abre por padrão em imagem com a logo iGreen; um toggle no showcase alterna as visualizações ao vivo.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "**`example-login` configurável por props** — `rightVariant`: `image` (default) · `image-text` · `text` (marca 100% por tokens, sem asset); `logo` (default logo iGreen), `image`, `ambient` (fundo destacado estilo hero) e `panelTitle`/`panelSubtitle`. Sem `image`, cai no painel de texto (nunca quebra).",
+          "**Showcase do login** (`?app=login`) abre em imagem + logo iGreen, com um **toggle de preview** pra alternar painel (texto/imagem/imagem+texto) e fundo (simples/ambiente) ao vivo.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.28.0",
     date: "2026-07-09",
     tag: "preview",
