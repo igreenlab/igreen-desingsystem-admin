@@ -170,6 +170,7 @@ function buildColumns(
       width: 170,
       enableColumnFilter: true,
       filterType: "text",
+      copyable: true,
       render: ({ value }) => (
         <span className="text-body-sm tabular-nums text-fg-default">
           {value as string}
@@ -258,6 +259,10 @@ function buildColumns(
       filterType: "select",
       filterOptions: BANK_OPTIONS,
       valueGetter: (row) => row.bankAccount.bank,
+      copyable: {
+        value: (row) => `Ag ${row.bankAccount.agency} · ${row.bankAccount.account}`,
+        label: "Copiar conta",
+      },
       render: ({ row }) => {
         const meta = BANKS[row.bankAccount.bank];
         return (
@@ -720,6 +725,9 @@ export default function ClientesFinanceiroShowcase() {
         getRowId={(r) => r.id}
         // v4 — colunas + kanban + inline edit reformulados (auditoria 2026-06-10)
         persistId="showcase-finance-crud-v4"
+        // Arrastar o corpo (mouse/pen) rola lateralmente quando há overflow horizontal.
+        grabToScroll
+
         defaultViews={DEFAULT_VIEWS}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
