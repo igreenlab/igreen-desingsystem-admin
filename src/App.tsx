@@ -110,6 +110,7 @@ import MapaDeRedeShowcase from "./preview/pages/MapaDeRedeShowcase";
 import OrderDetailShowcase from "./preview/pages/OrderDetailShowcase";
 import OrderEditShowcase from "./preview/pages/OrderEditShowcase";
 import AppShellExampleShowcase from "./preview/pages/AppShellExampleShowcase";
+import LoginShowcase from "./preview/pages/LoginShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
 import DashboardShowcase from "./preview/pages/DashboardShowcase";
 import { ColorsDoc } from "./preview/pages/ColorsDoc";
@@ -470,6 +471,10 @@ export function App() {
 
   if (standaloneApp === "app-shell") {
     return <AppShellExampleShowcase />;
+  }
+
+  if (standaloneApp === "login") {
+    return <LoginShowcase />;
   }
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
