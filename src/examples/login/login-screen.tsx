@@ -1,27 +1,45 @@
 import { useState } from "react";
+import type { ReactNode } from "react";
 import { Eye, EyeOff, LifeBuoy, Hexagon, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FormFieldInput, FormFieldCheckbox } from "@/components/ui/FormField";
 
 /**
- * LoginScreen — tela de login split (form à esquerda, painel de marca à direita).
- * **Self-contained e sem asset externo**: o painel direito é composto 100% por
- * tokens do DS (gradiente de marca + camadas decorativas + selling points), então
- * funciona igual em qualquer app — sem risco de imagem quebrada.
+ * LoginScreen — tela de login split (form à esquerda, painel à direita).
+ * Self-contained e configurável por props:
  *
- * Layout: split ≥lg, coluna única (só form) no mobile. Email + senha (com toggle
- * de visibilidade) + manter conectado + esqueci a senha + ajuda. Mockado:
- * `onSubmit` só previne o default — o consumidor pluga a auth real.
+ *  - `logo`         — marca no topo do form (default: mark genérico; passe o do seu app).
+ *  - `rightVariant` — painel direito: "text" (marca 100% por tokens, sem asset) ·
+ *                     "image" (só a imagem) · "image-text" (imagem + headline sobreposta).
+ *                     Default "text". Se pedir image/-text sem `image`, cai no "text".
+ *  - `image`        — URL da imagem (variants image/-text e do fundo `ambient`).
+ *  - `ambient`      — fundo ambiente: a imagem borrada/escurecida atrás do card (destaque).
+ *  - `panelTitle` / `panelSubtitle` — copy do painel (text e image-text).
  *
- * Trocar por caso próprio: rótulos/marca no painel, campos do form, e o handler
- * `entrar`. Mantém FormField (L-023) + gap-form-gap (L-024) + tokens.
+ * Mockado: `onSubmit` só previne o default — o consumidor pluga a auth real.
  */
+export interface LoginScreenProps {
+  logo?: ReactNode;
+  rightVariant?: "text" | "image" | "image-text";
+  image?: string;
+  ambient?: boolean;
+  panelTitle?: string;
+  panelSubtitle?: string;
+}
+
 const SELLING_POINTS = [
   { icon: Zap, label: "Acompanhe seus resultados em tempo real" },
   { icon: ShieldCheck, label: "Acesso seguro à sua conta" },
 ];
 
-export function LoginScreen() {
+export function LoginScreen({
+  logo,
+  rightVariant = "text",
+  image,
+  ambient = false,
+  panelTitle = "Tudo o que você precisa, num só lugar.",
+  panelSubtitle = "Gerencie seus dados, acompanhe resultados e cresça com a sua equipe.",
+}: LoginScreenProps = {}) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [showSenha, setShowSenha] = useState(false);
@@ -32,14 +50,34 @@ export function LoginScreen() {
     // Mock: plugue a autenticação real do seu app aqui.
   };
 
+  // Sem imagem, os variants de imagem caem no painel de marca (nunca quebra).
+  const variant = rightVariant !== "text" && !image ? "text" : rightVariant;
+  const hasAmbient = ambient && !!image;
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center gap-gp-2xl bg-bg-canvas p-pad-2xl">
-      <div className="grid w-full max-w-[1000px] overflow-hidden rounded-radius-2xl border border-border-subtle shadow-sh-lg lg:min-h-[620px] lg:grid-cols-2">
+    <div className="relative flex min-h-screen flex-col items-center justify-center gap-gp-2xl overflow-hidden bg-bg-canvas p-pad-2xl">
+      {/* Fundo ambiente: a imagem borrada + escurecida atrás de tudo. */}
+      {hasAmbient && (
+        <>
+          <img
+            src={image}
+            aria-hidden
+            alt=""
+            className="pointer-events-none absolute inset-0 size-full scale-110 object-cover opacity-20 blur-[60px] saturate-150"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-bg-canvas/85"
+          />
+        </>
+      )}
+
+      <div className="relative z-10 grid w-full max-w-[1000px] overflow-hidden rounded-radius-2xl border border-border-subtle shadow-sh-lg lg:min-h-[620px] lg:grid-cols-2">
         {/* ── Esquerda: formulário ── */}
         <div className="flex flex-col justify-center gap-gp-3xl bg-bg-surface p-pad-4xl lg:px-[40px] lg:py-pad-6xl">
           <div className="mb-gp-md flex flex-col items-center gap-gp-lg text-center">
             <span className="grid size-[48px] place-items-center rounded-radius-2xl bg-bg-brand text-fg-on-brand shadow-sh-sm [&>svg]:size-icon-lg">
-              <Hexagon strokeWidth={1.8} />
+              {logo ?? <Hexagon strokeWidth={1.8} />}
             </span>
             <div className="flex flex-col gap-gp-2xs">
               <h1 className="text-heading-xs font-bold text-fg-default">
@@ -120,50 +158,86 @@ export function LoginScreen() {
           </p>
         </div>
 
-        {/* ── Direita: painel de marca (100% tokens, sem imagem) ── */}
-        <div className="relative hidden overflow-hidden bg-bg-brand lg:flex lg:flex-col lg:justify-between">
-          {/* Camadas decorativas — radiais suaves na cor do texto sobre marca */}
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 opacity-[0.14] [background:radial-gradient(circle_at_18%_18%,var(--color-fg-on-brand)_0,transparent_42%),radial-gradient(circle_at_88%_8%,var(--color-fg-on-brand)_0,transparent_32%)]"
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-fg-default/25"
-          />
+        {/* ── Direita: painel (some no mobile) ── */}
+        <div className="relative hidden overflow-hidden bg-bg-brand lg:block">
+          {variant === "text" && (
+            <BrandPanel title={panelTitle} subtitle={panelSubtitle} />
+          )}
 
-          <div className="relative z-10 flex flex-col gap-gp-lg p-pad-6xl text-fg-on-brand">
-            <span className="grid size-[44px] place-items-center rounded-radius-xl bg-fg-on-brand/15 [&>svg]:size-icon-md">
-              <Hexagon strokeWidth={1.8} />
-            </span>
-            <div className="flex flex-col gap-gp-md">
-              <h2 className="text-heading-sm font-semibold leading-tight">
-                Tudo o que você precisa, num só lugar.
-              </h2>
-              <p className="max-w-[340px] text-body-md text-fg-on-brand/80">
-                Gerencie seus dados, acompanhe resultados e cresça com a sua
-                equipe.
-              </p>
-            </div>
-          </div>
+          {variant === "image" && (
+            <img
+              src={image}
+              alt=""
+              aria-hidden
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
 
-          <ul className="relative z-10 flex flex-col gap-gp-lg p-pad-6xl text-fg-on-brand">
-            {SELLING_POINTS.map(({ icon: Icon, label }) => (
-              <li key={label} className="flex items-center gap-gp-md">
-                <span className="grid size-comp-lg shrink-0 place-items-center rounded-radius-full bg-fg-on-brand/15 [&>svg]:size-icon-sm">
-                  <Icon strokeWidth={1.8} />
-                </span>
-                <span className="text-body-md text-fg-on-brand/90">{label}</span>
-              </li>
-            ))}
-          </ul>
+          {variant === "image-text" && (
+            <>
+              <img
+                src={image}
+                alt=""
+                aria-hidden
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              {/* Overlay escuro pra legibilidade do texto sobre a foto (exceção: texto sobre imagem). */}
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"
+              />
+              <div className="absolute inset-x-0 bottom-0 flex flex-col gap-gp-md p-pad-6xl text-white">
+                <h2 className="text-heading-sm font-semibold leading-tight">
+                  {panelTitle}
+                </h2>
+                <p className="max-w-[360px] text-body-md text-white/85">
+                  {panelSubtitle}
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
-      <p className="text-center text-caption-sm text-fg-subtle">
+      <p className="relative z-10 text-center text-caption-sm text-fg-subtle">
         Ao continuar, você concorda com os Termos de Uso e a Política de
         Privacidade.
       </p>
+    </div>
+  );
+}
+
+/** Painel de marca 100% por tokens (variant "text") — sem asset externo. */
+function BrandPanel({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div className="flex h-full flex-col justify-between">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.14] [background:radial-gradient(circle_at_18%_18%,var(--color-fg-on-brand)_0,transparent_42%),radial-gradient(circle_at_88%_8%,var(--color-fg-on-brand)_0,transparent_32%)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-fg-default/25"
+      />
+      <div className="relative z-10 flex flex-col gap-gp-lg p-pad-6xl text-fg-on-brand">
+        <span className="grid size-[44px] place-items-center rounded-radius-xl bg-fg-on-brand/15 [&>svg]:size-icon-md">
+          <Hexagon strokeWidth={1.8} />
+        </span>
+        <div className="flex flex-col gap-gp-md">
+          <h2 className="text-heading-sm font-semibold leading-tight">{title}</h2>
+          <p className="max-w-[340px] text-body-md text-fg-on-brand/80">{subtitle}</p>
+        </div>
+      </div>
+      <ul className="relative z-10 flex flex-col gap-gp-lg p-pad-6xl text-fg-on-brand">
+        {SELLING_POINTS.map(({ icon: Icon, label }) => (
+          <li key={label} className="flex items-center gap-gp-md">
+            <span className="grid size-comp-lg shrink-0 place-items-center rounded-radius-full bg-fg-on-brand/15 [&>svg]:size-icon-sm">
+              <Icon strokeWidth={1.8} />
+            </span>
+            <span className="text-body-md text-fg-on-brand/90">{label}</span>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
