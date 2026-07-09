@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { LoginScreen } from "../../examples/login";
-import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -18,7 +17,7 @@ type RightVariant = "text" | "image" | "image-text";
 const IMG = `${import.meta.env.BASE_URL}login-bg.png`;
 
 export default function LoginShowcase() {
-  const [variant, setVariant] = useState<RightVariant>("text");
+  const [variant, setVariant] = useState<RightVariant>("image");
   const [ambient, setAmbient] = useState(false);
 
   return (
@@ -50,7 +49,6 @@ export default function LoginShowcase() {
       </div>
 
       <LoginScreen
-        logo={<SidebarBrandIcon size={26} />}
         rightVariant={variant}
         image={IMG}
         ambient={ambient}

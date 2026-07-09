@@ -3,15 +3,16 @@ import type { ReactNode } from "react";
 import { Eye, EyeOff, LifeBuoy, Hexagon, ShieldCheck, Zap } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FormFieldInput, FormFieldCheckbox } from "@/components/ui/FormField";
+import { SidebarBrandIcon } from "@/components/ui/MenuSidebar";
 
 /**
  * LoginScreen — tela de login split (form à esquerda, painel à direita).
  * Self-contained e configurável por props:
  *
- *  - `logo`         — marca no topo do form (default: mark genérico; passe o do seu app).
+ *  - `logo`         — marca no topo do form (default: logo iGreen; passe o do seu app).
  *  - `rightVariant` — painel direito: "text" (marca 100% por tokens, sem asset) ·
  *                     "image" (só a imagem) · "image-text" (imagem + headline sobreposta).
- *                     Default "text". Se pedir image/-text sem `image`, cai no "text".
+ *                     **Default "image"** — sem `image`, cai no painel de texto (nunca quebra).
  *  - `image`        — URL da imagem (variants image/-text e do fundo `ambient`).
  *  - `ambient`      — fundo ambiente: a imagem borrada/escurecida atrás do card (destaque).
  *  - `panelTitle` / `panelSubtitle` — copy do painel (text e image-text).
@@ -33,8 +34,8 @@ const SELLING_POINTS = [
 ];
 
 export function LoginScreen({
-  logo,
-  rightVariant = "text",
+  logo = <SidebarBrandIcon size={24} />,
+  rightVariant = "image",
   image,
   ambient = false,
   panelTitle = "Tudo o que você precisa, num só lugar.",
@@ -76,8 +77,8 @@ export function LoginScreen({
         {/* ── Esquerda: formulário ── */}
         <div className="flex flex-col justify-center gap-gp-3xl bg-bg-surface p-pad-4xl lg:px-[40px] lg:py-pad-6xl">
           <div className="mb-gp-md flex flex-col items-center gap-gp-lg text-center">
-            <span className="grid size-[48px] place-items-center rounded-radius-2xl bg-bg-brand text-fg-on-brand shadow-sh-sm [&>svg]:size-icon-lg">
-              {logo ?? <Hexagon strokeWidth={1.8} />}
+            <span className="grid size-[48px] place-items-center rounded-radius-2xl bg-bg-brand text-fg-on-brand shadow-sh-sm">
+              {logo}
             </span>
             <div className="flex flex-col gap-gp-2xs">
               <h1 className="text-heading-xs font-bold text-fg-default">
