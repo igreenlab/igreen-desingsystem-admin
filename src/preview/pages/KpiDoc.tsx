@@ -94,8 +94,8 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 }
 
 const KPI_LABEL = "text-caption-md text-fg-muted";
-const KPI_VALUE =
-  "text-[30px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]";
+// Preset stat-lg (30px) — bold + leading tight já vêm do preset; só o numeric utility.
+const KPI_VALUE = "text-stat-lg text-fg-default [font-variant-numeric:tabular-nums]";
 
 /** Delta pill (+18% / -5%) via Chip semântico. */
 function Delta({
@@ -249,7 +249,7 @@ function KpiRowModel() {
               </p>
               <IconCircle icon={k.icon} />
             </div>
-            <p className="mt-gp-xs text-[24px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+            <p className="mt-gp-xs text-stat-md leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
               {k.value}
             </p>
             <div className="mt-gp-2xs flex items-center gap-gp-md">
@@ -1045,6 +1045,27 @@ function PrimSparkline() {
   );
 }
 
+function PrimSizes() {
+  const SIZES = ["sm", "md", "lg", "xl"] as const;
+  return (
+    <KpiGroup columns={4}>
+      {SIZES.map((size) => (
+        <Kpi
+          key={size}
+          size={size}
+          label={`size="${size}"`}
+          value="R$ 48.290"
+          icon={<TrendingUp strokeWidth={1.8} />}
+          tone="brand"
+          hint={
+            { sm: "20px", md: "24px (default)", lg: "30px", xl: "34px" }[size]
+          }
+        />
+      ))}
+    </KpiGroup>
+  );
+}
+
 function PrimDeltas() {
   return (
     <div className="flex flex-wrap items-center gap-gp-lg">
@@ -1072,6 +1093,7 @@ const PROPS_KPI = [
     type: "brand·success·warning·info·danger·neutral",
     defaultVal: "neutral",
   },
+  { name: "size", type: "sm·md·lg·xl (preset stat-* do valor)", defaultVal: "md" },
   { name: "footnote", type: "ReactNode", defaultVal: "—" },
   {
     name: "children",
@@ -1101,6 +1123,7 @@ const TOC = [
   { id: "kpi-group-cards", label: "KpiGroup · cards" },
   { id: "kpi-group-divided", label: "KpiGroup · divided" },
   { id: "kpi-sparkline", label: "Kpi + sparkline" },
+  { id: "kpi-sizes", label: "Kpi · size (stat)" },
   { id: "kpi-delta", label: "KpiDelta" },
   { id: "api", label: "API" },
   { id: "examples", label: "Examples" },
@@ -1159,6 +1182,13 @@ export function KpiDoc() {
           desc="Slot children = um ChartContainer (bars/line/area/donut) abaixo do valor."
         >
           <PrimSparkline />
+        </Example>
+        <Example
+          id="kpi-sizes"
+          title="Kpi — size (preset stat)"
+          desc="size sm/md/lg/xl mapeia o valor pros presets stat-* (20/24/30/34px). Default md. Números hero de dashboard → lg/xl."
+        >
+          <PrimSizes />
         </Example>
         <Example
           id="kpi-delta"

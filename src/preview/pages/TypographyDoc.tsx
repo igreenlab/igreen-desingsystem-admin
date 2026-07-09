@@ -8,6 +8,7 @@ const TOC = [
   { id: "title", label: "Title" },
   { id: "body", label: "Body" },
   { id: "caption", label: "Caption" },
+  { id: "stat", label: "Stat" },
   { id: "code", label: "Code" },
   { id: "overrides", label: "Overrides convencionais" },
 ];
@@ -53,7 +54,7 @@ export function TypographyDoc() {
       <DocHeader
         category="Foundations"
         title="Typography"
-        description="6 roles, 23 presets. Cada preset combina font-size + line-height + font-weight + letter-spacing + font-family. Override de peso/leading/tracking via Tailwind nativo (font-bold, leading-none, tracking-wider, etc)."
+        description="7 roles, 27 presets. Cada preset combina font-size + line-height + font-weight + letter-spacing + font-family. Override de peso/leading/tracking via Tailwind nativo (font-bold, leading-none, tracking-wider, etc)."
       />
 
       <DocSeparator />
@@ -62,7 +63,7 @@ export function TypographyDoc() {
       <div id="overview" className="scroll-mt-6">
         <SectionH2 id="overview" title="Overview" />
         <p className="text-body-md text-fg-muted mb-gp-4xl max-w-[680px]">
-          O sistema é dividido em 6 roles. <span className="text-body-md font-semibold text-fg-default">Body</span> é
+          O sistema é dividido em 7 roles. <span className="text-body-md font-semibold text-fg-default">Body</span> é
           o role central (texto corrido + interactive). <span className="text-body-md font-semibold text-fg-default">Display</span>{" "}
           e <span className="text-body-md font-semibold text-fg-default">Heading</span> escalam fluid via clamp().
           Os demais são estáticos em rem.
@@ -134,6 +135,16 @@ export function TypographyDoc() {
         <TypeSample preset="text-caption-md" label="Caption / MD" size="0.75rem (12px)" weight="Regular / 400" lineHeight="1rem" tracking="0" />
         <TypeSample preset="text-caption-sm" label="Caption / SM" size="0.6875rem (11px)" weight="Regular / 400" lineHeight="0.875rem" tracking="0" />
         <TypeSample preset="text-caption-xs" label="Caption / XS" size="0.625rem (10px)" weight="Regular / 400" lineHeight="0.75rem" tracking="0" hint="badge meta, micro caption" />
+      </div>
+
+      {/* ── Stat ───────────────────────────────────────────────────────── */}
+      <div id="stat" className="scroll-mt-6">
+        <SectionH2 id="stat" title="Stat" />
+        <p className="text-body-md text-fg-muted mb-gp-4xl">Número de métrica/KPI. Estático (não encolhe no mobile), bold, leading apertado. Pareie com <code className="text-code-sm">tabular-nums</code>. Consumido pelo componente <code className="text-code-sm">Kpi</code> (prop <code className="text-code-sm">size</code>).</p>
+        <TypeSample preset="text-stat-xl" label="Stat / XL" size="2.125rem (34px)" weight="Bold / 700" lineHeight="1.05" tracking="-2%" hint="KPI hero de dashboard" />
+        <TypeSample preset="text-stat-lg" label="Stat / LG" size="1.875rem (30px)" weight="Bold / 700" lineHeight="1.1" tracking="-1.5%" hint="KPI prominente" />
+        <TypeSample preset="text-stat-md" label="Stat / MD" size="1.5rem (24px)" weight="Bold / 700" lineHeight="1.15" tracking="-1%" hint="KPI padrão (Kpi default)" />
+        <TypeSample preset="text-stat-sm" label="Stat / SM" size="1.25rem (20px)" weight="Bold / 700" lineHeight="1.2" tracking="-1%" hint="mini-stat, resumo compacto" />
       </div>
 
       {/* ── Code ───────────────────────────────────────────────────────── */}

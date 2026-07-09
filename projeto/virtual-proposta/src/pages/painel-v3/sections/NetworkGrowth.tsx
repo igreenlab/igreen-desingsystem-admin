@@ -80,7 +80,7 @@ function EvolucaoView() {
           No mês de {m.nome}
         </span>
         <div className="flex items-baseline gap-gp-sm">
-          <span className="text-[30px] font-bold leading-none tabular-nums text-fg-default">
+          <span className="text-stat-lg font-bold leading-none tabular-nums text-fg-default">
             {fmt(m.total)}
           </span>
           <span className="text-title-md font-semibold text-fg-default">
@@ -156,7 +156,7 @@ function PerformanceView() {
       <div>
         <span className="text-caption-md text-fg-muted">Taxa de ativação</span>
         <div className="flex items-baseline gap-gp-sm">
-          <span className="text-[30px] font-bold leading-none tabular-nums text-fg-default">
+          <span className="text-stat-lg font-bold leading-none tabular-nums text-fg-default">
             {p.taxaAtual}%
           </span>
           <Chip color="success" variant="soft" size="sm">
