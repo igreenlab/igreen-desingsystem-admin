@@ -150,9 +150,10 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 
 3. Drill-down individual SÓ nas colunas que o usuário citar:
    `pinned` ("left"/"right") · `width` fixo (senão autoFit resolve) ·
-   `editable` (+`editType`) · `ellipsis` · `aggregate` (+`aggregateFormatter`) ·
+   `editable` (+`editType`) · `ellipsis` · `readMore` · `copyable` (ícone copiar no
+   hover — pra CNPJ/doc/e-mail/ID/conta) · `aggregate` (+`aggregateFormatter`) ·
    `valueGetter` (dot-path/lookup) · `render` custom (último recurso — preferir
-   type do registry).
+   type do registry). Grab-to-scroll lateral é **nativo** (não precisa citar).
 
 ---
 

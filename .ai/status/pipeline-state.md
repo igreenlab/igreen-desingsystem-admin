@@ -1315,3 +1315,31 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: as skills do payload lendo `.claude/ds-config.json` bastam pra rotear/gerar em modo submódulo sem igreen:add. Validado por smoke real contra `projeto/virtual-proposta` (alias `@` auto-detectado, importBase `@/components/ui`, 25 arquivos, commands+skills presentes, unlink limpo, git status limpo). node --check OK; tsc a validar no gate.
 - Regressões L-001..L-007: nenhuma (.styles.ts não tocado; mudança é tooling + markdown).
 - Lições novas: L-056 (submódulo = 3º canal; ds-link dá paridade — já registrada).
+
+---
+
+### 2026-07-08 | DS DEV | Tour guiado do DataTable (showcase) | CONCLUÍDO
+- Input: usuário pediu navegação assistida (onboarding) percorrendo os recursos da tabela sobre a tela `?app=finance`.
+- Output (PR #44): motor de tour DS-native `src/preview/components/guided-tour.tsx` (spotlight via box-shadow + balão no padrão flutuante L-040, steps por seletor/resolver com fallback, teclado, retry-measure) + `src/preview/pages/FinanceTutorialShowcase.tsx` (reusa ClientesFinanceiroShowcase + tour) + rota `?app=finance-tutorial` (App.tsx) + item "Tutorial DataTable" no doc-nav. 19 passos no padrão ANTES/DEPOIS (botão fechado → aberto) cobrindo busca/ordenar/redimensionar/menu-coluna/filtros/chip/visões/kanban/seleção/detalhe/config/totais/paginação.
+- Decisões: showcase-only (nenhum componente do DS modificado); âncoras por ARIA; popovers abertos via pointerdown com atraso + fechados via Esc (guard do tour ignora Esc com popover/menu aberto). Interações não-automatizáveis (editar chip, resize drag) = spotlight + explicação.
+- Assumption: âncoras ARIA estáveis bastam pra ancorar sem tocar no componente. Validado no browser (Playwright): 19/19 ancoram, popovers abrem/fecham sem vazar, 0 erros de console.
+- Regressões L-001..L-007: nenhuma (showcase .tsx; sem .styles.ts).
+- Lições novas: nenhuma.
+
+### 2026-07-09 | DS DEV | DataTable grab-to-scroll nativo + coluna copyable | CONCLUÍDO
+- Input: usuário pediu 2 melhorias na tabela — (1) botão de copiar valor no hover da célula; (2) arrastar pra rolar lateral. Descoberto na verificação prévia (Regra 2/6): AMBAS já existiam no DataTable (`copyable` + `grabToScroll`) — não reimplementar, só ativar/expor + tornar o scroll nativo.
+- Output (PR #45): `grabToScroll` default `false`→`true` (nativo; `!== false` em data-table.tsx) — toda tabela rola ao arrastar; `grabToScroll={false}` desliga. `copyable` habilitado no showcase finance (CNPJ + conta) e no `example-finance` (registry). Docs em TODOS os pontos: USAGE, DataTableDoc (props copyable/readMore/grabToScroll), crud-builder generate.md (repo+payload) + interview.md (repo), ds-standards.md, changelog. Validado no browser (grab sem prop: scrollLeft 0→320; botão "Copiar" no hover).
+- Decisões: mudar default de componente (native) é a intenção explícita do usuário ("nativo em todas as tabelas"); opt-out via prop. copyable/grabToScroll são exclusivos do DataTable (DataList N/A). CLI publish manual.
+- Assumption: threshold ~6px do grab preserva clique/seleção; native não quebra consumidores (opt-out disponível). Validado.
+- Regressões L-001..L-007: nenhuma (.styles.ts não tocado).
+- Lições novas: nenhuma (comportamento já existia; foi ativação + doc).
+
+### 2026-07-09 | DS DEV | Release v0.26.0 | RELEASE_PUSHED
+- Input: consolidar #43 (ds-link) + #44 (tour) + #45 (grab-scroll nativo + copyable) num release distribuído.
+- Output (PR #46, mergeado): bump DS 0.25.2→0.26.0 + CLI 0.14.0→0.15.0; changelog v0.26.0; registry:build + embed regen (78 items re-stamp @ v0.26.0, data-table com grab-scroll nativo + example-finance com copyable). npm publish do CLI 0.15.0 feito (token temporário do usuário, revogado após). Registry redeploya no merge.
+- Follow-up (PR chore/v0.26.0-followup): pipeline-state (este log), example-finance bankAccount copyable (paridade 1:1 com showcase — L-034), interview.md copyable, re-baseline examples-sources.lock.json.
+- Decisões: minor (mudança de default de componente + features). Não-foundational (sem cli:rebake).
+- Assumption: 3 canais (registry copy-in / submódulo ds-link / npm CLI) na v0.26.0. Validado: `npm view` = 0.15.0; embed stamps v0.26.0; release:check registry ✓.
+- Regressões L-001..L-007: nenhuma.
+- Lições novas: nenhuma.
+- Débito conhecido (pré-existente, não deste release): 12 componentes sem registry/catálogo (ColorPicker, Message*, Spinner, etc.) — distribution-debt.mjs. Backlog.

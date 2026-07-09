@@ -248,6 +248,10 @@ function buildColumns(
       filterType: "select",
       filterOptions: BANK_OPTIONS,
       valueGetter: (row) => row.bankAccount.bank,
+      copyable: {
+        value: (row) => `Ag ${row.bankAccount.agency} · ${row.bankAccount.account}`,
+        label: "Copiar conta",
+      },
       render: ({ row }) => {
         const meta = BANKS[row.bankAccount.bank];
         return (
