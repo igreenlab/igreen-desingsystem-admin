@@ -18,13 +18,14 @@ export function Kpi({
   hint,
   icon,
   tone = "neutral",
+  size = "md",
   footnote,
   children,
   surface,
   className,
 }: KpiProps) {
   const inherited = useContext(KpiSurfaceContext);
-  const s = kpi({ surface: surface ?? inherited, tone });
+  const s = kpi({ size, surface: surface ?? inherited, tone });
 
   return (
     <article className={cn(s.root(), className)}>

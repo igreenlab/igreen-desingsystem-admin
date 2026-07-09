@@ -1,8 +1,8 @@
 /**
  * typography.ts — Semantic typography tokens (composite)
  *
- * 6 roles: display | heading | title | body | caption | code
- * 23 presets totais
+ * 7 roles: display | heading | title | body | caption | stat | code
+ * 27 presets totais
  *
  * REGRAS:
  * - Presets compostos: combinam fontSize + lineHeight + fontWeight + letterSpacing + fontFamily.
@@ -31,6 +31,7 @@
  *   title      → títulos de card, seção (médio, estático, weight 600)
  *   body       → texto corrido + interactive (estático)
  *   caption    → texto auxiliar, metadados, microlabels (estático)
+ *   stat       → número de métrica/KPI (estático, bold, leading tight, + tabular-nums)
  *   code       → código inline e blocos (estático, mono)
  *
  * Migration log:
@@ -223,6 +224,42 @@ export const caption: Record<string, TypographyPreset> = {
   },
 } as const;
 
+// ─── Stat (estático — número de métrica/KPI, bold + leading tight) ────────────
+// Valores de destaque de KPI/indicador. Distinto de `body` (leitura) e `display`
+// (hero fluid): é ESTÁTICO (não encolhe no mobile — vive em card de tamanho fixo),
+// bold e com leading apertado. Pareie com `tabular-nums` (font-variant-numeric não
+// cabe no preset). Consumido pelo componente Kpi (prop `size`).
+export const stat: Record<string, TypographyPreset> = {
+  "stat-xl": {
+    fontSize:      "2.125rem",     // 34px
+    lineHeight:    "1.05",
+    fontWeight:    fontWeight.bold,
+    letterSpacing: "-0.02em",
+    fontFamily:    fontFamily.sans,
+  },
+  "stat-lg": {
+    fontSize:      "1.875rem",     // 30px
+    lineHeight:    "1.1",
+    fontWeight:    fontWeight.bold,
+    letterSpacing: "-0.015em",
+    fontFamily:    fontFamily.sans,
+  },
+  "stat-md": {
+    fontSize:      "1.5rem",       // 24px
+    lineHeight:    "1.15",
+    fontWeight:    fontWeight.bold,
+    letterSpacing: "-0.01em",
+    fontFamily:    fontFamily.sans,
+  },
+  "stat-sm": {
+    fontSize:      "1.25rem",      // 20px
+    lineHeight:    "1.2",
+    fontWeight:    fontWeight.bold,
+    letterSpacing: "-0.01em",
+    fontFamily:    fontFamily.sans,
+  },
+} as const;
+
 // ─── Code (estático — mono regular) ──────────────────────────────────────────
 export const code: Record<string, TypographyPreset> = {
   "code-md": {
@@ -248,6 +285,7 @@ export const typography = {
   ...title,
   ...body,
   ...caption,
+  ...stat,
   ...code,
 } as const;
 

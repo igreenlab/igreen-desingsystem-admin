@@ -536,6 +536,38 @@
   font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
 }
 
+@utility text-stat-xl {
+  font-size: 2.125rem;
+  line-height: 1.05;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
+}
+
+@utility text-stat-lg {
+  font-size: 1.875rem;
+  line-height: 1.1;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
+}
+
+@utility text-stat-md {
+  font-size: 1.5rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
+}
+
+@utility text-stat-sm {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);
+}
+
 @utility text-code-md {
   font-size: 1rem;
   line-height: 1.6;
