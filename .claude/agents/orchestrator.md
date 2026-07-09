@@ -75,6 +75,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 > | Tela kanban / board / funil (pipeline de vendas) | `/ds-create-crud` | `crud-builder` — kanban é `viewMode` do DataTable (Fase 5 + `kanban-design.md`); funil = board agrupado por etapa |
 > | Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
 > | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `/ds-create-dashboard` | `dashboard-builder` (entrevista → blueprint → **[GATE]** → geração; ancora em `dashboard-patterns.md` + example-dashboard) |
+> | Tela de login / autenticação (sign in, acesso, esqueci a senha) | `/ds-create-login` | `auth-builder` (skill focada: leia-e-adapte `example-login`; fullscreen sem AppShell) |
 > | Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
 
 ---

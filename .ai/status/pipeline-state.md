@@ -1354,3 +1354,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma.
 - Lições novas: nenhuma.
 - Pendência: npm publish do CLI 0.16.0 (manual/2FA) pro canal npm receber o catálogo. Registry redeploya no merge.
+
+---
+
+### 2026-07-09 | auth-builder | P2 — skill de login + example-login (`/ds-create-login`) | CONCLUÍDO
+- Input: roadmap da análise do VP — vibe-coders não conseguiam montar login (gap "conteúdo vs app"). Sequência aprovada; empacotamento = 1 PR por builder (branch da main).
+- Output: skill focada `auth-builder` cobrindo as 4 superfícies (L-047): (1) skill repo `.claude/skills/auth-builder/` + consumidor `cli/templates/default/_claude/skills/auth-builder/`; (2) command `/ds-create-login` (repo + consumidor); (3) `orchestrator.md`; (4) `ds-kit` consumidor. + `example-login` (`src/examples/login/`) — login split self-contained, painel de marca 100% por tokens (sem imagem externa — decisão de gate). + showcase: `?app=login` + item "Login" no doc-nav (fullscreen). Fonte única (LoginShowcase = wrapper fino, sem drift). tsc 0.
+- Decisões: skill FOCADA (leia-e-adapte), não builder com entrevista — login é quase-fixo. Fullscreen puro (padrão finance/order-detail), fora de DOC_PAGES. Painel por tokens (não `<img>`) pra não repetir o bug de imagem quebrada do VP.
+- Assumption: login é tela recorrente que vibe-coders pedem e example+skill focada bastam. Se falso, vira builder guiado.
+- Regressões L-001..L-007: nenhuma. Utilities do example validadas.
+- Lições novas: nenhuma.
+- Pendência: distribuição (registry entry `example-login` + catálogo CLI + bump) consolida no `/ds-release`. Smoke visual do `?app=login` no deploy.
