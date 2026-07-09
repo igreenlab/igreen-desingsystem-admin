@@ -88,7 +88,7 @@ function LeadKpiCard({ kpi }: { kpi: KpiCard }) {
       <div className="mt-pad-3xl flex items-end justify-between gap-gp-lg">
         <div>
           <div className="flex items-center gap-gp-md">
-            <span className="text-[30px] font-bold leading-tight tabular-nums text-fg-default">
+            <span className="text-stat-lg font-bold leading-tight tabular-nums text-fg-default">
               {kpi.value}
             </span>
             <Chip color={kpi.down ? "danger" : "success"} variant="soft" size="sm">

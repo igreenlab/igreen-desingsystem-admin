@@ -202,7 +202,7 @@ function GradDonut({
             </PieChart>
           </ChartContainer>
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-[30px] font-bold leading-none tabular-nums text-fg-default">
+            <span className="text-stat-lg font-bold leading-none tabular-nums text-fg-default">
               {total}
             </span>
             <span className="text-caption-md text-fg-muted">PRO</span>

@@ -1364,4 +1364,5 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: número de KPI/métrica é role recorrente (33 sites no VP) que merece token de 1ª classe — vs. `body-2xl`+`display-md` bastarem. Se falso, `stat` vira ruído no scale recém-enxugado (32→23).
 - Regressões L-001..L-007: nenhuma. L-016 cumprido (registro em tv.ts).
 - Lições novas: nenhuma.
-- Pendência: migração dos ~33 sites do VP `text-[Npx]` → `text-stat-*` (PR separado). Distribuição do token (registry:build reempacota theme.css + bump) consolida no próximo `/ds-release`.
+- Migração VP: 34 sites `text-[Npx]` → `text-stat-*` em 20 arquivos (todos valor de KPI, font-bold/medium+tabular-nums; snap à escala 20/24/30/34 preservando font-*/leading-*/cor). VP tsc 0. Zero `text-[Npx]` restante no VP. Incluída neste PR (mesma branch — o VP importa o globals do DS, então depende do CSS do stat).
+- Pendência: distribuição do token (registry:build reempacota theme.css + bump) consolida no próximo `/ds-release`. §7 (padrões interativos de dashboard) e adoção do stat no showcase/exemplos = backlog.
