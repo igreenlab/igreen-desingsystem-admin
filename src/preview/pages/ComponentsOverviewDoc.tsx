@@ -212,12 +212,12 @@ function ComponentCard({ item }: { item: CompItem }) {
   return (
     <a
       href={`#/${item.href}`}
-      className="group flex items-center gap-gp-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+      className="group flex items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface px-pad-lg py-pad-sm transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
     >
-      <span className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-muted text-fg-muted transition-colors group-hover:bg-bg-brand-subtle group-hover:text-fg-brand [&_svg]:size-icon-md">
+      <span className="grid size-comp-md shrink-0 place-items-center rounded-radius-sm bg-bg-muted text-fg-muted transition-colors group-hover:bg-bg-brand-subtle group-hover:text-fg-brand [&_svg]:size-icon-sm">
         <Icon strokeWidth={1.8} aria-hidden={true} />
       </span>
-      <span className="text-body-sm font-semibold text-fg-default group-hover:text-fg-brand">
+      <span className="text-body-sm font-medium text-fg-default group-hover:text-fg-brand truncate">
         {item.name}
       </span>
     </a>
@@ -284,7 +284,7 @@ export function ComponentsOverviewDoc() {
       {groups.map((g) => (
         <section key={g.category} className="mb-14">
           <SectionH2 id={slug(g.category)} title={`${g.category} (${g.items.length})`} />
-          <div className="grid grid-cols-1 gap-gp-md sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-gp-sm sm:grid-cols-3 lg:grid-cols-4">
             {g.items.map((i) => (
               <ComponentCard key={i.href} item={i} />
             ))}
