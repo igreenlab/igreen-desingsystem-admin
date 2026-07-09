@@ -12,6 +12,13 @@ import { ChipDoc } from "./preview/pages/ChipDoc";
 import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { TooltipDoc } from "./preview/pages/TooltipDoc";
 import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
+import { SpinnerDoc } from "./preview/pages/SpinnerDoc";
+import { EmptyStateDoc } from "./preview/pages/EmptyStateDoc";
+import { MarkdownTextDoc } from "./preview/pages/MarkdownTextDoc";
+import { FileUploadFieldDoc } from "./preview/pages/FileUploadFieldDoc";
+import { MonthYearPickerDoc } from "./preview/pages/MonthYearPickerDoc";
+import { ColorPickerDoc } from "./preview/pages/ColorPickerDoc";
+import { ComponentsOverviewDoc } from "./preview/pages/ComponentsOverviewDoc";
 import { SonnerDoc } from "./preview/pages/SonnerDoc";
 import { ToastDoc } from "./preview/pages/ToastDoc";
 import { ComboboxDoc } from "./preview/pages/ComboboxDoc";
@@ -269,6 +276,13 @@ const DOC_PAGES = [
   "dropdown-menu",
   "tooltip",
   "skeleton",
+  "spinner",
+  "empty-state",
+  "markdown-text",
+  "file-upload-field",
+  "month-year-picker",
+  "color-picker",
+  "components-overview",
   "sonner",
   "toast",
   "combobox",
@@ -502,6 +516,13 @@ export function App() {
             {activePage === "icon" && <IconLibraryDoc />}
             {activePage === "tooltip" && <TooltipDoc />}
             {activePage === "skeleton" && <SkeletonDoc />}
+            {activePage === "spinner" && <SpinnerDoc />}
+            {activePage === "empty-state" && <EmptyStateDoc />}
+            {activePage === "markdown-text" && <MarkdownTextDoc />}
+            {activePage === "file-upload-field" && <FileUploadFieldDoc />}
+            {activePage === "month-year-picker" && <MonthYearPickerDoc />}
+            {activePage === "color-picker" && <ColorPickerDoc />}
+            {activePage === "components-overview" && <ComponentsOverviewDoc />}
             {activePage === "sonner" && <SonnerDoc />}
             {activePage === "toast" && <ToastDoc />}
             {activePage === "combobox" && <ComboboxDoc />}
