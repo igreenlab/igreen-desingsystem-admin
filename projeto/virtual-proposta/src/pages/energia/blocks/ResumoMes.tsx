@@ -55,7 +55,7 @@ function OperacaoItem({
         {icon}
       </span>
       <div className="flex min-w-0 flex-col">
-        <span className="text-[18px] font-bold leading-none tabular-nums text-fg-default">
+        <span className="text-stat-sm font-bold leading-none tabular-nums text-fg-default">
           {value}
           {suffix && <span className="text-caption-md font-medium text-fg-success"> · {suffix}</span>}
         </span>
@@ -72,7 +72,7 @@ export function ResumoMes({ impacto, operacao }: ResumoMesProps) {
       <div className="flex flex-col gap-gp-md">
         <span className="text-caption-md font-medium text-fg-muted">Impacto ambiental</span>
         <div>
-          <span className="text-[28px] font-bold leading-none tabular-nums text-fg-success">
+          <span className="text-stat-lg font-bold leading-none tabular-nums text-fg-success">
             {fmtInt(impacto.mwhValidados)}
           </span>
           <span className="ml-gp-xs text-body-sm text-fg-muted">MWh validados</span>

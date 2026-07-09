@@ -48,7 +48,7 @@ function Taxa({
       <span
         className={cn(
           statusColor({ status: statusKey }),
-          "text-[24px] font-bold leading-none tabular-nums text-[var(--sc)]",
+          "text-stat-md font-bold leading-none tabular-nums text-[var(--sc)]",
         )}
       >
         {fmtDec1(pct)}%
@@ -92,7 +92,7 @@ export function ResumoGeralOperacao({
     >
       {/* Herói */}
       <div className="flex flex-wrap items-end justify-between gap-gp-md">
-        <span className="text-[34px] font-medium leading-none tabular-nums text-fg-default">
+        <span className="text-stat-xl font-medium leading-none tabular-nums text-fg-default">
           {fmtInt(totalCadastros)}
         </span>
         <span className="text-body-sm text-fg-muted">

@@ -125,7 +125,7 @@ function MetricText({
   return (
     <div className="min-w-0">
       <p className="text-caption-md text-fg-muted">{label}</p>
-      <p className="mt-gp-xs text-[22px] font-bold leading-tight tabular-nums text-fg-default">
+      <p className="mt-gp-xs text-stat-sm font-bold leading-tight tabular-nums text-fg-default">
         {value}
       </p>
       <p className="mt-gp-2xs text-caption-sm font-medium text-fg-success">

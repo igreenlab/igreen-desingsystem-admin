@@ -29,6 +29,7 @@ veja as **Composições** em `#/kpi`.
 | `hint`     | `ReactNode` (sublabel, ex.: "vs ontem")                | —                            |
 | `icon`     | `ReactNode`                                            | —                            |
 | `tone`     | `brand·success·warning·info·danger·neutral`            | `neutral`                    |
+| `size`     | `sm·md·lg·xl` (preset `stat-*` do valor: 20/24/30/34px) | `md` (24px)                 |
 | `footnote` | `ReactNode` (com divisória acima)                      | —                            |
 | `children` | `ReactNode` (slot p/ sparkline/chart, abaixo do valor) | —                            |
 | `surface`  | `card · plain`                                         | herda do `KpiGroup` (`card`) |
@@ -85,6 +86,10 @@ import { Phone } from "lucide-react";
   `.ai/context/components/dashboard-patterns.md`. Doc viva: `#/dashboard-showcase`.
 - **`divided` controla a superfície** dos `Kpi` filhos (viram `plain`); fora de um
   group `divided`, cada `Kpi` é um card. Override com a prop `surface` se preciso.
+- **Valor do KPI usa preset `stat-*`** (`size`, default `md`=24px). Números
+  grandes de dashboard → `size="lg"`/`"xl"`. Fora do `Kpi`, use `text-stat-*
+  tabular-nums` direto — nunca `text-[Npx]` na unha. O preset já traz bold +
+  leading tight; adicione só `tabular-nums`.
 - **Sparkline via `Chart`** (Recharts) no slot `children` — id de `linearGradient`
   sem espaço/`&` (use índice), senão o `url(#...)` não resolve.
 - Cores 100% por token (tones via `bg-bg-*-muted`/`fg-*`). Sem hardcode.

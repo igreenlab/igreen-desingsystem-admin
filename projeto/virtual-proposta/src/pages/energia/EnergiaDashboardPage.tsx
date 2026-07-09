@@ -100,7 +100,7 @@ function MetricKpi({
   return (
     <div className="min-w-0">
       <p className="truncate text-caption-md text-fg-muted">{label}</p>
-      <p className="mt-gp-2xs text-[22px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+      <p className="mt-gp-2xs text-stat-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
         {value}
       </p>
       {sub && (
@@ -160,7 +160,7 @@ function DonutCard({
             </PieChart>
           </ChartContainer>
           <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-            <span className="text-[22px] font-bold leading-none tabular-nums text-fg-default">
+            <span className="text-stat-sm font-bold leading-none tabular-nums text-fg-default">
               {centerValue}
             </span>
             <span className="text-caption-sm text-fg-muted">{centerLabel}</span>
@@ -331,7 +331,7 @@ export function EnergiaDashboardPage() {
       >
         <div>
           <p className="text-caption-md text-fg-muted">Clientes ativos no segmento</p>
-          <p className="text-[34px] font-bold leading-none tabular-nums text-fg-default">
+          <p className="text-stat-xl font-bold leading-none tabular-nums text-fg-default">
             {num(energiaKpis.clientesAtivos)}
           </p>
           <p className="mt-gp-2xs text-body-sm font-medium text-fg-success">
@@ -413,7 +413,7 @@ export function EnergiaDashboardPage() {
       {/* 5 — Funil de cadastros do mês (hero + barra + tabela) */}
       <SectionCard title="Funil de cadastros do mês" subtitle="Status dos cadastros do segmento">
         <div className="flex flex-wrap items-end justify-between gap-gp-md">
-          <span className="text-[34px] font-medium leading-none tabular-nums text-fg-default">
+          <span className="text-stat-xl font-medium leading-none tabular-nums text-fg-default">
             {num(totalCadastrosMes)}
           </span>
           <span className="text-body-sm text-fg-muted">

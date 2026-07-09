@@ -25,12 +25,13 @@ fonts.ts (primitivo)
   BASE = 16px, RATIO = 1.25 (major third)
   typeSize(step), lh(), fontFamilies, fontWeights, letterSpacing
        ↓
-typography.ts (semântico — 23 presets compostos em 6 roles, valores em rem/clamp)
+typography.ts (semântico — 27 presets compostos em 7 roles, valores em rem/clamp)
   display      → hero sections (fluid — clamp)              4 presets
   heading      → títulos de página (fluid sm→xl, estático xs)  5 presets
   title        → títulos de card/seção (estático, weight 600 default)  3 presets
   body         → texto corrido + interactive (estático)        6 presets
   caption      → texto auxiliar, meta, microlabels (estático)  3 presets
+  stat         → número de métrica/KPI (estático, bold, leading tight)  4 presets
   code         → código inline e blocos (estático, mono)       2 presets
 ```
 
@@ -39,6 +40,7 @@ typography.ts (semântico — 23 presets compostos em 6 roles, valores em rem/cl
 - **Tier pequeno (incremento 1px)**: 10, 11, 12, 13, 14
 - **Tier médio (incremento 2px)**: 16, 18, 20
 - **Tier grande (incremento 4px)**: 24
+- **Tier stat (números de KPI, estático)**: 20, 24, 30, 34
 - **Tier display (fluid clamp)**: ≥ 28px
 
 ## Hierarquia de presets — valores exatos
@@ -89,6 +91,20 @@ typography.ts (semântico — 23 presets compostos em 6 roles, valores em rem/cl
 | `caption-sm` | 0.6875rem (11px) | 0.875rem | 400 | 0em | tooltip, timestamp, meta |
 | `caption-xs` | 0.625rem (10px) | 0.75rem | 400 | 0em | badge meta, micro caption |
 
+### stat (número de métrica/KPI — estático, **weight 700**, leading tight)
+
+Valor de destaque de KPI/indicador. Estático (não encolhe no mobile — vive em
+card de tamanho fixo), diferente de `body` (leitura) e `display` (hero fluid).
+**Pareie sempre com `tabular-nums`** (font-variant-numeric não cabe no preset).
+Consumido pelo componente `Kpi` via prop `size`.
+
+| Preset | Size | Line-height | Weight | Letter-spacing | Uso típico |
+|--------|------|-------------|--------|----------------|------------|
+| `stat-xl` | 2.125rem (34px) | 1.05 | **700** | -0.02em | KPI hero de dashboard |
+| `stat-lg` | 1.875rem (30px) | 1.1 | **700** | -0.015em | KPI prominente |
+| `stat-md` | 1.5rem (24px) | 1.15 | **700** | -0.01em | KPI padrão (= Kpi default) |
+| `stat-sm` | 1.25rem (20px) | 1.2 | **700** | -0.01em | mini-stat, resumo compacto |
+
 ### code (mono regular)
 
 | Preset | Size | Line-height | Weight | Letter-spacing |
@@ -110,7 +126,7 @@ typography.ts (semântico — 23 presets compostos em 6 roles, valores em rem/cl
 | Tabs item | `text-body-sm font-medium` (13/500) |
 | Modal title | `text-title-md font-bold leading-[1.3] tracking-[-0.01em]` (override de leading custom) |
 | Modal description | `text-caption-md leading-[1.45]` (12/400) |
-| KPI principal | `text-body-2xl font-bold leading-none [font-variant-numeric:tabular-nums]` (24/700) |
+| KPI principal | `text-stat-md tabular-nums` (24px) — ou `Kpi size="lg"/"xl"` (30/34px hero). Weight/leading já vêm do preset stat |
 | Section header uppercase | `text-caption-sm font-semibold uppercase tracking-wider leading-none` |
 
 ## Regras invioláveis

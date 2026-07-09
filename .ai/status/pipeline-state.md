@@ -1357,6 +1357,18 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 
 ---
 
+### 2026-07-09 | DS DESIGNER + DS DEV | Typography role `stat` (valor de KPI/métrica) | CONCLUÍDO
+- Input: análise do VP achou ~33 KPIs com `text-[18–34px] font-bold leading-none tabular-nums` avulso — único desvio de fidelidade sistemático. Gate aprovado pelo usuário ("prosseguir").
+- Output: novo role `stat` (4 presets estáticos: stat-sm 20 / stat-md 24 / stat-lg 30 / stat-xl 34, bold, leading tight) em `typography.ts` (23→27 presets, 6→7 roles). Registrado em `tv.ts` (L-016). `tokens:tw4` rebake (@utility text-stat-* gerados). Componente `Kpi` ganhou prop `size` (sm/md/lg/xl → text-stat-*, default md = idêntico ao antigo body-2xl). Docs: typography.md context, ds-standards.md, Kpi USAGE, KpiDoc (demo size + dogfood KPI_VALUE→stat-lg), TypographyDoc (role stat). tsc 0.
+- Decisões: role dedicado (não mapear pra display/heading) porque número de métrica é estático (não encolhe no mobile) + semântica própria; display=hero fluid, body=leitura. tabular-nums fica utility (não cabe no preset composto). Kpi default md preserva o visual atual (24px) — não-breaking.
+- Assumption: número de KPI/métrica é role recorrente (33 sites no VP) que merece token de 1ª classe — vs. `body-2xl`+`display-md` bastarem. Se falso, `stat` vira ruído no scale recém-enxugado (32→23).
+- Regressões L-001..L-007: nenhuma. L-016 cumprido (registro em tv.ts).
+- Lições novas: nenhuma.
+- Migração VP: 34 sites `text-[Npx]` → `text-stat-*` em 20 arquivos (todos valor de KPI, font-bold/medium+tabular-nums; snap à escala 20/24/30/34 preservando font-*/leading-*/cor). VP tsc 0. Zero `text-[Npx]` restante no VP. Incluída neste PR (mesma branch — o VP importa o globals do DS, então depende do CSS do stat).
+- Pendência: distribuição do token (registry:build reempacota theme.css + bump) consolida no próximo `/ds-release`. §7 (padrões interativos de dashboard) e adoção do stat no showcase/exemplos = backlog.
+
+---
+
 ### 2026-07-09 | auth-builder | P2 — skill de login + example-login (`/ds-create-login`) | CONCLUÍDO
 - Input: roadmap da análise do VP — vibe-coders não conseguiam montar login (gap "conteúdo vs app"). Sequência aprovada; empacotamento = 1 PR por builder (branch da main).
 - Output: skill focada `auth-builder` cobrindo as 4 superfícies (L-047): (1) skill repo `.claude/skills/auth-builder/` + consumidor `cli/templates/default/_claude/skills/auth-builder/`; (2) command `/ds-create-login` (repo + consumidor); (3) `orchestrator.md`; (4) `ds-kit` consumidor. + `example-login` (`src/examples/login/`) — login split self-contained, painel de marca 100% por tokens (sem imagem externa — decisão de gate). + showcase: `?app=login` + item "Login" no doc-nav (fullscreen). Fonte única (LoginShowcase = wrapper fino, sem drift). tsc 0.

@@ -115,7 +115,7 @@ function KpiCell({
           <Icon className="size-icon-sm" aria-hidden />
         </span>
       </div>
-      <p className={cn("text-[24px] font-bold leading-tight tabular-nums", valueColor)}>{value}</p>
+      <p className={cn("text-stat-md font-bold leading-tight tabular-nums", valueColor)}>{value}</p>
       <p className="text-caption-md text-fg-muted">{hint}</p>
     </div>
   );
@@ -357,7 +357,7 @@ export function FinanceiroPage() {
                 </PieChart>
               </ChartContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-[20px] font-bold leading-none tabular-nums text-fg-default">{num(tipoTotal)}</span>
+                <span className="text-stat-sm font-bold leading-none tabular-nums text-fg-default">{num(tipoTotal)}</span>
                 <span className="text-caption-sm text-fg-muted">boletos</span>
               </div>
             </div>
