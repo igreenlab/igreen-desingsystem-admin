@@ -86,7 +86,7 @@ Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `
 > App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `single-menu-sidebar` `kpi` `header` `app-shell`.
 > Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
 > `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
-> `example-mapa-rede`.
+> `example-mapa-rede` `example-login` `example-app-shell`.
 
 ## 🧭 Mapa de intenção → referência (IA: USE ISTO PRIMEIRO)
 

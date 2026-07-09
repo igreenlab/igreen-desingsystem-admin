@@ -46,6 +46,40 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.28.0",
+    date: "2026-07-09",
+    tag: "preview",
+    title: "Kit de telas do app: login, esqueleto, composição + role tipográfico stat",
+    summary:
+      "Skills e exemplos pra montar o APP inteiro (não só o conteúdo das telas): login, esqueleto (AppShell + navegação + rotas), página composta e replicação de módulo — tudo dirigido por intenção, sem a pessoa precisar ser técnica. Mais o role tipográfico `stat` pro valor de KPI e correções de vitrine.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Role tipográfico `stat`** (`stat-sm/md/lg/xl` = 20/24/30/34px, bold, leading apertado) pro valor de KPI/métrica + prop `size` no `Kpi` (default `md`, não-breaking). Pareie com `tabular-nums` — mata o `text-[Npx]` avulso.",
+          "**Login** — skill `auth-builder` + `/ds-create-login` + `example-login`: tela split com painel de marca 100% por tokens (sem imagem externa), fullscreen, self-contained.",
+          "**Esqueleto de app** — skill `app-builder` + `/ds-create-app` + `example-app-shell`: AppShell + nav-data + **mapa de rotas declarativo** (href→tela, não cadeia de `if`).",
+          "**Página composta** — skill `screen-composer` (master-detail + cross-filter, estado compartilhado) + upgrade do front-door `/ds-create-screen` pra detectá-la.",
+          "**Replicar módulo/segmento** — skill `module-replicator` + `/ds-replicate-module` (avalia copiar × parametrizar antes de clonar).",
+          "**DatePicker** — de 2 para 8 exemplos: intervalo (range), presets, navegação por mês/ano (dropdown), datas restritas, em formulário e alinhamento.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "`dashboard-patterns` ganhou a receita **§7 (estado compartilhado)** — master-detail + cross-filter — e passou a apontar o preset `stat` no lugar de `text-[Npx]`.",
+          "Virtual Proposta migrou **34 valores de KPI** para `text-stat-*` (fidelidade ao DS; snap à escala 20/24/30/34).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Login do demo: imagem de fundo quebrada no Vercel — o caminho passou a respeitar o `base` do deploy (`import.meta.env.BASE_URL`), corrigindo o 404.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.27.0",
     date: "2026-07-09",
     tag: "release",
