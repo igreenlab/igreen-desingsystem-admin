@@ -1357,10 +1357,22 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 
 ---
 
+### 2026-07-09 | DS DESIGNER + DS DEV | Typography role `stat` (valor de KPI/métrica) | CONCLUÍDO
+- Input: análise do VP achou ~33 KPIs com `text-[18–34px] font-bold leading-none tabular-nums` avulso — único desvio de fidelidade sistemático. Gate aprovado pelo usuário ("prosseguir").
+- Output: novo role `stat` (4 presets estáticos: stat-sm 20 / stat-md 24 / stat-lg 30 / stat-xl 34, bold, leading tight) em `typography.ts` (23→27 presets, 6→7 roles). Registrado em `tv.ts` (L-016). `tokens:tw4` rebake (@utility text-stat-* gerados). Componente `Kpi` ganhou prop `size` (sm/md/lg/xl → text-stat-*, default md = idêntico ao antigo body-2xl). Docs: typography.md context, ds-standards.md, Kpi USAGE, KpiDoc (demo size + dogfood KPI_VALUE→stat-lg), TypographyDoc (role stat). tsc 0.
+- Decisões: role dedicado (não mapear pra display/heading) porque número de métrica é estático (não encolhe no mobile) + semântica própria; display=hero fluid, body=leitura. tabular-nums fica utility (não cabe no preset composto). Kpi default md preserva o visual atual (24px) — não-breaking.
+- Assumption: número de KPI/métrica é role recorrente (33 sites no VP) que merece token de 1ª classe — vs. `body-2xl`+`display-md` bastarem. Se falso, `stat` vira ruído no scale recém-enxugado (32→23).
+- Regressões L-001..L-007: nenhuma. L-016 cumprido (registro em tv.ts).
+- Lições novas: nenhuma.
+- Migração VP: 34 sites `text-[Npx]` → `text-stat-*` em 20 arquivos (todos valor de KPI, font-bold/medium+tabular-nums; snap à escala 20/24/30/34 preservando font-*/leading-*/cor). VP tsc 0. Zero `text-[Npx]` restante no VP. Incluída neste PR (mesma branch — o VP importa o globals do DS, então depende do CSS do stat).
+- Pendência: distribuição do token (registry:build reempacota theme.css + bump) consolida no próximo `/ds-release`. §7 (padrões interativos de dashboard) e adoção do stat no showcase/exemplos = backlog.
+
+---
+
 ### 2026-07-09 | screen-composer | P5 — skill de página composta (estado compartilhado) | CONCLUÍDO
 - Input: roadmap VP — nenhuma skill capturava como compor página com 2+ peças que conversam (master-detail, cross-filter). Escolha do usuário: skill leve, sem builder pesado nem example novo.
 - Output: skill focada `screen-composer` (repo + consumidor) + upgrade do front-door `/ds-create-screen` (repo + consumidor) detectando "página composta" → screen-composer + linha no orchestrator + ds-kit + **receita §7 "Estado compartilhado"** em `dashboard-patterns.md` (master-detail com `selectedId`; cross-filter com 1 `useMemo` derivando o dataset) + item no checklist. Só `.md` (sem TS/example).
 - Decisões: skill leve (leia-e-adapte finance/order-detail), não builder. Sem example novo — reaproveita example-finance (master-detail) e os dashboards (cross-filter). Estado sobe pra página (single source of truth); filtro por coluna continua nativo (L-051), cross-filter = escopo global.
 - Assumption: master-detail + cross-filter cobrem a maioria das páginas compostas; a receita §7 + os exemplos existentes bastam pra IA cabear o estado. Se falso, precisa de exemplos compostos dedicados.
 - Regressões: nenhuma. Lições novas: nenhuma.
-- Pendência: conflito trivial esperado com PRs P1/P2 em orchestrator/ds-kit/pipeline-state (append-only; manter ambos).
+- Pendência: distribuição consolida no `/ds-release`.

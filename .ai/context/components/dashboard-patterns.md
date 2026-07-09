@@ -9,8 +9,9 @@ e validadas visualmente (L-034). Complementa `chart-patterns.md` (Recharts) e
 > **Regra de ouro:** essas composições usam os **primitivos existentes** (`Kpi`,
 > `KpiGroup`, `KpiDelta`, `Chart`, `Panel`, `DataTable`, `DataList`, `Chip`,
 > `Avatar`). Não são componentes novos — são receitas de montagem. Cor 100% por
-> token; os únicos literais deliberados são os tamanhos de número grande
-> (`text-[24px]`/`text-[28px]`/`text-[30px]`) que não têm preset DS.
+> token; valor de número grande = preset **`stat-{sm|md|lg|xl}`** (20/24/30/34px,
+> bold, leading tight) + `tabular-nums` — **nunca** `text-[Npx]` na unha. Dentro
+> de um card `Kpi`, use a prop `size`.
 
 ---
 
@@ -66,7 +67,7 @@ import { Kpi, KpiGroup, KpiDelta } from "@/components/ui/Kpi";
           <Icon className="size-icon-sm" aria-hidden />
         </span>
       </div>
-      <p className="text-[24px] font-bold leading-tight tabular-nums text-fg-default">{value}</p>
+      <p className="text-stat-md leading-tight tabular-nums text-fg-default">{value}</p>
       {hint && (
         <p className="text-caption-md text-fg-muted">
           {delta && (
@@ -131,8 +132,8 @@ vem do espaçamento, não de heading grande).
 - **Gauge radial** (meta/progresso): `<RadialBarChart innerRadius="72%" outerRadius="100%"
   startAngle={90} endAngle={-270}>` + `<PolarAngleAxis type="number" domain={[0,100]} tick={false} />`
   + `<RadialBar cornerRadius={8} fill="var(--color-chart-1)" background={{fill:"var(--color-bg-muted)"}} />`
-  com overlay central `text-[30px] font-bold` (L-032). Exemplo: "Meta do mês" no example-dashboard.
-- **Big-number** liderando o card (opcional): `text-[30px] font-bold leading-none
+  com overlay central `text-stat-lg tabular-nums` (L-032). Exemplo: "Meta do mês" no example-dashboard.
+- **Big-number** liderando o card (opcional): `text-stat-lg leading-none
   tabular-nums` + subtítulo `text-title-md font-semibold`, e uma linha de variação
   `text-caption-sm font-medium text-fg-success`.
 - **Legenda / metric-row** (ícone-quadrado + label/sub + valor à direita), sob um
@@ -221,18 +222,18 @@ colunas + métrica headline com delta. Padrão pra rankings operacionais.
 - Variante Licenciados: identidade `w-[240px]` com status badge quadrado; bloco à
   direita = status Chip + linha de vencimento em vez de Total.
 - **LeadKpiCard** (KPI evolutivo, 3-up `grid-cols-1 md:grid-cols-3 gap-gp-2xl`): título
-  `title-md` + valor `text-[30px] font-bold` + `<KpiDelta signed>` + sparkline
+  `title-md` + valor `text-stat-lg tabular-nums` + `<KpiDelta signed>` + sparkline
   (`h-[64px] w-[150px]`, barra destacada = `chart-1`/`fg-danger`, resto `bg-bg-muted`) +
   **FOOTER descritivo obrigatório**: `mt-auto border-t border-border-subtle pt-pad-lg` com
   `text-caption-md text-fg-muted` (frase curta de contexto). ⚠️ o footer é o que fecha o card —
   não deixar de fora.
 - **KPI interno no footer de card grande** (ex.: "Crescimento da carteira", "Resumo Geral"):
-  card com header de KPI grande (`text-[34px] font-bold` + delta em texto `text-fg-success`) +
+  card com header de KPI grande (`text-stat-xl tabular-nums` + delta em texto `text-fg-success`) +
   gráfico + **footer de N mini-KPIs** num `grid sm:grid-cols-3 gap-gp-lg`, cada um
   `rounded-radius-lg border border-border-subtle bg-bg-muted px-pad-xl py-pad-lg` com label
-  `caption-md` + valor `text-[22px] font-bold` + sub `caption-sm` (tom up/warn/neutral).
+  `caption-md` + valor `text-stat-sm tabular-nums` + sub `caption-sm` (tom up/warn/neutral).
 - **Donut com legenda** (participação): `ChartContainer aspect-square w-[160px]` + overlay central
-  (valor `text-[22px]` + label `caption-sm`) + lista `flex flex-col gap-gp-xs` (dot `size-[10px]
+  (valor `text-stat-sm tabular-nums` + label `caption-sm`) + lista `flex flex-col gap-gp-xs` (dot `size-[10px]
   rounded-radius-full` na cor + nome `flex-1` + `%` `font-semibold`).
 
 ---
@@ -403,4 +404,4 @@ cabeia esse estado no nível da página.
 - [ ] Tabela → ordem de roles (§5), filtros nativos pré-aplicados.
 - [ ] Lista/kanban → slots (§6), sem botão de ação na linha.
 - [ ] Página composta → estado compartilhado sobe pra página (§7): master-detail (`selectedId`) e/ou cross-filter (dataset derivado por 1 `useMemo`).
-- [ ] Zero hardcode de cor; números grandes literais só onde não há preset.
+- [ ] Zero hardcode de cor; **valor de número grande = `text-stat-*` (ou `Kpi size`)**, nunca `text-[Npx]`.

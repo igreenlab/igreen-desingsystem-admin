@@ -53,7 +53,7 @@ function KpiCell({
       </div>
       <p
         className={cn(
-          "text-[24px] font-bold leading-tight tabular-nums",
+          "text-stat-md font-bold leading-tight tabular-nums",
           valueColor,
         )}
       >

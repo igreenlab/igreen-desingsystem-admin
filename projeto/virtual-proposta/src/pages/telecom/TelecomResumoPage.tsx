@@ -81,7 +81,7 @@ function KpiCell({
           <Icon className="size-icon-sm" aria-hidden />
         </span>
       </div>
-      <p className="text-[24px] font-bold leading-tight tabular-nums text-fg-default">{value}</p>
+      <p className="text-stat-md font-bold leading-tight tabular-nums text-fg-default">{value}</p>
       <p className="text-caption-md text-fg-muted">
         {delta && (
           <span className={cn("font-semibold", delta.trim().startsWith("-") ? "text-fg-danger" : "text-fg-success")}>
@@ -98,7 +98,7 @@ function KpiCell({
 function TrendStat({ value, subtitle, delta }: { value: string; subtitle: string; delta: string }) {
   return (
     <div>
-      <p className="text-[28px] font-bold leading-none tabular-nums text-fg-default">{value}</p>
+      <p className="text-stat-lg font-bold leading-none tabular-nums text-fg-default">{value}</p>
       <div className="mt-gp-sm flex items-center gap-gp-sm">
         <span className="text-caption-md text-fg-muted">{subtitle}</span>
         <Chip color="success" variant="soft" size="sm" shape="pill">
@@ -312,7 +312,7 @@ export function TelecomResumoPage() {
                 </PieChart>
               </ChartContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-[24px] font-bold leading-none tabular-nums text-fg-default">
+                <span className="text-stat-md font-bold leading-none tabular-nums text-fg-default">
                   {num(resumoGeral.totalCadastradas)}
                 </span>
                 <span className="text-caption-sm text-fg-muted">cadastradas</span>

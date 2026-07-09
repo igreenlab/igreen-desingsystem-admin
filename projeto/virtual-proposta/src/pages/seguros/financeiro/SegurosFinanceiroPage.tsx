@@ -98,7 +98,7 @@ function KpiCell({
           <Icon className="size-icon-sm" aria-hidden />
         </span>
       </div>
-      <p className="text-[24px] font-bold leading-tight tabular-nums text-fg-default">{value}</p>
+      <p className="text-stat-md font-bold leading-tight tabular-nums text-fg-default">{value}</p>
       {hint && <p className="text-caption-md text-fg-muted">{hint}</p>}
     </div>
   );
