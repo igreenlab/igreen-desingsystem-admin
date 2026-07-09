@@ -1388,3 +1388,13 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões L-001..L-007: nenhuma. Utilities validadas.
 - Lições novas: nenhuma.
 - Pendência: distribuição (registry entry `example-app-shell` + catálogo CLI + bump) no `/ds-release`. Smoke visual do `?app=app-shell`.
+
+---
+
+### 2026-07-09 | screen-composer | P5 — skill de página composta (estado compartilhado) | CONCLUÍDO
+- Input: roadmap VP — nenhuma skill capturava como compor página com 2+ peças que conversam (master-detail, cross-filter). Escolha do usuário: skill leve, sem builder pesado nem example novo.
+- Output: skill focada `screen-composer` (repo + consumidor) + upgrade do front-door `/ds-create-screen` (repo + consumidor) detectando "página composta" → screen-composer + linha no orchestrator + ds-kit + **receita §7 "Estado compartilhado"** em `dashboard-patterns.md` (master-detail com `selectedId`; cross-filter com 1 `useMemo` derivando o dataset) + item no checklist. Só `.md` (sem TS/example).
+- Decisões: skill leve (leia-e-adapte finance/order-detail), não builder. Sem example novo — reaproveita example-finance (master-detail) e os dashboards (cross-filter). Estado sobe pra página (single source of truth); filtro por coluna continua nativo (L-051), cross-filter = escopo global.
+- Assumption: master-detail + cross-filter cobrem a maioria das páginas compostas; a receita §7 + os exemplos existentes bastam pra IA cabear o estado. Se falso, precisa de exemplos compostos dedicados.
+- Regressões: nenhuma. Lições novas: nenhuma.
+- Pendência: distribuição consolida no `/ds-release`.
