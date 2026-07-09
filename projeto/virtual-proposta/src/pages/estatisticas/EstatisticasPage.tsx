@@ -83,7 +83,7 @@ function MetricKpi({
   return (
     <div className="min-w-0">
       <p className="truncate text-caption-md text-fg-muted">{label}</p>
-      <p className="mt-gp-2xs text-[22px] font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
+      <p className="mt-gp-2xs text-stat-sm font-bold leading-tight text-fg-default [font-variant-numeric:tabular-nums]">
         {value}
       </p>
       {sub && (
@@ -258,7 +258,7 @@ export function EstatisticasPage() {
         {/* Valor de destaque + delta do mês */}
         <div>
           <p className="text-caption-md text-fg-muted">PROs ativos na rede</p>
-          <p className="text-[34px] font-bold leading-none tabular-nums text-fg-default">
+          <p className="text-stat-xl font-bold leading-none tabular-nums text-fg-default">
             {num(currentMonth.total)}
           </p>
           <p className="mt-gp-2xs text-body-sm font-medium text-fg-success">
@@ -391,7 +391,7 @@ export function EstatisticasPage() {
                 </PieChart>
               </ChartContainer>
               <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
-                <span className="text-[26px] font-bold leading-none tabular-nums text-fg-default">
+                <span className="text-stat-md font-bold leading-none tabular-nums text-fg-default">
                   {num(gradTotal)}
                 </span>
                 <span className="text-caption-md text-fg-muted">PROs</span>

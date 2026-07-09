@@ -83,7 +83,7 @@ export function QuadStats({
               </div>
               <p
                 className={cn(
-                  "text-[22px] font-bold leading-none tabular-nums",
+                  "text-stat-sm font-bold leading-none tabular-nums",
                   valueColor,
                 )}
               >
