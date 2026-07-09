@@ -42,6 +42,7 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 | "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                                 |
 | cabeçalho de página                                                                                 | componente `PageHeader`                                                                                                       |
 | "esqueleto do app", "estrutura/base do app", "shell + navegação + rotas", "montar o app do zero"    | **skill `app-builder`** (`/ds-create-app`) → `example-app-shell` (AppShell + nav-data + mapa de rotas declarativo)           |
+| "replica o módulo X igual ao Y", "mesma estrutura pra outro segmento/vertical", "clonar telas"      | **skill `module-replicator`** (`/ds-replicate-module`) — avalia copiar × parametrizar; troca dados/rótulos, mantém estrutura  |
 | shell / menu lateral / topbar (só o componente)                                                     | `app-shell` / `menu-sidebar` / `header`                                                                                       |
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") → **`dashboard-builder`** (ele delega a tabela/lista embutida ao `crud-builder`/`list-builder` na Fase 5). 1 tabela/lista/gráfico só ≠ dashboard.

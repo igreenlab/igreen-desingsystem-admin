@@ -79,6 +79,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 > | Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
 > | Esqueleto do app (shell + menu + topbar + navegação + rotas) | `/ds-create-app` | `app-builder` (skill focada: leia-e-adapte `example-app-shell`; rota declarativa, não if-chain) |
 > | Página composta (2+ peças que conversam: master-detail, cross-filter) | `/ds-create-screen` | `screen-composer` (monta as peças pelos builders + cabeia estado compartilhado; dashboard-patterns §7) |
+> | Replicar módulo/segmento (família de telas espelhadas) | `/ds-replicate-module` | `module-replicator` (avalia copiar × parametrizar; troca só dados/rótulos, mantém estrutura) |
 
 ---
 

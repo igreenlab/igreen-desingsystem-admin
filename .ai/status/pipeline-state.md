@@ -1398,3 +1398,13 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: master-detail + cross-filter cobrem a maioria das páginas compostas; a receita §7 + os exemplos existentes bastam pra IA cabear o estado. Se falso, precisa de exemplos compostos dedicados.
 - Regressões: nenhuma. Lições novas: nenhuma.
 - Pendência: distribuição consolida no `/ds-release`.
+
+---
+
+### 2026-07-09 | module-replicator | P6 — skill de replicar módulo/segmento | CONCLUÍDO
+- Input: roadmap VP — Telecom/Seguros eram clones estruturais de Energia (6 telas ×3 por copy-paste). Escolha do usuário: skill leve.
+- Output: skill focada `module-replicator` (repo + consumidor) + `/ds-replicate-module` (repo + consumidor) + linha no orchestrator + ds-kit. Só `.md`. Ponto central: **avalia copiar × parametrizar** antes de replicar (≥3 clones idênticos → parametrizar 1 componente por config; 1-2 → copiar). Ao copiar: separa o que VARIA (dataset/rótulos/ícone/cor/href) do ESTRUTURAL (idêntico), registra contexto em nav-data + rotas (ancora no app-builder). Skill do consumidor genericizada (sem citar Energia/Telecom/Seguros — VP só no rationale interno do repo).
+- Decisões: honestidade sobre débito de clones — a skill recomenda parametrizar quando faz sentido em vez de só automatizar o copy-paste (que perpetua manutenção ×N). Sem example novo.
+- Assumption: replicar-arquivos é útil só pra segmentos espelhados; a decisão copiar×parametrizar evita o débito que o VP acumulou. Nicho/situacional (valor baixo, reconhecido).
+- Regressões: nenhuma. Lições novas: nenhuma.
+- Pendência: distribuição consolida no `/ds-release`. FECHA o programa de builders (P4 gamificação + §7 interativo = backlog).
