@@ -71,6 +71,12 @@ import {
   GalleryHorizontal,
   Shapes,
 } from "lucide-react";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+  InputGroupButton,
+} from "@/components/shadcn/input-group";
 import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 
 /**
@@ -249,33 +255,30 @@ export function ComponentsOverviewDoc() {
       />
       <DocSeparator />
 
-      {/* Busca */}
+      {/* Busca — InputGroup do DS (foco animado padrão) */}
       <div className="mb-14 flex flex-col gap-gp-md">
-        <div className="relative flex items-center max-w-[420px]">
-          <Search
-            className="pointer-events-none absolute left-pad-lg size-icon-sm text-fg-muted"
-            strokeWidth={1.8}
-            aria-hidden="true"
-          />
-          <input
-            type="text"
+        <InputGroup className="w-full">
+          <InputGroupAddon align="inline-start">
+            <Search className="size-icon-sm" strokeWidth={1.8} aria-hidden="true" />
+          </InputGroupAddon>
+          <InputGroupInput
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Buscar componente…"
             aria-label="Buscar componente"
-            className="min-h-form-lg w-full rounded-radius-base border border-border-default bg-bg-surface pl-[40px] pr-[40px] text-body-sm text-fg-default placeholder:text-fg-muted transition-[box-shadow,border-color] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
           />
           {query && (
-            <button
-              type="button"
-              onClick={() => setQuery("")}
-              aria-label="Limpar busca"
-              className="absolute right-pad-md grid size-icon-lg place-items-center rounded-radius-full text-fg-muted hover:text-fg-default"
-            >
-              <X className="size-icon-sm" strokeWidth={2} aria-hidden="true" />
-            </button>
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Limpar busca"
+              >
+                <X className="size-icon-sm" strokeWidth={2} aria-hidden="true" />
+              </InputGroupButton>
+            </InputGroupAddon>
           )}
-        </div>
+        </InputGroup>
         <span className="text-caption-md text-fg-muted tabular-nums">
           {shown} de {TOTAL} componentes
         </span>
