@@ -77,7 +77,7 @@ import {
   InputGroupInput,
   InputGroupButton,
 } from "@/components/shadcn/input-group";
-import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
+import { DocLayout, DocHeader, DocSeparator } from "../components";
 
 /**
  * ComponentsOverviewDoc — índice navegável de todos os componentes do DS.
@@ -218,7 +218,7 @@ function ComponentCard({ item }: { item: CompItem }) {
   return (
     <a
       href={`#/${item.href}`}
-      className="group flex items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface px-pad-lg py-pad-sm transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+      className="group flex items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface p-pad-sm transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
     >
       <span className="grid size-comp-md shrink-0 place-items-center rounded-radius-sm bg-bg-muted text-fg-muted transition-colors group-hover:bg-bg-brand-subtle group-hover:text-fg-brand [&_svg]:size-icon-sm">
         <Icon strokeWidth={1.8} aria-hidden={true} />
@@ -285,8 +285,14 @@ export function ComponentsOverviewDoc() {
       </div>
 
       {groups.map((g) => (
-        <section key={g.category} className="mb-14">
-          <SectionH2 id={slug(g.category)} title={`${g.category} (${g.items.length})`} />
+        <section key={g.category} className="mb-12">
+          <h2
+            id={slug(g.category)}
+            className="mb-gp-md scroll-mt-24 text-caption-md font-semibold uppercase tracking-[0.06em] text-fg-muted"
+          >
+            {g.category}{" "}
+            <span className="text-fg-subtle tabular-nums">({g.items.length})</span>
+          </h2>
           <div className="grid grid-cols-2 gap-gp-sm sm:grid-cols-3 lg:grid-cols-4">
             {g.items.map((i) => (
               <ComponentCard key={i.href} item={i} />
