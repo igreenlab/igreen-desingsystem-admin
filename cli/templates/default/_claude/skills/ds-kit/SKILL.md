@@ -31,6 +31,7 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 | "lista" / "listagem de X" (ambíguo: grade ou cards?)                                                | **PERGUNTE** "grade de colunas ou cards?" → `crud-builder` ou `list-builder` (ou front-door `/ds-create-screen`)              |
 | "formulário", "cadastro", "tela de edição", "editar X", "novo X", "multi-step"                      | **skill `page-edit`** → `example-edit-page`                                                                                   |
 | "detalhe", "detalhamento", "ficha", "página de X com abas", "visão geral do pedido"                 | **skill `page-detail`** → `example-order-detail`                                                                              |
+| "login", "entrar", "acesso", "autenticação", "sign in", "esqueci a senha", "tela de login"          | **skill `auth-builder`** (`/ds-create-login`) → `example-login` (fullscreen, painel por tokens)                              |
 | "dashboard", "painel", "visão geral", "indicadores" (2+ tipos de seção: KPIs + gráfico + resumo)     | **skill `dashboard-builder`** (`/ds-create-dashboard`) — entrevista → gate → geração ancorada no `example-dashboard`          |
 | "tabela + detalhe ao lado", "clicar abre o detalhe", "filtro no topo que muda tudo" (2+ peças que conversam) | **skill `screen-composer`** — master-detail / cross-filter; monta as peças pelos builders + cabeia o estado (dashboard-patterns §7) |
 | "gráfico", "chart", "barras/linha/área/pizza"                                                       | **skill `charts`** → `Chart/USAGE.md` + `example-dashboard`                                                                   |
@@ -40,7 +41,8 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 | "cards", "blocos", "painéis soltos", "seções"                                                       | **skill `cards`** → `Card`/`Panel` + showcase                                                                                 |
 | "igual ao exemplo de <X>" / "estrutura do <X>"                                                      | puxar `example-<X>` e adaptar                                                                                                 |
 | cabeçalho de página                                                                                 | componente `PageHeader`                                                                                                       |
-| shell / menu lateral / topbar                                                                       | `app-shell` / `menu-sidebar` / `header`                                                                                       |
+| "esqueleto do app", "estrutura/base do app", "shell + navegação + rotas", "montar o app do zero"    | **skill `app-builder`** (`/ds-create-app`) → `example-app-shell` (AppShell + nav-data + mapa de rotas declarativo)           |
+| shell / menu lateral / topbar (só o componente)                                                     | `app-shell` / `menu-sidebar` / `header`                                                                                       |
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") → **`dashboard-builder`** (ele delega a tabela/lista embutida ao `crud-builder`/`list-builder` na Fase 5). 1 tabela/lista/gráfico só ≠ dashboard.
 
