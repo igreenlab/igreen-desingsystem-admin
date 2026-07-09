@@ -109,6 +109,7 @@ import FinanceTutorialShowcase from "./preview/pages/FinanceTutorialShowcase";
 import MapaDeRedeShowcase from "./preview/pages/MapaDeRedeShowcase";
 import OrderDetailShowcase from "./preview/pages/OrderDetailShowcase";
 import OrderEditShowcase from "./preview/pages/OrderEditShowcase";
+import LoginShowcase from "./preview/pages/LoginShowcase";
 import ChatV2 from "./preview/pages/ChatV2";
 import DashboardShowcase from "./preview/pages/DashboardShowcase";
 import { ColorsDoc } from "./preview/pages/ColorsDoc";
@@ -465,6 +466,10 @@ export function App() {
 
   if (standaloneApp === "edit-page") {
     return <OrderEditShowcase />;
+  }
+
+  if (standaloneApp === "login") {
+    return <LoginShowcase />;
   }
 
   // Doc pages têm seu próprio sidebar (DocSidebar) — renderizam full width
