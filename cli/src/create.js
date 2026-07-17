@@ -119,6 +119,74 @@ function listTemplates() {
   });
 }
 
+/* ── temas de cor (marcas) ────────────────────────────────────────────────
+ * Descobre os temas disponíveis escaneando os overlays
+ * src/styles/theme/brand-<id>.css do template. "default" (verde iGreen, sem
+ * overlay) é sempre a 1ª opção. Rótulos amigáveis; id desconhecido cai no id.
+ */
+const BRAND_LABELS = {
+  pay: "iGreen Pay (verde vivo · dark near-black)",
+  blue: "Azul",
+  green: "Verde (grass)",
+};
+function detectBrandThemes(templateDir) {
+  const out = [{ id: "default", label: "iGreen (verde padrão)" }];
+  const themeDir = join(templateDir, "src", "styles", "theme");
+  if (!existsSync(themeDir)) return out;
+  const ids = readdirSync(themeDir)
+    .map((f) => /^brand-(.+)\.css$/.exec(f))
+    .filter(Boolean)
+    .map((m) => m[1])
+    .sort();
+  for (const id of ids) {
+    out.push({
+      id,
+      label: BRAND_LABELS[id] || id.charAt(0).toUpperCase() + id.slice(1),
+    });
+  }
+  return out;
+}
+
+/* Aplica o tema de cor escolhido ao projeto scaffoldado:
+ *  - remove os brand-*.css não escolhidos (footprint limpo);
+ *  - se != default: injeta @import do overlay no index.css + data-theme no <html>.
+ */
+function applyBrandTheme(projectDir, theme) {
+  const themeDir = join(projectDir, "src", "styles", "theme");
+  if (!existsSync(themeDir)) return;
+  // Poda os overlays não usados (inclui todos quando theme === "default").
+  for (const f of readdirSync(themeDir)) {
+    const m = /^brand-(.+)\.css$/.exec(f);
+    if (m && m[1] !== theme) unlinkSync(join(themeDir, f));
+  }
+  if (!theme || theme === "default") return;
+
+  // 1) @import do overlay logo após o import do tailwind-theme.
+  const cssPath = join(projectDir, "src", "index.css");
+  if (existsSync(cssPath)) {
+    let css = readFileSync(cssPath, "utf8");
+    if (!css.includes(`brand-${theme}.css`)) {
+      const base = '@import "./styles/theme/tailwind-theme.css";';
+      css = css.includes(base)
+        ? css.replace(base, `${base}\n@import "./styles/theme/brand-${theme}.css";`)
+        : `@import "./styles/theme/brand-${theme}.css";\n${css}`;
+      writeFileSync(cssPath, css, "utf8");
+    }
+  }
+
+  // 2) data-theme no <html> (ativa o overlay; combina com dark/light via .dark).
+  const htmlPath = join(projectDir, "index.html");
+  if (existsSync(htmlPath)) {
+    let html = readFileSync(htmlPath, "utf8");
+    if (!/\sdata-theme=/.test(html)) {
+      html = html.replace(/<html(\s[^>]*)?>/, (mm, attrs) =>
+        `<html${attrs || ""} data-theme="${theme}">`,
+      );
+      writeFileSync(htmlPath, html, "utf8");
+    }
+  }
+}
+
 /* ── starter: AppShell + tutorial + exemplos no menu ─────────────── */
 
 const EXAMPLE_SCREENS = [
@@ -312,6 +380,10 @@ async function main() {
     process.exit(1);
   }
 
+  // Temas de cor disponíveis (marcas). "default" = verde iGreen (sem overlay).
+  // As demais aplicam um overlay src/styles/theme/brand-<id>.css + data-theme.
+  const BRAND_THEMES = detectBrandThemes(join(TEMPLATES_DIR, availableTemplates[0]));
+
   // Step 1: collect answers
   const answers = await prompts(
     [
@@ -327,6 +399,13 @@ async function main() {
         name: "template",
         message: "Template?",
         choices: availableTemplates.map((t) => ({ title: t, value: t })),
+        initial: 0,
+      },
+      {
+        type: BRAND_THEMES.length > 1 ? "select" : null,
+        name: "theme",
+        message: "Tema de cor?",
+        choices: BRAND_THEMES.map((t) => ({ title: t.label, value: t.id })),
         initial: 0,
       },
       {
@@ -432,6 +511,13 @@ async function main() {
       `<title>iGreen - ${projectName}</title>`,
     );
     writeFileSync(indexHtmlPath, html, "utf8");
+  }
+
+  // Step 4c: aplica o tema de cor escolhido (overlay + data-theme) e poda o resto.
+  const selectedTheme = answers.theme || "default";
+  applyBrandTheme(projectDir, selectedTheme);
+  if (selectedTheme !== "default") {
+    console.log(pc.dim(`  Tema de cor: ${selectedTheme} (data-theme aplicado)`));
   }
 
   // Step 5: rename _gitignore → .gitignore
