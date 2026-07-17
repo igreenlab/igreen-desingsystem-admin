@@ -26,7 +26,7 @@ import { componentSpacing } from "../brands/default/components/spacing";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function flatten(
+export function flatten(
   obj: Record<string, unknown>,
   prefix: string,
   result: Record<string, string> = {},
@@ -49,7 +49,7 @@ function flatten(
   return result;
 }
 
-function toBlock(vars: Record<string, string>, indent = "  "): string {
+export function toBlock(vars: Record<string, string>, indent = "  "): string {
   return Object.entries(vars)
     .map(([k, v]) => `${indent}${k}: ${v};`)
     .join("\n");
@@ -57,7 +57,7 @@ function toBlock(vars: Record<string, string>, indent = "  "): string {
 
 // ── Color vars ────────────────────────────────────────────────────────────────
 
-function buildColorVars(
+export function buildColorVars(
   colors: typeof colorLight,
   prefix = "--color",
 ): Record<string, string> {

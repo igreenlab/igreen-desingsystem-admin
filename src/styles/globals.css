@@ -1,6 +1,11 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./theme/tailwind-theme.css";
+/* Overlay de marca (teste multi-tema) — escopado em [data-theme="blue"], coexiste
+ * com o tema-base default. Ativado via data-theme no <html> (src/hooks/useBrand.ts). */
+@import "./theme/brand-blue.css";
+@import "./theme/brand-green.css";
+@import "./theme/brand-pay.css";
 
 /* ── Geist font (variable) ─────────────────────────────────────────────────── */
 @font-face {

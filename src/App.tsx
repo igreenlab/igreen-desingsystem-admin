@@ -1,5 +1,6 @@
 ﻿import { useState, useRef, useEffect, useMemo } from "react";
 import { useTheme } from "./hooks/useTheme";
+import { useBrand } from "./hooks/useBrand";
 import { AgentsPreview } from "./preview/pages/AgentsPreview";
 import { ComponentDocTemplate } from "./preview/pages/ComponentDocTemplate";
 import { DemoComparison } from "./preview/pages/DemoComparison";
@@ -432,6 +433,7 @@ function SidebarSection({
 
 export function App() {
   const { isDark, toggle } = useTheme();
+  const { brand, setBrand, toggle: toggleBrand } = useBrand();
   const theme = isDark ? "dark" : "light";
   const [activePage, setActivePage] = useState<PageId>(
     () => readPageFromHash() ?? "button",
@@ -517,6 +519,8 @@ export function App() {
             onNavigate={setActivePage}
             theme={theme}
             onToggleTheme={toggle}
+            brand={brand}
+            onSelectBrand={setBrand}
           />
           <main ref={contentRef} className="flex-1 overflow-auto bg-bg-canvas">
             {activePage === "button" && <ButtonDoc />}
@@ -694,13 +698,23 @@ export function App() {
           ))}
         </nav>
 
-        {/* Theme toggle */}
-        <div className="px-pad-3xl py-pad-2xl border-t border-border-sidebar">
+        {/* Theme + Brand toggle */}
+        <div className="flex flex-col gap-gp-xs px-pad-3xl py-pad-2xl border-t border-border-sidebar">
           <button
             onClick={toggle}
             className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-body-md text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors"
           >
             {theme === "dark" ? "☀️" : "🌙"} {theme}
+          </button>
+          <button
+            onClick={toggleBrand}
+            className="flex items-center gap-gp-md px-pad-xl py-pad-md rounded-radius-md text-body-md text-fg-muted w-full capitalize hover:bg-bg-sidebar-accent transition-colors"
+          >
+            <span
+              className="size-icon-sm rounded-radius-full border border-border-default"
+              style={{ background: "var(--color-bg-brand)" }}
+            />
+            {brand === "blue" ? "Marca: Azul" : "Marca: iGreen"}
           </button>
         </div>
       </aside>
