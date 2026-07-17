@@ -1,0 +1,103 @@
+/**
+ * brand-green.css — Auto-gerado. Não editar manualmente.
+ * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
+ * Source: tokens/brands/green/semantic/*.ts
+ * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts green > src/styles/theme/brand-green.css
+ *
+ * Ative aplicando data-theme="green" no <html> (ver src/hooks/useBrand.ts).
+ */
+
+/* ── Light (44 vars divergem da default) ─────────────────────────── */
+[data-theme="green"] {
+  --color-bg-canvas: oklch(0.986 0.005 142);
+  --color-bg-surface: oklch(0.996 0.003 142);
+  --color-bg-surface-elevated: oklch(0.998 0.002 142);
+  --color-bg-surface-panels: oklch(0.986 0.005 142);
+  --color-bg-sidebar: oklch(0.950 0.005 142);
+  --color-bg-subtle: oklch(0.973 0.004 142);
+  --color-bg-muted: oklch(0.973 0.004 142);
+  --color-bg-emphasis: oklch(0.94 0.006 142);
+  --color-bg-input: oklch(0.996 0.003 142);
+  --color-bg-accent: oklch(0.996 0.003 142);
+  --color-bg-brand: oklch(0.58 0.170 142);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 14%, transparent);
+  --color-bg-brand-hover: color-mix(in oklch, oklch(0.58 0.170 142) 90%, black);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);
+  --color-bg-muted-hover: oklch(0.95 0.010 142);
+  --color-bg-input-hover: oklch(0.973 0.004 142);
+  --color-bg-accent-hover: oklch(0.84 0.022 142);
+  --color-bg-sidebar-accent: oklch(0.999 0.002 142);
+  --color-bg-sidebar-accent-hover: oklch(0.93 0.008 142);
+  --color-bg-table: oklch(0.996 0.003 142);
+  --color-bg-table-head: oklch(0.973 0.004 142);
+  --color-bg-table-row-hover: oklch(0.973 0.004 142);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.58 0.170 142) 6%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.58 0.170 142) 10%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.58 0.170 142) 6%, oklch(1 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.58 0.170 142) 10%, oklch(1 0 0));
+  --color-fg-strong: oklch(0.15 0.010 142);
+  --color-fg-default: oklch(0.15 0.010 142);
+  --color-fg-muted: oklch(0.4997 0.028 142);
+  --color-fg-subtle: oklch(0.7025 0.022 142);
+  --color-fg-disabled: oklch(0.7025 0.022 142);
+  --color-fg-brand: oklch(0.58 0.170 142);
+  --color-border-default: oklch(0.9076 0.009 142);
+  --color-border-subtle: oklch(0.931 0.007 142);
+  --color-border-input: oklch(0.8761 0.012 142);
+  --color-border-sidebar: oklch(0.9076 0.008 142);
+  --color-border-brand: oklch(0.58 0.170 142);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 36%, transparent);
+  --color-border-table: oklch(0.931 0.007 142);
+  --color-ring-brand: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);
+  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);
+  --color-overlay-float: oklch(0.55 0.05 142 / 0.12);
+  --color-chart-1: oklch(0.62 0.170 142);
+  --color-chart-grid: oklch(0.9076 0.009 142);
+}
+
+/* ── Dark (43 vars — .dark[data-theme] vence o .dark base) ────────── */
+.dark[data-theme="green"] {
+  --color-bg-canvas: oklch(0.205 0.026 142);
+  --color-bg-surface: oklch(0.225 0.030 142);
+  --color-bg-surface-elevated: oklch(0.225 0.030 142);
+  --color-bg-surface-panels: oklch(0.205 0.026 142);
+  --color-bg-sidebar: oklch(0.225 0.030 142);
+  --color-bg-subtle: oklch(0.90 0.08 142 / 0.01);
+  --color-bg-muted: oklch(0.90 0.08 142 / 0.03);
+  --color-bg-emphasis: oklch(0.90 0.08 142 / 0.12);
+  --color-bg-input: oklch(0.90 0.08 142 / 0.04);
+  --color-bg-accent: oklch(0.90 0.08 142 / 0.12);
+  --color-bg-brand: oklch(0.81 0.190 145);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);
+  --color-bg-brand-hover: color-mix(in oklch, oklch(0.81 0.190 145) 90%, black);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);
+  --color-bg-muted-hover: oklch(0.90 0.08 142 / 0.08);
+  --color-bg-input-hover: oklch(0.90 0.08 142 / 0.08);
+  --color-bg-accent-hover: oklch(0.90 0.08 142 / 0.16);
+  --color-bg-sidebar-accent: oklch(0.90 0.08 142 / 0.08);
+  --color-bg-sidebar-accent-hover: oklch(0.90 0.08 142 / 0.12);
+  --color-bg-table: oklch(0.225 0.030 142);
+  --color-bg-table-head: oklch(0.252 0.034 142);
+  --color-bg-table-row-hover: oklch(0.252 0.034 142);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.81 0.190 145) 10%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.81 0.190 145) 10%, oklch(0.225 0.030 142));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.81 0.190 145) 14%, oklch(0.225 0.030 142));
+  --color-fg-default: oklch(0.98 0.012 142);
+  --color-fg-muted: oklch(0.7025 0.022 142);
+  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0.022 142) 70%, transparent);
+  --color-fg-disabled: oklch(0.36 0.036 142);
+  --color-fg-brand: oklch(0.81 0.190 145);
+  --color-border-default: oklch(0.2645 0.026 142);
+  --color-border-subtle: oklch(0.90 0.08 142 / 0.04);
+  --color-border-input: oklch(0.90 0.08 142 / 0.08);
+  --color-border-sidebar: oklch(0.2645 0.026 142);
+  --color-border-brand: oklch(0.81 0.190 145);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 36%, transparent);
+  --color-border-table: oklch(0.2645 0.026 142);
+  --color-ring-brand: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);
+  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);
+  --color-overlay-float: oklch(0.90 0.08 142 / 0.08);
+  --color-chart-1: oklch(0.81 0.190 145);
+  --color-chart-grid: oklch(0.90 0.08 142 / 0.12);
+}
