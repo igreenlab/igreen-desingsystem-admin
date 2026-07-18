@@ -20,6 +20,7 @@ export * from "./ui/ColorPicker";
 export * from "./ui/Combobox";
 export * from "./ui/ConversationListItem";
 export * from "./ui/DataTable";
+export * from "./ui/DatePicker";
 export * from "./ui/DateSeparatorChip";
 export * from "./ui/EmptyState";
 export * from "./ui/FileUploadField";
