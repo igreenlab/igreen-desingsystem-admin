@@ -410,6 +410,16 @@ nativa do Tailwind. Classe correta = **`max-w-md`** (768px do DS) / `max-w-toolt
 `max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa
 (não quebra build nem tsc). Detalhe + por que não mudamos o transform: `lessons.md` L-057.
 
+### As 7 superfícies são DETECÇÃO, não burocracia (L-058)
+
+`ChoroplethMap` tinha só código + USAGE + barrel (1 de 7). Um merge de reorganização o
+tirou da `main` e **nenhum sinal disparou** — não havia inventory pra ficar órfã, doc page
+pra renderizar em branco, nem item de registry pra quebrar. Quem descobriu foi um app em
+produção, meses depois. Além disso, ele usava `d3-geo`/`topojson-client` **sem declarar no
+`package.json` do DS** — compilava só porque o consumidor declarava (L-037). Regra: feche
+as superfícies ANTES de considerar pronto, e confira as deps reais do arquivo contra o
+`package.json` do DS. Detalhe: `lessons.md` L-058.
+
 ### Composições de dashboard/lista = receita, não componente (L-055)
 
 Telas convergindo num padrão (dashboard, **KPI-group "Painel do Líder"**, **fusão

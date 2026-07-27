@@ -1217,6 +1217,41 @@ antes de suspeitar de especificidade.
 
 ---
 
+## [L-058] Componente com 1 de 7 superfícies some num merge — e ninguém percebe
+
+O `ChoroplethMap` foi criado como "gap do Rankings", ficou no repo com **código + USAGE +
+export no barrel** — e **nada mais**: sem `inventory.md`, sem doc page, sem rota no
+`App.tsx`, sem `registry.json`. Um merge de reorganização (a fase de infra do registry
+shadcn) o deixou de fora da `main` e **nenhum sinal disparou**: não havia entrada de
+inventário pra ficar órfã, nem página de showcase pra renderizar em branco, nem item de
+registry pra quebrar. O único a notar foi um app em produção que o importava — meses
+depois, ao tentar bumpar o submódulo.
+
+Duas coisas que isso ensina, além da L-042:
+
+1. **As 7 superfícies não são burocracia — são detecção.** Cada uma é um lugar onde a
+   ausência do componente vira erro visível. Com só o barrel, o componente é invisível
+   para todo mecanismo do projeto (o hook `ds-inventory-check` inclusive) e depende de
+   alguém lembrar que ele existe.
+2. **Deps do componente moram no DS, não no consumidor (L-037 de novo).** O
+   `ChoroplethMap` usava `d3-geo` e `topojson-client` sem declarar nenhum dos dois no
+   `package.json` do DS — funcionava só porque o Rankings, por coincidência, declarava.
+   Um componente que só compila na árvore de um consumidor específico não é um
+   componente do DS; é código emprestado.
+
+Regra pra IA: ao restaurar ou criar componente, feche as superfícies **antes** de
+considerar pronto — e rode `grep` das deps do arquivo contra o `package.json` do DS. Se
+uma dep real não estiver declarada lá, PARE: ou declara, ou o componente não pertence ao
+DS.
+
+Corolário sobre **receita vs componente** (L-055): quando a `main` já resolve o caso
+simples por receita (mapa fixo por paths inline, zero dep), o componente pesado só se
+justifica pelo caso que a receita **não** faz — aqui, topologia arbitrária + drill-down
+para municípios. Documente o "quando NÃO usar" no USAGE, senão o consumidor puxa 2 deps
+para desenhar um mapa parado.
+
+---
+
 ---
 
 ## Como adicionar nova lição

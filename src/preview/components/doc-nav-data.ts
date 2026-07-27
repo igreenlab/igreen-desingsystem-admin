@@ -108,6 +108,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Slider", href: "slider" },
       { label: "Sonner", href: "sonner" },
       { label: "Spinner", href: "spinner" },
+      { label: "ChoroplethMap", href: "choropleth-map" },
       { label: "Switch", href: "switch" },
       { label: "Tabs", href: "tabs" },
       { label: "Textarea", href: "textarea" },
