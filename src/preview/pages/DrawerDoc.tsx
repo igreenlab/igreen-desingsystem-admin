@@ -66,7 +66,7 @@ export function DrawerDoc() {
             <Button color="secondary" variant="outline">Abrir drawer</Button>
           </DrawerTrigger>
           <DrawerContent>
-            <div className="mx-auto w-full max-w-container-sm">
+            <div className="mx-auto w-full max-w-sm">
               <DrawerHeader>
                 <DrawerTitle>Confirmar saque</DrawerTitle>
                 <DrawerDescription>Revise os dados antes de continuar.</DrawerDescription>

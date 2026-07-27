@@ -255,7 +255,7 @@ Tokens DS usam prefixos para não colidir com utilities nativas do Tailwind:
 | shadow | `shadow-sh-md` | `shadow-md` |
 | form height | `min-h-form-lg` (40px) | `h-10` |
 | icon | `size-icon-md` (20px) | `size-5` |
-| container | `max-w-container-md` | `max-w-md` |
+| container | `max-w-md` (escala do DS: 768px) | — **única exceção: não dobra prefixo** |
 
 ---
 

@@ -17,7 +17,7 @@ export default function App() {
   }, [theme]);
 
   return (
-    <div className="min-h-screen flex flex-col gap-gp-xl p-sp-xl max-w-container-md mx-auto">
+    <div className="min-h-screen flex flex-col gap-gp-xl p-sp-xl max-w-md mx-auto">
       <header className="flex items-center justify-between pt-sp-lg">
         <div className="flex items-center gap-gp-md">
           <div className="size-10 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold">

@@ -62,7 +62,7 @@ function renderIcon(icon: LucideIcon | ReactNode): ReactNode {
  * `Button` (do DS) num bloco centralizado vertical e horizontalmente.
  *
  * Visual 100% via tokens DS (gap-gp-*, size-icon-*, text-title-*, text-body-*,
- * text-fg-*, max-w-container-*). A ação aceita `{ label, onClick }` (vira Button)
+ * text-fg-*, max-w-*). A ação aceita `{ label, onClick }` (vira Button)
  * ou um `ReactNode` custom. Componente declarativo de display — sem foco próprio
  * (o único interativo é o Button da ação, que já traz o Padrão 1).
  */

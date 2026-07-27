@@ -153,7 +153,7 @@ TIER 2.5 — Component tokens — em components/
 | form height | `min-h-form-lg` (40px) | `h-10` |
 | form height | `min-h-form-md` (36px) | `h-9` |
 | icon | `size-icon-md` | `size-5` |
-| container | `max-w-container-md` | `max-w-sm/md/lg` |
+| container | `max-w-md` (escala do DS: 768px) | — **única exceção: não dobra prefixo** |
 
 ---
 

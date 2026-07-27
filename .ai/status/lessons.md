@@ -1184,6 +1184,39 @@ Regra pra IA: paridade de experiência entre canais de distribuição (npm CLI v
 requisito, não bônus — ao mexer no kit do consumidor, lembre que o submódulo é um 3º canal
 que consome o MESMO payload por um caminho diferente. Doc humana: `SUBMODULE-SETUP.md`.
 
+## [L-057] `container` é a ÚNICA exceção do duplo-prefixo — e a doc ensinava a classe morta
+
+Todo namespace do DS dobra o prefixo (`--spacing-gp-*` → `gap-gp-md`, `--radius-radius-*` →
+`rounded-radius-base`, `--shadow-sh-*` → `shadow-sh-md`) para não colidir com o Tailwind
+nativo. **`container` não** — o transform emite `--container-md`, que no Tailwind v4
+**sobrescreve** a escala nativa de max-width. Logo a classe correta é **`max-w-md`** (768px
+do DS, não os 448px do Tailwind), e **`max-w-container-md` não existe**.
+
+Mesmo assim, 11 arquivos de doc/skill/README ensinavam `max-w-container-*` como a forma
+certa, e havia 7 usos reais no código — inclusive `max-w-container-tooltip-lg` no popover
+"Ler mais" do DataTable (**tooltip sem max-width em todo consumidor**) e no
+`cli/templates/default/src/App.tsx`, ou seja **todo app novo criado pelo CLI nascia com uma
+classe morta**.
+
+Por que passou tanto tempo: no Tailwind v4 uma classe cujo token não existe **não gera erro**
+— simplesmente não emite CSS. Não quebra build, não quebra `tsc`, não aparece em lint. Só
+some na tela. Foi encontrada por auditoria que cruza as classes usadas contra o tema gerado
+(`src/styles/theme/tailwind-theme.css`), e confirmada no CSS buildado: `.max-w-container-` →
+0 ocorrências.
+
+Por que NÃO "consertamos o transform" para o duplo-prefixo funcionar: 195 usos de
+`max-w-{xs,sm,md,lg,xl,full}` (122 no próprio DS, 41 no academy, 19 no eventos, 11 no VO)
+dependem hoje do override. Passar a emitir `--container-container-*` faria todos reverterem
+em silêncio pro valor nativo — `max-w-sm` de 640px para 384px em 79 lugares. O código estava
+certo; a doc, errada.
+
+Regra pra IA: (1) `max-w-md`/`max-w-tooltip-lg`/`max-w-modal-sm` — **nunca** `max-w-container-*`;
+(2) ao documentar um namespace, valide a classe contra o tema **gerado**, não contra a
+convenção presumida; (3) classe DS que "não faz nada" na tela = suspeite de token inexistente
+antes de suspeitar de especificidade.
+
+---
+
 ---
 
 ## Como adicionar nova lição

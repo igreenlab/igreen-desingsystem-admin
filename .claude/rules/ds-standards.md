@@ -403,6 +403,13 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push mirror + `gh pr create` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
 
+### `container` não dobra prefixo — `max-w-md`, nunca `max-w-container-md` (L-057)
+
+Exceção única do sistema: o transform emite `--container-md`, que **sobrescreve** a escala
+nativa do Tailwind. Classe correta = **`max-w-md`** (768px do DS) / `max-w-tooltip-lg` /
+`max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa
+(não quebra build nem tsc). Detalhe + por que não mudamos o transform: `lessons.md` L-057.
+
 ### Composições de dashboard/lista = receita, não componente (L-055)
 
 Telas convergindo num padrão (dashboard, **KPI-group "Painel do Líder"**, **fusão

@@ -113,7 +113,7 @@ function buildSizingVars(): Record<string, string> {
   // ── Components: icon → --spacing-icon-* (size-icon-*)
   flatten(componentSizing.icon, "--spacing-icon", result);
 
-  // ── Components: container → --container-* (max-w-container-*)
+  // ── Components: container → --container-* (max-w-*)
   for (const [key, value] of Object.entries(componentSizing.container)) {
     result[`--container-${key}`] = value;
   }

@@ -2002,7 +2002,7 @@ Os tokens DS usam prefixos específicos para evitar conflito com classes Tailwin
 | Shadow | `shadow-sh-*` | shadow-sm, shadow-md, shadow-lg |
 | Form height | `min-h-form-*` | h-9, h-10, h-11 |
 | Icon size | `size-icon-*` | size-5, w-5 h-5 |
-| Container | `max-w-container-*` | max-w-sm, max-w-2xl |
+| Container | `max-w-*` (sobrescreve a escala nativa) | — **única exceção: não dobra prefixo** |
 
 A assumption por trás desses prefixos: o Tailwind nativo tem valores diferentes
 dos tokens DS (gap-4 do Tailwind = 16px; gap.md do DS = 8px). Usar Tailwind literal

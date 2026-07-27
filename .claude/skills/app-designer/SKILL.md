@@ -33,7 +33,7 @@ description: >
   <main className="flex-1 flex flex-col overflow-hidden">
     <header className="min-h-layout-navbar bg-bg-surface border-b border-border-main px-pad-page-base" />
     <div className="flex-1 overflow-auto p-pad-page-base">
-      <div className="max-w-container-xl mx-auto">{/* conteúdo */}</div>
+      <div className="max-w-xl mx-auto">{/* conteúdo */}</div>
     </div>
   </main>
 </div>
