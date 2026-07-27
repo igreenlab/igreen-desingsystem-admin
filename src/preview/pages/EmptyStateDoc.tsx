@@ -59,7 +59,7 @@ export function EmptyStateDoc() {
   description="Selecione uma conversa ao lado para visualizar as mensagens."
 />`}
       >
-        <div className="w-full max-w-container-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
+        <div className="w-full max-w-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
           <EmptyState
             icon={Inbox}
             title="Nenhuma conversa selecionada"
@@ -79,7 +79,7 @@ export function EmptyStateDoc() {
   action={{ label: "Novo cliente", onClick: handleCreate }}
 />`}
       >
-        <div className="w-full max-w-container-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
+        <div className="w-full max-w-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
           <EmptyState
             icon={Users}
             title="Nenhum cliente cadastrado"
@@ -106,7 +106,7 @@ export function EmptyStateDoc() {
   }}
 />`}
       >
-        <div className="w-full max-w-container-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
+        <div className="w-full max-w-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
           <EmptyState
             size="sm"
             icon={Search}
@@ -139,7 +139,7 @@ export function EmptyStateDoc() {
   }
 />`}
       >
-        <div className="w-full max-w-container-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
+        <div className="w-full max-w-md rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-card-base">
           <EmptyState
             size="lg"
             icon={Inbox}

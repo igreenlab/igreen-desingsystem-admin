@@ -169,7 +169,7 @@ export type NomeVariantProps = VariantProps<typeof nomeVariants>;
 | Focus ring | `ring-ring-{color}` (sem `/`) | `ring-primary/30`, `ring-ring-primary` no base |
 | Height interativo | `min-h-form-*` | `h-10`, `h-11` |
 | Icon size | `size-icon-*` | `size-5`, `w-5 h-5` |
-| Container | `max-w-container-*` | `max-w-sm`, `max-w-2xl` |
+| Container | `max-w-*` (sobrescreve a escala nativa) | — **única exceção: não dobra prefixo** |
 
 ---
 

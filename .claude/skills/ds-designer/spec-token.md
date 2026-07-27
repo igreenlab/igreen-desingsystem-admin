@@ -161,7 +161,7 @@ Form heights — controles interativos (`components/sizing.ts`):
 
 Icon sizes: `icon.sm` 16px · `icon.md` 20px (default) · `icon.lg` 24px · `icon.xl` 32px
 
-Container widths (`--container-*` → `max-w-container-*`):
+Container widths (`--container-*` → `max-w-*`):
 `xs` 480 · `sm` 640 · `md` 768 · `lg` 1024 · `xl` 1280 · `2xl` 1440 · `main-content-max` 1368
 `sidebar-md` 280 · `modal-md` 640 · `dropdown-md` 240
 

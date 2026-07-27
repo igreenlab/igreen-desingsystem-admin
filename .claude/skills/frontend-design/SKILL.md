@@ -71,7 +71,7 @@ background: linear-gradient(135deg, ...)
 <div className="flex min-h-screen bg-bg-canvas">
   <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-main" />
   <main className="flex-1 p-pad-page-base">
-    <div className="max-w-container-xl mx-auto">
+    <div className="max-w-xl mx-auto">
       {/* conteúdo */}
     </div>
   </main>

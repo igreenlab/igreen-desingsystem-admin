@@ -26,6 +26,6 @@ export const cellAddonsStyles = tv({
     /** Conteúdo do popover do "Ler mais". Largura via token semântico
      *  (tooltip-lg = 320px) — reveal de texto é conceitualmente um tooltip. */
     readMorePopover:
-      "flex flex-col gap-gp-md p-pad-lg max-w-container-tooltip-lg text-body-sm text-fg-default whitespace-pre-wrap break-words",
+      "flex flex-col gap-gp-md p-pad-lg max-w-tooltip-lg text-body-sm text-fg-default whitespace-pre-wrap break-words",
   },
 });

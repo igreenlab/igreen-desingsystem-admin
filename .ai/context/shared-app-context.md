@@ -49,7 +49,7 @@ DS: iGreen DS (todos os componentes em src/components/)
 
     {/* Page content */}
     <div className="flex-1 overflow-auto p-pad-page-base">
-      <div className="max-w-container-xl mx-auto">
+      <div className="max-w-xl mx-auto">
         {/* conteúdo da página */}
       </div>
     </div>
