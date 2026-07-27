@@ -44,6 +44,7 @@ export * from "./ui/Panel";
 export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
+export * from "./ui/ChoroplethMap";
 // TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
 // pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
 

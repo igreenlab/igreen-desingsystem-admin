@@ -14,6 +14,7 @@ import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { TooltipDoc } from "./preview/pages/TooltipDoc";
 import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
 import { SpinnerDoc } from "./preview/pages/SpinnerDoc";
+import { ChoroplethMapDoc } from "./preview/pages/ChoroplethMapDoc";
 import { EmptyStateDoc } from "./preview/pages/EmptyStateDoc";
 import { MarkdownTextDoc } from "./preview/pages/MarkdownTextDoc";
 import { FileUploadFieldDoc } from "./preview/pages/FileUploadFieldDoc";
@@ -280,6 +281,7 @@ const DOC_PAGES = [
   "tooltip",
   "skeleton",
   "spinner",
+  "choropleth-map",
   "empty-state",
   "markdown-text",
   "file-upload-field",
@@ -531,6 +533,7 @@ export function App() {
             {activePage === "tooltip" && <TooltipDoc />}
             {activePage === "skeleton" && <SkeletonDoc />}
             {activePage === "spinner" && <SpinnerDoc />}
+            {activePage === "choropleth-map" && <ChoroplethMapDoc />}
             {activePage === "empty-state" && <EmptyStateDoc />}
             {activePage === "markdown-text" && <MarkdownTextDoc />}
             {activePage === "file-upload-field" && <FileUploadFieldDoc />}
