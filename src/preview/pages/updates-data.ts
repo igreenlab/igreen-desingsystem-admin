@@ -47,8 +47,8 @@ export interface ReleaseEntry {
 export const RELEASES: ReleaseEntry[] = [
   {
     version: "0.30.0",
-    date: "2026-07-17",
-    tag: "preview",
+    date: "2026-07-28",
+    tag: "release",
     title: "Multi-tema por marca (Azul/Verde/iGreen Pay) + seletor de tema no CLI",
     summary:
       "O DS passou a aceitar múltiplas marcas coexistindo: cada tema é um overlay de CSS escopado por `data-theme`, gerado como DIFF da marca default (verde iGreen) — que segue intacta. Vêm 3 temas (Azul, Verde e iGreen Pay, este 1:1 com o Design Kit do Portal do Parceiro) e o `create-design-system` agora pergunta qual tema instalar e aplica no projeto. Zero mudança pra quem não usa: temas só ativam com `data-theme`, componentes e default intocados.",
@@ -60,6 +60,13 @@ export const RELEASES: ReleaseEntry[] = [
           "**3 temas** em `tokens/brands/`: **Azul** e **Verde** (neutros/surfaces tingidos, escala cool/grass) + **iGreen Pay** (extraído 1:1 do Design Kit do Portal: verde `#00a859`, dark near-black `#050608`/`#0b0d10`, status e sidebar-accent próprios).",
           "**Hook `useBrand`** — troca de marca em runtime (`data-theme` no `<html>` + persistência em localStorage) e catálogo `BRANDS` como fonte única do seletor. Dropdown de marca + toggle de tema (só ícone) no rodapé da doc-sidebar.",
           "**CLI `create-design-system` 0.18.0 — prompt `Tema de cor?`** lista os temas disponíveis e aplica o escolhido no projeto scaffoldado (injeta o `@import` do overlay + `data-theme`, poda os não usados). Default = projeto limpo, como antes.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**`ChoroplethMap` restaurado** — o componente existia até `06012a9` e um merge de reorganização o deixou fora da `main` sem nenhum sinal, porque tinha só 1 das 7 superfícies (o export no barrel): sem inventory, sem doc page, sem registry. Quem descobriu foi um app em produção meses depois, ao tentar bumpar o submódulo. Voltou com **as deps declaradas** (`d3-geo` + `topojson-client` — antes compilava só porque o consumidor, por coincidência, as declarava — L-037) e com as superfícies fechadas: registry `@igreen/choropleth-map`, inventory, doc `#/choropleth-map`, catálogo do CLI. Lição L-058.",
+          "**`max-w-container-*` não existe** — `container` é o ÚNICO namespace do DS que não dobra o prefixo: o transform emite `--container-md`, que sobrescreve a escala nativa do Tailwind, então a classe certa é `max-w-md`. Havia 7 usos reais e 11 docs ensinando a forma morta — inclusive o popover \"Ler mais\" da `DataTable` (tooltip **sem `max-width`** em todo consumidor) e o `cli/templates/default/src/App.tsx`, que fazia **todo app novo do CLI nascer com a classe morta**. No Tailwind v4 classe sem token não gera erro: não emite CSS. Lição L-057.",
         ],
       },
     ],

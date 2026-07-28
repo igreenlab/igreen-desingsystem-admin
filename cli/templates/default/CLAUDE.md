@@ -106,6 +106,8 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "detalhamento", "detalhe do pedido/cliente", "página de detalhe", "ficha", "abas de info" | `example-order-detail`           | Tabs + Cards                |
 | "dashboard", "painel", "visão geral", "indicadores" (2+ tipos de seção)                   | skill `dashboard-builder` (`/ds-create-dashboard`) → `example-dashboard` | Kpi/KpiGroup + Chart |
 | "gráfico isolado" (barras/linha/área/pizza, sem o resto do painel)                        | `chart` (componente)             | ChartContainer              |
+| "mapa do Brasil por estado/município", "coroplético", "penetração por UF"                 | `choropleth-map` (componente)    | ChoroplethMap               |
+| "mapa FIXO do Brasil só pra KPI" (sem drill-down)                                          | receita de paths inline (sem dep) | — ver ChoroplethMap/USAGE.md |
 | "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`                   | ConversationColumn + thread |
 | "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
 | "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
