@@ -47,8 +47,8 @@ export interface ReleaseEntry {
 export const RELEASES: ReleaseEntry[] = [
   {
     version: "0.30.0",
-    date: "2026-07-17",
-    tag: "preview",
+    date: "2026-07-28",
+    tag: "release",
     title: "Multi-tema por marca (Azul/Verde/iGreen Pay) + seletor de tema no CLI",
     summary:
       "O DS passou a aceitar múltiplas marcas coexistindo: cada tema é um overlay de CSS escopado por `data-theme`, gerado como DIFF da marca default (verde iGreen) — que segue intacta. Vêm 3 temas (Azul, Verde e iGreen Pay, este 1:1 com o Design Kit do Portal do Parceiro) e o `create-design-system` agora pergunta qual tema instalar e aplica no projeto. Zero mudança pra quem não usa: temas só ativam com `data-theme`, componentes e default intocados.",
