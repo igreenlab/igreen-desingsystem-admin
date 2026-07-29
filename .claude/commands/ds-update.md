@@ -24,9 +24,6 @@ description: >
                   edita updates-data.ts (insere no topo)
                                 │
                                 ▼
-                      format-on-save (hook PostToolUse)
-                                │
-                                ▼
                         UPDATE_APPLIED: v<X.Y.Z>
 ```
 
@@ -81,7 +78,7 @@ Aguardar do usuário:
 Após aprovação:
 - Inserir o objeto novo NO TOPO do array `RELEASES` em `src/preview/pages/updates-data.ts`
 - Não tocar em entries antigas (array é append-on-top)
-- `format-on-save.sh` (hook PostToolUse) roda automaticamente
+- Formatação é manual — não há formatador automático (espelhe as entries vizinhas)
 - Registrar `UPDATE_APPLIED: v<X.Y.Z>` como handoff
 
 ## Out of scope deste command

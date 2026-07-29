@@ -57,12 +57,18 @@ Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. El
 
 | Hook                    | Trigger                                            | O que faz                                                                                                                                                                                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `format-on-save.sh`     | qualquer Edit/Write                                | Roda prettier nos arquivos editados                                                                                                                                                                                                                                                                                            |
 | `ds-lint-styles.sh`     | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv. L-004 e L-007 saíram (semânticas: exigem contexto cross-elemento ou julgamento de intenção — L-059). Warning em stderr — não bloqueia, mas Claude vê. No CI o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado                                                                                                                                                  |
 | `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**`        | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), se está no registry mas **fora do catálogo do CLI** (`cli/templates/default/CLAUDE.md`), ou se a **DocPage existe mas não está roteada** no `App.tsx`/`DOC_PAGES`+nav (render em branco) — L-042. Exceção deliberada e "showcase registrado" vêm dos MESMOS módulos puros que o CI usa (`ds-exceptions.mjs` + `showcase-registration.mjs`, uma chamada `node -e`) — nunca reimplemente essas regras no shell; fail-open (probe caído → eixo pulado, `exit 0` sempre) |
 | `ds-tokens-check.sh`    | Edit/Write em `tokens/**/*.ts`                     | Alerta pra rodar `tokens:tw4` + lembra que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`). Tokens/theme versionados pelo stamp = `package.json.version`                                                                                                                                         |
 
 Logs em `.ai/scratch/hook-log.txt`. Bloqueio só acontece em `block-rm-rf.sh` (Bash perigoso) e `block-sensitive-edit.sh` (.env, credentials, migrations) — os hooks DS são informativos por design.
+
+⛔ **Não existe formatador automático, por decisão (2026-07-29).** `prettier` nunca esteve no
+`package.json`, então o antigo `format-on-save.sh` (`npx --no-install prettier`) era no-op — mas
+**ligaria sozinho** se alguém populasse o cache do npx, reformatando arquivo sem pedido (aconteceu
+uma vez, mutilando pseudo-código de uma skill). Hook e script removidos. **Formate na mão**,
+espelhando o código vizinho. Toda doc que dizia "o hook formata" foi corrigida — se você encontrar
+alguma sobra afirmando isso, é bug de doc.
 
 ### Auto-review na release (`/ds-release`)
 

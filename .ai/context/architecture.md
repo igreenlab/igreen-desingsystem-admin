@@ -174,7 +174,7 @@ src/
 ├── rules/                ← Regras carregadas auto (glob-scoped)
 │   └── ds-standards.md   (regras + lessons + forbidden — consolidado)
 ├── hooks/                ← Shell scripts que sempre disparam
-│   ├── format-on-save.sh
+│   ├── ds-lint-styles.sh
 │   └── block-rm-rf.sh
 ├── output-styles/        ← Response shapes
 │   └── terse.md

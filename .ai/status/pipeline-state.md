@@ -66,6 +66,45 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Prettier descartado por decisão — hook `format-on-save` removido (era no-op armado) | CONCLUÍDO
+
+- Input: a entrada anterior registrou como pendência que `prettier` não está no
+  `package.json`, logo `format-on-save.sh` (que chamava `npx --no-install prettier`)
+  era **no-op** nesta máquina e em qualquer clone novo — um dos 4 hooks que o
+  `CLAUDE.md` anunciava como ativos. Levado ao mantenedor como decisão.
+
+- Decisão do mantenedor: **não adotar prettier.** Motivo dele: o ganho não é real
+  quando é IA que digita o código, e formatação automática no save pode mexer no que
+  foi escrito de propósito. Não vale o detalhe.
+
+- Output — a decisão foi *aplicada*, não só documentada:
+  1. **Hook desarmado.** Entrada removida de `.claude/settings.json` (PostToolUse
+     `Edit|Write` agora tem 3: `ds-lint-styles`, `ds-inventory-check`, `ds-tokens-check`)
+     e `.claude/hooks/format-on-save.sh` deletado. **Por que remover em vez de deixar
+     inerte:** o hook não estava desligado, estava **armado e sem munição** — bastava
+     alguém rodar `npx prettier` uma vez pra popular o cache do npx e ele passava a
+     reformatar todo arquivo editado, sem ninguém ter pedido. Isso aconteceu de verdade
+     na onda de correção do review final: um `npx prettier` de validação de YAML ligou
+     o hook, que reformatou `impl-igreen.md` inteiro no Edit seguinte e mutilou
+     pseudo-código (revertido na hora). Deixar armado contradiz a razão da decisão.
+  2. **7 docs corrigidas** — anunciavam um hook que não roda: tabelas de hooks do
+     `CLAUDE.md` e `.claude/rules/ds-standards.md`, árvore em `.ai/context/architecture.md`,
+     listas em `README.md` e `DISTRIBUICAO.md`. As duas que mais importam mudavam
+     comportamento de agente: `.claude/commands/ds-update.md` e
+     `.claude/skills/ds-dev/update-changelog.md` diziam "o hook formata automaticamente"
+     → agora dizem pra formatar na mão espelhando o código vizinho.
+  3. **Anti-reintrodução.** `CLAUDE.md` e `ds-standards.md` ganharam nota ⛔ dizendo que
+     a ausência de formatador é deliberada, com o motivo — pra ninguém "consertar" isso
+     numa sessão futura achando que é lacuna.
+  Referências históricas preservadas (L-019): `lessons.md` L-044 e a pendência da
+  entrada anterior continuam citando o hook — são registro de quando existia.
+
+- Assumption: formatação manual espelhando o vizinho é suficiente pra manter os
+  arquivos legíveis sem formatador. **Se quebrar:** aparece como diff ruidoso em PR
+  (indentação inconsistente no mesmo arquivo). O caminho de volta é `npm i -D prettier`
+  + `.prettierrc` + rodar uma vez no repo inteiro numa rodada própria — nunca no meio
+  de outra tarefa, porque a primeira passada reformata tudo.
+
 ### [2026-07-29] | ORCHESTRATOR | Conformance showcase — gate cobre `.tsx` + check bloqueante de registro de showcase + exceções unificadas | CONCLUÍDO
 
 - Input: continuação de `.ai/specs/pipeline-conformance-showcase.md` (2ª rodada de

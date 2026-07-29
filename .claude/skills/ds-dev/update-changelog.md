@@ -158,7 +158,8 @@ Sinal: `UPDATE_PROPOSED: v<X.Y.Z> — aguardando gate`
 
 Editar `src/preview/pages/updates-data.ts`:
 - Inserir o novo objeto no TOPO do array `RELEASES` (índice 0)
-- Manter formatação do arquivo (a hook `format-on-save.sh` roda automaticamente após o Edit)
+- Manter formatação do arquivo **na mão** — não há formatador automático no projeto
+  (decisão de 2026-07-29); espelhe a indentação e as quebras das entries vizinhas
 - Não tocar nas entries antigas
 - Não tocar nos types (`ChangeType`, `ReleaseTag`, `ReleaseEntry` — já definidos)
 

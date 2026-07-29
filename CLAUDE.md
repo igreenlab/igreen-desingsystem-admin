@@ -106,7 +106,6 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 
 | Hook | Quando dispara | O que faz |
 |------|----------------|-----------|
-| `format-on-save.sh` | qualquer .ts/.tsx/.md | prettier nos arquivos editados |
 | `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv; L-004 e L-007 saíram (são semânticas, exigem contexto cross-elemento ou julgamento de intenção — ver L-059) — warning em stderr quando encontra anti-pattern. No CI, o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado |
 | `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do catálogo do CLI, **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042. As duas últimas perguntas vêm dos MESMOS módulos do CI (`scripts/lib/ds-exceptions.mjs` + `showcase-registration.mjs`, via `node -e`) — hook e CI não podem divergir |
 | `ds-tokens-check.sh` | `tokens/**/*.ts` | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
@@ -114,6 +113,13 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
 
 Os 3 primeiros são informativos — nunca bloqueiam o Edit, só sinalizam pelo stderr. Quando ver o aviso, corrija antes de continuar.
+
+⛔ **Não há formatador automático — e é deliberado (decisão de 2026-07-29).** `prettier` não
+está no `package.json`; havia um hook `format-on-save.sh` que o chamava via
+`npx --no-install`, ou seja, **no-op** desde sempre — mas que ligaria sozinho se alguém
+populasse o cache do npx, reformatando arquivo sem ninguém ter pedido (aconteceu uma vez).
+Hook e script removidos. **Formate na mão**: espelhe a indentação e as quebras do código
+vizinho. Não reintroduza prettier sem decisão do mantenedor.
 
 Logs em `.ai/scratch/hook-log.txt`.
 

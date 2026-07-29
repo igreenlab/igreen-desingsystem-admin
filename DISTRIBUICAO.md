@@ -192,7 +192,7 @@ O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
   `/ds-update`, `/ds-release`.
 - **Skills** (`.claude/skills/<agent>/`): procedimentos (spec-token, impl-igreen/shadcn/
   composite, review-component, pre-commit-check, release, crud-builder…).
-- **Hooks** (`.claude/settings.json`): PostToolUse — `format-on-save`, `ds-lint-styles`
+- **Hooks** (`.claude/settings.json`): PostToolUse — `ds-lint-styles`
   (L-001..L-007 em `*.styles.*`), `ds-inventory-check` (USAGE/inventory/registry),
   `ds-tokens-check` (avisa `tokens:tw4`+release). PreToolUse — `block-rm-rf`,
   `block-sensitive-edit` (`.env`/credenciais, exit 2).
