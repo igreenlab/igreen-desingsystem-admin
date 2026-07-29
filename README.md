@@ -10,7 +10,7 @@ Escolha o caminho conforme seu objetivo:
 
 - **Quero ver o DS funcionando** → catálogo + documentação viva em **[igreen-desingsystem-admin.vercel.app](https://igreen-desingsystem-admin.vercel.app/#/introduction)** (componentes, tokens, exemplos e pipeline).
 - **Quero consumir o DS num projeto** → veja [`## Consumir em outro projeto`](#consumir-em-outro-projeto) (CLI/registry) e [`DISTRIBUICAO.md`](DISTRIBUICAO.md).
-- **Quero desenvolver no DS** → veja [`## Setup (desenvolvimento no DS)`](#setup-desenvolvimento-no-ds) e [`CLAUDE.md`](CLAUDE.md).
+- **Quero contribuir com o DS (primeira PR)** → comece em **[`CONTRIBUTING.md`](CONTRIBUTING.md)** — o fluxo, o que o CI verifica e as regras que não têm exceção. Depois, [`## Setup (desenvolvimento no DS)`](#setup-desenvolvimento-no-ds).
 - **Sou operador (não-dev)** → veja [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
 
 ---
