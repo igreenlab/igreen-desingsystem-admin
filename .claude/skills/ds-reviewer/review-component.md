@@ -82,6 +82,22 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 - [ ] Tipo "composto" em `.ai/context/components/inventory.md` (dupla verificação)?
 - [ ] `pipeline-state.md` atualizado pelo DS Dev?
 
+### Arquitetura — julgamento, não grep
+
+O lint pega Tailwind literal; estes exigem ler o código:
+
+- **View burra** — lógica visual mora no `.styles.ts`; o `.tsx` compõe e passa
+  props. Lógica visual disfarçada de código (ternário montando classe, cálculo de
+  estilo inline) não é pega por lint nenhum.
+- **Organização de tipos** — tipo compartilhado grande → `.types.ts`; tipo de
+  sub-parte → junto da sub-parte. **Não exija `.types.ts` sempre**: 7 dos 42
+  componentes têm tipos inline por serem simples, e isso é exceção legítima
+  (medido em 2026-07-29, ver `.ai/specs/pipeline-conformance-showcase.md` §1).
+- **Hooks extraídos** quando a lógica com estado cresce — e só então. `hooks/`
+  existe em 6 de 42 componentes; exigir sempre seria errado.
+- **`ComponentsOverviewDoc`** — *advisory*: sugira adicionar, não reprove. Não
+  consta na L-042 e o arquivo tem ~13 lacunas pré-existentes.
+
 ## Passo 4 — Critério de critique genuína
 
 Depois do checklist, aplicar este teste obrigatório:

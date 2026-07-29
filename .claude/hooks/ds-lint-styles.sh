@@ -20,7 +20,9 @@
 #   (falso-positivo alto: casos legítimos de outline-none sem foco visível
 #   próprio). Ver .ai/specs/pipeline-governance-ci.md §1.1 pro porquê.
 #
-# Pula: arquivos que não são src/components/**/*.styles.ts ou *.tsx em ui/.
+# Pula: arquivos que não são src/components/**/*.styles.ts ou *.tsx — cobre
+# TODO src/components/ (ui/, shadcn/, etc.), não só ui/ (o case abaixo casa
+# qualquer *.tsx dentro de src/components/, sem restringir subpasta).
 
 set +e
 
