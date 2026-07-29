@@ -288,7 +288,7 @@ Pipeline de 6 agentes (4 ativos + 2 placeholders 🚧 aguardando primeira tela d
 
 A infraestrutura inclui:
 - **Skills** atômicas por agente (`.claude/skills/`)
-- **Hooks** PreToolUse/PostToolUse (`format-on-save`, `block-rm-rf`, `block-sensitive-edit`)
+- **Hooks** PreToolUse/PostToolUse (`ds-lint-styles`, `block-rm-rf`, `block-sensitive-edit`)
 - **Output style** terse aplicado a toda sessão
 - **MCP servers** (Figma, filesystem, chrome-devtools)
 - **Memory system 4 camadas** (user, project, audit log, lessons system)
