@@ -13,12 +13,32 @@
  * Uso:
  *   node scripts/distribution-debt.mjs        # tabela + exit 0 (advisory)
  *   node scripts/distribution-debt.mjs --ci   # exit 1 se houver débito (CI)
+ *
+ * Por que a forma SEM --ci roda no ci.yml (e não a bloqueante): a Regra 8
+ * (`.claude/rules/ds-standards.md:26`) manda distribuição consolidar no
+ * `/ds-release`, não por-PR-de-componente. Bloquear na PR reprovaria o próximo
+ * PR de componente por seguir a regra do projeto. A forma bloqueante vive no
+ * `release:check`.
  */
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 
 const isCi = process.argv.includes("--ci");
 const UI = "src/components/ui";
 const CATALOG = "cli/templates/default/CLAUDE.md";
+
+// No GitHub Actions, um step que sempre sai 0 tem o log COLAPSADO — ninguém
+// abre. Emitir workflow commands faz o débito aparecer na lista de anotações
+// da run, visível sem clicar em nada. É o que torna o modo "informativo"
+// realmente informativo.
+const IN_GHA = process.env.GITHUB_ACTIONS === "true";
+const esc = (s) =>
+  String(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+
+/** @param {"warning"|"notice"} level */
+function annotate(level, title, message) {
+  if (!IN_GHA) return;
+  console.log(`::${level} title=${esc(title)}::${esc(message)}`);
+}
 
 // PascalCase/dir → kebab (DataList → data-list, DatePicker → date-picker).
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
@@ -72,6 +92,18 @@ for (const r of debt) {
   const reg = r.inReg ? "registry ✓" : "registry ✗ FALTA";
   const cat = r.inCat ? "catálogo ✓" : "catálogo ✗ FALTA";
   console.log(`  • ${r.dir.padEnd(18)} (${r.name}) — ${reg} · ${cat}`);
+
+  const falta = [!r.inReg && "registry.json", !r.inCat && `catálogo do CLI`]
+    .filter(Boolean)
+    .join(" + ");
+  annotate(
+    // Sem --ci é advisory (warning). Com --ci o step reprova, então error.
+    isCi ? "warning" : "notice",
+    `Débito de distribuição: ${r.dir}`,
+    `${r.dir} (${r.name}) falta em: ${falta}. Não bloqueia esta PR — ` +
+      `distribuição consolida no /ds-release (Regra 8). Anote no corpo da PR ` +
+      `que falta registrar.`,
+  );
 }
 console.log(
   `\n  ${debt.length} com débito. Adicione ao registry (node scripts/registry-add-item.mjs <Nome>` +
