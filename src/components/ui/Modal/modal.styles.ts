@@ -22,6 +22,15 @@ export const dialog = tv({
     "outline-float",
     "flex flex-col overflow-hidden",
     "w-[calc(100%-32px)]",
+    // Teto de altura + body rolável (ver `body` abaixo).
+    //
+    // Sem isto, modal com conteúdo alto CRESCE ALÉM DA TELA e o
+    // `overflow-hidden` acima corta o resto — sem barra de rolagem, sem chegar
+    // no rodapé, sem alcançar os botões. Vale para todo modal do sistema; foi
+    // reportado num formulário longo e reproduz em qualquer um.
+    // Mesma convenção de unidade do `w-[calc(...)]` da linha acima. `dvh` em
+    // vez de `vh` por causa da barra do navegador no celular.
+    "max-h-[calc(100dvh-32px)]",
   ],
   variants: {
     size: {
@@ -95,7 +104,13 @@ export const description = tv({
 /* ── Body (children livre) ───────────────────────────────────────── */
 
 export const body = tv({
-  base: "flex flex-col gap-[18px] px-pad-4xl py-[22px]",
+  // `min-h-0` é o que permite o flex item encolher e a rolagem acontecer aqui,
+  // em vez de o conteúdo empurrar o container para fora da tela. Sem ele,
+  // `overflow-y-auto` não tem efeito nenhum dentro de um flex column.
+  base: [
+    "flex flex-col gap-[18px] px-pad-4xl py-[22px]",
+    "min-h-0 flex-1 overflow-y-auto",
+  ],
 });
 
 /* ── Footer ──────────────────────────────────────────────────────── */
