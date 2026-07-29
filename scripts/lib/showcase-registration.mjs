@@ -1,0 +1,79 @@
+/**
+ * showcase-registration — verifica a **superfície 4 da L-042** de um componente:
+ * Doc page + rota no App.tsx + entrada na nav. Puro, zero I/O.
+ *
+ * Por que existe: componente com `<Nome>Doc.tsx` criada mas não roteada faz a
+ * rota abrir **em branco** em produção. Já aconteceu (L-042).
+ *
+ * ⚠️ O id kebab aparece em DOIS lugares no App.tsx, com formatos diferentes:
+ *     DOC_PAGES →   "spinner",                                  (string sozinha)
+ *     render    →   {activePage === "spinner" && <SpinnerDoc />}
+ * Um grep genérico pelo id passa se estiver só no DOC_PAGES — e a rota AINDA
+ * abre em branco. Por isso os dois são checados separadamente.
+ *
+ * NÃO checa `ComponentsOverviewDoc`: não consta na L-042 como superfície
+ * obrigatória e o arquivo tem ~13 lacunas pré-existentes. Fica advisory, no
+ * checklist do revisor.
+ */
+import { isException } from "./ds-exceptions.mjs";
+
+/** PascalCase → kebab (DataList → data-list). */
+export function toKebab(pascalName) {
+  return pascalName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+}
+
+/** Escapa o id pra uso literal em RegExp. */
+const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * @param {object} p
+ * @param {string} p.name       nome PascalCase da pasta do componente
+ * @param {boolean} p.docExists se src/preview/pages/<Nome>Doc.tsx existe
+ * @param {string} p.appTsx     conteúdo de src/App.tsx
+ * @param {string} p.navData    conteúdo de doc-nav-data.ts
+ * @returns {Array<{id: string, what: string, fix: string}>} vazio = ok
+ */
+export function checkRegistration({ name, docExists, appTsx, navData }) {
+  const id = toKebab(name);
+  if (isException(id)) return [];
+
+  const faltas = [];
+  const eid = esc(id);
+
+  if (!docExists) {
+    faltas.push({
+      id: "doc-page",
+      what: `src/preview/pages/${name}Doc.tsx não existe`,
+      fix: `criar a doc page do componente`,
+    });
+  }
+
+  // DOC_PAGES: string sozinha na linha (`  "empty-state",`). Ancorado em ^/$ pra
+  // não casar com a linha do render, que contém o mesmo id.
+  if (!new RegExp(`^\\s*"${eid}",?\\s*$`, "m").test(appTsx)) {
+    faltas.push({
+      id: "app-doc-pages",
+      what: `id "${id}" ausente do array DOC_PAGES em src/App.tsx`,
+      fix: `adicionar "${id}", ao DOC_PAGES`,
+    });
+  }
+
+  // render: a cascata de activePage.
+  if (!new RegExp(`activePage === "${eid}"`).test(appTsx)) {
+    faltas.push({
+      id: "app-render",
+      what: `id "${id}" sem branch de render em src/App.tsx — a rota #/${id} abre EM BRANCO`,
+      fix: `adicionar {activePage === "${id}" && <${name}Doc />}`,
+    });
+  }
+
+  if (!new RegExp(`href:\\s*"${eid}"`).test(navData)) {
+    faltas.push({
+      id: "nav",
+      what: `sem entrada em doc-nav-data.ts`,
+      fix: `adicionar { label: "...", href: "${id}" }`,
+    });
+  }
+
+  return faltas;
+}
