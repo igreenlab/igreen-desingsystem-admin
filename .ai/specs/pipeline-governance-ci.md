@@ -1,0 +1,260 @@
+# Governança de contribuição — de convenção pra gate no servidor
+
+Spec viva da iniciativa de governança de PR/distribuição. Não substitui `CLAUDE.md`
+nem `.claude/rules/ds-standards.md` (regras de comportamento continuam valendo).
+Define **o que** vamos construir e **por quê**.
+
+> Objetivo: hoje o gate de qualidade do DS mora na cabeça de quem tem contexto
+> completo (o mantenedor). Um contribuidor sem esse contexto — humano ou agente de
+> IA "vibe coding" — consegue hoje abrir PR, alterar estrutura, criar componente/token
+> fora do padrão, e nada trava automaticamente. O objetivo é mover o gate pro
+> **servidor** (GitHub) e pro **momento da criação** (não na hora que o mantenedor lê
+> a PR), sem depender de ferramenta paga de terceiro (restrição explícita: segurança +
+> custo).
+
+---
+
+## 1. Estado atual (verificado no repo — 2026-07-29)
+
+- **Branch protection em `main`: NÃO EXISTE.** `gh api repos/igreenlab/igreen-desingsystem-admin/branches/main/protection`
+  retorna 404. Hoje qualquer colaborador com permissão `push` pode commitar direto em
+  `main`, sem PR, sem review, sem CI rodando antes do merge. Isso é mais grave do que
+  a suposição inicial — não é "falta reforçar", é "não existe nenhum gate".
+- **`CODEOWNERS` não existe** (`.github/CODEOWNERS` ausente).
+- **26 colaboradores** no repo `igreenlab/igreen-desingsystem-admin` (público). A
+  identidade autenticada usada nesta sessão tem `push:true` mas `admin:false` —
+  **não consigo configurar branch protection, CODEOWNERS enforcement, Environments
+  ou secrets via API a partir daqui**; isso exige alguém com admin no repo (ver §5).
+- **`.github/workflows/ci.yml`** hoje roda em PR+push pra `main`: `npm ci` → `tsc
+  --noEmit` → `npm test` → `registry-check.mjs` → `check-foundationals.mjs` →
+  `examples-drift-check.mjs --ci`. Nenhum desses checks é "required status check"
+  (porque não há branch protection) — ou seja, mesmo o CI que já existe hoje é
+  **decorativo**: roda, mas nada impede merge se falhar.
+- **`distribution-debt.mjs` já suporta `--ci`** (`process.exit(isCi ? 1 : 0)`,
+  linha 80) — já teria capacidade de falhar quando um componente não está no
+  `registry.json`/catálogo do CLI, mas **não está chamado em `ci.yml`**. É a
+  correção de menor esforço e maior valor do pacote inteiro: 1 linha nova em
+  `ci.yml` já fecha boa parte do gap que deixou o `ChoroplethMap` sumir sem
+  ninguém notar (L-058).
+- **Os 3 hooks** (`ds-lint-styles.sh`, `ds-inventory-check.sh`,
+  `ds-tokens-check.sh`) são scripts bash confirmados **puramente locais**: rodam
+  só como `PostToolUse` do Claude Code, usam `set +e` e terminam com `exit 0`
+  hard-coded independente do que encontrarem — nunca bloqueiam nada, nem local
+  nem em CI (não existe invocação deles fora do hook). Logam em
+  `.ai/scratch/hook-log.txt`.
+- **npm**: `npm owner ls` confirma **1 único owner** (`snksergio`) em ambos os
+  pacotes (`@snksergio/design-system` e `@snksergio/create-design-system`) — "só
+  eu publico" já é verdade no nível do npm hoje. O gap não é permissão de
+  publish, é (a) o processo até chegar lá exigir hoje colar um token bruto na
+  sessão (feito manualmente nesta mesma conversa, mais cedo) e (b) não haver
+  sinal automático de "isso aqui ficou pendente de publish".
+
+---
+
+## 2. Decisões
+
+### 2.1 Sem ferramenta de terceiro (bot de IA pago)
+
+Descartado explicitamente por você: custo recorrente por seat + duplicar as
+regras do DS num formato de config de terceiro (`.coderabbit.yaml` etc.) cria uma
+segunda fonte de verdade que diverge do `ds-standards.md` real com o tempo, e
+levanta questão de segurança (diff do código passando por serviço externo).
+
+### 2.2 Camada semântica = Claude Code Action, reaproveitando o `ds-reviewer` já escrito
+
+Em vez de ensinar regras num bot terceiro, uma Action que roda uma sessão real de
+Claude Code dentro do próprio repo — carrega `CLAUDE.md`/`ds-standards.md` do
+jeito automático de sempre, aplica o skill `ds-reviewer/review-component.md`
+contra o diff. Zero duplicação de regra; o "reviewer" é literalmente o mesmo que
+já usamos.
+
+### 2.3 Camada estrutural = promover o que já existe, não reescrever do zero
+
+`distribution-debt.mjs --ci` já existe e só precisa ser chamado. Os 3 hooks
+precisam de um modo novo (`DS_HOOK_MODE=ci` ou flag equivalente) que troque o
+`exit 0` final por `exit 1` quando encontrar violação — mesma lógica de
+detecção, sem duplicar em formato de terceiro (era a alternativa descartada: um
+linter genérico reaprendendo os mesmos greps).
+
+### 2.4 "Checklist de não-publicado" = changeset-lite, não Bit.dev/registry versionado
+
+Adotar o pacote `changesets` completo (ou um workspace Bit.dev) foi descartado —
+troca de paradigma grande demais pro problema real, que é só "declarar no
+momento do PR o que vai precisar de ação de distribuição depois". Uma convenção
+de arquivo simples (`.changes/<slug>.md`) + 1 script de agregação resolve sem
+adotar uma ferramenta inteira nova.
+
+### 2.5 Segurança de publish = OIDC Trusted Publishing + Environment gate, não mais token manual
+
+Elimina definitivamente o padrão "colar token no chat" que usamos nesta sessão
+(funcionou, mas é exatamente o tipo de manuseio de credencial que queremos parar
+de fazer). GitHub Environment com "required reviewer" = você fisicamente aprova
+cada publish antes de rodar, independente de quem/o que abriu o PR que levou até
+ali.
+
+---
+
+## 3. Design por camada
+
+### Camada 1 — Base intransponível (GitHub nativo)
+
+**Arquivos**: `.github/CODEOWNERS` (novo).
+**Config externa (não é código)**: branch protection em `main` via
+Settings → Branches (ou `gh api repos/.../branches/main/protection` **por
+alguém com admin**).
+
+- `CODEOWNERS` atribui aprovação obrigatória em `src/components/**`,
+  `tokens/**`, `registry.json`, `cli/**`, `.github/**` a `@snksergio` (dono
+  confirmado do npm) — **e possivelmente `@leandrosfreire`**, que consta na
+  lista de colaboradores e é citado como mantenedor em `CLAUDE.md`. **Preciso
+  que você confirme os handles exatos antes da implementação** — não vou
+  adivinhar quem entra no CODEOWNERS.
+- Branch protection: exige PR pra `main` (bloqueia push direto — fecha o 404
+  encontrado em §1), exige aprovação de Code Owner, exige os status checks das
+  Camadas 2/3 (uma vez existentes) como "required".
+
+### Camada 2 — Gate determinístico em CI
+
+**Arquivos tocados**: `.github/workflows/ci.yml`, os 3 scripts em
+`.claude/hooks/*.sh` (ganham modo CI), possível script novo
+`scripts/ci-lint-styles.mjs` se portar bash→node for mais robusto em runner
+Ubuntu do que reusar os `.sh` diretamente (decisão de implementação, não de
+design).
+
+- Passo imediato e de baixíssimo risco: adicionar
+  `node scripts/distribution-debt.mjs --ci` em `ci.yml` — já existe, já
+  funciona, só falta a linha.
+- Os 3 hooks ganham modo "CI": em vez de rodar via protocolo de stdin JSON do
+  Claude Code (`tool_input.file_path`), rodam contra a lista de arquivos
+  alterados na PR (`git diff --name-only origin/main...HEAD`), e falham
+  (`exit 1`) se `$FOUND`/`$MISSING` > 0 quando `CI=true` estiver setado —
+  mantendo o comportamento local (sempre `exit 0`, só avisa) intacto por
+  padrão.
+
+### Camada 3 — Revisão semântica (Claude Code Action)
+
+**Arquivo novo**: `.github/workflows/ds-review.yml`.
+**Prerequisito**: secret `ANTHROPIC_API_KEY` no repo (§5 — precisa de acesso
+admin, não consigo criar sozinho).
+
+- Dispara em PR (`opened`, `synchronize`) tocando `src/components/**` ou
+  `tokens/**`.
+- Roda a Action oficial de Claude Code (verificar nome/versão exata do action
+  na fase de implementação — não vou cravar aqui uma referência que pode estar
+  desatualizada), instruída a invocar o checklist de
+  `ds-reviewer/review-component.md` contra o diff e postar como review comment.
+- **Começa em modo comentário** (não required check) — só vira bloqueante
+  depois de medir taxa de falso-positivo em uso real.
+
+### Camada 4 — Checklist de distribuição + publish seguro
+
+**Arquivos novos**: convenção `.changes/<slug>.md`, script
+`scripts/changeset-check.mjs` (falha CI se PR tocar componente/token sem
+changeset), script `scripts/aggregate-pending-distribution.mjs` (gera/atualiza
+`PENDING-DISTRIBUTION.md` a partir dos changesets não resolvidos).
+**Arquivo tocado**: `.claude/skills/ds-dev/release.md` (passo novo: consumir e
+limpar changesets resolvidos ao rodar `/ds-release`).
+**Config externa**: Trusted Publisher no npmjs.com (org `@snksergio`, manual,
+sua conta) + GitHub Environment `npm-publish` com required reviewer + novo
+workflow de publish via OIDC (substitui o `cd cli && npm publish` manual).
+
+- Cada `.changes/<slug>.md` declara: item, tipo (novo/edição), se precisa
+  `registry`, `catálogo CLI`, `npm publish`, descrição curta.
+- CI falha se a PR tocar `src/components/ui/**`/`shadcn/**`/`tokens/**` sem
+  arquivo novo em `.changes/`.
+- Ao mergear, `PENDING-DISTRIBUTION.md` (raiz ou `.ai/status/`) se atualiza —
+  literalmente o checklist que você descreveu: você olha esse arquivo antes de
+  rodar `/ds-release`, os itens resolvidos saem da lista sozinhos.
+
+---
+
+## 4. Fluxo ponta a ponta
+
+Dev (com ou sem contexto do DS) pede pra Claude Code "preciso de um componente
+novo" / "preciso de uma variação nova":
+
+1. Componente/variante é criado.
+2. PR aberta → **Camada 1** já trava o merge até aprovação do Code Owner + checks
+   verdes — não importa se veio de sessão com CLAUDE.md carregado, de submódulo,
+   ou de git manual.
+3. **Camada 2** aponta na hora, na aba de Checks, se quebrou padrão/estrutura/
+   registro — sem o mantenedor precisar abrir o diff.
+4. **Camada 4** exige o changeset — não dá pra "esquecer" de declarar que
+   precisa ir pro registry/CLI/npm.
+5. **Camada 3** comenta nuance semântica (token certo? `tv()` de espírito, não
+   só sintaxe?).
+6. Mantenedor abre a PR: já vê aprovação pendente (só dele), checks estruturais
+   resolvidos, changeset declarado, review semântico feito. A revisão dele vira
+   julgamento de mérito, não caça de convenção.
+7. Merge → `PENDING-DISTRIBUTION.md` atualiza. `/ds-release` consome os
+   changesets resolvidos. Publish do npm só roda com aprovação explícita no
+   Environment.
+
+---
+
+## 5. Ações manuais suas (fora do meu alcance por permissão)
+
+Confirmado nesta sessão: minha identidade autenticada tem `push` mas não
+`admin` no repo. Estes itens **precisam ser feitos por alguém com admin**
+(você ou quem tiver essa permissão no `igreenlab`):
+
+1. Confirmar os handles exatos que entram no `CODEOWNERS` (candidatos
+   levantados: `@snksergio`, possivelmente `@leandrosfreire`).
+2. Ativar branch protection em `main` (posso preparar o comando `gh api` exato
+   pra quem tiver admin rodar, ou o passo a passo da UI).
+3. Criar o secret `ANTHROPIC_API_KEY` no repo (Settings → Secrets → Actions).
+4. Configurar Trusted Publisher no npmjs.com pros 2 pacotes (site do npm, conta
+   `snksergio`).
+5. Criar o GitHub Environment `npm-publish` com required reviewer.
+
+Eu construo todo o código/workflow (Camadas 2, 3, 4 do lado do repo) via PR
+normal; esses 5 itens acima são pré-requisito de infraestrutura que só quem tem
+a permissão certa executa.
+
+---
+
+## 6. Rollout (fases, mapeiam pro plano de implementação)
+
+| Fase | O quê | Risco de bloquear trabalho legítimo |
+|---|---|---|
+| 0 | Você executa os 5 itens manuais do §5 (ou pelo menos CODEOWNERS + branch protection, item mais urgente dado o 404 do §1) | zero — é config, não código |
+| 1 | `distribution-debt.mjs --ci` entra em `ci.yml` | zero — hoje não há débito, só passa a travar débito NOVO |
+| 2 | Hooks ganham modo CI, viram check obrigatório | baixo — mesma detecção que já roda local há tempo, sem surpresa |
+| 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
+| 4 | Claude Code Action — **modo comentário, não bloqueia** | zero nesse modo |
+| 5 | OIDC + Environment pro publish do CLI/lib | zero pro fluxo de PR — só muda como o publish final roda |
+| 6 (depois de calibrar) | Promover a Action da Camada 3 a required check | avaliar taxa de falso-positivo antes |
+
+---
+
+## 7. Riscos / assumptions
+
+- **Assumption central**: os 3 hooks bash portam pra "modo CI" sem reescrever a
+  lógica de detecção — se o runner Ubuntu não tiver as mesmas ferramentas (jq/
+  node) que o ambiente local, pode precisar de ajuste. Vou validar isso na
+  implementação, não aqui.
+- **Assumption**: a Action oficial de Claude Code no GitHub suporta o modo
+  "roda automático em todo PR" (não só via menção `@claude` em comentário) —
+  preciso confirmar isso na implementação; se só suportar menção, o design da
+  Camada 3 muda pra "roda quando alguém comenta `@claude review`" em vez de
+  automático, o que reduz a garantia de "sempre roda" (fica dependente de
+  alguém lembrar de pedir).
+- **Risco**: mensagens de erro dos checks determinísticos (Camada 2/4) mal
+  escritas viram atrito em vez de ajuda — cada falha precisa dizer exatamente o
+  que fazer pra corrigir (mesmo padrão que os hooks locais já seguem bem hoje).
+- **Risco de permissão**: CODEOWNERS só funciona se os handles designados
+  tiverem de fato permissão de review/merge no repo — confirmar antes de
+  ativar branch protection, senão pode travar até o próprio mantenedor.
+
+---
+
+## 8. Fora de escopo (YAGNI)
+
+- Adotar `changesets` (pacote) ou Bit.dev completo — convenção leve própria
+  resolve sem trocar de paradigma.
+- Qualquer bot de terceiro pago (CodeRabbit/Cubic/Greptile/etc.) — descartado
+  por decisão explícita (§2.1).
+- Multi-token/rotação no registry, versão histórica por-componente — já
+  adiados em `.ai/status/BACKLOG.md`, sem relação direta com este design.
+- Promover a Camada 3 (IA) a required check já na primeira fase — só depois de
+  medir falso-positivo em uso real (§6, fase 6).
