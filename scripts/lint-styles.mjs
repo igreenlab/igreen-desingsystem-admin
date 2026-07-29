@@ -21,11 +21,17 @@ import { existsSync, readFileSync } from "node:fs";
 import { scanLines } from "./lib/ds-lint-patterns.mjs";
 import { parseAddedLines } from "./lib/diff-added-lines.mjs";
 
-// Escopo: só styles de componente. `src/examples/**` e `src/preview/**` ficam
-// FORA de propósito — são cópias/demos, não a fonte do DS. Se um dia o gate
-// precisar cobrir `src/examples/` (que vai pro consumidor, L-034), é decisão
-// de escopo própria, não ajuste silencioso aqui.
-const GLOB = "src/components/**/*styles.ts";
+// Escopo: styles de componente E os próprios componentes.
+//
+// `*.tsx` entrou porque o gate só olhava `*styles.ts` — então Tailwind literal
+// escrito direto no componente (`<div className="flex gap-4">`) passava limpo,
+// que é o erro mais provável de quem não conhece o padrão. Medido antes de
+// ligar: 3 violações reais no `ui/` (todas o mesmo container de 36px) e 27 no
+// `shadcn/`, congeladas pelo ratchet.
+//
+// `src/examples/**` e `src/preview/**` seguem FORA de propósito — são
+// cópias/demos, não a fonte do DS.
+const GLOB = ["src/components/**/*styles.ts", "src/components/**/*.tsx"];
 
 // Rodando dentro do GitHub Actions? Lá, além do log humano, emitimos workflow
 // commands (`::error file=…,line=…::`) — o GitHub transforma isso em anotação
@@ -94,7 +100,7 @@ function modeRatchet(base) {
     // --merge-base: compara com o ponto de divergência, não com o tip da base.
     // Sem isso, commit que entrou na base depois do fork aparece como `+`
     // e reprova quem não mexeu naquilo.
-    diff = execFileSync("git", ["diff", "-U0", "--merge-base", base, "--", GLOB], {
+    diff = execFileSync("git", ["diff", "-U0", "--merge-base", base, "--", ...GLOB], {
       encoding: "utf8",
       maxBuffer: 64 * 1024 * 1024,
     });

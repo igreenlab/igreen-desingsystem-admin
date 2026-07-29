@@ -47,7 +47,7 @@ TS="$(date '+%Y-%m-%d %H:%M:%S')"
 
 # Só roda em arquivos relevantes: *.styles.ts ou tsx dentro de src/components/
 case "$FILE" in
-  *src/components/*styles.ts|*src/components/*styles.tsx) : ;;
+  *src/components/*styles.ts|*src/components/*styles.tsx|*src/components/*.tsx) : ;;
   *) exit 0 ;;
 esac
 

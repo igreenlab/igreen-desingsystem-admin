@@ -89,7 +89,7 @@ export function UserMenu({
           type="button"
           aria-label={`Menu do usuário (${user.name})`}
           className={[
-            "grid place-items-center w-9 h-9 rounded-full shrink-0",
+            "grid place-items-center size-comp-lg rounded-full shrink-0",
             "bg-bg-brand text-fg-on-brand text-caption-sm font-bold uppercase tracking-[0.02em]",
             "cursor-pointer transition-opacity duration-150",
             "hover:opacity-90",
@@ -99,7 +99,7 @@ export function UserMenu({
           style={user.avatarColor ? { background: user.avatarColor } : undefined}
         >
           {user.avatarSrc ? (
-            <Avatar className="size-9">
+            <Avatar className="size-comp-lg">
               <AvatarImage src={user.avatarSrc} alt={user.name} />
               <AvatarFallback className="bg-transparent text-fg-on-brand">
                 {initials}
@@ -120,7 +120,7 @@ export function UserMenu({
         {/* Header — avatar + nome + email */}
         <div className="flex items-center gap-gp-md px-pad-lg py-pad-md">
           <Avatar
-            className="size-9 shrink-0"
+            className="size-comp-lg shrink-0"
             style={user.avatarColor ? { background: user.avatarColor } : undefined}
           >
             {user.avatarSrc && <AvatarImage src={user.avatarSrc} alt={user.name} />}
