@@ -21,7 +21,7 @@ import type { DatePickerProps, DateRange } from "@/components/ui/DatePicker";
 | `mode` | Obrigatória? | `value` | `onValueChange` | Nº de meses (default) |
 |---|---|---|---|---|
 | `"single"` (default) | não (`mode?: "single"`) | `Date \| undefined` | `(value: Date \| undefined) => void` | 1 |
-| `"range"` | sim (`mode: "range"`) | `DateRange \| undefined` (`{ from?: Date; to?: Date }`, reexportado de `react-day-picker`) | `(value: DateRange \| undefined) => void` | 2 |
+| `"range"` | sim (`mode: "range"`) | `DateRange \| undefined` (`{ from: Date \| undefined; to?: Date }`, reexportado de `react-day-picker`) | `(value: DateRange \| undefined) => void` | 2 |
 | `"multiple"` | sim (`mode: "multiple"`) | `Date[] \| undefined` | `(value: Date[] \| undefined) => void` | 1 |
 
 Comportamento de fechamento do popover por modo:
@@ -70,7 +70,8 @@ const [dates, setDates] = useState<Date[]>();
   o range já no primeiro clique (`from`/`to` iguais no mesmo dia).
 - Em `multiple`, não há botão "Aplicar"/"Fechar" embutido — o popover some só no
   clique-fora.
-- **Não há pass-through de datas desabilitadas/min/max** pro `Calendar` interno — a prop
-  `disabled` desabilita o trigger inteiro, não datas específicas do calendário.
+- **Não há pass-through de restrição de datas** (desabilitar dias específicos / limitar o
+  intervalo navegável) pro `Calendar` interno — a prop `disabled` do DatePicker desabilita
+  o trigger inteiro, não datas específicas do calendário.
 - O label do trigger é formatado em pt-BR fixo (`toLocaleDateString("pt-BR", ...)`); não
   existe prop de formato customizável.
