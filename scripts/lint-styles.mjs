@@ -27,11 +27,42 @@ import { parseAddedLines } from "./lib/diff-added-lines.mjs";
 // de escopo própria, não ajuste silencioso aqui.
 const GLOB = "src/components/**/*styles.ts";
 
+// Rodando dentro do GitHub Actions? Lá, além do log humano, emitimos workflow
+// commands (`::error file=…,line=…::`) — o GitHub transforma isso em anotação
+// NA LINHA do diff, na aba "Files changed". Sem isso o achado fica só no log
+// do step, que vem colapsado e ninguém abre.
+const IN_GHA = process.env.GITHUB_ACTIONS === "true";
+
+/** Escapa os separadores que os workflow commands do GitHub interpretam. */
+const esc = (s) =>
+  String(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
+
+/**
+ * Emite uma anotação do GitHub Actions. No-op fora do CI.
+ * @param {"error"|"warning"|"notice"} level
+ */
+function annotate(level, { file, line, title, message }) {
+  if (!IN_GHA) return;
+  const loc = [file && `file=${esc(file)}`, line && `line=${line}`, title && `title=${esc(title)}`]
+    .filter(Boolean)
+    .join(",");
+  console.log(`::${level} ${loc}::${esc(message)}`);
+}
+
 function report(violations, { blocking }) {
   for (const v of violations) {
     console.log(`\n  ${blocking ? "✗" : "•"} ${v.file}:${v.n}  [${v.id}]`);
     console.log(`      ${v.text.trim().slice(0, 110)}`);
     console.log(`      → ${v.msg}`);
+    // Só o modo bloqueante anota como `error`. O modo hook não roda no CI.
+    if (blocking) {
+      annotate("error", {
+        file: v.file,
+        line: v.n,
+        title: `${v.id} — anti-pattern de estilo do DS`,
+        message: v.msg,
+      });
+    }
   }
 }
 
@@ -67,11 +98,14 @@ function modeRatchet(base) {
       encoding: "utf8",
       maxBuffer: 64 * 1024 * 1024,
     });
-  } catch {
-    console.error(
-      `\n⚠️  lint-styles: não consegui diffar contra "${base}".` +
-        ` No CI, garanta fetch-depth: 0 no actions/checkout.\n`,
-    );
+  } catch (err) {
+    const detail = err?.message ? ` Detalhe do git: ${err.message.trim()}` : "";
+    const msg =
+      `lint-styles: não consegui diffar contra "${base}".` +
+      ` No CI, garanta fetch-depth: 0 no actions/checkout;` +
+      ` localmente, rode git fetch origin main.${detail}`;
+    console.error(`\n⚠️  ${msg}\n`);
+    annotate("error", { title: "lint-styles não conseguiu rodar", message: msg });
     return 1;
   }
 

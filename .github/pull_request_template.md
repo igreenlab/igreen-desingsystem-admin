@@ -1,0 +1,57 @@
+<!--
+Este texto aparece preenchido automaticamente ao abrir PR. Apague o que não
+se aplicar. As caixinhas não são burocracia: cada uma existe porque a falta
+dela já causou um problema real neste repo (as lições L-0NN citadas).
+-->
+
+## O que muda e por quê
+
+<!-- O "por quê" importa mais que o "o quê" — a diff já mostra o quê. -->
+
+## Como testei
+
+<!-- Comando + resultado. "Testei localmente" não é evidência. -->
+
+---
+
+## Checklist
+
+Marque só o que se aplica ao seu caso.
+
+### Sempre
+
+- [ ] `npx vitest run` e `npx tsc --noEmit` passam
+- [ ] Se o check **`check`** ficou vermelho, eu olhei o motivo (o gate de estilos marca a linha exata na aba *Files changed*)
+
+### Se mexi em `*.styles.ts` ou criei/alterei componente
+
+- [ ] Usei **classe DS**, não Tailwind literal — `gap-gp-md` (não `gap-4`), `min-h-form-lg` (não `h-10`), `rounded-radius-lg` (não `rounded-lg`), `shadow-sh-md`, `size-comp-*`
+- [ ] `tv` importado de `@/utils/tv` (nunca de `tailwind-variants`)
+- [ ] `disabled` é o **último** `compoundVariant` (L-006)
+- [ ] Zero hardcode (`#fff`, `16px`, `0.875rem`)
+
+### Se criei componente novo
+
+O componente toca **7 superfícies** (L-042). Nesta PR fecham as 4 primeiras:
+
+- [ ] Código em `src/components/ui/<Nome>/`
+- [ ] `USAGE.md` ao lado do componente
+- [ ] Entrada em `.ai/context/components/inventory.md` (L-016)
+- [ ] Showcase: `<Nome>Doc.tsx` **+ registrado no `App.tsx`** (`DOC_PAGES`) **+ no `doc-nav-data.ts`** — sem os três, a rota renderiza em branco (L-042)
+- [ ] Declarei no `package.json` toda dependência nova que o componente importa de fato (L-058)
+
+As 3 restantes (registry · catálogo do CLI · changelog) **não** vão nesta PR — consolidam no `/ds-release` (Regra 8). Se o check de débito de distribuição apontou algo, anote aqui o que falta registrar:
+
+<!-- ex.: "falta registrar o ChoroplethMap no registry.json + catálogo do CLI" -->
+
+### Se mexi em token
+
+- [ ] Rodei `npm run tokens:tw4`
+- [ ] Se criei preset tipográfico, registrei em `src/utils/tv.ts` (`twMergeConfig`) — sem isso o `tailwind-merge` remove a classe **em silêncio** (L-016)
+- [ ] Dark mode conferido (`color-dark.ts`)
+
+---
+
+## Para o revisor
+
+<!-- Onde você quer atenção? O que já sabe que ficou de débito? -->
