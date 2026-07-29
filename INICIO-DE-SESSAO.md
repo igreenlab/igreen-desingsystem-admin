@@ -5,6 +5,10 @@ seguindo o pipeline do próprio Design System. Pensado para um **operador
 não-programador** (ex.: Orlando): cole o bloco abaixo no começo de cada conversa,
 dentro da pasta `design-system/`, e a sessão já sai calibrada.
 
+> **Se você programa**, provavelmente quer [`CONTRIBUTING.md`](CONTRIBUTING.md) em
+> vez deste arquivo — é o mesmo fluxo, sem a tradução para linguagem não-técnica,
+> e cobre o que o CI verifica e as regras de PR.
+
 > O pipeline do DS já força o essencial (checar inventário, não inventar token,
 > GATE de aprovação, estrutura de 5 arquivos + `USAGE.md`, hooks de
 > lint/format/inventário, bloqueio de edição sensível). Este prompt **traduz** o
@@ -51,8 +55,10 @@ NO GATE (quando me pedir aprovação), fale a MINHA língua:
 - Só implemente depois do meu "pode".
 
 SEGURANÇA (não faça sem eu pedir explicitamente):
-- Não dê push, não publique no npm, não rode release nem bump de versão — isso
-  é com o Leandro.
+- Não publique no npm, não rode release nem bump de versão — isso é passo
+  separado do mantenedor do DS.
+- Pode criar branch e abrir PR, mas NUNCA commite direto na main (ela é
+  protegida) e NUNCA faça o merge sozinho — o merge é decisão minha.
 - Não edite .env, credenciais, nem os tokens primitivos.
 - Não mexa em arquivos de outro componente além do nosso.
 
