@@ -60,6 +60,32 @@ describe("DS_LINT_PATTERNS — deve PEGAR (erradas independente de contexto)", (
     expect(scan1('import { tv } from "tailwind-variants";')[0].id).toBe("IMPORT");
     expect(scan1("import { tv } from 'tailwind-variants';")[0].id).toBe("IMPORT");
   });
+
+  // Achado do review: todo pattern com âncora de aspas era só aspas DUPLAS —
+  // `'flex gap-4 h-9 rounded-lg shadow-md'` (aspas simples) passava limpo.
+  // O delimitador agora é uma classe de caracteres (aspa simples OU dupla)
+  // nos dois lados, em vez de aspa dupla fixa.
+  it("aspas simples: mesmos patterns pegam com ' em vez de \"", () => {
+    expect(scan1("'ring-4 ring-ring-brand/30'")[0].id).toBe("L-001");
+    expect(scan1("'flex gap-4'")).toHaveLength(1);
+    expect(scan1("'p-4'")).toHaveLength(1);
+    expect(scan1("'h-9'")).toHaveLength(1);
+    expect(scan1("'rounded-lg'")).toHaveLength(1);
+    expect(scan1("'shadow-md'")).toHaveLength(1);
+    expect(scan1("'ring-3'")[0].id).toBe("L-003");
+    expect(scan1("'bg-input/50'")[0].id).toBe("L-005");
+  });
+
+  it("aspas simples: uma linha só com múltiplas violações mistura tudo (caso real do finding)", () => {
+    const hits = scan1("'flex gap-4 h-9 rounded-lg shadow-md'");
+    expect(hits.length).toBe(4); // gap, height, rounded, shadow
+  });
+
+  it("aspas simples: os falso-positivos (0 / none / full) continuam limpos", () => {
+    expect(scan1("'!gap-0 !p-0'")).toEqual([]);
+    expect(scan1("'rounded-full'")).toEqual([]);
+    expect(scan1("'rounded-none'")).toEqual([]);
+  });
 });
 
 describe("DS_LINT_PATTERNS — NÃO deve pegar (os 50 falso-positivos medidos)", () => {
@@ -121,4 +147,8 @@ describe("scanLines", () => {
   // Buracos de cobertura conhecidos, herdados do hook — decidir em plano futuro
   it.todo("space-x-N / space-y-N (utility legado, sem token DS direto)");
   it.todo("w-N / h-N isolados (só size-N e h-N estão cobertos)");
+  // Buracos achados no review do widening de aspas (finding 4) — documentados
+  // no docstring do módulo, não fechados nesta rodada.
+  it.todo("template literals (crase) nunca são varridos — `flex gap-4` passa limpo");
+  it.todo("números fora do baseline medido passam limpo: w-10, p-9, gap-11, h-20");
 });
