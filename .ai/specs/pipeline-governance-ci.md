@@ -148,20 +148,74 @@ design).
   fica de fora da promoção a "obrigatório" até ser desenhada à parte (ver
   Fase 2b no rollout, §6).
 
-### Camada 3 — Revisão semântica (Claude Code Action)
+### Camada 3 — Revisão semântica
 
-**Arquivo novo**: `.github/workflows/ds-review.yml`.
-**Prerequisito**: secret `ANTHROPIC_API_KEY` no repo (§5 — precisa de acesso
-admin, não consigo criar sozinho).
+**Correção pós-pesquisa (WebFetch na doc oficial, 2026-07-29)**: existem **2
+produtos distintos** da Anthropic pra isso, com trade-offs diferentes —
+detalhado abaixo. Escolha: **3b**, pelos motivos na comparação.
 
-- Dispara em PR (`opened`, `synchronize`) tocando `src/components/**` ou
-  `tokens/**`.
-- Roda a Action oficial de Claude Code (verificar nome/versão exata do action
-  na fase de implementação — não vou cravar aqui uma referência que pode estar
-  desatualizada), instruída a invocar o checklist de
-  `ds-reviewer/review-component.md` contra o diff e postar como review comment.
-- **Começa em modo comentário** (não required check) — só vira bloqueante
-  depois de medir taxa de falso-positivo em uso real.
+#### Opção 3a — "Code Review" gerenciado (claude.ai/admin-settings)
+
+Serviço gerenciado, roda na infra da Anthropic (não consome minuto de GitHub
+Actions). Confirmado por doc oficial:
+- Lê `CLAUDE.md` automaticamente e sinaliza violação como finding `nit`. Tem um
+  arquivo **`REVIEW.md`** dedicado (raiz do repo) — instruções só-de-review,
+  injetadas como prioridade máxima no prompt de cada agente — é literalmente o
+  mecanismo certo pra apontar pro checklist do `ds-reviewer` sem misturar com
+  o `CLAUDE.md` geral.
+- Trigger por repo: "Once after PR creation" / "After every push" / "Manual"
+  (via `@claude review`).
+- **Achado importante**: o check run desse serviço **sempre fecha com
+  conclusão "neutral"** — "não bloqueia merge via branch protection" **por
+  design**, mesmo se configurado required. Pra realmente bloquear, sua própria
+  CI precisaria ler o resumo machine-readable do check run
+  (`bughunter-severity` no output) e decidir. Ou seja, isso **não vira
+  required check sozinho** — precisaria de um wrapper.
+- **Custo real, não estimado**: **$15-25 por review**, escalando com
+  tamanho/complexidade da PR e por push (se modo "After every push"). Cobrado
+  via usage credits, separado do plano.
+- **Requer plano Team ou Enterprise do Claude** (não funciona em plano
+  inferior) + quem configura precisa ser **Owner/Primary Owner da organização
+  Claude** (claude.ai/admin-settings) — é uma camada de aprovação **diferente**
+  de admin do GitHub, adicional à lista do §5. **Preciso que você confirme se
+  a organização tem esse plano** antes de considerar essa opção viável.
+
+#### Opção 3b — Self-hosted via `anthropics/claude-code-action@v1` (recomendada)
+
+Roda dentro do **nosso** `ci.yml`, consumindo minuto de GitHub Actions +
+`ANTHROPIC_API_KEY` normal (mesmo mecanismo de billing que já usamos, sem
+assinatura nova). Confirmado por doc oficial (`code.claude.com/docs/en/github-actions`):
+- Suporta disparo automático em `pull_request: types: [opened, synchronize]`
+  (não só menção `@claude`) — a doc mostra literalmente um exemplo desse
+  formato pra rodar um skill review em toda PR nova.
+- **Suporta invocar skill do próprio repo diretamente**: `actions/checkout`
+  antes do passo + `prompt: "/review-component"` (ou o nome do skill) —
+  documentado como o jeito de rodar um skill de `.claude/skills/` dentro da
+  Action. É exatamente como reaproveitamos o `ds-reviewer/review-component.md`
+  sem reescrever nada.
+- **Setup manual (não o `/install-github-app` quickstart)**: o quickstart
+  instala um GitHub App com permissão fixa de **Contents: Read & Write**
+  (mais do que precisamos — não queremos que a Camada 3 tenha permissão de
+  *escrever* código sozinha, só de ler o diff e comentar). A doc lista
+  "Manual GitHub Actions: configuração direta de workflow, pra máxima
+  flexibilidade" como alternativa — é essa que usamos, com um bloco
+  `permissions:` mínimo no nosso próprio workflow (`contents: read,
+  pull-requests: write` — sem `issues`, sem write em `contents`).
+- **Controle total de bloqueio**: como o job é nosso, decidimos o exit code —
+  pode ficar comentário-only (Fase 4) e só depois virar required check de
+  verdade (Fase 6), sem precisar de wrapper pra ler output de terceiro.
+- Custo: mesmo mecanismo de token da API, sem markup de serviço gerenciado —
+  ainda não é grátis (§7), mas escalamos o gatilho (só PR aberta, não todo
+  push) pra controlar volume desde o início.
+
+**Por que 3b em vez de 3a**: 3a exige uma camada de aprovação nova (Owner do
+Claude org) e um plano pago específico que não sei se existe hoje, e o custo
+por review é fixo e alto ($15-25) independente de tamanho real do diff. 3b usa
+exatamente o mesmo secret que já pedimos pra CODEOWNERS/Action, reaproveita o
+skill do `ds-reviewer` literalmente (não via `REVIEW.md` reescrito), e não
+adiciona dependência de assinatura. Guardo 3a documentado aqui como alternativa
+caso vocês já tenham Team/Enterprise e prefiram a UX gerenciada (dashboard de
+custo, severidade automática, auto-resolve de thread).
 
 ### Camada 4 — Checklist de distribuição + publish seguro
 
@@ -228,13 +282,19 @@ Confirmado nesta sessão: minha identidade autenticada tem `push` mas não
    levantados: `@snksergio`, possivelmente `@leandrosfreire`).
 2. Ativar branch protection em `main` (posso preparar o comando `gh api` exato
    pra quem tiver admin rodar, ou o passo a passo da UI).
-3. Criar o secret `ANTHROPIC_API_KEY` no repo (Settings → Secrets → Actions).
+3. Criar o secret `ANTHROPIC_API_KEY` no repo (Settings → Secrets → Actions) —
+   pra Camada 3, opção 3b (self-hosted).
 4. Configurar Trusted Publisher no npmjs.com pros 2 pacotes (site do npm, conta
    `snksergio`).
 5. Criar o GitHub Environment `npm-publish` com required reviewer.
+6. **Só se optarem pela Opção 3a** (Code Review gerenciado, não é a
+   recomendação): confirmar se a organização já tem plano Team/Enterprise do
+   Claude, e alguém com papel Owner/Primary Owner em
+   `claude.ai/admin-settings/claude-code` precisa instalar o GitHub App —
+   aprovação adicional, separada de admin do GitHub.
 
-Eu construo todo o código/workflow (Camadas 2, 3, 4 do lado do repo) via PR
-normal; esses 5 itens acima são pré-requisito de infraestrutura que só quem tem
+Eu construo todo o código/workflow (Camadas 2, 3b, 4 do lado do repo) via PR
+normal; esses itens acima são pré-requisito de infraestrutura que só quem tem
 a permissão certa executa.
 
 ---
@@ -248,7 +308,7 @@ a permissão certa executa.
 | 2a | `ds-lint-styles.sh`/`ds-inventory-check.sh` ganham modo CI, viram check obrigatório | baixo — mesma detecção que já roda local há tempo, sem surpresa |
 | 2b | `ds-tokens-check.sh` → **NÃO entra no rollout ainda**. Precisa de lógica nova (rodar `tokens:tw4` em CI + diffar contra CSS commitado) que este design não cobre — fica como follow-up separado, fora de escopo desta spec (§8) | promover como está = falso-positivo garantido em qualquer PR de token |
 | 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
-| 4 | Claude Code Action — **modo comentário, não bloqueia** | zero nesse modo |
+| 4 | Camada 3, Opção 3b (self-hosted, `pull_request: opened` só — não `synchronize`, pra conter custo) — **modo comentário, não bloqueia** | zero nesse modo (custo de API existe mas é comentário-only, não trava nada) |
 | 5 | OIDC + Environment pro publish do CLI/lib — **depende de 5.4 (Trusted Publisher no npmjs.com) existir primeiro**, porque o npm exige o nome exato do workflow/environment pra configurar o Trusted Publisher, e o workflow só é testável depois disso existir (ordem obrigatória, não paralela) | zero pro fluxo de PR — só muda como o publish final roda |
 | 6 (depois de calibrar) | Promover a Action da Camada 3 a required check | avaliar taxa de falso-positivo antes |
 
@@ -260,12 +320,10 @@ a permissão certa executa.
   lógica de detecção — se o runner Ubuntu não tiver as mesmas ferramentas (jq/
   node) que o ambiente local, pode precisar de ajuste. Vou validar isso na
   implementação, não aqui.
-- **Assumption**: a Action oficial de Claude Code no GitHub suporta o modo
-  "roda automático em todo PR" (não só via menção `@claude` em comentário) —
-  preciso confirmar isso na implementação; se só suportar menção, o design da
-  Camada 3 muda pra "roda quando alguém comenta `@claude review`" em vez de
-  automático, o que reduz a garantia de "sempre roda" (fica dependente de
-  alguém lembrar de pedir).
+- ~~Assumption sobre a Action suportar disparo automático~~ — **resolvida**:
+  confirmado por doc oficial que `anthropics/claude-code-action@v1` dispara em
+  `pull_request: [opened, synchronize]` normalmente, sem depender de menção.
+  Ver Camada 3, Opção 3b.
 - **Risco**: mensagens de erro dos checks determinísticos (Camada 2/4) mal
   escritas viram atrito em vez de ajuda — cada falha precisa dizer exatamente o
   que fazer pra corrigir (mesmo padrão que os hooks locais já seguem bem hoje).
@@ -277,20 +335,22 @@ a permissão certa executa.
   esse trabalho retroativamente. Não decidido neste design se isso exige um
   aviso prévio ou uma janela de carência — resolver na implementação (Fase 0),
   não é um problema de arquitetura.
-- **Sem caminho de bypass/rollback definido**: GitHub permite configurar
-  exceções de admin-override em branch protection (merge mesmo com check
-  vermelho), mas este design não decide se esse escape hatch deve existir. Se
-  a Camada 2 ou 4 começar a bloquear incorretamente assim que virar
-  obrigatória, sem bypass configurado o único remédio é reverter a proteção
-  inteira. Recomendo decidir isso na implementação da Fase 2a/3, não deixar
-  implícito.
-- **Custo recorrente da Camada 3 não é zero**: a Decisão 2.1 rejeitou bot de
-  terceiro citando custo por seat — mas uma sessão real de Claude Code por PR
-  (Camada 3) também tem custo de API não-trivial dependendo de volume/tamanho
-  de diff. Não é o mesmo modelo de custo (uso variável vs assinatura fixa),
-  mas o critério "evitar custo recorrente" usado pra descartar terceiro
-  merece a mesma vara de medir aqui — vale estimar volume esperado de PRs/mês
-  antes de ativar a Fase 4, não assumir que é gratuito só por não ser SaaS.
+- **Bypass/rollback — decisão explícita**: branch protection do GitHub tem uma
+  opção "Do not allow bypassing the above settings" — **recomendo deixar
+  desmarcada**. Por padrão (desmarcada), admins/owners do repo continuam
+  conseguindo mergear mesmo com check vermelho em emergência, sem precisar
+  desligar a proteção inteira. Isso também mitiga o bus factor do CODEOWNERS
+  (só 2 handles candidatos hoje, `@snksergio`/`@leandrosfreire`, concentrando
+  aprovação — se os dois ficarem indisponíveis, um admin ainda destrava na
+  emergência). Decisão tomada aqui pra não deixar implícito; confirmar que a
+  opção fica desmarcada ao ativar branch protection (§5, item 2).
+- **Custo recorrente da Camada 3 não é zero — agora com número real**: doc
+  oficial confirma a Opção 3a (gerenciada) em **$15-25 por review**. A Opção
+  3b (self-hosted, a escolhida) usa billing de API pura — mais barato por
+  execução, mas ainda assim não-zero e escala com volume de PR. Vale medir
+  volume esperado de PRs/mês tocando componente/token antes de ativar a Fase
+  4, e considerar rodar só em `opened` (não em todo `synchronize`/push) pra
+  controlar custo desde o início.
 
 ---
 
@@ -309,3 +369,68 @@ a permissão certa executa.
   promover `ds-tokens-check.sh` a gate obrigatório (Fase 2b). Fica como
   follow-up separado; este design só promove os 2 hooks que já têm detecção
   real (`ds-lint-styles.sh`, `ds-inventory-check.sh`).
+
+---
+
+## 9. Artefatos de referência (rascunho, pra acelerar a implementação)
+
+Ilustrativo — não foi aplicado no repo ainda. Serve pra quem for implementar
+não começar do zero.
+
+### `.github/CODEOWNERS` (rascunho — falta confirmar handles, §5 item 1)
+
+```
+# Qualquer mudança em componente/token/registry/distribuição precisa de
+# aprovação do mantenedor do DS.
+/src/components/  @snksergio
+/tokens/          @snksergio
+/registry.json    @snksergio
+/cli/             @snksergio
+/.github/         @snksergio
+```
+
+### Branch protection via `gh api` (pra quem tiver admin rodar — §5 item 2)
+
+```bash
+gh api -X PUT repos/igreenlab/igreen-desingsystem-admin/branches/main/protection \
+  --input - <<'EOF'
+{
+  "required_status_checks": {
+    "strict": true,
+    "contexts": ["check"]
+  },
+  "enforce_admins": false,
+  "required_pull_request_reviews": {
+    "require_code_owner_reviews": true,
+    "required_approving_review_count": 1
+  },
+  "restrictions": null
+}
+EOF
+```
+
+`"enforce_admins": false` = "Do not allow bypassing" **desmarcada**, conforme
+decisão do §7 (mantém válvula de escape pro admin). A lista em `contexts`
+precisa ser atualizada com o nome real dos jobs depois que a Fase 1/2a
+adicionar os novos steps em `ci.yml` — hoje só existe o job `check`.
+
+### `ci.yml` — Fase 1 (adicionar 1 linha)
+
+```yaml
+      - name: Distribution debt (falha se PR introduzir gap novo)
+        run: node scripts/distribution-debt.mjs --ci
+```
+
+### `.changes/<slug>.md` — Camada 4 (formato do changeset-lite)
+
+```markdown
+---
+item: choropleth-map
+type: new
+needsRegistry: true
+needsCliCatalog: true
+needsNpmPublish: false
+---
+Componente novo de mapa coroplético (d3-geo/topojson). Precisa entrar no
+registry.json e no catálogo do CLI antes do próximo /ds-release.
+```
