@@ -78,21 +78,67 @@ legítimos, frequentemente com `!` pra sobrescrever base de um shadcn. Tirar o
 `0` das duas alternações elimina 33 dos 51 hits (65% do ruído) **sem perder
 nenhuma detecção real**.
 
-**As 2 questões de política que precisam da SUA decisão** (não são bug, são
-regra ambígua — e enquanto não decididas, não dá pra tornar o check
-bloqueante):
-1. **`rounded-full` é permitido?** A regra L-002 diz `rounded-* → rounded-radius-*`,
-   e o token `radius.full` existe (`rounded-radius-full`). Mas `rounded-full`
-   aparece 9× — inclusive em `Button/button.styles.ts:84` (`pill: "!rounded-full"`),
-   o componente-referência do DS. Ou a regra ganha uma exceção documentada pra
-   `rounded-full`, ou os 9 usos viram débito a corrigir. **Hoje o flagship do
-   DS viola a própria regra** — isso precisa ser resolvido de um jeito ou de
-   outro antes de virar gate.
-2. **`outline-none` puro em elemento interno é permitido?** Os 8 hits são
-   `<input>`/`<button>` internos com `bg-transparent border-0 outline-none`,
-   onde o ring de foco fica no wrapper. É o padrão correto de composição, mas
-   viola L-004 ao pé da letra. Precisa de exceção documentada (ex.: "permitido
-   quando o wrapper carrega o ring") ou refactor.
+### As 2 questões de política — RESOLVIDAS com evidência
+
+Na primeira versão desta seção eu devolvi as duas como "decisão sua". Investiguei
+e **as duas se resolvem com dado objetivo** — não precisam de julgamento:
+
+#### 1. `rounded-full` (9 hits) → **exceção legítima, o pattern está errado**
+
+Comparei o valor nativo do Tailwind v4 com o token DS emitido em
+`tailwind-theme.css:197-208`:
+
+| chave | Tailwind nativo | DS `rounded-radius-*` | |
+|---|---|---|---|
+| `sm` | 0.25rem | 0.375rem | **DIFERENTE** |
+| `md` | 0.375rem | 0.5rem | **DIFERENTE** |
+| `lg` | 0.5rem | 0.625rem | **DIFERENTE** |
+| `xl` | 0.75rem | 0.875rem | **DIFERENTE** |
+| `2xl` | 1rem | 1.125rem | **DIFERENTE** |
+| `3xl` | 1.5rem | 1.375rem | **DIFERENTE** |
+| `none` | 0 | 0px | **IDÊNTICO** |
+| `full` | 9999px | 9999px | **IDÊNTICO** |
+
+Aí está a razão de existir da regra: usar `rounded-lg` nativo entrega **0.5rem
+em vez de 0.625rem** — defeito visual silencioso, real. Mas `rounded-full` e
+`rounded-none` são **numericamente idênticos** aos tokens DS: usar um ou outro
+não pode causar defeito nenhum, nunca.
+
+**Conclusão**: o `Button` nunca violou a regra — a regra era larga demais. O
+pattern deve ser `rounded-(sm|md|lg|xl|2xl|3xl)`, sem `none` e sem `full`. Isso
+elimina os 9 hits legitimamente (não é baixar a régua, é parar de sinalizar o
+que provadamente não é defeito). Consistência estética entre `rounded-full` e
+`rounded-radius-full` (55 vs 134 usos) segue sendo desejável, mas é cosmético —
+não é trabalho de gate bloqueante.
+
+#### 2. `outline-none` (8 hits) → **não pertence ao gate determinístico**
+
+Inspecionei os 8 casos. O foco está visível em todos:
+- **4 hits** têm `focus-visible:shadow-sh-ring` no próprio elemento
+  (`table-toolbar.styles.ts:124,184,264,273`).
+- **1 hit** (`toolbarSearchInput:84`) é o `<input>` interno cujo wrapper
+  `toolbarSearch` carrega `focus-within:border-border-brand
+  focus-within:shadow-sh-ring` (linha 69) — o padrão de composição correto.
+- Os 3 restantes seguem o mesmo formato de wrapper.
+
+O bug do check: L-004 assume que o único indicador de foco válido é
+`focus-visible:outline-*`, mas o padrão canônico do próprio DS (documentado em
+`ds-standards.md`) usa `focus-visible:ring-4 ring-ring-*` **ou**
+`focus-visible:shadow-sh-ring` — e, em composição, `focus-within:` no wrapper,
+que pode estar em **outro `tv()`, outro arquivo**.
+
+**Conclusão**: L-004 é irredutivelmente semântico — exige raciocínio
+cross-elemento que grep não faz. Sai do gate determinístico e vai pra **Camada
+3** (revisor semântico), que consegue olhar o wrapper. Isso gera uma
+classificação nova que vale pro design todo:
+
+| Categoria | Regras | Por quê |
+|---|---|---|
+| **Gate determinístico** (Camada 2) | L-001 (`ring/N`), L-002 (heights/pad/gap/rounded/shadow), L-003 (`ring-3`), L-005 (`bg-input/N`), import de `tailwind-variants` | erradas **independente de contexto** — valor divergente ou classe inexistente |
+| **Só semântico** (Camada 3) | L-004 (afordância de foco pode estar no wrapper), L-007 (escolha de preset tipográfico depende de intenção) | exigem contexto cross-elemento ou julgamento de intenção |
+
+Ou seja: **nem toda lição cabe no gate mecânico** — e forçar as semânticas lá
+gera exatamente o falso-positivo que faz o time desligar o check.
 
 ### `ds-inventory-check.sh` — 7 componentes falhariam hoje
 
@@ -120,20 +166,37 @@ de doc que a convenção exige).
 "Rodar os greps nos arquivos alterados e falhar" **não funciona** — 35% dos
 arquivos de estilo têm hit pré-existente, e 2 de cada 3 hits são bogus. Uma PR
 que só mexesse numa linha do `TableToolbar` falharia por 8 violações que já
-estavam lá. O design precisa de **3 pré-requisitos** antes de qualquer
-bloqueio, todos incorporados na Camada 2 revisada:
+estavam lá. O design precisa de:
 
-1. **Corrigir os patterns** (tirar `0` das alternações) — mata 65% do ruído.
-2. **Resolver as 2 questões de política** acima + unificar a lista de exceção
-   com o `distribution-debt.mjs`.
+1. **Corrigir os patterns**: tirar `0` das alternações de pad/gap; tirar `none`
+   e `full` do rounded; **remover L-004 do gate** (vai pra Camada 3).
+2. **Unificar a lista de exceção** do inventory-check com o `IGNORE` do
+   `distribution-debt.mjs` (fonte única).
 3. **Ratchet, não gate absoluto**: falhar só em violação introduzida **nas
-   linhas adicionadas pelo diff** (`git diff -U0` → parse dos hunks), nunca em
-   linha pré-existente de arquivo tocado. Débito legado fica visível mas não
-   bloqueia — o que impede é a fila crescer.
+   linhas adicionadas pelo diff**, nunca em linha pré-existente de arquivo
+   tocado. Débito legado fica congelado onde está; o que se impede é a fila
+   crescer.
 
-> Script de medição usado (não é o check final, é ferramenta de diagnóstico):
-> `measure-lint-baseline.mjs`, mantido fora do repo no scratchpad da sessão.
-> A implementação da Fase 2a deve começar dele + adicionar o parse de hunk.
+### ✅ Ratchet validado por protótipo (não é mais assumption)
+
+Construí e rodei um protótipo (`ratchet-proto.mjs`, scratchpad da sessão) que
+faz `git diff -U0` → parse dos hunks (`@@ -a,b +c,d @@` → nº de linha real) →
+aplica os patterns corrigidos só nas linhas `+`. Testado contra
+`table-toolbar.styles.ts`, o arquivo mais sujo do repo (8 hits pré-existentes):
+
+| Teste | Cenário | Esperado | Resultado |
+|---|---|---|---|
+| 1 | linha **limpa** adicionada em arquivo com 8 violações pré-existentes | exit 0 | ✅ exit 0 — pré-existentes ignoradas, só as 4 linhas novas varridas |
+| 2 | linha **suja** (`gap-4 h-9 rounded-lg ring-3 ring-ring-brand/30`) | exit 1 | ✅ exit 1 — pegou todas as 5 (L-001, L-002×3, L-003) |
+| 3 | os falso-positivos (`!gap-0 !p-0 py-0 px-0 rounded-full rounded-none outline-none`) | exit 0 | ✅ exit 0 — nenhum dispara com os patterns corrigidos |
+
+Repo restaurado ao estado limpo após os testes (`git status` vazio). A mecânica
+está provada: **é implementável e se comporta como o design exige**.
+
+> Scripts de diagnóstico (não são o check final, ficam fora do repo no
+> scratchpad da sessão): `measure-lint-baseline.mjs` (mediu o baseline) e
+> `ratchet-proto.mjs` (validou a mecânica + carrega os patterns já corrigidos).
+> A implementação da Fase 2a-ii deve partir do segundo.
 
 ---
 
@@ -230,23 +293,23 @@ design).
   revisado pela medição do §1.1 — a versão anterior desta spec dizia "ganham
   modo CI e falham se `$FOUND > 0`", o que a medição provou inviável):
 
-  **Pré-requisitos, na ordem** (nenhum bloqueio antes dos 3):
-  1. Corrigir os patterns: remover `0` das alternações de `pad/space` e `gap`
-     (elimina 33 dos 51 hits atuais, todos bogus). Aplicar a correção **no
-     hook local também** — ele avisa errado hoje.
-  2. Você decide as 2 questões de política do §1.1 (`rounded-full`,
-     `outline-none` em filho) → cada uma vira exceção documentada no pattern
-     ou débito a corrigir.
-  3. Unificar a lista de exceção do inventory-check com o `IGNORE` do
+  **Pré-requisitos** (as 2 questões de política já foram resolvidas com
+  evidência no §1.1 — sobraram só correções mecânicas):
+  1. Corrigir os patterns, aplicando **também no hook local** (ele avisa errado
+     hoje): remover `0` das alternações de `pad/space` e `gap`; remover `none` e
+     `full` do `rounded`; **remover L-004 do conjunto determinístico** (migra
+     pra Camada 3, ver classificação no §1.1). Efeito medido: os 51 hits atuais
+     caem pra **1** (o `w-9 h-9` real do sidebar).
+  2. Unificar a lista de exceção do inventory-check com o `IGNORE` do
      `distribution-debt.mjs` (extrair pra um `.ds-exceptions.json` ou módulo
      compartilhado — fonte única, senão volta a divergir).
 
-  **Mecânica do ratchet**: `git diff -U0 origin/main...HEAD` nos
-  `*.styles.ts` alterados → parse dos hunks → roda os patterns **só nas linhas
-  com `+`**. Violação em linha adicionada → `exit 1`. Violação pré-existente em
-  arquivo tocado → ignorada (aparece no log como informativo). Isso é o que
-  permite ligar o gate com 35% dos arquivos "sujos" sem travar ninguém: o
-  débito legado fica congelado onde está e a fila não cresce.
+  **Mecânica do ratchet** — ✅ validada por protótipo, 3/3 testes (§1.1):
+  `git diff -U0 origin/main...HEAD` nos `*.styles.ts` alterados → parse dos
+  hunks → roda os patterns **só nas linhas com `+`**. Violação em linha
+  adicionada → `exit 1`. Violação pré-existente em arquivo tocado → ignorada.
+  Isso é o que permite ligar o gate com 35% dos arquivos "sujos" sem travar
+  ninguém.
 
   **Onde mora**: script novo em `scripts/` (JS — parse de hunk em bash é
   frágil), compartilhando a tabela de patterns com o hook local como fonte
@@ -409,14 +472,11 @@ Confirmado nesta sessão: minha identidade autenticada tem `push` mas não
    Claude, e alguém com papel Owner/Primary Owner em
    `claude.ai/admin-settings/claude-code` precisa instalar o GitHub App —
    aprovação adicional, separada de admin do GitHub.
-7. **Decidir as 2 questões de política do §1.1** — não é permissão, é
-   autoridade de regra do DS (só o dono do padrão decide):
-   - `rounded-full` é exceção válida ou os 9 usos (incl. `Button`) são débito?
-   - `outline-none` puro em elemento interno (ring no wrapper) é exceção
-     válida ou os 8 usos do `TableToolbar` são débito?
-
-   Sem essas 2 respostas a Fase 2a-ii não pode ligar — seria bloquear PR por
-   regra que o próprio DS não segue.
+7. ~~Decidir as 2 questões de política do §1.1~~ — **não é mais necessário**:
+   ambas foram resolvidas com evidência objetiva (comparação de valor
+   nativo-vs-token e inspeção dos 8 casos de foco). Só confirme se concorda
+   com as conclusões do §1.1 quando revisar — não há decisão pendente
+   bloqueando a implementação.
 
 Eu construo todo o código/workflow (Camadas 2, 3b, 4 do lado do repo) via PR
 normal; esses itens acima são pré-requisito de infraestrutura que só quem tem
@@ -430,8 +490,8 @@ a permissão certa executa.
 |---|---|---|
 | 0 | Você executa os 5 itens manuais do §5 (ou pelo menos CODEOWNERS + branch protection, item mais urgente dado o 404 do §1) | zero — é config, não código |
 | 1 | `distribution-debt.mjs --ci` entra em `ci.yml` | zero — hoje não há débito, só passa a travar débito NOVO |
-| 2a-i | **Corrigir patterns** (tirar `0` das alternações) no hook local + você decidir as 2 questões de política do §1.1 + unificar listas de exceção | zero — só corrige aviso errado que o hook já dá hoje |
-| 2a-ii | Check de ratchet (só linhas adicionadas) entra em `ci.yml` como obrigatório | baixo **depois de 2a-i** — sem 2a-i seria ~35% dos arquivos falhando com 65% de bogus (medido, §1.1) |
+| 2a-i | **Corrigir patterns** no hook local (tirar `0` de pad/gap · tirar `none`/`full` do rounded · tirar L-004 do determinístico) + unificar listas de exceção | zero — só corrige aviso que o hook já dá errado hoje; leva os 51 hits atuais pra 1 |
+| 2a-ii | Check de ratchet (só linhas adicionadas) entra em `ci.yml` como obrigatório — mecânica **já validada** por protótipo, 3/3 | baixo **depois de 2a-i**; sem 2a-i seria ~35% dos arquivos falhando com 65% de bogus (medido, §1.1) |
 | 2b | `ds-tokens-check.sh` → **NÃO entra no rollout ainda**. Precisa de lógica nova (rodar `tokens:tw4` em CI + diffar contra CSS commitado) que este design não cobre — fica como follow-up separado, fora de escopo desta spec (§8) | promover como está = falso-positivo garantido em qualquer PR de token |
 | 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
 | 4 | Camada 3, Opção 3b (self-hosted, `pull_request: opened` só — não `synchronize`, pra conter custo) — **modo comentário, não bloqueia** | zero nesse modo (custo de API existe mas é comentário-only, não trava nada) |
@@ -451,12 +511,12 @@ a permissão certa executa.
   pré-requisitos (§3 Camada 2). **Lição de processo**: a assumption dizia "vou
   validar na implementação" — se tivesse ficado assim, a Fase 2a teria sido
   ligada e revertida no mesmo dia. Medir custou ~10 minutos.
-- **Assumption nova (não medida)**: o parse de hunk (`git diff -U0` → linhas
-  `+`) é confiável o suficiente pra não gerar falso-negativo — ex.: uma
-  violação movida de lugar (linha deletada + readicionada idêntica) conta como
-  "nova" e falha, mesmo sendo um simples reordenamento. Aceitável (erra pro
-  lado seguro), mas precisa ser comunicado na mensagem de erro pra não parecer
-  bug.
+- ~~Assumption sobre o parse de hunk~~ → **validada por protótipo** (3/3
+  testes, §1.1). Nota de comportamento conhecido que permanece: uma violação
+  **movida de lugar** (linha deletada + readicionada idêntica) conta como
+  "nova" e falha, mesmo sendo reordenamento puro. Erra pro lado seguro, mas a
+  mensagem de erro precisa dizer isso explicitamente pra não parecer bug de
+  quem só moveu código.
 - ~~Assumption sobre a Action suportar disparo automático~~ — **resolvida**:
   confirmado por doc oficial que `anthropics/claude-code-action@v1` dispara em
   `pull_request: [opened, synchronize]` normalmente, sem depender de menção.
@@ -558,21 +618,26 @@ adicionar os novos steps em `ci.yml` — hoje só existe o job `check`.
         run: node scripts/distribution-debt.mjs --ci
 ```
 
-### Correção dos patterns — Fase 2a-i (o fix que mata 65% do ruído)
+### Correção dos patterns — Fase 2a-i (leva os 51 hits atuais pra 1)
 
-Em `.claude/hooks/ds-lint-styles.sh`, remover o `0` de 2 alternações:
+Em `.claude/hooks/ds-lint-styles.sh`, 4 mudanças (todas justificadas no §1.1):
 
 ```diff
+  # 1+2. Não existe token DS pra zero — p-0/gap-0 são resets legítimos (33 hits bogus)
 - check '"[^"]*\bgap-(0|1|2|3|4|5|6|7|8|10|12|16|20|24)\b[^"]*"' "L-002 — gap-N literal..."
 + check '"[^"]*\bgap-(1|2|3|4|5|6|7|8|10|12|16|20|24)\b[^"]*"'   "L-002 — gap-N literal..."
 
-- check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(0|1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"' "L-002 — pad/space literal..."
-+ check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"'   "L-002 — pad/space literal..."
-```
+- check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(0|1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"' "L-002 — pad/space..."
++ check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"'   "L-002 — pad/space..."
 
-Justificativa (§1.1): não existe token DS pra zero — `p-0`/`gap-0` são resets
-legítimos, geralmente com `!` sobrescrevendo base de shadcn. 33 dos 51 hits
-atuais são exatamente isso.
+  # 3. rounded-full e rounded-none são IDÊNTICOS ao token DS — impossível ser defeito (9 hits bogus)
+- check '"[^"]*\brounded-(none|sm|md|lg|xl|2xl|3xl|full)\b[^"]*"' "L-002 — rounded-N nativo..."
++ check '"[^"]*\brounded-(sm|md|lg|xl|2xl|3xl)\b[^"]*"'           "L-002 — rounded-N nativo tem VALOR DIFERENTE do DS..."
+
+  # 4. L-004 é semântico (ring pode estar no wrapper / vir de shadow-sh-ring) → Camada 3 (8 hits bogus)
+- check '"[^"]*(^|[ "])outline-none[^"]*"' "L-004 — outline-none sem focus-visible..."
++ # (removido do gate determinístico — ver classificação no §1.1 da spec)
+```
 
 ### Quick win independente (não precisa de gate nenhum)
 
