@@ -76,8 +76,11 @@ As 3 do `ui/` são **genuínas** e são **o mesmo caso de container quadrado de
 Terceira, quarta e quinta instância do mesmo erro — prova de que o furo deixa
 passar violação real **e repetida**, não hipotética.
 
-Os 35 do `shadcn/` **não exigem decisão de política agora**: o ratchet congela
-débito pré-existente e só reprova linha adicionada.
+Os 27 do `shadcn/` (a tabela acima — 27 em 10 arquivos, re-medido) **não exigem
+decisão de política agora**: o ratchet congela débito pré-existente e só reprova
+linha adicionada. Consequência que virou política explícita no comentário do
+`GLOB`: re-sync upstream desses primitivos passa a exigir adaptação pros tokens DS
+na mesma passagem, porque re-colar linha congelada conta como linha adicionada.
 
 ### `ComponentsOverview` está incompleto
 
@@ -166,9 +169,9 @@ atual; só pega o que a PR cria.
 
 ### Pré-requisito: unificar as listas de exceção
 
-Hoje `distribution-debt.mjs` tem uma lista `IGNORE` (7 entradas: os 6 internos do
-`example-chat` + `tabela-teste` + `table-toolbar`) e `ds-inventory-check.sh` **não
-tem lista nenhuma**. **Já divergem** — é o mesmo defeito que a fonte única de
+Hoje `distribution-debt.mjs` tem uma lista `IGNORE` (8 entradas: os 6 internos do
+`example-chat` + `tabela-teste` + `table-toolbar`) e `ds-inventory-check.sh` só
+tem um `TabelaTeste` hardcoded — **1 de 8, em PascalCase**. **Já divergem** — é o mesmo defeito que a fonte única de
 patterns resolveu. A lista sai pra um módulo compartilhado
 (`scripts/lib/ds-exceptions.mjs`) consumido pelos três.
 

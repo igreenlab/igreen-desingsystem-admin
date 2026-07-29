@@ -31,6 +31,15 @@ import { parseAddedLines } from "./lib/diff-added-lines.mjs";
 //
 // `src/examples/**` e `src/preview/**` seguem FORA de propósito — são
 // cópias/demos, não a fonte do DS.
+//
+// ⚠️ POLÍTICA (decidida aqui, não pra ser descoberta no meio de um re-sync): com
+// `.tsx` no escopo, o ratchet BLOQUEIA re-sync upstream dos primitivos shadcn. As
+// 27 violações congeladas vivem em menubar/context-menu/dropdown-menu/drawer/
+// select; re-colar essas linhas ao trazer versão nova conta como linha ADICIONADA
+// (a mensagem do ratchet avisa: "código MOVIDO conta como adicionado"). Ou seja:
+// quem re-sincroniza um primitivo adapta pros tokens DS na MESMA passagem — que
+// já é a regra do repo (L-039/L-040), agora obrigatória. Se um dia atrapalhar um
+// re-sync grande, a saída não é afrouxar o pattern.
 const GLOB = ["src/components/**/*styles.ts", "src/components/**/*.tsx"];
 
 // Rodando dentro do GitHub Actions? Lá, além do log humano, emitimos workflow

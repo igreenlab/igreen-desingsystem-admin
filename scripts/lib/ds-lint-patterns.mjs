@@ -79,8 +79,9 @@ export const DS_LINT_PATTERNS = [
 ];
 
 /** Linha de comentário não é código — citar uma classe proibida ao explicar a
- *  regra não pode reprovar o CI. */
-const isComment = (text) => /^\s*(\/\/|\/\*|\*)/.test(text);
+ *  regra não pode reprovar o CI. Cobre `//`, `/*`, ` *` e o comentário JSX
+ *  `{/* ... *\/}`, que entrou no escopo junto com o `.tsx`. */
+const isComment = (text) => /^\s*(\/\/|\/\*|\*|\{\s*\/\*)/.test(text);
 
 /**
  * Roda todos os patterns contra uma lista de linhas.
