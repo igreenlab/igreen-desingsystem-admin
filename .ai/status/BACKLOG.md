@@ -1,7 +1,7 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-06-18
+> Última revisão: 2026-07-29
 
 ---
 
@@ -22,6 +22,35 @@
   Decisão atual: **coberto pela skill `cards`** (guia de composição) — não vira example
   de tela (é galeria, não tela de produto). **Reabrir se:** quiserem o gallery navegável
   no menu do scaffold como referência.
+
+---
+
+## 🔧 Refinamentos identificados (sessão 2026-07-09)
+
+> Itens que já funcionam de forma inicial/robusta mas precisam de mais uma rodada
+> antes de considerar "fechados". Levantados ao revisar o artigo público sobre o DS
+> — não são bugs, são lacunas conscientes a fechar quando houver tempo.
+
+- **Review de terceiros / enforcement de PR não é 100% fechado.** O pipeline de
+  agentes (designer → gate → dev → reviewer) é robusto pro fluxo guiado por IA
+  (usado nesta sessão pra token `stat`, builders, etc.), mas os hooks automáticos
+  (`ds-lint-styles.sh`, `ds-inventory-check.sh`, `ds-tokens-check.sh`) são **só
+  informativos** — sinalizam em stderr, não bloqueiam o Edit nem o merge. Um
+  dev externo abrindo PR sem passar pela sessão de IA orquestrada não tem hoje
+  um gate de CI que impeça automaticamente um merge fora do padrão — depende de
+  humano/IA revisando de fato antes de aprovar. **Próximo passo:** avaliar
+  transformar os greps L-001..L-007 num check de CI que bloqueia (não só avisa),
+  pelo menos pros arquivos mais sensíveis (`*.styles.ts`, tokens).
+
+- **Blocks com código de referência (`DSGREEN-B-###`/`DSGREEN-U-###`) — arquitetura
+  desenhada, nada implementado.** Toda a arquitetura foi projetada em sessão de
+  plan mode (esquema do código, catálogo `blocks-catalog.json` derivado do
+  `registry.json`, resolução determinística via skill `ds-kit` Passo 0, adoção de
+  `registry:block` sem renomear os `example-*`, rollout em 5 fases). Só ficou como
+  plano — arquivo local em
+  `C:\Users\sergi\.claude\plans\mossy-wishing-sunset.md` (fora do repo). **Próximo
+  passo:** revisitar esse plano, confirmar que ainda reflete a intenção, e começar
+  pela Fase 0 (codificar os `example-*` existentes) antes de estruturar o resto.
 
 ---
 
@@ -111,49 +140,56 @@ audit — popovers não são hot path; churn alto, valor marginal).
 - `package.json` com `"sync:agents"` script
 - Mirrors Cursor sincronizados (4 agentes DS)
 
----
+### Teste em produção real — primeira tela funcional ✅ (superada, v0.24–v0.29)
+- Não veio como 1 tela isolada do app desktop — veio como **conjunto de exemplos
+  canônicos** (`src/examples/*`: clientes, finance, mapa-rede, login, app-shell,
+  edit-page, order-detail, dashboard, chat) extraídos 1:1 dos showcases e validados
+  via `tools/consumer-demo/` + distribuídos no registry. Critério original (aprovado
+  sem lição nova) não foi rastreado formalmente, mas nenhuma lição L-0xx recente
+  aponta pra gap estrutural de token/componente vindo desses exemplos.
 
-## 🔴 Próxima sessão (alta prioridade)
+### FormField — composto prioritário ✅
+- Entregue em `ui/FormField/` (`FormField` + `FormFieldInput`/`Select`/`Textarea`),
+  registrado no inventory e distribuído no registry.
 
-### Teste em produção real — primeira tela funcional
+### pipeline-state.md — validado em uso real ✅
+- Centenas de entradas CONCLUÍDO/APROVADO/PAUSADO/CASCATA desde 2026-04. Único ponto
+  fraco: sessões de 2026-06-19 a 2026-07-28 rodaram sem registro em tempo real —
+  consolidadas retroativamente em 2026-07-29 (ver `pipeline-state.md`, entrada
+  "Consolidação de releases v0.11.0 → v0.30.0").
 
-| Campo | Detalhe |
-|-------|---------|
-| **Tipo** | Validação / Produção |
-| **O que fazer** | Construir uma tela real do app desktop (dashboard, listagem, formulário) 100% com tokens DS e componentes existentes, sem hardcode |
-| **Impacto** | Valida o DS em condição real · revela gaps de tokens/componentes que preview não revela · documenta padrões para `igreen-page` skill |
-| **Critério** | Aprovada pelo ds-reviewer sem nenhuma lição nova gerada |
+### DataTable ✅ (muito além do escopo original)
+- Não foi só sorting/pagination/row-selection — evoluiu pra view Lista/Kanban/árvore,
+  autoFit, saved views read-only, grab-to-scroll nativo, coluna `copyable`, export,
+  filtros por column-type. Ver `✅ Padronização DataTable + TableToolbar` acima.
 
-### FormField — composto prioritário
+### Templates de arquitetura ✅ — os 3 builders saíram
+- `/ds-create-crud` (2026-06-10), `/ds-create-list` e `/ds-create-dashboard` (v0.24.0,
+  receita `dashboard-patterns.md`) + front-door `/ds-create-screen` (desambigua
+  tabela/lista/dashboard). Pendência antiga de "copiar pro `cli/templates/default/.claude/`"
+  **resolvida** — o template já embute os 3 builders + `ds-kit` em
+  `cli/templates/default/_claude/skills/`.
+- `/create-page`, `/create-feature`, `/create-hook` — ainda não abertos; não bloqueantes.
 
-| Campo | Detalhe |
-|-------|---------|
-| **O que fazer** | `ui/FormField/` via `/create-composite` — Input + Label + HelperText + ErrorMessage |
-| **Dependências** | Input ✅, Label ✅ |
+### Toast / Sonner · Tooltip · Popover · Command/Combobox ✅
+- Todos os 41 componentes shadcn do inventory (incl. os 4 acima) estão `✅ implementado`
+  e distribuídos.
 
-### pipeline-state.md — validar em uso real
+### Kit de telas do app — lado DS (v0.26.0–v0.29.0) ✅
+- `ds-link` (consumo via submódulo git, projeta `.claude/` pro repo pai) · `module-replicator`
+  (`/ds-replicate-module`) · `screen-composer` (master-detail/cross-filter) · `app-builder-shell`
+  (`/ds-create-app` + `example-app-shell`) · `auth-builder` (variantes de painel de login).
+  **Escopo**: infra de exemplos/skills reutilizáveis do lado DS — não é o Domínio App
+  (`app-designer`/`app-dev-react`), que segue 🚧 aguardando.
 
-| Campo | Detalhe |
-|-------|---------|
-| **O que fazer** | Executar uma tarefa completa com agentes e verificar se o log está sendo preenchido corretamente |
+### Multi-tema por marca (v0.18.0) ✅
+- Atributo `data-theme` + temas `blue`/`green`/`pay` via overlay de cor (`to-brand-overlay.ts`,
+  só o diff contra `default`) + seletor no `create` do CLI.
 
----
-
-## 🟡 Após primeira tela validada
-
-### DataTable
-- TanStack Table + tokens iGreen · sorting, pagination, row selection
-
-### Templates de arquitetura
-- ✅ `/ds-create-crud` — CRUD builder SAIU (2026-06-10): `.claude/skills/crud-builder/`
-  (router + interview + blueprint gate + generate + kanban-design). Escopo: telas de
-  tabela/DataTable. Pendência: copiar pro `cli/templates/default/.claude/` após ≥1 uso
-  real validado neste repo (template hoje não tem `.claude/`).
-- `/create-page`, `/create-feature`, `/create-hook` expandindo o modelo — futuros
-  (skills IRMÃS do crud-builder, não inchaço dele)
-
-### Toast / Sonner · Tooltip · Popover · Command/Combobox
-- Componentes Shadcn restantes via `/add-shadcn-component`
+### ChoroplethMap ✅ (com incidente fechado)
+- Sumiu da `main` num merge de reorganização anterior sem nenhum sinal disparar (L-058);
+  restaurado, deps (`d3-geo`/`topojson-client`) declaradas, 7 superfícies fechadas,
+  distribuído no registry.
 
 ---
 
