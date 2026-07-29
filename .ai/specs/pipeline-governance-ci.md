@@ -21,7 +21,7 @@ Define **o que** vamos construir e **por quê**.
   `main`, sem PR, sem review, sem CI rodando antes do merge. Isso é mais grave do que
   a suposição inicial — não é "falta reforçar", é "não existe nenhum gate".
 - **`CODEOWNERS` não existe** (`.github/CODEOWNERS` ausente).
-- **26 colaboradores** no repo `igreenlab/igreen-desingsystem-admin` (público). A
+- **27 colaboradores** no repo `igreenlab/igreen-desingsystem-admin` (público). A
   identidade autenticada usada nesta sessão tem `push:true` mas `admin:false` —
   **não consigo configurar branch protection, CODEOWNERS enforcement, Environments
   ou secrets via API a partir daqui**; isso exige alguém com admin no repo (ver §5).
@@ -70,11 +70,14 @@ já usamos.
 
 ### 2.3 Camada estrutural = promover o que já existe, não reescrever do zero
 
-`distribution-debt.mjs --ci` já existe e só precisa ser chamado. Os 3 hooks
-precisam de um modo novo (`DS_HOOK_MODE=ci` ou flag equivalente) que troque o
-`exit 0` final por `exit 1` quando encontrar violação — mesma lógica de
-detecção, sem duplicar em formato de terceiro (era a alternativa descartada: um
-linter genérico reaprendendo os mesmos greps).
+`distribution-debt.mjs --ci` já existe e só precisa ser chamado. Dos 3 hooks,
+**2** (`ds-lint-styles.sh`, `ds-inventory-check.sh`) já têm lógica real de
+violação e só precisam de um modo novo (`DS_HOOK_MODE=ci` ou flag equivalente)
+que troque o `exit 0` final por `exit 1` — mesma detecção, sem duplicar em
+formato de terceiro (era a alternativa descartada: um linter genérico
+reaprendendo os mesmos greps). O terceiro (`ds-tokens-check.sh`) não tem lógica
+de violação hoje — não dá pra "promover" o que não existe; ver detalhe e
+decisão em §3 Camada 2 e §6 Fase 2b.
 
 ### 2.4 "Checklist de não-publicado" = changeset-lite, não Bit.dev/registry versionado
 
@@ -124,12 +127,26 @@ design).
 - Passo imediato e de baixíssimo risco: adicionar
   `node scripts/distribution-debt.mjs --ci` em `ci.yml` — já existe, já
   funciona, só falta a linha.
-- Os 3 hooks ganham modo "CI": em vez de rodar via protocolo de stdin JSON do
-  Claude Code (`tool_input.file_path`), rodam contra a lista de arquivos
-  alterados na PR (`git diff --name-only origin/main...HEAD`), e falham
-  (`exit 1`) se `$FOUND`/`$MISSING` > 0 quando `CI=true` estiver setado —
-  mantendo o comportamento local (sempre `exit 0`, só avisa) intacto por
-  padrão.
+- **`ds-lint-styles.sh` e `ds-inventory-check.sh`** ganham modo "CI": em vez de
+  rodar via protocolo de stdin JSON do Claude Code (`tool_input.file_path`),
+  rodam contra a lista de arquivos alterados na PR
+  (`git diff --name-only origin/main...HEAD`), e falham (`exit 1`) se
+  `$FOUND`/`$MISSING` > 0 quando `CI=true` estiver setado — mantendo o
+  comportamento local (sempre `exit 0`, só avisa) intacto por padrão. Ambos têm
+  lógica real de violação (`$FOUND`/`$MISSING` computados por grep/existência
+  de arquivo) — portáveis sem redesenhar a detecção.
+- **`ds-tokens-check.sh` é um caso à parte** — hoje ele **não tem nenhuma
+  lógica de violação**: dispara incondicionalmente sempre que qualquer
+  `tokens/**/*.ts` muda, só como lembrete de "rode `tokens:tw4`". Não existe
+  hoje nenhum check (nem aqui, nem em `check-foundationals.mjs`) que valide se
+  o CSS gerado (`tailwind-theme.css`) está de fato sincronizado com o
+  token-fonte. Promover esse hook a gate obrigatório *como está* falharia
+  100% das vezes que alguém tocar token (falso-positivo garantido) — pra virar
+  check de verdade precisaria de lógica nova: rodar `tokens:tw4` em CI e
+  diffar o output contra o que está commitado, falhando só se divergir. Essa
+  lógica **não existe ainda e não está coberta por este design** — decisão:
+  fica de fora da promoção a "obrigatório" até ser desenhada à parte (ver
+  Fase 2b no rollout, §6).
 
 ### Camada 3 — Revisão semântica (Claude Code Action)
 
@@ -165,6 +182,15 @@ workflow de publish via OIDC (substitui o `cd cli && npm publish` manual).
 - Ao mergear, `PENDING-DISTRIBUTION.md` (raiz ou `.ai/status/`) se atualiza —
   literalmente o checklist que você descreveu: você olha esse arquivo antes de
   rodar `/ds-release`, os itens resolvidos saem da lista sozinhos.
+- **Divisão de responsabilidade com `distribution-debt.mjs` (Camada 2)**: o
+  sweep automático já detecta sozinho, sem exigir declaração de ninguém, que
+  um componente ficou fora do registry/catálogo — isso **não muda**. O
+  changeset não duplica essa detecção; ele cobre o que o sweep **não** pega:
+  a intenção de "isso precisa de `npm publish`" (só relevante quando o item
+  tocado é o `cli/` ou algo que afeta o pacote publicado), que não tem
+  nenhum sinal automático hoje. Se o changeset e o sweep divergirem sobre
+  registry/catálogo, o sweep é a fonte de verdade (é determinístico e não
+  depende de ninguém lembrar de preencher nada).
 
 ---
 
@@ -219,10 +245,11 @@ a permissão certa executa.
 |---|---|---|
 | 0 | Você executa os 5 itens manuais do §5 (ou pelo menos CODEOWNERS + branch protection, item mais urgente dado o 404 do §1) | zero — é config, não código |
 | 1 | `distribution-debt.mjs --ci` entra em `ci.yml` | zero — hoje não há débito, só passa a travar débito NOVO |
-| 2 | Hooks ganham modo CI, viram check obrigatório | baixo — mesma detecção que já roda local há tempo, sem surpresa |
+| 2a | `ds-lint-styles.sh`/`ds-inventory-check.sh` ganham modo CI, viram check obrigatório | baixo — mesma detecção que já roda local há tempo, sem surpresa |
+| 2b | `ds-tokens-check.sh` → **NÃO entra no rollout ainda**. Precisa de lógica nova (rodar `tokens:tw4` em CI + diffar contra CSS commitado) que este design não cobre — fica como follow-up separado, fora de escopo desta spec (§8) | promover como está = falso-positivo garantido em qualquer PR de token |
 | 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
 | 4 | Claude Code Action — **modo comentário, não bloqueia** | zero nesse modo |
-| 5 | OIDC + Environment pro publish do CLI/lib | zero pro fluxo de PR — só muda como o publish final roda |
+| 5 | OIDC + Environment pro publish do CLI/lib — **depende de 5.4 (Trusted Publisher no npmjs.com) existir primeiro**, porque o npm exige o nome exato do workflow/environment pra configurar o Trusted Publisher, e o workflow só é testável depois disso existir (ordem obrigatória, não paralela) | zero pro fluxo de PR — só muda como o publish final roda |
 | 6 (depois de calibrar) | Promover a Action da Camada 3 a required check | avaliar taxa de falso-positivo antes |
 
 ---
@@ -245,6 +272,25 @@ a permissão certa executa.
 - **Risco de permissão**: CODEOWNERS só funciona se os handles designados
   tiverem de fato permissão de review/merge no repo — confirmar antes de
   ativar branch protection, senão pode travar até o próprio mantenedor.
+- **PRs em andamento no momento da ativação**: branch protection/CODEOWNERS
+  ligarem no meio de uma PR já aberta sem changeset/aprovação vai bloquear
+  esse trabalho retroativamente. Não decidido neste design se isso exige um
+  aviso prévio ou uma janela de carência — resolver na implementação (Fase 0),
+  não é um problema de arquitetura.
+- **Sem caminho de bypass/rollback definido**: GitHub permite configurar
+  exceções de admin-override em branch protection (merge mesmo com check
+  vermelho), mas este design não decide se esse escape hatch deve existir. Se
+  a Camada 2 ou 4 começar a bloquear incorretamente assim que virar
+  obrigatória, sem bypass configurado o único remédio é reverter a proteção
+  inteira. Recomendo decidir isso na implementação da Fase 2a/3, não deixar
+  implícito.
+- **Custo recorrente da Camada 3 não é zero**: a Decisão 2.1 rejeitou bot de
+  terceiro citando custo por seat — mas uma sessão real de Claude Code por PR
+  (Camada 3) também tem custo de API não-trivial dependendo de volume/tamanho
+  de diff. Não é o mesmo modelo de custo (uso variável vs assinatura fixa),
+  mas o critério "evitar custo recorrente" usado pra descartar terceiro
+  merece a mesma vara de medir aqui — vale estimar volume esperado de PRs/mês
+  antes de ativar a Fase 4, não assumir que é gratuito só por não ser SaaS.
 
 ---
 
@@ -258,3 +304,8 @@ a permissão certa executa.
   adiados em `.ai/status/BACKLOG.md`, sem relação direta com este design.
 - Promover a Camada 3 (IA) a required check já na primeira fase — só depois de
   medir falso-positivo em uso real (§6, fase 6).
+- **Check de staleness do CSS de tokens** (validar se `tailwind-theme.css`
+  está de fato sincronizado com o token-fonte) — é a lógica que faltaria pra
+  promover `ds-tokens-check.sh` a gate obrigatório (Fase 2b). Fica como
+  follow-up separado; este design só promove os 2 hooks que já têm detecção
+  real (`ds-lint-styles.sh`, `ds-inventory-check.sh`).
