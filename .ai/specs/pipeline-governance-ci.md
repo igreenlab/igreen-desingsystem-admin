@@ -12,6 +12,19 @@ Define **o que** vamos construir e **por quê**.
 > a PR), sem depender de ferramenta paga de terceiro (restrição explícita: segurança +
 > custo).
 
+### Nível de confiança de cada parte (leia antes de aprovar)
+
+| Parte | Status |
+|---|---|
+| Estado atual do repo (§1) | ✅ **verificado** — comandos rodados, cada número conferido |
+| Baseline dos hooks + triagem (§1.1) | ✅ **medido** — greps rodados contra os 40 `*.styles.ts` e os 34 `ui/*` |
+| As 2 questões de política (§1.1) | ✅ **resolvidas com evidência** — comparação de valor nativo-vs-token + inspeção dos 8 casos |
+| Mecânica do ratchet (§3 Camada 2) | ✅ **validada por protótipo** — 3/3 testes contra o arquivo mais sujo do repo |
+| Camada 3 (qual produto usar) (§3) | ✅ **verificado na doc oficial** — 2 produtos distintos, trade-offs documentados |
+| Camada 1 (CODEOWNERS/branch protection) | ⚠️ **não executável por mim** — falta admin no repo (§5); comando pronto no §9 |
+| Camada 4 (changeset-lite + OIDC) | 🔶 **desenhado, não prototipado** — é a parte menos validada desta spec |
+| Fase 2b (staleness do CSS de tokens) | ⛔ **fora de escopo** — precisa de lógica que não existe (§8) |
+
 ---
 
 ## 1. Estado atual (verificado no repo — 2026-07-29)
@@ -61,14 +74,19 @@ Define **o que** vamos construir e **por quê**.
 
 ### `ds-lint-styles.sh` — 14 de 40 arquivos (35%) falhariam hoje
 
-| Regra | Hits | Triagem |
+| Regra | Hits | Triagem (após investigação — ver abaixo) |
 |---|---|---|
-| L-002b pad/space literal | 31 | **31 falso-positivo (100%)** — todos são `p-0`/`py-0`/`px-0`/`pl-0` |
-| L-002d `rounded-N` nativo | 9 | **ambíguo** — todos são `rounded-full` |
-| L-004 `outline-none` sem `focus-visible` | 8 | **ambíguo** — todos em `TableToolbar`, padrão "reset no filho, ring no wrapper" |
-| L-002a `gap-N` literal | 2 | **2 falso-positivo (100%)** — ambos `!gap-0` |
-| L-002c height fixo | 1 | **violação real** — `w-9 h-9` em `sidebar.styles.ts:158` (devia ser `size-comp-*`) |
-| **Total** | **51** | **33 falso-positivo (65%) · 17 ambíguo · 1 real** |
+| L-002b pad/space literal | 31 | **falso-positivo** — todos `p-0`/`py-0`/`px-0`/`pl-0`; não existe token DS pra zero |
+| L-002d `rounded-N` nativo | 9 | **falso-positivo** — todos `rounded-full`, que é **numericamente idêntico** ao token DS (prova abaixo) |
+| L-004 `outline-none` | 8 | **falso-positivo** — o foco está visível em todos, via `shadow-sh-ring` no elemento ou `focus-within` no wrapper |
+| L-002a `gap-N` literal | 2 | **falso-positivo** — ambos `!gap-0` |
+| L-002c height fixo | 1 | ✅ **violação real** — `w-9 h-9` em `sidebar.styles.ts:158` (devia ser `size-comp-*`) |
+| **Total** | **51** | **50 ruído (98%) · 1 real** |
+
+> **98% do que o check sinalizaria hoje é ruído.** Não é o código do DS que está
+> ruim — são os patterns do hook que estão largos demais. Se isso tivesse virado
+> gate bloqueante sem medição, o time teria concluído (corretamente!) que o
+> check é inútil e desligado.
 
 **Causa raiz do falso-positivo (bug real no hook, não no código do DS)**: as
 alternações numéricas dos patterns incluem `0` —
