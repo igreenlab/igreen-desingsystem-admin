@@ -176,8 +176,14 @@ patterns resolveu. A lista sai pra um módulo compartilhado
 
 O check roda e anota, mas **só reprova em PR não-rascunho**
 (`github.event.pull_request.draft`). Quem abre draft pra pedir opinião no meio do
-caminho não é bloqueado — e ninguém escapa, porque draft não mergeia: pra mergear
-tem que sair de rascunho, e aí o check vale.
+caminho não é bloqueado.
+
+⚠️ **O guard sozinho seria bypass, não adiamento.** `ready_for_review` **não**
+está no conjunto default de atividades do `pull_request` (`opened`,
+`synchronize`, `reopened`) — sem declará-lo no `types:`, sair de rascunho não
+dispara run nova, e a run verde do rascunho (com o step pulado) **satisfaz** o
+required status check. Por isso o `ci.yml` declara
+`types: [opened, synchronize, reopened, ready_for_review]`.
 
 ### A mensagem — clareza é requisito, não enfeite
 

@@ -9,7 +9,10 @@
  * Uso: node scripts/showcase-check.mjs [base-ref]   (default origin/main)
  *
  * Não reprova em PR de rascunho: o wiring no ci.yml pula o step quando
- * `github.event.pull_request.draft` é true. Ninguém escapa — draft não mergeia.
+ * `github.event.pull_request.draft` é true. Isso ADIA o check — o que fecha a
+ * brecha é `ready_for_review` no `types:` do `pull_request`, que dispara uma run
+ * nova ao sair de rascunho. Sem esse trigger a run verde do rascunho satisfaria
+ * o required status check e o guard seria bypass permanente.
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
