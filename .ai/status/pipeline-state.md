@@ -66,6 +66,51 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Task 6 — fecha as superfícies de documentação do gate de lint (hooks, L-059, audit) | CONCLUÍDO
+
+- Input: branch `feat/gate-deterministico-estilos` já tinha 5 tasks implementadas e revisadas
+  (commits `b1a00fb` tabela única de anti-patterns `scripts/lib/ds-lint-patterns.mjs`,
+  `c95f646` parser de diff `scripts/lib/diff-added-lines.mjs`, `e28e32e` CLI
+  `scripts/lint-styles.mjs` com modo `--file` (hook local, sempre exit 0) e `--ratchet`
+  (CI, só falha em linha **nova**), `f76a4f3` fix de exit code do `--file`, `2cb2261`
+  `.claude/hooks/ds-lint-styles.sh` reescrito pra delegar ao módulo node, `0acb81c`
+  `.github/workflows/ci.yml` + `package.json` ligando o ratchet como step bloqueante e
+  `distribution-debt.mjs` informativo em PR / bloqueante em `release:check`). Essa mudança
+  de detecção tornou falsas 2 afirmações na doc: as tabelas de hooks em `CLAUDE.md`
+  (~linha 110) e `.claude/rules/ds-standards.md` (~linha 61) diziam que o
+  `ds-lint-styles.sh` grepa "L-001 a L-007" — L-004 e L-007 saíram do conjunto (ver
+  `.ai/specs/pipeline-governance-ci.md` §1.1, medição de 2026-07-29).
+- Output:
+  1. `CLAUDE.md` — linha da tabela de hooks corrigida: lista agora L-001/L-002/L-003/L-005
+     + import de tv, menciona `scripts/lib/ds-lint-patterns.mjs` como fonte única
+     compartilhada com o CI, e que o ratchet de CI só reprova violação **nova**.
+  2. `.claude/rules/ds-standards.md` — mesma correção na tabela de hooks + resumo de
+     **L-059** adicionado na seção "Lições — resumo" (mini-bloco `###`, no formato que o
+     arquivo já usa pras últimas 4 lições — L-055 a L-058 — em vez do bullet de 1 linha
+     usado por L-001..L-043).
+  3. `.ai/status/lessons.md` — nova lição **L-059**: classificação determinístico vs
+     semântico de quando uma regra pode virar gate mecânico. Registra os números medidos
+     (51 hits do grep antigo contra os 40 `*.styles.ts` do repo, 50 ruído / 1 real: 33 de
+     `p-0`/`gap-0` sem token DS pra zero, 9 de `rounded-full` numericamente idêntico ao
+     token DS, 8 de `outline-none` com foco visível via `focus-within` no wrapper — outro
+     bloco `tv()`) e o corolário do ratchet (14 dos 40 arquivos já carregavam débito legado
+     — um gate whole-file teria reprovado qualquer PR que só tocasse esses arquivos).
+  4. Esta entrada de audit log.
+- Decisões: L-004 e L-007 permanecem registradas como lições válidas — não foram apagadas
+  nem renumeradas, só tiradas do conjunto que o grep/CI cobre (continuam sendo trabalho de
+  revisão semântica). Nenhum código/script/workflow foi tocado nesta sessão — só as 4
+  superfícies de doc listadas acima.
+- Nota (estado real do gate): os commits desta branch ligam o ratchet como step do
+  `ci.yml` e tornam `distribution-debt.mjs` bloqueante em `release:check`, mas a **Camada
+  1** (branch protection / required status checks em `main`) continua sendo **ação manual
+  do mantenedor** (Leandro) — sem ela, um push direto em `main` ainda ignora esses checks
+  por completo. Os checks existem e rodam, mas ainda não bloqueiam merge de fato.
+- Assumption: o ratchet por linha adicionada é suficiente — débito legado congelado não
+  volta a crescer por outro caminho (arquivo novo inteiro conta como adicionado, então
+  componente novo nasce limpo).
+- Lições novas: L-059 — gate mecânico só pra regra errada independente de contexto
+  (detalhe completo em `.ai/status/lessons.md`).
+
 ### [2026-07-29] | INFRA RELEASE | Publish pendente do CLI — @snksergio/create-design-system 0.18.1 | CONCLUÍDO
 
 - Input: sessão de auditoria de distribuição. Rodei os 3 checks automatizados (`node scripts/registry-check.mjs`, `node scripts/check-foundationals.mjs`, `node scripts/distribution-debt.mjs`) — todos ✓ (87 itens no registry, embed em sync, 4 foundationals sincronizados, 34 componentes sem débito). Comparei `npm view @snksergio/create-design-system version` (0.18.0) vs `cli/package.json` local (0.18.1) — gap encontrado: a release v0.30.0 (commit `96dd7d8`) já tinha bumpado o `cli/package.json`, mas o `npm publish` manual (que o skill `release.md` exige, normalmente com OTP) nunca rodou.

@@ -1252,6 +1252,48 @@ para desenhar um mapa parado.
 
 ---
 
+## [L-059] Gate mecânico só pra regra errada independente de contexto — L-004/L-007 saem do grep
+
+Medição dos greps antigos de `ds-lint-styles.sh` contra os **40** `*.styles.ts` do repo
+(baseline antes da extração pro módulo `scripts/lib/ds-lint-patterns.mjs`, ver
+`.ai/specs/pipeline-governance-ci.md` §1.1): **51 hits, dos quais 50 eram ruído** e só 1
+era violação real. Breakdown:
+
+1. **33 hits** (31 de pad/space + 2 de gap) eram `p-0`/`py-0`/`px-0`/`!gap-0` — a
+   alternação numérica incluía `0`, mas **não existe token DS pra zero** (ninguém escreve
+   `p-sp-none`); são resets legítimos, comuns com `!` sobre base de um shadcn.
+2. **9 hits** eram `rounded-full` — mas `rounded-full`/`rounded-none` são
+   **numericamente idênticos** aos tokens DS (`--radius-radius-full: 9999px`,
+   `--radius-radius-none: 0px`), logo **nunca podem causar defeito**. A divergência real
+   está em `rounded-sm/md/lg/xl/2xl/3xl` (nativo `rounded-lg` = 0.5rem vs DS 0.625rem) —
+   essa É a razão de existir da regra. O `Button` usava `!rounded-full` e estava sendo
+   flagado: o componente-flagship "violando" uma regra ampla demais.
+3. **8 hits** eram `outline-none` em `table-toolbar.styles.ts` — mas a affordance de foco
+   estava visível nos 8 casos, via `focus-visible:shadow-sh-ring` no próprio elemento ou
+   `focus-within:shadow-sh-ring` no **wrapper** (`toolbarSearch`), que vive num bloco
+   `tv()` diferente. Um grep não enxerga isso.
+
+**A classificação que sustenta a decisão:** uma regra só pertence a um gate mecânico
+(grep/CI) se ela está errada **independente de contexto** — um valor que diverge
+numericamente do token, ou uma classe que não existe (L-001, L-002, L-003, L-005). Uma
+regra que exige contexto cross-elemento (**L-004**: o ring/foco pode estar no wrapper,
+possivelmente em outro bloco `tv()` ou outro arquivo) ou julgamento de intenção (**L-007**:
+qual preset tipográfico é o certo pro caso) **não** pertence — forçá-la no grep produz
+exatamente a taxa de falso-positivo que faz o time desligar o check. L-004 e L-007 saem do
+conjunto que `ds-lint-styles.sh`/CI cobrem; continuam válidas como lição, mas viram
+trabalho de revisão semântica (reviewer humano ou skill), não linha de grep.
+
+Corolário sobre o ratchet: julgar só as linhas que o `git diff -U0` **adicionou** (não o
+arquivo inteiro) foi o que tornou o gate viável de ligar — 14 dos 40 arquivos de estilo já
+carregavam pelo menos 1 hit de débito legado (35%); um gate whole-file teria reprovado
+qualquer PR que apenas tocasse um desses arquivos por outro motivo. Débito legado fica
+congelado onde está; o que o ratchet impede é a fila crescer.
+
+Regra pra IA: antes de propor uma regra nova pro gate mecânico, pergunte "essa violação
+está errada em qualquer arquivo/elemento, sem precisar olhar mais nada?". Se a resposta
+depende de outro elemento (wrapper, arquivo irmão) ou de intenção do autor → mantenha como
+lição de revisão semântica, não como entrada em `scripts/lib/ds-lint-patterns.mjs`.
+
 ---
 
 ## Como adicionar nova lição
