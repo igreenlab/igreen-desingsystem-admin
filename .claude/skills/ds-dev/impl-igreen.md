@@ -17,7 +17,7 @@ description: >
 3. Todos os tokens necessários existem? → Se não: PARAR, sinalizar cascata.
 ```
 
-## Estrutura obrigatória
+## Estrutura padrão (componente novo)
 
 ```
 src/components/ui/NomeComponente/
