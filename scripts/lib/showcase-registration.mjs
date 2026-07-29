@@ -11,6 +11,17 @@
  * Um grep genérico pelo id passa se estiver só no DOC_PAGES — e a rota AINDA
  * abre em branco. Por isso os dois são checados separadamente.
  *
+ * ⚠️ ASSIMETRIA DELIBERADA — 3 edições no App.tsx, 4 checks aqui, e o import
+ * não é nenhum deles. A superfície 4 da L-042 exige **três** edições no
+ * `App.tsx` (o `import { <Nome>Doc } from "./preview/pages/<Nome>Doc"`, o
+ * `DOC_PAGES` e o render) — é isso que as skills, o template de PR e o
+ * CONTRIBUTING mandam. Este módulo emite **quatro** checks (`doc-page`,
+ * `app-doc-pages`, `app-render`, `nav`) e o import fica de fora **de
+ * propósito**: `<NomeDoc />` sem import não compila, então o `tsc` já reprova
+ * alto e claro, e o gate mecânico só cobre o que falha em **silêncio**.
+ * Não "conserte" uma contagem pela outra: checar import aqui duplicaria o
+ * Typecheck; baixar a doc pra duas edições produziria arquivo que não compila.
+ *
  * NÃO checa `ComponentsOverviewDoc`: não consta na L-042 como superfície
  * obrigatória e o arquivo tem ~13 lacunas pré-existentes. Fica advisory, no
  * checklist do revisor.

@@ -47,7 +47,7 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 ## Passo 3 — Checklist estrutural
 
 ### Componente iGreen (`ui/`)
-- [ ] 5 arquivos: `.tsx` + `.styles.ts` + `index.ts` + `USAGE.md` (+ `.types.ts` quando a API justificar — ver "Arquitetura" abaixo)?
+- [ ] 4 arquivos sempre — `.tsx` + `.styles.ts` + `index.ts` + `USAGE.md` — mais o 5º, `.types.ts`, quando a API justificar (7 dos 42 componentes têm tipos inline, legítimo — ver "Arquitetura" abaixo)?
 - [ ] `tv` de `@/utils/tv` (nunca `tailwind-variants`)?
 - [ ] `disabled` por ÚLTIMO nos `compoundVariants`?
 - [ ] `type="button"` em `<button>`?

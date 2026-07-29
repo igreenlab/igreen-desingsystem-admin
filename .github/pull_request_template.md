@@ -39,7 +39,8 @@ O componente toca **7 superfícies** (L-042). Nesta PR fecham as 4 primeiras:
 - [ ] Entrada em `.ai/context/components/inventory.md` (L-016)
 - [ ] Showcase — os **3** registros, sem os quais a rota renderiza em branco (L-042):
       1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
-      2. `src/App.tsx` — **duas** edições: `"<id-kebab>",` no array `DOC_PAGES` **e**
+      2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+         no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
          `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
       3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
 - [ ] Declarei no `package.json` toda dependência nova que o componente importa de fato (L-058)

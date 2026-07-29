@@ -91,7 +91,8 @@ Um componente novo toca 7 lugares. **Na sua PR vão os 4 primeiros:**
 - [ ] Linha em `.ai/context/components/inventory.md`
 - [ ] Showcase — os **3** registros, sem os quais a rota abre em branco (L-042):
       1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
-      2. `src/App.tsx` — **duas** edições: `"<id-kebab>",` no array `DOC_PAGES` **e**
+      2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+         no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
          `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
       3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
 - [ ] Toda dependência nova que o componente importa declarada no `package.json`

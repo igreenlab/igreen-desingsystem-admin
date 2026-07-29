@@ -216,7 +216,8 @@ Exemplo Assumption:
 Sem os três, a rota abre **em branco**. O CI reprova (`showcase-check`).
 
 1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
-2. `src/App.tsx` — **duas** edições: `"<id-kebab>",` no array `DOC_PAGES` **e**
+2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+   no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
    `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
 3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
 
