@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # ratchet precisa do histórico pro merge-base
 
       - uses: actions/setup-node@v4
         with:
@@ -34,3 +36,12 @@ jobs:
 
       - name: Examples ↔ showcase drift
         run: node scripts/examples-drift-check.mjs --ci
+
+      - name: Lint de estilos (ratchet — só linhas adicionadas)
+        run: node scripts/lint-styles.mjs --ratchet origin/${{ github.base_ref || 'main' }}
+
+      # SEM --ci de propósito: informativo. Bloquear na PR colidiria com a
+      # Regra 8 (distribuição consolida no /ds-release, não por-PR-de-
+      # componente). A forma bloqueante vive no release:check.
+      - name: Débito de distribuição (informativo)
+        run: node scripts/distribution-debt.mjs
