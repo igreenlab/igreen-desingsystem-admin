@@ -121,8 +121,8 @@ export function PipelineHooksDoc() {
           name=".claude/hooks/ds-lint-styles.sh"
           event="PostToolUse"
           matcher="Edit | Write"
-          desc="Dispara em src/components/**/*.styles.{ts,tsx}. Faz grep das lições L-001 a L-007 (ring com alpha, Tailwind literal com equivalente DS, ring-3, outline-none solto, bg-input, disabled fora de ordem, tipografia avulsa) + checa import de tv via @/utils/tv. Warning em stderr — informativo, não bloqueia."
-          blocks={["L-001", "L-002", "L-003", "L-004", "L-005", "L-006", "L-007", "import tv"]}
+          desc="Dispara em src/components/**/*.styles.{ts,tsx}. Delega pra scripts/lib/ds-lint-patterns.mjs (fonte única compartilhada com o CI) — cobre L-001 (ring com alpha), L-002 (Tailwind literal com equivalente DS), L-003 (ring-3), L-005 (bg-input) + import de tv via @/utils/tv. L-004 (outline-none) e L-007 (tipografia) saíram do conjunto — são semânticas, exigem contexto cross-elemento ou julgamento de intenção (L-059), e viraram trabalho do revisor. Warning em stderr — informativo, não bloqueia. No CI, o mesmo módulo roda em modo ratchet e só reprova violação nova (linha adicionada pelo diff)."
+          blocks={["L-001", "L-002", "L-003", "L-005", "import tv"]}
         />
         <HookCard
           name=".claude/hooks/ds-inventory-check.sh"

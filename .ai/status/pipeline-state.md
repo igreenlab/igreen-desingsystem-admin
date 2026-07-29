@@ -66,6 +66,30 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Fix wave pós Task 6 — corrige claim "nenhum código tocado" + registra 2 swaps de token e USAGE.md do DatePicker | CONCLUÍDO
+
+- Input: revisão de branch completa (`feat/gate-deterministico-estilos`, review final antes do
+  merge) apontou que a entrada "Task 6" logo abaixo (mesma data) afirma "Nenhum
+  código/script/workflow foi tocado nesta sessão — só as 4 superfícies de doc". Mas 3 commits
+  landaram na branch DEPOIS dela: `c5db76e`, `19e5205`, `7372a04`. O checklist de encerramento
+  do `CLAUDE.md` exige registrar criação/modificação de token ou componente; a entrada Task 6
+  não cobria esses 3 commits porque foram feitos depois dela ter sido escrita.
+- Output: este registro nomeia o que ficou de fora da entrada Task 6:
+  1. `c5db76e` — os 2 únicos hits reais do baseline medido em §1.1 da spec, corrigidos:
+     `w-9 h-9` → `size-comp-lg` em `src/components/ui/MenuSidebar` (sidebar.styles.ts:158) e
+     `h-16` → `h-layout-navbar` em `src/components/ui/SingleMenuSidebar`
+     (single-menu-sidebar.styles.ts:98). Mesmo valor em px nos dois casos — zero mudança
+     visual, só troca de literal Tailwind por token DS.
+  2. `19e5205` + `7372a04` — `src/components/ui/DatePicker/USAGE.md` criado (componente já
+     distribuído no registry, mas sem o atalho de doc — gap genuíno encontrado na medição do
+     `ds-inventory-check.sh`, §1.1 da spec) + fix de shape do `DateRange` no exemplo do arquivo.
+- Decisões: a entrada Task 6 original permanece como está — log é append-only, não se reescreve
+  texto já registrado; este registro novo corrige a lacuna em vez de editar o histórico.
+- Assumption: os 2 swaps de token são correção pura de literal→token (mesmo valor numérico nos
+  dois casos), não mudança de design — não exigem gate de token novo (Regra 4 não se aplica a
+  edição de existente).
+- Lições novas: nenhuma (a lição do achado em si é L-059, já registrada abaixo).
+
 ### [2026-07-29] | ORCHESTRATOR | Task 6 — fecha as superfícies de documentação do gate de lint (hooks, L-059, audit) | CONCLUÍDO
 
 - Input: branch `feat/gate-deterministico-estilos` já tinha 5 tasks implementadas e revisadas

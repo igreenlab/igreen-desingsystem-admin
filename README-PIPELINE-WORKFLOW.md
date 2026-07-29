@@ -875,21 +875,19 @@ Verificar entrada correspondente no `pipeline-state.md`. Se não estiver lá,
 solicitar ao DS Dev que documente antes de continuar. Sem spec registrada,
 a revisão não começa.
 
-**Passo 2 — Varredura de regressões (grep)**
-Executar em `.styles.ts` e `.tsx`:
+**Passo 2 — Varredura de regressões**
+Executar em `.styles.ts` e `.tsx`. Regras mecânicas (L-001/L-002/L-003/L-005 —
+erradas independente de contexto) têm fonte única em
+`scripts/lib/ds-lint-patterns.mjs`; não duplicar como grep solto aqui (uma
+segunda cópia diverge silenciosamente — ex.: `p-[0-9]` reprovava `p-0`, reset
+legítimo sem token). L-004/L-007 continuam grep manual: são semânticas,
+exigem contexto cross-elemento ou julgamento de intenção (L-059).
 ```bash
-# L-001: ring com modificador
-grep -n "ring-ring-.*/" arquivo.styles.ts arquivo.tsx
-# L-002a: Tailwind literal de spacing/radius/shadow
-grep -n "gap-[0-9]\|rounded-[sml][mdg]\|shadow-[sml][mdg]\|px-[0-9]\|p-[0-9]" arquivo.styles.ts
-# L-002b: height fixo proibido
-grep -n "\bh-[7-9]\b\|h-1[0-2]\b\|h-\[" arquivo.styles.ts arquivo.tsx
-# L-003: ring-3 inexistente
-grep -n "ring-3\b" arquivo.styles.ts arquivo.tsx
-# L-004: outline-none sem focus-visible
+# L-001/L-002/L-003/L-005: mecânico, delega pro checker canônico (mesmo módulo do CI)
+node scripts/lint-styles.mjs --file arquivo.styles.ts
+node scripts/lint-styles.mjs --file arquivo.tsx
+# L-004: outline-none sem focus-visible (foco pode estar no wrapper)
 grep -n '"outline-none"' arquivo.tsx arquivo.styles.ts
-# L-005: var Shadcn com opacidade
-grep -n "bg-input\|bg-background\|bg-foreground" arquivo.tsx
 # L-007: tipografia avulsa
 grep -n '"text-xs\|"text-sm\|"text-base\b' arquivo.styles.ts
 # TypeScript any
