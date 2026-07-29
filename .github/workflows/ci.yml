@@ -3,6 +3,12 @@ name: CI
 on:
   pull_request:
     branches: [main]
+    # `ready_for_review` NÃO está no conjunto default (opened, synchronize,
+    # reopened) e é obrigatório aqui: o step de showcase é pulado enquanto a PR
+    # é rascunho, então sair de rascunho TEM que disparar uma run nova. Sem
+    # isso, a run verde do rascunho satisfaria o required status check `check`
+    # e o showcase nunca seria avaliado (ver comentário do step, no fim).
+    types: [opened, synchronize, reopened, ready_for_review]
   push:
     branches: [main]
 
@@ -37,11 +43,31 @@ jobs:
       - name: Examples ↔ showcase drift
         run: node scripts/examples-drift-check.mjs --ci
 
+      # Os TRÊS steps de conformidade abaixo levam `if: !cancelled()` de
+      # propósito: sem isso o primeiro a sair 1 impede os outros de rodarem, e
+      # uma PR com `gap-4` E sem Doc page viraria 2 idas-e-voltas em vez de 1.
+      # `!cancelled()` roda o step mesmo após falha anterior — o job continua
+      # falhando no fim (é step falhado, não `continue-on-error`).
       - name: Lint de estilos (ratchet — só linhas adicionadas)
+        if: ${{ !cancelled() }}
         run: node scripts/lint-styles.mjs --ratchet origin/${{ github.base_ref || 'main' }}
 
       # SEM --ci de propósito: informativo. Bloquear na PR colidiria com a
       # Regra 8 (distribuição consolida no /ds-release, não por-PR-de-
       # componente). A forma bloqueante vive no release:check.
       - name: Débito de distribuição (informativo)
+        if: ${{ !cancelled() }}
         run: node scripts/distribution-debt.mjs
+
+      # O guard de rascunho ADIA o check, não dispensa: enquanto a PR é
+      # rascunho o step é pulado (quem abre draft pra pedir opinião no meio do
+      # caminho não é bloqueado). O que fecha a brecha é `ready_for_review` no
+      # `types:` lá no topo — sair de rascunho dispara uma run nova, e é ELA que
+      # avalia o showcase. Sem esse trigger, a run verde do rascunho satisfaria
+      # o required status check `check` (strict: false) e o guard seria um
+      # bypass permanente, não um adiamento: `ready_for_review` não está no
+      # conjunto default de atividades do `pull_request`, e step pulado dentro
+      # de job que passou não deixa sinal na UI de Checks.
+      - name: Showcase registrado (L-042 superfície 4)
+        if: ${{ !cancelled() && github.event.pull_request.draft != true }}
+        run: node scripts/showcase-check.mjs origin/${{ github.base_ref || 'main' }}

@@ -17,7 +17,7 @@ description: >
 3. Todos os tokens necessários existem? → Se não: PARAR, sinalizar cascata.
 ```
 
-## Estrutura obrigatória
+## Estrutura padrão (componente novo)
 
 ```
 src/components/ui/NomeComponente/
@@ -208,6 +208,24 @@ import { tv, type VariantProps } from "@/utils/tv"  // NUNCA "tailwind-variants"
 
 Exemplo Assumption:
 > "não existe componente Shadcn com lógica equivalente e a lógica é simples o suficiente para tv()"
+
+---
+
+## Antes de considerar pronto — showcase (L-042, superfície 4)
+
+Sem os três, a rota abre **em branco**. O CI reprova (`showcase-check`).
+
+1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
+2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+   no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
+   `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
+3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
+
+**Não** faz parte desta entrega: `registry.json`, catálogo do CLI e changelog —
+consolidam no `/ds-release` (Regra 8). Anote no corpo da PR o que ficou pendente.
+
+Componente interno de propósito (sem showcase) → declare em
+`scripts/lib/ds-exceptions.mjs` com o motivo.
 
 ---
 

@@ -680,12 +680,18 @@ não começar do zero.
 
 ### Branch protection via `gh api` (pra quem tiver admin rodar — §5 item 2)
 
+> ⚠️ `"strict": false` é intencional e virou **load-bearing**: o comentário do
+> `.github/workflows/ci.yml` cita `strict: false` ao explicar por que
+> `ready_for_review` precisa estar no `types:`. Rodar este snippet com `true`
+> mudaria a configuração aplicada e invalidaria aquele comentário sem quebrar nada
+> visível. Config aplicada de verdade: registrada em `.ai/status/pipeline-state.md`.
+
 ```bash
 gh api -X PUT repos/igreenlab/igreen-desingsystem-admin/branches/main/protection \
   --input - <<'EOF'
 {
   "required_status_checks": {
-    "strict": true,
+    "strict": false,
     "contexts": ["check"]
   },
   "enforce_admins": false,

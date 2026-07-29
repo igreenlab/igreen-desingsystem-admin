@@ -47,7 +47,7 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 ## Passo 3 — Checklist estrutural
 
 ### Componente iGreen (`ui/`)
-- [ ] 5 arquivos: `.tsx` + `.styles.ts` + `.types.ts` + `index.ts` + `USAGE.md`?
+- [ ] 4 arquivos sempre — `.tsx` + `.styles.ts` + `index.ts` + `USAGE.md` — mais o 5º, `.types.ts`, quando a API justificar (7 dos 42 componentes têm tipos inline, legítimo — ver "Arquitetura" abaixo)?
 - [ ] `tv` de `@/utils/tv` (nunca `tailwind-variants`)?
 - [ ] `disabled` por ÚLTIMO nos `compoundVariants`?
 - [ ] `type="button"` em `<button>`?
@@ -81,6 +81,22 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 - [ ] Componentes-base não foram alterados?
 - [ ] Tipo "composto" em `.ai/context/components/inventory.md` (dupla verificação)?
 - [ ] `pipeline-state.md` atualizado pelo DS Dev?
+
+### Arquitetura — julgamento, não grep
+
+O lint pega Tailwind literal; estes exigem ler o código:
+
+- **View burra** — lógica visual mora no `.styles.ts`; o `.tsx` compõe e passa
+  props. Lógica visual disfarçada de código (ternário montando classe, cálculo de
+  estilo inline) não é pega por lint nenhum.
+- **Organização de tipos** — tipo compartilhado grande → `.types.ts`; tipo de
+  sub-parte → junto da sub-parte. **Não exija `.types.ts` sempre**: 7 dos 42
+  componentes têm tipos inline por serem simples, e isso é exceção legítima
+  (medido em 2026-07-29, ver `.ai/specs/pipeline-conformance-showcase.md` §1).
+- **Hooks extraídos** quando a lógica com estado cresce — e só então. `hooks/`
+  existe em 6 de 42 componentes; exigir sempre seria errado.
+- **`ComponentsOverviewDoc`** — *advisory*: sugira adicionar, não reprove. Não
+  consta na L-042 e o arquivo tem ~13 lacunas pré-existentes.
 
 ## Passo 4 — Critério de critique genuína
 

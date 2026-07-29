@@ -111,3 +111,25 @@ export * from "./shadcn/nome-componente"
   no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível via `@igreen/<nome>`.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
   Ex: `Assumption: "não existe componente Shadcn com lógica equivalente instalado anteriormente"`
+
+## Antes de considerar pronto — showcase (L-042, superfície 4)
+
+Sem os três, a rota abre **em branco**.
+
+⛔ **Aqui o CI NÃO é rede de segurança.** O `showcase-check` detecta **pasta** nova em
+`src/components/ui/<Nome>/`; primitivo shadcn é **arquivo único**
+(`src/components/shadcn/<nome>.tsx`), então a detecção por pasta nunca o vê — e o step
+escopa o diff em `-- src/components/ui`. Registrar o showcase aqui é **disciplina de quem
+implementa**, não algo verificado por máquina. (Só o import é pego, e pelo Typecheck.)
+
+1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
+2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+   no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
+   `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
+3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
+
+**Não** faz parte desta entrega: `registry.json`, catálogo do CLI e changelog —
+consolidam no `/ds-release` (Regra 8). Anote no corpo da PR o que ficou pendente.
+
+Componente interno de propósito (sem showcase) → declare em
+`scripts/lib/ds-exceptions.mjs` com o motivo.

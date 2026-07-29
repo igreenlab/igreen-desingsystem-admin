@@ -66,6 +66,179 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Conformance showcase — gate cobre `.tsx` + check bloqueante de registro de showcase + exceções unificadas | CONCLUÍDO
+
+- Input: continuação de `.ai/specs/pipeline-conformance-showcase.md` (2ª rodada de
+  governança, depois de `pipeline-governance-ci.md` ter fechado proteção da `main` +
+  gate determinístico de token). Branch `feat/conformance-showcase`, **16 commits**
+  (10 da implementação + 6 da onda de correção do review final de branch),
+  executada via SDD (5 tasks de implementação, cada uma com review em par — ver
+  `.superpowers/sdd/2026-07-29-conformance-showcase/progress.md`).
+
+- Output:
+  1. **Furo fechado — o lint de estilos era cego a `.tsx`.** `scripts/lint-styles.mjs`
+     tinha `GLOB` só pra `src/components/**/*styles.ts`; Tailwind literal escrito
+     direto no `.tsx` do componente passava limpo por todos os checks. Medido com o
+     módulo real (`scanLines` de `ds-lint-patterns.mjs`, não grep aproximado — o grep
+     tinha dado número errado antes de trocar pro módulo): **3 violações genuínas**
+     em `src/components/ui/**/*.tsx`, todas em `AppShell/user-menu.tsx` (linhas 92,
+     102, 123 — `w-9 h-9 rounded-full` / `<Avatar className="size-9">` / `size-9
+     shrink-0`), corrigidas nesta branch pra `size-comp-lg` (36px→36px, zero mudança
+     visual). Eram a **3ª, 4ª e 5ª instância** do mesmo container quadrado de 36px já
+     corrigido 2× no mesmo dia em `MenuSidebar` e `SingleMenuSidebar` — prova de que
+     o furo deixava passar violação real e **repetida**, não hipotética.
+     `src/components/shadcn/*.tsx` tinha **27 hits em 10 arquivos**, congelados pelo
+     ratchet (débito pré-existente; só linha nova reprova daqui pra frente). Reverifiquei
+     nesta sessão: `node scripts/lint-styles.mjs --ratchet origin/main` →
+     "1 arquivo(s), 3 linha(s) adicionada(s), 0 violação nova" — exit 0, números batem
+     com a spec.
+  2. **Check de showcase bloqueante** (`scripts/lib/showcase-registration.mjs` +
+     `scripts/showcase-check.mjs`, fiado no `ci.yml`). Cobre exatamente a superfície 4
+     da L-042 pra pasta de componente **nova**: `<Nome>Doc.tsx` existe, id kebab
+     roteado em `src/App.tsx` (checa as **duas** ocorrências separadamente —
+     `DOC_PAGES` e a cascata de render `activePage === "<id>"`; um grep genérico
+     passaria com só metade registrada e a rota abriria em branco) e entrada em
+     `doc-nav-data.ts`. **Detecta pelo diff**, não por sweep total — assim não
+     precisa semear lista de exceção com o passivo atual, só pega o que a PR cria.
+     (O critério de "pasta nova" foi refinado na onda de correção abaixo: `A` por
+     arquivo → pasta ausente no base ref.) Não reprova PR em rascunho
+     (`pull_request.draft`, com `ready_for_review` no `types:` — ver onda de
+     correção). Reverifiquei nesta sessão:
+     `node scripts/showcase-check.mjs origin/main` → "nenhum componente novo nesta
+     PR" — exit 0.
+  3. **Lista de exceção unificada** (`scripts/lib/ds-exceptions.mjs`, **8
+     componentes** com motivo obrigatório: `tabela-teste`, `table-toolbar` + os 6
+     internos do `example-chat`). Antes, só `distribution-debt.mjs` tinha essa lista
+     (`IGNORE`, mesmas 8 entradas) e `ds-inventory-check.sh` não tinha lista nenhuma —
+     já divergiam sobre o que era exceção deliberada, o mesmo defeito que a fonte
+     única de patterns (`ds-lint-patterns.mjs`) já tinha resolvido pro lint. Agora
+     `distribution-debt.mjs`, `showcase-check.mjs` **e o hook** consomem a mesma
+     fonte — os três, como a spec §4 exigia (o hook entrou na onda de correção).
+  4. **Prevenção alinhada com a detecção** — `impl-igreen.md`, `impl-composite.md`,
+     `impl-shadcn.md`, `.github/pull_request_template.md` e `CONTRIBUTING.md`
+     passaram a citar os **mesmos 3 itens** (Doc page, as edições em `App.tsx`,
+     entrada em `doc-nav-data.ts`) com os mesmos caminhos — quem cria componente
+     pelo fluxo de implementação nunca vê o check disparar. (Eram "2 edições" no
+     `App.tsx`; a onda de correção acertou pra **3**, incluindo o `import`.)
+     `review-component.md` ganhou o checklist arquitetural (view burra / organização
+     de tipos / hooks extraídos / `ComponentsOverview`) como **julgamento do
+     revisor**, não regra mecânica.
+
+- Achados que os reviews de par pegaram (o valor da sessão, além do código em si):
+  1. A mensagem de erro do `distribution-debt.mjs` **mentia** depois da extração da
+     lista: mandava "inclua no `IGNORE` deste script", lista que já tinha saído do
+     arquivo. Quem seguisse ao pé da letra teria **recriado** a duplicação que a
+     extração veio eliminar. Corrigido no mesmo round de fix da Task 1.
+  2. `toKebab` assume pasta em PascalCase, e `avatar-ig` é a **única** pasta fora
+     desse padrão em 42 — o id real dela é `avatar`, não `avatar-ig`. Documentado
+     explicitamente no docstring (nomeando o caso) + fixado por teste; o check
+     **pula e avisa** em pasta fora do padrão, errando pro lado seguro (deixa
+     passar, não reprova errado).
+  3. O check era **cego a rename de pasta**: `--diff-filter=A` exclui linhas `R`.
+     Reproduzido contra o commit real `54eee58` (`Avatar` → `avatar-ig`): com
+     `--diff-filter=A` o diff vinha **vazio** (o diff real mostra `R100` em 5
+     arquivos). Uma PR que renomeasse pasta de componente sem re-registrar a rota
+     reportaria "nenhum componente novo" e **passaria** — silent-pass exato que o
+     gate existe pra impedir (L-042), por rename em vez de mkdir, numa operação que
+     este repo faz de rotina (`Avatar`→`avatar-ig`, `TableToolbarV2`→
+     `TableToolbarDeprecated`). Fix: `--no-renames`.
+  4. `review-component.md` se contradizia: um checkbox exigia `.types.ts` sem
+     qualificação, e ~40 linhas abaixo o texto dizia pra não exigir sempre (7 de 42
+     componentes têm tipos inline, legítimo). Reconciliado — checkbox virou
+     condicional com cross-ref pra seção que explica a exceção.
+
+- Decisões:
+  - **`ComponentsOverviewDoc` ficou fora do bloqueio, de propósito.** Não consta na
+    L-042 como superfície obrigatória (a lição lista só Doc page + `App.tsx` +
+    `doc-nav-data`) e o arquivo tem **~13 lacunas pré-existentes** (`DatePicker` e
+    `EmptyState` entre elas, ambos distribuídos e com Doc page própria). Exigi-lo
+    seria inventar requisito além do padrão documentado e reprovaria débito antigo
+    que não é desta sessão. Fica **advisory** no checklist do revisor.
+  - **Changelog por-PR ficou fora** — contraria a Regra 8 do `CLAUDE.md`: changelog
+    consolida no `/ds-release`, não por componente.
+  - **Distribuição (registry/catálogo/npm) ficou fora** — já coberta pelo
+    `distribution-debt.mjs` em toda PR, decisão testada e validada nesta mesma data.
+  - **Análise de AST pra "view burra" ficou fora** — a variação legítima medida
+    (7 de 42 componentes com tipos inline; `hooks/` em só 6 de 42) garantiria
+    falso-positivo em escala maior que os alarmes que o grep aproximado já tinha
+    gerado antes de trocar pro módulo real.
+  - **Skill prescreve default forte, revisor aplica julgamento** — por isso
+    `impl-igreen.md`/`impl-composite.md`/`impl-shadcn.md` seguem listando a
+    estrutura de 5 arquivos (agora rotulada "Estrutura padrão (componente novo)", não
+    mais "obrigatória"), enquanto `review-component.md` aceita o desvio legítimo sem
+    reprovar.
+
+- Assumption: detectar componente novo por pasta adicionada no diff é confiável;
+  quebra se o componente e a Doc page vierem em PRs separadas — a primeira reprova,
+  e isso é o comportamento desejado, não bug.
+
+- Onda de correção do review final de branch (mesma data, 6 commits) — 5
+  importantes + 9 minors, cada um verificado empiricamente antes da correção:
+  1. **O guard de rascunho era bypass permanente, não adiamento.**
+     `ready_for_review` não está no conjunto default de atividades do
+     `pull_request` (`opened`/`synchronize`/`reopened`): PR aberta como rascunho
+     rodava com o step de showcase pulado, passava, e clicar "Ready for review"
+     **não** disparava run nova — a run verde do rascunho satisfazia o required
+     status check `check` (`strict: false`) e o merge saía sem o showcase nunca ter
+     sido avaliado (step pulado dentro de job que passou não deixa sinal na UI).
+     Fix: `types: [opened, synchronize, reopened, ready_for_review]` + os 3
+     comentários que afirmavam o contrário reescritos (ci.yml, showcase-check.mjs,
+     spec §4).
+  2. **"Componente novo" virou "pasta que não existia no base ref".** O `A` do
+     `--name-status` é por arquivo: `Chart` e `Icon` reprovavam com instrução
+     errada ao receber **um** arquivo (2 de 42, medidos; e a escapatória que a
+     mensagem sugeria — declarar em `ds-exceptions.mjs` — seria afirmação falsa e
+     tiraria `Chart` do `distribution-debt.mjs`, que compartilha o `Map`). Lógica
+     em módulo puro novo (`scripts/lib/new-component-folders.mjs`) com o predicado
+     `existsAtBase` **injetado** (git fica no CLI; `scripts/lib/` segue zero I/O),
+     resolvido contra o merge-base. O ganho do `--no-renames` é preservado (pasta
+     renomeada não existe sob o nome novo) — verificado end-to-end com
+     `Spinner`→`SpinnerRenamed`. 12 testes novos.
+  3. **O hook virou o TERCEIRO consumidor** (`isException` + `checkRegistration`,
+     uma invocação `node -e`), fechando a divergência que a branch citava como
+     justificativa: o `TabelaTeste` hardcoded (1 de 8 exceções) e o
+     `grep -q "\"$KEBAB\"" App.tsx` que aprovava id presente só no `DOC_PAGES` —
+     caso em que a rota abre em branco e o CI reprova. Fail-open preservado
+     (`exit 0` sempre; probe caído → eixo pulado + `PROBE FAIL` no hook-log).
+  4. **`impl-shadcn.md` prometia rede de segurança inexistente** ("o CI reprova"):
+     o check detecta *pasta* em `src/components/ui`, e primitivo shadcn é arquivo
+     único — agora está escrito que ali é disciplina, não máquina.
+  5. **"duas edições" no `App.tsx` era três** — falta o `import` da Doc page (a
+     L-042 lista import + render + `DOC_PAGES`). Corrigido nos 5 documentos com o
+     mesmo texto; a assimetria (3 edições na doc, 4 checks no módulo, e o import
+     fica pro `tsc` porque o gate mecânico só cobre falha **silenciosa**) está
+     registrada no docstring de `showcase-registration.mjs`.
+  - Minors: `::warning` no skip de pasta não-PascalCase (era invisível na UI);
+    `if: !cancelled()` nos 3 steps de conformidade (lint saindo 1 escondia o
+    showcase → 2 idas-e-voltas); comentário JSX `{/* */}` deixa de reprovar o
+    ratchet; política de re-sync upstream do shadcn escrita no `GLOB`; 4 contagens
+    erradas (8 exceções, 27 hits no shadcn, 4+1 arquivos no review-component,
+    consumidor real do `ds-exceptions`).
+
+- Pendências conhecidas (nenhuma bloqueante):
+  - O check de showcase **nunca reprovou uma PR de verdade** — foi provado em probe
+    (commit real numa branch descartável: arquivo em pasta existente → exit 0,
+    pasta nova → exit 1, rename de pasta → exit 1) e contra commits históricos
+    (ex.: `54eee58`, `31ddfcd~1`).
+  - Falso-negativo por convenção de nome segue aceito: `Chart` (documentado em 8
+    páginas `chart-*`) e `Icon` (rota `icon` → `IconLibraryDoc.tsx`) só passariam
+    se fossem criados hoje — o critério de "pasta nova" os tira do caminho, mas
+    quem fugir do padrão `<Nome>Doc.tsx` passa batido. Erra pro lado seguro.
+  - `node_modules` local do mantenedor segue desatualizado — 7 falsos `TS2307` em
+    `src/components/ui/ChoroplethMap/` ao rodar `tsc` local (deps declaradas no
+    `package.json`/lock, ausentes em disco); CI (`npm ci`) não é afetado.
+  - `prettier` não está no `package.json` nem em `node_modules`, então
+    `format-on-save.sh` (que usa `npx --no-install prettier`) é **no-op** nesta
+    máquina. Não é desta onda, mas explica por que arquivos editados pelo pipeline
+    não saem formatados.
+
+- Lições novas: nenhuma registrada nesta entrada. Os 4 achados acima (mensagem
+  obsoleta pós-extração, premissa PascalCase de `toKebab`, cegueira a rename via
+  `--diff-filter=A`, contradição interna de doc) são candidatos genuínos a L-NNN,
+  mas formalizar em `.ai/status/lessons.md` está fora do escopo deste registro
+  (Step restrito a `pipeline-state.md`) — considerar follow-up numa sessão que edite
+  `lessons.md`.
+
 ### [2026-07-29] | ORCHESTRATOR | Governança fechada — proteção da `main`, 2º aprovador, CONTRIBUTING, visibilidade do gate | CONCLUÍDO
 
 - Input: com o gate de estilos já mergeado (PR #66), faltavam as camadas que fazem

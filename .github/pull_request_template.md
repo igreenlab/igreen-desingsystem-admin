@@ -37,7 +37,12 @@ O componente toca **7 superfícies** (L-042). Nesta PR fecham as 4 primeiras:
 - [ ] Código em `src/components/ui/<Nome>/`
 - [ ] `USAGE.md` ao lado do componente
 - [ ] Entrada em `.ai/context/components/inventory.md` (L-016)
-- [ ] Showcase: `<Nome>Doc.tsx` **+ registrado no `App.tsx`** (`DOC_PAGES`) **+ no `doc-nav-data.ts`** — sem os três, a rota renderiza em branco (L-042)
+- [ ] Showcase — os **3** registros, sem os quais a rota renderiza em branco (L-042):
+      1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
+      2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
+         no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
+         `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
+      3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
 - [ ] Declarei no `package.json` toda dependência nova que o componente importa de fato (L-058)
 
 As 3 restantes (registry · catálogo do CLI · changelog) **não** vão nesta PR — consolidam no `/ds-release` (Regra 8). Se o check de débito de distribuição apontou algo, anote aqui o que falta registrar:

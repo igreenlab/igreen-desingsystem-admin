@@ -123,6 +123,15 @@ describe("DS_LINT_PATTERNS — NÃO deve pegar (os 50 falso-positivos medidos)",
     expect(scan1('  // nativo "rounded-lg" = 0.5rem vs DS 0.625rem')).toEqual([]);
     expect(scan1('   * usa "gap-4"? não — use gap-gp-md')).toEqual([]);
   });
+
+  // Com `.tsx` no escopo do lint, a forma de comentário mais comum do JSX passou
+  // a importar: `{/* ... */}` não é `//` nem `/*` no início da linha.
+  it("comentário JSX ({/* ... */}) não é violação", () => {
+    expect(scan1('      {/* antes era className="gap-4" */}')).toEqual([]);
+    expect(scan1("{ /* h-9 aqui era hardcode */ }")).toEqual([]);
+    // Código de verdade com comentário JSX no fim da linha CONTINUA reprovando.
+    expect(scan1('<div className="gap-4"> {/* nota */}')).toHaveLength(1);
+  });
 });
 
 describe("scanLines", () => {
