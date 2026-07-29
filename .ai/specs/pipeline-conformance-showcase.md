@@ -55,14 +55,26 @@ não são varridos**. Então isto passa limpo por todos os checks hoje:
 <div className="flex gap-4 h-10 rounded-lg">
 ```
 
+Medido com o **módulo real** (`scanLines` de `ds-lint-patterns.mjs`), não por grep
+aproximado — a primeira medição por grep deu números errados nos dois escopos
+(dizia 1 e 35/14):
+
 | Escopo | Violações medidas |
 |---|---|
-| `src/components/ui/**/*.tsx` | **1** — `AppShell/user-menu.tsx:92` (`w-9 h-9 rounded-full`) |
-| `src/components/shadcn/*.tsx` | **35** em 14 arquivos |
+| `src/components/ui/**/*.tsx` | **3**, todas em `AppShell/user-menu.tsx` |
+| `src/components/shadcn/*.tsx` | **27** em 10 arquivos |
 
-A única do `ui/` é **genuína** e é o **terceiro** caso do mesmo `w-9 h-9` que já
-corrigimos 2× hoje (`MenuSidebar`, `SingleMenuSidebar`) — prova de que o furo
-deixa passar violação real, não hipotética.
+As 3 do `ui/` são **genuínas** e são **o mesmo caso de container quadrado de
+36px** que já corrigimos 2× hoje (`MenuSidebar`, `SingleMenuSidebar`):
+
+| Linha | Código | Correção |
+|---|---|---|
+| 92 | `w-9 h-9 rounded-full` | `size-comp-lg` |
+| 102 | `<Avatar className="size-9">` | `size-comp-lg` |
+| 123 | `size-9 shrink-0` | `size-comp-lg` |
+
+Terceira, quarta e quinta instância do mesmo erro — prova de que o furo deixa
+passar violação real **e repetida**, não hipotética.
 
 Os 35 do `shadcn/` **não exigem decisão de política agora**: o ratchet congela
 débito pré-existente e só reprova linha adicionada.
@@ -111,11 +123,13 @@ CI reprova, volta a divergência hook↔CI que a fonte única existe pra evitar.
 
 Nenhum pattern muda: eles casam string entre aspas, e `className="..."` é isso.
 
-Inclui a correção do único hit real: `user-menu.tsx:92` → `size-comp-lg` (36px→36px,
-zero mudança visual — mesma correção aplicada nos outros dois casos).
+Inclui a correção dos **3** hits reais do `ui/`, todos em `user-menu.tsx` (linhas
+92, 102, 123) → `size-comp-lg`. 36px→36px, zero mudança visual — mesma correção
+aplicada nos outros dois casos hoje.
 
-**Antes de ligar, re-medir.** O número esperado é 1 no `ui/` e 35 congelados no
-`shadcn/`. Se divergir, investigar antes de afrouxar pattern.
+**Antes de ligar, re-medir com o módulo** (não por grep). Esperado: **3** no `ui/`
+(que a PR corrige, indo a 0) e **27 em 10 arquivos** congelados no `shadcn/`. Se
+divergir, investigar antes de afrouxar pattern.
 
 ---
 
