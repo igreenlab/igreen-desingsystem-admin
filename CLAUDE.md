@@ -107,7 +107,7 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 | Hook | Quando dispara | O que faz |
 |------|----------------|-----------|
 | `format-on-save.sh` | qualquer .ts/.tsx/.md | prettier nos arquivos editados |
-| `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | greps L-001/L-002/L-003/L-004/L-005/L-007 — warning em stderr quando encontra anti-pattern |
+| `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv; L-004 e L-007 saíram (são semânticas, exigem contexto cross-elemento ou julgamento de intenção — ver L-059) — warning em stderr quando encontra anti-pattern. No CI, o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado |
 | `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do catálogo do CLI, **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042 |
 | `ds-tokens-check.sh` | `tokens/**/*.ts` | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |

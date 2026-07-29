@@ -45,10 +45,18 @@ Define **o que** vamos construir e **por quê**.
   **decorativo**: roda, mas nada impede merge se falhar.
 - **`distribution-debt.mjs` já suporta `--ci`** (`process.exit(isCi ? 1 : 0)`,
   linha 80) — já teria capacidade de falhar quando um componente não está no
-  `registry.json`/catálogo do CLI, mas **não está chamado em `ci.yml`**. É a
-  correção de menor esforço e maior valor do pacote inteiro: 1 linha nova em
-  `ci.yml` já fecha boa parte do gap que deixou o `ChoroplethMap` sumir sem
-  ninguém notar (L-058).
+  `registry.json`/catálogo do CLI, mas **não está chamado em `ci.yml`**. ⚠️
+  Rodar a forma bloqueante (`--ci`) direto em `ci.yml` colide com a **Regra 8**
+  (`.claude/rules/ds-standards.md`): distribuição (registry, embed, bump) "não
+  vai por-PR-de-componente — consolida no `/ds-release`". Um componente novo
+  legitimamente fica sem registry/catálogo até o próximo `/ds-release`;
+  bloquear isso na PR reprovaria a próxima PR de componente por obedecer a
+  regra do próprio projeto. **Resolução implementada**: `ci.yml` chama
+  `distribution-debt.mjs` **sem** `--ci` (informativo, sinaliza sem travar); a
+  forma `--ci` (bloqueante) vive em `release:check` (`package.json`), rodado no
+  momento do `/ds-release` — quando já se espera a distribuição resolvida.
+  Fecha o gap que deixou o `ChoroplethMap` sumir sem ninguém notar (L-058) sem
+  recriar o conflito com a Regra 8.
 - **Os 3 hooks** (`ds-lint-styles.sh`, `ds-inventory-check.sh`,
   `ds-tokens-check.sh`) são scripts bash confirmados **puramente locais**: rodam
   só como `PostToolUse` do Claude Code, usam `set +e` e terminam com `exit 0`
@@ -237,8 +245,10 @@ já usamos.
 
 ### 2.3 Camada estrutural = promover o que já existe, não reescrever do zero
 
-`distribution-debt.mjs --ci` já existe e só precisa ser chamado (Fase 1, risco
-zero). Já os hooks **não** são um "promover e pronto" — a medição do §1.1
+`distribution-debt.mjs --ci` já existe; a forma bloqueante entra em
+`release:check` (não em `ci.yml` — ver Regra 8, distribuição consolida no
+`/ds-release`), e a forma sem `--ci` (informativa) entra em `ci.yml` (Fase 1,
+risco zero). Já os hooks **não** são um "promover e pronto" — a medição do §1.1
 mostrou que os patterns têm bug de falso-positivo (65%) e que há débito
 pré-existente e listas de exceção divergentes entre scripts. A reformulação:
 
@@ -304,9 +314,11 @@ alguém com admin**).
 Ubuntu do que reusar os `.sh` diretamente (decisão de implementação, não de
 design).
 
-- Passo imediato e de baixíssimo risco: adicionar
-  `node scripts/distribution-debt.mjs --ci` em `ci.yml` — já existe, já
-  funciona, só falta a linha.
+- Passo imediato e de baixíssimo risco: `distribution-debt.mjs` entra em
+  `ci.yml` **sem** `--ci` (informativo — bloquear aqui colide com a Regra 8,
+  ver §1); a forma `--ci` (bloqueante) entra em `release:check`
+  (`package.json`), consolidando a exigência no momento do `/ds-release` — já
+  existe, já funciona, só falta ligar nos dois lugares certos.
 - **`ds-lint-styles.sh` / `ds-inventory-check.sh` → check de ratchet** (design
   revisado pela medição do §1.1 — a versão anterior desta spec dizia "ganham
   modo CI e falham se `$FOUND > 0`", o que a medição provou inviável):
@@ -316,8 +328,12 @@ design).
   1. Corrigir os patterns, aplicando **também no hook local** (ele avisa errado
      hoje): remover `0` das alternações de `pad/space` e `gap`; remover `none` e
      `full` do `rounded`; **remover L-004 do conjunto determinístico** (migra
-     pra Camada 3, ver classificação no §1.1). Efeito medido: os 51 hits atuais
-     caem pra **1** (o `w-9 h-9` real do sidebar).
+     pra Camada 3, ver classificação no §1.1); e ampliar a alternação de
+     height/size (`7-12` → `7-16`) — o baseline original não cobria `13/14/16`,
+     então não enxergava estruturalmente um `h-16`. Efeito medido (implementação
+     real, não só o desenho original): os 51 hits atuais caem pra **2** — o
+     `w-9 h-9` do sidebar **e** um `h-16` (`single-menu-sidebar.styles.ts:98`)
+     que só a faixa ampliada consegue ver.
   2. Unificar a lista de exceção do inventory-check com o `IGNORE` do
      `distribution-debt.mjs` (extrair pra um `.ds-exceptions.json` ou módulo
      compartilhado — fonte única, senão volta a divergir).
@@ -507,8 +523,8 @@ a permissão certa executa.
 | Fase | O quê | Risco de bloquear trabalho legítimo |
 |---|---|---|
 | 0 | Você executa os 5 itens manuais do §5 (ou pelo menos CODEOWNERS + branch protection, item mais urgente dado o 404 do §1) | zero — é config, não código |
-| 1 | `distribution-debt.mjs --ci` entra em `ci.yml` | zero — hoje não há débito, só passa a travar débito NOVO |
-| 2a-i | **Corrigir patterns** no hook local (tirar `0` de pad/gap · tirar `none`/`full` do rounded · tirar L-004 do determinístico) + unificar listas de exceção | zero — só corrige aviso que o hook já dá errado hoje; leva os 51 hits atuais pra 1 |
+| 1 | `distribution-debt.mjs` entra em `ci.yml` **sem** `--ci` (informativo) + `--ci` (bloqueante) entra em `release:check` — Regra 8 exige que distribuição não trave por-PR | zero — hoje não há débito; CI só sinaliza, `release:check` trava débito NOVO |
+| 2a-i | **Corrigir patterns** no hook local (tirar `0` de pad/gap · tirar `none`/`full` do rounded · tirar L-004 do determinístico · ampliar height `7-12`→`7-16`) + unificar listas de exceção | zero — só corrige aviso que o hook já dá errado hoje; leva os 51 hits atuais pra 2 |
 | 2a-ii | Check de ratchet (só linhas adicionadas) entra em `ci.yml` como obrigatório — mecânica **já validada** por protótipo, 3/3 | baixo **depois de 2a-i**; sem 2a-i seria ~35% dos arquivos falhando com 65% de bogus (medido, §1.1) |
 | 2b | `ds-tokens-check.sh` → **NÃO entra no rollout ainda**. Precisa de lógica nova (rodar `tokens:tw4` em CI + diffar contra CSS commitado) que este design não cobre — fica como follow-up separado, fora de escopo desta spec (§8) | promover como está = falso-positivo garantido em qualquer PR de token |
 | 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
@@ -629,16 +645,27 @@ decisão do §7 (mantém válvula de escape pro admin). A lista em `contexts`
 precisa ser atualizada com o nome real dos jobs depois que a Fase 1/2a
 adicionar os novos steps em `ci.yml` — hoje só existe o job `check`.
 
-### `ci.yml` — Fase 1 (adicionar 1 linha)
+### `ci.yml` — Fase 1 (passo informativo; a forma bloqueante vai em `release:check`)
 
 ```yaml
-      - name: Distribution debt (falha se PR introduzir gap novo)
-        run: node scripts/distribution-debt.mjs --ci
+      # SEM --ci de propósito: informativo. Bloquear aqui colidiria com a
+      # Regra 8 (distribuição consolida no /ds-release, não por-PR-de-
+      # componente). A forma bloqueante vive no release:check.
+      - name: Débito de distribuição (informativo)
+        run: node scripts/distribution-debt.mjs
 ```
 
-### Correção dos patterns — Fase 2a-i (leva os 51 hits atuais pra 1)
+A forma **bloqueante** (`--ci`) NÃO entra em `ci.yml` — entra em
+`release:check` (`package.json`), consolidando a exigência no momento do
+`/ds-release`:
 
-Em `.claude/hooks/ds-lint-styles.sh`, 4 mudanças (todas justificadas no §1.1):
+```json
+"release:check": "node scripts/registry-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs"
+```
+
+### Correção dos patterns — Fase 2a-i (leva os 51 hits atuais pra 2)
+
+Em `.claude/hooks/ds-lint-styles.sh`, 5 mudanças (todas justificadas no §1.1):
 
 ```diff
   # 1+2. Não existe token DS pra zero — p-0/gap-0 são resets legítimos (33 hits bogus)
@@ -655,6 +682,13 @@ Em `.claude/hooks/ds-lint-styles.sh`, 4 mudanças (todas justificadas no §1.1):
   # 4. L-004 é semântico (ring pode estar no wrapper / vir de shadow-sh-ring) → Camada 3 (8 hits bogus)
 - check '"[^"]*(^|[ "])outline-none[^"]*"' "L-004 — outline-none sem focus-visible..."
 + # (removido do gate determinístico — ver classificação no §1.1 da spec)
+
+  # 5. A faixa original (7-12) não cobre h-16 estruturalmente — não é bogus, é
+  #    um buraco de cobertura. Ampliar revela um 2º hit real (não contado nos
+  #    51 originais, medidos com a faixa antiga): h-16 em
+  #    single-menu-sidebar.styles.ts:98.
+- check '"[^"]*\b(h|min-h)-(7|8|9|10|11|12)\b[^"]*"'          "L-002 — height fixo..."
++ check '"[^"]*\b(h|min-h|size)-(7|8|9|10|11|12|13|14|16)\b[^"]*"' "L-002 — height fixo..."
 ```
 
 ### Quick win independente (não precisa de gate nenhum)

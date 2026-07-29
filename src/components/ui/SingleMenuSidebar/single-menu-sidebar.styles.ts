@@ -95,7 +95,7 @@ export const styles = {
   // Header
   header: {
     wrapper:
-      "flex h-16 items-center overflow-hidden px-pad-4xl py-pad-md shrink-0",
+      "flex h-layout-navbar items-center overflow-hidden px-pad-4xl py-pad-md shrink-0",
     wrapperCollapsed: "justify-center px-0",
     inner: "flex items-center gap-gp-md",
     logo: "shrink-0",

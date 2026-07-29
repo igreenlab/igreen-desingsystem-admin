@@ -58,7 +58,7 @@ Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. El
 | Hook                    | Trigger                                            | O que faz                                                                                                                                                                                                                                                                                                                      |
 | ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `format-on-save.sh`     | qualquer Edit/Write                                | Roda prettier nos arquivos editados                                                                                                                                                                                                                                                                                            |
-| `ds-lint-styles.sh`     | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Grep das lições L-001 a L-007 + import de tv. Warning em stderr — não bloqueia, mas Claude vê                                                                                                                                                                                                                                  |
+| `ds-lint-styles.sh`     | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv. L-004 e L-007 saíram (semânticas: exigem contexto cross-elemento ou julgamento de intenção — L-059). Warning em stderr — não bloqueia, mas Claude vê. No CI o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado                                                                                                                                                  |
 | `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**`        | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), se está no registry mas **fora do catálogo do CLI** (`cli/templates/default/CLAUDE.md`), ou se a **DocPage existe mas não está roteada** no `App.tsx`/`DOC_PAGES`+nav (render em branco) — L-042 |
 | `ds-tokens-check.sh`    | Edit/Write em `tokens/**/*.ts`                     | Alerta pra rodar `tokens:tw4` + lembra que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`). Tokens/theme versionados pelo stamp = `package.json.version`                                                                                                                                         |
 
@@ -446,6 +446,21 @@ que lê `.claude/ds-config.json` gerado pelo ds-link → resolve `importBase` e 
 `hooks/`+`settings.json` (copy-in-specific, miram `src/components/**`); (3) detecta o alias no
 tsconfig/vite (fallback `@ds`). Regra pra IA: ao mexer no kit do consumidor, lembrar que
 submódulo é um 3º canal que consome o MESMO payload. Doc: `SUBMODULE-SETUP.md` + L-056.
+
+### Gate mecânico só pra regra errada independente de contexto — L-004/L-007 saem do grep (L-059)
+
+Medição dos greps antigos de `ds-lint-styles.sh` contra os 40 `*.styles.ts` do repo: **51
+hits, 50 ruído, 1 real**. 33 eram `p-0`/`gap-0` (não existe token DS pra zero, resets
+legítimos); 9 eram `rounded-full` (numericamente **idêntico** ao token DS — nunca pode ser
+defeito, ao contrário de `rounded-sm..3xl`, que divergem de verdade); 8 eram `outline-none`
+no `TableToolbar` com foco visível em **todos** — metade via `focus-visible:shadow-sh-ring`
+no próprio elemento, o resto via `focus-within:` no **wrapper** (outro bloco `tv()`) — grep
+não vê nenhum dos dois. Regra: gate mecânico (grep/CI) só pra regra errada
+**independente de contexto** (valor divergente do token, classe inexistente — L-001/L-002/
+L-003/L-005); regra que exige contexto cross-elemento (L-004) ou julgamento de intenção
+(L-007) fica só pro revisor semântico, nunca no grep. O **ratchet** (só linha que o diff
+adicionou) é o que torna o gate viável de ligar — 14/40 arquivos já tinham débito legado.
+Detalhe: `lessons.md` L-059.
 
 ### Padrão de chart (resumo)
 

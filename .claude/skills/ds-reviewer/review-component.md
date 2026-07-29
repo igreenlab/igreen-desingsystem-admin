@@ -15,26 +15,22 @@ Verificar também o campo `Assumption` da entrada de gate — vai ser testado no
 
 ## Passo 2 — Varredura de regressões
 
-Executar em `.styles.ts` e `.tsx` do componente:
+Executar em `.styles.ts` e `.tsx` do componente. As regras mecânicas
+(L-001/L-002/L-003/L-005 — erradas independente de contexto) têm **fonte
+única** em `scripts/lib/ds-lint-patterns.mjs`; não replicar a tabela aqui
+como grep solto — uma segunda cópia diverge silenciosamente da real (foi
+exatamente o que aconteceu antes: `p-[0-9]` reprovava `p-0`, que é reset
+legítimo sem token DS). L-004/L-007 continuam como grep manual porque são
+semânticas — exigem contexto cross-elemento ou julgamento de intenção, não
+cabem no gate mecânico (L-059):
 
 ```bash
-# L-001 — ring com modificador de opacidade (verificar AMBOS os arquivos)
-grep -n "ring-ring-.*/" arquivo.styles.ts arquivo.tsx
+# L-001/L-002/L-003/L-005 — mecânico, delega pro checker canônico (mesmo módulo do CI)
+node scripts/lint-styles.mjs --file arquivo.styles.ts
+node scripts/lint-styles.mjs --file arquivo.tsx
 
-# L-002a — Tailwind literal de spacing/radius/shadow
-grep -n "gap-[0-9]\|rounded-[sml][mdg]\|rounded-xl\|rounded-2xl\|shadow-[sml][mdg]\|px-[0-9]\|py-[0-9]\|p-[0-9]" arquivo.styles.ts
-
-# L-002b — height fixo proibido (h-7 a h-12)
-grep -n "\bh-[7-9]\b\|h-1[0-2]\b\|h-\[" arquivo.styles.ts arquivo.tsx
-
-# L-003 — ring-3 inexistente
-grep -n "ring-3\b" arquivo.styles.ts arquivo.tsx
-
-# L-004 — outline-none sem focus-visible
+# L-004 — outline-none sem focus-visible (o foco pode estar no wrapper, noutro tv())
 grep -n '"outline-none"' arquivo.tsx arquivo.styles.ts
-
-# L-005 — var Shadcn com opacidade
-grep -n "bg-input\|bg-background\|bg-foreground" arquivo.tsx
 
 # L-007 — tipografia avulsa no styles (text-xs, text-sm, text-base sem preset)
 grep -n '"text-xs\|"text-sm\|"text-base\b' arquivo.styles.ts
