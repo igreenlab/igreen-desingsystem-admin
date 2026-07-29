@@ -45,3 +45,10 @@ jobs:
       # componente). A forma bloqueante vive no release:check.
       - name: Débito de distribuição (informativo)
         run: node scripts/distribution-debt.mjs
+
+      # Só reprova em PR não-rascunho: quem abre draft pra pedir opinião no meio
+      # do caminho não é bloqueado. Ninguém escapa — draft não mergeia, então
+      # pra mergear tem que sair de rascunho e aí o check vale.
+      - name: Showcase registrado (L-042 superfície 4)
+        if: github.event.pull_request.draft != true
+        run: node scripts/showcase-check.mjs origin/${{ github.base_ref || 'main' }}
