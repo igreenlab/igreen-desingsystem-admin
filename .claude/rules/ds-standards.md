@@ -453,8 +453,9 @@ Medição dos greps antigos de `ds-lint-styles.sh` contra os 40 `*.styles.ts` do
 hits, 50 ruído, 1 real**. 33 eram `p-0`/`gap-0` (não existe token DS pra zero, resets
 legítimos); 9 eram `rounded-full` (numericamente **idêntico** ao token DS — nunca pode ser
 defeito, ao contrário de `rounded-sm..3xl`, que divergem de verdade); 8 eram `outline-none`
-no `TableToolbar` com foco visível via `focus-within:shadow-sh-ring` no **wrapper** (outro
-bloco `tv()` — grep não vê). Regra: gate mecânico (grep/CI) só pra regra errada
+no `TableToolbar` com foco visível em **todos** — metade via `focus-visible:shadow-sh-ring`
+no próprio elemento, o resto via `focus-within:` no **wrapper** (outro bloco `tv()`) — grep
+não vê nenhum dos dois. Regra: gate mecânico (grep/CI) só pra regra errada
 **independente de contexto** (valor divergente do token, classe inexistente — L-001/L-002/
 L-003/L-005); regra que exige contexto cross-elemento (L-004) ou julgamento de intenção
 (L-007) fica só pro revisor semântico, nunca no grep. O **ratchet** (só linha que o diff
