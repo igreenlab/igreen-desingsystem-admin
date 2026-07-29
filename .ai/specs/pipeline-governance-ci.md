@@ -51,6 +51,92 @@ Define **o que** vamos construir e **por quê**.
 
 ---
 
+## 1.1 Baseline medido — ⚠️ a assumption central era FALSA
+
+> Medição executada em 2026-07-29 replicando exatamente os greps de
+> `ds-lint-styles.sh` contra **todos** os `*.styles.ts` do repo, e a lógica de
+> `ds-inventory-check.sh` contra todos os `src/components/ui/*`. Esta seção
+> existe porque a versão anterior desta spec assumia "os hooks portam pra CI
+> sem reescrever a detecção" — **a medição derrubou isso**.
+
+### `ds-lint-styles.sh` — 14 de 40 arquivos (35%) falhariam hoje
+
+| Regra | Hits | Triagem |
+|---|---|---|
+| L-002b pad/space literal | 31 | **31 falso-positivo (100%)** — todos são `p-0`/`py-0`/`px-0`/`pl-0` |
+| L-002d `rounded-N` nativo | 9 | **ambíguo** — todos são `rounded-full` |
+| L-004 `outline-none` sem `focus-visible` | 8 | **ambíguo** — todos em `TableToolbar`, padrão "reset no filho, ring no wrapper" |
+| L-002a `gap-N` literal | 2 | **2 falso-positivo (100%)** — ambos `!gap-0` |
+| L-002c height fixo | 1 | **violação real** — `w-9 h-9` em `sidebar.styles.ts:158` (devia ser `size-comp-*`) |
+| **Total** | **51** | **33 falso-positivo (65%) · 17 ambíguo · 1 real** |
+
+**Causa raiz do falso-positivo (bug real no hook, não no código do DS)**: as
+alternações numéricas dos patterns incluem `0` —
+`\b(px|py|pt|pb|pl|pr|p)-(0|1|2|...)` e `\bgap-(0|1|2|...)`. Mas **não existe
+token DS para zero** (ninguém escreve `p-sp-none`); `p-0`/`gap-0` são resets
+legítimos, frequentemente com `!` pra sobrescrever base de um shadcn. Tirar o
+`0` das duas alternações elimina 33 dos 51 hits (65% do ruído) **sem perder
+nenhuma detecção real**.
+
+**As 2 questões de política que precisam da SUA decisão** (não são bug, são
+regra ambígua — e enquanto não decididas, não dá pra tornar o check
+bloqueante):
+1. **`rounded-full` é permitido?** A regra L-002 diz `rounded-* → rounded-radius-*`,
+   e o token `radius.full` existe (`rounded-radius-full`). Mas `rounded-full`
+   aparece 9× — inclusive em `Button/button.styles.ts:84` (`pill: "!rounded-full"`),
+   o componente-referência do DS. Ou a regra ganha uma exceção documentada pra
+   `rounded-full`, ou os 9 usos viram débito a corrigir. **Hoje o flagship do
+   DS viola a própria regra** — isso precisa ser resolvido de um jeito ou de
+   outro antes de virar gate.
+2. **`outline-none` puro em elemento interno é permitido?** Os 8 hits são
+   `<input>`/`<button>` internos com `bg-transparent border-0 outline-none`,
+   onde o ring de foco fica no wrapper. É o padrão correto de composição, mas
+   viola L-004 ao pé da letra. Precisa de exceção documentada (ex.: "permitido
+   quando o wrapper carrega o ring") ou refactor.
+
+### `ds-inventory-check.sh` — 7 componentes falhariam hoje
+
+```
+ConversationListItem → fora do inventory      MessageBubble          → fora do inventory
+DateSeparatorChip    → fora do inventory      MessageComposer        → fora do inventory
+MessageAck           → fora do inventory      MessageVariablesPicker → fora do inventory
+DatePicker           → sem USAGE.md
+```
+
+**Achado importante — os dois scripts discordam sobre o que é intencional**: os
+6 primeiros são internos do `example-chat` e **já estão na lista `IGNORE` do
+`distribution-debt.mjs`** (linhas 34-41: "distribuídos junto do exemplo, não
+como itens avulsos"). Ou seja, `distribution-debt.mjs` sabe que são exceção
+deliberada, mas `ds-inventory-check.sh` **não tem lista de exceção nenhuma**
+(só um skip hard-coded de `TabelaTeste` pro check de registry). Promover o hook
+a gate sem unificar essa lista = 6 falhas garantidas por design divergente
+entre dois scripts do mesmo repo.
+
+`DatePicker` sem `USAGE.md` é gap genuíno (componente distribuído, sem o atalho
+de doc que a convenção exige).
+
+### Consequência para o design (§3 Camada 2 revisada)
+
+"Rodar os greps nos arquivos alterados e falhar" **não funciona** — 35% dos
+arquivos de estilo têm hit pré-existente, e 2 de cada 3 hits são bogus. Uma PR
+que só mexesse numa linha do `TableToolbar` falharia por 8 violações que já
+estavam lá. O design precisa de **3 pré-requisitos** antes de qualquer
+bloqueio, todos incorporados na Camada 2 revisada:
+
+1. **Corrigir os patterns** (tirar `0` das alternações) — mata 65% do ruído.
+2. **Resolver as 2 questões de política** acima + unificar a lista de exceção
+   com o `distribution-debt.mjs`.
+3. **Ratchet, não gate absoluto**: falhar só em violação introduzida **nas
+   linhas adicionadas pelo diff** (`git diff -U0` → parse dos hunks), nunca em
+   linha pré-existente de arquivo tocado. Débito legado fica visível mas não
+   bloqueia — o que impede é a fila crescer.
+
+> Script de medição usado (não é o check final, é ferramenta de diagnóstico):
+> `measure-lint-baseline.mjs`, mantido fora do repo no scratchpad da sessão.
+> A implementação da Fase 2a deve começar dele + adicionar o parse de hunk.
+
+---
+
 ## 2. Decisões
 
 ### 2.1 Sem ferramenta de terceiro (bot de IA pago)
@@ -70,14 +156,27 @@ já usamos.
 
 ### 2.3 Camada estrutural = promover o que já existe, não reescrever do zero
 
-`distribution-debt.mjs --ci` já existe e só precisa ser chamado. Dos 3 hooks,
-**2** (`ds-lint-styles.sh`, `ds-inventory-check.sh`) já têm lógica real de
-violação e só precisam de um modo novo (`DS_HOOK_MODE=ci` ou flag equivalente)
-que troque o `exit 0` final por `exit 1` — mesma detecção, sem duplicar em
-formato de terceiro (era a alternativa descartada: um linter genérico
-reaprendendo os mesmos greps). O terceiro (`ds-tokens-check.sh`) não tem lógica
-de violação hoje — não dá pra "promover" o que não existe; ver detalhe e
-decisão em §3 Camada 2 e §6 Fase 2b.
+`distribution-debt.mjs --ci` já existe e só precisa ser chamado (Fase 1, risco
+zero). Já os hooks **não** são um "promover e pronto" — a medição do §1.1
+mostrou que os patterns têm bug de falso-positivo (65%) e que há débito
+pré-existente e listas de exceção divergentes entre scripts. A reformulação:
+
+- **`ds-lint-styles.sh`** → a *lógica de detecção* é reaproveitável, mas os
+  patterns precisam de correção (tirar `0`) e o modo CI precisa ser **ratchet
+  por linha adicionada**, não por arquivo. Na prática isso é um script novo em
+  `scripts/` (JS, pra parsear hunk de diff com confiabilidade) que herda os
+  patterns do hook — o hook local continua como está, os dois passam a
+  compartilhar a mesma tabela de patterns como fonte única.
+- **`ds-inventory-check.sh`** → mesma ideia, mas o bloqueio é diferente:
+  precisa primeiro **unificar a lista de exceção** com o `IGNORE` do
+  `distribution-debt.mjs` (hoje divergem, §1.1), senão falha em 6 componentes
+  que já foram declarados exceção deliberada em outro script.
+- **`ds-tokens-check.sh`** → não tem lógica de violação nenhuma hoje; nada a
+  promover. Ver §3 Camada 2 e §6 Fase 2b.
+
+O princípio de "não duplicar regra em formato de terceiro" se mantém — a
+alternativa descartada segue sendo um linter genérico reaprendendo os mesmos
+greps. O que muda é reconhecer que reaproveitar ≠ copiar o `exit code`.
 
 ### 2.4 "Checklist de não-publicado" = changeset-lite, não Bit.dev/registry versionado
 
@@ -127,14 +226,32 @@ design).
 - Passo imediato e de baixíssimo risco: adicionar
   `node scripts/distribution-debt.mjs --ci` em `ci.yml` — já existe, já
   funciona, só falta a linha.
-- **`ds-lint-styles.sh` e `ds-inventory-check.sh`** ganham modo "CI": em vez de
-  rodar via protocolo de stdin JSON do Claude Code (`tool_input.file_path`),
-  rodam contra a lista de arquivos alterados na PR
-  (`git diff --name-only origin/main...HEAD`), e falham (`exit 1`) se
-  `$FOUND`/`$MISSING` > 0 quando `CI=true` estiver setado — mantendo o
-  comportamento local (sempre `exit 0`, só avisa) intacto por padrão. Ambos têm
-  lógica real de violação (`$FOUND`/`$MISSING` computados por grep/existência
-  de arquivo) — portáveis sem redesenhar a detecção.
+- **`ds-lint-styles.sh` / `ds-inventory-check.sh` → check de ratchet** (design
+  revisado pela medição do §1.1 — a versão anterior desta spec dizia "ganham
+  modo CI e falham se `$FOUND > 0`", o que a medição provou inviável):
+
+  **Pré-requisitos, na ordem** (nenhum bloqueio antes dos 3):
+  1. Corrigir os patterns: remover `0` das alternações de `pad/space` e `gap`
+     (elimina 33 dos 51 hits atuais, todos bogus). Aplicar a correção **no
+     hook local também** — ele avisa errado hoje.
+  2. Você decide as 2 questões de política do §1.1 (`rounded-full`,
+     `outline-none` em filho) → cada uma vira exceção documentada no pattern
+     ou débito a corrigir.
+  3. Unificar a lista de exceção do inventory-check com o `IGNORE` do
+     `distribution-debt.mjs` (extrair pra um `.ds-exceptions.json` ou módulo
+     compartilhado — fonte única, senão volta a divergir).
+
+  **Mecânica do ratchet**: `git diff -U0 origin/main...HEAD` nos
+  `*.styles.ts` alterados → parse dos hunks → roda os patterns **só nas linhas
+  com `+`**. Violação em linha adicionada → `exit 1`. Violação pré-existente em
+  arquivo tocado → ignorada (aparece no log como informativo). Isso é o que
+  permite ligar o gate com 35% dos arquivos "sujos" sem travar ninguém: o
+  débito legado fica congelado onde está e a fila não cresce.
+
+  **Onde mora**: script novo em `scripts/` (JS — parse de hunk em bash é
+  frágil), compartilhando a tabela de patterns com o hook local como fonte
+  única. O hook local permanece `exit 0` sempre (avisa, não bloqueia) — só o
+  CI decide bloquear.
 - **`ds-tokens-check.sh` é um caso à parte** — hoje ele **não tem nenhuma
   lógica de violação**: dispara incondicionalmente sempre que qualquer
   `tokens/**/*.ts` muda, só como lembrete de "rode `tokens:tw4`". Não existe
@@ -292,6 +409,14 @@ Confirmado nesta sessão: minha identidade autenticada tem `push` mas não
    Claude, e alguém com papel Owner/Primary Owner em
    `claude.ai/admin-settings/claude-code` precisa instalar o GitHub App —
    aprovação adicional, separada de admin do GitHub.
+7. **Decidir as 2 questões de política do §1.1** — não é permissão, é
+   autoridade de regra do DS (só o dono do padrão decide):
+   - `rounded-full` é exceção válida ou os 9 usos (incl. `Button`) são débito?
+   - `outline-none` puro em elemento interno (ring no wrapper) é exceção
+     válida ou os 8 usos do `TableToolbar` são débito?
+
+   Sem essas 2 respostas a Fase 2a-ii não pode ligar — seria bloquear PR por
+   regra que o próprio DS não segue.
 
 Eu construo todo o código/workflow (Camadas 2, 3b, 4 do lado do repo) via PR
 normal; esses itens acima são pré-requisito de infraestrutura que só quem tem
@@ -305,7 +430,8 @@ a permissão certa executa.
 |---|---|---|
 | 0 | Você executa os 5 itens manuais do §5 (ou pelo menos CODEOWNERS + branch protection, item mais urgente dado o 404 do §1) | zero — é config, não código |
 | 1 | `distribution-debt.mjs --ci` entra em `ci.yml` | zero — hoje não há débito, só passa a travar débito NOVO |
-| 2a | `ds-lint-styles.sh`/`ds-inventory-check.sh` ganham modo CI, viram check obrigatório | baixo — mesma detecção que já roda local há tempo, sem surpresa |
+| 2a-i | **Corrigir patterns** (tirar `0` das alternações) no hook local + você decidir as 2 questões de política do §1.1 + unificar listas de exceção | zero — só corrige aviso errado que o hook já dá hoje |
+| 2a-ii | Check de ratchet (só linhas adicionadas) entra em `ci.yml` como obrigatório | baixo **depois de 2a-i** — sem 2a-i seria ~35% dos arquivos falhando com 65% de bogus (medido, §1.1) |
 | 2b | `ds-tokens-check.sh` → **NÃO entra no rollout ainda**. Precisa de lógica nova (rodar `tokens:tw4` em CI + diffar contra CSS commitado) que este design não cobre — fica como follow-up separado, fora de escopo desta spec (§8) | promover como está = falso-positivo garantido em qualquer PR de token |
 | 3 | Changeset-lite (arquivo + check + agregação) | médio — exige mudar hábito de quem abre PR; mensagem de erro deve ser clara e auto-explicativa |
 | 4 | Camada 3, Opção 3b (self-hosted, `pull_request: opened` só — não `synchronize`, pra conter custo) — **modo comentário, não bloqueia** | zero nesse modo (custo de API existe mas é comentário-only, não trava nada) |
@@ -316,10 +442,21 @@ a permissão certa executa.
 
 ## 7. Riscos / assumptions
 
-- **Assumption central**: os 3 hooks bash portam pra "modo CI" sem reescrever a
-  lógica de detecção — se o runner Ubuntu não tiver as mesmas ferramentas (jq/
-  node) que o ambiente local, pode precisar de ajuste. Vou validar isso na
-  implementação, não aqui.
+- ~~**Assumption central**: os 3 hooks portam pra "modo CI" sem reescrever a
+  lógica de detecção~~ → **FALSIFICADA pela medição do §1.1**, e era o maior
+  risco da spec. Números: 35% dos `*.styles.ts` já falhariam, 65% dos hits são
+  falso-positivo por bug de pattern (`0` na alternação), 2 questões de política
+  em aberto, e as listas de exceção de `ds-inventory-check.sh` e
+  `distribution-debt.mjs` divergem. Substituída pelo design de ratchet + 3
+  pré-requisitos (§3 Camada 2). **Lição de processo**: a assumption dizia "vou
+  validar na implementação" — se tivesse ficado assim, a Fase 2a teria sido
+  ligada e revertida no mesmo dia. Medir custou ~10 minutos.
+- **Assumption nova (não medida)**: o parse de hunk (`git diff -U0` → linhas
+  `+`) é confiável o suficiente pra não gerar falso-negativo — ex.: uma
+  violação movida de lugar (linha deletada + readicionada idêntica) conta como
+  "nova" e falha, mesmo sendo um simples reordenamento. Aceitável (erra pro
+  lado seguro), mas precisa ser comunicado na mensagem de erro pra não parecer
+  bug.
 - ~~Assumption sobre a Action suportar disparo automático~~ — **resolvida**:
   confirmado por doc oficial que `anthropics/claude-code-action@v1` dispara em
   `pull_request: [opened, synchronize]` normalmente, sem depender de menção.
@@ -420,6 +557,28 @@ adicionar os novos steps em `ci.yml` — hoje só existe o job `check`.
       - name: Distribution debt (falha se PR introduzir gap novo)
         run: node scripts/distribution-debt.mjs --ci
 ```
+
+### Correção dos patterns — Fase 2a-i (o fix que mata 65% do ruído)
+
+Em `.claude/hooks/ds-lint-styles.sh`, remover o `0` de 2 alternações:
+
+```diff
+- check '"[^"]*\bgap-(0|1|2|3|4|5|6|7|8|10|12|16|20|24)\b[^"]*"' "L-002 — gap-N literal..."
++ check '"[^"]*\bgap-(1|2|3|4|5|6|7|8|10|12|16|20|24)\b[^"]*"'   "L-002 — gap-N literal..."
+
+- check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(0|1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"' "L-002 — pad/space literal..."
++ check '"[^"]*\b(px|py|pt|pb|pl|pr|p)-(1|2|3|4|5|6|7|8|10|12|16)\b[^"]*"'   "L-002 — pad/space literal..."
+```
+
+Justificativa (§1.1): não existe token DS pra zero — `p-0`/`gap-0` são resets
+legítimos, geralmente com `!` sobrescrevendo base de shadcn. 33 dos 51 hits
+atuais são exatamente isso.
+
+### Quick win independente (não precisa de gate nenhum)
+
+`DatePicker` está distribuído no registry mas **não tem `USAGE.md`** — gap
+genuíno encontrado na medição. Corrigir isso é 1 arquivo, sem relação com
+governança, e tira o único hit real do inventory-check.
 
 ### `.changes/<slug>.md` — Camada 4 (formato do changeset-lite)
 
