@@ -109,9 +109,13 @@ const DOC_PAGES = [
   });
 
   it("toda pendência traz um `fix` acionável", () => {
-    for (const f of checkRegistration({ name: "EmptyState", docExists: false, appTsx: "", navData: "" })) {
+    const faltas = checkRegistration({ name: "EmptyState", docExists: false, appTsx: "", navData: "" });
+    for (const f of faltas) {
       expect(f.fix.length, f.id).toBeGreaterThan(10);
     }
+    // Conteúdo, não só tamanho — placeholder longo não deve passar disfarçado.
+    expect(faltas.find((f) => f.id === "doc-page").fix).toContain("Doc.tsx");
+    expect(faltas.find((f) => f.id === "nav").fix).toContain("href:");
   });
 
   it("não confunde id que é prefixo de outro", () => {
@@ -142,5 +146,12 @@ describe("toKebab", () => {
   it("lida com sigla e dígito", () => {
     expect(toKebab("Kpi")).toBe("kpi");
     expect(toKebab("MonthYearPicker")).toBe("month-year-picker");
+  });
+
+  // Premissa: nome de pasta em PascalCase. `avatar-ig` é o único violador hoje
+  // no repo (id real: "avatar") — não alcançado porque o check só vê pasta nova.
+  // A Task 4 pula + avisa em pasta não-PascalCase. Ver docstring do módulo.
+  it("nome já em kebab volta inalterado — premissa PascalCase documentada", () => {
+    expect(toKebab("avatar-ig")).toBe("avatar-ig");
   });
 });

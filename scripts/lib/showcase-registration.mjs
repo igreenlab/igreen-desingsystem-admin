@@ -14,10 +14,23 @@
  * NÃO checa `ComponentsOverviewDoc`: não consta na L-042 como superfície
  * obrigatória e o arquivo tem ~13 lacunas pré-existentes. Fica advisory, no
  * checklist do revisor.
+ *
+ * ⚠️ PREMISSA: `name` chega em PascalCase (nome da pasta em `src/components/ui/`).
+ * `toKebab` só insere hífen em transição minúscula/dígito→maiúscula — um nome
+ * que já é kebab (ou misto) passa por ele inalterado, o que pode não ser o id
+ * real do componente. Hoje existe exatamente **um** violador no repo:
+ * `avatar-ig` (pasta não-PascalCase), cujo id real é `"avatar"` — não
+ * `"avatar-ig"`. Isso não é alcançado em produção porque a Task 4 só roda o
+ * check em pasta NOVA (diff), e `avatar-ig` já existe; a Task 4 pula e avisa
+ * (não reprova errado) quando a pasta não é PascalCase. Reportar isso em
+ * silêncio é como o `ChoroplethMap` sumiu da main por meses sem nenhum sinal
+ * disparar (L-058) — por isso a premissa fica documentada aqui, e não
+ * corrigida com um parâmetro de override não usado por ninguém hoje (YAGNI).
  */
 import { isException } from "./ds-exceptions.mjs";
 
-/** PascalCase → kebab (DataList → data-list). */
+/** PascalCase → kebab (DataList → data-list). Assume `pascalName` em PascalCase —
+ * ver premissa acima; nome já-kebab (ex.: `avatar-ig`) volta inalterado. */
 export function toKebab(pascalName) {
   return pascalName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
@@ -44,7 +57,7 @@ export function checkRegistration({ name, docExists, appTsx, navData }) {
     faltas.push({
       id: "doc-page",
       what: `src/preview/pages/${name}Doc.tsx não existe`,
-      fix: `criar a doc page do componente`,
+      fix: `criar src/preview/pages/${name}Doc.tsx`,
     });
   }
 
