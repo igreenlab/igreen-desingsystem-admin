@@ -155,7 +155,7 @@ export const sidebarRailUser = tv({
 /** Avatar default (string "SV") — usado quando user prop não foi passado. */
 export const sidebarRailUserDefault = tv({
   base: [
-    "grid place-items-center w-9 h-9 rounded-full",
+    "grid place-items-center size-comp-lg rounded-full",
     // tracking-[0.02em] preserva tracking original (preset usa +0.06em)
     "bg-bg-brand text-fg-on-brand font-bold text-caption-sm uppercase tracking-[0.02em]",
   ],
