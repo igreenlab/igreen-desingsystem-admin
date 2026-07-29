@@ -1,0 +1,48 @@
+# CODEOWNERS — iGreen Design System
+#
+# Exige aprovação do dono da área antes do merge. Só tem efeito real quando
+# "Require review from Code Owners" estiver ligado na branch protection de
+# `main` (Settings → Branches). Sem isso, este arquivo é só documentação de
+# quem cuida do quê.
+#
+# Contexto: `.ai/specs/pipeline-governance-ci.md` (Camada 1).
+#
+# ── Como funciona ──────────────────────────────────────────────────────────
+#  · Sintaxe de path = igual .gitignore.
+#  · A ÚLTIMA regra que casa é a que vale (não acumula) — regra mais
+#    específica vai mais abaixo no arquivo.
+#  · Vários donos = separados por espaço; o GitHub exige aprovação de UM
+#    deles, não de todos.
+#  · Todo dono listado precisa ter permissão de escrita no repo, senão a
+#    regra é silenciosamente ignorada.
+#
+# ── Como adicionar mais gente depois ───────────────────────────────────────
+#  Acrescente o handle na linha da área, separado por espaço. Ex.:
+#      /tokens/  @snksergio @outro-handle
+#  Pra dono diferente por área, é só criar a linha própria (lembrando que a
+#  última regra que casa ganha).
+#
+# ─────────────────────────────────────────────────────────────────────────────
+
+# Componentes — visual e API do DS. Mexer aqui afeta todo consumidor.
+/src/components/                @snksergio
+
+# Tokens — a fonte de verdade de cor/spacing/sizing/tipografia. Mudança aqui
+# se propaga pro CSS gerado e pra todos os componentes de uma vez.
+/tokens/                        @snksergio
+
+# Distribuição — o que o consumidor recebe via `igreen:add` e via scaffold.
+/registry.json                  @snksergio
+/cli/                           @snksergio
+
+# Infra de CI e este próprio arquivo — quem controla o gate.
+/.github/                       @snksergio
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Deliberadamente SEM dono (não exigem aprovação):
+#   · `.ai/**`   — specs, planos, lições, audit log
+#   · `.claude/**` — skills, agents, commands do pipeline
+#   · `src/preview/**` — showcase e doc pages
+# Motivo: são doc e ferramental interno; exigir review aqui só adicionaria
+# atrito sem proteger consumidor nenhum. Se um dia virar problema, basta
+# adicionar a linha.
