@@ -66,6 +66,83 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Governança fechada — proteção da `main`, 2º aprovador, CONTRIBUTING, visibilidade do gate | CONCLUÍDO
+
+- Input: com o gate de estilos já mergeado (PR #66), faltavam as camadas que fazem
+  ele **valer** e as que fazem um contribuidor **descobrir** o fluxo. Também
+  faltava registrar as decisões de configuração do GitHub, que não vivem em
+  arquivo nenhum do repo.
+
+- Output — **PRs #67, #68 e a do 2º aprovador**, todas mergeadas:
+  1. `#67` — anotações do GitHub Actions (`::error file=,line=::`) no
+     `lint-styles.mjs` e no `distribution-debt.mjs`: a violação passa a aparecer
+     marcada **na linha do diff**, na aba *Files changed*, em vez de só num log de
+     step (que o GitHub entrega colapsado). Mais `.github/pull_request_template.md`
+     — checklist que aparece preenchido ao abrir PR, organizado por caso, cada item
+     citando a lição que o justifica. Fecha 2 minors do review final: o step
+     "informativo" que não informava ninguém, e o `catch` que engolia `err.message`
+     e culpava `fetch-depth` por qualquer falha do git.
+  2. `#68` — `CONTRIBUTING.md`. Era o furo central da estratégia "trabalhar dentro
+     do fluxo": o fluxo existia e funcionava, mas dependia de alguém contar pro dev
+     novo que existia (o roteiro estava só no `INICIO-DE-SESSAO.md`, bloco pra colar
+     manualmente, escrito pra operador não-programador). `CONTRIBUTING.md` é o
+     arquivo que o **GitHub oferece sozinho** na tela de abrir PR. Junto: corrigido
+     o `INICIO-DE-SESSAO.md` (dizia que push/release "é com o Leandro" —
+     desatualizado) e o `README` (mandava quem quer desenvolver direto pro
+     `CLAUDE.md`, que é arquivo de regras pra IA, não onboarding humano).
+  3. `@jlnetto` adicionado ao `CODEOWNERS` nas 5 áreas.
+
+- Output — **configuração do GitHub** (não vive em arquivo; registrada aqui por
+  isso). Estado anterior: `main` protegida pelo @jlnetto, mas com 3 problemas.
+  Aplicado via API após decisão do mantenedor, com backup da config anterior:
+  | Setting (API / UI) | Antes | Depois | Por quê |
+  |---|---|---|---|
+  | `lock_branch` / *"Lock branch"* | ligado | **desligado** | ligado, o branch fica **read-only e nenhuma PR mergeia**. Foi marcado entendendo que significava "impedir push direto" — mas isso já é garantido por *Require a pull request*. Era a causa real do bloqueio de merge |
+  | `enforce_admins` / *"Do not allow bypassing the above settings"* | ligado | **desligado** | com 1 aprovador só, e o GitHub nunca permitindo auto-aprovação, o mantenedor travava a si mesmo em toda PR própria. Desligado = válvula de escape de admin sem precisar derrubar a proteção inteira |
+  | `required_status_checks.contexts` | `[]` | **`["check"]`** | a caixinha *"Require status checks"* estava marcada mas a **lista estava vazia** — são dois passos na UI e é fácil parar no primeiro. Sem isso o gate rodava e podia ser ignorado |
+  Preservados: PR obrigatória, 1 aprovação, *Require review from Code Owners*,
+  `strict: false` (não exigir branch atualizada — evitaria reesperar CI a cada
+  mudança na `main`), force-push e deleção de branch bloqueados.
+
+- Decisões:
+  - **Camada 3 (revisão por IA em cada PR) NÃO foi construída — decisão medida, não
+    esquecimento.** Hoje o mantenedor é autor de praticamente toda PR, e nessas o
+    revisor já roda em sessão, coberto pela assinatura, sem custo por PR. Ligar a
+    Camada 3 agora seria pagar por PR pra re-revisar trabalho já revisado — e o
+    volume alto de PRs piora a conta, não melhora. **Gatilho pra revisitar: 2-3 PRs
+    por mês abertas por outra pessoa.** Aí a revisão gratuita em sessão deixa de
+    cobrir a população.
+  - Antes da Camada 3, o caminho mais barato é o dev novo **trabalhar dentro do
+    fluxo** (Claude Code no repo, que carrega `CLAUDE.md` sozinho) — custo marginal
+    zero e resultado melhor que uma Action isolada. É o que o `CONTRIBUTING.md`
+    ensina.
+  - `@jlnetto` no CODEOWNERS **mesmo já sendo admin**: aprovar é melhor que
+    bypassar. Aprovação mantém o check obrigatório valendo; bypass pula o CI junto.
+    Antes, na ausência do mantenedor, a única saída era a que desliga o gate.
+  - Anotações emitidas **só** quando `GITHUB_ACTIONS=true` — localmente o hook segue
+    com a saída humana de sempre.
+
+- Assumption: **`enforce_admins` desligado é aceitável porque os 9 admins são de
+  confiança e o CODEOWNERS + check obrigatório cobrem o caso normal.** Se um dia
+  houver merge indevido via bypass, esta é a decisão a revisar — e a correção é
+  ligar `enforce_admins` **e** garantir ≥2 aprovadores ativos antes, senão o
+  mantenedor volta a travar a si mesmo. As duas coisas andam juntas.
+
+- Pendências conhecidas (nenhuma bloqueante):
+  - O gate **nunca reprovou uma PR de verdade** — todas passaram verdes porque
+    nenhuma tocou `*.styles.ts` com violação. O primeiro teste real ainda vem.
+  - `node_modules` local do mantenedor está stale (deps do ChoroplethMap declaradas
+    no `package.json` e no lock, ausentes no disco) → `tsc` local dá 7 falsos
+    `TS2307`. CI não é afetado (`npm ci`). Resolve com `npm install`.
+  - A org permite membro deletar/transferir repo (`members_can_delete_repositories:
+    true`) — agora relevante porque o mantenedor virou admin. Mitigável em
+    Organization settings → Member privileges, por um dono da org.
+  - PR #11 segue aberta com "NÃO MERGEAR" no título.
+
+- Lições novas: nenhuma nova. **L-059** (registrada nesta mesma data) cobre o
+  achado técnico central; as decisões de configuração acima são específicas deste
+  repo, não lição generalizável.
+
 ### [2026-07-29] | ORCHESTRATOR | Fix wave pós Task 6 — corrige claim "nenhum código tocado" + registra 2 swaps de token e USAGE.md do DatePicker | CONCLUÍDO
 
 - Input: revisão de branch completa (`feat/gate-deterministico-estilos`, review final antes do
