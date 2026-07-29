@@ -2,14 +2,17 @@
  * ds-exceptions — FONTE ÚNICA dos componentes de `src/components/ui/` que
  * deliberadamente NÃO vão pro registry nem pro showcase.
  *
- * Consumido por (nunca duplique a lista):
+ * Consumido pelos TRÊS (nunca duplique a lista):
  *   - scripts/distribution-debt.mjs         → não cobra registry/catálogo
  *   - scripts/lib/showcase-registration.mjs → não cobra Doc page nem rota
  *     (e por tabela, o CLI `scripts/showcase-check.mjs`, que usa o módulo)
+ *   - .claude/hooks/ds-inventory-check.sh   → não avisa registry (via `node -e`)
  *
  * Antes desta extração, `distribution-debt.mjs` tinha a lista e
- * `ds-inventory-check.sh` não tinha nenhuma — já divergiam sobre o que é
- * exceção deliberada. É o mesmo defeito que a fonte única de patterns resolveu.
+ * `ds-inventory-check.sh` tinha um `TabelaTeste` hardcoded — já divergiam sobre o
+ * que é exceção deliberada (editar interno do example-chat avisava "não será
+ * distribuído" com a exceção declarada aqui). É o mesmo defeito que a fonte única
+ * de patterns resolveu, e por isso o hook virou o terceiro consumidor.
  *
  * Chave = nome kebab (DataList → data-list). Valor = MOTIVO, obrigatório:
  * lista de exceção sem motivo apodrece, porque ninguém sabe se ainda vale.

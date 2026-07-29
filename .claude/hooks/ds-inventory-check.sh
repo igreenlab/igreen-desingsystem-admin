@@ -9,6 +9,11 @@
 #
 # Não bloqueia. Fecha L-016 automaticamente: avisa enquanto Claude está editando,
 # em vez de descobrir só na auditoria retroativa.
+#
+# Terceiro consumidor das FONTES ÚNICAS compartilhadas com o CI (ver o probe
+# abaixo): `scripts/lib/ds-exceptions.mjs` (o que é exceção deliberada) e
+# `scripts/lib/showcase-registration.mjs` (o que "showcase registrado" significa).
+# Nunca reimplemente essas duas regras aqui — foi assim que hook e CI divergiram.
 
 set +e
 
@@ -45,6 +50,73 @@ COMP_DIR="$PROJECT_ROOT/src/components/ui/$COMP_NAME"
 # Nome kebab do registry/showcase (PascalCase → kebab): Toast→toast, DatePicker→date-picker
 KEBAB=$(echo "$COMP_NAME" | sed -E 's/([a-z0-9])([A-Z])/\1-\2/g' | tr '[:upper:]' '[:lower:]')
 
+DOCPAGE="$PROJECT_ROOT/src/preview/pages/${COMP_NAME}Doc.tsx"
+
+# ─── Probe: as duas perguntas que o hook NÃO responde mais na unha ────────────
+#
+# 1. "é exceção deliberada?" — era `[ "$COMP_NAME" != "TabelaTeste" ]` cravado
+#    aqui: SEGUNDA cópia da lista de exceção, em PascalCase, cobrindo só o eixo
+#    registry. Consequência viva: editar qualquer interno do example-chat avisava
+#    "não consta em registry.json → NÃO será distribuído" enquanto
+#    `ds-exceptions.mjs` declarava isso deliberado.
+# 2. "o showcase está registrado?" — era `grep -q "\"$KEBAB\"" App.tsx`, que passa
+#    com o id SÓ no `DOC_PAGES`. E nesse caso a rota AINDA abre em branco, porque
+#    falta o render: hook aprovava o que o CI reprova, na regra principal.
+#
+# As duas respostas agora vêm dos MESMOS módulos puros que o `showcase-check.mjs`
+# do CI consome — hook e CI não conseguem mais divergir. UMA invocação de node.
+#
+# Fail-open (o oposto dos scripts de CI, que são fail-closed de propósito): se o
+# node não existir ou falhar, `PROBE_OK` não vem, os dois eixos são PULADOS
+# (registrado no log) e o hook segue. Nunca inventa aviso, nunca bloqueia o Edit.
+PROBE_OK=0
+IS_EXCEPTION=0
+SKIP_SHOWCASE=0
+SHOWCASE_GAP=""
+if command -v node >/dev/null 2>&1; then
+  DOC_EXISTS=0
+  [ -f "$DOCPAGE" ] && DOC_EXISTS=1
+  PROBE=$(node --input-type=module -e '
+const [root, name, kebab, docExists] = process.argv.slice(1);
+const { pathToFileURL } = await import("node:url");
+const { join } = await import("node:path");
+const { readFileSync } = await import("node:fs");
+const lib = (f) => import(pathToFileURL(join(root, "scripts", "lib", f)).href);
+const { isException } = await lib("ds-exceptions.mjs");
+const { checkRegistration, isPascalCase } = await lib("showcase-registration.mjs");
+const out = ["PROBE_OK=1"];
+if (isException(kebab)) {
+  out.push("EXCECAO=1");
+} else if (docExists === "1") {
+  // toKebab assume PascalCase; pasta fora do padrão (hoje só `avatar-ig`) geraria
+  // id errado — então pula, igual ao CI, em vez de avisar besteira.
+  if (!isPascalCase(name)) {
+    out.push("SKIP_SHOWCASE=1");
+  } else {
+    const ler = (p) => { try { return readFileSync(join(root, p), "utf8"); } catch { return ""; } };
+    const faltas = checkRegistration({
+      name,
+      docExists: true, // o shell já confirmou que a DocPage existe
+      appTsx: ler("src/App.tsx"),
+      navData: ler("src/preview/components/doc-nav-data.ts"),
+    });
+    for (const f of faltas) out.push("FALTA=" + f.what + " → " + f.fix);
+  }
+}
+process.stdout.write(out.join("\n") + "\n");
+' "$PROJECT_ROOT" "$COMP_NAME" "$KEBAB" "$DOC_EXISTS" 2>/dev/null)
+
+  while IFS= read -r LINHA; do
+    case "$LINHA" in
+      PROBE_OK=1) PROBE_OK=1 ;;
+      EXCECAO=1) IS_EXCEPTION=1 ;;
+      SKIP_SHOWCASE=1) SKIP_SHOWCASE=1 ;;
+      FALTA=*) SHOWCASE_GAP="$SHOWCASE_GAP
+       → ${LINHA#FALTA=}" ;;
+    esac
+  done <<< "$PROBE"
+fi
+
 MISSING=""
 
 # 1. USAGE.md ausente
@@ -65,10 +137,14 @@ fi
 
 # 3. Não consta no registry.json → NÃO será distribuído via @igreen/* (gap de distribuição)
 #    registry.json referencia os arquivos por path src/components/ui/<Nome>/...
-#    (TabelaTeste é demo interno intencional — não avisa)
+#    Exceção deliberada (fonte única `scripts/lib/ds-exceptions.mjs`, via probe
+#    acima) não é cobrada aqui — é o caso do TabelaTeste e dos internos do
+#    example-chat, distribuídos junto do exemplo.
+#    Probe caído → eixo PULADO (não dá pra afirmar "falta no registry" sem saber
+#    se é exceção; aviso inventado é pior que aviso ausente num hook informativo).
 REGISTRY="$PROJECT_ROOT/registry.json"
 IN_REGISTRY=0
-if [ -f "$REGISTRY" ] && [ "$COMP_NAME" != "TabelaTeste" ]; then
+if [ -f "$REGISTRY" ] && [ "$PROBE_OK" = "1" ] && [ "$IS_EXCEPTION" != "1" ]; then
   if grep -q "src/components/ui/$COMP_NAME/" "$REGISTRY" 2>/dev/null; then
     IN_REGISTRY=1
   else
@@ -95,23 +171,22 @@ fi
 #    no App.tsx (DOC_PAGES + activePage) E ter entrada na nav. Pega o caso clássico
 #    de DocPage criada mas não registrada (render em branco — bug do Toast/DOC_PAGES).
 #    Precisão > recall: só dispara quando há intenção clara de showcase (a DocPage existe).
-DOCPAGE="$PROJECT_ROOT/src/preview/pages/${COMP_NAME}Doc.tsx"
-APP_TSX="$PROJECT_ROOT/src/App.tsx"
-NAV_DATA="$PROJECT_ROOT/src/preview/components/doc-nav-data.ts"
-if [ -f "$DOCPAGE" ]; then
-  SHOWCASE_GAP=""
-  if [ -f "$APP_TSX" ] && ! grep -q "\"$KEBAB\"" "$APP_TSX" 2>/dev/null; then
-    SHOWCASE_GAP="$SHOWCASE_GAP
-       → id \"$KEBAB\" não está em src/App.tsx (DOC_PAGES + activePage===) → a rota #/$KEBAB renderiza EM BRANCO"
-  fi
-  if [ -f "$NAV_DATA" ] && ! grep -q "\"$KEBAB\"" "$NAV_DATA" 2>/dev/null; then
-    SHOWCASE_GAP="$SHOWCASE_GAP
-       → sem entrada de nav em src/preview/components/doc-nav-data.ts (href: \"$KEBAB\")"
-  fi
-  if [ -n "$SHOWCASE_GAP" ]; then
-    MISSING="$MISSING
+#    As faltas vêm do probe (checkRegistration, o mesmo módulo do CI) — o grep
+#    ingênuo daqui aprovava id presente só no DOC_PAGES, com a rota em branco.
+if [ -n "$SHOWCASE_GAP" ]; then
+  MISSING="$MISSING
   • ${COMP_NAME}Doc.tsx existe mas o showcase não está totalmente registrado:$SHOWCASE_GAP"
-  fi
+elif [ "$SKIP_SHOWCASE" = "1" ]; then
+  MISSING="$MISSING
+  • ${COMP_NAME}Doc.tsx existe, mas a pasta está fora do padrão PascalCase — não consigo
+       derivar o id da rota com segurança, então NÃO verifiquei o showcase
+       → renomeie a pasta pra PascalCase, ou declare em scripts/lib/ds-exceptions.mjs com o motivo"
+fi
+
+# Probe caído = eixos registry/showcase não avaliados. Não avisa na tela (aviso
+# inventado é pior que aviso ausente num hook informativo), mas fica no log.
+if [ "$PROBE_OK" != "1" ]; then
+  echo "[$TS] ds-inventory-check: PROBE FAIL $COMP_NAME — eixos registry/showcase PULADOS (fail-open)" >> "$LOG_FILE" 2>/dev/null
 fi
 
 if [ -n "$MISSING" ]; then
