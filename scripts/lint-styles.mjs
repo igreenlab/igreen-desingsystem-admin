@@ -3,9 +3,15 @@
  * lint-styles — anti-patterns de estilo do DS, em 2 modos.
  *
  *   --file <path>      varre o arquivo inteiro. Usado pelo hook local
- *                      (aviso informativo). SEMPRE exit 0.
+ *                      (aviso informativo). SEMPRE exit 0 — EM QUALQUER
+ *                      caminho do modo, incluindo path faltando/arquivo
+ *                      inexistente. O hook nunca pode passar a bloquear
+ *                      o edit do dev por causa deste modo.
  *   --ratchet [base]   varre SÓ as linhas adicionadas vs <base> (default
  *                      origin/main). Usado no CI. exit 1 se houver violação nova.
+ *
+ * Erro de uso do CLI (nenhuma flag reconhecida) é diferente: sai 2 no
+ * dispatch de argv abaixo — isso é fronteira do CLI, não do modo --file.
  *
  * Patterns: scripts/lib/ds-lint-patterns.mjs (fonte única, compartilhada com o
  * hook — nunca duplique a tabela aqui).
@@ -32,7 +38,7 @@ function report(violations, { blocking }) {
 function modeFile(path) {
   if (!path) {
     console.error("--file exige um caminho");
-    return 2;
+    return 0; // modo hook NUNCA bloqueia — nem em erro de uso deste modo
   }
   if (!existsSync(path)) return 0; // hook pode disparar em arquivo já removido
   const lines = readFileSync(path, "utf8")
