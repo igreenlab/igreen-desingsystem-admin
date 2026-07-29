@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { checkRegistration, toKebab } from "./showcase-registration.mjs";
+import { checkRegistration, isPascalCase, toKebab } from "./showcase-registration.mjs";
 
 /* Superfície 4 da L-042: componente novo precisa de Doc page + rota no App.tsx
    (DOC_PAGES **e** render) + entrada no doc-nav-data.
@@ -153,5 +153,22 @@ describe("toKebab", () => {
   // A Task 4 pula + avisa em pasta não-PascalCase. Ver docstring do módulo.
   it("nome já em kebab volta inalterado — premissa PascalCase documentada", () => {
     expect(toKebab("avatar-ig")).toBe("avatar-ig");
+  });
+});
+
+describe("isPascalCase", () => {
+  it("aceita pasta em PascalCase", () => {
+    expect(isPascalCase("DatePicker")).toBe(true);
+    expect(isPascalCase("Button")).toBe(true);
+  });
+
+  it("rejeita pasta já em kebab-case (violador real do repo)", () => {
+    expect(isPascalCase("avatar-ig")).toBe(false);
+  });
+
+  // Borda: primeiro char minúsculo mas o resto é PascalCase-like — ainda é
+  // "não-PascalCase" pra fins de derivar o id (toKebab também erraria aqui).
+  it("rejeita nome iniciado em minúscula mesmo com o resto camelCase", () => {
+    expect(isPascalCase("dataTable")).toBe(false);
   });
 });

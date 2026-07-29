@@ -13,7 +13,7 @@
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
-import { checkRegistration, toKebab } from "./lib/showcase-registration.mjs";
+import { checkRegistration, isPascalCase, toKebab } from "./lib/showcase-registration.mjs";
 
 const base = process.argv[2] ?? "origin/main";
 const IN_GHA = process.env.GITHUB_ACTIONS === "true";
@@ -29,7 +29,20 @@ function annotate(title, message) {
 function novosComponentes(baseRef) {
   const out = execFileSync(
     "git",
-    ["diff", "--name-status", "--diff-filter=A", `${baseRef}...HEAD`, "--", "src/components/ui"],
+    [
+      "diff",
+      "--name-status",
+      // Sem isto, git reescreve renames como `R100 old → new` (status `R`, não
+      // `A`) e uma pasta renomeada (ex.: Avatar→avatar-ig, TableToolbarV2→
+      // TableToolbarDeprecated — coisa que este repo faz rotineiramente) passa
+      // batido pelo --diff-filter=A abaixo: silent-pass exato que a L-042 existe
+      // pra impedir, só que via rename em vez de mkdir.
+      "--no-renames",
+      "--diff-filter=A",
+      `${baseRef}...HEAD`,
+      "--",
+      "src/components/ui",
+    ],
     { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
   );
   const nomes = new Set();
@@ -67,7 +80,7 @@ for (const name of novos) {
   // toKebab assume PascalCase. Pasta fora desse padrão gera id errado, então
   // checar produziria falha bogus — melhor pular e avisar. Único caso hoje:
   // `avatar-ig`, cujo id real é `avatar` (ver showcase-registration.mjs).
-  if (!/^[A-Z]/.test(name)) {
+  if (!isPascalCase(name)) {
     console.log(
       `  ⚠ ${name} — pasta fora do padrão PascalCase; não consigo derivar o id da rota com segurança, então PULEI.` +
         ` Renomeie a pasta pra PascalCase, ou declare em scripts/lib/ds-exceptions.mjs com o motivo.`,

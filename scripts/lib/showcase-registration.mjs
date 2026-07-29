@@ -35,6 +35,17 @@ export function toKebab(pascalName) {
   return pascalName.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
+/**
+ * `toKebab` assume que `folderName` chega em PascalCase (ver premissa no topo
+ * do arquivo) — uma pasta fora desse padrão (ex.: `avatar-ig`, já kebab) gera
+ * um id ERRADO, então checar essa pasta com `checkRegistration` produziria
+ * uma reprovação bogus. Quem consome isto (Task 4/`showcase-check.mjs`) usa
+ * o retorno pra decidir PULAR a checagem — nunca pra falhar.
+ */
+export function isPascalCase(folderName) {
+  return /^[A-Z]/.test(folderName);
+}
+
 /** Escapa o id pra uso literal em RegExp. */
 const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
