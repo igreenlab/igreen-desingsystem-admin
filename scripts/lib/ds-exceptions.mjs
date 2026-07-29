@@ -3,8 +3,9 @@
  * deliberadamente NÃO vão pro registry nem pro showcase.
  *
  * Consumido por (nunca duplique a lista):
- *   - scripts/distribution-debt.mjs   → não cobra registry/catálogo
- *   - scripts/showcase-check.mjs      → não cobra Doc page nem rota
+ *   - scripts/distribution-debt.mjs         → não cobra registry/catálogo
+ *   - scripts/lib/showcase-registration.mjs → não cobra Doc page nem rota
+ *     (e por tabela, o CLI `scripts/showcase-check.mjs`, que usa o módulo)
  *
  * Antes desta extração, `distribution-debt.mjs` tinha a lista e
  * `ds-inventory-check.sh` não tinha nenhuma — já divergiam sobre o que é

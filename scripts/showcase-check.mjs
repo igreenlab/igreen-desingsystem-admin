@@ -3,8 +3,10 @@
  * showcase-check — reprova PR que adiciona componente em `src/components/ui/`
  * sem o showcase registrado (superfície 4 da L-042).
  *
- * Detecta componente NOVO pelo diff (arquivos com status `A`), não por sweep
- * total — assim não precisa semear lista de exceção com o passivo atual.
+ * Detecta componente NOVO pelo diff, não por sweep total — assim não precisa
+ * semear lista de exceção com o passivo atual. Critério de "novo" = pasta que
+ * **não existia no base ref** (ver scripts/lib/new-component-folders.mjs);
+ * arquivo novo em pasta existente NÃO é componente novo.
  *
  * Uso: node scripts/showcase-check.mjs [base-ref]   (default origin/main)
  *
@@ -16,6 +18,7 @@
  */
 import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
+import { newComponentFolders } from "./lib/new-component-folders.mjs";
 import { checkRegistration, isPascalCase, toKebab } from "./lib/showcase-registration.mjs";
 
 const base = process.argv[2] ?? "origin/main";
@@ -23,13 +26,23 @@ const IN_GHA = process.env.GITHUB_ACTIONS === "true";
 const esc = (s) =>
   String(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");
 
-function annotate(title, message) {
+/** @param {"error"|"warning"} level */
+function annotate(level, title, message) {
   if (!IN_GHA) return;
-  console.log(`::error title=${esc(title)}::${esc(message)}`);
+  console.log(`::${level} title=${esc(title)}::${esc(message)}`);
 }
 
-/** Nomes PascalCase de componentes cuja pasta é NOVA neste diff. */
+/** Nomes de componentes cuja pasta é NOVA neste diff. Todo o git vive aqui. */
 function novosComponentes(baseRef) {
+  // O `A` do --name-status é por ARQUIVO: pasta existente que recebe um arquivo
+  // aparece igual a pasta criada agora. Quem separa os dois é o predicado
+  // `existsAtBase` — resolvido contra o merge-base, o mesmo ponto de comparação
+  // do `${baseRef}...HEAD` abaixo (usar o tip da base divergiria quando a base
+  // andou depois do fork).
+  const mergeBase = execFileSync("git", ["merge-base", baseRef, "HEAD"], {
+    encoding: "utf8",
+  }).trim();
+
   const out = execFileSync(
     "git",
     [
@@ -39,7 +52,8 @@ function novosComponentes(baseRef) {
       // `A`) e uma pasta renomeada (ex.: Avatar→avatar-ig, TableToolbarV2→
       // TableToolbarDeprecated — coisa que este repo faz rotineiramente) passa
       // batido pelo --diff-filter=A abaixo: silent-pass exato que a L-042 existe
-      // pra impedir, só que via rename em vez de mkdir.
+      // pra impedir, só que via rename em vez de mkdir. (O nome NOVO também não
+      // existe no merge-base, então o predicado abaixo mantém o rename flagrado.)
       "--no-renames",
       "--diff-filter=A",
       `${baseRef}...HEAD`,
@@ -48,12 +62,22 @@ function novosComponentes(baseRef) {
     ],
     { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 },
   );
-  const nomes = new Set();
-  for (const linha of out.split(/\r?\n/)) {
-    const m = linha.match(/^A\s+src\/components\/ui\/([^/]+)\//);
-    if (m) nomes.add(m[1]);
-  }
-  return [...nomes].sort();
+
+  // `cat-file -e` sai != 0 tanto pra "não existe" quanto pra erro de git; ler os
+  // dois como `false` erra pro lado de FLAGRAR, que é o fail-closed que se quer
+  // aqui (um git quebrado de verdade já teria estourado no merge-base/diff).
+  const existsAtBase = (nome) => {
+    try {
+      execFileSync("git", ["cat-file", "-e", `${mergeBase}:src/components/ui/${nome}`], {
+        stdio: "ignore",
+      });
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  return newComponentFolders(out, existsAtBase);
 }
 
 let novos;
@@ -66,7 +90,7 @@ try {
     ` localmente, rode git fetch origin main.` +
     (err?.message ? ` Detalhe do git: ${err.message.trim()}` : "");
   console.error(`\n⚠️  ${msg}\n`);
-  annotate("showcase-check não conseguiu rodar", msg);
+  annotate("error", "showcase-check não conseguiu rodar", msg);
   process.exit(1);
 }
 
@@ -84,10 +108,14 @@ for (const name of novos) {
   // checar produziria falha bogus — melhor pular e avisar. Único caso hoje:
   // `avatar-ig`, cujo id real é `avatar` (ver showcase-registration.mjs).
   if (!isPascalCase(name)) {
-    console.log(
-      `  ⚠ ${name} — pasta fora do padrão PascalCase; não consigo derivar o id da rota com segurança, então PULEI.` +
-        ` Renomeie a pasta pra PascalCase, ou declare em scripts/lib/ds-exceptions.mjs com o motivo.`,
-    );
+    const msg =
+      `${name} — pasta fora do padrão PascalCase; não consigo derivar o id da rota com segurança, então PULEI.` +
+      ` Renomeie a pasta pra PascalCase, ou declare em scripts/lib/ds-exceptions.mjs com o motivo.`;
+    console.log(`  ⚠ ${msg}`);
+    // `::warning`, não `console.log` seco: skip só no log cru do step (que o
+    // GitHub entrega colapsado) é invisível na UI de Checks — e um skip é
+    // exatamente o que precisa ser visto, porque significa "não verifiquei".
+    annotate("warning", `Showcase não verificado: ${name}`, msg);
     continue;
   }
 
@@ -117,7 +145,7 @@ for (const name of novos) {
     `scripts/lib/ds-exceptions.mjs com o motivo.`,
   ];
   console.log(`\n✗ ${linhas.join("\n  ")}\n`);
-  annotate(`Showcase não registrado: ${name}`, linhas.join(" "));
+  annotate("error", `Showcase não registrado: ${name}`, linhas.join(" "));
 }
 
 process.exit(reprovados > 0 ? 1 : 0);
