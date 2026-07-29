@@ -12,7 +12,31 @@ Define **o que** vamos construir e **por quê**.
 > a PR), sem depender de ferramenta paga de terceiro (restrição explícita: segurança +
 > custo).
 
-### Nível de confiança de cada parte (leia antes de aprovar)
+## ✅ STATUS DA INICIATIVA — atualizado em 2026-07-29 (leia isto primeiro)
+
+**Camadas 1 e 2: implementadas, mergeadas e valendo.** O texto abaixo é o design
+original; esta seção é o que de fato existe hoje.
+
+| Camada | Status | Onde |
+|---|---|---|
+| **1 — Base intransponível** | ✅ **ativa** | `main` protegida: PR obrigatória, 1 aprovação, *Require review from Code Owners*. `.github/CODEOWNERS` com **2 donos** (`@snksergio` + `@jlnetto` — 2º aprovador por continuidade, ver §5) |
+| **2 — Gate determinístico** | ✅ **ativa e BLOQUEANTE** | `scripts/lib/ds-lint-patterns.mjs` (tabela única) + `scripts/lib/diff-added-lines.mjs` + `scripts/lint-styles.mjs`. O job `check` é **required status check** — PR vermelha não mergeia. Hook local delega pro mesmo módulo (zero duplicação) |
+| **Visibilidade** (não estava no design) | ✅ **ativa** | anotações `::error file=,line=::` → violação marcada **na linha do diff**; `.github/pull_request_template.md`; `CONTRIBUTING.md` (o arquivo que o GitHub oferece sozinho ao abrir PR) |
+| **3 — Revisão semântica (IA)** | ⏸️ **adiada com gatilho** | decisão medida, não esquecimento — ver §2.6 |
+| **4 — Changeset-lite + OIDC** | 🔶 desenhada, não construída | débito de distribuição já aparece no log de cada PR, o que cobre parte |
+| **Fase 2b — staleness do CSS de tokens** | ⛔ fora de escopo | precisa de lógica que não existe (§8) |
+
+**Nenhuma ação manual pendente** — todos os itens do §5 foram executados
+(configuração aplicada e verificada na API e na UI; decisões registradas em
+`.ai/status/pipeline-state.md`, entrada de 2026-07-29).
+
+**Pendência real única:** o gate **nunca reprovou uma PR de verdade**. Todas
+passaram verdes porque nenhuma tocou `*.styles.ts` com violação. O primeiro teste
+real ainda vem.
+
+---
+
+### Nível de confiança de cada parte (do momento da aprovação do design)
 
 | Parte | Status |
 |---|---|
@@ -21,7 +45,7 @@ Define **o que** vamos construir e **por quê**.
 | As 2 questões de política (§1.1) | ✅ **resolvidas com evidência** — comparação de valor nativo-vs-token + inspeção dos 8 casos |
 | Mecânica do ratchet (§3 Camada 2) | ✅ **validada por protótipo** — 3/3 testes contra o arquivo mais sujo do repo |
 | Camada 3 (qual produto usar) (§3) | ✅ **verificado na doc oficial** — 2 produtos distintos, trade-offs documentados |
-| Camada 1 (CODEOWNERS/branch protection) | ⚠️ **não executável por mim** — falta admin no repo (§5); comando pronto no §9 |
+| Camada 1 (CODEOWNERS/branch protection) | ✅ **executada** — era "não executável por mim" por falta de admin; o mantenedor recebeu admin e foi aplicada |
 | Camada 4 (changeset-lite + OIDC) | 🔶 **desenhado, não prototipado** — é a parte menos validada desta spec |
 | Fase 2b (staleness do CSS de tokens) | ⛔ **fora de escopo** — precisa de lógica que não existe (§8) |
 
@@ -284,6 +308,40 @@ Elimina definitivamente o padrão "colar token no chat" que usamos nesta sessão
 de fazer). GitHub Environment com "required reviewer" = você fisicamente aprova
 cada publish antes de rodar, independente de quem/o que abriu o PR que levou até
 ali.
+
+### 2.6 Camada 3 ADIADA com gatilho — decisão de 2026-07-29, medida
+
+A Camada 3 (revisão por IA em cada PR, §3) foi projetada e **deliberadamente não
+construída**. Não é débito esquecido; é decisão com critério.
+
+**O raciocínio:** a Camada 3 existe pra revisar PR de quem **não** roda o revisor.
+Hoje o mantenedor é autor de praticamente toda PR deste repo, e nessas o
+`ds-reviewer` **já roda em sessão** — coberto pela assinatura do Claude Code, sem
+custo por PR, e com mais contexto do que uma Action isolada teria. Ligar a Camada
+3 agora significa **pagar por PR pra re-revisar trabalho já revisado**.
+
+E o volume **piora** a conta em vez de justificá-la: muitas PRs × zero benefício
+marginal é o pior custo-benefício possível. O argumento "o DS está em evolução
+constante, abro muita PR" é argumento **contra**, não a favor.
+
+**Gatilho pra revisitar — concreto, pra não decidir por intuição:** quando
+aparecerem **2-3 PRs num mês abertas por outra pessoa**. Aí a revisão gratuita em
+sessão deixa de cobrir a população de PRs e a Camada 3 passa a pagar o próprio
+custo.
+
+**Antes dela, o caminho mais barato:** fazer o contribuinte novo **trabalhar dentro
+do fluxo** — abrir o repo no Claude Code, que carrega `CLAUDE.md` e as regras
+sozinho, e o revisor roda na assinatura dele. Custo marginal zero e resultado
+melhor. É exatamente o que o `CONTRIBUTING.md` ensina, e foi por isso que ele foi
+escrito. A Camada 3 vira necessária só pra quem se recusa a usar esse fluxo, ou
+pra contribuição de fora da organização.
+
+**Nota de custo, quando for a hora:** a versão gerenciada da Anthropic custa
+**$15-25 por review** e exige plano Team/Enterprise — descartada. A self-hosted
+(`claude-code-action`) usa chave de API com cobrança por consumo, muito mais
+barata, mas **não é grátis**. Recomendação: rodar em 3-4 PRs reais e **medir**
+antes de decidir manter. Repo público = minutos de Actions ilimitados, então o
+custo é só de token.
 
 ---
 
