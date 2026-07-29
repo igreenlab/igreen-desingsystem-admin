@@ -22,21 +22,31 @@
 #  Pra dono diferente por área, é só criar a linha própria (lembrando que a
 #  última regra que casa ganha).
 #
+# ── Por que DOIS donos ─────────────────────────────────────────────────────
+#  @snksergio é o dono de fato do DS; @jlnetto entra como segundo aprovador
+#  por continuidade — com um dono só, férias ou ausência travam todo merge do
+#  repo (o GitHub nunca deixa alguém aprovar a própria PR).
+#
+#  Nota: @jlnetto já é admin, então poderia destravar via bypass. Estar aqui
+#  é MELHOR que bypass — aprovar mantém o check obrigatório valendo, enquanto
+#  bypass pula o CI junto. Aprovação é a saída de qualidade; bypass é a de
+#  emergência.
+#
 # ─────────────────────────────────────────────────────────────────────────────
 
 # Componentes — visual e API do DS. Mexer aqui afeta todo consumidor.
-/src/components/                @snksergio
+/src/components/                @snksergio @jlnetto
 
 # Tokens — a fonte de verdade de cor/spacing/sizing/tipografia. Mudança aqui
 # se propaga pro CSS gerado e pra todos os componentes de uma vez.
-/tokens/                        @snksergio
+/tokens/                        @snksergio @jlnetto
 
 # Distribuição — o que o consumidor recebe via `igreen:add` e via scaffold.
-/registry.json                  @snksergio
-/cli/                           @snksergio
+/registry.json                  @snksergio @jlnetto
+/cli/                           @snksergio @jlnetto
 
 # Infra de CI e este próprio arquivo — quem controla o gate.
-/.github/                       @snksergio
+/.github/                       @snksergio @jlnetto
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Deliberadamente SEM dono (não exigem aprovação):
