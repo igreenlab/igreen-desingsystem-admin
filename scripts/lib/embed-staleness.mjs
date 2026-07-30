@@ -44,6 +44,36 @@ function fmt(name, s) {
 }
 
 /**
+ * Extrai o mapa `nome → item` do módulo do embed.
+ *
+ * O embed é `export const registry: Record<string, unknown> = { … };` — dá pra
+ * recortar o objeto e `JSON.parse`. Devolve `null` quando não dá pra parsear, e o
+ * chamador simplesmente pula as checagens que dependem disso (nunca lança: este
+ * módulo é consumido por um check que já tem outras camadas).
+ */
+export function parseEmbedItems(text) {
+  try {
+    const s = String(text ?? "");
+    const i = s.indexOf("{", s.indexOf("="));
+    const j = s.lastIndexOf("}");
+    if (i < 0 || j <= i) return null;
+    const map = JSON.parse(s.slice(i, j + 1));
+    return map && typeof map === "object" ? map : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Conjunto de `files[].path` de um item, normalizado. */
+function pathsOf(item) {
+  return new Set(
+    (item?.files ?? [])
+      .map((f) => String(f?.path ?? "").replace(/\\/g, "/"))
+      .filter(Boolean),
+  );
+}
+
+/**
  * Compara os carimbos do `registry.json` com os do embed.
  *
  * @param {object}   a
@@ -54,15 +84,40 @@ function fmt(name, s) {
  * `id` classifica o achado:
  *   `no-registry-stamp` — item sem `meta.stamp`: nada a comparar (rode `registry:stamp`)
  *   `absent-in-embed`   — carimbo do item não existe no embed: nunca foi regenerado
- *   `stale`             — carimbo existe mas DIVERGE: embed defasado
+ *   `stale`             — carimbo existe mas DIVERGE: embed defasado (conteúdo)
+ *   `files-mismatch`    — `files[]` do item diverge entre registry.json e embed
+ *                         (deriva ESTRUTURAL, que o carimbo não pega)
  */
 export function checkEmbedStaleness({ items, embedText }) {
   const embed = parseStamps(embedText);
+  // O carimbo pega deriva de CONTEÚDO (versão/hash). Não pega deriva ESTRUTURAL:
+  // adicionar/remover um arquivo do `files[]` de um item sem re-carimbar deixa os
+  // dois carimbos iguais. Caso real (2026-07-29): o `USAGE.md` do DatePicker entrou
+  // no registry.json e o embed seguiu com 2 arquivos — "em sync" com o consumidor
+  // sem receber a doc. Daí a comparação de `files[]` abaixo.
+  const embedItems = parseEmbedItems(embedText);
   const findings = [];
 
   for (const it of items ?? []) {
     const name = it?.name;
     if (!name) continue;
+
+    if (embedItems && name in embedItems) {
+      const want = pathsOf(it);
+      const got = pathsOf(embedItems[name]);
+      const faltando = [...want].filter((p) => !got.has(p));
+      const sobrando = [...got].filter((p) => !want.has(p));
+      if (faltando.length || sobrando.length) {
+        const partes = [];
+        if (faltando.length) partes.push(`faltam no embed: ${faltando.join(", ")}`);
+        if (sobrando.length) partes.push(`sobram no embed: ${sobrando.join(", ")}`);
+        findings.push({
+          id: "files-mismatch",
+          name,
+          msg: `${name}: files[] divergente — ${partes.join(" · ")}.`,
+        });
+      }
+    }
 
     const raw = it?.meta?.stamp;
     if (!raw) {
