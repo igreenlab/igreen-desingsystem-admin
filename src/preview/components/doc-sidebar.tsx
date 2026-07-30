@@ -1,4 +1,6 @@
-﻿import { Separator } from "../../components/shadcn/separator";
+﻿import { useEffect } from "react";
+import { cn } from "@/lib/utils";
+import { Separator } from "../../components/shadcn/separator";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -29,6 +31,8 @@ export function DocSidebar({
   onToggleTheme,
   brand,
   onSelectBrand,
+  mobileOpen = false,
+  onCloseMobile,
 }: {
   sections: DocNavSection[];
   onNavigate?: (href: string) => void;
@@ -36,9 +40,43 @@ export function DocSidebar({
   onToggleTheme?: () => void;
   brand?: Brand;
   onSelectBrand?: (b: Brand) => void;
+  /** Abaixo de `lg` o sidebar sai do fluxo e vira drawer; isto controla se está aberto. */
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
 }) {
+  // Fecha no Escape enquanto o drawer está aberto. Só registra o listener quando
+  // precisa, pra não deixar um handler global vivo no desktop.
+  useEffect(() => {
+    if (!mobileOpen || !onCloseMobile) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCloseMobile();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [mobileOpen, onCloseMobile]);
+
   return (
-    <nav className="w-[260px] min-w-[260px] shrink-0 sticky top-0 h-screen overflow-y-auto border-r border-border-sidebar bg-bg-sidebar scrollbar-thin flex flex-col">
+    <>
+      {/* Backdrop — só no mobile, e só quando aberto. */}
+      {mobileOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/60"
+          onClick={onCloseMobile}
+          aria-hidden="true"
+        />
+      )}
+      <nav
+        className={cn(
+          // Mobile: fora do fluxo, sobreposto, deslizando da esquerda. `w-[280px]
+          // max-w-[85vw]` em vez do 260 fixo — em telas de 320px o menu não pode
+          // encostar na borda oposta.
+          "fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] -translate-x-full transition-transform duration-200 ease-out",
+          mobileOpen && "translate-x-0",
+          // Desktop: volta pro fluxo, largura original, sem transform.
+          "lg:static lg:z-auto lg:w-[260px] lg:min-w-[260px] lg:max-w-none lg:shrink-0 lg:translate-x-0 lg:transition-none",
+          "h-screen overflow-y-auto border-r border-border-sidebar bg-bg-sidebar scrollbar-thin flex flex-col",
+        )}
+      >
       {/* Logo */}
       <div className="flex items-center gap-gp-xl px-pad-4xl py-pad-3xl border-b border-border-sidebar shrink-0">
         <div className="w-8 h-8 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-caption-sm">iG</div>
@@ -157,6 +195,7 @@ export function DocSidebar({
           )}
         </div>
       )}
-    </nav>
+      </nav>
+    </>
   );
 }

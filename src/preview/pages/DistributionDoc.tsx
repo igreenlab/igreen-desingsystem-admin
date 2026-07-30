@@ -15,8 +15,8 @@ const TOC = [
 
 function FileRow({ path, desc, tag }: { path: string; desc: string; tag?: string }) {
   return (
-    <div className="flex items-start gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
-      <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-[260px]">{path}</code>
+    <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
+      <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-0 sm:min-w-[260px]">{path}</code>
       <span className="text-body-md text-fg-muted flex-1">{desc}</span>
       {tag && <Badge color="secondary" variant="outline" size="sm" className="shrink-0">{tag}</Badge>}
     </div>
@@ -160,7 +160,7 @@ export function DistributionDoc() {
             ["deploy", "no merge: Vercel redeploya o registry-app (Git, Root=registry-app) — automático"],
           ].map(([k, v]) => (
             <div key={k} className="flex items-center gap-gp-xl py-pad-md px-pad-3xl border-b border-border-subtle last:border-b-0">
-              <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[140px]">{k}</code>
+              <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[140px]">{k}</code>
               <span className="text-body-md text-fg-muted">{v}</span>
             </div>
           ))}

@@ -221,20 +221,20 @@ export function TransformTokensDoc() {
       <SectionH2 id="commands" title="Commands" />
       <div className="flex flex-col gap-gp-xs mb-14">
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:tw4</code>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[220px]">npm run tokens:tw4</code>
             <span className="text-body-md text-fg-muted">Generate Tailwind v4 theme CSS (primary)</span>
           </div>
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:css</code>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[220px]">npm run tokens:css</code>
             <span className="text-body-md text-fg-muted">Generate vanilla CSS custom properties</span>
           </div>
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:dtcg</code>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[220px]">npm run tokens:dtcg</code>
             <span className="text-body-md text-fg-muted">Generate JSON tokens for Figma import</span>
           </div>
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl">
-            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">npm run tokens:all</code>
+            <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[220px]">npm run tokens:all</code>
             <span className="text-body-md text-fg-muted">Run all transforms at once</span>
           </div>
         </div>
