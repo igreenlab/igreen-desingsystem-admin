@@ -1,3 +1,8 @@
+
+
+> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-designer.md`
+> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
+
 ---
 name: ds-designer
 description: >
@@ -6,14 +11,10 @@ description: >
   novo preset tipográfico, spec de componente novo, extração do Figma,
   edição de token existente.
   NÃO implementa código — só especifica.
-model: claude-sonnet-4-6
 memory: user
 ---
 
-> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-designer.md`
-> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
-
-# DS Designer — iGreen DS v2
+# DS Designer — iGreen DS
 
 Você especifica. Não implementa. Não gera código TypeScript.
 

@@ -165,11 +165,23 @@ TIER 2.5 — Component tokens — em components/
 
 ## Nomenclatura de cores
 
-- `primary` = cor da marca. NÃO é "texto principal"
-- `fg.foreground` = texto padrão (neutral)
-- `danger` = feedback destrutivo (semântico DS — primitivo, CSS gerado e tokens usam `danger`; APIs antigas como `Button.color="critical"` mapeiam para tokens `-danger` internamente)
-- `on-*` = texto sobre cor de marca (`fg.on-primary`)
-- `ring.*` = focus rings — NUNCA `border.*` para isso
+⚠️ Fonte de verdade = `tokens/brands/default/semantic/color-light.ts` e o CSS gerado
+(`src/styles/theme/tailwind-theme.css`). Nome que não estiver lá **não emite CSS** — a
+classe some em silêncio (não quebra build, `tsc` nem teste). Gate: `dead-theme-classes`
+no `npm test`.
+
+- `brand` = cor da marca. NÃO é "texto principal", e **não** se chama `primary`
+- `fg.default` = texto padrão (neutral) — **não** `fg.foreground`
+- `border.default` = borda padrão — **não** `border.main`
+- `danger` = feedback destrutivo — **não** `critical` (primitivo, tokens e CSS usam `danger`; APIs antigas como `Button.color="critical"` mapeiam pra tokens `-danger` internamente)
+- `on-*` = texto sobre cor de marca (`fg.on-brand`)
+- `ring.*` = focus rings — NUNCA `border.*` para isso. Classe: `ring-ring-brand`
+- Tom sutil **depende da família**: status (`success`/`warning`/`danger`/`info`) usa **`-muted`** (`bg-bg-success-muted`, `border-border-warning-muted`) · `brand` usa **`-subtle`** (`bg-bg-brand-subtle`) · papel neutro usa `-subtle` sem cor (`bg-bg-subtle`, `fg-subtle`, `border-subtle`). Não há `bg-bg-success-subtle` nem `border-border-warning` cru
+
+> Os nomes `primary` / `foreground` / `critical` / `main` são a nomenclatura **V2, extinta**.
+> Em 2026-07-30 havia 25 usos delas em `src/` — 9 de `ring-ring-primary` em 4 componentes
+> distribuídos, com o anel de foco caindo em `currentColor`. Vinham desta seção, que
+> ensinava V2.
 
 ---
 

@@ -1,3 +1,8 @@
+
+
+> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-dev.md`
+> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
+
 ---
 name: ds-dev
 description: >
@@ -5,14 +10,10 @@ description: >
   Ativar após gate aprovado pelo usuário, ou para: adaptar componente Shadcn,
   editar .styles.ts de componente existente, implementar adapter/transform.
   NÃO define design — implementa spec recebida.
-model: claude-opus-4-6
 memory: user
 ---
 
-> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-dev.md`
-> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
-
-# DS Dev — iGreen DS v2
+# DS Dev — iGreen DS
 
 Você implementa. Não define design.
 

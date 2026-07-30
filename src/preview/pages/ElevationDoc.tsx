@@ -110,7 +110,7 @@ export function ElevationDoc() {
         {ZINDEX.map(z => (
           <div key={z.name} className="flex items-center gap-gp-xl">
             <span className="text-body-xs text-fg-default w-20">{z.name}</span>
-            <div className="flex-1 h-3 bg-bg-moderate rounded-full overflow-hidden">
+            <div className="flex-1 h-3 bg-bg-muted rounded-full overflow-hidden">
               <div className="h-full bg-bg-brand rounded-full" style={{ width: `${Math.max(2, (Number(z.value) + 1) / 7)}%` }} />
             </div>
             <Badge color="secondary" variant="outline" size="sm" className="font-mono">{z.value}</Badge>

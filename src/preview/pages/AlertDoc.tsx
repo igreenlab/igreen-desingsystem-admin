@@ -93,7 +93,7 @@ export function AlertDoc() {
         id="ex-success"
         title="Success"
         description="A success alert using custom border and text color overrides."
-        code={`<Alert className="border-border-success/50 text-fg-success [&>svg]:text-fg-success">
+        code={`<Alert className="border-border-success-muted/50 text-fg-success [&>svg]:text-fg-success">
   <CheckCircle className="size-4" />
   <AlertTitle>Changes saved successfully</AlertTitle>
   <AlertDescription>
@@ -103,7 +103,7 @@ export function AlertDoc() {
 </Alert>`}
       >
         <div className="max-w-lg w-full">
-          <Alert className="border-border-success/50 text-fg-success [&>svg]:text-fg-success">
+          <Alert className="border-border-success-muted/50 text-fg-success [&>svg]:text-fg-success">
             <CheckCircle className="size-4" />
             <AlertTitle>Changes saved successfully</AlertTitle>
             <AlertDescription>
@@ -119,7 +119,7 @@ export function AlertDoc() {
         id="ex-warning"
         title="Warning"
         description="A warning alert using custom border and text color overrides."
-        code={`<Alert className="border-border-warning/50 text-fg-warning [&>svg]:text-fg-warning">
+        code={`<Alert className="border-border-warning-muted/50 text-fg-warning [&>svg]:text-fg-warning">
   <AlertTriangle className="size-4" />
   <AlertTitle>Storage almost full</AlertTitle>
   <AlertDescription>
@@ -129,7 +129,7 @@ export function AlertDoc() {
 </Alert>`}
       >
         <div className="max-w-lg w-full">
-          <Alert className="border-border-warning/50 text-fg-warning [&>svg]:text-fg-warning">
+          <Alert className="border-border-warning-muted/50 text-fg-warning [&>svg]:text-fg-warning">
             <AlertTriangle className="size-4" />
             <AlertTitle>Storage almost full</AlertTitle>
             <AlertDescription>

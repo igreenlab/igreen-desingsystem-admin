@@ -575,17 +575,17 @@ export function FilterPanel({
               "w-full px-pad-xl py-pad-md rounded-radius-md",
               "bg-bg-input dark:bg-bg-muted",
               "border",
-              advancedError ? "border-border-critical" : "border-border-input",
+              advancedError ? "border-border-danger-muted" : "border-border-input",
               "text-body-xs font-normal font-mono text-fg-default placeholder:text-fg-muted",
               "outline-none resize-y",
               "transition-[border-color,box-shadow] duration-150",
               advancedError
-                ? "focus:border-border-critical focus:shadow-sh-ring-danger"
+                ? "focus:border-border-danger-muted focus:shadow-sh-ring-danger"
                 : "focus:border-border-brand focus:shadow-sh-ring",
             )}
           />
           {advancedError && (
-            <p className="text-caption-sm text-fg-critical">
+            <p className="text-caption-sm text-fg-danger">
               {advancedError}
             </p>
           )}

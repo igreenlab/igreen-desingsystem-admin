@@ -43,7 +43,7 @@ export const conversationListItemStyles = tv({
       // hover
       "hover:bg-bg-muted",
       // foco (Padrão 1)
-      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     media: "flex shrink-0 items-center",
     body: "flex min-w-0 flex-col gap-gp-xs",

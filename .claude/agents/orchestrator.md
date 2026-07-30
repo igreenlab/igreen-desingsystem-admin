@@ -71,15 +71,24 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 > automaticamente e **PARA no merge** (merge/`npm publish`/deploy só com autorização
 > explícita do usuário). Distribuição (registry/embed/bump) consolida no `/ds-release`;
 > vários componentes = batches (1 PR cada) + 1 release no fim.
-> | Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
-> | Tela kanban / board / funil (pipeline de vendas) | `/ds-create-crud` | `crud-builder` — kanban é `viewMode` do DataTable (Fase 5 + `kanban-design.md`); funil = board agrupado por etapa |
-> | Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
-> | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `/ds-create-dashboard` | `dashboard-builder` (entrevista → blueprint → **[GATE]** → geração; ancora em `dashboard-patterns.md` + example-dashboard) |
-> | Tela de login / autenticação (sign in, acesso, esqueci a senha) | `/ds-create-login` | `auth-builder` (skill focada: leia-e-adapte `example-login`; fullscreen sem AppShell) |
-> | Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
-> | Esqueleto do app (shell + menu + topbar + navegação + rotas) | `/ds-create-app` | `app-builder` (skill focada: leia-e-adapte `example-app-shell`; rota declarativa, não if-chain) |
-> | Página composta (2+ peças que conversam: master-detail, cross-filter) | `/ds-create-screen` | `screen-composer` (monta as peças pelos builders + cabeia estado compartilhado; dashboard-patterns §7) |
-> | Replicar módulo/segmento (família de telas espelhadas) | `/ds-replicate-module` | `module-replicator` (avalia copiar × parametrizar; troca só dados/rótulos, mantém estrutura) |
+
+### Tabela de roteamento — TELAS (skills builder)
+
+> Categoria diferente da tabela acima: ali é token/componente do DS; aqui é **tela**
+> montada consumindo o DS. Até 2026-07-30 estas 9 linhas estavam presas dentro do
+> blockquote do handoff, sem header nem separador — liam como texto plano.
+
+| Tarefa | Command | Fluxo |
+| ------ | ------- | ----- |
+| Tela CRUD/tabela (consome DataTable) | `/ds-create-crud` | `crud-builder` (entrevista → blueprint → **[GATE]** → geração) |
+| Tela kanban / board / funil (pipeline de vendas) | `/ds-create-crud` | `crud-builder` — kanban é `viewMode` do DataTable (Fase 5 + `kanban-design.md`); funil = board agrupado por etapa |
+| Tela lista de cards (consome DataList) | `/ds-create-list` | `list-builder` (entrevista → blueprint → **[GATE]** → geração) |
+| Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `/ds-create-dashboard` | `dashboard-builder` (entrevista → blueprint → **[GATE]** → geração; ancora em `dashboard-patterns.md` + example-dashboard) |
+| Tela de login / autenticação (sign in, acesso, esqueci a senha) | `/ds-create-login` | `auth-builder` (skill focada: leia-e-adapte `example-login`; fullscreen sem AppShell) |
+| Tela de dados (não sabe se tabela, lista ou dashboard) | `/ds-create-screen` | front-door: desambigua e roteia p/ `crud-builder`, `list-builder` ou `dashboard-builder` |
+| Esqueleto do app (shell + menu + topbar + navegação + rotas) | `/ds-create-app` | `app-builder` (skill focada: leia-e-adapte `example-app-shell`; rota declarativa, não if-chain) |
+| Página composta (2+ peças que conversam: master-detail, cross-filter) | `/ds-create-screen` | `screen-composer` (monta as peças pelos builders + cabeia estado compartilhado; dashboard-patterns §7) |
+| Replicar módulo/segmento (família de telas espelhadas) | `/ds-replicate-module` | `module-replicator` (avalia copiar × parametrizar; troca só dados/rótulos, mantém estrutura) |
 
 ---
 

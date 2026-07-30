@@ -55,11 +55,20 @@ for (const file of agentFiles) {
     body,
   ].join("\n");
 
-  // Verificar se precisa atualizar
+  // Verificar se precisa atualizar — comparando o conteúdo INTEIRO que seria
+  // escrito contra o que está lá.
+  //
+  // ⚠️ Isto comparava `existing.includes(body.slice(0, 200))`, ou seja só os 200
+  // primeiros caracteres do corpo. Toda edição depois disso — que é praticamente
+  // toda edição real — dava "Sem mudança" e o mirror nunca era reescrito. Medido
+  // em 2026-07-30: o `orchestrator.md` estava 217 linhas contra 173 do mirror, sem
+  // nenhuma das 9 rotas de builder (crud/list/dashboard/auth/app/screen-composer/
+  // module-replicator), e rodar `npm run sync:agents` reportava "0 sincronizados,
+  // 6 sem mudança". O script não estava desligado: estava mentindo que já tinha
+  // sincronizado (L-060 — a mensagem fazia quem lia parar de investigar).
   if (fs.existsSync(destPath)) {
     const existing = fs.readFileSync(destPath, "utf8");
-    // Comparar apenas o corpo (ignorar nota de mirror que pode mudar)
-    if (existing.includes(body.slice(0, 200))) {
+    if (existing === mirrorContent) {
       console.log(`⏭️  Sem mudança: ${destFile}`);
       skipped++;
       continue;
