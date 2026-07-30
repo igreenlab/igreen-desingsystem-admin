@@ -29,6 +29,17 @@ const inputVariants = cva(
     "transition-[border-color,box-shadow,background-color] outline-none",
     "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted",
     "file:inline-flex file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-fg-default",
+    // type=file — escopado no atributo de propósito, pra não mexer em nenhum
+    // outro input (este é primitivo compartilhado):
+    //  · items-center: o UA aplica `align-items: baseline` no file input, e com
+    //    line-height 18px numa caixa de 40px o conteúdo subia (medido). Os
+    //    irmãos que já parecem certos (InputGroup, SelectTrigger) têm items-center.
+    //  · text-fg-muted: o "Nenhum arquivo escolhido" vinha em fg-default (0.98),
+    //    destoando de `placeholder:text-fg-muted` de todo input do DS. Ver o
+    //    gotcha em `shadcn/USAGE.md` — o CSS não distingue vazio de preenchido
+    //    num file input, então o nome do arquivo escolhido também fica muted;
+    //    pra UX de upload de verdade use `FileUploadField`.
+    "[&[type=file]]:items-center [&[type=file]]:text-fg-muted",
   ],
   {
     variants: {
