@@ -44,6 +44,13 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 | "esqueleto do app", "estrutura/base do app", "shell + navegação + rotas", "montar o app do zero"    | **skill `app-builder`** (`/ds-create-app`) → `example-app-shell` (AppShell + nav-data + mapa de rotas declarativo)           |
 | "replica o módulo X igual ao Y", "mesma estrutura pra outro segmento/vertical", "clonar telas"      | **skill `module-replicator`** (`/ds-replicate-module`) — avalia copiar × parametrizar; troca dados/rótulos, mantém estrutura  |
 | shell / menu lateral / topbar (só o componente)                                                     | `app-shell` / `menu-sidebar` / `header`                                                                                       |
+| "que componente uso pra X", "tem componente de Y?", "quais opções pra abas / filtro / data", "o que o DS tem pra formulário" | **rule `.claude/rules/ds-components.md`** — vocabulário dos componentes **por tarefa**, com o critério de escolha. Não é pedido de tela: responda pela rule, não abra builder |
+
+⚠️ **Nunca invente nome de componente nem componha na unha antes de conferir a rule
+`ds-components.md`.** Ela lista TODO o catálogo agrupado por tarefa (formulário, abas,
+feedback, sobreposição, dados, layout, métrica, identidade, comando) e diz *qual usar e por
+quê* — a pergunta que aparece na prática não é "existe?", é "qual dos três?". A rule
+auto-carrega ao editar `.tsx`; numa conversa **sem** edição de arquivo, abra-a você mesmo.
 
 Em dúvida entre 2 rotas, **pergunte 1 coisa** ("é uma listagem de dados ou um formulário de cadastro?") antes de agir. Pedido composto (ex.: "dashboard com tabela embaixo") → **`dashboard-builder`** (ele delega a tabela/lista embutida ao `crud-builder`/`list-builder` na Fase 5). 1 tabela/lista/gráfico só ≠ dashboard.
 

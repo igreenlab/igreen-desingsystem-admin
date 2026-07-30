@@ -249,7 +249,8 @@ const block =
   `- **Criar telas**: \`/ds-create-crud\` (tabela), \`/ds-create-list\` (cards),\n` +
   `  \`/ds-create-dashboard\` (painel). As skills leem \`.claude/ds-config.json\` (modo submódulo)\n` +
   `  e leem os componentes/exemplos direto do disco — **não** rodam \`igreen:add\`.\n` +
-  `- **Regras DS** auto-carregadas em \`.claude/rules/\`.\n` +
+  `- **Regras DS** auto-carregadas em \`.claude/rules/\`: \`ds-components.md\` (qual\n` +
+  `  componente usar pra cada tarefa) e \`ds-design.md\` (como estilizar — tokens, spacing, foco).\n` +
   `- **Ressincronizar** após atualizar o submódulo: \`node ${dsPathRel}/scripts/ds-link.mjs\`.\n` +
   `${END}`;
 
