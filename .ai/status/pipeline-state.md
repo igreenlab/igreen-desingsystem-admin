@@ -2056,3 +2056,14 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: a rule só tem valor se chegar no scaffold — daí o publish ser parte da entrega, não opcional. Consumidor por submódulo já pegava via `ds:link`; copy-in existente pega no próximo `igreen:add` com o CLI atualizado.
 - Regressões: nenhuma (tsc 0, test 149, ratchet 0 nova, showcase-check, api-doc-check, release:check verdes antes do commit). Lições novas: nenhuma.
 - Pendência: **revogar o token do npm** (ação do mantenedor). Nada mais aberto nesta linha.
+
+---
+
+### 2026-07-30 | ds-reviewer | Escopo de distribuição declarado no review de componente | CONCLUÍDO
+- Input: pergunta do usuário — "o ds review não era pra pegar isso?" (o componente novo chegar ao vocabulário do consumidor).
+- Achado: o item **existe** (`pre-commit-check.md`, com o caso Toast citado), mas **não** na skill roteada pra "revisar componente". O `review-component.md` tem zero itens sobre registry/vocabulário/changelog — e não declarava isso. Grep por "fora do escopo | cadência | ds-release | distribuição": vazio.
+- Decisão: manter o escopo como está (cobrar 5/6/7 no PR do componente reprovaria quem segue a cadência da L-042) e **declarar** a ausência, com a tabela de quem garante de fato. Alternativa descartada: cobrar como advisory na PR — adiciona ruído num momento em que a resposta correta é "ainda não é hora".
+- Verificação: as 4 camadas foram medidas com componente falso injetado (`foo-widget` no registry → `vocab-surface` reprova o `npm test`; `bar-primitive` sem pasta em `ui/` → `distribution-debt` é cego, só o `vocab-surface` pega). Nada presumido. Duas afirmações minhas caíram na conferência: a cadência 5/6/7 é da L-042 e não da Regra 8, e o span do Toast foi confirmado por `git log -S` (commit `6051479`, "adiciona Toast ao catálogo (0.13.7)") em vez de copiado da lição.
+- Assumption: silêncio em documento estruturado (checklist) é lido como cobertura — logo declarar o não-escopo vale mais que deixar implícito. Se falso, a nota é ruído inofensivo.
+- Regressões: nenhuma (só `.md`). Lições novas: **nenhuma, deliberadamente** — "item existia e ainda assim passou" é a própria justificativa da L-059 (gate mecânico × revisor), e "silêncio afirma cobertura" é refinamento da L-060 que eu achei por inspeção, sem defeito real causado por ele. Sem dano medido, não vira L-NNN (a disciplina da L-064 aplicada a lições, não só a gates).
+- Pendência: nenhuma nesta linha. PR #93, mergeado.
