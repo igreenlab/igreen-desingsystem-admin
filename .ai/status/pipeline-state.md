@@ -66,6 +66,68 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Registry/distribuição — `next` vulnerável no endpoint público, embed defasado indetectável, `registry-app` fora do CI | CONCLUÍDO
+
+- Input: o mantenedor apontou que registry/distribuição tinham ficado de fora, e a
+  memória do projeto tinha o item aberto ("reavaliar o Bearer; **olhar onde o endpoint
+  mora**"). Eu havia achado o endpoint na triagem de vulnerabilidades e não voltei nele.
+  Autorização explícita pra aplicar fix + melhorias.
+
+- Diagnóstico — a cadeia tem um passo **manual e não verificado** no meio:
+  `registry:build` → `public/r/*.json` (gitignored) → **`copy-registry.mjs` (manual)** →
+  `registry-app/app/registry-data.ts` (commitado, 6,8 MB) → Vercel → consumidor.
+
+- Output — 1 fix de segurança e 3 melhorias:
+  1. **`next` estava genuinamente vulnerável no endpoint público.** O lock do
+     `registry-app` pinava **15.5.19** e os 8 advisories (DoS em App Router, SSRF em
+     Server Actions e rewrites, cache confusion, disclosure de Server Function) valem
+     para `<15.5.21`. Piso subiu pra `^15.5.22` — resolve todos **sem sair do 15.x**.
+     `postcss` (8.4.31→8.5.25) e `sharp` (0.34.5→0.35.3) por `overrides`, pois são
+     transitivas do next. Audit do `registry-app`: 3 HIGH → **0**. `next build` passa.
+     **Armadilha registrada:** `npm audit fix --force` ali instala **`next@9.3.3`** —
+     downgrade de 6 majors, num serviço público, e é o que o próprio `npm audit`
+     recomenda. O npm agrega os ranges em `9.3.4-canary.0 - 16.3.0-preview.7`.
+     Correção de rota minha: durante a triagem eu classifiquei o `next` como falso
+     positivo porque o `npm ls` mostrava 15.5.22 em disco — mas o **lock commitado**
+     (que é o que importa) dizia 15.5.19. Ler `node_modules` em vez do lock foi o erro.
+  2. **`installCommand` da Vercel era `npm install`, não `npm ci`** → o deploy resolvia
+     versões diferentes das auditadas; a versão de `next` em produção era indeterminada.
+     Corrigido.
+  3. **`registry-check` validava o embed por NOME.** Nome não muda entre releases, então
+     era verde-permanente com o conteúdo velho: bump pra 0.30.1 → `registry:build`
+     carimba o `registry.json` → esquece o `copy-registry.mjs` → consumidor recebe o
+     código de 0.30.0 rotulado 0.30.1, todo check verde. Agora compara `meta.stamp`
+     (versão + hash git) dos dois artefatos commitados — funciona no CI, que não tem
+     `public/r`. Lógica pura em `scripts/lib/embed-staleness.mjs` (12 testes; suíte 91 →
+     103). Validado com o cenário real simulado: reprova com a instrução de conserto.
+     A checagem por nome **continua** — ela cobre "item sumiu do embed", a nova cobre
+     "nomes lá, conteúdo velho". São complementares.
+  4. **`registry-app` estava fora do CI** — **nenhum** workflow o tocava, e foi por isso
+     que o lock ficou pinando um `next` vulnerável sem ninguém ver. Ganhou install do
+     lockfile próprio + typecheck + `next build` (o que a Vercel roda) + audit
+     **informativo**. Audit ficou informativo no CI e **bloqueante** no `release:check`
+     (novo `registry-app:audit`), mesmo critério do débito de distribuição: o resultado
+     depende do banco de advisories, que muda sem ninguém tocar no código — bloquear PR
+     por isso reprovaria diff alheio (L-059).
+  5. Duas correções de doc que são instâncias da **L-060**: o `release.md` mandava rodar
+     `node registry-app/scripts/copy-registry.mjs` da raiz — o script resolve
+     `../public/r` pelo cwd, então da raiz aponta pro **pai do repo**, não acha nada e
+     **sai 0 em silêncio sem regenerar** (comprovado). Virou `(cd registry-app && …)`. E
+     o `prebuild` do `registry-app` dava a impressão de que o embed se regenera no
+     deploy: não regenera, porque o `vercel.json` usa `buildCommand: "next build"`, que
+     não dispara lifecycle npm. Documentado em `DISTRIBUICAO.md` §3.
+
+- Achado colateral, **não corrigido** (é estado local, não do repo): o `public/r` desta
+  máquina tem **86** itens e o `registry.json` tem 87 — falta exatamente o
+  **`choropleth-map`**. Quem rodar `copy-registry.mjs` sem `registry:build` antes
+  regenera o embed **sem** ele: a L-058 se repetindo. O check pega (`exit 1`,
+  comprovado). Some ao rodar `registry:build`, que é passo 1 do `/ds-release`.
+
+- Assumption: comparar `meta.stamp` é suficiente pra detectar embed defasado. **Se
+  quebrar:** alguém regenera o embed E o `registry.json` juntos a partir de uma fonte
+  velha — os dois carimbos batem e o check passa. Mitigação existente: o `stamp` carrega
+  o **hash do git**, então fonte velha = hash velho, visível no output do check.
+
 ### [2026-07-29] | ORCHESTRATOR | Validação read-only do ChoroplethMap + headers de `lessons.md` normalizados | CONCLUÍDO
 
 - Input: pedido do mantenedor — validar que **nada** do trabalho de hoje quebrou o DS, já

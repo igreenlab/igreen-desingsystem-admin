@@ -10,10 +10,16 @@
     "build": "next build",
     "start": "next start -p 4000"
   },
+  "//next": "PISO 15.5.22, não 15.5.4: os 8 advisories HIGH/moderate do next (DoS em App Router, SSRF em Server Actions e rewrites, cache confusion, disclosure de Server Function) valem para `<15.5.21`. O lock commitado pinava 15.5.19 — dentro do range. 15.5.21+ resolve TODOS sem sair do 15.x, então NÃO precisa de major. ⛔ NUNCA rode `npm audit fix --force` aqui: o npm agrega o range em `9.3.4-canary.0 - 16.3.0-preview.7` e 'corrige' instalando next@9.3.3 — DOWNGRADE de 6 majors, que o próprio `npm audit` recomenda. Suba o piso à mão.",
   "dependencies": {
-    "next": "^15.5.4",
+    "next": "^15.5.22",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
+  },
+  "//overrides": "postcss e sharp são transitivas do next e vinham em 8.4.31 / 0.34.5, com advisory HIGH (path traversal no auto-load de source map; CVEs do libvips). Nenhuma das duas é ALCANÇÁVEL neste app — não existe nenhum .css (postcss nunca roda) e não se usa next/image (sharp nunca roda) — mas manter versão vulnerável em serviço público é débito sem motivo. O override sobe as duas sem tocar no next.",
+  "overrides": {
+    "postcss": "^8.5.18",
+    "sharp": "^0.35.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

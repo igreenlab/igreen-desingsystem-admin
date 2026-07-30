@@ -34,6 +34,34 @@ jobs:
       - name: Tests
         run: npm test
 
+      # O registry-app (endpoint que serve o registry pro consumidor) tem
+      # package.json e lockfile PRÓPRIOS e, até 2026-07-29, NENHUM workflow o
+      # tocava: quebra de build e deriva de dependência só apareciam no deploy —
+      # foi assim que ele ficou com `next` vulnerável e o lock pinando 15.5.19.
+      - name: registry-app — install (lockfile próprio)
+        run: npm ci
+        working-directory: registry-app
+
+      - name: registry-app — typecheck
+        run: npx tsc --noEmit
+        working-directory: registry-app
+
+      # `next build` é o que a Vercel roda. Barato (~3s) e é a única forma de
+      # pegar quebra no route handler antes do deploy.
+      - name: registry-app — build (o que a Vercel roda)
+        run: npx next build
+        working-directory: registry-app
+
+      # INFORMATIVO de propósito, mesmo critério do débito de distribuição: o
+      # resultado depende do banco de advisories, que muda sem ninguém tocar no
+      # código — bloquear aqui reprovaria a PR de outra pessoa por um advisory
+      # publicado no meio do caminho. A forma bloqueante vive no `release:check`.
+      # ⛔ Ao ver falha aqui, NÃO rode `npm audit fix --force` neste app: o npm
+      # agrega os ranges do next e "corrige" fazendo downgrade pra 9.3.3.
+      - name: registry-app — audit (informativo)
+        run: npm audit --audit-level=high || echo "::warning title=registry-app::advisory HIGH+ no endpoint público — ver //next e //overrides no registry-app/package.json antes de mexer"
+        working-directory: registry-app
+
       - name: Registry consistency (paths + embed)
         run: node scripts/registry-check.mjs
 
