@@ -17,56 +17,6 @@
 
 ---
 
-## [L-001] Ring com modificador de opacidade
-
-**Erro cometido:** usar `ring-ring-primary/30` ou `ring-ring-primary/20`
-
-**Regra derivada:** tokens `ring-ring-*` já possuem alpha de 20% embutido via OKLCH.
-Usar sempre sem modificador:
-
-```typescript
-// ✅
-"focus-visible:ring-4 focus-visible:ring-ring-primary";
-// ❌ NUNCA
-"focus-visible:ring-4 focus-visible:ring-ring-primary/30";
-```
-
-**Contexto:** qualquer componente com focus ring
-
----
-
-## [L-002] Tailwind literal em vez de token DS
-
-**Erro cometido:** usar `gap-4`, `rounded-lg`, `shadow-md`, `p-4` quando existem tokens DS equivalentes
-
-**Regra derivada:** sempre verificar se existe token DS antes de usar Tailwind puro:
-
-```typescript
-gap-4      → gap-gp-md      (8px)
-gap-2      → gap-gp-xs      (4px)
-p-4        → p-sp-md        (16px)
-rounded-lg → rounded-radius-lg
-shadow-md  → shadow-sh-md
-px-3       → px-pad-lg      (12px)
-h-9        → min-h-form-md  (36px)   ← h-9 = 36px = form-md, NÃO form-lg
-h-10       → min-h-form-lg  (40px)
-```
-
-**Contexto:** qualquer arquivo `.styles.ts` ou componente Shadcn
-
----
-
-## [L-003] `ring-3` não existe no Tailwind
-
-**Erro cometido:** usar `ring-3`
-
-**Regra derivada:** valores válidos de ring width: `ring-0`, `ring-1`, `ring-2`, `ring-4`, `ring-8`.
-Para focus rings do DS usar sempre `ring-4`.
-
-**Contexto:** qualquer componente com focus ring
-
----
-
 ## [L-004] `outline-none` sem `focus-visible:` prefix
 
 **Erro cometido:** usar `outline-none` na base sem o prefix `focus-visible:`
@@ -81,23 +31,6 @@ Para focus rings do DS usar sempre `ring-4`.
 ```
 
 **Contexto:** base de qualquer componente interativo
-
----
-
-## [L-005] `bg-input/50` e vars Shadcn com opacidade
-
-**Erro cometido:** manter `bg-input/50` ao adaptar componente Shadcn
-
-**Regra derivada:**
-
-```typescript
-// ❌
-"bg-input/50";
-// ✅
-"bg-bg-surface";
-```
-
-**Contexto:** componentes Shadcn migrados para tokens iGreen
 
 ---
 
@@ -259,38 +192,6 @@ DevTools no browser, inspecionar um elemento com a nova classe, e checar se
 **Contexto:** qualquer alteração em `tokens/brands/default/semantic/typography.ts`
 — adição, remoção ou renomeação de preset. Atinge especialmente componentes que
 usam `tv()` + `text-fg-X` no mesmo array de classes (a maioria deles).
-
----
-
-## [L-017] `files` no package.json deve incluir paths das declarações TypeScript
-
-**Erro cometido:** publicar lib no npm com `vite-plugin-dts` gerando `.d.ts` que referenciam paths preservados do source (`./src/components/index`, `./tokens/index`) que **NÃO estavam listados em `files`** do `package.json`. Resultado: tarball publicado tinha `dist-lib/index.d.ts` e `dist-lib/tokens.d.ts` apontando pra arquivos fantasma. Consumers TypeScript instalavam o package mas qualquer `import` retornava `any` ou erro "Cannot find module". **Bug afetou v0.1.0 até v0.5.0 silenciosamente** (4 releases) — corrigido em v0.5.1.
-
-**Regra derivada:** ao publicar lib que usa `vite-plugin-dts` com estrutura preservada, o `files` do `package.json` DEVE incluir os paths emitidos:
-
-```json
-"files": [
-  "dist-lib/index.*",
-  "dist-lib/tokens.*",
-  "dist-lib/preview/**",
-  "dist-lib/chunks/**",
-  "dist-lib/src/**",       // ← types preservam estrutura do source
-  "dist-lib/tokens/**",    // ← idem
-  "dist-lib/theme.css",
-  "README.md"
-]
-```
-
-**Verificação obrigatória antes de cada publish:**
-
-```bash
-npm pack --dry-run --json | grep -E '"path".*(src/components|tokens/index)' | head -5
-# Deve retornar arquivos. Se vazio → bug presente, NÃO publicar.
-```
-
-Alternativa mais robusta: configurar `vite-plugin-dts` com `rollupTypes: true` pra gerar um único `dist-lib/index.d.ts` self-contained, eliminando a dependência de paths preservados.
-
-**Contexto:** qualquer release de lib npm com TypeScript + múltiplos entries no mapa `exports`. Bug é silencioso (build passa, runtime JS funciona, só types quebram).
 
 ---
 
@@ -1411,6 +1312,47 @@ Regra pra IA: ao derivar identificador de um nome (pasta → rota, arquivo → c
 (b) valide a premissa e **pule + avise** no caso fora do padrão, em vez de derivar errado em
 silêncio; (c) resista a criar override configurável pra 1 exceção — premissa validada + aviso
 custa menos e não vira API pra manter.
+
+---
+
+## [L-064] Gate novo só vale depois de reproduzir o defeito que ele existe pra pegar
+
+Duas vezes no mesmo dia (2026-07-29) eu escrevi um check, validei pelo sinal que EU
+supunha ser o certo, declarei resolvido — e o check era cego justamente ao bug que
+motivou sua existência. As duas foram pegas por acidente, não por processo:
+
+1. **`lib-verify`** — a 1ª versão conferia os *entry points* do `package.json`. Removi
+   `dist-lib/src/**` do `files` pra testar (a L-017 exata): o tarball caiu de **959 pra
+   123** arquivos e o check disse **"ok"**. Causa: `dist-lib/index.d.ts` é só
+   `export * from ./src/components/index` — a superfície de tipos inteira estava no
+   diretório removido, e nenhum *entry* ficou descoberto. A formulação correta era
+   outra: o conjunto de `.d.ts` do tarball tem que ser **fechado sob imports relativos**.
+2. **`api-doc-check`** — devolveu **0 finding** no commit real do Caio, o único caso que
+   ele existe pra pegar. Causa: assumi que `parseAddedLines` devolvia `{arquivo: [string]}`;
+   devolve um **`Map`** de `{n, text}`. Os testes passavam porque eu os escrevi com a
+   MINHA suposição como fixture — testei minha ideia do contrato, não o contrato.
+
+**O padrão comum não é descuido, é ordem de trabalho:** eu escrevia o check, escrevia o
+teste a partir do mesmo modelo mental que gerou o check, e os dois concordavam por
+construção. Teste que nasce da mesma suposição do código não é evidência independente.
+
+**Regra:** um gate novo só está pronto quando você **reproduziu o defeito real** e viu
+ele reprovar. Na prática:
+
+- Use **dado real** — commit do histórico (`git diff <sha>~1 <sha>`), ou a fixture
+  extraída da saída da ferramenta de verdade. Não invente o formato de entrada.
+- Monte a entrada do teste **pela função de produção** que a gera (foi a correção do
+  `api-doc-check`: os testes agora passam por `parseAddedLines`, então o formato não
+  pode divergir em silêncio).
+- **Propriedade computada não é evidência de comportamento.** No mesmo dia eu "corrigi"
+  o alinhamento do `input[type=file]` com `items-center`, confirmei que o
+  `alignItems` computado virou `center` e dei como pronto — o conteúdo continuou colado
+  no topo, porque ele vive no shadow DOM e `align-items` não o move. O mantenedor viu na
+  tela. Onde o render é do UA/shadow DOM, só medição visual vale (foi uma régua de 1px
+  no centro da caixa que resolveu).
+
+Vale pra qualquer pessoa escrevendo check, não só pra IA: **o gate que você acabou de
+escrever é o menos testado contra a realidade de todo o repositório.**
 
 ---
 
