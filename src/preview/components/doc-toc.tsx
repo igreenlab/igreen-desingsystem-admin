@@ -12,33 +12,48 @@ export function TOC({ items }: { items: TocItem[] }) {
 
   useEffect(() => {
     const scrollParent = document.querySelector("main");
-    if (!scrollParent) return;
+    if (!scrollParent || !items.length) return;
 
-    const handleScroll = () => {
-      const ids = items.map((i) => i.id);
-      const atBottom = scrollParent.scrollHeight - scrollParent.scrollTop - scrollParent.clientHeight < 2;
-      if (atBottom) {
-        for (let i = ids.length - 1; i >= 0; i--) {
-          const el = document.getElementById(ids[i]);
-          if (el && el.getBoundingClientRect().top < scrollParent.clientHeight) {
-            setActiveId(ids[i]);
-            return;
-          }
+    // Semântica: ativo = o ÚLTIMO item cuja borda superior já passou da linha dos
+    // 120px. É a heurística clássica de "seção que você está lendo".
+    //
+    // ⚠️ Não use IntersectionObserver aqui — tentado e reprovado (2026-07-30). IO
+    // sinaliza CRUZAMENTO de interseção, não posição: um salto de scroll que leva
+    // uma âncora de "abaixo da faixa" pra "acima da faixa" mantém
+    // `isIntersecting: false` nas duas pontas, não cruza limiar nenhum e NÃO
+    // dispara callback. Âncora alta disfarça o bug (sempre intersecta em algum
+    // momento); âncora fina, não — o `#historico` da página de Updates tem 33px e
+    // nunca acendia depois de um clique no TOC.
+    //
+    // O custo do scroll listener era N `getBoundingClientRect()` por EVENTO, e
+    // eventos de scroll chegam várias vezes por frame. Com throttle de rAF passa a
+    // ser N por FRAME, no máximo — e N aqui é ~4 a 10 âncoras por página. É a
+    // leitura de layout que o navegador ia fazer de todo jeito pra pintar o frame.
+    let agendado = false;
+
+    const recalcular = () => {
+      agendado = false;
+      // Fora do loop: 1 leitura, não N.
+      const topoDoContainer = scrollParent.getBoundingClientRect().top;
+      let atual = items[0]?.id ?? "";
+      for (const item of items) {
+        const el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top - topoDoContainer <= 120) {
+          atual = item.id;
         }
       }
-      let current = ids[0];
-      for (const id of ids) {
-        const el = document.getElementById(id);
-        if (!el) continue;
-        const rect = el.getBoundingClientRect();
-        if (rect.top <= 120) current = id;
-      }
-      setActiveId(current);
+      if (atual) setActiveId(atual);
     };
 
-    scrollParent.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => scrollParent.removeEventListener("scroll", handleScroll);
+    const onScroll = () => {
+      if (agendado) return;
+      agendado = true;
+      requestAnimationFrame(recalcular);
+    };
+
+    scrollParent.addEventListener("scroll", onScroll, { passive: true });
+    recalcular();
+    return () => scrollParent.removeEventListener("scroll", onScroll);
   }, [items]);
 
   return (
