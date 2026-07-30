@@ -2043,3 +2043,16 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Assumption: a IA do consumidor erra por **desconhecer a gama**, não por desconhecer a API — logo o ganho está em índice por tarefa com critério de escolha, carregado sem invocação. Se falso (ela conhece e erra na composição), o próximo passo é receita de composição, não vocabulário maior.
 - Regressões: nenhuma (test 149, tsc 0, ratchet 0, showcase-check, api-doc-check, release:check todos verdes). Lições novas: nenhuma — L-060 e L-064 se aplicaram como escritas.
 - Pendência: bump `cli/package.json` + republicar CLI consolidam no `/ds-release` (mudou `cli/templates/**`).
+
+---
+
+### 2026-07-30 | ds-dev | Release do CLI v0.19.0 (publicada no npm) | CONCLUÍDO
+- Input: usuário autorizou publicar ("pode publicar, o token ainda é o mesmo") a pendência de distribuição do PR #90 — a rule de vocabulário estava na `main` mas não chegava em projeto novo.
+- Output: `@snksergio/create-design-system@0.19.0` **publicada** (69 arquivos, 222 kB, 35 arquivos de `_claude/`). Entry `cli-0.19.0` na timeline cobrindo os 3 PRs que estavam sem changelog (#88 timeline progressiva, #89 showcase responsivo, #90 vocabulário + gate). PR de release #91, mergeado.
+- Escopo corrigido por medição: **a lib NÃO entrou** (segue 0.30.1 no npm e local). Desde o bump 0.30.1 nenhum arquivo de `src/components/` foi tocado, e nenhuma das 4 entries que o pacote exporta (`ChatV2`, `ClientesShowcase`, `DashboardShowcase`, `mocks`) importa qualquer um dos 16 arquivos alterados de `src/preview/` — todos doc do showcase. Tarball da lib não muda; bumpar mentiria sobre o que o consumidor recebe. Eu havia anotado a pendência como "bump + republicar" sem essa distinção.
+- Verificação de integridade ANTES do bump (classe da L-017), e depois contra o tarball **publicado**, não o disco: `npm pack @snksergio/create-design-system@0.19.0` + extração confirmam `templates/default/_claude/rules/ds-components.md` com o front-matter correto (`alwaysApply: true`, globs `**/*.tsx`). Diretório com prefixo `_` não é excluído pelo npm — mas é falha silenciosa em potencial e conferir custa um comando.
+- Segurança do token: `.npmrc` temporário no scratchpad da sessão, **fora da árvore do repo** (containment checado por prefixo de caminho real, não substring — substring deu falso-positivo hoje porque o nome do scratchpad contém o nome do repo), apagado imediatamente com `trap` + remoção explícita, confirmado ausente. Token nunca ecoado, nunca em arquivo versionado, nunca aqui.
+- Label `cli-0.19.0` na timeline (não semver da lib): o que foi publicado é o CLI. Precedente de label não-semver: `pipeline-2026-07`.
+- Assumption: a rule só tem valor se chegar no scaffold — daí o publish ser parte da entrega, não opcional. Consumidor por submódulo já pegava via `ds:link`; copy-in existente pega no próximo `igreen:add` com o CLI atualizado.
+- Regressões: nenhuma (tsc 0, test 149, ratchet 0 nova, showcase-check, api-doc-check, release:check verdes antes do commit). Lições novas: nenhuma.
+- Pendência: **revogar o token do npm** (ação do mantenedor). Nada mais aberto nesta linha.
