@@ -2082,3 +2082,15 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma. tsc 0 · test 156 (149+7) · ratchet 0 nova · showcase-check · api-doc-check · release:check verdes. **Mudança visual esperada e intencional**: o anel de foco dos 4 componentes passa a renderizar na cor da marca, e fundos/bordas de status no preview passam a renderizar o tom `-muted` real em vez de nada.
 - Lições novas: nenhuma — é a **L-057 reincidindo** (classe que não emite CSS) e a **L-060** em dois mecanismos. O que faltava não era lição, era gate.
 - Pendência: distribuição consolida no `/ds-release` (mudou componente distribuído → exige `registry:build` + bump).
+
+---
+
+### 2026-07-30 | ds-dev | Publish v0.30.2 (lib) + v0.19.1 (CLI) no npm | CONCLUÍDO
+- Input: usuário autorizou prosseguir após o merge do PR #97 (release) — distribuir o fix do anel de foco do PR #96.
+- Output: **`@snksergio/design-system@0.30.2`** (955 arquivos, 6.1 MB) e **`@snksergio/create-design-system@0.19.1`** (69 arquivos, 0.39 MB) publicados. Ambos confirmados no registry público.
+- Validação ANTES de pedir o token (Passo 7.1): `lib:verify` verde — 19 entries cobertos por `files`, 449 `.d.ts` com todas as referências relativas resolvendo dentro do tarball (a camada que automatiza a L-017). CLI por `npm pack --dry-run`, conferindo que `_claude/rules/ds-components.md` e `_claude/skills/ds-kit/SKILL.md` estão dentro.
+- Validação por CONTEÚDO, não por versão: o `dist-lib` construído tem **0** ocorrências de `ring-ring-primary` e 155 de `ring-ring-brand`. Depois do publish, baixei o tarball de volta (`npm pack @snksergio/design-system@0.30.2`) e conferi o `index.mjs` publicado: 0 e 13. Carimbar a versão certa não prova que o conteúdo certo entrou — só a extração prova.
+- Segurança do token: `.npmrc` temporário no scratchpad da sessão, fora da árvore do repo (containment por prefixo de caminho real, não substring), apagado com `trap` + remoção explícita, ausência confirmada. Dois publishes com o mesmo arquivo temporário, apagado ao final. Token nunca ecoado, nunca em arquivo versionado, nunca aqui.
+- Assumption: o consumidor por npm recebe o fix ao subir a versão; quem consome por registry/copy-in recebe no próximo `igreen:add` (o embed já foi ao ar no merge). Submódulo pega com `git pull` + `npm run ds:link`.
+- Regressões: nenhuma. Lições novas: nenhuma.
+- Pendência: **revogar o token do npm** (ação do mantenedor). Validação visual dos 4 componentes (`#/color-picker`, `#/file-upload-field`, `#/chat-v2`) fica com o usuário — o publish foi autorizado antes dela.
