@@ -165,8 +165,9 @@ export function StructureDoc() {
         <FileRow path=".claude/agents/" desc="4 active agents (orchestrator, designer, dev, reviewer) + 2 pending (app-*)" tag="Identity" />
         <FileRow path=".claude/skills/" desc="Atomic skills per agent: spec-token-*, impl-igreen, review-component, etc." tag="Procedure" />
         <FileRow path=".claude/commands/" desc="Slash commands as entry points: /ds-create-component, /ds-add-token..." tag="Entry" />
-        <FileRow path=".claude/hooks/" desc="format-on-save, block-rm-rf, block-sensitive-edit (logged to .ai/scratch/)" tag="Triggers" />
-        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 8 behavior rules + 56 lessons" tag="Rules" />
+        <FileRow path=".claude/hooks/" desc="ds-lint-styles, ds-inventory-check, ds-tokens-check (avisam) + block-rm-rf, block-sensitive-edit (bloqueiam). Log em .ai/scratch/" tag="Triggers" />
+        <FileRow path="scripts/lib/" desc="Lógica PURA (zero I/O) dos gates — compartilhada entre os hooks e o CI, pra a mesma regra nunca ter duas implementações" tag="Gates" />
+        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 8 behavior rules + 64 lessons" tag="Rules" />
         <FileRow path=".claude/output-styles/" desc="terse.md — caps response shape across the project" tag="Style" />
         <FileRow path=".claude/settings.json" desc="Permissions, hooks registration, outputStyle binding" tag="Config" />
         <FileRow path=".claude/scripts/" desc="sync-agents-to-cursor.cjs — mirrors agents to .cursor/rules" tag="Tooling" />

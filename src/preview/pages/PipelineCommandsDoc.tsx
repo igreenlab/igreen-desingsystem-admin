@@ -128,8 +128,8 @@ export function PipelineCommandsDoc() {
         />
         <CmdCard
           cmd="/ds-release [tag]"
-          desc="Release completa: changelog + bump package.json + branch + commit + push + PR via gh. Engloba /ds-update."
-          agent="Dev → [GATE preview] → git/PR"
+          desc="Release completa: changelog + bump + registry:build + embed + release:check + branch/commit/push/PR via gh, e PARA no merge. Depois do merge, o passo 7 é o gate do publish npm — valida com lib:verify e pede o token do mantenedor. Engloba /ds-update."
+          agent="Dev → [GATE preview] → git/PR → [GATE token npm]"
           skill="release + pre-commit-check"
         />
         <CmdCard

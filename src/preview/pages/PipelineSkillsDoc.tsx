@@ -128,7 +128,7 @@ export function PipelineSkillsDoc() {
         <SkillRow path="impl-shadcn" agent="DS Dev" desc="Add/adapt Shadcn component with DS tokens" />
         <SkillRow path="impl-composite" agent="DS Dev" desc="Implement composite component (multiple sub-components with shared tv())" />
         <SkillRow path="update-changelog" agent="DS Dev" desc="Read git log + project state, classify changes, propose ReleaseEntry for the Updates timeline" tag="Gate" />
-        <SkillRow path="release" agent="DS Dev" desc="Release completa: changelog + bump package.json + branch + commit + PR via gh. Inclui auto-review do diff (passo 1.5). Entry point /ds-release" tag="Gate" />
+        <SkillRow path="release" agent="DS Dev" desc="Release completa em 7 passos: auto-review do diff (1.5) → changelog + bump → registry:build + regeneração do embed → release:check → branch/commit/PR via gh → PARA no merge. O passo 7 é o gate do publish npm: valida o pacote com lib:verify, apresenta, PEDE o token do mantenedor, publica com .npmrc temporário FORA do repo e apaga na hora. A IA nunca publica sozinha. Entry point /ds-release" tag="Gate" />
         <SkillRow path="SKILL (token review)" agent="DS Reviewer" desc="Token review checklist (7 items) + critique" />
         <SkillRow path="review-component" agent="DS Reviewer" desc="Component review: regression sweep + 3 checklists + genuine critique" tag="Gate" />
         <SkillRow path="pre-commit-check" agent="DS Reviewer" desc="Gate amplo antes de commit significativo (release, refactor amplo, token/componente/lição novos)" tag="Gate" />

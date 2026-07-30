@@ -46,6 +46,59 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "pipeline-2026-07",
+    date: "2026-07-30",
+    tag: "milestone",
+    title: "Governança do pipeline: os gates deixaram de depender de disciplina",
+    summary:
+      "Entrada de **infraestrutura**, não de componente — registrada aqui de propósito: mudança interna que não entra no changelog é mudança sem histórico, e o pipeline mudou 25 PRs sem deixar rastro nesta timeline. O tema foi tirar regra de dentro da cabeça de quem tem contexto e colocar em gate: o que era \"o revisor lembra\" virou check que reprova, e o que era \"a doc diz\" virou doc que o CI conferiu. O ponto de partida foi uma pergunta prática: se entrar alguém sem contexto e abrir uma PR de componente, o que o pipeline garante sozinho? A resposta era: pouco.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Gate de estilo em modo ratchet** — o lint de token virou check bloqueante no CI, mas só nas linhas que a PR **adicionou**. É o ratchet que torna o gate ligável: 14 dos 40 arquivos de estilo já carregavam débito legado, e um gate whole-file reprovaria qualquer PR que apenas tocasse um deles. Débito antigo fica congelado; o que o gate impede é a fila crescer. O hook do Edit e o CI passaram a compartilhar o **mesmo módulo puro**, então não podem divergir.",
+          "**Showcase registrado como gate (L-042 superfície 4)** — componente novo em `ui/` sem `<Nome>Doc.tsx` + rota no `App.tsx` + nav agora **reprova**. Sem isso a rota abre em branco em produção, o que já aconteceu. São 4 verificações pra 3 requisitos, porque `DOC_PAGES` e o cascade de render falham independentemente. Detecta por diff, e trata pasta como nova só se ela **não existia no base ref** — senão adicionar um arquivo em pasta existente virava falso-positivo (medido: acusava `Chart` e `Icon`).",
+          "**`api-doc-check`** — componente **existente** que adiciona linha `export` sem tocar o `USAGE.md` gera aviso. Fecha o ponto cego do check acima, que por design só olha pasta nova. O caso que motivou: uma PR adicionou `mode` ao DatePicker e ficou 11 dias sem doc, com o showcase ensinando o padrão que a prop tornou obsoleto.",
+          "**`lib-verify`** — integridade do pacote npm antes do publish, automatizando a L-017 (que custou **4 releases publicadas com types quebrados em silêncio**). A camada decisiva exige que o conjunto de `.d.ts` do tarball seja **fechado sob imports relativos** — conferir só os entry points passa batido, porque o `index.d.ts` é só um `export * from './src/...'`.",
+          "**Gate de token no publish npm (passo 7 do `/ds-release`)** — o fluxo valida o pacote, apresenta, **pede o token do mantenedor**, publica com `.npmrc` temporário fora do repo e apaga na hora. A IA nunca publica sozinha.",
+          "**Guard no `copy-registry`** — recusa escrever o embed quando o `public/r` está defasado. O caso real: o `public/r` local era de v0.29.0 com o embed em v0.30.0; regenerar teria revertido 86 itens, re-injetado headers removidos de propósito e dropado o `ChoroplethMap`, tudo em silêncio.",
+          "**CODEOWNERS, template de PR e `CONTRIBUTING.md`** — o ponto de entrada que faltava pra quem chega de fora.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O lint passou a ver `.tsx`, não só `*.styles.ts`** — Tailwind literal escrito direto no componente passava por todos os checks. Medido com o módulo real: 3 violações genuínas em `ui/` (todas no `user-menu`) e 27 em 10 arquivos `shadcn/`, essas congeladas pelo ratchet.",
+          "**`registry-check` valida o embed por CARIMBO, não por nome.** Nome não muda entre releases, então o check era verde-permanente com o conteúdo arbitrariamente velho. Agora compara `meta.stamp` (versão + hash git) **e** o `files[]` de cada item — as duas coisas, porque o carimbo pega deriva de conteúdo e o `files[]` pega deriva estrutural.",
+          "**Lista de exceção deliberada virou fonte única** (`scripts/lib/ds-exceptions.mjs`, cada entrada com motivo obrigatório). Antes o `distribution-debt` tinha uma lista e o hook tinha outra — já divergiam.",
+          "**O canal npm não está depreciado** — 4 fontes do repo afirmavam que estava (README, DISTRIBUICAO, os scripts `lib:publish:*` e o `package.json`). Testado: o build da lib funciona e gera ESM + CJS + types + `theme.css`. É canal **secundário**, com publish manual do mantenedor.",
+        ],
+      },
+      {
+        type: "removed",
+        items: [
+          "**Hook `format-on-save`** — chamava `npx --no-install prettier` num projeto onde `prettier` nunca esteve no `package.json`: no-op silencioso desde sempre. O problema não era o silêncio, era estar **armado** — um `npx prettier` rodado pra outra coisa populou o cache e o hook ligou sozinho, reformatando um arquivo sem ninguém pedir. Sem formatador automático por decisão; formatação **na mão**, espelhando o vizinho (L-061).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**PR em rascunho burlava o check de showcase permanentemente.** `on: pull_request` sem `types:` usa o conjunto default, que **não** inclui `ready_for_review` — então sair de rascunho não disparava run nova e a run verde do rascunho satisfazia o required check. O guard era um bypass, não um adiamento. E o comentário no arquivo afirmava o contrário, que é o que impediria alguém reexaminar.",
+          "**`showcase-check` era cego a rename de pasta** — rename vem como status `R`, não `A`, então `git mv Foo Bar` passava sem check nenhum. É exatamente como o `ChoroplethMap` saiu da `main` num merge de reorganização.",
+          "**4 referências de tipo quebradas no pacote npm** — o `toast.d.ts` não era emitido (o `vite-plugin-dts` batia em TS4023 por um tipo interno do `sonner` e **pulava o arquivo em silêncio, com o build saindo 0**) e o `ClientesShowcase` importava fixtures de uma Doc page excluída do pacote.",
+          "**`vercel.json` do registry usava `npm install`, não `npm ci`** — o deploy resolvia versões diferentes das auditadas, e a versão de `next` em produção era indeterminada. O lock pinava uma versão dentro do range de 8 advisories HIGH.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**5 lições novas (L-060 a L-064)** — as duas de maior alcance: *texto que descreve o mecanismo errado é pior que texto nenhum* (4 instâncias numa sessão, nenhuma pega por build/tsc/teste/lint — texto é o único artefato que ninguém executa) e *gate novo só vale depois de reproduzir o defeito que ele existe pra pegar* (duas vezes um check meu ficou cego ao bug que motivou sua existência).",
+          "**Documentação do próprio pipeline atualizada no showcase** — Hooks, Skills, Commands, Structure, Installation, Distribution e Agents Overview descreviam o estado anterior; 4 páginas ainda anunciavam o `format-on-save`. Ironia registrada: construímos um gate que reprova componente sem doc, e o pipeline mudou 25 PRs sem a doc dele acompanhar — nenhum check cobre isso, porque todos olham `src/components/**`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.30.1",
     date: "2026-07-29",
     tag: "patch",

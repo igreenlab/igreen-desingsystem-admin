@@ -299,7 +299,7 @@ export function AgentsPreview() {
    │      ├─ Skill: impl-igreen | impl-shadcn | impl-composite | impl-token
    │      ├─ Hook PreToolUse: block-sensitive-edit | block-rm-rf
    │      ├─ MCP: igreen-workspace.write_file | claude_ai_Figma.get_*
-   │      ├─ Hook PostToolUse: format-on-save
+   │      ├─ Hook PostToolUse: ds-lint-styles | ds-inventory-check | ds-tokens-check
    │      └─ Signal: IMPL_READY
    │
    └─ DS Reviewer  ← carrega resultado

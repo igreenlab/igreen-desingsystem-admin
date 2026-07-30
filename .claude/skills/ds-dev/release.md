@@ -128,6 +128,12 @@ Aplicar os **passos 1–4** do [`update-changelog.md`](./update-changelog.md):
 3. `git diff --name-status` em `git log` desde lastDate
 4. Versão atual de `package.json`
 
+⛔ **Ao classificar, separe os dois eixos** — o que o **consumidor** recebe
+(`src/components/`, `tokens/`, `registry.json`) e o que mudou no **pipeline**
+(`.github/workflows/`, `scripts/`, `.claude/`, `.ai/`). Os dois entram na entry; ver
+[`update-changelog.md`](./update-changelog.md) §"Mudança de INFRA também entra na timeline".
+Foi ignorar isso que deixou 25 PRs de governança sem rastro na timeline (2026-07-30).
+
 ---
 
 ## Passo 3 — Classificar + bump
