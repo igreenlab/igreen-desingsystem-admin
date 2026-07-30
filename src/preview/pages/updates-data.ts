@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "cli-0.19.0",
+    date: "2026-07-30",
+    tag: "release",
+    title: "A IA do consumidor passou a saber a gama de componentes por tarefa",
+    summary:
+      "Release do **CLI** (`@snksergio/create-design-system@0.19.0`) — a lib não mudou (segue em 0.30.1; nenhum arquivo de `src/components/` foi tocado). O que muda é o kit de IA que vai no scaffold: o catálogo de componentes era uma lista de nomes agrupada por **origem** (\"primitivos\" vs \"composites\"), que é a divisão menos útil pra quem está montando uma tela. Nome solto responde *\"existe?\"*, não responde *\"qual dos três?\"* — saber que `tabs`, `button-group` e `toggle-group` existem não diz qual serve pra alternar visão (e a resposta é **nenhum**: é o `viewMode` do `data-table`). O caso que motivou foi a IA compor um seletor de período na unha em vez de usar o `date-picker`. Vem junto o showcase virando responsivo e a timeline deixando de travar. **Sobre o custo, sem embelezar:** não é economia de contexto, é relocação com valor agregado — o `CLAUDE.md` do template encolheu 7 linhas (não as ~20 estimadas antes de medir) e editar um `.tsx` passa a custar +116 linhas de rule. O ganho é o critério de escolha chegar no momento certo, sem invocação, não o número de bytes.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Vocabulário de componentes como rule auto-carregada** (`.claude/rules/ds-components.md` no scaffold) — os 75 itens do registry em 9 grupos **por tarefa** (formulário, abas, feedback, sobreposição, dados em grade, layout, métrica, identidade, comando), cada um com o **critério de escolha** em vez do nome solto. É rule, não skill nem hook, porque rule é o único mecanismo que carrega sozinho **no momento de escrever o `.tsx`** — skill exige invocar, e hook só avisa depois do erro. Sem MCP, por decisão: seria outra camada online pra manter.",
+          "**Gate de vocabulário no CI** (`vocab-surface`) — checa as duas direções contra o `registry.json`: **completude** (item distribuído que o índice não cita é mentira por omissão — a IA conclui que o que não está listado não existe) e **veracidade** (nome citado que não existe manda usar componente inexistente). Nenhuma das duas tinha gate: o `distribution-debt` só varre `src/components/ui/*`, então os **41 primitivos** do registry estavam descobertos. Validado reproduzindo os dois defeitos, não por fixture — remover `toggle-group` reprova, adicionar um nome inventado reprova.",
+          "**Barra superior no showcase abaixo de `lg`** com o menu virando drawer sobreposto (backdrop + Escape). Antes o sidebar era `w-[260px]` fixo num flex row, sem uma classe responsiva: num viewport de 390px consumia **67% da tela** e o conteúdo ficava em ~130px, cortado, com scroll horizontal.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Timeline de Updates virou progressiva** — as 3 versões mais recentes vêm expandidas e o resto colapsado por linha. Com 43 entries a página renderizava tudo de uma vez e o índice lateral tinha ficado impossível de navegar.",
+          "**A superfície 6 das 7 (L-042) mudou de lugar**: era \"catálogo do CLI\" (a lista no `CLAUDE.md` do template), virou \"vocabulário do consumidor\" (a rule). O `release:check` acusou na hora — **12 ponteiros** seguiam medindo ou apontando o arquivo antigo, incluindo o hook `ds-inventory-check`, 3 skills de implementação, o `pre-commit-check` e a **própria mensagem de erro** do `distribution-debt`, que mandava editar o lugar que tinha deixado de valer (obedecer desfaria a mudança). Hook e CI agora medem a **união** dos dois arquivos: exigir os dois reprovaria componente que *está* distribuído.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O índice lateral da doc travava a rolagem.** A causa era `IntersectionObserver`: ele sinaliza **cruzamento** de interseção, não posição — uma âncora fina que pula a faixa de observação num scroll rápido nunca dispara, e a seção ativa congelava. Trocado por scroll com `requestAnimationFrame`, com o motivo registrado no código pra ninguém \"otimizar\" de volta.",
+          "**A rule afirmava que a API de todo componente está no `USAGE.md` ao lado** — falso pra **41 dos 75**: os primitivos shadcn chegam sem USAGE (`tabs` e `select` são 1 arquivo cada), porque a API é a padrão Radix. Reescrito com o split real e conferido nos 75, nas duas direções, sem exceção.",
+          "**4 regras de token duplicadas entre as duas rules** do consumidor (`gap-form-gap`, `min-h-form`, `critical`, `size-icon`). Removidas da nova — `ds-design.md` responde *como estilizar*, `ds-components.md` responde *qual componente*.",
+        ],
+      },
+    ],
+  },
+  {
     version: "pipeline-2026-07",
     date: "2026-07-30",
     tag: "milestone",
