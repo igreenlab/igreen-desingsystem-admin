@@ -16,8 +16,8 @@ const TOC = [
 
 function CmdRow({ cmd, desc }: { cmd: string; desc: string }) {
   return (
-    <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle last:border-b-0">
-      <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-[220px]">{cmd}</code>
+    <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle last:border-b-0">
+      <code className="font-mono text-code-sm text-fg-brand shrink-0 min-w-0 sm:min-w-[220px]">{cmd}</code>
       <span className="text-body-md text-fg-muted flex-1">{desc}</span>
     </div>
   );
@@ -86,23 +86,23 @@ npm create @snksergio/design-system@0.1.0 my-app`}</CodeBlock>
           Minimum versions for the DS to build, generate tokens and run the preview app.
         </p>
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-[140px]">Node.js</span>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">Node.js</span>
             <Badge color="secondary" variant="outline" size="sm">≥ 20.x</Badge>
             <span className="text-body-md text-fg-muted">Required by Vite 6 and tsx</span>
           </div>
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-[140px]">npm</span>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">npm</span>
             <Badge color="secondary" variant="outline" size="sm">≥ 10.x</Badge>
             <span className="text-body-md text-fg-muted">Or pnpm/yarn — package.json works with either</span>
           </div>
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-[140px]">TypeScript</span>
+          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
+            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">TypeScript</span>
             <Badge color="secondary" variant="outline" size="sm">≥ 5.6</Badge>
             <span className="text-body-md text-fg-muted">Bundled as dev dependency — no global install needed</span>
           </div>
           <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl">
-            <span className="text-body-md font-medium text-fg-default min-w-[140px]">Tailwind CSS</span>
+            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">Tailwind CSS</span>
             <Badge color="primary" variant="soft" size="sm">v4</Badge>
             <span className="text-body-md text-fg-muted">v3 is not supported — anti-collision prefixes depend on @theme</span>
           </div>

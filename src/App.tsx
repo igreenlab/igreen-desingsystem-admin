@@ -1,4 +1,4 @@
-﻿import { useState, useRef, useEffect, useMemo } from "react";
+﻿import { useState, useRef, useEffect, useMemo, useCallback } from "react";
 import { useTheme } from "./hooks/useTheme";
 import { useBrand } from "./hooks/useBrand";
 import { AgentsPreview } from "./preview/pages/AgentsPreview";
@@ -143,6 +143,7 @@ import { AgentReviewerDoc } from "./preview/pages/AgentReviewerDoc";
 import {
   DocNavProvider,
   DocSidebar,
+  DocMobileBar,
   getDocNavByHref,
 } from "./preview/components";
 import {
@@ -441,6 +442,21 @@ export function App() {
     () => readPageFromHash() ?? "button",
   );
 
+  // Drawer do menu abaixo de `lg`. O showcase nasceu desktop-only: o sidebar de
+  // 260px comia 67% de um viewport de 390px e o conteúdo ficava em ~130px,
+  // cortado e com scroll horizontal. Um state só, compartilhado pelos DOIS
+  // shells (doc pages e o preview de componentes) — são branches do mesmo
+  // componente, então não precisa de contexto.
+  const [menuMobileAberto, setMenuMobileAberto] = useState(false);
+  const fecharMenuMobile = useCallback(() => setMenuMobileAberto(false), []);
+
+  // Navegar fecha o drawer — senão o menu fica sobre a página que você acabou de
+  // escolher, que é o pior estado possível.
+  const navegar = useCallback((href: string) => {
+    setActivePage(href as PageId);
+    setMenuMobileAberto(false);
+  }, []);
+
   // Standalone apps via query param — renderiza fullscreen sem nav de docs.
   // Ex: ?app=finance → ClientesFinanceiroShowcase (sem sidebar de DS).
   // Detecta uma vez no mount; reload da página é necessário pra trocar.
@@ -513,18 +529,29 @@ export function App() {
 
   if (isDocPage) {
     return (
-      <DocNavProvider onNavigate={setActivePage}>
-        <div className="flex h-screen overflow-hidden">
+      <DocNavProvider onNavigate={navegar}>
+        {/* flex-col abaixo de `lg` pra a barra mobile ocupar o topo; row no desktop. */}
+        <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
           <Toaster />
+          <DocMobileBar onOpenMenu={() => setMenuMobileAberto(true)} />
           <DocSidebar
             sections={getDocNavByHref(activePage)}
-            onNavigate={setActivePage}
+            onNavigate={navegar}
             theme={theme}
             onToggleTheme={toggle}
             brand={brand}
             onSelectBrand={setBrand}
+            mobileOpen={menuMobileAberto}
+            onCloseMobile={fecharMenuMobile}
           />
-          <main ref={contentRef} className="flex-1 overflow-auto bg-bg-canvas">
+          {/*
+            `min-w-0` pelo mesmo motivo do DocLayout. NÃO uso `overflow-x-hidden`
+            aqui: hidden CLIPA — se alguma página ainda transbordar, o conteúdo
+            fica invisível e inalcançável. Com `overflow-y-auto`, o CSS já resolve
+            `overflow-x` pra `auto`, então o pior caso é uma barra horizontal feia,
+            não conteúdo perdido.
+          */}
+          <main ref={contentRef} className="flex-1 min-w-0 overflow-y-auto bg-bg-canvas">
             {activePage === "button" && <ButtonDoc />}
             {activePage === "button-group" && <ButtonGroupDoc />}
             {activePage === "badge" && <BadgeDoc />}
@@ -673,9 +700,27 @@ export function App() {
   }
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <aside className="w-[260px] shrink-0 border-r border-border-sidebar bg-bg-sidebar flex flex-col">
+    <div className="flex flex-col lg:flex-row h-screen overflow-hidden">
+      <DocMobileBar onOpenMenu={() => setMenuMobileAberto(true)} title="Componentes" />
+
+      {/* Backdrop do drawer — mesmo padrão do DocSidebar. */}
+      {menuMobileAberto && (
+        <div
+          className="lg:hidden fixed inset-0 z-40 bg-black/60"
+          onClick={fecharMenuMobile}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Sidebar — off-canvas abaixo de `lg`, no fluxo a partir de `lg`. */}
+      <aside
+        className={[
+          "fixed inset-y-0 left-0 z-50 w-[280px] max-w-[85vw] -translate-x-full transition-transform duration-200 ease-out",
+          menuMobileAberto ? "translate-x-0" : "",
+          "lg:static lg:z-auto lg:w-[260px] lg:max-w-none lg:shrink-0 lg:translate-x-0 lg:transition-none",
+          "h-screen border-r border-border-sidebar bg-bg-sidebar flex flex-col",
+        ].join(" ")}
+      >
         {/* Logo */}
         <div className="flex items-center gap-gp-xl px-pad-3xl py-pad-2xl border-b border-border-sidebar">
           <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-body-sm font-normal">

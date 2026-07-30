@@ -22,9 +22,9 @@ function SkillRow({
   tag?: string;
 }) {
   return (
-    <div className="flex items-start gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
-      <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-[260px]">{path}</code>
-      <Badge color="secondary" variant="outline" size="sm" className="shrink-0 min-w-[100px]">{agent}</Badge>
+    <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-md border-b border-border-subtle last:border-b-0">
+      <code className="text-code-sm text-fg-brand font-mono shrink-0 min-w-0 sm:min-w-[260px]">{path}</code>
+      <Badge color="secondary" variant="outline" size="sm" className="shrink-0 min-w-0 sm:min-w-[100px]">{agent}</Badge>
       <span className="text-body-md text-fg-muted flex-1">{desc}</span>
       {tag && <Badge color="primary" variant="soft" size="sm" className="shrink-0">{tag}</Badge>}
     </div>

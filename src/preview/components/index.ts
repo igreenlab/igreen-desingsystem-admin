@@ -11,6 +11,7 @@ export { DocSeparator, SectionH2 } from "./doc-section";
 export { ExampleSection } from "./doc-example";
 export { PropsTable, type PropItem } from "./doc-props-table";
 export { DocSidebar, type DocNavSection } from "./doc-sidebar";
+export { DocMobileBar } from "./doc-mobile-bar";
 export { TOC, type TocItem } from "./doc-toc";
 export { EyeIcon, CodeIcon, CopyIcon, ExternalIcon, TocIcon } from "./doc-icons";
 export { getDocNav, getDocNavByHref } from "./doc-nav-data";
