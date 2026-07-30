@@ -34,13 +34,13 @@ description: >
 | 3   | **Inventory**       | `.ai/context/components/inventory.md` (+contador)                                                                              | linha presente                                                 |
 | 4   | **Showcase**        | `src/preview/pages/<Nome>Doc.tsx` **+** `App.tsx` (import + render + **`DOC_PAGES`**) **+** `doc-nav-data.ts` (entrada de nav) | rota `#/<nome>` renderiza (DOC_PAGES é o passo mais esquecido) |
 | 5   | **Registry**        | `registry.json` (entrada + `registry:build` + embed)                                                                           | distribuível via `@igreen/<nome>`                              |
-| 6   | **Catálogo do CLI** | `cli/templates/default/CLAUDE.md` (lista de componentes) **+ bump `cli/package.json` + republicar**                            | scaffolds novos conhecem o componente                          |
+| 6   | **Vocabulário do consumidor** | `cli/templates/default/_claude/rules/ds-components.md` (grupo de tarefa + critério de escolha) **+ bump `cli/package.json` + republicar** | a IA do consumidor sabe que o componente existe e quando usá-lo |
 | 7   | **Changelog**       | `src/preview/pages/updates-data.ts` (entry da versão)                                                                          | aparece na tela Updates                                        |
 
 **Cadência:** 1–3 e 4 vão no **PR do componente** (mesmo commit). 5/6/7 (distribuição)
 consolidam no **`/ds-release`** — mas **anote no PR body** que faltam, pra não sumirem.
-No `/ds-release`, o passo 6.2b cobre 5; **6 (catálogo CLI) e 7 entram junto**. Componente
-distribuído (no registry) **sem** estar no catálogo do CLI = gap real (caso Toast v0.12.0).
+No `/ds-release`, o passo 6.2b cobre 5; **6 (vocabulário do consumidor) e 7 entram junto**. Componente
+distribuído (no registry) **sem** estar no vocabulário do consumidor = gap real (caso Toast v0.12.0).
 
 ## Fechar o loop do pipeline (OBRIGATÓRIO — vai no MESMO commit)
 

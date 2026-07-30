@@ -2,7 +2,13 @@
 /**
  * distribution-debt.mjs — visão GERAL pré-release do que ainda não está
  * distribuído. Varre src/components/ui/* e reporta quais componentes faltam
- * em registry.json e/ou no catálogo do CLI (cli/templates/default/CLAUDE.md).
+ * em registry.json e/ou no catálogo do consumidor.
+ *
+ * "Catálogo" = a UNIÃO dos arquivos em CATALOG_FILES. O nome do componente
+ * precisa aparecer em ALGUM deles. São duas superfícies porque o vocabulário
+ * (que componente usar pra cada tarefa) saiu do `CLAUDE.md` e virou rule
+ * auto-carregada — mas o `CLAUDE.md` continua citando nomes (mapa de intenção,
+ * `example-*`). Medir só um dos dois reprova componente que ESTÁ distribuído.
  *
  * Complementa o hook `ds-inventory-check` (que alerta POR componente no Edit)
  * com uma sweep única — pega "débito acumulado" antes do /ds-release. Foi escrito
@@ -25,7 +31,11 @@ import { isException } from "./lib/ds-exceptions.mjs";
 
 const isCi = process.argv.includes("--ci");
 const UI = "src/components/ui";
-const CATALOG = "cli/templates/default/CLAUDE.md";
+/** Superfícies do consumidor que citam componente por nome (união, não AND). */
+const CATALOG_FILES = [
+  "cli/templates/default/_claude/rules/ds-components.md",
+  "cli/templates/default/CLAUDE.md",
+];
 
 // No GitHub Actions, um step que sempre sai 0 tem o log COLAPSADO — ninguém
 // abre. Emitir workflow commands faz o débito aparecer na lista de anotações
@@ -46,7 +56,9 @@ const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 
 const registry = JSON.parse(readFileSync("registry.json", "utf8"));
 const regNames = new Set((registry.items ?? []).map((i) => i.name));
-const catalog = existsSync(CATALOG) ? readFileSync(CATALOG, "utf8") : "";
+const catalog = CATALOG_FILES.filter(existsSync)
+  .map((f) => readFileSync(f, "utf8"))
+  .join("\n");
 
 const comps = readdirSync(UI, { withFileTypes: true })
   .filter((e) => e.isDirectory())
@@ -68,7 +80,7 @@ const debt = rows.filter((r) => !r.inReg || !r.inCat);
 
 console.log(`\nDébito de distribuição — ${comps.length} componentes em ${UI}/`);
 if (!debt.length) {
-  console.log("  ✓ todos no registry.json e no catálogo do CLI.\n");
+  console.log("  ✓ todos no registry.json e no vocabulário do consumidor.\n");
   process.exit(0);
 }
 console.log("");
@@ -77,7 +89,7 @@ for (const r of debt) {
   const cat = r.inCat ? "catálogo ✓" : "catálogo ✗ FALTA";
   console.log(`  • ${r.dir.padEnd(18)} (${r.name}) — ${reg} · ${cat}`);
 
-  const falta = [!r.inReg && "registry.json", !r.inCat && `catálogo do CLI`]
+  const falta = [!r.inReg && "registry.json", !r.inCat && "vocabulário do consumidor"]
     .filter(Boolean)
     .join(" + ");
   annotate(
@@ -91,6 +103,8 @@ for (const r of debt) {
 }
 console.log(
   `\n  ${debt.length} com débito. Adicione ao registry (node scripts/registry-add-item.mjs <Nome>` +
-    ` → registry:build) e/ou ao catálogo (${CATALOG}). Se for intencional, inclua em scripts/lib/ds-exceptions.mjs (com o motivo).\n`,
+    ` → registry:build) e/ou ao vocabulário do consumidor (${CATALOG_FILES[0]} —` +
+    ` no grupo de tarefa a que o componente serve, com o critério de escolha).` +
+    ` Se for intencional, inclua em scripts/lib/ds-exceptions.mjs (com o motivo).\n`,
 );
 process.exit(isCi ? 1 : 0);

@@ -138,7 +138,7 @@ for (const name of novos) {
     `Falta:`,
     ...faltas.map((f) => `  • ${f.what}\n    → ${f.fix}`),
     ``,
-    `NÃO precisa nesta PR: registry.json, catálogo do CLI, changelog —`,
+    `NÃO precisa nesta PR: registry.json, vocabulário do consumidor, changelog —`,
     `consolidam no /ds-release (Regra 8).`,
     ``,
     `Se o componente é interno de propósito (sem showcase), adicione em`,

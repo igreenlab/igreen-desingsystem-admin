@@ -117,7 +117,7 @@ Sem os três, a rota abre **em branco**. O CI reprova (`showcase-check`).
    `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
 3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
 
-**Não** faz parte desta entrega: `registry.json`, catálogo do CLI e changelog —
+**Não** faz parte desta entrega: `registry.json`, vocabulário do consumidor e changelog —
 consolidam no `/ds-release` (Regra 8). Anote no corpo da PR o que ficou pendente.
 
 Componente interno de propósito (sem showcase) → declare em

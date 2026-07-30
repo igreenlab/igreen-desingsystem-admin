@@ -837,14 +837,22 @@ de Pronto" única que listasse TODAS as superfícies. **As 7 superfícies de um 
 (1) código `ui/<Nome>/` ou `shadcn/<nome>.tsx`; (2) USAGE (`ui/<Nome>/USAGE.md` ou 1 linha no
 índice `shadcn/USAGE.md`); (3) `inventory.md` (+contador); (4) **showcase** = `<Nome>Doc.tsx` +
 `App.tsx` (import + render + **`DOC_PAGES`**) + `doc-nav-data.ts`; (5) `registry.json` (+build+embed);
-(6) **catálogo do CLI** (`cli/templates/default/CLAUDE.md` + bump `cli/package.json` + republicar);
-(7) changelog `updates-data.ts`. **Fix:** (a) hook `ds-inventory-check` agora acusa "no registry mas
-fora do catálogo do CLI" **e** "DocPage existe mas não roteada no `App.tsx`/`DOC_PAGES` ou sem nav"
-(pega o render-em-branco); (b) `handoff-pr.md` ganhou a tabela "Definição de Pronto" (7 superfícies);
-(c) `pre-commit-check` 2.8 e `release.md` 6.2b cobram o catálogo do CLI. **Cadência:** 1–4 no PR do
-componente; 5/6/7 no `/ds-release` (mas anotar no PR body que faltam). **Regra pra IA:** componente
-distribuído (no registry) SEM estar no catálogo do CLI = gap — qualquer toque em `cli/**` exige
-bump + `npm publish` manual.
+(6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md` +
+bump `cli/package.json` + republicar); (7) changelog `updates-data.ts`. **Fix:** (a) hook
+`ds-inventory-check` acusa "no registry mas fora do vocabulário do consumidor" **e** "DocPage existe
+mas não roteada no `App.tsx`/`DOC_PAGES` ou sem nav" (pega o render-em-branco); (b) `handoff-pr.md`
+ganhou a tabela "Definição de Pronto" (7 superfícies); (c) `pre-commit-check` 2.8 e `release.md` 6.2b
+cobram a superfície 6. **Cadência:** 1–4 no PR do componente; 5/6/7 no `/ds-release` (mas anotar no
+PR body que faltam). **Regra pra IA:** componente distribuído (no registry) SEM estar no vocabulário
+= gap — qualquer toque em `cli/**` exige bump + `npm publish` manual.
+
+> **Onde mora a superfície 6 (atualizado 2026-07-30).** Era a lista de nomes no
+> `cli/templates/default/CLAUDE.md`; virou a rule auto-carregada
+> `_claude/rules/ds-components.md` (nome **+ critério de escolha**, agrupado por tarefa) —
+> uma lista de nomes diz que o componente existe, não quando preferi-lo ao vizinho. O
+> `CLAUDE.md` do template segue citando nomes (mapa de intenção, `example-*`), então hook e
+> `distribution-debt.mjs` medem a **união** dos dois arquivos: exigir os dois reprovaria
+> componente que ESTÁ distribuído.
 
 ---
 

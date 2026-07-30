@@ -33,7 +33,7 @@ standalone (`finance`, `order-detail`): entry point é só o `?app=`.
 3. `src/preview/components/doc-nav-data.ts` — seção "Examples", item **com `url`**:
    `{ label: "Login", href: "<id>", url: "?app=<id>" }`.
 
-Abre em `?app=<id>` (fullscreen). Distribuição (registry.json + catálogo CLI) →
+Abre em `?app=<id>` (fullscreen). Distribuição (registry.json + vocabulário do consumidor) →
 consolida no `/ds-release`, não neste passo.
 
 ## Gotchas do tipo

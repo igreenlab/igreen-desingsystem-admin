@@ -302,16 +302,17 @@ distribuído. Use `node scripts/registry-add-item.mjs <Componente>` pra gerar a 
 alias `@/`), revise e adicione ao `registry.json` ANTES do `registry:build`. (O
 pre-commit-check acusa essa lacuna.)
 
-**Catálogo do CLI (L-042) — OBRIGATÓRIO pra componente novo distribuído.** Todo componente
-que entra no `registry.json` TEM que entrar também no catálogo `cli/templates/default/CLAUDE.md`
-(lista de componentes — composites/feedback/etc, pelo nome kebab do registry). Senão projetos
-novos scaffoldados pelo CLI não sabem que ele existe. Isso **muda `cli/templates/**` → exige
+**Vocabulário do consumidor (L-042) — OBRIGATÓRIO pra componente novo distribuído.** Todo
+componente que entra no `registry.json` TEM que entrar também em
+`cli/templates/default/_claude/rules/ds-components.md` — no grupo de tarefa a que ele serve,
+com o **critério de escolha** (quando usar ELE e não o vizinho), pelo nome kebab do registry.
+Senão a IA do consumidor não sabe que ele existe e compõe na unha. Isso **muda `cli/templates/**` → exige
 bump de `cli/package.json` + `npm publish` manual** (mesmo sem mudança foundational). O hook
 `ds-inventory-check` acusa "no registry mas fora do catálogo". Caso real: Toast (v0.12.0 no
 registry, só catalogado na CLI 0.13.7).
 
 **Arquivos que entram no stage (6.4):** `registry.json`, `registry-app/app/registry-data.ts`,
-`src/styles/theme/tailwind-theme.css`, e — **se rebake OU se o catálogo do CLI mudou** —
+`src/styles/theme/tailwind-theme.css`, e — **se rebake OU se o vocabulário do consumidor mudou** —
 `cli/package.json` + `cli/templates/default/**` (qualquer toque em `cli/**` → bump + publish manual).
 
 **Deploy:** automático. O merge do PR → `main` → Vercel re-deploya o registry-app

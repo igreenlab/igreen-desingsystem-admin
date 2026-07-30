@@ -68,25 +68,18 @@ O projeto vem com **`.mcp.json`** (servidor `shadcn mcp`) → o **Claude Code** 
 
 ### Catálogo de componentes (`@igreen/<nome>`)
 
-Primitivos: `button` `input` `label` `textarea` `select` `card` `badge` `separator`
-`checkbox` `accordion` `alert` `alert-dialog` `avatar` `breadcrumb` `calendar` `command`
-`dialog` `dropdown-menu` `input-group` `pagination` `popover` `progress` `radio-group`
-`sheet` `slider` `switch` `tabs` `tooltip` `skeleton` `sonner` `collapsible` `scroll-area`
-`toggle` `toggle-group` `input-otp` `context-menu` `hover-card` `menubar` `navigation-menu`
-`carousel` `aspect-ratio` `drawer`.
-Composites: `form-field` `alert-modal` `button-group` `floating-panel` `modal` `panel`
-`footer-table` `kanban` `list` `data-list` `combobox` `card-checkbox` `chip` `icon` `page-header` `avatar-ig`
-`date-picker` `toast` `spinner` `empty-state` `markdown-text` `file-upload-field` `month-year-picker` `color-picker`.
+**O índice completo é `.claude/rules/ds-components.md`** — carregado automaticamente ao
+editar qualquer `.tsx`. Ele é organizado **por tarefa** (formulário, abas, feedback,
+sobreposição, dados, layout, métrica, identidade, comando) e diz **qual usar e por quê** —
+não é uma lista de nomes. Consulte-o antes de compor qualquer UI.
 
-> **Flutuantes** (`dropdown-menu` `popover` `select` `context-menu` `menubar`
-> `navigation-menu` `hover-card` `tooltip`) seguem a MESMA receita visual do DS
-> (bg-dropdown frosted + border-default + radius 12 + shadow-lg + outline-float).
-> **Feedback**: `toast` (card de notificação ergonômico sobre o Sonner — `toast.success/.error/.warning/.info({ title, description, icon, action, cancel, onClose })`, status muda só o icon-chip; PREFIRA pra UI rica) · `sonner` (toaster cru — monte `<Toaster/>` 1× no root; o `toast` usa ele por baixo) · `skeleton` (loading)
-> · `tooltip`/`hover-card` (dica/prévia no hover).
-> App-level (templates de layout): `chart` `table` `data-table` `menu-sidebar` `single-menu-sidebar` `kpi` `header` `app-shell`.
-> Exemplos (telas inteiras de referência): `example-clientes` `example-finance`
-> `example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
-> `example-mapa-rede` `example-login` `example-app-shell`.
+> Por que não a lista aqui: nome solto responde "existe?", não responde "qual dos três?".
+> Saber que `tabs`, `button-group` e `toggle-group` existem não diz qual serve pra alternar
+> visão — e essa é a pergunta que aparece na prática.
+
+Exemplos (telas inteiras de referência, puxe e adapte): `example-clientes` `example-finance`
+`example-edit-page` `example-order-detail` `example-dashboard` `example-chat`
+`example-mapa-rede` `example-login` `example-app-shell`.
 
 ## 🧭 Mapa de intenção → referência (IA: USE ISTO PRIMEIRO)
 

@@ -33,7 +33,7 @@ Segue o padrão dos apps standalone (`finance`, `order-detail`): entry point é 
    `{ label: "App (esqueleto)", href: "<id>-example", url: "?app=<id>" }` (href ≠ ids do `DOC_PAGES`;
    cuidado: `app-shell` já é doc-page do componente — use outro href de nav).
 
-Distribuição (registry.json + catálogo CLI) → consolida no `/ds-release`.
+Distribuição (registry.json + vocabulário do consumidor) → consolida no `/ds-release`.
 
 ## Gotchas do tipo
 
