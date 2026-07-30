@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · accordion · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · alert-dialog · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · alert-modal · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · alert · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · app-shell · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · aspect-ratio · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · avatar-ig · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · avatar · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · badge · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · breadcrumb · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · button-group · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · button · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · calendar · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · card-checkbox · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · card · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · carousel · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · chart · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · checkbox · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · chip · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · choropleth-map · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · collapsible · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -746,7 +746,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/ColorPicker/USAGE.md",
-        "content": "# ColorPicker\r\n\r\n**Categoria:** composto (Popover + Input + FormField + Button + Separator). Seletor de cor **hex `#RRGGBB`** controlado, pensado para **Tags** e **Filas**.\r\n\r\n## Quando usar\r\n\r\n- Escolher uma cor de marca/identidade para uma entidade (tag, fila, etiqueta, status custom).\r\n- Quando o usuário precisa **ver e digitar** o hex E ter atalho para uma **paleta curada**.\r\n\r\nNão use para escolha semântica (sucesso/erro/aviso) — isso são tokens DS, não cor livre.\r\n\r\n## Anatomia\r\n\r\n```\r\n[ swatch ]  [ Input hex (#RRGGBB) ]      ← trigger inline (swatch abre o popover)\r\n            ▼ (clique no swatch)\r\n┌─────────────────────────────┐\r\n│  grid 10-col de presets      │          ← swatch selecionado = checkmark (contraste auto)\r\n│  ───────── Separator ─────── │\r\n│  Cor personalizada  [input]  │          ← allowCustomHex (default true)\r\n│  [ Aplicar ]                 │\r\n└─────────────────────────────┘\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `value` | `string` | — | **Obrigatório.** Hex controlado `#RRGGBB`. |\r\n| `onValueChange` | `(hex: string) => void` | — | **Obrigatório.** Recebe sempre `#RRGGBB` maiúsculo normalizado. |\r\n| `presets` | `string[]` | `DEFAULT_COLOR_PRESETS` | Cores do grid (paleta iGreen + neutras, ~26 hex). |\r\n| `id` | `string` | auto | id do input hex (linka label externo via `htmlFor`). |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Colore **só a borda** do trigger. **Não** é color variant. |\r\n| `size` | `\"sm\" \\| \"md\"` | `\"md\"` | `sm` = form-md (36px) · `md` = form-lg (40px). |\r\n| `disabled` | `boolean` | `false` | Desabilita o seletor inteiro. |\r\n| `allowCustomHex` | `boolean` | `true` | Mostra o input hex livre + botão Aplicar no popover. |\r\n| `placeholder` | `string` | `\"#RRGGBB\"` | Placeholder dos inputs hex. |\r\n| `open` / `onOpenChange` | — | — | Controle externo de abertura do popover. |\r\n| `className` | `string` | — | className do container (root). |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ColorPicker } from \"@snksergio/design-system\";\r\n\r\nconst [color, setColor] = useState(\"#16A34A\");\r\n\r\n<FormField label=\"Cor da tag\" id=\"tag-color\">\r\n  {({ id }) => (\r\n    <ColorPicker id={id} value={color} onValueChange={setColor} />\r\n  )}\r\n</FormField>\r\n```\r\n\r\n## Variants\r\n\r\n| Variant | Valores | Efeito |\r\n|---------|---------|--------|\r\n| `size` | `sm` · `md` | altura do trigger (swatch + input) |\r\n| `state` | `default` · `error` · `warning` · `success` | cor da borda do swatch |\r\n| `disabled` | — | último compoundVariant (L-006); desabilita tudo |\r\n\r\n## Gotchas\r\n\r\n- **Normalização:** aceita `3` ou `6` dígitos com/sem `#` (`fff`, `#FFF`, `00ff00`) → sempre emite `#RRGGBB` **maiúsculo**. Hex inválido no input inline restaura o `value` atual no blur.\r\n- **bg dinâmico = exceção L-027:** o fundo do swatch e dos presets vem por `style={{ backgroundColor }}` (cor externa). É a única exceção de hardcode permitida; todo o resto é token DS.\r\n- **Checkmark com contraste auto:** o preset selecionado usa `getContrastTextColor(hex)` para escolher branco/preto — não cor cega.\r\n- **Anchor do Popover:** o swatch é `forwardRef` via `PopoverTrigger asChild` (L-021). O `ref` encaminhado vai para o botão do swatch.\r\n- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-primary`); o input hex herda o foco animado do `Input` do DS (Padrão 2).\r\n- Para parear visualmente com outros campos de um form, envolva em `<FormField>` (render-prop) — o `state` do ColorPicker espelha o do Input para casar a borda.\r\n",
+        "content": "# ColorPicker\r\n\r\n**Categoria:** composto (Popover + Input + FormField + Button + Separator). Seletor de cor **hex `#RRGGBB`** controlado, pensado para **Tags** e **Filas**.\r\n\r\n## Quando usar\r\n\r\n- Escolher uma cor de marca/identidade para uma entidade (tag, fila, etiqueta, status custom).\r\n- Quando o usuário precisa **ver e digitar** o hex E ter atalho para uma **paleta curada**.\r\n\r\nNão use para escolha semântica (sucesso/erro/aviso) — isso são tokens DS, não cor livre.\r\n\r\n## Anatomia\r\n\r\n```\r\n[ swatch ]  [ Input hex (#RRGGBB) ]      ← trigger inline (swatch abre o popover)\r\n            ▼ (clique no swatch)\r\n┌─────────────────────────────┐\r\n│  grid 10-col de presets      │          ← swatch selecionado = checkmark (contraste auto)\r\n│  ───────── Separator ─────── │\r\n│  Cor personalizada  [input]  │          ← allowCustomHex (default true)\r\n│  [ Aplicar ]                 │\r\n└─────────────────────────────┘\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `value` | `string` | — | **Obrigatório.** Hex controlado `#RRGGBB`. |\r\n| `onValueChange` | `(hex: string) => void` | — | **Obrigatório.** Recebe sempre `#RRGGBB` maiúsculo normalizado. |\r\n| `presets` | `string[]` | `DEFAULT_COLOR_PRESETS` | Cores do grid (paleta iGreen + neutras, ~26 hex). |\r\n| `id` | `string` | auto | id do input hex (linka label externo via `htmlFor`). |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Colore **só a borda** do trigger. **Não** é color variant. |\r\n| `size` | `\"sm\" \\| \"md\"` | `\"md\"` | `sm` = form-md (36px) · `md` = form-lg (40px). |\r\n| `disabled` | `boolean` | `false` | Desabilita o seletor inteiro. |\r\n| `allowCustomHex` | `boolean` | `true` | Mostra o input hex livre + botão Aplicar no popover. |\r\n| `placeholder` | `string` | `\"#RRGGBB\"` | Placeholder dos inputs hex. |\r\n| `open` / `onOpenChange` | — | — | Controle externo de abertura do popover. |\r\n| `className` | `string` | — | className do container (root). |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ColorPicker } from \"@snksergio/design-system\";\r\n\r\nconst [color, setColor] = useState(\"#16A34A\");\r\n\r\n<FormField label=\"Cor da tag\" id=\"tag-color\">\r\n  {({ id }) => (\r\n    <ColorPicker id={id} value={color} onValueChange={setColor} />\r\n  )}\r\n</FormField>\r\n```\r\n\r\n## Variants\r\n\r\n| Variant | Valores | Efeito |\r\n|---------|---------|--------|\r\n| `size` | `sm` · `md` | altura do trigger (swatch + input) |\r\n| `state` | `default` · `error` · `warning` · `success` | cor da borda do swatch |\r\n| `disabled` | — | último compoundVariant (L-006); desabilita tudo |\r\n\r\n## Gotchas\r\n\r\n- **Normalização:** aceita `3` ou `6` dígitos com/sem `#` (`fff`, `#FFF`, `00ff00`) → sempre emite `#RRGGBB` **maiúsculo**. Hex inválido no input inline restaura o `value` atual no blur.\r\n- **bg dinâmico = exceção L-027:** o fundo do swatch e dos presets vem por `style={{ backgroundColor }}` (cor externa). É a única exceção de hardcode permitida; todo o resto é token DS.\r\n- **Checkmark com contraste auto:** o preset selecionado usa `getContrastTextColor(hex)` para escolher branco/preto — não cor cega.\r\n- **Anchor do Popover:** o swatch é `forwardRef` via `PopoverTrigger asChild` (L-021). O `ref` encaminhado vai para o botão do swatch.\r\n- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-brand`); o input hex herda o foco animado do `Input` do DS (Padrão 2).\r\n- Para parear visualmente com outros campos de um form, envolva em `<FormField>` (render-prop) — o `state` do ColorPicker espelha o do Input para casar a borda.\r\n",
         "type": "registry:file",
         "target": "components/ui/ColorPicker/USAGE.md"
       },
@@ -758,7 +758,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/ColorPicker/color-picker.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags / Filas.\r\n *\r\n * Anatomia visual (só o wrapper; Input/Button/Popover trazem os próprios estilos):\r\n *   trigger        = linha [swatch button] + [Input hex flex-1]\r\n *   swatch         = quadrado clicável que abre o popover; bg vem por INLINE\r\n *                    STYLE (exceção L-027 — cor dinâmica externa), aqui só\r\n *                    altura/borda/radius/foco tokenizados\r\n *   content        = grid de presets + separator + input hex livre\r\n *   presetsGrid    = grid-cols-10 de swatches dos presets\r\n *   preset         = swatch de preset (size-comp-xs); checkmark colorido via\r\n *                    getContrastTextColor no .tsx (inline)\r\n *\r\n * Foco:\r\n *   - swatch + preset → Padrão 1 (botão): focus-visible:outline-none + ring-4 brand\r\n *   - Input hex → herda o Input do DS (Padrão 2, animado)\r\n *\r\n * `state` controla SÓ a borda do trigger swatch (espelha os states do Input),\r\n * NÃO é uma color variant. `disabled` é o ÚLTIMO compoundVariant (L-006).\r\n */\r\nexport const colorPickerStyles = tv({\r\n  slots: {\r\n    root: \"inline-flex w-full items-center gap-gp-md\",\r\n    swatch: [\r\n      \"relative inline-flex shrink-0 items-center justify-center\",\r\n      \"rounded-radius-md border\",\r\n      \"transition-[border-color,box-shadow]\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary\",\r\n      // opacity do disabled vem do slot root (cobre tudo uniformemente) — não duplicar aqui\r\n      \"disabled:cursor-not-allowed\",\r\n    ],\r\n    hexInput: \"flex-1\",\r\n    content: \"flex flex-col gap-gp-lg p-sp-md min-w-container-dropdown-lg\",\r\n    presetsGrid: \"grid grid-cols-10 gap-gp-sm\",\r\n    preset: [\r\n      \"relative inline-flex items-center justify-center\",\r\n      \"size-comp-xs rounded-radius-md border border-border-input\",\r\n      \"transition-[box-shadow,border-color]\",\r\n      \"hover:border-border-brand\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary\",\r\n    ],\r\n    presetCheck: \"size-icon-sm\",\r\n    customRow: \"flex flex-col gap-gp-md\",\r\n  },\r\n  variants: {\r\n    size: {\r\n      sm: { swatch: \"size-form-md\" },\r\n      md: { swatch: \"size-form-lg\" },\r\n    },\r\n    state: {\r\n      default: { swatch: \"border-border-input hover:border-border-brand\" },\r\n      error: { swatch: \"border-border-danger-muted\" },\r\n      warning: { swatch: \"border-border-warning-muted\" },\r\n      success: { swatch: \"border-border-success-muted\" },\r\n    },\r\n    disabled: {\r\n      true: { root: \"pointer-events-none opacity-50\" },\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // disabled SEMPRE por último (L-006)\r\n    {\r\n      disabled: true,\r\n      class: { swatch: \"border-border-input hover:border-border-input\" },\r\n    },\r\n  ],\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    state: \"default\",\r\n    disabled: false,\r\n  },\r\n});\r\n\r\nexport type ColorPickerVariantProps = VariantProps<typeof colorPickerStyles>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags / Filas.\r\n *\r\n * Anatomia visual (só o wrapper; Input/Button/Popover trazem os próprios estilos):\r\n *   trigger        = linha [swatch button] + [Input hex flex-1]\r\n *   swatch         = quadrado clicável que abre o popover; bg vem por INLINE\r\n *                    STYLE (exceção L-027 — cor dinâmica externa), aqui só\r\n *                    altura/borda/radius/foco tokenizados\r\n *   content        = grid de presets + separator + input hex livre\r\n *   presetsGrid    = grid-cols-10 de swatches dos presets\r\n *   preset         = swatch de preset (size-comp-xs); checkmark colorido via\r\n *                    getContrastTextColor no .tsx (inline)\r\n *\r\n * Foco:\r\n *   - swatch + preset → Padrão 1 (botão): focus-visible:outline-none + ring-4 brand\r\n *   - Input hex → herda o Input do DS (Padrão 2, animado)\r\n *\r\n * `state` controla SÓ a borda do trigger swatch (espelha os states do Input),\r\n * NÃO é uma color variant. `disabled` é o ÚLTIMO compoundVariant (L-006).\r\n */\r\nexport const colorPickerStyles = tv({\r\n  slots: {\r\n    root: \"inline-flex w-full items-center gap-gp-md\",\r\n    swatch: [\r\n      \"relative inline-flex shrink-0 items-center justify-center\",\r\n      \"rounded-radius-md border\",\r\n      \"transition-[border-color,box-shadow]\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n      // opacity do disabled vem do slot root (cobre tudo uniformemente) — não duplicar aqui\r\n      \"disabled:cursor-not-allowed\",\r\n    ],\r\n    hexInput: \"flex-1\",\r\n    content: \"flex flex-col gap-gp-lg p-sp-md min-w-container-dropdown-lg\",\r\n    presetsGrid: \"grid grid-cols-10 gap-gp-sm\",\r\n    preset: [\r\n      \"relative inline-flex items-center justify-center\",\r\n      \"size-comp-xs rounded-radius-md border border-border-input\",\r\n      \"transition-[box-shadow,border-color]\",\r\n      \"hover:border-border-brand\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    presetCheck: \"size-icon-sm\",\r\n    customRow: \"flex flex-col gap-gp-md\",\r\n  },\r\n  variants: {\r\n    size: {\r\n      sm: { swatch: \"size-form-md\" },\r\n      md: { swatch: \"size-form-lg\" },\r\n    },\r\n    state: {\r\n      default: { swatch: \"border-border-input hover:border-border-brand\" },\r\n      error: { swatch: \"border-border-danger-muted\" },\r\n      warning: { swatch: \"border-border-warning-muted\" },\r\n      success: { swatch: \"border-border-success-muted\" },\r\n    },\r\n    disabled: {\r\n      true: { root: \"pointer-events-none opacity-50\" },\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // disabled SEMPRE por último (L-006)\r\n    {\r\n      disabled: true,\r\n      class: { swatch: \"border-border-input hover:border-border-input\" },\r\n    },\r\n  ],\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    state: \"default\",\r\n    disabled: false,\r\n  },\r\n});\r\n\r\nexport type ColorPickerVariantProps = VariantProps<typeof colorPickerStyles>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/ColorPicker/color-picker.styles.ts"
       },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · color-picker · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · combobox · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · command · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · context-menu · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · data-list · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1593,7 +1593,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/TableToolbar/popovers/filter-popover.tsx",
-        "content": "import { useEffect, useRef, useState, type ReactNode } from \"react\";\nimport { ChevronLeft, Filter, Plus, Trash2 } from \"lucide-react\";\nimport {\n  Popover,\n  PopoverAnchor,\n  PopoverContent,\n  PopoverTrigger,\n} from \"@/components/shadcn/popover\";\nimport { parseSqlFilter, entriesToSql, type ParsedFilterEntry } from \"./filter-sql-parser\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/shadcn/select\";\nimport { Button } from \"../../Button/button\";\nimport { Combobox } from \"../../Combobox\";\nimport { cn } from \"@/lib/utils\";\n\n/* ── Types ────────────────────────────────────────────────────────── */\nexport type FilterPopoverColumn = {\n  key: string;\n  /** Label da coluna (exibido no select) */\n  label: string;\n  /** Tipo do valor — define o input renderizado. Default `\"text\"`. */\n  type?: \"text\" | \"number\" | \"select\";\n  /** Opções pro select (quando `type=\"select\"`) */\n  options?: Array<{ value: string; label: string }>;\n  /** Tipo original do ColumnTypeRegistry (date, currency, etc) — opcional,\n   *  passado pelo DataTable pra `renderValueInput` resolver o input correto. */\n  filterType?: string;\n};\n\nexport type FilterPopoverOperator = {\n  id: string;\n  label: string;\n};\n\nexport type FilterPopoverEntry = {\n  id: string;\n  columnKey: string;\n  op: string;\n  /** Valor do filtro — `unknown` pra carregar string, array (multiSelect/tags),\n   *  tupla (between/date range), número, etc. Native fallback rendering coage\n   *  pra string via toString; `renderValueInput` recebe o valor puro. */\n  value: unknown;\n};\n\nexport const DEFAULT_FILTER_OPERATORS: FilterPopoverOperator[] = [\n  { id: \"equals\",     label: \"é\" },\n  { id: \"neq\",        label: \"não é\" },\n  { id: \"contains\",   label: \"contém\" },\n  { id: \"gt\",         label: \"maior que\" },\n  { id: \"lt\",         label: \"menor que\" },\n  { id: \"isAnyOf\",    label: \"é um de\" },\n  { id: \"isNoneOf\",   label: \"não é\" },\n  { id: \"between\",    label: \"entre\" },\n  { id: \"isEmpty\",    label: \"está vazio\" },\n  { id: \"isNotEmpty\", label: \"não está vazio\" },\n];\n\nfunction generateId(): string {\n  if (typeof crypto !== \"undefined\" && \"randomUUID\" in crypto) {\n    return crypto.randomUUID();\n  }\n  return `f_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;\n}\n\n/** Filter row tem valor real preenchido?\n *  - String vazia, null, array vazio/só nulls = vazio (pula)\n *  - Operadores isEmpty/isNotEmpty não precisam de valor (sempre ativos) */\nexport function isFilterEntryActive(entry: FilterPopoverEntry): boolean {\n  if (entry.op === \"isEmpty\" || entry.op === \"isNotEmpty\") return true;\n  const v = entry.value;\n  if (v == null) return false;\n  if (typeof v === \"string\") return v.length > 0;\n  if (Array.isArray(v)) {\n    return v.some((x) => x != null && (typeof x === \"string\" ? x.length > 0 : true));\n  }\n  return true;\n}\n\n/* ── Filter Row Editor ───────────────────────────────────────────── */\ntype FilterRowEditorProps = {\n  filter: FilterPopoverEntry;\n  index: number;\n  columns: FilterPopoverColumn[];\n  operators: FilterPopoverOperator[];\n  conjLabels: { first: ReactNode; rest: ReactNode };\n  onChange: (next: FilterPopoverEntry) => void;\n  onRemove: () => void;\n  /** Override do input de valor — passado da prop top-level pra delegar\n   *  ao consumer (que conhece o tipo via registry). Quando undefined, usa\n   *  fallback nativo (select/number/text). */\n  renderValueInput?: FilterPanelProps[\"renderValueInput\"];\n  /** Quando true, o Select \"Campo\" abre o dropdown imediatamente no mount\n   *  (usado pelo \"Adicionar condição\" pra o user escolher coluna sem clique\n   *  extra). */\n  autoOpenField?: boolean;\n  /** Resolve operators do column-type da nova coluna ao trocar o Campo. */\n  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;\n};\n\n/**\n * Classes compartilhadas pra trigger/input — mesma altura, padding e box-sizing\n * pra evitar resize visual entre os campos.\n */\nconst FIELD_BASE = cn(\n  \"min-h-form-md h-form-md min-w-0 w-full\",\n  \"rounded-radius-md\",\n  \"text-body-sm font-normal\",\n);\n\nconst INPUT_FIELD = cn(\n  FIELD_BASE,\n  \"px-pad-xl\",\n  \"bg-bg-input dark:bg-bg-muted\",\n  \"border border-border-input text-fg-default\",\n  \"placeholder:text-fg-muted outline-none\",\n  \"transition-[border-color,box-shadow] duration-150\",\n  \"focus:border-border-brand focus:shadow-sh-ring\",\n);\n\nfunction FilterRowEditor({\n  filter,\n  index,\n  columns,\n  operators,\n  conjLabels,\n  onChange,\n  onRemove,\n  renderValueInput,\n  autoOpenField,\n  getOperatorsForColumn,\n}: FilterRowEditorProps) {\n  const col = columns.find((c) => c.key === filter.columnKey);\n  const isSelect = col?.type === \"select\";\n  const inputType = col?.type === \"number\" ? \"number\" : \"text\";\n  // Defensive: se filter.op não está nos operators do column atual, faz FALLBACK\n  // pro primeiro operator disponível. Sem isso, o Select de operador renderiza\n  // VAZIO. Também propaga a normalização via useEffect.\n  const opValid = operators.some((o) => o.id === filter.op);\n  const effectiveOp = opValid ? filter.op : (operators[0]?.id ?? filter.op);\n  useEffect(() => {\n    if (!opValid && effectiveOp !== filter.op) {\n      onChange({ ...filter, op: effectiveOp });\n    }\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [opValid, effectiveOp, filter.id]);\n  // Quando consumer passa renderValueInput, delega 100% (registry-aware).\n  const customValueInput =\n    renderValueInput && col\n      ? renderValueInput({\n          column: col,\n          operator: filter.op,\n          value: filter.value,\n          onChange: (v) => onChange({ ...filter, value: v }),\n        })\n      : null;\n  // Coerce pra string só pro native fallback (select/input).\n  const stringValue =\n    typeof filter.value === \"string\"\n      ? filter.value\n      : filter.value == null\n        ? \"\"\n        : String(filter.value);\n\n  return (\n    <div\n      className={cn(\n        // Mobile: vertical (1 select por linha). sm+: horizontal alinhado.\n        \"flex flex-col sm:flex-row sm:items-center gap-gp-md\",\n      )}\n    >\n      <span className=\"text-caption-sm text-fg-muted shrink-0 sm:w-[18px] sm:text-center\">\n        {index === 0 ? conjLabels.first : conjLabels.rest}\n      </span>\n      {/* Campo (flex 1) — Combobox: lista de colunas pode ser longa (ex.: ~30 em\n          MAPACLIENTES), então precisa de busca (autocomplete) + scroll. */}\n      <div className=\"w-full sm:flex-[1_1_0%] sm:basis-0 min-w-0\">\n        <Combobox\n          value={filter.columnKey}\n          defaultOpen={autoOpenField}\n          options={columns.map((c) => ({ value: c.key, label: c.label }))}\n          onValueChange={(v) => {\n            const newCol = columns.find((c) => c.key === v);\n            const newOperators =\n              (newCol && getOperatorsForColumn?.(newCol)) ?? operators;\n            const opValid = newOperators.some((o) => o.id === filter.op);\n            const nextOp = opValid ? filter.op : (newOperators[0]?.id ?? filter.op);\n            onChange({ ...filter, columnKey: v, op: nextOp, value: \"\" });\n          }}\n          className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\n          align=\"start\"\n          aria-label=\"Campo\"\n          searchPlaceholder=\"Buscar campo…\"\n          emptyMessage=\"Nenhum campo\"\n        />\n      </div>\n      {/* Operador (flex 0.7 em desktop — menor, dá mais espaço pro valor) */}\n      <div className=\"w-full sm:flex-[0.7_1_0%] sm:basis-0 min-w-0 sm:min-w-[80px]\">\n        <Select\n          value={effectiveOp}\n          onValueChange={(v) => onChange({ ...filter, op: v })}\n        >\n          <SelectTrigger\n            className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\n            aria-label=\"Operador\"\n          >\n            <SelectValue />\n          </SelectTrigger>\n          <SelectContent>\n            {operators.map((o) => (\n              <SelectItem key={o.id} value={o.id}>\n                {o.label}\n              </SelectItem>\n            ))}\n          </SelectContent>\n        </Select>\n      </div>\n      {/* Valor (flex 1.3 — maior em desktop). */}\n      <div className=\"w-full sm:flex-[1.3_1_0%] sm:basis-0 min-w-0\">\n        {customValueInput ? (\n          customValueInput\n        ) : isSelect ? (\n          <Select\n            value={stringValue}\n            onValueChange={(v) => onChange({ ...filter, value: v })}\n          >\n            <SelectTrigger\n              className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\n              aria-label=\"Valor\"\n            >\n              <SelectValue placeholder=\"Selecione…\" />\n            </SelectTrigger>\n            <SelectContent>\n              {col!.options?.map((o) => (\n                <SelectItem key={o.value} value={o.value}>\n                  {o.label}\n                </SelectItem>\n              ))}\n            </SelectContent>\n          </Select>\n        ) : (\n          <input\n            type={inputType}\n            value={stringValue}\n            onChange={(e) => onChange({ ...filter, value: e.target.value })}\n            placeholder=\"Valor\"\n            aria-label=\"Valor\"\n            className={INPUT_FIELD}\n          />\n        )}\n      </div>\n      {/* Remover (Button do DS, mesma altura do input). */}\n      <Button\n        color=\"secondary\"\n        variant=\"ghost\"\n        size=\"icon-sm\"\n        aria-label=\"Remover condição\"\n        onClick={onRemove}\n        className=\"shrink-0 self-end sm:self-auto hover:bg-bg-danger-muted hover:text-fg-danger focus-visible:bg-bg-muted\"\n      >\n        <Trash2 strokeWidth={1.8} />\n      </Button>\n    </div>\n  );\n}\n\n/* ── Panel (miolo reutilizável) ──────────────────────────────────────\n * Query builder Visual/Avançado extraído do PopoverContent pra reuso no\n * `FilterPopover` (standalone) e no `ToolbarSettingsMenu` (drill-down).\n * Mantém o state do builder (mode/advancedText/pendingOpenFieldId).\n * `onBack` opcional → chevron de voltar no header. */\nexport type FilterPanelProps = {\n  columns: FilterPopoverColumn[];\n  operators?: FilterPopoverOperator[];\n  filters: FilterPopoverEntry[];\n  onFiltersChange: (next: FilterPopoverEntry[]) => void;\n  enableAdvanced?: boolean;\n  title?: ReactNode;\n  conjLabels?: { first: ReactNode; rest: ReactNode };\n  renderValueInput?: (params: {\n    column: FilterPopoverColumn;\n    operator: string;\n    value: unknown;\n    onChange: (next: unknown) => void;\n  }) => ReactNode;\n  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;\n  /** Quando passado, renderiza o botão \"voltar\" no header (drill-down). */\n  onBack?: () => void;\n};\n\nexport function FilterPanel({\n  columns,\n  operators = DEFAULT_FILTER_OPERATORS,\n  filters,\n  onFiltersChange,\n  enableAdvanced,\n  title = \"Filtros\",\n  conjLabels = { first: \"Se\", rest: \"E\" },\n  renderValueInput,\n  getOperatorsForColumn,\n  onBack,\n}: FilterPanelProps) {\n  const [mode, setMode] = useState<\"visual\" | \"advanced\">(\"visual\");\n  const [advancedText, setAdvancedText] = useState(\"\");\n  const [advancedError, setAdvancedError] = useState<string | null>(null);\n  // ID do último row adicionado via \"Adicionar condição\" — usado pra abrir o\n  // Select de Campo automaticamente. Reset após 1 render via useEffect.\n  const [pendingOpenFieldId, setPendingOpenFieldId] = useState<string | null>(null);\n  useEffect(() => {\n    if (pendingOpenFieldId == null) return;\n    const t = setTimeout(() => setPendingOpenFieldId(null), 0);\n    return () => clearTimeout(t);\n  }, [pendingOpenFieldId]);\n\n  // Purge de linhas em branco ao DESMONTAR o painel — fonte única de limpeza.\n  // O FilterPanel só vive enquanto o filtro avançado está aberto: fechar o\n  // popover, fechar o settings menu ou voltar pro nível root desmonta o painel.\n  // Aí removemos toda entry sem valor real (user clicou \"+ Adicionar\" e não\n  // preencheu) pra não poluir o filterModel nem ativar o indicador \"verde\".\n  // Latest-ref (L-028): lê filters/onFiltersChange no unmount-time, sem stale.\n  const latestRef = useRef({ filters, onFiltersChange });\n  latestRef.current = { filters, onFiltersChange };\n  useEffect(() => {\n    return () => {\n      const { filters: cur, onFiltersChange: change } = latestRef.current;\n      const active = cur.filter(isFilterEntryActive);\n      if (active.length !== cur.length) change(active);\n    };\n  }, []);\n\n  // Quando entra no modo advanced, hidrata textarea com filters atuais\n  useEffect(() => {\n    if (mode === \"advanced\") {\n      setAdvancedText(\n        entriesToSql(\n          filters.map((f) => ({\n            field: f.columnKey,\n            op: f.op as ParsedFilterEntry[\"op\"],\n            // value bruto (string | array) — entriesToSql serializa listas/tuplas\n            // como `[a, b]` pros ops estruturais (round-trip-safe).\n            value: Array.isArray(f.value)\n              ? (f.value as string[]).map((v) => String(v))\n              : f.value == null\n                ? \"\"\n                : String(f.value),\n          })),\n          \"AND\",\n        ),\n      );\n      setAdvancedError(null);\n    }\n    // eslint-disable-next-line react-hooks/exhaustive-deps\n  }, [mode]);\n\n  const validCount = filters.filter((f) => f.value).length;\n\n  const updateRow = (id: string, next: FilterPopoverEntry) =>\n    onFiltersChange(filters.map((f) => (f.id === id ? next : f)));\n\n  const removeRow = (id: string) =>\n    onFiltersChange(filters.filter((f) => f.id !== id));\n\n  const addRow = () => {\n    const firstCol = columns[0];\n    if (!firstCol) return;\n    const colOperators = getOperatorsForColumn?.(firstCol) ?? operators;\n    const newRow: FilterPopoverEntry = {\n      id: generateId(),\n      columnKey: firstCol.key,\n      op: colOperators[0]?.id ?? \"equals\",\n      value: \"\",\n    };\n    onFiltersChange([newRow, ...filters]);\n    setPendingOpenFieldId(newRow.id);\n  };\n\n  const clearAll = () => onFiltersChange([]);\n\n  /** Aplica o textarea SQL — parseia e converte em FilterPopoverEntry[]. */\n  const applyAdvanced = () => {\n    const result = parseSqlFilter(advancedText);\n    if (!result.ok) {\n      setAdvancedError(result.error);\n      return;\n    }\n    setAdvancedError(null);\n    const validKeys = new Set(columns.map((c) => c.key));\n    const valid = result.entries.filter((e) => validKeys.has(e.field));\n    const invalid = result.entries.filter((e) => !validKeys.has(e.field));\n    if (invalid.length > 0) {\n      setAdvancedError(\n        `Campos desconhecidos: ${invalid.map((e) => e.field).join(\", \")}`,\n      );\n      return;\n    }\n    onFiltersChange(\n      valid.map((e) => ({\n        id: generateId(),\n        columnKey: e.field,\n        op: e.op,\n        value: e.value,\n      })),\n    );\n    setMode(\"visual\");\n  };\n\n  return (\n    <>\n      {/* Header com tabs */}\n      <div className=\"flex-none flex items-center justify-between gap-gp-md px-pad-xl py-pad-lg border-b border-border-default\">\n        <div className=\"flex items-center gap-gp-md min-w-0\">\n          {onBack && (\n            <button\n              type=\"button\"\n              onClick={onBack}\n              aria-label=\"Voltar\"\n              className=\"grid place-items-center size-[20px] -ml-[2px] shrink-0 rounded-radius-sm bg-transparent text-fg-muted cursor-pointer outline-none hover:bg-bg-muted hover:text-fg-default focus-visible:bg-bg-muted [&_svg]:size-[16px]\"\n            >\n              <ChevronLeft strokeWidth={2.2} />\n            </button>\n          )}\n          <h3 className=\"text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0\">\n            {title}\n          </h3>\n        </div>\n        {enableAdvanced && (\n          <div\n            role=\"tablist\"\n            className=\"inline-flex items-center gap-[2px] p-[2px] bg-bg-muted rounded-radius-md h-[34px]\"\n          >\n            <button\n              type=\"button\"\n              role=\"tab\"\n              aria-selected={mode === \"visual\"}\n              onClick={() => setMode(\"visual\")}\n              className={cn(\n                \"h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring\",\n                \"transition-[background-color,color,box-shadow] duration-150\",\n                mode === \"visual\"\n                  ? \"bg-bg-accent text-fg-default font-semibold shadow-sh-sm\"\n                  : \"bg-transparent text-fg-muted hover:text-fg-default\",\n              )}\n            >\n              Visual\n            </button>\n            <button\n              type=\"button\"\n              role=\"tab\"\n              aria-selected={mode === \"advanced\"}\n              onClick={() => setMode(\"advanced\")}\n              className={cn(\n                \"h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring\",\n                \"transition-[background-color,color,box-shadow] duration-150\",\n                mode === \"advanced\"\n                  ? \"bg-bg-accent text-fg-default font-semibold shadow-sh-sm\"\n                  : \"bg-transparent text-fg-muted hover:text-fg-default\",\n              )}\n            >\n              Avançado\n            </button>\n          </div>\n        )}\n      </div>\n\n      {/* Body */}\n      {mode === \"visual\" ? (\n        filters.length === 0 ? (\n          <div className=\"flex flex-col items-center justify-center text-center px-pad-2xl py-pad-4xl\">\n            <Filter\n              strokeWidth={1.6}\n              className=\"size-[20px] text-fg-muted mb-pad-xl\"\n            />\n            <p className=\"text-body-sm font-semibold text-fg-default m-0\">\n              Nenhuma condição\n            </p>\n            <p className=\"text-body-xs font-normal text-fg-muted m-0 mt-pad-2xs mb-pad-2xl\">\n              Adicione filtros pra refinar a lista.\n            </p>\n            <button\n              type=\"button\"\n              onClick={addRow}\n              className={cn(\n                \"inline-flex items-center gap-gp-sm h-form-md px-pad-2xl rounded-radius-lg\",\n                \"bg-bg-brand text-fg-on-brand\",\n                \"text-body-sm font-semibold cursor-pointer outline-none\",\n                \"transition-[background-color] duration-150\",\n                \"hover:bg-bg-brand-hover focus-visible:shadow-sh-ring\",\n                \"[&_svg]:size-[14px]\",\n              )}\n            >\n              <Plus strokeWidth={2.4} />\n              Adicionar condição\n            </button>\n          </div>\n        ) : (\n          <>\n            {/* List scrollable */}\n            <div\n              className={cn(\n                \"flex-1 min-h-0 overflow-y-auto\",\n                \"[scrollbar-width:thin] [scrollbar-color:var(--color-border-default)_transparent]\",\n                \"[&::-webkit-scrollbar]:w-[6px]\",\n                \"[&::-webkit-scrollbar-thumb]:bg-border-default [&::-webkit-scrollbar-thumb]:rounded-full\",\n                \"[&::-webkit-scrollbar-track]:bg-transparent\",\n              )}\n            >\n              <div className=\"flex flex-col gap-gp-2xl sm:gap-gp-md p-pad-xl\">\n                {filters.map((f, i) => {\n                  const col = columns.find((c) => c.key === f.columnKey);\n                  const rowOperators =\n                    (col && getOperatorsForColumn?.(col)) ?? operators;\n                  return (\n                    <FilterRowEditor\n                      key={f.id}\n                      filter={f}\n                      index={i}\n                      columns={columns}\n                      operators={rowOperators}\n                      conjLabels={conjLabels}\n                      onChange={(next) => updateRow(f.id, next)}\n                      onRemove={() => removeRow(f.id)}\n                      renderValueInput={renderValueInput}\n                      autoOpenField={pendingOpenFieldId === f.id}\n                      getOperatorsForColumn={getOperatorsForColumn}\n                    />\n                  );\n                })}\n              </div>\n            </div>\n            {/* Add button — fora do scroll, full-width, dashed */}\n            <div className=\"flex-none px-pad-xl pb-pad-xl pt-0\">\n              <button\n                type=\"button\"\n                onClick={addRow}\n                className={cn(\n                  \"flex items-center justify-center gap-gp-sm w-full\",\n                  \"min-h-form-md px-pad-xl rounded-radius-md\",\n                  \"bg-transparent text-fg-muted\",\n                  \"border border-dashed border-border-default\",\n                  \"text-body-sm font-medium cursor-pointer outline-none\",\n                  \"transition-[background-color,color,border-color] duration-150\",\n                  \"hover:bg-bg-muted hover:text-fg-default hover:border-border-default\",\n                  \"focus-visible:bg-bg-muted focus-visible:text-fg-default\",\n                  \"[&_svg]:size-[14px]\",\n                )}\n              >\n                <Plus strokeWidth={2.2} />\n                Adicionar condição\n              </button>\n            </div>\n          </>\n        )\n      ) : (\n        <div className=\"flex-1 min-h-0 flex flex-col gap-gp-md p-pad-xl overflow-y-auto\">\n          <span className=\"text-caption-sm text-fg-muted\">\n            Editor livre — sintaxe estilo SQL. Operadores: <code>=</code>{\" \"}\n            <code>!=</code> <code>&gt;</code> <code>&lt;</code>{\" \"}\n            <code>contains</code>. Conectores: <code>AND</code>{\" \"}\n            <code>OR</code>.\n          </span>\n          <textarea\n            spellCheck={false}\n            value={advancedText}\n            onChange={(e) => {\n              setAdvancedText(e.target.value);\n              setAdvancedError(null);\n            }}\n            rows={8}\n            placeholder={`-- Ex:\\nstatus = \"active\"\\nAND value > 1000`}\n            className={cn(\n              \"w-full px-pad-xl py-pad-md rounded-radius-md\",\n              \"bg-bg-input dark:bg-bg-muted\",\n              \"border\",\n              advancedError ? \"border-border-critical\" : \"border-border-input\",\n              \"text-body-xs font-normal font-mono text-fg-default placeholder:text-fg-muted\",\n              \"outline-none resize-y\",\n              \"transition-[border-color,box-shadow] duration-150\",\n              advancedError\n                ? \"focus:border-border-critical focus:shadow-sh-ring-danger\"\n                : \"focus:border-border-brand focus:shadow-sh-ring\",\n            )}\n          />\n          {advancedError && (\n            <p className=\"text-caption-sm text-fg-critical\">\n              {advancedError}\n            </p>\n          )}\n          <button\n            type=\"button\"\n            onClick={applyAdvanced}\n            className={cn(\n              \"self-end px-pad-xl h-form-md rounded-radius-md\",\n              \"bg-bg-brand text-fg-on-brand\",\n              \"text-body-xs font-semibold\",\n              \"hover:bg-bg-brand-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n              \"transition-[background-color,box-shadow] duration-150\",\n            )}\n          >\n            Aplicar\n          </button>\n        </div>\n      )}\n\n      {/* Footer */}\n      <div className=\"flex-none flex items-center justify-between gap-gp-md px-pad-xl min-h-[44px] border-t border-border-default\">\n        <button\n          type=\"button\"\n          onClick={clearAll}\n          disabled={filters.length === 0}\n          className={cn(\n            \"text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none\",\n            \"hover:underline focus-visible:underline underline-offset-2\",\n            \"disabled:opacity-50 disabled:pointer-events-none disabled:no-underline\",\n          )}\n        >\n          Limpar todos\n        </button>\n        <span className=\"text-caption-sm text-fg-muted\">\n          {validCount === 0\n            ? \"Nenhum filtro ativo\"\n            : `${validCount} ${\n                validCount > 1 ? \"condições ativas\" : \"condição ativa\"\n              }`}\n        </span>\n      </div>\n    </>\n  );\n}\n\n/* ── Popover wrapper ─────────────────────────────────────────────── */\nexport type FilterPopoverProps = FilterPanelProps & {\n  /** Botão que abre o popover. Quando `anchor` é passado, este `trigger` é\n   *  ignorado — o popover é posicionado relativo ao `anchor` mas só abre\n   *  via prop `open` controlled (use case: split button externo). */\n  trigger: ReactNode;\n  /**\n   * Anchor element pra posicionar o popover SEM disparar abertura via click.\n   * Quando undefined, usa `trigger` como PopoverTrigger padrão.\n   */\n  anchor?: ReactNode;\n  align?: \"start\" | \"center\" | \"end\";\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n};\n\n/**\n * FilterPopover — popover de filtros estilo query builder.\n * Wrapper fino: renderiza o `<FilterPanel>` dentro do PopoverContent. A limpeza\n * de linhas em branco (user clicou \"+ Adicionar\" mas não preencheu valor) mora\n * no PRÓPRIO `FilterPanel` (unmount-purge) — fonte única que cobre este popover,\n * o drill-down do settings menu e o split button, independente de COMO fechou.\n *\n * Dumb: `filters` (array de entries) vem do consumer. Use o hook\n * `useToolbarFilters()` se quiser gerenciamento de estado pronto.\n */\nexport function FilterPopover({\n  trigger,\n  anchor,\n  align = \"end\",\n  open,\n  onOpenChange,\n  className,\n  ...panel\n}: FilterPopoverProps) {\n  return (\n    <Popover open={open} onOpenChange={onOpenChange}>\n      {anchor ? (\n        // Anchor mode: posiciona o popover mas NÃO dispara abertura — consumer\n        // controla via prop `open` externa (split button pattern).\n        <PopoverAnchor asChild>{anchor}</PopoverAnchor>\n      ) : (\n        <PopoverTrigger asChild>{trigger}</PopoverTrigger>\n      )}\n      <PopoverContent\n        align={align}\n        className={cn(\n          \"w-[560px] max-w-[calc(100vw-32px)] max-h-[min(480px,calc(100vh-80px))] p-0 flex flex-col min-h-0 overflow-hidden\",\n          className,\n        )}\n      >\n        <FilterPanel {...panel} />\n      </PopoverContent>\n    </Popover>\n  );\n}\n",
+        "content": "import { useEffect, useRef, useState, type ReactNode } from \"react\";\r\nimport { ChevronLeft, Filter, Plus, Trash2 } from \"lucide-react\";\r\nimport {\r\n  Popover,\r\n  PopoverAnchor,\r\n  PopoverContent,\r\n  PopoverTrigger,\r\n} from \"@/components/shadcn/popover\";\r\nimport { parseSqlFilter, entriesToSql, type ParsedFilterEntry } from \"./filter-sql-parser\";\r\nimport {\r\n  Select,\r\n  SelectContent,\r\n  SelectItem,\r\n  SelectTrigger,\r\n  SelectValue,\r\n} from \"@/components/shadcn/select\";\r\nimport { Button } from \"../../Button/button\";\r\nimport { Combobox } from \"../../Combobox\";\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/* ── Types ────────────────────────────────────────────────────────── */\r\nexport type FilterPopoverColumn = {\r\n  key: string;\r\n  /** Label da coluna (exibido no select) */\r\n  label: string;\r\n  /** Tipo do valor — define o input renderizado. Default `\"text\"`. */\r\n  type?: \"text\" | \"number\" | \"select\";\r\n  /** Opções pro select (quando `type=\"select\"`) */\r\n  options?: Array<{ value: string; label: string }>;\r\n  /** Tipo original do ColumnTypeRegistry (date, currency, etc) — opcional,\r\n   *  passado pelo DataTable pra `renderValueInput` resolver o input correto. */\r\n  filterType?: string;\r\n};\r\n\r\nexport type FilterPopoverOperator = {\r\n  id: string;\r\n  label: string;\r\n};\r\n\r\nexport type FilterPopoverEntry = {\r\n  id: string;\r\n  columnKey: string;\r\n  op: string;\r\n  /** Valor do filtro — `unknown` pra carregar string, array (multiSelect/tags),\r\n   *  tupla (between/date range), número, etc. Native fallback rendering coage\r\n   *  pra string via toString; `renderValueInput` recebe o valor puro. */\r\n  value: unknown;\r\n};\r\n\r\nexport const DEFAULT_FILTER_OPERATORS: FilterPopoverOperator[] = [\r\n  { id: \"equals\",     label: \"é\" },\r\n  { id: \"neq\",        label: \"não é\" },\r\n  { id: \"contains\",   label: \"contém\" },\r\n  { id: \"gt\",         label: \"maior que\" },\r\n  { id: \"lt\",         label: \"menor que\" },\r\n  { id: \"isAnyOf\",    label: \"é um de\" },\r\n  { id: \"isNoneOf\",   label: \"não é\" },\r\n  { id: \"between\",    label: \"entre\" },\r\n  { id: \"isEmpty\",    label: \"está vazio\" },\r\n  { id: \"isNotEmpty\", label: \"não está vazio\" },\r\n];\r\n\r\nfunction generateId(): string {\r\n  if (typeof crypto !== \"undefined\" && \"randomUUID\" in crypto) {\r\n    return crypto.randomUUID();\r\n  }\r\n  return `f_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`;\r\n}\r\n\r\n/** Filter row tem valor real preenchido?\r\n *  - String vazia, null, array vazio/só nulls = vazio (pula)\r\n *  - Operadores isEmpty/isNotEmpty não precisam de valor (sempre ativos) */\r\nexport function isFilterEntryActive(entry: FilterPopoverEntry): boolean {\r\n  if (entry.op === \"isEmpty\" || entry.op === \"isNotEmpty\") return true;\r\n  const v = entry.value;\r\n  if (v == null) return false;\r\n  if (typeof v === \"string\") return v.length > 0;\r\n  if (Array.isArray(v)) {\r\n    return v.some((x) => x != null && (typeof x === \"string\" ? x.length > 0 : true));\r\n  }\r\n  return true;\r\n}\r\n\r\n/* ── Filter Row Editor ───────────────────────────────────────────── */\r\ntype FilterRowEditorProps = {\r\n  filter: FilterPopoverEntry;\r\n  index: number;\r\n  columns: FilterPopoverColumn[];\r\n  operators: FilterPopoverOperator[];\r\n  conjLabels: { first: ReactNode; rest: ReactNode };\r\n  onChange: (next: FilterPopoverEntry) => void;\r\n  onRemove: () => void;\r\n  /** Override do input de valor — passado da prop top-level pra delegar\r\n   *  ao consumer (que conhece o tipo via registry). Quando undefined, usa\r\n   *  fallback nativo (select/number/text). */\r\n  renderValueInput?: FilterPanelProps[\"renderValueInput\"];\r\n  /** Quando true, o Select \"Campo\" abre o dropdown imediatamente no mount\r\n   *  (usado pelo \"Adicionar condição\" pra o user escolher coluna sem clique\r\n   *  extra). */\r\n  autoOpenField?: boolean;\r\n  /** Resolve operators do column-type da nova coluna ao trocar o Campo. */\r\n  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;\r\n};\r\n\r\n/**\r\n * Classes compartilhadas pra trigger/input — mesma altura, padding e box-sizing\r\n * pra evitar resize visual entre os campos.\r\n */\r\nconst FIELD_BASE = cn(\r\n  \"min-h-form-md h-form-md min-w-0 w-full\",\r\n  \"rounded-radius-md\",\r\n  \"text-body-sm font-normal\",\r\n);\r\n\r\nconst INPUT_FIELD = cn(\r\n  FIELD_BASE,\r\n  \"px-pad-xl\",\r\n  \"bg-bg-input dark:bg-bg-muted\",\r\n  \"border border-border-input text-fg-default\",\r\n  \"placeholder:text-fg-muted outline-none\",\r\n  \"transition-[border-color,box-shadow] duration-150\",\r\n  \"focus:border-border-brand focus:shadow-sh-ring\",\r\n);\r\n\r\nfunction FilterRowEditor({\r\n  filter,\r\n  index,\r\n  columns,\r\n  operators,\r\n  conjLabels,\r\n  onChange,\r\n  onRemove,\r\n  renderValueInput,\r\n  autoOpenField,\r\n  getOperatorsForColumn,\r\n}: FilterRowEditorProps) {\r\n  const col = columns.find((c) => c.key === filter.columnKey);\r\n  const isSelect = col?.type === \"select\";\r\n  const inputType = col?.type === \"number\" ? \"number\" : \"text\";\r\n  // Defensive: se filter.op não está nos operators do column atual, faz FALLBACK\r\n  // pro primeiro operator disponível. Sem isso, o Select de operador renderiza\r\n  // VAZIO. Também propaga a normalização via useEffect.\r\n  const opValid = operators.some((o) => o.id === filter.op);\r\n  const effectiveOp = opValid ? filter.op : (operators[0]?.id ?? filter.op);\r\n  useEffect(() => {\r\n    if (!opValid && effectiveOp !== filter.op) {\r\n      onChange({ ...filter, op: effectiveOp });\r\n    }\r\n    // eslint-disable-next-line react-hooks/exhaustive-deps\r\n  }, [opValid, effectiveOp, filter.id]);\r\n  // Quando consumer passa renderValueInput, delega 100% (registry-aware).\r\n  const customValueInput =\r\n    renderValueInput && col\r\n      ? renderValueInput({\r\n          column: col,\r\n          operator: filter.op,\r\n          value: filter.value,\r\n          onChange: (v) => onChange({ ...filter, value: v }),\r\n        })\r\n      : null;\r\n  // Coerce pra string só pro native fallback (select/input).\r\n  const stringValue =\r\n    typeof filter.value === \"string\"\r\n      ? filter.value\r\n      : filter.value == null\r\n        ? \"\"\r\n        : String(filter.value);\r\n\r\n  return (\r\n    <div\r\n      className={cn(\r\n        // Mobile: vertical (1 select por linha). sm+: horizontal alinhado.\r\n        \"flex flex-col sm:flex-row sm:items-center gap-gp-md\",\r\n      )}\r\n    >\r\n      <span className=\"text-caption-sm text-fg-muted shrink-0 sm:w-[18px] sm:text-center\">\r\n        {index === 0 ? conjLabels.first : conjLabels.rest}\r\n      </span>\r\n      {/* Campo (flex 1) — Combobox: lista de colunas pode ser longa (ex.: ~30 em\r\n          MAPACLIENTES), então precisa de busca (autocomplete) + scroll. */}\r\n      <div className=\"w-full sm:flex-[1_1_0%] sm:basis-0 min-w-0\">\r\n        <Combobox\r\n          value={filter.columnKey}\r\n          defaultOpen={autoOpenField}\r\n          options={columns.map((c) => ({ value: c.key, label: c.label }))}\r\n          onValueChange={(v) => {\r\n            const newCol = columns.find((c) => c.key === v);\r\n            const newOperators =\r\n              (newCol && getOperatorsForColumn?.(newCol)) ?? operators;\r\n            const opValid = newOperators.some((o) => o.id === filter.op);\r\n            const nextOp = opValid ? filter.op : (newOperators[0]?.id ?? filter.op);\r\n            onChange({ ...filter, columnKey: v, op: nextOp, value: \"\" });\r\n          }}\r\n          className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\r\n          align=\"start\"\r\n          aria-label=\"Campo\"\r\n          searchPlaceholder=\"Buscar campo…\"\r\n          emptyMessage=\"Nenhum campo\"\r\n        />\r\n      </div>\r\n      {/* Operador (flex 0.7 em desktop — menor, dá mais espaço pro valor) */}\r\n      <div className=\"w-full sm:flex-[0.7_1_0%] sm:basis-0 min-w-0 sm:min-w-[80px]\">\r\n        <Select\r\n          value={effectiveOp}\r\n          onValueChange={(v) => onChange({ ...filter, op: v })}\r\n        >\r\n          <SelectTrigger\r\n            className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\r\n            aria-label=\"Operador\"\r\n          >\r\n            <SelectValue />\r\n          </SelectTrigger>\r\n          <SelectContent>\r\n            {operators.map((o) => (\r\n              <SelectItem key={o.id} value={o.id}>\r\n                {o.label}\r\n              </SelectItem>\r\n            ))}\r\n          </SelectContent>\r\n        </Select>\r\n      </div>\r\n      {/* Valor (flex 1.3 — maior em desktop). */}\r\n      <div className=\"w-full sm:flex-[1.3_1_0%] sm:basis-0 min-w-0\">\r\n        {customValueInput ? (\r\n          customValueInput\r\n        ) : isSelect ? (\r\n          <Select\r\n            value={stringValue}\r\n            onValueChange={(v) => onChange({ ...filter, value: v })}\r\n          >\r\n            <SelectTrigger\r\n              className={cn(FIELD_BASE, \"px-pad-xl gap-gp-md\")}\r\n              aria-label=\"Valor\"\r\n            >\r\n              <SelectValue placeholder=\"Selecione…\" />\r\n            </SelectTrigger>\r\n            <SelectContent>\r\n              {col!.options?.map((o) => (\r\n                <SelectItem key={o.value} value={o.value}>\r\n                  {o.label}\r\n                </SelectItem>\r\n              ))}\r\n            </SelectContent>\r\n          </Select>\r\n        ) : (\r\n          <input\r\n            type={inputType}\r\n            value={stringValue}\r\n            onChange={(e) => onChange({ ...filter, value: e.target.value })}\r\n            placeholder=\"Valor\"\r\n            aria-label=\"Valor\"\r\n            className={INPUT_FIELD}\r\n          />\r\n        )}\r\n      </div>\r\n      {/* Remover (Button do DS, mesma altura do input). */}\r\n      <Button\r\n        color=\"secondary\"\r\n        variant=\"ghost\"\r\n        size=\"icon-sm\"\r\n        aria-label=\"Remover condição\"\r\n        onClick={onRemove}\r\n        className=\"shrink-0 self-end sm:self-auto hover:bg-bg-danger-muted hover:text-fg-danger focus-visible:bg-bg-muted\"\r\n      >\r\n        <Trash2 strokeWidth={1.8} />\r\n      </Button>\r\n    </div>\r\n  );\r\n}\r\n\r\n/* ── Panel (miolo reutilizável) ──────────────────────────────────────\r\n * Query builder Visual/Avançado extraído do PopoverContent pra reuso no\r\n * `FilterPopover` (standalone) e no `ToolbarSettingsMenu` (drill-down).\r\n * Mantém o state do builder (mode/advancedText/pendingOpenFieldId).\r\n * `onBack` opcional → chevron de voltar no header. */\r\nexport type FilterPanelProps = {\r\n  columns: FilterPopoverColumn[];\r\n  operators?: FilterPopoverOperator[];\r\n  filters: FilterPopoverEntry[];\r\n  onFiltersChange: (next: FilterPopoverEntry[]) => void;\r\n  enableAdvanced?: boolean;\r\n  title?: ReactNode;\r\n  conjLabels?: { first: ReactNode; rest: ReactNode };\r\n  renderValueInput?: (params: {\r\n    column: FilterPopoverColumn;\r\n    operator: string;\r\n    value: unknown;\r\n    onChange: (next: unknown) => void;\r\n  }) => ReactNode;\r\n  getOperatorsForColumn?: (column: FilterPopoverColumn) => FilterPopoverOperator[] | undefined;\r\n  /** Quando passado, renderiza o botão \"voltar\" no header (drill-down). */\r\n  onBack?: () => void;\r\n};\r\n\r\nexport function FilterPanel({\r\n  columns,\r\n  operators = DEFAULT_FILTER_OPERATORS,\r\n  filters,\r\n  onFiltersChange,\r\n  enableAdvanced,\r\n  title = \"Filtros\",\r\n  conjLabels = { first: \"Se\", rest: \"E\" },\r\n  renderValueInput,\r\n  getOperatorsForColumn,\r\n  onBack,\r\n}: FilterPanelProps) {\r\n  const [mode, setMode] = useState<\"visual\" | \"advanced\">(\"visual\");\r\n  const [advancedText, setAdvancedText] = useState(\"\");\r\n  const [advancedError, setAdvancedError] = useState<string | null>(null);\r\n  // ID do último row adicionado via \"Adicionar condição\" — usado pra abrir o\r\n  // Select de Campo automaticamente. Reset após 1 render via useEffect.\r\n  const [pendingOpenFieldId, setPendingOpenFieldId] = useState<string | null>(null);\r\n  useEffect(() => {\r\n    if (pendingOpenFieldId == null) return;\r\n    const t = setTimeout(() => setPendingOpenFieldId(null), 0);\r\n    return () => clearTimeout(t);\r\n  }, [pendingOpenFieldId]);\r\n\r\n  // Purge de linhas em branco ao DESMONTAR o painel — fonte única de limpeza.\r\n  // O FilterPanel só vive enquanto o filtro avançado está aberto: fechar o\r\n  // popover, fechar o settings menu ou voltar pro nível root desmonta o painel.\r\n  // Aí removemos toda entry sem valor real (user clicou \"+ Adicionar\" e não\r\n  // preencheu) pra não poluir o filterModel nem ativar o indicador \"verde\".\r\n  // Latest-ref (L-028): lê filters/onFiltersChange no unmount-time, sem stale.\r\n  const latestRef = useRef({ filters, onFiltersChange });\r\n  latestRef.current = { filters, onFiltersChange };\r\n  useEffect(() => {\r\n    return () => {\r\n      const { filters: cur, onFiltersChange: change } = latestRef.current;\r\n      const active = cur.filter(isFilterEntryActive);\r\n      if (active.length !== cur.length) change(active);\r\n    };\r\n  }, []);\r\n\r\n  // Quando entra no modo advanced, hidrata textarea com filters atuais\r\n  useEffect(() => {\r\n    if (mode === \"advanced\") {\r\n      setAdvancedText(\r\n        entriesToSql(\r\n          filters.map((f) => ({\r\n            field: f.columnKey,\r\n            op: f.op as ParsedFilterEntry[\"op\"],\r\n            // value bruto (string | array) — entriesToSql serializa listas/tuplas\r\n            // como `[a, b]` pros ops estruturais (round-trip-safe).\r\n            value: Array.isArray(f.value)\r\n              ? (f.value as string[]).map((v) => String(v))\r\n              : f.value == null\r\n                ? \"\"\r\n                : String(f.value),\r\n          })),\r\n          \"AND\",\r\n        ),\r\n      );\r\n      setAdvancedError(null);\r\n    }\r\n    // eslint-disable-next-line react-hooks/exhaustive-deps\r\n  }, [mode]);\r\n\r\n  const validCount = filters.filter((f) => f.value).length;\r\n\r\n  const updateRow = (id: string, next: FilterPopoverEntry) =>\r\n    onFiltersChange(filters.map((f) => (f.id === id ? next : f)));\r\n\r\n  const removeRow = (id: string) =>\r\n    onFiltersChange(filters.filter((f) => f.id !== id));\r\n\r\n  const addRow = () => {\r\n    const firstCol = columns[0];\r\n    if (!firstCol) return;\r\n    const colOperators = getOperatorsForColumn?.(firstCol) ?? operators;\r\n    const newRow: FilterPopoverEntry = {\r\n      id: generateId(),\r\n      columnKey: firstCol.key,\r\n      op: colOperators[0]?.id ?? \"equals\",\r\n      value: \"\",\r\n    };\r\n    onFiltersChange([newRow, ...filters]);\r\n    setPendingOpenFieldId(newRow.id);\r\n  };\r\n\r\n  const clearAll = () => onFiltersChange([]);\r\n\r\n  /** Aplica o textarea SQL — parseia e converte em FilterPopoverEntry[]. */\r\n  const applyAdvanced = () => {\r\n    const result = parseSqlFilter(advancedText);\r\n    if (!result.ok) {\r\n      setAdvancedError(result.error);\r\n      return;\r\n    }\r\n    setAdvancedError(null);\r\n    const validKeys = new Set(columns.map((c) => c.key));\r\n    const valid = result.entries.filter((e) => validKeys.has(e.field));\r\n    const invalid = result.entries.filter((e) => !validKeys.has(e.field));\r\n    if (invalid.length > 0) {\r\n      setAdvancedError(\r\n        `Campos desconhecidos: ${invalid.map((e) => e.field).join(\", \")}`,\r\n      );\r\n      return;\r\n    }\r\n    onFiltersChange(\r\n      valid.map((e) => ({\r\n        id: generateId(),\r\n        columnKey: e.field,\r\n        op: e.op,\r\n        value: e.value,\r\n      })),\r\n    );\r\n    setMode(\"visual\");\r\n  };\r\n\r\n  return (\r\n    <>\r\n      {/* Header com tabs */}\r\n      <div className=\"flex-none flex items-center justify-between gap-gp-md px-pad-xl py-pad-lg border-b border-border-default\">\r\n        <div className=\"flex items-center gap-gp-md min-w-0\">\r\n          {onBack && (\r\n            <button\r\n              type=\"button\"\r\n              onClick={onBack}\r\n              aria-label=\"Voltar\"\r\n              className=\"grid place-items-center size-[20px] -ml-[2px] shrink-0 rounded-radius-sm bg-transparent text-fg-muted cursor-pointer outline-none hover:bg-bg-muted hover:text-fg-default focus-visible:bg-bg-muted [&_svg]:size-[16px]\"\r\n            >\r\n              <ChevronLeft strokeWidth={2.2} />\r\n            </button>\r\n          )}\r\n          <h3 className=\"text-caption-sm font-semibold text-fg-muted uppercase tracking-wide leading-none m-0\">\r\n            {title}\r\n          </h3>\r\n        </div>\r\n        {enableAdvanced && (\r\n          <div\r\n            role=\"tablist\"\r\n            className=\"inline-flex items-center gap-[2px] p-[2px] bg-bg-muted rounded-radius-md h-[34px]\"\r\n          >\r\n            <button\r\n              type=\"button\"\r\n              role=\"tab\"\r\n              aria-selected={mode === \"visual\"}\r\n              onClick={() => setMode(\"visual\")}\r\n              className={cn(\r\n                \"h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring\",\r\n                \"transition-[background-color,color,box-shadow] duration-150\",\r\n                mode === \"visual\"\r\n                  ? \"bg-bg-accent text-fg-default font-semibold shadow-sh-sm\"\r\n                  : \"bg-transparent text-fg-muted hover:text-fg-default\",\r\n              )}\r\n            >\r\n              Visual\r\n            </button>\r\n            <button\r\n              type=\"button\"\r\n              role=\"tab\"\r\n              aria-selected={mode === \"advanced\"}\r\n              onClick={() => setMode(\"advanced\")}\r\n              className={cn(\r\n                \"h-[30px] px-pad-lg rounded-radius-sm text-body-xs font-medium cursor-pointer outline-none focus-visible:shadow-sh-ring\",\r\n                \"transition-[background-color,color,box-shadow] duration-150\",\r\n                mode === \"advanced\"\r\n                  ? \"bg-bg-accent text-fg-default font-semibold shadow-sh-sm\"\r\n                  : \"bg-transparent text-fg-muted hover:text-fg-default\",\r\n              )}\r\n            >\r\n              Avançado\r\n            </button>\r\n          </div>\r\n        )}\r\n      </div>\r\n\r\n      {/* Body */}\r\n      {mode === \"visual\" ? (\r\n        filters.length === 0 ? (\r\n          <div className=\"flex flex-col items-center justify-center text-center px-pad-2xl py-pad-4xl\">\r\n            <Filter\r\n              strokeWidth={1.6}\r\n              className=\"size-[20px] text-fg-muted mb-pad-xl\"\r\n            />\r\n            <p className=\"text-body-sm font-semibold text-fg-default m-0\">\r\n              Nenhuma condição\r\n            </p>\r\n            <p className=\"text-body-xs font-normal text-fg-muted m-0 mt-pad-2xs mb-pad-2xl\">\r\n              Adicione filtros pra refinar a lista.\r\n            </p>\r\n            <button\r\n              type=\"button\"\r\n              onClick={addRow}\r\n              className={cn(\r\n                \"inline-flex items-center gap-gp-sm h-form-md px-pad-2xl rounded-radius-lg\",\r\n                \"bg-bg-brand text-fg-on-brand\",\r\n                \"text-body-sm font-semibold cursor-pointer outline-none\",\r\n                \"transition-[background-color] duration-150\",\r\n                \"hover:bg-bg-brand-hover focus-visible:shadow-sh-ring\",\r\n                \"[&_svg]:size-[14px]\",\r\n              )}\r\n            >\r\n              <Plus strokeWidth={2.4} />\r\n              Adicionar condição\r\n            </button>\r\n          </div>\r\n        ) : (\r\n          <>\r\n            {/* List scrollable */}\r\n            <div\r\n              className={cn(\r\n                \"flex-1 min-h-0 overflow-y-auto\",\r\n                \"[scrollbar-width:thin] [scrollbar-color:var(--color-border-default)_transparent]\",\r\n                \"[&::-webkit-scrollbar]:w-[6px]\",\r\n                \"[&::-webkit-scrollbar-thumb]:bg-border-default [&::-webkit-scrollbar-thumb]:rounded-full\",\r\n                \"[&::-webkit-scrollbar-track]:bg-transparent\",\r\n              )}\r\n            >\r\n              <div className=\"flex flex-col gap-gp-2xl sm:gap-gp-md p-pad-xl\">\r\n                {filters.map((f, i) => {\r\n                  const col = columns.find((c) => c.key === f.columnKey);\r\n                  const rowOperators =\r\n                    (col && getOperatorsForColumn?.(col)) ?? operators;\r\n                  return (\r\n                    <FilterRowEditor\r\n                      key={f.id}\r\n                      filter={f}\r\n                      index={i}\r\n                      columns={columns}\r\n                      operators={rowOperators}\r\n                      conjLabels={conjLabels}\r\n                      onChange={(next) => updateRow(f.id, next)}\r\n                      onRemove={() => removeRow(f.id)}\r\n                      renderValueInput={renderValueInput}\r\n                      autoOpenField={pendingOpenFieldId === f.id}\r\n                      getOperatorsForColumn={getOperatorsForColumn}\r\n                    />\r\n                  );\r\n                })}\r\n              </div>\r\n            </div>\r\n            {/* Add button — fora do scroll, full-width, dashed */}\r\n            <div className=\"flex-none px-pad-xl pb-pad-xl pt-0\">\r\n              <button\r\n                type=\"button\"\r\n                onClick={addRow}\r\n                className={cn(\r\n                  \"flex items-center justify-center gap-gp-sm w-full\",\r\n                  \"min-h-form-md px-pad-xl rounded-radius-md\",\r\n                  \"bg-transparent text-fg-muted\",\r\n                  \"border border-dashed border-border-default\",\r\n                  \"text-body-sm font-medium cursor-pointer outline-none\",\r\n                  \"transition-[background-color,color,border-color] duration-150\",\r\n                  \"hover:bg-bg-muted hover:text-fg-default hover:border-border-default\",\r\n                  \"focus-visible:bg-bg-muted focus-visible:text-fg-default\",\r\n                  \"[&_svg]:size-[14px]\",\r\n                )}\r\n              >\r\n                <Plus strokeWidth={2.2} />\r\n                Adicionar condição\r\n              </button>\r\n            </div>\r\n          </>\r\n        )\r\n      ) : (\r\n        <div className=\"flex-1 min-h-0 flex flex-col gap-gp-md p-pad-xl overflow-y-auto\">\r\n          <span className=\"text-caption-sm text-fg-muted\">\r\n            Editor livre — sintaxe estilo SQL. Operadores: <code>=</code>{\" \"}\r\n            <code>!=</code> <code>&gt;</code> <code>&lt;</code>{\" \"}\r\n            <code>contains</code>. Conectores: <code>AND</code>{\" \"}\r\n            <code>OR</code>.\r\n          </span>\r\n          <textarea\r\n            spellCheck={false}\r\n            value={advancedText}\r\n            onChange={(e) => {\r\n              setAdvancedText(e.target.value);\r\n              setAdvancedError(null);\r\n            }}\r\n            rows={8}\r\n            placeholder={`-- Ex:\\nstatus = \"active\"\\nAND value > 1000`}\r\n            className={cn(\r\n              \"w-full px-pad-xl py-pad-md rounded-radius-md\",\r\n              \"bg-bg-input dark:bg-bg-muted\",\r\n              \"border\",\r\n              advancedError ? \"border-border-danger-muted\" : \"border-border-input\",\r\n              \"text-body-xs font-normal font-mono text-fg-default placeholder:text-fg-muted\",\r\n              \"outline-none resize-y\",\r\n              \"transition-[border-color,box-shadow] duration-150\",\r\n              advancedError\r\n                ? \"focus:border-border-danger-muted focus:shadow-sh-ring-danger\"\r\n                : \"focus:border-border-brand focus:shadow-sh-ring\",\r\n            )}\r\n          />\r\n          {advancedError && (\r\n            <p className=\"text-caption-sm text-fg-danger\">\r\n              {advancedError}\r\n            </p>\r\n          )}\r\n          <button\r\n            type=\"button\"\r\n            onClick={applyAdvanced}\r\n            className={cn(\r\n              \"self-end px-pad-xl h-form-md rounded-radius-md\",\r\n              \"bg-bg-brand text-fg-on-brand\",\r\n              \"text-body-xs font-semibold\",\r\n              \"hover:bg-bg-brand-hover focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n              \"transition-[background-color,box-shadow] duration-150\",\r\n            )}\r\n          >\r\n            Aplicar\r\n          </button>\r\n        </div>\r\n      )}\r\n\r\n      {/* Footer */}\r\n      <div className=\"flex-none flex items-center justify-between gap-gp-md px-pad-xl min-h-[44px] border-t border-border-default\">\r\n        <button\r\n          type=\"button\"\r\n          onClick={clearAll}\r\n          disabled={filters.length === 0}\r\n          className={cn(\r\n            \"text-body-xs font-medium text-fg-brand bg-transparent border-0 p-0 cursor-pointer outline-none\",\r\n            \"hover:underline focus-visible:underline underline-offset-2\",\r\n            \"disabled:opacity-50 disabled:pointer-events-none disabled:no-underline\",\r\n          )}\r\n        >\r\n          Limpar todos\r\n        </button>\r\n        <span className=\"text-caption-sm text-fg-muted\">\r\n          {validCount === 0\r\n            ? \"Nenhum filtro ativo\"\r\n            : `${validCount} ${\r\n                validCount > 1 ? \"condições ativas\" : \"condição ativa\"\r\n              }`}\r\n        </span>\r\n      </div>\r\n    </>\r\n  );\r\n}\r\n\r\n/* ── Popover wrapper ─────────────────────────────────────────────── */\r\nexport type FilterPopoverProps = FilterPanelProps & {\r\n  /** Botão que abre o popover. Quando `anchor` é passado, este `trigger` é\r\n   *  ignorado — o popover é posicionado relativo ao `anchor` mas só abre\r\n   *  via prop `open` controlled (use case: split button externo). */\r\n  trigger: ReactNode;\r\n  /**\r\n   * Anchor element pra posicionar o popover SEM disparar abertura via click.\r\n   * Quando undefined, usa `trigger` como PopoverTrigger padrão.\r\n   */\r\n  anchor?: ReactNode;\r\n  align?: \"start\" | \"center\" | \"end\";\r\n  open?: boolean;\r\n  onOpenChange?: (open: boolean) => void;\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * FilterPopover — popover de filtros estilo query builder.\r\n * Wrapper fino: renderiza o `<FilterPanel>` dentro do PopoverContent. A limpeza\r\n * de linhas em branco (user clicou \"+ Adicionar\" mas não preencheu valor) mora\r\n * no PRÓPRIO `FilterPanel` (unmount-purge) — fonte única que cobre este popover,\r\n * o drill-down do settings menu e o split button, independente de COMO fechou.\r\n *\r\n * Dumb: `filters` (array de entries) vem do consumer. Use o hook\r\n * `useToolbarFilters()` se quiser gerenciamento de estado pronto.\r\n */\r\nexport function FilterPopover({\r\n  trigger,\r\n  anchor,\r\n  align = \"end\",\r\n  open,\r\n  onOpenChange,\r\n  className,\r\n  ...panel\r\n}: FilterPopoverProps) {\r\n  return (\r\n    <Popover open={open} onOpenChange={onOpenChange}>\r\n      {anchor ? (\r\n        // Anchor mode: posiciona o popover mas NÃO dispara abertura — consumer\r\n        // controla via prop `open` externa (split button pattern).\r\n        <PopoverAnchor asChild>{anchor}</PopoverAnchor>\r\n      ) : (\r\n        <PopoverTrigger asChild>{trigger}</PopoverTrigger>\r\n      )}\r\n      <PopoverContent\r\n        align={align}\r\n        className={cn(\r\n          \"w-[560px] max-w-[calc(100vw-32px)] max-h-[min(480px,calc(100vh-80px))] p-0 flex flex-col min-h-0 overflow-hidden\",\r\n          className,\r\n        )}\r\n      >\r\n        <FilterPanel {...panel} />\r\n      </PopoverContent>\r\n    </Popover>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/TableToolbar/popovers/filter-popover.tsx"
       },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · data-table · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · date-picker · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · dialog · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · drawer · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · dropdown-menu · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · empty-state · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-app-shell · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-chat · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2245,13 +2245,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/examples/clientes/_table-data.ts",
-        "content": "/**\r\n * Dados base compartilhados (extraídos do showcase TableDoc do DS).\r\n * Mantém o exemplo autossuficiente — sem dependência da infra de preview.\r\n */\r\n\r\nexport const STATUSES: Record<string, { label: string; color: string }> = {\r\n  active: { label: \"Ativo\", color: \"var(--color-fg-success)\" },\r\n  pending: { label: \"Pendente\", color: \"var(--color-fg-warning)\" },\r\n  paused: { label: \"Pausado\", color: \"var(--color-fg-info)\" },\r\n  inactive: { label: \"Inativo\", color: \"var(--color-fg-muted)\" },\r\n};\r\n\r\nexport type CategoryKind = \"warning\" | \"info\" | \"success\" | \"neutral\";\r\nexport const CATEGORIES: Record<string, { label: string; kind: CategoryKind }> = {\r\n  royal: { label: \"Royal\", kind: \"warning\" },\r\n  licenciado: { label: \"Licenciado\", kind: \"info\" },\r\n  lead: { label: \"Lead\", kind: \"success\" },\r\n};\r\n\r\nexport const AGENTS: Record<string, { name: string; initials: string; color: string }> = {\r\n  you: { name: \"Voce\", initials: \"VC\", color: \"#0a3a2e\" },\r\n  aline: { name: \"Aline Castro\", initials: \"AC\", color: \"#f59e0b\" },\r\n  carlos: { name: \"Carlos Souza\", initials: \"CS\", color: \"#8754ec\" },\r\n  maria: { name: \"Maria Lima\", initials: \"ML\", color: \"#ef4444\" },\r\n};\r\n\r\nexport type ClientRow = {\r\n  id: string;\r\n  name: string;\r\n  initials: string;\r\n  avatarColor: string;\r\n  email: string;\r\n  phone: string;\r\n  statusId: keyof typeof STATUSES;\r\n  categoryId: keyof typeof CATEGORIES;\r\n  location: string;\r\n  value: number;\r\n  agentId: keyof typeof AGENTS;\r\n  createdAt: number;\r\n  lastContact: number;\r\n};\r\n\r\nconst BASE_DATE = new Date(\"2026-04-15T12:00:00Z\").getTime();\r\nconst DAY_MS = 86400000;\r\n\r\nexport const CLIENTS_MOCK: ClientRow[] = [\r\n  { id: \"CLI-2401\", name: \"Maria Silva\", initials: \"MS\", avatarColor: \"#f59e0b\", email: \"maria.silva@example.com\", phone: \"+55 11 91234-5678\", statusId: \"active\", categoryId: \"royal\", location: \"São Paulo, SP\", value: 4800, agentId: \"you\", createdAt: BASE_DATE - 65 * DAY_MS, lastContact: BASE_DATE - 2 * DAY_MS },\r\n  { id: \"CLI-2402\", name: \"João Santos\", initials: \"JS\", avatarColor: \"#0a3a2e\", email: \"joao.santos@example.com\", phone: \"+55 11 92345-6789\", statusId: \"pending\", categoryId: \"licenciado\", location: \"Rio de Janeiro, RJ\", value: 12300, agentId: \"aline\", createdAt: BASE_DATE - 58 * DAY_MS, lastContact: BASE_DATE - 5 * DAY_MS },\r\n  { id: \"CLI-2403\", name: \"Carlos Oliveira\", initials: \"CO\", avatarColor: \"#8754ec\", email: \"carlos.oliveira@example.com\", phone: \"+55 11 93456-7890\", statusId: \"active\", categoryId: \"lead\", location: \"Belo Horizonte, MG\", value: 2150, agentId: \"carlos\", createdAt: BASE_DATE - 51 * DAY_MS, lastContact: BASE_DATE - 1 * DAY_MS },\r\n  { id: \"CLI-2404\", name: \"Ana Costa\", initials: \"AC\", avatarColor: \"#1cb280\", email: \"ana.costa@example.com\", phone: \"+55 11 94567-8901\", statusId: \"paused\", categoryId: \"royal\", location: \"Porto Alegre, RS\", value: 8900, agentId: \"maria\", createdAt: BASE_DATE - 44 * DAY_MS, lastContact: BASE_DATE - 12 * DAY_MS },\r\n  { id: \"CLI-2405\", name: \"Pedro Pereira\", initials: \"PP\", avatarColor: \"#ef4444\", email: \"pedro.pereira@example.com\", phone: \"+55 11 95678-9012\", statusId: \"inactive\", categoryId: \"lead\", location: \"Curitiba, PR\", value: 1100, agentId: \"you\", createdAt: BASE_DATE - 37 * DAY_MS, lastContact: BASE_DATE - 30 * DAY_MS },\r\n  { id: \"CLI-2406\", name: \"Lúcia Almeida\", initials: \"LA\", avatarColor: \"#f9a47a\", email: \"lucia.almeida@example.com\", phone: \"+55 11 96789-0123\", statusId: \"active\", categoryId: \"licenciado\", location: \"Recife, PE\", value: 6750, agentId: \"aline\", createdAt: BASE_DATE - 30 * DAY_MS, lastContact: BASE_DATE - 3 * DAY_MS },\r\n  { id: \"CLI-2407\", name: \"Roberto Souza\", initials: \"RS\", avatarColor: \"#0088cc\", email: \"roberto.souza@example.com\", phone: \"+55 11 97890-1234\", statusId: \"pending\", categoryId: \"royal\", location: \"São Paulo, SP\", value: 15200, agentId: \"carlos\", createdAt: BASE_DATE - 23 * DAY_MS, lastContact: BASE_DATE - 7 * DAY_MS },\r\n  { id: \"CLI-2408\", name: \"Fernanda Lima\", initials: \"FL\", avatarColor: \"#e1306c\", email: \"fernanda.lima@example.com\", phone: \"+55 11 98901-2345\", statusId: \"active\", categoryId: \"lead\", location: \"Rio de Janeiro, RJ\", value: 3400, agentId: \"maria\", createdAt: BASE_DATE - 16 * DAY_MS, lastContact: BASE_DATE - 1 * DAY_MS },\r\n  { id: \"CLI-2409\", name: \"Bruno Rodrigues\", initials: \"BR\", avatarColor: \"#70c748\", email: \"bruno.rodrigues@example.com\", phone: \"+55 11 99012-3456\", statusId: \"paused\", categoryId: \"licenciado\", location: \"Belo Horizonte, MG\", value: 5600, agentId: \"you\", createdAt: BASE_DATE - 9 * DAY_MS, lastContact: BASE_DATE - 6 * DAY_MS },\r\n  { id: \"CLI-2410\", name: \"Camila Ribeiro\", initials: \"CR\", avatarColor: \"#8754ec\", email: \"camila.ribeiro@example.com\", phone: \"+55 11 90123-4567\", statusId: \"active\", categoryId: \"royal\", location: \"Porto Alegre, RS\", value: 9800, agentId: \"aline\", createdAt: BASE_DATE - 2 * DAY_MS, lastContact: BASE_DATE },\r\n];\r\n",
+        "content": "/**\r\n * Dados base compartilhados. Espelha `src/preview/pages/_table-data.ts` do DS — que\r\n * até v0.30.0 morava dentro do `TableDoc.tsx` e foi extraído pra lá em v0.30.1 pelo\r\n * mesmo motivo que existe aqui: fixture compartilhada não pode viver numa Doc page.\r\n * Mantém o exemplo autossuficiente — sem dependência da infra de preview.\r\n */\r\n\r\nexport const STATUSES: Record<string, { label: string; color: string }> = {\r\n  active: { label: \"Ativo\", color: \"var(--color-fg-success)\" },\r\n  pending: { label: \"Pendente\", color: \"var(--color-fg-warning)\" },\r\n  paused: { label: \"Pausado\", color: \"var(--color-fg-info)\" },\r\n  inactive: { label: \"Inativo\", color: \"var(--color-fg-muted)\" },\r\n};\r\n\r\nexport type CategoryKind = \"warning\" | \"info\" | \"success\" | \"neutral\";\r\nexport const CATEGORIES: Record<string, { label: string; kind: CategoryKind }> = {\r\n  royal: { label: \"Royal\", kind: \"warning\" },\r\n  licenciado: { label: \"Licenciado\", kind: \"info\" },\r\n  lead: { label: \"Lead\", kind: \"success\" },\r\n};\r\n\r\nexport const AGENTS: Record<string, { name: string; initials: string; color: string }> = {\r\n  you: { name: \"Voce\", initials: \"VC\", color: \"#0a3a2e\" },\r\n  aline: { name: \"Aline Castro\", initials: \"AC\", color: \"#f59e0b\" },\r\n  carlos: { name: \"Carlos Souza\", initials: \"CS\", color: \"#8754ec\" },\r\n  maria: { name: \"Maria Lima\", initials: \"ML\", color: \"#ef4444\" },\r\n};\r\n\r\nexport type ClientRow = {\r\n  id: string;\r\n  name: string;\r\n  initials: string;\r\n  avatarColor: string;\r\n  email: string;\r\n  phone: string;\r\n  statusId: keyof typeof STATUSES;\r\n  categoryId: keyof typeof CATEGORIES;\r\n  location: string;\r\n  value: number;\r\n  agentId: keyof typeof AGENTS;\r\n  createdAt: number;\r\n  lastContact: number;\r\n};\r\n\r\nconst BASE_DATE = new Date(\"2026-04-15T12:00:00Z\").getTime();\r\nconst DAY_MS = 86400000;\r\n\r\nexport const CLIENTS_MOCK: ClientRow[] = [\r\n  { id: \"CLI-2401\", name: \"Maria Silva\", initials: \"MS\", avatarColor: \"#f59e0b\", email: \"maria.silva@example.com\", phone: \"+55 11 91234-5678\", statusId: \"active\", categoryId: \"royal\", location: \"São Paulo, SP\", value: 4800, agentId: \"you\", createdAt: BASE_DATE - 65 * DAY_MS, lastContact: BASE_DATE - 2 * DAY_MS },\r\n  { id: \"CLI-2402\", name: \"João Santos\", initials: \"JS\", avatarColor: \"#0a3a2e\", email: \"joao.santos@example.com\", phone: \"+55 11 92345-6789\", statusId: \"pending\", categoryId: \"licenciado\", location: \"Rio de Janeiro, RJ\", value: 12300, agentId: \"aline\", createdAt: BASE_DATE - 58 * DAY_MS, lastContact: BASE_DATE - 5 * DAY_MS },\r\n  { id: \"CLI-2403\", name: \"Carlos Oliveira\", initials: \"CO\", avatarColor: \"#8754ec\", email: \"carlos.oliveira@example.com\", phone: \"+55 11 93456-7890\", statusId: \"active\", categoryId: \"lead\", location: \"Belo Horizonte, MG\", value: 2150, agentId: \"carlos\", createdAt: BASE_DATE - 51 * DAY_MS, lastContact: BASE_DATE - 1 * DAY_MS },\r\n  { id: \"CLI-2404\", name: \"Ana Costa\", initials: \"AC\", avatarColor: \"#1cb280\", email: \"ana.costa@example.com\", phone: \"+55 11 94567-8901\", statusId: \"paused\", categoryId: \"royal\", location: \"Porto Alegre, RS\", value: 8900, agentId: \"maria\", createdAt: BASE_DATE - 44 * DAY_MS, lastContact: BASE_DATE - 12 * DAY_MS },\r\n  { id: \"CLI-2405\", name: \"Pedro Pereira\", initials: \"PP\", avatarColor: \"#ef4444\", email: \"pedro.pereira@example.com\", phone: \"+55 11 95678-9012\", statusId: \"inactive\", categoryId: \"lead\", location: \"Curitiba, PR\", value: 1100, agentId: \"you\", createdAt: BASE_DATE - 37 * DAY_MS, lastContact: BASE_DATE - 30 * DAY_MS },\r\n  { id: \"CLI-2406\", name: \"Lúcia Almeida\", initials: \"LA\", avatarColor: \"#f9a47a\", email: \"lucia.almeida@example.com\", phone: \"+55 11 96789-0123\", statusId: \"active\", categoryId: \"licenciado\", location: \"Recife, PE\", value: 6750, agentId: \"aline\", createdAt: BASE_DATE - 30 * DAY_MS, lastContact: BASE_DATE - 3 * DAY_MS },\r\n  { id: \"CLI-2407\", name: \"Roberto Souza\", initials: \"RS\", avatarColor: \"#0088cc\", email: \"roberto.souza@example.com\", phone: \"+55 11 97890-1234\", statusId: \"pending\", categoryId: \"royal\", location: \"São Paulo, SP\", value: 15200, agentId: \"carlos\", createdAt: BASE_DATE - 23 * DAY_MS, lastContact: BASE_DATE - 7 * DAY_MS },\r\n  { id: \"CLI-2408\", name: \"Fernanda Lima\", initials: \"FL\", avatarColor: \"#e1306c\", email: \"fernanda.lima@example.com\", phone: \"+55 11 98901-2345\", statusId: \"active\", categoryId: \"lead\", location: \"Rio de Janeiro, RJ\", value: 3400, agentId: \"maria\", createdAt: BASE_DATE - 16 * DAY_MS, lastContact: BASE_DATE - 1 * DAY_MS },\r\n  { id: \"CLI-2409\", name: \"Bruno Rodrigues\", initials: \"BR\", avatarColor: \"#70c748\", email: \"bruno.rodrigues@example.com\", phone: \"+55 11 99012-3456\", statusId: \"paused\", categoryId: \"licenciado\", location: \"Belo Horizonte, MG\", value: 5600, agentId: \"you\", createdAt: BASE_DATE - 9 * DAY_MS, lastContact: BASE_DATE - 6 * DAY_MS },\r\n  { id: \"CLI-2410\", name: \"Camila Ribeiro\", initials: \"CR\", avatarColor: \"#8754ec\", email: \"camila.ribeiro@example.com\", phone: \"+55 11 90123-4567\", statusId: \"active\", categoryId: \"royal\", location: \"Porto Alegre, RS\", value: 9800, agentId: \"aline\", createdAt: BASE_DATE - 2 * DAY_MS, lastContact: BASE_DATE },\r\n];\r\n",
         "type": "registry:ui",
         "target": "examples/clientes/_table-data.ts"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-clientes · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-dashboard · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-edit-page · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-finance · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-login · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-mapa-rede · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · example-order-detail · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2678,7 +2678,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/FileUploadField/file-upload-field.styles.ts",
-        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * FileUploadField styles — slots do widget renderizado dentro do FormField.\r\n *\r\n * - `dropzone`: estado VAZIO (value == null) — botão full-width clicável.\r\n * - `dropIcon` / `dropText` / `dropHint`: conteúdo do dropzone.\r\n * - `fileRow`: estado COM-ARQUIVO — preview + ação de remover.\r\n * - `thumb`: preview de imagem.\r\n * - `fileName`: nome do arquivo (truncate) no Chip de fallback.\r\n *\r\n * Focus do dropzone = Padrão 1 (botão estático): outline-none + ring-4.\r\n * `disabled` é o último variant declarado (L-006) — vence na cascata de slots.\r\n */\r\nexport const fileUploadFieldStyles = tv({\r\n  slots: {\r\n    dropzone: [\r\n      \"flex w-full flex-col items-center justify-center text-center\",\r\n      \"min-h-form-xl gap-gp-xs px-pad-2xl py-pad-lg\",\r\n      \"rounded-radius-xl bg-bg-muted\",\r\n      \"border border-dashed border-border-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] duration-200 ease-out\",\r\n      \"cursor-pointer hover:border-border-brand\",\r\n      // Padrão 1 — focus estático\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary\",\r\n    ],\r\n    dropIcon: \"text-fg-subtle\",\r\n    dropText: \"text-body-sm text-fg-muted\",\r\n    dropHint: \"text-caption-md text-fg-subtle\",\r\n    fileRow: [\r\n      \"flex w-full items-center gap-gp-sm\",\r\n      \"min-h-form-xl px-pad-xl py-pad-md\",\r\n      \"rounded-radius-xl bg-bg-muted border border-border-subtle\",\r\n    ],\r\n    thumb: [\r\n      \"size-icon-2xl shrink-0 rounded-radius-md object-cover\",\r\n      \"border border-border-subtle\",\r\n    ],\r\n    fileChipWrap: \"flex min-w-0 flex-1 items-center\",\r\n    fileName: \"min-w-0 truncate\",\r\n    removeWrap: \"ml-auto shrink-0\",\r\n  },\r\n  variants: {\r\n    disabled: {\r\n      // DS v3 não tem token bg-disabled/border-disabled → padrão Button = opacity-50 (L-006)\r\n      true: {\r\n        dropzone: \"pointer-events-none opacity-50\",\r\n        fileRow: \"opacity-50\",\r\n      },\r\n    },\r\n  },\r\n  defaultVariants: { disabled: false },\r\n});\r\n\r\nexport type FileUploadFieldVariantProps = Parameters<typeof fileUploadFieldStyles>[0];\r\n",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * FileUploadField styles — slots do widget renderizado dentro do FormField.\r\n *\r\n * - `dropzone`: estado VAZIO (value == null) — botão full-width clicável.\r\n * - `dropIcon` / `dropText` / `dropHint`: conteúdo do dropzone.\r\n * - `fileRow`: estado COM-ARQUIVO — preview + ação de remover.\r\n * - `thumb`: preview de imagem.\r\n * - `fileName`: nome do arquivo (truncate) no Chip de fallback.\r\n *\r\n * Focus do dropzone = Padrão 1 (botão estático): outline-none + ring-4.\r\n * `disabled` é o último variant declarado (L-006) — vence na cascata de slots.\r\n */\r\nexport const fileUploadFieldStyles = tv({\r\n  slots: {\r\n    dropzone: [\r\n      \"flex w-full flex-col items-center justify-center text-center\",\r\n      \"min-h-form-xl gap-gp-xs px-pad-2xl py-pad-lg\",\r\n      \"rounded-radius-xl bg-bg-muted\",\r\n      \"border border-dashed border-border-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] duration-200 ease-out\",\r\n      \"cursor-pointer hover:border-border-brand\",\r\n      // Padrão 1 — focus estático\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    dropIcon: \"text-fg-subtle\",\r\n    dropText: \"text-body-sm text-fg-muted\",\r\n    dropHint: \"text-caption-md text-fg-subtle\",\r\n    fileRow: [\r\n      \"flex w-full items-center gap-gp-sm\",\r\n      \"min-h-form-xl px-pad-xl py-pad-md\",\r\n      \"rounded-radius-xl bg-bg-muted border border-border-subtle\",\r\n    ],\r\n    thumb: [\r\n      \"size-icon-2xl shrink-0 rounded-radius-md object-cover\",\r\n      \"border border-border-subtle\",\r\n    ],\r\n    fileChipWrap: \"flex min-w-0 flex-1 items-center\",\r\n    fileName: \"min-w-0 truncate\",\r\n    removeWrap: \"ml-auto shrink-0\",\r\n  },\r\n  variants: {\r\n    disabled: {\r\n      // DS v3 não tem token bg-disabled/border-disabled → padrão Button = opacity-50 (L-006)\r\n      true: {\r\n        dropzone: \"pointer-events-none opacity-50\",\r\n        fileRow: \"opacity-50\",\r\n      },\r\n    },\r\n  },\r\n  defaultVariants: { disabled: false },\r\n});\r\n\r\nexport type FileUploadFieldVariantProps = Parameters<typeof fileUploadFieldStyles>[0];\r\n",
         "type": "registry:ui",
         "target": "components/ui/FileUploadField/file-upload-field.styles.ts"
       },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · file-upload-field · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · floating-panel · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · footer-table · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · form-field · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · header · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · hover-card · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · icon · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · input-group · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · input-otp · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · input · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · kanban · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · kpi · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · label · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · list · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · markdown-text · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · menu-sidebar · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · menubar · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · modal · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · month-year-picker · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · navigation-menu · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · page-header · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · pagination · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · panel · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · popover · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · progress · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · radio-group · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · scroll-area · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · select · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · separator · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · sheet · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · skeleton · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · slider · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · sonner · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · spinner · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · switch · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · table · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · tabs · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · textarea · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4393,7 +4393,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · theme · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:file"
   },
@@ -4444,7 +4444,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · toast · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4470,7 +4470,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · toggle-group · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · toggle · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4519,7 +4519,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · tooltip · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:ui"
   },
@@ -4540,7 +4540,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · tv · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:file"
   },
@@ -4562,7 +4562,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.30.1 · 1af1239 · 2026-07-30"
+      "stamp": "igreen-ds · utils · v0.30.2 · 826b9da · 2026-07-30"
     },
     "type": "registry:file"
   }

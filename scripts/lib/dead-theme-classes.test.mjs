@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join, sep } from "node:path";
 import { describe, expect, it } from "vitest";
-import { deadThemeClasses } from "./dead-theme-classes.mjs";
+import { EXCECOES, deadThemeClasses } from "./dead-theme-classes.mjs";
 
 /* Dois grupos, por razões diferentes:
 
@@ -77,6 +77,17 @@ describe("dead-theme-classes — o defeito que pega e o que NÃO acusa", () => {
       { file: "d.ts", text: `"dark:text-fg-critical hover:text-fg-danger"` },
     ]);
     expect(mortas.map((m) => m.classe)).toEqual(["text-fg-critical"]);
+  });
+
+  it("honra a exceção nomeada, e ela é estreita", () => {
+    const alvo = "src/preview/pages/updates-data.ts";
+    expect([...EXCECOES.keys()]).toEqual([alvo]);
+    // toda exceção precisa de motivo escrito — é o que impede a lista de crescer calada
+    for (const motivo of EXCECOES.values()) expect(motivo.length).toBeGreaterThan(20);
+    // o mesmo texto reprova fora da exceção e passa dentro dela
+    const texto = `"ring-ring-primary"`;
+    expect(deadThemeClasses(css, [{ file: "qualquer.ts", text: texto }]).mortas).toHaveLength(1);
+    expect(deadThemeClasses(css, [{ file: alvo, text: texto }]).mortas).toEqual([]);
   });
 
   it("reporta linha certa em arquivo multi-linha", () => {

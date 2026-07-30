@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.30.2",
+    date: "2026-07-30",
+    tag: "patch",
+    title: "O anel de foco de 4 componentes não estava renderizando na cor da marca",
+    summary:
+      "Correção de acessibilidade. `ring-4` acompanhado de uma cor que **não existe** no tema não emite CSS nenhum — o anel cai em `currentColor`, ou seja aparece na cor do texto. Estava assim em ColorPicker, ConversationListItem, FileUploadField e MessageBubble, mais um par de bordas de erro no TableToolbar. A causa não era o código: as docs do repo ensinavam a nomenclatura de token **V2**, extinta (`primary`/`critical`/`foreground`), e o agente escrevia o que a doc dizia. Uma varredura de 5.313 usos de classe de cor contra as 83 vars do tema achou **25 classes mortas** em 14 arquivos. O que fecha o buraco não é a doc estar certa hoje — é o gate novo, que reprova a PR quando uma classe de cor não tem var correspondente.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Anel de foco em 4 componentes** — `ring-ring-primary` (9 usos) não existe; o correto é `ring-ring-brand`. Sem a var, `ring-4` renderiza em `currentColor`: o foco aparecia na cor do texto em vez da marca, em ColorPicker, ConversationListItem, FileUploadField e MessageBubble.",
+          "**Borda e texto de erro no TableToolbar** — `border-border-critical` e `text-fg-critical` (3 usos) também não existem. Ficavam ao lado de um `shadow-sh-ring-danger` correto na mesma linha, o que mostra que eram resíduo da migração de nomenclatura.",
+          "**13 fundos e bordas de status no showcase** — `bg-bg-{success,warning,danger}-subtle`, `border-border-{success,warning}`, `border-border-main`, `bg-bg-moderate`. O tom sutil depende da família: status usa `-muted`, `brand` usa `-subtle`. Não existe o cruzamento.",
+          "**`sync:agents` era no-op** — a checagem de \"já está sincronizado\" comparava apenas os **200 primeiros caracteres** do arquivo, então qualquer edição depois disso reportava \"Sem mudança\" e nunca reescrevia o mirror. Rodar o script não consertava nada. Os 6 mirrors do Cursor estavam defasados; o do orchestrator havia perdido as 9 rotas de builder inteiras.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Docs de cor reescritas a partir do CSS gerado.** O `.ai/context/tokens/color.md` tinha 19 ocorrências da nomenclatura V2, a seção \"Nomes a evitar\" com a **direção invertida** (dizia que `fg.brand` foi renomeado *para* `fg.primary` — o oposto do real) e uma seção inteira documentando um sufixo `-inverted` com **zero** ocorrências no tema: família de token que nunca existiu. As 27 afirmações de presença e ausência do texto novo foram conferidas uma a uma contra o CSS.",
+          "**A seção de nomenclatura do `CLAUDE.md`** passou a declarar a fonte de verdade (`color-light.ts` + CSS gerado) e a regra de tom por família, com os nomes mortos listados explicitamente.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Gate `dead-theme-classes`** (`npm test`) — reprova a PR quando uma classe de cor usada em `src/` não tem `--color-*` correspondente no tema. É a classe de defeito da L-057: não quebra build, não quebra `tsc`, não quebra teste, e o ratchet do lint não vê (ele procura token literal do Tailwind, não var ausente). Validado reintroduzindo o defeito real num componente e vendo reprovar com arquivo e linha — não por fixture.",
+        ],
+      },
+    ],
+  },
+  {
     version: "cli-0.19.0",
     date: "2026-07-30",
     tag: "release",
