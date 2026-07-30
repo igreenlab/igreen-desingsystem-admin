@@ -34,6 +34,23 @@ const NAMESPACES = [
   { prefixos: ["ring"], escopo: "ring" },
 ];
 
+/**
+ * Arquivos onde **citar** uma classe morta é o CONTEÚDO, não uso dela. Motivo é
+ * obrigatório (mesma convenção do `ds-exceptions.mjs`). Mantenha curta: cada
+ * entrada é um ponto cego do gate.
+ *
+ * `updates-data.ts` é dado puro do changelog — nenhuma string dali vira
+ * `className`, e a entry do 0.30.2 precisa escrever `ring-ring-primary` para
+ * explicar o que foi corrigido. Sem esta exceção o gate reprovaria a própria
+ * release que o criou.
+ */
+export const EXCECOES = new Map([
+  [
+    "src/preview/pages/updates-data.ts",
+    "changelog: a entry NOMEIA a classe morta pra explicar o fix; o arquivo é dado, não aplica className",
+  ],
+]);
+
 /** Extrai os nomes de var de cor definidos no tema (`--color-<nome>:`). */
 export function varsDeCor(cssText) {
   return new Set([...cssText.matchAll(/--color-([a-z0-9-]+)\s*:/g)].map((m) => m[1]));
@@ -51,6 +68,7 @@ export function deadThemeClasses(cssText, fontes) {
   let usosVarridos = 0;
 
   for (const { file, text } of fontes) {
+    if (EXCECOES.has(file)) continue;
     const linhas = text.split("\n");
     for (const { prefixos, escopo } of NAMESPACES) {
       const re = new RegExp(
