@@ -82,6 +82,34 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 - [ ] Tipo "composto" em `.ai/context/components/inventory.md` (dupla verificação)?
 - [ ] `pipeline-state.md` atualizado pelo DS Dev?
 
+### ⛔ Distribuição está FORA do escopo desta revisão — e isso é deliberado
+
+As superfícies **5, 6 e 7** da L-042 (`registry.json` · vocabulário do consumidor
+em `cli/templates/default/_claude/rules/ds-components.md` · changelog) **não** se
+cobram aqui. A cadência é da própria L-042 — *"1–4 no PR; 5/6/7 no `/ds-release`"* — e
+a Regra 8 diz o mesmo pra distribuição (registry/embed/bump). Exigi-las no PR do
+componente reprovaria quem está seguindo a regra do projeto. O correto é o autor
+**anotar no corpo do PR** que faltam registrar.
+
+Está escrito porque a ausência afirmava: sem esta nota, um checklist que passa direto
+por distribuição lê como *"revisei e está ok"* — quando aquele eixo nunca foi olhado.
+
+**Não confie nesta revisão pra pegar falta de vocabulário/registry** — quem pega são
+gates mecânicos, não checklist lido por agente:
+
+| Quando | Quem pega |
+|---|---|
+| durante o Edit em `ui/<Nome>/**` | hook `ds-inventory-check` (avisa, não bloqueia) |
+| na PR | `distribution-debt` (informativo por design) |
+| quando o item entra no `registry.json` | **`vocab-surface` no `npm test` → reprova o CI** |
+| no `/ds-release` | `release:check` → `distribution-debt --ci` |
+
+Por que gate e não checklist: "está no vocabulário?" é fato **verificável
+mecanicamente**, sem julgamento — e a camada de checklist já falhou de forma medida.
+O `Toast` foi distribuído na v0.12.0 e ficou fora do vocabulário até a **v0.13.7**,
+com o item de checklist existindo o tempo todo (é o caso que gerou a L-042). L-059:
+gate mecânico pra regra independente de contexto; revisor pro que exige julgamento.
+
 ### Arquitetura — julgamento, não grep
 
 O lint pega Tailwind literal; estes exigem ler o código:
