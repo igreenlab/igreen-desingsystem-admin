@@ -825,37 +825,37 @@ diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid us
 
 ### Distribuição / consumidor (lições 2026-06-17, v0.10.0)
 
-**[L-033] Copy-in: integridade se protege por HOOK + regra, não travando arquivo.**
+## [L-033] Copy-in: integridade se protege por HOOK + regra, não travando arquivo
 O código é do consumidor (repo dele) — não dá pra impedir edição. O template embute
 `.claude/hooks/protect-ds.mjs`: **bloqueia** (exit 2) edição de tema/tokens
 (`src/styles/theme/**`) e fundação (`cn`/`tv`/`lucide-types`); **avisa** (exit 1) edição
 de componente do DS (drift); libera telas. Regra pra IA do consumidor: **customizar na
 COMPOSIÇÃO** (props/variantes + classes na tela), nunca nos tokens/internals.
 
-**[L-034] `example-*` do registry = extração 1:1 do showcase real, nunca "toy".**
+## [L-034] `example-*` do registry = extração 1:1 do showcase real, nunca "toy"
 Toy inventado (KPIs/colunas que o showcase não tem) fura a "garantia de produção conforme
 os showcases". Extração: espelhar a árvore, strip do `AppShell` (vira `<div flex flex-col
 h-full min-h-0 gap-gp-2xl>`), inline de `TableDoc` → `_table-data.ts`, rewrite de imports
 relativos, manter `@/components/ui|shadcn/*`, validar tsc + render no consumidor.
 
-**[L-035] examples↔preview são cópias paralelas SEM geração automática → drift-check.**
+## [L-035] examples↔preview são cópias paralelas SEM geração automática → drift-check
 `scripts/examples-drift-check.mjs` guarda hash da fonte (`examples-sources.lock.json`) e
 **avisa** quando um showcase muda sem o example re-extraído (roda no `registry:build`).
 Re-sync após re-extrair: `--baseline`. Decisão: extração manual + check em vez de
 geração/inversão (refatorar a catálogo viva = risco).
 
-**[L-036] Roteamento de intenção no consumidor = SKILL, não AGENTE.**
+## [L-036] Roteamento de intenção no consumidor = SKILL, não AGENTE
 Skill dispara nativo/barato pela `description` (sem custo de janela de contexto separada).
 Agente de roteamento seria caro/lento. `ds-kit` é o front-door (skill); subagente só pra
 trabalho pesado em paralelo. (Diferente do orquestrador-agente do próprio DS, multi-etapa.)
 
-**[L-037] Item de registry precisa declarar TODAS as deps reais.**
+## [L-037] Item de registry precisa declarar TODAS as deps reais
 `@igreen/data-table` não declarava `@tanstack/react-virtual` → DataTable crashava
 (Invalid hook call) em consumidor limpo. Itens que importam `@/lib/lucide-types` devem
 **embutir** `lib/lucide-types.ts` (`registry:file`) se não puxam via dep que já o entrega
 (panel/floating-panel). Validar com render em consumidor real, não só tsc no DS.
 
-**[L-038] Default vindo do `type` (column-type) tem que ser resolvido na FONTE ÚNICA, não por render-site.**
+## [L-038] Default vindo do `type` (column-type) tem que ser resolvido na FONTE ÚNICA, não por render-site
 DataTable: `align`/`ellipsis` do column-type (`defaultAlign`/`defaultEllipsis`) só chegavam
 ao BODY — que fazia `col.align ?? typeDef?.defaultAlign` localmente
 (`data-table-row.tsx`). HEADER (`data-table.tsx`) e FOOTER/totalizer
@@ -869,7 +869,7 @@ column-type como default, resolva-o UMA vez no merge das colunas efetivas (fonte
 nunca deixe cada render-site (header/body/footer) re-resolver, senão um esquece e diverge.
 Validar SEMPRE no cenário sem o override explícito (= o que o consumidor faz).
 
-**[L-039] Tailwind v4: `border` (cru) é SÓ largura — a cor cai em `currentColor` (branca no dark, preta no light).**
+## [L-039] Tailwind v4: `border` (cru) é SÓ largura — a cor cai em `currentColor` (branca no dark, preta no light)
 No Tailwind v3 a classe `border` aplicava largura **+** uma cor de borda default. No **v4 não**:
 `border`/`border-x`/`border-y`/`border-l|r|t|b` definem apenas `border-width`; sem uma classe
 de COR (`border-<token>`) a borda usa `currentColor` (a cor do texto) → no dark fica
@@ -885,7 +885,7 @@ cru SÓ quando TODAS as variantes setam uma cor de borda (ex.: `alert.tsx`). Nun
 Vale também pra `bg-popover`/`text-popover-foreground` etc.: preferir tokens DS explícitos
 (`bg-bg-surface`/`text-fg-default`) quando reescrever um componente.
 
-**[L-040] Todo componente FLUTUANTE segue a RECEITA ÚNICA do DS (Popover/DropdownMenu/Select).**
+## [L-040] Todo componente FLUTUANTE segue a RECEITA ÚNICA do DS (Popover/DropdownMenu/Select)
 Menus e painéis flutuantes (DropdownMenu, Popover, Select, ContextMenu, Menubar,
 NavigationMenu, HoverCard…) devem ter o MESMO visual — senão o app fica inconsistente
 (caso real: os menus do batch 4 vieram com os defaults shadcn `bg-popover rounded-md
@@ -909,7 +909,7 @@ text-caption-sm font-semibold uppercase tracking-wider text-fg-subtle` · **Shor
   sem frosted). Default de delay: Tooltip `delayDuration=200`, HoverCard `openDelay=200`
   (o default Radix 700 é lento demais).
 
-**[L-041] Trabalho de componente FECHA por PR + link pro gate humano — o pipeline deve garantir, não depender de instinto.**
+## [L-041] Trabalho de componente FECHA por PR + link pro gate humano — o pipeline deve garantir, não depender de instinto
 Antes, as skills de componente (`ds-add-shadcn`, `ds-create-component`, `ds-create-composite`,
 `impl-*`) terminavam em `IMPL_PRONTA → DS Reviewer` — o handoff git (branch + commit
 descritivo + PR + link) só estava no `/ds-release`. Resultado: a IA dependia de "instinto"
@@ -926,7 +926,7 @@ encerrar uma implementação sem PR + link; nunca mergear/publicar sem "pode mer
 
 ---
 
-**[L-042] Componente novo toca 7 superfícies — o agente deve PREVER todas, não só código+USAGE.**
+## [L-042] Componente novo toca 7 superfícies — o agente deve PREVER todas, não só código+USAGE
 Reincidência: ao criar o `Toast` (v0.12.0), ficou faltando registrá-lo no **catálogo do CLI**
 (`cli/templates/default/CLAUDE.md`) — só foi pego porque o humano perguntou. Mesmo padrão do
 `DOC_PAGES` (o Toast renderizou em branco até `"toast"` ser adicionado ao array de páginas válidas
@@ -947,7 +947,7 @@ bump + `npm publish` manual.
 
 ---
 
-**[L-043] Tailwind v4 INLINA o valor de `shadow` da `@theme` na utility — `.dark { --shadow-* }` é código morto.**
+## [L-043] Tailwind v4 INLINA o valor de `shadow` da `@theme` na utility — `.dark { --shadow-* }` é código morto
 Diferente de cores (que viram `var(--color-*)` na utility e são dark-aware), os tokens de
 **shadow** num `@theme` normal são **inlinados** literalmente na classe
 (`.shadow-sh-md { box-shadow: <valor light> }`). Logo, sobrescrever `--shadow-sh-md` em
@@ -1419,9 +1419,13 @@ custa menos e não vira API pra manter.
 Quando o Claude cometer um erro não listado aqui:
 
 1. Identificar o padrão do erro
-2. Adicionar no formato `[L-NNN]` no final deste arquivo
+2. Adicionar no final deste arquivo com header **`## [L-NNN] Título`** — heading `##`,
+   sem negrito e sem ponto final. As 63 lições usam esse formato exato; L-033 a L-043
+   ficaram em `**[L-NNN] ...**` por um tempo e qualquer contagem automática precisava de
+   duas regex (normalizado em 2026-07-29). Não invente variação.
 3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado
-   (é o arquivo auto-carregado — deve ter o resumo de todas as lições)
+   (é o arquivo auto-carregado — deve ter o resumo de todas as lições) e se a contagem
+   no título da seção (`## NN Lições (L-001 a L-NNN)`) ainda bate
 
 ---
 
