@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # ds-inventory-check — alerta quando componente em src/components/ui/<Nome>/
 # tem pendência de superfície: USAGE.md, inventory.md, registry.json,
-# (se já distribuído) catálogo do CLI (cli/templates/default/CLAUDE.md), OU
+# (se já distribuído) vocabulário do consumidor
+# (`cli/templates/default/_claude/rules/ds-components.md` ∪ o `CLAUDE.md` do template), OU
 # (se a DocPage existe) registro de showcase no App.tsx/DOC_PAGES + nav.
 #
 # Trigger: PostToolUse matcher "Edit|Write"
@@ -155,15 +156,21 @@ if [ -f "$REGISTRY" ] && [ "$PROBE_OK" = "1" ] && [ "$IS_EXCEPTION" != "1" ]; th
   fi
 fi
 
-# 4. Distribuído mas FORA do catálogo do CLI → scaffolds novos não conhecem o componente
-#    (catálogo usa nome kebab do registry: Toast→toast, DatePicker→date-picker)
+# 4. Distribuído mas FORA do vocabulário do consumidor → a IA do consumidor não sabe
+#    que o componente existe (usa kebab do registry: Toast→toast, DatePicker→date-picker).
+#    Duas superfícies, medidas em UNIÃO — o vocabulário por tarefa mora na rule
+#    auto-carregada; o CLAUDE.md ainda cita nomes (mapa de intenção, example-*).
+#    Mesma lista que o `distribution-debt.mjs` do CI (CATALOG_FILES) — não divergir.
+CLI_VOCAB="$PROJECT_ROOT/cli/templates/default/_claude/rules/ds-components.md"
 CLI_CATALOG="$PROJECT_ROOT/cli/templates/default/CLAUDE.md"
-if [ "$IN_REGISTRY" = "1" ] && [ -f "$CLI_CATALOG" ]; then
-  if ! grep -qiE "\`$KEBAB\`|\b$KEBAB\b" "$CLI_CATALOG" 2>/dev/null; then
+if [ "$IN_REGISTRY" = "1" ] && { [ -f "$CLI_VOCAB" ] || [ -f "$CLI_CATALOG" ]; }; then
+  if ! grep -qiE "\`$KEBAB\`|\b$KEBAB\b" "$CLI_VOCAB" "$CLI_CATALOG" 2>/dev/null; then
     MISSING="$MISSING
-  • $COMP_NAME (kebab: $KEBAB) está no registry mas NÃO no catálogo do CLI (cli/templates/default/CLAUDE.md)
-       → adicione ao catálogo (composites/feedback/etc) + bump cli/package.json + republicar CLI
-       (sem isso, projetos novos scaffoldados não sabem que o componente existe)"
+  • $COMP_NAME (kebab: $KEBAB) está no registry mas NÃO no vocabulário do consumidor
+       → adicione em cli/templates/default/_claude/rules/ds-components.md, no grupo de tarefa
+         a que ele serve, com o critério de escolha (quando usar ELE e não o vizinho)
+       → + bump cli/package.json + republicar CLI
+       (sem isso, a IA do consumidor não sabe que o componente existe e compõe na unha)"
   fi
 fi
 

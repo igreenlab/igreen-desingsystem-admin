@@ -195,10 +195,11 @@ Mudança em componente/token precisa refletir no registry, senão o consumidor r
 - [ ] **Foundational → CLI rebake?** Se `src/lib/utils.ts` / `src/utils/tv.ts` /
   `src/lib/lucide-types.ts` / `tailwind-theme.css` mudaram → `npm run cli:rebake` rodou
   (`cli/templates/default/**` no diff) + `cli/package.json` bumpado? (já no 2.2, reforço aqui)
-- [ ] **Componente novo no catálogo do CLI? (L-042)** Se o diff adicionou componente que
-  entrou (ou entrará) no `registry.json` → ele consta em `cli/templates/default/CLAUDE.md`
-  (lista de componentes — composites/feedback/etc)? Se NÃO → **ALTO**: scaffolds novos não
-  conhecem o componente. Adicionar ao catálogo + bump `cli/package.json` + republicar CLI.
+- [ ] **Componente novo no vocabulário do consumidor? (L-042)** Se o diff adicionou componente
+  que entrou (ou entrará) no `registry.json` → ele consta em
+  `cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa a que serve, com o
+  critério de escolha? Se NÃO → **ALTO**: a IA do consumidor não sabe que ele existe e compõe na
+  unha. Adicionar ao vocabulário + bump `cli/package.json` + republicar CLI.
   (Gap real: Toast distribuído na v0.12.0 mas fora do catálogo até v0.13.7. O hook
   `ds-inventory-check` acusa "no registry mas fora do catálogo".)
 - [ ] **Import cross-dir em componente distribuível?** Componente em `registry.json` que
