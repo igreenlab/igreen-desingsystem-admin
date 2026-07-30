@@ -99,3 +99,32 @@ jobs:
       - name: Showcase registrado (L-042 superfície 4)
         if: ${{ !cancelled() && github.event.pull_request.draft != true }}
         run: node scripts/showcase-check.mjs origin/${{ github.base_ref || 'main' }}
+
+      # Ponto cego do step acima: ele só olha componente NOVO (pasta ausente no
+      # base ref), por design. Mudança em componente EXISTENTE não dispara nada —
+      # e é o cenário mais provável de um contribuidor de fora. Caso real: a PR
+      # #60 adicionou `mode` ao DatePicker e ficou 11 dias sem doc, com o showcase
+      # ensinando o padrão que a prop tornou obsoleto. INFORMATIVO: o proxy
+      # ("adicionou linha `export`") é de baixo ruído mas não é perfeito — helper
+      # exportado num refactor é falso-positivo legítimo, e aviso que atrapalha
+      # vira aviso ignorado (L-059).
+      - name: API ampliada sem doc (informativo)
+        if: ${{ !cancelled() }}
+        run: node scripts/api-doc-check.mjs origin/${{ github.base_ref || 'main' }}
+
+      # Integridade do pacote npm, escopada ao que pode quebrá-la. Sem isto, a
+      # quebra só aparecia no Passo 7 do release — ou seja, no PIOR momento
+      # possível: com o token do mantenedor já vivo, querendo publicar. Foi assim
+      # que 4 refs de tipo quebradas (toast.d.ts não emitido + TableDoc excluído)
+      # chegaram a passar meses. BLOQUEANTE porque é determinístico e hoje verde;
+      # o `grep` evita rodar o build da lib nas PRs que não podem afetá-lo.
+      - name: Pacote npm íntegro (lib:verify — só se tocou o que o afeta)
+        if: ${{ !cancelled() }}
+        run: |
+          BASE="origin/${{ github.base_ref || 'main' }}"
+          if git diff --name-only "$BASE"...HEAD \
+             | grep -qE '^(src/components/|vite\.lib\.config\.ts|tsconfig\.lib\.json|package\.json)'; then
+            npm run lib:verify
+          else
+            echo "sem toque em src/components/, vite.lib.config.ts, tsconfig.lib.json ou package.json — pulado"
+          fi
