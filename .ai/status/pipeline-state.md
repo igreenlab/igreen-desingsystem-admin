@@ -66,6 +66,57 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | Validação read-only do ChoroplethMap + headers de `lessons.md` normalizados | CONCLUÍDO
+
+- Input: pedido do mantenedor — validar que **nada** do trabalho de hoje quebrou o DS, já
+  que há gente consumindo, com foco no `ChoroplethMap`; **sem alterar nada** na validação.
+  Mais: fechar o débito de formato dos headers pra encerrar o dia redondo.
+
+- Validação do ChoroplethMap (read-only, 6 eixos, todos ✓):
+  1. **Zero toques hoje** — `git diff bbeea4b..HEAD -- src/components/ui/ChoroplethMap/`
+     volta vazio. Os 5 arquivos estão íntegros.
+  2. **Deps declaradas** — as 4 diretas (`d3-geo` ^3.1.1, `topojson-client` ^3.1.0 +
+     os 2 `@types`) no `package.json` **e** no `package-lock.json`. Mais: o `.tsx` importa
+     tipos de `geojson` e `topojson-specification`, **ambos também declarados** e
+     transitivamente disponíveis. A lacuna da L-058 está fechada de verdade.
+  3. **Os 7 `TS2307` locais são `node_modules` defasado, não defeito** — os 4 pacotes
+     estão ausentes em disco e presentes no lock; CI (`npm ci`) passa.
+  4. **Registry** — item `choropleth-map` presente, `type: registry:ui`, deps corretas,
+     `registryDependencies: [@igreen/tooltip, @igreen/tv]`, os 5 `files[].path` existem.
+  5. **Catálogo do CLI** — presente. `registry-check` → 87 itens ok, embed com os 87.
+  6. **CI verde** nos 4 merges de hoje (#72 a #75).
+
+- Conclusão que importa pro consumidor: **o embed** (`registry-app/app/registry-data.ts`,
+  6.8 MB, guarda o **conteúdo** dos arquivos) foi gerado por último no **release v0.30.0**.
+  Ele **não** contém o fix do Modal (`100dvh` → 0 ocorrências) nem as 3 substituições de
+  classe (`size-9` ainda aparece 3×). Ou seja: **nada de hoje chegou ao consumidor** — o
+  payload está congelado em v0.30.0 e só se move no `/ds-release`. É a Regra 8 funcionando,
+  e é por isso que o trabalho de hoje não pode ter quebrado ninguém.
+- **Limite conhecido do check** (não corrigido, read-only): `registry-check.mjs` valida que
+  o embed contém os **nomes** dos 87 itens, não que o **conteúdo** está atual — logo ele diz
+  "embed em sync" com o conteúdo arbitrariamente defasado. Mesma classe da "Fase 2b —
+  staleness do CSS de tokens", marcada fora de escopo em `pipeline-governance-ci.md` §8.
+  Hoje é inofensivo porque a defasagem é intencional entre releases; passa a importar se
+  algum dia alguém publicar sem `registry:build`.
+- **Mudança de comportamento real no DS hoje: uma, e não foi nossa.** `f7d3838`
+  (`iGreenEnergia`) — `Modal`: conteúdo alto estourava a tela sem barra de rolagem. Adiciona
+  `max-h-[calc(100dvh-32px)]` no painel e `min-h-0 flex-1 overflow-y-auto` no body. Entra no
+  próximo release. Do nosso lado, as 3 substituições são **pixel-idênticas**, verificado no
+  CSS gerado: `--spacing-comp-lg: 36px` = `size-9` (2.25rem) e
+  `--spacing-layout-navbar: 64px` = `h-16` (4rem).
+
+- Output — débito de formato fechado: os **11** headers de L-033 a L-043 em
+  `**[L-NNN] ...**` viraram `## [L-NNN] ...`. Verificado: 63 headers `##`, 0 em negrito,
+  nenhum número ausente entre 1 e 63, nenhum duplicado, diff de 11 linhas entrando e 11
+  saindo (só os headers), e nada no repo dependia do formato antigo. A instrução "Como
+  adicionar nova lição" passou a **declarar o formato exato** e a pedir conferência da
+  contagem no título da seção — senão a inconsistência volta.
+
+- Assumption: a defasagem do embed entre releases é intencional e o `/ds-release` sempre
+  roda `registry:build`. **Se quebrar:** consumidor recebe componente antigo com número de
+  versão novo, e nenhum check acusa (ver limite acima). O sinal seria bug reportado em
+  componente "já corrigido".
+
 ### [2026-07-29] | ORCHESTRATOR | L-060 a L-063 formalizadas — fecha o follow-up que a task 6 deixou aberto | CONCLUÍDO
 
 - Input: a entrada do conformance-showcase registrou 4 achados como "candidatos genuínos a
@@ -101,10 +152,10 @@
   a lição não aparecer em nenhum PR/review em ~3 meses. A L-060 é a mais exposta a isso
   (é a mais abstrata); as outras 3 têm regra mecânica clara.
 
-- Débito conhecido, não tocado: o formato dos headers em `lessons.md` é **inconsistente** —
-  L-033 a L-043 usam `**[L-NNN] ...**` (negrito) e o resto usa `## [L-NNN]`. Nenhum script
-  depende disso hoje, mas qualquer contagem ou índice automático precisa das duas regex.
-  Normalizar é tarefa própria (11 entradas), não cabia aqui.
+- ~~Débito conhecido, não tocado: o formato dos headers em `lessons.md` é **inconsistente**~~
+  → **FECHADO na entrada seguinte** (mesma data): os 11 headers de L-033 a L-043 foram
+  normalizados de `**[L-NNN] ...**` pra `## [L-NNN] ...`, e a instrução "Como adicionar nova
+  lição" passou a declarar o formato exato pra não recorrer.
 
 ### [2026-07-29] | ORCHESTRATOR | Prettier descartado por decisão — hook `format-on-save` removido (era no-op armado) | CONCLUÍDO
 
