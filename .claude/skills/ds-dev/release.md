@@ -278,7 +278,11 @@ O carimbo do registry é `package.json.version` + short-hash — por isso roda
 ```bash
 # 1. regenera os JSON do registry + carimbo na versão nova + embed do deploy
 npm run registry:build
-node registry-app/scripts/copy-registry.mjs   # de dentro de registry-app: cd registry-app && node scripts/copy-registry.mjs
+
+# O copy-registry TEM que rodar com cwd=registry-app: ele resolve `../public/r`
+# relativo ao cwd, então da raiz do repo ele aponta pro PAI do repo, não acha nada,
+# sai 0 em silêncio e o embed NÃO é regenerado. Sempre com o `cd`:
+(cd registry-app && node scripts/copy-registry.mjs)
 
 # 2. CLI: SÓ se foundational (cn/tv/lucide-types/theme) ou cli/templates/** mudaram
 npm run cli:rebake          # re-copia os foundational pro template do CLI

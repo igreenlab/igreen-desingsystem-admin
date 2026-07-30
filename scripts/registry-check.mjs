@@ -5,11 +5,15 @@
  *
  * Checa:
  *   1. Todo files[].path de cada item do registry.json existe no disco.
- *   2. O embed (registry-app/app/registry-data.ts) contém todos os itens do registry.json.
+ *  1b. Nenhum path com backslash (quebraria o copy-in em Linux/Mac).
+ *   2. O embed (registry-app/app/registry-data.ts) está em sincronia com o
+ *      registry.json — comparando o `meta.stamp` (versão + hash git) de cada item,
+ *      não só a presença do nome. Ver `lib/embed-staleness.mjs` pra por quê.
  *
  * Exit 1 se houver qualquer inconsistência (falha o CI); 0 se tudo ok.
  */
 import { readFileSync, existsSync } from "node:fs";
+import { checkEmbedStaleness, parseStamps, summarize } from "./lib/embed-staleness.mjs";
 
 let fail = 0;
 const r = JSON.parse(readFileSync("registry.json", "utf8"));
@@ -40,13 +44,44 @@ for (const it of r.items) {
 if (bs) { console.error(`✗ ${bs} path(s) com "\\" — normalize pra "/" (quebra consumidor não-Windows).`); fail = 1; }
 else console.log(`✓ separadores de path ok (sem backslash).`);
 
-// 2. embed em sync
+// 2. embed em sync — por CARIMBO, não por nome.
+//
+// Checar só "o embed contém o nome do item" era verde-permanente: nome não muda
+// entre releases. O `meta.stamp` (v<versão> + hash git) muda, e existe nos dois
+// artefatos commitados — então detecta o release que carimbou o registry.json e
+// esqueceu o `copy-registry.mjs`, que serve código velho com número novo.
 const EMBED = "registry-app/app/registry-data.ts";
 if (existsSync(EMBED)) {
-  const t = readFileSync(EMBED, "utf8");
-  const absent = r.items.map((i) => i.name).filter((n) => !t.includes(`"${n}"`));
-  if (absent.length) { console.error(`✗ embed (${EMBED}) não contém: ${absent.join(", ")} — rode copy-registry.mjs.`); fail = 1; }
-  else console.log(`✓ embed em sync (${r.items.length} itens).`);
+  const embedText = readFileSync(EMBED, "utf8");
+
+  const absent = r.items.map((i) => i.name).filter((n) => !embedText.includes(`"${n}"`));
+  if (absent.length) {
+    console.error(`✗ embed (${EMBED}) não contém: ${absent.join(", ")} — rode copy-registry.mjs.`);
+    fail = 1;
+  } else {
+    const findings = checkEmbedStaleness({ items: r.items, embedText });
+    if (findings.length) {
+      const stale = findings.filter((f) => f.id === "stale");
+      const noStamp = findings.filter((f) => f.id === "no-registry-stamp");
+      console.error(`✗ embed DEFASADO em ${findings.length}/${r.items.length} itens.`);
+      for (const f of findings.slice(0, 8)) console.error(`   ${f.msg}`);
+      if (findings.length > 8) console.error(`   … e ${findings.length - 8} outros.`);
+      const reg = summarize(parseStamps(r.items.map((i) => i.meta?.stamp ?? "").join("\n")));
+      const emb = summarize(parseStamps(embedText));
+      console.error(
+        `   registry.json: ${reg.count} carimbos, v[${reg.versions}] · embed: ${emb.count} carimbos, v[${emb.versions}]`,
+      );
+      if (stale.length && !noStamp.length) {
+        console.error(`   → regenere o embed:  cd registry-app && node scripts/copy-registry.mjs`);
+        console.error(`     (precisa do public/r local — rode \`npm run registry:build\` antes)`);
+      }
+      if (noStamp.length) console.error(`   → carimbe primeiro:  npm run registry:stamp`);
+      fail = 1;
+    } else {
+      const { versions } = summarize(parseStamps(embedText));
+      console.log(`✓ embed em sync (${r.items.length} itens, carimbo v${versions.join("/")}).`);
+    }
+  }
 } else {
   console.error(`✗ embed ausente: ${EMBED}`); fail = 1;
 }

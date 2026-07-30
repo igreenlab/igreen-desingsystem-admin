@@ -101,6 +101,34 @@ src/components/ui/<Nome>/...   no projeto do consumidor
 - **Bundle data-table:** `@igreen/data-table` empacota DataTable + TableToolbar (104
   arquivos) num único item, resolvendo a dependência circular entre eles.
 
+### ⚠️ Três armadilhas desta cadeia (achadas em 2026-07-29)
+
+**1. O passo do meio é manual — e o `prebuild` NÃO cobre.** O `registry-app/package.json`
+tem `"prebuild": "node scripts/copy-registry.mjs"`, o que dá a impressão de que o embed se
+regenera no deploy. Não regenera: o `vercel.json` declara `buildCommand: "next build"`, que
+**não** dispara o lifecycle `prebuild` do npm. E mesmo se disparasse, o script sai cedo
+quando `../public/r` não existe (é gitignored e fica fora do root dir da Vercel) — por
+design, mantendo o embed commitado. **Conclusão: a Vercel serve exatamente o
+`registry-data.ts` que está commitado.** Regenerar é passo humano do `/ds-release`.
+
+**2. `registry-check` valida o embed por CARIMBO, não por nome.** Até 2026-07-29 ele só
+checava se o embed continha o *nome* dos itens — e nome não muda entre releases, então era
+verde-permanente com o conteúdo arbitrariamente velho. O cenário que passava batido: bump
+pra 0.30.1 → `registry:build` carimba o `registry.json` → esquece o `copy-registry.mjs` →
+**consumidor recebe o código de 0.30.0 rotulado como 0.30.1**, com todo check verde. Agora
+o check compara `meta.stamp` (versão + hash git) dos dois artefatos commitados e reprova
+com a instrução de conserto. Lógica em `scripts/lib/embed-staleness.mjs`.
+
+**3. ⛔ NUNCA rode `npm audit fix --force` no `registry-app`.** O npm agrega os ranges dos
+advisories do `next` em `9.3.4-canary.0 - 16.3.0-preview.7` e "corrige" instalando
+**`next@9.3.3`** — downgrade de 6 majors, num serviço público. O caminho certo é subir o
+piso à mão: os 8 advisories valem para `<15.5.21`, então `^15.5.22` resolve todos **sem
+sair do 15.x**. `postcss`/`sharp` são transitivas do next e sobem por `overrides`. O
+`registry-app` também passou a ter cobertura de CI (install do lockfile próprio, typecheck,
+`next build`, audit informativo) — antes **nenhum** workflow o tocava, e foi por isso que
+o lock ficou pinando um `next` vulnerável sem ninguém ver. `installCommand` virou `npm ci`:
+com `npm install` a Vercel resolvia versões diferentes das auditadas.
+
 ---
 
 ## 4. Versionamento
