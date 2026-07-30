@@ -66,6 +66,72 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | npm do DS NÃO é depreciado — canal secundário com gate de token + L-017 finalmente mecânica | CONCLUÍDO
+
+- Input: o mantenedor corrigiu uma afirmação minha. Eu disse que o canal npm estava
+  morto; ele explicou que **só ele tem o token e o acesso** — cola na sessão, a IA
+  publica, ele revoga. É passo manual dele, não canal abandonado. Pediu que a
+  distribuição aconteça de forma que, na hora de publicar, ele **não precise verificar
+  nada** (registry, etc.).
+
+- Por que eu errei, e onde: **4 fontes do próprio repo** afirmavam depreciação —
+  `README.md`, `DISTRIBUICAO.md` ("vestigial/depreciado"), os scripts
+  `lib:publish:patch|minor|major` (que ecoavam "⚠ Canal npm DEPRECIADO") e o campo
+  `//distribuicao` do `package.json`. Confiei no texto em vez de testar. Testado agora:
+  `build:lib` roda em **7,4s** e gera ESM + CJS + types + `theme.css`; `npm pack` dá
+  **959 arquivos / 6,4 MB**; todos os entry points resolvem. As 4 fontes foram
+  corrigidas. É instância da **L-060** na escala mais custosa: texto errado me fez
+  afirmar coisa errada pro mantenedor.
+
+- Decisões do mantenedor (gate):
+  1. **Regra 8 mantida** — registro no `registry.json` continua consolidando no
+     `/ds-release`, não por-PR. O release já detecta componente fora do registry
+     (`distribution-debt` + `registry-add-item.mjs`) e o `release:check` bloqueia, então
+     o requisito "não verificar nada na hora de publicar" já está atendido sem afrouxar
+     os checks que endurecemos hoje.
+  2. **Publish termina pedindo o token** — o fluxo prepara tudo, valida, e PARA. Ele
+     cola, a IA publica, ele revoga.
+
+- Output:
+  1. **Passo 7 novo no `release.md`** — gate de publish do DS no npm, que **não
+     existia** (a skill só tratava o publish do CLI). Valida → apresenta → pede o token
+     → publica com `.npmrc` temporário **fora da árvore do repo** → apaga na hora →
+     lembra de revogar. Token jamais em arquivo versionado nem no audit log.
+  2. **`npm run lib:verify`** (`scripts/lib-verify.mjs` + `lib/pack-contract.mjs` puro,
+     19 testes) — automatiza a **L-017**, cuja regra derivada termina com *"Validar via
+     `npm pack --dry-run` antes de publish"* e nunca havia sido automatizada: dependia de
+     alguém lembrar, e não lembrar custou **4 releases publicadas quebradas em silêncio**
+     (v0.1.0→v0.5.0). 5 camadas: contrato puro (entry × `files`), existência em disco,
+     diretórios de `files` populados, o que o **npm de fato empacota**, e o fechamento
+     dos `.d.ts`.
+  3. **`lib:publish:*` viraram guard-rail** — antes bumpavam e publicavam direto
+     (burlando o gate); agora saem 1 apontando pro `/ds-release`.
+
+- **Falha minha, pega por teste negativo:** a 1ª versão do `lib-verify` olhava só os
+  *entry points* e **passou batido no bug que existe pra pegar** — removi
+  `dist-lib/src/**` do `files` (a L-017 exata), o tarball caiu de **959 pra 123**
+  arquivos e o check disse "ok". Causa: `dist-lib/index.d.ts` é só
+  `export * from './src/components/index'` — toda a superfície de tipos está no
+  diretório que saiu, e nenhum *entry* ficou descoberto. Reformulado: o conjunto de
+  `.d.ts` do tarball tem que ser **fechado sob imports relativos**. Reprova o cenário
+  agora (5 refs quebradas, começando pelo `index.d.ts`). Lição de método: gate novo só
+  vale depois de reproduzir o defeito que ele existe pra pegar.
+
+- **Débito descoberto pelo gate, NÃO corrigido (decisão do mantenedor):** o pacote
+  atual publicaria com **4 referências de tipo quebradas** —
+  `ui/Toast/index.d.ts → './toast'` (o `toast.d.ts` não é emitido, embora `toast-card` e
+  `toast.styles` sejam; provável quirk do `vite-plugin-dts` com o `ExternalToast` do
+  `sonner`) e 3× `→ '../TableDoc'` do `ClientesShowcase` (o `vite.lib.config.ts`
+  **exclui** `src/preview/pages/*Doc.tsx`, mas o ClientesShowcase, que é incluído,
+  importa tipos dele — inconsistência de config). Por isso o `lib:verify` **não** entrou
+  no `release:check`: bloquearia a v0.30.1 inteira por um defeito que só afeta o canal
+  npm. Ele é gate do Passo 7, onde importa. Decidir antes do próximo publish npm:
+  corrigir a emissão ou publicar ciente (já está quebrado na 0.19.1).
+
+- Assumption: o requisito "não verificar nada na hora de publicar" é atendido pelo
+  `release:check` + `lib:verify` juntos. **Se quebrar:** aparece como algo faltando
+  descoberto DEPOIS do publish — o sinal é ele precisar conferir algo à mão.
+
 ### [2026-07-29] | ORCHESTRATOR | Registry/distribuição — `next` vulnerável no endpoint público, embed defasado indetectável, `registry-app` fora do CI | CONCLUÍDO
 
 - Input: o mantenedor apontou que registry/distribuição tinham ficado de fora, e a

@@ -61,7 +61,9 @@ igreen-ds/
 ```
 
 **Fonte única:** o registry referencia **sempre `src/`** (os `files[].path` apontam pra
-`src/components/...`). `dist-lib/` (build de lib npm) é **vestigial/depreciado** e não
+`src/components/...`). `dist-lib/` (build de lib npm, `npm run build:lib`) é um **canal
+secundário funcional** — não participa do copy-in, mas é publicado no npm como
+`@snksergio/design-system` por passo manual do mantenedor (ver §4.1). Não
 participa da distribuição.
 
 ---
