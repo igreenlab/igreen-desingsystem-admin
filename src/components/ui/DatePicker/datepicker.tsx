@@ -153,9 +153,23 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
             disabled={disabled}
             data-placeholder={label ? undefined : ""}
             className={cn(
-              "flex min-h-form-lg w-full items-center gap-gp-sm rounded-radius-md border border-border-default bg-bg-surface px-pad-lg text-body-sm text-fg-default",
-              "transition-[color,box-shadow,background-color] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-              "disabled:cursor-not-allowed disabled:opacity-50",
+              // Trigger espelha o SelectTrigger (`shadcn/select.tsx`), que é o
+              // precedente do DS pra "botão que tem que parecer input": mesmos
+              // tokens de bg/border/radius/padding/gap e o mesmo tratamento de
+              // foco (borda + shadow-sh-ring), em vez de `ring-4` de botão.
+              // Antes divergia em 6 pontos — bg-surface (opaco) no lugar de
+              // bg-input (translúcido), border-default, radius-md, pad-lg,
+              // gp-sm e sem hover — e por isso não lia como campo de formulário.
+              "flex min-h-form-lg w-full items-center gap-gp-md",
+              "rounded-radius-lg px-pad-xl",
+              "bg-bg-input dark:bg-bg-muted",
+              "hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover",
+              "border border-border-input",
+              "text-body-sm font-normal text-fg-default",
+              "transition-[border-color,box-shadow,background-color] outline-none",
+              "focus-visible:border-border-brand focus-visible:shadow-sh-ring",
+              "data-[state=open]:border-border-brand data-[state=open]:shadow-sh-ring",
+              "disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted",
               "data-[placeholder]:text-fg-muted",
               className,
             )}

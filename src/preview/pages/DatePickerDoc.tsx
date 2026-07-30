@@ -53,9 +53,12 @@ const PROPS = [
 ];
 
 // Trigger no mesmo estilo do DatePicker — reaproveitado nos exemplos avançados
-// que compõem Popover + Calendar diretamente (range, presets, dropdown, restrições).
+// que compõem Popover + Calendar diretamente (presets, dropdown, restrições).
+// ⚠️ É cópia literal do trigger do componente, que por sua vez espelha o
+// SelectTrigger. Se mexer num, mexa no outro — senão o showcase mostra um campo
+// diferente do que o componente entrega.
 const TRIGGER_CLS =
-  "flex min-h-form-lg w-full items-center gap-gp-sm rounded-radius-md border border-border-default bg-bg-surface px-pad-lg text-body-sm text-fg-default transition-[color,box-shadow,background-color] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-fg-muted";
+  "flex min-h-form-lg w-full items-center gap-gp-md rounded-radius-lg px-pad-xl bg-bg-input dark:bg-bg-muted hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover border border-border-input text-body-sm font-normal text-fg-default transition-[border-color,box-shadow,background-color] outline-none focus-visible:border-border-brand focus-visible:shadow-sh-ring data-[state=open]:border-border-brand data-[state=open]:shadow-sh-ring disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted data-[placeholder]:text-fg-muted";
 
 const fmt = (d: Date) =>
   d.toLocaleDateString("pt-BR", { day: "2-digit", month: "short", year: "numeric" });

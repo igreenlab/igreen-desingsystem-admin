@@ -68,7 +68,14 @@ type ModalAction = {
 ## Cuidados / Gotchas
 - Footer aparece só quando há `footer` OU alguma action estruturada — sem nada disso, o modal não renderiza footer
 - `tertiaryAction` à esquerda é o padrão pra ações destrutivas (ex: "Deletar") ou neutras (ajuda); o grupo cancel/save fica à direita
-- Body NÃO scrolla automaticamente — o container tem `overflow-hidden`, conteúdo maior que o viewport é clipado. Pra conteúdo longo, controle a altura/scroll no próprio children
+- **Body scrolla sozinho — não faça na mão.** O painel tem teto de altura
+  (`max-h-[calc(100dvh-32px)]`, `dvh` por causa da barra do navegador no mobile) e o body é
+  `min-h-0 flex-1 overflow-y-auto`. Conteúdo longo (form grande, lista) rola dentro do
+  modal, com header e footer fixos. O `min-h-0` é o que permite o flex item encolher — sem
+  ele o `overflow-y-auto` não tem efeito nenhum e o conteúdo empurra o container pra fora
+  da tela. Não replique altura/scroll no `children`: vira scroll duplo.
+  <br>Até v0.30.0 o body **não** scrollava (`overflow-hidden` clipava e não se chegava aos
+  botões do footer num form longo); corrigido em v0.30.1.
 - `closeOnOverlay={false}` ignora fechamento por overlay E por ESC (Radix dispara o mesmo callback) — pra prevenção fina, controle externamente
 - Render via portal — escapa de overflow/transform ancestrais
 - Pra confirmação destrutiva, use `<AlertModal>` (tem `tone="danger"` semântico)
