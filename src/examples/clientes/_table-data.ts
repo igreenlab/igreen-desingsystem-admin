@@ -1,5 +1,7 @@
 /**
- * Dados base compartilhados (extraídos do showcase TableDoc do DS).
+ * Dados base compartilhados. Espelha `src/preview/pages/_table-data.ts` do DS — que
+ * até v0.30.0 morava dentro do `TableDoc.tsx` e foi extraído pra lá em v0.30.1 pelo
+ * mesmo motivo que existe aqui: fixture compartilhada não pode viver numa Doc page.
  * Mantém o exemplo autossuficiente — sem dependência da infra de preview.
  */
 
