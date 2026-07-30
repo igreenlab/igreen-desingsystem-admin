@@ -27,7 +27,7 @@ export const colorPickerStyles = tv({
       "relative inline-flex shrink-0 items-center justify-center",
       "rounded-radius-md border",
       "transition-[border-color,box-shadow]",
-      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
       // opacity do disabled vem do slot root (cobre tudo uniformemente) — não duplicar aqui
       "disabled:cursor-not-allowed",
     ],
@@ -39,7 +39,7 @@ export const colorPickerStyles = tv({
       "size-comp-xs rounded-radius-md border border-border-input",
       "transition-[box-shadow,border-color]",
       "hover:border-border-brand",
-      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     presetCheck: "size-icon-sm",
     customRow: "flex flex-col gap-gp-md",

@@ -22,7 +22,7 @@ export const fileUploadFieldStyles = tv({
       "transition-[color,box-shadow,background-color,border-color] duration-200 ease-out",
       "cursor-pointer hover:border-border-brand",
       // Padrão 1 — focus estático
-      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     dropIcon: "text-fg-subtle",
     dropText: "text-body-sm text-fg-muted",

@@ -1,16 +1,17 @@
+
+
+> ⚠️ Mirror gerado automaticamente de `.claude/agents/app-designer.md`
+> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
+
 ---
 name: app-designer
 description: >
   🚧 AGUARDANDO FLUXO DE DESENVOLVIMENTO — agente não operacional.
   Especifica layout, fluxo e UX de telas do app desktop iGreen.
   NÃO confundir com DS Designer — este agente trabalha com produto.
-model: claude-sonnet-4-6
 memory: user
 status: PENDING
 ---
-
-> ⚠️ Mirror gerado automaticamente de `.claude/agents/app-designer.md`
-> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
 
 # App Designer — iGreen App
 

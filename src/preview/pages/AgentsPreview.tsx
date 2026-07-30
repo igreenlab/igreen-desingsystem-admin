@@ -384,7 +384,7 @@ export function AgentsPreview() {
                 "inline-flex items-center gap-gp-xs rounded-radius-2xl border px-pad-xl py-pad-sm text-body-xs font-semibold transition-all cursor-pointer",
                 isSelected
                   ? "border-border-brand bg-bg-brand-subtle text-fg-brand shadow-sh-sm"
-                  : "border-border-subtle bg-bg-surface text-fg-muted hover:border-border-main hover:text-fg-default",
+                  : "border-border-subtle bg-bg-surface text-fg-muted hover:border-border-default hover:text-fg-default",
               ].join(" ")}
             >
               <span>{s.emoji}</span>
@@ -500,7 +500,7 @@ export function AgentsPreview() {
 
           {/* Finished banner */}
           {finished && (
-            <div className="mt-gp-4xl rounded-radius-base bg-bg-success-subtle border border-border-success flex items-center gap-gp-md px-pad-3xl py-pad-xl">
+            <div className="mt-gp-4xl rounded-radius-base bg-bg-success-muted border border-border-success-muted flex items-center gap-gp-md px-pad-3xl py-pad-xl">
               <span className="text-[20px]">✅</span>
               <div>
                 <div className="text-body-md font-medium text-fg-success">Pipeline complete</div>
@@ -637,7 +637,7 @@ function FlowNode({ id, isActive, isDone, isInRoute, isRoot, onInfo, onFiles }: 
       className={[
         "rounded-radius-base border bg-bg-surface p-pad-3xl shadow-sh-sm transition-all duration-300",
         isRoot ? "w-[280px]" : "w-[200px]",
-        isDone ? "border-border-success" : "border-border-subtle",
+        isDone ? "border-border-success-muted" : "border-border-subtle",
         !isInRoute ? "opacity-30 border-dashed" : "",
       ].join(" ")}
       style={{

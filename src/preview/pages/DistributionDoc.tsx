@@ -58,7 +58,7 @@ export function DistributionDoc() {
           (3) <strong className="text-fg-default">git submódulo</strong> — o consumidor aponta o DS como submódulo e roda <C>ds-link</C> (<C>npm run ds:link</C>) pra projetar o kit de skills no <C>.claude/</C> dele (detalhe em <C>SUBMODULE-SETUP.md</C>);
           e (4) o <strong className="text-fg-default">pacote npm</strong> <C>@snksergio/design-system</C> — lib buildada (ESM + CJS + types + <C>theme.css</C>), canal <strong className="text-fg-default">secundário</strong>: funciona, mas o publish é passo manual do mantenedor, então costuma ficar atrás do registry. Use só quando precisar consumir como dependência em vez de copy-in.
         </p>
-        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-subtle p-pad-3xl">
+        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
           <p className="text-body-md text-fg-default font-medium mb-gp-md">Fluxo macro — o passo do meio é MANUAL</p>
           <p className="text-body-md text-fg-muted leading-relaxed font-mono text-code-sm mb-gp-md">
             edita no DS → <span className="text-fg-warning">registry:build</span> → <span className="text-fg-warning">copy-registry.mjs</span> → commit do embed → merge no main → Vercel redeploya → consumidor recebe via <span className="text-fg-brand">igreen:add</span>/<span className="text-fg-brand">igreen:update</span>

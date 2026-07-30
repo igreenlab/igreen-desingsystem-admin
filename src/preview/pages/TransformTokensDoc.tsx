@@ -256,7 +256,7 @@ export function TransformTokensDoc() {
 <div class="p-sp-md gap-gp-xl px-pad-3xl">
 
 <!-- Colors -->
-<p class="text-fg-default bg-bg-surface border-border-main">
+<p class="text-fg-default bg-bg-surface border-border-default">
 
 <!-- Typography preset -->
 <h2 class="text-heading-md">

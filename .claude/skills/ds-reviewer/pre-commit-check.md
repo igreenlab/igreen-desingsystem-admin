@@ -156,7 +156,12 @@ Se foi adicionada L-NNN nova:
 
 - [ ] **Resumo 1-linha** adicionado em `.claude/rules/ds-standards.md` (seção "Lições — resumo")?
 - [ ] **Contador "N Lições — resumo"** no título da seção atualizado?
-- [ ] **`memory/igreen_lessons_summary.md`** atualizado com a nova entry?
+- [ ] Entry completa em **`.ai/status/lessons.md`** (formato canônico L-NNN)?
+      ⚠️ Este item citava um `memory/igreen_lessons_summary.md` que **nunca existiu** —
+      referência morta removida em 2026-07-30. Lição tem **duas** superfícies e só duas:
+      a entry completa no `lessons.md` e o resumo 1-linha no `ds-standards.md`. Não crie
+      um terceiro resumo: três cópias da mesma lição divergem (foi o que aconteceu com o
+      catálogo de componentes).
 - [ ] Próxima numeração L-NNN+1 mencionada como next em "Como adicionar nova lição"?
 
 ### 2.6 — Agente / skill / rule modificado

@@ -3,6 +3,19 @@
 > Carregar quando a tarefa envolve: nova cor semântica, ajuste de paleta,
 > dark mode, tokens de feedback, overlay, scrim.
 
+⚠️ **A fonte de verdade é `tokens/brands/default/semantic/color-light.ts` e o CSS gerado
+`src/styles/theme/tailwind-theme.css` — não esta doc.** Nome que não estiver no CSS gerado
+**não emite classe nenhuma**: a utility é ignorada em silêncio, sem quebrar build, `tsc`
+ou teste. Para conferir um nome antes de usar:
+
+```bash
+grep -oE "\-\-color-(bg|fg|border|ring)-[a-z0-9-]+" src/styles/theme/tailwind-theme.css | sort -u
+```
+
+Gate automático: `scripts/lib/dead-theme-classes.mjs`, roda no `npm test`.
+
+---
+
 ## Arquitetura de cor (2 tiers)
 
 ```
@@ -17,115 +30,102 @@ color-palette.ts (primitivo — OKLCH)
   alpha.brand[10–24]    → overlays de marca
        ↓
 color-light.ts  /  color-dark.ts (semântico)
-  bg.*      → fundos de superfície e containers
-  fg.*      → texto e ícones (sem namespace separado para icon)
-  border.*  → bordas e dividers
-  ring.*    → focus rings (outline de foco acessível)
-  overlay.* → scrim, tooltip
+  bg.*      → fundos de superfície e containers   (43 tokens)
+  fg.*      → texto e ícones (sem namespace separado para icon)  (15)
+  border.*  → bordas e dividers                    (11)
+  ring.*    → focus rings (outline de foco acessível)  (6)
+  overlay.* → float, scrim                          (2)
+  chart.*   → 1–5 + grid                            (6)
 ```
 
 ---
 
-## Dois padrões de sufixo — DIFERENTES, ambos corretos
+## A regra de sufixo — depende da FAMÍLIA, não do papel
 
-### `*-inverted` — versão invertida de um papel neutro
+Errar isso é o defeito mais comum, porque a classe some sem avisar.
 
-Usado quando um papel neutro precisa ser lido em fundo oposto.
-Exemplo: `fg.foreground` é quase preto no light mode. Em um tooltip escuro
-dentro do mesmo tema light, o texto precisa ser quase branco → `fg.foreground-inverted`.
+| Família | Tons que existem | Não existe |
+|---|---|---|
+| `brand` | `bg.brand`, `bg.brand-hover`, `bg.brand-subtle`, `bg.brand-subtle-hover` | `bg.brand-muted` |
+| status (`success` `warning` `danger` `info`) | `bg.{s}`, `bg.{s}-hover`, `bg.{s}-muted`, `bg.{s}-muted-hover` | `bg.{s}-subtle` |
+| neutro | `bg.subtle`, `bg.muted`, `bg.emphasis`, `bg.accent` | — |
+| borda de status | **só** `border.{s}-muted` | `border.{s}` cru |
+| borda de marca | `border.brand`, `border.brand-subtle` | — |
+
+## `on-*` — texto que senta SOBRE uma cor de marca ou status
+
+Usado quando o fundo **é** uma cor específica. Só existe para marca e status:
 
 ```
-fg.foreground          → ~preto  (texto sobre superfície clara)
-fg.foreground-inverted → ~branco (texto sobre superfície escura)
-
-fg.muted               → cinza médio (descritivo sobre fundo claro)
-fg.muted-inverted      → cinza claro (descritivo sobre fundo escuro)
+bg.brand      → fundo azul da marca
+fg.on-brand   → texto que vai SOBRE bg.brand
 ```
 
-**Regra:** usar `*-inverted` quando o PAPEL é o mesmo, mas o contexto de fundo inverteu.
+Existem: `fg.on-brand`, `fg.on-danger`, `fg.on-info`, `fg.on-success`, `fg.on-warning`.
+Não existe `fg.on-primary` (esse é o nome V2, extinto).
+
+> ⛔ **Não existe sufixo `-inverted` em nenhum token.** Esta doc descrevia uma família
+> `fg.{papel}-inverted` até 2026-07-30 — medido: **zero** ocorrências de "inverted" no CSS
+> gerado. Era ficção. Para texto sobre superfície escura em tema light, use o par
+> `bg.*`/`fg.on-*` correspondente, ou `dark:` quando o contexto é o tema.
 
 ---
 
-### `on-*` — texto projetado para sentar sobre uma cor de marca ou status
+## Roles semânticos — nomes reais
 
-Usado quando o fundo É uma cor específica (primary, success, warning, danger, info).
+### `bg.*` — fundos
 
-```
-bg.primary   → fundo azul da marca
-fg.on-primary → texto branco que vai SOBRE bg.primary
+| Grupo | Tokens |
+|---|---|
+| Superfície | `canvas` · `surface` · `surface-elevated` · `surface-panels` · `subtle` · `muted` (+`-hover`) · `emphasis` · `accent` (+`-hover`) |
+| Marca | `brand` · `brand-hover` · `brand-subtle` · `brand-subtle-hover` |
+| Status | `success` · `warning` · `danger` · `info`, cada um com `-hover`, `-muted`, `-muted-hover` |
+| Form / chrome | `input` (+`-hover`) · `dropdown` · `sidebar` · `sidebar-accent` (+`-hover`) |
+| Tabela | `table` · `table-head` · `table-row-hover` · `table-row-selected` (+`-hover`, `-solid`, `-hover-solid`) |
 
-bg.danger    → fundo vermelho de erro
-fg.on-danger → texto que vai SOBRE bg.danger
-```
+Hierarquia obrigatória de fundo: `canvas < surface < subtle < muted` (L-008).
 
-**Regra:** usar `on-*` quando o fundo É uma cor semântica específica.
+### `fg.*` — texto e ícones
 
----
+| Token | Uso |
+|---|---|
+| `default` | texto base neutro — máximo contraste |
+| `strong` | ênfase acima do default |
+| `muted` / `subtle` | texto secundário / terciário |
+| `disabled` | texto de elemento desabilitado |
+| `brand` | cor da marca — links, CTAs |
+| `success` `warning` `danger` `info` | texto de status |
+| `on-brand` `on-success` `on-warning` `on-danger` `on-info` | texto sobre a cor correspondente |
 
-## Roles semânticos — nomes e uso
+### `border.*`
 
-| Role | Uso correto |
-|------|-------------|
-| **bg (backgrounds)** | |
-| `bg.canvas` | Fundo da página (o mais externo) |
-| `bg.secondary` | Superfície escura — neutral[950] (dark surface para contraste) |
-| `bg.surface` | Cards, modais, popovers |
-| `bg.surface-inverted` | Tooltips, toasts escuros, badges invertidos |
-| `bg.muted` | Inputs, code blocks (recuado) |
-| `bg.disabled` | Fundo de elementos desabilitados |
-| `bg.primary` | Fundo de destaque da marca (CTA) |
-| `bg.primary-subtle` | Fundo suave de marca (banners, alerts) |
-| `bg.primary-muted` | Fundo de marca com ênfase intermediária |
-| `bg.primary-hover` | Hover sobre bg.primary |
-| `bg.success / .warning / .danger / .info` | Status feedback — fundo sólido |
-| `bg.*-subtle / *-muted / *-strong` | Variantes de intensidade por cor semântica |
-| **fg (foreground — texto e ícones)** | |
-| `fg.foreground` | Texto base neutro — máximo contraste |
-| `fg.foreground-inverted` | Texto neutro sobre superfície invertida |
-| `fg.strong` | Títulos, destaques |
-| `fg.moderate` | Sub-headings, rótulos |
-| `fg.muted` | Textos descritivos, subtítulos |
-| `fg.subtle` | Placeholders, hints |
-| `fg.disabled` | Texto desabilitado |
-| `fg.primary` | Cor da marca — links, CTAs |
-| `fg.on-primary` | Texto sobre `bg.primary` |
-| `fg.on-danger` | Texto sobre `bg.danger` |
-| `fg.on-success` | Texto sobre `bg.success` |
-| `fg.on-warning` | Texto sobre `bg.warning` |
-| `fg.on-info` | Texto sobre `bg.info` |
-| **border** | |
-| `border.main` | Bordas de input, card (padrão) |
-| `border.subtle` | Separadores leves, dividers |
-| `border.strong` | Bordas de destaque, hover |
-| `border.heavy` | Borda pesada de destaque (borderWidth.sm) |
-| `border.primary` | Borda com cor da marca |
-| `border.danger-muted` | Borda de erro |
-| **ring (focus rings)** | |
-| `ring.primary` | Focus ring padrão — alpha.brand[20] (20% opacidade) |
-| `ring.danger` | Focus ring em estado de erro — alpha.danger[20] |
-| `ring.neutral` | Focus ring neutro — alpha.neutral[20] |
-| **chart (data-viz)** | usados **só** em gráficos (Recharts via `Chart`) |
-| `chart.1` | série principal — **verde da marca** (primitive; acompanha a brand) |
-| `chart.2`–`chart.5` | harmônicas — teal / azul / âmbar / violeta |
-| `chart.grid` | linhas-guia (CartesianGrid/PolarGrid). light `gray[200]` / dark branco 12% |
+`default` · `subtle` · `input` · `table` · `sidebar` · `brand` · `brand-subtle` ·
+`danger-muted` · `warning-muted` · `success-muted` · `info-muted`
 
-> Paleta categórica de gráficos. Editar em `tokens/.../semantic/color-light.ts` +
-> `color-dark.ts` (namespace `chart`) → `npm run tokens:tw4`. Consumo: `var(--color-chart-*)`
-> no `config` do `ChartContainer`, nunca em componentes comuns. Convenções de uso
-> (1 série / 2 séries verde+âmbar / pizza monocromática / status) e caveats do Recharts 3:
-> `.ai/context/components/chart-patterns.md` + L-032.
+### `ring.*` — focus rings
+
+`brand` · `secondary` · `success` · `warning` · `danger` · `info`
+
+O ring padrão é **`ring-ring-brand`**. O token já embute alpha — **nunca** acrescentar
+`/20`, `/30` (L-001). Aplicar como `focus-visible:ring-4 focus-visible:ring-ring-brand`
+junto de `focus-visible:outline-none`.
+
+### `overlay.*`
+
+`scrim` (fundo de modal) · `float` (outline de superfície flutuante — ver L-040).
 
 ---
 
 ## Regras invioláveis
 
-1. **Nunca usar primitivos em componentes.** `brand[600]` → proibido. Usar `bg-bg-primary`.
-2. **Contraste mínimo:** `fg.foreground` / `bg.canvas` ≥ 7:1 (WCAG AAA).
+1. **Nunca usar primitivos em componentes.** `brand[600]` → proibido. Usar `bg-bg-brand`.
+2. **Contraste mínimo:** `fg.default` / `bg.canvas` ≥ 7:1 (WCAG AAA).
 3. **Dark mode:** mudar só `color-dark.ts`. Jamais lógica `if (isDark)` em componentes.
 4. **`on-*` obrigatório:** todo `bg.{cor}` de marca/status precisa de `fg.on-{cor}`.
-5. **Variantes de intensidade:** toda cor semântica deve ter `subtle`, `muted`.
+5. **Tom sutil segue a família** — status recebe `-muted`, marca recebe `-subtle`
+   (ver a tabela acima). Não invente o par que falta.
 6. **Ícones usam `fg.*`:** sem namespace separado para ícone.
-7. **Focus ring usa `ring.*`:** nunca `border.*` para outline de foco. Ring tokens usam cores alpha (20% opacidade) — aplicar via `ring-4 ring-ring-{color}` com `outline-none`.
+7. **Focus ring usa `ring.*`:** nunca `border.*` para outline de foco.
 
 ---
 
@@ -136,19 +136,19 @@ fg.on-danger → texto que vai SOBRE bg.danger
    Sim → pular para passo 2
    Não → adicionar escala OKLCH em color-palette.ts
 
-2. Adicionar em color-light.ts no role correto
-   (bg / fg / border / ring)
+2. Adicionar em color-light.ts no role correto (bg / fg / border / ring)
 
 3. Adicionar equivalente em color-dark.ts
+   (border no dark: L% ≥ surface + 6% — L-009)
 
 4. Se for bg.{cor} de marca/status:
    → criar fg.on-{cor}
-   → criar bg.{cor}-subtle, bg.{cor}-muted
+   → criar o tom sutil da FAMÍLIA: status → bg.{cor}-muted · marca → bg.{cor}-subtle
 
-5. Se for papel neutro com versão invertida:
-   → criar fg.{papel}-inverted
+5. Rodar npm run tokens:tw4 para gerar as classes CSS
 
-6. Rodar npm run tokens:tw4 para gerar as classes CSS
+6. Conferir que a classe existe de fato:
+   grep "\-\-color-<nome>" src/styles/theme/tailwind-theme.css
 
 7. Atualizar .ai/status/pipeline-state.md
 ```
@@ -157,21 +157,37 @@ fg.on-danger → texto que vai SOBRE bg.danger
 
 ## Quando usar cada padrão — guia rápido
 
-| Situação | Padrão | Classe |
-|----------|--------|--------|
-| Texto sobre superfície clara | `fg.foreground` | `text-fg-foreground` |
-| Texto sobre tooltip escuro | `fg.foreground-inverted` | `text-fg-foreground-inverted` |
-| Texto sobre botão primário | `fg.on-primary` | `text-fg-on-primary` |
+| Situação | Token | Classe |
+|----------|-------|--------|
+| Texto padrão sobre superfície | `fg.default` | `text-fg-default` |
+| Texto sobre botão da marca | `fg.on-brand` | `text-fg-on-brand` |
 | Texto sobre fundo de erro | `fg.on-danger` | `text-fg-on-danger` |
-| Fundo de elemento disabled | `bg.disabled` | `bg-bg-disabled` |
+| Texto de elemento desabilitado | `fg.disabled` | `text-fg-disabled` |
+| Banner suave de sucesso | `bg.success-muted` + `border.success-muted` | `bg-bg-success-muted border-border-success-muted` |
+| Banner suave da marca | `bg.brand-subtle` | `bg-bg-brand-subtle` |
+| Focus ring | `ring.brand` | `focus-visible:ring-4 focus-visible:ring-ring-brand` |
 
 ---
 
-## Nomes a evitar
+## Nomes a evitar — direção correta do rename
 
-- `fg.brand` → renomeado para `fg.primary`
-- `bg.page` → renomeado para `bg.canvas`
-- `border.default` → renomeado para `border.main`
-- `border.focus` → movido para `ring.*`
-- `critical` → renomeado para `danger` (alinhado com primitivo e CSS gerado)
-- `icon.*` → removido, usar `fg.*`
+⚠️ Esta seção estava **invertida** até 2026-07-30 (dizia `fg.brand → renomeado para
+fg.primary`, o oposto do real). A coluna da esquerda é o nome **morto**.
+
+| Nome morto (V2) | Nome atual |
+|---|---|
+| `primary` (como cor da marca) | `brand` — `bg.brand`, `fg.brand`, `border.brand`, `ring.brand` |
+| `fg.foreground` | `fg.default` |
+| `fg.on-primary` | `fg.on-brand` |
+| `border.main` | `border.default` |
+| `critical` | `danger` |
+| `bg.page` | `bg.canvas` |
+| `border.focus` | movido para `ring.*` |
+| `icon.*` | removido — usar `fg.*` |
+| `*-inverted` (qualquer) | nunca existiu — ver aviso acima |
+| `bg.disabled` | não existe — só `fg.disabled` |
+
+Em 2026-07-30 havia **25 usos** de nomes desta coluna em `src/`, sendo 9 de
+`ring-ring-primary` em 4 componentes distribuídos (anel de foco caindo em
+`currentColor`). Todos corrigidos, e o gate `dead-theme-classes` agora reprova
+reincidência no CI.

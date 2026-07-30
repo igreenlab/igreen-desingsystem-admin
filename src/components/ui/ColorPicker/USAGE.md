@@ -66,5 +66,5 @@ const [color, setColor] = useState("#16A34A");
 - **bg dinâmico = exceção L-027:** o fundo do swatch e dos presets vem por `style={{ backgroundColor }}` (cor externa). É a única exceção de hardcode permitida; todo o resto é token DS.
 - **Checkmark com contraste auto:** o preset selecionado usa `getContrastTextColor(hex)` para escolher branco/preto — não cor cega.
 - **Anchor do Popover:** o swatch é `forwardRef` via `PopoverTrigger asChild` (L-021). O `ref` encaminhado vai para o botão do swatch.
-- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-primary`); o input hex herda o foco animado do `Input` do DS (Padrão 2).
+- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-brand`); o input hex herda o foco animado do `Input` do DS (Padrão 2).
 - Para parear visualmente com outros campos de um form, envolva em `<FormField>` (render-prop) — o `state` do ColorPicker espelha o do Input para casar a borda.

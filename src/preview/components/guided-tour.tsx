@@ -221,7 +221,7 @@ export function GuidedTour({
       {/* spotlight: box-shadow gigante cria o scrim; recorte no alvo */}
       {rect ? (
         <div
-          className="pointer-events-none absolute rounded-radius-base border-[3px] border-border-brand ring-4 ring-ring-primary transition-all duration-200"
+          className="pointer-events-none absolute rounded-radius-base border-[3px] border-border-brand ring-4 ring-ring-brand transition-all duration-200"
           style={{
             top: rect.top - pad,
             left: rect.left - pad,
@@ -253,7 +253,7 @@ export function GuidedTour({
             type="button"
             onClick={close}
             aria-label="Pular tour"
-            className="text-fg-muted hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary rounded-radius-sm"
+            className="text-fg-muted hover:text-fg-default focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand rounded-radius-sm"
           >
             <X className="size-icon-sm" strokeWidth={2} aria-hidden="true" />
           </button>

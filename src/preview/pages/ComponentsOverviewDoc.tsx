@@ -218,7 +218,7 @@ function ComponentCard({ item }: { item: CompItem }) {
   return (
     <a
       href={`#/${item.href}`}
-      className="group flex items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface p-pad-sm transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+      className="group flex items-center gap-gp-sm rounded-radius-base border border-border-subtle bg-bg-surface p-pad-sm transition-colors hover:border-border-brand hover:bg-bg-muted focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
     >
       <span className="grid size-comp-md shrink-0 place-items-center rounded-radius-sm bg-bg-muted text-fg-muted transition-colors group-hover:bg-bg-brand-subtle group-hover:text-fg-brand [&_svg]:size-icon-sm">
         <Icon strokeWidth={1.8} aria-hidden={true} />

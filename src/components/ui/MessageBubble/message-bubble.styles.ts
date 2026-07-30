@@ -50,9 +50,9 @@ export const messageBubbleStyles = tv({
     /* mídia */
     media: "flex min-w-0 flex-col gap-gp-xs",
     mediaImage:
-      "max-w-full cursor-pointer rounded-radius-sm object-cover transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "max-w-full cursor-pointer rounded-radius-sm object-cover transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     mediaVideo:
-      "max-w-full rounded-radius-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary",
+      "max-w-full rounded-radius-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     mediaAudio: "w-full",
     mediaDoc: [
       "flex items-center gap-gp-md",

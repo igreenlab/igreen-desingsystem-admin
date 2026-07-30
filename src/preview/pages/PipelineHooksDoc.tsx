@@ -239,7 +239,7 @@ export function PipelineHooksDoc() {
       {/* No formatter */}
       <SectionH2 id="no-formatter" title="Sem formatador automático" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <div className="rounded-radius-base border border-border-danger-muted bg-bg-danger-subtle p-pad-3xl">
+        <div className="rounded-radius-base border border-border-danger-muted bg-bg-danger-muted p-pad-3xl">
           <p className="text-body-md font-medium text-fg-default mb-gp-sm">
             Não existe hook de formatação, e é decisão — não lacuna (2026-07-29)
           </p>
