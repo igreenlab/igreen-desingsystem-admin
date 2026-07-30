@@ -17,6 +17,7 @@
     "src/lib/**/*",
     "src/preview/pages/ChatV2/**/*",
     "src/preview/pages/ClientesShowcase/**/*",
+    "src/preview/pages/_table-data.ts",
     "src/preview/pages/DashboardShowcase.tsx",
     "src/preview/mocks/**/*",
     "tokens/index.ts",

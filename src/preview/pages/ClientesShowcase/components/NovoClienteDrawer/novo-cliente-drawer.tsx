@@ -8,7 +8,7 @@ import {
   FormFieldTextarea,
 } from "@/components/ui/FormField";
 import { ChipGroup, ChipGroupItem } from "@/components/ui/Chip";
-import { STATUSES, CATEGORIES } from "../../../TableDoc";
+import { STATUSES, CATEGORIES } from "../../../_table-data";
 import { CITIES, STATUS_DOT } from "../../clientes-showcase-mocks";
 import { drawerFormStyles } from "../../clientes-showcase.styles";
 import type { NovoClienteFormData } from "../../clientes-showcase.types";

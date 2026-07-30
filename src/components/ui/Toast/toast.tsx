@@ -36,7 +36,35 @@ function show(opts: ToastOptions, status: ToastStatus) {
  * Métodos nativos do Sonner seguem disponíveis: `toast.promise`, `toast.dismiss`,
  * `toast.custom` (pra conteúdo 100% livre).
  */
-export const toast = Object.assign(
+/** Id que o Sonner devolve — derivado dele, não fixado à mão. */
+type ToastId = ReturnType<typeof sonnerToast.custom>;
+
+/**
+ * Métodos do Sonner repassados sem alteração. Declarado com `Pick<typeof
+ * sonnerToast, …>` de propósito: o retorno de `promise` referencia
+ * `PromiseIExtendedResult`, que o Sonner **não exporta**. Sob inferência, o TS
+ * precisa NOMEAR esse tipo na declaração e falha com **TS4023** — e o
+ * `vite-plugin-dts` então **pula o arquivo em silêncio**, com o build saindo 0.
+ * Resultado: `toast.d.ts` não era emitido, mas o `index.d.ts` reexportava dele →
+ * `import { toast }` virava `any` pra quem consome via npm (L-017, achado pelo
+ * `npm run lib:verify`). Com `Pick`, o tipo fica uma REFERÊNCIA ao export do módulo
+ * e nada precisa ser nomeado.
+ */
+type SonnerPassthrough = Pick<
+  typeof sonnerToast,
+  "promise" | "dismiss" | "custom" | "loading"
+>;
+
+/** API pública do helper `toast` do DS. */
+export interface ToastApi extends SonnerPassthrough {
+  (opts: ToastOptions): ToastId;
+  success(opts: ToastOptions): ToastId;
+  error(opts: ToastOptions): ToastId;
+  warning(opts: ToastOptions): ToastId;
+  info(opts: ToastOptions): ToastId;
+}
+
+export const toast: ToastApi = Object.assign(
   (opts: ToastOptions) => show(opts, "default"),
   {
     success: (opts: ToastOptions) => show(opts, "success"),

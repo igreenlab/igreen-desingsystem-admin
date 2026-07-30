@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback } from "@/components/shadcn/avatar";
 import { Button } from "@/components/ui/Button/button";
 import { Chip } from "@/components/ui/Chip";
 import { FloatingPanel } from "@/components/ui/FloatingPanel";
-import { STATUSES, CATEGORIES, AGENTS } from "../../../TableDoc";
+import { STATUSES, CATEGORIES, AGENTS } from "../../../_table-data";
 import {
   CATEGORY_KIND,
   STATUS_DOT,

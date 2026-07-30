@@ -18,7 +18,7 @@ import {
   CATEGORIES,
   AGENTS,
   type ClientRow,
-} from "../TableDoc";
+} from "../_table-data";
 import {
   DataTable,
   presetView,
