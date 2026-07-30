@@ -345,7 +345,7 @@ resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }`}</C
           <li><strong className="text-fg-default">.claude/rules/ds-standards.md</strong> — auto-loaded by glob for any DS-related work</li>
           <li><strong className="text-fg-default">.claude/agents/</strong> — 4 specialized agents (orchestrator, designer, dev, reviewer)</li>
           <li><strong className="text-fg-default">.claude/skills/</strong> — atomic skills triggered via SkillTool or slash commands</li>
-          <li><strong className="text-fg-default">.claude/hooks/</strong> — format-on-save, block-rm-rf, block-sensitive-edit</li>
+          <li><strong className="text-fg-default">.claude/hooks/</strong> — ds-lint-styles, ds-inventory-check, ds-tokens-check (informativos) + block-rm-rf, block-sensitive-edit (bloqueiam)</li>
           <li><strong className="text-fg-default">.claude/output-styles/terse.md</strong> — keeps responses tight</li>
         </ul>
         <p className="text-body-md text-fg-muted">

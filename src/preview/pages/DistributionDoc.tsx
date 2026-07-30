@@ -53,15 +53,24 @@ export function DistributionDoc() {
       <SectionH2 id="overview" title="Overview" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          O iGreen DS chega no consumidor por <strong className="text-fg-default">3 canais</strong>: (1) <strong className="text-fg-default">copy-in via registry shadcn</strong> — o consumidor roda <C>npm run igreen:add -- &lt;item&gt;</C> e o <strong className="text-fg-default">código do componente é copiado pro projeto dele</strong> (vira código dele, editável);
+          O iGreen DS chega no consumidor por <strong className="text-fg-default">4 canais</strong>: (1) <strong className="text-fg-default">copy-in via registry shadcn</strong> — o consumidor roda <C>npm run igreen:add -- &lt;item&gt;</C> e o <strong className="text-fg-default">código do componente é copiado pro projeto dele</strong> (vira código dele, editável). É o canal <strong className="text-fg-default">primário</strong>;
           (2) o <strong className="text-fg-default">CLI npm</strong> (<C>@snksergio/create-design-system</C>), que scaffolda um projeto novo já consumindo o registry + kit;
-          e (3) <strong className="text-fg-default">git submódulo</strong> — o consumidor aponta o DS como submódulo e roda <C>ds-link</C> (<C>npm run ds:link</C>) pra projetar o kit de skills no <C>.claude/</C> dele (detalhe em <C>SUBMODULE-SETUP.md</C>).
-          O número da versão e o conteúdo vêm do registry hospedado na Vercel.
+          (3) <strong className="text-fg-default">git submódulo</strong> — o consumidor aponta o DS como submódulo e roda <C>ds-link</C> (<C>npm run ds:link</C>) pra projetar o kit de skills no <C>.claude/</C> dele (detalhe em <C>SUBMODULE-SETUP.md</C>);
+          e (4) o <strong className="text-fg-default">pacote npm</strong> <C>@snksergio/design-system</C> — lib buildada (ESM + CJS + types + <C>theme.css</C>), canal <strong className="text-fg-default">secundário</strong>: funciona, mas o publish é passo manual do mantenedor, então costuma ficar atrás do registry. Use só quando precisar consumir como dependência em vez de copy-in.
         </p>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md text-fg-default font-medium mb-gp-md">Fluxo macro</p>
-          <p className="text-body-md text-fg-muted leading-relaxed font-mono text-code-sm">
-            você edita no DS → merge no main → Vercel redeploya o registry → consumidor recebe via <span className="text-fg-brand">igreen:add</span>/<span className="text-fg-brand">igreen:update</span>
+        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-subtle p-pad-3xl">
+          <p className="text-body-md text-fg-default font-medium mb-gp-md">Fluxo macro — o passo do meio é MANUAL</p>
+          <p className="text-body-md text-fg-muted leading-relaxed font-mono text-code-sm mb-gp-md">
+            edita no DS → <span className="text-fg-warning">registry:build</span> → <span className="text-fg-warning">copy-registry.mjs</span> → commit do embed → merge no main → Vercel redeploya → consumidor recebe via <span className="text-fg-brand">igreen:add</span>/<span className="text-fg-brand">igreen:update</span>
+          </p>
+          <p className="text-body-md text-fg-muted">
+            <strong className="text-fg-default">Merge no main NÃO regenera o embed.</strong> O{" "}
+            <C>vercel.json</C> roda <C>next build</C>, que não dispara o lifecycle <C>prebuild</C> do npm —
+            e mesmo se disparasse, o <C>copy-registry.mjs</C> sai cedo quando <C>../public/r</C> não existe
+            (é gitignored e fica fora do root dir da Vercel). Ou seja: <strong className="text-fg-default">a
+            Vercel serve exatamente o <C>registry-data.ts</C> que está commitado</strong>. Regenerar é passo
+            humano do <C>/ds-release</C>. O <C>registry-check</C> reprova se o embed ficar defasado, comparando
+            o <C>meta.stamp</C> (versão + hash git) e o <C>files[]</C> de cada item.
           </p>
         </div>
       </div>
@@ -72,6 +81,7 @@ export function DistributionDoc() {
         <FileRow path="Registry (Vercel)" desc="igreen-registry.vercel.app — serve o JSON de cada item (Bearer). É de onde o código é copiado. PRIVADO." tag="código" />
         <FileRow path="Catálogo (Vercel)" desc="igreen-desingsystem-admin.vercel.app — este preview público. Mostra os componentes/telas rodando." tag="visão" />
         <FileRow path="CLI (npm)" desc="@snksergio/create-design-system — scaffolda projeto novo já consumindo o registry + kit." tag="scaffold" />
+        <FileRow path="Pacote npm (lib)" desc="@snksergio/design-system — lib buildada por npm run build:lib. Canal SECUNDÁRIO: publish manual do mantenedor (gate de token no passo 7 do /ds-release), validado antes por npm run lib:verify." tag="secundário" />
         <FileRow path="Submódulo (git)" desc="Consumidor aponta o DS como git submódulo e roda ds-link (npm run ds:link) pra projetar o kit de skills no .claude/ dele — paridade com o npm. Detalhe em SUBMODULE-SETUP.md." tag="submódulo" />
       </div>
 
@@ -83,7 +93,7 @@ export function DistributionDoc() {
         </p>
         <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-loose">
           <p className="text-fg-default font-semibold">igreen-ds/</p>
-          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 78 itens + files + deps</span></p>
+          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 87 itens + files + deps</span></p>
           <p className="ml-sp-md">public/r/                          <span className="text-fg-subtle">← JSON gerado por item (npx shadcn build) — gitignored</span></p>
           <p className="ml-sp-md">registry-app/                      <span className="text-fg-subtle">← app Next.js que SERVE o registry na Vercel</span></p>
           <p className="ml-sp-2xl">app/registry-data.ts            <span className="text-fg-subtle">← EMBED dos JSON (commitado — fonte do deploy)</span></p>
@@ -194,8 +204,12 @@ export function DistributionDoc() {
         <FileRow path="hook ds-inventory-check" desc="Componente sem USAGE.md / fora do inventory.md / fora do registry.json → avisa." tag="hook" />
         <FileRow path="hook ds-tokens-check" desc="Editou token → lembra tokens:tw4 + registry:build + bump (/ds-release)." tag="hook" />
         <FileRow path="examples-drift-check" desc="example-* defasado vs seu showcase-fonte → avisa (roda no registry:build)." tag="check" />
-        <FileRow path="registry-check" desc="Paths do registry.json existem + embed em sync (sem token)." tag="CI" />
-        <FileRow path="CI (.github/workflows)" desc="Em PR/push: tsc + vitest + registry-check + examples-drift." tag="CI" />
+        <FileRow path="registry-check" desc="Paths do registry.json existem, sem backslash, e o embed está em sync — comparado por meta.stamp (versão + hash git) e files[] de cada item, não só pela presença do nome. Nome não muda entre releases, então o check antigo era verde-permanente com conteúdo velho." tag="CI" />
+        <FileRow path="copy-registry (guard)" desc="Recusa escrever o embed quando o public/r está defasado (itens faltando ou carimbo de versão anterior) — gerar dali REGRIDE o consumidor em silêncio." tag="guard" />
+        <FileRow path="distribution-debt" desc="Componente fora do registry.json ou do catálogo do CLI. Informativo na PR (Regra 8: distribuição consolida no /ds-release), bloqueante no release:check." tag="CI" />
+        <FileRow path="lib-verify" desc="Integridade do pacote npm antes do publish: exige que o conjunto de .d.ts do tarball seja fechado sob imports relativos (L-017 — 4 releases publicadas com types quebrados em silêncio)." tag="CI" />
+        <FileRow path="showcase-check + api-doc-check" desc="Componente novo sem rota no showcase (bloqueia) e componente existente que amplia API sem tocar o USAGE (avisa)." tag="CI" />
+        <FileRow path="CI (.github/workflows)" desc="Em PR/push: tsc + vitest + registry-check + foundationals + examples-drift + lint ratchet + débito + showcase + api-doc + lib-verify." tag="CI" />
         <FileRow path="pre-commit-check §2.8" desc="Gate amplo antes de commit grande: registry/tokens/embed/cli atualizados." tag="gate" />
       </div>
     </DocLayout>

@@ -62,6 +62,28 @@ Heurística por prefixo convencional na linha de subject:
 - `package.json` (rename, deps, scripts) → `changed`
 - Arquivo deletado fora de refactor convencional → `removed`
 
+### ⛔ Mudança de INFRA também entra na timeline — não é opcional
+
+A tabela acima já mapeia `.claude/`, `.ai/` e `scripts/`, mas a regra vinha sendo ignorada na
+prática: quem monta a entry olha o que o **consumidor** recebe e conclui que "infra não conta".
+Resultado medido em 2026-07-30: **25 PRs** de pipeline (gates de CI, hooks, skills, lições,
+governança) sem uma linha nesta timeline. Mudança interna que não entra no changelog é
+**mudança sem histórico** — daqui a três meses ninguém sabe quando o gate passou a existir nem
+por quê.
+
+**Regra:** se o diff da release tocou `.github/workflows/`, `scripts/`, `.claude/` ou `.ai/` de
+forma que muda **o que o pipeline garante**, a entry cobre isso — mesmo que nenhum componente
+tenha mudado.
+
+- Release **mista** (componente + infra): um grupo pra cada, na mesma entry.
+- Release **só de infra**: entry própria, `tag: "milestone"`, e `version` no formato
+  **`pipeline-YYYY-MM`** em vez de semver — porque não houve bump de pacote e usar semver aí
+  mentiria sobre o que o consumidor recebe. Exemplo real: `pipeline-2026-07`.
+
+**O que NÃO merece entry:** correção de typo em doc, ajuste de formatação, reorganização de
+arquivo sem mudança de comportamento. O critério é *"isso muda o que o pipeline garante ou
+proíbe?"* — se sim, entra; se é só o texto ficando melhor, não.
+
 ## Passo 4 — Sugerir version bump
 
 Aplica regras em ordem (primeira que bate vence):
