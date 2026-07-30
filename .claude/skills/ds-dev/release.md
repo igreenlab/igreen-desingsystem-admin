@@ -378,12 +378,72 @@ Próximos passos (humanos):
 2. Merge → trigger auto-deploy do registry (Vercel detecta push em main, Root=registry-app)
 3. Após merge, deletar branch release/v<X.Y.Z> (local + remote)
 4. CLI mudou? (rebake/bump) → publicar manual: cd cli && npm publish (OTP/token)
+5. Publish do DS no npm → **Passo 7** abaixo (gate de token)
 ```
 
 > **Registry vs CLI no deploy:** o **registry** sobe sozinho no merge (Git+Vercel). O
 > **CLI** (`@snksergio/create-design-system`) é pacote npm separado — `npm publish` é
 > manual (2FA). Só republique o CLI quando `cli/**` mudou (rebake de foundational ou
 > feature de template).
+
+---
+
+## Passo 7 — [GATE] Publish do DS no npm
+
+**Só DEPOIS do merge da PR de release.** O npm é canal **secundário** (o primário é o
+registry/copy-in, que já subiu no merge), e o token é **exclusivo do mantenedor** — ele
+cola na sessão, a IA publica, ele revoga. A IA **nunca** publica sem o token na mão nem
+guarda o token em arquivo versionado.
+
+### 7.1 Validar o pacote ANTES de pedir o token
+
+```bash
+npm run lib:verify      # = build:lib + as 5 camadas do scripts/lib-verify.mjs
+```
+
+Reprovou → **PARE e reporte**; não peça o token pra publicar pacote quebrado. O gate
+cobre o modo de falha da **L-017** (4 releases, v0.1.0→v0.5.0, publicadas com os `.d.ts`
+apontando pra arquivos que não entraram no tarball → todo `import` do consumidor virava
+`any`, e ninguém percebeu). A camada decisiva é a 5ª: o conjunto de `.d.ts` do tarball
+tem que ser **fechado sob imports relativos**.
+
+### 7.2 Apresentar ao humano e PEDIR o token
+
+Mostre: `name@version`, nº de arquivos e tamanho do tarball, e o que muda em relação à
+versão publicada (`npm view <pkg> version`). Então peça:
+
+> "Pacote validado (`lib:verify` ok). Pra publicar `@snksergio/design-system@<X.Y.Z>` no
+> npm preciso do token — cole aqui, eu publico e você revoga em seguida. Ou, se preferir
+> publicar você, o comando é `npm publish` na raiz (o `prepublishOnly` roda o
+> `build:lib`)."
+
+### 7.3 Publicar com o token, sem deixar rastro
+
+O token **nunca** vai pro repo. Use um `.npmrc` temporário **fora da árvore do
+projeto** (o scratchpad da sessão) e apague na sequência:
+
+```bash
+# 1. .npmrc temporário FORA do repo
+printf '//registry.npmjs.org/:_authToken=%s\n' "$TOKEN" > "$SCRATCH/.npmrc"
+
+# 2. publica apontando pra ele
+npm publish --userconfig "$SCRATCH/.npmrc"
+
+# 3. apaga IMEDIATAMENTE
+rm -f "$SCRATCH/.npmrc"
+```
+
+Nunca `echo` o token, nunca commite `.npmrc`, nunca escreva o token em
+`pipeline-state.md` (nem mascarado).
+
+### 7.4 Confirmar e lembrar da revogação
+
+```bash
+npm view @snksergio/design-system version    # tem que bater com o bump
+```
+
+Reporte e **lembre explicitamente o mantenedor de revogar o token**. Registre no
+`pipeline-state.md` apenas *que* foi publicado e a versão — jamais o token.
 
 ---
 

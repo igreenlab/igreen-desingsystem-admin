@@ -123,7 +123,13 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 
 **Projeto existente:** configure o registry `@igreen` no `components.json` (Bearer `IGREEN_TOKEN`) e puxe componentes com `npx shadcn add @igreen/<nome>` (ou o wrapper `npm run igreen:add` no scaffold, que mantém o manifesto).
 
-> ⚠️ O pacote npm `@snksergio/design-system` está **DEPRECIADO** (era uma tentativa antiga de virar lib). **Não use `npm install` dele** — o canal vivo é o registry/CLI acima. Modelo e versionamento explicados em `DISTRIBUICAO.md` e na página **Distribution** do catálogo.
+> **Canal recomendado é o registry/CLI acima** (copy-in): é ele que entrega o código
+> editável no seu `src/` e é onde as versões saem primeiro. O pacote npm
+> `@snksergio/design-system` **existe e funciona** (lib buildada: ESM + CJS + types +
+> `theme.css`), mas é **secundário** e publicado por passo manual do mantenedor, então
+> pode estar atrás do registry. Use-o só quando precisar consumir como dependência em
+> vez de copy-in. Modelo e versionamento em `DISTRIBUICAO.md` e na página
+> **Distribution** do catálogo.
 
 **O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
