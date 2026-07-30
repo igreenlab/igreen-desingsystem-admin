@@ -329,7 +329,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 44 Lições — resumo
+## 63 Lições (L-001 a L-063) — resumo
 
 Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 
@@ -467,6 +467,56 @@ L-003/L-005); regra que exige contexto cross-elemento (L-004) ou julgamento de i
 (L-007) fica só pro revisor semântico, nunca no grep. O **ratchet** (só linha que o diff
 adicionou) é o que torna o gate viável de ligar — 14/40 arquivos já tinham débito legado.
 Detalhe: `lessons.md` L-059.
+
+### Texto que descreve o mecanismo errado é pior que texto nenhum (L-060)
+
+Comentário, doc e mensagem de erro são load-bearing: quem lê **para de investigar**. 4 instâncias
+numa sessão, nenhuma pega por build/tsc/teste/lint — texto é o único artefato que ninguém executa.
+(1) comentário do `ci.yml` jurava que rascunho não escapava do check — escapava, e permanentemente;
+(2) 7 docs anunciavam um formatador que nunca rodou, 2 delas mudando **comportamento de agente**
+("o hook formata automaticamente" → o agente não formatava); (3) mensagem de erro mandava
+"inclua no IGNORE deste script" **depois** de a lista virar módulo único — obedecer recriava a
+duplicação; (4) doc se contradizia dentro do mesmo arquivo. Regra: ao escrever frase que **afirma
+garantia** de um mecanismo, verifique a garantia — sem poder verificar, descreva o que o código faz,
+não o que ele garante; ao **mover** fonte de verdade, grep nas mensagens/docs que apontam pro lugar
+antigo (viram instrução pra desfazer a mudança); ao revisar, trate frase de garantia como afirmação
+testável. Detalhe: `lessons.md` L-060.
+
+### No-op por dependência ausente ≠ desligado — está ARMADO (L-061)
+
+`format-on-save.sh` chamava `npx --no-install prettier` num projeto onde `prettier` nunca esteve no
+`package.json`: no-op mudo desde sempre. O problema não é o silêncio — é que **a dependência que
+falta pode aparecer**. Um `npx prettier` de validação de YAML populou o cache do npx e o hook ligou
+sozinho no Edit seguinte, reformatando um arquivo inteiro e mutilando pseudo-código. Mecanismo
+desativado por **decisão** não volta; mecanismo inerte por **dependência ausente** volta — e como
+nunca rodou, ninguém sabe o que faz quando roda. Regra: hook/check que depende de binário externo
+**declara a dependência** no `package.json` ou **falha visível** (no-op mudo é o pior dos três);
+decidir não usar = **remover**, não deixar inerte; ao achar mecanismo que "não faz nada", pergunte
+se está desligado ou **armado sem munição**. Decisão 2026-07-29: sem formatador automático no
+projeto, formatação **na mão** espelhando o vizinho. Detalhe: `lessons.md` L-061.
+
+### `--diff-filter=A` é cego a rename; "novo" = não existia no base (L-062)
+
+Rename de pasta vem como status **`R`**, não `A` → `git mv Foo Bar` passava pelo gate de showcase
+sem check nenhum, o buraco da L-058 (foi assim que o `ChoroplethMap` saiu da `main`). A cegueira
+ainda mascarou um teste que parecia falhar por outro motivo. Fix em **duas** camadas, porque cada
+uma sozinha erra pra um lado: `--no-renames` (decompõe rename em `D`+`A`) **mais** "pasta é nova só
+se não existia no base ref" (`git cat-file -e <merge-base>:<path>`) — sem a segunda, qualquer
+arquivo adicionado em pasta existente disparava o check (medido: acusava `Chart`, documentado em 8
+páginas, e `Icon`, com instrução errada). Regra: check que detecta "coisa nova" por diff nunca
+confia em `--diff-filter=A` sozinho; prefira **"não existia antes"** a "tem arquivo adicionado"; e
+valide com **commit real de rename** do histórico, não só com arquivo novo. Detalhe: `lessons.md`
+L-062.
+
+### Id derivado por convenção valida a convenção (L-063)
+
+`toKebab()` derivava id de rota assumindo PascalCase; das 42 pastas de `ui/`, **uma** não segue
+(`avatar-ig`, id real `avatar`) e seria reprovada estando correta. Decisão: **sem** API de override
+(YAGNI pra 1 em 42) — o CLI **pula** o que não passa por `isPascalCase()` e emite `::warning`
+(não `console.log`: aviso fora da UI de Checks é aviso que não existe). Regra: ao derivar
+identificador de um nome (pasta→rota, arquivo→chave), **meça** quantos casos reais seguem a
+convenção antes de assumir; valide e **pule + avise** em vez de derivar errado em silêncio; resista
+a override configurável pra 1 exceção. Detalhe: `lessons.md` L-063.
 
 ### Padrão de chart (resumo)
 

@@ -66,6 +66,46 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-07-29] | ORCHESTRATOR | L-060 a L-063 formalizadas — fecha o follow-up que a task 6 deixou aberto | CONCLUÍDO
+
+- Input: a entrada do conformance-showcase registrou 4 achados como "candidatos genuínos a
+  L-NNN, mas formalizar está fora do escopo deste registro (Step restrito a
+  `pipeline-state.md`) — considerar follow-up numa sessão que edite `lessons.md`". Somados
+  a 2 achados do review final da branch, dão 4 lições depois de agrupar as relacionadas.
+  Gate do `CLAUDE.md` ("não consolidar sem confirmação") cumprido — usuário aprovou.
+
+- Output — `.ai/status/lessons.md` + resumo 1-linha em `.claude/rules/ds-standards.md`:
+  1. **L-060 — texto que descreve o mecanismo errado é pior que texto nenhum.** A lição de
+     maior alcance da sessão, porque o padrão **se repetiu 4×** e nenhuma instância foi pega
+     por build/tsc/teste/lint: comentário do `ci.yml` jurando que rascunho não escapava
+     (escapava, permanentemente), 7 docs anunciando formatador que nunca rodou (2 delas
+     mudando comportamento de agente), mensagem de erro mandando recriar a duplicação que a
+     extração acabou de matar, e doc se contradizendo no mesmo arquivo. Texto é o único
+     artefato que ninguém executa.
+  2. **L-061 — no-op por dependência ausente ≠ desligado, está ARMADO.** Generaliza o caso
+     do `format-on-save` (entrada anterior): a dependência que falta pode aparecer.
+  3. **L-062 — `--diff-filter=A` é cego a rename; "novo" = não existia no base.** Registra
+     as **duas** camadas do fix (`--no-renames` + `cat-file -e` no merge-base), porque cada
+     uma sozinha erra pra um lado — e que a cegueira mascarou um teste que eu tinha lido
+     como falha do guard de PascalCase.
+  4. **L-063 — id derivado por convenção valida a convenção.** O caso `avatar-ig` (1 em 42)
+     com a decisão de pular+avisar em vez de criar API de override, e o porquê de
+     `::warning` em vez de `console.log`.
+  Mais: 3 contagens defasadas corrigidas (`ds-standards.md` dizia "44 Lições",
+  `CLAUDE.md` dizia "L-001 a L-016" e "14 lições"; o real é **63**, L-001 a L-063, nenhum
+  número faltando — 52 com header `##` + 11 em negrito). Ironia registrada: eram 3
+  instâncias de L-060 no arquivo que descreve a L-060.
+
+- Assumption: as 4 lições são generalizáveis, não anedota da sessão. **Se quebrar:** uma
+  delas nunca é citada em revisão futura e vira ruído no arquivo auto-carregado — o sinal é
+  a lição não aparecer em nenhum PR/review em ~3 meses. A L-060 é a mais exposta a isso
+  (é a mais abstrata); as outras 3 têm regra mecânica clara.
+
+- Débito conhecido, não tocado: o formato dos headers em `lessons.md` é **inconsistente** —
+  L-033 a L-043 usam `**[L-NNN] ...**` (negrito) e o resto usa `## [L-NNN]`. Nenhum script
+  depende disso hoje, mas qualquer contagem ou índice automático precisa das duas regex.
+  Normalizar é tarefa própria (11 entradas), não cabia aqui.
+
 ### [2026-07-29] | ORCHESTRATOR | Prettier descartado por decisão — hook `format-on-save` removido (era no-op armado) | CONCLUÍDO
 
 - Input: a entrada anterior registrou como pendência que `prettier` não está no
