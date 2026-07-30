@@ -46,6 +46,40 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.30.1",
+    date: "2026-07-29",
+    tag: "patch",
+    title: "Modal com scroll, DatePicker com cara de input (e o mode do range/multiple documentado)",
+    summary:
+      "Patch de consistência de formulário. O **Modal** ganhou teto de altura e body rolável — conteúdo longo não estoura mais a tela nem esconde os botões do footer. O **DatePicker** passou a usar os mesmos tokens do `SelectTrigger` (o precedente do DS pra botão que precisa parecer input): antes divergia em bg, borda, raio, padding, gap e não tinha hover. E o `mode` single/range/multiple, que já existia no código desde v0.30.0 mas nunca foi anunciado nem demonstrado, agora tem seção própria no showcase — o catálogo ensinava a compor Popover + Calendar na mão pra intervalo, que virou só uma prop. Fecha também os types do pacote npm, que publicavam `any` silenciosamente.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Modal** — conteúdo alto estourava a tela sem barra de rolagem: com `overflow-hidden` o excesso era clipado e não se chegava aos botões do footer num formulário longo. Agora o painel tem `max-h-[calc(100dvh-32px)]` (`dvh` por causa da barra do navegador no mobile) e o body é `min-h-0 flex-1 overflow-y-auto` — o `min-h-0` é o que permite o flex item encolher, sem ele o `overflow-y-auto` não tem efeito nenhum.",
+          "**Input `type=\"file\"`** — o conteúdo (botão + nome do arquivo) ficava colado no topo da caixa de 40px, porque o UA aplica `align-items: baseline` e o conteúdo vive no shadow DOM, onde `align-items` não o move. Centrado com `align-content` num container de bloco (size-agnostic: vale nos 4 tamanhos, sem px mágico). O texto do estado vazio também vinha em `fg-default`, destoando do `placeholder:text-fg-muted` de todo input do DS — agora é muted.",
+          "**DatePicker** — em `mode=\"multiple\"`, o trigger dizia \"1 datas selecionadas\" ao escolher a primeira data. Plural condicional.",
+          "**Pacote npm** — 4 referências de tipo apontavam pra fora do tarball, então `import` virava `any` no consumidor: o `toast.d.ts` não era emitido (o `vite-plugin-dts` batia em TS4023 por causa de um tipo interno do `sonner` e pulava o arquivo em silêncio, com o build saindo 0), e o `ClientesShowcase` importava fixtures de uma Doc page excluída do pacote. Mesmo modo de falha da L-017.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**DatePicker** — o trigger passou a espelhar o `SelectTrigger`, que é o precedente do DS pra \"botão que tem que parecer input\": `bg-bg-input` (translúcido, levanta sobre o fundo) no lugar de `bg-bg-surface` (opaco, lia como sem preenchimento), `border-border-input`, `rounded-radius-lg`, `px-pad-xl`, `gap-gp-md`, hover, e foco por borda + `shadow-sh-ring` em vez de `ring-4`. Ganhou também `data-[state=open]` (borda e ring com o popover aberto), que o Select já tinha.",
+          "**Modal** e **DatePicker** — `description` do item do registry atualizada pra refletir o comportamento real.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**DatePicker — `mode` finalmente documentado.** A prop `single | range | multiple` existe desde v0.30.0, mas o showcase não a demonstrava em nenhum lugar: todos os `mode=\"range\"` da página eram no `<Calendar>` cru, ou seja, ensinavam a composição manual que a prop tornou desnecessária. Agora há seção \"Modos (range / multiple)\" com a API nativa, tabela de props com `mode` e `numberOfMonths`, e a seção de composição manual foi reposicionada como \"só quando precisa de conteúdo extra no popover\" (presets, navegação por mês/ano e restrições ainda precisam do Calendar cru).",
+          "**`USAGE.md` do DatePicker agora é distribuído** — era o único dos 34 componentes `ui` cujo USAGE não ia no `igreen:add`, então a IA de quem consome não recebia o atalho. Documenta a união discriminada, o shape de `value` por modo, o comportamento de fechamento e o formato do label (conferidos na tela, não inferidos do código).",
+          "**Ícones de 36px e navbar de 64px por token** — `AppShell/user-menu`, `MenuSidebar` e `SingleMenuSidebar` trocaram `size-9`/`w-9 h-9`/`h-16` literais por `size-comp-lg` e `h-layout-navbar`. Pixel-idêntico (36px = 36px, 64px = 64px), verificado no CSS gerado.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.30.0",
     date: "2026-07-28",
     tag: "release",
