@@ -1296,6 +1296,124 @@ lição de revisão semântica, não como entrada em `scripts/lib/ds-lint-patter
 
 ---
 
+## [L-060] Texto que descreve o mecanismo errado é PIOR que texto nenhum — 4 instâncias numa sessão
+
+Comentário de código, tabela de doc e mensagem de erro são load-bearing: quem lê **para de
+investigar**. Quando o texto afirma algo falso, ele não é ruído neutro — ele blinda o defeito.
+Quatro instâncias na sessão de 2026-07-29, todas achadas por revisão adversarial, nenhuma por
+teste ou CI:
+
+1. **`ci.yml` jurava que rascunho não escapava.** O comentário dizia "Ninguém escapa — draft não
+   mergeia, então pra mergear tem que sair de rascunho e aí o check vale". A premissa é verdadeira
+   e a inferência é falsa: `ready_for_review` **não** está no conjunto default de atividades do
+   `pull_request` (`opened`, `synchronize`, `reopened`), então sair de rascunho não dispara run
+   nova e a run verde do rascunho — com o step pulado — satisfaz o required check. O guard era
+   **bypass permanente**, não adiamento. O comentário é o que impediria a próxima pessoa de
+   reexaminar.
+2. **7 docs anunciavam um formatador que nunca rodou** (ver [L-061]). Duas delas
+   (`ds-update.md`, `update-changelog.md`) mudavam **comportamento de agente**: diziam "o hook
+   `format-on-save.sh` roda automaticamente", então o agente não se preocupava com formatação.
+3. **Mensagem de erro mandava recriar a duplicação que a task acabou de eliminar.** Depois de
+   extrair a lista de exceção pro módulo único `scripts/lib/ds-exceptions.mjs`, o
+   `distribution-debt.mjs` continuou dizendo "inclua no IGNORE deste script" — o dev que
+   obedecesse reintroduziria a lista local que a extração matou.
+4. **`review-component.md` se contradizia dentro do mesmo arquivo** — exigia `.types.ts` sem
+   qualificar numa linha e, algumas linhas depois, dizia que não é o padrão de todos (medido: 7 de
+   42 componentes com tipos inline).
+
+**Por que escapa de tudo:** nenhum desses casos quebra build, tsc, teste ou lint. O texto é o
+único artefato que ninguém executa. Só revisão semântica pega — e só se o revisor **conferir a
+afirmação contra o mecanismo**, em vez de assumir que quem escreveu sabia.
+
+Regra pra IA: (a) ao escrever comentário/doc que **afirma** que um mecanismo tem certa garantia,
+verifique a garantia antes de escrever — se não puder verificar, descreva o que o código faz, não
+o que você acha que ele garante; (b) ao **mover** uma fonte de verdade, faça grep das mensagens de
+erro e docs que apontam pro lugar antigo (elas viram instruções pra desfazer a mudança);
+(c) ao revisar, trate cada frase de garantia como afirmação testável — as 4 acima foram achadas
+lendo o comentário e perguntando "isso é verdade mesmo?".
+
+---
+
+## [L-061] No-op por dependência ausente ≠ desligado — está ARMADO
+
+`.claude/hooks/format-on-save.sh` rodava `npx --no-install prettier` num projeto onde `prettier`
+**nunca esteve** no `package.json`. Resultado: no-op silencioso desde sempre — o `CLAUDE.md`
+anunciava 4 hooks PostToolUse ativos e um deles nunca tinha rodado uma vez. Isso é chato, mas o
+problema real é outro: **a dependência que falta pode aparecer.**
+
+Foi o que aconteceu. Um `npx prettier` usado pra validar YAML no meio da onda de correção populou
+o cache do npx; no Edit seguinte o hook ligou sozinho e reformatou `impl-igreen.md` inteiro,
+mutilando pseudo-código de uma skill. Ninguém pediu formatação, ninguém mudou config, e o gatilho
+foi um comando de leitura não relacionado.
+
+**A distinção:** um mecanismo desativado por **decisão** (removido do `settings.json`) não pode
+voltar sozinho. Um mecanismo inerte por **dependência ausente** volta assim que a dependência
+existir — e como ele nunca rodou, ninguém sabe o que ele faz quando roda. Decisão do mantenedor
+(2026-07-29): não adotar prettier; hook e script **removidos**, não deixados inertes, mais nota ⛔
+anti-reintrodução no `CLAUDE.md`/`ds-standards.md` com o motivo.
+
+Regra pra IA: (a) hook/check que depende de binário externo tem que **declarar a dependência** no
+`package.json` ou **falhar visível** ("skip: prettier ausente" no stderr, não só no log) — no-op
+mudo é o pior dos três; (b) ao decidir não usar um mecanismo, **remova**, não deixe inerte;
+(c) ao encontrar um mecanismo que "não faz nada", pergunte se ele está desligado ou **armado sem
+munição** — a segunda hipótese é bug latente, não código morto.
+
+---
+
+## [L-062] `--diff-filter=A` é CEGO a rename — foi como o `ChoroplethMap` sumiu
+
+O `showcase-check.mjs` (v1, 2026-07-29) detectava componente novo com
+`git diff --name-status --diff-filter=A`. Rename de pasta vem como status **`R`**, não `A` — logo
+`git mv Foo Bar` passava pelo gate **sem nenhum check**, e o componente renomeado nunca tinha o
+registro de showcase reverificado. Exatamente o buraco da [L-058]: o `ChoroplethMap` saiu da `main`
+num merge de reorganização e nenhum sinal disparou.
+
+Pior: a cegueira **explicou um teste que eu tinha lido errado**. O guard de nome não-PascalCase
+parecia não funcionar; reproduzido no commit real `54eee58` (`Avatar` → `avatar-ig`), o diff voltou
+**vazio** — não era o guard, era o filtro nunca entregando a pasta.
+
+Fix em duas camadas, porque a primeira sozinha era ruidosa:
+
+1. **`--no-renames`** força o git a decompor rename em `D` + `A` → o nome novo aparece como
+   adicionado e volta pro gate.
+2. **Pasta é "nova" só se não existia no base ref** (`git cat-file -e <merge-base>:<path>`) — sem
+   isso, `--no-renames` fazia qualquer arquivo adicionado dentro de pasta existente disparar o
+   check. Medido nos 42 componentes: acusava `Chart` (documentado em 8 páginas) e `Icon` (roteado
+   pra `IconLibraryDoc.tsx`) com instrução errada, e a escapatória sugerida pela própria mensagem
+   teria tirado o `Chart` da varredura do `distribution-debt`, porque os dois consumidores
+   compartilham o mesmo `Map` de exceção.
+
+Pasta renomeada não existe sob o nome novo no base → continua sendo flagrada. As duas camadas
+juntas dão detecção sem ruído; qualquer uma sozinha erra pra um dos lados.
+
+Regra pra IA: ao escrever check que detecta "coisa nova" a partir de diff, (a) **nunca** confie em
+`--diff-filter=A` sozinho — use `--no-renames` ou consulte o base ref; (b) prefira **"não existia
+antes"** a **"tem arquivo adicionado"** como definição de novo; (c) valide com **commit real de
+rename** do histórico, não só com arquivo novo — os dois casos passam por caminhos de git
+diferentes.
+
+---
+
+## [L-063] Id derivado por convenção tem que VALIDAR a convenção
+
+O `toKebab()` do `showcase-registration.mjs` derivava o id de rota a partir do nome da pasta
+assumindo PascalCase (`EmptyState` → `empty-state`). Das 42 pastas de `src/components/ui`, **uma**
+não segue: `avatar-ig`, cujo id real é `avatar` — a derivação cuspiria `avatar-ig` e o check
+reprovaria um componente corretamente registrado.
+
+Decisão: **não** criar API de override (YAGNI pra 1 caso em 42). O CLI **pula** pasta que não passa
+por `isPascalCase()` e emite `::warning` — a premissa fica documentada e testada, e quem criar a
+segunda pasta fora do padrão vê o aviso em vez de um falso-negativo mudo. O `::warning` (não
+`console.log`) importa: aviso que não aparece na UI de Checks é aviso que não existe.
+
+Regra pra IA: ao derivar identificador de um nome (pasta → rota, arquivo → chave, classe → token),
+(a) **meça** quantos casos reais seguem a convenção antes de assumir que todos seguem;
+(b) valide a premissa e **pule + avise** no caso fora do padrão, em vez de derivar errado em
+silêncio; (c) resista a criar override configurável pra 1 exceção — premissa validada + aviso
+custa menos e não vira API pra manter.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
