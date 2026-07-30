@@ -97,6 +97,17 @@ O lint pega Tailwind literal; estes exigem ler o código:
   existe em 6 de 42 componentes; exigir sempre seria errado.
 - **`ComponentsOverviewDoc`** — *advisory*: sugira adicionar, não reprove. Não
   consta na L-042 e o arquivo tem ~13 lacunas pré-existentes.
+- **Paridade com o componente-irmão** — componente que precisa **parecer** outro tem
+  que usar os MESMOS tokens, e isso nenhum lint pega: as classes são todas válidas,
+  só divergem. O DS tem precedentes explícitos — botão que precisa parecer campo de
+  formulário → **`shadcn/select.tsx` (`SelectTrigger`)**; campo com adorno interno →
+  **`shadcn/input-group.tsx`**. Compare token por token (bg, border, radius, padding,
+  gap, foco, hover) em vez de escolher tokens do zero. Caso real: o trigger do
+  DatePicker divergia em **6** pontos desde que nasceu — `bg-bg-surface` (opaco) no
+  lugar de `bg-bg-input` (translúcido, o que fazia parecer "sem fundo"),
+  `border-default`, `radius-md`, `pad-lg`, `gp-sm` e nenhum hover. Ninguém viu até o
+  mantenedor usar o componente. Não automatizamos: exigiria saber qual é o irmão e
+  qual divergência é intencional — falso-positivo garantido (L-059).
 
 ## Passo 4 — Critério de critique genuína
 
