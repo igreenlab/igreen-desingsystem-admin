@@ -1,4 +1,4 @@
-import type { STATUSES, CATEGORIES } from "../TableDoc";
+import type { STATUSES, CATEGORIES } from "../_table-data";
 
 /**
  * Payload do formulário do drawer "Novo cliente".

@@ -36,6 +36,11 @@ export default defineConfig({
         "src/lib/**/*",
         "src/preview/pages/ChatV2/**/*",
         "src/preview/pages/ClientesShowcase/**/*",
+        // Fixtures do ClientesShowcase. Precisa estar aqui porque o showcase é
+        // incluído e importa daqui — sem isto, os `.d.ts` dele referenciam arquivo
+        // fora do pacote e o import do consumidor vira `any` (L-017). Antes as
+        // fixtures moravam no `TableDoc.tsx`, que o `exclude` abaixo tira.
+        "src/preview/pages/_table-data.ts",
         "src/preview/pages/DashboardShowcase.tsx",
         "src/preview/mocks/**/*",
         "tokens/index.ts",

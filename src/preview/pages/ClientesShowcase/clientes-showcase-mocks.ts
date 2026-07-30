@@ -4,7 +4,7 @@ import {
   CATEGORIES,
   AGENTS,
   type ClientRow,
-} from "../TableDoc";
+} from "../_table-data";
 
 /* ── Dataset 87 clientes (bate com badge do print) ─────────────── */
 

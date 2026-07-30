@@ -1,4 +1,4 @@
-import type { ClientRow } from "../../../TableDoc";
+import type { ClientRow } from "../../../_table-data";
 
 export type DetailDrawerProps = {
   /** Cliente em exibição. Quando `null` o drawer fica desmontado. */
