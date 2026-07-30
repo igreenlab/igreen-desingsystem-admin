@@ -25,7 +25,8 @@ const TOC = [
   { id: "ex-states", label: "Estados" },
   { id: "ex-align", label: "Alinhamento" },
   { id: "ex-form", label: "Em formulário" },
-  { id: "ex-range", label: "Intervalo (range)" },
+  { id: "ex-mode", label: "Modos (range / multiple)" },
+  { id: "ex-range", label: "Intervalo composto na mão" },
   { id: "ex-presets", label: "Com presets" },
   { id: "ex-dropdown", label: "Navegação mês/ano" },
   { id: "ex-restrict", label: "Datas restritas" },
@@ -33,8 +34,18 @@ const TOC = [
 ];
 
 const PROPS = [
-  { name: "value", type: "Date (controlado)", defaultVal: "—" },
-  { name: "onValueChange", type: "(date: Date | undefined) => void", defaultVal: "—" },
+  { name: "mode", type: '"single" | "range" | "multiple"', defaultVal: '"single"' },
+  {
+    name: "value",
+    type: "Date | DateRange | Date[] (conforme mode, controlado)",
+    defaultVal: "—",
+  },
+  {
+    name: "onValueChange",
+    type: "(value: Date | DateRange | Date[] | undefined) => void (conforme mode)",
+    defaultVal: "—",
+  },
+  { name: "numberOfMonths", type: "number", defaultVal: "1 (2 em range)" },
   { name: "placeholder", type: "string", defaultVal: '"Selecione a data"' },
   { name: "disabled", type: "boolean", defaultVal: "false" },
   { name: "align", type: '"start" | "center" | "end"', defaultVal: '"start"' },
@@ -80,6 +91,27 @@ function FormExample() {
         {() => (
           <DatePicker value={date} onValueChange={setDate} placeholder="dd/mm/aaaa" />
         )}
+      </FormField>
+    </div>
+  );
+}
+
+// `mode` nativo (v0.30.1) — o DatePicker cobre range e multiple sem compor
+// Popover + Calendar na mão. `DatePickerProps` é união discriminada: trocar de
+// modo troca o TIPO de value/onValueChange, então cada modo tem seu próprio state.
+function ModeExample() {
+  const [range, setRange] = useState<DateRange | undefined>();
+  const [dates, setDates] = useState<Date[] | undefined>();
+  return (
+    <div className="flex flex-col gap-form-gap w-[320px]">
+      <FormField label="Período" helperText='mode="range" — 2 meses por default.'>
+        {() => <DatePicker mode="range" value={range} onValueChange={setRange} />}
+      </FormField>
+      <FormField
+        label="Datas de leitura"
+        helperText='mode="multiple" — várias datas soltas.'
+      >
+        {() => <DatePicker mode="multiple" value={dates} onValueChange={setDates} />}
       </FormField>
     </div>
   );
@@ -273,7 +305,7 @@ export function DatePickerDoc() {
       <DocHeader
         category="Components"
         title="Date Picker"
-        description="Seletor de data — o wrapper DatePicker cobre o caso single (trigger estilo input + Popover + Calendar, controlado via value / onValueChange). Para intervalo, presets, navegação por mês/ano e restrições, componha Popover + Calendar direto (mesmos blocos do DS)."
+        description='Seletor de data(s) — trigger estilo input + Popover + Calendar, controlado via value / onValueChange. Cobre os 3 modos do Calendar via `mode`: single (default), range e multiple; a prop é uma união discriminada, então o modo troca o TIPO de value. Só componha Popover + Calendar na mão quando precisar de conteúdo extra no popover (presets, navegação por mês/ano, restrições).'
       />
       <DocSeparator />
 
@@ -325,9 +357,31 @@ export function DatePickerDoc() {
       </ExampleSection>
 
       <ExampleSection
+        id="ex-mode"
+        title="Modos (range / multiple)"
+        description={
+          'O DatePicker cobre os 3 modos do Calendar via `mode` — não precisa compor Popover + Calendar na mão pra intervalo. DatePickerProps é união discriminada: o modo troca o TIPO de value/onValueChange, então cada modo tem seu próprio state. numberOfMonths default é 1, mas 2 em range.'
+        }
+        code={`// range → value: DateRange
+const [range, setRange] = useState<DateRange | undefined>();
+<DatePicker mode="range" value={range} onValueChange={setRange} />
+
+// multiple → value: Date[]
+const [dates, setDates] = useState<Date[] | undefined>();
+<DatePicker mode="multiple" value={dates} onValueChange={setDates} />
+
+// single (default) → value: Date — mode é opcional
+<DatePicker value={date} onValueChange={setDate} />`}
+      >
+        <ModeExample />
+      </ExampleSection>
+
+      <ExampleSection
         id="ex-range"
-        title="Intervalo (range)"
-        description={'Seleção de período: Popover + Calendar mode="range" com numberOfMonths={2}. O trigger mostra início — fim.'}
+        title="Intervalo composto na mão"
+        description={
+          'Só pra quando você precisa de controle sobre o popover (label custom no trigger, conteúdo extra ao lado do calendário). Pra intervalo simples use `mode="range"` acima — este bloco existe como base dos exemplos de presets, navegação e restrições, que ainda precisam do Calendar cru.'
+        }
         code={`const [range, setRange] = useState<DateRange | undefined>();
 <Popover open={open} onOpenChange={setOpen}>
   <PopoverTrigger asChild><button className={TRIGGER_CLS}>…</button></PopoverTrigger>

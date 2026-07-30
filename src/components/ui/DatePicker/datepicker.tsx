@@ -106,7 +106,14 @@ export const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       );
     } else if (props.mode === "multiple") {
       const v = props.value;
-      label = v && v.length > 0 ? `${v.length} datas selecionadas` : null;
+      // Plural condicional: com 1 selecionada o texto fixo dizia "1 datas
+      // selecionadas". Aparece sempre que o usuário escolhe a primeira data.
+      label =
+        v && v.length > 0
+          ? v.length === 1
+            ? "1 data selecionada"
+            : `${v.length} datas selecionadas`
+          : null;
       calendar = (
         <Calendar
           mode="multiple"

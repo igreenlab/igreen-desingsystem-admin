@@ -29,6 +29,13 @@ Comportamento de fechamento do popover por modo:
 - `range`: só fecha quando `from` **e** `to` estão preenchidos (clique único no primeiro dia não fecha).
 - `multiple`: **não fecha sozinho** — o usuário fecha clicando fora.
 
+Label do trigger por modo (não é customizável — ver Gotchas). Formatos conferidos no
+showcase, não inferidos do código:
+- `single`: mês por extenso — `19 de junho de 2026` (`month: "long"`).
+- `range`: mês abreviado nas duas pontas — `10 de jul. de 2026 – 18 de ago. de 2026`
+  (`month: "short"`); com só o `from` preenchido, mostra apenas ele.
+- `multiple`: contagem — `1 data selecionada` / `N datas selecionadas`.
+
 ## Props essenciais
 | Prop | Tipo | Default | Descrição |
 |---|---|---|---|

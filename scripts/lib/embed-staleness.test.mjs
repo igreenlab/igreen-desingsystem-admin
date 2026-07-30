@@ -102,6 +102,77 @@ describe("checkEmbedStaleness", () => {
   });
 });
 
+// O carimbo pega deriva de conteúdo; files[] pega deriva ESTRUTURAL. Sem esta
+// camada, adicionar um arquivo ao item sem re-carimbar passava como "em sync" —
+// foi o que aconteceu com o USAGE.md do DatePicker.
+describe("checkEmbedStaleness — files[] (deriva estrutural)", () => {
+  /** Embed com controle explícito dos files de cada item. */
+  const embedWith = (map) =>
+    `export const registry: Record<string, unknown> = ${JSON.stringify(map)};\n`;
+
+  const reg = (name, version, hash, paths) => ({
+    name,
+    meta: { stamp: `igreen-ds · ${name} · v${version} · ${hash} · 2026-07-28` },
+    files: paths.map((p) => ({ path: p, type: "registry:ui" })),
+  });
+
+  it("arquivo no registry.json e ausente do embed → files-mismatch", () => {
+    const items = [reg("date-picker", "0.30.0", "ea1ef0d", ["a/USAGE.md", "a/dp.tsx"])];
+    const t = embedWith({
+      "date-picker": {
+        meta: { stamp: "igreen-ds · date-picker · v0.30.0 · ea1ef0d · 2026-07-28" },
+        files: [{ path: "a/dp.tsx" }],
+      },
+    });
+    const f = checkEmbedStaleness({ items, embedText: t });
+    expect(f).toHaveLength(1);
+    expect(f[0].id).toBe("files-mismatch");
+    expect(f[0].msg).toContain("faltam no embed: a/USAGE.md");
+  });
+
+  it("arquivo removido do registry.json mas ainda no embed → files-mismatch", () => {
+    const items = [reg("x", "0.30.0", "ea1ef0d", ["a/x.tsx"])];
+    const t = embedWith({
+      x: {
+        meta: { stamp: "igreen-ds · x · v0.30.0 · ea1ef0d · 2026-07-28" },
+        files: [{ path: "a/x.tsx" }, { path: "a/velho.ts" }],
+      },
+    });
+    expect(checkEmbedStaleness({ items, embedText: t })[0].msg).toContain(
+      "sobram no embed: a/velho.ts",
+    );
+  });
+
+  it("mesmos files → nenhum achado", () => {
+    const items = [reg("x", "0.30.0", "ea1ef0d", ["a/x.tsx", "a/USAGE.md"])];
+    const t = embedWith({
+      x: {
+        meta: { stamp: "igreen-ds · x · v0.30.0 · ea1ef0d · 2026-07-28" },
+        files: [{ path: "a/USAGE.md" }, { path: "a/x.tsx" }], // ordem diferente é OK
+      },
+    });
+    expect(checkEmbedStaleness({ items, embedText: t })).toEqual([]);
+  });
+
+  it("backslash no path não conta como divergência (Windows)", () => {
+    const items = [reg("x", "0.30.0", "ea1ef0d", ["a\\x.tsx"])];
+    const t = embedWith({
+      x: {
+        meta: { stamp: "igreen-ds · x · v0.30.0 · ea1ef0d · 2026-07-28" },
+        files: [{ path: "a/x.tsx" }],
+      },
+    });
+    expect(checkEmbedStaleness({ items, embedText: t })).toEqual([]);
+  });
+
+  it("embed não parseável → pula files[] sem lançar, carimbo ainda vale", () => {
+    const items = [reg("x", "0.30.0", "ea1ef0d", ["a/x.tsx"])];
+    const t = "igreen-ds · x · v0.30.0 · ea1ef0d · 2026-07-28 (texto solto, sem objeto)";
+    expect(() => checkEmbedStaleness({ items, embedText: t })).not.toThrow();
+    expect(checkEmbedStaleness({ items, embedText: t })).toEqual([]);
+  });
+});
+
 describe("summarize", () => {
   it("agrega contagem, versões e hashes distintos", () => {
     const m = parseStamps(
