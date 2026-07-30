@@ -329,9 +329,9 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 63 Lições (L-001 a L-063) — resumo
+## 64 Lições (L-001 a L-064) — resumo
 
-Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
+Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
 
 ### Focus rings / Tailwind
 
@@ -517,6 +517,20 @@ L-062.
 identificador de um nome (pasta→rota, arquivo→chave), **meça** quantos casos reais seguem a
 convenção antes de assumir; valide e **pule + avise** em vez de derivar errado em silêncio; resista
 a override configurável pra 1 exceção. Detalhe: `lessons.md` L-063.
+
+### Gate novo só vale depois de reproduzir o defeito que ele existe pra pegar (L-064)
+
+Duas vezes no mesmo dia eu escrevi um check, validei pelo sinal que EU supunha ser o
+certo, e o check era **cego ao bug que motivou sua existência**: o `lib-verify` disse "ok"
+com o tarball caindo de 959 pra 123 arquivos, e o `api-doc-check` devolveu 0 finding no
+commit real que ele existe pra pegar (assumi `{arquivo:[string]}`; o parser devolve `Map`
+de `{n,text}`). O padrão não é descuido, é **ordem de trabalho**: teste escrito a partir
+do mesmo modelo mental que gerou o código concorda por construção — não é evidência
+independente. Regra: gate novo só está pronto depois de **reproduzir o defeito real** e
+ver reprovar; use **dado real** (commit do histórico) e monte a entrada do teste **pela
+função de produção** que a gera. E **propriedade computada não é evidência de
+comportamento** — `items-center` virou `center` no computed e o pixel não saiu do lugar
+(shadow DOM); onde o render é do UA, só medição visual vale. Detalhe: `lessons.md` L-064.
 
 ### Padrão de chart (resumo)
 
