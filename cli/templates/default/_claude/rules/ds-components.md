@@ -95,6 +95,29 @@ Todo flutuante já segue a mesma receita visual (superfície frosted, radius 12,
 | quadro por status/etapa | `kanban` — ou `viewMode: "kanban"` do `data-table` |
 | paginar algo que não é tabela | `pagination` |
 
+### ⛔ Filtro em tabela/lista → SEMPRE nativo, nunca form/select acima
+
+"Filtrar por X" numa grade/lista **não** é montar select ou form acima da tabela — isso
+empilha UI na unha, come espaço e foge do padrão. Filtro é **recurso reativo** do
+`data-table`/`data-list`. Aplique esta hierarquia **sempre — inclusive em pedido em lote e
+sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
+
+1. **X é uma coluna** (status, categoria, tipo, graduação… — o caso normal, ~90%):
+   - Na coluna: `enableColumnFilter: true` + `filterType` + `filterOptions`.
+   - **Deixe o filtro visível na tabela**: `showEmptyFilterChips={["status", …]}` — o chip
+     nasce **vazio e clicável** já no load, o usuário vê a afordância sem abrir menu nenhum.
+   - Abrir **já filtrado** → `defaultViews`/`presetView` com filtros pré-aplicados (`filterModel`) → chip aplicado.
+   - Status é o **eixo de navegação** (poucos valores, muito usado) → **uma visão por valor**
+     (`defaultViews`, ex.: "Ativos", "Pendentes"; `allowCreateView={false}` se forem fixas).
+2. **X não é coluna, pequeno e simples** (período/mês, um toggle) → `toolbar.actions`
+   (máx ~2, label curta). Período que afeta a página toda → `PageHeader.actions` (dropdown).
+3. **Muitos filtros, ou muito grandes** → drawer "Filtros" **nativo** do `data-table` + chips
+   pré-aplicados. Nunca empilhar selects soltos.
+
+> As exceções (2 e 3) são raras. Sempre que a informação já está numa coluna: **chip nativo
+> primeiro**. Exemplo vivo do padrão: `example-clientes` (status/categoria pré-aplicados +
+> chip vazio de "Atribuído"). Entrevista guiada completa em `/ds-create-crud`.
+
 ## Layout e chrome do app
 
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo).
