@@ -6,8 +6,8 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
-} from "../../shadcn/popover";
-import { Separator } from "../../shadcn/separator";
+} from "@/components/shadcn/popover";
+import { Separator } from "@/components/shadcn/separator";
 import { messageVariablesPickerStyles } from "./message-variables-picker.styles";
 import {
   DEFAULT_MESSAGE_VARIABLES,

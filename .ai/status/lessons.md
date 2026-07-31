@@ -1364,6 +1364,40 @@ escrever é o menos testado contra a realidade de todo o repositório.**
 
 ---
 
+## [L-065] Dogfood pega o que a simulação não pega — só o consumidor real exercita os artefatos shipados
+
+Depois de shipar o "filtro nativo" (v0.30.3), validei o comportamento de duas formas. A
+**simulação** — dois agentes cegos recebendo só a orientação do consumidor + o pedido
+neutro — disse **passou**: os dois foram pro padrão certo (chip nativo, nada de form acima).
+Mas quando montei um **sandbox de consumidor real** (scaffold via CLI + `igreen:add`, Claude
+limpo pedindo a tela), a MESMA tarefa **achou 2 bugs** que a simulação não pegou:
+
+1. **Import relativo pra shadcn quebra o copy-in.** `Modal` importava `"../../shadcn/dialog"`
+   (relativo). O rewrite do `igreen:add` só reescreve import por **alias**
+   (`@/components/shadcn/X` → `ui/X`); relativo é **preservado** → no consumidor aponta pra
+   `shadcn/` inexistente → **crash do app inteiro** (Vite error screen), não só da tela nova.
+   O `MessageVariablesPicker` tinha o mesmo padrão. Fix: alias + **gate standing** no
+   `registry-check.mjs` (o warning do `registry-add-item` era propose-time, não pegava débito
+   legado — L-059/L-062, mesma classe).
+2. **Preset não virava aba read-only.** `defaultViews` entram com `owner:"preset"`, mas o
+   `TableToolbarViews` só auto-pinava `owner:"me"` → com `allowCreateView={false}` (que
+   esconde o "+") os presets ficavam **inalcançáveis**. USAGE + L-054 + a skill crud-builder
+   **prometiam** o contrário. Fix: preset auto-pina como aba FIXA (sem X), matando a
+   contradição doc↔comportamento.
+
+**Por que a simulação não pegou:** ela roda o agente com a orientação **em isolamento** —
+valida se a orientação é clara e steera certo. Não exercita os **artefatos distribuídos**: os
+caminhos de import reescritos no copy-in, o comportamento real do componente com as props que
+a skill instrui. Isso só o **consumidor real** exercita, rodando o `igreen:add` e renderizando.
+
+**Regra:** simulação valida a **orientação** (clareza, steer); **dogfood num sandbox de
+consumidor real** valida os **artefatos shipados** (copy-in, componente distribuído, o que a
+skill de fato gera rodando). Pra comportamento consumer-facing use os dois — e o dogfood é o
+que pega o que a simulação, por construção, não vê. Como montar o sandbox: scaffold da CLI
+(`npm create @snksergio/design-system`) ou `SUBMODULE-SETUP.md`.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

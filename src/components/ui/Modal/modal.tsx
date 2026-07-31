@@ -6,7 +6,7 @@ import {
   DialogClose,
   DialogTitle,
   DialogDescription,
-} from "../../shadcn/dialog";
+} from "@/components/shadcn/dialog";
 import { Button } from "../Button/button";
 import {
   dialog,
