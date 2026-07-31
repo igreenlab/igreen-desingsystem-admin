@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.30.3",
+    date: "2026-07-31",
+    tag: "patch",
+    title:
+      "Filtro nativo como padrão de geração — chip de filtro visível, nunca form acima",
+    summary:
+      "Fecha o gap em que a IA do consumidor, num pedido em lote (fora da entrevista guiada do crud-builder), montava um form de selects ACIMA da tabela em vez de usar o filtro nativo — desperdiçando espaço e fugindo do padrão. A regra passou pra rule **auto-carregada** (vale mesmo quando a skill de entrevista não dispara), o `crud-builder` passou a emitir `showEmptyFilterChips`, e o `example-clientes` agora **demonstra** o padrão (chip de filtro vazio 'Atribuído' ao lado dos filtros de status/categoria pré-aplicados), virando referência viva pra geração de CRUD.",
+    changes: [
+      {
+        type: "improved",
+        items: [
+          "**Filtro é recurso reativo da tabela — na rule auto-carregada do consumidor** (`ds-components.md`, glob `**/*.tsx`): hierarquia coluna → `enableColumnFilter` + `showEmptyFilterChips` (chip vazio visível) + views-por-status; exceções (período, muitos filtros) via `toolbar.actions`/drawer; nunca form/select acima da tabela. Como a rule é auto-carregada, vale inclusive no pedido em lote que pula a entrevista guiada — onde o erro aparecia.",
+          "**`example-clientes` demonstra `showEmptyFilterChips`** — o exemplo canônico de CRUD agora abre com um chip de filtro vazio ('Atribuído') clicável, além dos chips de status/categoria pré-aplicados. É a referência viva que o gerador de CRUD adapta.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**`crud-builder/generate.md`** ganhou a regra de coluna que manda emitir `showEmptyFilterChips` pros filtros mais usados.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.30.2",
     date: "2026-07-30",
     tag: "patch",
