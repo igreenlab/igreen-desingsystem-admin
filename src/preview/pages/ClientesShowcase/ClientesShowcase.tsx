@@ -412,6 +412,10 @@ export default function ClientesShowcase() {
         getRowId={(r) => r.id}
         persistId="showcase-clientes-crud"
         defaultViews={DEFAULT_VIEWS}
+        /* Chips de filtro VAZIOS já visíveis no load ("Atribuído") — a afordância
+           aparece sem abrir o menu; o usuário clica e preenche. Filtro é recurso
+           da tabela (nativo), nunca form/select acima dela. */
+        showEmptyFilterChips={["agentId"]}
         filterModel={filterModel}
         onFilterModelChange={setFilterModel}
         viewMode={viewMode}
