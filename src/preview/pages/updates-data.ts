@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.30.4",
+    date: "2026-07-31",
+    tag: "patch",
+    title:
+      "Dois bugs de consumidor pegos por dogfood: Modal quebrava o app, e as abas de visão não apareciam",
+    summary:
+      "Correções achadas rodando o DS num consumidor real (não em simulação). (1) `Modal` — e `MessageVariablesPicker` — importava `../../shadcn/dialog` por caminho **relativo**; o copy-in só reescreve import por alias, então no projeto do consumidor o caminho apontava pra uma pasta inexistente e **o app inteiro quebrava** (não só a tela nova). (2) Visões pré-definidas (`defaultViews`) com `allowCreateView={false}` — a receita de \"abas fixas read-only\" — deixavam as abas **inalcançáveis**: só visões do próprio usuário viravam aba, e o botão que aplicaria os presets ficava escondido. Agora os presets viram abas fixas. Um gate novo no `registry-check` reprova qualquer import relativo pra shadcn antes de distribuir.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**`Modal` e `MessageVariablesPicker` quebravam o app do consumidor** — importavam `shadcn/dialog`/`popover`/`separator` por caminho **relativo** (`../../shadcn/…`). O rewrite do `igreen:add` só reescreve import por alias (`@/components/shadcn/X` → `ui/X`); relativo é preservado → apontava pra `shadcn/` inexistente no consumidor → Vite error screen, nada renderiza. Trocado por alias.",
+          "**Visões pré-definidas não apareciam como abas** (`defaultViews` + `allowCreateView={false}`) — o `TableToolbarViews` só auto-fixava visões do próprio usuário (`owner:\"me\"`); presets (`owner:\"preset\"`) nunca viravam aba, e com o `+` escondido ficavam inalcançáveis. Agora os presets viram **abas fixas read-only** (sem o X de remover).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Gate anti-crash de distribuição** — o `registry-check` (roda no `release:check` + CI) passa a varrer `src/components/ui/` e reprovar qualquer import **relativo** pra `shadcn/`, fechando o buraco que deixou o bug do Modal passar (o aviso do `registry-add-item` era só na criação do item, não pegava débito legado).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.30.3",
     date: "2026-07-31",
     tag: "patch",
