@@ -329,7 +329,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 64 Lições (L-001 a L-064) — resumo
+## 65 Lições (L-001 a L-065) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
 
@@ -531,6 +531,21 @@ ver reprovar; use **dado real** (commit do histórico) e monte a entrada do test
 função de produção** que a gera. E **propriedade computada não é evidência de
 comportamento** — `items-center` virou `center` no computed e o pixel não saiu do lugar
 (shadow DOM); onde o render é do UA, só medição visual vale. Detalhe: `lessons.md` L-064.
+
+### Dogfood pega o que a simulação não pega — só o consumidor real exercita os artefatos (L-065)
+
+Validei o "filtro nativo" (v0.30.3) por dois caminhos. A **simulação** (agentes cegos com a
+orientação do consumidor + o pedido) disse **passou**. Mas um **sandbox de consumidor real**
+(scaffold da CLI + `igreen:add`, Claude limpo pedindo a tela) achou **2 bugs** que a simulação
+não pegou: (1) `Modal` importava `"../../shadcn/dialog"` **relativo** — o rewrite do copy-in só
+reescreve **alias**; relativo é preservado → aponta pra `shadcn/` inexistente no consumidor →
+**crash do app** (mesmo padrão no `MessageVariablesPicker`); fix = alias + **gate standing** no
+`registry-check` (o warning do `registry-add-item` é propose-time, não pega legado). (2)
+`defaultViews` (`owner:"preset"`) não viravam aba porque o `TableToolbarViews` só auto-pinava
+`owner:"me"` → com `allowCreateView={false}` os presets ficavam **inalcançáveis**, ao contrário
+do que USAGE/L-054/skill prometiam; fix = preset auto-pina como aba fixa. **Regra:** simulação
+valida a **orientação** (steer); **dogfood** valida os **artefatos distribuídos** (copy-in,
+componente real) — só o consumidor real exercita isso. Detalhe: `lessons.md` L-065.
 
 ### Padrão de chart (resumo)
 

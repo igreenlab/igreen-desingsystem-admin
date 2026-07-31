@@ -12,11 +12,40 @@
  *
  * Exit 1 se houver qualquer inconsistência (falha o CI); 0 se tudo ok.
  */
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
+import { join } from "node:path";
 import { checkEmbedStaleness, parseStamps, summarize } from "./lib/embed-staleness.mjs";
 
 let fail = 0;
 const r = JSON.parse(readFileSync("registry.json", "utf8"));
+
+// 0. componentes ui/ NÃO importam shadcn/ por caminho RELATIVO. O copy-in só
+//    reescreve import por ALIAS (@/components/shadcn/X → ui/X); relativo é
+//    PRESERVADO → aponta pra shadcn/ que não existe no consumidor → crash do app
+//    inteiro (bug real: Modal importava "../../shadcn/dialog"). Gate standing — o
+//    warning do registry-add-item é propose-time e não pega débito legado.
+function walkTsUi(d) {
+  let out = [];
+  for (const e of readdirSync(d, { withFileTypes: true })) {
+    const p = join(d, e.name);
+    if (e.isDirectory()) out = out.concat(walkTsUi(p));
+    else if (/\.tsx?$/.test(e.name) && !/\.test\./.test(e.name)) out.push(p);
+  }
+  return out;
+}
+const UI_DIR = "src/components/ui";
+let relShadcn = 0;
+if (existsSync(UI_DIR)) {
+  for (const f of walkTsUi(UI_DIR)) {
+    const m = readFileSync(f, "utf8").match(/from\s+"(\.\.\/)+shadcn\/[^"]+"/);
+    if (m) {
+      console.error(`✗ ${f.split(/[\\/]/).join("/")}: import relativo pra shadcn (${m[0]}) → troque por "@/components/shadcn/…" (relativo quebra no copy-in).`);
+      relShadcn++;
+    }
+  }
+}
+if (relShadcn) { console.error(`✗ ${relShadcn} componente(s) ui/ com import relativo pra shadcn/ — quebra o consumidor.`); fail = 1; }
+else console.log(`✓ ui/: sem import relativo pra shadcn/.`);
 
 // 1. paths existem
 let missing = 0;
