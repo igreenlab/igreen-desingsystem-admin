@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · accordion · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · alert-dialog · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · alert-modal · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · alert · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · app-shell · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · aspect-ratio · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · avatar-ig · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · avatar · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · badge · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · breadcrumb · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · button-group · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · button · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · calendar · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · card-checkbox · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · card · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · carousel · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · chart · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · checkbox · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · chip · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · choropleth-map · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · collapsible · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · color-picker · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · combobox · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · command · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · context-menu · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · data-list · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1497,7 +1497,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/TableToolbar/parts/table-toolbar-views.tsx",
-        "content": "import { useEffect, useMemo, useRef, useState, type ReactNode } from \"react\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { ToolbarDivider } from \"./toolbar-divider\";\r\nimport { ToolbarTabs } from \"./toolbar-tabs\";\r\nimport { ToolbarSaveButton } from \"./toolbar-tool-button\";\r\nimport { ViewsPopover, type ViewsPopoverView } from \"../popovers/views-popover\";\r\nimport {\r\n  AddViewModal,\r\n  type AddViewModalSubmit,\r\n} from \"../popovers/add-view-modal\";\r\nimport { AlertModal } from \"../../AlertModal\";\r\n\r\n/** ID fixo da tab \"Default\" — virtual (nao tem entrada no storage). */\r\nexport const DEFAULT_VIEW_ID = \"__default__\";\r\n\r\nexport type TableToolbarViewsItem = ViewsPopoverView;\r\n\r\nexport type TableToolbarViewsProps = {\r\n  /** Lista completa de views salvas (sem Default — esse e injetado internamente). */\r\n  views: TableToolbarViewsItem[];\r\n  /** ID da view atualmente aplicada. `null`/`undefined` ⇒ tab Default ativa. */\r\n  activeViewId?: string | null;\r\n  /** Aplicar uma view (click numa tab OU click num item do popover). */\r\n  onApply: (id: string) => void;\r\n  /** Resetar pra \"Default\" (limpar filtros, sort, cols, density). */\r\n  onApplyDefault: () => void;\r\n  /**\r\n   * Excluir PERMANENTEMENTE uma view do storage. So eh chamado apos\r\n   * confirmacao via AlertModal danger — disparado pelo lixinho no popover.\r\n   *\r\n   * X em tab NAO chama isso (apenas remove da barra — view continua salva).\r\n   */\r\n  onDelete: (id: string) => void | Promise<void>;\r\n  /** Disparado quando user salva uma nova view via modal. */\r\n  onSave: (data: AddViewModalSubmit) => void | Promise<void>;\r\n  /** Quantas tabs ficam visiveis (incluindo Default). Default 3 — Default + ate 2 views customizadas. */\r\n  maxTabs?: number;\r\n  /** Key que identifica views \"minhas\" (default `\"me\"`). Controla X em tab e delete no popover. */\r\n  myOwnerKey?: string;\r\n  /** Slot opcional pra divider antes das tabs (default renderiza um ToolbarDivider). */\r\n  divider?: ReactNode;\r\n  /** Esconde o divider default — usado quando ja ha um divider adjacente. */\r\n  hideDivider?: boolean;\r\n  /**\r\n   * Permite o usuário criar/salvar novas visões (botão \"+\" / popover de views).\r\n   * Default `true`. Passe `false` pra exibir SÓ as visões pré-definidas (sem o\r\n   * \"+\") — read-only views.\r\n   */\r\n  allowCreate?: boolean;\r\n  /**\r\n   * Label da tab Default **quando ela é a única** (sem nenhuma view pré-definida\r\n   * nem salva). Evita a barra \"vazia\" mostrando só \"Default\" — troque por um\r\n   * título genérico do contexto (ex: \"Lista de Clientes\"). Default `\"Default\"`.\r\n   * Assim que houver ≥ 1 outra view, a tab volta a se chamar \"Default\" pra\r\n   * distinguir das views nomeadas.\r\n   */\r\n  soloLabel?: string;\r\n};\r\n\r\n/**\r\n * TableToolbarViews — **compound component** (smart) de Saved Views.\r\n *\r\n * ⚠️ **Pattern compound smart** — este é um dos POUCOS componentes do TableToolbar\r\n * que mantém estado interno (`tabViewIds`, `addModalOpen`, `confirmDeleteView`).\r\n * É uma exceção consciente ao princípio dumb do toolbar: orquestra 4 filhos\r\n * (ToolbarTabs + ViewsPopover + AddViewModal + AlertModal) como \"bloco pronto\".\r\n *\r\n * **Quando usar este compound**: caso de uso saved views completo (CRM admin).\r\n * **Quando NÃO usar**: se precisar reordenar/customizar a interação entre os\r\n * 4 filhos, COMPONHA OS PARTS DIRETAMENTE — ToolbarTabs + ViewsPopover +\r\n * AddViewModal + AlertModal são exportados standalone pelo TableToolbar. Você\r\n * controla os 4 states (open, deleting, etc) e a ordem visual.\r\n *\r\n * Renderiza no slot esquerdo do TableToolbar:\r\n *   1. ToolbarDivider\r\n *   2. ToolbarTabs com \"Default\" + ate (maxTabs - 1) views como tabs\r\n *      - Default sem X (custom: false)\r\n *      - Views minhas com X — X apenas remove da barra (view continua salva)\r\n *   3. ViewsPopover via ToolbarSaveButton \"+\"\r\n *      - Click no item: pina como tab + aplica + fecha popover\r\n *      - Lixinho no item: abre AlertModal danger pra exclusao definitiva\r\n *      - Footer \"Salvar visao atual\": abre AddViewModal mode create\r\n *   4. AddViewModal (estado interno) — disparado pelo footer do popover\r\n *   5. AlertModal danger (estado interno) — confirma exclusao definitiva\r\n *\r\n * Distinção crítica:\r\n *   - X em tab            → unpin (cosmetico, view fica no popover/storage)\r\n *   - Lixinho no popover  → confirm + delete permanente (chama onDelete)\r\n *\r\n * Comportamento de pin (push-out):\r\n *   - `tabViewIds` eh um state local com as view IDs que ocupam slots de tab.\r\n *   - Inicializa com as (maxTabs - 1) primeiras views.\r\n *   - Click numa view que NAO esta como tab: pina (push out da ultima se cheio).\r\n *   - X em tab: remove o ID daqui (sem promover proxima).\r\n *   - View deletada permanente: remove o ID daqui (se estiver).\r\n *   - View nova criada: anexa se ha slot livre.\r\n *   - Re-mount (reload) reseta — pega as N-1 primeiras de novo.\r\n */\r\nexport function TableToolbarViews({\r\n  views,\r\n  activeViewId,\r\n  onApply,\r\n  onApplyDefault,\r\n  onDelete,\r\n  onSave,\r\n  maxTabs = 3,\r\n  myOwnerKey = \"me\",\r\n  divider,\r\n  hideDivider,\r\n  soloLabel = \"Default\",\r\n  allowCreate = true,\r\n}: TableToolbarViewsProps) {\r\n  const maxCustomTabs = Math.max(0, maxTabs - 1);\r\n\r\n  /* ── State: tabs pinadas (IDs) ─────────────────────────────────── */\r\n\r\n  const initialIds = useMemo(\r\n    // Só auto-pina views do próprio usuário (owner === myOwnerKey). As de outros\r\n    // (públicas) só viram tab quando explicitamente aplicadas (via activeViewId).\r\n    () =>\r\n      views\r\n        .filter((v) => v.owner === myOwnerKey)\r\n        .slice(0, maxCustomTabs)\r\n        .map((v) => v.id),\r\n    // eslint-disable-next-line react-hooks/exhaustive-deps\r\n    [],\r\n  );\r\n  const [tabViewIds, setTabViewIds] = useState<string[]>(initialIds);\r\n\r\n  // Sync: quando uma view some, tira do state; quando nova chega, anexa se tem slot\r\n  const prevIdsRef = useRef<string[]>(views.map((v) => v.id));\r\n  useEffect(() => {\r\n    const currentIds = views.map((v) => v.id);\r\n    const removedIds = prevIdsRef.current.filter((id) => !currentIds.includes(id));\r\n    const addedIds = currentIds.filter((id) => !prevIdsRef.current.includes(id));\r\n    prevIdsRef.current = currentIds;\r\n\r\n    if (removedIds.length === 0 && addedIds.length === 0) return;\r\n\r\n    setTabViewIds((prev) => {\r\n      let next = prev.filter((id) => !removedIds.includes(id));\r\n      for (const id of addedIds) {\r\n        if (next.length >= maxCustomTabs) break;\r\n        // Só auto-pina views do próprio usuário; as de outros não viram atalho.\r\n        const v = views.find((vv) => vv.id === id);\r\n        if (v && v.owner !== myOwnerKey) continue;\r\n        next = [...next, id];\r\n      }\r\n      return next;\r\n    });\r\n  }, [views, maxCustomTabs, myOwnerKey]);\r\n\r\n  /* ── State: modal create + popover open + confirm delete ──────── */\r\n\r\n  const [addModalOpen, setAddModalOpen] = useState(false);\r\n  const [popoverOpen, setPopoverOpen] = useState(false);\r\n  const [confirmDeleteView, setConfirmDeleteView] =\r\n    useState<TableToolbarViewsItem | null>(null);\r\n\r\n  /* ── Tabs effective: Default + views pinadas ────────────────────── */\r\n\r\n  const tabs = useMemo(() => {\r\n    // Garante que a view ATIVA sempre apareça como tab — mesmo que não esteja\r\n    // pinada (ex: reload restaura uma view salva fora das N primeiras, ou a barra\r\n    // estava cheia). Sem isso, a tab ativa some e nenhuma fica destacada (a view\r\n    // aplicada fica \"invisível\"). Inclusão é só visual (não muta tabViewIds).\r\n    const renderIds =\r\n      activeViewId &&\r\n      activeViewId !== DEFAULT_VIEW_ID &&\r\n      !tabViewIds.includes(activeViewId) &&\r\n      views.some((v) => v.id === activeViewId)\r\n        ? [...tabViewIds, activeViewId]\r\n        : tabViewIds;\r\n    const customTabs = renderIds\r\n      .map((id) => views.find((v) => v.id === id))\r\n      .filter((v): v is TableToolbarViewsItem => !!v)\r\n      .map((v) => ({\r\n        id: v.id,\r\n        name: typeof v.name === \"string\" ? v.name : String(v.name),\r\n        // Mostra o \"X\" (desfixar/fechar) nas views do usuário E na view ATIVA no\r\n        // momento — assim dá pra fechar uma view pública de outro que foi aplicada\r\n        // (o X só desfixa/deseleciona; não deleta a view de ninguém).\r\n        custom: v.owner === myOwnerKey || v.id === activeViewId,\r\n      }));\r\n    // Tab Default sozinha (sem views) → label genérico configurável (soloLabel),\r\n    // pra barra não ficar com um único \"Default\" solto. Com ≥ 1 outra view,\r\n    // volta a \"Default\" pra distinguir das nomeadas.\r\n    const defaultName = customTabs.length === 0 ? soloLabel : \"Default\";\r\n    return [{ id: DEFAULT_VIEW_ID, name: defaultName, custom: false }, ...customTabs];\r\n  }, [tabViewIds, views, myOwnerKey, soloLabel, activeViewId]);\r\n\r\n  const effectiveActiveId = activeViewId ?? DEFAULT_VIEW_ID;\r\n\r\n  /* ── Handlers ──────────────────────────────────────────────────── */\r\n\r\n  const handleTabSelect = (id: string) => {\r\n    if (id === DEFAULT_VIEW_ID) {\r\n      onApplyDefault();\r\n    } else {\r\n      onApply(id);\r\n    }\r\n  };\r\n\r\n  /** X em tab — APENAS remove da barra de tabs. Nao deleta a view. */\r\n  const handleTabUnpin = (id: string) => {\r\n    setTabViewIds((prev) => prev.filter((x) => x !== id));\r\n    if (id === activeViewId) onApplyDefault();\r\n  };\r\n\r\n  /**\r\n   * Click no item da lista do popover: pina como tab (push-out da ultima\r\n   * se ja estiver cheio) + aplica como ativa + fecha popover.\r\n   */\r\n  const handlePopoverItemClick = (v: ViewsPopoverView) => {\r\n    setTabViewIds((prev) => {\r\n      if (prev.includes(v.id)) return prev;\r\n      const next = [...prev, v.id];\r\n      if (next.length > maxCustomTabs) next.shift();\r\n      return next;\r\n    });\r\n    onApply(v.id);\r\n    setPopoverOpen(false);\r\n  };\r\n\r\n  const handleCreateClick = () => {\r\n    setPopoverOpen(false);\r\n    setTimeout(() => setAddModalOpen(true), 0);\r\n  };\r\n\r\n  /** Lixinho na lista do popover — pede confirmacao. */\r\n  const handleAskDelete = (id: string) => {\r\n    const view = views.find((v) => v.id === id);\r\n    if (!view) return;\r\n    setConfirmDeleteView(view);\r\n  };\r\n\r\n  const handleConfirmDelete = async () => {\r\n    if (!confirmDeleteView) return;\r\n    await onDelete(confirmDeleteView.id);\r\n    setConfirmDeleteView(null);\r\n  };\r\n\r\n  return (\r\n    <>\r\n      {hideDivider ? null : divider ?? <ToolbarDivider />}\r\n\r\n      <ToolbarTabs\r\n        tabs={tabs}\r\n        activeId={effectiveActiveId}\r\n        onSelect={handleTabSelect}\r\n        onClose={handleTabUnpin}\r\n        ariaLabel=\"Visões salvas\"\r\n      />\r\n\r\n      {allowCreate && (\r\n        <ViewsPopover\r\n          open={popoverOpen}\r\n          onOpenChange={setPopoverOpen}\r\n          trigger={\r\n            <ToolbarSaveButton aria-label=\"Visões salvas\">\r\n              <Plus strokeWidth={2.4} />\r\n            </ToolbarSaveButton>\r\n          }\r\n          views={views}\r\n          activeViewId={activeViewId ?? undefined}\r\n          myOwnerKey={myOwnerKey}\r\n          onApply={handlePopoverItemClick}\r\n          onDelete={handleAskDelete}\r\n          onCreate={handleCreateClick}\r\n        />\r\n      )}\r\n\r\n      {allowCreate && (\r\n        <AddViewModal\r\n          open={addModalOpen}\r\n          onClose={() => setAddModalOpen(false)}\r\n          onSubmit={onSave}\r\n        />\r\n      )}\r\n\r\n      <AlertModal\r\n        tone=\"danger\"\r\n        open={!!confirmDeleteView}\r\n        onOpenChange={(o) => !o && setConfirmDeleteView(null)}\r\n        title=\"Excluir visão\"\r\n        description={\r\n          confirmDeleteView\r\n            ? `Tem certeza que deseja excluir a visão \"${typeof confirmDeleteView.name === \"string\" ? confirmDeleteView.name : String(confirmDeleteView.name)}\"? Esta ação não pode ser desfeita.`\r\n            : \"\"\r\n        }\r\n        confirmLabel=\"Excluir\"\r\n        cancelLabel=\"Cancelar\"\r\n        onConfirm={handleConfirmDelete}\r\n      />\r\n    </>\r\n  );\r\n}\r\n",
+        "content": "import { useEffect, useMemo, useRef, useState, type ReactNode } from \"react\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { ToolbarDivider } from \"./toolbar-divider\";\r\nimport { ToolbarTabs } from \"./toolbar-tabs\";\r\nimport { ToolbarSaveButton } from \"./toolbar-tool-button\";\r\nimport { ViewsPopover, type ViewsPopoverView } from \"../popovers/views-popover\";\r\nimport {\r\n  AddViewModal,\r\n  type AddViewModalSubmit,\r\n} from \"../popovers/add-view-modal\";\r\nimport { AlertModal } from \"../../AlertModal\";\r\n\r\n/** ID fixo da tab \"Default\" — virtual (nao tem entrada no storage). */\r\nexport const DEFAULT_VIEW_ID = \"__default__\";\r\n\r\nexport type TableToolbarViewsItem = ViewsPopoverView;\r\n\r\nexport type TableToolbarViewsProps = {\r\n  /** Lista completa de views salvas (sem Default — esse e injetado internamente). */\r\n  views: TableToolbarViewsItem[];\r\n  /** ID da view atualmente aplicada. `null`/`undefined` ⇒ tab Default ativa. */\r\n  activeViewId?: string | null;\r\n  /** Aplicar uma view (click numa tab OU click num item do popover). */\r\n  onApply: (id: string) => void;\r\n  /** Resetar pra \"Default\" (limpar filtros, sort, cols, density). */\r\n  onApplyDefault: () => void;\r\n  /**\r\n   * Excluir PERMANENTEMENTE uma view do storage. So eh chamado apos\r\n   * confirmacao via AlertModal danger — disparado pelo lixinho no popover.\r\n   *\r\n   * X em tab NAO chama isso (apenas remove da barra — view continua salva).\r\n   */\r\n  onDelete: (id: string) => void | Promise<void>;\r\n  /** Disparado quando user salva uma nova view via modal. */\r\n  onSave: (data: AddViewModalSubmit) => void | Promise<void>;\r\n  /** Quantas tabs ficam visiveis (incluindo Default). Default 3 — Default + ate 2 views customizadas. */\r\n  maxTabs?: number;\r\n  /** Key que identifica views \"minhas\" (default `\"me\"`). Controla X em tab e delete no popover. */\r\n  myOwnerKey?: string;\r\n  /** Slot opcional pra divider antes das tabs (default renderiza um ToolbarDivider). */\r\n  divider?: ReactNode;\r\n  /** Esconde o divider default — usado quando ja ha um divider adjacente. */\r\n  hideDivider?: boolean;\r\n  /**\r\n   * Permite o usuário criar/salvar novas visões (botão \"+\" / popover de views).\r\n   * Default `true`. Passe `false` pra exibir SÓ as visões pré-definidas (sem o\r\n   * \"+\") — read-only views.\r\n   */\r\n  allowCreate?: boolean;\r\n  /**\r\n   * Label da tab Default **quando ela é a única** (sem nenhuma view pré-definida\r\n   * nem salva). Evita a barra \"vazia\" mostrando só \"Default\" — troque por um\r\n   * título genérico do contexto (ex: \"Lista de Clientes\"). Default `\"Default\"`.\r\n   * Assim que houver ≥ 1 outra view, a tab volta a se chamar \"Default\" pra\r\n   * distinguir das views nomeadas.\r\n   */\r\n  soloLabel?: string;\r\n};\r\n\r\n/**\r\n * TableToolbarViews — **compound component** (smart) de Saved Views.\r\n *\r\n * ⚠️ **Pattern compound smart** — este é um dos POUCOS componentes do TableToolbar\r\n * que mantém estado interno (`tabViewIds`, `addModalOpen`, `confirmDeleteView`).\r\n * É uma exceção consciente ao princípio dumb do toolbar: orquestra 4 filhos\r\n * (ToolbarTabs + ViewsPopover + AddViewModal + AlertModal) como \"bloco pronto\".\r\n *\r\n * **Quando usar este compound**: caso de uso saved views completo (CRM admin).\r\n * **Quando NÃO usar**: se precisar reordenar/customizar a interação entre os\r\n * 4 filhos, COMPONHA OS PARTS DIRETAMENTE — ToolbarTabs + ViewsPopover +\r\n * AddViewModal + AlertModal são exportados standalone pelo TableToolbar. Você\r\n * controla os 4 states (open, deleting, etc) e a ordem visual.\r\n *\r\n * Renderiza no slot esquerdo do TableToolbar:\r\n *   1. ToolbarDivider\r\n *   2. ToolbarTabs com \"Default\" + ate (maxTabs - 1) views como tabs\r\n *      - Default sem X (custom: false)\r\n *      - Views minhas com X — X apenas remove da barra (view continua salva)\r\n *   3. ViewsPopover via ToolbarSaveButton \"+\"\r\n *      - Click no item: pina como tab + aplica + fecha popover\r\n *      - Lixinho no item: abre AlertModal danger pra exclusao definitiva\r\n *      - Footer \"Salvar visao atual\": abre AddViewModal mode create\r\n *   4. AddViewModal (estado interno) — disparado pelo footer do popover\r\n *   5. AlertModal danger (estado interno) — confirma exclusao definitiva\r\n *\r\n * Distinção crítica:\r\n *   - X em tab            → unpin (cosmetico, view fica no popover/storage)\r\n *   - Lixinho no popover  → confirm + delete permanente (chama onDelete)\r\n *\r\n * Comportamento de pin (push-out):\r\n *   - `tabViewIds` eh um state local com as view IDs que ocupam slots de tab.\r\n *   - Inicializa com as (maxTabs - 1) primeiras views.\r\n *   - Click numa view que NAO esta como tab: pina (push out da ultima se cheio).\r\n *   - X em tab: remove o ID daqui (sem promover proxima).\r\n *   - View deletada permanente: remove o ID daqui (se estiver).\r\n *   - View nova criada: anexa se ha slot livre.\r\n *   - Re-mount (reload) reseta — pega as N-1 primeiras de novo.\r\n */\r\nexport function TableToolbarViews({\r\n  views,\r\n  activeViewId,\r\n  onApply,\r\n  onApplyDefault,\r\n  onDelete,\r\n  onSave,\r\n  maxTabs = 3,\r\n  myOwnerKey = \"me\",\r\n  divider,\r\n  hideDivider,\r\n  soloLabel = \"Default\",\r\n  allowCreate = true,\r\n}: TableToolbarViewsProps) {\r\n  const maxCustomTabs = Math.max(0, maxTabs - 1);\r\n\r\n  /* ── State: tabs pinadas (IDs) ─────────────────────────────────── */\r\n\r\n  const initialIds = useMemo(\r\n    // Auto-pina os presets do DS (owner === \"preset\" — as abas fixas de defaultViews)\r\n    // e as views do próprio usuário (owner === myOwnerKey). As públicas de OUTROS\r\n    // usuários só viram tab quando explicitamente aplicadas (via activeViewId).\r\n    () =>\r\n      views\r\n        .filter((v) => v.owner === myOwnerKey || v.owner === \"preset\")\r\n        .slice(0, maxCustomTabs)\r\n        .map((v) => v.id),\r\n    // eslint-disable-next-line react-hooks/exhaustive-deps\r\n    [],\r\n  );\r\n  const [tabViewIds, setTabViewIds] = useState<string[]>(initialIds);\r\n\r\n  // Sync: quando uma view some, tira do state; quando nova chega, anexa se tem slot\r\n  const prevIdsRef = useRef<string[]>(views.map((v) => v.id));\r\n  useEffect(() => {\r\n    const currentIds = views.map((v) => v.id);\r\n    const removedIds = prevIdsRef.current.filter((id) => !currentIds.includes(id));\r\n    const addedIds = currentIds.filter((id) => !prevIdsRef.current.includes(id));\r\n    prevIdsRef.current = currentIds;\r\n\r\n    if (removedIds.length === 0 && addedIds.length === 0) return;\r\n\r\n    setTabViewIds((prev) => {\r\n      let next = prev.filter((id) => !removedIds.includes(id));\r\n      for (const id of addedIds) {\r\n        if (next.length >= maxCustomTabs) break;\r\n        // Auto-pina presets do DS e views do próprio usuário; públicas de outros não.\r\n        const v = views.find((vv) => vv.id === id);\r\n        if (v && v.owner !== myOwnerKey && v.owner !== \"preset\") continue;\r\n        next = [...next, id];\r\n      }\r\n      return next;\r\n    });\r\n  }, [views, maxCustomTabs, myOwnerKey]);\r\n\r\n  /* ── State: modal create + popover open + confirm delete ──────── */\r\n\r\n  const [addModalOpen, setAddModalOpen] = useState(false);\r\n  const [popoverOpen, setPopoverOpen] = useState(false);\r\n  const [confirmDeleteView, setConfirmDeleteView] =\r\n    useState<TableToolbarViewsItem | null>(null);\r\n\r\n  /* ── Tabs effective: Default + views pinadas ────────────────────── */\r\n\r\n  const tabs = useMemo(() => {\r\n    // Garante que a view ATIVA sempre apareça como tab — mesmo que não esteja\r\n    // pinada (ex: reload restaura uma view salva fora das N primeiras, ou a barra\r\n    // estava cheia). Sem isso, a tab ativa some e nenhuma fica destacada (a view\r\n    // aplicada fica \"invisível\"). Inclusão é só visual (não muta tabViewIds).\r\n    const renderIds =\r\n      activeViewId &&\r\n      activeViewId !== DEFAULT_VIEW_ID &&\r\n      !tabViewIds.includes(activeViewId) &&\r\n      views.some((v) => v.id === activeViewId)\r\n        ? [...tabViewIds, activeViewId]\r\n        : tabViewIds;\r\n    const customTabs = renderIds\r\n      .map((id) => views.find((v) => v.id === id))\r\n      .filter((v): v is TableToolbarViewsItem => !!v)\r\n      .map((v) => ({\r\n        id: v.id,\r\n        name: typeof v.name === \"string\" ? v.name : String(v.name),\r\n        // Mostra o \"X\" (desfixar/fechar) nas views do usuário E na view pública de\r\n        // OUTRO que foi aplicada (o X só desfixa/deseleciona; não deleta a view de\r\n        // ninguém). Preset do DS é aba FIXA read-only → nunca mostra X.\r\n        custom:\r\n          v.owner === myOwnerKey ||\r\n          (v.id === activeViewId && v.owner !== \"preset\"),\r\n      }));\r\n    // Tab Default sozinha (sem views) → label genérico configurável (soloLabel),\r\n    // pra barra não ficar com um único \"Default\" solto. Com ≥ 1 outra view,\r\n    // volta a \"Default\" pra distinguir das nomeadas.\r\n    const defaultName = customTabs.length === 0 ? soloLabel : \"Default\";\r\n    return [{ id: DEFAULT_VIEW_ID, name: defaultName, custom: false }, ...customTabs];\r\n  }, [tabViewIds, views, myOwnerKey, soloLabel, activeViewId]);\r\n\r\n  const effectiveActiveId = activeViewId ?? DEFAULT_VIEW_ID;\r\n\r\n  /* ── Handlers ──────────────────────────────────────────────────── */\r\n\r\n  const handleTabSelect = (id: string) => {\r\n    if (id === DEFAULT_VIEW_ID) {\r\n      onApplyDefault();\r\n    } else {\r\n      onApply(id);\r\n    }\r\n  };\r\n\r\n  /** X em tab — APENAS remove da barra de tabs. Nao deleta a view. */\r\n  const handleTabUnpin = (id: string) => {\r\n    setTabViewIds((prev) => prev.filter((x) => x !== id));\r\n    if (id === activeViewId) onApplyDefault();\r\n  };\r\n\r\n  /**\r\n   * Click no item da lista do popover: pina como tab (push-out da ultima\r\n   * se ja estiver cheio) + aplica como ativa + fecha popover.\r\n   */\r\n  const handlePopoverItemClick = (v: ViewsPopoverView) => {\r\n    setTabViewIds((prev) => {\r\n      if (prev.includes(v.id)) return prev;\r\n      const next = [...prev, v.id];\r\n      if (next.length > maxCustomTabs) next.shift();\r\n      return next;\r\n    });\r\n    onApply(v.id);\r\n    setPopoverOpen(false);\r\n  };\r\n\r\n  const handleCreateClick = () => {\r\n    setPopoverOpen(false);\r\n    setTimeout(() => setAddModalOpen(true), 0);\r\n  };\r\n\r\n  /** Lixinho na lista do popover — pede confirmacao. */\r\n  const handleAskDelete = (id: string) => {\r\n    const view = views.find((v) => v.id === id);\r\n    if (!view) return;\r\n    setConfirmDeleteView(view);\r\n  };\r\n\r\n  const handleConfirmDelete = async () => {\r\n    if (!confirmDeleteView) return;\r\n    await onDelete(confirmDeleteView.id);\r\n    setConfirmDeleteView(null);\r\n  };\r\n\r\n  return (\r\n    <>\r\n      {hideDivider ? null : divider ?? <ToolbarDivider />}\r\n\r\n      <ToolbarTabs\r\n        tabs={tabs}\r\n        activeId={effectiveActiveId}\r\n        onSelect={handleTabSelect}\r\n        onClose={handleTabUnpin}\r\n        ariaLabel=\"Visões salvas\"\r\n      />\r\n\r\n      {allowCreate && (\r\n        <ViewsPopover\r\n          open={popoverOpen}\r\n          onOpenChange={setPopoverOpen}\r\n          trigger={\r\n            <ToolbarSaveButton aria-label=\"Visões salvas\">\r\n              <Plus strokeWidth={2.4} />\r\n            </ToolbarSaveButton>\r\n          }\r\n          views={views}\r\n          activeViewId={activeViewId ?? undefined}\r\n          myOwnerKey={myOwnerKey}\r\n          onApply={handlePopoverItemClick}\r\n          onDelete={handleAskDelete}\r\n          onCreate={handleCreateClick}\r\n        />\r\n      )}\r\n\r\n      {allowCreate && (\r\n        <AddViewModal\r\n          open={addModalOpen}\r\n          onClose={() => setAddModalOpen(false)}\r\n          onSubmit={onSave}\r\n        />\r\n      )}\r\n\r\n      <AlertModal\r\n        tone=\"danger\"\r\n        open={!!confirmDeleteView}\r\n        onOpenChange={(o) => !o && setConfirmDeleteView(null)}\r\n        title=\"Excluir visão\"\r\n        description={\r\n          confirmDeleteView\r\n            ? `Tem certeza que deseja excluir a visão \"${typeof confirmDeleteView.name === \"string\" ? confirmDeleteView.name : String(confirmDeleteView.name)}\"? Esta ação não pode ser desfeita.`\r\n            : \"\"\r\n        }\r\n        confirmLabel=\"Excluir\"\r\n        cancelLabel=\"Cancelar\"\r\n        onConfirm={handleConfirmDelete}\r\n      />\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/TableToolbar/parts/table-toolbar-views.tsx"
       },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · data-table · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · date-picker · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · dialog · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · drawer · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · dropdown-menu · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · empty-state · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-app-shell · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-chat · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2179,7 +2179,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/examples/clientes/clientes-screen.tsx",
-        "content": "import { useCallback, useMemo, useRef, useState } from \"react\";\nimport {\n  Archive,\n  Clock,\n  Copy,\n  Download,\n  Maximize2,\n  MessageSquare,\n  MoreHorizontal,\n  Pencil,\n  Plus,\n  RotateCcw,\n  Trash2,\n  Upload,\n} from \"lucide-react\";\nimport {\n  CATEGORIES,\n  AGENTS,\n  type ClientRow,\n} from \"./_table-data\";\nimport {\n  DataTable,\n  presetView,\n  type DataTableColumnDef,\n  type DataTableKanbanConfig,\n  type DataTablePresetView,\n  type DataTableRef,\n  type DataTableViewMode,\n  type FilterModel,\n} from \"@/components/ui/DataTable\";\nimport { Button } from \"@/components/ui/Button/button\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport { PageHeader } from \"@/components/ui/PageHeader\";\nimport { BulkActionButton } from \"@/components/ui/TableToolbar\";\nimport { Avatar, AvatarFallback } from \"@/components/shadcn/avatar\";\nimport {\n  CLIENTS_87,\n  STATUS_OPTIONS,\n  CATEGORY_OPTIONS,\n  AGENT_OPTIONS,\n  AGENTS_LOOKUP,\n  KANBAN_COLUMNS,\n  CATEGORY_KIND,\n  formatBRL,\n  formatShortDate,\n} from \"./clientes-showcase-mocks\";\nimport { NovoClienteDrawer } from \"./components/NovoClienteDrawer\";\nimport { DetailDrawer } from \"./components/DetailDrawer\";\nimport { AlertModal } from \"@/components/ui/AlertModal\";\n\n/* ── Columns declarativas (type-based) ─────────────────────────── */\n\ntype ColumnHandlers = {\n  /** Pede confirmação de exclusão (abre o AlertModal). */\n  onAskDelete: (row: ClientRow) => void;\n};\n\nfunction buildColumns(handlers: ColumnHandlers): DataTableColumnDef<ClientRow>[] {\n  return [\n  { field: \"id\", headerName: \"ID\", type: \"text\", width: 130 },\n  {\n    field: \"name\",\n    headerName: \"Nome\",\n    type: \"user\",\n    sortable: true,\n    width: 220,\n    typeOptions: {\n      users: Object.fromEntries(\n        CLIENTS_87.map((c) => [\n          c.name,\n          {\n            name: c.name,\n            initials: c.initials,\n            color: c.avatarColor,\n          },\n        ]),\n      ),\n    },\n    valueGetter: (row) => row.name,\n  },\n  {\n    field: \"email\",\n    headerName: \"Email\",\n    type: \"email\",\n    enableColumnFilter: true,\n    filterType: \"text\",\n  },\n  {\n    field: \"phone\",\n    headerName: \"Telefone\",\n    type: \"phone\",\n  },\n  {\n    field: \"statusId\",\n    headerName: \"Status\",\n    type: \"status\",\n    enableColumnFilter: true,\n    filterType: \"multiSelect\",\n    filterOptions: STATUS_OPTIONS,\n  },\n  {\n    field: \"categoryId\",\n    headerName: \"Categoria\",\n    type: \"badge\",\n    enableColumnFilter: true,\n    filterType: \"multiSelect\",\n    filterOptions: CATEGORY_OPTIONS,\n  },\n  {\n    field: \"agentId\",\n    headerName: \"Atribuído\",\n    type: \"user\",\n    enableColumnFilter: true,\n    filterType: \"select\",\n    filterOptions: AGENT_OPTIONS,\n    typeOptions: { users: AGENTS_LOOKUP },\n  },\n  {\n    field: \"value\",\n    headerName: \"Valor\",\n    type: \"currency\",\n    sortable: true,\n    enableColumnFilter: true,\n    filterType: \"number\",\n    aggregate: \"sum\",\n    aggregateFormatter: (v) =>\n      new Intl.NumberFormat(\"pt-BR\", { style: \"currency\", currency: \"BRL\" }).format(v),\n  },\n  {\n    field: \"createdAt\",\n    headerName: \"Criado em\",\n    type: \"date\",\n    sortable: true,\n    enableColumnFilter: true,\n    filterType: \"date\",\n    width: 130,\n  },\n  {\n    field: \"lastContact\",\n    headerName: \"Último contato\",\n    type: \"date\",\n    sortable: true,\n    width: 150,\n  },\n  {\n    field: \"location\",\n    headerName: \"Localização\",\n    type: \"text\",\n    minWidth: 150,\n  },\n  {\n    field: \"_actions\",\n    headerName: \"\",\n    type: \"actions\",\n    width: 64,\n    pinned: \"right\",\n    getActions: ({ row }) => [\n      {\n        id: \"edit\",\n        label: \"Editar\",\n        icon: <Pencil />,\n        showInMenu: true,\n        onClick: () => console.log(\"Editar\", row.id),\n      },\n      {\n        id: \"whatsapp\",\n        label: \"Abrir atendimento (WhatsApp)\",\n        icon: <MessageSquare />,\n        showInMenu: true,\n        onClick: () => console.log(\"Atendimento\", row.id),\n      },\n      {\n        id: \"archive\",\n        label: \"Arquivar\",\n        icon: <Archive />,\n        showInMenu: true,\n        onClick: () => console.log(\"Arquivar\", row.id),\n      },\n      {\n        id: \"delete\",\n        label: \"Excluir cliente\",\n        icon: <Trash2 />,\n        showInMenu: true,\n        destructive: true,\n        onClick: () => handlers.onAskDelete(row),\n      },\n    ],\n  },\n  ];\n}\n\n/* ── Saved views / Presets — tabs do toolbar ───────────────────── */\n\nconst DEFAULT_VIEWS: DataTablePresetView[] = [\n  presetView({\n    id: \"preset:meus\",\n    name: \"Meus\",\n    filters: [{ field: \"agentId\", value: \"you\" }],\n  }),\n  presetView({\n    id: \"preset:ativos\",\n    name: \"Ativos\",\n    filters: [{ field: \"statusId\", value: \"active\" }],\n  }),\n  presetView({\n    id: \"preset:royals\",\n    name: \"Royals\",\n    filters: [{ field: \"categoryId\", value: \"royal\" }],\n  }),\n  presetView({\n    id: \"preset:ultimos-7-dias\",\n    name: \"Últimos 7 dias\",\n    sort: [{ field: \"createdAt\", direction: \"desc\" }],\n  }),\n];\n\n/* ── Filtros iniciais (Status=Ativo + Categoria=Royal — print) ─── */\n\n// statusId e categoryId são filterType=\"multiSelect\" — operator correto é \"isAnyOf\"\n// (not \"equals\"). Sem isso, o popover Filtros mostrava o Select de operador VAZIO\n// porque \"equals\" não está nos operators de MultiSelectColumnType.\nconst INITIAL_FILTERS: FilterModel = {\n  items: [\n    { id: \"filter-status-ativo\", field: \"statusId\", operator: \"isAnyOf\", value: \"active\" },\n    { id: \"filter-categoria-royal\", field: \"categoryId\", operator: \"isAnyOf\", value: \"royal\" },\n  ],\n  logicOperator: \"AND\",\n};\n\n/* ── Kanban config (renderCard com JSX) ────────────────────────── */\n\nconst KANBAN_CONFIG: DataTableKanbanConfig<ClientRow> = {\n  groupByField: \"statusId\",\n  columns: KANBAN_COLUMNS,\n  renderCard: ({ row }) => {\n    const cat = CATEGORIES[row.categoryId as keyof typeof CATEGORIES];\n    const agent = AGENTS[row.agentId as keyof typeof AGENTS];\n    const agentInitials = agent?.name.split(\" \").map((s) => s[0]).join(\"\").slice(0, 2) ?? \"?\";\n    return {\n      title: row.name,\n      subtitle: row.id,\n      avatar: (\n        <Avatar className=\"size-[28px]\" style={{ background: row.avatarColor }}>\n          <AvatarFallback className=\"bg-transparent text-white text-caption-sm font-bold\">\n            {row.initials}\n          </AvatarFallback>\n        </Avatar>\n      ),\n      chip: cat ? (\n        <Chip\n          color={CATEGORY_KIND[row.categoryId] ?? \"info\"}\n          variant=\"soft\"\n          size=\"sm\"\n          shape=\"pill\"\n        >\n          {cat.label}\n        </Chip>\n      ) : null,\n      value: formatBRL(row.value),\n      footerLeft: agent ? (\n        <span className=\"inline-flex items-center gap-gp-sm min-w-0 flex-1\">\n          <Avatar className=\"size-[22px]\" style={{ background: agent.color }}>\n            <AvatarFallback className=\"bg-transparent text-white text-caption-xs font-bold\">\n              {agentInitials}\n            </AvatarFallback>\n          </Avatar>\n          <span className=\"text-body-xs font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis\">\n            {agent.name}\n          </span>\n        </span>\n      ) : null,\n      footerRight: (\n        <span className=\"inline-flex items-center gap-[4px] text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums] shrink-0\">\n          <Clock size={11} strokeWidth={1.8} aria-hidden />\n          {formatShortDate(row.lastContact)}\n        </span>\n      ),\n    };\n  },\n};\n\n/* ═══════════════════════════════════════════════════════════════════════════\n   Page — Clientes (showcase usando DataTable real)\n   ═══════════════════════════════════════════════════════════════════════════ */\n\ntype ConfirmDeleteState = {\n  ids: string[];\n  label: string;\n  /** Callback opcional após confirmar — usado pelo bulk pra limpar seleção. */\n  onAfter?: () => void;\n} | null;\n\nexport function ClientesScreen() {\n  const [rows, setRows] = useState<ClientRow[]>(() => CLIENTS_87);\n  const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTERS);\n  const [viewMode, setViewMode] = useState<DataTableViewMode>(\"table\");\n  const [novoClienteOpen, setNovoClienteOpen] = useState(false);\n  const [detailRowId, setDetailRowId] = useState<string | null>(null);\n  const [confirmDelete, setConfirmDelete] = useState<ConfirmDeleteState>(null);\n  const detailRow = detailRowId ? rows.find((r) => r.id === detailRowId) ?? null : null;\n  const tableRef = useRef<DataTableRef>(null);\n\n  const askDelete = useCallback(\n    (row: ClientRow) =>\n      setConfirmDelete({ ids: [row.id], label: row.name }),\n    [],\n  );\n\n  const askBulkDelete = useCallback(\n    (ids: string[], onAfter: () => void) =>\n      setConfirmDelete({\n        ids,\n        label: `${ids.length} cliente${ids.length === 1 ? \"\" : \"s\"}`,\n        onAfter,\n      }),\n    [],\n  );\n\n  const handleConfirmDelete = useCallback(() => {\n    if (!confirmDelete) return;\n    const ids = new Set(confirmDelete.ids);\n    setRows((prev) => prev.filter((r) => !ids.has(r.id)));\n    if (detailRowId && ids.has(detailRowId)) setDetailRowId(null);\n    confirmDelete.onAfter?.();\n    setConfirmDelete(null);\n  }, [confirmDelete, detailRowId]);\n\n  const columns = useMemo(\n    () => buildColumns({ onAskDelete: askDelete }),\n    [askDelete],\n  );\n\n  return (\n    // Conteúdo da página (sem shell). Embrulhe no seu AppShell/layout — o\n    // parent precisa dar altura (h-full/flex) pra DataTable preencher.\n    <div className=\"flex flex-col h-full min-h-0 gap-gp-2xl\">\n      <PageHeader\n        title=\"Clientes\"\n        description=\"Gerencie sua base de clientes, acompanhe status de cadastro e abra atendimentos diretos pelo WhatsApp.\"\n        badge={\n          <Chip color=\"primary\" variant=\"soft\" size=\"sm\" shape=\"rounded\">\n            {rows.length.toLocaleString(\"pt-BR\")} registros\n          </Chip>\n        }\n        actions={\n          <>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"icon-md\"\n              aria-label=\"Mais ações\"\n              onClick={() => alert(\"Mais ações\")}\n            >\n              <MoreHorizontal />\n            </Button>\n            <Button\n              variant=\"filled\"\n              color=\"primary\"\n              size=\"md\"\n              iconLeft={<Plus />}\n              onClick={() => setNovoClienteOpen(true)}\n            >\n              Novo cliente\n            </Button>\n          </>\n        }\n      />\n\n      {/* DataTable — ocupa o resto do body ──────────────────────── */}\n      <DataTable<ClientRow>\n        ref={tableRef}\n        rows={rows}\n        columns={columns}\n        getRowId={(r) => r.id}\n        persistId=\"showcase-clientes-crud\"\n        defaultViews={DEFAULT_VIEWS}\n        /* Chips de filtro VAZIOS já visíveis no load (\"Atribuído\") — a afordância\n           aparece sem abrir o menu; o usuário clica e preenche. Filtro é recurso\n           da tabela (nativo), nunca form/select acima dela. */\n        showEmptyFilterChips={[\"agentId\"]}\n        filterModel={filterModel}\n        onFilterModelChange={setFilterModel}\n        viewMode={viewMode}\n        onViewModeChange={setViewMode}\n        kanbanConfig={KANBAN_CONFIG}\n        toolbar={{\n          enableSearch: true,\n          enableFilters: true,\n          enableColumns: true,\n          enableDensity: true,\n          enableExport: true,\n          moreMenu: {\n            items: [\n              {\n                id: \"fullscreen\",\n                label: \"Tela cheia\",\n                icon: <Maximize2 />,\n                onSelect: () => alert(\"Tela cheia\"),\n              },\n              {\n                id: \"duplicate\",\n                label: \"Duplicar visualização\",\n                icon: <Copy />,\n                onSelect: () => alert(\"Duplicar visualização\"),\n              },\n              {\n                id: \"import\",\n                label: \"Importar CSV\",\n                icon: <Upload />,\n                onSelect: () => alert(\"Importar CSV\"),\n              },\n              {\n                id: \"reset\",\n                label: \"Resetar visualização\",\n                icon: <RotateCcw />,\n                destructive: true,\n                onSelect: () => tableRef.current?.resetPersistedState(),\n              },\n            ],\n          },\n        }}\n        paginationConfig={{\n          enabled: true,\n          initialPageSize: 10,\n          pageSizeOptions: [10, 25, 50, 100],\n        }}\n        selectionConfig={{\n          enabled: true,\n          enableGlobal: true,\n          actions: (selectedIds, clearSelection) => (\n            <>\n              <BulkActionButton\n                icon={<Download />}\n                onClick={() => tableRef.current?.exportCsv(\"selected\")}\n              >\n                Exportar\n              </BulkActionButton>\n              <BulkActionButton\n                icon={<Trash2 />}\n                variant=\"danger\"\n                onClick={() => askBulkDelete(selectedIds.map(String), clearSelection)}\n              >\n                Excluir\n              </BulkActionButton>\n            </>\n          ),\n        }}\n        onCellEditCommit={async ({ id, field, value }) => {\n          await new Promise((res) => setTimeout(res, 400));\n          setRows((prev) =>\n            prev.map((r) => (r.id === id ? { ...r, [field]: value } : r)),\n          );\n        }}\n        onRowClick={(row) => setDetailRowId(row.id)}\n        className=\"flex-1 min-h-0\"\n      />\n\n      {/* Drawer \"Novo cliente\" — controlado pelo botão do header */}\n      <NovoClienteDrawer\n        open={novoClienteOpen}\n        onOpenChange={setNovoClienteOpen}\n        onSubmit={(data) => {\n          console.log(\"Novo cliente:\", data);\n          alert(`Cliente \"${data.name}\" criado (mock)`);\n        }}\n      />\n\n      {/* DetailDrawer — abre ao clicar numa row, slide-in da direita SEM\n          backdrop modal (tabela continua interativa atrás). */}\n      <DetailDrawer\n        row={detailRow}\n        onClose={() => setDetailRowId(null)}\n        onEdit={(r) => console.log(\"Editar\", r.id)}\n        onDelete={(r) => askDelete(r)}\n        onSave={(r) => alert(`Salvar alterações em ${r.name} (mock)`)}\n      />\n\n      {/* AlertModal de confirmação de exclusão — compartilhado entre\n          row action menu, bulk action e DetailDrawer.onDelete. */}\n      <AlertModal\n        open={confirmDelete !== null}\n        onOpenChange={(open) => {\n          if (!open) setConfirmDelete(null);\n        }}\n        tone=\"danger\"\n        title={\n          confirmDelete && confirmDelete.ids.length > 1\n            ? `Excluir ${confirmDelete.label}?`\n            : \"Excluir cliente?\"\n        }\n        description={\n          confirmDelete\n            ? confirmDelete.ids.length > 1\n              ? `Esta ação não pode ser desfeita. ${confirmDelete.label} serão removidos permanentemente.`\n              : `Esta ação não pode ser desfeita. \"${confirmDelete.label}\" será removido permanentemente.`\n            : null\n        }\n        confirmLabel=\"Excluir\"\n        cancelLabel=\"Cancelar\"\n        onConfirm={handleConfirmDelete}\n      />\n    </div>\n  );\n}\n\nexport default ClientesScreen;\n",
+        "content": "import { useCallback, useMemo, useRef, useState } from \"react\";\r\nimport {\r\n  Archive,\r\n  Clock,\r\n  Copy,\r\n  Download,\r\n  Maximize2,\r\n  MessageSquare,\r\n  MoreHorizontal,\r\n  Pencil,\r\n  Plus,\r\n  RotateCcw,\r\n  Trash2,\r\n  Upload,\r\n} from \"lucide-react\";\r\nimport {\r\n  CATEGORIES,\r\n  AGENTS,\r\n  type ClientRow,\r\n} from \"./_table-data\";\r\nimport {\r\n  DataTable,\r\n  presetView,\r\n  type DataTableColumnDef,\r\n  type DataTableKanbanConfig,\r\n  type DataTablePresetView,\r\n  type DataTableRef,\r\n  type DataTableViewMode,\r\n  type FilterModel,\r\n} from \"@/components/ui/DataTable\";\r\nimport { Button } from \"@/components/ui/Button/button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { PageHeader } from \"@/components/ui/PageHeader\";\r\nimport { BulkActionButton } from \"@/components/ui/TableToolbar\";\r\nimport { Avatar, AvatarFallback } from \"@/components/shadcn/avatar\";\r\nimport {\r\n  CLIENTS_87,\r\n  STATUS_OPTIONS,\r\n  CATEGORY_OPTIONS,\r\n  AGENT_OPTIONS,\r\n  AGENTS_LOOKUP,\r\n  KANBAN_COLUMNS,\r\n  CATEGORY_KIND,\r\n  formatBRL,\r\n  formatShortDate,\r\n} from \"./clientes-showcase-mocks\";\r\nimport { NovoClienteDrawer } from \"./components/NovoClienteDrawer\";\r\nimport { DetailDrawer } from \"./components/DetailDrawer\";\r\nimport { AlertModal } from \"@/components/ui/AlertModal\";\r\n\r\n/* ── Columns declarativas (type-based) ─────────────────────────── */\r\n\r\ntype ColumnHandlers = {\r\n  /** Pede confirmação de exclusão (abre o AlertModal). */\r\n  onAskDelete: (row: ClientRow) => void;\r\n};\r\n\r\nfunction buildColumns(handlers: ColumnHandlers): DataTableColumnDef<ClientRow>[] {\r\n  return [\r\n  { field: \"id\", headerName: \"ID\", type: \"text\", width: 130 },\r\n  {\r\n    field: \"name\",\r\n    headerName: \"Nome\",\r\n    type: \"user\",\r\n    sortable: true,\r\n    width: 220,\r\n    typeOptions: {\r\n      users: Object.fromEntries(\r\n        CLIENTS_87.map((c) => [\r\n          c.name,\r\n          {\r\n            name: c.name,\r\n            initials: c.initials,\r\n            color: c.avatarColor,\r\n          },\r\n        ]),\r\n      ),\r\n    },\r\n    valueGetter: (row) => row.name,\r\n  },\r\n  {\r\n    field: \"email\",\r\n    headerName: \"Email\",\r\n    type: \"email\",\r\n    enableColumnFilter: true,\r\n    filterType: \"text\",\r\n  },\r\n  {\r\n    field: \"phone\",\r\n    headerName: \"Telefone\",\r\n    type: \"phone\",\r\n  },\r\n  {\r\n    field: \"statusId\",\r\n    headerName: \"Status\",\r\n    type: \"status\",\r\n    enableColumnFilter: true,\r\n    filterType: \"multiSelect\",\r\n    filterOptions: STATUS_OPTIONS,\r\n  },\r\n  {\r\n    field: \"categoryId\",\r\n    headerName: \"Categoria\",\r\n    type: \"badge\",\r\n    enableColumnFilter: true,\r\n    filterType: \"multiSelect\",\r\n    filterOptions: CATEGORY_OPTIONS,\r\n  },\r\n  {\r\n    field: \"agentId\",\r\n    headerName: \"Atribuído\",\r\n    type: \"user\",\r\n    enableColumnFilter: true,\r\n    filterType: \"select\",\r\n    filterOptions: AGENT_OPTIONS,\r\n    typeOptions: { users: AGENTS_LOOKUP },\r\n  },\r\n  {\r\n    field: \"value\",\r\n    headerName: \"Valor\",\r\n    type: \"currency\",\r\n    sortable: true,\r\n    enableColumnFilter: true,\r\n    filterType: \"number\",\r\n    aggregate: \"sum\",\r\n    aggregateFormatter: (v) =>\r\n      new Intl.NumberFormat(\"pt-BR\", { style: \"currency\", currency: \"BRL\" }).format(v),\r\n  },\r\n  {\r\n    field: \"createdAt\",\r\n    headerName: \"Criado em\",\r\n    type: \"date\",\r\n    sortable: true,\r\n    enableColumnFilter: true,\r\n    filterType: \"date\",\r\n    width: 130,\r\n  },\r\n  {\r\n    field: \"lastContact\",\r\n    headerName: \"Último contato\",\r\n    type: \"date\",\r\n    sortable: true,\r\n    width: 150,\r\n  },\r\n  {\r\n    field: \"location\",\r\n    headerName: \"Localização\",\r\n    type: \"text\",\r\n    minWidth: 150,\r\n  },\r\n  {\r\n    field: \"_actions\",\r\n    headerName: \"\",\r\n    type: \"actions\",\r\n    width: 64,\r\n    pinned: \"right\",\r\n    getActions: ({ row }) => [\r\n      {\r\n        id: \"edit\",\r\n        label: \"Editar\",\r\n        icon: <Pencil />,\r\n        showInMenu: true,\r\n        onClick: () => console.log(\"Editar\", row.id),\r\n      },\r\n      {\r\n        id: \"whatsapp\",\r\n        label: \"Abrir atendimento (WhatsApp)\",\r\n        icon: <MessageSquare />,\r\n        showInMenu: true,\r\n        onClick: () => console.log(\"Atendimento\", row.id),\r\n      },\r\n      {\r\n        id: \"archive\",\r\n        label: \"Arquivar\",\r\n        icon: <Archive />,\r\n        showInMenu: true,\r\n        onClick: () => console.log(\"Arquivar\", row.id),\r\n      },\r\n      {\r\n        id: \"delete\",\r\n        label: \"Excluir cliente\",\r\n        icon: <Trash2 />,\r\n        showInMenu: true,\r\n        destructive: true,\r\n        onClick: () => handlers.onAskDelete(row),\r\n      },\r\n    ],\r\n  },\r\n  ];\r\n}\r\n\r\n/* ── Saved views / Presets — tabs do toolbar ───────────────────── */\r\n\r\nconst DEFAULT_VIEWS: DataTablePresetView[] = [\r\n  presetView({\r\n    id: \"preset:meus\",\r\n    name: \"Meus\",\r\n    filters: [{ field: \"agentId\", value: \"you\" }],\r\n  }),\r\n  presetView({\r\n    id: \"preset:ativos\",\r\n    name: \"Ativos\",\r\n    filters: [{ field: \"statusId\", value: \"active\" }],\r\n  }),\r\n  presetView({\r\n    id: \"preset:royals\",\r\n    name: \"Royals\",\r\n    filters: [{ field: \"categoryId\", value: \"royal\" }],\r\n  }),\r\n  presetView({\r\n    id: \"preset:ultimos-7-dias\",\r\n    name: \"Últimos 7 dias\",\r\n    sort: [{ field: \"createdAt\", direction: \"desc\" }],\r\n  }),\r\n];\r\n\r\n/* ── Filtros iniciais (Status=Ativo + Categoria=Royal — print) ─── */\r\n\r\n// statusId e categoryId são filterType=\"multiSelect\" — operator correto é \"isAnyOf\"\r\n// (not \"equals\"). Sem isso, o popover Filtros mostrava o Select de operador VAZIO\r\n// porque \"equals\" não está nos operators de MultiSelectColumnType.\r\nconst INITIAL_FILTERS: FilterModel = {\r\n  items: [\r\n    { id: \"filter-status-ativo\", field: \"statusId\", operator: \"isAnyOf\", value: \"active\" },\r\n    { id: \"filter-categoria-royal\", field: \"categoryId\", operator: \"isAnyOf\", value: \"royal\" },\r\n  ],\r\n  logicOperator: \"AND\",\r\n};\r\n\r\n/* ── Kanban config (renderCard com JSX) ────────────────────────── */\r\n\r\nconst KANBAN_CONFIG: DataTableKanbanConfig<ClientRow> = {\r\n  groupByField: \"statusId\",\r\n  columns: KANBAN_COLUMNS,\r\n  renderCard: ({ row }) => {\r\n    const cat = CATEGORIES[row.categoryId as keyof typeof CATEGORIES];\r\n    const agent = AGENTS[row.agentId as keyof typeof AGENTS];\r\n    const agentInitials = agent?.name.split(\" \").map((s) => s[0]).join(\"\").slice(0, 2) ?? \"?\";\r\n    return {\r\n      title: row.name,\r\n      subtitle: row.id,\r\n      avatar: (\r\n        <Avatar className=\"size-[28px]\" style={{ background: row.avatarColor }}>\r\n          <AvatarFallback className=\"bg-transparent text-white text-caption-sm font-bold\">\r\n            {row.initials}\r\n          </AvatarFallback>\r\n        </Avatar>\r\n      ),\r\n      chip: cat ? (\r\n        <Chip\r\n          color={CATEGORY_KIND[row.categoryId] ?? \"info\"}\r\n          variant=\"soft\"\r\n          size=\"sm\"\r\n          shape=\"pill\"\r\n        >\r\n          {cat.label}\r\n        </Chip>\r\n      ) : null,\r\n      value: formatBRL(row.value),\r\n      footerLeft: agent ? (\r\n        <span className=\"inline-flex items-center gap-gp-sm min-w-0 flex-1\">\r\n          <Avatar className=\"size-[22px]\" style={{ background: agent.color }}>\r\n            <AvatarFallback className=\"bg-transparent text-white text-caption-xs font-bold\">\r\n              {agentInitials}\r\n            </AvatarFallback>\r\n          </Avatar>\r\n          <span className=\"text-body-xs font-normal text-fg-muted whitespace-nowrap overflow-hidden text-ellipsis\">\r\n            {agent.name}\r\n          </span>\r\n        </span>\r\n      ) : null,\r\n      footerRight: (\r\n        <span className=\"inline-flex items-center gap-[4px] text-caption-sm text-fg-muted [font-variant-numeric:tabular-nums] shrink-0\">\r\n          <Clock size={11} strokeWidth={1.8} aria-hidden />\r\n          {formatShortDate(row.lastContact)}\r\n        </span>\r\n      ),\r\n    };\r\n  },\r\n};\r\n\r\n/* ═══════════════════════════════════════════════════════════════════════════\r\n   Page — Clientes (showcase usando DataTable real)\r\n   ═══════════════════════════════════════════════════════════════════════════ */\r\n\r\ntype ConfirmDeleteState = {\r\n  ids: string[];\r\n  label: string;\r\n  /** Callback opcional após confirmar — usado pelo bulk pra limpar seleção. */\r\n  onAfter?: () => void;\r\n} | null;\r\n\r\nexport function ClientesScreen() {\r\n  const [rows, setRows] = useState<ClientRow[]>(() => CLIENTS_87);\r\n  const [filterModel, setFilterModel] = useState<FilterModel>(INITIAL_FILTERS);\r\n  const [viewMode, setViewMode] = useState<DataTableViewMode>(\"table\");\r\n  const [novoClienteOpen, setNovoClienteOpen] = useState(false);\r\n  const [detailRowId, setDetailRowId] = useState<string | null>(null);\r\n  const [confirmDelete, setConfirmDelete] = useState<ConfirmDeleteState>(null);\r\n  const detailRow = detailRowId ? rows.find((r) => r.id === detailRowId) ?? null : null;\r\n  const tableRef = useRef<DataTableRef>(null);\r\n\r\n  const askDelete = useCallback(\r\n    (row: ClientRow) =>\r\n      setConfirmDelete({ ids: [row.id], label: row.name }),\r\n    [],\r\n  );\r\n\r\n  const askBulkDelete = useCallback(\r\n    (ids: string[], onAfter: () => void) =>\r\n      setConfirmDelete({\r\n        ids,\r\n        label: `${ids.length} cliente${ids.length === 1 ? \"\" : \"s\"}`,\r\n        onAfter,\r\n      }),\r\n    [],\r\n  );\r\n\r\n  const handleConfirmDelete = useCallback(() => {\r\n    if (!confirmDelete) return;\r\n    const ids = new Set(confirmDelete.ids);\r\n    setRows((prev) => prev.filter((r) => !ids.has(r.id)));\r\n    if (detailRowId && ids.has(detailRowId)) setDetailRowId(null);\r\n    confirmDelete.onAfter?.();\r\n    setConfirmDelete(null);\r\n  }, [confirmDelete, detailRowId]);\r\n\r\n  const columns = useMemo(\r\n    () => buildColumns({ onAskDelete: askDelete }),\r\n    [askDelete],\r\n  );\r\n\r\n  return (\r\n    // Conteúdo da página (sem shell). Embrulhe no seu AppShell/layout — o\r\n    // parent precisa dar altura (h-full/flex) pra DataTable preencher.\r\n    <div className=\"flex flex-col h-full min-h-0 gap-gp-2xl\">\r\n      <PageHeader\r\n        title=\"Clientes\"\r\n        description=\"Gerencie sua base de clientes, acompanhe status de cadastro e abra atendimentos diretos pelo WhatsApp.\"\r\n        badge={\r\n          <Chip color=\"primary\" variant=\"soft\" size=\"sm\" shape=\"rounded\">\r\n            {rows.length.toLocaleString(\"pt-BR\")} registros\r\n          </Chip>\r\n        }\r\n        actions={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"icon-md\"\r\n              aria-label=\"Mais ações\"\r\n              onClick={() => alert(\"Mais ações\")}\r\n            >\r\n              <MoreHorizontal />\r\n            </Button>\r\n            <Button\r\n              variant=\"filled\"\r\n              color=\"primary\"\r\n              size=\"md\"\r\n              iconLeft={<Plus />}\r\n              onClick={() => setNovoClienteOpen(true)}\r\n            >\r\n              Novo cliente\r\n            </Button>\r\n          </>\r\n        }\r\n      />\r\n\r\n      {/* DataTable — ocupa o resto do body ──────────────────────── */}\r\n      <DataTable<ClientRow>\r\n        ref={tableRef}\r\n        rows={rows}\r\n        columns={columns}\r\n        getRowId={(r) => r.id}\r\n        persistId=\"showcase-clientes-crud\"\r\n        defaultViews={DEFAULT_VIEWS}\r\n        /* Chips de filtro VAZIOS já visíveis no load (\"Atribuído\") — a afordância\r\n           aparece sem abrir o menu; o usuário clica e preenche. Filtro é recurso\r\n           da tabela (nativo), nunca form/select acima dela. */\r\n        showEmptyFilterChips={[\"agentId\"]}\r\n        filterModel={filterModel}\r\n        onFilterModelChange={setFilterModel}\r\n        viewMode={viewMode}\r\n        onViewModeChange={setViewMode}\r\n        kanbanConfig={KANBAN_CONFIG}\r\n        toolbar={{\r\n          enableSearch: true,\r\n          enableFilters: true,\r\n          enableColumns: true,\r\n          enableDensity: true,\r\n          enableExport: true,\r\n          moreMenu: {\r\n            items: [\r\n              {\r\n                id: \"fullscreen\",\r\n                label: \"Tela cheia\",\r\n                icon: <Maximize2 />,\r\n                onSelect: () => alert(\"Tela cheia\"),\r\n              },\r\n              {\r\n                id: \"duplicate\",\r\n                label: \"Duplicar visualização\",\r\n                icon: <Copy />,\r\n                onSelect: () => alert(\"Duplicar visualização\"),\r\n              },\r\n              {\r\n                id: \"import\",\r\n                label: \"Importar CSV\",\r\n                icon: <Upload />,\r\n                onSelect: () => alert(\"Importar CSV\"),\r\n              },\r\n              {\r\n                id: \"reset\",\r\n                label: \"Resetar visualização\",\r\n                icon: <RotateCcw />,\r\n                destructive: true,\r\n                onSelect: () => tableRef.current?.resetPersistedState(),\r\n              },\r\n            ],\r\n          },\r\n        }}\r\n        paginationConfig={{\r\n          enabled: true,\r\n          initialPageSize: 10,\r\n          pageSizeOptions: [10, 25, 50, 100],\r\n        }}\r\n        selectionConfig={{\r\n          enabled: true,\r\n          enableGlobal: true,\r\n          actions: (selectedIds, clearSelection) => (\r\n            <>\r\n              <BulkActionButton\r\n                icon={<Download />}\r\n                onClick={() => tableRef.current?.exportCsv(\"selected\")}\r\n              >\r\n                Exportar\r\n              </BulkActionButton>\r\n              <BulkActionButton\r\n                icon={<Trash2 />}\r\n                variant=\"danger\"\r\n                onClick={() => askBulkDelete(selectedIds.map(String), clearSelection)}\r\n              >\r\n                Excluir\r\n              </BulkActionButton>\r\n            </>\r\n          ),\r\n        }}\r\n        onCellEditCommit={async ({ id, field, value }) => {\r\n          await new Promise((res) => setTimeout(res, 400));\r\n          setRows((prev) =>\r\n            prev.map((r) => (r.id === id ? { ...r, [field]: value } : r)),\r\n          );\r\n        }}\r\n        onRowClick={(row) => setDetailRowId(row.id)}\r\n        className=\"flex-1 min-h-0\"\r\n      />\r\n\r\n      {/* Drawer \"Novo cliente\" — controlado pelo botão do header */}\r\n      <NovoClienteDrawer\r\n        open={novoClienteOpen}\r\n        onOpenChange={setNovoClienteOpen}\r\n        onSubmit={(data) => {\r\n          console.log(\"Novo cliente:\", data);\r\n          alert(`Cliente \"${data.name}\" criado (mock)`);\r\n        }}\r\n      />\r\n\r\n      {/* DetailDrawer — abre ao clicar numa row, slide-in da direita SEM\r\n          backdrop modal (tabela continua interativa atrás). */}\r\n      <DetailDrawer\r\n        row={detailRow}\r\n        onClose={() => setDetailRowId(null)}\r\n        onEdit={(r) => console.log(\"Editar\", r.id)}\r\n        onDelete={(r) => askDelete(r)}\r\n        onSave={(r) => alert(`Salvar alterações em ${r.name} (mock)`)}\r\n      />\r\n\r\n      {/* AlertModal de confirmação de exclusão — compartilhado entre\r\n          row action menu, bulk action e DetailDrawer.onDelete. */}\r\n      <AlertModal\r\n        open={confirmDelete !== null}\r\n        onOpenChange={(open) => {\r\n          if (!open) setConfirmDelete(null);\r\n        }}\r\n        tone=\"danger\"\r\n        title={\r\n          confirmDelete && confirmDelete.ids.length > 1\r\n            ? `Excluir ${confirmDelete.label}?`\r\n            : \"Excluir cliente?\"\r\n        }\r\n        description={\r\n          confirmDelete\r\n            ? confirmDelete.ids.length > 1\r\n              ? `Esta ação não pode ser desfeita. ${confirmDelete.label} serão removidos permanentemente.`\r\n              : `Esta ação não pode ser desfeita. \"${confirmDelete.label}\" será removido permanentemente.`\r\n            : null\r\n        }\r\n        confirmLabel=\"Excluir\"\r\n        cancelLabel=\"Cancelar\"\r\n        onConfirm={handleConfirmDelete}\r\n      />\r\n    </div>\r\n  );\r\n}\r\n\r\nexport default ClientesScreen;\r\n",
         "type": "registry:ui",
         "target": "examples/clientes/clientes-screen.tsx"
       },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-clientes · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-dashboard · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-edit-page · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-finance · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-login · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-mapa-rede · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · example-order-detail · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · file-upload-field · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · floating-panel · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · footer-table · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · form-field · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · header · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · hover-card · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · icon · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · input-group · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · input-otp · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · input · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · kanban · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · kpi · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · label · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · list · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · markdown-text · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · menu-sidebar · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · menubar · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3605,13 +3605,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Modal/modal.tsx",
-        "content": "import type { ReactNode } from \"react\";\r\nimport { X } from \"lucide-react\";\r\nimport {\r\n  Dialog,\r\n  DialogContent,\r\n  DialogClose,\r\n  DialogTitle,\r\n  DialogDescription,\r\n} from \"../../shadcn/dialog\";\r\nimport { Button } from \"../Button/button\";\r\nimport {\r\n  dialog,\r\n  closeBtn,\r\n  head,\r\n  headIcon,\r\n  headTitleWrap,\r\n  title as titleStyles,\r\n  description as descStyles,\r\n  body,\r\n  foot,\r\n  footRight,\r\n} from \"./modal.styles\";\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Types\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\nexport type ModalSize = \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\";\r\n\r\nexport type ModalAction = {\r\n  /** Texto do botão. */\r\n  label: ReactNode;\r\n  /** Callback do click. */\r\n  onClick?: () => void;\r\n  /** Estado disabled. */\r\n  disabled?: boolean;\r\n  /** Loading com spinner (usa o do <Button>). */\r\n  loading?: boolean;\r\n  /** Quando true, pinta o botão com cor critical (destrutivo). */\r\n  danger?: boolean;\r\n};\r\n\r\nexport type ModalProps = {\r\n  /** Controlled open. */\r\n  open: boolean;\r\n  /** Callback quando o modal pede pra fechar (X, ESC, overlay click, ou ação). */\r\n  onClose: () => void;\r\n\r\n  /* ── Header (tudo opcional) ───────────────────────────────────── */\r\n  /**\r\n   * Ícone do header — renderizado dentro de um container 40×40 à esquerda.\r\n   * Passe o lucide pronto com `className=\"size-icon-md\"` e `strokeWidth={1.7}`.\r\n   * Quando ausente, o header não tem icon container (texto começa à esquerda).\r\n   */\r\n  icon?: ReactNode;\r\n  /** Título principal — 17px / 700. */\r\n  title?: ReactNode;\r\n  /** Descrição/subtítulo — 12.5px / fg-muted. */\r\n  description?: ReactNode;\r\n\r\n  /* ── Body ─────────────────────────────────────────────────────── */\r\n  /** Conteúdo do body — flex-col com gap 18px entre filhos. */\r\n  children?: ReactNode;\r\n\r\n  /* ── Footer: modo estruturado ────────────────────────────────── */\r\n  /**\r\n   * Ação primária — botão filled (default brand, critical quando `danger`).\r\n   * Fica sempre na ponta direita do footer.\r\n   */\r\n  primaryAction?: ModalAction;\r\n  /**\r\n   * Ação secundária — botão outline secondary.\r\n   * Default label \"Cancelar\". Default onClick = onClose.\r\n   */\r\n  secondaryAction?: ModalAction;\r\n  /**\r\n   * Ação terciária — opcional. Quando presente, vai pra ESQUERDA do footer\r\n   * (justify-between). Use pra ações destrutivas (delete) ou neutras (ajuda).\r\n   * Estilo: ghost critical quando `danger`, ghost secondary caso contrário.\r\n   */\r\n  tertiaryAction?: ModalAction;\r\n\r\n  /* ── Footer: modo override (escape hatch) ────────────────────── */\r\n  /**\r\n   * Se passado, substitui inteiramente as 3 actions estruturadas.\r\n   * Use quando precisar de layout custom (links, multi-step indicator, etc).\r\n   */\r\n  footer?: ReactNode;\r\n\r\n  /* ── Visual ───────────────────────────────────────────────────── */\r\n  /**\r\n   * Largura máxima do modal:\r\n   *   - sm: 440px\r\n   *   - md: 540px (default — match TblViewsModal sandbox)\r\n   *   - lg: 720px\r\n   *   - xl: 1100px (modais de dados)\r\n   *   - full: min(1400px, 92vw) — escala com a viewport, mantém margens\r\n   */\r\n  size?: ModalSize;\r\n\r\n  /** Esconde o X de fechar no canto superior direito. */\r\n  hideClose?: boolean;\r\n  /** Click no overlay fecha o modal. Default true (comportamento padrão Dialog). */\r\n  closeOnOverlay?: boolean;\r\n\r\n  /** ClassName extra no DialogContent (root). */\r\n  className?: string;\r\n};\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Component\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Modal — composto sobre o `<Dialog>` (shadcn) com estrutura de header rico\r\n * (icon + título + descrição), body livre via children, e footer flexível\r\n * (até 3 actions estruturadas OU footer custom via slot).\r\n *\r\n * Visual alinhado com o `TblViewsModal` do sandbox `/design-and-table-v2`:\r\n * dialog 540px (md), header com feature-icon 40×40, footer com botões DS.\r\n *\r\n * Quando precisar de modal de confirmação destrutiva simples, use `<AlertModal>`.\r\n */\r\nexport function Modal({\r\n  open,\r\n  onClose,\r\n  icon,\r\n  title,\r\n  description,\r\n  children,\r\n  primaryAction,\r\n  secondaryAction,\r\n  tertiaryAction,\r\n  footer,\r\n  size = \"md\",\r\n  hideClose = false,\r\n  closeOnOverlay = true,\r\n  className,\r\n}: ModalProps) {\r\n  const hasHeader = Boolean(icon || title || description);\r\n  const hasStructuredFooter = Boolean(primaryAction || secondaryAction || tertiaryAction);\r\n  const showFooter = Boolean(footer) || hasStructuredFooter;\r\n\r\n  const handleOpenChange = (next: boolean) => {\r\n    if (next) return;\r\n    // Quando closeOnOverlay=false, ignora fechamento por overlay/ESC\r\n    // (Radix dispara onOpenChange em ambos os casos; aqui simplificamos:\r\n    // se você quer prevenir, controle externamente).\r\n    if (!closeOnOverlay) return;\r\n    onClose();\r\n  };\r\n\r\n  return (\r\n    <Dialog open={open} onOpenChange={handleOpenChange}>\r\n      <DialogContent\r\n        className={dialog({ size, className })}\r\n        hideClose\r\n        // Sem descrição → opt-out explícito do warning do Radix. Com descrição,\r\n        // o <DialogDescription> abaixo liga o aria-describedby automaticamente.\r\n        {...(description ? {} : { \"aria-describedby\": undefined })}\r\n      >\r\n        {/* Radix exige um DialogTitle p/ acessibilidade. Quando o modal não tem\r\n            title visível, um título sr-only evita o warning sem mudar o layout. */}\r\n        {!title && <DialogTitle className=\"sr-only\">Diálogo</DialogTitle>}\r\n\r\n        {!hideClose && (\r\n          <DialogClose className={closeBtn()} aria-label=\"Fechar\">\r\n            <X className=\"size-icon-sm\" />\r\n          </DialogClose>\r\n        )}\r\n\r\n        {hasHeader && (\r\n          <header className={head()}>\r\n            {icon && (\r\n              <span className={headIcon()} aria-hidden=\"true\">\r\n                {icon}\r\n              </span>\r\n            )}\r\n            {(title || description) && (\r\n              <div className={headTitleWrap()}>\r\n                {title && (\r\n                  <DialogTitle className={titleStyles()}>{title}</DialogTitle>\r\n                )}\r\n                {description && (\r\n                  <DialogDescription className={descStyles()}>\r\n                    {description}\r\n                  </DialogDescription>\r\n                )}\r\n              </div>\r\n            )}\r\n          </header>\r\n        )}\r\n\r\n        {children !== undefined && children !== null && (\r\n          <div className={body()}>{children}</div>\r\n        )}\r\n\r\n        {showFooter && (\r\n          <footer\r\n            className={foot({\r\n              layout: tertiaryAction ? \"between\" : \"end\",\r\n            })}\r\n          >\r\n            {footer ?? <StructuredActions\r\n              primary={primaryAction}\r\n              secondary={secondaryAction}\r\n              tertiary={tertiaryAction}\r\n              onClose={onClose}\r\n            />}\r\n          </footer>\r\n        )}\r\n      </DialogContent>\r\n    </Dialog>\r\n  );\r\n}\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Internal — footer estruturado (a partir das 3 actions)\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\nfunction StructuredActions({\r\n  primary,\r\n  secondary,\r\n  tertiary,\r\n  onClose,\r\n}: {\r\n  primary?: ModalAction;\r\n  secondary?: ModalAction;\r\n  tertiary?: ModalAction;\r\n  onClose: () => void;\r\n}) {\r\n  // Sem tertiary → 1 grupo só (justify-end pelo container).\r\n  // Com tertiary → 2 grupos (tertiary | secondary+primary), justify-between.\r\n\r\n  const renderTertiary = tertiary && (\r\n    <Button\r\n      color={tertiary.danger ? \"critical\" : \"secondary\"}\r\n      variant=\"ghost\"\r\n      size=\"md\"\r\n      onClick={tertiary.onClick}\r\n      disabled={tertiary.disabled}\r\n      loading={tertiary.loading}\r\n    >\r\n      {tertiary.label}\r\n    </Button>\r\n  );\r\n\r\n  const renderSecondary = secondary && (\r\n    <Button\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"md\"\r\n      onClick={secondary.onClick ?? onClose}\r\n      disabled={secondary.disabled}\r\n      loading={secondary.loading}\r\n    >\r\n      {secondary.label}\r\n    </Button>\r\n  );\r\n\r\n  const renderPrimary = primary && (\r\n    <Button\r\n      color={primary.danger ? \"critical\" : \"primary\"}\r\n      variant=\"filled\"\r\n      size=\"md\"\r\n      onClick={primary.onClick}\r\n      disabled={primary.disabled}\r\n      loading={primary.loading}\r\n    >\r\n      {primary.label}\r\n    </Button>\r\n  );\r\n\r\n  if (tertiary) {\r\n    return (\r\n      <>\r\n        {renderTertiary}\r\n        <div className={footRight()}>\r\n          {renderSecondary}\r\n          {renderPrimary}\r\n        </div>\r\n      </>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <>\r\n      {renderSecondary}\r\n      {renderPrimary}\r\n    </>\r\n  );\r\n}\r\n",
+        "content": "import type { ReactNode } from \"react\";\r\nimport { X } from \"lucide-react\";\r\nimport {\r\n  Dialog,\r\n  DialogContent,\r\n  DialogClose,\r\n  DialogTitle,\r\n  DialogDescription,\r\n} from \"@/components/shadcn/dialog\";\r\nimport { Button } from \"../Button/button\";\r\nimport {\r\n  dialog,\r\n  closeBtn,\r\n  head,\r\n  headIcon,\r\n  headTitleWrap,\r\n  title as titleStyles,\r\n  description as descStyles,\r\n  body,\r\n  foot,\r\n  footRight,\r\n} from \"./modal.styles\";\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Types\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\nexport type ModalSize = \"sm\" | \"md\" | \"lg\" | \"xl\" | \"full\";\r\n\r\nexport type ModalAction = {\r\n  /** Texto do botão. */\r\n  label: ReactNode;\r\n  /** Callback do click. */\r\n  onClick?: () => void;\r\n  /** Estado disabled. */\r\n  disabled?: boolean;\r\n  /** Loading com spinner (usa o do <Button>). */\r\n  loading?: boolean;\r\n  /** Quando true, pinta o botão com cor critical (destrutivo). */\r\n  danger?: boolean;\r\n};\r\n\r\nexport type ModalProps = {\r\n  /** Controlled open. */\r\n  open: boolean;\r\n  /** Callback quando o modal pede pra fechar (X, ESC, overlay click, ou ação). */\r\n  onClose: () => void;\r\n\r\n  /* ── Header (tudo opcional) ───────────────────────────────────── */\r\n  /**\r\n   * Ícone do header — renderizado dentro de um container 40×40 à esquerda.\r\n   * Passe o lucide pronto com `className=\"size-icon-md\"` e `strokeWidth={1.7}`.\r\n   * Quando ausente, o header não tem icon container (texto começa à esquerda).\r\n   */\r\n  icon?: ReactNode;\r\n  /** Título principal — 17px / 700. */\r\n  title?: ReactNode;\r\n  /** Descrição/subtítulo — 12.5px / fg-muted. */\r\n  description?: ReactNode;\r\n\r\n  /* ── Body ─────────────────────────────────────────────────────── */\r\n  /** Conteúdo do body — flex-col com gap 18px entre filhos. */\r\n  children?: ReactNode;\r\n\r\n  /* ── Footer: modo estruturado ────────────────────────────────── */\r\n  /**\r\n   * Ação primária — botão filled (default brand, critical quando `danger`).\r\n   * Fica sempre na ponta direita do footer.\r\n   */\r\n  primaryAction?: ModalAction;\r\n  /**\r\n   * Ação secundária — botão outline secondary.\r\n   * Default label \"Cancelar\". Default onClick = onClose.\r\n   */\r\n  secondaryAction?: ModalAction;\r\n  /**\r\n   * Ação terciária — opcional. Quando presente, vai pra ESQUERDA do footer\r\n   * (justify-between). Use pra ações destrutivas (delete) ou neutras (ajuda).\r\n   * Estilo: ghost critical quando `danger`, ghost secondary caso contrário.\r\n   */\r\n  tertiaryAction?: ModalAction;\r\n\r\n  /* ── Footer: modo override (escape hatch) ────────────────────── */\r\n  /**\r\n   * Se passado, substitui inteiramente as 3 actions estruturadas.\r\n   * Use quando precisar de layout custom (links, multi-step indicator, etc).\r\n   */\r\n  footer?: ReactNode;\r\n\r\n  /* ── Visual ───────────────────────────────────────────────────── */\r\n  /**\r\n   * Largura máxima do modal:\r\n   *   - sm: 440px\r\n   *   - md: 540px (default — match TblViewsModal sandbox)\r\n   *   - lg: 720px\r\n   *   - xl: 1100px (modais de dados)\r\n   *   - full: min(1400px, 92vw) — escala com a viewport, mantém margens\r\n   */\r\n  size?: ModalSize;\r\n\r\n  /** Esconde o X de fechar no canto superior direito. */\r\n  hideClose?: boolean;\r\n  /** Click no overlay fecha o modal. Default true (comportamento padrão Dialog). */\r\n  closeOnOverlay?: boolean;\r\n\r\n  /** ClassName extra no DialogContent (root). */\r\n  className?: string;\r\n};\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Component\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * Modal — composto sobre o `<Dialog>` (shadcn) com estrutura de header rico\r\n * (icon + título + descrição), body livre via children, e footer flexível\r\n * (até 3 actions estruturadas OU footer custom via slot).\r\n *\r\n * Visual alinhado com o `TblViewsModal` do sandbox `/design-and-table-v2`:\r\n * dialog 540px (md), header com feature-icon 40×40, footer com botões DS.\r\n *\r\n * Quando precisar de modal de confirmação destrutiva simples, use `<AlertModal>`.\r\n */\r\nexport function Modal({\r\n  open,\r\n  onClose,\r\n  icon,\r\n  title,\r\n  description,\r\n  children,\r\n  primaryAction,\r\n  secondaryAction,\r\n  tertiaryAction,\r\n  footer,\r\n  size = \"md\",\r\n  hideClose = false,\r\n  closeOnOverlay = true,\r\n  className,\r\n}: ModalProps) {\r\n  const hasHeader = Boolean(icon || title || description);\r\n  const hasStructuredFooter = Boolean(primaryAction || secondaryAction || tertiaryAction);\r\n  const showFooter = Boolean(footer) || hasStructuredFooter;\r\n\r\n  const handleOpenChange = (next: boolean) => {\r\n    if (next) return;\r\n    // Quando closeOnOverlay=false, ignora fechamento por overlay/ESC\r\n    // (Radix dispara onOpenChange em ambos os casos; aqui simplificamos:\r\n    // se você quer prevenir, controle externamente).\r\n    if (!closeOnOverlay) return;\r\n    onClose();\r\n  };\r\n\r\n  return (\r\n    <Dialog open={open} onOpenChange={handleOpenChange}>\r\n      <DialogContent\r\n        className={dialog({ size, className })}\r\n        hideClose\r\n        // Sem descrição → opt-out explícito do warning do Radix. Com descrição,\r\n        // o <DialogDescription> abaixo liga o aria-describedby automaticamente.\r\n        {...(description ? {} : { \"aria-describedby\": undefined })}\r\n      >\r\n        {/* Radix exige um DialogTitle p/ acessibilidade. Quando o modal não tem\r\n            title visível, um título sr-only evita o warning sem mudar o layout. */}\r\n        {!title && <DialogTitle className=\"sr-only\">Diálogo</DialogTitle>}\r\n\r\n        {!hideClose && (\r\n          <DialogClose className={closeBtn()} aria-label=\"Fechar\">\r\n            <X className=\"size-icon-sm\" />\r\n          </DialogClose>\r\n        )}\r\n\r\n        {hasHeader && (\r\n          <header className={head()}>\r\n            {icon && (\r\n              <span className={headIcon()} aria-hidden=\"true\">\r\n                {icon}\r\n              </span>\r\n            )}\r\n            {(title || description) && (\r\n              <div className={headTitleWrap()}>\r\n                {title && (\r\n                  <DialogTitle className={titleStyles()}>{title}</DialogTitle>\r\n                )}\r\n                {description && (\r\n                  <DialogDescription className={descStyles()}>\r\n                    {description}\r\n                  </DialogDescription>\r\n                )}\r\n              </div>\r\n            )}\r\n          </header>\r\n        )}\r\n\r\n        {children !== undefined && children !== null && (\r\n          <div className={body()}>{children}</div>\r\n        )}\r\n\r\n        {showFooter && (\r\n          <footer\r\n            className={foot({\r\n              layout: tertiaryAction ? \"between\" : \"end\",\r\n            })}\r\n          >\r\n            {footer ?? <StructuredActions\r\n              primary={primaryAction}\r\n              secondary={secondaryAction}\r\n              tertiary={tertiaryAction}\r\n              onClose={onClose}\r\n            />}\r\n          </footer>\r\n        )}\r\n      </DialogContent>\r\n    </Dialog>\r\n  );\r\n}\r\n\r\n/* ─────────────────────────────────────────────────────────────────\r\n * Internal — footer estruturado (a partir das 3 actions)\r\n * ───────────────────────────────────────────────────────────────── */\r\n\r\nfunction StructuredActions({\r\n  primary,\r\n  secondary,\r\n  tertiary,\r\n  onClose,\r\n}: {\r\n  primary?: ModalAction;\r\n  secondary?: ModalAction;\r\n  tertiary?: ModalAction;\r\n  onClose: () => void;\r\n}) {\r\n  // Sem tertiary → 1 grupo só (justify-end pelo container).\r\n  // Com tertiary → 2 grupos (tertiary | secondary+primary), justify-between.\r\n\r\n  const renderTertiary = tertiary && (\r\n    <Button\r\n      color={tertiary.danger ? \"critical\" : \"secondary\"}\r\n      variant=\"ghost\"\r\n      size=\"md\"\r\n      onClick={tertiary.onClick}\r\n      disabled={tertiary.disabled}\r\n      loading={tertiary.loading}\r\n    >\r\n      {tertiary.label}\r\n    </Button>\r\n  );\r\n\r\n  const renderSecondary = secondary && (\r\n    <Button\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"md\"\r\n      onClick={secondary.onClick ?? onClose}\r\n      disabled={secondary.disabled}\r\n      loading={secondary.loading}\r\n    >\r\n      {secondary.label}\r\n    </Button>\r\n  );\r\n\r\n  const renderPrimary = primary && (\r\n    <Button\r\n      color={primary.danger ? \"critical\" : \"primary\"}\r\n      variant=\"filled\"\r\n      size=\"md\"\r\n      onClick={primary.onClick}\r\n      disabled={primary.disabled}\r\n      loading={primary.loading}\r\n    >\r\n      {primary.label}\r\n    </Button>\r\n  );\r\n\r\n  if (tertiary) {\r\n    return (\r\n      <>\r\n        {renderTertiary}\r\n        <div className={footRight()}>\r\n          {renderSecondary}\r\n          {renderPrimary}\r\n        </div>\r\n      </>\r\n    );\r\n  }\r\n\r\n  return (\r\n    <>\r\n      {renderSecondary}\r\n      {renderPrimary}\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/Modal/modal.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · modal · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · month-year-picker · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · navigation-menu · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · page-header · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · pagination · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · panel · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · popover · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · progress · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · radio-group · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · scroll-area · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · select · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · separator · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · sheet · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · skeleton · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · slider · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · sonner · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · spinner · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · switch · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · table · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · tabs · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · textarea · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4393,7 +4393,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · theme · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:file"
   },
@@ -4444,7 +4444,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · toast · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4470,7 +4470,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · toggle-group · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · toggle · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4519,7 +4519,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · tooltip · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:ui"
   },
@@ -4540,7 +4540,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · tv · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:file"
   },
@@ -4562,7 +4562,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.30.3 · 1a1f32b · 2026-07-31"
+      "stamp": "igreen-ds · utils · v0.30.4 · 0d8537f · 2026-07-31"
     },
     "type": "registry:file"
   }
