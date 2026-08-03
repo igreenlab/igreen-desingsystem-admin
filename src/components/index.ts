@@ -169,3 +169,21 @@ export type {
   InputGroupButtonProps,
   InputGroupState,
 } from "./shadcn";
+
+/* ── Hooks de tema ────────────────────────────────────────────────────────────
+ * Os únicos hooks exportados na lib. Existem porque escolher marca/modo é decisão
+ * de RUNTIME do app consumidor — e a alternativa era ele reimplementar persistência
+ * e sincronia entre abas na unha.
+ *
+ * `useBrand` aceita catálogo injetável (`useBrand({ brands })`): passe só as marcas
+ * cujo overlay você importou, senão o seletor lista opções que não fazem nada —
+ * `data-theme` com id sem CSS no bundle é no-op silencioso.
+ *
+ * ⚠️ O CSS NÃO vem daqui. O hook só escreve `data-theme` no `<html>`; os overlays
+ * chegam por `@import "@snksergio/design-system/theme/brand-<id>.css"`. Guia completo
+ * na página "Temas de marca" do catálogo.
+ */
+export { useBrand, BRANDS } from "../hooks/useBrand";
+export type { Brand, BrandOption, UseBrandOptions } from "../hooks/useBrand";
+export { useTheme } from "../hooks/useTheme";
+export type { Theme } from "../hooks/useTheme";
