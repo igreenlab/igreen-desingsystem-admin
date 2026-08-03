@@ -1,0 +1,44 @@
+/**
+ * brand-vibrant.css — Auto-gerado. Não editar manualmente.
+ * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
+ * Source: tokens/brands/vibrant/semantic/*.ts
+ * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts vibrant > src/styles/theme/brand-vibrant.css
+ *
+ * Ative aplicando data-theme="vibrant" no <html> (ver src/hooks/useBrand.ts).
+ */
+
+/* ── Light (14 vars divergem da default) ─────────────────────────── */
+[data-theme="vibrant"] {
+  --color-bg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));
+  --color-fg-brand: oklch(0.4645 0.1539 142.59);
+  --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
+  --color-border-brand: oklch(0.5518 0.1876 142.46);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
+  --color-chart-1: oklch(0.6783 0.2304 142.42);
+}
+
+/* ── Dark (14 vars — .dark[data-theme] vence o .dark base) ────────── */
+.dark[data-theme="vibrant"] {
+  --color-bg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.225 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.225 0 0));
+  --color-fg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
+  --color-border-brand: oklch(0.8018 0.2721 142.38);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-chart-1: oklch(0.866993 0.294055 142.3546);
+}

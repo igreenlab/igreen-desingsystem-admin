@@ -6,6 +6,7 @@
 @import "./theme/brand-blue.css";
 @import "./theme/brand-green.css";
 @import "./theme/brand-pay.css";
+@import "./theme/brand-vibrant.css";
 
 /* ── Geist font (variable) ─────────────────────────────────────────────────── */
 @font-face {

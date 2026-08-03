@@ -66,6 +66,57 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Marca "vibrant" (iGreen Vibrant, verde fluorescente #0fff00) — 5ª brand | CONCLUÍDO
+
+- Input: handoff externo em `theme/` (BRIEF.md normativo + tokens.json fonte de verdade +
+  THEME.md de procedência + demo visual), gerado de `uicolors.app/generate/0fff00`. Pedido:
+  criar a marca "no mesmo estilo das nossas brands, sem alterar o projeto — só a brand".
+- Output: `tokens/brands/vibrant/` (palette + color-light + color-dark), overlay
+  `brand-vibrant.css` (14 vars light / 14 dark), registro nas 6 superfícies de marca
+  (script `tokens:brand:vibrant`, `globals.css`, `useBrand.ts` type+BRANDS+isBrand,
+  CSS no template do CLI, `BRAND_LABELS` em `create.js`).
+- Decisões:
+  1. **Escopo = só a família brand.** `gray` e os 4 status são cópia verbatim da default
+     → diff ZERO. Os 14 tokens que divergem são todos brand / table-row-selected / chart-1.
+     Recusada a escala neutra do handoff (croma 0.004–0.015 em hue ~286 vs. croma zero
+     nossa) — mudaria a temperatura de TODAS as marcas. BRIEF §4.1, confirmado no gate.
+  2. **`fg.on-brand` = brand[950] (#003403), não white.** brand[400] tem 1.37:1 contra
+     branco. Vale nos dois modos (a default usa `black` no dark; aqui o handoff fixa
+     brand-950 como texto de marca em qualquer superfície de marca).
+  3. **Estados descem no ramp, não sobem croma.** `bg.brand-hover` = brand[500] em vez de
+     `color-mix(brand, black)`: o 400 está no TETO do gamut sRGB (croma 0.32+ clipa pra
+     #00ff00), então hover derivado por saturação ficaria idêntico ao default.
+  4. **`border.brand` light = brand[700], desvio MEDIDO do §3.3 do handoff.** A regra do
+     handoff ("borda = um shade acima do fundo") daria 500 — que reprova nos DOIS papéis
+     que o token tem no DS: 1.70:1 contra branco (abaixo do 3:1 de SC 1.4.11) e só 1.24:1
+     contra o próprio preenchimento neon. O papel dominante de `border-border-brand` aqui
+     não é delinear superfície de marca, é ser a ÚNICA fronteira sobre fundo claro —
+     sublinhado da aba ativa (`tabs.tsx`), borda de foco de input/select/combobox/datepicker,
+     contorno de badge/chip outline. O 700 é o shade mais claro que passa nos dois
+     (4.47:1 e 3.26:1). No dark segue 500 (8.31:1 na surface escura).
+  5. **chart-1 only.** chart-2..5 verbatim da default (teal/azul/âmbar/violeta) em vez da
+     rampa monocromática que o handoff propõe — 5 tons do mesmo verde não se separam em
+     linha/barra. Light ancora no 600 (#04b800, traço fino legível no branco), dark no 400.
+  6. **`brandContrast` = alias do próprio `brand`.** Não existe variante mais clara pra
+     derivar (teto de gamut). O objeto existe só pra manter o contrato dos primitives
+     idêntico ao das outras 4 marcas.
+- Verificação: round-trip OKLCH→sRGB **11/11 exatos** (BRIEF §6.1, reimplementado em Node
+  com as matrizes OKLab — pega erro de dígito na transcrição dos valores de alta precisão);
+  contraste WCAG **7/7 pares passam** (§6.2); contrato de chaves **idêntico à default** nos
+  2 modos × 6 namespaces; blue/green/pay/tema-base **byte-idênticos** após regenerar (§6.4).
+  `tsc` 0, 159 testes passam (inclui o gate `dead-theme-classes`).
+- Assumption: `border-border-brand` no light é usado predominantemente como fronteira
+  sobre fundo CLARO (aba ativa, foco de input, contorno de chip), não como delineamento
+  de superfície de marca — medido em 20 usos em `src/components/`. Se algum componente
+  novo passar a usar `border-border-brand` **sobre** `bg-bg-brand` como detalhe estético
+  fino, o 700 vai parecer escuro demais contra o neon e a decisão 4 precisa ser revisitada
+  (aí o caminho é separar em 2 tokens, não trocar este).
+- Lições novas: nenhuma L-NNN nova, mas 2 fatos de arquitetura ficaram registrados nos
+  comentários dos arquivos: (a) `to-brand-overlay.ts` importa a marca com `as`
+  (cast, não checagem) — chave faltando ou com typo **herda a default em silêncio**, sem
+  erro de tsc; (b) regra de contraste vinda de handoff externo é lida dos componentes DAQUELE
+  projeto — precisa ser re-medida contra os NOSSOS papéis de token antes de virar valor.
+
 ### [2026-07-29] | ORCHESTRATOR | npm do DS NÃO é depreciado — canal secundário com gate de token + L-017 finalmente mecânica | CONCLUÍDO
 
 - Input: o mantenedor corrigiu uma afirmação minha. Eu disse que o canal npm estava
