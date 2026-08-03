@@ -57,16 +57,54 @@ export default defineConfig({
       insertTypesEntry: true,
     }),
     {
-      // copia o theme.css gerado pro dist-lib/ no final do build
+      /**
+       * Copia o CSS de tema pro dist-lib:
+       *   tailwind-theme.css  → dist-lib/theme.css          (tema-base)
+       *   brand-<id>.css      → dist-lib/theme/brand-<id>.css  (overlays de marca)
+       *
+       * Os overlays passaram a ser copiados na v0.31.1. Antes o pacote npm só levava
+       * o tema-base, então quem consumia por `npm install` **não tinha como usar
+       * marca nenhuma** — nem `blue`/`green`/`pay`, que já existiam há versões. O
+       * único canal que entregava tema era o scaffold do CLI. Medido no tarball da
+       * v0.31.0: zero `brand-*.css`, e `tokens.mjs` só com os valores da default
+       * (os `.d.ts` das marcas até traziam os literais, mas tipo não é valor —
+       * ninguém consegue importar em runtime).
+       */
       name: "copy-theme-css",
       closeBundle() {
-        const themeSrc = path.resolve(__dirname, "src/styles/theme/tailwind-theme.css");
-        const themeDst = path.resolve(__dirname, "dist-lib/theme.css");
-        if (fs.existsSync(themeSrc)) {
-          fs.copyFileSync(themeSrc, themeDst);
+        const themeDir = path.resolve(__dirname, "src/styles/theme");
+        const base = path.join(themeDir, "tailwind-theme.css");
+        if (fs.existsSync(base)) {
+          fs.copyFileSync(base, path.resolve(__dirname, "dist-lib/theme.css"));
           console.log("✓ theme.css copiado para dist-lib/");
         } else {
           console.warn("⚠ theme.css não encontrado em src/styles/theme/ — rodar npm run tokens:tw4 antes");
+        }
+
+        const overlays = fs.existsSync(themeDir)
+          ? fs.readdirSync(themeDir).filter((f) => /^brand-.+\.css$/.test(f))
+          : [];
+        if (overlays.length) {
+          const dst = path.resolve(__dirname, "dist-lib/theme");
+          fs.mkdirSync(dst, { recursive: true });
+          for (const f of overlays) fs.copyFileSync(path.join(themeDir, f), path.join(dst, f));
+          console.log(`✓ ${overlays.length} overlay(s) de marca copiado(s) para dist-lib/theme/`);
+        }
+
+        // ⛔ Gate fail-closed: overlay que existe mas NÃO está no `exports` do
+        // package.json é overlay que o consumidor npm não consegue importar — e
+        // falha em silêncio, que é a classe de defeito da L-017. O `lib-verify` só
+        // checa se o que foi PROMETIDO existe; não checa o inverso. Este é o inverso.
+        const pkg = JSON.parse(
+          fs.readFileSync(path.resolve(__dirname, "package.json"), "utf8"),
+        ) as { exports?: Record<string, unknown> };
+        const semExport = overlays.filter((f) => !(`./theme/${f}` in (pkg.exports ?? {})));
+        if (semExport.length) {
+          throw new Error(
+            `overlay(s) de marca sem entrada em package.json > exports: ${semExport.join(", ")}. ` +
+              `Adicione "./theme/<arquivo>": "./dist-lib/theme/<arquivo>" — senão o pacote leva o ` +
+              `arquivo mas o consumidor não tem como importá-lo (falha silenciosa, classe da L-017).`,
+          );
         }
       },
     },

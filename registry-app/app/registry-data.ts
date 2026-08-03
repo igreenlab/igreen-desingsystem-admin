@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · accordion · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · alert-dialog · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · alert-modal · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · alert · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · app-shell · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · aspect-ratio · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · avatar-ig · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · avatar · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · badge · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · breadcrumb · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · button-group · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · button · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · calendar · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · card-checkbox · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · card · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · carousel · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · chart · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · checkbox · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · chip · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · choropleth-map · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · collapsible · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · color-picker · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · combobox · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · command · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · context-menu · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · data-list · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · data-table · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · date-picker · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · dialog · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · drawer · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · dropdown-menu · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · empty-state · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-app-shell · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-chat · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-clientes · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-dashboard · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-edit-page · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-finance · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-login · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-mapa-rede · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · example-order-detail · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · file-upload-field · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · floating-panel · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · footer-table · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · form-field · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · header · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · hover-card · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · icon · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · input-group · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · input-otp · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · input · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · kanban · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · kpi · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · label · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · list · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · markdown-text · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · menu-sidebar · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · menubar · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · modal · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · month-year-picker · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · navigation-menu · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · page-header · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · pagination · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · panel · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · popover · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · progress · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · radio-group · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · scroll-area · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · select · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · separator · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · sheet · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · skeleton · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · slider · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · sonner · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · spinner · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · switch · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · table · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · tabs · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · textarea · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4393,7 +4393,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · theme · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4444,7 +4444,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · toast · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4470,7 +4470,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · toggle-group · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · toggle · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4519,7 +4519,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · tooltip · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4540,7 +4540,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · tv · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4562,7 +4562,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.31.0 · b018d2a · 2026-08-03"
+      "stamp": "igreen-ds · utils · v0.31.1 · 25fb8a3 · 2026-08-03"
     },
     "type": "registry:file"
   }
