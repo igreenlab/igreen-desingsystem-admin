@@ -133,6 +133,38 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 
 **O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
+### Trocar o tema de marca
+
+O DS tem 5 marcas (`default` · `blue` · `green` · `pay` · `vibrant`). Cada uma não-default
+é um **overlay** escopado em `[data-theme="<id>"]` que sobrescreve só as cores que diferem
+do tema-base. Marca e claro/escuro são eixos independentes e combinam livremente.
+
+**Projeto novo:** o prompt **"Tema de cor?"** do scaffold já pergunta e aplica.
+
+**Projeto em andamento** — 2 passos, qualquer canal:
+
+```bash
+# copy-in (scaffold): o tema é um item do registry, igual a um componente
+npm run igreen:add -- theme-vibrant
+```
+```css
+/* 1. importar DEPOIS do tema-base */
+@import "@snksergio/design-system/theme.css";                 /* npm       */
+@import "@snksergio/design-system/theme/brand-vibrant.css";
+/* ou, em copy-in / submódulo, o caminho local do arquivo */
+```
+```html
+<!-- 2. ativar — sem isto o CSS fica INERTE, e não dá erro -->
+<html data-theme="vibrant">
+```
+
+Via **npm** exige `@snksergio/design-system` ≥ **0.31.1**. Via **submódulo** o arquivo já
+está no disco: só importar e `git pull` traz temas novos.
+
+Guia completo (trocar, criar tema novo, troca em runtime, armadilhas) na página
+**Temas de marca** do catálogo, e a tabela de qual canal entrega o quê em
+`DISTRIBUICAO.md` §2.1.
+
 ---
 
 ## Tutorial — produzir telas e CRUDs com IA (DS como subprojeto)

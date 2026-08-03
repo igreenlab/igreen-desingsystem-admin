@@ -66,6 +66,103 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | v0.32.0 — trocar tema em projeto existente: registry + rule do consumidor + guia | CONCLUÍDO
+
+- Input: o mantenedor apontou que a capacidade de trocar tema não servia de nada se o
+  consumidor não soubesse fazer — e pediu doc própria no showcase, cobrindo npm e submódulo,
+  incluindo como ADICIONAR um tema (existente ou novo).
+- Diagnóstico (medido antes de escrever): o kit do consumidor tinha **0 arquivos** citando
+  tema; `SUBMODULE-SETUP.md` **0** menções; `registry.json` **0** itens de marca. A instrução
+  existia só na `DISTRIBUICAO.md` §2.1 — doc de mantenedor. Ou seja a capacidade da v0.31.1
+  estava inalcançável na prática, e a IA do projeto do consumidor improvisaria se pedissem.
+- Output:
+  1. **4 itens `theme-<marca>` no registry**, `registry:file`, forma idêntica ao item `theme`
+     que já existia. Fecha o único canal sem mecanismo (copy-in): `igreen:add -- theme-vibrant`.
+  2. **Página `ThemesDoc`** no catálogo (Get Started), com os 3 registros do L-042
+     (`App.tsx` import + `DOC_PAGES` + render, e `doc-nav-data`). O catálogo de marcas é lido
+     do `BRANDS` em vez de escrito à mão — marca nova aparece sozinha e não pode divergir do
+     seletor da sidebar, que é a mesma fonte.
+  3. **Rule `ds-themes.md`** no kit do consumidor, auto-carregada. É a peça de maior valor:
+     é o que a IA do projeto dele lê.
+  4. README + SUBMODULE-SETUP + o resumo que o `ds-link` escreve no `CLAUDE.md` do consumidor.
+- Decisões:
+  - **Item de registry em vez de subcomando de CLI.** O `theme` já era `registry:file`; imitar
+     o precedente custou 4 objetos JSON e zero máquina nova. Um `create-design-system theme <id>`
+     seria superfície nova pra manter, com o mesmo resultado.
+  - **`useBrand` NÃO foi exportado.** Troca em runtime ficou documentada como 4 linhas de
+     `setAttribute`. O `BRANDS` do hook é fixo nas 5 marcas e listaria temas que o projeto do
+     consumidor não instalou — seletor que mente. Exportar exigiria catálogo injetável, o que
+     muda a assinatura de um hook que o showcase usa: risco de regressão no preview num PR que
+     deveria ser aditivo. Fica pra quando alguém pedir.
+  - Os 2 fatos que causam quase todo erro (CSS sem `data-theme` = inerte; overlay antes do
+     tema-base = sem efeito) foram **repetidos em todos os 5 lugares** de propósito. Ambos
+     falham em silêncio, e quem lê um só dos documentos não pode ficar sem o aviso.
+- Smoke tests (5, todos verdes):
+  1. Os 4 JSON do registry carregam o CSS real — 4 blocos `data-theme` cada, seletor
+     `:not(.dark)` presente, 6.1–9.7 KB de conteúdo; o `theme` base coexiste.
+  2. `ds-link`: rodei o predicado `EXCLUDE` real sobre o payload — 34 de 36 arquivos
+     projetados, e `rules/ds-themes.md` está entre eles. (O script recusa rodar com target =
+     raiz do DS, então testei a condição que decide, não o wrapper.)
+  3. Rota `#/themes` renderiza de verdade no browser: 6457 chars, 8 seções, TOC completo, item
+     de nav ativo, 9 blocos de código, 5 swatches lidos do `BRANDS`. É o defeito da L-042 e só
+     medição no browser prova que não renderiza em branco.
+  4. `release:check` completo: 91 itens com paths existentes, embed em sync (carimbo v0.32.0),
+     débito de distribuição zero, examples em sync, 0 vulnerabilidade.
+  5. `lib:verify`: 23 entries, 965 arquivos, 452 `.d.ts` fechados no tarball.
+  + `tsc` 0 e 159 testes.
+- Assumption: o consumidor de copy-in usa `npm run igreen:add -- theme-<id>` e o wrapper
+  resolve o item pelo registry autenticado. **Não testei o `igreen:add` de ponta a ponta** —
+  exigiria projeto scaffoldado com o `IGREEN_TOKEN`. O que validei é que o item existe, tem
+  forma idêntica ao `theme` (que já funciona por esse caminho) e que o JSON servido carrega o
+  CSS. Se o `igreen:add` tiver tratamento especial pra `registry:ui` que não vale pra
+  `registry:file`, esta assumption quebra — e o sintoma seria o comando falhar só nos temas.
+- Lições novas: nenhuma L-NNN nova. Reforça o padrão da L-064/L-066 pela 4ª vez nesta sessão:
+  capacidade shipada não é capacidade usável — o que faltava aqui não era código, era a
+  instrução no lugar onde o consumidor (e a IA dele) lê.
+
+### [2026-08-03] | NOTA | PR #107 incorporada nesta branch | —
+
+O commit `edb735b` (registro do publish v0.31.1) foi cherry-picked pra cá porque as duas
+branches inseriam no mesmo marcador `<!-- NOVA ENTRADA AQUI -->` e conflitariam. A PR #107
+pode ser fechada como superseded.
+
+### [2026-08-03] | DS DEV | Publish v0.31.1 — npm passa a entregar os temas de marca | CONCLUÍDO
+
+- Input: PR #106 mergeado. O gap tinha sido descoberto respondendo uma pergunta do
+  mantenedor ("é possível acessar o theme via npm ou submódulo?") — a resposta honesta
+  exigiu medir o tarball publicado, e a medição mostrou que **não era possível por npm**.
+- Output: `@snksergio/design-system@0.31.1` publicado (965 arquivos, 6.4 MB packed).
+- O que estava quebrado: até a v0.31.0 o pacote levava só `dist-lib/theme.css` (tema-base,
+  0 ocorrência de `data-theme`). Zero `brand-*.css`, e `tokens.mjs` só com valores da
+  `default`. Os `.d.ts` das marcas traziam os valores como **tipo literal** (efeito do
+  `as const`), o que engana na leitura — mas tipo não é valor, e nada era importável em
+  runtime. Valia pras 4 marcas: `blue`/`green`/`pay` nunca chegaram por npm.
+- Verificação de ponta a ponta, **instalando do npm real** (não do tarball local): projeto
+  limpo + `npm install @snksergio/design-system@0.31.1`, e `import.meta.resolve` resolve os
+  **5 subpaths** de tema; os 4 CSS baixados têm **4 blocos `data-theme` cada**. Subpath
+  inexistente devolve `ERR_PACKAGE_PATH_NOT_EXPORTED`. `lib:verify`: 23 entries (era 19).
+- Decisões:
+  1. **Subpaths enumerados um por um, não wildcard `./theme/*`.** O `pack-contract` extrai
+     cada path prometido no `exports` e o `lib-verify` confere no disco — wildcard prometeria
+     nada e passaria sem verificação, que é o próprio modo de falha da L-017.
+  2. **Gate fail-closed no `build:lib`**: o build FALHA se achar `brand-*.css` sem entrada
+     em `exports`. O `lib-verify` checa se o prometido existe; este checa o inverso (arquivo
+     que vai no pacote mas ninguém consegue importar). Validado **reproduzindo o defeito**
+     (L-064) antes de confiar nele.
+  3. O plugin descobre os overlays por leitura de diretório, então marca nova não exige
+     mexer no build — só no `exports`, que é justamente onde o gate cobra.
+- Assumption: o consumidor npm importa o overlay **manualmente** (`@import` + `data-theme`
+  no `<html>`). Não há hook nem componente que faça isso por ele — o `useBrand` mora em
+  `src/hooks` e não é exportado no barrel da lib. Se alguém esperar troca de marca em
+  runtime via npm, esta assumption quebrou e o conserto é exportar o `useBrand`.
+- Débito que segue aberto e documentado (DISTRIBUICAO.md §2.1 nova): **registry/copy-in não
+  entrega overlay** (0 referências a `brand-*.css`). Vale pras 4 marcas. Exige decidir o
+  mecanismo antes — item próprio? parte do `theme`? opt-in? — então é tarefa própria.
+- Lições novas: nenhuma L-NNN nova. O padrão que se repetiu 3× nesta sessão e já está
+  coberto pela L-064 e pela L-066: **artefato de build/distribuição só está verificado
+  quando alguém instala e usa** — `.d.ts` com valor literal, versão bumpada e arquivo
+  presente no tarball, nenhum dos três prova que o consumidor consegue consumir.
+
 ### [2026-08-03] | DS DEV | Publish v0.31.0 (lib) + v0.20.0 (CLI) no npm | CONCLUÍDO
 
 - Input: PRs #103 (marca) e #104 (release) mergeados na `main` pelo mantenedor, que

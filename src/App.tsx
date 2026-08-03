@@ -127,6 +127,7 @@ import { StructureDoc } from "./preview/pages/StructureDoc";
 import { DistributionDoc } from "./preview/pages/DistributionDoc";
 import { TransformTokensDoc } from "./preview/pages/TransformTokensDoc";
 import { InstallationDoc } from "./preview/pages/InstallationDoc";
+import { ThemesDoc } from "./preview/pages/ThemesDoc";
 import { UpdatesDoc } from "./preview/pages/UpdatesDoc";
 import { PipelineSkillsDoc } from "./preview/pages/PipelineSkillsDoc";
 import { PipelineCommandsDoc } from "./preview/pages/PipelineCommandsDoc";
@@ -238,6 +239,7 @@ const DOC_PAGES = [
   "introduction",
   "structure",
   "distribution",
+  "themes",
   "installation",
   "transform-tokens",
   "updates",
@@ -682,6 +684,7 @@ export function App() {
             {activePage === "distribution" && <DistributionDoc />}
             {activePage === "transform-tokens" && <TransformTokensDoc />}
             {activePage === "installation" && <InstallationDoc />}
+            {activePage === "themes" && <ThemesDoc />}
             {activePage === "updates" && <UpdatesDoc />}
             {activePage === "pipeline-skills" && <PipelineSkillsDoc />}
             {activePage === "pipeline-commands" && <PipelineCommandsDoc />}

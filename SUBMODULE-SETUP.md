@@ -61,6 +61,32 @@ node design-system/scripts/ds-link.mjs
 
 É idempotente. Arquivos obsoletos (skills removidas upstream) são limpos automaticamente.
 
+## Tema de marca
+
+Em modo submódulo **não há nada pra instalar** — o repo inteiro está no disco, então o
+overlay de cada marca já existe. Só importar e ativar:
+
+```css
+/* seu src/index.css — ajuste o caminho pro submódulo */
+@import "tailwindcss";
+@import "../design-system/src/styles/theme/tailwind-theme.css";   /* base, obrigatório */
+@import "../design-system/src/styles/theme/brand-vibrant.css";     /* a marca */
+```
+```html
+<html lang="pt-BR" data-theme="vibrant">
+```
+
+Marcas disponíveis: `default` (é o tema-base, sem overlay — ativa removendo o atributo) ·
+`blue` · `green` · `pay` · `vibrant`.
+
+⚠️ **Dois fatos que causam quase todo erro aqui:** (1) importar o CSS **não** ativa nada —
+sem `data-theme` no `<html>` o overlay fica inerte e não há erro; (2) o overlay tem que vir
+**depois** do `tailwind-theme.css`, senão o base ganha por ordem de fonte.
+
+Tema novo chega junto com `git pull` no submódulo — nenhum passo extra. O `ds-link` projeta
+a rule `ds-themes` pro seu `.claude/`, então a IA do seu projeto sabe fazer essa troca sem
+você explicar. Guia completo na página **Temas de marca** do catálogo.
+
 ## Opções
 
 ```bash
