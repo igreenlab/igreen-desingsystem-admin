@@ -16,6 +16,42 @@ Gate automático: `scripts/lib/dead-theme-classes.mjs`, roda no `npm test`.
 
 ---
 
+## ⚠️ Esta doc descreve a marca `default`. Existem 5.
+
+O DS é **multi-marca**: `default` · `blue` · `green` · `pay` · `vibrant`. Tudo abaixo (nomes
+de token, sufixos, roles, `on-*`) vale igual pras 5 — o **contrato de nomes é idêntico**. O que
+muda por marca são só os **valores**, e só de **cor**.
+
+| | |
+|---|---|
+| Onde vive | `tokens/brands/<id>/` — `primitives/color-palette.ts` + `semantic/color-{light,dark}.ts` |
+| Como vira CSS | `npm run tokens:brand:<id>` → `src/styles/theme/brand-<id>.css` |
+| Como ativa | `data-theme="<id>"` no `<html>`; `default` = sem atributo (é o tema-base) |
+| Escopo do overlay | só o **DIFF** contra a default — 14 a 83 vars, não as ~400 |
+
+A `default` é a única sem overlay: ela **é** o `tailwind-theme.css`. As outras 4 são camadas
+por cima, e marca × claro/escuro são **eixos independentes** que combinam livremente.
+
+**Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
+`brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá. Pedido de "mudar espaçamento
+ou fonte só nesta marca" **não é tema**.
+
+Duas coisas que só existem em marca não-default e surpreendem quem lê só esta doc:
+
+- **`grayDark`** — a `vibrant` tem rampa neutra **por modo** (`gray` no light, `grayDark` no
+  dark), e o `color-dark.ts` dela importa `grayDark as gray`. Nenhuma outra marca tem.
+- **`success` pode ser a própria cor da marca** — e por dois mecanismos diferentes, então não
+  procure o mesmo padrão nas duas: a `vibrant` faz **alias no primitivo**
+  (`export const success = brand`), enquanto a `pay` declara um `success` primitivo próprio
+  (`#3bc882`) e faz os valores **coincidirem no semantic** (`bg.success` = `bg.brand` =
+  `#00a859`). Em ambas, `fg.on-success` segue a família brand, não a de status — no caso da
+  `vibrant` isso é obrigatório, porque branco sobre o neon dá 1.37:1.
+
+Pra criar ou alterar marca: `.claude/rules/ds-standards.md` §"Sistema multi-marca" tem as 6
+superfícies de registro e as 7 armadilhas medidas. Doc humana: `#/themes` no showcase.
+
+---
+
 ## Arquitetura de cor (2 tiers)
 
 ```

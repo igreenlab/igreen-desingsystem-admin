@@ -66,6 +66,51 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Sistema multi-marca entra no pipeline de conhecimento (4 superfícies) | CONCLUÍDO
+
+- Input: perguntei o que faltava pra ficar "redondo" e o mantenedor mandou fechar tudo que é
+  pipeline e entendimento. O tema funcionava; o conhecimento sobre ele não existia nos lugares
+  onde alguém iria procurar.
+- Diagnóstico medido antes de escrever:
+  | arquivo | menções ao sistema de marca |
+  |---|---|
+  | `cli/templates/default/CLAUDE.md` (consumidor humano) | **0** |
+  | `CLAUDE.md` do DS — mapa "Onde cada tarefa começa" | **0 linhas** |
+  | `.claude/rules/ds-standards.md` (auto-carregada) | **3**, e todas dentro da L-066 |
+  | `.ai/context/tokens/color.md` | **0** |
+  A regra auto-carregada sabia do **bug** do overlay e não sabia que o **sistema** existia.
+  Consequência concreta: pedido de 6ª marca não tinha entry point — o agente improvisaria e
+  repetiria os erros desta sessão (canvas um degrau escuro, hierarquia de texto comprimida,
+  `exports` esquecido).
+- Output:
+  1. **`ds-standards.md`** ganhou a seção "Sistema multi-marca": anatomia dos 3 arquivos, as
+     **6 superfícies** de registro, os 4 canais de entrega e as **7 armadilhas medidas** (cast
+     sem checagem, handoff mapeia pra UI dele, "mais vibrante" não é saturação, teto de gamut
+     não deriva estado, `fg` de status no dark, rampa neutra por modo, verificar no browser).
+  2. **`CLAUDE.md` do DS**: 2 linhas novas no mapa de tarefas (marca nova / alterar marca) +
+     seção curta com a regra "marca muda SOMENTE cor" e ponteiro pra rule.
+  3. **`.ai/context/tokens/color.md`**: aviso de que a doc descreve a `default` e existem 5,
+     com o que muda por marca — inclusive as 2 exceções que surpreendem (`grayDark` e
+     `success` = cor da marca).
+  4. **`CLAUDE.md` do template do CLI**: seção de troca de tema em 2 passos + os 2 erros que
+     respondem por quase toda falha, apontando pra rule `ds-themes.md`.
+- Decisão: repetir os 2 erros críticos (CSS sem `data-theme` = inerte; overlay antes do base =
+  sem efeito) em TODAS as superfícies, de propósito. Ambos falham em silêncio, e quem lê só um
+  documento não pode ficar sem o aviso.
+- Correção pega na auto-verificação: eu havia escrito em `color.md` que "`success` é alias do
+  `brand` na `vibrant` e na `pay`". Verifiquei e **é falso pra `pay`** — a `vibrant` faz
+  `export const success = brand` (alias no primitivo), a `pay` declara `success = {500:"#3bc882"}`
+  e só faz os valores **coincidirem no semantic** (`#00a859`). Quem lesse iria procurar o alias
+  na `pay` e não acharia. Reescrito com os dois mecanismos separados. É a L-060: verificar a
+  garantia antes de afirmá-la — checkei as 5 afirmações da seção, essa era a única errada.
+- Assumption: o mapa de tarefas + a rule auto-carregada são suficientes como entry point pra
+  marca nova. Se alguém ainda improvisar, o que falta é um **command/skill** dedicado
+  (`/ds-create-brand`) em vez de mais texto — mas isso é criar superfície nova, e 4 lugares de
+  doc já cobrem o caminho sem inflar o pipeline.
+- Bump: `cli/package.json` 0.21.0 → **0.21.1** (o `cli/templates/**` mudou, então precisa
+  republicar pro consumidor receber). Lib **não** bumpa: nada de código/token mudou, só doc.
+- Lições novas: nenhuma L-NNN nova (contagem segue 66).
+
 ### [2026-08-03] | DS DEV | Publish v0.32.1 (lib) + v0.21.0 (CLI) — ciclo da marca vibrant FECHADO | CONCLUÍDO
 
 - Input: mantenedor aprovou o dark acromático e o `ColorsDoc` brand-aware (PR #109), e pediu

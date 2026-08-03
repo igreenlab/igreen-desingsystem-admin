@@ -147,6 +147,35 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
 Roteamento é por **skill** (nativo, barato) — sem subagente pra rotear; subagente só pra
 trabalho pesado em paralelo (ex.: montar várias telas de uma vez).
 
+### 🎨 Tema de marca (trocar ou adicionar)
+
+O DS tem 5 marcas: `default` (verde iGreen) · `blue` · `green` · `pay` · `vibrant` (verde
+fluorescente). Cada não-default é um **overlay de cor** escopado em `[data-theme="<id>"]` —
+sobrescreve só as cores que diferem do tema-base, e combina livremente com claro/escuro.
+
+**Projeto novo:** o prompt "Tema de cor?" do scaffold já pergunta e aplica.
+
+**Este projeto já existe** — 2 passos:
+
+```bash
+npm run igreen:add -- theme-vibrant        # tema é item do registry, igual a um componente
+```
+```css
+@import "./styles/theme/tailwind-theme.css";
+@import "./styles/theme/brand-vibrant.css";   /* DEPOIS do tema-base */
+```
+```html
+<html data-theme="vibrant">   <!-- sem isto o CSS fica INERTE, e não dá erro -->
+```
+
+⚠️ Os 2 erros que respondem por quase toda falha aqui: **(1)** importar o CSS sem pôr o
+`data-theme` no `<html>` — o overlay é escopado, então nada casa; **(2)** importar o overlay
+**antes** do `tailwind-theme.css` — o base ganha por ordem de fonte. Nenhum dos dois dá erro.
+
+**Detalhe completo em `.claude/rules/ds-themes.md`** (auto-carregada) — inclui o caminho pra
+modo submódulo, troca em runtime e o que NÃO fazer (sobrescrever CSS var na unha pra "simular"
+uma marca sai do sistema e o hook de integridade bloqueia).
+
 ### 🔒 Integridade do DS (protegido por hook)
 
 Tema/tokens (`src/styles/theme/**`) e a fundação (`cn`/`tv`/`lucide-types`) são

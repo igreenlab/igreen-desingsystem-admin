@@ -211,6 +211,23 @@ no `npm test`.
 | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `src/preview/pages/<Nome>Showcase.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` (ancora em `.ai/context/components/dashboard-patterns.md`) |
 | Tela de dados (não sabe se tabela, lista ou dashboard) | — | front-door `/ds-create-screen` (desambigua e roteia) |
 | Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
+| **Marca/tema NOVO** (5ª, 6ª…) | `tokens/brands/<id>/` (3 arquivos) + **6 superfícies de registro** | `.claude/rules/ds-standards.md` §"Sistema multi-marca" |
+| **Alterar cor de marca existente** | `tokens/brands/<id>/semantic/color-{light,dark}.ts` APENAS | idem — nunca editar `brand-*.css`, é gerado |
+
+---
+
+## Sistema multi-marca (temas)
+
+5 marcas coexistem: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um
+**overlay de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>`.
+
+⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
+`brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá. Pedido de "mudar o
+espaçamento/fonte só nesta marca" **não é tema**; pare e pergunte.
+
+Detalhe completo (contrato dos 3 arquivos, as 6 superfícies, os 4 canais de entrega e as
+armadilhas medidas) em `.claude/rules/ds-standards.md` §"Sistema multi-marca" — que é
+auto-carregada. Doc humana: página **Temas de marca** do showcase (`#/themes`).
 
 ---
 
