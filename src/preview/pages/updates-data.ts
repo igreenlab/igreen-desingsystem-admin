@@ -46,6 +46,31 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.32.0",
+    date: "2026-08-03",
+    tag: "preview",
+    title: "Trocar tema num projeto que já existe — item de registry, rule pro consumidor e guia próprio",
+    summary:
+      "A capacidade de trocar tema estava pronta, mas a instrução morava só na `DISTRIBUICAO.md` — doc de mantenedor, que o consumidor não abre. Resultado: ninguém sabia usar, nem a IA do projeto dele. Fecha os 3 buracos: cada tema virou **item do registry** (`igreen:add -- theme-vibrant`), o kit do consumidor ganhou uma **rule auto-carregada** sobre temas, e o catálogo ganhou a página **Temas de marca** com o passo a passo de cada canal — npm, submódulo e copy-in — além de como criar um tema novo.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Itens `theme-<marca>` no registry** (`theme-blue`/`green`/`pay`/`vibrant`) — mesmo tipo `registry:file` do item `theme` que já existia, então entram pelo comando de sempre: `npm run igreen:add -- theme-vibrant`. Fecha o último canal que não entregava tema: até aqui, copy-in não tinha mecanismo nenhum.",
+          "**Página `Temas de marca`** no catálogo (Get Started) — como um tema funciona, os 5 disponíveis, o passo a passo de troca em cada canal, troca em runtime, como criar um tema novo e as 5 armadilhas mais comuns. O catálogo da página é lido do `BRANDS`, não escrito à mão: marca nova aparece sozinha e não pode divergir do seletor da sidebar.",
+          "**Rule `ds-themes.md` no kit do consumidor** — auto-carregada, então a IA do projeto do consumidor passa a saber trocar tema sem ninguém explicar. Distingue modo submódulo (importa do disco, não roda `igreen:add`) de copy-in, e diz o que nunca fazer — sobrescrever CSS var na unha pra simular marca é o principal.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "`README.md`, `SUBMODULE-SETUP.md` e `DISTRIBUICAO.md` §2.1 ganharam a instrução de troca. O `ds-link` passou a citar a rule nova no resumo que escreve no `CLAUDE.md` do consumidor — senão a rule chegava e o texto que a anuncia ficava desatualizado.",
+          "Os 2 fatos que causam quase todo erro de tema estão repetidos em TODOS esses lugares, de propósito: importar o CSS **não** ativa nada sem `data-theme` no `<html>`, e o overlay tem que vir **depois** do tema-base. Os dois falham em silêncio, sem erro.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.31.1",
     date: "2026-08-03",
     tag: "patch",
