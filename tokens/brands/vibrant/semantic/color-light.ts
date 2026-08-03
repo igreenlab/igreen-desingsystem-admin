@@ -51,10 +51,15 @@ export const bg = {
   input:    white,
   accent:   white,               // light: bg-accent = branco (item ativo destaca por contraste)
 
-  // Brand (âncora no brand[400] — o neon; hover DESCE a luminosidade, ver §3.2)
-  brand:            brand[400],
+  // Brand no LIGHT = brand[800], o MESMO shade do `fg.brand` (ajuste do mantenedor).
+  // Antes era brand[400] (#0fff00): o preenchimento do botão ficava muito mais claro
+  // que o texto de marca ao lado dele (#076d07) e destoava. Agora bg/fg/border de
+  // marca são o mesmo verde no light, e `fg.on-brand` volta a ser BRANCO (6.56:1).
+  // ⚠️ Só no light — o dark segue com o neon brand[400], que é a identidade.
+  // O neon continua vivo no light via `brand-subtle` (tint de 14% do 400) e no chart.
+  brand:            brand[800],
   "brand-subtle":   `color-mix(in oklch, ${brand[400]} 14%, transparent)`,
-  "brand-hover":    brand[500],
+  "brand-hover":    brand[900],
   "brand-subtle-hover": `color-mix(in oklch, ${brand[400]} 22%, transparent)`,
 
   // Status (sólido + muted alpha — ×4 cores) — verbatim da default
@@ -64,10 +69,10 @@ export const bg = {
   "danger-muted-hover":  `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
 
   // success É a marca (alias no primitives) → espelha a família brand shade por
-  // shade, inclusive o hover descendo no ramp em vez de mix com black
-  success:                success[400],
+  // shade, inclusive o 800 no light e o hover descendo no ramp
+  success:                success[800],
   "success-muted":        `color-mix(in oklch, ${success[400]} 14%, transparent)`,
-  "success-hover":        success[500],
+  "success-hover":        success[900],
   "success-muted-hover":  `color-mix(in oklch, ${success[400]} 22%, transparent)`,
 
   warning:                warning[500],
@@ -129,36 +134,42 @@ export const fg = {
   info:    info[500],
 
   // Sobre fundos sólidos (on-*) — cada um MEDIDO contra o próprio fundo:
-  //   on-brand   brand-950 sobre #0fff00  10.27:1   (white daria 1.37:1 — §3.1)
-  //   on-success idem: success É a marca, então white também reprovaria
+  //   on-brand   white sobre #076d07       6.56:1   (bg.brand no light é o 800)
+  //   on-success idem — success É a marca
   //   on-danger  white sobre #e40126       4.82:1   (a default entrega 3.76:1)
   //   on-warning black sobre #fdb803      12.03:1
   //   on-info    white sobre #9202fd       5.75:1   (roxo pica escuro em sRGB)
-  "on-brand":   brand[950],
+  // ⚠️ No DARK o bg.brand é o neon brand[400] e aí o texto TEM de ser brand[950]
+  // (white daria 1.37:1) — ver color-dark.ts. É o único par que difere entre modos.
+  "on-brand":   white,
   "on-danger":  white,
-  "on-success": success[950],
+  "on-success": white,
   "on-warning": black,
   "on-info":    white,
 } as const;
 
 // ─── Border ───────────────────────────────────────────────────────────────────
 
+// Separadores e dividers SUAVIZADOS ~7% a pedido do mantenedor ("no geral estão
+// muito fortes"). Medido em força (distância de L até a surface): default 0.1289 →
+// 0.1080, subtle 0.0803 → 0.0675. São shades entre a rampa (o 150 já era assim), não
+// da Zinc crua — o mapeamento da referência é pra showcase de cards, e a nossa UI é
+// muito mais densa em divisórias (tabela, painel, sidebar), então a mesma borda pesa mais.
+// ⚠️ `input` NÃO foi suavizado de propósito: é fronteira de campo de formulário, não
+// separador — precisa ser achável (e já está em 2.3:1, abaixo do 3:1 de SC 1.4.11).
 export const border = {
-  default: gray[300],          // #d4d4d8 — borda padrão (semanticExample: neutral-300)
-  subtle:  gray[200],          // #e4e4e7 — dividers, controles (neutral-200)
-  input:   gray[400],          // #a1a1aa — inputs / fields (1 passo mais forte que default)
-  sidebar: "oklch(0.9076 0.0045 286.3)", // #e0e0e3 — retunada pro hue frio (era mineral-200)
+  default: "oklch(0.892 0.0050 286.3)",  // #dbdbdf (era gray[300] #d4d4d8)
+  subtle:  "oklch(0.9325 0.0035 286.3)", // #e8e8eb (era gray[200] #e4e4e7)
+  input:   gray[400],          // #a1a1aa — inputs / fields, intocado
+  sidebar: "oklch(0.921 0.0040 286.3)",  // #e5e5e8 (era #e0e0e3)
 
-  // ⚠️ DESVIO MEDIDO do §3.3 ("borda = um shade acima do fundo", que daria 500).
-  // No DS `border-border-brand` tem 2 papéis, e o dominante NÃO é delinear
-  // superfície de marca: é ser a ÚNICA fronteira sobre fundo claro — sublinhado da
-  // aba ativa (tabs), borda de foco de input/textarea/select/combobox/datepicker,
-  // contorno de badge/chip variant outline. Medido contra branco: 400 = 1.37:1,
-  // 500 = 1.70:1, 600 = 2.67:1 — todos abaixo do 3:1 de SC 1.4.11; a aba ativa
-  // ficava invisível. O 700 é o shade mais claro que passa (4.47:1) e ainda
-  // delineia o preenchimento neon (3.26:1) — o 500 dava só 1.24:1 contra o 400,
-  // ou seja falhava nos DOIS papéis. No dark o 500 fica (8.31:1 na surface escura).
-  brand:           brand[700],
+  // Mesmo shade do `bg.brand` e do `fg.brand` no light — um único verde de marca.
+  // O papel dominante de `border-border-brand` aqui é ser a ÚNICA fronteira sobre
+  // fundo claro (sublinhado da aba ativa em tabs, borda de foco de input/select/
+  // combobox/datepicker, contorno de badge e chip outline — 20 usos medidos), e o
+  // 800 dá 6.56:1 contra o branco. Contra o branco: 400 = 1.37:1, 500 = 1.70:1,
+  // 600 = 2.67:1, 700 = 4.47:1 — os três primeiros abaixo do 3:1 de SC 1.4.11.
+  brand:           brand[800],
   "brand-subtle":  `color-mix(in oklch, ${brand[400]} 36%, transparent)`,
 
   "danger-muted":  `color-mix(in oklch, ${danger[500]} 36%, transparent)`,
@@ -166,8 +177,8 @@ export const border = {
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
-  // Tabela — mais sutil que a borda de card
-  table: gray[200],
+  // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
+  table: "oklch(0.9325 0.0035 286.3)",   // #e8e8eb
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

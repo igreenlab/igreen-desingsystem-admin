@@ -46,7 +46,11 @@ export const bg = {
 
   // Backgrounds neutros (alpha overlay — adapta ao surface debaixo)
   subtle:   "oklch(1 0 0 / 0.01)",
-  muted:    "oklch(1 0 0 / 0.03)",
+  // ⚠️ `muted` subiu de 3% pra 5% de branco a pedido do mantenedor: é o TRACK das
+  // abas de visão do DataTable (`bg-bg-muted` no container em table-toolbar.styles),
+  // e em 3% ficava "quase da cor do fundo" — não se lia como trilha. Mudança só no
+  // DARK; no light `bg.muted` = gray[100] e as abas foram aprovadas como estão.
+  muted:    "oklch(1 0 0 / 0.05)",
   emphasis: `color-mix(in oklch, ${white} 12%, transparent)`,  // mesmo visual do bg-accent (sem semântica de "active")
   input:    "oklch(1 0 0 / 0.04)",
   accent:   "oklch(1 0 0 / 0.12)",
@@ -139,17 +143,20 @@ export const fg = {
 
 // ─── Border ───────────────────────────────────────────────────────────────────
 
-// Medido na referência: as bordas são zinc-700 #3f3f46 (×30) e zinc-800 #27272a
-// (×14) — bate com `semanticExample.dark` (borderDefault: 700, borderSubtle: 800).
-// Contra surface zinc-900 (L 0.2103) o 700 dá ΔL 0.16, muito acima do +0.06 que a
-// L-009 pede. Minha tentativa anterior de "satisfazer a L-009" foi na direção
-// errada: eu ESCURECI a borda pra oklch(0.29) quando a referência a deixa bem mais
-// clara que a surface — e o resultado eram cards sem contorno visível.
+// Base = mapeamento medido da referência (borderDefault zinc-700 #3f3f46 ×30,
+// borderSubtle zinc-800 #27272a ×14), depois SUAVIZADO ~7% no L a pedido do
+// mantenedor ("no geral estão muito fortes"). Força medida como distância de L até a
+// surface (0.2103): default 0.1600 → 0.1347, subtle 0.0636 → 0.0487. L-009 (borda ≥
+// surface + 0.06) segue satisfeita com folga no `default`.
+// Por que divergir da referência aqui: ela é um showcase de cards espaçados; a nossa
+// UI é muito mais densa em divisória (linhas de tabela, painéis, sidebar), então a
+// MESMA borda soma muito mais peso na tela.
+// ⚠️ `input` NÃO foi suavizado: é fronteira de campo, não separador.
 export const border = {
-  default: gray[700],  // #3f3f46
-  subtle:  gray[800],  // #27272a
-  input:   gray[700],
-  sidebar: gray[800],
+  default: "oklch(0.345 0.0119 285.81)",  // #38383f (era gray[700] #3f3f46)
+  subtle:  "oklch(0.259 0.0055 286.03)",  // #232326 (era gray[800] #27272a)
+  input:   gray[700],                     // #3f3f46 — intocado
+  sidebar: "oklch(0.259 0.0055 286.03)",
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
   brand:           brandContrast[500],
@@ -160,8 +167,8 @@ export const border = {
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
-  // Tabela — mais sutil que a borda de card (a referência usa os 2 shades)
-  table: gray[800],
+  // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
+  table: "oklch(0.259 0.0055 286.03)",   // #232326
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

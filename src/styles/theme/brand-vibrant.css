@@ -11,24 +11,24 @@
  * omite o que já é idêntico à default.
  */
 
-/* ── Light (67 vars divergem da default) ─────────────────────────── */
+/* ── Light (65 vars divergem da default) ─────────────────────────── */
 [data-theme="vibrant"]:not(.dark) {
   --color-bg-surface-elevated: oklch(0.9851 0 0);
   --color-bg-sidebar: oklch(0.9516 0.0027 286.35);
   --color-bg-subtle: oklch(0.9851 0 0);
   --color-bg-muted: oklch(0.9674 0.0013 286.38);
   --color-bg-emphasis: oklch(0.9197 0.0040 286.32);
-  --color-bg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-bg-brand: oklch(0.4645 0.1539 142.59);
   --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
-  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);
   --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
   --color-bg-danger: oklch(0.58 0.235 25);
   --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);
   --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);
   --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
-  --color-bg-success: oklch(0.866993 0.294055 142.3546);
+  --color-bg-success: oklch(0.4645 0.1539 142.59);
   --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
-  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);
   --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
   --color-bg-warning: oklch(0.825 0.170 81);
   --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);
@@ -58,19 +58,17 @@
   --color-fg-success: oklch(0.4645 0.1539 142.59);
   --color-fg-warning: oklch(0.825 0.170 81);
   --color-fg-info: oklch(0.55 0.293 300);
-  --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
-  --color-fg-on-success: oklch(0.2820 0.0929 143.47);
-  --color-border-default: oklch(0.8711 0.0055 286.29);
-  --color-border-subtle: oklch(0.9197 0.0040 286.32);
+  --color-border-default: oklch(0.892 0.0050 286.3);
+  --color-border-subtle: oklch(0.9325 0.0035 286.3);
   --color-border-input: oklch(0.7118 0.0129 286.07);
-  --color-border-sidebar: oklch(0.9076 0.0045 286.3);
-  --color-border-brand: oklch(0.5518 0.1876 142.46);
+  --color-border-sidebar: oklch(0.921 0.0040 286.3);
+  --color-border-brand: oklch(0.4645 0.1539 142.59);
   --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
-  --color-border-table: oklch(0.9197 0.0040 286.32);
+  --color-border-table: oklch(0.9325 0.0035 286.3);
   --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
@@ -82,13 +80,14 @@
   --color-chart-grid: oklch(0.9197 0.0040 286.32);
 }
 
-/* ── Dark (61 vars — .dark[data-theme] vence o .dark base) ────────── */
+/* ── Dark (62 vars — .dark[data-theme] vence o .dark base) ────────── */
 .dark[data-theme="vibrant"] {
   --color-bg-canvas: oklch(0.1652 0.0062 285.70);
   --color-bg-surface: oklch(0.2103 0.0059 285.89);
   --color-bg-surface-elevated: oklch(0.2739 0.0055 286.03);
   --color-bg-surface-panels: oklch(0.1652 0.0062 285.70);
   --color-bg-sidebar: oklch(0.2103 0.0059 285.89);
+  --color-bg-muted: oklch(1 0 0 / 0.05);
   --color-bg-brand: oklch(0.866993 0.294055 142.3546);
   --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
   --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);
@@ -127,17 +126,17 @@
   --color-fg-info: oklch(0.55 0.293 300);
   --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
   --color-fg-on-success: oklch(0.2820 0.0929 143.47);
-  --color-border-default: oklch(0.3703 0.0119 285.81);
-  --color-border-subtle: oklch(0.2739 0.0055 286.03);
+  --color-border-default: oklch(0.345 0.0119 285.81);
+  --color-border-subtle: oklch(0.259 0.0055 286.03);
   --color-border-input: oklch(0.3703 0.0119 285.81);
-  --color-border-sidebar: oklch(0.2739 0.0055 286.03);
+  --color-border-sidebar: oklch(0.259 0.0055 286.03);
   --color-border-brand: oklch(0.8018 0.2721 142.38);
   --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
   --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
   --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
-  --color-border-table: oklch(0.2739 0.0055 286.03);
+  --color-border-table: oklch(0.259 0.0055 286.03);
   --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
   --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
   --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
