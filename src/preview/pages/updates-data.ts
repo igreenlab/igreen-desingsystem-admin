@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.31.0",
+    date: "2026-08-03",
+    tag: "preview",
+    title:
+      "5ª marca: iGreen Vibrant (verde fluorescente) — e um vazamento light→dark que afetava TODAS as marcas",
+    summary:
+      "Entra a marca `vibrant`, verde fluorescente `#0fff00`, escolhível no prompt \"Tema de cor?\" do `npm create`. Mas o achado que mais importa nesta release não é a marca nova: implementá-la expôs um **vazamento light→dark no gerador de overlay** que já afetava as marcas publicadas. `[data-theme=\"x\"]` e `.dark` têm a **mesma especificidade**, e o overlay é importado depois do tema-base — então todo token que uma marca muda no light **mas cujo dark é idêntico ao da default** recebia o valor CLARO no dark mode. `vibrant` vazava 13 tokens; **`blue` e `green` vazavam `fg-strong`**, ou seja título escuro sobre fundo escuro, bug vivo em produção. Fix de uma linha (`:not(.dark)`) que tornou os dois blocos mutuamente exclusivos. Nenhum gate do repo pegou isso — `tsc`, 159 testes e o `dead-theme-classes` passavam todos, porque o defeito só existe no **cascade do browser**, não nos arquivos de token.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Marca `vibrant` (iGreen Vibrant)** — verde fluorescente `#0fff00`, âncora no shade 400 (a default ancora no 600). Ativa via `data-theme=\"vibrant\"`, combina livremente com dark/light, e aparece como 5ª opção no prompt **\"Tema de cor?\"** do `npm create @snksergio/design-system`.",
+          "**Neutra própria \"graphite\"** — não é a Zinc do Tailwind escalada. O croma é **redistribuído por área de tela**: quase zero nas superfícies profundas (canvas −68%, surface −60%) e preservado nos meios-tons de texto e borda. Fadiga visual é função de área — o canvas cobre ~80% da tela e não pode carregar a mesma saturação de uma borda de 1px.",
+          "**Status re-medidos por teto de gamut sRGB.** \"Mais vibrante\" não é operação de saturação: a default já vivia a 84% (danger), 96% (warning) e **100%** (info) do teto do próprio hue. O roxo só ficou mais vibrante mudando o **hue** 280 → 300, o que levou o croma de 0.210 a 0.293 (+39%) e de quebra fez ele ler roxo em vez de azul-periwinkle. `success` virou alias do próprio brand (mesmo precedente da marca `pay`).",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Overlay de marca vazava valores do light pro dark (L-066) — afetava as 4 marcas.** `[data-theme=\"x\"]` e `.dark` empatam em especificidade (0,1,0) e o overlay é importado depois do tema-base, então o bloco light vencia por ordem de fonte. Todo token que a marca muda no light mas cujo dark é idêntico ao da default (logo ausente do diff dark) resolvia com o valor claro no dark. Medido: `vibrant` 13 tokens, **`blue` e `green` 1 cada (`fg-strong` — título escuro em fundo escuro, bug vivo em marca publicada)**, `pay` 0. Assimetria perversa: quanto mais a marca se parece com a default no dark, mais ela vaza. Fix: seletor do light vira `[data-theme=\"x\"]:not(.dark)`; regenerar as 4 marcas mudou **só o seletor**, nenhum valor.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Rampa `gray` da `vibrant` passou a refletir o uso real.** Auditoria do consumo de cada shade: valor usado por 2+ tokens semânticos virou degrau da rampa (`gray[150]` repurposado, `250` e `850` novos); valor com 1 consumidor fica literal, porque degrau que descreve um token não é escala. `300` marcado como headroom declarado. CSS gerado **byte-idêntico** antes e depois.",
+          "**Calibração visual em 6 rodadas com o mantenedor**, cada mudança medida no browser por `getComputedStyle` antes de aplicar: peso das bordas de separação, track das abas de visão, hierarquia título/subtítulo da célula (o mapeamento externo comprimia a separação a 1.34:1 contra 2.49:1 da default), e o texto sobre o botão neon (`black`, 15.32:1 — irradiação sobre fundo muito claro faz texto escuro aparentar menos peso do que tem).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.30.4",
     date: "2026-07-31",
     tag: "patch",
