@@ -1,10 +1,13 @@
 /**
  * brand-green.css — Auto-gerado. Não editar manualmente.
  * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
- * Source: tokens/brands/green/semantic/*.ts
- * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts green > src/styles/theme/brand-green.css
+ * Source (repo do DS): tokens/brands/green/semantic/*.ts
+ * Regenerar (só no repo do DS): npm run tokens:brand:green
  *
- * Ative aplicando data-theme="green" no <html> (ver src/hooks/useBrand.ts).
+ * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha
+ * data-theme="green" no <html>. Sem o atributo nada casa — e não dá erro.
+ * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou
+ * setAttribute/removeAttribute na mão ("default" = remover o atributo).
  *
  * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,
  * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só
