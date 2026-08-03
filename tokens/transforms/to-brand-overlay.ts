@@ -47,6 +47,28 @@ export function generateBrandOverlayCss(
   const light = diffVars(colorLight, defaultLight);
   const dark = diffVars(colorDark, defaultDark);
 
+  // ⚠️ `:not(.dark)` no seletor do light é LOAD-BEARING, não estilo.
+  //
+  // `[data-theme="x"]` e `.dark` têm a MESMA especificidade (0,1,0). Como este
+  // arquivo é importado DEPOIS do tailwind-theme.css, o bloco light vencia o
+  // `.dark` do tema-base por ordem de fonte — e todo token que a marca muda no
+  // light mas cujo dark é IGUAL ao da default (logo, ausente do diff dark) tinha
+  // o valor CLARO aplicado no dark mode.
+  //
+  // Medido em 2026-08-03: `vibrant` vazava 13 tokens (bg-subtle e bg-muted
+  // renderizando #fafafa no dark, fg-default #0e0e11, border-input #d4d4d8 —
+  // "tudo extremamente ruim", reportado pelo mantenedor); `blue` e `green`
+  // vazavam 1 cada (`fg-strong`: título com `text-fg-strong` saía escuro sobre
+  // fundo escuro, bug vivo em marca já publicada); `pay` vazava 0 só porque
+  // diverge da default nos 2 modos em todo token que toca.
+  //
+  // Com `:not(.dark)` o bloco light simplesmente não se aplica no dark, e cada
+  // token cai em: `.dark[data-theme]` (0,2,0) quando a marca diverge, senão no
+  // `.dark` do tema-base — que é exatamente o valor que a marca escolheu, já que
+  // o diff só omite o que é idêntico à default.
+  const lightSel = `${scope}:not(.dark)`;
+  const darkSel = `.dark${scope}`;
+
   return `/**
  * brand-${brand}.css — Auto-gerado. Não editar manualmente.
  * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
@@ -54,15 +76,19 @@ export function generateBrandOverlayCss(
  * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts ${brand} > src/styles/theme/brand-${brand}.css
  *
  * Ative aplicando data-theme="${brand}" no <html> (ver src/hooks/useBrand.ts).
+ *
+ * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (\`:not(.dark)\`). No dark,
+ * token ausente do bloco dark cai no \`.dark\` do tema-base de propósito: o diff só
+ * omite o que já é idêntico à default.
  */
 
 /* ── Light (${Object.keys(light).length} vars divergem da default) ─────────────────────────── */
-${scope} {
+${lightSel} {
 ${toBlock(light)}
 }
 
 /* ── Dark (${Object.keys(dark).length} vars — .dark[data-theme] vence o .dark base) ────────── */
-.dark${scope} {
+${darkSel} {
 ${toBlock(dark)}
 }
 `;

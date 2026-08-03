@@ -31,14 +31,18 @@ import {
 // ─── Background ───────────────────────────────────────────────────────────────
 
 export const bg = {
-  // Surfaces sólidas — Zinc. canvas = zinc-900 (#18181b); as surfaces ficam entre
-  // zinc-900 e zinc-800, retunadas pro hue frio (a default usa croma 0 aqui).
-  // Hierarquia L-008 preservada: canvas 0.2103 < surface 0.225.
-  canvas:           gray[900],                     // #18181b
-  surface:          "oklch(0.225 0.0058 286)",     // #1b1b1e — cards, drawer
-  "surface-elevated": "oklch(0.225 0.0058 286)",
-  "surface-panels": gray[900],
-  sidebar:          "oklch(0.225 0.0058 286)",
+  // Surfaces sólidas — mapeamento MEDIDO do site de referência via DevTools
+  // (uicolors.app/generate/0fff00), que bate com `semanticExample.dark` do
+  // tokens.json: canvas = zinc-950, surface = zinc-900, elevated = zinc-800.
+  //   html         rgb(14,14,17)  = #0e0e11 = zinc-950
+  //   card (×60)   rgb(24,24,27)  = #18181b = zinc-900
+  // Hierarquia L-008: canvas 0.1652 < surface 0.2103 < muted. Nenhum valor
+  // custom aqui — todos vêm da rampa (era o erro anterior: surface #1b1b1e).
+  canvas:           gray[950],   // #0e0e11
+  surface:          gray[900],   // #18181b — cards, drawer
+  "surface-elevated": gray[800], // #27272a — popovers, modais
+  "surface-panels": gray[950],   // = canvas
+  sidebar:          gray[900],
 
   // Backgrounds neutros (alpha overlay — adapta ao surface debaixo)
   subtle:   "oklch(1 0 0 / 0.01)",
@@ -84,10 +88,10 @@ export const bg = {
   "sidebar-accent":       "oklch(1 0 0 / 0.08)",
   "sidebar-accent-hover": "oklch(1 0 0 / 0.12)",
 
-  // Tabela — sólidos pra suportar sticky columns sem vazamento (Zinc)
-  "table":            "oklch(0.225 0.0058 286)",   // #1b1b1e — mesmo bg-surface
-  "table-head":       "oklch(0.252 0.0058 286)",   // #222225 — head sticky
-  "table-row-hover":  "oklch(0.252 0.0058 286)",
+  // Tabela — sólidos pra suportar sticky columns sem vazamento (rampa Zinc)
+  "table":            gray[900],   // #18181b — mesmo bg-surface
+  "table-head":       gray[800],   // #27272a — head sticky
+  "table-row-hover":  gray[800],
   // Linha selecionada — alpha 10%; hover sobe pra 14%
   // (no dark precisa de alpha levemente maior pra ficar visível sobre surface escuro)
   "table-row-selected":       `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
@@ -95,8 +99,8 @@ export const bg = {
   // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
   // de trás. Mix em SRGB (não oklch): misturar em oklch com o bg achromático
   // (hue 0) contamina o hue → tinge de vermelho.
-  "table-row-selected-solid":       `color-mix(in srgb, ${brandContrast[400]} 10%, oklch(0.225 0.0058 286))`,
-  "table-row-selected-hover-solid": `color-mix(in srgb, ${brandContrast[400]} 14%, oklch(0.225 0.0058 286))`,
+  "table-row-selected-solid":       `color-mix(in srgb, ${brandContrast[400]} 10%, ${gray[900]})`,
+  "table-row-selected-hover-solid": `color-mix(in srgb, ${brandContrast[400]} 14%, ${gray[900]})`,
 
   // Dropdown/Popover — frosted-glass: bg-canvas com 70% opacidade
   "dropdown":         "color-mix(in oklab, var(--color-bg-canvas) 70%, transparent)",
@@ -105,11 +109,12 @@ export const bg = {
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
 
 export const fg = {
-  // Hierarquia — verbatim da default
-  strong:  white,                                // 100% — títulos
-  default: "oklch(0.98 0 0)",                    // texto padrão (sem primitive equiv exato)
-  muted:   gray[400],                            // labels, helpers
-  subtle:  `color-mix(in oklch, ${gray[400]} 70%, transparent)`,  // placeholders
+  // Hierarquia — mapeamento medido da referência (bate com semanticExample.dark):
+  //   #ffffff ×1747 · zinc-100 #f4f4f5 ×319 · zinc-300 #d4d4d8 ×49 · zinc-400 #a1a1aa ×167
+  strong:  white,      // 100% — títulos
+  default: gray[100],  // #f4f4f5 — texto padrão (era oklch(0.98 0 0), fora da rampa)
+  muted:   gray[300],  // #d4d4d8 — labels, helpers (era gray[400], escuro demais)
+  subtle:  gray[400],  // #a1a1aa — placeholders (era alpha 70% do 400)
   disabled: gray[600],
 
   // Brand — o neon puro; sobre surface escuro o contraste é altíssimo
@@ -134,17 +139,17 @@ export const fg = {
 
 // ─── Border ───────────────────────────────────────────────────────────────────
 
-// ⚠️ `default`/`sidebar`/`table` NÃO usam gray[800] (zinc-800, L 0.2739). A L-009
-// exige borda no dark com L ≥ surface + 6%; com surface em 0.225 o zinc-800 dá só
-// +0.0489 e a borda começa a desaparecer. L 0.29 (#2b2b2e) dá +0.065 e satisfaz a
-// regra — mesmo hue/croma da Zinc, só um shade que a rampa não tem (como o 150).
-// Nota: a default do DS usa gray[800] sobre a mesma surface, dando +0.0395 — ou
-// seja, viola a L-009 mais que isto. Não corrigido aqui: é escopo de outra tarefa.
+// Medido na referência: as bordas são zinc-700 #3f3f46 (×30) e zinc-800 #27272a
+// (×14) — bate com `semanticExample.dark` (borderDefault: 700, borderSubtle: 800).
+// Contra surface zinc-900 (L 0.2103) o 700 dá ΔL 0.16, muito acima do +0.06 que a
+// L-009 pede. Minha tentativa anterior de "satisfazer a L-009" foi na direção
+// errada: eu ESCURECI a borda pra oklch(0.29) quando a referência a deixa bem mais
+// clara que a surface — e o resultado eram cards sem contorno visível.
 export const border = {
-  default: "oklch(0.29 0.0055 286)",
-  subtle:  "oklch(1 0 0 / 0.04)",
-  input:   "oklch(1 0 0 / 0.08)",
-  sidebar: "oklch(0.29 0.0055 286)",
+  default: gray[700],  // #3f3f46
+  subtle:  gray[800],  // #27272a
+  input:   gray[700],
+  sidebar: gray[800],
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
   brand:           brandContrast[500],
@@ -155,8 +160,8 @@ export const border = {
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
-  // Tabela — mesma L da border.default (L-009)
-  table: "oklch(0.29 0.0055 286)",
+  // Tabela — mais sutil que a borda de card (a referência usa os 2 shades)
+  table: gray[800],
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

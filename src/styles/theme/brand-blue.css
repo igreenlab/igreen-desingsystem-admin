@@ -5,10 +5,14 @@
  * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts blue > src/styles/theme/brand-blue.css
  *
  * Ative aplicando data-theme="blue" no <html> (ver src/hooks/useBrand.ts).
+ *
+ * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,
+ * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só
+ * omite o que já é idêntico à default.
  */
 
 /* ── Light (44 vars divergem da default) ─────────────────────────── */
-[data-theme="blue"] {
+[data-theme="blue"]:not(.dark) {
   --color-bg-canvas: oklch(0.982 0.008 264);
   --color-bg-surface: oklch(0.995 0.004 264);
   --color-bg-surface-elevated: oklch(0.998 0.003 264);

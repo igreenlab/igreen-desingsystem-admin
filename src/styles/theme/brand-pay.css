@@ -5,10 +5,14 @@
  * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts pay > src/styles/theme/brand-pay.css
  *
  * Ative aplicando data-theme="pay" no <html> (ver src/hooks/useBrand.ts).
+ *
+ * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,
+ * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só
+ * omite o que já é idêntico à default.
  */
 
 /* ── Light (83 vars divergem da default) ─────────────────────────── */
-[data-theme="pay"] {
+[data-theme="pay"]:not(.dark) {
   --color-bg-canvas: #f9fafb;
   --color-bg-surface: #ffffff;
   --color-bg-surface-elevated: #ffffff;

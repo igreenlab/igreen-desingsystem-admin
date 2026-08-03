@@ -329,7 +329,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 65 Lições (L-001 a L-065) — resumo
+## 66 Lições (L-001 a L-066) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
 
@@ -546,6 +546,24 @@ reescreve **alias**; relativo é preservado → aponta pra `shadcn/` inexistente
 do que USAGE/L-054/skill prometiam; fix = preset auto-pina como aba fixa. **Regra:** simulação
 valida a **orientação** (steer); **dogfood** valida os **artefatos distribuídos** (copy-in,
 componente real) — só o consumidor real exercita isso. Detalhe: `lessons.md` L-065.
+
+### Override escopado gerado como DIFF precisa de seletor mutuamente exclusivo (L-066)
+
+`brand-<x>.css` emite só o **diff** vs. default em 2 blocos: `[data-theme="x"]` (light) e
+`.dark[data-theme="x"]`. Mas `[data-theme]` e `.dark` têm a **mesma especificidade** (0,1,0) e o
+overlay é importado **depois** do tema-base → o bloco light vencia o `.dark` por ordem de fonte.
+Todo token que a marca muda no light **mas cujo dark é idêntico ao da default** (logo ausente do
+diff dark) recebia o valor **claro** no dark. Medido: `vibrant` vazava **13** (`bg-subtle`/`bg-muted`
+= `#fafafa` no dark), `blue` e `green` **1 cada** (`fg-strong` — título escuro em fundo escuro,
+bug vivo em marca publicada), `pay` 0 só porque diverge nos 2 modos em tudo que toca. Assimetria
+perversa: **quanto mais a marca se parece com a default no dark, mais vaza**. Fix de 1 linha:
+`[data-theme="x"]:not(.dark)` → blocos mutuamente exclusivos; regenerar as 4 marcas mudou só o
+seletor, nenhum valor. **Regra:** diff escopado **aposta na omissão**, e omissão herda de quem
+vencer o empate de especificidade — ao gerar override por diff, garanta exclusão mútua com o
+outro eixo e verifique de qual regra o token omitido herda em CADA combinação. **Nenhum gate
+pegou** (tsc 0, 159 testes, `dead-theme-classes` OK, contraste 10/10 — eu media os valores dos
+arquivos TS, não o que o cascade resolvia); quem achou foi o mantenedor num print. L-064 de novo:
+ao mexer em tema, **medir no browser com cada combinação de eixos ativa**. Detalhe: `lessons.md` L-066.
 
 ### Padrão de chart (resumo)
 

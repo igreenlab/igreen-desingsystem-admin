@@ -66,6 +66,54 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Vazamento light→dark no overlay de marca (L-066) + mapeamento de neutros medido da referência | CONCLUÍDO
+
+- Input: o mantenedor mandou um print e a URL da referência: "as neutras estão diferentes, o
+  bg deles é #0E0E11 e o nosso está #18181B, e no dark algumas cores quebradas, tudo ficou
+  extremamente ruim". Pediu pra medir com o MCP do Chrome DevTools em vez de supor.
+- Output: 2 correções independentes — 1 bug arquitetural do transform (afeta as 4 marcas) e
+  1 erro de mapeamento meu (só vibrant). Lição **L-066** registrada.
+- BUG 1 — **vazamento light→dark no `to-brand-overlay.ts`**: `[data-theme="x"]` e `.dark` têm
+  a MESMA especificidade (0,1,0), e o overlay é importado DEPOIS do tema-base → o bloco light
+  vencia o `.dark` por ordem de fonte. Todo token que a marca muda no light mas cujo dark é
+  idêntico ao da default (logo ausente do diff dark) recebia o valor CLARO no dark. Medido:
+  `vibrant` 13 tokens (`bg-subtle`/`bg-muted` = `#fafafa` no dark, `fg-default` `#0e0e11`,
+  `border-input` `#d4d4d8`), **`blue` e `green` 1 cada** (`fg-strong` — título escuro sobre
+  fundo escuro, **bug vivo em marca já publicada**), `pay` 0 (diverge nos 2 modos em tudo que
+  toca). Fix de 1 linha: `[data-theme="x"]:not(.dark)`. Regenerar as 4 mudou SÓ o seletor.
+- BUG 2 — **eu troquei a rampa mas mantive as atribuições de shade da default.** O
+  `tokens.json` traz `semanticExample.light/dark` com o mapeamento por papel; eu li o "NÃO
+  IMPLEMENTAR" como "ignore o mapeamento" quando significava "não crie tokens paralelos com
+  esses nomes". Extraí o ground truth do site com DevTools (`getComputedStyle` em todos os
+  elementos, contando frequência) e ele confirma o `semanticExample`:
+  `html #0e0e11` (zinc-950) · `card ×60 #18181b` (zinc-900) · `texto ×319 #f4f4f5` (zinc-100) ·
+  `#d4d4d8 ×49` (300) · `#a1a1aa ×167` (400) · `borda ×30 #3f3f46` (**zinc-700**) · `#27272a ×14`.
+  Corrigido dark: canvas 900→**950**, surface custom→**900**, elevated→**800**, table-head→800,
+  fg.default→100, fg.muted 400→**300**, fg.subtle→400, border.default→**700**, subtle→800.
+  Light idem (`elevated`→50, `muted`→100, `fg.muted` 500→**700**, `fg.subtle`→600,
+  `border.default` 200→**300**, `subtle`→200, `input`→400).
+- Correção de uma decisão da 2ª leva: eu tinha ESCURECIDO `border.default` do dark pra
+  `oklch(0.29)` "pra satisfazer a L-009". Direção errada — a referência deixa a borda bem mais
+  CLARA que a surface (zinc-700, ΔL 0.16). Cards ficavam sem contorno visível. Agora ΔL 0.16.
+- Verificação: **8/8 tokens estruturais batem exatamente** com o hex medido na referência
+  (`getComputedStyle` no browser, dark+vibrant); os 13 que vazavam agora resolvem pros valores
+  dark corretos; 10/10 pares `on-*`; 6/6 texto sobre surface (fg.muted subiu de 4.83 pra
+  10.44:1 no light); L-008 e L-009 OK com folga; screenshots de `#/table`, `#/colors` e
+  `#/alert` nos 2 modos; `tsc` 0, 159 testes.
+- Assumption: `data-theme` e a classe `.dark` vivem SEMPRE no mesmo elemento (`<html>`, via
+  `useBrand` + `useTheme`). O fix `:not(.dark)` depende disso — se algum dia houver dark
+  escopado num wrapper interno com a marca no html, o bloco light volta a se aplicar dentro
+  dele. Vale pro seletor antigo também (`.dark[data-theme]` também exige mesmo elemento), então
+  não é regressão nova, mas é o ponto a checar se aparecer dark seccionado.
+- Lições novas: **L-066** — override escopado gerado como DIFF precisa de seletor mutuamente
+  exclusivo com o outro eixo, porque **o diff aposta na omissão** e omissão herda de quem
+  vencer o empate de especificidade. Assimetria perversa: quanto mais a marca se parece com a
+  default no dark, mais ela vaza. E o meta-ponto (L-064 de novo, mais duro): **nenhum gate
+  pegou** — tsc 0, 159 testes, `dead-theme-classes` OK e minha própria checagem de contraste
+  10/10, porque eu media os valores dos **arquivos TS** e não o que o **cascade resolvia no
+  browser**. Quem achou foi o mantenedor, de olho. Ao mexer em tema: medir no browser com cada
+  combinação de eixos ativa.
+
 ### [2026-08-03] | DS DEV | Marca "vibrant" — 2ª leva: neutra Zinc + status re-medidos por gamut | CONCLUÍDO
 
 - Input: o mantenedor apontou que (a) a neutra do handoff é diferente da nossa e queria

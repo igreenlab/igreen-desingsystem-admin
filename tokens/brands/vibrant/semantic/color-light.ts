@@ -32,9 +32,11 @@ import {
 
 export const bg = {
   // Surfaces (sólidos)
+  // Mapeamento de `semanticExample.light` do tokens.json (canvas/surface = white,
+  // elevated = neutral-50, muted = neutral-100)
   canvas:           white,        // body, página
   surface:          white,        // cards, drawer
-  "surface-elevated": white,      // popovers, modais
+  "surface-elevated": gray[50],   // #fafafa — popovers, modais
   "surface-panels": white,        // página de fundo
   // ⚠️ Sidebar RETUNADA pro hue frio da Zinc. A default usa mineral-100
   // (hue 106, quente) — mesmo L e mesma croma, só a temperatura muda. Manter o
@@ -43,9 +45,9 @@ export const bg = {
   sidebar:          "oklch(0.9516 0.0027 286.35)", // #efeff1 (era #efefed mineral)
 
   // Backgrounds neutros (sólidos cinza no light)
-  subtle:   gray[50],
-  muted:    gray[50],
-  emphasis: gray[100],           // neutro mais visível que muted (sem semântica de "active")
+  subtle:   gray[50],            // #fafafa
+  muted:    gray[100],           // #f4f4f5 — era gray[50], igual ao subtle (sem hierarquia)
+  emphasis: gray[200],           // #e4e4e7 — neutro mais visível que muted
   input:    white,
   accent:   white,               // light: bg-accent = branco (item ativo destaca por contraste)
 
@@ -89,8 +91,8 @@ export const bg = {
 
   // Tabela — sólidos
   "table":            white,
-  "table-head":       gray[50],
-  "table-row-hover":  gray[50],
+  "table-head":       gray[100],   // #f4f4f5
+  "table-row-hover":  gray[50],    // #fafafa — mais sutil que o head
   // Linha selecionada — alpha brand discreto (6%); hover sobe pra 10%
   "table-row-selected":       `color-mix(in oklch, ${brand[400]} 6%, transparent)`,
   "table-row-selected-hover": `color-mix(in oklch, ${brand[400]} 10%, transparent)`,
@@ -107,12 +109,15 @@ export const bg = {
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
 
 export const fg = {
-  // Hierarquia — verbatim da default
-  strong:  gray[950],
+  // Hierarquia — mapeamento de `semanticExample.light` (fgMuted: neutral-700,
+  // fgSubtle: neutral-600). A Zinc tem L bem mais alto que a nossa gray no meio
+  // da rampa (500: 0.5517 vs 0.4997), então manter gray[500] em `muted` deixava
+  // label/helper fraco demais. O 700 dá 10.31:1 no branco.
+  strong:  gray[950],          // #0e0e11
   default: gray[950],
-  muted:   gray[500],          // labels, helpers (light)
-  subtle:  gray[400],          // placeholders, hints
-  disabled: gray[400],
+  muted:   gray[700],          // #3f3f46 — labels, helpers
+  subtle:  gray[600],          // #52525b — placeholders, hints
+  disabled: gray[400],         // #a1a1aa
 
   // Brand — 800 é o 1º shade com AA folgado contra branco (6.56:1); ver §3.4
   brand: brand[800],
@@ -139,9 +144,9 @@ export const fg = {
 // ─── Border ───────────────────────────────────────────────────────────────────
 
 export const border = {
-  default: gray[200],          // borda padrão
-  subtle:  gray[150],          // dividers, controles
-  input:   gray[300],          // inputs / fields
+  default: gray[300],          // #d4d4d8 — borda padrão (semanticExample: neutral-300)
+  subtle:  gray[200],          // #e4e4e7 — dividers, controles (neutral-200)
+  input:   gray[400],          // #a1a1aa — inputs / fields (1 passo mais forte que default)
   sidebar: "oklch(0.9076 0.0045 286.3)", // #e0e0e3 — retunada pro hue frio (era mineral-200)
 
   // ⚠️ DESVIO MEDIDO do §3.3 ("borda = um shade acima do fundo", que daria 500).
@@ -161,8 +166,8 @@ export const border = {
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
-  // Tabela
-  table: gray[150],
+  // Tabela — mais sutil que a borda de card
+  table: gray[200],
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────
