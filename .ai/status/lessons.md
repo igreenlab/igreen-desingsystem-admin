@@ -1398,57 +1398,6 @@ que pega o que a simulação, por construção, não vê. Como montar o sandbox:
 
 ---
 
-## Como adicionar nova lição
-
-Quando o Claude cometer um erro não listado aqui:
-
-1. Identificar o padrão do erro
-2. Adicionar no final deste arquivo com header **`## [L-NNN] Título`** — heading `##`,
-   sem negrito e sem ponto final. As 63 lições usam esse formato exato; L-033 a L-043
-   ficaram em `**[L-NNN] ...**` por um tempo e qualquer contagem automática precisava de
-   duas regex (normalizado em 2026-07-29). Não invente variação.
-3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado
-   (é o arquivo auto-carregado — deve ter o resumo de todas as lições) e se a contagem
-   no título da seção (`## NN Lições (L-001 a L-NNN)`) ainda bate
-
----
-
-## Política de arquivamento
-
-**Teto: ~120 KB** (revisto em 2026-07-30; era 50 KB). Ao passar, mover para
-`.ai/status/lessons-archive.md` as lições já ABSORVIDAS em gate automático — elas
-continuam valendo, mas o pipeline as aplica sozinho, então não dependem mais de
-disciplina humana no dia a dia. Já arquivadas: L-001/002/003/005 (`ds-lint-patterns.mjs`)
-e L-017 (`pack-contract.mjs`).
-
-Manter no ativo as lições que AINDA dependem de disciplina humana (decisões de
-arquitetura, padrões Radix/forwardRef, caveats de libs externas, regras de release).
-O resumo 1-linha de TODAS as lições (ativas + arquivadas) permanece em
-`.claude/rules/ds-standards.md` — é a fonte auto-carregada.
-
-### Por que o teto subiu, e o que fazer quando estourar de novo
-
-O teto de 50 KB foi escrito quando havia bem menos lição. Medido em 2026-07-30, com 59
-ativas: **79 KB, ~1,3 KB por lição, distribuídos de forma uniforme** — 16% do peso em
-L-001..020, 38% em L-021..040, 33% em L-041..059 e 13% em L-060..064. **Não existe
-culpado**: 79 KB é o que 59 lições detalhadas pesam. Na densidade atual, 50 KB
-equivaleria a ~38 lições, então a política envelheceu em vez de ser desobedecida.
-
-Encurtar as lições seria o conserto errado. A densidade é deliberada: as recentes
-carregam a medição, o contra-exemplo e o porquê — é exatamente isso que impede alguém
-"consertar" uma decisão intencional depois (L-057, L-059 existem só pra isso).
-
-Arquivar também não resolve o tamanho: quase nenhuma lição de Radix, dark mode ou
-release virou código, então poucas se qualificam pelo critério "absorvida em gate".
-
-**Quando estourar 120 KB, a saída é dividir por domínio**, não deletar:
-`lessons-tokens.md` · `-componentes.md` · `-distribuicao.md` · `-pipeline.md`. O custo
-real nunca foi o disco — é o contexto gasto quando alguém abre o arquivo inteiro pra
-achar uma lição; dividido, abre-se só a fatia relevante. O resumo no `ds-standards.md`
-segue como índice único. ⚠️ Não é tarefa de 5 minutos: exige reapontar as referências
-cruzadas (`ver lessons.md L-0XX` espalhado em skills e specs) e provar que nenhuma
-lição se perdeu — trate como tarefa própria, com verificação de integridade.
-
 ---
 
 ## [L-066] Override escopado gerado como DIFF precisa de seletor MUTUAMENTE EXCLUSIVO — senão a omissão herda do lugar errado
@@ -1500,3 +1449,56 @@ não o que o **cascade resolvia no browser**. Quem achou foi o mantenedor, de ol
 ligados era o único teste que pegava, e eu não rodei até me mandarem olhar. Ao mexer em tema,
 **meça no browser com cada combinação de eixos ativa** — arquivo de token não é evidência de
 pixel.
+
+---
+
+## Como adicionar nova lição
+
+Quando o Claude cometer um erro não listado aqui:
+
+1. Identificar o padrão do erro
+2. Adicionar no final deste arquivo com header **`## [L-NNN] Título`** — heading `##`,
+   sem negrito e sem ponto final. As 63 lições usam esse formato exato; L-033 a L-043
+   ficaram em `**[L-NNN] ...**` por um tempo e qualquer contagem automática precisava de
+   duas regex (normalizado em 2026-07-29). Não invente variação.
+3. Verificar se o resumo em `.claude/rules/ds-standards.md` precisa ser atualizado
+   (é o arquivo auto-carregado — deve ter o resumo de todas as lições) e se a contagem
+   no título da seção (`## NN Lições (L-001 a L-NNN)`) ainda bate
+
+---
+
+## Política de arquivamento
+
+**Teto: ~120 KB** (revisto em 2026-07-30; era 50 KB). Ao passar, mover para
+`.ai/status/lessons-archive.md` as lições já ABSORVIDAS em gate automático — elas
+continuam valendo, mas o pipeline as aplica sozinho, então não dependem mais de
+disciplina humana no dia a dia. Já arquivadas: L-001/002/003/005 (`ds-lint-patterns.mjs`)
+e L-017 (`pack-contract.mjs`).
+
+Manter no ativo as lições que AINDA dependem de disciplina humana (decisões de
+arquitetura, padrões Radix/forwardRef, caveats de libs externas, regras de release).
+O resumo 1-linha de TODAS as lições (ativas + arquivadas) permanece em
+`.claude/rules/ds-standards.md` — é a fonte auto-carregada.
+
+### Por que o teto subiu, e o que fazer quando estourar de novo
+
+O teto de 50 KB foi escrito quando havia bem menos lição. Medido em 2026-07-30, com 59
+ativas: **79 KB, ~1,3 KB por lição, distribuídos de forma uniforme** — 16% do peso em
+L-001..020, 38% em L-021..040, 33% em L-041..059 e 13% em L-060..064. **Não existe
+culpado**: 79 KB é o que 59 lições detalhadas pesam. Na densidade atual, 50 KB
+equivaleria a ~38 lições, então a política envelheceu em vez de ser desobedecida.
+
+Encurtar as lições seria o conserto errado. A densidade é deliberada: as recentes
+carregam a medição, o contra-exemplo e o porquê — é exatamente isso que impede alguém
+"consertar" uma decisão intencional depois (L-057, L-059 existem só pra isso).
+
+Arquivar também não resolve o tamanho: quase nenhuma lição de Radix, dark mode ou
+release virou código, então poucas se qualificam pelo critério "absorvida em gate".
+
+**Quando estourar 120 KB, a saída é dividir por domínio**, não deletar:
+`lessons-tokens.md` · `-componentes.md` · `-distribuicao.md` · `-pipeline.md`. O custo
+real nunca foi o disco — é o contexto gasto quando alguém abre o arquivo inteiro pra
+achar uma lição; dividido, abre-se só a fatia relevante. O resumo no `ds-standards.md`
+segue como índice único. ⚠️ Não é tarefa de 5 minutos: exige reapontar as referências
+cruzadas (`ver lessons.md L-0XX` espalhado em skills e specs) e provar que nenhuma
+lição se perdeu — trate como tarefa própria, com verificação de integridade.
