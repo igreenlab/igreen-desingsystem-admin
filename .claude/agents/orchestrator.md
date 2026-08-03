@@ -56,6 +56,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 | Novo sizing/height/icon    | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
 | Nova shadow/radius         | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
 | Novo preset tipográfico    | `/ds-add-token`        | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
+| **Marca / tema de cor novo** (overlay `[data-theme]`, trocável em runtime) | `/ds-create-brand` | `brand-builder` (entrevista → derivação medida → **[GATE]** → geração das 10 superfícies → **verificação no browser**) |
 | Novo componente iGreen     | `/ds-create-component` | `ds-designer` → **[GATE]** → `ds-dev` → `ds-reviewer`            |
 | Componente Shadcn          | `/ds-add-shadcn`       | `ds-dev` → `ds-reviewer`                                         |
 | Componente composto        | `/ds-create-composite` | `ds-dev` → `ds-reviewer`                                         |

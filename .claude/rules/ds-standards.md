@@ -84,6 +84,7 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | DS Designer | spacing / gap / pad                                                           | `spec-token.md` (args `tipo=spacing`)                |
 | DS Designer | sizing / radius / shadow                                                      | `spec-token.md` (args `tipo=sizing\|radius\|shadow`) |
 | DS Designer | tipografia                                                                    | `spec-token.md` (args `tipo=typography`)             |
+| —           | **marca / tema de cor novo** (overlay `[data-theme]`)                         | `brand-builder/SKILL.md` via `/ds-create-brand`      |
 | DS Designer | componente novo                                                               | `spec-component.md`                                  |
 | DS Designer | extração Figma                                                                | `figma-extract.md`                                   |
 | DS Dev      | implementar token                                                             | `impl-token.md`                                      |
@@ -101,7 +102,7 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`crud-builder`, `list-builder`, `dashboard-builder`, `frontend-design`, `igreen-page`) vivem direto em
+(`brand-builder`, `crud-builder`, `list-builder`, `dashboard-builder`, `frontend-design`, `igreen-page`) vivem direto em
 `.claude/skills/<nome>/`.
 
 ### DoD — nova skill/command builder (L-047)

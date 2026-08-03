@@ -195,6 +195,7 @@ no `npm test`.
 | Novo radius/border | `shape.ts` | `ds-designer/spec-token.md` (tipo=radius) |
 | Nova shadow | `elevation.ts` | `ds-designer/spec-token.md` (tipo=shadow) |
 | Novo preset tipográfico | `typography.ts` | `ds-designer/spec-token.md` (tipo=typography) |
+| **Marca / tema de cor novo** (overlay `[data-theme]`) | `tokens/brands/<id>/` + 10 outras superfícies | `brand-builder/SKILL.md` via `/ds-create-brand` |
 | Spec de componente novo | — | `ds-designer/spec-component.md` |
 | Extração do Figma | — | `ds-designer/figma-extract.md` |
 | Implementar token | arquivo semântico | `ds-dev/impl-token.md` |
