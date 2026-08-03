@@ -27,6 +27,10 @@ CLAUDE.local.md
 # Referências temporárias do operador — não commitar
 DESIGN.md
 design-tabela/
+# Pasta de trabalho pra handoff de tema (material solto vindo de fora). O que é spec
+# foi arquivado em .ai/specs/brand-vibrant-handoff/; o resto (demo visual de 46 KB,
+# exemplos de formato) fica de fora do repo de propósito.
+/theme/
 
 # Scratch pad de sessões — não commitar
 .ai/scratch/
