@@ -12,17 +12,17 @@
  * dessincronizam calado quando a rampa muda (já aconteceu).
  * Ver `primitives/color-palette.ts` pra medição de gamut de cada status.
  *
- * ⚠️ 3 desvios da mecânica da default, todos exigidos pelo handoff (`theme/BRIEF.md`):
+ * ⚠️ 3 desvios da mecânica da default, todos exigidos pelo handoff:
  *
  *   1. `fg.on-brand` = brand[950], NÃO white. brand[400] (#0fff00) tem 1.37:1
- *      contra branco — reprova qualquer critério. brand[950] dá 10.27:1 (§3.1).
+ *      contra branco — reprova qualquer critério. brand[950] dá 10.27:1.
  *   2. `bg.brand-hover` = brand[500] em vez de color-mix(brand, black). O 400 está
  *      no TETO do gamut sRGB (croma 0.32+ clipa pra #00ff00), então estado não pode
- *      ser derivado subindo croma/saturação — só descendo luminosidade (§3.2).
+ *      ser derivado subindo croma/saturação — só descendo luminosidade.
  *   3. `fg.brand` = brand[800] (6.56:1), não brand[600]. O 700 dá 4.47:1 e reprova
- *      AA por 0.03; o 600 é ainda mais claro (§3.4).
+ *      AA por 0.03; o 600 é ainda mais claro.
  *
- * Pareamento de superfície de marca (§3.3): fundo brand[400] · borda brand[500] ·
+ * Pareamento de superfície de marca: fundo brand[400] · borda brand[500] ·
  * texto brand[950].
  */
 
@@ -134,7 +134,7 @@ export const fg = {
   subtle:  gray[400],          // placeholders, hints
   disabled: gray[400],         // (a default do DS também iguala subtle/disabled)
 
-  // Brand — 800 é o 1º shade com AA folgado contra branco (6.56:1); ver §3.4
+  // Brand — 800 é o 1º shade com AA folgado contra branco (6.56:1)
   brand: brand[800],
 
   // Status

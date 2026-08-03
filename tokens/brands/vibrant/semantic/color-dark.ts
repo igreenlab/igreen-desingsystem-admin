@@ -18,13 +18,13 @@
  *
  * ⚠️ Desvios da mecânica da default:
  *   1. `bg.brand-hover` = brandContrast[500] em vez de color-mix(brand, black) —
- *      estado desce a luminosidade pelo ramp, nunca sobe croma (§3.2 do handoff:
+ *      estado desce a luminosidade pelo ramp, nunca sobe croma (
  *      o 400 está no teto do gamut, saturar mais clipa pra #00ff00).
  *   2. `border.brand` = brandContrast[500] (um shade acima do fundo 400) — regra de
- *      pareamento §3.3, igual ao light.
+ *      pareamento (borda um shade acima do fundo), igual ao light.
  *   3. `fg.danger`/`fg.info` NÃO usam o [500] — ver o bloco `fg` (como texto sobre
  *      surface escura o [500] reprovava AA; foi medido no badge real).
- *   4. `fg.on-brand`/`on-success` = `black`, não brand[950] como o §3.1 pede — ver
+ *   4. `fg.on-brand`/`on-success` = `black`, não brand[950] como o handoff pedia — ver
  *      o bloco `on-*` (irradiação sobre o neon; black é o que a iGreen default usa).
  */
 
@@ -163,7 +163,7 @@ export const fg = {
 
   // Sobre fundos sólidos (on-*)
   //
-  // ⚠️ `on-brand`/`on-success` = `black`, NÃO brand[950] como o handoff §3.1 pede.
+  // ⚠️ `on-brand`/`on-success` = `black`, NÃO brand[950] como o handoff pedia.
   // Motivo medido + perceptual: sobre o neon (L 0.867, croma no teto do gamut) o
   // texto escuro sofre IRRADIAÇÃO — o fundo brilhante "invade" as hastes da fonte e
   // o texto aparenta menos peso do que tem. O mantenedor leu isso como "o texto
@@ -172,7 +172,7 @@ export const fg = {
   // aparente se compra na cor:
   //     brand[950] #003403  10.27:1
   //     black               15.32:1   ← escolhido
-  // O §3.1 do handoff exige "não pode ser branco" (brand[400] daria 1.37:1) — black
+  // O handoff exigia "não pode ser branco" (brand[400] daria 1.37:1) — black
   // satisfaz isso com folga; o que ele perde é só o "texto de marca é sempre
   // brand-950", que era preferência estética dele, não requisito de contraste. E
   // black é justamente o que a iGreen default usa em `fg.on-brand` no dark, então
@@ -214,7 +214,7 @@ export const border = {
   input:   "oklch(0.325 0.0030 250)",  // #333339 (era gray[700] #3f3f46)
   sidebar: gray[850],
 
-  // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
+  // Um shade acima do fundo brand[400] — regra de pareamento, igual ao light
   brand:           brandContrast[500],
   "brand-subtle":  `color-mix(in oklch, ${brandContrast[400]} 36%, transparent)`,
 

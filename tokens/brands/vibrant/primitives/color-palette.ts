@@ -3,17 +3,28 @@
  * Tier 1 de 3: valores raw. API privada.
  *
  * Marca = verde FLUORESCENTE #0fff00, âncora no shade 400 (não no 600 como a
- * default). Escala gerada em uicolors.app/generate/0fff00 e entregue via
- * handoff em `theme/` (BRIEF.md + tokens.json).
+ * default). Escala gerada em uicolors.app/generate/0fff00.
  *
- * ⚠️ OKLCH é a fonte canônica; o hex do comentário é o equivalente sRGB
- * derivado, só pra conferência. NÃO re-arredondar: a precisão de cada valor é a
- * mínima que faz round-trip exato. Com 3 casas na croma os shades 400–800 erram
- * até 3/255 por canal (medido no handoff).
+ * ⚠️ PROCEDÊNCIA: os 11 valores de brand vieram de um handoff externo (BRIEF.md +
+ * tokens.json) que era material de referência e **não está versionado** — foi
+ * descartado depois da implementação. Por isso este arquivo não cita seção dele:
+ * citação que ninguém pode conferir faz o leitor parar de investigar num lugar
+ * inalcançável. Toda medição que justifica um valor está inline, aqui e nos
+ * arquivos semantic; o que dá pra reconferir de fato é o gerador (a URL acima) e
+ * o round-trip OKLCH→sRGB dos hex nos comentários.
  *
- * Escopo desta marca = SÓ a família brand. `gray` e os status são cópia
- * verbatim da default de propósito → geram diff ZERO no overlay, então nenhum
- * neutro/status muda quando o tema é ativado.
+ * ⚠️ OKLCH é a fonte canônica; o hex do comentário é o equivalente sRGB derivado,
+ * só pra conferência. NÃO re-arredondar: a precisão de cada valor é a mínima que
+ * faz round-trip exato — com 3 casas na croma os shades 400–800 erram até 3/255
+ * por canal.
+ *
+ * ── Escopo da marca ──────────────────────────────────────────────────────────
+ * Começou como "só a família brand" (gray e status verbatim da default, diff zero
+ * no overlay). NÃO é mais o caso: em rodadas seguintes o mantenedor pediu neutra
+ * própria e status re-medidos. Hoje divergem da default: `brand`/`brandContrast`,
+ * `gray` (neutra "graphite"), e os 4 status — `success` virou alias do próprio
+ * brand; `danger`/`warning`/`info` foram re-medidos por teto de gamut. O overlay
+ * resultante tem ~65 vars no light e ~62 no dark.
  */
 
 // ─── Brand — verde fluorescente, base oklch(0.866993 0.294055 142.3546) em 400 ─
@@ -47,8 +58,8 @@ export const brandContrast = brand;
 /* ── Gray — neutra "graphite", desenhada pra esta marca ───────────────────────
  *
  * Histórico, porque a rampa mudou 3 vezes e o "por quê" de cada etapa importa:
- *   1. Zinc crua do handoff (`theme/tokens.json` → `color.neutral.*`), croma
- *      0.0013–0.0146 em hue ~286. O §4.1 do BRIEF recomendava não importar
+ *   1. Zinc crua do handoff (`color.neutral.*` do tokens.json dele), croma
+ *      0.0013–0.0146 em hue ~286. O handoff recomendava não importar
  *      ("muda a temperatura da UI inteira, em todas as brands") — argumento que
  *      assume DS de marca única e não se aplica aqui, porque `gray` é POR MARCA:
  *      a neutra entra escopada no [data-theme="vibrant"] e as outras 4 seguem em
@@ -123,7 +134,7 @@ export const gray = {
  * default já vive perto do teto de gamut (danger 84% do teto do próprio hue,
  * success 92%, warning 96%, info 100%), então "deixar mais vibrante subindo a
  * saturação" rende de +4% a +20% — e ZERO no roxo. A alavanca real é a mesma que
- * o BRIEF §3.2 identificou pro brand: LUMINOSIDADE, porque o teto de croma do
+ * o handoff identificou pro brand: LUMINOSIDADE, porque o teto de croma do
  * sRGB depende do hue E do L.
  *
  * Onde cada hue pica (varredura de L com hue fixo, precisão 0.0005):
