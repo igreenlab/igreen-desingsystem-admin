@@ -68,6 +68,31 @@ describe("vocab-surface — as classes de falha que o check existe pra pegar", (
     expect({ total, faltando }).toEqual({ total: 1, faltando: [] });
   });
 
+  // Regressão v0.32.0: `theme` era ignorado por nome exato, então os overlays de marca
+  // (`theme-blue` etc.) caíram em `faltando` e reprovaram o npm test. Tema não é
+  // componente a escolher — a superfície dele é a rule `ds-themes.md`, não o
+  // `ds-components.md`. Sem este caso, um conserto na regex vira ponto cego.
+  it("ignora theme e os overlays theme-* (tema não é componente; superfície é ds-themes.md)", () => {
+    const r = {
+      items: [
+        { name: "theme" },
+        { name: "theme-blue" },
+        { name: "theme-vibrant" },
+        { name: "button" },
+      ],
+    };
+    const { total, faltando } = checkVocab("Use `button`.", r);
+    expect({ total, faltando }).toEqual({ total: 1, faltando: [] });
+  });
+
+  // A exclusão é por PREFIXO `theme-`, não por "contém theme": um componente que
+  // legitimamente se chamasse `theme-picker` continuaria sendo cobrado — e deve.
+  it("não usa 'theme' como curinga: nome que só CONTÉM theme segue sendo cobrado", () => {
+    const r = { items: [{ name: "color-theme-switch" }, { name: "button" }] };
+    const { faltando } = checkVocab("Use `button`.", r);
+    expect(faltando).toEqual(["color-theme-switch"]);
+  });
+
   it("não trata classe/prop/dep em backtick como nome de componente", () => {
     const r = { items: [{ name: "kpi" }] };
     const texto = "`kpi` usa `gap-form-gap`, prop `variant`, e traz `d3-geo`.";

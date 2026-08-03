@@ -23,8 +23,23 @@
  * era artefato do instrumento, não do texto. Delimitador explícito é imune.
  */
 
-/** Itens do registry que não são componente (exemplos de tela e utilitários). */
-const NAO_COMPONENTE = /^example-|^(tv|utils|theme)$/;
+/**
+ * Itens do registry que não são componente (exemplos de tela, utilitários, temas).
+ *
+ * `theme` já estava aqui desde o começo — CSS de tema não é "componente a escolher pra
+ * uma tarefa", então cobrá-lo no `ds-components.md` é erro de categoria. Mas a âncora
+ * `$` do padrão antigo (`^(tv|utils|theme)$`) só casava o nome exato: quando os overlays
+ * de marca entraram como `theme-blue`/`-green`/`-pay`/`-vibrant` (v0.32.0), os 4 caíram
+ * na lista de "faltando no vocabulário" e reprovaram o `npm test`. É a L-063: regra
+ * derivada de convenção tem que tratar o caso novo legítimo em vez de acusá-lo.
+ *
+ * ⚠️ Isto NÃO é isenção do princípio do gate ("item distribuído que a IA do consumidor
+ * não conhece = item que ela conclui que não existe"). Tema tem superfície própria:
+ * `cli/templates/default/_claude/rules/ds-themes.md`, também auto-carregada. Se um dia
+ * aparecer item distribuído SEM nenhuma superfície de vocabulário, ele deve reprovar
+ * aqui — não acrescente ao padrão sem ter onde a IA aprenda sobre ele.
+ */
+const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
 
 /**
  * Termos em backtick que são classe/prop/token/valor — não nome de componente.
