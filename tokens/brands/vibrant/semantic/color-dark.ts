@@ -156,13 +156,26 @@ export const fg = {
   warning: warning[500],       // #fdb803 — já é claro (L 0.825)
   info:    info[300],          // #b688ff
 
-  // Sobre fundos sólidos (on-*) — mesmos pares medidos do light: os fundos de
-  // status são iguais nos 2 modos, então o texto em cima também.
-  // ⚠️ on-brand/on-success = brand-950, não `black`: o handoff fixa brand-950 como
-  // texto de marca em qualquer superfície de marca, nos dois modos (§3.1/§3.3).
-  "on-brand":   brandContrast[950],
+  // Sobre fundos sólidos (on-*)
+  //
+  // ⚠️ `on-brand`/`on-success` = `black`, NÃO brand[950] como o handoff §3.1 pede.
+  // Motivo medido + perceptual: sobre o neon (L 0.867, croma no teto do gamut) o
+  // texto escuro sofre IRRADIAÇÃO — o fundo brilhante "invade" as hastes da fonte e
+  // o texto aparenta menos peso do que tem. O mantenedor leu isso como "o texto
+  // ficou fraco" no botão primário e perguntou se dava pra engrossar a fonte só
+  // nesta marca; não dá (marca é eixo de COR, ver o transform), então o peso
+  // aparente se compra na cor:
+  //     brand[950] #003403  10.27:1
+  //     black               15.32:1   ← escolhido
+  // O §3.1 do handoff exige "não pode ser branco" (brand[400] daria 1.37:1) — black
+  // satisfaz isso com folga; o que ele perde é só o "texto de marca é sempre
+  // brand-950", que era preferência estética dele, não requisito de contraste. E
+  // black é justamente o que a iGreen default usa em `fg.on-brand` no dark, então
+  // isto ALINHA com a casa em vez de divergir.
+  // No LIGHT o par é outro (bg.brand = brand[800] escuro) e o texto segue branco.
+  "on-brand":   black,
   "on-danger":  white,
-  "on-success": success[950],
+  "on-success": black,   // success É a marca — mesmo par
   "on-warning": black,
   "on-info":    white,
 } as const;

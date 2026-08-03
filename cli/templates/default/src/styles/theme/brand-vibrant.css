@@ -80,7 +80,7 @@
   --color-chart-grid: oklch(0.9197 0.0020 250);
 }
 
-/* ── Dark (62 vars — .dark[data-theme] vence o .dark base) ────────── */
+/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */
 .dark[data-theme="vibrant"] {
   --color-bg-canvas: oklch(0.1652 0.0010 250);
   --color-bg-surface: oklch(0.2103 0.0012 250);
@@ -124,8 +124,6 @@
   --color-fg-success: oklch(0.866993 0.294055 142.3546);
   --color-fg-warning: oklch(0.825 0.170 81);
   --color-fg-info: oklch(0.72 0.172 300);
-  --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
-  --color-fg-on-success: oklch(0.2820 0.0929 143.47);
   --color-border-default: oklch(0.290 0.0024 250);
   --color-border-subtle: oklch(0.259 0.0016 250);
   --color-border-input: oklch(0.325 0.0030 250);
