@@ -113,13 +113,20 @@ export const bg = {
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
 
 export const fg = {
-  // Hierarquia — mapeamento medido da referência (bate com semanticExample.dark):
-  //   #ffffff ×1747 · zinc-100 #f4f4f5 ×319 · zinc-300 #d4d4d8 ×49 · zinc-400 #a1a1aa ×167
+  // ⚠️ `muted`/`subtle` NÃO seguem o `semanticExample.dark` do handoff (que pede 300
+  // e 400). Medido no par título/subtítulo da coluna Licenciado do DataTable:
+  //   com o 300 do handoff → separação default↔muted = 1.34:1
+  //   iGreen default                                 = 2.49:1
+  // 1.34:1 é praticamente nenhuma diferença de peso — o subtítulo lê igual ao título.
+  // O handoff é showcase de cards (sem par título/subtítulo); a nossa UI é tabela
+  // densa, onde a hierarquia de peso É a informação. Descendo um shade em cada,
+  // a separação volta ao patamar da default e `muted` ainda dá 6.70:1 na surface.
+  // `default`/`strong` seguem o mapeamento medido (#ffffff ×1747, zinc-100 ×319).
   strong:  white,      // 100% — títulos
-  default: gray[100],  // #f4f4f5 — texto padrão (era oklch(0.98 0 0), fora da rampa)
-  muted:   gray[300],  // #d4d4d8 — labels, helpers (era gray[400], escuro demais)
-  subtle:  gray[400],  // #a1a1aa — placeholders (era alpha 70% do 400)
-  disabled: gray[600],
+  default: gray[100],  // #f4f4f5 — texto padrão
+  muted:   gray[400],  // #a1a1aa — labels, helpers, subtítulo de célula
+  subtle:  gray[500],  // #71717a — placeholders
+  disabled: gray[600], // #52525b
 
   // Brand — o neon puro; sobre surface escuro o contraste é altíssimo
   brand: brandContrast[400],
@@ -164,7 +171,10 @@ export const border = {
   // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
   default: "oklch(0.290 0.0100 285.81)",  // #2b2b31
   subtle:  "oklch(0.259 0.0055 286.03)",  // #232326 (era gray[800] #27272a)
-  input:   gray[700],                     // #3f3f46 — intocado
+  // Suavizada também (força 0.1600 → 0.1150, -28%). Segue mais forte que a
+  // `default` (0.0797) porque é fronteira de campo e precisa ser achável — a
+  // default do DS usa branco 8% aqui, que compõe ainda mais fraco que isto.
+  input:   "oklch(0.325 0.0110 285.81)",  // #333339 (era gray[700] #3f3f46)
   sidebar: "oklch(0.259 0.0055 286.03)",
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light

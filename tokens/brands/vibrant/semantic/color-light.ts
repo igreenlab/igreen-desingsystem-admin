@@ -114,15 +114,22 @@ export const bg = {
 // ─── Foreground (texto + ícones) ──────────────────────────────────────────────
 
 export const fg = {
-  // Hierarquia — mapeamento de `semanticExample.light` (fgMuted: neutral-700,
-  // fgSubtle: neutral-600). A Zinc tem L bem mais alto que a nossa gray no meio
-  // da rampa (500: 0.5517 vs 0.4997), então manter gray[500] em `muted` deixava
-  // label/helper fraco demais. O 700 dá 10.31:1 no branco.
+  // ⚠️ REVERTIDO pro shade que o DS usa, NÃO o do `semanticExample.light` do handoff
+  // (que pede fgMuted: neutral-700, fgSubtle: neutral-600). Medido no par
+  // título/subtítulo da coluna Licenciado do DataTable (`text-fg-default` 13/500 +
+  // `text-fg-muted` 12/400):
+  //   com o 700 do handoff → separação default↔muted = 1.85:1
+  //   iGreen default (gray[500])                     = 3.28:1
+  // Ou seja o mapeamento do handoff comprime a hierarquia em ~44%: o subtítulo fica
+  // quase do mesmo peso do título e o par deixa de ter leitura. Faz sentido — o
+  // handoff é showcase de CARDS, que não tem par título/subtítulo; a nossa UI é
+  // tabela densa, onde essa separação é a informação. gray[500] ainda dá 4.83:1 no
+  // branco, então passa AA folgado como label/helper.
   strong:  gray[950],          // #0e0e11
   default: gray[950],
-  muted:   gray[700],          // #3f3f46 — labels, helpers
-  subtle:  gray[600],          // #52525b — placeholders, hints
-  disabled: gray[400],         // #a1a1aa
+  muted:   gray[500],          // #71717a — labels, helpers, subtítulo de célula
+  subtle:  gray[400],          // #a1a1aa — placeholders, hints
+  disabled: gray[400],         // #a1a1aa (a default do DS também iguala subtle/disabled)
 
   // Brand — 800 é o 1º shade com AA folgado contra branco (6.56:1); ver §3.4
   brand: brand[800],
