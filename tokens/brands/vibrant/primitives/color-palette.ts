@@ -44,89 +44,127 @@ export const brand = {
 // contrato dos primitives idêntico ao das outras 4 marcas.
 export const brandContrast = brand;
 
-// ─── Gray — cópia verbatim da default (chroma 0) → diff zero no overlay ────────
-// ⚠️ NÃO trocar pela neutra do handoff (`color.neutral.*`): ela carrega croma
-// 0.004–0.015 em hue ~286 (viés azul-violeta) e mudaria a temperatura da UI
-// inteira. Decisão registrada no BRIEF §4.1 e confirmada no gate.
+// ─── Gray — neutra ZINC do handoff (fria, croma 0.001–0.015 em hue ~286) ──────
+// Vem de `theme/tokens.json` → `color.neutral.*`, convertida do hex realmente
+// aplicado no preview do uicolors.
+//
+// O §4.1 do BRIEF recomendava NÃO importar, com o argumento de que "muda a
+// temperatura da UI inteira, em todas as brands". Esse argumento assume DS de
+// marca única: aqui `gray` é POR MARCA, então a Zinc entra escopada no
+// [data-theme="vibrant"] e as outras 4 marcas continuam em croma zero. Decisão
+// do mantenedor no gate — o near-black frio (#0e0e11) sob o verde neón é a
+// linguagem do próprio handoff.
+//
+// ⚠️ A Zinc tem 11 posições e o nosso contrato usa `gray[150]` (border.subtle e
+// border.table). O 150 é INTERPOLADO entre 100 e 200 — é o único valor deste
+// arquivo que não vem do handoff.
 export const gray = {
-  50:  "oklch(0.973 0 0)",
-  100: "oklch(0.94 0 0)",
-  150: "oklch(0.931 0 0)",
-  200: "oklch(0.9076 0 0)",
-  300: "oklch(0.8761 0 0)",
-  400: "oklch(0.7025 0 0)",
-  500: "oklch(0.4997 0 0)",
-  600: "oklch(0.36 0 0)",
-  700: "oklch(0.30 0 0)",
-  800: "oklch(0.2645 0 0)",
-  900: "oklch(0.205 0 0)",
-  950: "oklch(0.15 0 0)",
+  50:  "oklch(0.9851 0 0)",           // #fafafa (acromático no handoff)
+  100: "oklch(0.9674 0.0013 286.38)", // #f4f4f5
+  150: "oklch(0.9436 0.0027 286.35)", // #ececee — INTERPOLADO (100↔200), não é do handoff
+  200: "oklch(0.9197 0.0040 286.32)", // #e4e4e7
+  300: "oklch(0.8711 0.0055 286.29)", // #d4d4d8
+  400: "oklch(0.7118 0.0129 286.07)", // #a1a1aa
+  500: "oklch(0.5517 0.0138 285.94)", // #71717a — fg.muted: 4.83:1 no branco
+  600: "oklch(0.4419 0.0146 285.79)", // #52525b
+  700: "oklch(0.3703 0.0119 285.81)", // #3f3f46
+  800: "oklch(0.2739 0.0055 286.03)", // #27272a
+  900: "oklch(0.2103 0.0059 285.89)", // #18181b — bg.canvas no dark
+  950: "oklch(0.1652 0.0062 285.70)", // #0e0e11 — near-black do handoff
 } as const;
 
-// ─── Danger — verbatim da default (hue 25) ────────────────────────────────────
+/* ── STATUS ────────────────────────────────────────────────────────────────────
+ *
+ * Os status desta marca foram re-medidos, não copiados da default. Motivo: a
+ * default já vive perto do teto de gamut (danger 84% do teto do próprio hue,
+ * success 92%, warning 96%, info 100%), então "deixar mais vibrante subindo a
+ * saturação" rende de +4% a +20% — e ZERO no roxo. A alavanca real é a mesma que
+ * o BRIEF §3.2 identificou pro brand: LUMINOSIDADE, porque o teto de croma do
+ * sRGB depende do hue E do L.
+ *
+ * Onde cada hue pica (varredura de L com hue fixo, precisão 0.0005):
+ *   verde 142 → L 0.865, C 0.293   (pica CLARO — daí o neón)
+ *   amarelo 81 → L 0.825, C 0.170  (pica claro; já nascia "neón")
+ *   vermelho 25 → L 0.630, C 0.255 (pica no meio)
+ *   roxo 300 → L 0.550, C 0.293    (pica ESCURO — a primária azul do sRGB é escura)
+ *
+ * Consequência que não é escolha, é física: NÃO existe roxo simultaneamente
+ * claro e saturado em sRGB. Verde/amarelo ficam neón com texto escuro; vermelho
+ * e roxo ficam saturados-escuros com texto branco.
+ *
+ * Forma das rampas: a curva de croma da default foi preservada e escalada pelo
+ * ratio necessário no 500, com CLAMP no teto de cada shade — por isso vários
+ * shades ficam exatamente no teto do próprio (L, hue). Nenhum valor fora do gamut.
+ *
+ * ⚠️ Só o `[500]` é consumido pela camada semântica (medido: os 4 arquivos
+ * semantic de todas as 5 marcas referenciam apenas `<status>[500]`). Os outros
+ * 11 shades existem por paridade de contrato.
+ */
+
+// ─── Danger — hue 25, base L 0.58 / C 0.235 ───────────────────────────────────
+// Escolhido L 0.58 em vez do pico 0.630 (C 0.255) pra PRESERVAR texto branco:
+// no pico o branco cai a 3.96:1. Em 0.58 dá 4.82:1 — AA de verdade, e melhor que
+// os 3.76:1 que a default entrega hoje com #ef4444 (violação pré-existente dela).
 export const danger = {
-  50:  "oklch(0.97 0.025 25)",
-  100: "oklch(0.94 0.050 25)",
-  150: "oklch(0.91 0.080 25)",
-  200: "oklch(0.86 0.110 25)",
-  300: "oklch(0.76 0.165 25)",
-  400: "oklch(0.69 0.195 25)",
-  500: "oklch(0.6368 0.2078 25.33)",   // BASE
-  600: "oklch(0.56 0.200 25)",
-  700: "oklch(0.46 0.180 25)",
-  800: "oklch(0.36 0.140 25)",
-  900: "oklch(0.26 0.100 25)",
-  950: "oklch(0.18 0.070 25)",
+  50:  "oklch(0.97 0.015 25)",    // #fff2f0
+  100: "oklch(0.94 0.030 25)",    // #ffe4e1
+  150: "oklch(0.91 0.046 25)",    // #ffd6d2
+  200: "oklch(0.86 0.075 25)",    // #ffbeb8
+  300: "oklch(0.76 0.143 25)",    // #ff8a82
+  400: "oklch(0.68 0.208 25)",    // #ff5352
+  500: "oklch(0.58 0.235 25)",    // #e40126 — BASE (+13% de croma vs default)
+  600: "oklch(0.52 0.210 25)",    // #c6011f
+  700: "oklch(0.44 0.178 25)",    // #9e0017
+  800: "oklch(0.35 0.142 25)",    // #73000e
+  900: "oklch(0.26 0.100 25)",    // #490308
+  950: "oklch(0.18 0.070 25)",    // #290102
 } as const;
 
-// ─── Success — verbatim da default (hue 161) ──────────────────────────────────
-// Fica 19° de hue distante do brand (142) e bem mais escuro/menos saturado, então
-// "verde de sucesso" e "verde neon da marca" não se confundem. Não foi tingido.
-export const success = {
-  50:  "oklch(0.96 0.025 161)",
-  100: "oklch(0.93 0.045 161)",
-  150: "oklch(0.90 0.065 161)",
-  200: "oklch(0.85 0.090 161)",
-  300: "oklch(0.77 0.115 161)",
-  400: "oklch(0.71 0.130 161)",
-  500: "oklch(0.66 0.135 161)",   // BASE
-  600: "oklch(0.57 0.130 161)",
-  700: "oklch(0.47 0.110 161)",
-  800: "oklch(0.37 0.085 161)",
-  900: "oklch(0.27 0.060 161)",
-  950: "oklch(0.19 0.045 161)",
-} as const;
+// ─── Success — É A PRÓPRIA MARCA (decisão do gate) ────────────────────────────
+// "O success pode deixar igual a brand." Alias do ramp do brand, então o verde de
+// sucesso é o mesmo neón — mesmo precedente da marca `pay`, cujo success é o
+// próprio #00a859 dela. Consequência obrigatória: `fg.on-success` deixa de ser
+// branco (1.37:1) e passa a success[950], igual ao on-brand.
+export const success = brand;
 
-// ─── Warning — verbatim da default (hue 81) ───────────────────────────────────
+// ─── Warning — hue 81, base no PICO (L 0.825 / C 0.170) ───────────────────────
+// O amarelo é o outro hue que pica claro, então já pertencia à família neón: 12:1
+// contra preto. A default estava a 96% do teto, daí o ganho pequeno (+6%) — não há
+// mais amarelo disponível em sRGB nesse L.
 export const warning = {
-  50:  "oklch(0.97 0.030 81)",
-  100: "oklch(0.95 0.060 81)",
-  150: "oklch(0.93 0.090 81)",
-  200: "oklch(0.91 0.115 81)",
-  300: "oklch(0.86 0.150 81)",
-  400: "oklch(0.83 0.155 81)",
-  500: "oklch(0.81 0.160 81)",   // BASE
-  600: "oklch(0.71 0.155 81)",
-  700: "oklch(0.59 0.135 81)",
-  800: "oklch(0.46 0.110 81)",
-  900: "oklch(0.34 0.085 81)",
-  950: "oklch(0.24 0.060 81)",
+  50:  "oklch(0.97 0.028 81)",    // #fff4e1
+  100: "oklch(0.95 0.047 81)",    // #ffeccc
+  150: "oklch(0.93 0.066 81)",    // #ffe4b6
+  200: "oklch(0.91 0.086 81)",    // #ffdca0
+  300: "oklch(0.87 0.127 81)",    // #ffcb6c
+  400: "oklch(0.845 0.153 81)",   // #ffc042
+  500: "oklch(0.825 0.170 81)",   // #fdb803 — BASE (pico do hue)
+  600: "oklch(0.72 0.148 81)",    // #d39902
+  700: "oklch(0.60 0.124 81)",    // #a57702
+  800: "oklch(0.46 0.095 81)",    // #735101
+  900: "oklch(0.34 0.070 81)",    // #4a3301
+  950: "oklch(0.24 0.049 81)",    // #2b1c00
 } as const;
 
-// ─── Info — verbatim da default (hue 280) ─────────────────────────────────────
+// ─── Info — hue 300 (era 280), base no PICO (L 0.55 / C 0.293) ────────────────
+// O maior ganho da leva. Em hue 280 o roxo já estava a 100% do teto (C 0.210):
+// impossível deixar mais vibrante SEM mover o hue. Deslocando 280 → 300 o teto
+// sobe pra C 0.293 — praticamente o 0.294 do brand, ou seja a MESMA energia — e
+// de quebra passa a ler roxo de verdade (#9202fd) em vez do azul-periwinkle
+// #736eff. +39% de croma. Texto branco: 5.75:1.
 export const info = {
-  50:  "oklch(0.97 0.025 280)",
-  100: "oklch(0.93 0.050 280)",
-  150: "oklch(0.89 0.085 280)",
-  200: "oklch(0.85 0.110 280)",
-  300: "oklch(0.76 0.155 280)",
-  400: "oklch(0.69 0.190 280)",
-  500: "oklch(0.62 0.210 280)",   // BASE
-  600: "oklch(0.55 0.200 280)",
-  700: "oklch(0.46 0.170 280)",
-  800: "oklch(0.37 0.135 280)",
-  900: "oklch(0.27 0.095 280)",
-  950: "oklch(0.19 0.070 280)",
+  50:  "oklch(0.97 0.016 300)",   // #f7f3ff
+  100: "oklch(0.93 0.039 300)",   // #ebe3ff
+  150: "oklch(0.89 0.063 300)",   // #e1d2ff
+  200: "oklch(0.84 0.093 300)",   // #d4bdff
+  300: "oklch(0.72 0.172 300)",   // #b688ff
+  400: "oklch(0.635 0.232 300)",  // #a35bff
+  500: "oklch(0.55 0.293 300)",   // #9202fd — BASE (pico do hue)
+  600: "oklch(0.48 0.256 300)",   // #7901d4
+  700: "oklch(0.40 0.213 300)",   // #5d00a6
+  800: "oklch(0.32 0.170 300)",   // #43007a
+  900: "oklch(0.24 0.128 300)",   // #2b0051
+  950: "oklch(0.17 0.091 300)",   // #170030
 } as const;
 
 // ─── Universais puros ─────────────────────────────────────────────────────────

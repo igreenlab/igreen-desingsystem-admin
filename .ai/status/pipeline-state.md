@@ -66,6 +66,58 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Marca "vibrant" — 2ª leva: neutra Zinc + status re-medidos por gamut | CONCLUÍDO
+
+- Input: o mantenedor apontou que (a) a neutra do handoff é diferente da nossa e queria
+  usá-la, e (b) os status deviam ficar "no mesmo estilo do verde, respeitando a cor de cada
+  um — o roxo mais vibrante mas continuando roxo; o success igual à brand".
+- Output: `gray` → Zinc do handoff (+ shade 150 interpolado, que a Zinc não tem e o nosso
+  contrato usa); `success` → alias do `brand`; `danger`/`warning`/`info` re-medidos; ~10
+  valores acromáticos/minerais cravados retunados pro hue frio ~286. Overlay: **14 → 66 vars
+  light / 58 dark**.
+- Correção de uma afirmação minha da 1ª leva: eu tinha recusado a neutra citando o §4.1 do
+  BRIEF ("muda a temperatura da UI inteira, em todas as brands"). **O argumento não se aplica
+  aqui** — o §4.1 assume DS de marca única; nesta arquitetura `gray` é POR MARCA, então a Zinc
+  entra escopada no `[data-theme="vibrant"]` e as outras 4 seguem em croma zero (verificado:
+  blue/green/pay byte-idênticos após regenerar).
+- Decisões:
+  1. **A alavanca de "mais vibrante" é LUMINOSIDADE, não saturação.** Medido: a default já
+     vive a 84% (danger), 92% (success), 96% (warning) e **100%** (info) do teto de croma do
+     próprio hue. Subir croma rende +4% a +20% — e ZERO no roxo. O teto do sRGB depende de
+     hue E de L: verde pica em L 0.865, amarelo em 0.825, vermelho em 0.630, roxo em 0.490.
+     Consequência que é física e não escolha: **não existe roxo claro e saturado em sRGB**.
+  2. **info: hue 280 → 300.** Em 280 o roxo já estava no teto (C 0.210). Deslocando o hue o
+     teto sobe pra **C 0.293** — praticamente o 0.294 do brand, mesma energia — e passa a ler
+     roxo (#9202fd) em vez do azul-periwinkle #736eff. +39% de croma.
+  3. **danger em L 0.58 (C 0.235), não no pico L 0.630 (C 0.255)** — pra preservar texto
+     BRANCO: no pico o branco cai a 3.96:1. Em 0.58 dá 4.82:1. De quebra corrige um defeito
+     que a default tem: `#ef4444` + branco = **3.76:1**, reprova AA (pré-existente, não
+     corrigido aqui — afeta todas as marcas, é outra tarefa).
+  4. **success = alias do ramp do brand**, espelhando shade por shade (bg=400, hover=500,
+     fg=800, on=950). Precedente: a marca `pay` também usa o próprio verde como success.
+     `fg.on-success` teve de sair de white (1.37:1) pra success[950].
+  5. **`border.default` do dark = `oklch(0.29 0.0055 286)`, não `gray[800]`.** Com surface em
+     0.225 o zinc-800 (L 0.2739) dá ΔL 0.0489 e a **L-009 pede ≥ 0.06** — a borda começa a
+     desaparecer. L 0.29 dá 0.065. Nota: a default do DS dá 0.0395 na mesma conta, ou seja
+     viola mais; vibrant é a 1ª marca que satisfaz a L-009.
+  6. **Rampas geradas com clamp no teto por shade.** A curva de croma da default foi
+     preservada em forma e escalada pelo ratio do 500, clampando cada shade no próprio teto —
+     por isso vários ficam exatamente no limite. 72 shades verificados, nenhum fora do gamut.
+- Verificação (todos contra os valores REAIS dos arquivos, não os planejados): 72 shades
+  in-gamut; `success === brand` confirmado por igualdade estrutural; **10/10 pares `on-*`**
+  ≥ 4.5:1 nos 2 modos; **6/6** pares de texto sobre surface; L-008 e L-009 OK; round-trip
+  OKLCH→sRGB 11/11; contrato de chaves idêntico à default; blue/green/pay byte-idênticos.
+  `tsc` 0, 159 testes.
+- Assumption: os 4 status seguem sendo consumidos SÓ no shade `[500]` (medido nos 5 arquivos
+  semantic × 5 marcas). Se algum componente passar a ler `danger[600]` etc., os 11 shades
+  restantes de cada rampa nunca foram olhados no olho — só validados em gamut e forma de
+  curva. E: croma no teto do gamut é frágil a mudança de color space — se o DS algum dia
+  emitir P3 ou Rec2020, estes valores deixam de ser "o máximo" e as rampas merecem re-medição.
+- Lições novas: nenhuma L-NNN nova. Fato de arquitetura que vale registrar: **"deixar mais
+  vibrante" não é uma operação de saturação** — em paletas que já vivem perto do teto do sRGB,
+  o único grau de liberdade é L (e, se o hue puder mover, o hue). Medir o teto por hue ANTES
+  de prometer vibração evita prometer o que o color space não entrega (o roxo rendia 0%).
+
 ### [2026-08-03] | DS DEV | Marca "vibrant" (iGreen Vibrant, verde fluorescente #0fff00) — 5ª brand | CONCLUÍDO
 
 - Input: handoff externo em `theme/` (BRIEF.md normativo + tokens.json fonte de verdade +

@@ -2,8 +2,12 @@
  * color-light.ts — Semantic color tokens (light) — BRAND "vibrant" (iGreen Vibrant)
  * Tier 2 de 3: intenção. API pública.
  *
- * Cópia self-contained da default: MESMO contrato de nomes. Todo token que não é
- * da família brand é verbatim da default → diff ZERO no overlay. Só a marca muda.
+ * Cópia self-contained da default: MESMO contrato de nomes.
+ *
+ * Escopo (2ª leva, decidida no gate): brand + STATUS re-medidos + neutra ZINC.
+ * Os valores acromáticos/minerais cravados foram retunados pro hue frio ~286 da
+ * Zinc — sem isso a sidebar quente da default ficava ao lado de neutros frios.
+ * Ver `primitives/color-palette.ts` pra medição de gamut de cada status.
  *
  * ⚠️ 3 desvios da mecânica da default, todos exigidos pelo handoff (`theme/BRIEF.md`):
  *
@@ -27,12 +31,16 @@ import {
 // ─── Background ───────────────────────────────────────────────────────────────
 
 export const bg = {
-  // Surfaces (sólidos) — verbatim da default: esta marca NÃO tinge superfície
+  // Surfaces (sólidos)
   canvas:           white,        // body, página
   surface:          white,        // cards, drawer
   "surface-elevated": white,      // popovers, modais
   "surface-panels": white,        // página de fundo
-  sidebar:          "oklch(0.9516 0.0027 106.45)", // mineral-100 — calidez sidebar (sem primitive equiv)
+  // ⚠️ Sidebar RETUNADA pro hue frio da Zinc. A default usa mineral-100
+  // (hue 106, quente) — mesmo L e mesma croma, só a temperatura muda. Manter o
+  // mineral quente ao lado de neutros Zinc frios criava dois cinzas de
+  // temperatura diferente lado a lado.
+  sidebar:          "oklch(0.9516 0.0027 286.35)", // #efeff1 (era #efefed mineral)
 
   // Backgrounds neutros (sólidos cinza no light)
   subtle:   gray[50],
@@ -53,10 +61,12 @@ export const bg = {
   "danger-hover":        `color-mix(in oklch, ${danger[500]} 90%, black)`,
   "danger-muted-hover":  `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
 
-  success:                success[500],
-  "success-muted":        `color-mix(in oklch, ${success[500]} 14%, transparent)`,
-  "success-hover":        `color-mix(in oklch, ${success[500]} 90%, black)`,
-  "success-muted-hover":  `color-mix(in oklch, ${success[500]} 22%, transparent)`,
+  // success É a marca (alias no primitives) → espelha a família brand shade por
+  // shade, inclusive o hover descendo no ramp em vez de mix com black
+  success:                success[400],
+  "success-muted":        `color-mix(in oklch, ${success[400]} 14%, transparent)`,
+  "success-hover":        success[500],
+  "success-muted-hover":  `color-mix(in oklch, ${success[400]} 22%, transparent)`,
 
   warning:                warning[500],
   "warning-muted":        `color-mix(in oklch, ${warning[500]} 14%, transparent)`,
@@ -68,14 +78,14 @@ export const bg = {
   "info-hover":        `color-mix(in oklch, ${info[500]} 90%, black)`,
   "info-muted-hover":  `color-mix(in oklch, ${info[500]} 22%, transparent)`,
 
-  // Hover dos neutros — sólidos cinza no light
-  "muted-hover":  "oklch(0.95 0 0)",
-  "input-hover":  gray[50],           // 0.973 — sutil sobre input=white
-  "accent-hover": "oklch(0.84 0 0)",
+  // Hover dos neutros — retunados pro hue frio (a default usa croma 0)
+  "muted-hover":  "oklch(0.95 0.0020 286)",   // #eeeef0
+  "input-hover":  gray[50],                   // zinc-50 — sutil sobre input=white
+  "accent-hover": "oklch(0.84 0.0055 286)",   // #cacace
 
-  // Sidebar item states — active = branco (contrasta com sidebar mineral-100), hover = mineral subtle
+  // Sidebar item states — active = branco (contrasta com a sidebar), hover = zinc subtle
   "sidebar-accent":       white,
-  "sidebar-accent-hover": "oklch(0.92 0.0068 115.72)",
+  "sidebar-accent-hover": "oklch(0.92 0.0040 286.3)",  // #e4e4e7
 
   // Tabela — sólidos
   "table":            white,
@@ -109,16 +119,20 @@ export const fg = {
 
   // Status
   danger:  danger[500],
-  success: success[500],
+  success: success[800],       // = brand[800] — mesmo shade do fg.brand (6.56:1)
   warning: warning[500],
   info:    info[500],
 
-  // Sobre fundos sólidos (on-*)
-  // ⚠️ on-brand NÃO pode ser white: brand[400] dá 1.37:1. brand[950] → 10.27:1 (§3.1).
+  // Sobre fundos sólidos (on-*) — cada um MEDIDO contra o próprio fundo:
+  //   on-brand   brand-950 sobre #0fff00  10.27:1   (white daria 1.37:1 — §3.1)
+  //   on-success idem: success É a marca, então white também reprovaria
+  //   on-danger  white sobre #e40126       4.82:1   (a default entrega 3.76:1)
+  //   on-warning black sobre #fdb803      12.03:1
+  //   on-info    white sobre #9202fd       5.75:1   (roxo pica escuro em sRGB)
   "on-brand":   brand[950],
   "on-danger":  white,
-  "on-success": white,
-  "on-warning": black,         // amarelo claro → preto pra contraste
+  "on-success": success[950],
+  "on-warning": black,
   "on-info":    white,
 } as const;
 
@@ -128,7 +142,7 @@ export const border = {
   default: gray[200],          // borda padrão
   subtle:  gray[150],          // dividers, controles
   input:   gray[300],          // inputs / fields
-  sidebar: "oklch(0.9076 0.0068 115.72)", // mineral-200
+  sidebar: "oklch(0.9076 0.0045 286.3)", // #e0e0e3 — retunada pro hue frio (era mineral-200)
 
   // ⚠️ DESVIO MEDIDO do §3.3 ("borda = um shade acima do fundo", que daria 500).
   // No DS `border-border-brand` tem 2 papéis, e o dominante NÃO é delinear
@@ -143,7 +157,7 @@ export const border = {
   "brand-subtle":  `color-mix(in oklch, ${brand[400]} 36%, transparent)`,
 
   "danger-muted":  `color-mix(in oklch, ${danger[500]} 36%, transparent)`,
-  "success-muted": `color-mix(in oklch, ${success[500]} 36%, transparent)`,
+  "success-muted": `color-mix(in oklch, ${success[400]} 36%, transparent)`,  // ancora no 400 (= brand)
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
@@ -168,7 +182,8 @@ export const ring = {
 
 export const overlay = {
   scrim: "oklch(0 0 0 / 0.55)",
-  float: "oklch(0.55 0 0 / 0.12)",
+  // Retunado: zinc-500 com alpha, em vez do cinza croma-zero da default
+  float: "oklch(0.5517 0.0138 285.94 / 0.12)",
 } as const;
 
 // ─── Chart (paleta categórica — marca + harmônicas) ───────────────────────────
