@@ -153,7 +153,9 @@ export const fg = {
 // MESMA borda soma muito mais peso na tela.
 // ⚠️ `input` NÃO foi suavizado: é fronteira de campo, não separador.
 export const border = {
-  default: "oklch(0.345 0.0119 285.81)",  // #38383f (era gray[700] #3f3f46)
+  // 2ª rodada: ainda estava forte. Força 0.1347 → 0.1097 (-19%). Continua bem acima
+  // do piso de 0.06 da L-009, e claramente separada da `subtle` (0.0487).
+  default: "oklch(0.320 0.0110 285.81)",  // #323238 (era #38383f, antes gray[700] #3f3f46)
   subtle:  "oklch(0.259 0.0055 286.03)",  // #232326 (era gray[800] #27272a)
   input:   gray[700],                     // #3f3f46 — intocado
   sidebar: "oklch(0.259 0.0055 286.03)",

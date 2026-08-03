@@ -157,11 +157,21 @@ export const fg = {
 // muito mais densa em divisórias (tabela, painel, sidebar), então a mesma borda pesa mais.
 // ⚠️ `input` NÃO foi suavizado de propósito: é fronteira de campo de formulário, não
 // separador — precisa ser achável (e já está em 2.3:1, abaixo do 3:1 de SC 1.4.11).
+// 2ª rodada de ajuste (mantenedor, olhando o app finance): `default` estava forte
+// ainda e `sidebar` fraco demais. Enfraquecendo um e reforçando o outro, os dois
+// convergiram no MESMO valor — o que faz sentido: ambos são separador estrutural.
+//   default  força 0.1080 → 0.0940   (-13%)
+//   sidebar  força 0.0790 → 0.0940   (+19%)
+// ⚠️ O pedido incluía "deixar a default na mesma intensidade da borda dos inputs",
+// mas a medição contradiz: `input` está em 2.56:1 contra o branco e a `default` em
+// 1.38:1 — o input já é ~85% MAIS forte, então igualar deixaria a default bem mais
+// forte, o oposto do pedido. Provável efeito de comprimento de linha (1px num campo
+// pequeno pesa menos que 1px atravessando a tabela). Mantido só o enfraquecimento.
 export const border = {
-  default: "oklch(0.892 0.0050 286.3)",  // #dbdbdf (era gray[300] #d4d4d8)
-  subtle:  "oklch(0.9325 0.0035 286.3)", // #e8e8eb (era gray[200] #e4e4e7)
-  input:   gray[400],          // #a1a1aa — inputs / fields, intocado
-  sidebar: "oklch(0.921 0.0040 286.3)",  // #e5e5e8 (era #e0e0e3)
+  default: "oklch(0.906 0.0045 286.3)",  // #dfdfe3
+  subtle:  "oklch(0.9325 0.0035 286.3)", // #e8e8eb — dividers finos
+  input:   gray[400],                    // #a1a1aa — fronteira de campo, intocada
+  sidebar: "oklch(0.906 0.0045 286.3)",  // #dfdfe3 — mesmo peso da default
 
   // Mesmo shade do `bg.brand` e do `fg.brand` no light — um único verde de marca.
   // O papel dominante de `border-border-brand` aqui é ser a ÚNICA fronteira sobre

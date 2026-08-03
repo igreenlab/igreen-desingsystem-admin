@@ -58,10 +58,10 @@
   --color-fg-success: oklch(0.4645 0.1539 142.59);
   --color-fg-warning: oklch(0.825 0.170 81);
   --color-fg-info: oklch(0.55 0.293 300);
-  --color-border-default: oklch(0.892 0.0050 286.3);
+  --color-border-default: oklch(0.906 0.0045 286.3);
   --color-border-subtle: oklch(0.9325 0.0035 286.3);
   --color-border-input: oklch(0.7118 0.0129 286.07);
-  --color-border-sidebar: oklch(0.921 0.0040 286.3);
+  --color-border-sidebar: oklch(0.906 0.0045 286.3);
   --color-border-brand: oklch(0.4645 0.1539 142.59);
   --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
   --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
@@ -126,7 +126,7 @@
   --color-fg-info: oklch(0.55 0.293 300);
   --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
   --color-fg-on-success: oklch(0.2820 0.0929 143.47);
-  --color-border-default: oklch(0.345 0.0119 285.81);
+  --color-border-default: oklch(0.320 0.0110 285.81);
   --color-border-subtle: oklch(0.259 0.0055 286.03);
   --color-border-input: oklch(0.3703 0.0119 285.81);
   --color-border-sidebar: oklch(0.259 0.0055 286.03);
