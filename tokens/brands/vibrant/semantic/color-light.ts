@@ -42,7 +42,7 @@ export const bg = {
   // (hue 106, quente) — mesmo L e mesma croma, só a temperatura muda. Manter o
   // mineral quente ao lado de neutros Zinc frios criava dois cinzas de
   // temperatura diferente lado a lado.
-  sidebar:          "oklch(0.9516 0.0027 286.35)", // #efeff1 (era #efefed mineral)
+  sidebar:          "oklch(0.9516 0.0014 286.35)", // #efeff1 (era #efefed mineral)
 
   // Backgrounds neutros (sólidos cinza no light)
   subtle:   gray[50],            // #fafafa
@@ -86,13 +86,13 @@ export const bg = {
   "info-muted-hover":  `color-mix(in oklch, ${info[500]} 22%, transparent)`,
 
   // Hover dos neutros — retunados pro hue frio (a default usa croma 0)
-  "muted-hover":  "oklch(0.95 0.0020 286)",   // #eeeef0
+  "muted-hover":  "oklch(0.95 0.0010 286)",   // #eeeef0
   "input-hover":  gray[50],                   // zinc-50 — sutil sobre input=white
-  "accent-hover": "oklch(0.84 0.0055 286)",   // #cacace
+  "accent-hover": "oklch(0.84 0.0028 286)",   // #cacace
 
   // Sidebar item states — active = branco (contrasta com a sidebar), hover = zinc subtle
   "sidebar-accent":       white,
-  "sidebar-accent-hover": "oklch(0.92 0.0040 286.3)",  // #e4e4e7
+  "sidebar-accent-hover": "oklch(0.92 0.0020 286.3)",  // #e4e4e7
 
   // Tabela — sólidos
   "table":            white,
@@ -175,10 +175,10 @@ export const fg = {
 // forte, o oposto do pedido. Provável efeito de comprimento de linha (1px num campo
 // pequeno pesa menos que 1px atravessando a tabela). Mantido só o enfraquecimento.
 export const border = {
-  default: "oklch(0.906 0.0045 286.3)",  // #dfdfe3
-  subtle:  "oklch(0.9325 0.0035 286.3)", // #e8e8eb — dividers finos
+  default: "oklch(0.906 0.0023 286.3)",  // #dfdfe3
+  subtle:  "oklch(0.9325 0.0018 286.3)", // #e8e8eb — dividers finos
   input:   gray[400],                    // #a1a1aa — fronteira de campo, intocada
-  sidebar: "oklch(0.906 0.0045 286.3)",  // #dfdfe3 — mesmo peso da default
+  sidebar: "oklch(0.906 0.0023 286.3)",  // #dfdfe3 — mesmo peso da default
 
   // Mesmo shade do `bg.brand` e do `fg.brand` no light — um único verde de marca.
   // O papel dominante de `border-border-brand` aqui é ser a ÚNICA fronteira sobre
@@ -195,7 +195,7 @@ export const border = {
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: "oklch(0.9325 0.0035 286.3)",   // #e8e8eb
+  table: "oklch(0.9325 0.0018 286.3)",   // #e8e8eb
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────
@@ -216,7 +216,7 @@ export const ring = {
 export const overlay = {
   scrim: "oklch(0 0 0 / 0.55)",
   // Retunado: zinc-500 com alpha, em vez do cinza croma-zero da default
-  float: "oklch(0.5517 0.0138 285.94 / 0.12)",
+  float: "oklch(0.5517 0.0069 285.94 / 0.12)",
 } as const;
 
 // ─── Chart (paleta categórica — marca + harmônicas) ───────────────────────────

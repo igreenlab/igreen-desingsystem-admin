@@ -58,19 +58,32 @@ export const brandContrast = brand;
 // ⚠️ A Zinc tem 11 posições e o nosso contrato usa `gray[150]` (border.subtle e
 // border.table). O 150 é INTERPOLADO entre 100 e 200 — é o único valor deste
 // arquivo que não vem do handoff.
+// ⚠️ CROMA CORTADO À METADE do Zinc original (ajuste do mantenedor: "os tons de azul
+// ficaram bons porém no geral as cores ficaram mais cansativas, não tão suavizadas
+// como na brand atual"). O L e o hue de cada shade seguem intactos — só a saturação
+// cai 50%. Comparando o 700, que é onde o Zinc satura mais:
+//   Zinc cru   #3f3f46   (croma 0.0119)
+//   aqui       #3f3f43   (croma 0.0060)
+//   iGreen     #404040   (croma 0)
+// Por que NÃO puxar a neutra pro verde da brand (hue 142) pra "combinar": azul-violeta
+// é COMPLEMENTAR ao verde neon, e é isso que faz a marca saltar contra o fundo. Neutra
+// esverdeada achataria o contraste de matiz e o neon perderia presença. O que cansa a
+// vista não é a direção do hue, é a quantidade de croma — então cortamos a quantidade
+// e preservamos a direção. Fica um meio-termo: ainda lê frio, mas perto do repouso da
+// escala cinza da iGreen padrão.
 export const gray = {
-  50:  "oklch(0.9851 0 0)",           // #fafafa (acromático no handoff)
-  100: "oklch(0.9674 0.0013 286.38)", // #f4f4f5
-  150: "oklch(0.9436 0.0027 286.35)", // #ececee — INTERPOLADO (100↔200), não é do handoff
-  200: "oklch(0.9197 0.0040 286.32)", // #e4e4e7
-  300: "oklch(0.8711 0.0055 286.29)", // #d4d4d8
-  400: "oklch(0.7118 0.0129 286.07)", // #a1a1aa
-  500: "oklch(0.5517 0.0138 285.94)", // #71717a — fg.muted: 4.83:1 no branco
-  600: "oklch(0.4419 0.0146 285.79)", // #52525b
-  700: "oklch(0.3703 0.0119 285.81)", // #3f3f46
-  800: "oklch(0.2739 0.0055 286.03)", // #27272a
-  900: "oklch(0.2103 0.0059 285.89)", // #18181b — bg.canvas no dark
-  950: "oklch(0.1652 0.0062 285.70)", // #0e0e11 — near-black do handoff
+  50:  "oklch(0.9851 0 0)",            // #fafafa (já era acromático no handoff)
+  100: "oklch(0.9674 0.0007 286.38)",  // #f4f4f5
+  150: "oklch(0.9436 0.0014 286.35)",  // INTERPOLADO (100↔200), não é do handoff
+  200: "oklch(0.9197 0.0020 286.32)",
+  300: "oklch(0.8711 0.0028 286.29)",
+  400: "oklch(0.7118 0.0065 286.07)",  // #a1a1a6 — fg.muted no dark
+  500: "oklch(0.5517 0.0069 285.94)",  // #717176 — fg.muted no light, 4.83:1 no branco
+  600: "oklch(0.4419 0.0073 285.79)",
+  700: "oklch(0.3703 0.0060 285.81)",  // #3f3f43
+  800: "oklch(0.2739 0.0028 286.03)",
+  900: "oklch(0.2103 0.0030 285.89)",  // bg.surface no dark
+  950: "oklch(0.1652 0.0031 285.70)",  // bg.canvas no dark (near-black do handoff)
 } as const;
 
 /* ── STATUS ────────────────────────────────────────────────────────────────────

@@ -57,31 +57,31 @@ export const bg = {
 
   // Brand — o neon é a identidade nos DOIS modos (não há variante mais clara)
   brand:            brandContrast[400],
-  "brand-subtle":   `color-mix(in oklch, ${brandContrast[400]} 14%, transparent)`,
+  "brand-subtle":   `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
   "brand-hover":    brandContrast[500],
-  "brand-subtle-hover": `color-mix(in oklch, ${brandContrast[400]} 22%, transparent)`,
+  "brand-subtle-hover": `color-mix(in oklch, ${brandContrast[400]} 16%, transparent)`,
 
   // Status (sólido + muted alpha — ×4 cores) — verbatim da default
   danger:                danger[500],
-  "danger-muted":        `color-mix(in oklch, ${danger[500]} 14%, transparent)`,
+  "danger-muted":        `color-mix(in oklch, ${danger[500]} 10%, transparent)`,
   "danger-hover":        `color-mix(in oklch, ${danger[500]} 90%, white)`,
-  "danger-muted-hover":  `color-mix(in oklch, ${danger[500]} 22%, transparent)`,
+  "danger-muted-hover":  `color-mix(in oklch, ${danger[500]} 16%, transparent)`,
 
   // success É a marca (alias no primitives) → espelha a família brand
   success:                success[400],
-  "success-muted":        `color-mix(in oklch, ${success[400]} 14%, transparent)`,
+  "success-muted":        `color-mix(in oklch, ${success[400]} 10%, transparent)`,
   "success-hover":        success[500],
-  "success-muted-hover":  `color-mix(in oklch, ${success[400]} 22%, transparent)`,
+  "success-muted-hover":  `color-mix(in oklch, ${success[400]} 16%, transparent)`,
 
   warning:                warning[500],
-  "warning-muted":        `color-mix(in oklch, ${warning[500]} 14%, transparent)`,
+  "warning-muted":        `color-mix(in oklch, ${warning[500]} 10%, transparent)`,
   "warning-hover":        `color-mix(in oklch, ${warning[500]} 90%, white)`,
-  "warning-muted-hover":  `color-mix(in oklch, ${warning[500]} 22%, transparent)`,
+  "warning-muted-hover":  `color-mix(in oklch, ${warning[500]} 16%, transparent)`,
 
   info:                info[500],
-  "info-muted":        `color-mix(in oklch, ${info[500]} 14%, transparent)`,
+  "info-muted":        `color-mix(in oklch, ${info[500]} 10%, transparent)`,
   "info-hover":        `color-mix(in oklch, ${info[500]} 90%, white)`,
-  "info-muted-hover":  `color-mix(in oklch, ${info[500]} 22%, transparent)`,
+  "info-muted-hover":  `color-mix(in oklch, ${info[500]} 16%, transparent)`,
 
   // Hover dos neutros — alphas sobem 1 tier
   "muted-hover":  "oklch(1 0 0 / 0.08)",
@@ -99,7 +99,7 @@ export const bg = {
   // Linha selecionada — alpha 10%; hover sobe pra 14%
   // (no dark precisa de alpha levemente maior pra ficar visível sobre surface escuro)
   "table-row-selected":       `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
-  "table-row-selected-hover": `color-mix(in oklch, ${brandContrast[400]} 14%, transparent)`,
+  "table-row-selected-hover": `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
   // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
   // de trás. Mix em SRGB (não oklch): misturar em oklch com o bg achromático
   // (hue 0) contamina o hue → tinge de vermelho.
@@ -131,11 +131,25 @@ export const fg = {
   // Brand — o neon puro; sobre surface escuro o contraste é altíssimo
   brand: brandContrast[400],
 
-  // Status
-  danger:  danger[500],
+  // Status como TEXTO — ⚠️ NÃO usam o [500] como a default do DS usa, e a razão é
+  // consequência direta da 2ª leva: pra maximizar croma eu DESCI o L do danger
+  // (0.6368 → 0.58) e do info (0.62 → 0.55). Isso funciona pro fundo sólido, mas
+  // como TEXTO sobre surface escura os dois ficaram escuros demais. Medido no
+  // badge real da tabela (texto sobre o próprio tint):
+  //   danger[500] #e50026 → 3.68:1 na surface / 3.42:1 no tint  ✗ AA
+  //   info[500]   #9202fd → 3.08:1 na surface / 2.88:1 no tint  ✗ AA
+  //   danger[400] #ff5352 → 5.58:1 na surface / 5.35:1 no tint  ✓
+  //   info[400]   #a35bff → 4.64:1 na surface / 4.44:1 no tint  ✗ por 0.06
+  //   info[300]   #b688ff → 6.71:1 na surface / 6.35:1 no tint  ✓
+  // O roxo precisou de 2 shades porque é o hue que pica mais ESCURO no sRGB — o
+  // mesmo motivo pelo qual ele é o único status com texto branco no fundo sólido.
+  // É o mesmo mecanismo que a default resolve pro brand com `brandContrast`: no
+  // dark, cor de texto precisa de shade mais claro. warning[500] (L 0.825) e
+  // success[400] (o neón) já eram claros e ficam como estão.
+  danger:  danger[400],        // #ff5352
   success: success[400],       // = brand[400] — o neón, igual ao fg.brand
-  warning: warning[500],
-  info:    info[500],
+  warning: warning[500],       // #fdb803 — já é claro (L 0.825)
+  info:    info[300],          // #b688ff
 
   // Sobre fundos sólidos (on-*) — mesmos pares medidos do light: os fundos de
   // status são iguais nos 2 modos, então o texto em cima também.
@@ -169,13 +183,13 @@ export const border = {
   // Piso da L-009 (borda dark ≥ surface + 0.06) = L 0.2703 / #26262c. Ainda sobra
   // margem se precisar de mais uma volta; abaixo disso a borda some no escuro.
   // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
-  default: "oklch(0.290 0.0100 285.81)",  // #2b2b31
-  subtle:  "oklch(0.259 0.0055 286.03)",  // #232326 (era gray[800] #27272a)
+  default: "oklch(0.290 0.0050 285.81)",  // #2b2b31
+  subtle:  "oklch(0.259 0.0028 286.03)",  // #232326 (era gray[800] #27272a)
   // Suavizada também (força 0.1600 → 0.1150, -28%). Segue mais forte que a
   // `default` (0.0797) porque é fronteira de campo e precisa ser achável — a
   // default do DS usa branco 8% aqui, que compõe ainda mais fraco que isto.
-  input:   "oklch(0.325 0.0110 285.81)",  // #333339 (era gray[700] #3f3f46)
-  sidebar: "oklch(0.259 0.0055 286.03)",
+  input:   "oklch(0.325 0.0055 285.81)",  // #333339 (era gray[700] #3f3f46)
+  sidebar: "oklch(0.259 0.0028 286.03)",
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
   brand:           brandContrast[500],
@@ -187,7 +201,7 @@ export const border = {
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: "oklch(0.259 0.0055 286.03)",   // #232326
+  table: "oklch(0.259 0.0028 286.03)",   // #232326
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────
