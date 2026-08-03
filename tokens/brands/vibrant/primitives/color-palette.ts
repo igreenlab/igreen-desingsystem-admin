@@ -82,22 +82,39 @@ export const brandContrast = brand;
  * complementar ao verde neon e é isso que faz a marca saltar; neutra esverdeada
  * achataria o contraste de matiz.
  *
- * ⚠️ O 150 é INTERPOLADO (100↔200) — o nosso contrato usa `gray[150]` e a escala de
- * origem tinha 11 posições.
+ * ── Degraus: a rampa reflete o USO, não uma escada Tailwind ───────────────────
+ *
+ * Esta rampa NÃO tenta ser uma progressão regular de 50 a 950. Cada degrau existe
+ * porque a camada semântica o consome, e o consumidor está anotado ao lado. O
+ * critério pra um valor virar degrau é ter **2+ consumidores semânticos** — valor
+ * com 1 consumidor é one-off e fica como literal no arquivo semantic (senão a rampa
+ * infla com degraus que descrevem um token, não uma escala).
+ *
+ * One-offs que ficaram deliberadamente FORA: light `bg.sidebar` (L 0.9516),
+ * `bg.muted-hover` (0.95), `bg.accent-hover` (0.84), `bg.sidebar-accent-hover`
+ * (0.92); dark `border.default` (0.290) e `border.input` (0.325). Todos com 1
+ * consumidor, todos vindos da calibração visual de borda feita com o mantenedor.
+ *
+ * ⚠️ HEADROOM: `300` não tem consumidor hoje. Mantido porque é posição legítima de
+ * escala (era o 300 da Zinc) e as outras 4 marcas têm 12 degraus — o contrato dos
+ * primitives é o mesmo pra todas. Não confundir com degrau morto: se algum dia
+ * ganhar consumidor, ele já está no lugar certo.
  */
 export const gray = {
-  50:  "oklch(0.9851 0 0)",            // #fafafa — acromático
-  100: "oklch(0.9674 0.0007 250)",     // #f4f4f5
-  150: "oklch(0.9436 0.0014 250)",     // INTERPOLADO (100↔200)
-  200: "oklch(0.9197 0.0020 250)",     // #e3e4e6
-  300: "oklch(0.8711 0.0028 250)",     // #d3d5d6
-  400: "oklch(0.7118 0.0060 250)",     // #9fa2a6 — fg.muted no dark
-  500: "oklch(0.5517 0.0062 250)",     // #6f7276 — fg.muted no light, 4.83:1 no branco
-  600: "oklch(0.4419 0.0055 250)",     // #515356 — disabled
-  700: "oklch(0.3703 0.0038 250)",     // #3e4042 — bordas do dark
-  800: "oklch(0.2739 0.0018 250)",     // #272728 — surface-elevated do dark
-  900: "oklch(0.2103 0.0012 250)",     // #181819 — bg.surface do dark (área grande)
-  950: "oklch(0.1652 0.0010 250)",     // #0e0e0f — bg.canvas do dark (área maior)
+  50:  "oklch(0.9851 0 0)",            // acromático  → light bg.subtle, input-hover, table-row-hover
+  100: "oklch(0.9674 0.0007 250)",     //              → light bg.muted/table-head · dark fg.default
+  150: "oklch(0.9325 0.0016 250)",     //              → light border.subtle + border.table  (2 usos)
+  200: "oklch(0.9197 0.0020 250)",     //              → light bg.emphasis
+  250: "oklch(0.906 0.0024 250)",      //              → light border.default + border.sidebar (2 usos)
+  300: "oklch(0.8711 0.0028 250)",     //              → HEADROOM (sem consumidor — ver nota acima)
+  400: "oklch(0.7118 0.0060 250)",     //              → light border.input/fg.subtle/fg.disabled · dark fg.muted
+  500: "oklch(0.5517 0.0062 250)",     //              → light fg.muted (4.83:1 no branco) · dark fg.subtle · ring.secondary
+  600: "oklch(0.4419 0.0055 250)",     //              → dark fg.disabled
+  700: "oklch(0.3703 0.0038 250)",     //              → dark border.input base
+  800: "oklch(0.2739 0.0018 250)",     //              → dark bg.surface-elevated, table-head, table-row-hover
+  850: "oklch(0.259 0.0016 250)",      //              → dark border.subtle + sidebar + table  (3 usos)
+  900: "oklch(0.2103 0.0012 250)",     //              → dark bg.surface/sidebar/table  (ÁREA GRANDE)
+  950: "oklch(0.1652 0.0010 250)",     //              → dark bg.canvas/surface-panels  (ÁREA MAIOR)
 } as const;
 
 /* ── STATUS ────────────────────────────────────────────────────────────────────

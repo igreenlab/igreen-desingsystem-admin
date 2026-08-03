@@ -178,10 +178,10 @@ export const fg = {
 // forte, o oposto do pedido. Provável efeito de comprimento de linha (1px num campo
 // pequeno pesa menos que 1px atravessando a tabela). Mantido só o enfraquecimento.
 export const border = {
-  default: "oklch(0.906 0.0024 250)",  // #dfdfe3
-  subtle:  "oklch(0.9325 0.0016 250)", // #e8e8eb — dividers finos
+  default: gray[250],  // #dfdfe3
+  subtle:  gray[150], // #e8e8eb — dividers finos
   input:   gray[400],                    // fronteira de campo, intocada
-  sidebar: "oklch(0.906 0.0024 250)",  // #dfdfe3 — mesmo peso da default
+  sidebar: gray[250],  // #dfdfe3 — mesmo peso da default
 
   // Mesmo shade do `bg.brand` e do `fg.brand` no light — um único verde de marca.
   // O papel dominante de `border-border-brand` aqui é ser a ÚNICA fronteira sobre
@@ -198,7 +198,7 @@ export const border = {
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: "oklch(0.9325 0.0016 250)",   // #e8e8eb
+  table: gray[150],   // #e8e8eb
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

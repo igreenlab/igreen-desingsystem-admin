@@ -16,14 +16,16 @@
  * pra usar no dark — ao contrário da default, cujo brand (L 0.52) precisa do
  * ramp alternativo. O import mantém a estrutura idêntica à da default.
  *
- * ⚠️ Desvios da default, exigidos pelo handoff (`theme/BRIEF.md`):
- *   1. `fg.on-brand` = brandContrast[950] em vez de `black` — o handoff fixa
- *      brand-950 como o texto de marca em QUALQUER superfície de marca (§3.1/§3.3),
- *      nos dois modos. 10.27:1 contra o brand[400].
- *   2. `bg.brand-hover` = brandContrast[500] em vez de color-mix(brand, black) —
- *      estado desce a luminosidade pelo ramp, nunca sobe croma (§3.2, teto de gamut).
- *   3. `border.brand` = brandContrast[500] (um shade acima do fundo 400) em vez do
- *      próprio 400 — regra de pareamento §3.3, igual ao light.
+ * ⚠️ Desvios da mecânica da default:
+ *   1. `bg.brand-hover` = brandContrast[500] em vez de color-mix(brand, black) —
+ *      estado desce a luminosidade pelo ramp, nunca sobe croma (§3.2 do handoff:
+ *      o 400 está no teto do gamut, saturar mais clipa pra #00ff00).
+ *   2. `border.brand` = brandContrast[500] (um shade acima do fundo 400) — regra de
+ *      pareamento §3.3, igual ao light.
+ *   3. `fg.danger`/`fg.info` NÃO usam o [500] — ver o bloco `fg` (como texto sobre
+ *      surface escura o [500] reprovava AA; foi medido no badge real).
+ *   4. `fg.on-brand`/`on-success` = `black`, não brand[950] como o §3.1 pede — ver
+ *      o bloco `on-*` (irradiação sobre o neon; black é o que a iGreen default usa).
  */
 
 import {
@@ -63,7 +65,10 @@ export const bg = {
   "brand-hover":    brandContrast[500],
   "brand-subtle-hover": `color-mix(in oklch, ${brandContrast[400]} 16%, transparent)`,
 
-  // Status (sólido + muted alpha — ×4 cores) — verbatim da default
+  // Status (sólido + tint alpha — ×4 cores). Os VALORES não são da default: as
+  // rampas foram re-medidas por teto de gamut (ver primitives). O tint caiu de 14%
+  // pra 10% (e o hover de 22% pra 16%) a pedido do mantenedor — "o background podia
+  // ser mais leve, as subtle mais transparentes". Só no dark.
   danger:                danger[500],
   "danger-muted":        `color-mix(in oklch, ${danger[500]} 10%, transparent)`,
   "danger-hover":        `color-mix(in oklch, ${danger[500]} 90%, white)`,
@@ -202,12 +207,12 @@ export const border = {
   // margem se precisar de mais uma volta; abaixo disso a borda some no escuro.
   // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
   default: "oklch(0.290 0.0024 250)",  // #2b2b31
-  subtle:  "oklch(0.259 0.0016 250)",  // #232326 (era gray[800] #27272a)
+  subtle:  gray[850],  // #232326 (era gray[800] #27272a)
   // Suavizada também (força 0.1600 → 0.1150, -28%). Segue mais forte que a
   // `default` (0.0797) porque é fronteira de campo e precisa ser achável — a
   // default do DS usa branco 8% aqui, que compõe ainda mais fraco que isto.
   input:   "oklch(0.325 0.0030 250)",  // #333339 (era gray[700] #3f3f46)
-  sidebar: "oklch(0.259 0.0016 250)",
+  sidebar: gray[850],
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
   brand:           brandContrast[500],
@@ -219,7 +224,7 @@ export const border = {
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: "oklch(0.259 0.0016 250)",   // #232326
+  table: gray[850],   // #232326
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────
