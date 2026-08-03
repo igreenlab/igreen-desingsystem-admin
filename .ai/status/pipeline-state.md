@@ -66,6 +66,43 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Publish v0.31.1 — npm passa a entregar os temas de marca | CONCLUÍDO
+
+- Input: PR #106 mergeado. O gap tinha sido descoberto respondendo uma pergunta do
+  mantenedor ("é possível acessar o theme via npm ou submódulo?") — a resposta honesta
+  exigiu medir o tarball publicado, e a medição mostrou que **não era possível por npm**.
+- Output: `@snksergio/design-system@0.31.1` publicado (965 arquivos, 6.4 MB packed).
+- O que estava quebrado: até a v0.31.0 o pacote levava só `dist-lib/theme.css` (tema-base,
+  0 ocorrência de `data-theme`). Zero `brand-*.css`, e `tokens.mjs` só com valores da
+  `default`. Os `.d.ts` das marcas traziam os valores como **tipo literal** (efeito do
+  `as const`), o que engana na leitura — mas tipo não é valor, e nada era importável em
+  runtime. Valia pras 4 marcas: `blue`/`green`/`pay` nunca chegaram por npm.
+- Verificação de ponta a ponta, **instalando do npm real** (não do tarball local): projeto
+  limpo + `npm install @snksergio/design-system@0.31.1`, e `import.meta.resolve` resolve os
+  **5 subpaths** de tema; os 4 CSS baixados têm **4 blocos `data-theme` cada**. Subpath
+  inexistente devolve `ERR_PACKAGE_PATH_NOT_EXPORTED`. `lib:verify`: 23 entries (era 19).
+- Decisões:
+  1. **Subpaths enumerados um por um, não wildcard `./theme/*`.** O `pack-contract` extrai
+     cada path prometido no `exports` e o `lib-verify` confere no disco — wildcard prometeria
+     nada e passaria sem verificação, que é o próprio modo de falha da L-017.
+  2. **Gate fail-closed no `build:lib`**: o build FALHA se achar `brand-*.css` sem entrada
+     em `exports`. O `lib-verify` checa se o prometido existe; este checa o inverso (arquivo
+     que vai no pacote mas ninguém consegue importar). Validado **reproduzindo o defeito**
+     (L-064) antes de confiar nele.
+  3. O plugin descobre os overlays por leitura de diretório, então marca nova não exige
+     mexer no build — só no `exports`, que é justamente onde o gate cobra.
+- Assumption: o consumidor npm importa o overlay **manualmente** (`@import` + `data-theme`
+  no `<html>`). Não há hook nem componente que faça isso por ele — o `useBrand` mora em
+  `src/hooks` e não é exportado no barrel da lib. Se alguém esperar troca de marca em
+  runtime via npm, esta assumption quebrou e o conserto é exportar o `useBrand`.
+- Débito que segue aberto e documentado (DISTRIBUICAO.md §2.1 nova): **registry/copy-in não
+  entrega overlay** (0 referências a `brand-*.css`). Vale pras 4 marcas. Exige decidir o
+  mecanismo antes — item próprio? parte do `theme`? opt-in? — então é tarefa própria.
+- Lições novas: nenhuma L-NNN nova. O padrão que se repetiu 3× nesta sessão e já está
+  coberto pela L-064 e pela L-066: **artefato de build/distribuição só está verificado
+  quando alguém instala e usa** — `.d.ts` com valor literal, versão bumpada e arquivo
+  presente no tarball, nenhum dos três prova que o consumidor consegue consumir.
+
 ### [2026-08-03] | DS DEV | Publish v0.31.0 (lib) + v0.20.0 (CLI) no npm | CONCLUÍDO
 
 - Input: PRs #103 (marca) e #104 (release) mergeados na `main` pelo mantenedor, que
