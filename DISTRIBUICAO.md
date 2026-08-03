@@ -66,6 +66,45 @@ secundário funcional** — não participa do copy-in, mas é publicado no npm c
 `@snksergio/design-system` por passo manual do mantenedor (ver §4.1). Não
 participa da distribuição.
 
+### 2.1 Temas de marca — que canal entrega o quê
+
+O DS tem 5 marcas (`default` + `blue`/`green`/`pay`/`vibrant`). Cada marca não-default é
+um **overlay** de CSS escopado em `[data-theme="<id>"]`, gerado por
+`npm run tokens:brand:<id>`. **Nem todo canal entrega overlay** — medido no tarball da
+v0.31.0:
+
+| canal | tema-base | overlay de marca |
+|---|:---:|:---:|
+| `npm create @snksergio/design-system` (scaffold) | ✅ | ✅ prompt "Tema de cor?" escolhe e aplica |
+| submódulo (`git pull`) | ✅ | ✅ o repo inteiro está lá |
+| `npm install @snksergio/design-system` | ✅ | ✅ **a partir da v0.31.1** |
+| registry / `igreen:add` (copy-in) | ✅ | ❌ o `registry.json` não referencia `brand-*.css` |
+
+⚠️ **Até a v0.31.0 o npm entregava só o tema-base** — quem consumia por `npm install` não
+tinha como usar marca nenhuma, nem as que existiam há versões. Os `.d.ts` das marcas até
+traziam os valores como *tipo literal* (efeito do `as const`), mas tipo não é valor:
+`tokens.mjs` só carregava a `default`. Corrigido na v0.31.1.
+
+**Uso no consumidor npm:**
+
+```css
+@import "tailwindcss";
+@import "@snksergio/design-system/theme.css";                  /* tema-base, obrigatório */
+@import "@snksergio/design-system/theme/brand-vibrant.css";     /* opcional, 1 por marca */
+```
+```html
+<html data-theme="vibrant">   <!-- combina com .dark livremente -->
+```
+
+Os subpaths são **enumerados um por um** no `exports` do `package.json`, não por wildcard:
+o `pack-contract` extrai cada path prometido e o `lib-verify` confere no disco — um
+`./theme/*` prometeria nada e não seria verificado (modo de falha da L-017). Marca nova
+exige entrada no `exports`, e o **`build:lib` falha** se achar `brand-*.css` sem export
+correspondente (gate no `vite.lib.config.ts`).
+
+O gap do **registry/copy-in segue aberto**: distribuir overlay por lá exige decidir o
+mecanismo (item próprio? parte do `theme`? opt-in?), e vale pras 4 marcas.
+
 ---
 
 ## 3. Pipeline de distribuição (fonte → consumidor)

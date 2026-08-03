@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/design-system",
-  "version": "0.31.0",
+  "version": "0.31.1",
   "//distribuicao": "Canal PRIMARIO = registry shadcn (copy-in) + CLI @snksergio/create-design-system; sobe sozinho no merge (Vercel). Canal SECUNDARIO = este pacote npm (@snksergio/design-system), funcional (build:lib gera ESM+CJS+types+theme.css) e publicado por passo MANUAL do mantenedor, entao costuma ficar atras do registry. NAO e depreciado — o texto anterior dizia isso e estava errado. Publish so pelo Passo 7 do .claude/skills/ds-dev/release.md (valida com `npm run lib:verify`, pede o token, publica, revoga). Ver DISTRIBUICAO.md.",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "license": "UNLICENSED",
@@ -12,6 +12,7 @@
     "dist-lib/index.*",
     "dist-lib/tokens.*",
     "dist-lib/theme.css",
+    "dist-lib/theme/**",
     "dist-lib/preview/**",
     "dist-lib/chunks/**",
     "dist-lib/src/**",
@@ -29,6 +30,7 @@
     "url": "https://github.com/igreenlab/igreen-desingsystem-admin/issues"
   },
   "homepage": "https://github.com/igreenlab/igreen-desingsystem-admin#readme",
+  "//exports-theme-marcas": "Os overlays de marca (./theme/brand-*.css) são enumerados um por um DE PROPÓSITO, não por wildcard: o pack-contract extrai cada path prometido no exports e o lib-verify confere no disco — um './theme/*' prometeria nada e não seria verificado, que é justo o modo de falha da L-017. Marca nova exige entrada aqui, e o build:lib FALHA se achar brand-*.css sem export correspondente (gate no vite.lib.config.ts). Nunca colocar chave de comentário DENTRO de exports: lá toda chave é subpath e o Node/pack-contract tentam resolvê-la.",
   "exports": {
     ".": {
       "types": "./dist-lib/index.d.ts",
@@ -36,6 +38,10 @@
       "require": "./dist-lib/index.cjs"
     },
     "./theme.css": "./dist-lib/theme.css",
+    "./theme/brand-blue.css": "./dist-lib/theme/brand-blue.css",
+    "./theme/brand-green.css": "./dist-lib/theme/brand-green.css",
+    "./theme/brand-pay.css": "./dist-lib/theme/brand-pay.css",
+    "./theme/brand-vibrant.css": "./dist-lib/theme/brand-vibrant.css",
     "./tokens": {
       "types": "./dist-lib/tokens.d.ts",
       "import": "./dist-lib/tokens.mjs",

@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.31.1",
+    date: "2026-08-03",
+    tag: "patch",
+    title: "O pacote npm passa a entregar os temas de marca — antes só o CLI entregava",
+    summary:
+      "Quem consumia o DS por `npm install` **não tinha como usar marca nenhuma** — nem `blue`/`green`/`pay`, que existiam há versões. O tarball levava só `theme.css`, o tema-base: zero `brand-*.css`, e `tokens.mjs` só com os valores da `default`. Os `.d.ts` das marcas até traziam os valores como *tipo literal* (efeito do `as const`), mas tipo não é valor — ninguém conseguia importar em runtime. O único canal que entregava tema era o scaffold do CLI. Agora o `build:lib` copia os overlays pra `dist-lib/theme/` e eles são exportados como subpath.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`@snksergio/design-system/theme/brand-<id>.css`** — os 4 overlays de marca agora vão no pacote npm e são importáveis por subpath. Uso: `@import \"@snksergio/design-system/theme/brand-vibrant.css\"` + `data-theme=\"vibrant\"` no `<html>`, combinando livremente com `.dark`. Verificado num projeto consumidor real: `import.meta.resolve` resolve os 4, e um subpath inexistente devolve `ERR_PACKAGE_PATH_NOT_EXPORTED` como deveria.",
+          "**Gate fail-closed no `build:lib`** — o build **falha** se existir um `brand-*.css` sem entrada correspondente em `exports`. Sem isso, o pacote levaria o arquivo mas o consumidor não teria como importá-lo: exatamente a falha silenciosa da L-017. O gate foi validado reproduzindo o defeito (removi um export de propósito e confirmei que o build reprova).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "Os subpaths de tema são **enumerados um por um** no `exports`, não por wildcard `./theme/*`. O `pack-contract` extrai cada path prometido e o `lib-verify` confere no disco — um wildcard prometeria nada e passaria sem verificação. Contrato do pacote subiu de 19 pra 23 entries.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.31.0",
     date: "2026-08-03",
     tag: "preview",
