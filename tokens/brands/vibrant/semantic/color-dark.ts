@@ -4,9 +4,12 @@
  *
  * Mesmo contrato de nomes que color-light.ts.
  *
- * Escopo (2ª leva, decidida no gate): brand + STATUS re-medidos + neutra ZINC.
- * As surfaces do dark saíram do croma zero pro hue frio ~286 da Zinc; o canvas é
- * o near-black #18181b (zinc-900) e o handoff ancora em #0e0e11 (zinc-950).
+ * Escopo: brand + STATUS re-medidos + neutra própria "graphite".
+ *
+ * ⚠️ A neutra NÃO é mais a Zinc do handoff — é desenhada pra esta marca (hue 250,
+ * croma redistribuído por área de tela). Os shades vêm todos da rampa; os hex
+ * ficam SÓ em `primitives/color-palette.ts`, que é a fonte única. Não duplicar hex
+ * aqui: eles dessincronizam calado quando a rampa muda (já aconteceu).
  *
  * `brandContrast` aqui é ALIAS do próprio `brand` (ver primitives): o neon já
  * está em L 0.867, no teto do gamut sRGB, então não existe variante mais clara
@@ -31,16 +34,15 @@ import {
 // ─── Background ───────────────────────────────────────────────────────────────
 
 export const bg = {
-  // Surfaces sólidas — mapeamento MEDIDO do site de referência via DevTools
-  // (uicolors.app/generate/0fff00), que bate com `semanticExample.dark` do
-  // tokens.json: canvas = zinc-950, surface = zinc-900, elevated = zinc-800.
-  //   html         rgb(14,14,17)  = #0e0e11 = zinc-950
-  //   card (×60)   rgb(24,24,27)  = #18181b = zinc-900
-  // Hierarquia L-008: canvas 0.1652 < surface 0.2103 < muted. Nenhum valor
-  // custom aqui — todos vêm da rampa (era o erro anterior: surface #1b1b1e).
-  canvas:           gray[950],   // #0e0e11
-  surface:          gray[900],   // #18181b — cards, drawer
-  "surface-elevated": gray[800], // #27272a — popovers, modais
+  // A ATRIBUIÇÃO de shade por papel (950 canvas / 900 surface / 800 elevated) veio
+  // do site de referência, medida via DevTools (`getComputedStyle` em todos os
+  // elementos, por frequência): html rgb(14,14,17) e card rgb(24,24,27) ×60. Essa
+  // escada de L continua valendo — o que mudou depois foi a rampa por baixo, que
+  // saiu da Zinc pra neutra própria. Hierarquia L-008: 0.1652 < 0.2103 < muted.
+  // Nenhum valor custom aqui: todos vêm da rampa.
+  canvas:           gray[950],
+  surface:          gray[900],   // cards, drawer
+  "surface-elevated": gray[800], // popovers, modais
   "surface-panels": gray[950],   // = canvas
   sidebar:          gray[900],
 
@@ -92,14 +94,17 @@ export const bg = {
   "sidebar-accent":       "oklch(1 0 0 / 0.08)",
   "sidebar-accent-hover": "oklch(1 0 0 / 0.12)",
 
-  // Tabela — sólidos pra suportar sticky columns sem vazamento (rampa Zinc)
-  "table":            gray[900],   // #18181b — mesmo bg-surface
-  "table-head":       gray[800],   // #27272a — head sticky
+  // Tabela — sólidos pra suportar sticky columns sem vazamento (todos da rampa)
+  "table":            gray[900],   // mesmo bg-surface
+  "table-head":       gray[800],   // head sticky
   "table-row-hover":  gray[800],
   // Linha selecionada — alpha 10%; hover sobe pra 14%
-  // (no dark precisa de alpha levemente maior pra ficar visível sobre surface escuro)
+  // ⚠️ NÃO baixar o hover pra 10% junto com os tints de status: aqui o 14% é o que
+  // diferencia hover de repouso. Um replace em massa de "14% → 10%" já igualou os
+  // dois uma vez, matando o feedback de hover da linha selecionada (e deixando a
+  // versão -solid em 14%, incoerente com a transparente).
   "table-row-selected":       `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
-  "table-row-selected-hover": `color-mix(in oklch, ${brandContrast[400]} 10%, transparent)`,
+  "table-row-selected-hover": `color-mix(in oklch, ${brandContrast[400]} 14%, transparent)`,
   // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
   // de trás. Mix em SRGB (não oklch): misturar em oklch com o bg achromático
   // (hue 0) contamina o hue → tinge de vermelho.
@@ -120,13 +125,13 @@ export const fg = {
   // 1.34:1 é praticamente nenhuma diferença de peso — o subtítulo lê igual ao título.
   // O handoff é showcase de cards (sem par título/subtítulo); a nossa UI é tabela
   // densa, onde a hierarquia de peso É a informação. Descendo um shade em cada,
-  // a separação volta ao patamar da default e `muted` ainda dá 6.70:1 na surface.
+  // a separação volta ao patamar da default e `muted` ainda dá 6.92:1 na surface.
   // `default`/`strong` seguem o mapeamento medido (#ffffff ×1747, zinc-100 ×319).
   strong:  white,      // 100% — títulos
-  default: gray[100],  // #f4f4f5 — texto padrão
-  muted:   gray[400],  // #a1a1aa — labels, helpers, subtítulo de célula
-  subtle:  gray[500],  // #71717a — placeholders
-  disabled: gray[600], // #52525b
+  default: gray[100],  // texto padrão
+  muted:   gray[400],  // labels, helpers, subtítulo de célula
+  subtle:  gray[500],  // placeholders
+  disabled: gray[600],
 
   // Brand — o neon puro; sobre surface escuro o contraste é altíssimo
   brand: brandContrast[400],
@@ -183,13 +188,13 @@ export const border = {
   // Piso da L-009 (borda dark ≥ surface + 0.06) = L 0.2703 / #26262c. Ainda sobra
   // margem se precisar de mais uma volta; abaixo disso a borda some no escuro.
   // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
-  default: "oklch(0.290 0.0050 285.81)",  // #2b2b31
-  subtle:  "oklch(0.259 0.0028 286.03)",  // #232326 (era gray[800] #27272a)
+  default: "oklch(0.290 0.0024 250)",  // #2b2b31
+  subtle:  "oklch(0.259 0.0016 250)",  // #232326 (era gray[800] #27272a)
   // Suavizada também (força 0.1600 → 0.1150, -28%). Segue mais forte que a
   // `default` (0.0797) porque é fronteira de campo e precisa ser achável — a
   // default do DS usa branco 8% aqui, que compõe ainda mais fraco que isto.
-  input:   "oklch(0.325 0.0055 285.81)",  // #333339 (era gray[700] #3f3f46)
-  sidebar: "oklch(0.259 0.0028 286.03)",
+  input:   "oklch(0.325 0.0030 250)",  // #333339 (era gray[700] #3f3f46)
+  sidebar: "oklch(0.259 0.0016 250)",
 
   // Um shade acima do fundo brand[400] — regra de pareamento §3.3, igual ao light
   brand:           brandContrast[500],
@@ -201,7 +206,7 @@ export const border = {
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
   // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: "oklch(0.259 0.0028 286.03)",   // #232326
+  table: "oklch(0.259 0.0016 250)",   // #232326
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

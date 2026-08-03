@@ -44,46 +44,60 @@ export const brand = {
 // contrato dos primitives idêntico ao das outras 4 marcas.
 export const brandContrast = brand;
 
-// ─── Gray — neutra ZINC do handoff (fria, croma 0.001–0.015 em hue ~286) ──────
-// Vem de `theme/tokens.json` → `color.neutral.*`, convertida do hex realmente
-// aplicado no preview do uicolors.
-//
-// O §4.1 do BRIEF recomendava NÃO importar, com o argumento de que "muda a
-// temperatura da UI inteira, em todas as brands". Esse argumento assume DS de
-// marca única: aqui `gray` é POR MARCA, então a Zinc entra escopada no
-// [data-theme="vibrant"] e as outras 4 marcas continuam em croma zero. Decisão
-// do mantenedor no gate — o near-black frio (#0e0e11) sob o verde neón é a
-// linguagem do próprio handoff.
-//
-// ⚠️ A Zinc tem 11 posições e o nosso contrato usa `gray[150]` (border.subtle e
-// border.table). O 150 é INTERPOLADO entre 100 e 200 — é o único valor deste
-// arquivo que não vem do handoff.
-// ⚠️ CROMA CORTADO À METADE do Zinc original (ajuste do mantenedor: "os tons de azul
-// ficaram bons porém no geral as cores ficaram mais cansativas, não tão suavizadas
-// como na brand atual"). O L e o hue de cada shade seguem intactos — só a saturação
-// cai 50%. Comparando o 700, que é onde o Zinc satura mais:
-//   Zinc cru   #3f3f46   (croma 0.0119)
-//   aqui       #3f3f43   (croma 0.0060)
-//   iGreen     #404040   (croma 0)
-// Por que NÃO puxar a neutra pro verde da brand (hue 142) pra "combinar": azul-violeta
-// é COMPLEMENTAR ao verde neon, e é isso que faz a marca saltar contra o fundo. Neutra
-// esverdeada achataria o contraste de matiz e o neon perderia presença. O que cansa a
-// vista não é a direção do hue, é a quantidade de croma — então cortamos a quantidade
-// e preservamos a direção. Fica um meio-termo: ainda lê frio, mas perto do repouso da
-// escala cinza da iGreen padrão.
+/* ── Gray — neutra "graphite", desenhada pra esta marca ───────────────────────
+ *
+ * Histórico, porque a rampa mudou 3 vezes e o "por quê" de cada etapa importa:
+ *   1. Zinc crua do handoff (`theme/tokens.json` → `color.neutral.*`), croma
+ *      0.0013–0.0146 em hue ~286. O §4.1 do BRIEF recomendava não importar
+ *      ("muda a temperatura da UI inteira, em todas as brands") — argumento que
+ *      assume DS de marca única e não se aplica aqui, porque `gray` é POR MARCA:
+ *      a neutra entra escopada no [data-theme="vibrant"] e as outras 4 seguem em
+ *      croma zero.
+ *   2. Zinc com 50% do croma — o mantenedor achou "os tons de azul bons, mas as
+ *      cores no geral mais cansativas, não tão suavizadas como na brand atual".
+ *   3. Esta: sai da Zinc de vez. Duas decisões, nesta ordem de importância:
+ *
+ * 1. CROMA REDISTRIBUÍDO POR ÁREA DE TELA. Antes o croma era ~uniforme na rampa,
+ *    então `canvas` e `surface` — que cobrem ~80% da tela — carregavam a mesma
+ *    saturação que uma borda de 1px. Fadiga visual é função de ÁREA: cor fraca num
+ *    campo enorme cansa mais que cor média num traço fino. Então o croma vai a
+ *    quase zero nas superfícies profundas e fica preservado nos meios-tons:
+ *      950 canvas    0.0031 → 0.0010   (-68%)
+ *      900 surface   0.0030 → 0.0012   (-60%)
+ *      800 elevated  0.0028 → 0.0018   (-36%)
+ *      700 bordas    0.0060 → 0.0038   (-37%)
+ *      500/400 texto 0.0069 → 0.0062   (quase intacto — área pequena, o matiz aqui
+ *                                       lê como refino, não como cast)
+ *    Resultado: o fundo descansa como um preto neutro (igual à iGreen padrão) e a
+ *    frieza só aparece onde há informação.
+ *
+ * 2. HUE 286 → 250. Sai do violeta-acinzentado da Zinc pro azul-aço. Mesma família
+ *    fria, mas 286 a baixa croma lê como "cinza arroxeado" — é esse cast que o olho
+ *    identifica como sujo; 250 lê como cinza frio limpo.
+ *
+ * A escada de L está INTOCADA de propósito: foi calibrada em todas as rodadas de
+ * borda, hierarquia de texto e contraste. Mexer nela desfaria aquele trabalho.
+ *
+ * Mantida a decisão de NÃO puxar a neutra pro verde da brand (hue 142): azul é
+ * complementar ao verde neon e é isso que faz a marca saltar; neutra esverdeada
+ * achataria o contraste de matiz.
+ *
+ * ⚠️ O 150 é INTERPOLADO (100↔200) — o nosso contrato usa `gray[150]` e a escala de
+ * origem tinha 11 posições.
+ */
 export const gray = {
-  50:  "oklch(0.9851 0 0)",            // #fafafa (já era acromático no handoff)
-  100: "oklch(0.9674 0.0007 286.38)",  // #f4f4f5
-  150: "oklch(0.9436 0.0014 286.35)",  // INTERPOLADO (100↔200), não é do handoff
-  200: "oklch(0.9197 0.0020 286.32)",
-  300: "oklch(0.8711 0.0028 286.29)",
-  400: "oklch(0.7118 0.0065 286.07)",  // #a1a1a6 — fg.muted no dark
-  500: "oklch(0.5517 0.0069 285.94)",  // #717176 — fg.muted no light, 4.83:1 no branco
-  600: "oklch(0.4419 0.0073 285.79)",
-  700: "oklch(0.3703 0.0060 285.81)",  // #3f3f43
-  800: "oklch(0.2739 0.0028 286.03)",
-  900: "oklch(0.2103 0.0030 285.89)",  // bg.surface no dark
-  950: "oklch(0.1652 0.0031 285.70)",  // bg.canvas no dark (near-black do handoff)
+  50:  "oklch(0.9851 0 0)",            // #fafafa — acromático
+  100: "oklch(0.9674 0.0007 250)",     // #f4f4f5
+  150: "oklch(0.9436 0.0014 250)",     // INTERPOLADO (100↔200)
+  200: "oklch(0.9197 0.0020 250)",     // #e3e4e6
+  300: "oklch(0.8711 0.0028 250)",     // #d3d5d6
+  400: "oklch(0.7118 0.0060 250)",     // #9fa2a6 — fg.muted no dark
+  500: "oklch(0.5517 0.0062 250)",     // #6f7276 — fg.muted no light, 4.83:1 no branco
+  600: "oklch(0.4419 0.0055 250)",     // #515356 — disabled
+  700: "oklch(0.3703 0.0038 250)",     // #3e4042 — bordas do dark
+  800: "oklch(0.2739 0.0018 250)",     // #272728 — surface-elevated do dark
+  900: "oklch(0.2103 0.0012 250)",     // #181819 — bg.surface do dark (área grande)
+  950: "oklch(0.1652 0.0010 250)",     // #0e0e0f — bg.canvas do dark (área maior)
 } as const;
 
 /* ── STATUS ────────────────────────────────────────────────────────────────────
