@@ -4,12 +4,17 @@
  *
  * Mesmo contrato de nomes que color-light.ts.
  *
- * Escopo: brand + STATUS re-medidos + neutra própria "graphite".
+ * Escopo: brand + STATUS re-medidos + neutra ACROMÁTICA própria do dark.
  *
- * ⚠️ A neutra NÃO é mais a Zinc do handoff — é desenhada pra esta marca (hue 250,
- * croma redistribuído por área de tela). Os shades vêm todos da rampa; os hex
- * ficam SÓ em `primitives/color-palette.ts`, que é a fonte única. Não duplicar hex
- * aqui: eles dessincronizam calado quando a rampa muda (já aconteceu).
+ * ⚠️ Este arquivo importa `grayDark`, NÃO a `gray` que o light usa — e o alias local
+ * é `gray` pra não poluir todas as chamadas. A divisão existe porque o light foi
+ * fechado com a neutra fria (hue 250) e o mantenedor pediu o dark "mais cinza mesmo,
+ * no estilo da iGreen default", com `#242424` como âncora. Uma rampa só não atende os
+ * dois. Ver o bloco da `grayDark` nos primitives pra escada e para o aviso do §4.1
+ * sobre o offset de um degrau no canvas (armadilha em que a 1ª leva desta marca caiu).
+ *
+ * Os hex nos comentários abaixo existem porque o dark é acromático e o hex é literal
+ * (R=G=B) — a fonte única segue sendo os primitives; se divergir, os primitives mandam.
  *
  * `brandContrast` aqui é ALIAS do próprio `brand` (ver primitives): o neon já
  * está em L 0.867, no teto do gamut sRGB, então não existe variante mais clara
@@ -29,24 +34,26 @@
  */
 
 import {
-  brandContrast, gray, success, warning, danger, info,
+  brandContrast, grayDark as gray, success, warning, danger, info,
   white, black,
 } from "../primitives/color-palette";
 
 // ─── Background ───────────────────────────────────────────────────────────────
 
 export const bg = {
-  // A ATRIBUIÇÃO de shade por papel (950 canvas / 900 surface / 800 elevated) veio
-  // do site de referência, medida via DevTools (`getComputedStyle` em todos os
-  // elementos, por frequência): html rgb(14,14,17) e card rgb(24,24,27) ×60. Essa
-  // escada de L continua valendo — o que mudou depois foi a rampa por baixo, que
-  // saiu da Zinc pra neutra própria. Hierarquia L-008: 0.1652 < 0.2103 < muted.
-  // Nenhum valor custom aqui: todos vêm da rampa.
-  canvas:           gray[950],
-  surface:          gray[900],   // cards, drawer
-  "surface-elevated": gray[800], // popovers, modais
-  "surface-panels": gray[950],   // = canvas
-  sidebar:          gray[900],
+  // ⚠️ ATRIBUIÇÃO DE SHADE — mudou na 3ª rodada e o motivo importa. Antes era
+  // 950 canvas / 900 surface / 800 elevated, copiado do site de referência medido por
+  // DevTools. O §4.1 do handoff avisa que isso é **regressão silenciosa**: o exemplo
+  // dele mapeia `bgCanvas → 950`, mas o `--background` do DS equivale ao **900**, então
+  // seguir o exemplo deixa a UI um degrau mais escura que o resto do DS. "O mapeamento
+  // do DS manda." Agora: canvas → 900, surface → 800 (a âncora #242424), e o 950 fica
+  // DISPONÍVEL pra superfície mais profunda, sem consumidor.
+  // Hierarquia L-008: canvas 0.2050 < surface 0.2603 < elevated 0.2873.
+  canvas:           gray[900],   // #171717 — §4.1: canvas vai no 900, NAO no 950
+  surface:          gray[800],   // #242424 — A ÂNCORA (cards, drawer)
+  "surface-elevated": "oklch(0.2873 0 0)", // #2b2b2b — calibrado (surface + 0.027)
+  "surface-panels": gray[900],   // = canvas
+  sidebar:          gray[800],
 
   // Backgrounds neutros (alpha overlay — adapta ao surface debaixo)
   subtle:   "oklch(1 0 0 / 0.01)",
@@ -100,9 +107,9 @@ export const bg = {
   "sidebar-accent-hover": "oklch(1 0 0 / 0.12)",
 
   // Tabela — sólidos pra suportar sticky columns sem vazamento (todos da rampa)
-  "table":            gray[900],   // mesmo bg-surface
-  "table-head":       gray[800],   // head sticky
-  "table-row-hover":  gray[800],
+  "table":            gray[800],   // mesmo bg-surface
+  "table-head":       "oklch(0.2873 0 0)",   // #2b2b2b — head sticky (= elevated)
+  "table-row-hover":  "oklch(0.2873 0 0)",
   // Linha selecionada — alpha 10%; hover sobe pra 14%
   // ⚠️ NÃO baixar o hover pra 10% junto com os tints de status: aqui o 14% é o que
   // diferencia hover de repouso. Um replace em massa de "14% → 10%" já igualou os
@@ -113,8 +120,8 @@ export const bg = {
   // Versões OPACAS dos selected — pra sticky/pinned cells não vazarem o conteúdo
   // de trás. Mix em SRGB (não oklch): misturar em oklch com o bg achromático
   // (hue 0) contamina o hue → tinge de vermelho.
-  "table-row-selected-solid":       `color-mix(in srgb, ${brandContrast[400]} 10%, ${gray[900]})`,
-  "table-row-selected-hover-solid": `color-mix(in srgb, ${brandContrast[400]} 14%, ${gray[900]})`,
+  "table-row-selected-solid":       `color-mix(in srgb, ${brandContrast[400]} 10%, ${gray[800]})`,
+  "table-row-selected-hover-solid": `color-mix(in srgb, ${brandContrast[400]} 14%, ${gray[800]})`,
 
   // Dropdown/Popover — frosted-glass: bg-canvas com 70% opacidade
   "dropdown":         "color-mix(in oklab, var(--color-bg-canvas) 70%, transparent)",
@@ -187,32 +194,32 @@ export const fg = {
 
 // ─── Border ───────────────────────────────────────────────────────────────────
 
-// Base = mapeamento medido da referência (borderDefault zinc-700 #3f3f46 ×30,
-// borderSubtle zinc-800 #27272a ×14), depois SUAVIZADO ~7% no L a pedido do
-// mantenedor ("no geral estão muito fortes"). Força medida como distância de L até a
-// surface (0.2103): default 0.1600 → 0.1347, subtle 0.0636 → 0.0487. L-009 (borda ≥
-// surface + 0.06) segue satisfeita com folga no `default`.
-// Por que divergir da referência aqui: ela é um showcase de cards espaçados; a nossa
-// UI é muito mais densa em divisória (linhas de tabela, painéis, sidebar), então a
-// MESMA borda soma muito mais peso na tela.
-// ⚠️ `input` NÃO foi suavizado: é fronteira de campo, não separador.
+// Bordas: LITERAIS acromáticos, fora da rampa de propósito — é a opção (b) do §4.1 do
+// handoff ("manter como valores semânticos fora da escala, zero risco"). O que está
+// preservado aqui é a FORÇA (distância de L até a surface), que o mantenedor calibrou
+// visualmente em 3 rodadas; arredondar pro degrau mais próximo desfaria a calibração.
+//
+// A surface saiu de 0.2103 pra 0.2603 (#242424, a âncora) quando o dark virou
+// acromático — então os L absolutos mudaram e as FORÇAS não:
+//   default  força 0.0797  →  L 0.3400  #383838
+//   subtle   força 0.0487  →  L 0.3090  #303030   (= sidebar e table)
+//   input    força 0.1147  →  L 0.3750  #414141
+//
+// Histórico da força do `default`, porque foram 3 rodadas até parar de incomodar:
+//   0.1600   mapeamento cru da referência anterior
+//   0.1347   (-16%)
+//   0.1097   (-19%)
+//   0.0797   (-27%)  ← atual. As duas primeiras ficaram "agressivas demais".
+// Piso da L-009 (borda dark ≥ surface + 0.06) = força 0.0600 / L 0.3203 / #333333.
+// Ainda sobra margem pra mais uma volta; abaixo disso a borda some no escuro.
+//
+// `input` é o mais forte dos três de propósito: é fronteira de campo, não separador, e
+// precisa ser achável. (A default do DS usa branco 8% aqui, que compõe mais fraco.)
 export const border = {
-  // 3ª rodada. Histórico de força (distância de L até a surface 0.2103), porque duas
-  // reduções de ~7% no L não resolveram e a 3ª foi deliberadamente maior:
-  //   gray[700] #3f3f46 → 0.1600   (mapeamento cru da referência)
-  //   #38383f           → 0.1347   (-16%)
-  //   #323238           → 0.1097   (-19%)
-  //   #2b2b31           → 0.0797   (-27%)  ← atual, "estava agressiva demais"
-  // Piso da L-009 (borda dark ≥ surface + 0.06) = L 0.2703 / #26262c. Ainda sobra
-  // margem se precisar de mais uma volta; abaixo disso a borda some no escuro.
-  // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
-  default: "oklch(0.290 0.0024 250)",  // #2b2b31
-  subtle:  gray[850],  // #232326 (era gray[800] #27272a)
-  // Suavizada também (força 0.1600 → 0.1150, -28%). Segue mais forte que a
-  // `default` (0.0797) porque é fronteira de campo e precisa ser achável — a
-  // default do DS usa branco 8% aqui, que compõe ainda mais fraco que isto.
-  input:   "oklch(0.325 0.0030 250)",  // #333339 (era gray[700] #3f3f46)
-  sidebar: gray[850],
+  default: "oklch(0.3400 0 0)",  // #383838 — força 0.0797
+  subtle:  "oklch(0.3090 0 0)",  // #303030 — força 0.0487
+  input:   "oklch(0.3750 0 0)",  // #414141 — força 0.1147
+  sidebar: "oklch(0.3090 0 0)",
 
   // Um shade acima do fundo brand[400] — regra de pareamento, igual ao light
   brand:           brandContrast[500],
@@ -223,8 +230,8 @@ export const border = {
   "warning-muted": `color-mix(in oklch, ${warning[500]} 36%, transparent)`,
   "info-muted":    `color-mix(in oklch, ${info[500]} 36%, transparent)`,
 
-  // Tabela — mais sutil que a borda de card (suavizada junto, mesma queixa)
-  table: gray[850],   // #232326
+  // Tabela — mais sutil que a borda de card (= border.subtle)
+  table: "oklch(0.3090 0 0)",   // #303030 — força 0.0487
 } as const;
 
 // ─── Ring (focus rings — cor pura usada com ring-* do Tailwind) ───────────────

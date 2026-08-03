@@ -1,5 +1,48 @@
 ﻿import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
-import { colorPalette } from "../../../tokens/brands/default/primitives/color-palette";
+import { useBrand, BRANDS, type Brand } from "../../hooks/useBrand";
+import { colorPalette as paletaDefault } from "../../../tokens/brands/default/primitives/color-palette";
+import { colorPalette as paletaBlue } from "../../../tokens/brands/blue/primitives/color-palette";
+import { colorPalette as paletaGreen } from "../../../tokens/brands/green/primitives/color-palette";
+import { colorPalette as paletaPay } from "../../../tokens/brands/pay/primitives/color-palette";
+import { colorPalette as paletaVibrant } from "../../../tokens/brands/vibrant/primitives/color-palette";
+
+/**
+ * ⚠️ Rampa primitiva é valor TS, não CSS var — então NÃO reage ao `data-theme` sozinha.
+ *
+ * Até a v0.32.0 esta página importava só a paleta da `default`, e mostrava as rampas
+ * dela mesmo com outra marca ativa. Resultado: a seção Semantic (que lê CSS var)
+ * trocava de marca e a seção Primitives não — duas marcas na mesma tela, o que o
+ * mantenedor descreveu como "acaba misturando 2 themes". Valia pras 4 não-default.
+ *
+ * Agora as 5 paletas são importadas e a ativa vem do `useBrand`. O custo é que todas
+ * entram no bundle do showcase (são ~7 KB de string cada, e é preview, não a lib).
+ */
+/**
+ * Tipo ESTRUTURAL de propósito, não `typeof paletaDefault`: as rampas usam `as const`,
+ * então cada marca tem tipos literais próprios e nenhuma é assignável à outra. Além
+ * disso a `vibrant` não tem o shade 150 no brand e tem uma rampa extra (`grayDark`, só
+ * do dark). `Rampa` é exatamente o que o `PaletteGrid` consome.
+ */
+type Rampa = Record<string | number, string>;
+type Paleta = {
+  brand: Rampa;
+  brandContrast: Rampa;
+  gray: Rampa;
+  success: Rampa;
+  warning: Rampa;
+  danger: Rampa;
+  info: Rampa;
+  /** Só a `vibrant` tem — neutra acromática exclusiva do dark. */
+  grayDark?: Rampa;
+};
+
+const PALETAS: Record<Brand, Paleta> = {
+  default: paletaDefault,
+  blue: paletaBlue,
+  green: paletaGreen,
+  pay: paletaPay,
+  vibrant: paletaVibrant,
+};
 
 const TOC = [
   { id: "primitives", label: "Primitives" },
@@ -57,6 +100,10 @@ function SemanticRow({ name, cssVar }: { name: string; cssVar: string }) {
 }
 
 export function ColorsDoc() {
+  const { brand } = useBrand();
+  const colorPalette = PALETAS[brand] ?? paletaDefault;
+  const marcaAtiva = BRANDS.find((b) => b.id === brand) ?? BRANDS[0];
+
   return (
     <DocLayout toc={TOC}>
       <DocHeader
@@ -64,6 +111,23 @@ export function ColorsDoc() {
         title="Color Palette"
         description="Core color scales in OKLCH format. Primitives are consumed by semantic tokens — never used directly in components."
       />
+
+      {/* Sem este aviso, quem trocasse a marca no seletor não teria como saber se as
+          rampas abaixo acompanharam — foi essa ambiguidade que fez as duas seções
+          parecerem "dois temas misturados". */}
+      <div className="flex flex-wrap items-center gap-gp-md rounded-radius-base border border-border-subtle bg-bg-subtle px-pad-2xl py-pad-lg">
+        <span
+          className="size-comp-sm rounded-radius-full border border-border-default shrink-0"
+          style={{ background: marcaAtiva.swatch }}
+          aria-hidden
+        />
+        <span className="text-body-md text-fg-default">
+          Mostrando as rampas da marca <strong>{marcaAtiva.label}</strong>
+        </span>
+        <span className="text-body-md text-fg-muted">
+          — troque no seletor do rodapé da sidebar; primitivas e semânticas acompanham.
+        </span>
+      </div>
 
       <DocSeparator />
 
@@ -73,6 +137,12 @@ export function ColorsDoc() {
       <PaletteGrid id="brand" name="Brand" scale={colorPalette.brand} />
       <PaletteGrid id="brandcontrast" name="Brand Contrast (dark)" scale={colorPalette.brandContrast} />
       <PaletteGrid id="gray" name="Gray" scale={colorPalette.gray} />
+      {/* Só a vibrant tem: o light dela usa a neutra fria (`gray`) e o dark uma
+          acromática própria ancorada em #242424. Renderiza condicional pra não
+          inventar uma seção vazia nas outras 4 marcas. */}
+      {colorPalette.grayDark && (
+        <PaletteGrid id="graydark" name="Gray Dark (acromática, só no dark)" scale={colorPalette.grayDark} />
+      )}
       <PaletteGrid id="success" name="Success" scale={colorPalette.success} />
       <PaletteGrid id="warning" name="Warning" scale={colorPalette.warning} />
       <PaletteGrid id="danger" name="Danger" scale={colorPalette.danger} />

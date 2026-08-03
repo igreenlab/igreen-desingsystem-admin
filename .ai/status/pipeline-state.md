@@ -66,6 +66,54 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | vibrant — dark acromático ancorado em #242424 + ColorsDoc brand-aware | CONCLUÍDO
+
+- Input: 2 pedidos. (1) O dark devia ficar "mais cinza mesmo", no estilo da iGreen default,
+  com `#242424` como âncora — o mantenedor restaurou a pasta `theme/` com o handoff
+  atualizado no meio da tarefa, e ela documenta a escala. (2) Em `#/colors`, as rampas de
+  cima não reagiam à marca selecionada: "acaba misturando 2 themes".
+- Output 1 — **`grayDark`**: rampa acromática nova nos primitives, croma EXATAMENTE 0,
+  valores verbatim do §1.1 do handoff, âncora `#242424` no 800. A marca passa a ser a única
+  com rampa neutra por modo: `gray` (light, fria hue 250, **fechada e intocada**) e
+  `grayDark` (dark). Uma rampa só não atendia os dois.
+  - ⚠️ Segui o aviso do **§4.1** do handoff, que descreve exatamente a armadilha em que eu
+    caí na 1ª leva: o `semanticExample.dark` mapeia `bgCanvas → 950`, mas o `--background`
+    do DS equivale ao **900** — seguir o exemplo deixa a UI um degrau mais escura que o
+    resto do DS, "regressão silenciosa". Agora canvas → 900 (#171717), surface → 800
+    (#242424), e o 950 fica **disponível sem consumidor**, como o §4.1 recomenda.
+  - 4 valores ficaram FORA da rampa, como literal: `surface-elevated`/`table-head` e as 3
+    bordas. É a opção (b) do §4.1 ("valores semânticos fora da escala, zero risco"),
+    escolhida porque o que importa neles é a FORÇA (distância de L até a surface) que o
+    mantenedor calibrou em 3 rodadas — arredondar pro degrau desfaria a calibração. As
+    forças 0.027 / 0.0487 / 0.0797 / 0.1147 foram preservadas exatas sobre a surface nova.
+- Output 2 — **`ColorsDoc` brand-aware**: importa as 5 paletas e escolhe pela marca do
+  `useBrand`. Antes importava só a `default` estaticamente, então a seção Primitives mostrava
+  as rampas dela mesmo com outra marca ativa, enquanto a Semantic (que lê CSS var) trocava —
+  daí a sensação de dois temas na tela. Valia pras 4 não-default, não só pra vibrant.
+  Ganhou também um aviso no topo dizendo QUAL marca está sendo exibida (sem ele não havia
+  como saber se as rampas acompanharam) e a seção `Gray Dark` condicional.
+- Verificação:
+  - dark 100% acromático: **0 valores com croma > 0.001** entre os neutros do bloco dark
+    (todo hex é par repetido — o autoteste que o próprio handoff sugere).
+  - **light INTACTO**, provado por hunk do diff: 0 hunks no bloco light, 6 no dark.
+  - contrastes: 10/10 pares `on-*`, `fg.muted` 6.08:1 na surface #242424, neon 11.33:1,
+    L-008 (0.2050 < 0.2603) e L-009 (força 0.0797) OK.
+  - `#/colors` no browser: alternando default↔vibrant a rampa Brand troca de hue 151 → 141,
+    o aviso muda, e a seção Gray Dark aparece só na vibrant.
+  - suite 13/13, **161 testes**; `release:check` + os 4 gates extras do CI
+    (check-foundationals, lint-styles ratchet, showcase-check, api-doc-check) todos exit 0.
+- Assumption: `#242424` é a âncora do **shade 800**, e o papel dele é `bg.surface` (o card).
+  Vem do handoff (§1.1: "ancorada em #242424 no shade 800") combinado com o §4.1 (canvas →
+  900). Se a intenção era ver #242424 no **canvas**, a assumption quebrou e o conserto é
+  trocar 2 linhas do `bg` — não a rampa.
+- Bug meu, pego na verificação: o `grayDark` não estava no export `colorPalette` porque um
+  replace por script falhou em silêncio (o arquivo é CRLF e o padrão tinha `\n`). O `tsc`
+  não acusou porque tipei `grayDark` como opcional no `ColorsDoc`. Só apareceu quando fui
+  olhar a seção no browser e ela não existia. Auditei os outros 4 replaces do dia: todos
+  aplicaram. **Regra**: replace por script em arquivo CRLF precisa de verificação pós-fato,
+  não de confiança no exit 0.
+- Lições novas: nenhuma L-NNN nova.
+
 ### [2026-08-03] | DS DEV | v0.32.0 — trocar tema em projeto existente: registry + rule do consumidor + guia | CONCLUÍDO
 
 - Input: o mantenedor apontou que a capacidade de trocar tema não servia de nada se o

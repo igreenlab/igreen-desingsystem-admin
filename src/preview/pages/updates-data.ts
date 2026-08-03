@@ -46,6 +46,28 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.32.1",
+    date: "2026-08-03",
+    tag: "patch",
+    title: "Dark da iGreen Vibrant vira cinza de verdade (âncora #242424), e a doc de cor passa a reagir à marca",
+    summary:
+      "Dois ajustes na `vibrant`, ambos vindos de olhar a tela. (1) O dark tinha um leve viés azul nos neutros; agora é **acromático** (croma exatamente 0), no estilo da iGreen default, ancorado em `#242424`. O light — que já estava aprovado — ficou **intocado**: a marca passou a ter uma rampa neutra por modo. (2) A página **Color Palette** importava só a paleta da `default`, então as rampas primitivas não trocavam com a marca selecionada enquanto os tokens semânticos trocavam — duas marcas na mesma tela.",
+    changes: [
+      {
+        type: "changed",
+        items: [
+          "**Neutros do dark da `vibrant` agora são acromáticos**, ancorados em `#242424` (o shade 800). `canvas` `#171717` · `surface` `#242424` · `elevated` `#2b2b2b`. As **forças** de borda que foram calibradas em 3 rodadas (0.0797 no `default`, 0.0487 no `subtle`, 0.1147 no `input`) foram preservadas exatas sobre a surface nova — o que mudou foi o L absoluto, não o peso relativo. O light seguiu como estava: provado por hunk de diff, 0 alteração no bloco light.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**A página Color Palette não reagia à marca.** As rampas primitivas são valores TS, não CSS var, e a página importava estaticamente só a paleta da `default` — então a seção *Primitives* mostrava as cores da default enquanto a *Semantic* (que lê CSS var) mostrava as da marca ativa. Valia pras 4 marcas não-default. Agora a paleta vem do `useBrand`, há um aviso no topo dizendo qual marca está exibida, e a rampa exclusiva do dark da `vibrant` aparece como seção própria.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.32.0",
     date: "2026-08-03",
     tag: "preview",
