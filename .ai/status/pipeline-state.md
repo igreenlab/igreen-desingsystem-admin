@@ -66,6 +66,242 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS REVIEWER | Marca "vibrant" — pre-commit-check da branch feat/brand-vibrant | APROVADO com 3 ressalvas
+
+- Escopo do diff (branch vs `main`, 9 commits, 20 arquivos): token primitivo 1 ·
+  token semântico 2 · transform 1 · CSS gerado 4 (+4 cópias no template do CLI) ·
+  pipeline/governance 2 · rule 1 · registro de marca 4 (`package.json`,
+  `globals.css`, `useBrand.ts`, `cli/src/create.js`) · CLAUDE.md 1.
+  **Zero** componente, zero `src/components/`, zero token da `default`.
+- Checklist: CSS regenerado ✓ · light/dark mirror ✓ · L-008 ✓ · L-009 ✓ (0.0797,
+  piso 0.06) · `fg.on-*` para todo `bg.*` de marca/status ✓ · variantes
+  subtle/muted ✓ · `ring.*` para foco, nunca `border.*` ✓ · sem hex hardcoded em
+  componente ✓ · resumo da L-066 no `ds-standards.md` + contador 65→66 ✓ ·
+  L-016 (twMergeConfig) N/A — `typography.ts` intocado · CLI rebake N/A —
+  `tv.ts`/`utils.ts`/`lucide-types.ts`/`tailwind-theme.css` intocados.
+- Corrigido DURANTE o review (achados meus, do próprio trabalho):
+  1. **L-066 estava fora da sequência** — appendada com `>>` no fim do arquivo, ou
+     seja depois de "Como adicionar nova lição" e "Política de arquivamento". A
+     sequência de lições terminava em L-065 e a 066 ficava órfã atrás das seções
+     meta. Movida pro lugar (entre L-065 e a seção meta).
+  2. **6 dos 9 commits sem entry no audit log** — só os 3 primeiros tinham. Entry
+     consolidada da fase de calibração adicionada abaixo.
+- Critique genuína — o que examinei além do checklist: **a assumption central do
+  gate era "esta marca muda só cor, escopada em `[data-theme]`, sem tocar o resto do
+  projeto". Ela QUEBROU no meio do caminho**, e de forma que valeu a pena: o fix do
+  vazamento light→dark (L-066) obrigou a mexer no `to-brand-overlay.ts`, que é
+  compartilhado pelas 4 marcas. Isso é ampliação de escopo real — mas o alternativo
+  era shipar uma marca com 13 tokens resolvendo errado no dark, sobre um bug que já
+  afetava `blue` e `green` em produção (`fg-strong` escuro sobre fundo escuro). A
+  regeneração das outras 3 marcas mudou **só o seletor**, nenhum valor, verificado
+  por diff. Assumption revisada: "muda só cor, mais o transform quando o próprio
+  mecanismo de overlay estiver defeituoso".
+- Ressalvas — NÃO bloqueiam, são pré-existentes e fora do escopo desta branch:
+  1. **[MÉDIO] `ColorsDoc.tsx` mostra os primitivos da `default` sob qualquer marca.**
+     `import { colorPalette } from ".../brands/default/primitives/color-palette"` é
+     estático; a seção "Primitives" da doc de cor exibe hue 151 mesmo com
+     `data-theme="vibrant"` (hue 142). A seção "Semantic" é brand-aware (lê CSS var) e
+     está correta. Vale pra `blue`/`green`/`pay` também — doc que mente (classe L-060).
+  2. **[MÉDIO] `.ai/context/tokens/color.md` não documenta o sistema multi-marca.**
+     O único ponto que cita `brands/` diz "a fonte de verdade é `brands/default/`" — um
+     agente que carregue esse contexto não descobre que existem 5 marcas nem como um
+     overlay funciona. As 6 superfícies que uma marca nova toca só existem hoje em
+     mensagem de commit.
+  3. **[INFO] `registry.json` não distribui overlay de marca nenhum** (0 referências a
+     `brand-*.css`, medido). Marca chega ao consumidor só pelo template do CLI, então
+     consumidor de copy-in/registry não recebe tema — inclusive `blue`/`green`/`pay`.
+     Gap arquitetural pré-existente; decisão de distribuição é do `/ds-release` (L-041).
+- Regressões L-xxx encontradas: nenhuma nova. Duas CORRIGIDAS no caminho: L-066
+  (vazamento, novo) e o `fg-strong` de `blue`/`green` que ela causava.
+- Lições novas: L-066 (registrada nas 2 superfícies canônicas).
+
+### [2026-08-03] | DS DEV | Marca "vibrant" — fase de calibração visual (6 commits) | CONCLUÍDO
+
+- Input: 6 rodadas de ajuste do mantenedor olhando o app `?app=finance` nos 2 modos,
+  cada uma medida no browser por `getComputedStyle` antes de mexer.
+- Output, em ordem:
+  1. **Bordas suavizadas ~7%** nos 2 modos (força = distância de L até a surface);
+     `border-input` deixado de fora por ser fronteira de campo, não separador.
+  2. **Track das abas de visão** de branco 3% → 5%, só no dark.
+  3. **Light: um único verde de marca** — `bg.brand` = `fg.brand` = `border.brand` =
+     `brand[800]`, `fg.on-brand` volta a branco (6.56:1). Antes o botão neon destoava
+     do texto de marca ao lado. Dark segue neon.
+  4. **2ª e 3ª rodada de borda** (dark `border.default` 0.1347 → 0.1097 → 0.0797 de
+     força). Uma parte do pedido NÃO foi aplicada: "deixar a default na intensidade
+     dos inputs" contradizia a medição (input 2.56:1 vs default 1.38:1 — o input já
+     era 85% mais forte), então só o enfraquecimento entrou.
+  5. **Hierarquia título/subtítulo** — o `semanticExample` do handoff comprimia
+     `default↔muted` em 1.34:1 (dark) contra 2.49:1 da iGreen. Revertido pros shades
+     do DS: 2.33:1 dark, 3.99:1 light.
+  6. **Neutra "graphite"** — sai da Zinc. Croma redistribuído por ÁREA de tela (canvas
+     −68%, surface −60%, texto quase intacto) + hue 286 → 250. Escada de L intocada.
+  7. **`fg.on-brand` do dark = `black`** (15.32:1) — irradiação sobre o neon faz o
+     texto escuro parecer mais fino; peso de fonte não é brand-scoped (marca é eixo de
+     cor), então peso aparente se compra na cor. É o que a iGreen default já usa.
+  8. **Auditoria das primitivas** — rampa `gray` passa a refletir o uso real: valor com
+     2+ consumidores virou degrau (`gray[150]` repurposado, `250` e `850` novos), 1
+     consumidor fica literal, `300` marcado HEADROOM. CSS **byte-idêntico** antes/depois.
+- Decisões: toda mudança de valor foi medida, não estimada; 2 pedidos do mantenedor
+  foram parcialmente recusados com a medição na mão (a intensidade da borda de input e
+  o peso de fonte por marca) em vez de aplicados no escuro.
+- Assumption: as calibrações refletem julgamento visual do mantenedor em UMA tela
+  (`?app=finance`, tabela densa). Se uma tela com composição muito diferente (dashboard
+  de cards espaçados, formulário longo) discordar do peso das bordas, o número a mexer é
+  a força — dark `border.default` está em 0.0797 e o piso da L-009 é 0.0600, então
+  ainda há margem sem quebrar regra.
+- Lições novas: nenhuma nova além da L-066.
+
+### [2026-08-03] | DS DEV | Vazamento light→dark no overlay de marca (L-066) + mapeamento de neutros medido da referência | CONCLUÍDO
+
+- Input: o mantenedor mandou um print e a URL da referência: "as neutras estão diferentes, o
+  bg deles é #0E0E11 e o nosso está #18181B, e no dark algumas cores quebradas, tudo ficou
+  extremamente ruim". Pediu pra medir com o MCP do Chrome DevTools em vez de supor.
+- Output: 2 correções independentes — 1 bug arquitetural do transform (afeta as 4 marcas) e
+  1 erro de mapeamento meu (só vibrant). Lição **L-066** registrada.
+- BUG 1 — **vazamento light→dark no `to-brand-overlay.ts`**: `[data-theme="x"]` e `.dark` têm
+  a MESMA especificidade (0,1,0), e o overlay é importado DEPOIS do tema-base → o bloco light
+  vencia o `.dark` por ordem de fonte. Todo token que a marca muda no light mas cujo dark é
+  idêntico ao da default (logo ausente do diff dark) recebia o valor CLARO no dark. Medido:
+  `vibrant` 13 tokens (`bg-subtle`/`bg-muted` = `#fafafa` no dark, `fg-default` `#0e0e11`,
+  `border-input` `#d4d4d8`), **`blue` e `green` 1 cada** (`fg-strong` — título escuro sobre
+  fundo escuro, **bug vivo em marca já publicada**), `pay` 0 (diverge nos 2 modos em tudo que
+  toca). Fix de 1 linha: `[data-theme="x"]:not(.dark)`. Regenerar as 4 mudou SÓ o seletor.
+- BUG 2 — **eu troquei a rampa mas mantive as atribuições de shade da default.** O
+  `tokens.json` traz `semanticExample.light/dark` com o mapeamento por papel; eu li o "NÃO
+  IMPLEMENTAR" como "ignore o mapeamento" quando significava "não crie tokens paralelos com
+  esses nomes". Extraí o ground truth do site com DevTools (`getComputedStyle` em todos os
+  elementos, contando frequência) e ele confirma o `semanticExample`:
+  `html #0e0e11` (zinc-950) · `card ×60 #18181b` (zinc-900) · `texto ×319 #f4f4f5` (zinc-100) ·
+  `#d4d4d8 ×49` (300) · `#a1a1aa ×167` (400) · `borda ×30 #3f3f46` (**zinc-700**) · `#27272a ×14`.
+  Corrigido dark: canvas 900→**950**, surface custom→**900**, elevated→**800**, table-head→800,
+  fg.default→100, fg.muted 400→**300**, fg.subtle→400, border.default→**700**, subtle→800.
+  Light idem (`elevated`→50, `muted`→100, `fg.muted` 500→**700**, `fg.subtle`→600,
+  `border.default` 200→**300**, `subtle`→200, `input`→400).
+- Correção de uma decisão da 2ª leva: eu tinha ESCURECIDO `border.default` do dark pra
+  `oklch(0.29)` "pra satisfazer a L-009". Direção errada — a referência deixa a borda bem mais
+  CLARA que a surface (zinc-700, ΔL 0.16). Cards ficavam sem contorno visível. Agora ΔL 0.16.
+- Verificação: **8/8 tokens estruturais batem exatamente** com o hex medido na referência
+  (`getComputedStyle` no browser, dark+vibrant); os 13 que vazavam agora resolvem pros valores
+  dark corretos; 10/10 pares `on-*`; 6/6 texto sobre surface (fg.muted subiu de 4.83 pra
+  10.44:1 no light); L-008 e L-009 OK com folga; screenshots de `#/table`, `#/colors` e
+  `#/alert` nos 2 modos; `tsc` 0, 159 testes.
+- Assumption: `data-theme` e a classe `.dark` vivem SEMPRE no mesmo elemento (`<html>`, via
+  `useBrand` + `useTheme`). O fix `:not(.dark)` depende disso — se algum dia houver dark
+  escopado num wrapper interno com a marca no html, o bloco light volta a se aplicar dentro
+  dele. Vale pro seletor antigo também (`.dark[data-theme]` também exige mesmo elemento), então
+  não é regressão nova, mas é o ponto a checar se aparecer dark seccionado.
+- Lições novas: **L-066** — override escopado gerado como DIFF precisa de seletor mutuamente
+  exclusivo com o outro eixo, porque **o diff aposta na omissão** e omissão herda de quem
+  vencer o empate de especificidade. Assimetria perversa: quanto mais a marca se parece com a
+  default no dark, mais ela vaza. E o meta-ponto (L-064 de novo, mais duro): **nenhum gate
+  pegou** — tsc 0, 159 testes, `dead-theme-classes` OK e minha própria checagem de contraste
+  10/10, porque eu media os valores dos **arquivos TS** e não o que o **cascade resolvia no
+  browser**. Quem achou foi o mantenedor, de olho. Ao mexer em tema: medir no browser com cada
+  combinação de eixos ativa.
+
+### [2026-08-03] | DS DEV | Marca "vibrant" — 2ª leva: neutra Zinc + status re-medidos por gamut | CONCLUÍDO
+
+- Input: o mantenedor apontou que (a) a neutra do handoff é diferente da nossa e queria
+  usá-la, e (b) os status deviam ficar "no mesmo estilo do verde, respeitando a cor de cada
+  um — o roxo mais vibrante mas continuando roxo; o success igual à brand".
+- Output: `gray` → Zinc do handoff (+ shade 150 interpolado, que a Zinc não tem e o nosso
+  contrato usa); `success` → alias do `brand`; `danger`/`warning`/`info` re-medidos; ~10
+  valores acromáticos/minerais cravados retunados pro hue frio ~286. Overlay: **14 → 66 vars
+  light / 58 dark**.
+- Correção de uma afirmação minha da 1ª leva: eu tinha recusado a neutra citando o §4.1 do
+  BRIEF ("muda a temperatura da UI inteira, em todas as brands"). **O argumento não se aplica
+  aqui** — o §4.1 assume DS de marca única; nesta arquitetura `gray` é POR MARCA, então a Zinc
+  entra escopada no `[data-theme="vibrant"]` e as outras 4 seguem em croma zero (verificado:
+  blue/green/pay byte-idênticos após regenerar).
+- Decisões:
+  1. **A alavanca de "mais vibrante" é LUMINOSIDADE, não saturação.** Medido: a default já
+     vive a 84% (danger), 92% (success), 96% (warning) e **100%** (info) do teto de croma do
+     próprio hue. Subir croma rende +4% a +20% — e ZERO no roxo. O teto do sRGB depende de
+     hue E de L: verde pica em L 0.865, amarelo em 0.825, vermelho em 0.630, roxo em 0.490.
+     Consequência que é física e não escolha: **não existe roxo claro e saturado em sRGB**.
+  2. **info: hue 280 → 300.** Em 280 o roxo já estava no teto (C 0.210). Deslocando o hue o
+     teto sobe pra **C 0.293** — praticamente o 0.294 do brand, mesma energia — e passa a ler
+     roxo (#9202fd) em vez do azul-periwinkle #736eff. +39% de croma.
+  3. **danger em L 0.58 (C 0.235), não no pico L 0.630 (C 0.255)** — pra preservar texto
+     BRANCO: no pico o branco cai a 3.96:1. Em 0.58 dá 4.82:1. De quebra corrige um defeito
+     que a default tem: `#ef4444` + branco = **3.76:1**, reprova AA (pré-existente, não
+     corrigido aqui — afeta todas as marcas, é outra tarefa).
+  4. **success = alias do ramp do brand**, espelhando shade por shade (bg=400, hover=500,
+     fg=800, on=950). Precedente: a marca `pay` também usa o próprio verde como success.
+     `fg.on-success` teve de sair de white (1.37:1) pra success[950].
+  5. **`border.default` do dark = `oklch(0.29 0.0055 286)`, não `gray[800]`.** Com surface em
+     0.225 o zinc-800 (L 0.2739) dá ΔL 0.0489 e a **L-009 pede ≥ 0.06** — a borda começa a
+     desaparecer. L 0.29 dá 0.065. Nota: a default do DS dá 0.0395 na mesma conta, ou seja
+     viola mais; vibrant é a 1ª marca que satisfaz a L-009.
+  6. **Rampas geradas com clamp no teto por shade.** A curva de croma da default foi
+     preservada em forma e escalada pelo ratio do 500, clampando cada shade no próprio teto —
+     por isso vários ficam exatamente no limite. 72 shades verificados, nenhum fora do gamut.
+- Verificação (todos contra os valores REAIS dos arquivos, não os planejados): 72 shades
+  in-gamut; `success === brand` confirmado por igualdade estrutural; **10/10 pares `on-*`**
+  ≥ 4.5:1 nos 2 modos; **6/6** pares de texto sobre surface; L-008 e L-009 OK; round-trip
+  OKLCH→sRGB 11/11; contrato de chaves idêntico à default; blue/green/pay byte-idênticos.
+  `tsc` 0, 159 testes.
+- Assumption: os 4 status seguem sendo consumidos SÓ no shade `[500]` (medido nos 5 arquivos
+  semantic × 5 marcas). Se algum componente passar a ler `danger[600]` etc., os 11 shades
+  restantes de cada rampa nunca foram olhados no olho — só validados em gamut e forma de
+  curva. E: croma no teto do gamut é frágil a mudança de color space — se o DS algum dia
+  emitir P3 ou Rec2020, estes valores deixam de ser "o máximo" e as rampas merecem re-medição.
+- Lições novas: nenhuma L-NNN nova. Fato de arquitetura que vale registrar: **"deixar mais
+  vibrante" não é uma operação de saturação** — em paletas que já vivem perto do teto do sRGB,
+  o único grau de liberdade é L (e, se o hue puder mover, o hue). Medir o teto por hue ANTES
+  de prometer vibração evita prometer o que o color space não entrega (o roxo rendia 0%).
+
+### [2026-08-03] | DS DEV | Marca "vibrant" (iGreen Vibrant, verde fluorescente #0fff00) — 5ª brand | CONCLUÍDO
+
+- Input: handoff externo em `theme/` (BRIEF.md normativo + tokens.json fonte de verdade +
+  THEME.md de procedência + demo visual), gerado de `uicolors.app/generate/0fff00`. Pedido:
+  criar a marca "no mesmo estilo das nossas brands, sem alterar o projeto — só a brand".
+- Output: `tokens/brands/vibrant/` (palette + color-light + color-dark), overlay
+  `brand-vibrant.css` (14 vars light / 14 dark), registro nas 6 superfícies de marca
+  (script `tokens:brand:vibrant`, `globals.css`, `useBrand.ts` type+BRANDS+isBrand,
+  CSS no template do CLI, `BRAND_LABELS` em `create.js`).
+- Decisões:
+  1. **Escopo = só a família brand.** `gray` e os 4 status são cópia verbatim da default
+     → diff ZERO. Os 14 tokens que divergem são todos brand / table-row-selected / chart-1.
+     Recusada a escala neutra do handoff (croma 0.004–0.015 em hue ~286 vs. croma zero
+     nossa) — mudaria a temperatura de TODAS as marcas. BRIEF §4.1, confirmado no gate.
+  2. **`fg.on-brand` = brand[950] (#003403), não white.** brand[400] tem 1.37:1 contra
+     branco. Vale nos dois modos (a default usa `black` no dark; aqui o handoff fixa
+     brand-950 como texto de marca em qualquer superfície de marca).
+  3. **Estados descem no ramp, não sobem croma.** `bg.brand-hover` = brand[500] em vez de
+     `color-mix(brand, black)`: o 400 está no TETO do gamut sRGB (croma 0.32+ clipa pra
+     #00ff00), então hover derivado por saturação ficaria idêntico ao default.
+  4. **`border.brand` light = brand[700], desvio MEDIDO do §3.3 do handoff.** A regra do
+     handoff ("borda = um shade acima do fundo") daria 500 — que reprova nos DOIS papéis
+     que o token tem no DS: 1.70:1 contra branco (abaixo do 3:1 de SC 1.4.11) e só 1.24:1
+     contra o próprio preenchimento neon. O papel dominante de `border-border-brand` aqui
+     não é delinear superfície de marca, é ser a ÚNICA fronteira sobre fundo claro —
+     sublinhado da aba ativa (`tabs.tsx`), borda de foco de input/select/combobox/datepicker,
+     contorno de badge/chip outline. O 700 é o shade mais claro que passa nos dois
+     (4.47:1 e 3.26:1). No dark segue 500 (8.31:1 na surface escura).
+  5. **chart-1 only.** chart-2..5 verbatim da default (teal/azul/âmbar/violeta) em vez da
+     rampa monocromática que o handoff propõe — 5 tons do mesmo verde não se separam em
+     linha/barra. Light ancora no 600 (#04b800, traço fino legível no branco), dark no 400.
+  6. **`brandContrast` = alias do próprio `brand`.** Não existe variante mais clara pra
+     derivar (teto de gamut). O objeto existe só pra manter o contrato dos primitives
+     idêntico ao das outras 4 marcas.
+- Verificação: round-trip OKLCH→sRGB **11/11 exatos** (BRIEF §6.1, reimplementado em Node
+  com as matrizes OKLab — pega erro de dígito na transcrição dos valores de alta precisão);
+  contraste WCAG **7/7 pares passam** (§6.2); contrato de chaves **idêntico à default** nos
+  2 modos × 6 namespaces; blue/green/pay/tema-base **byte-idênticos** após regenerar (§6.4).
+  `tsc` 0, 159 testes passam (inclui o gate `dead-theme-classes`).
+- Assumption: `border-border-brand` no light é usado predominantemente como fronteira
+  sobre fundo CLARO (aba ativa, foco de input, contorno de chip), não como delineamento
+  de superfície de marca — medido em 20 usos em `src/components/`. Se algum componente
+  novo passar a usar `border-border-brand` **sobre** `bg-bg-brand` como detalhe estético
+  fino, o 700 vai parecer escuro demais contra o neon e a decisão 4 precisa ser revisitada
+  (aí o caminho é separar em 2 tokens, não trocar este).
+- Lições novas: nenhuma L-NNN nova, mas 2 fatos de arquitetura ficaram registrados nos
+  comentários dos arquivos: (a) `to-brand-overlay.ts` importa a marca com `as`
+  (cast, não checagem) — chave faltando ou com typo **herda a default em silêncio**, sem
+  erro de tsc; (b) regra de contraste vinda de handoff externo é lida dos componentes DAQUELE
+  projeto — precisa ser re-medida contra os NOSSOS papéis de token antes de virar valor.
+
 ### [2026-07-29] | ORCHESTRATOR | npm do DS NÃO é depreciado — canal secundário com gate de token + L-017 finalmente mecânica | CONCLUÍDO
 
 - Input: o mantenedor corrigiu uma afirmação minha. Eu disse que o canal npm estava

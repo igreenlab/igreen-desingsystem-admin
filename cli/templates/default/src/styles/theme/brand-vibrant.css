@@ -1,0 +1,145 @@
+/**
+ * brand-vibrant.css — Auto-gerado. Não editar manualmente.
+ * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
+ * Source: tokens/brands/vibrant/semantic/*.ts
+ * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts vibrant > src/styles/theme/brand-vibrant.css
+ *
+ * Ative aplicando data-theme="vibrant" no <html> (ver src/hooks/useBrand.ts).
+ *
+ * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,
+ * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só
+ * omite o que já é idêntico à default.
+ */
+
+/* ── Light (65 vars divergem da default) ─────────────────────────── */
+[data-theme="vibrant"]:not(.dark) {
+  --color-bg-surface-elevated: oklch(0.9851 0 0);
+  --color-bg-sidebar: oklch(0.9516 0.0012 250);
+  --color-bg-subtle: oklch(0.9851 0 0);
+  --color-bg-muted: oklch(0.9674 0.0007 250);
+  --color-bg-emphasis: oklch(0.9197 0.0020 250);
+  --color-bg-brand: oklch(0.4645 0.1539 142.59);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-bg-danger: oklch(0.58 0.235 25);
+  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);
+  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);
+  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
+  --color-bg-success: oklch(0.4645 0.1539 142.59);
+  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);
+  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-bg-warning: oklch(0.825 0.170 81);
+  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);
+  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);
+  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-bg-info: oklch(0.55 0.293 300);
+  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);
+  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);
+  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);
+  --color-bg-muted-hover: oklch(0.95 0.0012 250);
+  --color-bg-input-hover: oklch(0.9851 0 0);
+  --color-bg-accent-hover: oklch(0.84 0.0032 250);
+  --color-bg-sidebar-accent-hover: oklch(0.92 0.0020 250);
+  --color-bg-table-head: oklch(0.9674 0.0007 250);
+  --color-bg-table-row-hover: oklch(0.9851 0 0);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));
+  --color-fg-strong: oklch(0.1652 0.0010 250);
+  --color-fg-default: oklch(0.1652 0.0010 250);
+  --color-fg-muted: oklch(0.5517 0.0062 250);
+  --color-fg-subtle: oklch(0.7118 0.0060 250);
+  --color-fg-disabled: oklch(0.7118 0.0060 250);
+  --color-fg-brand: oklch(0.4645 0.1539 142.59);
+  --color-fg-danger: oklch(0.58 0.235 25);
+  --color-fg-success: oklch(0.4645 0.1539 142.59);
+  --color-fg-warning: oklch(0.825 0.170 81);
+  --color-fg-info: oklch(0.55 0.293 300);
+  --color-border-default: oklch(0.906 0.0024 250);
+  --color-border-subtle: oklch(0.9325 0.0016 250);
+  --color-border-input: oklch(0.7118 0.0060 250);
+  --color-border-sidebar: oklch(0.906 0.0024 250);
+  --color-border-brand: oklch(0.4645 0.1539 142.59);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
+  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
+  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
+  --color-border-table: oklch(0.9325 0.0016 250);
+  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
+  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
+  --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);
+  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);
+  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);
+  --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);
+  --color-chart-1: oklch(0.6783 0.2304 142.42);
+  --color-chart-grid: oklch(0.9197 0.0020 250);
+}
+
+/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */
+.dark[data-theme="vibrant"] {
+  --color-bg-canvas: oklch(0.1652 0.0010 250);
+  --color-bg-surface: oklch(0.2103 0.0012 250);
+  --color-bg-surface-elevated: oklch(0.2739 0.0018 250);
+  --color-bg-surface-panels: oklch(0.1652 0.0010 250);
+  --color-bg-sidebar: oklch(0.2103 0.0012 250);
+  --color-bg-muted: oklch(1 0 0 / 0.05);
+  --color-bg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);
+  --color-bg-danger: oklch(0.58 0.235 25);
+  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 10%, transparent);
+  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, white);
+  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 16%, transparent);
+  --color-bg-success: oklch(0.866993 0.294055 142.3546);
+  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);
+  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);
+  --color-bg-warning: oklch(0.825 0.170 81);
+  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);
+  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);
+  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);
+  --color-bg-info: oklch(0.55 0.293 300);
+  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);
+  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);
+  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 16%, transparent);
+  --color-bg-table: oklch(0.2103 0.0012 250);
+  --color-bg-table-head: oklch(0.2739 0.0018 250);
+  --color-bg-table-row-hover: oklch(0.2739 0.0018 250);
+  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);
+  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);
+  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.2103 0.0012 250));
+  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.2103 0.0012 250));
+  --color-fg-default: oklch(0.9674 0.0007 250);
+  --color-fg-muted: oklch(0.7118 0.0060 250);
+  --color-fg-subtle: oklch(0.5517 0.0062 250);
+  --color-fg-disabled: oklch(0.4419 0.0055 250);
+  --color-fg-brand: oklch(0.866993 0.294055 142.3546);
+  --color-fg-danger: oklch(0.68 0.208 25);
+  --color-fg-success: oklch(0.866993 0.294055 142.3546);
+  --color-fg-warning: oklch(0.825 0.170 81);
+  --color-fg-info: oklch(0.72 0.172 300);
+  --color-border-default: oklch(0.290 0.0024 250);
+  --color-border-subtle: oklch(0.259 0.0016 250);
+  --color-border-input: oklch(0.325 0.0030 250);
+  --color-border-sidebar: oklch(0.259 0.0016 250);
+  --color-border-brand: oklch(0.8018 0.2721 142.38);
+  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);
+  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);
+  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);
+  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);
+  --color-border-table: oklch(0.259 0.0016 250);
+  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);
+  --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);
+  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);
+  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);
+  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);
+  --color-chart-1: oklch(0.866993 0.294055 142.3546);
+}

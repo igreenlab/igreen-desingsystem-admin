@@ -1398,6 +1398,60 @@ que pega o que a simulação, por construção, não vê. Como montar o sandbox:
 
 ---
 
+---
+
+## [L-066] Override escopado gerado como DIFF precisa de seletor MUTUAMENTE EXCLUSIVO — senão a omissão herda do lugar errado
+
+O sistema multi-marca emite `brand-<x>.css` com só o **diff** de cor contra a default, em
+dois blocos: `[data-theme="x"]` (light) e `.dark[data-theme="x"]` (dark). A economia é real
+— 14 vars em vez de 400. O furo está no seletor do light.
+
+`[data-theme="x"]` e `.dark` têm a **mesma especificidade** (0,1,0). Como `brand-<x>.css` é
+importado **depois** do `tailwind-theme.css`, o bloco light vencia o `.dark` do tema-base por
+ordem de fonte. Consequência: todo token que a marca muda no light **mas cujo valor no dark é
+idêntico ao da default** — e por isso está AUSENTE do diff dark — recebia o valor **claro** no
+dark mode.
+
+Medido em 2026-08-03, com o seletor antigo:
+
+| marca | tokens vazando light→dark |
+|---|---|
+| `vibrant` | **13** — `bg-subtle`/`bg-muted` renderizando `#fafafa`, `fg-default` `#0e0e11`, `border-input` `#d4d4d8` |
+| `blue` | 1 — `fg-strong` |
+| `green` | 1 — `fg-strong` |
+| `pay` | 0 |
+
+Os dois de 1 são **bug vivo em marca publicada**: título com `text-fg-strong` saía escuro
+sobre fundo escuro. `pay` escapou por acidente — ela diverge da default nos **dois** modos em
+todo token que toca, então o diff dark nunca omite nada que o light tenha setado.
+
+Note a assimetria perversa: **quanto mais a marca se parece com a default no dark, mais ela
+vaza.** Um tema que só muda a cor da marca vaza pouco; um que troca a rampa neutra inteira
+(vibrant) vaza muito. O bug premia divergência.
+
+Fix (1 linha no transform): o seletor do light vira `[data-theme="x"]:not(.dark)`. Os 2
+blocos passam a ser mutuamente exclusivos por construção, e no dark cada token cai em
+`.dark[data-theme]` (0,2,0) quando a marca diverge, senão no `.dark` do tema-base — que é
+exatamente o valor que a marca escolheu, já que o diff só omite o que é idêntico. Regenerar
+as 4 marcas mudou **só o seletor**, nenhum valor.
+
+**Regra:** ao gerar override escopado como diff contra um baseline, o seletor do escopo tem
+de ser **mutuamente exclusivo** com o seletor do outro eixo (aqui, dark/light) — não basta
+"o mais específico ganha onde eu emiti", porque **o diff aposta na omissão**, e omissão herda
+de quem vencer o empate. Sempre que a otimização for "não emito o que é igual ao baseline",
+verifique de qual regra o token omitido realmente herda, em CADA combinação dos eixos.
+
+**E o mais importante:** nenhum gate pegou isso. `tsc` 0, 159 testes verdes, o
+`dead-theme-classes` passou (as classes existiam — só resolviam pro valor errado), e a minha
+própria verificação de contraste passou 10/10, porque eu media os **valores dos arquivos TS**,
+não o que o **cascade resolvia no browser**. Quem achou foi o mantenedor, de olho, num print.
+É a L-064 outra vez, de forma mais dura: `getComputedStyle` no browser com os dois eixos
+ligados era o único teste que pegava, e eu não rodei até me mandarem olhar. Ao mexer em tema,
+**meça no browser com cada combinação de eixos ativa** — arquivo de token não é evidência de
+pixel.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

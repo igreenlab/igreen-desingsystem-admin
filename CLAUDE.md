@@ -93,7 +93,7 @@ h-9?      → min-h-form-md (36px)  |   h-10? → min-h-form-lg (40px)
 ## Leitura automática no início de qualquer sessão
 
 `.claude/rules/ds-standards.md` é carregado automaticamente (rules/).
-Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-063.
+Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-066.
 
 Para referência de código detalhada (padrão tv() completo, tabela de tokens, naming):
 → `.ai/rules/coding-standards.md`
@@ -273,7 +273,7 @@ Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 
 | Tipo de informação | Fonte canônica única |
 |---|---|
-| Regras DS + 63 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 66 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade do orchestrator + roteamento | `.claude/agents/orchestrator.md` |
 | Templates de implementação iGreen (tv()) | `.claude/skills/ds-dev/impl-igreen.md` |
 | Padrão tv() completo (referência longa) | `.ai/rules/coding-standards.md` |

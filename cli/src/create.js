@@ -128,6 +128,7 @@ const BRAND_LABELS = {
   pay: "iGreen Pay (verde vivo · dark near-black)",
   blue: "Azul",
   green: "Verde (grass)",
+  vibrant: "iGreen Vibrant (verde fluorescente · texto escuro sobre a marca)",
 };
 function detectBrandThemes(templateDir) {
   const out = [{ id: "default", label: "iGreen (verde padrão)" }];

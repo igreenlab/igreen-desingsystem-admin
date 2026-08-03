@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react";
  * Novas marcas: gere o overlay (`npm run tokens:brand:<x>`), importe no
  * globals.css e acrescente o id aqui.
  */
-export type Brand = "default" | "blue" | "green" | "pay";
+export type Brand = "default" | "blue" | "green" | "pay" | "vibrant";
 
 /**
  * Catálogo de marcas — fonte única p/ o seletor (dropdown) e swatches.
@@ -18,6 +18,7 @@ export const BRANDS: { id: Brand; label: string; swatch: string }[] = [
   { id: "blue", label: "Azul", swatch: "oklch(0.52 0.180 264)" },
   { id: "green", label: "Verde", swatch: "oklch(0.58 0.170 142)" },
   { id: "pay", label: "Pay", swatch: "#00a859" },
+  { id: "vibrant", label: "iGreen Vibrant", swatch: "oklch(0.866993 0.294055 142.3546)" },
 ];
 
 const STORAGE_KEY = "igreen-ds-brand";
@@ -25,7 +26,13 @@ const CHANGE_EVENT = "igreen-ds-brand-change";
 const ATTR = "data-theme";
 
 function isBrand(value: unknown): value is Brand {
-  return value === "default" || value === "blue" || value === "green" || value === "pay";
+  return (
+    value === "default" ||
+    value === "blue" ||
+    value === "green" ||
+    value === "pay" ||
+    value === "vibrant"
+  );
 }
 
 function getStoredBrand(): Brand {
