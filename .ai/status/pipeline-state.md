@@ -66,6 +66,35 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Publish v0.31.0 (lib) + v0.20.0 (CLI) no npm | CONCLUÍDO
+
+- Input: PRs #103 (marca) e #104 (release) mergeados na `main` pelo mantenedor, que
+  autorizou o publish e forneceu o token na sessão.
+- Output publicado no npm:
+  - `@snksergio/design-system@0.31.0` — 961 arquivos, 6.4 MB packed / 27.8 MB unpacked
+  - `@snksergio/create-design-system@0.20.0` — 70 arquivos, 224.6 kB
+  Confirmado por `npm view <pkg> version` nos dois.
+- Gate do publish: `lib:verify` rodado **duas vezes** — antes do gate humano (em 0.30.4,
+  pra não pedir aprovação de pacote quebrado) e de novo em 0.31.0 depois do merge. 19
+  entries cobertos por `files`, 452 `.d.ts` com todas as referências relativas resolvendo
+  dentro do tarball (a 5ª camada, que é o modo de falha da L-017).
+- Verificação que importa mais que a versão: baixei o tarball publicado do CLI e confirmei
+  que ele **contém de fato** `templates/default/src/styles/theme/brand-vibrant.css` e a
+  entrada `vibrant` no `BRAND_LABELS` do `create.js`. Bump de versão não é evidência de
+  que o artefato chegou — isso é.
+- Manuseio do token: `.npmrc` temporário escrito no **scratchpad da sessão, fora da árvore
+  do repo**, apagado imediatamente após cada publish (verificado: nenhum `.npmrc` no repo).
+  O token não foi escrito em arquivo versionado, nem em log, nem aqui.
+- Decisões: os 2 pacotes foram publicados na mesma rodada porque `cli/**` mudou (overlay no
+  template + `BRAND_LABELS`), e o CLI é o **único** canal que entrega tema ao usuário.
+- Assumption: **o npm NÃO entrega o tema, e isso foi decisão explícita de fechar assim.**
+  `@snksergio/design-system` publica só `dist-lib/theme.css` (tema-base, 0 ocorrência de
+  `data-theme`); o registry não referencia `brand-*.css`. Vale pras 4 marcas —
+  `blue`/`green`/`pay` também nunca chegaram por npm ou copy-in. Se algum consumidor de
+  `npm install` (não de `npm create`) pedir tema, esta assumption quebrou: o conserto é
+  o `build:lib` copiar os overlays pra `dist-lib/theme/` + entradas em `files`/`exports`.
+- Lições novas: nenhuma. A L-066 já entrou no PR #103.
+
 ### [2026-08-03] | DS REVIEWER | Marca "vibrant" — pre-commit-check da branch feat/brand-vibrant | APROVADO com 3 ressalvas
 
 - Escopo do diff (branch vs `main`, 9 commits, 20 arquivos): token primitivo 1 ·
