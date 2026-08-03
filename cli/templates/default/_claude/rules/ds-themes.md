@@ -85,7 +85,44 @@ tema-base.
 
 ## Trocar em runtime (seletor de marca)
 
-Escreve/remove o atributo. `default` remove:
+### Consumindo por `npm install` → use o hook `useBrand` (≥ 0.33.0)
+
+Ele já resolve persistência, sincronia entre abas e a regra de que `default` significa
+**remover** o atributo (o tema-base não tem overlay).
+
+```tsx
+import { useBrand } from "@snksergio/design-system";
+
+// Passe SÓ as marcas cujo overlay você importou no CSS.
+const MINHAS_MARCAS = [
+  { id: "default", label: "iGreen",         swatch: "oklch(0.5248 0.1415 150.9)" },
+  { id: "vibrant", label: "iGreen Vibrant", swatch: "#0fff00" },
+];
+
+function SeletorDeMarca() {
+  const { brand, brands, current, setBrand } = useBrand({ brands: MINHAS_MARCAS });
+  return (
+    <select value={brand} onChange={(e) => setBrand(e.target.value)} aria-label="Marca">
+      {brands.map((b) => (
+        <option key={b.id} value={b.id}>{b.label}</option>
+      ))}
+    </select>
+  );
+}
+```
+
+⚠️ **O catálogo é o ponto todo.** Sem o argumento, `useBrand` usa as 5 marcas do DS — e o
+seletor listaria temas cujo CSS não está no seu bundle. `data-theme` com id sem overlay é
+**no-op silencioso**: a opção aparece, o usuário clica, nada acontece, e não há erro.
+Declare só o que você importou. `current` devolve a entrada ativa (label + swatch) pronta,
+sem `find()`.
+
+Valor persistido fora do catálogo cai na primeira entrada — então um `localStorage` com
+`"pay"` de outro app não deixa este num tema órfão.
+
+### Copy-in / submódulo, ou sem o pacote npm
+
+Escreve/remove o atributo na mão. `default` remove:
 
 ```ts
 function aplicarMarca(id: string) {
@@ -95,11 +132,9 @@ function aplicarMarca(id: string) {
 }
 ```
 
-⚠️ Só funciona pras marcas cujo CSS **está no bundle**. `data-theme` com id não importado
-é no-op silencioso. Se o app oferece N marcas ao usuário, importe os N overlays.
-
-O hook `useBrand` do showcase do DS **não** é exportado no pacote — o catálogo dele é fixo
-nas 5 marcas e listaria temas que este projeto não instalou. Copie a ideia, não o hook.
+Mesma armadilha: só funciona pras marcas cujo CSS **está no bundle**. Se o app oferece N
+marcas ao usuário, importe os N overlays — e valide o id contra a lista que você importou,
+não contra as 5 do DS.
 
 ## Criar um tema novo
 
