@@ -66,6 +66,36 @@
 
 <!-- NOVA ENTRADA AQUI -->
 
+### [2026-08-03] | DS DEV | Publish v0.32.1 (lib) + v0.21.0 (CLI) — ciclo da marca vibrant FECHADO | CONCLUÍDO
+
+- Input: mantenedor aprovou o dark acromático e o `ColorsDoc` brand-aware (PR #109), e pediu
+  o publish pra fechar os temas.
+- Output publicado e confirmado por `npm view`:
+  - `@snksergio/design-system@0.32.1` — 965 arquivos, 6.4 MB packed
+  - `@snksergio/create-design-system@0.21.0` — 71 arquivos
+- Verificação de ponta a ponta, **instalando do npm real** (não do tarball local):
+  1. `import.meta.resolve` resolve os **5 subpaths** de tema num projeto limpo.
+  2. O CSS baixado tem o dark **acromático de verdade**: `bg-canvas oklch(0.2050 0 0)`,
+     `bg-surface oklch(0.2603 0 0)` (#242424), `border-default oklch(0.3400 0 0)` — e **zero**
+     neutro com croma > 0 no bloco dark. Não é "a versão subiu": é o valor certo no artefato.
+  3. Baixei o tarball do CLI 0.21.0 e confirmei que ele leva `brand-vibrant.css` **e**
+     `_claude/rules/ds-themes.md` (124 linhas, não arquivo vazio), com a `vibrant` no
+     `BRAND_LABELS` do prompt "Tema de cor?".
+- Manuseio do token: `.npmrc` temporário no scratchpad da sessão, fora da árvore do repo,
+  apagado após cada publish. Nunca em arquivo versionado, log ou aqui.
+- Estado final dos 4 canais de entrega de tema: `npm create` (prompt com as 5 marcas) ·
+  `npm install` (subpath `theme/brand-*.css`, desde 0.31.1) · submódulo (importa do disco) ·
+  `igreen:add -- theme-<id>` (item de registry, desde 0.32.0). Todos ✅.
+- Assumption: o ciclo está fechado pra CONSUMO. Duas coisas seguem fora: (a) troca de marca
+  em **runtime** não tem hook exportado — documentada como 4 linhas de `setAttribute`, porque
+  o `BRANDS` do `useBrand` é fixo nas 5 marcas e listaria temas que o projeto do consumidor
+  não instalou; (b) das 3 ressalvas pré-existentes do pre-commit, a do `ColorsDoc` foi
+  resolvida nesta leva e resta `.ai/context/tokens/color.md` não documentar o multi-marca.
+- Lições novas: nenhuma L-NNN nova. O padrão que se repetiu a sessão inteira e que já está
+  coberto por L-064/L-066 ficou explícito no método: **artefato de distribuição só está
+  verificado quando alguém instala e usa** — versão bumpada, arquivo no tarball e `.d.ts` com
+  valor literal não provam nada disso.
+
 ### [2026-08-03] | DS DEV | vibrant — dark acromático ancorado em #242424 + ColorsDoc brand-aware | CONCLUÍDO
 
 - Input: 2 pedidos. (1) O dark devia ficar "mais cinza mesmo", no estilo da iGreen default,
