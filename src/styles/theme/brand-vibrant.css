@@ -126,7 +126,7 @@
   --color-fg-info: oklch(0.55 0.293 300);
   --color-fg-on-brand: oklch(0.2820 0.0929 143.47);
   --color-fg-on-success: oklch(0.2820 0.0929 143.47);
-  --color-border-default: oklch(0.320 0.0110 285.81);
+  --color-border-default: oklch(0.290 0.0100 285.81);
   --color-border-subtle: oklch(0.259 0.0055 286.03);
   --color-border-input: oklch(0.3703 0.0119 285.81);
   --color-border-sidebar: oklch(0.259 0.0055 286.03);

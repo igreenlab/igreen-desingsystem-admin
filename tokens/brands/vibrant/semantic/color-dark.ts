@@ -153,9 +153,16 @@ export const fg = {
 // MESMA borda soma muito mais peso na tela.
 // ⚠️ `input` NÃO foi suavizado: é fronteira de campo, não separador.
 export const border = {
-  // 2ª rodada: ainda estava forte. Força 0.1347 → 0.1097 (-19%). Continua bem acima
-  // do piso de 0.06 da L-009, e claramente separada da `subtle` (0.0487).
-  default: "oklch(0.320 0.0110 285.81)",  // #323238 (era #38383f, antes gray[700] #3f3f46)
+  // 3ª rodada. Histórico de força (distância de L até a surface 0.2103), porque duas
+  // reduções de ~7% no L não resolveram e a 3ª foi deliberadamente maior:
+  //   gray[700] #3f3f46 → 0.1600   (mapeamento cru da referência)
+  //   #38383f           → 0.1347   (-16%)
+  //   #323238           → 0.1097   (-19%)
+  //   #2b2b31           → 0.0797   (-27%)  ← atual, "estava agressiva demais"
+  // Piso da L-009 (borda dark ≥ surface + 0.06) = L 0.2703 / #26262c. Ainda sobra
+  // margem se precisar de mais uma volta; abaixo disso a borda some no escuro.
+  // Referência de baixo: `subtle` está em 0.0487, então a hierarquia se mantém.
+  default: "oklch(0.290 0.0100 285.81)",  // #2b2b31
   subtle:  "oklch(0.259 0.0055 286.03)",  // #232326 (era gray[800] #27272a)
   input:   gray[700],                     // #3f3f46 — intocado
   sidebar: "oklch(0.259 0.0055 286.03)",
