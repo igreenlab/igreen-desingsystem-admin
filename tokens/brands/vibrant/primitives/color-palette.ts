@@ -156,6 +156,47 @@ export const gray = {
  * 11 shades existem por paridade de contrato.
  */
 
+/* ── grayDark — neutra ACROMÁTICA do dark, ancorada em #242424 ─────────────────
+ *
+ * Rampa separada da `gray` de propósito, e é a única marca com essa divisão. Razão:
+ * o LIGHT foi fechado e aprovado com a neutra fria (`gray`, hue 250); o mantenedor
+ * pediu o dark "mais cinza mesmo, no estilo da iGreen default", com `#242424` como
+ * âncora. Uma rampa só não atende os dois — daí `gray` (light, fria) + `grayDark`
+ * (dark, croma 0). O `color-light.ts` importa `gray`, o `color-dark.ts` importa esta.
+ *
+ * Valores vêm do handoff (§1.1), croma EXATAMENTE 0 — por isso todo hex é par
+ * repetido (R=G=B). Se algum valor sair com R≠G≠B, houve erro de transcrição; é o
+ * autoteste que o próprio handoff sugere.
+ *
+ * ⚠️ MAPEAMENTO — o §4.1 do handoff avisa de uma regressão silenciosa aqui, e eu já
+ * caí nela na 1ª leva desta marca: o `semanticExample.dark` mapeia `bgCanvas → 950`,
+ * mas o `--background` do DS equivale ao **900**. Seguir o exemplo ao pé da letra
+ * deixa a UI um degrau mais escura do que o resto do DS. "O mapeamento do DS manda":
+ *   canvas → 900 (#171717) · surface → 800 (#242424, a âncora) · 950 fica DISPONÍVEL
+ * O 950 (#0d0d0d) não tem consumidor de propósito — é reserva pra superfície mais
+ * profunda, se algum dia existir. Não é degrau morto.
+ *
+ * ⚠️ 4 valores do dark NÃO estão nesta rampa e vivem como literal no `color-dark.ts`:
+ * `surface-elevated`/`table-head`, `border.subtle`, `border.default` e `border.input`.
+ * São as forças que o mantenedor calibrou visualmente em 3 rodadas (0.027 / 0.0487 /
+ * 0.0797 / 0.1147 de distância até a surface) e caem entre degraus. É a opção (b) do
+ * §4.1 — "manter como valores semânticos fora da escala, zero risco" — preferida
+ * porque arredondar pro degrau desfaria a calibração aprovada.
+ */
+export const grayDark = {
+  50:  "oklch(0.9850 0 0)",   // #fafafa
+  100: "oklch(0.9670 0 0)",   // #f4f4f4  → fg.default
+  200: "oklch(0.9200 0 0)",   // #e4e4e4
+  300: "oklch(0.8710 0 0)",   // #d4d4d4
+  400: "oklch(0.7120 0 0)",   // #a2a2a2  → fg.muted
+  500: "oklch(0.5520 0 0)",   // #727272  → fg.subtle
+  600: "oklch(0.4420 0 0)",   // #535353  → fg.disabled
+  700: "oklch(0.3510 0 0)",   // #3b3b3b
+  800: "oklch(0.2603 0 0)",   // #242424  → bg.surface · sidebar · table  ← ÂNCORA
+  900: "oklch(0.2050 0 0)",   // #171717  → bg.canvas · surface-panels
+  950: "oklch(0.1600 0 0)",   // #0d0d0d  → RESERVA (sem consumidor, ver nota acima)
+} as const;
+
 // ─── Danger — hue 25, base L 0.58 / C 0.235 ───────────────────────────────────
 // Escolhido L 0.58 em vez do pico 0.630 (C 0.255) pra PRESERVAR texto branco:
 // no pico o branco cai a 3.96:1. Em 0.58 dá 4.82:1 — AA de verdade, e melhor que
@@ -255,7 +296,7 @@ export const alpha = {
 } as const;
 
 export const colorPalette = {
-  brand, brandContrast, gray,
+  brand, brandContrast, gray, grayDark,
   success, warning, danger, info,
   white, black,
   alpha,

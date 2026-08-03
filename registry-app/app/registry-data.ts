@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · accordion · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · alert-dialog · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · alert-modal · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · alert · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · app-shell · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · aspect-ratio · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · avatar-ig · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · avatar · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · badge · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · breadcrumb · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · button-group · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · button · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · calendar · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · card-checkbox · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · card · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · carousel · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · chart · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · checkbox · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · chip · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · choropleth-map · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · collapsible · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · color-picker · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · combobox · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · command · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · context-menu · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · data-list · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · data-table · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · date-picker · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · dialog · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · drawer · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · dropdown-menu · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · empty-state · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-app-shell · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-chat · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-clientes · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-dashboard · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-edit-page · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-finance · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-login · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-mapa-rede · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · example-order-detail · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · file-upload-field · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · floating-panel · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · footer-table · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · form-field · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · header · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · hover-card · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · icon · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · input-group · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · input-otp · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · input · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · kanban · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · kpi · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · label · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · list · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · markdown-text · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · menu-sidebar · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · menubar · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · modal · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · month-year-picker · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · navigation-menu · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · page-header · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · pagination · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · panel · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · popover · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · progress · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · radio-group · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · scroll-area · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · select · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · separator · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · sheet · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · skeleton · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · slider · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · sonner · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · spinner · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · switch · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · table · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · tabs · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · textarea · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4389,7 +4389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · theme-blue · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4407,7 +4407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · theme-green · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4425,7 +4425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · theme-pay · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4437,13 +4437,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/brand-vibrant.css",
-        "content": "/**\r\n * brand-vibrant.css — Auto-gerado. Não editar manualmente.\r\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\r\n * Source: tokens/brands/vibrant/semantic/*.ts\r\n * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts vibrant > src/styles/theme/brand-vibrant.css\r\n *\r\n * Ative aplicando data-theme=\"vibrant\" no <html> (ver src/hooks/useBrand.ts).\r\n *\r\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\r\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\r\n * omite o que já é idêntico à default.\r\n */\r\n\r\n/* ── Light (65 vars divergem da default) ─────────────────────────── */\r\n[data-theme=\"vibrant\"]:not(.dark) {\r\n  --color-bg-surface-elevated: oklch(0.9851 0 0);\r\n  --color-bg-sidebar: oklch(0.9516 0.0012 250);\r\n  --color-bg-subtle: oklch(0.9851 0 0);\r\n  --color-bg-muted: oklch(0.9674 0.0007 250);\r\n  --color-bg-emphasis: oklch(0.9197 0.0020 250);\r\n  --color-bg-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-bg-danger: oklch(0.58 0.235 25);\r\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);\r\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);\r\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-bg-success: oklch(0.4645 0.1539 142.59);\r\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);\r\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-bg-warning: oklch(0.825 0.170 81);\r\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);\r\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);\r\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-bg-info: oklch(0.55 0.293 300);\r\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);\r\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);\r\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.95 0.0012 250);\r\n  --color-bg-input-hover: oklch(0.9851 0 0);\r\n  --color-bg-accent-hover: oklch(0.84 0.0032 250);\r\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0020 250);\r\n  --color-bg-table-head: oklch(0.9674 0.0007 250);\r\n  --color-bg-table-row-hover: oklch(0.9851 0 0);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));\r\n  --color-fg-strong: oklch(0.1652 0.0010 250);\r\n  --color-fg-default: oklch(0.1652 0.0010 250);\r\n  --color-fg-muted: oklch(0.5517 0.0062 250);\r\n  --color-fg-subtle: oklch(0.7118 0.0060 250);\r\n  --color-fg-disabled: oklch(0.7118 0.0060 250);\r\n  --color-fg-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-fg-danger: oklch(0.58 0.235 25);\r\n  --color-fg-success: oklch(0.4645 0.1539 142.59);\r\n  --color-fg-warning: oklch(0.825 0.170 81);\r\n  --color-fg-info: oklch(0.55 0.293 300);\r\n  --color-border-default: oklch(0.906 0.0024 250);\r\n  --color-border-subtle: oklch(0.9325 0.0016 250);\r\n  --color-border-input: oklch(0.7118 0.0060 250);\r\n  --color-border-sidebar: oklch(0.906 0.0024 250);\r\n  --color-border-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\r\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\r\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\r\n  --color-border-table: oklch(0.9325 0.0016 250);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\r\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\r\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);\r\n  --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);\r\n  --color-chart-1: oklch(0.6783 0.2304 142.42);\r\n  --color-chart-grid: oklch(0.9197 0.0020 250);\r\n}\r\n\r\n/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */\r\n.dark[data-theme=\"vibrant\"] {\r\n  --color-bg-canvas: oklch(0.1652 0.0010 250);\r\n  --color-bg-surface: oklch(0.2103 0.0012 250);\r\n  --color-bg-surface-elevated: oklch(0.2739 0.0018 250);\r\n  --color-bg-surface-panels: oklch(0.1652 0.0010 250);\r\n  --color-bg-sidebar: oklch(0.2103 0.0012 250);\r\n  --color-bg-muted: oklch(1 0 0 / 0.05);\r\n  --color-bg-brand: oklch(0.866993 0.294055 142.3546);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\r\n  --color-bg-danger: oklch(0.58 0.235 25);\r\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 10%, transparent);\r\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, white);\r\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 16%, transparent);\r\n  --color-bg-success: oklch(0.866993 0.294055 142.3546);\r\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);\r\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\r\n  --color-bg-warning: oklch(0.825 0.170 81);\r\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);\r\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);\r\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);\r\n  --color-bg-info: oklch(0.55 0.293 300);\r\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);\r\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);\r\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 16%, transparent);\r\n  --color-bg-table: oklch(0.2103 0.0012 250);\r\n  --color-bg-table-head: oklch(0.2739 0.0018 250);\r\n  --color-bg-table-row-hover: oklch(0.2739 0.0018 250);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.2103 0.0012 250));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.2103 0.0012 250));\r\n  --color-fg-default: oklch(0.9674 0.0007 250);\r\n  --color-fg-muted: oklch(0.7118 0.0060 250);\r\n  --color-fg-subtle: oklch(0.5517 0.0062 250);\r\n  --color-fg-disabled: oklch(0.4419 0.0055 250);\r\n  --color-fg-brand: oklch(0.866993 0.294055 142.3546);\r\n  --color-fg-danger: oklch(0.68 0.208 25);\r\n  --color-fg-success: oklch(0.866993 0.294055 142.3546);\r\n  --color-fg-warning: oklch(0.825 0.170 81);\r\n  --color-fg-info: oklch(0.72 0.172 300);\r\n  --color-border-default: oklch(0.290 0.0024 250);\r\n  --color-border-subtle: oklch(0.259 0.0016 250);\r\n  --color-border-input: oklch(0.325 0.0030 250);\r\n  --color-border-sidebar: oklch(0.259 0.0016 250);\r\n  --color-border-brand: oklch(0.8018 0.2721 142.38);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\r\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\r\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\r\n  --color-border-table: oklch(0.259 0.0016 250);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);\r\n  --color-chart-1: oklch(0.866993 0.294055 142.3546);\r\n}\r\n",
+        "content": "/**\n * brand-vibrant.css — Auto-gerado. Não editar manualmente.\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\n * Source: tokens/brands/vibrant/semantic/*.ts\n * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts vibrant > src/styles/theme/brand-vibrant.css\n *\n * Ative aplicando data-theme=\"vibrant\" no <html> (ver src/hooks/useBrand.ts).\n *\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\n * omite o que já é idêntico à default.\n */\n\n/* ── Light (65 vars divergem da default) ─────────────────────────── */\n[data-theme=\"vibrant\"]:not(.dark) {\n  --color-bg-surface-elevated: oklch(0.9851 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0012 250);\n  --color-bg-subtle: oklch(0.9851 0 0);\n  --color-bg-muted: oklch(0.9674 0.0007 250);\n  --color-bg-emphasis: oklch(0.9197 0.0020 250);\n  --color-bg-brand: oklch(0.4645 0.1539 142.59);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-bg-danger: oklch(0.58 0.235 25);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-bg-success: oklch(0.4645 0.1539 142.59);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-bg-warning: oklch(0.825 0.170 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-bg-info: oklch(0.55 0.293 300);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0.0012 250);\n  --color-bg-input-hover: oklch(0.9851 0 0);\n  --color-bg-accent-hover: oklch(0.84 0.0032 250);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0020 250);\n  --color-bg-table-head: oklch(0.9674 0.0007 250);\n  --color-bg-table-row-hover: oklch(0.9851 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));\n  --color-fg-strong: oklch(0.1652 0.0010 250);\n  --color-fg-default: oklch(0.1652 0.0010 250);\n  --color-fg-muted: oklch(0.5517 0.0062 250);\n  --color-fg-subtle: oklch(0.7118 0.0060 250);\n  --color-fg-disabled: oklch(0.7118 0.0060 250);\n  --color-fg-brand: oklch(0.4645 0.1539 142.59);\n  --color-fg-danger: oklch(0.58 0.235 25);\n  --color-fg-success: oklch(0.4645 0.1539 142.59);\n  --color-fg-warning: oklch(0.825 0.170 81);\n  --color-fg-info: oklch(0.55 0.293 300);\n  --color-border-default: oklch(0.906 0.0024 250);\n  --color-border-subtle: oklch(0.9325 0.0016 250);\n  --color-border-input: oklch(0.7118 0.0060 250);\n  --color-border-sidebar: oklch(0.906 0.0024 250);\n  --color-border-brand: oklch(0.4645 0.1539 142.59);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\n  --color-border-table: oklch(0.9325 0.0016 250);\n  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);\n  --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);\n  --color-chart-1: oklch(0.6783 0.2304 142.42);\n  --color-chart-grid: oklch(0.9197 0.0020 250);\n}\n\n/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */\n.dark[data-theme=\"vibrant\"] {\n  --color-bg-canvas: oklch(0.2050 0 0);\n  --color-bg-surface: oklch(0.2603 0 0);\n  --color-bg-surface-elevated: oklch(0.2873 0 0);\n  --color-bg-surface-panels: oklch(0.2050 0 0);\n  --color-bg-sidebar: oklch(0.2603 0 0);\n  --color-bg-muted: oklch(1 0 0 / 0.05);\n  --color-bg-brand: oklch(0.866993 0.294055 142.3546);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\n  --color-bg-danger: oklch(0.58 0.235 25);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 10%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 16%, transparent);\n  --color-bg-success: oklch(0.866993 0.294055 142.3546);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\n  --color-bg-warning: oklch(0.825 0.170 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);\n  --color-bg-info: oklch(0.55 0.293 300);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 16%, transparent);\n  --color-bg-table: oklch(0.2603 0 0);\n  --color-bg-table-head: oklch(0.2873 0 0);\n  --color-bg-table-row-hover: oklch(0.2873 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.2603 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.2603 0 0));\n  --color-fg-default: oklch(0.9670 0 0);\n  --color-fg-muted: oklch(0.7120 0 0);\n  --color-fg-subtle: oklch(0.5520 0 0);\n  --color-fg-disabled: oklch(0.4420 0 0);\n  --color-fg-brand: oklch(0.866993 0.294055 142.3546);\n  --color-fg-danger: oklch(0.68 0.208 25);\n  --color-fg-success: oklch(0.866993 0.294055 142.3546);\n  --color-fg-warning: oklch(0.825 0.170 81);\n  --color-fg-info: oklch(0.72 0.172 300);\n  --color-border-default: oklch(0.3400 0 0);\n  --color-border-subtle: oklch(0.3090 0 0);\n  --color-border-input: oklch(0.3750 0 0);\n  --color-border-sidebar: oklch(0.3090 0 0);\n  --color-border-brand: oklch(0.8018 0.2721 142.38);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\n  --color-border-table: oklch(0.3090 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5520 0 0) 22%, transparent);\n  --color-chart-1: oklch(0.866993 0.294055 142.3546);\n}\n",
         "type": "registry:file",
         "target": "src/styles/theme/brand-vibrant.css"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · theme-vibrant · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · theme · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · toast · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · toggle-group · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · toggle · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · tooltip · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · tv · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.32.0 · aaedb04 · 2026-08-03"
+      "stamp": "igreen-ds · utils · v0.32.1 · 355a3e9 · 2026-08-03"
     },
     "type": "registry:file"
   }
