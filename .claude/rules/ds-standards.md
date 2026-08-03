@@ -565,6 +565,78 @@ pegou** (tsc 0, 159 testes, `dead-theme-classes` OK, contraste 10/10 — eu medi
 arquivos TS, não o que o cascade resolvia); quem achou foi o mantenedor num print. L-064 de novo:
 ao mexer em tema, **medir no browser com cada combinação de eixos ativa**. Detalhe: `lessons.md` L-066.
 
+## Sistema multi-marca (temas)
+
+5 marcas: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um **overlay
+de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>` a partir de
+`tokens/brands/<id>/`.
+
+⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
+`brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá, e um overlay é só variável
+de cor num escopo. Pedido de "mudar o espaçamento/a fonte só nesta marca" **não é tema**:
+pare e pergunte. (Pra `font-weight` ser brand-aware, os presets teriam que passar a
+referenciar var — mudança no transform, afeta as 5 marcas.)
+
+### Anatomia — 3 arquivos, contrato idêntico à default
+
+```
+tokens/brands/<id>/
+  primitives/color-palette.ts   brand · brandContrast · gray · success/warning/danger/info · white/black/alpha
+  semantic/color-light.ts       { bg, fg, border, ring, overlay, chart } — MESMAS chaves da default
+  semantic/color-dark.ts        idem
+```
+
+`brandContrast` existe porque no dark a família brand troca pra `brandContrast[400]` — verde
+escuro não contrasta com near-black. Se a marca já é clara (caso `vibrant`, no teto do gamut),
+`brandContrast` pode ser alias do próprio `brand`.
+
+### As 6 superfícies que uma marca nova toca
+
+| # | Onde | O quê |
+|---|---|---|
+| 1 | `tokens/brands/<id>/` | os 3 arquivos |
+| 2 | `package.json` | script `tokens:brand:<id>` |
+| 3 | `src/styles/globals.css` | `@import "./theme/brand-<id>.css"` |
+| 4 | `src/hooks/useBrand.ts` | type `Brand` + catálogo `BRANDS` + `isBrand()` — **os 3** |
+| 5 | `cli/templates/default/src/styles/theme/` | copiar o CSS gerado (o CLI detecta pelo nome) + `BRAND_LABELS` em `cli/src/create.js` |
+| 6 | `registry.json` + `package.json > exports` | item `theme-<id>` (`registry:file`) + subpath `./theme/brand-<id>.css` |
+
+O **`build:lib` FALHA** se achar `brand-*.css` sem entrada em `exports` — gate fail-closed,
+porque o pacote levaria o arquivo e o consumidor não conseguiria importá-lo.
+
+### Os 4 canais de entrega (todos funcionam desde v0.32.0)
+
+`npm create` (prompt "Tema de cor?") · `npm install` (subpath `theme/brand-*.css`, ≥ 0.31.1) ·
+submódulo (importa do disco) · `igreen:add -- theme-<id>` (item de registry).
+
+### ⛔ Armadilhas MEDIDAS — todas custaram retrabalho real
+
+1. **`to-brand-overlay.ts` importa a marca com `as` (cast, não checagem).** Chave faltando ou
+   com typo **não dá erro de `tsc`** — o token herda o valor da default em silêncio. Compare
+   os key-sets contra a default antes de considerar pronto.
+2. **Handoff externo mapeia papel→shade pra UI DELE, não pra nossa.** Seguir `semanticExample`
+   ao pé da letra já (a) mapeou `bg.canvas` um degrau escuro demais e (b) comprimiu a
+   separação título↔subtítulo de célula pra **1.34:1** contra 2.49:1 da default — o subtítulo
+   virou o título. Showcase de cards não tem par título/subtítulo; a nossa UI é tabela densa.
+   **Nosso mapeamento manda**; use o do handoff só como referência de valor.
+3. **"Mais vibrante" não é operação de saturação.** Os status da default já vivem a 84–100% do
+   teto de croma do próprio hue. O teto do sRGB depende de hue **e** de L: verde/amarelo picam
+   claros, vermelho no meio, roxo escuro. Não existe roxo claro e saturado em sRGB. Meça o
+   teto por hue **antes** de prometer vibração.
+4. **Cor no teto do gamut não deriva estado por saturação.** Croma acima do teto clipa e o
+   hover fica idêntico ao repouso — desça a luminosidade pelo ramp.
+5. **`fg` de status no dark precisa de shade mais claro que o `[500]`.** Funciona como fundo
+   sólido e reprova AA como texto sobre surface escura (medido: 3.42:1 e 2.88:1 no badge).
+6. **Neutro pode precisar de rampa por MODO.** A `vibrant` tem `gray` (light, fria) +
+   `grayDark` (dark, acromática) porque o light foi fechado antes de o dark mudar. É a única
+   marca assim — e o `color-dark.ts` importa `grayDark as gray`.
+7. **Verifique no BROWSER, com cada combinação de eixos ativa.** `tsc`, testes e
+   `dead-theme-classes` passaram verdes com 13 tokens resolvendo errado no dark (L-066). Valor
+   de arquivo de token não é evidência de pixel.
+
+Doc humana pro consumidor: página **Temas de marca** (`#/themes`) + rule `ds-themes.md` do kit.
+Contexto técnico: `.ai/context/tokens/color.md`.
+
 ### Padrão de chart (resumo)
 
 ```
