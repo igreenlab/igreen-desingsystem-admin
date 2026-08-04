@@ -2623,3 +2623,19 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma. `main` limpa, zero branch pendente, tsc 0, 17 arquivos / 200 testes, os 6 gates exit 0.
 - Lições novas: nenhuma.
 - Pendência: **revogar o token do npm** (ação do mantenedor — ele avisou que revogaria ao fim). Validação visual das 5 marcas no showcase fica com o usuário; a verificação de cascade no browser já foi feita quando a `vibrant` fechou.
+
+---
+
+### 2026-08-04 | ds-dev | Gate de superfícies de marca + doc auto-carregada estava errada | CONCLUÍDO
+- Input: usuário perguntou, ao fechar o ciclo, se alguma coisa passou ou ficou pendente. Auditei em vez de responder de memória.
+- **Achado, e é o defeito que importa**: a seção "Sistema multi-marca" do `ds-standards.md` — que é **auto-carregada** — listava **6** superfícies, enquanto a skill `brand-builder` (sob demanda) lista **10**. Um agente que criasse marca sem invocar a skill seguiria a doc menos completa. Pior: duas das 6 linhas descreviam o mecanismo ERRADO. (a) linha 4 mandava editar `isBrand()`, que a v0.33.0 tornou desnecessário (valida pelo catálogo). (b) linha 5 mandava "copiar o CSS gerado" pro template, que virou descoberta de diretório no `cli:rebake`. E faltavam 2 superfícies: `PALETAS` do `ColorsDoc` e a `ds-themes.md` do consumidor — esta última sem gate nenhum (classe da L-042: existe e ninguém sabe usar).
+- Corrigido: tabela reescrita com as 10, cada linha conferida contra o código, apontando pra `generate.md` como fonte canônica do passo-a-passo. `CLAUDE.md` (2 ocorrências de "6 superfícies") alinhado. A contagem **7** (superfícies de componente, L-042) segue intacta — conferi que não colidiu.
+- **Gate novo** `scripts/lib/brand-surfaces.mjs` + `scripts/brand-check.mjs`, no CI e no `release:check`. Fonte = `BRANDS` do `useBrand.ts` (uma marca só conta como existente quando está no catálogo, porque é o que showcase e consumidor enxergam). Só **2 das 10** superfícies falhavam visivelmente (`ColorsDoc` pelo `tsc`, `exports` pelo `build:lib`); as outras 8 em silêncio.
+- Validado reproduzindo, não por fixture (L-064): marca-fantasma só no catálogo acusa **10/10**; e apaguei/renomeei a `vibrant` em 3 superfícies uma a uma (`ds-themes.md`, overlay bakeado, `PALETAS`) — o gate acusou as 3 pelo nome. Restaurado depois, tree limpa.
+- 8 testes. Um deles é novo em espécie: **`type Brand` vs catálogo `BRANDS`** têm que listar as mesmas marcas — id no type sem entrada no catálogo não aparece em seletor nenhum, e essa direção não quebra compilação.
+- Também: `brand:check` e `brand:contrast` viraram npm scripts (o `brand-contrast.mjs` só era descobrível lendo a skill).
+- **Verificação no browser das 5 marcas, fechada nesta sessão** (era a pendência que eu tinha nomeado): 10/10 combinações marca × modo sem vazamento light→dark e sem inversão de hierarquia; `text-fg-strong` pinta branco nos 5 combos dark medido em 4 elementos reais da rota `?app=finance` (o bug da L-066 pintava quase-preto sobre quase-preto); `vibrant` dark com `surface` em L 0.260 = o `#242424` ancorado. Screenshot confirma a hierarquia título/subtítulo que o mantenedor havia reprovado.
+- Assumption: o catálogo `BRANDS` é o registro autoritativo de "quais marcas existem". Se falso (marca entregue sem entrar no catálogo), o gate não a vê — mas aí ela também não aparece em seletor nenhum, então o sintoma é o mesmo e visível.
+- Regressões: nenhuma. tsc 0 · test **18 arquivos / 208 testes** (+8) · os 7 gates exit 0 · `release:check` verde com o brand-check dentro.
+- Lições novas: nenhuma numerada — L-060 (doc auto-carregada descrevendo mecanismo revogado) e L-058 (superfícies sem gate) reincidindo.
+- Pendência: **revogar o token do npm** (mantenedor). E `igreen:add -- theme-vibrant` fim-a-fim segue não executado — precisa do `IGREEN_TOKEN`; é o único canal de entrega sem verificação real (L-065).

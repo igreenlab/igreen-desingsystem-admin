@@ -591,19 +591,29 @@ tokens/brands/<id>/
 escuro não contrasta com near-black. Se a marca já é clara (caso `vibrant`, no teto do gamut),
 `brandContrast` pode ser alias do próprio `brand`.
 
-### As 6 superfícies que uma marca nova toca
+### As 10 superfícies que uma marca nova toca
+
+⚠️ Fonte canônica do passo-a-passo (com comandos) = `.claude/skills/brand-builder/generate.md`,
+via `/ds-create-brand`. A tabela abaixo é o resumo; **gate mecânico** = `npm run brand:check`.
 
 | # | Onde | O quê |
 |---|---|---|
-| 1 | `tokens/brands/<id>/` | os 3 arquivos |
+| 1 | `tokens/brands/<id>/` | os 3 arquivos (palette + color-light + color-dark) |
 | 2 | `package.json` | script `tokens:brand:<id>` |
-| 3 | `src/styles/globals.css` | `@import "./theme/brand-<id>.css"` |
-| 4 | `src/hooks/useBrand.ts` | type `Brand` + catálogo `BRANDS` + `isBrand()` — **os 3** |
-| 5 | `cli/templates/default/src/styles/theme/` | copiar o CSS gerado (o CLI detecta pelo nome) + `BRAND_LABELS` em `cli/src/create.js` |
-| 6 | `registry.json` + `package.json > exports` | item `theme-<id>` (`registry:file`) + subpath `./theme/brand-<id>.css` |
+| 3 | `src/styles/theme/brand-<id>.css` | gerado por `npm run tokens:brand:<id>` |
+| 4 | `src/styles/globals.css` | `@import "./theme/brand-<id>.css"` (**depois** do tema-base) |
+| 5 | `src/hooks/useBrand.ts` | type `Brand` + catálogo `BRANDS` — **só os 2**. `isBrand()` **não** se edita mais: desde a v0.33.0 valida contra o catálogo ativo |
+| 6 | `package.json > exports` | subpath `./theme/brand-<id>.css` |
+| 7 | `registry.json` | item `theme-<id>` (`registry:file`) |
+| 8 | `cli/src/create.js` + template | `BRAND_LABELS` + **`npm run cli:rebake`**. O rebake bakeia os overlays por **descoberta de diretório** — não copie à mão, e não há lista pra atualizar |
+| 9 | `src/preview/pages/ColorsDoc.tsx` | `PALETAS` — senão a página mostra a rampa de UMA marca e os semantics de outra |
+| 10 | `cli/templates/default/_claude/rules/ds-themes.md` | vocabulário do consumidor. Ausente aqui = a marca existe e ninguém sabe usar (L-042) |
 
-O **`build:lib` FALHA** se achar `brand-*.css` sem entrada em `exports` — gate fail-closed,
-porque o pacote levaria o arquivo e o consumidor não conseguiria importá-lo.
+**Só 2 das 10 falham visivelmente**: a 9 quebra o `tsc` (`Record<Brand, Paleta>`) e a 6 faz o
+`build:lib` **lançar** (gate fail-closed — o pacote levaria o arquivo e o consumidor não
+conseguiria importá-lo). As outras 8 falham em silêncio: a marca existe, o showcase funciona,
+e ela não chega em algum canal. Por isso existe o `brand:check` (roda no CI e no
+`release:check`), validado contra marca-fantasma e contra cada omissão individual.
 
 ### Os 4 canais de entrega (todos funcionam desde v0.32.0)
 
