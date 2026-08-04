@@ -2594,3 +2594,18 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma. tsc 0 · test **15 arquivos / 179 testes** (+18: 9 do contraste, 9 dos pares) · registry-check · check-foundationals · distribution-debt · showcase-check · api-doc-check · lint-styles ratchet — todos exit 0.
 - Lições novas: nenhuma nova numerada — é **L-060** (gate afirmando sync que não cobria) e **L-064** (validar reproduzindo o defeito real) reincidindo, agora com gate que fecha o loop.
 - Pendência: nenhuma pra distribuição (skill/command não vão no registry). PR aberto pro gate humano.
+
+---
+
+### 2026-08-04 | ds-dev | Embed do registry servia o header velho dos temas + gate de conteúdo | CONCLUÍDO
+- Input: mantenedor mergeou as PRs #113/#114/#115. Fui validar a `main` combinada — três PRs verdes sozinhas não garantem que a soma esteja, e elas se sobrepunham em CSS de marca, template do CLI e no gate de foundationals.
+- A `main` combinada está sã: tsc 0, 16 arquivos / 191 testes, os 6 gates exit 0, e o gate ampliado da #114 confirma os 8 pares em sync (inclusive os CSS que a #115 mudou).
+- **Mas o artefato distribuído estava errado.** `registry-app/app/registry-data.ts` — o embed que o registry-app serve por route handler, e que é o que o consumidor de fato recebe (`public/r/` é gitignored e nem entra: "estático fura a auth") — seguia com **4** ocorrências do path morto `src/hooks/useBrand.ts` e 1 de `dist/tailwind-theme.css`, zero do texto novo. Os 5 itens de tema.
+- Causa: a #115 mudou o conteúdo e não re-carimbou. O `embed-staleness` compara **`meta.stamp`**, e carimbo só muda quando alguém roda `registry:stamp` — então os dois artefatos ficaram com carimbo IGUAL e conteúdo DIFERENTE, e o `registry-check` imprimiu "embed em sync (91 itens, carimbo v0.33.0)". Terceira instância da L-060 na mesma sessão: gate que afirma sync sem cobrir o que se distribui.
+- Corrigido: `registry:build` + `copy-registry.mjs` (cwd = `registry-app/`, como o script exige). Embed agora com 0 paths mortos e 5 ocorrências do texto novo, 91 itens.
+- **Gate novo** `scripts/lib/embed-content.mjs`, ligado ao `registry-check`: compara cada `files[].content` do embed com o arquivo em disco. Viabilidade medida antes de escrever — **483/483** entradas idênticas à fonte, ou seja o `shadcn build` copia verbatim e não reescreve import, logo divergência é defasagem real e não falso-positivo. Normaliza só CRLF e BOM. Validado restaurando o embed pré-fix e vendo reprovar (exit 1, nomeando os 5 arquivos por `item → path`) — não por fixture (L-064). 9 testes, incluindo um que compara o embed COMMITADO com a fonte, que é o que trava a regressão.
+- Também mediu-se, e não é gap: os 9 `example-*` distribuídos têm **zero** código de troca de marca (o bug do botão de marca nunca foi copiado pra lá — existia só em `src/App.tsx:768`), e `projeto/virtual-proposta` não é consumidor do DS (nenhuma dep, zero classe DS, fora do build/registry/tsconfig).
+- Assumption: o embed é o único artefato de distribuição cujo conteúdo pode divergir da fonte sem sinal — `dist-lib` é rebuildado no publish e o `lib-verify` cobre. Se falso (outro artefato commitado carregando conteúdo derivado), o mesmo padrão de check se aplica: comparar conteúdo, não carimbo.
+- Regressões: nenhuma. tsc 0 · test **17 arquivos / 200 testes** (+9) · os 6 gates exit 0.
+- Lições novas: nenhuma numerada — L-060 e L-064 reincidindo, agora com gate que fecha o loop.
+- Pendência: **publicar a lib 0.33.0** (precisa de token npm novo — o da sessão anterior o mantenedor ia revogar) + bump/publish do CLI, pra o fix do header e a `ds-themes.md` nova chegarem em quem consome por npm e por scaffold. O registry (copy-in) recebe no deploy deste merge.

@@ -9,12 +9,17 @@
  *   2. O embed (registry-app/app/registry-data.ts) está em sincronia com o
  *      registry.json — comparando o `meta.stamp` (versão + hash git) de cada item,
  *      não só a presença do nome. Ver `lib/embed-staleness.mjs` pra por quê.
+ *  2b. O CONTEÚDO do embed bate com os arquivos-fonte em disco. O check 2 é cego
+ *      pra isso: carimbo só muda quando alguém roda `registry:stamp`, então PR que
+ *      edita arquivo distribuído sem re-carimbar deixa carimbo igual e conteúdo
+ *      diferente — e o embed é o que o consumidor recebe. Ver `lib/embed-content.mjs`.
  *
  * Exit 1 se houver qualquer inconsistência (falha o CI); 0 se tudo ok.
  */
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { checkEmbedStaleness, parseStamps, summarize } from "./lib/embed-staleness.mjs";
+import { compareEmbedContent, parseEmbed } from "./lib/embed-content.mjs";
 
 let fail = 0;
 const r = JSON.parse(readFileSync("registry.json", "utf8"));
@@ -109,6 +114,35 @@ if (existsSync(EMBED)) {
     } else {
       const { versions } = summarize(parseStamps(embedText));
       console.log(`✓ embed em sync (${r.items.length} itens, carimbo v${versions.join("/")}).`);
+    }
+
+    // 2b. embed em sync por CONTEÚDO — o carimbo acima não cobre isto.
+    //
+    // Carimbo só muda quando alguém roda `registry:stamp`. Um PR que edita arquivo
+    // distribuído e não re-carimba deixa os dois artefatos com carimbo IGUAL e
+    // conteúdo DIFERENTE — e o check de cima aprova. Medido em 2026-08-04: o fix do
+    // header dos CSS gerados mudou os 5 itens de tema, e o embed seguiu servindo o
+    // header velho (com um path que não existe em projeto de consumidor) com este
+    // gate verde. O embed é o que o consumidor recebe; conteúdo é o produto.
+    try {
+      const { conferidos, divergentes, semFonte } = compareEmbedContent(parseEmbed(embedText));
+      if (divergentes.length || semFonte.length) {
+        if (divergentes.length) {
+          console.error(`✗ embed com CONTEÚDO defasado em ${divergentes.length}/${conferidos} arquivo(s).`);
+          for (const d of divergentes.slice(0, 8)) console.error(`   ${d}`);
+          if (divergentes.length > 8) console.error(`   … e ${divergentes.length - 8} outros.`);
+        }
+        if (semFonte.length) {
+          console.error(`✗ embed cita ${semFonte.length} arquivo(s) que não existem mais na fonte.`);
+          for (const s of semFonte.slice(0, 8)) console.error(`   ${s}`);
+        }
+        console.error(`   → npm run registry:build  &&  cd registry-app && node scripts/copy-registry.mjs`);
+        fail = 1;
+      } else {
+        console.log(`✓ embed em sync por conteúdo (${conferidos} arquivos idênticos à fonte).`);
+      }
+    } catch (e) {
+      console.error(`✗ não consegui comparar o conteúdo do embed: ${e.message}`); fail = 1;
     }
   }
 } else {
