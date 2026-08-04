@@ -9,6 +9,10 @@
  *   2. O embed (registry-app/app/registry-data.ts) está em sincronia com o
  *      registry.json — comparando o `meta.stamp` (versão + hash git) de cada item,
  *      não só a presença do nome. Ver `lib/embed-staleness.mjs` pra por quê.
+ *  2b. O CONTEÚDO do embed bate com os arquivos-fonte em disco. O check 2 é cego
+ *      pra isso: carimbo só muda quando alguém roda `registry:stamp`, então PR que
+ *      edita arquivo distribuído sem re-carimbar deixa carimbo igual e conteúdo
+ *      diferente — e o embed é o que o consumidor recebe. Ver `lib/embed-content.mjs`.
  *
  * Exit 1 se houver qualquer inconsistência (falha o CI); 0 se tudo ok.
  */
