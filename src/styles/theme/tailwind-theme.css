@@ -1,7 +1,10 @@
 /**
  * tailwind-theme.css — Auto-gerado. Não editar manualmente.
- * Source of truth: tokens/brands/default/semantic/*.ts
- * Regenerar: npx tsx tokens/transforms/to-tailwind-v4.ts > dist/tailwind-theme.css
+ * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts
+ * Regenerar (só no repo do DS): npm run tokens:tw4
+ *
+ * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.
+ * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
 
 @theme {

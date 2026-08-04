@@ -1,13 +1,19 @@
 /**
  * to-tailwind-v4.ts — Transform adapter: tokens → Tailwind v4 @theme CSS
  *
- * Gera dist/tailwind-theme.css com:
+ * Gera src/styles/theme/tailwind-theme.css com:
  *   - @theme { } — CSS vars para utility classes automáticas
  *   - .dark { } — overrides dark mode
  *   - @utility text-* { } — presets tipográficos compostos
  *
  * Uso:
- *   npx tsx tokens/transforms/to-tailwind-v4.ts > dist/tailwind-theme.css
+ *   npm run tokens:tw4
+ *
+ * ⚠️ Este arquivo escreve em stdout — quem define o destino é o redirect. O `npm run`
+ * acima é a forma canônica justamente pra não haver duas verdades sobre onde o CSS vai.
+ * Até 2026-08-03 este header dizia `> dist/tailwind-theme.css`, e `dist/` EXISTE (é o
+ * build do app): seguir a instrução escrevia o tema num diretório de build e deixava o
+ * arquivo real sem regenerar, sem erro nenhum.
  *
  * Consumer:
  *   @import "tailwindcss";
@@ -327,10 +333,18 @@ export function generateTailwindV4Css(): string {
     ...buildShadowIndirection("dark"),
   };
 
+  // ⚠️ Este header é o mais distribuído do DS — TODO consumidor tem este arquivo (npm,
+  // copy-in, scaffold e submódulo). Path do repo do DS aqui lê como instrução que o
+  // consumidor não pode seguir, e o destino errado (`> dist/...`) era seguível DENTRO do
+  // DS e silenciosamente errado. Ao mexer aqui, prefira o `npm run` (uma verdade só) e
+  // marque o que só vale no repo do DS (L-060).
   return `/**
  * tailwind-theme.css — Auto-gerado. Não editar manualmente.
- * Source of truth: tokens/brands/default/semantic/*.ts
- * Regenerar: npx tsx tokens/transforms/to-tailwind-v4.ts > dist/tailwind-theme.css
+ * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts
+ * Regenerar (só no repo do DS): npm run tokens:tw4
+ *
+ * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.
+ * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
 
 @theme {
