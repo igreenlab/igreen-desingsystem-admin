@@ -2609,3 +2609,17 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma. tsc 0 · test **17 arquivos / 200 testes** (+9) · os 6 gates exit 0.
 - Lições novas: nenhuma numerada — L-060 e L-064 reincidindo, agora com gate que fecha o loop.
 - Pendência: **publicar a lib 0.33.0** (precisa de token npm novo — o da sessão anterior o mantenedor ia revogar) + bump/publish do CLI, pra o fix do header e a `ds-themes.md` nova chegarem em quem consome por npm e por scaffold. O registry (copy-in) recebe no deploy deste merge.
+
+---
+
+### 2026-08-04 | ds-dev | Publish v0.33.0 (lib) + v0.21.2 (CLI) no npm | CONCLUÍDO
+- Input: mantenedor autorizou publicar com o token da sessão, após o merge das PRs #113–#117.
+- Output: **`@snksergio/design-system@0.33.0`** (961 arquivos, 6.4 MB / 27.9 MB unpacked) e **`@snksergio/create-design-system@0.21.2`** (71 arquivos, 227.8 kB). Ambos confirmados no registry público.
+- Validação ANTES do publish, na árvore exata (`main` @ `e87b2ce`, working tree limpa): `lib-verify` verde — 23 entries cobertos por `files`, 452 `.d.ts` com todas as referências relativas resolvendo dentro do tarball (a camada que automatiza a L-017).
+- **Validação por CONTEÚDO, não por versão** — baixei os dois tarballs DE VOLTA do registry e extraí: os 5 CSS de tema com **0** ocorrência do header morto (`src/hooks/useBrand.ts` / `dist/tailwind-theme.css`) e 1 do texto novo em cada; `useBrand`/`BRANDS`/`useTheme` presentes no `index.d.ts`; os 5 subpaths `./theme*` no `exports`. No CLI: `ds-themes.md` com **0** de "não é exportado" e "Copie a ideia", 1 do exemplo `useBrand({ brands: MINHAS_MARCAS })`, os 5 CSS baked limpos, e as 4 marcas ainda no `BRAND_LABELS` do prompt.
+- **Prova de consumidor real** (o teste que a L-065 diz que a simulação não substitui): projeto limpo, `npm i @snksergio/design-system@0.33.0` + react, import de verdade → `useBrand` função, `useTheme` função, `BRANDS` com 5 marcas (`default, blue, green, pay, vibrant`). Os subpaths resolvem por `require.resolve`: `theme.css` 346 vars, `brand-vibrant.css` 125, `brand-pay.css` 166 — todos com header morto = 0. Isso exercita o grafo de módulos publicado, não o `.d.ts`.
+- Segurança do token: `.npmrc` temporário no scratchpad da sessão, **fora da árvore do repo**, `chmod 600`, apagado por `trap` em EXIT/INT/TERM nos dois publishes. Confirmado depois: 0 arquivos com o token no repo, 0 no scratchpad, sem `.npmrc` na raiz. Token nunca ecoado em log, nunca em arquivo versionado, nunca aqui.
+- Assumption: quem consome por **npm** recebe ao subir a versão; **scaffold** (`npm create`) já nasce correto a partir do 0.21.2; **copy-in/registry** recebeu no deploy dos merges (embed regenerado na #116); **submódulo** pega com `git pull` + `npm run ds:link`.
+- Regressões: nenhuma. `main` limpa, zero branch pendente, tsc 0, 17 arquivos / 200 testes, os 6 gates exit 0.
+- Lições novas: nenhuma.
+- Pendência: **revogar o token do npm** (ação do mantenedor — ele avisou que revogaria ao fim). Validação visual das 5 marcas no showcase fica com o usuário; a verificação de cascade no browser já foi feita quando a `vibrant` fechou.
