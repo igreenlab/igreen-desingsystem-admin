@@ -14,16 +14,39 @@
  *   node scripts/cli-rebake-foundationals.mjs      (ou: npm run cli:rebake)
  */
 import { copyFileSync } from "node:fs";
+import { foundationalPairs, brandOverlays, orphanBakedOverlays } from "./lib/foundational-pairs.mjs";
 
-const PAIRS = [
-  ["src/lib/utils.ts", "cli/templates/default/src/lib/utils.ts"],
-  ["src/utils/tv.ts", "cli/templates/default/src/utils/tv.ts"],
-  ["src/lib/lucide-types.ts", "cli/templates/default/src/lib/lucide-types.ts"],
-  ["src/styles/theme/tailwind-theme.css", "cli/templates/default/src/styles/theme/tailwind-theme.css"],
-];
+/**
+ * Os overlays de marca (`brand-<id>.css`) chegavam no template por cópia MANUAL, e
+ * isso tinha dois modos de falha que ninguém vê: (1) marca nova não bakeada → o
+ * `detectBrandThemes()` do `cli/src/create.js` escaneia essa MESMA pasta pra montar
+ * o prompt "Tema de cor?", então a marca não aparece na criação de projeto; (2) marca
+ * editada no DS com o baked congelado → projeto novo nasce com o overlay velho.
+ * Nenhum dos dois quebra build, teste ou tsc.
+ *
+ * A lista vem de `lib/foundational-pairs.mjs` porque o `check-foundationals.mjs`
+ * verifica exatamente os mesmos pares — enumerar nos dois lugares é como o gate
+ * passa a afirmar um sync que não checa.
+ */
+const PAIRS = foundationalPairs();
+const overlays = brandOverlays();
 
 for (const [src, dst] of PAIRS) {
   copyFileSync(src, dst);
   console.log("re-baked →", dst);
 }
-console.log(`\n${PAIRS.length} foundational re-bakeados. Lembre de bumpar cli/package.json e republicar o CLI.`);
+
+// Marca removida do DS deixa a cópia órfã no template, e o prompt do CLI segue
+// oferecendo um tema que não existe mais. Copiar não resolve isso — só avisar.
+const orfaos = orphanBakedOverlays();
+if (orfaos.length) {
+  console.log(
+    `\n⚠ overlay(s) no template SEM fonte no DS: ${orfaos.join(", ")}. ` +
+      `O prompt "Tema de cor?" do CLI ainda oferece esse(s) tema(s). Remova à mão se a marca saiu.`,
+  );
+}
+
+console.log(
+  `\n${PAIRS.length} foundational re-bakeados (${overlays.length} overlay(s) de marca). ` +
+    `Lembre de bumpar cli/package.json e republicar o CLI.`,
+);
