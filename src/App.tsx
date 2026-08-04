@@ -438,7 +438,7 @@ function SidebarSection({
 
 export function App() {
   const { isDark, toggle } = useTheme();
-  const { brand, setBrand, toggle: toggleBrand } = useBrand();
+  const { brand, setBrand, toggle: toggleBrand, current: currentBrand } = useBrand();
   const theme = isDark ? "dark" : "light";
   const [activePage, setActivePage] = useState<PageId>(
     () => readPageFromHash() ?? "button",
@@ -765,7 +765,9 @@ export function App() {
               className="size-icon-sm rounded-radius-full border border-border-default"
               style={{ background: "var(--color-bg-brand)" }}
             />
-            {brand === "blue" ? "Marca: Azul" : "Marca: iGreen"}
+            {/* Label do catálogo, não hardcoded: antes era um ternário
+                `blue ? "Azul" : "iGreen"` que mostrava "iGreen" com pay/vibrant ativas. */}
+            Marca: {currentBrand.label}
           </button>
         </div>
       </aside>

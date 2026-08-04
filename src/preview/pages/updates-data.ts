@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.33.0",
+    date: "2026-08-03",
+    tag: "preview",
+    title: "useBrand e useTheme exportados — troca de marca em runtime sem reimplementar",
+    summary:
+      "Até aqui, um app que quisesse dar ao usuário um **seletor de marca** tinha que reescrever persistência, sincronia entre abas e a regra de que `default` significa *remover* o atributo. Os dois hooks passam a ser exportados no pacote. O `useBrand` ganhou **catálogo injetável**: passe só as marcas cujo overlay você importou, porque `data-theme` com id sem CSS no bundle é **no-op silencioso** — a opção aparece no seletor e simplesmente não faz nada.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`useBrand` e `useTheme` exportados** no barrel da lib. O `useBrand` aceita `{ brands }` — o catálogo que ele valida, percorre no `toggle()` e devolve pronto pro seletor. Também devolve `current` (a entrada ativa, com label e swatch), pra dispensar o `find()` no consumidor. Sem argumento, o catálogo são as 5 marcas do DS.",
+          "**Fallback à prova de tema órfão**: valor persistido fora do catálogo cai na primeira entrada. Cenário real — o usuário mexeu no showcase (salvou `pay` no `localStorage`) e depois abre um app que só importou o overlay da `vibrant`; antes isso viraria `data-theme=\"pay\"` sem nenhum CSS casando.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O botão de marca do drawer mobile só conhecia 2 das 5 marcas.** O `toggle()` alternava `default↔blue` cravado — legado de quando `blue` era a única marca extra — e o label era um ternário `blue ? \"Azul\" : \"iGreen\"`. Com `pay` ou `vibrant` ativas, o botão dizia \"Marca: iGreen\" e pulava pra `blue`. Agora percorre o catálogo e o label vem dele, então marca nova entra sozinha.",
+          "**`isBrand` era uma cadeia literal** (`v === \"default\" || v === \"blue\" || …`) que exigia edição manual a cada marca nova — e um esquecimento fazia o valor persistido cair no default em silêncio. Agora valida contra o catálogo ativo.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.32.1",
     date: "2026-08-03",
     tag: "patch",
