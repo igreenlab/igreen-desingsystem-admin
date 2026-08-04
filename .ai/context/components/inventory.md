@@ -55,6 +55,7 @@ src/components/
 | Switch | `shadcn/switch.tsx` | Switch | ✅ implementado |
 | Tabs | `shadcn/tabs.tsx` | Tabs, TabsList, TabsTrigger, TabsContent | ✅ implementado |
 | Textarea | `shadcn/textarea.tsx` | Textarea | ✅ implementado |
+| Tooltip | `shadcn/tooltip.tsx` | Tooltip, TooltipTrigger, TooltipContent, TooltipProvider | ✅ implementado |
 
 ---
 
@@ -387,7 +388,6 @@ Out of scope (planos seguintes):
 | Componente | Tipo | Pasta | Prioridade |
 |------------|------|-------|------------|
 | Toast / Sonner | Shadcn | `shadcn/` | 🟡 média |
-| Tooltip | Shadcn | `shadcn/` | 🟡 média |
 | Skeleton | iGreen | `ui/` | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
 
 ---

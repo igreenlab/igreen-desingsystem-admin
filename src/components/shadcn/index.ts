@@ -24,3 +24,10 @@ export type {
   InputGroupState,
   InputGroupVariantProps,
 } from "./input-group";
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./tooltip";

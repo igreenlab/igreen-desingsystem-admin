@@ -162,3 +162,9 @@ export type {
   InputGroupButtonProps,
   InputGroupState,
 } from "./shadcn";
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from "./shadcn";

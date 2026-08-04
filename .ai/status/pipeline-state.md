@@ -2194,3 +2194,10 @@
 - Validação: tsc 0 em todos os lotes · browser (Chrome DevTools, dark+light): 6 tipos + 28 composições renderizando, grid visível nos 2 temas, headers KPI padronizados, categorias.
 - Assumption: showcase/preview (mock) — nenhuma composição consome API real; `Chart` é o único wrapper de Recharts (DashboardShowcase usa Recharts cru, fora do escopo do token de grid).
 - Lições novas: **L-032** registrada (caveats Recharts 3: display-sm/xs inexistentes → heading; Pie shape vs activeIndex; radial stack precisa PolarAngleAxis number; YAxis interval=0 + domain=maior tick; grid via token chart-grid).
+
+## 2026-08-04 — Tooltip (shadcn) — CONCLUÍDO
+- **Tarefa**: componente `shadcn/tooltip.tsx` (Tooltip, TooltipTrigger, TooltipContent, TooltipProvider) — hint de hover/focus pros icon-buttons do hub (header do atendimento).
+- Gate: mantenedor autorizou explicitamente (pedido dos atendentes do hub — hints em todos os ícones).
+- Visual: camada flutuante unificada com Popover/DropdownMenu (`bg-bg-dropdown` + border-default + `before:backdrop-blur-2xl`), radius-md (8px, menor que os 12px dos menus), `text-body-xs`, sem seta, sem mobile-sheet (tooltip é hover/focus-only). Provider com delay 300ms default. Zero token novo.
+- Dep nova: `@radix-ui/react-tooltip` ^1.2.0. Exports nos 2 barrels; inventory.md atualizado (saiu de "planejados").
+- Assumption: não existia Tooltip equivalente no DS (inventário listava como planejado); o visual de camada flutuante existente serve tooltip sem token novo. Consumo no hub via DS-como-source (ui/ resolve a dep).
