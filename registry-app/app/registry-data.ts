@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · accordion · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · alert-dialog · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · alert-modal · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · alert · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -142,25 +142,25 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/AppShell/USAGE.md",
-        "content": "# AppShell — USAGE\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item: SidebarMenuItem) => void | — | Clique em item do panel — ponto de integração com o router |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | false | Estado inicial do collapse (uncontrolled) |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` + `p-pad-6xl` (24+32px) fixos — customize spacing dentro do `children`\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n",
+        "content": "# AppShell — USAGE\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item: SidebarMenuItem) => void | — | Clique em item do panel — ponto de integração com o router |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n",
         "type": "registry:file",
         "target": "components/ui/AppShell/USAGE.md"
       },
       {
         "path": "src/components/ui/AppShell/app-shell.styles.ts",
-        "content": "import { tv } from \"@/utils/tv\";\n\n/**\n * Slots do `<AppShell>` template.\n *\n * Layout 2-column: sidebar à esquerda (fixa, full-height) + main area\n * à direita (Header sticky no topo + body abaixo).\n *\n * Body recebe `gap-gp-4xl` (24px) e `p-pad-6xl` (32px) por design — slot\n * \"padronizado\" pra todas as telas. Consumer customiza só os filhos.\n */\n\nexport const root = tv({\n  base: [\n    \"flex h-screen w-full bg-bg-canvas\",\n    \"overflow-hidden\", // garante que sidebar + main não vazem viewport\n  ],\n});\n\n/** Wrapper da área principal (Header + Body). Ocupa o resto do flex row. */\nexport const main = tv({\n  base: [\n    \"flex flex-col flex-1 min-w-0\",\n    \"overflow-hidden\",\n  ],\n});\n\n/**\n * Body slot — wrapper externo do conteúdo da tela. Gerencia scroll.\n * `min-h-0` permite o body shrink dentro do flex pai pra scroll interno\n * funcionar (children podem ter `overflow-auto` ou `flex-1 min-h-0` próprio).\n *\n * O padding + gap + max-width ficam no `bodyInner` (slot interno) — assim\n * o scroll continua na viewport inteira mesmo em layout=compact.\n */\nexport const body = tv({\n  base: [\n    \"flex flex-col flex-1 min-h-0\",\n    \"overflow-auto scrollbar-thin\",\n  ],\n});\n\n/**\n * Wrapper interno do body — controla padding, gap entre filhos e o max-width\n * conforme `layout`.\n *\n *   - `fluid`   (default): ocupa 100% da largura disponível (atual)\n *   - `compact`: max-width 1368px (`--container-main-content-max`), centralizado\n *\n * Mobile (<md): padding reduzido pra 18px — telas pequenas precisam respiro\n * mínimo mas não zero (chat/navegação por overlays usam o bodyInner cheio).\n */\nexport const bodyInner = tv({\n  base: [\n    \"flex flex-col flex-1 min-h-0 w-full mx-auto\",\n    \"gap-gp-4xl p-pad-6xl\",\n  ],\n  variants: {\n    layout: {\n      fluid: \"max-w-full\",\n      compact: \"max-w-[var(--container-main-content-max)]\",\n    },\n    /**\n     * Em mobile (<md):\n     *   - `false` (default): padding reduzido pra 18px (telas pequenas\n     *     precisam respiro mínimo).\n     *   - `true`: padding zero — útil pra patterns \"app feel\" (chat,\n     *     navegação por overlays fullscreen) onde a page controla o\n     *     próprio padding interno.\n     */\n    mobileEdgeToEdge: {\n      true: \"max-md:p-0\",\n      false: \"max-md:p-[18px]\",\n    },\n  },\n  defaultVariants: {\n    layout: \"fluid\",\n    mobileEdgeToEdge: false,\n  },\n});\n",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * Slots do `<AppShell>` template.\r\n *\r\n * Layout 2-column: sidebar à esquerda (fixa, full-height) + main area\r\n * à direita (Header sticky no topo + body abaixo).\r\n *\r\n * Body recebe `gap-gp-4xl` (24px) fixo e padding responsivo em 3 patamares\r\n * (18 / 24 / 32px — ver `bodyInner`) por design — slot \"padronizado\" pra todas\r\n * as telas. Consumer customiza só os filhos.\r\n */\r\n\r\nexport const root = tv({\r\n  base: [\r\n    \"flex h-screen w-full bg-bg-canvas\",\r\n    \"overflow-hidden\", // garante que sidebar + main não vazem viewport\r\n  ],\r\n});\r\n\r\n/** Wrapper da área principal (Header + Body). Ocupa o resto do flex row. */\r\nexport const main = tv({\r\n  base: [\r\n    \"flex flex-col flex-1 min-w-0\",\r\n    \"overflow-hidden\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Body slot — wrapper externo do conteúdo da tela. Gerencia scroll.\r\n * `min-h-0` permite o body shrink dentro do flex pai pra scroll interno\r\n * funcionar (children podem ter `overflow-auto` ou `flex-1 min-h-0` próprio).\r\n *\r\n * O padding + gap + max-width ficam no `bodyInner` (slot interno) — assim\r\n * o scroll continua na viewport inteira mesmo em layout=compact.\r\n */\r\nexport const body = tv({\r\n  base: [\r\n    \"flex flex-col flex-1 min-h-0\",\r\n    \"overflow-auto scrollbar-thin\",\r\n  ],\r\n});\r\n\r\n/**\r\n * Wrapper interno do body — controla padding, gap entre filhos e o max-width\r\n * conforme `layout`.\r\n *\r\n *   - `fluid`   (default): ocupa 100% da largura disponível (atual)\r\n *   - `compact`: max-width 1368px (`--container-main-content-max`), centralizado\r\n *\r\n * Padding por faixa de viewport — 3 patamares, não 2:\r\n *\r\n *   < 768px   (max-md)   18px  — telas pequenas precisam respiro mínimo mas não\r\n *                               zero (chat/navegação por overlays usam o\r\n *                               bodyInner cheio).\r\n *   768–1535  (max-2xl)  24px  — NOTEBOOK. Até 2026-08-04 esta faixa herdava os\r\n *                               32px do desktop: um 1366×768 gastava a mesma\r\n *                               moldura de um 4K, com muito menos área útil.\r\n *                               O corte é em `2xl` (1536) e não em `xl` (1280)\r\n *                               porque 1366 e 1536 são as duas resoluções de\r\n *                               notebook dominantes — cortar em `xl` deixaria a\r\n *                               1536 de fora justamente onde aperta.\r\n *   ≥ 1536px             32px  — desktop, valor original preservado.\r\n *\r\n * ⚠️ `max-md:` tem que vencer `max-2xl:` abaixo de 768px. Vence por ordem de\r\n * fonte: o Tailwind emite as variantes `max-*` em breakpoint DECRESCENTE, então\r\n * a regra `max-md` sai depois da `max-2xl` com a mesma especificidade. Medido no\r\n * browser nos 3 patamares, não deduzido — é a classe de erro da L-066.\r\n */\r\nexport const bodyInner = tv({\r\n  base: [\r\n    \"flex flex-col flex-1 min-h-0 w-full mx-auto\",\r\n    \"gap-gp-4xl p-pad-6xl max-2xl:p-pad-4xl\",\r\n  ],\r\n  variants: {\r\n    layout: {\r\n      fluid: \"max-w-full\",\r\n      compact: \"max-w-[var(--container-main-content-max)]\",\r\n    },\r\n    /**\r\n     * Em mobile (<md):\r\n     *   - `false` (default): padding reduzido pra 18px (telas pequenas\r\n     *     precisam respiro mínimo).\r\n     *   - `true`: padding zero — útil pra patterns \"app feel\" (chat,\r\n     *     navegação por overlays fullscreen) onde a page controla o\r\n     *     próprio padding interno.\r\n     */\r\n    mobileEdgeToEdge: {\r\n      true: \"max-md:p-0\",\r\n      false: \"max-md:p-[18px]\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    layout: \"fluid\",\r\n    mobileEdgeToEdge: false,\r\n  },\r\n});\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.styles.ts"
       },
       {
         "path": "src/components/ui/AppShell/app-shell.tsx",
-        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value\r\n * - Sem nenhum dos dois → uncontrolled, default `false`\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell({\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed = false,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  className,\r\n}: AppShellProps) {\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(defaultMenuCollapsed);\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  return (\r\n    <div className={cn(s.root(), className)}>\r\n      <MenuSidebar\r\n        contexts={contexts}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          onCollapseMenu={handleToggleMenu}\r\n          menuCollapsed={menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
+        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)\r\n * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado\r\n *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell({\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  className,\r\n}: AppShellProps) {\r\n  /**\r\n   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.\r\n   *\r\n   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.\r\n   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de\r\n   * largura útil numa tela que já é estreita.\r\n   *\r\n   * Três decisões que valem estar escritas:\r\n   *\r\n   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o\r\n   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir \"estado\r\n   *    inicial\" de \"ele quis assim\". `useMediaQuery` (reativo) é usado logo abaixo\r\n   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.\r\n   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o\r\n   *    `= false` na desestruturação: com valor default eu não conseguiria\r\n   *    distinguir \"consumer passou false\" de \"consumer não passou\". Só o `undefined`\r\n   *    cai na regra responsiva.\r\n   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força\r\n   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor\r\n   *    daqui é ignorado — verificado no browser, não deduzido da leitura.\r\n   *\r\n   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.\r\n   */\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {\r\n    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;\r\n    if (typeof window === \"undefined\") return false; // SSR: expandido, sem viewport\r\n    return window.matchMedia(\"(max-width: 1535px)\").matches;\r\n  });\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  return (\r\n    <div className={cn(s.root(), className)}>\r\n      <MenuSidebar\r\n        contexts={contexts}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          onCollapseMenu={handleToggleMenu}\r\n          menuCollapsed={menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.tsx"
       },
       {
         "path": "src/components/ui/AppShell/app-shell.types.ts",
-        "content": "import type { ReactNode } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type { SidebarContext, SidebarMenuItem } from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\nexport type AppShellProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório. */\r\n  contexts: SidebarContext[];\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  onItemClick?: (item: SidebarMenuItem) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot\r\n   *  com `gap-gp-4xl p-pad-6xl` (24px gap + 32px padding). */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (padding 18px mobile, 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n",
+        "content": "import type { ReactNode } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type { SidebarContext, SidebarMenuItem } from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\nexport type AppShellProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório. */\r\n  contexts: SidebarContext[];\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  onItemClick?: (item: SidebarMenuItem) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.types.ts"
       },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · app-shell · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · aspect-ratio · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · avatar-ig · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · avatar · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · badge · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · breadcrumb · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · button-group · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · button · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · calendar · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · card-checkbox · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · card · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · carousel · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · chart · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · checkbox · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · chip · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · choropleth-map · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · collapsible · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · color-picker · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · combobox · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · command · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · context-menu · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · data-list · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · data-table · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · date-picker · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · dialog · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · drawer · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · dropdown-menu · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · empty-state · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-app-shell · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-chat · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-clientes · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-dashboard · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-edit-page · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-finance · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-login · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-mapa-rede · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · example-order-detail · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · file-upload-field · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · floating-panel · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · footer-table · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · form-field · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · header · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · hover-card · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · icon · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · input-group · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · input-otp · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · input · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · kanban · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · kpi · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · label · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · list · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · markdown-text · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · menu-sidebar · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · menubar · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · modal · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · month-year-picker · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · navigation-menu · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · page-header · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · pagination · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · panel · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · popover · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · progress · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · radio-group · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · scroll-area · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · select · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · separator · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · sheet · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · skeleton · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · slider · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · sonner · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · spinner · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · switch · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · table · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · tabs · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · textarea · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4389,7 +4389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · theme-blue · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4407,7 +4407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · theme-green · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4425,7 +4425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · theme-pay · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4443,7 +4443,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · theme-vibrant · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · theme · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · toast · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · toggle-group · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · toggle · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · tooltip · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · tv · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.33.0 · 074c730 · 2026-08-04"
+      "stamp": "igreen-ds · utils · v0.34.0 · 6248119 · 2026-08-07"
     },
     "type": "registry:file"
   }
