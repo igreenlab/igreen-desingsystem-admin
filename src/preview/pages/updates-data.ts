@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.34.0",
+    date: "2026-08-07",
+    tag: "preview",
+    title: "AppShell responsivo em notebook — menos moldura e menu fechado abaixo de 1536px",
+    summary:
+      "O AppShell tinha **um** breakpoint só: 18px de padding abaixo de 768px e **32px de 768 ao infinito**, com o menu sempre aberto. Um notebook 1366×768 gastava a mesma moldura de um monitor 4K e ainda ~200px no painel do menu — numa tela que já é estreita. Agora há uma faixa intermediária. **Mudança visível ao atualizar:** entre 768 e 1535px o app abre com o menu fechado e 8px a menos de moldura.",
+    changes: [
+      {
+        type: "changed",
+        items: [
+          "**Padding do body: 32px → 24px entre 768 e 1535px.** Abaixo de 768 (18px) e a partir de 1536 (32px) nada muda. Usa `pad-4xl`, token que já existia — nenhum token novo. Descartamos 28px: 4px de redução não justifica um breakpoint.",
+          "**O menu nasce colapsado abaixo de 1536px.** Só no **mount** — se você abrir o menu na mão, redimensionar a janela não o fecha de novo. Passar `defaultMenuCollapsed` explícito continua vencendo, **inclusive `false`**, então quem já controla esse estado não é afetado. Em mobile nada muda: abaixo de 768px o menu já é drawer e ignora o collapse.",
+          "**Por que o corte é em 1536 e não em 1280:** 1366 e 1536 são as duas resoluções de notebook dominantes. Cortar em `xl` deixaria a 1536 herdando o layout de desktop — justamente uma das que apertam. Ganho medido: em 1440×900 a tela de Clientes passou a mostrar as colunas *Saldo disponível* e *Vol*, antes cortadas.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**A doc do AppShell descrevia spacing que o código não usa.** A página dizia `gap-gp-md (16px)` — o componente usa `gap-gp-4xl`, e `gp-md` nem vale 16px: vale **8px**. Errado nas duas contas, e independente desta mudança. `USAGE.md`, os types e a tabela de props também documentavam o padding antigo como valor único.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.33.0",
     date: "2026-08-03",
     tag: "preview",
