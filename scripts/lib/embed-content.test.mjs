@@ -67,12 +67,27 @@ describe("embed-content — detecção de defasagem", () => {
 });
 
 describe("embed-content — o embed commitado", () => {
-  it("está em sync por conteúdo com os arquivos-fonte", () => {
-    // Este é o teste que trava a regressão: reprova o PR que edita arquivo
-    // distribuído e esquece de regerar o embed.
+  /**
+   * ⚠️ Este bloco NÃO afirma que o embed está em sync — e a ausência dessa asserção
+   * é deliberada. Afirmá-la aqui foi meu erro ao criar o check: `npm test` roda em
+   * TODA PR, e a Regra 8 diz que distribuição (registry + embed) consolida no
+   * `/ds-release`, não por-PR-de-componente. Logo, PR que edita componente
+   * distribuído deixa o embed defasado POR DESIGN, e o teste reprovava a PR
+   * justamente por seguir a regra do projeto. Aconteceu na primeira PR de componente
+   * depois de eu ligar o check — uma mudança de padding do AppShell.
+   *
+   * O que sobra aqui é o que vale em qualquer momento: o embed é PARSEÁVEL e a
+   * comparação RODA. "Está defasado?" é pergunta de release, e vive no
+   * `registry-check --ci` dentro do `release:check`.
+   */
+  it("é parseável e comparável contra a fonte (sem afirmar sync)", () => {
     const { conferidos, divergentes, semFonte } = checkEmbedContent();
-    expect(divergentes, `regenere o embed: registry:build + copy-registry`).toEqual([]);
-    expect(semFonte).toEqual([]);
-    expect(conferidos).toBeGreaterThan(400);
+    expect(conferidos + divergentes.length).toBeGreaterThan(400);
+  });
+
+  it("não cita arquivo que sumiu da fonte — isso não é defasagem transitória", () => {
+    // Classe diferente de `divergentes`: aqui o embed aponta pra path removido ou
+    // renomeado, que nenhum `registry:build` conserta sozinho. Sempre erro.
+    expect(checkEmbedContent().semFonte).toEqual([]);
   });
 });

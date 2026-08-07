@@ -12,7 +12,8 @@
  *  2b. O CONTEÚDO do embed bate com os arquivos-fonte em disco. O check 2 é cego
  *      pra isso: carimbo só muda quando alguém roda `registry:stamp`, então PR que
  *      edita arquivo distribuído sem re-carimbar deixa carimbo igual e conteúdo
- *      diferente — e o embed é o que o consumidor recebe. Ver `lib/embed-content.mjs`.
+ *      diferente — e o embed é o que o consumidor recebe. INFORMATIVO sem `--ci`
+ *      (Regra 8: distribuição consolida no /ds-release). Ver `lib/embed-content.mjs`.
  *
  * Exit 1 se houver qualquer inconsistência (falha o CI); 0 se tudo ok.
  */
@@ -21,6 +22,7 @@ import { join } from "node:path";
 import { checkEmbedStaleness, parseStamps, summarize } from "./lib/embed-staleness.mjs";
 import { compareEmbedContent, parseEmbed } from "./lib/embed-content.mjs";
 
+const isCi = process.argv.includes("--ci");
 let fail = 0;
 const r = JSON.parse(readFileSync("registry.json", "utf8"));
 
@@ -124,20 +126,33 @@ if (existsSync(EMBED)) {
     // header dos CSS gerados mudou os 5 itens de tema, e o embed seguiu servindo o
     // header velho (com um path que não existe em projeto de consumidor) com este
     // gate verde. O embed é o que o consumidor recebe; conteúdo é o produto.
+    //
+    // ⚠️ INFORMATIVO sem `--ci`, e isso é load-bearing. A Regra 8 diz que
+    // distribuição (registry + embed) NÃO vai por-PR-de-componente — consolida no
+    // `/ds-release`. Então toda PR que edita componente distribuído deixa o embed
+    // defasado POR DESIGN, e um gate bloqueante aqui reprovaria a PR justamente por
+    // seguir a regra do projeto. Descoberto na 1ª PR de componente depois de eu
+    // ligar este check: ele reprovou uma mudança de padding do AppShell. Mesma forma
+    // do `distribution-debt`, pelo mesmo motivo. A forma bloqueante vive no
+    // `release:check`, que é onde "defasado" deixa de ser transitório e vira o que
+    // o consumidor recebe.
     try {
       const { conferidos, divergentes, semFonte } = compareEmbedContent(parseEmbed(embedText));
       if (divergentes.length || semFonte.length) {
+        const nivel = isCi ? console.error : console.warn;
+        const marca = isCi ? "✗" : "⚠";
         if (divergentes.length) {
-          console.error(`✗ embed com CONTEÚDO defasado em ${divergentes.length}/${conferidos} arquivo(s).`);
-          for (const d of divergentes.slice(0, 8)) console.error(`   ${d}`);
-          if (divergentes.length > 8) console.error(`   … e ${divergentes.length - 8} outros.`);
+          nivel(`${marca} embed com CONTEÚDO defasado em ${divergentes.length}/${conferidos} arquivo(s).`);
+          for (const d of divergentes.slice(0, 8)) nivel(`   ${d}`);
+          if (divergentes.length > 8) nivel(`   … e ${divergentes.length - 8} outros.`);
         }
         if (semFonte.length) {
-          console.error(`✗ embed cita ${semFonte.length} arquivo(s) que não existem mais na fonte.`);
-          for (const s of semFonte.slice(0, 8)) console.error(`   ${s}`);
+          nivel(`${marca} embed cita ${semFonte.length} arquivo(s) que não existem mais na fonte.`);
+          for (const s of semFonte.slice(0, 8)) nivel(`   ${s}`);
         }
-        console.error(`   → npm run registry:build  &&  cd registry-app && node scripts/copy-registry.mjs`);
-        fail = 1;
+        nivel(`   → npm run registry:build  &&  cd registry-app && node scripts/copy-registry.mjs`);
+        if (isCi) fail = 1;
+        else nivel(`   (informativo: consolide no /ds-release — Regra 8)`);
       } else {
         console.log(`✓ embed em sync por conteúdo (${conferidos} arquivos idênticos à fonte).`);
       }
