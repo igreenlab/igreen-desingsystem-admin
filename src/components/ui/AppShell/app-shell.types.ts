@@ -108,6 +108,15 @@ export type AppShellProps = {
    * interno (uncontrolled) — toggle do header dispara setInternal.
    */
   menuCollapsed?: boolean;
+  /**
+   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**
+   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido
+   * acima — notebook perde ~200px de largura útil com o painel aberto.
+   *
+   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.
+   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o
+   * menu na mão.
+   */
   defaultMenuCollapsed?: boolean;
   onMenuCollapseChange?: (collapsed: boolean) => void;
 

@@ -17,8 +17,9 @@ import type { AppShellProps } from "./app-shell.types";
  *
  * **Padrão controlled/uncontrolled** pra `menuCollapsed`:
  * - `menuCollapsed` prop → controlled (consumer gerencia state)
- * - `defaultMenuCollapsed` → uncontrolled initial value
- * - Sem nenhum dos dois → uncontrolled, default `false`
+ * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)
+ * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado
+ *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)
  *
  * Todas as outras props são **passthrough 1:1** pros sub-componentes.
  * AppShell não impõe styling ao body além de gap/padding fixos — consumer
@@ -57,7 +58,7 @@ export function AppShell({
   onLogout,
   // Menu collapse (controlled/uncontrolled)
   menuCollapsed: controlledCollapsed,
-  defaultMenuCollapsed = false,
+  defaultMenuCollapsed,
   onMenuCollapseChange,
   // Body
   children,
@@ -65,7 +66,34 @@ export function AppShell({
   mobileEdgeToEdge,
   className,
 }: AppShellProps) {
-  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(defaultMenuCollapsed);
+  /**
+   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.
+   *
+   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.
+   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de
+   * largura útil numa tela que já é estreita.
+   *
+   * Três decisões que valem estar escritas:
+   *
+   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o
+   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir "estado
+   *    inicial" de "ele quis assim". `useMediaQuery` (reativo) é usado logo abaixo
+   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.
+   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o
+   *    `= false` na desestruturação: com valor default eu não conseguiria
+   *    distinguir "consumer passou false" de "consumer não passou". Só o `undefined`
+   *    cai na regra responsiva.
+   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força
+   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor
+   *    daqui é ignorado — verificado no browser, não deduzido da leitura.
+   *
+   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.
+   */
+  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {
+    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;
+    if (typeof window === "undefined") return false; // SSR: expandido, sem viewport
+    return window.matchMedia("(max-width: 1535px)").matches;
+  });
   const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;
 
   // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),

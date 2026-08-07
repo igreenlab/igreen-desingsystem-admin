@@ -52,7 +52,13 @@ const PROPS_APP_SHELL = [
   { name: "onSettings", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "onLogout", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "menuCollapsed", type: "boolean (controlled)", defaultVal: "—" },
-  { name: "defaultMenuCollapsed", type: "boolean", defaultVal: "false" },
+  {
+    name: "defaultMenuCollapsed",
+    type: "boolean",
+    defaultVal: "responsivo",
+    description:
+      "Estado inicial do collapse (uncontrolled). Omitido: colapsado abaixo de 1536px, expandido acima — mesma fronteira do padding do body. Valor explícito vence, inclusive false. Só no mount: resize não re-colapsa, pra não brigar com quem abriu o menu na mão.",
+  },
   { name: "onMenuCollapseChange", type: "(collapsed) => void", defaultVal: "—" },
   { name: "children", type: "ReactNode (body slot)", defaultVal: "—", required: true },
   { name: "bodyClassName", type: "string (extra no body)", defaultVal: "—" },

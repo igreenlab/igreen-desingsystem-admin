@@ -36,7 +36,7 @@ import { AppShell } from "@/components/ui/AppShell";
 | `onSettings` | () => void | — | Ação "Configurações" do user menu (item escondido se omitido) |
 | `onLogout` | () => void | — | Ação "Sair" do user menu (item escondido se omitido) |
 | `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |
-| `defaultMenuCollapsed` | boolean | false | Estado inicial do collapse (uncontrolled) |
+| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |
 | `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |
 
 ## Exemplo mínimo
