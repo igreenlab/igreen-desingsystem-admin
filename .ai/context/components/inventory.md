@@ -3,20 +3,42 @@
 > Fonte de verdade sobre o que existe.
 > Atualizar sempre que criar ou remover componente.
 > Verificar aqui ANTES de criar qualquer componente novo.
-> Última atualização: 2026-06-17 (distribuição via registry — 49 items)
+> Última atualização: 2026-08-07 (lib v0.34.0 · CLI v0.21.2 · registry 91 items)
+
+⚠️ **As contagens abaixo saem defasadas em silêncio** — nada as valida. Antes de confiar,
+confira contra a fonte:
+>
+> ```bash
+> node -e "console.log(require('./registry.json').items.length)"   # itens do registry
+> ls src/components/ui | wc -l                                     # componentes ui/
+> ls src/components/shadcn/*.tsx | wc -l                           # primitivos shadcn
+> ```
+>
+> Em 2026-08-07 este arquivo dizia **50 items** quando havia **91**, listava 32 componentes
+> `ui/` quando havia **42**, e mantinha uma seção "planejados" com 3 componentes que já
+> existiam há meses. Contagem errada aqui é pior que contagem nenhuma: a Regra 2 manda
+> consultar este arquivo antes de criar componente, e quem consultar pode recriar o que já
+> existe.
 
 ## Distribuição via registry shadcn (`@igreen/*`)
 
-**50 items** publicados em `igreen-registry.vercel.app` (privado, Bearer). **Distribuíveis
-e validados:** todos os 27 primitivos shadcn + 14 composites ui/ (`form-field`,
-`alert-modal`, `button-group`, `floating-panel`, `modal`, `panel`, `footer-table`,
-`kanban`, `combobox`, `card-checkbox`, `chip`, `icon`, `page-header`, `avatar-ig`) +
-5 app-level (`chart`, `table`, `menu-sidebar`, `header`, `app-shell`) + **`data-table`**
-(bundle DataTable+TableToolbar, 104 arquivos, circularidade resolvida) + foundational
-(`utils`, `tv`, `theme`). **NÃO distribuído:** `TabelaTeste` (demo interno). Caveats do
-`data-table` (colisão avatar/avatar-ig, imports mortos sob noUnusedLocals): ver spec.
-Consumo via CLI: `npm create @snksergio/design-system@latest` (v0.3.1) +
-`npm run igreen:add -- <componente>`. Regra de distribuibilidade + deploy manual: na spec.
+**91 items** publicados em `igreen-registry.vercel.app` (privado, Bearer):
+
+| tipo | qtd | o quê |
+| --- | --- | --- |
+| `registry:ui` | 75 | primitivos shadcn + composites `ui/` + foundational (`utils`, `tv`) |
+| `example-*` | 9 | telas inteiras de referência (clientes, finance, dashboard, chat, login, mapa-rede, edit-page, order-detail, app-shell) |
+| `theme*` | 5 | tema-base (`theme`) + 4 overlays de marca (`theme-blue/green/pay/vibrant`) |
+| `registry:file` | 2 | arquivos avulsos |
+
+**NÃO distribuído:** `TabelaTeste` (demo interno). O `data-table` é bundle
+DataTable+TableToolbar (circularidade resolvida); caveats (colisão avatar/avatar-ig, imports
+mortos sob `noUnusedLocals`) na spec.
+
+Consumo: `npm create @snksergio/design-system@latest` (CLI **v0.21.2**) +
+`npm run igreen:add -- <componente>`. Ou `npm i @snksergio/design-system` (**v0.34.0**), ou
+submódulo com `npm run ds:link`. Débito de distribuição é medido pelo
+`scripts/distribution-debt.mjs` (roda no CI) — **ele**, e não esta lista, é o gate.
 
 ---
 
@@ -86,7 +108,7 @@ src/components/
 
 ---
 
-## Componentes — ui/ (iGreen puro) (32 componentes)
+## Componentes — ui/ (iGreen puro) (42 componentes)
 
 | Componente        | Styles                                                     | Pasta                                  | Status                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | ----------------- | ---------------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -126,6 +148,20 @@ src/components/
 | FileUploadField | `ui/FileUploadField/file-upload-field.styles.ts` | `src/components/ui/FileUploadField/` | ✅ **v0.27.0 distribuído** — campo de upload (dropzone + accept/maxSize + preview + estados). Registry `@igreen/file-upload-field`. Doc `#/file-upload-field` |
 | MonthYearPicker | `ui/MonthYearPicker/month-year-picker.styles.ts` | `src/components/ui/MonthYearPicker/` | ✅ **v0.27.0 distribuído** — seletor de mês/ano em popover (value/onValueChange, min/max, locale). Registry `@igreen/month-year-picker`. Doc `#/month-year-picker` |
 | ColorPicker | `ui/ColorPicker/color-picker.styles.ts` | `src/components/ui/ColorPicker/` | ✅ **v0.27.0 distribuído** — seletor de cor hex com presets + input livre; normaliza #RRGGBB. Registry `@igreen/color-picker` (bundla `utils/color-contrast.ts`). Doc `#/color-picker` |
+| ConversationListItem | `ui/ConversationListItem/conversation-list-item.styles.ts` | `src/components/ui/ConversationListItem/` | ✅ implementado — linha clicável de lista de conversa (ticket do Atendimento/Chat). **Exceção deliberada de distribuição:** interno do `example-chat`, chega no consumidor junto do exemplo, sem item de registry próprio |
+| DateSeparatorChip | `ui/DateSeparatorChip/date-separator-chip.styles.ts` | `src/components/ui/DateSeparatorChip/` | ✅ implementado — separador centralizado na thread do chat (Chip + Icon + Separator), estático. **Exceção deliberada:** interno do `example-chat` |
+| MessageAck | `ui/MessageAck/message-ack.styles.ts` | `src/components/ui/MessageAck/` | ✅ implementado — glifo de entrega/leitura estilo WhatsApp: ícone + cor semântica derivados do valor de `ack`. **Exceção deliberada:** interno do `example-chat` |
+| MessageBubble | `ui/MessageBubble/message-bubble.styles.ts` | `src/components/ui/MessageBubble/` | ✅ implementado — bolha de mensagem do atendimento, o maior bloco do ChatV2 (MessageAck + MarkdownText + Icon + Button + Popover + slot Avatar). **Exceção deliberada:** interno do `example-chat` |
+| MessageComposer | `ui/MessageComposer/message-composer.styles.ts` | `src/components/ui/MessageComposer/` | ✅ implementado — barra de envio, shell **dumb** (sem lógica de API/upload/emoji/áudio): Textarea + Button + Icon + Separator. **Exceção deliberada:** interno do `example-chat` |
+| MessageVariablesPicker | `ui/MessageVariablesPicker/message-variables-picker.styles.ts` | `src/components/ui/MessageVariablesPicker/` | ✅ implementado — picker de variáveis `{{...}}` que emite `onSelect(token)`; Popover (mobileSheet) + Button + Chip + Icon. **Exceção deliberada:** interno do `example-chat` |
+
+> **As 8 exceções deliberadas de distribuição** (não são débito) vivem na fonte única
+> `scripts/lib/ds-exceptions.mjs`, cada uma **com motivo obrigatório** — lista de exceção sem
+> motivo apodrece. São os 6 internos do `example-chat` acima + `TabelaTeste` (demo interno) +
+> `TableToolbar` (bundlado no item `data-table`). Por isso o `distribution-debt` reporta
+> **34** e não 42: 42 pastas − 8 exceções. **Não conclua gap comparando `ls ui/` com o
+> registry** — consulte o módulo (e note que `DS_EXCEPTIONS` é um `Map`, e `isException()`
+> espera **kebab-case**; passar PascalCase devolve `false` em silêncio).
 
 **Nota**: `AddViewModal` (modes create/edit) e `TableToolbarViews` (compound com Default tab + Tabs visiveis + Popover overflow + modal) ficam em `ui/TableToolbar/`. Saved Views eh UI do toolbar — DataTable so passa props/handlers. `ToolbarMobileDialog` + `ToolbarMobileSection` (em `ui/TableToolbar/parts/`) foram promovidos a uso oficial pelo DataTable em v0.3.0 (não-deprecated mais).
 
@@ -461,11 +497,18 @@ Out of scope (planos seguintes):
 
 ## Componentes planejados (não implementados)
 
-| Componente     | Tipo   | Pasta     | Prioridade                                                                                 |
-| -------------- | ------ | --------- | ------------------------------------------------------------------------------------------ |
-| Toast / Sonner | Shadcn | `shadcn/` | 🟡 média                                                                                   |
-| Tooltip        | Shadcn | `shadcn/` | 🟡 média                                                                                   |
-| Skeleton       | iGreen | `ui/`     | 🟢 baixa — `FooterTableSkeleton` já existe pra footer da tabela; pattern pode ser extraído |
+**Nenhum.** Os 3 que esta seção listava — Toast/Sonner, Tooltip e Skeleton — **já existiam**
+quando isto foi conferido em 2026-08-07: `shadcn/sonner.tsx`, `shadcn/tooltip.tsx`,
+`shadcn/skeleton.tsx`, e ainda um `ui/Toast/` (card sobre o Sonner). A seção ficou meses
+convidando a construir o que já estava pronto — que é o custo real de backlog não revisado
+dentro de um documento de inventário.
+
+Backlog de verdade vive em `.ai/status/BACKLOG.md`. Se voltar a existir componente planejado
+aqui, **cheque se ele já existe antes de listar**:
+
+```bash
+ls src/components/ui src/components/shadcn | grep -i <nome>
+```
 
 ---
 
@@ -549,7 +592,8 @@ UserMenu (componente interno do AppShell) renderiza Avatar clicável → `Dropdo
 
 | Item                   | Arquivo                       | O que é                                                                                                                                          |
 | ---------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `useTheme`             | `src/hooks/useTheme.ts`       | Hook do preview app — tema `"light" \| "dark" \| "system"`, persiste em localStorage e aplica `.dark` no `<html>`. **NÃO exportado na lib**      |
+| `useTheme`             | `src/hooks/useTheme.ts`       | Tema `"light" \| "dark" \| "system"` — persiste em localStorage e aplica `.dark` no `<html>`. **Exportado na lib desde a v0.33.0** (antes era só do preview)      |
+| `useBrand`             | `src/hooks/useBrand.ts`       | Marca (`data-theme`), eixo ortogonal ao dark/light. **Exportado desde a v0.33.0** com **catálogo injetável** (`useBrand({ brands })`): declare só as marcas cujo overlay você importou — `data-theme` com id sem CSS no bundle é no-op **silencioso**. Devolve `brand`/`brands`/`current`/`setBrand`/`toggle`. Catálogo default = `BRANDS` (5 marcas)      |
 | `cn`                   | `src/lib/utils.ts`            | Compositor de className (clsx + tailwind-merge estendido pros prefixos DS pad/sp/gp/radius/sh/form + presets tipográficos) — usado nos showcases |
 | `getContrastTextColor` | `src/utils/color-contrast.ts` | Escolhe `white`/`black` via contraste WCAG pra bg arbitrário (L-027 — usado pelo Avatar `colorHex`)                                              |
 | `tv`                   | `src/utils/tv.ts`             | Wrapper obrigatório do tailwind-variants com `twMergeConfig` do DS — **nunca importar de `tailwind-variants` direto**                            |
