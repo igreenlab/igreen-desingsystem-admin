@@ -52,7 +52,13 @@ const PROPS_APP_SHELL = [
   { name: "onSettings", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "onLogout", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "menuCollapsed", type: "boolean (controlled)", defaultVal: "—" },
-  { name: "defaultMenuCollapsed", type: "boolean", defaultVal: "false" },
+  {
+    name: "defaultMenuCollapsed",
+    type: "boolean",
+    defaultVal: "responsivo",
+    description:
+      "Estado inicial do collapse (uncontrolled). Omitido: colapsado abaixo de 1536px, expandido acima — mesma fronteira do padding do body. Valor explícito vence, inclusive false. Só no mount: resize não re-colapsa, pra não brigar com quem abriu o menu na mão.",
+  },
   { name: "onMenuCollapseChange", type: "(collapsed) => void", defaultVal: "—" },
   { name: "children", type: "ReactNode (body slot)", defaultVal: "—", required: true },
   { name: "bodyClassName", type: "string (extra no body)", defaultVal: "—" },
@@ -132,10 +138,16 @@ export function AppShellDoc() {
 
       <ul className="text-body-md text-fg-muted mb-gp-2xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
         <li>
-          <code className="font-mono">gap-gp-md</code> (16px) — espaço vertical entre filhos diretos
+          <code className="font-mono">gap-gp-4xl</code> (24px) — espaço vertical entre filhos diretos
         </li>
         <li>
-          <code className="font-mono">p-pad-6xl</code> (32px) — padding em todos os lados
+          <strong className="text-fg-default">Padding responsivo em 3 patamares</strong> —{" "}
+          <code className="font-mono">18px</code> abaixo de 768px,{" "}
+          <code className="font-mono">p-pad-4xl</code> (24px) entre 768 e 1535px (notebook) e{" "}
+          <code className="font-mono">p-pad-6xl</code> (32px) de 1536px pra cima. O corte é em{" "}
+          <code className="font-mono">2xl</code> e não em <code className="font-mono">xl</code> porque
+          1366 e 1536 são as duas resoluções de notebook dominantes — cortar em{" "}
+          <code className="font-mono">xl</code> (1280) deixaria a 1536 herdando a moldura de desktop.
         </li>
         <li>
           <code className="font-mono">flex-col flex-1 min-h-0 overflow-auto scrollbar-thin</code> —

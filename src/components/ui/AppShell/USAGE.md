@@ -36,7 +36,7 @@ import { AppShell } from "@/components/ui/AppShell";
 | `onSettings` | () => void | — | Ação "Configurações" do user menu (item escondido se omitido) |
 | `onLogout` | () => void | — | Ação "Sair" do user menu (item escondido se omitido) |
 | `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |
-| `defaultMenuCollapsed` | boolean | false | Estado inicial do collapse (uncontrolled) |
+| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |
 | `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |
 
 ## Exemplo mínimo
@@ -53,7 +53,7 @@ import { AppShell } from "@/components/ui/AppShell";
 ```
 
 ## Cuidados / Gotchas
-- Body interno tem `gap-gp-4xl` + `p-pad-6xl` (24+32px) fixos — customize spacing dentro do `children`
+- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui
 - `contexts` mínimo 1; sem isso o rail fica vazio
 - Mobile: `mobileEdgeToEdge` remove padding do body
 - User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default
