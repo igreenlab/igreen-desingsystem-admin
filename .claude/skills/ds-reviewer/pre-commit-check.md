@@ -234,6 +234,11 @@ O que cada gate pega, e **por que o checklist manual não pega**:
 | `examples-drift-check` | `src/examples/*` divergindo do showcase que ele copia (L-035) |
 | `orphan-utilities` | `@utility` que um componente usa e que **não está no tema gerado** — era o buraco por onde o `outline-float` passou meses |
 | `runtime-base.test` | as 7 peças de runtime ausentes do tema · cópia do CLI divergente · `globals.css` **redeclarando** alguma delas |
+| `dead-theme-classes` | classe de cor sem CSS var — em `src/` **e** nas docs/skills/kit que ensinam a IA. Foi por só olhar `src/` que 44 usos de V2 sobreviveram nas skills. Citação deliberada declara-se em `CITACOES` com motivo |
+
+⚠️ **Mexeu em doc que ensina classe?** `npm test` já cobre classe INEXISTENTE. O que ele
+**não** cobre é classe que existe com **valor errado** na doc (`radius.base` documentado
+como 26px valendo 10px) — pra isso rode `npm run audit:token-docs` e trie a saída.
 
 ### 2.10 — Mexeu no transform de tokens?
 
