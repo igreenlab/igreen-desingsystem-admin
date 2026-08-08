@@ -14,12 +14,19 @@
  */
 import { readdirSync, existsSync } from "node:fs";
 
-/** Foundationals fixos: cn, tv, lucide-types e o tema-base. */
+/** Foundationals fixos: cn, tv, lucide-types, o tema-base e a tabela de anti-patterns. */
 const FIXOS = [
   ["src/lib/utils.ts", "cli/templates/default/src/lib/utils.ts"],
   ["src/utils/tv.ts", "cli/templates/default/src/utils/tv.ts"],
   ["src/lib/lucide-types.ts", "cli/templates/default/src/lib/lucide-types.ts"],
   ["src/styles/theme/tailwind-theme.css", "cli/templates/default/src/styles/theme/tailwind-theme.css"],
+  // A tabela de anti-patterns vira o lint de conteúdo do consumidor (hook
+  // `protect-ds.mjs`). Entrou em 2026-08-08: até então o consumidor tinha ZERO lint
+  // de estilo — o `protect-ds` inspecionava só o `file_path`, então `bg-[#0fff00]`
+  // ou `gap-13` numa tela nova passava 100% limpo em todos os canais. Entra como
+  // foundational (e não como cópia manual) pra que o `check-foundationals` cobre o
+  // sync: tabela do consumidor divergindo da do CI é o defeito que a L-060 descreve.
+  ["scripts/lib/ds-lint-patterns.mjs", "cli/templates/default/_claude/hooks/ds-lint-patterns.mjs"],
 ];
 
 const THEME_DIR = "src/styles/theme";

@@ -271,6 +271,36 @@ for (const rel of removed) {
   if (existsSync(p) && !DRY) rmSync(p, { force: true });
 }
 
+// ── DESIGN.md — o guia de composição que TODAS as skills mandam aplicar ──────
+//
+// ⚠️ Corrigido em 2026-08-08. O bloco gerado no `CLAUDE.md` do pai dizia que o
+// DESIGN.md "está em `<dsPath>/DESIGN.md`". **Esse arquivo não existe no clone**: o
+// `DESIGN.md` da raiz do DS é gitignored (`.gitignore:28`) — é a saída de 819 linhas
+// da skill `design-md`, com nomenclatura V2 extinta, nunca commitado. Depois de
+// `git submodule add`, o consumidor não tinha o arquivo, e **20+ arquivos do payload**
+// mandavam lê-lo. Falha silenciosa: a IA seguia sem o guia de composição.
+//
+// O DESIGN.md real do consumidor é `cli/templates/default/DESIGN.md` (182 linhas,
+// TRACKED, referenciado por 12+ arquivos do kit). É ele que o scaffold entrega na raiz
+// do projeto — então o submódulo passa a entregar o mesmo, no mesmo lugar.
+const DESIGN_SRC = join(DS_ROOT, "cli", "templates", "default", "DESIGN.md");
+const DESIGN_DST = join(TARGET, "DESIGN.md");
+let designStatus = "";
+if (existsSync(DESIGN_SRC)) {
+  const jaExiste = existsSync(DESIGN_DST);
+  const nosso = prevSet.has("../DESIGN.md");
+  if (jaExiste && !nosso && !FORCE) {
+    designStatus = "colisão — mantido o seu";
+    warn("DESIGN.md já existe na raiz e não foi instalado por nós — pulado (use --force pra sobrescrever)");
+  } else {
+    if (!DRY) copyFileSync(DESIGN_SRC, DESIGN_DST);
+    written.push("../DESIGN.md");
+    designStatus = jaExiste ? "atualizado" : "instalado";
+  }
+} else {
+  warn(`DESIGN.md do payload não encontrado em ${DESIGN_SRC} — o kit vai citar um arquivo ausente`);
+}
+
 // ── config lido pelas skills (modo submódulo) ─────────────────────
 const config = {
   mode: "submodule",
@@ -309,8 +339,11 @@ const block =
   `  (replicar módulo) e \`/ds-build-page\` (entrada genérica). As skills leem\n` +
   `  \`.claude/ds-config.json\` (modo submódulo) e leem os componentes/exemplos direto do\n` +
   `  disco — **não** rodam \`igreen:add\`.\n` +
-  `- **\`DESIGN.md\`**: as skills mandam "aplique o \`DESIGN.md\`". Ele **não** é projetado pro\n` +
-  `  seu \`.claude/\` — está em \`${dsPathRel}/DESIGN.md\`.\n` +
+  `- **\`DESIGN.md\`**: as skills mandam "aplique o \`DESIGN.md\`". O \`ds-link\` **instala**\n` +
+  `  ele na RAIZ do seu projeto (\`./DESIGN.md\`), igual ao scaffold — é o guia de\n` +
+  `  composição (anatomia de tela, ritmo de espaçamento, do/don't de token). Re-rodar o\n` +
+  `  \`ds-link\` depois de um \`git pull\` atualiza. ⚠️ Não confunda com o \`DESIGN.md\` da\n` +
+  `  raiz do REPO do DS: aquele é gitignored e não vem no clone do submódulo.\n` +
   `- **Regras DS** auto-carregadas em \`.claude/rules/\`: \`ds-components.md\` (qual\n` +
   `  componente usar pra cada tarefa), \`ds-design.md\` (como estilizar — tokens, spacing, foco),\n` +
   `  \`ds-themes.md\` (trocar/adicionar tema de marca — em submódulo é só importar o\n` +
