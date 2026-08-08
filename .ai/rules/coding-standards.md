@@ -88,22 +88,36 @@ export type ComponentVariantProps = VariantProps<typeof componentVariants>
 
 ### Spacing
 
-| Token | Classe DS | Valor | Tailwind literal proibido |
-|-------|-----------|-------|--------------------------|
-| `gap.xs` | `gap-gp-xs` | 4px | `gap-1` |
-| `gap.sm` | `gap-gp-sm` | 6px | — |
-| `gap.md` | `gap-gp-md` | 8px | `gap-2` |
-| `gap.lg` | `gap-gp-lg` | 12px | `gap-3` |
-| `gap.xl` | `gap-gp-xl` | 16px | `gap-4` |
-| `gap.2xl` | `gap-gp-2xl` | 24px | `gap-6` |
-| `space.xs` | `p-sp-xs` | 4px | `p-1` |
-| `space.sm` | `p-sp-sm` | 8px | `p-2` |
-| `space.md` | `p-sp-md` | 16px | `p-4` |
-| `space.lg` | `p-sp-lg` | 24px | `p-6` |
-| `pad.md` | `px-pad-md` | 8px | `px-2` |
-| `pad.lg` | `px-pad-lg` | 12px | `px-3` |
-| `pad.xl` | `px-pad-xl` | 14px | — |
-| `pad.2xl` | `px-pad-2xl` | 16px | `px-4` |
+⚠️ **`gap`, `space` e `pad` compartilham a MESMA escala** — `gap-gp-lg`, `p-sp-lg` e
+`px-pad-lg` valem todos 10px. O que muda é a intenção, não o valor. Esta tabela tinha 3
+faixas divergentes e errava por até 2,4× (dizia `space.lg` = 24px sendo 10px).
+
+⚠️ **O número do Tailwind não é o degrau do DS**: `gap-4` vale 16px e `gap-gp-md` vale 8px.
+A coluna "Tailwind literal proibido" lista o que **não usar**, não o equivalente de valor.
+Pra preservar o valor de um layout existente, use a coluna da direita.
+
+| Degrau | Valor | Classes DS | Não usar | Mesmo VALOR no Tailwind |
+|---|---|---|---|---|
+| `2xs` | 2px | `gap-gp-2xs` · `p-sp-2xs` · `px-pad-2xs` | `gap-0.5` | `gap-0.5` |
+| `xs` | 4px | `gap-gp-xs` · `p-sp-xs` · `px-pad-xs` | `gap-1` | `gap-1` |
+| `sm` | 6px | `gap-gp-sm` · `p-sp-sm` · `px-pad-sm` | `gap-1.5` | `gap-1.5` |
+| `md` | 8px | `gap-gp-md` · `p-sp-md` · `px-pad-md` | `gap-2` | `gap-2` |
+| `lg` | **10px** | `gap-gp-lg` · `p-sp-lg` · `px-pad-lg` | `gap-2.5` | `gap-2.5` |
+| `xl` | **12px** | `gap-gp-xl` · `p-sp-xl` · `px-pad-xl` | `gap-3` | `gap-3` |
+| `2xl` | **16px** | `gap-gp-2xl` · `p-sp-2xl` · `px-pad-2xl` | `gap-4` | `gap-4` |
+| `3xl` | **20px** | `gap-gp-3xl` · `p-sp-3xl` · `px-pad-3xl` | `gap-5` | `gap-5` |
+| `4xl` | **24px** | `gap-gp-4xl` · `p-sp-4xl` · `px-pad-4xl` | `gap-6` | `gap-6` |
+| `5xl` | 28px | `gap-gp-5xl` · `p-sp-5xl` · `px-pad-5xl` | `gap-7` | `gap-7` |
+| `6xl` | 32px | `gap-gp-6xl` · `p-sp-6xl` · `px-pad-6xl` | `gap-8` | `gap-8` |
+| `7xl` | 48px | `gap-gp-7xl` · `p-sp-7xl` · `px-pad-7xl` | `gap-12` | `gap-12` |
+
+Fora da escala: `gap.base`/`space.base` 16px · `pad.base` 12px · `space.px` 1px.
+
+**Form: `gap-form-gap` (20px), nunca `gap-gp-*`** — L-024. Vale pra qualquer form, drawer ou
+modal com 2+ FormField, inclusive dentro de grid.
+
+Tokens de componente: `p-pad-card-base` (24px) / `-sm` (16px) · `px-pad-page-sm` (16) /
+`-base` (24) / `-lg` (40).
 
 ### Form heights
 
@@ -119,14 +133,25 @@ export type ComponentVariantProps = VariantProps<typeof componentVariants>
 
 ### Radius
 
-| Token | Classe DS | Valor | Tailwind literal proibido |
-|-------|-----------|-------|--------------------------|
-| `radius.xs` | `rounded-radius-xs` | 4px | `rounded` |
-| `radius.sm` | `rounded-radius-sm` | 6px | `rounded-md` |
-| `radius.md` | `rounded-radius-md` | 8px | `rounded-lg` |
-| `radius.3xl` | `rounded-radius-3xl` | 22px | `rounded-2xl` |
-| `radius.base` | `rounded-radius-base` | 26px | `rounded-3xl` |
-| `radius.full` | `rounded-radius-full` | 9999px | `rounded-full` |
+Todos derivam de `RADIUS_BASE = 0.625rem = 10px`.
+
+| Token | Classe DS | Mult. | Valor | Tailwind literal proibido |
+|-------|-----------|---|-------|--------------------------|
+| `radius.none` | `rounded-radius-none` | — | 0 | `rounded-none` |
+| `radius.xs` | `rounded-radius-xs` | ×0.4 | 4px | `rounded` |
+| `radius.sm` | `rounded-radius-sm` | ×0.6 | 6px | `rounded-md` |
+| `radius.md` | `rounded-radius-md` | ×0.8 | 8px | `rounded-lg` |
+| `radius.lg` | `rounded-radius-lg` | ×1.0 | **10px** | `rounded-xl` |
+| `radius.base` | `rounded-radius-base` | ×1.0 | **10px** (alias de `lg`) | — |
+| `radius.xl` | `rounded-radius-xl` | ×1.4 | 14px | `rounded-2xl` |
+| `radius.2xl` | `rounded-radius-2xl` | ×1.8 | 18px | — |
+| `radius.3xl` | `rounded-radius-3xl` | ×2.2 | 22px | `rounded-3xl` |
+| `radius.4xl` | `rounded-radius-4xl` | ×2.6 | 26px | — |
+| `radius.full` | `rounded-radius-full` | — | 9999px | `rounded-full` |
+
+⚠️ **`radius.base` vale 10px, não 26px** — esta tabela dizia 26 (o valor que ele TINHA antes
+de virar alias de `lg`; os 26px migraram pro `4xl`). É o degrau mais usado do DS. Prefira
+`rounded-radius-lg` ao alias: o alias já mudou de valor uma vez.
 
 ### Shadow
 

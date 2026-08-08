@@ -31,24 +31,59 @@ O que ele faz:
   `<submódulo>/src`). Se não achar, usa `@ds` e avisa pra você confirmar.
 - Adiciona um bloco gerenciado no seu `CLAUDE.md` (cria se não existir) com os pointers.
 
-### Pré-requisito: o alias de import
+### Pré-requisito: DOIS aliases, não um
 
-As skills geram imports como `@ds/components/ui/DataTable`. Garanta que seu
-`tsconfig.json` (e o `vite.config` / bundler) tenha o alias apontando pra `src` do
-submódulo. Exemplo com o submódulo em `design-system/`:
+Este é o passo que mais quebra — e quebra **alto**, no primeiro componente que você importar.
+
+**1. `@ds` — o alias que VOCÊ usa.** As skills geram imports como
+`@ds/components/ui/DataTable`.
+
+**2. `@` — o alias que o DS usa INTERNAMENTE.** Os arquivos do DS importam entre si por
+`@/components/…`, `@/lib/utils`, `@/utils/tv`, `@/hooks/…` — **700 imports** no total. Esse
+`@` significa "a `src` do DS". Nos outros canais isso se resolve sozinho (no copy-in os
+arquivos viram seus e `@/` é o seu `src`; no npm o bundler resolve dentro do pacote), mas no
+submódulo **ninguém mapeia esse alias por você**. Sem ele:
+
+```
+error TS2307: Cannot find module '@/utils/tv'
+[vite]: Rollup failed to resolve import "@/lib/utils"
+```
+
+Com o submódulo em `design-system/`:
 
 ```jsonc
 // tsconfig.json
-{ "compilerOptions": { "paths": { "@ds/*": ["design-system/src/*"] } } }
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ds/*": ["design-system/src/*"],
+      "@/*":   ["design-system/src/*"]   // ← o alias INTERNO do DS
+    }
+  }
+}
 ```
 
 ```ts
 // vite.config.ts
-resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }
+resolve: {
+  alias: {
+    "@ds": path.resolve(__dirname, "design-system/src"),
+    "@":   path.resolve(__dirname, "design-system/src"),   // ← idem
+  },
+}
 ```
 
-Se você já usa `@/` apontando pra outro lugar, escolha um alias livre (`@ds` é o default) e
-rode com `--alias @ds`.
+⚠️ **E se o seu projeto já usa `@/` pro próprio código?** Aí há colisão real, e você escolhe:
+
+- **Renomeie o seu** (`@app/*` → `./src/*`) e deixe `@/*` pro DS. É o caminho mais simples e
+  o que menos surpresa gera depois.
+- **Ou mapeie só os 5 prefixos que o DS usa** — `@/components/*`, `@/lib/*`, `@/utils/*`,
+  `@/hooks/*`, `@/config/*` → `design-system/src/*`, mantendo `@/*` no seu `src`. Funciona,
+  mas se você tiver o seu próprio `@/components` ou `@/lib`, a colisão volta.
+
+Não existe terceira opção: o DS não pode abrir mão do `@/` interno sem reescrever 700
+imports, e é o mesmo alias que faz os outros 3 canais funcionarem.
 
 ## Dependências — o passo que faltava aqui
 

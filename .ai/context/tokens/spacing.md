@@ -88,9 +88,9 @@ avulsos pra spacing de form — eles existem pra outros contextos (cards, icon-t
 section spacing).
 
 **Por quê 20px:**
-- `gap-gp-lg` (12px) → fica apertado quando label + helper text empilham
-- `gap-gp-xl` (16px) → ainda visualmente curto pra 5+ fields num drawer
-- `gap-gp-2xl` (24px) → muito solto, desperdiça viewport vertical
+- `gap-gp-lg` (10px) → fica apertado quando label + helper text empilham
+- `gap-gp-xl` (12px) → ainda visualmente curto pra 5+ fields num drawer
+- `gap-gp-2xl` (16px) → mais perto, mas ainda não é o ritmo de form
 - `formGap = 20px` → bench validado em NovoClienteDrawer + SacarDialog
 
 **Aplicação:**

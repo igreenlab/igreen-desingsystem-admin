@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.37.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "O pacote npm entregava 37 dos 42 componentes — e a doc dizia 42",
+    summary:
+      "Duas frentes que se apoiam: o **pacote npm** passou a entregar o catálogo inteiro (faltavam 4 componentes e os 41 primitivos não tinham como ser importados), e a **documentação que ensina a IA** foi conferida linha a linha contra o CSS que o tema realmente emite. A segunda achou coisa que nenhum gate podia pegar, porque o defeito não estava no código: estava no texto que gera o código.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`Chart`, `DataList`, `List` e `Toast` no pacote npm.** Existiam desde antes e simplesmente nunca foram exportados — um `import { ChartContainer }` falhava, enquanto a doc do canal anunciava \"os 42 componentes, incluindo Chart\". Eram 37. O único que continua fora é o `TabelaTeste`, demo interno do showcase.",
+          "**Subpath `@snksergio/design-system/shadcn`** — os 41 primitivos adaptados (Dialog, Select, Tabs, Popover, Tooltip, Card, Calendar…). Antes só 3 eram importáveis e os outros 38 viajavam no pacote sem porta de entrada. É uma entrada separada de propósito: são 233 nomes contra os 3 ou 4 que um projeto costuma usar, e no mesmo barrel qualquer import arrastaria Radix, cmdk, vaul, embla e sonner antes do bundler conseguir podar.",
+          "**`npm run audit:token-docs`** — confere se todo valor de token afirmado na documentação bate com o CSS emitido. É a categoria de defeito que passa por build, `tsc`, teste e lint sem tocar em nada.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Consumo por submódulo estava quebrado seguindo a documentação.** Os arquivos do DS se importam por `@/…` — 700 imports — e esse atalho significa \"a pasta do DS\". Copy-in e npm resolvem sozinhos; submódulo não, e nenhuma doc mandava configurar. O build morria no primeiro componente. Agora está documentado, entra no bloco que o `ds-link` escreve no projeto, e o próprio script **confere e avisa** quando falta, com o trecho pronto pra colar.",
+          "**Valores de espaçamento e raio errados na documentação, por até 2,4×.** `gap`, `space` e `pad` usam uma escala só, mas a doc mostrava três faixas divergentes. E o `radius.base` estava documentado como 26px valendo **10px** — o raio mais usado do sistema. A doc de extração do Figma mandava justamente mapear 26px pra ele, então um botão extraído saía com o canto errado.",
+          "**O gap depois do PageHeader era anunciado como 24px em 6 arquivos** do kit do consumidor. O código sempre usou 16px. Corrigimos o número, não a classe — mexer na classe mudaria o espaçamento de toda tela já construída.",
+          "**O guia do projeto novo mandava trocar uma classe morta por outra.** O anti-pattern de foco dizia `ring-ring-primary/30 → ring-ring-primary`, e o destino não existe desde a renomeação para `brand`. Junto com ele, 44 usos do vocabulário antigo sobreviviam nas instruções que a IA lê pra escrever componente — inclusive no template canônico de implementação.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Os três canais foram medidos no navegador, não inferidos.** Projeto npm, projeto do `npm create` e projeto por submódulo, cada um instalado e construído de verdade, e depois comparado com o catálogo propriedade por propriedade: mesma cor de marca, mesma altura, mesmo raio, mesma fonte, mesma barra de rolagem. Os quatro batem.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.36.0",
     date: "2026-08-08",
     tag: "preview",

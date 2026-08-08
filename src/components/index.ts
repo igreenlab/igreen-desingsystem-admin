@@ -45,6 +45,16 @@ export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
 export * from "./ui/ChoroplethMap";
+/**
+ * Entraram no barrel em 0.37.0. Existiam desde antes e simplesmente nunca foram
+ * exportados — o consumidor npm que fizesse `import { ChartContainer }` recebia
+ * "not exported", enquanto a doc do canal npm anunciava "os 42 componentes ui/".
+ * Eram 37. Nenhum conflita com os 445 nomes já exportados (conferido nome a nome).
+ */
+export * from "./ui/Chart";
+export * from "./ui/DataList";
+export * from "./ui/List";
+export * from "./ui/Toast";
 // TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
 // pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
 

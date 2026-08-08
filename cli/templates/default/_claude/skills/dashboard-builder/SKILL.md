@@ -81,7 +81,7 @@ da entrevista, `generate.md` só após o gate.
    ícone mini-stat = **quadrado** `size-comp-lg rounded-radius-base`, KPI-group = **círculo** `size-form-lg rounded-radius-full`.
 5. Tabela/lista embutida → delegar a `crud-builder`/`list-builder`; filtros nativos pré-aplicados, sem form solto acima.
 6. Classes DS antes de Tailwind literal; zero hardcode (ver `.claude/rules/ds-design.md`, `DESIGN.md`). Números grandes literais só onde não há preset.
-7. Shell: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 24px → rows). Estreito → 1 card/row.
+7. Shell: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 16px → rows). Estreito → 1 card/row.
 8. Página registrada no roteador do usuário — órfã = incompleto.
 9. `npx tsc --noEmit` limpo antes do handoff.
 

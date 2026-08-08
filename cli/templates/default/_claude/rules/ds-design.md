@@ -19,7 +19,7 @@ contexto em `DESIGN.md` (raiz). API de cada componente em
 
 ## Composição de tela
 - Wrapper de página: `flex flex-col h-full min-h-0 gap-gp-2xl`.
-- **24px (`gap-gp-2xl`) entre o `PageHeader` e o próximo bloco** — nunca grudado.
+- **16px (`gap-gp-2xl`) entre o `PageHeader` e o próximo bloco** — nunca grudado.
 - Conteúdo que precisa preencher (tabela): `className="flex-1 min-h-0"` + pai com altura.
 - Forms: `<FormField>` (nunca `<label>` cru) + `gap-form-gap` (20px) entre campos.
 - Card: padding `p-pad-card-base` (24px); entre cards `gap-gp-md`/`gap-gp-lg`.

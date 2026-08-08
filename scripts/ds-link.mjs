@@ -127,6 +127,46 @@ function detectAlias(dsPathRel) {
   return null;
 }
 
+/**
+ * O DS importa entre si por `@/...` (700 imports: components/lib/utils/hooks/config).
+ * Esse `@` significa "a src do DS". Copy-in e npm resolvem sozinhos; **submódulo não** —
+ * sem o mapeamento o build do pai quebra no 1º componente com
+ * `Cannot find module '@/utils/tv'`. Medido num smoke test de submódulo real em 2026-08-08,
+ * quando nem esta doc nem este script mencionavam o assunto.
+ *
+ * Aqui só DETECTAMOS e avisamos: escrever no tsconfig/vite do consumidor é invasivo e a
+ * decisão certa depende de ele já usar `@/` pro próprio código (aí há colisão real).
+ */
+function detectaAliasInternoDoDs(dsPathRel) {
+  const candidates = [
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "jsconfig.json",
+    "vite.config.ts",
+    "vite.config.js",
+    "vite.config.mjs",
+  ];
+  const srcTarget = `${dsPathRel}/src`;
+  for (const file of candidates) {
+    const p = join(TARGET, file);
+    if (!existsSync(p)) continue;
+    const raw = readFileSync(p, "utf8");
+    // procura uma chave "@" ou "@/*" cujo valor aponte pra src do DS
+    const re = /["'`](@\/?\*?)["'`]\s*:\s*\[?\s*["'`]([^"'`]*?)["'`]/g;
+    let m;
+    while ((m = re.exec(raw))) {
+      const val = m[2];
+      if (val.replace(/^\.\//, "").includes(srcTarget)) return true;
+    }
+    // forma do vite com path.resolve: "@": path.resolve(__dirname, "design-system/src")
+    const reVite = new RegExp(
+      `["'\`]@["'\`]\\s*:\\s*[^,}]*${dsPathRel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/src`
+    );
+    if (reVite.test(raw)) return true;
+  }
+  return false;
+}
+
 // ── unlink ────────────────────────────────────────────────────────
 if (UNLINK) {
   const manifest = readJSON(MANIFEST, null);
@@ -180,9 +220,16 @@ const detected = detectAlias(dsPathRel);
 const alias = opt("--alias", detected || "@ds");
 const importBase = `${alias}/components/ui`;
 
+const aliasInternoOk = detectaAliasInternoDoDs(dsPathRel);
+
 log(`ds-link  →  ${DEST}`);
 log(`  DS: v${dsVersion}  em  ${dsPathRel}`);
 log(`  alias: ${alias}${detected ? " (auto-detectado)" : " (default — confirme no seu tsconfig/vite)"}`);
+log(
+  `  alias interno do DS ("@"): ${
+    aliasInternoOk ? "mapeado ✓" : "NÃO MAPEADO — o build vai quebrar (ver aviso abaixo)"
+  }`
+);
 log("");
 
 // hooks/ + settings.json do payload são específicos de copy-in (protect-ds / ds-lint
@@ -258,11 +305,28 @@ const block =
   `  (os 4 canais de consumo do DS e o que cada um entrega).\n\n` +
   `### ⚠️ Dois passos que o submódulo NÃO faz por você\n\n` +
   `O submódulo entrega **código-fonte**, não um pacote:\n\n` +
-  `1. **Dependências.** Não vêm junto. O mínimo pra \`Button\` + \`Modal\`:\n` +
+  `1. **O alias INTERNO do DS (\`@\`).** Os arquivos do DS importam entre si por\n` +
+  `   \`@/components/…\`, \`@/lib/utils\`, \`@/utils/tv\` — 700 imports. Esse \`@\` significa "a\n` +
+  `   \`src\` do DS". Copy-in e npm resolvem sozinhos; **submódulo não**. Sem mapear, o build\n` +
+  `   quebra no 1º componente com \`Cannot find module '@/utils/tv'\`. Além do \`${alias}\`:\n\n` +
+  `   \`\`\`jsonc\n` +
+  `   // tsconfig.json\n` +
+  `   "paths": { "${alias}/*": ["${dsPathRel}/src/*"], "@/*": ["${dsPathRel}/src/*"] }\n` +
+  `   \`\`\`\n` +
+  `   \`\`\`ts\n` +
+  `   // vite.config.ts\n` +
+  `   resolve: { alias: {\n` +
+  `     "${alias}": path.resolve(__dirname, "${dsPathRel}/src"),\n` +
+  `     "@":   path.resolve(__dirname, "${dsPathRel}/src"),\n` +
+  `   } }\n` +
+  `   \`\`\`\n` +
+  `   Já usa \`@/\` pro seu próprio código? Renomeie o seu (\`@app/*\`) — é o caminho de menor\n` +
+  `   surpresa. Detalhe e a alternativa por-prefixo em \`${dsPathRel}/SUBMODULE-SETUP.md\`.\n` +
+  `2. **Dependências.** Não vêm junto. O mínimo pra \`Button\` + \`Modal\`:\n` +
   `   \`npm i tailwind-variants tailwind-merge clsx lucide-react @radix-ui/react-dialog @radix-ui/react-slot\`.\n` +
   `   Componente novo pede mais (\`@tanstack/react-virtual\` no DataTable, \`recharts\` no Chart,\n` +
   `   \`cmdk\` no Combobox…). O erro do bundler diz exatamente qual falta — essa falha é **alta**.\n` +
-  `2. **Fonte Geist.** O \`@font-face\` viaja no tema, mas aponta pra \`/fonts/*.woff2\` —\n` +
+  `3. **Fonte Geist.** O \`@font-face\` viaja no tema, mas aponta pra \`/fonts/*.woff2\` —\n` +
   `   raiz do **site**, não do submódulo. Rode \`cp ${dsPathRel}/public/fonts/*.woff2 public/fonts/\`.\n` +
   `   Sem isso **não há erro**: o navegador recebe o \`index.html\` no lugar do arquivo e os 27\n` +
   `   presets caem em system-ui. Confira com \`document.fonts.check("16px Geist")\` → \`true\`.\n\n` +
@@ -299,3 +363,22 @@ log(
     : `\n✓ Pronto. Abra o Claude Code na raiz e use /ds-create-crud, /ds-create-dashboard, etc.` +
         (detected ? "" : `\n  ⚠ Confirme que o alias '${alias}' aponta pra ${dsPathRel}/src no seu tsconfig/vite.`)
 );
+
+/*
+ * Aviso do alias interno — POR ÚLTIMO, porque é o único que quebra o build de verdade
+ * e não pode rolar pra fora da tela. Só detecta e avisa: escrever no tsconfig/vite do
+ * consumidor é invasivo, e a decisão certa depende de ele já usar `@/` pro próprio código.
+ */
+if (!aliasInternoOk) {
+  warn(
+    `O alias interno do DS ("@") NÃO está mapeado no seu tsconfig/vite.\n` +
+      `    Os arquivos do DS importam entre si por "@/components/…", "@/lib/utils", "@/utils/tv"\n` +
+      `    (700 imports). Sem o mapeamento, o build quebra no 1º componente:\n` +
+      `        Cannot find module '@/utils/tv'\n\n` +
+      `    Adicione, ALÉM do "${alias}":\n` +
+      `        tsconfig: "@/*": ["${dsPathRel}/src/*"]\n` +
+      `        vite:     "@": path.resolve(__dirname, "${dsPathRel}/src")\n\n` +
+      `    Já usa "@/" pro seu código? Renomeie o seu (ex.: "@app/*") — menor surpresa.\n` +
+      `    Detalhe e alternativa por-prefixo: ${dsPathRel}/SUBMODULE-SETUP.md`
+  );
+}

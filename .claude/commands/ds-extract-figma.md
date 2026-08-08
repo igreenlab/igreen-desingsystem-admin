@@ -35,7 +35,7 @@ Tabela de mapeamento + Perspectiva Strategist (obrigatória para o gate):
 |----------|-------------|-----------|
 | Fundo principal | #338449 | bg-bg-brand |
 | Texto sobre fundo | #FFFFFF | text-fg-on-brand |
-| Border-radius | 26px | rounded-radius-base |
+| Border-radius | 10px | rounded-radius-lg |
 | Font-size label | 14px | text-title-sm |
 | Gap icon-text | 8px | gap-gp-md |
 
