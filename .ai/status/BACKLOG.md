@@ -55,6 +55,31 @@ token" silencioso.
 
 ---
 
+## 📄 `alert-dialog` é o único componente do registry sem DocPage (achado 2026-08-08)
+
+Medido na auditoria: dos **75** componentes do `registry.json`, 74 têm rota de showcase.
+`alert-dialog` tem **zero** — `grep '"alert-dialog"' src/App.tsx src/preview/components/doc-nav-data.ts`
+devolve 0 nos dois.
+
+**Não é órfão de verdade**, e por isso não virou correção nesta rodada:
+
+- está no **vocabulário do consumidor** (`_claude/rules/ds-components.md:89` — "diálogo cru,
+  sem o chrome do DS: `dialog` · `alert-dialog`"), que é o que a IA do consumidor lê;
+- é **dependência declarada** do `alert-modal` (`registryDependencies: ["@igreen/tv",
+  "@igreen/button", "@igreen/alert-dialog"]`), então chega junto por `igreen:add alert-modal`;
+- ninguém mais depende dele.
+
+**Por que não fiz agora:** criar DocPage é **conteúdo visual novo**, e a rodada de 2026-08-08
+está sob congelamento visual explícito do mantenedor. Também não adicionei card no
+`ComponentsOverviewDoc` — card apontando pra rota inexistente é pior que ausência.
+
+**Reabrir quando:** alguém for consumir `alert-dialog` direto (sem o `AlertModal`), ou na
+próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDialogDoc.tsx` +
+`App.tsx` (import + `DOC_PAGES` + render) + `doc-nav-data.ts` + card no
+`ComponentsOverviewDoc` — as 4 peças da superfície 4.
+
+---
+
 ## 🔭 Roadmap de escala da distribuição (auditoria 2026-06-18)
 
 > NÃO são pendências/defeitos — são decisões de escala conscientemente adiadas.

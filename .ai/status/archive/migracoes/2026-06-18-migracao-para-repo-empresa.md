@@ -1,9 +1,36 @@
 # Runbook — migração do setup pessoal → empresa
 
-> **Status:** preparado, **NÃO executado**. Hoje tudo roda no pessoal (snksergio).
-> Quando for migrar pra empresa (igreenlab), siga este arquivo de cima pra baixo.
-> A arquitetura **não muda** — só trocam *identificadores* (nome npm) e *hosts*
-> (Vercel/git). É mecânico.
+> # 🗄️ ARQUIVADO em 2026-08-08 — NÃO SIGA ESTAS INSTRUÇÕES
+>
+> Este arquivo viveu na **raiz do repo** como `MIGRATION.md` até 2026-08-08, com **zero
+> referências entrantes** (nenhuma doc, skill, script ou command apontava pra ele) e
+> **quatro afirmações factualmente erradas** sobre remotes — duas delas ativamente
+> perigosas para quem seguisse ao pé da letra:
+>
+> | O que o runbook diz | Realidade em 2026-08-08 |
+> |---|---|
+> | remote `mirror` | **não existe**. `git remote -v` → só `origin` e `empresa` |
+> | `origin` já aponta pra igreenlab | `origin` = **snksergio** (fork pessoal parado) |
+> | `git push origin main # leva o código pro repo da empresa` | ⛔ empurra pro **fork pessoal** |
+> | `git remote remove mirror` | falha — remote inexistente |
+>
+> **O estado real hoje:** a parte git da migração **foi executada** — o remote canônico é
+> `empresa` → `igreenlab/igreen-desingsystem-admin`, e é lá que vivem o CI, o branch
+> protection e todos os PRs. A parte **npm não foi**: os pacotes seguem publicados como
+> `@snksergio/design-system` e `@snksergio/create-design-system`.
+>
+> Fonte de verdade para remote/PR hoje: **Regra 8** do `CLAUDE.md` e do
+> `.claude/rules/ds-standards.md`, e a skill `.claude/skills/ds-dev/handoff-pr.md`.
+>
+> Mantido como registro do plano original (o roteiro de troca dos identificadores npm
+> continua válido, se um dia a migração de pacote acontecer).
+
+---
+
+> **Status original (2026-06-18):** preparado, **NÃO executado**. Hoje tudo roda no
+> pessoal (snksergio). Quando for migrar pra empresa (igreenlab), siga este arquivo de
+> cima pra baixo. A arquitetura **não muda** — só trocam *identificadores* (nome npm) e
+> *hosts* (Vercel/git). É mecânico.
 
 ---
 

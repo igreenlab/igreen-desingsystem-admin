@@ -70,6 +70,9 @@ import {
   ScrollText,
   GalleryHorizontal,
   Shapes,
+  ChartColumn,
+  Map as MapIcon,
+  ChevronsUpDown,
 } from "lucide-react";
 import {
   InputGroup,
@@ -125,7 +128,7 @@ const CATALOG: CompGroup[] = [
   {
     category: "Exibição de dados",
     items: [
-      { name: "Avatar", href: "avatar", desc: "Foto/iniciais de pessoa", icon: CircleUser },
+      { name: "Avatar", href: "avatar", desc: "Foto com fallback (avatar) + iniciais com contraste WCAG (avatar-ig)", icon: CircleUser },
       { name: "Badge", href: "badge", desc: "Rótulo/contador compacto", icon: BadgeIcon },
       { name: "Chip", href: "chip", desc: "Tag/pílula (status, filtro)", icon: Tags },
       { name: "Card", href: "card", desc: "Contêiner de conteúdo", icon: CreditCard },
@@ -139,6 +142,9 @@ const CATALOG: CompGroup[] = [
       { name: "Kanban", href: "kanban", desc: "Quadro por colunas (funil)", icon: LayoutGrid },
       { name: "List", href: "list", desc: "Lista base de itens", icon: List },
       { name: "DataList", href: "data-list", desc: "Lista de cards (grupos, árvore)", icon: LayoutList },
+      { name: "Chart", href: "chart-showcase", desc: "Gráficos (área, barra, linha, pizza, radar, radial)", icon: ChartColumn },
+      { name: "Choropleth Map", href: "choropleth-map", desc: "Mapa colorido por valor (GeoJSON/TopoJSON)", icon: MapIcon },
+      { name: "Collapsible", href: "collapsible", desc: "Bloco recolhível simples", icon: ChevronsUpDown },
     ],
   },
   {
