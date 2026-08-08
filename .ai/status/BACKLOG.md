@@ -1,7 +1,57 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-07-29
+> Última revisão: 2026-08-08
+
+---
+
+## 📦 Peso do pacote npm — o barrel raiz não tree-shake (adiado em 2026-08-08)
+
+> Adiado **por decisão do mantenedor** na sessão da v0.37.2: primeiro garantir que os
+> componentes estão sendo **usados corretamente**, melhoria depois — pra que qualquer
+> melhoria escale naturalmente. Não é defeito de correção: nada quebra, nada muda de
+> aparência. É custo de download.
+
+**Medido em 2026-08-08** contra o pacote **publicado** `@snksergio/design-system@0.37.2`
+(app Vite mínimo, `npm run build` com minificação e gzip do próprio Vite):
+
+| o que o app importa | raw | **gzip** | sobre o baseline |
+|---|---|---|---|
+| nada (só React) — baseline | 190 kB | **59,9 kB** | — |
+| `import { Button }` do barrel raiz | 5.556 kB | **1.427 kB** | **+1.367 kB** |
+| `import { Icon }` do barrel raiz | 5.556 kB | **1.427 kB** | +1.367 kB |
+| `import { Badge }` do subpath `/shadcn` | 605 kB | **180 kB** | +120 kB |
+
+Dois fatos que essa tabela mostra:
+
+1. **O barrel raiz custa o mesmo pra qualquer componente** — `Button` e `Icon` dão
+   exatamente o mesmo byte count. O bundler do consumidor não consegue podar nada: quem
+   importa 1 componente paga os 34.
+2. **O subpath `/shadcn` (aberto na v0.37.0) funciona** — 180 kB contra 1.427 kB. Ou seja,
+   a separação por entry **é** o mecanismo que resolve; o problema está concentrado no
+   entry raiz.
+
+**Hipóteses a testar** (nenhuma verificada — não implementei nem medi o "depois"):
+`@__PURE__` nas chamadas de fábrica (`tv()`, `cva()`, `forwardRef`), atribuição de
+`displayName` fora do módulo (é efeito colateral e ancora o módulo inteiro), e um subpath
+`./icons` — o `lucide-react` já é `external`, então o custo dos ícones aqui é do mapa de
+nomes do `Icon`, não do pacote de ícones.
+
+**Reabrir quando:** algum consumidor reclamar de tempo de carregamento, ou antes de o DS
+ser usado numa tela pública/landing (num admin autenticado 1,4 MB gzip cacheado dói bem
+menos). **Ao reabrir:** medir o "antes" com este mesmo método — app mínimo contra o pacote
+**publicado**, nunca contra o `dist-lib` local (L-065).
+
+## 🎨 Consistência dos scrims (adiado em 2026-08-08)
+
+Os fundos escurecidos de overlay (`bg-black/30`, `bg-black/80`) estão na unha em alguns
+flutuantes, enquanto existe o token `overlay.scrim` (0.55). São **três** valores diferentes
+pro mesmo papel. Adiado junto com o item acima e pela mesma razão — é melhoria visual, e a
+regra da sessão foi **não mexer no visual** enquanto o showcase é a referência aprovada.
+
+**Ao reabrir:** é mudança visual real (0.30 → 0.55 escurece; 0.80 → 0.55 clareia), então
+passa por gate com print antes/depois de cada overlay afetado, não por "alinhamento de
+token" silencioso.
 
 ---
 
