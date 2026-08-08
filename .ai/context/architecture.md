@@ -227,7 +227,7 @@ src/
 │   ├── igreen-frontend/
 │   ├── app-designer/     (🚧)
 │   ├── app-dev-react/    (🚧)
-│   └── igreen-page/      (🚧)
+│   └── igreen-frontend/  (fallback de composição — prefira os builders, que têm gate)
 ├── rules/                ← Regras carregadas auto (glob-scoped)
 │   └── ds-standards.md   (regras + lessons + forbidden — consolidado)
 ├── hooks/                ← Shell scripts que sempre disparam — 5

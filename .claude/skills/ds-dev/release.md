@@ -9,7 +9,7 @@ description: >
 
 # DS Dev — Release completa
 
-> **Skill obrigatória.** Carregue este arquivo via SkillTool antes de
+> **Leitura obrigatória.** Abra este arquivo com a tool **Read** (sub-arquivo da skill `ds-dev`, não uma skill própria) antes de
 > processar `/ds-release` — não confie em memória de sessão anterior.
 
 > ⚠️ **L-020 — Não burle este fluxo por urgência percebida.** TODA release
@@ -101,7 +101,7 @@ modificados.
 
 ### Como invocar
 
-Carregar `.claude/skills/ds-reviewer/pre-commit-check.md` via SkillTool e
+**Ler** `.claude/skills/ds-reviewer/pre-commit-check.md` com a tool **Read** (sub-arquivo da skill `ds-reviewer`) e
 seguir o checklist completo dela:
 
 1. Mapear escopo do diff (categorias)

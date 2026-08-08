@@ -116,10 +116,26 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | —           | tela lista de cards consumindo DataList (entrevista guiada)                   | `list-builder/SKILL.md` via `/ds-create-list`        |
 | —           | tela dashboard/painel (KPIs + gráficos + rankings/resumos) — entrevista guiada | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` |
 | —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
+| **DS Dev**  | **fechar QUALQUER trabalho por PR (Regra 8)**                                  | **`ds-dev/handoff-pr.md`**                           |
+| —           | **esqueleto do app** (AppShell + nav + rotas)                                  | **`app-builder/SKILL.md` via `/ds-create-app`**      |
+| —           | **tela de login/auth**                                                         | **`auth-builder/SKILL.md` via `/ds-create-login`**   |
+| —           | **composição de 2+ peças que reagem entre si** (master-detail, cross-filter)   | **`screen-composer/SKILL.md` via `/ds-create-screen`** |
+| —           | **replicar um módulo existente pra outro domínio**                             | **`module-replicator/SKILL.md` via `/ds-replicate-module`** |
+| —           | **página/bloco solto no DS, sem entrevista** (fallback)                        | **`igreen-frontend/SKILL.md`** — ⚠️ prefira os builders acima: eles têm gate |
+
+> **As 5 últimas linhas entraram em 2026-08-08.** `app-builder`, `auth-builder`,
+> `screen-composer` e `module-replicator` estavam roteadas no `orchestrator.md` e tinham
+> command próprio, mas **zero ocorrências** nesta tabela — e `handoff-pr.md`, que a
+> **Regra 8 torna obrigatória**, também não estava. Um agente que consultasse a tabela
+> pra saber "qual skill uso" nunca as encontrava. É a DoD da L-047 (4 superfícies de
+> roteamento) falhando na superfície "rule". Gate: `skills-routing.test.mjs`.
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`brand-builder`, `crud-builder`, `list-builder`, `dashboard-builder`, `igreen-frontend`, `igreen-page`) vivem direto em
-`.claude/skills/<nome>/`.
+(`app-builder`, `auth-builder`, `brand-builder`, `crud-builder`, `dashboard-builder`,
+`igreen-frontend`, `list-builder`, `module-replicator`, `screen-composer`) vivem direto em
+`.claude/skills/<nome>/`. A `igreen-page` foi **removida** em 2026-08-08: ela mesma dizia
+*"Quando carregar: **nunca**"*, e uma skill sem conteúdo continua competindo por matching
+de description.
 
 ### DoD — nova skill/command builder (L-047)
 

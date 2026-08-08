@@ -7,7 +7,7 @@ description: >
 
 # DS Designer — Spec de componente
 
-> **Skill obrigatória.** Carregue este arquivo via `SkillTool` (skill: `ds-create-component` no fluxo de spec) ANTES de produzir qualquer spec — não confie em memória de sessão anterior. O template Strategist abaixo deve ser literalmente seguido.
+> **Leitura obrigatória.** Abra este arquivo com a tool **Read** — é sub-arquivo da skill `ds-designer`, e `ds-create-component` é um COMMAND, não uma skill: o Skill tool não resolve nenhum dos dois. ANTES de produzir qualquer spec — não confie em memória de sessão anterior. O template Strategist abaixo deve ser literalmente seguido.
 
 ## Antes de especificar
 

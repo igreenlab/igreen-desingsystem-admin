@@ -68,7 +68,9 @@ description: >
 
 ## Passo 1 — DS Dev carrega skill
 
-Carregar `.claude/skills/ds-dev/release.md` via SkillTool. NUNCA confiar em memória da sessão.
+**Ler** `.claude/skills/ds-dev/release.md` com a tool **Read** (é sub-arquivo da skill
+`ds-dev`, não uma skill própria — o Skill tool só aceita nome de skill, isto é, pasta com
+`SKILL.md`). NUNCA confiar em memória da sessão.
 
 A skill executa:
 1. Verificações iniciais
