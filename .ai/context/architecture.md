@@ -263,7 +263,7 @@ src/
 │   └── table-replica-from-sandbox.md
 └── status/
     ├── pipeline-state.md  ← audit log (append-only)
-    ├── lessons.md         ← L-001 a L-066 completas (61 ativas)
+    ├── lessons.md         ← L-001 a L-067 completas (62 ativas)
     ├── lessons-archive.md ← lições absorvidas em gate automático
     ├── BACKLOG.md
     └── archive/
@@ -287,7 +287,7 @@ node .claude/scripts/sync-agents-to-cursor.cjs
 
 | Tipo de informação | Fonte canônica |
 |---|---|
-| Regras DS + 66 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 67 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade dos agents | `.claude/agents/<nome>.md` |
 | Templates de implementação | `.claude/skills/<agent>/<skill>.md` |
 | Slash commands | `.claude/commands/<nome>.md` |

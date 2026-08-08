@@ -1464,6 +1464,53 @@ pixel.
 
 ---
 
+## [L-067] `@keyframes` com nome que o framework já possui é NO-OP silencioso — e parece estar funcionando
+
+**Erro cometido:** auditando o `globals.css`, encontrei 5 `@keyframes` e concluí, **lendo o
+código**, que havia divergência showcase↔consumidor: `pulse` redefinia `50% { opacity: 0.3 }`
+contra o `0.5` nativo do Tailwind, em **10 usos de componentes distribuídos** (skeleton,
+DataTable loading, DataList infinite, FooterTable, List); `accordion-*` acrescentava um fade
+de opacity que o `tw-animate-css` não tem. Classifiquei como CRÍTICO — "o showcase mostra o
+comportamento certo e o consumidor recebe outro", a forma exata que a segunda regra de ouro
+descreve. Cheguei a implementar a correção: mover os dois blocos pro tema gerado.
+
+**O build derrubou a conclusão.** `grep` no `dist/assets/*.css`, no estado da `main`, ANTES
+de qualquer mudança:
+
+```
+@keyframes pulse{50%{opacity:.5}}                            ← NATIVO, não o 0.3 do globals
+@keyframes accordion-down{0%{height:0}to{height:var(…)}}     ← tw-animate-css, SEM o fade
+```
+
+E depois de mover pro tema: **exatamente o mesmo**. A declaração perdia nos dois lugares.
+
+**Regra derivada:** `@keyframes` cujo nome o Tailwind ou uma lib de animação já possui **não
+sobrescreve** — a versão do framework é a que sai no CSS final, independente da ordem no
+arquivo-fonte. Declarar um é no-op mudo. Só há dois desfechos, e ambos são ruins:
+
+- **nome do framework** → no-op silencioso, e quem lê o código acredita num comportamento
+  que nunca existiu (foi o caso: a linha `opacity: 0.3` estava ali havia meses);
+- **nome próprio** → funciona no showcase e **não chega** em npm/copy-in/submódulo, que é a
+  divergência que o `outline-float` custou (L-039/L-040).
+
+Animação do DS pertence ao **tema gerado**, com **nome próprio** (`ds-pulse`, não `pulse`).
+
+**Contexto — por que isto não é a L-064 de novo, e sim o complemento dela:** a L-064 diz
+"reproduza o defeito antes de confiar no gate". Aqui o alvo era outro: eu ia **consertar** um
+defeito sem ter medido que ele existia. Ler CSS-fonte e afirmar comportamento é o mesmo erro
+de ler token e afirmar pixel (L-066) — só que na direção da correção, não da validação.
+**Antes de mover/duplicar regra CSS entre arquivos, grep no artefato BUILDADO pra ver qual
+declaração de fato sobrevive.** Custa um `npm run build`.
+
+**Desfecho:** os 5 `@keyframes` saíram do `globals.css` como código morto (não movidos), e
+com eles `--animate-accordion-*` — que ESTE vencia, mas com valor funcionalmente idêntico ao
+do `tw-animate-css` e estritamente menos capaz (a do pacote é `var(--tw-animation-duration,
+var(--tw-duration,.2s))var(--tw-ease,ease-out)`, que respeita `duration-*`/`ease-*`).
+Diff do CSS buildado: **34 linhas**, zero mudança de pixel. Gate:
+`runtime-base.test.mjs` proíbe `@keyframes` e `--animate-*` no `globals.css`.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
