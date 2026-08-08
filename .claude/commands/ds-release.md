@@ -95,11 +95,22 @@ Executar em sequência, abortando ao primeiro erro. Detalhes dos sub-passos (6.1
 
 1. Edit `updates-data.ts` (entry no topo)
 2. Edit `package.json` (bump version)
-3. `npx tsc --noEmit` (abort se falhar)
-4. `git add <arquivos do escopo>` + `git commit`
-5. `git branch release/v<X.Y.Z>` + `git reset --hard empresa/main`
-6. `git checkout release/v<X.Y.Z>` + `git push -u empresa release/v<X.Y.Z>`
-7. `gh pr create --title ... --body ...`
+3. **DISTRIBUIÇÃO** (se tocou componente/token/foundational — passo 6.2b da skill):
+   `npm run registry:build` · `(cd registry-app && node scripts/copy-registry.mjs)` ·
+   `npm run cli:rebake` + bump de `cli/package.json` se `cli/templates/**` mudou.
+   Roda **depois** do bump, pra carimbar a versão nova.
+4. **VALIDAR** (passo 6.3 da skill) — abortar ao primeiro erro:
+   `npx tsc --noEmit` · `npm test` · `npm run release:check`
+5. `git add <arquivos do escopo>` + `git commit`
+6. `git branch release/v<X.Y.Z>` + `git reset --hard empresa/main`
+7. `git checkout release/v<X.Y.Z>` + `git push -u empresa release/v<X.Y.Z>`
+8. `gh pr create --title ... --body ...`
+
+⚠️ Esta lista já omitiu os passos 3 e 4 — quem seguisse o command publicava release sem
+rodar `npm test`, sem `release:check` e sem recarimbar o registry. E o **Passo 1.5**
+(`ds-reviewer/pre-commit-check.md`) e o **Passo 7** (publish no npm, com `lib:verify` e o
+gate de token) vivem só na skill: o command sozinho **não** é o fluxo completo. Carregue
+`.claude/skills/ds-dev/release.md`.
 
 ## Comparação com `/ds-update`
 

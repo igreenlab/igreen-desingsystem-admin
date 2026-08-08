@@ -2,6 +2,12 @@
 description: Front-door pra criar tela de dados — desambigua TABELA (grade) vs LISTA DE CARDS vs DASHBOARD/PAINEL e roteia
 ---
 
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 Ponto de entrada único. **Primeiro desambigua, depois delega** — "lista" é usado
 pra tabela com frequência, então nunca roteie sem confirmar.
 

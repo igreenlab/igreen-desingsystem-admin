@@ -26,7 +26,7 @@ description: >
 - Grid: `<CartesianGrid vertical={false} strokeDasharray="4 4" />` (token `chart-grid`, **sem** passar `stroke` — o `ChartContainer` reescreve via token).
 - Card do gráfico: `Panel`/`Card` + título (`title`/`heading`).
 - **Caveats do Recharts 3 (quebram mudo):**
-  1. `text-display-sm`/`display-xs` **não existem** → KPI usa `heading-sm`/`heading-xs`/`display-md`.
+  1. `text-display-sm`/`display-xs` **não existem** → valor de KPI usa **`text-stat-{sm,md,lg,xl}`** (20/24/30/34px, bold, com `tabular-nums`). Nunca `display-*`/`heading-*` pra número de indicador.
   2. Pizza: sem `activeIndex`/`activeShape` → use `shape={(props,index)=><Sector/>}`.
   3. Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0,total]} />`.
   4. Eixo Y omite tick de borda (ex.: `0`) → `interval={0}`; `domain` máximo = maior tick (senão linha-guia duplicada no topo).

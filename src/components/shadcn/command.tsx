@@ -29,11 +29,16 @@ const Command = React.forwardRef<
     ref={ref}
     className={cn(
       // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —
-      // dependem da bridge do `index.css`, que só existe no scaffold. Em npm e
-      // submódulo a bridge não viaja, e a superfície caía no default do shadcn em vez
-      // dos tokens iGreen (L-039/L-040). Era a ÚNICA ocorrência de vocabulário shadcn
-      // em todo o bundle publicado — medida em 2026-08-08.
-      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-dropdown text-fg-default",
+      // dependem da bridge do `globals.css`/`index.css`, que NÃO viaja pros canais npm
+      // e submódulo. Lá a var não existe e a cor cai em `currentColor` (L-039/L-040).
+      //
+      // ⚠️ O substituto é `bg-bg-surface`, NÃO `bg-bg-dropdown`. A primeira troca (v0.36.0)
+      // usou `dropdown` por ser o token da receita de flutuante — mas ele é TRANSLÚCIDO no
+      // dark (`canvas` a 70%, pareado com `before:backdrop-blur-2xl`, que este componente
+      // não tem), enquanto a bridge resolvia `popover` pra `surface-elevated`, OPACO.
+      // Medido: light idêntico nos dois; dark `oklch(0.225 0 0)` vs `oklab(0.205 0 0 / 0.7)`.
+      // `bg-bg-surface` reproduz o valor original nos DOIS modos.
+      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-surface text-fg-default",
       className
     )}
     {...props}

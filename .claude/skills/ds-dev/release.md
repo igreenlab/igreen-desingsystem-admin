@@ -326,7 +326,8 @@ Sinalizar no handoff se o CLI mudou (ver Passo final).
 ### 6.3 Validar — TS + suíte + gates agregados
 ```bash
 npx tsc --noEmit
-npm test              # inclui runtime-base.test e orphan-utilities
+npm test              # inclui dead-theme-classes, shadcn-vocab, orphan-utilities,
+                      # runtime-base e vocab-surface
 npm run release:check # registry-check --ci + brand-check + distribution-debt --ci
                       # + examples-drift + npm audit (high)
 ```

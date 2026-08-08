@@ -13,7 +13,7 @@ submódulo estão descontinuados, está errado — e vale corrigir a fonte.
 |---|---|---|
 | **copy-in** (registry shadcn) | `npm run igreen:add -- <nome>` | **tudo** — o código vira seu |
 | **npm** | `npm i @snksergio/design-system` | **41 dos 42** componentes `ui/` + **os 41** primitivos shadcn (subpath `/shadcn`) |
-| **submódulo git** | `git submodule add` + alias no tsconfig | **tudo** — o repo inteiro está no disco |
+| **submódulo git** | `git submodule add` + **dois** aliases no tsconfig/vite | **tudo** — o repo inteiro está no disco (ver os 3 passos abaixo) |
 | **scaffold** | `npm create @snksergio/design-system` | gera projeto copy-in já configurado (+ prompt "Tema de cor?") |
 
 ## O alcance real do canal npm — medido, não estimado
@@ -58,6 +58,45 @@ node design-system/scripts/ds-link.mjs --unlink   # desfaz
 Idempotente — re-rode depois de `git pull` no submódulo. As skills do kit leem
 `.claude/ds-config.json` (`"mode": "submodule"`), resolvem o `importBase` e **não** chamam
 `igreen:add`: leem componentes e exemplos direto de `<dsPath>/src`.
+
+### ⚠️ Os 3 passos que o submódulo NÃO faz por você
+
+Nenhum é opcional. O 1º e o 2º quebram o build alto; o 3º falha em **silêncio**.
+
+1. **O alias INTERNO do DS (`@`).** Os arquivos do DS se importam por `@/components/…`,
+   `@/lib/utils`, `@/utils/tv` — **700 imports**. Esse `@` significa "a `src` do DS". Além do
+   `@ds` que você usa, mapeie também:
+   ```jsonc
+   // tsconfig.json
+   "paths": { "@ds/*": ["design-system/src/*"], "@/*": ["design-system/src/*"] }
+   ```
+   Sem isso: `Cannot find module '@/utils/tv'` no 1º componente. Já usa `@/` pro seu código?
+   Renomeie o seu (`@app/*`).
+
+2. **As dependências.** O submódulo entrega código-fonte, não pacote — as 49 `dependencies`
+   do DS não vêm junto. Instale de uma vez, em vez de descobrir uma por build:
+   ```bash
+   npm i $(node -p "Object.entries(require('./design-system/package.json').dependencies).map(([k,v])=>k+'@'+v).join(' ')")
+   ```
+
+3. **Os arquivos da fonte Geist.** O `@font-face` viaja no tema, mas aponta pra
+   `/fonts/*.woff2` — raiz do **site**:
+   ```bash
+   mkdir -p public/fonts && cp design-system/public/fonts/*.woff2 public/fonts/
+   ```
+   Sem isso não há erro: cai em system-ui. Confira com `document.fonts.check("16px Geist")`.
+
+### Onde cada componente mora (submódulo ≠ copy-in)
+
+O submódulo lê o **repo** do DS, cujo layout é diferente do copy-in:
+
+| | caminho | exemplo |
+|---|---|---|
+| compostos (42) | `<alias>/components/ui/<Nome>` | `@ds/components/ui/DataTable` |
+| primitivos shadcn (41) | `<alias>/components/shadcn/<nome>` | `@ds/components/shadcn/tabs` |
+| exemplos | `<alias>/examples/<nome>` | `@ds/examples/finance` |
+
+O `ds-config.json` traz os dois primeiros como `importBase` e `primitivesBase`.
 
 ## Nunca faça
 

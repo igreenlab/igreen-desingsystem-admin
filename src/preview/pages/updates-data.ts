@@ -46,6 +46,41 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.37.2",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "As instruções que o Design System distribui não faziam o que prometiam",
+    summary:
+      "Revisão completa do pipeline — o do próprio DS e o que viaja pro consumidor — com teste de submódulo e de `npm create` feitos do zero, seguindo as receitas **ao pé da letra**. Doze pontos em que a instrução prometia uma coisa e o mecanismo fazia outra. Nenhuma mudança visual: o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A linha de import de tema que o `ds-link` escrevia não funcionava.** Ela apontava pro caminho errado — o `@import` do CSS conta a partir do arquivo, não da raiz do projeto — então quem consome por submódulo e seguia a instrução via o build recusar. Corrigido, e agora o teste segue o texto gerado sem correção de ninguém (foi assim que o erro escapou da vez anterior).",
+          "**A tela inicial gerada pelo `npm create` usava uma classe de cor que não existe mais.** O único botão da tela nascia sem anel de foco — e o guia do próprio projeto, algumas linhas adiante, lista essa classe como proibida.",
+          "**Em modo submódulo, metade do catálogo estava fora do alcance documentado.** O caminho publicado cobria só os componentes compostos; os 41 primitivos ficam em outra pasta no repositório, e ninguém dizia qual. Duas receitas apontavam pra um caminho inexistente.",
+          "**Quinze arquivos do kit mandavam rodar um comando que não existe em submódulo** — a geração de tela abortava no primeiro passo. Todos ganharam a ressalva.",
+          "**O fundo da paleta de comandos (⌘K) no escuro**, que a versão anterior deixou translúcido por engano ao trocar de token. Voltou ao valor original, conferido nos dois modos.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O guia de como adaptar um componente shadcn ensinava justamente o mecanismo que causou o defeito da 0.37.1**: dizia que as cores eram mapeadas automaticamente. Não são — o mapeamento só existe no catálogo, e seguir o guia recolocava o bug a cada componente novo. Reescrito com a medição e a lista das cores que precisam ser trocadas à mão.",
+          "**O comando de release omitia quatro passos** que só existiam na receita longa — entre eles rodar os testes. Quem seguisse a lista publicava sem validação nenhuma.",
+          "**Instalar as dependências em submódulo virou um comando só.** Antes era descobrir uma por vez, a cada build que quebrava.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Meia dúzia de contradições internas na documentação, do tipo que faz perder tempo: uma receita que se desmentia dentro do próprio arquivo, uma verificação de exemplos defasados que era bloqueante no lugar errado e informativa onde deveria bloquear, e contagens desatualizadas de componentes e lições.",
+          "Uma das receitas de estilo do DS estava com o nome de uma receita genérica e era engolida por ela — invocá-la entregava exatamente o que ela existe pra substituir.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.37.1",
     date: "2026-08-08",
     tag: "patch",

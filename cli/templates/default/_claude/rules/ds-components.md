@@ -17,8 +17,13 @@ onde tudo já está no disco em `<dsPath>/src` e você só importa pelo `importB
 - **Primitivos** **não** têm USAGE: a API é a padrão shadcn/Radix, e eles já chegam
   re-estilizados nos tokens do DS. Consulte o catálogo visual.
   ⚠️ No copy-in eles caem em **`components/ui/` como arquivo solto** (`ui/badge.tsx`,
-  `ui/input.tsx`, `ui/avatar.tsx`), não numa pasta `components/shadcn/` — os 91 itens do
-  registry apontam todos para `components/ui/`. Importe `@/components/ui/badge`.
+  `ui/input.tsx`, `ui/avatar.tsx`), não numa pasta `components/shadcn/` — os itens de
+  COMPONENTE do registry apontam para `components/ui/` (os demais vão pra `src/lib`,
+  `src/utils`, `src/styles/theme` e `examples/`). Importe `@/components/ui/badge`.
+  ⚠️ Em **modo submódulo** o layout é OUTRO: você lê o repo do DS, onde os primitivos ficam
+  em `<importBase-irmão>/components/shadcn/<nome>` (kebab) e só os compostos em
+  `components/ui/<Nome>`. O `ds-config.json` traz os dois caminhos (`importBase` e
+  `primitivesBase`).
 
 Catálogo visual: **https://igreen-desingsystem-admin.vercel.app**.
 

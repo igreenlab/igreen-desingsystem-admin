@@ -51,27 +51,46 @@ export const VOCAB_SHADCN = [
   "ring",
 ];
 
-/** Substituto DS de cada chave — o que a PRÓPRIA bridge resolve (globals.css). */
+/**
+ * Substituto DS de cada chave — o que o `globals.css` (showcase) resolve, porque o
+ * showcase é a REFERÊNCIA visual do projeto.
+ *
+ * ⚠️ As duas bridges DIVERGEM em 4 chaves. `globals.css` × `cli/templates/default/src/index.css`:
+ *
+ *     popover    surface (dark: surface-elevated)  ×  bg-dropdown
+ *     secondary  bg-muted                          ×  bg-subtle
+ *     accent     bg-muted                          ×  bg-accent
+ *     ring       ring-brand                        ×  bg-brand
+ *
+ * Ou seja: pra essas 4 não existe UM substituto que preserve o valor nos dois canais —
+ * o mesmo `bg-popover` já renderiza diferente em showcase e scaffold hoje. Esta tabela
+ * escolhe o do showcase; se você trocar uma dessas 4, MEÇA os dois antes.
+ *
+ * Lição cara: `popover` apontava pra `bg-bg-dropdown` aqui e o `command.tsx` foi migrado
+ * pra ele na v0.36.0 — mudando o fundo no DARK (opaco `oklch(0.225 0 0)` → translúcido
+ * `oklab(0.205 0 0 / 0.7)`), numa mudança anunciada como "sem efeito visual". `dropdown`
+ * é o token da receita de FLUTUANTE e só funciona pareado com `before:backdrop-blur-2xl`.
+ */
 export const EQUIVALENTE = {
   background: "bg-bg-canvas",
   foreground: "text-fg-default / ring-fg-default",
   card: "bg-bg-surface",
   "card-foreground": "text-fg-default",
-  popover: "bg-bg-dropdown",
+  popover: "bg-bg-surface (⚠️ NÃO bg-bg-dropdown: translúcido no dark, exige backdrop-blur)",
   "popover-foreground": "text-fg-default",
   primary: "bg-bg-brand",
   "primary-foreground": "text-fg-on-brand",
-  secondary: "bg-bg-muted",
+  secondary: "bg-bg-muted (⚠️ o scaffold mapeia pra bg-subtle — meça os dois)",
   "secondary-foreground": "text-fg-default",
   muted: "bg-bg-muted",
   "muted-foreground": "text-fg-muted",
-  accent: "bg-bg-muted",
+  accent: "bg-bg-muted (⚠️ o scaffold mapeia pra bg-accent — meça os dois)",
   "accent-foreground": "text-fg-default",
   destructive: "bg-bg-danger",
   "destructive-foreground": "text-fg-on-danger",
   border: "border-border-default / bg-border-default",
   input: "border-border-input",
-  ring: "ring-ring-brand",
+  ring: "ring-ring-brand (⚠️ o scaffold mapeia pra bg-brand — sem alpha)",
 };
 
 const PREFIXOS = ["bg", "text", "border", "ring", "divide", "from", "to", "via", "outline", "fill", "stroke"];
