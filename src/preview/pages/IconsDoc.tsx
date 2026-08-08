@@ -149,7 +149,7 @@ export function IconsDoc() {
             <p>{"<Search className=\"size-icon-sm\" />  // 16px"}</p>
             <p>{"<Search className=\"size-icon-md\" />  // 20px (default)"}</p>
             <p>{"<Search className=\"size-icon-lg\" />  // 24px"}</p>
-            <p>{"<Search className=\"size-icon-xl\" />  // 28px"}</p>
+            <p>{"<Search className=\"size-icon-xl\" />  // 32px"}</p>
             <p className="mt-gp-xl text-fg-subtle">// Or use Tailwind: size-4 (16px), size-5 (20px), size-6 (24px)</p>
           </div>
         </div>
@@ -199,14 +199,14 @@ export function IconsDoc() {
         code={`<Search className="size-icon-sm" />  // 16px
 <Search className="size-icon-md" />  // 20px
 <Search className="size-icon-lg" />  // 24px
-<Search className="size-icon-xl" />  // 28px`}
+<Search className="size-icon-xl" />  // 32px`}
       >
         <div className="flex items-end gap-gp-4xl">
           {[
             { size: "size-icon-sm", label: "sm (16px)" },
             { size: "size-icon-md", label: "md (20px)" },
             { size: "size-icon-lg", label: "lg (24px)" },
-            { size: "size-icon-xl", label: "xl (28px)" },
+            { size: "size-icon-xl", label: "xl (32px)" },
           ].map(({ size, label }) => (
             <div key={size} className="flex flex-col items-center gap-gp-md">
               <Search className={`${size} text-fg-default`} />
@@ -228,7 +228,7 @@ export function IconsDoc() {
         <div className="flex items-center gap-gp-4xl">
           <div className="flex flex-col items-center gap-gp-md">
             <AlertCircle className="size-icon-lg text-fg-danger" />
-            <span className="text-caption-sm text-fg-subtle">critical</span>
+            <span className="text-caption-sm text-fg-subtle">danger</span>
           </div>
           <div className="flex flex-col items-center gap-gp-md">
             <CheckCircle className="size-icon-lg text-fg-success" />

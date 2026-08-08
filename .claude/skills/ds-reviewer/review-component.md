@@ -54,7 +54,7 @@ grep -rn "\bany\b" arquivo.tsx arquivo.types.ts arquivo.styles.ts
 - [ ] `min-h-form-*` (nunca `h-*` fixo)?
 - [ ] Ring correto para tipo:
   - Botão/select → Padrão 1: ring em cada `color` variant, NÃO no base
-  - Input/textarea → Padrão 2: `ring-0 ring-ring-primary` + `focus-visible:ring-4`
+  - Input/textarea → Padrão 2: `ring-0 ring-ring-brand` + `focus-visible:ring-4`
 - [ ] `border border-transparent` na base?
 - [ ] Prefixos DS: `gap-gp-*`, `px-pad-*`, `rounded-radius-*`, `shadow-sh-*`?
 - [ ] Tipografia via presets?

@@ -11,7 +11,7 @@ dentro da pasta `design-system/`, e a sessão já sai calibrada.
 
 > O pipeline do DS já força o essencial (checar inventário, não inventar token,
 > GATE de aprovação, estrutura de 5 arquivos + `USAGE.md`, hooks de
-> lint/format/inventário, bloqueio de edição sensível). Este prompt **traduz** o
+> lint/inventário/tokens, bloqueio de edição sensível). Este prompt **traduz** o
 > fluxo para a língua de quem não programa e fixa a disciplina de segurança
 > (branch, push/release, um agente por área). Ver `CLAUDE.md` (Regra 7) e
 > `.claude/agents/orchestrator.md` (gate em modo não-técnico).

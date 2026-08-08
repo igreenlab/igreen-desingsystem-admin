@@ -7,8 +7,8 @@ alwaysApply: true
 # Temas de marca (iGreen DS)
 
 O DS tem 5 marcas. Cada marca não-default é um **overlay de cor** escopado em
-`[data-theme="<id>"]` que sobrescreve **só o que difere** do tema-base (~60–80 vars, não
-as ~400).
+`[data-theme="<id>"]` que sobrescreve **só o que difere** do tema-base — 87 vars em `blue` e
+`green`, 125 em `vibrant`, 166 em `pay`, contra ~350 do base.
 
 | id | marca | arquivo |
 |---|---|---|
@@ -87,14 +87,39 @@ o `igreen:add` acima.
 
 ### Consumindo o DS por `npm install`
 
+⚠️ **A diretiva `@source` é OBRIGATÓRIA e é o erro nº 1 deste canal.** O Tailwind v4 **não
+escaneia `node_modules`** — sem ela **nenhuma** classe do DS é gerada e os componentes
+renderizam **sem estilo nenhum**, sem erro no console e sem build quebrado. Fácil concluir
+que "o pacote está quebrado".
+
 ```css
 @import "tailwindcss";
+
+/* Sem esta linha, zero classes do DS. Tem que cobrir `dist-lib/**`, não só o
+   index.mjs — as classes dos componentes flutuantes vivem nos *chunks*. */
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.mjs";
+
 @import "@snksergio/design-system/theme.css";                 /* obrigatório */
 @import "@snksergio/design-system/theme/brand-vibrant.css";    /* a marca */
 ```
 
-Requer `@snksergio/design-system` **≥ 0.31.1** — antes disso o pacote levava só o
-tema-base.
+Ajuste o caminho do `@source` à profundidade do seu CSS de entrada (de `src/index.css`, a
+raiz do projeto é `../`).
+
+**Copie as fontes Geist** — o `@font-face` viaja no tema, mas aponta pra `/fonts/*.woff2`,
+raiz do **site**:
+
+```bash
+mkdir -p public/fonts
+cp node_modules/@snksergio/design-system/dist-lib/fonts/*.woff2 public/fonts/
+```
+
+⚠️ Sem isso **não há erro**: o `font-family` segue dizendo `Geist`, o navegador recebe o
+`index.html` no lugar do arquivo e os 27 presets caem em system-ui. Confira com
+`document.fonts.check("16px Geist")` — tem que ser `true`.
+
+Requer `@snksergio/design-system` **≥ 0.31.1** (antes disso o pacote levava só o tema-base);
+as fontes só são publicadas a partir da **0.35.0**.
 
 ## Trocar em runtime (seletor de marca)
 

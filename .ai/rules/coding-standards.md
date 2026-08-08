@@ -26,8 +26,8 @@ export const componentVariants = tv({
   variants: {
     color: {
       // Ring POR COR — cada variante usa seu próprio ring token
-      // NUNCA colocar ring-ring-primary no base
-      primary:   "focus-visible:ring-4 focus-visible:ring-ring-primary",
+      // NUNCA colocar ring-ring-brand no base
+      primary:   "focus-visible:ring-4 focus-visible:ring-ring-brand",
       secondary: "focus-visible:ring-4 focus-visible:ring-ring-secondary",
       danger:    "focus-visible:ring-4 focus-visible:ring-ring-danger",
       success:   "focus-visible:ring-4 focus-visible:ring-ring-success",
@@ -35,28 +35,31 @@ export const componentVariants = tv({
     },
     variant: { filled: "", outline: "", soft: "", ghost: "bg-transparent" },
     size: {
-      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
-      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
-      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-body-sm font-semibold",
-      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-body-sm font-semibold",
+      // Espelhado do Button real (button.styles.ts): radius `md` (8px) nos dois
+      // menores, `lg` (10px) do sm pra cima. `rounded-radius-base` é ALIAS de `lg`
+      // — prefira o nome do degrau, que é o que os componentes usam.
+      "2xs": "min-h-form-xs  px-pad-lg  gap-gp-sm  rounded-radius-md text-body-sm font-semibold",
+      xs:    "min-h-form-sm  px-pad-xl  gap-gp-sm  rounded-radius-md text-body-sm font-semibold",
+      sm:    "min-h-form-md  px-pad-xl  gap-gp-sm  rounded-radius-lg text-body-sm font-semibold",
+      md:    "min-h-form-lg  px-pad-2xl gap-gp-sm  rounded-radius-lg text-body-sm font-semibold",
     },
     fullWidth: { true: "w-full flex-1" },
     disabled:  { true: "pointer-events-none" },
   },
   compoundVariants: [
     { color: "primary", variant: "filled",
-      class: "bg-bg-primary text-fg-on-primary hover:bg-bg-primary-hover" },
+      class: "bg-bg-brand text-fg-on-brand hover:bg-bg-brand-hover" },
     { color: "primary", variant: "outline",
-      class: "bg-bg-surface border-border-primary text-fg-primary shadow-sh-sm hover:bg-bg-primary-subtle hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-brand text-fg-brand shadow-sh-sm hover:bg-bg-brand-subtle hover:border-transparent hover:shadow-sh-none" },
     { color: "primary", variant: "soft",
-      class: "bg-bg-primary-subtle text-fg-primary hover:bg-bg-surface hover:border-border-primary" },
+      class: "bg-bg-brand-subtle text-fg-brand hover:bg-bg-surface hover:border-border-brand" },
     { color: "primary", variant: "ghost",
-      class: "text-fg-primary hover:bg-bg-primary-subtle" },
+      class: "text-fg-brand hover:bg-bg-brand-subtle" },
     // ... demais cores (secondary, danger, success, warning) seguem o mesmo padrão
-    { disabled: true, class: "bg-bg-disabled text-fg-disabled border-transparent shadow-sh-none" },
-    { disabled: true, variant: "outline", class: "bg-transparent border-border-disabled" },
-    { disabled: true, variant: "soft",    class: "bg-bg-disabled" },
-    { disabled: true, variant: "ghost",   class: "bg-transparent" },
+    // Não existe `bg.disabled` nem `border.disabled` no V3 — só `fg.disabled`.
+    // O padrão do DS é OPACIDADE, não uma paleta de desabilitado. Escrever
+    // `bg-bg-disabled` não emite CSS e a classe some em silêncio.
+    { disabled: true, class: "pointer-events-none opacity-50" },
   ],
   defaultVariants: { color: "primary", variant: "filled", size: "md" },
 })
@@ -69,13 +72,13 @@ export type ComponentVariantProps = VariantProps<typeof componentVariants>
 
 ```typescript
 // Na base — ring invisível com cor pré-carregada
-"ring-0 ring-ring-primary"
+"ring-0 ring-ring-brand"
 "transition-[color,box-shadow,background-color] focus-visible:outline-none"
 
 // No focus — apenas o ring cresce em largura
 "focus-visible:ring-4"
 
-// ❌ NÃO usar: "focus-visible:border-border-primary focus-visible:ring-4"
+// ❌ NÃO usar: "focus-visible:border-border-brand focus-visible:ring-4"
 // O padrão correto usa SOMENTE o ring — sem border adicional no foco
 ```
 
@@ -160,8 +163,8 @@ src/components/ui/NomeComponente/
 | shadow | `shadow-sh-md` | `shadow-md` |
 | height interativo | `min-h-form-lg` | `h-10`, `h-[40px]` |
 | tipografia | `text-body-sm font-semibold` | `text-sm font-medium` |
-| cor de fundo | `bg-bg-primary` | `bg-blue-600` |
-| cor de texto | `text-fg-foreground` | `text-gray-900` |
-| cor de borda | `border-border-main` | `border-gray-200` |
+| cor de fundo | `bg-bg-brand` | `bg-blue-600` |
+| cor de texto | `text-fg-default` | `text-gray-900` |
+| cor de borda | `border-border-default` | `border-gray-200` |
 | ring estático | `focus-visible:ring-4 focus-visible:ring-ring-{color}` em color variant | `ring no base`, `ring-primary/30` |
-| ring animado | `ring-0 ring-ring-primary` + `focus-visible:ring-4` | `ring-3`, border no foco |
+| ring animado | `ring-0 ring-ring-brand` + `focus-visible:ring-4` | `ring-3`, border no foco |

@@ -274,7 +274,8 @@ export function PopoverDoc() {
           nas bordas, com backdrop suave (toque fora fecha) + respiro no rodapé (pad-3xl, 20px) — imita
           Panel/Drawer no mobile. No desktop não muda nada. Passe <code>false</code> pra manter
           ancorado no trigger também em mobile. Mesmo nome/comportamento do <code>DropdownMenu</code>
-          (regra compartilhada no globals.css que reposiciona o wrapper do Radix Popper).
+          (regra compartilhada, emitida no <code>tailwind-theme.css</code> gerado, que reposiciona
+          o wrapper do Radix Popper — viaja pros 4 canais).
         </p>
         <p className="text-body-sm text-fg-muted mt-gp-md">
           Use <code className="text-fg-default">disablePortal</code> quando o conteúdo usar libs

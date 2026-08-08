@@ -12,7 +12,7 @@ pacote npm.
 
 > ⚠️ **Isso é uma propriedade DESTE scaffold, não do Design System.** O iGreen DS tem **4
 > canais de consumo, todos suportados** — copy-in (este), **npm**, **submódulo git** e o
-> prompt de tema do `npm create`. Nenhum deles é depreciado.
+> **scaffold** (`npm create`, que gera um projeto copy-in já configurado). Nenhum é depreciado.
 >
 > Se você chegou aqui procurando saber se pode consumir por **npm ou submódulo**: pode. O que
 > muda é o alcance — veja `.claude/rules/ds-channels.md`.
@@ -111,7 +111,10 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "mapa do Brasil por estado/município", "coroplético", "penetração por UF"                 | `choropleth-map` (componente)    | ChoroplethMap               |
 | "mapa FIXO do Brasil só pra KPI" (sem drill-down)                                          | receita de paths inline (sem dep) | — ver ChoroplethMap/USAGE.md |
 | "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`                   | ConversationColumn + thread |
-| "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
+| "app inteiro", "sistema com várias telas", "monta o app pra mim"                          | skill `app-builder` (`/ds-create-app`) → `example-app-shell` | AppShell + rotas |
+| "login", "autenticação", "tela de entrar", "recuperar senha"                              | skill `auth-builder` (`/ds-create-login`) → `example-login` | FormField + AppShell-less |
+| "tabela + detalhe ao lado", "clicar abre o detalhe", "filtro no topo que muda tudo"       | skill `screen-composer` (`/ds-create-screen`) | composição de 2+ peças |
+| "shell do app", "layout com menu lateral", "casca", "estrutura base" (só a casca)         | `app-shell` (template)           | AppShell                    |
 | "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
 | "menu lateral simples", "sidebar de nível único", "menu sem rail/contextos"               | `single-menu-sidebar` (template) | SingleMenuSidebar           |
 | "kpi", "card de métrica", "indicador", "stat card", "row de métricas/dashboard cards"     | `kpi` (componente)               | Kpi / KpiGroup / KpiDelta   |
@@ -142,13 +145,19 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
   - `crud-builder` (`/ds-create-crud`) — tabela/CRUD por **entrevista guiada**. Fluxo principal.
   - `list-builder` (`/ds-create-list`) — lista de cards por **entrevista guiada** (→ `example-mapa-rede`).
   - `dashboard-builder` (`/ds-create-dashboard`) — dashboard/painel (KPIs + gráficos + rankings) por **entrevista guiada** (→ `example-dashboard`). Delega tabela/lista embutida a crud/list-builder.
+  - `app-builder` (`/ds-create-app`) — **app inteiro**: shell + navegação + rotas (→ `example-app-shell`). Delega cada tela pro builder dela.
+  - `auth-builder` (`/ds-create-login`) — login/autenticação (→ `example-login`).
+  - `screen-composer` (`/ds-create-screen`) — **página composta**: 2+ peças que conversam (master-detail, cross-filter). Monta cada peça pelos builders e cabeia o estado.
+  - `module-replicator` (`/ds-replicate-module`) — replicar um módulo existente pra outro domínio.
   - `page-edit` — edição/cadastro/formulário (→ `example-edit-page`).
   - `page-detail` — detalhe/ficha com abas (→ `example-order-detail`).
   - `charts` — gráficos isolados (Chart/Recharts, caveats).
   - `chat` — inbox/conversas (→ `example-chat`).
   - `drawers` — criar/editar/detalhe (→ drawers do `example-finance`).
   - `cards` — composição de cards/painéis soltos.
-- **`/ds-build-page`** — entrada genérica que roteia qualquer tela pelo orquestrador.
+- **Commands (8):** `/ds-build-page` (entrada genérica que roteia pelo orquestrador) ·
+  `/ds-create-crud` · `/ds-create-list` · `/ds-create-dashboard` · `/ds-create-screen` ·
+  `/ds-create-app` · `/ds-create-login` · `/ds-replicate-module`.
 
 **Como a IA deve agir:** pedido de tela → `ds-kit` classifica a intenção → CRUD vai pra
 `crud-builder` (entrevista com gate); demais tipos carregam a skill focada, que puxa o
@@ -215,7 +224,8 @@ text-[14px] → text-body-md
 ```ts
 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-{color}
 min-h-form-lg   // 40px desktop default · min-h-form-xl 44px mobile
-// Typography (6 roles): display / heading / title / body / caption / code
+// Typography (7 roles): display / heading / title / body / caption / stat / code
+// stat-{sm|md|lg|xl} = valor de KPI/metrica (estatico, bold, use com tabular-nums)
 // body-sm (13/500) = default do projeto · title weight 600 default
 text-body-sm font-semibold   // override de weight sobre preset
 ```

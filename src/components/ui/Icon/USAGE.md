@@ -20,7 +20,7 @@ import { Icon } from "@/components/ui/Icon";
 
 ```tsx
 <Icon name="line-user" />                      {/* md (20px), currentColor */}
-<Icon name="fill-status" size="lg" tone="brand" />
+<Icon name="fill-user" size="lg" tone="brand" />
 <Icon name="line-edit" size={28} color="#0fc589" />
 <span className="text-fg-danger"><Icon name="line-bin" /></span>  {/* herda via CSS */}
 ```

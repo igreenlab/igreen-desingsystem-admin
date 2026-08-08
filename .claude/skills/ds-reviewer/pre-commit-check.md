@@ -214,6 +214,38 @@ Mudança em componente/token precisa refletir no registry, senão o consumidor r
   git diff --name-only HEAD -- 'src/components/**' | while read f; do grep -lE 'from "(\.\./)+shadcn/' "$f" 2>/dev/null; done
   ```
 
+### 2.9 — Rodar os gates agregados (mais barato que reproduzir na mão)
+
+Antes de aprovar, rode. São 4 comandos e cobrem o que o checklist manual não alcança:
+
+```bash
+npm run release:check   # registry-check --ci + brand-check + distribution-debt --ci
+                        # + examples-drift + npm audit (high)
+npm test                # inclui runtime-base.test e orphan-utilities
+```
+
+O que cada gate pega, e **por que o checklist manual não pega**:
+
+| Gate | Pega |
+|---|---|
+| `registry-check --ci` | item de registry com `files[].path` inexistente · import relativo pra `shadcn/` · embed fora de sync **por conteúdo** |
+| `brand-check` | marca do catálogo faltando em qualquer das **10 superfícies** — 8 delas falham em silêncio |
+| `distribution-debt --ci` | componente em `ui/` fora do registry **ou** fora do vocabulário do consumidor (L-042) |
+| `examples-drift-check` | `src/examples/*` divergindo do showcase que ele copia (L-035) |
+| `orphan-utilities` | `@utility` que um componente usa e que **não está no tema gerado** — era o buraco por onde o `outline-float` passou meses |
+| `runtime-base.test` | as 7 peças de runtime ausentes do tema · cópia do CLI divergente · `globals.css` **redeclarando** alguma delas |
+
+### 2.10 — Mexeu no transform de tokens?
+
+Se o diff toca `tokens/transforms/to-tailwind-v4.ts`, não basta `npm run tokens:tw4`:
+
+- [ ] `npm test` passa (`runtime-base.test` + `orphan-utilities` cobrem o transform)
+- [ ] Se mexeu em `buildRuntimeBase` / `buildFloatingUtilities` / `buildScrollbarUtilities`:
+      o `globals.css` **continua sem redeclarar** o que você mudou?
+- [ ] `npm run cli:rebake` rodou (o template leva uma cópia do tema) **+ bump `cli/package.json`**?
+- [ ] Marca nova ou token de cor? → `npm run brand:check` e, se for cor sobre superfície,
+      `npm run brand:contrast`
+
 ## Passo 3 — Output
 
 ### Se TODAS as checks OK
@@ -250,7 +282,7 @@ Pendências encontradas:
     → Criar USAGE.md no mesmo commit
 
   • typography.ts mudou mas TypographyDoc.tsx não foi atualizada
-    → Refletir as 6 roles novas + presets adicionados/removidos
+    → Refletir as 7 roles + presets adicionados/removidos
 
 [MÉDIO]
   • Lição L-016 adicionada em lessons.md mas resumo em ds-standards.md

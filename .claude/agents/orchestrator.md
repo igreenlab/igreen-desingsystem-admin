@@ -67,7 +67,7 @@ A tarefa solicitada já foi concluída antes (CONCLUÍDO/APROVADO)?
 
 > **⛔ Handoff obrigatório (Regra 8 / L-041):** TODO fluxo que cria/altera componente
 > (ou faz mudança significativa) **NÃO termina no `ds-reviewer`** — fecha com
-> `ds-dev/handoff-pr.md`: **branch → commit descritivo → push `mirror` → `gh pr create`
+> `ds-dev/handoff-pr.md`: **branch → commit descritivo → push `empresa` → `gh pr create`
 > → reportar o LINK do PR pro gate humano**. A IA executa branch/commit/push/PR
 > automaticamente e **PARA no merge** (merge/`npm publish`/deploy só com autorização
 > explícita do usuário). Distribuição (registry/embed/bump) consolida no `/ds-release`;

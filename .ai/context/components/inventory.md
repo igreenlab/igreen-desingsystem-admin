@@ -3,7 +3,7 @@
 > Fonte de verdade sobre o que existe.
 > Atualizar sempre que criar ou remover componente.
 > Verificar aqui ANTES de criar qualquer componente novo.
-> Última atualização: 2026-08-07 (lib v0.34.0 · CLI v0.21.2 · registry 91 items)
+> Última atualização: 2026-08-08 (lib v0.36.0 · CLI v0.21.5 · registry 91 items)
 
 ⚠️ **As contagens abaixo saem defasadas em silêncio** — nada as valida. Antes de confiar,
 confira contra a fonte:
@@ -42,8 +42,8 @@ confira contra a fonte:
 DataTable+TableToolbar (circularidade resolvida); caveats (colisão avatar/avatar-ig, imports
 mortos sob `noUnusedLocals`) na spec.
 
-Consumo: `npm create @snksergio/design-system@latest` (CLI **v0.21.2**) +
-`npm run igreen:add -- <componente>`. Ou `npm i @snksergio/design-system` (**v0.34.0**), ou
+Consumo: `npm create @snksergio/design-system@latest` (CLI **v0.21.5**) +
+`npm run igreen:add -- <componente>`. Ou `npm i @snksergio/design-system` (**v0.36.0**), ou
 submódulo com `npm run ds:link`. Débito de distribuição é medido pelo
 `scripts/distribution-debt.mjs` (roda no CI) — **ele**, e não esta lista, é o gate.
 
@@ -219,7 +219,7 @@ size:    sm (20px) | md (24px) | lg (28px)
 size: xxs (28px) | xs (32px) | sm (36px) | md (40px)
 ```
 
-- Focus: Padrão 2 animado — `ring-0 ring-ring-primary` base + `focus-visible:ring-4`
+- Focus: Padrão 2 animado — `ring-0 ring-ring-brand` base + `focus-visible:ring-4`
 - Fonte de verdade: `src/components/shadcn/input.tsx`
 
 ### Tabs (shadcn/)

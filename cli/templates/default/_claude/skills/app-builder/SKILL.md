@@ -44,6 +44,14 @@ Não gere de memória: puxe e adapte o exemplo.
   tem provider de tema, ligue nele (`theme` + `onThemeChange`).
 - **Conteúdo NÃO vai aqui**: cada tela é um builder (crud/list/dashboard). O shell
   só navega e resolve a rota.
-- Fullscreen sem outro shell por volta. Body do AppShell já tem padding próprio.
+- Fullscreen sem outro shell por volta. Body do AppShell já tem padding próprio —
+  **responsivo**: 18px (<768) · 24px (768–1535) · 32px (≥1536). Não adicione padding
+  por fora nem por dentro do slot.
+- **O menu NASCE COLAPSADO abaixo de 1536px.** Notebook (1366/1440) abre com o rail,
+  ganhando ~264px de largura útil. Se o app precisa do menu sempre aberto, passe
+  **`defaultMenuCollapsed={false}` explícito** — o default responsivo só vale quando a
+  prop é omitida. É aplicado **só no mount**: não reage a resize, de propósito (senão
+  brigaria com quem abriu o menu na mão). Abaixo de 768px o menu vira drawer e ignora
+  isso.
 
 Aplique `DESIGN.md` + `.claude/rules/ds-design.md`. Handoff: `APP_PRONTO: <app>` + rotas.

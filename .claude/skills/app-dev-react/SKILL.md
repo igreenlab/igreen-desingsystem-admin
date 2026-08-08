@@ -62,7 +62,7 @@ src/
 ```typescript
 // Sidebar
 "w-[var(--container-sidebar-md)]"   // 280px
-"bg-bg-surface border-r border-border-main"
+"bg-bg-surface border-r border-border-default"
 
 // Main content
 "flex-1 p-pad-page-base overflow-auto"

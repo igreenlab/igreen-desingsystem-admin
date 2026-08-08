@@ -2,7 +2,7 @@
 name: handoff-pr
 description: >
   Fecha o ciclo de QUALQUER trabalho de componente (criar/alterar) ou mudança
-  significativa: branch + commit descritivo + PR no origin + link pro gate humano.
+  significativa: branch + commit descritivo + PR no remote canônico + link pro gate humano.
   Regra 8 / L-041. Carregar ao terminar uma implementação, antes de "concluir".
 ---
 
@@ -71,8 +71,12 @@ git commit -F - <<'EOF'
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
 
-# 3. push + PR no origin (igreenlab/igreen-desingsystem-admin — repo canônico)
-git push -u origin <tipo>/<escopo>
+# 3. push + PR no remote CANÔNICO
+#    ⚠️ Confira `git remote -v` antes. Neste clone o canônico é `empresa`:
+#       empresa → igreenlab/igreen-desingsystem-admin   ← é aqui que vai
+#       origin  → snksergio/igreen-desingsystem-admin   ← fork pessoal, parado
+#    `git push -u origin` empurraria pro FORK e o PR nasceria no repo errado.
+git push -u empresa <tipo>/<escopo>
 gh pr create --repo igreenlab/igreen-desingsystem-admin --base main \
   --head <tipo>/<escopo> --title "<title>" --body-file <body.md>
 ```

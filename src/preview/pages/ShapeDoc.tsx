@@ -17,7 +17,9 @@ const RADIUS = [
   { step: "xl", px: "14", mult: "1.4" },
   { step: "2xl", px: "18", mult: "1.8" },
   { step: "3xl", px: "22", mult: "2.2" },
-  { step: "base", px: "26", mult: "2.6 (default)" },
+  // radius.base é ALIAS de lg (×1.0 = 10px). Os 26px são do 4xl — esta linha
+  // dizia 26px e pintava o swatch errado no degrau mais usado do DS.
+  { step: "base", px: "10", mult: "1.0 (alias de lg)" },
   { step: "4xl", px: "26", mult: "2.6" },
   { step: "full", px: "9999", mult: "pill" },
 ];
@@ -57,7 +59,7 @@ export function ShapeDoc() {
           <p className="text-body-md text-fg-muted mb-gp-2xl">Changing <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">RADIUS_BASE</code> in <code className="font-mono text-code-sm bg-bg-muted px-pad-sm py-pad-2xs rounded-radius-md">shape.ts</code> scales every radius proportionally.</p>
           <div className="font-mono text-code-sm text-fg-default bg-bg-surface rounded-radius-xl p-pad-2xl">
             <p>export const RADIUS_BASE = "0.625rem"; // 10px</p>
-            <p className="text-fg-muted mt-gp-md">// radius.base = RADIUS_BASE × 2.6 = 26px</p>
+            <p className="text-fg-muted mt-gp-md">// radius.base = RADIUS_BASE × 1.0 = 10px (alias de lg)</p>
             <p className="text-fg-muted">// radius.lg  = RADIUS_BASE × 1.0 = 10px</p>
             <p className="text-fg-muted">// radius.sm  = RADIUS_BASE × 0.6 = 6px</p>
           </div>

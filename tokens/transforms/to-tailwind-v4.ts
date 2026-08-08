@@ -17,7 +17,7 @@
  *
  * Consumer:
  *   @import "tailwindcss";
- *   @import "@igreen/design-system/theme.css";
+ *   @import "@snksergio/design-system/theme.css";
  */
 
 import { colorLight } from "../brands/default/semantic/color-light";

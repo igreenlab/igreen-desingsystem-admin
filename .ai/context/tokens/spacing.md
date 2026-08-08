@@ -16,48 +16,41 @@ Todos os valores derivam de `scales.ts`. BASE = 4px.
 
 ## Grupos semânticos + classes geradas
 
-### `gap` — espaço entre filhos de flex/grid, icon-to-label, section spacing
-> CSS var: `--spacing-gp-*` → classe: `gap-gp-*`
+⚠️ **Os 3 grupos compartilham a MESMA escala.** `gap.lg`, `space.lg` e `pad.lg` valem todos
+10px — o que muda é a **intenção** (e por consequência a classe), não o valor. Até
+2026-08-08 este arquivo trazia 3 tabelas com valores divergentes (`gap.lg` 12px, `space.lg`
+24px, `pad.lg` 12px), todos falsos; o valor real vem de `unified` em
+`tokens/brands/default/semantic/spacing.ts`.
 
-| Token | Valor | Classe Tailwind | Uso típico |
-|-------|-------|-----------------|------------|
-| `gap.2xs` | 2px | `gap-gp-2xs` | label micro |
-| `gap.xs` | 4px | `gap-gp-xs` | icon-to-text compacto, chips |
-| `gap.sm` | 6px | `gap-gp-sm` | badge, tabs item, button xxs/xs |
-| `gap.md` | 8px | `gap-gp-md` | form fields, button sm/md |
-| `gap.lg` | 12px | `gap-gp-lg` | cards em row |
-| `gap.xl` | 16px | `gap-gp-xl` | entre seções |
-| `gap.2xl` | 24px | `gap-gp-2xl` | base / alias |
-| `gap.3xl` | 32px | `gap-gp-3xl` | major section gaps |
-| `gap.4xl` | 48px | `gap-gp-4xl` | page-level |
+| Degrau | Valor | `gap` | `space` | `pad` |
+|--------|-------|-------|---------|-------|
+| `2xs` | **2px** | `gap-gp-2xs` | `p-sp-2xs` | `px-pad-2xs` |
+| `xs` | **4px** | `gap-gp-xs` | `p-sp-xs` | `px-pad-xs` |
+| `sm` | **6px** | `gap-gp-sm` | `p-sp-sm` | `px-pad-sm` |
+| `md` | **8px** | `gap-gp-md` | `p-sp-md` | `px-pad-md` |
+| `lg` | **10px** | `gap-gp-lg` | `p-sp-lg` | `px-pad-lg` |
+| `xl` | **12px** | `gap-gp-xl` | `p-sp-xl` | `px-pad-xl` |
+| `2xl` | **16px** | `gap-gp-2xl` | `p-sp-2xl` | `px-pad-2xl` |
+| `3xl` | **20px** | `gap-gp-3xl` | `p-sp-3xl` | `px-pad-3xl` |
+| `4xl` | **24px** | `gap-gp-4xl` | `p-sp-4xl` | `px-pad-4xl` |
+| `5xl` | **28px** | `gap-gp-5xl` | `p-sp-5xl` | `px-pad-5xl` |
+| `6xl` | **32px** | `gap-gp-6xl` | `p-sp-6xl` | `px-pad-6xl` |
+| `7xl` | **48px** | `gap-gp-7xl` | `p-sp-7xl` | `px-pad-7xl` |
 
-### `space` — espaço genérico (margin, padding simétrico, offsets)
-> CSS var: `--spacing-sp-*` → classe: `p-sp-*`, `m-sp-*`, `px-sp-*`, etc.
+Fora da escala: `gap.base`/`space.base` = 16px · `pad.base` = 12px · `space.px` = 1px ·
+`space.0` = 0.
 
-| Token | Valor | Classe Tailwind |
-|-------|-------|-----------------|
-| `space.2xs` | 2px | `p-sp-2xs` |
-| `space.xs` | 4px | `p-sp-xs` |
-| `space.sm` | 8px | `p-sp-sm` |
-| `space.md` | 16px | `p-sp-md` |
-| `space.lg` | 24px | `p-sp-lg` |
-| `space.xl` | 32px | `p-sp-xl` |
-| `space.2xl` | 48px | `p-sp-2xl` |
-| `space.3xl` | 64px | `p-sp-3xl` |
+### Qual grupo usar
 
-### `pad` — padding interno de componente (separado x/y)
-> CSS var: `--spacing-pad-*` → classe: `px-pad-*`, `py-pad-*`, `p-pad-*`
+| Situação | Grupo | Exemplo |
+|---|---|---|
+| Espaço entre filhos de flex/grid, icon-to-label | `gap` | `gap-gp-sm` (6px) em botão |
+| Margin, offset, padding simétrico genérico | `space` | `p-sp-md` |
+| Padding interno de componente (x/y separados) | `pad` | `px-pad-2xl` (16px) em botão md |
+| **Entre FormField num form/drawer/modal** | — | **`gap-form-gap` (20px)**, L-024 — não use `gap-gp-*` |
 
-| Token | Valor | Classe Tailwind | Uso |
-|-------|-------|-----------------|-----|
-| `pad.2xs` | 2px | `px-pad-2xs` | badge micro |
-| `pad.xs` | 4px | `px-pad-xs` | badge sm |
-| `pad.sm` | 6px | `px-pad-sm` | button xxs |
-| `pad.md` | 8px | `px-pad-md` | button xs |
-| `pad.lg` | 12px | `px-pad-lg` | button sm, base |
-| `pad.xl` | 14px | `px-pad-xl` | button md |
-| `pad.2xl` | 16px | `px-pad-2xl` | button lg |
-| `pad.3xl` | 24px | `px-pad-3xl` | containers |
+Usos reais medidos: AppShell body = `gap-gp-4xl` (24px) + `p-pad-6xl` (32px) com
+`max-2xl:p-pad-4xl` (24px) e `max-md:` 18px. Botão = `gap-gp-sm` + `px-pad-xl/2xl`.
 
 ---
 
@@ -139,18 +132,32 @@ KPI, listas de chip etc, continuar usando `gap-gp-*` semânticos.
 ## Regra crítica
 
 NUNCA usar Tailwind literal quando existe token DS equivalente:
-```typescript
-// ❌ ERRADO
-className="gap-4"    // usar: gap-gp-md  (8px)
-className="gap-2"    // usar: gap-gp-xs  (4px)
-className="p-6"      // usar: p-sp-lg    (24px)
-className="p-4"      // usar: p-sp-md    (16px)
 
-// ✅ CERTO
-className="gap-gp-md"
-className="p-sp-md"
-className="px-pad-lg"
+```typescript
+// ❌ ERRADO                    // ✅ CERTO
+className="gap-4"               className="gap-gp-md"
+className="gap-2"               className="gap-gp-xs"
+className="p-6"                 className="p-sp-lg"
+className="p-4"                 className="p-sp-md"
+className="px-3"                className="px-pad-lg"
 ```
+
+⚠️ **O número do Tailwind NÃO é o degrau do DS — e a diferença é grande.** O mapeamento
+acima é por **papel**, não por valor: `gap-4` vale 16px no Tailwind e `gap-gp-md` vale
+**8px** no DS. A escala do DS é mais densa de propósito (2·4·6·8·10·12·16·20·24·28·32·48).
+
+Se o que você quer é **preservar o valor** de um layout existente, traduza pelo número:
+
+| Tailwind | Valor | Token DS de mesmo valor |
+|---|---|---|
+| `gap-2` / `p-2` | 8px | `gap-gp-md` / `p-sp-md` |
+| `gap-3` / `p-3` | 12px | `gap-gp-xl` / `p-sp-xl` |
+| `gap-4` / `p-4` | 16px | `gap-gp-2xl` / `p-sp-2xl` |
+| `gap-6` / `p-6` | 24px | `gap-gp-4xl` / `p-sp-4xl` |
+| `gap-8` / `p-8` | 32px | `gap-gp-6xl` / `p-sp-6xl` |
+
+Na dúvida entre os dois critérios, confira o valor no `tailwind-theme.css` e decida
+explicitamente — não deduza pelo nome.
 
 Tailwind literal só é permitido para valores sem token DS equivalente.
 

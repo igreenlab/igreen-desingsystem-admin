@@ -56,7 +56,7 @@ superfícies de registro e as 7 armadilhas medidas. Doc humana: `#/themes` no sh
 
 ```
 color-palette.ts (primitivo — OKLCH)
-  brand[0–1000]         → azul da marca
+  brand[0–1000]         → verde da marca (default; azul e a marca `blue`)
   neutral[0–950]        → slate (levemente frio, hue ~247)
   success/warning/danger/info [50–950]
   purple/teal/sky/pink/yellow [50–950]
@@ -66,7 +66,7 @@ color-palette.ts (primitivo — OKLCH)
   alpha.brand[10–24]    → overlays de marca
        ↓
 color-light.ts  /  color-dark.ts (semântico)
-  bg.*      → fundos de superfície e containers   (43 tokens)
+  bg.*      → fundos de superfície e containers   (45 tokens)
   fg.*      → texto e ícones (sem namespace separado para icon)  (15)
   border.*  → bordas e dividers                    (11)
   ring.*    → focus rings (outline de foco acessível)  (6)
@@ -93,7 +93,7 @@ Errar isso é o defeito mais comum, porque a classe some sem avisar.
 Usado quando o fundo **é** uma cor específica. Só existe para marca e status:
 
 ```
-bg.brand      → fundo azul da marca
+bg.brand      → fundo verde da marca (default)
 fg.on-brand   → texto que vai SOBRE bg.brand
 ```
 
@@ -232,6 +232,6 @@ fg.primary`, o oposto do real). A coluna da esquerda é o nome **morto**.
 | `bg.disabled` | não existe — só `fg.disabled` |
 
 Em 2026-07-30 havia **25 usos** de nomes desta coluna em `src/`, sendo 9 de
-`ring-ring-primary` em 4 componentes distribuídos (anel de foco caindo em
+`ring-ring-brand` em 4 componentes distribuídos (anel de foco caindo em
 `currentColor`). Todos corrigidos, e o gate `dead-theme-classes` agora reprova
 reincidência no CI.

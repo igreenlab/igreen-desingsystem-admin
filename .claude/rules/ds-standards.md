@@ -23,7 +23,7 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 5. Classes DS sempre antes de Tailwind literal
 6. Self-interrupt: "estou criando algo novo?" → verificar primeiro
 7. **Gate de pre-commit obrigatório** antes de commit significativo (release, refactor amplo, token novo, componente novo, lição nova) → invocar `ds-reviewer/pre-commit-check.md`
-8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `mirror`** → **`gh pr create`** → **reportar o link do PR pro gate humano**. A IA executa a parte mecânica (branch/commit/push/PR) automaticamente; **PARA no merge** — merge/`npm publish`/deploy só com autorização explícita do usuário na mesma sessão. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
+8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `empresa`** (remote canônico = `igreenlab/igreen-desingsystem-admin`; `origin` é fork pessoal parado) → **`gh pr create`** → **reportar o link do PR pro gate humano**. A IA executa a parte mecânica (branch/commit/push/PR) automaticamente; **PARA no merge** — merge/`npm publish`/deploy só com autorização explícita do usuário na mesma sessão. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
 
 ---
 
@@ -136,6 +136,52 @@ Depois: **smoke test** (invocar de verdade + checar os 4 pontos) antes de consid
 
 ---
 
+## ⛔ O tema gerado é a FONTE ÚNICA dos 4 canais — `globals.css` não redeclara
+
+`src/styles/theme/tailwind-theme.css` (gerado por `tokens/transforms/to-tailwind-v4.ts`) é o
+**único arquivo que os 4 canais leem**. O `globals.css` é do **showcase apenas** — nada que
+mora só nele chega em npm, submódulo ou copy-in.
+
+Até 2026-08-07 o `globals.css` continha CSS de que os componentes distribuídos dependiam.
+Custou 6 defeitos ao mesmo tempo (v0.35.0/0.36.0): `outline-float` ausente em **14
+componentes**, bottom-sheet mobile sem regra, fonte Geist caindo em system-ui, `dark:` preso
+ao SO, card escuro sobre fundo branco, scrollbar invisível em **16 usos**. Nenhum quebrou
+build, `tsc` ou teste — o showcase mostrava tudo certo.
+
+**Mora no tema gerado (NÃO redeclare no `globals.css`):**
+
+| O quê | Emitido por |
+|---|---|
+| `@font-face` Geist + Geist Mono · `--font-sans` · `--font-mono` | `buildRuntimeBase()` |
+| `@custom-variant dark (&:where(.dark, .dark *))` | `buildRuntimeBase()` |
+| `html { font-family }` · regras de `body` · `@layer base { button { cursor } }` | `buildRuntimeBase()` |
+| `@utility outline-float` (halo 6px dos flutuantes) | `buildFloatingUtilities()` |
+| `[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])` (bottom-sheet <768px, z-60) | `buildFloatingUtilities()` |
+| `@utility scrollbar-thin` / `scrollbar-default` | `buildScrollbarUtilities()` |
+
+**Por que duplicar é pior que faltar:** classe sem layer vence `@utility`, e a **segunda**
+declaração de `@custom-variant` vence a primeira. Redeclarar faz o showcase mostrar o
+comportamento certo enquanto o consumidor recebe o errado — o defeito fica invisível
+justamente no lugar onde a gente olha.
+
+**Regra prática:** precisa de regra CSS global, `@utility`, `@font-face` ou variante nova?
+→ edite `tokens/transforms/to-tailwind-v4.ts` e rode `npm run tokens:tw4`. Nunca o
+`globals.css`.
+
+**Gates:** `scripts/lib/orphan-utilities.mjs` reprova `@utility` usada por componente e
+ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
+a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
+
+### Tokens de scrollbar — alpha neutro, uso interno
+
+`bg.scrollbar-thumb` / `bg.scrollbar-thumb-hover` são a **única exceção** do grupo `bg.*`:
+valem `alpha.black[24/32]` no light e `alpha.white[24/32]` no dark, **idênticos nas 5
+marcas** (a barra precisa de contraste próprio, independente da cor de superfície da marca —
+por isso não entram no diff de nenhum overlay). São consumidos **só** pelos `@utility
+scrollbar-*`. Não use como fundo de elemento.
+
+---
+
 ## ❌ Anti-patterns proibidos
 
 ### Tailwind literal com equivalente DS
@@ -176,7 +222,7 @@ h-11 → min-h-form-xl   (44px)   ← target WCAG mobile
 ### Ring / focus
 
 ```typescript
-ring-ring-primary/30 → ring-ring-primary   (token já tem alpha)
+ring-ring-brand/30 → ring-ring-brand   (token já tem alpha)
 ring-3 → ring-4                            (ring-3 não existe no Tailwind)
 outline-none → focus-visible:outline-none  (acessibilidade)
 ```
@@ -292,7 +338,7 @@ base:  "focus-visible:outline-none"
 color: "focus-visible:ring-4 focus-visible:ring-ring-{color}"
 
 // Padrão 2 — animado (inputs, textareas)
-base:  "ring-0 ring-ring-primary"
+base:  "ring-0 ring-ring-brand"
        "transition-[color,box-shadow,background-color] focus-visible:outline-none"
 focus: "focus-visible:ring-4"
 ```
@@ -389,7 +435,7 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 ### Fast-filter + mobile overlays (lições v0.8.x)
 
 - **L-029** **Fast-filter de chip renderiza lista DIRETA, nunca `<Select open>` aninhado.** Um `<Select open>` dentro do PopoverContent do chip ancora o listbox no próprio trigger sr-only (~0px) → popover deslocado + "dot" residual + dismiss travado. Usar `FastSingleSelectList` (`column-types/_filter-field.tsx`) pra single (boolean/select) e `MultiSelectDropdown` pra multi. Selecionar fecha via `onClose`; clique-fora fecha (sem layer aninhado). Caso: `boolean/select-column-type` v0.8.x.
-- **L-030** **Mobile-sheet acionado de dentro de overlay z-50 precisa ficar ACIMA.** App usa z-50 como camada-topo; o drawer mobile do MenuSidebar também é z-50 → sheet empatava e renderizava atrás ("aparece por trás"). Wrapper do mobile-sheet vai a **z-60** (globals.css) + backdrop **z-[55]** (dropdown-menu/popover). Não confiar em empate por ordem de DOM. Combina com L-031.
+- **L-030** **Mobile-sheet acionado de dentro de overlay z-50 precisa ficar ACIMA.** App usa z-50 como camada-topo; o drawer mobile do MenuSidebar também é z-50 → sheet empatava e renderizava atrás ("aparece por trás"). Wrapper do mobile-sheet vai a **z-60** + backdrop **z-[55]** (dropdown-menu/popover). Não confiar em empate por ordem de DOM. Combina com L-031. ⚠️ A regra do wrapper **mudou-se pro tema gerado** em 2026-08-07 (`to-tailwind-v4.ts` → `buildFloatingUtilities`), porque no `globals.css` ela não chegava em canal nenhum — não a procure (nem a redeclare) lá.
 - **L-031** **`DropdownMenu` dentro de drawer/overlay → `modal={false}` + backdrop `pointer-events-none`.** Modo modal do Radix injeta dismiss/scroll-lock que corre com o gesto → abre no pointerdown e fecha no click do mesmo toque ("some", precisa 2-3 toques). Backdrop `pointer-events-auto` do dropdown intercepta o pointerup. Fix: `modal={false}` no consumer + backdrop do dropdown `pointer-events-none` (dismiss segue via DismissableLayer a nível de document). Popover não sofre (abre no click). Caso: `AppShell/user-menu.tsx` v0.8.x.
 
 ### Charts / Recharts 3 (lições v0.9.x)
@@ -408,7 +454,7 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 - **L-040** Componente **flutuante** (menu/popover/painel) segue a **receita única** do DS — espelhar `dropdown-menu.tsx`/`popover.tsx`, nunca os defaults shadcn. Superfície: `relative bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float` + frosted `before:backdrop-blur-2xl ...` + `text-fg-default/-muted`. Item: `px-pad-lg py-pad-md rounded-radius-sm text-fg-muted focus:bg-bg-muted focus:text-fg-default` (ativo `bg-bg-brand-subtle/fg-brand`, destructive danger). Separator/Label/Shortcut por token. Tooltip é exceção (menor). Delay default: Tooltip 200 / HoverCard openDelay 200 (Radix 700 é lento).
 - **L-042** Componente novo toca **7 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog. 1–4 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
-- **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push mirror + `gh pr create` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
+- **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push no `empresa` + `gh pr create --repo igreenlab/igreen-desingsystem-admin` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
 
 ### `container` não dobra prefixo — `max-w-md`, nunca `max-w-container-md` (L-057)
 
@@ -440,7 +486,7 @@ ex.: `KpiDelta` ganhou `signed` (tom verde/vermelho + seta pelo sinal do value; 
 `size-form-lg rounded-radius-full`; mini-stat/legenda/status = **quadrado** `size-comp-lg
 rounded-radius-base`; rank = círculo pequeno `size-comp-sm`.
 
-### Consumidor via submódulo = 3º canal; `ds-link` dá paridade (L-056)
+### Consumidor via submódulo = 4º canal; `ds-link` dá paridade (L-056)
 
 Claude Code só auto-descobre `.claude/` na **raiz do cwd** — não desce pra
 `<submodulo>/.claude/`. Consumidor por **git submódulo** fica sem o kit de IA (ao contrário do
@@ -452,7 +498,7 @@ que lê `.claude/ds-config.json` gerado pelo ds-link → resolve `importBase` e 
 `igreen:add` (lê componentes/exemplos direto de `<dsPath>/src`); (2) ds-link **exclui**
 `hooks/`+`settings.json` (copy-in-specific, miram `src/components/**`); (3) detecta o alias no
 tsconfig/vite (fallback `@ds`). Regra pra IA: ao mexer no kit do consumidor, lembrar que
-submódulo é um 3º canal que consome o MESMO payload. Doc: `SUBMODULE-SETUP.md` + L-056.
+submódulo é um dos 4 canais e consome o MESMO payload. Doc: `SUBMODULE-SETUP.md` + L-056.
 
 ### Gate mecânico só pra regra errada independente de contexto — L-004/L-007 saem do grep (L-059)
 
@@ -619,6 +665,13 @@ e ela não chega em algum canal. Por isso existe o `brand:check` (roda no CI e n
 
 `npm create` (prompt "Tema de cor?") · `npm install` (subpath `theme/brand-*.css`, ≥ 0.31.1) ·
 submódulo (importa do disco) · `igreen:add -- theme-<id>` (item de registry).
+
+⚠️ **No canal `npm install`, importar o CSS não basta.** O Tailwind v4 não escaneia
+`node_modules` — sem a diretiva `@source` apontando pro pacote, **nenhuma** classe do DS é
+gerada e o componente renderiza sem estilo, **sem erro**. A linha tem que cobrir
+`dist-lib/**` (as classes dos flutuantes vivem nos *chunks*, não no `index.mjs`). Receita
+completa no `README.md` §"Consumindo por npm install". Submódulo **não** precisa: fica
+dentro da raiz do projeto, então o scan já o alcança.
 
 ### ⛔ Armadilhas MEDIDAS — todas custaram retrabalho real
 
