@@ -3,10 +3,19 @@
 Bootstrappado via `npx @snksergio/create-design-system`. Contexto pro Claude
 Code / Cursor / agentes gerarem UI nos padrões do iGreen DS.
 
-## Modelo de consumo — registry shadcn (copy-in), NÃO npm
+## Modelo de consumo DESTE projeto — registry shadcn (copy-in)
 
-Os componentes do DS são **copiados pro seu projeto** via `shadcn add @igreen/<nome>`
-(viram código seu, em `src/components/ui/`). NÃO existe `import ... from "@snksergio/design-system"`.
+**Este projeto** foi criado pelo scaffold e consome por **copy-in**: os componentes do DS são
+**copiados pro seu projeto** via `shadcn add @igreen/<nome>` e viram código seu, em
+`src/components/ui/`. Aqui, portanto, você importa por `@/components/ui/...` — não de um
+pacote npm.
+
+> ⚠️ **Isso é uma propriedade DESTE scaffold, não do Design System.** O iGreen DS tem **4
+> canais de consumo, todos suportados** — copy-in (este), **npm**, **submódulo git** e o
+> prompt de tema do `npm create`. Nenhum deles é depreciado.
+>
+> Se você chegou aqui procurando saber se pode consumir por **npm ou submódulo**: pode. O que
+> muda é o alcance — veja `.claude/rules/ds-channels.md`.
 
 ```bash
 # 1. token do registry privado no .env.local (peça ao mantenedor)
