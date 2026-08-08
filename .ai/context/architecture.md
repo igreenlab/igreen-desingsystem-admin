@@ -232,7 +232,7 @@ src/
 │   └── ds-standards.md   (regras + lessons + forbidden — consolidado)
 ├── hooks/                ← Shell scripts que sempre disparam — 5
 │   ├── ds-lint-styles.sh       (informativo — anti-patterns em *.styles.ts)
-│   ├── ds-inventory-check.sh   (informativo — 7 superfícies do componente)
+│   ├── ds-inventory-check.sh   (informativo — 5 das 8 superfícies do componente)
 │   ├── ds-tokens-check.sh      (informativo — lembra tokens:tw4 + distribuição)
 │   ├── block-rm-rf.sh          (BLOQUEIA)
 │   └── block-sensitive-edit.sh (BLOQUEIA .env/credentials/migrations)
