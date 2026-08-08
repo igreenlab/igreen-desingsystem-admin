@@ -43,17 +43,19 @@ Especificar apenas o que o componente realmente precisa.
 - default: [classes DS]
 - hover: [classes DS]
 - focus: [ver padrão abaixo]
-- disabled: bg-bg-disabled text-fg-disabled (SEMPRE por último)
+- disabled: `pointer-events-none opacity-50` (SEMPRE por último — L-006).
+  Não existe `bg.disabled` nem `border.disabled`; só `fg.disabled`. O padrão do DS
+  é opacidade, não paleta de desabilitado.
 
 **Focus ring — especificar onde cada parte vai:**
 - Botão/select/checkbox → Padrão 1:
   base:          focus-visible:outline-none
-  color.primary: focus-visible:ring-4 focus-visible:ring-ring-primary
+  color.primary: focus-visible:ring-4 focus-visible:ring-ring-brand
   color.danger: focus-visible:ring-4 focus-visible:ring-ring-danger
   (cada cor usa seu próprio ring token — ring NÃO vai no base)
 
 - Input/textarea → Padrão 2:
-  base:  ring-0 ring-ring-primary + transition-[...,box-shadow,...]
+  base:  ring-0 ring-ring-brand + transition-[...,box-shadow,...]
   focus: focus-visible:ring-4
 
 **Perspectiva Strategist:** (obrigatório — usado pelo Orchestrator no gate)
@@ -81,7 +83,7 @@ Usar tabela de tokens por variant:
 ```markdown
 variant: horizontal | vertical  (ou size: sm | md | lg)
 Sem color variants — usar tokens neutros diretos:
-  bg-border-main, text-fg-foreground, text-fg-muted
+  bg-border-main, text-fg-default, text-fg-muted
 ```
 
 ### Componente composto (FormField, SearchInput)

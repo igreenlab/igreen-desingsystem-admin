@@ -78,13 +78,25 @@ export function TransformTokensDoc() {
 
         <p className="text-body-md text-fg-muted mt-gp-xl">
           The transform file <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">to-tailwind-v4.ts</code> imports
-          all semantic token files, flattens nested objects into CSS variable names, and outputs three blocks:
+          all semantic token files, flattens nested objects into CSS variable names, and outputs:
         </p>
         <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
           <li><strong className="text-fg-default">@theme {"{ }"}</strong> — CSS vars that Tailwind v4 registers as utility classes</li>
-          <li><strong className="text-fg-default">.dark {"{ }"}</strong> — Color and shadow overrides for dark mode</li>
-          <li><strong className="text-fg-default">@utility text-* {"{ }"}</strong> — Composite typography presets</li>
+          <li><strong className="text-fg-default">.dark {"{ }"}</strong> — Color overrides for dark mode (shadows use an indirection layer — see L-043)</li>
+          <li><strong className="text-fg-default">@utility text-* {"{ }"}</strong> — Composite typography presets (27, across 7 roles)</li>
+          <li><strong className="text-fg-default">Runtime base</strong> — Geist <code className="font-mono text-code-sm">@font-face</code>, <code className="font-mono text-code-sm">--font-sans</code>/<code className="font-mono text-code-sm">--font-mono</code>, <code className="font-mono text-code-sm">@custom-variant dark</code>, <code className="font-mono text-code-sm">html</code>/<code className="font-mono text-code-sm">body</code> rules and <code className="font-mono text-code-sm">button {"{ cursor }"}</code></li>
+          <li><strong className="text-fg-default">@utility outline-float</strong> + the mobile bottom-sheet rule for Radix Popper</li>
+          <li><strong className="text-fg-default">@utility scrollbar-thin / scrollbar-default</strong></li>
         </ul>
+        <p className="text-body-md text-fg-muted mt-gp-xl">
+          The last three moved here from <code className="font-mono text-code-sm">globals.css</code> in
+          2026-08-07. That file is the showcase&apos;s only — anything living there never reached npm,
+          submodule or copy-in consumers. This generated file is the single source all four channels read,
+          so it must not be redeclared in <code className="font-mono text-code-sm">globals.css</code>:
+          a plain class beats <code className="font-mono text-code-sm">@utility</code>, and a second{" "}
+          <code className="font-mono text-code-sm">@custom-variant</code> beats the first — duplicating makes
+          the showcase look right while consumers get the wrong behavior.
+        </p>
       </div>
 
       {/* Prefixes */}
@@ -248,7 +260,7 @@ export function TransformTokensDoc() {
         </p>
         <CodeBlock>{`/* app.css */
 @import "tailwindcss";
-@import "@igreen/design-system/theme.css";`}</CodeBlock>
+@import "@snksergio/design-system/theme.css";`}</CodeBlock>
         <p className="text-body-md text-fg-muted">
           All DS utility classes are now available in your Tailwind markup:
         </p>

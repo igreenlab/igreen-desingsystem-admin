@@ -10,7 +10,7 @@ description: >
 # cards — Composição de cards/painéis
 
 **(Guia de composição, não puxa example.)** Cards são blocos; a tela ao redor
-segue `DESIGN.md`. Para uma TELA inteira baseada em cards (dashboard), use a skill `dashboard`.
+segue `DESIGN.md`. Para uma TELA inteira baseada em cards (dashboard), use a skill `dashboard-builder` (`/ds-create-dashboard`).
 
 ## Fluxo
 1. `npm run igreen:add -- card` (shadcn Card: `Card`/`CardHeader`/`CardTitle`/`CardContent`/`CardFooter`) — bloco simples.

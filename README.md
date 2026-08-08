@@ -57,7 +57,7 @@ Não é um DS público nem genérico. É opinionado para SaaS densos de dados �
 - **Componentes iGreen** custom em `src/components/ui/` construídos com `tv()` — Button, Chip, Avatar, AppShell, Header, MenuSidebar, Modal, AlertModal, FloatingPanel, Panel, PageHeader, FormField, Kanban, Table, TableToolbar, FooterTable e mais
 - **Componentes Shadcn** adaptados em `src/components/shadcn/` — Badge, Input, Select, Tabs, Card, Switch, Checkbox, RadioGroup, Slider, Progress, Dialog, DropdownMenu, Tooltip, Calendar e demais primitives do Radix
 - **3 tiers de tokens** em `tokens/brands/default/` (primitives → semantic → component)
-- **Pipeline de AI** com 4 agentes em `.claude/agents/` (Claude Code) espelhado em `.cursor/rules/`
+- **Pipeline de AI** com 6 agentes em `.claude/agents/` (4 ativos + 2 placeholders do domínio App) espelhado em `.cursor/rules/`
 - **Preview app navegável** com docs vivas em `npm run dev` — sempre reflete o estado atual do código
 
 ---
@@ -111,7 +111,22 @@ Ver detalhes: [`cli/README.md`](cli/README.md).
 
 ## Consumir em outro projeto
 
-O iGreen DS é distribuído por **copy-in via registry** (padrão shadcn) — **não** como pacote npm. O código de cada componente é **copiado pro seu projeto** (`src/`), virando código seu, editável.
+O iGreen DS tem **4 canais de consumo, todos suportados — nenhum depreciado**:
+
+| Canal | Como | O que muda |
+|---|---|---|
+| **copy-in / registry** (padrão shadcn) | `npm run igreen:add -- <x>` | o código é **copiado pro seu `src/`** e vira seu, editável |
+| **scaffold** | `npm create @snksergio/design-system` | projeto novo já em copy-in, com tema + kit de IA + prompt de marca |
+| **npm install** | `npm i @snksergio/design-system` | consome como **dependência**; exige a diretiva `@source` (abaixo) |
+| **submódulo git** | `npm run ds:link` no repo pai | lê os componentes **do disco**; ganha o mesmo kit de IA |
+
+O copy-in é o canal **primário** — é onde as versões saem primeiro, porque o deploy do
+registry é automático no merge. Os outros três dependem de um `npm publish` manual do
+mantenedor, então podem ficar uma versão atrás. Isso é **ordem de publicação**, não
+hierarquia de suporte: escolha o canal pelo modelo que você quer (código seu × dependência
+versionada × fonte compartilhada), não por qual "vale mais".
+
+Detalhe por canal: `DISTRIBUICAO.md`, `SUBMODULE-SETUP.md` e a página **Distribution** do catálogo.
 
 **Projeto novo (recomendado):**
 
@@ -123,13 +138,10 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 
 **Projeto existente:** configure o registry `@igreen` no `components.json` (Bearer `IGREEN_TOKEN`) e puxe componentes com `npx shadcn add @igreen/<nome>` (ou o wrapper `npm run igreen:add` no scaffold, que mantém o manifesto).
 
-> **Canal recomendado é o registry/CLI acima** (copy-in): é ele que entrega o código
-> editável no seu `src/` e é onde as versões saem primeiro. O pacote npm
-> `@snksergio/design-system` **existe e funciona** (lib buildada: ESM + CJS + types +
-> `theme.css`), mas é **secundário** e publicado por passo manual do mantenedor, então
-> pode estar atrás do registry. Use-o só quando precisar consumir como dependência em
-> vez de copy-in. Modelo e versionamento em `DISTRIBUICAO.md` e na página
-> **Distribution** do catálogo.
+> O pacote npm `@snksergio/design-system` entrega ESM + CJS + types + `theme.css` + os 4
+> overlays de marca + as fontes Geist. Ele é publicado por passo manual do mantenedor
+> (token/2FA), então pode estar uma versão atrás do registry — mas **não é depreciado**,
+> e o setup abaixo é obrigatório pra ele funcionar.
 
 ### Consumindo por `npm install` — setup completo
 
@@ -361,11 +373,26 @@ Pipeline de 6 agentes (4 ativos + 2 placeholders 🚧 aguardando primeira tela d
 | `app-designer` | Especifica telas/fluxos do app consumidor | Sonnet | 🚧 placeholder (aguardando primeira tela) |
 | `app-dev-react` | Implementa telas com componentes DS existentes | Opus | 🚧 placeholder (aguardando primeira tela) |
 
-**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`, `/ds-release` (release completa com branch + PR), `/ds-update` (timeline de updates), `/ds-create-crud` (construtor guiado de telas CRUD/tabela — ver [Tutorial](#tutorial--produzir-telas-e-cruds-com-ia-ds-como-subprojeto))
+**Slash commands disponíveis (15):**
+
+| Comando | O que faz |
+|---|---|
+| `/ds-add-token` | token semântico novo (gate obrigatório) |
+| `/ds-create-component` · `/ds-create-composite` · `/ds-add-shadcn` | componente iGreen / composto / adaptação shadcn |
+| `/ds-extract-figma` | extrair componente ou tokens do Figma |
+| `/ds-create-brand` | marca/tema de cor novo (overlay `[data-theme]`, 10 superfícies) |
+| `/ds-create-screen` | front-door: desambigua e roteia pro builder certo |
+| `/ds-create-crud` · `/ds-create-list` · `/ds-create-dashboard` | tela de tabela / lista de cards / painel (entrevista guiada) |
+| `/ds-create-app` · `/ds-create-login` | app completo / tela de autenticação |
+| `/ds-replicate-module` | replicar módulo existente pra outro domínio |
+| `/ds-release` | release completa: changelog + bump + registry + branch + PR |
+| `/ds-update` | só a timeline de updates (sem bump/PR) |
+
+Tutorial de telas: [Tutorial](#tutorial--produzir-telas-e-cruds-com-ia-ds-como-subprojeto).
 
 A infraestrutura inclui:
 - **Skills** atômicas por agente (`.claude/skills/`)
-- **Hooks** PreToolUse/PostToolUse (`ds-lint-styles`, `block-rm-rf`, `block-sensitive-edit`)
+- **Hooks** PreToolUse/PostToolUse — 5: informativos (`ds-lint-styles`, `ds-inventory-check`, `ds-tokens-check`) e bloqueantes (`block-rm-rf`, `block-sensitive-edit`)
 - **Output style** terse aplicado a toda sessão
 - **MCP servers** (Figma, filesystem, chrome-devtools)
 - **Memory system 4 camadas** (user, project, audit log, lessons system)
@@ -430,7 +457,7 @@ npm run dev
 
 A preview app cobre:
 - **Get Started** — Introduction, Structure, Installation, Transform Tokens
-- **Agents** — Overview, Pipeline (estrutural + simulador), 4 agentes individuais
+- **Agents** — Overview, Pipeline (estrutural + simulador), 6 agentes individuais
 - **Pipeline Infra** — Skills, Commands, Hooks, Output Styles, MCP Servers, Memory System
 - **Foundations** — Tokens Overview, Color, Typography, Spacing, Sizing, Shape, Elevation, Icons
 - **Components** — docs com exemplos vivos para cada componente

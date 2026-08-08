@@ -1,8 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./theme/tailwind-theme.css";
-/* Overlay de marca (teste multi-tema) — escopado em [data-theme="blue"], coexiste
- * com o tema-base default. Ativado via data-theme no <html> (src/hooks/useBrand.ts). */
+/* Overlays de marca — cada um escopado em [data-theme="<marca>"], coexistindo com o
+ * tema-base default. São 4 (blue/green/pay/vibrant); `default` É o tema-base e não tem
+ * overlay. Ativados via data-theme no <html> (src/hooks/useBrand.ts). */
 @import "./theme/brand-blue.css";
 @import "./theme/brand-green.css";
 @import "./theme/brand-pay.css";
@@ -113,37 +114,27 @@
  * Tailwind v4 já faz isso (`color: inherit; text-decoration: inherit`), então era
  * redundante aqui e seria redundante lá. Removido. */
 
-/* ── Outline float utility ─────────────────────────────────────────────────
- * Outline de 6px pra elementos flutuantes (panels, drawers, modais,
- * dropdowns, command). Consome --color-overlay-float (alterna por tema).
- * Uso: <div className="... outline-float">
- *
- * Por que não `ring-*`? Ring usa box-shadow — conflitaria com `shadow-sh-*`
- * do componente. Outline é propriedade separada, não conflita.
+/* ── Outline float utility — MOVIDA (não está mais aqui) ───────────────────
+ * `@utility outline-float` (outline de 6px dos flutuantes: panels, drawers,
+ * modais, dropdowns, command; consome --color-overlay-float).
  * ─────────────────────────────────────────────────────────────────────── */
 /* `outline-float` MUDOU-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
  * buildFloatingUtilities) em 2026-08-07. Aqui ela só existia pro showcase — 14
  * componentes distribuídos a usam e ela não chegava em npm/copy-in/scaffold.
  * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor. */
 
-/* ── DropdownMenu — bottom sheet em mobile (<md) ───────────────────────────
- * O Radix Popper envolve o Content num wrapper [data-radix-popper-content-wrapper]
- * posicionado via `transform` inline — fora do alcance do className do Content.
- * Quando o Content carrega [data-mobile-sheet], colamos o wrapper no rodapé
- * (full-width, sem transform) em telas <md. O Content recebe o estilo de sheet
- * (cantos superiores, flush, max-h 92vh) via classes `max-md:`. O backdrop suave
- * é renderizado pelo próprio componente (md:hidden).
- *
- * Breakpoint `width < 768px` casa exatamente com o `md` (48rem) do Tailwind v4.
+/* ── DropdownMenu bottom sheet em mobile (<md) — MOVIDA (não está mais aqui) ─
+ * A regra que cola o wrapper do Radix Popper no rodapé em telas <768px quando o
+ * Content carrega [data-mobile-sheet].
  * ─────────────────────────────────────────────────────────────────────── */
 /* O bloco `[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])`
  * MUDOU-SE para o tema gerado (to-tailwind-v4.ts, buildFloatingUtilities) em
  * 2026-08-07, pelo mesmo motivo do `outline-float`: DropdownMenu e Popover
  * distribuídos dependem dele (L-030/L-031) e ele não viajava. NÃO redefina aqui. */
 
-/* ── Scrollbar sutil ──────────────────────────────────────────────────────
- * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
- * Thumb sempre visível (alpha-black-24 light / alpha-white-24 dark), realça no hover.
+/* ── Scrollbar sutil — REMOVIDA daqui ─────────────────────────────────────
+ * O thumb sempre visível (alpha-black-24 light / alpha-white-24 dark, realçando no
+ * hover) agora vem dos tokens `bg.scrollbar-thumb*` consumidos pelo `@utility` do tema.
  * ─────────────────────────────────────────────────────────────────────── */
 /* O override plano de `.scrollbar-thin` FOI REMOVIDO em 2026-08-08.
  *

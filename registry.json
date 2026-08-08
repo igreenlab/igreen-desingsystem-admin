@@ -71,7 +71,7 @@
       "name": "tv",
       "type": "registry:file",
       "title": "tv (tailwind-variants + twMergeConfig DS)",
-      "description": "tv() que injeta os 23 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
+      "description": "tv() que injeta os 27 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
       "dependencies": [
         "tailwind-variants@^3.0.0"
       ],
@@ -90,7 +90,7 @@
       "name": "theme",
       "type": "registry:file",
       "title": "Tema iGreen (Tailwind v4 @theme)",
-      "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas.",
+      "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas. Traz tambem: @font-face do Geist (copie os .woff2 pro seu public/fonts/), --font-sans/--font-mono, @custom-variant dark, regras de html/body/button e as utilities outline-float e scrollbar-thin/default. NAO redeclare nenhuma delas no seu CSS: classe comum vence @utility e a SEGUNDA declaracao de @custom-variant vence a primeira.",
       "dependencies": [
         "tw-animate-css@^1.4.0"
       ],
@@ -2038,7 +2038,7 @@
       "name": "app-shell",
       "type": "registry:ui",
       "title": "AppShell",
-      "description": "Template de app: MenuSidebar + Header + body. UserMenu, layout, tema.",
+      "description": "Template de app: MenuSidebar + Header + body. UserMenu, layout, tema. Responsivo: padding do body 18/24/32px por breakpoint (corte em 2xl = 1536px) e o menu NASCE COLAPSADO abaixo de 1536px — pra manter sempre aberto passe defaultMenuCollapsed={false} explicito (so no mount, nao reage a resize).",
       "registryDependencies": [
         "@igreen/utils",
         "@igreen/tv",

@@ -65,7 +65,7 @@ import { Icon } from "@/components/ui/Icon";
   actions={
     <>
       <Button size="xs" variant="ghost" iconLeft={<Icon name="line-pencil" />} aria-label="Editar" />
-      <Button size="xs" variant="ghost" color="danger" iconLeft={<Icon name="line-delete-02" />} aria-label="Excluir" />
+      <Button size="xs" variant="ghost" color="critical" iconLeft={<Icon name="line-bin" />} aria-label="Excluir" />
     </>
   }
 />

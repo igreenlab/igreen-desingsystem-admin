@@ -25,7 +25,7 @@ Tela de chat: coluna de conversas + thread de mensagens + composer.
 ## Gotchas do tipo
 - Chat ocupa 100% da altura disponível: wrapper `flex flex-col h-full min-h-0` (sem o gap-2xl de página comum — a tela é edge-to-edge).
 - Layout em colunas: lista de conversas (largura fixa) + thread (flex-1) + opcional painel de detalhe.
-- Avatares de pessoa via `Avatar` (cor por `colorHex` quando custom — contraste WCAG automático).
+- Avatares de pessoa via **`avatar-ig`** (`@/components/ui/avatar-ig`) — cor por `colorHex` quando custom, com contraste WCAG automático. O item `avatar` do registry é o Radix puro e **não** tem `colorHex`.
 - Status de canal/online via dot/`Chip`.
 - Scroll independente por coluna; composer fixo no rodapé da thread.
 

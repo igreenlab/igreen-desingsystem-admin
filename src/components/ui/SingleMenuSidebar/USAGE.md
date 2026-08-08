@@ -11,20 +11,36 @@ Precisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.
 
 ## Props essenciais
 
-| Prop                                           | Tipo                   | Default | Obrigatório |
-| ---------------------------------------------- | ---------------------- | ------- | ----------- |
-| `logo`                                         | `ReactNode`            | —       | ✅          |
-| `title`                                        | `string`               | —       | ✅          |
-| `categories`                                   | `SingleMenuCategory[]` | —       | ✅          |
-| `user`                                         | `SingleMenuUser`       | —       | ✅          |
-| `module`                                       | `SingleMenuModule`     | —       |             |
-| `showSearch`                                   | `boolean`              | `true`  |             |
-| `searchValue` / `onSearchChange` / `searchRef` | busca controlada       | —       |             |
-| `activeItemId`                                 | `string`               | —       |             |
-| `onItemClick`                                  | `(id: string) => void` | —       |             |
-| `defaultExpanded`                              | `boolean`              | `true`  |             |
-| `expanded` / `onExpandedChange`                | toggle controlado      | —       |             |
-| `showToggleIndicator`                          | `boolean`              | `false` |             |
+| Prop                            | Tipo                          | Default | Obrigatório |
+| ------------------------------- | ----------------------------- | ------- | ----------- |
+| `logo`                          | `ReactNode`                   | —       | ✅          |
+| `title`                         | `string`                      | —       | ✅          |
+| `user`                          | `SingleMenuUser`              | —       | ✅          |
+| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |
+| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |
+| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |
+| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |
+| `showSearch`                    | `boolean`                     | `true`  |             |
+| `searchCommand`                 | `ReactNode`                   | —       |             |
+| `searchPlaceholder`             | `string`                      | —       |             |
+| `activeItemId`                  | `string`                      | —       |             |
+| `onItemClick`                   | `(id: string) => void`        | —       |             |
+| `defaultExpanded`               | `boolean`                     | `true`  |             |
+| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |
+| `showToggleIndicator`           | `boolean`                     | `false` |             |
+
+⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não
+existem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca
+abre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o
+texto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem
+em `SingleMenuSearchProps`, que é subcomponente interno.
+
+### Multi-módulo
+
+`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas
+próprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando
+`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira
+opcional.
 
 ## Data model
 

@@ -8,15 +8,26 @@ const TOC = [
   { id: "z-index", label: "Z-Index" },
 ];
 
+// Lista COMPLETA e conferida contra o CSS gerado. `base`, `3xl`, `inner`,
+// `focus-primary` e `focus-error` NÃO existem — estavam aqui e renderizavam
+// `shadow-sh-base`/`shadow-sh-3xl`, classes que não emitem nada.
 const SHADOWS = [
   { name: "none", level: "—", use: "Flat surface" },
-  { name: "base", level: "1", use: "Card rest, input" },
-  { name: "sm", level: "1", use: "Same as base (alias)" },
+  { name: "sm", level: "1", use: "Card rest, input" },
   { name: "md", level: "2", use: "Card hover, toggle" },
   { name: "lg", level: "3", use: "Dropdown, popover" },
   { name: "xl", level: "4", use: "Modal, dialog" },
   { name: "2xl", level: "5", use: "Toast, snackbar" },
-  { name: "3xl", level: "6", use: "Maximum elevation" },
+  { name: "aside", level: "—", use: "Sidebar, drawer" },
+];
+
+// Rings de foco por box-shadow — mesma família `shadow-sh-*`, papel diferente.
+const SHADOW_RINGS = [
+  { name: "ring", use: "focus-visible padrão" },
+  { name: "ring-danger", use: "campo em erro" },
+  { name: "ring-warning", use: "campo em alerta" },
+  { name: "ring-success", use: "campo válido" },
+  { name: "ring-info", use: "campo informativo" },
 ];
 
 const OPACITY = [
@@ -33,10 +44,15 @@ const OPACITY = [
   { name: "scrim-dark", value: "0.64", use: "Dark modal overlay" },
 ];
 
+// Valores do Tailwind v4 NATIVO — é o que a classe realmente aplica. O token
+// `blur.*` existe em `elevation.ts` mas o transform NÃO o emite de propósito
+// ("blur removido — usa Tailwind nativo"), então os valores do token (4/8/16/24)
+// não são os que renderizam.
 const BLUR = [
-  { name: "sm", value: "4px", use: "Subtle blur" },
-  { name: "md", value: "8px", use: "Medium blur" },
-  { name: "lg", value: "16px", use: "Strong blur" },
+  { name: "xs", value: "4px", use: "Subtle blur" },
+  { name: "sm", value: "8px", use: "Medium blur" },
+  { name: "md", value: "12px", use: "Strong blur" },
+  { name: "lg", value: "16px", use: "Heavy blur" },
   { name: "xl", value: "24px", use: "Maximum blur" },
 ];
 
@@ -63,6 +79,24 @@ export function ElevationDoc() {
       <p className="text-body-md text-fg-muted mb-gp-4xl">Hierarchical shadow scale. Dark mode uses 2-3x higher opacity. Prefix: <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">sh-</code></p>
       <div className="grid grid-cols-4 gap-gp-4xl mb-14">
         {SHADOWS.map(s => (
+          <div key={s.name} className="flex flex-col items-center gap-gp-xl">
+            <div className={`size-20 rounded-radius-xl bg-bg-surface shadow-sh-${s.name}`} />
+            <div className="text-center">
+              <p className="text-body-xs text-fg-default">sh-{s.name}</p>
+              <p className="text-caption-sm text-fg-subtle">{s.use}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Focus rings por box-shadow — mesma família, papel diferente */}
+      <p className="text-body-md text-fg-muted mb-gp-4xl">
+        Anéis de foco emitidos como <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">shadow-sh-ring*</code> — usados em
+        {" "}<code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">focus-visible:</code> quando o componente já tem
+        {" "}<code className="font-mono text-code-sm bg-bg-subtle px-pad-sm py-pad-2xs rounded-radius-md">ring-*</code> ocupado.
+      </p>
+      <div className="grid grid-cols-5 gap-gp-4xl mb-14">
+        {SHADOW_RINGS.map(s => (
           <div key={s.name} className="flex flex-col items-center gap-gp-xl">
             <div className={`size-20 rounded-radius-xl bg-bg-surface shadow-sh-${s.name}`} />
             <div className="text-center">

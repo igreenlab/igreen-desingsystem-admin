@@ -31,4 +31,4 @@ description: >
   3. Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0,total]} />`.
   4. Eixo Y omite tick de borda (ex.: `0`) → `interval={0}`; `domain` máximo = maior tick (senão linha-guia duplicada no topo).
 
-Aplique `DESIGN.md`. Para uma TELA inteira de painel, use a skill `dashboard`. Handoff: `CHART_PRONTO: <tipo>`.
+Aplique `DESIGN.md`. Para uma TELA inteira de painel, use a skill `dashboard-builder` (`/ds-create-dashboard`). Handoff: `CHART_PRONTO: <tipo>`.

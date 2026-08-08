@@ -34,7 +34,7 @@ description: >
 |-------------|---------------|
 | px (font-size) | rem (÷16): 14px → 0.875rem |
 | px (spacing) | verificar escala: 8px → gap-gp-md |
-| hex/rgb/hsl | verificar role semântico: #3B82F6 → bg-bg-primary |
+| hex/rgb/hsl | verificar role semântico: #3B82F6 → bg-bg-brand |
 | border-radius px | verificar escala: 26px → rounded-radius-base |
 | box-shadow | verificar nível: leve → shadow-sh-sm |
 
@@ -45,8 +45,8 @@ description: >
 
 | Elemento | Valor Figma | Token DS | Classe |
 |----------|-------------|----------|--------|
-| Fundo botão primário | #338449 | bg.primary | bg-bg-primary |
-| Texto botão | #FFFFFF | fg.on-primary | text-fg-on-primary |
+| Fundo botão primário | #338449 | bg.primary | bg-bg-brand |
+| Texto botão | #FFFFFF | fg.on-primary | text-fg-on-brand |
 | Border-radius botão | 26px | radius.base | rounded-radius-base |
 | Font-size label | 14px | title-sm | text-title-sm |
 | Gap icon-to-text | 8px | gap.md | gap-gp-md |

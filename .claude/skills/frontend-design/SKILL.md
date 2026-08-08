@@ -27,9 +27,9 @@ Todo desvio estético precisa de justificativa funcional.
 
 ```typescript
 // Cores
-bg-bg-primary        bg-bg-surface       bg-bg-muted
-text-fg-foreground   text-fg-muted       text-fg-on-primary
-border-border-main   border-border-primary
+bg-bg-brand        bg-bg-surface       bg-bg-muted
+text-fg-default   text-fg-muted       text-fg-on-brand
+border-border-default   border-border-brand
 
 // Spacing
 gap-gp-md     px-pad-lg     p-sp-md    p-pad-card-base
@@ -40,7 +40,7 @@ min-h-form-lg   min-h-form-xl   size-icon-md   rounded-radius-base
 // Shadow
 shadow-sh-sm   shadow-sh-md   shadow-sh-lg
 
-// Typography — 23 presets em 6 roles (display/heading/title/body/caption/code)
+// Typography — 27 presets em 7 roles (display/heading/title/body/caption/stat/code)
 text-body-sm     text-body-md       text-title-md     text-heading-sm
 // Override de weight via Tailwind nativo (font-semibold, font-medium, etc.) sobre o preset
 ```
@@ -69,7 +69,7 @@ background: linear-gradient(135deg, ...)
 ```tsx
 // Página com sidebar + content
 <div className="flex min-h-screen bg-bg-canvas">
-  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-main" />
+  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-default" />
   <main className="flex-1 p-pad-page-base">
     <div className="max-w-xl mx-auto">
       {/* conteúdo */}
@@ -78,13 +78,13 @@ background: linear-gradient(135deg, ...)
 </div>
 
 // Seção com card
-<div className="p-pad-card-base bg-bg-surface rounded-radius-xl shadow-sh-sm border border-border-main">
+<div className="p-pad-card-base bg-bg-surface rounded-radius-xl shadow-sh-sm border border-border-default">
   {/* conteúdo do card */}
 </div>
 
 // Header de seção
 <div className="flex items-center justify-between gap-gp-xl mb-sp-lg">
-  <h2 className="text-heading-2xs">Título</h2>
+  <h2 className="text-heading-xs">Título</h2>
   <Button size="sm">Ação</Button>
 </div>
 ```

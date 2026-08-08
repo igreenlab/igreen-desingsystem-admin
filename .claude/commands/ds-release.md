@@ -38,10 +38,10 @@ description: >
                   git branch release/v<X.Y.Z>
                                 │
                                 ▼
-                  git reset --hard origin/main (main local limpo)
+                  git reset --hard empresa/main (main local limpo)
                                 │
                                 ▼
-                  git push -u origin release/v<X.Y.Z>
+                  git push -u empresa release/v<X.Y.Z>
                                 │
                                 ▼
                   gh pr create (PR aberto pra revisão)
@@ -61,7 +61,7 @@ description: >
 1. updates-data.ts parseia
 2. package.json.version é semver válido
 3. Branch atual = main (alertar + perguntar se outra)
-4. Origin reachable (git fetch --dry-run não falha)
+4. Remote canônico alcançável — confira `git remote -v`; aqui é `empresa`, não `origin`
 5. gh CLI disponível (gh --version)
 6. Working tree status conhecido (porcelain)
 ```
@@ -97,8 +97,8 @@ Executar em sequência, abortando ao primeiro erro. Detalhes dos sub-passos (6.1
 2. Edit `package.json` (bump version)
 3. `npx tsc --noEmit` (abort se falhar)
 4. `git add <arquivos do escopo>` + `git commit`
-5. `git branch release/v<X.Y.Z>` + `git reset --hard origin/main`
-6. `git checkout release/v<X.Y.Z>` + `git push -u origin release/v<X.Y.Z>`
+5. `git branch release/v<X.Y.Z>` + `git reset --hard empresa/main`
+6. `git checkout release/v<X.Y.Z>` + `git push -u empresa release/v<X.Y.Z>`
 7. `gh pr create --title ... --body ...`
 
 ## Comparação com `/ds-update`

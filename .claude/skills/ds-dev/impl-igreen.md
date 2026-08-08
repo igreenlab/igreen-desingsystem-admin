@@ -46,8 +46,8 @@ export const nomeVariants = tv({
   variants: {
     color: {
       // Ring POR COR — cada variante usa seu próprio ring token
-      // NUNCA colocar ring-ring-primary no base
-      primary:   "focus-visible:ring-4 focus-visible:ring-ring-primary",
+      // NUNCA colocar ring-ring-brand no base
+      primary:   "focus-visible:ring-4 focus-visible:ring-ring-brand",
       secondary: "focus-visible:ring-4 focus-visible:ring-ring-secondary",
       danger:    "focus-visible:ring-4 focus-visible:ring-ring-danger",
       success:   "focus-visible:ring-4 focus-visible:ring-ring-success",
@@ -56,10 +56,13 @@ export const nomeVariants = tv({
     variant: { filled: "", outline: "", soft: "", ghost: "bg-transparent" },
     size: {
       // NUNCA: gap-4, rounded-lg, shadow-md, px-3, h-10
-      xxs: "min-h-form-xs  px-pad-md  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
-      xs:  "min-h-form-sm  px-pad-lg  gap-gp-sm  rounded-radius-3xl  text-body-sm font-semibold",
-      sm:  "min-h-form-md  px-pad-xl  gap-gp-md  rounded-radius-base text-body-sm font-semibold",
-      md:  "min-h-form-lg  px-pad-2xl gap-gp-md  rounded-radius-base text-body-sm font-semibold",
+      // Valores espelhados do Button real (button.styles.ts): radius md (8px) nos
+      // dois menores, lg (10px) do sm pra cima. `rounded-radius-base` é alias de
+      // `lg` — prefira o nome do degrau, que é o que os componentes usam.
+      "2xs": "min-h-form-xs  px-pad-lg  gap-gp-sm  rounded-radius-md text-body-sm font-semibold",
+      xs:    "min-h-form-sm  px-pad-xl  gap-gp-sm  rounded-radius-md text-body-sm font-semibold",
+      sm:    "min-h-form-md  px-pad-xl  gap-gp-sm  rounded-radius-lg text-body-sm font-semibold",
+      md:    "min-h-form-lg  px-pad-2xl gap-gp-sm  rounded-radius-lg text-body-sm font-semibold",
     },
     fullWidth: { true: "w-full flex-1" },
     disabled:  { true: "pointer-events-none" },
@@ -67,20 +70,21 @@ export const nomeVariants = tv({
   compoundVariants: [
     // 1. Compostos cor × variant
     { color: "primary", variant: "filled",
-      class: "bg-bg-primary text-fg-on-primary hover:bg-bg-primary-hover" },
+      class: "bg-bg-brand text-fg-on-brand hover:bg-bg-brand-hover" },
     { color: "primary", variant: "outline",
-      class: "bg-bg-surface border-border-primary text-fg-primary shadow-sh-sm hover:bg-bg-primary-subtle hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-brand text-fg-brand shadow-sh-sm hover:bg-bg-brand-subtle hover:border-transparent hover:shadow-sh-none" },
     { color: "primary", variant: "soft",
-      class: "bg-bg-primary-subtle text-fg-primary hover:bg-bg-surface hover:border-border-primary" },
+      class: "bg-bg-brand-subtle text-fg-brand hover:bg-bg-surface hover:border-border-brand" },
     { color: "primary", variant: "ghost",
-      class: "text-fg-primary hover:bg-bg-primary-subtle" },
+      class: "text-fg-brand hover:bg-bg-brand-subtle" },
     // (demais cores seguem o mesmo padrão)
 
     // 2. Disabled — SEMPRE POR ÚLTIMO (L-006)
-    { disabled: true, class: "bg-bg-disabled text-fg-disabled border-transparent shadow-sh-none" },
-    { disabled: true, variant: "outline", class: "bg-transparent border-border-disabled" },
-    { disabled: true, variant: "soft",    class: "bg-bg-disabled" },
-    { disabled: true, variant: "ghost",   class: "bg-transparent" },
+    // Não existe `bg.disabled` nem `border.disabled` no V3 — só `fg.disabled`.
+    // O padrão do DS é opacidade, não uma paleta de desabilitado (Button real:
+    // `pointer-events-none opacity-50`). Um `bg-bg-disabled` não emite CSS e a
+    // classe some em silêncio.
+    { disabled: true, class: "pointer-events-none opacity-50" },
   ],
   defaultVariants: { color: "primary", variant: "filled", size: "md" },
 })
@@ -153,7 +157,7 @@ color: "focus-visible:ring-4 focus-visible:ring-ring-{color}"
 ### Padrão 2 — animado (Input, Textarea)
 
 ```typescript
-base:  "ring-0 ring-ring-primary"
+base:  "ring-0 ring-ring-brand"
        "transition-[color,box-shadow,background-color] focus-visible:outline-none"
 focus: "focus-visible:ring-4"
 ```

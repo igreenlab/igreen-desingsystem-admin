@@ -17,7 +17,7 @@ shadcn/[nome].tsx já existe? → PARAR. Editar existente, não reinstalar.
 ```
 componente usa  → bg-primary
 Tailwind gera   → var(--primary)
-globals.css     → --primary: var(--color-bg-primary)  ← mapeamento automático
+globals.css     → --primary: var(--color-bg-brand)  ← mapeamento automático
 resultado       → token iGreen ✓
 ```
 
@@ -51,10 +51,10 @@ mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
 "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
 
 // ✅ Padrão 1 — estático (selects, checkboxes, triggers):
-"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
 
 // ✅ Padrão 2 — animado (inputs, textareas):
-// base: "ring-0 ring-ring-primary transition-[color,box-shadow,background-color] focus-visible:outline-none"
+// base: "ring-0 ring-ring-brand transition-[color,box-shadow,background-color] focus-visible:outline-none"
 // focus: "focus-visible:ring-4"
 ```
 
@@ -67,7 +67,7 @@ mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
 "h-10"             → "min-h-form-lg"   // 40px
 "h-11"             → "min-h-form-xl"   // 44px
 
-// Tipografia (typography rewrite 2026-05-19 — só 6 roles: display/heading/title/body/caption/code)
+// Tipografia — 27 presets em 7 roles: display/heading/title/body/caption/stat/code
 "text-sm"                → "text-body-sm"           // 13/500
 "text-sm font-medium"    → "text-body-sm font-semibold"  // 13/600
 "text-xs"                → "text-body-xs"           // 12/500

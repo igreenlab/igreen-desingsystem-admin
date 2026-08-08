@@ -38,9 +38,12 @@ O submódulo é o único que traz o **kit de IA do DS** pro projeto pai. O Claud
 descobre `.claude/` na raiz do cwd, então o DS projeta o payload pra lá:
 
 ```bash
-cd <repo-do-DS>
-npm run ds:link            # projeta .claude/ no repo pai + gera ds-config.json
-npm run ds:link -- --unlink   # desfaz
+# rode da RAIZ DO REPO PAI (a pasta que contém o submódulo), não de dentro do DS —
+# o script aborta se o alvo for a própria raiz do DS.
+npm --prefix design-system run ds:link       # ajuste "design-system" pro caminho real
+# ou, equivalente:
+node design-system/scripts/ds-link.mjs
+node design-system/scripts/ds-link.mjs --unlink   # desfaz
 ```
 
 Idempotente — re-rode depois de `git pull` no submódulo. As skills do kit leem

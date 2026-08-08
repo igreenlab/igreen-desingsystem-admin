@@ -5,8 +5,8 @@ type Theme = "light" | "dark";
 
 const STEPS: { cmd: string; note: string }[] = [
   { cmd: "cp .env.local.example .env.local", note: "cole o IGREEN_TOKEN (peça ao mantenedor)" },
-  { cmd: "npx shadcn@latest add @igreen/button", note: "puxa Button + tv (registryDependency)" },
-  { cmd: "npx shadcn@latest add @igreen/form-field", note: "composite obrigatório de forms" },
+  { cmd: "npm run igreen:add -- button", note: "puxa Button + tv (registryDependency), mantendo o manifesto" },
+  { cmd: "npm run igreen:add -- form-field", note: "composite obrigatório de forms" },
 ];
 
 export default function App() {

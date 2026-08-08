@@ -164,7 +164,7 @@ npm run dev
         </p>
         <ol className="list-decimal pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
           <li><strong className="text-fg-default">Transform</strong> — <code className="font-mono text-code-sm">tsx tokens/transforms/to-tailwind-v4.ts</code> reads every token file under <code className="font-mono text-code-sm">tokens/brands/default/</code>.</li>
-          <li><strong className="text-fg-default">Output</strong> — writes a fresh <code className="font-mono text-code-sm">src/styles/theme/tailwind-theme.css</code> with the <code className="font-mono text-code-sm">@theme</code> block, <code className="font-mono text-code-sm">.dark</code> overrides and typography <code className="font-mono text-code-sm">@utility</code> presets.</li>
+          <li><strong className="text-fg-default">Output</strong> — writes a fresh <code className="font-mono text-code-sm">src/styles/theme/tailwind-theme.css</code> with the <code className="font-mono text-code-sm">@theme</code> block, <code className="font-mono text-code-sm">.dark</code> overrides, the 27 typography <code className="font-mono text-code-sm">@utility</code> presets AND the runtime base: Geist <code className="font-mono text-code-sm">@font-face</code>, <code className="font-mono text-code-sm">@custom-variant dark</code>, <code className="font-mono text-code-sm">html</code>/<code className="font-mono text-code-sm">body</code> rules, <code className="font-mono text-code-sm">outline-float</code> and <code className="font-mono text-code-sm">scrollbar-*</code>. Consumers get all of it for free — and must not redeclare it.</li>
           <li><strong className="text-fg-default">Vite</strong> — starts the dev server, imports the generated CSS, and serves the preview app at <code className="font-mono text-code-sm">localhost:3100</code>.</li>
           <li><strong className="text-fg-default">Sidebar</strong> — navigate by section (Get Started, Agents, Foundations, Components, Templates, Examples).</li>
         </ol>
@@ -243,7 +243,7 @@ import {
           </div>
           {[
             { path: ".", desc: "Componentes iGreen + Shadcn adaptados (Button, AppShell, DataTable, etc)" },
-            { path: "/theme.css", desc: "CSS gerado com @theme + dark mode + utility presets" },
+            { path: "/theme.css", desc: "CSS gerado: @theme + dark mode + 27 presets + fonte Geist + @custom-variant dark + regras de html/body + outline-float + scrollbar-*" },
             { path: "/tokens", desc: "Objetos de tokens semânticos (colorLight, spacing, sizing, etc)" },
             { path: "/preview/chat", desc: "ChatV2 showcase completa + types" },
             { path: "/preview/clientes", desc: "ClientesShowcase (CRUD com DataTable + Drawer)" },

@@ -35,9 +35,9 @@ TIER 2 — Semantic (API pública via CSS vars)
        ↓
 TIER 2.5 — Component tokens
   components/sizing.ts → form.* · layout.* · icon.* · container.*
-  components/spacing.ts → padCard.* · padPage.*
+  components/spacing.ts → padCard.* · padPage.* · formGap (20px)
        ↓ transforms/to-tailwind-v4.ts
-  CSS vars + @utility classes
+  CSS vars + @utility classes + RUNTIME BASE (ver abaixo)
        ↓
   [nome].styles.ts usa tv() — fonte de verdade visual
 ```
@@ -55,12 +55,54 @@ color-palette  scales  fonts  motion     ← primitives (privado)
                      ↓
             to-tailwind-v4.ts            ← transform
                      ↓
-     src/styles/theme/tailwind-theme.css ← CSS vars + @utility classes
+     src/styles/theme/tailwind-theme.css ← ÚNICO arquivo que os 4 canais leem
                      ↓
      [nome].styles.ts usa tv()           ← fonte de verdade visual
      classes: gap-gp-*, px-pad-*,
      rounded-radius-*, shadow-sh-*       ← sem colisão com Tailwind nativo
 ```
+
+### O que o transform emite (não é só variável)
+
+| Bloco | Função geradora |
+|---|---|
+| `@theme { }` — as CSS vars | corpo do `generateTailwindV4Css()` |
+| `.dark { }` — overrides de cor | idem |
+| `@utility text-*` — 27 presets em 7 roles | `buildTypographyUtilities()` |
+| `@theme inline` de shadow + `:root`/`.dark` de indireção | L-043 — shadow não é dark-aware por `var()` |
+| `@font-face` Geist/Geist Mono · `--font-sans`/`--font-mono` · `@custom-variant dark` · `html { font-family }` · `body { … }` · `@layer base { button { cursor } }` | **`buildRuntimeBase()`** |
+| `@utility outline-float` + media query do bottom-sheet mobile | **`buildFloatingUtilities()`** |
+| `@utility scrollbar-thin` / `scrollbar-default` | **`buildScrollbarUtilities()`** |
+
+As três últimas linhas **moraram no `globals.css` até 2026-08-07**. Lá elas existiam só pro
+showcase e não chegavam em npm, submódulo nem copy-in — custou 6 defeitos simultâneos.
+**É proibido redeclará-las no `globals.css`**: classe sem layer vence `@utility` e a segunda
+declaração de `@custom-variant` vence a primeira, então duplicar faz o showcase mostrar o
+comportamento certo enquanto o consumidor recebe o errado. Gates: `orphan-utilities.mjs` e
+`runtime-base.test.mjs`.
+
+### Marcas (overlays de cor)
+
+`to-brand-overlay.ts` gera `src/styles/theme/brand-<id>.css` a partir de
+`tokens/brands/<id>/`, emitindo **só o diff** vs. a default em 2 blocos mutuamente
+exclusivos: `[data-theme="<id>"]:not(.dark)` e `.dark[data-theme="<id>"]` (L-066 — sem o
+`:not(.dark)` o bloco light vencia o dark por ordem de fonte). 5 marcas: `default` (é o
+tema-base, sem overlay) · `blue` · `green` · `pay` · `vibrant`. **Marca muda SOMENTE cor** —
+spacing/sizing/radius/elevation/tipografia vêm sempre de `brands/default/`.
+
+---
+
+## Distribuição — 4 canais, nenhum depreciado
+
+| Canal | Entrega | Gotcha crítico |
+|---|---|---|
+| **copy-in / registry** (`igreen:add`) | código copiado pro `src/` do consumidor | canal primário; deploy automático no merge |
+| **scaffold** (`npm create`) | projeto novo já em copy-in + kit de IA + prompt de marca | publish manual do CLI |
+| **npm install** | ESM + CJS + types + `theme.css` + 4 overlays + fontes Geist | **exige `@source`** cobrindo `dist-lib/**` — Tailwind v4 não escaneia `node_modules`, e sem isso ZERO classes são geradas, sem erro |
+| **submódulo git** (`ds:link`) | lê componentes do disco + projeta o kit de IA no `.claude/` do pai | deps e `.woff2` do Geist **não** vêm junto; `@source` **não** é necessário |
+
+Detalhe por canal: `README.md`, `SUBMODULE-SETUP.md`, `DISTRIBUICAO.md` e
+`cli/templates/default/_claude/rules/ds-channels.md` (a versão que o consumidor lê).
 
 ---
 
@@ -115,11 +157,16 @@ tokens/brands/default/
 │   └── typography.ts              ← display · heading · title · label · paragraph · subheading · caption · code
 └── components/                    ← TIER 2.5 — orientado a componente
     ├── sizing.ts                  ← form.* · layout.* · icon.* · container.*
-    └── spacing.ts                 ← padCard.* · padPage.*
+    └── spacing.ts                 ← padCard.* · padPage.* · formGap (20px)
 
-transforms/
-├── to-tailwind-v4.ts              ← CSS @theme tokens (produção)
-├── to-css-vars.ts                 ← globals.css com CSS Custom Properties
+tokens/brands/{blue,green,pay,vibrant}/   ← overlays de marca (só cor)
+    primitives/color-palette.ts · semantic/color-{light,dark}.ts
+
+transforms/                        ← 6 arquivos
+├── to-tailwind-v4.ts              ← tema-base (produção) — o que os 4 canais leem
+├── to-brand-overlay.ts            ← overlay por marca → brand-<id>.css (só o DIFF)
+├── to-tailwind.ts                 ← saída Tailwind v3 (legado)
+├── to-css-vars.ts                 ← `npm run tokens:css` → dist/tokens.css (NÃO gera globals.css)
 ├── to-js-theme.ts                 ← theme object
 └── to-dtcg.ts                     ← .tokens.json para Figma
 ```
@@ -131,8 +178,15 @@ transforms/
 ```
 src/
 ├── utils/tv.ts                    ← wrapper tv() com tailwind-merge configurado
-├── styles/globals.css             ← @import tailwindcss + theme + shadcn compat
+├── lib/utils.ts                   ← cn() com tailwind-merge configurado pros prefixos DS
+├── styles/globals.css             ← APENAS: @imports + bridge shadcn + keyframes do showcase
+│                                     ⛔ não redeclare aqui nada que o tema gerado emite
+├── styles/theme/                  ← GERADO — não editar à mão
+│   ├── tailwind-theme.css         ← tema-base: vars + @utility + runtime base
+│   └── brand-{blue,green,pay,vibrant}.css  ← overlays de marca (só o diff)
 ├── hooks/useTheme.ts              ← toggle light/dark
+├── hooks/useBrand.ts              ← marca ativa; catálogo INJETÁVEL (`useBrand({ brands })`)
+│                                     `isBrand` valida contra o catálogo ativo; retorna `current`
 ├── components/
 │   ├── ui/[Nome]/                 ← componentes iGreen
 │   │   ├── [nome].styles.ts       ← tv() — fonte de verdade visual
@@ -157,25 +211,31 @@ src/
 │   ├── ds-reviewer.md
 │   ├── app-designer.md   (🚧)
 │   └── app-dev-react.md  (🚧)
-├── commands/             ← Slash commands (entry points)
-│   ├── ds-add-token.md
-│   ├── ds-add-shadcn.md
-│   ├── ds-create-component.md
-│   ├── ds-create-composite.md
-│   └── ds-extract-figma.md
-├── skills/               ← Routers + sub-skills modulares
-│   ├── ds-designer/      (SKILL.md + 6 sub-skills)
-│   ├── ds-dev/           (SKILL.md + 4 sub-skills)
-│   ├── ds-reviewer/      (SKILL.md + review-component)
+├── commands/             ← Slash commands (entry points) — 15
+│   ├── ds-add-token · ds-add-shadcn · ds-create-component · ds-create-composite
+│   ├── ds-extract-figma · ds-create-brand
+│   ├── ds-create-screen · ds-create-crud · ds-create-list · ds-create-dashboard
+│   ├── ds-create-app · ds-create-login · ds-replicate-module
+│   └── ds-release · ds-update
+├── skills/               ← Routers + sub-skills modulares — 15
+│   ├── ds-designer/      (SKILL.md + sub-skills)
+│   ├── ds-dev/           (SKILL.md + sub-skills)
+│   ├── ds-reviewer/      (SKILL.md + review-component + pre-commit-check)
+│   ├── brand-builder/    ← marca/tema novo (10 superfícies)
+│   ├── crud-builder/ · list-builder/ · dashboard-builder/
+│   ├── app-builder/ · auth-builder/ · screen-composer/ · module-replicator/
 │   ├── frontend-design/
 │   ├── app-designer/     (🚧)
 │   ├── app-dev-react/    (🚧)
 │   └── igreen-page/      (🚧)
 ├── rules/                ← Regras carregadas auto (glob-scoped)
 │   └── ds-standards.md   (regras + lessons + forbidden — consolidado)
-├── hooks/                ← Shell scripts que sempre disparam
-│   ├── ds-lint-styles.sh
-│   └── block-rm-rf.sh
+├── hooks/                ← Shell scripts que sempre disparam — 5
+│   ├── ds-lint-styles.sh       (informativo — anti-patterns em *.styles.ts)
+│   ├── ds-inventory-check.sh   (informativo — 7 superfícies do componente)
+│   ├── ds-tokens-check.sh      (informativo — lembra tokens:tw4 + distribuição)
+│   ├── block-rm-rf.sh          (BLOQUEIA)
+│   └── block-sensitive-edit.sh (BLOQUEIA .env/credentials/migrations)
 ├── output-styles/        ← Response shapes
 │   └── terse.md
 ├── scripts/
@@ -203,7 +263,8 @@ src/
 │   └── table-replica-from-sandbox.md
 └── status/
     ├── pipeline-state.md  ← audit log (append-only)
-    ├── lessons.md         ← L-001 a L-014+ completas
+    ├── lessons.md         ← L-001 a L-066 completas (61 ativas)
+    ├── lessons-archive.md ← lições absorvidas em gate automático
     ├── BACKLOG.md
     └── archive/
         └── superpowers-2026-05/  (plans/specs implementados)
@@ -226,7 +287,7 @@ node .claude/scripts/sync-agents-to-cursor.cjs
 
 | Tipo de informação | Fonte canônica |
 |---|---|
-| Regras DS + 14 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 66 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade dos agents | `.claude/agents/<nome>.md` |
 | Templates de implementação | `.claude/skills/<agent>/<skill>.md` |
 | Slash commands | `.claude/commands/<nome>.md` |

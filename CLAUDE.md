@@ -214,6 +214,7 @@ no `npm test`.
 | Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
 | **Marca/tema NOVO** (5ª, 6ª…) | `tokens/brands/<id>/` (3 arquivos) + **10 superfícies** | `.claude/rules/ds-standards.md` §"Sistema multi-marca" |
 | **Alterar cor de marca existente** | `tokens/brands/<id>/semantic/color-{light,dark}.ts` APENAS | idem — nunca editar `brand-*.css`, é gerado |
+| **Regra CSS global, `@utility`, `@font-face`, `@custom-variant`** | `tokens/transforms/to-tailwind-v4.ts` + `npm run tokens:tw4` — **nunca `globals.css`** | `.claude/rules/ds-standards.md` §"O tema gerado é a fonte única" |
 
 ---
 
@@ -238,6 +239,19 @@ Componente NUNCA importa primitivos ou tokens semânticos diretamente.
 Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 
 **Dependency flow:** primitives → semantic → to-tailwind-v4 → CSS vars → tv() classes → componente
+
+## ⛔ Segunda regra de ouro — `globals.css` é do showcase, não do sistema
+
+`src/styles/theme/tailwind-theme.css` (gerado) é o **único arquivo que os 4 canais leem**.
+Além das CSS vars, ele carrega hoje: `@font-face` Geist, `--font-sans`/`--font-mono`,
+`@custom-variant dark`, regras de `html`/`body`/`button`, `@utility outline-float`,
+`@utility scrollbar-*` e a regra do bottom-sheet mobile.
+
+Nada disso pode ser **redeclarado** no `globals.css`. Duplicar é pior que faltar: classe sem
+layer vence `@utility` e a segunda declaração de `@custom-variant` vence a primeira — o
+showcase passa a mostrar o comportamento certo enquanto o consumidor recebe o errado.
+Foi assim que 6 defeitos ficaram invisíveis por meses. Detalhe + os gates que cobrem isso
+(`orphan-utilities`, `runtime-base.test`): `.claude/rules/ds-standards.md`.
 
 ---
 

@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
  * outras 4 são overlays de cor escopados em `[data-theme="<id>"]`.
  *
  * Marca nova: gere o overlay (`npm run tokens:brand:<x>`), importe no `globals.css`
- * e acrescente aqui **e** no `BRANDS` abaixo. As 6 superfícies completas estão em
+ * e acrescente aqui **e** no `BRANDS` abaixo. As 10 superfícies completas estão em
  * `.claude/rules/ds-standards.md` §"Sistema multi-marca".
  */
 export type Brand = "default" | "blue" | "green" | "pay" | "vibrant";

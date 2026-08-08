@@ -93,7 +93,7 @@ export function AppShellDoc() {
       <ExampleSection
         id="ex-full"
         title="AppShell completo — sidebar + header + body"
-        description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot "gap-gp-md p-pad-2xl".'
+        description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot (gap-gp-4xl + padding responsivo 18/24/32px).'
         code={CODE_FULL}
       >
         <div className="h-[640px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
@@ -214,7 +214,7 @@ export function AtendimentosPage() {
       onSettings={() => router.push("/settings")}
       onLogout={() => signOut()}
     >
-      {/* Body — o que muda entre telas. gap-gp-md + p-pad-2xl aplicados auto. */}
+      {/* Body — o que muda entre telas. gap-gp-4xl + padding responsivo (18/24/32px) aplicados auto. */}
       <h1 className="text-heading-md">Atendimentos</h1>
       <DataTable ... />
     </AppShell>

@@ -14,8 +14,11 @@ onde tudo já está no disco em `<dsPath>/src` e você só importa pelo `importB
 
 - **Compostos do iGreen** (`components/ui/<Nome>/`) vêm com **`USAGE.md` ao lado** — props,
   variants, gotchas. Leia antes de compor.
-- **Primitivos** (`components/shadcn/`) **não** têm USAGE: a API é a padrão shadcn/Radix, e
-  eles já chegam re-estilizados nos tokens do DS. Consulte o catálogo visual.
+- **Primitivos** **não** têm USAGE: a API é a padrão shadcn/Radix, e eles já chegam
+  re-estilizados nos tokens do DS. Consulte o catálogo visual.
+  ⚠️ No copy-in eles caem em **`components/ui/` como arquivo solto** (`ui/badge.tsx`,
+  `ui/input.tsx`, `ui/avatar.tsx`), não numa pasta `components/shadcn/` — os 91 itens do
+  registry apontam todos para `components/ui/`. Importe `@/components/ui/badge`.
 
 Catálogo visual: **https://igreen-desingsystem-admin.vercel.app**.
 

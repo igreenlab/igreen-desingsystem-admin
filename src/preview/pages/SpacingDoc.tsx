@@ -26,7 +26,8 @@ const RADIUS_SCALE = [
   { step: "xl", px: "14", mult: "1.4" },
   { step: "2xl", px: "18", mult: "1.8" },
   { step: "3xl", px: "22", mult: "2.2" },
-  { step: "base", px: "26", mult: "2.6" },
+  // alias de lg (×1.0 = 10px); os 26px são do 4xl
+  { step: "base", px: "10", mult: "1.0 (alias de lg)" },
   { step: "4xl", px: "26", mult: "2.6" },
   { step: "full", px: "9999", mult: "—" },
 ];

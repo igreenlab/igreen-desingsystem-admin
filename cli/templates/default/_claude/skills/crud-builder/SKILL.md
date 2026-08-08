@@ -41,7 +41,7 @@ Se o componente/exemplo ainda não está no disco, **puxe via `igreen:add`** ant
 ```
 /ds-create-crud
    ▼ interview.md
-1. ENTREVISTA (fases 0-5)         — acumula escolhas, ZERO edição em disco
+1. ENTREVISTA (fases 0-6)         — acumula escolhas, ZERO edição em disco
    ▼ blueprint.md
 2. BLUEPRINT [GATE]               — preview consolidado + pré-validações → aguarda "aprovar"
    ▼ generate.md

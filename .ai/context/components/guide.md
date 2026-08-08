@@ -14,11 +14,11 @@
 ```
 color-light.ts → bg.primary = oklch(...)
       ↓
-to-tailwind-v4.ts → --color-bg-primary: oklch(...)
+to-tailwind-v4.ts → --color-bg-brand: oklch(...)
       ↓
-Tailwind v4 → bg-bg-primary { background: var(--color-bg-primary) }
+Tailwind v4 → bg-bg-brand { background: var(--color-bg-brand) }
       ↓
-button.styles.ts → "bg-bg-primary text-fg-on-primary"
+button.styles.ts → "bg-bg-brand text-fg-on-brand"
 ```
 
 O `.styles.ts` é a única fonte de verdade visual do componente.
@@ -57,8 +57,8 @@ export const nomeVariants = tv({
   variants: {
     color: {
       // ⚠️ Ring POR COR — cada variante usa seu próprio ring token
-      // NUNCA colocar ring-ring-primary fixo no base (errado para secondary/danger/etc.)
-      primary:   "focus-visible:ring-4 focus-visible:ring-ring-primary",
+      // NUNCA colocar ring-ring-brand fixo no base (errado para secondary/danger/etc.)
+      primary:   "focus-visible:ring-4 focus-visible:ring-ring-brand",
       secondary: "focus-visible:ring-4 focus-visible:ring-ring-secondary",
       danger:    "focus-visible:ring-4 focus-visible:ring-ring-danger",
       success:   "focus-visible:ring-4 focus-visible:ring-ring-success",
@@ -84,22 +84,22 @@ export const nomeVariants = tv({
   compoundVariants: [
     // ── 1. Compostos cor × variant ────────────────────────────────────────
     { color: "primary", variant: "filled",
-      class: "bg-bg-primary text-fg-on-primary hover:bg-bg-primary-hover" },
+      class: "bg-bg-brand text-fg-on-brand hover:bg-bg-brand-hover" },
     { color: "primary", variant: "outline",
-      class: "bg-bg-surface border-border-primary text-fg-primary shadow-sh-sm hover:bg-bg-primary-subtle hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-brand text-fg-brand shadow-sh-sm hover:bg-bg-brand-subtle hover:border-transparent hover:shadow-sh-none" },
     { color: "primary", variant: "soft",
-      class: "bg-bg-primary-subtle text-fg-primary hover:bg-bg-surface hover:border-border-primary" },
+      class: "bg-bg-brand-subtle text-fg-brand hover:bg-bg-surface hover:border-border-brand" },
     { color: "primary", variant: "ghost",
-      class: "text-fg-primary hover:bg-bg-primary-subtle" },
+      class: "text-fg-brand hover:bg-bg-brand-subtle" },
 
     { color: "secondary", variant: "filled",
-      class: "bg-bg-secondary text-fg-on-secondary hover:bg-bg-secondary-hover" },
+      class: "bg-bg-muted text-fg-default hover:bg-bg-muted-hover" },
     { color: "secondary", variant: "outline",
-      class: "bg-bg-surface border-border-main text-fg-muted shadow-sh-sm hover:bg-bg-secondary-subtle hover:text-fg-foreground hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-default text-fg-muted shadow-sh-sm hover:bg-bg-subtle hover:text-fg-default hover:border-transparent hover:shadow-sh-none" },
     { color: "secondary", variant: "soft",
-      class: "bg-bg-muted text-fg-muted hover:bg-bg-surface hover:text-fg-foreground hover:border-border-main" },
+      class: "bg-bg-muted text-fg-muted hover:bg-bg-surface hover:text-fg-default hover:border-border-default" },
     { color: "secondary", variant: "ghost",
-      class: "text-fg-muted hover:bg-bg-muted hover:text-fg-foreground" },
+      class: "text-fg-muted hover:bg-bg-muted hover:text-fg-default" },
 
     { color: "danger", variant: "filled",
       class: "bg-bg-danger text-fg-on-danger hover:bg-bg-danger-hover" },
@@ -113,28 +113,27 @@ export const nomeVariants = tv({
     { color: "success", variant: "filled",
       class: "bg-bg-success text-fg-on-success hover:bg-bg-success-hover" },
     { color: "success", variant: "outline",
-      class: "bg-bg-surface border-border-success text-fg-success shadow-sh-sm hover:bg-bg-success-subtle hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-success-muted text-fg-success shadow-sh-sm hover:bg-bg-success-muted hover:border-transparent hover:shadow-sh-none" },
     { color: "success", variant: "soft",
-      class: "bg-bg-success-subtle text-fg-success hover:bg-bg-surface hover:border-border-success" },
+      class: "bg-bg-success-muted text-fg-success hover:bg-bg-surface hover:border-border-success-muted" },
     { color: "success", variant: "ghost",
-      class: "text-fg-success hover:bg-bg-success-subtle" },
+      class: "text-fg-success hover:bg-bg-success-muted" },
 
     { color: "warning", variant: "filled",
       class: "bg-bg-warning text-fg-on-warning hover:bg-bg-warning-hover" },
     { color: "warning", variant: "outline",
-      class: "bg-bg-surface border-border-warning text-fg-warning shadow-sh-sm hover:bg-bg-warning-subtle hover:border-transparent hover:shadow-sh-none" },
+      class: "bg-bg-surface border-border-warning-muted text-fg-warning shadow-sh-sm hover:bg-bg-warning-muted hover:border-transparent hover:shadow-sh-none" },
     { color: "warning", variant: "soft",
-      class: "bg-bg-warning-subtle text-fg-warning hover:bg-bg-surface hover:border-border-warning" },
+      class: "bg-bg-warning-muted text-fg-warning hover:bg-bg-surface hover:border-border-warning-muted" },
     { color: "warning", variant: "ghost",
-      class: "text-fg-warning hover:bg-bg-warning-subtle" },
+      class: "text-fg-warning hover:bg-bg-warning-muted" },
 
     // ── 2. Disabled — SEMPRE por último ──────────────────────────────────
-    { disabled: true,
-      class: "bg-bg-disabled text-fg-disabled border-transparent shadow-sh-none" },
-    { disabled: true, variant: "outline",
-      class: "bg-transparent border-border-disabled" },
-    { disabled: true, variant: "soft",  class: "bg-bg-disabled" },
-    { disabled: true, variant: "ghost", class: "bg-transparent" },
+    // Não existe `bg.disabled` nem `border.disabled` no V3 — só `fg.disabled`.
+    // O padrão do DS é OPACIDADE (Button real: `pointer-events-none opacity-50`),
+    // não uma paleta de desabilitado. `bg-bg-disabled` não emite CSS: a classe
+    // some em silêncio, sem quebrar build, tsc nem teste.
+    { disabled: true, class: "pointer-events-none opacity-50" },
   ],
 
   defaultVariants: { color: "primary", variant: "filled", size: "md" },
@@ -166,7 +165,7 @@ export type NomeVariantProps = VariantProps<typeof nomeVariants>;
 | Padding componente | `px-pad-*` | `px-3`, `px-4` |
 | Border radius | `rounded-radius-*` | `rounded-sm`, `rounded-lg` |
 | Shadow | `shadow-sh-*` | `shadow-sm`, `shadow-md` |
-| Focus ring | `ring-ring-{color}` (sem `/`) | `ring-primary/30`, `ring-ring-primary` no base |
+| Focus ring | `ring-ring-{color}` (sem `/`) | `ring-primary/30`, `ring-ring-brand` no base |
 | Height interativo | `min-h-form-*` | `h-10`, `h-11` |
 | Icon size | `size-icon-*` | `size-5`, `w-5 h-5` |
 | Container | `max-w-*` (sobrescreve a escala nativa) | — **única exceção: não dobra prefixo** |
