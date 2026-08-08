@@ -46,6 +46,55 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.37.3",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "Auditoria profunda: o que os testes verdes não estavam provando",
+    summary:
+      "Varredura completa do sistema — código, tokens, componentes, documentação e as duas camadas de IA (a que constrói o DS e a que o consome). Oito frentes. O achado de fundo: vários gates liam um arquivo que **nada garantia estar atualizado**, então \"os testes passaram\" provava menos do que parecia. Nenhuma mudança visual — o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O `tsc` de quem instala por npm quebrava ao usar o mapa coroplético.** Os tipos publicados importam de três pacotes que estavam declarados só como dependência de desenvolvimento — o DS compilava porque tinha os pacotes na própria máquina, e o projeto de quem consome não. Levantei a superfície inteira dos tipos publicados (15 pacotes) e esses três eram os únicos fora do lugar.",
+          "**O espelho das regras para o Cursor era gerado e não funcionava.** O cabeçalho do arquivo ia parar na linha 6 em vez da linha 1, por causa da quebra de linha do Windows — e o Cursor exige linha 1. O script rodava, escrevia o arquivo e reportava sucesso; nenhuma das seis regras chegava. Ao consertar, dois arquivos que estavam nove dias defasados se atualizaram sozinhos, um deles ensinando um repositório remoto que não existe.",
+          "**A verificação de exemplos defasados saía verde quando a fonte sumia.** Se alguém renomeasse uma tela do catálogo, o exemplo que o consumidor baixa perdia qualquer vigilância — e a mensagem impressa era \"exemplos em sincronia\".",
+          "**Duas receitas de construção apontavam para receitas que não existem neste repositório**, e seis instruções mandavam carregar arquivos por um mecanismo que não os aceita. Quem seguisse perdia o passo procurando.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Sete verificações automáticas novas.** A principal: o CSS de tema é gerado a partir dos tokens **e** versionado, e o passo que regenera era manual — nenhum fluxo o executava. Editar um token e esquecer de regenerar passava despercebido, e todas as outras verificações de cor liam justamente esse arquivo. Agora ele é regenerado e comparado a cada execução, apontando a primeira linha divergente e o comando que corrige.",
+          "**O índice de exportação virou superfície verificada.** Era a única parte do sistema sem nenhuma vigilância — foi por ali que quatro componentes ficaram meses invisíveis para quem instala por npm, com a documentação anunciando que existiam.",
+          "**Quem consome o DS agora recebe verificação de estilo em tempo real.** Antes, uma cor escrita na unha ou um espaçamento fora da escala passavam limpos em todos os canais; a orientação existia, mas era só texto. Agora a mesma tabela de padrões que roda aqui roda lá — avisando, nunca bloqueando, porque o código é de quem consome.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Os dois arquivos de regra que a IA sempre lê se contradiziam em três pontos** — inclusive sobre se ela pode ou não publicar uma branch de trabalho, e sobre se telas fazem parte do escopo. Pior: o mesmo número de regra significava coisas diferentes em cada um, e doze arquivos citam regra por número. Agora é uma numeração só, com verificação automática.",
+          "**Seis lições registradas não chegavam à sessão.** O resumo que a IA carrega prometia listar todas e faltavam seis — entre elas a que avisa que os automatismos ficam cegos no Windows, num projeto desenvolvido em Windows.",
+          "**O guia de composição não existia para quem consome por submódulo.** Vinte arquivos mandavam aplicá-lo e o arquivo não vinha no clone. Agora é instalado junto com o kit.",
+        ],
+      },
+      {
+        type: "removed",
+        items: [
+          "**Cinco animações declaradas que nunca surtiram efeito.** A investigação derrubou o meu próprio diagnóstico: eu tinha classificado como divergência entre catálogo e consumidor, e a medição do build mostrou que a declaração perdia dos dois lados — quando o nome já pertence ao framework, ele vence. Virou lição registrada.",
+          "Dois guias de migração antigos e órfãos, um deles com instruções que mandavam publicar no repositório errado; e um índice de memória cuja única linha descrevia um problema resolvido três meses antes.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Oito afirmações factualmente erradas em documentação viva — entre elas a que dizia que o DS não é publicado como pacote (é, desde a 0.37.0) e uma versão desatualizada em 27 lançamentos.",
+          "O índice visual de componentes ganhou os três que faltavam e passou a nomear os dois que dividem a mesma página.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.37.2",
     date: "2026-08-08",
     tag: "patch",
