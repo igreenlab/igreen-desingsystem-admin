@@ -2886,3 +2886,18 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma.
 - Lições novas: nenhuma numerada. O acidente de merge é operacional (UI + timing), não um padrão de erro do pipeline — registrado aqui com a regra prática.
 - Pendência: **revogar o token do npm** (o mantenedor informou que faria) · `alert-dialog` sem DocPage (BACKLOG) · limpeza dos 347 MB (BACKLOG, aguardando confirmação) · 3 branches antigas com 0 commits exclusivos.
+
+---
+
+### 2026-08-08 | ds-dev | Dogfood dos DOIS canais publicados (pós-release) | CONCLUÍDO
+- Input: fechar a rodada com boas práticas. Eu tinha publicado sem exercitar nenhum dos canais — e a L-065 diz exatamente que **só o consumidor real exercita o artefato distribuído**. Publicar e não testar é o modo de falha que ela descreve.
+- **Canal npm — o defeito reproduzido e a correção provada.** Projeto mínimo, `tsconfig` com `skipLibCheck: false` (senão o teste não vale nada — os erros vinham justamente de um `.d.ts` de `node_modules`), e um arquivo que importa `ChoroplethMapProps`/`ChoroplethGeography`. Resultado medido nas DUAS versões, no mesmo projeto:
+  - **`@snksergio/design-system@0.37.2`** → os 3 `@types` **ausentes** de `node_modules`, e `tsc` do consumidor com **3 erros**: `Cannot find module 'geojson'`, `Cannot find module 'topojson-specification'`, e `d3-geo` implicitamente `any`.
+  - **`@0.37.3`** → os 3 `@types` chegam **como dependência transitiva**, sem eu instalar nenhum à mão, e `tsc` **0 erros**.
+  Isto é a prova de que a série toda começou de um defeito real, não de leitura de código.
+- **Canal `npm create` — CLI 0.22.0 publicada, dirigida por `prompts.inject`.** Scaffold gerado do zero: `DESIGN.md` na raiz (12.099 bytes), kit de IA com 38 arquivos, e as peças novas do PR 7/8 presentes — `ds-lint-patterns.mjs` bakeado (4.726 bytes) e o `settings.json` cobrindo `Edit|Write|MultiEdit` **e** `Bash`. Os 4 cenários do hook rodados **dentro do scaffold real**, não no template: tela com hex+`gap-4` → avisa (exit 1, apontando os 2 achados) · tema gerenciado → bloqueia (exit 2) · `sed -i` no tema → avisa (exit 1) · tela limpa → libera (exit 0). Depois: `npm i` + `tsc` 0 erros + `npm run build` limpo (36 kB CSS / 202 kB JS).
+- **Um falso positivo MEU, pego antes de virar bug reportado.** A 1ª rodada saiu sem `data-theme` e sem overlay de marca, e eu quase reportei como defeito do CLI. Investiguei antes: o prompt `template` tem `type: null` quando só existe **um** template, e prompt com `type: null` é **pulado sem consumir valor injetado** — minha lista de 8 respostas deslocou uma posição e `theme` recebeu `"default"`, para o qual "nenhum overlay + nenhum `data-theme`" é o comportamento **correto**. Com 7 valores: `data-theme="vibrant"` no `<html>`, `@import` do overlay **depois** do tema-base, e só o escolhido mantido no disco. **Regra:** ao dirigir CLI por `prompts.inject`, conte os prompts que de fato disparam — os condicionais (`type: null`) não consomem valor. É a L-064 na camada do instrumento: meu teste estava errado, não o produto.
+- Assumption: dogfood pós-publish vale mais que pré-publish, porque exercita o **tarball que o registry serve**, não o `dist-lib` local (L-065). Se falso (alguém preferir gate pré-publish), o caminho é o `lib:verify` já existente — que roda, mas prova o contrato do pacote, não o comportamento no consumidor.
+- Regressões: nenhuma. Os dois canais funcionam com o que está publicado.
+- Lições novas: nenhuma numerada — L-064 (instrumento errado) e L-065 (só o consumidor real exercita) reincidiram, e as duas já existem.
+- Pendência: **revogar o token do npm** · `alert-dialog` sem DocPage (BACKLOG) · limpeza dos 347 MB (BACKLOG) · 3 branches antigas com 0 commits exclusivos.
