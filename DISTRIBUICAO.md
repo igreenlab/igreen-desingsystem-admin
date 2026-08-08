@@ -7,12 +7,25 @@
 
 ---
 
-## 1. Modelo de distribuição: copy-in via registry shadcn
+## 1. Modelo de distribuição: 4 canais, nenhum depreciado
 
-O DS **não** é publicado como pacote npm consumível. É distribuído via **registry
-shadcn (copy-in)**: o código-fonte de cada componente é **copiado para o `src/` do
-projeto consumidor** no momento do `add`, passando a ser código do consumidor
-(editável, versionado no Git dele).
+> ⚠️ **Corrigido em 2026-08-08.** Esta seção afirmava *"O DS **não** é publicado como
+> pacote npm consumível"*. Era verdade quando foi escrita e deixou de ser: desde a
+> **v0.37.0** o pacote entrega **41 dos 42 componentes `ui/`** no barrel raiz + os 41
+> primitivos shadcn no subpath `./shadcn`. A rule do consumidor
+> (`cli/templates/default/_claude/rules/ds-channels.md`) já documentava os 4 canais
+> corretamente — era esta doc interna que estava atrás. Ver o campo `//distribuicao` do
+> `package.json`: *"SECUNDÁRIO descreve a ORDEM DE PUBLICAÇÃO, não o nível de suporte"*.
+
+O canal **primário** é o **registry shadcn (copy-in)**: o código-fonte de cada componente
+é **copiado para o `src/` do projeto consumidor** no momento do `add`, passando a ser
+código do consumidor (editável, versionado no Git dele). Ele sobe sozinho no merge
+(Vercel).
+
+Os outros três: **`npm create`** (scaffold pela CLI) · **submódulo git** (o repo inteiro
+no projeto do consumidor — é o mais usado hoje) · **`npm install`** (pacote
+`@snksergio/design-system`, publicado por passo manual do mantenedor, então costuma ficar
+atrás do registry).
 
 | Eixo | Pacote npm | Copy-in via registry (adotado) |
 |---|---|---|
@@ -78,7 +91,7 @@ v0.31.0:
 | `npm create @snksergio/design-system` (scaffold) | ✅ | ✅ prompt "Tema de cor?" escolhe e aplica |
 | submódulo (`git pull`) | ✅ | ✅ o repo inteiro está lá |
 | `npm install @snksergio/design-system` | ✅ | ✅ **a partir da v0.31.1** |
-| registry / `igreen:add` (copy-in) | ✅ | ❌ o `registry.json` não referencia `brand-*.css` |
+| registry / `igreen:add` (copy-in) | ✅ | ✅ **a partir da v0.32.0** — itens `theme-blue`/`-green`/`-pay`/`-vibrant` (`registry:file`) |
 
 ⚠️ **Até a v0.31.0 o npm entregava só o tema-base** — quem consumia por `npm install` não
 tinha como usar marca nenhuma, nem as que existiam há versões. Os `.d.ts` das marcas até
@@ -102,8 +115,12 @@ o `pack-contract` extrai cada path prometido e o `lib-verify` confere no disco �
 exige entrada no `exports`, e o **`build:lib` falha** se achar `brand-*.css` sem export
 correspondente (gate no `vite.lib.config.ts`).
 
-O gap do **registry/copy-in segue aberto**: distribuir overlay por lá exige decidir o
-mecanismo (item próprio? parte do `theme`? opt-in?), e vale pras 4 marcas.
+~~O gap do **registry/copy-in segue aberto**~~ — **FECHADO na v0.32.0.** A decisão foi
+**item próprio, opt-in**: cada marca tem um item `theme-<id>` do tipo `registry:file`
+apontando pro `src/styles/theme/brand-<id>.css`, e o consumidor puxa o que quiser com
+`npm run igreen:add -- theme-vibrant`. Documentado pro consumidor em
+`cli/templates/default/_claude/rules/ds-themes.md`. Gate: `brand-check.mjs` cobra a
+superfície 7 (item no registry) pra toda marca do catálogo.
 
 ---
 
@@ -185,7 +202,9 @@ com `npm install` a Vercel resolvia versões diferentes das auditadas.
 
 ## 4. Versionamento
 
-- **Versão global única** = `package.json.version` (hoje `0.10.0`). **Não** há semver
+- **Versão global única** = `package.json.version` (⚠️ **não repita o número aqui** — esta
+  linha dizia `0.10.0` com o repo em `0.37.2`, 27 releases atrás; consulte o
+  `package.json`). **Não** há semver
   por-componente. Cada item do registry carrega `meta.stamp = essa versão` — inclusive
   `@igreen/theme` (tokens/tema). Logo **tokens e tema são versionados** junto.
 - **Carimbo só em `meta.stamp`**, nunca no conteúdo do arquivo — assim o re-stamp de uma
@@ -291,7 +310,9 @@ O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
 - **Dados/UX:** `@tanstack/react-virtual` (DataTable) · `@dnd-kit` (Kanban) ·
   `recharts` (Chart) · `lucide-react` · `react-day-picker` · Geist (fonte).
 - **Distribuição:** shadcn registry (`shadcn build`/`add`) · Next.js (registry-app) ·
-  Vercel (deploy + auth Bearer) · npm (apenas o CLI `@snksergio/create-design-system`).
+  Vercel (deploy + auth Bearer) · npm (**dois** pacotes: a lib
+  `@snksergio/design-system` e a CLI `@snksergio/create-design-system`) · git submódulo
+  (+ `npm run ds:link` pro kit de IA).
 - **Qualidade:** Vitest · GitHub Actions · hooks Claude Code.
 
 ---
