@@ -1,14 +1,22 @@
 ---
-description: Regras do iGreen DS — comportamento, anti-patterns, lições, dark mode, Radix. Carregado automaticamente nas pastas src/components, src/styles, tokens, .claude/skills/ds-*, .ai/
-globs:
-  - "src/components/**"
-  - "src/styles/**"
-  - "tokens/**"
-  - ".claude/skills/ds-*/**"
-  - ".ai/**"
+description: Regras do iGreen DS — comportamento, anti-patterns, 67 lições, dark mode, Radix, multi-marca. Entra como project instruction em TODA sessão do repo, sem escopo por pasta.
 ---
 
 # iGreen DS — Regras essenciais
+
+> **Carregamento (verificado em 2026-08-08, não presumido).** Todo `.md` de
+> `.claude/rules/` é entregue ao agente como **project instruction**, junto do
+> `CLAUDE.md`, na sessão inteira — não há ação a tomar, e não há escopo por pasta.
+>
+> O frontmatter tinha um bloco `globs:` (`src/components/**`, `tokens/**`, `.ai/**`…)
+> que é sintaxe do **Cursor** e era **inerte** aqui. Removido porque descrevia um
+> mecanismo de escopo que não existe — e pior, um escopo que teria deixado de fora
+> justamente `src/preview/**` (onde os builders escrevem) e as skills não-`ds-*`
+> (`crud-builder`, `list-builder`, `dashboard-builder`, `brand-builder`, …). Quem
+> lesse o frontmatter concluiria que estas regras não valem ao gerar uma tela.
+>
+> **Consequência prática:** este arquivo custa contexto em 100% das sessões. Ao
+> acrescentar seção, prefira 1 linha + ponteiro pro `.ai/` a 30 linhas de detalhe.
 
 Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patterns + dark mode + Radix. Para referência longa do padrão tv() completo: `.ai/rules/coding-standards.md`.
 
@@ -23,7 +31,15 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 5. Classes DS sempre antes de Tailwind literal
 6. Self-interrupt: "estou criando algo novo?" → verificar primeiro
 7. **Gate de pre-commit obrigatório** antes de commit significativo (release, refactor amplo, token novo, componente novo, lição nova) → invocar `ds-reviewer/pre-commit-check.md`
-8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `empresa`** (remote canônico = `igreenlab/igreen-desingsystem-admin`; `origin` é fork pessoal parado) → **`gh pr create`** → **reportar o link do PR pro gate humano**. A IA executa a parte mecânica (branch/commit/push/PR) automaticamente; **PARA no merge** — merge/`npm publish`/deploy só com autorização explícita do usuário na mesma sessão. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
+8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `empresa`** (remote canônico = `igreenlab/igreen-desingsystem-admin`; `origin` é fork pessoal parado) → **`gh pr create`** → **reportar o link do PR pro gate humano**. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
+
+   **⚠️ Onde a IA para — a linha é o MERGE, não o push:**
+
+   | A IA faz sozinha | A IA NUNCA faz sozinha (exige autorização explícita na mesma sessão — L-020) |
+   |---|---|
+   | branch · commit · push da **branch** · abrir PR | merge · `npm publish` · bump de `package.json.version` · deploy · `git push` em `main` · force-push |
+
+   Até 2026-08-08 o `CLAUDE.md` (também auto-carregado) dizia *"NUNCA dê `git push` … sozinho → pare e peça"*, contradizendo esta regra frontalmente. A intenção original era proteger **publicação**, não o push da branch de trabalho — que é justamente o que produz o PR onde o humano decide. Os dois arquivos agora dizem a mesma coisa, com a mesma numeração de 1 a 8.
 
 ---
 
@@ -448,7 +464,10 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ## 67 Lições (L-001 a L-067) — resumo
 
-Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
+Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
+`scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
+citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 faltavam 6
+(L-044/045/046/048/049/050) atrás desta mesma frase.
 
 ### Focus rings / Tailwind
 
@@ -525,6 +544,20 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 - **L-042** Componente novo toca **8 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog · (8) **barrel** (`src/components/index.ts` — define o canal npm). 1–4 e 8 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa 2/3/5/6 + showcase; o barrel é gate (`barrel-completeness`). **A 8ª entrou em 2026-08-08**: era a única superfície sem nenhuma vigilância, e por isso `Chart`/`DataList`/`List`/`Toast` passaram meses com 6 de 7 fechadas e `import { ChartContainer }` estourando "not exported" no consumidor npm.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push no `empresa` + `gh pr create --repo igreenlab/igreen-desingsystem-admin` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
+
+### Infra, componentes e registry (L-044 a L-050)
+
+> ⚠️ Estas 6 estavam **ausentes** deste resumo até 2026-08-08, apesar de a linha de
+> abertura prometer *"o atalho 1-linha de TODAS"*. Só existiam no `lessons.md`, que é
+> sob demanda — ou seja, na prática não chegavam à sessão. A **L-044 é a mais grave a
+> ter ficado invisível**: o repo roda em Windows.
+
+- **L-044** Hooks bash dependiam de `jq` (**ausente no Git Bash/Windows**) e casavam path com `/` enquanto o harness manda `\` → **skip silencioso, rede de segurança inteira no-op por uma sessão**. Hoje todos têm fallback `node` + `tr '\\' '/'` antes de qualquer matching. Ao escrever hook novo: **nunca** dependa de binário fora do `package.json`, e normalize o path primeiro (ver também L-061).
+- **L-045** Bug que "só aparece no último/primeiro item" é quase sempre **off-by-one mascarado** por um valor que coincide nos demais (caso real: conector hierárquico usando `ancestorHasNext[i]` em vez de `[i+1]` — invisível exceto no último root). Teste sempre a borda: último root, lista vazia, 1 item.
+- **L-046** `DataList` — 4 padrões de tela: (1) `fillHeight` faz só a lista rolar (pai com altura + `flex-1 min-h-0`); **não** combinar com `virtualized`. (2) Virtualizado exige `measureElement`, senão o `estimateItemSize` reserva a mais e o excedente vira "gap" falso. (3) Nó-folha no `hierarchical` **não** recebe placeholder de chevron. (4) `branchHighlight` só em `layout="hierarchical"`.
+- **L-048** `block-rm-rf.sh` casa o padrão em **qualquer ponto** do comando — inclusive dentro de uma commit message (bloqueou um `git commit` cuja mensagem citava `rm -rf src/`). Não escreva `rm -rf <path>` literal em mensagem/echo.
+- **L-049** `registryDependency` pode ficar **dangling** pra componente **bundlado** em outro item: `data-list` importa `TableToolbar`, que não tem item próprio (vive dentro de `data-table`) → `@igreen/table-toolbar` não resolve e o `igreen:add` quebra. Ao editar o registry, valide que cada `registryDependency` existe como item.
+- **L-050** Showcase: `PropsTable` vai **direto** sob `SectionH2`, nunca dentro de `ExampleSection` — as duas têm superfície própria (ring) e vira card-dentro-de-card. E `SectionH2` tem `mb` sem `margin-top`: tabela seguida de heading cola.
 
 ### `container` não dobra prefixo — `max-w-md`, nunca `max-w-container-md` (L-057)
 
