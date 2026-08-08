@@ -131,6 +131,45 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 > vez de copy-in. Modelo e versionamento em `DISTRIBUICAO.md` e na página
 > **Distribution** do catálogo.
 
+### Consumindo por `npm install` — setup completo
+
+⚠️ **A linha `@source` é obrigatória.** O Tailwind v4 **não escaneia `node_modules`**, então
+sem ela nenhuma classe do DS é gerada e os componentes renderizam **sem estilo nenhum** —
+não parcialmente: medido em 2026-08-07, **9 regras CSS** contra as milhares do showcase, com
+o `<Button>` saindo transparente, 24px de altura e radius 0. Não há erro, e é fácil concluir
+que "o pacote está quebrado".
+
+```css
+/* seu src/index.css */
+@import "tailwindcss";
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.mjs";
+@import "@snksergio/design-system/theme.css";
+```
+
+O `@source` precisa cobrir `dist-lib/**`, não só o `index.mjs`: as classes dos componentes
+flutuantes (Modal, Panel, dropdown, popover) vivem nos **chunks**.
+
+O `theme.css` já traz tudo que o runtime precisa — `@font-face` do Geist, `--font-sans`,
+`@custom-variant dark` (dark por classe, não por `prefers-color-scheme`), `body` e as
+utilities do DS. Antes da v0.35.0 nada disso viajava e o canal ficava com fundo branco no
+dark, tipografia em system-ui e `dark:` amarrado ao tema do sistema operacional.
+
+**Fontes.** O `@font-face` aponta pra `/fonts/*.woff2` — caminho relativo à **raiz do site**,
+não ao pacote. Copie os dois arquivos pro seu `public/fonts/`:
+
+```bash
+cp node_modules/@snksergio/design-system/dist-lib/fonts/*.woff2 public/fonts/
+```
+
+Sem isso a tipografia cai em `system-ui` e os 27 presets do DS renderizam na fonte errada.
+
+**Animações.** Overlays (dropdown, popover, dialog, sheet) usam `animate-in`/`fade-in`/
+`zoom-in`, que vêm do `tw-animate-css`. Sem ele funcionam, mas sem transição:
+
+```css
+@import "tw-animate-css";   /* opcional — só as animações de entrada/saída */
+```
+
 **O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
 ### Trocar o tema de marca

@@ -281,6 +281,119 @@ function buildScrollbarUtilities(): string {
 }`;
 }
 
+// ── Utilities de superfície flutuante ────────────────────────────────────────
+//
+// ⚠️ Estas MORAVAM no `src/styles/globals.css`, que é o CSS do SHOWCASE e não
+// viaja pra canal nenhum. Resultado medido em 2026-08-07: 14 componentes
+// distribuídos (Modal, Panel, FloatingPanel, Header, dialog, popover, select,
+// dropdown-menu, command, context-menu, menubar, hover-card, alert-dialog,
+// navigation-menu) referenciavam `outline-float`, e a classe não existia em npm,
+// copy-in nem scaffold — o outline de 6px simplesmente não renderizava no
+// consumidor. O token (`--color-overlay-float`) viajava; a utility que o consome,
+// não. Falha silenciosa clássica: sem erro, sem aviso, só diferente do showcase.
+//
+// Quem achou foi o mantenedor comparando um print do projeto dele com o showcase.
+//
+// REGRA: utility custom que COMPONENTE DISTRIBUÍDO usa pertence AQUI, no tema
+// gerado — nunca ao `globals.css`. O `scrollbar-thin` acima já seguia isso e é o
+// precedente. Ao criar uma nova, pergunte "algum componente de src/components/
+// referencia isso?" — se sim, é daqui.
+function buildFloatingUtilities(): string {
+  return `@utility outline-float {
+  outline: 6px solid var(--color-overlay-float);
+  outline-offset: 0;
+}
+
+/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).
+ *
+ * O Radix Popper envolve o Content num wrapper posicionado por \`transform\`
+ * inline, fora do alcance do className do Content — só dá pra alcançá-lo por
+ * seletor global. Sem este bloco, um menu marcado \`mobileSheet\` abre flutuando
+ * na posição calculada pelo Popper em vez de colar no rodapé.
+ *
+ * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,
+ * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e
+ * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */
+@media (width < 768px) {
+  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    transform: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    z-index: 60 !important;
+  }
+}`;
+}
+
+// ── Runtime base — o que TODO canal precisa e só o showcase tinha ────────────
+//
+// ⚠️ Estes blocos moravam em `src/styles/globals.css` (showcase) e em
+// `cli/templates/default/src/index.css` (scaffold) — DOIS arquivos mantidos à mão
+// que deveriam ser equivalentes e derivaram. O `tailwind-theme.css` é o único
+// arquivo que os TRÊS canais leem (npm via `theme.css`, copy-in/scaffold via
+// `styles/theme/`, submódulo via caminho relativo), então é aqui que isso pertence.
+//
+// Medido em 2026-08-07, seguindo a doc de cada canal:
+//   - npm:       sem @custom-variant, sem @font-face, sem body → dark mode com
+//                fundo branco, tipografia em system-ui, `dark:` preso ao SO
+//   - submódulo: a doc manda importar SÓ o tailwind-theme.css → mesmos gaps
+//   - scaffold:  ok, porque o index.css tem tudo — e é justamente essa cópia
+//                paralela que faz os dois derivarem
+//
+// ⚠️ ORDEM É LOAD-BEARING no `@custom-variant`: declarar duas vezes faz o SEGUNDO
+// vencer (medido no Tailwind 4.3). Como o `index.css` do scaffold declara o dele
+// DEPOIS de importar o tema, projeto scaffold já existente mantém o comportamento
+// atual (`:is(.dark *)`) e não muda. Scaffold novo passa a herdar o daqui.
+//
+// O seletor é o do showcase — `:where(.dark, .dark *)`, especificidade 0 — de
+// propósito: com `:is(.dark *)` (0,2,0) o `dark:` vence `hover:` na mesma
+// propriedade e o hover morre em silêncio. Provado com hover de mouse real.
+function buildRuntimeBase(): string {
+  return `@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza
+ * pro app nos dois sentidos (app claro com SO escuro dispara \`dark:\`). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}`;
+}
+
 // ── Typography @utility blocks ────────────────────────────────────────────────
 
 function buildTypographyUtilities(): string {
@@ -347,6 +460,10 @@ export function generateTailwindV4Css(): string {
  * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
 
+/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */
+
+${buildRuntimeBase()}
+
 @theme {
 ${toBlock(themeVars)}
 }
@@ -372,7 +489,11 @@ ${toBlock(darkVars)}
 ${buildTypographyUtilities()}
 /* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */
 
-${buildScrollbarUtilities()}`;
+${buildScrollbarUtilities()}
+
+/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */
+
+${buildFloatingUtilities()}`;
 }
 
 // ── CLI ───────────────────────────────────────────────────────────────────────

@@ -9,29 +9,17 @@
 @import "./theme/brand-vibrant.css";
 
 /* ── Geist font (variable) ─────────────────────────────────────────────────── */
-@font-face {
-  font-family: 'Geist';
-  src: url('/fonts/Geist-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Font vars (sobrescreve o default do Tailwind) ─────────────────────────── */
-@theme inline {
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', 'Fira Code', monospace;
-}
-
-/* Forçar dark mode via classe .dark apenas (ignorar prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* `@font-face` do Geist, `--font-sans`/`--font-mono` e o `@custom-variant dark`
+ * MUDARAM-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
+ * buildRuntimeBase) em 2026-08-07.
+ *
+ * Motivo: o `tailwind-theme.css` é o ÚNICO arquivo que os 3 canais leem. Aqui
+ * estas regras só existiam pro showcase — consumidor npm e submódulo ficavam sem
+ * fonte Geist e com `dark:` preso ao prefers-color-scheme do SO.
+ *
+ * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor, e
+ * no caso do `@custom-variant` a SEGUNDA declaração vence — reintroduzir mudaria a
+ * especificidade sem ninguém perceber. */
 
 /**
  * globals.css — Tailwind v4 + Shadcn compatibility + preview shell vars
@@ -115,29 +103,15 @@
 
 /* ── HTML base ──────────────────────────────────────────────────────────────── */
 
-html {
-  font-family: var(--font-sans);
-}
-
-body {
-  min-height: 100vh;
-  background-color: var(--color-bg-canvas);
-  color: var(--color-fg-default);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* ── Base resets ────────────────────────────────────────────────────────────── */
-
-@layer base {
-  button {
-    cursor: pointer;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-}
+/* `html { font-family }`, `body { min-height/background/color }` e o
+ * `@layer base { button { cursor: pointer } }` MUDARAM-SE para o tema gerado
+ * (to-tailwind-v4.ts, buildRuntimeBase) em 2026-08-07 — mesmo motivo dos blocos
+ * acima. Sem o `body`, o consumidor em dark mostrava card escuro sobre FUNDO
+ * BRANCO, com texto `fg-default` (branco) invisível.
+ *
+ * `a { color: inherit; text-decoration: none }` NÃO foi movido: o preflight do
+ * Tailwind v4 já faz isso (`color: inherit; text-decoration: inherit`), então era
+ * redundante aqui e seria redundante lá. Removido. */
 
 /* ── Outline float utility ─────────────────────────────────────────────────
  * Outline de 6px pra elementos flutuantes (panels, drawers, modais,
@@ -147,10 +121,10 @@ body {
  * Por que não `ring-*`? Ring usa box-shadow — conflitaria com `shadow-sh-*`
  * do componente. Outline é propriedade separada, não conflita.
  * ─────────────────────────────────────────────────────────────────────── */
-@utility outline-float {
-  outline: 6px solid var(--color-overlay-float);
-  outline-offset: 0;
-}
+/* `outline-float` MUDOU-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
+ * buildFloatingUtilities) em 2026-08-07. Aqui ela só existia pro showcase — 14
+ * componentes distribuídos a usam e ela não chegava em npm/copy-in/scaffold.
+ * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor. */
 
 /* ── DropdownMenu — bottom sheet em mobile (<md) ───────────────────────────
  * O Radix Popper envolve o Content num wrapper [data-radix-popper-content-wrapper]
@@ -162,21 +136,10 @@ body {
  *
  * Breakpoint `width < 768px` casa exatamente com o `md` (48rem) do Tailwind v4.
  * ─────────────────────────────────────────────────────────────────────── */
-@media (width < 768px) {
-  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
-    position: fixed !important;
-    inset: auto 0 0 0 !important;
-    transform: none !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    /* z-60: acima de qualquer surface z-50 (sidebar drawer mobile, dialog, sheet).
-     * Sem isso, um sheet aberto DE DENTRO do drawer (ex: UserMenu no rail) empata
-     * em z-50 com o drawer → renderiza atrás de forma intermitente e o backdrop
-     * (abaixo) não captura o clique-fora. Ver backdrop z-[55] em dropdown/popover. */
-    z-index: 60 !important;
-  }
-}
+/* O bloco `[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])`
+ * MUDOU-SE para o tema gerado (to-tailwind-v4.ts, buildFloatingUtilities) em
+ * 2026-08-07, pelo mesmo motivo do `outline-float`: DropdownMenu e Popover
+ * distribuídos dependem dele (L-030/L-031) e ele não viajava. NÃO redefina aqui. */
 
 /* ── Scrollbar sutil ──────────────────────────────────────────────────────
  * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
