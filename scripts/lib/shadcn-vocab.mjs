@@ -76,9 +76,58 @@ export const EQUIVALENTE = {
 
 const PREFIXOS = ["bg", "text", "border", "ring", "divide", "from", "to", "via", "outline", "fill", "stroke"];
 
-/** Remove comentário de bloco e de linha — citar a classe num comentário não é usá-la. */
+/**
+ * CITAÇÕES declaradas — (arquivo, classe), com motivo. Mesma convenção do
+ * `dead-theme-classes`: a doc/showcase às vezes NOMEIA a classe errada pra ensinar que
+ * ela é errada, e separar citação de uso por regex seria julgamento de intenção (L-059).
+ */
+export const CITACOES = new Map([
+  [
+    "src/preview/pages/KanbanDoc.tsx",
+    new Map([["bg-muted", "prosa: a `description` do componente LISTA os tokens que ele consome; não é className"]]),
+  ],
+  [
+    "src/preview/pages/PaginationDoc.tsx",
+    new Map([["bg-muted", "prosa: coluna `type` da prop table descreve o container; não é className"]]),
+  ],
+  [
+    "src/preview/pages/PipelineMemoryDoc.tsx",
+    new Map([["bg-input/50", "prosa: é o TEXTO da lição L-005, que existe pra ensinar que essa classe é o anti-pattern"]]),
+  ],
+  [
+    "src/preview/pages/updates-data.ts",
+    new Map([
+      ["bg-popover", "changelog: a entry da v0.36.0 NOMEIA a classe pra explicar o que foi corrigido; o arquivo é dado, não aplica className"],
+      ["text-popover-foreground", "changelog: idem — mesma entry, mesma razão"],
+    ]),
+  ],
+]);
+
+/**
+ * Paleta padrão do Tailwind. Não é vocabulário da bridge — funciona nos 4 canais — mas
+ * fura o sistema de tokens: um `bg-red-500` não responde a marca nem a dark mode, e
+ * nenhuma troca de tema o alcança. Medido em 2026-08-08: **0** em `src/components` e
+ * **0** em `src/examples`, ou seja o gate nasce como ratchet — não há débito a limpar,
+ * ele só impede a entrada.
+ */
+export const PALETA_TAILWIND = [
+  "red", "orange", "amber", "yellow", "lime", "green", "emerald", "teal", "cyan",
+  "sky", "blue", "indigo", "violet", "purple", "fuchsia", "pink", "rose",
+  "slate", "gray", "zinc", "neutral", "stone",
+];
+
+/**
+ * Remove comentário de bloco e de linha — citar a classe num comentário não é usá-la.
+ *
+ * ⚠️ PRESERVA as quebras de linha do comentário. Colapsar o bloco desloca todas as
+ * linhas seguintes, e o gate passa a apontar arquivo:linha ERRADO — o que é pior que
+ * não apontar, porque manda a pessoa investigar o lugar errado (L-060). Custou uma
+ * investigação de falso positivo em 2026-08-08.
+ */
 const semComentario = (src) =>
-  src.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^[ \t]*\/\/.*$/gm, "");
+  src
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "))
+    .replace(/^([ \t]*)\/\/.*$/gm, "$1");
 
 /**
  * @param {Array<{file: string, text: string}>} fontes  componentes .ts/.tsx distribuídos
@@ -91,9 +140,11 @@ export function shadcnVocab(fontes) {
   );
   const usos = [];
   for (const { file, text } of fontes) {
+    const citadas = CITACOES.get(file);
     const linhas = semComentario(text).split("\n");
     for (let i = 0; i < linhas.length; i++) {
       for (const m of linhas[i].matchAll(re)) {
+        if (citadas?.has(m[0])) continue;
         usos.push({
           classe: m[0],
           chave: m[1],
@@ -101,6 +152,37 @@ export function shadcnVocab(fontes) {
           line: i + 1,
           sugestao: EQUIVALENTE[m[1]] ?? "(sem equivalente mapeado)",
         });
+      }
+    }
+  }
+  return { usos };
+}
+
+/**
+ * Classe da paleta padrão do Tailwind (`bg-red-500`, `text-slate-700`…).
+ *
+ * Por que é defeito mesmo funcionando: a cor fica **fora do sistema**. Não muda com a
+ * marca (5 hoje), não muda no dark, e nenhuma evolução de tema a alcança — a tela
+ * envelhece sozinha enquanto o resto acompanha. É a diferença entre "renderiza" e "está
+ * sendo usado corretamente".
+ *
+ * ⚠️ Não sugere substituto de propósito: `red-500` não tem equivalente 1:1 no DS, e
+ * inventar um mapeamento aqui seria decidir design por regex. A escolha certa depende do
+ * PAPEL (é status? é marca? é neutro?) — quem escreve decide, com `.ai/context/tokens/color.md`.
+ *
+ * @param {Array<{file: string, text: string}>} fontes
+ */
+export function paletaNativa(fontes) {
+  const re = new RegExp(
+    `(?<![a-z0-9-])(?:${PREFIXOS.join("|")}|accent|caret|decoration|shadow)-(?:${PALETA_TAILWIND.join("|")})-(?:50|[1-9]00|950)(?:/\\d+)?(?![a-z0-9-])`,
+    "g",
+  );
+  const usos = [];
+  for (const { file, text } of fontes) {
+    const linhas = semComentario(text).split("\n");
+    for (let i = 0; i < linhas.length; i++) {
+      for (const m of linhas[i].matchAll(re)) {
+        usos.push({ classe: m[0], file, line: i + 1 });
       }
     }
   }

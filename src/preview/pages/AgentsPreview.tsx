@@ -713,7 +713,7 @@ function AgentModal({ agent, tab, onClose, onTab }: { agent: string; tab: "about
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[420px] max-h-[80vh] rounded-radius-base bg-bg-surface shadow-sh-lg ring-1 ring-foreground/5 overflow-hidden"
+        className="w-[420px] max-h-[80vh] rounded-radius-base bg-bg-surface shadow-sh-lg ring-1 ring-fg-default/5 overflow-hidden"
       >
         {/* Modal header */}
         <div className="flex justify-between items-center px-pad-3xl py-pad-xl border-b border-border-subtle">

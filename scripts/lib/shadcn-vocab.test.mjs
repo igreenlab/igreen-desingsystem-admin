@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join, sep } from "node:path";
 import { describe, expect, it } from "vitest";
-import { EQUIVALENTE, VOCAB_SHADCN, shadcnVocab } from "./shadcn-vocab.mjs";
+import { CITACOES, EQUIVALENTE, VOCAB_SHADCN, paletaNativa, shadcnVocab } from "./shadcn-vocab.mjs";
 
 /* Três grupos:
 
@@ -22,9 +22,16 @@ const walk = (d) =>
     return e.isDirectory() ? walk(p) : [p];
   });
 
-const COMPONENTES = walk("src/components")
-  .filter((f) => /\.tsx?$/.test(f))
-  .map((f) => ({ file: f.split(sep).join("/"), text: readFileSync(f, "utf8") }));
+const ler = (f) => ({ file: f.split(sep).join("/"), text: readFileSync(f, "utf8") });
+const tsx = (f) => /\.tsx?$/.test(f) && !/\.test\./.test(f);
+
+const COMPONENTES = walk("src/components").filter(tsx).map(ler);
+const EXEMPLOS = walk("src/examples").filter(tsx).map(ler);
+
+/* O showcase entra no escopo porque é a REFERÊNCIA de onde se copia. Uma classe fora do
+   sistema ali vira uma classe fora do sistema na tela de alguém — e ele já tinha 5 usos
+   de `ring-foreground` (corrigidos em 2026-08-08, valor preservado). */
+const SHOWCASE = walk("src/preview").filter(tsx).map(ler);
 
 describe("vocabulário shadcn em componente distribuído", () => {
   it("premissa: nenhuma das 19 chaves da bridge existe no tema gerado", () => {
@@ -41,8 +48,44 @@ describe("vocabulário shadcn em componente distribuído", () => {
     ).toEqual([]);
   });
 
-  it("está medindo os componentes, não um conjunto vazio", () => {
+  it("os exemplos distribuídos também", () => {
+    expect(shadcnVocab(EXEMPLOS).usos.map((u) => `${u.classe} — ${u.file}:${u.line}`)).toEqual([]);
+  });
+
+  it("o showcase também — é a referência de onde se copia", () => {
+    expect(
+      shadcnVocab(SHOWCASE).usos.map(
+        (u) => `${u.classe} — ${u.file}:${u.line}  → use ${u.sugestao}  (se for citação, declare em CITACOES)`,
+      ),
+    ).toEqual([]);
+  });
+
+  it("está medindo tudo, não um conjunto vazio", () => {
     expect(COMPONENTES.length).toBeGreaterThan(100);
+    expect(EXEMPLOS.length).toBeGreaterThan(50);
+    expect(SHOWCASE.length).toBeGreaterThan(100);
+  });
+});
+
+describe("paleta padrão do Tailwind em código do DS", () => {
+  /* Ratchet: nasce em ZERO. Não há débito a limpar — o gate só impede a entrada.
+     Cor da paleta nativa renderiza, mas fica FORA do sistema: não muda com a marca
+     (são 5), não muda no dark, e nenhuma evolução de tema a alcança. */
+  it("nenhum componente usa cor da paleta nativa", () => {
+    expect(paletaNativa(COMPONENTES).usos.map((u) => `${u.classe} — ${u.file}:${u.line}`)).toEqual([]);
+  });
+
+  it("nenhum exemplo distribuído usa", () => {
+    expect(paletaNativa(EXEMPLOS).usos.map((u) => `${u.classe} — ${u.file}:${u.line}`)).toEqual([]);
+  });
+
+  it("acusa o uso e NÃO acusa o token DS de nome parecido", () => {
+    const ruim = `"bg-red-500 text-slate-700 border-gray-200"`;
+    expect(paletaNativa([{ file: "x.tsx", text: ruim }]).usos.map((u) => u.classe))
+      .toEqual(["bg-red-500", "text-slate-700", "border-gray-200"]);
+    // `bg-bg-danger` e `text-fg-muted` são DS; `bg-green` sem número não é da paleta
+    const bom = `"bg-bg-danger text-fg-muted border-border-default bg-bg-success-muted"`;
+    expect(paletaNativa([{ file: "y.tsx", text: bom }]).usos).toEqual([]);
   });
 });
 
@@ -83,5 +126,30 @@ describe("shadcn-vocab — o defeito que pega e o que NÃO acusa", () => {
     for (const chave of VOCAB_SHADCN) {
       expect(EQUIVALENTE[chave], `sem equivalente para "${chave}"`).toBeTruthy();
     }
+  });
+
+  it("toda citação declarada tem motivo escrito", () => {
+    for (const [file, porClasse] of CITACOES) {
+      expect(porClasse.size).toBeGreaterThan(0);
+      for (const [classe, motivo] of porClasse) {
+        expect(motivo.length, `${file} → ${classe} sem motivo`).toBeGreaterThan(30);
+      }
+    }
+  });
+
+  it("citação vale só naquele par (arquivo, classe)", () => {
+    const alvo = "src/preview/pages/KanbanDoc.tsx";
+    expect(shadcnVocab([{ file: alvo, text: `"bg-muted"` }]).usos).toEqual([]);
+    // mesma classe, outro arquivo → reprova
+    expect(shadcnVocab([{ file: "outro.tsx", text: `"bg-muted"` }]).usos).toHaveLength(1);
+    // outra classe, arquivo declarado → reprova (não cega o arquivo)
+    expect(shadcnVocab([{ file: alvo, text: `"bg-background"` }]).usos).toHaveLength(1);
+  });
+
+  it("reporta a LINHA certa depois de um comentário de bloco", () => {
+    // Colapsar o bloco deslocava tudo abaixo e o gate apontava o lugar errado —
+    // pior que não apontar, porque manda investigar o arquivo errado (L-060).
+    const texto = ["const a = 1;", "/* comentário", "   de várias", "   linhas */", `const b = "bg-background";`].join("\n");
+    expect(shadcnVocab([{ file: "z.tsx", text: texto }]).usos[0].line).toBe(5);
   });
 });
