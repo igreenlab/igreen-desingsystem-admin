@@ -73,4 +73,32 @@ describe("runtime base — o globals.css não duplica", () => {
     // O showcase os recebe pelo @import do tema (linha 3).
     expect(/^body\s*\{/m.test(globals), "body duplicado").toBe(false);
   });
+
+  it("não declara @keyframes — são inertes ou inalcançáveis (L-067)", () => {
+    // MEDIDO no build, não deduzido. Havia 5 @keyframes aqui e o `dist/assets/*.css`
+    // mostrava a versão do FRAMEWORK saindo pra `pulse` (0.5 nativo, não o 0.3 daqui)
+    // e pra `accordion-*` (a do tw-animate-css, sem o fade daqui).
+    //
+    // Só há dois desfechos possíveis pra um @keyframes neste arquivo, e os dois são
+    // ruins: (a) o nome pertence ao Tailwind/tw-animate-css → a declaração é NO-OP
+    // silencioso, e alguém lendo o código acredita num comportamento que não existe;
+    // (b) o nome é próprio → funciona no showcase e NÃO chega em npm/copy-in/
+    // submódulo, que é a divergência clássica que o `outline-float` custou.
+    //
+    // Animação do DS pertence ao tema gerado (to-tailwind-v4.ts), com nome próprio.
+    const nomes = [...globals.matchAll(/^@keyframes\s+([\w-]+)/gm)].map((m) => m[1]);
+    expect(
+      nomes,
+      "@keyframes no globals.css: ou é no-op (nome do framework), ou não chega no consumidor. Mova pro to-tailwind-v4.ts com nome próprio",
+    ).toEqual([]);
+  });
+
+  it("não declara --animate-* — vence só no showcase", () => {
+    // `--animate-accordion-*` vencia aqui (a utility saía `animation:.2s ease-out
+    // accordion-down`) e não existia no consumidor, que caía na forma do
+    // tw-animate-css. Mesmo valor efetivo, mas é divergência de artefato — e a do
+    // pacote é mais capaz (respeita `duration-*`/`ease-*`).
+    const animate = [...globals.matchAll(/^\s*--animate-[\w-]+:/gm)].map((m) => m[0].trim());
+    expect(animate, "--animate-* pertence ao tema gerado").toEqual([]);
+  });
 });

@@ -446,7 +446,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 66 Lições (L-001 a L-066) — resumo
+## 67 Lições (L-001 a L-067) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
 
@@ -681,6 +681,27 @@ outro eixo e verifique de qual regra o token omitido herda em CADA combinação.
 pegou** (tsc 0, 159 testes, `dead-theme-classes` OK, contraste 10/10 — eu media os valores dos
 arquivos TS, não o que o cascade resolvia); quem achou foi o mantenedor num print. L-064 de novo:
 ao mexer em tema, **medir no browser com cada combinação de eixos ativa**. Detalhe: `lessons.md` L-066.
+
+### `@keyframes` com nome do framework é no-op mudo — e parece funcionando (L-067)
+
+O `globals.css` tinha 5 `@keyframes`, e a leitura do código dizia "divergência
+showcase↔consumidor": `pulse` redefinia `50% { opacity: 0.3 }` contra o `0.5` nativo, em **10
+usos distribuídos**. O **build** mostrou o contrário — `dist/assets/*.css` emitia
+`@keyframes pulse{50%{opacity:.5}}` já na `main`, e continuava emitindo depois de mover o
+bloco pro tema. A declaração perdia nos dois lugares: **`@keyframes` cujo nome o Tailwind ou
+o `tw-animate-css` já possui não sobrescreve**, independente da ordem no fonte.
+
+Só há dois desfechos, ambos ruins: nome do framework → **no-op silencioso** (e quem lê o
+código acredita num comportamento que nunca existiu); nome próprio → funciona no showcase e
+**não chega** nos outros 3 canais. Animação do DS pertence ao tema gerado, com **nome
+próprio** (`ds-pulse`, não `pulse`).
+
+**Regra prática:** antes de mover ou duplicar regra CSS entre arquivos, **grep no artefato
+BUILDADO** pra ver qual declaração sobrevive. Ler CSS-fonte e afirmar comportamento é o mesmo
+erro de ler token e afirmar pixel (L-066). Gate: `runtime-base.test.mjs` proíbe `@keyframes`
+e `--animate-*` no `globals.css`.
+
+---
 
 ## Sistema multi-marca (temas)
 
