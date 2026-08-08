@@ -45,7 +45,9 @@ description: >
 
 ## Passo 1 — DS Dev carrega skill
 
-Carregar `.claude/skills/ds-dev/update-changelog.md` via SkillTool. NUNCA confiar em memória da sessão — o skill traz o procedure completo e o checklist.
+**Ler** `.claude/skills/ds-dev/update-changelog.md` com a tool **Read** (é sub-arquivo da
+skill `ds-dev`, não uma skill própria — o Skill tool só aceita nome de skill). NUNCA
+confiar em memória da sessão: o arquivo traz o procedure completo e o checklist.
 
 A skill executa:
 1. Lê `updates-data.ts` → identifica `version` + `date` da entry no topo

@@ -1,10 +1,27 @@
 ---
 name: igreen-frontend
 description: >
-  Skill específica do iGreen DS. Substituiu a skill genérica `frontend-design`. ⚠️ A PASTA se chamava `frontend-design` e por isso era SOMBREADA pela skill global de mesmo nome — invocar `frontend-design` neste repo entregava justamente a genérica que este arquivo diz ter substituído. Renomeada pra `igreen-frontend` (batendo com o `name:` acima) em 2026-08-08
-  que conflitava com o DS (fonts não-Inter, gradients, layouts assimétricos).
-  Ativar quando criar páginas, telas, blocos ou componentes dentro do iGreen DS.
+  FALLBACK de composição visual do iGreen DS — página, bloco ou seção solta, quando
+  NENHUM builder com entrevista se aplica. Se o pedido é tabela/CRUD, lista de cards,
+  dashboard, login, shell do app ou replicar módulo, use o builder correspondente
+  (crud-builder, list-builder, dashboard-builder, auth-builder, app-builder,
+  module-replicator) — eles têm entrevista e GATE, esta não tem. Substitui a skill
+  genérica `frontend-design`, cujos defaults conflitam com o DS (fonts não-Inter,
+  gradients, layouts assimétricos).
 ---
+
+> ⚠️ **Duas correções de 2026-08-08, ambas sobre descoberta.**
+>
+> 1. **A pasta se chamava `frontend-design`** e por isso era SOMBREADA pela skill
+>    global de mesmo nome — invocar `frontend-design` neste repo entregava justamente
+>    a genérica que este arquivo diz ter substituído. Renomeada pra `igreen-frontend`,
+>    batendo com o `name:`.
+> 2. **A `description` estava gramaticalmente quebrada**: a nota do item 1 tinha sido
+>    inserida no MEIO da frase, deixando *"que conflitava com o DS (fonts não-Inter…)"*
+>    órfã, sem sujeito. Como `description` é o texto que o modelo lê pra decidir
+>    invocar, frase quebrada degrada o roteamento — e esta skill competia com **6
+>    builders** sem nenhuma desambiguação. A nova description começa dizendo que é
+>    fallback e lista quem tem precedência.
 
 # iGreen DS — Frontend Skill
 

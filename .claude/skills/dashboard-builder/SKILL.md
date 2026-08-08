@@ -28,7 +28,7 @@ memória e NÃO toca em arquivo antes do gate.
 |---|---|
 | **compõe** várias seções: KPIs rápidos + gráfico(s) + ranking/resumo numa tela de "visão geral" | 1 tabela/grade densa de registros → `crud-builder` |
 | foco em métricas/tendência/comparação, pouca edição | 1 lista de cards standalone (feed/árvore/membros) → `list-builder` |
-| ex: painel do líder, resumo de categoria, visão da rede | 1 gráfico isolado sem o resto → skill `charts` / Chart/USAGE |
+| ex: painel do líder, resumo de categoria, visão da rede | 1 gráfico isolado sem o resto → `.ai/context/components/chart-patterns.md` + `src/components/ui/Chart/USAGE.md` |
 
 Se o pedido é só UMA grade, UMA lista ou UM gráfico → **PARAR** e rotear pro builder
 certo. Dashboard = **2+ tipos de seção** numa tela de visão geral.
@@ -41,7 +41,14 @@ certo. Dashboard = **2+ tipos de seção** numa tela de visão geral.
   §5/§6). Period selector, SectionLabel, layout responsivo (1 card/row estreito,
   rows 2–3 col).
 - ⛔ CRUD denso standalone (→ `crud-builder`), lista standalone (→ `list-builder`),
-  gráfico isolado (→ `charts`), form/wizard (→ `page-edit`).
+  gráfico isolado (→ `chart-patterns.md` + `Chart/USAGE.md`), form/wizard (→ não há
+  skill dedicada **neste repo**; espelhe `src/preview/pages/OrderEditShowcase` /
+  `src/examples/edit-page`).
+
+> ⚠️ **Corrigido em 2026-08-08.** Estas duas linhas roteavam pras skills `charts` e
+> `page-edit`, que **não existem em `.claude/skills/`** — só no payload do consumidor
+> (`cli/templates/default/_claude/skills/`). Esta skill herdou rotas escritas pro
+> outro lado, e o agente do repo perdia o turno procurando. Gate: `skills-routing`.
 
 ## Fonte primária — as RECEITAS canônicas
 
@@ -110,7 +117,8 @@ doc do subprojeto (fallback GitHub). Guardrails e gate valem integralmente.
    de alerta ganha cor). Delta: `signed` só quando o sinal = bom/ruim; senão
    `tone`/`positive` explícito (ex.: "-12s" é melhora → success).
 3. **Gráfico = SEMPRE `<ChartContainer>`**, cor só por token (`--color-chart-1..5`);
-   caveats do Recharts 3 em `chart-patterns.md`/`charts`. Chart em card `h-[160px]`.
+   caveats do Recharts 3 em `.ai/context/components/chart-patterns.md` (L-032). Chart
+   em card `h-[160px]`.
 4. **Ranking/fusão** (§3) e **card dividido** (§4): divisor via `border-l`/`border-t`
    (L-039), nunca só por gap; ícone mini-stat = **quadrado** `size-comp-lg
    rounded-radius-base`, KPI-group = **círculo** `size-form-lg rounded-radius-full`.
