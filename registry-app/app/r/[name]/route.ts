@@ -1,5 +1,13 @@
+import { timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { registry } from "../../registry-data";
+
+function safeEqual(a: string, b: string): boolean {
+  const bufA = Buffer.from(a);
+  const bufB = Buffer.from(b);
+  if (bufA.length !== bufB.length) return false;
+  return timingSafeEqual(bufA, bufB);
+}
 
 // Força a rota a ser SEMPRE dinâmica e nunca cacheável no edge. Sem isso, o CDN
 // da Vercel poderia cachear um 200 autorizado com Cache-Control public e servi-lo
@@ -26,7 +34,7 @@ export async function GET(
 ) {
   const token = process.env.IGREEN_TOKEN; // lido em runtime, não no build
   const auth = req.headers.get("authorization") ?? "";
-  if (!token || auth !== `Bearer ${token}`) {
+  if (!token || !safeEqual(auth, `Bearer ${token}`)) {
     return new NextResponse("Unauthorized", { status: 401, headers: NO_STORE });
   }
   const { name } = await params;
