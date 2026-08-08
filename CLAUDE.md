@@ -352,7 +352,7 @@ Foi assim que 6 defeitos ficaram invisíveis por meses. Detalhe + os gates que c
 | `status/pipeline-state.md` | AUDIT log (append-only) | Sempre verificar no início |
 | `status/lessons.md` | LIÇÕES completas L-NNN | Sob demanda |
 | `status/BACKLOG.md` | Backlog de features | Sob demanda |
-| `specs/` | SPECS ativas (humano-facing) | Sob demanda |
+| `specs/` | SPECS de design com **status declarado** — a maioria é `IMPLEMENTADA` e fica como referência de decisão, não como frente aberta. Índice em [`.ai/specs/README.md`](.ai/specs/README.md) | Sob demanda |
 
 ### Co-localizado com o código
 

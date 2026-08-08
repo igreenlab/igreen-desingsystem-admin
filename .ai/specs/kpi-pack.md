@@ -1,5 +1,10 @@
 # Spec — KPI (componente + galeria de modelos)
 
+> **Status: IMPLEMENTADA (2026-06-23).** Virou código em `src/components/ui/Kpi/`.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 **Data:** 2026-06-23 · **Tipo:** componente (ui) + showcase · **Branch:** `feat/kpi-pack`
 
 ## O que é

@@ -1,5 +1,10 @@
 # Governança de contribuição — de convenção pra gate no servidor
 
+> **Status: IMPLEMENTADA (2026-07-29).** Virou código em `.github/workflows/ci.yml` + `CODEOWNERS` + `pull_request_template.md`.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 Spec viva da iniciativa de governança de PR/distribuição. Não substitui `CLAUDE.md`
 nem `.claude/rules/ds-standards.md` (regras de comportamento continuam valendo).
 Define **o que** vamos construir e **por quê**.
