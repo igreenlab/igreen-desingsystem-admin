@@ -172,6 +172,43 @@ justamente no lugar onde a gente olha.
 ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
 a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
 
+### O CSS gerado é COMMITADO — e desde 2026-08-08 existe gate pra isso
+
+`tailwind-theme.css` + os 4 `brand-*.css` são gerados **e** commitados (são o export
+publicado). O passo que regenera é manual, e **nenhum workflow o rodava**: `grep tokens
+.github/workflows/ci.yml` devolvia vazio. Editar token e esquecer `npm run tokens:tw4`
+passava verde em tudo — e o efeito é pior que artefato defasado comum, porque **todos** os
+gates de cor (`dead-theme-classes`, `shadcn-vocab`, `orphan-utilities`, `runtime-base`,
+`audit:token-docs`) leem justamente esse CSS: eles confirmavam a si mesmos contra um
+artefato que nada garantia estar atual.
+
+`scripts/lib/generated-artifacts.mjs` (no `npm test`) regenera cada artefato pelo MESMO
+transform do `package.json` e compara com o disco, apontando a **primeira linha**
+divergente + o comando que conserta. Checa também **cobertura**: `.css` em
+`src/styles/theme/` sem gerador conhecido reprova — senão uma 6ª marca entraria sem
+conferência e o resumo diria "✓ N em sync" sobre conjunto incompleto.
+
+### As duas listas de exceção NÃO são a mesma
+
+| Lista | Significa | Hoje |
+|---|---|---|
+| `ds-exceptions.mjs` → `DS_EXCEPTIONS` | não vai pro **registry/showcase** | 8 (TabelaTeste, TableToolbar, 6 internos do example-chat) |
+| `barrel-completeness.mjs` → `BARREL_EXCEPTIONS` | não vai pro **npm** (barrel) | 1 (TabelaTeste) |
+
+Os 6 internos do example-chat são exceção de registry **e estão** no barrel — viajam pelo
+npm junto do exemplo. Usar a lista errada isentaria 6 componentes hoje corretos, e o gate
+pararia de proteger justamente eles. Ambas exigem **motivo** por entrada, e ambas reprovam
+exceção morta (pasta que sumiu, ou que já entrou no barrel).
+
+### Dep real inclui dep de TIPO (`scripts/lib/deps-declared.mjs`)
+
+A L-037/L-058 ("declare as deps reais") não tinha gate. `deps-declared` varre os
+diretórios publicados e exige que todo import externo esteja em
+`dependencies`/`peerDependencies` — resolvendo `from "geojson"` por `@types/geojson`
+(convenção DefinitelyTyped). Três armadilhas de parsing estão travadas por teste, todas
+medidas aqui: import dentro de **JSDoc**, a chave `"line-file-import"` de `icons.ts` (que
+um regex frouxo lê como pacote `:`), e tipo que só existe em `@types/X`.
+
 ### Classe de cor morta — o gate cobre CÓDIGO **e** DOC (2026-08-08)
 
 `dead-theme-classes` reprova classe de cor cuja CSS var não existe no tema. Cobria só
@@ -485,7 +522,7 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 - **L-038** Default vindo do column-type (`defaultAlign`/`defaultEllipsis`) deve ser resolvido na **fonte única** (`effectiveColumns` em `use-data-table-columns.ts`), nunca por render-site. Header/footer liam só `col.align` cru e divergiam do body em `type:"currency"/"number"` sem `align` explícito (não reproduz no showcase, só no consumidor). Validar no cenário SEM o override.
 - **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e **PROIBIDO** usar `bg-popover`/`text-popover-foreground` — ou qualquer das 19 chaves da bridge (`background` `foreground` `card` `popover` `primary` `secondary` `muted` `accent` `destructive` `border` `input` `ring` + `-foreground`). Elas só existem no `globals.css`/`index.css`, não viajam pros canais npm e submódulo, e a cor cai em `currentColor`. Gate: `scripts/lib/shadcn-vocab.mjs` no `npm test`; a tabela `EQUIVALENTE` dele dá o token DS de cada chave.
 - **L-040** Componente **flutuante** (menu/popover/painel) segue a **receita única** do DS — espelhar `dropdown-menu.tsx`/`popover.tsx`, nunca os defaults shadcn. Superfície: `relative bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float` + frosted `before:backdrop-blur-2xl ...` + `text-fg-default/-muted`. Item: `px-pad-lg py-pad-md rounded-radius-sm text-fg-muted focus:bg-bg-muted focus:text-fg-default` (ativo `bg-bg-brand-subtle/fg-brand`, destructive danger). Separator/Label/Shortcut por token. Tooltip é exceção (menor). Delay default: Tooltip 200 / HoverCard openDelay 200 (Radix 700 é lento).
-- **L-042** Componente novo toca **7 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog. 1–4 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa.
+- **L-042** Componente novo toca **8 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog · (8) **barrel** (`src/components/index.ts` — define o canal npm). 1–4 e 8 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa 2/3/5/6 + showcase; o barrel é gate (`barrel-completeness`). **A 8ª entrou em 2026-08-08**: era a única superfície sem nenhuma vigilância, e por isso `Chart`/`DataList`/`List`/`Toast` passaram meses com 6 de 7 fechadas e `import { ChartContainer }` estourando "not exported" no consumidor npm.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push no `empresa` + `gh pr create --repo igreenlab/igreen-desingsystem-admin` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
 
@@ -496,7 +533,7 @@ nativa do Tailwind. Classe correta = **`max-w-md`** (768px do DS) / `max-w-toolt
 `max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa
 (não quebra build nem tsc). Detalhe + por que não mudamos o transform: `lessons.md` L-057.
 
-### As 7 superfícies são DETECÇÃO, não burocracia (L-058)
+### As 8 superfícies são DETECÇÃO, não burocracia (L-058)
 
 `ChoroplethMap` tinha só código + USAGE + barrel (1 de 7). Um merge de reorganização o
 tirou da `main` e **nenhum sinal disparou** — não havia inventory pra ficar órfã, doc page
