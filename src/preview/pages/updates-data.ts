@@ -46,6 +46,34 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.35.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "O CSS que só existia no showcase agora viaja — npm saía com 9 regras de estilo",
+    summary:
+      "Parte do CSS de que os componentes dependem morava em dois arquivos mantidos à mão — o `globals.css` do showcase e o `index.css` do scaffold — que **deveriam ser equivalentes e derivaram**. O que estava só no primeiro nunca chegou em quem consome por **npm** ou **submódulo**. Tudo isso mudou para o `tailwind-theme.css`, que é o **único arquivo que os três canais leem**. O showcase não perdeu nada: continua recebendo pelo `@import` do tema.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O canal npm entregava 9 regras de CSS.** Seguindo a documentação à risca, os componentes renderizavam **sem estilo nenhum** — o `<Button>` saía transparente, com 24px de altura e sem cantos. A causa é o Tailwind v4 não escanear `node_modules`: sem a diretiva `@source`, nenhuma classe do DS é gerada. O README agora traz o setup completo, e a linha precisa cobrir `dist-lib/**` — as classes dos componentes flutuantes vivem nos *chunks*, não no arquivo principal.",
+          "**Toda superfície flutuante estava sem o contorno externo.** A classe `outline-float` (o halo de 6px) só existia no CSS do showcase, e **14 componentes a usam** — Modal, Panel, FloatingPanel, Header, dialog, popover, select, dropdown-menu, command, context-menu, menubar, hover-card, alert-dialog e navigation-menu. Em todo projeto de consumidor, desde sempre, ela não renderizava. O token de cor viajava; a classe que o consome, não — por isso nenhum gate acusava.",
+          "**Menu mobile não colava no rodapé.** A regra que transforma dropdown e popover em bottom-sheet abaixo de 768px também vivia só no showcase (L-030/L-031).",
+          "**Fonte Geist não chegava no npm.** Faltavam as três peças: as declarações `@font-face`, as variáveis `--font-sans`/`--font-mono` e os próprios arquivos — que existiam no build mas nem eram publicados. Toda a tipografia caía em `system-ui`, com os 27 presets do DS renderizando na fonte errada. Agora o build copia os `.woff2` e o pacote os leva; o consumidor npm precisa copiá-los pro `public/fonts/` dele (uma linha, documentada no README).",
+          "**Dark mode no npm respondia ao sistema operacional, não ao app.** Sem o `@custom-variant dark`, o `dark:` do Tailwind vira `prefers-color-scheme` — então o tema do SO vazava nos dois sentidos: app claro com SO escuro disparava estilos dark, e vice-versa. E sem as regras de `body`, o dark mostrava cards escuros sobre **fundo branco**, com o texto branco invisível.",
+          "**Animações de entrada/saída mortas no npm.** Overlays apareciam e sumiam sem transição por falta do `tw-animate-css` — 79 classes sem efeito. Documentado como import opcional.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Dois gates novos, ambos validados reproduzindo o defeito real.** O primeiro reprova qualquer `@utility` que um componente use e que não esteja no tema gerado — era o buraco por onde o `outline-float` passou meses. O segundo verifica que as 7 peças de runtime estão no tema, que a cópia do CLI é idêntica à fonte, e **proíbe o `globals.css` de redeclarar** qualquer uma delas: duplicar faz o showcase mascarar a ausência no consumidor, que foi exatamente como isso ficou invisível.",
+          "**Nenhum projeto existente muda de comportamento.** Declarar `@custom-variant` duas vezes faz a segunda declaração vencer, e o `index.css` do scaffold declara a dele **depois** de importar o tema — então projeto já criado mantém o que tinha. Quem ganha é o npm, o submódulo e todo scaffold novo.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.34.0",
     date: "2026-08-07",
     tag: "preview",
