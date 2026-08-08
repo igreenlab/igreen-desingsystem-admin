@@ -81,6 +81,23 @@ export default defineConfig({
           console.warn("⚠ theme.css não encontrado em src/styles/theme/ — rodar npm run tokens:tw4 antes");
         }
 
+        // Fontes Geist. O `@font-face` do tema declara a família apontando pra
+        // `/fonts/*.woff2` — caminho relativo à RAIZ DO SITE, não ao pacote.
+        // Showcase e scaffold têm `public/fonts/`; o consumidor npm não, então ele
+        // precisa copiar estes dois arquivos pro `public/` dele (documentado no
+        // README). Publicamos pra que exista o que copiar — antes de 2026-08-07 os
+        // .woff2 em dist-lib/fonts eram resquício de abril e `files` nem os incluía.
+        const fontsSrc = path.resolve(__dirname, "public/fonts");
+        if (fs.existsSync(fontsSrc)) {
+          const woff = fs.readdirSync(fontsSrc).filter((f) => /\.woff2$/.test(f));
+          if (woff.length) {
+            const dst = path.resolve(__dirname, "dist-lib/fonts");
+            fs.mkdirSync(dst, { recursive: true });
+            for (const f of woff) fs.copyFileSync(path.join(fontsSrc, f), path.join(dst, f));
+            console.log(`✓ ${woff.length} fonte(s) copiada(s) para dist-lib/fonts/`);
+          }
+        }
+
         const overlays = fs.existsSync(themeDir)
           ? fs.readdirSync(themeDir).filter((f) => /^brand-.+\.css$/.test(f))
           : [];

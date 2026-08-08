@@ -9,29 +9,17 @@
 @import "./theme/brand-vibrant.css";
 
 /* ── Geist font (variable) ─────────────────────────────────────────────────── */
-@font-face {
-  font-family: 'Geist';
-  src: url('/fonts/Geist-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Font vars (sobrescreve o default do Tailwind) ─────────────────────────── */
-@theme inline {
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', 'Fira Code', monospace;
-}
-
-/* Forçar dark mode via classe .dark apenas (ignorar prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* `@font-face` do Geist, `--font-sans`/`--font-mono` e o `@custom-variant dark`
+ * MUDARAM-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
+ * buildRuntimeBase) em 2026-08-07.
+ *
+ * Motivo: o `tailwind-theme.css` é o ÚNICO arquivo que os 3 canais leem. Aqui
+ * estas regras só existiam pro showcase — consumidor npm e submódulo ficavam sem
+ * fonte Geist e com `dark:` preso ao prefers-color-scheme do SO.
+ *
+ * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor, e
+ * no caso do `@custom-variant` a SEGUNDA declaração vence — reintroduzir mudaria a
+ * especificidade sem ninguém perceber. */
 
 /**
  * globals.css — Tailwind v4 + Shadcn compatibility + preview shell vars
@@ -115,29 +103,15 @@
 
 /* ── HTML base ──────────────────────────────────────────────────────────────── */
 
-html {
-  font-family: var(--font-sans);
-}
-
-body {
-  min-height: 100vh;
-  background-color: var(--color-bg-canvas);
-  color: var(--color-fg-default);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* ── Base resets ────────────────────────────────────────────────────────────── */
-
-@layer base {
-  button {
-    cursor: pointer;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-}
+/* `html { font-family }`, `body { min-height/background/color }` e o
+ * `@layer base { button { cursor: pointer } }` MUDARAM-SE para o tema gerado
+ * (to-tailwind-v4.ts, buildRuntimeBase) em 2026-08-07 — mesmo motivo dos blocos
+ * acima. Sem o `body`, o consumidor em dark mostrava card escuro sobre FUNDO
+ * BRANCO, com texto `fg-default` (branco) invisível.
+ *
+ * `a { color: inherit; text-decoration: none }` NÃO foi movido: o preflight do
+ * Tailwind v4 já faz isso (`color: inherit; text-decoration: inherit`), então era
+ * redundante aqui e seria redundante lá. Removido. */
 
 /* ── Outline float utility ─────────────────────────────────────────────────
  * Outline de 6px pra elementos flutuantes (panels, drawers, modais,
