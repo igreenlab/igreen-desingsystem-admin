@@ -281,6 +281,52 @@ function buildScrollbarUtilities(): string {
 }`;
 }
 
+// ── Utilities de superfície flutuante ────────────────────────────────────────
+//
+// ⚠️ Estas MORAVAM no `src/styles/globals.css`, que é o CSS do SHOWCASE e não
+// viaja pra canal nenhum. Resultado medido em 2026-08-07: 14 componentes
+// distribuídos (Modal, Panel, FloatingPanel, Header, dialog, popover, select,
+// dropdown-menu, command, context-menu, menubar, hover-card, alert-dialog,
+// navigation-menu) referenciavam `outline-float`, e a classe não existia em npm,
+// copy-in nem scaffold — o outline de 6px simplesmente não renderizava no
+// consumidor. O token (`--color-overlay-float`) viajava; a utility que o consome,
+// não. Falha silenciosa clássica: sem erro, sem aviso, só diferente do showcase.
+//
+// Quem achou foi o mantenedor comparando um print do projeto dele com o showcase.
+//
+// REGRA: utility custom que COMPONENTE DISTRIBUÍDO usa pertence AQUI, no tema
+// gerado — nunca ao `globals.css`. O `scrollbar-thin` acima já seguia isso e é o
+// precedente. Ao criar uma nova, pergunte "algum componente de src/components/
+// referencia isso?" — se sim, é daqui.
+function buildFloatingUtilities(): string {
+  return `@utility outline-float {
+  outline: 6px solid var(--color-overlay-float);
+  outline-offset: 0;
+}
+
+/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).
+ *
+ * O Radix Popper envolve o Content num wrapper posicionado por \`transform\`
+ * inline, fora do alcance do className do Content — só dá pra alcançá-lo por
+ * seletor global. Sem este bloco, um menu marcado \`mobileSheet\` abre flutuando
+ * na posição calculada pelo Popper em vez de colar no rodapé.
+ *
+ * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,
+ * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e
+ * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */
+@media (width < 768px) {
+  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    transform: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    z-index: 60 !important;
+  }
+}`;
+}
+
 // ── Typography @utility blocks ────────────────────────────────────────────────
 
 function buildTypographyUtilities(): string {
@@ -372,7 +418,11 @@ ${toBlock(darkVars)}
 ${buildTypographyUtilities()}
 /* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */
 
-${buildScrollbarUtilities()}`;
+${buildScrollbarUtilities()}
+
+/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */
+
+${buildFloatingUtilities()}`;
 }
 
 // ── CLI ───────────────────────────────────────────────────────────────────────
