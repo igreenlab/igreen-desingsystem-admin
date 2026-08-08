@@ -83,7 +83,7 @@ Usar tabela de tokens por variant:
 ```markdown
 variant: horizontal | vertical  (ou size: sm | md | lg)
 Sem color variants — usar tokens neutros diretos:
-  bg-border-main, text-fg-default, text-fg-muted
+  bg-bg-subtle, border-border-default, text-fg-default, text-fg-muted
 ```
 
 ### Componente composto (FormField, SearchInput)

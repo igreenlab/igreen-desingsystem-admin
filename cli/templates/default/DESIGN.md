@@ -35,7 +35,7 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 // Conteúdo da página vive dentro do seu AppShell/layout, que dá a altura.
 <div className="flex flex-col h-full min-h-0 gap-gp-2xl">
   <PageHeader title="..." description="..." badge={...} actions={...} />
-  {/* 24px (gap-gp-2xl) entre o PageHeader e o próximo bloco — NUNCA grudado */}
+  {/* 16px (gap-gp-2xl) entre o PageHeader e o próximo bloco — NUNCA grudado */}
   <DataTable ... className="flex-1 min-h-0" />   {/* ou Card / Tabs / grid de KPIs */}
 </div>
 ```
@@ -44,10 +44,10 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 
 | Onde | Classe | Valor |
 |---|---|---|
-| PageHeader → conteúdo | `gap-gp-2xl` | 24px |
+| PageHeader → conteúdo | `gap-gp-2xl` | 16px |
 | Entre fields de um form | `gap-form-gap` | 20px |
-| Entre cards / KPIs | `gap-gp-md` / `gap-gp-lg` | 8–12px |
-| Padding interno de card | `p-pad-card-base` / `p-pad-2xl` | 24px |
+| Entre cards / KPIs | `gap-gp-md` / `gap-gp-lg` | 8–10px |
+| Padding interno de card | `p-pad-card-base` (24px) / `p-pad-2xl` (16px, compacto) | — |
 | Seção major | `gap-gp-6xl` | 32px |
 | Ícone → texto | `gap-gp-xs` / `gap-gp-sm` | 4–6px |
 

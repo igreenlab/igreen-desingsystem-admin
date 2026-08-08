@@ -100,6 +100,7 @@
     "tokens:check": "tsc --noEmit",
     "brand:check": "node scripts/brand-check.mjs",
     "brand:contrast": "node scripts/brand-contrast.mjs",
+    "audit:token-docs": "node scripts/audit-token-docs.mjs",
     "registry:stamp": "node scripts/registry-stamp.mjs",
     "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
     "release:check": "node scripts/registry-check.mjs --ci && node scripts/brand-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs && npm run registry-app:audit",

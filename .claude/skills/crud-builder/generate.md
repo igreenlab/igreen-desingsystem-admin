@@ -179,7 +179,7 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 
 | Conteúdo da célula        | Padrão                                                                                                  |
 | ------------------------- | ------------------------------------------------------------------------------------------------------ |
-| **Coluna primária (nome)**| `isPrimary` + `render`: `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` em `size-[24px] rounded-radius-sm border bg-bg-canvas shadow-sh-sm`) quando o row click abre painel |
+| **Coluna primária (nome)**| `isPrimary` + `render`: `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` em `size-[24px] rounded-radius-sm border border-border-default bg-bg-canvas shadow-sh-sm` (o `24px` é o tamanho do botão; o radius é 6px)) quando o row click abre painel |
 | **Status / badge**        | `type: "badge"` + `render`: `<Chip variant="soft" size="sm" shape="pill">` (cor semântica). **Nunca** pill na unha com classes manuais |
 | **Avatar**                | `size="md"` na tabela (não `sm`); `colorHex` p/ cor de marca, senão `color` semântico                  |
 | **Números / moeda / %**   | `tabular-nums`; moeda/percent via `type` (`currency`/`percentage`) + `align: "right"`                   |

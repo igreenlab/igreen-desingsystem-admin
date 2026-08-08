@@ -83,7 +83,7 @@ Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 6. Card via slots OU `renderItem` (não os dois). Forms (criar/editar em drawer)
    usam `<FormField>` + `gap-form-gap`.
 7. Classes DS antes de Tailwind literal; zero hardcode de cor/tamanho (ver `.claude/rules/ds-design.md`).
-8. Wrapper da tela: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 24px → lista). Ver `DESIGN.md`.
+8. Wrapper da tela: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 16px → lista). Ver `DESIGN.md`.
 9. Página registrada no roteador do usuário — página órfã = tarefa incompleta.
 10. `npx tsc --noEmit` limpo antes do handoff (abort-on-error).
 11. LER o exemplo canônico ANTES de gerar — nunca de memória.

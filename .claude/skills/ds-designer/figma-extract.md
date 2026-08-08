@@ -35,7 +35,7 @@ description: >
 | px (font-size) | rem (÷16): 14px → 0.875rem |
 | px (spacing) | verificar escala: 8px → gap-gp-md |
 | hex/rgb/hsl | verificar role semântico: #3B82F6 → bg-bg-brand |
-| border-radius px | verificar escala: 26px → rounded-radius-base |
+| border-radius px | verificar escala: 10px → `rounded-radius-lg` · 14px → `xl` · 18px → `2xl` · 22px → `3xl` · 26px → `4xl`. ⚠️ `rounded-radius-base` é ALIAS de `lg` (10px), NÃO 26px |
 | box-shadow | verificar nível: leve → shadow-sh-sm |
 
 ## Formato de output (completo)
@@ -47,7 +47,7 @@ description: >
 |----------|-------------|----------|--------|
 | Fundo botão primário | #338449 | bg.primary | bg-bg-brand |
 | Texto botão | #FFFFFF | fg.on-primary | text-fg-on-brand |
-| Border-radius botão | 26px | radius.base | rounded-radius-base |
+| Border-radius botão | 10px | radius.lg | rounded-radius-lg |
 | Font-size label | 14px | title-sm | text-title-sm |
 | Gap icon-to-text | 8px | gap.md | gap-gp-md |
 

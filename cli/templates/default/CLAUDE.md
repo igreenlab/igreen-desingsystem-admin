@@ -134,7 +134,7 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
 
 - **`DESIGN.md`** (raiz) — guia de composição: anatomia de tela, ritmo de espaçamento
-  (24px pós-PageHeader, `gap-form-gap` em form), do/don't de tokens, responsividade.
+  (16px pós-PageHeader, `gap-form-gap` 20px em form), do/don't de tokens, responsividade.
   **Leia antes de montar qualquer tela.** A API de cada componente fica no
   `USAGE.md` ao lado dele (`src/components/ui/<Nome>/USAGE.md`).
 - **`.claude/rules/ds-design.md`** — regras duras, **auto-carregadas** (você aplica
@@ -211,9 +211,11 @@ gap-4 → gap-gp-md          p-4 → p-sp-md
 rounded-lg → rounded-radius-lg   shadow-md → shadow-sh-md
 // ❌ Heights fixos
 h-9 → min-h-form-md   h-10 → min-h-form-lg   h-11 → min-h-form-xl (WCAG mobile)
-// ❌ Ring / focus
-ring-ring-primary/30 → ring-ring-primary   ring-3 → ring-4
+// ❌ Ring / focus  (o token ja tem alpha — nunca /30; e `ring-3` nao existe no Tailwind)
+ring-ring-brand/30 → ring-ring-brand   ring-3 → ring-4
 outline-none → focus-visible:outline-none
+// ❌ `ring-ring-primary` NAO EXISTE (V2 extinta) — os 6 rings reais sao
+//    brand · secondary · success · warning · danger · info
 // ❌ Tipografia avulsa
 text-sm font-medium → text-body-md font-medium
 text-[14px] → text-body-md
