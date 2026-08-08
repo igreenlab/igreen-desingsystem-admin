@@ -199,16 +199,17 @@ function buildOpacityVars(): Record<string, string> {
   return result;
 }
 
-// ── Blur vars ─────────────────────────────────────────────────────────────────
-// unused — Tailwind nativo usado diretamente (blur-sm, blur-md, blur-lg, blur-xl)
-
-function buildBlurVars(): Record<string, string> {
-  const result: Record<string, string> = {};
-  for (const [key, value] of Object.entries(elevation.blur)) {
-    result[`--blur-${key}`] = value;
-  }
-  return result;
-}
+// ── Blur ──────────────────────────────────────────────────────────────────────
+//
+// NÃO há `buildBlurVars()`. A escala de blur do Tailwind é numericamente idêntica à
+// de `elevation.blur` (4/8/16px), então emitir `--blur-*` só criaria um segundo nome
+// pro mesmo valor — use `blur-sm`/`blur-md`/`blur-lg` nativos, e `backdrop-blur-2xl`
+// na receita de flutuante (L-040).
+//
+// A função existia aqui, marcada `// unused`, e **nunca era chamada** — removida em
+// 2026-08-08. `elevation.blur` **continua** exportado em `tokens/index.ts` (é API
+// pública do entry `./tokens`, e um consumidor pode legitimamente ler os valores);
+// o que saiu foi só o gerador de CSS var que ninguém consumia.
 
 // ── Z-Index vars ──────────────────────────────────────────────────────────────
 

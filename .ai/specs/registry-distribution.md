@@ -1,5 +1,10 @@
 # iGreen DS como provedor — registry shadcn (copy-in) + MCP
 
+> **Status: IMPLEMENTADA (2026-07-08).** Virou código em `registry.json` + `registry-app/` + `npm run registry:build`.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 Spec viva da iniciativa de distribuição. Não substitui `CLAUDE.md` nem
 `.claude/rules/ds-standards.md` (regras de comportamento continuam valendo).
 Define **o que** vamos construir e **por quê**.

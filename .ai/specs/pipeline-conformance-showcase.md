@@ -1,5 +1,10 @@
 # Conformance arquitetural + registro de showcase
 
+> **Status: IMPLEMENTADA (2026-07-29).** Virou código em `scripts/lib/showcase-registration.mjs` + `ds-exceptions.mjs`.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 Spec da 2ª rodada de governança do pipeline. Continua de
 [`pipeline-governance-ci.md`](pipeline-governance-ci.md), que fechou as Camadas 1
 e 2 (proteção da `main` + gate determinístico de token). Não substitui `CLAUDE.md`

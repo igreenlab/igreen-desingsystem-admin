@@ -55,6 +55,25 @@ token" silencioso.
 
 ---
 
+## 🧹 347 MB de diretório não-versionado na árvore de trabalho (achado 2026-08-08)
+
+Dois diretórios grandes, **gitignorados** (então não estão no repo — é lixo de disco local,
+não débito de código). Não removi nenhum: apagar working tree alheia não é decisão de PR.
+
+| Dir | Tamanho | O que é | Veredito |
+|---|---|---|---|
+| `design-tabela/` | **207 MB** | clone de `github.com/snksergio/backofficetable.git` com `.git` próprio; serviu de referência arquitetural pro `DataTable`. Última alteração **2026-04-14**; referenciado só por specs já arquivadas | **removível** — `rm -rf design-tabela` recupera 207 MB. É um repo separado, nada aqui importa dele |
+| `my-app/` | **140 MB** | scaffold real do dogfood (`npm create`), commit único de 2026-08-08 | **descartável, mas recente e útil.** ⚠️ Hoje está **31 arquivos defasado** do `cli/templates/default/_claude` — se for reusar pra validar algo, **regere** em vez de confiar no que está lá |
+
+Também: `.ai/scratch/` (gitignorado) tem **800 KB de PNG** de validação de maio
+(`datatable-autofit-validation.png`, `datatable-column-types-validation.png`), parados há 3
+meses. O `hook-log.txt` do mesmo diretório é ativo e deve ficar.
+
+**Ao reabrir:** confira antes se você (ou outra sessão) não tem trabalho não-commitado
+dentro de `design-tabela/` — ele tem `.git` próprio, então `git status` da raiz não mostra.
+
+---
+
 ## 📄 `alert-dialog` é o único componente do registry sem DocPage (achado 2026-08-08)
 
 Medido na auditoria: dos **75** componentes do `registry.json`, 74 têm rota de showcase.
