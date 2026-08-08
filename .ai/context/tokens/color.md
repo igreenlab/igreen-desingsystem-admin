@@ -118,8 +118,16 @@ Não existe `fg.on-primary` (esse é o nome V2, extinto).
 | Status | `success` · `warning` · `danger` · `info`, cada um com `-hover`, `-muted`, `-muted-hover` |
 | Form / chrome | `input` (+`-hover`) · `dropdown` · `sidebar` · `sidebar-accent` (+`-hover`) |
 | Tabela | `table` · `table-head` · `table-row-hover` · `table-row-selected` (+`-hover`, `-solid`, `-hover-solid`) |
+| Scrollbar | `scrollbar-thumb` (+`-hover`) — ⚠️ **alpha, não cor sólida** (ver abaixo) |
 
 Hierarquia obrigatória de fundo: `canvas < surface < subtle < muted` (L-008).
+
+⚠️ `bg.scrollbar-thumb` / `-hover` são a **única exceção** do grupo: valem `alpha.black[24/32]`
+no light e `alpha.white[24/32]` no dark, iguais nas 5 marcas. A barra precisa de contraste
+**próprio**, independente da cor de superfície da marca — por isso alpha neutro e não um token
+de superfície. Consumidos só pelos `@utility scrollbar-*` do transform; não use como fundo de
+elemento. Antes deles a utility usava `bg.muted-hover`, que no light é cinza **opaco** sobre
+branco: a barra sumia em todo consumidor, e o showcase mascarava com um override hardcoded.
 
 ### `fg.*` — texto e ícones
 

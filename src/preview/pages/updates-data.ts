@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.36.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "A barra de rolagem não aparecia em nenhum consumidor — e o showcase escondia isso",
+    summary:
+      "A versão anterior levou pro tema o CSS que só existia no showcase. Esta fecha o inverso: o que o showcase **sobrescrevia**. Um override de scrollbar escrito à mão no `globals.css` fazia a barra aparecer aqui e em lugar nenhum — o único lugar onde a gente olha era o único onde funcionava. Mais duas divergências do mesmo tipo, achadas comparando os dois lados no navegador em vez de ler o código.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Barra de rolagem invisível em todo consumidor.** A utility `scrollbar-thin` do tema usava um cinza **opaco** que, sobre fundo branco, simplesmente não aparecia. O showcase não sofria porque o `globals.css` tinha um override próprio, com valores escritos à mão — e classe comum vence `@utility`. Alcance: **16 usos em 10 componentes** distribuídos (DataTable, DataList, Command, Drawer, dropdowns), nos três canais, desde sempre.",
+          "**A superfície do `Command` ignorava o tema fora do scaffold.** Ela usava `bg-popover`/`text-popover-foreground` — vocabulário do **shadcn**, que depende de um mapeamento que só existe no `index.css` do scaffold. Em npm e submódulo a paleta caía no default do shadcn em vez dos tokens iGreen. Era a única ocorrência de vocabulário shadcn em todo o pacote publicado.",
+          "**`dark:` vencia `hover:` em projeto novo.** O `index.css` do scaffold redeclarava a variante `dark` com especificidade maior que a do tema, e como era a segunda declaração, ganhava. Efeito: na mesma propriedade, o estilo de dark suprimia o de hover — sem erro, sem aviso. Projeto **já criado** mantém o comportamento atual; isto só muda projeto novo.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Tokens `bg.scrollbar-thumb` e `bg.scrollbar-thumb-hover`.** Nenhum token existente resolvia certo nos dois modos, então a barra ganhou os seus. São a única exceção do grupo `bg.*`: valem **alpha neutro**, não cor sólida — a barra precisa de contraste próprio, independente da cor de superfície da marca. Por isso resolvem idêntico nas 5 marcas e não aparecem no diff de nenhum overlay.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**O showcase não mudou um pixel** — verificado no navegador, claro e escuro, antes e depois: os tokens novos valem exatamente o que o override escrito à mão valia. E o consumidor foi verificado do outro lado, num projeto de submódulo real com build do Vite, onde as variáveis agora chegam e são consumidas. Era a única forma de fechar as duas pontas: o valor não podia mudar aqui e não podia continuar ausente lá.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.35.0",
     date: "2026-08-08",
     tag: "preview",

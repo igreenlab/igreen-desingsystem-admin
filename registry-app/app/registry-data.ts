@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · accordion · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · alert-dialog · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · alert-modal · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · alert · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · app-shell · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · aspect-ratio · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · avatar-ig · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · avatar · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · badge · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · breadcrumb · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · button-group · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · button · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · calendar · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · card-checkbox · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · card · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · carousel · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · chart · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · checkbox · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · chip · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · choropleth-map · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · collapsible · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · color-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · combobox · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -860,13 +860,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/command.tsx",
-        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { type DialogProps } from \"@radix-ui/react-dialog\"\r\nimport { Command as CommandPrimitive } from \"cmdk\"\r\nimport { Search } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Dialog, DialogContent, DialogTitle } from \"@/components/shadcn/dialog\"\r\n\r\n/**\r\n * Command — alinhado com o views-popover do design-and-table-v2.\r\n *\r\n * Estrutura:\r\n *   - <Command> raiz (flex column)\r\n *   - <CommandInput> = input \"real\" boxed (bg-input + border + radius-lg + shadow)\r\n *   - <CommandList> com padding 4px\r\n *   - <CommandGroup> heading uppercase + items\r\n *   - <CommandItem> radius-lg (10px), px 12, py 8, font 13px, ícones 18px\r\n *\r\n * Pattern do input replica `.tbl-views-pop-search` exatamente.\r\n */\r\n\r\nconst Command = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-full w-full flex-col overflow-hidden p-pad-xl bg-popover text-popover-foreground\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommand.displayName = CommandPrimitive.displayName\r\n\r\nconst CommandDialog = ({ children, ...props }: DialogProps) => {\r\n  return (\r\n    <Dialog {...props}>\r\n      <DialogContent\r\n        hideClose\r\n        // A11y: Radix exige título; aqui é sr-only (paleta de comando não tem\r\n        // header visível) e opt-out de descrição.\r\n        aria-describedby={undefined}\r\n        className={cn(\r\n          \"overflow-hidden p-0 gap-0 sm:max-w-[384px]\",\r\n          \"rounded-[12px] border border-border-default\",\r\n          // Outline padrão de elementos flutuantes\r\n          \"outline-float\"\r\n        )}\r\n      >\r\n        <DialogTitle className=\"sr-only\">Comando</DialogTitle>\r\n        <Command>{children}</Command>\r\n      </DialogContent>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\n/* ── Input boxed (igual views-popover search) ─────────────────────────────── */\r\nconst CommandInput = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Input>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    cmdk-input-wrapper=\"\"\r\n    className={cn(\r\n      \"flex items-center gap-gp-md h-form-md px-pad-xl rounded-radius-lg\",\r\n      \"bg-bg-input border border-border-subtle shadow-sh-sm\",\r\n      \"transition-[border-color,box-shadow,background-color] duration-150\",\r\n      \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n      \"dark:bg-bg-muted dark:border-border-input dark:shadow-sh-none\"\r\n    )}\r\n  >\r\n    <Search className=\"size-[14px] text-fg-muted shrink-0\" strokeWidth={1.8} />\r\n    <CommandPrimitive.Input\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n        \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </div>\r\n))\r\nCommandInput.displayName = CommandPrimitive.Input.displayName\r\n\r\n/* ── List ─────────────────────────────────────────────────────────────────── */\r\nconst CommandList = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"max-h-[300px] overflow-y-auto overflow-x-hidden mt-pad-md scrollbar-thin\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandList.displayName = CommandPrimitive.List.displayName\r\n\r\nconst CommandEmpty = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Empty>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>\r\n>((props, ref) => (\r\n  <CommandPrimitive.Empty\r\n    ref={ref}\r\n    className=\"py-pad-5xl text-center text-body-md text-fg-muted\"\r\n    {...props}\r\n  />\r\n))\r\nCommandEmpty.displayName = CommandPrimitive.Empty.displayName\r\n\r\n/* ── Group (heading uppercase 28px, sem padding extra no group) ──────────── */\r\nconst CommandGroup = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Group>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Group\r\n    ref={ref}\r\n    className={cn(\r\n      \"overflow-hidden text-fg-default\",\r\n      \"[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center\",\r\n      \"[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl\",\r\n      \"[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold\",\r\n      \"[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider\",\r\n      \"[&_[cmdk-group-heading]]:text-fg-subtle\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandGroup.displayName = CommandPrimitive.Group.displayName\r\n\r\nconst CommandSeparator = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCommandSeparator.displayName = CommandPrimitive.Separator.displayName\r\n\r\n/* ── Item: px-12 py-8, radius-lg (10px), font 13px, ícones 18px ───────────── */\r\nconst CommandItem = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl py-pad-md\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default\",\r\n      \"data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandItem.displayName = CommandPrimitive.Item.displayName\r\n\r\nconst CommandShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nCommandShortcut.displayName = \"CommandShortcut\"\r\n\r\nexport {\r\n  Command,\r\n  CommandDialog,\r\n  CommandInput,\r\n  CommandList,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandItem,\r\n  CommandShortcut,\r\n  CommandSeparator,\r\n}\r\n",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { type DialogProps } from \"@radix-ui/react-dialog\"\r\nimport { Command as CommandPrimitive } from \"cmdk\"\r\nimport { Search } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Dialog, DialogContent, DialogTitle } from \"@/components/shadcn/dialog\"\r\n\r\n/**\r\n * Command — alinhado com o views-popover do design-and-table-v2.\r\n *\r\n * Estrutura:\r\n *   - <Command> raiz (flex column)\r\n *   - <CommandInput> = input \"real\" boxed (bg-input + border + radius-lg + shadow)\r\n *   - <CommandList> com padding 4px\r\n *   - <CommandGroup> heading uppercase + items\r\n *   - <CommandItem> radius-lg (10px), px 12, py 8, font 13px, ícones 18px\r\n *\r\n * Pattern do input replica `.tbl-views-pop-search` exatamente.\r\n */\r\n\r\nconst Command = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive\r\n    ref={ref}\r\n    className={cn(\r\n      // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —\r\n      // dependem da bridge do `index.css`, que só existe no scaffold. Em npm e\r\n      // submódulo a bridge não viaja, e a superfície caía no default do shadcn em vez\r\n      // dos tokens iGreen (L-039/L-040). Era a ÚNICA ocorrência de vocabulário shadcn\r\n      // em todo o bundle publicado — medida em 2026-08-08.\r\n      \"flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-dropdown text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommand.displayName = CommandPrimitive.displayName\r\n\r\nconst CommandDialog = ({ children, ...props }: DialogProps) => {\r\n  return (\r\n    <Dialog {...props}>\r\n      <DialogContent\r\n        hideClose\r\n        // A11y: Radix exige título; aqui é sr-only (paleta de comando não tem\r\n        // header visível) e opt-out de descrição.\r\n        aria-describedby={undefined}\r\n        className={cn(\r\n          \"overflow-hidden p-0 gap-0 sm:max-w-[384px]\",\r\n          \"rounded-[12px] border border-border-default\",\r\n          // Outline padrão de elementos flutuantes\r\n          \"outline-float\"\r\n        )}\r\n      >\r\n        <DialogTitle className=\"sr-only\">Comando</DialogTitle>\r\n        <Command>{children}</Command>\r\n      </DialogContent>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\n/* ── Input boxed (igual views-popover search) ─────────────────────────────── */\r\nconst CommandInput = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Input>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    cmdk-input-wrapper=\"\"\r\n    className={cn(\r\n      \"flex items-center gap-gp-md h-form-md px-pad-xl rounded-radius-lg\",\r\n      \"bg-bg-input border border-border-subtle shadow-sh-sm\",\r\n      \"transition-[border-color,box-shadow,background-color] duration-150\",\r\n      \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n      \"dark:bg-bg-muted dark:border-border-input dark:shadow-sh-none\"\r\n    )}\r\n  >\r\n    <Search className=\"size-[14px] text-fg-muted shrink-0\" strokeWidth={1.8} />\r\n    <CommandPrimitive.Input\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n        \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </div>\r\n))\r\nCommandInput.displayName = CommandPrimitive.Input.displayName\r\n\r\n/* ── List ─────────────────────────────────────────────────────────────────── */\r\nconst CommandList = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"max-h-[300px] overflow-y-auto overflow-x-hidden mt-pad-md scrollbar-thin\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandList.displayName = CommandPrimitive.List.displayName\r\n\r\nconst CommandEmpty = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Empty>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>\r\n>((props, ref) => (\r\n  <CommandPrimitive.Empty\r\n    ref={ref}\r\n    className=\"py-pad-5xl text-center text-body-md text-fg-muted\"\r\n    {...props}\r\n  />\r\n))\r\nCommandEmpty.displayName = CommandPrimitive.Empty.displayName\r\n\r\n/* ── Group (heading uppercase 28px, sem padding extra no group) ──────────── */\r\nconst CommandGroup = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Group>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Group\r\n    ref={ref}\r\n    className={cn(\r\n      \"overflow-hidden text-fg-default\",\r\n      \"[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center\",\r\n      \"[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl\",\r\n      \"[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold\",\r\n      \"[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider\",\r\n      \"[&_[cmdk-group-heading]]:text-fg-subtle\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandGroup.displayName = CommandPrimitive.Group.displayName\r\n\r\nconst CommandSeparator = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCommandSeparator.displayName = CommandPrimitive.Separator.displayName\r\n\r\n/* ── Item: px-12 py-8, radius-lg (10px), font 13px, ícones 18px ───────────── */\r\nconst CommandItem = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl py-pad-md\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default\",\r\n      \"data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandItem.displayName = CommandPrimitive.Item.displayName\r\n\r\nconst CommandShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nCommandShortcut.displayName = \"CommandShortcut\"\r\n\r\nexport {\r\n  Command,\r\n  CommandDialog,\r\n  CommandInput,\r\n  CommandList,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandItem,\r\n  CommandShortcut,\r\n  CommandSeparator,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/command.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · command · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · context-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · data-list · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · data-table · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · date-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · dialog · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · drawer · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · dropdown-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · empty-state · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-app-shell · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-chat · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-clientes · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-dashboard · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-edit-page · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-finance · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-login · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-mapa-rede · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · example-order-detail · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · file-upload-field · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · floating-panel · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · footer-table · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · form-field · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · header · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · hover-card · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · icon · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · input-group · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · input-otp · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · input · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · kanban · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · kpi · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · label · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · list · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · markdown-text · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · menu-sidebar · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · menubar · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · modal · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · month-year-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · navigation-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · page-header · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · pagination · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · panel · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · popover · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · progress · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · radio-group · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · scroll-area · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · select · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · separator · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · sheet · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · skeleton · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · slider · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · sonner · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · spinner · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · switch · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · table · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · tabs · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · textarea · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4383,13 +4383,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/brand-blue.css",
-        "content": "/**\r\n * brand-blue.css — Auto-gerado. Não editar manualmente.\r\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\r\n * Source (repo do DS): tokens/brands/blue/semantic/*.ts\r\n * Regenerar (só no repo do DS): npm run tokens:brand:blue\r\n *\r\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\r\n * data-theme=\"blue\" no <html>. Sem o atributo nada casa — e não dá erro.\r\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\r\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\r\n *\r\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\r\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\r\n * omite o que já é idêntico à default.\r\n */\r\n\r\n/* ── Light (44 vars divergem da default) ─────────────────────────── */\r\n[data-theme=\"blue\"]:not(.dark) {\r\n  --color-bg-canvas: oklch(0.982 0.008 264);\r\n  --color-bg-surface: oklch(0.995 0.004 264);\r\n  --color-bg-surface-elevated: oklch(0.998 0.003 264);\r\n  --color-bg-surface-panels: oklch(0.982 0.008 264);\r\n  --color-bg-sidebar: oklch(0.948 0.016 264);\r\n  --color-bg-subtle: oklch(0.973 0.004 264);\r\n  --color-bg-muted: oklch(0.973 0.004 264);\r\n  --color-bg-emphasis: oklch(0.94 0.007 264);\r\n  --color-bg-input: oklch(0.995 0.004 264);\r\n  --color-bg-accent: oklch(0.995 0.004 264);\r\n  --color-bg-brand: oklch(0.52 0.180 264);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.52 0.180 264) 14%, transparent);\r\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.52 0.180 264) 90%, black);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.52 0.180 264) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.95 0.012 264);\r\n  --color-bg-input-hover: oklch(0.973 0.004 264);\r\n  --color-bg-accent-hover: oklch(0.84 0.024 264);\r\n  --color-bg-sidebar-accent: oklch(0.999 0.002 264);\r\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.018 264);\r\n  --color-bg-table: oklch(0.995 0.004 264);\r\n  --color-bg-table-head: oklch(0.973 0.004 264);\r\n  --color-bg-table-row-hover: oklch(0.973 0.004 264);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.52 0.180 264) 6%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.52 0.180 264) 10%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.52 0.180 264) 6%, oklch(1 0 0));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.52 0.180 264) 10%, oklch(1 0 0));\r\n  --color-fg-strong: oklch(0.15 0.012 264);\r\n  --color-fg-default: oklch(0.15 0.012 264);\r\n  --color-fg-muted: oklch(0.4997 0.028 264);\r\n  --color-fg-subtle: oklch(0.7025 0.024 264);\r\n  --color-fg-disabled: oklch(0.7025 0.024 264);\r\n  --color-fg-brand: oklch(0.52 0.180 264);\r\n  --color-border-default: oklch(0.9076 0.011 264);\r\n  --color-border-subtle: oklch(0.931 0.008 264);\r\n  --color-border-input: oklch(0.8761 0.015 264);\r\n  --color-border-sidebar: oklch(0.9076 0.016 264);\r\n  --color-border-brand: oklch(0.52 0.180 264);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.52 0.180 264) 36%, transparent);\r\n  --color-border-table: oklch(0.931 0.008 264);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.52 0.180 264) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 264) 22%, transparent);\r\n  --color-overlay-float: oklch(0.55 0.05 264 / 0.12);\r\n  --color-chart-1: oklch(0.58 0.175 264);\r\n  --color-chart-grid: oklch(0.9076 0.011 264);\r\n}\r\n\r\n/* ── Dark (43 vars — .dark[data-theme] vence o .dark base) ────────── */\r\n.dark[data-theme=\"blue\"] {\r\n  --color-bg-canvas: oklch(0.205 0.014 264);\r\n  --color-bg-surface: oklch(0.225 0.014 264);\r\n  --color-bg-surface-elevated: oklch(0.225 0.014 264);\r\n  --color-bg-surface-panels: oklch(0.205 0.014 264);\r\n  --color-bg-sidebar: oklch(0.225 0.014 264);\r\n  --color-bg-subtle: oklch(0.92 0.035 264 / 0.01);\r\n  --color-bg-muted: oklch(0.92 0.035 264 / 0.03);\r\n  --color-bg-emphasis: oklch(0.92 0.035 264 / 0.12);\r\n  --color-bg-input: oklch(0.92 0.035 264 / 0.04);\r\n  --color-bg-accent: oklch(0.92 0.035 264 / 0.12);\r\n  --color-bg-brand: oklch(0.72 0.150 256);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.72 0.150 256) 14%, transparent);\r\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.72 0.150 256) 90%, black);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.72 0.150 256) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.92 0.035 264 / 0.08);\r\n  --color-bg-input-hover: oklch(0.92 0.035 264 / 0.08);\r\n  --color-bg-accent-hover: oklch(0.92 0.035 264 / 0.16);\r\n  --color-bg-sidebar-accent: oklch(0.92 0.035 264 / 0.08);\r\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.035 264 / 0.12);\r\n  --color-bg-table: oklch(0.225 0.014 264);\r\n  --color-bg-table-head: oklch(0.252 0.016 264);\r\n  --color-bg-table-row-hover: oklch(0.252 0.016 264);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.72 0.150 256) 10%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.72 0.150 256) 14%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.72 0.150 256) 10%, oklch(0.225 0.014 264));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.72 0.150 256) 14%, oklch(0.225 0.014 264));\r\n  --color-fg-default: oklch(0.98 0.004 264);\r\n  --color-fg-muted: oklch(0.7025 0.024 264);\r\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0.024 264) 70%, transparent);\r\n  --color-fg-disabled: oklch(0.36 0.022 264);\r\n  --color-fg-brand: oklch(0.72 0.150 256);\r\n  --color-border-default: oklch(0.2645 0.016 264);\r\n  --color-border-subtle: oklch(0.92 0.035 264 / 0.04);\r\n  --color-border-input: oklch(0.92 0.035 264 / 0.08);\r\n  --color-border-sidebar: oklch(0.2645 0.016 264);\r\n  --color-border-brand: oklch(0.72 0.150 256);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.72 0.150 256) 36%, transparent);\r\n  --color-border-table: oklch(0.2645 0.016 264);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.72 0.150 256) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 264) 22%, transparent);\r\n  --color-overlay-float: oklch(0.92 0.035 264 / 0.08);\r\n  --color-chart-1: oklch(0.72 0.150 256);\r\n  --color-chart-grid: oklch(0.92 0.035 264 / 0.12);\r\n}\r\n",
+        "content": "/**\n * brand-blue.css — Auto-gerado. Não editar manualmente.\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\n * Source (repo do DS): tokens/brands/blue/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:brand:blue\n *\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\n * data-theme=\"blue\" no <html>. Sem o atributo nada casa — e não dá erro.\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\n *\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\n * omite o que já é idêntico à default.\n */\n\n/* ── Light (44 vars divergem da default) ─────────────────────────── */\n[data-theme=\"blue\"]:not(.dark) {\n  --color-bg-canvas: oklch(0.982 0.008 264);\n  --color-bg-surface: oklch(0.995 0.004 264);\n  --color-bg-surface-elevated: oklch(0.998 0.003 264);\n  --color-bg-surface-panels: oklch(0.982 0.008 264);\n  --color-bg-sidebar: oklch(0.948 0.016 264);\n  --color-bg-subtle: oklch(0.973 0.004 264);\n  --color-bg-muted: oklch(0.973 0.004 264);\n  --color-bg-emphasis: oklch(0.94 0.007 264);\n  --color-bg-input: oklch(0.995 0.004 264);\n  --color-bg-accent: oklch(0.995 0.004 264);\n  --color-bg-brand: oklch(0.52 0.180 264);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.52 0.180 264) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.52 0.180 264) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.52 0.180 264) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0.012 264);\n  --color-bg-input-hover: oklch(0.973 0.004 264);\n  --color-bg-accent-hover: oklch(0.84 0.024 264);\n  --color-bg-sidebar-accent: oklch(0.999 0.002 264);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.018 264);\n  --color-bg-table: oklch(0.995 0.004 264);\n  --color-bg-table-head: oklch(0.973 0.004 264);\n  --color-bg-table-row-hover: oklch(0.973 0.004 264);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.52 0.180 264) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.52 0.180 264) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.52 0.180 264) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.52 0.180 264) 10%, oklch(1 0 0));\n  --color-fg-strong: oklch(0.15 0.012 264);\n  --color-fg-default: oklch(0.15 0.012 264);\n  --color-fg-muted: oklch(0.4997 0.028 264);\n  --color-fg-subtle: oklch(0.7025 0.024 264);\n  --color-fg-disabled: oklch(0.7025 0.024 264);\n  --color-fg-brand: oklch(0.52 0.180 264);\n  --color-border-default: oklch(0.9076 0.011 264);\n  --color-border-subtle: oklch(0.931 0.008 264);\n  --color-border-input: oklch(0.8761 0.015 264);\n  --color-border-sidebar: oklch(0.9076 0.016 264);\n  --color-border-brand: oklch(0.52 0.180 264);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.52 0.180 264) 36%, transparent);\n  --color-border-table: oklch(0.931 0.008 264);\n  --color-ring-brand: color-mix(in oklch, oklch(0.52 0.180 264) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 264) 22%, transparent);\n  --color-overlay-float: oklch(0.55 0.05 264 / 0.12);\n  --color-chart-1: oklch(0.58 0.175 264);\n  --color-chart-grid: oklch(0.9076 0.011 264);\n}\n\n/* ── Dark (43 vars — .dark[data-theme] vence o .dark base) ────────── */\n.dark[data-theme=\"blue\"] {\n  --color-bg-canvas: oklch(0.205 0.014 264);\n  --color-bg-surface: oklch(0.225 0.014 264);\n  --color-bg-surface-elevated: oklch(0.225 0.014 264);\n  --color-bg-surface-panels: oklch(0.205 0.014 264);\n  --color-bg-sidebar: oklch(0.225 0.014 264);\n  --color-bg-subtle: oklch(0.92 0.035 264 / 0.01);\n  --color-bg-muted: oklch(0.92 0.035 264 / 0.03);\n  --color-bg-emphasis: oklch(0.92 0.035 264 / 0.12);\n  --color-bg-input: oklch(0.92 0.035 264 / 0.04);\n  --color-bg-accent: oklch(0.92 0.035 264 / 0.12);\n  --color-bg-brand: oklch(0.72 0.150 256);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.72 0.150 256) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.72 0.150 256) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.72 0.150 256) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.92 0.035 264 / 0.08);\n  --color-bg-input-hover: oklch(0.92 0.035 264 / 0.08);\n  --color-bg-accent-hover: oklch(0.92 0.035 264 / 0.16);\n  --color-bg-sidebar-accent: oklch(0.92 0.035 264 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.035 264 / 0.12);\n  --color-bg-table: oklch(0.225 0.014 264);\n  --color-bg-table-head: oklch(0.252 0.016 264);\n  --color-bg-table-row-hover: oklch(0.252 0.016 264);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.72 0.150 256) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.72 0.150 256) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.72 0.150 256) 10%, oklch(0.225 0.014 264));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.72 0.150 256) 14%, oklch(0.225 0.014 264));\n  --color-fg-default: oklch(0.98 0.004 264);\n  --color-fg-muted: oklch(0.7025 0.024 264);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0.024 264) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0.022 264);\n  --color-fg-brand: oklch(0.72 0.150 256);\n  --color-border-default: oklch(0.2645 0.016 264);\n  --color-border-subtle: oklch(0.92 0.035 264 / 0.04);\n  --color-border-input: oklch(0.92 0.035 264 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0.016 264);\n  --color-border-brand: oklch(0.72 0.150 256);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.72 0.150 256) 36%, transparent);\n  --color-border-table: oklch(0.2645 0.016 264);\n  --color-ring-brand: color-mix(in oklch, oklch(0.72 0.150 256) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 264) 22%, transparent);\n  --color-overlay-float: oklch(0.92 0.035 264 / 0.08);\n  --color-chart-1: oklch(0.72 0.150 256);\n  --color-chart-grid: oklch(0.92 0.035 264 / 0.12);\n}\n",
         "type": "registry:file",
         "target": "src/styles/theme/brand-blue.css"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · theme-blue · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4401,13 +4401,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/brand-green.css",
-        "content": "/**\r\n * brand-green.css — Auto-gerado. Não editar manualmente.\r\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\r\n * Source (repo do DS): tokens/brands/green/semantic/*.ts\r\n * Regenerar (só no repo do DS): npm run tokens:brand:green\r\n *\r\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\r\n * data-theme=\"green\" no <html>. Sem o atributo nada casa — e não dá erro.\r\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\r\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\r\n *\r\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\r\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\r\n * omite o que já é idêntico à default.\r\n */\r\n\r\n/* ── Light (44 vars divergem da default) ─────────────────────────── */\r\n[data-theme=\"green\"]:not(.dark) {\r\n  --color-bg-canvas: oklch(0.986 0.005 142);\r\n  --color-bg-surface: oklch(0.996 0.003 142);\r\n  --color-bg-surface-elevated: oklch(0.998 0.002 142);\r\n  --color-bg-surface-panels: oklch(0.986 0.005 142);\r\n  --color-bg-sidebar: oklch(0.950 0.005 142);\r\n  --color-bg-subtle: oklch(0.973 0.004 142);\r\n  --color-bg-muted: oklch(0.973 0.004 142);\r\n  --color-bg-emphasis: oklch(0.94 0.006 142);\r\n  --color-bg-input: oklch(0.996 0.003 142);\r\n  --color-bg-accent: oklch(0.996 0.003 142);\r\n  --color-bg-brand: oklch(0.58 0.170 142);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 14%, transparent);\r\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.58 0.170 142) 90%, black);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.95 0.010 142);\r\n  --color-bg-input-hover: oklch(0.973 0.004 142);\r\n  --color-bg-accent-hover: oklch(0.84 0.022 142);\r\n  --color-bg-sidebar-accent: oklch(0.999 0.002 142);\r\n  --color-bg-sidebar-accent-hover: oklch(0.93 0.008 142);\r\n  --color-bg-table: oklch(0.996 0.003 142);\r\n  --color-bg-table-head: oklch(0.973 0.004 142);\r\n  --color-bg-table-row-hover: oklch(0.973 0.004 142);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.58 0.170 142) 6%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.58 0.170 142) 10%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.58 0.170 142) 6%, oklch(1 0 0));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.58 0.170 142) 10%, oklch(1 0 0));\r\n  --color-fg-strong: oklch(0.15 0.010 142);\r\n  --color-fg-default: oklch(0.15 0.010 142);\r\n  --color-fg-muted: oklch(0.4997 0.028 142);\r\n  --color-fg-subtle: oklch(0.7025 0.022 142);\r\n  --color-fg-disabled: oklch(0.7025 0.022 142);\r\n  --color-fg-brand: oklch(0.58 0.170 142);\r\n  --color-border-default: oklch(0.9076 0.009 142);\r\n  --color-border-subtle: oklch(0.931 0.007 142);\r\n  --color-border-input: oklch(0.8761 0.012 142);\r\n  --color-border-sidebar: oklch(0.9076 0.008 142);\r\n  --color-border-brand: oklch(0.58 0.170 142);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 36%, transparent);\r\n  --color-border-table: oklch(0.931 0.007 142);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);\r\n  --color-overlay-float: oklch(0.55 0.05 142 / 0.12);\r\n  --color-chart-1: oklch(0.62 0.170 142);\r\n  --color-chart-grid: oklch(0.9076 0.009 142);\r\n}\r\n\r\n/* ── Dark (43 vars — .dark[data-theme] vence o .dark base) ────────── */\r\n.dark[data-theme=\"green\"] {\r\n  --color-bg-canvas: oklch(0.205 0.026 142);\r\n  --color-bg-surface: oklch(0.225 0.030 142);\r\n  --color-bg-surface-elevated: oklch(0.225 0.030 142);\r\n  --color-bg-surface-panels: oklch(0.205 0.026 142);\r\n  --color-bg-sidebar: oklch(0.225 0.030 142);\r\n  --color-bg-subtle: oklch(0.90 0.08 142 / 0.01);\r\n  --color-bg-muted: oklch(0.90 0.08 142 / 0.03);\r\n  --color-bg-emphasis: oklch(0.90 0.08 142 / 0.12);\r\n  --color-bg-input: oklch(0.90 0.08 142 / 0.04);\r\n  --color-bg-accent: oklch(0.90 0.08 142 / 0.12);\r\n  --color-bg-brand: oklch(0.81 0.190 145);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);\r\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.81 0.190 145) 90%, black);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.90 0.08 142 / 0.08);\r\n  --color-bg-input-hover: oklch(0.90 0.08 142 / 0.08);\r\n  --color-bg-accent-hover: oklch(0.90 0.08 142 / 0.16);\r\n  --color-bg-sidebar-accent: oklch(0.90 0.08 142 / 0.08);\r\n  --color-bg-sidebar-accent-hover: oklch(0.90 0.08 142 / 0.12);\r\n  --color-bg-table: oklch(0.225 0.030 142);\r\n  --color-bg-table-head: oklch(0.252 0.034 142);\r\n  --color-bg-table-row-hover: oklch(0.252 0.034 142);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.81 0.190 145) 10%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.81 0.190 145) 10%, oklch(0.225 0.030 142));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.81 0.190 145) 14%, oklch(0.225 0.030 142));\r\n  --color-fg-default: oklch(0.98 0.012 142);\r\n  --color-fg-muted: oklch(0.7025 0.022 142);\r\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0.022 142) 70%, transparent);\r\n  --color-fg-disabled: oklch(0.36 0.036 142);\r\n  --color-fg-brand: oklch(0.81 0.190 145);\r\n  --color-border-default: oklch(0.2645 0.026 142);\r\n  --color-border-subtle: oklch(0.90 0.08 142 / 0.04);\r\n  --color-border-input: oklch(0.90 0.08 142 / 0.08);\r\n  --color-border-sidebar: oklch(0.2645 0.026 142);\r\n  --color-border-brand: oklch(0.81 0.190 145);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 36%, transparent);\r\n  --color-border-table: oklch(0.2645 0.026 142);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);\r\n  --color-overlay-float: oklch(0.90 0.08 142 / 0.08);\r\n  --color-chart-1: oklch(0.81 0.190 145);\r\n  --color-chart-grid: oklch(0.90 0.08 142 / 0.12);\r\n}\r\n",
+        "content": "/**\n * brand-green.css — Auto-gerado. Não editar manualmente.\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\n * Source (repo do DS): tokens/brands/green/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:brand:green\n *\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\n * data-theme=\"green\" no <html>. Sem o atributo nada casa — e não dá erro.\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\n *\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\n * omite o que já é idêntico à default.\n */\n\n/* ── Light (44 vars divergem da default) ─────────────────────────── */\n[data-theme=\"green\"]:not(.dark) {\n  --color-bg-canvas: oklch(0.986 0.005 142);\n  --color-bg-surface: oklch(0.996 0.003 142);\n  --color-bg-surface-elevated: oklch(0.998 0.002 142);\n  --color-bg-surface-panels: oklch(0.986 0.005 142);\n  --color-bg-sidebar: oklch(0.950 0.005 142);\n  --color-bg-subtle: oklch(0.973 0.004 142);\n  --color-bg-muted: oklch(0.973 0.004 142);\n  --color-bg-emphasis: oklch(0.94 0.006 142);\n  --color-bg-input: oklch(0.996 0.003 142);\n  --color-bg-accent: oklch(0.996 0.003 142);\n  --color-bg-brand: oklch(0.58 0.170 142);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.58 0.170 142) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0.010 142);\n  --color-bg-input-hover: oklch(0.973 0.004 142);\n  --color-bg-accent-hover: oklch(0.84 0.022 142);\n  --color-bg-sidebar-accent: oklch(0.999 0.002 142);\n  --color-bg-sidebar-accent-hover: oklch(0.93 0.008 142);\n  --color-bg-table: oklch(0.996 0.003 142);\n  --color-bg-table-head: oklch(0.973 0.004 142);\n  --color-bg-table-row-hover: oklch(0.973 0.004 142);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.58 0.170 142) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.58 0.170 142) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.58 0.170 142) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.58 0.170 142) 10%, oklch(1 0 0));\n  --color-fg-strong: oklch(0.15 0.010 142);\n  --color-fg-default: oklch(0.15 0.010 142);\n  --color-fg-muted: oklch(0.4997 0.028 142);\n  --color-fg-subtle: oklch(0.7025 0.022 142);\n  --color-fg-disabled: oklch(0.7025 0.022 142);\n  --color-fg-brand: oklch(0.58 0.170 142);\n  --color-border-default: oklch(0.9076 0.009 142);\n  --color-border-subtle: oklch(0.931 0.007 142);\n  --color-border-input: oklch(0.8761 0.012 142);\n  --color-border-sidebar: oklch(0.9076 0.008 142);\n  --color-border-brand: oklch(0.58 0.170 142);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.58 0.170 142) 36%, transparent);\n  --color-border-table: oklch(0.931 0.007 142);\n  --color-ring-brand: color-mix(in oklch, oklch(0.58 0.170 142) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);\n  --color-overlay-float: oklch(0.55 0.05 142 / 0.12);\n  --color-chart-1: oklch(0.62 0.170 142);\n  --color-chart-grid: oklch(0.9076 0.009 142);\n}\n\n/* ── Dark (43 vars — .dark[data-theme] vence o .dark base) ────────── */\n.dark[data-theme=\"green\"] {\n  --color-bg-canvas: oklch(0.205 0.026 142);\n  --color-bg-surface: oklch(0.225 0.030 142);\n  --color-bg-surface-elevated: oklch(0.225 0.030 142);\n  --color-bg-surface-panels: oklch(0.205 0.026 142);\n  --color-bg-sidebar: oklch(0.225 0.030 142);\n  --color-bg-subtle: oklch(0.90 0.08 142 / 0.01);\n  --color-bg-muted: oklch(0.90 0.08 142 / 0.03);\n  --color-bg-emphasis: oklch(0.90 0.08 142 / 0.12);\n  --color-bg-input: oklch(0.90 0.08 142 / 0.04);\n  --color-bg-accent: oklch(0.90 0.08 142 / 0.12);\n  --color-bg-brand: oklch(0.81 0.190 145);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.81 0.190 145) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.90 0.08 142 / 0.08);\n  --color-bg-input-hover: oklch(0.90 0.08 142 / 0.08);\n  --color-bg-accent-hover: oklch(0.90 0.08 142 / 0.16);\n  --color-bg-sidebar-accent: oklch(0.90 0.08 142 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(0.90 0.08 142 / 0.12);\n  --color-bg-table: oklch(0.225 0.030 142);\n  --color-bg-table-head: oklch(0.252 0.034 142);\n  --color-bg-table-row-hover: oklch(0.252 0.034 142);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.81 0.190 145) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.81 0.190 145) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.81 0.190 145) 10%, oklch(0.225 0.030 142));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.81 0.190 145) 14%, oklch(0.225 0.030 142));\n  --color-fg-default: oklch(0.98 0.012 142);\n  --color-fg-muted: oklch(0.7025 0.022 142);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0.022 142) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0.036 142);\n  --color-fg-brand: oklch(0.81 0.190 145);\n  --color-border-default: oklch(0.2645 0.026 142);\n  --color-border-subtle: oklch(0.90 0.08 142 / 0.04);\n  --color-border-input: oklch(0.90 0.08 142 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0.026 142);\n  --color-border-brand: oklch(0.81 0.190 145);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.81 0.190 145) 36%, transparent);\n  --color-border-table: oklch(0.2645 0.026 142);\n  --color-ring-brand: color-mix(in oklch, oklch(0.81 0.190 145) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0.028 142) 22%, transparent);\n  --color-overlay-float: oklch(0.90 0.08 142 / 0.08);\n  --color-chart-1: oklch(0.81 0.190 145);\n  --color-chart-grid: oklch(0.90 0.08 142 / 0.12);\n}\n",
         "type": "registry:file",
         "target": "src/styles/theme/brand-green.css"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · theme-green · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4419,13 +4419,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/brand-pay.css",
-        "content": "/**\r\n * brand-pay.css — Auto-gerado. Não editar manualmente.\r\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\r\n * Source (repo do DS): tokens/brands/pay/semantic/*.ts\r\n * Regenerar (só no repo do DS): npm run tokens:brand:pay\r\n *\r\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\r\n * data-theme=\"pay\" no <html>. Sem o atributo nada casa — e não dá erro.\r\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\r\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\r\n *\r\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\r\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\r\n * omite o que já é idêntico à default.\r\n */\r\n\r\n/* ── Light (83 vars divergem da default) ─────────────────────────── */\r\n[data-theme=\"pay\"]:not(.dark) {\r\n  --color-bg-canvas: #f9fafb;\r\n  --color-bg-surface: #ffffff;\r\n  --color-bg-surface-elevated: #ffffff;\r\n  --color-bg-surface-panels: #f9fafb;\r\n  --color-bg-sidebar: #ffffff;\r\n  --color-bg-subtle: #f9fafb;\r\n  --color-bg-muted: #f3f4f6;\r\n  --color-bg-emphasis: #eceef1;\r\n  --color-bg-input: #ffffff;\r\n  --color-bg-accent: #f9fafb;\r\n  --color-bg-brand: #00a859;\r\n  --color-bg-brand-subtle: rgba(0,168,89,.10);\r\n  --color-bg-brand-hover: #008a4b;\r\n  --color-bg-brand-subtle-hover: rgba(0,168,89,.18);\r\n  --color-bg-danger: #f83b3b;\r\n  --color-bg-danger-muted: rgba(248,59,59,.10);\r\n  --color-bg-danger-hover: #e02e2e;\r\n  --color-bg-danger-muted-hover: rgba(248,59,59,.18);\r\n  --color-bg-success: #00a859;\r\n  --color-bg-success-muted: rgba(0,168,89,.11);\r\n  --color-bg-success-hover: #008a4b;\r\n  --color-bg-success-muted-hover: rgba(0,168,89,.18);\r\n  --color-bg-warning: #d97c02;\r\n  --color-bg-warning-muted: rgba(217,124,2,.12);\r\n  --color-bg-warning-hover: #b96702;\r\n  --color-bg-warning-muted-hover: rgba(217,124,2,.20);\r\n  --color-bg-info: #0058e6;\r\n  --color-bg-info-muted: rgba(0,88,230,.10);\r\n  --color-bg-info-hover: #0047bd;\r\n  --color-bg-info-muted-hover: rgba(0,88,230,.18);\r\n  --color-bg-muted-hover: #f3f4f6;\r\n  --color-bg-input-hover: #f9fafb;\r\n  --color-bg-accent-hover: #eceef1;\r\n  --color-bg-sidebar-accent: rgba(0,168,89,.10);\r\n  --color-bg-sidebar-accent-hover: #f3f4f6;\r\n  --color-bg-table: #ffffff;\r\n  --color-bg-table-head: #f9fafb;\r\n  --color-bg-table-row-hover: #f9fafb;\r\n  --color-bg-table-row-selected: rgba(0,168,89,.08);\r\n  --color-bg-table-row-selected-hover: rgba(0,168,89,.13);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, #00a859 8%, #ffffff);\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, #00a859 13%, #ffffff);\r\n  --color-bg-dropdown: var(--color-bg-surface);\r\n  --color-fg-strong: #0a0a0c;\r\n  --color-fg-default: #0a0a0c;\r\n  --color-fg-muted: #5f6b77;\r\n  --color-fg-subtle: #7e8994;\r\n  --color-fg-disabled: #a2acb6;\r\n  --color-fg-brand: #008a4b;\r\n  --color-fg-danger: #f83b3b;\r\n  --color-fg-success: #00a859;\r\n  --color-fg-warning: #d97c02;\r\n  --color-fg-info: #0058e6;\r\n  --color-fg-on-brand: #ffffff;\r\n  --color-fg-on-danger: #ffffff;\r\n  --color-fg-on-success: #ffffff;\r\n  --color-fg-on-warning: #ffffff;\r\n  --color-fg-on-info: #ffffff;\r\n  --color-border-default: rgba(17,17,17,.08);\r\n  --color-border-subtle: rgba(17,17,17,.06);\r\n  --color-border-input: rgba(17,17,17,.14);\r\n  --color-border-sidebar: rgba(17,17,17,.08);\r\n  --color-border-brand: #00a859;\r\n  --color-border-brand-subtle: rgba(0,168,89,.36);\r\n  --color-border-danger-muted: rgba(248,59,59,.36);\r\n  --color-border-success-muted: rgba(0,168,89,.36);\r\n  --color-border-warning-muted: rgba(217,124,2,.36);\r\n  --color-border-info-muted: rgba(0,88,230,.36);\r\n  --color-border-table: rgba(17,17,17,.08);\r\n  --color-ring-brand: rgba(0,168,89,.30);\r\n  --color-ring-danger: rgba(248,59,59,.30);\r\n  --color-ring-success: rgba(0,168,89,.30);\r\n  --color-ring-warning: rgba(217,124,2,.30);\r\n  --color-ring-info: rgba(0,88,230,.30);\r\n  --color-ring-secondary: rgba(17,17,17,.14);\r\n  --color-overlay-scrim: rgba(0,0,0,.55);\r\n  --color-overlay-float: rgba(16,24,40,.12);\r\n  --color-chart-1: #00a859;\r\n  --color-chart-2: #0058e6;\r\n  --color-chart-3: #65a30d;\r\n  --color-chart-4: #d97c02;\r\n  --color-chart-5: #7c3aed;\r\n  --color-chart-grid: rgba(17,17,17,.08);\r\n}\r\n\r\n/* ── Dark (83 vars — .dark[data-theme] vence o .dark base) ────────── */\r\n.dark[data-theme=\"pay\"] {\r\n  --color-bg-canvas: #050608;\r\n  --color-bg-surface: #0b0d10;\r\n  --color-bg-surface-elevated: #0f1116;\r\n  --color-bg-surface-panels: #0b0d10;\r\n  --color-bg-sidebar: #0b0d10;\r\n  --color-bg-subtle: #0f1116;\r\n  --color-bg-muted: #0f1116;\r\n  --color-bg-emphasis: #13161c;\r\n  --color-bg-input: #0b0d10;\r\n  --color-bg-accent: #0f1116;\r\n  --color-bg-brand: #00a859;\r\n  --color-bg-brand-subtle: rgba(0,168,89,.14);\r\n  --color-bg-brand-hover: #12b869;\r\n  --color-bg-brand-subtle-hover: rgba(0,168,89,.22);\r\n  --color-bg-danger: #ff6b6b;\r\n  --color-bg-danger-muted: rgba(255,107,107,.14);\r\n  --color-bg-danger-hover: #ff8585;\r\n  --color-bg-danger-muted-hover: rgba(255,107,107,.22);\r\n  --color-bg-success: #3bc882;\r\n  --color-bg-success-muted: rgba(59,200,130,.14);\r\n  --color-bg-success-hover: #57d195;\r\n  --color-bg-success-muted-hover: rgba(59,200,130,.22);\r\n  --color-bg-warning: #ffb620;\r\n  --color-bg-warning-muted: rgba(255,182,32,.14);\r\n  --color-bg-warning-hover: #ffc748;\r\n  --color-bg-warning-muted-hover: rgba(255,182,32,.22);\r\n  --color-bg-info: #3580ff;\r\n  --color-bg-info-muted: rgba(53,128,255,.15);\r\n  --color-bg-info-hover: #5a99ff;\r\n  --color-bg-info-muted-hover: rgba(53,128,255,.24);\r\n  --color-bg-muted-hover: #13161c;\r\n  --color-bg-input-hover: #13161c;\r\n  --color-bg-accent-hover: #13161c;\r\n  --color-bg-sidebar-accent: rgba(0,168,89,.14);\r\n  --color-bg-sidebar-accent-hover: #13161c;\r\n  --color-bg-table: #0b0d10;\r\n  --color-bg-table-head: #13161c;\r\n  --color-bg-table-row-hover: #13161c;\r\n  --color-bg-table-row-selected: rgba(0,168,89,.14);\r\n  --color-bg-table-row-selected-hover: rgba(0,168,89,.20);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, #00a859 12%, #0b0d10);\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, #00a859 18%, #0b0d10);\r\n  --color-bg-dropdown: #0b0d10;\r\n  --color-fg-strong: #ffffff;\r\n  --color-fg-default: #f5f7fa;\r\n  --color-fg-muted: #aeb4bd;\r\n  --color-fg-subtle: #7c8591;\r\n  --color-fg-disabled: #5b636b;\r\n  --color-fg-brand: #3bc882;\r\n  --color-fg-danger: #ff6b6b;\r\n  --color-fg-success: #3bc882;\r\n  --color-fg-warning: #ffb620;\r\n  --color-fg-info: #3580ff;\r\n  --color-fg-on-brand: #ffffff;\r\n  --color-fg-on-danger: #ffffff;\r\n  --color-fg-on-success: #000000;\r\n  --color-fg-on-warning: #000000;\r\n  --color-fg-on-info: #ffffff;\r\n  --color-border-default: rgba(255,255,255,.08);\r\n  --color-border-subtle: rgba(255,255,255,.06);\r\n  --color-border-input: rgba(255,255,255,.08);\r\n  --color-border-sidebar: rgba(255,255,255,.08);\r\n  --color-border-brand: #00a859;\r\n  --color-border-brand-subtle: rgba(0,168,89,.36);\r\n  --color-border-danger-muted: rgba(255,107,107,.36);\r\n  --color-border-success-muted: rgba(59,200,130,.36);\r\n  --color-border-warning-muted: rgba(255,182,32,.36);\r\n  --color-border-info-muted: rgba(53,128,255,.36);\r\n  --color-border-table: rgba(255,255,255,.08);\r\n  --color-ring-brand: rgba(0,168,89,.35);\r\n  --color-ring-danger: rgba(255,107,107,.35);\r\n  --color-ring-success: rgba(59,200,130,.35);\r\n  --color-ring-warning: rgba(255,182,32,.35);\r\n  --color-ring-info: rgba(53,128,255,.35);\r\n  --color-ring-secondary: rgba(255,255,255,.16);\r\n  --color-overlay-scrim: rgba(0,0,0,.6);\r\n  --color-overlay-float: rgba(255,255,255,.08);\r\n  --color-chart-1: #00a859;\r\n  --color-chart-2: #3580ff;\r\n  --color-chart-3: #a3e635;\r\n  --color-chart-4: #ffb620;\r\n  --color-chart-5: #a78bfa;\r\n  --color-chart-grid: rgba(255,255,255,.08);\r\n}\r\n",
+        "content": "/**\n * brand-pay.css — Auto-gerado. Não editar manualmente.\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\n * Source (repo do DS): tokens/brands/pay/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:brand:pay\n *\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\n * data-theme=\"pay\" no <html>. Sem o atributo nada casa — e não dá erro.\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\n *\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\n * omite o que já é idêntico à default.\n */\n\n/* ── Light (83 vars divergem da default) ─────────────────────────── */\n[data-theme=\"pay\"]:not(.dark) {\n  --color-bg-canvas: #f9fafb;\n  --color-bg-surface: #ffffff;\n  --color-bg-surface-elevated: #ffffff;\n  --color-bg-surface-panels: #f9fafb;\n  --color-bg-sidebar: #ffffff;\n  --color-bg-subtle: #f9fafb;\n  --color-bg-muted: #f3f4f6;\n  --color-bg-emphasis: #eceef1;\n  --color-bg-input: #ffffff;\n  --color-bg-accent: #f9fafb;\n  --color-bg-brand: #00a859;\n  --color-bg-brand-subtle: rgba(0,168,89,.10);\n  --color-bg-brand-hover: #008a4b;\n  --color-bg-brand-subtle-hover: rgba(0,168,89,.18);\n  --color-bg-danger: #f83b3b;\n  --color-bg-danger-muted: rgba(248,59,59,.10);\n  --color-bg-danger-hover: #e02e2e;\n  --color-bg-danger-muted-hover: rgba(248,59,59,.18);\n  --color-bg-success: #00a859;\n  --color-bg-success-muted: rgba(0,168,89,.11);\n  --color-bg-success-hover: #008a4b;\n  --color-bg-success-muted-hover: rgba(0,168,89,.18);\n  --color-bg-warning: #d97c02;\n  --color-bg-warning-muted: rgba(217,124,2,.12);\n  --color-bg-warning-hover: #b96702;\n  --color-bg-warning-muted-hover: rgba(217,124,2,.20);\n  --color-bg-info: #0058e6;\n  --color-bg-info-muted: rgba(0,88,230,.10);\n  --color-bg-info-hover: #0047bd;\n  --color-bg-info-muted-hover: rgba(0,88,230,.18);\n  --color-bg-muted-hover: #f3f4f6;\n  --color-bg-input-hover: #f9fafb;\n  --color-bg-accent-hover: #eceef1;\n  --color-bg-sidebar-accent: rgba(0,168,89,.10);\n  --color-bg-sidebar-accent-hover: #f3f4f6;\n  --color-bg-table: #ffffff;\n  --color-bg-table-head: #f9fafb;\n  --color-bg-table-row-hover: #f9fafb;\n  --color-bg-table-row-selected: rgba(0,168,89,.08);\n  --color-bg-table-row-selected-hover: rgba(0,168,89,.13);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, #00a859 8%, #ffffff);\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, #00a859 13%, #ffffff);\n  --color-bg-dropdown: var(--color-bg-surface);\n  --color-fg-strong: #0a0a0c;\n  --color-fg-default: #0a0a0c;\n  --color-fg-muted: #5f6b77;\n  --color-fg-subtle: #7e8994;\n  --color-fg-disabled: #a2acb6;\n  --color-fg-brand: #008a4b;\n  --color-fg-danger: #f83b3b;\n  --color-fg-success: #00a859;\n  --color-fg-warning: #d97c02;\n  --color-fg-info: #0058e6;\n  --color-fg-on-brand: #ffffff;\n  --color-fg-on-danger: #ffffff;\n  --color-fg-on-success: #ffffff;\n  --color-fg-on-warning: #ffffff;\n  --color-fg-on-info: #ffffff;\n  --color-border-default: rgba(17,17,17,.08);\n  --color-border-subtle: rgba(17,17,17,.06);\n  --color-border-input: rgba(17,17,17,.14);\n  --color-border-sidebar: rgba(17,17,17,.08);\n  --color-border-brand: #00a859;\n  --color-border-brand-subtle: rgba(0,168,89,.36);\n  --color-border-danger-muted: rgba(248,59,59,.36);\n  --color-border-success-muted: rgba(0,168,89,.36);\n  --color-border-warning-muted: rgba(217,124,2,.36);\n  --color-border-info-muted: rgba(0,88,230,.36);\n  --color-border-table: rgba(17,17,17,.08);\n  --color-ring-brand: rgba(0,168,89,.30);\n  --color-ring-danger: rgba(248,59,59,.30);\n  --color-ring-success: rgba(0,168,89,.30);\n  --color-ring-warning: rgba(217,124,2,.30);\n  --color-ring-info: rgba(0,88,230,.30);\n  --color-ring-secondary: rgba(17,17,17,.14);\n  --color-overlay-scrim: rgba(0,0,0,.55);\n  --color-overlay-float: rgba(16,24,40,.12);\n  --color-chart-1: #00a859;\n  --color-chart-2: #0058e6;\n  --color-chart-3: #65a30d;\n  --color-chart-4: #d97c02;\n  --color-chart-5: #7c3aed;\n  --color-chart-grid: rgba(17,17,17,.08);\n}\n\n/* ── Dark (83 vars — .dark[data-theme] vence o .dark base) ────────── */\n.dark[data-theme=\"pay\"] {\n  --color-bg-canvas: #050608;\n  --color-bg-surface: #0b0d10;\n  --color-bg-surface-elevated: #0f1116;\n  --color-bg-surface-panels: #0b0d10;\n  --color-bg-sidebar: #0b0d10;\n  --color-bg-subtle: #0f1116;\n  --color-bg-muted: #0f1116;\n  --color-bg-emphasis: #13161c;\n  --color-bg-input: #0b0d10;\n  --color-bg-accent: #0f1116;\n  --color-bg-brand: #00a859;\n  --color-bg-brand-subtle: rgba(0,168,89,.14);\n  --color-bg-brand-hover: #12b869;\n  --color-bg-brand-subtle-hover: rgba(0,168,89,.22);\n  --color-bg-danger: #ff6b6b;\n  --color-bg-danger-muted: rgba(255,107,107,.14);\n  --color-bg-danger-hover: #ff8585;\n  --color-bg-danger-muted-hover: rgba(255,107,107,.22);\n  --color-bg-success: #3bc882;\n  --color-bg-success-muted: rgba(59,200,130,.14);\n  --color-bg-success-hover: #57d195;\n  --color-bg-success-muted-hover: rgba(59,200,130,.22);\n  --color-bg-warning: #ffb620;\n  --color-bg-warning-muted: rgba(255,182,32,.14);\n  --color-bg-warning-hover: #ffc748;\n  --color-bg-warning-muted-hover: rgba(255,182,32,.22);\n  --color-bg-info: #3580ff;\n  --color-bg-info-muted: rgba(53,128,255,.15);\n  --color-bg-info-hover: #5a99ff;\n  --color-bg-info-muted-hover: rgba(53,128,255,.24);\n  --color-bg-muted-hover: #13161c;\n  --color-bg-input-hover: #13161c;\n  --color-bg-accent-hover: #13161c;\n  --color-bg-sidebar-accent: rgba(0,168,89,.14);\n  --color-bg-sidebar-accent-hover: #13161c;\n  --color-bg-table: #0b0d10;\n  --color-bg-table-head: #13161c;\n  --color-bg-table-row-hover: #13161c;\n  --color-bg-table-row-selected: rgba(0,168,89,.14);\n  --color-bg-table-row-selected-hover: rgba(0,168,89,.20);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, #00a859 12%, #0b0d10);\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, #00a859 18%, #0b0d10);\n  --color-bg-dropdown: #0b0d10;\n  --color-fg-strong: #ffffff;\n  --color-fg-default: #f5f7fa;\n  --color-fg-muted: #aeb4bd;\n  --color-fg-subtle: #7c8591;\n  --color-fg-disabled: #5b636b;\n  --color-fg-brand: #3bc882;\n  --color-fg-danger: #ff6b6b;\n  --color-fg-success: #3bc882;\n  --color-fg-warning: #ffb620;\n  --color-fg-info: #3580ff;\n  --color-fg-on-brand: #ffffff;\n  --color-fg-on-danger: #ffffff;\n  --color-fg-on-success: #000000;\n  --color-fg-on-warning: #000000;\n  --color-fg-on-info: #ffffff;\n  --color-border-default: rgba(255,255,255,.08);\n  --color-border-subtle: rgba(255,255,255,.06);\n  --color-border-input: rgba(255,255,255,.08);\n  --color-border-sidebar: rgba(255,255,255,.08);\n  --color-border-brand: #00a859;\n  --color-border-brand-subtle: rgba(0,168,89,.36);\n  --color-border-danger-muted: rgba(255,107,107,.36);\n  --color-border-success-muted: rgba(59,200,130,.36);\n  --color-border-warning-muted: rgba(255,182,32,.36);\n  --color-border-info-muted: rgba(53,128,255,.36);\n  --color-border-table: rgba(255,255,255,.08);\n  --color-ring-brand: rgba(0,168,89,.35);\n  --color-ring-danger: rgba(255,107,107,.35);\n  --color-ring-success: rgba(59,200,130,.35);\n  --color-ring-warning: rgba(255,182,32,.35);\n  --color-ring-info: rgba(53,128,255,.35);\n  --color-ring-secondary: rgba(255,255,255,.16);\n  --color-overlay-scrim: rgba(0,0,0,.6);\n  --color-overlay-float: rgba(255,255,255,.08);\n  --color-chart-1: #00a859;\n  --color-chart-2: #3580ff;\n  --color-chart-3: #a3e635;\n  --color-chart-4: #ffb620;\n  --color-chart-5: #a78bfa;\n  --color-chart-grid: rgba(255,255,255,.08);\n}\n",
         "type": "registry:file",
         "target": "src/styles/theme/brand-pay.css"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · theme-pay · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4437,13 +4437,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/brand-vibrant.css",
-        "content": "/**\r\n * brand-vibrant.css — Auto-gerado. Não editar manualmente.\r\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\r\n * Source (repo do DS): tokens/brands/vibrant/semantic/*.ts\r\n * Regenerar (só no repo do DS): npm run tokens:brand:vibrant\r\n *\r\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\r\n * data-theme=\"vibrant\" no <html>. Sem o atributo nada casa — e não dá erro.\r\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\r\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\r\n *\r\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\r\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\r\n * omite o que já é idêntico à default.\r\n */\r\n\r\n/* ── Light (65 vars divergem da default) ─────────────────────────── */\r\n[data-theme=\"vibrant\"]:not(.dark) {\r\n  --color-bg-surface-elevated: oklch(0.9851 0 0);\r\n  --color-bg-sidebar: oklch(0.9516 0.0012 250);\r\n  --color-bg-subtle: oklch(0.9851 0 0);\r\n  --color-bg-muted: oklch(0.9674 0.0007 250);\r\n  --color-bg-emphasis: oklch(0.9197 0.0020 250);\r\n  --color-bg-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-bg-danger: oklch(0.58 0.235 25);\r\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);\r\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);\r\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-bg-success: oklch(0.4645 0.1539 142.59);\r\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);\r\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-bg-warning: oklch(0.825 0.170 81);\r\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);\r\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);\r\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-bg-info: oklch(0.55 0.293 300);\r\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);\r\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);\r\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-bg-muted-hover: oklch(0.95 0.0012 250);\r\n  --color-bg-input-hover: oklch(0.9851 0 0);\r\n  --color-bg-accent-hover: oklch(0.84 0.0032 250);\r\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0020 250);\r\n  --color-bg-table-head: oklch(0.9674 0.0007 250);\r\n  --color-bg-table-row-hover: oklch(0.9851 0 0);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));\r\n  --color-fg-strong: oklch(0.1652 0.0010 250);\r\n  --color-fg-default: oklch(0.1652 0.0010 250);\r\n  --color-fg-muted: oklch(0.5517 0.0062 250);\r\n  --color-fg-subtle: oklch(0.7118 0.0060 250);\r\n  --color-fg-disabled: oklch(0.7118 0.0060 250);\r\n  --color-fg-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-fg-danger: oklch(0.58 0.235 25);\r\n  --color-fg-success: oklch(0.4645 0.1539 142.59);\r\n  --color-fg-warning: oklch(0.825 0.170 81);\r\n  --color-fg-info: oklch(0.55 0.293 300);\r\n  --color-border-default: oklch(0.906 0.0024 250);\r\n  --color-border-subtle: oklch(0.9325 0.0016 250);\r\n  --color-border-input: oklch(0.7118 0.0060 250);\r\n  --color-border-sidebar: oklch(0.906 0.0024 250);\r\n  --color-border-brand: oklch(0.4645 0.1539 142.59);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\r\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\r\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\r\n  --color-border-table: oklch(0.9325 0.0016 250);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\r\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\r\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);\r\n  --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);\r\n  --color-chart-1: oklch(0.6783 0.2304 142.42);\r\n  --color-chart-grid: oklch(0.9197 0.0020 250);\r\n}\r\n\r\n/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */\r\n.dark[data-theme=\"vibrant\"] {\r\n  --color-bg-canvas: oklch(0.2050 0 0);\r\n  --color-bg-surface: oklch(0.2603 0 0);\r\n  --color-bg-surface-elevated: oklch(0.2873 0 0);\r\n  --color-bg-surface-panels: oklch(0.2050 0 0);\r\n  --color-bg-sidebar: oklch(0.2603 0 0);\r\n  --color-bg-muted: oklch(1 0 0 / 0.05);\r\n  --color-bg-brand: oklch(0.866993 0.294055 142.3546);\r\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);\r\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\r\n  --color-bg-danger: oklch(0.58 0.235 25);\r\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 10%, transparent);\r\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, white);\r\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 16%, transparent);\r\n  --color-bg-success: oklch(0.866993 0.294055 142.3546);\r\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);\r\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\r\n  --color-bg-warning: oklch(0.825 0.170 81);\r\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);\r\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);\r\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);\r\n  --color-bg-info: oklch(0.55 0.293 300);\r\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);\r\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);\r\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 16%, transparent);\r\n  --color-bg-table: oklch(0.2603 0 0);\r\n  --color-bg-table-head: oklch(0.2873 0 0);\r\n  --color-bg-table-row-hover: oklch(0.2873 0 0);\r\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\r\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\r\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.2603 0 0));\r\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.2603 0 0));\r\n  --color-fg-default: oklch(0.9670 0 0);\r\n  --color-fg-muted: oklch(0.7120 0 0);\r\n  --color-fg-subtle: oklch(0.5520 0 0);\r\n  --color-fg-disabled: oklch(0.4420 0 0);\r\n  --color-fg-brand: oklch(0.866993 0.294055 142.3546);\r\n  --color-fg-danger: oklch(0.68 0.208 25);\r\n  --color-fg-success: oklch(0.866993 0.294055 142.3546);\r\n  --color-fg-warning: oklch(0.825 0.170 81);\r\n  --color-fg-info: oklch(0.72 0.172 300);\r\n  --color-border-default: oklch(0.3400 0 0);\r\n  --color-border-subtle: oklch(0.3090 0 0);\r\n  --color-border-input: oklch(0.3750 0 0);\r\n  --color-border-sidebar: oklch(0.3090 0 0);\r\n  --color-border-brand: oklch(0.8018 0.2721 142.38);\r\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\r\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\r\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\r\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\r\n  --color-border-table: oklch(0.3090 0 0);\r\n  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\r\n  --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\r\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\r\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\r\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5520 0 0) 22%, transparent);\r\n  --color-chart-1: oklch(0.866993 0.294055 142.3546);\r\n}\r\n",
+        "content": "/**\n * brand-vibrant.css — Auto-gerado. Não editar manualmente.\n * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.\n * Source (repo do DS): tokens/brands/vibrant/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:brand:vibrant\n *\n * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha\n * data-theme=\"vibrant\" no <html>. Sem o atributo nada casa — e não dá erro.\n * Seletor de marca em runtime: hook `useBrand` do pacote (≥ 0.33.0), ou\n * setAttribute/removeAttribute na mão (\"default\" = remover o atributo).\n *\n * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (`:not(.dark)`). No dark,\n * token ausente do bloco dark cai no `.dark` do tema-base de propósito: o diff só\n * omite o que já é idêntico à default.\n */\n\n/* ── Light (65 vars divergem da default) ─────────────────────────── */\n[data-theme=\"vibrant\"]:not(.dark) {\n  --color-bg-surface-elevated: oklch(0.9851 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0012 250);\n  --color-bg-subtle: oklch(0.9851 0 0);\n  --color-bg-muted: oklch(0.9674 0.0007 250);\n  --color-bg-emphasis: oklch(0.9197 0.0020 250);\n  --color-bg-brand: oklch(0.4645 0.1539 142.59);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-brand-hover: oklch(0.4138 0.1317 142.94);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-bg-danger: oklch(0.58 0.235 25);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-bg-success: oklch(0.4645 0.1539 142.59);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-success-hover: oklch(0.4138 0.1317 142.94);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-bg-warning: oklch(0.825 0.170 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-bg-info: oklch(0.55 0.293 300);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0.0012 250);\n  --color-bg-input-hover: oklch(0.9851 0 0);\n  --color-bg-accent-hover: oklch(0.84 0.0032 250);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0020 250);\n  --color-bg-table-head: oklch(0.9674 0.0007 250);\n  --color-bg-table-row-hover: oklch(0.9851 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(1 0 0));\n  --color-fg-strong: oklch(0.1652 0.0010 250);\n  --color-fg-default: oklch(0.1652 0.0010 250);\n  --color-fg-muted: oklch(0.5517 0.0062 250);\n  --color-fg-subtle: oklch(0.7118 0.0060 250);\n  --color-fg-disabled: oklch(0.7118 0.0060 250);\n  --color-fg-brand: oklch(0.4645 0.1539 142.59);\n  --color-fg-danger: oklch(0.58 0.235 25);\n  --color-fg-success: oklch(0.4645 0.1539 142.59);\n  --color-fg-warning: oklch(0.825 0.170 81);\n  --color-fg-info: oklch(0.55 0.293 300);\n  --color-border-default: oklch(0.906 0.0024 250);\n  --color-border-subtle: oklch(0.9325 0.0016 250);\n  --color-border-input: oklch(0.7118 0.0060 250);\n  --color-border-sidebar: oklch(0.906 0.0024 250);\n  --color-border-brand: oklch(0.4645 0.1539 142.59);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\n  --color-border-table: oklch(0.9325 0.0016 250);\n  --color-ring-brand: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.8018 0.2721 142.38) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5517 0.0062 250) 22%, transparent);\n  --color-overlay-float: oklch(0.5517 0.0062 250 / 0.12);\n  --color-chart-1: oklch(0.6783 0.2304 142.42);\n  --color-chart-grid: oklch(0.9197 0.0020 250);\n}\n\n/* ── Dark (60 vars — .dark[data-theme] vence o .dark base) ────────── */\n.dark[data-theme=\"vibrant\"] {\n  --color-bg-canvas: oklch(0.2050 0 0);\n  --color-bg-surface: oklch(0.2603 0 0);\n  --color-bg-surface-elevated: oklch(0.2873 0 0);\n  --color-bg-surface-panels: oklch(0.2050 0 0);\n  --color-bg-sidebar: oklch(0.2603 0 0);\n  --color-bg-muted: oklch(1 0 0 / 0.05);\n  --color-bg-brand: oklch(0.866993 0.294055 142.3546);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-brand-hover: oklch(0.8018 0.2721 142.38);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\n  --color-bg-danger: oklch(0.58 0.235 25);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 10%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.58 0.235 25) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.58 0.235 25) 16%, transparent);\n  --color-bg-success: oklch(0.866993 0.294055 142.3546);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-success-hover: oklch(0.8018 0.2721 142.38);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 16%, transparent);\n  --color-bg-warning: oklch(0.825 0.170 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 10%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.825 0.170 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.825 0.170 81) 16%, transparent);\n  --color-bg-info: oklch(0.55 0.293 300);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 10%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.55 0.293 300) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.55 0.293 300) 16%, transparent);\n  --color-bg-table: oklch(0.2603 0 0);\n  --color-bg-table-head: oklch(0.2873 0 0);\n  --color-bg-table-row-hover: oklch(0.2873 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 10%, oklch(0.2603 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.866993 0.294055 142.3546) 14%, oklch(0.2603 0 0));\n  --color-fg-default: oklch(0.9670 0 0);\n  --color-fg-muted: oklch(0.7120 0 0);\n  --color-fg-subtle: oklch(0.5520 0 0);\n  --color-fg-disabled: oklch(0.4420 0 0);\n  --color-fg-brand: oklch(0.866993 0.294055 142.3546);\n  --color-fg-danger: oklch(0.68 0.208 25);\n  --color-fg-success: oklch(0.866993 0.294055 142.3546);\n  --color-fg-warning: oklch(0.825 0.170 81);\n  --color-fg-info: oklch(0.72 0.172 300);\n  --color-border-default: oklch(0.3400 0 0);\n  --color-border-subtle: oklch(0.3090 0 0);\n  --color-border-input: oklch(0.3750 0 0);\n  --color-border-sidebar: oklch(0.3090 0 0);\n  --color-border-brand: oklch(0.8018 0.2721 142.38);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.58 0.235 25) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.825 0.170 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.55 0.293 300) 36%, transparent);\n  --color-border-table: oklch(0.3090 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.58 0.235 25) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.866993 0.294055 142.3546) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.825 0.170 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.55 0.293 300) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.5520 0 0) 22%, transparent);\n  --color-chart-1: oklch(0.866993 0.294055 142.3546);\n}\n",
         "type": "registry:file",
         "target": "src/styles/theme/brand-vibrant.css"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · theme-vibrant · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4458,14 +4458,14 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/tailwind-theme.css",
-        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-base: 24px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-muted-hover) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-muted-hover);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-fg-muted);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-muted-hover) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-muted-hover);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-fg-muted);\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
+        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-base: 24px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
         "type": "registry:file",
         "target": "src/styles/theme/tailwind-theme.css"
       }
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · theme · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · toast · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · toggle-group · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · toggle · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · tooltip · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · tv · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.35.0 · b42cefb · 2026-08-08"
+      "stamp": "igreen-ds · utils · v0.36.0 · 6feb7c7 · 2026-08-08"
     },
     "type": "registry:file"
   }
