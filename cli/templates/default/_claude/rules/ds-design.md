@@ -60,7 +60,15 @@ projeto e outro no resto do sistema, sem erro nenhum. Os `.woff2` do Geist, sim,
 - `npx tsc --noEmit` limpo antes de entregar.
 
 ## ⛔ Arquivos protegidos — NÃO editar (integridade do DS)
-- **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update. (Um hook bloqueia isso.)
+- **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update.
+
+  > **O que de fato te impede, por canal** — a frase antiga aqui era só "(Um hook bloqueia isso.)", sem ressalva, e no submódulo isso é **falso**:
+  >
+  > | canal | trava |
+  > |---|---|
+  > | copy-in / scaffold | ✅ hook `protect-ds.mjs` **bloqueia** (`Edit`/`Write`/`MultiEdit`) e **avisa** em `Bash` que escreve nesses paths |
+  > | **submódulo** | ❌ **nenhuma** — o `ds-link` não projeta `hooks/` (eles miram `src/components/**`, layout que o submódulo não tem). Vale por **disciplina**: o que você editar lá some no próximo `git pull` do submódulo |
+  > | npm install | ❌ nenhuma — o código vive em `node_modules` |
 - **Não edite o `.styles.ts`/internals de um componente do DS** pra "ajustar visual" de uma tela. Isso vira edição local (drift) e diverge do padrão. **Customize na COMPOSIÇÃO**: escolha variantes/props do componente + classes DS na SUA tela.
 - Quer outra cor/tom? Use o **token/variante semântico** que já existe (`color="..."`, `bg-bg-*`). Não invente hex nem reescreva o token.
 - Pra evoluir o tema de fato → re-sincronize com o DS (`npm run igreen:add -- theme`), não edite à mão.

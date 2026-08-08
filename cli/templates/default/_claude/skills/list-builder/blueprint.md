@@ -28,8 +28,9 @@ Corrigir silenciosamente (ou reportar se exigir decisão):
    view/filtro pré-aplicado válido pro `type` (multiSelect⇒`isAnyOf`,
    select⇒`equals`, text⇒`contains`, number⇒`equals`, date⇒`between`,
    boolean⇒`equals`).
-5. **Colisão de page id** — não pode existir em `DOC_PAGES` (`src/App.tsx`).
-   Colisão → propor sufixo.
+5. **Colisão de rota** — o id/rota proposto não pode já existir no router **deste
+   projeto**. Colisão → propor sufixo. (Onde ficam as rotas varia: React Router,
+   TanStack Router, file-based do Next… **pergunte** se não for óbvio pelo repo.)
 6. **Card** — `title` presente (slots) OU `renderItem` definido. Excluir
    (destructive) tem `AlertModal` no plano (se houver form).
 
@@ -64,9 +65,8 @@ fillHeight <on|off>
 loading <skeletonCount> · vazio <emptyState msg/CTA>
 
 ### Arquivos
-- CRIAR  <PAGES_DIR><Nome>Preview.tsx (~<N> linhas)   [ou pasta <Nome>Showcase/]
-- EDITAR src/App.tsx (import + DOC_PAGES + render)
-- EDITAR src/preview/components/doc-nav-data.ts (item "Example: <Nome>")
+- CRIAR  <PAGES_DIR><Nome>.tsx (~<N> linhas)
+- EDITAR <REGISTRO> (rota + entrada de navegação do SEU projeto — ver Fase 0)
 
 ### Referências canônicas que serão lidas antes de gerar
 <lista da matriz do generate.md, só os cenários presentes>
@@ -77,8 +77,9 @@ Responda **aprovar** · **ajustar <o quê>** · **cancelar**.
 
 ## Protocolo do gate
 
-- Registrar `PAUSADO (gate)` em `.ai/status/pipeline-state.md` com **Assumption**
-  (ex: "o sample é representativo; `status` tem exatamente os N valores mapeados").
+- Enunciar a **Assumption** central junto do blueprint (ex.: "o sample é
+  representativo; `status` tem exatamente os N valores mapeados") — é o que torna a
+  decisão reversível depois. **Não** há audit log a preencher neste projeto.
 - `aprovar` → carregar `generate.md` e executar.
 - `ajustar X` → re-montar → re-apresentar (novo gate).
 - `cancelar` → abortar; nota de cancelamento. Zero disco.
