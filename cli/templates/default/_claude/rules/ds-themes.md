@@ -41,8 +41,7 @@ Existe `.claude/ds-config.json` com `"mode": "submodule"`?
 
 ### Modo SUBMÓDULO
 
-Tudo já está no disco. Só importe o arquivo que existe (ajuste o caminho pro `dsPath` do
-`ds-config.json`):
+O **CSS** já está no disco. Importe (ajuste o caminho pro `dsPath` do `ds-config.json`):
 
 ```css
 @import "tailwindcss";
@@ -51,7 +50,21 @@ Tudo já está no disco. Só importe o arquivo que existe (ajuste o caminho pro 
 ```
 
 Não rode `igreen:add` — em modo submódulo ele não se aplica. Tema novo chega com
-`git pull` no submódulo.
+`git pull` no submódulo. **Não** precisa de `@source`: o submódulo fica dentro da raiz do
+projeto e o Tailwind v4 já escaneia daí.
+
+⚠️ **Duas coisas NÃO vêm com o submódulo**, e a segunda falha em silêncio:
+
+1. **As dependências.** O submódulo entrega código-fonte, não pacote — `npm i` das libs que os
+   componentes importam. O mínimo pra `Button` + `Modal`:
+   `tailwind-variants tailwind-merge clsx lucide-react @radix-ui/react-dialog @radix-ui/react-slot`.
+   O build quebra alto (`failed to resolve …`), então é fácil de achar.
+2. **Os arquivos da fonte Geist.** O `@font-face` viaja no tema, mas aponta pra `/fonts/*.woff2`
+   — raiz do **site**, não do submódulo. Copie:
+   `cp design-system/public/fonts/*.woff2 public/fonts/`.
+   Sem isso **não há erro**: o `font-family` segue dizendo `Geist`, o navegador recebe o
+   `index.html` no lugar do arquivo, e os 27 presets caem em system-ui. Confira com
+   `document.fonts.check("16px Geist")` — tem que ser `true`.
 
 ### Modo COPY-IN (scaffold do CLI)
 
