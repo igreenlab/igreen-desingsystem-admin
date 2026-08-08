@@ -51,7 +51,7 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 | Seção major | `gap-gp-6xl` | 32px |
 | Ícone → texto | `gap-gp-xs` / `gap-gp-sm` | 4–6px |
 
-> Densa, **não apertada**: 24px é o respiro padrão entre blocos; 8px entre label e input. Espaçamento sempre via token, nunca px avulso. Divisória (`border-border-subtle`) entre seções heterogêneas (toolbar/tabela/footer); whitespace puro entre homogêneas (lista de cards).
+> Densa, **não apertada**: 16px (`gap-gp-2xl`) é o respiro padrão entre blocos; 8px entre label e input. Espaçamento sempre via token, nunca px avulso. Divisória (`border-border-subtle`) entre seções heterogêneas (toolbar/tabela/footer); whitespace puro entre homogêneas (lista de cards).
 
 ### Tokens de componente (use o ESPECÍFICO, não valor genérico)
 
@@ -172,7 +172,7 @@ Puxe com `npm run igreen:add -- <item>`. Catálogo visual: **https://igreen-desi
 
 - **Flat por escolha** — sem gradiente/glass/neumorfismo. Profundidade = sombra 2-camadas (light) ou borda (dark).
 - **Verde é carga, não decoração** — acento de ação, com restraint. Cinza domina.
-- **Densidade confiante** — `body-sm` 13/500, 24px entre blocos, sem transform no clique.
+- **Densidade confiante** — `body-sm` 13/500, 16px entre blocos, sem transform no clique.
 - **Tokens, sempre** — zero hex em código; cor por papel semântico; derivação por `color-mix` já está nos tokens.
 
 ---

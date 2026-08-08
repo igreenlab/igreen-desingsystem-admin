@@ -18,7 +18,7 @@ Tela de chat: coluna de conversas + thread de mensagens + composer.
 
 > **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
 > o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
-> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Avatar`)
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/avatar-ig`)
 > e leia o exemplo direto em `<dsPath>/src/examples/chat/chat-screen.tsx` —
 > **NÃO** rode `igreen:add`.
 

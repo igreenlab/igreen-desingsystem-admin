@@ -1,3 +1,9 @@
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 # Dashboard Builder (consumidor) — Entrevista (fases 0–6)
 
 Uma pergunta (ou grupo curto) por vez. Acumule as escolhas — **ZERO edição em disco**

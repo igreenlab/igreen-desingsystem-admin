@@ -102,7 +102,7 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`brand-builder`, `crud-builder`, `list-builder`, `dashboard-builder`, `frontend-design`, `igreen-page`) vivem direto em
+(`brand-builder`, `crud-builder`, `list-builder`, `dashboard-builder`, `igreen-frontend`, `igreen-page`) vivem direto em
 `.claude/skills/<nome>/`.
 
 ### DoD — nova skill/command builder (L-047)
@@ -168,7 +168,7 @@ justamente no lugar onde a gente olha.
 → edite `tokens/transforms/to-tailwind-v4.ts` e rode `npm run tokens:tw4`. Nunca o
 `globals.css`.
 
-**Gates:** `scripts/lib/orphan-utilities.mjs` reprova `@utility` usada por componente e
+**Gates:** `scripts/lib/shadcn-vocab.mjs` reprova vocabulário da bridge e paleta nativa do Tailwind em componente/exemplo/showcase; `scripts/lib/orphan-utilities.mjs` reprova `@utility` usada por componente e
 ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
 a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
 
@@ -483,7 +483,7 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 - **L-036** Roteamento de intenção no consumidor = **skill** (nativo/barato pela description), não agente. `ds-kit` é o front-door; subagente só pra trabalho pesado.
 - **L-037** Item de registry declara **todas** as deps reais (`data-table` precisa `@tanstack/react-virtual`; quem usa `@/lib/lucide-types` embute o arquivo). Validar com render em consumidor, não só tsc.
 - **L-038** Default vindo do column-type (`defaultAlign`/`defaultEllipsis`) deve ser resolvido na **fonte única** (`effectiveColumns` em `use-data-table-columns.ts`), nunca por render-site. Header/footer liam só `col.align` cru e divergiam do body em `type:"currency"/"number"` sem `align` explícito (não reproduz no showcase, só no consumidor). Validar no cenário SEM o override.
-- **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e preferir `bg-bg-surface`/`text-fg-default` a `bg-popover`/`text-popover-foreground`.
+- **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e **PROIBIDO** usar `bg-popover`/`text-popover-foreground` — ou qualquer das 19 chaves da bridge (`background` `foreground` `card` `popover` `primary` `secondary` `muted` `accent` `destructive` `border` `input` `ring` + `-foreground`). Elas só existem no `globals.css`/`index.css`, não viajam pros canais npm e submódulo, e a cor cai em `currentColor`. Gate: `scripts/lib/shadcn-vocab.mjs` no `npm test`; a tabela `EQUIVALENTE` dele dá o token DS de cada chave.
 - **L-040** Componente **flutuante** (menu/popover/painel) segue a **receita única** do DS — espelhar `dropdown-menu.tsx`/`popover.tsx`, nunca os defaults shadcn. Superfície: `relative bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float` + frosted `before:backdrop-blur-2xl ...` + `text-fg-default/-muted`. Item: `px-pad-lg py-pad-md rounded-radius-sm text-fg-muted focus:bg-bg-muted focus:text-fg-default` (ativo `bg-bg-brand-subtle/fg-brand`, destructive danger). Separator/Label/Shortcut por token. Tooltip é exceção (menor). Delay default: Tooltip 200 / HoverCard openDelay 200 (Radix 700 é lento).
 - **L-042** Componente novo toca **7 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog. 1–4 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).

@@ -26,6 +26,11 @@ description: >
 > O hook `ds-inventory-check` cobre automaticamente **2, 3, 5, 6 e o registro de
 > showcase (4)** — avisa na hora da edição. Restam manuais: **1** (o código, via tsc)
 > e **7** (changelog, no `/ds-release`).
+>
+> ⚠️ **Só vale pra COMPOSTO** (`src/components/ui/<Nome>/`): o hook extrai o nome desse
+> path e sai cedo se não casar. **Primitivo shadcn** é arquivo único em
+> `src/components/shadcn/` → **nenhum** dos 5 eixos é coberto, e a lista inteira vira
+> manual. O `impl-shadcn.md` diz isso ("aqui o CI NÃO é rede de segurança").
 
 | #   | Superfície          | Onde                                                                                                                           | Checagem                                                       |
 | --- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |

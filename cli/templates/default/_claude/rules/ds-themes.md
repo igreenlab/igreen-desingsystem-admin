@@ -61,7 +61,7 @@ projeto e o Tailwind v4 já escaneia daí.
    O build quebra alto (`failed to resolve …`), então é fácil de achar.
 2. **Os arquivos da fonte Geist.** O `@font-face` viaja no tema, mas aponta pra `/fonts/*.woff2`
    — raiz do **site**, não do submódulo. Copie:
-   `cp design-system/public/fonts/*.woff2 public/fonts/`.
+   `mkdir -p public/fonts && cp design-system/public/fonts/*.woff2 public/fonts/`.
    Sem isso **não há erro**: o `font-family` segue dizendo `Geist`, o navegador recebe o
    `index.html` no lugar do arquivo, e os 27 presets caem em system-ui. Confira com
    `document.fonts.check("16px Geist")` — tem que ser `true`.

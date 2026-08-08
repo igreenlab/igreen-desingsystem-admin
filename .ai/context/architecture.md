@@ -224,7 +224,7 @@ src/
 │   ├── brand-builder/    ← marca/tema novo (10 superfícies)
 │   ├── crud-builder/ · list-builder/ · dashboard-builder/
 │   ├── app-builder/ · auth-builder/ · screen-composer/ · module-replicator/
-│   ├── frontend-design/
+│   ├── igreen-frontend/
 │   ├── app-designer/     (🚧)
 │   ├── app-dev-react/    (🚧)
 │   └── igreen-page/      (🚧)

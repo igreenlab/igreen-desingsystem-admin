@@ -1,3 +1,9 @@
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 # Dashboard Builder (consumidor) — Geração
 
 Só após o gate aprovado. Abort-on-error.
@@ -30,9 +36,9 @@ alerta ganha cor). `signed` deriva verde/vermelho + seta do sinal; use tom expl�
 
 **§2 Chart-card**: SectionCard (`flex flex-col gap-gp-2xl p-pad-3xl bg-bg-surface border
 border-border-subtle rounded-radius-xl shadow-sh-sm`) com head discreto (título `text-body-md
-font-medium`, subtítulo `text-body-xs text-fg-muted`, gap `gap-[2px]`) + `<ChartContainer
-className="h-[160px]">`. Cor só por token. Big-number liderando: `text-[30px] font-bold
-leading-none tabular-nums`. Legenda/metric-row: ícone-**quadrado** `size-comp-xl rounded-radius-base`
+font-medium`, subtítulo `text-body-xs text-fg-muted`, gap `gap-gp-2xs` (2px)) + `<ChartContainer
+className="h-[160px]">`. Cor só por token. Big-number liderando: `text-stat-lg
+leading-none tabular-nums` (30px/bold — o preset existe; NÃO hardcode `text-[30px]`). Legenda/metric-row: ícone-**quadrado** `size-comp-xl rounded-radius-base`
 + label/sub + valor à direita, sob `border-t border-border-subtle`.
 
 **§3 Fusão KPI+evolução / ranking** (linha rica): identidade (rank badge `size-comp-sm

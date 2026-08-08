@@ -216,7 +216,7 @@ Mudança em componente/token precisa refletir no registry, senão o consumidor r
 
 ### 2.9 — Rodar os gates agregados (mais barato que reproduzir na mão)
 
-Antes de aprovar, rode. São 4 comandos e cobrem o que o checklist manual não alcança:
+Antes de aprovar, rode os 2 comandos abaixo — eles cobrem o que o checklist manual não alcança:
 
 ```bash
 npm run release:check   # registry-check --ci + brand-check + distribution-debt --ci
@@ -234,6 +234,7 @@ O que cada gate pega, e **por que o checklist manual não pega**:
 | `examples-drift-check` | `src/examples/*` divergindo do showcase que ele copia (L-035) |
 | `orphan-utilities` | `@utility` que um componente usa e que **não está no tema gerado** — era o buraco por onde o `outline-float` passou meses |
 | `runtime-base.test` | as 7 peças de runtime ausentes do tema · cópia do CLI divergente · `globals.css` **redeclarando** alguma delas |
+| `shadcn-vocab` | vocabulário da bridge (`bg-popover`, `ring-foreground`…) em componente/exemplo/showcase — só existe no `globals.css`/`index.css` e não viaja pros canais npm e submódulo · e cor da **paleta nativa** do Tailwind (`bg-red-500`), que renderiza mas fica fora do sistema de tokens |
 | `dead-theme-classes` | classe de cor sem CSS var — em `src/` **e** nas docs/skills/kit que ensinam a IA. Foi por só olhar `src/` que 44 usos de V2 sobreviveram nas skills. Citação deliberada declara-se em `CITACOES` com motivo |
 
 ⚠️ **Mexeu em doc que ensina classe?** `npm test` já cobre classe INEXISTENTE. O que ele
@@ -292,7 +293,7 @@ Pendências encontradas:
 [MÉDIO]
   • Lição L-016 adicionada em lessons.md mas resumo em ds-standards.md
     não foi atualizado
-    → Adicionar entry 1-linha em "16 Lições — resumo"
+    → Adicionar entry 1-linha em "66 Lições (L-001 a L-066) — resumo"
 
 [BAIXO]
   • Comentário em src/components/shadcn/label.tsx menciona preset legado
@@ -346,7 +347,7 @@ grep -rE 'text-(paragraph|label|subheading)-(sm|md|lg|xl|xs|base|2xs)' src --inc
 
 - Não substitui `review-component.md` (revisão profunda de UM componente). Pre-commit-check é mais largo, menos profundo.
 - Não substitui Passo 1.5 do `release.md` (greps L-001..L-007). Esse é específico pra release; pre-commit pode ser invocado fora de release.
-- Não roda `tsc` / tests — o release skill (ou o usuário) faz isso depois.
+- ~~Não roda `tsc` / tests~~ — **desatualizado**: a §2.9 manda rodar `npm test` e `npm run release:check`, que é onde vivem os gates de classe morta, vocabulário da bridge, runtime-base e vocabulário do consumidor. O que continua fora daqui é o `npx tsc --noEmit` (o release skill faz).
 - Não decide se commit deve ser único ou separado — apenas valida que TUDO que precisava acompanhar a mudança foi atualizado.
 
 ---

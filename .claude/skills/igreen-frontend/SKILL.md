@@ -1,7 +1,7 @@
 ---
 name: igreen-frontend
 description: >
-  Skill específica do iGreen DS. Substituiu a skill genérica frontend-design
+  Skill específica do iGreen DS. Substituiu a skill genérica `frontend-design`. ⚠️ A PASTA se chamava `frontend-design` e por isso era SOMBREADA pela skill global de mesmo nome — invocar `frontend-design` neste repo entregava justamente a genérica que este arquivo diz ter substituído. Renomeada pra `igreen-frontend` (batendo com o `name:` acima) em 2026-08-08
   que conflitava com o DS (fonts não-Inter, gradients, layouts assimétricos).
   Ativar quando criar páginas, telas, blocos ou componentes dentro do iGreen DS.
 ---
@@ -101,7 +101,7 @@ bg-bg-subtle      ← hover states, faixas alternadas de tabela
 ## Componentes disponíveis
 
 Verificar `.ai/context/components/inventory.md` antes de criar qualquer componente.
-21 componentes implementados — usar sempre antes de criar do zero.
+42 compostos em ui/ + 41 primitivos shadcn implementados — usar sempre antes de criar do zero.
 
 ## Dark mode
 

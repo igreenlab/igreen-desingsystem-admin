@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/design-system",
-  "version": "0.37.1",
+  "version": "0.37.2",
   "//distribuicao": "Canal PRIMARIO = registry shadcn (copy-in) + CLI @snksergio/create-design-system; sobe sozinho no merge (Vercel). Canal SECUNDARIO = este pacote npm (@snksergio/design-system), publicado por passo MANUAL do mantenedor, entao costuma ficar atras do registry. SECUNDARIO descreve a ORDEM DE PUBLICACAO, nao o nivel de suporte: NAO e depreciado, e desde a 0.37.0 entrega 41 dos 42 componentes ui/ no barrel raiz + os 41 primitivos shadcn no subpath ./shadcn (so TabelaTeste, demo interno, fica de fora). Publish so pelo Passo 7 do .claude/skills/ds-dev/release.md (valida com `npm run lib:verify`, pede o token, publica, revoga). Ver DISTRIBUICAO.md.",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "license": "UNLICENSED",
@@ -103,7 +103,7 @@
     "audit:token-docs": "node scripts/audit-token-docs.mjs",
     "registry:stamp": "node scripts/registry-stamp.mjs",
     "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
-    "release:check": "node scripts/registry-check.mjs --ci && node scripts/brand-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs && npm run registry-app:audit",
+    "release:check": "node scripts/registry-check.mjs --ci && node scripts/brand-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs --ci && npm run registry-app:audit",
     "registry-app:audit": "npm audit --audit-level=high --prefix registry-app",
     "distribution:debt": "node scripts/distribution-debt.mjs",
     "lint:styles": "node scripts/lint-styles.mjs --ratchet origin/main",

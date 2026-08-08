@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · accordion · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · alert-dialog · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · alert-modal · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · alert · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · app-shell · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · aspect-ratio · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · avatar-ig · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · avatar · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · badge · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · breadcrumb · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · button-group · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · button · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · calendar · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · card-checkbox · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · card · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · carousel · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · chart · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · checkbox · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · chip · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · choropleth-map · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · collapsible · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · color-picker · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · combobox · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -860,13 +860,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/command.tsx",
-        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { type DialogProps } from \"@radix-ui/react-dialog\"\r\nimport { Command as CommandPrimitive } from \"cmdk\"\r\nimport { Search } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Dialog, DialogContent, DialogTitle } from \"@/components/shadcn/dialog\"\r\n\r\n/**\r\n * Command — alinhado com o views-popover do design-and-table-v2.\r\n *\r\n * Estrutura:\r\n *   - <Command> raiz (flex column)\r\n *   - <CommandInput> = input \"real\" boxed (bg-input + border + radius-lg + shadow)\r\n *   - <CommandList> com padding 4px\r\n *   - <CommandGroup> heading uppercase + items\r\n *   - <CommandItem> radius-lg (10px), px 12, py 8, font 13px, ícones 18px\r\n *\r\n * Pattern do input replica `.tbl-views-pop-search` exatamente.\r\n */\r\n\r\nconst Command = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive\r\n    ref={ref}\r\n    className={cn(\r\n      // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —\r\n      // dependem da bridge do `index.css`, que só existe no scaffold. Em npm e\r\n      // submódulo a bridge não viaja, e a superfície caía no default do shadcn em vez\r\n      // dos tokens iGreen (L-039/L-040). Era a ÚNICA ocorrência de vocabulário shadcn\r\n      // em todo o bundle publicado — medida em 2026-08-08.\r\n      \"flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-dropdown text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommand.displayName = CommandPrimitive.displayName\r\n\r\nconst CommandDialog = ({ children, ...props }: DialogProps) => {\r\n  return (\r\n    <Dialog {...props}>\r\n      <DialogContent\r\n        hideClose\r\n        // A11y: Radix exige título; aqui é sr-only (paleta de comando não tem\r\n        // header visível) e opt-out de descrição.\r\n        aria-describedby={undefined}\r\n        className={cn(\r\n          \"overflow-hidden p-0 gap-0 sm:max-w-[384px]\",\r\n          \"rounded-[12px] border border-border-default\",\r\n          // Outline padrão de elementos flutuantes\r\n          \"outline-float\"\r\n        )}\r\n      >\r\n        <DialogTitle className=\"sr-only\">Comando</DialogTitle>\r\n        <Command>{children}</Command>\r\n      </DialogContent>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\n/* ── Input boxed (igual views-popover search) ─────────────────────────────── */\r\nconst CommandInput = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Input>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    cmdk-input-wrapper=\"\"\r\n    className={cn(\r\n      \"flex items-center gap-gp-md h-form-md px-pad-xl rounded-radius-lg\",\r\n      \"bg-bg-input border border-border-subtle shadow-sh-sm\",\r\n      \"transition-[border-color,box-shadow,background-color] duration-150\",\r\n      \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n      \"dark:bg-bg-muted dark:border-border-input dark:shadow-sh-none\"\r\n    )}\r\n  >\r\n    <Search className=\"size-[14px] text-fg-muted shrink-0\" strokeWidth={1.8} />\r\n    <CommandPrimitive.Input\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n        \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </div>\r\n))\r\nCommandInput.displayName = CommandPrimitive.Input.displayName\r\n\r\n/* ── List ─────────────────────────────────────────────────────────────────── */\r\nconst CommandList = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"max-h-[300px] overflow-y-auto overflow-x-hidden mt-pad-md scrollbar-thin\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandList.displayName = CommandPrimitive.List.displayName\r\n\r\nconst CommandEmpty = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Empty>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>\r\n>((props, ref) => (\r\n  <CommandPrimitive.Empty\r\n    ref={ref}\r\n    className=\"py-pad-5xl text-center text-body-md text-fg-muted\"\r\n    {...props}\r\n  />\r\n))\r\nCommandEmpty.displayName = CommandPrimitive.Empty.displayName\r\n\r\n/* ── Group (heading uppercase 28px, sem padding extra no group) ──────────── */\r\nconst CommandGroup = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Group>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Group\r\n    ref={ref}\r\n    className={cn(\r\n      \"overflow-hidden text-fg-default\",\r\n      \"[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center\",\r\n      \"[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl\",\r\n      \"[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold\",\r\n      \"[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider\",\r\n      \"[&_[cmdk-group-heading]]:text-fg-subtle\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandGroup.displayName = CommandPrimitive.Group.displayName\r\n\r\nconst CommandSeparator = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCommandSeparator.displayName = CommandPrimitive.Separator.displayName\r\n\r\n/* ── Item: px-12 py-8, radius-lg (10px), font 13px, ícones 18px ───────────── */\r\nconst CommandItem = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl py-pad-md\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default\",\r\n      \"data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandItem.displayName = CommandPrimitive.Item.displayName\r\n\r\nconst CommandShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nCommandShortcut.displayName = \"CommandShortcut\"\r\n\r\nexport {\r\n  Command,\r\n  CommandDialog,\r\n  CommandInput,\r\n  CommandList,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandItem,\r\n  CommandShortcut,\r\n  CommandSeparator,\r\n}\r\n",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport { type DialogProps } from \"@radix-ui/react-dialog\"\r\nimport { Command as CommandPrimitive } from \"cmdk\"\r\nimport { Search } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Dialog, DialogContent, DialogTitle } from \"@/components/shadcn/dialog\"\r\n\r\n/**\r\n * Command — alinhado com o views-popover do design-and-table-v2.\r\n *\r\n * Estrutura:\r\n *   - <Command> raiz (flex column)\r\n *   - <CommandInput> = input \"real\" boxed (bg-input + border + radius-lg + shadow)\r\n *   - <CommandList> com padding 4px\r\n *   - <CommandGroup> heading uppercase + items\r\n *   - <CommandItem> radius-lg (10px), px 12, py 8, font 13px, ícones 18px\r\n *\r\n * Pattern do input replica `.tbl-views-pop-search` exatamente.\r\n */\r\n\r\nconst Command = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive\r\n    ref={ref}\r\n    className={cn(\r\n      // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —\r\n      // dependem da bridge do `globals.css`/`index.css`, que NÃO viaja pros canais npm\r\n      // e submódulo. Lá a var não existe e a cor cai em `currentColor` (L-039/L-040).\r\n      //\r\n      // ⚠️ O substituto é `bg-bg-surface`, NÃO `bg-bg-dropdown`. A primeira troca (v0.36.0)\r\n      // usou `dropdown` por ser o token da receita de flutuante — mas ele é TRANSLÚCIDO no\r\n      // dark (`canvas` a 70%, pareado com `before:backdrop-blur-2xl`, que este componente\r\n      // não tem), enquanto a bridge resolvia `popover` pra `surface-elevated`, OPACO.\r\n      // Medido: light idêntico nos dois; dark `oklch(0.225 0 0)` vs `oklab(0.205 0 0 / 0.7)`.\r\n      // `bg-bg-surface` reproduz o valor original nos DOIS modos.\r\n      \"flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-surface text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommand.displayName = CommandPrimitive.displayName\r\n\r\nconst CommandDialog = ({ children, ...props }: DialogProps) => {\r\n  return (\r\n    <Dialog {...props}>\r\n      <DialogContent\r\n        hideClose\r\n        // A11y: Radix exige título; aqui é sr-only (paleta de comando não tem\r\n        // header visível) e opt-out de descrição.\r\n        aria-describedby={undefined}\r\n        className={cn(\r\n          \"overflow-hidden p-0 gap-0 sm:max-w-[384px]\",\r\n          \"rounded-[12px] border border-border-default\",\r\n          // Outline padrão de elementos flutuantes\r\n          \"outline-float\"\r\n        )}\r\n      >\r\n        <DialogTitle className=\"sr-only\">Comando</DialogTitle>\r\n        <Command>{children}</Command>\r\n      </DialogContent>\r\n    </Dialog>\r\n  )\r\n}\r\n\r\n/* ── Input boxed (igual views-popover search) ─────────────────────────────── */\r\nconst CommandInput = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Input>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    cmdk-input-wrapper=\"\"\r\n    className={cn(\r\n      \"flex items-center gap-gp-md h-form-md px-pad-xl rounded-radius-lg\",\r\n      \"bg-bg-input border border-border-subtle shadow-sh-sm\",\r\n      \"transition-[border-color,box-shadow,background-color] duration-150\",\r\n      \"focus-within:border-border-brand focus-within:shadow-sh-ring\",\r\n      \"dark:bg-bg-muted dark:border-border-input dark:shadow-sh-none\"\r\n    )}\r\n  >\r\n    <Search className=\"size-[14px] text-fg-muted shrink-0\" strokeWidth={1.8} />\r\n    <CommandPrimitive.Input\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex-1 min-w-0 bg-transparent border-0 outline-none\",\r\n        \"text-body-sm font-normal text-fg-default placeholder:text-fg-muted\",\r\n        \"disabled:cursor-not-allowed disabled:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </div>\r\n))\r\nCommandInput.displayName = CommandPrimitive.Input.displayName\r\n\r\n/* ── List ─────────────────────────────────────────────────────────────────── */\r\nconst CommandList = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.List\r\n    ref={ref}\r\n    className={cn(\r\n      \"max-h-[300px] overflow-y-auto overflow-x-hidden mt-pad-md scrollbar-thin\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandList.displayName = CommandPrimitive.List.displayName\r\n\r\nconst CommandEmpty = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Empty>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Empty>\r\n>((props, ref) => (\r\n  <CommandPrimitive.Empty\r\n    ref={ref}\r\n    className=\"py-pad-5xl text-center text-body-md text-fg-muted\"\r\n    {...props}\r\n  />\r\n))\r\nCommandEmpty.displayName = CommandPrimitive.Empty.displayName\r\n\r\n/* ── Group (heading uppercase 28px, sem padding extra no group) ──────────── */\r\nconst CommandGroup = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Group>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Group>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Group\r\n    ref={ref}\r\n    className={cn(\r\n      \"overflow-hidden text-fg-default\",\r\n      \"[&_[cmdk-group-heading]]:flex [&_[cmdk-group-heading]]:items-center\",\r\n      \"[&_[cmdk-group-heading]]:h-[28px] [&_[cmdk-group-heading]]:px-pad-xl\",\r\n      \"[&_[cmdk-group-heading]]:text-caption-xs [&_[cmdk-group-heading]]:font-bold\",\r\n      \"[&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider\",\r\n      \"[&_[cmdk-group-heading]]:text-fg-subtle\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandGroup.displayName = CommandPrimitive.Group.displayName\r\n\r\nconst CommandSeparator = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"mx-pad-xs my-pad-xs h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCommandSeparator.displayName = CommandPrimitive.Separator.displayName\r\n\r\n/* ── Item: px-12 py-8, radius-lg (10px), font 13px, ícones 18px ───────────── */\r\nconst CommandItem = React.forwardRef<\r\n  React.ElementRef<typeof CommandPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof CommandPrimitive.Item>\r\n>(({ className, ...props }, ref) => (\r\n  <CommandPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl py-pad-md\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"data-[selected='true']:bg-bg-muted data-[selected='true']:text-fg-default data-[selected='true']:[&_svg]:text-fg-default\",\r\n      \"data-[disabled='true']:pointer-events-none data-[disabled='true']:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-[18px] [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCommandItem.displayName = CommandPrimitive.Item.displayName\r\n\r\nconst CommandShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nCommandShortcut.displayName = \"CommandShortcut\"\r\n\r\nexport {\r\n  Command,\r\n  CommandDialog,\r\n  CommandInput,\r\n  CommandList,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandItem,\r\n  CommandShortcut,\r\n  CommandSeparator,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/command.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · command · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · context-menu · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · data-list · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · data-table · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · date-picker · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · dialog · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · drawer · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · dropdown-menu · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · empty-state · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-app-shell · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-chat · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-clientes · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-dashboard · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-edit-page · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-finance · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-login · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-mapa-rede · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · example-order-detail · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · file-upload-field · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · floating-panel · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · footer-table · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · form-field · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · header · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · hover-card · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · icon · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · input-group · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · input-otp · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · input · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · kanban · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · kpi · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · label · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · list · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · markdown-text · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · menu-sidebar · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · menubar · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · modal · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · month-year-picker · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · navigation-menu · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · page-header · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · pagination · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · panel · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · popover · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · progress · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · radio-group · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · scroll-area · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · select · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3972,13 +3972,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/separator.tsx",
-        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst Separator = React.forwardRef<\n  React.ElementRef<typeof SeparatorPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>\n>(\n  (\n    { className, orientation = \"horizontal\", decorative = true, ...props },\n    ref\n  ) => (\n    <SeparatorPrimitive.Root\n      ref={ref}\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 bg-border-default\",\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n)\nSeparator.displayName = SeparatorPrimitive.Root.displayName\n\nexport { Separator }\n",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Separator = React.forwardRef<\r\n  React.ElementRef<typeof SeparatorPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>\r\n>(\r\n  (\r\n    { className, orientation = \"horizontal\", decorative = true, ...props },\r\n    ref\r\n  ) => (\r\n    <SeparatorPrimitive.Root\r\n      ref={ref}\r\n      decorative={decorative}\r\n      orientation={orientation}\r\n      className={cn(\r\n        \"shrink-0 bg-border-default\",\r\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n)\r\nSeparator.displayName = SeparatorPrimitive.Root.displayName\r\n\r\nexport { Separator }\r\n",
         "type": "registry:ui",
         "target": "components/ui/separator.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · separator · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · sheet · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · skeleton · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · slider · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · sonner · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · spinner · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · switch · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · table · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · tabs · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · textarea · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4389,7 +4389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · theme-blue · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4407,7 +4407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · theme-green · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4425,7 +4425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · theme-pay · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4443,7 +4443,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · theme-vibrant · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · theme · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · toast · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · toggle-group · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · toggle · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · tooltip · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · tv · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.37.1 · 8512a83 · 2026-08-08"
+      "stamp": "igreen-ds · utils · v0.37.2 · def9ff0 · 2026-08-08"
     },
     "type": "registry:file"
   }

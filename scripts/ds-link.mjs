@@ -219,6 +219,10 @@ const dsPathRel = relative(TARGET, DS_ROOT).split("\\").join("/") || ".";
 const detected = detectAlias(dsPathRel);
 const alias = opt("--alias", detected || "@ds");
 const importBase = `${alias}/components/ui`;
+/* Os 41 primitivos shadcn NÃO ficam em `components/ui/` no repo do DS — só os 42
+   compostos. O copy-in achata tudo em `ui/`, mas o submódulo lê o REPO. Sem este
+   segundo caminho, a IA gera `@ds/components/ui/tabs` e o build não resolve. */
+const primitivesBase = `${alias}/components/shadcn`;
 
 const aliasInternoOk = detectaAliasInternoDoDs(dsPathRel);
 
@@ -273,6 +277,7 @@ const config = {
   dsPath: dsPathRel,
   alias,
   importBase,
+  primitivesBase,
   examplesBase: `${alias}/examples`,
   dsVersion,
 };
@@ -291,19 +296,27 @@ const block =
   `## iGreen Design System (submódulo)\n\n` +
   `Este projeto consome o iGreen DS como **submódulo** em \`${dsPathRel}\`. O kit de\n` +
   `skills/commands/rules foi projetado em \`.claude/\` por \`ds-link\` (v${dsVersion}).\n\n` +
-  `- **Import**: componentes ficam em \`${dsPathRel}/src\` — importe via \`${importBase}/<Nome>\`\n` +
+  `- **Import** — são DOIS caminhos, porque o submódulo lê o **repo** do DS, e não o layout\n` +
+  `  achatado do copy-in:\n` +
+  `    - **compostos** (Button, DataTable, FormField, Modal, Kpi…): \`${importBase}/<Nome>\`\n` +
+  `      — PascalCase; única exceção: \`avatar-ig\`.\n` +
+  `    - **primitivos shadcn** (Tabs, Select, Card, Avatar, Popover…): \`${primitivesBase}/<nome>\`\n` +
+  `      — kebab minúsculo. No repo do DS eles NÃO ficam em \`components/ui/\`.\n` +
   `  (o alias \`${alias}\` deve apontar pra \`${dsPathRel}/src\` no seu tsconfig/vite).\n` +
   `- **Criar telas**: \`/ds-create-crud\` (tabela), \`/ds-create-list\` (cards),\n` +
   `  \`/ds-create-dashboard\` (painel), \`/ds-create-screen\` (2+ peças que conversam),\n` +
-  `  \`/ds-create-app\` (app inteiro), \`/ds-create-login\`. As skills leem\n` +
+  `  \`/ds-create-app\` (app inteiro), \`/ds-create-login\`, \`/ds-replicate-module\`\n` +
+  `  (replicar módulo) e \`/ds-build-page\` (entrada genérica). As skills leem\n` +
   `  \`.claude/ds-config.json\` (modo submódulo) e leem os componentes/exemplos direto do\n` +
   `  disco — **não** rodam \`igreen:add\`.\n` +
+  `- **\`DESIGN.md\`**: as skills mandam "aplique o \`DESIGN.md\`". Ele **não** é projetado pro\n` +
+  `  seu \`.claude/\` — está em \`${dsPathRel}/DESIGN.md\`.\n` +
   `- **Regras DS** auto-carregadas em \`.claude/rules/\`: \`ds-components.md\` (qual\n` +
   `  componente usar pra cada tarefa), \`ds-design.md\` (como estilizar — tokens, spacing, foco),\n` +
   `  \`ds-themes.md\` (trocar/adicionar tema de marca — em submódulo é só importar o\n` +
   `  overlay do disco + \`data-theme\` no \`<html>\`, sem \`igreen:add\`) e \`ds-channels.md\`\n` +
   `  (os 4 canais de consumo do DS e o que cada um entrega).\n\n` +
-  `### ⚠️ Dois passos que o submódulo NÃO faz por você\n\n` +
+  `### ⚠️ Três passos que o submódulo NÃO faz por você\n\n` +
   `O submódulo entrega **código-fonte**, não um pacote:\n\n` +
   `1. **O alias INTERNO do DS (\`@\`).** Os arquivos do DS importam entre si por\n` +
   `   \`@/components/…\`, \`@/lib/utils\`, \`@/utils/tv\` — 700 imports. Esse \`@\` significa "a\n` +
@@ -327,13 +340,16 @@ const block =
   `   Componente novo pede mais (\`@tanstack/react-virtual\` no DataTable, \`recharts\` no Chart,\n` +
   `   \`cmdk\` no Combobox…). O erro do bundler diz exatamente qual falta — essa falha é **alta**.\n` +
   `3. **Fonte Geist.** O \`@font-face\` viaja no tema, mas aponta pra \`/fonts/*.woff2\` —\n` +
-  `   raiz do **site**, não do submódulo. Rode \`cp ${dsPathRel}/public/fonts/*.woff2 public/fonts/\`.\n` +
+  `   raiz do **site**, não do submódulo. Rode:\n` +
+  `   \`mkdir -p public/fonts && cp ${dsPathRel}/public/fonts/*.woff2 public/fonts/\`\n` +
   `   Sem isso **não há erro**: o navegador recebe o \`index.html\` no lugar do arquivo e os 27\n` +
   `   presets caem em system-ui. Confira com \`document.fonts.check("16px Geist")\` → \`true\`.\n\n` +
-  `E importe o tema no seu CSS de entrada (o overlay de marca, se usar, **depois** dele):\n\n` +
+  `E importe o tema no seu CSS de entrada (o overlay de marca, se usar, **depois** dele).\n` +
+  `⚠️ O caminho é relativo ao **arquivo CSS**, não à raiz do projeto — se o seu entry é\n` +
+  `\`src/index.css\`, precisa do \`../\`:\n\n` +
   `\`\`\`css\n` +
   `@import "tailwindcss";\n` +
-  `@import "${dsPathRel}/src/styles/theme/tailwind-theme.css";\n` +
+  `@import "../${dsPathRel}/src/styles/theme/tailwind-theme.css";\n` +
   `\`\`\`\n\n` +
   `Você **não** precisa de \`@source\`: o submódulo fica dentro da raiz do projeto, então o\n` +
   `Tailwind v4 já escaneia as classes do DS (ao contrário do canal npm, onde \`node_modules\`\n` +
