@@ -28,7 +28,12 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-popover text-popover-foreground",
+      // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —
+      // dependem da bridge do `index.css`, que só existe no scaffold. Em npm e
+      // submódulo a bridge não viaja, e a superfície caía no default do shadcn em vez
+      // dos tokens iGreen (L-039/L-040). Era a ÚNICA ocorrência de vocabulário shadcn
+      // em todo o bundle publicado — medida em 2026-08-08.
+      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-dropdown text-fg-default",
       className
     )}
     {...props}

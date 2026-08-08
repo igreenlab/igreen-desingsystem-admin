@@ -89,7 +89,13 @@ export const bg = {
   "info-muted-hover":  `color-mix(in oklch, ${info[500]} 22%, transparent)`,
 
   // Hover dos neutros — retunados pro hue frio 250 (a default usa croma 0)
-  "muted-hover":  "oklch(0.95 0.0012 250)",   // #eeeef0
+  "muted-hover":  "oklch(0.95 0.0012 250)",
+  // Scrollbar: contraste PRÓPRIO, independente da cor de superfície da marca — por isso
+  // alpha neutro, não um token de bg. O @utility usava bg.muted-hover, que no light é
+  // cinza OPACO sobre branco: a barra sumia no consumidor (o showcase mascarava com um
+  // override hardcoded no globals.css). Medido e corrigido em 2026-08-08.
+  "scrollbar-thumb":       "oklch(0 0 0 / 0.24)",
+  "scrollbar-thumb-hover": "oklch(0 0 0 / 0.32)",   // #eeeef0
   "input-hover":  gray[50],                   // neutra-50 — sutil sobre input=white
   "accent-hover": "oklch(0.84 0.0032 250)",   // #cacace
 

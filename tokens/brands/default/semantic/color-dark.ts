@@ -64,6 +64,12 @@ export const bg = {
 
   // Hover dos neutros — alphas sobem 1 tier
   "muted-hover":  "oklch(1 0 0 / 0.08)",
+  // Scrollbar: contraste PRÓPRIO, independente da cor de superfície da marca — por isso
+  // alpha neutro, não um token de bg. O @utility usava bg.muted-hover, que no light é
+  // cinza OPACO sobre branco: a barra sumia no consumidor (o showcase mascarava com um
+  // override hardcoded no globals.css). Medido e corrigido em 2026-08-08.
+  "scrollbar-thumb":       "oklch(1 0 0 / 0.24)",
+  "scrollbar-thumb-hover": "oklch(1 0 0 / 0.32)",
   "input-hover":  "oklch(1 0 0 / 0.08)",
   "accent-hover": "oklch(1 0 0 / 0.16)",
 

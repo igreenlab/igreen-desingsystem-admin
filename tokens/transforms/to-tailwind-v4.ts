@@ -236,7 +236,7 @@ function buildScrollbarVars(): Record<string, string> {
 function buildScrollbarUtilities(): string {
   return `@utility scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-bg-muted-hover) transparent;
+  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;
 
   &::-webkit-scrollbar {
     width: var(--scrollbar-width-thin);
@@ -248,18 +248,18 @@ function buildScrollbarUtilities(): string {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-bg-muted-hover);
+    background-color: var(--color-bg-scrollbar-thumb);
     border-radius: var(--radius-radius-full);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-fg-muted);
+    background-color: var(--color-bg-scrollbar-thumb-hover);
   }
 }
 
 @utility scrollbar-default {
   scrollbar-width: auto;
-  scrollbar-color: var(--color-bg-muted-hover) transparent;
+  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;
 
   &::-webkit-scrollbar {
     width: var(--scrollbar-width-default);
@@ -271,12 +271,12 @@ function buildScrollbarUtilities(): string {
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-bg-muted-hover);
+    background-color: var(--color-bg-scrollbar-thumb);
     border-radius: var(--radius-radius-full);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-fg-muted);
+    background-color: var(--color-bg-scrollbar-thumb-hover);
   }
 }`;
 }
