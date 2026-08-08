@@ -145,34 +145,19 @@
  * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
  * Thumb sempre visível (alpha-black-24 light / alpha-white-24 dark), realça no hover.
  * ─────────────────────────────────────────────────────────────────────── */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: oklch(0 0 0 / 0.24) transparent;
-}
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: oklch(0 0 0 / 0.24);
-  border-radius: 9999px;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: oklch(0 0 0 / 0.32);
-}
-
-.dark .scrollbar-thin {
-  scrollbar-color: oklch(1 0 0 / 0.24) transparent;
-}
-.dark .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: oklch(1 0 0 / 0.24);
-}
-.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: oklch(1 0 0 / 0.32);
-}
+/* O override plano de `.scrollbar-thin` FOI REMOVIDO em 2026-08-08.
+ *
+ * Ele existia aqui com valores HARDCODED (`oklch(0 0 0 / 0.24)`) e, por ser classe
+ * sem layer, vencia o `@utility scrollbar-thin` do tema. Efeito: o showcase mostrava
+ * uma barra visível que o consumidor NUNCA via — lá valia o `@utility`, que usava
+ * `bg.muted-hover` (no light, cinza OPACO sobre fundo branco: a barra sumia).
+ *
+ * O showcase estava mascarando a divergência em 16 usos / 10 componentes.
+ *
+ * Agora o `@utility` do tema consome `bg.scrollbar-thumb` / `-hover` — tokens novos,
+ * com os MESMOS valores que estavam aqui. Showcase inalterado, consumidor corrigido.
+ * NÃO reintroduza um override aqui: classe sem layer vence `@utility` e o
+ * mascaramento volta. */
 
 @keyframes spin {
   to { transform: rotate(360deg); }
