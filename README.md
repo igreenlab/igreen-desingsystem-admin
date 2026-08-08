@@ -182,6 +182,25 @@ Sem isso a tipografia cai em `system-ui` e os 27 presets do DS renderizam na fon
 @import "tw-animate-css";   /* opcional — só as animações de entrada/saída */
 ```
 
+**O que dá pra importar (≥ 0.37.0).** Duas entradas:
+
+```ts
+// raiz — 41 dos 42 componentes ui/ + os hooks de tema
+import { Button, DataTable, AppShell, Chart, DataList, List, toast, useBrand } from "@snksergio/design-system";
+
+// subpath — os 41 primitivos shadcn adaptados aos tokens do DS
+import { Dialog, Select, Tabs, Popover, Tooltip, Card, Calendar } from "@snksergio/design-system/shadcn";
+```
+
+São duas entradas, e não uma, porque os primitivos somam 41 arquivos / 233 nomes exportados
+enquanto o consumidor típico usa 3 ou 4 — no mesmo barrel, qualquer `import` do pacote
+arrastaria Radix + cmdk + vaul + embla + input-otp + sonner antes de o bundler conseguir
+podar. Quem não importa `/shadcn` não paga por eles.
+
+O único componente `ui/` fora do npm é `TabelaTeste` (demo interno do showcase). Até a
+0.36.0 o barrel tinha 37 — `Chart`, `DataList`, `List` e `Toast` ficavam de fora, e não
+havia subpath `/shadcn`.
+
 **O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
 ### Trocar o tema de marca

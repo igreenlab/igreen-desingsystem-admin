@@ -144,6 +144,16 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/components/index.ts"),
+        /**
+         * Subpath `./shadcn` — os primitivos adaptados, num entry SEPARADO.
+         *
+         * Por que não no barrel raiz: são 40 arquivos / 233 nomes exportados, e a
+         * maioria dos consumidores usa 3 ou 4. No mesmo entry, todo `import` do pacote
+         * puxa o grafo inteiro (Radix, cmdk, vaul, embla, input-otp, sonner) antes do
+         * tree-shaking do bundler do consumidor ter chance. Em subpath próprio, quem
+         * não importa `/shadcn` não paga nada.
+         */
+        shadcn: path.resolve(__dirname, "src/components/shadcn/index.ts"),
         tokens: path.resolve(__dirname, "tokens/index.ts"),
         "preview/chat": path.resolve(__dirname, "src/preview/pages/ChatV2/index.ts"),
         "preview/clientes": path.resolve(__dirname, "src/preview/pages/ClientesShowcase/index.ts"),
@@ -174,6 +184,20 @@ export default defineConfig({
         "react-day-picker",
         "recharts",
         "tw-animate-css",
+        /**
+         * Deps dos primitivos e dos 4 componentes que entraram no barrel em 0.37.0.
+         * Estavam em `dependencies` mas fora daqui — o que só não dava problema porque
+         * nenhum deles era exportado. Ao abrir `./shadcn` e o barrel completo, sem esta
+         * linha o Rollup os EMBUTIRIA no bundle: peso duplicado (o consumidor já os
+         * instala como dep transitiva) e, no caso de `sonner`/`@hello-pangea/dnd`, duas
+         * instâncias do mesmo módulo com contexto React próprio — o `<Toaster>` do
+         * consumidor não veria o `toast()` disparado de dentro do pacote.
+         */
+        "vaul",
+        "embla-carousel-react",
+        "input-otp",
+        "sonner",
+        "@hello-pangea/dnd",
       ],
       // 2 outputs separados — cada um com sua extensão correta nos entries E nos chunks
       output: [

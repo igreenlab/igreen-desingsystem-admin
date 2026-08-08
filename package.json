@@ -1,7 +1,7 @@
 {
   "name": "@snksergio/design-system",
   "version": "0.36.0",
-  "//distribuicao": "Canal PRIMARIO = registry shadcn (copy-in) + CLI @snksergio/create-design-system; sobe sozinho no merge (Vercel). Canal SECUNDARIO = este pacote npm (@snksergio/design-system), funcional (build:lib gera ESM+CJS+types+theme.css) e publicado por passo MANUAL do mantenedor, entao costuma ficar atras do registry. NAO e depreciado — o texto anterior dizia isso e estava errado. Publish so pelo Passo 7 do .claude/skills/ds-dev/release.md (valida com `npm run lib:verify`, pede o token, publica, revoga). Ver DISTRIBUICAO.md.",
+  "//distribuicao": "Canal PRIMARIO = registry shadcn (copy-in) + CLI @snksergio/create-design-system; sobe sozinho no merge (Vercel). Canal SECUNDARIO = este pacote npm (@snksergio/design-system), publicado por passo MANUAL do mantenedor, entao costuma ficar atras do registry. SECUNDARIO descreve a ORDEM DE PUBLICACAO, nao o nivel de suporte: NAO e depreciado, e desde a 0.37.0 entrega 41 dos 42 componentes ui/ no barrel raiz + os 41 primitivos shadcn no subpath ./shadcn (so TabelaTeste, demo interno, fica de fora). Publish so pelo Passo 7 do .claude/skills/ds-dev/release.md (valida com `npm run lib:verify`, pede o token, publica, revoga). Ver DISTRIBUICAO.md.",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "license": "UNLICENSED",
   "type": "module",
@@ -10,6 +10,7 @@
   "types": "./dist-lib/index.d.ts",
   "files": [
     "dist-lib/index.*",
+    "dist-lib/shadcn.*",
     "dist-lib/tokens.*",
     "dist-lib/theme.css",
     "dist-lib/theme/**",
@@ -37,6 +38,11 @@
       "types": "./dist-lib/index.d.ts",
       "import": "./dist-lib/index.mjs",
       "require": "./dist-lib/index.cjs"
+    },
+    "./shadcn": {
+      "types": "./dist-lib/shadcn.d.ts",
+      "import": "./dist-lib/shadcn.mjs",
+      "require": "./dist-lib/shadcn.cjs"
     },
     "./theme.css": "./dist-lib/theme.css",
     "./theme/brand-blue.css": "./dist-lib/theme/brand-blue.css",
@@ -189,5 +195,6 @@
     "tailwindcss": {
       "optional": false
     }
-  }
+  },
+  "//exports-shadcn": "O subpath ./shadcn e um ENTRY SEPARADO (nao um re-export do barrel raiz) de proposito: 41 arquivos / 233 nomes exportados contra 3-4 que o consumidor tipico usa. No mesmo entry, qualquer import do pacote arrastaria Radix + cmdk + vaul + embla + input-otp + sonner antes do tree-shaking do consumidor. Deps desses primitivos ficam em rollupOptions.external (vite.lib.config.ts) — sem isso o Rollup as embute e sonner/@hello-pangea-dnd rodam com contexto React duplicado."
 }

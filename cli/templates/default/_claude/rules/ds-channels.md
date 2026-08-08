@@ -12,25 +12,34 @@ submódulo estão descontinuados, está errado — e vale corrigir a fonte.
 | canal | como | alcance |
 |---|---|---|
 | **copy-in** (registry shadcn) | `npm run igreen:add -- <nome>` | **tudo** — o código vira seu |
-| **npm** | `npm i @snksergio/design-system` | os 42 componentes `ui/` + **3** dos 41 primitivos shadcn (ver limitação abaixo) |
+| **npm** | `npm i @snksergio/design-system` | **41 dos 42** componentes `ui/` + **os 41** primitivos shadcn (subpath `/shadcn`) |
 | **submódulo git** | `git submodule add` + alias no tsconfig | **tudo** — o repo inteiro está no disco |
 | **scaffold** | `npm create @snksergio/design-system` | gera projeto copy-in já configurado (+ prompt "Tema de cor?") |
 
-## ⚠️ A limitação real do canal npm — medida, não estimada
+## O alcance real do canal npm — medido, não estimado
 
-O pacote npm entrega **os 42 componentes `ui/`** (Button, DataTable, FormField, AppShell,
-Modal, Panel, Kpi, Chart…) e os hooks (`useBrand`, `useTheme`), mas **apenas 3 dos 41
-primitivos shadcn**: `Badge`, `Input`, `InputGroup`.
+Desde a **0.37.0** o pacote npm entrega **duas entradas**:
 
-Os outros 38 — `Dialog`, `Select`, `Tabs`, `Popover`, `Tooltip`, `Card`, `Checkbox`,
-`Switch`, `Slider`, `Accordion`, `Command`, `Calendar`, `Sheet`, `Drawer`, `Skeleton` etc. —
-**viajam no tarball mas não são importáveis**: não estão no barrel e o `exports` do
-`package.json` não expõe subpath pra eles. Deep import falha com
-`ERR_PACKAGE_PATH_NOT_EXPORTED`.
+```ts
+// raiz — 41 dos 42 componentes ui/ + os hooks
+import { Button, DataTable, AppShell, Chart, DataList, List, toast, useBrand } from "@snksergio/design-system";
 
-**Na prática, consumindo por npm:** pegue os primitivos que faltam direto do shadcn oficial
-(`npx shadcn add dialog`) — o `index.css` tem o bridge shadcn→iGreen, então eles nascem
-tematizados. Ou consuma por copy-in/submódulo, que alcançam tudo.
+// subpath — os 41 primitivos shadcn adaptados
+import { Dialog, Select, Tabs, Popover, Tooltip, Card, Calendar } from "@snksergio/design-system/shadcn";
+```
+
+Duas entradas e não uma porque os primitivos são 41 arquivos / 233 nomes, e o consumidor
+típico usa 3 ou 4: no mesmo barrel, todo `import` do pacote arrastaria Radix + cmdk + vaul +
+embla + input-otp + sonner antes de o bundler conseguir podar. Quem não importa `/shadcn`
+não paga nada.
+
+**O único componente `ui/` fora do npm é `TabelaTeste`** — demo interno do showcase,
+excluído de propósito. `Chart`, `DataList`, `List` e `Toast` entraram na 0.37.0; antes disso
+o barrel tinha 37 e a doc dizia 42.
+
+⚠️ Em versões **< 0.37.0**, `import { ChartContainer } from "@snksergio/design-system"`
+falha e não há subpath `/shadcn`. Se o import não existir, confira a versão instalada antes
+de procurar outra causa.
 
 ## Submódulo — o canal com pipeline de IA
 
