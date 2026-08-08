@@ -172,6 +172,39 @@ justamente no lugar onde a gente olha.
 ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
 a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
 
+### Classe de cor morta — o gate cobre CÓDIGO **e** DOC (2026-08-08)
+
+`dead-theme-classes` reprova classe de cor cuja CSS var não existe no tema. Cobria só
+`src/`; passou a cobrir também `CLAUDE.md`, `README.md`, `.claude/{rules,skills,commands,agents}`,
+`.ai/{context,rules}` e **`cli/templates/default/`** (esta é distribuída: classe morta
+prescrita ali chega em todo scaffold).
+
+Motivo: **a doc é o que GERA o código.** 44 usos de vocabulário V2 sobreviveram meses nas
+skills — inclusive no `impl-igreen.md`, que é o template canônico — porque o gate olhava
+só o resultado. O `CLAUDE.md` do consumidor chegou a ensinar
+`ring-ring-primary/30 → ring-ring-primary`: trocar classe morta **por outra classe morta**.
+
+Dois mecanismos evitam falso positivo, ambos context-free:
+
+- **Placeholder de template não é classe.** `bg-bg-{cor}`, `text-fg-on-{cor}` — o `{` logo
+  depois é o sinal. Sem isso, a doc reprovava por escrever a REGRA certa.
+- **Citação declarada por (arquivo, classe)**, no `CITACOES` do módulo, com motivo
+  obrigatório. A doc que diz "`ring-ring-primary` NÃO existe" é a correção, não o defeito —
+  mas separar citação de prescrição por regex seria julgamento de intenção (L-059). Um
+  humano declara; no gate volta a ser mecânico. Escopo por PAR: `CLAUDE.md` pode citar
+  `ring-ring-primary`, e ainda assim reprova se alguém escrever `bg-bg-primary` lá.
+
+Escrever numa doc uma classe que não existe → o teste falha com arquivo:linha e diz o que
+fazer se for citação. **Fora do escopo de propósito:** `lessons.md`, `pipeline-state.md`,
+`audits/`, `archive/`, `specs/` — registro histórico, onde nomear a classe morta é o
+conteúdo.
+
+Complemento manual: `npm run audit:token-docs` compara o **valor** de cada token afirmado
+na doc contra o CSS (spacing/radius/shadow), que é a outra metade do problema — o gate pega
+classe que não existe, a auditoria pega classe que existe com valor errado na doc. Não é
+CI: a saída é candidato, exige triagem (número de outro elemento na mesma linha é falso
+positivo comum).
+
 ### Tokens de scrollbar — alpha neutro, uso interno
 
 `bg.scrollbar-thumb` / `bg.scrollbar-thumb-hover` são a **única exceção** do grupo `bg.*`:

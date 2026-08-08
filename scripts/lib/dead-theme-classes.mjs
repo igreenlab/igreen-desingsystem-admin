@@ -51,6 +51,62 @@ export const EXCECOES = new Map([
   ],
 ]);
 
+/**
+ * CITAÇÕES declaradas — por (arquivo, classe), não por arquivo inteiro.
+ *
+ * Existe porque o gate passou a varrer também as SUPERFÍCIES DE DOC (`.claude/`,
+ * `.ai/`, `cli/templates/`, `CLAUDE.md`). Ali a classe morta aparece de dois jeitos
+ * opostos: **prescrita** (a doc manda usar — é o defeito; foi assim que 44 usos de
+ * vocabulário V2 sobreviveram meses nas skills, inclusive no template canônico de
+ * implementação) e **citada** (a doc diz que ela NÃO existe — é a correção).
+ *
+ * Separar os dois por regex seria julgamento de intenção, que a L-059 manda deixar
+ * fora de gate mecânico. A saída é a mesma convenção do `EXCECOES` acima: um humano
+ * DECLARA a citação, com motivo. No momento do gate isso volta a ser context-free —
+ * ou está declarado, ou reprova.
+ *
+ * Escopo por PAR, de propósito: `CLAUDE.md` pode citar `ring-ring-primary`, mas se
+ * alguém escrever `bg-bg-primary` lá amanhã, reprova.
+ */
+export const CITACOES = new Map([
+  [
+    "CLAUDE.md",
+    new Map([
+      ["ring-ring-primary", "§Nomenclatura: nomeia a classe V2 extinta pra explicar o defeito que ela causou (9 usos com o foco caindo em currentColor)"],
+      ["bg-bg-success-subtle", "§Nomenclatura: nomeia a forma que NÃO existe pra ensinar que status usa -muted, não -subtle"],
+      ["border-border-warning", "§Nomenclatura: idem — a forma crua não existe, só a -muted"],
+    ]),
+  ],
+  [
+    "cli/templates/default/CLAUDE.md",
+    new Map([
+      ["ring-ring-primary", "anti-pattern do consumidor: nomeia a classe morta pra impedir que a IA a escreva — o texto anterior mandava USÁ-LA como correção"],
+    ]),
+  ],
+  [
+    // A regra que DOCUMENTA este gate precisa nomear os defeitos que ele pega.
+    // Pegou a si mesma na 1ª execução — sinal de que o escopo está certo.
+    ".claude/rules/ds-standards.md",
+    new Map([
+      ["ring-ring-primary", "§Classe de cor morta: nomeia o caso real que motivou estender o gate pras docs"],
+      ["ring-ring-primary/30", "idem — o anti-pattern do consumidor citado na íntegra, com o modificador de opacidade"],
+      ["bg-bg-primary", "§Classe de cor morta: exemplo de que a citação é por PAR (arquivo, classe), não cega o arquivo"],
+    ]),
+  ],
+  [
+    ".claude/skills/ds-dev/impl-igreen.md",
+    new Map([["bg-bg-disabled", "comentário do compoundVariant disabled: explica que não existe e que o padrão do DS é opacity-50"]]),
+  ],
+  [
+    ".ai/context/components/guide.md",
+    new Map([["bg-bg-disabled", "idem — mesmo comentário no exemplo canônico de tv()"]]),
+  ],
+  [
+    ".ai/rules/coding-standards.md",
+    new Map([["bg-bg-disabled", "idem — mesmo comentário na referência longa do padrão tv()"]]),
+  ],
+]);
+
 /** Extrai os nomes de var de cor definidos no tema (`--color-<nome>:`). */
 export function varsDeCor(cssText) {
   return new Set([...cssText.matchAll(/--color-([a-z0-9-]+)\s*:/g)].map((m) => m[1]));
@@ -69,6 +125,7 @@ export function deadThemeClasses(cssText, fontes) {
 
   for (const { file, text } of fontes) {
     if (EXCECOES.has(file)) continue;
+    const citadas = CITACOES.get(file);
     const linhas = text.split("\n");
     for (const { prefixos, escopo } of NAMESPACES) {
       const re = new RegExp(
@@ -77,8 +134,15 @@ export function deadThemeClasses(cssText, fontes) {
       );
       for (let i = 0; i < linhas.length; i++) {
         for (const m of linhas[i].matchAll(re)) {
+          /* Placeholder de template não é classe: `text-fg-on-{cor}`, `bg-bg-{status}`.
+             O `{` logo depois é o sinal, e ele é context-free — nenhuma classe real
+             tem chave. Sem isto, a doc que ENSINA o padrão por template reprovava. */
+          if (linhas[i][m.index + m[0].length] === "{") continue;
+
           usosVarridos++;
           if (conhecidas.has(m[1])) continue;
+          // citação declarada por (arquivo, classe) — ver CITACOES
+          if (citadas?.has(m[0])) continue;
           mortas.push({ classe: m[0], file, line: i + 1 });
         }
       }
