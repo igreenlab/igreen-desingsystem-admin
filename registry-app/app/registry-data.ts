@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · accordion · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · alert-dialog · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · alert-modal · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · alert · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -127,7 +127,7 @@ export const registry: Record<string, unknown> = {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "app-shell",
     "title": "AppShell",
-    "description": "Template de app: MenuSidebar + Header + body. UserMenu, layout, tema.",
+    "description": "Template de app: MenuSidebar + Header + body. UserMenu, layout, tema. Responsivo: padding do body 18/24/32px por breakpoint (corte em 2xl = 1536px) e o menu NASCE COLAPSADO abaixo de 1536px — pra manter sempre aberto passe defaultMenuCollapsed={false} explicito (so no mount, nao reage a resize).",
     "dependencies": [
       "lucide-react@^1.7.0"
     ],
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · app-shell · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · aspect-ratio · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · avatar-ig · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · avatar · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · badge · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · breadcrumb · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · button-group · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · button · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · calendar · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · card-checkbox · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · card · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · carousel · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · chart · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · checkbox · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · chip · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · choropleth-map · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · collapsible · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · color-picker · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · combobox · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · command · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · context-menu · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · data-list · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · data-table · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · date-picker · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · dialog · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1734,7 +1734,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · drawer · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · dropdown-menu · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · empty-state · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-app-shell · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-chat · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-clientes · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-dashboard · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-edit-page · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-finance · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-login · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-mapa-rede · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · example-order-detail · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · file-upload-field · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · floating-panel · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · footer-table · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · form-field · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · header · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · hover-card · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3030,7 +3030,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Icon/USAGE.md",
-        "content": "# Icon — USAGE\r\n\r\nBiblioteca de ícones própria da iGreen. O SVG é fixo; só o `d` do path muda via\r\nprop `name` (mapa de tokens em `icons.ts`). Categoria: data-display / foundation.\r\n\r\n## Quando usar\r\n\r\n- Ícones da identidade iGreen (não cobertos / divergentes do lucide).\r\n- Quando precisar de um set controlado e versionado dentro do DS.\r\n- Para ícones genéricos de UI, `lucide-react` continua válido — este componente é\r\n  o set **próprio** da marca.\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { Icon } from \"@/components/ui/Icon\";\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n<Icon name=\"line-user\" />                      {/* md (20px), currentColor */}\r\n<Icon name=\"fill-status\" size=\"lg\" tone=\"brand\" />\r\n<Icon name=\"line-edit\" size={28} color=\"#0fc589\" />\r\n<span className=\"text-fg-danger\"><Icon name=\"line-bin\" /></span>  {/* herda via CSS */}\r\n```\r\n\r\n## Props\r\n\r\n| Prop | Valor | Default |\r\n|---|---|---|\r\n| `name` | `IconName` (autocomplete da lib) | — |\r\n| `size` | preset `xs\\|sm\\|md\\|lg\\|xl` (tokens `size-icon-*` = 12/16/20/24/32) **ou** arbitrário (`number`→px / string CSS) | `md` |\r\n| `tone` | semântico → `text-fg-{default\\|muted\\|brand\\|danger\\|success\\|warning\\|info}` | — |\r\n| `color` | qualquer cor CSS (override; vence `tone`/CSS) | — |\r\n| `title` / `aria-label` | acessível → `role=\"img\"` + `<title>`. Sem isso = decorativo (`aria-hidden`) | decorativo |\r\n\r\n## Cor — 3 formas\r\n\r\n1. **CSS** (recomendado): herda `currentColor`, controlável por classe — `<span className=\"text-fg-brand\"><Icon name=\"...\"/></span>`.\r\n2. **`tone`**: token semântico do DS (`tone=\"danger\"`).\r\n3. **`color`**: valor CSS arbitrário (`color=\"#0fc589\"` / `color=\"var(--x)\"`).\r\n\r\n## Convenção de nomes\r\n\r\n- Prefixo `line-*` → contorno (viewBox `0 0 18 18` no set legado, senão 24).\r\n- Prefixo `fill-*` → preenchido (viewBox `0 0 24 24`).\r\n- Prefixo `igreen-*` → **ícones oficiais de marca** (produtos: green, livre, placas,\r\n  club, solar, telecom, licenciado, seguro, clientes). viewBox 24, herdam\r\n  `currentColor`/`tone` como qualquer ícone (sem cor fixa).\r\n- O `viewBox` é inferido automaticamente pelo prefixo.\r\n\r\n## Adicionar um ícone novo\r\n\r\n1. Adicionar a entrada `\"line-foo\": \"M…\"` (ou `\"fill-foo\"` / `\"igreen-foo\"`) em `icons.ts`.\r\n2. O `IconName` atualiza sozinho (deriva das chaves). Sem mais nada.\r\n3. **Multi-path**: o valor pode ser `string` (1 path) **ou** `string[]` (vários paths\r\n   sobrepostos — ex.: `igreen-club`). Remova `fill=` hardcoded do SVG (herda `currentColor`).\r\n\r\n## Gotchas\r\n\r\n- `size` arbitrário aplica `width`/`height` inline (não usa token) — prefira os presets.\r\n- Decorativo por padrão (`aria-hidden`); passe `title`/`aria-label` quando o ícone\r\n  carregar significado sozinho.\r\n- Catálogo navegável (busca + copiar nome): doc `#/icon`.\r\n",
+        "content": "# Icon — USAGE\r\n\r\nBiblioteca de ícones própria da iGreen. O SVG é fixo; só o `d` do path muda via\r\nprop `name` (mapa de tokens em `icons.ts`). Categoria: data-display / foundation.\r\n\r\n## Quando usar\r\n\r\n- Ícones da identidade iGreen (não cobertos / divergentes do lucide).\r\n- Quando precisar de um set controlado e versionado dentro do DS.\r\n- Para ícones genéricos de UI, `lucide-react` continua válido — este componente é\r\n  o set **próprio** da marca.\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { Icon } from \"@/components/ui/Icon\";\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n<Icon name=\"line-user\" />                      {/* md (20px), currentColor */}\r\n<Icon name=\"fill-user\" size=\"lg\" tone=\"brand\" />\r\n<Icon name=\"line-edit\" size={28} color=\"#0fc589\" />\r\n<span className=\"text-fg-danger\"><Icon name=\"line-bin\" /></span>  {/* herda via CSS */}\r\n```\r\n\r\n## Props\r\n\r\n| Prop | Valor | Default |\r\n|---|---|---|\r\n| `name` | `IconName` (autocomplete da lib) | — |\r\n| `size` | preset `xs\\|sm\\|md\\|lg\\|xl` (tokens `size-icon-*` = 12/16/20/24/32) **ou** arbitrário (`number`→px / string CSS) | `md` |\r\n| `tone` | semântico → `text-fg-{default\\|muted\\|brand\\|danger\\|success\\|warning\\|info}` | — |\r\n| `color` | qualquer cor CSS (override; vence `tone`/CSS) | — |\r\n| `title` / `aria-label` | acessível → `role=\"img\"` + `<title>`. Sem isso = decorativo (`aria-hidden`) | decorativo |\r\n\r\n## Cor — 3 formas\r\n\r\n1. **CSS** (recomendado): herda `currentColor`, controlável por classe — `<span className=\"text-fg-brand\"><Icon name=\"...\"/></span>`.\r\n2. **`tone`**: token semântico do DS (`tone=\"danger\"`).\r\n3. **`color`**: valor CSS arbitrário (`color=\"#0fc589\"` / `color=\"var(--x)\"`).\r\n\r\n## Convenção de nomes\r\n\r\n- Prefixo `line-*` → contorno (viewBox `0 0 18 18` no set legado, senão 24).\r\n- Prefixo `fill-*` → preenchido (viewBox `0 0 24 24`).\r\n- Prefixo `igreen-*` → **ícones oficiais de marca** (produtos: green, livre, placas,\r\n  club, solar, telecom, licenciado, seguro, clientes). viewBox 24, herdam\r\n  `currentColor`/`tone` como qualquer ícone (sem cor fixa).\r\n- O `viewBox` é inferido automaticamente pelo prefixo.\r\n\r\n## Adicionar um ícone novo\r\n\r\n1. Adicionar a entrada `\"line-foo\": \"M…\"` (ou `\"fill-foo\"` / `\"igreen-foo\"`) em `icons.ts`.\r\n2. O `IconName` atualiza sozinho (deriva das chaves). Sem mais nada.\r\n3. **Multi-path**: o valor pode ser `string` (1 path) **ou** `string[]` (vários paths\r\n   sobrepostos — ex.: `igreen-club`). Remova `fill=` hardcoded do SVG (herda `currentColor`).\r\n\r\n## Gotchas\r\n\r\n- `size` arbitrário aplica `width`/`height` inline (não usa token) — prefira os presets.\r\n- Decorativo por padrão (`aria-hidden`); passe `title`/`aria-label` quando o ícone\r\n  carregar significado sozinho.\r\n- Catálogo navegável (busca + copiar nome): doc `#/icon`.\r\n",
         "type": "registry:file",
         "target": "components/ui/Icon/USAGE.md"
       },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · icon · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · input-group · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · input-otp · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · input · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · kanban · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · kpi · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · label · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · list · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · markdown-text · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · menu-sidebar · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3567,7 +3567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · menubar · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · modal · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · month-year-picker · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · navigation-menu · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · page-header · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · pagination · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · panel · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · popover · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · progress · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · radio-group · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · scroll-area · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · select · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · separator · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · sheet · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4027,7 +4027,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/SingleMenuSidebar/USAGE.md",
-        "content": "# SingleMenuSidebar\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n## Props essenciais\r\n\r\n| Prop                                           | Tipo                   | Default | Obrigatório |\r\n| ---------------------------------------------- | ---------------------- | ------- | ----------- |\r\n| `logo`                                         | `ReactNode`            | —       | ✅          |\r\n| `title`                                        | `string`               | —       | ✅          |\r\n| `categories`                                   | `SingleMenuCategory[]` | —       | ✅          |\r\n| `user`                                         | `SingleMenuUser`       | —       | ✅          |\r\n| `module`                                       | `SingleMenuModule`     | —       |             |\r\n| `showSearch`                                   | `boolean`              | `true`  |             |\r\n| `searchValue` / `onSearchChange` / `searchRef` | busca controlada       | —       |             |\r\n| `activeItemId`                                 | `string`               | —       |             |\r\n| `onItemClick`                                  | `(id: string) => void` | —       |             |\r\n| `defaultExpanded`                              | `boolean`              | `true`  |             |\r\n| `expanded` / `onExpandedChange`                | toggle controlado      | —       |             |\r\n| `showToggleIndicator`                          | `boolean`              | `false` |             |\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
+        "content": "# SingleMenuSidebar\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n## Props essenciais\r\n\r\n| Prop                            | Tipo                          | Default | Obrigatório |\r\n| ------------------------------- | ----------------------------- | ------- | ----------- |\r\n| `logo`                          | `ReactNode`                   | —       | ✅          |\r\n| `title`                         | `string`                      | —       | ✅          |\r\n| `user`                          | `SingleMenuUser`              | —       | ✅          |\r\n| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |\r\n| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |\r\n| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |\r\n| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |\r\n| `showSearch`                    | `boolean`                     | `true`  |             |\r\n| `searchCommand`                 | `ReactNode`                   | —       |             |\r\n| `searchPlaceholder`             | `string`                      | —       |             |\r\n| `activeItemId`                  | `string`                      | —       |             |\r\n| `onItemClick`                   | `(id: string) => void`        | —       |             |\r\n| `defaultExpanded`               | `boolean`                     | `true`  |             |\r\n| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |\r\n| `showToggleIndicator`           | `boolean`                     | `false` |             |\r\n\r\n⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não\r\nexistem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca\r\nabre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o\r\ntexto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem\r\nem `SingleMenuSearchProps`, que é subcomponente interno.\r\n\r\n### Multi-módulo\r\n\r\n`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas\r\npróprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando\r\n`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira\r\nopcional.\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
         "type": "registry:file",
         "target": "components/ui/SingleMenuSidebar/USAGE.md"
       },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · skeleton · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · slider · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · sonner · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · spinner · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · switch · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · table · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · tabs · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · textarea · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4389,7 +4389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · theme-blue · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4407,7 +4407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · theme-green · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4425,7 +4425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · theme-pay · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4443,7 +4443,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · theme-vibrant · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4451,7 +4451,7 @@ export const registry: Record<string, unknown> = {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "theme",
     "title": "Tema iGreen (Tailwind v4 @theme)",
-    "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas.",
+    "description": "CSS @theme gerado dos tokens OKLCH. Importar DEPOIS de tailwindcss + tw-animate-css e ANTES dos componentes, senao gap-gp-*/rounded-radius-* ficam orfas. Traz tambem: @font-face do Geist (copie os .woff2 pro seu public/fonts/), --font-sans/--font-mono, @custom-variant dark, regras de html/body/button e as utilities outline-float e scrollbar-thin/default. NAO redeclare nenhuma delas no seu CSS: classe comum vence @utility e a SEGUNDA declaracao de @custom-variant vence a primeira.",
     "dependencies": [
       "tw-animate-css@^1.4.0"
     ],
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · theme · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · toast · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · toggle-group · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · toggle · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · tooltip · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4599,7 +4599,7 @@ export const registry: Record<string, unknown> = {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "tv",
     "title": "tv (tailwind-variants + twMergeConfig DS)",
-    "description": "tv() que injeta os 23 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
+    "description": "tv() que injeta os 27 presets tipograficos no classGroup font-size do tailwind-merge (L-016). Sem ele, text-body-* e tratado como cor e removido.",
     "dependencies": [
       "tailwind-variants@^3.0.0"
     ],
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · tv · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.36.0 · 6feb7c7 · 2026-08-08"
+      "stamp": "igreen-ds · utils · v0.37.0 · 001635d · 2026-08-08"
     },
     "type": "registry:file"
   }
