@@ -16,10 +16,11 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
-  "//overrides": "postcss e sharp são transitivas do next e vinham em 8.4.31 / 0.34.5, com advisory HIGH (path traversal no auto-load de source map; CVEs do libvips). Nenhuma das duas é ALCANÇÁVEL neste app — não existe nenhum .css (postcss nunca roda) e não se usa next/image (sharp nunca roda) — mas manter versão vulnerável em serviço público é débito sem motivo. O override sobe as duas sem tocar no next.",
+  "//overrides": "postcss e sharp são transitivas do next e vinham em 8.4.31 / 0.34.5, com advisory HIGH (path traversal no auto-load de source map; CVEs do libvips). Nenhuma das duas é ALCANÇÁVEL neste app — não existe nenhum .css (postcss nunca roda) e não se usa next/image (sharp nunca roda) — mas manter versão vulnerável em serviço público é débito sem motivo. O override sobe as duas sem tocar no next. nanoid entrou em 2026-08-08 pelo mesmo motivo: vinha 3.3.16 via postcss/next, com advisory HIGH (loop infinito em generator custom com size 0). O release:check reprova em HIGH+ de proposito — e foi ele que pegou.",
   "overrides": {
     "postcss": "^8.5.18",
-    "sharp": "^0.35.0"
+    "sharp": "^0.35.0",
+    "nanoid": "^3.3.17"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
