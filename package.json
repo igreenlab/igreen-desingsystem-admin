@@ -13,6 +13,7 @@
     "dist-lib/tokens.*",
     "dist-lib/theme.css",
     "dist-lib/theme/**",
+    "dist-lib/fonts/**",
     "dist-lib/preview/**",
     "dist-lib/chunks/**",
     "dist-lib/src/**",

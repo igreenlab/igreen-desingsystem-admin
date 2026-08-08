@@ -327,6 +327,73 @@ function buildFloatingUtilities(): string {
 }`;
 }
 
+// ── Runtime base — o que TODO canal precisa e só o showcase tinha ────────────
+//
+// ⚠️ Estes blocos moravam em `src/styles/globals.css` (showcase) e em
+// `cli/templates/default/src/index.css` (scaffold) — DOIS arquivos mantidos à mão
+// que deveriam ser equivalentes e derivaram. O `tailwind-theme.css` é o único
+// arquivo que os TRÊS canais leem (npm via `theme.css`, copy-in/scaffold via
+// `styles/theme/`, submódulo via caminho relativo), então é aqui que isso pertence.
+//
+// Medido em 2026-08-07, seguindo a doc de cada canal:
+//   - npm:       sem @custom-variant, sem @font-face, sem body → dark mode com
+//                fundo branco, tipografia em system-ui, `dark:` preso ao SO
+//   - submódulo: a doc manda importar SÓ o tailwind-theme.css → mesmos gaps
+//   - scaffold:  ok, porque o index.css tem tudo — e é justamente essa cópia
+//                paralela que faz os dois derivarem
+//
+// ⚠️ ORDEM É LOAD-BEARING no `@custom-variant`: declarar duas vezes faz o SEGUNDO
+// vencer (medido no Tailwind 4.3). Como o `index.css` do scaffold declara o dele
+// DEPOIS de importar o tema, projeto scaffold já existente mantém o comportamento
+// atual (`:is(.dark *)`) e não muda. Scaffold novo passa a herdar o daqui.
+//
+// O seletor é o do showcase — `:where(.dark, .dark *)`, especificidade 0 — de
+// propósito: com `:is(.dark *)` (0,2,0) o `dark:` vence `hover:` na mesma
+// propriedade e o hover morre em silêncio. Provado com hover de mouse real.
+function buildRuntimeBase(): string {
+  return `@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza
+ * pro app nos dois sentidos (app claro com SO escuro dispara \`dark:\`). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}`;
+}
+
 // ── Typography @utility blocks ────────────────────────────────────────────────
 
 function buildTypographyUtilities(): string {
@@ -392,6 +459,10 @@ export function generateTailwindV4Css(): string {
  * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.
  * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
+
+/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */
+
+${buildRuntimeBase()}
 
 @theme {
 ${toBlock(themeVars)}

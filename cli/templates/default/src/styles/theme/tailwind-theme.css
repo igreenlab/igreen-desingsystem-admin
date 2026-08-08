@@ -7,6 +7,50 @@
  * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
 
+/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza
+ * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
+
 @theme {
   --color-bg-canvas: oklch(1 0 0);
   --color-bg-surface: oklch(1 0 0);
