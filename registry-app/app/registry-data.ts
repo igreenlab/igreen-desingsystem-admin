@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · accordion · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · alert-dialog · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · alert-modal · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · alert · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · app-shell · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · aspect-ratio · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · avatar-ig · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · avatar · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · badge · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · breadcrumb · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · button-group · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · button · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · calendar · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · card-checkbox · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -510,13 +510,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/card.tsx",
-        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface py-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-foreground/5 dark:ring-foreground/10\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCard.displayName = \"Card\"\r\n\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"grid auto-rows-min items-start gap-gp-sm px-pad-4xl\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-title-md font-medium text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div ref={ref} className={cn(\"px-pad-4xl\", className)} {...props} />\r\n))\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"flex items-center px-pad-4xl\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\n",
+        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface py-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCard.displayName = \"Card\"\r\n\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"grid auto-rows-min items-start gap-gp-sm px-pad-4xl\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-title-md font-medium text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div ref={ref} className={cn(\"px-pad-4xl\", className)} {...props} />\r\n))\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"flex items-center px-pad-4xl\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\n",
         "type": "registry:ui",
         "target": "components/ui/card.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · card · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · carousel · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · chart · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · checkbox · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · chip · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -702,7 +702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · choropleth-map · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -724,7 +724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · collapsible · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -788,7 +788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · color-picker · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -839,7 +839,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · combobox · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -866,7 +866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · command · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -891,7 +891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · context-menu · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -968,7 +968,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · data-list · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1647,7 +1647,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · data-table · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1685,7 +1685,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · date-picker · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1710,7 +1710,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · dialog · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1728,13 +1728,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/drawer.tsx",
-        "content": "import * as React from \"react\"\r\nimport { Drawer as DrawerPrimitive } from \"vaul\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Drawer = ({\r\n  shouldScaleBackground = true,\r\n  ...props\r\n}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (\r\n  <DrawerPrimitive.Root\r\n    shouldScaleBackground={shouldScaleBackground}\r\n    {...props}\r\n  />\r\n)\r\nDrawer.displayName = \"Drawer\"\r\n\r\nconst DrawerTrigger = DrawerPrimitive.Trigger\r\n\r\nconst DrawerPortal = DrawerPrimitive.Portal\r\n\r\nconst DrawerClose = DrawerPrimitive.Close\r\n\r\nconst DrawerOverlay = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\"fixed inset-0 z-50 bg-black/80\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName\r\n\r\nconst DrawerContent = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>\r\n>(({ className, children, ...props }, ref) => (\r\n  <DrawerPortal>\r\n    <DrawerOverlay />\r\n    <DrawerPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border border-border-default bg-background\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <div className=\"mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted\" />\r\n      {children}\r\n    </DrawerPrimitive.Content>\r\n  </DrawerPortal>\r\n))\r\nDrawerContent.displayName = \"DrawerContent\"\r\n\r\nconst DrawerHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\"grid gap-1.5 p-4 text-center sm:text-left\", className)}\r\n    {...props}\r\n  />\r\n)\r\nDrawerHeader.displayName = \"DrawerHeader\"\r\n\r\nconst DrawerFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\"mt-auto flex flex-col gap-2 p-4\", className)}\r\n    {...props}\r\n  />\r\n)\r\nDrawerFooter.displayName = \"DrawerFooter\"\r\n\r\nconst DrawerTitle = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-lg font-semibold leading-none tracking-tight\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDrawerTitle.displayName = DrawerPrimitive.Title.displayName\r\n\r\nconst DrawerDescription = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\"text-sm text-muted-foreground\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDrawerDescription.displayName = DrawerPrimitive.Description.displayName\r\n\r\nexport {\r\n  Drawer,\r\n  DrawerPortal,\r\n  DrawerOverlay,\r\n  DrawerTrigger,\r\n  DrawerClose,\r\n  DrawerContent,\r\n  DrawerHeader,\r\n  DrawerFooter,\r\n  DrawerTitle,\r\n  DrawerDescription,\r\n}\r\n",
+        "content": "import * as React from \"react\"\r\nimport { Drawer as DrawerPrimitive } from \"vaul\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Drawer = ({\r\n  shouldScaleBackground = true,\r\n  ...props\r\n}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (\r\n  <DrawerPrimitive.Root\r\n    shouldScaleBackground={shouldScaleBackground}\r\n    {...props}\r\n  />\r\n)\r\nDrawer.displayName = \"Drawer\"\r\n\r\nconst DrawerTrigger = DrawerPrimitive.Trigger\r\n\r\nconst DrawerPortal = DrawerPrimitive.Portal\r\n\r\nconst DrawerClose = DrawerPrimitive.Close\r\n\r\nconst DrawerOverlay = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\"fixed inset-0 z-50 bg-black/80\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName\r\n\r\nconst DrawerContent = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>\r\n>(({ className, children, ...props }, ref) => (\r\n  <DrawerPortal>\r\n    <DrawerOverlay />\r\n    <DrawerPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border border-border-default bg-bg-canvas\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <div className=\"mx-auto mt-4 h-2 w-[100px] rounded-full bg-bg-muted\" />\r\n      {children}\r\n    </DrawerPrimitive.Content>\r\n  </DrawerPortal>\r\n))\r\nDrawerContent.displayName = \"DrawerContent\"\r\n\r\nconst DrawerHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\"grid gap-1.5 p-4 text-center sm:text-left\", className)}\r\n    {...props}\r\n  />\r\n)\r\nDrawerHeader.displayName = \"DrawerHeader\"\r\n\r\nconst DrawerFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\"mt-auto flex flex-col gap-2 p-4\", className)}\r\n    {...props}\r\n  />\r\n)\r\nDrawerFooter.displayName = \"DrawerFooter\"\r\n\r\nconst DrawerTitle = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-lg font-semibold leading-none tracking-tight\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nDrawerTitle.displayName = DrawerPrimitive.Title.displayName\r\n\r\nconst DrawerDescription = React.forwardRef<\r\n  React.ElementRef<typeof DrawerPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <DrawerPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\"text-sm text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nDrawerDescription.displayName = DrawerPrimitive.Description.displayName\r\n\r\nexport {\r\n  Drawer,\r\n  DrawerPortal,\r\n  DrawerOverlay,\r\n  DrawerTrigger,\r\n  DrawerClose,\r\n  DrawerContent,\r\n  DrawerHeader,\r\n  DrawerFooter,\r\n  DrawerTitle,\r\n  DrawerDescription,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/drawer.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · drawer · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1759,7 +1759,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · dropdown-menu · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1812,7 +1812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · empty-state · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -1853,7 +1853,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-app-shell · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2155,7 +2155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-chat · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2251,7 +2251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-clientes · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2297,7 +2297,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-dashboard · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2348,7 +2348,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-edit-page · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2484,7 +2484,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-finance · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2514,7 +2514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-login · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2571,7 +2571,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-mapa-rede · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2652,7 +2652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · example-order-detail · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2702,7 +2702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · file-upload-field · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2770,7 +2770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · floating-panel · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2812,7 +2812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · footer-table · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2898,7 +2898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · form-field · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · header · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3013,7 +3013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · hover-card · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3066,7 +3066,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · icon · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3090,7 +3090,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · input-group · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3115,7 +3115,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · input-otp · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3139,7 +3139,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · input · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3198,7 +3198,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · kanban · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3260,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · kpi · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3285,7 +3285,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · label · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3392,7 +3392,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · list · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3438,7 +3438,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · markdown-text · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3542,7 +3542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · menu-sidebar · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3561,13 +3561,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/menubar.tsx",
-        "content": "import * as React from \"react\"\r\nimport * as MenubarPrimitive from \"@radix-ui/react-menubar\"\r\nimport { Check, ChevronRight, Circle } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nfunction MenubarMenu({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Menu>) {\r\n  return <MenubarPrimitive.Menu {...props} />\r\n}\r\n\r\nfunction MenubarGroup({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Group>) {\r\n  return <MenubarPrimitive.Group {...props} />\r\n}\r\n\r\nfunction MenubarPortal({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Portal>) {\r\n  return <MenubarPrimitive.Portal {...props} />\r\n}\r\n\r\nfunction MenubarRadioGroup({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.RadioGroup>) {\r\n  return <MenubarPrimitive.RadioGroup {...props} />\r\n}\r\n\r\nfunction MenubarSub({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Sub>) {\r\n  return <MenubarPrimitive.Sub data-slot=\"menubar-sub\" {...props} />\r\n}\r\n\r\nconst Menubar = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Root\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-10 items-center space-x-1 rounded-radius-lg border border-border-default bg-bg-surface p-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubar.displayName = MenubarPrimitive.Root.displayName\r\n\r\nconst MenubarTrigger = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Trigger>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm font-semibold outline-none focus:bg-bg-muted focus:text-fg-default data-[state=open]:bg-bg-muted data-[state=open]:text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName\r\n\r\nconst MenubarSubTrigger = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.SubTrigger>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, children, ...props }, ref) => (\r\n  <MenubarPrimitive.SubTrigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[state=open]:bg-bg-muted data-[state=open]:text-fg-default\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <ChevronRight className=\"ml-auto h-4 w-4\" />\r\n  </MenubarPrimitive.SubTrigger>\r\n))\r\nMenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName\r\n\r\nconst MenubarSubContent = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.SubContent>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.SubContent\r\n    ref={ref}\r\n    className={cn(\r\n      \"z-50 min-w-[8rem] overflow-hidden relative rounded-[12px] border border-border-default bg-bg-dropdown p-pad-sm text-fg-muted shadow-sh-lg outline-float before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName\r\n\r\nconst MenubarContent = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content>\r\n>(\r\n  (\r\n    { className, align = \"start\", alignOffset = -4, sideOffset = 8, ...props },\r\n    ref\r\n  ) => (\r\n    <MenubarPrimitive.Portal>\r\n      <MenubarPrimitive.Content\r\n        ref={ref}\r\n        align={align}\r\n        alignOffset={alignOffset}\r\n        sideOffset={sideOffset}\r\n        className={cn(\r\n          \"z-50 min-w-[12rem] overflow-hidden relative rounded-[12px] border border-border-default bg-bg-dropdown p-pad-sm text-fg-muted shadow-sh-lg outline-float before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]\",\r\n          className\r\n        )}\r\n        {...props}\r\n      />\r\n    </MenubarPrimitive.Portal>\r\n  )\r\n)\r\nMenubarContent.displayName = MenubarPrimitive.Content.displayName\r\n\r\nconst MenubarItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, ...props }, ref) => (\r\n  <MenubarPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarItem.displayName = MenubarPrimitive.Item.displayName\r\n\r\nconst MenubarCheckboxItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem>\r\n>(({ className, children, checked, ...props }, ref) => (\r\n  <MenubarPrimitive.CheckboxItem\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm py-pad-md pl-8 pr-2 text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      className\r\n    )}\r\n    checked={checked}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <MenubarPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </MenubarPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </MenubarPrimitive.CheckboxItem>\r\n))\r\nMenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName\r\n\r\nconst MenubarRadioItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.RadioItem>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem>\r\n>(({ className, children, ...props }, ref) => (\r\n  <MenubarPrimitive.RadioItem\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm py-pad-md pl-8 pr-2 text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <MenubarPrimitive.ItemIndicator>\r\n        <Circle className=\"h-2 w-2 fill-current\" />\r\n      </MenubarPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </MenubarPrimitive.RadioItem>\r\n))\r\nMenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName\r\n\r\nconst MenubarLabel = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, ...props }, ref) => (\r\n  <MenubarPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\r\n      \"px-pad-lg py-pad-md text-sm font-semibold\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarLabel.displayName = MenubarPrimitive.Label.displayName\r\n\r\nconst MenubarSeparator = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nMenubarSeparator.displayName = MenubarPrimitive.Separator.displayName\r\n\r\nconst MenubarShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nMenubarShortcut.displayname = \"MenubarShortcut\"\r\n\r\nexport {\r\n  Menubar,\r\n  MenubarMenu,\r\n  MenubarTrigger,\r\n  MenubarContent,\r\n  MenubarItem,\r\n  MenubarSeparator,\r\n  MenubarLabel,\r\n  MenubarCheckboxItem,\r\n  MenubarRadioGroup,\r\n  MenubarRadioItem,\r\n  MenubarPortal,\r\n  MenubarSubContent,\r\n  MenubarSubTrigger,\r\n  MenubarGroup,\r\n  MenubarSub,\r\n  MenubarShortcut,\r\n}\r\n",
+        "content": "import * as React from \"react\"\r\nimport * as MenubarPrimitive from \"@radix-ui/react-menubar\"\r\nimport { Check, ChevronRight, Circle } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nfunction MenubarMenu({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Menu>) {\r\n  return <MenubarPrimitive.Menu {...props} />\r\n}\r\n\r\nfunction MenubarGroup({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Group>) {\r\n  return <MenubarPrimitive.Group {...props} />\r\n}\r\n\r\nfunction MenubarPortal({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Portal>) {\r\n  return <MenubarPrimitive.Portal {...props} />\r\n}\r\n\r\nfunction MenubarRadioGroup({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.RadioGroup>) {\r\n  return <MenubarPrimitive.RadioGroup {...props} />\r\n}\r\n\r\nfunction MenubarSub({\r\n  ...props\r\n}: React.ComponentProps<typeof MenubarPrimitive.Sub>) {\r\n  return <MenubarPrimitive.Sub data-slot=\"menubar-sub\" {...props} />\r\n}\r\n\r\nconst Menubar = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Root>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Root\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex h-10 items-center space-x-1 rounded-radius-lg border border-border-default bg-bg-surface p-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubar.displayName = MenubarPrimitive.Root.displayName\r\n\r\nconst MenubarTrigger = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Trigger>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm font-semibold outline-none focus:bg-bg-muted focus:text-fg-default data-[state=open]:bg-bg-muted data-[state=open]:text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarTrigger.displayName = MenubarPrimitive.Trigger.displayName\r\n\r\nconst MenubarSubTrigger = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.SubTrigger>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubTrigger> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, children, ...props }, ref) => (\r\n  <MenubarPrimitive.SubTrigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[state=open]:bg-bg-muted data-[state=open]:text-fg-default\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <ChevronRight className=\"ml-auto h-4 w-4\" />\r\n  </MenubarPrimitive.SubTrigger>\r\n))\r\nMenubarSubTrigger.displayName = MenubarPrimitive.SubTrigger.displayName\r\n\r\nconst MenubarSubContent = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.SubContent>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.SubContent>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.SubContent\r\n    ref={ref}\r\n    className={cn(\r\n      \"z-50 min-w-[8rem] overflow-hidden relative rounded-[12px] border border-border-default bg-bg-dropdown p-pad-sm text-fg-muted shadow-sh-lg outline-float before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarSubContent.displayName = MenubarPrimitive.SubContent.displayName\r\n\r\nconst MenubarContent = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Content>\r\n>(\r\n  (\r\n    { className, align = \"start\", alignOffset = -4, sideOffset = 8, ...props },\r\n    ref\r\n  ) => (\r\n    <MenubarPrimitive.Portal>\r\n      <MenubarPrimitive.Content\r\n        ref={ref}\r\n        align={align}\r\n        alignOffset={alignOffset}\r\n        sideOffset={sideOffset}\r\n        className={cn(\r\n          \"z-50 min-w-[12rem] overflow-hidden relative rounded-[12px] border border-border-default bg-bg-dropdown p-pad-sm text-fg-muted shadow-sh-lg outline-float before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150 data-[state=open]:animate-in data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-menubar-content-transform-origin]\",\r\n          className\r\n        )}\r\n        {...props}\r\n      />\r\n    </MenubarPrimitive.Portal>\r\n  )\r\n)\r\nMenubarContent.displayName = MenubarPrimitive.Content.displayName\r\n\r\nconst MenubarItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Item> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, ...props }, ref) => (\r\n  <MenubarPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm px-pad-lg py-pad-md text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarItem.displayName = MenubarPrimitive.Item.displayName\r\n\r\nconst MenubarCheckboxItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.CheckboxItem>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.CheckboxItem>\r\n>(({ className, children, checked, ...props }, ref) => (\r\n  <MenubarPrimitive.CheckboxItem\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm py-pad-md pl-8 pr-2 text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      className\r\n    )}\r\n    checked={checked}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <MenubarPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </MenubarPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </MenubarPrimitive.CheckboxItem>\r\n))\r\nMenubarCheckboxItem.displayName = MenubarPrimitive.CheckboxItem.displayName\r\n\r\nconst MenubarRadioItem = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.RadioItem>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.RadioItem>\r\n>(({ className, children, ...props }, ref) => (\r\n  <MenubarPrimitive.RadioItem\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex cursor-default select-none items-center rounded-radius-sm py-pad-md pl-8 pr-2 text-body-sm text-fg-muted outline-none transition-colors focus:bg-bg-muted focus:text-fg-default [&_svg]:text-fg-muted focus:[&_svg]:text-fg-default data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <MenubarPrimitive.ItemIndicator>\r\n        <Circle className=\"h-2 w-2 fill-current\" />\r\n      </MenubarPrimitive.ItemIndicator>\r\n    </span>\r\n    {children}\r\n  </MenubarPrimitive.RadioItem>\r\n))\r\nMenubarRadioItem.displayName = MenubarPrimitive.RadioItem.displayName\r\n\r\nconst MenubarLabel = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Label> & {\r\n    inset?: boolean\r\n  }\r\n>(({ className, inset, ...props }, ref) => (\r\n  <MenubarPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\r\n      \"px-pad-lg py-pad-md text-sm font-semibold\",\r\n      inset && \"pl-8\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nMenubarLabel.displayName = MenubarPrimitive.Label.displayName\r\n\r\nconst MenubarSeparator = React.forwardRef<\r\n  React.ElementRef<typeof MenubarPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof MenubarPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <MenubarPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-bg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nMenubarSeparator.displayName = MenubarPrimitive.Separator.displayName\r\n\r\nconst MenubarShortcut = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLSpanElement>) => {\r\n  return (\r\n    <span\r\n      className={cn(\r\n        \"ml-auto text-caption-sm tracking-wider text-fg-subtle\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n}\r\nMenubarShortcut.displayname = \"MenubarShortcut\"\r\n\r\nexport {\r\n  Menubar,\r\n  MenubarMenu,\r\n  MenubarTrigger,\r\n  MenubarContent,\r\n  MenubarItem,\r\n  MenubarSeparator,\r\n  MenubarLabel,\r\n  MenubarCheckboxItem,\r\n  MenubarRadioGroup,\r\n  MenubarRadioItem,\r\n  MenubarPortal,\r\n  MenubarSubContent,\r\n  MenubarSubTrigger,\r\n  MenubarGroup,\r\n  MenubarSub,\r\n  MenubarShortcut,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/menubar.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · menubar · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3611,7 +3611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · modal · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3660,7 +3660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · month-year-picker · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3686,7 +3686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · navigation-menu · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3733,7 +3733,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · page-header · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3758,7 +3758,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · pagination · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3833,7 +3833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · panel · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · popover · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3881,7 +3881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · progress · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3905,7 +3905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · radio-group · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3929,7 +3929,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · scroll-area · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3948,13 +3948,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/select.tsx",
-        "content": "﻿import * as React from \"react\"\r\nimport * as SelectPrimitive from \"@radix-ui/react-select\"\r\nimport { Check, ChevronDown, ChevronUp } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Select = SelectPrimitive.Root\r\n\r\nconst SelectGroup = SelectPrimitive.Group\r\n\r\nconst SelectValue = SelectPrimitive.Value\r\n\r\nexport type SelectTriggerState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\nconst SelectTrigger = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {\r\n    state?: SelectTriggerState;\r\n  }\r\n>(({ className, children, state = \"default\", ...props }, ref) => (\r\n  <SelectPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex min-h-form-lg w-full items-center justify-between gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl\",\r\n      \"bg-bg-input dark:bg-bg-muted\",\r\n      \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\",\r\n      \"border border-border-input\",\r\n      \"text-body-sm font-normal text-fg-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] outline-none\",\r\n      \"data-[placeholder]:text-fg-muted data-[placeholder]:opacity-70\",\r\n      state === \"default\" && \"focus-visible:border-border-brand          data-[state=open]:border-border-brand          focus-visible:shadow-sh-ring          data-[state=open]:shadow-sh-ring\",\r\n      state === \"error\"   && \"border-border-danger-muted  focus-visible:border-border-danger-muted  data-[state=open]:border-border-danger-muted  focus-visible:shadow-sh-ring-danger  data-[state=open]:shadow-sh-ring-danger\",\r\n      state === \"warning\" && \"border-border-warning-muted focus-visible:border-border-warning-muted data-[state=open]:border-border-warning-muted focus-visible:shadow-sh-ring-warning data-[state=open]:shadow-sh-ring-warning\",\r\n      state === \"success\" && \"border-border-success-muted focus-visible:border-border-success-muted data-[state=open]:border-border-success-muted focus-visible:shadow-sh-ring-success data-[state=open]:shadow-sh-ring-success\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted\",\r\n      \"[&>span]:line-clamp-1\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <SelectPrimitive.Icon asChild>\r\n      <ChevronDown className=\"size-4 text-fg-muted shrink-0\" />\r\n    </SelectPrimitive.Icon>\r\n  </SelectPrimitive.Trigger>\r\n))\r\nSelectTrigger.displayName = SelectPrimitive.Trigger.displayName\r\n\r\nconst SelectScrollUpButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollUpButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronUp className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollUpButton>\r\n))\r\nSelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName\r\n\r\nconst SelectScrollDownButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollDownButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronDown className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollDownButton>\r\n))\r\nSelectScrollDownButton.displayName =\r\n  SelectPrimitive.ScrollDownButton.displayName\r\n\r\nconst SelectContent = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>\r\n>(({ className, children, position = \"popper\", ...props }, ref) => (\r\n  <SelectPrimitive.Portal>\r\n    <SelectPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden\",\r\n        \"rounded-[12px] bg-bg-dropdown border border-border-default shadow-sh-lg outline-float\",\r\n        \"before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150\",\r\n        \"text-fg-default\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n        \"origin-[--radix-select-content-transform-origin]\",\r\n        position === \"popper\" &&\r\n          \"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\",\r\n        className\r\n      )}\r\n      position={position}\r\n      {...props}\r\n    >\r\n      <SelectScrollUpButton />\r\n      <SelectPrimitive.Viewport\r\n        className={cn(\r\n          \"p-pad-sm\",\r\n          position === \"popper\" &&\r\n            \"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]\"\r\n        )}\r\n      >\r\n        {children}\r\n      </SelectPrimitive.Viewport>\r\n      <SelectScrollDownButton />\r\n    </SelectPrimitive.Content>\r\n  </SelectPrimitive.Portal>\r\n))\r\nSelectContent.displayName = SelectPrimitive.Content.displayName\r\n\r\nconst SelectLabel = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\"py-pad-sm pl-8 pr-2 text-body-md font-medium text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectLabel.displayName = SelectPrimitive.Label.displayName\r\n\r\nconst SelectItem = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>\r\n>(({ className, children, ...props }, ref) => (\r\n  <SelectPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex w-full cursor-default select-none items-center gap-pad-md\",\r\n      \"rounded-radius-sm py-pad-md pl-8 pr-pad-lg\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"focus:bg-bg-muted focus:text-fg-default\",\r\n      \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      \"focus:[&_svg]:text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <SelectPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </SelectPrimitive.ItemIndicator>\r\n    </span>\r\n\r\n    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\r\n  </SelectPrimitive.Item>\r\n))\r\nSelectItem.displayName = SelectPrimitive.Item.displayName\r\n\r\nconst SelectSeparator = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-border\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectSeparator.displayName = SelectPrimitive.Separator.displayName\r\n\r\nexport {\r\n  Select,\r\n  SelectGroup,\r\n  SelectValue,\r\n  SelectTrigger,\r\n  SelectContent,\r\n  SelectLabel,\r\n  SelectItem,\r\n  SelectSeparator,\r\n  SelectScrollUpButton,\r\n  SelectScrollDownButton,\r\n}\r\n",
+        "content": "﻿import * as React from \"react\"\r\nimport * as SelectPrimitive from \"@radix-ui/react-select\"\r\nimport { Check, ChevronDown, ChevronUp } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Select = SelectPrimitive.Root\r\n\r\nconst SelectGroup = SelectPrimitive.Group\r\n\r\nconst SelectValue = SelectPrimitive.Value\r\n\r\nexport type SelectTriggerState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\nconst SelectTrigger = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger> & {\r\n    state?: SelectTriggerState;\r\n  }\r\n>(({ className, children, state = \"default\", ...props }, ref) => (\r\n  <SelectPrimitive.Trigger\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex min-h-form-lg w-full items-center justify-between gap-gp-md\",\r\n      \"rounded-radius-lg px-pad-xl\",\r\n      \"bg-bg-input dark:bg-bg-muted\",\r\n      \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\",\r\n      \"border border-border-input\",\r\n      \"text-body-sm font-normal text-fg-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] outline-none\",\r\n      \"data-[placeholder]:text-fg-muted data-[placeholder]:opacity-70\",\r\n      state === \"default\" && \"focus-visible:border-border-brand          data-[state=open]:border-border-brand          focus-visible:shadow-sh-ring          data-[state=open]:shadow-sh-ring\",\r\n      state === \"error\"   && \"border-border-danger-muted  focus-visible:border-border-danger-muted  data-[state=open]:border-border-danger-muted  focus-visible:shadow-sh-ring-danger  data-[state=open]:shadow-sh-ring-danger\",\r\n      state === \"warning\" && \"border-border-warning-muted focus-visible:border-border-warning-muted data-[state=open]:border-border-warning-muted focus-visible:shadow-sh-ring-warning data-[state=open]:shadow-sh-ring-warning\",\r\n      state === \"success\" && \"border-border-success-muted focus-visible:border-border-success-muted data-[state=open]:border-border-success-muted focus-visible:shadow-sh-ring-success data-[state=open]:shadow-sh-ring-success\",\r\n      \"disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-bg-input dark:disabled:hover:bg-bg-muted\",\r\n      \"[&>span]:line-clamp-1\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    {children}\r\n    <SelectPrimitive.Icon asChild>\r\n      <ChevronDown className=\"size-4 text-fg-muted shrink-0\" />\r\n    </SelectPrimitive.Icon>\r\n  </SelectPrimitive.Trigger>\r\n))\r\nSelectTrigger.displayName = SelectPrimitive.Trigger.displayName\r\n\r\nconst SelectScrollUpButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollUpButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollUpButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollUpButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronUp className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollUpButton>\r\n))\r\nSelectScrollUpButton.displayName = SelectPrimitive.ScrollUpButton.displayName\r\n\r\nconst SelectScrollDownButton = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.ScrollDownButton>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.ScrollDownButton>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.ScrollDownButton\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex cursor-default items-center justify-center py-pad-xs\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <ChevronDown className=\"h-4 w-4\" />\r\n  </SelectPrimitive.ScrollDownButton>\r\n))\r\nSelectScrollDownButton.displayName =\r\n  SelectPrimitive.ScrollDownButton.displayName\r\n\r\nconst SelectContent = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>\r\n>(({ className, children, position = \"popper\", ...props }, ref) => (\r\n  <SelectPrimitive.Portal>\r\n    <SelectPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden\",\r\n        \"rounded-[12px] bg-bg-dropdown border border-border-default shadow-sh-lg outline-float\",\r\n        \"before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:backdrop-blur-2xl before:backdrop-saturate-150\",\r\n        \"text-fg-default\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n        \"origin-[--radix-select-content-transform-origin]\",\r\n        position === \"popper\" &&\r\n          \"data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1\",\r\n        className\r\n      )}\r\n      position={position}\r\n      {...props}\r\n    >\r\n      <SelectScrollUpButton />\r\n      <SelectPrimitive.Viewport\r\n        className={cn(\r\n          \"p-pad-sm\",\r\n          position === \"popper\" &&\r\n            \"h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]\"\r\n        )}\r\n      >\r\n        {children}\r\n      </SelectPrimitive.Viewport>\r\n      <SelectScrollDownButton />\r\n    </SelectPrimitive.Content>\r\n  </SelectPrimitive.Portal>\r\n))\r\nSelectContent.displayName = SelectPrimitive.Content.displayName\r\n\r\nconst SelectLabel = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Label>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Label>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Label\r\n    ref={ref}\r\n    className={cn(\"py-pad-sm pl-8 pr-2 text-body-md font-medium text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectLabel.displayName = SelectPrimitive.Label.displayName\r\n\r\nconst SelectItem = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Item>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>\r\n>(({ className, children, ...props }, ref) => (\r\n  <SelectPrimitive.Item\r\n    ref={ref}\r\n    className={cn(\r\n      \"relative flex w-full cursor-default select-none items-center gap-pad-md\",\r\n      \"rounded-radius-sm py-pad-md pl-8 pr-pad-lg\",\r\n      \"text-body-sm font-medium text-fg-muted\",\r\n      \"outline-none transition-colors\",\r\n      \"focus:bg-bg-muted focus:text-fg-default\",\r\n      \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n      \"[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 [&_svg]:text-fg-muted\",\r\n      \"focus:[&_svg]:text-fg-default\",\r\n      className\r\n    )}\r\n    {...props}\r\n  >\r\n    <span className=\"absolute left-2 flex h-3.5 w-3.5 items-center justify-center\">\r\n      <SelectPrimitive.ItemIndicator>\r\n        <Check className=\"h-4 w-4\" />\r\n      </SelectPrimitive.ItemIndicator>\r\n    </span>\r\n\r\n    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>\r\n  </SelectPrimitive.Item>\r\n))\r\nSelectItem.displayName = SelectPrimitive.Item.displayName\r\n\r\nconst SelectSeparator = React.forwardRef<\r\n  React.ElementRef<typeof SelectPrimitive.Separator>,\r\n  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Separator>\r\n>(({ className, ...props }, ref) => (\r\n  <SelectPrimitive.Separator\r\n    ref={ref}\r\n    className={cn(\"-mx-1 my-1 h-px bg-border-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nSelectSeparator.displayName = SelectPrimitive.Separator.displayName\r\n\r\nexport {\r\n  Select,\r\n  SelectGroup,\r\n  SelectValue,\r\n  SelectTrigger,\r\n  SelectContent,\r\n  SelectLabel,\r\n  SelectItem,\r\n  SelectSeparator,\r\n  SelectScrollUpButton,\r\n  SelectScrollDownButton,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/select.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · select · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -3972,13 +3972,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/separator.tsx",
-        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst Separator = React.forwardRef<\n  React.ElementRef<typeof SeparatorPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>\n>(\n  (\n    { className, orientation = \"horizontal\", decorative = true, ...props },\n    ref\n  ) => (\n    <SeparatorPrimitive.Root\n      ref={ref}\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 bg-border\",\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n)\nSeparator.displayName = SeparatorPrimitive.Root.displayName\n\nexport { Separator }\n",
+        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SeparatorPrimitive from \"@radix-ui/react-separator\"\n\nimport { cn } from \"@/lib/utils\"\n\nconst Separator = React.forwardRef<\n  React.ElementRef<typeof SeparatorPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof SeparatorPrimitive.Root>\n>(\n  (\n    { className, orientation = \"horizontal\", decorative = true, ...props },\n    ref\n  ) => (\n    <SeparatorPrimitive.Root\n      ref={ref}\n      decorative={decorative}\n      orientation={orientation}\n      className={cn(\n        \"shrink-0 bg-border-default\",\n        orientation === \"horizontal\" ? \"h-[1px] w-full\" : \"h-full w-[1px]\",\n        className\n      )}\n      {...props}\n    />\n  )\n)\nSeparator.displayName = SeparatorPrimitive.Root.displayName\n\nexport { Separator }\n",
         "type": "registry:ui",
         "target": "components/ui/separator.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · separator · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4004,7 +4004,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · sheet · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4127,7 +4127,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · skeleton · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4151,7 +4151,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · slider · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · sonner · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4220,7 +4220,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · spinner · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4244,7 +4244,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · switch · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4323,7 +4323,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · table · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4347,7 +4347,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · tabs · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4371,7 +4371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · textarea · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4389,7 +4389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · theme-blue · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4407,7 +4407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · theme-green · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4425,7 +4425,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · theme-pay · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4443,7 +4443,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · theme-vibrant · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · theme · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4516,7 +4516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · toast · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4542,7 +4542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · toggle-group · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4567,7 +4567,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · toggle · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4591,7 +4591,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · tooltip · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4612,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · tv · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   },
@@ -4634,7 +4634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.37.0 · 001635d · 2026-08-08"
+      "stamp": "igreen-ds · utils · v0.37.1 · 8512a83 · 2026-08-08"
     },
     "type": "registry:file"
   }

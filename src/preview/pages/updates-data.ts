@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.37.1",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "Cinco componentes tinham borda preta em quem consome por npm ou submódulo",
+    summary:
+      "Achado a olho, num print: o contorno do `Card` saía como uma linha preta sólida em vez do fio quase invisível que ele tem no catálogo. A causa vale para cinco componentes e aparece **só** fora do catálogo — o que torna esse tipo de defeito quase impossível de notar de dentro.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Contorno do `Card`, fundo do `Drawer`, divisores do `Select` e do `Menubar`, e o `Separator`** dependiam de um mapeamento de cores que existe apenas em dois arquivos do próprio catálogo. Quem consome por **npm** ou **submódulo** não recebe esse mapeamento: a cor ficava indefinida e o navegador caía na cor do texto, em opacidade total. No `Card`, o fio de 5% virava uma linha preta no claro e branca no escuro. Todos passaram a usar o token equivalente, que resolve igual nos quatro canais.",
+          "**Nada muda no catálogo nem em projeto existente.** O token novo é exatamente o que o mapeamento antigo apontava — conferido no navegador, claro e escuro: os valores computados são idênticos antes e depois.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Gate novo pra essa classe de defeito.** Componente distribuído não pode mais depender do vocabulário que só o catálogo define — o teste reprova apontando o arquivo, a linha e o token a usar. Validado reproduzindo o defeito real: o texto que estava em produção reprova, o corrigido passa.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.37.0",
     date: "2026-08-08",
     tag: "preview",
