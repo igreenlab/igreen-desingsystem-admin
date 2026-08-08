@@ -57,8 +57,8 @@ Princípios:
 | Título da página       | plural da entidade                                                     |
 | Descrição (1-2 frases) | gerada do domínio, confirmar                                           |
 | **Wrapper**            | ver abaixo                                                             |
-| Page id (kebab-case)   | derivado do nome — **verificar colisão com `DOC_PAGES` (src/App.tsx)** |
-| Seção da nav           | "List Components" (prefixo `Example:`)                                 |
+| Rota (kebab-case)      | derivada do nome — **verificar colisão no router deste projeto**       |
+| Onde entra na nav      | perguntar (menu lateral? submenu? qual grupo?)                        |
 
 **Wrapper — 3 opções:**
 

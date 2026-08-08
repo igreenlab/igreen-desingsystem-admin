@@ -1,5 +1,10 @@
 # Typography rewrite — spec da Fase 2
 
+> **Status: IMPLEMENTADA (2026-05-19).** Virou código em `tokens/brands/default/semantic/typography.ts` — 27 presets em 7 roles.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 > Spec do novo `tokens/brands/default/semantic/typography.ts` enxuto.
 > Substitui completamente o atual (32 presets → 24 presets em 6 roles).
 > Base: audit pós-Ondas em `.ai/audits/typography-inventory-2026-05-19.md`.

@@ -150,31 +150,43 @@
  * NÃO reintroduza um override aqui: classe sem layer vence `@utility` e o
  * mascaramento volta. */
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes flow {
-  from { stroke-dashoffset: 20; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.3; }
-}
-
-@keyframes accordion-down {
-  from { height: 0; opacity: 0; }
-  to { height: var(--radix-accordion-content-height); opacity: 1; }
-}
-
-@keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); opacity: 1; }
-  to { height: 0; opacity: 0; }
-}
-
-@theme inline {
-  --animate-accordion-down: accordion-down 200ms ease-out;
-  --animate-accordion-up: accordion-up 200ms ease-out;
-}
+/* ── @keyframes — REMOVIDOS em 2026-08-08, e a razão surpreende ────────────
+ *
+ * Havia 5 aqui (`spin`, `flow`, `pulse`, `accordion-down`, `accordion-up`) mais um
+ * `@theme inline` com `--animate-accordion-*`. A suspeita inicial era divergência
+ * showcase↔consumidor: `pulse` redefinia `50% { opacity: 0.3 }` contra o `0.5`
+ * nativo do Tailwind, em 10 usos de componentes DISTRIBUÍDOS, e `accordion-*`
+ * acrescentava um fade que o `tw-animate-css` não tem.
+ *
+ * O BUILD provou que a suspeita estava errada, e o resultado é pior de outro jeito:
+ *
+ *   grep no dist/assets/*.css (estado ANTES de mexer, direto da main):
+ *     @keyframes pulse{50%{opacity:.5}}                       ← NATIVO, não o 0.3
+ *     @keyframes accordion-down{0%{height:0}to{height:var(…)}} ← tw-animate-css, SEM opacity
+ *
+ * Ou seja: `@keyframes` declarado aqui com nome que o Tailwind (ou o
+ * `tw-animate-css`) já possui **é no-op silencioso** — a versão do framework é a que
+ * sai no CSS final, mesmo com a declaração local vindo depois no arquivo. Não havia
+ * divergência: era código morto nos DOIS lados, escondido atrás de uma declaração
+ * que parecia estar funcionando. (Registrado como L-067.)
+ *
+ * Destino de cada um:
+ *   `pulse`, `accordion-down`, `accordion-up` → REMOVIDOS. Inertes; o comportamento
+ *        aprovado do showcase sempre foi o do framework. Torná-los efetivos exigiria
+ *        nome próprio (`ds-pulse`) e seria MUDANÇA VISUAL — fora do escopo desta
+ *        rodada, em que o showcase é a referência aprovada.
+ *   `spin` → REMOVIDO. Byte-idêntico ao nativo. Os 13 usos de `animate-spin` seguem
+ *        atendidos pelo Tailwind.
+ *   `flow` → REMOVIDO. `animate-flow` tinha 0 usos em todo o repo.
+ *   `--animate-accordion-*` → REMOVIDOS. Estes SIM venciam (a utility saía
+ *        `animation:.2s ease-out accordion-down`), mas com valor funcionalmente
+ *        idêntico ao do `tw-animate-css` e ESTRITAMENTE menos capaz: a versão do
+ *        pacote é `var(--tw-animation-duration, var(--tw-duration, .2s))
+ *        var(--tw-ease, ease-out)`, que respeita `duration-*`/`ease-*`. Remover
+ *        alinha showcase e consumidor sem mudar 1 pixel e ainda destrava os
+ *        utilitários de duração.
+ *
+ * NÃO reintroduza `@keyframes` nem `--animate-*` aqui: ou o framework vence (no-op
+ * mudo), ou você vence só no showcase e o consumidor recebe outra coisa. Animação
+ * do DS pertence ao tema gerado, com nome próprio.
+ * Gate: `scripts/lib/runtime-base.test.mjs`. */

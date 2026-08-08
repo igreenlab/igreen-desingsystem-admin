@@ -36,7 +36,8 @@ ponto de partida.
 ```
 1. É mesmo DASHBOARD (2+ tipos de seção: KPIs + gráfico + ranking/resumo)?
    Se for só 1 tabela → /ds-create-crud · só 1 lista → /ds-create-list ·
-   só 1 gráfico → skill charts. (A SKILL.md confirma na desambiguação.)
+   só 1 gráfico → .ai/context/components/chart-patterns.md + Chart/USAGE.md
+   (não existe skill `charts` neste repo — só no payload do consumidor).
 2. Primitivos existem/estáveis? (Kpi, Chart, Panel, DataTable, DataList)
 3. LER a fonte de receitas: .ai/context/components/dashboard-patterns.md + example-dashboard.
 4. Resolver parâmetros do ambiente (repo DS vs consumer) — ver SKILL.md.

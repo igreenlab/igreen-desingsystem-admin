@@ -167,7 +167,15 @@ Se foi adicionada L-NNN nova:
 ### 2.6 — Agente / skill / rule modificado
 
 - [ ] Skill nova → registrada no router (`<agent>/SKILL.md`)?
-- [ ] Rule auto-load mudou glob → `settings.json` consistente?
+- [ ] Regra nova/alterada → está nos **DOIS** auto-carregados com o **mesmo número** (`CLAUDE.md` + `.claude/rules/ds-standards.md`)? Gate: `rules-parity`
+- [ ] Skill nova → linha na tabela §Skills por tarefa **+** rota no `orchestrator.md` **+** command? Gate: `skills-routing`
+- [ ] Agent alterado → rodou `npm run sync:agents` e commitou os `.mdc`? Gate: `cursor-mirror`
+- [ ] Lição nova → entrada 1-linha no resumo do `ds-standards.md` + contagem do título? Gate: `lessons-index`
+
+> A linha anterior aqui era *"Rule auto-load mudou glob → `settings.json` consistente?"* —
+> **inexecutável**: o `settings.json` não tem nenhuma chave de rules/glob (só `permissions`,
+> `hooks` e `outputStyle`), e o `globs:` do frontmatter era sintaxe do Cursor, inerte.
+> Trocada pelos 4 checks acima, que **têm gate** e portanto reprovam de verdade.
 - [ ] Command novo → existe em `.claude/commands/<nome>.md`?
 - [ ] CLAUDE.md raiz menciona o novo entry point (se aplicável)?
 
@@ -293,7 +301,7 @@ Pendências encontradas:
 [MÉDIO]
   • Lição L-016 adicionada em lessons.md mas resumo em ds-standards.md
     não foi atualizado
-    → Adicionar entry 1-linha em "66 Lições (L-001 a L-066) — resumo"
+    → Adicionar entry 1-linha em "67 Lições (L-001 a L-067) — resumo"
 
 [BAIXO]
   • Comentário em src/components/shadcn/label.tsx menciona preset legado

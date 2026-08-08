@@ -32,7 +32,7 @@ Marque só o que se aplica ao seu caso.
 
 ### Se criei componente novo
 
-O componente toca **7 superfícies** (L-042). Nesta PR fecham as 4 primeiras:
+O componente toca **8 superfícies** (L-042). Nesta PR fecham as 4 primeiras + o barrel:
 
 - [ ] Código em `src/components/ui/<Nome>/`
 - [ ] `USAGE.md` ao lado do componente
@@ -43,7 +43,8 @@ O componente toca **7 superfícies** (L-042). Nesta PR fecham as 4 primeiras:
          no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
          `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
       3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
-- [ ] Declarei no `package.json` toda dependência nova que o componente importa de fato (L-058)
+- [ ] `export * from "./ui/<Nome>"` em `src/components/index.ts` — **8ª superfície**, é o que define o canal npm; sem isso `import { X } from "@snksergio/design-system"` estoura "not exported" (gate: `barrel-completeness`)
+- [ ] Declarei no `package.json` toda dependência nova que o componente importa de fato — **inclusive dep de TIPO** (`@types/*` que o `.d.ts` publicado referencia) (L-058 / gate `deps-declared`)
 
 As 3 restantes (registry · catálogo do CLI · changelog) **não** vão nesta PR — consolidam no `/ds-release` (Regra 8). Se o check de débito de distribuição apontou algo, anote aqui o que falta registrar:
 
@@ -51,7 +52,7 @@ As 3 restantes (registry · catálogo do CLI · changelog) **não** vão nesta P
 
 ### Se mexi em token
 
-- [ ] Rodei `npm run tokens:tw4`
+- [ ] Rodei `npm run tokens:tw4` (e `npm run tokens:brand:<id>` se mexi em marca) — o CSS gerado é **commitado**, e desde 2026-08-08 o gate `generated-artifacts` reprova se ele estiver defasado dos tokens
 - [ ] Se criei preset tipográfico, registrei em `src/utils/tv.ts` (`twMergeConfig`) — sem isso o `tailwind-merge` remove a classe **em silêncio** (L-016)
 - [ ] Dark mode conferido (`color-dark.ts`)
 

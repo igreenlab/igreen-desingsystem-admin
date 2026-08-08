@@ -1,5 +1,19 @@
 # Guia de migração p/ consumidores (submódulo) — integração fork → mainline
 
+> # 🗄️ ARQUIVADO em 2026-08-08 — evento único, já consumado
+>
+> Este arquivo viveu na raiz como `SUBMODULE-MIGRATION.md` com **zero referências
+> entrantes**. Diferente do runbook irmão, o **conteúdo está correto** — conferi item a
+> item contra o repo: `Avatar` → `avatar-ig` ✅ · `ChoroplethMap` (removido na época,
+> depois restaurado — L-058) ✅ · `ModalSize` mantém `xl`/`full` ✅ · `DataList`, `Kpi`,
+> `DatePicker`, `Toast`, `SingleMenuSidebar` existem ✅.
+>
+> É um guia de **bump pontual** a partir da base `6c84816`, escrito para consumidores que
+> estavam num fork e precisavam entrar na mainline. Cumpriu a função.
+>
+> **Para setup de submódulo hoje**, use `SUBMODULE-SETUP.md` (raiz) — que é vivo,
+> referenciado pelo `README.md`, pelo `scripts/ds-link.mjs` e pelo showcase.
+
 > **Para quem consome o iGreen DS como submódulo** (`design-system/` com `@/` =
 > `design-system/src`, importando `@/components/ui/*` e `@/components/shadcn/*`).
 >

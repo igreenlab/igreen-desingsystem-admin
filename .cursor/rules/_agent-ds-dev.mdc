@@ -1,8 +1,3 @@
-
-
-> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-dev.md`
-> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
-
 ---
 name: ds-dev
 description: >
@@ -12,6 +7,9 @@ description: >
   NÃO define design — implementa spec recebida.
 memory: user
 ---
+
+> ⚠️ Mirror gerado automaticamente de `.claude/agents/ds-dev.md`
+> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
 
 # DS Dev — iGreen DS
 

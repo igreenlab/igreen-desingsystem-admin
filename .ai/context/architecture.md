@@ -227,12 +227,12 @@ src/
 │   ├── igreen-frontend/
 │   ├── app-designer/     (🚧)
 │   ├── app-dev-react/    (🚧)
-│   └── igreen-page/      (🚧)
+│   └── igreen-frontend/  (fallback de composição — prefira os builders, que têm gate)
 ├── rules/                ← Regras carregadas auto (glob-scoped)
 │   └── ds-standards.md   (regras + lessons + forbidden — consolidado)
 ├── hooks/                ← Shell scripts que sempre disparam — 5
 │   ├── ds-lint-styles.sh       (informativo — anti-patterns em *.styles.ts)
-│   ├── ds-inventory-check.sh   (informativo — 7 superfícies do componente)
+│   ├── ds-inventory-check.sh   (informativo — 5 das 8 superfícies do componente)
 │   ├── ds-tokens-check.sh      (informativo — lembra tokens:tw4 + distribuição)
 │   ├── block-rm-rf.sh          (BLOQUEIA)
 │   └── block-sensitive-edit.sh (BLOQUEIA .env/credentials/migrations)
@@ -263,7 +263,7 @@ src/
 │   └── table-replica-from-sandbox.md
 └── status/
     ├── pipeline-state.md  ← audit log (append-only)
-    ├── lessons.md         ← L-001 a L-066 completas (61 ativas)
+    ├── lessons.md         ← L-001 a L-067 completas (62 ativas)
     ├── lessons-archive.md ← lições absorvidas em gate automático
     ├── BACKLOG.md
     └── archive/
@@ -287,7 +287,7 @@ node .claude/scripts/sync-agents-to-cursor.cjs
 
 | Tipo de informação | Fonte canônica |
 |---|---|
-| Regras DS + 66 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 67 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade dos agents | `.claude/agents/<nome>.md` |
 | Templates de implementação | `.claude/skills/<agent>/<skill>.md` |
 | Slash commands | `.claude/commands/<nome>.md` |

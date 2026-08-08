@@ -207,4 +207,8 @@ NomeComponente.displayName = "NomeComponente";
 
 ## Mapa de componentes — o que existe
 
-Ver sempre `component-inventory.md` antes de criar.
+Ver sempre [`.ai/context/components/inventory.md`](./inventory.md) antes de criar.
+
+> O nome citado aqui era `component-inventory.md` — **arquivo que nunca existiu**. Quem
+> seguisse a instrução não achava nada e seguia sem conferir o inventário, que é
+> justamente a Regra 2.

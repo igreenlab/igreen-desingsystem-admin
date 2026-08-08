@@ -827,21 +827,32 @@ encerrar uma implementação sem PR + link; nunca mergear/publicar sem "pode mer
 
 ---
 
-## [L-042] Componente novo toca 7 superfícies — o agente deve PREVER todas, não só código+USAGE
+## [L-042] Componente novo toca 8 superfícies — o agente deve PREVER todas, não só código+USAGE
+
+> **Atualizado 2026-08-08 — a lista era de 7 e virou 8.** A 8ª é o **barrel**
+> (`src/components/index.ts`), que define o canal npm e era a única superfície sem
+> vigilância nenhuma. `Chart`, `DataList`, `List` e `Toast` ficaram meses com 6 das 7
+> fechadas, a doc anunciando "os 42 componentes ui/", e `import { ChartContainer }`
+> estourando "not exported" no consumidor npm. Agora é gate:
+> `scripts/lib/barrel-completeness.mjs` (no `npm test`), com `BARREL_EXCEPTIONS`
+> separado do `DS_EXCEPTIONS` — são eixos diferentes (npm × registry), e os 6 internos
+> do example-chat são exceção de registry **e estão** no barrel.
+
 Reincidência: ao criar o `Toast` (v0.12.0), ficou faltando registrá-lo no **catálogo do CLI**
 (`cli/templates/default/CLAUDE.md`) — só foi pego porque o humano perguntou. Mesmo padrão do
 `DOC_PAGES` (o Toast renderizou em branco até `"toast"` ser adicionado ao array de páginas válidas
 do `App.tsx`). **Causa:** o pipeline cobria USAGE + inventory + registry (hook `ds-inventory-check`),
 mas **não o catálogo do CLI nem o registro de showcase (DOC_PAGES)** — e não havia uma "Definição
-de Pronto" única que listasse TODAS as superfícies. **As 7 superfícies de um componente:**
+de Pronto" única que listasse TODAS as superfícies. **As 8 superfícies de um componente:**
 (1) código `ui/<Nome>/` ou `shadcn/<nome>.tsx`; (2) USAGE (`ui/<Nome>/USAGE.md` ou 1 linha no
 índice `shadcn/USAGE.md`); (3) `inventory.md` (+contador); (4) **showcase** = `<Nome>Doc.tsx` +
 `App.tsx` (import + render + **`DOC_PAGES`**) + `doc-nav-data.ts`; (5) `registry.json` (+build+embed);
 (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md` +
-bump `cli/package.json` + republicar); (7) changelog `updates-data.ts`. **Fix:** (a) hook
+bump `cli/package.json` + republicar); (7) changelog `updates-data.ts`; (8) **barrel**
+`src/components/index.ts` (canal npm — ver a nota de 2026-08-08 acima). **Fix:** (a) hook
 `ds-inventory-check` acusa "no registry mas fora do vocabulário do consumidor" **e** "DocPage existe
 mas não roteada no `App.tsx`/`DOC_PAGES` ou sem nav" (pega o render-em-branco); (b) `handoff-pr.md`
-ganhou a tabela "Definição de Pronto" (7 superfícies); (c) `pre-commit-check` 2.8 e `release.md` 6.2b
+ganhou a tabela "Definição de Pronto" (7 na época, **8 hoje** — o barrel entrou em 2026-08-08); (c) `pre-commit-check` 2.8 e `release.md` 6.2b
 cobram a superfície 6. **Cadência:** 1–4 no PR do componente; 5/6/7 no `/ds-release` (mas anotar no
 PR body que faltam). **Regra pra IA:** componente distribuído (no registry) SEM estar no vocabulário
 = gap — qualquer toque em `cli/**` exige bump + `npm publish` manual.
@@ -1138,10 +1149,11 @@ depois, ao tentar bumpar o submódulo.
 
 Duas coisas que isso ensina, além da L-042:
 
-1. **As 7 superfícies não são burocracia — são detecção.** Cada uma é um lugar onde a
+1. **As superfícies não são burocracia — são detecção.** Cada uma é um lugar onde a
    ausência do componente vira erro visível. Com só o barrel, o componente é invisível
    para todo mecanismo do projeto (o hook `ds-inventory-check` inclusive) e depende de
-   alguém lembrar que ele existe.
+   alguém lembrar que ele existe. (A recíproca também mordeu, e virou a 8ª superfície:
+   componente em **tudo menos** o barrel some do canal npm sem sinal nenhum.)
 2. **Deps do componente moram no DS, não no consumidor (L-037 de novo).** O
    `ChoroplethMap` usava `d3-geo` e `topojson-client` sem declarar nenhum dos dois no
    `package.json` do DS — funcionava só porque o Rankings, por coincidência, declarava.
@@ -1449,6 +1461,53 @@ não o que o **cascade resolvia no browser**. Quem achou foi o mantenedor, de ol
 ligados era o único teste que pegava, e eu não rodei até me mandarem olhar. Ao mexer em tema,
 **meça no browser com cada combinação de eixos ativa** — arquivo de token não é evidência de
 pixel.
+
+---
+
+## [L-067] `@keyframes` com nome que o framework já possui é NO-OP silencioso — e parece estar funcionando
+
+**Erro cometido:** auditando o `globals.css`, encontrei 5 `@keyframes` e concluí, **lendo o
+código**, que havia divergência showcase↔consumidor: `pulse` redefinia `50% { opacity: 0.3 }`
+contra o `0.5` nativo do Tailwind, em **10 usos de componentes distribuídos** (skeleton,
+DataTable loading, DataList infinite, FooterTable, List); `accordion-*` acrescentava um fade
+de opacity que o `tw-animate-css` não tem. Classifiquei como CRÍTICO — "o showcase mostra o
+comportamento certo e o consumidor recebe outro", a forma exata que a segunda regra de ouro
+descreve. Cheguei a implementar a correção: mover os dois blocos pro tema gerado.
+
+**O build derrubou a conclusão.** `grep` no `dist/assets/*.css`, no estado da `main`, ANTES
+de qualquer mudança:
+
+```
+@keyframes pulse{50%{opacity:.5}}                            ← NATIVO, não o 0.3 do globals
+@keyframes accordion-down{0%{height:0}to{height:var(…)}}     ← tw-animate-css, SEM o fade
+```
+
+E depois de mover pro tema: **exatamente o mesmo**. A declaração perdia nos dois lugares.
+
+**Regra derivada:** `@keyframes` cujo nome o Tailwind ou uma lib de animação já possui **não
+sobrescreve** — a versão do framework é a que sai no CSS final, independente da ordem no
+arquivo-fonte. Declarar um é no-op mudo. Só há dois desfechos, e ambos são ruins:
+
+- **nome do framework** → no-op silencioso, e quem lê o código acredita num comportamento
+  que nunca existiu (foi o caso: a linha `opacity: 0.3` estava ali havia meses);
+- **nome próprio** → funciona no showcase e **não chega** em npm/copy-in/submódulo, que é a
+  divergência que o `outline-float` custou (L-039/L-040).
+
+Animação do DS pertence ao **tema gerado**, com **nome próprio** (`ds-pulse`, não `pulse`).
+
+**Contexto — por que isto não é a L-064 de novo, e sim o complemento dela:** a L-064 diz
+"reproduza o defeito antes de confiar no gate". Aqui o alvo era outro: eu ia **consertar** um
+defeito sem ter medido que ele existia. Ler CSS-fonte e afirmar comportamento é o mesmo erro
+de ler token e afirmar pixel (L-066) — só que na direção da correção, não da validação.
+**Antes de mover/duplicar regra CSS entre arquivos, grep no artefato BUILDADO pra ver qual
+declaração de fato sobrevive.** Custa um `npm run build`.
+
+**Desfecho:** os 5 `@keyframes` saíram do `globals.css` como código morto (não movidos), e
+com eles `--animate-accordion-*` — que ESTE vencia, mas com valor funcionalmente idêntico ao
+do `tw-animate-css` e estritamente menos capaz (a do pacote é `var(--tw-animation-duration,
+var(--tw-duration,.2s))var(--tw-ease,ease-out)`, que respeita `duration-*`/`ease-*`).
+Diff do CSS buildado: **34 linhas**, zero mudança de pixel. Gate:
+`runtime-base.test.mjs` proíbe `@keyframes` e `--animate-*` no `globals.css`.
 
 ---
 

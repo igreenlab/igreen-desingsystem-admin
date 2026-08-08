@@ -7,7 +7,7 @@ description: >
 
 # DS Dev — Componente iGreen (tv())
 
-> **Skill obrigatória.** Carregue este arquivo via `SkillTool` (skill: `ds-create-component`) ANTES de criar qualquer componente iGreen com `tv()` — não confie em memória de sessão anterior.
+> **Leitura obrigatória.** Abra este arquivo com a tool **Read** — é sub-arquivo da skill `ds-dev`, e `ds-create-component` é um COMMAND, não uma skill: o Skill tool não resolve nenhum dos dois. ANTES de criar qualquer componente iGreen com `tv()` — não confie em memória de sessão anterior.
 
 ## Verificações antes de escrever código
 
@@ -235,7 +235,7 @@ Componente interno de propósito (sem showcase) → declare em
 
 ## Referências
 
-- Anti-patterns proibidos + 66 lições → `.claude/rules/ds-standards.md`
+- Anti-patterns proibidos + 67 lições → `.claude/rules/ds-standards.md`
 - Padrão tv() detalhado e exemplos longos → `.ai/rules/coding-standards.md`
 - Inventário de componentes existentes → `.ai/context/components/inventory.md`
 - USAGE.md por componente → `src/components/ui/<Nome>/USAGE.md`

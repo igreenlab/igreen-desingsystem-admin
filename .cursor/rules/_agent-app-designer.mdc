@@ -1,8 +1,3 @@
-
-
-> ⚠️ Mirror gerado automaticamente de `.claude/agents/app-designer.md`
-> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
-
 ---
 name: app-designer
 description: >
@@ -12,6 +7,9 @@ description: >
 memory: user
 status: PENDING
 ---
+
+> ⚠️ Mirror gerado automaticamente de `.claude/agents/app-designer.md`
+> Não editar manualmente — rodar `npm run sync:agents` para atualizar.
 
 # App Designer — iGreen App
 

@@ -1,14 +1,22 @@
 ---
-description: Regras do iGreen DS — comportamento, anti-patterns, lições, dark mode, Radix. Carregado automaticamente nas pastas src/components, src/styles, tokens, .claude/skills/ds-*, .ai/
-globs:
-  - "src/components/**"
-  - "src/styles/**"
-  - "tokens/**"
-  - ".claude/skills/ds-*/**"
-  - ".ai/**"
+description: Regras do iGreen DS — comportamento, anti-patterns, 67 lições, dark mode, Radix, multi-marca. Entra como project instruction em TODA sessão do repo, sem escopo por pasta.
 ---
 
 # iGreen DS — Regras essenciais
+
+> **Carregamento (verificado em 2026-08-08, não presumido).** Todo `.md` de
+> `.claude/rules/` é entregue ao agente como **project instruction**, junto do
+> `CLAUDE.md`, na sessão inteira — não há ação a tomar, e não há escopo por pasta.
+>
+> O frontmatter tinha um bloco `globs:` (`src/components/**`, `tokens/**`, `.ai/**`…)
+> que é sintaxe do **Cursor** e era **inerte** aqui. Removido porque descrevia um
+> mecanismo de escopo que não existe — e pior, um escopo que teria deixado de fora
+> justamente `src/preview/**` (onde os builders escrevem) e as skills não-`ds-*`
+> (`crud-builder`, `list-builder`, `dashboard-builder`, `brand-builder`, …). Quem
+> lesse o frontmatter concluiria que estas regras não valem ao gerar uma tela.
+>
+> **Consequência prática:** este arquivo custa contexto em 100% das sessões. Ao
+> acrescentar seção, prefira 1 linha + ponteiro pro `.ai/` a 30 linhas de detalhe.
 
 Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patterns + dark mode + Radix. Para referência longa do padrão tv() completo: `.ai/rules/coding-standards.md`.
 
@@ -23,7 +31,15 @@ Fonte única de regras para sessões DS. Resumo executivo + lições + anti-patt
 5. Classes DS sempre antes de Tailwind literal
 6. Self-interrupt: "estou criando algo novo?" → verificar primeiro
 7. **Gate de pre-commit obrigatório** antes de commit significativo (release, refactor amplo, token novo, componente novo, lição nova) → invocar `ds-reviewer/pre-commit-check.md`
-8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `empresa`** (remote canônico = `igreenlab/igreen-desingsystem-admin`; `origin` é fork pessoal parado) → **`gh pr create`** → **reportar o link do PR pro gate humano**. A IA executa a parte mecânica (branch/commit/push/PR) automaticamente; **PARA no merge** — merge/`npm publish`/deploy só com autorização explícita do usuário na mesma sessão. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
+8. **Handoff via PR sempre (L-041)** — TODO trabalho de componente (criar/alterar) ou mudança significativa termina, sem exceção, com: **branch própria** → **commit descritivo** (o quê + por quê, não deixar a diff falar sozinha) → **push no `empresa`** (remote canônico = `igreenlab/igreen-desingsystem-admin`; `origin` é fork pessoal parado) → **`gh pr create`** → **reportar o link do PR pro gate humano**. Nunca commitar direto em `main`. Distribuição (registry.json + embed + bump) **não** vai por-PR-de-componente — consolida no `/ds-release` ao fechar o conjunto (anotar no PR body que falta registrar).
+
+   **⚠️ Onde a IA para — a linha é o MERGE, não o push:**
+
+   | A IA faz sozinha | A IA NUNCA faz sozinha (exige autorização explícita na mesma sessão — L-020) |
+   |---|---|
+   | branch · commit · push da **branch** · abrir PR | merge · `npm publish` · bump de `package.json.version` · deploy · `git push` em `main` · force-push |
+
+   Até 2026-08-08 o `CLAUDE.md` (também auto-carregado) dizia *"NUNCA dê `git push` … sozinho → pare e peça"*, contradizendo esta regra frontalmente. A intenção original era proteger **publicação**, não o push da branch de trabalho — que é justamente o que produz o PR onde o humano decide. Os dois arquivos agora dizem a mesma coisa, com a mesma numeração de 1 a 8.
 
 ---
 
@@ -100,10 +116,26 @@ Passo 1.5 do skill `ds-dev/release.md` roda o auto-review do diff completo desde
 | —           | tela lista de cards consumindo DataList (entrevista guiada)                   | `list-builder/SKILL.md` via `/ds-create-list`        |
 | —           | tela dashboard/painel (KPIs + gráficos + rankings/resumos) — entrevista guiada | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` |
 | —           | tela de dados sem saber se é tabela, lista ou dashboard (desambigua + roteia) | front-door `/ds-create-screen`                       |
+| **DS Dev**  | **fechar QUALQUER trabalho por PR (Regra 8)**                                  | **`ds-dev/handoff-pr.md`**                           |
+| —           | **esqueleto do app** (AppShell + nav + rotas)                                  | **`app-builder/SKILL.md` via `/ds-create-app`**      |
+| —           | **tela de login/auth**                                                         | **`auth-builder/SKILL.md` via `/ds-create-login`**   |
+| —           | **composição de 2+ peças que reagem entre si** (master-detail, cross-filter)   | **`screen-composer/SKILL.md` via `/ds-create-screen`** |
+| —           | **replicar um módulo existente pra outro domínio**                             | **`module-replicator/SKILL.md` via `/ds-replicate-module`** |
+| —           | **página/bloco solto no DS, sem entrevista** (fallback)                        | **`igreen-frontend/SKILL.md`** — ⚠️ prefira os builders acima: eles têm gate |
+
+> **As 5 últimas linhas entraram em 2026-08-08.** `app-builder`, `auth-builder`,
+> `screen-composer` e `module-replicator` estavam roteadas no `orchestrator.md` e tinham
+> command próprio, mas **zero ocorrências** nesta tabela — e `handoff-pr.md`, que a
+> **Regra 8 torna obrigatória**, também não estava. Um agente que consultasse a tabela
+> pra saber "qual skill uso" nunca as encontrava. É a DoD da L-047 (4 superfícies de
+> roteamento) falhando na superfície "rule". Gate: `skills-routing.test.mjs`.
 
 Path base: `.claude/skills/<agent>/<skill>`. Skills de pipeline sem agente
-(`brand-builder`, `crud-builder`, `list-builder`, `dashboard-builder`, `igreen-frontend`, `igreen-page`) vivem direto em
-`.claude/skills/<nome>/`.
+(`app-builder`, `auth-builder`, `brand-builder`, `crud-builder`, `dashboard-builder`,
+`igreen-frontend`, `list-builder`, `module-replicator`, `screen-composer`) vivem direto em
+`.claude/skills/<nome>/`. A `igreen-page` foi **removida** em 2026-08-08: ela mesma dizia
+*"Quando carregar: **nunca**"*, e uma skill sem conteúdo continua competindo por matching
+de description.
 
 ### DoD — nova skill/command builder (L-047)
 
@@ -171,6 +203,43 @@ justamente no lugar onde a gente olha.
 **Gates:** `scripts/lib/shadcn-vocab.mjs` reprova vocabulário da bridge e paleta nativa do Tailwind em componente/exemplo/showcase; `scripts/lib/orphan-utilities.mjs` reprova `@utility` usada por componente e
 ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
 a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
+
+### O CSS gerado é COMMITADO — e desde 2026-08-08 existe gate pra isso
+
+`tailwind-theme.css` + os 4 `brand-*.css` são gerados **e** commitados (são o export
+publicado). O passo que regenera é manual, e **nenhum workflow o rodava**: `grep tokens
+.github/workflows/ci.yml` devolvia vazio. Editar token e esquecer `npm run tokens:tw4`
+passava verde em tudo — e o efeito é pior que artefato defasado comum, porque **todos** os
+gates de cor (`dead-theme-classes`, `shadcn-vocab`, `orphan-utilities`, `runtime-base`,
+`audit:token-docs`) leem justamente esse CSS: eles confirmavam a si mesmos contra um
+artefato que nada garantia estar atual.
+
+`scripts/lib/generated-artifacts.mjs` (no `npm test`) regenera cada artefato pelo MESMO
+transform do `package.json` e compara com o disco, apontando a **primeira linha**
+divergente + o comando que conserta. Checa também **cobertura**: `.css` em
+`src/styles/theme/` sem gerador conhecido reprova — senão uma 6ª marca entraria sem
+conferência e o resumo diria "✓ N em sync" sobre conjunto incompleto.
+
+### As duas listas de exceção NÃO são a mesma
+
+| Lista | Significa | Hoje |
+|---|---|---|
+| `ds-exceptions.mjs` → `DS_EXCEPTIONS` | não vai pro **registry/showcase** | 8 (TabelaTeste, TableToolbar, 6 internos do example-chat) |
+| `barrel-completeness.mjs` → `BARREL_EXCEPTIONS` | não vai pro **npm** (barrel) | 1 (TabelaTeste) |
+
+Os 6 internos do example-chat são exceção de registry **e estão** no barrel — viajam pelo
+npm junto do exemplo. Usar a lista errada isentaria 6 componentes hoje corretos, e o gate
+pararia de proteger justamente eles. Ambas exigem **motivo** por entrada, e ambas reprovam
+exceção morta (pasta que sumiu, ou que já entrou no barrel).
+
+### Dep real inclui dep de TIPO (`scripts/lib/deps-declared.mjs`)
+
+A L-037/L-058 ("declare as deps reais") não tinha gate. `deps-declared` varre os
+diretórios publicados e exige que todo import externo esteja em
+`dependencies`/`peerDependencies` — resolvendo `from "geojson"` por `@types/geojson`
+(convenção DefinitelyTyped). Três armadilhas de parsing estão travadas por teste, todas
+medidas aqui: import dentro de **JSDoc**, a chave `"line-file-import"` de `icons.ts` (que
+um regex frouxo lê como pacote `:`), e tipo que só existe em `@types/X`.
 
 ### Classe de cor morta — o gate cobre CÓDIGO **e** DOC (2026-08-08)
 
@@ -409,9 +478,12 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 66 Lições (L-001 a L-066) — resumo
+## 67 Lições (L-001 a L-067) — resumo
 
-Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas:
+Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
+`scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
+citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 faltavam 6
+(L-044/045/046/048/049/050) atrás desta mesma frase.
 
 ### Focus rings / Tailwind
 
@@ -485,9 +557,23 @@ Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (
 - **L-038** Default vindo do column-type (`defaultAlign`/`defaultEllipsis`) deve ser resolvido na **fonte única** (`effectiveColumns` em `use-data-table-columns.ts`), nunca por render-site. Header/footer liam só `col.align` cru e divergiam do body em `type:"currency"/"number"` sem `align` explícito (não reproduz no showcase, só no consumidor). Validar no cenário SEM o override.
 - **L-039** Tailwind v4: `border`/`border-{x,y,l,r,t,b}` cru = **só largura**; sem classe de cor a borda usa `currentColor` (branca no dark / preta no light). SEMPRE acompanhar de `border-border-default` (ou `-subtle`/`-brand`/`-danger-muted`...). Bridge cobre `bg-*`/`text-*`, **não** a borda crua. Exceção: base `cva` com `border` cru só se TODAS as variantes setarem cor (ex.: `alert`). Ao adaptar shadcn, trocar `border` → `border border-border-default` e **PROIBIDO** usar `bg-popover`/`text-popover-foreground` — ou qualquer das 19 chaves da bridge (`background` `foreground` `card` `popover` `primary` `secondary` `muted` `accent` `destructive` `border` `input` `ring` + `-foreground`). Elas só existem no `globals.css`/`index.css`, não viajam pros canais npm e submódulo, e a cor cai em `currentColor`. Gate: `scripts/lib/shadcn-vocab.mjs` no `npm test`; a tabela `EQUIVALENTE` dele dá o token DS de cada chave.
 - **L-040** Componente **flutuante** (menu/popover/painel) segue a **receita única** do DS — espelhar `dropdown-menu.tsx`/`popover.tsx`, nunca os defaults shadcn. Superfície: `relative bg-bg-dropdown border border-border-default rounded-[12px] shadow-sh-lg outline-float` + frosted `before:backdrop-blur-2xl ...` + `text-fg-default/-muted`. Item: `px-pad-lg py-pad-md rounded-radius-sm text-fg-muted focus:bg-bg-muted focus:text-fg-default` (ativo `bg-bg-brand-subtle/fg-brand`, destructive danger). Separator/Label/Shortcut por token. Tooltip é exceção (menor). Delay default: Tooltip 200 / HoverCard openDelay 200 (Radix 700 é lento).
-- **L-042** Componente novo toca **7 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog. 1–4 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa.
+- **L-042** Componente novo toca **8 superfícies** — prever TODAS (não só código+USAGE): (1) código · (2) USAGE · (3) inventory · (4) showcase (`<Nome>Doc` + `App.tsx` import/render/**`DOC_PAGES`** + `doc-nav-data`) · (5) `registry.json` · (6) **vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa + critério de escolha, + bump + republicar) · (7) changelog · (8) **barrel** (`src/components/index.ts` — define o canal npm). 1–4 e 8 no PR; 5/6/7 no `/ds-release`. Checklist = `handoff-pr.md` "Definição de Pronto". Distribuído no registry mas fora do vocabulário = gap (caso Toast). Hook `ds-inventory-check` acusa 2/3/5/6 + showcase; o barrel é gate (`barrel-completeness`). **A 8ª entrou em 2026-08-08**: era a única superfície sem nenhuma vigilância, e por isso `Chart`/`DataList`/`List`/`Toast` passaram meses com 6 de 7 fechadas e `import { ChartContainer }` estourando "not exported" no consumidor npm.
 - **L-043** Tailwind v4 **inlina** valores de `shadow`/`drop-shadow`/`text-shadow` da `@theme` na utility → `.dark { --shadow-* }` é **código morto** (no dark a sombra fica com o valor light; `md` light usa cinza-claro → "halo"). Fix: `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }` (indireção que o cascade flipa). Cor usa `var()` e é dark-aware; shadow não — nunca confiar em `.dark{--shadow}` direto. Foundational (rebake no release).
 - **L-041** Trabalho de componente **fecha por PR + link pro gate humano** (Regra 8) — branch + commit descritivo + push no `empresa` + `gh pr create --repo igreenlab/igreen-desingsystem-admin` + reportar link; IA faz o mecânico e **para no merge** (humano aprova; merge/publish/deploy só autorizado — L-020). Skill: `ds-dev/handoff-pr.md`. Distribuição (registry/embed/bump) consolida no `/ds-release`, não por-PR; vários componentes = batches (1 PR cada) + 1 release. Nunca encerrar sem PR; nunca commit órfão em `main`.
+
+### Infra, componentes e registry (L-044 a L-050)
+
+> ⚠️ Estas 6 estavam **ausentes** deste resumo até 2026-08-08, apesar de a linha de
+> abertura prometer *"o atalho 1-linha de TODAS"*. Só existiam no `lessons.md`, que é
+> sob demanda — ou seja, na prática não chegavam à sessão. A **L-044 é a mais grave a
+> ter ficado invisível**: o repo roda em Windows.
+
+- **L-044** Hooks bash dependiam de `jq` (**ausente no Git Bash/Windows**) e casavam path com `/` enquanto o harness manda `\` → **skip silencioso, rede de segurança inteira no-op por uma sessão**. Hoje todos têm fallback `node` + `tr '\\' '/'` antes de qualquer matching. Ao escrever hook novo: **nunca** dependa de binário fora do `package.json`, e normalize o path primeiro (ver também L-061).
+- **L-045** Bug que "só aparece no último/primeiro item" é quase sempre **off-by-one mascarado** por um valor que coincide nos demais (caso real: conector hierárquico usando `ancestorHasNext[i]` em vez de `[i+1]` — invisível exceto no último root). Teste sempre a borda: último root, lista vazia, 1 item.
+- **L-046** `DataList` — 4 padrões de tela: (1) `fillHeight` faz só a lista rolar (pai com altura + `flex-1 min-h-0`); **não** combinar com `virtualized`. (2) Virtualizado exige `measureElement`, senão o `estimateItemSize` reserva a mais e o excedente vira "gap" falso. (3) Nó-folha no `hierarchical` **não** recebe placeholder de chevron. (4) `branchHighlight` só em `layout="hierarchical"`.
+- **L-048** `block-rm-rf.sh` casa o padrão em **qualquer ponto** do comando — inclusive dentro de uma commit message (bloqueou um `git commit` cuja mensagem citava `rm -rf src/`). Não escreva `rm -rf <path>` literal em mensagem/echo.
+- **L-049** `registryDependency` pode ficar **dangling** pra componente **bundlado** em outro item: `data-list` importa `TableToolbar`, que não tem item próprio (vive dentro de `data-table`) → `@igreen/table-toolbar` não resolve e o `igreen:add` quebra. Ao editar o registry, valide que cada `registryDependency` existe como item.
+- **L-050** Showcase: `PropsTable` vai **direto** sob `SectionH2`, nunca dentro de `ExampleSection` — as duas têm superfície própria (ring) e vira card-dentro-de-card. E `SectionH2` tem `mb` sem `margin-top`: tabela seguida de heading cola.
 
 ### `container` não dobra prefixo — `max-w-md`, nunca `max-w-container-md` (L-057)
 
@@ -496,7 +582,7 @@ nativa do Tailwind. Classe correta = **`max-w-md`** (768px do DS) / `max-w-toolt
 `max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa
 (não quebra build nem tsc). Detalhe + por que não mudamos o transform: `lessons.md` L-057.
 
-### As 7 superfícies são DETECÇÃO, não burocracia (L-058)
+### As 8 superfícies são DETECÇÃO, não burocracia (L-058)
 
 `ChoroplethMap` tinha só código + USAGE + barrel (1 de 7). Um merge de reorganização o
 tirou da `main` e **nenhum sinal disparou** — não havia inventory pra ficar órfã, doc page
@@ -644,6 +730,27 @@ outro eixo e verifique de qual regra o token omitido herda em CADA combinação.
 pegou** (tsc 0, 159 testes, `dead-theme-classes` OK, contraste 10/10 — eu media os valores dos
 arquivos TS, não o que o cascade resolvia); quem achou foi o mantenedor num print. L-064 de novo:
 ao mexer em tema, **medir no browser com cada combinação de eixos ativa**. Detalhe: `lessons.md` L-066.
+
+### `@keyframes` com nome do framework é no-op mudo — e parece funcionando (L-067)
+
+O `globals.css` tinha 5 `@keyframes`, e a leitura do código dizia "divergência
+showcase↔consumidor": `pulse` redefinia `50% { opacity: 0.3 }` contra o `0.5` nativo, em **10
+usos distribuídos**. O **build** mostrou o contrário — `dist/assets/*.css` emitia
+`@keyframes pulse{50%{opacity:.5}}` já na `main`, e continuava emitindo depois de mover o
+bloco pro tema. A declaração perdia nos dois lugares: **`@keyframes` cujo nome o Tailwind ou
+o `tw-animate-css` já possui não sobrescreve**, independente da ordem no fonte.
+
+Só há dois desfechos, ambos ruins: nome do framework → **no-op silencioso** (e quem lê o
+código acredita num comportamento que nunca existiu); nome próprio → funciona no showcase e
+**não chega** nos outros 3 canais. Animação do DS pertence ao tema gerado, com **nome
+próprio** (`ds-pulse`, não `pulse`).
+
+**Regra prática:** antes de mover ou duplicar regra CSS entre arquivos, **grep no artefato
+BUILDADO** pra ver qual declaração sobrevive. Ler CSS-fonte e afirmar comportamento é o mesmo
+erro de ler token e afirmar pixel (L-066). Gate: `runtime-base.test.mjs` proíbe `@keyframes`
+e `--animate-*` no `globals.css`.
+
+---
 
 ## Sistema multi-marca (temas)
 

@@ -74,18 +74,33 @@ for (const [ex, { source, hash }] of Object.entries(current)) {
   if (lock[ex].hash !== hash) drift.push({ ex, source, why: "fonte mudou" });
 }
 
-if (missing.length) for (const m of missing) console.log(`⚠ example-${m.ex}: fonte não encontrada (${m.source}).`);
+// Fonte AUSENTE é a falha mais grave dos dois, e até 2026-08-08 era a única que
+// escapava: `missing` não entrava em `drift`, então renomear/apagar um showcase-fonte
+// imprimia um ⚠ e saía **0 com a mensagem "✓ examples em sync"** — afirmação de
+// garantia que o código não dava (L-060), dentro do gate escrito pra L-035.
+// Pior que drift: com a fonte fora do mapa, o exemplo que o consumidor baixa deixa
+// de ter QUALQUER vigilância, e o hash nunca mais muda pra acusar.
+if (missing.length) {
+  console.log("\n✗ FONTE AUSENTE — estes exemplos ficaram sem vigilância de drift:");
+  for (const m of missing) console.log(`  • example-${m.ex} — fonte não encontrada: ${m.source}`);
+  console.log("\n  O showcase-fonte foi renomeado ou removido. Atualize o MAP no topo deste");
+  console.log("  script (ou re-extraia o exemplo a partir da fonte nova) e rode");
+  console.log("  `node scripts/examples-drift-check.mjs --baseline`.\n");
+}
 
-if (!drift.length) {
+if (drift.length) {
+  console.log("\n⚠ DRIFT examples ↔ showcase — exemplos possivelmente DEFASADOS:");
+  for (const d of drift) {
+    console.log(`  • example-${d.ex} (${d.why}) — fonte: ${d.source}`);
+  }
+  console.log("\n  Os src/examples/* são extração 1:1 dos showcases. A fonte mudou desde a última");
+  console.log("  sincronização → re-extraia o exemplo afetado (ver src/examples/README.md) e rode");
+  console.log("  `node scripts/examples-drift-check.mjs --baseline` pra re-baselinar.\n");
+}
+
+if (!drift.length && !missing.length) {
   console.log(`✓ examples em sync com os showcases (${Object.keys(current).length} verificados).`);
   process.exit(0);
 }
 
-console.log("\n⚠ DRIFT examples ↔ showcase — exemplos possivelmente DEFASADOS:");
-for (const d of drift) {
-  console.log(`  • example-${d.ex} (${d.why}) — fonte: ${d.source}`);
-}
-console.log("\n  Os src/examples/* são extração 1:1 dos showcases. A fonte mudou desde a última");
-console.log("  sincronização → re-extraia o exemplo afetado (ver src/examples/README.md) e rode");
-console.log("  `node scripts/examples-drift-check.mjs --baseline` pra re-baselinar.\n");
 process.exit(isCi ? 1 : 0);
