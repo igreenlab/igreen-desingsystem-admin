@@ -1563,6 +1563,63 @@ registrado no `registry.json` (arquivo novo em componente distribuído).
 
 ---
 
+## [L-069] Base de gate resolvida pelo NOME do remote mente onde `origin` não é o canônico — resolva por URL
+
+**Erro cometido:** três gates de diff (`lint-styles --ratchet`, `showcase-check`,
+`api-doc-check`) tinham `origin/main` como base default, e o `package.json` chumbava
+`--ratchet origin/main` no `npm run lint:styles`. Neste repo `origin` é o **fork pessoal
+parado** — a própria Regra 8 diz isso em letras maiúsculas, e o remote canônico se chama
+`empresa`. Medido em 2026-08-10: `origin/main` = `9b86f6f` (2026-05-20, v0.5.0) contra
+`empresa/main` = `756e912` (2026-08-10, PR #154). **Três meses** de distância.
+
+**O que os gates diziam, rodando numa PR de 3 arquivos:**
+
+| Gate | vs `origin/main` (default antigo) | vs base canônica |
+|---|---|---|
+| `lint:styles` | ✗ **17 violações** em `shadcn/` (carousel · context-menu · drawer · menubar · navigation-menu) | ✓ 0 |
+| `showcase-check` | ✗ **exit 1** — "componente novo `Chart` sem showcase, a rota #/chart vai abrir EM BRANCO" | ✓ 0 |
+| `api-doc-check` | 20+ linhas `fatal: path … exists on disk, but not in 9b86f6f` | ✓ limpo |
+
+Nenhum dos três achados era real. E o `Chart` é o **mesmo falso positivo que a L-062 já
+tinha consertado** — o critério "pasta é nova só se não existia no base ref" está correto;
+ele só foi alimentado com um base ref de maio. Mesmo sintoma, **segunda causa raiz**.
+
+**Por que passou tanto tempo invisível:** a saída era *plausível*. "17 violações de Tailwind
+literal em primitivos shadcn" é exatamente o débito que o repo sabe ter (a própria política do
+ratchet cita "27 violações congeladas em menubar/context-menu/drawer/select"). Um gate que
+mente com números verossímeis é pior que um que estoura: quem roda conclui "isso é o passivo
+conhecido" e para de olhar. É a L-059 num nível acima — não "grep sem contexto", mas **gate
+correto medindo contra a referência errada**.
+
+**Por que não é o `--merge-base`:** ele estava certo, e é o que impedia um estrago maior. O
+defeito é no **ref**, não na aritmética do diff.
+
+**Regra derivada:**
+
+1. **Não chumbe nome de remote.** `origin/main` fixo é o bug; `empresa/main` fixo quebraria o
+   CI, onde o único remote é `origin` (o `actions/checkout` o aponta pro repo buildado). O
+   invariante que vale nos dois lugares é a **URL**: canônico = o remote que aponta pro
+   `igreenlab/igreen-desingsystem-admin`, se chame `origin` ou `empresa`. Vive em
+   `scripts/lib/canonical-base-ref.mjs` (`repoSlug` cobre as 3 formas de URL do git + case).
+2. **Quem passa base explícita manda.** O CI passa `origin/${{ github.base_ref }}` porque a
+   base pode não ser `main`; a resolução só entra quando ninguém passou. Isso é o que torna a
+   mudança **zero-risco pro CI** — e tem teste afirmando que o caminho do CI não muda.
+3. **Imprima a base resolvida, sempre.** Base silenciosa foi o que deixou isto durar: a saída
+   não dizia contra o quê estava comparando, então não havia o que estranhar. Hoje sai
+   `base do ratchet: empresa/main — remote "empresa" aponta pro …`.
+4. **Mensagem de erro cita o remote REALMENTE resolvido.** Mandar `git fetch origin main` num
+   repo onde `origin` é o fork parado é instrução pra reproduzir o bug (L-060).
+
+**Como foi validado (L-064):** mutei o módulo pro comportamento antigo (filtrar `origin` pelo
+nome) e **vi 5 testes reprovarem**, incluindo o do caso medido — o teste não concorda por
+construção. Os dados do teste são a saída literal de `git remote -v` deste repo e a do
+`actions/checkout`.
+
+**Fix:** `scripts/lib/canonical-base-ref.mjs` + 21 testes · os 3 scripts resolvendo quando
+não recebem base · `package.json` sem o ref chumbado.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

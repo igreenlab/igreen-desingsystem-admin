@@ -2952,3 +2952,27 @@ mas a INTENÇÃO "quero um kanban/funil" não era roteada em lugar nenhum. Fecha
 - Regressões: nenhuma. tsc 0 · **372 testes** (eram 362; +10) · 5 gates de CLI verdes · fingerprint do DOM idêntico.
 - Lições novas: nenhuma numerada — L-059 (gate que grita no caso legítimo perde autoridade no caso real) e L-064 (medir onde o render é do UA) reincidiram, as duas já existem.
 - Pendência: as anteriores seguem · este fix precisa de release própria (ou entra na próxima) — é `PATCH`, dev-only, sem mudança de API.
+- PR: #155.
+
+---
+
+### 2026-08-10 | ds-dev | Base dos gates de diff resolvida pelo remote CANÔNICO (L-069) | CONCLUÍDO
+- Input: rodando o `npm run lint:styles` como double-check antes da PR #155, o gate reprovou com **17 violações** em `src/components/shadcn/` — nenhuma nos 3 arquivos que a PR tocava. Investiguei antes de "consertar" o código apontado.
+- **Causa:** o script chumbava `--ratchet origin/main`, e neste repo **`origin` é o fork pessoal parado** (a Regra 8 diz isso; está até na memória do agente). Medido: `origin/main` = `9b86f6f` (2026-05-20, v0.5.0) vs `empresa/main` = `756e912` (hoje, PR #154). **3 meses.** O ratchet contava tudo desde maio como "linha adicionada por esta PR".
+- **Não era só o `lint:styles`.** Grep nos scripts achou o mesmo default em `showcase-check.mjs` e `api-doc-check.mjs`. Medido numa PR de 3 arquivos:
+
+  | Gate | vs `origin/main` | vs base canônica |
+  |---|---|---|
+  | `lint:styles` | ✗ 17 violações | ✓ 0 |
+  | `showcase-check` | ✗ **exit 1** — acusa `Chart` de "componente novo sem showcase, rota abre EM BRANCO" | ✓ 0 (exit 0) |
+  | `api-doc-check` | 20+ `fatal: path … but not in 9b86f6f` | ✓ limpo |
+
+- **O caso do `Chart` é o mais instrutivo:** é o MESMO falso positivo que a L-062 já tinha consertado. O critério "pasta é nova só se não existia no base ref" está **correto** — foi alimentado com um base ref de maio. Mesmo sintoma, **segunda causa raiz**. Se eu tivesse obedecido a saída, criaria uma `ChartDoc.tsx` duplicata (o Chart já está documentado em 8 páginas).
+- **Por que durou:** a saída era *plausível*. "17 violações de Tailwind literal em primitivos shadcn" é exatamente o débito que o repo sabe ter — a política do próprio ratchet cita "27 violações congeladas em menubar/context-menu/drawer/select". Gate que mente com número verossímil é pior que um que estoura: quem roda conclui "é o passivo conhecido". L-059 num nível acima — não grep sem contexto, mas **gate correto medindo contra a referência errada**.
+- Descartei os dois defaults fixos: `origin/main` é o bug; `empresa/main` **quebraria o CI**, onde o único remote é `origin` (o `actions/checkout` o aponta pro repo buildado). O invariante que vale nos 2 lugares é a **URL**, não o nome → `scripts/lib/canonical-base-ref.mjs`: canônico = o remote que aponta pro `igreenlab/igreen-desingsystem-admin`.
+- Quatro decisões: (1) **base explícita manda** — o CI segue passando `origin/${{ github.base_ref }}` porque a base pode não ser `main`, e a resolução só entra quando ninguém passou (é o que torna a mudança zero-risco pro CI, com teste afirmando isso); (2) **imprime a base resolvida sempre** — base silenciosa foi o que escondeu o bug; (3) mensagem de erro cita o remote **resolvido**, não `origin` (mandar `git fetch origin main` aqui é instrução pra reproduzir o bug — L-060); (4) `origin` ganha o desempate quando 2+ remotes são canônicos, pra o CI ficar byte-idêntico.
+- **Validação por mutação (L-064), não por concordância:** mutei o módulo pro comportamento antigo (filtrar `origin` pelo nome) e **vi 5 dos 21 testes reprovarem**, incluindo o do caso medido — depois restaurei e conferi `diff` contra backup, idêntico. Os dados do teste são a saída literal de `git remote -v` deste repo **e** a do `actions/checkout`.
+- Assumption: o remote canônico é identificável pela URL `igreenlab/igreen-desingsystem-admin`. Se o repo for movido/renomeado, `CANONICAL_REPO` é o único ponto a mudar — e o fallback (`origin/main` + motivo explícito na saída) mantém os gates rodando, só menos precisos.
+- Regressões: nenhuma. tsc 0 · **393 testes** (eram 372; +21) · os 3 caminhos conferidos à mão (sem base → resolve · base explícita → não imprime nada, idêntico ao CI · ref inexistente → erro citando o remote certo).
+- Lição nova: **L-069** (`lessons.md` + resumo em `ds-standards.md`, contagem 68→69 — gate `lessons-index` verde).
+- Pendência: as anteriores seguem. Vale conferir num próximo passe se outros scripts adotam default de ref (varri `scripts/*.mjs`; os 3 eram os únicos).
