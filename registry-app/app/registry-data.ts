@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · accordion · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · alert-dialog · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · alert-modal · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · alert · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · app-shell · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · aspect-ratio · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · avatar-ig · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · avatar · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · badge · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · breadcrumb · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · button-group · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · button · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · calendar · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · card-checkbox · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · card · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · carousel · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · chart · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · checkbox · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · chip · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -705,7 +705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · choropleth-map · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -727,7 +727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · collapsible · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -791,7 +791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · color-picker · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -842,7 +842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · combobox · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -869,7 +869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · command · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -894,7 +894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · context-menu · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · data-list · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1650,7 +1650,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · data-table · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1688,7 +1688,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · date-picker · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1713,7 +1713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · dialog · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1737,7 +1737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · drawer · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1762,7 +1762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · dropdown-menu · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1815,7 +1815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · empty-state · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1856,7 +1856,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-app-shell · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2158,7 +2158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-chat · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2254,7 +2254,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-clientes · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2300,7 +2300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-dashboard · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2351,7 +2351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-edit-page · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2487,7 +2487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-finance · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2517,7 +2517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-login · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2574,7 +2574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-mapa-rede · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2655,7 +2655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · example-order-detail · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · file-upload-field · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · floating-panel · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2815,7 +2815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · footer-table · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2901,7 +2901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · form-field · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2992,7 +2992,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · header · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3016,7 +3016,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · hover-card · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · icon · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · input-group · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3118,7 +3118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · input-otp · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3142,7 +3142,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · input · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3201,7 +3201,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · kanban · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3263,7 +3263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · kpi · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3288,7 +3288,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · label · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3395,7 +3395,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · list · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · markdown-text · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3467,7 +3467,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/index.ts",
-        "content": "/* All-in-one */\nexport { MenuSidebar } from \"./menu-sidebar\";\n\n/* Composição manual */\nexport { SidebarRail } from \"./sidebar-rail\";\nexport type { SidebarRailProps } from \"./sidebar-rail\";\n\nexport { SidebarPanel } from \"./sidebar-panel\";\nexport type { SidebarPanelProps } from \"./sidebar-panel\";\n\nexport { SidebarItem, SidebarPill } from \"./sidebar-item\";\nexport type { SidebarItemProps } from \"./sidebar-item\";\n\nexport { SidebarSubgroup } from \"./sidebar-subgroup\";\nexport type { SidebarSubgroupProps } from \"./sidebar-subgroup\";\n\nexport { SidebarSection } from \"./sidebar-section\";\nexport type { SidebarSectionProps } from \"./sidebar-section\";\n\nexport { SidebarBrandIcon } from \"./sidebar-brand\";\n\n/* Hooks utilitários */\nexport { useControllable } from \"./use-sidebar-state\";\nexport { useMediaQuery } from \"./use-media-query\";\n\n/* Integração com router — a regra de quando cancelar a navegação nativa.\n * Exportado porque quem compõe o sidebar na mão (SidebarItem avulso) precisa da\n * MESMA decisão; reimplementar na unha é como o bug nasce de novo. */\nexport {\n  shouldPreventNavigation,\n  isExternalHref,\n  isHashHref,\n  isModifiedClick,\n} from \"./nav-link\";\nexport type { PreventNavigationInput } from \"./nav-link\";\n\n/* Tipos do data model */\nexport type {\n  SidebarProps,\n  SidebarContext,\n  SidebarMenuItem,\n  SidebarSection as SidebarSectionData,\n  SidebarBookmarkItem,\n  SidebarChatItem,\n  SidebarBadgeKind,\n  SidebarLinkRenderer,\n  SidebarLinkRenderProps,\n} from \"./sidebar.types\";\n",
+        "content": "/* All-in-one */\r\nexport { MenuSidebar } from \"./menu-sidebar\";\r\n\r\n/* Composição manual */\r\nexport { SidebarRail } from \"./sidebar-rail\";\r\nexport type { SidebarRailProps } from \"./sidebar-rail\";\r\n\r\nexport { SidebarPanel } from \"./sidebar-panel\";\r\nexport type { SidebarPanelProps } from \"./sidebar-panel\";\r\n\r\nexport { SidebarItem, SidebarPill } from \"./sidebar-item\";\r\nexport type { SidebarItemProps } from \"./sidebar-item\";\r\n\r\nexport { SidebarSubgroup } from \"./sidebar-subgroup\";\r\nexport type { SidebarSubgroupProps } from \"./sidebar-subgroup\";\r\n\r\nexport { SidebarSection } from \"./sidebar-section\";\r\nexport type { SidebarSectionProps } from \"./sidebar-section\";\r\n\r\nexport { SidebarBrandIcon } from \"./sidebar-brand\";\r\n\r\n/* Hooks utilitários */\r\nexport { useControllable } from \"./use-sidebar-state\";\r\nexport { useMediaQuery } from \"./use-media-query\";\r\n\r\n/* Integração com router — a regra de quando cancelar a navegação nativa.\r\n * Exportado porque quem compõe o sidebar na mão (SidebarItem avulso) precisa da\r\n * MESMA decisão; reimplementar na unha é como o bug nasce de novo. */\r\nexport {\r\n  shouldPreventNavigation,\r\n  isExternalHref,\r\n  isHashHref,\r\n  isModifiedClick,\r\n} from \"./nav-link\";\r\nexport type { PreventNavigationInput } from \"./nav-link\";\r\n\r\n/* Tipos do data model */\r\nexport type {\r\n  SidebarProps,\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarSection as SidebarSectionData,\r\n  SidebarBookmarkItem,\r\n  SidebarChatItem,\r\n  SidebarBadgeKind,\r\n  SidebarLinkRenderer,\r\n  SidebarLinkRenderProps,\r\n} from \"./sidebar.types\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/index.ts"
       },
@@ -3479,7 +3479,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/nav-link.ts",
-        "content": "/**\n * nav-link.ts — decide se o clique num item de navegação deve cancelar a\n * navegação nativa do `<a>`.\n *\n * ## O defeito que isto corrige\n *\n * O `SidebarItem` renderiza `<a href={item.href}>` e **nunca** chamava\n * `preventDefault`. Com `href` de PATH (`/app/clientes`) — o que todo app com\n * `BrowserRouter` usa — o handler do consumidor rodava **e** o browser executava a\n * navegação: **recarregamento completo da página a cada clique de menu**.\n *\n * Ficou meses invisível porque o exemplo canônico (`src/examples/app-shell/nav-data.ts`)\n * usa `href` de **HASH** (`#/app/clientes`) em todos os itens, e mudança de fragmento\n * **não** recarrega documento. Showcase verde, consumidor quebrado — a assinatura da\n * \"segunda regra de ouro\" do DS. Nenhum gate podia pegar: `tsc`, os testes,\n * `registry-check` e `examples-drift` não exercitam roteamento.\n *\n * Reproduzido em 2026-08-08 com o componente real: o jsdom imprime\n * `Not implemented: navigation to another Document` no clique.\n *\n * ## Por que NÃO é só \"chamar preventDefault\"\n *\n * Cancelar sempre quebraria quatro coisas legítimas, e a 4ª quebraria o próprio showcase:\n *\n * 1. **Clique modificado** (ctrl/cmd/shift/alt, botão do meio) — é como o usuário abre\n *    em nova aba. Cancelar mata isso e não há como o consumidor recuperar.\n * 2. **`target=\"_blank\"`** — o item pede explicitamente outra aba.\n * 3. **Link externo** (`https:`, `mailto:`, `tel:`, `//host`) — não é rota do app;\n *    router nenhum resolve, e cancelar deixaria o link morto.\n * 4. **`href` de HASH** (`#/rota`) — ⚠️ o mais sutil. Hash router escuta `hashchange`;\n *    cancelar o default impede o fragmento de mudar e **o evento nunca dispara**. Ou\n *    seja: cancelar cegamente trocaria \"recarrega\" por \"não navega\" em todo consumidor\n *    de hash router — e no `example-app-shell`, que é a referência do próprio DS.\n *\n * ## A regra\n *\n * Só cancela quando as 4 condições valem juntas: há intenção declarada de tratar o\n * clique (`onItemClick` no componente ou `onClick` no item), o clique é simples, o\n * destino é uma rota interna, e o `href` **não** é hash.\n *\n * Consumidor que quer o caminho canônico passa `renderLink` — aí o `<Link>` do router\n * cuida de tudo e esta heurística nem roda.\n */\nimport type { MouseEvent } from \"react\";\n\n/** Protocolos/formas que nunca são rota interna do app. */\nconst EXTERNO = /^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i;\n\n/** `https://x`, `mailto:a@b`, `tel:+55`, `//cdn` → true. `/app`, `#/app`, `app` → false. */\nexport function isExternalHref(href: string | undefined): boolean {\n  if (!href) return false;\n  // `#` sozinho ou `#/rota` nunca é externo, e `:` dentro de fragmento não conta.\n  if (href.startsWith(\"#\")) return false;\n  return EXTERNO.test(href);\n}\n\n/** `#`, `#/rota` → true. Hash muda fragmento, não documento. */\nexport function isHashHref(href: string | undefined): boolean {\n  return !!href && href.startsWith(\"#\");\n}\n\n/** ctrl/cmd/shift/alt ou botão que não é o principal → o usuário quer outra aba/janela. */\nexport function isModifiedClick(e: {\n  button?: number;\n  metaKey?: boolean;\n  ctrlKey?: boolean;\n  shiftKey?: boolean;\n  altKey?: boolean;\n}): boolean {\n  return (\n    (e.button ?? 0) !== 0 ||\n    !!e.metaKey ||\n    !!e.ctrlKey ||\n    !!e.shiftKey ||\n    !!e.altKey\n  );\n}\n\nexport type PreventNavigationInput = {\n  /** O `href` do item. Ausente → é `<button>`, não há navegação a cancelar. */\n  href?: string;\n  /** Há handler do consumidor pro clique? Sem isso, o `<a>` é a única navegação. */\n  hasHandler: boolean;\n  /** `target` do item (`\"_blank\"` desliga o cancelamento). */\n  target?: string;\n  /** O evento — só as teclas/botão são lidos. */\n  event: Pick<\n    MouseEvent<HTMLAnchorElement>,\n    \"button\" | \"metaKey\" | \"ctrlKey\" | \"shiftKey\" | \"altKey\" | \"defaultPrevented\"\n  >;\n};\n\n/**\n * @returns `true` quando o clique deve ter `preventDefault()` — ou seja, quando cancelar\n *   a navegação nativa é o que o consumidor claramente quer.\n */\nexport function shouldPreventNavigation({\n  href,\n  hasHandler,\n  target,\n  event,\n}: PreventNavigationInput): boolean {\n  if (!href) return false; // é <button>\n  if (!hasHandler) return false; // ninguém vai tratar → deixa o <a> navegar\n  if (event.defaultPrevented) return false; // alguém já decidiu antes\n  if (target && target !== \"_self\") return false; // pediu outra aba\n  if (isHashHref(href)) return false; // hash router depende do hashchange\n  if (isExternalHref(href)) return false; // não é rota do app\n  if (isModifiedClick(event)) return false; // abrir em nova aba\n  return true;\n}\n",
+        "content": "/**\r\n * nav-link.ts — decide se o clique num item de navegação deve cancelar a\r\n * navegação nativa do `<a>`.\r\n *\r\n * ## O defeito que isto corrige\r\n *\r\n * O `SidebarItem` renderiza `<a href={item.href}>` e **nunca** chamava\r\n * `preventDefault`. Com `href` de PATH (`/app/clientes`) — o que todo app com\r\n * `BrowserRouter` usa — o handler do consumidor rodava **e** o browser executava a\r\n * navegação: **recarregamento completo da página a cada clique de menu**.\r\n *\r\n * Ficou meses invisível porque o exemplo canônico (`src/examples/app-shell/nav-data.ts`)\r\n * usa `href` de **HASH** (`#/app/clientes`) em todos os itens, e mudança de fragmento\r\n * **não** recarrega documento. Showcase verde, consumidor quebrado — a assinatura da\r\n * \"segunda regra de ouro\" do DS. Nenhum gate podia pegar: `tsc`, os testes,\r\n * `registry-check` e `examples-drift` não exercitam roteamento.\r\n *\r\n * Reproduzido em 2026-08-08 com o componente real: o jsdom imprime\r\n * `Not implemented: navigation to another Document` no clique.\r\n *\r\n * ## Por que NÃO é só \"chamar preventDefault\"\r\n *\r\n * Cancelar sempre quebraria quatro coisas legítimas, e a 4ª quebraria o próprio showcase:\r\n *\r\n * 1. **Clique modificado** (ctrl/cmd/shift/alt, botão do meio) — é como o usuário abre\r\n *    em nova aba. Cancelar mata isso e não há como o consumidor recuperar.\r\n * 2. **`target=\"_blank\"`** — o item pede explicitamente outra aba.\r\n * 3. **Link externo** (`https:`, `mailto:`, `tel:`, `//host`) — não é rota do app;\r\n *    router nenhum resolve, e cancelar deixaria o link morto.\r\n * 4. **`href` de HASH** (`#/rota`) — ⚠️ o mais sutil. Hash router escuta `hashchange`;\r\n *    cancelar o default impede o fragmento de mudar e **o evento nunca dispara**. Ou\r\n *    seja: cancelar cegamente trocaria \"recarrega\" por \"não navega\" em todo consumidor\r\n *    de hash router — e no `example-app-shell`, que é a referência do próprio DS.\r\n *\r\n * ## A regra\r\n *\r\n * Só cancela quando as 4 condições valem juntas: há intenção declarada de tratar o\r\n * clique (`onItemClick` no componente ou `onClick` no item), o clique é simples, o\r\n * destino é uma rota interna, e o `href` **não** é hash.\r\n *\r\n * Consumidor que quer o caminho canônico passa `renderLink` — aí o `<Link>` do router\r\n * cuida de tudo e esta heurística nem roda.\r\n */\r\nimport type { MouseEvent } from \"react\";\r\n\r\n/** Protocolos/formas que nunca são rota interna do app. */\r\nconst EXTERNO = /^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i;\r\n\r\n/** `https://x`, `mailto:a@b`, `tel:+55`, `//cdn` → true. `/app`, `#/app`, `app` → false. */\r\nexport function isExternalHref(href: string | undefined): boolean {\r\n  if (!href) return false;\r\n  // `#` sozinho ou `#/rota` nunca é externo, e `:` dentro de fragmento não conta.\r\n  if (href.startsWith(\"#\")) return false;\r\n  return EXTERNO.test(href);\r\n}\r\n\r\n/** `#`, `#/rota` → true. Hash muda fragmento, não documento. */\r\nexport function isHashHref(href: string | undefined): boolean {\r\n  return !!href && href.startsWith(\"#\");\r\n}\r\n\r\n/** ctrl/cmd/shift/alt ou botão que não é o principal → o usuário quer outra aba/janela. */\r\nexport function isModifiedClick(e: {\r\n  button?: number;\r\n  metaKey?: boolean;\r\n  ctrlKey?: boolean;\r\n  shiftKey?: boolean;\r\n  altKey?: boolean;\r\n}): boolean {\r\n  return (\r\n    (e.button ?? 0) !== 0 ||\r\n    !!e.metaKey ||\r\n    !!e.ctrlKey ||\r\n    !!e.shiftKey ||\r\n    !!e.altKey\r\n  );\r\n}\r\n\r\nexport type PreventNavigationInput = {\r\n  /** O `href` do item. Ausente → é `<button>`, não há navegação a cancelar. */\r\n  href?: string;\r\n  /** Há handler do consumidor pro clique? Sem isso, o `<a>` é a única navegação. */\r\n  hasHandler: boolean;\r\n  /** `target` do item (`\"_blank\"` desliga o cancelamento). */\r\n  target?: string;\r\n  /** O evento — só as teclas/botão são lidos. */\r\n  event: Pick<\r\n    MouseEvent<HTMLAnchorElement>,\r\n    \"button\" | \"metaKey\" | \"ctrlKey\" | \"shiftKey\" | \"altKey\" | \"defaultPrevented\"\r\n  >;\r\n};\r\n\r\n/**\r\n * @returns `true` quando o clique deve ter `preventDefault()` — ou seja, quando cancelar\r\n *   a navegação nativa é o que o consumidor claramente quer.\r\n */\r\nexport function shouldPreventNavigation({\r\n  href,\r\n  hasHandler,\r\n  target,\r\n  event,\r\n}: PreventNavigationInput): boolean {\r\n  if (!href) return false; // é <button>\r\n  if (!hasHandler) return false; // ninguém vai tratar → deixa o <a> navegar\r\n  if (event.defaultPrevented) return false; // alguém já decidiu antes\r\n  if (target && target !== \"_self\") return false; // pediu outra aba\r\n  if (isHashHref(href)) return false; // hash router depende do hashchange\r\n  if (isExternalHref(href)) return false; // não é rota do app\r\n  if (isModifiedClick(event)) return false; // abrir em nova aba\r\n  return true;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/nav-link.ts"
       },
@@ -3491,7 +3491,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-item.tsx",
-        "content": "import { forwardRef } from \"react\";\nimport type { MouseEvent, ReactNode } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarPill,\n} from \"./sidebar.styles\";\nimport { shouldPreventNavigation } from \"./nav-link\";\nimport type {\n  SidebarMenuItem,\n  SidebarBadgeKind,\n  SidebarLinkRenderer,\n} from \"./sidebar.types\";\n\nexport type SidebarItemProps = {\n  item: SidebarMenuItem;\n  active?: boolean;\n  subitem?: boolean;\n  /** Quando true, o ícone usa cor de brand (usado em groups com filho ativo) */\n  iconBrand?: boolean;\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\n  /** Substitui o `<a>` pelo link do router do consumidor. Ver `SidebarLinkRenderer`. */\n  renderLink?: SidebarLinkRenderer;\n  /**\n   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.\n   *\n   * ⚠️ Existe porque **inferir pelo `onClick` não funciona no caminho composto**: o\n   * `SidebarPanel` SEMPRE passa um `onClick` (é como o `MenuSidebar` mantém o item ativo\n   * em modo uncontrolled), então \"tem onClick\" seria sempre verdadeiro e o sidebar\n   * cancelaria a navegação até de quem não passou handler nenhum — trocando o bug do\n   * reload por \"o link não faz nada\". Foi o que um teste pegou nesta implementação.\n   *\n   * - `undefined` (uso standalone do `SidebarItem`) → infere de `item.onClick`/`onClick`.\n   * - `boolean` (uso composto) → o `MenuSidebar` decide, olhando o `onItemClick` DELE.\n   */\n  interceptNavigation?: boolean;\n  className?: string;\n};\n\nexport const SidebarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, SidebarItemProps>(\n  (\n    {\n      item,\n      active,\n      subitem,\n      iconBrand,\n      onClick,\n      renderLink,\n      interceptNavigation,\n      className,\n    },\n    ref,\n  ) => {\n    const Icon = item.icon;\n    const classes = cn(sidebarItem({ active, subitem }), className);\n\n    const content: ReactNode = (\n      <>\n        {Icon && (\n          <Icon\n            size={subitem ? 15 : 17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ active, parentActive: iconBrand })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        {item.badge && (\n          <SidebarPill kind={item.badgeKind} active={active}>\n            {item.badge}\n          </SidebarPill>\n        )}\n      </>\n    );\n\n    const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {\n      // Cancela a navegação nativa do `<a>` quando o consumidor claramente trata o\n      // clique — mas nunca em clique modificado, `target=\"_blank\"`, link externo ou\n      // href de HASH. A regra e o porquê de cada exceção estão em `nav-link.ts`.\n      //\n      // Só corre quando NÃO há `renderLink`: com ele, quem decide é o `<Link>` do router.\n      if (!renderLink) {\n        const prevent = shouldPreventNavigation({\n          href: item.href,\n          hasHandler: interceptNavigation ?? !!(item.onClick || onClick),\n          target: item.target,\n          event: e as MouseEvent<HTMLAnchorElement>,\n        });\n        if (prevent) e.preventDefault();\n      }\n      if (item.onClick) item.onClick(e);\n      onClick?.(e);\n    };\n\n    if (item.href) {\n      const linkProps = {\n        href: item.href,\n        className: classes,\n        onClick: handleClick as (e: MouseEvent<HTMLAnchorElement>) => void,\n        target: item.target,\n        \"aria-current\": active ? (\"page\" as const) : undefined,\n        ref: ref as React.Ref<HTMLAnchorElement>,\n        children: content,\n      };\n\n      // `renderLink` recebe as props de um `<a>` e devolve o link do router do\n      // consumidor. `ref` vai no objeto: em React 19 `ref` é prop normal, então\n      // funciona igual pra elemento DOM e pra componente.\n      if (renderLink) return <>{renderLink(linkProps)}</>;\n\n      return <a {...linkProps} />;\n    }\n\n    return (\n      <button\n        ref={ref as React.Ref<HTMLButtonElement>}\n        type=\"button\"\n        className={classes}\n        onClick={handleClick}\n        aria-current={active ? \"page\" : undefined}\n      >\n        {content}\n      </button>\n    );\n  }\n);\nSidebarItem.displayName = \"SidebarItem\";\n\n/* ── Pill (badge) ─────────────────────────────────────────────────────────── */\nexport function SidebarPill({\n  kind,\n  active,\n  children,\n  className,\n}: {\n  kind?: SidebarBadgeKind;\n  active?: boolean;\n  children: ReactNode;\n  className?: string;\n}) {\n  return (\n    <span className={cn(sidebarPill({ kind, active }), className)}>\n      {children}\n    </span>\n  );\n}\n",
+        "content": "import { forwardRef } from \"react\";\r\nimport type { MouseEvent, ReactNode } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarItem,\r\n  sidebarItemIcon,\r\n  sidebarItemText,\r\n  sidebarPill,\r\n} from \"./sidebar.styles\";\r\nimport { shouldPreventNavigation } from \"./nav-link\";\r\nimport type {\r\n  SidebarMenuItem,\r\n  SidebarBadgeKind,\r\n  SidebarLinkRenderer,\r\n} from \"./sidebar.types\";\r\n\r\nexport type SidebarItemProps = {\r\n  item: SidebarMenuItem;\r\n  active?: boolean;\r\n  subitem?: boolean;\r\n  /** Quando true, o ícone usa cor de brand (usado em groups com filho ativo) */\r\n  iconBrand?: boolean;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\r\n  /** Substitui o `<a>` pelo link do router do consumidor. Ver `SidebarLinkRenderer`. */\r\n  renderLink?: SidebarLinkRenderer;\r\n  /**\r\n   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.\r\n   *\r\n   * ⚠️ Existe porque **inferir pelo `onClick` não funciona no caminho composto**: o\r\n   * `SidebarPanel` SEMPRE passa um `onClick` (é como o `MenuSidebar` mantém o item ativo\r\n   * em modo uncontrolled), então \"tem onClick\" seria sempre verdadeiro e o sidebar\r\n   * cancelaria a navegação até de quem não passou handler nenhum — trocando o bug do\r\n   * reload por \"o link não faz nada\". Foi o que um teste pegou nesta implementação.\r\n   *\r\n   * - `undefined` (uso standalone do `SidebarItem`) → infere de `item.onClick`/`onClick`.\r\n   * - `boolean` (uso composto) → o `MenuSidebar` decide, olhando o `onItemClick` DELE.\r\n   */\r\n  interceptNavigation?: boolean;\r\n  className?: string;\r\n};\r\n\r\nexport const SidebarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, SidebarItemProps>(\r\n  (\r\n    {\r\n      item,\r\n      active,\r\n      subitem,\r\n      iconBrand,\r\n      onClick,\r\n      renderLink,\r\n      interceptNavigation,\r\n      className,\r\n    },\r\n    ref,\r\n  ) => {\r\n    const Icon = item.icon;\r\n    const classes = cn(sidebarItem({ active, subitem }), className);\r\n\r\n    const content: ReactNode = (\r\n      <>\r\n        {Icon && (\r\n          <Icon\r\n            size={subitem ? 15 : 17}\r\n            strokeWidth={1.7}\r\n            className={sidebarItemIcon({ active, parentActive: iconBrand })}\r\n          />\r\n        )}\r\n        <span className={sidebarItemText()}>{item.name}</span>\r\n        {item.badge && (\r\n          <SidebarPill kind={item.badgeKind} active={active}>\r\n            {item.badge}\r\n          </SidebarPill>\r\n        )}\r\n      </>\r\n    );\r\n\r\n    const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {\r\n      // Cancela a navegação nativa do `<a>` quando o consumidor claramente trata o\r\n      // clique — mas nunca em clique modificado, `target=\"_blank\"`, link externo ou\r\n      // href de HASH. A regra e o porquê de cada exceção estão em `nav-link.ts`.\r\n      //\r\n      // Só corre quando NÃO há `renderLink`: com ele, quem decide é o `<Link>` do router.\r\n      if (!renderLink) {\r\n        const prevent = shouldPreventNavigation({\r\n          href: item.href,\r\n          hasHandler: interceptNavigation ?? !!(item.onClick || onClick),\r\n          target: item.target,\r\n          event: e as MouseEvent<HTMLAnchorElement>,\r\n        });\r\n        if (prevent) e.preventDefault();\r\n      }\r\n      if (item.onClick) item.onClick(e);\r\n      onClick?.(e);\r\n    };\r\n\r\n    if (item.href) {\r\n      const linkProps = {\r\n        href: item.href,\r\n        className: classes,\r\n        onClick: handleClick as (e: MouseEvent<HTMLAnchorElement>) => void,\r\n        target: item.target,\r\n        \"aria-current\": active ? (\"page\" as const) : undefined,\r\n        ref: ref as React.Ref<HTMLAnchorElement>,\r\n        children: content,\r\n      };\r\n\r\n      // `renderLink` recebe as props de um `<a>` e devolve o link do router do\r\n      // consumidor. `ref` vai no objeto: em React 19 `ref` é prop normal, então\r\n      // funciona igual pra elemento DOM e pra componente.\r\n      if (renderLink) return <>{renderLink(linkProps)}</>;\r\n\r\n      return <a {...linkProps} />;\r\n    }\r\n\r\n    return (\r\n      <button\r\n        ref={ref as React.Ref<HTMLButtonElement>}\r\n        type=\"button\"\r\n        className={classes}\r\n        onClick={handleClick}\r\n        aria-current={active ? \"page\" : undefined}\r\n      >\r\n        {content}\r\n      </button>\r\n    );\r\n  }\r\n);\r\nSidebarItem.displayName = \"SidebarItem\";\r\n\r\n/* ── Pill (badge) ─────────────────────────────────────────────────────────── */\r\nexport function SidebarPill({\r\n  kind,\r\n  active,\r\n  children,\r\n  className,\r\n}: {\r\n  kind?: SidebarBadgeKind;\r\n  active?: boolean;\r\n  children: ReactNode;\r\n  className?: string;\r\n}) {\r\n  return (\r\n    <span className={cn(sidebarPill({ kind, active }), className)}>\r\n      {children}\r\n    </span>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-item.tsx"
       },
@@ -3503,7 +3503,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-rail.tsx",
-        "content": "import type { ReactNode, MouseEvent } from \"react\";\nimport { Plus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarRail,\n  sidebarRailBrand,\n  sidebarRailList,\n  sidebarRailItem,\n  sidebarRailActiveBar,\n  sidebarRailTooltip,\n  sidebarRailAdd,\n  sidebarRailUser,\n  sidebarRailUserDefault,\n} from \"./sidebar.styles\";\nimport { SidebarBrandIcon } from \"./sidebar-brand\";\nimport { shouldPreventNavigation } from \"./nav-link\";\nimport type { SidebarContext, SidebarLinkRenderer } from \"./sidebar.types\";\n\nexport type SidebarRailProps = {\n  contexts: SidebarContext[];\n  activeContextId: string;\n  onContextChange: (id: string) => void;\n  brand?: ReactNode;\n  user?: ReactNode;\n  showAdd?: boolean;\n  onAddClick?: () => void;\n  /** Destino do brand. Default `\"/\"`; string vazia torna o brand não-navegável. */\n  brandHref?: string;\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\n  renderLink?: SidebarLinkRenderer;\n  className?: string;\n};\n\nexport function SidebarRail({\n  contexts,\n  activeContextId,\n  onContextChange,\n  brand,\n  user,\n  showAdd = false,\n  onAddClick,\n  brandHref = \"/\",\n  onBrandClick,\n  renderLink,\n  className,\n}: SidebarRailProps) {\n  return (\n    <aside className={cn(sidebarRail(), className)}>\n      <SidebarBrandLink\n        href={brandHref}\n        onClick={onBrandClick}\n        renderLink={renderLink}\n      >\n        {brand ?? <SidebarBrandIcon />}\n      </SidebarBrandLink>\n\n      <div className={sidebarRailList()}>\n        {contexts.map((ctx) => {\n          const Icon = ctx.icon;\n          const isActive = activeContextId === ctx.id;\n          return (\n            <button\n              key={ctx.id}\n              type=\"button\"\n              className={sidebarRailItem({ active: isActive })}\n              onClick={() => onContextChange(ctx.id)}\n              aria-label={ctx.label}\n              aria-current={isActive ? \"page\" : undefined}\n            >\n              <Icon size={18} strokeWidth={1.7} />\n              {isActive && <span className={sidebarRailActiveBar()} aria-hidden=\"true\" />}\n              <span className={sidebarRailTooltip()}>{ctx.label}</span>\n            </button>\n          );\n        })}\n\n        {showAdd && (\n          <button\n            type=\"button\"\n            className={sidebarRailAdd()}\n            onClick={onAddClick}\n            aria-label=\"Adicionar contexto\"\n          >\n            <Plus size={16} strokeWidth={2} />\n          </button>\n        )}\n      </div>\n\n      {user !== null && (\n        <div className={sidebarRailUser()}>\n          {user ?? <div className={sidebarRailUserDefault()}>SV</div>}\n        </div>\n      )}\n    </aside>\n  );\n}\n\n/* ── Brand do rail ─────────────────────────────────────────────────────────── */\n//\n// ⚠️ Era `<a href=\"/\">` FIXO no JSX até 2026-08-08: recarregava pra raiz em qualquer\n// app, sem forma de configurar nem de rotear. Agora aceita `brandHref`, `onBrandClick`\n// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `nav-link.ts`).\nfunction SidebarBrandLink({\n  href,\n  onClick,\n  renderLink,\n  children,\n}: {\n  href?: string;\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\n  renderLink?: SidebarLinkRenderer;\n  children: ReactNode;\n}) {\n  // `brandHref=\"\"` = brand decorativo/só-ação: vira <button> pra não mentir semântica\n  // de link (screen reader anuncia \"link\" pra algo que não navega).\n  if (!href) {\n    return (\n      <button\n        type=\"button\"\n        className={sidebarRailBrand()}\n        onClick={onClick as unknown as () => void}\n        aria-label=\"Home\"\n      >\n        {children}\n      </button>\n    );\n  }\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (!renderLink) {\n      const prevent = shouldPreventNavigation({ href, hasHandler: !!onClick, event: e });\n      if (prevent) e.preventDefault();\n    }\n    onClick?.(e);\n  };\n\n  const linkProps = {\n    href,\n    className: sidebarRailBrand(),\n    onClick: handleClick,\n    \"aria-label\": \"Home\",\n    children,\n  };\n\n  if (renderLink) return <>{renderLink(linkProps)}</>;\n  return <a {...linkProps} />;\n}\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport { Plus } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarRail,\r\n  sidebarRailBrand,\r\n  sidebarRailList,\r\n  sidebarRailItem,\r\n  sidebarRailActiveBar,\r\n  sidebarRailTooltip,\r\n  sidebarRailAdd,\r\n  sidebarRailUser,\r\n  sidebarRailUserDefault,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarBrandIcon } from \"./sidebar-brand\";\r\nimport { shouldPreventNavigation } from \"./nav-link\";\r\nimport type { SidebarContext, SidebarLinkRenderer } from \"./sidebar.types\";\r\n\r\nexport type SidebarRailProps = {\r\n  contexts: SidebarContext[];\r\n  activeContextId: string;\r\n  onContextChange: (id: string) => void;\r\n  brand?: ReactNode;\r\n  user?: ReactNode;\r\n  showAdd?: boolean;\r\n  onAddClick?: () => void;\r\n  /** Destino do brand. Default `\"/\"`; string vazia torna o brand não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  renderLink?: SidebarLinkRenderer;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarRail({\r\n  contexts,\r\n  activeContextId,\r\n  onContextChange,\r\n  brand,\r\n  user,\r\n  showAdd = false,\r\n  onAddClick,\r\n  brandHref = \"/\",\r\n  onBrandClick,\r\n  renderLink,\r\n  className,\r\n}: SidebarRailProps) {\r\n  return (\r\n    <aside className={cn(sidebarRail(), className)}>\r\n      <SidebarBrandLink\r\n        href={brandHref}\r\n        onClick={onBrandClick}\r\n        renderLink={renderLink}\r\n      >\r\n        {brand ?? <SidebarBrandIcon />}\r\n      </SidebarBrandLink>\r\n\r\n      <div className={sidebarRailList()}>\r\n        {contexts.map((ctx) => {\r\n          const Icon = ctx.icon;\r\n          const isActive = activeContextId === ctx.id;\r\n          return (\r\n            <button\r\n              key={ctx.id}\r\n              type=\"button\"\r\n              className={sidebarRailItem({ active: isActive })}\r\n              onClick={() => onContextChange(ctx.id)}\r\n              aria-label={ctx.label}\r\n              aria-current={isActive ? \"page\" : undefined}\r\n            >\r\n              <Icon size={18} strokeWidth={1.7} />\r\n              {isActive && <span className={sidebarRailActiveBar()} aria-hidden=\"true\" />}\r\n              <span className={sidebarRailTooltip()}>{ctx.label}</span>\r\n            </button>\r\n          );\r\n        })}\r\n\r\n        {showAdd && (\r\n          <button\r\n            type=\"button\"\r\n            className={sidebarRailAdd()}\r\n            onClick={onAddClick}\r\n            aria-label=\"Adicionar contexto\"\r\n          >\r\n            <Plus size={16} strokeWidth={2} />\r\n          </button>\r\n        )}\r\n      </div>\r\n\r\n      {user !== null && (\r\n        <div className={sidebarRailUser()}>\r\n          {user ?? <div className={sidebarRailUserDefault()}>SV</div>}\r\n        </div>\r\n      )}\r\n    </aside>\r\n  );\r\n}\r\n\r\n/* ── Brand do rail ─────────────────────────────────────────────────────────── */\r\n//\r\n// ⚠️ Era `<a href=\"/\">` FIXO no JSX até 2026-08-08: recarregava pra raiz em qualquer\r\n// app, sem forma de configurar nem de rotear. Agora aceita `brandHref`, `onBrandClick`\r\n// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `nav-link.ts`).\r\nfunction SidebarBrandLink({\r\n  href,\r\n  onClick,\r\n  renderLink,\r\n  children,\r\n}: {\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  renderLink?: SidebarLinkRenderer;\r\n  children: ReactNode;\r\n}) {\r\n  // `brandHref=\"\"` = brand decorativo/só-ação: vira <button> pra não mentir semântica\r\n  // de link (screen reader anuncia \"link\" pra algo que não navega).\r\n  if (!href) {\r\n    return (\r\n      <button\r\n        type=\"button\"\r\n        className={sidebarRailBrand()}\r\n        onClick={onClick as unknown as () => void}\r\n        aria-label=\"Home\"\r\n      >\r\n        {children}\r\n      </button>\r\n    );\r\n  }\r\n\r\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\r\n    if (!renderLink) {\r\n      const prevent = shouldPreventNavigation({ href, hasHandler: !!onClick, event: e });\r\n      if (prevent) e.preventDefault();\r\n    }\r\n    onClick?.(e);\r\n  };\r\n\r\n  const linkProps = {\r\n    href,\r\n    className: sidebarRailBrand(),\r\n    onClick: handleClick,\r\n    \"aria-label\": \"Home\",\r\n    children,\r\n  };\r\n\r\n  if (renderLink) return <>{renderLink(linkProps)}</>;\r\n  return <a {...linkProps} />;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-rail.tsx"
       },
@@ -3515,7 +3515,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-subgroup.tsx",
-        "content": "import { useState } from \"react\";\nimport { ChevronDown } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarSubgroupRoot,\n  sidebarSubgroupChev,\n  sidebarSubgroupList,\n} from \"./sidebar.styles\";\nimport { SidebarItem } from \"./sidebar-item\";\nimport type { MouseEvent } from \"react\";\nimport type { SidebarMenuItem, SidebarLinkRenderer } from \"./sidebar.types\";\n\nexport type SidebarSubgroupProps = {\n  item: SidebarMenuItem;\n  activeItemHref?: string;\n  onItemClick?: (\n    item: SidebarMenuItem,\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\n  ) => void;\n  renderLink?: SidebarLinkRenderer;\n  interceptNavigation?: boolean;\n  /** Estado controlado de collapse — se omitido, gerencia internamente */\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n};\n\nexport function SidebarSubgroup({\n  item,\n  activeItemHref,\n  onItemClick,\n  renderLink,\n  interceptNavigation,\n  open,\n  defaultOpen,\n  onOpenChange,\n  className,\n}: SidebarSubgroupProps) {\n  const hasActiveChild = item.subitems?.some(\n    (s) => s.href !== undefined && s.href === activeItemHref\n  );\n\n  const [internalOpen, setInternalOpen] = useState<boolean>(\n    defaultOpen ?? item.defaultOpen ?? hasActiveChild ?? false\n  );\n  const isOpen = open ?? internalOpen;\n  const collapsed = !isOpen;\n\n  const setOpen = (next: boolean) => {\n    if (open === undefined) setInternalOpen(next);\n    onOpenChange?.(next);\n  };\n\n  const Icon = item.icon;\n\n  return (\n    <div className={cn(sidebarSubgroupRoot(), className)}>\n      <button\n        type=\"button\"\n        className={cn(sidebarItem(), \"select-none\")}\n        onClick={() => setOpen(!isOpen)}\n        aria-expanded={isOpen}\n        aria-controls={`subgroup-${item.name}`}\n      >\n        {Icon && (\n          <Icon\n            size={17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ parentActive: hasActiveChild })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        <ChevronDown\n          size={13}\n          strokeWidth={2}\n          className={sidebarSubgroupChev({ collapsed })}\n        />\n      </button>\n\n      <div id={`subgroup-${item.name}`} className={sidebarSubgroupList({ collapsed })}>\n        {item.subitems?.map((sub) => (\n          <SidebarItem\n            key={sub.href ?? sub.name}\n            item={sub}\n            subitem\n            active={sub.href !== undefined && sub.href === activeItemHref}\n            onClick={(e) => onItemClick?.(sub, e)}\n            renderLink={renderLink}\n            interceptNavigation={interceptNavigation}\n          />\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+        "content": "import { useState } from \"react\";\r\nimport { ChevronDown } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarItem,\r\n  sidebarItemIcon,\r\n  sidebarItemText,\r\n  sidebarSubgroupRoot,\r\n  sidebarSubgroupChev,\r\n  sidebarSubgroupList,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarItem } from \"./sidebar-item\";\r\nimport type { MouseEvent } from \"react\";\r\nimport type { SidebarMenuItem, SidebarLinkRenderer } from \"./sidebar.types\";\r\n\r\nexport type SidebarSubgroupProps = {\r\n  item: SidebarMenuItem;\r\n  activeItemHref?: string;\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n  renderLink?: SidebarLinkRenderer;\r\n  interceptNavigation?: boolean;\r\n  /** Estado controlado de collapse — se omitido, gerencia internamente */\r\n  open?: boolean;\r\n  defaultOpen?: boolean;\r\n  onOpenChange?: (open: boolean) => void;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarSubgroup({\r\n  item,\r\n  activeItemHref,\r\n  onItemClick,\r\n  renderLink,\r\n  interceptNavigation,\r\n  open,\r\n  defaultOpen,\r\n  onOpenChange,\r\n  className,\r\n}: SidebarSubgroupProps) {\r\n  const hasActiveChild = item.subitems?.some(\r\n    (s) => s.href !== undefined && s.href === activeItemHref\r\n  );\r\n\r\n  const [internalOpen, setInternalOpen] = useState<boolean>(\r\n    defaultOpen ?? item.defaultOpen ?? hasActiveChild ?? false\r\n  );\r\n  const isOpen = open ?? internalOpen;\r\n  const collapsed = !isOpen;\r\n\r\n  const setOpen = (next: boolean) => {\r\n    if (open === undefined) setInternalOpen(next);\r\n    onOpenChange?.(next);\r\n  };\r\n\r\n  const Icon = item.icon;\r\n\r\n  return (\r\n    <div className={cn(sidebarSubgroupRoot(), className)}>\r\n      <button\r\n        type=\"button\"\r\n        className={cn(sidebarItem(), \"select-none\")}\r\n        onClick={() => setOpen(!isOpen)}\r\n        aria-expanded={isOpen}\r\n        aria-controls={`subgroup-${item.name}`}\r\n      >\r\n        {Icon && (\r\n          <Icon\r\n            size={17}\r\n            strokeWidth={1.7}\r\n            className={sidebarItemIcon({ parentActive: hasActiveChild })}\r\n          />\r\n        )}\r\n        <span className={sidebarItemText()}>{item.name}</span>\r\n        <ChevronDown\r\n          size={13}\r\n          strokeWidth={2}\r\n          className={sidebarSubgroupChev({ collapsed })}\r\n        />\r\n      </button>\r\n\r\n      <div id={`subgroup-${item.name}`} className={sidebarSubgroupList({ collapsed })}>\r\n        {item.subitems?.map((sub) => (\r\n          <SidebarItem\r\n            key={sub.href ?? sub.name}\r\n            item={sub}\r\n            subitem\r\n            active={sub.href !== undefined && sub.href === activeItemHref}\r\n            onClick={(e) => onItemClick?.(sub, e)}\r\n            renderLink={renderLink}\r\n            interceptNavigation={interceptNavigation}\r\n          />\r\n        ))}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-subgroup.tsx"
       },
@@ -3551,7 +3551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · menu-sidebar · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3576,7 +3576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · menubar · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · modal · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3669,7 +3669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · month-year-picker · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3695,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · navigation-menu · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3742,7 +3742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · page-header · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3767,7 +3767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · pagination · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3842,7 +3842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · panel · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3866,7 +3866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · popover · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3890,7 +3890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · progress · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3914,7 +3914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · radio-group · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3938,7 +3938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · scroll-area · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3963,7 +3963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · select · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3987,7 +3987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · separator · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4013,7 +4013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · sheet · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4136,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · skeleton · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4160,7 +4160,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · slider · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4183,7 +4183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · sonner · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4229,7 +4229,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · spinner · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4253,7 +4253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · switch · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4332,7 +4332,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · table · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4356,7 +4356,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · tabs · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4380,7 +4380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · textarea · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · theme-blue · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4416,7 +4416,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · theme-green · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4434,7 +4434,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · theme-pay · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4452,7 +4452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · theme-vibrant · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4474,7 +4474,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · theme · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4525,7 +4525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · toast · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4551,7 +4551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · toggle-group · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · toggle · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · tooltip · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4621,7 +4621,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · tv · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.37.3 · e0ef027 · 2026-08-10"
+      "stamp": "igreen-ds · utils · v0.38.0 · 097c1ec · 2026-08-10"
     },
     "type": "registry:file"
   }

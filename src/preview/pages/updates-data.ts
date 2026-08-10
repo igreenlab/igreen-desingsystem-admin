@@ -46,6 +46,37 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.38.0",
+    date: "2026-08-08",
+    tag: "release",
+    title: "O menu lateral recarregava a página inteira a cada clique",
+    summary:
+      "Bug **reportado por quem usa o Design System em produção**: em qualquer app com roteador, clicar num item do menu recarregava a página do zero em vez de navegar. Corrigido, com integração de roteador de primeira classe. Nenhuma mudança visual — o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Clicar no menu lateral recarregava a página inteira.** O menu monta cada item como um link de verdade, mas não cancelava a navegação do navegador — então o app fazia o trabalho de trocar de tela **e** o navegador recarregava tudo por cima. Perdia estado, piscava a tela e desperdiçava a requisição. Vale pra quem usa o menu direto e pra quem usa a casca do app inteira, que o contém.",
+          "**Quem sabia do problema não tinha como corrigir.** O aviso de clique entregava só qual item foi clicado, sem o evento — que é justamente o que se precisa pra cancelar a navegação. Agora entrega os dois.",
+          "**O logo no topo do menu levava sempre para a raiz do site**, sem forma de configurar. Passou a aceitar destino próprio, e se você não quiser que ele navegue, ele deixa de se anunciar como link (correção de leitor de tela também).",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Integração com roteador em uma linha.** `renderLink` troca o link interno do menu pelo link do seu roteador — react-router, Next, TanStack, tanto faz. A navegação passa a ser instantânea, e ctrl/cmd+clique para abrir em nova aba continua funcionando (que é o que uma correção apressada teria quebrado).",
+          "**Regressão travada com roteador de verdade.** O teste não usa simulação: monta um react-router real e prova que a tela troca sem recarregar. Foram 27 verificações novas, uma para cada exceção — porque cancelar a navegação em todos os casos quebraria abrir-em-nova-aba, link externo e, o mais sutil, apps que roteiam por `#` na URL, que deixariam de navegar completamente.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "A documentação do menu e da casca do app ganhou a seção de integração com roteador, e o guia que a IA de quem consome lê agora avisa para passar `renderLink` quando o projeto tem rotas — antes não havia uma linha sobre isso.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.37.3",
     date: "2026-08-08",
     tag: "patch",
