@@ -10,12 +10,18 @@ import {
   sidebarSubgroupList,
 } from "./sidebar.styles";
 import { SidebarItem } from "./sidebar-item";
-import type { SidebarMenuItem } from "./sidebar.types";
+import type { MouseEvent } from "react";
+import type { SidebarMenuItem, SidebarLinkRenderer } from "./sidebar.types";
 
 export type SidebarSubgroupProps = {
   item: SidebarMenuItem;
   activeItemHref?: string;
-  onItemClick?: (item: SidebarMenuItem) => void;
+  onItemClick?: (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
+  renderLink?: SidebarLinkRenderer;
+  interceptNavigation?: boolean;
   /** Estado controlado de collapse — se omitido, gerencia internamente */
   open?: boolean;
   defaultOpen?: boolean;
@@ -27,6 +33,8 @@ export function SidebarSubgroup({
   item,
   activeItemHref,
   onItemClick,
+  renderLink,
+  interceptNavigation,
   open,
   defaultOpen,
   onOpenChange,
@@ -80,7 +88,9 @@ export function SidebarSubgroup({
             item={sub}
             subitem
             active={sub.href !== undefined && sub.href === activeItemHref}
-            onClick={() => onItemClick?.(sub)}
+            onClick={(e) => onItemClick?.(sub, e)}
+            renderLink={renderLink}
+            interceptNavigation={interceptNavigation}
           />
         ))}
       </div>

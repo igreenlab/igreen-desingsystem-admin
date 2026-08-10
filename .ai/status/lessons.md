@@ -1511,6 +1511,58 @@ Diff do CSS buildado: **34 linhas**, zero mudança de pixel. Gate:
 
 ---
 
+## [L-068] Componente que renderiza `<a href>` precisa de integração de router EXPLÍCITA — e testar com href de hash não exercita href de path
+
+**Erro cometido:** o `MenuSidebar` renderiza `<a href={item.href}>` e o `handleClick` nunca
+chamava `preventDefault`. Com `href` de **path** (`/app/clientes`) — o que todo app com
+`BrowserRouter` usa — o handler do consumidor rodava **e** o browser executava a navegação:
+**recarregamento completo da página a cada clique de menu**. Além disso, `onItemClick` era
+`(item) => void`: sem o evento, o consumidor não tinha como cancelar nem sabendo do
+problema. E não havia forma de injetar o `<Link>` do router. O `<a href="/">` do brand do
+rail era **fixo no JSX**.
+
+Quem descobriu foi um **consumidor**, em produção, meses depois. Relato dele: *"todo app que
+usa MenuSidebar com react-router recarrega a página inteira a cada clique de menu"*.
+
+**Por que nenhum gate pegou, e é o ponto da lição:** o exemplo canônico
+(`src/examples/app-shell/nav-data.ts`) usa `href` de **HASH** (`#/app/clientes`) em **todos**
+os itens. Mudança de fragmento **não** recarrega documento — então o showcase e o
+`example-app-shell` funcionam perfeitamente. É a "segunda regra de ouro" (showcase mascara o
+consumidor) numa superfície nova: não CSS, mas **forma de dado de teste**. `tsc`, os 335
+testes, `registry-check` e `examples-drift` não exercitam roteamento.
+
+**Regra derivada, em três partes:**
+
+1. **Componente de navegação que emite `<a href>` deve aceitar o link do router** —
+   `renderLink` (render-prop), não `linkComponent`. Prop que recebe *tipo de componente* e é
+   escrita inline cria um tipo novo a cada render e o React **desmonta/remonta** a
+   subárvore: perde foco, reinicia animação, e o sintoma parece aleatório.
+2. **Cancelar navegação tem 5 exceções, e cada uma quebraria algo real** — clique modificado
+   (nova aba), `target="_blank"`, href externo, **href de hash** (cancelar impede o
+   `hashchange`: trocaria "recarrega" por "não navega") e ausência de handler. A regra vive
+   em `nav-link.ts`, é exportada, e tem teste por exceção.
+3. **Dado de teste com forma diferente da de produção não é teste.** Se o exemplo usa
+   `#/rota` e o consumidor usa `/rota`, o exemplo não cobre o consumidor. Ao escrever
+   fixture de navegação, inclua **as duas formas** — foi assim que o teste de regressão ficou
+   honesto.
+
+**Contexto — o gate me corrigiu duas vezes durante a correção:** (a) inferir "o consumidor
+trata o clique?" por `!!onClick` **não funciona** no caminho composto, porque o
+`SidebarPanel` SEMPRE passa um `onClick` (é como o item ativo funciona em modo uncontrolled);
+inferir assim cancelava a navegação de quem não passou handler nenhum, trocando o bug do
+reload por "o link não faz nada" — um teste pegou, e a intenção do consumidor passou a descer
+explícita (`interceptNavigation`). (b) O `vocab-surface` reprovou o texto que escrevi no
+vocabulário do consumidor porque eu pusera `` `href` `` em crase, e ele lê nome em crase como
+id de componente — mesmo falso positivo que já tinha acontecido com `target`.
+
+**Fix:** `renderLink` + evento no `onItemClick` + `brandHref`/`onBrandClick` + `nav-link.ts`
+com a regra e 5 exceções · 36 testes novos, incluindo **regressão com react-router real**
+(`MemoryRouter` + `Link`, provando troca de rota sem reload) · seção "Integração com router"
+no USAGE do MenuSidebar e do AppShell · aviso no vocabulário do consumidor · `nav-link.ts`
+registrado no `registry.json` (arquivo novo em componente distribuído).
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

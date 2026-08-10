@@ -37,6 +37,9 @@ export function AppShell({
   defaultActiveItemHref,
   activeItemHref,
   onItemClick,
+  renderLink,
+  brandHref,
+  onBrandClick,
   // Header
   breadcrumb,
   commandGroups,
@@ -137,6 +140,9 @@ export function AppShell({
         activeItemHref={activeItemHref}
         defaultActiveItemHref={defaultActiveItemHref}
         onItemClick={onItemClick}
+        renderLink={renderLink}
+        brandHref={brandHref}
+        onBrandClick={onBrandClick}
         user={userNode}
         panelCollapsed={menuCollapsed}
         onPanelCollapseChange={(next) => {

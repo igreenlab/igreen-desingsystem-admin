@@ -131,6 +131,15 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo).
 - `header` — barra superior de 60px (breadcrumb, busca, tema, usuário) dentro do shell.
 - `menu-sidebar` — menu lateral com rail + contextos · `single-menu-sidebar` — nível único.
+
+  > 🧭 **O app tem router (react-router, Next, TanStack)? Passe `renderLink`.**
+  > `<AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />`
+  >
+  > O menu renderiza `<a href={item.href}>`. Sem `renderLink`, um `item.href` de **path**
+  > (`/clientes`) fazia o browser **recarregar a página inteira** a cada clique — bug
+  > reportado por consumidor e corrigido na v0.38.0. Alternativa: passar `onItemClick`
+  > (aí o menu cancela a navegação nativa sozinho, preservando ctrl+clique, link externo
+  > e `item.href` de hash). Detalhe: `MenuSidebar/USAGE.md` §Integração com router.
 - `page-header` — título + ações + breadcrumb **dentro** do body.
 - `card` — container de conteúdo · `separator` · `scroll-area` (scroll estilizado) ·
   `aspect-ratio`.

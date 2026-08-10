@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import { ChevronDown, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -17,7 +17,11 @@ import {
 import { SidebarItem } from "./sidebar-item";
 import { SidebarSubgroup } from "./sidebar-subgroup";
 import { SidebarSection } from "./sidebar-section";
-import type { SidebarContext, SidebarMenuItem } from "./sidebar.types";
+import type {
+  SidebarContext,
+  SidebarMenuItem,
+  SidebarLinkRenderer,
+} from "./sidebar.types";
 
 export type SidebarPanelProps = {
   context: SidebarContext;
@@ -27,7 +31,12 @@ export type SidebarPanelProps = {
   /** Quando true (mobile): panel preenche o drawer full-screen (flex-1). */
   mobile?: boolean;
   activeItemHref?: string;
-  onItemClick?: (item: SidebarMenuItem) => void;
+  onItemClick?: (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
+  renderLink?: SidebarLinkRenderer;
+  interceptNavigation?: boolean;
   /** Quando passados, o título vira um dropdown switcher de contextos */
   contexts?: SidebarContext[];
   onContextChange?: (id: string) => void;
@@ -45,6 +54,8 @@ export function SidebarPanel({
   mobile,
   activeItemHref,
   onItemClick,
+  renderLink,
+  interceptNavigation,
   contexts,
   onContextChange,
   onTitleClick,
@@ -116,6 +127,8 @@ export function SidebarPanel({
                       item={item}
                       activeItemHref={activeItemHref}
                       onItemClick={onItemClick}
+                      renderLink={renderLink}
+                      interceptNavigation={interceptNavigation}
                     />
                   );
                 }
@@ -124,14 +137,20 @@ export function SidebarPanel({
                     key={item.href ?? item.name}
                     item={item}
                     active={item.href !== undefined && item.href === activeItemHref}
-                    onClick={() => onItemClick?.(item)}
+                    onClick={(e) => onItemClick?.(item, e)}
+                    renderLink={renderLink}
+                    interceptNavigation={interceptNavigation}
                   />
                 );
               })}
             </div>
 
             {context.sections?.map((section) => (
-              <SidebarSection key={section.id} section={section} />
+              <SidebarSection
+                key={section.id}
+                section={section}
+                renderLink={renderLink}
+              />
             ))}
           </>
         )}

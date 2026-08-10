@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · accordion · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · alert-dialog · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · alert-modal · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · alert · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -142,7 +142,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/AppShell/USAGE.md",
-        "content": "# AppShell — USAGE\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item: SidebarMenuItem) => void | — | Clique em item do panel — ponto de integração com o router |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n",
+        "content": "# AppShell — USAGE\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |\r\n| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |\r\n| `brandHref` | string | `\"/\"` | Destino do brand no rail; `\"\"` torna não-navegável |\r\n| `onBrandClick` | (e) => void | — | Clique no brand |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router\r\n",
         "type": "registry:file",
         "target": "components/ui/AppShell/USAGE.md"
       },
@@ -154,13 +154,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/AppShell/app-shell.tsx",
-        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)\r\n * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado\r\n *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell({\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  className,\r\n}: AppShellProps) {\r\n  /**\r\n   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.\r\n   *\r\n   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.\r\n   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de\r\n   * largura útil numa tela que já é estreita.\r\n   *\r\n   * Três decisões que valem estar escritas:\r\n   *\r\n   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o\r\n   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir \"estado\r\n   *    inicial\" de \"ele quis assim\". `useMediaQuery` (reativo) é usado logo abaixo\r\n   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.\r\n   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o\r\n   *    `= false` na desestruturação: com valor default eu não conseguiria\r\n   *    distinguir \"consumer passou false\" de \"consumer não passou\". Só o `undefined`\r\n   *    cai na regra responsiva.\r\n   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força\r\n   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor\r\n   *    daqui é ignorado — verificado no browser, não deduzido da leitura.\r\n   *\r\n   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.\r\n   */\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {\r\n    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;\r\n    if (typeof window === \"undefined\") return false; // SSR: expandido, sem viewport\r\n    return window.matchMedia(\"(max-width: 1535px)\").matches;\r\n  });\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  return (\r\n    <div className={cn(s.root(), className)}>\r\n      <MenuSidebar\r\n        contexts={contexts}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          onCollapseMenu={handleToggleMenu}\r\n          menuCollapsed={menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
+        "content": "import { useCallback, useState } from \"react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { Header } from \"@/components/ui/Header\";\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\nimport { useMediaQuery } from \"@/components/ui/MenuSidebar/use-media-query\";\r\nimport { UserMenu } from \"./user-menu\";\r\nimport * as s from \"./app-shell.styles\";\r\nimport type { AppShellProps } from \"./app-shell.types\";\r\n\r\n/**\r\n * `<AppShell>` — template de aplicação (rail + panel + header + body).\r\n *\r\n * Compõe os 3 primitives da família \"app skeleton\":\r\n * - `<MenuSidebar>` (rail + panel, full-height, à esquerda)\r\n * - `<Header>` (top bar com breadcrumb/search/notif/messages/theme)\r\n * - **Body slot** (children, `gap-gp-4xl p-pad-6xl`, scroll vertical interno)\r\n *\r\n * **Padrão controlled/uncontrolled** pra `menuCollapsed`:\r\n * - `menuCollapsed` prop → controlled (consumer gerencia state)\r\n * - `defaultMenuCollapsed` → uncontrolled initial value (vence a regra responsiva)\r\n * - Sem nenhum dos dois → uncontrolled com default **responsivo**: colapsado\r\n *   abaixo de 1536px, expandido acima (ver o `useState` do `internalCollapsed`)\r\n *\r\n * Todas as outras props são **passthrough 1:1** pros sub-componentes.\r\n * AppShell não impõe styling ao body além de gap/padding fixos — consumer\r\n * controla 100% do conteúdo (cards, tabelas, qualquer coisa).\r\n *\r\n * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados\r\n * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.\r\n */\r\nexport function AppShell({\r\n  // Sidebar\r\n  contexts,\r\n  defaultActiveContextId,\r\n  activeContextId,\r\n  onContextChange,\r\n  defaultActiveItemHref,\r\n  activeItemHref,\r\n  onItemClick,\r\n  renderLink,\r\n  brandHref,\r\n  onBrandClick,\r\n  // Header\r\n  breadcrumb,\r\n  commandGroups,\r\n  commandPlaceholder,\r\n  commandEmptyMessage,\r\n  searchPlaceholder,\r\n  notifications,\r\n  messages,\r\n  theme,\r\n  onThemeChange,\r\n  themeOptions,\r\n  headerRightSlot,\r\n  // User menu\r\n  user,\r\n  layout,\r\n  onLayoutChange,\r\n  layoutOptions,\r\n  onSettings,\r\n  onLogout,\r\n  // Menu collapse (controlled/uncontrolled)\r\n  menuCollapsed: controlledCollapsed,\r\n  defaultMenuCollapsed,\r\n  onMenuCollapseChange,\r\n  // Body\r\n  children,\r\n  bodyClassName,\r\n  mobileEdgeToEdge,\r\n  className,\r\n}: AppShellProps) {\r\n  /**\r\n   * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.\r\n   *\r\n   * Mesma fronteira do padding do body (`max-2xl`) — uma história de breakpoint só.\r\n   * Notebook 1366/1440/1536 é onde o painel expandido custa caro: some ~200px de\r\n   * largura útil numa tela que já é estreita.\r\n   *\r\n   * Três decisões que valem estar escritas:\r\n   *\r\n   * 1. **Só no mount, não reativo.** Colapsar de novo a cada resize brigaria com o\r\n   *    usuário: depois que ele abre o menu na mão, não dá pra distinguir \"estado\r\n   *    inicial\" de \"ele quis assim\". `useMediaQuery` (reativo) é usado logo abaixo\r\n   *    pro `isMobile`, que decide COMPORTAMENTO do toggle — outra coisa.\r\n   * 2. **`defaultMenuCollapsed` explícito vence.** Por isso a prop perdeu o\r\n   *    `= false` na desestruturação: com valor default eu não conseguiria\r\n   *    distinguir \"consumer passou false\" de \"consumer não passou\". Só o `undefined`\r\n   *    cai na regra responsiva.\r\n   * 3. **Não precisa excluir mobile.** Abaixo de 768px o `MenuSidebar` força\r\n   *    `collapsed = false` internamente (o menu vira drawer overlay), então o valor\r\n   *    daqui é ignorado — verificado no browser, não deduzido da leitura.\r\n   *\r\n   * Lê síncrono no initializer pra não haver flash de menu expandido no 1º paint.\r\n   */\r\n  const [internalCollapsed, setInternalCollapsed] = useState<boolean>(() => {\r\n    if (defaultMenuCollapsed !== undefined) return defaultMenuCollapsed;\r\n    if (typeof window === \"undefined\") return false; // SSR: expandido, sem viewport\r\n    return window.matchMedia(\"(max-width: 1535px)\").matches;\r\n  });\r\n  const menuCollapsed: boolean = controlledCollapsed ?? internalCollapsed;\r\n\r\n  // Mobile: o hamburger abre/fecha o drawer overlay (mobileOpen do MenuSidebar),\r\n  // NÃO o collapse de desktop (panelCollapsed). Antes o toggle só mexia no\r\n  // panelCollapsed → no mobile o menu nunca abria.\r\n  const isMobile = useMediaQuery(\"(max-width: 767px)\");\r\n  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);\r\n\r\n  const toggleMenuCollapsed = useCallback(() => {\r\n    const next = !menuCollapsed;\r\n    if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n    onMenuCollapseChange?.(next);\r\n  }, [menuCollapsed, controlledCollapsed, onMenuCollapseChange]);\r\n\r\n  const handleToggleMenu = useCallback(() => {\r\n    if (isMobile) setMobileMenuOpen((o) => !o);\r\n    else toggleMenuCollapsed();\r\n  }, [isMobile, toggleMenuCollapsed]);\r\n\r\n  const userNode = user ? (\r\n    <UserMenu\r\n      user={user}\r\n      layout={layout}\r\n      onLayoutChange={onLayoutChange}\r\n      layoutOptions={layoutOptions}\r\n      theme={theme}\r\n      onThemeChange={onThemeChange}\r\n      themeOptions={themeOptions}\r\n      onSettings={onSettings}\r\n      onLogout={onLogout}\r\n    />\r\n  ) : undefined;\r\n\r\n  return (\r\n    <div className={cn(s.root(), className)}>\r\n      <MenuSidebar\r\n        contexts={contexts}\r\n        activeContextId={activeContextId}\r\n        defaultActiveContextId={defaultActiveContextId}\r\n        onContextChange={onContextChange}\r\n        activeItemHref={activeItemHref}\r\n        defaultActiveItemHref={defaultActiveItemHref}\r\n        onItemClick={onItemClick}\r\n        renderLink={renderLink}\r\n        brandHref={brandHref}\r\n        onBrandClick={onBrandClick}\r\n        user={userNode}\r\n        panelCollapsed={menuCollapsed}\r\n        onPanelCollapseChange={(next) => {\r\n          if (controlledCollapsed === undefined) setInternalCollapsed(next);\r\n          onMenuCollapseChange?.(next);\r\n        }}\r\n        mobileOpen={mobileMenuOpen}\r\n        onMobileOpenChange={setMobileMenuOpen}\r\n      />\r\n\r\n      <div className={s.main()}>\r\n        <Header\r\n          breadcrumb={breadcrumb}\r\n          onCollapseMenu={handleToggleMenu}\r\n          menuCollapsed={menuCollapsed}\r\n          commandGroups={commandGroups}\r\n          commandPlaceholder={commandPlaceholder}\r\n          commandEmptyMessage={commandEmptyMessage}\r\n          searchPlaceholder={searchPlaceholder}\r\n          notifications={notifications}\r\n          messages={messages}\r\n          theme={theme}\r\n          onThemeChange={onThemeChange}\r\n          themeOptions={themeOptions}\r\n          rightSlot={headerRightSlot}\r\n        />\r\n\r\n        <main className={cn(s.body(), bodyClassName)}>\r\n          <div\r\n            className={s.bodyInner({\r\n              layout: layout === \"compact\" ? \"compact\" : \"fluid\",\r\n              mobileEdgeToEdge: mobileEdgeToEdge ?? false,\r\n            })}\r\n          >\r\n            {children}\r\n          </div>\r\n        </main>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nAppShell.displayName = \"AppShell\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.tsx"
       },
       {
         "path": "src/components/ui/AppShell/app-shell.types.ts",
-        "content": "import type { ReactNode } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type { SidebarContext, SidebarMenuItem } from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\nexport type AppShellProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório. */\r\n  contexts: SidebarContext[];\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  onItemClick?: (item: SidebarMenuItem) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\nexport type AppShellProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório. */\r\n  contexts: SidebarContext[];\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  /**\r\n   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`\r\n   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu\r\n   * router — é o que faz a navegação ser client-side em vez de recarregar a página.\r\n   *\r\n   * ```tsx\r\n   * import { Link } from \"react-router-dom\";\r\n   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />\r\n   * ```\r\n   *\r\n   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —\r\n   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /** Destino do brand no topo do rail. Default `\"/\"`; `\"\"` torna não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.types.ts"
       },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · app-shell · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · aspect-ratio · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · avatar-ig · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · avatar · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · badge · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · breadcrumb · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · button-group · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · button · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · calendar · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · card-checkbox · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · card · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · carousel · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · chart · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · checkbox · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · chip · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -705,7 +705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · choropleth-map · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -727,7 +727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · collapsible · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -791,7 +791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · color-picker · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -842,7 +842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · combobox · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -869,7 +869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · command · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -894,7 +894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · context-menu · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · data-list · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1650,7 +1650,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · data-table · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1688,7 +1688,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · date-picker · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1713,7 +1713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · dialog · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1737,7 +1737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · drawer · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1762,7 +1762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · dropdown-menu · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1815,7 +1815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · empty-state · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -1856,7 +1856,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-app-shell · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2158,7 +2158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-chat · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2254,7 +2254,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-clientes · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2300,7 +2300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-dashboard · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2351,7 +2351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-edit-page · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2487,7 +2487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-finance · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2517,7 +2517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-login · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2574,7 +2574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-mapa-rede · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2655,7 +2655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · example-order-detail · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · file-upload-field · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · floating-panel · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2815,7 +2815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · footer-table · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2901,7 +2901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · form-field · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -2992,7 +2992,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · header · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3016,7 +3016,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · hover-card · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · icon · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · input-group · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3118,7 +3118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · input-otp · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3142,7 +3142,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · input · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3201,7 +3201,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · kanban · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3263,7 +3263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · kpi · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3288,7 +3288,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · label · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3395,7 +3395,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · list · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · markdown-text · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3461,21 +3461,27 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/MenuSidebar/USAGE.md",
-        "content": "# MenuSidebar — USAGE\r\n\r\nSidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável).\r\n\r\n## Quando usar\r\n- Navegação primária de app multi-context (Inbox, Clientes, Configurações, etc)\r\n- Dentro de `<AppShell>` (template canônico) ou standalone em apps custom\r\n\r\n## Import\r\n```tsx\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `contexts` | SidebarContext[] | Lista de workspaces (rail) — `{ id, label, icon, items, sections? }` |\r\n| `activeContextId` | string | Context ativo (controlled) |\r\n| `defaultActiveContextId` | string | Context inicial (uncontrolled) |\r\n| `onContextChange` | (id: string) => void | Callback de troca de context |\r\n| `activeItemHref` | string | Item ativo no panel (controlled, match por href) |\r\n| `defaultActiveItemHref` | string | Item ativo inicial (uncontrolled) |\r\n| `onItemClick` | (item: SidebarMenuItem) => void | Callback ao clicar em item do panel |\r\n| `panelCollapsed` | boolean | Panel colapsado — só rail visível (controlled) |\r\n| `defaultPanelCollapsed` | boolean | Panel colapsado inicial (uncontrolled) |\r\n| `onPanelCollapseChange` | (collapsed: boolean) => void | Callback do collapse |\r\n| `expandOnHover` | boolean (default `true`) | Com panel colapsado, hover abre o panel como overlay absoluto (não empurra conteúdo) |\r\n| `mobileOpen` | boolean | Drawer mobile aberto (controlled) |\r\n| `defaultMobileOpen` | boolean (default `false`) | Drawer mobile inicial (uncontrolled) |\r\n| `onMobileOpenChange` | (open: boolean) => void | Callback do drawer mobile |\r\n| `mobileBreakpoint` | string (default `\"(max-width: 767px)\"`) | Media query que ativa o modo mobile (matchMedia) |\r\n| `brand` | ReactNode | Logo/avatar no topo do rail |\r\n| `user` | ReactNode | Avatar+menu no bottom do rail |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<MenuSidebar\r\n  contexts={MOCK_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  defaultActiveItemHref=\"#chat\"\r\n  brand={<Logo />}\r\n  user={<UserMenu user={currentUser} />}\r\n/>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- `w-fit` no root é crítico — sem isso o hover-to-expand dispararia em qualquer lugar do parent\r\n- Mobile é auto-detectado via `mobileBreakpoint` (matchMedia) — NÃO existe prop `mobile`. Vira drawer fixed overlay (translate-x lateral); backdrop scrim e botão de fechar (X) são renderizados automaticamente pelo próprio MenuSidebar. Consumer só controla `mobileOpen` (ex: hamburger no header)\r\n- `floating` NÃO é prop pública do MenuSidebar — é prop interna de `<SidebarPanel>` (composição manual). No all-in-one, o overlay flutuante é gerenciado por `expandOnHover` + panel colapsado\r\n- Items hierárquicos: `items: [{ name, href, subitems: [...] }]` — subitems renderizam indentados; `defaultOpen` define o estado inicial do grupo\r\n- Context pode ter `sections?: SidebarSection[]` (variants `bookmark` | `chat`) renderizadas abaixo dos items do panel\r\n- Bookmark item aceita `icon?` opcional: presente → ícone colorido (tingido com `color`, sem fundo; estilo atalho, ex.: ferramentas/integrações); ausente → dot redondo. `color` vale pra ambos. `onAdd?` na section renderiza o botão \"+\" no header (ex.: abrir catálogo)\r\n",
+        "content": "# MenuSidebar — USAGE\r\n\r\nSidebar composto: rail 64px (ícones de contexts) + panel 264px (items do context ativo, colapsável).\r\n\r\n## Quando usar\r\n- Navegação primária de app multi-context (Inbox, Clientes, Configurações, etc)\r\n- Dentro de `<AppShell>` (template canônico) ou standalone em apps custom\r\n\r\n## Import\r\n```tsx\r\nimport { MenuSidebar } from \"@/components/ui/MenuSidebar\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `contexts` | SidebarContext[] | Lista de workspaces (rail) — `{ id, label, icon, items, sections? }` |\r\n| `activeContextId` | string | Context ativo (controlled) |\r\n| `defaultActiveContextId` | string | Context inicial (uncontrolled) |\r\n| `onContextChange` | (id: string) => void | Callback de troca de context |\r\n| `activeItemHref` | string | Item ativo no panel (controlled, match por href) |\r\n| `defaultActiveItemHref` | string | Item ativo inicial (uncontrolled) |\r\n| `onItemClick` | (item, event?) => void | Callback ao clicar em item do panel. **O 2º arg é o `MouseEvent`** — use pra `preventDefault()` se você roteia na mão |\r\n| `renderLink` | (props) => ReactNode | ⭐ **Integração com router** — substitui o `<a>` interno pelo `<Link>` do seu router. Ver a seção abaixo |\r\n| `brandHref` | string | Destino do brand no rail. Default `\"/\"`; `\"\"` torna não-navegável (vira `<button>`) |\r\n| `onBrandClick` | (e) => void | Clique no brand |\r\n| `panelCollapsed` | boolean | Panel colapsado — só rail visível (controlled) |\r\n| `defaultPanelCollapsed` | boolean | Panel colapsado inicial (uncontrolled) |\r\n| `onPanelCollapseChange` | (collapsed: boolean) => void | Callback do collapse |\r\n| `expandOnHover` | boolean (default `true`) | Com panel colapsado, hover abre o panel como overlay absoluto (não empurra conteúdo) |\r\n| `mobileOpen` | boolean | Drawer mobile aberto (controlled) |\r\n| `defaultMobileOpen` | boolean (default `false`) | Drawer mobile inicial (uncontrolled) |\r\n| `onMobileOpenChange` | (open: boolean) => void | Callback do drawer mobile |\r\n| `mobileBreakpoint` | string (default `\"(max-width: 767px)\"`) | Media query que ativa o modo mobile (matchMedia) |\r\n| `brand` | ReactNode | Logo/avatar no topo do rail |\r\n| `user` | ReactNode | Avatar+menu no bottom do rail |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<MenuSidebar\r\n  contexts={MOCK_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  defaultActiveItemHref=\"#chat\"\r\n  brand={<Logo />}\r\n  user={<UserMenu user={currentUser} />}\r\n/>\r\n```\r\n\r\n## 🧭 Integração com router — LEIA se seu app tem rotas\r\n\r\nO sidebar renderiza `<a href={item.href}>`. Sem integração, clicar num item com `href` de\r\n**path** (`/app/clientes`) faz o browser **recarregar a página inteira** — foi um bug real,\r\nreportado por consumidor em 2026-08-08 e corrigido na v0.38.0.\r\n\r\n### Recomendado: `renderLink`\r\n\r\n```tsx\r\nimport { Link } from \"react-router-dom\";\r\n\r\n<MenuSidebar\r\n  contexts={contexts}\r\n  renderLink={(p) => <Link {...p} to={p.href} />}\r\n/>\r\n```\r\n\r\n| Router | `renderLink` |\r\n|---|---|\r\n| **react-router** | `(p) => <Link {...p} to={p.href} />` |\r\n| **Next.js** | `(p) => <Link {...p} />` (já usa `href`) |\r\n| **TanStack Router** | `(p) => <Link {...p} to={p.href} />` |\r\n\r\nCom `renderLink`, o sidebar **não** mexe em `preventDefault` — quem decide é o `<Link>`.\r\nVocê ganha navegação client-side **e** mantém ctrl/cmd+clique pra abrir em nova aba.\r\n\r\n> ⚠️ **É render-prop, não `linkComponent`.** Um prop que recebe *tipo de componente* e é\r\n> escrito inline cria um tipo novo a cada render, e o React desmonta/remonta a subárvore —\r\n> perde foco, reinicia animação, e o sintoma parece aleatório. Render-prop inline é seguro.\r\n\r\n### Alternativa: `onItemClick` + `navigate()`\r\n\r\nSe preferir rotear na mão, funciona sem `renderLink` — o sidebar cancela a navegação\r\nnativa automaticamente quando você passa `onItemClick`:\r\n\r\n```tsx\r\nconst navigate = useNavigate();\r\n<MenuSidebar contexts={contexts} onItemClick={(item) => item.href && navigate(item.href)} />\r\n```\r\n\r\nO 2º argumento é o evento, se você precisar dele: `onItemClick={(item, e) => { … }}`.\r\n\r\n### O que o cancelamento automático NÃO faz (de propósito)\r\n\r\nEle **nunca** cancela nestes 5 casos, e cada um quebraria algo real:\r\n\r\n| Caso | Por que não cancela |\r\n|---|---|\r\n| ctrl/cmd/shift/alt ou botão do meio | é como o usuário abre em nova aba |\r\n| `target: \"_blank\"` no item | o item pediu outra aba |\r\n| `href` externo (`https:`, `mailto:`, `tel:`, `//host`) | não é rota do app; cancelar deixa o link morto |\r\n| **`href` de hash (`#/rota`)** | hash router escuta `hashchange`; cancelar impede o fragmento de mudar e o evento **nunca dispara** |\r\n| sem `onItemClick` nem `item.onClick` | ninguém trataria — o `<a>` é a navegação pretendida |\r\n\r\nA regra vive em `nav-link.ts` e é exportada (`shouldPreventNavigation`) pra quem compõe\r\ncom `<SidebarItem>` avulso — reimplementar na unha é como o bug volta.\r\n\r\n> **Por que passou meses invisível:** o exemplo canônico\r\n> (`src/examples/app-shell/nav-data.ts`) usa `href` de **hash** em todos os itens, e hash\r\n> não recarrega documento. Showcase verde, consumidor quebrado.\r\n\r\n## Cuidados / Gotchas\r\n- `w-fit` no root é crítico — sem isso o hover-to-expand dispararia em qualquer lugar do parent\r\n- Mobile é auto-detectado via `mobileBreakpoint` (matchMedia) — NÃO existe prop `mobile`. Vira drawer fixed overlay (translate-x lateral); backdrop scrim e botão de fechar (X) são renderizados automaticamente pelo próprio MenuSidebar. Consumer só controla `mobileOpen` (ex: hamburger no header)\r\n- `floating` NÃO é prop pública do MenuSidebar — é prop interna de `<SidebarPanel>` (composição manual). No all-in-one, o overlay flutuante é gerenciado por `expandOnHover` + panel colapsado\r\n- Items hierárquicos: `items: [{ name, href, subitems: [...] }]` — subitems renderizam indentados; `defaultOpen` define o estado inicial do grupo\r\n- Context pode ter `sections?: SidebarSection[]` (variants `bookmark` | `chat`) renderizadas abaixo dos items do panel\r\n- Bookmark item aceita `icon?` opcional: presente → ícone colorido (tingido com `color`, sem fundo; estilo atalho, ex.: ferramentas/integrações); ausente → dot redondo. `color` vale pra ambos. `onAdd?` na section renderiza o botão \"+\" no header (ex.: abrir catálogo)\r\n",
         "type": "registry:file",
         "target": "components/ui/MenuSidebar/USAGE.md"
       },
       {
         "path": "src/components/ui/MenuSidebar/index.ts",
-        "content": "/* All-in-one */\nexport { MenuSidebar } from \"./menu-sidebar\";\n\n/* Composição manual */\nexport { SidebarRail } from \"./sidebar-rail\";\nexport type { SidebarRailProps } from \"./sidebar-rail\";\n\nexport { SidebarPanel } from \"./sidebar-panel\";\nexport type { SidebarPanelProps } from \"./sidebar-panel\";\n\nexport { SidebarItem, SidebarPill } from \"./sidebar-item\";\nexport type { SidebarItemProps } from \"./sidebar-item\";\n\nexport { SidebarSubgroup } from \"./sidebar-subgroup\";\nexport type { SidebarSubgroupProps } from \"./sidebar-subgroup\";\n\nexport { SidebarSection } from \"./sidebar-section\";\nexport type { SidebarSectionProps } from \"./sidebar-section\";\n\nexport { SidebarBrandIcon } from \"./sidebar-brand\";\n\n/* Hooks utilitários */\nexport { useControllable } from \"./use-sidebar-state\";\nexport { useMediaQuery } from \"./use-media-query\";\n\n/* Tipos do data model */\nexport type {\n  SidebarProps,\n  SidebarContext,\n  SidebarMenuItem,\n  SidebarSection as SidebarSectionData,\n  SidebarBookmarkItem,\n  SidebarChatItem,\n  SidebarBadgeKind,\n} from \"./sidebar.types\";\n",
+        "content": "/* All-in-one */\nexport { MenuSidebar } from \"./menu-sidebar\";\n\n/* Composição manual */\nexport { SidebarRail } from \"./sidebar-rail\";\nexport type { SidebarRailProps } from \"./sidebar-rail\";\n\nexport { SidebarPanel } from \"./sidebar-panel\";\nexport type { SidebarPanelProps } from \"./sidebar-panel\";\n\nexport { SidebarItem, SidebarPill } from \"./sidebar-item\";\nexport type { SidebarItemProps } from \"./sidebar-item\";\n\nexport { SidebarSubgroup } from \"./sidebar-subgroup\";\nexport type { SidebarSubgroupProps } from \"./sidebar-subgroup\";\n\nexport { SidebarSection } from \"./sidebar-section\";\nexport type { SidebarSectionProps } from \"./sidebar-section\";\n\nexport { SidebarBrandIcon } from \"./sidebar-brand\";\n\n/* Hooks utilitários */\nexport { useControllable } from \"./use-sidebar-state\";\nexport { useMediaQuery } from \"./use-media-query\";\n\n/* Integração com router — a regra de quando cancelar a navegação nativa.\n * Exportado porque quem compõe o sidebar na mão (SidebarItem avulso) precisa da\n * MESMA decisão; reimplementar na unha é como o bug nasce de novo. */\nexport {\n  shouldPreventNavigation,\n  isExternalHref,\n  isHashHref,\n  isModifiedClick,\n} from \"./nav-link\";\nexport type { PreventNavigationInput } from \"./nav-link\";\n\n/* Tipos do data model */\nexport type {\n  SidebarProps,\n  SidebarContext,\n  SidebarMenuItem,\n  SidebarSection as SidebarSectionData,\n  SidebarBookmarkItem,\n  SidebarChatItem,\n  SidebarBadgeKind,\n  SidebarLinkRenderer,\n  SidebarLinkRenderProps,\n} from \"./sidebar.types\";\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/index.ts"
       },
       {
         "path": "src/components/ui/MenuSidebar/menu-sidebar.tsx",
-        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport { X } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarRoot,\r\n  sidebarMobileBackdrop,\r\n  sidebarMobileCloseBtn,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarRail } from \"./sidebar-rail\";\r\nimport { SidebarPanel } from \"./sidebar-panel\";\r\nimport { useControllable } from \"./use-sidebar-state\";\r\nimport { useMediaQuery } from \"./use-media-query\";\r\nimport type { SidebarProps, SidebarMenuItem } from \"./sidebar.types\";\r\n\r\n/**\r\n * MenuSidebar — composição completa (rail + panel) data-driven.\r\n *\r\n * Modo all-in-one: passa `contexts` e o componente gerencia tudo.\r\n * Para composição manual, use os subcomponentes:\r\n *   `<SidebarRail>` + `<SidebarPanel>` + `<SidebarItem>` + `<SidebarSubgroup>` + `<SidebarSection>`.\r\n *\r\n * Estados controlled/uncontrolled:\r\n *   - activeContextId / defaultActiveContextId / onContextChange\r\n *   - activeItemHref  / defaultActiveItemHref  / onItemClick\r\n *   - panelCollapsed  / defaultPanelCollapsed  / onPanelCollapseChange\r\n *\r\n * Hover-to-expand (desktop):\r\n *   - `expandOnHover` (default true) + estado colapsado → panel vira overlay flutuante.\r\n *\r\n * Mobile responsive:\r\n *   - Detecta breakpoint (default `max-md` = 767px) via matchMedia.\r\n *   - Mobile: vira drawer fixed overlay; panel sempre aberto (sem rail-only);\r\n *     close button (X) no canto + backdrop scrim clicável pra fechar.\r\n *   - Estado: mobileOpen / defaultMobileOpen / onMobileOpenChange.\r\n *   - Trigger externo: qualquer botão que altere `mobileOpen` (hamburger no header da app).\r\n */\r\nexport function MenuSidebar({\r\n  contexts,\r\n  brand,\r\n  user,\r\n  showRailAdd,\r\n  onRailAddClick,\r\n  activeContextId,\r\n  defaultActiveContextId,\r\n  onContextChange,\r\n  activeItemHref,\r\n  defaultActiveItemHref,\r\n  onItemClick,\r\n  panelCollapsed,\r\n  defaultPanelCollapsed,\r\n  onPanelCollapseChange,\r\n  expandOnHover = true,\r\n  onPanelTitleClick,\r\n  mobileOpen,\r\n  defaultMobileOpen,\r\n  onMobileOpenChange,\r\n  mobileBreakpoint = \"(max-width: 767px)\",\r\n  className,\r\n}: SidebarProps) {\r\n  const isMobile = useMediaQuery(mobileBreakpoint);\r\n\r\n  const [ctxId, setCtxId] = useControllable<string>(\r\n    activeContextId,\r\n    defaultActiveContextId ?? contexts[0]?.id ?? \"\",\r\n    onContextChange\r\n  );\r\n\r\n  const [itemHref, setItemHref] = useControllable<string>(\r\n    activeItemHref,\r\n    defaultActiveItemHref ?? \"\",\r\n    () => {}\r\n  );\r\n\r\n  const [collapsed] = useControllable<boolean>(\r\n    panelCollapsed,\r\n    defaultPanelCollapsed ?? false,\r\n    onPanelCollapseChange\r\n  );\r\n\r\n  const [openMobile, setOpenMobile] = useControllable<boolean>(\r\n    mobileOpen,\r\n    defaultMobileOpen ?? false,\r\n    onMobileOpenChange\r\n  );\r\n\r\n  /**\r\n   * Hover-to-expand: 2 states pra preservar overlay durante animação de saída.\r\n   *\r\n   * - `hoverExpanded` = true enquanto o cursor está sobre a sidebar\r\n   * - `hoverExiting`  = true por 200ms após mouseleave (duração da transition\r\n   *                     de width no panel — `transition-[width,opacity,...]\r\n   *                     duration-200`)\r\n   *\r\n   * Bug original: ao mouseleave, hoverExpanded virava false instantâneo. O\r\n   * panel perdia `position: absolute` (vira `relative`) com width ainda em\r\n   * 264px e entrava no fluxo flex — empurrava o main area por 200ms até a\r\n   * width animar de 264→0. Visual de \"card empurrado e volta\".\r\n   *\r\n   * Fix: durante `hoverExiting`, mantém `floating: true` (position absolute) +\r\n   * passa `collapsed: true` pro panel — width anima 264→0 DENTRO do overlay,\r\n   * sem afetar o fluxo. Depois de 200ms, hoverExiting=false e a sidebar volta\r\n   * ao layout normal (já com width=0).\r\n   */\r\n  const [hoverExpanded, setHoverExpanded] = useState(false);\r\n  const [hoverExiting, setHoverExiting] = useState(false);\r\n  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);\r\n\r\n  useEffect(() => {\r\n    return () => {\r\n      if (exitTimerRef.current) clearTimeout(exitTimerRef.current);\r\n    };\r\n  }, []);\r\n\r\n  const shouldFloat =\r\n    !isMobile && !!expandOnHover && collapsed && (hoverExpanded || hoverExiting);\r\n\r\n  const activeContext = contexts.find((c) => c.id === ctxId) ?? contexts[0];\r\n\r\n  const handleItemClick = (item: SidebarMenuItem) => {\r\n    if (item.href && activeItemHref === undefined) {\r\n      setItemHref(item.href);\r\n    }\r\n    onItemClick?.(item);\r\n    // Mobile: fecha após selecionar (UX padrão de drawer)\r\n    if (isMobile && item.href) setOpenMobile(false);\r\n  };\r\n\r\n  return (\r\n    <>\r\n      {/* Backdrop mobile — clicável pra fechar */}\r\n      {isMobile && openMobile && (\r\n        <div\r\n          className={sidebarMobileBackdrop()}\r\n          onClick={() => setOpenMobile(false)}\r\n          aria-hidden=\"true\"\r\n        />\r\n      )}\r\n\r\n      <div\r\n        className={cn(\r\n          sidebarRoot({ mobile: isMobile, mobileOpen: isMobile && openMobile }),\r\n          className\r\n        )}\r\n        onMouseEnter={() => {\r\n          if (!isMobile && expandOnHover && collapsed) {\r\n            // Cancela timer de saída se reentra antes de 200ms (evita flash)\r\n            if (exitTimerRef.current) {\r\n              clearTimeout(exitTimerRef.current);\r\n              exitTimerRef.current = null;\r\n            }\r\n            setHoverExiting(false);\r\n            setHoverExpanded(true);\r\n          }\r\n        }}\r\n        onMouseLeave={() => {\r\n          setHoverExpanded(false);\r\n          // Mantém floating=true durante a animação 200ms da width voltando a 0,\r\n          // pra panel encolher dentro do overlay (não empurrar o main area).\r\n          if (!isMobile && expandOnHover && collapsed) {\r\n            setHoverExiting(true);\r\n            if (exitTimerRef.current) clearTimeout(exitTimerRef.current);\r\n            exitTimerRef.current = setTimeout(() => {\r\n              setHoverExiting(false);\r\n              exitTimerRef.current = null;\r\n            }, 200);\r\n          }\r\n        }}\r\n      >\r\n        <SidebarRail\r\n          contexts={contexts}\r\n          activeContextId={ctxId}\r\n          onContextChange={setCtxId}\r\n          brand={brand}\r\n          user={user}\r\n          showAdd={showRailAdd}\r\n          onAddClick={onRailAddClick}\r\n        />\r\n        {activeContext && (\r\n          <SidebarPanel\r\n            context={activeContext}\r\n            // collapsed lógico:\r\n            // - mobile: nunca colapsado (drawer overlay tem sua própria lógica)\r\n            // - hover entering (hoverExpanded): expanded dentro do overlay\r\n            // - hover exiting (hoverExiting): collapsed (width animando 264→0)\r\n            //   mantendo floating=true pra animar DENTRO do overlay\r\n            // - sem hover, estado base: respeita `collapsed` controlled\r\n            collapsed={\r\n              isMobile ? false : hoverExpanded ? false : collapsed\r\n            }\r\n            floating={shouldFloat}\r\n            mobile={isMobile}\r\n            activeItemHref={itemHref}\r\n            onItemClick={handleItemClick}\r\n            contexts={contexts}\r\n            onContextChange={setCtxId}\r\n            onTitleClick={onPanelTitleClick}\r\n          />\r\n        )}\r\n\r\n        {/* Close button — só no mobile aberto */}\r\n        {isMobile && openMobile && (\r\n          <button\r\n            type=\"button\"\r\n            className={sidebarMobileCloseBtn()}\r\n            onClick={() => setOpenMobile(false)}\r\n            aria-label=\"Fechar menu\"\r\n          >\r\n            <X size={18} strokeWidth={1.7} />\r\n          </button>\r\n        )}\r\n      </div>\r\n    </>\r\n  );\r\n}\r\n",
+        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport type { MouseEvent } from \"react\";\r\nimport { X } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarRoot,\r\n  sidebarMobileBackdrop,\r\n  sidebarMobileCloseBtn,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarRail } from \"./sidebar-rail\";\r\nimport { SidebarPanel } from \"./sidebar-panel\";\r\nimport { useControllable } from \"./use-sidebar-state\";\r\nimport { useMediaQuery } from \"./use-media-query\";\r\nimport type { SidebarProps, SidebarMenuItem } from \"./sidebar.types\";\r\n\r\n/**\r\n * MenuSidebar — composição completa (rail + panel) data-driven.\r\n *\r\n * Modo all-in-one: passa `contexts` e o componente gerencia tudo.\r\n * Para composição manual, use os subcomponentes:\r\n *   `<SidebarRail>` + `<SidebarPanel>` + `<SidebarItem>` + `<SidebarSubgroup>` + `<SidebarSection>`.\r\n *\r\n * Estados controlled/uncontrolled:\r\n *   - activeContextId / defaultActiveContextId / onContextChange\r\n *   - activeItemHref  / defaultActiveItemHref  / onItemClick\r\n *   - panelCollapsed  / defaultPanelCollapsed  / onPanelCollapseChange\r\n *\r\n * Hover-to-expand (desktop):\r\n *   - `expandOnHover` (default true) + estado colapsado → panel vira overlay flutuante.\r\n *\r\n * Mobile responsive:\r\n *   - Detecta breakpoint (default `max-md` = 767px) via matchMedia.\r\n *   - Mobile: vira drawer fixed overlay; panel sempre aberto (sem rail-only);\r\n *     close button (X) no canto + backdrop scrim clicável pra fechar.\r\n *   - Estado: mobileOpen / defaultMobileOpen / onMobileOpenChange.\r\n *   - Trigger externo: qualquer botão que altere `mobileOpen` (hamburger no header da app).\r\n */\r\nexport function MenuSidebar({\r\n  contexts,\r\n  brand,\r\n  user,\r\n  showRailAdd,\r\n  onRailAddClick,\r\n  activeContextId,\r\n  defaultActiveContextId,\r\n  onContextChange,\r\n  activeItemHref,\r\n  defaultActiveItemHref,\r\n  onItemClick,\r\n  panelCollapsed,\r\n  defaultPanelCollapsed,\r\n  onPanelCollapseChange,\r\n  expandOnHover = true,\r\n  onPanelTitleClick,\r\n  mobileOpen,\r\n  defaultMobileOpen,\r\n  onMobileOpenChange,\r\n  mobileBreakpoint = \"(max-width: 767px)\",\r\n  renderLink,\r\n  brandHref,\r\n  onBrandClick,\r\n  className,\r\n}: SidebarProps) {\r\n  const isMobile = useMediaQuery(mobileBreakpoint);\r\n\r\n  const [ctxId, setCtxId] = useControllable<string>(\r\n    activeContextId,\r\n    defaultActiveContextId ?? contexts[0]?.id ?? \"\",\r\n    onContextChange\r\n  );\r\n\r\n  const [itemHref, setItemHref] = useControllable<string>(\r\n    activeItemHref,\r\n    defaultActiveItemHref ?? \"\",\r\n    () => {}\r\n  );\r\n\r\n  const [collapsed] = useControllable<boolean>(\r\n    panelCollapsed,\r\n    defaultPanelCollapsed ?? false,\r\n    onPanelCollapseChange\r\n  );\r\n\r\n  const [openMobile, setOpenMobile] = useControllable<boolean>(\r\n    mobileOpen,\r\n    defaultMobileOpen ?? false,\r\n    onMobileOpenChange\r\n  );\r\n\r\n  /**\r\n   * Hover-to-expand: 2 states pra preservar overlay durante animação de saída.\r\n   *\r\n   * - `hoverExpanded` = true enquanto o cursor está sobre a sidebar\r\n   * - `hoverExiting`  = true por 200ms após mouseleave (duração da transition\r\n   *                     de width no panel — `transition-[width,opacity,...]\r\n   *                     duration-200`)\r\n   *\r\n   * Bug original: ao mouseleave, hoverExpanded virava false instantâneo. O\r\n   * panel perdia `position: absolute` (vira `relative`) com width ainda em\r\n   * 264px e entrava no fluxo flex — empurrava o main area por 200ms até a\r\n   * width animar de 264→0. Visual de \"card empurrado e volta\".\r\n   *\r\n   * Fix: durante `hoverExiting`, mantém `floating: true` (position absolute) +\r\n   * passa `collapsed: true` pro panel — width anima 264→0 DENTRO do overlay,\r\n   * sem afetar o fluxo. Depois de 200ms, hoverExiting=false e a sidebar volta\r\n   * ao layout normal (já com width=0).\r\n   */\r\n  const [hoverExpanded, setHoverExpanded] = useState(false);\r\n  const [hoverExiting, setHoverExiting] = useState(false);\r\n  const exitTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);\r\n\r\n  useEffect(() => {\r\n    return () => {\r\n      if (exitTimerRef.current) clearTimeout(exitTimerRef.current);\r\n    };\r\n  }, []);\r\n\r\n  const shouldFloat =\r\n    !isMobile && !!expandOnHover && collapsed && (hoverExpanded || hoverExiting);\r\n\r\n  const activeContext = contexts.find((c) => c.id === ctxId) ?? contexts[0];\r\n\r\n  // Intenção do CONSUMIDOR, não do wrapper interno. O panel sempre passa um onClick\r\n  // (é como o item ativo funciona em modo uncontrolled), então inferir por ele\r\n  // cancelaria a navegação de quem não passou handler nenhum. Ver SidebarItemProps.\r\n  const interceptNavigation = !renderLink && !!onItemClick;\r\n\r\n  const handleItemClick = (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => {\r\n    if (item.href && activeItemHref === undefined) {\r\n      setItemHref(item.href);\r\n    }\r\n    // O evento passa adiante: sem ele o consumidor não tinha como cancelar a\r\n    // navegação do <a> nem sabendo do problema (era `(item) => void`).\r\n    onItemClick?.(item, event);\r\n    // Mobile: fecha após selecionar (UX padrão de drawer)\r\n    if (isMobile && item.href) setOpenMobile(false);\r\n  };\r\n\r\n  return (\r\n    <>\r\n      {/* Backdrop mobile — clicável pra fechar */}\r\n      {isMobile && openMobile && (\r\n        <div\r\n          className={sidebarMobileBackdrop()}\r\n          onClick={() => setOpenMobile(false)}\r\n          aria-hidden=\"true\"\r\n        />\r\n      )}\r\n\r\n      <div\r\n        className={cn(\r\n          sidebarRoot({ mobile: isMobile, mobileOpen: isMobile && openMobile }),\r\n          className\r\n        )}\r\n        onMouseEnter={() => {\r\n          if (!isMobile && expandOnHover && collapsed) {\r\n            // Cancela timer de saída se reentra antes de 200ms (evita flash)\r\n            if (exitTimerRef.current) {\r\n              clearTimeout(exitTimerRef.current);\r\n              exitTimerRef.current = null;\r\n            }\r\n            setHoverExiting(false);\r\n            setHoverExpanded(true);\r\n          }\r\n        }}\r\n        onMouseLeave={() => {\r\n          setHoverExpanded(false);\r\n          // Mantém floating=true durante a animação 200ms da width voltando a 0,\r\n          // pra panel encolher dentro do overlay (não empurrar o main area).\r\n          if (!isMobile && expandOnHover && collapsed) {\r\n            setHoverExiting(true);\r\n            if (exitTimerRef.current) clearTimeout(exitTimerRef.current);\r\n            exitTimerRef.current = setTimeout(() => {\r\n              setHoverExiting(false);\r\n              exitTimerRef.current = null;\r\n            }, 200);\r\n          }\r\n        }}\r\n      >\r\n        <SidebarRail\r\n          contexts={contexts}\r\n          activeContextId={ctxId}\r\n          onContextChange={setCtxId}\r\n          brand={brand}\r\n          user={user}\r\n          showAdd={showRailAdd}\r\n          onAddClick={onRailAddClick}\r\n          brandHref={brandHref}\r\n          onBrandClick={onBrandClick}\r\n          renderLink={renderLink}\r\n        />\r\n        {activeContext && (\r\n          <SidebarPanel\r\n            context={activeContext}\r\n            // collapsed lógico:\r\n            // - mobile: nunca colapsado (drawer overlay tem sua própria lógica)\r\n            // - hover entering (hoverExpanded): expanded dentro do overlay\r\n            // - hover exiting (hoverExiting): collapsed (width animando 264→0)\r\n            //   mantendo floating=true pra animar DENTRO do overlay\r\n            // - sem hover, estado base: respeita `collapsed` controlled\r\n            collapsed={\r\n              isMobile ? false : hoverExpanded ? false : collapsed\r\n            }\r\n            floating={shouldFloat}\r\n            mobile={isMobile}\r\n            activeItemHref={itemHref}\r\n            onItemClick={handleItemClick}\r\n            contexts={contexts}\r\n            onContextChange={setCtxId}\r\n            onTitleClick={onPanelTitleClick}\r\n            renderLink={renderLink}\r\n            interceptNavigation={interceptNavigation}\r\n          />\r\n        )}\r\n\r\n        {/* Close button — só no mobile aberto */}\r\n        {isMobile && openMobile && (\r\n          <button\r\n            type=\"button\"\r\n            className={sidebarMobileCloseBtn()}\r\n            onClick={() => setOpenMobile(false)}\r\n            aria-label=\"Fechar menu\"\r\n          >\r\n            <X size={18} strokeWidth={1.7} />\r\n          </button>\r\n        )}\r\n      </div>\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/menu-sidebar.tsx"
+      },
+      {
+        "path": "src/components/ui/MenuSidebar/nav-link.ts",
+        "content": "/**\n * nav-link.ts — decide se o clique num item de navegação deve cancelar a\n * navegação nativa do `<a>`.\n *\n * ## O defeito que isto corrige\n *\n * O `SidebarItem` renderiza `<a href={item.href}>` e **nunca** chamava\n * `preventDefault`. Com `href` de PATH (`/app/clientes`) — o que todo app com\n * `BrowserRouter` usa — o handler do consumidor rodava **e** o browser executava a\n * navegação: **recarregamento completo da página a cada clique de menu**.\n *\n * Ficou meses invisível porque o exemplo canônico (`src/examples/app-shell/nav-data.ts`)\n * usa `href` de **HASH** (`#/app/clientes`) em todos os itens, e mudança de fragmento\n * **não** recarrega documento. Showcase verde, consumidor quebrado — a assinatura da\n * \"segunda regra de ouro\" do DS. Nenhum gate podia pegar: `tsc`, os testes,\n * `registry-check` e `examples-drift` não exercitam roteamento.\n *\n * Reproduzido em 2026-08-08 com o componente real: o jsdom imprime\n * `Not implemented: navigation to another Document` no clique.\n *\n * ## Por que NÃO é só \"chamar preventDefault\"\n *\n * Cancelar sempre quebraria quatro coisas legítimas, e a 4ª quebraria o próprio showcase:\n *\n * 1. **Clique modificado** (ctrl/cmd/shift/alt, botão do meio) — é como o usuário abre\n *    em nova aba. Cancelar mata isso e não há como o consumidor recuperar.\n * 2. **`target=\"_blank\"`** — o item pede explicitamente outra aba.\n * 3. **Link externo** (`https:`, `mailto:`, `tel:`, `//host`) — não é rota do app;\n *    router nenhum resolve, e cancelar deixaria o link morto.\n * 4. **`href` de HASH** (`#/rota`) — ⚠️ o mais sutil. Hash router escuta `hashchange`;\n *    cancelar o default impede o fragmento de mudar e **o evento nunca dispara**. Ou\n *    seja: cancelar cegamente trocaria \"recarrega\" por \"não navega\" em todo consumidor\n *    de hash router — e no `example-app-shell`, que é a referência do próprio DS.\n *\n * ## A regra\n *\n * Só cancela quando as 4 condições valem juntas: há intenção declarada de tratar o\n * clique (`onItemClick` no componente ou `onClick` no item), o clique é simples, o\n * destino é uma rota interna, e o `href` **não** é hash.\n *\n * Consumidor que quer o caminho canônico passa `renderLink` — aí o `<Link>` do router\n * cuida de tudo e esta heurística nem roda.\n */\nimport type { MouseEvent } from \"react\";\n\n/** Protocolos/formas que nunca são rota interna do app. */\nconst EXTERNO = /^(?:[a-z][a-z0-9+.-]*:|\\/\\/)/i;\n\n/** `https://x`, `mailto:a@b`, `tel:+55`, `//cdn` → true. `/app`, `#/app`, `app` → false. */\nexport function isExternalHref(href: string | undefined): boolean {\n  if (!href) return false;\n  // `#` sozinho ou `#/rota` nunca é externo, e `:` dentro de fragmento não conta.\n  if (href.startsWith(\"#\")) return false;\n  return EXTERNO.test(href);\n}\n\n/** `#`, `#/rota` → true. Hash muda fragmento, não documento. */\nexport function isHashHref(href: string | undefined): boolean {\n  return !!href && href.startsWith(\"#\");\n}\n\n/** ctrl/cmd/shift/alt ou botão que não é o principal → o usuário quer outra aba/janela. */\nexport function isModifiedClick(e: {\n  button?: number;\n  metaKey?: boolean;\n  ctrlKey?: boolean;\n  shiftKey?: boolean;\n  altKey?: boolean;\n}): boolean {\n  return (\n    (e.button ?? 0) !== 0 ||\n    !!e.metaKey ||\n    !!e.ctrlKey ||\n    !!e.shiftKey ||\n    !!e.altKey\n  );\n}\n\nexport type PreventNavigationInput = {\n  /** O `href` do item. Ausente → é `<button>`, não há navegação a cancelar. */\n  href?: string;\n  /** Há handler do consumidor pro clique? Sem isso, o `<a>` é a única navegação. */\n  hasHandler: boolean;\n  /** `target` do item (`\"_blank\"` desliga o cancelamento). */\n  target?: string;\n  /** O evento — só as teclas/botão são lidos. */\n  event: Pick<\n    MouseEvent<HTMLAnchorElement>,\n    \"button\" | \"metaKey\" | \"ctrlKey\" | \"shiftKey\" | \"altKey\" | \"defaultPrevented\"\n  >;\n};\n\n/**\n * @returns `true` quando o clique deve ter `preventDefault()` — ou seja, quando cancelar\n *   a navegação nativa é o que o consumidor claramente quer.\n */\nexport function shouldPreventNavigation({\n  href,\n  hasHandler,\n  target,\n  event,\n}: PreventNavigationInput): boolean {\n  if (!href) return false; // é <button>\n  if (!hasHandler) return false; // ninguém vai tratar → deixa o <a> navegar\n  if (event.defaultPrevented) return false; // alguém já decidiu antes\n  if (target && target !== \"_self\") return false; // pediu outra aba\n  if (isHashHref(href)) return false; // hash router depende do hashchange\n  if (isExternalHref(href)) return false; // não é rota do app\n  if (isModifiedClick(event)) return false; // abrir em nova aba\n  return true;\n}\n",
+        "type": "registry:ui",
+        "target": "components/ui/MenuSidebar/nav-link.ts"
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
@@ -3485,31 +3491,31 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-item.tsx",
-        "content": "import { forwardRef } from \"react\";\nimport type { MouseEvent, ReactNode } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarPill,\n} from \"./sidebar.styles\";\nimport type { SidebarMenuItem, SidebarBadgeKind } from \"./sidebar.types\";\n\nexport type SidebarItemProps = {\n  item: SidebarMenuItem;\n  active?: boolean;\n  subitem?: boolean;\n  /** Quando true, o ícone usa cor de brand (usado em groups com filho ativo) */\n  iconBrand?: boolean;\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\n  className?: string;\n};\n\nexport const SidebarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, SidebarItemProps>(\n  ({ item, active, subitem, iconBrand, onClick, className }, ref) => {\n    const Icon = item.icon;\n    const classes = cn(sidebarItem({ active, subitem }), className);\n\n    const content: ReactNode = (\n      <>\n        {Icon && (\n          <Icon\n            size={subitem ? 15 : 17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ active, parentActive: iconBrand })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        {item.badge && (\n          <SidebarPill kind={item.badgeKind} active={active}>\n            {item.badge}\n          </SidebarPill>\n        )}\n      </>\n    );\n\n    const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {\n      if (item.onClick) item.onClick(e);\n      onClick?.(e);\n    };\n\n    if (item.href) {\n      return (\n        <a\n          ref={ref as React.Ref<HTMLAnchorElement>}\n          href={item.href}\n          className={classes}\n          onClick={handleClick}\n          aria-current={active ? \"page\" : undefined}\n        >\n          {content}\n        </a>\n      );\n    }\n\n    return (\n      <button\n        ref={ref as React.Ref<HTMLButtonElement>}\n        type=\"button\"\n        className={classes}\n        onClick={handleClick}\n        aria-current={active ? \"page\" : undefined}\n      >\n        {content}\n      </button>\n    );\n  }\n);\nSidebarItem.displayName = \"SidebarItem\";\n\n/* ── Pill (badge) ─────────────────────────────────────────────────────────── */\nexport function SidebarPill({\n  kind,\n  active,\n  children,\n  className,\n}: {\n  kind?: SidebarBadgeKind;\n  active?: boolean;\n  children: ReactNode;\n  className?: string;\n}) {\n  return (\n    <span className={cn(sidebarPill({ kind, active }), className)}>\n      {children}\n    </span>\n  );\n}\n",
+        "content": "import { forwardRef } from \"react\";\nimport type { MouseEvent, ReactNode } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarPill,\n} from \"./sidebar.styles\";\nimport { shouldPreventNavigation } from \"./nav-link\";\nimport type {\n  SidebarMenuItem,\n  SidebarBadgeKind,\n  SidebarLinkRenderer,\n} from \"./sidebar.types\";\n\nexport type SidebarItemProps = {\n  item: SidebarMenuItem;\n  active?: boolean;\n  subitem?: boolean;\n  /** Quando true, o ícone usa cor de brand (usado em groups com filho ativo) */\n  iconBrand?: boolean;\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\n  /** Substitui o `<a>` pelo link do router do consumidor. Ver `SidebarLinkRenderer`. */\n  renderLink?: SidebarLinkRenderer;\n  /**\n   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.\n   *\n   * ⚠️ Existe porque **inferir pelo `onClick` não funciona no caminho composto**: o\n   * `SidebarPanel` SEMPRE passa um `onClick` (é como o `MenuSidebar` mantém o item ativo\n   * em modo uncontrolled), então \"tem onClick\" seria sempre verdadeiro e o sidebar\n   * cancelaria a navegação até de quem não passou handler nenhum — trocando o bug do\n   * reload por \"o link não faz nada\". Foi o que um teste pegou nesta implementação.\n   *\n   * - `undefined` (uso standalone do `SidebarItem`) → infere de `item.onClick`/`onClick`.\n   * - `boolean` (uso composto) → o `MenuSidebar` decide, olhando o `onItemClick` DELE.\n   */\n  interceptNavigation?: boolean;\n  className?: string;\n};\n\nexport const SidebarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, SidebarItemProps>(\n  (\n    {\n      item,\n      active,\n      subitem,\n      iconBrand,\n      onClick,\n      renderLink,\n      interceptNavigation,\n      className,\n    },\n    ref,\n  ) => {\n    const Icon = item.icon;\n    const classes = cn(sidebarItem({ active, subitem }), className);\n\n    const content: ReactNode = (\n      <>\n        {Icon && (\n          <Icon\n            size={subitem ? 15 : 17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ active, parentActive: iconBrand })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        {item.badge && (\n          <SidebarPill kind={item.badgeKind} active={active}>\n            {item.badge}\n          </SidebarPill>\n        )}\n      </>\n    );\n\n    const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {\n      // Cancela a navegação nativa do `<a>` quando o consumidor claramente trata o\n      // clique — mas nunca em clique modificado, `target=\"_blank\"`, link externo ou\n      // href de HASH. A regra e o porquê de cada exceção estão em `nav-link.ts`.\n      //\n      // Só corre quando NÃO há `renderLink`: com ele, quem decide é o `<Link>` do router.\n      if (!renderLink) {\n        const prevent = shouldPreventNavigation({\n          href: item.href,\n          hasHandler: interceptNavigation ?? !!(item.onClick || onClick),\n          target: item.target,\n          event: e as MouseEvent<HTMLAnchorElement>,\n        });\n        if (prevent) e.preventDefault();\n      }\n      if (item.onClick) item.onClick(e);\n      onClick?.(e);\n    };\n\n    if (item.href) {\n      const linkProps = {\n        href: item.href,\n        className: classes,\n        onClick: handleClick as (e: MouseEvent<HTMLAnchorElement>) => void,\n        target: item.target,\n        \"aria-current\": active ? (\"page\" as const) : undefined,\n        ref: ref as React.Ref<HTMLAnchorElement>,\n        children: content,\n      };\n\n      // `renderLink` recebe as props de um `<a>` e devolve o link do router do\n      // consumidor. `ref` vai no objeto: em React 19 `ref` é prop normal, então\n      // funciona igual pra elemento DOM e pra componente.\n      if (renderLink) return <>{renderLink(linkProps)}</>;\n\n      return <a {...linkProps} />;\n    }\n\n    return (\n      <button\n        ref={ref as React.Ref<HTMLButtonElement>}\n        type=\"button\"\n        className={classes}\n        onClick={handleClick}\n        aria-current={active ? \"page\" : undefined}\n      >\n        {content}\n      </button>\n    );\n  }\n);\nSidebarItem.displayName = \"SidebarItem\";\n\n/* ── Pill (badge) ─────────────────────────────────────────────────────────── */\nexport function SidebarPill({\n  kind,\n  active,\n  children,\n  className,\n}: {\n  kind?: SidebarBadgeKind;\n  active?: boolean;\n  children: ReactNode;\n  className?: string;\n}) {\n  return (\n    <span className={cn(sidebarPill({ kind, active }), className)}>\n      {children}\n    </span>\n  );\n}\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-item.tsx"
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-panel.tsx",
-        "content": "import type { ReactNode } from \"react\";\r\nimport { ChevronDown, Check } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuTrigger,\r\n  DropdownMenuContent,\r\n  DropdownMenuItem,\r\n} from \"@/components/shadcn/dropdown-menu\";\r\nimport {\r\n  sidebarPanel,\r\n  sidebarPanelHeader,\r\n  sidebarPanelTitle,\r\n  sidebarPanelBody,\r\n  sidebarPanelGroup,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarItem } from \"./sidebar-item\";\r\nimport { SidebarSubgroup } from \"./sidebar-subgroup\";\r\nimport { SidebarSection } from \"./sidebar-section\";\r\nimport type { SidebarContext, SidebarMenuItem } from \"./sidebar.types\";\r\n\r\nexport type SidebarPanelProps = {\r\n  context: SidebarContext;\r\n  collapsed?: boolean;\r\n  /** Quando true: panel renderiza como overlay absoluto (hover-to-expand) */\r\n  floating?: boolean;\r\n  /** Quando true (mobile): panel preenche o drawer full-screen (flex-1). */\r\n  mobile?: boolean;\r\n  activeItemHref?: string;\r\n  onItemClick?: (item: SidebarMenuItem) => void;\r\n  /** Quando passados, o título vira um dropdown switcher de contextos */\r\n  contexts?: SidebarContext[];\r\n  onContextChange?: (id: string) => void;\r\n  /** Fallback: callback ao clicar no título (usado quando contexts não passado) */\r\n  onTitleClick?: () => void;\r\n  /** Conteúdo custom no body (substitui items/sections quando passado) */\r\n  children?: ReactNode;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarPanel({\r\n  context,\r\n  collapsed,\r\n  floating,\r\n  mobile,\r\n  activeItemHref,\r\n  onItemClick,\r\n  contexts,\r\n  onContextChange,\r\n  onTitleClick,\r\n  children,\r\n  className,\r\n}: SidebarPanelProps) {\r\n  const hasSwitcher = contexts && contexts.length > 1 && onContextChange;\r\n\r\n  return (\r\n    <aside\r\n      className={cn(sidebarPanel({ collapsed, floating, mobile }), className)}\r\n      aria-hidden={collapsed}\r\n    >\r\n      <div className={sidebarPanelHeader()}>\r\n        {hasSwitcher ? (\r\n          <DropdownMenu>\r\n            <DropdownMenuTrigger asChild>\r\n              <button type=\"button\" className={sidebarPanelTitle()}>\r\n                <span className=\"flex-1 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis\">\r\n                  {context.label}\r\n                </span>\r\n                <ChevronDown\r\n                  size={14}\r\n                  strokeWidth={2}\r\n                  className=\"flex-none w-[14px] h-[14px] text-fg-muted\"\r\n                />\r\n              </button>\r\n            </DropdownMenuTrigger>\r\n            <DropdownMenuContent align=\"start\" sideOffset={6} className=\"min-w-[220px]\">\r\n              {contexts.map((ctx) => {\r\n                const Icon = ctx.icon;\r\n                const isActive = ctx.id === context.id;\r\n                return (\r\n                  <DropdownMenuItem\r\n                    key={ctx.id}\r\n                    onSelect={() => onContextChange?.(ctx.id)}\r\n                  >\r\n                    <Icon className=\"size-4 text-fg-muted\" strokeWidth={1.7} />\r\n                    <span className=\"flex-1 truncate\">{ctx.label}</span>\r\n                    {isActive && <Check className=\"size-4 text-fg-brand\" strokeWidth={2} />}\r\n                  </DropdownMenuItem>\r\n                );\r\n              })}\r\n            </DropdownMenuContent>\r\n          </DropdownMenu>\r\n        ) : (\r\n          <button type=\"button\" className={sidebarPanelTitle()} onClick={onTitleClick}>\r\n            <span className=\"flex-1 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis\">\r\n              {context.label}\r\n            </span>\r\n            <ChevronDown\r\n              size={14}\r\n              strokeWidth={2}\r\n              className=\"flex-none w-[14px] h-[14px] text-fg-muted\"\r\n            />\r\n          </button>\r\n        )}\r\n      </div>\r\n\r\n      <div className={sidebarPanelBody()}>\r\n        {children ?? (\r\n          <>\r\n            <div className={sidebarPanelGroup()}>\r\n              {context.items.map((item) => {\r\n                if (item.subitems && item.subitems.length > 0) {\r\n                  return (\r\n                    <SidebarSubgroup\r\n                      key={item.name}\r\n                      item={item}\r\n                      activeItemHref={activeItemHref}\r\n                      onItemClick={onItemClick}\r\n                    />\r\n                  );\r\n                }\r\n                return (\r\n                  <SidebarItem\r\n                    key={item.href ?? item.name}\r\n                    item={item}\r\n                    active={item.href !== undefined && item.href === activeItemHref}\r\n                    onClick={() => onItemClick?.(item)}\r\n                  />\r\n                );\r\n              })}\r\n            </div>\r\n\r\n            {context.sections?.map((section) => (\r\n              <SidebarSection key={section.id} section={section} />\r\n            ))}\r\n          </>\r\n        )}\r\n      </div>\r\n    </aside>\r\n  );\r\n}\r\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport { ChevronDown, Check } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuTrigger,\r\n  DropdownMenuContent,\r\n  DropdownMenuItem,\r\n} from \"@/components/shadcn/dropdown-menu\";\r\nimport {\r\n  sidebarPanel,\r\n  sidebarPanelHeader,\r\n  sidebarPanelTitle,\r\n  sidebarPanelBody,\r\n  sidebarPanelGroup,\r\n} from \"./sidebar.styles\";\r\nimport { SidebarItem } from \"./sidebar-item\";\r\nimport { SidebarSubgroup } from \"./sidebar-subgroup\";\r\nimport { SidebarSection } from \"./sidebar-section\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"./sidebar.types\";\r\n\r\nexport type SidebarPanelProps = {\r\n  context: SidebarContext;\r\n  collapsed?: boolean;\r\n  /** Quando true: panel renderiza como overlay absoluto (hover-to-expand) */\r\n  floating?: boolean;\r\n  /** Quando true (mobile): panel preenche o drawer full-screen (flex-1). */\r\n  mobile?: boolean;\r\n  activeItemHref?: string;\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n  renderLink?: SidebarLinkRenderer;\r\n  interceptNavigation?: boolean;\r\n  /** Quando passados, o título vira um dropdown switcher de contextos */\r\n  contexts?: SidebarContext[];\r\n  onContextChange?: (id: string) => void;\r\n  /** Fallback: callback ao clicar no título (usado quando contexts não passado) */\r\n  onTitleClick?: () => void;\r\n  /** Conteúdo custom no body (substitui items/sections quando passado) */\r\n  children?: ReactNode;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarPanel({\r\n  context,\r\n  collapsed,\r\n  floating,\r\n  mobile,\r\n  activeItemHref,\r\n  onItemClick,\r\n  renderLink,\r\n  interceptNavigation,\r\n  contexts,\r\n  onContextChange,\r\n  onTitleClick,\r\n  children,\r\n  className,\r\n}: SidebarPanelProps) {\r\n  const hasSwitcher = contexts && contexts.length > 1 && onContextChange;\r\n\r\n  return (\r\n    <aside\r\n      className={cn(sidebarPanel({ collapsed, floating, mobile }), className)}\r\n      aria-hidden={collapsed}\r\n    >\r\n      <div className={sidebarPanelHeader()}>\r\n        {hasSwitcher ? (\r\n          <DropdownMenu>\r\n            <DropdownMenuTrigger asChild>\r\n              <button type=\"button\" className={sidebarPanelTitle()}>\r\n                <span className=\"flex-1 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis\">\r\n                  {context.label}\r\n                </span>\r\n                <ChevronDown\r\n                  size={14}\r\n                  strokeWidth={2}\r\n                  className=\"flex-none w-[14px] h-[14px] text-fg-muted\"\r\n                />\r\n              </button>\r\n            </DropdownMenuTrigger>\r\n            <DropdownMenuContent align=\"start\" sideOffset={6} className=\"min-w-[220px]\">\r\n              {contexts.map((ctx) => {\r\n                const Icon = ctx.icon;\r\n                const isActive = ctx.id === context.id;\r\n                return (\r\n                  <DropdownMenuItem\r\n                    key={ctx.id}\r\n                    onSelect={() => onContextChange?.(ctx.id)}\r\n                  >\r\n                    <Icon className=\"size-4 text-fg-muted\" strokeWidth={1.7} />\r\n                    <span className=\"flex-1 truncate\">{ctx.label}</span>\r\n                    {isActive && <Check className=\"size-4 text-fg-brand\" strokeWidth={2} />}\r\n                  </DropdownMenuItem>\r\n                );\r\n              })}\r\n            </DropdownMenuContent>\r\n          </DropdownMenu>\r\n        ) : (\r\n          <button type=\"button\" className={sidebarPanelTitle()} onClick={onTitleClick}>\r\n            <span className=\"flex-1 min-w-0 whitespace-nowrap overflow-hidden text-ellipsis\">\r\n              {context.label}\r\n            </span>\r\n            <ChevronDown\r\n              size={14}\r\n              strokeWidth={2}\r\n              className=\"flex-none w-[14px] h-[14px] text-fg-muted\"\r\n            />\r\n          </button>\r\n        )}\r\n      </div>\r\n\r\n      <div className={sidebarPanelBody()}>\r\n        {children ?? (\r\n          <>\r\n            <div className={sidebarPanelGroup()}>\r\n              {context.items.map((item) => {\r\n                if (item.subitems && item.subitems.length > 0) {\r\n                  return (\r\n                    <SidebarSubgroup\r\n                      key={item.name}\r\n                      item={item}\r\n                      activeItemHref={activeItemHref}\r\n                      onItemClick={onItemClick}\r\n                      renderLink={renderLink}\r\n                      interceptNavigation={interceptNavigation}\r\n                    />\r\n                  );\r\n                }\r\n                return (\r\n                  <SidebarItem\r\n                    key={item.href ?? item.name}\r\n                    item={item}\r\n                    active={item.href !== undefined && item.href === activeItemHref}\r\n                    onClick={(e) => onItemClick?.(item, e)}\r\n                    renderLink={renderLink}\r\n                    interceptNavigation={interceptNavigation}\r\n                  />\r\n                );\r\n              })}\r\n            </div>\r\n\r\n            {context.sections?.map((section) => (\r\n              <SidebarSection\r\n                key={section.id}\r\n                section={section}\r\n                renderLink={renderLink}\r\n              />\r\n            ))}\r\n          </>\r\n        )}\r\n      </div>\r\n    </aside>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-panel.tsx"
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-rail.tsx",
-        "content": "import type { ReactNode } from \"react\";\nimport { Plus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarRail,\n  sidebarRailBrand,\n  sidebarRailList,\n  sidebarRailItem,\n  sidebarRailActiveBar,\n  sidebarRailTooltip,\n  sidebarRailAdd,\n  sidebarRailUser,\n  sidebarRailUserDefault,\n} from \"./sidebar.styles\";\nimport { SidebarBrandIcon } from \"./sidebar-brand\";\nimport type { SidebarContext } from \"./sidebar.types\";\n\nexport type SidebarRailProps = {\n  contexts: SidebarContext[];\n  activeContextId: string;\n  onContextChange: (id: string) => void;\n  brand?: ReactNode;\n  user?: ReactNode;\n  showAdd?: boolean;\n  onAddClick?: () => void;\n  className?: string;\n};\n\nexport function SidebarRail({\n  contexts,\n  activeContextId,\n  onContextChange,\n  brand,\n  user,\n  showAdd = false,\n  onAddClick,\n  className,\n}: SidebarRailProps) {\n  return (\n    <aside className={cn(sidebarRail(), className)}>\n      <a href=\"/\" className={sidebarRailBrand()} aria-label=\"Home\">\n        {brand ?? <SidebarBrandIcon />}\n      </a>\n\n      <div className={sidebarRailList()}>\n        {contexts.map((ctx) => {\n          const Icon = ctx.icon;\n          const isActive = activeContextId === ctx.id;\n          return (\n            <button\n              key={ctx.id}\n              type=\"button\"\n              className={sidebarRailItem({ active: isActive })}\n              onClick={() => onContextChange(ctx.id)}\n              aria-label={ctx.label}\n              aria-current={isActive ? \"page\" : undefined}\n            >\n              <Icon size={18} strokeWidth={1.7} />\n              {isActive && <span className={sidebarRailActiveBar()} aria-hidden=\"true\" />}\n              <span className={sidebarRailTooltip()}>{ctx.label}</span>\n            </button>\n          );\n        })}\n\n        {showAdd && (\n          <button\n            type=\"button\"\n            className={sidebarRailAdd()}\n            onClick={onAddClick}\n            aria-label=\"Adicionar contexto\"\n          >\n            <Plus size={16} strokeWidth={2} />\n          </button>\n        )}\n      </div>\n\n      {user !== null && (\n        <div className={sidebarRailUser()}>\n          {user ?? <div className={sidebarRailUserDefault()}>SV</div>}\n        </div>\n      )}\n    </aside>\n  );\n}\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\nimport { Plus } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarRail,\n  sidebarRailBrand,\n  sidebarRailList,\n  sidebarRailItem,\n  sidebarRailActiveBar,\n  sidebarRailTooltip,\n  sidebarRailAdd,\n  sidebarRailUser,\n  sidebarRailUserDefault,\n} from \"./sidebar.styles\";\nimport { SidebarBrandIcon } from \"./sidebar-brand\";\nimport { shouldPreventNavigation } from \"./nav-link\";\nimport type { SidebarContext, SidebarLinkRenderer } from \"./sidebar.types\";\n\nexport type SidebarRailProps = {\n  contexts: SidebarContext[];\n  activeContextId: string;\n  onContextChange: (id: string) => void;\n  brand?: ReactNode;\n  user?: ReactNode;\n  showAdd?: boolean;\n  onAddClick?: () => void;\n  /** Destino do brand. Default `\"/\"`; string vazia torna o brand não-navegável. */\n  brandHref?: string;\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\n  renderLink?: SidebarLinkRenderer;\n  className?: string;\n};\n\nexport function SidebarRail({\n  contexts,\n  activeContextId,\n  onContextChange,\n  brand,\n  user,\n  showAdd = false,\n  onAddClick,\n  brandHref = \"/\",\n  onBrandClick,\n  renderLink,\n  className,\n}: SidebarRailProps) {\n  return (\n    <aside className={cn(sidebarRail(), className)}>\n      <SidebarBrandLink\n        href={brandHref}\n        onClick={onBrandClick}\n        renderLink={renderLink}\n      >\n        {brand ?? <SidebarBrandIcon />}\n      </SidebarBrandLink>\n\n      <div className={sidebarRailList()}>\n        {contexts.map((ctx) => {\n          const Icon = ctx.icon;\n          const isActive = activeContextId === ctx.id;\n          return (\n            <button\n              key={ctx.id}\n              type=\"button\"\n              className={sidebarRailItem({ active: isActive })}\n              onClick={() => onContextChange(ctx.id)}\n              aria-label={ctx.label}\n              aria-current={isActive ? \"page\" : undefined}\n            >\n              <Icon size={18} strokeWidth={1.7} />\n              {isActive && <span className={sidebarRailActiveBar()} aria-hidden=\"true\" />}\n              <span className={sidebarRailTooltip()}>{ctx.label}</span>\n            </button>\n          );\n        })}\n\n        {showAdd && (\n          <button\n            type=\"button\"\n            className={sidebarRailAdd()}\n            onClick={onAddClick}\n            aria-label=\"Adicionar contexto\"\n          >\n            <Plus size={16} strokeWidth={2} />\n          </button>\n        )}\n      </div>\n\n      {user !== null && (\n        <div className={sidebarRailUser()}>\n          {user ?? <div className={sidebarRailUserDefault()}>SV</div>}\n        </div>\n      )}\n    </aside>\n  );\n}\n\n/* ── Brand do rail ─────────────────────────────────────────────────────────── */\n//\n// ⚠️ Era `<a href=\"/\">` FIXO no JSX até 2026-08-08: recarregava pra raiz em qualquer\n// app, sem forma de configurar nem de rotear. Agora aceita `brandHref`, `onBrandClick`\n// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `nav-link.ts`).\nfunction SidebarBrandLink({\n  href,\n  onClick,\n  renderLink,\n  children,\n}: {\n  href?: string;\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\n  renderLink?: SidebarLinkRenderer;\n  children: ReactNode;\n}) {\n  // `brandHref=\"\"` = brand decorativo/só-ação: vira <button> pra não mentir semântica\n  // de link (screen reader anuncia \"link\" pra algo que não navega).\n  if (!href) {\n    return (\n      <button\n        type=\"button\"\n        className={sidebarRailBrand()}\n        onClick={onClick as unknown as () => void}\n        aria-label=\"Home\"\n      >\n        {children}\n      </button>\n    );\n  }\n\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\n    if (!renderLink) {\n      const prevent = shouldPreventNavigation({ href, hasHandler: !!onClick, event: e });\n      if (prevent) e.preventDefault();\n    }\n    onClick?.(e);\n  };\n\n  const linkProps = {\n    href,\n    className: sidebarRailBrand(),\n    onClick: handleClick,\n    \"aria-label\": \"Home\",\n    children,\n  };\n\n  if (renderLink) return <>{renderLink(linkProps)}</>;\n  return <a {...linkProps} />;\n}\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-rail.tsx"
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-section.tsx",
-        "content": "import { useState } from \"react\";\r\nimport type { MouseEvent } from \"react\";\r\nimport { ChevronDown } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarSection,\r\n  sidebarSectionHeader,\r\n  sidebarSectionChev,\r\n  sidebarSectionAdd,\r\n  sidebarSectionList,\r\n  sidebarSectionItem,\r\n  sidebarItemText,\r\n  sidebarBookmarkDot,\r\n  sidebarBookmarkIcon,\r\n  sidebarChatAvatar,\r\n  sidebarChatStatus,\r\n} from \"./sidebar.styles\";\r\nimport type { SidebarSection as SidebarSectionData } from \"./sidebar.types\";\r\n\r\nexport type SidebarSectionProps = {\r\n  section: SidebarSectionData;\r\n  /** Estado controlado — se omitido, gerencia internamente */\r\n  open?: boolean;\r\n  onOpenChange?: (open: boolean) => void;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarSection({\r\n  section,\r\n  open,\r\n  onOpenChange,\r\n  className,\r\n}: SidebarSectionProps) {\r\n  const [internalOpen, setInternalOpen] = useState<boolean>(section.defaultOpen ?? true);\r\n  const isOpen = open ?? internalOpen;\r\n  const collapsed = !isOpen;\r\n\r\n  const setOpen = (next: boolean) => {\r\n    if (open === undefined) setInternalOpen(next);\r\n    onOpenChange?.(next);\r\n  };\r\n\r\n  return (\r\n    <div className={cn(sidebarSection(), className)}>\r\n      <button\r\n        type=\"button\"\r\n        className={sidebarSectionHeader()}\r\n        onClick={() => setOpen(!isOpen)}\r\n        aria-expanded={isOpen}\r\n        aria-controls={`section-${section.id}`}\r\n      >\r\n        <ChevronDown\r\n          size={12}\r\n          strokeWidth={2}\r\n          className={sidebarSectionChev({ collapsed })}\r\n        />\r\n        <span>{section.label}</span>\r\n        {section.onAdd && (\r\n          <span\r\n            role=\"button\"\r\n            tabIndex={0}\r\n            className={sidebarSectionAdd()}\r\n            onClick={(e: MouseEvent<HTMLSpanElement>) => {\r\n              e.stopPropagation();\r\n              section.onAdd?.();\r\n            }}\r\n            onKeyDown={(e) => {\r\n              if (e.key === \"Enter\" || e.key === \" \") {\r\n                e.preventDefault();\r\n                section.onAdd?.();\r\n              }\r\n            }}\r\n            aria-label={`Adicionar em ${section.label}`}\r\n          >\r\n            +\r\n          </span>\r\n        )}\r\n      </button>\r\n\r\n      <div\r\n        id={`section-${section.id}`}\r\n        className={sidebarSectionList({ collapsed, variant: section.variant })}\r\n      >\r\n        {section.variant === \"bookmark\" &&\r\n          section.items.map((item) => {\r\n            const Icon = item.icon;\r\n            return (\r\n              <SidebarSectionLink\r\n                key={item.name}\r\n                href={item.href}\r\n                onClick={item.onClick}\r\n                title={item.name}\r\n              >\r\n                {Icon ? (\r\n                  <span\r\n                    className={sidebarBookmarkIcon()}\r\n                    style={{ color: item.color }}\r\n                    aria-hidden=\"true\"\r\n                  >\r\n                    <Icon />\r\n                  </span>\r\n                ) : (\r\n                  <span\r\n                    className={sidebarBookmarkDot()}\r\n                    style={{ backgroundColor: item.color }}\r\n                    aria-hidden=\"true\"\r\n                  />\r\n                )}\r\n                <span className={sidebarItemText()}>{item.name}</span>\r\n              </SidebarSectionLink>\r\n            );\r\n          })}\r\n\r\n        {section.variant === \"chat\" &&\r\n          section.items.map((item) => (\r\n            <SidebarSectionLink\r\n              key={item.name}\r\n              href={item.href}\r\n              onClick={item.onClick}\r\n              title={`Conversar com ${item.name}`}\r\n            >\r\n              <span\r\n                className={sidebarChatAvatar()}\r\n                style={{ backgroundColor: item.color }}\r\n              >\r\n                {item.initials}\r\n              </span>\r\n              <span className={sidebarItemText()}>{item.name}</span>\r\n              <span\r\n                className={sidebarChatStatus({ status: item.status })}\r\n                aria-hidden=\"true\"\r\n              />\r\n            </SidebarSectionLink>\r\n          ))}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\n/* ── Wrapper que vira `<a>` ou `<button>` ─────────────────────────────────── */\r\nfunction SidebarSectionLink({\r\n  href,\r\n  onClick,\r\n  title,\r\n  children,\r\n}: {\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  title?: string;\r\n  children: React.ReactNode;\r\n}) {\r\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\r\n    if (!href || href === \"#\") e.preventDefault();\r\n    onClick?.(e);\r\n  };\r\n\r\n  return (\r\n    <a\r\n      href={href ?? \"#\"}\r\n      className={sidebarSectionItem()}\r\n      onClick={handleClick}\r\n      title={title}\r\n    >\r\n      {children}\r\n    </a>\r\n  );\r\n}\r\n",
+        "content": "import { useState } from \"react\";\r\nimport type { MouseEvent } from \"react\";\r\nimport { ChevronDown } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  sidebarSection,\r\n  sidebarSectionHeader,\r\n  sidebarSectionChev,\r\n  sidebarSectionAdd,\r\n  sidebarSectionList,\r\n  sidebarSectionItem,\r\n  sidebarItemText,\r\n  sidebarBookmarkDot,\r\n  sidebarBookmarkIcon,\r\n  sidebarChatAvatar,\r\n  sidebarChatStatus,\r\n} from \"./sidebar.styles\";\r\nimport { shouldPreventNavigation } from \"./nav-link\";\r\nimport type {\r\n  SidebarSection as SidebarSectionData,\r\n  SidebarLinkRenderer,\r\n} from \"./sidebar.types\";\r\n\r\nexport type SidebarSectionProps = {\r\n  section: SidebarSectionData;\r\n  /** Estado controlado — se omitido, gerencia internamente */\r\n  open?: boolean;\r\n  onOpenChange?: (open: boolean) => void;\r\n  /** Substitui o `<a>` pelo link do router do consumidor. */\r\n  renderLink?: SidebarLinkRenderer;\r\n  className?: string;\r\n};\r\n\r\nexport function SidebarSection({\r\n  section,\r\n  open,\r\n  onOpenChange,\r\n  renderLink,\r\n  className,\r\n}: SidebarSectionProps) {\r\n  const [internalOpen, setInternalOpen] = useState<boolean>(section.defaultOpen ?? true);\r\n  const isOpen = open ?? internalOpen;\r\n  const collapsed = !isOpen;\r\n\r\n  const setOpen = (next: boolean) => {\r\n    if (open === undefined) setInternalOpen(next);\r\n    onOpenChange?.(next);\r\n  };\r\n\r\n  return (\r\n    <div className={cn(sidebarSection(), className)}>\r\n      <button\r\n        type=\"button\"\r\n        className={sidebarSectionHeader()}\r\n        onClick={() => setOpen(!isOpen)}\r\n        aria-expanded={isOpen}\r\n        aria-controls={`section-${section.id}`}\r\n      >\r\n        <ChevronDown\r\n          size={12}\r\n          strokeWidth={2}\r\n          className={sidebarSectionChev({ collapsed })}\r\n        />\r\n        <span>{section.label}</span>\r\n        {section.onAdd && (\r\n          <span\r\n            role=\"button\"\r\n            tabIndex={0}\r\n            className={sidebarSectionAdd()}\r\n            onClick={(e: MouseEvent<HTMLSpanElement>) => {\r\n              e.stopPropagation();\r\n              section.onAdd?.();\r\n            }}\r\n            onKeyDown={(e) => {\r\n              if (e.key === \"Enter\" || e.key === \" \") {\r\n                e.preventDefault();\r\n                section.onAdd?.();\r\n              }\r\n            }}\r\n            aria-label={`Adicionar em ${section.label}`}\r\n          >\r\n            +\r\n          </span>\r\n        )}\r\n      </button>\r\n\r\n      <div\r\n        id={`section-${section.id}`}\r\n        className={sidebarSectionList({ collapsed, variant: section.variant })}\r\n      >\r\n        {section.variant === \"bookmark\" &&\r\n          section.items.map((item) => {\r\n            const Icon = item.icon;\r\n            return (\r\n              <SidebarSectionLink\r\n                key={item.name}\r\n                href={item.href}\r\n                onClick={item.onClick}\r\n                renderLink={renderLink}\r\n                title={item.name}\r\n              >\r\n                {Icon ? (\r\n                  <span\r\n                    className={sidebarBookmarkIcon()}\r\n                    style={{ color: item.color }}\r\n                    aria-hidden=\"true\"\r\n                  >\r\n                    <Icon />\r\n                  </span>\r\n                ) : (\r\n                  <span\r\n                    className={sidebarBookmarkDot()}\r\n                    style={{ backgroundColor: item.color }}\r\n                    aria-hidden=\"true\"\r\n                  />\r\n                )}\r\n                <span className={sidebarItemText()}>{item.name}</span>\r\n              </SidebarSectionLink>\r\n            );\r\n          })}\r\n\r\n        {section.variant === \"chat\" &&\r\n          section.items.map((item) => (\r\n            <SidebarSectionLink\r\n              key={item.name}\r\n              href={item.href}\r\n              onClick={item.onClick}\r\n              renderLink={renderLink}\r\n              title={`Conversar com ${item.name}`}\r\n            >\r\n              <span\r\n                className={sidebarChatAvatar()}\r\n                style={{ backgroundColor: item.color }}\r\n              >\r\n                {item.initials}\r\n              </span>\r\n              <span className={sidebarItemText()}>{item.name}</span>\r\n              <span\r\n                className={sidebarChatStatus({ status: item.status })}\r\n                aria-hidden=\"true\"\r\n              />\r\n            </SidebarSectionLink>\r\n          ))}\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\n/* ── Wrapper que vira `<a>` ou link do router ──────────────────────────────── */\r\nfunction SidebarSectionLink({\r\n  href,\r\n  onClick,\r\n  title,\r\n  renderLink,\r\n  children,\r\n}: {\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  title?: string;\r\n  renderLink?: SidebarLinkRenderer;\r\n  children: React.ReactNode;\r\n}) {\r\n  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {\r\n    // Sem href (ou `#` puro) o anchor é só afordância — cancelar sempre foi certo aqui.\r\n    if (!href || href === \"#\") {\r\n      e.preventDefault();\r\n      onClick?.(e);\r\n      return;\r\n    }\r\n    // COM href, a versão anterior não cancelava nada: com `href` de path o browser\r\n    // navegava e recarregava a página, mesmo tendo `onClick`. Mesma causa do\r\n    // `sidebar-item.tsx`. Ver `nav-link.ts`.\r\n    if (!renderLink) {\r\n      const prevent = shouldPreventNavigation({\r\n        href,\r\n        hasHandler: !!onClick,\r\n        event: e,\r\n      });\r\n      if (prevent) e.preventDefault();\r\n    }\r\n    onClick?.(e);\r\n  };\r\n\r\n  const linkProps = {\r\n    href: href ?? \"#\",\r\n    className: sidebarSectionItem(),\r\n    onClick: handleClick,\r\n    title,\r\n    children,\r\n  };\r\n\r\n  // `renderLink` só faz sentido com destino real — `#` puro é afordância, não rota.\r\n  if (renderLink && href && href !== \"#\") return <>{renderLink(linkProps)}</>;\r\n\r\n  return <a {...linkProps} />;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-section.tsx"
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-subgroup.tsx",
-        "content": "import { useState } from \"react\";\nimport { ChevronDown } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarSubgroupRoot,\n  sidebarSubgroupChev,\n  sidebarSubgroupList,\n} from \"./sidebar.styles\";\nimport { SidebarItem } from \"./sidebar-item\";\nimport type { SidebarMenuItem } from \"./sidebar.types\";\n\nexport type SidebarSubgroupProps = {\n  item: SidebarMenuItem;\n  activeItemHref?: string;\n  onItemClick?: (item: SidebarMenuItem) => void;\n  /** Estado controlado de collapse — se omitido, gerencia internamente */\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n};\n\nexport function SidebarSubgroup({\n  item,\n  activeItemHref,\n  onItemClick,\n  open,\n  defaultOpen,\n  onOpenChange,\n  className,\n}: SidebarSubgroupProps) {\n  const hasActiveChild = item.subitems?.some(\n    (s) => s.href !== undefined && s.href === activeItemHref\n  );\n\n  const [internalOpen, setInternalOpen] = useState<boolean>(\n    defaultOpen ?? item.defaultOpen ?? hasActiveChild ?? false\n  );\n  const isOpen = open ?? internalOpen;\n  const collapsed = !isOpen;\n\n  const setOpen = (next: boolean) => {\n    if (open === undefined) setInternalOpen(next);\n    onOpenChange?.(next);\n  };\n\n  const Icon = item.icon;\n\n  return (\n    <div className={cn(sidebarSubgroupRoot(), className)}>\n      <button\n        type=\"button\"\n        className={cn(sidebarItem(), \"select-none\")}\n        onClick={() => setOpen(!isOpen)}\n        aria-expanded={isOpen}\n        aria-controls={`subgroup-${item.name}`}\n      >\n        {Icon && (\n          <Icon\n            size={17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ parentActive: hasActiveChild })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        <ChevronDown\n          size={13}\n          strokeWidth={2}\n          className={sidebarSubgroupChev({ collapsed })}\n        />\n      </button>\n\n      <div id={`subgroup-${item.name}`} className={sidebarSubgroupList({ collapsed })}>\n        {item.subitems?.map((sub) => (\n          <SidebarItem\n            key={sub.href ?? sub.name}\n            item={sub}\n            subitem\n            active={sub.href !== undefined && sub.href === activeItemHref}\n            onClick={() => onItemClick?.(sub)}\n          />\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+        "content": "import { useState } from \"react\";\nimport { ChevronDown } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport {\n  sidebarItem,\n  sidebarItemIcon,\n  sidebarItemText,\n  sidebarSubgroupRoot,\n  sidebarSubgroupChev,\n  sidebarSubgroupList,\n} from \"./sidebar.styles\";\nimport { SidebarItem } from \"./sidebar-item\";\nimport type { MouseEvent } from \"react\";\nimport type { SidebarMenuItem, SidebarLinkRenderer } from \"./sidebar.types\";\n\nexport type SidebarSubgroupProps = {\n  item: SidebarMenuItem;\n  activeItemHref?: string;\n  onItemClick?: (\n    item: SidebarMenuItem,\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\n  ) => void;\n  renderLink?: SidebarLinkRenderer;\n  interceptNavigation?: boolean;\n  /** Estado controlado de collapse — se omitido, gerencia internamente */\n  open?: boolean;\n  defaultOpen?: boolean;\n  onOpenChange?: (open: boolean) => void;\n  className?: string;\n};\n\nexport function SidebarSubgroup({\n  item,\n  activeItemHref,\n  onItemClick,\n  renderLink,\n  interceptNavigation,\n  open,\n  defaultOpen,\n  onOpenChange,\n  className,\n}: SidebarSubgroupProps) {\n  const hasActiveChild = item.subitems?.some(\n    (s) => s.href !== undefined && s.href === activeItemHref\n  );\n\n  const [internalOpen, setInternalOpen] = useState<boolean>(\n    defaultOpen ?? item.defaultOpen ?? hasActiveChild ?? false\n  );\n  const isOpen = open ?? internalOpen;\n  const collapsed = !isOpen;\n\n  const setOpen = (next: boolean) => {\n    if (open === undefined) setInternalOpen(next);\n    onOpenChange?.(next);\n  };\n\n  const Icon = item.icon;\n\n  return (\n    <div className={cn(sidebarSubgroupRoot(), className)}>\n      <button\n        type=\"button\"\n        className={cn(sidebarItem(), \"select-none\")}\n        onClick={() => setOpen(!isOpen)}\n        aria-expanded={isOpen}\n        aria-controls={`subgroup-${item.name}`}\n      >\n        {Icon && (\n          <Icon\n            size={17}\n            strokeWidth={1.7}\n            className={sidebarItemIcon({ parentActive: hasActiveChild })}\n          />\n        )}\n        <span className={sidebarItemText()}>{item.name}</span>\n        <ChevronDown\n          size={13}\n          strokeWidth={2}\n          className={sidebarSubgroupChev({ collapsed })}\n        />\n      </button>\n\n      <div id={`subgroup-${item.name}`} className={sidebarSubgroupList({ collapsed })}>\n        {item.subitems?.map((sub) => (\n          <SidebarItem\n            key={sub.href ?? sub.name}\n            item={sub}\n            subitem\n            active={sub.href !== undefined && sub.href === activeItemHref}\n            onClick={(e) => onItemClick?.(sub, e)}\n            renderLink={renderLink}\n            interceptNavigation={interceptNavigation}\n          />\n        ))}\n      </div>\n    </div>\n  );\n}\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-subgroup.tsx"
       },
@@ -3521,7 +3527,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar.types.ts",
-        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\n\r\n/* ── Badges ────────────────────────────────────────────────────────────────── */\r\n\r\nexport type SidebarBadgeKind = \"default\" | \"counter\" | \"success\";\r\n\r\n/* ── Items (menu principal) ────────────────────────────────────────────────── */\r\n\r\nexport type SidebarMenuItem = {\r\n  name: string;\r\n  icon?: LucideIcon;\r\n  /** Quando presente vira `<a>` — quando ausente vira `<button>` (action) */\r\n  href?: string;\r\n  badge?: string;\r\n  badgeKind?: SidebarBadgeKind;\r\n  /** Quando presente vira grupo colapsável com submenus (1 nível) */\r\n  subitems?: SidebarMenuItem[];\r\n  /** Estado inicial do grupo (apenas quando tem subitems) */\r\n  defaultOpen?: boolean;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\r\n};\r\n\r\n/* ── Sections (bookmarks / chats / listas genéricas) ───────────────────────── */\r\n\r\nexport type SidebarBookmarkItem = {\r\n  name: string;\r\n  /** Cor do dot indicador / caixa de ícone (qualquer cor CSS válida) */\r\n  color: string;\r\n  /**\r\n   * Ícone opcional. Quando presente, renderiza uma caixinha colorida com o\r\n   * ícone (estilo \"atalho/app\") no lugar do dot. Útil pra atalhos de\r\n   * ferramentas/integrações. Ausente → dot redondo (default).\r\n   */\r\n  icon?: LucideIcon;\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n};\r\n\r\nexport type SidebarChatItem = {\r\n  name: string;\r\n  initials: string;\r\n  /** Cor de fundo do avatar (qualquer cor CSS válida) */\r\n  color: string;\r\n  status?: \"online\" | \"offline\";\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n};\r\n\r\nexport type SidebarSection =\r\n  | {\r\n      id: string;\r\n      label: string;\r\n      variant: \"bookmark\";\r\n      items: SidebarBookmarkItem[];\r\n      defaultOpen?: boolean;\r\n      onAdd?: () => void;\r\n    }\r\n  | {\r\n      id: string;\r\n      label: string;\r\n      variant: \"chat\";\r\n      items: SidebarChatItem[];\r\n      defaultOpen?: boolean;\r\n      onAdd?: () => void;\r\n    };\r\n\r\n/* ── Context (categoria do rail) ───────────────────────────────────────────── */\r\n\r\nexport type SidebarContext = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n  items: SidebarMenuItem[];\r\n  sections?: SidebarSection[];\r\n};\r\n\r\n/* ── Props do componente principal ─────────────────────────────────────────── */\r\n\r\nexport type SidebarProps = {\r\n  /** Array de contextos (categorias do rail) */\r\n  contexts: SidebarContext[];\r\n\r\n  /** Brand mark no topo do rail. Default = logo iGreen */\r\n  brand?: ReactNode;\r\n  /** Avatar de usuário no fim do rail. Default = \"SV\" com cor fixa */\r\n  user?: ReactNode;\r\n  /** Mostra botão \"+\" no fim do rail (entre contextos e user) */\r\n  showRailAdd?: boolean;\r\n  onRailAddClick?: () => void;\r\n\r\n  /** Active context — controlled */\r\n  activeContextId?: string;\r\n  /** Active context — uncontrolled initial */\r\n  defaultActiveContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n\r\n  /** Active item — controlled (matching by href) */\r\n  activeItemHref?: string;\r\n  /** Active item — uncontrolled initial */\r\n  defaultActiveItemHref?: string;\r\n  onItemClick?: (item: SidebarMenuItem) => void;\r\n\r\n  /** Panel colapsado (rail-only) — controlled */\r\n  panelCollapsed?: boolean;\r\n  /** Panel colapsado — uncontrolled initial */\r\n  defaultPanelCollapsed?: boolean;\r\n  onPanelCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /**\r\n   * Comportamento de hover-to-expand quando panel está colapsado.\r\n   * Default: true. Ao passar mouse sobre o sidebar, o panel abre como overlay\r\n   * absoluto (não empurra o conteúdo). Sai o mouse, recolhe.\r\n   * Passe `false` pra desabilitar.\r\n   */\r\n  expandOnHover?: boolean;\r\n\r\n  /**\r\n   * Mobile drawer — open/close (controlled).\r\n   * No mobile, o sidebar vira drawer fixed overlay sobre o conteúdo.\r\n   */\r\n  mobileOpen?: boolean;\r\n  /** Mobile drawer — estado inicial (uncontrolled). Default: false (hidden). */\r\n  defaultMobileOpen?: boolean;\r\n  onMobileOpenChange?: (open: boolean) => void;\r\n\r\n  /**\r\n   * Media query que ativa o modo mobile (drawer).\r\n   * Default: `(max-width: 767px)` (= breakpoint `md` do Tailwind).\r\n   */\r\n  mobileBreakpoint?: string;\r\n\r\n  /** Callback ao clicar no título do panel (ex: abrir context switcher) */\r\n  onPanelTitleClick?: () => void;\r\n\r\n  className?: string;\r\n};\r\n",
+        "content": "import type { ReactNode, MouseEvent, Ref } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\n\r\n/* ── Badges ────────────────────────────────────────────────────────────────── */\r\n\r\nexport type SidebarBadgeKind = \"default\" | \"counter\" | \"success\";\r\n\r\n/* ── Items (menu principal) ────────────────────────────────────────────────── */\r\n\r\nexport type SidebarMenuItem = {\r\n  name: string;\r\n  icon?: LucideIcon;\r\n  /** Quando presente vira `<a>` — quando ausente vira `<button>` (action) */\r\n  href?: string;\r\n  /** `target` do anchor. `\"_blank\"` desliga o cancelamento de navegação (ver `renderLink`). */\r\n  target?: string;\r\n  badge?: string;\r\n  badgeKind?: SidebarBadgeKind;\r\n  /** Quando presente vira grupo colapsável com submenus (1 nível) */\r\n  subitems?: SidebarMenuItem[];\r\n  /** Estado inicial do grupo (apenas quando tem subitems) */\r\n  defaultOpen?: boolean;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\r\n};\r\n\r\n/* ── Integração com router (renderLink) ────────────────────────────────────── */\r\n\r\n/**\r\n * Props que o sidebar entrega pro seu renderizador de link. São exatamente as de um\r\n * `<a>` — repasse todas pro componente do seu router.\r\n */\r\nexport type SidebarLinkRenderProps = {\r\n  href: string;\r\n  className: string;\r\n  children: ReactNode;\r\n  onClick: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  target?: string;\r\n  title?: string;\r\n  \"aria-current\"?: \"page\";\r\n  \"aria-label\"?: string;\r\n  ref?: Ref<HTMLAnchorElement>;\r\n};\r\n\r\n/**\r\n * Render-prop que substitui o `<a>` interno pelo link do SEU router.\r\n *\r\n * ```tsx\r\n * import { Link } from \"react-router-dom\";\r\n * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} />\r\n * ```\r\n *\r\n * ⚠️ **É render-prop, não `linkComponent`, de propósito.** Um prop que recebe *tipo de\r\n * componente* e é escrito inline (`linkComponent={(p) => <Link .../>}`) cria um tipo\r\n * NOVO a cada render, e o React desmonta/remonta a subárvore inteira — perde foco,\r\n * reinicia animação, e o bug parece \"aleatório\". Render-prop é chamada durante o\r\n * render, então inline é seguro.\r\n *\r\n * Quando presente, o sidebar **não** mexe em `preventDefault`: quem decide é o `<Link>`.\r\n */\r\nexport type SidebarLinkRenderer = (props: SidebarLinkRenderProps) => ReactNode;\r\n\r\n/* ── Sections (bookmarks / chats / listas genéricas) ───────────────────────── */\r\n\r\nexport type SidebarBookmarkItem = {\r\n  name: string;\r\n  /** Cor do dot indicador / caixa de ícone (qualquer cor CSS válida) */\r\n  color: string;\r\n  /**\r\n   * Ícone opcional. Quando presente, renderiza uma caixinha colorida com o\r\n   * ícone (estilo \"atalho/app\") no lugar do dot. Útil pra atalhos de\r\n   * ferramentas/integrações. Ausente → dot redondo (default).\r\n   */\r\n  icon?: LucideIcon;\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n};\r\n\r\nexport type SidebarChatItem = {\r\n  name: string;\r\n  initials: string;\r\n  /** Cor de fundo do avatar (qualquer cor CSS válida) */\r\n  color: string;\r\n  status?: \"online\" | \"offline\";\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n};\r\n\r\nexport type SidebarSection =\r\n  | {\r\n      id: string;\r\n      label: string;\r\n      variant: \"bookmark\";\r\n      items: SidebarBookmarkItem[];\r\n      defaultOpen?: boolean;\r\n      onAdd?: () => void;\r\n    }\r\n  | {\r\n      id: string;\r\n      label: string;\r\n      variant: \"chat\";\r\n      items: SidebarChatItem[];\r\n      defaultOpen?: boolean;\r\n      onAdd?: () => void;\r\n    };\r\n\r\n/* ── Context (categoria do rail) ───────────────────────────────────────────── */\r\n\r\nexport type SidebarContext = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n  items: SidebarMenuItem[];\r\n  sections?: SidebarSection[];\r\n};\r\n\r\n/* ── Props do componente principal ─────────────────────────────────────────── */\r\n\r\nexport type SidebarProps = {\r\n  /** Array de contextos (categorias do rail) */\r\n  contexts: SidebarContext[];\r\n\r\n  /** Brand mark no topo do rail. Default = logo iGreen */\r\n  brand?: ReactNode;\r\n  /** Avatar de usuário no fim do rail. Default = \"SV\" com cor fixa */\r\n  user?: ReactNode;\r\n  /** Mostra botão \"+\" no fim do rail (entre contextos e user) */\r\n  showRailAdd?: boolean;\r\n  onRailAddClick?: () => void;\r\n\r\n  /** Active context — controlled */\r\n  activeContextId?: string;\r\n  /** Active context — uncontrolled initial */\r\n  defaultActiveContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n\r\n  /** Active item — controlled (matching by href) */\r\n  activeItemHref?: string;\r\n  /** Active item — uncontrolled initial */\r\n  defaultActiveItemHref?: string;\r\n  /**\r\n   * Clique num item. O 2º argumento é o evento — use pra `preventDefault()` quando\r\n   * você faz o roteamento na mão. Era `(item) => void` até 2026-08-08: sem o evento,\r\n   * o consumidor não tinha como cancelar a navegação do `<a>` nem sabendo do problema.\r\n   * Adicionar parâmetro opcional é retrocompatível.\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * Substitui o `<a>` interno pelo link do seu router (react-router, Next, TanStack…).\r\n   * **É o caminho recomendado** — ver `SidebarLinkRenderer`.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /**\r\n   * Destino do brand mark no topo do rail. Default `\"/\"`.\r\n   * Era `href=\"/\"` **fixo no JSX** até 2026-08-08 — recarregava pra raiz em qualquer\r\n   * app, sem forma de configurar. Passe `\"\"` (ou `undefined` + `onBrandClick`) pra\r\n   * torná-lo não-navegável.\r\n   */\r\n  brandHref?: string;\r\n  /** Clique no brand mark. Recebe o evento — útil com `brandHref` vazio. */\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /** Panel colapsado (rail-only) — controlled */\r\n  panelCollapsed?: boolean;\r\n  /** Panel colapsado — uncontrolled initial */\r\n  defaultPanelCollapsed?: boolean;\r\n  onPanelCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /**\r\n   * Comportamento de hover-to-expand quando panel está colapsado.\r\n   * Default: true. Ao passar mouse sobre o sidebar, o panel abre como overlay\r\n   * absoluto (não empurra o conteúdo). Sai o mouse, recolhe.\r\n   * Passe `false` pra desabilitar.\r\n   */\r\n  expandOnHover?: boolean;\r\n\r\n  /**\r\n   * Mobile drawer — open/close (controlled).\r\n   * No mobile, o sidebar vira drawer fixed overlay sobre o conteúdo.\r\n   */\r\n  mobileOpen?: boolean;\r\n  /** Mobile drawer — estado inicial (uncontrolled). Default: false (hidden). */\r\n  defaultMobileOpen?: boolean;\r\n  onMobileOpenChange?: (open: boolean) => void;\r\n\r\n  /**\r\n   * Media query que ativa o modo mobile (drawer).\r\n   * Default: `(max-width: 767px)` (= breakpoint `md` do Tailwind).\r\n   */\r\n  mobileBreakpoint?: string;\r\n\r\n  /** Callback ao clicar no título do panel (ex: abrir context switcher) */\r\n  onPanelTitleClick?: () => void;\r\n\r\n  className?: string;\r\n};\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar.types.ts"
       },
@@ -3545,7 +3551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · menu-sidebar · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3570,7 +3576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · menubar · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3614,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · modal · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3663,7 +3669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · month-year-picker · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3689,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · navigation-menu · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3736,7 +3742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · page-header · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3761,7 +3767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · pagination · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3836,7 +3842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · panel · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · popover · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3884,7 +3890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · progress · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3908,7 +3914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · radio-group · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3932,7 +3938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · scroll-area · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3957,7 +3963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · select · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -3981,7 +3987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · separator · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4007,7 +4013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · sheet · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4108,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4130,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · skeleton · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4154,7 +4160,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · slider · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4177,7 +4183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · sonner · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4223,7 +4229,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · spinner · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4247,7 +4253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · switch · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4326,7 +4332,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · table · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4350,7 +4356,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · tabs · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4374,7 +4380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · textarea · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4392,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · theme-blue · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4410,7 +4416,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · theme-green · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4428,7 +4434,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · theme-pay · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4446,7 +4452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · theme-vibrant · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4468,7 +4474,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · theme · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4519,7 +4525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · toast · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4545,7 +4551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · toggle-group · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · toggle · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · tooltip · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:ui"
   },
@@ -4615,7 +4621,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · tv · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   },
@@ -4637,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.37.3 · 0c924eb · 2026-08-08"
+      "stamp": "igreen-ds · utils · v0.37.3 · e0ef027 · 2026-08-10"
     },
     "type": "registry:file"
   }

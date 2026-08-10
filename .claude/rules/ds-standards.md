@@ -478,7 +478,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 67 Lições (L-001 a L-067) — resumo
+## 68 Lições (L-001 a L-068) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
 `scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
@@ -749,6 +749,25 @@ próprio** (`ds-pulse`, não `pulse`).
 BUILDADO** pra ver qual declaração sobrevive. Ler CSS-fonte e afirmar comportamento é o mesmo
 erro de ler token e afirmar pixel (L-066). Gate: `runtime-base.test.mjs` proíbe `@keyframes`
 e `--animate-*` no `globals.css`.
+
+---
+
+### `<a href>` em componente de navegação exige integração de router (L-068)
+
+O `MenuSidebar` renderizava `<a href={item.href}>` **sem `preventDefault`**: com href de
+**path** (`/app/clientes`) o browser recarregava a página inteira a cada clique de menu.
+Quem descobriu foi um **consumidor em produção**. Nenhum gate pegou porque o exemplo
+canônico usa href de **HASH** (`#/app/clientes`), e fragmento não recarrega documento —
+"segunda regra de ouro" numa superfície nova: **forma do dado de teste**, não CSS.
+
+Três regras: (1) componente que emite `<a href>` aceita `renderLink` (**render-prop**, não
+`linkComponent` — prop de *tipo de componente* escrita inline remonta a subárvore a cada
+render); (2) cancelar navegação tem **5 exceções** e cada uma quebraria algo real — clique
+modificado, `target="_blank"`, href externo, **href de hash** (cancelar impede o
+`hashchange`) e ausência de handler; a regra mora em `MenuSidebar/nav-link.ts`, exportada e
+testada por exceção; (3) **fixture com forma diferente da de produção não é teste** — se o
+exemplo usa `#/rota` e o consumidor usa `/rota`, o exemplo não cobre o consumidor. Detalhe:
+`lessons.md` L-068.
 
 ---
 

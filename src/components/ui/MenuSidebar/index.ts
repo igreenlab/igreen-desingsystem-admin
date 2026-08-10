@@ -23,6 +23,17 @@ export { SidebarBrandIcon } from "./sidebar-brand";
 export { useControllable } from "./use-sidebar-state";
 export { useMediaQuery } from "./use-media-query";
 
+/* Integração com router — a regra de quando cancelar a navegação nativa.
+ * Exportado porque quem compõe o sidebar na mão (SidebarItem avulso) precisa da
+ * MESMA decisão; reimplementar na unha é como o bug nasce de novo. */
+export {
+  shouldPreventNavigation,
+  isExternalHref,
+  isHashHref,
+  isModifiedClick,
+} from "./nav-link";
+export type { PreventNavigationInput } from "./nav-link";
+
 /* Tipos do data model */
 export type {
   SidebarProps,
@@ -32,4 +43,6 @@ export type {
   SidebarBookmarkItem,
   SidebarChatItem,
   SidebarBadgeKind,
+  SidebarLinkRenderer,
+  SidebarLinkRenderProps,
 } from "./sidebar.types";

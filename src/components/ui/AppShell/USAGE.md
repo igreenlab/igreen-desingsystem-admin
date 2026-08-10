@@ -20,7 +20,10 @@ import { AppShell } from "@/components/ui/AppShell";
 | `onContextChange` | (id: string) => void | — | Callback de troca de workspace |
 | `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |
 | `activeItemHref` | string | — | Item do panel ativo (controlled) |
-| `onItemClick` | (item: SidebarMenuItem) => void | — | Clique em item do panel — ponto de integração com o router |
+| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |
+| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |
+| `brandHref` | string | `"/"` | Destino do brand no rail; `""` torna não-navegável |
+| `onBrandClick` | (e) => void | — | Clique no brand |
 | `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |
 | `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |
 | `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |
@@ -59,3 +62,4 @@ import { AppShell } from "@/components/ui/AppShell";
 - User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default
 - `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`
 - Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview
+- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router

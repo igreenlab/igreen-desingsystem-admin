@@ -20,7 +20,10 @@ import { MenuSidebar } from "@/components/ui/MenuSidebar";
 | `onContextChange` | (id: string) => void | Callback de troca de context |
 | `activeItemHref` | string | Item ativo no panel (controlled, match por href) |
 | `defaultActiveItemHref` | string | Item ativo inicial (uncontrolled) |
-| `onItemClick` | (item: SidebarMenuItem) => void | Callback ao clicar em item do panel |
+| `onItemClick` | (item, event?) => void | Callback ao clicar em item do panel. **O 2º arg é o `MouseEvent`** — use pra `preventDefault()` se você roteia na mão |
+| `renderLink` | (props) => ReactNode | ⭐ **Integração com router** — substitui o `<a>` interno pelo `<Link>` do seu router. Ver a seção abaixo |
+| `brandHref` | string | Destino do brand no rail. Default `"/"`; `""` torna não-navegável (vira `<button>`) |
+| `onBrandClick` | (e) => void | Clique no brand |
 | `panelCollapsed` | boolean | Panel colapsado — só rail visível (controlled) |
 | `defaultPanelCollapsed` | boolean | Panel colapsado inicial (uncontrolled) |
 | `onPanelCollapseChange` | (collapsed: boolean) => void | Callback do collapse |
@@ -42,6 +45,67 @@ import { MenuSidebar } from "@/components/ui/MenuSidebar";
   user={<UserMenu user={currentUser} />}
 />
 ```
+
+## 🧭 Integração com router — LEIA se seu app tem rotas
+
+O sidebar renderiza `<a href={item.href}>`. Sem integração, clicar num item com `href` de
+**path** (`/app/clientes`) faz o browser **recarregar a página inteira** — foi um bug real,
+reportado por consumidor em 2026-08-08 e corrigido na v0.38.0.
+
+### Recomendado: `renderLink`
+
+```tsx
+import { Link } from "react-router-dom";
+
+<MenuSidebar
+  contexts={contexts}
+  renderLink={(p) => <Link {...p} to={p.href} />}
+/>
+```
+
+| Router | `renderLink` |
+|---|---|
+| **react-router** | `(p) => <Link {...p} to={p.href} />` |
+| **Next.js** | `(p) => <Link {...p} />` (já usa `href`) |
+| **TanStack Router** | `(p) => <Link {...p} to={p.href} />` |
+
+Com `renderLink`, o sidebar **não** mexe em `preventDefault` — quem decide é o `<Link>`.
+Você ganha navegação client-side **e** mantém ctrl/cmd+clique pra abrir em nova aba.
+
+> ⚠️ **É render-prop, não `linkComponent`.** Um prop que recebe *tipo de componente* e é
+> escrito inline cria um tipo novo a cada render, e o React desmonta/remonta a subárvore —
+> perde foco, reinicia animação, e o sintoma parece aleatório. Render-prop inline é seguro.
+
+### Alternativa: `onItemClick` + `navigate()`
+
+Se preferir rotear na mão, funciona sem `renderLink` — o sidebar cancela a navegação
+nativa automaticamente quando você passa `onItemClick`:
+
+```tsx
+const navigate = useNavigate();
+<MenuSidebar contexts={contexts} onItemClick={(item) => item.href && navigate(item.href)} />
+```
+
+O 2º argumento é o evento, se você precisar dele: `onItemClick={(item, e) => { … }}`.
+
+### O que o cancelamento automático NÃO faz (de propósito)
+
+Ele **nunca** cancela nestes 5 casos, e cada um quebraria algo real:
+
+| Caso | Por que não cancela |
+|---|---|
+| ctrl/cmd/shift/alt ou botão do meio | é como o usuário abre em nova aba |
+| `target: "_blank"` no item | o item pediu outra aba |
+| `href` externo (`https:`, `mailto:`, `tel:`, `//host`) | não é rota do app; cancelar deixa o link morto |
+| **`href` de hash (`#/rota`)** | hash router escuta `hashchange`; cancelar impede o fragmento de mudar e o evento **nunca dispara** |
+| sem `onItemClick` nem `item.onClick` | ninguém trataria — o `<a>` é a navegação pretendida |
+
+A regra vive em `nav-link.ts` e é exportada (`shouldPreventNavigation`) pra quem compõe
+com `<SidebarItem>` avulso — reimplementar na unha é como o bug volta.
+
+> **Por que passou meses invisível:** o exemplo canônico
+> (`src/examples/app-shell/nav-data.ts`) usa `href` de **hash** em todos os itens, e hash
+> não recarrega documento. Showcase verde, consumidor quebrado.
 
 ## Cuidados / Gotchas
 - `w-fit` no root é crítico — sem isso o hover-to-expand dispararia em qualquer lugar do parent

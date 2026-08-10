@@ -153,7 +153,7 @@ Não é uma proibição — é uma distinção de **onde a tela mora**:
 ## Leitura automática no início de qualquer sessão
 
 `.claude/rules/ds-standards.md` é carregado automaticamente (rules/).
-Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-067.
+Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-068.
 
 Para referência de código detalhada (padrão tv() completo, tabela de tokens, naming):
 → `.ai/rules/coding-standards.md`
@@ -365,7 +365,7 @@ Foi assim que 6 defeitos ficaram invisíveis por meses. Detalhe + os gates que c
 
 | Tipo de informação | Fonte canônica única |
 |---|---|
-| Regras DS + 67 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 68 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade do orchestrator + roteamento | `.claude/agents/orchestrator.md` |
 | Templates de implementação iGreen (tv()) | `.claude/skills/ds-dev/impl-igreen.md` |
 | Padrão tv() completo (referência longa) | `.ai/rules/coding-standards.md` |
