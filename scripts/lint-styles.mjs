@@ -7,8 +7,11 @@
  *                      caminho do modo, incluindo path faltando/arquivo
  *                      inexistente. O hook nunca pode passar a bloquear
  *                      o edit do dev por causa deste modo.
- *   --ratchet [base]   varre SÓ as linhas adicionadas vs <base> (default
- *                      origin/main). Usado no CI. exit 1 se houver violação nova.
+ *   --ratchet [base]   varre SÓ as linhas adicionadas vs <base>. Usado no CI
+ *                      (que passa base explícita). Sem base, resolve o remote
+ *                      CANÔNICO por URL — ver scripts/lib/canonical-base-ref.mjs
+ *                      e por que "default origin/main" era um bug neste repo.
+ *                      exit 1 se houver violação nova.
  *
  * Erro de uso do CLI (nenhuma flag reconhecida) é diferente: sai 2 no
  * dispatch de argv abaixo — isso é fronteira do CLI, não do modo --file.
@@ -20,6 +23,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { scanLines } from "./lib/ds-lint-patterns.mjs";
 import { parseAddedLines } from "./lib/diff-added-lines.mjs";
+import { resolveBaseRefFromGit } from "./lib/canonical-base-ref.mjs";
 
 // Escopo: styles de componente E os próprios componentes.
 //
@@ -103,8 +107,11 @@ function modeFile(path) {
   return 0; // modo hook NUNCA bloqueia
 }
 
-function modeRatchet(base) {
+function modeRatchet(base, motivoDaBase) {
   let diff = "";
+  // A base resolvida vai pro log SEMPRE (não só no erro): foi justamente uma base
+  // silenciosa que deixou o gate diffar contra uma foto de maio por meses.
+  if (motivoDaBase) console.log(`   base do ratchet: ${base} — ${motivoDaBase}`);
   try {
     // --merge-base: compara com o ponto de divergência, não com o tip da base.
     // Sem isso, commit que entrou na base depois do fork aparece como `+`
@@ -115,10 +122,14 @@ function modeRatchet(base) {
     });
   } catch (err) {
     const detail = err?.message ? ` Detalhe do git: ${err.message.trim()}` : "";
+    // A instrução cita o remote REALMENTE resolvido. Mandar "git fetch origin main"
+    // num repo onde `origin` é o fork parado é instrução pra reproduzir o bug (L-060).
+    const remote = base.includes("/") ? base.slice(0, base.indexOf("/")) : "origin";
+    const branch = base.includes("/") ? base.slice(base.indexOf("/") + 1) : base;
     const msg =
       `lint-styles: não consegui diffar contra "${base}".` +
       ` No CI, garanta fetch-depth: 0 no actions/checkout;` +
-      ` localmente, rode git fetch origin main.${detail}`;
+      ` localmente, rode git fetch ${remote} ${branch}.${detail}`;
     console.error(`\n⚠️  ${msg}\n`);
     annotate("error", { title: "lint-styles não conseguiu rodar", message: msg });
     return 1;
@@ -161,7 +172,16 @@ const ratchetIdx = argv.indexOf("--ratchet");
 if (fileIdx !== -1) {
   process.exit(modeFile(argv[fileIdx + 1]));
 } else if (ratchetIdx !== -1) {
-  process.exit(modeRatchet(argv[ratchetIdx + 1] ?? "origin/main"));
+  // `--ratchet --outra-flag` não é um ref chamado "--outra-flag".
+  const seguinte = argv[ratchetIdx + 1];
+  const explicita = seguinte && !seguinte.startsWith("--") ? seguinte : undefined;
+  if (explicita) {
+    // CI passa base explícita (`origin/${{ github.base_ref }}`) — a base pode não
+    // ser `main`. Quem passa manda; nada a resolver.
+    process.exit(modeRatchet(explicita));
+  }
+  const { ref, motivo } = resolveBaseRefFromGit();
+  process.exit(modeRatchet(ref, motivo));
 } else {
   console.error("uso: lint-styles.mjs --file <path> | --ratchet [base-ref]");
   process.exit(2);

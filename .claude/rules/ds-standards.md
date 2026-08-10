@@ -478,7 +478,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 68 Lições (L-001 a L-068) — resumo
+## 69 Lições (L-001 a L-069) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
 `scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
@@ -768,6 +768,28 @@ modificado, `target="_blank"`, href externo, **href de hash** (cancelar impede o
 testada por exceção; (3) **fixture com forma diferente da de produção não é teste** — se o
 exemplo usa `#/rota` e o consumidor usa `/rota`, o exemplo não cobre o consumidor. Detalhe:
 `lessons.md` L-068.
+
+### Base de gate por NOME de remote mente — `origin` aqui é o fork parado (L-069)
+
+`lint-styles --ratchet`, `showcase-check` e `api-doc-check` tinham `origin/main` como base
+default, e o `npm run lint:styles` chumbava esse ref. Mas `origin` neste repo é o **fork
+pessoal parado** (Regra 8): medido em 2026-08-10, `origin/main` estava em **2026-05-20** e
+`empresa/main` em 2026-08-10 — 3 meses. Numa PR de 3 arquivos, os gates diziam **17
+violações** em `shadcn/`, **exit 1** acusando `Chart` de "componente novo sem showcase" (o
+MESMO falso positivo que a L-062 consertou — critério certo, base errada: segunda causa raiz)
+e 20+ `fatal:` do git. Contra a base canônica: **0 em todos**.
+
+Durou porque a saída era **plausível** — "débito de Tailwind literal em primitivos shadcn" é
+o passivo que o repo sabe ter, então quem rodava não estranhava. L-059 num nível acima: gate
+correto medindo contra a referência errada.
+
+Regra: **resolva por URL, não por nome** (`scripts/lib/canonical-base-ref.mjs` — canônico = o
+remote que aponta pro `igreenlab/igreen-desingsystem-admin`, se chame `origin` no CI ou
+`empresa` local); **base explícita manda** (o CI passa `origin/${{ github.base_ref }}`, e a
+resolução só entra quando ninguém passou — por isso é zero-risco pro CI); **imprima a base
+resolvida sempre** (base silenciosa foi o que escondeu isto); e a mensagem de erro cita o
+remote **resolvido**, não `origin` (mandar `git fetch origin main` aqui é instrução pra
+reproduzir o bug — L-060). Detalhe: `lessons.md` L-069.
 
 ---
 
