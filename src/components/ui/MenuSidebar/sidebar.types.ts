@@ -1,4 +1,4 @@
-import type { ReactNode, MouseEvent } from "react";
+import type { ReactNode, MouseEvent, Ref } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
 
 /* ── Badges ────────────────────────────────────────────────────────────────── */
@@ -12,6 +12,8 @@ export type SidebarMenuItem = {
   icon?: LucideIcon;
   /** Quando presente vira `<a>` — quando ausente vira `<button>` (action) */
   href?: string;
+  /** `target` do anchor. `"_blank"` desliga o cancelamento de navegação (ver `renderLink`). */
+  target?: string;
   badge?: string;
   badgeKind?: SidebarBadgeKind;
   /** Quando presente vira grupo colapsável com submenus (1 nível) */
@@ -20,6 +22,42 @@ export type SidebarMenuItem = {
   defaultOpen?: boolean;
   onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
 };
+
+/* ── Integração com router (renderLink) ────────────────────────────────────── */
+
+/**
+ * Props que o sidebar entrega pro seu renderizador de link. São exatamente as de um
+ * `<a>` — repasse todas pro componente do seu router.
+ */
+export type SidebarLinkRenderProps = {
+  href: string;
+  className: string;
+  children: ReactNode;
+  onClick: (e: MouseEvent<HTMLAnchorElement>) => void;
+  target?: string;
+  title?: string;
+  "aria-current"?: "page";
+  "aria-label"?: string;
+  ref?: Ref<HTMLAnchorElement>;
+};
+
+/**
+ * Render-prop que substitui o `<a>` interno pelo link do SEU router.
+ *
+ * ```tsx
+ * import { Link } from "react-router-dom";
+ * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} />
+ * ```
+ *
+ * ⚠️ **É render-prop, não `linkComponent`, de propósito.** Um prop que recebe *tipo de
+ * componente* e é escrito inline (`linkComponent={(p) => <Link .../>}`) cria um tipo
+ * NOVO a cada render, e o React desmonta/remonta a subárvore inteira — perde foco,
+ * reinicia animação, e o bug parece "aleatório". Render-prop é chamada durante o
+ * render, então inline é seguro.
+ *
+ * Quando presente, o sidebar **não** mexe em `preventDefault`: quem decide é o `<Link>`.
+ */
+export type SidebarLinkRenderer = (props: SidebarLinkRenderProps) => ReactNode;
 
 /* ── Sections (bookmarks / chats / listas genéricas) ───────────────────────── */
 
@@ -99,7 +137,32 @@ export type SidebarProps = {
   activeItemHref?: string;
   /** Active item — uncontrolled initial */
   defaultActiveItemHref?: string;
-  onItemClick?: (item: SidebarMenuItem) => void;
+  /**
+   * Clique num item. O 2º argumento é o evento — use pra `preventDefault()` quando
+   * você faz o roteamento na mão. Era `(item) => void` até 2026-08-08: sem o evento,
+   * o consumidor não tinha como cancelar a navegação do `<a>` nem sabendo do problema.
+   * Adicionar parâmetro opcional é retrocompatível.
+   */
+  onItemClick?: (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
+
+  /**
+   * Substitui o `<a>` interno pelo link do seu router (react-router, Next, TanStack…).
+   * **É o caminho recomendado** — ver `SidebarLinkRenderer`.
+   */
+  renderLink?: SidebarLinkRenderer;
+
+  /**
+   * Destino do brand mark no topo do rail. Default `"/"`.
+   * Era `href="/"` **fixo no JSX** até 2026-08-08 — recarregava pra raiz em qualquer
+   * app, sem forma de configurar. Passe `""` (ou `undefined` + `onBrandClick`) pra
+   * torná-lo não-navegável.
+   */
+  brandHref?: string;
+  /** Clique no brand mark. Recebe o evento — útil com `brandHref` vazio. */
+  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 
   /** Panel colapsado (rail-only) — controlled */
   panelCollapsed?: boolean;

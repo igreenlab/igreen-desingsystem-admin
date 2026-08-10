@@ -15,13 +15,19 @@ import {
   sidebarChatAvatar,
   sidebarChatStatus,
 } from "./sidebar.styles";
-import type { SidebarSection as SidebarSectionData } from "./sidebar.types";
+import { shouldPreventNavigation } from "./nav-link";
+import type {
+  SidebarSection as SidebarSectionData,
+  SidebarLinkRenderer,
+} from "./sidebar.types";
 
 export type SidebarSectionProps = {
   section: SidebarSectionData;
   /** Estado controlado — se omitido, gerencia internamente */
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  /** Substitui o `<a>` pelo link do router do consumidor. */
+  renderLink?: SidebarLinkRenderer;
   className?: string;
 };
 
@@ -29,6 +35,7 @@ export function SidebarSection({
   section,
   open,
   onOpenChange,
+  renderLink,
   className,
 }: SidebarSectionProps) {
   const [internalOpen, setInternalOpen] = useState<boolean>(section.defaultOpen ?? true);
@@ -89,6 +96,7 @@ export function SidebarSection({
                 key={item.name}
                 href={item.href}
                 onClick={item.onClick}
+                renderLink={renderLink}
                 title={item.name}
               >
                 {Icon ? (
@@ -117,6 +125,7 @@ export function SidebarSection({
               key={item.name}
               href={item.href}
               onClick={item.onClick}
+              renderLink={renderLink}
               title={`Conversar com ${item.name}`}
             >
               <span
@@ -137,31 +146,51 @@ export function SidebarSection({
   );
 }
 
-/* ── Wrapper que vira `<a>` ou `<button>` ─────────────────────────────────── */
+/* ── Wrapper que vira `<a>` ou link do router ──────────────────────────────── */
 function SidebarSectionLink({
   href,
   onClick,
   title,
+  renderLink,
   children,
 }: {
   href?: string;
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
   title?: string;
+  renderLink?: SidebarLinkRenderer;
   children: React.ReactNode;
 }) {
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    if (!href || href === "#") e.preventDefault();
+    // Sem href (ou `#` puro) o anchor é só afordância — cancelar sempre foi certo aqui.
+    if (!href || href === "#") {
+      e.preventDefault();
+      onClick?.(e);
+      return;
+    }
+    // COM href, a versão anterior não cancelava nada: com `href` de path o browser
+    // navegava e recarregava a página, mesmo tendo `onClick`. Mesma causa do
+    // `sidebar-item.tsx`. Ver `nav-link.ts`.
+    if (!renderLink) {
+      const prevent = shouldPreventNavigation({
+        href,
+        hasHandler: !!onClick,
+        event: e,
+      });
+      if (prevent) e.preventDefault();
+    }
     onClick?.(e);
   };
 
-  return (
-    <a
-      href={href ?? "#"}
-      className={sidebarSectionItem()}
-      onClick={handleClick}
-      title={title}
-    >
-      {children}
-    </a>
-  );
+  const linkProps = {
+    href: href ?? "#",
+    className: sidebarSectionItem(),
+    onClick: handleClick,
+    title,
+    children,
+  };
+
+  // `renderLink` só faz sentido com destino real — `#` puro é afordância, não rota.
+  if (renderLink && href && href !== "#") return <>{renderLink(linkProps)}</>;
+
+  return <a {...linkProps} />;
 }

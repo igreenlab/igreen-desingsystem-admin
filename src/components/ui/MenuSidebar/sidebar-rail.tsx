@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -13,7 +13,8 @@ import {
   sidebarRailUserDefault,
 } from "./sidebar.styles";
 import { SidebarBrandIcon } from "./sidebar-brand";
-import type { SidebarContext } from "./sidebar.types";
+import { shouldPreventNavigation } from "./nav-link";
+import type { SidebarContext, SidebarLinkRenderer } from "./sidebar.types";
 
 export type SidebarRailProps = {
   contexts: SidebarContext[];
@@ -23,6 +24,10 @@ export type SidebarRailProps = {
   user?: ReactNode;
   showAdd?: boolean;
   onAddClick?: () => void;
+  /** Destino do brand. Default `"/"`; string vazia torna o brand não-navegável. */
+  brandHref?: string;
+  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  renderLink?: SidebarLinkRenderer;
   className?: string;
 };
 
@@ -34,13 +39,20 @@ export function SidebarRail({
   user,
   showAdd = false,
   onAddClick,
+  brandHref = "/",
+  onBrandClick,
+  renderLink,
   className,
 }: SidebarRailProps) {
   return (
     <aside className={cn(sidebarRail(), className)}>
-      <a href="/" className={sidebarRailBrand()} aria-label="Home">
+      <SidebarBrandLink
+        href={brandHref}
+        onClick={onBrandClick}
+        renderLink={renderLink}
+      >
         {brand ?? <SidebarBrandIcon />}
-      </a>
+      </SidebarBrandLink>
 
       <div className={sidebarRailList()}>
         {contexts.map((ctx) => {
@@ -81,4 +93,55 @@ export function SidebarRail({
       )}
     </aside>
   );
+}
+
+/* ── Brand do rail ─────────────────────────────────────────────────────────── */
+//
+// ⚠️ Era `<a href="/">` FIXO no JSX até 2026-08-08: recarregava pra raiz em qualquer
+// app, sem forma de configurar nem de rotear. Agora aceita `brandHref`, `onBrandClick`
+// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `nav-link.ts`).
+function SidebarBrandLink({
+  href,
+  onClick,
+  renderLink,
+  children,
+}: {
+  href?: string;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  renderLink?: SidebarLinkRenderer;
+  children: ReactNode;
+}) {
+  // `brandHref=""` = brand decorativo/só-ação: vira <button> pra não mentir semântica
+  // de link (screen reader anuncia "link" pra algo que não navega).
+  if (!href) {
+    return (
+      <button
+        type="button"
+        className={sidebarRailBrand()}
+        onClick={onClick as unknown as () => void}
+        aria-label="Home"
+      >
+        {children}
+      </button>
+    );
+  }
+
+  const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    if (!renderLink) {
+      const prevent = shouldPreventNavigation({ href, hasHandler: !!onClick, event: e });
+      if (prevent) e.preventDefault();
+    }
+    onClick?.(e);
+  };
+
+  const linkProps = {
+    href,
+    className: sidebarRailBrand(),
+    onClick: handleClick,
+    "aria-label": "Home",
+    children,
+  };
+
+  if (renderLink) return <>{renderLink(linkProps)}</>;
+  return <a {...linkProps} />;
 }

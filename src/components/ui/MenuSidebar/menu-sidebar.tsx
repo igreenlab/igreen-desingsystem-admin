@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import type { MouseEvent } from "react";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
@@ -55,6 +56,9 @@ export function MenuSidebar({
   defaultMobileOpen,
   onMobileOpenChange,
   mobileBreakpoint = "(max-width: 767px)",
+  renderLink,
+  brandHref,
+  onBrandClick,
   className,
 }: SidebarProps) {
   const isMobile = useMediaQuery(mobileBreakpoint);
@@ -116,11 +120,21 @@ export function MenuSidebar({
 
   const activeContext = contexts.find((c) => c.id === ctxId) ?? contexts[0];
 
-  const handleItemClick = (item: SidebarMenuItem) => {
+  // Intenção do CONSUMIDOR, não do wrapper interno. O panel sempre passa um onClick
+  // (é como o item ativo funciona em modo uncontrolled), então inferir por ele
+  // cancelaria a navegação de quem não passou handler nenhum. Ver SidebarItemProps.
+  const interceptNavigation = !renderLink && !!onItemClick;
+
+  const handleItemClick = (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => {
     if (item.href && activeItemHref === undefined) {
       setItemHref(item.href);
     }
-    onItemClick?.(item);
+    // O evento passa adiante: sem ele o consumidor não tinha como cancelar a
+    // navegação do <a> nem sabendo do problema (era `(item) => void`).
+    onItemClick?.(item, event);
     // Mobile: fecha após selecionar (UX padrão de drawer)
     if (isMobile && item.href) setOpenMobile(false);
   };
@@ -174,6 +188,9 @@ export function MenuSidebar({
           user={user}
           showAdd={showRailAdd}
           onAddClick={onRailAddClick}
+          brandHref={brandHref}
+          onBrandClick={onBrandClick}
+          renderLink={renderLink}
         />
         {activeContext && (
           <SidebarPanel
@@ -194,6 +211,8 @@ export function MenuSidebar({
             contexts={contexts}
             onContextChange={setCtxId}
             onTitleClick={onPanelTitleClick}
+            renderLink={renderLink}
+            interceptNavigation={interceptNavigation}
           />
         )}
 

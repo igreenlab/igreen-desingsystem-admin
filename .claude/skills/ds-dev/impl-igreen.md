@@ -235,7 +235,7 @@ Componente interno de propósito (sem showcase) → declare em
 
 ## Referências
 
-- Anti-patterns proibidos + 67 lições → `.claude/rules/ds-standards.md`
+- Anti-patterns proibidos + 68 lições → `.claude/rules/ds-standards.md`
 - Padrão tv() detalhado e exemplos longos → `.ai/rules/coding-standards.md`
 - Inventário de componentes existentes → `.ai/context/components/inventory.md`
 - USAGE.md por componente → `src/components/ui/<Nome>/USAGE.md`

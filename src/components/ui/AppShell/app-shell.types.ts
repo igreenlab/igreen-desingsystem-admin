@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
 import type {
   HeaderBreadcrumbItem,
@@ -7,7 +7,11 @@ import type {
   HeaderNotificationsConfig,
   HeaderThemeOption,
 } from "@/components/ui/Header";
-import type { SidebarContext, SidebarMenuItem } from "@/components/ui/MenuSidebar";
+import type {
+  SidebarContext,
+  SidebarMenuItem,
+  SidebarLinkRenderer,
+} from "@/components/ui/MenuSidebar";
 
 /**
  * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)
@@ -65,7 +69,32 @@ export type AppShellProps = {
   defaultActiveItemHref?: string;
   /** Item ativo (controlled). */
   activeItemHref?: string;
-  onItemClick?: (item: SidebarMenuItem) => void;
+  /**
+   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`
+   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).
+   */
+  onItemClick?: (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
+
+  /**
+   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu
+   * router — é o que faz a navegação ser client-side em vez de recarregar a página.
+   *
+   * ```tsx
+   * import { Link } from "react-router-dom";
+   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />
+   * ```
+   *
+   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —
+   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.
+   */
+  renderLink?: SidebarLinkRenderer;
+
+  /** Destino do brand no topo do rail. Default `"/"`; `""` torna não-navegável. */
+  brandHref?: string;
+  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 
   /* ── Header (Header passthrough) ───────────────────────── */
   /** Breadcrumb do header (último item = página atual). Obrigatório. */

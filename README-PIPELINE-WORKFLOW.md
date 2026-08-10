@@ -18,7 +18,7 @@
 
 > ⚠️ **Este arquivo é referência HUMANA** (~91KB). Para sessões com agentes da IA, **não carregar**.
 > Use os arquivos curtos (≤ 4KB) carregados sob demanda:
-> - `.claude/rules/ds-standards.md` — regras essenciais + resumo das 67 lições (auto-load)
+> - `.claude/rules/ds-standards.md` — regras essenciais + resumo das 68 lições (auto-load)
 > - `.claude/agents/<nome>.md` — identidade dos 6 agents
 > - `.claude/skills/<agent>/<skill>.md` — sub-skills modulares
 > - `.ai/context/<topic>.md` — context maps (architecture, tokens, components)
