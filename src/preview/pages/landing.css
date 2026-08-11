@@ -401,11 +401,23 @@
   animation: ds-lp-aura-drift 18s ease-in-out infinite;
 }
 
+/**
+ * ⚠️ Inclinação subiu de **2.2° pra 7°** (translateY -10 → -26px, escala 0.975 → 0.952)
+ * por pedido: a 1ª calibragem existia e quase não se via.
+ *
+ * As três grandezas sobem JUNTAS de propósito. Só aumentar o `rotateX` daria uma peça
+ * deitada mas do mesmo tamanho, o que lê como distorção; o `scale` menor + o `translateY`
+ * maior é o que faz o conjunto ler como "está mais longe e vem chegando".
+ *
+ * O piso é o `transform-origin: center top`: a aresta de CIMA fica parada e a de baixo é
+ * que recua. Com origem no centro, um giro de 7° levantaria o topo da janela por cima do
+ * texto do hero.
+ */
 .lp-unfold {
   --lp-p: 0;
   transform-origin: center top;
-  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -10px))
-    rotateX(calc((1 - var(--lp-p)) * 2.2deg)) scale(calc(0.975 + var(--lp-p) * 0.025));
+  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -26px))
+    rotateX(calc((1 - var(--lp-p)) * 7deg)) scale(calc(0.952 + var(--lp-p) * 0.048));
   will-change: transform;
 }
 
@@ -606,82 +618,40 @@
  * ## Por que não reusei o `.lp-reveal`
  *
  * Ele escalona 60ms por índice, e o card do prompt é `i={1}` — 60ms. 60ms a mais não lê
- * como "depois do card", lê como "junto". Aqui são **520ms** de atraso e **1.25s** de
+ * como "depois do card", lê como "junto". Aqui são **520ms** de atraso e **1.1s** de
  * duração: começa quando o card está terminando (60 + 700 = 760ms) e assenta bem depois.
  * A lentidão é o que dá peso: objeto 3D grande não salta, chega.
  *
- * ## E por que a entrada é ANIMAÇÃO e não transição (mudou na 2ª versão)
+ * ## Por que a entrada é TRANSIÇÃO, depois de duas tentativas com `@keyframes`
  *
- * A 1ª versão era `transition`, e transição só sabe ir de A pra B em linha reta — não
- * existe "passar do alvo e voltar". O pedido é justamente um **overshoot**: entra
- * tombado a +30°, passa de -5° do outro lado como uma gangorra, e só então assenta. Isso
- * precisa de quadros intermediários, ou seja `@keyframes` com `forwards` pra segurar o
- * estado final.
+ * Houve duas versões com gangorra/overshoot (`+30°` → `-5°` → volta), que `transition`
+ * não sabe fazer — transição só vai de A pra B em linha reta, não passa do alvo. A 1ª
+ * tinha 4 quadros e a chegada dava tranco; a 2ª tinha 6 quadros com easing por quadro e
+ * decaimento medido de 5° → 2.4° → 1° → 0.35° → 0, um amortecimento correto no papel.
  *
- * `transform-origin: 50% 80%` põe o pivô perto da BASE da peça, não no centro: é o que
- * faz o tombo ler como algo se endireitando do chão em vez de um cartaz girando no ar.
+ * O mantenedor reprovou as duas: numa peça deste tamanho, girando 30°, **qualquer**
+ * overshoot lê como brusco — o problema não era a curva de decaimento, era ter overshoot.
+ * A transição simples (some na diagonal, cresce de `0.9` e desgira `9°`, tudo em
+ * ease-out-expo) é o que fica elegante.
+ *
+ * ⚠️ Registro pra não repetir: a lição não é "6 quadros é melhor que 4", é que **peça
+ * grande em rotação não aceita overshoot**. Um pop de 4% num botão de 90px é discreto; o
+ * mesmo gesto num PNG de 412px é um solavanco.
  */
 .lp-mascote {
   opacity: 0;
   /* `perspective` no wrapper é o que faz o `rotateY` do filho ter profundidade — sem
      ela o giro vira um achatamento horizontal. */
   perspective: 1200px;
-  transform-origin: 50% 80%;
+  transform: translate3d(26px, 18px, 0) scale(0.9) rotateY(-9deg);
+  transition:
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 520ms;
 }
 .lp-mascote.is-in {
-  animation: ds-lp-mascote-entra 1.6s linear 520ms both;
-}
-
-/**
- * Entrada: sobe na diagonal, tombada, e se endireita com uma gangorra amortecida.
- *
- * ## Por que 6 quadros e não 4 (2ª calibragem)
- *
- * A versão de 4 quadros ia +30° → -5° → +2° → 0 e a chegada dava um TRANCO: pular de 2°
- * direto pro repouso em 275ms é um degrau, e o olho lê parada seca, não assentamento. O
- * que falta numa gangorra que "morre" é a cauda — cada oscilação tem que valer menos que
- * a anterior, e as últimas têm que ser quase nada.
- *
- * Agora a amplitude decai **5° → 2.4° → 1° → 0.35° → 0**, com o mesmo padrão em Y e em
- * escala. Cinco passos em vez de dois é o que transforma "gira e para" em "gira e
- * descansa".
- *
- * ## `linear` no atalho + easing POR QUADRO
- *
- * O `animation-timing-function` do atalho é `linear` de propósito: cada quadro declara o
- * seu. Uma curva única aplicada aos 6 segmentos deforma justamente a cauda — a parte que
- * precisa ser suave é onde uma ease-out global já está quase parada, e o resultado é o
- * degrau de novo. Primeiro segmento em ease-out (chega rápido, com peso); os demais em
- * ease-in-out senoidal, que é o perfil de um pêndulo perdendo energia.
- */
-@keyframes ds-lp-mascote-entra {
-  0% {
-    opacity: 0;
-    transform: translate3d(38px, 104px, 0) scale(0.8) rotate(30deg);
-    /* ease-out: a maior parte do caminho acontece no começo. */
-    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-  46% {
-    opacity: 1;
-    transform: translate3d(0, -12px, 0) scale(1.035) rotate(-5deg);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-  66% {
-    transform: translate3d(0, 4px, 0) scale(0.992) rotate(2.4deg);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-  82% {
-    transform: translate3d(0, -2px, 0) scale(1.006) rotate(-1deg);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-  93% {
-    transform: translate3d(0, 1px, 0) scale(0.999) rotate(0.35deg);
-    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
+  opacity: 1;
+  transform: none;
 }
 
 /**
@@ -705,9 +675,9 @@
  */
 .lp-mascote-idle {
   animation: ds-lp-mascote-idle 9s ease-in-out infinite;
-  /* Começa DEPOIS de a entrada assentar (520 + 1600). Sem isso a flutuação empurra a
+  /* Começa DEPOIS de a entrada assentar (520 + 1100). Sem isso a flutuação empurra a
      peça enquanto ela ainda está chegando, e as duas somadas leem como tremor. */
-  animation-delay: 2.15s;
+  animation-delay: 1.7s;
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -826,14 +796,10 @@
   .lp-copy.is-copied::after {
     display: none;
   }
-  /* O mascote fica no estado FINAL, como o `.lp-reveal`. Aqui `animation: none` é
-     load-bearing, não zelo: a entrada é `@keyframes ... both`, então sem isto o
-     `animation-fill-mode: both` congelaria a peça no quadro 0% — tombada a 30°, em
-     `scale(0.8)` e `opacity: 0`. Desligar a animação sem afirmar o estado final deixaria
-     a imagem invisível. */
+  /* O mascote fica no estado FINAL, como o `.lp-reveal` — desligar só a transição
+     deixaria a imagem em `scale(0.9)` girada, que é o estado de ENTRADA. */
   .lp-mascote,
   .lp-mascote.is-in {
-    animation: none;
     opacity: 1;
     transform: none;
     transition: none;
