@@ -206,6 +206,45 @@
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
+   4b. Janela do hero — bezel + fade, e o "unfold" guiado por scroll.
+
+   ## Os números não são estimados
+
+   Medidos no `projectise.framer.ai` com o DevTools, que é a referência que o
+   mantenedor pediu pra seguir:
+
+   | scrollY | matrix3d resolvido            |
+   |---------|------------------------------|
+   | 0       | scale .9799 · rotateX +1,97° · translateY -7,87px |
+   | 250     | scale 1 · rotateX +0,05° · ~0 |
+   | 500+    | identidade                    |
+
+   Ou seja: a janela nasce **deitada e menor** e se levanta em ~250–400px de scroll.
+   O bezel de lá: outer `radius 20px` + `padding 8px`, inner `radius 15px`, e
+   `mask-image: linear-gradient(#000 0%, transparent 95%)` — é dali que vem o fade
+   do rodapé, não de um gradiente sobreposto.
+
+   ## Por que a interpolação é em CSS e o scroll em JS
+
+   `animation-timeline: scroll()` resolveria sem JS, mas o container de scroll aqui é
+   o `<main>` do App (não o documento), e timeline nomeada em ancestral de outro
+   componente é acoplamento frágil. Um listener passivo escreve `--lp-p` (0→1) e o
+   CSS faz a conta: 1 var, sem re-render de React.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-window {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 97%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 97%);
+}
+
+.lp-unfold {
+  --lp-p: 0;
+  transform-origin: center top;
+  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -10px))
+    rotateX(calc((1 - var(--lp-p)) * 2.2deg)) scale(calc(0.975 + var(--lp-p) * 0.025));
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
    5. Reveal no scroll. O stagger vem de `--lp-i` (índice), setado no JSX — sem
       `transition-delay` inline espalhado pelo markup.
    ───────────────────────────────────────────────────────────────────────────── */
@@ -267,5 +306,10 @@
   }
   .lp-tint {
     transition: none;
+  }
+  /* A janela fica DE PÉ, não deitada: o estado final é o legível. */
+  .lp-unfold {
+    transform: none;
+    will-change: auto;
   }
 }

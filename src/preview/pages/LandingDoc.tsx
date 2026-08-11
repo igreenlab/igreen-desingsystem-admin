@@ -36,22 +36,40 @@ import {
   useMemo,
   useRef,
   useState,
+  type ComponentType,
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import {
   ArrowUpRight,
   Blocks,
+  Bot,
+  Building2,
+  ChartColumn,
   Check,
+  Component,
   Copy,
+  FlaskConical,
   Layers,
+  LayoutDashboard,
+  List as ListIcon,
+  MonitorPlay,
+  Moon,
   Package,
+  Palette,
+  Plus,
+  Receipt,
+  Rocket,
   Search,
   Sparkles,
   Sun,
-  Moon,
+  Table as TableIcon,
   Terminal,
+  TriangleAlert,
+  Users,
+  Wallet,
+  Workflow,
   Zap,
 } from "lucide-react";
 
@@ -65,11 +83,10 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "../../components/ui/Chart";
-import { chipCount } from "../../components/ui/Chip";
+import { FormFieldInput } from "../../components/ui/FormField";
 import { Switch } from "../../components/shadcn/switch";
 import { Input } from "../../components/shadcn/input";
 import { Badge } from "../../components/shadcn/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../components/shadcn/tabs";
 import {
   Table,
   TableBody,
@@ -79,10 +96,17 @@ import {
   TableRow,
   useColumnWidths,
 } from "../../components/ui/Table";
+import { SingleMenuSidebar } from "../../components/ui/SingleMenuSidebar";
 import { BRANDS, useBrand } from "../../hooks/useBrand";
 import { useTheme } from "../../hooks/useTheme";
-import { getCatalog, getCatalogSections, useDocNav } from "../components";
+import { getCatalog, getCatalogSections, useDocNav, type CatalogEntry } from "../components";
 import "./landing.css";
+
+type LucideIcon = ComponentType<{
+  className?: string;
+  strokeWidth?: number;
+  "aria-hidden"?: boolean;
+}>;
 
 /* ═════════════════════════════════════════════════════════════════════════════
    Dados
@@ -117,7 +141,18 @@ const STATUS_COLOR = {
   Ativo: "success",
   Pendente: "warning",
   Inativo: "neutral",
+  Análise: "warning",
+  Pausado: "neutral",
 } as const;
+
+/** Linhas da tabela do dashboard do hero. */
+const CONTRATOS = [
+  { iniciais: "MR", cliente: "Marina Ribeiro", uc: "UC 4821-09", plano: "Solar 300", status: "Ativo", fatura: "R$ 412" },
+  { iniciais: "JC", cliente: "João Carvalho", uc: "UC 1190-33", plano: "Solar 150", status: "Análise", fatura: "R$ 289" },
+  { iniciais: "AL", cliente: "Ana Lima", uc: "UC 7734-02", plano: "Telecom 50", status: "Pausado", fatura: "R$ 0" },
+  { iniciais: "RS", cliente: "Rafael Souza", uc: "UC 2206-71", plano: "Solar 500", status: "Ativo", fatura: "R$ 738" },
+  { iniciais: "CB", cliente: "Camila Barros", uc: "UC 9013-44", plano: "Seguros", status: "Análise", fatura: "R$ 164" },
+] as const;
 
 /** A landing não se lista no próprio catálogo. */
 const CATALOGO = getCatalog(["landing"]);
@@ -168,6 +203,107 @@ function useInView<T extends HTMLElement>() {
   return { ref, dentro };
 }
 
+/**
+ * Escreve `--lp-p` (0→1) no elemento conforme ele sobe na tela — é o que "levanta" a
+ * janela do hero. Os valores da curva vieram de medição no `projectise.framer.ai`
+ * (ver o cabeçalho de `.lp-unfold` no landing.css).
+ *
+ * Escreve direto no `style` em vez de passar por state: é 1 propriedade CSS por frame,
+ * e um `setState` a cada scroll re-renderizaria o dashboard inteiro do mockup.
+ *
+ * O container de scroll é o `<main>` do App, não o documento — daí o `closest`.
+ */
+function useUnfold<T extends HTMLElement>(distancia = 320) {
+  const ref = useRef<T | null>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      el.style.setProperty("--lp-p", "1");
+      return;
+    }
+
+    const scroller: HTMLElement | Window =
+      (el.closest("main") as HTMLElement | null) ?? window;
+
+    let frame = 0;
+    const medir = () => {
+      frame = 0;
+      const alvo = ref.current;
+      if (!alvo) return;
+      // Progresso pelo scroll ABSOLUTO do topo da página, não pela posição da janela
+      // na viewport. Foi o que a medição do projectise mostrou: lá a janela está bem
+      // dentro da viewport no scroll 0 e AINDA assim aparece deitada — ou seja, o
+      // driver é "quanto a página desceu", não "quanto a peça subiu". Com o driver
+      // por posição, esta janela (que fica ~700px abaixo do topo) já nascia 99,8%
+      // de pé e a animação era invisível.
+      const y = scroller instanceof Window ? window.scrollY : scroller.scrollTop;
+      // `clamp` nas duas pontas: sem isso o overscroll devolve negativo e a janela
+      // deita além do desenhado.
+      alvo.style.setProperty("--lp-p", String(Math.max(0, Math.min(1, y / distancia))));
+    };
+
+    const agendar = () => {
+      if (!frame) frame = requestAnimationFrame(medir);
+    };
+
+    medir();
+    scroller.addEventListener("scroll", agendar, { passive: true });
+    window.addEventListener("resize", agendar, { passive: true });
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      scroller.removeEventListener("scroll", agendar);
+      window.removeEventListener("resize", agendar);
+    };
+  }, [distancia]);
+
+  return ref;
+}
+
+/**
+ * Escala o mockup pra caber na largura disponível, renderizando-o numa largura de
+ * DESIGN fixa.
+ *
+ * É o que o pedido "mesmo estilo, porém com scale menor" exige de verdade: se eu
+ * apenas apertasse o dashboard em 1180px, os componentes reagiriam ao container
+ * (sidebar de 280px comendo 24% da largura, KPIs quebrando em 2 linhas) e o mockup
+ * mostraria um layout que nenhum app real tem. Renderizando a 1440px e escalando,
+ * cada componente mantém a proporção que teria num monitor — só menor. É também como
+ * o projectise e o Flowtera fazem.
+ *
+ * Bônus: resolve o mobile sem `@media`. Num viewport de 390px o dashboard inteiro
+ * encolhe em vez de refluir pra um layout quebrado.
+ */
+function useFitScale<T extends HTMLElement>(larguraDesign: number, escalaMinima = 1) {
+  const ref = useRef<T | null>(null);
+  const [escala, setEscala] = useState(1);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const medir = () => {
+      const largura = el.clientWidth;
+      if (largura <= 0) return;
+      // O PISO é o que salva o mobile. Sem ele, num viewport de 390px a escala caía
+      // pra 0,33 e o dashboard virava uma miniatura ilegível — pior que não mostrar.
+      // Com piso, a janela CORTA a lateral (o app segue em tamanho legível e continua
+      // além da moldura), que é exatamente o tratamento das referências.
+      setEscala(Math.max(escalaMinima, Math.min(1, largura / larguraDesign)));
+    };
+
+    medir();
+    // Sem ResizeObserver (jsdom) fica na escala medida no mount — degrada, não quebra.
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [larguraDesign, escalaMinima]);
+
+  return { ref, escala };
+}
+
 /** Bloco que entra ao rolar. `i` escalona o delay via `--lp-i` (ver landing.css). */
 function Reveal({
   i = 0,
@@ -199,29 +335,44 @@ function Wrap({ className, children }: { className?: string; children: ReactNode
   );
 }
 
-/** Eyebrow + título + linha de apoio. Hierarquia por espaçamento, não por tamanho. */
+/**
+ * Eyebrow + título + linha de apoio. Hierarquia por espaçamento, não por tamanho.
+ *
+ * `alinhamento` existe porque o wireframe usa os dois: a seção de tokens é centrada
+ * (o seletor logo abaixo é o eixo da simetria), e instalação/prompt/catálogo são à
+ * ESQUERDA — ali o conteúdo é uma leitura em duas colunas, e head centrado sobre
+ * conteúdo assimétrico fica desalinhado.
+ */
 function SectionHead({
   eyebrow,
   title,
   em,
+  alinhamento = "left",
   children,
 }: {
   eyebrow: string;
   title: string;
   em?: string;
+  alinhamento?: "left" | "center";
   children?: ReactNode;
 }) {
+  const centro = alinhamento === "center";
   return (
-    <div className="flex flex-col items-center text-center">
+    <div className={cn("flex flex-col", centro && "items-center text-center")}>
       <span
-        className="inline-flex items-center gap-gp-sm rounded-radius-full border border-border-brand-subtle
+        className="inline-flex w-fit items-center gap-gp-sm rounded-radius-full border border-border-brand-subtle
                    bg-bg-brand-subtle px-pad-lg py-pad-xs font-mono text-caption-xs uppercase
                    tracking-[0.12em] text-fg-brand"
       >
         <span className="size-[5px] rounded-radius-full bg-bg-brand" aria-hidden />
         {eyebrow}
       </span>
-      <h2 className="mt-gp-xl max-w-[24ch] text-heading-lg font-semibold tracking-[-0.03em] text-fg-default">
+      <h2
+        className={cn(
+          "mt-gp-xl text-heading-lg font-semibold tracking-[-0.03em] text-fg-default",
+          centro ? "max-w-[26ch]" : "max-w-[30ch]",
+        )}
+      >
         {title} {em && <em className="lp-grad not-italic">{em}</em>}
       </h2>
       {children && (
@@ -326,331 +477,803 @@ function Card({
 }
 
 /* ═════════════════════════════════════════════════════════════════════════════
-   Palco do hero — a assinatura da página
+   Seletor de marca + modo
 
-   O switch de marca/modo fica ENCOSTADO nas peças, não numa seção separada lá
-   embaixo: o que precisa ser entendido é "mexi aqui, mudou ali". São os hooks
-   reais, então a troca vale pro showcase inteiro (persiste em localStorage).
+   Dois grupos segmentados lado a lado numa linha, no mesmo desenho de pílula —
+   como no wireframe. O modo era um `Button` com ícone de sol/lua e ficava com peso
+   visual diferente do seletor de marca, quebrando a leitura de "um controle só".
    ═════════════════════════════════════════════════════════════════════════════ */
 
-function ThemeOrganism() {
-  const { brand, setBrand } = useBrand();
-  const { isDark, toggle } = useTheme();
-
-  return (
-    <div className="flex flex-col items-center gap-gp-lg">
-      <div className="flex flex-wrap items-center justify-center gap-gp-md">
-        <div
-          role="group"
-          aria-label="Marca"
-          className="flex items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-surface p-pad-2xs shadow-sh-sm"
-        >
-          {BRANDS.map((b) => (
-            <button
-              key={b.id}
-              type="button"
-              onClick={() => setBrand(b.id)}
-              aria-pressed={brand === b.id}
-              className={cn(
-                "inline-flex min-h-form-sm items-center gap-gp-sm rounded-radius-full px-pad-lg",
-                "text-caption-md font-medium transition-colors focus-visible:outline-none",
-                "focus-visible:ring-4 focus-visible:ring-ring-brand",
-                brand === b.id
-                  ? "bg-bg-brand-subtle text-fg-brand"
-                  : "text-fg-muted hover:bg-bg-muted hover:text-fg-default",
-              )}
-            >
-              <span
-                aria-hidden
-                className="size-[10px] rounded-radius-full ring-1 ring-inset ring-border-default"
-                style={{ background: b.swatch }}
-              />
-              {b.label}
-            </button>
-          ))}
-        </div>
-
-        <Button
-          color="secondary"
-          variant="outline"
-          size="sm"
-          onClick={toggle}
-          iconLeft={isDark ? <Sun /> : <Moon />}
-        >
-          {isDark ? "Claro" : "Escuro"}
-        </Button>
-      </div>
-
-      <p className="max-w-[52ch] text-center text-caption-md text-fg-subtle">
-        Marca troca <strong className="font-medium text-fg-muted">só cor</strong> — spacing,
-        sizing, radius e tipografia vêm sempre da base. E vale pro showcase todo, não só
-        pra esta página.
-      </p>
-    </div>
-  );
-}
-
-/**
- * Uma peça do palco: card real + flutuação lenta + entrada escalonada.
- *
- * São TRÊS divs aninhadas de propósito, e a distinção importa: `className` posiciona
- * a peça na grade (col-span, offset vertical) no div de reveal; `conteudo` estiliza o
- * que está DENTRO do `lp-bob`, que é um block e engoliria um `flex` posto de fora.
- */
-function StagePiece({
-  i,
-  className,
-  conteudo,
+/** Um item de grupo segmentado. Mesmo desenho pros dois grupos, de propósito. */
+function SegItem({
+  ativo,
+  onClick,
   children,
+  swatch,
 }: {
-  i: number;
-  className?: string;
-  conteudo?: string;
+  ativo: boolean;
+  onClick: () => void;
   children: ReactNode;
+  swatch?: string;
 }) {
-  const { ref, dentro } = useInView<HTMLDivElement>();
   return (
-    <div
-      ref={ref}
-      style={{ "--lp-i": i } as CSSProperties}
-      className={cn("lp-reveal", dentro && "is-in", className)}
+    <button
+      type="button"
+      onClick={onClick}
+      aria-pressed={ativo}
+      className={cn(
+        "inline-flex min-h-form-md items-center gap-gp-sm rounded-radius-full px-pad-xl",
+        "text-caption-md font-medium whitespace-nowrap transition-colors",
+        "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+        ativo
+          ? "bg-bg-surface text-fg-default shadow-sh-sm"
+          : "text-fg-muted hover:text-fg-default",
+      )}
     >
-      <div className={cn("lp-bob", conteudo)} style={{ "--lp-i": i } as CSSProperties}>
-        {children}
+      {swatch && (
+        <span
+          aria-hidden
+          className="size-[9px] shrink-0 rounded-radius-full ring-1 ring-inset ring-border-default"
+          style={{ background: swatch }}
+        />
+      )}
+      {children}
+    </button>
+  );
+}
+
+function ThemeSwitcher() {
+  const { brand, setBrand } = useBrand();
+  const { isDark, setTheme } = useTheme();
+
+  return (
+    <div className="flex flex-wrap items-center justify-center gap-gp-md">
+      <div
+        role="group"
+        aria-label="Marca"
+        className="flex flex-wrap items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs"
+      >
+        {BRANDS.map((b) => (
+          <SegItem
+            key={b.id}
+            ativo={brand === b.id}
+            onClick={() => setBrand(b.id)}
+            swatch={b.swatch}
+          >
+            {b.id}
+          </SegItem>
+        ))}
+      </div>
+
+      <div
+        role="group"
+        aria-label="Modo"
+        className="flex items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs"
+      >
+        <SegItem ativo={isDark} onClick={() => setTheme("dark")}>
+          <Moon className="size-icon-xs" aria-hidden /> Escuro
+        </SegItem>
+        <SegItem ativo={!isDark} onClick={() => setTheme("light")}>
+          <Sun className="size-icon-xs" aria-hidden /> Claro
+        </SegItem>
       </div>
     </div>
   );
 }
 
-/**
- * Card de receita. O gráfico só monta DEPOIS que o card entra na viewport.
- *
- * Não é lazy-load por peso — é pelo warning do Recharts. Montando junto com a página,
- * o `ResponsiveContainer` media o pai antes do grid resolver e reclamava
- * `width(-1) and height(-1)` duas vezes por load. Esperar o `useInView` dá layout
- * pronto na primeira medição, e de graça evita animar gráfico fora de tela.
- */
-function ReceitaCard() {
-  const { ref, dentro } = useInView<HTMLDivElement>();
+/* ═════════════════════════════════════════════════════════════════════════════
+   Janela do hero — a peça principal
 
+   O wireframe (e as 5 referências que o mantenedor trouxe: projectise, Flowtera,
+   FXIFY, LyteNyte, reax) convergem no MESMO recurso: uma janela de app com bezel
+   arredondado, um dashboard DE VERDADE dentro, cards flutuando nas bordas e o rodapé
+   sumindo num fade. A 1ª versão desta landing tinha cards soltos sem dashboard — leu
+   como peças desalinhadas, não como produto.
+
+   Aqui o miolo é composto de componentes reais: `MenuSidebar` (o mesmo do AppShell),
+   `Kpi`, `ChartContainer`, `Table`, `Chip`, `Badge`, `Button`, `Input`. Trocar a marca
+   no seletor logo abaixo re-tinge tudo isto ao vivo.
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+const KPIS_MOCK = [
+  { label: "Clientes ativos", valor: "12.847", delta: "+8,2%", icone: Users },
+  { label: "Faturamento", valor: "R$ 4,2M", delta: "+12,5%", icone: Wallet },
+  { label: "Inadimplência", valor: "2,1%", delta: "-0,4%", icone: TriangleAlert },
+  { label: "Ticket médio", valor: "R$ 327", delta: "+2,8%", icone: Receipt },
+] as const;
+
+const ENERGIA = [
+  { mes: "set", kwh: 320 },
+  { mes: "out", kwh: 412 },
+  { mes: "nov", kwh: 388 },
+  { mes: "dez", kwh: 455 },
+  { mes: "jan", kwh: 470 },
+  { mes: "fev", kwh: 505 },
+  { mes: "mar", kwh: 690 },
+  { mes: "abr", kwh: 520 },
+  { mes: "mai", kwh: 545 },
+];
+
+const ENERGIA_CONFIG = {
+  kwh: { label: "kWh injetados", color: "var(--color-chart-1)" },
+} satisfies ChartConfig;
+
+const MIX = [
+  { nome: "Solar", pct: 62 },
+  { nome: "Telecom", pct: 21 },
+  { nome: "Seguros", pct: 11 },
+  { nome: "Outros", pct: 6 },
+];
+
+/** Barra da chrome do browser — a "moldura" que faz o mockup ler como app real. */
+function BrowserBar() {
   return (
-    <div ref={ref}>
-      <Card
-        titulo="Receita recorrente"
-        subtitulo="últimos 7 meses"
-        acao={<KpiDelta value="+6,1%" signed />}
-      >
-        <p className="text-stat-lg leading-none tabular-nums text-fg-default">R$ 89,4k</p>
-        {/* Altura reservada nos dois estados: sem isso o card pula quando o
-            gráfico entra. */}
-        <div className="h-[104px] w-full">
-          {dentro && (
-            <ChartContainer config={RECEITA_CONFIG} className="h-[104px] w-full">
-              <AreaChart data={RECEITA} margin={{ left: 0, right: 0, top: 4, bottom: 0 }}>
-                <CartesianGrid vertical={false} strokeDasharray="4 4" />
-                <XAxis
-                  dataKey="mes"
-                  tickLine={false}
-                  axisLine={false}
-                  tickMargin={8}
-                  // Sem isto o Recharts descarta o tick da borda e a série começava
-                  // em "Mar" com o dado de "Fev" desenhado — L-032, caveat 4.
-                  interval="preserveStartEnd"
-                />
-                <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-                <Area
-                  dataKey="valor"
-                  type="natural"
-                  stroke="var(--color-chart-1)"
-                  fill="var(--color-chart-1)"
-                  fillOpacity={0.18}
-                  strokeWidth={2}
-                />
-              </AreaChart>
-            </ChartContainer>
-          )}
-        </div>
-      </Card>
+    <div className="flex h-[34px] shrink-0 items-center gap-gp-md border-b border-border-subtle bg-bg-subtle px-pad-xl">
+      <span className="flex items-center gap-gp-2xs" aria-hidden>
+        {["bg-bg-danger", "bg-bg-warning", "bg-bg-success"].map((c) => (
+          <span key={c} className={cn("size-[8px] rounded-radius-full opacity-70", c)} />
+        ))}
+      </span>
+      <span className="mx-auto rounded-radius-full bg-bg-muted px-pad-xl py-[2px] font-mono text-caption-xs text-fg-subtle">
+        app.igreen.com.br/operacao/dashboard
+      </span>
     </div>
   );
 }
 
 /**
- * Tabela do palco. O `Table` do DS é composto de divs com larguras resolvidas por
- * `useColumnWidths` — não é `<table>` nativo, e a largura vive na coluna, não no CSS.
+ * Sidebar do mockup — o `SingleMenuSidebar` REAL.
  *
- * É `Table` e não `DataTable` de propósito: o `DataTable` quer altura própria,
- * paginação e toolbar, e dentro de um palco de hero ele briga com a página em vez de
- * demonstrá-la. O convite pro DataTable completo é o CTA de fechamento.
+ * Não é o `MenuSidebar`: aquele é rail + painel de contexto (medido: ~330px no
+ * mockup), e ele esmagava o dashboard e mostrava um seletor de módulo do tamanho de
+ * um card. O `SingleMenuSidebar` é o de nível único do próprio DS — 280px, lista
+ * rotulada, exatamente a forma que o wireframe desenhou.
  */
-function ClientesTable() {
+const MODULO_MOCK = {
+  id: "operacao",
+  icon: <Zap />,
+  title: "Operação",
+  subtitle: "MÓDULO ATIVO",
+  categories: [
+    { id: "dashboard", icon: <LayoutDashboard />, label: "Dashboard", active: true },
+    { id: "clientes", icon: <Users />, label: "Clientes" },
+    {
+      id: "contratos",
+      icon: <Receipt />,
+      label: "Contratos",
+      items: [
+        { id: "ativos", label: "Ativos" },
+        { id: "analise", label: "Em análise" },
+      ],
+    },
+    { id: "faturas", icon: <Wallet />, label: "Faturas" },
+    { id: "usinas", icon: <Building2 />, label: "Usinas" },
+    { id: "relatorios", icon: <ChartColumn />, label: "Relatórios" },
+  ],
+};
+
+/**
+ * ⚠️ A largura vem deste wrapper, não do componente — e é a MESMA armadilha que já
+ * apareceu com o `MenuSidebar`: o que está dentro do mockup responde à **viewport**,
+ * não à largura de design do mockup.
+ *
+ * O `SingleMenuSidebar` é `w-full md:w-[280px]`. Num celular (390px < 768) o `md:` não
+ * casa, então o `w-full` resolvia pra 100% do container de 1280px e a sidebar comia o
+ * mockup inteiro — o hero mobile mostrava só menu, sem dashboard. Medido no browser;
+ * a matemática do `useFitScale` estava certa, quem mentia era o media query.
+ *
+ * Caixa de largura fixa: o `w-full` de dentro passa a resolver pra 280 em qualquer
+ * viewport, sem `!important` e sem tocar o componente.
+ */
+function MockSidebar() {
+  return (
+    <div className="w-[280px] shrink-0 overflow-hidden">
+      <SingleMenuSidebar
+        logo={
+          <span
+            aria-hidden
+            className="grid size-comp-xl place-items-center rounded-radius-base bg-bg-brand text-fg-on-brand"
+          >
+            <Zap className="size-icon-sm" />
+          </span>
+        }
+        title="iGreen Admin"
+        module={MODULO_MOCK}
+        user={{ name: "Sérgio Vieira", email: "sergio@igreen.com.br" }}
+        activeItemId="dashboard"
+      />
+    </div>
+  );
+}
+
+function MockDashboard() {
   const colunas = useMemo(
     () => [
-      { field: "nome", headerName: "Cliente", width: 190 },
-      { field: "doc", headerName: "CNPJ", width: 170 },
-      { field: "kwh", headerName: "kWh", width: 90 },
-      { field: "status", headerName: "Status", width: 110 },
+      { field: "cliente", headerName: "Cliente", width: 200 },
+      { field: "uc", headerName: "Unidade", width: 120 },
+      { field: "plano", headerName: "Plano", width: 110 },
+      { field: "status", headerName: "Status", width: 104 },
+      { field: "fatura", headerName: "Fatura", width: 96 },
     ],
     [],
   );
   const { widths } = useColumnWidths(colunas);
 
   return (
-    <Card
-      titulo="Clientes"
-      subtitulo="4 de 1.284"
-      acao={
-        <Badge color="primary" variant="soft" size="sm" className="font-mono">
-          Table
-        </Badge>
-      }
-    >
-      <Table density="compact" ariaLabel="Clientes de exemplo">
-        <TableHead>
-          {colunas.map((c) => (
-            <TableHeadCell
-              key={c.field}
-              width={widths[c.field]}
-              align={c.field === "kwh" ? "right" : "left"}
-            >
-              {c.headerName}
-            </TableHeadCell>
-          ))}
-        </TableHead>
-        <TableBody>
-          {CLIENTES.map((c) => (
-            <TableRow key={c.doc}>
-              <TableCell width={widths.nome}>
-                <span className="font-medium text-fg-default">{c.nome}</span>
-              </TableCell>
-              <TableCell width={widths.doc}>
-                <span className="font-mono text-fg-muted">{c.doc}</span>
-              </TableCell>
-              <TableCell width={widths.kwh} align="right">
-                <span className="tabular-nums">{c.kwh}</span>
-              </TableCell>
-              <TableCell width={widths.status}>
-                <Chip color={STATUS_COLOR[c.status]} variant="soft" size="sm">
-                  {c.status}
-                </Chip>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Card>
+    <div className="flex min-w-0 flex-1 flex-col gap-gp-xl overflow-hidden p-pad-3xl">
+      {/* Header da página */}
+      <header className="flex flex-wrap items-start justify-between gap-gp-md">
+        <div className="flex min-w-0 flex-col gap-[2px]">
+          <h3 className="m-0 text-title-md font-semibold text-fg-default">Visão geral</h3>
+          <p className="m-0 text-caption-md text-fg-muted">
+            Atualizado há 4 minutos · região Sudeste
+          </p>
+        </div>
+        <div className="flex shrink-0 items-center gap-gp-sm">
+          <div className="hidden items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs sm:flex">
+            {["Dia", "Mês", "Ano"].map((p) => (
+              <span
+                key={p}
+                className={cn(
+                  "rounded-radius-full px-pad-lg py-[3px] text-caption-sm",
+                  p === "Mês"
+                    ? "bg-bg-surface font-medium text-fg-default shadow-sh-sm"
+                    : "text-fg-muted",
+                )}
+              >
+                {p}
+              </span>
+            ))}
+          </div>
+          <Button size="xs" iconLeft={<Plus />}>
+            Novo contrato
+          </Button>
+        </div>
+      </header>
+
+      {/* KPIs — `KpiGroup divided`, o recipe do dashboard-patterns §1 */}
+      <KpiGroup columns={4} divided>
+        {KPIS_MOCK.map((k) => {
+          const Icone = k.icone;
+          return (
+            <Kpi
+              key={k.label}
+              label={k.label}
+              value={k.valor}
+              icon={<Icone />}
+              tone={k.delta.startsWith("-") ? "danger" : "brand"}
+              delta={<KpiDelta value={k.delta} signed />}
+            />
+          );
+        })}
+      </KpiGroup>
+
+      {/* Chart-card + mix da carteira */}
+      <div className="grid min-h-0 grid-cols-1 gap-gp-xl lg:grid-cols-[1.6fr_1fr]">
+        <Card titulo="Energia injetada" subtitulo="kWh · 9 meses">
+          <ChartContainer config={ENERGIA_CONFIG} className="h-[132px] w-full">
+            <BarChart data={ENERGIA} margin={{ left: 0, right: 0, top: 4, bottom: 0 }}>
+              <CartesianGrid vertical={false} strokeDasharray="4 4" />
+              <XAxis dataKey="mes" tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <Bar dataKey="kwh" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]} />
+            </BarChart>
+          </ChartContainer>
+        </Card>
+
+        <Card titulo="Mix da carteira" subtitulo="% da receita">
+          <div className="flex flex-col gap-gp-md">
+            {MIX.map((m) => (
+              <div key={m.nome} className="flex items-center gap-gp-md">
+                <span className="w-[62px] shrink-0 text-caption-md text-fg-muted">{m.nome}</span>
+                <span className="h-[6px] min-w-0 flex-1 overflow-hidden rounded-radius-full bg-bg-muted">
+                  <span
+                    className="block h-full rounded-radius-full bg-bg-brand"
+                    style={{ width: `${m.pct}%` }}
+                  />
+                </span>
+                <span className="w-[34px] shrink-0 text-right text-caption-md tabular-nums text-fg-default">
+                  {m.pct}%
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+
+      {/* Tabela — a peça mais densa do DS */}
+      <Card className="min-h-0">
+        <div className="flex flex-wrap items-center gap-gp-md">
+          <div className="relative min-w-0 flex-1">
+            <Search
+              className="pointer-events-none absolute left-pad-lg top-1/2 size-icon-xs -translate-y-1/2 text-fg-subtle"
+              aria-hidden
+            />
+            <Input
+              readOnly
+              tabIndex={-1}
+              placeholder="Buscar cliente, UC ou contrato…"
+              aria-hidden
+              className="min-h-form-md pl-[34px] text-body-sm"
+            />
+          </div>
+          <Chip size="sm" variant="outline">
+            Status: 2
+          </Chip>
+          <Chip size="sm" variant="outline">
+            Colunas
+          </Chip>
+        </div>
+
+        <Table density="compact" ariaLabel="Contratos (exemplo)">
+          <TableHead>
+            {colunas.map((c) => (
+              <TableHeadCell
+                key={c.field}
+                width={widths[c.field]}
+                align={c.field === "fatura" ? "right" : "left"}
+              >
+                {c.headerName}
+              </TableHeadCell>
+            ))}
+          </TableHead>
+          <TableBody>
+            {CONTRATOS.map((r) => (
+              <TableRow key={r.uc}>
+                <TableCell width={widths.cliente}>
+                  <span className="flex min-w-0 items-center gap-gp-sm">
+                    <span
+                      aria-hidden
+                      className="grid size-comp-sm shrink-0 place-items-center rounded-radius-full bg-bg-brand-subtle text-caption-xs font-bold text-fg-brand"
+                    >
+                      {r.iniciais}
+                    </span>
+                    <span className="truncate font-medium text-fg-default">{r.cliente}</span>
+                  </span>
+                </TableCell>
+                <TableCell width={widths.uc}>
+                  <span className="font-mono text-fg-muted">{r.uc}</span>
+                </TableCell>
+                <TableCell width={widths.plano}>{r.plano}</TableCell>
+                <TableCell width={widths.status}>
+                  <Chip color={STATUS_COLOR[r.status]} variant="soft" size="sm">
+                    {r.status}
+                  </Chip>
+                </TableCell>
+                <TableCell width={widths.fatura} align="right">
+                  <span className="tabular-nums">{r.fatura}</span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Card>
+    </div>
   );
 }
 
-function Stage() {
+/**
+ * Card que flutua na BORDA da janela — a moldura, não a cobertura.
+ *
+ * A 1ª tentativa usava offsets de -8 a -24px e os cards caíam DENTRO da janela,
+ * tapando os KPIs e o gráfico. Nas 5 referências eles ficam majoritariamente fora,
+ * mordendo a borda: é isso que dá a sensação de profundidade em vez de bagunça.
+ *
+ * `hidden 2xl:block`: só aparecem quando existe margem lateral de verdade. Num
+ * viewport apertado eles voltariam a cobrir o dashboard, que é o conteúdo.
+ */
+function FloatCard({
+  className,
+  i = 0,
+  children,
+}: {
+  className?: string;
+  i?: number;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      style={{ "--lp-i": i } as CSSProperties}
+      className={cn(
+        "lp-bob lp-tint absolute z-20 hidden w-[184px] rounded-radius-lg border border-border-default",
+        "bg-bg-surface p-pad-lg shadow-sh-lg lg:block",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** Largura de DESIGN do mockup. O app é renderizado nela e escalado pra caber. */
+const LARGURA_APP = 1280;
+/**
+ * Altura de DESIGN do app, e a altura VISÍVEL da janela.
+ *
+ * A janela é deliberadamente mais curta que o app: o rodapé do dashboard é cortado e
+ * some no fade — é o que as 5 referências fazem, e o que faz o mockup parecer uma
+ * tela que continua além da moldura.
+ *
+ * ⚠️ A 1ª versão derivava a altura do app de `ALTURA_JANELA / escala`, o que dava
+ * exatamente a altura visível e fazia o conteúdo ser comprimido: os valores dos KPIs
+ * cortavam no meio do glifo. Altura de design própria e generosa resolve — quem
+ * recorta é a janela, não o layout.
+ */
+const ALTURA_APP = 700;
+const ALTURA_JANELA = 452;
+
+function HeroWindow() {
+  const unfoldRef = useUnfold<HTMLDivElement>(360);
+  const { ref: fitRef, escala } = useFitScale<HTMLDivElement>(LARGURA_APP, 0.52);
+
   return (
     <div className="relative">
       <div className="lp-aura" aria-hidden />
-      <div
-        className="relative grid grid-cols-1 gap-gp-xl sm:grid-cols-2 lg:grid-cols-12 lg:items-start"
-        aria-label="Componentes reais do design system"
-      >
-        {/* Consumo — Kpi com barra de franquia no slot livre */}
-        <StagePiece i={0} className="lg:col-span-4">
-          <Kpi
-            label="Consumo do mês"
-            value="1.284"
-            hint="kWh · 72% da franquia"
-            icon={<Zap />}
-            tone="brand"
-            size="lg"
-          >
-            <div
-              className="mt-gp-md flex h-[8px] gap-[2px] overflow-hidden rounded-radius-full bg-bg-muted"
-              role="presentation"
-            >
-              <span className="rounded-radius-full bg-bg-brand" style={{ flex: 72 }} />
-              <span style={{ flex: 28 }} />
-            </div>
-          </Kpi>
-        </StagePiece>
 
-        {/* Receita — chart-card */}
-        <StagePiece i={1} className="lg:col-span-5 lg:mt-[38px]">
-          <ReceitaCard />
-        </StagePiece>
-
-        {/* Feedback + estados.
-
-            ⚠️ O `flex flex-col gap` vai NESTE wrapper interno, não no `className` do
-            StagePiece: lá ele cairia no div de reveal, e o `lp-bob` no meio é um
-            block — os dois cards apareceram colados. */}
-        <StagePiece i={2} className="lg:col-span-3 lg:mt-[14px]" conteudo="flex flex-col gap-gp-xl">
-          {/* Recipe de metric-row do `dashboard-patterns.md` §2 — ícone QUADRADO
-              (`size-comp-xl rounded-radius-base`). Círculo é do KPI-group; são dois
-              recipes diferentes e trocá-los é o erro mais comum aqui. */}
-          <Card className="gap-gp-md">
-            <div className="flex items-center gap-gp-md">
-              <span
-                aria-hidden
-                className="grid size-comp-xl shrink-0 place-items-center rounded-radius-base bg-bg-success-muted text-fg-success"
+      {/* ⚠️ Este wrapper de 920px é o que ANCORA os flutuantes.
+          Na 1ª tentativa eles eram posicionados contra o `Wrap` (largura do conteúdo)
+          e ficavam FORA dele — e o `<main>` do App, sendo container de scroll, clipa
+          no eixo X: os cards apareciam cortados ao meio. Ancorados na janela, um
+          offset de -76px cai dentro da margem lateral e some nada. */}
+      <div className="relative mx-auto max-w-[920px]">
+        {/* Bezel: outer radius 20 + padding 8 + inner radius 14 — proporção medida no
+            projectise. A máscara de fade vem do `.lp-window`. */}
+        <div
+          ref={unfoldRef}
+          className="lp-unfold lp-window lp-beam lp-beam-slow relative z-10
+                     rounded-[20px] border border-border-subtle bg-bg-subtle p-[8px] shadow-sh-lg"
+        >
+          <div className="overflow-hidden rounded-[14px] border border-border-default bg-bg-canvas">
+            <BrowserBar />
+            <div ref={fitRef} className="overflow-hidden" style={{ height: ALTURA_JANELA }}>
+              {/* Largura E altura de design fixas + `scale`: os componentes veem um
+                  monitor de 1280×700 e mantêm a proporção real — só menores. */}
+              <div
+                className="flex origin-top-left"
+                style={{
+                  width: LARGURA_APP,
+                  height: ALTURA_APP,
+                  transform: `scale(${escala})`,
+                }}
               >
-                <Check className="size-icon-sm" />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-body-md font-medium text-fg-default">
-                  Proposta enviada
-                </span>
-                <span className="block text-caption-sm text-fg-muted">
-                  O licenciado recebeu por e-mail.
-                </span>
-              </span>
+                <MockSidebar />
+                <MockDashboard />
+              </div>
             </div>
-          </Card>
+          </div>
+        </div>
 
-          <Card titulo="Notificações" className="gap-gp-lg">
-            <div className="flex items-center justify-between gap-gp-md">
-              <label htmlFor="lp-sw-consumo" className="text-body-sm text-fg-muted">
-                Alerta de consumo
-              </label>
-              <Switch id="lp-sw-consumo" defaultChecked />
-            </div>
-            <div className="flex items-center justify-between gap-gp-md">
-              <label htmlFor="lp-sw-fatura" className="text-body-sm text-fg-muted">
-                Fatura fechada
-              </label>
-              <Switch id="lp-sw-fatura" />
-            </div>
-          </Card>
-        </StagePiece>
+      {/* Flutuantes — emolduram a janela, como nas 5 referências */}
+      <FloatCard i={0} className="-left-[84px] top-[196px]">
+        <p className="flex items-center gap-gp-sm text-caption-md text-fg-muted">
+          <span
+            aria-hidden
+            className="grid size-comp-sm shrink-0 place-items-center rounded-radius-sm bg-bg-brand-subtle text-fg-brand"
+          >
+            <Zap className="size-icon-xs" />
+          </span>
+          Consumo do mês
+        </p>
+        <p className="mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">
+          1.284 <span className="text-caption-md font-normal text-fg-subtle">kWh</span>
+        </p>
+        <span className="mt-gp-md flex h-[6px] overflow-hidden rounded-radius-full bg-bg-muted">
+          <span className="block h-full rounded-radius-full bg-bg-brand" style={{ width: "72%" }} />
+        </span>
+        <p className="mt-gp-sm text-caption-sm text-fg-subtle">72% da franquia</p>
+      </FloatCard>
 
-        {/* Ações + status */}
-        <StagePiece i={3} className="lg:col-span-4 lg:-mt-[10px]">
-          <Card titulo="Ações e status" subtitulo="Button · Chip">
-            <div className="flex flex-wrap items-center gap-gp-md">
-              <Button size="sm">Aprovar</Button>
-              <Button color="secondary" variant="outline" size="sm">
-                Revisar
-              </Button>
-              <Button color="critical" variant="ghost" size="sm">
-                Recusar
-              </Button>
-            </div>
-            <div className="flex flex-wrap items-center gap-gp-sm">
-              <Chip color="success" size="sm">
-                Ativo
-              </Chip>
-              <Chip color="warning" size="sm">
-                Pendente
-              </Chip>
-              <Chip color="info" size="sm">
-                Em análise
-              </Chip>
-              <Chip size="sm">Inativo</Chip>
-            </div>
-          </Card>
-        </StagePiece>
+      <FloatCard i={1} className="-right-[80px] -top-[26px]">
+        <p className="text-caption-md text-fg-muted">Receita recorrente</p>
+        <p className="mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">R$ 89,4k</p>
+        <span aria-hidden className="mt-gp-md flex h-[30px] items-end gap-[3px]">
+          {[34, 52, 40, 68, 57, 84, 100].map((h, idx) => (
+            <span
+              key={idx}
+              className={cn(
+                "flex-1 rounded-radius-sm",
+                idx === 6 ? "bg-bg-brand" : "bg-bg-muted",
+              )}
+              style={{ height: `${h}%` }}
+            />
+          ))}
+        </span>
+        <p className="mt-gp-sm text-caption-sm text-fg-success">▲ 6,1% MoM</p>
+      </FloatCard>
 
-        {/* Densidade — a tela que o DS existe pra fazer */}
-        <StagePiece i={4} className="sm:col-span-2 lg:col-span-8 lg:mt-[8px]">
-          <ClientesTable />
-        </StagePiece>
+      <FloatCard i={2} className="-left-[64px] bottom-[58px]">
+        <div className="flex items-start justify-between gap-gp-sm">
+          <p className="text-caption-md text-fg-muted">Em negociação</p>
+          <Badge color="warning" variant="soft" size="sm">
+            #4837
+          </Badge>
+        </div>
+        <p className="mt-gp-sm text-body-sm font-medium text-fg-default">
+          Usina Solar — Lote 12
+        </p>
+        <p className="mt-gp-sm text-caption-sm text-fg-subtle">Aguardando homologação</p>
+      </FloatCard>
+
+      <FloatCard i={3} className="-right-[64px] bottom-[128px]">
+        <div className="flex items-start gap-gp-md">
+          <span
+            aria-hidden
+            className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-success-muted text-fg-success"
+          >
+            <Check className="size-icon-xs" />
+          </span>
+          <span className="min-w-0">
+            <span className="block text-body-sm font-medium text-fg-default">
+              Proposta aprovada
+            </span>
+            <span className="block text-caption-sm text-fg-muted">
+              Contrato #4821 movido para Ativos.
+            </span>
+          </span>
+        </div>
+      </FloatCard>
       </div>
+    </div>
+  );
+}
+
+
+/* ═════════════════════════════════════════════════════════════════════════════
+   Bento de componentes vivos
+
+   ⚠️ Uma grade de 6 colunas com spans FIXOS — não um masonry com offsets. A 1ª versão
+   desta landing usava `lg:mt-[38px]`/`lg:-mt-[10px]` pra "espalhar" as peças, e o
+   resultado leu como coisa quebrada e desalinhada, não como composição. O wireframe
+   acerta justamente aqui: 3 fileiras, tudo rente.
+
+   Proporções medidas no wireframe: fileira 1 = 3 iguais (2+2+2) · fileira 2 = 3+3 ·
+   fileira 3 = 2+4 (o DataTable pede largura).
+   ═════════════════════════════════════════════════════════════════════════════ */
+
+/** Card do bento: título + uma linha do que ele prova + o componente ao vivo. */
+function BentoCard({
+  titulo,
+  descricao,
+  href,
+  className,
+  children,
+}: {
+  titulo: string;
+  descricao: string;
+  href: string;
+  className?: string;
+  children: ReactNode;
+}) {
+  const { onNavigate } = useDocNav();
+  return (
+    <div
+      className={cn(
+        "lp-tint group flex flex-col rounded-radius-xl border border-border-subtle bg-bg-surface",
+        "p-pad-3xl shadow-sh-sm transition-colors hover:border-border-brand-subtle",
+        className,
+      )}
+    >
+      <div className="flex items-start justify-between gap-gp-md">
+        <div className="flex min-w-0 flex-col gap-[2px]">
+          <h3 className="m-0 text-title-sm font-semibold text-fg-default">{titulo}</h3>
+          <p className="m-0 text-caption-md leading-relaxed text-fg-muted">{descricao}</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => onNavigate(href)}
+          aria-label={`Abrir documentação de ${titulo}`}
+          className="grid size-comp-md shrink-0 place-items-center rounded-radius-base text-fg-subtle
+                     opacity-0 transition-all hover:bg-bg-muted hover:text-fg-brand
+                     focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-4
+                     focus-visible:ring-ring-brand group-hover:opacity-100"
+        >
+          <ArrowUpRight className="size-icon-xs" aria-hidden />
+        </button>
+      </div>
+      <div className="mt-gp-xl flex min-w-0 flex-1 flex-col justify-center">{children}</div>
+    </div>
+  );
+}
+
+/** Amostra de token: swatch + o nome da CSS var que o produz. */
+function TokenSwatch({ classe, nome }: { classe: string; nome: string }) {
+  return (
+    <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
+      <span className={cn("h-[34px] rounded-radius-base ring-1 ring-inset ring-border-subtle", classe)} aria-hidden />
+      <span className="truncate font-mono text-caption-xs text-fg-subtle">{nome}</span>
+    </div>
+  );
+}
+
+function Bento() {
+  const linhasTabela = useMemo(
+    () => [
+      { id: "4821 · Solar", licenciado: "Marina R.", status: "Ativo", valor: "R$ 12.400" },
+      { id: "4822 · Telecom", licenciado: "João C.", status: "Análise", valor: "R$ 3.190" },
+      { id: "4823 · Seguros", licenciado: "Ana L.", status: "Pausado", valor: "R$ 890" },
+    ],
+    [],
+  );
+
+  return (
+    <div className="grid grid-cols-1 gap-gp-xl md:grid-cols-2 lg:grid-cols-6">
+      {/* ── Fileira 1: 2 + 2 + 2 ── */}
+      <BentoCard
+        titulo="Button"
+        descricao="6 variants, 4 tamanhos, ícone opcional. Foco com ring por variant."
+        href="button"
+        className="lg:col-span-2"
+      >
+        <div className="flex flex-wrap items-center gap-gp-sm">
+          <Button size="sm">Salvar</Button>
+          <Button color="secondary" variant="outline" size="sm">
+            Cancelar
+          </Button>
+          <Button color="secondary" variant="soft" size="sm">
+            Duplicar
+          </Button>
+          <Button color="critical" variant="soft" size="sm">
+            Excluir
+          </Button>
+        </div>
+        <div className="mt-gp-lg flex flex-wrap items-center gap-gp-sm">
+          {(["xs", "sm", "md"] as const).map((s) => (
+            <Button key={s} color="secondary" variant="ghost" size={s}>
+              {s}
+            </Button>
+          ))}
+          <Button size="sm" loading>
+            Salvando
+          </Button>
+        </div>
+      </BentoCard>
+
+      <BentoCard
+        titulo="FormField"
+        descricao="Label, hint, erro e estados — alvo de toque ≥ 44px."
+        href="form-field"
+        className="lg:col-span-2"
+      >
+        <div className="flex flex-col gap-form-gap">
+          <FormFieldInput
+            label="E-mail do licenciado"
+            defaultValue="sergio@igreen.com.br"
+          />
+          <FormFieldInput label="Unidade consumidora" placeholder="UC 4821-09" />
+        </div>
+      </BentoCard>
+
+      <BentoCard
+        titulo="Chip & Badge"
+        descricao="Semântica de status usando os tokens de feedback."
+        href="chip"
+        className="lg:col-span-2"
+      >
+        <div className="flex flex-wrap items-center gap-gp-sm">
+          <Chip color="success" size="sm">
+            Ativo
+          </Chip>
+          <Chip size="sm">Pendente</Chip>
+          <Chip color="danger" variant="outline" size="sm">
+            Cancelado
+          </Chip>
+          <Chip color="info" size="sm">
+            Homologado
+          </Chip>
+        </div>
+        <div className="mt-gp-lg flex flex-wrap items-center gap-gp-sm">
+          <Badge color="success" variant="soft" size="sm">
+            Pago
+          </Badge>
+          <Badge color="warning" variant="soft" size="sm">
+            Vence hoje
+          </Badge>
+          <Badge color="secondary" variant="outline" size="sm">
+            Arquivado
+          </Badge>
+        </div>
+      </BentoCard>
+
+      {/* ── Fileira 2: 3 + 3 ── */}
+      <BentoCard
+        titulo="Chart"
+        descricao="Recharts com paleta derivada da marca ativa — a série acompanha o tema."
+        href="chart-area"
+        className="lg:col-span-3"
+      >
+        <ChartContainer config={RECEITA_CONFIG} className="h-[136px] w-full">
+          <AreaChart data={RECEITA} margin={{ left: 0, right: 0, top: 4, bottom: 0 }}>
+            <CartesianGrid vertical={false} strokeDasharray="4 4" />
+            <XAxis
+              dataKey="mes"
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              interval="preserveStartEnd"
+            />
+            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+            <Area
+              dataKey="valor"
+              type="natural"
+              stroke="var(--color-chart-1)"
+              fill="var(--color-chart-1)"
+              fillOpacity={0.18}
+              strokeWidth={2}
+            />
+          </AreaChart>
+        </ChartContainer>
+      </BentoCard>
+
+      <BentoCard
+        titulo="Tokens semantic"
+        descricao="3 tiers: primitives (privado) → semantic (público) → component. O componente só enxerga o meio."
+        href="tokens-overview"
+        className="lg:col-span-3"
+      >
+        <div className="flex items-end gap-gp-md">
+          <TokenSwatch classe="bg-bg-brand" nome="--color-bg-brand" />
+          <TokenSwatch classe="bg-bg-success" nome="-success" />
+          <TokenSwatch classe="bg-bg-warning" nome="-warning" />
+          <TokenSwatch classe="bg-bg-danger" nome="-danger" />
+          <TokenSwatch classe="bg-bg-info" nome="-info" />
+          <TokenSwatch classe="bg-bg-muted" nome="-muted" />
+        </div>
+      </BentoCard>
+
+      {/* ── Fileira 3: 2 + 4 ── */}
+      <BentoCard
+        titulo="Switch & Toggle"
+        descricao="Estados controlados, acessíveis por teclado."
+        href="switch"
+        className="lg:col-span-2"
+      >
+        <div className="flex flex-col divide-y divide-border-subtle">
+          {[
+            ["Notificar por e-mail", true],
+            ["Resumo semanal", false],
+            ["Modo compacto", true],
+            ["Colunas fixas na tabela", false],
+          ].map(([label, on], i) => (
+            <div key={String(label)} className="flex items-center justify-between gap-gp-md py-pad-md">
+              <label htmlFor={`lp-bento-sw-${i}`} className="text-body-sm text-fg-muted">
+                {label}
+              </label>
+              <Switch id={`lp-bento-sw-${i}`} defaultChecked={Boolean(on)} />
+            </div>
+          ))}
+        </div>
+      </BentoCard>
+
+      <BentoCard
+        titulo="DataTable"
+        descricao="Virtualização, agrupamento, tree-data, kanban view e toolbar de filtros — a peça mais densa do DS."
+        href="data-table"
+        className="lg:col-span-4"
+      >
+        <div className="overflow-hidden rounded-radius-base border border-border-subtle">
+          <div className="grid grid-cols-[1.5fr_1fr_88px_86px] gap-gp-md border-b border-border-subtle bg-bg-table-head px-pad-xl py-pad-md font-mono text-caption-xs uppercase tracking-[0.08em] text-fg-subtle">
+            <span>Contrato</span>
+            <span>Licenciado</span>
+            <span>Status</span>
+            <span className="text-right">Valor</span>
+          </div>
+          {linhasTabela.map((r) => (
+            <div
+              key={r.id}
+              className="grid grid-cols-[1.5fr_1fr_88px_86px] items-center gap-gp-md border-b border-border-subtle px-pad-xl py-pad-md text-body-sm last:border-b-0"
+            >
+              <span className="truncate font-medium text-fg-default">{r.id}</span>
+              <span className="truncate text-fg-muted">{r.licenciado}</span>
+              <span>
+                <Chip color={STATUS_COLOR[r.status as keyof typeof STATUS_COLOR]} variant="soft" size="sm">
+                  {r.status}
+                </Chip>
+              </span>
+              <span className="text-right tabular-nums text-fg-default">{r.valor}</span>
+            </div>
+          ))}
+        </div>
+      </BentoCard>
     </div>
   );
 }
@@ -666,11 +1289,24 @@ function Stage() {
 const CANAIS = [
   {
     id: "create",
-    label: "npm create",
-    resumo: "Projeto novo do zero",
-    quando: "Começando um app agora. Vite + React 19 + Tailwind v4 + tema já ligados.",
+    label: "npm create · projeto novo",
     arquivo: "terminal",
-    codigo: `npm create @snksergio/design-system my-app
+    passos: [
+      {
+        titulo: "Rode o CLI",
+        desc: "Ele pergunta nome do projeto, package manager e qual tema de marca você quer.",
+      },
+      {
+        titulo: "Entre e suba",
+        desc: "Em ~30 segundos você tem Vite + React 19 + Tailwind v4 rodando em localhost:3200.",
+      },
+      {
+        titulo: "Já vem pronto",
+        desc: "Tema light/dark, exemplos navegáveis, CLAUDE.md de onboarding e o kit de IA (ds-kit + skills de tela).",
+      },
+    ],
+    codigo: `# projeto novo, tudo configurado
+npm create @snksergio/design-system my-app
 cd my-app
 npm run dev
 # → http://localhost:3200`,
@@ -678,15 +1314,26 @@ npm run dev
   {
     id: "submodulo",
     label: "submódulo git",
-    resumo: "Consumo do código-fonte",
-    quando:
-      "Você quer acompanhar o DS de perto e editar nada dentro dele. É o canal mais usado internamente.",
     arquivo: "terminal + tsconfig.json",
+    passos: [
+      {
+        titulo: "Adicione o submódulo",
+        desc: "Aponta pro remote canônico. É o canal mais usado internamente, porque você acompanha o DS de perto.",
+      },
+      {
+        titulo: "Aponte o alias",
+        desc: "@ds/* → design-system/src/* no tsconfig E no bundler. Sem os dois, o TS resolve e o build não.",
+      },
+      {
+        titulo: "Rode o ds:link",
+        desc: "Projeta skills/commands do DS pro .claude/ do seu projeto — o Claude Code não desce até <submódulo>/.claude sozinho.",
+      },
+    ],
     codigo: `git submodule add https://github.com/igreenlab/igreen-desingsystem-admin design-system
 git submodule update --init --recursive
 npm --prefix design-system install
 
-# projeta as skills/commands do DS pro .claude/ deste projeto
+# o kit de IA no SEU .claude/
 npm --prefix design-system run ds:link
 
 // tsconfig.json
@@ -695,30 +1342,120 @@ npm --prefix design-system run ds:link
   {
     id: "npm",
     label: "npm install",
-    resumo: "Pacote versionado",
-    quando: "App externo que só consome. Modelo evergreen — `npm update` puxa a última.",
     arquivo: "src/index.css",
+    passos: [
+      {
+        titulo: "Instale o pacote",
+        desc: "Modelo evergreen: npm update sempre puxa a última. React 19 + Tailwind v4 como pré-requisito.",
+      },
+      {
+        titulo: "Declare o @source",
+        desc: "Obrigatório. O Tailwind v4 não escaneia node_modules — sem essa linha os componentes vêm SEM spacing e radius, e não dá erro nenhum.",
+      },
+      {
+        titulo: "Ative a marca",
+        desc: "O overlay entra DEPOIS do tema base, e o data-theme tem que estar no <html>. Importar o CSS sozinho é no-op silencioso.",
+      },
+    ],
     codigo: `npm install @snksergio/design-system
 
-/* @source é OBRIGATÓRIO: o Tailwind v4 não escaneia node_modules,
-   e sem ele os componentes vêm sem spacing/radius — sem erro nenhum. */
+/* src/index.css */
 @import "tailwindcss";
 @source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
-@import "@snksergio/design-system/theme.css";`,
+@import "@snksergio/design-system/theme.css";
+
+<html lang="pt-BR" data-theme="vibrant">`,
   },
   {
     id: "copyin",
     label: "copy-in / registry",
-    resumo: "O código entra no seu repo",
-    quando: "Você quer o componente como código seu, editável, no padrão shadcn.",
     arquivo: "terminal",
+    passos: [
+      {
+        titulo: "Adicione por item",
+        desc: "Padrão shadcn: o arquivo entra no SEU repo e passa a ser código seu, editável.",
+      },
+      {
+        titulo: "Deps vêm junto",
+        desc: "Cada item do registry declara as dependências reais — inclusive as de tipo.",
+      },
+      {
+        titulo: "Customize na composição",
+        desc: "Não nos tokens nem no cn/tv: o hook protect-ds avisa se você mexer no que é fundação.",
+      },
+    ],
     codigo: `npx shadcn add @igreen/data-table
 npx shadcn add @igreen/app-shell
 
-# o arquivo passa a ser SEU — customize na composição,
+# o arquivo agora é SEU — customize na composição,
 # não nos tokens (o hook protect-ds avisa)`,
   },
 ] as const;
+
+/**
+ * Seção de instalação no desenho do wireframe: head à ESQUERDA, tabs com sublinhado
+ * (não pílula) e duas colunas — passos numerados | terminal.
+ *
+ * A 1ª versão era um card centrado com só o bloco de código: o "quando usar cada
+ * canal" ficava numa linha de subtítulo e a decisão — que é o trabalho desta seção —
+ * não tinha onde acontecer.
+ */
+function InstalacaoSection() {
+  const [ativo, setAtivo] = useState<string>(CANAIS[0].id);
+  const canal = CANAIS.find((c) => c.id === ativo) ?? CANAIS[0];
+
+  return (
+    <div className="flex flex-col gap-gp-2xl">
+      {/* Tabs com sublinhado — a borda inferior corre por toda a largura e o item
+          ativo a "quebra" com a cor da marca. */}
+      <div role="tablist" aria-label="Canal de instalação" className="flex flex-wrap border-b border-border-subtle">
+        {CANAIS.map((c) => (
+          <button
+            key={c.id}
+            type="button"
+            role="tab"
+            aria-selected={ativo === c.id}
+            onClick={() => setAtivo(c.id)}
+            className={cn(
+              "-mb-px border-b-2 px-pad-xl py-pad-lg text-body-sm transition-colors",
+              "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+              ativo === c.id
+                ? "border-border-brand font-medium text-fg-default"
+                : "border-transparent text-fg-muted hover:text-fg-default",
+            )}
+          >
+            {c.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-1 items-start gap-gp-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <ol className="m-0 flex list-none flex-col gap-gp-2xl p-0">
+          {canal.passos.map((p, i) => (
+            <li key={p.titulo} className="flex gap-gp-lg">
+              <span
+                aria-hidden
+                className="mt-[2px] grid size-comp-md shrink-0 place-items-center rounded-radius-full
+                           border border-border-subtle bg-bg-subtle font-mono text-caption-xs
+                           font-bold text-fg-muted"
+              >
+                {i + 1}
+              </span>
+              <span className="min-w-0">
+                <span className="block text-body-md font-medium text-fg-default">{p.titulo}</span>
+                <span className="mt-[2px] block text-body-sm leading-relaxed text-fg-muted">
+                  {p.desc}
+                </span>
+              </span>
+            </li>
+          ))}
+        </ol>
+
+        <CodeCard arquivo={canal.arquivo} codigo={canal.codigo} />
+      </div>
+    </div>
+  );
+}
 
 /* ═════════════════════════════════════════════════════════════════════════════
    Prompts — o atalho de quem usa Claude Code
@@ -883,24 +1620,103 @@ function PromptSection() {
    Catálogo — derivado do nav
    ═════════════════════════════════════════════════════════════════════════════ */
 
-function Catalogo() {
-  const { onNavigate } = useDocNav();
-  const [termo, setTermo] = useState("");
-  const [secao, setSecao] = useState<string | null>(null);
+/**
+ * Ícone por SEÇÃO, não por item.
+ *
+ * O mantenedor pediu os cards do `#/components-overview`, que têm ícone por
+ * componente. Ali a lista é escrita à mão (com `icon:` em cada linha) e cobre só
+ * componentes; aqui o catálogo é **derivado** do nav e tem 137 itens, incluindo
+ * tokens, agentes, pipeline e exemplos. Mapear 137 ícones à mão recriaria exatamente
+ * a lista paralela que este catálogo existe pra não ter — e a próxima página nova
+ * entraria sem ícone.
+ *
+ * Ícone por seção dá o mesmo ganho visual com zero manutenção: página nova herda o
+ * ícone da seção dela automaticamente.
+ */
+const ICONE_SECAO: Record<string, LucideIcon> = {
+  "Get Started": Rocket,
+  Agents: Bot,
+  "Pipeline Infra": Workflow,
+  Foundations: Palette,
+  Components: Blocks,
+  Charts: ChartColumn,
+  "Data Table Components": TableIcon,
+  "List Components": ListIcon,
+  Templates: LayoutDashboard,
+  Examples: MonitorPlay,
+  Demos: FlaskConical,
+};
 
-  const lista = useMemo(() => {
+const ICONE_FALLBACK = Component;
+
+function CatalogoCard({ item }: { item: CatalogEntry }) {
+  const { onNavigate } = useDocNav();
+  const Icone = ICONE_SECAO[item.section] ?? ICONE_FALLBACK;
+
+  const conteudo = (
+    <>
+      <span
+        aria-hidden
+        className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-muted
+                   text-fg-muted transition-colors group-hover:bg-bg-brand-subtle
+                   group-hover:text-fg-brand [&_svg]:size-icon-sm"
+      >
+        <Icone strokeWidth={1.8} />
+      </span>
+      <span className="min-w-0 flex-1 truncate text-body-sm font-medium text-fg-default transition-colors group-hover:text-fg-brand">
+        {item.label}
+      </span>
+      {item.url && (
+        <ArrowUpRight
+          className="size-icon-xs shrink-0 text-fg-subtle transition-transform group-hover:-translate-y-[2px] group-hover:text-fg-brand"
+          aria-hidden
+        />
+      )}
+    </>
+  );
+
+  const classe = cn(
+    "group flex w-full items-center gap-gp-sm rounded-radius-base border border-border-subtle",
+    "bg-bg-surface p-pad-sm text-left transition-colors",
+    "hover:border-border-brand hover:bg-bg-muted",
+    "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+  );
+
+  // App standalone (`?app=…`) ou build separado (`/demo/`) precisa de navegação de
+  // DOCUMENTO — não dá pra roteá-los pelo hash router.
+  return item.url ? (
+    <a href={item.url} className={classe}>
+      {conteudo}
+    </a>
+  ) : (
+    <button type="button" onClick={() => onNavigate(item.href)} className={classe}>
+      {conteudo}
+    </button>
+  );
+}
+
+function Catalogo() {
+  const [termo, setTermo] = useState("");
+
+  /** Agrupado por seção, na ordem do nav — como o `#/components-overview`. */
+  const grupos = useMemo(() => {
     const t = termo.trim().toLowerCase();
-    return CATALOGO.filter(
-      (i) =>
-        (!secao || i.section === secao) &&
-        (!t || i.label.toLowerCase().includes(t) || i.href.includes(t)),
-    );
-  }, [termo, secao]);
+    return SECOES.map((secao) => ({
+      secao,
+      itens: CATALOGO.filter(
+        (i) =>
+          i.section === secao &&
+          (!t || i.label.toLowerCase().includes(t) || i.href.includes(t)),
+      ),
+    })).filter((g) => g.itens.length > 0);
+  }, [termo]);
+
+  const total = grupos.reduce((n, g) => n + g.itens.length, 0);
 
   return (
     <div className="flex flex-col gap-gp-2xl">
-      <div className="mx-auto w-full max-w-modal-lg">
-        <div className="relative">
+      <div className="flex flex-wrap items-center gap-gp-lg">
+        <div className="relative min-w-0 flex-1">
           <Search
             className="pointer-events-none absolute left-pad-xl top-1/2 size-icon-sm -translate-y-1/2 text-fg-subtle"
             aria-hidden
@@ -914,91 +1730,34 @@ function Catalogo() {
             className="min-h-form-xl pl-[42px]"
           />
         </div>
+        <p className="shrink-0 font-mono text-caption-md text-fg-subtle" aria-live="polite">
+          {total} {total === 1 ? "item" : "itens"}
+        </p>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-gp-sm">
-        {/* `chipCount()` é o helper de estilo que o próprio Chip exporta pro badge
-            numérico — não existe prop `count`. */}
-        <Chip
-          size="md"
-          color={secao === null ? "primary" : "neutral"}
-          variant={secao === null ? "soft" : "outline"}
-          onClick={() => setSecao(null)}
-        >
-          Tudo <span className={chipCount()}>{CATALOGO.length}</span>
-        </Chip>
-        {SECOES.map((s) => (
-          <Chip
-            key={s}
-            size="md"
-            color={secao === s ? "primary" : "neutral"}
-            variant={secao === s ? "soft" : "outline"}
-            onClick={() => setSecao(s)}
-          >
-            {s} <span className={chipCount()}>{CATALOGO.filter((i) => i.section === s).length}</span>
-          </Chip>
-        ))}
-      </div>
-
-      <p className="text-center text-caption-md text-fg-subtle" aria-live="polite">
-        {lista.length} {lista.length === 1 ? "item" : "itens"}
-      </p>
-
-      {lista.length === 0 ? (
+      {grupos.length === 0 ? (
         <p className="py-pad-4xl text-center text-body-md text-fg-muted">
           Nada com esse termo. Tente “table”, “chart” ou “token”.
         </p>
       ) : (
-        <ul className="grid list-none grid-cols-1 gap-gp-md p-0 sm:grid-cols-2 lg:grid-cols-3">
-          {lista.map((item) => {
-            const conteudo = (
-              <>
-                <span
-                  aria-hidden
-                  className="grid size-comp-xl shrink-0 place-items-center rounded-radius-base
-                             bg-bg-brand-subtle font-mono text-caption-xs font-bold text-fg-brand"
-                >
-                  {item.label.replace(/^(Ex|Ex:)\s*/i, "").slice(0, 2).toUpperCase()}
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block truncate text-body-sm font-medium text-fg-default">
-                    {item.label}
-                  </span>
-                  <span className="block truncate text-caption-sm text-fg-subtle">
-                    {item.section}
-                  </span>
-                </span>
-                <ArrowUpRight
-                  className="size-icon-xs shrink-0 text-fg-subtle transition-transform group-hover:-translate-y-[2px] group-hover:text-fg-brand"
-                  aria-hidden
-                />
-              </>
-            );
-
-            const classe = cn(
-              "group flex w-full items-center gap-gp-md rounded-radius-lg border border-border-subtle",
-              "bg-bg-surface px-pad-xl py-pad-lg text-left transition-colors",
-              "hover:border-border-brand-subtle hover:bg-bg-subtle",
-              "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
-            );
-
-            return (
-              <li key={item.href}>
-                {/* App standalone (`?app=…`) ou build separado (`/demo/`) precisa de
-                    navegação de DOCUMENTO — não dá pra roteá-los pelo hash router. */}
-                {item.url ? (
-                  <a href={item.url} className={classe}>
-                    {conteudo}
-                  </a>
-                ) : (
-                  <button type="button" onClick={() => onNavigate(item.href)} className={classe}>
-                    {conteudo}
-                  </button>
-                )}
-              </li>
-            );
-          })}
-        </ul>
+        grupos.map((g) => (
+          <section key={g.secao} className="flex flex-col gap-gp-lg">
+            <header className="flex items-center gap-gp-md">
+              <h3 className="m-0 text-title-sm font-semibold text-fg-default">{g.secao}</h3>
+              <span className="h-px min-w-0 flex-1 bg-border-subtle" aria-hidden />
+              <span className="shrink-0 font-mono text-caption-sm text-fg-subtle">
+                {g.itens.length}
+              </span>
+            </header>
+            <ul className="grid list-none grid-cols-1 gap-gp-md p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {g.itens.map((item) => (
+                <li key={item.href}>
+                  <CatalogoCard item={item} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
       )}
     </div>
   );
@@ -1101,15 +1860,38 @@ export function LandingDoc() {
         </div>
 
         <div className="mt-[64px]">
-          <Stage />
-        </div>
-
-        <div className="mt-[40px]">
-          <Reveal i={1}>
-            <ThemeOrganism />
-          </Reveal>
+          <HeroWindow />
         </div>
       </Wrap>
+
+      {/* ── Tokens vivos: seletor PRIMEIRO, componentes DEPOIS ───────────────
+          A ordem é o pedido explícito do mantenedor, e faz sentido: o seletor é a
+          causa e o bento é o efeito. Ver o seletor depois das peças invertia a
+          leitura. */}
+      <div className="pt-[112px]">
+        <Wrap>
+          <Reveal>
+            <SectionHead
+              eyebrow="Tokens vivos"
+              title="Uma base."
+              em="Cinco marcas, dois modos."
+              alinhamento="center"
+            >
+              Os componentes não conhecem cor — consomem a camada semantic via CSS vars.
+              Trocar de marca é trocar um atributo no <code className="font-mono text-code-sm">&lt;html&gt;</code>.
+              Experimente:
+            </SectionHead>
+          </Reveal>
+
+          <Reveal i={1} className="mt-[36px]">
+            <ThemeSwitcher />
+          </Reveal>
+
+          <Reveal i={2} className="mt-[40px]">
+            <Bento />
+          </Reveal>
+        </Wrap>
+      </div>
 
       {/* ── Instalação ───────────────────────────────────────────────────── */}
       <div ref={instalacaoRef} className="scroll-mt-[24px] pt-[112px]">
@@ -1122,26 +1904,11 @@ export function LandingDoc() {
           </Reveal>
 
           <Reveal i={1} className="mt-[44px]">
-            <Tabs defaultValue={CANAIS[0].id}>
-              <TabsList className="mx-auto flex w-full max-w-modal-lg flex-wrap">
-                {CANAIS.map((c) => (
-                  <TabsTrigger key={c.id} value={c.id} className="flex-1">
-                    {c.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-              {CANAIS.map((c) => (
-                <TabsContent key={c.id} value={c.id} className="mt-gp-2xl">
-                  <Card titulo={c.resumo} subtitulo={c.quando}>
-                    <CodeCard arquivo={c.arquivo} codigo={c.codigo} />
-                  </Card>
-                </TabsContent>
-              ))}
-            </Tabs>
+            <InstalacaoSection />
           </Reveal>
 
           <Reveal i={2} className="mt-gp-2xl">
-            <p className="text-center text-caption-md text-fg-subtle">
+            <p className="text-caption-md text-fg-subtle">
               Passo a passo completo, pré-requisitos e troubleshooting na página{" "}
               <button
                 type="button"
@@ -1178,7 +1945,7 @@ export function LandingDoc() {
           </Reveal>
 
           <Reveal i={2} className="mt-gp-2xl">
-            <p className="text-center text-caption-md text-fg-subtle">
+            <p className="text-caption-md text-fg-subtle">
               Como o pipeline de agentes funciona por dentro:{" "}
               <button
                 type="button"
