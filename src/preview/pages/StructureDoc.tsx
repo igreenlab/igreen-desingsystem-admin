@@ -70,7 +70,8 @@ export function StructureDoc() {
           <p className="ml-sp-2xl">context/                         <span className="text-fg-subtle">← Architecture, tokens, components</span></p>
           <p className="ml-sp-2xl">rules/coding-standards.md        <span className="text-fg-subtle">← Long-form tv() reference</span></p>
           <p className="ml-sp-2xl">status/pipeline-state.md         <span className="text-fg-subtle">← Audit log (append-only)</span></p>
-          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-037</span></p>
+          <p className="ml-sp-2xl">status/lessons.md                <span className="text-fg-subtle">← Lessons L-001..L-069</span></p>
+          <p className="ml-sp-2xl">status/lessons-archive.md        <span className="text-fg-subtle">← Lições absorvidas por gate (continuam valendo)</span></p>
           <p className="ml-sp-md">memory/                            <span className="text-fg-subtle">← Project-level memory</span></p>
           <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← Manifesto do registry (distribuição)</span></p>
           <p className="ml-sp-md">registry-app/                      <span className="text-fg-subtle">← App Vercel que serve o registry</span></p>
@@ -163,11 +164,11 @@ export function StructureDoc() {
           Each folder has a single responsibility — kept atomic on purpose.
         </p>
         <FileRow path=".claude/agents/" desc="4 active agents (orchestrator, designer, dev, reviewer) + 2 pending (app-*)" tag="Identity" />
-        <FileRow path=".claude/skills/" desc="Atomic skills per agent: spec-token-*, impl-igreen, review-component, etc." tag="Procedure" />
-        <FileRow path=".claude/commands/" desc="Slash commands as entry points: /ds-create-component, /ds-add-token..." tag="Entry" />
+        <FileRow path=".claude/skills/" desc="15 skills por agente (spec-token, impl-igreen, handoff-pr, review-component…) + 9 skills de pipeline sem agente, direto em skills/<nome>/ (crud-builder, list-builder, dashboard-builder, app-builder, auth-builder, brand-builder, screen-composer, module-replicator, igreen-frontend)" tag="Procedure" />
+        <FileRow path=".claude/commands/" desc="15 slash commands como entry points: /ds-create-component, /ds-add-token, /ds-create-crud, /ds-create-dashboard, /ds-create-brand, /ds-release…" tag="Entry" />
         <FileRow path=".claude/hooks/" desc="ds-lint-styles, ds-inventory-check, ds-tokens-check (avisam) + block-rm-rf, block-sensitive-edit (bloqueiam). Log em .ai/scratch/" tag="Triggers" />
         <FileRow path="scripts/lib/" desc="Lógica PURA (zero I/O) dos gates — compartilhada entre os hooks e o CI, pra a mesma regra nunca ter duas implementações" tag="Gates" />
-        <FileRow path=".claude/rules/" desc="ds-standards.md auto-loaded by glob — 8 behavior rules + 64 lessons" tag="Rules" />
+        <FileRow path=".claude/rules/" desc="ds-standards.md — todo .md daqui entra como project instruction em TODA sessão (não há escopo por glob: o campo globs: do frontmatter é sintaxe do Cursor e é inerte). 8 behavior rules + 69 lessons" tag="Rules" />
         <FileRow path=".claude/output-styles/" desc="terse.md — caps response shape across the project" tag="Style" />
         <FileRow path=".claude/settings.json" desc="Permissions, hooks registration, outputStyle binding" tag="Config" />
         <FileRow path=".claude/scripts/" desc="sync-agents-to-cursor.cjs — mirrors agents to .cursor/rules" tag="Tooling" />
@@ -186,7 +187,8 @@ export function StructureDoc() {
         <FileRow path=".ai/context/components/guide.md" desc="Long-form component guide (variants, compounds, patterns)" tag="Guide" />
         <FileRow path=".ai/rules/coding-standards.md" desc="Long-form tv() pattern reference (sub-skill load)" tag="Rules" />
         <FileRow path=".ai/status/pipeline-state.md" desc="Audit log (append-only): every decision + Assumption field" tag="Audit" />
-        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-037 (full descriptions, examples)" tag="Lessons" />
+        <FileRow path=".ai/status/lessons.md" desc="Canonical L-001..L-069 (full descriptions, examples)" tag="Lessons" />
+        <FileRow path=".ai/status/lessons-archive.md" desc="Lições absorvidas por gate automático — continuam valendo, o pipeline só já as aplica sozinho" tag="Lessons" />
         <FileRow path=".ai/status/BACKLOG.md" desc="Pending features queued for the pipeline" tag="Queue" />
         <FileRow path="memory/" desc="Project-level memory (MEMORY.md index + project_*.md notes)" tag="Memory" />
       </div>

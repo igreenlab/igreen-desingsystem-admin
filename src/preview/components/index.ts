@@ -14,5 +14,11 @@ export { DocSidebar, type DocNavSection } from "./doc-sidebar";
 export { DocMobileBar } from "./doc-mobile-bar";
 export { TOC, type TocItem } from "./doc-toc";
 export { EyeIcon, CodeIcon, CopyIcon, ExternalIcon, TocIcon } from "./doc-icons";
-export { getDocNav, getDocNavByHref } from "./doc-nav-data";
+export {
+  getDocNav,
+  getDocNavByHref,
+  getCatalog,
+  getCatalogSections,
+  type CatalogEntry,
+} from "./doc-nav-data";
 export { DocNavProvider, useDocNav } from "./doc-context";

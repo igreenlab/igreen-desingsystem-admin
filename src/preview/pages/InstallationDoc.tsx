@@ -154,6 +154,38 @@ npm run dev
           <CmdRow cmd="npm run test:ui" desc="Open the Vitest UI in the browser" />
           <CmdRow cmd="npm run sync:agents" desc="Mirror .claude/agents/ to .cursor/rules/" />
         </div>
+        <p className="text-body-md font-medium text-fg-default">Marcas (temas de cor)</p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run tokens:brand:blue" desc="Regenera src/styles/theme/brand-blue.css (idem green, pay, vibrant)" />
+          <CmdRow cmd="npm run brand:check" desc="Gate das 10 superfícies de uma marca — 8 delas falham em silêncio sem ele" />
+          <CmdRow cmd="npm run brand:contrast" desc="Mede contraste WCAG dos pares de cor de cada marca" />
+        </div>
+        <p className="text-body-md font-medium text-fg-default">Distribuição (registry, npm, CLI)</p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run registry:build" desc="drift dos examples + tokens:tw4 + carimba o stamp + shadcn build → public/r/" />
+          <CmdRow cmd="npm run registry:stamp" desc="Carimba meta.stamp (versão + hash git) em cada item do registry" />
+          <CmdRow cmd="npm run release:check" desc="Gate de release: registry-check + brand-check + débito de distribuição" />
+          <CmdRow cmd="npm run distribution:debt" desc="Componente fora do registry.json ou do vocabulário do consumidor" />
+          <CmdRow cmd="npm run examples:drift" desc="example-* defasado vs o showcase que é sua fonte (L-035)" />
+          <CmdRow cmd="npm run build:lib" desc="Builda o pacote npm (vite.lib.config.ts)" />
+          <CmdRow cmd="npm run lib:verify" desc="Integridade do tarball antes do publish — .d.ts fechado sob imports relativos (L-017)" />
+          <CmdRow cmd="npm run cli:rebake" desc="Rebakeia os foundationals do template do CLI (descobre os overlays por diretório)" />
+          <CmdRow cmd="npm run ds:link" desc="Projeta o kit de IA no .claude/ do projeto pai — paridade pro canal submódulo (L-056)" />
+        </div>
+        <p className="text-body-md font-medium text-fg-default">Gates e auditoria</p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run lint:styles" desc="Anti-patterns de estilo em modo ratchet — reprova só violação NOVA (linha que o diff adicionou)" />
+          <CmdRow cmd="npm run audit:token-docs" desc="Compara o VALOR de cada token afirmado na doc contra o CSS. Não é CI: a saída é candidato, exige triagem" />
+        </div>
+        <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl">
+          <p className="text-body-md text-fg-muted">
+            <code className="font-mono text-code-sm">npm run lib:publish:*</code> existe e{" "}
+            <strong className="text-fg-default">recusa rodar</strong> de propósito: publicar passa pelo{" "}
+            <code className="font-mono text-code-sm">/ds-release</code>, que bumpa, valida com{" "}
+            <code className="font-mono text-code-sm">lib:verify</code> e PARA pedindo o token do
+            mantenedor (L-020).
+          </p>
+        </div>
       </div>
 
       {/* First Run */}
@@ -244,6 +276,7 @@ import {
           {[
             { path: ".", desc: "Componentes iGreen + Shadcn adaptados (Button, AppShell, DataTable, etc)" },
             { path: "/theme.css", desc: "CSS gerado: @theme + dark mode + 27 presets + fonte Geist + @custom-variant dark + regras de html/body + outline-float + scrollbar-*" },
+            { path: "/theme/brand-<id>.css", desc: "Overlay de cor de uma marca (blue, green, pay, vibrant) — escopado em [data-theme]. Importe DEPOIS do theme.css" },
             { path: "/tokens", desc: "Objetos de tokens semânticos (colorLight, spacing, sizing, etc)" },
             { path: "/preview/chat", desc: "ChatV2 showcase completa + types" },
             { path: "/preview/clientes", desc: "ClientesShowcase (CRUD com DataTable + Drawer)" },
@@ -301,6 +334,19 @@ import {
           <code className="font-mono text-code-sm">/ds-create-crud</code>,{" "}
           <code className="font-mono text-code-sm">/ds-create-dashboard</code> etc. descobríveis nativamente.
         </p>
+        <div className="rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">
+            ⚡ Atalho: deixe a IA fazer os 6 passos
+          </p>
+          <p className="text-body-md text-fg-muted">
+            A página <strong className="text-fg-default">Início</strong> (
+            <code className="font-mono text-code-sm">#/inicio</code>) tem um prompt pronto pra
+            colar no Claude Code, na aba <strong className="text-fg-default">Instalar o DS</strong>:
+            ele adiciona o submódulo, configura o alias nos dois lugares, importa o tema, roda o{" "}
+            <code className="font-mono text-code-sm">ds:link</code> e valida o resultado antes de
+            dizer que acabou. O passo a passo abaixo é a mesma coisa, na mão.
+          </p>
+        </div>
         <p className="text-body-md font-medium text-fg-default">Setup (uma vez, na raiz do seu projeto):</p>
         <CodeBlock>{`# ajuste "design-system" pro caminho real do submódulo
 npm --prefix design-system run ds:link
@@ -342,9 +388,9 @@ resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }`}</C
         </p>
         <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
           <li><strong className="text-fg-default">CLAUDE.md</strong> — project-wide rules, loaded automatically on every session</li>
-          <li><strong className="text-fg-default">.claude/rules/ds-standards.md</strong> — auto-loaded by glob for any DS-related work</li>
-          <li><strong className="text-fg-default">.claude/agents/</strong> — 4 specialized agents (orchestrator, designer, dev, reviewer)</li>
-          <li><strong className="text-fg-default">.claude/skills/</strong> — atomic skills triggered via SkillTool or slash commands</li>
+          <li><strong className="text-fg-default">.claude/rules/ds-standards.md</strong> — loaded on <em>every</em> session, like CLAUDE.md. There is no per-folder scoping: the <code className="font-mono text-code-sm">globs:</code> field in the frontmatter is Cursor syntax and is inert here</li>
+          <li><strong className="text-fg-default">.claude/agents/</strong> — 4 active agents (orchestrator, designer, dev, reviewer) + 2 pending for the app domain</li>
+          <li><strong className="text-fg-default">.claude/skills/</strong> — 15 skills por agente + 9 builders de pipeline (crud, list, dashboard, brand, app, login, screen, replicate, frontend), via SkillTool ou slash command</li>
           <li><strong className="text-fg-default">.claude/hooks/</strong> — ds-lint-styles, ds-inventory-check, ds-tokens-check (informativos) + block-rm-rf, block-sensitive-edit (bloqueiam)</li>
           <li><strong className="text-fg-default">.claude/output-styles/terse.md</strong> — keeps responses tight</li>
         </ul>
@@ -377,10 +423,39 @@ resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }`}</C
           </p>
         </div>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">Pre-existing TypeScript errors</p>
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">TypeScript errors</p>
           <p className="text-body-md text-fg-muted">
-            A handful of <code className="font-mono text-code-sm">GridRowId</code> and <code className="font-mono text-code-sm">sidebarRailUserDefault</code> errors
-            are documented as pre-existing and do not block <code className="font-mono text-code-sm">npm run dev</code>. Confirm with <code className="font-mono text-code-sm">npx tsc --noEmit</code>.
+            <code className="font-mono text-code-sm">npx tsc --noEmit</code> is expected to return{" "}
+            <strong className="text-fg-default">zero</strong> errors — the CI blocks on it. Até 2026-08-11
+            esta página documentava erros de <code className="font-mono text-code-sm">GridRowId</code> e{" "}
+            <code className="font-mono text-code-sm">sidebarRailUserDefault</code> como
+            &ldquo;pré-existentes, não bloqueiam o dev&rdquo;. Foram corrigidos, e a frase ficou —
+            ensinando a ignorar erro de tipo. Se você vê erro, é regressão: conserte, não contorne.
+          </p>
+        </div>
+        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">
+            Componentes sem estilo depois de <code className="font-mono text-code-sm">npm install</code>
+          </p>
+          <p className="text-body-md text-fg-muted">
+            Falta a diretiva <code className="font-mono text-code-sm">@source</code> apontando pro{" "}
+            <code className="font-mono text-code-sm">dist-lib/**</code> do pacote. O Tailwind v4 não
+            escaneia <code className="font-mono text-code-sm">node_modules</code>, então{" "}
+            <strong className="text-fg-default">nenhuma</strong> classe do DS é gerada — e não há erro
+            nenhum, o componente só renderiza cru. Receita em &ldquo;Install via NPM&rdquo;. Submódulo
+            não sofre: fica dentro da raiz, o scan já o alcança.
+          </p>
+        </div>
+        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">
+            Um gate acusa violação que não existe na sua branch
+          </p>
+          <p className="text-body-md text-fg-muted">
+            Provavelmente a base do diff. Os gates com ratchet resolvem o remote canônico{" "}
+            <strong className="text-fg-default">por URL</strong>, não por nome — se{" "}
+            <code className="font-mono text-code-sm">origin</code> no seu clone for um fork parado,
+            medir contra ele acusa débito legado como se fosse novo (L-069). Cada gate imprime a base
+            que resolveu: confira a primeira linha da saída.
           </p>
         </div>
       </div>

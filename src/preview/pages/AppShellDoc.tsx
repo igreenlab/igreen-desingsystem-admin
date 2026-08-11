@@ -37,6 +37,27 @@ const PROPS_APP_SHELL = [
   { name: "defaultActiveItemHref", type: "string", defaultVal: "—" },
   { name: "activeItemHref", type: "string (controlled)", defaultVal: "—" },
   { name: "onItemClick", type: "(item) => void", defaultVal: "—" },
+  {
+    name: "renderLink",
+    type: "(props: SidebarLinkProps) => ReactNode",
+    defaultVal: "— (<a href>)",
+    description:
+      "Integração de router. Sem ela o item de menu é um <a href> puro: com href de PATH (/app/clientes) o browser RECARREGA a página inteira a cada clique — bug achado por um consumidor em produção (L-068). O exemplo canônico usa href de HASH (#/app/clientes), e fragmento não recarrega documento, então nenhum gate pegava. Render-prop, não linkComponent: prop de tipo-de-componente escrita inline remonta a subárvore a cada render.",
+  },
+  {
+    name: "brandHref",
+    type: "string",
+    defaultVal: '"#"',
+    description:
+      'O href do brand mark. O default "#" empurra "#" na URL do seu app. Passe "" (ou undefined + onBrandClick) pra desligar a navegação.',
+  },
+  {
+    name: "onBrandClick",
+    type: "(e: MouseEvent<HTMLAnchorElement>) => void",
+    defaultVal: "—",
+    description: "Clique no brand mark. Recebe o evento — útil com brandHref vazio.",
+  },
+
   { name: "breadcrumb", type: "HeaderBreadcrumbItem[]", defaultVal: "—", required: true },
   { name: "commandGroups", type: "HeaderCommandGroup[]", defaultVal: "—" },
   { name: "notifications", type: "HeaderNotificationsConfig", defaultVal: "—" },

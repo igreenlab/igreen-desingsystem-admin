@@ -9,6 +9,11 @@ const BASE_NAV: DocNavSection[] = [
   {
     title: "Get Started",
     items: [
+      // Porta de entrada do showcase (`#/inicio`, e o default do App). A
+      // `Introduction` continua existindo e tem outro trabalho: a landing é
+      // superfície de DECISÃO (o que é, como instalo, onde vejo tudo), a
+      // Introduction é de LEITURA (princípios, arquitetura, por que a v2).
+      { label: "Início", href: "inicio" },
       { label: "Introduction", href: "introduction" },
       { label: "Structure", href: "structure" },
       { label: "Distribution", href: "distribution" },
@@ -215,6 +220,54 @@ const BASE_NAV: DocNavSection[] = [
     ],
   },
 ];
+
+/**
+ * Um item do catálogo da landing: o item de nav + a seção onde ele vive.
+ *
+ * `url` presente = app standalone (`?app=finance`) ou build separado (`/demo/`) —
+ * navegação de documento, não do hash router.
+ */
+export type CatalogEntry = {
+  label: string;
+  href: string;
+  section: string;
+  url?: string;
+};
+
+/**
+ * Catálogo COMPLETO, derivado do `BASE_NAV` — é o que a landing lista e conta.
+ *
+ * ⚠️ **Derivado de propósito, não uma lista à parte.** O wireframe da landing trazia
+ * 112 itens escritos na mão; seria a TERCEIRA cópia da navegação (junto do `DOC_PAGES`
+ * do `App.tsx` e deste arquivo). Medido em 2026-08-11: são **137** itens aqui e 132 no
+ * `DOC_PAGES` — a lista manual já nascia com 20+ de defasagem, e a contagem do hero
+ * ("112 páginas") viraria uma afirmação falsa no primeiro viewport.
+ *
+ * É o mesmo defeito que o repo acumulou em outras superfícies e que custou uma
+ * varredura inteira: "87 itens" de registry quando eram 91, "64 lições" quando eram 69,
+ * 7 dos 15 commands sem doc. Contagem que a página AFIRMA tem que ser computada.
+ *
+ * `skip` existe pra a landing não se listar no próprio catálogo.
+ */
+export function getCatalog(skip: string[] = []): CatalogEntry[] {
+  const fora = new Set(skip);
+  return BASE_NAV.flatMap((section) =>
+    section.items
+      .filter((item) => !fora.has(item.href))
+      .map((item) => ({
+        label: item.label,
+        href: item.href,
+        section: section.title,
+        url: item.url,
+      })),
+  );
+}
+
+/** Seções do catálogo, na ordem do nav — os filtros da landing saem daqui. */
+export function getCatalogSections(skip: string[] = []): string[] {
+  const vistas = new Set(getCatalog(skip).map((i) => i.section));
+  return BASE_NAV.map((s) => s.title).filter((t) => vistas.has(t));
+}
 
 /** Retorna o nav com o item ativo marcado por label */
 export function getDocNav(activeLabel: string): DocNavSection[] {
