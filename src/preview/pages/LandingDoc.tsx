@@ -109,6 +109,13 @@ import { Switch } from "../../components/shadcn/switch";
 import { Input } from "../../components/shadcn/input";
 import { Badge } from "../../components/shadcn/badge";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "../../components/shadcn/dropdown-menu";
+import {
   Table,
   TableBody,
   TableCell,
@@ -558,33 +565,126 @@ function SegItem({
   );
 }
 
+/**
+ * Rampa de 3 cores por marca, lida do OVERLAY REAL em runtime.
+ *
+ * A alternativa era manter uma lista de 3 cores por marca aqui — a mesma classe de
+ * lista paralela que o catálogo derivado desta página existe pra não ter (o `swatch`
+ * do `BRANDS` já é um valor fixo e foi justamente ele que mostrou um verde diferente
+ * do que a página usava no dark).
+ *
+ * Como funciona: cada overlay é escopado em `[data-theme="<id>"]:not(.dark)` (light) e
+ * `.dark[data-theme="<id>"]` (dark) — ou seja, casa em QUALQUER elemento, não só no
+ * `<html>`. Então uma sonda `display:none` com esses atributos resolve
+ * `--color-bg-brand` da marca pedida, no modo atual. Medido nas 5 marcas.
+ *
+ * ⚠️ A sonda precisa replicar os DOIS eixos: sem a classe `dark` nela, o seletor
+ * `:not(.dark)` casa e devolve o valor do LIGHT mesmo com a página no dark (é a
+ * exclusão mútua da L-066 vista do outro lado).
+ *
+ * Os 3 tons saem do mesmo valor: escuro · base · claro. Só `bg-brand` e `chart-1`
+ * variam entre as 5 marcas (medido) — usar chart-2/4 daria 2 quadrinhos idênticos em
+ * 4 das 5 marcas. Rampa da própria marca sempre diferencia.
+ */
+function useRampasDeMarca(isDark: boolean) {
+  const [rampas, setRampas] = useState<Record<string, string[]>>({});
+
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const proximo: Record<string, string[]> = {};
+
+    for (const b of BRANDS) {
+      const sonda = document.createElement("div");
+      if (b.id !== "default") sonda.setAttribute("data-theme", b.id);
+      if (isDark) sonda.classList.add("dark");
+      sonda.style.display = "none";
+      document.body.appendChild(sonda);
+
+      const cor =
+        getComputedStyle(sonda).getPropertyValue("--color-bg-brand").trim() || b.swatch;
+      sonda.remove();
+
+      proximo[b.id] = [
+        `color-mix(in srgb, ${cor} 74%, black)`,
+        cor,
+        `color-mix(in srgb, ${cor} 58%, white)`,
+      ];
+    }
+
+    setRampas(proximo);
+  }, [isDark]);
+
+  return rampas;
+}
+
+/** Os 3 quadrinhos que representam a marca. */
+function Swatches({ cores }: { cores?: string[] }) {
+  return (
+    <span aria-hidden className="flex shrink-0 items-center gap-[3px]">
+      {(cores ?? ["transparent", "transparent", "transparent"]).map((c, i) => (
+        <span
+          key={i}
+          className="size-[11px] rounded-[3px] ring-1 ring-inset ring-fg-default/10"
+          style={{ background: c }}
+        />
+      ))}
+    </span>
+  );
+}
+
+/**
+ * Seletor de marca (dropdown) + modo (segmentado).
+ *
+ * Era uma pílula com as 5 marcas em chips lado a lado. Virou dropdown por pedido do
+ * mantenedor: 5 chips ocupam largura demais pra um controle secundário, e o nome da
+ * marca ativa fica mais legível como rótulo do gatilho do que como chip selecionado.
+ */
 function ThemeSwitcher() {
   const { brand, setBrand } = useBrand();
   const { isDark, setTheme } = useTheme();
+  const rampas = useRampasDeMarca(isDark);
+  const atual = BRANDS.find((b) => b.id === brand) ?? BRANDS[0];
 
   return (
     <div className="flex flex-wrap items-center justify-center gap-gp-md">
-      <div
-        role="group"
-        aria-label="Marca"
-        className="flex flex-wrap items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs"
-      >
-        {BRANDS.map((b) => (
-          <SegItem
-            key={b.id}
-            ativo={brand === b.id}
-            onClick={() => setBrand(b.id)}
-            swatch={b.swatch}
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            color="secondary"
+            variant="outline"
+            size="md"
+            iconRight={<ChevronDown />}
+            aria-label={`Marca: ${atual.label}`}
           >
-            {b.id}
-          </SegItem>
-        ))}
-      </div>
+            <Swatches cores={rampas[atual.id]} />
+            {atual.label}
+          </Button>
+        </DropdownMenuTrigger>
 
+        <DropdownMenuContent align="center" className="min-w-[232px]">
+          <DropdownMenuLabel>Tema de marca</DropdownMenuLabel>
+          {BRANDS.map((b) => (
+            <DropdownMenuItem
+              key={b.id}
+              onSelect={() => setBrand(b.id)}
+              className="gap-gp-md"
+            >
+              <Swatches cores={rampas[b.id]} />
+              <span className="min-w-0 flex-1 truncate">{b.label}</span>
+              {brand === b.id && (
+                <Check className="size-icon-xs shrink-0 text-fg-brand" aria-hidden />
+              )}
+            </DropdownMenuItem>
+          ))}
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      {/* Modo fica segmentado: são 2 estados, e dropdown pra binário é passo a mais.
+          Altura casada com o gatilho (`min-h-form-lg`) pra os dois lerem como um par. */}
       <div
         role="group"
         aria-label="Modo"
-        className="flex items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs"
+        className="flex min-h-form-lg items-center gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-subtle p-pad-2xs"
       >
         <SegItem ativo={isDark} onClick={() => setTheme("dark")}>
           <Moon className="size-icon-xs" aria-hidden /> Escuro
