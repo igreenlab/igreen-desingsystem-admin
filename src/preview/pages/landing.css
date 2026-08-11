@@ -85,20 +85,53 @@
  * O fio de 1px no topo e na base é o que dá a leitura moderna — mas ele também é
  * mascarado, então aparece só no meio e dissolve nas laterais.
  */
+/**
+ * ⚠️ Por que a faixa tem tratamento POR MODO, e a 1ª versão estava errada.
+ *
+ * A 1ª tentativa misturava 3% do `--color-fg-default`. Isso **clareia** no dark (o fg
+ * é quase branco) — exatamente o oposto de "mais escura". No light clareava também, e
+ * a faixa quase não existia.
+ *
+ * "Mais escura e levemente verde" não é a mesma operação nos dois modos:
+ *   - dark  → puxar pro PRETO com um toque de marca (a faixa afunda em relação ao canvas)
+ *   - light → um lavado de marca bem diluído (sobre branco, qualquer coisa já é "mais
+ *             escuro"; puxar pro preto de verdade viraria tarja cinza)
+ *
+ * Daí a base clara + o override em `.dark`. Os dois lados leem `--color-bg-brand`, então
+ * a faixa acompanha a marca ativa — troque pra `blue` e ela vira azulada.
+ */
+/**
+ * Altura FIXA, não `inset: 0`.
+ *
+ * Com `inset: 0` a faixa cobria a seção inteira (medido: 2034px) e virava um segundo
+ * fundo de página em vez de uma transição. Medido nesta seção: a busca termina em 394px
+ * do topo do wrapper e os chips em 438px — 520px de faixa, com a máscara apagando os
+ * últimos 14%, faz ela sumir justo depois dos chips e antes do primeiro card.
+ *
+ * O número é grande demais pra ser "mágico" sem explicação: ele é
+ * `pt-[152px] + head + busca + chips + respiro`. Se o head crescer, ajuste aqui.
+ */
 .lp-band {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 520px;
   z-index: 0;
   pointer-events: none;
-  background:
-    linear-gradient(
-        to bottom,
-        color-mix(in oklch, var(--color-fg-default) 3%, transparent) 0,
-        color-mix(in oklch, var(--color-fg-default) 3%, transparent) 100%
-      )
-      no-repeat;
+  /* light: lavado de marca bem diluído */
+  background: color-mix(in srgb, var(--color-bg-brand) 5%, transparent);
   -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
   mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.dark .lp-band {
+  /* dark: quase-preto com toque de marca, a 62% — afunda em relação ao canvas */
+  background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--color-bg-brand) 13%, black) 62%,
+    transparent
+  );
 }
 
 .lp-band::before,
@@ -108,7 +141,9 @@
   left: 0;
   right: 0;
   height: 1px;
-  background: color-mix(in oklch, var(--color-fg-default) 8%, transparent);
+  /* O fio segue a marca, não o foreground: num plano que afunda, fio claro denuncia a
+     borda; fio de marca lê como aresta iluminada. */
+  background: color-mix(in srgb, var(--color-bg-brand) 26%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
 }
