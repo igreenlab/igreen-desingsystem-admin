@@ -2402,8 +2402,14 @@ function MascoteClaude() {
     <div
       ref={ref}
       className={cn(
-        `lp-mascote pointer-events-none absolute top-[14px] right-0 z-0 hidden w-[340px]
-         select-none lg:block xl:top-[6px] xl:w-[412px]`,
+        // `top` calculado, não escolhido: a peça tem que cruzar o card de baixo em ~20%
+        // da PRÓPRIA altura. Medido — o PNG é 1536×1024, então a altura é 2/3 da largura:
+        //   xl (412px de largura) → 275px de altura → 20% = 55px → top 6 + 55 = 61px
+        //   lg (340px)            → 227px          → 20% = 45px → top 14 + 45 = 59px
+        // Antes eram 6/14px: a base do mascote encostava EXATAMENTE no topo do card
+        // (medido: sobreposição de -1px), então não havia cruzamento nenhum.
+        `lp-mascote pointer-events-none absolute top-[59px] right-0 z-0 hidden w-[340px]
+         select-none lg:block xl:top-[61px] xl:w-[412px]`,
         dentro && "is-in",
       )}
     >
