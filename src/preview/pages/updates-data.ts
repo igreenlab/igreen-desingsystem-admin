@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.38.1",
+    date: "2026-08-11",
+    tag: "patch",
+    title: "Uma porta de entrada pro sistema — e a doc do pipeline batendo com a realidade",
+    summary:
+      "Quem abria o showcase caía na documentação de um botão, sem saber o que o sistema é nem como instalar. Agora abre numa **página inicial** que mostra o DS funcionando, montada com os componentes reais — não com imagens. Do lado da biblioteca, uma correção: a tabela de dados enchia o console de avisos. E a documentação do próprio pipeline, que estava descrevendo um estado que não existia mais em 14 pontos, foi corrigida e ganhou vigilância automática.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A tabela de dados escrevia 156 avisos no console a cada carregamento de página.** A coluna de ações não é um tipo de dado, mas o alerta que existe pra pegar erro de digitação em tipo de coluna não sabia disso e reclamava dela — em toda linha. O aviso continua pegando erro de digitação de verdade; só parou de gritar sobre o que está certo. **Zero mudança visual ou de comportamento**, provado comparando o resultado renderizado antes e depois: idêntico.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Página inicial do showcase.** Mostra o sistema em uso: um painel completo com indicadores, gráficos e tabela — construído com os componentes de verdade, não com uma imagem. Se um componente quebrar, a página inicial mostra. Tem também a troca de tema ao vivo, os quatro caminhos de instalação, os dois prompts prontos pra colar no Claude Code e o catálogo inteiro com busca.",
+          "**A logo da iGreen no lugar do \"iG\" escrito à mão**, nas três superfícies do showcase que tinham o texto, mais o ícone da aba do navegador (que não existia).",
+          "**Vigilância automática da documentação do pipeline.** As páginas que explicam como o sistema funciona por dentro nunca eram conferidas por nada — todos os testes olham código. Agora um teste reprova número que divergiu da fonte, nome de arquivo que não existe e frase que descreve um mecanismo inexistente.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**14 pontos da documentação do pipeline estavam desatualizados**, e os piores não eram número errado: uma página listava quatro arquivos de skill que não existem, outra listava oito caminhos de contexto com nomes que nunca existiram, três ensinavam um mecanismo de carregamento que este ambiente não tem, e a de instalação prometia erros de tipo \"pré-existentes\" num projeto onde a checagem passa limpa — ou seja, ensinava a ignorar erro. Também: 8 de 15 comandos listados, 1 de 9 skills, 12 de 35 scripts.",
+          "**As propriedades que resolvem o bug do menu da versão anterior agora aparecem na documentação.** Elas existiam no código e em nenhuma das duas páginas que as deveriam mostrar — quem tentasse corrigir o problema não encontrava a solução.",
+          "**As tabelas de propriedades passaram a mostrar as notas explicativas.** O campo existia nos dados e não no tipo, então uma explicação de quatro linhas escrita meses atrás nunca apareceu na tela — quem escreveu acreditou ter documentado.",
+          "**Os avisos automáticos do repositório mediam contra a referência errada.** Comparavam o trabalho novo contra uma cópia do projeto parada há três meses, o que fazia dívida antiga passar por problema novo: apontavam 17 problemas inexistentes e acusavam um componente documentado de não ter documentação. Agora a referência é resolvida pelo endereço do repositório, não pelo apelido dele.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.38.0",
     date: "2026-08-08",
     tag: "release",
