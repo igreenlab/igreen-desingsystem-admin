@@ -545,10 +545,12 @@ function SegItem({
           aria-hidden
           className={cn(
             "size-[9px] shrink-0 rounded-radius-full ring-1 ring-inset",
-            // Sobre o fundo brand cheio, o anel precisa de contraste próprio.
-            ativo ? "ring-fg-on-brand/40" : "ring-border-default",
+            // fg-on-brand = branco no light, PRETO no dark. Branco fixo aqui
+            // dava ~1,4:1 sobre o verde claro do dark; o token acerta os dois modos.
+            ativo ? "bg-fg-on-brand ring-fg-on-brand/30" : "ring-border-default",
           )}
-          style={{ background: swatch }}
+          // Ativo não usa o swatch do catálogo: ver a nota acima.
+          style={ativo ? undefined : { background: swatch }}
         />
       )}
       {children}
@@ -923,7 +925,12 @@ function MockDashboard() {
               {/* `fill` aqui NÃO pinta a barra (o `<Cell>` abaixo vence) — ele
                   alimenta `item.color` do tooltip, que é de onde vem o dot colorido
                   ao lado do valor. Sem isso o tooltip aparece sem a cor da série. */}
-              <Bar dataKey="kwh" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]}>
+              <Bar
+                dataKey="kwh"
+                fill="var(--color-chart-1)"
+                radius={[4, 4, 0, 0]}
+                activeBar={{ fill: "var(--color-chart-1)" }}
+              >
                 {ENERGIA.map((_, i) => (
                   <Cell
                     key={i}
@@ -944,7 +951,7 @@ function MockDashboard() {
                           // Token de borda usado como fill é incomum, mas é o neutro
                           // opaco que o DS tem; qualquer `color-mix` de verde com a
                           // superfície puxa pro quente (ver a nota de ferrugem).
-                          "var(--color-border-default)"
+                          "color-mix(in srgb, var(--color-fg-default) 30%, var(--color-bg-surface))"
                     }
                   />
                 ))}
@@ -1194,7 +1201,7 @@ function HeroWindow() {
         <div
           ref={(el) => { unfoldRef.current = el; folgaRef.current = el; }}
           className="lp-unfold lp-window lp-beam lp-beam-slow relative z-10
-                     lp-glass rounded-[20px] border p-[8px] shadow-sh-lg"
+                     lp-glass outline-float rounded-[20px] p-[8px] shadow-sh-lg"
         >
           <div className="overflow-hidden rounded-[14px] border border-border-default bg-bg-canvas">
             <BrowserBar />
@@ -1410,17 +1417,18 @@ function BentoCard({
           <h3 className="m-0 text-title-sm font-semibold text-fg-default">{titulo}</h3>
           <p className="m-0 text-caption-md leading-relaxed text-fg-muted">{descricao}</p>
         </div>
-        <button
-          type="button"
+        {/* O `Button` do DS, não um ícone solto: borda + fundo de secondary outline.
+            Como ícone puro ele lia como decoração e não como alvo clicável. */}
+        <Button
+          color="secondary"
+          variant="outline"
+          size="icon-2xs"
           onClick={() => onNavigate(href)}
           aria-label={`Abrir documentação de ${titulo}`}
-          className="grid size-comp-md shrink-0 place-items-center rounded-radius-base text-fg-subtle
-                     opacity-0 transition-all hover:bg-bg-muted hover:text-fg-brand
-                     focus-visible:opacity-100 focus-visible:outline-none focus-visible:ring-4
-                     focus-visible:ring-ring-brand group-hover:opacity-100"
+          className="shrink-0 opacity-0 transition-opacity focus-visible:opacity-100 group-hover:opacity-100"
         >
-          <ArrowUpRight className="size-icon-xs" aria-hidden />
-        </button>
+          <ArrowUpRight aria-hidden />
+        </Button>
       </div>
       <div className="mt-gp-xl flex min-w-0 flex-1 flex-col justify-center">{children}</div>
     </div>
@@ -1430,12 +1438,42 @@ function BentoCard({
 function Bento() {
   const linhasTabela = useMemo(
     () => [
-      { id: "4821 · Solar", licenciado: "Marina R.", status: "Ativo", valor: "R$ 12.400" },
-      { id: "4822 · Telecom", licenciado: "João C.", status: "Análise", valor: "R$ 3.190" },
-      { id: "4823 · Seguros", licenciado: "Ana L.", status: "Pausado", valor: "R$ 890" },
+      // Id curto de proposito: "4822 · Telecom" pedia 92px de conteudo numa celula de
+      // 85px e gerava scroll horizontal DENTRO da celula. O card existe pra mostrar o
+      // header e o ritmo de linha do DS, nao o dado — o hero mostra a tabela completa.
+      { id: "#4821", licenciado: "Marina R.", status: "Ativo", valor: "R$ 12.400" },
+      { id: "#4822", licenciado: "João C.", status: "Análise", valor: "R$ 3.190" },
+      { id: "#4823", licenciado: "Ana L.", status: "Pausado", valor: "R$ 890" },
+      { id: "#4824", licenciado: "Rafael S.", status: "Ativo", valor: "R$ 7.820" },
     ],
     [],
   );
+
+  /**
+   * Colunas do card DataTable — 3, não 4.
+   *
+   * O `Table` do DS respeita a largura declarada e rola quando não cabe. Com 4 colunas
+   * (150+110+100+96 = 456px) num card de ~338px de miolo, "Valor" era cortado e
+   * aparecia barra de scroll horizontal. 92+104+96 = 292 cabe com folga.
+   *
+   * "Licenciado" foi a que saiu: o card existe pra mostrar o HEADER e o ritmo de linha
+   * do DS, e o dashboard do hero já exibe as 5 colunas numa largura de verdade.
+   */
+  const colunasBento = useMemo(
+    () => [
+      // Rotulo curto porque o header COMPETE com o icone de sort na largura: com
+      // "Contrato" em 92px ele truncava pra "Cont". Valores sao `#4821`, entao "Nº" diz o
+      // mesmo. (O DataTable com `autoFit` resolve isso sozinho — L-052b — mas aqui a
+      // largura e declarada.)
+      { field: "id", headerName: "Nº", width: 92 },
+      // 104 e nao 90: o Chip "Analise" mais o padding da celula pedem 94px, e a
+      // coluna estreita gerava 5px de scroll horizontal DENTRO da celula.
+      { field: "status", headerName: "Status", width: 104 },
+      { field: "valor", headerName: "Valor", width: 96 },
+    ],
+    [],
+  );
+  const { widths: wBento } = useColumnWidths(colunasBento);
 
   return (
     <div className="grid grid-cols-1 gap-gp-xl md:grid-cols-2 lg:grid-cols-6">
@@ -1626,18 +1664,30 @@ function Bento() {
         href="switch"
         className="lg:col-span-2"
       >
+        {/* Subtítulo por linha: o card ficava com 4 labels de uma linha só e sobrava
+            altura. O sub também é o padrão de `FormFieldSwitch` do DS — label diz o
+            QUE é, sub diz a consequência. */}
         <div className="flex flex-col divide-y divide-border-subtle">
           {[
-            ["Notificar por e-mail", true],
-            ["Resumo semanal", false],
-            ["Modo compacto", true],
-            ["Colunas fixas na tabela", false],
-          ].map(([label, on], i) => (
-            <div key={String(label)} className="flex items-center justify-between gap-gp-md py-pad-md">
-              <label htmlFor={`lp-bento-sw-${i}`} className="text-body-sm text-fg-muted">
-                {label}
-              </label>
-              <Switch id={`lp-bento-sw-${i}`} defaultChecked={Boolean(on)} />
+            ["Notificar por e-mail", "Resumo diário às 8h", true],
+            ["Resumo semanal", "Toda segunda, com o consolidado", false],
+            ["Modo compacto", "Mais linhas visíveis por tela", true],
+            ["Colunas fixas", "Cliente e status sempre visíveis", false],
+          ].map(([label, sub, on], i) => (
+            <div
+              key={String(label)}
+              className="flex items-start justify-between gap-gp-md py-pad-lg"
+            >
+              <span className="min-w-0">
+                <label
+                  htmlFor={`lp-bento-sw-${i}`}
+                  className="block text-body-sm font-medium text-fg-default"
+                >
+                  {label}
+                </label>
+                <span className="mt-[2px] block text-caption-sm text-fg-muted">{sub}</span>
+              </span>
+              <Switch id={`lp-bento-sw-${i}`} defaultChecked={Boolean(on)} className="mt-[2px]" />
             </div>
           ))}
         </div>
@@ -1649,29 +1699,46 @@ function Bento() {
         href="data-table"
         className="lg:col-span-2"
       >
-        <div className="overflow-hidden rounded-radius-base border border-border-subtle">
-          <div className="grid grid-cols-[1.5fr_1fr_88px_86px] gap-gp-md border-b border-border-subtle bg-bg-table-head px-pad-xl py-pad-md font-mono text-caption-xs uppercase tracking-[0.08em] text-fg-subtle">
-            <span>Contrato</span>
-            <span>Licenciado</span>
-            <span>Status</span>
-            <span className="text-right">Valor</span>
-          </div>
-          {linhasTabela.map((r) => (
-            <div
-              key={r.id}
-              className="grid grid-cols-[1.5fr_1fr_88px_86px] items-center gap-gp-md border-b border-border-subtle px-pad-xl py-pad-md text-body-sm last:border-b-0"
-            >
-              <span className="truncate font-medium text-fg-default">{r.id}</span>
-              <span className="truncate text-fg-muted">{r.licenciado}</span>
-              <span>
-                <Chip color={STATUS_COLOR[r.status as keyof typeof STATUS_COLOR]} variant="soft" size="sm">
-                  {r.status}
-                </Chip>
-              </span>
-              <span className="text-right tabular-nums text-fg-default">{r.valor}</span>
-            </div>
-          ))}
-        </div>
+        {/* O `Table` REAL do DS, não um grid montado à mão. O header hand-rolled não
+            batia com o do DataTable (altura, tipografia, cor de fundo, sort) — e num
+            card que se chama "DataTable" essa é justamente a coisa que precisa estar
+            fiel. Sort ativo em "Contrato" pra o header mostrar o estado que existe. */}
+        <Table density="compact" ariaLabel="Contratos (exemplo)">
+          <TableHead>
+            {colunasBento.map((c) => (
+              <TableHeadCell
+                key={c.field}
+                width={wBento[c.field]}
+                align={c.field === "valor" ? "right" : "left"}
+                sortable={c.field === "id"}
+                sortDirection={c.field === "id" ? "asc" : null}
+              >
+                {c.headerName}
+              </TableHeadCell>
+            ))}
+          </TableHead>
+          <TableBody>
+            {linhasTabela.map((r) => (
+              <TableRow key={r.id}>
+                <TableCell width={wBento.id}>
+                  <span className="truncate font-medium text-fg-default">{r.id}</span>
+                </TableCell>
+                <TableCell width={wBento.status}>
+                  <Chip
+                    color={STATUS_COLOR[r.status as keyof typeof STATUS_COLOR]}
+                    variant="soft"
+                    size="sm"
+                  >
+                    {r.status}
+                  </Chip>
+                </TableCell>
+                <TableCell width={wBento.valor} align="right">
+                  <span className="tabular-nums">{r.valor}</span>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </BentoCard>
     </div>
   );
