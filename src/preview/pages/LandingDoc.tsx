@@ -52,17 +52,19 @@ import {
   Pie,
   PieChart,
   XAxis,
+  YAxis,
 } from "recharts";
 import {
   ArrowUpRight,
   Blocks,
   Bot,
   Building2,
+  Calendar,
   ChartColumn,
+  ChevronDown,
   Check,
   Component,
   Copy,
-  Download,
   FlaskConical,
   Layers,
   LayoutDashboard,
@@ -77,7 +79,6 @@ import {
   Receipt,
   Rocket,
   Search,
-  SlidersHorizontal,
   Split,
   Sparkles,
   Sun,
@@ -117,6 +118,12 @@ import {
   useColumnWidths,
 } from "../../components/ui/Table";
 import { SingleMenuSidebar } from "../../components/ui/SingleMenuSidebar";
+import {
+  TableToolbar,
+  TableToolbarViews,
+  ToolbarFilterButton,
+  ToolbarSearch,
+} from "../../components/ui/TableToolbar";
 import { BRANDS, useBrand } from "../../hooks/useBrand";
 import { useTheme } from "../../hooks/useTheme";
 import { getCatalog, getCatalogSections, useDocNav, type CatalogEntry } from "../components";
@@ -625,11 +632,16 @@ const ENERGIA_CONFIG = {
   kwh: { label: "kWh injetados", color: "var(--color-chart-1)" },
 } satisfies ChartConfig;
 
+/** Índice do mês corrente — barra destacada e tooltip aberto. */
+const MES_DESTAQUE = 6;
+
 const MIX = [
   { nome: "Solar", pct: 62 },
   { nome: "Telecom", pct: 21 },
   { nome: "Seguros", pct: 11 },
-  { nome: "Outros", pct: 6 },
+  { nome: "Consórcio", pct: 7 },
+  { nome: "Energia B2B", pct: 4 },
+  { nome: "Outros", pct: 2 },
 ];
 
 /** Barra da chrome do browser — a "moldura" que faz o mockup ler como app real. */
@@ -658,7 +670,8 @@ function BrowserBar() {
  */
 const MODULO_MOCK = {
   id: "operacao",
-  icon: <Zap />,
+  // O tamanho vem DAQUI: o SingleMenuSidebar renderiza o nó como recebido.
+  icon: <Zap className="size-icon-sm" />,
   title: "Operação",
   subtitle: "MÓDULO ATIVO",
 };
@@ -726,9 +739,9 @@ function MockSidebar() {
         logo={
           <span
             aria-hidden
-            className="grid size-comp-xl place-items-center rounded-radius-base bg-bg-brand text-fg-on-brand"
+            className="grid size-comp-lg place-items-center rounded-radius-base bg-bg-brand text-fg-on-brand"
           >
-            <Zap className="size-icon-sm" />
+            <Zap className="size-icon-xs" />
           </span>
         }
         title="iGreen Admin"
@@ -743,14 +756,14 @@ function MockSidebar() {
 
 /* ── Dados dos KPIs com projeção ───────────────────────────────────────────── */
 
-const SPARK_A = [
-  { v: 42 }, { v: 51 }, { v: 47 }, { v: 62 }, { v: 58 }, { v: 71 }, { v: 84 },
-];
+/** Séries das barras do KPI row — 7 pontos, a última é o mês corrente (destacada). */
+const SERIE_A = [42, 51, 47, 62, 58, 71, 84];
+const SERIE_B = [28, 44, 39, 52, 61, 57, 73];
+const SERIE_C = [66, 58, 61, 49, 44, 39, 31];
+const SERIE_D = [38, 46, 44, 55, 52, 63, 70];
+
 const SPARK_B = [
   { v: 28 }, { v: 44 }, { v: 39 }, { v: 52 }, { v: 61 }, { v: 57 }, { v: 73 },
-];
-const SPARK_C = [
-  { v: 66 }, { v: 58 }, { v: 61 }, { v: 49 }, { v: 44 }, { v: 39 }, { v: 31 },
 ];
 const DONUT_MIX = [
   { k: "solar", v: 62, fill: "var(--color-chart-1)" },
@@ -764,46 +777,63 @@ const SPARK_CFG = {
 } satisfies ChartConfig;
 
 /**
- * KPI com projeção de gráfico — o recipe da página `#/kpi` ("Kpi + sparkline"):
- * círculo de ícone + label + valor `stat` + pílula de delta + mini-chart no slot.
+ * KPI do dashboard — os QUATRO iguais, de propósito.
  *
- * Substituiu o `KpiGroup divided`, que só tem número: o mantenedor pediu "KPIs mais
- * bonitos, com projeção de gráfico", e é o formato que a doc do próprio DS mostra
- * como modelo.
+ * A versão anterior dava um formato de mini-chart diferente pra cada um (barras, área,
+ * linha, donut). Ficou parecendo uma vitrine de tipos de gráfico em vez de uma linha
+ * de métricas: o olho compara os formatos em vez de comparar os números, que é o
+ * trabalho de um KPI row.
+ *
+ * A anatomia é a do wireframe e a da página `#/kpi`: **label em caixa alta → valor →
+ * sublabel de delta → barras**. Sem ícone.
+ *
+ * As barras são a mesma série, apagadas, com **uma** na cor da marca — o mês corrente.
+ * Sinal de "onde estamos" sem legenda.
  */
-function KpiSpark({
-  icone: Icone,
+function KpiCell({
   label,
   valor,
   delta,
+  sublabel,
   descendo = false,
-  children,
+  serie,
 }: {
-  icone: LucideIcon;
   label: string;
   valor: string;
   delta: string;
+  sublabel: string;
   descendo?: boolean;
-  children: ReactNode;
+  serie: number[];
 }) {
   return (
-    <div className="flex min-w-0 flex-col gap-gp-lg rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl shadow-sh-sm">
-      <div className="flex items-center gap-gp-md">
-        <span
-          aria-hidden
-          className="grid size-form-md shrink-0 place-items-center rounded-radius-full bg-bg-brand-subtle text-fg-brand"
-        >
-          <Icone className="size-icon-sm" strokeWidth={1.8} />
-        </span>
-        <p className="m-0 min-w-0 flex-1 truncate text-caption-md text-fg-muted">{label}</p>
-      </div>
-      <div className="flex items-end justify-between gap-gp-md">
-        <p className="m-0 text-stat-md leading-none tabular-nums text-fg-default">{valor}</p>
-        <Chip color={descendo ? "danger" : "success"} variant="soft" size="sm">
-          {delta}
-        </Chip>
-      </div>
-      <div className="h-[48px] w-full">{children}</div>
+    <div className="flex min-w-0 flex-col rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl shadow-sh-sm">
+      <p className="m-0 truncate text-caption-xs uppercase tracking-[0.06em] text-fg-subtle">
+        {label}
+      </p>
+      <p className="m-0 mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">
+        {valor}
+      </p>
+      <p
+        className={cn(
+          "m-0 mt-gp-xs font-mono text-caption-sm",
+          descendo ? "text-fg-danger" : "text-fg-success",
+        )}
+      >
+        {descendo ? "▼" : "▲"} {delta}{" "}
+        <span className="text-fg-subtle">{sublabel}</span>
+      </p>
+      <span aria-hidden className="mt-gp-md flex h-[22px] items-end gap-[3px]">
+        {serie.map((h, i) => (
+          <span
+            key={i}
+            className={cn(
+              "flex-1 rounded-radius-sm",
+              i === serie.length - 1 ? "bg-bg-brand" : "bg-bg-brand-subtle",
+            )}
+            style={{ height: `${h}%` }}
+          />
+        ))}
+      </span>
     </div>
   );
 }
@@ -836,24 +866,21 @@ function MockDashboard() {
             Atualizado há 4 minutos · região Sudeste
           </p>
         </div>
+        {/* Um botão de Período, não um segmentado Dia/Mês/Ano: esse segmentado não
+            existe no DS (era desenho meu) e competia visualmente com o seletor de
+            marca da própria landing. O recipe de period selector do
+            `dashboard-patterns.md` §0 é exatamente Button outline + ícone de
+            calendário + chevron. "Exportar" saiu — ação de export vive no `more` da
+            toolbar, não no header. */}
         <div className="flex shrink-0 items-center gap-gp-md">
-          <div className="flex items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs">
-            {["Dia", "Mês", "Ano"].map((p) => (
-              <span
-                key={p}
-                className={cn(
-                  "rounded-radius-full px-pad-xl py-pad-xs text-caption-md",
-                  p === "Mês"
-                    ? "bg-bg-surface font-medium text-fg-default shadow-sh-sm"
-                    : "text-fg-muted",
-                )}
-              >
-                {p}
-              </span>
-            ))}
-          </div>
-          <Button color="secondary" variant="outline" size="sm" iconLeft={<Download />}>
-            Exportar
+          <Button
+            color="secondary"
+            variant="outline"
+            size="sm"
+            iconLeft={<Calendar />}
+            iconRight={<ChevronDown />}
+          >
+            Período
           </Button>
           <Button size="sm" iconLeft={<Plus />}>
             Novo contrato
@@ -861,80 +888,47 @@ function MockDashboard() {
         </div>
       </header>
 
-      {/* KPIs com projeção — 4 formatos de mini-chart, como o modelo da doc */}
+      {/* KPI row — os quatro no MESMO formato (ver comentário do KpiCell) */}
       <div className="grid grid-cols-4 gap-gp-lg">
-        <KpiSpark icone={Users} label="Clientes ativos" valor="12.847" delta="+8,2%">
-          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
-            <BarChart data={SPARK_A}>
-              <Bar dataKey="v" radius={3} fill="var(--color-chart-1)" />
-            </BarChart>
-          </ChartContainer>
-        </KpiSpark>
-
-        <KpiSpark icone={Wallet} label="Faturamento" valor="R$ 4,2M" delta="+12,5%">
-          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
-            <AreaChart data={SPARK_B} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
-              <Area
-                dataKey="v"
-                type="natural"
-                stroke="var(--color-chart-1)"
-                fill="var(--color-chart-1)"
-                fillOpacity={0.2}
-                strokeWidth={2}
-              />
-            </AreaChart>
-          </ChartContainer>
-        </KpiSpark>
-
-        <KpiSpark
-          icone={TriangleAlert}
-          label="Inadimplência"
-          valor="2,1%"
-          delta="-0,4%"
-          descendo
-        >
-          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
-            <LineChart data={SPARK_C} margin={{ top: 6, bottom: 6, left: 0, right: 0 }}>
-              <Line
-                dataKey="v"
-                type="monotone"
-                stroke="var(--color-chart-4)"
-                strokeWidth={2}
-                dot={false}
-              />
-            </LineChart>
-          </ChartContainer>
-        </KpiSpark>
-
-        <KpiSpark icone={Receipt} label="Ticket médio" valor="R$ 327" delta="+2,8%">
-          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
-            <PieChart>
-              <Pie
-                data={DONUT_MIX}
-                dataKey="v"
-                nameKey="k"
-                innerRadius={15}
-                outerRadius={23}
-                strokeWidth={0}
-              >
-                {DONUT_MIX.map((d) => (
-                  <Cell key={d.k} fill={d.fill} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ChartContainer>
-        </KpiSpark>
+        <KpiCell label="Clientes ativos" valor="12.847" delta="8,2%" sublabel="vs. mês anterior" serie={SERIE_A} />
+        <KpiCell label="Faturamento" valor="R$ 4,2M" delta="12,5%" sublabel="vs. mês anterior" serie={SERIE_B} />
+        <KpiCell label="Inadimplência" valor="2,1%" delta="0,4%" sublabel="vs. mês anterior" descendo serie={SERIE_C} />
+        <KpiCell label="Ticket médio" valor="R$ 327" delta="2,8%" sublabel="vs. mês anterior" serie={SERIE_D} />
       </div>
-
       {/* Chart-card + mix da carteira */}
       <div className="grid grid-cols-[1.7fr_1fr] gap-gp-xl">
         <Card titulo="Energia injetada" subtitulo="kWh · últimos 9 meses">
+          {/* `YAxis hide tickCount`: o `CartesianGrid` desenha nas marcas do eixo Y, e
+              sem eixo declarado o Recharts usa ~4 — as linhas ficavam muito espaçadas.
+              O eixo entra escondido só pra densificar a grade. */}
           <ChartContainer config={ENERGIA_CONFIG} className="h-[180px] w-full">
-            <BarChart data={ENERGIA} margin={{ left: 0, right: 0, top: 4, bottom: 0 }}>
+            <BarChart data={ENERGIA} margin={{ left: 0, right: 0, top: 16, bottom: 0 }}>
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
+              <YAxis hide tickCount={6} />
               <XAxis dataKey="mes" tickLine={false} axisLine={false} tickMargin={8} />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-              <Bar dataKey="kwh" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]} />
+              {/* Tooltip já ABERTO no mês corrente: um dashboard estático com tooltip
+                  fechado não mostra que o gráfico é interativo. `defaultIndex` +
+                  `active` fixam no índice do mês destacado. */}
+              <ChartTooltip
+                active
+                defaultIndex={MES_DESTAQUE}
+                cursor={false}
+                content={<ChartTooltipContent />}
+              />
+              {/* Barras APAGADAS, uma na cor da marca — o mês corrente. Barra toda
+                  colorida não diz nada; com uma destacada, a leitura é imediata. */}
+              <Bar dataKey="kwh" radius={[4, 4, 0, 0]}>
+                {ENERGIA.map((_, i) => (
+                  <Cell
+                    key={i}
+                    fill={
+                      i === MES_DESTAQUE
+                        ? "var(--color-chart-1)"
+                        : "var(--color-bg-brand-subtle)"
+                    }
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ChartContainer>
         </Card>
@@ -966,30 +960,37 @@ function MockDashboard() {
 
       {/* Tabela — a peça mais densa do DS */}
       <Card>
-        <div className="flex flex-wrap items-center gap-gp-md">
-          <div className="relative min-w-0 flex-1">
-            <Search
-              className="pointer-events-none absolute left-pad-lg top-1/2 size-icon-sm -translate-y-1/2 text-fg-subtle"
-              aria-hidden
+        {/* Header da tabela = o `TableToolbar` REAL do DS, não uma barra montada à
+            mão. Layout dele é opinativo e fixo (abas de visão à esquerda; refresh,
+            busca, filtro e configurações à direita), que é justamente a fidelidade
+            pedida: a versão anterior era input + 2 chips soltos e não parecia com a
+            toolbar que o DataTable de verdade renderiza. */}
+        <TableToolbar
+          savedViews={
+            <TableToolbarViews
+              // O campo é `name`, não `label` — e `owner: "preset"` é o que faz a
+              // visão virar aba fixa sem botão de excluir (L-065).
+              views={[
+                { id: "ativos", name: "Ativos", owner: "preset" },
+                { id: "analise", name: "Em análise", owner: "preset" },
+              ]}
+              activeViewId="ativos"
+              allowCreate={false}
+              onApply={() => {}}
+              onApplyDefault={() => {}}
+              onDelete={() => {}}
+              onSave={() => {}}
             />
-            <Input
-              readOnly
-              tabIndex={-1}
+          }
+          search={
+            <ToolbarSearch
+              value=""
+              onChange={() => {}}
               placeholder="Buscar cliente, UC ou contrato…"
-              aria-hidden
-              className="min-h-form-md pl-[38px] text-body-sm"
             />
-          </div>
-          <Chip size="md" variant="outline">
-            Status: 2
-          </Chip>
-          <Chip size="md" variant="outline">
-            Colunas
-          </Chip>
-          <Button color="secondary" variant="ghost" size="sm" iconLeft={<SlidersHorizontal />}>
-            Filtros
-          </Button>
-        </div>
+          }
+          filter={<ToolbarFilterButton isActive hasIndicator />}
+        />
 
         <Table density="standard" ariaLabel="Contratos (exemplo)">
           <TableHead>
@@ -1197,7 +1198,7 @@ function HeroWindow() {
       {temFolga && (
       <>
       {/* 1. KPI de consumo — mini-bars em vez de barra chapada */}
-      <FloatCard i={0} className="-left-[88px] top-[210px]">
+      <FloatCard i={0} className="-left-[96px] top-[118px]">
         <div className="flex items-center gap-gp-sm">
           <span
             aria-hidden
@@ -1228,7 +1229,7 @@ function HeroWindow() {
       </FloatCard>
 
       {/* 2. Receita — sparkline em área, com delta em Chip do DS */}
-      <FloatCard i={1} className="-right-[86px] -top-[30px] w-[212px]">
+      <FloatCard i={1} className="-right-[104px] -top-[86px] w-[212px]">
         <div className="flex items-start justify-between gap-gp-sm">
           <p className="m-0 text-caption-md text-fg-muted">Receita recorrente</p>
           <Chip color="success" variant="soft" size="sm">
@@ -1292,8 +1293,11 @@ function HeroWindow() {
       {/* 4. TOAST de verdade — a receita do `Toast`/Sonner do DS: superfície
              flutuante com ícone de status, título, descrição e o X de dispensar.
              Antes era um card com um check dentro, que não lia como notificação. */}
-      <FloatCard i={3} className="-right-[70px] bottom-[142px] w-[248px] p-0">
-        <div className="flex items-start gap-gp-md p-pad-xl">
+      <FloatCard i={3} className="-right-[74px] bottom-[132px] w-[304px] p-0">
+        {/* Proporção RETANGULAR: ícone + texto numa linha só, ação à direita em vez
+            de empilhada. Toast é largo e baixo; com a ação embaixo do texto o card
+            ficava quase quadrado e lia como card, não como notificação. */}
+        <div className="flex items-center gap-gp-md p-pad-lg">
           <span
             aria-hidden
             className="grid size-comp-lg shrink-0 place-items-center rounded-radius-full bg-bg-success-muted text-fg-success"
@@ -1301,17 +1305,14 @@ function HeroWindow() {
             <Check className="size-icon-xs" strokeWidth={2.4} />
           </span>
           <span className="min-w-0 flex-1">
-            <span className="block text-body-sm font-semibold text-fg-default">
+            <span className="block truncate text-body-sm font-semibold text-fg-default">
               Proposta aprovada
             </span>
-            <span className="mt-[2px] block text-caption-sm leading-relaxed text-fg-muted">
+            <span className="mt-[1px] block truncate text-caption-sm text-fg-muted">
               Contrato #4821 movido para Ativos.
             </span>
-            <span className="mt-gp-md flex items-center gap-gp-md">
-              <span className="text-caption-sm font-medium text-fg-brand">Ver contrato</span>
-              <span className="text-caption-sm text-fg-subtle">agora</span>
-            </span>
           </span>
+          <span className="shrink-0 text-caption-sm font-medium text-fg-brand">Ver</span>
           <X className="size-icon-xs shrink-0 text-fg-subtle" aria-hidden />
         </div>
         {/* Barra de progresso do auto-dismiss — o detalhe que faz ler como toast. */}
@@ -1554,18 +1555,26 @@ function Bento() {
       {/* ── Fileira 3: 2 + 2 + 2 ── */}
       <BentoCard
         titulo="Kpi"
-        descricao="Card de métrica com ícone, delta semântico e projeção — o recipe da página de KPI."
+        descricao="Label, valor, delta semântico e projeção em barras — o mesmo recipe do dashboard do hero."
         href="kpi"
         className="lg:col-span-2"
       >
-        <div className="flex flex-col gap-gp-lg">
-          <KpiSpark icone={Users} label="Clientes ativos" valor="12.847" delta="+8,2%">
-            <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
-              <BarChart data={SPARK_A}>
-                <Bar dataKey="v" radius={3} fill="var(--color-chart-1)" />
-              </BarChart>
-            </ChartContainer>
-          </KpiSpark>
+        <div className="flex flex-col gap-gp-md">
+          <KpiCell
+            label="Clientes ativos"
+            valor="12.847"
+            delta="8,2%"
+            sublabel="vs. mês anterior"
+            serie={SERIE_A}
+          />
+          <KpiCell
+            label="Inadimplência"
+            valor="2,1%"
+            delta="0,4%"
+            sublabel="vs. mês anterior"
+            descendo
+            serie={SERIE_C}
+          />
         </div>
       </BentoCard>
 
