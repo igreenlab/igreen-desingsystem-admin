@@ -2135,12 +2135,58 @@ const PROMPTS = [
   },
 ] as const;
 
+/**
+ * Mascote 3D do Claude Code, ao lado do head da seção.
+ *
+ * ⚠️ O PNG tem fundo PRETO SÓLIDO, não alpha. No dark ele se funde com a página (é o
+ * que o mockup mostra), mas no light apareceria um retângulo preto no meio da seção.
+ *
+ * Solução com um tratamento só pros dois modos: um palco escuro arredondado +
+ * `mix-blend-screen` na imagem. `screen` derruba o preto (preto é neutro em screen) e
+ * faz o glow laranja florescer sobre o palco. No dark a borda do palco praticamente
+ * desaparece contra o canvas e o mascote parece flutuar; no light o palco lê como um
+ * tile escuro deliberado — em nenhum dos dois aparece "moldura preta acidental".
+ *
+ * `aria-hidden`: é ornamento. O que a seção comunica está no head e no card.
+ */
+function MascoteClaude() {
+  return (
+    <div
+      aria-hidden
+      className="relative z-10 mx-auto -mb-[40px] shrink-0 lg:mx-0 lg:-mb-[56px]"
+    >
+      {/* O fundo do palco muda por modo, e é o que faz a costura desaparecer:
+          - dark  → `bg-bg-canvas`: o preto do PNG é levantado por `screen` até
+                    EXATAMENTE a cor da página, então não há tile visível.
+          - light → `bg-fg-default` (near-black do tema): `screen` precisa de um
+                    fundo escuro pra funcionar; sobre branco a imagem sumiria.
+          Sem literal de cor — os dois vêm de token. */}
+      <span
+        className="relative block size-[230px] overflow-hidden rounded-radius-2xl bg-fg-default
+                   ring-1 ring-inset ring-fg-default/10 dark:bg-bg-canvas dark:ring-0
+                   lg:size-[268px]"
+      >
+        <img
+          src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="size-full scale-[1.18] object-contain mix-blend-screen"
+        />
+      </span>
+    </div>
+  );
+}
+
 function PromptSection() {
   const [ativo, setAtivo] = useState<string>(PROMPTS[0].id);
   const atual = PROMPTS.find((p) => p.id === ativo) ?? PROMPTS[0];
 
   return (
-    <Card className="lp-beam lp-beam-slow overflow-hidden">
+    // `lp-glass` = fundo translúcido + blur (o mesmo vidro do bezel do hero). Como o
+    // mascote encosta na borda de cima do card, um fundo opaco cortava o glow dele
+    // numa linha reta; com vidro o brilho atravessa.
+    <Card className="lp-beam lp-beam-slow lp-glass overflow-hidden">
       <div className="flex flex-wrap items-center justify-between gap-gp-lg">
         <div
           role="tablist"
@@ -2498,15 +2544,21 @@ export function LandingDoc() {
       <div className="pt-[112px]">
         <Wrap>
           <Reveal>
-            <SectionHead
-              eyebrow="Kit de IA"
-              title="Cole no Claude Code"
-              em="e ele faz o resto."
-            >
-              Dois prompts com trabalhos diferentes: um instala o sistema no projeto, o
-              outro ensina a construir dentro das regras. Nenhum dos dois inventa
-              comando — saíram da doc deste repo.
-            </SectionHead>
+            {/* Head em 2 colunas: texto à esquerda, mascote à direita, mordendo o
+                card de baixo (`-mb-[56px]` + `z-10`) — é o enquadramento do mockup. */}
+            <div className="flex flex-col items-start gap-gp-2xl lg:flex-row lg:items-center lg:justify-between">
+              <SectionHead
+                eyebrow="Kit de IA"
+                title="Cole no Claude Code"
+                em="e ele faz o resto."
+              >
+                Dois prompts com trabalhos diferentes: um instala o sistema no projeto, o
+                outro ensina a construir dentro das regras. Nenhum dos dois inventa
+                comando — saíram da doc deste repo.
+              </SectionHead>
+
+              <MascoteClaude />
+            </div>
           </Reveal>
 
           <Reveal i={1} className="mt-[44px]">
