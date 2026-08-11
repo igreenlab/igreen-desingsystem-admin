@@ -74,6 +74,51 @@
   mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 62%, transparent 100%);
 }
 
+/**
+ * Faixa de fundo que separa uma seção da vizinha.
+ *
+ * Diferencia sem cortar: o tint é baixíssimo (3% do foreground) e some nas duas pontas
+ * por máscara, então não existe linha reta de início/fim — o olho lê "outro plano", não
+ * "outra caixa". Neutro de propósito: a seção já tem o glow de marca, e uma faixa
+ * colorida competiria com ele.
+ *
+ * O fio de 1px no topo e na base é o que dá a leitura moderna — mas ele também é
+ * mascarado, então aparece só no meio e dissolve nas laterais.
+ */
+.lp-band {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(
+        to bottom,
+        color-mix(in oklch, var(--color-fg-default) 3%, transparent) 0,
+        color-mix(in oklch, var(--color-fg-default) 3%, transparent) 100%
+      )
+      no-repeat;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+
+.lp-band::before,
+.lp-band::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: color-mix(in oklch, var(--color-fg-default) 8%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
+}
+.lp-band::before {
+  top: 0;
+}
+.lp-band::after {
+  bottom: 0;
+}
+
 /* Brilho da marca no topo. `absolute` (não `fixed`): o container de scroll é o
    `<main>` do App, e `fixed` escaparia dele e cobriria o sidebar. */
 .lp-glow {
@@ -429,10 +474,22 @@
   transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/**
+ * 66% de superfície, não 32%.
+ *
+ * O 32% do prompt de origem deixava o card quase todo translúcido, e a luz atravessava
+ * com força demais — o glow dominava o conteúdo em vez de ambientá-lo. A nota de ajuste
+ * do prompt avisava pra **não descer** de 25%; o problema aqui era o contrário, faltava
+ * densidade de vidro.
+ *
+ * 66% mantém o card lendo como superfície (texto com contraste normal), e a luz ainda
+ * difunde por baixo — o que muda é a proporção: agora o vão entre os cards é o lugar
+ * onde a luz aparece forte, e o card é onde ela suaviza. Era esse o desenho.
+ */
 .bento-spotlight__card {
   position: relative;
   z-index: 1;
-  background: color-mix(in oklch, var(--color-bg-surface) 32%, transparent);
+  background: color-mix(in oklch, var(--color-bg-surface) 66%, transparent);
   backdrop-filter: blur(30px) saturate(1.1);
   -webkit-backdrop-filter: blur(30px) saturate(1.1);
 }

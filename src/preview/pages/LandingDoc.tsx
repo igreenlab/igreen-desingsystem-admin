@@ -68,8 +68,8 @@ import {
   Check,
   Component,
   Copy,
+  ExternalLink,
   FlaskConical,
-  Layers,
   LayoutDashboard,
   LoaderCircle,
   List as ListIcon,
@@ -102,7 +102,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Button } from "../../components/ui/Button";
+import { Button, buttonVariants } from "../../components/ui/Button";
 import { Chip } from "../../components/ui/Chip";
 import { Kpi, KpiDelta, KpiGroup } from "../../components/ui/Kpi";
 import {
@@ -218,6 +218,13 @@ const SECOES_COMPONENTE = [
   "List Components",
   "Templates",
 ];
+
+/**
+ * URL do demo, derivada do nav — nao escrita a mao. Se o demo mudar de caminho, o CTA
+ * do fim da pagina acompanha. Fallback so pra o caso de a entrada sair do nav.
+ */
+const URL_DEMO =
+  CATALOGO_COMPLETO.find((i) => i.href === "demo-virtual-proposta")?.url ?? "/demo/";
 
 const CATALOGO = CATALOGO_COMPLETO.filter((i) => SECOES_COMPONENTE.includes(i.section));
 const SECOES = getCatalogSections(["landing"]).filter((s) => SECOES_COMPONENTE.includes(s));
@@ -1613,7 +1620,14 @@ function BentoCard({
       className={cn(
         "bento-spotlight__card lp-tint group flex flex-col rounded-radius-xl",
         "border border-border-subtle bg-bg-surface",
-        "p-pad-3xl shadow-sh-sm transition-colors hover:border-border-brand-subtle",
+        // Sem `hover:border-border-brand-subtle`: aquela borda verde acendia o card
+        // INTEIRO no hover e anulava o spotlight, cujo ponto é acender só o trecho de
+        // borda mais próximo do cursor. Com as duas, o efeito fino ficava invisível
+        // dentro do efeito grosso.
+        //
+        // `transition-colors` saiu junto — só existia pra animar aquela borda. O
+        // crossfade de troca de marca continua vindo do `lp-tint`.
+        "p-pad-3xl shadow-sh-sm",
         className,
       )}
     >
@@ -2648,7 +2662,7 @@ export function LandingDoc() {
           </Reveal>
         </div>
 
-        <div className="mt-[64px]">
+        <div className="mt-[64px] pb-[80px]">
           <HeroWindow />
         </div>
       </Wrap>
@@ -2664,7 +2678,7 @@ export function LandingDoc() {
           seção: sem ela havia um vazio chapado longo entre as duas, e a malha amarra
           as duas metades como um plano só. É a mesma malha do topo, mascarada nas
           duas pontas pra não ter borda dura. */}
-      <div className="relative pt-[112px]">
+      <div className="relative pt-[152px]">
         <div className="lp-grid-band" aria-hidden />
         <div className="lp-section-glow" aria-hidden />
         <Wrap className="relative">
@@ -2692,7 +2706,7 @@ export function LandingDoc() {
       </div>
 
       {/* ── Instalação ───────────────────────────────────────────────────── */}
-      <div ref={instalacaoRef} className="scroll-mt-[24px] pt-[112px]">
+      <div ref={instalacaoRef} className="scroll-mt-[24px] pt-[152px]">
         <Wrap>
           <Reveal>
             <SectionHead eyebrow="Instalação" title="Quatro canais." em="Nenhum depreciado.">
@@ -2724,7 +2738,7 @@ export function LandingDoc() {
       </div>
 
       {/* ── Prompts ──────────────────────────────────────────────────────── */}
-      <div className="pt-[112px]">
+      <div className="pt-[152px]">
         {/* `relative` ancora o mascote, que é `absolute` e transborda pra baixo. O
             card vem DEPOIS com `z-10`, então a imagem passa por trás dele. */}
         <Wrap className="relative">
@@ -2768,8 +2782,13 @@ export function LandingDoc() {
       </div>
 
       {/* ── Catálogo ─────────────────────────────────────────────────────── */}
-      <div ref={catalogoRef} className="scroll-mt-[24px] pt-[112px]">
-        <Wrap>
+      {/* A faixa (`lp-band`) é o que separa esta seção do Kit de IA sem linha dura.
+          Ela é `inset: 0` sobre este wrapper, então cobre o padding de topo também —
+          é isso que faz a transição começar ANTES do conteúdo do catálogo. O `pb`
+          fecha a faixa com respiro em vez de cortar no último card. */}
+      <div ref={catalogoRef} className="relative scroll-mt-[24px] pt-[152px] pb-[72px]">
+        <div className="lp-band" aria-hidden />
+        <Wrap className="relative">
           <Reveal>
             <SectionHead eyebrow="Catálogo" title="Tudo que existe," em="numa busca só.">
               Cada item abre a página de documentação com exemplos, props e código. A
@@ -2784,7 +2803,7 @@ export function LandingDoc() {
       </div>
 
       {/* ── Fechamento ───────────────────────────────────────────────────── */}
-      <div className="pt-[112px]">
+      <div className="pt-[152px]">
         <Wrap>
           <Reveal>
             <div className="lp-beam relative overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface px-pad-3xl py-[56px] text-center shadow-sh-md">
@@ -2801,13 +2820,26 @@ export function LandingDoc() {
                 Pronto pra montar <em className="lp-grad not-italic">a próxima tela?</em>
               </h2>
               <p className="mx-auto mt-gp-lg max-w-[52ch] text-body-lg leading-relaxed text-fg-muted">
-                Comece pelos KPIs e gráficos de um dashboard real, ou vá direto pro
+                Veja um app real consumindo o DS de ponta a ponta, ou vá direto pro
                 DataTable — o componente que a maior parte das telas daqui usa.
               </p>
               <div className="mt-[28px] flex flex-wrap items-center justify-center gap-gp-md">
-                <Button size="lg" onClick={() => onNavigate("dashboard-showcase")} iconRight={<Layers />}>
-                  Ver dashboard
-                </Button>
+                {/* `<a>` com o recipe `buttonVariants`, não `<Button>`: o demo é um
+                    BUILD SEPARADO (`/demo/`), então precisa de navegação de documento —
+                    e o `Button` do DS é `<button>` puro, sem `asChild`. Navegar por
+                    `onClick` funcionaria, mas mataria ctrl/cmd+clique e botão do meio,
+                    que é exatamente o defeito da L-068. Aplicar o `tv()` do próprio
+                    Button mantém a verdade visual na fonte, sem copiar classe.
+
+                    A URL vem do nav (`getCatalog`), não escrita à mão: se o demo mudar
+                    de caminho, este botão acompanha. */}
+                <a
+                  href={URL_DEMO}
+                  className={buttonVariants({ color: "primary", variant: "filled", size: "lg" })}
+                >
+                  Demo Virtual Office
+                  <ExternalLink aria-hidden />
+                </a>
                 <Button
                   color="secondary"
                   variant="outline"
