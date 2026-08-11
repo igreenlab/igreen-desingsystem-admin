@@ -40,7 +40,19 @@ import {
   type CSSProperties,
   type ReactNode,
 } from "react";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
+  Cell,
+  Line,
+  LineChart,
+  Pie,
+  PieChart,
+  XAxis,
+} from "recharts";
 import {
   ArrowUpRight,
   Blocks,
@@ -50,11 +62,14 @@ import {
   Check,
   Component,
   Copy,
+  Download,
   FlaskConical,
   Layers,
   LayoutDashboard,
   List as ListIcon,
+  MessageSquare,
   MonitorPlay,
+  MoreHorizontal,
   Moon,
   Package,
   Palette,
@@ -62,14 +77,19 @@ import {
   Receipt,
   Rocket,
   Search,
+  SlidersHorizontal,
+  Split,
   Sparkles,
   Sun,
   Table as TableIcon,
+  Target,
   Terminal,
   TriangleAlert,
+  UserCheck,
   Users,
   Wallet,
   Workflow,
+  X,
   Zap,
 } from "lucide-react";
 
@@ -329,7 +349,7 @@ function Reveal({
 /** Wrapper de largura — `main-content-max` (1368px) é o token de conteúdo do DS. */
 function Wrap({ className, children }: { className?: string; children: ReactNode }) {
   return (
-    <div className={cn("mx-auto w-full max-w-main-content-max px-pad-3xl", className)}>
+    <div data-lp-wrap className={cn("mx-auto w-full max-w-main-content-max px-pad-3xl", className)}>
       {children}
     </div>
   );
@@ -505,15 +525,22 @@ function SegItem({
         "inline-flex min-h-form-md items-center gap-gp-sm rounded-radius-full px-pad-xl",
         "text-caption-md font-medium whitespace-nowrap transition-colors",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+        // Ativo = a cor da marca, cheia. Era `bg-bg-surface + shadow-sh-sm` sobre
+        // `bg-bg-subtle`: a diferença entre os dois tokens é de poucos pontos de
+        // luminância e o item selecionado praticamente não se distinguia.
         ativo
-          ? "bg-bg-surface text-fg-default shadow-sh-sm"
-          : "text-fg-muted hover:text-fg-default",
+          ? "bg-bg-brand font-semibold text-fg-on-brand shadow-sh-sm"
+          : "text-fg-muted hover:bg-bg-muted hover:text-fg-default",
       )}
     >
       {swatch && (
         <span
           aria-hidden
-          className="size-[9px] shrink-0 rounded-radius-full ring-1 ring-inset ring-border-default"
+          className={cn(
+            "size-[9px] shrink-0 rounded-radius-full ring-1 ring-inset",
+            // Sobre o fundo brand cheio, o anel precisa de contraste próprio.
+            ativo ? "ring-fg-on-brand/40" : "ring-border-default",
+          )}
           style={{ background: swatch }}
         />
       )}
@@ -634,9 +661,32 @@ const MODULO_MOCK = {
   icon: <Zap />,
   title: "Operação",
   subtitle: "MÓDULO ATIVO",
-  categories: [
+};
+
+/**
+ * ⚠️ `categories` vai como prop de TOPO, não dentro de `module`.
+ *
+ * O tipo aceita `categories` nos dois lugares, então o `tsc` passou — mas o
+ * componente resolve `hasModules ? activeModule.categories : categories ?? []`, e
+ * `hasModules` só é true quando existe `module.options` (caso multi-módulo). Passando
+ * dentro de um `module` sem `options`, a lista caía no `?? []` e a sidebar renderizava
+ * header + seletor + busca e **nenhum item**. Type-checked e errado; só o browser
+ * mostrou.
+ *
+ * 10 entradas com 2 grupos expansíveis: com 6 a sidebar tinha metade da altura vazia
+ * e o mockup parecia um app sem features.
+ */
+const CATEGORIAS_MOCK = [
     { id: "dashboard", icon: <LayoutDashboard />, label: "Dashboard", active: true },
-    { id: "clientes", icon: <Users />, label: "Clientes" },
+    {
+      id: "clientes",
+      icon: <Users />,
+      label: "Clientes",
+      items: [
+        { id: "carteira", label: "Carteira" },
+        { id: "prospeccao", label: "Prospecção" },
+      ],
+    },
     {
       id: "contratos",
       icon: <Receipt />,
@@ -644,13 +694,17 @@ const MODULO_MOCK = {
       items: [
         { id: "ativos", label: "Ativos" },
         { id: "analise", label: "Em análise" },
+        { id: "encerrados", label: "Encerrados" },
       ],
     },
     { id: "faturas", icon: <Wallet />, label: "Faturas" },
+    { id: "atendimento", icon: <MessageSquare />, label: "Atendimento" },
+    { id: "licenciados", icon: <UserCheck />, label: "Licenciados" },
     { id: "usinas", icon: <Building2 />, label: "Usinas" },
+    { id: "rateio", icon: <Split />, label: "Rateio" },
     { id: "relatorios", icon: <ChartColumn />, label: "Relatórios" },
-  ],
-};
+    { id: "metas", icon: <Target />, label: "Metas" },
+];
 
 /**
  * ⚠️ A largura vem deste wrapper, não do componente — e é a MESMA armadilha que já
@@ -679,6 +733,7 @@ function MockSidebar() {
         }
         title="iGreen Admin"
         module={MODULO_MOCK}
+        categories={CATEGORIAS_MOCK}
         user={{ name: "Sérgio Vieira", email: "sergio@igreen.com.br" }}
         activeItemId="dashboard"
       />
@@ -686,36 +741,108 @@ function MockSidebar() {
   );
 }
 
+/* ── Dados dos KPIs com projeção ───────────────────────────────────────────── */
+
+const SPARK_A = [
+  { v: 42 }, { v: 51 }, { v: 47 }, { v: 62 }, { v: 58 }, { v: 71 }, { v: 84 },
+];
+const SPARK_B = [
+  { v: 28 }, { v: 44 }, { v: 39 }, { v: 52 }, { v: 61 }, { v: 57 }, { v: 73 },
+];
+const SPARK_C = [
+  { v: 66 }, { v: 58 }, { v: 61 }, { v: 49 }, { v: 44 }, { v: 39 }, { v: 31 },
+];
+const DONUT_MIX = [
+  { k: "solar", v: 62, fill: "var(--color-chart-1)" },
+  { k: "telecom", v: 21, fill: "var(--color-chart-2)" },
+  { k: "seguros", v: 11, fill: "var(--color-chart-4)" },
+  { k: "outros", v: 6, fill: "var(--color-bg-muted)" },
+];
+
+const SPARK_CFG = {
+  v: { label: "série", color: "var(--color-chart-1)" },
+} satisfies ChartConfig;
+
+/**
+ * KPI com projeção de gráfico — o recipe da página `#/kpi` ("Kpi + sparkline"):
+ * círculo de ícone + label + valor `stat` + pílula de delta + mini-chart no slot.
+ *
+ * Substituiu o `KpiGroup divided`, que só tem número: o mantenedor pediu "KPIs mais
+ * bonitos, com projeção de gráfico", e é o formato que a doc do próprio DS mostra
+ * como modelo.
+ */
+function KpiSpark({
+  icone: Icone,
+  label,
+  valor,
+  delta,
+  descendo = false,
+  children,
+}: {
+  icone: LucideIcon;
+  label: string;
+  valor: string;
+  delta: string;
+  descendo?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div className="flex min-w-0 flex-col gap-gp-lg rounded-radius-lg border border-border-subtle bg-bg-surface p-pad-2xl shadow-sh-sm">
+      <div className="flex items-center gap-gp-md">
+        <span
+          aria-hidden
+          className="grid size-form-md shrink-0 place-items-center rounded-radius-full bg-bg-brand-subtle text-fg-brand"
+        >
+          <Icone className="size-icon-sm" strokeWidth={1.8} />
+        </span>
+        <p className="m-0 min-w-0 flex-1 truncate text-caption-md text-fg-muted">{label}</p>
+      </div>
+      <div className="flex items-end justify-between gap-gp-md">
+        <p className="m-0 text-stat-md leading-none tabular-nums text-fg-default">{valor}</p>
+        <Chip color={descendo ? "danger" : "success"} variant="soft" size="sm">
+          {delta}
+        </Chip>
+      </div>
+      <div className="h-[48px] w-full">{children}</div>
+    </div>
+  );
+}
+
 function MockDashboard() {
   const colunas = useMemo(
     () => [
-      { field: "cliente", headerName: "Cliente", width: 200 },
-      { field: "uc", headerName: "Unidade", width: 120 },
-      { field: "plano", headerName: "Plano", width: 110 },
-      { field: "status", headerName: "Status", width: 104 },
-      { field: "fatura", headerName: "Fatura", width: 96 },
+      { field: "cliente", headerName: "Cliente", width: 240 },
+      { field: "uc", headerName: "Unidade", width: 140 },
+      { field: "plano", headerName: "Plano", width: 130 },
+      { field: "status", headerName: "Status", width: 120 },
+      { field: "fatura", headerName: "Fatura", width: 110 },
     ],
     [],
   );
   const { widths } = useColumnWidths(colunas);
 
   return (
-    <div className="flex min-w-0 flex-1 flex-col gap-gp-xl overflow-hidden p-pad-3xl">
+    // ⚠️ Sem altura forçada e sem `overflow-hidden`: a tela é montada COMPLETA, na
+    // altura natural dela, e quem reduz é o `scale` de um nível acima. Foi o pedido
+    // do mantenedor, e é o que conserta a classe de bug da versão anterior — eu
+    // apertava o dashboard à mão e o resultado era KPI cortado no meio do glifo e
+    // card de tabela passando por cima.
+    <div className="flex min-w-0 flex-1 flex-col gap-gp-xl p-pad-4xl">
       {/* Header da página */}
-      <header className="flex flex-wrap items-start justify-between gap-gp-md">
+      <header className="flex flex-wrap items-start justify-between gap-gp-lg">
         <div className="flex min-w-0 flex-col gap-[2px]">
-          <h3 className="m-0 text-title-md font-semibold text-fg-default">Visão geral</h3>
-          <p className="m-0 text-caption-md text-fg-muted">
+          <h3 className="m-0 text-heading-xs font-semibold text-fg-default">Visão geral</h3>
+          <p className="m-0 text-body-sm text-fg-muted">
             Atualizado há 4 minutos · região Sudeste
           </p>
         </div>
-        <div className="flex shrink-0 items-center gap-gp-sm">
-          <div className="hidden items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs sm:flex">
+        <div className="flex shrink-0 items-center gap-gp-md">
+          <div className="flex items-center gap-gp-2xs rounded-radius-full border border-border-subtle bg-bg-subtle p-pad-2xs">
             {["Dia", "Mês", "Ano"].map((p) => (
               <span
                 key={p}
                 className={cn(
-                  "rounded-radius-full px-pad-lg py-[3px] text-caption-sm",
+                  "rounded-radius-full px-pad-xl py-pad-xs text-caption-md",
                   p === "Mês"
                     ? "bg-bg-surface font-medium text-fg-default shadow-sh-sm"
                     : "text-fg-muted",
@@ -725,33 +852,84 @@ function MockDashboard() {
               </span>
             ))}
           </div>
-          <Button size="xs" iconLeft={<Plus />}>
+          <Button color="secondary" variant="outline" size="sm" iconLeft={<Download />}>
+            Exportar
+          </Button>
+          <Button size="sm" iconLeft={<Plus />}>
             Novo contrato
           </Button>
         </div>
       </header>
 
-      {/* KPIs — `KpiGroup divided`, o recipe do dashboard-patterns §1 */}
-      <KpiGroup columns={4} divided>
-        {KPIS_MOCK.map((k) => {
-          const Icone = k.icone;
-          return (
-            <Kpi
-              key={k.label}
-              label={k.label}
-              value={k.valor}
-              icon={<Icone />}
-              tone={k.delta.startsWith("-") ? "danger" : "brand"}
-              delta={<KpiDelta value={k.delta} signed />}
-            />
-          );
-        })}
-      </KpiGroup>
+      {/* KPIs com projeção — 4 formatos de mini-chart, como o modelo da doc */}
+      <div className="grid grid-cols-4 gap-gp-lg">
+        <KpiSpark icone={Users} label="Clientes ativos" valor="12.847" delta="+8,2%">
+          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
+            <BarChart data={SPARK_A}>
+              <Bar dataKey="v" radius={3} fill="var(--color-chart-1)" />
+            </BarChart>
+          </ChartContainer>
+        </KpiSpark>
+
+        <KpiSpark icone={Wallet} label="Faturamento" valor="R$ 4,2M" delta="+12,5%">
+          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
+            <AreaChart data={SPARK_B} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
+              <Area
+                dataKey="v"
+                type="natural"
+                stroke="var(--color-chart-1)"
+                fill="var(--color-chart-1)"
+                fillOpacity={0.2}
+                strokeWidth={2}
+              />
+            </AreaChart>
+          </ChartContainer>
+        </KpiSpark>
+
+        <KpiSpark
+          icone={TriangleAlert}
+          label="Inadimplência"
+          valor="2,1%"
+          delta="-0,4%"
+          descendo
+        >
+          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
+            <LineChart data={SPARK_C} margin={{ top: 6, bottom: 6, left: 0, right: 0 }}>
+              <Line
+                dataKey="v"
+                type="monotone"
+                stroke="var(--color-chart-4)"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ChartContainer>
+        </KpiSpark>
+
+        <KpiSpark icone={Receipt} label="Ticket médio" valor="R$ 327" delta="+2,8%">
+          <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
+            <PieChart>
+              <Pie
+                data={DONUT_MIX}
+                dataKey="v"
+                nameKey="k"
+                innerRadius={15}
+                outerRadius={23}
+                strokeWidth={0}
+              >
+                {DONUT_MIX.map((d) => (
+                  <Cell key={d.k} fill={d.fill} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+        </KpiSpark>
+      </div>
 
       {/* Chart-card + mix da carteira */}
-      <div className="grid min-h-0 grid-cols-1 gap-gp-xl lg:grid-cols-[1.6fr_1fr]">
-        <Card titulo="Energia injetada" subtitulo="kWh · 9 meses">
-          <ChartContainer config={ENERGIA_CONFIG} className="h-[132px] w-full">
+      <div className="grid grid-cols-[1.7fr_1fr] gap-gp-xl">
+        <Card titulo="Energia injetada" subtitulo="kWh · últimos 9 meses">
+          <ChartContainer config={ENERGIA_CONFIG} className="h-[180px] w-full">
             <BarChart data={ENERGIA} margin={{ left: 0, right: 0, top: 4, bottom: 0 }}>
               <CartesianGrid vertical={false} strokeDasharray="4 4" />
               <XAxis dataKey="mes" tickLine={false} axisLine={false} tickMargin={8} />
@@ -762,17 +940,22 @@ function MockDashboard() {
         </Card>
 
         <Card titulo="Mix da carteira" subtitulo="% da receita">
-          <div className="flex flex-col gap-gp-md">
-            {MIX.map((m) => (
+          <div className="flex flex-col gap-gp-lg">
+            {MIX.map((m, i) => (
               <div key={m.nome} className="flex items-center gap-gp-md">
-                <span className="w-[62px] shrink-0 text-caption-md text-fg-muted">{m.nome}</span>
+                <span
+                  aria-hidden
+                  className="size-[10px] shrink-0 rounded-radius-sm"
+                  style={{ background: DONUT_MIX[i]?.fill }}
+                />
+                <span className="w-[70px] shrink-0 text-body-sm text-fg-muted">{m.nome}</span>
                 <span className="h-[6px] min-w-0 flex-1 overflow-hidden rounded-radius-full bg-bg-muted">
                   <span
-                    className="block h-full rounded-radius-full bg-bg-brand"
-                    style={{ width: `${m.pct}%` }}
+                    className="block h-full rounded-radius-full"
+                    style={{ width: `${m.pct}%`, background: DONUT_MIX[i]?.fill }}
                   />
                 </span>
-                <span className="w-[34px] shrink-0 text-right text-caption-md tabular-nums text-fg-default">
+                <span className="w-[38px] shrink-0 text-right text-body-sm tabular-nums text-fg-default">
                   {m.pct}%
                 </span>
               </div>
@@ -782,11 +965,11 @@ function MockDashboard() {
       </div>
 
       {/* Tabela — a peça mais densa do DS */}
-      <Card className="min-h-0">
+      <Card>
         <div className="flex flex-wrap items-center gap-gp-md">
           <div className="relative min-w-0 flex-1">
             <Search
-              className="pointer-events-none absolute left-pad-lg top-1/2 size-icon-xs -translate-y-1/2 text-fg-subtle"
+              className="pointer-events-none absolute left-pad-lg top-1/2 size-icon-sm -translate-y-1/2 text-fg-subtle"
               aria-hidden
             />
             <Input
@@ -794,24 +977,29 @@ function MockDashboard() {
               tabIndex={-1}
               placeholder="Buscar cliente, UC ou contrato…"
               aria-hidden
-              className="min-h-form-md pl-[34px] text-body-sm"
+              className="min-h-form-md pl-[38px] text-body-sm"
             />
           </div>
-          <Chip size="sm" variant="outline">
+          <Chip size="md" variant="outline">
             Status: 2
           </Chip>
-          <Chip size="sm" variant="outline">
+          <Chip size="md" variant="outline">
             Colunas
           </Chip>
+          <Button color="secondary" variant="ghost" size="sm" iconLeft={<SlidersHorizontal />}>
+            Filtros
+          </Button>
         </div>
 
-        <Table density="compact" ariaLabel="Contratos (exemplo)">
+        <Table density="standard" ariaLabel="Contratos (exemplo)">
           <TableHead>
             {colunas.map((c) => (
               <TableHeadCell
                 key={c.field}
                 width={widths[c.field]}
                 align={c.field === "fatura" ? "right" : "left"}
+                sortable={c.field === "cliente"}
+                sortDirection={c.field === "cliente" ? "asc" : null}
               >
                 {c.headerName}
               </TableHeadCell>
@@ -821,10 +1009,10 @@ function MockDashboard() {
             {CONTRATOS.map((r) => (
               <TableRow key={r.uc}>
                 <TableCell width={widths.cliente}>
-                  <span className="flex min-w-0 items-center gap-gp-sm">
+                  <span className="flex min-w-0 items-center gap-gp-md">
                     <span
                       aria-hidden
-                      className="grid size-comp-sm shrink-0 place-items-center rounded-radius-full bg-bg-brand-subtle text-caption-xs font-bold text-fg-brand"
+                      className="grid size-comp-lg shrink-0 place-items-center rounded-radius-full bg-bg-brand-subtle text-caption-sm font-bold text-fg-brand"
                     >
                       {r.iniciais}
                     </span>
@@ -847,9 +1035,68 @@ function MockDashboard() {
             ))}
           </TableBody>
         </Table>
+
+        <footer className="flex items-center justify-between gap-gp-md pt-pad-md text-caption-md text-fg-muted">
+          <span>1 selecionado · 431 registros</span>
+          <span className="flex items-center gap-gp-2xs">
+            {["1", "2", "3"].map((p) => (
+              <span
+                key={p}
+                className={cn(
+                  "grid size-comp-lg place-items-center rounded-radius-base",
+                  p === "1" ? "bg-bg-brand text-fg-on-brand" : "text-fg-muted",
+                )}
+              >
+                {p}
+              </span>
+            ))}
+          </span>
+        </footer>
       </Card>
     </div>
   );
+}
+
+
+/**
+ * Tem margem lateral suficiente pra os flutuantes hangarem sem serem cortados?
+ *
+ * Substitui um breakpoint fixo, e a razão é que breakpoint aqui **não tem como estar
+ * certo**: a largura disponível depende do sidebar de docs (260px), do `Wrap` e do teto
+ * da janela — não só da viewport. Medido: com `2xl:block` os cards nunca apareciam num
+ * monitor de 1440; baixando pra `lg:block` eles apareciam **cortados** em 1280, porque
+ * o `<main>` é container de scroll e clipa em X.
+ *
+ * Medir a folga real resolve os dois casos e continua certo se o sidebar mudar de
+ * largura amanhã.
+ */
+function useTemFolga<T extends HTMLElement>(folgaMinima: number) {
+  const ref = useRef<T | null>(null);
+  const [tem, setTem] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    // ⚠️ Contra o `Wrap`, não contra `parentElement`: o pai imediato da janela é o
+    // próprio wrapper de 920px que ancora os flutuantes, então a folga media 1px e os
+    // cards nunca entravam. A coluna que importa é a de conteúdo.
+    const wrap = el.closest<HTMLElement>("[data-lp-wrap]");
+    if (!wrap) return;
+
+    const medir = () => {
+      const folga = (wrap.clientWidth - el.clientWidth) / 2;
+      setTem(folga >= folgaMinima);
+    };
+
+    medir();
+    if (typeof ResizeObserver === "undefined") return;
+    const ro = new ResizeObserver(medir);
+    ro.observe(wrap);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [folgaMinima]);
+
+  return { ref, tem };
 }
 
 /**
@@ -875,8 +1122,8 @@ function FloatCard({
     <div
       style={{ "--lp-i": i } as CSSProperties}
       className={cn(
-        "lp-bob lp-tint absolute z-20 hidden w-[184px] rounded-radius-lg border border-border-default",
-        "bg-bg-surface p-pad-lg shadow-sh-lg lg:block",
+        "lp-bob lp-tint absolute z-20 w-[184px] rounded-radius-lg border border-border-default",
+        "bg-bg-surface p-pad-lg shadow-sh-lg",
         className,
       )}
     >
@@ -899,12 +1146,14 @@ const LARGURA_APP = 1280;
  * cortavam no meio do glifo. Altura de design própria e generosa resolve — quem
  * recorta é a janela, não o layout.
  */
-const ALTURA_APP = 700;
-const ALTURA_JANELA = 452;
+const ALTURA_APP = 880;
+const ALTURA_JANELA = 560;
 
 function HeroWindow() {
   const unfoldRef = useUnfold<HTMLDivElement>(360);
   const { ref: fitRef, escala } = useFitScale<HTMLDivElement>(LARGURA_APP, 0.52);
+  // 96px = o maior offset dos flutuantes (-88) + respiro.
+  const { ref: folgaRef, tem: temFolga } = useTemFolga<HTMLDivElement>(96);
 
   return (
     <div className="relative">
@@ -919,7 +1168,7 @@ function HeroWindow() {
         {/* Bezel: outer radius 20 + padding 8 + inner radius 14 — proporção medida no
             projectise. A máscara de fade vem do `.lp-window`. */}
         <div
-          ref={unfoldRef}
+          ref={(el) => { unfoldRef.current = el; folgaRef.current = el; }}
           className="lp-unfold lp-window lp-beam lp-beam-slow relative z-10
                      rounded-[20px] border border-border-subtle bg-bg-subtle p-[8px] shadow-sh-lg"
         >
@@ -944,74 +1193,134 @@ function HeroWindow() {
         </div>
 
       {/* Flutuantes — emolduram a janela, como nas 5 referências */}
-      <FloatCard i={0} className="-left-[84px] top-[196px]">
-        <p className="flex items-center gap-gp-sm text-caption-md text-fg-muted">
+      {/* Sem folga medida, os flutuantes NÃO entram: cortados ao meio é pior que ausentes. */}
+      {temFolga && (
+      <>
+      {/* 1. KPI de consumo — mini-bars em vez de barra chapada */}
+      <FloatCard i={0} className="-left-[88px] top-[210px]">
+        <div className="flex items-center gap-gp-sm">
           <span
             aria-hidden
-            className="grid size-comp-sm shrink-0 place-items-center rounded-radius-sm bg-bg-brand-subtle text-fg-brand"
+            className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-brand-subtle text-fg-brand"
           >
             <Zap className="size-icon-xs" />
           </span>
-          Consumo do mês
-        </p>
-        <p className="mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">
+          <p className="m-0 min-w-0 flex-1 truncate text-caption-md text-fg-muted">
+            Consumo do mês
+          </p>
+        </div>
+        <p className="mt-gp-md text-stat-sm leading-none tabular-nums text-fg-default">
           1.284 <span className="text-caption-md font-normal text-fg-subtle">kWh</span>
         </p>
-        <span className="mt-gp-md flex h-[6px] overflow-hidden rounded-radius-full bg-bg-muted">
-          <span className="block h-full rounded-radius-full bg-bg-brand" style={{ width: "72%" }} />
-        </span>
-        <p className="mt-gp-sm text-caption-sm text-fg-subtle">72% da franquia</p>
-      </FloatCard>
-
-      <FloatCard i={1} className="-right-[80px] -top-[26px]">
-        <p className="text-caption-md text-fg-muted">Receita recorrente</p>
-        <p className="mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">R$ 89,4k</p>
-        <span aria-hidden className="mt-gp-md flex h-[30px] items-end gap-[3px]">
-          {[34, 52, 40, 68, 57, 84, 100].map((h, idx) => (
+        <span aria-hidden className="mt-gp-md flex h-[26px] items-end gap-[3px]">
+          {[38, 54, 46, 62, 55, 78, 96].map((h, idx) => (
             <span
               key={idx}
               className={cn(
                 "flex-1 rounded-radius-sm",
-                idx === 6 ? "bg-bg-brand" : "bg-bg-muted",
+                idx === 6 ? "bg-bg-brand" : "bg-bg-brand-subtle",
               )}
               style={{ height: `${h}%` }}
             />
           ))}
         </span>
-        <p className="mt-gp-sm text-caption-sm text-fg-success">▲ 6,1% MoM</p>
+        <p className="mt-gp-sm text-caption-sm text-fg-subtle">72% da franquia</p>
       </FloatCard>
 
-      <FloatCard i={2} className="-left-[64px] bottom-[58px]">
+      {/* 2. Receita — sparkline em área, com delta em Chip do DS */}
+      <FloatCard i={1} className="-right-[86px] -top-[30px] w-[212px]">
         <div className="flex items-start justify-between gap-gp-sm">
-          <p className="text-caption-md text-fg-muted">Em negociação</p>
-          <Badge color="warning" variant="soft" size="sm">
-            #4837
-          </Badge>
+          <p className="m-0 text-caption-md text-fg-muted">Receita recorrente</p>
+          <Chip color="success" variant="soft" size="sm">
+            +6,1%
+          </Chip>
         </div>
-        <p className="mt-gp-sm text-body-sm font-medium text-fg-default">
-          Usina Solar — Lote 12
+        <p className="mt-gp-md text-stat-sm leading-none tabular-nums text-fg-default">
+          R$ 89,4k
         </p>
-        <p className="mt-gp-sm text-caption-sm text-fg-subtle">Aguardando homologação</p>
+        <div className="mt-gp-md h-[44px] w-full">
+          <ChartContainer config={SPARK_CFG} className="h-[44px] w-full">
+            <AreaChart data={SPARK_B} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
+              <Area
+                dataKey="v"
+                type="natural"
+                stroke="var(--color-chart-1)"
+                fill="var(--color-chart-1)"
+                fillOpacity={0.2}
+                strokeWidth={2}
+              />
+            </AreaChart>
+          </ChartContainer>
+        </div>
       </FloatCard>
 
-      <FloatCard i={3} className="-right-[64px] bottom-[128px]">
-        <div className="flex items-start gap-gp-md">
+      {/* 3. Card de KANBAN de verdade — a anatomia do `Kanban` do DS:
+             título · descrição · chip de status · avatar no footerLeft · valor à
+             direita. Antes era um card genérico com um badge solto. */}
+      <FloatCard i={2} className="-left-[76px] bottom-[64px] w-[228px] p-pad-xl">
+        <div className="flex items-start justify-between gap-gp-sm">
+          <p className="m-0 min-w-0 text-body-sm font-semibold text-fg-default">
+            Usina Solar — Lote 12
+          </p>
+          <MoreHorizontal className="size-icon-xs shrink-0 text-fg-subtle" aria-hidden />
+        </div>
+        <p className="mt-[2px] line-clamp-2 text-caption-sm leading-relaxed text-fg-muted">
+          Homologação na concessionária, aguardando parecer de acesso.
+        </p>
+        <div className="mt-gp-md flex items-center gap-gp-sm">
+          <Chip color="warning" variant="soft" size="sm">
+            Em negociação
+          </Chip>
+          <span className="ml-auto text-body-sm font-semibold tabular-nums text-fg-default">
+            R$ 48,2k
+          </span>
+        </div>
+        <div className="mt-gp-md flex items-center gap-gp-sm border-t border-border-subtle pt-pad-md">
           <span
             aria-hidden
-            className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-success-muted text-fg-success"
+            className="grid size-comp-md shrink-0 place-items-center rounded-radius-full bg-bg-muted text-caption-xs font-bold text-fg-muted"
           >
-            <Check className="size-icon-xs" />
+            SV
           </span>
-          <span className="min-w-0">
-            <span className="block text-body-sm font-medium text-fg-default">
-              Proposta aprovada
-            </span>
-            <span className="block text-caption-sm text-fg-muted">
-              Contrato #4821 movido para Ativos.
-            </span>
+          <span className="min-w-0 flex-1 truncate text-caption-sm text-fg-muted">
+            Sérgio Vieira
           </span>
+          <span className="shrink-0 font-mono text-caption-xs text-fg-subtle">#4837</span>
         </div>
       </FloatCard>
+
+      {/* 4. TOAST de verdade — a receita do `Toast`/Sonner do DS: superfície
+             flutuante com ícone de status, título, descrição e o X de dispensar.
+             Antes era um card com um check dentro, que não lia como notificação. */}
+      <FloatCard i={3} className="-right-[70px] bottom-[142px] w-[248px] p-0">
+        <div className="flex items-start gap-gp-md p-pad-xl">
+          <span
+            aria-hidden
+            className="grid size-comp-lg shrink-0 place-items-center rounded-radius-full bg-bg-success-muted text-fg-success"
+          >
+            <Check className="size-icon-xs" strokeWidth={2.4} />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-body-sm font-semibold text-fg-default">
+              Proposta aprovada
+            </span>
+            <span className="mt-[2px] block text-caption-sm leading-relaxed text-fg-muted">
+              Contrato #4821 movido para Ativos.
+            </span>
+            <span className="mt-gp-md flex items-center gap-gp-md">
+              <span className="text-caption-sm font-medium text-fg-brand">Ver contrato</span>
+              <span className="text-caption-sm text-fg-subtle">agora</span>
+            </span>
+          </span>
+          <X className="size-icon-xs shrink-0 text-fg-subtle" aria-hidden />
+        </div>
+        {/* Barra de progresso do auto-dismiss — o detalhe que faz ler como toast. */}
+        <span aria-hidden className="block h-[3px] w-full overflow-hidden rounded-b-radius-lg bg-bg-muted">
+          <span className="block h-full w-[62%] bg-bg-success" />
+        </span>
+      </FloatCard>
+      </>
+      )}
       </div>
     </div>
   );
@@ -1071,16 +1380,6 @@ function BentoCard({
         </button>
       </div>
       <div className="mt-gp-xl flex min-w-0 flex-1 flex-col justify-center">{children}</div>
-    </div>
-  );
-}
-
-/** Amostra de token: swatch + o nome da CSS var que o produz. */
-function TokenSwatch({ classe, nome }: { classe: string; nome: string }) {
-  return (
-    <div className="flex min-w-0 flex-1 flex-col gap-gp-sm">
-      <span className={cn("h-[34px] rounded-radius-base ring-1 ring-inset ring-border-subtle", classe)} aria-hidden />
-      <span className="truncate font-mono text-caption-xs text-fg-subtle">{nome}</span>
     </div>
   );
 }
@@ -1204,23 +1503,72 @@ function Bento() {
         </ChartContainer>
       </BentoCard>
 
+      {/* Antes aqui estava um card de SWATCHES de token. Saiu por pedido do
+          mantenedor: era o único card sem componente de verdade dentro — seis
+          retângulos coloridos não demonstram nada que o resto da página já não
+          prove, e ficava visualmente pobre ao lado dos outros. A regra dos 3 tiers
+          continua dita no texto do hero e tem página própria. */}
       <BentoCard
-        titulo="Tokens semantic"
-        descricao="3 tiers: primitives (privado) → semantic (público) → component. O componente só enxerga o meio."
-        href="tokens-overview"
+        titulo="Chart — pizza"
+        descricao="Rampa monocromática derivada da marca ativa. Troque a marca acima e a série acompanha."
+        href="chart-pie"
         className="lg:col-span-3"
       >
-        <div className="flex items-end gap-gp-md">
-          <TokenSwatch classe="bg-bg-brand" nome="--color-bg-brand" />
-          <TokenSwatch classe="bg-bg-success" nome="-success" />
-          <TokenSwatch classe="bg-bg-warning" nome="-warning" />
-          <TokenSwatch classe="bg-bg-danger" nome="-danger" />
-          <TokenSwatch classe="bg-bg-info" nome="-info" />
-          <TokenSwatch classe="bg-bg-muted" nome="-muted" />
+        <div className="flex items-center gap-gp-2xl">
+          <ChartContainer config={SPARK_CFG} className="h-[136px] w-[136px] shrink-0">
+            <PieChart>
+              <Pie
+                data={DONUT_MIX}
+                dataKey="v"
+                nameKey="k"
+                innerRadius={40}
+                outerRadius={62}
+                strokeWidth={0}
+              >
+                {DONUT_MIX.map((d) => (
+                  <Cell key={d.k} fill={d.fill} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ChartContainer>
+          <ul className="m-0 flex min-w-0 flex-1 list-none flex-col gap-gp-md p-0">
+            {MIX.map((m, i) => (
+              <li key={m.nome} className="flex items-center gap-gp-md">
+                <span
+                  aria-hidden
+                  className="size-[10px] shrink-0 rounded-radius-sm"
+                  style={{ background: DONUT_MIX[i]?.fill }}
+                />
+                <span className="min-w-0 flex-1 truncate text-body-sm text-fg-muted">
+                  {m.nome}
+                </span>
+                <span className="shrink-0 text-body-sm font-semibold tabular-nums text-fg-default">
+                  {m.pct}%
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </BentoCard>
 
-      {/* ── Fileira 3: 2 + 4 ── */}
+      {/* ── Fileira 3: 2 + 2 + 2 ── */}
+      <BentoCard
+        titulo="Kpi"
+        descricao="Card de métrica com ícone, delta semântico e projeção — o recipe da página de KPI."
+        href="kpi"
+        className="lg:col-span-2"
+      >
+        <div className="flex flex-col gap-gp-lg">
+          <KpiSpark icone={Users} label="Clientes ativos" valor="12.847" delta="+8,2%">
+            <ChartContainer config={SPARK_CFG} className="h-[48px] w-full">
+              <BarChart data={SPARK_A}>
+                <Bar dataKey="v" radius={3} fill="var(--color-chart-1)" />
+              </BarChart>
+            </ChartContainer>
+          </KpiSpark>
+        </div>
+      </BentoCard>
+
       <BentoCard
         titulo="Switch & Toggle"
         descricao="Estados controlados, acessíveis por teclado."
@@ -1248,7 +1596,7 @@ function Bento() {
         titulo="DataTable"
         descricao="Virtualização, agrupamento, tree-data, kanban view e toolbar de filtros — a peça mais densa do DS."
         href="data-table"
-        className="lg:col-span-4"
+        className="lg:col-span-2"
       >
         <div className="overflow-hidden rounded-radius-base border border-border-subtle">
           <div className="grid grid-cols-[1.5fr_1fr_88px_86px] gap-gp-md border-b border-border-subtle bg-bg-table-head px-pad-xl py-pad-md font-mono text-caption-xs uppercase tracking-[0.08em] text-fg-subtle">
@@ -1868,8 +2216,11 @@ export function LandingDoc() {
           A ordem é o pedido explícito do mantenedor, e faz sentido: o seletor é a
           causa e o bento é o efeito. Ver o seletor depois das peças invertia a
           leitura. */}
-      <div className="pt-[112px]">
-        <Wrap>
+      {/* `relative` + `lp-section-glow`: o wireframe põe aura aqui também, e faz
+          sentido — é a seção que FALA de cor. Sem ela a área fica chapada. */}
+      <div className="relative pt-[112px]">
+        <div className="lp-section-glow" aria-hidden />
+        <Wrap className="relative">
           <Reveal>
             <SectionHead
               eyebrow="Tokens vivos"

@@ -231,9 +231,43 @@
    componente é acoplamento frágil. Um listener passivo escreve `--lp-p` (0→1) e o
    CSS faz a conta: 1 var, sem re-render de React.
    ───────────────────────────────────────────────────────────────────────────── */
+/**
+ * ⚠️ A máscara de fade do rodapé foi REMOVIDA por decisão do mantenedor.
+ *
+ * O projectise usa `mask-image: linear-gradient(#000 0%, transparent 95%)` e eu havia
+ * copiado. Mas o wireframe deste projeto mostra o dashboard **inteiro**, e é o certo
+ * aqui por dois motivos: (1) o dashboard é a prova de que os componentes existem —
+ * apagar metade dele enfraquece justamente o argumento; (2) vai receber motion, e
+ * animar algo que já está sumindo em opacidade briga com a animação.
+ *
+ * A classe fica (sem regra de máscara) porque é o gancho semântico da janela; se
+ * alguém quiser o fade de volta, é aqui, com o porquê acima na frente.
+ */
 .lp-window {
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 97%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 97%);
+  /* sem máscara — dashboard inteiro, de propósito */
+}
+
+/**
+ * Brilho de seção. O wireframe põe `aura` também na seção de temas; sem isso a área de
+ * "Uma base. Cinco marcas." fica chapada contra o canvas, e é justamente a seção que
+ * fala de COR.
+ */
+.lp-section-glow {
+  position: absolute;
+  left: 50%;
+  top: -80px;
+  width: min(1200px, 130%);
+  height: 520px;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 14%, transparent),
+    transparent 68%
+  );
+  filter: blur(60px);
+  animation: ds-lp-aura-drift 18s ease-in-out infinite;
 }
 
 .lp-unfold {
@@ -293,6 +327,7 @@
    ───────────────────────────────────────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .lp-aura,
+  .lp-section-glow,
   .lp-beam::before,
   .dark .lp-grad,
   .lp-bob {
