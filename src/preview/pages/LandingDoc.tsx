@@ -104,6 +104,7 @@ import {
   ChartTooltipContent,
   type ChartConfig,
 } from "../../components/ui/Chart";
+import { chipCount } from "../../components/ui/Chip";
 import { FormFieldInput } from "../../components/ui/FormField";
 import { Switch } from "../../components/shadcn/switch";
 import { Input } from "../../components/shadcn/input";
@@ -189,8 +190,29 @@ const CONTRATOS = [
 ] as const;
 
 /** A landing não se lista no próprio catálogo. */
-const CATALOGO = getCatalog(["landing"]);
-const SECOES = getCatalogSections(["landing"]);
+const CATALOGO_COMPLETO = getCatalog(["landing"]);
+
+/**
+ * Seções do nav que são **componente**. O catálogo da landing lista só elas.
+ *
+ * Lista de INCLUSÃO, não de exclusão, e é uma escolha: com exclusão, uma seção nova de
+ * pipeline/doc entraria no catálogo de componentes sem ninguém notar. Com inclusão, o
+ * pior caso é uma seção nova de componente ficar de fora — e aí a contagem ao lado da
+ * busca cai visivelmente, que é um sinal.
+ *
+ * Ficam fora: Get Started, Agents, Pipeline Infra (doc/processo), Foundations (tokens)
+ * e Examples/Demos (telas montadas, não peças). Todas seguem alcançáveis pelo nav.
+ */
+const SECOES_COMPONENTE = [
+  "Components",
+  "Charts",
+  "Data Table Components",
+  "List Components",
+  "Templates",
+];
+
+const CATALOGO = CATALOGO_COMPLETO.filter((i) => SECOES_COMPONENTE.includes(i.section));
+const SECOES = getCatalogSections(["landing"]).filter((s) => SECOES_COMPONENTE.includes(s));
 
 /* ═════════════════════════════════════════════════════════════════════════════
    Primitivas locais de página
@@ -2136,45 +2158,32 @@ const PROMPTS = [
 ] as const;
 
 /**
- * Mascote 3D do Claude Code, ao lado do head da seção.
+ * Mascote 3D do Claude Code — atravessa por TRÁS do card de prompt.
  *
- * ⚠️ O PNG tem fundo PRETO SÓLIDO, não alpha. No dark ele se funde com a página (é o
- * que o mockup mostra), mas no light apareceria um retângulo preto no meio da seção.
+ * ⚠️ Correção de um diagnóstico meu que estava errado: eu havia concluído que o PNG
+ * tinha fundo preto sólido e montei um palco escuro + `mix-blend-screen` pra "derrubar"
+ * esse preto. O PNG é **RGBA com alpha 0 nos cantos** — medido por canvas
+ * (`getImageData` nos 4 cantos: `a: 0`). O que me enganou foi o visualizador de imagem,
+ * que compõe alpha sobre preto; eu li a composição como se fosse o arquivo.
  *
- * Solução com um tratamento só pros dois modos: um palco escuro arredondado +
- * `mix-blend-screen` na imagem. `screen` derruba o preto (preto é neutro em screen) e
- * faz o glow laranja florescer sobre o palco. No dark a borda do palco praticamente
- * desaparece contra o canvas e o mascote parece flutuar; no light o palco lê como um
- * tile escuro deliberado — em nenhum dos dois aparece "moldura preta acidental".
+ * Sem fundo, sem blend, sem palco: só a imagem. E como ela fica ATRÁS do card
+ * (`z-0` contra o `z-10` do card, que é `lp-glass`), o blur do vidro é que produz o
+ * corte suave onde os dois se cruzam — o efeito do mockup sai do vidro, não de máscara.
  *
- * `aria-hidden`: é ornamento. O que a seção comunica está no head e no card.
+ * `absolute` porque precisa transbordar pra baixo, sobre o card; `aria-hidden` porque é
+ * ornamento (o conteúdo da seção está no head e no card).
  */
 function MascoteClaude() {
   return (
-    <div
+    <img
       aria-hidden
-      className="relative z-10 mx-auto -mb-[40px] shrink-0 lg:mx-0 lg:-mb-[56px]"
-    >
-      {/* O fundo do palco muda por modo, e é o que faz a costura desaparecer:
-          - dark  → `bg-bg-canvas`: o preto do PNG é levantado por `screen` até
-                    EXATAMENTE a cor da página, então não há tile visível.
-          - light → `bg-fg-default` (near-black do tema): `screen` precisa de um
-                    fundo escuro pra funcionar; sobre branco a imagem sumiria.
-          Sem literal de cor — os dois vêm de token. */}
-      <span
-        className="relative block size-[230px] overflow-hidden rounded-radius-2xl bg-fg-default
-                   ring-1 ring-inset ring-fg-default/10 dark:bg-bg-canvas dark:ring-0
-                   lg:size-[268px]"
-      >
-        <img
-          src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
-          alt=""
-          loading="lazy"
-          decoding="async"
-          className="size-full scale-[1.18] object-contain mix-blend-screen"
-        />
-      </span>
-    </div>
+      alt=""
+      src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
+      loading="lazy"
+      decoding="async"
+      className="pointer-events-none absolute -top-[6px] right-0 z-0 hidden w-[340px]
+                 select-none object-contain lg:block xl:-top-[14px] xl:w-[412px]"
+    />
   );
 }
 
@@ -2201,11 +2210,14 @@ function PromptSection() {
               aria-selected={ativo === p.id}
               onClick={() => setAtivo(p.id)}
               className={cn(
-                "min-h-form-sm rounded-radius-full px-pad-xl text-body-sm font-medium",
+                "min-h-form-md rounded-radius-full px-pad-2xl text-body-sm font-medium",
                 "transition-colors focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
+                // Ativo tem que ser OPACO e elevado: o card virou vidro translúcido, e
+                // `bg-bg-surface + shadow-sh-sm` sobre ele ficava imperceptível.
+                // `surface-elevated` + ring + sombra média destacam sem precisar de cor.
                 ativo === p.id
-                  ? "bg-bg-surface text-fg-default shadow-sh-sm"
-                  : "text-fg-muted hover:text-fg-default",
+                  ? "bg-bg-surface-elevated text-fg-default shadow-sh-md ring-1 ring-border-default"
+                  : "text-fg-muted hover:bg-bg-muted hover:text-fg-default",
               )}
             >
               {p.label}
@@ -2307,23 +2319,43 @@ function CatalogoCard({ item }: { item: CatalogEntry }) {
   );
 }
 
+/** Grade dos cards — 5 por linha nas resoluções grandes, como pedido. */
+const GRADE_CATALOGO =
+  "grid list-none grid-cols-1 gap-gp-md p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5";
+
 function Catalogo() {
   const [termo, setTermo] = useState("");
+  const [secao, setSecao] = useState<string | null>(null);
 
-  /** Agrupado por seção, na ordem do nav — como o `#/components-overview`. */
+  /**
+   * Duas formas de exibir, conforme o wireframe:
+   *   - "Tudo" (`secao === null`) → agrupado por categoria, com header por grupo;
+   *   - categoria escolhida → lista chapada, sem header (o chip já diz onde você está).
+   */
   const grupos = useMemo(() => {
     const t = termo.trim().toLowerCase();
-    return SECOES.map((secao) => ({
-      secao,
-      itens: CATALOGO.filter(
-        (i) =>
-          i.section === secao &&
-          (!t || i.label.toLowerCase().includes(t) || i.href.includes(t)),
-      ),
+    const casa = (i: CatalogEntry) =>
+      !t || i.label.toLowerCase().includes(t) || i.href.includes(t);
+
+    if (secao) {
+      return [{ secao, itens: CATALOGO.filter((i) => i.section === secao && casa(i)) }].filter(
+        (g) => g.itens.length > 0,
+      );
+    }
+    return SECOES.map((s) => ({
+      secao: s,
+      itens: CATALOGO.filter((i) => i.section === s && casa(i)),
     })).filter((g) => g.itens.length > 0);
-  }, [termo]);
+  }, [termo, secao]);
 
   const total = grupos.reduce((n, g) => n + g.itens.length, 0);
+  const porSecao = useMemo(
+    () =>
+      Object.fromEntries(
+        SECOES.map((s) => [s, CATALOGO.filter((i) => i.section === s).length]),
+      ),
+    [],
+  );
 
   return (
     <div className="flex flex-col gap-gp-2xl">
@@ -2337,20 +2369,51 @@ function Catalogo() {
             type="search"
             value={termo}
             onChange={(e) => setTermo(e.target.value)}
-            placeholder="Buscar componente, token, exemplo…"
-            aria-label="Buscar no catálogo"
+            placeholder="Buscar componente…"
+            aria-label="Buscar componente"
             className="min-h-form-xl pl-[42px]"
           />
         </div>
         <p className="shrink-0 font-mono text-caption-md text-fg-subtle" aria-live="polite">
-          {total} {total === 1 ? "item" : "itens"}
+          {total} {total === 1 ? "componente" : "componentes"}
         </p>
+      </div>
+
+      {/* Chips de categoria — o filtro do wireframe. `Chip` do DS com contagem. */}
+      <div className="flex flex-wrap items-center gap-gp-sm">
+        <Chip
+          size="md"
+          color={secao === null ? "primary" : "neutral"}
+          variant={secao === null ? "soft" : "outline"}
+          onClick={() => setSecao(null)}
+        >
+          Tudo <span className={chipCount()}>{CATALOGO.length}</span>
+        </Chip>
+        {SECOES.map((s) => (
+          <Chip
+            key={s}
+            size="md"
+            color={secao === s ? "primary" : "neutral"}
+            variant={secao === s ? "soft" : "outline"}
+            onClick={() => setSecao(s)}
+          >
+            {s} <span className={chipCount()}>{porSecao[s]}</span>
+          </Chip>
+        ))}
       </div>
 
       {grupos.length === 0 ? (
         <p className="py-pad-4xl text-center text-body-md text-fg-muted">
-          Nada com esse termo. Tente “table”, “chart” ou “token”.
+          Nada com esse termo. Tente “table”, “chart” ou “input”.
         </p>
+      ) : secao ? (
+        <ul className={GRADE_CATALOGO}>
+          {grupos[0].itens.map((item) => (
+            <li key={item.href}>
+              <CatalogoCard item={item} />
+            </li>
+          ))}
+        </ul>
       ) : (
         grupos.map((g) => (
           <section key={g.secao} className="flex flex-col gap-gp-lg">
@@ -2361,7 +2424,7 @@ function Catalogo() {
                 {g.itens.length}
               </span>
             </header>
-            <ul className="grid list-none grid-cols-1 gap-gp-md p-0 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <ul className={GRADE_CATALOGO}>
               {g.itens.map((item) => (
                 <li key={item.href}>
                   <CatalogoCard item={item} />
@@ -2542,11 +2605,14 @@ export function LandingDoc() {
 
       {/* ── Prompts ──────────────────────────────────────────────────────── */}
       <div className="pt-[112px]">
-        <Wrap>
+        {/* `relative` ancora o mascote, que é `absolute` e transborda pra baixo. O
+            card vem DEPOIS com `z-10`, então a imagem passa por trás dele. */}
+        <Wrap className="relative">
+          <MascoteClaude />
+
           <Reveal>
-            {/* Head em 2 colunas: texto à esquerda, mascote à direita, mordendo o
-                card de baixo (`-mb-[56px]` + `z-10`) — é o enquadramento do mockup. */}
-            <div className="flex flex-col items-start gap-gp-2xl lg:flex-row lg:items-center lg:justify-between">
+            {/* `lg:pr` reserva a faixa do mascote pra o texto não correr por baixo. */}
+            <div className="lg:pr-[340px] xl:pr-[400px]">
               <SectionHead
                 eyebrow="Kit de IA"
                 title="Cole no Claude Code"
@@ -2556,12 +2622,10 @@ export function LandingDoc() {
                 outro ensina a construir dentro das regras. Nenhum dos dois inventa
                 comando — saíram da doc deste repo.
               </SectionHead>
-
-              <MascoteClaude />
             </div>
           </Reveal>
 
-          <Reveal i={1} className="mt-[44px]">
+          <Reveal i={1} className="relative z-10 mt-[44px]">
             <PromptSection />
           </Reveal>
 
