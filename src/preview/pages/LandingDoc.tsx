@@ -2298,18 +2298,44 @@ const PROMPTS = [
  *
  * `absolute` porque precisa transbordar pra baixo, sobre o card; `aria-hidden` porque é
  * ornamento (o conteúdo da seção está no head e no card).
+ *
+ * ## Dois elementos, dois papéis (não é aninhamento gratuito)
+ *
+ * O wrapper carrega a POSIÇÃO e a ENTRADA (`.lp-mascote`, por transição); a imagem
+ * carrega a FLUTUAÇÃO (`.lp-mascote-idle`, por animação infinita). Juntas no mesmo nó,
+ * a animação venceria o `transform` da transição e a entrada não aconteceria — o
+ * raciocínio completo está no cabeçalho das duas classes no `landing.css`.
+ *
+ * O `loading="lazy"` ficou: a entrada é disparada por `IntersectionObserver`, então a
+ * imagem só precisa ter chegado quando a seção aparece — que é exatamente quando o lazy
+ * a busca. Se a rede estiver lenta e o `is-in` chegar antes do byte, o resultado é a
+ * imagem aparecendo sem a transição, não um buraco no layout (o wrapper já tem largura).
  */
 function MascoteClaude() {
+  const { ref, dentro } = useInView<HTMLDivElement>();
   return (
-    <img
-      aria-hidden
-      alt=""
-      src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
-      loading="lazy"
-      decoding="async"
-      className="pointer-events-none absolute top-[14px] right-0 z-0 hidden w-[340px]
-                 select-none object-contain lg:block xl:top-[6px] xl:w-[412px]"
-    />
+    <div
+      ref={ref}
+      className={cn(
+        `lp-mascote pointer-events-none absolute top-[14px] right-0 z-0 hidden w-[340px]
+         select-none lg:block xl:top-[6px] xl:w-[412px]`,
+        dentro && "is-in",
+      )}
+    >
+      <img
+        aria-hidden
+        alt=""
+        src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
+        loading="lazy"
+        decoding="async"
+        className={cn(
+          "block w-full select-none object-contain",
+          // A flutuação só entra QUANDO a peça já está a caminho: a classe carrega
+          // `animation-delay`, que conta a partir do momento em que ela é aplicada.
+          dentro && "lp-mascote-idle",
+        )}
+      />
+    </div>
   );
 }
 
