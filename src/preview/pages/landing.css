@@ -75,83 +75,58 @@
 }
 
 /**
- * Faixa de fundo que separa uma seção da vizinha.
+ * Haze abstrato do catálogo — mancha, não faixa.
  *
- * Diferencia sem cortar: o tint é baixíssimo (3% do foreground) e some nas duas pontas
- * por máscara, então não existe linha reta de início/fim — o olho lê "outro plano", não
- * "outra caixa". Neutro de propósito: a seção já tem o glow de marca, e uma faixa
- * colorida competiria com ele.
+ * ## Duas versões anteriores que estavam erradas, e por quê
  *
- * O fio de 1px no topo e na base é o que dá a leitura moderna — mas ele também é
- * mascarado, então aparece só no meio e dissolve nas laterais.
- */
-/**
- * ⚠️ Por que a faixa tem tratamento POR MODO, e a 1ª versão estava errada.
+ * 1ª: `inset: 0` com tint de 3% do foreground. Cobria a seção inteira (2034px medidos) e
+ * **clareava** no dark, porque o fg é quase branco.
+ * 2ª: altura fixa de 520px, verde escuro, com fio de 1px no topo e na base. Mais perto,
+ * mas ainda era uma FAIXA: tinha aresta, ia de fora a fora e lia como "outra caixa".
  *
- * A 1ª tentativa misturava 3% do `--color-fg-default`. Isso **clareia** no dark (o fg
- * é quase branco) — exatamente o oposto de "mais escura". No light clareava também, e
- * a faixa quase não existia.
+ * O que a referência mostra é outra coisa: uma mancha **orgânica, difusa e centrada**,
+ * sem nenhuma borda. Então: nada de fio (os `::before/::after` saíram), nada de largura
+ * total, nada de altura de seção.
  *
- * "Mais escura e levemente verde" não é a mesma operação nos dois modos:
- *   - dark  → puxar pro PRETO com um toque de marca (a faixa afunda em relação ao canvas)
- *   - light → um lavado de marca bem diluído (sobre branco, qualquer coisa já é "mais
- *             escuro"; puxar pro preto de verdade viraria tarja cinza)
+ * ## Como a forma orgânica é feita sem imagem
  *
- * Daí a base clara + o override em `.dark`. Os dois lados leem `--color-bg-brand`, então
- * a faixa acompanha a marca ativa — troque pra `blue` e ela vira azulada.
- */
-/**
- * Altura FIXA, não `inset: 0`.
+ * TRÊS elipses radiais sobrepostas, com centros, tamanhos e intensidades diferentes. É
+ * isso que quebra a simetria — um gradiente radial só sempre lê como círculo, e dois
+ * leem como halter. Com três em posições irregulares + o `blur` grande, a silhueta fica
+ * ambígua, que é o efeito.
  *
- * Com `inset: 0` a faixa cobria a seção inteira (medido: 2034px) e virava um segundo
- * fundo de página em vez de uma transição. Medido nesta seção: a busca termina em 394px
- * do topo do wrapper e os chips em 438px — 520px de faixa, com a máscara apagando os
- * últimos 14%, faz ela sumir justo depois dos chips e antes do primeiro card.
- *
- * O número é grande demais pra ser "mágico" sem explicação: ele é
- * `pt-[152px] + head + busca + chips + respiro`. Se o head crescer, ajuste aqui.
+ * Alpha baixíssimo de propósito (a soma das três fica ~10% da marca no pico): a mancha
+ * tem que ser percebida como atmosfera, não como objeto.
  */
 .lp-band {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 520px;
+  top: 60px;
+  left: 50%;
+  /* +15% sobre a 1ª calibragem (1000×300 → 1150×345); o blur acompanha a escala,
+     senão a mancha maior fica com a borda relativamente mais definida. */
+  width: min(1150px, 92%);
+  height: 345px;
   z-index: 0;
   pointer-events: none;
-  /* light: lavado de marca bem diluído */
-  background: color-mix(in srgb, var(--color-bg-brand) 5%, transparent);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
-}
-
-.dark .lp-band {
-  /* dark: quase-preto com toque de marca, a 62% — afunda em relação ao canvas */
-  background: color-mix(
-    in srgb,
-    color-mix(in srgb, var(--color-bg-brand) 13%, black) 62%,
-    transparent
-  );
-}
-
-.lp-band::before,
-.lp-band::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  /* O fio segue a marca, não o foreground: num plano que afunda, fio claro denuncia a
-     borda; fio de marca lê como aresta iluminada. */
-  background: color-mix(in srgb, var(--color-bg-brand) 26%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
-  mask-image: linear-gradient(to right, transparent, #000 22%, #000 78%, transparent);
-}
-.lp-band::before {
-  top: 0;
-}
-.lp-band::after {
-  bottom: 0;
+  /* `-50%` centraliza; os -100px deslocam pra esquerda, como pedido. */
+  transform: translateX(calc(-50% - 100px));
+  background:
+    radial-gradient(
+      ellipse 46% 58% at 34% 42%,
+      color-mix(in srgb, var(--color-bg-brand) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 44% at 62% 62%,
+      color-mix(in srgb, var(--color-bg-brand) 10%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 30% 34% at 52% 26%,
+      color-mix(in srgb, var(--color-bg-brand) 7%, transparent),
+      transparent 74%
+    );
+  filter: blur(80px);
 }
 
 /* Brilho da marca no topo. `absolute` (não `fixed`): o container de scroll é o
