@@ -530,7 +530,17 @@ function SectionHead({
   );
 }
 
-/** Botão de copiar com confirmação no próprio rótulo. */
+/**
+ * Botão de copiar com confirmação no rótulo E no movimento.
+ *
+ * A troca pra "Copiado" (cor + ícone + texto) já existia, e é estática: acontece no lugar
+ * onde o olho já não está, porque quem clica está olhando o cursor. O pulso do wrapper
+ * (`.lp-copy`, ver `landing.css`) puxa a atenção de volta por meio segundo.
+ *
+ * O efeito mora no WRAPPER, não no `<Button>`: o componente do DS tem `box-shadow` e
+ * `border-radius` próprios por variante, e animar isso nele significaria sobrescrever a
+ * sombra da variante durante a animação. Assim o botão fica intocado.
+ */
 function CopyButton({
   texto,
   label = "Copiar",
@@ -541,12 +551,36 @@ function CopyButton({
   className?: string;
 }) {
   const [copiado, setCopiado] = useState(false);
+  // Contador de cliques, só pra reiniciar a animação. Clicar de novo DENTRO da janela de
+  // 1.8s não reanimaria nada por conta própria: a classe `is-copied` já está aplicada, e
+  // animação CSS não reinicia porque a classe "continua lá".
+  const [pulso, setPulso] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
 
   const copiar = useCallback(() => {
     // Clipboard exige contexto seguro; sem ele o botão não pode mentir "Copiado".
     if (!navigator.clipboard) return;
-    void navigator.clipboard.writeText(texto).then(() => setCopiado(true));
+    void navigator.clipboard.writeText(texto).then(() => {
+      setCopiado(true);
+      setPulso((n) => n + 1);
+    });
   }, [texto]);
+
+  // Reinício IMPERATIVO, não `key={pulso}` no wrapper. Remontar resolveria a animação e
+  // custaria o foco: quem acionou por teclado (Enter/Espaço) ficaria com o foco no body,
+  // e o próximo Tab recomeçaria do topo da página. `subtree: true` alcança o `::after` do
+  // anel, que é onde metade do efeito mora.
+  useEffect(() => {
+    if (!pulso) return;
+    for (const a of ref.current?.getAnimations({ subtree: true }) ?? []) {
+      // Só `@keyframes`. Medido: `getAnimations` devolve também as 9 TRANSIÇÕES do
+      // `<Button>` (cor, borda, ring…), que são do DS e estão justamente rodando neste
+      // instante — cancelá-las seria mexer no que não é meu.
+      if (!(a instanceof CSSAnimation)) continue;
+      a.cancel();
+      a.play();
+    }
+  }, [pulso]);
 
   useEffect(() => {
     if (!copiado) return;
@@ -555,16 +589,18 @@ function CopyButton({
   }, [copiado]);
 
   return (
-    <Button
-      color={copiado ? "success" : "secondary"}
-      variant="outline"
-      size="sm"
-      onClick={copiar}
-      iconLeft={copiado ? <Check /> : <Copy />}
-      className={className}
-    >
-      {copiado ? "Copiado" : label}
-    </Button>
+    <span ref={ref} className={cn("lp-copy", copiado && "is-copied")}>
+      <Button
+        color={copiado ? "success" : "secondary"}
+        variant="outline"
+        size="sm"
+        onClick={copiar}
+        iconLeft={copiado ? <Check /> : <Copy />}
+        className={className}
+      >
+        {copiado ? "Copiado" : label}
+      </Button>
+    </span>
   );
 }
 

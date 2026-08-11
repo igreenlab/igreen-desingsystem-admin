@@ -629,33 +629,54 @@
   transform-origin: 50% 80%;
 }
 .lp-mascote.is-in {
-  animation: ds-lp-mascote-entra 1.25s cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+  animation: ds-lp-mascote-entra 1.6s linear 520ms both;
 }
 
 /**
- * Entrada: sobe na diagonal, tombada, e se endireita com uma gangorra.
+ * Entrada: sobe na diagonal, tombada, e se endireita com uma gangorra amortecida.
  *
- * Os quadros, e o que cada um faz:
- *   0%   — fora de vista embaixo/à direita, `scale(0.8)` e **+30°**: pequena, tombada,
- *          longe. É o estado "ainda não chegou".
- *   55%  — já opaca, passou de leve do alvo: `-5°` do outro lado e `scale(1.03)`. É O
- *          overshoot — sem ele não há gangorra, só uma subida.
- *   78%  — volta contra o overshoot, mas menos (`+2°`, `0.99`). Amplitude decrescente é
- *          o que faz o olho ler AMORTECIMENTO em vez de dois giros soltos.
- *   100% — identidade. O repouso é exatamente a posição de hoje, que é também o ponto
- *          de partida da flutuação — as duas se encaixam sem salto.
+ * ## Por que 6 quadros e não 4 (2ª calibragem)
+ *
+ * A versão de 4 quadros ia +30° → -5° → +2° → 0 e a chegada dava um TRANCO: pular de 2°
+ * direto pro repouso em 275ms é um degrau, e o olho lê parada seca, não assentamento. O
+ * que falta numa gangorra que "morre" é a cauda — cada oscilação tem que valer menos que
+ * a anterior, e as últimas têm que ser quase nada.
+ *
+ * Agora a amplitude decai **5° → 2.4° → 1° → 0.35° → 0**, com o mesmo padrão em Y e em
+ * escala. Cinco passos em vez de dois é o que transforma "gira e para" em "gira e
+ * descansa".
+ *
+ * ## `linear` no atalho + easing POR QUADRO
+ *
+ * O `animation-timing-function` do atalho é `linear` de propósito: cada quadro declara o
+ * seu. Uma curva única aplicada aos 6 segmentos deforma justamente a cauda — a parte que
+ * precisa ser suave é onde uma ease-out global já está quase parada, e o resultado é o
+ * degrau de novo. Primeiro segmento em ease-out (chega rápido, com peso); os demais em
+ * ease-in-out senoidal, que é o perfil de um pêndulo perdendo energia.
  */
 @keyframes ds-lp-mascote-entra {
   0% {
     opacity: 0;
-    transform: translate3d(38px, 96px, 0) scale(0.8) rotate(30deg);
+    transform: translate3d(38px, 104px, 0) scale(0.8) rotate(30deg);
+    /* ease-out: a maior parte do caminho acontece no começo. */
+    animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
   }
-  55% {
+  46% {
     opacity: 1;
-    transform: translate3d(0, -10px, 0) scale(1.03) rotate(-5deg);
+    transform: translate3d(0, -12px, 0) scale(1.035) rotate(-5deg);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
   }
-  78% {
-    transform: translate3d(0, 3px, 0) scale(0.99) rotate(2deg);
+  66% {
+    transform: translate3d(0, 4px, 0) scale(0.992) rotate(2.4deg);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  82% {
+    transform: translate3d(0, -2px, 0) scale(1.006) rotate(-1deg);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
+  }
+  93% {
+    transform: translate3d(0, 1px, 0) scale(0.999) rotate(0.35deg);
+    animation-timing-function: cubic-bezier(0.37, 0, 0.63, 1);
   }
   100% {
     opacity: 1;
@@ -671,19 +692,22 @@
  * defasar os dois eixos de rotação é o que dá a leitura de **modelo 3D girando devagar**
  * em vez de sprite subindo.
  *
- * ⚠️ Amplitudes subiram na 2ª calibragem, por pedido — a 1ª (11px · 4px · 3.5° · 0.8°)
- * ficou sutil ao ponto de quase não existir. Agora 17px · 7px · 5.5° · 1.5°: ~50% mais,
- * o que ainda é ambiente. O teto é o card: a peça cruza por trás dele, então balanço
- * grande em Y a faria "bater" na borda do vidro em vez de deslizar.
+ * ⚠️ Amplitudes calibradas em TRÊS rodadas, todas por pedido. 1ª: 11px · 4px · 3.5° ·
+ * 0.8° — sutil ao ponto de quase não existir. 2ª: 17px · 7px · 5.5° · 1.5°. 3ª (atual):
+ * **23px · 10px · 7° · 2°**. O passo foi ficando menor de propósito: perto do teto, mais
+ * amplitude deixa de ler como "flutuando" e passa a ler como "balançando".
+ *
+ * O teto é o card: a peça cruza por trás dele, e balanço grande em Y a faria "bater" na
+ * borda do vidro em vez de deslizar por baixo.
  *
  * 9s: lento o bastante pra o olho não seguir. `will-change` porque são 412px de PNG
  * animando pra sempre; sem ele o compositor repinta em vez de só recompor.
  */
 .lp-mascote-idle {
   animation: ds-lp-mascote-idle 9s ease-in-out infinite;
-  /* Começa DEPOIS de a entrada assentar (520 + 1250). Sem isso a flutuação empurra a
+  /* Começa DEPOIS de a entrada assentar (520 + 1600). Sem isso a flutuação empurra a
      peça enquanto ela ainda está chegando, e as duas somadas leem como tremor. */
-  animation-delay: 1.8s;
+  animation-delay: 2.15s;
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -693,13 +717,90 @@
     transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg);
   }
   25% {
-    transform: translate3d(-7px, -11px, 0) rotateY(-5.5deg) rotateZ(-1.5deg);
+    transform: translate3d(-10px, -15px, 0) rotateY(-7deg) rotateZ(-2deg);
   }
   50% {
-    transform: translate3d(0, -17px, 0) rotateY(0deg) rotateZ(0deg);
+    transform: translate3d(0, -23px, 0) rotateY(0deg) rotateZ(0deg);
   }
   75% {
-    transform: translate3d(7px, -11px, 0) rotateY(5.5deg) rotateZ(1.5deg);
+    transform: translate3d(10px, -15px, 0) rotateY(7deg) rotateZ(2deg);
+  }
+}
+
+/**
+ * Reação do botão de copiar — confirma pelo MOVIMENTO, não só pelo rótulo.
+ *
+ * O botão já trocava cor, ícone e texto pra "Copiado". Só que essas três mudanças
+ * acontecem no mesmo lugar em que o olho já não está: quem clica está olhando o cursor,
+ * e uma troca estática não puxa a atenção de volta. Um pulso curto puxa.
+ *
+ * ## Por que o efeito vive num WRAPPER e não no `<Button>`
+ *
+ * O `Button` do DS tem as próprias `box-shadow` e `border-radius` por variante/tamanho.
+ * Animar `box-shadow` nele significaria sobrescrever a sombra da variante durante a
+ * animação (e piscar ao voltar), e animar `transform` competiria com qualquer transição
+ * futura do componente. O wrapper isola: ele pulsa e desenha o anel, o botão continua
+ * intocado — e o efeito serve pros DOIS usos do `CopyButton` (prompt e `CodeCard`) sem
+ * tocar no DS.
+ *
+ * `--lp-copy-radius` existe porque o anel tem que acompanhar o raio do botão, e ele
+ * depende do `size` (`sm` → `radius-lg`). Default no valor do `sm`, que é o uso real;
+ * quem precisar de outro tamanho passa a var.
+ */
+.lp-copy {
+  position: relative;
+  display: inline-flex;
+  --lp-copy-radius: var(--radius-radius-lg);
+}
+/**
+ * `forwards` não é decorativo aqui — é o que torna o 2º clique reanimável.
+ *
+ * Medido: sem ele, uma animação que TERMINOU sai do `getAnimations()` (o browser
+ * descarta animação finalizada sem `fill`). O reinício imperativo do `CopyButton`
+ * percorre justamente essa lista, então clicar de novo dentro da janela de 1.8s
+ * reiniciava só o anel (que tem `forwards`) e não o pulso. Com `forwards` os dois
+ * persistem e os dois reiniciam. O estado retido é `scale(1)` — visualmente nada.
+ */
+.lp-copy.is-copied {
+  animation: ds-lp-copy-pop 480ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+/**
+ * Anel que se abre e some. `inset` negativo pra nascer NA borda do botão e crescer pra
+ * fora; `pointer-events: none` porque ele cobre o botão durante o meio segundo em que
+ * existe — sem isso, dois cliques rápidos perderiam o segundo.
+ */
+.lp-copy.is-copied::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--color-border-success-muted);
+  border-radius: calc(var(--lp-copy-radius) + 1px);
+  pointer-events: none;
+  animation: ds-lp-copy-ring 560ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes ds-lp-copy-pop {
+  0% {
+    transform: scale(1);
+  }
+  /* Afunda ANTES de voltar: o clique tem que parecer que apertou algo. */
+  30% {
+    transform: scale(0.955);
+  }
+  62% {
+    transform: scale(1.018);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes ds-lp-copy-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.16);
   }
 }
 
@@ -715,8 +816,15 @@
   .lp-beam::after,
   .dark .lp-grad,
   .lp-bob,
-  .lp-mascote-idle {
+  .lp-mascote-idle,
+  .lp-copy.is-copied,
+  .lp-copy.is-copied::after {
     animation: none;
+  }
+  /* Sem o pulso, o anel não pode ficar parado sobre o botão pra sempre: `animation: none`
+     devolveria a opacidade base (1) do `::after`. */
+  .lp-copy.is-copied::after {
+    display: none;
   }
   /* O mascote fica no estado FINAL, como o `.lp-reveal`. Aqui `animation: none` é
      load-bearing, não zelo: a entrada é `@keyframes ... both`, então sem isto o
