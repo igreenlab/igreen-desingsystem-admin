@@ -368,6 +368,70 @@ function useFitScale<T extends HTMLElement>(larguraDesign: number, escalaMinima 
   return { ref, escala };
 }
 
+/**
+ * Spotlight do bento: escreve a posição do cursor em CSS vars.
+ *
+ * Mora aqui e não em `src/hooks/`: aquela pasta é API do DS (o `useBrand`/`useTheme`
+ * são exportados pro consumidor). Isto é atmosfera de uma página do showcase, então
+ * fica junto das outras primitivas locais (`useInView`, `useUnfold`, `useFitScale`,
+ * `useTemFolga`).
+ *
+ * ⚠️ Escreve direto no nó, nunca por `useState` — seria um re-render por pixel de
+ * movimento do mouse, com a grade inteira (8 cards, 3 charts) remontando.
+ */
+function useSpotlight<T extends HTMLElement = HTMLDivElement>() {
+  const gridRef = useRef<T | null>(null);
+  const glowRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    const glow = glowRef.current;
+    if (!grid || !glow) return;
+    // Sem cursor não há efeito — e sai antes de registrar listener nenhum.
+    if (window.matchMedia?.("(hover: none)").matches) return;
+
+    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-spotlight-card]"));
+    let frame = 0;
+
+    const aoMover = (e: PointerEvent) => {
+      if (frame) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+
+        // ⚠️ Relativo à CAMADA, não à grade. O `inset: -120px` do `.bento-spotlight__glow`
+        // move a origem dela: medir o rect da grade desloca a luz em exatamente 120px
+        // nos dois eixos, e o sintoma é a luz "adiantada na diagonal".
+        const g = glow.getBoundingClientRect();
+        glow.style.setProperty("--gx", `${e.clientX - g.left}px`);
+        glow.style.setProperty("--gy", `${e.clientY - g.top}px`);
+
+        // A borda acesa é POR CARD (cada um tem sua origem), mesmo a luz sendo uma só.
+        for (const card of cards) {
+          const r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+          card.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }
+      });
+    };
+
+    const acender = () => grid.style.setProperty("--lp-on", "1");
+    const apagar = () => grid.style.setProperty("--lp-on", "0");
+
+    grid.addEventListener("pointermove", aoMover);
+    grid.addEventListener("pointerenter", acender);
+    grid.addEventListener("pointerleave", apagar);
+
+    return () => {
+      if (frame) cancelAnimationFrame(frame);
+      grid.removeEventListener("pointermove", aoMover);
+      grid.removeEventListener("pointerenter", acender);
+      grid.removeEventListener("pointerleave", apagar);
+    };
+  }, []);
+
+  return { gridRef, glowRef };
+}
+
 /** Bloco que entra ao rolar. `i` escalona o delay via `--lp-i` (ver landing.css). */
 function Reveal({
   i = 0,
@@ -1542,8 +1606,13 @@ function BentoCard({
   const { onNavigate } = useDocNav();
   return (
     <div
+      // `bg-bg-surface` FICA na lista: o `.bento-spotlight__card` (regra não-layerizada)
+      // sobrepõe o background com o translúcido, e a classe segue como fallback caso o
+      // CSS da página não carregue. `data-spotlight-card` é o que o hook consulta.
+      data-spotlight-card
       className={cn(
-        "lp-tint group flex flex-col rounded-radius-xl border border-border-subtle bg-bg-surface",
+        "bento-spotlight__card lp-tint group flex flex-col rounded-radius-xl",
+        "border border-border-subtle bg-bg-surface",
         "p-pad-3xl shadow-sh-sm transition-colors hover:border-border-brand-subtle",
         className,
       )}
@@ -1611,8 +1680,17 @@ function Bento() {
   );
   const { widths: wBento } = useColumnWidths(colunasBento);
 
+  const { gridRef, glowRef } = useSpotlight<HTMLDivElement>();
+
   return (
-    <div className="grid grid-cols-1 gap-gp-xl md:grid-cols-2 lg:grid-cols-6">
+    <div
+      ref={gridRef}
+      className="bento-spotlight grid grid-cols-1 gap-gp-xl md:grid-cols-2 lg:grid-cols-6"
+    >
+      {/* Camada de luz. É `position: absolute`, então NÃO vira célula da grade — e o
+          bento não usa `:first-child`/`nth-child` nem `grid-auto-flow`, só `col-span`
+          por card, então entrar como primeiro filho não desloca nada. */}
+      <div ref={glowRef} className="bento-spotlight__glow" aria-hidden="true" />
       {/* ── Fileira 1: 2 + 2 + 2 ── */}
       <BentoCard
         titulo="Button"
