@@ -2301,10 +2301,10 @@ const PROMPTS = [
  *
  * ## Dois elementos, dois papéis (não é aninhamento gratuito)
  *
- * O wrapper carrega a POSIÇÃO e a ENTRADA (`.lp-mascote`, por transição); a imagem
- * carrega a FLUTUAÇÃO (`.lp-mascote-idle`, por animação infinita). Juntas no mesmo nó,
- * a animação venceria o `transform` da transição e a entrada não aconteceria — o
- * raciocínio completo está no cabeçalho das duas classes no `landing.css`.
+ * O wrapper carrega a POSIÇÃO e a ENTRADA (`.lp-mascote`, gangorra com overshoot); a
+ * imagem carrega a FLUTUAÇÃO (`.lp-mascote-idle`, infinita). Juntas no mesmo nó as duas
+ * competiriam pelo mesmo `transform` e só a última declarada existiria — o raciocínio
+ * completo está no cabeçalho das duas classes no `landing.css`.
  *
  * O `loading="lazy"` ficou: a entrada é disparada por `IntersectionObserver`, então a
  * imagem só precisa ter chegado quando a seção aparece — que é exatamente quando o lazy

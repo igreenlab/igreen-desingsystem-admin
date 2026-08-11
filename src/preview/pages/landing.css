@@ -606,24 +606,61 @@
  * ## Por que não reusei o `.lp-reveal`
  *
  * Ele escalona 60ms por índice, e o card do prompt é `i={1}` — 60ms. 60ms a mais não lê
- * como "depois do card", lê como "junto". Aqui são **520ms** de atraso e **1.1s** de
+ * como "depois do card", lê como "junto". Aqui são **520ms** de atraso e **1.25s** de
  * duração: começa quando o card está terminando (60 + 700 = 760ms) e assenta bem depois.
  * A lentidão é o que dá peso: objeto 3D grande não salta, chega.
+ *
+ * ## E por que a entrada é ANIMAÇÃO e não transição (mudou na 2ª versão)
+ *
+ * A 1ª versão era `transition`, e transição só sabe ir de A pra B em linha reta — não
+ * existe "passar do alvo e voltar". O pedido é justamente um **overshoot**: entra
+ * tombado a +30°, passa de -5° do outro lado como uma gangorra, e só então assenta. Isso
+ * precisa de quadros intermediários, ou seja `@keyframes` com `forwards` pra segurar o
+ * estado final.
+ *
+ * `transform-origin: 50% 80%` põe o pivô perto da BASE da peça, não no centro: é o que
+ * faz o tombo ler como algo se endireitando do chão em vez de um cartaz girando no ar.
  */
 .lp-mascote {
   opacity: 0;
   /* `perspective` no wrapper é o que faz o `rotateY` do filho ter profundidade — sem
      ela o giro vira um achatamento horizontal. */
   perspective: 1200px;
-  transform: translate3d(26px, 18px, 0) scale(0.9) rotateY(-9deg);
-  transition:
-    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: 520ms;
+  transform-origin: 50% 80%;
 }
 .lp-mascote.is-in {
-  opacity: 1;
-  transform: none;
+  animation: ds-lp-mascote-entra 1.25s cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+}
+
+/**
+ * Entrada: sobe na diagonal, tombada, e se endireita com uma gangorra.
+ *
+ * Os quadros, e o que cada um faz:
+ *   0%   — fora de vista embaixo/à direita, `scale(0.8)` e **+30°**: pequena, tombada,
+ *          longe. É o estado "ainda não chegou".
+ *   55%  — já opaca, passou de leve do alvo: `-5°` do outro lado e `scale(1.03)`. É O
+ *          overshoot — sem ele não há gangorra, só uma subida.
+ *   78%  — volta contra o overshoot, mas menos (`+2°`, `0.99`). Amplitude decrescente é
+ *          o que faz o olho ler AMORTECIMENTO em vez de dois giros soltos.
+ *   100% — identidade. O repouso é exatamente a posição de hoje, que é também o ponto
+ *          de partida da flutuação — as duas se encaixam sem salto.
+ */
+@keyframes ds-lp-mascote-entra {
+  0% {
+    opacity: 0;
+    transform: translate3d(38px, 96px, 0) scale(0.8) rotate(30deg);
+  }
+  55% {
+    opacity: 1;
+    transform: translate3d(0, -10px, 0) scale(1.03) rotate(-5deg);
+  }
+  78% {
+    transform: translate3d(0, 3px, 0) scale(0.99) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /**
@@ -632,17 +669,21 @@
  *
  * Quatro quadros, não dois: só ida-e-volta em Y lê como elevador. Deslocar X junto e
  * defasar os dois eixos de rotação é o que dá a leitura de **modelo 3D girando devagar**
- * em vez de sprite subindo. Amplitudes pequenas de propósito (11px, 3.5°) — é ambiente,
- * não chamada de atenção.
+ * em vez de sprite subindo.
+ *
+ * ⚠️ Amplitudes subiram na 2ª calibragem, por pedido — a 1ª (11px · 4px · 3.5° · 0.8°)
+ * ficou sutil ao ponto de quase não existir. Agora 17px · 7px · 5.5° · 1.5°: ~50% mais,
+ * o que ainda é ambiente. O teto é o card: a peça cruza por trás dele, então balanço
+ * grande em Y a faria "bater" na borda do vidro em vez de deslizar.
  *
  * 9s: lento o bastante pra o olho não seguir. `will-change` porque são 412px de PNG
  * animando pra sempre; sem ele o compositor repinta em vez de só recompor.
  */
 .lp-mascote-idle {
   animation: ds-lp-mascote-idle 9s ease-in-out infinite;
-  /* Começa DEPOIS de a entrada assentar (520 + 1100). Sem isso a flutuação empurra a
+  /* Começa DEPOIS de a entrada assentar (520 + 1250). Sem isso a flutuação empurra a
      peça enquanto ela ainda está chegando, e as duas somadas leem como tremor. */
-  animation-delay: 1.7s;
+  animation-delay: 1.8s;
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -652,13 +693,13 @@
     transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg);
   }
   25% {
-    transform: translate3d(-4px, -7px, 0) rotateY(-3.5deg) rotateZ(-0.8deg);
+    transform: translate3d(-7px, -11px, 0) rotateY(-5.5deg) rotateZ(-1.5deg);
   }
   50% {
-    transform: translate3d(0, -11px, 0) rotateY(0deg) rotateZ(0deg);
+    transform: translate3d(0, -17px, 0) rotateY(0deg) rotateZ(0deg);
   }
   75% {
-    transform: translate3d(4px, -7px, 0) rotateY(3.5deg) rotateZ(0.8deg);
+    transform: translate3d(7px, -11px, 0) rotateY(5.5deg) rotateZ(1.5deg);
   }
 }
 
@@ -677,10 +718,14 @@
   .lp-mascote-idle {
     animation: none;
   }
-  /* O mascote fica no estado FINAL, como o `.lp-reveal` — desligar só a transição
-     deixaria a imagem em `scale(0.9)` girada, que é o estado de entrada. */
+  /* O mascote fica no estado FINAL, como o `.lp-reveal`. Aqui `animation: none` é
+     load-bearing, não zelo: a entrada é `@keyframes ... both`, então sem isto o
+     `animation-fill-mode: both` congelaria a peça no quadro 0% — tombada a 30°, em
+     `scale(0.8)` e `opacity: 0`. Desligar a animação sem afirmar o estado final deixaria
+     a imagem invisível. */
   .lp-mascote,
   .lp-mascote.is-in {
+    animation: none;
     opacity: 1;
     transform: none;
     transition: none;
