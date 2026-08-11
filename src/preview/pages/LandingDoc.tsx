@@ -2408,8 +2408,12 @@ function MascoteClaude() {
         //   lg (340px)            → 227px          → 20% = 45px → top 14 + 45 = 59px
         // Antes eram 6/14px: a base do mascote encostava EXATAMENTE no topo do card
         // (medido: sobreposição de -1px), então não havia cruzamento nenhum.
-        `lp-mascote pointer-events-none absolute top-[59px] right-0 z-0 hidden w-[340px]
-         select-none lg:block xl:top-[61px] xl:w-[412px]`,
+        //
+        // Os +10px em cima disso (71/69) são ajuste de olho do mantenedor sobre a conta —
+        // a peça não é um retângulo cheio: as pernas são finas e há alpha em volta, então
+        // 20% da CAIXA lê como menos de 20% de desenho cruzando.
+        `lp-mascote pointer-events-none absolute top-[69px] right-0 z-0 hidden w-[340px]
+         select-none lg:block xl:top-[71px] xl:w-[412px]`,
         dentro && "is-in",
       )}
     >
@@ -2952,11 +2956,15 @@ export function LandingDoc() {
           <Reveal>
             {/* "Tudo que existe, numa busca só" era bonito e não dizia O QUE está ali.
                 Literal ganha: o visitante procurando um Select quer ler "biblioteca de
-                componentes", não uma promessa. */}
+                componentes", não uma promessa.
+                E "Busque e encontre" (1ª tentativa) saiu por REDUNDÂNCIA: o campo de busca
+                está 40px abaixo do título — mandar buscar é legendar um botão que já se
+                explica. "Inteira, nesta página" diz o que o campo NÃO diz, e é a mesma
+                afirmação que o corpo sustenta: a lista sai do nav, então não falta nada. */}
             <SectionHead
               eyebrow="Catálogo"
               title="Biblioteca de componentes."
-              em="Busque e encontre."
+              em="Inteira, nesta página."
             >
               Cada item abre a página de documentação com exemplos, props e código. A
               lista é derivada da navegação — não há segunda cópia pra sair de sincronia.
