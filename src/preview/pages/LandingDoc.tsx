@@ -1227,7 +1227,10 @@ function HeroWindow() {
         <div className="flex items-center gap-gp-sm">
           <span
             aria-hidden
-            className="grid size-comp-md shrink-0 place-items-center rounded-radius-sm bg-bg-brand-subtle text-fg-brand"
+            // 24px (`comp-xs`) na escala 20/24/28/32/36/40. É o degrau que fica
+            // proporcional ao label `caption-md` ao lado — em 32px a caixa pesava
+            // mais que o próprio texto que ela acompanha.
+            className="grid size-comp-xs shrink-0 place-items-center rounded-radius-sm bg-bg-brand-subtle text-fg-brand"
           >
             <Zap className="size-icon-xs" />
           </span>
