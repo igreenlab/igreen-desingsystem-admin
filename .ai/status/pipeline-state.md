@@ -3109,3 +3109,25 @@ Fecha a pendência registrada na entry anterior — e ela era maior do que o lev
 **Assumption:** `renderLink` documentado no showcase fecha o ponto cego do `api-doc-check`, que só olha `USAGE.md`. Se um consumidor ainda cair no reload de página inteira, a assumption quebrou e o gate precisa cobrir showcase também.
 
 Regressões: nenhuma. tsc 0 · **411 testes** (35 arquivos, +18) · `lint:styles` 0 violação nova vs `empresa/main` · build ok · as 8 páginas editadas conferidas no browser (0 erro de console, 0 overflow-x) · `#/landing` → `#/inicio` verificado nos dois caminhos.
+
+### 2026-08-11 | ds-dev | Release v0.38.1 publicada nos 4 canais | CONCLUÍDO
+
+**Input:** trabalho acumulado desde a v0.38.0 — o fix do `columnTypeRegistry`, a base canônica dos gates (L-069), a landing como porta de entrada, as 14 defasagens da doc do pipeline + o gate `showcase-doc-facts`, e a logo/favicon.
+
+**Output:** v0.38.1 no npm (`+ @snksergio/design-system@0.38.1`, confirmado por `npm view`), registry recarimbado nos 91 itens, embed regenerado, PR #160 mergeada.
+
+**Decisão do bump — PATCH, contra a regra escrita.** A regra do repo é `changes[]` com `added` → MINOR, e havia `added` de verdade (landing, favicon, gate novo). Escolhi **0.38.1** e apresentei os dois lados no gate: todo o `added` é **showcase/pipeline**, e a BIBLIOTECA publicada recebe só um fix. `0.38 → 0.39` prometeria feature que a API não tem. O mantenedor aprovou o recomendado.
+
+Verifiquei antes de propor que isso **não** arrasta a CLI, ao contrário do que a L-018 faria supor: o `cli/templates/default/package.json` **não fixa** `@snksergio/design-system` (o template consome por copy-in do registry, não como dep npm), e nem `cli/**` nem os foundationals mudaram. Sem `cli:rebake`, sem bump nem publish da CLI.
+
+**Assumption:** um bump PATCH comunica corretamente "nada novo na API" pra quem consome por npm. Se alguém reclamar que a landing/o gate deveriam ter aparecido como versão nova, a assumption quebrou — e a resposta certa não é mudar o bump, é separar o versionamento do showcase do da biblioteca.
+
+**O embed estava defasado por CONTEÚDO, não por carimbo.** O `registry-check` já acusava `1/484 arquivo(s)` — justamente o `column-type-registry.ts` do fix que abriu a sessão. Carimbo e lista de itens estavam em sync; só o conteúdo divergia. Depois do `registry:build` + `copy-registry`: **484 idênticos à fonte**. Vale registrar que a checagem por conteúdo é a que pegou — a por nome/carimbo diria "em sync" com código velho, que é o modo de falha que a própria mensagem do gate descreve.
+
+**Erro meu no publish, registrado porque custou uma tentativa.** Montei o `.npmrc` temporário com `printf ... "$TOKEN_NPM"` — variável que **nunca defini**, na tentativa de não escrever o token no comando. O arquivo saiu com o token VAZIO e o `npm publish` morreu em `ENEEDAUTH` **depois** de empacotar os 982 arquivos. Não houve risco (o publish falhou antes de subir), mas: shell não avisa variável não-definida sem `set -u`, e o modo de falha é gastar o build inteiro pra descobrir. Antes de repetir com o token inline, conferi que o único hook de Bash (`block-rm-rf.sh`) só escreve em **stderr** e nunca persiste o comando em arquivo — ou seja, o token não vazaria pro `hook-log.txt`.
+
+**Higiene do token, verificada e não presumida:** `.npmrc` fora da árvore do repo (scratchpad da sessão), `chmod 600`, apagado por `trap` em EXIT/INT/TERM (confirmado que sumiu), e `grep` do prefixo do token em todo o repo e em todo o scratchpad → **zero ocorrência**. Nenhum `.npmrc` na raiz do repo. O token não foi escrito neste arquivo nem mascarado.
+
+⚠️ **Pendência que é do mantenedor:** os **três** tokens colados no chat desta sessão (dois anteriores + o deste publish) ficam no histórico da conversa e precisam ser revogados. Já usados, já descartáveis.
+
+**Lições novas:** nenhuma nova numerada. Reforços práticos de lição existente: a checagem por conteúdo do embed (o que a L-064 pede — reproduzir o defeito, não confiar no sinal fácil) e a L-060 aplicada ao próprio changelog, onde a entry descreve o que o usuário recebe em cada canal em vez de listar commits.
