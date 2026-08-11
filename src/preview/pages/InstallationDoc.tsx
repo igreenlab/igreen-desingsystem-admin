@@ -301,6 +301,19 @@ import {
           <code className="font-mono text-code-sm">/ds-create-crud</code>,{" "}
           <code className="font-mono text-code-sm">/ds-create-dashboard</code> etc. descobríveis nativamente.
         </p>
+        <div className="rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">
+            ⚡ Atalho: deixe a IA fazer os 6 passos
+          </p>
+          <p className="text-body-md text-fg-muted">
+            A página <strong className="text-fg-default">Início</strong> (
+            <code className="font-mono text-code-sm">#/landing</code>) tem um prompt pronto pra
+            colar no Claude Code, na aba <strong className="text-fg-default">Instalar o DS</strong>:
+            ele adiciona o submódulo, configura o alias nos dois lugares, importa o tema, roda o{" "}
+            <code className="font-mono text-code-sm">ds:link</code> e valida o resultado antes de
+            dizer que acabou. O passo a passo abaixo é a mesma coisa, na mão.
+          </p>
+        </div>
         <p className="text-body-md font-medium text-fg-default">Setup (uma vez, na raiz do seu projeto):</p>
         <CodeBlock>{`# ajuste "design-system" pro caminho real do submódulo
 npm --prefix design-system run ds:link

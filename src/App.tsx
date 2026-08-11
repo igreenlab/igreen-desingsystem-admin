@@ -122,6 +122,7 @@ import { SpacingDoc } from "./preview/pages/SpacingDoc";
 import { ElevationDoc } from "./preview/pages/ElevationDoc";
 import { SizingDoc } from "./preview/pages/SizingDoc";
 import { ShapeDoc } from "./preview/pages/ShapeDoc";
+import { LandingDoc } from "./preview/pages/LandingDoc";
 import { IntroductionDoc } from "./preview/pages/IntroductionDoc";
 import { StructureDoc } from "./preview/pages/StructureDoc";
 import { DistributionDoc } from "./preview/pages/DistributionDoc";
@@ -236,6 +237,7 @@ const DOC_PAGES = [
   "card",
   "docs",
   "docs-template",
+  "landing",
   "introduction",
   "structure",
   "distribution",
@@ -440,8 +442,11 @@ export function App() {
   const { isDark, toggle } = useTheme();
   const { brand, setBrand, toggle: toggleBrand, current: currentBrand } = useBrand();
   const theme = isDark ? "dark" : "light";
+  // Default = landing. Até 2026-08-11 abria no `ButtonDoc`: quem chegava pela raiz
+  // caía na doc de um componente, sem saber o que o sistema é, o que tem dentro ou
+  // como instalar. `#/button` continua deep-linkável, só não é mais a porta.
   const [activePage, setActivePage] = useState<PageId>(
-    () => readPageFromHash() ?? "button",
+    () => readPageFromHash() ?? "landing",
   );
 
   // Drawer do menu abaixo de `lg`. O showcase nasceu desktop-only: o sidebar de
@@ -679,6 +684,7 @@ export function App() {
             {activePage === "agent-designer" && <AgentDesignerDoc />}
             {activePage === "agent-dev" && <AgentDevDoc />}
             {activePage === "agent-reviewer" && <AgentReviewerDoc />}
+            {activePage === "landing" && <LandingDoc />}
             {activePage === "introduction" && <IntroductionDoc />}
             {activePage === "structure" && <StructureDoc />}
             {activePage === "distribution" && <DistributionDoc />}

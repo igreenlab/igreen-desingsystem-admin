@@ -1,0 +1,271 @@
+/**
+ * Camada de EFEITOS da landing (`LandingDoc.tsx`) — só decoração ambiente.
+ *
+ * ## Por que este arquivo existe, e por que não é o `globals.css` nem o tema
+ *
+ * Três lugares possíveis, e só um está certo pra isto:
+ *
+ * 1. `src/styles/globals.css` → **proibido**. O gate `runtime-base.test.mjs` reprova
+ *    `@keyframes` ali, e com razão (L-067): naquele arquivo a declaração ou é no-op
+ *    silencioso (nome que o Tailwind/`tw-animate-css` já tem) ou funciona no showcase
+ *    e **não chega** nos outros 3 canais. Medido no `dist/assets/*.css`, não deduzido.
+ * 2. `tokens/transforms/to-tailwind-v4.ts` (o tema gerado) → é o caminho certo pra
+ *    runtime que os **4 canais** precisam. Aura respirando e borda cônica de uma
+ *    landing de showcase não são isso: nenhum consumidor renderiza esta página.
+ *    Colocar aqui inflaria o CSS publicado com decoração que ninguém usa.
+ * 3. **Aqui**, junto da única página que consome → o escopo é honesto e o arquivo
+ *    morre com a página se ela sair.
+ *
+ * ⚠️ Todo `@keyframes` daqui usa o prefixo `ds-lp-` (landing page). A outra metade da
+ * L-067 é que `@keyframes` com nome do framework **não sobrescreve** — então nome
+ * próprio não é estilo, é requisito.
+ *
+ * ## Por que `var(--color-*)` cru e não classe DS
+ *
+ * A regra de ouro (componente usa classe, nunca token direto) vale pro que produz
+ * PIXEL DE COMPONENTE. Não existe — e não deve existir — classe DS pra
+ * `conic-gradient` de borda ou halo desfocado. Ler a var aqui é o mesmo que o próprio
+ * transform faz no `@utility outline-float`. O ganho: `--color-bg-brand` é
+ * redeclarada por CADA overlay de marca e por `.dark`, então trocar a marca re-tinge
+ * a landing inteira **sem uma linha de JS**. É a assinatura da página saindo de graça.
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. Malha de fundo — estrutura, não textura. Mascarada num elipse pra sumir
+      antes de competir com o conteúdo.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-grid {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 900px;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 92% 62% at 50% 0%, #000 18%, transparent 76%);
+  mask-image: radial-gradient(ellipse 92% 62% at 50% 0%, #000 18%, transparent 76%);
+}
+
+/* Brilho da marca no topo. `absolute` (não `fixed`): o container de scroll é o
+   `<main>` do App, e `fixed` escaparia dele e cobriria o sidebar. */
+.lp-glow {
+  position: absolute;
+  top: -340px;
+  left: 50%;
+  width: min(1100px, 130%);
+  height: 720px;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 18%, transparent),
+    transparent 62%
+  );
+  filter: blur(30px);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. Aura — halo que respira atrás de uma superfície.
+
+   ⚠️ É um ELEMENTO próprio (`<div className="lp-aura" aria-hidden />`), não um
+   `::after` com `z-index:-1`. A primeira versão era pseudo-elemento negativo e ficou
+   **invisível**: a raiz da página tem `isolate`, que cria stacking context, e filho
+   com z negativo não consegue pintar atrás do background da raiz. Medido no browser —
+   por leitura de CSS a regra parecia certa. Elemento explícito com z positivo atrás
+   do conteúdo é previsível em qualquer contexto.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-aura {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(900px, 120%);
+  height: 100%;
+  max-height: 620px;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 17%, transparent),
+    transparent 70%
+  );
+  filter: blur(80px);
+  animation: ds-lp-aura-drift 14s ease-in-out infinite;
+}
+@keyframes ds-lp-aura-drift {
+  0%,
+  100% {
+    transform: translateX(-54%) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(-46%) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. Beam — luz da marca correndo pela borda. Gasto em DOIS lugares só (palco do
+      hero e card de fechamento); em tudo vira ruído.
+
+      `@property` é o que torna `--ds-lp-beam` animável: ângulo sem tipo declarado
+      é interpolado como string e o keyframe não faz nada.
+   ───────────────────────────────────────────────────────────────────────────── */
+@property --ds-lp-beam {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.lp-beam {
+  position: relative;
+  isolation: isolate;
+}
+.lp-beam::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--ds-lp-beam),
+    transparent 0 58%,
+    color-mix(in oklch, var(--color-bg-brand) 25%, transparent) 66%,
+    var(--color-bg-brand) 74%,
+    color-mix(in oklch, var(--color-bg-brand) 25%, transparent) 82%,
+    transparent 90% 100%
+  );
+  /* Máscara XOR: pinta só o anel de 1px, deixando o miolo transparente. */
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: ds-lp-beam-spin 9s linear infinite;
+}
+.lp-beam-slow::before {
+  animation-duration: 17s;
+}
+@keyframes ds-lp-beam-spin {
+  to {
+    --ds-lp-beam: 360deg;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. Ênfase da marca no título.
+
+   ## Por que o gradiente animado só existe no DARK
+
+   Gradiente de texto é recurso de fundo escuro, e isto foi MEDIDO, não deduzido: no
+   light, qualquer segundo stop degrada o título. Mais claro que o brand → perde
+   contraste contra o canvas claro; mais escuro (misturando com `--color-fg-default`,
+   que foi a 1ª tentativa) → o "SaaS" do h1 saiu **oliva/marrom**, lido como bug de
+   cor, não como brilho. No dark o mesmo gradiente fica exatamente como as
+   referências: menta brilhante caindo pra verde suave.
+
+   Então: light = `fg-brand` sólido, legível e chapado; dark = o brilho. É o
+   "gaste a ousadia num lugar só" — a assinatura da página é o switch de tema ao
+   vivo, não o título.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-grad {
+  color: var(--color-fg-brand);
+}
+
+.dark .lp-grad {
+  background: linear-gradient(
+    100deg,
+    var(--color-fg-brand) 0%,
+    color-mix(in oklch, var(--color-fg-brand) 55%, white) 44%,
+    color-mix(in oklch, var(--color-fg-brand) 85%, white) 72%,
+    var(--color-fg-brand) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ds-lp-grad-shift 11s ease-in-out infinite;
+}
+@keyframes ds-lp-grad-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. Reveal no scroll. O stagger vem de `--lp-i` (índice), setado no JSX — sem
+      `transition-delay` inline espalhado pelo markup.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--lp-i, 0) * 60ms);
+}
+.lp-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Flutuação lenta das peças do palco. Amplitude pequena de propósito: o palco
+   mostra COMPONENTE, e peça que balança demais não se lê. */
+.lp-bob {
+  animation: ds-lp-bob 7s ease-in-out infinite;
+  animation-delay: calc(var(--lp-i, 0) * -1.6s);
+}
+@keyframes ds-lp-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* Crossfade ao trocar de marca/modo. Escopado nas peças do palco — transição em
+   `*` custa caro e faz o resto da página "borrar" a cada troca. */
+.lp-tint {
+  transition:
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. Piso de qualidade: nada disso é informação, então tudo cai sob
+      `prefers-reduced-motion`. O reveal precisa virar estado FINAL (visível) —
+      só desligar a animação deixaria a página em branco.
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .lp-aura,
+  .lp-beam::before,
+  .dark .lp-grad,
+  .lp-bob {
+    animation: none;
+  }
+  .lp-reveal,
+  .lp-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .lp-tint {
+    transition: none;
+  }
+}
