@@ -99,6 +99,7 @@ import { TextareaDoc } from "./preview/pages/TextareaDoc";
 import { FormFieldDoc } from "./preview/pages/FormFieldDoc";
 import { LabelDoc } from "./preview/pages/LabelDoc";
 import { SeparatorDoc } from "./preview/pages/SeparatorDoc";
+import { SidebarBrandIcon } from "./components/ui/MenuSidebar";
 import { MenuSidebarDoc } from "./preview/pages/MenuSidebarDoc";
 import { SingleMenuSidebarDoc } from "./preview/pages/SingleMenuSidebarDoc";
 import { KpiDoc } from "./preview/pages/KpiDoc";
@@ -753,8 +754,14 @@ export function App() {
       >
         {/* Logo */}
         <div className="flex items-center gap-gp-xl px-pad-3xl py-pad-2xl border-b border-border-sidebar">
-          <div className="w-9 h-9 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-body-sm font-normal">
-            iG
+          {/* Mesma logo do rail do AppShell. Caixa de 36px → 16 de largura, mantendo os
+              45% do rail (18 em 40). `aria-hidden` porque o texto ao lado já nomeia a
+              marca. */}
+          <div
+            aria-hidden
+            className="grid size-9 place-items-center rounded-radius-lg bg-bg-brand text-fg-on-brand"
+          >
+            <SidebarBrandIcon size={16} />
           </div>
           <div>
             <div className="text-body-md font-medium text-fg-default">
