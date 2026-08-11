@@ -237,7 +237,7 @@ const DOC_PAGES = [
   "card",
   "docs",
   "docs-template",
-  "landing",
+  "inicio",
   "introduction",
   "structure",
   "distribution",
@@ -365,6 +365,13 @@ const DOC_PAGES = [
 // Conjunto completo de páginas válidas pra deep-link via #/<id>.
 const ALL_VALID_PAGES = new Set<string>([...DOC_PAGES, "components", "demo"]);
 
+/**
+ * Porta de entrada do showcase. Uma constante, não a string repetida em dois lugares: o
+ * default do `useState` e o fallback do `hashchange` precisam concordar — se divergirem,
+ * abrir pela raiz e chegar por hash inválido mostram páginas diferentes.
+ */
+const PAGINA_INICIAL: PageId = "inicio";
+
 // Lê o id da página a partir do hash (#/button → "button"). null se vazio/inválido.
 function readPageFromHash(): PageId | null {
   if (typeof window === "undefined") return null;
@@ -442,11 +449,17 @@ export function App() {
   const { isDark, toggle } = useTheme();
   const { brand, setBrand, toggle: toggleBrand, current: currentBrand } = useBrand();
   const theme = isDark ? "dark" : "light";
-  // Default = landing. Até 2026-08-11 abria no `ButtonDoc`: quem chegava pela raiz
-  // caía na doc de um componente, sem saber o que o sistema é, o que tem dentro ou
-  // como instalar. `#/button` continua deep-linkável, só não é mais a porta.
+  // Default = `#/inicio` (a landing). Até 2026-08-11 abria no `ButtonDoc`: quem
+  // chegava pela raiz caía na doc de um componente, sem saber o que o sistema é, o
+  // que tem dentro ou como instalar. `#/button` continua deep-linkável, só não é
+  // mais a porta.
+  //
+  // A rota se chama `inicio` (não `landing`) porque é o nome que o visitante lê no
+  // nav e na URL — o arquivo segue `LandingDoc.tsx`, que descreve o que a página é.
+  // Hash antigo (`#/landing`) não vira 404: `readPageFromHash` devolve `null` pra id
+  // desconhecido, cai neste default, e o effect de sincronia reescreve a URL.
   const [activePage, setActivePage] = useState<PageId>(
-    () => readPageFromHash() ?? "landing",
+    () => readPageFromHash() ?? PAGINA_INICIAL,
   );
 
   // Drawer do menu abaixo de `lg`. O showcase nasceu desktop-only: o sidebar de
@@ -523,8 +536,16 @@ export function App() {
   // URL → activePage: back/forward do browser + edição manual do hash.
   useEffect(() => {
     const syncFromHash = () => {
-      const fromHash = readPageFromHash();
-      if (fromHash) setActivePage(fromHash);
+      // Hash desconhecido cai no default — não é ignorado. Ignorar deixava a URL e a
+      // view DISCORDANDO: navegar pra `#/landing` (a rota antiga desta página, antes de
+      // virar `#/inicio`) numa aba já aberta não recarrega o documento, então o
+      // `hashchange` era a única chance de reagir; devolvendo `null` e saindo, a barra de
+      // endereço dizia `#/landing` enquanto a tela seguia na página anterior.
+      //
+      // No load inicial isso nunca apareceu, porque lá o `?? "inicio"` do useState já
+      // resolvia e o effect de sincronia reescrevia o hash — o defeito só existia no
+      // caminho do hashchange. Medido no browser, não deduzido.
+      setActivePage(readPageFromHash() ?? PAGINA_INICIAL);
     };
     window.addEventListener("popstate", syncFromHash);
     window.addEventListener("hashchange", syncFromHash);
@@ -684,7 +705,7 @@ export function App() {
             {activePage === "agent-designer" && <AgentDesignerDoc />}
             {activePage === "agent-dev" && <AgentDevDoc />}
             {activePage === "agent-reviewer" && <AgentReviewerDoc />}
-            {activePage === "landing" && <LandingDoc />}
+            {activePage === "inicio" && <LandingDoc />}
             {activePage === "introduction" && <IntroductionDoc />}
             {activePage === "structure" && <StructureDoc />}
             {activePage === "distribution" && <DistributionDoc />}

@@ -45,7 +45,8 @@ export function PipelineSkillsDoc() {
       <SectionH2 id="what" title="What are Skills" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          A <strong className="text-fg-default">Skill</strong> is a single-purpose Markdown file under <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/skills/&lt;agent&gt;/</code>.
+          A <strong className="text-fg-default">Skill</strong> is a single-purpose Markdown file under <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/skills/&lt;agent&gt;/</code>{" "}
+          — ou <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/skills/&lt;nome&gt;/</code> pras 9 skills de pipeline que não pertencem a um agente.
           It contains everything an agent needs to perform one task: input contract, template code, checklist,
           and the signal it must emit when done. Skills replace the &ldquo;super-prompt&rdquo; pattern with focused, swappable units.
         </p>
@@ -70,20 +71,33 @@ export function PipelineSkillsDoc() {
         <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-loose">
           <p className="text-fg-default font-semibold">.claude/skills/</p>
           <p className="ml-sp-md">ds-designer/                  <span className="text-fg-subtle">← Skills loaded by DS Designer</span></p>
-          <p className="ml-sp-2xl">spec-token-color.md        <span className="text-fg-subtle">← color/dark mode tokens</span></p>
-          <p className="ml-sp-2xl">spec-token-spacing.md      <span className="text-fg-subtle">← gap, pad, sp</span></p>
-          <p className="ml-sp-2xl">spec-token-sizing.md       <span className="text-fg-subtle">← form, icon, radius, shadow</span></p>
-          <p className="ml-sp-2xl">spec-token-typography.md   <span className="text-fg-subtle">← presets</span></p>
+          <p className="ml-sp-2xl">SKILL.md                   <span className="text-fg-subtle">← identidade + roteamento interno</span></p>
+          <p className="ml-sp-2xl">spec-token.md              <span className="text-fg-subtle">← UM arquivo, args tipo=color|spacing|sizing|radius|shadow|typography</span></p>
           <p className="ml-sp-2xl">spec-component.md          <span className="text-fg-subtle">← novo componente</span></p>
           <p className="ml-sp-2xl">figma-extract.md           <span className="text-fg-subtle">← Figma → DS</span></p>
           <p className="ml-sp-md">ds-dev/                       <span className="text-fg-subtle">← Skills loaded by DS Dev</span></p>
+          <p className="ml-sp-2xl">SKILL.md                   <span className="text-fg-subtle">← identidade + roteamento interno</span></p>
           <p className="ml-sp-2xl">impl-token.md              <span className="text-fg-subtle">← implementa token</span></p>
           <p className="ml-sp-2xl">impl-igreen.md             <span className="text-fg-subtle">← componente tv()</span></p>
           <p className="ml-sp-2xl">impl-shadcn.md             <span className="text-fg-subtle">← componente Shadcn</span></p>
           <p className="ml-sp-2xl">impl-composite.md          <span className="text-fg-subtle">← componente composto</span></p>
+          <p className="ml-sp-2xl">update-changelog.md        <span className="text-fg-subtle">← timeline de Updates</span></p>
+          <p className="ml-sp-2xl">release.md                 <span className="text-fg-subtle">← release em 7 passos</span></p>
+          <p className="ml-sp-2xl">handoff-pr.md              <span className="text-fg-subtle">← Regra 8: branch → commit → push → PR</span></p>
           <p className="ml-sp-md">ds-reviewer/                  <span className="text-fg-subtle">← Skills loaded by DS Reviewer</span></p>
           <p className="ml-sp-2xl">SKILL.md                   <span className="text-fg-subtle">← revisa token</span></p>
           <p className="ml-sp-2xl">review-component.md        <span className="text-fg-subtle">← revisa componente</span></p>
+          <p className="ml-sp-2xl">pre-commit-check.md        <span className="text-fg-subtle">← gate amplo antes de commit grande</span></p>
+          <p className="mt-gp-lg text-fg-default font-semibold">.claude/skills/&lt;nome&gt;/ <span className="font-normal text-fg-subtle">— 9 skills de pipeline, SEM agente</span></p>
+          <p className="ml-sp-md">crud-builder/                 <span className="text-fg-subtle">← /ds-create-crud · 5 arquivos (router + interview/blueprint/generate/kanban)</span></p>
+          <p className="ml-sp-md">list-builder/                 <span className="text-fg-subtle">← /ds-create-list · 4 arquivos</span></p>
+          <p className="ml-sp-md">dashboard-builder/            <span className="text-fg-subtle">← /ds-create-dashboard · 4 arquivos</span></p>
+          <p className="ml-sp-md">brand-builder/                <span className="text-fg-subtle">← /ds-create-brand · 5 arquivos (+ color-derivation)</span></p>
+          <p className="ml-sp-md">app-builder/                  <span className="text-fg-subtle">← /ds-create-app</span></p>
+          <p className="ml-sp-md">auth-builder/                 <span className="text-fg-subtle">← /ds-create-login</span></p>
+          <p className="ml-sp-md">screen-composer/              <span className="text-fg-subtle">← /ds-create-screen (composição de 2+ peças)</span></p>
+          <p className="ml-sp-md">module-replicator/            <span className="text-fg-subtle">← /ds-replicate-module</span></p>
+          <p className="ml-sp-md">igreen-frontend/              <span className="text-fg-subtle">← fallback sem entrevista</span></p>
         </div>
       </div>
 
@@ -117,10 +131,7 @@ export function PipelineSkillsDoc() {
         <p className="text-body-md text-fg-muted mb-gp-2xl">
           Current skills shipped with the pipeline. Each one is callable via slash command or SkillTool.
         </p>
-        <SkillRow path="spec-token-color" agent="DS Designer" desc="Specify new color tokens including dark mode + on-* variants" />
-        <SkillRow path="spec-token-spacing" agent="DS Designer" desc="Specify gap, pad, sp scale additions with anti-collision prefixes" />
-        <SkillRow path="spec-token-sizing" agent="DS Designer" desc="Specify form, icon, radius and shadow additions" />
-        <SkillRow path="spec-token-typography" agent="DS Designer" desc="Specify typography presets (heading/title/label/paragraph)" />
+        <SkillRow path="spec-token" agent="DS Designer" desc="Especifica token novo — UM arquivo, roteado por args: tipo=color | spacing | sizing | radius | shadow | typography" tag="Gate" />
         <SkillRow path="spec-component" agent="DS Designer" desc="Specify new component with variants, slots, states + Strategist gate" tag="Gate" />
         <SkillRow path="figma-extract" agent="DS Designer" desc="Extract tokens/component from Figma and produce spec" />
         <SkillRow path="impl-token" agent="DS Dev" desc="Implement a token in the appropriate semantic file + regen CSS" />
@@ -132,7 +143,16 @@ export function PipelineSkillsDoc() {
         <SkillRow path="SKILL (token review)" agent="DS Reviewer" desc="Token review checklist (7 items) + critique" />
         <SkillRow path="review-component" agent="DS Reviewer" desc="Component review: regression sweep + 3 checklists + genuine critique" tag="Gate" />
         <SkillRow path="pre-commit-check" agent="DS Reviewer" desc="Gate amplo antes de commit significativo (release, refactor amplo, token/componente/lição novos)" tag="Gate" />
-        <SkillRow path="crud-builder/SKILL" agent="Pipeline" desc="Construtor guiado de telas CRUD/tabela consumindo o DataTable: entrevista → blueprint → gate → geração. Entry point /ds-create-crud" tag="Gate" />
+        <SkillRow path="handoff-pr" agent="DS Dev" desc="Regra 8 (L-041): branch própria → commit descritivo → push no remote canônico → gh pr create → reporta o link. A IA PARA no merge — merge/publish/bump/deploy exigem autorização explícita (L-020)" tag="Obrigatória" />
+        <SkillRow path="crud-builder/SKILL" agent="Pipeline" desc="Tela CRUD/tabela consumindo o DataTable: entrevista → blueprint → gate → geração. Entry point /ds-create-crud" tag="Gate" />
+        <SkillRow path="list-builder/SKILL" agent="Pipeline" desc="Tela de lista de cards consumindo o DataList — irmã do crud-builder. Entry point /ds-create-list" tag="Gate" />
+        <SkillRow path="dashboard-builder/SKILL" agent="Pipeline" desc="Tela de dashboard/painel (KPIs + gráficos + rankings) ancorada em dashboard-patterns.md. Entry point /ds-create-dashboard" tag="Gate" />
+        <SkillRow path="brand-builder/SKILL" agent="Pipeline" desc="Marca/tema de cor novo: entrevista → derivação de cor medida → gate → as 10 superfícies → verificação no browser. Entry point /ds-create-brand" tag="Gate" />
+        <SkillRow path="app-builder/SKILL" agent="Pipeline" desc="Esqueleto de app: AppShell + nav-data + mapa de rotas, adaptando o example-app-shell. Entry point /ds-create-app" />
+        <SkillRow path="auth-builder/SKILL" agent="Pipeline" desc="Tela de login/auth: form split + painel de marca por tokens, adaptando o example-login. Entry point /ds-create-login" />
+        <SkillRow path="screen-composer/SKILL" agent="Pipeline" desc="Composição de 2+ peças que reagem entre si (master-detail, cross-filter). Entry point /ds-create-screen" />
+        <SkillRow path="module-replicator/SKILL" agent="Pipeline" desc="Replica uma família de telas pra outro segmento trocando dataset + rótulos — avalia PARAMETRIZAR antes de copiar. Entry point /ds-replicate-module" />
+        <SkillRow path="igreen-frontend/SKILL" agent="Pipeline" desc="Fallback pra página/bloco solto, sem entrevista. Prefira os builders acima — eles têm gate" />
       </div>
 
       {/* Lifecycle */}
@@ -171,13 +191,13 @@ export function PipelineSkillsDoc() {
             <li>One skill = one task</li>
             <li>Contains a template + checklist</li>
             <li>Emits a signal</li>
-            <li>Live in <code className="font-mono text-code-sm">.claude/skills/&lt;agent&gt;/</code></li>
+            <li>Live in <code className="font-mono text-code-sm">.claude/skills/&lt;agent&gt;/</code> — ou <code className="font-mono text-code-sm">.claude/skills/&lt;nome&gt;/</code> quando não têm agente (os 9 builders de pipeline)</li>
           </ul>
         </div>
         <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
           <p className="text-body-md font-medium text-fg-default mb-gp-md">Rules</p>
           <ul className="list-disc pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
-            <li>Auto-loaded by glob match</li>
+            <li>Auto-loaded em TODA sessão (todo <code className="font-mono text-code-sm">.md</code> de <code className="font-mono text-code-sm">rules/</code>) — não há escopo por glob</li>
             <li>Cross-cutting constraints (anti-patterns, lessons)</li>
             <li>Reference text — no template</li>
             <li>No signal — they apply continuously</li>

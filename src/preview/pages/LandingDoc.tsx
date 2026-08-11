@@ -1,5 +1,5 @@
 /**
- * LandingDoc — porta de entrada do showcase (`#/landing`, default do `App.tsx`).
+ * LandingDoc — porta de entrada do showcase (`#/inicio`, default do `App.tsx`).
  *
  * Antes disso o showcase abria no `ButtonDoc`: quem chegava caía na doc de um
  * componente sem saber o que o sistema é, quantos componentes tem ou como instalar.
@@ -198,7 +198,7 @@ const CONTRATOS = [
 ] as const;
 
 /** A landing não se lista no próprio catálogo. */
-const CATALOGO_COMPLETO = getCatalog(["landing"]);
+const CATALOGO_COMPLETO = getCatalog(["inicio"]);
 
 /**
  * Seções do nav que são **componente**. O catálogo da landing lista só elas.
@@ -226,8 +226,19 @@ const SECOES_COMPONENTE = [
 const URL_DEMO =
   CATALOGO_COMPLETO.find((i) => i.href === "demo-virtual-proposta")?.url ?? "/demo/";
 
+/**
+ * Rota do 2º CTA: o EXEMPLO de CRUD (uma tela real com DataTable), não a doc do
+ * componente. Quem chega no fim da landing quer ver funcionando, não ler a tabela de
+ * props — e a doc já está a um clique no catálogo logo acima.
+ *
+ * Derivada do nav pelo mesmo motivo da `URL_DEMO`: se a rota do exemplo mudar, o CTA
+ * acompanha. O fallback é o `href` que a entrada tem hoje.
+ */
+const ROTA_EXEMPLO_CRUD =
+  CATALOGO_COMPLETO.find((i) => i.href === "clientes-showcase")?.href ?? "clientes-showcase";
+
 const CATALOGO = CATALOGO_COMPLETO.filter((i) => SECOES_COMPONENTE.includes(i.section));
-const SECOES = getCatalogSections(["landing"]).filter((s) => SECOES_COMPONENTE.includes(s));
+const SECOES = getCatalogSections(["inicio"]).filter((s) => SECOES_COMPONENTE.includes(s));
 
 /* ═════════════════════════════════════════════════════════════════════════════
    Primitivas locais de página
@@ -2568,7 +2579,7 @@ export function LandingDoc() {
   const instalacaoRef = useRef<HTMLDivElement>(null);
   const catalogoRef = useRef<HTMLDivElement>(null);
 
-  // `scrollIntoView`, não `href="#id"`: o App usa o hash como router (`#/landing`) e
+  // `scrollIntoView`, não `href="#id"`: o App usa o hash como router (`#/inicio`) e
   // reescreve `window.location.hash` num efeito. Âncora de fragmento entraria em
   // conflito direto com isso.
   const irPara = useCallback((ref: React.RefObject<HTMLDivElement | null>) => {
@@ -2820,8 +2831,8 @@ export function LandingDoc() {
                 Pronto pra montar <em className="lp-grad not-italic">a próxima tela?</em>
               </h2>
               <p className="mx-auto mt-gp-lg max-w-[52ch] text-body-lg leading-relaxed text-fg-muted">
-                Veja um app real consumindo o DS de ponta a ponta, ou vá direto pro
-                DataTable — o componente que a maior parte das telas daqui usa.
+                Veja um app real consumindo o DS de ponta a ponta, ou o DataTable numa
+                tela de CRUD completa — o componente que a maior parte das telas daqui usa.
               </p>
               <div className="mt-[28px] flex flex-wrap items-center justify-center gap-gp-md">
                 {/* `<a>` com o recipe `buttonVariants`, não `<Button>`: o demo é um
@@ -2844,7 +2855,7 @@ export function LandingDoc() {
                   color="secondary"
                   variant="outline"
                   size="lg"
-                  onClick={() => onNavigate("data-table")}
+                  onClick={() => onNavigate(ROTA_EXEMPLO_CRUD)}
                   iconRight={<Blocks />}
                 >
                   Ver DataTable

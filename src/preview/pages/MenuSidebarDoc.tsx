@@ -216,11 +216,38 @@ const PROPS_SIDEBAR = [
   { name: "onMobileOpenChange", type: "(open: boolean) => void", defaultVal: "—" },
   { name: "mobileBreakpoint", type: "string (CSS media query)", defaultVal: '"(max-width: 767px)"' },
   { name: "onPanelTitleClick", type: "() => void", defaultVal: "—" },
+  {
+    name: "renderLink",
+    type: "(props: SidebarLinkProps) => ReactNode",
+    defaultVal: "— (<a href>)",
+    description:
+      "Integração de router. Sem ela o item de menu é um <a href> puro: com href de PATH (/app/clientes) o browser RECARREGA a página inteira a cada clique — bug achado por um consumidor em produção (L-068). O exemplo canônico usa href de HASH (#/app/clientes), e fragmento não recarrega documento, então nenhum gate pegava. Render-prop, não linkComponent: prop de tipo-de-componente escrita inline remonta a subárvore a cada render.",
+  },
+  {
+    name: "brandHref",
+    type: "string",
+    defaultVal: '"#"',
+    description:
+      'O href do brand mark. O default "#" empurra "#" na URL do seu app. Passe "" (ou undefined + onBrandClick) pra desligar a navegação.',
+  },
+  {
+    name: "onBrandClick",
+    type: "(e: MouseEvent<HTMLAnchorElement>) => void",
+    defaultVal: "—",
+    description: "Clique no brand mark. Recebe o evento — útil com brandHref vazio.",
+  },
 ];
 
 const PROPS_DATA = [
   { name: "SidebarContext", type: "{ id, label, icon, items, sections? }", defaultVal: "—" },
-  { name: "SidebarMenuItem", type: "{ name, icon?, href?, badge?, badgeKind?, subitems? }", defaultVal: "—" },
+  { name: "SidebarMenuItem", type: "{ name, icon?, href?, target?, badge?, badgeKind?, subitems? }", defaultVal: "—" },
+  {
+    name: "SidebarLinkProps",
+    type: "{ href, target?, className, onClick, children, ... }",
+    defaultVal: "—",
+    description:
+      'O que o renderLink recebe. Espalhe TUDO no seu Link (<Link {...p} to={p.href} />): o className carrega o estilo do item e o onClick carrega o estado ativo.',
+  },
   { name: "SidebarSection (bookmark)", type: '{ id, label, variant:"bookmark", items:[{ name, color, icon?, href? }] }', defaultVal: "—" },
   { name: "SidebarSection (chat)", type: '{ id, label, variant:"chat", items:[{ name, initials, color, status? }] }', defaultVal: "—" },
 ];

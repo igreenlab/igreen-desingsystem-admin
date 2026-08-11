@@ -120,6 +120,13 @@ export const CITACOES = new Map([
       ["text-popover-foreground", "changelog: idem — mesma entry, mesma razão"],
     ]),
   ],
+  [
+    "src/preview/pages/DistributionDoc.tsx",
+    new Map([
+      ["bg-popover", "prosa: a linha do gate `shadcn-vocab` nos guardrails NOMEIA a classe como exemplo do vocabulário proibido — é o que o gate existe pra pegar (L-039)"],
+      ["text-foreground", "prosa: idem — mesma linha, mesma razão"],
+    ]),
+  ],
 ]);
 
 /**

@@ -221,7 +221,7 @@ const TOTAL = CATALOG.reduce((n, g) => n + g.items.length, 0);
 /**
  * Ícone por `href`, derivado do `CATALOG` acima.
  *
- * Exportado porque a landing (`#/landing`) mostra os mesmos cards e precisa dos MESMOS
+ * Exportado porque a landing (`#/inicio`) mostra os mesmos cards e precisa dos MESMOS
  * ícones. Derivar daqui em vez de repetir a lista lá: são 73 pares
  * componente→ícone, e duas cópias divergiriam no primeiro componente novo.
  */

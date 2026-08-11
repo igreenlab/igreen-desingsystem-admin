@@ -9,11 +9,11 @@ const BASE_NAV: DocNavSection[] = [
   {
     title: "Get Started",
     items: [
-      // Porta de entrada do showcase (`#/landing`, e o default do App). A
+      // Porta de entrada do showcase (`#/inicio`, e o default do App). A
       // `Introduction` continua existindo e tem outro trabalho: a landing é
       // superfície de DECISÃO (o que é, como instalo, onde vejo tudo), a
       // Introduction é de LEITURA (princípios, arquitetura, por que a v2).
-      { label: "Início", href: "landing" },
+      { label: "Início", href: "inicio" },
       { label: "Introduction", href: "introduction" },
       { label: "Structure", href: "structure" },
       { label: "Distribution", href: "distribution" },
