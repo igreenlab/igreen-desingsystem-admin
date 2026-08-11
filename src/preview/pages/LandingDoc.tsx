@@ -831,7 +831,7 @@ function KpiCell({
             className={cn(
               "flex-1 rounded-radius-sm",
               // Idem: tom opaco pra não deixar nada aparecer atrás.
-              i === serie.length - 1 ? "bg-bg-brand" : "bg-bg-brand/25",
+              i === serie.length - 1 ? "bg-bg-brand" : "bg-border-default",
             )}
             style={{ height: `${h}%` }}
           />
@@ -916,20 +916,35 @@ function MockDashboard() {
                 active
                 defaultIndex={MES_DESTAQUE}
                 cursor={false}
-                content={<ChartTooltipContent />}
+                content={<ChartTooltipContent className="min-w-[172px]" />}
               />
               {/* Barras APAGADAS, uma na cor da marca — o mês corrente. Barra toda
                   colorida não diz nada; com uma destacada, a leitura é imediata. */}
-              <Bar dataKey="kwh" radius={[4, 4, 0, 0]}>
+              {/* `fill` aqui NÃO pinta a barra (o `<Cell>` abaixo vence) — ele
+                  alimenta `item.color` do tooltip, que é de onde vem o dot colorido
+                  ao lado do valor. Sem isso o tooltip aparece sem a cor da série. */}
+              <Bar dataKey="kwh" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]}>
                 {ENERGIA.map((_, i) => (
                   <Cell
                     key={i}
                     fill={
                       i === MES_DESTAQUE
                         ? "var(--color-chart-1)"
-                        : // Opaco de propósito: `bg-brand-subtle` mistura com TRANSPARENT
-                          // e a grade tracejada passava por cima da barra.
-                          "color-mix(in srgb, var(--color-bg-brand) 26%, var(--color-bg-surface))"
+                        : // Cinza neutro OPACO — e `border-default` é o único que serve.
+                          //
+                          // Medido no dark: `bg-subtle` = oklch(1 0 0 / .01) e
+                          // `bg-muted` = oklch(1 0 0 / .03) são TRANSLÚCIDOS (a grade
+                          // tracejada voltaria a aparecer através da barra);
+                          // `bg-surface` é a própria cor do card (barra invisível) e
+                          // `bg-canvas` é mais escuro que ele. `border-default`
+                          // (oklch(0.2645 0 0)) é opaco, acromático e um degrau ACIMA
+                          // da superfície — exatamente o contraste que "inativo" pede,
+                          // e no light vira um cinza claro pelo mesmo motivo.
+                          //
+                          // Token de borda usado como fill é incomum, mas é o neutro
+                          // opaco que o DS tem; qualquer `color-mix` de verde com a
+                          // superfície puxa pro quente (ver a nota de ferrugem).
+                          "var(--color-border-default)"
                     }
                   />
                 ))}
@@ -1212,7 +1227,7 @@ function HeroWindow() {
         <div className="flex items-center gap-gp-sm">
           <span
             aria-hidden
-            className="grid size-comp-lg shrink-0 place-items-center rounded-radius-base bg-bg-brand-subtle text-fg-brand"
+            className="grid size-comp-md shrink-0 place-items-center rounded-radius-sm bg-bg-brand-subtle text-fg-brand"
           >
             <Zap className="size-icon-xs" />
           </span>
@@ -1317,7 +1332,7 @@ function HeroWindow() {
       {/* 4. TOAST de verdade — a receita do `Toast`/Sonner do DS: superfície
              flutuante com ícone de status, título, descrição e o X de dispensar.
              Antes era um card com um check dentro, que não lia como notificação. */}
-      <FloatCard i={3} className="-right-[74px] bottom-[64px] w-[304px] p-0">
+      <FloatCard i={3} className="-right-[74px] bottom-[18px] w-[304px] overflow-hidden p-0">
         {/* Proporção RETANGULAR: ícone + texto numa linha só, ação à direita em vez
             de empilhada. Toast é largo e baixo; com a ação embaixo do texto o card
             ficava quase quadrado e lia como card, não como notificação. */}
