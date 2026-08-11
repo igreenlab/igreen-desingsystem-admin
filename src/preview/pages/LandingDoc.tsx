@@ -60,7 +60,10 @@ import {
   Bot,
   Building2,
   Calendar,
+  ChartArea,
   ChartColumn,
+  ChartLine,
+  ChartPie,
   ChevronDown,
   Check,
   Component,
@@ -68,17 +71,21 @@ import {
   FlaskConical,
   Layers,
   LayoutDashboard,
+  LoaderCircle,
   List as ListIcon,
   MessageSquare,
+  Map as MapIcon,
   MonitorPlay,
   MoreHorizontal,
   Moon,
   Package,
   Palette,
   Plus,
+  Radar,
   Receipt,
   Rocket,
   Search,
+  SlidersHorizontal,
   Split,
   Sparkles,
   Sun,
@@ -135,6 +142,7 @@ import {
 import { BRANDS, useBrand } from "../../hooks/useBrand";
 import { useTheme } from "../../hooks/useTheme";
 import { getCatalog, getCatalogSections, useDocNav, type CatalogEntry } from "../components";
+import { COMPONENT_ICON_BY_HREF } from "./ComponentsOverviewDoc";
 import "./landing.css";
 
 type LucideIcon = ComponentType<{
@@ -558,7 +566,9 @@ function SegItem({
       onClick={onClick}
       aria-pressed={ativo}
       className={cn(
-        "inline-flex min-h-form-md items-center gap-gp-sm rounded-radius-full px-pad-xl",
+        // `rounded-radius-md`, não `-full`: pílula 100% dentro de um container de
+        // raio `lg` briga com o desenho do resto dos controles.
+        "inline-flex min-h-form-md items-center gap-gp-sm rounded-radius-md px-pad-xl",
         "text-caption-md font-medium whitespace-nowrap transition-colors",
         "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
         // Ativo = a cor da marca, cheia. Era `bg-bg-surface + shadow-sh-sm` sobre
@@ -679,7 +689,9 @@ function ThemeSwitcher() {
             aria-label={`Marca: ${atual.label}`}
           >
             <Swatches cores={rampas[atual.id]} />
-            {atual.label}
+            <span className="text-body-md">
+              <span className="text-fg-muted">Theme:</span> {atual.label}
+            </span>
           </Button>
         </DropdownMenuTrigger>
 
@@ -706,7 +718,9 @@ function ThemeSwitcher() {
       <div
         role="group"
         aria-label="Modo"
-        className="flex min-h-form-lg items-center gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-subtle p-pad-2xs"
+        // Raio, borda e superfície iguais aos do botão de tema (`Button outline`), pra
+        // os dois lerem como um par. Era `bg-bg-subtle` com pílula 100%.
+        className="flex min-h-form-lg items-center gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xs"
       >
         <SegItem ativo={isDark} onClick={() => setTheme("dark")}>
           <Moon className="size-icon-xs" aria-hidden /> Escuro
@@ -2018,20 +2032,29 @@ function InstalacaoSection() {
       </div>
 
       <div className="grid grid-cols-1 items-start gap-gp-2xl lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-        <ol className="m-0 flex list-none flex-col gap-gp-2xl p-0">
+        {/* Timeline: o conector é um `::before` no `<li>`, não um elemento próprio —
+            `last:before:hidden` corta a linha no último passo sem precisar de índice.
+            O `pb` maior é o que dá o espaçamento pedido E o comprimento da linha. */}
+        <ol className="m-0 flex list-none flex-col p-0">
           {canal.passos.map((p, i) => (
-            <li key={p.titulo} className="flex gap-gp-lg">
+            <li
+              key={p.titulo}
+              className="relative flex gap-gp-xl pb-pad-5xl last:pb-0
+                         before:absolute before:left-[15px] before:top-[30px] before:bottom-[6px]
+                         before:w-px before:bg-border-subtle before:content-['']
+                         last:before:hidden"
+            >
               <span
                 aria-hidden
-                className="mt-[2px] grid size-comp-md shrink-0 place-items-center rounded-radius-full
-                           border border-border-subtle bg-bg-subtle font-mono text-caption-xs
-                           font-bold text-fg-muted"
+                className="relative z-10 mt-[2px] grid size-form-sm shrink-0 place-items-center
+                           rounded-radius-full border border-border-default bg-bg-surface
+                           font-mono text-caption-sm font-bold text-fg-muted shadow-sh-sm"
               >
                 {i + 1}
               </span>
-              <span className="min-w-0">
+              <span className="min-w-0 pt-[4px]">
                 <span className="block text-body-md font-medium text-fg-default">{p.titulo}</span>
-                <span className="mt-[2px] block text-body-sm leading-relaxed text-fg-muted">
+                <span className="mt-gp-sm block text-body-sm leading-relaxed text-fg-muted">
                   {p.desc}
                 </span>
               </span>
@@ -2181,8 +2204,8 @@ function MascoteClaude() {
       src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
       loading="lazy"
       decoding="async"
-      className="pointer-events-none absolute -top-[6px] right-0 z-0 hidden w-[340px]
-                 select-none object-contain lg:block xl:-top-[14px] xl:w-[412px]"
+      className="pointer-events-none absolute top-[14px] right-0 z-0 hidden w-[340px]
+                 select-none object-contain lg:block xl:top-[6px] xl:w-[412px]"
     />
   );
 }
@@ -2245,37 +2268,42 @@ function PromptSection() {
    ═════════════════════════════════════════════════════════════════════════════ */
 
 /**
- * Ícone por SEÇÃO, não por item.
+ * Ícone por COMPONENTE — os mesmos do `#/components-overview`.
  *
- * O mantenedor pediu os cards do `#/components-overview`, que têm ícone por
- * componente. Ali a lista é escrita à mão (com `icon:` em cada linha) e cobre só
- * componentes; aqui o catálogo é **derivado** do nav e tem 137 itens, incluindo
- * tokens, agentes, pipeline e exemplos. Mapear 137 ícones à mão recriaria exatamente
- * a lista paralela que este catálogo existe pra não ter — e a próxima página nova
- * entraria sem ícone.
+ * A fonte é o `COMPONENT_ICON_BY_HREF` exportado de lá (derivado do `CATALOG` daquela
+ * página), não uma cópia: são 73 pares componente→ícone, e duas listas divergiriam no
+ * primeiro componente novo.
  *
- * Ícone por seção dá o mesmo ganho visual com zero manutenção: página nova herda o
- * ícone da seção dela automaticamente.
+ * Os 25 hrefs que aquela página não cobre — os 7 gráficos, o `table-toolbar`, a
+ * `tabela-teste` e os 15 exemplos `clients-*`/`list-*` — recebem ícone por FAMÍLIA
+ * aqui. Eles não são componentes no índice de lá (são páginas de chart e de exemplo),
+ * então não há de onde derivar; a lista abaixo é pequena e explícita de propósito.
  */
-const ICONE_SECAO: Record<string, LucideIcon> = {
-  "Get Started": Rocket,
-  Agents: Bot,
-  "Pipeline Infra": Workflow,
-  Foundations: Palette,
-  Components: Blocks,
-  Charts: ChartColumn,
-  "Data Table Components": TableIcon,
-  "List Components": ListIcon,
-  Templates: LayoutDashboard,
-  Examples: MonitorPlay,
-  Demos: FlaskConical,
-};
+const ICONE_POR_FAMILIA: Array<[RegExp, LucideIcon]> = [
+  [/^chart-area$/, ChartArea],
+  [/^chart-bar$/, ChartColumn],
+  [/^chart-line$/, ChartLine],
+  [/^chart-pie$/, ChartPie],
+  [/^chart-radar$/, Radar],
+  [/^chart-radial$/, LoaderCircle],
+  [/^chart-map$/, MapIcon],
+  [/^chart-/, ChartColumn],
+  [/^(clients-|tabela-teste)/, TableIcon],
+  [/^list-/, ListIcon],
+  [/^table-toolbar$/, SlidersHorizontal],
+  [/^components-overview$/, Blocks],
+];
 
-const ICONE_FALLBACK = Component;
+function iconeDoItem(href: string): LucideIcon {
+  const proprio = COMPONENT_ICON_BY_HREF[href];
+  if (proprio) return proprio;
+  for (const [padrao, icone] of ICONE_POR_FAMILIA) if (padrao.test(href)) return icone;
+  return Component;
+}
 
 function CatalogoCard({ item }: { item: CatalogEntry }) {
   const { onNavigate } = useDocNav();
-  const Icone = ICONE_SECAO[item.section] ?? ICONE_FALLBACK;
+  const Icone = iconeDoItem(item.href);
 
   const conteudo = (
     <>
@@ -2374,9 +2402,9 @@ function Catalogo() {
             className="min-h-form-xl pl-[42px]"
           />
         </div>
-        <p className="shrink-0 font-mono text-caption-md text-fg-subtle" aria-live="polite">
-          {total} {total === 1 ? "componente" : "componentes"}
-        </p>
+        {/* O contador saiu daqui por pedido — a contagem já aparece no chip "Tudo" e
+            em cada chip de categoria. `aria-live` foi pro chip pra a mudança de
+            filtro continuar sendo anunciada. */}
       </div>
 
       {/* Chips de categoria — o filtro do wireframe. `Chip` do DS com contagem. */}
@@ -2386,8 +2414,9 @@ function Catalogo() {
           color={secao === null ? "primary" : "neutral"}
           variant={secao === null ? "soft" : "outline"}
           onClick={() => setSecao(null)}
+          aria-live="polite"
         >
-          Tudo <span className={chipCount()}>{CATALOGO.length}</span>
+          Tudo <span className={chipCount()}>{total}</span>
         </Chip>
         {SECOES.map((s) => (
           <Chip
@@ -2465,13 +2494,20 @@ export function LandingDoc() {
       <Wrap className="relative pt-[72px] lg:pt-[104px]">
         <div className="flex flex-col items-center text-center">
           <Reveal>
-            <span className="inline-flex items-center gap-gp-sm rounded-radius-full border border-border-default bg-bg-muted px-pad-xl py-pad-xs text-caption-md text-fg-muted">
+            <span
+              className="lp-glass inline-flex items-center gap-gp-md rounded-radius-full border
+                         px-pad-2xl py-pad-md text-body-sm text-fg-muted shadow-sh-sm"
+            >
               <span
                 aria-hidden
                 className="size-[6px] rounded-radius-full bg-bg-brand ring-4 ring-ring-brand"
               />
               <strong className="font-medium text-fg-default">
-                {CATALOGO.length} páginas
+                {/* `CATALOGO_COMPLETO`, não `CATALOGO`: o badge fala de PÁGINAS do
+                    showcase (137), e o `CATALOGO` passou a ser só componente (98)
+                    quando o catálogo foi filtrado. Trocar a fonte sem trocar a
+                    palavra teria deixado o hero afirmando 98 páginas. */}
+                {CATALOGO_COMPLETO.length} páginas
               </strong>
               no catálogo · React 19 · Tailwind v4
             </span>
@@ -2544,8 +2580,14 @@ export function LandingDoc() {
           causa e o bento é o efeito. Ver o seletor depois das peças invertia a
           leitura. */}
       {/* `relative` + `lp-section-glow`: o wireframe põe aura aqui também, e faz
-          sentido — é a seção que FALA de cor. Sem ela a área fica chapada. */}
+          sentido — é a seção que FALA de cor. Sem ela a área fica chapada.
+
+          O `lp-grid-band` acrescenta a malha de fundo na FAIXA entre o hero e esta
+          seção: sem ela havia um vazio chapado longo entre as duas, e a malha amarra
+          as duas metades como um plano só. É a mesma malha do topo, mascarada nas
+          duas pontas pra não ter borda dura. */}
       <div className="relative pt-[112px]">
+        <div className="lp-grid-band" aria-hidden />
         <div className="lp-section-glow" aria-hidden />
         <Wrap className="relative">
           <Reveal>

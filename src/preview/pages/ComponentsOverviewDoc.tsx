@@ -217,6 +217,17 @@ const slug = (s: string) =>
     .replace(/(^-|-$)/g, "");
 
 const TOTAL = CATALOG.reduce((n, g) => n + g.items.length, 0);
+
+/**
+ * Ícone por `href`, derivado do `CATALOG` acima.
+ *
+ * Exportado porque a landing (`#/landing`) mostra os mesmos cards e precisa dos MESMOS
+ * ícones. Derivar daqui em vez de repetir a lista lá: são 73 pares
+ * componente→ícone, e duas cópias divergiriam no primeiro componente novo.
+ */
+export const COMPONENT_ICON_BY_HREF: Record<string, LucideIcon> = Object.fromEntries(
+  CATALOG.flatMap((g) => g.items.map((i) => [i.href, i.icon] as const)),
+);
 const TOC = CATALOG.map((g) => ({ id: slug(g.category), label: g.category }));
 
 function ComponentCard({ item }: { item: CompItem }) {

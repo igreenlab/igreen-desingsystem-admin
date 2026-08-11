@@ -48,6 +48,32 @@
   mask-image: radial-gradient(ellipse 92% 62% at 50% 0%, #000 18%, transparent 76%);
 }
 
+/**
+ * Malha na FAIXA entre o hero e a seção de tokens.
+ *
+ * Mesma malha do `.lp-grid`, mas mascarada nas DUAS pontas (o `.lp-grid` só precisa
+ * apagar embaixo, porque a de cima é a borda da página). Sem isso a faixa teria uma
+ * linha de corte reta onde a malha começa e termina.
+ *
+ * `top: -160px` a mais que a altura declarada faz a malha nascer já dentro do fim do
+ * hero, então as duas leem como um plano contínuo em vez de dois blocos.
+ */
+.lp-grid-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -160px;
+  height: 720px;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 62%, transparent 100%);
+}
+
 /* Brilho da marca no topo. `absolute` (não `fixed`): o container de scroll é o
    `<main>` do App, e `fixed` escaparia dele e cobriria o sidebar. */
 .lp-glow {
