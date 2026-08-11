@@ -125,12 +125,21 @@
   position: relative;
   isolation: isolate;
 }
-.lp-beam::before {
+
+/**
+ * DOIS anéis com o mesmo gradiente cônico, girando juntos:
+ *
+ *   ::before → o fio de 1px (a luz em si)
+ *   ::after  → o MESMO gradiente com anel grosso e `blur`, atrás → o brilho
+ *
+ * É o que faz a luz parecer brilho de verdade em vez de um traço colorido: o halo
+ * viaja junto porque compartilha a variável `--ds-lp-beam` e a mesma animação.
+ */
+.lp-beam::before,
+.lp-beam::after {
   content: "";
   position: absolute;
   inset: 0;
-  z-index: 2;
-  padding: 1px;
   border-radius: inherit;
   pointer-events: none;
   background: conic-gradient(
@@ -141,7 +150,13 @@
     color-mix(in oklch, var(--color-bg-brand) 25%, transparent) 82%,
     transparent 90% 100%
   );
-  /* Máscara XOR: pinta só o anel de 1px, deixando o miolo transparente. */
+  animation: ds-lp-beam-spin 9s linear infinite;
+}
+
+/* O fio: máscara XOR pinta só o anel de 1px e deixa o miolo transparente. */
+.lp-beam::before {
+  z-index: 2;
+  padding: 1px;
   -webkit-mask:
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
@@ -150,9 +165,27 @@
     linear-gradient(#000 0 0) content-box,
     linear-gradient(#000 0 0);
   mask-composite: exclude;
-  animation: ds-lp-beam-spin 9s linear infinite;
 }
-.lp-beam-slow::before {
+
+/* O brilho: anel de 3px, desfocado e transbordando pra fora da borda. */
+.lp-beam::after {
+  z-index: 1;
+  padding: 3px;
+  margin: -2px;
+  opacity: 0.75;
+  filter: blur(7px);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.lp-beam-slow::before,
+.lp-beam-slow::after {
   animation-duration: 17s;
 }
 @keyframes ds-lp-beam-spin {
@@ -248,6 +281,23 @@
 }
 
 /**
+ * Superfície de vidro — o bezel da janela e os cards flutuantes.
+ *
+ * `backdrop-filter` só produz efeito sobre algo TRANSLÚCIDO, então o fundo é
+ * `color-mix` com transparente em vez de um token opaco. `saturate` acompanha o blur
+ * porque desfoque puro lava a cor do que está atrás; sem ele o vidro fica cinza.
+ *
+ * A borda é levemente mais clara que o fundo pra dar o "canto de vidro" — é o que
+ * separa glassmorphism de "card com blur".
+ */
+.lp-glass {
+  background: color-mix(in oklch, var(--color-bg-surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  backdrop-filter: blur(18px) saturate(1.35);
+  border-color: color-mix(in oklch, var(--color-fg-default) 12%, transparent);
+}
+
+/**
  * Brilho de seção. O wireframe põe `aura` também na seção de temas; sem isso a área de
  * "Uma base. Cinco marcas." fica chapada contra o canvas, e é justamente a seção que
  * fala de COR.
@@ -329,6 +379,7 @@
   .lp-aura,
   .lp-section-glow,
   .lp-beam::before,
+  .lp-beam::after,
   .dark .lp-grad,
   .lp-bob {
     animation: none;

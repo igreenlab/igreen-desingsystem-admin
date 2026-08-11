@@ -635,13 +635,19 @@ const ENERGIA_CONFIG = {
 /** Índice do mês corrente — barra destacada e tooltip aberto. */
 const MES_DESTAQUE = 6;
 
+/**
+ * Mix da carteira — a cor vive na LINHA, não num array paralelo.
+ *
+ * Antes as cores vinham de `DONUT_MIX[i]`, que tem 4 entradas contra 6 daqui: as
+ * duas últimas linhas recebiam `undefined` e renderizavam sem cor nenhuma.
+ */
 const MIX = [
-  { nome: "Solar", pct: 62 },
-  { nome: "Telecom", pct: 21 },
-  { nome: "Seguros", pct: 11 },
-  { nome: "Consórcio", pct: 7 },
-  { nome: "Energia B2B", pct: 4 },
-  { nome: "Outros", pct: 2 },
+  { nome: "Solar", pct: 62, cor: "var(--color-chart-1)" },
+  { nome: "Telecom", pct: 21, cor: "var(--color-chart-2)" },
+  { nome: "Seguros", pct: 11, cor: "var(--color-chart-3)" },
+  { nome: "Placas", pct: 7, cor: "var(--color-chart-4)" },
+  { nome: "Green", pct: 4, cor: "var(--color-chart-5)" },
+  { nome: "Outros", pct: 2, cor: "var(--color-bg-muted)" },
 ];
 
 /** Barra da chrome do browser — a "moldura" que faz o mockup ler como app real. */
@@ -765,12 +771,8 @@ const SERIE_D = [38, 46, 44, 55, 52, 63, 70];
 const SPARK_B = [
   { v: 28 }, { v: 44 }, { v: 39 }, { v: 52 }, { v: 61 }, { v: 57 }, { v: 73 },
 ];
-const DONUT_MIX = [
-  { k: "solar", v: 62, fill: "var(--color-chart-1)" },
-  { k: "telecom", v: 21, fill: "var(--color-chart-2)" },
-  { k: "seguros", v: 11, fill: "var(--color-chart-4)" },
-  { k: "outros", v: 6, fill: "var(--color-bg-muted)" },
-];
+/** Série da pizza, derivada do MIX — uma fonte só de nome, valor e cor. */
+const DONUT_MIX = MIX.map((m) => ({ k: m.nome, v: m.pct, fill: m.cor }));
 
 const SPARK_CFG = {
   v: { label: "série", color: "var(--color-chart-1)" },
@@ -828,7 +830,8 @@ function KpiCell({
             key={i}
             className={cn(
               "flex-1 rounded-radius-sm",
-              i === serie.length - 1 ? "bg-bg-brand" : "bg-bg-brand-subtle",
+              // Idem: tom opaco pra não deixar nada aparecer atrás.
+              i === serie.length - 1 ? "bg-bg-brand" : "bg-bg-brand/25",
             )}
             style={{ height: `${h}%` }}
           />
@@ -924,7 +927,9 @@ function MockDashboard() {
                     fill={
                       i === MES_DESTAQUE
                         ? "var(--color-chart-1)"
-                        : "var(--color-bg-brand-subtle)"
+                        : // Opaco de propósito: `bg-brand-subtle` mistura com TRANSPARENT
+                          // e a grade tracejada passava por cima da barra.
+                          "color-mix(in srgb, var(--color-bg-brand) 26%, var(--color-bg-surface))"
                     }
                   />
                 ))}
@@ -940,13 +945,13 @@ function MockDashboard() {
                 <span
                   aria-hidden
                   className="size-[10px] shrink-0 rounded-radius-sm"
-                  style={{ background: DONUT_MIX[i]?.fill }}
+                  style={{ background: m.cor }}
                 />
-                <span className="w-[70px] shrink-0 text-body-sm text-fg-muted">{m.nome}</span>
+                <span className="w-[76px] shrink-0 truncate text-body-sm text-fg-muted">{m.nome}</span>
                 <span className="h-[6px] min-w-0 flex-1 overflow-hidden rounded-radius-full bg-bg-muted">
                   <span
                     className="block h-full rounded-radius-full"
-                    style={{ width: `${m.pct}%`, background: DONUT_MIX[i]?.fill }}
+                    style={{ width: `${m.pct}%`, background: m.cor }}
                   />
                 </span>
                 <span className="w-[38px] shrink-0 text-right text-body-sm tabular-nums text-fg-default">
@@ -976,6 +981,7 @@ function MockDashboard() {
               ]}
               activeViewId="ativos"
               allowCreate={false}
+              hideDivider
               onApply={() => {}}
               onApplyDefault={() => {}}
               onDelete={() => {}}
@@ -1123,8 +1129,10 @@ function FloatCard({
     <div
       style={{ "--lp-i": i } as CSSProperties}
       className={cn(
-        "lp-bob lp-tint absolute z-20 w-[184px] rounded-radius-lg border border-border-default",
-        "bg-bg-surface p-pad-lg shadow-sh-lg",
+        "lp-bob lp-tint lp-glass absolute z-20 w-[184px] rounded-radius-xl border",
+        // `shadow-sh-xl` + ring interno: sem a sombra funda o card de vidro "cola"
+        // no dashboard atrás e a profundidade desaparece.
+        "p-pad-lg shadow-sh-xl ring-1 ring-inset ring-fg-default/5",
         className,
       )}
     >
@@ -1171,7 +1179,7 @@ function HeroWindow() {
         <div
           ref={(el) => { unfoldRef.current = el; folgaRef.current = el; }}
           className="lp-unfold lp-window lp-beam lp-beam-slow relative z-10
-                     rounded-[20px] border border-border-subtle bg-bg-subtle p-[8px] shadow-sh-lg"
+                     lp-glass rounded-[20px] border p-[8px] shadow-sh-lg"
         >
           <div className="overflow-hidden rounded-[14px] border border-border-default bg-bg-canvas">
             <BrowserBar />
@@ -1197,8 +1205,10 @@ function HeroWindow() {
       {/* Sem folga medida, os flutuantes NÃO entram: cortados ao meio é pior que ausentes. */}
       {temFolga && (
       <>
-      {/* 1. KPI de consumo — mini-bars em vez de barra chapada */}
-      <FloatCard i={0} className="-left-[96px] top-[118px]">
+      {/* 1. Consumo — anel de progresso + valor. O anel dá leitura de "quanto da
+             franquia" num relance, o que a barra chapada não dava; e é `conic-gradient`,
+             então acompanha a marca sem JS. */}
+      <FloatCard i={0} className="-left-[96px] top-[118px] w-[196px]">
         <div className="flex items-center gap-gp-sm">
           <span
             aria-hidden
@@ -1206,48 +1216,62 @@ function HeroWindow() {
           >
             <Zap className="size-icon-xs" />
           </span>
-          <p className="m-0 min-w-0 flex-1 truncate text-caption-md text-fg-muted">
+          <p className="m-0 min-w-0 flex-1 truncate text-caption-md font-medium text-fg-muted">
             Consumo do mês
           </p>
         </div>
-        <p className="mt-gp-md text-stat-sm leading-none tabular-nums text-fg-default">
-          1.284 <span className="text-caption-md font-normal text-fg-subtle">kWh</span>
+
+        <div className="mt-gp-lg flex items-center gap-gp-lg">
+          <span
+            aria-hidden
+            className="relative grid size-[54px] shrink-0 place-items-center rounded-radius-full"
+            style={{
+              background:
+                "conic-gradient(var(--color-bg-brand) 0 72%, color-mix(in srgb, var(--color-bg-brand) 18%, var(--color-bg-surface)) 72% 100%)",
+            }}
+          >
+            <span className="grid size-[40px] place-items-center rounded-radius-full bg-bg-surface text-caption-sm font-bold tabular-nums text-fg-default">
+              72%
+            </span>
+          </span>
+          <span className="min-w-0">
+            <span className="block text-stat-sm leading-none tabular-nums text-fg-default">
+              1.284
+            </span>
+            <span className="mt-gp-xs block text-caption-sm text-fg-subtle">kWh injetados</span>
+          </span>
+        </div>
+
+        <p className="mt-gp-md border-t border-border-subtle pt-pad-md text-caption-sm text-fg-muted">
+          Franquia de <span className="tabular-nums text-fg-default">1.780</span> kWh
         </p>
-        <span aria-hidden className="mt-gp-md flex h-[26px] items-end gap-[3px]">
-          {[38, 54, 46, 62, 55, 78, 96].map((h, idx) => (
-            <span
-              key={idx}
-              className={cn(
-                "flex-1 rounded-radius-sm",
-                idx === 6 ? "bg-bg-brand" : "bg-bg-brand-subtle",
-              )}
-              style={{ height: `${h}%` }}
-            />
-          ))}
-        </span>
-        <p className="mt-gp-sm text-caption-sm text-fg-subtle">72% da franquia</p>
       </FloatCard>
 
-      {/* 2. Receita — sparkline em área, com delta em Chip do DS */}
-      <FloatCard i={1} className="-right-[104px] -top-[86px] w-[212px]">
+      {/* 2. Receita — gráfico SANGRANDO até a borda do card. Chart com padding em
+             volta parece recorte; encostado na borda parece peça acabada. Daí os
+             negativos que cancelam o padding do FloatCard. */}
+      <FloatCard i={1} className="-right-[104px] -top-[86px] w-[228px] overflow-hidden">
         <div className="flex items-start justify-between gap-gp-sm">
-          <p className="m-0 text-caption-md text-fg-muted">Receita recorrente</p>
+          <p className="m-0 text-caption-md font-medium text-fg-muted">Receita recorrente</p>
           <Chip color="success" variant="soft" size="sm">
             +6,1%
           </Chip>
         </div>
-        <p className="mt-gp-md text-stat-sm leading-none tabular-nums text-fg-default">
+        <p className="mt-gp-sm text-stat-sm leading-none tabular-nums text-fg-default">
           R$ 89,4k
         </p>
-        <div className="mt-gp-md h-[44px] w-full">
-          <ChartContainer config={SPARK_CFG} className="h-[44px] w-full">
-            <AreaChart data={SPARK_B} margin={{ top: 4, bottom: 0, left: 0, right: 0 }}>
+        <p className="mt-gp-xs text-caption-sm text-fg-subtle">
+          MRR · <span className="tabular-nums">431</span> contratos
+        </p>
+        <div className="-mx-pad-lg -mb-pad-lg mt-gp-md h-[56px]">
+          <ChartContainer config={SPARK_CFG} className="h-[56px] w-full">
+            <AreaChart data={SPARK_B} margin={{ top: 2, bottom: 0, left: 0, right: 0 }}>
               <Area
                 dataKey="v"
                 type="natural"
                 stroke="var(--color-chart-1)"
                 fill="var(--color-chart-1)"
-                fillOpacity={0.2}
+                fillOpacity={0.22}
                 strokeWidth={2}
               />
             </AreaChart>
@@ -1293,7 +1317,7 @@ function HeroWindow() {
       {/* 4. TOAST de verdade — a receita do `Toast`/Sonner do DS: superfície
              flutuante com ícone de status, título, descrição e o X de dispensar.
              Antes era um card com um check dentro, que não lia como notificação. */}
-      <FloatCard i={3} className="-right-[74px] bottom-[132px] w-[304px] p-0">
+      <FloatCard i={3} className="-right-[74px] bottom-[64px] w-[304px] p-0">
         {/* Proporção RETANGULAR: ícone + texto numa linha só, ação à direita em vez
             de empilhada. Toast é largo e baixo; com a ação embaixo do texto o card
             ficava quase quadrado e lia como card, não como notificação. */}
@@ -1538,7 +1562,7 @@ function Bento() {
                 <span
                   aria-hidden
                   className="size-[10px] shrink-0 rounded-radius-sm"
-                  style={{ background: DONUT_MIX[i]?.fill }}
+                  style={{ background: m.cor }}
                 />
                 <span className="min-w-0 flex-1 truncate text-body-sm text-fg-muted">
                   {m.nome}
