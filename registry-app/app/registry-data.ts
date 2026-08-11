@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · accordion · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · alert-dialog · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · alert-modal · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · alert · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · app-shell · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · aspect-ratio · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · avatar-ig · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · avatar · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · badge · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · breadcrumb · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · button-group · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · button · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · calendar · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · card-checkbox · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · card · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · carousel · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · chart · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · checkbox · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · chip · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -705,7 +705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · choropleth-map · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -727,7 +727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · collapsible · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -791,7 +791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · color-picker · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -842,7 +842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · combobox · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -869,7 +869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · command · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -894,7 +894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · context-menu · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · data-list · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1044,7 +1044,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/DataTable/column-types/column-type-registry.ts",
-        "content": "import type { ColumnTypeDefinition, ColumnTypeId } from \"./column-types.types\";\r\n\r\n/**\r\n * Registry Singleton de tipos de coluna do DataTable.\r\n *\r\n * Permite o consumer registrar tipos customizados sem mudar o nucleo.\r\n * Fallback automatico pra `text` quando tipo desconhecido eh requisitado.\r\n *\r\n * Uso:\r\n *   columnTypeRegistry.register(myCustomType);\r\n *   const def = columnTypeRegistry.get(\"currency\");\r\n */\r\nclass ColumnTypeRegistry {\r\n  private types = new Map<string, ColumnTypeDefinition>();\r\n\r\n  register(definition: ColumnTypeDefinition): void {\r\n    if (this.types.has(definition.type)) {\r\n      // Não throw — pra hot reload em dev e re-import incidental. Apenas warn.\r\n      // Em produção, console.warn é silencioso por default mas detectável.\r\n      console.warn(\r\n        `[columnTypeRegistry] type \"${definition.type}\" já registrado — override silencioso. Verifique imports duplicados.`,\r\n      );\r\n    }\r\n    this.types.set(definition.type, definition);\r\n  }\r\n\r\n  registerMany(definitions: ColumnTypeDefinition[]): void {\r\n    for (const d of definitions) this.register(d);\r\n  }\r\n\r\n  get(typeId: ColumnTypeId | undefined): ColumnTypeDefinition {\r\n    if (typeId && this.types.has(typeId)) {\r\n      return this.types.get(typeId)!;\r\n    }\r\n    // Typo guard (dev): diferencia \"sem tipo\" (undefined → text é intencional)\r\n    // de \"tipo desconhecido\" (provável typo). Sem isso, `type=\"curency\"` degrada\r\n    // silenciosamente pra text plano.\r\n    if (typeId && import.meta.env?.DEV) {\r\n      console.warn(\r\n        `[columnTypeRegistry] type \"${typeId}\" não registrado — usando fallback \"text\". Typo? Tipos disponíveis: ${Array.from(this.types.keys()).join(\", \")}.`,\r\n      );\r\n    }\r\n    const fallback = this.types.get(\"text\");\r\n    if (!fallback) {\r\n      throw new Error(\r\n        \"ColumnTypeRegistry: tipo 'text' nao registrado (default fallback ausente)\",\r\n      );\r\n    }\r\n    return fallback;\r\n  }\r\n\r\n  has(typeId: string): boolean {\r\n    return this.types.has(typeId);\r\n  }\r\n\r\n  list(): ColumnTypeDefinition[] {\r\n    return Array.from(this.types.values());\r\n  }\r\n}\r\n\r\nexport const columnTypeRegistry = new ColumnTypeRegistry();\r\n",
+        "content": "import type { ColumnTypeDefinition, ColumnTypeId } from \"./column-types.types\";\r\n\r\n/**\r\n * Tipos de coluna **estruturais**: existem na união `ColumnTypeId` e são tratados por\r\n * caminho próprio no `DataTable`, **não** pelo registry. Pedir um deles ao registry é\r\n * legítimo (o call-site é genérico e roda por célula), então não é typo — e avisar\r\n * anularia o guard, que é justamente pra typo.\r\n *\r\n * Consequência de estar aqui: `get()` devolve o fallback `text` **em silêncio**. O valor\r\n * de retorno é idêntico ao de antes; muda só a ausência do `console.warn`.\r\n *\r\n * Ao acrescentar tipo estrutural novo (coluna que o `DataTable` renderiza por conta\r\n * própria, sem `renderCell` de tipo), acrescente aqui também — senão ele passa a gritar\r\n * por célula, por page load.\r\n */\r\nconst STRUCTURAL_TYPES = new Set<string>([\r\n  // `getActions` → `DataTableActionsCell`. Ver `data-table-row.tsx` (fallback chain\r\n  // de render, passo 2) e `data-table.tsx` (`isActionsCol`, `headerActions`).\r\n  \"actions\",\r\n]);\r\n\r\n/**\r\n * Registry Singleton de tipos de coluna do DataTable.\r\n *\r\n * Permite o consumer registrar tipos customizados sem mudar o nucleo.\r\n * Fallback automatico pra `text` quando tipo desconhecido eh requisitado.\r\n *\r\n * Uso:\r\n *   columnTypeRegistry.register(myCustomType);\r\n *   const def = columnTypeRegistry.get(\"currency\");\r\n */\r\nclass ColumnTypeRegistry {\r\n  private types = new Map<string, ColumnTypeDefinition>();\r\n\r\n  register(definition: ColumnTypeDefinition): void {\r\n    if (this.types.has(definition.type)) {\r\n      // Não throw — pra hot reload em dev e re-import incidental. Apenas warn.\r\n      // Em produção, console.warn é silencioso por default mas detectável.\r\n      console.warn(\r\n        `[columnTypeRegistry] type \"${definition.type}\" já registrado — override silencioso. Verifique imports duplicados.`,\r\n      );\r\n    }\r\n    this.types.set(definition.type, definition);\r\n  }\r\n\r\n  registerMany(definitions: ColumnTypeDefinition[]): void {\r\n    for (const d of definitions) this.register(d);\r\n  }\r\n\r\n  get(typeId: ColumnTypeId | undefined): ColumnTypeDefinition {\r\n    if (typeId && this.types.has(typeId)) {\r\n      return this.types.get(typeId)!;\r\n    }\r\n    // Typo guard (dev): diferencia \"sem tipo\" (undefined → text é intencional)\r\n    // de \"tipo desconhecido\" (provável typo). Sem isso, `type=\"curency\"` degrada\r\n    // silenciosamente pra text plano.\r\n    //\r\n    // ⚠️ Tipo ESTRUTURAL não é typo — e avisar sobre ele anulava o guard.\r\n    // Medido em 2026-08-10 no `?app=finance`: **156 warnings por page load**, todos\r\n    // de `type: \"actions\"`. Com esse volume, um `type=\"curency\"` de verdade fica\r\n    // invisível no console — o guard existe pra pegar typo e estava sepultando o\r\n    // próprio sinal.\r\n    //\r\n    // `actions` é o ÚNICO dos 17 tipos da união que não está registrado, e está\r\n    // certo em não estar: não é tipo de DADO (não tem `renderCell`, filtro nem\r\n    // operadores) — é coluna estrutural, com caminho próprio de render\r\n    // (`DataTableActionsCell`, via `isActionsCol && col.getActions` em\r\n    // `data-table-row.tsx`). Registrá-lo seria mentira: apareceria na lista de\r\n    // \"tipos disponíveis\" e nas UIs de filtro, onde não faz sentido.\r\n    //\r\n    // O aviso vinha de `data-table-row.tsx:149`, que chama `get(col.type)` pra TODA\r\n    // célula antes de saber qual caminho de render usar — o `typeDef` da coluna de\r\n    // actions é calculado e **descartado**. Ou seja: nada quebrava, era ruído puro.\r\n    // Por isso o retorno aqui é o MESMO de antes (fallback `text`); só o warn sai.\r\n    if (typeId && !STRUCTURAL_TYPES.has(typeId) && import.meta.env?.DEV) {\r\n      console.warn(\r\n        `[columnTypeRegistry] type \"${typeId}\" não registrado — usando fallback \"text\". Typo? Tipos disponíveis: ${Array.from(this.types.keys()).join(\", \")}.`,\r\n      );\r\n    }\r\n    const fallback = this.types.get(\"text\");\r\n    if (!fallback) {\r\n      throw new Error(\r\n        \"ColumnTypeRegistry: tipo 'text' nao registrado (default fallback ausente)\",\r\n      );\r\n    }\r\n    return fallback;\r\n  }\r\n\r\n  has(typeId: string): boolean {\r\n    return this.types.has(typeId);\r\n  }\r\n\r\n  list(): ColumnTypeDefinition[] {\r\n    return Array.from(this.types.values());\r\n  }\r\n}\r\n\r\nexport const columnTypeRegistry = new ColumnTypeRegistry();\r\n",
         "type": "registry:ui",
         "target": "components/ui/DataTable/column-types/column-type-registry.ts"
       },
@@ -1650,7 +1650,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · data-table · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1688,7 +1688,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · date-picker · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1713,7 +1713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · dialog · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1737,7 +1737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · drawer · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1762,7 +1762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · dropdown-menu · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1815,7 +1815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · empty-state · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -1856,7 +1856,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-app-shell · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2158,7 +2158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-chat · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2254,7 +2254,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-clientes · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2300,7 +2300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-dashboard · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2351,7 +2351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-edit-page · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2487,7 +2487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-finance · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2517,7 +2517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-login · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2574,7 +2574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-mapa-rede · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2655,7 +2655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · example-order-detail · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · file-upload-field · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · floating-panel · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2815,7 +2815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · footer-table · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2901,7 +2901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · form-field · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -2992,7 +2992,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · header · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3016,7 +3016,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · hover-card · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · icon · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · input-group · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3118,7 +3118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · input-otp · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3142,7 +3142,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · input · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3201,7 +3201,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · kanban · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3263,7 +3263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · kpi · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3288,7 +3288,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · label · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3395,7 +3395,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · list · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · markdown-text · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3551,7 +3551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · menu-sidebar · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3576,7 +3576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · menubar · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · modal · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3669,7 +3669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · month-year-picker · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3695,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · navigation-menu · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3742,7 +3742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · page-header · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3767,7 +3767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · pagination · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3842,7 +3842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · panel · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3866,7 +3866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · popover · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3890,7 +3890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · progress · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3914,7 +3914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · radio-group · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3938,7 +3938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · scroll-area · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3963,7 +3963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · select · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -3987,7 +3987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · separator · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4013,7 +4013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · sheet · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4136,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · skeleton · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4160,7 +4160,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · slider · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4183,7 +4183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · sonner · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4229,7 +4229,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · spinner · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4253,7 +4253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · switch · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4332,7 +4332,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · table · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4356,7 +4356,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · tabs · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4380,7 +4380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · textarea · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · theme-blue · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4416,7 +4416,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · theme-green · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4434,7 +4434,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · theme-pay · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4452,7 +4452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · theme-vibrant · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4474,7 +4474,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · theme · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4525,7 +4525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · toast · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4551,7 +4551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · toggle-group · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · toggle · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · tooltip · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:ui"
   },
@@ -4621,7 +4621,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · tv · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.38.0 · 097c1ec · 2026-08-10"
+      "stamp": "igreen-ds · utils · v0.38.1 · e75fe95 · 2026-08-11"
     },
     "type": "registry:file"
   }
