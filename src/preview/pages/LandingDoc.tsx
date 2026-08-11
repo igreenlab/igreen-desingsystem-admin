@@ -294,6 +294,20 @@ function useInView<T extends HTMLElement>() {
  * e um `setState` a cada scroll re-renderizaria o dashboard inteiro do mockup.
  *
  * O container de scroll é o `<main>` do App, não o documento — daí o `closest`.
+ *
+ * ## Monitor alto: a janela nasce DE PÉ, e isso não é exceção — é a regra
+ *
+ * O gesto só significa algo se houver algo a revelar. Num monitor alto (medido: 1249px de
+ * viewport útil) a janela do hero cabe INTEIRA na tela sem rolar um pixel — então ela
+ * chegava tombada e ficava tombada, porque o `--lp-p` nunca saía de 0. O efeito virava
+ * uma distorção permanente da peça mais importante da página.
+ *
+ * A decisão é por MEDIÇÃO, não por media query de largura: um monitor 2560×720
+ * (ultrawide baixo) precisa do gesto, e um 1440×1440 não — o que decide é a ALTURA
+ * disponível contra a altura da peça, e nenhum breakpoint de largura sabe isso.
+ *
+ * Reavaliado no `resize` junto com o resto: quem arrasta a janela do browser pra metade
+ * da tela passa a precisar do gesto, e quem maximiza deixa de precisar.
  */
 function useUnfold<T extends HTMLElement>(distancia = 320) {
   const ref = useRef<T | null>(null);
@@ -314,13 +328,34 @@ function useUnfold<T extends HTMLElement>(distancia = 320) {
       frame = 0;
       const alvo = ref.current;
       if (!alvo) return;
+
+      const y = scroller instanceof Window ? window.scrollY : scroller.scrollTop;
+      const alturaVisivel =
+        scroller instanceof Window ? window.innerHeight : scroller.clientHeight;
+
+      // Base da janela a partir do TOPO DA PÁGINA (não da viewport: rect é relativo a
+      // ela, daí somar o scroll atual).
+      //
+      // ⚠️ Nem o topo nem a altura saem do rect DESTE elemento: ele está transformado, e
+      // `getBoundingClientRect` devolve a caixa TRANSFORMADA — a medida dependeria da
+      // inclinação que ela mesma decide, um laço. O topo vem do pai (que não é
+      // transformado, e cuja caixa não inclui o transform do filho) e a altura de
+      // `offsetHeight`, que é layout puro e ignora transform.
+      const caixa = (alvo.parentElement ?? alvo).getBoundingClientRect();
+      const baseAbsoluta = caixa.top + y + alvo.offsetHeight;
+      if (baseAbsoluta <= alturaVisivel) {
+        // Cabe inteira sem rolar → não há nada a revelar. De pé, e ponto.
+        alvo.style.setProperty("--lp-p", "1");
+        return;
+      }
+
       // Progresso pelo scroll ABSOLUTO do topo da página, não pela posição da janela
       // na viewport. Foi o que a medição do projectise mostrou: lá a janela está bem
       // dentro da viewport no scroll 0 e AINDA assim aparece deitada — ou seja, o
       // driver é "quanto a página desceu", não "quanto a peça subiu". Com o driver
       // por posição, esta janela (que fica ~700px abaixo do topo) já nascia 99,8%
       // de pé e a animação era invisível.
-      const y = scroller instanceof Window ? window.scrollY : scroller.scrollTop;
+      //
       // `clamp` nas duas pontas: sem isso o overscroll devolve negativo e a janela
       // deita além do desenhado.
       alvo.style.setProperty("--lp-p", String(Math.max(0, Math.min(1, y / distancia))));
@@ -333,8 +368,21 @@ function useUnfold<T extends HTMLElement>(distancia = 320) {
     medir();
     scroller.addEventListener("scroll", agendar, { passive: true });
     window.addEventListener("resize", agendar, { passive: true });
+
+    // ⚠️ `ResizeObserver` além de `scroll`/`resize`, e não é redundância: a decisão
+    // "cabe inteira?" depende do LAYOUT, e no mount o layout ainda não está assentado —
+    // a fonte Geist e o PNG do mockup ainda vão chegar. Medido: sem isto a página abria
+    // num monitor alto decidindo "não cabe" (tombada) e NUNCA reavaliava, porque sem
+    // rolar nem redimensionar não há evento nenhum. Observa a peça e o container: a
+    // primeira pega o assentamento, o segundo pega o container mudando de tamanho sem a
+    // window mudar (sidebar colapsando, por exemplo).
+    const ro = new ResizeObserver(agendar);
+    ro.observe(el);
+    if (scroller instanceof HTMLElement) ro.observe(scroller);
+
     return () => {
       if (frame) cancelAnimationFrame(frame);
+      ro.disconnect();
       scroller.removeEventListener("scroll", agendar);
       window.removeEventListener("resize", agendar);
     };

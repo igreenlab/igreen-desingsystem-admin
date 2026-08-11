@@ -402,22 +402,27 @@
 }
 
 /**
- * ⚠️ Inclinação subiu de **2.2° pra 7°** (translateY -10 → -26px, escala 0.975 → 0.952)
- * por pedido: a 1ª calibragem existia e quase não se via.
+ * ⚠️ Inclinação em 3 calibragens, todas por pedido: **2.2° → 7° → 10°** (translateY -10 →
+ * -26 → -38px, escala 0.975 → 0.952 → 0.932). A 1ª existia e quase não se via.
  *
  * As três grandezas sobem JUNTAS de propósito. Só aumentar o `rotateX` daria uma peça
  * deitada mas do mesmo tamanho, o que lê como distorção; o `scale` menor + o `translateY`
  * maior é o que faz o conjunto ler como "está mais longe e vem chegando".
  *
  * O piso é o `transform-origin: center top`: a aresta de CIMA fica parada e a de baixo é
- * que recua. Com origem no centro, um giro de 7° levantaria o topo da janela por cima do
- * texto do hero.
+ * que recua. Com origem no centro, 10° levantariam o topo da janela por cima do texto do
+ * hero.
+ *
+ * ⚠️ **Em monitor alto o `--lp-p` nasce em 1 e nada disto acontece** — e é deliberado: se
+ * a janela cabe inteira na tela sem rolar, não há o que revelar, e o gesto viraria uma
+ * distorção permanente. Quem decide é o `useUnfold`, por medição de altura (não por
+ * breakpoint de largura). Ver o cabeçalho do hook no `LandingDoc.tsx`.
  */
 .lp-unfold {
   --lp-p: 0;
   transform-origin: center top;
-  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -26px))
-    rotateX(calc((1 - var(--lp-p)) * 7deg)) scale(calc(0.952 + var(--lp-p) * 0.048));
+  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -38px))
+    rotateX(calc((1 - var(--lp-p)) * 10deg)) scale(calc(0.932 + var(--lp-p) * 0.068));
   will-change: transform;
 }
 
