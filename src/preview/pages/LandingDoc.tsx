@@ -2954,17 +2954,18 @@ export function LandingDoc() {
         <div className="lp-band" aria-hidden />
         <Wrap className="relative">
           <Reveal>
-            {/* "Tudo que existe, numa busca só" era bonito e não dizia O QUE está ali.
-                Literal ganha: o visitante procurando um Select quer ler "biblioteca de
-                componentes", não uma promessa.
-                E "Busque e encontre" (1ª tentativa) saiu por REDUNDÂNCIA: o campo de busca
-                está 40px abaixo do título — mandar buscar é legendar um botão que já se
-                explica. "Inteira, nesta página" diz o que o campo NÃO diz, e é a mesma
-                afirmação que o corpo sustenta: a lista sai do nav, então não falta nada. */}
+            {/* Terceira versão deste título; as duas anteriores erraram por motivos
+                diferentes, e vale registrar os dois:
+                  1. "Tudo que existe, numa busca só" — bonito, e não dizia O QUE está ali.
+                  2. "Biblioteca de componentes. Busque e encontre." — o "busque" legendava
+                     um campo de busca que está 40px abaixo. O conserto ("Inteira, nesta
+                     página") ficou defensivo: respondia uma dúvida que o visitante não tem.
+                Agora a segunda metade diz PRA QUÊ a biblioteca serve — a única coisa que
+                nem o campo de busca nem a grade de cards comunicam sozinhos. */}
             <SectionHead
               eyebrow="Catálogo"
-              title="Biblioteca de componentes."
-              em="Inteira, nesta página."
+              title="Uma biblioteca de componentes"
+              em="para construir experiências consistentes."
             >
               Cada item abre a página de documentação com exemplos, props e código. A
               lista é derivada da navegação — não há segunda cópia pra sair de sincronia.
