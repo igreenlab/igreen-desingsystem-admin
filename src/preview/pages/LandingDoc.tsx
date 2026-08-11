@@ -2407,19 +2407,25 @@ function MascoteClaude() {
         dentro && "is-in",
       )}
     >
-      <img
-        aria-hidden
-        alt=""
-        src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
-        loading="lazy"
-        decoding="async"
-        className={cn(
-          "block w-full select-none object-contain",
-          // A flutuação só entra QUANDO a peça já está a caminho: a classe carrega
-          // `animation-delay`, que conta a partir do momento em que ela é aplicada.
-          dentro && "lp-mascote-idle",
-        )}
-      />
+      {/* 3ª camada, só pro afundamento no clique do "Copiar prompt". Não cabe nas outras
+          duas: na imagem a animação infinita venceria o `transform`, e no wrapper o
+          afundamento herdaria a transição de 1.1s da entrada — reação de mais de um
+          segundo pra um clique de 150ms. Quem aciona é `:has()` no CSS, sem estado. */}
+      <span className="lp-mascote-press">
+        <img
+          aria-hidden
+          alt=""
+          src={`${import.meta.env.BASE_URL}claude-code-3d.png`}
+          loading="lazy"
+          decoding="async"
+          className={cn(
+            "block w-full select-none object-contain",
+            // A flutuação só entra QUANDO a peça já está a caminho: a classe carrega
+            // `animation-delay`, que conta a partir do momento em que ela é aplicada.
+            dentro && "lp-mascote-idle",
+          )}
+        />
+      </span>
     </div>
   );
 }
@@ -2768,7 +2774,10 @@ export function LandingDoc() {
             <dl className="flex flex-wrap items-center justify-center gap-x-[26px] gap-y-gp-md font-mono text-caption-md text-fg-subtle">
               {[
                 ["4", "canais de consumo"],
-                ["5", "marcas"],
+                // Derivado, não escrito: era "5", e a 6ª marca deixaria o número errado
+                // sem quebrar nada — a mesma podridão que tirou a contagem dos títulos
+                // das seções. O resto é fato estrutural que não muda com o catálogo.
+                [String(BRANDS.length), BRANDS.length === 1 ? "marca" : "marcas"],
                 ["2", "modos"],
                 ["3", "tiers de token"],
               ].map(([n, t]) => (
@@ -2805,15 +2814,20 @@ export function LandingDoc() {
         <div className="lp-section-glow" aria-hidden />
         <Wrap className="relative">
           <Reveal>
+            {/* ⚠️ "Cinco marcas, dois modos" saiu por PODRIDÃO PROGRAMADA: o título
+                afirmava uma contagem que a 6ª marca invalidaria em silêncio — e o gate
+                de doc não cobre copy de landing. "Múltiplos temas" continua verdadeiro
+                em qualquer contagem. Mesmo motivo do badge do hero, que já lê
+                `BRANDS.length` em vez de dizer 5. */}
             <SectionHead
               eyebrow="Tokens vivos"
               title="Uma base."
-              em="Cinco marcas, dois modos."
+              em="Múltiplos temas."
               alinhamento="center"
             >
               Os componentes não conhecem cor — consomem a camada semantic via CSS vars.
-              Trocar de marca é trocar um atributo no <code className="font-mono text-code-sm">&lt;html&gt;</code>.
-              Experimente:
+              Trocar de tema é trocar um atributo no <code className="font-mono text-code-sm">&lt;html&gt;</code>,
+              claro ou escuro. Experimente:
             </SectionHead>
           </Reveal>
 
@@ -2831,9 +2845,17 @@ export function LandingDoc() {
       <div ref={instalacaoRef} className="scroll-mt-[24px] pt-[152px]">
         <Wrap>
           <Reveal>
-            <SectionHead eyebrow="Instalação" title="Quatro canais." em="Nenhum depreciado.">
-              O mesmo sistema chega por quatro caminhos, e a escolha é sobre quanto do
-              código você quer no seu repo — não sobre qual é o moderno.
+            {/* "Quatro canais. Nenhum depreciado." era jargão de mantenedor: dizia o
+                que NÃO aconteceu com os canais em vez de dizer que existem vários e que
+                a instalação é manual. E contava — mesma podridão do título dos tokens. */}
+            <SectionHead
+              eyebrow="Instalação"
+              title="Vários canais de instalação."
+              em="Todos suportados."
+            >
+              O mesmo sistema chega por npm, submódulo git, copy-in do registry ou
+              scaffold da CLI. A escolha é sobre quanto do código você quer dentro do seu
+              repo — nenhum caminho é legado, e todos são passo a passo, na sua mão.
             </SectionHead>
           </Reveal>
 
@@ -2860,7 +2882,14 @@ export function LandingDoc() {
       </div>
 
       {/* ── Prompts ──────────────────────────────────────────────────────── */}
-      <div className="pt-[152px]">
+      {/* `data-lp-kit` é o escopo do `:has()` que faz o mascote afundar quando o "Copiar
+          prompt" está pressionado. Sem ele, qualquer botão de copiar da página (os
+          `CodeCard` da instalação também têm um) mexeria no mascote de longe.
+
+          Fica NESTE `<div>`, não no `<Wrap>`: o `Wrap` desestrutura só `className` e
+          `children`, então um atributo extra passado a ele é descartado em silêncio — e o
+          `tsc` não reclama. Verificado no DOM, não presumido. */}
+      <div data-lp-kit className="pt-[152px]">
         {/* `relative` ancora o mascote, que é `absolute` e transborda pra baixo. O
             card vem DEPOIS com `z-10`, então a imagem passa por trás dele. */}
         <Wrap className="relative">
@@ -2869,10 +2898,13 @@ export function LandingDoc() {
           <Reveal>
             {/* `lg:pr` reserva a faixa do mascote pra o texto não correr por baixo. */}
             <div className="lg:pr-[340px] xl:pr-[400px]">
+              {/* "Cole no Claude Code e ele faz o resto" descrevia a MÁGICA, não a
+                  ação: quem chega aqui precisa saber o que fazer com o mouse. O título
+                  novo é a instrução literal, na ordem em que ela acontece. */}
               <SectionHead
                 eyebrow="Kit de IA"
-                title="Cole no Claude Code"
-                em="e ele faz o resto."
+                title="Instale com um prompt."
+                em="Copie e cole no Claude Code."
               >
                 Dois prompts com trabalhos diferentes: um instala o sistema no projeto, o
                 outro ensina a construir dentro das regras. Nenhum dos dois inventa
@@ -2912,7 +2944,14 @@ export function LandingDoc() {
         <div className="lp-band" aria-hidden />
         <Wrap className="relative">
           <Reveal>
-            <SectionHead eyebrow="Catálogo" title="Tudo que existe," em="numa busca só.">
+            {/* "Tudo que existe, numa busca só" era bonito e não dizia O QUE está ali.
+                Literal ganha: o visitante procurando um Select quer ler "biblioteca de
+                componentes", não uma promessa. */}
+            <SectionHead
+              eyebrow="Catálogo"
+              title="Biblioteca de componentes."
+              em="Busque e encontre."
+            >
               Cada item abre a página de documentação com exemplos, props e código. A
               lista é derivada da navegação — não há segunda cópia pra sair de sincronia.
             </SectionHead>
