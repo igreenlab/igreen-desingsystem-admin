@@ -46,6 +46,23 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.38.2",
+    date: "2026-08-13",
+    tag: "patch",
+    title: "O diálogo de confirmação prometia uma proteção que não tinha",
+    summary:
+      "O comentário do componente de confirmação destrutiva afirmava que ele **não fecha ao apertar ESC**. Não é verdade: ESC fecha. Quem lesse aquilo — e é o texto que a IA de quem consome lê também — montaria uma confirmação de exclusão acreditando que a decisão era inescapável. Corrigido, com a receita de como travar de verdade. Nenhuma mudança visual ou de comportamento.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A documentação interna do diálogo de confirmação prometia proteção que ele não dá.** Ela dizia que o diálogo não fecha nem ao clicar fora nem ao apertar ESC. Medimos as duas coisas no navegador: clicar fora realmente não fecha (e aqui ele se diferencia do diálogo comum, que fecha), mas **ESC fecha**. As duas coisas são tratadas por caminhos separados, e só uma estava bloqueada. Agora o texto diz o que acontece de verdade e mostra a linha que trava o ESC, pra quem precisa de uma decisão sem escapatória.",
+          "**O mesmo diálogo estava sendo distribuído sem página de documentação.** Ele existia no catálogo e no guia que a IA de quem consome lê, mas não tinha exemplo nem referência de API — agora tem, incluindo a comparação de quando usar cada um dos três componentes de caixa modal (o pronto-de-usar, este primitivo e o diálogo comum).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.38.1",
     date: "2026-08-11",
     tag: "patch",

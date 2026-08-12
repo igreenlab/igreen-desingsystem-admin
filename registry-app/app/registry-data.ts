@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · accordion · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -39,13 +39,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/alert-dialog.tsx",
-        "content": "import * as React from \"react\";\r\nimport * as AlertDialogPrimitive from \"@radix-ui/react-alert-dialog\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.\r\n *\r\n * Diferenças vs. Dialog:\r\n *   - role=\"alertdialog\" (assistive tech anuncia diferente)\r\n *   - Foco vai pro botão `Cancel` (mais seguro como ação default)\r\n *   - Não fecha ao clicar fora ou apertar ESC (decisão forçada)\r\n *\r\n * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,\r\n * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.\r\n *\r\n * Pra um wrapper \"one-shot\" com tone + ícone + botões → use <AlertModal>.\r\n */\r\n\r\nconst AlertDialog = AlertDialogPrimitive.Root;\r\nconst AlertDialogTrigger = AlertDialogPrimitive.Trigger;\r\nconst AlertDialogPortal = AlertDialogPrimitive.Portal;\r\n\r\nconst AlertDialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;\r\n\r\nconst AlertDialogContent = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPortal>\r\n    <AlertDialogOverlay />\r\n    <AlertDialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]\",\r\n        \"translate-x-[-50%] translate-y-[-50%]\",\r\n        \"rounded-radius-2xl bg-bg-surface text-fg-default\",\r\n        \"border border-border-default shadow-sh-2xl outline-float\",\r\n        \"duration-200\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  </AlertDialogPortal>\r\n));\r\nAlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;\r\n\r\nconst AlertDialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col items-center text-center gap-gp-lg\",\r\n      \"px-pad-4xl pt-[32px] pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogHeader.displayName = \"AlertDialogHeader\";\r\n\r\nconst AlertDialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)\r\n  // sm+: lado a lado horizontal\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse items-stretch gap-gp-md sm:flex-row\",\r\n      \"px-pad-3xl pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogFooter.displayName = \"AlertDialogFooter\";\r\n\r\nconst AlertDialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;\r\n\r\nconst AlertDialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogDescription.displayName =\r\n  AlertDialogPrimitive.Description.displayName;\r\n\r\nconst AlertDialogAction = AlertDialogPrimitive.Action;\r\nconst AlertDialogCancel = AlertDialogPrimitive.Cancel;\r\n\r\nexport {\r\n  AlertDialog,\r\n  AlertDialogTrigger,\r\n  AlertDialogPortal,\r\n  AlertDialogOverlay,\r\n  AlertDialogContent,\r\n  AlertDialogHeader,\r\n  AlertDialogFooter,\r\n  AlertDialogTitle,\r\n  AlertDialogDescription,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n};\r\n",
+        "content": "import * as React from \"react\";\r\nimport * as AlertDialogPrimitive from \"@radix-ui/react-alert-dialog\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.\r\n *\r\n * Diferenças vs. Dialog, TODAS medidas no browser (2026-08-13) e não deduzidas:\r\n *   - `role=\"alertdialog\"` (assistive tech anuncia diferente) ✔ confirmado\r\n *   - Foco inicial no botão `Cancel`, que é o default seguro ✔ confirmado\r\n *   - **Não fecha ao clicar fora** ✔ confirmado — e o Dialog comum, no MESMO teste,\r\n *     fecha. A diferença é real.\r\n *\r\n * ⚠️ **ESC FECHA.** Este bloco afirmava \"não fecha ao clicar fora ou apertar ESC\"; a\r\n * segunda metade era falsa. O Radix trata as duas coisas em canais separados: o\r\n * pointer-down externo o AlertDialog bloqueia, o ESC não. Quem precisasse de uma decisão\r\n * inescapável (o caso que a frase prometia cobrir) sairia daqui acreditando estar\r\n * protegido. Pra travar de verdade, no consumidor:\r\n *\r\n *     <AlertDialogContent onEscapeKeyDown={(e) => e.preventDefault()}>\r\n *\r\n * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,\r\n * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.\r\n *\r\n * Pra um wrapper \"one-shot\" com tone + ícone + botões → use <AlertModal>. Doc e a\r\n * comparação dos três (AlertModal / AlertDialog / Dialog): página `#/alert-dialog`.\r\n */\r\n\r\nconst AlertDialog = AlertDialogPrimitive.Root;\r\nconst AlertDialogTrigger = AlertDialogPrimitive.Trigger;\r\nconst AlertDialogPortal = AlertDialogPrimitive.Portal;\r\n\r\nconst AlertDialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;\r\n\r\nconst AlertDialogContent = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPortal>\r\n    <AlertDialogOverlay />\r\n    <AlertDialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]\",\r\n        \"translate-x-[-50%] translate-y-[-50%]\",\r\n        \"rounded-radius-2xl bg-bg-surface text-fg-default\",\r\n        \"border border-border-default shadow-sh-2xl outline-float\",\r\n        \"duration-200\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  </AlertDialogPortal>\r\n));\r\nAlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;\r\n\r\nconst AlertDialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col items-center text-center gap-gp-lg\",\r\n      \"px-pad-4xl pt-[32px] pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogHeader.displayName = \"AlertDialogHeader\";\r\n\r\nconst AlertDialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)\r\n  // sm+: lado a lado horizontal\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse items-stretch gap-gp-md sm:flex-row\",\r\n      \"px-pad-3xl pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogFooter.displayName = \"AlertDialogFooter\";\r\n\r\nconst AlertDialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;\r\n\r\nconst AlertDialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogDescription.displayName =\r\n  AlertDialogPrimitive.Description.displayName;\r\n\r\nconst AlertDialogAction = AlertDialogPrimitive.Action;\r\nconst AlertDialogCancel = AlertDialogPrimitive.Cancel;\r\n\r\nexport {\r\n  AlertDialog,\r\n  AlertDialogTrigger,\r\n  AlertDialogPortal,\r\n  AlertDialogOverlay,\r\n  AlertDialogContent,\r\n  AlertDialogHeader,\r\n  AlertDialogFooter,\r\n  AlertDialogTitle,\r\n  AlertDialogDescription,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n};\r\n",
         "type": "registry:ui",
         "target": "components/ui/alert-dialog.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · alert-dialog · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · alert-modal · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · alert · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · app-shell · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · aspect-ratio · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · avatar-ig · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · avatar · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · badge · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · breadcrumb · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · button-group · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · button · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · calendar · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · card-checkbox · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · card · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · carousel · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · chart · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · checkbox · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · chip · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -705,7 +705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · choropleth-map · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -727,7 +727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · collapsible · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -791,7 +791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · color-picker · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -842,7 +842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · combobox · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -869,7 +869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · command · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -894,7 +894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · context-menu · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · data-list · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1650,7 +1650,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · data-table · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1688,7 +1688,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · date-picker · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1713,7 +1713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · dialog · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1737,7 +1737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · drawer · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1762,7 +1762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · dropdown-menu · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1815,7 +1815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · empty-state · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -1856,7 +1856,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-app-shell · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2158,7 +2158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-chat · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2254,7 +2254,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-clientes · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2300,7 +2300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-dashboard · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2351,7 +2351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-edit-page · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2487,7 +2487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-finance · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2517,7 +2517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-login · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2574,7 +2574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-mapa-rede · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2655,7 +2655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · example-order-detail · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · file-upload-field · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · floating-panel · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2815,7 +2815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · footer-table · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2901,7 +2901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · form-field · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -2992,7 +2992,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · header · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3016,7 +3016,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · hover-card · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · icon · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · input-group · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3118,7 +3118,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · input-otp · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3142,7 +3142,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · input · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3201,7 +3201,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · kanban · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3263,7 +3263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · kpi · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3288,7 +3288,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · label · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3395,7 +3395,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · list · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · markdown-text · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3551,7 +3551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · menu-sidebar · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3576,7 +3576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · menubar · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · modal · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3669,7 +3669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · month-year-picker · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3695,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · navigation-menu · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3742,7 +3742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · page-header · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3767,7 +3767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · pagination · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3842,7 +3842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · panel · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3866,7 +3866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · popover · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3890,7 +3890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · progress · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3914,7 +3914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · radio-group · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3938,7 +3938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · scroll-area · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3963,7 +3963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · select · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -3987,7 +3987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · separator · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4013,7 +4013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · sheet · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4136,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · skeleton · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4160,7 +4160,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · slider · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4183,7 +4183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · sonner · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4229,7 +4229,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · spinner · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4253,7 +4253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · switch · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4332,7 +4332,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · table · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4356,7 +4356,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · tabs · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4380,7 +4380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · textarea · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · theme-blue · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4416,7 +4416,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · theme-green · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4434,7 +4434,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · theme-pay · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4452,7 +4452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · theme-vibrant · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4474,7 +4474,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · theme · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4525,7 +4525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · toast · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4551,7 +4551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · toggle-group · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · toggle · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · tooltip · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:ui"
   },
@@ -4621,7 +4621,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · tv · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.38.1 · e75fe95 · 2026-08-11"
+      "stamp": "igreen-ds · utils · v0.38.2 · e48f8e2 · 2026-08-12"
     },
     "type": "registry:file"
   }
