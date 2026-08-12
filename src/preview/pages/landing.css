@@ -703,6 +703,46 @@
 }
 
 /**
+ * Marca d'água do card de fechamento — neon suave respirando no contorno.
+ *
+ * ## Por que a suavidade mora na COR e não em `opacity`
+ *
+ * A 1ª versão era `text-fg-brand` + `opacity-[0.055]` no wrapper. Funciona pro fill, mas
+ * mata qualquer brilho: `opacity` multiplica TUDO que o elemento pinta, glow incluído.
+ * Um `drop-shadow` já é fraco por natureza (o blur espalha o alpha), e a 5,5% dele
+ * simplesmente não existiria.
+ *
+ * Então o alpha entra no `color` — o SVG pinta com `fill="currentColor"`, então `color`
+ * controla o preenchimento — e o `drop-shadow` ganha o alpha DELE, independente. Resultado:
+ * o contorno fica perceptivelmente mais claro que o miolo, que é o que faz ler como neon
+ * em vez de mancha.
+ *
+ * ## Por que `drop-shadow` e não `box-shadow`
+ *
+ * `box-shadow` seguiria a caixa retangular do `<span>`. `drop-shadow` é gerado do canal
+ * ALPHA do conteúdo, então acompanha a silhueta da folha — "no contorno da logo", como
+ * pedido, sem máscara nem SVG extra.
+ *
+ * O `filter` é animado direto nos keyframes (é interpolável entre dois `drop-shadow` do
+ * mesmo tipo), sem precisar registrar `@property`: aqui não há var custom no caminho.
+ * 9s e amplitude pequena — é respiração, não pulso.
+ */
+.lp-marca-dagua {
+  color: color-mix(in srgb, var(--color-fg-brand) 6%, transparent);
+  animation: ds-lp-marca-neon 9s ease-in-out infinite;
+  will-change: filter;
+}
+@keyframes ds-lp-marca-neon {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-fg-brand) 14%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-fg-brand) 30%, transparent));
+  }
+}
+
+/**
  * O mascote afunda enquanto o botão de copiar está PRESSIONADO.
  *
  * ## Por que uma TERCEIRA camada
@@ -825,9 +865,12 @@
   .lp-bob,
   .lp-mascote-idle,
   .lp-copy.is-copied,
-  .lp-copy.is-copied::after {
+  .lp-copy.is-copied::after,
+  .lp-marca-dagua {
     animation: none;
   }
+  /* Sem a animação o `filter` volta pra `none` e a marca fica só com o fill — o neon é
+     o que respirava, então desligar a animação já entrega o estado estático correto. */
   /* Sem o pulso, o anel não pode ficar parado sobre o botão pra sempre: `animation: none`
      devolveria a opacidade base (1) do `::after`. */
   .lp-copy.is-copied::after {

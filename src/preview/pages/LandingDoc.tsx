@@ -3125,9 +3125,11 @@ export function LandingDoc() {
                   centro vertical e deixa o corte simétrico. À direita porque o conteúdo é
                   centrado — atrás do texto ela viraria ruído sob a leitura.
 
-                  Opacidade no ELEMENTO, não na cor: `text-fg-brand` + `opacity` mantém a
-                  tinta da marca (e ela acompanha o tema) sem inventar um token de cor com
-                  alpha só pra isto. */}
+                  ⚠️ A suavidade NÃO é `opacity` — é a cor, via `.lp-marca-dagua` no
+                  `landing.css`. `opacity` multiplica tudo que o elemento pinta, então
+                  mataria o neon do contorno junto (um `drop-shadow` a 5,5% não existe). Com
+                  o alpha na cor, o glow tem alpha próprio e o contorno fica perceptivelmente
+                  mais claro que o miolo — que é o que faz ler como neon. */}
               {/* Posição calibrada em duas rodadas: uma tentativa com `rotate-[10deg]` foi
                   reprovada (a marca é orgânica, e girar deixou a folha "tombada" em vez de
                   discreta), e o ponto de repouso desceu e foi pra direita — `-96px` em vez
@@ -3143,10 +3145,10 @@ export function LandingDoc() {
                   layout sem rotação: 948 → 988 no X e −61 → −21 no Y, exatamente +40/+40. */}
               <span
                 aria-hidden
-                className="pointer-events-none absolute top-1/2 right-[-96px]
-                           translate-y-[calc(-50%+40px)] select-none text-fg-brand opacity-[0.055]"
+                className="lp-marca-dagua pointer-events-none absolute top-1/2 right-[-96px]
+                           translate-y-[calc(-50%+40px)] select-none"
               >
-                <SidebarBrandIcon size={392} />
+                <SidebarBrandIcon size={362} />
               </span>
 
               {/* `relative` no CONTEÚDO, não só no primeiro filho: a aura é
