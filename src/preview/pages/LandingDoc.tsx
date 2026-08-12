@@ -132,6 +132,7 @@ import {
   TableRow,
   useColumnWidths,
 } from "../../components/ui/Table";
+import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import { SingleMenuSidebar } from "../../components/ui/SingleMenuSidebar";
 import {
   TableToolbar,
@@ -1057,11 +1058,14 @@ function MockSidebar() {
     <div className="w-[280px] shrink-0 overflow-hidden">
       <SingleMenuSidebar
         logo={
+          // Logo REAL da iGreen, a mesma do sidebar do showcase e do rail do AppShell —
+          // era um ícone genérico de raio. `size` é a largura; 16 numa caixa de 36px
+          // (`size-comp-lg`) mantém os ~45% do rail, então a marca lê igual, só menor.
           <span
             aria-hidden
             className="grid size-comp-lg place-items-center rounded-radius-base bg-bg-brand text-fg-on-brand"
           >
-            <Zap className="size-icon-xs" />
+            <SidebarBrandIcon size={16} />
           </span>
         }
         title="iGreen Admin"
@@ -3109,6 +3113,42 @@ export function LandingDoc() {
           <Reveal>
             <div className="lp-beam relative overflow-hidden rounded-radius-xl border border-border-subtle bg-bg-surface px-pad-3xl py-[56px] text-center shadow-sh-md">
               <div className="lp-aura" aria-hidden />
+
+              {/* Marca d'água — a logo da iGreen atravessando o card, cortada em cima e
+                  embaixo pelo `overflow-hidden` que o card já tinha.
+
+                  Fica ANTES do wrapper de conteúdo de propósito: os dois são posicionados
+                  no mesmo stacking context, então quem vem depois no DOM pinta em cima. É
+                  a mesma razão pela qual o wrapper `relative` abaixo existe.
+
+                  Sem `absolute inset` genérico: `top-1/2 -translate-y-1/2` a ancora no
+                  centro vertical e deixa o corte simétrico. À direita porque o conteúdo é
+                  centrado — atrás do texto ela viraria ruído sob a leitura.
+
+                  Opacidade no ELEMENTO, não na cor: `text-fg-brand` + `opacity` mantém a
+                  tinta da marca (e ela acompanha o tema) sem inventar um token de cor com
+                  alpha só pra isto. */}
+              {/* Posição calibrada em duas rodadas: uma tentativa com `rotate-[10deg]` foi
+                  reprovada (a marca é orgânica, e girar deixou a folha "tombada" em vez de
+                  discreta), e o ponto de repouso desceu e foi pra direita — `-96px` em vez
+                  de `-56px`, e `-50% + 40px` no eixo Y.
+
+                  O deslocamento vertical entra no PRÓPRIO `translate` (não num `mt`) pra não
+                  criar uma segunda fonte de posição: o `-50%` é o que centra, e o `+40px` é
+                  o ajuste sobre ele.
+
+                  ⚠️ Medir isso contra o estado ROTACIONADO dá número errado: o
+                  `getBoundingClientRect` de um elemento girado devolve o AABB, que é maior
+                  que a caixa real, então a diferença aparecia como +84/+70. Contra o mesmo
+                  layout sem rotação: 948 → 988 no X e −61 → −21 no Y, exatamente +40/+40. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute top-1/2 right-[-96px]
+                           translate-y-[calc(-50%+40px)] select-none text-fg-brand opacity-[0.055]"
+              >
+                <SidebarBrandIcon size={392} />
+              </span>
+
               {/* `relative` no CONTEÚDO, não só no primeiro filho: a aura é
                   `position:absolute`, e elemento posicionado pinta acima de irmão
                   estático — sem este wrapper o título e os botões ficam ATRÁS dela. */}
