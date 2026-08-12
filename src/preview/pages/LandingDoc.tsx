@@ -336,13 +336,18 @@ function useUnfold<T extends HTMLElement>(distancia = 320) {
       // Base da janela a partir do TOPO DA PÁGINA (não da viewport: rect é relativo a
       // ela, daí somar o scroll atual).
       //
-      // ⚠️ Nem o topo nem a altura saem do rect DESTE elemento: ele está transformado, e
-      // `getBoundingClientRect` devolve a caixa TRANSFORMADA — a medida dependeria da
-      // inclinação que ela mesma decide, um laço. O topo vem do pai (que não é
-      // transformado, e cuja caixa não inclui o transform do filho) e a altura de
-      // `offsetHeight`, que é layout puro e ignora transform.
+      // ⚠️ Topo E altura saem do rect do PAI, nunca deste elemento: ele está transformado
+      // e `getBoundingClientRect` devolve a caixa TRANSFORMADA — a medida dependeria da
+      // inclinação que ela mesma decide, um laço. O rect do pai não inclui o transform do
+      // filho, então é seguro.
+      //
+      // A altura vem do rect (não de `offsetHeight`) porque o pai agora carrega a
+      // COMPRESSÃO da hero: num notebook ele está em `scale(0.88)`, e o `offsetHeight` —
+      // que é layout puro — devolveria a altura CHEIA. Misturar posição comprimida com
+      // altura cheia superestimava a base e fazia a janela se declarar "não cabe" mesmo
+      // quando cabia.
       const caixa = (alvo.parentElement ?? alvo).getBoundingClientRect();
-      const baseAbsoluta = caixa.top + y + alvo.offsetHeight;
+      const baseAbsoluta = caixa.top + y + caixa.height;
       if (baseAbsoluta <= alturaVisivel) {
         // Cabe inteira sem rolar → não há nada a revelar. De pé, e ponto.
         alvo.style.setProperty("--lp-p", "1");
@@ -407,31 +412,36 @@ function useUnfold<T extends HTMLElement>(distancia = 320) {
  */
 function useFitScale<T extends HTMLElement>(larguraDesign: number, escalaMinima = 1) {
   const ref = useRef<T | null>(null);
-  const [escala, setEscala] = useState(1);
+  const [largura, setLargura] = useState(0);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
     const medir = () => {
-      const largura = el.clientWidth;
-      if (largura <= 0) return;
-      // O PISO é o que salva o mobile. Sem ele, num viewport de 390px a escala caía
-      // pra 0,33 e o dashboard virava uma miniatura ilegível — pior que não mostrar.
-      // Com piso, a janela CORTA a lateral (o app segue em tamanho legível e continua
-      // além da moldura), que é exatamente o tratamento das referências.
-      setEscala(Math.max(escalaMinima, Math.min(1, largura / larguraDesign)));
+      const l = el.clientWidth;
+      if (l > 0) setLargura(l);
     };
 
     medir();
-    // Sem ResizeObserver (jsdom) fica na escala medida no mount — degrada, não quebra.
+    // Sem ResizeObserver (jsdom) fica na largura medida no mount — degrada, não quebra.
     if (typeof ResizeObserver === "undefined") return;
     const ro = new ResizeObserver(medir);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [larguraDesign, escalaMinima]);
+  }, []);
 
-  return { ref, escala };
+  // O PISO é o que salva o mobile. Sem ele, num viewport de 390px a escala caía
+  // pra 0,33 e o dashboard virava uma miniatura ilegível — pior que não mostrar.
+  // Com piso, a janela CORTA a lateral (o app segue em tamanho legível e continua
+  // além da moldura), que é exatamente o tratamento das referências.
+  const escala =
+    largura > 0 ? Math.max(escalaMinima, Math.min(1, largura / larguraDesign)) : 1;
+
+  // ⚠️ `largura` sai junto de propósito: quem chama decide o `larguraDesign` A PARTIR
+  // dela (no mobile o mock larga o menu, então o design encolhe). Isso NÃO é laço — a
+  // largura medida é a da janela no layout, e não depende do `larguraDesign`.
+  return { ref, escala, largura };
 }
 
 /**
@@ -1401,22 +1411,72 @@ function MockDashboard() {
  * Medir a folga real resolve os dois casos e continua certo se o sidebar mudar de
  * largura amanhã.
  */
-function useTemFolga<T extends HTMLElement>(folgaMinima: number) {
+/**
+ * Comprime o GRUPO da hero (janela + flutuantes) pra caber na coluna de conteúdo.
+ *
+ * ## O que isto substituiu, e por que o mecanismo antigo estava errado
+ *
+ * Antes era um booleano (`useTemFolga`): se a folga de cada lado batia 96px, os
+ * flutuantes entravam em tamanho cheio; senão **desapareciam**. Medido nos notebooks que
+ * o mantenedor usa:
+ *
+ * | viewport | coluna de conteúdo | folga/lado | flutuantes |
+ * |---|---|---|---|
+ * | 1919 | 1368 | 224 | ✅ 4 |
+ * | 1366 | 1091 | **86** | ❌ 0 |
+ * | 1280 | 1005 | **43** | ❌ 0 |
+ *
+ * Ou seja: a hero perdia metade da composição justamente na resolução mais comum, e o
+ * "tudo ou nada" era a causa. Um booleano não tem meio-termo — mas o layout tem.
+ *
+ * Agora a pergunta deixa de ser "cabe inteiro?" e passa a ser "**por quanto** não cabe?".
+ * O grupo inteiro é escalado por esse fator, o que resolve os três pedidos com UM
+ * mecanismo: os flutuantes voltam, o dashboard fica menor, e o conjunto segue centrado.
+ *
+ * ## A compensação de layout não é detalhe
+ *
+ * `transform` não muda a caixa de layout: escalar pra 0.88 deixaria ~70px de espaço morto
+ * embaixo, empurrando a seção seguinte. Daí a `margem` negativa devolvida junto — medida
+ * do `offsetHeight` real, não estimada.
+ *
+ * ## Piso
+ *
+ * Abaixo de `PISO_GRUPO` os flutuantes saem de vez: um card a 60% é ilegível, e aí
+ * ausente é melhor que miniatura. Só que isso agora acontece em tablet/mobile, não em
+ * notebook.
+ */
+function useCompressaoHero<T extends HTMLElement>() {
   const ref = useRef<T | null>(null);
-  const [tem, setTem] = useState(false);
+  const [estado, setEstado] = useState({ escala: 1, margem: 0, mostrarFloats: true });
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    // ⚠️ Contra o `Wrap`, não contra `parentElement`: o pai imediato da janela é o
-    // próprio wrapper de 920px que ancora os flutuantes, então a folga media 1px e os
-    // cards nunca entravam. A coluna que importa é a de conteúdo.
+    // ⚠️ Contra o `Wrap`, não contra `parentElement`: o pai imediato é o próprio wrapper
+    // que ancora os flutuantes. A coluna que importa é a de conteúdo.
     const wrap = el.closest<HTMLElement>("[data-lp-wrap]");
     if (!wrap) return;
 
     const medir = () => {
-      const folga = (wrap.clientWidth - el.clientWidth) / 2;
-      setTem(folga >= folgaMinima);
+      const disponivel = wrap.clientWidth;
+      if (disponivel <= 0) return;
+      const bruta = Math.min(1, disponivel / LARGURA_GRUPO_HERO);
+      const mostrarFloats = bruta >= PISO_GRUPO_HERO;
+      // ⚠️ Comprimir só faz sentido ENQUANTO há flutuante pra caber. Sem eles nada
+      // transborda: a janela é `max-w-[920px]` e encolhe sozinha.
+      //
+      // A 1ª versão aplicava o piso sempre — `max(PISO, bruta)` — e no mobile isso
+      // comprimia o grupo a 0.72 sem motivo: medido num viewport de 390px, a janela caía
+      // de 356 pra **256px**, deixando o mockup menor justamente onde ele já era o mais
+      // apertado. O piso é o ponto em que os cards SAEM, não um mínimo de escala.
+      const escala = mostrarFloats ? bruta : 1;
+      setEstado({
+        escala,
+        // `offsetHeight` é layout puro: não inclui o transform deste próprio elemento,
+        // então medir aqui não vira laço.
+        margem: escala < 1 ? -Math.round((1 - escala) * el.offsetHeight) : 0,
+        mostrarFloats,
+      });
     };
 
     medir();
@@ -1425,9 +1485,9 @@ function useTemFolga<T extends HTMLElement>(folgaMinima: number) {
     ro.observe(wrap);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [folgaMinima]);
+  }, []);
 
-  return { ref, tem };
+  return { ref, ...estado };
 }
 
 /**
@@ -1482,11 +1542,54 @@ const LARGURA_APP = 1280;
 const ALTURA_APP = 880;
 const ALTURA_JANELA = 560;
 
+/** Largura do menu dentro do mockup (o `w-[280px]` do `MockSidebar`). */
+const LARGURA_MOCK_SIDEBAR = 280;
+
+/**
+ * Largura que o GRUPO da hero precisa pra caber sem cortar flutuante.
+ *
+ * `920` (janela) + `96` (maior transbordo à esquerda) + `104` (à direita) + `24` de
+ * respiro. Os dois transbordos são os offsets negativos reais dos `FloatCard`; se algum
+ * mudar, este número muda com ele.
+ */
+const LARGURA_GRUPO_HERO = 920 + 96 + 104 + 24;
+
+/** Abaixo disto o flutuante fica ilegível e sai de cena. Cai em tablet, não em notebook. */
+const PISO_GRUPO_HERO = 0.72;
+
+/**
+ * Largura de janela abaixo da qual o mockup NÃO mostra o menu.
+ *
+ * Medido num iPhone de 390px: a janela dava 356px, o menu do mock ocupava **147px (41%)**
+ * e o dashboard ficava com 198px — cortado, e o que se via da "tela de app" era
+ * majoritariamente menu. Sem o menu, o design encolhe pra
+ * `LARGURA_APP - LARGURA_MOCK_SIDEBAR`, o que ainda POR CIMA sobe a escala: o dashboard
+ * aparece maior e inteiro.
+ *
+ * O limite é a largura da JANELA (não do viewport) porque é ela que define o recorte —
+ * o viewport passa pelo sidebar do showcase, que existe em desktop e não em mobile.
+ *
+ * ⚠️ **560, não 700.** Com 700 o limite decidia na casa do pixel: medido num viewport de
+ * 1024px (tablet), a janela dava **702px** e o menu saía por 2px de diferença. Comportamento
+ * que vira do avesso com qualquer mudança de 1px no padding é frágil e imprevisível.
+ * 560 fica longe dos dois casos reais — telefone mede ~340, tablet ~702 — então a decisão
+ * é estável. No tablet o menu ocupa ~22% da janela, que ainda lê como "tela de app".
+ */
+const LARGURA_SEM_MOCK_SIDEBAR = 560;
+
 function HeroWindow() {
   const unfoldRef = useUnfold<HTMLDivElement>(360);
-  const { ref: fitRef, escala } = useFitScale<HTMLDivElement>(LARGURA_APP, 0.52);
-  // 96px = o maior offset dos flutuantes (-88) + respiro.
-  const { ref: folgaRef, tem: temFolga } = useTemFolga<HTMLDivElement>(96);
+  const { ref: grupoRef, escala: escalaGrupo, margem, mostrarFloats } =
+    useCompressaoHero<HTMLDivElement>();
+
+  // 1ª medição usa `LARGURA_APP`; se a janela for estreita, `semMenu` vira true e o
+  // design encolhe no render seguinte. Converge de uma vez — `largura` é do layout da
+  // janela e não depende do design.
+  const { ref: fitRef, escala, largura } = useFitScale<HTMLDivElement>(LARGURA_APP, 0.52);
+  const semMenu = largura > 0 && largura < LARGURA_SEM_MOCK_SIDEBAR;
+  const larguraDesign = semMenu ? LARGURA_APP - LARGURA_MOCK_SIDEBAR : LARGURA_APP;
+  const escalaApp =
+    largura > 0 ? Math.max(0.52, Math.min(1, largura / larguraDesign)) : escala;
 
   return (
     <div className="relative">
@@ -1497,11 +1600,27 @@ function HeroWindow() {
           e ficavam FORA dele — e o `<main>` do App, sendo container de scroll, clipa
           no eixo X: os cards apareciam cortados ao meio. Ancorados na janela, um
           offset de -76px cai dentro da margem lateral e some nada. */}
-      <div className="relative mx-auto max-w-[920px]">
+      {/* `transform-origin: top center` mantém o grupo CENTRADO ao comprimir, e a margem
+          negativa devolve o espaço morto que o `scale` deixaria embaixo (transform não
+          encolhe caixa de layout). Sem `style` quando não há compressão: transform
+          desnecessário cria containing block e camada de composição de graça. */}
+      <div
+        ref={grupoRef}
+        className="relative mx-auto max-w-[920px]"
+        style={
+          escalaGrupo < 1
+            ? {
+                transform: `scale(${escalaGrupo})`,
+                transformOrigin: "top center",
+                marginBottom: margem,
+              }
+            : undefined
+        }
+      >
         {/* Bezel: outer radius 20 + padding 8 + inner radius 14 — proporção medida no
             projectise. A máscara de fade vem do `.lp-window`. */}
         <div
-          ref={(el) => { unfoldRef.current = el; folgaRef.current = el; }}
+          ref={unfoldRef}
           className="lp-unfold lp-window lp-beam lp-beam-slow relative z-10
                      lp-glass outline-float rounded-[20px] p-[8px] shadow-sh-lg"
         >
@@ -1509,25 +1628,31 @@ function HeroWindow() {
             <BrowserBar />
             <div ref={fitRef} className="overflow-hidden" style={{ height: ALTURA_JANELA }}>
               {/* Largura E altura de design fixas + `scale`: os componentes veem um
-                  monitor de 1280×700 e mantêm a proporção real — só menores. */}
+                  monitor de verdade e mantêm a proporção real — só menores.
+
+                  `larguraDesign` encolhe quando o menu sai (mobile): é o que faz o
+                  dashboard aparecer MAIOR justamente onde há menos espaço. */}
               <div
                 className="flex origin-top-left"
                 style={{
-                  width: LARGURA_APP,
+                  width: larguraDesign,
                   height: ALTURA_APP,
-                  transform: `scale(${escala})`,
+                  transform: `scale(${escalaApp})`,
                 }}
               >
-                <MockSidebar />
+                {/* No mobile o menu sai. Ele não é o assunto do mockup — o dashboard é — e
+                    com a janela estreita ele virava 41% do que se via, cortado no meio. */}
+                {!semMenu && <MockSidebar />}
                 <MockDashboard />
               </div>
             </div>
           </div>
         </div>
 
-      {/* Flutuantes — emolduram a janela, como nas 5 referências */}
-      {/* Sem folga medida, os flutuantes NÃO entram: cortados ao meio é pior que ausentes. */}
-      {temFolga && (
+      {/* Flutuantes — emolduram a janela, como nas 5 referências. Agora eles ACOMPANHAM a
+          compressão do grupo em vez de desaparecer; só saem sob o piso (tablet/mobile),
+          onde um card a 60% seria ilegível. */}
+      {mostrarFloats && (
       <>
       {/* 1. Consumo — anel de progresso + valor. O anel dá leitura de "quanto da
              franquia" num relance, o que a barra chapada não dava; e é `conic-gradient`,
