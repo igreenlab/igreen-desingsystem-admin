@@ -3131,3 +3131,23 @@ Verifiquei antes de propor que isso **não** arrasta a CLI, ao contrário do que
 ⚠️ **Pendência que é do mantenedor:** os **três** tokens colados no chat desta sessão (dois anteriores + o deste publish) ficam no histórico da conversa e precisam ser revogados. Já usados, já descartáveis.
 
 **Lições novas:** nenhuma nova numerada. Reforços práticos de lição existente: a checagem por conteúdo do embed (o que a L-064 pede — reproduzir o defeito, não confiar no sinal fácil) e a L-060 aplicada ao próprio changelog, onde a entry descreve o que o usuário recebe em cada canal em vez de listar commits.
+
+### 2026-08-13 | ds-dev | Release v0.38.2 — o comentário falso do AlertDialog fora dos canais | CONCLUÍDO
+
+**Input:** a #163 corrigiu no `alert-dialog.tsx` uma afirmação falsa ("não fecha ao clicar fora ou apertar ESC"; ESC fecha), mas a correção ficou só na FONTE — o embed do registry seguia servindo a frase antiga.
+
+**Output:** v0.38.2 publicada (`npm view` → `0.38.2`, `latest`), embed recarimbado nos 91 itens, frase falsa fora do canal copy-in. PR #165 mergeada.
+
+**Por que bumpar em vez de só regenerar o embed.** Regenerar sem bump consertaria o conteúdo mantendo o carimbo v0.38.1 — dois conteúdos diferentes sob a MESMA versão, e o consumidor sem como saber qual tem. É exatamente o modo de falha que o carimbo existe pra evitar. O bump é o que torna a troca observável.
+
+**⚠️ Uma afirmação minha nesta release estava ERRADA, e eu só descobri depois de publicar.** Eu disse — pro mantenedor e no corpo da PR #165 — que "o npm 0.38.1 também servia a frase falsa" e que "os dois canais distribuem a promessa errada". Verifiquei depois baixando o tarball de volta do registry: o pacote npm **não leva `.tsx` de componente** (medido: 0 arquivos `src/components/**/*.tsx`), leva o `dist-lib` compilado e os `.d.ts`. Comentário de implementação não sobrevive ao build, então a frase nunca chegou por npm. A correção aparece nos `.d.ts` só porque o JSDoc é preservado na emissão de tipos.
+
+O canal afetado era **um**, o copy-in/registry, que distribui o `.tsx` de verdade. Corrigi o registro por comentário na PR em vez de editar o corpo, pra o histórico ficar honesto sobre o que eu afirmei sem medir.
+
+**A lição prática:** "está na fonte" ≠ "está no canal", mas também "está na fonte" ≠ "está em TODO canal". Cada canal leva um artefato diferente — o registry leva `.tsx`, o npm leva build + tipos, o submódulo lê o disco. Antes de afirmar que um defeito de CONTEÚDO DE ARQUIVO chegou a um canal, verifique se aquele canal carrega aquele tipo de arquivo. O `registry-check` mede isso pro embed; pro npm o jeito é `npm pack` + grep no tarball, que é o que eu deveria ter feito ANTES de escrever a justificativa.
+
+**Assumption:** com o `.tsx` fora do pacote npm, defeito que vive só em comentário afeta apenas os canais que distribuem fonte (copy-in e submódulo). Se algum dia o npm passar a publicar `src/`, essa separação cai e a justificativa muda.
+
+**Higiene do token (3º publish da sessão), verificada:** `.npmrc` fora da árvore do repo, `chmod 600`, apagado por `trap` (confirmado ausente depois), grep do prefixo no repo e no scratchpad → zero ocorrência, nenhum `.npmrc` na raiz. Token não escrito neste arquivo nem mascarado. Pendência do mantenedor: revogar.
+
+**Lições novas:** nenhuma numerada. É a L-060 (texto que afirma garantia inexistente) fechando o ciclo até o canal, mais um reforço da L-064 — eu validei a release pelo sinal que eu supunha ser o certo e a medição do tarball contradisse metade da justificativa.
