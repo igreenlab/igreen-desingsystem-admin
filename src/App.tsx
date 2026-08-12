@@ -85,6 +85,7 @@ import ClientsTypedPreview from "./preview/pages/ClientsTypedPreview";
 import ClientsKanbanPreview from "./preview/pages/ClientsKanbanPreview";
 import { AccordionDoc } from "./preview/pages/AccordionDoc";
 import { AlertDoc } from "./preview/pages/AlertDoc";
+import { AlertDialogDoc } from "./preview/pages/AlertDialogDoc";
 import { AlertModalDoc } from "./preview/pages/AlertModalDoc";
 import { DialogDoc } from "./preview/pages/DialogDoc";
 import { DropdownMenuDoc } from "./preview/pages/DropdownMenuDoc";
@@ -330,6 +331,7 @@ const DOC_PAGES = [
   "page-header",
   "form-field",
   "input-group",
+  "alert-dialog",
   "alert-modal",
   "modal",
   "pagination",
@@ -659,6 +661,7 @@ export function App() {
             {activePage === "clients-kanban" && <ClientsKanbanPreview />}
             {activePage === "accordion" && <AccordionDoc />}
             {activePage === "alert" && <AlertDoc />}
+            {activePage === "alert-dialog" && <AlertDialogDoc />}
             {activePage === "alert-modal" && <AlertModalDoc />}
             {activePage === "dialog" && <DialogDoc />}
             {activePage === "dropdown-menu" && <DropdownMenuDoc />}

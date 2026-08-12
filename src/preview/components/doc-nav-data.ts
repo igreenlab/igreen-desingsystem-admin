@@ -64,6 +64,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Todos os componentes", href: "components-overview" },
       { label: "Accordion", href: "accordion" },
       { label: "Alert", href: "alert" },
+      { label: "Alert Dialog", href: "alert-dialog" },
       { label: "Alert Modal", href: "alert-modal" },
       { label: "Aspect Ratio", href: "aspect-ratio" },
       { label: "Avatar", href: "avatar" },

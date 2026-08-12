@@ -21,6 +21,7 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 | `input-otp` | Dep extra: `input-otp`. Foco usa `ring-ring-brand` (não `-primary`). |
 | `drawer` | Dep extra: `vaul`. Mobile dentro de overlay z-50 → wrapper a **z-60** (L-030). |
 | `tabs` | 2 variantes via prop **`variant` no `<Tabs>`** (propagada por contexto — NÃO em List/Trigger): `"segmented"` (default, pill) · `"line"` (underline, aba ativa com `border-border-brand`). |
+| `alert-dialog` | **ESC FECHA**, ao contrário do que o comentário do componente afirmava (medido no browser). Só o clique fora é bloqueado. Decisão inescapável exige `onEscapeKeyDown={(e) => e.preventDefault()}`. Header é **centralizado** (o do Dialog é à esquerda) e o Footer é `col-reverse` no mobile — ação em cima. Pra confirmação comum use o composto **`ui/AlertModal`**, que já monta tom + ícone + botões. |
 | `input` | **`type="file"`** tem 2 desvios tratados por variante de atributo (`[&[type=file]]:…`): o UA aplica `align-items: baseline` e o conteúdo sobe na caixa de 40px → forçado `items-center`; e o texto do input vinha em `fg-default`, destoando do `placeholder:text-fg-muted` de todo input do DS → forçado `text-fg-muted`. **Efeito colateral aceito:** o CSS não distingue "vazio" de "arquivo escolhido" num file input, então o **nome do arquivo também fica muted**. Pra UX de upload de verdade (nome em destaque, remover, drag-and-drop) use o composto **`ui/FileUploadField`**, não o `<Input type="file">` cru. |
 
 **Padrão sem gotcha** (use direto, doc no showcase): `accordion`, `alert`,
