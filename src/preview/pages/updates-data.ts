@@ -46,6 +46,335 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.38.2",
+    date: "2026-08-13",
+    tag: "patch",
+    title: "O diálogo de confirmação prometia uma proteção que não tinha",
+    summary:
+      "O comentário do componente de confirmação destrutiva afirmava que ele **não fecha ao apertar ESC**. Não é verdade: ESC fecha. Quem lesse aquilo — e é o texto que a IA de quem consome lê também — montaria uma confirmação de exclusão acreditando que a decisão era inescapável. Corrigido, com a receita de como travar de verdade. Nenhuma mudança visual ou de comportamento.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A documentação interna do diálogo de confirmação prometia proteção que ele não dá.** Ela dizia que o diálogo não fecha nem ao clicar fora nem ao apertar ESC. Medimos as duas coisas no navegador: clicar fora realmente não fecha (e aqui ele se diferencia do diálogo comum, que fecha), mas **ESC fecha**. As duas coisas são tratadas por caminhos separados, e só uma estava bloqueada. Agora o texto diz o que acontece de verdade e mostra a linha que trava o ESC, pra quem precisa de uma decisão sem escapatória.",
+          "**O mesmo diálogo estava sendo distribuído sem página de documentação.** Ele existia no catálogo e no guia que a IA de quem consome lê, mas não tinha exemplo nem referência de API — agora tem, incluindo a comparação de quando usar cada um dos três componentes de caixa modal (o pronto-de-usar, este primitivo e o diálogo comum).",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.38.1",
+    date: "2026-08-11",
+    tag: "patch",
+    title: "Uma porta de entrada pro sistema — e a doc do pipeline batendo com a realidade",
+    summary:
+      "Quem abria o showcase caía na documentação de um botão, sem saber o que o sistema é nem como instalar. Agora abre numa **página inicial** que mostra o DS funcionando, montada com os componentes reais — não com imagens. Do lado da biblioteca, uma correção: a tabela de dados enchia o console de avisos. E a documentação do próprio pipeline, que estava descrevendo um estado que não existia mais em 14 pontos, foi corrigida e ganhou vigilância automática.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A tabela de dados escrevia 156 avisos no console a cada carregamento de página.** A coluna de ações não é um tipo de dado, mas o alerta que existe pra pegar erro de digitação em tipo de coluna não sabia disso e reclamava dela — em toda linha. O aviso continua pegando erro de digitação de verdade; só parou de gritar sobre o que está certo. **Zero mudança visual ou de comportamento**, provado comparando o resultado renderizado antes e depois: idêntico.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Página inicial do showcase.** Mostra o sistema em uso: um painel completo com indicadores, gráficos e tabela — construído com os componentes de verdade, não com uma imagem. Se um componente quebrar, a página inicial mostra. Tem também a troca de tema ao vivo, os quatro caminhos de instalação, os dois prompts prontos pra colar no Claude Code e o catálogo inteiro com busca.",
+          "**A logo da iGreen no lugar do \"iG\" escrito à mão**, nas três superfícies do showcase que tinham o texto, mais o ícone da aba do navegador (que não existia).",
+          "**Vigilância automática da documentação do pipeline.** As páginas que explicam como o sistema funciona por dentro nunca eram conferidas por nada — todos os testes olham código. Agora um teste reprova número que divergiu da fonte, nome de arquivo que não existe e frase que descreve um mecanismo inexistente.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**14 pontos da documentação do pipeline estavam desatualizados**, e os piores não eram número errado: uma página listava quatro arquivos de skill que não existem, outra listava oito caminhos de contexto com nomes que nunca existiram, três ensinavam um mecanismo de carregamento que este ambiente não tem, e a de instalação prometia erros de tipo \"pré-existentes\" num projeto onde a checagem passa limpa — ou seja, ensinava a ignorar erro. Também: 8 de 15 comandos listados, 1 de 9 skills, 12 de 35 scripts.",
+          "**As propriedades que resolvem o bug do menu da versão anterior agora aparecem na documentação.** Elas existiam no código e em nenhuma das duas páginas que as deveriam mostrar — quem tentasse corrigir o problema não encontrava a solução.",
+          "**As tabelas de propriedades passaram a mostrar as notas explicativas.** O campo existia nos dados e não no tipo, então uma explicação de quatro linhas escrita meses atrás nunca apareceu na tela — quem escreveu acreditou ter documentado.",
+          "**Os avisos automáticos do repositório mediam contra a referência errada.** Comparavam o trabalho novo contra uma cópia do projeto parada há três meses, o que fazia dívida antiga passar por problema novo: apontavam 17 problemas inexistentes e acusavam um componente documentado de não ter documentação. Agora a referência é resolvida pelo endereço do repositório, não pelo apelido dele.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.38.0",
+    date: "2026-08-08",
+    tag: "release",
+    title: "O menu lateral recarregava a página inteira a cada clique",
+    summary:
+      "Bug **reportado por quem usa o Design System em produção**: em qualquer app com roteador, clicar num item do menu recarregava a página do zero em vez de navegar. Corrigido, com integração de roteador de primeira classe. Nenhuma mudança visual — o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Clicar no menu lateral recarregava a página inteira.** O menu monta cada item como um link de verdade, mas não cancelava a navegação do navegador — então o app fazia o trabalho de trocar de tela **e** o navegador recarregava tudo por cima. Perdia estado, piscava a tela e desperdiçava a requisição. Vale pra quem usa o menu direto e pra quem usa a casca do app inteira, que o contém.",
+          "**Quem sabia do problema não tinha como corrigir.** O aviso de clique entregava só qual item foi clicado, sem o evento — que é justamente o que se precisa pra cancelar a navegação. Agora entrega os dois.",
+          "**O logo no topo do menu levava sempre para a raiz do site**, sem forma de configurar. Passou a aceitar destino próprio, e se você não quiser que ele navegue, ele deixa de se anunciar como link (correção de leitor de tela também).",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Integração com roteador em uma linha.** `renderLink` troca o link interno do menu pelo link do seu roteador — react-router, Next, TanStack, tanto faz. A navegação passa a ser instantânea, e ctrl/cmd+clique para abrir em nova aba continua funcionando (que é o que uma correção apressada teria quebrado).",
+          "**Regressão travada com roteador de verdade.** O teste não usa simulação: monta um react-router real e prova que a tela troca sem recarregar. Foram 27 verificações novas, uma para cada exceção — porque cancelar a navegação em todos os casos quebraria abrir-em-nova-aba, link externo e, o mais sutil, apps que roteiam por `#` na URL, que deixariam de navegar completamente.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "A documentação do menu e da casca do app ganhou a seção de integração com roteador, e o guia que a IA de quem consome lê agora avisa para passar `renderLink` quando o projeto tem rotas — antes não havia uma linha sobre isso.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.37.3",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "Auditoria profunda: o que os testes verdes não estavam provando",
+    summary:
+      "Varredura completa do sistema — código, tokens, componentes, documentação e as duas camadas de IA (a que constrói o DS e a que o consome). Oito frentes. O achado de fundo: vários gates liam um arquivo que **nada garantia estar atualizado**, então \"os testes passaram\" provava menos do que parecia. Nenhuma mudança visual — o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O `tsc` de quem instala por npm quebrava ao usar o mapa coroplético.** Os tipos publicados importam de três pacotes que estavam declarados só como dependência de desenvolvimento — o DS compilava porque tinha os pacotes na própria máquina, e o projeto de quem consome não. Levantei a superfície inteira dos tipos publicados (15 pacotes) e esses três eram os únicos fora do lugar.",
+          "**O espelho das regras para o Cursor era gerado e não funcionava.** O cabeçalho do arquivo ia parar na linha 6 em vez da linha 1, por causa da quebra de linha do Windows — e o Cursor exige linha 1. O script rodava, escrevia o arquivo e reportava sucesso; nenhuma das seis regras chegava. Ao consertar, dois arquivos que estavam nove dias defasados se atualizaram sozinhos, um deles ensinando um repositório remoto que não existe.",
+          "**A verificação de exemplos defasados saía verde quando a fonte sumia.** Se alguém renomeasse uma tela do catálogo, o exemplo que o consumidor baixa perdia qualquer vigilância — e a mensagem impressa era \"exemplos em sincronia\".",
+          "**Duas receitas de construção apontavam para receitas que não existem neste repositório**, e seis instruções mandavam carregar arquivos por um mecanismo que não os aceita. Quem seguisse perdia o passo procurando.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Sete verificações automáticas novas.** A principal: o CSS de tema é gerado a partir dos tokens **e** versionado, e o passo que regenera era manual — nenhum fluxo o executava. Editar um token e esquecer de regenerar passava despercebido, e todas as outras verificações de cor liam justamente esse arquivo. Agora ele é regenerado e comparado a cada execução, apontando a primeira linha divergente e o comando que corrige.",
+          "**O índice de exportação virou superfície verificada.** Era a única parte do sistema sem nenhuma vigilância — foi por ali que quatro componentes ficaram meses invisíveis para quem instala por npm, com a documentação anunciando que existiam.",
+          "**Quem consome o DS agora recebe verificação de estilo em tempo real.** Antes, uma cor escrita na unha ou um espaçamento fora da escala passavam limpos em todos os canais; a orientação existia, mas era só texto. Agora a mesma tabela de padrões que roda aqui roda lá — avisando, nunca bloqueando, porque o código é de quem consome.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**Os dois arquivos de regra que a IA sempre lê se contradiziam em três pontos** — inclusive sobre se ela pode ou não publicar uma branch de trabalho, e sobre se telas fazem parte do escopo. Pior: o mesmo número de regra significava coisas diferentes em cada um, e doze arquivos citam regra por número. Agora é uma numeração só, com verificação automática.",
+          "**Seis lições registradas não chegavam à sessão.** O resumo que a IA carrega prometia listar todas e faltavam seis — entre elas a que avisa que os automatismos ficam cegos no Windows, num projeto desenvolvido em Windows.",
+          "**O guia de composição não existia para quem consome por submódulo.** Vinte arquivos mandavam aplicá-lo e o arquivo não vinha no clone. Agora é instalado junto com o kit.",
+        ],
+      },
+      {
+        type: "removed",
+        items: [
+          "**Cinco animações declaradas que nunca surtiram efeito.** A investigação derrubou o meu próprio diagnóstico: eu tinha classificado como divergência entre catálogo e consumidor, e a medição do build mostrou que a declaração perdia dos dois lados — quando o nome já pertence ao framework, ele vence. Virou lição registrada.",
+          "Dois guias de migração antigos e órfãos, um deles com instruções que mandavam publicar no repositório errado; e um índice de memória cuja única linha descrevia um problema resolvido três meses antes.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Oito afirmações factualmente erradas em documentação viva — entre elas a que dizia que o DS não é publicado como pacote (é, desde a 0.37.0) e uma versão desatualizada em 27 lançamentos.",
+          "O índice visual de componentes ganhou os três que faltavam e passou a nomear os dois que dividem a mesma página.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.37.2",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "As instruções que o Design System distribui não faziam o que prometiam",
+    summary:
+      "Revisão completa do pipeline — o do próprio DS e o que viaja pro consumidor — com teste de submódulo e de `npm create` feitos do zero, seguindo as receitas **ao pé da letra**. Doze pontos em que a instrução prometia uma coisa e o mecanismo fazia outra. Nenhuma mudança visual: o catálogo continua exatamente como está.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A linha de import de tema que o `ds-link` escrevia não funcionava.** Ela apontava pro caminho errado — o `@import` do CSS conta a partir do arquivo, não da raiz do projeto — então quem consome por submódulo e seguia a instrução via o build recusar. Corrigido, e agora o teste segue o texto gerado sem correção de ninguém (foi assim que o erro escapou da vez anterior).",
+          "**A tela inicial gerada pelo `npm create` usava uma classe de cor que não existe mais.** O único botão da tela nascia sem anel de foco — e o guia do próprio projeto, algumas linhas adiante, lista essa classe como proibida.",
+          "**Em modo submódulo, metade do catálogo estava fora do alcance documentado.** O caminho publicado cobria só os componentes compostos; os 41 primitivos ficam em outra pasta no repositório, e ninguém dizia qual. Duas receitas apontavam pra um caminho inexistente.",
+          "**Quinze arquivos do kit mandavam rodar um comando que não existe em submódulo** — a geração de tela abortava no primeiro passo. Todos ganharam a ressalva.",
+          "**O fundo da paleta de comandos (⌘K) no escuro**, que a versão anterior deixou translúcido por engano ao trocar de token. Voltou ao valor original, conferido nos dois modos.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O guia de como adaptar um componente shadcn ensinava justamente o mecanismo que causou o defeito da 0.37.1**: dizia que as cores eram mapeadas automaticamente. Não são — o mapeamento só existe no catálogo, e seguir o guia recolocava o bug a cada componente novo. Reescrito com a medição e a lista das cores que precisam ser trocadas à mão.",
+          "**O comando de release omitia quatro passos** que só existiam na receita longa — entre eles rodar os testes. Quem seguisse a lista publicava sem validação nenhuma.",
+          "**Instalar as dependências em submódulo virou um comando só.** Antes era descobrir uma por vez, a cada build que quebrava.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "Meia dúzia de contradições internas na documentação, do tipo que faz perder tempo: uma receita que se desmentia dentro do próprio arquivo, uma verificação de exemplos defasados que era bloqueante no lugar errado e informativa onde deveria bloquear, e contagens desatualizadas de componentes e lições.",
+          "Uma das receitas de estilo do DS estava com o nome de uma receita genérica e era engolida por ela — invocá-la entregava exatamente o que ela existe pra substituir.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.37.1",
+    date: "2026-08-08",
+    tag: "patch",
+    title: "Cinco componentes tinham borda preta em quem consome por npm ou submódulo",
+    summary:
+      "Achado a olho, num print: o contorno do `Card` saía como uma linha preta sólida em vez do fio quase invisível que ele tem no catálogo. A causa vale para cinco componentes e aparece **só** fora do catálogo — o que torna esse tipo de defeito quase impossível de notar de dentro.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Contorno do `Card`, fundo do `Drawer`, divisores do `Select` e do `Menubar`, e o `Separator`** dependiam de um mapeamento de cores que existe apenas em dois arquivos do próprio catálogo. Quem consome por **npm** ou **submódulo** não recebe esse mapeamento: a cor ficava indefinida e o navegador caía na cor do texto, em opacidade total. No `Card`, o fio de 5% virava uma linha preta no claro e branca no escuro. Todos passaram a usar o token equivalente, que resolve igual nos quatro canais.",
+          "**Nada muda no catálogo nem em projeto existente.** O token novo é exatamente o que o mapeamento antigo apontava — conferido no navegador, claro e escuro: os valores computados são idênticos antes e depois.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Gate novo pra essa classe de defeito.** Componente distribuído não pode mais depender do vocabulário que só o catálogo define — o teste reprova apontando o arquivo, a linha e o token a usar. Validado reproduzindo o defeito real: o texto que estava em produção reprova, o corrigido passa.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.37.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "O pacote npm entregava 37 dos 42 componentes — e a doc dizia 42",
+    summary:
+      "Duas frentes que se apoiam: o **pacote npm** passou a entregar o catálogo inteiro (faltavam 4 componentes e os 41 primitivos não tinham como ser importados), e a **documentação que ensina a IA** foi conferida linha a linha contra o CSS que o tema realmente emite. A segunda achou coisa que nenhum gate podia pegar, porque o defeito não estava no código: estava no texto que gera o código.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`Chart`, `DataList`, `List` e `Toast` no pacote npm.** Existiam desde antes e simplesmente nunca foram exportados — um `import { ChartContainer }` falhava, enquanto a doc do canal anunciava \"os 42 componentes, incluindo Chart\". Eram 37. O único que continua fora é o `TabelaTeste`, demo interno do showcase.",
+          "**Subpath `@snksergio/design-system/shadcn`** — os 41 primitivos adaptados (Dialog, Select, Tabs, Popover, Tooltip, Card, Calendar…). Antes só 3 eram importáveis e os outros 38 viajavam no pacote sem porta de entrada. É uma entrada separada de propósito: são 233 nomes contra os 3 ou 4 que um projeto costuma usar, e no mesmo barrel qualquer import arrastaria Radix, cmdk, vaul, embla e sonner antes do bundler conseguir podar.",
+          "**`npm run audit:token-docs`** — confere se todo valor de token afirmado na documentação bate com o CSS emitido. É a categoria de defeito que passa por build, `tsc`, teste e lint sem tocar em nada.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Consumo por submódulo estava quebrado seguindo a documentação.** Os arquivos do DS se importam por `@/…` — 700 imports — e esse atalho significa \"a pasta do DS\". Copy-in e npm resolvem sozinhos; submódulo não, e nenhuma doc mandava configurar. O build morria no primeiro componente. Agora está documentado, entra no bloco que o `ds-link` escreve no projeto, e o próprio script **confere e avisa** quando falta, com o trecho pronto pra colar.",
+          "**Valores de espaçamento e raio errados na documentação, por até 2,4×.** `gap`, `space` e `pad` usam uma escala só, mas a doc mostrava três faixas divergentes. E o `radius.base` estava documentado como 26px valendo **10px** — o raio mais usado do sistema. A doc de extração do Figma mandava justamente mapear 26px pra ele, então um botão extraído saía com o canto errado.",
+          "**O gap depois do PageHeader era anunciado como 24px em 6 arquivos** do kit do consumidor. O código sempre usou 16px. Corrigimos o número, não a classe — mexer na classe mudaria o espaçamento de toda tela já construída.",
+          "**O guia do projeto novo mandava trocar uma classe morta por outra.** O anti-pattern de foco dizia `ring-ring-primary/30 → ring-ring-primary`, e o destino não existe desde a renomeação para `brand`. Junto com ele, 44 usos do vocabulário antigo sobreviviam nas instruções que a IA lê pra escrever componente — inclusive no template canônico de implementação.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Os três canais foram medidos no navegador, não inferidos.** Projeto npm, projeto do `npm create` e projeto por submódulo, cada um instalado e construído de verdade, e depois comparado com o catálogo propriedade por propriedade: mesma cor de marca, mesma altura, mesmo raio, mesma fonte, mesma barra de rolagem. Os quatro batem.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.36.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "A barra de rolagem não aparecia em nenhum consumidor — e o showcase escondia isso",
+    summary:
+      "A versão anterior levou pro tema o CSS que só existia no showcase. Esta fecha o inverso: o que o showcase **sobrescrevia**. Um override de scrollbar escrito à mão no `globals.css` fazia a barra aparecer aqui e em lugar nenhum — o único lugar onde a gente olha era o único onde funcionava. Mais duas divergências do mesmo tipo, achadas comparando os dois lados no navegador em vez de ler o código.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Barra de rolagem invisível em todo consumidor.** A utility `scrollbar-thin` do tema usava um cinza **opaco** que, sobre fundo branco, simplesmente não aparecia. O showcase não sofria porque o `globals.css` tinha um override próprio, com valores escritos à mão — e classe comum vence `@utility`. Alcance: **16 usos em 10 componentes** distribuídos (DataTable, DataList, Command, Drawer, dropdowns), nos três canais, desde sempre.",
+          "**A superfície do `Command` ignorava o tema fora do scaffold.** Ela usava `bg-popover`/`text-popover-foreground` — vocabulário do **shadcn**, que depende de um mapeamento que só existe no `index.css` do scaffold. Em npm e submódulo a paleta caía no default do shadcn em vez dos tokens iGreen. Era a única ocorrência de vocabulário shadcn em todo o pacote publicado.",
+          "**`dark:` vencia `hover:` em projeto novo.** O `index.css` do scaffold redeclarava a variante `dark` com especificidade maior que a do tema, e como era a segunda declaração, ganhava. Efeito: na mesma propriedade, o estilo de dark suprimia o de hover — sem erro, sem aviso. Projeto **já criado** mantém o comportamento atual; isto só muda projeto novo.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**Tokens `bg.scrollbar-thumb` e `bg.scrollbar-thumb-hover`.** Nenhum token existente resolvia certo nos dois modos, então a barra ganhou os seus. São a única exceção do grupo `bg.*`: valem **alpha neutro**, não cor sólida — a barra precisa de contraste próprio, independente da cor de superfície da marca. Por isso resolvem idêntico nas 5 marcas e não aparecem no diff de nenhum overlay.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**O showcase não mudou um pixel** — verificado no navegador, claro e escuro, antes e depois: os tokens novos valem exatamente o que o override escrito à mão valia. E o consumidor foi verificado do outro lado, num projeto de submódulo real com build do Vite, onde as variáveis agora chegam e são consumidas. Era a única forma de fechar as duas pontas: o valor não podia mudar aqui e não podia continuar ausente lá.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.35.0",
+    date: "2026-08-08",
+    tag: "preview",
+    title: "O CSS que só existia no showcase agora viaja — npm saía com 9 regras de estilo",
+    summary:
+      "Parte do CSS de que os componentes dependem morava em dois arquivos mantidos à mão — o `globals.css` do showcase e o `index.css` do scaffold — que **deveriam ser equivalentes e derivaram**. O que estava só no primeiro nunca chegou em quem consome por **npm** ou **submódulo**. Tudo isso mudou para o `tailwind-theme.css`, que é o **único arquivo que os três canais leem**. O showcase não perdeu nada: continua recebendo pelo `@import` do tema.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O canal npm entregava 9 regras de CSS.** Seguindo a documentação à risca, os componentes renderizavam **sem estilo nenhum** — o `<Button>` saía transparente, com 24px de altura e sem cantos. A causa é o Tailwind v4 não escanear `node_modules`: sem a diretiva `@source`, nenhuma classe do DS é gerada. O README agora traz o setup completo, e a linha precisa cobrir `dist-lib/**` — as classes dos componentes flutuantes vivem nos *chunks*, não no arquivo principal.",
+          "**Toda superfície flutuante estava sem o contorno externo.** A classe `outline-float` (o halo de 6px) só existia no CSS do showcase, e **14 componentes a usam** — Modal, Panel, FloatingPanel, Header, dialog, popover, select, dropdown-menu, command, context-menu, menubar, hover-card, alert-dialog e navigation-menu. Em todo projeto de consumidor, desde sempre, ela não renderizava. O token de cor viajava; a classe que o consome, não — por isso nenhum gate acusava.",
+          "**Menu mobile não colava no rodapé.** A regra que transforma dropdown e popover em bottom-sheet abaixo de 768px também vivia só no showcase (L-030/L-031).",
+          "**Fonte Geist não chegava no npm.** Faltavam as três peças: as declarações `@font-face`, as variáveis `--font-sans`/`--font-mono` e os próprios arquivos — que existiam no build mas nem eram publicados. Toda a tipografia caía em `system-ui`, com os 27 presets do DS renderizando na fonte errada. Agora o build copia os `.woff2` e o pacote os leva; o consumidor npm precisa copiá-los pro `public/fonts/` dele (uma linha, documentada no README).",
+          "**Dark mode no npm respondia ao sistema operacional, não ao app.** Sem o `@custom-variant dark`, o `dark:` do Tailwind vira `prefers-color-scheme` — então o tema do SO vazava nos dois sentidos: app claro com SO escuro disparava estilos dark, e vice-versa. E sem as regras de `body`, o dark mostrava cards escuros sobre **fundo branco**, com o texto branco invisível.",
+          "**Animações de entrada/saída mortas no npm.** Overlays apareciam e sumiam sem transição por falta do `tw-animate-css` — 79 classes sem efeito. Documentado como import opcional.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Dois gates novos, ambos validados reproduzindo o defeito real.** O primeiro reprova qualquer `@utility` que um componente use e que não esteja no tema gerado — era o buraco por onde o `outline-float` passou meses. O segundo verifica que as 7 peças de runtime estão no tema, que a cópia do CLI é idêntica à fonte, e **proíbe o `globals.css` de redeclarar** qualquer uma delas: duplicar faz o showcase mascarar a ausência no consumidor, que foi exatamente como isso ficou invisível.",
+          "**Nenhum projeto existente muda de comportamento.** Declarar `@custom-variant` duas vezes faz a segunda declaração vencer, e o `index.css` do scaffold declara a dele **depois** de importar o tema — então projeto já criado mantém o que tinha. Quem ganha é o npm, o submódulo e todo scaffold novo.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.34.0",
+    date: "2026-08-07",
+    tag: "preview",
+    title: "AppShell responsivo em notebook — menos moldura e menu fechado abaixo de 1536px",
+    summary:
+      "O AppShell tinha **um** breakpoint só: 18px de padding abaixo de 768px e **32px de 768 ao infinito**, com o menu sempre aberto. Um notebook 1366×768 gastava a mesma moldura de um monitor 4K e ainda ~200px no painel do menu — numa tela que já é estreita. Agora há uma faixa intermediária. **Mudança visível ao atualizar:** entre 768 e 1535px o app abre com o menu fechado e 8px a menos de moldura.",
+    changes: [
+      {
+        type: "changed",
+        items: [
+          "**Padding do body: 32px → 24px entre 768 e 1535px.** Abaixo de 768 (18px) e a partir de 1536 (32px) nada muda. Usa `pad-4xl`, token que já existia — nenhum token novo. Descartamos 28px: 4px de redução não justifica um breakpoint.",
+          "**O menu nasce colapsado abaixo de 1536px.** Só no **mount** — se você abrir o menu na mão, redimensionar a janela não o fecha de novo. Passar `defaultMenuCollapsed` explícito continua vencendo, **inclusive `false`**, então quem já controla esse estado não é afetado. Em mobile nada muda: abaixo de 768px o menu já é drawer e ignora o collapse.",
+          "**Por que o corte é em 1536 e não em 1280:** 1366 e 1536 são as duas resoluções de notebook dominantes. Cortar em `xl` deixaria a 1536 herdando o layout de desktop — justamente uma das que apertam. Ganho medido: em 1440×900 a tela de Clientes passou a mostrar as colunas *Saldo disponível* e *Vol*, antes cortadas.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**A doc do AppShell descrevia spacing que o código não usa.** A página dizia `gap-gp-md (16px)` — o componente usa `gap-gp-4xl`, e `gp-md` nem vale 16px: vale **8px**. Errado nas duas contas, e independente desta mudança. `USAGE.md`, os types e a tabela de props também documentavam o padding antigo como valor único.",
+        ],
+      },
+    ],
+  },
+  {
+    version: "0.33.0",
+    date: "2026-08-03",
+    tag: "preview",
+    title: "useBrand e useTheme exportados — troca de marca em runtime sem reimplementar",
+    summary:
+      "Até aqui, um app que quisesse dar ao usuário um **seletor de marca** tinha que reescrever persistência, sincronia entre abas e a regra de que `default` significa *remover* o atributo. Os dois hooks passam a ser exportados no pacote. O `useBrand` ganhou **catálogo injetável**: passe só as marcas cujo overlay você importou, porque `data-theme` com id sem CSS no bundle é **no-op silencioso** — a opção aparece no seletor e simplesmente não faz nada.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`useBrand` e `useTheme` exportados** no barrel da lib. O `useBrand` aceita `{ brands }` — o catálogo que ele valida, percorre no `toggle()` e devolve pronto pro seletor. Também devolve `current` (a entrada ativa, com label e swatch), pra dispensar o `find()` no consumidor. Sem argumento, o catálogo são as 5 marcas do DS.",
+          "**Fallback à prova de tema órfão**: valor persistido fora do catálogo cai na primeira entrada. Cenário real — o usuário mexeu no showcase (salvou `pay` no `localStorage`) e depois abre um app que só importou o overlay da `vibrant`; antes isso viraria `data-theme=\"pay\"` sem nenhum CSS casando.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O botão de marca do drawer mobile só conhecia 2 das 5 marcas.** O `toggle()` alternava `default↔blue` cravado — legado de quando `blue` era a única marca extra — e o label era um ternário `blue ? \"Azul\" : \"iGreen\"`. Com `pay` ou `vibrant` ativas, o botão dizia \"Marca: iGreen\" e pulava pra `blue`. Agora percorre o catálogo e o label vem dele, então marca nova entra sozinha.",
+          "**`isBrand` era uma cadeia literal** (`v === \"default\" || v === \"blue\" || …`) que exigia edição manual a cada marca nova — e um esquecimento fazia o valor persistido cair no default em silêncio. Agora valida contra o catálogo ativo.",
+          "**O header dos CSS gerados mandava você num caminho que não existe no seu projeto.** Os 4 `brand-*.css` diziam \"ver `src/hooks/useBrand.ts`\" — pasta que só existe no repo do DS. E o `tailwind-theme.css`, que todo projeto tem, mandava regenerar com `> dist/tailwind-theme.css`: destino errado até dentro do DS (o script real escreve em `src/styles/theme/`, e `dist/` existe), então seguir a instrução escrevia o tema num diretório de build e deixava o arquivo real intacto, sem erro. Agora o header diz o que fazer e marca o que só vale no repo do DS. **Nenhum valor de token mudou** — 0 linhas de custom property no diff dos 5 arquivos.",
+          "**O registry servia o header velho mesmo com o fix mergeado.** O embed que o registry entrega (`registry-data.ts`) ficou pra trás porque o gate de sincronia comparava *carimbo de versão*, e a correção mudou conteúdo sem re-carimbar — carimbo igual, conteúdo diferente, check verde. Agora o `registry-check` compara o conteúdo de cada arquivo do embed com a fonte (483 arquivos).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.32.1",
     date: "2026-08-03",
     tag: "patch",

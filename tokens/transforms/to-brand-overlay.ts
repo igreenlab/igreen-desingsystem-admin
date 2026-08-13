@@ -69,13 +69,22 @@ export function generateBrandOverlayCss(
   const lightSel = `${scope}:not(.dark)`;
   const darkSel = `.dark${scope}`;
 
+  // ⚠️ Este header viaja pro CONSUMIDOR — o arquivo é copiado pro template do CLI e
+  // publicado em dist-lib/theme/. Path do repo do DS aqui lê como instrução que o
+  // consumidor não tem como seguir: a versão anterior mandava "ver
+  // src/hooks/useBrand.ts", pasta que não existe em projeto de consumidor, nos 4
+  // overlays distribuídos. Ao escrever aqui, diga o que FAZER — e marque o que só
+  // vale dentro do DS (L-060).
   return `/**
  * brand-${brand}.css — Auto-gerado. Não editar manualmente.
  * Overlay de marca escopado (só o DIFF de cor vs. default). Coexiste com o tema-base.
- * Source: tokens/brands/${brand}/semantic/*.ts
- * Regenerar: npx tsx tokens/transforms/to-brand-overlay.ts ${brand} > src/styles/theme/brand-${brand}.css
+ * Source (repo do DS): tokens/brands/${brand}/semantic/*.ts
+ * Regenerar (só no repo do DS): npm run tokens:brand:${brand}
  *
- * Ative aplicando data-theme="${brand}" no <html> (ver src/hooks/useBrand.ts).
+ * ATIVAR: importe este arquivo DEPOIS do tailwind-theme.css e ponha
+ * data-theme="${brand}" no <html>. Sem o atributo nada casa — e não dá erro.
+ * Seletor de marca em runtime: hook \`useBrand\` do pacote (≥ 0.33.0), ou
+ * setAttribute/removeAttribute na mão ("default" = remover o atributo).
  *
  * Os 2 blocos são MUTUAMENTE EXCLUSIVOS por construção (\`:not(.dark)\`). No dark,
  * token ausente do bloco dark cai no \`.dark\` do tema-base de propósito: o diff só

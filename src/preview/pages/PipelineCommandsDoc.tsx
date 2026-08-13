@@ -84,6 +84,13 @@ export function PipelineCommandsDoc() {
           <p className="ml-sp-md">ds-update.md               <span className="text-fg-subtle">← /ds-update [tag]</span></p>
           <p className="ml-sp-md">ds-release.md              <span className="text-fg-subtle">← /ds-release [tag]</span></p>
           <p className="ml-sp-md">ds-create-crud.md          <span className="text-fg-subtle">← /ds-create-crud [hint]</span></p>
+          <p className="ml-sp-md">ds-create-list.md          <span className="text-fg-subtle">← /ds-create-list [hint]</span></p>
+          <p className="ml-sp-md">ds-create-dashboard.md     <span className="text-fg-subtle">← /ds-create-dashboard [hint]</span></p>
+          <p className="ml-sp-md">ds-create-screen.md        <span className="text-fg-subtle">← /ds-create-screen [hint] (front-door)</span></p>
+          <p className="ml-sp-md">ds-create-app.md           <span className="text-fg-subtle">← /ds-create-app</span></p>
+          <p className="ml-sp-md">ds-create-login.md         <span className="text-fg-subtle">← /ds-create-login</span></p>
+          <p className="ml-sp-md">ds-create-brand.md         <span className="text-fg-subtle">← /ds-create-brand &lt;id&gt;</span></p>
+          <p className="ml-sp-md">ds-replicate-module.md     <span className="text-fg-subtle">← /ds-replicate-module</span></p>
         </div>
       </div>
 
@@ -138,6 +145,48 @@ export function PipelineCommandsDoc() {
           agent="Entrevista → [GATE blueprint] → geração"
           skill="crud-builder (router + 4 sub-skills)"
         />
+        <CmdCard
+          cmd="/ds-create-list [hint]"
+          desc="Irmã do /ds-create-crud, pra LISTA DE CARDS com DataList. Entrevista (fonte → card → layout → filtros → seleção → escala) → blueprint → gate → geração."
+          agent="Entrevista → [GATE blueprint] → geração"
+          skill="list-builder (router + 3 sub-skills)"
+        />
+        <CmdCard
+          cmd="/ds-create-dashboard [hint]"
+          desc="Tela de dashboard/painel: KPIs + gráficos + rankings/resumos + tabela/lista embutida, com os primitivos do DS. Ancora em dashboard-patterns.md — composição é receita, não mega-componente (L-055)."
+          agent="Entrevista → [GATE blueprint] → geração"
+          skill="dashboard-builder (router + 3 sub-skills)"
+        />
+        <CmdCard
+          cmd="/ds-create-screen [hint]"
+          desc="Front-door: desambigua TABELA vs LISTA DE CARDS vs DASHBOARD e roteia pro builder certo. Existe porque muita gente chama tabela de 'lista' — a pergunta evita construir a coisa errada."
+          agent="Desambigua → delega"
+          skill="screen-composer + roteia crud/list/dashboard"
+        />
+        <CmdCard
+          cmd="/ds-create-app"
+          desc="Esqueleto de app consumindo o padrão do DS: AppShell + navegação (nav-data) + mapa de rotas declarativo. Leia-e-adapte o example-app-shell."
+          agent="Geração (sem entrevista longa)"
+          skill="app-builder"
+        />
+        <CmdCard
+          cmd="/ds-create-login"
+          desc="Tela de login/autenticação: form split + painel de marca por tokens. Leia-e-adapte o example-login."
+          agent="Geração (sem entrevista longa)"
+          skill="auth-builder"
+        />
+        <CmdCard
+          cmd="/ds-create-brand <id>"
+          desc="Marca (tema de cor) nova — overlay escopado em [data-theme] trocável em runtime. Entrevista → derivação de cor MEDIDA (o teto de croma depende do hue) → gate → as 10 superfícies → verificação no browser."
+          agent="Entrevista → [GATE cor] → 10 superfícies"
+          skill="brand-builder (router + 4 sub-skills)"
+        />
+        <CmdCard
+          cmd="/ds-replicate-module"
+          desc="Replica uma família de telas (módulo/segmento) pra outro segmento trocando dataset + rótulos e mantendo a estrutura. Antes de copiar, avalia se é melhor PARAMETRIZAR."
+          agent="Avalia → [GATE copiar vs parametrizar] → geração"
+          skill="module-replicator"
+        />
       </div>
 
       {/* Authoring */}
@@ -161,6 +210,28 @@ Argumentos:
 
 Gate obrigatório após spec — usuário aprova antes da implementação.`}</pre>
         </div>
+        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">
+            ⚠ Criar o arquivo NÃO basta — 4 superfícies de roteamento (L-047)
+          </p>
+          <p className="text-body-md text-fg-muted mb-gp-md">
+            Um builder novo só é descobrível se as quatro fecharem. O smoke test do{" "}
+            <code className="font-mono text-code-sm">list-builder</code> pegou o orchestrator faltando; e
+            até 2026-08-08 quatro commands existentes tinham <strong className="text-fg-default">zero</strong>{" "}
+            ocorrência na tabela de skills da <code className="font-mono text-code-sm">ds-standards</code> — um
+            agente que consultasse a tabela nunca os encontrava.
+          </p>
+          <ol className="list-decimal pl-sp-md flex flex-col gap-gp-sm text-body-md text-fg-muted">
+            <li><strong className="text-fg-default">Skill</strong> em <code className="font-mono text-code-sm">.claude/skills/&lt;nome&gt;/</code> (+ sub-arquivos do fluxo)</li>
+            <li><strong className="text-fg-default">Command</strong> em <code className="font-mono text-code-sm">.claude/commands/</code></li>
+            <li><strong className="text-fg-default">Orchestrator</strong> — linha na tabela de roteamento</li>
+            <li><strong className="text-fg-default">Consumer</strong> (se distribuída): payload do CLI + tabela de intenção do <code className="font-mono text-code-sm">ds-kit</code> + bump</li>
+          </ol>
+          <p className="text-body-md text-fg-muted mt-gp-md">
+            Gate: <code className="font-mono text-code-sm">skills-routing.test.mjs</code> no{" "}
+            <code className="font-mono text-code-sm">npm test</code>.
+          </p>
+        </div>
       </div>
 
       {/* vs Skills */}
@@ -181,7 +252,7 @@ Gate obrigatório após spec — usuário aprova antes da implementação.`}</pr
             <li>Procedimento técnico para o AGENTE</li>
             <li>Pode ser carregada por command OU por SkillTool</li>
             <li>Template + checklist + signal</li>
-            <li>Vive em <code className="font-mono text-code-sm">.claude/skills/&lt;agent&gt;/</code></li>
+            <li>Vive em <code className="font-mono text-code-sm">.claude/skills/&lt;agent&gt;/</code> — ou <code className="font-mono text-code-sm">.claude/skills/&lt;nome&gt;/</code> quando não tem agente (os 9 builders)</li>
           </ul>
         </div>
       </div>

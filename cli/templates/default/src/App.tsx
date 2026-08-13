@@ -5,8 +5,8 @@ type Theme = "light" | "dark";
 
 const STEPS: { cmd: string; note: string }[] = [
   { cmd: "cp .env.local.example .env.local", note: "cole o IGREEN_TOKEN (peça ao mantenedor)" },
-  { cmd: "npx shadcn@latest add @igreen/button", note: "puxa Button + tv (registryDependency)" },
-  { cmd: "npx shadcn@latest add @igreen/form-field", note: "composite obrigatório de forms" },
+  { cmd: "npm run igreen:add -- button", note: "puxa Button + tv (registryDependency), mantendo o manifesto" },
+  { cmd: "npm run igreen:add -- form-field", note: "composite obrigatório de forms" },
 ];
 
 export default function App() {
@@ -20,7 +20,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col gap-gp-xl p-sp-xl max-w-md mx-auto">
       <header className="flex items-center justify-between pt-sp-lg">
         <div className="flex items-center gap-gp-md">
-          <div className="size-10 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold">
+          <div className="size-form-lg rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold">
             iG
           </div>
           <div>
@@ -31,7 +31,7 @@ export default function App() {
         <button
           type="button"
           onClick={() => setTheme((t) => (t === "light" ? "dark" : "light"))}
-          className="inline-flex items-center gap-gp-xs min-h-form-md px-pad-lg rounded-radius-base border border-border-default bg-bg-surface text-body-sm text-fg-default hover:bg-bg-subtle focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+          className="inline-flex items-center gap-gp-xs min-h-form-md px-pad-lg rounded-radius-base border border-border-default bg-bg-surface text-body-sm text-fg-default hover:bg-bg-subtle focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
         >
           {theme === "light" ? <Moon className="size-icon-sm" /> : <Sun className="size-icon-sm" />}
           {theme === "light" ? "Dark" : "Light"}

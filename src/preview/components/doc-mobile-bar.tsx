@@ -11,6 +11,8 @@
  * pra sobrepor, e um elemento fixed não pode servir de âncora de layout pro
  * conteúdo. A barra é quem ocupa espaço no topo.
  */
+import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
+
 export function DocMobileBar({
   onOpenMenu,
   title,
@@ -39,8 +41,13 @@ export function DocMobileBar({
       </button>
 
       <div className="flex items-center gap-gp-md min-w-0">
-        <div className="grid place-items-center size-comp-md shrink-0 rounded-radius-md bg-bg-brand text-fg-on-brand font-bold text-caption-sm">
-          iG
+        {/* Mesma logo das outras duas superfícies. `size-comp-md` são 32px, então 14 —
+            igual à sidebar de docs. `aria-hidden`: o título ao lado já diz a marca. */}
+        <div
+          aria-hidden
+          className="grid place-items-center size-comp-md shrink-0 rounded-radius-md bg-bg-brand text-fg-on-brand"
+        >
+          <SidebarBrandIcon size={14} />
         </div>
         <p className="text-body-md font-medium text-fg-default truncate">
           {title ?? "iGreen DS"}

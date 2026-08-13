@@ -14,8 +14,16 @@ onde tudo já está no disco em `<dsPath>/src` e você só importa pelo `importB
 
 - **Compostos do iGreen** (`components/ui/<Nome>/`) vêm com **`USAGE.md` ao lado** — props,
   variants, gotchas. Leia antes de compor.
-- **Primitivos** (`components/shadcn/`) **não** têm USAGE: a API é a padrão shadcn/Radix, e
-  eles já chegam re-estilizados nos tokens do DS. Consulte o catálogo visual.
+- **Primitivos** **não** têm USAGE: a API é a padrão shadcn/Radix, e eles já chegam
+  re-estilizados nos tokens do DS. Consulte o catálogo visual.
+  ⚠️ No copy-in eles caem em **`components/ui/` como arquivo solto** (`ui/badge.tsx`,
+  `ui/input.tsx`, `ui/avatar.tsx`), não numa pasta `components/shadcn/` — os itens de
+  COMPONENTE do registry apontam para `components/ui/` (os demais vão pra `src/lib`,
+  `src/utils`, `src/styles/theme` e `examples/`). Importe `@/components/ui/badge`.
+  ⚠️ Em **modo submódulo** o layout é OUTRO: você lê o repo do DS, onde os primitivos ficam
+  em `<importBase-irmão>/components/shadcn/<nome>` (kebab) e só os compostos em
+  `components/ui/<Nome>`. O `ds-config.json` traz os dois caminhos (`importBase` e
+  `primitivesBase`).
 
 Catálogo visual: **https://igreen-desingsystem-admin.vercel.app**.
 
@@ -123,6 +131,15 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 - `app-shell` — a casca (rail de módulos + header + área de conteúdo).
 - `header` — barra superior de 60px (breadcrumb, busca, tema, usuário) dentro do shell.
 - `menu-sidebar` — menu lateral com rail + contextos · `single-menu-sidebar` — nível único.
+
+  > 🧭 **O app tem router (react-router, Next, TanStack)? Passe `renderLink`.**
+  > `<AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />`
+  >
+  > O menu renderiza `<a href={item.href}>`. Sem `renderLink`, um `item.href` de **path**
+  > (`/clientes`) fazia o browser **recarregar a página inteira** a cada clique — bug
+  > reportado por consumidor e corrigido na v0.38.0. Alternativa: passar `onItemClick`
+  > (aí o menu cancela a navegação nativa sozinho, preservando ctrl+clique, link externo
+  > e `item.href` de hash). Detalhe: `MenuSidebar/USAGE.md` §Integração com router.
 - `page-header` — título + ações + breadcrumb **dentro** do body.
 - `card` — container de conteúdo · `separator` · `scroll-area` (scroll estilizado) ·
   `aspect-ratio`.

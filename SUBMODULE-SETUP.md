@@ -31,24 +31,114 @@ O que ele faz:
   `<submódulo>/src`). Se não achar, usa `@ds` e avisa pra você confirmar.
 - Adiciona um bloco gerenciado no seu `CLAUDE.md` (cria se não existir) com os pointers.
 
-### Pré-requisito: o alias de import
+### Pré-requisito: DOIS aliases, não um
 
-As skills geram imports como `@ds/components/ui/DataTable`. Garanta que seu
-`tsconfig.json` (e o `vite.config` / bundler) tenha o alias apontando pra `src` do
-submódulo. Exemplo com o submódulo em `design-system/`:
+Este é o passo que mais quebra — e quebra **alto**, no primeiro componente que você importar.
+
+**1. `@ds` — o alias que VOCÊ usa.** As skills geram imports como
+`@ds/components/ui/DataTable`.
+
+**2. `@` — o alias que o DS usa INTERNAMENTE.** Os arquivos do DS importam entre si por
+`@/components/…`, `@/lib/utils`, `@/utils/tv`, `@/hooks/…` — **700 imports** no total. Esse
+`@` significa "a `src` do DS". Nos outros canais isso se resolve sozinho (no copy-in os
+arquivos viram seus e `@/` é o seu `src`; no npm o bundler resolve dentro do pacote), mas no
+submódulo **ninguém mapeia esse alias por você**. Sem ele:
+
+```
+error TS2307: Cannot find module '@/utils/tv'
+[vite]: Rollup failed to resolve import "@/lib/utils"
+```
+
+Com o submódulo em `design-system/`:
 
 ```jsonc
 // tsconfig.json
-{ "compilerOptions": { "paths": { "@ds/*": ["design-system/src/*"] } } }
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@ds/*": ["design-system/src/*"],
+      "@/*":   ["design-system/src/*"]   // ← o alias INTERNO do DS
+    }
+  }
+}
 ```
 
 ```ts
 // vite.config.ts
-resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }
+resolve: {
+  alias: {
+    "@ds": path.resolve(__dirname, "design-system/src"),
+    "@":   path.resolve(__dirname, "design-system/src"),   // ← idem
+  },
+}
 ```
 
-Se você já usa `@/` apontando pra outro lugar, escolha um alias livre (`@ds` é o default) e
-rode com `--alias @ds`.
+⚠️ **E se o seu projeto já usa `@/` pro próprio código?** Aí há colisão real, e você escolhe:
+
+- **Renomeie o seu** (`@app/*` → `./src/*`) e deixe `@/*` pro DS. É o caminho mais simples e
+  o que menos surpresa gera depois.
+- **Ou mapeie só os 5 prefixos que o DS usa** — `@/components/*`, `@/lib/*`, `@/utils/*`,
+  `@/hooks/*`, `@/config/*` → `design-system/src/*`, mantendo `@/*` no seu `src`. Funciona,
+  mas se você tiver o seu próprio `@/components` ou `@/lib`, a colisão volta.
+
+Não existe terceira opção: o DS não pode abrir mão do `@/` interno sem reescrever 700
+imports, e é o mesmo alias que faz os outros 3 canais funcionarem.
+
+## Dependências — o passo que faltava aqui
+
+O submódulo entrega **código-fonte**, não um pacote: as dependências dele **não vêm junto**.
+Sem elas o build quebra em `failed to resolve "tailwind-variants"` — medido num smoke test de
+submódulo real em 2026-08-08, quando esta seção não existia.
+
+O mínimo pra um `Button` + `Modal`:
+
+```bash
+npm i tailwind-variants tailwind-merge clsx lucide-react \
+      @radix-ui/react-dialog @radix-ui/react-slot
+```
+
+Componente novo pode pedir mais (`@tanstack/react-virtual` no DataTable, `recharts` no Chart,
+`@dnd-kit/*` no Kanban, `cmdk` no Combobox). A lista completa está em `dependencies` do
+`package.json` do DS — **49 pacotes**, mas você só precisa dos que os componentes que usar
+importarem. O erro do bundler diz exatamente qual falta.
+
+## Fonte Geist — copie os arquivos
+
+O `@font-face` viaja no `tailwind-theme.css`, mas ele aponta pra `/fonts/*.woff2` — caminho
+relativo à **raiz do site**, não ao submódulo. Os arquivos precisam estar no seu `public/`:
+
+```bash
+mkdir -p public/fonts
+cp design-system/public/fonts/*.woff2 public/fonts/
+```
+
+⚠️ **Sem isso a falha é silenciosa**: o `font-family` continua dizendo `Geist`, o navegador
+tenta buscar o arquivo, recebe o `index.html` do dev server e a fonte cai em system-ui — sem
+erro no console, sem build quebrado. Medido: a `FontFace` fica com `status: "error"` e todos
+os 27 presets tipográficos do DS renderizam na fonte errada.
+
+Pra conferir, no console do navegador:
+
+```js
+document.fonts.check("16px Geist")   // tem que ser true
+```
+
+## `@source` — você NÃO precisa
+
+Ao contrário do canal npm, submódulo **não** precisa da diretiva `@source`. O Tailwind v4
+escaneia a raiz do projeto, e o submódulo fica **dentro** dela — então as classes do DS são
+encontradas sozinhas. (No npm é diferente: `node_modules` é excluído do scan de propósito.)
+
+## Windows — path longo
+
+`git submodule add` pode falhar com `Filename too long` se o projeto estiver num caminho
+fundo: o arquivo mais longo do DS tem 101 caracteres, e o limite do Windows é 260 no total.
+Se acontecer:
+
+```bash
+git -c core.longpaths=true submodule add <url> design-system
+```
 
 ## Depois de atualizar o submódulo
 

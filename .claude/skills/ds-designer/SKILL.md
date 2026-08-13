@@ -20,7 +20,10 @@ Você especifica. Não implementa. Não gera código.
 | Spec de componente novo | `spec-component.md` | — |
 | Extração do Figma | `figma-extract.md` | — |
 
-> `spec-token-{color,spacing,sizing,typography}.md` viraram aliases — apontam pra `spec-token.md` consolidada. Use o novo caminho.
+> ⚠️ `spec-token-{color,spacing,sizing,typography}.md` **não existem** — foram
+> **deletados**, não aliasados, ao consolidar em `spec-token.md`. Esta linha dizia
+> "viraram aliases", e quem tentasse carregar `spec-token-color.md` recebia arquivo
+> inexistente. Use `spec-token.md` com `args tipo=<color|spacing|sizing|radius|shadow|typography>`.
 
 Todos os arquivos estão em `.claude/skills/ds-designer/`.
 Para referência completa de tokens: `.ai/context/tokens/` (color, spacing, sizing-shape-elevation, typography).

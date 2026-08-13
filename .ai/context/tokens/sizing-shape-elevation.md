@@ -55,12 +55,14 @@
 
 | Token | Valor | Classe | Uso |
 |-------|-------|--------|-----|
+| `icon.2xs` | 8px | `size-icon-2xs` | dot, marcador |
 | `icon.xs` | 12px | `size-icon-xs` | inline com texto xs |
 | `icon.sm` | 16px | `size-icon-sm` | ícone SVG padrão |
 | `icon.md` | 20px | `size-icon-md` | **default** — nav, listas, inputs |
 | `icon.lg` | 24px | `size-icon-lg` | ênfase, nav items |
 | `icon.xl` | 32px | `size-icon-xl` | feature icons |
 | `icon.2xl` | 40px | `size-icon-2xl` | hero icons |
+| `icon.3xl` | 48px | `size-icon-3xl` | ilustração, empty state |
 
 ### `container` — larguras de container e overlays
 > CSS var: `--container-*` → classe: `max-w-*`
@@ -73,10 +75,20 @@
 | `container.lg` | 1024px | `max-w-lg` |
 | `container.xl` | 1280px | `max-w-xl` |
 | `container.2xl` | 1440px | `max-w-2xl` |
+| `container.3xl` | 1920px | `max-w-3xl` |
 | `container.main-content-max` | 1368px | `max-w-main-content-max` — body do AppShell em `layout="compact"` |
-| `container.sidebar-md` | 280px | `max-w-sidebar-md` |
-| `container.modal-md` | 640px | `max-w-modal-md` |
-| `container.dropdown-md` | 240px | `max-w-dropdown-md` |
+| `container.prose` | 65ch | `max-w-prose` |
+| `container.sidebar-sm` / `-lg` | — | `max-w-sidebar-sm` / `-lg` |
+| `container.modal-sm` / `-lg` | — | `max-w-modal-sm` / `-lg` |
+| `container.dropdown-sm` / `-lg` | — | `max-w-dropdown-sm` / `-lg` |
+| `container.tooltip-sm` / `-md` / `-lg` | — | `max-w-tooltip-*` |
+| `container.drawer-sm` / `-md` / `-lg` | — | `max-w-drawer-*` (o `-md` é 480px) |
+| `container.full` | — | `max-w-full` |
+
+⚠️ **`container` é a ÚNICA exceção que não dobra o prefixo (L-057).** O transform emite
+`--container-md`, que **sobrescreve** a escala nativa do Tailwind — então a classe é
+`max-w-md` (768px do DS), e **`max-w-container-md` não existe**: não emite CSS e falha em
+silêncio, sem quebrar build, `tsc` nem teste.
 
 ---
 
@@ -93,21 +105,28 @@
 | `radius.lg` | 10px | `rounded-radius-lg` | igual ao knob |
 | `radius.xl` | 14px | `rounded-radius-xl` | modais, painéis |
 | `radius.2xl` | 18px | `rounded-radius-2xl` | textarea, select |
-| `radius.3xl` | 22px | `rounded-radius-3xl` | badges, componentes menores |
-| `radius.base` | 26px | `rounded-radius-base` | **DEFAULT componentes interativos** |
-| `radius.4xl` | 26px | `rounded-radius-4xl` | alias numérico de base |
+| `radius.3xl` | 22px | `rounded-radius-3xl` | superfícies grandes |
+| `radius.base` | **10px** | `rounded-radius-base` | **alias de `lg`** |
+| `radius.4xl` | 26px | `rounded-radius-4xl` | (era o valor antigo de `base`) |
 | `radius.full` | 9999px | `rounded-radius-full` | pills, avatars |
+
+⚠️ **`radius.base` vale 10px, não 26px.** `RADIUS_BASE = 0.625rem = 10px` e `base` é alias
+de `lg` (×1.0); os 26px migraram pro `4xl` (×2.6). Esta tabela dizia 26px e a relação
+form→radius abaixo era derivada disso — as duas estavam erradas.
+
+**Prefira o nome do degrau (`rounded-radius-lg`) ao alias `base`** — é o que os componentes
+reais usam, e o alias já mudou de valor uma vez.
 
 **NUNCA** usar `rounded-sm`, `rounded-md`, `rounded-lg` — são classes Tailwind nativas com valores diferentes dos tokens DS.
 
-### Relação formHeight → radius
+### Relação formHeight → radius (medida no `Button` real)
 
 ```
-min-h-form-xl (44px) → rounded-radius-base (26px)
-min-h-form-lg (40px) → rounded-radius-base (26px)
-min-h-form-md (36px) → rounded-radius-base (26px)
-min-h-form-sm (32px) → rounded-radius-3xl  (22px)
-min-h-form-xs (28px) → rounded-radius-3xl  (22px)
+min-h-form-xl (44px) → rounded-radius-lg (10px)
+min-h-form-lg (40px) → rounded-radius-lg (10px)
+min-h-form-md (36px) → rounded-radius-lg (10px)
+min-h-form-sm (32px) → rounded-radius-md (8px)
+min-h-form-xs (28px) → rounded-radius-md (8px)
 ```
 
 ### shape.ts — Border width
@@ -125,26 +144,37 @@ min-h-form-xs (28px) → rounded-radius-3xl  (22px)
 > CSS var: `--shadow-sh-*` → classe: `shadow-sh-*`
 > Prefixo `sh` evita colisão com `shadow-sm/md/lg` do Tailwind nativo.
 
-| Token | Classe Tailwind | Nível | Uso |
-|-------|-----------------|-------|-----|
-| `shadow.none` | `shadow-sh-none` | 0 | plano |
-| `shadow.base` | `shadow-sh-base` | 1 | default |
-| `shadow.sm` | `shadow-sh-sm` | 1 | card repouso, inputs |
-| `shadow.md` | `shadow-sh-md` | 2 | card hover |
-| `shadow.lg` | `shadow-sh-lg` | 3 | dropdown, popover |
-| `shadow.xl` | `shadow-sh-xl` | 4 | modal |
-| `shadow.2xl` | `shadow-sh-2xl` | 5 | toast |
-| `shadow.3xl` | `shadow-sh-3xl` | 6 | máximo |
-| `shadow.inner` | `shadow-sh-inner` | — | inset |
-| `shadow.focus-primary` | `shadow-sh-focus-primary` | — | focus btn primary |
-| `shadow.focus-error` | `shadow-sh-focus-error` | — | focus input erro |
+Lista **completa** — 12 shadows, conferida contra o CSS gerado:
+
+| Token | Classe Tailwind | Uso |
+|-------|-----------------|-----|
+| `shadow.none` | `shadow-sh-none` | plano |
+| `shadow.sm` | `shadow-sh-sm` | card repouso, inputs |
+| `shadow.md` | `shadow-sh-md` | card hover |
+| `shadow.lg` | `shadow-sh-lg` | dropdown, popover |
+| `shadow.xl` | `shadow-sh-xl` | modal |
+| `shadow.2xl` | `shadow-sh-2xl` | toast |
+| `shadow.aside` | `shadow-sh-aside` | sidebar / drawer |
+| `shadow.ring` | `shadow-sh-ring` | foco por box-shadow (`focus-visible:shadow-sh-ring`) |
+| `shadow.ring-danger` / `-warning` / `-success` / `-info` | `shadow-sh-ring-*` | foco em estado de validação |
+
+⚠️ **NÃO existem** `shadow.base`, `shadow.3xl`, `shadow.inner`, `shadow.focus-primary` nem
+`shadow.focus-error` — esta tabela os listava e todos falham em silêncio.
 
 **NUNCA** usar `shadow-sm`, `shadow-md`, `shadow-lg` — são classes Tailwind nativas.
 
-### Blur — usar Tailwind nativo diretamente
+⚠️ **Shadow não é dark-aware por `var()` (L-043).** O Tailwind v4 **inlina** o valor da
+`@theme` na utility, então `.dark { --shadow-* }` é código morto — no dark a sombra ficaria
+com o valor do light. O transform resolve com indireção: `@theme inline { --shadow-sh-*:
+var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }`. Nunca declare sombra dark direto no `.dark{}`.
 
-Blur não tem token DS. Usar Tailwind nativo sem prefixo:
-`blur-sm` (4px), `blur-md` (8px), `blur-lg` (16px), `blur-xl` (24px).
+### Blur — token existe em TS, mas NÃO é emitido
+
+`elevation.ts` define `blur.sm/md/lg/xl`, mas o transform **não os emite** de propósito
+(`to-tailwind-v4.ts`: "blur removido — usa Tailwind nativo"). `grep '^  --blur-'` no tema = 0.
+
+Use o Tailwind nativo, e **com os valores dele**, não os do token TS:
+`blur-sm` (8px), `blur-md` (12px), `blur-lg` (16px), `blur-xl` (24px).
 
 ---
 
@@ -166,12 +196,12 @@ Ring tokens usam cores alpha (20%) embutidas. **NUNCA usar modificador de opacid
 
 ```typescript
 // ✅ CERTO — sem barra, sem número
-"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
 "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-danger"
 
 // ❌ ERRADO — token já tem alpha, modificador é desnecessário e errado
-"ring-ring-primary/30"   // NUNCA
-"ring-ring-primary/20"   // NUNCA
+"ring-ring-brand/30"   // NUNCA
+"ring-ring-brand/20"   // NUNCA
 ```
 
 Nunca usar `ring-offset` — o alpha 20% já provê contraste.

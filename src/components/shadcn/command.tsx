@@ -28,7 +28,17 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-popover text-popover-foreground",
+      // `bg-popover`/`text-popover-foreground` são vocabulário SHADCN, não do DS —
+      // dependem da bridge do `globals.css`/`index.css`, que NÃO viaja pros canais npm
+      // e submódulo. Lá a var não existe e a cor cai em `currentColor` (L-039/L-040).
+      //
+      // ⚠️ O substituto é `bg-bg-surface`, NÃO `bg-bg-dropdown`. A primeira troca (v0.36.0)
+      // usou `dropdown` por ser o token da receita de flutuante — mas ele é TRANSLÚCIDO no
+      // dark (`canvas` a 70%, pareado com `before:backdrop-blur-2xl`, que este componente
+      // não tem), enquanto a bridge resolvia `popover` pra `surface-elevated`, OPACO.
+      // Medido: light idêntico nos dois; dark `oklch(0.225 0 0)` vs `oklab(0.205 0 0 / 0.7)`.
+      // `bg-bg-surface` reproduz o valor original nos DOIS modos.
+      "flex h-full w-full flex-col overflow-hidden p-pad-xl bg-bg-surface text-fg-default",
       className
     )}
     {...props}

@@ -8,7 +8,9 @@
  * **não existia no base ref** (ver scripts/lib/new-component-folders.mjs);
  * arquivo novo em pasta existente NÃO é componente novo.
  *
- * Uso: node scripts/showcase-check.mjs [base-ref]   (default origin/main)
+ * Uso: node scripts/showcase-check.mjs [base-ref]
+ *   Sem base-ref, resolve o remote CANÔNICO por URL (`scripts/lib/canonical-base-ref.mjs`).
+ *   O default fixo `origin/main` era um bug aqui: neste repo `origin` é o fork parado.
  *
  * Não reprova em PR de rascunho: o wiring no ci.yml pula o step quando
  * `github.event.pull_request.draft` é true. Isso ADIA o check — o que fecha a
@@ -20,8 +22,9 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { newComponentFolders } from "./lib/new-component-folders.mjs";
 import { checkRegistration, isPascalCase, toKebab } from "./lib/showcase-registration.mjs";
+import { resolveBaseRefFromGit } from "./lib/canonical-base-ref.mjs";
 
-const base = process.argv[2] ?? "origin/main";
+const base = process.argv[2] ?? resolveBaseRefFromGit().ref;
 const IN_GHA = process.env.GITHUB_ACTIONS === "true";
 const esc = (s) =>
   String(s).replace(/%/g, "%25").replace(/\r/g, "%0D").replace(/\n/g, "%0A");

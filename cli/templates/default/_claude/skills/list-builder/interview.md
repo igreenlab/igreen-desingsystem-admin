@@ -5,6 +5,12 @@ description: >
   blueprint. ZERO edição em disco neste estágio.
 ---
 
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 # List Builder — Entrevista
 
 ## ⛔ Perguntas obrigatórias (NUNCA pular, mesmo inferindo)
@@ -51,8 +57,8 @@ Princípios:
 | Título da página       | plural da entidade                                                     |
 | Descrição (1-2 frases) | gerada do domínio, confirmar                                           |
 | **Wrapper**            | ver abaixo                                                             |
-| Page id (kebab-case)   | derivado do nome — **verificar colisão com `DOC_PAGES` (src/App.tsx)** |
-| Seção da nav           | "List Components" (prefixo `Example:`)                                 |
+| Rota (kebab-case)      | derivada do nome — **verificar colisão no router deste projeto**       |
+| Onde entra na nav      | perguntar (menu lateral? submenu? qual grupo?)                        |
 
 **Wrapper — 3 opções:**
 

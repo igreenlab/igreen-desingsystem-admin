@@ -35,7 +35,7 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 // Conteúdo da página vive dentro do seu AppShell/layout, que dá a altura.
 <div className="flex flex-col h-full min-h-0 gap-gp-2xl">
   <PageHeader title="..." description="..." badge={...} actions={...} />
-  {/* 24px (gap-gp-2xl) entre o PageHeader e o próximo bloco — NUNCA grudado */}
+  {/* 16px (gap-gp-2xl) entre o PageHeader e o próximo bloco — NUNCA grudado */}
   <DataTable ... className="flex-1 min-h-0" />   {/* ou Card / Tabs / grid de KPIs */}
 </div>
 ```
@@ -44,14 +44,14 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 
 | Onde | Classe | Valor |
 |---|---|---|
-| PageHeader → conteúdo | `gap-gp-2xl` | 24px |
+| PageHeader → conteúdo | `gap-gp-2xl` | 16px |
 | Entre fields de um form | `gap-form-gap` | 20px |
-| Entre cards / KPIs | `gap-gp-md` / `gap-gp-lg` | 8–12px |
-| Padding interno de card | `p-pad-card-base` / `p-pad-2xl` | 24px |
+| Entre cards / KPIs | `gap-gp-md` / `gap-gp-lg` | 8–10px |
+| Padding interno de card | `p-pad-card-base` (24px) / `p-pad-2xl` (16px, compacto) | — |
 | Seção major | `gap-gp-6xl` | 32px |
 | Ícone → texto | `gap-gp-xs` / `gap-gp-sm` | 4–6px |
 
-> Densa, **não apertada**: 24px é o respiro padrão entre blocos; 8px entre label e input. Espaçamento sempre via token, nunca px avulso. Divisória (`border-border-subtle`) entre seções heterogêneas (toolbar/tabela/footer); whitespace puro entre homogêneas (lista de cards).
+> Densa, **não apertada**: 16px (`gap-gp-2xl`) é o respiro padrão entre blocos; 8px entre label e input. Espaçamento sempre via token, nunca px avulso. Divisória (`border-border-subtle`) entre seções heterogêneas (toolbar/tabela/footer); whitespace puro entre homogêneas (lista de cards).
 
 ### Tokens de componente (use o ESPECÍFICO, não valor genérico)
 
@@ -65,7 +65,7 @@ O DS tem tokens orientados a composição — prefira-os a `h-10`/`gap-4`/`size-
 | **Padding de card** | `p-pad-card-base`(24 ⭐) `p-pad-card-sm`(16) | Padding interno de Card/Panel/Modal/Drawer. |
 | **Gutter de página** | `px-pad-page-sm`(16, mobile) `base`(24) `lg`(40, wide) | Margem lateral do conteúdo (o AppShell normalmente já aplica). |
 | **Altura de chrome** | `h-layout-navbar`(64) `h-layout-toolbar`(48) `h-layout-tab-bar`(56) `h-layout-header-{sm,md,lg}` | Topbar, toolbar de tabela, tab-bar mobile, hero de página. |
-| **Largura/container** | `max-w-container-{lg,xl,2xl}`(1024/1280/1440) · `max-w-container-drawer-{sm,md,lg}` · `max-w-container-dropdown-*` | Cap de conteúdo / largura de drawer/dropdown. Nunca `max-w-md`. |
+| **Largura/container** | `max-w-{lg,xl,2xl}`(1024/1280/1440) · `max-w-drawer-{sm,md,lg}` · `max-w-dropdown-*` · `max-w-modal-*` · `max-w-tooltip-*` | Cap de conteúdo / largura de drawer/dropdown. ⚠️ **`container` é o ÚNICO namespace que NÃO dobra o prefixo** — `max-w-container-*` **não existe** e não emite CSS. O transform emite `--container-md`, que **sobrescreve** a escala nativa do Tailwind: `max-w-md` já é os **768px do DS**, não os 448px do Tailwind. |
 | **Genéricos** | `gap-gp-*` (gaps) · `p-sp-*` (margin/offset) · `px-pad-*` (padding) | Só quando não há token de componente acima. |
 
 Regra: **se existe token de componente pra aquilo (form/icon/padCard/padPage/layout/container), use ele**; o genérico é fallback.
@@ -97,7 +97,7 @@ Tokens já vivem em `src/styles/theme/tailwind-theme.css`. Use pelos nomes semâ
 ## 4. Tipografia
 
 - **`text-body-sm` (13/500) é o default interativo** — botões, inputs, células, dropdowns.
-- 6 papéis: `display-*` / `heading-*` / `title-*` / `body-*` / `caption-*` / `code-*`. Title default = 600; body de leitura = 400; interativo = 500.
+- 7 papéis: `display-*` / `heading-*` / `title-*` / `body-*` / `caption-*` / `stat-*` / `code-*`. `stat-{sm,md,lg,xl}` (20/24/30/34px) é o valor de KPI/métrica — estático, bold, com `tabular-nums`; nunca `text-[Npx]` na unha. Title default = 600; body de leitura = 400; interativo = 500.
 - Tracking sempre negativo/zero. Override de peso via Tailwind (`text-title-md font-bold`). **Nunca** invente preset nem use `text-xs font-semibold` avulso → use o preset (`text-body-xs`, `text-caption-md`).
 
 ---
@@ -119,14 +119,20 @@ A IA roteia isso automaticamente via `.claude/skills/ds-kit`. Resumo:
 | tabela / lista / crud / grid de dados | **skill `crud-builder`** (`/ds-create-crud`, entrevista guiada) | `example-clientes` |
 | tela de edição / cadastro / formulário | skill `page-edit` | `example-edit-page` + `FormField` |
 | detalhe / detalhamento / ficha (abas) | skill `page-detail` | `example-order-detail` |
-| dashboard / painel / KPIs | skill `dashboard` | `example-dashboard` |
+| dashboard / painel / KPIs | skill `dashboard-builder` (`/ds-create-dashboard`) | `example-dashboard` |
 | gráfico (barras/linha/área/pizza) | skill `charts` | `Chart/USAGE.md` + `example-dashboard` |
 | financeiro / extrato / saldo | (exemplo direto) | `example-finance` |
 | chat / inbox / conversas | skill `chat` | `example-chat` |
 | drawer de criar/editar/detalhe | skill `drawers` | drawers do `example-finance` |
 | cards / blocos / painéis soltos | skill `cards` | `Card`/`Panel` + showcase hospedado |
+| lista de cards / árvore / hierarquia / rede | **skill `list-builder`** (`/ds-create-list`) | `example-mapa-rede` + `DataList` |
+| app inteiro (shell + navegação + rotas) | **skill `app-builder`** (`/ds-create-app`) | `example-app-shell` |
+| login / autenticação | **skill `auth-builder`** (`/ds-create-login`) | `example-login` |
+| 2+ peças que conversam (master-detail, cross-filter) | **skill `screen-composer`** (`/ds-create-screen`) | receita na própria skill |
+| replicar módulo existente pra outro domínio | **skill `module-replicator`** (`/ds-replicate-module`) | o módulo de origem |
+| mapa do Brasil por estado/município (coroplético) | componente | `ChoroplethMap` |
 | cabeçalho de página | componente | `PageHeader` |
-| shell / menu lateral / topbar | componentes | `app-shell` / `menu-sidebar` / `header` |
+| shell / menu lateral / topbar (só a casca) | componentes | `app-shell` / `menu-sidebar` / `header` |
 
 Puxe com `npm run igreen:add -- <item>`. Catálogo visual: **https://igreen-desingsystem-admin.vercel.app**.
 
@@ -156,7 +162,8 @@ Puxe com `npm run igreen:add -- <item>`. Catálogo visual: **https://igreen-desi
 ## 8. Responsividade
 
 - Mobile <640px: gutter 16px; FloatingPanel/Sheet vira sheet full; PageHeader empilha ações em overflow; DataTable rola horizontal; CTA primário = `min-h-form-xl` (44px, WCAG).
-- Desktop default = `min-h-form-lg` (40px). Containers: `max-w-container-lg`(1024)/`xl`(1280) conforme densidade.
+- Desktop default = `min-h-form-lg` (40px). Containers: `max-w-lg`(1024)/`max-w-xl`(1280) conforme densidade — **sem** o prefixo `container`, que não existe (ver tabela acima).
+- **AppShell**: o body tem 3 patamares de padding — 18px (<768) · 24px (768–1535) · **32px (≥1536)**, corte no breakpoint `2xl`. E o **menu nasce COLAPSADO abaixo de 1536px**: notebook 1366/1440 abre com o rail, ganhando ~264px de largura útil. Quer sempre aberto? passe **`defaultMenuCollapsed={false}` explícito** — o default responsivo só vale quando a prop é omitida, e é aplicado **só no mount** (não reage a resize, pra não brigar com quem abriu o menu na mão).
 - Os exemplos já são responsivos — herde o comportamento ao adaptar.
 
 ---
@@ -165,7 +172,7 @@ Puxe com `npm run igreen:add -- <item>`. Catálogo visual: **https://igreen-desi
 
 - **Flat por escolha** — sem gradiente/glass/neumorfismo. Profundidade = sombra 2-camadas (light) ou borda (dark).
 - **Verde é carga, não decoração** — acento de ação, com restraint. Cinza domina.
-- **Densidade confiante** — `body-sm` 13/500, 24px entre blocos, sem transform no clique.
+- **Densidade confiante** — `body-sm` 13/500, 16px entre blocos, sem transform no clique.
 - **Tokens, sempre** — zero hex em código; cor por papel semântico; derivação por `color-mix` já está nos tokens.
 
 ---

@@ -33,9 +33,9 @@ Tabela de mapeamento + Perspectiva Strategist (obrigatória para o gate):
 
 | Elemento | Valor Figma | Classe DS |
 |----------|-------------|-----------|
-| Fundo principal | #338449 | bg-bg-primary |
-| Texto sobre fundo | #FFFFFF | text-fg-on-primary |
-| Border-radius | 26px | rounded-radius-base |
+| Fundo principal | #338449 | bg-bg-brand |
+| Texto sobre fundo | #FFFFFF | text-fg-on-brand |
+| Border-radius | 10px | rounded-radius-lg |
 | Font-size label | 14px | text-title-sm |
 | Gap icon-text | 8px | gap-gp-md |
 

@@ -9,11 +9,16 @@ Stack agnóstico. Tailwind e Shadcn são adapters opcionais, não a fundação.
 Antes de qualquer tarefa, na ordem:
 
 ```
-1. Ler este arquivo (CLAUDE.md) — regras e mapa de tarefas
-2. Confirmar que .claude/rules/ds-standards.md foi carregado automaticamente
-3. Verificar .ai/status/pipeline-state.md — há tarefa PAUSADA ou CASCATA aberta?
-4. Perguntar: "Qual o foco desta sessão?"
+1. CLAUDE.md (este arquivo) e .claude/rules/ds-standards.md JÁ estão no seu contexto —
+   os dois são carregados como project instructions, sem ação sua. Não "confirme"; use.
+2. Verificar .ai/status/pipeline-state.md — há tarefa PAUSADA ou CASCATA aberta?
+3. Perguntar: "Qual o foco desta sessão?"
 ```
+
+> O passo 2 antigo mandava *"confirmar que ds-standards.md foi carregado
+> automaticamente"* — impossível de verificar de dentro da sessão, então o agente
+> respondia "sim" por construção. Verificado empiricamente em 2026-08-08: o arquivo
+> **é** entregue como project instruction, junto do `CLAUDE.md`.
 
 ⛔ Não escanear src/, tokens/ ou node_modules/ sem solicitação.
 ⛔ Não rodar npm sem solicitação.
@@ -35,6 +40,13 @@ Antes de encerrar uma sessão onde houve alterações:
 ---
 
 ## ⛔ REGRAS DE COMPORTAMENTO — LER ANTES DE QUALQUER AÇÃO
+
+> **Numeração única, compartilhada com `.claude/rules/ds-standards.md`.** As duas listas
+> são o MESMO conjunto de 8 regras, com os MESMOS números. Até 2026-08-08 não eram: este
+> arquivo tinha 7 regras e a `ds-standards` tinha 8, com "Regra 7" significando coisas
+> diferentes em cada um — e `orchestrator.md` citava "Regra 8", que só existia num deles.
+> Referência por número com duas numerações ativas é armadilha; se você encontrar
+> divergência entre os dois arquivos, é bug de doc, não escolha.
 
 ### Regra 1 — NUNCA criar token sem verificação prévia
 ```
@@ -74,16 +86,64 @@ h-9?      → min-h-form-md (36px)  |   h-10? → min-h-form-lg (40px)
 "Estou prestes a criar algo novo?" → verificar se já existe antes de prosseguir
 ```
 
-### Regra 7 — Branch, push e release: trabalho seguro (multi-agente)
+### Regra 7 — Gate de pre-commit antes de commit significativo
 ```
-1. Trabalhe numa BRANCH própria da tarefa — nunca commite direto em `main`.
-2. NUNCA dê `git push`, `npm publish`, release ou bump de versão sozinho → é
-   decisão do mantenedor (Leandro). Pare e peça.
-3. UM agente por componente/área por vez. Antes de editar, cheque o
-   pipeline-state.md e avise se outro agente estiver na mesma área.
-4. Sessão DS = componente / token / visual. Pedido de TELA/PÁGINA/fluxo é Domínio
-   App (🚧 não operacional aqui) → vai no repo do app, não no DS.
+Release · refactor amplo · token novo · componente novo · lição nova
+  → invocar .claude/skills/ds-reviewer/pre-commit-check.md ANTES de commitar
+Critério de "significativo" em dúvida: ≥5 arquivos, ou qualquer toque em
+tokens/, registry.json, cli/templates/ ou .claude/. Em dúvida, aplique.
 ```
+
+### Regra 8 — Handoff via PR sempre (L-041)
+```
+Todo trabalho de componente (criar/alterar) e toda mudança significativa fecha assim:
+  branch própria → commit descritivo → push no `empresa` → gh pr create → reportar o link
+
+⚠️ ONDE A IA PARA — a linha é o MERGE, não o push:
+  ✅ a IA faz sozinha: branch · commit · push da BRANCH · abrir PR
+  ⛔ a IA NUNCA faz sozinha: merge · `npm publish` · bump de package.json.version
+     · deploy · `git push` em `main` · force-push
+  Essas 6 exigem autorização EXPLÍCITA do mantenedor na mesma sessão (L-020).
+
+Remote canônico = `empresa` (igreenlab/igreen-desingsystem-admin).
+`origin` é fork pessoal parado — push nele abre o PR no repo errado.
+```
+
+> **Por que esta regra mudou de texto em 2026-08-08.** Ela dizia *"NUNCA dê `git push`
+> … sozinho → pare e peça"*, enquanto a Regra 8 da `ds-standards`, o `orchestrator.md` e
+> a skill `handoff-pr.md` mandavam a IA **executar** branch/commit/push/PR e parar no
+> merge. Os dois arquivos são auto-carregados: o agente recebia as duas instruções e não
+> tinha como saber qual valia. A intenção original era proteger **publicação** (`publish`,
+> release, bump) — não o push de uma branch de trabalho, que é justamente o que produz o
+> PR onde o humano decide. O texto acima separa as duas coisas.
+
+---
+
+## Trabalho multi-agente
+
+```
+UM agente por componente/área por vez. Antes de editar, cheque o pipeline-state.md
+e avise se outro agente estiver na mesma área.
+```
+
+---
+
+## Escopo: o que é "tela" neste repo
+
+Não é uma proibição — é uma distinção de **onde a tela mora**:
+
+| Pedido | Onde | Operacional? |
+|---|---|---|
+| Página de **showcase/exemplo** do DS (`src/preview/pages/<Nome>{Preview,Showcase}.tsx`) | **este repo** | ✅ sim — é o que os builders `/ds-create-crud`, `/ds-create-list`, `/ds-create-dashboard`, `/ds-create-screen`, `/ds-create-app`, `/ds-create-login`, `/ds-replicate-module` fazem |
+| Tela de **produto do app iGreen** (feature real, rota de negócio) | repo do app | 🚧 os agentes `app-designer` e `app-dev-react` existem mas **não são roteados** (`orchestrator.md`) |
+| Tela no projeto de **quem consome** o DS | repo do consumidor | ✅ pelo payload `cli/templates/default/_claude/` (skills equivalentes, adaptadas) |
+
+> **Por que isto virou tabela em 2026-08-08.** A regra dizia *"Pedido de TELA/PÁGINA/fluxo
+> é Domínio App (🚧 não operacional aqui) → vai no repo do app, não no DS"* — e o **próprio
+> `CLAUDE.md`**, 120 linhas adiante, mapeava 4 tarefas de tela para `src/preview/pages/`,
+> com o `orchestrator.md` roteando 9 delas. O arquivo se contradizia dentro de si mesmo
+> (o defeito nº 4 catalogado na L-060). O que está 🚧 é o domínio de **produto**, não a
+> construção de páginas de showcase.
 
 > Prompt de início de sessão colável (use no começo de cada conversa, sobretudo
 > com operador não-técnico): [`INICIO-DE-SESSAO.md`](INICIO-DE-SESSAO.md).
@@ -93,7 +153,7 @@ h-9?      → min-h-form-md (36px)  |   h-10? → min-h-form-lg (40px)
 ## Leitura automática no início de qualquer sessão
 
 `.claude/rules/ds-standards.md` é carregado automaticamente (rules/).
-Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-066.
+Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-068.
 
 Para referência de código detalhada (padrão tv() completo, tabela de tokens, naming):
 → `.ai/rules/coding-standards.md`
@@ -106,9 +166,9 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 
 | Hook | Quando dispara | O que faz |
 |------|----------------|-----------|
-| `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` | delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv; L-004 e L-007 saíram (são semânticas, exigem contexto cross-elemento ou julgamento de intenção — ver L-059) — warning em stderr quando encontra anti-pattern. No CI, o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado |
+| `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` **e qualquer `src/components/**/*.tsx`** (o glob real do hook é mais largo que esta coluna dizia até 2026-08-08) | delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv; L-004 e L-007 saíram (são semânticas, exigem contexto cross-elemento ou julgamento de intenção — ver L-059) — warning em stderr quando encontra anti-pattern. No CI, o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado |
 | `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do **vocabulário do consumidor** (`_claude/rules/ds-components.md` ∪ `CLAUDE.md` do template — mesma união do `distribution-debt.mjs`), **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042. As duas últimas perguntas vêm dos MESMOS módulos do CI (`scripts/lib/ds-exceptions.mjs` + `showcase-registration.mjs`, via `node -e`) — hook e CI não podem divergir |
-| `ds-tokens-check.sh` | `tokens/**/*.ts` | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
+| `ds-tokens-check.sh` | `tokens/**/*.ts` — ⚠️ **exclui `tokens/transforms/`**, justamente o arquivo que a tabela "Onde cada tarefa começa" manda editar pra regra CSS global; ali o lembrete não dispara (o gate `generated-artifacts` cobre) | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
 
@@ -195,6 +255,7 @@ no `npm test`.
 | Novo radius/border | `shape.ts` | `ds-designer/spec-token.md` (tipo=radius) |
 | Nova shadow | `elevation.ts` | `ds-designer/spec-token.md` (tipo=shadow) |
 | Novo preset tipográfico | `typography.ts` | `ds-designer/spec-token.md` (tipo=typography) |
+| **Marca / tema de cor novo** (overlay `[data-theme]`) | `tokens/brands/<id>/` + 10 outras superfícies | `brand-builder/SKILL.md` via `/ds-create-brand` |
 | Spec de componente novo | — | `ds-designer/spec-component.md` |
 | Extração do Figma | — | `ds-designer/figma-extract.md` |
 | Implementar token | arquivo semântico | `ds-dev/impl-token.md` |
@@ -211,8 +272,9 @@ no `npm test`.
 | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `src/preview/pages/<Nome>Showcase.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` (ancora em `.ai/context/components/dashboard-patterns.md`) |
 | Tela de dados (não sabe se tabela, lista ou dashboard) | — | front-door `/ds-create-screen` (desambigua e roteia) |
 | Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
-| **Marca/tema NOVO** (5ª, 6ª…) | `tokens/brands/<id>/` (3 arquivos) + **6 superfícies de registro** | `.claude/rules/ds-standards.md` §"Sistema multi-marca" |
+| **Marca/tema NOVO** (5ª, 6ª…) | `tokens/brands/<id>/` (3 arquivos) + **10 superfícies** | `.claude/rules/ds-standards.md` §"Sistema multi-marca" |
 | **Alterar cor de marca existente** | `tokens/brands/<id>/semantic/color-{light,dark}.ts` APENAS | idem — nunca editar `brand-*.css`, é gerado |
+| **Regra CSS global, `@utility`, `@font-face`, `@custom-variant`** | `tokens/transforms/to-tailwind-v4.ts` + `npm run tokens:tw4` — **nunca `globals.css`** | `.claude/rules/ds-standards.md` §"O tema gerado é a fonte única" |
 
 ---
 
@@ -225,7 +287,7 @@ no `npm test`.
 `brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá. Pedido de "mudar o
 espaçamento/fonte só nesta marca" **não é tema**; pare e pergunte.
 
-Detalhe completo (contrato dos 3 arquivos, as 6 superfícies, os 4 canais de entrega e as
+Detalhe completo (contrato dos 3 arquivos, as 10 superfícies, os 4 canais de entrega e as
 armadilhas medidas) em `.claude/rules/ds-standards.md` §"Sistema multi-marca" — que é
 auto-carregada. Doc humana: página **Temas de marca** do showcase (`#/themes`).
 
@@ -237,6 +299,19 @@ Componente NUNCA importa primitivos ou tokens semânticos diretamente.
 Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 
 **Dependency flow:** primitives → semantic → to-tailwind-v4 → CSS vars → tv() classes → componente
+
+## ⛔ Segunda regra de ouro — `globals.css` é do showcase, não do sistema
+
+`src/styles/theme/tailwind-theme.css` (gerado) é o **único arquivo que os 4 canais leem**.
+Além das CSS vars, ele carrega hoje: `@font-face` Geist, `--font-sans`/`--font-mono`,
+`@custom-variant dark`, regras de `html`/`body`/`button`, `@utility outline-float`,
+`@utility scrollbar-*` e a regra do bottom-sheet mobile.
+
+Nada disso pode ser **redeclarado** no `globals.css`. Duplicar é pior que faltar: classe sem
+layer vence `@utility` e a segunda declaração de `@custom-variant` vence a primeira — o
+showcase passa a mostrar o comportamento certo enquanto o consumidor recebe o errado.
+Foi assim que 6 defeitos ficaram invisíveis por meses. Detalhe + os gates que cobrem isso
+(`orphan-utilities`, `runtime-base.test`): `.claude/rules/ds-standards.md`.
 
 ---
 
@@ -263,7 +338,7 @@ Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 | `agents/` | IDENTIDADE dos 6 agents (papel + workflow) | Sob demanda via subagent |
 | `commands/` | SLASH commands (entry points) | Quando user digita `/<nome>` |
 | `skills/<agent>/` | COMO fazer (templates + checklists) | Sob demanda via SkillTool |
-| `rules/` | REGRAS auto-carregadas (glob-scoped) | Automático nos globs |
+| `rules/` | REGRAS — todo `.md` daqui entra como project instruction | **Sempre**, a sessão inteira (o `globs:` do frontmatter é sintaxe do Cursor e é INERTE aqui — não há escopo por glob) |
 | `hooks/` | AUTOMAÇÕES shell (sempre disparam) | Auto via settings.json |
 | `output-styles/` | SHAPE da resposta | Auto via settings.json |
 | `settings.json` | Control panel (permissions + hooks + outputStyle) | Auto |
@@ -277,7 +352,7 @@ Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 | `status/pipeline-state.md` | AUDIT log (append-only) | Sempre verificar no início |
 | `status/lessons.md` | LIÇÕES completas L-NNN | Sob demanda |
 | `status/BACKLOG.md` | Backlog de features | Sob demanda |
-| `specs/` | SPECS ativas (humano-facing) | Sob demanda |
+| `specs/` | SPECS de design com **status declarado** — a maioria é `IMPLEMENTADA` e fica como referência de decisão, não como frente aberta. Índice em [`.ai/specs/README.md`](.ai/specs/README.md) | Sob demanda |
 
 ### Co-localizado com o código
 
@@ -290,7 +365,7 @@ Componente SEMPRE usa classes CSS geradas via `*.styles.ts` com `tv()`.
 
 | Tipo de informação | Fonte canônica única |
 |---|---|
-| Regras DS + 66 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + 68 lições + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade do orchestrator + roteamento | `.claude/agents/orchestrator.md` |
 | Templates de implementação iGreen (tv()) | `.claude/skills/ds-dev/impl-igreen.md` |
 | Padrão tv() completo (referência longa) | `.ai/rules/coding-standards.md` |

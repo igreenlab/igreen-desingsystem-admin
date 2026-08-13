@@ -9,30 +9,27 @@
  */
 @import "./styles/theme/tailwind-theme.css";
 
-@custom-variant dark (&:is(.dark *));
+/* `@custom-variant dark` vem do `tailwind-theme.css` importado acima — não redeclare.
+ *
+ * Havia aqui um `(&:is(.dark *))`, especificidade (0,2,0), que por ser a SEGUNDA
+ * declaração vencia a do tema. Duas consequências medidas em 2026-08-08: (1) `dark:`
+ * ganhava de `hover:` na mesma propriedade e o hover morria em silêncio; (2) o seletor
+ * não casava o próprio `.dark`, só descendentes. O do tema é `(&:where(.dark, .dark *))`,
+ * especificidade 0 — não briga com nada e casa os dois casos.
+ *
+ * Projeto scaffold JÁ CRIADO tem a linha antiga no index.css dele e mantém o
+ * comportamento atual; isto só muda projeto novo. */
 
 /* ── Geist (fonte do DS) ──────────────────────────────────────────────────
- * Arquivos variáveis em public/fonts/. Sem isto o projeto cai em system-ui
- * e diverge dos showcases. Mantém o mesmo @font-face do DS.
+ * O `@font-face` do Geist/Geist Mono e as vars `--font-sans`/`--font-mono` VÊM DO
+ * `tailwind-theme.css` importado acima (desde 2026-08-07) — não redeclare.
+ *
+ * Os arquivos `.woff2`, sim, continuam sendo seus: o `@font-face` aponta pra
+ * `/fonts/*.woff2`, caminho relativo à raiz do SITE. O scaffold já os colocou em
+ * `public/fonts/`. Se sumirem, a falha é SILENCIOSA — o `font-family` segue dizendo
+ * `Geist`, o navegador recebe o `index.html` no lugar do arquivo e tudo cai em
+ * system-ui. Confira com `document.fonts.check("16px Geist")`.
  */
-@font-face {
-  font-family: "Geist";
-  src: url("/fonts/Geist-Variable.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono-Variable.woff2") format("woff2");
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@theme inline {
-  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
-  --font-mono: "Geist Mono", "Fira Code", monospace;
-}
 
 /*
  * Bridge shadcn → iGreen. Mapeia o vocabulário BASE do shadcn (bg-primary,
@@ -68,10 +65,10 @@
   --radius-xl: var(--radius-radius-lg);
 }
 
-html,
-body {
-  background: var(--color-bg-canvas);
-  color: var(--color-fg-default);
-  font-family: var(--font-sans, system-ui, -apple-system, "Segoe UI", sans-serif);
-  min-height: 100vh;
-}
+/* As regras de `html`/`body` (background, color, font-family, min-height) e o
+ * `button { cursor: pointer }` também vêm do `tailwind-theme.css` — não redeclare.
+ *
+ * Regra geral deste arquivo: ele existe pra (1) importar o tema, (2) a bridge shadcn
+ * acima e (3) o que for SEU. Tudo que é do DS mora no tema gerado, que é o único
+ * arquivo que os 4 canais leem. Duplicar aqui faz seu projeto parecer certo enquanto
+ * quem consome o DS por outro canal recebe o comportamento errado. */

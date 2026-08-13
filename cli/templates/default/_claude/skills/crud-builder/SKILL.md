@@ -41,7 +41,7 @@ Se o componente/exemplo ainda não está no disco, **puxe via `igreen:add`** ant
 ```
 /ds-create-crud
    ▼ interview.md
-1. ENTREVISTA (fases 0-5)         — acumula escolhas, ZERO edição em disco
+1. ENTREVISTA (fases 0-6)         — acumula escolhas, ZERO edição em disco
    ▼ blueprint.md
 2. BLUEPRINT [GATE]               — preview consolidado + pré-validações → aguarda "aprovar"
    ▼ generate.md
@@ -69,7 +69,7 @@ Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 4. `groupBy`/kanban ativo ⇒ paginação desligada (avisar).
 5. Forms em drawers/modais usam `<FormField>` (nunca `<label>` cru) + `gap-form-gap`.
 6. Classes DS antes de Tailwind literal; zero hardcode de cor/tamanho (ver `.claude/rules/ds-design.md`).
-7. Wrapper da tela: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 24px → tabela). Ver `DESIGN.md`.
+7. Wrapper da tela: `flex flex-col h-full min-h-0 gap-gp-2xl` (PageHeader → 16px → tabela). Ver `DESIGN.md`.
 8. Página registrada no roteador do usuário — página órfã = tarefa incompleta.
 9. `npx tsc --noEmit` limpo antes do handoff (abort-on-error).
 10. LER o exemplo canônico ANTES de gerar — nunca de memória.

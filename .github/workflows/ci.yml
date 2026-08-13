@@ -2,13 +2,34 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    # ⛔ SEM `branches: [main]` — de propósito, e é a correção de um buraco MEDIDO.
+    #
+    # O filtro `branches:` casa a base da PR. Com ele, PR empilhada (base = outra
+    # branch de trabalho) não disparava run NENHUMA, e podia ser mergeada sem uma
+    # única verificação. Aconteceu com a PR #156: base
+    # `fix/column-type-registry-structural`, mergeada em 2026-08-10T21:07:31Z — e a
+    # primeira run do `check` nesse commit só nasceu às 21:09:14Z, 1m43s DEPOIS,
+    # vinda da PR de recuperação (#157). O conteúdo foi pra uma branch que já havia
+    # sido mergeada e ficou órfão.
+    #
+    # ⚠️ Cuidado ao investigar isso: `check-runs` se prendem ao COMMIT, não à PR.
+    # Listar os checks do head da #156 mostra o `check` verde e dá a impressão de que
+    # rodou — é a run da PR seguinte, no mesmo SHA. O que separa os dois é o
+    # timestamp, não a presença.
+    #
+    # Custo aceito: PR contra qualquer base roda o CI (mais minutos). O benefício é
+    # nenhuma PR poder ser mergeada sem verificação.
+    #
     # `ready_for_review` NÃO está no conjunto default (opened, synchronize,
     # reopened) e é obrigatório aqui: o step de showcase é pulado enquanto a PR
     # é rascunho, então sair de rascunho TEM que disparar uma run nova. Sem
     # isso, a run verde do rascunho satisfaria o required status check `check`
     # e o showcase nunca seria avaliado (ver comentário do step, no fim).
-    types: [opened, synchronize, reopened, ready_for_review]
+    #
+    # `edited` dispara quando a BASE muda — inclusive no re-alvo automático que o
+    # GitHub faz quando a branch-pai é mergeada. Sem ele, uma PR re-alvejada pra
+    # `main` mantinha a run antiga (feita contra a base velha) como sinal válido.
+    types: [opened, synchronize, reopened, ready_for_review, edited]
   push:
     branches: [main]
 
@@ -76,6 +97,11 @@ jobs:
 
       - name: Registry consistency (paths + embed)
         run: node scripts/registry-check.mjs
+
+      # Marca incompleta não quebra build, tsc nem teste — só não chega em algum
+      # canal. 8 das 10 superfícies falham em silêncio (ver lib/brand-surfaces.mjs).
+      - name: Brand surfaces (toda marca do catálogo nas 10 superfícies)
+        run: node scripts/brand-check.mjs
 
       - name: Foundationals sync (DS ↔ CLI baked)
         run: node scripts/check-foundationals.mjs

@@ -32,7 +32,7 @@ DS: iGreen DS (todos os componentes em src/components/)
 
   {/* Sidebar */}
   <aside className="w-[var(--container-sidebar-md)] bg-bg-surface
-                    border-r border-border-main flex flex-col shrink-0">
+                    border-r border-border-default flex flex-col shrink-0">
     {/* Logo */}
     {/* Nav items */}
     {/* User area */}
@@ -43,7 +43,7 @@ DS: iGreen DS (todos os componentes em src/components/)
 
     {/* Top bar */}
     <header className="min-h-layout-navbar bg-bg-surface
-                       border-b border-border-main px-pad-page-base
+                       border-b border-border-default px-pad-page-base
                        flex items-center justify-between shrink-0">
     </header>
 

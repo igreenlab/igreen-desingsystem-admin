@@ -46,7 +46,7 @@ const SWATCHES = [
 const KIT = [
   { icon: Compass, title: "ds-kit (orquestrador)", desc: "Identifica a intenção da tela e roteia pra skill/exemplo certo. É a porta de entrada." },
   { icon: Table2, title: "crud-builder · /ds-create-crud", desc: "Entrevista guiada → blueprint → gera a tabela/CRUD espelhando o exemplo." },
-  { icon: Sparkles, title: "Skills por tela", desc: "page-edit · page-detail · dashboard · charts · chat · drawers · cards." },
+  { icon: Sparkles, title: "Skills por tela", desc: "page-edit · page-detail · dashboard-builder · charts · chat · drawers · cards." },
   { icon: ShieldCheck, title: "protect-ds (hook)", desc: "Bloqueia editar tema/tokens; mantém o visual íntegro. Customize na composição." },
 ];
 

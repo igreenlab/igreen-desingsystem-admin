@@ -10,6 +10,7 @@ import {
   DropdownMenuRadioItem,
 } from "../../components/shadcn/dropdown-menu";
 import { BRANDS, type Brand } from "../../hooks/useBrand";
+import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 
 export type DocNavSection = {
   title: string;
@@ -79,7 +80,20 @@ export function DocSidebar({
       >
       {/* Logo */}
       <div className="flex items-center gap-gp-xl px-pad-4xl py-pad-3xl border-b border-border-sidebar shrink-0">
-        <div className="w-8 h-8 rounded-radius-lg bg-bg-brand text-fg-on-brand flex items-center justify-center font-bold text-caption-sm">iG</div>
+        {/* Logo real da iGreen, a MESMA do rail do AppShell (a das telas de CRUD) — era
+            um "iG" datilografado. `size` é a LARGURA; a altura sai da proporção 46×64 do
+            viewBox. 14 numa caixa de 32px mantém a proporção do rail (18 em 40 = 45% da
+            largura da caixa), então a marca lê igual, só menor.
+
+            `aria-hidden`: o `SidebarBrandIcon` traz `aria-label="iGreen"`, e o texto ao
+            lado já diz "iGreen DS" — sem isto o leitor de tela anuncia a marca duas
+            vezes. */}
+        <div
+          aria-hidden
+          className="grid size-8 place-items-center rounded-radius-lg bg-bg-brand text-fg-on-brand"
+        >
+          <SidebarBrandIcon size={14} />
+        </div>
         <div>
           <p className="text-body-md font-medium text-fg-default leading-none">iGreen DS</p>
           <p className="text-caption-sm text-fg-subtle">preview</p>

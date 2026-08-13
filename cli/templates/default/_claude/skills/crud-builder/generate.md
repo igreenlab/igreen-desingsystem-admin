@@ -1,3 +1,9 @@
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 # CRUD Builder — Geração
 
 Só entre aqui após o gate aprovado. Ordem obrigatória:
@@ -7,7 +13,7 @@ Só entre aqui após o gate aprovado. Ordem obrigatória:
 ```bash
 npm run igreen:add -- data-table example-clientes
 # + example-finance  (se houver drawers de criar/editar/detalhe)
-# + outros componentes citados no blueprint (chip, avatar, etc — o registry resolve deps)
+# + outros componentes citados no blueprint (chip, avatar-ig, etc — o registry resolve deps)
 ```
 
 ## 2. LER antes de escrever (precedência de fontes)
@@ -39,7 +45,7 @@ Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempr
 
 - **Coluna primária (nome)**: `isPrimary` + `render` com `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` num `size-[24px] rounded-radius-sm border bg-bg-canvas shadow-sh-sm`) quando o row click abre painel.
 - **Status / badge**: `type: "badge"` + `render` com `<Chip variant="soft" size="sm" shape="pill">` (cor semântica). Nunca pill na unha com `<span>` estilizado.
-- **Avatar**: `size="md"` na tabela (não `sm`). **Números/moeda/%**: `tabular-nums` + `type` (`currency`/`percentage`) + `align: "right"`. **Tags**: `type: "tags"` + `<Chip soft sm rounded>`.
+- **Avatar**: use **`avatar-ig`** (`@/components/ui/avatar-ig`), não o `avatar` (Radix puro, sem `colorHex`/`size`). `size="md"` na tabela (não `sm`). **Números/moeda/%**: `tabular-nums` + `type` (`currency`/`percentage`) + `align: "right"`. **Tags**: `type: "tags"` + `<Chip soft sm rounded>`.
 
 ### Detail panel (row click → painel)
 

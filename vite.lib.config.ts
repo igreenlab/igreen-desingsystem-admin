@@ -81,6 +81,23 @@ export default defineConfig({
           console.warn("⚠ theme.css não encontrado em src/styles/theme/ — rodar npm run tokens:tw4 antes");
         }
 
+        // Fontes Geist. O `@font-face` do tema declara a família apontando pra
+        // `/fonts/*.woff2` — caminho relativo à RAIZ DO SITE, não ao pacote.
+        // Showcase e scaffold têm `public/fonts/`; o consumidor npm não, então ele
+        // precisa copiar estes dois arquivos pro `public/` dele (documentado no
+        // README). Publicamos pra que exista o que copiar — antes de 2026-08-07 os
+        // .woff2 em dist-lib/fonts eram resquício de abril e `files` nem os incluía.
+        const fontsSrc = path.resolve(__dirname, "public/fonts");
+        if (fs.existsSync(fontsSrc)) {
+          const woff = fs.readdirSync(fontsSrc).filter((f) => /\.woff2$/.test(f));
+          if (woff.length) {
+            const dst = path.resolve(__dirname, "dist-lib/fonts");
+            fs.mkdirSync(dst, { recursive: true });
+            for (const f of woff) fs.copyFileSync(path.join(fontsSrc, f), path.join(dst, f));
+            console.log(`✓ ${woff.length} fonte(s) copiada(s) para dist-lib/fonts/`);
+          }
+        }
+
         const overlays = fs.existsSync(themeDir)
           ? fs.readdirSync(themeDir).filter((f) => /^brand-.+\.css$/.test(f))
           : [];
@@ -127,6 +144,16 @@ export default defineConfig({
     lib: {
       entry: {
         index: path.resolve(__dirname, "src/components/index.ts"),
+        /**
+         * Subpath `./shadcn` — os primitivos adaptados, num entry SEPARADO.
+         *
+         * Por que não no barrel raiz: são 40 arquivos / 233 nomes exportados, e a
+         * maioria dos consumidores usa 3 ou 4. No mesmo entry, todo `import` do pacote
+         * puxa o grafo inteiro (Radix, cmdk, vaul, embla, input-otp, sonner) antes do
+         * tree-shaking do bundler do consumidor ter chance. Em subpath próprio, quem
+         * não importa `/shadcn` não paga nada.
+         */
+        shadcn: path.resolve(__dirname, "src/components/shadcn/index.ts"),
         tokens: path.resolve(__dirname, "tokens/index.ts"),
         "preview/chat": path.resolve(__dirname, "src/preview/pages/ChatV2/index.ts"),
         "preview/clientes": path.resolve(__dirname, "src/preview/pages/ClientesShowcase/index.ts"),
@@ -157,6 +184,20 @@ export default defineConfig({
         "react-day-picker",
         "recharts",
         "tw-animate-css",
+        /**
+         * Deps dos primitivos e dos 4 componentes que entraram no barrel em 0.37.0.
+         * Estavam em `dependencies` mas fora daqui — o que só não dava problema porque
+         * nenhum deles era exportado. Ao abrir `./shadcn` e o barrel completo, sem esta
+         * linha o Rollup os EMBUTIRIA no bundle: peso duplicado (o consumidor já os
+         * instala como dep transitiva) e, no caso de `sonner`/`@hello-pangea/dnd`, duas
+         * instâncias do mesmo módulo com contexto React próprio — o `<Toaster>` do
+         * consumidor não veria o `toast()` disparado de dentro do pacote.
+         */
+        "vaul",
+        "embla-carousel-react",
+        "input-otp",
+        "sonner",
+        "@hello-pangea/dnd",
       ],
       // 2 outputs separados — cada um com sua extensão correta nos entries E nos chunks
       output: [

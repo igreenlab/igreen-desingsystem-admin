@@ -9,7 +9,7 @@ description: >
 
 # DS Dev — Release completa
 
-> **Skill obrigatória.** Carregue este arquivo via SkillTool antes de
+> **Leitura obrigatória.** Abra este arquivo com a tool **Read** (sub-arquivo da skill `ds-dev`, não uma skill própria) antes de
 > processar `/ds-release` — não confie em memória de sessão anterior.
 
 > ⚠️ **L-020 — Não burle este fluxo por urgência percebida.** TODA release
@@ -21,10 +21,12 @@ description: >
 > não obstáculo. Sessão 2026-06-05 burlou isso ao publicar v0.5.1 direto;
 > a lição L-020 registra a exceção pra não repetir.
 
-> 🔀 **REMOTE DE RELEASE — `origin` = `igreenlab/igreen-desingsystem-admin` (canônico).**
-> A migração pro igreenlab **já ocorreu**: esta iniciativa vive no
-> `igreenlab/igreen-desingsystem-admin` (remote `origin`). Todos os passos de git abaixo
-> usam **`origin`** e o `gh pr create` usa **`--repo igreenlab/igreen-desingsystem-admin`**.
+> 🔀 **REMOTE DE RELEASE — rode `git remote -v` ANTES de qualquer push.**
+> O repo canônico é `igreenlab/igreen-desingsystem-admin`, mas **o remote não se chama
+> `origin`**: neste clone ele é **`empresa`**, e `origin` aponta pro fork pessoal
+> (`snksergio/…`), parado. Publicar a branch de release em `origin` manda o trabalho pro
+> fork — e o `gh pr create --repo igreenlab/…` não acha a head. Todos os passos abaixo
+> usam **`empresa`**; se no seu clone o canônico tiver outro nome, use o dele.
 
 ## Quando usar este skill
 
@@ -62,8 +64,8 @@ Pra atualizar **apenas** a timeline (sem commit/PR), use [`update-changelog.md`]
     d. Stage arquivos do escopo (incluindo registry.json + embed + CLI se mudaram)
     e. Commit local
     f. Criar branch release/v<X.Y.Z>
-    g. Reset main local pra origin/main (se commit foi em main)
-    h. Push origin/release/v<X.Y.Z>
+    g. Reset main local pra empresa/main (se commit foi em main)
+    h. Push empresa/release/v<X.Y.Z>
     i. Abrir PR via gh CLI
 7.  Reportar RELEASE_PUSHED com link do PR
 ```
@@ -76,7 +78,7 @@ Pra atualizar **apenas** a timeline (sem commit/PR), use [`update-changelog.md`]
 ✓ src/preview/pages/updates-data.ts existe e parseia
 ✓ package.json.version é semver válido
 ✓ Branch atual = main (se não, alertar e perguntar)
-✓ Origin reachable (git fetch --dry-run não falha)
+✓ Remote canônico alcançável (`git fetch --dry-run` não falha)
 ✓ gh --version retorna (CLI disponível pra abrir PR)
 ✓ Working tree status conhecido (porcelain output)
 ```
@@ -99,7 +101,7 @@ modificados.
 
 ### Como invocar
 
-Carregar `.claude/skills/ds-reviewer/pre-commit-check.md` via SkillTool e
+**Ler** `.claude/skills/ds-reviewer/pre-commit-check.md` com a tool **Read** (sub-arquivo da skill `ds-reviewer`) e
 seguir o checklist completo dela:
 
 1. Mapear escopo do diff (categorias)
@@ -321,11 +323,19 @@ registry, só catalogado na CLI 0.13.7).
 **Publish do CLI no npm:** **manual** (precisa OTP/token) — fica fora do fluxo do PR.
 Sinalizar no handoff se o CLI mudou (ver Passo final).
 
-### 6.3 Validar TS
+### 6.3 Validar — TS + suíte + gates agregados
 ```bash
 npx tsc --noEmit
+npm test              # inclui dead-theme-classes, shadcn-vocab, orphan-utilities,
+                      # runtime-base e vocab-surface
+npm run release:check # registry-check --ci + brand-check + distribution-debt --ci
+                      # + examples-drift + npm audit (high)
 ```
-Se exit ≠ 0 → reportar erro + abortar. Deixar edits no working tree pra debug humano.
+Se qualquer um sair ≠ 0 → reportar erro + abortar. Deixar edits no working tree pra debug humano.
+
+⚠️ `release:check` roda **depois** do `registry:build` (6.2b) de propósito: ele compara o
+embed **por conteúdo** contra a fonte, então rodá-lo antes acusa defasagem que o próprio
+passo 6.2b acabou de resolver.
 
 ### 6.4 Stage arquivos
 `git add` apenas dos arquivos do escopo. **Nunca** `git add -A` (evita secrets/audits acidentais).
@@ -343,19 +353,19 @@ EOF
 git branch release/v<X.Y.Z>
 ```
 
-### 6.7 Reset main local pra origin
+### 6.7 Reset main local pro remote canônico
 ```bash
-git fetch origin
-git reset --hard origin/main
+git fetch empresa
+git reset --hard empresa/main
 ```
-**Por que:** `main` local fica == `origin/main` (igreenlab). O commit fica preservado apenas na branch `release/v<X.Y.Z>`.
+**Por que:** `main` local fica == `empresa/main` (igreenlab). O commit fica preservado apenas na branch `release/v<X.Y.Z>`.
 
 > ⚠️ `reset --hard` é destrutivo. Como o commit foi preservado na branch lateral, não há perda. Mas confirmar com usuário antes se houver arquivos não-staged que deseja manter.
 
 ### 6.8 Switch + push da branch
 ```bash
 git checkout release/v<X.Y.Z>
-git push -u origin release/v<X.Y.Z>
+git push -u empresa release/v<X.Y.Z>
 ```
 
 Se push for bloqueado (policy main-only ou similar) → reportar + parar (branch local preservada).
@@ -378,7 +388,7 @@ RELEASE_PUSHED: v<X.Y.Z>
 - Branch: release/v<X.Y.Z>
 - PR: <URL retornada pelo gh>
 - Commit local: <hash>
-- main local resetado pra origin/main (limpo)
+- main local resetado pra empresa/main (limpo)
 
 Próximos passos (humanos):
 1. Revisar o PR
@@ -397,10 +407,15 @@ Próximos passos (humanos):
 
 ## Passo 7 — [GATE] Publish do DS no npm
 
-**Só DEPOIS do merge da PR de release.** O npm é canal **secundário** (o primário é o
-registry/copy-in, que já subiu no merge), e o token é **exclusivo do mantenedor** — ele
-cola na sessão, a IA publica, ele revoga. A IA **nunca** publica sem o token na mão nem
-guarda o token em arquivo versionado.
+**Só DEPOIS do merge da PR de release.** O npm publica **depois** porque é passo manual com
+token — o registry/copy-in já subiu sozinho no merge. **"Depois" não é "menos suportado"**:
+os 4 canais (npm · copy-in/registry · scaffold · submódulo) são de primeira classe e nenhum
+é depreciado. Chamar o npm de "secundário" foi a redação que fez um usuário concluir que o
+canal estava morto (corrigido em 2026-08-08); descreva a **ordem de publicação**, não uma
+hierarquia de suporte.
+
+O token é **exclusivo do mantenedor** — ele cola na sessão, a IA publica, ele revoga. A IA
+**nunca** publica sem o token na mão nem guarda o token em arquivo versionado.
 
 ### 7.1 Validar o pacote ANTES de pedir o token
 
@@ -480,7 +495,7 @@ Reporte e **lembre explicitamente o mantenedor de revogar o token**. Registre no
 ## Checklist final (skill aprovada se TODOS true)
 
 - [ ] `RELEASE_PUSHED` sinal emitido com URL do PR válida
-- [ ] `main` local == `origin/main` (sem commits órfãos)
+- [ ] `main` local == `empresa/main` (sem commits órfãos)
 - [ ] Branch `release/v<X.Y.Z>` existe local + remote
 - [ ] `package.json.version` na branch == version da entry
 - [ ] TS build limpo

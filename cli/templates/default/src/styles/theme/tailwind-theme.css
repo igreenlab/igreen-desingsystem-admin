@@ -1,8 +1,55 @@
 /**
  * tailwind-theme.css — Auto-gerado. Não editar manualmente.
- * Source of truth: tokens/brands/default/semantic/*.ts
- * Regenerar: npx tsx tokens/transforms/to-tailwind-v4.ts > dist/tailwind-theme.css
+ * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts
+ * Regenerar (só no repo do DS): npm run tokens:tw4
+ *
+ * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.
+ * Customize na composição da tela (props/variantes + classes DS), não nos tokens.
  */
+
+/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme inline {
+  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', 'Fira Code', monospace;
+}
+
+/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza
+ * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  font-family: var(--font-sans);
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg-canvas);
+  color: var(--color-fg-default);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+}
 
 @theme {
   --color-bg-canvas: oklch(1 0 0);
@@ -36,6 +83,8 @@
   --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);
   --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
   --color-bg-muted-hover: oklch(0.95 0 0);
+  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);
+  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);
   --color-bg-input-hover: oklch(0.973 0 0);
   --color-bg-accent-hover: oklch(0.84 0 0);
   --color-bg-sidebar-accent: oklch(1 0 0);
@@ -300,6 +349,8 @@
   --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);
   --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);
   --color-bg-muted-hover: oklch(1 0 0 / 0.08);
+  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);
+  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);
   --color-bg-input-hover: oklch(1 0 0 / 0.08);
   --color-bg-accent-hover: oklch(1 0 0 / 0.16);
   --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);
@@ -588,7 +639,7 @@
 
 @utility scrollbar-thin {
   scrollbar-width: thin;
-  scrollbar-color: var(--color-bg-muted-hover) transparent;
+  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;
 
   &::-webkit-scrollbar {
     width: var(--scrollbar-width-thin);
@@ -600,18 +651,18 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-bg-muted-hover);
+    background-color: var(--color-bg-scrollbar-thumb);
     border-radius: var(--radius-radius-full);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-fg-muted);
+    background-color: var(--color-bg-scrollbar-thumb-hover);
   }
 }
 
 @utility scrollbar-default {
   scrollbar-width: auto;
-  scrollbar-color: var(--color-bg-muted-hover) transparent;
+  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;
 
   &::-webkit-scrollbar {
     width: var(--scrollbar-width-default);
@@ -623,11 +674,40 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: var(--color-bg-muted-hover);
+    background-color: var(--color-bg-scrollbar-thumb);
     border-radius: var(--radius-radius-full);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: var(--color-fg-muted);
+    background-color: var(--color-bg-scrollbar-thumb-hover);
+  }
+}
+
+/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */
+
+@utility outline-float {
+  outline: 6px solid var(--color-overlay-float);
+  outline-offset: 0;
+}
+
+/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).
+ *
+ * O Radix Popper envolve o Content num wrapper posicionado por `transform`
+ * inline, fora do alcance do className do Content — só dá pra alcançá-lo por
+ * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando
+ * na posição calculada pelo Popper em vez de colar no rodapé.
+ *
+ * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,
+ * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e
+ * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */
+@media (width < 768px) {
+  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
+    position: fixed !important;
+    inset: auto 0 0 0 !important;
+    transform: none !important;
+    min-width: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    z-index: 60 !important;
   }
 }

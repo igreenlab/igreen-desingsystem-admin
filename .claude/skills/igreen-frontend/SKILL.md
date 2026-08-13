@@ -1,10 +1,27 @@
 ---
 name: igreen-frontend
 description: >
-  Skill específica do iGreen DS. Substituiu a skill genérica frontend-design
-  que conflitava com o DS (fonts não-Inter, gradients, layouts assimétricos).
-  Ativar quando criar páginas, telas, blocos ou componentes dentro do iGreen DS.
+  FALLBACK de composição visual do iGreen DS — página, bloco ou seção solta, quando
+  NENHUM builder com entrevista se aplica. Se o pedido é tabela/CRUD, lista de cards,
+  dashboard, login, shell do app ou replicar módulo, use o builder correspondente
+  (crud-builder, list-builder, dashboard-builder, auth-builder, app-builder,
+  module-replicator) — eles têm entrevista e GATE, esta não tem. Substitui a skill
+  genérica `frontend-design`, cujos defaults conflitam com o DS (fonts não-Inter,
+  gradients, layouts assimétricos).
 ---
+
+> ⚠️ **Duas correções de 2026-08-08, ambas sobre descoberta.**
+>
+> 1. **A pasta se chamava `frontend-design`** e por isso era SOMBREADA pela skill
+>    global de mesmo nome — invocar `frontend-design` neste repo entregava justamente
+>    a genérica que este arquivo diz ter substituído. Renomeada pra `igreen-frontend`,
+>    batendo com o `name:`.
+> 2. **A `description` estava gramaticalmente quebrada**: a nota do item 1 tinha sido
+>    inserida no MEIO da frase, deixando *"que conflitava com o DS (fonts não-Inter…)"*
+>    órfã, sem sujeito. Como `description` é o texto que o modelo lê pra decidir
+>    invocar, frase quebrada degrada o roteamento — e esta skill competia com **6
+>    builders** sem nenhuma desambiguação. A nova description começa dizendo que é
+>    fallback e lista quem tem precedência.
 
 # iGreen DS — Frontend Skill
 
@@ -27,9 +44,9 @@ Todo desvio estético precisa de justificativa funcional.
 
 ```typescript
 // Cores
-bg-bg-primary        bg-bg-surface       bg-bg-muted
-text-fg-foreground   text-fg-muted       text-fg-on-primary
-border-border-main   border-border-primary
+bg-bg-brand        bg-bg-surface       bg-bg-muted
+text-fg-default   text-fg-muted       text-fg-on-brand
+border-border-default   border-border-brand
 
 // Spacing
 gap-gp-md     px-pad-lg     p-sp-md    p-pad-card-base
@@ -40,7 +57,7 @@ min-h-form-lg   min-h-form-xl   size-icon-md   rounded-radius-base
 // Shadow
 shadow-sh-sm   shadow-sh-md   shadow-sh-lg
 
-// Typography — 23 presets em 6 roles (display/heading/title/body/caption/code)
+// Typography — 27 presets em 7 roles (display/heading/title/body/caption/stat/code)
 text-body-sm     text-body-md       text-title-md     text-heading-sm
 // Override de weight via Tailwind nativo (font-semibold, font-medium, etc.) sobre o preset
 ```
@@ -69,7 +86,7 @@ background: linear-gradient(135deg, ...)
 ```tsx
 // Página com sidebar + content
 <div className="flex min-h-screen bg-bg-canvas">
-  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-main" />
+  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-default" />
   <main className="flex-1 p-pad-page-base">
     <div className="max-w-xl mx-auto">
       {/* conteúdo */}
@@ -78,13 +95,13 @@ background: linear-gradient(135deg, ...)
 </div>
 
 // Seção com card
-<div className="p-pad-card-base bg-bg-surface rounded-radius-xl shadow-sh-sm border border-border-main">
+<div className="p-pad-card-base bg-bg-surface rounded-radius-xl shadow-sh-sm border border-border-default">
   {/* conteúdo do card */}
 </div>
 
 // Header de seção
 <div className="flex items-center justify-between gap-gp-xl mb-sp-lg">
-  <h2 className="text-heading-2xs">Título</h2>
+  <h2 className="text-heading-xs">Título</h2>
   <Button size="sm">Ação</Button>
 </div>
 ```
@@ -101,7 +118,7 @@ bg-bg-subtle      ← hover states, faixas alternadas de tabela
 ## Componentes disponíveis
 
 Verificar `.ai/context/components/inventory.md` antes de criar qualquer componente.
-21 componentes implementados — usar sempre antes de criar do zero.
+42 compostos em ui/ + 41 primitivos shadcn implementados — usar sempre antes de criar do zero.
 
 ## Dark mode
 

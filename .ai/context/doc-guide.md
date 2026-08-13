@@ -192,7 +192,7 @@ Agent accent colors (inline style only):
 ```tsx
 <div className="grid grid-cols-2 gap-gp-2xl">
   <div className="rounded-radius-base border border-border bg-bg-surface shadow-sh-sm p-pad-card-sm">
-    <p className="text-body-sm font-semibold text-fg-foreground mb-gp-xs">
+    <p className="text-body-sm font-semibold text-fg-default mb-gp-xs">
       Title
     </p>
     <p className="text-body-sm text-fg-muted">Description</p>
@@ -214,7 +214,7 @@ Agent accent colors (inline style only):
     </thead>
     <tbody>
       <tr className="border-t border-border-subtle">
-        <td className="py-pad-md px-pad-xl text-body-sm text-fg-foreground">
+        <td className="py-pad-md px-pad-xl text-body-sm text-fg-default">
           Value
         </td>
       </tr>
@@ -239,7 +239,7 @@ Agent accent colors (inline style only):
       <span className="text-fg-subtle shrink-0">{f.isDir ? "📁" : "├─"}</span>
       <span
         className={
-          f.isDir ? "text-fg-foreground font-semibold" : "text-fg-primary"
+          f.isDir ? "text-fg-default font-semibold" : "text-fg-brand"
         }
       >
         {f.name}
@@ -260,7 +260,7 @@ Agent accent colors (inline style only):
         <td className="text-caption-sm font-semibold text-fg-muted font-medium uppercase tracking-wider py-pad-md px-pad-xl w-[100px]">
           Input
         </td>
-        <td className="text-body-sm text-fg-foreground py-pad-md px-pad-xl">
+        <td className="text-body-sm text-fg-default py-pad-md px-pad-xl">
           Value
         </td>
       </tr>
@@ -269,7 +269,7 @@ Agent accent colors (inline style only):
           Output
         </td>
         <td className="text-body-sm py-pad-md px-pad-xl">
-          <code className="font-mono text-code-sm text-fg-primary">SIGNAL</code>
+          <code className="font-mono text-code-sm text-fg-brand">SIGNAL</code>
         </td>
       </tr>
       <tr>

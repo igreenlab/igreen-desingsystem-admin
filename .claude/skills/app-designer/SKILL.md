@@ -29,9 +29,9 @@ description: >
 ```typescript
 // Layout base do app desktop — confirmar com o time na primeira tela
 <div className="flex min-h-screen bg-bg-canvas">
-  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-main" />
+  <aside className="w-[var(--container-sidebar-md)] bg-bg-surface border-r border-border-default" />
   <main className="flex-1 flex flex-col overflow-hidden">
-    <header className="min-h-layout-navbar bg-bg-surface border-b border-border-main px-pad-page-base" />
+    <header className="min-h-layout-navbar bg-bg-surface border-b border-border-default px-pad-page-base" />
     <div className="flex-1 overflow-auto p-pad-page-base">
       <div className="max-w-xl mx-auto">{/* conteúdo */}</div>
     </div>

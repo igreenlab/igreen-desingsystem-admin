@@ -10,9 +10,16 @@ Ao gerar ou editar QUALQUER UI neste projeto, aplique sem ser pedido. Detalhe e
 contexto em `DESIGN.md` (raiz). API de cada componente em
 `src/components/ui/<Nome>/USAGE.md`.
 
+> **Modo submódulo.** Se existe `.claude/ds-config.json` com `"mode": "submodule"`, três
+> coisas mudam nesta regra: (1) `DESIGN.md` e os `USAGE.md` ficam em `<dsPath>/` e
+> `<dsPath>/src/components/ui/<Nome>/`, não na sua raiz; (2) **não** existe `igreen:add`,
+> manifesto nem hook de proteção — os componentes estão no disco e você importa pelo
+> `importBase`; (3) a regra de **não editar o tema/fundação** continua valendo, só que por
+> disciplina, não por bloqueio: o que você editar no submódulo some no próximo `git pull`.
+
 ## Composição de tela
 - Wrapper de página: `flex flex-col h-full min-h-0 gap-gp-2xl`.
-- **24px (`gap-gp-2xl`) entre o `PageHeader` e o próximo bloco** — nunca grudado.
+- **16px (`gap-gp-2xl`) entre o `PageHeader` e o próximo bloco** — nunca grudado.
 - Conteúdo que precisa preencher (tabela): `className="flex-1 min-h-0"` + pai com altura.
 - Forms: `<FormField>` (nunca `<label>` cru) + `gap-form-gap` (20px) entre campos.
 - Card: padding `p-pad-card-base` (24px); entre cards `gap-gp-md`/`gap-gp-lg`.
@@ -26,9 +33,26 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 - Foco: `focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-{color}` (ring já tem alpha — nunca `/30`, nunca `ring-3`).
 - Cor só por token semântico (`bg-bg-brand`, `text-fg-default`...). Zero hex em className. Destrutivo na API = `color="critical"`.
 
+- ⚠️ **`max-w-container-*` NÃO existe** — `container` é o único namespace que não dobra o
+  prefixo. `max-w-md` já é os **768px do DS** (não os 448px do Tailwind); use `max-w-lg`,
+  `max-w-drawer-md`, `max-w-modal-sm`. A forma com `container` não emite CSS e some em silêncio.
+- ⚠️ **`bg-bg-scrollbar-thumb` / `-hover` são de uso interno** dos `@utility scrollbar-*`
+  (alpha neutro, pra barra ter contraste próprio). Não use como fundo de elemento.
+
 ## Tipografia
-- Default interativo: `text-body-sm` (13/500). Presets display/heading/title/body/caption/code.
+- Default interativo: `text-body-sm` (13/500). **7 papéis**: display/heading/title/body/caption/**stat**/code.
+- **Número de KPI/métrica = `text-stat-{sm,md,lg,xl}`** (20/24/30/34px) + `tabular-nums`. Nunca `text-[Npx]` na unha, nunca `display-*`/`heading-*` pra valor de indicador.
 - Override de peso via `font-bold/semibold/medium/normal`. Nunca `text-xs font-semibold` avulso → use preset.
+
+## ⛔ O tema já traz o runtime — não redeclare
+O `tailwind-theme.css` importado no seu CSS de entrada **não é só CSS vars**. Ele traz
+`@font-face` do Geist, `--font-sans`/`--font-mono`, `@custom-variant dark`, regras de
+`html`/`body`/`button` e as utilities `outline-float` e `scrollbar-thin`/`scrollbar-default`.
+
+**Não redeclare nenhuma delas** no seu CSS: classe comum vence `@utility`, e a **segunda**
+declaração de `@custom-variant` vence a primeira — você acaba com um comportamento no seu
+projeto e outro no resto do sistema, sem erro nenhum. Os `.woff2` do Geist, sim, são seus
+(o `@font-face` aponta pra `/fonts/`, raiz do site).
 
 ## Antes de criar
 - Existe exemplo/skill pra isso? (tabela→`/ds-create-crud`; ver `DESIGN.md` mapa de intenção). Puxe e adapte em vez de escrever do zero.
@@ -36,7 +60,15 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 - `npx tsc --noEmit` limpo antes de entregar.
 
 ## ⛔ Arquivos protegidos — NÃO editar (integridade do DS)
-- **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update. (Um hook bloqueia isso.)
+- **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update.
+
+  > **O que de fato te impede, por canal** — a frase antiga aqui era só "(Um hook bloqueia isso.)", sem ressalva, e no submódulo isso é **falso**:
+  >
+  > | canal | trava |
+  > |---|---|
+  > | copy-in / scaffold | ✅ hook `protect-ds.mjs` **bloqueia** (`Edit`/`Write`/`MultiEdit`) e **avisa** em `Bash` que escreve nesses paths |
+  > | **submódulo** | ❌ **nenhuma** — o `ds-link` não projeta `hooks/` (eles miram `src/components/**`, layout que o submódulo não tem). Vale por **disciplina**: o que você editar lá some no próximo `git pull` do submódulo |
+  > | npm install | ❌ nenhuma — o código vive em `node_modules` |
 - **Não edite o `.styles.ts`/internals de um componente do DS** pra "ajustar visual" de uma tela. Isso vira edição local (drift) e diverge do padrão. **Customize na COMPOSIÇÃO**: escolha variantes/props do componente + classes DS na SUA tela.
 - Quer outra cor/tom? Use o **token/variante semântico** que já existe (`color="..."`, `bg-bg-*`). Não invente hex nem reescreva o token.
 - Pra evoluir o tema de fato → re-sincronize com o DS (`npm run igreen:add -- theme`), não edite à mão.

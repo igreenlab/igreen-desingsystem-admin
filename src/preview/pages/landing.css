@@ -1,0 +1,915 @@
+/**
+ * Camada de EFEITOS da landing (`LandingDoc.tsx`) — só decoração ambiente.
+ *
+ * ## Por que este arquivo existe, e por que não é o `globals.css` nem o tema
+ *
+ * Três lugares possíveis, e só um está certo pra isto:
+ *
+ * 1. `src/styles/globals.css` → **proibido**. O gate `runtime-base.test.mjs` reprova
+ *    `@keyframes` ali, e com razão (L-067): naquele arquivo a declaração ou é no-op
+ *    silencioso (nome que o Tailwind/`tw-animate-css` já tem) ou funciona no showcase
+ *    e **não chega** nos outros 3 canais. Medido no `dist/assets/*.css`, não deduzido.
+ * 2. `tokens/transforms/to-tailwind-v4.ts` (o tema gerado) → é o caminho certo pra
+ *    runtime que os **4 canais** precisam. Aura respirando e borda cônica de uma
+ *    landing de showcase não são isso: nenhum consumidor renderiza esta página.
+ *    Colocar aqui inflaria o CSS publicado com decoração que ninguém usa.
+ * 3. **Aqui**, junto da única página que consome → o escopo é honesto e o arquivo
+ *    morre com a página se ela sair.
+ *
+ * ⚠️ Todo `@keyframes` daqui usa o prefixo `ds-lp-` (landing page). A outra metade da
+ * L-067 é que `@keyframes` com nome do framework **não sobrescreve** — então nome
+ * próprio não é estilo, é requisito.
+ *
+ * ## Por que `var(--color-*)` cru e não classe DS
+ *
+ * A regra de ouro (componente usa classe, nunca token direto) vale pro que produz
+ * PIXEL DE COMPONENTE. Não existe — e não deve existir — classe DS pra
+ * `conic-gradient` de borda ou halo desfocado. Ler a var aqui é o mesmo que o próprio
+ * transform faz no `@utility outline-float`. O ganho: `--color-bg-brand` é
+ * redeclarada por CADA overlay de marca e por `.dark`, então trocar a marca re-tinge
+ * a landing inteira **sem uma linha de JS**. É a assinatura da página saindo de graça.
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   1. Malha de fundo — estrutura, não textura. Mascarada num elipse pra sumir
+      antes de competir com o conteúdo.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-grid {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 900px;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(ellipse 92% 62% at 50% 0%, #000 18%, transparent 76%);
+  mask-image: radial-gradient(ellipse 92% 62% at 50% 0%, #000 18%, transparent 76%);
+}
+
+/**
+ * Malha na FAIXA entre o hero e a seção de tokens.
+ *
+ * Mesma malha do `.lp-grid`, mas mascarada nas DUAS pontas (o `.lp-grid` só precisa
+ * apagar embaixo, porque a de cima é a borda da página). Sem isso a faixa teria uma
+ * linha de corte reta onde a malha começa e termina.
+ *
+ * `top: -160px` a mais que a altura declarada faz a malha nascer já dentro do fim do
+ * hero, então as duas leem como um plano contínuo em vez de dois blocos.
+ */
+.lp-grid-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -160px;
+  height: 720px;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklch, var(--color-fg-default) 5%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 62%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 26%, #000 62%, transparent 100%);
+}
+
+/**
+ * Haze abstrato do catálogo — mancha, não faixa.
+ *
+ * ## Duas versões anteriores que estavam erradas, e por quê
+ *
+ * 1ª: `inset: 0` com tint de 3% do foreground. Cobria a seção inteira (2034px medidos) e
+ * **clareava** no dark, porque o fg é quase branco.
+ * 2ª: altura fixa de 520px, verde escuro, com fio de 1px no topo e na base. Mais perto,
+ * mas ainda era uma FAIXA: tinha aresta, ia de fora a fora e lia como "outra caixa".
+ *
+ * O que a referência mostra é outra coisa: uma mancha **orgânica, difusa e centrada**,
+ * sem nenhuma borda. Então: nada de fio (os `::before/::after` saíram), nada de largura
+ * total, nada de altura de seção.
+ *
+ * ## Como a forma orgânica é feita sem imagem
+ *
+ * TRÊS elipses radiais sobrepostas, com centros, tamanhos e intensidades diferentes. É
+ * isso que quebra a simetria — um gradiente radial só sempre lê como círculo, e dois
+ * leem como halter. Com três em posições irregulares + o `blur` grande, a silhueta fica
+ * ambígua, que é o efeito.
+ *
+ * Alpha baixíssimo de propósito (a soma das três fica ~10% da marca no pico): a mancha
+ * tem que ser percebida como atmosfera, não como objeto.
+ */
+.lp-band {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  /* +15% sobre a 1ª calibragem (1000×300 → 1150×345); o blur acompanha a escala,
+     senão a mancha maior fica com a borda relativamente mais definida. */
+  width: min(1150px, 92%);
+  height: 345px;
+  z-index: 0;
+  pointer-events: none;
+  /* `-50%` centraliza; os -100px deslocam pra esquerda, como pedido. */
+  transform: translateX(calc(-50% - 100px));
+  background:
+    radial-gradient(
+      ellipse 46% 58% at 34% 42%,
+      color-mix(in srgb, var(--color-bg-brand) 13%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 40% 44% at 62% 62%,
+      color-mix(in srgb, var(--color-bg-brand) 10%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 30% 34% at 52% 26%,
+      color-mix(in srgb, var(--color-bg-brand) 7%, transparent),
+      transparent 74%
+    );
+  filter: blur(80px);
+}
+
+/* Brilho da marca no topo. `absolute` (não `fixed`): o container de scroll é o
+   `<main>` do App, e `fixed` escaparia dele e cobriria o sidebar. */
+.lp-glow {
+  position: absolute;
+  top: -340px;
+  left: 50%;
+  width: min(1100px, 130%);
+  height: 720px;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 18%, transparent),
+    transparent 62%
+  );
+  filter: blur(30px);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   2. Aura — halo que respira atrás de uma superfície.
+
+   ⚠️ É um ELEMENTO próprio (`<div className="lp-aura" aria-hidden />`), não um
+   `::after` com `z-index:-1`. A primeira versão era pseudo-elemento negativo e ficou
+   **invisível**: a raiz da página tem `isolate`, que cria stacking context, e filho
+   com z negativo não consegue pintar atrás do background da raiz. Medido no browser —
+   por leitura de CSS a regra parecia certa. Elemento explícito com z positivo atrás
+   do conteúdo é previsível em qualquer contexto.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-aura {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: min(900px, 120%);
+  height: 100%;
+  max-height: 620px;
+  z-index: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 17%, transparent),
+    transparent 70%
+  );
+  filter: blur(80px);
+  animation: ds-lp-aura-drift 14s ease-in-out infinite;
+}
+@keyframes ds-lp-aura-drift {
+  0%,
+  100% {
+    transform: translateX(-54%) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translateX(-46%) scale(1.1);
+    opacity: 0.9;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   3. Beam — luz da marca correndo pela borda. Gasto em DOIS lugares só (palco do
+      hero e card de fechamento); em tudo vira ruído.
+
+      `@property` é o que torna `--ds-lp-beam` animável: ângulo sem tipo declarado
+      é interpolado como string e o keyframe não faz nada.
+   ───────────────────────────────────────────────────────────────────────────── */
+@property --ds-lp-beam {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.lp-beam {
+  position: relative;
+  isolation: isolate;
+}
+
+/**
+ * DOIS anéis com o mesmo gradiente cônico, girando juntos:
+ *
+ *   ::before → o fio de 1px (a luz em si)
+ *   ::after  → o MESMO gradiente com anel grosso e `blur`, atrás → o brilho
+ *
+ * É o que faz a luz parecer brilho de verdade em vez de um traço colorido: o halo
+ * viaja junto porque compartilha a variável `--ds-lp-beam` e a mesma animação.
+ */
+.lp-beam::before,
+.lp-beam::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--ds-lp-beam),
+    transparent 0 58%,
+    color-mix(in oklch, var(--color-bg-brand) 25%, transparent) 66%,
+    var(--color-bg-brand) 74%,
+    color-mix(in oklch, var(--color-bg-brand) 25%, transparent) 82%,
+    transparent 90% 100%
+  );
+  animation: ds-lp-beam-spin 9s linear infinite;
+}
+
+/* O fio: máscara XOR pinta só o anel de 1px e deixa o miolo transparente. */
+.lp-beam::before {
+  z-index: 2;
+  padding: 1px;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+/* O brilho: anel de 3px, desfocado e transbordando pra fora da borda. */
+.lp-beam::after {
+  z-index: 1;
+  padding: 3px;
+  margin: -2px;
+  opacity: 0.75;
+  filter: blur(7px);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+}
+
+.lp-beam-slow::before,
+.lp-beam-slow::after {
+  animation-duration: 17s;
+}
+@keyframes ds-lp-beam-spin {
+  to {
+    --ds-lp-beam: 360deg;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4. Ênfase da marca no título.
+
+   ## Por que o gradiente animado só existe no DARK
+
+   Gradiente de texto é recurso de fundo escuro, e isto foi MEDIDO, não deduzido: no
+   light, qualquer segundo stop degrada o título. Mais claro que o brand → perde
+   contraste contra o canvas claro; mais escuro (misturando com `--color-fg-default`,
+   que foi a 1ª tentativa) → o "SaaS" do h1 saiu **oliva/marrom**, lido como bug de
+   cor, não como brilho. No dark o mesmo gradiente fica exatamente como as
+   referências: menta brilhante caindo pra verde suave.
+
+   Então: light = `fg-brand` sólido, legível e chapado; dark = o brilho. É o
+   "gaste a ousadia num lugar só" — a assinatura da página é o switch de tema ao
+   vivo, não o título.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-grad {
+  color: var(--color-fg-brand);
+}
+
+.dark .lp-grad {
+  background: linear-gradient(
+    100deg,
+    var(--color-fg-brand) 0%,
+    color-mix(in oklch, var(--color-fg-brand) 55%, white) 44%,
+    color-mix(in oklch, var(--color-fg-brand) 85%, white) 72%,
+    var(--color-fg-brand) 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: ds-lp-grad-shift 11s ease-in-out infinite;
+}
+@keyframes ds-lp-grad-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4b. Janela do hero — bezel + fade, e o "unfold" guiado por scroll.
+
+   ## Os números não são estimados
+
+   Medidos no `projectise.framer.ai` com o DevTools, que é a referência que o
+   mantenedor pediu pra seguir:
+
+   | scrollY | matrix3d resolvido            |
+   |---------|------------------------------|
+   | 0       | scale .9799 · rotateX +1,97° · translateY -7,87px |
+   | 250     | scale 1 · rotateX +0,05° · ~0 |
+   | 500+    | identidade                    |
+
+   Ou seja: a janela nasce **deitada e menor** e se levanta em ~250–400px de scroll.
+   O bezel de lá: outer `radius 20px` + `padding 8px`, inner `radius 15px`, e
+   `mask-image: linear-gradient(#000 0%, transparent 95%)` — é dali que vem o fade
+   do rodapé, não de um gradiente sobreposto.
+
+   ## Por que a interpolação é em CSS e o scroll em JS
+
+   `animation-timeline: scroll()` resolveria sem JS, mas o container de scroll aqui é
+   o `<main>` do App (não o documento), e timeline nomeada em ancestral de outro
+   componente é acoplamento frágil. Um listener passivo escreve `--lp-p` (0→1) e o
+   CSS faz a conta: 1 var, sem re-render de React.
+   ───────────────────────────────────────────────────────────────────────────── */
+/**
+ * ⚠️ A máscara de fade do rodapé foi REMOVIDA por decisão do mantenedor.
+ *
+ * O projectise usa `mask-image: linear-gradient(#000 0%, transparent 95%)` e eu havia
+ * copiado. Mas o wireframe deste projeto mostra o dashboard **inteiro**, e é o certo
+ * aqui por dois motivos: (1) o dashboard é a prova de que os componentes existem —
+ * apagar metade dele enfraquece justamente o argumento; (2) vai receber motion, e
+ * animar algo que já está sumindo em opacidade briga com a animação.
+ *
+ * A classe fica (sem regra de máscara) porque é o gancho semântico da janela; se
+ * alguém quiser o fade de volta, é aqui, com o porquê acima na frente.
+ */
+.lp-window {
+  /* sem máscara — dashboard inteiro, de propósito */
+}
+
+/**
+ * Superfície de vidro — o bezel da janela e os cards flutuantes.
+ *
+ * `backdrop-filter` só produz efeito sobre algo TRANSLÚCIDO, então o fundo é
+ * `color-mix` com transparente em vez de um token opaco. `saturate` acompanha o blur
+ * porque desfoque puro lava a cor do que está atrás; sem ele o vidro fica cinza.
+ *
+ * A borda é levemente mais clara que o fundo pra dar o "canto de vidro" — é o que
+ * separa glassmorphism de "card com blur".
+ */
+.lp-glass {
+  background: color-mix(in oklch, var(--color-bg-surface) 62%, transparent);
+  -webkit-backdrop-filter: blur(18px) saturate(1.35);
+  backdrop-filter: blur(18px) saturate(1.35);
+  border-color: color-mix(in oklch, var(--color-fg-default) 12%, transparent);
+}
+
+/**
+ * Brilho de seção. O wireframe põe `aura` também na seção de temas; sem isso a área de
+ * "Uma base. Cinco marcas." fica chapada contra o canvas, e é justamente a seção que
+ * fala de COR.
+ */
+.lp-section-glow {
+  position: absolute;
+  left: 50%;
+  top: -80px;
+  width: min(1200px, 130%);
+  height: 520px;
+  z-index: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  background: radial-gradient(
+    ellipse at center,
+    color-mix(in oklch, var(--color-bg-brand) 14%, transparent),
+    transparent 68%
+  );
+  filter: blur(60px);
+  animation: ds-lp-aura-drift 18s ease-in-out infinite;
+}
+
+/**
+ * ⚠️ Inclinação em 3 calibragens, todas por pedido: **2.2° → 7° → 10°** (translateY -10 →
+ * -26 → -38px, escala 0.975 → 0.952 → 0.932). A 1ª existia e quase não se via.
+ *
+ * As três grandezas sobem JUNTAS de propósito. Só aumentar o `rotateX` daria uma peça
+ * deitada mas do mesmo tamanho, o que lê como distorção; o `scale` menor + o `translateY`
+ * maior é o que faz o conjunto ler como "está mais longe e vem chegando".
+ *
+ * O piso é o `transform-origin: center top`: a aresta de CIMA fica parada e a de baixo é
+ * que recua. Com origem no centro, 10° levantariam o topo da janela por cima do texto do
+ * hero.
+ *
+ * ⚠️ **Em monitor alto o `--lp-p` nasce em 1 e nada disto acontece** — e é deliberado: se
+ * a janela cabe inteira na tela sem rolar, não há o que revelar, e o gesto viraria uma
+ * distorção permanente. Quem decide é o `useUnfold`, por medição de altura (não por
+ * breakpoint de largura). Ver o cabeçalho do hook no `LandingDoc.tsx`.
+ */
+.lp-unfold {
+  --lp-p: 0;
+  transform-origin: center top;
+  transform: perspective(1200px) translateY(calc((1 - var(--lp-p)) * -38px))
+    rotateX(calc((1 - var(--lp-p)) * 10deg)) scale(calc(0.932 + var(--lp-p) * 0.068));
+  will-change: transform;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   4c. Spotlight do bento — UMA luz da grade inteira, seguindo o cursor.
+
+   ## Por que não é uma luz por card
+
+   É o ponto do efeito: a fonte é única e mora atrás da grade toda. Card vizinho
+   acende junto porque a MESMA luz o alcança — com uma luz por card, cada um acenderia
+   isolado e o conjunto pararia de ler como um plano iluminado.
+
+   Os cards ficam translúcidos com `backdrop-filter`, então difundem a luz que passa
+   por baixo; o vão entre eles não tem vidro na frente, então ali a luz aparece direta e
+   mais clara. Esse contraste vão↔card é o efeito, não um artefato.
+
+   ## Por que estas regras NÃO estão em `@layer components`
+
+   O prompt de origem propunha `@layer components`, e aqui isso não funcionaria: as
+   utilities do Tailwind v4 vivem em `@layer utilities`, que vence `components` na
+   cascata — o `bg-bg-surface` do card ganharia do background translúcido e o vidro
+   nunca apareceria. Regra NÃO-layerizada (como o resto deste arquivo, incl. o
+   `.lp-glass`) vence qualquer camada, então o override acontece sem `!important` e sem
+   precisar tirar classe nenhuma do card.
+
+   ## Nomenclatura
+
+   Mantive os nomes `bento-spotlight*` do pedido em vez do prefixo `lp-` do arquivo —
+   são explícitos e o hook os referencia. É a única exceção de prefixo aqui.
+   ───────────────────────────────────────────────────────────────────────────── */
+/**
+ * ⚠️ `--lp-on` é REGISTRADA, e isso é correção de um bug medido — não zelo.
+ *
+ * Com a propriedade sem registro, `opacity: var(--lp-on)` nos descendentes **não
+ * reagia** à mudança do valor herdado: medido, `--lp-on` computava 1 na camada e a
+ * `opacity` continuava 0. O efeito só acendia quando o hook escrevia `--gx` inline na
+ * camada — porque aí o elemento sofria recálculo por outro motivo. Ou seja: funcionava
+ * por acidente enquanto o mouse se movia e falhava se o ponteiro só entrasse.
+ *
+ * Registrada com `syntax: "<number>"` e `inherits: true`, a herança passa a invalidar o
+ * `opacity` dos descendentes de forma definida — e o valor fica animável de verdade.
+ * É a mesma razão do `@property --ds-lp-beam` acima.
+ *
+ * O nome também mudou (`--on` → `--lp-on`): `--on` é genérico demais pra viver numa
+ * página que carrega o tema inteiro. Nome próprio é a lição da L-067 aplicada a var.
+ */
+@property --lp-on {
+  syntax: "<number>";
+  initial-value: 0;
+  inherits: true;
+}
+
+.bento-spotlight {
+  --lp-on: 0;
+  --r: 420px;
+  --i: 0.7;
+  position: relative;
+}
+
+/* A camada estoura a grade (`inset: -120px`) pra a luz não cortar seco na borda.
+   ⚠️ Esse inset é o que obriga o hook a medir o rect DESTA camada, não o da grade. */
+.bento-spotlight__glow {
+  position: absolute;
+  inset: -120px;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: 40px;
+  background: radial-gradient(
+    var(--r) circle at var(--gx, 50%) var(--gy, 50%),
+    color-mix(in oklch, var(--color-bg-brand) calc(36% * var(--i)), transparent),
+    color-mix(in oklch, var(--color-bg-brand) calc(11% * var(--i)), transparent) 40%,
+    transparent 66%
+  );
+  filter: blur(22px);
+  opacity: var(--lp-on);
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/**
+ * 66% de superfície, não 32%.
+ *
+ * O 32% do prompt de origem deixava o card quase todo translúcido, e a luz atravessava
+ * com força demais — o glow dominava o conteúdo em vez de ambientá-lo. A nota de ajuste
+ * do prompt avisava pra **não descer** de 25%; o problema aqui era o contrário, faltava
+ * densidade de vidro.
+ *
+ * 66% mantém o card lendo como superfície (texto com contraste normal), e a luz ainda
+ * difunde por baixo — o que muda é a proporção: agora o vão entre os cards é o lugar
+ * onde a luz aparece forte, e o card é onde ela suaviza. Era esse o desenho.
+ */
+.bento-spotlight__card {
+  position: relative;
+  z-index: 1;
+  background: color-mix(in oklch, var(--color-bg-surface) 66%, transparent);
+  backdrop-filter: blur(30px) saturate(1.1);
+  -webkit-backdrop-filter: blur(30px) saturate(1.1);
+}
+
+/* O conteúdo sobe, senão a borda acesa (z-2) passa por cima do texto. */
+.bento-spotlight__card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Borda: acende só o trecho perto do cursor. Mesma máscara XOR do `.lp-beam` —
+   pinta o anel de 1px e deixa o miolo transparente. */
+.bento-spotlight__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    calc(var(--r) * 0.62) circle at var(--mx, 50%) var(--my, 50%),
+    color-mix(in oklch, var(--color-bg-brand) calc(75% * var(--i)), transparent),
+    color-mix(in oklch, var(--color-bg-brand) calc(14% * var(--i)), transparent) 42%,
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: var(--lp-on);
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sem cursor não há efeito. O hook já sai cedo em `(hover: none)`, então `--lp-on`
+   permanece no 0 inicial — isto é rede de segunda linha, e por isso não precisa de
+   `!important`. */
+@media (hover: none) {
+  .bento-spotlight {
+    --lp-on: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   5. Reveal no scroll. O stagger vem de `--lp-i` (índice), setado no JSX — sem
+      `transition-delay` inline espalhado pelo markup.
+   ───────────────────────────────────────────────────────────────────────────── */
+.lp-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: calc(var(--lp-i, 0) * 60ms);
+}
+.lp-reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Flutuação lenta das peças do palco. Amplitude pequena de propósito: o palco
+   mostra COMPONENTE, e peça que balança demais não se lê. */
+.lp-bob {
+  animation: ds-lp-bob 7s ease-in-out infinite;
+  animation-delay: calc(var(--lp-i, 0) * -1.6s);
+}
+@keyframes ds-lp-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* Crossfade ao trocar de marca/modo. Escopado nas peças do palco — transição em
+   `*` custa caro e faz o resto da página "borrar" a cada troca. */
+.lp-tint {
+  transition:
+    background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/**
+ * Mascote 3D do Kit de IA — entra DEPOIS do card e flutua devagar.
+ *
+ * ## Por que DUAS classes, em elementos separados
+ *
+ * As duas coisas que o mascote faz animam a MESMA propriedade: a entrada precisa de
+ * `transform` (escala + giro) e a flutuação também. Num só elemento a animação infinita
+ * sobrescreve o `transform` da transição — e a entrada simplesmente não acontece, porque
+ * na cascata de valor computado animação vence transição, sempre.
+ *
+ * Então: o WRAPPER (`.lp-mascote`) faz a entrada por TRANSIÇÃO, e a IMAGEM
+ * (`.lp-mascote-idle`) faz a flutuação por ANIMAÇÃO. Os dois `transform` se compõem
+ * (pai × filho) em vez de competir pelo mesmo slot.
+ *
+ * ## Por que não reusei o `.lp-reveal`
+ *
+ * Ele escalona 60ms por índice, e o card do prompt é `i={1}` — 60ms. 60ms a mais não lê
+ * como "depois do card", lê como "junto". Aqui são **520ms** de atraso e **1.1s** de
+ * duração: começa quando o card está terminando (60 + 700 = 760ms) e assenta bem depois.
+ * A lentidão é o que dá peso: objeto 3D grande não salta, chega.
+ *
+ * ## Por que a entrada é TRANSIÇÃO, depois de duas tentativas com `@keyframes`
+ *
+ * Houve duas versões com gangorra/overshoot (`+30°` → `-5°` → volta), que `transition`
+ * não sabe fazer — transição só vai de A pra B em linha reta, não passa do alvo. A 1ª
+ * tinha 4 quadros e a chegada dava tranco; a 2ª tinha 6 quadros com easing por quadro e
+ * decaimento medido de 5° → 2.4° → 1° → 0.35° → 0, um amortecimento correto no papel.
+ *
+ * O mantenedor reprovou as duas: numa peça deste tamanho, girando 30°, **qualquer**
+ * overshoot lê como brusco — o problema não era a curva de decaimento, era ter overshoot.
+ * A transição simples (some na diagonal, cresce de `0.9` e desgira `9°`, tudo em
+ * ease-out-expo) é o que fica elegante.
+ *
+ * ⚠️ Registro pra não repetir: a lição não é "6 quadros é melhor que 4", é que **peça
+ * grande em rotação não aceita overshoot**. Um pop de 4% num botão de 90px é discreto; o
+ * mesmo gesto num PNG de 412px é um solavanco.
+ */
+.lp-mascote {
+  opacity: 0;
+  /* `perspective` no wrapper é o que faz o `rotateY` do filho ter profundidade — sem
+     ela o giro vira um achatamento horizontal. */
+  perspective: 1200px;
+  transform: translate3d(26px, 18px, 0) scale(0.9) rotateY(-9deg);
+  transition:
+    opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: 520ms;
+}
+.lp-mascote.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/**
+ * Flutuação contínua. `0%` e `100%` são a IDENTIDADE, então o repouso é exatamente a
+ * posição de hoje — a peça sai e volta pra ela, nunca deriva.
+ *
+ * Quatro quadros, não dois: só ida-e-volta em Y lê como elevador. Deslocar X junto e
+ * defasar os dois eixos de rotação é o que dá a leitura de **modelo 3D girando devagar**
+ * em vez de sprite subindo.
+ *
+ * ⚠️ Amplitudes calibradas em TRÊS rodadas, todas por pedido. 1ª: 11px · 4px · 3.5° ·
+ * 0.8° — sutil ao ponto de quase não existir. 2ª: 17px · 7px · 5.5° · 1.5°. 3ª (atual):
+ * **23px · 10px · 7° · 2°**. O passo foi ficando menor de propósito: perto do teto, mais
+ * amplitude deixa de ler como "flutuando" e passa a ler como "balançando".
+ *
+ * O teto é o card: a peça cruza por trás dele, e balanço grande em Y a faria "bater" na
+ * borda do vidro em vez de deslizar por baixo.
+ *
+ * 9s: lento o bastante pra o olho não seguir. `will-change` porque são 412px de PNG
+ * animando pra sempre; sem ele o compositor repinta em vez de só recompor.
+ */
+.lp-mascote-idle {
+  animation: ds-lp-mascote-idle 9s ease-in-out infinite;
+  /* Começa DEPOIS de a entrada assentar (520 + 1100). Sem isso a flutuação empurra a
+     peça enquanto ela ainda está chegando, e as duas somadas leem como tremor. */
+  animation-delay: 1.7s;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+@keyframes ds-lp-mascote-idle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotateY(0deg) rotateZ(0deg);
+  }
+  25% {
+    transform: translate3d(-10px, -15px, 0) rotateY(-7deg) rotateZ(-2deg);
+  }
+  50% {
+    transform: translate3d(0, -23px, 0) rotateY(0deg) rotateZ(0deg);
+  }
+  75% {
+    transform: translate3d(10px, -15px, 0) rotateY(7deg) rotateZ(2deg);
+  }
+}
+
+/**
+ * Marca d'água do card de fechamento — neon suave respirando no contorno.
+ *
+ * ## Por que a suavidade mora na COR e não em `opacity`
+ *
+ * A 1ª versão era `text-fg-brand` + `opacity-[0.055]` no wrapper. Funciona pro fill, mas
+ * mata qualquer brilho: `opacity` multiplica TUDO que o elemento pinta, glow incluído.
+ * Um `drop-shadow` já é fraco por natureza (o blur espalha o alpha), e a 5,5% dele
+ * simplesmente não existiria.
+ *
+ * Então o alpha entra no `color` — o SVG pinta com `fill="currentColor"`, então `color`
+ * controla o preenchimento — e o `drop-shadow` ganha o alpha DELE, independente. Resultado:
+ * o contorno fica perceptivelmente mais claro que o miolo, que é o que faz ler como neon
+ * em vez de mancha.
+ *
+ * ## Por que `drop-shadow` e não `box-shadow`
+ *
+ * `box-shadow` seguiria a caixa retangular do `<span>`. `drop-shadow` é gerado do canal
+ * ALPHA do conteúdo, então acompanha a silhueta da folha — "no contorno da logo", como
+ * pedido, sem máscara nem SVG extra.
+ *
+ * O `filter` é animado direto nos keyframes (é interpolável entre dois `drop-shadow` do
+ * mesmo tipo), sem precisar registrar `@property`: aqui não há var custom no caminho.
+ * 9s e amplitude pequena — é respiração, não pulso.
+ */
+.lp-marca-dagua {
+  color: color-mix(in srgb, var(--color-fg-brand) 6%, transparent);
+  animation: ds-lp-marca-neon 9s ease-in-out infinite;
+  will-change: filter;
+}
+@keyframes ds-lp-marca-neon {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 6px color-mix(in srgb, var(--color-fg-brand) 14%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px color-mix(in srgb, var(--color-fg-brand) 30%, transparent));
+  }
+}
+
+/**
+ * O mascote afunda enquanto o botão de copiar está PRESSIONADO.
+ *
+ * ## Por que uma TERCEIRA camada
+ *
+ * Já são duas: o wrapper faz a entrada (transição de 1.1s) e a imagem faz a flutuação
+ * (animação infinita). Não cabe aqui nenhuma das duas — animação vence `transform` de
+ * qualquer regra, então na imagem o afundamento não apareceria; e no wrapper ele herdaria
+ * a transição de 1.1s, ou seja o mascote levaria mais de um segundo pra reagir a um
+ * clique que dura 150ms. Cada camada anima UMA propriedade com UMA duração.
+ *
+ * ## Por que `:has()` e não estado do React
+ *
+ * O mascote e o botão são componentes irmãos. Levantar um booleano pro pai significaria
+ * `useState` no componente que renderiza a página inteira — cada pressionar/soltar
+ * re-renderizaria o mockup do hero (dashboard, tabela, 4 gráficos) por causa de uma
+ * escala. `:has()` resolve no CSS, com custo zero de render.
+ *
+ * O escopo é `[data-lp-kit]` de propósito: sem ele, qualquer `.lp-copy button:active` da
+ * página (os `CodeCard` da instalação também têm um) mexeria no mascote de longe.
+ *
+ * `:active` já tem a semântica exata do pedido — vale enquanto o botão está apertado e
+ * cai sozinho ao soltar, inclusive quando o ponteiro sai de cima antes de soltar.
+ */
+.lp-mascote-press {
+  display: block;
+  transition: transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-lp-kit]:has(.lp-copy button:active) .lp-mascote-press {
+  transform: scale(0.94);
+}
+
+/**
+ * Reação do botão de copiar — confirma pelo MOVIMENTO, não só pelo rótulo.
+ *
+ * O botão já trocava cor, ícone e texto pra "Copiado". Só que essas três mudanças
+ * acontecem no mesmo lugar em que o olho já não está: quem clica está olhando o cursor,
+ * e uma troca estática não puxa a atenção de volta. Um pulso curto puxa.
+ *
+ * ## Por que o efeito vive num WRAPPER e não no `<Button>`
+ *
+ * O `Button` do DS tem as próprias `box-shadow` e `border-radius` por variante/tamanho.
+ * Animar `box-shadow` nele significaria sobrescrever a sombra da variante durante a
+ * animação (e piscar ao voltar), e animar `transform` competiria com qualquer transição
+ * futura do componente. O wrapper isola: ele pulsa e desenha o anel, o botão continua
+ * intocado — e o efeito serve pros DOIS usos do `CopyButton` (prompt e `CodeCard`) sem
+ * tocar no DS.
+ *
+ * `--lp-copy-radius` existe porque o anel tem que acompanhar o raio do botão, e ele
+ * depende do `size` (`sm` → `radius-lg`). Default no valor do `sm`, que é o uso real;
+ * quem precisar de outro tamanho passa a var.
+ */
+.lp-copy {
+  position: relative;
+  display: inline-flex;
+  --lp-copy-radius: var(--radius-radius-lg);
+}
+/**
+ * `forwards` não é decorativo aqui — é o que torna o 2º clique reanimável.
+ *
+ * Medido: sem ele, uma animação que TERMINOU sai do `getAnimations()` (o browser
+ * descarta animação finalizada sem `fill`). O reinício imperativo do `CopyButton`
+ * percorre justamente essa lista, então clicar de novo dentro da janela de 1.8s
+ * reiniciava só o anel (que tem `forwards`) e não o pulso. Com `forwards` os dois
+ * persistem e os dois reiniciam. O estado retido é `scale(1)` — visualmente nada.
+ */
+.lp-copy.is-copied {
+  animation: ds-lp-copy-pop 480ms cubic-bezier(0.34, 1.4, 0.64, 1) forwards;
+}
+/**
+ * Anel que se abre e some. `inset` negativo pra nascer NA borda do botão e crescer pra
+ * fora; `pointer-events: none` porque ele cobre o botão durante o meio segundo em que
+ * existe — sem isso, dois cliques rápidos perderiam o segundo.
+ */
+.lp-copy.is-copied::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border: 1px solid var(--color-border-success-muted);
+  border-radius: calc(var(--lp-copy-radius) + 1px);
+  pointer-events: none;
+  animation: ds-lp-copy-ring 560ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+@keyframes ds-lp-copy-pop {
+  0% {
+    transform: scale(1);
+  }
+  /* Afunda ANTES de voltar: o clique tem que parecer que apertou algo. */
+  30% {
+    transform: scale(0.955);
+  }
+  62% {
+    transform: scale(1.018);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes ds-lp-copy-ring {
+  0% {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.16);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   6. Piso de qualidade: nada disso é informação, então tudo cai sob
+      `prefers-reduced-motion`. O reveal precisa virar estado FINAL (visível) —
+      só desligar a animação deixaria a página em branco.
+   ───────────────────────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .lp-aura,
+  .lp-section-glow,
+  .lp-beam::before,
+  .lp-beam::after,
+  .dark .lp-grad,
+  .lp-bob,
+  .lp-mascote-idle,
+  .lp-copy.is-copied,
+  .lp-copy.is-copied::after,
+  .lp-marca-dagua {
+    animation: none;
+  }
+  /* Sem a animação o `filter` volta pra `none` e a marca fica só com o fill — o neon é
+     o que respirava, então desligar a animação já entrega o estado estático correto. */
+  /* Sem o pulso, o anel não pode ficar parado sobre o botão pra sempre: `animation: none`
+     devolveria a opacidade base (1) do `::after`. */
+  .lp-copy.is-copied::after {
+    display: none;
+  }
+  /* O afundamento sai INTEIRO, não só a transição: com `transition: none` a escala
+     saltaria de 1 pra 0.94 num quadro, que é mais agressivo que a animação. */
+  [data-lp-kit]:has(.lp-copy button:active) .lp-mascote-press {
+    transform: none;
+  }
+  .lp-mascote-press {
+    transition: none;
+  }
+  /* O mascote fica no estado FINAL, como o `.lp-reveal` — desligar só a transição
+     deixaria a imagem em `scale(0.9)` girada, que é o estado de ENTRADA. */
+  .lp-mascote,
+  .lp-mascote.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .lp-reveal,
+  .lp-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .lp-tint {
+    transition: none;
+  }
+  /* A janela fica DE PÉ, não deitada: o estado final é o legível. */
+  .lp-unfold {
+    transform: none;
+    will-change: auto;
+  }
+  /* O spotlight continua respondendo ao cursor (é informação de foco, não
+     enfeite animado) — só o fade entra/sai sem transição. */
+  .bento-spotlight__glow,
+  .bento-spotlight__card::before {
+    transition: none;
+  }
+}

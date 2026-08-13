@@ -13,7 +13,7 @@ os tokens iGreen automaticamente via CSS vars:
 ```
 componente usa  →  bg-primary
 Tailwind gera   →  background-color: var(--primary)
-globals.css tem →  --primary: var(--color-bg-primary)
+globals.css tem →  --primary: var(--color-bg-brand)
 resultado final →  token iGreen ✓
 ```
 
@@ -28,24 +28,24 @@ Substituição de classes é opcional — só fazer para deixar o código mais e
 /* Já está em src/styles/globals.css */
 :root {
   --background:             var(--color-bg-canvas);
-  --foreground:             var(--color-fg-foreground);
+  --foreground:             var(--color-fg-default);
   --card:                   var(--color-bg-surface);
-  --card-foreground:        var(--color-fg-foreground);
+  --card-foreground:        var(--color-fg-default);
   --popover:                var(--color-bg-surface);
-  --popover-foreground:     var(--color-fg-foreground);
-  --primary:                var(--color-bg-primary);
-  --primary-foreground:     var(--color-fg-on-primary);
+  --popover-foreground:     var(--color-fg-default);
+  --primary:                var(--color-bg-brand);
+  --primary-foreground:     var(--color-fg-on-brand);
   --secondary:              var(--color-bg-secondary);
   --secondary-foreground:   var(--color-fg-on-secondary);
   --muted:                  var(--color-bg-muted);
   --muted-foreground:       var(--color-fg-muted);
   --accent:                 var(--color-bg-muted);
-  --accent-foreground:      var(--color-fg-foreground);
+  --accent-foreground:      var(--color-fg-default);
   --destructive:            var(--color-bg-danger);
   --destructive-foreground: var(--color-fg-on-danger);
-  --border:                 var(--color-border-main);
-  --input:                  var(--color-border-main);
-  --ring:                   var(--color-ring-primary);
+  --border:                 var(--color-border-default);
+  --input:                  var(--color-border-default);
+  --ring:                   var(--color-ring-brand);
   --radius:                 var(--radius-md);
 }
 ```
@@ -58,19 +58,19 @@ Usar apenas quando quiser código mais explícito com nomes iGreen.
 
 | Classe Shadcn | Classe iGreen equivalente | Observação |
 |---------------|--------------------------|------------|
-| `bg-primary` | `bg-bg-primary` | opcional |
-| `text-primary-foreground` | `text-fg-on-primary` | opcional |
-| `bg-secondary` | `bg-bg-secondary` | opcional |
-| `text-secondary-foreground` | `text-fg-on-secondary` | opcional |
+| `bg-primary` | `bg-bg-brand` | opcional |
+| `text-primary-foreground` | `text-fg-on-brand` | opcional |
+| `bg-secondary` | `bg-bg-muted` | opcional |
+| `text-secondary-foreground` | `text-fg-default` | opcional |
 | `bg-destructive` | `bg-bg-danger` | opcional |
 | `text-destructive-foreground` | `text-fg-on-danger` | opcional |
 | `bg-muted` | `bg-bg-muted` | opcional |
 | `text-muted-foreground` | `text-fg-muted` | opcional |
 | `bg-background` | `bg-bg-canvas` | opcional |
 | `bg-card` | `bg-bg-surface` | opcional |
-| `text-foreground` | `text-fg-foreground` | opcional |
-| `border-border` | `border-border-main` | opcional |
-| `ring-ring` | `ring-ring-primary` | opcional |
+| `text-foreground` | `text-fg-default` | opcional |
+| `border-border` | `border-border-default` | opcional |
+| `ring-ring` | `ring-ring-brand` | opcional |
 | `text-xs font-semibold` | `text-caption-sm font-semibold` | recomendado (typography rewrite 2026-05-19) |
 | `text-sm font-medium` | `text-body-sm font-semibold` | recomendado (typography rewrite 2026-05-19) |
 
@@ -91,7 +91,7 @@ Usar apenas quando quiser código mais explícito com nomes iGreen.
    Para desktop: `min-h-form-lg` (40px) é o padrão.
 
 2. **`text-sm font-*` → preset tipográfico** — para consistência iGreen
-3. **`hover:bg-primary/80`** — opacidade via `/` não funciona com CSS vars. Usar `hover:bg-bg-primary-hover`
+3. **`hover:bg-primary/80`** — opacidade via `/` não funciona com CSS vars. Usar `hover:bg-bg-brand-hover`
 
 ---
 

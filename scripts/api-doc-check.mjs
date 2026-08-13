@@ -12,7 +12,9 @@
  * `export`") é mecânico e de baixo ruído, mas não é perfeito: exportar um helper num
  * refactor é falso-positivo legítimo. Aviso que atrapalha vira aviso ignorado (L-059).
  *
- * Uso: node scripts/api-doc-check.mjs [baseRef]     (default: origin/main)
+ * Uso: node scripts/api-doc-check.mjs [baseRef]
+ *   Sem baseRef, resolve o remote CANÔNICO por URL (`scripts/lib/canonical-base-ref.mjs`) —
+ *   `origin` neste repo é o fork parado, e o default fixo diffava contra uma foto antiga.
  *
  * Lógica pura + testes: `scripts/lib/api-doc-surface.mjs`.
  */
@@ -20,8 +22,9 @@ import { execFileSync } from "node:child_process";
 import { parseAddedLines } from "./lib/diff-added-lines.mjs";
 import { checkApiDocs } from "./lib/api-doc-surface.mjs";
 import { newComponentFolders } from "./lib/new-component-folders.mjs";
+import { resolveBaseRefFromGit } from "./lib/canonical-base-ref.mjs";
 
-const baseRef = process.argv[2] ?? "origin/main";
+const baseRef = process.argv[2] ?? resolveBaseRefFromGit().ref;
 const IN_GHA = !!process.env.GITHUB_ACTIONS;
 const esc = (s) => String(s).replace(/\r?\n/g, "%0A");
 const annotate = (level, title, message) => {

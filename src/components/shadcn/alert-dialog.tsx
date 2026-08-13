@@ -6,15 +6,25 @@ import { cn } from "@/lib/utils";
 /**
  * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.
  *
- * Diferenças vs. Dialog:
- *   - role="alertdialog" (assistive tech anuncia diferente)
- *   - Foco vai pro botão `Cancel` (mais seguro como ação default)
- *   - Não fecha ao clicar fora ou apertar ESC (decisão forçada)
+ * Diferenças vs. Dialog, TODAS medidas no browser (2026-08-13) e não deduzidas:
+ *   - `role="alertdialog"` (assistive tech anuncia diferente) ✔ confirmado
+ *   - Foco inicial no botão `Cancel`, que é o default seguro ✔ confirmado
+ *   - **Não fecha ao clicar fora** ✔ confirmado — e o Dialog comum, no MESMO teste,
+ *     fecha. A diferença é real.
+ *
+ * ⚠️ **ESC FECHA.** Este bloco afirmava "não fecha ao clicar fora ou apertar ESC"; a
+ * segunda metade era falsa. O Radix trata as duas coisas em canais separados: o
+ * pointer-down externo o AlertDialog bloqueia, o ESC não. Quem precisasse de uma decisão
+ * inescapável (o caso que a frase prometia cobrir) sairia daqui acreditando estar
+ * protegido. Pra travar de verdade, no consumidor:
+ *
+ *     <AlertDialogContent onEscapeKeyDown={(e) => e.preventDefault()}>
  *
  * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,
  * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.
  *
- * Pra um wrapper "one-shot" com tone + ícone + botões → use <AlertModal>.
+ * Pra um wrapper "one-shot" com tone + ícone + botões → use <AlertModal>. Doc e a
+ * comparação dos três (AlertModal / AlertDialog / Dialog): página `#/alert-dialog`.
  */
 
 const AlertDialog = AlertDialogPrimitive.Root;

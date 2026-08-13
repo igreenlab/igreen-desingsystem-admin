@@ -1,16 +1,27 @@
 # Multi-Agent Design System Pipeline
 ## Referência completa de arquitetura, agentes, memória, aprendizado e workflow
 
-> ⚠️ **SNAPSHOT HISTÓRICO (era v0.x).** Contagens (lições, componentes) podem estar congeladas. Fontes vivas: lições atuais em `.ai/status/lessons.md` (L-001..L-037); regras em `.claude/rules/ds-standards.md` (os antigos `ds-lessons.md`/`ds-forbidden.md` foram consolidados nele); distribuição em `DISTRIBUICAO.md`.
+> ⚠️ **SNAPSHOT HISTÓRICO (era v0.x).** Toda contagem deste arquivo — lições, componentes,
+> commands, skills, presets tipográficos — está **congelada no passado** e é conhecidamente
+> menor que a realidade. Não use nenhum número daqui. Fontes vivas:
+>
+> | O quê | Onde (fonte viva) |
+> |---|---|
+> | Lições (hoje **L-001..L-066**) | `.ai/status/lessons.md` + `lessons-archive.md` |
+> | Regras + resumo das lições | `.claude/rules/ds-standards.md` (auto-load) |
+> | Inventário de componentes | `.ai/context/components/inventory.md` |
+> | Arquitetura + 4 canais | `.ai/context/architecture.md` |
+> | Distribuição | `DISTRIBUICAO.md` · `SUBMODULE-SETUP.md` |
+>
+> Os arquivos `.claude/rules/ds-lessons.md` e `ds-forbidden.md`, citados adiante neste
+> documento, **não existem mais** — foram consolidados no `ds-standards.md`.
 
 > ⚠️ **Este arquivo é referência HUMANA** (~91KB). Para sessões com agentes da IA, **não carregar**.
 > Use os arquivos curtos (≤ 4KB) carregados sob demanda:
-> - `.claude/rules/ds-standards.md` — regras essenciais (auto-load)
-> - `.claude/rules/ds-lessons.md` — 14 lições resumidas
-> - `.claude/rules/ds-forbidden.md` — anti-patterns
+> - `.claude/rules/ds-standards.md` — regras essenciais + resumo das 68 lições (auto-load)
 > - `.claude/agents/<nome>.md` — identidade dos 6 agents
 > - `.claude/skills/<agent>/<skill>.md` — sub-skills modulares
-> - `.ai/context/<topic>.md` — context maps (architecture, orchestrator-routes, igreen-templates, etc)
+> - `.ai/context/<topic>.md` — context maps (architecture, tokens, components)
 >
 > Este README continua sendo a **fonte humana** para entender filosofia, abstração, decisões e history.
 
@@ -642,14 +653,22 @@ igreen-ds/
 │   │   ├── app-dev-react/      ← 🚧 Pendente
 │   │   ├── frontend-design/    ← Skill de interface iGreen (CRM/admin)
 │   │   ├── crud-builder/       ← Construtor de telas CRUD/tabela (/ds-create-crud)
-│   │   ├── igreen-page/        ← 🚧 Pendente — padrões de página
-│   │   └── _deprecated/        ← Skills substituídas. NÃO CARREGAR.
-│   │       ├── igreen-component/    (substituída por ds-dev/impl-igreen.md)
-│   │       ├── igreen-token/        (substituída por ds-designer/spec-token-*.md)
-│   │       └── igreen-reviewer-guard/  (substituída por ds-reviewer/SKILL.md)
+│   │   ├── brand-builder/      ← Marca/tema de cor novo (/ds-create-brand)
+│   │   ├── list-builder/       ← Lista de cards (/ds-create-list)
+│   │   ├── dashboard-builder/  ← Painel com KPIs + gráficos (/ds-create-dashboard)
+│   │   ├── app-builder/        ← App inteiro: shell + rotas (/ds-create-app)
+│   │   ├── auth-builder/       ← Login/autenticação (/ds-create-login)
+│   │   ├── screen-composer/    ← Página composta, 2+ peças (/ds-create-screen)
+│   │   ├── module-replicator/  ← Replicar módulo (/ds-replicate-module)
+│   │   └── igreen-page/        ← 🚧 Pendente — padrões de página
+│   │
+│   │   ⚠️ A pasta `_deprecated/` descrita aqui em versões antigas NÃO EXISTE mais.
+│   │      As skills que viviam nela (igreen-component, igreen-token,
+│   │      igreen-reviewer-guard) foram substituídas por ds-dev/impl-igreen.md,
+│   │      ds-designer/spec-token.md e ds-reviewer/SKILL.md.
 │   │
 │   └── scripts/
-│       └── sync-agents-to-cursor.js
+│       └── sync-agents-to-cursor.cjs
 │           PAPEL: Sincroniza .claude/agents/*.md → .cursor/rules/_agent-*.mdc.
 │           Mantém mirrors dos agentes para uso no Cursor IDE.
 │           Uso: npm run sync:agents (rodar após modificar qualquer agente).
@@ -808,7 +827,7 @@ absolutamente — ela viola o Gate e produz tokens não documentados no sistema.
 1. Lê `.claude/skills/ds-dev/SKILL.md` (router)
 2. Identifica qual sub-skill carregar
 3. Carrega APENAS a sub-skill relevante
-4. Verifica `component-inventory.md` (antes de qualquer criação)
+4. Verifica `.ai/context/components/inventory.md` (antes de qualquer criação)
 5. Implementa exatamente o que a spec aprovada define
 6. Se token ausente: PARA e sinaliza Cascata (ver seção 12)
 7. Registra no pipeline-state.md com campo Assumption
@@ -950,7 +969,7 @@ simples está num contexto inflado. O contexto inflado tem três efeitos negativ
 Com skills segregadas, o DS Designer criando um token de spacing carrega:
 - `ds-standards.md` (auto-carregado, ~4KB) — regras e lições
 - `ds-designer/SKILL.md` (~2KB) — router + contexto compartilhado do agente
-- `spec-token-spacing.md` (~2KB) — lógica específica de spacing
+- `spec-token.md` (args tipo=spacing) (~2KB) — lógica específica de spacing
 
 Total: ~8KB de contexto denso e relevante. Sem segregação, seriam ~50KB+ onde a
 maioria é irrelevante para a tarefa.
@@ -966,7 +985,7 @@ figma-{ação}.md    ← interação com Figma
 ```
 
 O padrão `{verbo}-{domínio}` elimina ambiguidade. Um arquivo chamado `sizing.md`
-poderia ser de qualquer agente e qualquer domínio. `spec-token-sizing.md` não tem
+poderia ser de qualquer agente e qualquer domínio. `spec-token.md` (args tipo=sizing) não tem
 ambiguidade: é especificação, é de token, é de sizing.
 
 ### Skills do DS Designer
@@ -976,23 +995,23 @@ Contém a tabela de roteamento (qual sub-skill carregar por tipo de tarefa), os
 templates de output obrigatórios para cada tipo (token novo, edição de token,
 spec de componente, extração Figma) incluindo o formato da Perspectiva Strategist.
 
-**`spec-token-color.md`**
+**`spec-token.md` (args tipo=color)**
 Conteúdo operacional: verificação prévia obrigatória (abrir color-light.ts antes
 de propor qualquer token), arquitetura completa (primitivo OKLCH → semântico),
 roles e quando usar cada um, sufixos *-inverted vs on-*, variantes obrigatórias
 por cor de status, fluxo de criação passo a passo, nomes proibidos.
 
-**`spec-token-spacing.md`**
+**`spec-token.md` (args tipo=spacing)**
 Conteúdo operacional: verificação prévia (abrir spacing.ts), três grupos semânticos
 (gap/space/pad) com CSS vars, valores da escala base 4px×n, tokens de componente
 (padCard/padPage), tabela de escolha do grupo correto por situação, regra de não
 criar token com mesmo valor que já existe.
 
-**`spec-token-sizing.md`**
+**`spec-token.md` (args tipo=sizing)**
 Conteúdo operacional: form heights (3xs a xl com valores px), icon sizes, container
 widths, radius (xs a full), shadows (sm a xl), z-index semântico.
 
-**`spec-token-typography.md`**
+**`spec-token.md` (args tipo=typography)**
 Conteúdo operacional: presets compostos existentes, escala de tipo, regra do
 clamp() (apenas ≥32px), nunca px, como criar preset novo.
 
@@ -1717,7 +1736,7 @@ Verificações de entrada:
 **Fluxo:** DS Designer → GATE → DS Dev → DS Reviewer
 
 Verificações de entrada:
-1. Existe em component-inventory.md? → parar, usar existente
+1. Existe em .ai/context/components/inventory.md? → parar, usar existente
 2. Tem lógica interativa complexa (modal, dropdown, portal)? → usar /ds-add-shadcn
 3. Todos os tokens necessários existem? → se não, sinalizar cascata
 
@@ -1738,7 +1757,7 @@ Verificações de entrada:
 **Fluxo:** DS Dev → DS Reviewer (sem Gate)
 
 Verificações de entrada:
-1. Existe em component-inventory.md? → usar existente
+1. Existe em .ai/context/components/inventory.md? → usar existente
 2. Todos os componentes-base existem em shadcn/ ou ui/? → criar bases primeiro
 3. Tokens necessários existem? → cascata se não
 

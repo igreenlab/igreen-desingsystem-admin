@@ -3,10 +3,19 @@
 Bootstrappado via `npx @snksergio/create-design-system`. Contexto pro Claude
 Code / Cursor / agentes gerarem UI nos padrões do iGreen DS.
 
-## Modelo de consumo — registry shadcn (copy-in), NÃO npm
+## Modelo de consumo DESTE projeto — registry shadcn (copy-in)
 
-Os componentes do DS são **copiados pro seu projeto** via `shadcn add @igreen/<nome>`
-(viram código seu, em `src/components/ui/`). NÃO existe `import ... from "@snksergio/design-system"`.
+**Este projeto** foi criado pelo scaffold e consome por **copy-in**: os componentes do DS são
+**copiados pro seu projeto** via `shadcn add @igreen/<nome>` e viram código seu, em
+`src/components/ui/`. Aqui, portanto, você importa por `@/components/ui/...` — não de um
+pacote npm.
+
+> ⚠️ **Isso é uma propriedade DESTE scaffold, não do Design System.** O iGreen DS tem **4
+> canais de consumo, todos suportados** — copy-in (este), **npm**, **submódulo git** e o
+> **scaffold** (`npm create`, que gera um projeto copy-in já configurado). Nenhum é depreciado.
+>
+> Se você chegou aqui procurando saber se pode consumir por **npm ou submódulo**: pode. O que
+> muda é o alcance — veja `.claude/rules/ds-channels.md`.
 
 ```bash
 # 1. token do registry privado no .env.local (peça ao mantenedor)
@@ -102,7 +111,10 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "mapa do Brasil por estado/município", "coroplético", "penetração por UF"                 | `choropleth-map` (componente)    | ChoroplethMap               |
 | "mapa FIXO do Brasil só pra KPI" (sem drill-down)                                          | receita de paths inline (sem dep) | — ver ChoroplethMap/USAGE.md |
 | "chat", "inbox", "conversas", "atendimento", "mensagens"                                  | `example-chat`                   | ConversationColumn + thread |
-| "shell do app", "layout com menu lateral", "casca", "estrutura base"                      | `app-shell` (template)           | AppShell                    |
+| "app inteiro", "sistema com várias telas", "monta o app pra mim"                          | skill `app-builder` (`/ds-create-app`) → `example-app-shell` | AppShell + rotas |
+| "login", "autenticação", "tela de entrar", "recuperar senha"                              | skill `auth-builder` (`/ds-create-login`) → `example-login` | FormField + AppShell-less |
+| "tabela + detalhe ao lado", "clicar abre o detalhe", "filtro no topo que muda tudo"       | skill `screen-composer` (`/ds-create-screen`) | composição de 2+ peças |
+| "shell do app", "layout com menu lateral", "casca", "estrutura base" (só a casca)         | `app-shell` (template)           | AppShell                    |
 | "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
 | "menu lateral simples", "sidebar de nível único", "menu sem rail/contextos"               | `single-menu-sidebar` (template) | SingleMenuSidebar           |
 | "kpi", "card de métrica", "indicador", "stat card", "row de métricas/dashboard cards"     | `kpi` (componente)               | Kpi / KpiGroup / KpiDelta   |
@@ -122,7 +134,7 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
 
 - **`DESIGN.md`** (raiz) — guia de composição: anatomia de tela, ritmo de espaçamento
-  (24px pós-PageHeader, `gap-form-gap` em form), do/don't de tokens, responsividade.
+  (16px pós-PageHeader, `gap-form-gap` 20px em form), do/don't de tokens, responsividade.
   **Leia antes de montar qualquer tela.** A API de cada componente fica no
   `USAGE.md` ao lado dele (`src/components/ui/<Nome>/USAGE.md`).
 - **`.claude/rules/ds-design.md`** — regras duras, **auto-carregadas** (você aplica
@@ -133,13 +145,19 @@ Este projeto já vem com um kit pra montar telas no padrão do DS — **use-o**:
   - `crud-builder` (`/ds-create-crud`) — tabela/CRUD por **entrevista guiada**. Fluxo principal.
   - `list-builder` (`/ds-create-list`) — lista de cards por **entrevista guiada** (→ `example-mapa-rede`).
   - `dashboard-builder` (`/ds-create-dashboard`) — dashboard/painel (KPIs + gráficos + rankings) por **entrevista guiada** (→ `example-dashboard`). Delega tabela/lista embutida a crud/list-builder.
+  - `app-builder` (`/ds-create-app`) — **app inteiro**: shell + navegação + rotas (→ `example-app-shell`). Delega cada tela pro builder dela.
+  - `auth-builder` (`/ds-create-login`) — login/autenticação (→ `example-login`).
+  - `screen-composer` (`/ds-create-screen`) — **página composta**: 2+ peças que conversam (master-detail, cross-filter). Monta cada peça pelos builders e cabeia o estado.
+  - `module-replicator` (`/ds-replicate-module`) — replicar um módulo existente pra outro domínio.
   - `page-edit` — edição/cadastro/formulário (→ `example-edit-page`).
   - `page-detail` — detalhe/ficha com abas (→ `example-order-detail`).
   - `charts` — gráficos isolados (Chart/Recharts, caveats).
   - `chat` — inbox/conversas (→ `example-chat`).
   - `drawers` — criar/editar/detalhe (→ drawers do `example-finance`).
   - `cards` — composição de cards/painéis soltos.
-- **`/ds-build-page`** — entrada genérica que roteia qualquer tela pelo orquestrador.
+- **Commands (8):** `/ds-build-page` (entrada genérica que roteia pelo orquestrador) ·
+  `/ds-create-crud` · `/ds-create-list` · `/ds-create-dashboard` · `/ds-create-screen` ·
+  `/ds-create-app` · `/ds-create-login` · `/ds-replicate-module`.
 
 **Como a IA deve agir:** pedido de tela → `ds-kit` classifica a intenção → CRUD vai pra
 `crud-builder` (entrevista com gate); demais tipos carregam a skill focada, que puxa o
@@ -193,9 +211,11 @@ gap-4 → gap-gp-md          p-4 → p-sp-md
 rounded-lg → rounded-radius-lg   shadow-md → shadow-sh-md
 // ❌ Heights fixos
 h-9 → min-h-form-md   h-10 → min-h-form-lg   h-11 → min-h-form-xl (WCAG mobile)
-// ❌ Ring / focus
-ring-ring-primary/30 → ring-ring-primary   ring-3 → ring-4
+// ❌ Ring / focus  (o token ja tem alpha — nunca /30; e `ring-3` nao existe no Tailwind)
+ring-ring-brand/30 → ring-ring-brand   ring-3 → ring-4
 outline-none → focus-visible:outline-none
+// ❌ `ring-ring-primary` NAO EXISTE (V2 extinta) — os 6 rings reais sao
+//    brand · secondary · success · warning · danger · info
 // ❌ Tipografia avulsa
 text-sm font-medium → text-body-md font-medium
 text-[14px] → text-body-md
@@ -206,7 +226,8 @@ text-[14px] → text-body-md
 ```ts
 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-{color}
 min-h-form-lg   // 40px desktop default · min-h-form-xl 44px mobile
-// Typography (6 roles): display / heading / title / body / caption / code
+// Typography (7 roles): display / heading / title / body / caption / stat / code
+// stat-{sm|md|lg|xl} = valor de KPI/metrica (estatico, bold, use com tabular-nums)
 // body-sm (13/500) = default do projeto · title weight 600 default
 text-body-sm font-semibold   // override de weight sobre preset
 ```

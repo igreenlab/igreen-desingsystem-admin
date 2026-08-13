@@ -167,7 +167,15 @@ Se foi adicionada L-NNN nova:
 ### 2.6 — Agente / skill / rule modificado
 
 - [ ] Skill nova → registrada no router (`<agent>/SKILL.md`)?
-- [ ] Rule auto-load mudou glob → `settings.json` consistente?
+- [ ] Regra nova/alterada → está nos **DOIS** auto-carregados com o **mesmo número** (`CLAUDE.md` + `.claude/rules/ds-standards.md`)? Gate: `rules-parity`
+- [ ] Skill nova → linha na tabela §Skills por tarefa **+** rota no `orchestrator.md` **+** command? Gate: `skills-routing`
+- [ ] Agent alterado → rodou `npm run sync:agents` e commitou os `.mdc`? Gate: `cursor-mirror`
+- [ ] Lição nova → entrada 1-linha no resumo do `ds-standards.md` + contagem do título? Gate: `lessons-index`
+
+> A linha anterior aqui era *"Rule auto-load mudou glob → `settings.json` consistente?"* —
+> **inexecutável**: o `settings.json` não tem nenhuma chave de rules/glob (só `permissions`,
+> `hooks` e `outputStyle`), e o `globs:` do frontmatter era sintaxe do Cursor, inerte.
+> Trocada pelos 4 checks acima, que **têm gate** e portanto reprovam de verdade.
 - [ ] Command novo → existe em `.claude/commands/<nome>.md`?
 - [ ] CLAUDE.md raiz menciona o novo entry point (se aplicável)?
 
@@ -214,6 +222,44 @@ Mudança em componente/token precisa refletir no registry, senão o consumidor r
   git diff --name-only HEAD -- 'src/components/**' | while read f; do grep -lE 'from "(\.\./)+shadcn/' "$f" 2>/dev/null; done
   ```
 
+### 2.9 — Rodar os gates agregados (mais barato que reproduzir na mão)
+
+Antes de aprovar, rode os 2 comandos abaixo — eles cobrem o que o checklist manual não alcança:
+
+```bash
+npm run release:check   # registry-check --ci + brand-check + distribution-debt --ci
+                        # + examples-drift + npm audit (high)
+npm test                # inclui runtime-base.test e orphan-utilities
+```
+
+O que cada gate pega, e **por que o checklist manual não pega**:
+
+| Gate | Pega |
+|---|---|
+| `registry-check --ci` | item de registry com `files[].path` inexistente · import relativo pra `shadcn/` · embed fora de sync **por conteúdo** |
+| `brand-check` | marca do catálogo faltando em qualquer das **10 superfícies** — 8 delas falham em silêncio |
+| `distribution-debt --ci` | componente em `ui/` fora do registry **ou** fora do vocabulário do consumidor (L-042) |
+| `examples-drift-check` | `src/examples/*` divergindo do showcase que ele copia (L-035) |
+| `orphan-utilities` | `@utility` que um componente usa e que **não está no tema gerado** — era o buraco por onde o `outline-float` passou meses |
+| `runtime-base.test` | as 7 peças de runtime ausentes do tema · cópia do CLI divergente · `globals.css` **redeclarando** alguma delas |
+| `shadcn-vocab` | vocabulário da bridge (`bg-popover`, `ring-foreground`…) em componente/exemplo/showcase — só existe no `globals.css`/`index.css` e não viaja pros canais npm e submódulo · e cor da **paleta nativa** do Tailwind (`bg-red-500`), que renderiza mas fica fora do sistema de tokens |
+| `dead-theme-classes` | classe de cor sem CSS var — em `src/` **e** nas docs/skills/kit que ensinam a IA. Foi por só olhar `src/` que 44 usos de V2 sobreviveram nas skills. Citação deliberada declara-se em `CITACOES` com motivo |
+
+⚠️ **Mexeu em doc que ensina classe?** `npm test` já cobre classe INEXISTENTE. O que ele
+**não** cobre é classe que existe com **valor errado** na doc (`radius.base` documentado
+como 26px valendo 10px) — pra isso rode `npm run audit:token-docs` e trie a saída.
+
+### 2.10 — Mexeu no transform de tokens?
+
+Se o diff toca `tokens/transforms/to-tailwind-v4.ts`, não basta `npm run tokens:tw4`:
+
+- [ ] `npm test` passa (`runtime-base.test` + `orphan-utilities` cobrem o transform)
+- [ ] Se mexeu em `buildRuntimeBase` / `buildFloatingUtilities` / `buildScrollbarUtilities`:
+      o `globals.css` **continua sem redeclarar** o que você mudou?
+- [ ] `npm run cli:rebake` rodou (o template leva uma cópia do tema) **+ bump `cli/package.json`**?
+- [ ] Marca nova ou token de cor? → `npm run brand:check` e, se for cor sobre superfície,
+      `npm run brand:contrast`
+
 ## Passo 3 — Output
 
 ### Se TODAS as checks OK
@@ -250,12 +296,12 @@ Pendências encontradas:
     → Criar USAGE.md no mesmo commit
 
   • typography.ts mudou mas TypographyDoc.tsx não foi atualizada
-    → Refletir as 6 roles novas + presets adicionados/removidos
+    → Refletir as 7 roles + presets adicionados/removidos
 
 [MÉDIO]
   • Lição L-016 adicionada em lessons.md mas resumo em ds-standards.md
     não foi atualizado
-    → Adicionar entry 1-linha em "16 Lições — resumo"
+    → Adicionar entry 1-linha em "68 Lições (L-001 a L-068) — resumo"
 
 [BAIXO]
   • Comentário em src/components/shadcn/label.tsx menciona preset legado
@@ -309,7 +355,7 @@ grep -rE 'text-(paragraph|label|subheading)-(sm|md|lg|xl|xs|base|2xs)' src --inc
 
 - Não substitui `review-component.md` (revisão profunda de UM componente). Pre-commit-check é mais largo, menos profundo.
 - Não substitui Passo 1.5 do `release.md` (greps L-001..L-007). Esse é específico pra release; pre-commit pode ser invocado fora de release.
-- Não roda `tsc` / tests — o release skill (ou o usuário) faz isso depois.
+- ~~Não roda `tsc` / tests~~ — **desatualizado**: a §2.9 manda rodar `npm test` e `npm run release:check`, que é onde vivem os gates de classe morta, vocabulário da bridge, runtime-base e vocabulário do consumidor. O que continua fora daqui é o `npx tsc --noEmit` (o release skill faz).
 - Não decide se commit deve ser único ou separado — apenas valida que TUDO que precisava acompanhar a mudança foi atualizado.
 
 ---

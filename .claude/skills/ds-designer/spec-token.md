@@ -66,12 +66,15 @@ Toda spec entregue ao Orchestrator pra gate inclui:
 Arquitetura:
 ```
 color-palette.ts (primitivo OKLCH)
-  brand[0-1000] · neutral[0-950] · success/warning/danger/info[50-950]
-  alpha.black/white/neutral/brand [10-64]
+  brand · brandContrast · gray · success/warning/danger/info · white · black · alpha
        ↓
 color-light.ts + color-dark.ts (semântico)
-  bg.* · fg.* · border.* · ring.* · overlay.*
+  bg.* · fg.* · border.* · ring.* · overlay.* · chart.*
 ```
+
+⚠️ Não existe primitivo `neutral` — o neutro se chama `gray`. `alpha` só tem `black` e
+`white`. `brandContrast` existe porque no dark a família brand troca pra um tom mais
+claro (verde escuro não contrasta com near-black).
 
 Roles:
 
@@ -82,17 +85,33 @@ Roles:
 | `border.*` | Bordas e dividers |
 | `ring.*` | Focus rings — NUNCA usar `border` pra isso |
 | `overlay.*` | Scrim, backdrop |
+| `chart.*` | Séries de gráfico (`chart-1..5`) + `chart-grid` |
 
 Sufixos:
 
-- `*-inverted` — mesmo papel, fundo invertido (`fg.foreground-inverted` = texto claro em fundo escuro tipo tooltip)
-- `on-*` — texto projetado pra sentar sobre cor específica (`fg.on-primary` = texto branco sobre azul da marca)
+- `on-*` — texto projetado pra sentar sobre cor específica (`fg.on-brand` = texto sobre
+  o verde da marca; a marca `default` é **verde**, azul é a marca `blue`)
 
-Variantes obrigatórias por cor de marca/status: `bg.{cor}-subtle` (alerts, banners), `bg.{cor}-muted` (intermediário), `fg.on-{cor}` (texto sobre sólido).
+⚠️ **O tom sutil depende da FAMÍLIA, não do papel** (CLAUDE.md §Nomenclatura):
 
-Fluxo: primitivo existe em palette? → adicionar em light + dark + on-* + subtle/muted → `npm run tokens:tw4`.
+| Família | Tom sutil | Não existe |
+|---|---|---|
+| status (`success`/`warning`/`danger`/`info`) | `bg.{cor}-muted` · `border.{cor}-muted` | `bg.success-subtle` · `border.warning` cru |
+| `brand` | `bg.brand-subtle` | — |
+| neutro (sem cor) | `bg.subtle` · `fg.subtle` · `border.subtle` | — |
 
-Nomes proibidos: `fg.brand`→`fg.primary` · `bg.page`→`bg.canvas` · `border.default`→`border.main` · `border.focus`→`ring.*` · `critical`→`danger` · `icon.*`→`fg.*`
+Obrigatórias por cor nova: o tom sutil da família dela + `fg.on-{cor}` (texto sobre sólido).
+
+Fluxo: primitivo existe em palette? → adicionar em light + dark + `on-*` + tom sutil da
+família → `npm run tokens:tw4`.
+
+**Nomes extintos (V2) → nome atual.** A direção é da esquerda pra direita — o da esquerda
+**não emite CSS** e a classe some em silêncio:
+
+`fg.primary`→`fg.brand` · `bg.primary`→`bg.brand` · `fg.foreground`→`fg.default` ·
+`border.main`→`border.default` · `bg.page`→`bg.canvas` · `border.focus`→`ring.*` ·
+`critical`→`danger` · `icon.*`→`fg.*` · `bg.disabled`→**não existe** (use
+`opacity-50`; só `fg.disabled` existe)
 
 ---
 
@@ -106,18 +125,29 @@ Grupos (arquivo: `semantic/spacing.ts`):
 | `space` | `--spacing-sp-*` | `p-sp-*`, `m-sp-*` | Espaço genérico, margin, offset |
 | `pad` | `--spacing-pad-*` | `px-pad-*` | Padding interno de componente |
 
-Escala base 4px × n:
+⚠️ **Os 3 grupos compartilham a MESMA escala.** `gap.lg`, `space.lg` e `pad.lg` valem
+todos 10px — o que muda é a intenção (e por consequência a classe), não o valor. A tabela
+abaixo tinha 3 colunas de valores divergentes; era falsa desde a unificação da escala.
 
-| Token gap | Valor | Token space | Valor | Token pad | Valor |
-|-----------|-------|-------------|-------|-----------|-------|
-| `gap.2xs` | 2px | `space.2xs` | 2px | `pad.2xs` | 2px |
-| `gap.xs` | 4px | `space.xs` | 4px | `pad.xs` | 4px |
-| `gap.sm` | 6px | `space.sm` | 8px | `pad.sm` | 6px |
-| `gap.md` | 8px | `space.md` | 16px | `pad.md` | 8px |
-| `gap.lg` | 12px | `space.lg` | 24px | `pad.lg` | 12px |
-| `gap.xl` | 16px | `space.xl` | 32px | `pad.xl` | 14px |
-| `gap.2xl` | 24px | `space.2xl` | 48px | `pad.2xl` | 16px |
-| `gap.3xl` | 32px | | | `pad.3xl` | 24px |
+| Degrau | Valor | Classes |
+|---|---|---|
+| `2xs` | 2px | `gap-gp-2xs` · `p-sp-2xs` · `px-pad-2xs` |
+| `xs` | 4px | `gap-gp-xs` · `p-sp-xs` · `px-pad-xs` |
+| `sm` | 6px | `gap-gp-sm` · `p-sp-sm` · `px-pad-sm` |
+| `md` | 8px | `gap-gp-md` · `p-sp-md` · `px-pad-md` |
+| `lg` | 10px | `gap-gp-lg` · `p-sp-lg` · `px-pad-lg` |
+| `xl` | 12px | `gap-gp-xl` · `p-sp-xl` · `px-pad-xl` |
+| `2xl` | 16px | `gap-gp-2xl` · `p-sp-2xl` · `px-pad-2xl` |
+| `3xl` | 20px | `gap-gp-3xl` · `p-sp-3xl` · `px-pad-3xl` |
+| `4xl` | 24px | `gap-gp-4xl` · `p-sp-4xl` · `px-pad-4xl` |
+| `5xl` | 28px | `gap-gp-5xl` · `p-sp-5xl` · `px-pad-5xl` |
+| `6xl` | 32px | `gap-gp-6xl` · `p-sp-6xl` · `px-pad-6xl` |
+| `7xl` | 48px | `gap-gp-7xl` · `p-sp-7xl` · `px-pad-7xl` |
+
+Além destes: `gap.base`/`space.base` (16px), `pad.base` (12px) e `space.px` (1px).
+
+**Form: `gap-form-gap` (20px), não `gap-gp-*`** — L-024. Vale pra qualquer form, drawer ou
+modal com 2+ FormField empilhados, inclusive dentro de grid.
 
 Tokens de componente (`components/spacing.ts`):
 
@@ -159,11 +189,16 @@ Form heights — controles interativos (`components/sizing.ts`):
 | `form.lg` | 40px | **desktop default** |
 | `form.xl` | 44px | **WCAG mobile** |
 
-Icon sizes: `icon.sm` 16px · `icon.md` 20px (default) · `icon.lg` 24px · `icon.xl` 32px
+Icon sizes: `icon.2xs` 8 · `xs` 12 · `sm` 16 · **`md` 20 (default)** · `lg` 24 · `xl` 32 ·
+`2xl` 40 · `3xl` 48px
 
 Container widths (`--container-*` → `max-w-*`):
-`xs` 480 · `sm` 640 · `md` 768 · `lg` 1024 · `xl` 1280 · `2xl` 1440 · `main-content-max` 1368
-`sidebar-md` 280 · `modal-md` 640 · `dropdown-md` 240
+`xs` 480 · `sm` 640 · `md` 768 · `lg` 1024 · `xl` 1280 · `2xl` 1440 · `3xl` 1920 ·
+`main-content-max` 1368 · `prose` 65ch · `sidebar-sm/lg` · `modal-sm/lg` ·
+`dropdown-sm/lg` · `tooltip-sm/md/lg` · `drawer-sm/md/lg`
+
+⚠️ **`container` é a ÚNICA exceção que não dobra o prefixo** (L-057): a classe é
+`max-w-md` (768px do DS), **não** `max-w-container-md` — esta não existe e não emite CSS.
 
 Layout heights: `navbar` 64px · `toolbar` 48px · `tab-bar` 56px · `header-sm/md/lg` 80/96/128px
 
@@ -175,17 +210,28 @@ NUNCA height fixo: `h-[44px]`/`h-11` → `min-h-form-xl`.
 
 Arquivo: `semantic/shape.ts`. CSS var `--radius-radius-*` → classe `rounded-radius-*` (prefixo duplo INTENCIONAL pra evitar colisão com `rounded-sm/md/lg` TW nativo).
 
-| Token | Valor | Uso |
-|-------|-------|-----|
-| `radius.xs` | 4px | sutil |
-| `radius.md` | 8px | inputs |
-| `radius.3xl` | 22px | badges, componentes menores |
-| `radius.base` | 26px | **DEFAULT componentes interativos** |
-| `radius.full` | 9999px | pills, avatars |
+Todos derivam de `RADIUS_BASE = 0.625rem = 10px`:
 
-Relação form → radius:
-- `form.lg/xl` → `rounded-radius-base` (26px)
-- `form.xs/sm` → `rounded-radius-3xl` (22px)
+| Token | Multiplicador | Valor | Uso |
+|-------|---|-------|-----|
+| `radius.none` | — | 0 | reset |
+| `radius.xs` | ×0.4 | 4px | sutil |
+| `radius.sm` | ×0.6 | 6px | chips, tags |
+| `radius.md` | ×0.8 | 8px | botão pequeno (2xs/xs) |
+| `radius.lg` | ×1.0 | **10px** | botão/input (sm→lg) |
+| `radius.base` | ×1.0 | **10px** | **alias de `lg`** |
+| `radius.xl` | ×1.4 | 14px | cards |
+| `radius.2xl` | ×1.8 | 18px | painéis |
+| `radius.3xl` | ×2.2 | 22px | superfícies grandes |
+| `radius.4xl` | ×2.6 | 26px | (era o valor antigo de `base`) |
+| `radius.full` | — | 9999px | pills, avatars |
+
+⚠️ **`radius.base` vale 10px, não 26px.** Ele é alias de `lg`; os 26px migraram pro `4xl`.
+Prefira o nome do degrau (`rounded-radius-lg`) ao alias — é o que os componentes usam.
+
+Relação form → radius, medida no `Button` real:
+- `form.md/lg/xl` (sm→lg) → `rounded-radius-lg` (10px)
+- `form.xs/sm` (2xs/xs) → `rounded-radius-md` (8px)
 - `form.2xs/3xs` → `rounded-radius-full` (pill)
 
 NUNCA `rounded-sm`, `rounded-md`, `rounded-lg` (são TW nativo, valores diferentes dos tokens DS).
@@ -198,14 +244,25 @@ Arquivo: `semantic/elevation.ts`. CSS var `--shadow-sh-*` → classe `shadow-sh-
 
 | Token | Uso |
 |-------|-----|
+| `shadow.none` | reset |
 | `shadow.sm` | Card repouso, inputs |
 | `shadow.md` | Card hover |
 | `shadow.lg` | Dropdown, popover |
 | `shadow.xl` | Modal |
 | `shadow.2xl` | Toast |
+| `shadow.aside` | Sidebar/drawer |
+| `shadow.ring` · `ring-danger` · `ring-warning` · `ring-success` · `ring-info` | Foco por box-shadow (`focus-visible:shadow-sh-ring`) |
+
+⚠️ **Não existem** `shadow.base`, `shadow.3xl`, `shadow.inner` nem `shadow.focus-*` — a
+lista acima é completa.
 
 Dark mode: opacidade ≥ 2× do light (L-011).
 NUNCA `shadow-sm`, `shadow-md`, `shadow-lg` (TW nativo).
+
+⚠️ **Shadow não é dark-aware por `var()`** (L-043): o Tailwind v4 **inlina** o valor da
+`@theme` na utility, então `.dark { --shadow-* }` é código morto. O transform resolve com
+indireção — `@theme inline { --shadow-sh-*: var(--ds-sh-*) }` + `:root`/`.dark { --ds-sh-* }`.
+Não declare sombra dark direto no `.dark{}`.
 
 zIndex: `dropdown` 100 · `sticky` 200 · `overlay` 300 · `modal` 400 · `popover` 500 · `toast` 600 · `tooltip` 700
 
@@ -218,7 +275,7 @@ Sistema:
 - Presets **< 32px** → `rem` estático, lineHeight em rem
 - **NUNCA px** em nenhum preset (Figma mostra px → dividir por 16 pra rem)
 
-Presets por role (6 roles, 23 presets — rewrite 2026-05-19):
+Presets por role (7 roles, 27 presets):
 
 **display** (hero — fluid `clamp()`): `display-2xl` · `display-xl` · `display-lg` · `display-md`
 
@@ -229,6 +286,10 @@ Presets por role (6 roles, 23 presets — rewrite 2026-05-19):
 **body** (interativo + leitura): `body-2xl` · `body-xl` · `body-lg` · `body-md` 0.875rem/14 (leitura, w400) · **`body-sm` 0.8125rem/13 — DEFAULT do projeto; interativo = w500** · `body-xs` 0.75rem/12 (w500)
 
 **caption** (auxiliar/metadados — w400): `caption-md` 0.75rem/12 · `caption-sm` 0.6875rem/11 · `caption-xs` 0.625rem/10
+
+**stat** (valor de KPI/métrica — estático, bold): `stat-xl` 34px · `stat-lg` 30px ·
+`stat-md` 24px · `stat-sm` 20px. Use sempre com `tabular-nums`. É o role que substitui o
+`text-[Npx]` na unha em número de indicador — nunca `display-*` nem `heading-*` pra isso.
 
 **code**: `code-md` 1rem · `code-sm` 0.8125rem
 
@@ -245,6 +306,7 @@ Uso por componente:
 | Badge / Chip | `body-xs` (ou `caption-md`) |
 | Tabs item | `body-sm` |
 | Card title | `title-md` |
+| Valor de KPI / métrica | `stat-{sm\|md\|lg\|xl}` + `tabular-nums` |
 
 Regras:
 ```typescript
@@ -252,10 +314,10 @@ Regras:
 "text-[14px] font-medium leading-5"
 "text-sm font-semibold"
 
-// ✅ SEMPRE preset composto (typography rewrite 2026-05-19 — 23 presets em 6 roles)
+// ✅ SEMPRE preset composto (27 presets em 7 roles)
 "text-body-sm font-semibold"   // 13/600 — Button labels, interactive
 "text-body-sm"                  // 13/500 — body default do projeto
 "text-title-sm"                 // 14/600 — section titles
 ```
 
-Os 6 roles são `display | heading | title | body | caption | code`. **Não existem mais** `paragraph-*`, `label-*` ou `subheading-*` — substituições no shadcn-token-map.md. Override de peso via Tailwind nativo (`font-semibold`, `font-medium`, etc.) sobre o preset.
+Os 7 roles são `display | heading | title | body | caption | stat | code` — `stat-{sm,md,lg,xl}` (20/24/30/34px, estático, bold) é o valor de KPI/métrica, sempre com `tabular-nums`. **Não existem mais** `paragraph-*`, `label-*` ou `subheading-*` — substituições no shadcn-token-map.md. Override de peso via Tailwind nativo (`font-semibold`, `font-medium`, etc.) sobre o preset.

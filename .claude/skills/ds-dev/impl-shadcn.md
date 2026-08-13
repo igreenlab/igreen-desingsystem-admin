@@ -12,16 +12,43 @@ description: >
 shadcn/[nome].tsx já existe? → PARAR. Editar existente, não reinstalar.
 ```
 
-## Como tokens iGreen chegam automaticamente
+## ⛔ A bridge NÃO é "mapeamento automático" — trocar os tokens é OBRIGATÓRIO
+
+Esta seção dizia o contrário até 2026-08-08, e foi ela que produziu o defeito da v0.37.1.
+O texto antigo era:
 
 ```
-componente usa  → bg-primary
-Tailwind gera   → var(--primary)
-globals.css     → --primary: var(--color-bg-primary)  ← mapeamento automático
-resultado       → token iGreen ✓
+componente usa  → bg-primary          ← ERRADO
+globals.css     → --primary: var(--color-bg-brand)   "mapeamento automático"
+Instalar + mover para shadcn/ já é suficiente para bg-*/text-*.
 ```
 
-Instalar + mover para `shadcn/` já é suficiente para `bg-*`/`text-*`.
+**Por que é falso:** esse mapeamento (`@theme inline`) mora só no `globals.css` (showcase) e
+no `index.css` (scaffold). Ele **NÃO viaja** pros canais **npm** e **submódulo** — lá a var
+não existe e a cor cai em `currentColor`, em opacidade cheia.
+
+Medido no consumidor npm, no `Card`:
+
+```
+intenção : ring-foreground/5   → oklch(0.15 0 0 / 0.05)   fio quase invisível
+real     : ring-1 currentColor → oklch(0.15 0 0)           linha preta sólida
+```
+
+Eram 8 classes em 5 componentes (`card`, `drawer`, `menubar`, `select`, `separator`), e quem
+achou foi o mantenedor **num print** — nenhum gate pegava na época.
+
+**Regra:** componente distribuído **não pode** usar nenhuma das 19 chaves da bridge —
+`background` `foreground` `card` `popover` `primary` `secondary` `muted` `accent`
+`destructive` `border` `input` `ring` (+ as variantes `-foreground`). Gate:
+`scripts/lib/shadcn-vocab.mjs`, no `npm test`. A tabela `EQUIVALENTE` desse módulo dá o
+token DS de cada chave — **use-a**, e note que ela avisa onde as duas bridges divergem
+(`popover`, `secondary`, `accent`, `ring`), porque nessas 4 não existe substituto que
+preserve o valor nos dois canais.
+
+⚠️ Armadilha real: `popover` → **`bg-bg-surface`**, NÃO `bg-bg-dropdown`. O `dropdown` é o
+token da receita de FLUTUANTE e é translúcido no dark (`canvas` a 70%), pareado com
+`before:backdrop-blur-2xl`. Trocar sem o blur muda o fundo — aconteceu no `command.tsx`.
+
 **Exceção 1 — focus ring:** precisa substituição manual obrigatória (abaixo).
 **Exceção 2 — BORDA (L-039):** no Tailwind v4 a classe `border` (e `border-x/y/l/r/t/b`)
 define **só a largura** — sem uma classe de cor a borda usa `currentColor` (branca no
@@ -51,10 +78,10 @@ mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
 "focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
 
 // ✅ Padrão 1 — estático (selects, checkboxes, triggers):
-"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-primary"
+"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
 
 // ✅ Padrão 2 — animado (inputs, textareas):
-// base: "ring-0 ring-ring-primary transition-[color,box-shadow,background-color] focus-visible:outline-none"
+// base: "ring-0 ring-ring-brand transition-[color,box-shadow,background-color] focus-visible:outline-none"
 // focus: "focus-visible:ring-4"
 ```
 
@@ -67,7 +94,7 @@ mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx
 "h-10"             → "min-h-form-lg"   // 40px
 "h-11"             → "min-h-form-xl"   // 44px
 
-// Tipografia (typography rewrite 2026-05-19 — só 6 roles: display/heading/title/body/caption/code)
+// Tipografia — 27 presets em 7 roles: display/heading/title/body/caption/stat/code
 "text-sm"                → "text-body-sm"           // 13/500
 "text-sm font-medium"    → "text-body-sm font-semibold"  // 13/600
 "text-xs"                → "text-body-xs"           // 12/500

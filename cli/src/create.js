@@ -694,7 +694,7 @@ async function main() {
     );
   }
   console.log(
-    pc.cyan("  npx shadcn@4.17.0 add @igreen/button") +
+    pc.cyan("  npm run igreen:add -- button") +
       pc.dim("   # puxe componentes do registry"),
   );
   console.log(pc.cyan(`  ${runCmd}`));

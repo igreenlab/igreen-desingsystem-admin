@@ -2,6 +2,12 @@
 description: Front-door pra criar tela de dados — desambigua TABELA (grade) vs LISTA DE CARDS vs DASHBOARD/PAINEL e roteia
 ---
 
+> **Modo submódulo (`ds-link`).** Existe `.claude/ds-config.json` com `"mode": "submodule"`?
+> Então **NÃO rode `igreen:add`** — esse script não existe no seu projeto. Os componentes e
+> exemplos já estão no disco em `<dsPath>/src`: importe pelo `importBase` do config
+> (compostos) e pelo `primitivesBase` (primitivos shadcn), e **leia** o exemplo direto de
+> `<dsPath>/src/examples/`.
+
 Ponto de entrada único. **Primeiro desambigua, depois delega** — "lista" é usado
 pra tabela com frequência, então nunca roteie sem confirmar.
 
@@ -22,7 +28,7 @@ Dashboard = 2+ tipos de seção; 1 tabela/lista/gráfico só → não é dashboa
 > lado que abre ao clicar", "filtro/período no topo que muda KPIs + gráfico +
 > tabela juntos", master-detail, cross-filter → **skill `screen-composer`**
 > (`.claude/skills/screen-composer/SKILL.md`). Ela monta cada peça pelos builders
-> e cabeia o **estado compartilhado** (dashboard-patterns §7). Diferente de
+> e cabeia o **estado compartilhado** (master-detail / cross-filter — receita na skill). Diferente de
 > "dashboard com tabela embutida" (sem interação cruzada → dashboard-builder).
 
 > **Kanban / board / funil / pipeline de vendas** → rota **Tabela**. Kanban é uma

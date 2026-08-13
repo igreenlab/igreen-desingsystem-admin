@@ -45,6 +45,16 @@ export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
 export * from "./ui/ChoroplethMap";
+/**
+ * Entraram no barrel em 0.37.0. Existiam desde antes e simplesmente nunca foram
+ * exportados — o consumidor npm que fizesse `import { ChartContainer }` recebia
+ * "not exported", enquanto a doc do canal npm anunciava "os 42 componentes ui/".
+ * Eram 37. Nenhum conflita com os 445 nomes já exportados (conferido nome a nome).
+ */
+export * from "./ui/Chart";
+export * from "./ui/DataList";
+export * from "./ui/List";
+export * from "./ui/Toast";
 // TabelaTeste: demo interno (só no preview) — NÃO exportado no barrel público
 // pra não vazar na lib npm. Use via src/preview/pages/TabelaTesteDoc.
 
@@ -169,3 +179,21 @@ export type {
   InputGroupButtonProps,
   InputGroupState,
 } from "./shadcn";
+
+/* ── Hooks de tema ────────────────────────────────────────────────────────────
+ * Os únicos hooks exportados na lib. Existem porque escolher marca/modo é decisão
+ * de RUNTIME do app consumidor — e a alternativa era ele reimplementar persistência
+ * e sincronia entre abas na unha.
+ *
+ * `useBrand` aceita catálogo injetável (`useBrand({ brands })`): passe só as marcas
+ * cujo overlay você importou, senão o seletor lista opções que não fazem nada —
+ * `data-theme` com id sem CSS no bundle é no-op silencioso.
+ *
+ * ⚠️ O CSS NÃO vem daqui. O hook só escreve `data-theme` no `<html>`; os overlays
+ * chegam por `@import "@snksergio/design-system/theme/brand-<id>.css"`. Guia completo
+ * na página "Temas de marca" do catálogo.
+ */
+export { useBrand, BRANDS } from "../hooks/useBrand";
+export type { Brand, BrandOption, UseBrandOptions } from "../hooks/useBrand";
+export { useTheme } from "../hooks/useTheme";
+export type { Theme } from "../hooks/useTheme";

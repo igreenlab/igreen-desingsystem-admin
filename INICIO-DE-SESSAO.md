@@ -11,10 +11,12 @@ dentro da pasta `design-system/`, e a sessão já sai calibrada.
 
 > O pipeline do DS já força o essencial (checar inventário, não inventar token,
 > GATE de aprovação, estrutura de 5 arquivos + `USAGE.md`, hooks de
-> lint/format/inventário, bloqueio de edição sensível). Este prompt **traduz** o
+> lint/inventário/tokens, bloqueio de edição sensível). Este prompt **traduz** o
 > fluxo para a língua de quem não programa e fixa a disciplina de segurança
-> (branch, push/release, um agente por área). Ver `CLAUDE.md` (Regra 7) e
-> `.claude/agents/orchestrator.md` (gate em modo não-técnico).
+> (branch, push/release, um agente por área). Ver `CLAUDE.md` — **Regra 8**
+> (handoff via PR: a IA vai até abrir o PR e **para no merge**), **Regra 7** (gate de
+> pre-commit) e a seção "Trabalho multi-agente" — e `.claude/agents/orchestrator.md`
+> (gate em modo não-técnico).
 
 ---
 
@@ -77,5 +79,8 @@ Comece me perguntando: qual componente eu quero criar e onde ele vai aparecer?
 - Um componente só chega ao app (Virtual Office) depois de **merge no DS** + **bump
   do ponteiro do submódulo** no repo do app — isso é passo do mantenedor, não sai
   automático da sessão do operador.
-- Domínio **App** (telas/páginas) está 🚧 não operacional no pipeline do DS: pedidos
-  de tela vão no repositório do app, não aqui.
+- **"Tela" depende de qual tela** (ver a tabela de escopo no `CLAUDE.md`): página de
+  **showcase/exemplo** do DS (`src/preview/pages/`) é operacional aqui — é o que
+  `/ds-create-crud`, `/ds-create-list`, `/ds-create-dashboard` e `/ds-create-screen`
+  fazem. O que está 🚧 é o **Domínio App**: tela de produto do app iGreen (feature
+  real, rota de negócio) vai no repositório do app, não aqui.

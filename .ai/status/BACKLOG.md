@@ -1,7 +1,101 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-07-29
+> Última revisão: 2026-08-08
+
+---
+
+## 📦 Peso do pacote npm — o barrel raiz não tree-shake (adiado em 2026-08-08)
+
+> Adiado **por decisão do mantenedor** na sessão da v0.37.2: primeiro garantir que os
+> componentes estão sendo **usados corretamente**, melhoria depois — pra que qualquer
+> melhoria escale naturalmente. Não é defeito de correção: nada quebra, nada muda de
+> aparência. É custo de download.
+
+**Medido em 2026-08-08** contra o pacote **publicado** `@snksergio/design-system@0.37.2`
+(app Vite mínimo, `npm run build` com minificação e gzip do próprio Vite):
+
+| o que o app importa | raw | **gzip** | sobre o baseline |
+|---|---|---|---|
+| nada (só React) — baseline | 190 kB | **59,9 kB** | — |
+| `import { Button }` do barrel raiz | 5.556 kB | **1.427 kB** | **+1.367 kB** |
+| `import { Icon }` do barrel raiz | 5.556 kB | **1.427 kB** | +1.367 kB |
+| `import { Badge }` do subpath `/shadcn` | 605 kB | **180 kB** | +120 kB |
+
+Dois fatos que essa tabela mostra:
+
+1. **O barrel raiz custa o mesmo pra qualquer componente** — `Button` e `Icon` dão
+   exatamente o mesmo byte count. O bundler do consumidor não consegue podar nada: quem
+   importa 1 componente paga os 34.
+2. **O subpath `/shadcn` (aberto na v0.37.0) funciona** — 180 kB contra 1.427 kB. Ou seja,
+   a separação por entry **é** o mecanismo que resolve; o problema está concentrado no
+   entry raiz.
+
+**Hipóteses a testar** (nenhuma verificada — não implementei nem medi o "depois"):
+`@__PURE__` nas chamadas de fábrica (`tv()`, `cva()`, `forwardRef`), atribuição de
+`displayName` fora do módulo (é efeito colateral e ancora o módulo inteiro), e um subpath
+`./icons` — o `lucide-react` já é `external`, então o custo dos ícones aqui é do mapa de
+nomes do `Icon`, não do pacote de ícones.
+
+**Reabrir quando:** algum consumidor reclamar de tempo de carregamento, ou antes de o DS
+ser usado numa tela pública/landing (num admin autenticado 1,4 MB gzip cacheado dói bem
+menos). **Ao reabrir:** medir o "antes" com este mesmo método — app mínimo contra o pacote
+**publicado**, nunca contra o `dist-lib` local (L-065).
+
+## 🎨 Consistência dos scrims (adiado em 2026-08-08)
+
+Os fundos escurecidos de overlay (`bg-black/30`, `bg-black/80`) estão na unha em alguns
+flutuantes, enquanto existe o token `overlay.scrim` (0.55). São **três** valores diferentes
+pro mesmo papel. Adiado junto com o item acima e pela mesma razão — é melhoria visual, e a
+regra da sessão foi **não mexer no visual** enquanto o showcase é a referência aprovada.
+
+**Ao reabrir:** é mudança visual real (0.30 → 0.55 escurece; 0.80 → 0.55 clareia), então
+passa por gate com print antes/depois de cada overlay afetado, não por "alinhamento de
+token" silencioso.
+
+---
+
+## 🧹 347 MB de diretório não-versionado na árvore de trabalho (achado 2026-08-08)
+
+Dois diretórios grandes, **gitignorados** (então não estão no repo — é lixo de disco local,
+não débito de código). Não removi nenhum: apagar working tree alheia não é decisão de PR.
+
+| Dir | Tamanho | O que é | Veredito |
+|---|---|---|---|
+| `design-tabela/` | **207 MB** | clone de `github.com/snksergio/backofficetable.git` com `.git` próprio; serviu de referência arquitetural pro `DataTable`. Última alteração **2026-04-14**; referenciado só por specs já arquivadas | **removível** — `rm -rf design-tabela` recupera 207 MB. É um repo separado, nada aqui importa dele |
+| `my-app/` | **140 MB** | scaffold real do dogfood (`npm create`), commit único de 2026-08-08 | **descartável, mas recente e útil.** ⚠️ Hoje está **31 arquivos defasado** do `cli/templates/default/_claude` — se for reusar pra validar algo, **regere** em vez de confiar no que está lá |
+
+Também: `.ai/scratch/` (gitignorado) tem **800 KB de PNG** de validação de maio
+(`datatable-autofit-validation.png`, `datatable-column-types-validation.png`), parados há 3
+meses. O `hook-log.txt` do mesmo diretório é ativo e deve ficar.
+
+**Ao reabrir:** confira antes se você (ou outra sessão) não tem trabalho não-commitado
+dentro de `design-tabela/` — ele tem `.git` próprio, então `git status` da raiz não mostra.
+
+---
+
+## 📄 `alert-dialog` é o único componente do registry sem DocPage (achado 2026-08-08)
+
+Medido na auditoria: dos **75** componentes do `registry.json`, 74 têm rota de showcase.
+`alert-dialog` tem **zero** — `grep '"alert-dialog"' src/App.tsx src/preview/components/doc-nav-data.ts`
+devolve 0 nos dois.
+
+**Não é órfão de verdade**, e por isso não virou correção nesta rodada:
+
+- está no **vocabulário do consumidor** (`_claude/rules/ds-components.md:89` — "diálogo cru,
+  sem o chrome do DS: `dialog` · `alert-dialog`"), que é o que a IA do consumidor lê;
+- é **dependência declarada** do `alert-modal` (`registryDependencies: ["@igreen/tv",
+  "@igreen/button", "@igreen/alert-dialog"]`), então chega junto por `igreen:add alert-modal`;
+- ninguém mais depende dele.
+
+**Por que não fiz agora:** criar DocPage é **conteúdo visual novo**, e a rodada de 2026-08-08
+está sob congelamento visual explícito do mantenedor. Também não adicionei card no
+`ComponentsOverviewDoc` — card apontando pra rota inexistente é pior que ausência.
+
+**Reabrir quando:** alguém for consumir `alert-dialog` direto (sem o `AlertModal`), ou na
+próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDialogDoc.tsx` +
+`App.tsx` (import + `DOC_PAGES` + render) + `doc-nav-data.ts` + card no
+`ComponentsOverviewDoc` — as 4 peças da superfície 4.
 
 ---
 

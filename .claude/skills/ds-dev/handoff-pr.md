@@ -2,7 +2,7 @@
 name: handoff-pr
 description: >
   Fecha o ciclo de QUALQUER trabalho de componente (criar/alterar) ou mudança
-  significativa: branch + commit descritivo + PR no origin + link pro gate humano.
+  significativa: branch + commit descritivo + PR no remote canônico + link pro gate humano.
   Regra 8 / L-041. Carregar ao terminar uma implementação, antes de "concluir".
 ---
 
@@ -21,11 +21,17 @@ description: >
 ## ✅ Definição de Pronto — TODAS as superfícies de um componente (L-042)
 
 > ⛔ Componente **NÃO** está pronto só com o código + USAGE. Um componente novo
-> (ou renomeado) toca **7 superfícies**. Antes de abrir o PR, percorra esta lista —
+> (ou renomeado) toca **8 superfícies**. Antes de abrir o PR, percorra esta lista —
 > é o que o agente tem que **prever sozinho** (não esperar o humano lembrar).
 > O hook `ds-inventory-check` cobre automaticamente **2, 3, 5, 6 e o registro de
-> showcase (4)** — avisa na hora da edição. Restam manuais: **1** (o código, via tsc)
-> e **7** (changelog, no `/ds-release`).
+> showcase (4)** — avisa na hora da edição. A **8** é gate (`barrel-completeness`,
+> no `npm test`). Restam manuais: **1** (o código, via tsc) e **7** (changelog, no
+> `/ds-release`).
+>
+> ⚠️ **Só vale pra COMPOSTO** (`src/components/ui/<Nome>/`): o hook extrai o nome desse
+> path e sai cedo se não casar. **Primitivo shadcn** é arquivo único em
+> `src/components/shadcn/` → **nenhum** dos 5 eixos é coberto, e a lista inteira vira
+> manual. O `impl-shadcn.md` diz isso ("aqui o CI NÃO é rede de segurança").
 
 | #   | Superfície          | Onde                                                                                                                           | Checagem                                                       |
 | --- | ------------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------- |
@@ -36,8 +42,18 @@ description: >
 | 5   | **Registry**        | `registry.json` (entrada + `registry:build` + embed)                                                                           | distribuível via `@igreen/<nome>`                              |
 | 6   | **Vocabulário do consumidor** | `cli/templates/default/_claude/rules/ds-components.md` (grupo de tarefa + critério de escolha) **+ bump `cli/package.json` + republicar** | a IA do consumidor sabe que o componente existe e quando usá-lo |
 | 7   | **Changelog**       | `src/preview/pages/updates-data.ts` (entry da versão)                                                                          | aparece na tela Updates                                        |
+| 8   | **Barrel**          | `src/components/index.ts` — `export * from "./ui/<Nome>"`                                                                      | `import { X } from "@snksergio/design-system"` resolve         |
 
-**Cadência:** 1–3 e 4 vão no **PR do componente** (mesmo commit). 5/6/7 (distribuição)
+> **Por que a 8ª existe** (entrou em 2026-08-08): o barrel define o canal npm, e era a
+> única superfície sem vigilância nenhuma. `Chart`, `DataList`, `List` e `Toast` ficaram
+> meses com 6 das 7 fechadas — a doc do canal npm anunciando "os 42 componentes ui/" — e
+> `import { ChartContainer }` estourando "not exported" no consumidor. Hoje é gate:
+> `scripts/lib/barrel-completeness.mjs`, no `npm test`. Componente que deliberadamente
+> não vai pro npm (só `TabelaTeste` hoje) entra em `BARREL_EXCEPTIONS` **com motivo** —
+> e essa lista **não** é a `DS_EXCEPTIONS` do registry: os 6 internos do example-chat
+> são exceção de registry e **estão** no barrel.
+
+**Cadência:** 1–3, 4 e 8 vão no **PR do componente** (mesmo commit). 5/6/7 (distribuição)
 consolidam no **`/ds-release`** — mas **anote no PR body** que faltam, pra não sumirem.
 No `/ds-release`, o passo 6.2b cobre 5; **6 (vocabulário do consumidor) e 7 entram junto**. Componente
 distribuído (no registry) **sem** estar no vocabulário do consumidor = gap real (caso Toast v0.12.0).
@@ -71,8 +87,12 @@ git commit -F - <<'EOF'
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
 
-# 3. push + PR no origin (igreenlab/igreen-desingsystem-admin — repo canônico)
-git push -u origin <tipo>/<escopo>
+# 3. push + PR no remote CANÔNICO
+#    ⚠️ Confira `git remote -v` antes. Neste clone o canônico é `empresa`:
+#       empresa → igreenlab/igreen-desingsystem-admin   ← é aqui que vai
+#       origin  → snksergio/igreen-desingsystem-admin   ← fork pessoal, parado
+#    `git push -u origin` empurraria pro FORK e o PR nasceria no repo errado.
+git push -u empresa <tipo>/<escopo>
 gh pr create --repo igreenlab/igreen-desingsystem-admin --base main \
   --head <tipo>/<escopo> --title "<title>" --body-file <body.md>
 ```

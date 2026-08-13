@@ -224,11 +224,35 @@ function aplicarMarca(id: string) {
         overlays.
       </p>
       <p className="text-body-md text-fg-muted">
-        O hook <code className="font-mono text-code-sm">useBrand</code> deste showcase (com
-        persistência em <code className="font-mono text-code-sm">localStorage</code> e sincronia
-        entre abas) <strong>não é exportado</strong> no pacote npm — o catálogo{" "}
-        <code className="font-mono text-code-sm">BRANDS</code> dele é fixo nas 5 marcas e listaria
-        temas que o seu projeto não instalou. Copie a ideia, não o hook.
+        Se preferir não escrever isso na mão, o hook{" "}
+        <code className="font-mono text-code-sm">useBrand</code> é <strong>exportado no pacote</strong>{" "}
+        (desde a v0.33.0) e já traz persistência em{" "}
+        <code className="font-mono text-code-sm">localStorage</code> e sincronia entre abas:
+      </p>
+      <CodeBlock>{`import { useBrand } from "@snksergio/design-system";
+
+// Passe SÓ as marcas cujo overlay você importou no CSS — senão o seletor
+// lista opções que não fazem nada (data-theme sem CSS é no-op silencioso).
+const MINHAS = [
+  { id: "default", label: "iGreen",         swatch: "oklch(0.5248 0.1415 150.9)" },
+  { id: "vibrant", label: "iGreen Vibrant", swatch: "#0fff00" },
+] as const;
+
+function SeletorDeMarca() {
+  const { brand, brands, current, setBrand } = useBrand({ brands: MINHAS });
+  return (
+    <select value={brand} onChange={(e) => setBrand(e.target.value as typeof brand)}>
+      {brands.map((b) => <option key={b.id} value={b.id}>{b.label}</option>)}
+    </select>
+  );
+}`}</CodeBlock>
+      <p className="text-body-md text-fg-muted">
+        Sem o argumento, o catálogo é o das 5 marcas do DS — use assim só se importou os 5
+        overlays. Valor persistido fora do catálogo cai na primeira entrada, então um{" "}
+        <code className="font-mono text-code-sm">data-theme</code> órfão nunca chega no{" "}
+        <code className="font-mono text-code-sm">&lt;html&gt;</code>. O{" "}
+        <code className="font-mono text-code-sm">useTheme</code> (claro/escuro) também é
+        exportado.
       </p>
 
       <DocSeparator />

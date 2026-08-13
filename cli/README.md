@@ -5,7 +5,7 @@ shadcn registry (copy-in model)** — not as an npm dependency.
 
 Pre-configures React 19 + Vite + Tailwind CSS v4, with the DS **theme, `cn` and
 `tv` already baked in** and the `@igreen` registry wired in `components.json`. You
-then pull components on demand with `shadcn add @igreen/<name>`.
+then pull components on demand with `npm run igreen:add -- <name>` (the wrapper that keeps the manifest in sync).
 
 ## Quick start
 
@@ -29,7 +29,7 @@ components installed (uses theme tokens only) and lists the next steps.
 4. Copies the `default` template into a fresh folder
 5. Renames `_gitignore` → `.gitignore` and `_env.local.example` → `.env.local.example`
 6. Installs dependencies (optional) + git init (optional)
-7. Prints next steps (token + `shadcn add`)
+7. Prints next steps (token + `npm run igreen:add`)
 
 ## What's in the template
 
@@ -61,7 +61,7 @@ do DS, um `shadcn add @igreen/<x>` que traga `@igreen/utils`/`@igreen/tv` os vê
 ## Requirements
 
 - Node.js ≥ 20
-- `IGREEN_TOKEN` (Bearer do registry privado) pra `shadcn add`
+- `IGREEN_TOKEN` (Bearer do registry privado) pra `igreen:add`
 
 ## Note about npx cache
 

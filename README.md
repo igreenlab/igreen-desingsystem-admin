@@ -57,7 +57,7 @@ Não é um DS público nem genérico. É opinionado para SaaS densos de dados �
 - **Componentes iGreen** custom em `src/components/ui/` construídos com `tv()` — Button, Chip, Avatar, AppShell, Header, MenuSidebar, Modal, AlertModal, FloatingPanel, Panel, PageHeader, FormField, Kanban, Table, TableToolbar, FooterTable e mais
 - **Componentes Shadcn** adaptados em `src/components/shadcn/` — Badge, Input, Select, Tabs, Card, Switch, Checkbox, RadioGroup, Slider, Progress, Dialog, DropdownMenu, Tooltip, Calendar e demais primitives do Radix
 - **3 tiers de tokens** em `tokens/brands/default/` (primitives → semantic → component)
-- **Pipeline de AI** com 4 agentes em `.claude/agents/` (Claude Code) espelhado em `.cursor/rules/`
+- **Pipeline de AI** com 6 agentes em `.claude/agents/` (4 ativos + 2 placeholders do domínio App) espelhado em `.cursor/rules/`
 - **Preview app navegável** com docs vivas em `npm run dev` — sempre reflete o estado atual do código
 
 ---
@@ -111,7 +111,22 @@ Ver detalhes: [`cli/README.md`](cli/README.md).
 
 ## Consumir em outro projeto
 
-O iGreen DS é distribuído por **copy-in via registry** (padrão shadcn) — **não** como pacote npm. O código de cada componente é **copiado pro seu projeto** (`src/`), virando código seu, editável.
+O iGreen DS tem **4 canais de consumo, todos suportados — nenhum depreciado**:
+
+| Canal | Como | O que muda |
+|---|---|---|
+| **copy-in / registry** (padrão shadcn) | `npm run igreen:add -- <x>` | o código é **copiado pro seu `src/`** e vira seu, editável |
+| **scaffold** | `npm create @snksergio/design-system` | projeto novo já em copy-in, com tema + kit de IA + prompt de marca |
+| **npm install** | `npm i @snksergio/design-system` | consome como **dependência**; exige a diretiva `@source` (abaixo) |
+| **submódulo git** | `npm run ds:link` no repo pai | lê os componentes **do disco**; ganha o mesmo kit de IA |
+
+O copy-in é o canal **primário** — é onde as versões saem primeiro, porque o deploy do
+registry é automático no merge. Os outros três dependem de um `npm publish` manual do
+mantenedor, então podem ficar uma versão atrás. Isso é **ordem de publicação**, não
+hierarquia de suporte: escolha o canal pelo modelo que você quer (código seu × dependência
+versionada × fonte compartilhada), não por qual "vale mais".
+
+Detalhe por canal: `DISTRIBUICAO.md`, `SUBMODULE-SETUP.md` e a página **Distribution** do catálogo.
 
 **Projeto novo (recomendado):**
 
@@ -123,13 +138,68 @@ Cria o projeto já conectado ao registry, com tema/`cn`/`tv` configurados, tela 
 
 **Projeto existente:** configure o registry `@igreen` no `components.json` (Bearer `IGREEN_TOKEN`) e puxe componentes com `npx shadcn add @igreen/<nome>` (ou o wrapper `npm run igreen:add` no scaffold, que mantém o manifesto).
 
-> **Canal recomendado é o registry/CLI acima** (copy-in): é ele que entrega o código
-> editável no seu `src/` e é onde as versões saem primeiro. O pacote npm
-> `@snksergio/design-system` **existe e funciona** (lib buildada: ESM + CJS + types +
-> `theme.css`), mas é **secundário** e publicado por passo manual do mantenedor, então
-> pode estar atrás do registry. Use-o só quando precisar consumir como dependência em
-> vez de copy-in. Modelo e versionamento em `DISTRIBUICAO.md` e na página
-> **Distribution** do catálogo.
+> O pacote npm `@snksergio/design-system` entrega ESM + CJS + types + `theme.css` + os 4
+> overlays de marca + as fontes Geist. Ele é publicado por passo manual do mantenedor
+> (token/2FA), então pode estar uma versão atrás do registry — mas **não é depreciado**,
+> e o setup abaixo é obrigatório pra ele funcionar.
+
+### Consumindo por `npm install` — setup completo
+
+⚠️ **A linha `@source` é obrigatória.** O Tailwind v4 **não escaneia `node_modules`**, então
+sem ela nenhuma classe do DS é gerada e os componentes renderizam **sem estilo nenhum** —
+não parcialmente: medido em 2026-08-07, **9 regras CSS** contra as milhares do showcase, com
+o `<Button>` saindo transparente, 24px de altura e radius 0. Não há erro, e é fácil concluir
+que "o pacote está quebrado".
+
+```css
+/* seu src/index.css */
+@import "tailwindcss";
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.mjs";
+@import "@snksergio/design-system/theme.css";
+```
+
+O `@source` precisa cobrir `dist-lib/**`, não só o `index.mjs`: as classes dos componentes
+flutuantes (Modal, Panel, dropdown, popover) vivem nos **chunks**.
+
+O `theme.css` já traz tudo que o runtime precisa — `@font-face` do Geist, `--font-sans`,
+`@custom-variant dark` (dark por classe, não por `prefers-color-scheme`), `body` e as
+utilities do DS. Antes da v0.35.0 nada disso viajava e o canal ficava com fundo branco no
+dark, tipografia em system-ui e `dark:` amarrado ao tema do sistema operacional.
+
+**Fontes.** O `@font-face` aponta pra `/fonts/*.woff2` — caminho relativo à **raiz do site**,
+não ao pacote. Copie os dois arquivos pro seu `public/fonts/`:
+
+```bash
+cp node_modules/@snksergio/design-system/dist-lib/fonts/*.woff2 public/fonts/
+```
+
+Sem isso a tipografia cai em `system-ui` e os 27 presets do DS renderizam na fonte errada.
+
+**Animações.** Overlays (dropdown, popover, dialog, sheet) usam `animate-in`/`fade-in`/
+`zoom-in`, que vêm do `tw-animate-css`. Sem ele funcionam, mas sem transição:
+
+```css
+@import "tw-animate-css";   /* opcional — só as animações de entrada/saída */
+```
+
+**O que dá pra importar (≥ 0.37.0).** Duas entradas:
+
+```ts
+// raiz — 41 dos 42 componentes ui/ + os hooks de tema
+import { Button, DataTable, AppShell, Chart, DataList, List, toast, useBrand } from "@snksergio/design-system";
+
+// subpath — os 41 primitivos shadcn adaptados aos tokens do DS
+import { Dialog, Select, Tabs, Popover, Tooltip, Card, Calendar } from "@snksergio/design-system/shadcn";
+```
+
+São duas entradas, e não uma, porque os primitivos somam 41 arquivos / 233 nomes exportados
+enquanto o consumidor típico usa 3 ou 4 — no mesmo barrel, qualquer `import` do pacote
+arrastaria Radix + cmdk + vaul + embla + input-otp + sonner antes de o bundler conseguir
+podar. Quem não importa `/shadcn` não paga por eles.
+
+O único componente `ui/` fora do npm é `TabelaTeste` (demo interno do showcase). Até a
+0.36.0 o barrel tinha 37 — `Chart`, `DataList`, `List` e `Toast` ficavam de fora, e não
+havia subpath `/shadcn`.
 
 **O que NÃO vem no copy-in:** o pipeline interno do DS (`.claude/agents|skills|hooks`, `.ai/context`, lições) vive só neste repositório. O **kit do consumidor** (orquestrador `ds-kit` + skills de tela + `DESIGN.md` + proteção por hook) vem via CLI no scaffold.
 
@@ -322,11 +392,26 @@ Pipeline de 6 agentes (4 ativos + 2 placeholders 🚧 aguardando primeira tela d
 | `app-designer` | Especifica telas/fluxos do app consumidor | Sonnet | 🚧 placeholder (aguardando primeira tela) |
 | `app-dev-react` | Implementa telas com componentes DS existentes | Opus | 🚧 placeholder (aguardando primeira tela) |
 
-**Slash commands disponíveis:** `/ds-add-token`, `/ds-create-component`, `/ds-create-composite`, `/ds-add-shadcn`, `/ds-extract-figma`, `/ds-release` (release completa com branch + PR), `/ds-update` (timeline de updates), `/ds-create-crud` (construtor guiado de telas CRUD/tabela — ver [Tutorial](#tutorial--produzir-telas-e-cruds-com-ia-ds-como-subprojeto))
+**Slash commands disponíveis (15):**
+
+| Comando | O que faz |
+|---|---|
+| `/ds-add-token` | token semântico novo (gate obrigatório) |
+| `/ds-create-component` · `/ds-create-composite` · `/ds-add-shadcn` | componente iGreen / composto / adaptação shadcn |
+| `/ds-extract-figma` | extrair componente ou tokens do Figma |
+| `/ds-create-brand` | marca/tema de cor novo (overlay `[data-theme]`, 10 superfícies) |
+| `/ds-create-screen` | front-door: desambigua e roteia pro builder certo |
+| `/ds-create-crud` · `/ds-create-list` · `/ds-create-dashboard` | tela de tabela / lista de cards / painel (entrevista guiada) |
+| `/ds-create-app` · `/ds-create-login` | app completo / tela de autenticação |
+| `/ds-replicate-module` | replicar módulo existente pra outro domínio |
+| `/ds-release` | release completa: changelog + bump + registry + branch + PR |
+| `/ds-update` | só a timeline de updates (sem bump/PR) |
+
+Tutorial de telas: [Tutorial](#tutorial--produzir-telas-e-cruds-com-ia-ds-como-subprojeto).
 
 A infraestrutura inclui:
 - **Skills** atômicas por agente (`.claude/skills/`)
-- **Hooks** PreToolUse/PostToolUse (`ds-lint-styles`, `block-rm-rf`, `block-sensitive-edit`)
+- **Hooks** PreToolUse/PostToolUse — 5: informativos (`ds-lint-styles`, `ds-inventory-check`, `ds-tokens-check`) e bloqueantes (`block-rm-rf`, `block-sensitive-edit`)
 - **Output style** terse aplicado a toda sessão
 - **MCP servers** (Figma, filesystem, chrome-devtools)
 - **Memory system 4 camadas** (user, project, audit log, lessons system)
@@ -391,7 +476,7 @@ npm run dev
 
 A preview app cobre:
 - **Get Started** — Introduction, Structure, Installation, Transform Tokens
-- **Agents** — Overview, Pipeline (estrutural + simulador), 4 agentes individuais
+- **Agents** — Overview, Pipeline (estrutural + simulador), 6 agentes individuais
 - **Pipeline Infra** — Skills, Commands, Hooks, Output Styles, MCP Servers, Memory System
 - **Foundations** — Tokens Overview, Color, Typography, Spacing, Sizing, Shape, Elevation, Icons
 - **Components** — docs com exemplos vivos para cada componente

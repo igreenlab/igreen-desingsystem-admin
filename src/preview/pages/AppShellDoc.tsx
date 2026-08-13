@@ -37,6 +37,27 @@ const PROPS_APP_SHELL = [
   { name: "defaultActiveItemHref", type: "string", defaultVal: "—" },
   { name: "activeItemHref", type: "string (controlled)", defaultVal: "—" },
   { name: "onItemClick", type: "(item) => void", defaultVal: "—" },
+  {
+    name: "renderLink",
+    type: "(props: SidebarLinkProps) => ReactNode",
+    defaultVal: "— (<a href>)",
+    description:
+      "Integração de router. Sem ela o item de menu é um <a href> puro: com href de PATH (/app/clientes) o browser RECARREGA a página inteira a cada clique — bug achado por um consumidor em produção (L-068). O exemplo canônico usa href de HASH (#/app/clientes), e fragmento não recarrega documento, então nenhum gate pegava. Render-prop, não linkComponent: prop de tipo-de-componente escrita inline remonta a subárvore a cada render.",
+  },
+  {
+    name: "brandHref",
+    type: "string",
+    defaultVal: '"#"',
+    description:
+      'O href do brand mark. O default "#" empurra "#" na URL do seu app. Passe "" (ou undefined + onBrandClick) pra desligar a navegação.',
+  },
+  {
+    name: "onBrandClick",
+    type: "(e: MouseEvent<HTMLAnchorElement>) => void",
+    defaultVal: "—",
+    description: "Clique no brand mark. Recebe o evento — útil com brandHref vazio.",
+  },
+
   { name: "breadcrumb", type: "HeaderBreadcrumbItem[]", defaultVal: "—", required: true },
   { name: "commandGroups", type: "HeaderCommandGroup[]", defaultVal: "—" },
   { name: "notifications", type: "HeaderNotificationsConfig", defaultVal: "—" },
@@ -52,7 +73,13 @@ const PROPS_APP_SHELL = [
   { name: "onSettings", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "onLogout", type: "() => void", defaultVal: "— (item escondido)" },
   { name: "menuCollapsed", type: "boolean (controlled)", defaultVal: "—" },
-  { name: "defaultMenuCollapsed", type: "boolean", defaultVal: "false" },
+  {
+    name: "defaultMenuCollapsed",
+    type: "boolean",
+    defaultVal: "responsivo",
+    description:
+      "Estado inicial do collapse (uncontrolled). Omitido: colapsado abaixo de 1536px, expandido acima — mesma fronteira do padding do body. Valor explícito vence, inclusive false. Só no mount: resize não re-colapsa, pra não brigar com quem abriu o menu na mão.",
+  },
   { name: "onMenuCollapseChange", type: "(collapsed) => void", defaultVal: "—" },
   { name: "children", type: "ReactNode (body slot)", defaultVal: "—", required: true },
   { name: "bodyClassName", type: "string (extra no body)", defaultVal: "—" },
@@ -87,7 +114,7 @@ export function AppShellDoc() {
       <ExampleSection
         id="ex-full"
         title="AppShell completo — sidebar + header + body"
-        description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot "gap-gp-md p-pad-2xl".'
+        description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot (gap-gp-4xl + padding responsivo 18/24/32px).'
         code={CODE_FULL}
       >
         <div className="h-[640px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
@@ -132,10 +159,16 @@ export function AppShellDoc() {
 
       <ul className="text-body-md text-fg-muted mb-gp-2xl max-w-[760px] list-disc pl-pad-2xl space-y-gp-sm">
         <li>
-          <code className="font-mono">gap-gp-md</code> (16px) — espaço vertical entre filhos diretos
+          <code className="font-mono">gap-gp-4xl</code> (24px) — espaço vertical entre filhos diretos
         </li>
         <li>
-          <code className="font-mono">p-pad-6xl</code> (32px) — padding em todos os lados
+          <strong className="text-fg-default">Padding responsivo em 3 patamares</strong> —{" "}
+          <code className="font-mono">18px</code> abaixo de 768px,{" "}
+          <code className="font-mono">p-pad-4xl</code> (24px) entre 768 e 1535px (notebook) e{" "}
+          <code className="font-mono">p-pad-6xl</code> (32px) de 1536px pra cima. O corte é em{" "}
+          <code className="font-mono">2xl</code> e não em <code className="font-mono">xl</code> porque
+          1366 e 1536 são as duas resoluções de notebook dominantes — cortar em{" "}
+          <code className="font-mono">xl</code> (1280) deixaria a 1536 herdando a moldura de desktop.
         </li>
         <li>
           <code className="font-mono">flex-col flex-1 min-h-0 overflow-auto scrollbar-thin</code> —
@@ -202,7 +235,7 @@ export function AtendimentosPage() {
       onSettings={() => router.push("/settings")}
       onLogout={() => signOut()}
     >
-      {/* Body — o que muda entre telas. gap-gp-md + p-pad-2xl aplicados auto. */}
+      {/* Body — o que muda entre telas. gap-gp-4xl + padding responsivo (18/24/32px) aplicados auto. */}
       <h1 className="text-heading-md">Atendimentos</h1>
       <DataTable ... />
     </AppShell>

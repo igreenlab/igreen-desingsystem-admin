@@ -127,6 +127,46 @@ function detectAlias(dsPathRel) {
   return null;
 }
 
+/**
+ * O DS importa entre si por `@/...` (700 imports: components/lib/utils/hooks/config).
+ * Esse `@` significa "a src do DS". Copy-in e npm resolvem sozinhos; **submódulo não** —
+ * sem o mapeamento o build do pai quebra no 1º componente com
+ * `Cannot find module '@/utils/tv'`. Medido num smoke test de submódulo real em 2026-08-08,
+ * quando nem esta doc nem este script mencionavam o assunto.
+ *
+ * Aqui só DETECTAMOS e avisamos: escrever no tsconfig/vite do consumidor é invasivo e a
+ * decisão certa depende de ele já usar `@/` pro próprio código (aí há colisão real).
+ */
+function detectaAliasInternoDoDs(dsPathRel) {
+  const candidates = [
+    "tsconfig.json",
+    "tsconfig.app.json",
+    "jsconfig.json",
+    "vite.config.ts",
+    "vite.config.js",
+    "vite.config.mjs",
+  ];
+  const srcTarget = `${dsPathRel}/src`;
+  for (const file of candidates) {
+    const p = join(TARGET, file);
+    if (!existsSync(p)) continue;
+    const raw = readFileSync(p, "utf8");
+    // procura uma chave "@" ou "@/*" cujo valor aponte pra src do DS
+    const re = /["'`](@\/?\*?)["'`]\s*:\s*\[?\s*["'`]([^"'`]*?)["'`]/g;
+    let m;
+    while ((m = re.exec(raw))) {
+      const val = m[2];
+      if (val.replace(/^\.\//, "").includes(srcTarget)) return true;
+    }
+    // forma do vite com path.resolve: "@": path.resolve(__dirname, "design-system/src")
+    const reVite = new RegExp(
+      `["'\`]@["'\`]\\s*:\\s*[^,}]*${dsPathRel.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/src`
+    );
+    if (reVite.test(raw)) return true;
+  }
+  return false;
+}
+
 // ── unlink ────────────────────────────────────────────────────────
 if (UNLINK) {
   const manifest = readJSON(MANIFEST, null);
@@ -179,10 +219,21 @@ const dsPathRel = relative(TARGET, DS_ROOT).split("\\").join("/") || ".";
 const detected = detectAlias(dsPathRel);
 const alias = opt("--alias", detected || "@ds");
 const importBase = `${alias}/components/ui`;
+/* Os 41 primitivos shadcn NÃO ficam em `components/ui/` no repo do DS — só os 42
+   compostos. O copy-in achata tudo em `ui/`, mas o submódulo lê o REPO. Sem este
+   segundo caminho, a IA gera `@ds/components/ui/tabs` e o build não resolve. */
+const primitivesBase = `${alias}/components/shadcn`;
+
+const aliasInternoOk = detectaAliasInternoDoDs(dsPathRel);
 
 log(`ds-link  →  ${DEST}`);
 log(`  DS: v${dsVersion}  em  ${dsPathRel}`);
 log(`  alias: ${alias}${detected ? " (auto-detectado)" : " (default — confirme no seu tsconfig/vite)"}`);
+log(
+  `  alias interno do DS ("@"): ${
+    aliasInternoOk ? "mapeado ✓" : "NÃO MAPEADO — o build vai quebrar (ver aviso abaixo)"
+  }`
+);
 log("");
 
 // hooks/ + settings.json do payload são específicos de copy-in (protect-ds / ds-lint
@@ -220,12 +271,43 @@ for (const rel of removed) {
   if (existsSync(p) && !DRY) rmSync(p, { force: true });
 }
 
+// ── DESIGN.md — o guia de composição que TODAS as skills mandam aplicar ──────
+//
+// ⚠️ Corrigido em 2026-08-08. O bloco gerado no `CLAUDE.md` do pai dizia que o
+// DESIGN.md "está em `<dsPath>/DESIGN.md`". **Esse arquivo não existe no clone**: o
+// `DESIGN.md` da raiz do DS é gitignored (`.gitignore:28`) — é a saída de 819 linhas
+// da skill `design-md`, com nomenclatura V2 extinta, nunca commitado. Depois de
+// `git submodule add`, o consumidor não tinha o arquivo, e **20+ arquivos do payload**
+// mandavam lê-lo. Falha silenciosa: a IA seguia sem o guia de composição.
+//
+// O DESIGN.md real do consumidor é `cli/templates/default/DESIGN.md` (182 linhas,
+// TRACKED, referenciado por 12+ arquivos do kit). É ele que o scaffold entrega na raiz
+// do projeto — então o submódulo passa a entregar o mesmo, no mesmo lugar.
+const DESIGN_SRC = join(DS_ROOT, "cli", "templates", "default", "DESIGN.md");
+const DESIGN_DST = join(TARGET, "DESIGN.md");
+let designStatus = "";
+if (existsSync(DESIGN_SRC)) {
+  const jaExiste = existsSync(DESIGN_DST);
+  const nosso = prevSet.has("../DESIGN.md");
+  if (jaExiste && !nosso && !FORCE) {
+    designStatus = "colisão — mantido o seu";
+    warn("DESIGN.md já existe na raiz e não foi instalado por nós — pulado (use --force pra sobrescrever)");
+  } else {
+    if (!DRY) copyFileSync(DESIGN_SRC, DESIGN_DST);
+    written.push("../DESIGN.md");
+    designStatus = jaExiste ? "atualizado" : "instalado";
+  }
+} else {
+  warn(`DESIGN.md do payload não encontrado em ${DESIGN_SRC} — o kit vai citar um arquivo ausente`);
+}
+
 // ── config lido pelas skills (modo submódulo) ─────────────────────
 const config = {
   mode: "submodule",
   dsPath: dsPathRel,
   alias,
   importBase,
+  primitivesBase,
   examplesBase: `${alias}/examples`,
   dsVersion,
 };
@@ -244,15 +326,67 @@ const block =
   `## iGreen Design System (submódulo)\n\n` +
   `Este projeto consome o iGreen DS como **submódulo** em \`${dsPathRel}\`. O kit de\n` +
   `skills/commands/rules foi projetado em \`.claude/\` por \`ds-link\` (v${dsVersion}).\n\n` +
-  `- **Import**: componentes ficam em \`${dsPathRel}/src\` — importe via \`${importBase}/<Nome>\`\n` +
+  `- **Import** — são DOIS caminhos, porque o submódulo lê o **repo** do DS, e não o layout\n` +
+  `  achatado do copy-in:\n` +
+  `    - **compostos** (Button, DataTable, FormField, Modal, Kpi…): \`${importBase}/<Nome>\`\n` +
+  `      — PascalCase; única exceção: \`avatar-ig\`.\n` +
+  `    - **primitivos shadcn** (Tabs, Select, Card, Avatar, Popover…): \`${primitivesBase}/<nome>\`\n` +
+  `      — kebab minúsculo. No repo do DS eles NÃO ficam em \`components/ui/\`.\n` +
   `  (o alias \`${alias}\` deve apontar pra \`${dsPathRel}/src\` no seu tsconfig/vite).\n` +
   `- **Criar telas**: \`/ds-create-crud\` (tabela), \`/ds-create-list\` (cards),\n` +
-  `  \`/ds-create-dashboard\` (painel). As skills leem \`.claude/ds-config.json\` (modo submódulo)\n` +
-  `  e leem os componentes/exemplos direto do disco — **não** rodam \`igreen:add\`.\n` +
+  `  \`/ds-create-dashboard\` (painel), \`/ds-create-screen\` (2+ peças que conversam),\n` +
+  `  \`/ds-create-app\` (app inteiro), \`/ds-create-login\`, \`/ds-replicate-module\`\n` +
+  `  (replicar módulo) e \`/ds-build-page\` (entrada genérica). As skills leem\n` +
+  `  \`.claude/ds-config.json\` (modo submódulo) e leem os componentes/exemplos direto do\n` +
+  `  disco — **não** rodam \`igreen:add\`.\n` +
+  `- **\`DESIGN.md\`**: as skills mandam "aplique o \`DESIGN.md\`". O \`ds-link\` **instala**\n` +
+  `  ele na RAIZ do seu projeto (\`./DESIGN.md\`), igual ao scaffold — é o guia de\n` +
+  `  composição (anatomia de tela, ritmo de espaçamento, do/don't de token). Re-rodar o\n` +
+  `  \`ds-link\` depois de um \`git pull\` atualiza. ⚠️ Não confunda com o \`DESIGN.md\` da\n` +
+  `  raiz do REPO do DS: aquele é gitignored e não vem no clone do submódulo.\n` +
   `- **Regras DS** auto-carregadas em \`.claude/rules/\`: \`ds-components.md\` (qual\n` +
-  `  componente usar pra cada tarefa), \`ds-design.md\` (como estilizar — tokens, spacing, foco)\n` +
-  `  e \`ds-themes.md\` (trocar/adicionar tema de marca — em submódulo é só importar o\n` +
-  `  overlay do disco + \`data-theme\` no \`<html>\`, sem \`igreen:add\`).\n` +
+  `  componente usar pra cada tarefa), \`ds-design.md\` (como estilizar — tokens, spacing, foco),\n` +
+  `  \`ds-themes.md\` (trocar/adicionar tema de marca — em submódulo é só importar o\n` +
+  `  overlay do disco + \`data-theme\` no \`<html>\`, sem \`igreen:add\`) e \`ds-channels.md\`\n` +
+  `  (os 4 canais de consumo do DS e o que cada um entrega).\n\n` +
+  `### ⚠️ Três passos que o submódulo NÃO faz por você\n\n` +
+  `O submódulo entrega **código-fonte**, não um pacote:\n\n` +
+  `1. **O alias INTERNO do DS (\`@\`).** Os arquivos do DS importam entre si por\n` +
+  `   \`@/components/…\`, \`@/lib/utils\`, \`@/utils/tv\` — 700 imports. Esse \`@\` significa "a\n` +
+  `   \`src\` do DS". Copy-in e npm resolvem sozinhos; **submódulo não**. Sem mapear, o build\n` +
+  `   quebra no 1º componente com \`Cannot find module '@/utils/tv'\`. Além do \`${alias}\`:\n\n` +
+  `   \`\`\`jsonc\n` +
+  `   // tsconfig.json\n` +
+  `   "paths": { "${alias}/*": ["${dsPathRel}/src/*"], "@/*": ["${dsPathRel}/src/*"] }\n` +
+  `   \`\`\`\n` +
+  `   \`\`\`ts\n` +
+  `   // vite.config.ts\n` +
+  `   resolve: { alias: {\n` +
+  `     "${alias}": path.resolve(__dirname, "${dsPathRel}/src"),\n` +
+  `     "@":   path.resolve(__dirname, "${dsPathRel}/src"),\n` +
+  `   } }\n` +
+  `   \`\`\`\n` +
+  `   Já usa \`@/\` pro seu próprio código? Renomeie o seu (\`@app/*\`) — é o caminho de menor\n` +
+  `   surpresa. Detalhe e a alternativa por-prefixo em \`${dsPathRel}/SUBMODULE-SETUP.md\`.\n` +
+  `2. **Dependências.** Não vêm junto. O mínimo pra \`Button\` + \`Modal\`:\n` +
+  `   \`npm i tailwind-variants tailwind-merge clsx lucide-react @radix-ui/react-dialog @radix-ui/react-slot\`.\n` +
+  `   Componente novo pede mais (\`@tanstack/react-virtual\` no DataTable, \`recharts\` no Chart,\n` +
+  `   \`cmdk\` no Combobox…). O erro do bundler diz exatamente qual falta — essa falha é **alta**.\n` +
+  `3. **Fonte Geist.** O \`@font-face\` viaja no tema, mas aponta pra \`/fonts/*.woff2\` —\n` +
+  `   raiz do **site**, não do submódulo. Rode:\n` +
+  `   \`mkdir -p public/fonts && cp ${dsPathRel}/public/fonts/*.woff2 public/fonts/\`\n` +
+  `   Sem isso **não há erro**: o navegador recebe o \`index.html\` no lugar do arquivo e os 27\n` +
+  `   presets caem em system-ui. Confira com \`document.fonts.check("16px Geist")\` → \`true\`.\n\n` +
+  `E importe o tema no seu CSS de entrada (o overlay de marca, se usar, **depois** dele).\n` +
+  `⚠️ O caminho é relativo ao **arquivo CSS**, não à raiz do projeto — se o seu entry é\n` +
+  `\`src/index.css\`, precisa do \`../\`:\n\n` +
+  `\`\`\`css\n` +
+  `@import "tailwindcss";\n` +
+  `@import "../${dsPathRel}/src/styles/theme/tailwind-theme.css";\n` +
+  `\`\`\`\n\n` +
+  `Você **não** precisa de \`@source\`: o submódulo fica dentro da raiz do projeto, então o\n` +
+  `Tailwind v4 já escaneia as classes do DS (ao contrário do canal npm, onde \`node_modules\`\n` +
+  `é excluído do scan de propósito).\n\n` +
   `- **Ressincronizar** após atualizar o submódulo: \`node ${dsPathRel}/scripts/ds-link.mjs\`.\n` +
   `${END}`;
 
@@ -278,3 +412,22 @@ log(
     : `\n✓ Pronto. Abra o Claude Code na raiz e use /ds-create-crud, /ds-create-dashboard, etc.` +
         (detected ? "" : `\n  ⚠ Confirme que o alias '${alias}' aponta pra ${dsPathRel}/src no seu tsconfig/vite.`)
 );
+
+/*
+ * Aviso do alias interno — POR ÚLTIMO, porque é o único que quebra o build de verdade
+ * e não pode rolar pra fora da tela. Só detecta e avisa: escrever no tsconfig/vite do
+ * consumidor é invasivo, e a decisão certa depende de ele já usar `@/` pro próprio código.
+ */
+if (!aliasInternoOk) {
+  warn(
+    `O alias interno do DS ("@") NÃO está mapeado no seu tsconfig/vite.\n` +
+      `    Os arquivos do DS importam entre si por "@/components/…", "@/lib/utils", "@/utils/tv"\n` +
+      `    (700 imports). Sem o mapeamento, o build quebra no 1º componente:\n` +
+      `        Cannot find module '@/utils/tv'\n\n` +
+      `    Adicione, ALÉM do "${alias}":\n` +
+      `        tsconfig: "@/*": ["${dsPathRel}/src/*"]\n` +
+      `        vite:     "@": path.resolve(__dirname, "${dsPathRel}/src")\n\n` +
+      `    Já usa "@/" pro seu código? Renomeie o seu (ex.: "@app/*") — menor surpresa.\n` +
+      `    Detalhe e alternativa por-prefixo: ${dsPathRel}/SUBMODULE-SETUP.md`
+  );
+}

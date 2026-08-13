@@ -27,7 +27,7 @@ Padrão de drawer do DS, ligado ao CRUD/detalhe. Três variantes, mesma família
 ## Gotchas do tipo
 - **Criar/Editar** = `Panel` (drawer modal lateral) com form em `<FormField>` + `gap-form-gap`. Footer sticky com Cancelar/Salvar.
 - **Detalhe** = `FloatingPanel` (não-modal, não bloqueia a página; pode coexistir com a tabela). `shadow-sh-aside`.
-- Largura: drawer `drawer-md` (480px) padrão. Mobile (<1024px): vira Sheet full.
+- Largura: `Panel` default é `size="md"` = **560px**. O token `max-w-drawer-md` (480px) é outra coisa — não confunda. Mobile (<1024px): vira Sheet full.
 - Nunca `<label>` cru; nunca `<button onClick>` como "card de seleção" (use label/FormField nativo).
 - Abrir detalhe no click da linha (`onRowClick`); abrir editar via ação da linha.
 

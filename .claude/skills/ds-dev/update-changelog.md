@@ -8,7 +8,7 @@ description: >
 
 # DS Dev — Atualizar Updates timeline
 
-> **Skill obrigatória.** Carregue este arquivo via SkillTool antes de processar
+> **Leitura obrigatória.** Abra este arquivo com a tool **Read** (sub-arquivo da skill `ds-dev`, não uma skill própria) antes de processar
 > `/ds-update` — não confie em memória de sessão anterior.
 
 ## Verificações antes de coletar

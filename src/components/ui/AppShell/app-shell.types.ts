@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
 import type {
   HeaderBreadcrumbItem,
@@ -7,7 +7,11 @@ import type {
   HeaderNotificationsConfig,
   HeaderThemeOption,
 } from "@/components/ui/Header";
-import type { SidebarContext, SidebarMenuItem } from "@/components/ui/MenuSidebar";
+import type {
+  SidebarContext,
+  SidebarMenuItem,
+  SidebarLinkRenderer,
+} from "@/components/ui/MenuSidebar";
 
 /**
  * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)
@@ -65,7 +69,32 @@ export type AppShellProps = {
   defaultActiveItemHref?: string;
   /** Item ativo (controlled). */
   activeItemHref?: string;
-  onItemClick?: (item: SidebarMenuItem) => void;
+  /**
+   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`
+   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).
+   */
+  onItemClick?: (
+    item: SidebarMenuItem,
+    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+  ) => void;
+
+  /**
+   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu
+   * router — é o que faz a navegação ser client-side em vez de recarregar a página.
+   *
+   * ```tsx
+   * import { Link } from "react-router-dom";
+   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />
+   * ```
+   *
+   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —
+   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.
+   */
+  renderLink?: SidebarLinkRenderer;
+
+  /** Destino do brand no topo do rail. Default `"/"`; `""` torna não-navegável. */
+  brandHref?: string;
+  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 
   /* ── Header (Header passthrough) ───────────────────────── */
   /** Breadcrumb do header (último item = página atual). Obrigatório. */
@@ -108,19 +137,29 @@ export type AppShellProps = {
    * interno (uncontrolled) — toggle do header dispara setInternal.
    */
   menuCollapsed?: boolean;
+  /**
+   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**
+   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido
+   * acima — notebook perde ~200px de largura útil com o painel aberto.
+   *
+   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.
+   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o
+   * menu na mão.
+   */
   defaultMenuCollapsed?: boolean;
   onMenuCollapseChange?: (collapsed: boolean) => void;
 
   /* ── Body ──────────────────────────────────────────────── */
-  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot
-   *  com `gap-gp-4xl p-pad-6xl` (24px gap + 32px padding). */
+  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com
+   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:
+   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */
   children: ReactNode;
   /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */
   bodyClassName?: string;
   /**
    * Em mobile (<md), zera o padding interno do body — útil pra telas que
    * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).
-   * Default: false (padding 18px mobile, 32px desktop).
+   * Default: false (18px mobile · 24px notebook · 32px desktop).
    */
   mobileEdgeToEdge?: boolean;
 

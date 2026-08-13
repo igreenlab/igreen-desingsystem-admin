@@ -31,7 +31,7 @@ import { LayoutDashboard, CreditCard, TrendingUp, Target, ClipboardList, FileTex
    ═══════════════════════════════════════════════════════════════════════════ */
 
 /* ── Mini Bar Chart (divs) ──────────────────────────────────────────────── */
-function BarChart({ data, color = "bg-primary", className = "h-20", barGap = "gap-gp-md", barRadius = "rounded-t-radius-sm" }: { data: number[]; color?: string; className?: string; barGap?: string; barRadius?: string }) {
+function BarChart({ data, color = "bg-bg-brand", className = "h-20", barGap = "gap-gp-md", barRadius = "rounded-t-radius-sm" }: { data: number[]; color?: string; className?: string; barGap?: string; barRadius?: string }) {
   const max = Math.max(...data);
   return (
     <div className={`flex items-end ${barGap} ${className}`}>

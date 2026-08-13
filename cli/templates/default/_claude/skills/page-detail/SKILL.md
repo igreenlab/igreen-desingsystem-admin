@@ -19,7 +19,7 @@ Página de leitura/inspeção de um registro: cabeçalho + abas + cards de seç�
 
 > **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
 > o DS é consumido como **submódulo** (não copy-in): os componentes/exemplos JÁ estão no disco
-> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/ui/Tabs`)
+> em `<dsPath>/src` e **não** há registry. Use `importBase` do config (ex.: `@ds/components/shadcn/tabs`)
 > e leia o exemplo direto em `<dsPath>/src/examples/order-detail/order-detail-screen.tsx` —
 > **NÃO** rode `igreen:add`.
 

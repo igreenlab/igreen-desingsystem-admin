@@ -7,8 +7,8 @@ alwaysApply: true
 # Temas de marca (iGreen DS)
 
 O DS tem 5 marcas. Cada marca não-default é um **overlay de cor** escopado em
-`[data-theme="<id>"]` que sobrescreve **só o que difere** do tema-base (~60–80 vars, não
-as ~400).
+`[data-theme="<id>"]` que sobrescreve **só o que difere** do tema-base — 87 vars em `blue` e
+`green`, 125 em `vibrant`, 166 em `pay`, contra ~350 do base.
 
 | id | marca | arquivo |
 |---|---|---|
@@ -41,8 +41,7 @@ Existe `.claude/ds-config.json` com `"mode": "submodule"`?
 
 ### Modo SUBMÓDULO
 
-Tudo já está no disco. Só importe o arquivo que existe (ajuste o caminho pro `dsPath` do
-`ds-config.json`):
+O **CSS** já está no disco. Importe (ajuste o caminho pro `dsPath` do `ds-config.json`):
 
 ```css
 @import "tailwindcss";
@@ -51,7 +50,21 @@ Tudo já está no disco. Só importe o arquivo que existe (ajuste o caminho pro 
 ```
 
 Não rode `igreen:add` — em modo submódulo ele não se aplica. Tema novo chega com
-`git pull` no submódulo.
+`git pull` no submódulo. **Não** precisa de `@source`: o submódulo fica dentro da raiz do
+projeto e o Tailwind v4 já escaneia daí.
+
+⚠️ **Duas coisas NÃO vêm com o submódulo**, e a segunda falha em silêncio:
+
+1. **As dependências.** O submódulo entrega código-fonte, não pacote — `npm i` das libs que os
+   componentes importam. O mínimo pra `Button` + `Modal`:
+   `tailwind-variants tailwind-merge clsx lucide-react @radix-ui/react-dialog @radix-ui/react-slot`.
+   O build quebra alto (`failed to resolve …`), então é fácil de achar.
+2. **Os arquivos da fonte Geist.** O `@font-face` viaja no tema, mas aponta pra `/fonts/*.woff2`
+   — raiz do **site**, não do submódulo. Copie:
+   `mkdir -p public/fonts && cp design-system/public/fonts/*.woff2 public/fonts/`.
+   Sem isso **não há erro**: o `font-family` segue dizendo `Geist`, o navegador recebe o
+   `index.html` no lugar do arquivo, e os 27 presets caem em system-ui. Confira com
+   `document.fonts.check("16px Geist")` — tem que ser `true`.
 
 ### Modo COPY-IN (scaffold do CLI)
 
@@ -74,18 +87,80 @@ o `igreen:add` acima.
 
 ### Consumindo o DS por `npm install`
 
+⚠️ **A diretiva `@source` é OBRIGATÓRIA e é o erro nº 1 deste canal.** O Tailwind v4 **não
+escaneia `node_modules`** — sem ela **nenhuma** classe do DS é gerada e os componentes
+renderizam **sem estilo nenhum**, sem erro no console e sem build quebrado. Fácil concluir
+que "o pacote está quebrado".
+
 ```css
 @import "tailwindcss";
+
+/* Sem esta linha, zero classes do DS. Tem que cobrir `dist-lib/**`, não só o
+   index.mjs — as classes dos componentes flutuantes vivem nos *chunks*. */
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.mjs";
+
 @import "@snksergio/design-system/theme.css";                 /* obrigatório */
 @import "@snksergio/design-system/theme/brand-vibrant.css";    /* a marca */
 ```
 
-Requer `@snksergio/design-system` **≥ 0.31.1** — antes disso o pacote levava só o
-tema-base.
+Ajuste o caminho do `@source` à profundidade do seu CSS de entrada (de `src/index.css`, a
+raiz do projeto é `../`).
+
+**Copie as fontes Geist** — o `@font-face` viaja no tema, mas aponta pra `/fonts/*.woff2`,
+raiz do **site**:
+
+```bash
+mkdir -p public/fonts
+cp node_modules/@snksergio/design-system/dist-lib/fonts/*.woff2 public/fonts/
+```
+
+⚠️ Sem isso **não há erro**: o `font-family` segue dizendo `Geist`, o navegador recebe o
+`index.html` no lugar do arquivo e os 27 presets caem em system-ui. Confira com
+`document.fonts.check("16px Geist")` — tem que ser `true`.
+
+Requer `@snksergio/design-system` **≥ 0.31.1** (antes disso o pacote levava só o tema-base);
+as fontes só são publicadas a partir da **0.35.0**.
 
 ## Trocar em runtime (seletor de marca)
 
-Escreve/remove o atributo. `default` remove:
+### Consumindo por `npm install` → use o hook `useBrand` (≥ 0.33.0)
+
+Ele já resolve persistência, sincronia entre abas e a regra de que `default` significa
+**remover** o atributo (o tema-base não tem overlay).
+
+```tsx
+import { useBrand } from "@snksergio/design-system";
+
+// Passe SÓ as marcas cujo overlay você importou no CSS.
+const MINHAS_MARCAS = [
+  { id: "default", label: "iGreen",         swatch: "oklch(0.5248 0.1415 150.9)" },
+  { id: "vibrant", label: "iGreen Vibrant", swatch: "#0fff00" },
+];
+
+function SeletorDeMarca() {
+  const { brand, brands, current, setBrand } = useBrand({ brands: MINHAS_MARCAS });
+  return (
+    <select value={brand} onChange={(e) => setBrand(e.target.value)} aria-label="Marca">
+      {brands.map((b) => (
+        <option key={b.id} value={b.id}>{b.label}</option>
+      ))}
+    </select>
+  );
+}
+```
+
+⚠️ **O catálogo é o ponto todo.** Sem o argumento, `useBrand` usa as 5 marcas do DS — e o
+seletor listaria temas cujo CSS não está no seu bundle. `data-theme` com id sem overlay é
+**no-op silencioso**: a opção aparece, o usuário clica, nada acontece, e não há erro.
+Declare só o que você importou. `current` devolve a entrada ativa (label + swatch) pronta,
+sem `find()`.
+
+Valor persistido fora do catálogo cai na primeira entrada — então um `localStorage` com
+`"pay"` de outro app não deixa este num tema órfão.
+
+### Copy-in / submódulo, ou sem o pacote npm
+
+Escreve/remove o atributo na mão. `default` remove:
 
 ```ts
 function aplicarMarca(id: string) {
@@ -95,11 +170,9 @@ function aplicarMarca(id: string) {
 }
 ```
 
-⚠️ Só funciona pras marcas cujo CSS **está no bundle**. `data-theme` com id não importado
-é no-op silencioso. Se o app oferece N marcas ao usuário, importe os N overlays.
-
-O hook `useBrand` do showcase do DS **não** é exportado no pacote — o catálogo dele é fixo
-nas 5 marcas e listaria temas que este projeto não instalou. Copie a ideia, não o hook.
+Mesma armadilha: só funciona pras marcas cujo CSS **está no bundle**. Se o app oferece N
+marcas ao usuário, importe os N overlays — e valide o id contra a lista que você importou,
+não contra as 5 do DS.
 
 ## Criar um tema novo
 

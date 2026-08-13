@@ -1,5 +1,10 @@
 # Tabela — réplica exata do sandbox `/design-and-table-v2`
 
+> **Status: IMPLEMENTADA (2026-05-18).** Virou código em `src/components/ui/DataTable/`.
+> Fica aqui como **referência de decisão** — o "por quê" que a diff não conta. Ver
+> [`.ai/specs/README.md`](./README.md) pra convenção de status e por que specs
+> implementadas NÃO são arquivadas (11 ponteiros vivos apontam pra elas).
+
 > **Objetivo**: replicar **idêntico** o visual e comportamentos da tabela que está em
 > `src/app/design-and-table-v2/page.js` (componente `<TblTable>`) dentro do DS
 > `Modelo/`, consumindo os tokens do DS atual (incluindo `bg.table-row-hover`).

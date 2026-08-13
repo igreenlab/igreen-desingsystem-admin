@@ -1,37 +1,26 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "./theme/tailwind-theme.css";
-/* Overlay de marca (teste multi-tema) — escopado em [data-theme="blue"], coexiste
- * com o tema-base default. Ativado via data-theme no <html> (src/hooks/useBrand.ts). */
+/* Overlays de marca — cada um escopado em [data-theme="<marca>"], coexistindo com o
+ * tema-base default. São 4 (blue/green/pay/vibrant); `default` É o tema-base e não tem
+ * overlay. Ativados via data-theme no <html> (src/hooks/useBrand.ts). */
 @import "./theme/brand-blue.css";
 @import "./theme/brand-green.css";
 @import "./theme/brand-pay.css";
 @import "./theme/brand-vibrant.css";
 
 /* ── Geist font (variable) ─────────────────────────────────────────────────── */
-@font-face {
-  font-family: 'Geist';
-  src: url('/fonts/Geist-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-/* ── Font vars (sobrescreve o default do Tailwind) ─────────────────────────── */
-@theme inline {
-  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;
-  --font-mono: 'Geist Mono', 'Fira Code', monospace;
-}
-
-/* Forçar dark mode via classe .dark apenas (ignorar prefers-color-scheme) */
-@custom-variant dark (&:where(.dark, .dark *));
+/* `@font-face` do Geist, `--font-sans`/`--font-mono` e o `@custom-variant dark`
+ * MUDARAM-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
+ * buildRuntimeBase) em 2026-08-07.
+ *
+ * Motivo: o `tailwind-theme.css` é o ÚNICO arquivo que os 3 canais leem. Aqui
+ * estas regras só existiam pro showcase — consumidor npm e submódulo ficavam sem
+ * fonte Geist e com `dark:` preso ao prefers-color-scheme do SO.
+ *
+ * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor, e
+ * no caso do `@custom-variant` a SEGUNDA declaração vence — reintroduzir mudaria a
+ * especificidade sem ninguém perceber. */
 
 /**
  * globals.css — Tailwind v4 + Shadcn compatibility + preview shell vars
@@ -115,127 +104,89 @@
 
 /* ── HTML base ──────────────────────────────────────────────────────────────── */
 
-html {
-  font-family: var(--font-sans);
-}
-
-body {
-  min-height: 100vh;
-  background-color: var(--color-bg-canvas);
-  color: var(--color-fg-default);
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-
-/* ── Base resets ────────────────────────────────────────────────────────────── */
-
-@layer base {
-  button {
-    cursor: pointer;
-  }
-
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-}
-
-/* ── Outline float utility ─────────────────────────────────────────────────
- * Outline de 6px pra elementos flutuantes (panels, drawers, modais,
- * dropdowns, command). Consome --color-overlay-float (alterna por tema).
- * Uso: <div className="... outline-float">
+/* `html { font-family }`, `body { min-height/background/color }` e o
+ * `@layer base { button { cursor: pointer } }` MUDARAM-SE para o tema gerado
+ * (to-tailwind-v4.ts, buildRuntimeBase) em 2026-08-07 — mesmo motivo dos blocos
+ * acima. Sem o `body`, o consumidor em dark mostrava card escuro sobre FUNDO
+ * BRANCO, com texto `fg-default` (branco) invisível.
  *
- * Por que não `ring-*`? Ring usa box-shadow — conflitaria com `shadow-sh-*`
- * do componente. Outline é propriedade separada, não conflita.
- * ─────────────────────────────────────────────────────────────────────── */
-@utility outline-float {
-  outline: 6px solid var(--color-overlay-float);
-  outline-offset: 0;
-}
+ * `a { color: inherit; text-decoration: none }` NÃO foi movido: o preflight do
+ * Tailwind v4 já faz isso (`color: inherit; text-decoration: inherit`), então era
+ * redundante aqui e seria redundante lá. Removido. */
 
-/* ── DropdownMenu — bottom sheet em mobile (<md) ───────────────────────────
- * O Radix Popper envolve o Content num wrapper [data-radix-popper-content-wrapper]
- * posicionado via `transform` inline — fora do alcance do className do Content.
- * Quando o Content carrega [data-mobile-sheet], colamos o wrapper no rodapé
- * (full-width, sem transform) em telas <md. O Content recebe o estilo de sheet
- * (cantos superiores, flush, max-h 92vh) via classes `max-md:`. O backdrop suave
- * é renderizado pelo próprio componente (md:hidden).
+/* ── Outline float utility — MOVIDA (não está mais aqui) ───────────────────
+ * `@utility outline-float` (outline de 6px dos flutuantes: panels, drawers,
+ * modais, dropdowns, command; consome --color-overlay-float).
+ * ─────────────────────────────────────────────────────────────────────── */
+/* `outline-float` MUDOU-SE para o tema gerado (tokens/transforms/to-tailwind-v4.ts,
+ * buildFloatingUtilities) em 2026-08-07. Aqui ela só existia pro showcase — 14
+ * componentes distribuídos a usam e ela não chegava em npm/copy-in/scaffold.
+ * NÃO redefina aqui: duplicar faz o showcase mascarar a ausência no consumidor. */
+
+/* ── DropdownMenu bottom sheet em mobile (<md) — MOVIDA (não está mais aqui) ─
+ * A regra que cola o wrapper do Radix Popper no rodapé em telas <768px quando o
+ * Content carrega [data-mobile-sheet].
+ * ─────────────────────────────────────────────────────────────────────── */
+/* O bloco `[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])`
+ * MUDOU-SE para o tema gerado (to-tailwind-v4.ts, buildFloatingUtilities) em
+ * 2026-08-07, pelo mesmo motivo do `outline-float`: DropdownMenu e Popover
+ * distribuídos dependem dele (L-030/L-031) e ele não viajava. NÃO redefina aqui. */
+
+/* ── Scrollbar sutil — REMOVIDA daqui ─────────────────────────────────────
+ * O thumb sempre visível (alpha-black-24 light / alpha-white-24 dark, realçando no
+ * hover) agora vem dos tokens `bg.scrollbar-thumb*` consumidos pelo `@utility` do tema.
+ * ─────────────────────────────────────────────────────────────────────── */
+/* O override plano de `.scrollbar-thin` FOI REMOVIDO em 2026-08-08.
  *
- * Breakpoint `width < 768px` casa exatamente com o `md` (48rem) do Tailwind v4.
- * ─────────────────────────────────────────────────────────────────────── */
-@media (width < 768px) {
-  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {
-    position: fixed !important;
-    inset: auto 0 0 0 !important;
-    transform: none !important;
-    min-width: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    /* z-60: acima de qualquer surface z-50 (sidebar drawer mobile, dialog, sheet).
-     * Sem isso, um sheet aberto DE DENTRO do drawer (ex: UserMenu no rail) empata
-     * em z-50 com o drawer → renderiza atrás de forma intermitente e o backdrop
-     * (abaixo) não captura o clique-fora. Ver backdrop z-[55] em dropdown/popover. */
-    z-index: 60 !important;
-  }
-}
+ * Ele existia aqui com valores HARDCODED (`oklch(0 0 0 / 0.24)`) e, por ser classe
+ * sem layer, vencia o `@utility scrollbar-thin` do tema. Efeito: o showcase mostrava
+ * uma barra visível que o consumidor NUNCA via — lá valia o `@utility`, que usava
+ * `bg.muted-hover` (no light, cinza OPACO sobre fundo branco: a barra sumia).
+ *
+ * O showcase estava mascarando a divergência em 16 usos / 10 componentes.
+ *
+ * Agora o `@utility` do tema consome `bg.scrollbar-thumb` / `-hover` — tokens novos,
+ * com os MESMOS valores que estavam aqui. Showcase inalterado, consumidor corrigido.
+ * NÃO reintroduza um override aqui: classe sem layer vence `@utility` e o
+ * mascaramento volta. */
 
-/* ── Scrollbar sutil ──────────────────────────────────────────────────────
- * Pattern alinhado com `.panel-body` / `.hd-body` do design-and-table-v2.
- * Thumb sempre visível (alpha-black-24 light / alpha-white-24 dark), realça no hover.
- * ─────────────────────────────────────────────────────────────────────── */
-.scrollbar-thin {
-  scrollbar-width: thin;
-  scrollbar-color: oklch(0 0 0 / 0.24) transparent;
-}
-.scrollbar-thin::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: transparent;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background: oklch(0 0 0 / 0.24);
-  border-radius: 9999px;
-}
-.scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: oklch(0 0 0 / 0.32);
-}
-
-.dark .scrollbar-thin {
-  scrollbar-color: oklch(1 0 0 / 0.24) transparent;
-}
-.dark .scrollbar-thin::-webkit-scrollbar-thumb {
-  background: oklch(1 0 0 / 0.24);
-}
-.dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-  background: oklch(1 0 0 / 0.32);
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes flow {
-  from { stroke-dashoffset: 20; }
-  to   { stroke-dashoffset: 0; }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.3; }
-}
-
-@keyframes accordion-down {
-  from { height: 0; opacity: 0; }
-  to { height: var(--radix-accordion-content-height); opacity: 1; }
-}
-
-@keyframes accordion-up {
-  from { height: var(--radix-accordion-content-height); opacity: 1; }
-  to { height: 0; opacity: 0; }
-}
-
-@theme inline {
-  --animate-accordion-down: accordion-down 200ms ease-out;
-  --animate-accordion-up: accordion-up 200ms ease-out;
-}
+/* ── @keyframes — REMOVIDOS em 2026-08-08, e a razão surpreende ────────────
+ *
+ * Havia 5 aqui (`spin`, `flow`, `pulse`, `accordion-down`, `accordion-up`) mais um
+ * `@theme inline` com `--animate-accordion-*`. A suspeita inicial era divergência
+ * showcase↔consumidor: `pulse` redefinia `50% { opacity: 0.3 }` contra o `0.5`
+ * nativo do Tailwind, em 10 usos de componentes DISTRIBUÍDOS, e `accordion-*`
+ * acrescentava um fade que o `tw-animate-css` não tem.
+ *
+ * O BUILD provou que a suspeita estava errada, e o resultado é pior de outro jeito:
+ *
+ *   grep no dist/assets/*.css (estado ANTES de mexer, direto da main):
+ *     @keyframes pulse{50%{opacity:.5}}                       ← NATIVO, não o 0.3
+ *     @keyframes accordion-down{0%{height:0}to{height:var(…)}} ← tw-animate-css, SEM opacity
+ *
+ * Ou seja: `@keyframes` declarado aqui com nome que o Tailwind (ou o
+ * `tw-animate-css`) já possui **é no-op silencioso** — a versão do framework é a que
+ * sai no CSS final, mesmo com a declaração local vindo depois no arquivo. Não havia
+ * divergência: era código morto nos DOIS lados, escondido atrás de uma declaração
+ * que parecia estar funcionando. (Registrado como L-067.)
+ *
+ * Destino de cada um:
+ *   `pulse`, `accordion-down`, `accordion-up` → REMOVIDOS. Inertes; o comportamento
+ *        aprovado do showcase sempre foi o do framework. Torná-los efetivos exigiria
+ *        nome próprio (`ds-pulse`) e seria MUDANÇA VISUAL — fora do escopo desta
+ *        rodada, em que o showcase é a referência aprovada.
+ *   `spin` → REMOVIDO. Byte-idêntico ao nativo. Os 13 usos de `animate-spin` seguem
+ *        atendidos pelo Tailwind.
+ *   `flow` → REMOVIDO. `animate-flow` tinha 0 usos em todo o repo.
+ *   `--animate-accordion-*` → REMOVIDOS. Estes SIM venciam (a utility saía
+ *        `animation:.2s ease-out accordion-down`), mas com valor funcionalmente
+ *        idêntico ao do `tw-animate-css` e ESTRITAMENTE menos capaz: a versão do
+ *        pacote é `var(--tw-animation-duration, var(--tw-duration, .2s))
+ *        var(--tw-ease, ease-out)`, que respeita `duration-*`/`ease-*`. Remover
+ *        alinha showcase e consumidor sem mudar 1 pixel e ainda destrava os
+ *        utilitários de duração.
+ *
+ * NÃO reintroduza `@keyframes` nem `--animate-*` aqui: ou o framework vence (no-op
+ * mudo), ou você vence só no showcase e o consumidor recebe outra coisa. Animação
+ * do DS pertence ao tema gerado, com nome próprio.
+ * Gate: `scripts/lib/runtime-base.test.mjs`. */

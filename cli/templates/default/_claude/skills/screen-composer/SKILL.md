@@ -13,7 +13,7 @@ description: >
 
 Não é um tipo de peça — é a **cola** entre peças. Cada peça vem de um builder
 (crud/list/dashboard/drawers); aqui você monta o layout e **cabeia o estado que
-elas compartilham**. Receita canônica: `dashboard-patterns.md` **§7**.
+elas compartilham**. A receita completa está logo abaixo, em "Os 2 padrões".
 
 ## Quando esta skill (vs os builders diretos)
 
@@ -27,10 +27,58 @@ elas compartilham**. Receita canônica: `dashboard-patterns.md` **§7**.
 2. **Monte cada peça** pelo builder certo (crud/list/dashboard) OU puxe o exemplo
    composto: `npm run igreen:add -- example-finance` (master-detail: tabela +
    detail panel + drawers) / `example-order-detail`. **Leia** o exemplo.
-3. **Cabeie o estado no nível da PÁGINA** (dashboard-patterns §7):
-   - master-detail → `selectedId` na página; grade recebe `onRowClick`, detalhe recebe o id.
-   - cross-filter → filtro na página; **1** `useMemo` deriva o dataset; todas as peças leem dele.
+3. **Cabeie o estado no nível da PÁGINA** — ver "Os 2 padrões" abaixo.
 4. `npx tsc --noEmit` limpo.
+
+## Os 2 padrões (cobrem quase toda página composta)
+
+Estado que 2+ peças compartilham **não mora em cada peça**: sobe pro componente da
+página (single source of truth) e desce por props.
+
+### Master-detail — clicar num item abre o detalhe
+
+```tsx
+function ClientesPage() {
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected = selectedId ? findById(selectedId) : null;
+  return (
+    <div className="flex h-full min-h-0 gap-gp-2xl">
+      <DataTable
+        rows={rows}
+        columns={cols}
+        onRowClick={(row) => setSelectedId(row.id)}   // grade → estado
+        className="flex-1 min-h-0"
+      />
+      {/* ao LADO = FloatingPanel/painel fixo · POR CIMA = Drawer/Sheet */}
+      <DetailPanel item={selected} onClose={() => setSelectedId(null)} />
+    </div>
+  );
+}
+```
+
+Nunca duplique a linha no detalhe — passe só o `id`/objeto selecionado.
+
+### Cross-filter — um controle alimenta várias peças
+
+```tsx
+function PainelPage() {
+  const [periodo, setPeriodo] = useState<Periodo>("mes");
+  const data = useMemo(() => filtrar(base, periodo), [periodo]);  // 1 fonte
+  return (
+    <div className="flex flex-col gap-gp-2xl">
+      <PageHeader actions={<PeriodSelector value={periodo} onChange={setPeriodo} />} />
+      <KpiGroup>{/* lê `data` */}</KpiGroup>
+      <ChartCard data={data} />
+      <DataTable rows={data.rows} columns={cols} />
+    </div>
+  );
+}
+```
+
+- **Um** `useMemo` deriva o dataset; todas as peças leem dele (não refazem fetch).
+- Filtro por **coluna** continua nativo/pré-aplicado (chips) — ver `ds-components.md`.
+  O cross-filter aqui é o **escopo global** (período/segmento), no `PageHeader.actions`.
+- Os dois combinam: `selectedId` e `periodo` convivem no mesmo nível.
 
 > **Modo submódulo (ds-link).** Se existe `.claude/ds-config.json` com `"mode": "submodule"`,
 > NÃO rode `igreen:add` — leia os exemplos em `<dsPath>/src/examples/` e importe via `importBase`.
