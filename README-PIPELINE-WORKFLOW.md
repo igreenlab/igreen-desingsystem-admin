@@ -1198,7 +1198,7 @@ real antes de gerar, sem depender de fallback.
          DS Dev
          ├── SKILL.md → impl-shadcn.md
          ├── Verifica inventory.md → Input não existe
-         ├── Instala via CLI: npx shadcn@4.17.0 add input
+         ├── Instala via CLI: npx shadcn@latest add input
          ├── Move para src/components/shadcn/
          ├── Substitui focus ring Shadcn → ring-0 ring-ring-primary (Padrão 2)
          ├── Substitui vars Shadcn por tokens DS

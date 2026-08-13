@@ -66,7 +66,7 @@ text-fg-muted focus:bg-bg-muted focus:text-fg-default`. Separator/Label/Shortcut
 
 ```bash
 # 1. Instalar
-npx shadcn@4.17.0 add [nome]
+npx shadcn@latest add [nome]
 
 # 2. Mover
 mv src/components/ui/[nome].tsx src/components/shadcn/[nome].tsx

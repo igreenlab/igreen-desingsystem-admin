@@ -1,5 +1,3 @@
-# Vercel: o que NUNCA sobe no deploy do showcase (build:showcase → dist/).
-#
 # public/r/ é a saída do `registry:build` (shadcn build) — os JSON de cada item
 # do registry, que no consumidor só são servidos pelo registry-app ATRÁS do
 # Bearer. Ele é gitignored, então o deploy pela integração git nunca o vê; mas
@@ -8,10 +6,3 @@
 # registry servidos SEM auth no domínio público do showcase. Bypass completo do
 # gate Bearer por um deploy manual.
 public/r/
-
-# Artefatos de build/local que não têm por que subir.
-dist/
-dist-lib/
-node_modules/
-.ai/scratch/
-coverage/

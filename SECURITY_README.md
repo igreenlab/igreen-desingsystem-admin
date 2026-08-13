@@ -81,9 +81,12 @@ por Bearer token. Autor: Dario C Oliveira.
   o `NextResponse.json` não serializa → exceção não tratada = **500** num
   endpoint público. Trocado por `Object.hasOwn`. Verificado com `next start`:
   `__proto__`, `constructor` e `toString` agora dão **404**.
-- **`shadcn@latest` sem pin** (`cli/templates/default/scripts/igreen-add.mjs`,
-  `igreen-update.mjs`, `doctor.mjs`, `_mcp.json`, `cli/src/create.js`,
-  `registry:build` no `package.json`, `.claude/`): pinado em `shadcn@4.17.0`.
+- **`shadcn@latest` sem pin** — pinado em `shadcn@4.17.0` só onde o comando
+  **executa**: `cli/templates/default/scripts/igreen-add.mjs`,
+  `igreen-update.mjs`, `cli/templates/default/_mcp.json`, `registry:build` no
+  `package.json`, e o allowlist do `.claude/settings.json` (que pré-autorizava
+  rodar `npx shadcn@latest` sem confirmação). Menção em prosa de documentação
+  ficou fora de propósito: é churn de doc, não superfície de execução.
   Era a superfície de supply-chain **maior** que a do `@playwright/mcp` já
   pinado: roda em toda máquina de consumidor, a cada `igreen:add`/`igreen:update`,
   com `--yes --overwrite` — ou seja, **escrevendo arquivos na árvore de código** —
@@ -103,7 +106,9 @@ por Bearer token. Autor: Dario C Oliveira.
   job, sem PR nenhum aqui), e adicionado `permissions: contents: read` (sem o
   bloco, o token herda o default do repo, que em repo antigo é read/write).
 - **`public/r/` podia vazar no domínio público do showcase**: criado
-  `.vercelignore`. O gate Bearer do registry só existe porque o `registry-app`
+  `.vercelignore` **com uma entrada só** (`public/r/`) — o resto do que caberia
+  ali (`dist/`, `node_modules/`, `coverage/`) é higiene de deploy e ficou fora
+  de propósito. O gate Bearer do registry só existe porque o `registry-app`
   não tem `public/`; na raiz, o `registry:build` gera `public/r/*.json` e o Vite
   copia `public/` → `dist/`, que é o `outputDirectory` do showcase. Pela
   integração git isso nunca acontece (`public/r/` é gitignored e o
