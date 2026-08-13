@@ -151,18 +151,36 @@ por Bearer token. Autor: Dario C Oliveira.
 - [ ] **Baixo — `shadcn@4.17.0` precisa de dono**: pin sem processo de bump
       envelhece. Vale entrar no checklist do `/ds-release`: conferir o
       changelog do shadcn e subir o pin de propósito.
+- [ ] **⚠️ A correção do `MarkdownText` e do `Chart` só chega no consumidor com
+      release.** O consumidor recebe o código pelo embed
+      (`registry-app/app/registry-data.ts`), não pelo `src/`. O
+      `registry-check --ci` já aponta os dois arquivos como conteúdo defasado no
+      embed — de propósito: esta PR **não** regenera (Regra 8, distribuição
+      consolida no `/ds-release`, não por PR de componente). Enquanto o
+      `registry:build` + `copy-registry` + deploy não rodarem, quem já instalou
+      segue com a versão vulnerável. O `registry-check` sem `--ci` (o que o CI
+      roda) passa; o `--ci` do `release:check` fica vermelho até o release, que
+      é onde o embed é regenerado.
 - [ ] **Verificar na infra (não deu pra checar do repo)**: confirmar que
       `https://<dominio-do-showcase>/r/button.json` responde 404. O
       `.vercelignore` fecha o caminho daqui pra frente, mas se algum deploy
       manual anterior subiu o `public/r`, os itens podem estar públicos agora.
 
-Verificado nesta revisão, no worktree da `security`: `npm ci` + `npx tsc
---noEmit` + `npx vitest run` (180 testes, 15 arquivos) + `registry-check` +
-`check-foundationals` + `examples-drift` + `lint-styles --ratchet origin/main` +
-`showcase-check` + `api-doc-check` + `lib:verify --build` (tarball de 965
-arquivos, 452 `.d.ts`) na raiz; `npm ci` + `tsc --noEmit` + `next build` +
-`npm audit` (0 vulnerabilidades) no `registry-app`, mais os 8 casos de
-request contra `next start` (401/200/404). Tudo verde.
+Verificado nesta revisão, no worktree da `security` (já com a `main` mergeada):
+`npm ci` + `npx tsc --noEmit` + `npx vitest run` + `registry-check` +
+`brand-check` + `check-foundationals` + `examples-drift` + `lint-styles
+--ratchet origin/main` + `showcase-check` + `api-doc-check` + `lib:verify
+--build` (tarball de 965 arquivos, 452 `.d.ts`) na raiz; `npm ci` + `tsc
+--noEmit` + `next build` + `npm audit` (0 vulnerabilidades) no `registry-app`,
+mais 8 casos de request contra `next start` (401 sem token / token errado /
+token de outro tamanho; 200 com o certo; 404 em `__proto__`, `constructor`,
+`toString` e item inexistente). Tudo verde.
+
+> Achado colateral, **não** causado por esta branch: `src/hooks/useBrand.test.tsx`
+> (12 testes) falha com `localStorage is undefined` em Node 26 + jsdom 29 —
+> reproduzido num worktree limpo da `origin/main`, mesmo node_modules. O CI roda
+> Node 20 e passa, então é ambiente local, não regressão. Vale um `engines` ou
+> um shim no `vitest.setup.ts` pra não morder quem desenvolve em Node novo.
 
 > Nota: a revisão de 2026-08-07 registrou "verificado com `pnpm install`" no
 > `registry-app`, que é um app **npm** (lock `package-lock.json`, `npm ci` no CI
