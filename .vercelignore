@@ -1,0 +1,17 @@
+# Vercel: o que NUNCA sobe no deploy do showcase (build:showcase → dist/).
+#
+# public/r/ é a saída do `registry:build` (shadcn build) — os JSON de cada item
+# do registry, que no consumidor só são servidos pelo registry-app ATRÁS do
+# Bearer. Ele é gitignored, então o deploy pela integração git nunca o vê; mas
+# num `vercel deploy` manual da máquina do mantenedor (onde o registry:build já
+# rodou) ele existe no disco, e o Vite copia public/ → dist/ = os itens do
+# registry servidos SEM auth no domínio público do showcase. Bypass completo do
+# gate Bearer por um deploy manual.
+public/r/
+
+# Artefatos de build/local que não têm por que subir.
+dist/
+dist-lib/
+node_modules/
+.ai/scratch/
+coverage/
