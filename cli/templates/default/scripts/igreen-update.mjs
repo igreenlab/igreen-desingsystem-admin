@@ -23,6 +23,8 @@ import { createHash } from "node:crypto";
 
 const REGISTRY = "https://igreen-registry.vercel.app/r";
 const MANIFEST = ".igreen-ds/manifest.json";
+/** Versão FIXA do shadcn — mesmo motivo do igreen-add.mjs (supply-chain). */
+const SHADCN = "shadcn@4.17.0";
 
 const argv = process.argv.slice(2);
 const force = argv.includes("--force");
@@ -71,7 +73,7 @@ const hashFiles = (files) => {
 };
 
 function shadcnOverwrite(name) {
-  const a = ["shadcn@latest", "add", `@igreen/${name}`, "--yes", "--overwrite"];
+  const a = [SHADCN, "add", `@igreen/${name}`, "--yes", "--overwrite"];
   return process.platform === "win32"
     ? spawnSync("cmd.exe", ["/c", "npx", ...a], { stdio: "inherit" })
     : spawnSync("npx", a, { stdio: "inherit" });

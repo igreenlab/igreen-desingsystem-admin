@@ -9,7 +9,7 @@
  * Detecta os dois drifts:
  *   - edição local  → hash local ≠ conteúdo do registry
  *   - DS atualizou  → hash local (cópia antiga) ≠ conteúdo novo do registry
- * Resync em qualquer caso: `npx shadcn@latest add @igreen/utils @igreen/tv --overwrite`
+ * Resync em qualquer caso: `npx shadcn@4.17.0 add @igreen/utils @igreen/tv --overwrite`
  *
  * Requer IGREEN_TOKEN (env ou .env.local). Sem token/sem rede → NÃO dá falso-OK:
  * sai 1 avisando que não foi possível verificar.
@@ -47,7 +47,7 @@ if (!token) {
 let ok = true;
 for (const { local, item, endsWith } of CHECKS) {
   if (!existsSync(local)) {
-    console.error(`✗ ${local} AUSENTE — npx shadcn@latest add @igreen/${item} --overwrite`);
+    console.error(`✗ ${local} AUSENTE — npx shadcn@4.17.0 add @igreen/${item} --overwrite`);
     ok = false;
     continue;
   }
@@ -76,7 +76,7 @@ for (const { local, item, endsWith } of CHECKS) {
       console.log(`✓ ${local} == @igreen/${item} (registry)`);
     } else {
       console.error(`✗ ${local} DIVERGE de @igreen/${item} no registry (editado localmente OU o DS atualizou).`);
-      console.error(`  Resync: npx shadcn@latest add @igreen/${item} --overwrite`);
+      console.error(`  Resync: npx shadcn@4.17.0 add @igreen/${item} --overwrite`);
       ok = false;
     }
   } catch (e) {

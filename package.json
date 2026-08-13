@@ -92,7 +92,7 @@
     "tokens:all": "npm run tokens:tw4 && npm run tokens:css && npm run tokens:dtcg",
     "tokens:check": "tsc --noEmit",
     "registry:stamp": "node scripts/registry-stamp.mjs",
-    "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn build",
+    "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn@4.17.0 build",
     "release:check": "node scripts/registry-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs && npm run registry-app:audit",
     "registry-app:audit": "npm audit --audit-level=high --prefix registry-app",
     "distribution:debt": "node scripts/distribution-debt.mjs",
