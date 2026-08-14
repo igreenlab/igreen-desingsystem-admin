@@ -46,6 +46,47 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.39.0",
+    date: "2026-08-14",
+    tag: "release",
+    title: "O prompt de instalação que o próprio sistema publicava estava errado",
+    summary:
+      "A página inicial oferece um prompt pronto pra colar no Claude Code e instalar o sistema como submódulo. Uma instalação real seguiu esse prompt à risca e terminou com **duas cópias do React** no mesmo projeto, a tipografia caindo numa fonte do sistema e um arquivo de configuração que **não compila** na versão de TypeScript que se instala hoje. Nada disso foi erro de quem colou: o prompt é nosso — e ele tinha perdido três passos obrigatórios que a documentação longa sempre teve, além de ganhar um comando que nenhum documento nosso pedia. Prompt reescrito, mais quatro páginas alinhadas, e o instalador passou a fechar sozinho os buracos que antes dependiam de alguém ler a seção certa.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**A barra de visões da tabela aceita mais de duas abas.** Quem declarava três visões pré-definidas via só duas — a terceira era descartada em silêncio, sem erro, sem aviso e sem forma de aumentar. Agora existe o ajuste `maxViewTabs`. A própria página que documenta o recurso estava escondendo uma das três visões que ela declara.",
+          "**O instalador copia a fonte sozinho.** A tipografia depende de dois arquivos na pasta pública do projeto de quem consome; sem eles não há erro nenhum — o navegador recebe a página no lugar do arquivo da fonte e os 27 tamanhos de texto caem numa fonte do sistema. Se você já tiver uma fonte lá, ela é preservada.",
+          "**O instalador detecta a instalação duplicada** que gera o erro de React repetido, e explica como desfazer.",
+          "**Roteiro de validação em quatro checagens**, no lugar de renderize um botão. O botão sozinho não denuncia React duplicado: ele não usa os recursos que quebram nesse caso.",
+          "**A tela de demonstração que vive dentro do repositório passou a ser verificada** a cada mudança. Ela consome o sistema por dentro e está no caminho do build do catálogo, mas nenhuma verificação a tocava.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O prompt de instalação foi reescrito** — oito passos, agora com as dependências, o segundo apelido de import, a cópia da fonte e a validação que faltavam.",
+          "**O instalador falha, em vez de avisar, quando o apelido de import interno não está configurado.** É o passo que mais quebra, e o aviso rolava pra fora da tela sem ninguém ver.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**A referência da tabela ganhou os três estados de tela sem linhas** — carregando, nenhum registro e filtro sem resultado — com o detalhe que faltava: os três já vêm prontos, e o de filtro sem resultado já traz o botão de limpar filtro ligado. Substituir sem religar esse botão piora o que já funcionava.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O comando que criava as duas cópias do React saiu de toda a documentação.** Verificamos: nenhum documento nosso pedia esse comando — ele existia só no prompt publicado, e era a causa raiz do defeito mais grave da instalação.",
+          "**O trecho de configuração do TypeScript não compilava.** Quem instala hoje recebe o TypeScript 7, que recusa a forma antiga com três erros antes de qualquer linha de código. Reproduzimos o erro e validamos a forma nova compilando limpo.",
+          "**Uma resposta do documento de distribuição negava que o sistema é publicado como pacote npm** — contradizendo uma correção feita no mesmo documento dez dias antes. Essa redação já fez um leitor concluir que o canal estava morto.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.38.2",
     date: "2026-08-13",
     tag: "patch",
