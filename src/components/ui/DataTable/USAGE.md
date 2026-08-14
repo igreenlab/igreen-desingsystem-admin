@@ -478,6 +478,10 @@ Service contract em `services/saved-views.types.ts` — `list / save / delete` (
 
 **`allowCreateView` (v0.23.0)** — `allowCreateView={false}` esconde o botão "+" das visões (exibe SÓ os `defaultViews` + Default, read-only; o usuário não cria/salva visões). Default `true`.
 
+**`maxViewTabs`** — quantas abas de visão cabem na barra, **contando a "Default"**. Default `3`, ou seja **2 presets** de `defaultViews` viram aba.
+
+⚠️ O excedente é cortado **em silêncio** (`.slice()` no `TableToolbarViews`): com 3 presets, o terceiro não aparece — sem erro, sem overflow, sem aviso. Precisa de N abas fixas? `maxViewTabs={N + 1}`. Lembre que a aba **Default já é a visão sem filtro** — preset "Todos"/"Todas" duplica ela e gasta um slot.
+
 **viewMode "sticky" ao trocar de visão (v0.23.0)** — aplicar uma visão (preset/Default) só troca o `viewMode` se a visão **definir um explicitamente** (ex.: preset salvo em Lista/Kanban). Presets sem `viewMode` (o caso comum) **mantêm** o que o usuário está vendo — alternar de visão não flipa Tabela↔Lista↔Kanban. Pra um preset abrir numa view específica, passe `viewMode` no `presetView({ ... })`.
 
 ### Tipo de coluna custom (registry)

@@ -268,8 +268,11 @@ defaultViews={[
 > `maxCustomTabs = maxTabs - 1` (a aba **Default**, nativa, consome 1 slot), e o
 > excedente é cortado por `.slice(0, maxCustomTabs)` — **em silêncio**, sem aviso.
 > Com 3 presets, o terceiro simplesmente não aparece na barra.
-> E `maxTabs` **não é exposto pelo `DataTable`** (só existe no `TableToolbarViews`),
-> então o consumidor não tem como aumentar.
+> Precisa de mais? **`maxViewTabs={N + 1}`** no `<DataTable>` (o `+1` é a aba Default).
+> Até 2026-08-14 não havia saída — `maxTabs` existia só dentro do `TableToolbarViews`,
+> inalcançável pelo consumidor, e a única alternativa era remover um preset.
+> Ainda assim, **2 é o default por um motivo**: barra de visões não é menu. Só aumente
+> quando as abas forem realmente o eixo de navegação da tela.
 > A aba **Default já É a visão sem filtro**: criar um preset "Todos" duplica ela e
 > gasta um dos 2 slots com nada. Caso real numa geração de 2026-08-14 — 3 presets
 > viraram 2 abas, e o que sumiu foi útil.
