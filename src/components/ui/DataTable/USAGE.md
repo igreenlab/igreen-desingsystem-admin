@@ -119,10 +119,38 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **View Lista (cards)**          | `viewMode="list"` + `listConfig={{ renderItem(row) }}` — toggle Tabela/Lista auto na toolbar; mesma toolbar, corpo vira `<List>`. `hierarchical: true` + `getTreeDataPath` = lista em árvore. Showcase `#/clients-list-view`                                                                                                                                            |
 | **Totalizer row**               | `showTotalizers` na DataTable + `aggregate: "sum"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow`                                                                                                                                                                                                                              |
 | **Keyboard navigation**         | Auto — setas, Home/End, PgUp/PgDn no body                                                                                                                                                                                                                                                                                                                            |
+| **Estados (vazio / carregando / sem resultado)** | Já vêm com default embutido; `loading: boolean` + `renderEmpty` / `renderLoading` / `renderNoResults` **substituem** (são `ReactNode`, não função). Ver §Estados abaixo                                                                                                                                                                       |
 
 ---
 
 ## Receitas comuns
+
+### Estados: vazio, carregando, sem resultado
+
+As três telas que aparecem quando não há linha pra mostrar. **Os três já têm default do
+DS** — você só passa a prop pra substituir 100% do slot:
+
+| Prop | Dispara quando | Default embutido |
+|---|---|---|
+| `renderLoading` | `loading` é `true` | spinner do DS |
+| `renderEmpty` | o dataset não tem **nenhum** registro | `<DataTableEmpty />` — ilustração + título + descrição + ação opcional |
+| `renderNoResults` | há linhas, mas **filtro/busca zerou** o resultado | `<DataTableNoResults />` com **`onClearFilters` já cabeado** pelo DataTable (limpa `filterModel` + `search`) |
+
+```tsx
+<DataTable
+  rows={rows}
+  columns={columns}
+  loading={isFetching}                 // prop SEPARADA, boolean
+  renderLoading={<MeuSkeleton />}      // ReactNode — não é função, não recebe props
+  renderEmpty={<EmptyState title="Nenhum cliente ainda" action={<Button>Novo</Button>} />}
+  renderNoResults={<EmptyState title="Nada encontrado" description="Ajuste os filtros." />}
+/>
+```
+
+⚠️ **Empty ≠ NoResults, e trocar os dois é o erro comum.** "Não existe nada ainda" pede
+CTA de **criar**; "seu filtro não achou" pede **limpar filtro** — e nesse segundo caso o
+default já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico
+**perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.
 
 ### Server mode (refetch async + paginação remota)
 

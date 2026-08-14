@@ -1557,6 +1557,10 @@ function DataTableInternal<T>(
                     soloLabel={toolbarConfig.title}
                     hideDivider
                     allowCreate={props.allowCreateView !== false}
+                    // Sem esta linha, `maxTabs` ficava preso no default 3 do
+                    // TableToolbarViews e o 3º preset sumia da barra em silêncio, sem
+                    // o consumidor ter como aumentar. `undefined` mantém o default.
+                    maxTabs={props.maxViewTabs}
                   />
                 ) : undefined
               }

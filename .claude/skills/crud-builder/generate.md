@@ -147,9 +147,15 @@ todo campo substantivo leva `icon` no header.
    `enableColumnFilter`. Marcar só 2 = bug "filtra só 2 colunas".
 
 2. **Coluna `actions` por ÚLTIMO** no array, `type: "actions"` (via
-   `actionColumn`/`getActions`). O DataTable já **ancora à direita e estreita por
-   default** — não precisa `pinned`/`width`. (Mesmo se declarada no meio, ela é
-   movida pro fim na renderização.)
+   `actionColumn`/`getActions`). O DataTable já **ancora à direita por default** —
+   `pinned: "right"` é redundante (`use-data-table-columns.ts`: `col.pinned ?? (isActions
+   ? "right" : undefined)`). (Mesmo se declarada no meio, ela é movida pro fim na
+   renderização.)
+   ⚠️ **`width` é o caso à parte, e o exemplo canônico fixa 64 de propósito:** `actions`
+   é tipo **estrutural** e **não está no registry**, então não tem `defaultWidth` — com
+   `autoFit` ligado (o default) o autoFit mede e resolve, mas com `autoFit={false}` a
+   coluna fica sem largura definida. Espelhar o `width: 64` do exemplo é seguro; o que
+   não precisa é o `pinned`.
 
 3. **Largura: prefira NÃO setar `width` nas colunas de dados.** `autoFit` é
    **default ON** e distribui pra preencher o container (tabela "de verdade", sem
@@ -257,6 +263,17 @@ defaultViews={[
 ]}
 ```
 
+> ⛔ **No MÁXIMO 2 presets — e NUNCA um preset "Todos"/"Todas".** Medido em
+> `TableToolbar/parts/table-toolbar-views.tsx`: `maxTabs` default é **3**,
+> `maxCustomTabs = maxTabs - 1` (a aba **Default**, nativa, consome 1 slot), e o
+> excedente é cortado por `.slice(0, maxCustomTabs)` — **em silêncio**, sem aviso.
+> Com 3 presets, o terceiro simplesmente não aparece na barra.
+> E `maxTabs` **não é exposto pelo `DataTable`** (só existe no `TableToolbarViews`),
+> então o consumidor não tem como aumentar.
+> A aba **Default já É a visão sem filtro**: criar um preset "Todos" duplica ela e
+> gasta um dos 2 slots com nada. Caso real numa geração de 2026-08-14 — 3 presets
+> viraram 2 abas, e o que sumiu foi útil.
+>
 > **Visões read-only (`allowCreateView={false}`, v0.23.0+)** — quando a tela só
 > deve oferecer as visões pré-definidas (abas nativas, sem o usuário salvar
 > visões próprias), passe `allowCreateView={false}` no `<DataTable>`: esconde o

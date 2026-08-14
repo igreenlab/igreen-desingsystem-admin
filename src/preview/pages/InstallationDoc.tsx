@@ -358,17 +358,28 @@ npm --prefix design-system run ds:link
           <li>Adiciona um bloco gerenciado no seu <code className="font-mono text-code-sm">CLAUDE.md</code>.</li>
         </ul>
         <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚠ Pré-requisito — o alias de import</p>
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚠ Pré-requisito — DOIS aliases, não um</p>
           <p className="text-body-md text-fg-muted mb-gp-md">
-            As skills geram imports tipo <code className="font-mono text-code-sm">@ds/components/ui/DataTable</code>. Garanta
-            que seu <code className="font-mono text-code-sm">tsconfig</code> + bundler tenham o alias apontando pra{" "}
-            <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>:
+            As skills geram imports tipo <code className="font-mono text-code-sm">@ds/components/ui/DataTable</code> — mas os
+            arquivos do DS importam entre si por <code className="font-mono text-code-sm">@/</code> (700 imports), e no
+            submódulo <strong className="text-fg-default">ninguém mapeia esse alias por você</strong>. Sem o segundo, o build
+            quebra no primeiro componente com <code className="font-mono text-code-sm">Cannot find module '@/utils/tv'</code>.
+            Os dois apontam pra <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>:
           </p>
-          <CodeBlock>{`// tsconfig.json
-{ "compilerOptions": { "paths": { "@ds/*": ["design-system/src/*"] } } }
+          <CodeBlock>{`// tsconfig.json — paths RELATIVOS e sem baseUrl (removido no TypeScript 7)
+{ "compilerOptions": { "paths": {
+  "@ds/*": ["./design-system/src/*"],
+  "@/*":   ["./design-system/src/*"]
+} } }
 
-// vite.config.ts
-resolve: { alias: { "@ds": path.resolve(__dirname, "design-system/src") } }`}</CodeBlock>
+// vite.config.ts — import.meta.dirname (não __dirname, que não existe em ESM)
+resolve: {
+  dedupe: ["react", "react-dom"],
+  alias: {
+    "@ds": path.resolve(import.meta.dirname, "design-system/src"),
+    "@":   path.resolve(import.meta.dirname, "design-system/src"),
+  },
+}`}</CodeBlock>
         </div>
         <p className="text-body-md text-fg-muted">
           Ao atualizar o submódulo (<code className="font-mono text-code-sm">git pull --recurse-submodules</code>),{" "}
