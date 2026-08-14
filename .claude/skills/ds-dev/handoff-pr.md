@@ -87,12 +87,15 @@ git commit -F - <<'EOF'
 Co-Authored-By: Claude Opus 4.8 <noreply@anthropic.com>
 EOF
 
-# 3. push + PR no remote CANÔNICO
-#    ⚠️ Confira `git remote -v` antes. Neste clone o canônico é `empresa`:
-#       empresa → igreenlab/igreen-desingsystem-admin   ← é aqui que vai
-#       origin  → snksergio/igreen-desingsystem-admin   ← fork pessoal, parado
-#    `git push -u origin` empurraria pro FORK e o PR nasceria no repo errado.
-git push -u empresa <tipo>/<escopo>
+# 3. push + PR no remote CANÔNICO — resolva por URL, NUNCA por nome (L-069)
+#    Canônico = o remote cuja URL é igreenlab/igreen-desingsystem-admin. O NOME varia
+#    por clone, e chumbar o nome erra num dos dois casos:
+#       `origin`  → em clone direto do repo da empresa e no CI
+#       `empresa` → em clone onde `origin` é o fork pessoal (snksergio/…, parado)
+#    push em `origin` num clone-com-fork vai pro FORK e o PR nasce no repo errado;
+#    push em `empresa` num clone direto morre com "does not appear to be a git repository".
+#    ⚠️ Uma ÚNICA invocação: estado de shell não persiste entre chamadas de Bash.
+CANON=$(git remote -v | grep -m1 'igreenlab/igreen-desingsystem-admin' | cut -f1); git push -u "$CANON" <tipo>/<escopo>
 gh pr create --repo igreenlab/igreen-desingsystem-admin --base main \
   --head <tipo>/<escopo> --title "<title>" --body-file <body.md>
 ```

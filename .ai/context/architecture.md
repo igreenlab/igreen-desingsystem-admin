@@ -217,14 +217,13 @@ src/
 │   ├── ds-create-screen · ds-create-crud · ds-create-list · ds-create-dashboard
 │   ├── ds-create-app · ds-create-login · ds-replicate-module
 │   └── ds-release · ds-update
-├── skills/               ← Routers + sub-skills modulares — 15
+├── skills/               ← Routers + sub-skills modulares — 14 pastas
 │   ├── ds-designer/      (SKILL.md + sub-skills)
 │   ├── ds-dev/           (SKILL.md + sub-skills)
 │   ├── ds-reviewer/      (SKILL.md + review-component + pre-commit-check)
 │   ├── brand-builder/    ← marca/tema novo (10 superfícies)
 │   ├── crud-builder/ · list-builder/ · dashboard-builder/
 │   ├── app-builder/ · auth-builder/ · screen-composer/ · module-replicator/
-│   ├── igreen-frontend/
 │   ├── app-designer/     (🚧)
 │   ├── app-dev-react/    (🚧)
 │   └── igreen-frontend/  (fallback de composição — prefira os builders, que têm gate)
@@ -263,7 +262,8 @@ src/
 │   └── table-replica-from-sandbox.md
 └── status/
     ├── pipeline-state.md  ← audit log (append-only)
-    ├── lessons.md         ← L-001 a L-068 completas (63 ativas)
+    ├── lessons.md         ← lições L-NNN no formato completo (contagem: só no título
+    │                        do resumo em ds-standards.md, que é o lugar com gate)
     ├── lessons-archive.md ← lições absorvidas em gate automático
     ├── BACKLOG.md
     └── archive/
@@ -287,7 +287,7 @@ node .claude/scripts/sync-agents-to-cursor.cjs
 
 | Tipo de informação | Fonte canônica |
 |---|---|
-| Regras DS + 68 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + lições (L-NNN) + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade dos agents | `.claude/agents/<nome>.md` |
 | Templates de implementação | `.claude/skills/<agent>/<skill>.md` |
 | Slash commands | `.claude/commands/<nome>.md` |

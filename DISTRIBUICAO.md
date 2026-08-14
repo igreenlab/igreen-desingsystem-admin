@@ -50,8 +50,10 @@ igreen-ds/
 ├─ tokens/brands/default/        # fonte dos design tokens (3 tiers)
 │   ├─ primitives/               #   Tier 1 — paleta OKLCH, escalas, fonts, motion (privado)
 │   ├─ semantic/                 #   Tier 2 — color-light/dark, spacing, sizing, shape, elevation, typography
-│   ├─ components/               #   Tier 2.5 — form.*, layout.*, icon.*, padCard.*, padPage.*
-│   └─ transforms/to-tailwind-v4.ts   # gera o CSS @theme (tokens:tw4)
+│   └─ components/               #   Tier 2.5 — form.*, layout.*, icon.*, padCard.*, padPage.*
+├─ tokens/transforms/            # IRMÃO de brands/, não filho dele
+│   ├─ to-tailwind-v4.ts         #   tema-base → src/styles/theme/tailwind-theme.css (tokens:tw4)
+│   └─ to-brand-overlay.ts       #   overlay por marca → brand-<id>.css (só o diff vs default)
 ├─ src/
 │   ├─ components/ui/<Nome>/     # componentes iGreen (tv()): .tsx + .styles.ts + .types.ts + USAGE.md
 │   ├─ components/shadcn/<nome>  # primitivos shadcn tematizados (Radix)
@@ -70,7 +72,7 @@ igreen-ds/
 ├─ cli/                          # CLI npm @snksergio/create-design-system
 │   └─ templates/default/        #   o projeto gerado no scaffold (com .claude/ + DESIGN.md)
 ├─ .claude/                      # pipeline de IA do DS (agents/skills/commands/hooks/rules)
-└─ .ai/                          # contexto técnico, lições (L-001..L-037), audit log
+└─ .ai/                          # contexto técnico, lições (L-NNN), audit log
 ```
 
 **Fonte única:** o registry referencia **sempre `src/`** (os `files[].path` apontam pra
@@ -286,9 +288,12 @@ O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
   (especifica token/componente), `ds-dev` (implementa), `ds-reviewer` (valida). Fluxo:
   designer → **[GATE humano]** → dev → reviewer. (`app-designer`/`app-dev-react` são
   reservados, não-operacionais.)
-- **Commands** (`.claude/commands/`): `/ds-add-token`, `/ds-create-component`,
-  `/ds-add-shadcn`, `/ds-create-composite`, `/ds-extract-figma`, `/ds-create-crud`,
-  `/ds-update`, `/ds-release`.
+- **Commands** (`.claude/commands/`): entry points de token/componente (`/ds-add-token`,
+  `/ds-create-component`, `/ds-add-shadcn`, `/ds-create-composite`, `/ds-extract-figma`,
+  `/ds-create-brand`), de tela (`/ds-create-screen`, `/ds-create-crud`, `/ds-create-list`,
+  `/ds-create-dashboard`, `/ds-create-app`, `/ds-create-login`, `/ds-replicate-module`) e
+  de release (`/ds-update`, `/ds-release`). ⚠️ Não repita a contagem aqui — esta linha
+  listava 8 quando já eram 15; a fonte é `ls .claude/commands/`.
 - **Skills** (`.claude/skills/<agent>/`): procedimentos (spec-token, impl-igreen/shadcn/
   composite, review-component, pre-commit-check, release, crud-builder…).
 - **Hooks** (`.claude/settings.json`): PostToolUse — `ds-lint-styles`
@@ -298,7 +303,8 @@ O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
 - **CI** (`.github/workflows/ci.yml`): `tsc` + `vitest` + `registry-check`
   (paths/embed/backslash) + `examples-drift-check` + `check-foundationals` (sync CLI↔DS).
 - **Rules/contexto**: `.claude/rules/ds-standards.md` (auto-load) + `.ai/status/lessons.md`
-  (L-001..L-037) + `.ai/status/pipeline-state.md` (audit log).
+  (lições L-NNN — a contagem vive no título da seção de resumo do `ds-standards.md`, que
+  tem gate `lessons-index`; não a duplique aqui) + `.ai/status/pipeline-state.md` (audit log).
 
 ---
 
@@ -333,7 +339,16 @@ O desenvolvimento do DS roda sobre um pipeline próprio em `.claude/`:
 
 ## 10. FAQ
 
-**É pacote npm?** Não — só o CLI é npm. Componentes são copy-in.
+**É pacote npm?** Sim — **e** copy-in. São **4 canais, nenhum depreciado** (§1): registry/
+copy-in (primário), scaffold (`npm create`), `npm install @snksergio/design-system` (desde a
+v0.37.0 entrega 41 dos 42 componentes `ui/` no barrel + os 41 primitivos shadcn no subpath
+`./shadcn`) e submódulo git. O npm sai por passo **manual** do mantenedor, então costuma
+ficar atrás do registry — isso descreve a **ordem de publicação**, não o nível de suporte.
+
+> ⚠️ Corrigido em 2026-08-14. Esta resposta dizia *"Não — só o CLI é npm. Componentes são
+> copy-in."* — contradizendo a **§1 do próprio arquivo**, que foi corrigida em 2026-08-08 e
+> fica 300 linhas acima. É o defeito nº 4 da L-060 (doc que se contradiz dentro de si), e a
+> redação anterior já fez um leitor concluir que o canal npm estava morto.
 **Editar quebra no update?** Não — `igreen:update` pula editados (ou `--force`).
 **Tokens/tema versionados?** Sim, pelo stamp da versão global.
 **Voltar versão de um componente?** Sim, via Git do projeto (é código dele); o registry
