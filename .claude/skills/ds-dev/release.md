@@ -22,11 +22,18 @@ description: >
 > a lição L-020 registra a exceção pra não repetir.
 
 > 🔀 **REMOTE DE RELEASE — rode `git remote -v` ANTES de qualquer push.**
-> O repo canônico é `igreenlab/igreen-desingsystem-admin`, mas **o remote não se chama
-> `origin`**: neste clone ele é **`empresa`**, e `origin` aponta pro fork pessoal
-> (`snksergio/…`), parado. Publicar a branch de release em `origin` manda o trabalho pro
-> fork — e o `gh pr create --repo igreenlab/…` não acha a head. Todos os passos abaixo
-> usam **`empresa`**; se no seu clone o canônico tiver outro nome, use o dele.
+> O repo canônico é `igreenlab/igreen-desingsystem-admin`, mas o **nome** do remote varia
+> por clone — resolva por **URL, nunca por nome** (L-069):
+>
+> ```bash
+> git remote -v | grep 'igreenlab/igreen-desingsystem-admin'   # o nome é a 1ª coluna
+> ```
+>
+> É **`origin`** em clone direto do repo da empresa (e no CI) e **`empresa`** em clone
+> onde `origin` aponta pro fork pessoal (`snksergio/…`), parado. Publicar a branch de
+> release no remote errado manda o trabalho pro fork — e o `gh pr create --repo
+> igreenlab/…` não acha a head. Os passos abaixo escrevem **`empresa`** como exemplo:
+> **troque pelo nome que o comando acima devolveu** no seu clone.
 
 ## Quando usar este skill
 

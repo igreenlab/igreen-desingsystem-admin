@@ -301,7 +301,8 @@ Pendências encontradas:
 [MÉDIO]
   • Lição L-016 adicionada em lessons.md mas resumo em ds-standards.md
     não foi atualizado
-    → Adicionar entry 1-linha em "68 Lições (L-001 a L-068) — resumo"
+    → Adicionar entry 1-linha na seção "NN Lições (L-001 a L-NNN) — resumo" **e**
+      atualizar a contagem do título (o gate `lessons-index` confere os dois)
 
 [BAIXO]
   • Comentário em src/components/shadcn/label.tsx menciona preset legado

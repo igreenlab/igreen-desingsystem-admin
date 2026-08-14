@@ -83,6 +83,24 @@ jobs:
         run: npm audit --audit-level=high || echo "::warning title=registry-app::advisory HIGH+ no endpoint público — ver //next e //overrides no registry-app/package.json antes de mexer"
         working-directory: registry-app
 
+      # `projeto/virtual-proposta` é um consumidor do DS DENTRO do repo: não tem deps
+      # próprias (o `//` do package.json é explícito — a resolução sobe pro node_modules
+      # da raiz) e importa o DS por alias `@ -> ../../src`. Logo, quebra de API no `src/`
+      # quebra ESTE build — e ele está no caminho do deploy do catálogo: o `vercel.json`
+      # da raiz roda `build:showcase`, que builda este projeto e copia pra `dist/demo`.
+      #
+      # Até 2026-08-14 nenhum step o tocava (`grep projeto .github/workflows/ci.yml` →
+      # vazio) — a MESMA cegueira que o registry-app tinha até 2026-07-29, só que aqui a
+      # falha aparece no deploy do showcase, que é a doc viva do DS.
+      #
+      # ⛔ SEM guard de diff, de propósito: o acoplamento real é com `src/`, não com
+      # `projeto/**` — um `if` em `projeto/` seria cego justo ao caso que importa (L-062).
+      # Barato o suficiente pra rodar sempre: 0 deps pra instalar, ~10s medidos local
+      # (tsc --noEmit + 3797 módulos). BLOQUEANTE porque é determinístico e hoje verde.
+      - name: projeto/virtual-proposta — build (consumidor in-repo, no caminho do showcase)
+        if: ${{ !cancelled() }}
+        run: npm --prefix projeto/virtual-proposta run build
+
       - name: Registry consistency (paths + embed)
         run: node scripts/registry-check.mjs
 

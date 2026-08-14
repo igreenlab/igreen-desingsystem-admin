@@ -61,7 +61,8 @@ description: >
 1. updates-data.ts parseia
 2. package.json.version é semver válido
 3. Branch atual = main (alertar + perguntar se outra)
-4. Remote canônico alcançável — confira `git remote -v`; aqui é `empresa`, não `origin`
+4. Remote canônico alcançável — `git remote -v` e escolha pela URL igreenlab/…, não pelo
+   nome (`origin` em clone direto, `empresa` onde `origin` é fork pessoal — L-069)
 5. gh CLI disponível (gh --version)
 6. Working tree status conhecido (porcelain)
 ```

@@ -97,7 +97,7 @@ tokens/, registry.json, cli/templates/ ou .claude/. Em dúvida, aplique.
 ### Regra 8 — Handoff via PR sempre (L-041)
 ```
 Todo trabalho de componente (criar/alterar) e toda mudança significativa fecha assim:
-  branch própria → commit descritivo → push no `empresa` → gh pr create → reportar o link
+  branch própria → commit descritivo → push no remote CANÔNICO → gh pr create → reportar o link
 
 ⚠️ ONDE A IA PARA — a linha é o MERGE, não o push:
   ✅ a IA faz sozinha: branch · commit · push da BRANCH · abrir PR
@@ -105,8 +105,11 @@ Todo trabalho de componente (criar/alterar) e toda mudança significativa fecha 
      · deploy · `git push` em `main` · force-push
   Essas 6 exigem autorização EXPLÍCITA do mantenedor na mesma sessão (L-020).
 
-Remote canônico = `empresa` (igreenlab/igreen-desingsystem-admin).
-`origin` é fork pessoal parado — push nele abre o PR no repo errado.
+Remote canônico = o remote cuja URL é igreenlab/igreen-desingsystem-admin.
+⚠️ Resolva por URL, NUNCA por nome (L-069) — o nome varia por clone:
+   `origin`  em clone direto do repo da empresa e no CI
+   `empresa` em clone onde `origin` é o fork pessoal (snksergio/…, parado)
+Confira com `git remote -v` antes do push. Receita: `ds-dev/handoff-pr.md`.
 ```
 
 > **Por que esta regra mudou de texto em 2026-08-08.** Ela dizia *"NUNCA dê `git push`
@@ -153,7 +156,9 @@ Não é uma proibição — é uma distinção de **onde a tela mora**:
 ## Leitura automática no início de qualquer sessão
 
 `.claude/rules/ds-standards.md` é carregado automaticamente (rules/).
-Contém: regras de comportamento + mapa completo de skills + lições L-001 a L-068.
+Contém: regras de comportamento + mapa completo de skills + o resumo 1-linha de TODAS as
+lições (L-NNN). ⚠️ A contagem mora **só** no título da seção de resumo de lá — é o único
+lugar com gate (`lessons-index` confere contagem e última lição). Não a repita.
 
 Para referência de código detalhada (padrão tv() completo, tabela de tokens, naming):
 → `.ai/rules/coding-standards.md`
@@ -365,7 +370,7 @@ Foi assim que 6 defeitos ficaram invisíveis por meses. Detalhe + os gates que c
 
 | Tipo de informação | Fonte canônica única |
 |---|---|
-| Regras DS + 68 lições + anti-patterns | `.claude/rules/ds-standards.md` |
+| Regras DS + lições (L-NNN) + anti-patterns | `.claude/rules/ds-standards.md` |
 | Identidade do orchestrator + roteamento | `.claude/agents/orchestrator.md` |
 | Templates de implementação iGreen (tv()) | `.claude/skills/ds-dev/impl-igreen.md` |
 | Padrão tv() completo (referência longa) | `.ai/rules/coding-standards.md` |
