@@ -611,6 +611,18 @@ export function DataTableDoc() {
           nem salva visões. Default <code>true</code> (não-breaking).
         </p>
         <p className="text-body-md text-fg-default">
+          <strong>
+            <code>maxViewTabs</code>
+          </strong>{" "}
+          — quantas abas cabem na barra, <strong>contando a "Default"</strong>.
+          Default <code>3</code>, ou seja <strong>2 presets</strong> viram aba.
+          ⚠️ O excedente é cortado <strong>em silêncio</strong> — com 3 presets o
+          terceiro não aparece, sem erro e sem overflow. Precisa de N abas fixas?{" "}
+          <code>maxViewTabs={"{N + 1}"}</code>. E lembre que a aba{" "}
+          <strong>Default já é a visão sem filtro</strong>: um preset
+          "Todos"/"Todas" duplica ela e gasta um slot.
+        </p>
+        <p className="text-body-md text-fg-default">
           <strong>viewMode "sticky" ao trocar de visão (v0.23.0)</strong> —
           aplicar uma visão só troca Tabela↔Lista↔Kanban se a visão{" "}
           <strong>definir</strong> um <code>viewMode</code> explícito. Presets
@@ -640,6 +652,10 @@ export function DataTableDoc() {
             getRowId={(r) => r.id}
             persistId="data-table-doc-presets"
             defaultViews={DEMO_PRESETS}
+            // DEMO_PRESETS tem 3 presets e o default de `maxViewTabs` é 3 CONTANDO a aba
+            // "Default" — então esta demo mostrava 2 e engolia "Pipeline (Kanban)" em
+            // silêncio (medido no browser em 2026-08-14, nesta própria página). 3 + 1.
+            maxViewTabs={4}
             kanbanConfig={kanbanConfig}
             toolbar={{
               title: "Clientes",

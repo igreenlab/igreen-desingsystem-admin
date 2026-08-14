@@ -145,7 +145,9 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
      pra preencher (sem 1ª coluna esticada). Fixar só id/código curto.
    - Coluna **`actions`** oferecida por default (Editar / Excluir destructive)
      via `actionColumn`/`getActions` — padrão `ClientsCRUDServerPreview`. Vai por
-     **último**; o DataTable ancora à direita e estreita sozinho (sem `pinned`/`width`).
+     **último**; o DataTable **ancora à direita sozinho** — `pinned` é redundante. (`width`
+     é o caso à parte: `actions` não tem `defaultWidth` no registry; ver §Regras de coluna
+     em `generate.md`.)
      **Excluir (destructive) ⇒ confirmação OBRIGATÓRIA via `AlertModal`** (nunca direto).
 
 3. Drill-down individual SÓ nas colunas que o usuário citar:

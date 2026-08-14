@@ -2239,23 +2239,35 @@ npm run dev
         desc: "Aponta pro remote canônico. É o canal mais usado internamente, porque você acompanha o DS de perto.",
       },
       {
-        titulo: "Aponte o alias",
-        desc: "@ds/* → design-system/src/* no tsconfig E no bundler. Sem os dois, o TS resolve e o build não.",
+        titulo: "Aponte DOIS aliases",
+        desc: "@ds (o que você usa) e @ (o que o DS usa internamente, em 700 imports) — os dois pra design-system/src, no tsconfig E no bundler. Sem o segundo, o build quebra no primeiro componente.",
+      },
+      {
+        titulo: "Deps na RAIZ, nunca no submódulo",
+        desc: "O submódulo entrega código-fonte, não pacote. Rodar npm install dentro dele cria uma segunda cópia de React — Invalid hook call em tudo que usa hook.",
       },
       {
         titulo: "Rode o ds:link",
-        desc: "Projeta skills/commands do DS pro .claude/ do seu projeto — o Claude Code não desce até <submódulo>/.claude sozinho.",
+        desc: "Projeta skills/commands do DS pro .claude/ do seu projeto — o Claude Code não desce até <submódulo>/.claude sozinho. Reinicie a sessão depois pra registrar os slash commands.",
       },
     ],
     codigo: `git submodule add https://github.com/igreenlab/igreen-desingsystem-admin design-system
 git submodule update --init --recursive
-npm --prefix design-system install
 
-# o kit de IA no SEU .claude/
+# deps na RAIZ (nunca dentro do submódulo — React duplicado)
+npm i tailwind-variants tailwind-merge clsx lucide-react
+
+# fonte Geist: sem isso cai em system-ui, sem erro nenhum
+mkdir -p public/fonts && cp design-system/public/fonts/*.woff2 public/fonts/
+
+# o kit de IA no SEU .claude/ (reinicie o Claude Code depois)
 npm --prefix design-system run ds:link
 
-// tsconfig.json
-{ "compilerOptions": { "paths": { "@ds/*": ["design-system/src/*"] } } }`,
+// tsconfig.json — paths RELATIVOS e sem baseUrl (removido no TS 7)
+{ "compilerOptions": { "paths": {
+  "@ds/*": ["./design-system/src/*"],
+  "@/*":   ["./design-system/src/*"]
+} } }`,
   },
   {
     id: "npm",
@@ -2396,34 +2408,57 @@ function InstalacaoSection() {
 
 const PROMPT_INSTALAR = `Instale o iGreen Design System neste projeto como submódulo git e configure tudo. Não me pergunte nada que você possa verificar no repositório.
 
-1. Adicione o submódulo e as dependências:
+1. Adicione o submódulo:
    git submodule add https://github.com/igreenlab/igreen-desingsystem-admin design-system
    git submodule update --init --recursive
-   npm --prefix design-system install
+   ⛔ NÃO rode npm install dentro de design-system/. Você não builda o DS, e um segundo
+   node_modules cria uma cópia extra de React — "Invalid hook call" em qualquer componente
+   com hook, além de erros de tipo por dois @types/react no mesmo programa. As dependências
+   vão na RAIZ (passo 2).
 
-2. Configure o alias "@ds" apontando pra design-system/src em DOIS lugares:
-   - tsconfig.json → compilerOptions.paths: { "@ds/*": ["design-system/src/*"] }
-   - bundler (vite.config.ts → resolve.alias, ou o equivalente do meu setup)
-   Se o projeto já usa outro alias pra isso, mantenha o dele e me diga qual.
+2. Instale na RAIZ as dependências de runtime — o submódulo entrega código-fonte, não pacote:
+   npm i tailwind-variants tailwind-merge clsx lucide-react @radix-ui/react-dialog @radix-ui/react-slot
+   Componente novo pede mais (@tanstack/react-virtual no DataTable, recharts no Chart,
+   @dnd-kit no Kanban, cmdk no Combobox). O erro do bundler diz exatamente qual falta.
 
-3. Importe o tema UMA vez no CSS de entrada, DEPOIS do @import "tailwindcss":
+3. Configure DOIS aliases, não um — no tsconfig E no bundler:
+     "@ds" → design-system/src   (o que EU uso nos imports)
+     "@"   → design-system/src   (o que o DS usa INTERNAMENTE, em 700 imports)
+   Sem o segundo, o build quebra no primeiro componente: Cannot find module '@/utils/tv'.
+   No tsconfig, paths RELATIVOS e SEM baseUrl (removido no TypeScript 7):
+     "paths": { "@ds/*": ["./design-system/src/*"], "@/*": ["./design-system/src/*"] }
+   No vite, use import.meta.dirname (não __dirname, que não existe em ESM) e acrescente
+   resolve.dedupe: ["react", "react-dom"].
+   Se este projeto já usa "@/" pro código dele, renomeie o dele (ex.: "@app/*") e me avise.
+
+4. Importe o tema UMA vez no CSS de entrada, DEPOIS do @import "tailwindcss":
    @import "../design-system/src/styles/theme/tailwind-theme.css";
    Não precisa de @source: o submódulo está dentro da raiz, então o scan do
    Tailwind já o alcança.
 
-4. Se eu for usar marca diferente da default, importe também o overlay
+5. Copie as fontes Geist. Sem isso a falha é SILENCIOSA: o dev server devolve o index.html
+   no lugar do .woff2 e os 27 presets caem em system-ui, sem erro no console.
+   mkdir -p public/fonts && cp design-system/public/fonts/*.woff2 public/fonts/
+
+6. Se eu for usar marca diferente da default, importe também o overlay
    design-system/src/styles/theme/brand-<id>.css DEPOIS do tema base, e aplique
    data-theme="<id>" no <html>. Importar o CSS sem o atributo é no-op silencioso.
 
-5. Rode o ds-link, que é o que dá kit de IA pro projeto:
+7. Rode o ds-link, que é o que dá kit de IA pro projeto:
    npm --prefix design-system run ds:link
    Ele copia skills/commands/rules pro .claude/ daqui e escreve
-   .claude/ds-config.json com mode:"submodule". Depois disso /ds-create-crud,
-   /ds-create-list e /ds-create-dashboard existem neste projeto.
+   .claude/ds-config.json com mode:"submodule". Reinicie o Claude Code em seguida —
+   slash command só é registrado no início da sessão, então /ds-create-crud,
+   /ds-create-list e /ds-create-dashboard só aparecem depois do restart.
 
-6. VALIDE antes de dizer que acabou: importe { Button } from "@ds/components/ui/Button",
-   renderize numa rota, suba o dev server e confirme que o botão tem cor E
-   spacing/radius. Se só a cor aparecer, o tema não foi importado.
+8. VALIDE com os QUATRO checks antes de dizer que acabou. O Button sozinho NÃO basta: ele
+   não usa hook nenhum, então renderiza certo mesmo com React duplicado no bundle.
+   a) Button: confirme cor E spacing/radius (só a cor = tema não importado).
+   b) Um componente com hook/context — AppShell, FloatingPanel ou DataTable — renderizando
+      sem "Invalid hook call". É este check que prova que não há React duplicado.
+   c) document.fonts.check("16px Geist") === true. Status HTTP não serve: o dev server
+      devolve 200 com o index.html para arquivo inexistente.
+   d) npx tsc --noEmit limpo na raiz.
 
 Regras: nunca edite arquivos dentro de design-system/ — é submódulo, e customização
 acontece na composição, no meu projeto. Ao atualizar (git pull --recurse-submodules),

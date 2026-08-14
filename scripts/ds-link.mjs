@@ -301,6 +301,48 @@ if (existsSync(DESIGN_SRC)) {
   warn(`DESIGN.md do payload não encontrado em ${DESIGN_SRC} — o kit vai citar um arquivo ausente`);
 }
 
+// ── fontes Geist — o defeito silencioso mais caro deste canal ────────────────
+//
+// O `@font-face` viaja no tema gerado, mas aponta pra `/fonts/*.woff2` — raiz do SITE,
+// não do submódulo. Sem os arquivos no `public/` do pai, o dev server do Vite responde o
+// `index.html` no lugar do `.woff2` e os 27 presets caem em system-ui, sem erro nenhum.
+//
+// ⚠️ Medido em 2026-08-14 numa instalação real: o dev server devolve **HTTP 200** pra
+// caminho inexistente (fallback do SPA), então checar status code NÃO detecta nada — só
+// `Content-Type`/tamanho ou `document.fonts.check("16px Geist")`. Copiar 2 arquivos aqui
+// fecha um buraco que, até então, dependia do operador ler uma seção específica do doc.
+//
+// Mesmo contrato do DESIGN.md acima: não sobrescreve arquivo do consumidor sem --force, e
+// entra no manifest (como `../public/fonts/*`) pra que o --unlink remova só o que foi nosso.
+const FONTS_SRC = join(DS_ROOT, "public", "fonts");
+const FONTS_DST = join(TARGET, "public", "fonts");
+let fontesStatus = "";
+if (existsSync(FONTS_SRC)) {
+  const woff2 = readdirSync(FONTS_SRC).filter((f) => f.toLowerCase().endsWith(".woff2"));
+  const copiadas = [];
+  let mantidas = 0;
+  for (const f of woff2) {
+    const rel = `../public/fonts/${f}`;
+    const dst = join(FONTS_DST, f);
+    if (existsSync(dst) && !prevSet.has(rel) && !FORCE) {
+      mantidas++;
+      continue; // arquivo do consumidor — não toca
+    }
+    if (!DRY) {
+      mkdirSync(FONTS_DST, { recursive: true });
+      copyFileSync(join(FONTS_SRC, f), dst);
+    }
+    written.push(rel);
+    copiadas.push(f);
+  }
+  fontesStatus =
+    (copiadas.length ? `${copiadas.length} copiada(s)` : "nenhuma nova") +
+    (mantidas ? ` · ${mantidas} do consumidor mantida(s)` : "");
+} else {
+  fontesStatus = "⚠ não encontradas no DS";
+  warn(`fontes não encontradas em ${FONTS_SRC} — a tipografia vai cair em system-ui no seu projeto`);
+}
+
 // ── config lido pelas skills (modo submódulo) ─────────────────────
 const config = {
   mode: "submodule",
@@ -406,12 +448,39 @@ if (removed.length) log(`  ✓ ${removed.length} obsoletos removidos`);
 if (skipped) warn(`${skipped} colisão(ões) puladas — use --force pra sobrescrever`);
 log(`  ✓ .claude/ds-config.json  (modo submódulo, alias ${alias})`);
 log(`  ✓ bloco ds:link no CLAUDE.md`);
+if (designStatus) log(`  ✓ DESIGN.md na raiz  (${designStatus})`);
+log(`  ✓ fontes Geist em public/fonts  (${fontesStatus})`);
 log(
   DRY
     ? "\n(dry-run) nada foi escrito."
-    : `\n✓ Pronto. Abra o Claude Code na raiz e use /ds-create-crud, /ds-create-dashboard, etc.` +
-        (detected ? "" : `\n  ⚠ Confirme que o alias '${alias}' aponta pra ${dsPathRel}/src no seu tsconfig/vite.`)
+    : `\n✓ Kit projetado.\n` +
+        `\n⚠️ REINICIE o Claude Code agora. Slash command só é registrado no INÍCIO da\n` +
+        `   sessão — numa sessão já aberta, /ds-create-crud e /ds-create-list não existem\n` +
+        `   ainda, mesmo com os arquivos no lugar (medido numa instalação real).` +
+        (detected ? "" : `\n\n  ⚠ Confirme que o alias '${alias}' aponta pra ${dsPathRel}/src no seu tsconfig/vite.`)
 );
+
+/*
+ * ── Diagnósticos do que quebra DEPOIS, em silêncio ────────────────────────────
+ * Os dois checks abaixo não desfazem nada: a projeção já aconteceu. Eles existem porque
+ * cada um destes defeitos atravessou uma instalação real INTEIRA sem ser notado.
+ */
+
+// React duplicado. O consumidor não builda o DS, então `node_modules` dentro do submódulo é
+// sempre indevido. Medido em 2026-08-14: um `npm install` dentro do submódulo — que NENHUM
+// doc do DS prescreve — trouxe React 19.2.4 contra 19.2.8 da raiz. O defeito só apareceu ao
+// montar o AppShell; o Button, que não usa hook, renderizava perfeito e deu falso verde.
+if (existsSync(join(DS_ROOT, "node_modules", "react"))) {
+  warn(
+    `REACT DUPLICADO — existe ${dsPathRel}/node_modules/react.\n` +
+      `    Você NÃO builda o DS: esse node_modules é indevido e produz duas instâncias de\n` +
+      `    React ("Invalid hook call" em todo componente com hook/context) e dois\n` +
+      `    @types/react no mesmo programa ("Two different types with this name exist").\n` +
+      `    Conserto: apague a pasta ${dsPathRel}/node_modules, restaure o lockfile dele\n` +
+      `        git -C ${dsPathRel} checkout -- package-lock.json\n` +
+      `    e mantenha  resolve.dedupe: ["react", "react-dom"]  no seu vite.config.`
+  );
+}
 
 /*
  * Aviso do alias interno — POR ÚLTIMO, porque é o único que quebra o build de verdade
@@ -419,15 +488,22 @@ log(
  * consumidor é invasivo, e a decisão certa depende de ele já usar `@/` pro próprio código.
  */
 if (!aliasInternoOk) {
-  warn(
-    `O alias interno do DS ("@") NÃO está mapeado no seu tsconfig/vite.\n` +
-      `    Os arquivos do DS importam entre si por "@/components/…", "@/lib/utils", "@/utils/tv"\n` +
-      `    (700 imports). Sem o mapeamento, o build quebra no 1º componente:\n` +
-      `        Cannot find module '@/utils/tv'\n\n` +
-      `    Adicione, ALÉM do "${alias}":\n` +
-      `        tsconfig: "@/*": ["${dsPathRel}/src/*"]\n` +
-      `        vite:     "@": path.resolve(__dirname, "${dsPathRel}/src")\n\n` +
-      `    Já usa "@/" pro seu código? Renomeie o seu (ex.: "@app/*") — menor surpresa.\n` +
-      `    Detalhe e alternativa por-prefixo: ${dsPathRel}/SUBMODULE-SETUP.md`
+  console.error(
+    `\n⛔ FALTA 1 PASSO — o alias interno do DS ("@") NÃO está mapeado.\n\n` +
+      `   O kit FOI projetado (nada acima se perdeu), mas o BUILD VAI QUEBRAR no primeiro\n` +
+      `   componente que você importar:\n` +
+      `       Cannot find module '@/utils/tv'\n\n` +
+      `   Os arquivos do DS importam entre si por "@/components/…", "@/lib/utils",\n` +
+      `   "@/utils/tv" — 700 imports. Copy-in e npm resolvem isso sozinhos; submódulo não.\n\n` +
+      `   Adicione, ALÉM do "${alias}":\n` +
+      `       tsconfig: "@/*": ["./${dsPathRel}/src/*"]      (path RELATIVO, sem baseUrl — TS 7)\n` +
+      `       vite:     "@": path.resolve(import.meta.dirname, "${dsPathRel}/src")\n\n` +
+      `   Já usa "@/" pro seu código? Renomeie o seu (ex.: "@app/*") — menor surpresa.\n` +
+      `   Detalhe e alternativa por-prefixo: ${dsPathRel}/SUBMODULE-SETUP.md\n`
   );
+  // exit != 0 DE PROPÓSITO. Até 2026-08-14 isto era um warning no fim da saída — e o
+  // próprio doc chama este de "o passo que mais quebra, e quebra alto". Numa instalação
+  // real o aviso rolou pra fora da tela e o operador seguiu. Como a projeção já foi
+  // escrita antes daqui, sair 1 não perde trabalho: só torna impossível não ver.
+  process.exitCode = 1;
 }

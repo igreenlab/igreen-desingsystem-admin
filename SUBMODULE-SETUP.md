@@ -52,24 +52,38 @@ error TS2307: Cannot find module '@/utils/tv'
 Com o submódulo em `design-system/`:
 
 ```jsonc
-// tsconfig.json
+// tsconfig.json — forma que compila no TypeScript 7
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    // ⛔ NÃO declare `baseUrl`: foi REMOVIDO no TS 7 → error TS5102.
+    // E os paths têm que ser RELATIVOS (com `./`) → sem isso, error TS5090 em cada um.
     "paths": {
-      "@ds/*": ["design-system/src/*"],
-      "@/*":   ["design-system/src/*"]   // ← o alias INTERNO do DS
+      "@ds/*": ["./design-system/src/*"],
+      "@/*":   ["./design-system/src/*"]   // ← o alias INTERNO do DS
     }
   }
 }
 ```
 
+> ⚠️ **`npm i typescript` instala TS 7 hoje** (medido: `npm view typescript version` →
+> `7.0.2`). Ou seja, a forma antiga — `baseUrl: "."` + paths sem `./` — **não é legado
+> teórico**: ela reprova em todo projeto novo, com 3 erros de config antes de qualquer
+> linha de código. Reproduzido com o snippet exato desta seção. Em **TS ≤ 6** as duas
+> formas funcionam, então a de cima é segura nos dois.
+
 ```ts
 // vite.config.ts
 resolve: {
+  // Sem `dedupe`, um node_modules dentro do submódulo produz DUAS cópias de React —
+  // "Invalid hook call" em tudo que usa hook. É barato e protege mesmo quem errou.
+  dedupe: ["react", "react-dom"],
   alias: {
-    "@ds": path.resolve(__dirname, "design-system/src"),
-    "@":   path.resolve(__dirname, "design-system/src"),   // ← idem
+    // `import.meta.dirname` (Node ≥ 20.11), NÃO `__dirname`: em projeto com
+    // "type": "module" o `__dirname` não existe, e o typecheck falha com
+    // TS2304: Cannot find name '__dirname'. Usar `path`/`import.meta.dirname` no
+    // typecheck exige `@types/node` + "types": ["vite/client", "node"] no tsconfig.
+    "@ds": path.resolve(import.meta.dirname, "design-system/src"),
+    "@":   path.resolve(import.meta.dirname, "design-system/src"),   // ← idem
   },
 }
 ```
@@ -90,6 +104,18 @@ imports, e é o mesmo alias que faz os outros 3 canais funcionarem.
 O submódulo entrega **código-fonte**, não um pacote: as dependências dele **não vêm junto**.
 Sem elas o build quebra em `failed to resolve "tailwind-variants"` — medido num smoke test de
 submódulo real em 2026-08-08, quando esta seção não existia.
+
+> ⛔ **As deps vão na RAIZ. NÃO rode `npm install` dentro de `design-system/`.**
+> Você não builda o DS — ele é lido como fonte —, então o install é desnecessário e
+> **ativamente nocivo**: cria um segundo `node_modules` com outra cópia de React e de
+> `@types/react`. Medido numa instalação real (2026-08-14): dezenas de
+> `TS2322: Two different types with this name exist, but they are unrelated` dentro do
+> código do DS, e `Invalid hook call` em runtime em qualquer componente com hook ou
+> context. De quebra, ele **suja o `package-lock.json` do submódulo**, contra a regra de
+> nunca editar nada ali dentro.
+>
+> Já rodou? `git -C design-system checkout -- package-lock.json`, apague a pasta
+> `design-system/node_modules` e mantenha o `resolve.dedupe` do snippet acima.
 
 O mínimo pra um `Button` + `Modal`:
 
@@ -123,6 +149,25 @@ Pra conferir, no console do navegador:
 ```js
 document.fonts.check("16px Geist")   // tem que ser true
 ```
+
+## Validação — 4 checks, ~1 minuto
+
+Instalação por submódulo tem **três modos de falha silenciosos** — tema ausente, React
+duplicado, fonte ausente. Nenhum quebra o build, o `tsc` ou o teste.
+
+⚠️ **Validar só com `Button` não cobre nenhum dos três além do primeiro.** `Button` não usa
+hook nem context, então renderiza perfeito **mesmo com duas instâncias de React no bundle**.
+Medido numa instalação real (2026-08-14): a validação passou verde e o defeito só apareceu
+quando o `AppShell` entrou na tela.
+
+| # | Check | O que prova |
+|---|---|---|
+| 1 | `Button` renderizado — leia o **computed style** | tema + tokens. Confirme cor **e** `border-radius`/`padding`; só a cor = tema não importado |
+| 2 | Um componente com **hook/context** monta sem `Invalid hook call` | que **não** há React duplicado. Use `AppShell`, `FloatingPanel` ou `DataTable` — ⚠️ `Panel` **não serve**: não usa hook, daria o mesmo falso verde do `Button` |
+| 3 | `document.fonts.check("16px Geist")` → `true` | a fonte Geist. **Status HTTP não serve**: o dev server devolve `200` com o `index.html` para arquivo inexistente, então `curl -I` "passa" com a fonte ausente |
+| 4 | `npx tsc --noEmit` limpo na raiz | tipos coerentes — é o que pega o `@types/react` duplicado, que o browser não denuncia |
+
+Os quatro juntos cobrem os três defeitos silenciosos conhecidos deste canal.
 
 ## `@source` — você NÃO precisa
 

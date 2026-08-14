@@ -803,6 +803,22 @@ export type DataTableProps<T> = {
    */
   allowCreateView?: boolean;
 
+  /**
+   * Quantas abas de visão cabem na barra, **contando a "Default"**. Default `3`,
+   * ou seja **2** presets de `defaultViews` viram aba.
+   *
+   * ⚠️ O excedente é cortado em SILÊNCIO (`.slice()` em `TableToolbarViews`): com 3
+   * presets e o default, o terceiro simplesmente não aparece — sem erro, sem aviso.
+   * Até 2026-08-14 esta prop não existia no `DataTable` (só dentro do
+   * `TableToolbarViews`, inalcançável), então o consumidor não tinha como aumentar e
+   * a única saída era remover um preset. Se você precisa de N abas fixas, passe
+   * `maxViewTabs={N + 1}`.
+   *
+   * Lembre que a aba **Default já é a visão sem filtro** — preset "Todos"/"Todas"
+   * duplica ela e gasta um slot.
+   */
+  maxViewTabs?: number;
+
   /* ── View mode (table OR kanban) ──────────────────────────────── */
 
   /**

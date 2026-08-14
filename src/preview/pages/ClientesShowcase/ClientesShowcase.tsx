@@ -163,8 +163,13 @@ function buildColumns(handlers: ColumnHandlers): DataTableColumnDef<ClientRow>[]
     field: "_actions",
     headerName: "",
     type: "actions",
+    // `width` fica: `actions` é tipo ESTRUTURAL e não está no registry, então não tem
+    // `defaultWidth` — sem isto a largura depende do autoFit. Já o `pinned: "right"` saiu
+    // por ser redundante: `use-data-table-columns.ts` resolve
+    // `col.pinned ?? (isActions ? "right" : undefined)`. O exemplo é a fonte de maior
+    // precedência das skills ("o exemplo vence tudo"), então prop redundante aqui vira
+    // prop copiada em toda tela gerada.
     width: 64,
-    pinned: "right",
     getActions: ({ row }) => [
       {
         id: "edit",

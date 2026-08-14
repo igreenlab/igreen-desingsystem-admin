@@ -67,8 +67,8 @@ Nenhum é opcional. O 1º e o 2º quebram o build alto; o 3º falha em **silênc
    `@/lib/utils`, `@/utils/tv` — **700 imports**. Esse `@` significa "a `src` do DS". Além do
    `@ds` que você usa, mapeie também:
    ```jsonc
-   // tsconfig.json
-   "paths": { "@ds/*": ["design-system/src/*"], "@/*": ["design-system/src/*"] }
+   // tsconfig.json — paths RELATIVOS e SEM baseUrl (removido no TypeScript 7)
+   "paths": { "@ds/*": ["./design-system/src/*"], "@/*": ["./design-system/src/*"] }
    ```
    Sem isso: `Cannot find module '@/utils/tv'` no 1º componente. Já usa `@/` pro seu código?
    Renomeie o seu (`@app/*`).
@@ -78,6 +78,12 @@ Nenhum é opcional. O 1º e o 2º quebram o build alto; o 3º falha em **silênc
    ```bash
    npm i $(node -p "Object.entries(require('./design-system/package.json').dependencies).map(([k,v])=>k+'@'+v).join(' ')")
    ```
+   ⛔ **Na RAIZ.** `npm install` dentro de `design-system/` cria um segundo `node_modules`
+   com outra cópia de React e de `@types/react` → `Invalid hook call` em runtime e
+   `Two different types with this name exist` no `tsc`. Já rodou? Apague a pasta
+   `design-system/node_modules`, restaure o lockfile dele
+   (`git -C design-system checkout -- package-lock.json`) e mantenha
+   `resolve.dedupe: ["react", "react-dom"]` no vite.
 
 3. **Os arquivos da fonte Geist.** O `@font-face` viaja no tema, mas aponta pra
    `/fonts/*.woff2` — raiz do **site**:
