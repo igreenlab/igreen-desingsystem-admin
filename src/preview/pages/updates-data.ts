@@ -46,6 +46,35 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.39.1",
+    date: "2026-08-15",
+    tag: "patch",
+    title: "Correções de segurança e o falso verde que escondia erro de tipo",
+    summary:
+      "Três defeitos que não davam erro nenhum. Um texto com milhares de marcadores de formatação derrubava a tela inteira, porque o interpretador de markdown se chamava a si mesmo até estourar a memória. O valor de um indicador de KPI podia sumir de tamanho e cair na fonte padrão do navegador — a classe existia, era aplicada, e uma engrenagem interna a removia antes de chegar na tela. E o comando de teste que todo mundo roda antes de subir código passava **verde com o projeto sem compilar**, porque a verificação de tipos só existia no servidor. Os três foram encontrados exercitando o próprio processo de ponta a ponta, não lendo código. Junto vão o endurecimento de segurança do endpoint que serve os componentes e uma nova verificação automática que fecha, de vez, a porta pela qual o defeito do KPI entrou.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Texto formatado com conteúdo hostil derrubava a tela.** O `MarkdownText` interpretava negrito, itálico e riscado chamando a si mesmo a cada marcador. Um texto com milhares deles esgotava a pilha de execução e a página quebrava. O interpretador passou a trabalhar de forma iterativa e sobrevive a esse tipo de entrada.",
+          "**Valor de KPI perdia o tamanho e caía na fonte padrão do navegador.** Os quatro tamanhos do preset `stat-*` não estavam registrados na engrenagem que resolve conflito de classes — então, sempre que o elemento também tinha cor, o tamanho era descartado em silêncio. Não dava erro, não aparecia em teste, e o número simplesmente encolhia. Corrigido, e agora protegido por verificação automática.",
+          "**O gráfico não tratava valores vindos de fora antes de injetá-los no estilo da página.** Passaram a ser sanitizados.",
+          "**O endpoint que serve os componentes comparava a credencial de forma insegura** e aceitava chaves capazes de contaminar objetos internos. Comparação passou a ser de tempo constante e as chaves suspeitas são rejeitadas.",
+          "**`npm test` passava verde com o projeto sem compilar.** A verificação de tipos era um passo separado, que só rodava no servidor — quem validava na própria máquina recebia aprovação de um código quebrado e só descobria ao abrir a proposta de mudança. O comando de teste agora verifica os tipos antes de rodar a suíte.",
+          "**O modelo oficial de criação de componente não compilava.** Quem o seguisse à risca recebia um erro de tipo cuja mensagem não indicava a causa. Nenhum componente do sistema o seguia — todos divergiam dele para funcionar.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Verificação automática nova:** os tamanhos de texto do sistema agora são conferidos contra as duas engrenagens que resolvem conflito de classe. Preset que exista no tema e falte em alguma delas reprova antes de chegar em qualquer lugar — é a porta pela qual o defeito do KPI tinha entrado.",
+          "**Servidor de integração contínua endurecido:** ações fixadas por identificador imutável (uma etiqueta pode ser reapontada por quem controla a ação, e passaria a rodar código novo aqui sem ninguém aprovar) e credencial do robô limitada a somente leitura.",
+          "**Instalador:** versão da ferramenta de cópia fixada, e a credencial do registro passou a ser gravada com permissão restrita ao dono do arquivo.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.39.0",
     date: "2026-08-14",
     tag: "release",
