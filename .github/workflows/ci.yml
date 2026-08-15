@@ -49,8 +49,11 @@ jobs:
       - name: Install
         run: npm ci
 
+      # Step próprio (além do que o `npm test` já roda) porque falha de tipo aparece
+      # aqui com nome próprio na UI de Checks, antes de qualquer teste — sinal mais
+      # claro que "npm test falhou". Mesma definição, uma fonte: o script do package.
       - name: Typecheck
-        run: npx tsc --noEmit
+        run: npm run typecheck
 
       - name: Tests
         run: npm test
