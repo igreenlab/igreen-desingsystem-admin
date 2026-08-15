@@ -104,8 +104,14 @@ Escopo do diff:
 
 ### 2.2 — Tipografia especificamente (subcase crítico — L-016)
 
-- [ ] Lista de presets em `src/utils/tv.ts > twMergeConfig` está **1:1** com `typography.ts`?
-- [ ] Lista de presets em `src/lib/utils.ts > extendTailwindMerge` está **1:1** com `typography.ts`?
+- [x] ~~Comparar na mão as listas de `src/utils/tv.ts` e `src/lib/utils.ts` com o `typography.ts`~~ →
+      **agora é gate**: `scripts/lib/typography-merge-sync.mjs` (no `npm test`) confere os DOIS
+      merges contra o **tema gerado** (a fonte que decide qual classe existe de fato) e reprova
+      preset ausente **ou** entrada morta, apontando arquivo e nome. Não repita a comparação
+      manual aqui — duas cópias da mesma regra divergem.
+      ⚠️ Quando este item era manual, ele passou: o `cn()` ficou **23 de 27** presets (faltavam
+      os 4 `stat-*`, o role de valor de KPI) e o defeito foi baked no template do CLI. Achado
+      em 2026-08-14 ao escrever o gate.
 - [ ] **Re-bake do CLI?** Se `src/lib/utils.ts`, `src/utils/tv.ts`, `src/lib/lucide-types.ts` ou `src/styles/theme/tailwind-theme.css` mudaram → rodar **`npm run cli:rebake`** (re-bakeia no `cli/templates/default/`) + **bump `cli/package.json`**. Senão projetos novos do CLI nascem com cn/tv/theme **defasados** vs registry. (O `doctor.mjs` do consumidor pega o drift contra o registry, mas o re-bake mata na origem — CRÍTICO, mesma raiz da L-016.)
 
 Comando rápido pra verificar:
