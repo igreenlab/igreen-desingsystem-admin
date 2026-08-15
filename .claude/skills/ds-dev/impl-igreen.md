@@ -125,16 +125,30 @@ NomeComponente.displayName = "NomeComponente"
 
 ## Template `.types.ts`
 
+⛔ **`Omit` de toda variante que também é atributo HTML nativo — sem isso NÃO COMPILA.**
+`color` e `disabled` (as duas variantes do template acima) existem como atributo HTML:
+`color` é `string`, a variante é união literal (`"primary" | "danger" | …`). Estender sem
+omitir dá **TS2320 — "cannot simultaneously extend"**, e a mensagem não aponta a causa.
+
 ```typescript
 import type { ComponentPropsWithoutRef } from "react"
 import type { NomeVariantProps } from "./nome-componente.styles"
 
 export interface NomeComponenteProps
-  extends ComponentPropsWithoutRef<"button">,
+  extends Omit<ComponentPropsWithoutRef<"button">, "color" | "disabled">,
     NomeVariantProps {
   // props customizadas opcionais (iconLeft, iconRight, loading, etc)
 }
 ```
+
+Regra geral: **toda chave de `variants` que colida com prop do elemento entra no `Omit`.**
+É o que os 9 componentes do repo que enfrentam a colisão fazem — o `Button` real declara
+`Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled" | "color">`, omitindo
+exatamente as duas variantes que cria.
+
+> Medido em 2026-08-14: o template anterior não trazia o `Omit`. Quem o seguisse ao pé da
+> letra não compilava — e `npm test` passava verde, porque o `tsc` era step separado do CI.
+> Nenhum componente do repo seguia o template; todos divergiam dele pra funcionar.
 
 ## Template `index.ts`
 
