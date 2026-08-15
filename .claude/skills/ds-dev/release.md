@@ -421,8 +421,45 @@ os 4 canais (npm · copy-in/registry · scaffold · submódulo) são de primeira
 canal estava morto (corrigido em 2026-08-08); descreva a **ordem de publicação**, não uma
 hierarquia de suporte.
 
-O token é **exclusivo do mantenedor** — ele cola na sessão, a IA publica, ele revoga. A IA
-**nunca** publica sem o token na mão nem guarda o token em arquivo versionado.
+### ⛔ 7.0 — Esta conta exige 2FA. Leia ANTES de pedir qualquer credencial.
+
+**Token clássico NÃO publica aqui.** O `npm publish` sai com:
+
+```
+E403 — Two-factor authentication or granular access token with bypass 2fa
+       enabled is required to publish packages.
+```
+
+⚠️ O `lib:verify` **não prevê essa falha**: ele valida o pacote, e a recusa acontece no `PUT`
+ao registro. Gate verde + tarball montado + 403 é o estado normal aqui.
+
+Isto já aconteceu **duas vezes** (v0.39.0 e v0.39.1). Na v0.39.0 o `pipeline-state.md` chegou
+a registrar, textualmente, *"VAI se repetir — na próxima release peça o token granular direto"*
+— e repetiu, porque o aviso morava no log append-only e não aqui, que é o arquivo carregado
+pra conduzir a release. Por isso ele agora abre o Passo 7.
+
+**Os dois caminhos que funcionam** (o segundo é o recomendado):
+
+| | Como | Quando |
+|---|---|---|
+| **`--otp`** | mantenedor roda `npm publish --otp=123456` **no terminal dele**, com código do autenticador | destrava agora; exige ele presente, e um código NOVO por pacote (OTP é de uso único) |
+| **Granular access token com _bypass 2FA_** | npmjs.com → Access Tokens → Granular → escopo `@snksergio`, permissão read/write, bypass 2FA ligado | configura uma vez; publica sem código |
+
+⛔ **A IA não manipula credencial em texto claro** — nem token clássico, nem granular, nem OTP.
+Se o mantenedor colar um token na conversa: **recuse o uso**, avise que ele deve ser tratado
+como exposto **a partir da colagem** (não do uso) e revogado, e ofereça o caminho limpo:
+
+```bash
+npm login          # interativo, no terminal DELE — a credencial fica no ~/.npmrc pessoal
+npm whoami         # confirma a conta
+```
+
+Autenticada a máquina, a IA **pode** rodar o `npm publish`: ele lê a sessão do usuário, e
+nenhum segredo passa pela IA. Foi assim que a v0.39.1 subiu.
+
+Nunca escreva token (nem mascarado) em `pipeline-state.md`, `.npmrc` versionado ou qualquer
+arquivo do repo. Registre apenas **que** publicou e a versão. **Sempre** lembre o mantenedor
+de revogar o que passou pelo chat — a pendência da v0.39.0 seguia aberta na v0.39.1.
 
 ### 7.1 Validar o pacote ANTES de pedir o token
 
@@ -436,34 +473,47 @@ apontando pra arquivos que não entraram no tarball → todo `import` do consumi
 `any`, e ninguém percebeu). A camada decisiva é a 5ª: o conjunto de `.d.ts` do tarball
 tem que ser **fechado sob imports relativos**.
 
-### 7.2 Apresentar ao humano e PEDIR o token
+### 7.2 Apresentar ao humano e conferir a autenticação
 
 Mostre: `name@version`, nº de arquivos e tamanho do tarball, e o que muda em relação à
-versão publicada (`npm view <pkg> version`). Então peça:
+versão publicada (`npm view <pkg> version`).
 
-> "Pacote validado (`lib:verify` ok). Pra publicar `@snksergio/design-system@<X.Y.Z>` no
-> npm preciso do token — cole aqui, eu publico e você revoga em seguida. Ou, se preferir
-> publicar você, o comando é `npm publish` na raiz (o `prepublishOnly` roda o
-> `build:lib`)."
-
-### 7.3 Publicar com o token, sem deixar rastro
-
-O token **nunca** vai pro repo. Use um `.npmrc` temporário **fora da árvore do
-projeto** (o scratchpad da sessão) e apague na sequência:
+**Não peça token.** Confira se a máquina já está autenticada:
 
 ```bash
-# 1. .npmrc temporário FORA do repo
-printf '//registry.npmjs.org/:_authToken=%s\n' "$TOKEN" > "$SCRATCH/.npmrc"
-
-# 2. publica apontando pra ele
-npm publish --userconfig "$SCRATCH/.npmrc"
-
-# 3. apaga IMEDIATAMENTE
-rm -f "$SCRATCH/.npmrc"
+npm whoami          # esperado: snksergio
 ```
 
-Nunca `echo` o token, nunca commite `.npmrc`, nunca escreva o token em
-`pipeline-state.md` (nem mascarado).
+- **Responde o usuário** → siga pro 7.3.
+- **`ENEEDAUTH`** → peça pro mantenedor rodar `npm login` **no terminal dele** (é
+  interativo — abre o navegador, e o shell da IA tem stdin fechado, então não roda por
+  aqui). Depois `npm whoami` pra confirmar.
+
+### 7.3 Publicar
+
+Com a máquina autenticada, a IA pode rodar o publish: o `npm` lê a sessão do **usuário**
+no `~/.npmrc` pessoal dele, e nenhum segredo passa pela IA.
+
+```bash
+npm publish                 # raiz — o prepublishOnly roda o build:lib
+cd cli && npm publish       # só se cli/** mudou (rebake, template, vocabulário)
+```
+
+**Se sair E403 de 2FA** (ver 7.0): o publish tem que ser do mantenedor, no terminal dele,
+com código do autenticador — e um código **novo por pacote**, porque OTP é de uso único:
+
+```bash
+npm publish --otp=123456
+cd cli && npm publish --otp=654321
+```
+
+Alternativa permanente, recomendada: granular token com bypass de 2FA, instalado por ele
+com `npm config set //registry.npmjs.org/:_authToken <token>` — **no terminal dele**, nunca
+colado na conversa.
+
+⛔ Não monte `.npmrc` com token, nem temporário: a IA não manipula credencial em texto
+claro. Nunca `echo` de token, nunca `.npmrc` commitado, nunca token em `pipeline-state.md`
+(nem mascarado).
 
 ### 7.4 Confirmar e lembrar da revogação
 

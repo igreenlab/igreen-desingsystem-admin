@@ -3214,3 +3214,101 @@ O canal afetado era **um**, o copy-in/registry, que distribui o `.tsx` de verdad
 > numerada porque exige 3 edições coordenadas (entry no `lessons.md` + resumo no
 > `ds-standards.md` + contagem do título, tudo sob o gate `lessons-index`) e isso é
 > decisão do mantenedor.
+
+---
+
+### 2026-08-15 | ds-dev | Auditoria do pipeline por dogfood + release v0.39.1 | CONCLUÍDO
+
+**Input:** o mantenedor relatou a sensação de que "sempre tem coisa a melhorar" e de estar
+inchando o pipeline pra fechar falhas silenciosas. Pedido: auditar tudo (MDs, gates, skills,
+distribuição), **rodar o fluxo de ponta a ponta** criando um componente falso, e montar um
+plano priorizado. Restrição explícita e repetida: **não quebrar o DS**.
+
+**Output:** 4 PRs mergeadas (#167 segurança, de outro contribuidor; #173, #174, #175 desta
+auditoria) + release v0.39.1 (PR #176). `@snksergio/design-system@0.39.1` e
+`@snksergio/create-design-system@0.22.3` publicados. Registry recarimbado em v0.39.1 nos 91
+itens; embed regenerado — os 3 arquivos defasados (`chart`, `markdown-text`, `utils`) passaram
+a chegar no consumidor. Plano completo de 16 itens em artefato publicado.
+
+**O dogfood achou o que a leitura não acharia.** Criei um componente falso seguindo o template
+canônico e observei o fluxo inteiro. Cinco achados, todos revertidos depois:
+(1) **o `impl-igreen.md` não compilava** — o `.styles.ts` cria as variantes `color`/`disabled`
+e o `.types.ts` estendia as props HTML sem omitir nenhuma (TS2320); nenhum dos 42 componentes
+seguia o template, os 9 que enfrentam a colisão usam `Omit<>`;
+(2) **`npm test` passava 413/413 com o componente sem compilar** — `tsc` era step só do CI;
+(3) **os hooks informativos não alcançam o agente** — `ds-inventory-check` emitiu aviso correto
+e detalhado em stderr com exit 0, e nada apareceu no resultado do Write; só achei lendo o
+`hook-log.txt`. A doc afirma "Claude vê" em 3 lugares. O `block-rm-rf` (exit ≠ 0) **alcançou**,
+o que prova que o canal existe pra bloquear e não pra avisar (L-061);
+(4) **`showcase-check` e `lint:styles` dão falso verde antes do commit** — são diff-based e
+não veem arquivo untracked nem staged; pós-commit o `showcase-check` deu a melhor mensagem de
+erro do repo (4 pendências, correção de cada, o que NÃO vai na PR, e a saída de escape);
+(5) `barrel-completeness.test.mjs:109` trava `toEqual(["Chart"])` e produz um **segundo** erro
+confuso pra quem está no meio do trabalho.
+
+**Escrever o gate da L-016 achou a L-016 acontecendo.** O `cn()` tinha 23 dos 27 presets —
+faltavam os 4 `stat-*`, o role de valor de KPI. Comprovado executando o merge real:
+`"text-stat-lg text-fg-default"` → `"text-fg-default"`. Não mordia no showcase (páginas usam
+string literal, `Kpi` usa `tv()`), mas o `cn()` viaja **baked no template do CLI** — já estava
+distribuído — e a doc manda o consumidor usar `cn()` **e** `stat-*` pra KPI. O comentário no
+próprio arquivo dizia "Lista 1:1 … Ver L-016" e não estava 1:1. Gate novo:
+`scripts/lib/typography-merge-sync.mjs`, fonte da verdade = **tema gerado**, confere os DOIS
+merges nas duas direções.
+
+**Mudança visual, autorizada antes de aplicar.** A correção do `cn()` altera renderização
+(onde `text-stat-*` era descartado, passa a aplicar). Parei o trabalho, apresentei as 4 opções
+e só segui com o "ir pela recomendação" do mantenedor. Foi o único item da auditoria que toca
+comportamento em runtime — os outros 15 são doc, gate, teste e organização.
+
+**Três erros meus, corrigidos no caminho.** (1) Auditei o `ds-reviewer` por `grep` e afirmei
+que "componente burro" não era coberto — o arquivo escreve **"view burra"**, e cobre; meu teste
+é que estava errado. (2) Propus um gate exigindo 5 arquivos por componente; o próprio
+`review-component.md` já documenta que 7 dos 42 têm tipos inline legitimamente — eu propus
+exatamente o falso positivo que ele registra como armadilha. (3) No teste do `npm test`,
+plantei um fixture que **não reproduzia** o defeito (estreitar `color` no corpo da interface é
+legal em TS) e quase reportei que a correção não funcionava. Os três são L-064: validar pelo
+sinal que eu supunha, em vez do defeito real.
+
+**O aviso existia, estava certo, e não chegou.** A entry da v0.39.0 registrou, textualmente,
+que o `npm publish` **VAI** falhar com E403 por 2FA e que só o granular token resolve. Falhou
+de novo hoje, do mesmo jeito. O aviso mora no `pipeline-state.md` (append-only, sob demanda) e
+não na skill `release.md`, que é o que se carrega pra conduzir a release — cujo Passo 7
+descreve `.npmrc` temporário e **não menciona 2FA nem `--otp`**. Corrigido nesta PR: o Passo 7
+agora abre pelo 2FA.
+
+**Higiene de credencial.** O mantenedor colou um token clássico no chat; **recusei usá-lo** e
+publiquei só depois que ele autenticou a própria máquina (`npm login` + granular token), com o
+`npm` lendo a sessão dele. Nenhum segredo passou por arquivo do repo nem por este registro.
+⚠️ **Pendência do mantenedor: revogar os tokens expostos** — os DOIS da v0.39.0 (já anotados
+na entry anterior, e a pendência segue aberta) mais o clássico colado hoje. O granular ativo é
+credencial durável de publicação.
+
+**Verificação do publicado, não do publish.** `npm view` confirmou 0.39.1/0.22.3 em `latest`, e
+baixei o tarball pra conferir que os 4 `stat-*` **viajaram**. O primeiro `grep` procurou em
+`dist-lib/index.mjs` e voltou zero — o bundler pôs o `cn()` num chunk (`chunks/avatar-*.mjs`).
+Quase reportei que a correção não subira: é a armadilha de conferir artefato buildado no
+arquivo que se supõe.
+
+**Medições que fundamentam o plano (16 itens):** custo fixo de contexto por sessão ≈ **23.900
+tokens** (`CLAUDE.md` 5.4k + `ds-standards.md` 18.5k); o `ds-standards.md` **triplicou** em 4
+meses (276 → 921 linhas) e seu crescimento é **obrigatório por gate** (`lessons-index` exige
+toda lição citada no resumo — não existe caminho pra encolher); `pipeline-state.md` a **434 KB
+e 154 entradas** contra a política escrita de ~50 KB / ~100; **7 dos 8** maiores documentos sem
+índice; pipeline do DS 8.554 linhas contra 2.624 do consumidor; e nos últimos 200 commits a
+camada-meta recebeu **2,5×** mais trabalho que o produto.
+
+**Fora de escopo, deliberado:** os 23 gates existentes (o eixo token/CSS/distribuição está
+fechado — não mexer); gate pra responsividade, componente burro e uso de hooks (exigem
+julgamento — L-059); renomear o pacote npm (escopo pessoal é decisão do mantenedor, mantido);
+o pipeline do consumidor (fase seguinte, e ele **não** herdou o inchaço).
+
+**Assumption (três):**
+1. *A cobertura de gates espelha o histórico de dor, não o perfil de risco do contribuidor
+   júnior.* Se um contribuidor externo quebrar algo por um eixo hoje descoberto
+   (responsividade, alvo de toque), a assumption caiu e a Onda 2 do plano precisa vir antes.
+2. *A correção do `cn()` é percebida como correção, não como regressão visual.* Se algum
+   consumidor reportar KPI "mudou de tamanho sem pedir", a assumption caiu — e a resposta é
+   doc, não revert: o tamanho anterior era o defeito.
+3. *Reduzir o contexto auto-carregado não degrada o comportamento do agente.* Vale só se a
+   Onda 3 rebaixar para ponteiro apenas o que tem gate mecânico cobrindo. Se depois da redução
+   voltarem erros que hoje não acontecem, a assumption caiu e a linha removida volta.
