@@ -86,9 +86,26 @@ const ChartContainer = React.forwardRef<
 });
 ChartContainer.displayName = "ChartContainer";
 
+/* ⚠️ O conteúdo do <style> abaixo vai por `dangerouslySetInnerHTML`, então um
+ * `</style>` em QUALQUER valor interpolado fecha a tag e o resto do texto é
+ * parseado como HTML → XSS. Isso não é hipotético: `config` costuma ser montado
+ * a partir das séries que vêm da API (`config[serie] = { label, color }`), e o
+ * `id` é prop pública do ChartContainer. Sanitizamos os três pontos de
+ * interpolação (id, key, color) em vez de confiar no consumidor.
+ *
+ * Descartar em silêncio é proposital: cor/chave inválida é bug de integração e
+ * o gráfico degrada (cai no default do Recharts) em vez de quebrar a página. */
+const SAFE_CSS_IDENT = /^[A-Za-z0-9_-]+$/;
+// Cobre o que o DS realmente usa em cor: hex, var(), oklch()/color-mix() (daí a
+// barra e o `%`), rgba(). Fora: `<`, `>`, `{`, `}`, `;`, quotes, `@`, `:` — os
+// caracteres que fechariam a tag ou emendariam outra declaração/regra.
+const SAFE_CSS_VALUE = /^[A-Za-z0-9\s#(),.%/_-]+$/;
+
 const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
+  if (!SAFE_CSS_IDENT.test(id)) return null;
+
   const colorConfig = Object.entries(config).filter(
-    ([, c]) => c.theme || c.color,
+    ([key, c]) => (c.theme || c.color) && SAFE_CSS_IDENT.test(key),
   );
   if (!colorConfig.length) return null;
 
@@ -104,7 +121,9 @@ ${colorConfig
     const color =
       itemConfig.theme?.[theme as keyof typeof itemConfig.theme] ||
       itemConfig.color;
-    return color ? `  --color-${key}: ${color};` : null;
+    return color && SAFE_CSS_VALUE.test(color)
+      ? `  --color-${key}: ${color};`
+      : null;
   })
   .filter(Boolean)
   .join("\n")}

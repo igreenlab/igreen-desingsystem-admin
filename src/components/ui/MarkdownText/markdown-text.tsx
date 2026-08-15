@@ -24,45 +24,114 @@ const CODE_RE = /```([\s\S]+?)```|`([^`]+?)`/g;
 const URL_RE = /((?:https?:\/\/|www\.)[^\s<>()]+[^\s<>().,!?;:'"])/g;
 
 /**
- * Aplica bold/italic/strike recursivamente sobre texto puro (sem code/links).
+ * Concatena `src` em `dst` sem spread. `dst.push(...src)` passa cada node como
+ * ARGUMENTO, e um input hostil (milhares de marcadores → milhares de nodes)
+ * chega no limite de argumentos do V8 e estoura com RangeError — a mesma classe
+ * de crash que a pilha do parseInline tinha.
+ */
+function pushAll(dst: ReactNode[], src: ReactNode[]): void {
+  for (const node of src) dst.push(node);
+}
+
+/* Marcadores de nível 3, em ordem de precedência (bold vence italic vence strike). */
+const MARKERS: { re: RegExp; slot: "strong" | "em" | "strike"; el: "strong" | "em" | "span" }[] = [
+  { re: /\*([^*\n]+?)\*/, slot: "strong", el: "strong" },
+  { re: /_([^_\n]+?)_/, slot: "em", el: "em" },
+  { re: /~([^~\n]+?)~/, slot: "strike", el: "span" },
+];
+
+/**
+ * Tarefa da máquina de pilha do `parseInline`:
+ *  - `text`  → segmentar esta substring no frame do topo
+ *  - `open`  → abrir frame novo (os filhos do marcador vão pra ele)
+ *  - `close` → fechar o frame e empacotá-lo no elemento do marcador
+ */
+type Task =
+  | { kind: "text"; text: string; prefix: string }
+  | { kind: "open" }
+  | { kind: "close"; el: "strong" | "em" | "span"; className: string; key: string };
+
+/**
+ * Aplica bold/italic/strike sobre texto puro (sem code/links).
  * `prefix` torna as React keys estáveis e únicas por chamada (índice LOCAL),
  * sem depender de contador module-global.
+ *
+ * ⚠️ ITERATIVO de propósito — não voltar pra recursão. A versão recursiva gastava
+ * um frame de pilha por marcador encontrado (o `after` recursionava com o resto
+ * da string), então a profundidade era O(nº de marcadores): `"*a*".repeat(5000)`
+ * — 15 KB, cabe folgado numa mensagem de WhatsApp (limite 65.536) — estourava com
+ * `RangeError: Maximum call stack size exceeded`. Como este componente renderiza
+ * conteúdo RECEBIDO (MessageBubble, ConversationListItem), isso era um DoS
+ * persistido: a mensagem hostil derrubava a bolha e o item da lista, e reabrir a
+ * conversa derrubava de novo. Aqui a pilha é heap (array `work`) — O(n) de
+ * memória, zero de pilha de chamada.
  */
 function parseInline(text: string, s: Slots, prefix: string): ReactNode[] {
-  // Tenta casar o PRIMEIRO marcador de bold/italic/strike e divide em torno dele.
-  const markers: { re: RegExp; slot: keyof Slots; el: "strong" | "em" | "span" }[] = [
-    { re: /\*([^*\n]+?)\*/, slot: "strong", el: "strong" },
-    { re: /_([^_\n]+?)_/, slot: "em", el: "em" },
-    { re: /~([^~\n]+?)~/, slot: "strike", el: "span" },
-  ];
+  const root: ReactNode[] = [];
+  // Frames abertos; o último é onde os nodes produzidos agora entram.
+  const frames: ReactNode[][] = [root];
+  // LIFO: as tarefas são empilhadas em ordem INVERSA pra sair em ordem de leitura.
+  const work: Task[] = [{ kind: "text", text, prefix }];
 
-  for (const { re, slot, el } of markers) {
-    const m = re.exec(text);
-    if (!m || m.index === undefined) continue;
+  while (work.length) {
+    const task = work.pop()!;
 
-    const before = text.slice(0, m.index);
+    if (task.kind === "open") {
+      frames.push([]);
+      continue;
+    }
+
+    if (task.kind === "close") {
+      const children = frames.pop()!;
+      const Tag = task.el;
+      frames[frames.length - 1].push(
+        <Tag key={task.key} className={task.className}>
+          {children}
+        </Tag>,
+      );
+      continue;
+    }
+
+    const current = frames[frames.length - 1];
+
+    // Primeiro marcador que casa, na ordem de precedência.
+    let mk: (typeof MARKERS)[number] | null = null;
+    let m: RegExpExecArray | null = null;
+    for (const candidate of MARKERS) {
+      const found = candidate.re.exec(task.text);
+      if (found && found.index !== undefined) {
+        mk = candidate;
+        m = found;
+        break;
+      }
+    }
+
+    // Sem marcadores → texto literal.
+    if (!mk || !m) {
+      if (task.text) current.push(task.text);
+      continue;
+    }
+
+    const before = task.text.slice(0, m.index);
     const inner = m[1];
-    const after = text.slice(m.index + m[0].length);
-
-    const Tag = el;
+    const after = task.text.slice(m.index + m[0].length);
     const className =
-      slot === "strong"
-        ? s.strong()
-        : slot === "em"
-          ? s.em()
-          : s.strike();
+      mk.slot === "strong" ? s.strong() : mk.slot === "em" ? s.em() : s.strike();
 
-    return [
-      ...parseInline(before, s, `${prefix}-b`),
-      <Tag key={`${prefix}-${slot}`} className={className}>
-        {parseInline(inner, s, `${prefix}-i`)}
-      </Tag>,
-      ...parseInline(after, s, `${prefix}-a`),
-    ];
+    // Ordem de saída desejada: before · <Tag>inner</Tag> · after.
+    work.push({ kind: "text", text: after, prefix: `${task.prefix}-a` });
+    work.push({
+      kind: "close",
+      el: mk.el,
+      className,
+      key: `${task.prefix}-${mk.slot}`,
+    });
+    work.push({ kind: "text", text: inner, prefix: `${task.prefix}-i` });
+    work.push({ kind: "open" });
+    work.push({ kind: "text", text: before, prefix: `${task.prefix}-b` });
   }
 
-  // Sem marcadores → texto literal.
-  return text ? [text] : [];
+  return root;
 }
 
 /**
@@ -78,7 +147,7 @@ function parseLinksAndInline(text: string, s: Slots, prefix: string): ReactNode[
   let m: RegExpExecArray | null;
   while ((m = URL_RE.exec(text)) !== null) {
     if (m.index > last) {
-      out.push(...parseInline(text.slice(last, m.index), s, `${prefix}-${i}t`));
+      pushAll(out, parseInline(text.slice(last, m.index), s, `${prefix}-${i}t`));
     }
     const raw = m[0];
     const href = raw.startsWith("www.") ? `https://${raw}` : raw;
@@ -97,7 +166,7 @@ function parseLinksAndInline(text: string, s: Slots, prefix: string): ReactNode[
     i += 1;
   }
   if (last < text.length) {
-    out.push(...parseInline(text.slice(last), s, `${prefix}-${i}t`));
+    pushAll(out, parseInline(text.slice(last), s, `${prefix}-${i}t`));
   }
   return out;
 }
@@ -115,7 +184,7 @@ function parseMarkdown(source: string, s: Slots): ReactNode[] {
   let m: RegExpExecArray | null;
   while ((m = CODE_RE.exec(source)) !== null) {
     if (m.index > last) {
-      out.push(...parseLinksAndInline(source.slice(last, m.index), s, `${i}t`));
+      pushAll(out, parseLinksAndInline(source.slice(last, m.index), s, `${i}t`));
     }
     const codeContent = m[1] ?? m[2] ?? "";
     out.push(
@@ -127,7 +196,7 @@ function parseMarkdown(source: string, s: Slots): ReactNode[] {
     i += 1;
   }
   if (last < source.length) {
-    out.push(...parseLinksAndInline(source.slice(last), s, `${i}t`));
+    pushAll(out, parseLinksAndInline(source.slice(last), s, `${i}t`));
   }
   return out;
 }

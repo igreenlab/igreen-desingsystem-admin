@@ -33,15 +33,27 @@ on:
   push:
     branches: [main]
 
+# Este job só LÊ o repo (checkout, install, checks). Sem este bloco, o
+# GITHUB_TOKEN herda o default do repositório — que em repo antigo é
+# read/write em tudo, incluindo `contents` e `packages`. Menor privilégio
+# explícito: se algum step (ou dependência dele) tentar escrever, falha.
+permissions:
+  contents: read
+
 jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      # Actions pinadas por SHA, não por tag: tag é MUTÁVEL — quem controla o
+      # repo da action pode reapontar `v4` pra outro commit e passar a rodar
+      # código novo dentro deste job, sem PR nenhum aqui. O comentário guarda a
+      # legibilidade da versão; bump é edição consciente (mesma regra do
+      # `shadcn@4.17.0` e do `@playwright/mcp@0.0.79`).
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0 # ratchet precisa do histórico pro merge-base
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: 20
           cache: npm

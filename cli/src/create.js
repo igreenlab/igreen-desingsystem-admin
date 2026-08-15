@@ -554,11 +554,13 @@ async function main() {
   }
   const token = (igreenToken || "").trim();
   if (token) {
-    writeFileSync(
-      join(projectDir, ".env.local"),
-      `IGREEN_TOKEN=${token}\n`,
-      "utf8",
-    );
+    // mode 0600: sem isso o writeFileSync usa 0o666 & ~umask → 0644, e o Bearer
+    // do registry fica legível por qualquer usuário da máquina. O .gitignore já
+    // cobre o arquivo (renomeado no Step 5, antes do `git add .` do Step 7).
+    writeFileSync(join(projectDir, ".env.local"), `IGREEN_TOKEN=${token}\n`, {
+      encoding: "utf8",
+      mode: 0o600,
+    });
   }
 
   // Step 5c: tela inicial AppShell (asset `_app-appshell.tsx`). Guarda o conteúdo

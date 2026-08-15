@@ -20,6 +20,14 @@ import { createHash } from "node:crypto";
 
 const REGISTRY = "https://igreen-registry.vercel.app/r";
 const MANIFEST = ".igreen-ds/manifest.json";
+/**
+ * Versão FIXA do shadcn. Era `shadcn@latest`: `npx` resolvia, em toda máquina de
+ * consumidor e a cada invocação, o que estivesse publicado naquele minuto — e
+ * esse binário roda com `--yes --overwrite`, ESCREVENDO arquivos na árvore de
+ * código, com o IGREEN_TOKEN acessível no cwd. Superfície de supply-chain sem
+ * contrapartida. Bump é decisão consciente do mantenedor (ver SECURITY_README).
+ */
+const SHADCN = "shadcn@4.17.0";
 
 const names = process.argv.slice(2).map((n) => n.replace(/^@igreen\//, ""));
 if (!names.length) {
@@ -80,7 +88,7 @@ function runShadcnAdd(name) {
   // TRAVA a automação. `--yes` só confirma "proceed", não o overwrite por-arquivo.
   // Em `add` (instalar), sobrescrever a dep compartilhada com a versão do registry é
   // o comportamento correto; edição local é protegida no `igreen:update`, não aqui.
-  const a = ["shadcn@latest", "add", `@igreen/${name}`, "--yes", "--overwrite"];
+  const a = [SHADCN, "add", `@igreen/${name}`, "--yes", "--overwrite"];
   return process.platform === "win32"
     ? spawnSync("cmd.exe", ["/c", "npx", ...a], { stdio: "inherit" })
     : spawnSync("npx", a, { stdio: "inherit" });

@@ -5,7 +5,7 @@
       "mcp__igreen-workspace__list_directory",
       "mcp__igreen-workspace__write_file",
       "Bash(npm run:*)",
-      "Bash(npx shadcn@latest add:*)",
+      "Bash(npx shadcn@4.17.0 add:*)",
       "Bash(npx tsc:*)",
       "Bash(npx vite:*)",
       "Bash(node .claude/scripts/sync-agents-to-cursor.cjs)",
