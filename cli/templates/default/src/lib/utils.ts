@@ -41,6 +41,8 @@ const twMerge = extendTailwindMerge({
             "body-2xl", "body-xl", "body-lg", "body-md", "body-sm", "body-xs",
             // Captions (weight 400)
             "caption-md", "caption-sm", "caption-xs",
+            // Stat (número de métrica/KPI — estático, bold, leading tight)
+            "stat-xl", "stat-lg", "stat-md", "stat-sm",
             // Code (mono regular)
             "code-md", "code-sm",
           ],
