@@ -2024,3 +2024,39 @@ proíbe consolidar sem "sim"):
 Custo declarado, porque é justamente a preocupação da sessão: cada lição são ~90 tokens no
 resumo do `ds-standards`, que é project instruction — **180 tokens em 100% das sessões**. O
 formato completo vai no `lessons.md`, sob demanda.
+
+---
+
+### 2026-08-17 | ds-reviewer | Fecha a pendência das 2 lições — nenhuma entra, e o protocolo ganha filtro | CONCLUÍDO
+
+**Input:** decidir as 2 candidatas a lição que a entrada anterior deixou PENDENTE.
+
+**Output:** **nenhuma das duas entra**, e a razão de cada uma virou critério reutilizável.
+
+| Candidata | Reprovada por |
+|---|---|
+| canal do aviso é parte do aviso | já está na tabela de hooks do `CLAUDE.md` — segunda cópia em outro arquivo auto-carregado é a duplicação que custava 1.884 tk antes da desduplicação de hoje |
+| recorte de saída não é evidência | erro de método do agente, não do pipeline — vai pra memória de sessão, que não cobra contexto de ninguém |
+
+O mantenedor apontou o padrão em uma frase: *"você pegou mais 2 candidatos e vamos entrando aos
+poucos novamente nesse loop de sempre encontrar algo e novamente inchar"*. Estava certo, e o
+loop tinha causa **escrita na regra**: o `Auto-update protocol` do `ds-standards` mandava
+*"nova lição descoberta → adiciona → loop fechado"*, sem nenhuma condição, num arquivo que
+cobra de 100% das sessões. Mesmo defeito do `lessons-index`, que EXIGIA que toda lição
+estivesse lá — e cuja inversão devolveu 21% do custo fixo.
+
+Trocado por 4 perguntas (dá gate? · já está no ponto de uso? · acontece com outra pessoa? ·
+muda a decisão de quem lê?). A assimetria que ordena a lista: **gate custa 0 token/sessão e
+pega sozinho; lição custa ~90 tk em toda sessão, pra sempre, e só funciona se alguém lembrar.**
+
+**Custo aferido: +203 tokens fixos, paga-se prevenindo 3 lições.** Minha primeira versão do
+texto custava 338 e eu havia anunciado "~60" ao propor — erro de 5,6× na métrica que é o
+próprio objeto da mudança. Medi depois de escrever, que é a ordem errada; enxuguei após medir.
+
+**Placar do dia, que é o sinal a vigiar:** 1 gate · 3 correções de doc · **0 lições**. Quando
+voltar a sair "2 lições novas" no fim de uma sessão, o loop está reiniciando.
+
+**Assumption:** as 4 perguntas são aplicáveis por quem propõe a lição. Se na prática elas forem
+respondidas de forma complacente pelo próprio autor ("sim, muda decisão") o filtro é teatro —
+o sinal de que caiu é o resumo do `ds-standards` voltar a crescer. Aferido uma vez: reprovou as
+2 do próprio autor na estreia.

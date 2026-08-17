@@ -578,4 +578,14 @@ Cada componente em `src/components/ui/<Nome>/` tem `USAGE.md` ao lado — atalho
 
 ## Auto-update protocol
 
-Nova lição descoberta → Reviewer adiciona como L-NNN em `.ai/status/lessons.md` → atualiza resumo aqui → próxima sessão já tem a regra. Loop fechado.
+Achado novo → **as 4 perguntas** → só então vira L-NNN em `.ai/status/lessons.md` + 1 linha no
+resumo acima. Falhou em qualquer uma: **não é lição** — é gate, ou é nada.
+
+1. **Dá gate?** → faça o gate: 0 token/sessão e não depende de lembrar (L-059). Lição é pra quando NÃO dá.
+2. **Já está no ponto de uso?** → não duplique; este arquivo cobra de 100% das sessões.
+3. **Acontece com outra pessoa?** → erro de método do agente vai pra memória de sessão, não pra cá.
+4. **Muda a decisão de quem lê?** → se não, é histórico: `pipeline-state.md`.
+
+> Esta seção era um mandato incondicional (*"nova lição → adiciona"*) até 2026-08-17 — sem filtro,
+> num arquivo que custa em toda sessão: era o motor que o triplicou em 4 meses. Aferido no dia: as
+> 4 perguntas reprovaram **as 2** lições que eu mesmo propus ao fechar a sessão.
