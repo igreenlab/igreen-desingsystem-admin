@@ -112,7 +112,8 @@ Executar em sequência, abortando ao primeiro erro. Detalhes dos sub-passos (6.1
 ⚠️ Esta lista já omitiu os passos 3 e 4 — quem seguisse o command publicava release sem
 rodar `npm test`, sem `release:check` e sem recarimbar o registry. E o **Passo 1.5**
 (`ds-reviewer/pre-commit-check.md`) e o **Passo 7** (publish no npm, com `lib:verify` e o
-gate de token) vivem só na skill: o command sozinho **não** é o fluxo completo. Carregue
+gate de 2FA — esta conta **recusa token clássico**) vivem só na skill: o command sozinho
+**não** é o fluxo completo. Carregue
 `.claude/skills/ds-dev/release.md`.
 
 ## Comparação com `/ds-update`
