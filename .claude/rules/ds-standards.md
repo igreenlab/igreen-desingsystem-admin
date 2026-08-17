@@ -516,91 +516,36 @@ citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 falta
 ## Sistema multi-marca (temas)
 
 5 marcas: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um **overlay
-de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>` a partir de
-`tokens/brands/<id>/`.
+de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>`.
 
 ⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
-`brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá, e um overlay é só variável
-de cor num escopo. Pedido de "mudar o espaçamento/a fonte só nesta marca" **não é tema**:
-pare e pergunte. (Pra `font-weight` ser brand-aware, os presets teriam que passar a
-referenciar var — mudança no transform, afeta as 5 marcas.)
+`brands/default/` — o transform os importa fixos de lá. Pedido de "mudar o espaçamento/a
+fonte só nesta marca" **não é tema**: pare e pergunte. (Pra `font-weight` ser brand-aware os
+presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.)
 
-### Anatomia — 3 arquivos, contrato idêntico à default
+⛔ **Três armadilhas que exigem JULGAMENTO** — não há gate que as pegue:
 
-```
-tokens/brands/<id>/
-  primitives/color-palette.ts   brand · brandContrast · gray · success/warning/danger/info · white/black/alpha
-  semantic/color-light.ts       { bg, fg, border, ring, overlay, chart } — MESMAS chaves da default
-  semantic/color-dark.ts        idem
-```
+1. **"Mais vibrante" não é operação de saturação.** Os status da default já vivem a 84–100%
+   do teto de croma do próprio hue, e o teto do sRGB depende de hue **e** de luminosidade:
+   verde/amarelo picam claros, vermelho no meio, roxo escuro. **Não existe roxo claro e
+   saturado em sRGB.** Meça o teto por hue **antes** de prometer vibração — e cor no teto não
+   deriva estado por saturação (o hover fica idêntico ao repouso; desça a luminosidade).
+2. **Handoff externo mapeia papel→shade pra UI DELE.** Seguir `semanticExample` ao pé da
+   letra já comprimiu a separação título↔subtítulo de célula pra **1.34:1** (contra 2.49:1 da
+   default) — o subtítulo virou o título. Showcase de cards não tem par título/subtítulo; a
+   nossa UI é tabela densa. **Nosso mapeamento manda.**
+3. **Verifique no BROWSER, com cada combinação de eixos ativa.** `tsc`, testes e
+   `dead-theme-classes` passaram verdes com **13** tokens resolvendo errado no dark (L-066).
+   Valor em arquivo de token não é evidência de pixel.
 
-`brandContrast` existe porque no dark a família brand troca pra `brandContrast[400]` — verde
-escuro não contrasta com near-black. Se a marca já é clara (caso `vibrant`, no teto do gamut),
-`brandContrast` pode ser alias do próprio `brand`.
-
-### As 10 superfícies que uma marca nova toca
-
-⚠️ Fonte canônica do passo-a-passo (com comandos) = `.claude/skills/brand-builder/generate.md`,
-via `/ds-create-brand`. A tabela abaixo é o resumo; **gate mecânico** = `npm run brand:check`.
-
-| # | Onde | O quê |
-|---|---|---|
-| 1 | `tokens/brands/<id>/` | os 3 arquivos (palette + color-light + color-dark) |
-| 2 | `package.json` | script `tokens:brand:<id>` |
-| 3 | `src/styles/theme/brand-<id>.css` | gerado por `npm run tokens:brand:<id>` |
-| 4 | `src/styles/globals.css` | `@import "./theme/brand-<id>.css"` (**depois** do tema-base) |
-| 5 | `src/hooks/useBrand.ts` | type `Brand` + catálogo `BRANDS` — **só os 2**. `isBrand()` **não** se edita mais: desde a v0.33.0 valida contra o catálogo ativo |
-| 6 | `package.json > exports` | subpath `./theme/brand-<id>.css` |
-| 7 | `registry.json` | item `theme-<id>` (`registry:file`) |
-| 8 | `cli/src/create.js` + template | `BRAND_LABELS` + **`npm run cli:rebake`**. O rebake bakeia os overlays por **descoberta de diretório** — não copie à mão, e não há lista pra atualizar |
-| 9 | `src/preview/pages/ColorsDoc.tsx` | `PALETAS` — senão a página mostra a rampa de UMA marca e os semantics de outra |
-| 10 | `cli/templates/default/_claude/rules/ds-themes.md` | vocabulário do consumidor. Ausente aqui = a marca existe e ninguém sabe usar (L-042) |
-
-**Só 2 das 10 falham visivelmente**: a 9 quebra o `tsc` (`Record<Brand, Paleta>`) e a 6 faz o
-`build:lib` **lançar** (gate fail-closed — o pacote levaria o arquivo e o consumidor não
-conseguiria importá-lo). As outras 8 falham em silêncio: a marca existe, o showcase funciona,
-e ela não chega em algum canal. Por isso existe o `brand:check` (roda no CI e no
-`release:check`), validado contra marca-fantasma e contra cada omissão individual.
-
-### Os 4 canais de entrega (todos funcionam desde v0.32.0)
-
-`npm create` (prompt "Tema de cor?") · `npm install` (subpath `theme/brand-*.css`, ≥ 0.31.1) ·
-submódulo (importa do disco) · `igreen:add -- theme-<id>` (item de registry).
-
-⚠️ **No canal `npm install`, importar o CSS não basta.** O Tailwind v4 não escaneia
-`node_modules` — sem a diretiva `@source` apontando pro pacote, **nenhuma** classe do DS é
-gerada e o componente renderiza sem estilo, **sem erro**. A linha tem que cobrir
-`dist-lib/**` (as classes dos flutuantes vivem nos *chunks*, não no `index.mjs`). Receita
-completa no `README.md` §"Consumindo por npm install". Submódulo **não** precisa: fica
-dentro da raiz do projeto, então o scan já o alcança.
-
-### ⛔ Armadilhas MEDIDAS — todas custaram retrabalho real
-
-1. **`to-brand-overlay.ts` importa a marca com `as` (cast, não checagem).** Chave faltando ou
-   com typo **não dá erro de `tsc`** — o token herda o valor da default em silêncio. Compare
-   os key-sets contra a default antes de considerar pronto.
-2. **Handoff externo mapeia papel→shade pra UI DELE, não pra nossa.** Seguir `semanticExample`
-   ao pé da letra já (a) mapeou `bg.canvas` um degrau escuro demais e (b) comprimiu a
-   separação título↔subtítulo de célula pra **1.34:1** contra 2.49:1 da default — o subtítulo
-   virou o título. Showcase de cards não tem par título/subtítulo; a nossa UI é tabela densa.
-   **Nosso mapeamento manda**; use o do handoff só como referência de valor.
-3. **"Mais vibrante" não é operação de saturação.** Os status da default já vivem a 84–100% do
-   teto de croma do próprio hue. O teto do sRGB depende de hue **e** de L: verde/amarelo picam
-   claros, vermelho no meio, roxo escuro. Não existe roxo claro e saturado em sRGB. Meça o
-   teto por hue **antes** de prometer vibração.
-4. **Cor no teto do gamut não deriva estado por saturação.** Croma acima do teto clipa e o
-   hover fica idêntico ao repouso — desça a luminosidade pelo ramp.
-5. **`fg` de status no dark precisa de shade mais claro que o `[500]`.** Funciona como fundo
-   sólido e reprova AA como texto sobre surface escura (medido: 3.42:1 e 2.88:1 no badge).
-6. **Neutro pode precisar de rampa por MODO.** A `vibrant` tem `gray` (light, fria) +
-   `grayDark` (dark, acromática) porque o light foi fechado antes de o dark mudar. É a única
-   marca assim — e o `color-dark.ts` importa `grayDark as gray`.
-7. **Verifique no BROWSER, com cada combinação de eixos ativa.** `tsc`, testes e
-   `dead-theme-classes` passaram verdes com 13 tokens resolvendo errado no dark (L-066). Valor
-   de arquivo de token não é evidência de pixel.
-
-Doc humana pro consumidor: página **Temas de marca** (`#/themes`) + rule `ds-themes.md` do kit.
-Contexto técnico: `.ai/context/tokens/color.md`.
+> **O resto é gate ou receita, não leitura.** As 10 superfícies de uma marca nova, o contrato
+> dos 3 arquivos, os 4 canais de entrega e as armadilhas mecânicas (chave faltando herdando a
+> default por `as`, `fg` de status precisando shade mais claro no dark, rampa neutra por modo)
+> estão em `.claude/skills/brand-builder/generate.md` — que é o **passo-a-passo executável**,
+> via `/ds-create-brand` — e em `.ai/context/tokens/color.md`. **Gate mecânico:**
+> `npm run brand:check` (5 marcas × 10 superfícies, no CI e no `release:check`) +
+> `brand:contrast`. Não reproduza a lista aqui: este arquivo custa em 100% das sessões
+> (item D1 do plano de fechamento).
 
 ### Padrão de chart (resumo)
 
