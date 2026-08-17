@@ -1905,3 +1905,49 @@ DS, citando a CLI 0.23.0. Até lá, o registro é este e o `cli/README.md`.
 **Assumption:** bump isolado do CLI não confunde quem consome. Se alguém reportar "a versão
 do CLI não corresponde à do DS", a assumption caiu — e a correção é doc (os dois pacotes têm
 ciclos independentes por desenho), não voltar a acoplar os bumps.
+
+---
+
+### 2026-08-17 | ds-dev | CLI 0.23.0 publicado — ponte do copy-in fechada de fato | CONCLUÍDO
+
+**Input:** fechar a pendência registrada na entrada anterior (`cd cli && npm publish`).
+
+**Output:** `@snksergio/create-design-system@0.23.0` publicado pelo mantenedor.
+`npm view` confirma, e o **tarball publicado** foi baixado e conferido — não só o número:
+
+```
+--only-kit em package/src/create.js         ✓ (4 ocorrências)
+38 arquivos do kit em templates/default/_claude/  ✓
+a ressalva do canal npm em ds-channels.md   ✓
+```
+
+Conferir o tarball, e não só o `npm view`, é a lição da v0.39.1 aplicada: naquela release o
+primeiro `grep` procurou no `index.mjs` e voltou zero, porque o bundler pôs o `cn()` num
+chunk — quase reportei que a correção não havia subido.
+
+**O item E1 fecha aqui, com escopo declarado.** O kit de IA agora chega em **3 dos 4
+canais**:
+
+| canal | kit | como |
+|---|:---:|---|
+| scaffold | ✅ | já vem no projeto gerado |
+| submódulo | ✅ | `ds:link` — **o canal mais usado** |
+| copy-in | ✅ | `npx @snksergio/create-design-system --only-kit` (desde hoje) |
+| npm | ⚠️ | mesmo comando, **mas parcial** — ver abaixo |
+
+**O npm segue parcial por limite de DESENHO, não de esforço**, e isso está documentado no
+`ds-channels.md` do payload (que o consumidor lê) e no `architecture.md`. Duas restrições:
+(1) o kit não pode chegar automático — pela L-056 o Claude Code só descobre `.claude/` na
+raiz do cwd, e pacote em `node_modules` não fornece um descobrível; o `--only-kit` resolve
+isso escrevendo na raiz. (2) Mas **23 arquivos** do payload referenciam `igreen:add`, e o
+método dos builders é "puxe o `example-*` e adapte" — quem consome só por npm não tem esse
+comando e recebe o exemplo buildado, sem poder editar.
+
+Fechar o npm exige `mode: "npm"` nas 23 referências. **Frente própria, com desenho antes de
+código** — entregar o kit sem isso seria dar instrução inaplicável, que é a classe de
+defeito que este pipeline existe pra impedir.
+
+**Assumption:** o consumidor por copy-in em projeto existente vai descobrir o `--only-kit`.
+Hoje ele está no `cli/README.md` e no `ds-channels.md` do payload — que ele só tem DEPOIS de
+rodar o comando. Se ninguém usar, a assumption caiu, e a correção é anunciar no lugar onde
+ele já olha: o `CLAUDE.md` do template e a página de instalação do showcase.
