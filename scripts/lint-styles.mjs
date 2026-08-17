@@ -147,8 +147,17 @@ function modeRatchet(base, motivoDaBase) {
   }
 
   if (!violations.length) {
+    // `files === 0` é ambíguo: pode ser "a PR não tocou arquivo lintável" ou
+    // "o que eu escrevi ainda não está commitado". O ratchet lê `git diff`, então
+    // trabalho untracked é invisível — medido em 2026-08-14: pasta nova no disco
+    // devolvia "0 arquivo(s)", e o mesmo comando via 63 linhas depois do `git add`.
+    const nada =
+      files === 0
+        ? `\n  (0 arquivo comparável em ${base}...HEAD — se você acabou de escrever código,` +
+          ` confira se está ao menos em staging: o ratchet lê o diff do git, não o disco)`
+        : "";
     console.log(
-      `\n✓ lint-styles (ratchet vs ${base}): ${files} arquivo(s), ${lines} linha(s) adicionada(s), 0 violação nova.\n`,
+      `\n✓ lint-styles (ratchet vs ${base}): ${files} arquivo(s), ${lines} linha(s) adicionada(s), 0 violação nova.${nada}\n`,
     );
     return 0;
   }
