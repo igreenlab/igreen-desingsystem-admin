@@ -61,3 +61,26 @@ As 3 restantes (registry · catálogo do CLI · changelog) **não** vão nesta P
 ## Para o revisor
 
 <!-- Onde você quer atenção? O que já sabe que ficou de débito? -->
+
+### Se a PR toca componente — os 5 que nenhum gate pega
+
+O CI cobre o que é mecânico (token, classe morta, barrel, registry, superfícies). Os itens
+abaixo exigem **ler o código** e são a parte que só um humano faz. Vivem em
+`.claude/skills/ds-reviewer/review-component.md` §"Arquitetura — julgamento, não grep";
+estão aqui porque a skill só roda quando alguém invoca o agente, e o revisor da PR não passa
+por ela.
+
+- [ ] **`USAGE.md` reflete a mudança de prop/variante?** O gate `api-doc-check` é
+      **informativo** — não bloqueia. Caso real: a PR #60 adicionou `mode` ao DatePicker e
+      ficou 11 dias sem doc, com o showcase ensinando o padrão que a prop tornou obsoleto
+- [ ] **DocPage atualizada?** O `showcase-check` só olha componente **novo** (pasta ausente
+      no base ref). Mudança em componente **existente** não dispara nada
+- [ ] **View burra** — lógica visual mora no `.styles.ts`. Ternário montando classe ou
+      cálculo de estilo inline no `.tsx` não é pego por lint nenhum
+- [ ] **Paridade com o componente-irmão** — componente que precisa *parecer* outro usa os
+      MESMOS tokens. As classes são todas válidas, só divergem, então nenhum gate acusa.
+      Compare token por token (bg, border, radius, padding, gap, foco, hover). Caso real: o
+      trigger do DatePicker divergia em **6** pontos do `SelectTrigger` desde que nasceu
+- [ ] **Responsividade e alvo de toque** — funciona em 375px? Controle que o dedo alcança
+      usa `min-h-form-xl` (44px, piso do WCAG)? Zero cobertura mecânica: `sm:`, `max-md` e
+      "responsiv" não aparecem em nenhum dos 23 gates

@@ -84,7 +84,7 @@ protegida, então isso já falha — mas evite a surpresa.)
 
 ## Componente novo: o que entra na sua PR e o que não entra
 
-Um componente novo toca 7 lugares. **Na sua PR vão os 4 primeiros:**
+Um componente novo toca **8 superfícies** (L-042). **Na sua PR vão as 4 primeiras + o barrel:**
 
 - [ ] Código em `src/components/ui/<Nome>/`
 - [ ] `USAGE.md` ao lado dele
@@ -95,12 +95,25 @@ Um componente novo toca 7 lugares. **Na sua PR vão os 4 primeiros:**
          no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
          `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
       3. `src/preview/components/doc-nav-data.ts` — `{ label: "...", href: "<id-kebab>" }`
-- [ ] Toda dependência nova que o componente importa declarada no `package.json`
+- [ ] **`export * from "./ui/<Nome>"` em `src/components/index.ts`** — é o barrel, e é o que
+      define o canal npm. Sem ele, `import { X } from "@snksergio/design-system"` estoura
+      "not exported" no consumidor. Reprovado por gate (`barrel-completeness`, no `npm test`)
+- [ ] Toda dependência nova que o componente importa de fato declarada no `package.json` —
+      **inclusive dep de TIPO**: se um `.d.ts` publicado faz `import … from "geojson"`, o
+      `@types/geojson` vai em `dependencies`, não em `devDependencies` (senão o `tsc` do
+      consumidor quebra). Reprovado por gate (`deps-declared`)
 
-**Os 3 restantes NÃO vão na sua PR:** registry, catálogo do CLI e changelog são
+**As 3 restantes NÃO vão na sua PR:** registry, catálogo do CLI e changelog são
 consolidados na release (`/ds-release`), não por PR de componente. Se o CI
 apontar débito de distribuição, isso **não bloqueia** — só anote no corpo da PR
 o que ficou pendente de registrar.
+
+> **Por que esta lista mudou de 7 para 8 em 2026-08-08.** O barrel era a única superfície sem
+> vigilância nenhuma, e por isso `Chart`, `DataList`, `List` e `Toast` passaram meses com 6 de
+> 7 fechadas — a doc anunciando "os 42 componentes ui/" enquanto `import { ChartContainer }`
+> estourava no consumidor npm. Este arquivo ficou uma revisão atrás e continuou dizendo 7 até
+> 2026-08-15: quem o seguisse entregava o componente **sem o export**, o gate pegava, e a
+> pessoa fazia duas viagens — exatamente o que a primeira frase deste documento promete evitar.
 
 O checklist completo aparece preenchido quando você abre a PR.
 
@@ -114,7 +127,8 @@ O checklist completo aparece preenchido quando você abre a PR.
 | Lista de tokens por tipo | [`.ai/context/tokens/`](.ai/context/tokens/) |
 | Como usar um componente | o `USAGE.md` ao lado dele |
 | Erros já cometidos aqui (e a lição) | [`.ai/status/lessons.md`](.ai/status/lessons.md) |
-| O pipeline em detalhe | [`README-PIPELINE-WORKFLOW.md`](README-PIPELINE-WORKFLOW.md) |
+| Como o pipeline funciona hoje | [`.ai/context/architecture.md`](.ai/context/architecture.md) |
+| Histórico e filosofia do pipeline | [`README-PIPELINE-WORKFLOW.md`](README-PIPELINE-WORKFLOW.md) — ⚠️ **snapshot congelado**: as contagens (componentes, lições, regras) estão desatualizadas de propósito e o próprio arquivo pede pra não ser carregado por IA. Bom pra entender o *porquê*; não use nenhum número dali |
 | Setup local | [`README.md`](README.md) |
 
 Vale um olhar no `lessons.md` antes de discutir uma decisão de design: boa parte
