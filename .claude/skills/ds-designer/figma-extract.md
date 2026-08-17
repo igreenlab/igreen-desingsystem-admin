@@ -10,7 +10,7 @@ description: >
 ## ⛔ Verificações antes de mapear
 
 ```
-1. Componente já existe em component-inventory.md?
+1. Componente já existe em `.ai/context/components/inventory.md`?
    Sim → avaliar se é redesign (ajustar existente) ou componente novo
 
 2. Para cada valor do Figma, antes de propor token novo:
@@ -65,7 +65,7 @@ description: >
 
 Se tokens faltantes foram identificados:
 ```
-→ Criar tokens primeiro via /add-token (fluxo: DS Designer → [GATE] → DS Dev → DS Reviewer)
+→ Criar tokens primeiro via `/ds-add-token` (fluxo: DS Designer → [GATE] → DS Dev → DS Reviewer)
 → Só após tokens aprovados → implementar o componente via /create-component ou /add-shadcn-component
 ```
 
