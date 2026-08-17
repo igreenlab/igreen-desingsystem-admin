@@ -1872,3 +1872,36 @@ erro detectável em push silencioso na `main`.
 2. *Hook que sai com `exit 2` na via de pendência não faz o agente reinterpretar o Edit como
    falho.* A mensagem diz explicitamente que o arquivo foi escrito. Se algum agente começar a
    reescrever arquivo após o aviso, a assumption caiu — e a saída é o texto, não o exit code.
+
+---
+
+### 2026-08-17 | ds-dev | Primeiro bump ISOLADO do CLI (0.23.0) — e por que quebra o precedente | CONCLUÍDO
+
+**Input:** a PR #189 adicionou o flag `--only-kit` ao CLI, fechando a ponte do kit de IA
+para o canal copy-in (item E1). O flag está na `main` e **não existe pra ninguém** até o
+pacote ser publicado.
+
+**Output:** `cli/package.json` 0.22.3 → **0.23.0** (minor — recurso novo voltado ao
+usuário, não correção). Publicação do npm é passo do mantenedor.
+
+**A decisão que vale registrar: este é o primeiro bump do CLI sem release da lib.** Medido
+no `git log --follow -- cli/package.json`: todos os bumps anteriores (0.22.0, 0.22.1,
+0.22.2, 0.22.3) vieram dentro de uma release do DS.
+
+Isso **não era regra** — era coincidência de escopo: até hoje, mudança no CLI vinha
+acompanhada de mudança na lib (rebake de foundational, vocabulário novo). Aqui só o CLI
+mudou.
+
+A alternativa considerada e **descartada**: bumpar o DS junto, mantendo o padrão. Descartada
+porque a versão da lib passaria a não significar nada — um `0.39.2` sem uma linha de
+mudança em `src/` é exatamente a afirmação falsa que a L-060 trata, na superfície mais
+consultada que existe (o número de versão). Melhor quebrar um padrão que não era regra do
+que fazer a versão mentir.
+
+**Consequência aceita:** o `updates-data.ts` (timeline do showcase) **não** recebe entrada
+agora — ele é versionado pela lib. O `--only-kit` entra na timeline na próxima release do
+DS, citando a CLI 0.23.0. Até lá, o registro é este e o `cli/README.md`.
+
+**Assumption:** bump isolado do CLI não confunde quem consome. Se alguém reportar "a versão
+do CLI não corresponde à do DS", a assumption caiu — e a correção é doc (os dois pacotes têm
+ciclos independentes por desenho), não voltar a acoplar os bumps.
