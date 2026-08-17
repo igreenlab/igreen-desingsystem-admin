@@ -67,24 +67,19 @@ Toda entrada CONCLUÍDO, APROVADO e PAUSADO (gate) inclui `Assumption`. Torna de
 
 Dev encontra token inexistente → PARAR → sinalizar Orchestrator → registrar PAUSADO em pipeline-state → Designer cria token (gate) → retomar implementação.
 
-### Hooks automáticos (autonomia do pipeline)
+### Hooks automáticos
 
-Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. Eles fecham os loops das lições mais comuns sem depender de invocação manual de DS Reviewer:
+→ **A tabela dos 5 hooks está no `CLAUDE.md`** §"Hooks automáticos (pipeline autônomo)" —
+gatilho, o que cada um faz, e **qual deles alcança o agente**. Os dois arquivos são project
+instruction: manter a tabela em ambos gastava **1.884 tokens em 100% das sessões** pra
+descrever os mesmos 5 hooks, e duas cópias divergem (foi o que aconteceu com a afirmação
+"Claude vê", falsa nos dois até 2026-08-17).
 
-| Hook                    | Trigger                                            | O que faz                                                                                                                                                                                                                                                                                                                      |
-| ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ds-lint-styles.sh`     | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv. L-004 e L-007 saíram (semânticas: exigem contexto cross-elemento ou julgamento de intenção — L-059). Sai com `exit 0`, então o aviso **NÃO chega no agente** — vive só no `hook-log.txt` (medido 2026-08-17; consulte o log após mexer em componente). Fica assim de propósito: em `--file` ele varre o arquivo inteiro, e 10 dos 223 arquivos têm débito legado que o ratchet congela. No CI o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado                                                                                                                                                  |
-| `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**`        | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), se está no registry mas **fora do vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md` ∪ o `CLAUDE.md` do template — a MESMA união que o `distribution-debt.mjs` mede), ou se a **DocPage existe mas não está roteada** no `App.tsx`/`DOC_PAGES`+nav (render em branco) — L-042. Exceção deliberada e "showcase registrado" vêm dos MESMOS módulos puros que o CI usa (`ds-exceptions.mjs` + `showcase-registration.mjs`, uma chamada `node -e`) — nunca reimplemente essas regras no shell; fail-open (probe caído → eixo pulado, `exit 0` sempre) |
-| `ds-tokens-check.sh`    | Edit/Write em `tokens/**/*.ts`                     | Alerta pra rodar `tokens:tw4` + lembra que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`). Tokens/theme versionados pelo stamp = `package.json.version`                                                                                                                                         |
-
-Logs em `.ai/scratch/hook-log.txt`. Bloqueio só acontece em `block-rm-rf.sh` (Bash perigoso) e `block-sensitive-edit.sh` (.env, credentials, migrations) — os hooks DS não desfazem o Edit. ⚠️ Mas `exit 0` também não ALCANÇA o agente (medido 2026-08-17: nem stderr nem stdout). Por isso `ds-inventory-check` e `ds-tokens-check` passaram a sair com **`exit 2`** quando têm pendência — o harness mostra a mensagem como "blocking error" e o arquivo continua escrito, porque PostToolUse roda depois da tool. O `ds-lint-styles` segue em 0 (ver a linha dele na tabela).
-
-⛔ **Não existe formatador automático, por decisão (2026-07-29).** `prettier` nunca esteve no
-`package.json`, então o antigo `format-on-save.sh` (`npx --no-install prettier`) era no-op — mas
-**ligaria sozinho** se alguém populasse o cache do npx, reformatando arquivo sem pedido (aconteceu
-uma vez, mutilando pseudo-código de uma skill). Hook e script removidos. **Formate na mão**,
-espelhando o código vizinho. Toda doc que dizia "o hook formata" foi corrigida — se você encontrar
-alguma sobra afirmando isso, é bug de doc.
+O essencial, que vale repetir em uma linha porque muda comportamento: **nenhum dos 3
+informativos desfaz o Edit**; `ds-inventory-check` e `ds-tokens-check` saem com `exit 2` e
+**chegam** no agente; o `ds-lint-styles` sai 0 e **não chega** — depois de mexer em
+componente, consulte `.ai/scratch/hook-log.txt`. Bloqueiam de verdade só o `block-rm-rf` e o
+`block-sensitive-edit`.
 
 ### Auto-review na release (`/ds-release`)
 
@@ -174,113 +169,26 @@ Depois: **smoke test** (invocar de verdade + checar os 4 pontos) antes de consid
 **único arquivo que os 4 canais leem**. O `globals.css` é do **showcase apenas** — nada que
 mora só nele chega em npm, submódulo ou copy-in.
 
-Até 2026-08-07 o `globals.css` continha CSS de que os componentes distribuídos dependiam.
-Custou 6 defeitos ao mesmo tempo (v0.35.0/0.36.0): `outline-float` ausente em **14
-componentes**, bottom-sheet mobile sem regra, fonte Geist caindo em system-ui, `dark:` preso
-ao SO, card escuro sobre fundo branco, scrollbar invisível em **16 usos**. Nenhum quebrou
-build, `tsc` ou teste — o showcase mostrava tudo certo.
+**Regra prática:** precisa de regra CSS global, `@utility`, `@font-face` ou `@custom-variant`
+novo? → edite `to-tailwind-v4.ts` + `npm run tokens:tw4`. **Nunca** o `globals.css`.
 
-**Mora no tema gerado (NÃO redeclare no `globals.css`):**
+**Por que duplicar é PIOR que faltar** (o que justifica a regra ser absoluta): classe sem
+layer vence `@utility`, e a **segunda** declaração de `@custom-variant` vence a primeira.
+Redeclarar faz o showcase mostrar o comportamento certo enquanto o consumidor recebe o
+errado — o defeito fica invisível justamente onde a gente olha. Foi assim que 6 defeitos
+passaram meses (v0.35/0.36).
 
-| O quê | Emitido por |
-|---|---|
-| `@font-face` Geist + Geist Mono · `--font-sans` · `--font-mono` | `buildRuntimeBase()` |
-| `@custom-variant dark (&:where(.dark, .dark *))` | `buildRuntimeBase()` |
-| `html { font-family }` · regras de `body` · `@layer base { button { cursor } }` | `buildRuntimeBase()` |
-| `@utility outline-float` (halo 6px dos flutuantes) | `buildFloatingUtilities()` |
-| `[data-radix-popper-content-wrapper]:has(> [data-mobile-sheet])` (bottom-sheet <768px, z-60) | `buildFloatingUtilities()` |
-| `@utility scrollbar-thin` / `scrollbar-default` | `buildScrollbarUtilities()` |
+Também nunca use vocabulário da bridge shadcn (`bg-popover`, `ring-foreground`, as 19 chaves)
+nem paleta nativa do Tailwind (`bg-red-500`) em componente: só existem no `globals.css` e a
+cor cai em `currentColor` nos canais (L-039).
 
-**Por que duplicar é pior que faltar:** classe sem layer vence `@utility`, e a **segunda**
-declaração de `@custom-variant` vence a primeira. Redeclarar faz o showcase mostrar o
-comportamento certo enquanto o consumidor recebe o errado — o defeito fica invisível
-justamente no lugar onde a gente olha.
-
-**Regra prática:** precisa de regra CSS global, `@utility`, `@font-face` ou variante nova?
-→ edite `tokens/transforms/to-tailwind-v4.ts` e rode `npm run tokens:tw4`. Nunca o
-`globals.css`.
-
-**Gates:** `scripts/lib/shadcn-vocab.mjs` reprova vocabulário da bridge e paleta nativa do Tailwind em componente/exemplo/showcase; `scripts/lib/orphan-utilities.mjs` reprova `@utility` usada por componente e
-ausente do tema; `scripts/lib/runtime-base.test.mjs` valida as 7 peças de runtime no tema,
-a cópia do CLI idêntica à fonte, e **proíbe** o `globals.css` de redeclarar qualquer uma.
-
-### O CSS gerado é COMMITADO — e desde 2026-08-08 existe gate pra isso
-
-`tailwind-theme.css` + os 4 `brand-*.css` são gerados **e** commitados (são o export
-publicado). O passo que regenera é manual, e **nenhum workflow o rodava**: `grep tokens
-.github/workflows/ci.yml` devolvia vazio. Editar token e esquecer `npm run tokens:tw4`
-passava verde em tudo — e o efeito é pior que artefato defasado comum, porque **todos** os
-gates de cor (`dead-theme-classes`, `shadcn-vocab`, `orphan-utilities`, `runtime-base`,
-`audit:token-docs`) leem justamente esse CSS: eles confirmavam a si mesmos contra um
-artefato que nada garantia estar atual.
-
-`scripts/lib/generated-artifacts.mjs` (no `npm test`) regenera cada artefato pelo MESMO
-transform do `package.json` e compara com o disco, apontando a **primeira linha**
-divergente + o comando que conserta. Checa também **cobertura**: `.css` em
-`src/styles/theme/` sem gerador conhecido reprova — senão uma 6ª marca entraria sem
-conferência e o resumo diria "✓ N em sync" sobre conjunto incompleto.
-
-### As duas listas de exceção NÃO são a mesma
-
-| Lista | Significa | Hoje |
-|---|---|---|
-| `ds-exceptions.mjs` → `DS_EXCEPTIONS` | não vai pro **registry/showcase** | 8 (TabelaTeste, TableToolbar, 6 internos do example-chat) |
-| `barrel-completeness.mjs` → `BARREL_EXCEPTIONS` | não vai pro **npm** (barrel) | 1 (TabelaTeste) |
-
-Os 6 internos do example-chat são exceção de registry **e estão** no barrel — viajam pelo
-npm junto do exemplo. Usar a lista errada isentaria 6 componentes hoje corretos, e o gate
-pararia de proteger justamente eles. Ambas exigem **motivo** por entrada, e ambas reprovam
-exceção morta (pasta que sumiu, ou que já entrou no barrel).
-
-### Dep real inclui dep de TIPO (`scripts/lib/deps-declared.mjs`)
-
-A L-037/L-058 ("declare as deps reais") não tinha gate. `deps-declared` varre os
-diretórios publicados e exige que todo import externo esteja em
-`dependencies`/`peerDependencies` — resolvendo `from "geojson"` por `@types/geojson`
-(convenção DefinitelyTyped). Três armadilhas de parsing estão travadas por teste, todas
-medidas aqui: import dentro de **JSDoc**, a chave `"line-file-import"` de `icons.ts` (que
-um regex frouxo lê como pacote `:`), e tipo que só existe em `@types/X`.
-
-### Classe de cor morta — o gate cobre CÓDIGO **e** DOC (2026-08-08)
-
-`dead-theme-classes` reprova classe de cor cuja CSS var não existe no tema. Cobria só
-`src/`; passou a cobrir também `CLAUDE.md`, `README.md`, `.claude/{rules,skills,commands,agents}`,
-`.ai/{context,rules}` e **`cli/templates/default/`** (esta é distribuída: classe morta
-prescrita ali chega em todo scaffold).
-
-Motivo: **a doc é o que GERA o código.** 44 usos de vocabulário V2 sobreviveram meses nas
-skills — inclusive no `impl-igreen.md`, que é o template canônico — porque o gate olhava
-só o resultado. O `CLAUDE.md` do consumidor chegou a ensinar
-`ring-ring-primary/30 → ring-ring-primary`: trocar classe morta **por outra classe morta**.
-
-Dois mecanismos evitam falso positivo, ambos context-free:
-
-- **Placeholder de template não é classe.** `bg-bg-{cor}`, `text-fg-on-{cor}` — o `{` logo
-  depois é o sinal. Sem isso, a doc reprovava por escrever a REGRA certa.
-- **Citação declarada por (arquivo, classe)**, no `CITACOES` do módulo, com motivo
-  obrigatório. A doc que diz "`ring-ring-primary` NÃO existe" é a correção, não o defeito —
-  mas separar citação de prescrição por regex seria julgamento de intenção (L-059). Um
-  humano declara; no gate volta a ser mecânico. Escopo por PAR: `CLAUDE.md` pode citar
-  `ring-ring-primary`, e ainda assim reprova se alguém escrever `bg-bg-primary` lá.
-
-Escrever numa doc uma classe que não existe → o teste falha com arquivo:linha e diz o que
-fazer se for citação. **Fora do escopo de propósito:** `lessons.md`, `pipeline-state.md`,
-`audits/`, `archive/`, `specs/` — registro histórico, onde nomear a classe morta é o
-conteúdo.
-
-Complemento manual: `npm run audit:token-docs` compara o **valor** de cada token afirmado
-na doc contra o CSS (spacing/radius/shadow), que é a outra metade do problema — o gate pega
-classe que não existe, a auditoria pega classe que existe com valor errado na doc. Não é
-CI: a saída é candidato, exige triagem (número de outro elemento na mesma linha é falso
-positivo comum).
-
-### Tokens de scrollbar — alpha neutro, uso interno
-
-`bg.scrollbar-thumb` / `bg.scrollbar-thumb-hover` são a **única exceção** do grupo `bg.*`:
-valem `alpha.black[24/32]` no light e `alpha.white[24/32]` no dark, **idênticos nas 5
-marcas** (a barra precisa de contraste próprio, independente da cor de superfície da marca —
-por isso não entram no diff de nenhum overlay). São consumidos **só** pelos `@utility
-scrollbar-*`. Não use como fundo de elemento.
+> **O detalhe todo é gate, não leitura.** O que o transform emite, o CSS commitado estar em
+> sync, as duas listas de exceção, dep de tipo, classe de cor morta e os tokens de scrollbar
+> estão descritos em `.ai/context/architecture.md` §"O que o transform emite" e no cabeçalho
+> de cada módulo — cada um com **teste que reprova**: `runtime-base` · `orphan-utilities` ·
+> `shadcn-vocab` · `generated-artifacts` · `deps-declared` · `dead-theme-classes` ·
+> `barrel-completeness`. Todos no `npm test`. Não reproduza a explicação aqui: este arquivo é
+> project instruction e custa em 100% das sessões (item D1 do plano de fechamento).
 
 ---
 
@@ -603,91 +511,36 @@ citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 falta
 ## Sistema multi-marca (temas)
 
 5 marcas: `default` · `blue` · `green` · `pay` · `vibrant`. Cada não-default é um **overlay
-de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>` a partir de
-`tokens/brands/<id>/`.
+de cor** escopado em `[data-theme="<id>"]`, gerado por `npm run tokens:brand:<id>`.
 
 ⚠️ **Marca muda SOMENTE cor.** Spacing, sizing, radius, elevation e tipografia vêm sempre de
-`brands/default/` — o `to-tailwind-v4.ts` os importa fixos de lá, e um overlay é só variável
-de cor num escopo. Pedido de "mudar o espaçamento/a fonte só nesta marca" **não é tema**:
-pare e pergunte. (Pra `font-weight` ser brand-aware, os presets teriam que passar a
-referenciar var — mudança no transform, afeta as 5 marcas.)
+`brands/default/` — o transform os importa fixos de lá. Pedido de "mudar o espaçamento/a
+fonte só nesta marca" **não é tema**: pare e pergunte. (Pra `font-weight` ser brand-aware os
+presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.)
 
-### Anatomia — 3 arquivos, contrato idêntico à default
+⛔ **Três armadilhas que exigem JULGAMENTO** — não há gate que as pegue:
 
-```
-tokens/brands/<id>/
-  primitives/color-palette.ts   brand · brandContrast · gray · success/warning/danger/info · white/black/alpha
-  semantic/color-light.ts       { bg, fg, border, ring, overlay, chart } — MESMAS chaves da default
-  semantic/color-dark.ts        idem
-```
+1. **"Mais vibrante" não é operação de saturação.** Os status da default já vivem a 84–100%
+   do teto de croma do próprio hue, e o teto do sRGB depende de hue **e** de luminosidade:
+   verde/amarelo picam claros, vermelho no meio, roxo escuro. **Não existe roxo claro e
+   saturado em sRGB.** Meça o teto por hue **antes** de prometer vibração — e cor no teto não
+   deriva estado por saturação (o hover fica idêntico ao repouso; desça a luminosidade).
+2. **Handoff externo mapeia papel→shade pra UI DELE.** Seguir `semanticExample` ao pé da
+   letra já comprimiu a separação título↔subtítulo de célula pra **1.34:1** (contra 2.49:1 da
+   default) — o subtítulo virou o título. Showcase de cards não tem par título/subtítulo; a
+   nossa UI é tabela densa. **Nosso mapeamento manda.**
+3. **Verifique no BROWSER, com cada combinação de eixos ativa.** `tsc`, testes e
+   `dead-theme-classes` passaram verdes com **13** tokens resolvendo errado no dark (L-066).
+   Valor em arquivo de token não é evidência de pixel.
 
-`brandContrast` existe porque no dark a família brand troca pra `brandContrast[400]` — verde
-escuro não contrasta com near-black. Se a marca já é clara (caso `vibrant`, no teto do gamut),
-`brandContrast` pode ser alias do próprio `brand`.
-
-### As 10 superfícies que uma marca nova toca
-
-⚠️ Fonte canônica do passo-a-passo (com comandos) = `.claude/skills/brand-builder/generate.md`,
-via `/ds-create-brand`. A tabela abaixo é o resumo; **gate mecânico** = `npm run brand:check`.
-
-| # | Onde | O quê |
-|---|---|---|
-| 1 | `tokens/brands/<id>/` | os 3 arquivos (palette + color-light + color-dark) |
-| 2 | `package.json` | script `tokens:brand:<id>` |
-| 3 | `src/styles/theme/brand-<id>.css` | gerado por `npm run tokens:brand:<id>` |
-| 4 | `src/styles/globals.css` | `@import "./theme/brand-<id>.css"` (**depois** do tema-base) |
-| 5 | `src/hooks/useBrand.ts` | type `Brand` + catálogo `BRANDS` — **só os 2**. `isBrand()` **não** se edita mais: desde a v0.33.0 valida contra o catálogo ativo |
-| 6 | `package.json > exports` | subpath `./theme/brand-<id>.css` |
-| 7 | `registry.json` | item `theme-<id>` (`registry:file`) |
-| 8 | `cli/src/create.js` + template | `BRAND_LABELS` + **`npm run cli:rebake`**. O rebake bakeia os overlays por **descoberta de diretório** — não copie à mão, e não há lista pra atualizar |
-| 9 | `src/preview/pages/ColorsDoc.tsx` | `PALETAS` — senão a página mostra a rampa de UMA marca e os semantics de outra |
-| 10 | `cli/templates/default/_claude/rules/ds-themes.md` | vocabulário do consumidor. Ausente aqui = a marca existe e ninguém sabe usar (L-042) |
-
-**Só 2 das 10 falham visivelmente**: a 9 quebra o `tsc` (`Record<Brand, Paleta>`) e a 6 faz o
-`build:lib` **lançar** (gate fail-closed — o pacote levaria o arquivo e o consumidor não
-conseguiria importá-lo). As outras 8 falham em silêncio: a marca existe, o showcase funciona,
-e ela não chega em algum canal. Por isso existe o `brand:check` (roda no CI e no
-`release:check`), validado contra marca-fantasma e contra cada omissão individual.
-
-### Os 4 canais de entrega (todos funcionam desde v0.32.0)
-
-`npm create` (prompt "Tema de cor?") · `npm install` (subpath `theme/brand-*.css`, ≥ 0.31.1) ·
-submódulo (importa do disco) · `igreen:add -- theme-<id>` (item de registry).
-
-⚠️ **No canal `npm install`, importar o CSS não basta.** O Tailwind v4 não escaneia
-`node_modules` — sem a diretiva `@source` apontando pro pacote, **nenhuma** classe do DS é
-gerada e o componente renderiza sem estilo, **sem erro**. A linha tem que cobrir
-`dist-lib/**` (as classes dos flutuantes vivem nos *chunks*, não no `index.mjs`). Receita
-completa no `README.md` §"Consumindo por npm install". Submódulo **não** precisa: fica
-dentro da raiz do projeto, então o scan já o alcança.
-
-### ⛔ Armadilhas MEDIDAS — todas custaram retrabalho real
-
-1. **`to-brand-overlay.ts` importa a marca com `as` (cast, não checagem).** Chave faltando ou
-   com typo **não dá erro de `tsc`** — o token herda o valor da default em silêncio. Compare
-   os key-sets contra a default antes de considerar pronto.
-2. **Handoff externo mapeia papel→shade pra UI DELE, não pra nossa.** Seguir `semanticExample`
-   ao pé da letra já (a) mapeou `bg.canvas` um degrau escuro demais e (b) comprimiu a
-   separação título↔subtítulo de célula pra **1.34:1** contra 2.49:1 da default — o subtítulo
-   virou o título. Showcase de cards não tem par título/subtítulo; a nossa UI é tabela densa.
-   **Nosso mapeamento manda**; use o do handoff só como referência de valor.
-3. **"Mais vibrante" não é operação de saturação.** Os status da default já vivem a 84–100% do
-   teto de croma do próprio hue. O teto do sRGB depende de hue **e** de L: verde/amarelo picam
-   claros, vermelho no meio, roxo escuro. Não existe roxo claro e saturado em sRGB. Meça o
-   teto por hue **antes** de prometer vibração.
-4. **Cor no teto do gamut não deriva estado por saturação.** Croma acima do teto clipa e o
-   hover fica idêntico ao repouso — desça a luminosidade pelo ramp.
-5. **`fg` de status no dark precisa de shade mais claro que o `[500]`.** Funciona como fundo
-   sólido e reprova AA como texto sobre surface escura (medido: 3.42:1 e 2.88:1 no badge).
-6. **Neutro pode precisar de rampa por MODO.** A `vibrant` tem `gray` (light, fria) +
-   `grayDark` (dark, acromática) porque o light foi fechado antes de o dark mudar. É a única
-   marca assim — e o `color-dark.ts` importa `grayDark as gray`.
-7. **Verifique no BROWSER, com cada combinação de eixos ativa.** `tsc`, testes e
-   `dead-theme-classes` passaram verdes com 13 tokens resolvendo errado no dark (L-066). Valor
-   de arquivo de token não é evidência de pixel.
-
-Doc humana pro consumidor: página **Temas de marca** (`#/themes`) + rule `ds-themes.md` do kit.
-Contexto técnico: `.ai/context/tokens/color.md`.
+> **O resto é gate ou receita, não leitura.** As 10 superfícies de uma marca nova, o contrato
+> dos 3 arquivos, os 4 canais de entrega e as armadilhas mecânicas (chave faltando herdando a
+> default por `as`, `fg` de status precisando shade mais claro no dark, rampa neutra por modo)
+> estão em `.claude/skills/brand-builder/generate.md` — que é o **passo-a-passo executável**,
+> via `/ds-create-brand` — e em `.ai/context/tokens/color.md`. **Gate mecânico:**
+> `npm run brand:check` (5 marcas × 10 superfícies, no CI e no `release:check`) +
+> `brand:contrast`. Não reproduza a lista aqui: este arquivo custa em 100% das sessões
+> (item D1 do plano de fechamento).
 
 ### Padrão de chart (resumo)
 
