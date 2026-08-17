@@ -108,6 +108,7 @@
     "distribution:debt": "node scripts/distribution-debt.mjs",
     "lint:styles": "node scripts/lint-styles.mjs --ratchet",
     "cli:rebake": "node scripts/cli-rebake-foundationals.mjs",
+    "doc:index": "node scripts/doc-index.mjs --write",
     "typecheck": "tsc --noEmit",
     "test": "npm run typecheck && vitest run",
     "test:watch": "vitest",
