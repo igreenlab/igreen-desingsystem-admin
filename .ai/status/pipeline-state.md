@@ -1782,3 +1782,93 @@ preservar aberta. Mesma exceção que o arquivamento de 2026-06-18 já havia dec
 sem perder consulta. Se alguém precisar acrescentar entrada a `Log de sessões` ou à
 auditoria retroativa, a assumption caiu — e a correção é criar seção nova no ativo, não
 desarquivar.
+
+---
+
+### 2026-08-17 | ds-dev | Onda 3 do fechamento do pipeline + um push errado na main | CONCLUÍDO
+
+**Input:** continuação do plano de 16 itens. A Onda 3 é a que devolve contexto e organização.
+
+**Output:** 6 PRs (#180 a #185), todas mergeadas. Custo fixo de contexto por sessão:
+**23.055 → 20.809 tokens**. Suíte: 443 → 462 testes.
+
+| PR | Item | O que fechou |
+|---|---|---|
+| #180 | D2 | `lessons-index` passou de "citada" pra **alcançável** (citada **ou** coberta por gate declarado) |
+| #181 | D1 pt.1 | as 15 lições que viraram prosa voltaram a 1 linha — **−2.246 tk** |
+| #182 | D3 | `pipeline-state` arquivado **por seção**: 431 → 291 KB |
+| #183 | D4 | índice gerado nos docs grandes, com gate contra desatualizar |
+| #184 | A3 | os hooks informativos **não alcançavam o agente**; 2 dos 3 agora alcançam |
+| #185 | B4 | pasta de componente novo fora do padrão não passa mais batido |
+
+**O D2 era pré-requisito, não preferência.** Enquanto o `lessons-index` exigisse toda lição
+citada no resumo auto-carregado, o arquivo mais caro do repo **não podia encolher** — o gate
+mais barato tornava obrigatório o crescimento do mais caro. A inversão preservou a garantia
+(nenhuma lição desaparece) e ganhou três checks: declaração morta, gate declarado ausente do
+disco, e divergência entre o `lessons-archive.md` e o mapa.
+
+**O A3 se resolveu por medição, não por leitura.** Testado com `Write` real: `exit 0` +
+stderr **não chega** no agente; `exit 0` + stdout também não; **`exit 2` chega**, rotulado
+pelo harness como "blocking error", e o arquivo continua escrito (PostToolUse roda depois).
+`ds-inventory-check` e `ds-tokens-check` passaram a sair 2 na via de pendência. O
+`ds-lint-styles` **fica em 0 de propósito** — em `--file` varre o arquivo inteiro, e 10 dos
+223 arquivos de `src/components/` têm débito legado que o ratchet congela; avisar sobre ele
+a cada Edit seria aviso ignorado (L-059). O motivo está escrito no hook.
+
+**Três decisões que MUDARAM ao medir, e ficam registradas:**
+1. **D3** — a política mandava arquivar "entradas com 30+ dias", assumindo UM log
+   cronológico. O arquivo tem **três seções paralelas** com faixas de data sobrepostas por
+   inteiro (agosto ia da linha 69 à 3315, maio da 1264 à 1687). Arquivar por data
+   embaralharia as três. O `orchestrator.md` passou a mandar **por seção encerrada**.
+2. **D3, parte 2** — eu ia renomear o `archive/2026-06.md` (que contém **maio**). Ao medir,
+   dois logs já arquivados citam o nome atual, e arquivado é append-only: renomear
+   transformaria referência boa em referência morta. Virou índice (`archive/README.md`) +
+   convenção nova (nomear pelo conteúdo).
+3. **B4** — minha formulação original era criar lista de exceção pro `avatar-ig`, que é
+   exatamente o que a **L-063 manda resistir**. Reformulado: nenhuma lista criada; o
+   `avatar-ig` existe na `main` e nunca aparece como pasta nova, então o efeito no repo hoje
+   é zero — a regra vale pra pasta nova futura, que era onde o buraco estava.
+
+**D4 — o não-fazer foi o mais valioso.** De 7 candidatos, só 2 receberam índice. Fora:
+`CLAUDE.md` e `ds-standards.md` (project instruction — chegam INTEIROS; índice ali é custo
+puro, o oposto do D1); `lessons.md` (o índice custaria **+3.178 tk** pra repetir o resumo
+que o agente já tem, e duas cópias da mesma lista divergem); e o `DESIGN.md` da raiz, que
+está no `.gitignore` — o índice nele não seria commitado e o teste passaria **na minha
+máquina** e quebraria no CI. Por isso o teste confere `git ls-files`, não "existe no disco".
+
+**E1 investigado — e o gap é maior do que eu havia reportado.** Eu disse "o canal npm não
+entrega o kit de IA". Medido: o kit chega em **2 dos 4** canais. Scaffold ✅ (o template
+gera com ele) e submódulo ✅ (`ds:link` projeta no pai). **Copy-in ❌** — nenhum dos 91 itens
+do registry carrega o payload. **npm ❌** — e **não pode**: pela L-056 o Claude Code só
+descobre `.claude/` na raiz do cwd, então pacote em `node_modules` não tem como fornecer um
+`.claude/` descobrível. Não é omissão no `files`; é restrição de mecanismo. O gap real é a
+falta de **ponte** pra npm e pra copy-in-em-projeto-existente: o `ds-link.mjs` fixa
+`mode: "submodule"`. Registrado em `architecture.md`; a decisão (criar ponte × documentar a
+restrição) é do mantenedor.
+
+**⛔ ERRO MEU: push direto na `main` (commit 2516d04).** O `git checkout -b` estava colado
+num comando cujo `node -e` tinha erro de sintaxe de shell. O bash falhou no **parse da linha
+inteira**, então nada executou — nem o `checkout -b`. Li o erro como "o script falhou",
+refiz só a edição, e nunca conferi a branch. Quatro comandos depois,
+`git push -u empresa "$(git rev-parse --abbrev-ref HEAD)"` resolveu pra `main`.
+
+Dois agravantes que são meus, não do bash: (1) usei `$(git rev-parse ...)` no push em vez do
+nome literal — com o nome literal o push teria falhado com `does not match any`, como falhou
+minutos antes, e eu teria descoberto o problema em vez de contorná-lo; (2) não conferi a
+branch depois de um erro, num fluxo em que vinha conferindo estado a cada passo.
+
+Recuperação: o mantenedor reverteu (`a0fff21`) e a mudança voltou pela PR #185. **Não tentei
+consertar sozinho** — desfazer exigiria revert ou force-push na `main`, as duas na mesma
+lista de seis proibições (L-020). É a L-020 na prática: o gate humano é parte do design.
+
+**Regra operacional derivada:** `git checkout -b` vai em comando **separado**, e o nome da
+branch no `push` vai **literal**, nunca por substituição de comando — substituição transforma
+erro detectável em push silencioso na `main`.
+
+**Assumption (duas):**
+1. *Reduzir o resumo auto-carregado não degrada o comportamento do agente.* Vale enquanto só
+   o que tem gate mecânico for rebaixado. Se voltarem erros que hoje não acontecem, a
+   assumption caiu e a linha removida volta.
+2. *Hook que sai com `exit 2` na via de pendência não faz o agente reinterpretar o Edit como
+   falho.* A mensagem diz explicitamente que o arquivo foi escrito. Se algum agente começar a
+   reescrever arquivo após o aviso, a assumption caiu — e a saída é o texto, não o exit code.

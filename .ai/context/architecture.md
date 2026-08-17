@@ -94,12 +94,39 @@ spacing/sizing/radius/elevation/tipografia vêm sempre de `brands/default/`.
 
 ## Distribuição — 4 canais, nenhum depreciado
 
-| Canal | Entrega | Gotcha crítico |
-|---|---|---|
-| **copy-in / registry** (`igreen:add`) | código copiado pro `src/` do consumidor | canal primário; deploy automático no merge |
-| **scaffold** (`npm create`) | projeto novo já em copy-in + kit de IA + prompt de marca | publish manual do CLI |
-| **npm install** | ESM + CJS + types + `theme.css` + 4 overlays + fontes Geist | **exige `@source`** cobrindo `dist-lib/**` — Tailwind v4 não escaneia `node_modules`, e sem isso ZERO classes são geradas, sem erro |
-| **submódulo git** (`ds:link`) | lê componentes do disco + projeta o kit de IA no `.claude/` do pai | deps e `.woff2` do Geist **não** vêm junto; `@source` **não** é necessário |
+| Canal | Entrega | Kit de IA? | Gotcha crítico |
+|---|---|:---:|---|
+| **copy-in / registry** (`igreen:add`) | código copiado pro `src/` do consumidor | ❌ | canal primário; deploy automático no merge |
+| **scaffold** (`npm create`) | projeto novo já em copy-in + prompt de marca | ✅ | publish manual do CLI |
+| **npm install** | ESM + CJS + types + `theme.css` + 4 overlays + fontes Geist | ❌ | **exige `@source`** cobrindo `dist-lib/**` — Tailwind v4 não escaneia `node_modules`, e sem isso ZERO classes são geradas, sem erro |
+| **submódulo git** (`ds:link`) | lê componentes do disco | ✅ | deps e `.woff2` do Geist **não** vêm junto; `@source` **não** é necessário |
+
+### ⚠️ O kit de IA chega em 2 dos 4 canais — medido em 2026-08-17
+
+O payload do consumidor (`cli/templates/default/_claude/`: orquestrador `ds-kit`, 13 skills
+de tela, 4 rules, hook `protect-ds`) é o que faz a IA do consumidor montar tela no padrão.
+Ele chega assim:
+
+| | Como |
+|---|---|
+| **scaffold** ✅ | o template já gera o projeto com `_claude/` → `.claude/` |
+| **submódulo** ✅ | `npm run ds:link` projeta o payload no `.claude/` do **pai** |
+| **copy-in** ❌ | **nenhum** dos 91 itens do `registry.json` carrega o payload — conferido |
+| **npm** ❌ | e **não pode**: pela L-056, o Claude Code só descobre `.claude/` na **raiz do cwd**. Pacote em `node_modules` não tem como fornecer um `.claude/` descobrível — embarcá-lo no tarball o colocaria onde a ferramenta nunca olha |
+
+**Não é omissão no `files` do `package.json` — é restrição de mecanismo.** Mas o gap real
+existe e não é o que parecia: o consumidor por **submódulo** tem uma ponte (`ds:link`); o
+consumidor por **npm** e por **copy-in em projeto existente** não tem nenhuma, e nenhum doc
+diz o que fazer. O `ds-link.mjs` fixa `mode: "submodule"` e roda de dentro do submódulo.
+
+⛔ **Consequência prática:** quem instala por npm ou puxa componentes por `igreen:add` num
+projeto que já existe recebe os componentes **sem** o vocabulário, sem os builders e sem o
+hook de integridade — ou seja, exatamente a IA que "cria botão errado mesmo com design
+system", que é o problema que o payload existe pra resolver.
+
+Decisão pendente do mantenedor: criar uma ponte (variante do `ds:link` que leia de
+`node_modules`, ou item de registry que instale o payload), ou documentar a restrição e
+orientar esses dois canais a usarem o scaffold quando quiserem o kit.
 
 Detalhe por canal: `README.md`, `SUBMODULE-SETUP.md`, `DISTRIBUICAO.md` e
 `cli/templates/default/_claude/rules/ds-channels.md` (a versão que o consumidor lê).
