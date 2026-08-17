@@ -12,11 +12,11 @@ description: >
 ## Antes de especificar
 
 ```
-1. Verificar component-inventory.md — componente já existe?
+1. Verificar `.ai/context/components/inventory.md` — componente já existe?
    Sim → PARAR. Não duplicar.
 2. Tem lógica interativa (modal, dropdown, foco, portal)? → Cenário 1 (Shadcn)
 3. Tokens necessários existem?
-   Não → criar tokens primeiro via /add-token antes de especificar o componente
+   Não → criar tokens primeiro via `/ds-add-token` antes de especificar o componente
    Só após tokens aprovados → continuar com a spec do componente
 ```
 
@@ -36,8 +36,16 @@ Especificar apenas o que o componente realmente precisa.
 - size: [listar apenas as relevantes]
 
 **Tamanhos** (tokens DS — NUNCA Tailwind literal):
-- sm: [min-h-form-* px-pad-* gap-gp-* rounded-radius-* text-label-*]
-- md: [min-h-form-* px-pad-* gap-gp-* rounded-radius-* text-label-*]
+- sm: [min-h-form-* px-pad-* gap-gp-* rounded-radius-* text-body-sm font-semibold]
+- md: [min-h-form-* px-pad-* gap-gp-* rounded-radius-* text-body-sm font-semibold]
+
+⛔ **`text-label-*` NÃO existe** — removido no rewrite de tipografia de 2026-05-19 (L-019).
+Os 7 roles atuais: `display` · `heading` · `title` · `body` · `caption` · `stat` · `code`.
+Peso via override Tailwind sobre o preset (`text-body-sm font-semibold`).
+
+> Este template prescreveu o preset morto até 2026-08-17 — quem o seguisse escrevia spec
+> cujas classes não emitem CSS. O gate `dead-theme-classes` **não pega**: ele cobre classe
+> de COR, e preset tipográfico não casa o padrão `text-fg-*`. Achado por dogfood.
 
 **Estados visuais:**
 - default: [classes DS]

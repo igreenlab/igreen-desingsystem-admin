@@ -238,7 +238,56 @@ Exemplo Assumption:
 
 Sem os três, a rota abre **em branco**. O CI reprova (`showcase-check`).
 
-1. `src/preview/pages/<Nome>Doc.tsx` — a doc page
+1. `src/preview/pages/<Nome>Doc.tsx` — a doc page. **O padrão está abaixo — não adivinhe.**
+
+```tsx
+   import { Kbd } from "../../components/ui/Kbd";       // relativo, não @/
+   import {
+     DocLayout, DocHeader, DocSeparator,
+     SectionH2, ExampleSection, PropsTable,
+   } from "../components";                              // o BARREL, não arquivo a arquivo
+
+   const TOC = [{ id: "tamanhos", label: "Tamanhos" }]; // ids = os das SectionH2
+
+   const KBD_PROPS = [                                  // o campo é defaultVal
+     { name: "size", type: "sm | md", defaultVal: "md", description: "..." },
+   ];
+
+   export function KbdDoc() {
+     return (
+       <DocLayout toc={TOC}>
+         <DocHeader category="Componentes" title="Kbd" description="..." />
+         <SectionH2 id="tamanhos" title="Tamanhos" />   {/* title, NÃO children */}
+         <ExampleSection id="ex-tamanhos" title="..." description="...">
+           {/* o preview */}
+         </ExampleSection>
+         <DocSeparator />
+         <SectionH2 id="props" title="Props" />
+         <PropsTable items={KBD_PROPS} />               {/* items, NÃO rows */}
+       </DocLayout>
+     );
+   }
+```
+
+   **As quatro pegadinhas**, medidas por dogfood em 2026-08-17. Cada uma custou uma
+   ida-e-volta no `tsc` — que é quem salva, mas depois de 4 tentativas:
+
+   | Erro natural | O certo |
+   |---|---|
+   | `from "../components/SectionH2"` | o barrel: `from "../components"` |
+   | `<SectionH2>Texto</SectionH2>` | prop `title`, não children |
+   | `<DocHeader title description />` | `category` é **obrigatória** |
+   | `<PropsTable rows={…}>` com `default:` | `items={…}` e o campo é **`defaultVal`** |
+
+   ⛔ **L-050 — `PropsTable` vai DIRETO sob `SectionH2`**, nunca dentro de
+   `ExampleSection`: as duas têm superfície própria (ring) e vira card-dentro-de-card. E
+   `SectionH2` tem `mb` sem `margin-top` — tabela seguida de heading cola; separe com
+   `DocSeparator`.
+
+   ⚠️ **Chave desconhecida num array de props é descartada em SILÊNCIO.** Array literal
+   atribuído a variável não dispara o excess-property check do TS. Já aconteceu: o
+   `AppShellDoc` escreveu uma `description` de 4 linhas que **nunca renderizou**. Confira o
+   tipo `PropItem` em `src/preview/components/doc-props-table.tsx` antes de inventar campo.
 2. `src/App.tsx` — **três** edições: `import { <Nome>Doc } from "./preview/pages/<Nome>Doc";`
    no topo, `"<id-kebab>",` no array `DOC_PAGES` **e**
    `{activePage === "<id-kebab>" && <<Nome>Doc />}` na cascata de render
