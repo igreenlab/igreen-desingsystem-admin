@@ -197,10 +197,22 @@ Quando DS Reviewer reprova:
 Quando arquivo ultrapassar ~100 entradas ou ~50KB:
 
 ```
-1. Mover entradas CONCLUÍDO/APROVADO com 30+ dias para .ai/status/archive/YYYY-MM.md
-2. Manter no arquivo ativo: últimas 20 entradas + todas PAUSADO/CASCATA abertas
+1. Mover SEÇÃO ENCERRADA inteira para .ai/status/archive/<descrição-do-conteúdo>.md
+2. Manter no arquivo ativo: a seção VIVA + todas PAUSADO/CASCATA abertas
 3. Registrar a operação como entrada CONCLUÍDO no arquivo ativo
+4. Atualizar .ai/status/archive/README.md (o índice do que está onde)
+5. Conferir que nada se perdeu: nº de entradas antes == depois + movidas
 ```
+
+⛔ **Por seção, não por data.** A versão anterior deste passo mandava mover "entradas
+CONCLUÍDO/APROVADO com 30+ dias", o que assume **um** log cronológico. O arquivo não é
+isso: tem seções paralelas, cada uma cronológica dentro de si, e as faixas de data se
+sobrepõem por inteiro — medido em 2026-08-17, agosto ia da linha 69 à 3315 e maio da 1264
+à 1687. Fatiar por data embaralharia seções diferentes e separaria entrada do contexto.
+
+⛔ **Nome pelo CONTEÚDO, não pela data do arquivamento.** `YYYY-MM.md` é ambíguo e já
+enganou: `archive/2026-06.md` contém entradas de **maio** (arquivadas em junho). Os
+cabeçalhos sempre disseram a verdade; o nome é que não. Ver `archive/README.md`.
 
 ---
 
