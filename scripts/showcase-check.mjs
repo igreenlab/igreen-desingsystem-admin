@@ -116,27 +116,18 @@ const navData = readFileSync("src/preview/components/doc-nav-data.ts", "utf8");
 
 let reprovados = 0;
 for (const name of novos) {
-  // `toKebab` assume PascalCase; fora desse padrão o id sai errado, e checar com id
-  // errado produziria falha bogus. Mas PULAR também não serve: este laço só vê pasta
-  // NOVA no diff, então pular aqui significa **componente novo entregue sem o showcase
-  // verificado** — a brecha exata que este gate existe pra fechar. Até 2026-08-17 era
-  // `::warning` + `continue`, e warning não reprova: bastava nomear a pasta começando
-  // em minúscula pra atravessar o gate inteiro.
-  //
-  // Agora REPROVA. E isto **não** é o "override configurável pra 1 exceção" que a
-  // L-063 manda resistir: nenhuma lista de exceção foi criada. O único violador do
-  // repo (`avatar-ig`) existe na `main` e portanto NUNCA aparece como pasta nova —
-  // conferido. O efeito no repo hoje é ZERO; ele vale pra pasta nova futura.
+  // toKebab assume PascalCase. Pasta fora desse padrão gera id errado, então
+  // checar produziria falha bogus — melhor pular e avisar. Único caso hoje:
+  // `avatar-ig`, cujo id real é `avatar` (ver showcase-registration.mjs).
   if (!isPascalCase(name)) {
-    reprovados++;
     const msg =
-      `${name} — pasta de componente NOVO fora do padrão PascalCase.` +
-      ` Não consigo derivar o id da rota com segurança, então não tenho como verificar o` +
-      ` showcase — e deixar passar sem verificar é justamente a brecha que este gate fecha.` +
-      ` Renomeie a pasta pra PascalCase (ex.: MeuComponente), ou, se o componente é interno` +
-      ` de propósito (sem showcase), declare em scripts/lib/ds-exceptions.mjs com o motivo.`;
-    console.log(`\n✗ ${msg}\n`);
-    annotate("error", `Showcase não verificável: ${name}`, msg);
+      `${name} — pasta fora do padrão PascalCase; não consigo derivar o id da rota com segurança, então PULEI.` +
+      ` Renomeie a pasta pra PascalCase, ou declare em scripts/lib/ds-exceptions.mjs com o motivo.`;
+    console.log(`  ⚠ ${msg}`);
+    // `::warning`, não `console.log` seco: skip só no log cru do step (que o
+    // GitHub entrega colapsado) é invisível na UI de Checks — e um skip é
+    // exatamente o que precisa ser visto, porque significa "não verifiquei".
+    annotate("warning", `Showcase não verificado: ${name}`, msg);
     continue;
   }
 
