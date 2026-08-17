@@ -107,26 +107,36 @@ O payload do consumidor (`cli/templates/default/_claude/`: orquestrador `ds-kit`
 de tela, 4 rules, hook `protect-ds`) é o que faz a IA do consumidor montar tela no padrão.
 Ele chega assim:
 
-| | Como |
-|---|---|
-| **scaffold** ✅ | o template já gera o projeto com `_claude/` → `.claude/` |
-| **submódulo** ✅ | `npm run ds:link` projeta o payload no `.claude/` do **pai** |
-| **copy-in** ❌ | **nenhum** dos 91 itens do `registry.json` carrega o payload — conferido |
-| **npm** ❌ | e **não pode**: pela L-056, o Claude Code só descobre `.claude/` na **raiz do cwd**. Pacote em `node_modules` não tem como fornecer um `.claude/` descobrível — embarcá-lo no tarball o colocaria onde a ferramenta nunca olha |
+| | Como | Estado |
+|---|---|---|
+| **scaffold** | o template já gera o projeto com `_claude/` → `.claude/` | ✅ |
+| **submódulo** | `npm --prefix <sub> run ds:link` projeta no `.claude/` do **pai** | ✅ **o canal mais usado** |
+| **copy-in** | `npx @snksergio/create-design-system --only-kit` na raiz | ✅ desde 2026-08-17 |
+| **npm** | mesmo comando, **com ressalva** — ver abaixo | ⚠️ parcial |
 
-**Não é omissão no `files` do `package.json` — é restrição de mecanismo.** Mas o gap real
-existe e não é o que parecia: o consumidor por **submódulo** tem uma ponte (`ds:link`); o
-consumidor por **npm** e por **copy-in em projeto existente** não tem nenhuma, e nenhum doc
-diz o que fazer. O `ds-link.mjs` fixa `mode: "submodule"` e roda de dentro do submódulo.
+**A ponte do copy-in fechou** (`--only-kit`): reusa o payload que o CLI já embarca, não cria
+projeto, e **nunca sobrescreve arquivo do consumidor** (preserva e reporta; `--force` força).
 
-⛔ **Consequência prática:** quem instala por npm ou puxa componentes por `igreen:add` num
-projeto que já existe recebe os componentes **sem** o vocabulário, sem os builders e sem o
-hook de integridade — ou seja, exatamente a IA que "cria botão errado mesmo com design
-system", que é o problema que o payload existe pra resolver.
+⛔ **Em projeto com submódulo o `--only-kit` RECUSA**, apontando o `ds:link`. Não é capricho:
+o `ds:link` detecta o alias do `tsconfig`/`vite` e escreve `ds-config.json` com `mode` +
+`importBase` — e é isso que faz as skills lerem os exemplos **do disco** em vez de chamar
+`igreen:add`. Copiar o payload sem esse config deixaria as skills dando instrução
+inaplicável, no canal mais usado. Detecção por dois sinais: `ds-config.json` com
+`mode: "submodule"`, ou pasta contendo `registry.json` + `tokens/`.
 
-Decisão pendente do mantenedor: criar uma ponte (variante do `ds:link` que leia de
-`node_modules`, ou item de registry que instale o payload), ou documentar a restrição e
-orientar esses dois canais a usarem o scaffold quando quiserem o kit.
+⚠️ **O npm segue parcial, e é limite de desenho, não de esforço.** Duas restrições:
+
+1. **O kit não chega automático**, e não pode: pela L-056 o Claude Code só descobre
+   `.claude/` na **raiz do cwd**; pacote em `node_modules` não fornece um descobrível.
+   Não é omissão no `files` — é mecanismo. O `--only-kit` resolve isso (escreve na raiz).
+2. **Mas as skills assumem copy-in.** Medido: **23** arquivos do payload referenciam
+   `igreen:add`, e o método dos builders é *"puxe o `example-*` e adapte"*. Quem consome só
+   por npm não tem `igreen:add` e recebe o exemplo **buildado**, sem poder editar. As rules
+   valem (tokens, anti-patterns, vocabulário); os builders pedem um comando que ele não tem.
+
+Fechar o npm de verdade exige um `mode: "npm"` nas 23 referências — é frente própria, com
+desenho antes de código, não item de checklist. Entregar o kit sem isso seria dar instrução
+inaplicável, que é a classe de defeito que este pipeline existe pra impedir.
 
 Detalhe por canal: `README.md`, `SUBMODULE-SETUP.md`, `DISTRIBUICAO.md` e
 `cli/templates/default/_claude/rules/ds-channels.md` (a versão que o consumidor lê).
