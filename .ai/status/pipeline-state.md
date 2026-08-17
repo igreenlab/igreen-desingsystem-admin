@@ -1951,3 +1951,76 @@ defeito que este pipeline existe pra impedir.
 Hoje ele está no `cli/README.md` e no `ds-channels.md` do payload — que ele só tem DEPOIS de
 rodar o comando. Se ninguém usar, a assumption caiu, e a correção é anunciar no lugar onde
 ele já olha: o `CLAUDE.md` do template e a página de instalação do showcase.
+
+---
+
+### 2026-08-17 | ds-dev | Dogfood #2 (Kbd) — 4 achados aplicados, 1 retratado | CONCLUÍDO
+
+**Input:** criar componente novo, percorrer o fluxo inteiro até o ato de publicar (simulado,
+sem publicar), remover o componente e reportar o aprendizado. Depois: avaliar os achados e
+aplicar.
+
+**Output:** duas PRs, ambas mergeadas — **nenhuma toca `src/`, `tokens/` ou `.styles.ts`**,
+então o risco de mudança visual é zero por construção, não por inspeção.
+
+| PR | Achado | O quê |
+|---|---|---|
+| #192 | 2 e 4 | 6 ocorrências de referência morta nas skills do `ds-designer`; o padrão da doc page no `impl-igreen` |
+| #193 | 1 | gate `dead-ds-classes` — 8 famílias, 9 testes |
+
+**O achado 1 é o único que produzia defeito visual no produto.** Escrevi `shadow-sh-xs` num
+`.styles.ts`; a sombra não existe (os degraus são `sm/md/lg/xl/2xl/none/aside/ring`), a classe
+fica no `className`, o CSS não casa, e o componente renderiza sem sombra. Com a classe morta
+no arquivo, **`tsc`, `lint:styles`, `dead-theme-classes` e `npm test` passavam todos** — o
+`dead-theme-classes` cobre cor, e o `lint:styles` caça Tailwind literal, não token DS
+inexistente. Gate novo em vez de estender o de cor porque classe de cor tem citação legítima
+em doc (o mapa `CITACOES`) e sombra/radius/spacing não têm: misturar os vocabulários
+afrouxaria o mapa de cor.
+
+O gate **nasce verde** (0 classes mortas hoje), então 3 dos 9 testes existem só pra provar que
+ele está olhando: injeta `shadow-sh-xs` no conteúdo real do `button.styles.ts` (L-064), exige
+que as 8 famílias casem uso real no repo, e exige `conferidos > 150` pra que "0 mortas" não
+possa significar "0 arquivos lidos".
+
+**O achado 3 foi RETRATADO — erro meu de medição.** Eu havia reportado que o
+`registry-add-item.mjs` omite o `USAGE.md`. Não omite: o filtro aceita `.md` e o `USAGE`
+aparece **primeiro** na lista (maiúscula ordena antes de minúscula). Eu tinha olhado a saída
+com `tail -22`, que cortou justo a primeira entrada, e concluí sobre o todo pelo recorte.
+Conferido rodando no `Chip`: 5 paths, `USAGE` incluído. Nada a corrigir naquele script.
+
+Foi a **quarta vez na mesma sessão** que um recorte de saída me levou a conclusão errada
+(antes: `grep` de índice casando prosa, `grep` de "burro" que o arquivo escreve como "view
+burra", e `grep` no `index.mjs` de um tarball cujo `cn()` o bundler pôs num chunk). É
+candidata a lição — ver PENDENTE abaixo.
+
+**O achado 5 ficou de fora por escolha:** o `PropsTable` descartar chave desconhecida em
+silêncio é preview-only (nenhum item do registry carrega `src/preview/components`, medido), e
+o conserto real é decisão de padrão TypeScript (`satisfies` em vez de anotação), não correção
+pontual.
+
+**O que o dogfood confirmou que as correções desta sessão funcionam:** o hook chegou no
+primeiro `Write` (era o defeito do `exit 0`), os gates de pre-commit disseram contra o que
+compararam ao não achar nada, e o barrel faltando deu **um** erro em vez de dois.
+
+**Suite:** 41 arquivos, 486 testes (eram 477). **Gates:** 27.
+
+**Assumption:** as 8 famílias do `dead-ds-classes` cobrem o vocabulário DS não-cor que
+aparece em `.styles.ts`. Se um prefixo dobrado novo entrar no transform (um `--motion-*`
+usado como classe, por exemplo) e ninguém adicionar a família, o gate segue verde sobre um
+eixo que não está olhando — e o teste "as 8 famílias acham uso real" **não** pega isso, porque
+ele confere as famílias que existem, não as que faltam.
+
+**PENDENTE — 2 candidatas a lição, aguardando confirmação do mantenedor** (o `CLAUDE.md`
+proíbe consolidar sem "sim"):
+
+1. **Canal do aviso é parte do aviso.** Hook informativo com `exit 0` não chega no agente —
+   nem stderr nem stdout. O aviso existia e ninguém lia. Adjacente à L-061 (no-op está
+   armado, não desligado), mas distinta: ali a dependência faltava; aqui o código roda e o
+   canal é que é surdo.
+2. **Recorte de saída não é evidência sobre a saída.** `tail`, `head` e `grep -c` respondem
+   pergunta diferente da que se está fazendo. Mesmo gênero da L-064 (propriedade computada
+   não é evidência de comportamento) e da L-069 (base por nome mente).
+
+Custo declarado, porque é justamente a preocupação da sessão: cada lição são ~90 tokens no
+resumo do `ds-standards`, que é project instruction — **180 tokens em 100% das sessões**. O
+formato completo vai no `lessons.md`, sob demanda.
