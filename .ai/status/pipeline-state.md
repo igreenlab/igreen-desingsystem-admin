@@ -3,6 +3,19 @@
 > Audit log append-only. Nunca apagar entradas — só adicionar.
 > Cada agente DEVE escrever aqui ao iniciar e concluir uma tarefa.
 
+<!-- doc-index:início — gerado por scripts/doc-index.mjs, não edite à mão -->
+
+**Índice**
+
+- [Formatos de entrada por status](#formatos-de-entrada-por-status)
+- [Log de sessões — ARQUIVADO](#log-de-sessões-arquivado)
+- [Sessão 2026-04 — Setup inicial do pipeline](#sessão-2026-04-setup-inicial-do-pipeline)
+- [Índice de componentes](#índice-de-componentes)
+- [Auditoria retroativa v0.3.0 — ARQUIVADA](#auditoria-retroativa-v030-arquivada)
+- [Índice de decisões arquiteturais](#índice-de-decisões-arquiteturais)
+
+<!-- doc-index:fim -->
+
 ---
 
 ## Formatos de entrada por status

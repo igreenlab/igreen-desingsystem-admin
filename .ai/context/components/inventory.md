@@ -5,6 +5,24 @@
 > Verificar aqui ANTES de criar qualquer componente novo.
 > Última atualização: 2026-08-08 (lib v0.36.0 · CLI v0.21.5 · registry 91 items)
 
+<!-- doc-index:início — gerado por scripts/doc-index.mjs, não edite à mão -->
+
+**Índice**
+
+- [Distribuição via registry shadcn (`@igreen/*`)](#distribuição-via-registry-shadcn-igreen)
+- [Estrutura de pastas](#estrutura-de-pastas)
+- [Componentes — shadcn/ (41 componentes)](#componentes-shadcn-41-componentes)
+- [Componentes — ui/ (iGreen puro) (42 componentes)](#componentes-ui-igreen-puro-42-componentes)
+- [Variantes e API por componente](#variantes-e-api-por-componente)
+- [Componentes planejados (não implementados)](#componentes-planejados-não-implementados)
+- [FloatingPanel API (resumo) — v0.3.0](#floatingpanel-api-resumo-v030)
+- [PageHeader API (resumo) — v0.3.0](#pageheader-api-resumo-v030)
+- [AppShell API expandida (v0.3.0)](#appshell-api-expandida-v030)
+- [Hooks e utils transversais](#hooks-e-utils-transversais)
+- [Regras de adição](#regras-de-adição)
+
+<!-- doc-index:fim -->
+
 ⚠️ **As contagens abaixo saem defasadas em silêncio** — nada as valida. Antes de confiar,
 confira contra a fonte:
 >
