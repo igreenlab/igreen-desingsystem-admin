@@ -16,6 +16,33 @@ submódulo estão descontinuados, está errado — e vale corrigir a fonte.
 | **submódulo git** | `git submodule add` + **dois** aliases no tsconfig/vite | **tudo** — o repo inteiro está no disco (ver os 3 passos abaixo) |
 | **scaffold** | `npm create @snksergio/design-system` | gera projeto copy-in já configurado (+ prompt "Tema de cor?") |
 
+### E o kit de IA — qual canal traz o `.claude/`
+
+O que faz a IA montar tela no padrão é o payload em `.claude/` (orquestrador `ds-kit`,
+skills de tela, rules auto-carregadas, hook de integridade). Ele **não** vem por todo canal:
+
+| canal | kit | como obter |
+|---|:---:|---|
+| **scaffold** | ✅ | já vem no projeto gerado |
+| **submódulo** | ✅ | `npm --prefix <submodulo> run ds:link` — projeta no `.claude/` do pai |
+| **copy-in** | ⚠️ | `npx @snksergio/create-design-system --only-kit` na raiz do projeto |
+| **npm** | ⚠️ | mesmo comando acima, **mas leia a ressalva** |
+
+⚠️ **Ressalva do canal npm.** As skills assumem copy-in: elas rodam
+`npm run igreen:add -- <item>` pra puxar componente e exemplo, e o método delas é *"puxe o
+`example-*` e adapte"*. Se você consome só por npm, não tem `igreen:add` e não pode editar
+o exemplo — ele vem buildado. O kit instala e as rules valem (tokens, anti-patterns,
+vocabulário), mas os builders vão te pedir um comando que você não tem.
+
+Por que o npm não pode receber o kit automaticamente: o Claude Code só descobre `.claude/`
+na **raiz do cwd**. Pacote em `node_modules` não tem como fornecer um `.claude/`
+descobrível — não é omissão no `files`, é restrição de mecanismo.
+
+⛔ **Em projeto com submódulo, o `--only-kit` RECUSA** e aponta o `ds:link`. Não é
+capricho: o `ds:link` detecta o alias do seu tsconfig/vite e escreve `ds-config.json` com
+`mode` + `importBase`, e é isso que faz as skills lerem do disco em vez de chamar
+`igreen:add`. Sem o config, você receberia instrução inaplicável.
+
 ## O alcance real do canal npm — medido, não estimado
 
 Desde a **0.37.0** o pacote npm entrega **duas entradas**:

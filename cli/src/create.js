@@ -35,6 +35,152 @@ const CLI_ROOT = resolve(__dirname, "..");
 const TEMPLATES_DIR = join(CLI_ROOT, "templates");
 const DEFAULT_TEMPLATE = "default";
 
+/* ──────────────────────────────────────────────────────────────────────────────
+ * MODO --only-kit: instala SÓ o kit de IA num projeto que já existe
+ *
+ * ## O furo que isto fecha
+ *
+ * Medido em 2026-08-17: o payload do consumidor (`_claude/`: orquestrador `ds-kit`,
+ * 13 skills de tela, 4 rules, hook de integridade) chegava em **2 dos 4 canais**:
+ *
+ *   scaffold   ✅  este CLI já gera o projeto com ele
+ *   submódulo  ✅  `npm run ds:link` projeta no `.claude/` do pai
+ *   copy-in    ❌  nenhum dos 91 itens do registry carrega o payload
+ *   npm        ❌  e não pode: o Claude Code só descobre `.claude/` na RAIZ do cwd
+ *                  (L-056), então pacote em node_modules não fornece um descobrível
+ *
+ * Consequência: quem puxava componentes com `igreen:add` num projeto que JÁ existia
+ * recebia o código sem o vocabulário, sem os builders e sem o hook — exatamente a IA
+ * que "cria botão errado mesmo com design system", que é o problema que o payload
+ * existe pra resolver.
+ *
+ * Este modo fecha o canal copy-in (e serve qualquer projeto), reusando o payload que
+ * este CLI já embarca. Não é canal novo: é o mesmo payload, sem o scaffold em volta.
+ *
+ * ## ⛔ Por que ele RECUSA em projeto com submódulo
+ *
+ * O `ds:link` faz mais que copiar: detecta o alias no tsconfig/vite e escreve
+ * `ds-config.json` com `mode: "submodule"` + `importBase`. As skills leem isso e
+ * **não** chamam `igreen:add` — leem os exemplos do disco.
+ *
+ * Copiar o payload aqui sem esse config deixaria as skills instruindo `igreen:add`
+ * num projeto que consome por submódulo: comando errado, e o consumidor não tem como
+ * saber que a instrução é inaplicável. Melhor recusar apontando o comando certo.
+ *
+ * E o submódulo é, disparado, o canal mais usado — errar nele é o pior caso.
+ * ────────────────────────────────────────────────────────────────────────────── */
+
+/** Payload do consumidor dentro do CLI publicado. */
+const KIT_SRC = join(TEMPLATES_DIR, DEFAULT_TEMPLATE, "_claude");
+
+/** Lista recursiva de caminhos relativos sob `dir`. */
+function walkRel(dir, base = dir) {
+  const out = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...walkRel(full, base));
+    else out.push(full.slice(base.length + 1).split("\\").join("/"));
+  }
+  return out;
+}
+
+/**
+ * O projeto consome o DS por submódulo? Dois sinais, qualquer um basta:
+ * um `ds-config.json` já escrito pelo `ds:link`, ou uma pasta que contenha o
+ * `registry.json` do DS (o repo do DS aninhado).
+ * @returns {string|null} o caminho detectado, ou null
+ */
+function detectaSubmodulo(cwd) {
+  const cfg = join(cwd, ".claude", "ds-config.json");
+  if (existsSync(cfg)) {
+    try {
+      const c = JSON.parse(readFileSync(cfg, "utf8"));
+      if (c?.mode === "submodule") return c.dsPath || ".claude/ds-config.json";
+    } catch {
+      /* config ilegível não é evidência de submódulo — segue a detecção por disco */
+    }
+  }
+  for (const cand of readdirSync(cwd)) {
+    const full = join(cwd, cand);
+    try {
+      if (!statSync(full).isDirectory() || cand === "node_modules" || cand.startsWith(".")) continue;
+      if (existsSync(join(full, "registry.json")) && existsSync(join(full, "tokens"))) return cand;
+    } catch {
+      /* pasta ilegível — ignora */
+    }
+  }
+  return null;
+}
+
+/**
+ * Instala o payload em `<cwd>/.claude/`, sem destruir o que já existe.
+ * @param {{cwd:string, force:boolean}} opts
+ */
+function installKit({ cwd, force }) {
+  console.log();
+  console.log(pc.bold(pc.green("iGreen DS — kit de IA")));
+  console.log(pc.dim("  Instala o orquestrador, as skills de tela, as rules e o hook de integridade"));
+  console.log();
+
+  if (!existsSync(KIT_SRC)) {
+    console.log(pc.red(`✗ payload não encontrado em ${KIT_SRC}`));
+    console.log(pc.dim("  Instalação do CLI incompleta — reinstale com `npm i -g @snksergio/create-design-system`."));
+    process.exit(1);
+  }
+
+  const sub = detectaSubmodulo(cwd);
+  if (sub) {
+    console.log(pc.yellow(`⚠ Este projeto consome o DS por SUBMÓDULO (detectado: ${sub})`));
+    console.log();
+    console.log("  Use o comando do próprio submódulo — ele faz mais que copiar:");
+    console.log(pc.cyan(`    npm --prefix ${sub} run ds:link`));
+    console.log();
+    console.log(pc.dim("  Ele detecta o alias do seu tsconfig/vite e escreve ds-config.json com"));
+    console.log(pc.dim("  mode+importBase. Sem isso, as skills mandariam rodar `igreen:add`, que"));
+    console.log(pc.dim("  não se aplica a submódulo — você receberia instrução errada."));
+    console.log();
+    process.exit(1);
+  }
+
+  const dest = join(cwd, ".claude");
+  const arquivos = walkRel(KIT_SRC);
+  const escritos = [];
+  const pulados = [];
+
+  for (const rel of arquivos) {
+    const src = join(KIT_SRC, rel);
+    const dst = join(dest, rel);
+    if (existsSync(dst) && !force) {
+      pulados.push(rel);
+      continue;
+    }
+    mkdirSync(dirname(dst), { recursive: true });
+    copyFileSync(src, dst);
+    escritos.push(rel);
+  }
+
+  console.log(pc.green(`✓ ${escritos.length} arquivo(s) em .claude/`));
+  if (pulados.length) {
+    console.log();
+    console.log(pc.yellow(`⚠ ${pulados.length} já existia(m) e foi(ram) PRESERVADO(s):`));
+    for (const p of pulados.slice(0, 8)) console.log(pc.dim(`    ${p}`));
+    if (pulados.length > 8) console.log(pc.dim(`    … e ${pulados.length - 8} outro(s)`));
+    console.log();
+    console.log(pc.dim("  Nunca sobrescrevo arquivo seu: seu settings.json e seus hooks podem ser"));
+    console.log(pc.dim("  próprios. Pra forçar a versão do DS: `--only-kit --force`."));
+  }
+
+  console.log();
+  console.log(pc.bold("Próximos passos"));
+  console.log("  1. Reabra o Claude Code na raiz do projeto (as rules carregam no início da sessão)");
+  console.log("  2. Peça uma tela: " + pc.cyan('"monte uma tela de clientes com tabela"'));
+  console.log();
+  console.log(pc.dim("  As skills assumem copy-in: elas rodam `npm run igreen:add -- <item>` pra"));
+  console.log(pc.dim("  puxar componente e exemplo. Se o seu projeto consome o DS por npm, veja"));
+  console.log(pc.dim("  .claude/rules/ds-channels.md — o alcance de cada canal está lá."));
+  console.log();
+}
+
 // Logo iGreen em ASCII — splash verde no fim do scaffold. Arte opcional: se o
 // arquivo sumir do pacote, segue sem ela (não quebra o CLI).
 let LOGO_ASCII = "";
@@ -372,7 +518,18 @@ async function main() {
   );
   console.log();
 
-  const argName = process.argv[2];
+  const argv = process.argv.slice(2);
+
+  // `--only-kit` instala só o payload num projeto existente e SAI — não cai no
+  // fluxo de scaffold abaixo, que criaria projeto novo. Ver o bloco de comentário
+  // no topo deste arquivo pra por que ele recusa em projeto com submódulo.
+  if (argv.includes("--only-kit")) {
+    installKit({ cwd: process.cwd(), force: argv.includes("--force") });
+    return;
+  }
+
+  // Nome do projeto = primeiro argumento que não seja flag.
+  const argName = argv.find((a) => !a.startsWith("-"));
   const defaultPm = detectPackageManager();
   const availableTemplates = listTemplates();
 

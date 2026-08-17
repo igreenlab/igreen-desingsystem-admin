@@ -21,6 +21,38 @@ npm run dev
 Browser opens at `http://localhost:3200`. The starter page works with zero
 components installed (uses theme tokens only) and lists the next steps.
 
+## Só o kit de IA, num projeto que já existe
+
+```bash
+npx @snksergio/create-design-system --only-kit
+```
+
+Instala apenas o `.claude/` — orquestrador `ds-kit`, as skills de tela, as rules
+auto-carregadas e o hook de integridade — no diretório atual. Não cria projeto, não toca
+em `package.json`, não instala dependência.
+
+Serve o caso que ficava descoberto: **projeto que já existe e puxou componentes com
+`igreen:add`**. Ele recebia o código sem o vocabulário, sem os builders e sem o hook — e o
+resultado é a IA compondo na unha mesmo tendo o design system instalado.
+
+**Nunca sobrescreve arquivo seu.** Se você já tem `.claude/settings.json` ou hooks
+próprios, eles são preservados e reportados. Pra forçar a versão do DS:
+
+```bash
+npx @snksergio/create-design-system --only-kit --force
+```
+
+⛔ **Em projeto que consome o DS por submódulo, ele recusa** e aponta o comando certo:
+
+```bash
+npm --prefix <pasta-do-submodulo> run ds:link
+```
+
+O `ds:link` faz mais que copiar: detecta o alias do seu `tsconfig`/`vite` e escreve
+`ds-config.json` com `mode` + `importBase`. As skills leem isso e **não** chamam
+`igreen:add` — leem os exemplos do disco. Copiar o payload sem esse config deixaria as
+skills te dando instrução inaplicável.
+
 ## What the CLI does
 
 1. Asks for the project name (or takes from arg)
