@@ -575,221 +575,28 @@ citada aqui, e confere a contagem do próprio título acima. Em 2026-08-08 falta
 - **L-049** `registryDependency` pode ficar **dangling** pra componente **bundlado** em outro item: `data-list` importa `TableToolbar`, que não tem item próprio (vive dentro de `data-table`) → `@igreen/table-toolbar` não resolve e o `igreen:add` quebra. Ao editar o registry, valide que cada `registryDependency` existe como item.
 - **L-050** Showcase: `PropsTable` vai **direto** sob `SectionH2`, nunca dentro de `ExampleSection` — as duas têm superfície própria (ring) e vira card-dentro-de-card. E `SectionH2` tem `mb` sem `margin-top`: tabela seguida de heading cola.
 
-### `container` não dobra prefixo — `max-w-md`, nunca `max-w-container-md` (L-057)
+### Infra de gate, distribuição e armadilhas de plataforma (L-055 a L-069)
 
-Exceção única do sistema: o transform emite `--container-md`, que **sobrescreve** a escala
-nativa do Tailwind. Classe correta = **`max-w-md`** (768px do DS) / `max-w-tooltip-lg` /
-`max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa
-(não quebra build nem tsc). Detalhe + por que não mudamos o transform: `lessons.md` L-057.
+> Estas 15 entraram como seções de prosa entre 2026-07 e 2026-08 — cada uma pequena, e
+> somadas **3.616 tokens** contra os ~87/lição dos bullets acima. A seção promete o
+> *atalho 1-linha*; o detalhe integral de cada uma está no `lessons.md`, que é sob demanda.
+> Voltaram ao formato em 2026-08-15 (item D1 do plano de fechamento). Nada foi removido.
 
-### As 8 superfícies são DETECÇÃO, não burocracia (L-058)
-
-`ChoroplethMap` tinha só código + USAGE + barrel (1 de 7). Um merge de reorganização o
-tirou da `main` e **nenhum sinal disparou** — não havia inventory pra ficar órfã, doc page
-pra renderizar em branco, nem item de registry pra quebrar. Quem descobriu foi um app em
-produção, meses depois. Além disso, ele usava `d3-geo`/`topojson-client` **sem declarar no
-`package.json` do DS** — compilava só porque o consumidor declarava (L-037). Regra: feche
-as superfícies ANTES de considerar pronto, e confira as deps reais do arquivo contra o
-`package.json` do DS. Detalhe: `lessons.md` L-058.
-
-### Composições de dashboard/lista = receita, não componente (L-055)
-
-Telas convergindo num padrão (dashboard, **KPI-group "Painel do Líder"**, **fusão
-KPI+evolução**, **chart-card**, **card dividido em 2**, distribuição de **tabela/lista**)
-→ padronizar = **capturar a receita** com os primitivos existentes
-(`Kpi`/`KpiGroup`/`Chart`/`Panel`/`DataTable`/`DataList`) na fonte única
-`.ai/context/components/dashboard-patterns.md` (referenciada por showcase + exemplos +
-builders), **não** criar mega-componente de página. Componentiza-se só o gap de átomo —
-ex.: `KpiDelta` ganhou `signed` (tom verde/vermelho + seta pelo sinal do value; opt-in,
-`tone`/`direction` explícitos vencem). Dois recipes de ícone: KPI-group = **círculo**
-`size-form-lg rounded-radius-full`; mini-stat/legenda/status = **quadrado** `size-comp-lg
-rounded-radius-base`; rank = círculo pequeno `size-comp-sm`.
-
-### Consumidor via submódulo = 4º canal; `ds-link` dá paridade (L-056)
-
-Claude Code só auto-descobre `.claude/` na **raiz do cwd** — não desce pra
-`<submodulo>/.claude/`. Consumidor por **git submódulo** fica sem o kit de IA (ao contrário do
-npm, que recebe o payload no scaffold). `scripts/ds-link.mjs` (`npm run ds:link`) projeta o
-**mesmo payload consumidor** (`cli/templates/default/_claude`) pro `.claude/` do pai —
-idempotente, re-rodar pós-`git pull`; `--unlink` desfaz. Três regras: (1) o "modo submódulo"
-mora no **payload** (`cli/templates/default/_claude/skills/*` — crud/list/dashboard + ds-kit),
-que lê `.claude/ds-config.json` gerado pelo ds-link → resolve `importBase` e **não** roda
-`igreen:add` (lê componentes/exemplos direto de `<dsPath>/src`); (2) ds-link **exclui**
-`hooks/`+`settings.json` (copy-in-specific, miram `src/components/**`); (3) detecta o alias no
-tsconfig/vite (fallback `@ds`). Regra pra IA: ao mexer no kit do consumidor, lembrar que
-submódulo é um dos 4 canais e consome o MESMO payload. Doc: `SUBMODULE-SETUP.md` + L-056.
-
-### Gate mecânico só pra regra errada independente de contexto — L-004/L-007 saem do grep (L-059)
-
-Medição dos greps antigos de `ds-lint-styles.sh` contra os 40 `*.styles.ts` do repo: **51
-hits, 50 ruído, 1 real**. 33 eram `p-0`/`gap-0` (não existe token DS pra zero, resets
-legítimos); 9 eram `rounded-full` (numericamente **idêntico** ao token DS — nunca pode ser
-defeito, ao contrário de `rounded-sm..3xl`, que divergem de verdade); 8 eram `outline-none`
-no `TableToolbar` com foco visível em **todos** — metade via `focus-visible:shadow-sh-ring`
-no próprio elemento, o resto via `focus-within:` no **wrapper** (outro bloco `tv()`) — grep
-não vê nenhum dos dois. Regra: gate mecânico (grep/CI) só pra regra errada
-**independente de contexto** (valor divergente do token, classe inexistente — L-001/L-002/
-L-003/L-005); regra que exige contexto cross-elemento (L-004) ou julgamento de intenção
-(L-007) fica só pro revisor semântico, nunca no grep. O **ratchet** (só linha que o diff
-adicionou) é o que torna o gate viável de ligar — 14/40 arquivos já tinham débito legado.
-Detalhe: `lessons.md` L-059.
-
-### Texto que descreve o mecanismo errado é pior que texto nenhum (L-060)
-
-Comentário, doc e mensagem de erro são load-bearing: quem lê **para de investigar**. 4 instâncias
-numa sessão, nenhuma pega por build/tsc/teste/lint — texto é o único artefato que ninguém executa.
-(1) comentário do `ci.yml` jurava que rascunho não escapava do check — escapava, e permanentemente;
-(2) 7 docs anunciavam um formatador que nunca rodou, 2 delas mudando **comportamento de agente**
-("o hook formata automaticamente" → o agente não formatava); (3) mensagem de erro mandava
-"inclua no IGNORE deste script" **depois** de a lista virar módulo único — obedecer recriava a
-duplicação; (4) doc se contradizia dentro do mesmo arquivo. Regra: ao escrever frase que **afirma
-garantia** de um mecanismo, verifique a garantia — sem poder verificar, descreva o que o código faz,
-não o que ele garante; ao **mover** fonte de verdade, grep nas mensagens/docs que apontam pro lugar
-antigo (viram instrução pra desfazer a mudança); ao revisar, trate frase de garantia como afirmação
-testável. Detalhe: `lessons.md` L-060.
-
-### No-op por dependência ausente ≠ desligado — está ARMADO (L-061)
-
-`format-on-save.sh` chamava `npx --no-install prettier` num projeto onde `prettier` nunca esteve no
-`package.json`: no-op mudo desde sempre. O problema não é o silêncio — é que **a dependência que
-falta pode aparecer**. Um `npx prettier` de validação de YAML populou o cache do npx e o hook ligou
-sozinho no Edit seguinte, reformatando um arquivo inteiro e mutilando pseudo-código. Mecanismo
-desativado por **decisão** não volta; mecanismo inerte por **dependência ausente** volta — e como
-nunca rodou, ninguém sabe o que faz quando roda. Regra: hook/check que depende de binário externo
-**declara a dependência** no `package.json` ou **falha visível** (no-op mudo é o pior dos três);
-decidir não usar = **remover**, não deixar inerte; ao achar mecanismo que "não faz nada", pergunte
-se está desligado ou **armado sem munição**. Decisão 2026-07-29: sem formatador automático no
-projeto, formatação **na mão** espelhando o vizinho. Detalhe: `lessons.md` L-061.
-
-### `--diff-filter=A` é cego a rename; "novo" = não existia no base (L-062)
-
-Rename de pasta vem como status **`R`**, não `A` → `git mv Foo Bar` passava pelo gate de showcase
-sem check nenhum, o buraco da L-058 (foi assim que o `ChoroplethMap` saiu da `main`). A cegueira
-ainda mascarou um teste que parecia falhar por outro motivo. Fix em **duas** camadas, porque cada
-uma sozinha erra pra um lado: `--no-renames` (decompõe rename em `D`+`A`) **mais** "pasta é nova só
-se não existia no base ref" (`git cat-file -e <merge-base>:<path>`) — sem a segunda, qualquer
-arquivo adicionado em pasta existente disparava o check (medido: acusava `Chart`, documentado em 8
-páginas, e `Icon`, com instrução errada). Regra: check que detecta "coisa nova" por diff nunca
-confia em `--diff-filter=A` sozinho; prefira **"não existia antes"** a "tem arquivo adicionado"; e
-valide com **commit real de rename** do histórico, não só com arquivo novo. Detalhe: `lessons.md`
-L-062.
-
-### Id derivado por convenção valida a convenção (L-063)
-
-`toKebab()` derivava id de rota assumindo PascalCase; das 42 pastas de `ui/`, **uma** não segue
-(`avatar-ig`, id real `avatar`) e seria reprovada estando correta. Decisão: **sem** API de override
-(YAGNI pra 1 em 42) — o CLI **pula** o que não passa por `isPascalCase()` e emite `::warning`
-(não `console.log`: aviso fora da UI de Checks é aviso que não existe). Regra: ao derivar
-identificador de um nome (pasta→rota, arquivo→chave), **meça** quantos casos reais seguem a
-convenção antes de assumir; valide e **pule + avise** em vez de derivar errado em silêncio; resista
-a override configurável pra 1 exceção. Detalhe: `lessons.md` L-063.
-
-### Gate novo só vale depois de reproduzir o defeito que ele existe pra pegar (L-064)
-
-Duas vezes no mesmo dia eu escrevi um check, validei pelo sinal que EU supunha ser o
-certo, e o check era **cego ao bug que motivou sua existência**: o `lib-verify` disse "ok"
-com o tarball caindo de 959 pra 123 arquivos, e o `api-doc-check` devolveu 0 finding no
-commit real que ele existe pra pegar (assumi `{arquivo:[string]}`; o parser devolve `Map`
-de `{n,text}`). O padrão não é descuido, é **ordem de trabalho**: teste escrito a partir
-do mesmo modelo mental que gerou o código concorda por construção — não é evidência
-independente. Regra: gate novo só está pronto depois de **reproduzir o defeito real** e
-ver reprovar; use **dado real** (commit do histórico) e monte a entrada do teste **pela
-função de produção** que a gera. E **propriedade computada não é evidência de
-comportamento** — `items-center` virou `center` no computed e o pixel não saiu do lugar
-(shadow DOM); onde o render é do UA, só medição visual vale. Detalhe: `lessons.md` L-064.
-
-### Dogfood pega o que a simulação não pega — só o consumidor real exercita os artefatos (L-065)
-
-Validei o "filtro nativo" (v0.30.3) por dois caminhos. A **simulação** (agentes cegos com a
-orientação do consumidor + o pedido) disse **passou**. Mas um **sandbox de consumidor real**
-(scaffold da CLI + `igreen:add`, Claude limpo pedindo a tela) achou **2 bugs** que a simulação
-não pegou: (1) `Modal` importava `"../../shadcn/dialog"` **relativo** — o rewrite do copy-in só
-reescreve **alias**; relativo é preservado → aponta pra `shadcn/` inexistente no consumidor →
-**crash do app** (mesmo padrão no `MessageVariablesPicker`); fix = alias + **gate standing** no
-`registry-check` (o warning do `registry-add-item` é propose-time, não pega legado). (2)
-`defaultViews` (`owner:"preset"`) não viravam aba porque o `TableToolbarViews` só auto-pinava
-`owner:"me"` → com `allowCreateView={false}` os presets ficavam **inalcançáveis**, ao contrário
-do que USAGE/L-054/skill prometiam; fix = preset auto-pina como aba fixa. **Regra:** simulação
-valida a **orientação** (steer); **dogfood** valida os **artefatos distribuídos** (copy-in,
-componente real) — só o consumidor real exercita isso. Detalhe: `lessons.md` L-065.
-
-### Override escopado gerado como DIFF precisa de seletor mutuamente exclusivo (L-066)
-
-`brand-<x>.css` emite só o **diff** vs. default em 2 blocos: `[data-theme="x"]` (light) e
-`.dark[data-theme="x"]`. Mas `[data-theme]` e `.dark` têm a **mesma especificidade** (0,1,0) e o
-overlay é importado **depois** do tema-base → o bloco light vencia o `.dark` por ordem de fonte.
-Todo token que a marca muda no light **mas cujo dark é idêntico ao da default** (logo ausente do
-diff dark) recebia o valor **claro** no dark. Medido: `vibrant` vazava **13** (`bg-subtle`/`bg-muted`
-= `#fafafa` no dark), `blue` e `green` **1 cada** (`fg-strong` — título escuro em fundo escuro,
-bug vivo em marca publicada), `pay` 0 só porque diverge nos 2 modos em tudo que toca. Assimetria
-perversa: **quanto mais a marca se parece com a default no dark, mais vaza**. Fix de 1 linha:
-`[data-theme="x"]:not(.dark)` → blocos mutuamente exclusivos; regenerar as 4 marcas mudou só o
-seletor, nenhum valor. **Regra:** diff escopado **aposta na omissão**, e omissão herda de quem
-vencer o empate de especificidade — ao gerar override por diff, garanta exclusão mútua com o
-outro eixo e verifique de qual regra o token omitido herda em CADA combinação. **Nenhum gate
-pegou** (tsc 0, 159 testes, `dead-theme-classes` OK, contraste 10/10 — eu media os valores dos
-arquivos TS, não o que o cascade resolvia); quem achou foi o mantenedor num print. L-064 de novo:
-ao mexer em tema, **medir no browser com cada combinação de eixos ativa**. Detalhe: `lessons.md` L-066.
-
-### `@keyframes` com nome do framework é no-op mudo — e parece funcionando (L-067)
-
-O `globals.css` tinha 5 `@keyframes`, e a leitura do código dizia "divergência
-showcase↔consumidor": `pulse` redefinia `50% { opacity: 0.3 }` contra o `0.5` nativo, em **10
-usos distribuídos**. O **build** mostrou o contrário — `dist/assets/*.css` emitia
-`@keyframes pulse{50%{opacity:.5}}` já na `main`, e continuava emitindo depois de mover o
-bloco pro tema. A declaração perdia nos dois lugares: **`@keyframes` cujo nome o Tailwind ou
-o `tw-animate-css` já possui não sobrescreve**, independente da ordem no fonte.
-
-Só há dois desfechos, ambos ruins: nome do framework → **no-op silencioso** (e quem lê o
-código acredita num comportamento que nunca existiu); nome próprio → funciona no showcase e
-**não chega** nos outros 3 canais. Animação do DS pertence ao tema gerado, com **nome
-próprio** (`ds-pulse`, não `pulse`).
-
-**Regra prática:** antes de mover ou duplicar regra CSS entre arquivos, **grep no artefato
-BUILDADO** pra ver qual declaração sobrevive. Ler CSS-fonte e afirmar comportamento é o mesmo
-erro de ler token e afirmar pixel (L-066). Gate: `runtime-base.test.mjs` proíbe `@keyframes`
-e `--animate-*` no `globals.css`.
-
----
-
-### `<a href>` em componente de navegação exige integração de router (L-068)
-
-O `MenuSidebar` renderizava `<a href={item.href}>` **sem `preventDefault`**: com href de
-**path** (`/app/clientes`) o browser recarregava a página inteira a cada clique de menu.
-Quem descobriu foi um **consumidor em produção**. Nenhum gate pegou porque o exemplo
-canônico usa href de **HASH** (`#/app/clientes`), e fragmento não recarrega documento —
-"segunda regra de ouro" numa superfície nova: **forma do dado de teste**, não CSS.
-
-Três regras: (1) componente que emite `<a href>` aceita `renderLink` (**render-prop**, não
-`linkComponent` — prop de *tipo de componente* escrita inline remonta a subárvore a cada
-render); (2) cancelar navegação tem **5 exceções** e cada uma quebraria algo real — clique
-modificado, `target="_blank"`, href externo, **href de hash** (cancelar impede o
-`hashchange`) e ausência de handler; a regra mora em `MenuSidebar/nav-link.ts`, exportada e
-testada por exceção; (3) **fixture com forma diferente da de produção não é teste** — se o
-exemplo usa `#/rota` e o consumidor usa `/rota`, o exemplo não cobre o consumidor. Detalhe:
-`lessons.md` L-068.
-
-### Base de gate por NOME de remote mente — `origin` aqui é o fork parado (L-069)
-
-`lint-styles --ratchet`, `showcase-check` e `api-doc-check` tinham `origin/main` como base
-default, e o `npm run lint:styles` chumbava esse ref. Mas `origin` neste repo é o **fork
-pessoal parado** (Regra 8): medido em 2026-08-10, `origin/main` estava em **2026-05-20** e
-`empresa/main` em 2026-08-10 — 3 meses. Numa PR de 3 arquivos, os gates diziam **17
-violações** em `shadcn/`, **exit 1** acusando `Chart` de "componente novo sem showcase" (o
-MESMO falso positivo que a L-062 consertou — critério certo, base errada: segunda causa raiz)
-e 20+ `fatal:` do git. Contra a base canônica: **0 em todos**.
-
-Durou porque a saída era **plausível** — "débito de Tailwind literal em primitivos shadcn" é
-o passivo que o repo sabe ter, então quem rodava não estranhava. L-059 num nível acima: gate
-correto medindo contra a referência errada.
-
-Regra: **resolva por URL, não por nome** (`scripts/lib/canonical-base-ref.mjs` — canônico = o
-remote que aponta pro `igreenlab/igreen-desingsystem-admin`, se chame `origin` no CI ou
-`empresa` local); **base explícita manda** (o CI passa `origin/${{ github.base_ref }}`, e a
-resolução só entra quando ninguém passou — por isso é zero-risco pro CI); **imprima a base
-resolvida sempre** (base silenciosa foi o que escondeu isto); e a mensagem de erro cita o
-remote **resolvido**, não `origin` (mandar `git fetch origin main` aqui é instrução pra
-reproduzir o bug — L-060). Detalhe: `lessons.md` L-069.
+- **L-055** Tela que converge num padrão (dashboard, KPI-group, chart-card, card dividido) → **capture a receita** com os primitivos existentes em `.ai/context/components/dashboard-patterns.md`; **não** crie mega-componente de página. Componentiza-se só o gap de átomo. Ícone: KPI-group = círculo `size-form-lg rounded-radius-full`; mini-stat/legenda = quadrado `size-comp-lg rounded-radius-base`.
+- **L-056** Claude Code só descobre `.claude/` na **raiz do cwd** — consumidor por **submódulo** fica sem o kit de IA. `npm run ds:link` projeta o MESMO payload do consumidor no `.claude/` do pai (idempotente; `--unlink` desfaz), exclui `hooks/`+`settings.json` e gera `ds-config.json` com `importBase`. Submódulo é 1 dos **4** canais.
+- **L-057** `container` é a **única** exceção que não dobra prefixo: o transform emite `--container-md` e sobrescreve a escala nativa. Use **`max-w-md`** (768px do DS) / `max-w-tooltip-lg` / `max-w-modal-sm`. **`max-w-container-*` não existe** e não emite CSS — falha silenciosa. Gate: `dead-theme-classes`.
+- **L-058** As 8 superfícies são **detecção**, não burocracia: o `ChoroplethMap` tinha 3 delas, saiu da `main` num merge de reorganização e **nenhum sinal disparou** — quem achou foi um app em produção, meses depois. Confira também as deps reais do arquivo contra o `package.json` (ele usava `d3-geo`/`topojson` sem declarar). Gate: `deps-declared`.
+- **L-059** Gate mecânico só pra regra **errada independente de contexto** (valor divergente, classe inexistente). Regra que exige contexto cross-elemento (L-004) ou julgamento de intenção (L-007) fica **só** com o revisor: medido, os greps antigos davam **51 hits, 50 ruído**. O **ratchet** (só linha adicionada) é o que torna o gate ligável.
+- **L-060** Comentário, doc e mensagem de erro são **load-bearing**: quem lê para de investigar. Ao escrever frase que **afirma garantia**, verifique a garantia — sem poder verificar, descreva o que o código faz, não o que ele garante. Ao **mover** fonte de verdade, grep nas mensagens que apontam pro lugar antigo (viram instrução pra desfazer a mudança).
+- **L-061** No-op por dependência ausente **não é desligado — está ARMADO**: o `format-on-save` era no-op mudo até um `npx` popular o cache e ele reformatar arquivo sozinho. Hook/check que depende de binário externo **declara a dependência** ou **falha visível**; decidir não usar = **remover**, não deixar inerte.
+- **L-062** `--diff-filter=A` é **cego a rename** (status `R`) → `git mv Foo Bar` passava sem check. Use `--no-renames` **mais** o critério *"não existia no base ref"* (`git cat-file -e <merge-base>:<path>`) — só o primeiro dispararia em qualquer arquivo novo dentro de pasta existente. Valide com **commit real de rename**. Gate: `new-component-folders`.
+- **L-063** Ao derivar identificador de um nome (pasta→rota), **meça** quantos casos reais seguem a convenção: das 42 pastas de `ui/`, **uma** não é PascalCase (`avatar-ig`) e seria reprovada estando correta. Valide e **pule + avise** (`::warning`, não `console.log`) em vez de derivar errado em silêncio. Resista a override configurável pra 1 exceção.
+- **L-064** Gate novo só está pronto depois de **reproduzir o defeito real** e ver reprovar — teste escrito a partir do mesmo modelo mental que gerou o código concorda **por construção**. Use **dado real** (commit do histórico) e monte a entrada **pela função de produção**. E **propriedade computada não é evidência de comportamento**: onde o render é do UA, só medição visual vale.
+- **L-065** **Simulação valida a orientação; dogfood valida os artefatos.** Um sandbox de consumidor real (scaffold + `igreen:add`) achou 2 bugs que a simulação não pegou — import **relativo** cross-dir sobrevivendo ao rewrite do copy-in (crash do app) e `defaultViews` inalcançável com `allowCreateView={false}`. Só o consumidor real exercita o que é distribuído.
+- **L-066** Override escopado gerado como **diff** aposta na omissão, e omissão herda de quem vencer o empate: `[data-theme]` e `.dark` têm a **mesma especificidade**, então o bloco light vencia o dark por ordem de fonte — a `vibrant` vazava **13** tokens claros no escuro. Garanta exclusão mútua (`[data-theme="x"]:not(.dark)`) e **meça no browser com cada combinação de eixos ativa**.
+- **L-067** `@keyframes` com nome que o Tailwind ou o `tw-animate-css` já possui **não sobrescreve** — no-op silencioso, e quem lê o código acredita num comportamento que nunca existiu. Animação do DS vai no tema gerado, com **nome próprio** (`ds-pulse`, não `pulse`). Antes de mover/duplicar regra CSS, **grep no artefato BUILDADO** pra ver qual declaração sobrevive.
+- **L-068** Componente que emite `<a href>` precisa de integração de router: aceite **`renderLink`** (render-prop — `linkComponent` escrito inline remonta a subárvore a cada render), e cancelar navegação tem **5 exceções** que quebrariam algo real (clique modificado, `target="_blank"`, href externo, **href de hash**, ausência de handler). Fixture com forma diferente da de produção **não é teste**: o exemplo usava `#/rota` e o consumidor usava `/rota`.
+- **L-069** Base de gate por **nome** de remote mente: `origin` aqui é o fork parado, e medir contra ele deu **17 violações** e um `exit 1` falso, tudo plausível. Resolva por **URL** (`canonical-base-ref.mjs`), deixe **base explícita mandar**, **imprima a base resolvida sempre**, e cite na mensagem de erro o remote **resolvido** — mandar `git fetch origin main` aqui é instrução pra reproduzir o bug.
 
 ---
 
