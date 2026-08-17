@@ -67,24 +67,19 @@ Toda entrada CONCLUÍDO, APROVADO e PAUSADO (gate) inclui `Assumption`. Torna de
 
 Dev encontra token inexistente → PARAR → sinalizar Orchestrator → registrar PAUSADO em pipeline-state → Designer cria token (gate) → retomar implementação.
 
-### Hooks automáticos (autonomia do pipeline)
+### Hooks automáticos
 
-Três hooks PostToolUse rodam sem intervenção quando Claude edita arquivos. Eles fecham os loops das lições mais comuns sem depender de invocação manual de DS Reviewer:
+→ **A tabela dos 5 hooks está no `CLAUDE.md`** §"Hooks automáticos (pipeline autônomo)" —
+gatilho, o que cada um faz, e **qual deles alcança o agente**. Os dois arquivos são project
+instruction: manter a tabela em ambos gastava **1.884 tokens em 100% das sessões** pra
+descrever os mesmos 5 hooks, e duas cópias divergem (foi o que aconteceu com a afirmação
+"Claude vê", falsa nos dois até 2026-08-17).
 
-| Hook                    | Trigger                                            | O que faz                                                                                                                                                                                                                                                                                                                      |
-| ----------------------- | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `ds-lint-styles.sh`     | Edit/Write em `src/components/**/*styles.{ts,tsx}` | Delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv. L-004 e L-007 saíram (semânticas: exigem contexto cross-elemento ou julgamento de intenção — L-059). Sai com `exit 0`, então o aviso **NÃO chega no agente** — vive só no `hook-log.txt` (medido 2026-08-17; consulte o log após mexer em componente). Fica assim de propósito: em `--file` ele varre o arquivo inteiro, e 10 dos 223 arquivos têm débito legado que o ratchet congela. No CI o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado                                                                                                                                                  |
-| `ds-inventory-check.sh` | Edit/Write em `src/components/ui/<Nome>/**`        | Alerta se USAGE.md ausente, se não consta no `inventory.md` (L-016), se não consta em `registry.json` (não será distribuído), se está no registry mas **fora do vocabulário do consumidor** (`cli/templates/default/_claude/rules/ds-components.md` ∪ o `CLAUDE.md` do template — a MESMA união que o `distribution-debt.mjs` mede), ou se a **DocPage existe mas não está roteada** no `App.tsx`/`DOC_PAGES`+nav (render em branco) — L-042. Exceção deliberada e "showcase registrado" vêm dos MESMOS módulos puros que o CI usa (`ds-exceptions.mjs` + `showcase-registration.mjs`, uma chamada `node -e`) — nunca reimplemente essas regras no shell; fail-open (probe caído → eixo pulado, `exit 0` sempre) |
-| `ds-tokens-check.sh`    | Edit/Write em `tokens/**/*.ts`                     | Alerta pra rodar `tokens:tw4` + lembra que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`). Tokens/theme versionados pelo stamp = `package.json.version`                                                                                                                                         |
-
-Logs em `.ai/scratch/hook-log.txt`. Bloqueio só acontece em `block-rm-rf.sh` (Bash perigoso) e `block-sensitive-edit.sh` (.env, credentials, migrations) — os hooks DS não desfazem o Edit. ⚠️ Mas `exit 0` também não ALCANÇA o agente (medido 2026-08-17: nem stderr nem stdout). Por isso `ds-inventory-check` e `ds-tokens-check` passaram a sair com **`exit 2`** quando têm pendência — o harness mostra a mensagem como "blocking error" e o arquivo continua escrito, porque PostToolUse roda depois da tool. O `ds-lint-styles` segue em 0 (ver a linha dele na tabela).
-
-⛔ **Não existe formatador automático, por decisão (2026-07-29).** `prettier` nunca esteve no
-`package.json`, então o antigo `format-on-save.sh` (`npx --no-install prettier`) era no-op — mas
-**ligaria sozinho** se alguém populasse o cache do npx, reformatando arquivo sem pedido (aconteceu
-uma vez, mutilando pseudo-código de uma skill). Hook e script removidos. **Formate na mão**,
-espelhando o código vizinho. Toda doc que dizia "o hook formata" foi corrigida — se você encontrar
-alguma sobra afirmando isso, é bug de doc.
+O essencial, que vale repetir em uma linha porque muda comportamento: **nenhum dos 3
+informativos desfaz o Edit**; `ds-inventory-check` e `ds-tokens-check` saem com `exit 2` e
+**chegam** no agente; o `ds-lint-styles` sai 0 e **não chega** — depois de mexer em
+componente, consulte `.ai/scratch/hook-log.txt`. Bloqueiam de verdade só o `block-rm-rf` e o
+`block-sensitive-edit`.
 
 ### Auto-review na release (`/ds-release`)
 
