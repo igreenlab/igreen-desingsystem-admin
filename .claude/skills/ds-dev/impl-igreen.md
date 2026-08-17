@@ -219,9 +219,14 @@ import { tv, type VariantProps } from "@/utils/tv"  // NUNCA "tailwind-variants"
 - [ ] Imports de outros componentes via alias específico `@/components/(shadcn|ui)/<x>`
   (NUNCA relativo cross-dir `../../shadcn/x` nem barrel — quebra a distribuição copy-in)
 - [ ] `.ai/context/components/inventory.md` atualizado
-- [ ] **Registry (distribuição):** `node scripts/registry-add-item.mjs <Nome>` → revisar a
-  entrada proposta (registryDeps + deps + ⚠ imports cross-dir) → adicionar ao `registry.json`.
-  A distribuição entra no próximo `/ds-release` (Passo 6.2b). Sem isso, não é consumível.
+- [ ] **Registry — NÃO nesta entrega.** `registry.json` é a superfície 5 e consolida no
+  `/ds-release` (Regra 8 / L-042: "1–4 no PR; 5/6/7 no release"). O que fazer aqui é **anotar
+  no corpo da PR** que falta registrar. Se quiser adiantar a entrada proposta pra quem fizer a
+  release, rode `node scripts/registry-add-item.mjs <Nome>` e **cole a saída no PR** — sem
+  editar o `registry.json`.
+  > Até 2026-08-15 este item mandava adicionar ao `registry.json` **e**, vinte linhas abaixo,
+  > a seção de showcase dizia "não faz parte desta entrega: `registry.json`". O mesmo arquivo
+  > se contradizia, e quem seguisse o checklist mexia num arquivo que a revisão mandaria tirar.
 - [ ] `pipeline-state.md` atualizado com formato CONCLUÍDO incluindo campo `Assumption`
 
 Exemplo Assumption:

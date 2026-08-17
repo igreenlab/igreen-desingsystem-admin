@@ -125,6 +125,19 @@ O lint pega Tailwind literal; estes exigem ler o código:
   existe em 6 de 42 componentes; exigir sempre seria errado.
 - **`ComponentsOverviewDoc`** — *advisory*: sugira adicionar, não reprove. Não
   consta na L-042 e o arquivo tem ~13 lacunas pré-existentes.
+- **Responsividade** — o componente funciona em **375px** de largura? Não é greppável, e
+  nenhum gate olha: `sm:`, `md:`, `max-md` e "responsiv" têm **zero** ocorrência nos 23
+  módulos de `scripts/lib/` (medido em 2026-08-14). Três perguntas concretas: (1) conteúdo
+  em linha que deveria empilhar — grade fixa de 2+ colunas sem `grid-cols-1` no breakpoint
+  pequeno; (2) largura mínima que estoura o container — `min-w-*` cru, tabela sem
+  `overflow-x` no próprio wrapper; (3) flutuante que vira **bottom-sheet** no mobile
+  (L-030) — o wrapper precisa da regra do tema, e ela mora no `to-tailwind-v4.ts`, nunca
+  no `globals.css`.
+- **Alvo de toque no mobile** — controle interativo que o dedo alcança usa
+  **`min-h-form-xl` (44px)**, o piso do WCAG. ⚠️ Não confunda com o item "`min-h-form-*`
+  nunca `h-*`" do checklist acima: aquele é sobre não cravar altura; este é sobre o
+  **degrau** ser suficiente. `min-h-form-md` (36px) é legítimo no desktop e insuficiente
+  no toque — se o componente é usado nos dois, precisa do degrau maior no mobile.
 - **Paridade com o componente-irmão** — componente que precisa **parecer** outro tem
   que usar os MESMOS tokens, e isso nenhum lint pega: as classes são todas válidas,
   só divergem. O DS tem precedentes explícitos — botão que precisa parecer campo de
