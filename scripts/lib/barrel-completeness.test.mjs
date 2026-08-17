@@ -106,7 +106,15 @@ describe("barrel-completeness — o repo hoje", () => {
     expect(semChart, "a linha de export do Chart mudou — ajuste o teste").not.toBe(real);
 
     const { faltando } = checkBarrelCompleteness({ exportadas: barrelExports(semChart) });
-    expect(faltando.map((f) => f.pasta)).toEqual(["Chart"]);
+    // `toContain`, não `toEqual([...])`: o que este teste prova é que remover o Chart
+    // do barrel É ACUSADO. Igualdade exata acoplaria a prova ao repo estar completo —
+    // qualquer componente em andamento (pasta criada, export ainda não escrito) fazia
+    // ESTE teste falhar junto com o de completude, e a mensagem
+    // (`expected [ 'Chart', 'Foo' ] to deeply equal [ 'Chart' ]`) lê como bug do teste,
+    // não como erro do autor. Dois erros para um engano, e só para quem está no meio
+    // do trabalho — medido em 2026-08-14. O gate de completude (acima) é quem cobra a
+    // lista inteira; aqui basta a detecção.
+    expect(faltando.map((f) => f.pasta)).toContain("Chart");
   });
 
   it("o barrel não referencia pasta de ui/ que não existe", () => {

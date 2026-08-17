@@ -98,7 +98,16 @@ try {
 }
 
 if (!novos.length) {
-  console.log("\n✓ showcase-check: nenhum componente novo nesta PR.\n");
+  // Diz CONTRA O QUÊ comparou, e que só olha o que está COMMITADO. Sem isso a
+  // mensagem lia como "está tudo certo": rodando local antes do commit — que é o
+  // que o checklist do `impl-igreen` manda fazer — a pasta nova existe no disco,
+  // não existe no `HEAD`, e o check respondia "nenhum componente novo". Falso
+  // verde medido em 2026-08-14, com a pasta untracked E com ela staged.
+  console.log(
+    `\n✓ showcase-check: nenhum componente novo em ${base}...HEAD.\n` +
+      `  (compara o que está COMMITADO — trabalho untracked ou apenas staged é invisível aqui;\n` +
+      `   se você acabou de criar a pasta e ainda não commitou, este ✓ não diz nada sobre ela)\n`,
+  );
   process.exit(0);
 }
 
