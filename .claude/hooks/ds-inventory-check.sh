@@ -205,9 +205,26 @@ if [ -n "$MISSING" ]; then
     echo ""
     echo "   L-016: USAGE.md + inventory.md devem ser atualizados no MESMO commit do componente."
     echo ""
+    echo "   ℹ️  O arquivo FOI escrito — este hook é PostToolUse, roda depois e não desfaz nada."
+    echo "      Não repita o Edit: siga e feche as pendências acima."
+    echo ""
   } >&2
-else
-  echo "[$TS] ds-inventory-check: OK   $COMP_NAME" >> "$LOG_FILE" 2>/dev/null
+  echo "[$TS] ds-inventory-check: exit 2 (mensagem entregue ao agente)" >> "$LOG_FILE" 2>/dev/null
+  # ⛔ `exit 2`, não 0 — e isto foi MEDIDO em 2026-08-17, não escolhido por estilo.
+  #
+  # Com `exit 0`, a saída deste hook NÃO CHEGA no agente: nem por stderr, nem por
+  # stdout. Testado com Write real num componente — o resultado da tool voltou limpo
+  # e a mensagem existia só no hook-log.txt, que ninguém abre sem motivo. Três docs
+  # afirmavam "warning em stderr — não bloqueia, mas Claude vê". Não via.
+  #
+  # Com `exit 2` a mensagem chega, rotulada pelo harness como "blocking error" — e o
+  # arquivo continua escrito, porque PostToolUse roda DEPOIS da tool. Daí a linha
+  # explícita acima: sem ela o agente pode ler "blocking" e tentar reescrever.
+  #
+  # Só a via de PENDÊNCIA sai 2. Caminho OK e caminho fail-open seguem 0 — hook que
+  # grita sempre é hook ignorado (L-059).
+  exit 2
 fi
 
+echo "[$TS] ds-inventory-check: OK   $COMP_NAME" >> "$LOG_FILE" 2>/dev/null
 exit 0

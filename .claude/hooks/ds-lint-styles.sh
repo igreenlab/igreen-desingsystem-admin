@@ -73,5 +73,17 @@ else
   echo "[$TS] ds-lint-styles: SKIP (node ausente) $FILE" >> "$LOG_FILE" 2>/dev/null
 fi
 
-# Nunca bloqueia o Edit — só o CI decide reprovar.
+# ⛔ Este hook FICA em `exit 0`, e é decisão medida — não esquecimento.
+#
+# Em 2026-08-17 os outros dois hooks informativos passaram a `exit 2`, porque com
+# `exit 0` a saída não chega no agente (medido: nem stderr nem stdout). Aqui NÃO se
+# aplica, e o motivo é o modo: `--file` varre o ARQUIVO INTEIRO, sem noção de diff.
+#
+# Medido no mesmo dia: 10 dos 223 arquivos de `src/components/` têm violação legada —
+# exatamente o passivo que o ratchet do CI congela de propósito. Com `exit 2`, editar
+# um deles avisaria a pessoa sobre débito que ela não criou, TODA vez. Aviso que
+# atrapalha vira aviso ignorado (L-059), e o efeito seria o oposto do pretendido.
+#
+# Quem reprova violação NOVA é o ratchet no CI (só linha adicionada pelo diff). Aqui
+# a saída fica no hook-log.txt — consulte-o após mexer em componente.
 exit 0

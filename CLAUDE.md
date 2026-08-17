@@ -177,7 +177,20 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
 
-Os 3 primeiros são informativos — nunca bloqueiam o Edit, só sinalizam pelo stderr. Quando ver o aviso, corrija antes de continuar.
+Os 3 primeiros são informativos: **nenhum desfaz o Edit** — são PostToolUse, rodam depois.
+Mas o canal deles não é igual, e isso foi **medido em 2026-08-17**:
+
+| Hook | Sai com | Chega no agente? |
+|---|---|---|
+| `ds-inventory-check` · `ds-tokens-check` | **2** quando tem pendência | ✅ sim — o harness mostra como *"blocking error"*, e o arquivo **continua escrito** |
+| `ds-lint-styles` | sempre **0** | ❌ não — só no `hook-log.txt`. **Consulte o log após mexer em componente** |
+
+> ⚠️ Até 2026-08-17 os três saíam com `exit 0`, e esta linha afirmava que o aviso chegava
+> "pelo stderr". **Não chegava** — testado com Write real: nem stderr nem stdout de um hook
+> `exit 0` aparecem no resultado da tool. Os avisos existiam só no log, que ninguém abre sem
+> motivo. O `ds-lint-styles` segue em `exit 0` **de propósito**: em modo `--file` ele varre o
+> arquivo inteiro, e 10 dos 223 arquivos de `src/components/` têm débito legado que o ratchet
+> do CI congela — avisar sobre ele em cada Edit seria aviso ignorado (L-059).
 
 ⛔ **Não há formatador automático — e é deliberado (decisão de 2026-07-29).** `prettier` não
 está no `package.json`; havia um hook `format-on-save.sh` que o chamava via

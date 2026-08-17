@@ -50,6 +50,15 @@ echo "[$TS] ds-tokens-check: WARN $FILE" >> "$LOG_FILE" 2>/dev/null
   echo "    versão nova + embed + deploy). Tokens/theme são versionados pelo stamp ="
   echo "    package.json.version. Se mexeu em cn/tv/theme: rode npm run cli:rebake + bump do CLI."
   echo ""
+  echo ""
+  echo "  ℹ️  O arquivo FOI escrito — este hook é PostToolUse e não desfaz nada."
+  echo "     Não repita o Edit: siga e rode os comandos acima."
+  echo ""
 } >&2
 
-exit 0
+# ⛔ `exit 2`, não 0 — MEDIDO em 2026-08-17. Com `exit 0` a saída deste hook não chega
+# no agente (nem stderr, nem stdout): fica só no hook-log.txt, que ninguém abre sem
+# motivo. Com `exit 2` chega, rotulada pelo harness como "blocking error", e o arquivo
+# continua escrito porque PostToolUse roda DEPOIS da tool. Daí a linha explícita acima.
+# Comentário longo com a medição inteira: ds-inventory-check.sh.
+exit 2
