@@ -104,6 +104,7 @@
     "registry:stamp": "node scripts/registry-stamp.mjs",
     "registry:build": "npm run examples:drift && npm run tokens:tw4 && npm run registry:stamp && npx shadcn@4.17.0 build",
     "release:check": "node scripts/registry-check.mjs --ci && node scripts/brand-check.mjs && node scripts/distribution-debt.mjs --ci && node scripts/examples-drift-check.mjs --ci && npm run registry-app:audit",
+    "pronto": "npm test && npm run release:check",
     "registry-app:audit": "npm audit --audit-level=high --prefix registry-app",
     "distribution:debt": "node scripts/distribution-debt.mjs",
     "lint:styles": "node scripts/lint-styles.mjs --ratchet",
