@@ -2057,6 +2057,7 @@
         "@igreen/tv",
         "@igreen/header",
         "@igreen/menu-sidebar",
+        "@igreen/single-menu-sidebar",
         "@igreen/avatar",
         "@igreen/dropdown-menu"
       ],
@@ -4037,6 +4038,7 @@
       "registryDependencies": [
         "@igreen/button",
         "@igreen/form-field",
+        "@igreen/input",
         "@igreen/popover",
         "@igreen/separator",
         "@igreen/tv"

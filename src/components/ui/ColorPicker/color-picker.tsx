@@ -7,7 +7,11 @@ import {
   PopoverTrigger,
 } from "@/components/shadcn/popover";
 import { Separator } from "@/components/shadcn/separator";
-import { Input } from "@/components/shadcn";
+// Importa o ARQUIVO, não o barrel: `@/components/shadcn` não existe no consumidor —
+// no copy-in os primitivos caem soltos em `components/ui/`, e o rewrite só traduz a
+// forma `@/components/shadcn/<x>`. O barrel passava pelo `registry-check` porque ele
+// checa import RELATIVO pra shadcn, não o alias.
+import { Input } from "@/components/shadcn/input";
 import { FormField } from "@/components/ui/FormField";
 import { Button } from "@/components/ui/Button";
 import { getContrastTextColor } from "@/utils/color-contrast";
