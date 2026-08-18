@@ -2252,3 +2252,63 @@ qualquer elemento com transição. No Chrome real: timeline andando, e o ciclo f
 fora é indistinguível de um toggle. Quem persistir esse estado (localStorage) recebe escrita a
 cada passagem de mouse. Se incomodar, o caminho é o Single expor a origem da mudança; hoje
 ele não expõe.
+
+---
+
+### 2026-08-18 | ds-dev | Gate `mechanism-surfaces` — mecanismo mudou, a doc acompanhou? | CONCLUÍDO
+
+**Motivo.** O mantenedor observou que, depois do InputOTP, eu declarei "está tudo certo" e mais
+tarde apareceram a falta do registry e duas afirmações falsas — e perguntou se isso não prova
+falha de fluxo do pipeline. Provou, mas não onde eu tinha dito.
+
+**Medição, e a correção da minha própria análise.** Eu havia chamado o "está tudo certo?" de
+falha grave. Medido: o passo 6.3 do `ds-dev/release.md` roda `tsc --noEmit` + `npm test` +
+`release:check` abortando no primeiro erro, e `registry-check --ci` é `if (isCi) fail = 1`. O
+registry **não** chegaria ao npm sem registro — a dívida de distribuição é informativa na PR
+**de propósito** (dois comentários no `ci.yml` explicam: bloquear por-PR colidiria com a Regra 8)
+e bloqueante no `release:check`. O que quebrou foi só a minha resposta verbal, com consequência
+limitada. Registrado porque eu superestimei a gravidade em voz alta antes de medir.
+
+**A falha real, essa sem nenhuma guarda:** as duas afirmações falsas **foram publicadas** pra
+consumidor (CLI 0.25.0 e 0.25.1). Os 7 gates de paridade do repo não ligam mecanismo →
+regra/skill que o descreve; o `showcase-doc-facts`, o vizinho mais próximo, só olha
+`src/preview/pages/*Doc.tsx`, não o payload.
+
+**Entregue.** `scripts/lib/mechanism-surfaces.mjs` + teste (11 casos), dentro do `npm test` →
+CI em toda PR contra qualquer base. Vigia 2 fatos × 5 superfícies: o `AppShell` montar
+`sidebar="single"` (3 superfícies) e o submódulo ter proteção desde o CLI 0.24.0 (2). Cada fato
+declara a sonda do **mecanismo** que o sustenta; sonda que para de casar vira
+`premissa-sumiu`, não no-op (L-061). Alias `npm run pronto` (`npm test && release:check`) —
+conveniência, explicitamente **não** um gate.
+
+**Decisão de desenho: afirmação POSITIVA, nunca "frase errada ausente".** Proibir a frase falsa
+reprovaria as notas de retratação que o repo escreve por convenção — a `ds-components.md` diz
+em prosa corrida *"esta linha dizia que … : era falso"*. Filtrar retratação por marcador é
+heurística sobre texto livre (L-059). Asserção positiva não tem ambiguidade e reproduz o
+defeito: nas duas vezes a versão quebrada não tinha a asserção.
+
+**As fixtures reais reprovaram DUAS versões do meu próprio código** — o método da L-064
+funcionando, não uma formalidade:
+
+1. `linhasDeTabela` exigia que a linha começasse com `|`. A tabela de proteção da
+   `ds-design.md` vive **dentro de blockquote** (`> | **submódulo** | …`), nas duas versões —
+   o gate ignorava a tabela inteira e passaria batido no defeito. Pegou a fixture do commit
+   `84515b4^`, não meu raciocínio sobre o formato.
+2. `celula: /submódulo/i` casava também `| **submódulo git** | git submodule add | tudo … |`,
+   linha da tabela de **comparação de canais** da `ds-channels.md`, que não fala de proteção e
+   não tem ✅ — falso-positivo. Ancorado em `^\|\s*\*\*submódulo\*\*\s*\|`.
+
+**Regressões:** nenhuma. tsc 0 · test **46 arquivos / 548 testes** (+11) · `release:check`
+exit 0. Nenhuma doc viva afirma contagem de gates, então não há superfície de contagem a
+atualizar (as que aparecem no grep são entries históricas deste log, preservadas por L-019).
+
+**Lição nova:** nenhuma. Passou pelas 4 perguntas do `Auto-update protocol` e reprovou na
+primeira: **dá gate** — e o gate é justamente o que foi entregue. Escrever L-070 dizendo
+"procure as outras superfícies quando mudar mecanismo" seria cobrar de 100% das sessões o que
+o `npm test` agora faz sozinho.
+
+**Assumption:** os 2 fatos vigiados são os que quebraram, não os que **vão** quebrar. O gate
+só protege fato declarado em `FATOS` — não descobre superfície nova sozinho. A aposta é que
+declarar um fato ao mudar um mecanismo é barato o bastante (1 regex por superfície) pra
+acontecer; se a lista ficar parada em 2 enquanto o pipeline muda, o gate passa a produzir
+ilusão de cobertura — e o sinal a observar é `verificados` parado enquanto o payload cresce.
