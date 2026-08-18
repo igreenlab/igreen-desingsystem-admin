@@ -46,6 +46,36 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "cli-0.24.0",
+    date: "2026-08-18",
+    tag: "release",
+    title: "A rede de segurança do DS passou a valer pra quem usa submódulo",
+    summary:
+      "Release do **CLI** (`@snksergio/create-design-system@0.24.0`) — a lib não mudou (segue em 0.39.1; nenhum arquivo de `src/components/` ou `tokens/` foi tocado). Quem consome o DS como **submódulo**, que é hoje a maior parte do uso, recebia o kit de IA **sem a proteção que o kit promete**: nada avisava se o tema ou os tokens do DS fossem editados dentro do submódulo, e o código escrito no projeto não passava por nenhuma verificação de estilo. E a documentação carregada em toda sessão afirmava que a proteção estava ativa — quem lia, IA inclusive, concluía que havia rede onde não havia nenhuma. Agora ela chega. O motivo da exclusão original era real e metade certo: as regras do verificador confundiam as pastas do projeto com as do DS, e teriam reclamado de arquivos do próprio dono. Isso foi resolvido ensinando o verificador a distinguir os dois — e o que ficava de fora junto, sem nenhum motivo, era justamente a checagem de estilo, que não depende de pasta alguma.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Verificação de integridade e de estilo no canal submódulo.** O verificador passou a reconhecer como o DS está instalado e a agir de acordo: bloqueia edição manual do tema, dos tokens e da fundação **dentro** do submódulo, e avisa quando o código novo do projeto usa medida fora do sistema (altura fixa, espaçamento cru, cor em hexadecimal). Antes disso o canal não tinha nenhuma das duas coisas. Como o arquivo de configuração do editor pertence ao dono do projeto, o comando de instalação **não o altera**: ele imprime o trecho pronto pra colar e repete o aviso a cada execução até que esteja no lugar.",
+          "**Verificação automática de classe inexistente também na documentação que a IA do consumidor lê.** Uma classe de espaçamento, sombra ou arredondamento que não existe no tema não gera erro nenhum: ela fica escrita, o estilo não é aplicado, e o elemento aparece sem o efeito. Isso agora reprova antes de entrar — e passou a valer para os arquivos que **ensinam** a IA, onde o erro é pior, porque sai daqui e se repete no projeto de outra pessoa.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Os valores de espaçamento documentados em duas fontes estavam deslocados um degrau.** A escala citada dizia que dois espaçamentos valiam 12px e 16px quando valem 10px e 12px, e a partir daí afirmava que a escala não tinha um degrau de 20px — ela tem. O erro estava num arquivo carregado em toda sessão, o que significa que a IA vinha sendo instruída com medida errada. As fontes canônicas de espaçamento sempre estiveram corretas; o erro vivia no texto longo de uma lição e na cópia que saiu dele.",
+          "**A documentação de canais afirmava que a proteção vinha no submódulo.** Passou a declarar o estado real e o passo que falta, com uma coluna própria pra isso na tabela de canais.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O protocolo interno de registro de lições ganhou filtro.** Ele mandava, sem nenhuma condição, transformar todo aprendizado novo em lição registrada no arquivo mais caro do pipeline — o que é um mandato de crescimento, e foi o que triplicou esse arquivo em quatro meses. Agora um achado só vira lição se passar por quatro perguntas, sendo a primeira *\"isso dá verificação automática?\"* — porque verificação custa zero por sessão e não depende de alguém lembrar. Na estreia, o filtro reprovou as duas lições propostas na mesma sessão.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.39.1",
     date: "2026-08-15",
     tag: "patch",

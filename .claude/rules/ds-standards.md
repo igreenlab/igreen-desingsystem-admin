@@ -207,8 +207,8 @@ shadow-md  → shadow-sh-md
 
 ```typescript
 // ❌ ERRADO — semântico genérico em form
-<form className="flex flex-col gap-gp-lg">    // 12px — apertado
-<form className="flex flex-col gap-gp-xl">    // 16px — ainda curto
+<form className="flex flex-col gap-gp-lg">    // 10px — apertado
+<form className="flex flex-col gap-gp-xl">    // 12px — ainda curto
 <div className="grid grid-cols-2 gap-gp-md">  // grids dentro de form
 
 // ✅ CORRETO — token DS específico
