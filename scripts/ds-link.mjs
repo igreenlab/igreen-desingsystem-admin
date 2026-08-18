@@ -236,10 +236,28 @@ log(
 );
 log("");
 
-// hooks/ + settings.json do payload são específicos de copy-in (protect-ds / ds-lint
-// miram `src/components/**`, layout que o submódulo não tem) → não projetar no submódulo.
-// Aproveita-se só o que é path-agnóstico: commands, skills, rules.
-const EXCLUDE = (rel) => rel === "settings.json" || rel.startsWith("hooks/");
+// Só o `settings.json` fica fora: ele é do PAI, e sobrescrevê-lo apagaria a config dele.
+// Os hooks passam a ser projetados (2026-08-18).
+//
+// ⚠️ Até esta data a exclusão era `settings.json` **+ hooks/**, justificada assim: *"miram
+// `src/components/**`, layout que o submódulo não tem"*. A razão era metade verdadeira, e a
+// metade errada custava caro:
+//
+//   verdade   `src/styles/theme/` casava por `includes` o src DO CONSUMIDOR → o hook
+//             bloqueava arquivo dele. Medido: exit 2 onde devia ser 0. Projetar o hook
+//             como estava era mesmo inseguro.
+//   erro      o **lint de conteúdo** do mesmo hook (hex cru, `gap-4`, `h-10`,
+//             `rounded-lg`) não tem dependência de layout NENHUMA — ele olha o texto
+//             sendo escrito. Foi excluído junto, e com ele o único mecanismo que pega
+//             anti-pattern no código do consumidor. Medido contra o hook antigo: ele
+//             **já pegava** `h-10 gap-4` numa tela do consumidor (exit 1). A capacidade
+//             existia; o que a desligava era esta linha.
+//
+// O `protect-ds.mjs` agora lê o `ds-config.json` e prefixa os paths gerenciados com
+// `<dsPath>/`, o que elimina o falso positivo e torna a projeção segura. Registrar o hook
+// no `settings.json` do pai segue sendo DELE — ver o aviso no fim deste arquivo, que só
+// detecta e imprime o snippet, como já se faz com o alias.
+const EXCLUDE = (rel) => rel === "settings.json";
 const files = walk(PAYLOAD).filter((rel) => !EXCLUDE(rel));
 const prev = readJSON(MANIFEST, { files: [] });
 const prevSet = new Set(prev.files || []);
@@ -442,12 +460,30 @@ if (!DRY) {
   writeFileSync(CLAUDE_MD, md);
 }
 
+// O hook projetado só roda se estiver REGISTRADO, e o `settings.json` é do pai — ver o
+// aviso no fim do arquivo. Declarado aqui porque o summary logo abaixo mostra o estado.
+const REGISTRO_HOOK = {
+  PreToolUse: [
+    { matcher: "Edit|Write|MultiEdit", hooks: [{ type: "command", command: "node .claude/hooks/protect-ds.mjs" }] },
+    { matcher: "Bash", hooks: [{ type: "command", command: "node .claude/hooks/protect-ds.mjs" }] },
+  ],
+};
+const settingsDoPai = join(DEST, "settings.json");
+const hookRegistrado = (() => {
+  try {
+    return readFileSync(settingsDoPai, "utf8").includes("protect-ds.mjs");
+  } catch {
+    return false;
+  }
+})();
+
 // ── summary ───────────────────────────────────────────────────────
 log(`  ✓ ${written.length} arquivos projetados em .claude/`);
 if (removed.length) log(`  ✓ ${removed.length} obsoletos removidos`);
 if (skipped) warn(`${skipped} colisão(ões) puladas — use --force pra sobrescrever`);
 log(`  ✓ .claude/ds-config.json  (modo submódulo, alias ${alias})`);
 log(`  ✓ bloco ds:link no CLAUDE.md`);
+log(`  ${hookRegistrado ? "✓" : "○"} .claude/hooks/protect-ds.mjs  (${hookRegistrado ? "registrado" : "PROJETADO, falta registrar — ver aviso abaixo"})`);
 if (designStatus) log(`  ✓ DESIGN.md na raiz  (${designStatus})`);
 log(`  ✓ fontes Geist em public/fonts  (${fontesStatus})`);
 log(
@@ -479,6 +515,33 @@ if (existsSync(join(DS_ROOT, "node_modules", "react"))) {
       `    Conserto: apague a pasta ${dsPathRel}/node_modules, restaure o lockfile dele\n` +
       `        git -C ${dsPathRel} checkout -- package-lock.json\n` +
       `    e mantenha  resolve.dedupe: ["react", "react-dom"]  no seu vite.config.`
+  );
+}
+
+/*
+ * O hook de integridade FOI projetado (acima), mas hook só roda se estiver REGISTRADO no
+ * `settings.json` — e esse arquivo é do pai: sobrescrevê-lo apagaria a config dele. Mesma
+ * situação do alias, mesma solução: detectar, não escrever, imprimir o snippet pronto.
+ *
+ * Por que isto merece aviso próprio: até 2026-08-18 o `ds:link` nem projetava os hooks, e
+ * o `ds-channels.md` — auto-carregado em toda sessão do consumidor — listava "hook de
+ * integridade" como parte do kit e marcava submódulo ✅. Ou seja, a IA e o humano liam que
+ * havia rede de segurança onde não havia nenhuma. O arquivo agora chega; sem estas 8 linhas
+ * de registro ele continua inerte, e inerte-mas-presente é a L-061 (não está desligado,
+ * está ARMADO). Então o aviso existe até o registro acontecer.
+ */
+if (!hookRegistrado && !DRY) {
+  warn(
+    `HOOK DE INTEGRIDADE não registrado — o arquivo está lá, mas não roda.\n` +
+      `    Sem ele nada avisa quando o tema/tokens do DS são editados dentro do submódulo,\n` +
+      `    e o código que você escreve não passa por lint de estilo (h-10, gap-4, hex cru).\n` +
+      `    ${existsSync(settingsDoPai) ? `Some o bloco "hooks" no seu .claude/settings.json` : `Crie .claude/settings.json com`}:\n\n` +
+      JSON.stringify(existsSync(settingsDoPai) ? REGISTRO_HOOK : { hooks: REGISTRO_HOOK }, null, 2)
+        .split("\n")
+        .map((l) => `      ${l}`)
+        .join("\n") +
+      `\n\n    Não escrevo esse arquivo por você: ele é seu, e sobrescrever apagaria sua config.\n` +
+      `    Depois de colar, REINICIE o Claude Code (hook é lido no início da sessão).`
   );
 }
 

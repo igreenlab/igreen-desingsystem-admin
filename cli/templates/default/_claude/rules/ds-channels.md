@@ -21,12 +21,22 @@ submódulo estão descontinuados, está errado — e vale corrigir a fonte.
 O que faz a IA montar tela no padrão é o payload em `.claude/` (orquestrador `ds-kit`,
 skills de tela, rules auto-carregadas, hook de integridade). Ele **não** vem por todo canal:
 
-| canal | kit | como obter |
-|---|:---:|---|
-| **scaffold** | ✅ | já vem no projeto gerado |
-| **submódulo** | ✅ | `npm --prefix <submodulo> run ds:link` — projeta no `.claude/` do pai |
-| **copy-in** | ⚠️ | `npx @snksergio/create-design-system --only-kit` na raiz do projeto |
-| **npm** | ⚠️ | mesmo comando acima, **mas leia a ressalva** |
+| canal | kit | hook ativo | como obter |
+|---|:---:|:---:|---|
+| **scaffold** | ✅ | ✅ | já vem no projeto gerado (com `settings.json`) |
+| **submódulo** | ✅ | ⚠️ 1 passo | `npm --prefix <submodulo> run ds:link` — projeta no `.claude/` do pai; o hook vem, mas **você registra** (o `ds:link` imprime o snippet) |
+| **copy-in** | ⚠️ | ✅ | `npx @snksergio/create-design-system --only-kit` na raiz do projeto |
+| **npm** | ⚠️ | ✅ | mesmo comando acima, **mas leia a ressalva** |
+
+⚠️ **Por que o submódulo tem coluna própria pro hook.** O `settings.json` — que é o que
+*registra* um hook — é do **seu** projeto, e o `ds:link` não o sobrescreve: apagaria a sua
+config. Então ele projeta `.claude/hooks/protect-ds.mjs` e **imprime o bloco pra você
+colar**. Enquanto não colar, o arquivo está lá e não roda: nada avisa se o tema do DS for
+editado dentro do submódulo, e o seu código não passa por lint de estilo.
+
+> Até 2026-08-18 esta tabela marcava submódulo **✅** e o texto acima listava "hook de
+> integridade" como parte do kit — mas o `ds:link` **excluía os hooks inteiros**. Quem lesse
+> isto (IA inclusive) concluía que havia rede de segurança onde não havia nenhuma.
 
 ⚠️ **Ressalva do canal npm.** As skills assumem copy-in: elas rodam
 `npm run igreen:add -- <item>` pra puxar componente e exemplo, e o método delas é *"puxe o
