@@ -100,8 +100,20 @@ Ele **nunca** cancela nestes 5 casos, e cada um quebraria algo real:
 | **`href` de hash (`#/rota`)** | hash router escuta `hashchange`; cancelar impede o fragmento de mudar e o evento **nunca dispara** |
 | sem `onItemClick` nem `item.onClick` | ninguém trataria — o `<a>` é a navegação pretendida |
 
-A regra vive em `nav-link.ts` e é exportada (`shouldPreventNavigation`) pra quem compõe
-com `<SidebarItem>` avulso — reimplementar na unha é como o bug volta.
+A regra vive em **`@/utils/nav-link`** e é exportada (`shouldPreventNavigation`,
+`isExternalHref`, `isHashHref`, `isModifiedClick`) pra quem compõe com `<SidebarItem>`
+avulso — reimplementar na unha é como o bug volta.
+
+> ⚠️ **Mudou de lugar em 2026-08-18**: era `MenuSidebar/nav-link.ts`, virou
+> `src/utils/nav-link.ts`. O `SingleMenuSidebar` passou a precisar da MESMA regra, e as
+> alternativas eram piores: duplicar cria duas cópias divergindo, e importar do MenuSidebar
+> faria o `single-menu-sidebar` depender do item de registry do MenuSidebar **inteiro** por
+> 60 linhas puras. Agora é util compartilhada, embutida como `registry:file` nos dois itens
+> — mesmo padrão do `@/utils/color-contrast`.
+>
+> **O re-export por `@/components/ui/MenuSidebar` continua valendo**, então quem importava
+> daqui não muda nada. Só quem fazia deep-import do arquivo (`.../MenuSidebar/nav-link`)
+> precisa apontar pro caminho novo.
 
 > **Por que passou meses invisível:** o exemplo canônico
 > (`src/examples/app-shell/nav-data.ts`) usa `href` de **hash** em todos os itens, e hash
