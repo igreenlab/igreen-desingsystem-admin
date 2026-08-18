@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · accordion · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · alert-dialog · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · alert-modal · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · alert · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -184,7 +184,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · app-shell · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -206,7 +206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · aspect-ratio · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -258,7 +258,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · avatar-ig · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -282,7 +282,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · avatar · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -304,7 +304,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · badge · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -329,7 +329,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · breadcrumb · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -380,7 +380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · button-group · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -426,7 +426,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · button · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -451,7 +451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · calendar · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -494,7 +494,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · card-checkbox · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · card · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -542,7 +542,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · carousel · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · chart · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -603,7 +603,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · checkbox · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -652,7 +652,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · chip · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -705,7 +705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · choropleth-map · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -727,7 +727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · collapsible · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -791,7 +791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · color-picker · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -842,7 +842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · combobox · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -869,7 +869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · command · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -894,7 +894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · context-menu · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -971,7 +971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · data-list · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1650,7 +1650,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · data-table · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1688,7 +1688,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · date-picker · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1713,7 +1713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · dialog · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1737,7 +1737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · drawer · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1762,7 +1762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · dropdown-menu · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1815,7 +1815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · empty-state · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1856,7 +1856,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-app-shell · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2158,7 +2158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-chat · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2254,7 +2254,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-clientes · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2300,7 +2300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-dashboard · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2351,7 +2351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-edit-page · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2487,7 +2487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-finance · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2517,7 +2517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-login · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2574,7 +2574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-mapa-rede · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2655,7 +2655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · example-order-detail · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · file-upload-field · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · floating-panel · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2815,7 +2815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · footer-table · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2901,7 +2901,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · form-field · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2992,7 +2992,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · header · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3016,7 +3016,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · hover-card · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3069,7 +3069,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · icon · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3093,7 +3093,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · input-group · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3112,13 +3112,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/input-otp.tsx",
-        "content": "import * as React from \"react\"\r\nimport { OTPInput, OTPInputContext } from \"input-otp\"\r\nimport { Dot } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * InputOTP — entrada de código (OTP/2FA), tokenizado iGreen. Slots usam\r\n * `size-form-lg`, `border-border-default`, foco `ring-4 ring-ring-brand`.\r\n * Componha: InputOTP > InputOTPGroup > InputOTPSlot (+ InputOTPSeparator).\r\n */\r\nconst InputOTP = React.forwardRef<\r\n  React.ElementRef<typeof OTPInput>,\r\n  React.ComponentPropsWithoutRef<typeof OTPInput>\r\n>(({ className, containerClassName, ...props }, ref) => (\r\n  <OTPInput\r\n    ref={ref}\r\n    containerClassName={cn(\r\n      \"flex items-center gap-gp-xs has-[:disabled]:opacity-50\",\r\n      containerClassName\r\n    )}\r\n    className={cn(\"disabled:cursor-not-allowed\", className)}\r\n    {...props}\r\n  />\r\n))\r\nInputOTP.displayName = \"InputOTP\"\r\n\r\nconst InputOTPGroup = React.forwardRef<\r\n  React.ElementRef<\"div\">,\r\n  React.ComponentPropsWithoutRef<\"div\">\r\n>(({ className, ...props }, ref) => (\r\n  <div ref={ref} className={cn(\"flex items-center\", className)} {...props} />\r\n))\r\nInputOTPGroup.displayName = \"InputOTPGroup\"\r\n\r\nconst InputOTPSlot = React.forwardRef<\r\n  React.ElementRef<\"div\">,\r\n  React.ComponentPropsWithoutRef<\"div\"> & { index: number }\r\n>(({ index, className, ...props }, ref) => {\r\n  const inputOTPContext = React.useContext(OTPInputContext)\r\n  const { char, hasFakeCaret, isActive } = inputOTPContext.slots[index]\r\n\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"relative flex size-form-lg items-center justify-center border-y border-r border-border-default text-body-md text-fg-default transition-all first:rounded-l-radius-md first:border-l last:rounded-r-radius-md\",\r\n        isActive && \"z-10 ring-4 ring-ring-brand\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {char}\r\n      {hasFakeCaret && (\r\n        <div className=\"pointer-events-none absolute inset-0 flex items-center justify-center\">\r\n          <div className=\"h-4 w-px animate-caret-blink bg-fg-default duration-1000\" />\r\n        </div>\r\n      )}\r\n    </div>\r\n  )\r\n})\r\nInputOTPSlot.displayName = \"InputOTPSlot\"\r\n\r\nconst InputOTPSeparator = React.forwardRef<\r\n  React.ElementRef<\"div\">,\r\n  React.ComponentPropsWithoutRef<\"div\">\r\n>(({ ...props }, ref) => (\r\n  <div ref={ref} role=\"separator\" className=\"text-fg-muted\" {...props}>\r\n    <Dot />\r\n  </div>\r\n))\r\nInputOTPSeparator.displayName = \"InputOTPSeparator\"\r\n\r\nexport { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }\r\n",
+        "content": "import * as React from \"react\";\r\nimport { OTPInput, OTPInputContext } from \"input-otp\";\r\nimport { cva } from \"class-variance-authority\";\r\nimport { Dot } from \"lucide-react\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * InputOTP — entrada de código (OTP/2FA), tokenizado iGreen.\r\n *\r\n * ## Irmão do `Input` de texto, por decisão (2026-08-18)\r\n *\r\n * O slot usa a MESMA superfície do `input.tsx`: `bg-bg-input dark:bg-bg-muted`,\r\n * `border-border-input`, e foco por **borda verde + `shadow-sh-ring`** — não por\r\n * `ring-4`. Os `size` e `state` são os mesmos 4 de cada, com os mesmos tokens\r\n * `form-*`, então um OTP e um campo de texto lado a lado têm altura idêntica.\r\n *\r\n *   size   xxs = 28px (form-xs) · xs = 32px (form-sm) · sm = 36px (form-md) · md = 40px (form-lg)\r\n *   state  default · error · warning · success   (mesmos tokens do Input)\r\n *\r\n * Antes disto o slot era `size-form-lg` cravado, sem bg, com `border-border-default`\r\n * e `ring-4 ring-ring-brand` no ativo — um campo de formulário que não parecia\r\n * com nenhum outro campo de formulário do DS.\r\n *\r\n * ## Variantes visuais\r\n *\r\n *   connected  slots colados, radius só nas pontas (DEFAULT — o look histórico)\r\n *   outlined   slots separados, borda e radius completos em cada\r\n *   filled     como outlined, com fundo e borda transparente\r\n *   underline  só a borda de baixo, sem fundo nem radius\r\n *\r\n * ## Por que `size`/`variant`/`state` vão por CONTEXTO e não por prop de slot\r\n *\r\n * O consumidor declara uma vez no root e os N slots herdam:\r\n *\r\n *     <InputOTP maxLength={6} size=\"sm\" variant=\"outlined\" state=\"error\">\r\n *\r\n * A alternativa — repetir a prop em cada `<InputOTPSlot>` — erra silenciosamente\r\n * quando um slot fica de fora (fica de tamanho diferente no meio da fileira). O\r\n * `InputOTPGroup` também lê o contexto, porque `gap` e radius das pontas mudam\r\n * com a variante e são propriedade do GRUPO, não do slot.\r\n *\r\n * ⚠️ Não copie a receita do shadcn-studio (`className` no grupo com\r\n * `*:data-[slot=input-otp-slot]:rounded-lg`): ela usa Tailwind literal e\r\n * vocabulário da bridge (`bg-muted`), que não emitem CSS nos canais npm e\r\n * submódulo (L-039). Aqui a mesma capacidade vem por variante tokenizada.\r\n *\r\n * Composição: InputOTP > InputOTPGroup > InputOTPSlot (+ InputOTPSeparator).\r\n */\r\n\r\nexport type InputOTPVariant = \"connected\" | \"outlined\" | \"filled\" | \"underline\";\r\nexport type InputOTPSize = \"xxs\" | \"xs\" | \"sm\" | \"md\";\r\nexport type InputOTPState = \"default\" | \"error\" | \"warning\" | \"success\";\r\n\r\n/* ── Contexto de estilo ──────────────────────────────────────────────── */\r\n\r\ntype InputOTPStyleCtx = {\r\n  variant: InputOTPVariant;\r\n  size: InputOTPSize;\r\n  state: InputOTPState;\r\n};\r\n\r\nconst DEFAULTS: InputOTPStyleCtx = {\r\n  variant: \"connected\",\r\n  size: \"md\",\r\n  state: \"default\",\r\n};\r\n\r\nconst InputOTPStyleContext = React.createContext<InputOTPStyleCtx>(DEFAULTS);\r\n\r\n/* ── Slot ────────────────────────────────────────────────────────────── */\r\n\r\nconst slotVariants = cva(\r\n  [\r\n    \"relative flex items-center justify-center\",\r\n    // Mesma superfície do input.tsx — ver o cabeçalho.\r\n    \"bg-bg-input dark:bg-bg-muted\",\r\n    \"text-fg-default tabular-nums\",\r\n    \"transition-[border-color,box-shadow,background-color] outline-none\",\r\n  ],\r\n  {\r\n    variants: {\r\n      // Quadrado: a altura vem do MESMO token do Input, e a largura acompanha\r\n      // pra o slot não virar retângulo. `size-form-*` = height e width juntos.\r\n      size: {\r\n        xxs: \"size-form-xs text-body-sm\",\r\n        xs: \"size-form-sm text-body-sm\",\r\n        sm: \"size-form-md text-body-md\",\r\n        md: \"size-form-lg text-body-md\",\r\n      },\r\n      variant: {\r\n        // Colados: cada slot desenha 3 lados; o 1º devolve a borda esquerda, e\r\n        // as pontas recebem radius. Sem isso a fileira mostra borda dupla entre\r\n        // slots vizinhos.\r\n        connected: \"border-y border-r first:border-l\",\r\n        outlined: \"border\",\r\n        filled: \"border border-transparent\",\r\n        // Sem fundo: a linha de baixo É o campo. `rounded-none` explícito\r\n        // porque o radius das pontas do `connected` viria do grupo.\r\n        underline: \"border-0 border-b-2 rounded-none bg-transparent dark:bg-transparent\",\r\n      },\r\n      // Cor de borda e anel de foco — os MESMOS pares do Input.\r\n      state: {\r\n        default: \"border-border-input\",\r\n        error: \"border-border-danger-muted\",\r\n        warning: \"border-border-warning-muted\",\r\n        success: \"border-border-success-muted\",\r\n      },\r\n      /** Slot que o cursor está ocupando. O Radix não dá `:focus` aqui: o input\r\n       *  real é único e invisível, então o \"foco\" é estado do contexto do\r\n       *  `input-otp`, não do DOM. Daí ser variante e não `focus-visible:`. */\r\n      active: { true: \"z-10\", false: \"\" },\r\n    },\r\n    compoundVariants: [\r\n      // Foco = borda verde + anel, igual ao `focus-visible` do Input. Em erro/\r\n      // aviso/sucesso a borda semântica MANDA (o usuário precisa continuar\r\n      // vendo que o campo está inválido enquanto digita), e só o anel muda.\r\n      { active: true, state: \"default\", class: \"border-border-brand shadow-sh-ring\" },\r\n      { active: true, state: \"error\", class: \"shadow-sh-ring-danger\" },\r\n      { active: true, state: \"warning\", class: \"shadow-sh-ring-warning\" },\r\n      { active: true, state: \"success\", class: \"shadow-sh-ring-success\" },\r\n      // Hover só onde há superfície pra reagir.\r\n      { variant: \"connected\", class: \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\" },\r\n      { variant: \"outlined\", class: \"hover:bg-bg-input-hover dark:hover:bg-bg-muted-hover\" },\r\n      { variant: \"filled\", class: \"bg-bg-muted dark:bg-bg-muted hover:bg-bg-muted-hover\" },\r\n    ],\r\n    defaultVariants: { size: \"md\", variant: \"connected\", state: \"default\", active: false },\r\n  },\r\n);\r\n\r\n/* ── Grupo ───────────────────────────────────────────────────────────── */\r\n\r\nconst groupVariants = cva(\"flex items-center\", {\r\n  variants: {\r\n    variant: {\r\n      // Colados: zero gap, e o radius das pontas é do GRUPO (o slot não sabe se\r\n      // é primeiro/último de um grupo quando há mais de um grupo na tela).\r\n      connected: \"gap-0 [&>*:first-child]:rounded-l-radius-lg [&>*:last-child]:rounded-r-radius-lg\",\r\n      outlined: \"gap-gp-md [&>*]:rounded-radius-lg\",\r\n      filled: \"gap-gp-md [&>*]:rounded-radius-lg\",\r\n      underline: \"gap-gp-md\",\r\n    },\r\n    // Radius acompanha o size, como no Input: os dois menores usam radius-md.\r\n    size: { xxs: \"\", xs: \"\", sm: \"\", md: \"\" },\r\n  },\r\n  compoundVariants: [\r\n    { variant: \"connected\", size: \"xxs\", class: \"[&>*:first-child]:rounded-l-radius-md [&>*:last-child]:rounded-r-radius-md\" },\r\n    { variant: \"connected\", size: \"xs\", class: \"[&>*:first-child]:rounded-l-radius-md [&>*:last-child]:rounded-r-radius-md\" },\r\n    { variant: \"outlined\", size: \"xxs\", class: \"[&>*]:rounded-radius-md\" },\r\n    { variant: \"outlined\", size: \"xs\", class: \"[&>*]:rounded-radius-md\" },\r\n    { variant: \"filled\", size: \"xxs\", class: \"[&>*]:rounded-radius-md\" },\r\n    { variant: \"filled\", size: \"xs\", class: \"[&>*]:rounded-radius-md\" },\r\n  ],\r\n  defaultVariants: { variant: \"connected\", size: \"md\" },\r\n});\r\n\r\n/* ── Root ────────────────────────────────────────────────────────────── */\r\n\r\n/**\r\n * `Omit` que **distribui** sobre união. As props do `OTPInput` são uma união\r\n * discriminada (`render` XOR `children`), e `Omit<A | B, K>` colapsa a união num\r\n * objeto só — o discriminante se perde e o TS rejeita tanto `children` quanto\r\n * `render` (TS2322, \"Type 'InputOTPRenderFn' is not assignable to 'undefined'\").\r\n * Com `T extends any ? … : never` o Omit roda em cada membro e a união sobrevive.\r\n */\r\ntype DistributiveOmit<T, K extends keyof never> = T extends unknown ? Omit<T, K> : never;\r\n\r\n/**\r\n * Tipo, não `interface`: `interface extends` também colapsa a união acima.\r\n *\r\n * O `size` nativo do `<input>` (numérico) é omitido pra ceder o nome à nossa\r\n * variante — é a mesma decisão do `input.tsx`, que faz\r\n * `Omit<InputHTMLAttributes, \"size\">`. Sem isso: TS2430, e a mensagem não aponta\r\n * a causa.\r\n */\r\nexport type InputOTPProps = DistributiveOmit<\r\n  React.ComponentPropsWithoutRef<typeof OTPInput>,\r\n  \"size\"\r\n> & {\r\n  /** Aparência dos slots. `connected` (default) = o look histórico do DS. */\r\n  variant?: InputOTPVariant;\r\n  /** Altura do slot, nos MESMOS tokens `form-*` do `Input`: 28/32/36/40px. */\r\n  size?: InputOTPSize;\r\n  /** Feedback de validação — mesmos pares de cor do `Input`. */\r\n  state?: InputOTPState;\r\n};\r\n\r\nconst InputOTP = React.forwardRef<React.ElementRef<typeof OTPInput>, InputOTPProps>(\r\n  ({ className, containerClassName, variant, size, state, ...props }, ref) => {\r\n    const ctx = React.useMemo(\r\n      () => ({\r\n        variant: variant ?? DEFAULTS.variant,\r\n        size: size ?? DEFAULTS.size,\r\n        state: state ?? DEFAULTS.state,\r\n      }),\r\n      [variant, size, state],\r\n    );\r\n\r\n    return (\r\n      <InputOTPStyleContext.Provider value={ctx}>\r\n        {/* `children` NÃO é desestruturado de propósito: ele viaja dentro de\r\n            `...props` pra preservar a união `render` XOR `children` do OTPInput.\r\n            Extraí-lo e repassá-lo como children explícito reintroduz o TS2322. */}\r\n        <OTPInput\r\n          ref={ref}\r\n          containerClassName={cn(\r\n            \"flex items-center gap-gp-md has-[:disabled]:opacity-50\",\r\n            containerClassName,\r\n          )}\r\n          className={cn(\"disabled:cursor-not-allowed\", className)}\r\n          {...(props as React.ComponentPropsWithoutRef<typeof OTPInput>)}\r\n        />\r\n      </InputOTPStyleContext.Provider>\r\n    );\r\n  },\r\n);\r\nInputOTP.displayName = \"InputOTP\";\r\n\r\nconst InputOTPGroup = React.forwardRef<\r\n  React.ElementRef<\"div\">,\r\n  React.ComponentPropsWithoutRef<\"div\">\r\n>(({ className, ...props }, ref) => {\r\n  const { variant, size } = React.useContext(InputOTPStyleContext);\r\n  return (\r\n    <div ref={ref} className={cn(groupVariants({ variant, size }), className)} {...props} />\r\n  );\r\n});\r\nInputOTPGroup.displayName = \"InputOTPGroup\";\r\n\r\nexport interface InputOTPSlotProps extends React.ComponentPropsWithoutRef<\"div\"> {\r\n  index: number;\r\n  /** Override pontual. Em geral declare no `<InputOTP>` e deixe herdar. */\r\n  variant?: InputOTPVariant;\r\n  size?: InputOTPSize;\r\n  state?: InputOTPState;\r\n}\r\n\r\nconst InputOTPSlot = React.forwardRef<React.ElementRef<\"div\">, InputOTPSlotProps>(\r\n  ({ index, className, variant, size, state, ...props }, ref) => {\r\n    const ctx = React.useContext(InputOTPStyleContext);\r\n    const otp = React.useContext(OTPInputContext);\r\n    const { char, hasFakeCaret, isActive } = otp.slots[index];\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        data-slot=\"input-otp-slot\"\r\n        data-active={isActive ? \"true\" : undefined}\r\n        className={cn(\r\n          slotVariants({\r\n            variant: variant ?? ctx.variant,\r\n            size: size ?? ctx.size,\r\n            state: state ?? ctx.state,\r\n            active: isActive,\r\n          }),\r\n          className,\r\n        )}\r\n        {...props}\r\n      >\r\n        {char}\r\n        {hasFakeCaret && (\r\n          <div className=\"pointer-events-none absolute inset-0 flex items-center justify-center\">\r\n            <div className=\"h-4 w-px animate-caret-blink bg-fg-default duration-1000\" />\r\n          </div>\r\n        )}\r\n      </div>\r\n    );\r\n  },\r\n);\r\nInputOTPSlot.displayName = \"InputOTPSlot\";\r\n\r\nconst InputOTPSeparator = React.forwardRef<\r\n  React.ElementRef<\"div\">,\r\n  React.ComponentPropsWithoutRef<\"div\">\r\n>(({ className, children, ...props }, ref) => (\r\n  <div ref={ref} role=\"separator\" className={cn(\"text-fg-muted\", className)} {...props}>\r\n    {children ?? <Dot />}\r\n  </div>\r\n));\r\nInputOTPSeparator.displayName = \"InputOTPSeparator\";\r\n\r\nexport { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator, slotVariants };\r\n",
         "type": "registry:ui",
         "target": "components/ui/input-otp.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · input-otp · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3142,7 +3142,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · input · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3201,7 +3201,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · kanban · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3263,7 +3263,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · kpi · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3288,7 +3288,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · label · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3395,7 +3395,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · list · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · markdown-text · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3551,7 +3551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · menu-sidebar · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3576,7 +3576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · menubar · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3620,7 +3620,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · modal · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3669,7 +3669,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · month-year-picker · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3695,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · navigation-menu · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3742,7 +3742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · page-header · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3767,7 +3767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · pagination · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3842,7 +3842,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · panel · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3866,7 +3866,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · popover · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3890,7 +3890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · progress · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3914,7 +3914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · radio-group · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3938,7 +3938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · scroll-area · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3963,7 +3963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · select · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3987,7 +3987,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · separator · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4013,7 +4013,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · sheet · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4114,7 +4114,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4136,7 +4136,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · skeleton · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4160,7 +4160,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · slider · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4183,7 +4183,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · sonner · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4229,7 +4229,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · spinner · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4253,7 +4253,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · switch · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4332,7 +4332,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · table · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4356,7 +4356,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · tabs · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4380,7 +4380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · textarea · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · theme-blue · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4416,7 +4416,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · theme-green · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4434,7 +4434,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · theme-pay · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4452,7 +4452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · theme-vibrant · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4474,7 +4474,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · theme · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4525,7 +4525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · toast · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4551,7 +4551,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · toggle-group · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4576,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · toggle · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · tooltip · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4621,7 +4621,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · tv · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.39.1 · 32cb09d · 2026-08-15"
+      "stamp": "igreen-ds · utils · v0.40.0 · 582c3ed · 2026-08-18"
     },
     "type": "registry:file"
   }
