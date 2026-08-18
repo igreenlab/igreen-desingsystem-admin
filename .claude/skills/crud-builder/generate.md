@@ -151,11 +151,16 @@ todo campo substantivo leva `icon` no header.
    `pinned: "right"` é redundante (`use-data-table-columns.ts`: `col.pinned ?? (isActions
    ? "right" : undefined)`). (Mesmo se declarada no meio, ela é movida pro fim na
    renderização.)
-   ⚠️ **`width` é o caso à parte, e o exemplo canônico fixa 64 de propósito:** `actions`
-   é tipo **estrutural** e **não está no registry**, então não tem `defaultWidth` — com
-   `autoFit` ligado (o default) o autoFit mede e resolve, mas com `autoFit={false}` a
-   coluna fica sem largura definida. Espelhar o `width: 64` do exemplo é seguro; o que
-   não precisa é o `pinned`.
+   ⚠️ **NÃO passe `width` nesta coluna** (v0.42.0+). A largura é **derivada do número de
+   ações**: `30n + 14` — 1 ação 44px, 2 74px, 3 104px, e **4+ colapsam no "…"** (44px).
+   Fixar width volta a reservar espaço errado. Até a v0.41.x esta instrução mandava
+   espelhar `width: 64` "porque é seguro" — e era pior que inútil: o
+   `calculate-column-widths` **ignorava `col.width`** nesta coluna (lia só `minWidth`),
+   então o 64 nunca valeu nada. Agora vale, e 64px comporta **1** ícone.
+
+   **Quantas ações inline:** até 3 aparecem como ícone; **acima de 3, todas vão pro "…"**
+   automaticamente (4 ícones não cabem na coluna). Pra forçar outro split, marque
+   `showInMenu: true` nos itens que devem ir pro menu — isso desliga o automático.
 
 3. **Largura: prefira NÃO setar `width` nas colunas de dados.** `autoFit` é
    **default ON** e distribui pra preencher o container (tabela "de verdade", sem

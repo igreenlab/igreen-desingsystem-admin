@@ -160,6 +160,10 @@ const CAPABILITIES: Array<{ name: string; how: string }> = [
     how: "toolbar.actions: ToolbarAction[] (button/dropdown/input, ex.: seletor de período) — inline no desktop, ⋯ no mobile. Ver #/table-toolbar",
   },
   {
+    name: "Coluna de ações (por row)",
+    how: 'type: "actions" + getActions (ou o builder actionColumn). É o type que garante as 3 coisas: última coluna, ancorada à direita e fora do rateio do autoFit — coluna de botões montada na unha não recebe nenhuma. Largura derivada do nº de ações (30n+14): 1→44px, 2→74px, 3→104px, 4+ colapsam no "…" (44px). showInMenu: true em algum item desliga o automático e respeita seu split.',
+  },
+  {
     name: "View mode (Kanban)",
     how: "viewMode + kanbanConfig — alterna entre Table e Kanban com mesma fonte de dados",
   },
