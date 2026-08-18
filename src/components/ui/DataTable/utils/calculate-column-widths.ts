@@ -19,14 +19,20 @@
  *     espaço sobrando entre colunas SEM `col.width` explícito do consumer.
  *     Resolve o caso "tabela com poucas colunas e espaço sobrando à direita".
  *
- * Não decide widths de coluna `type: "actions"` ou "checkbox" — essas mantêm
- * o width explícito (consumer sempre passa).
+ * Coluna `type: "actions"` fica **fora das 3 layers** (não mede texto, não entra no
+ * flex), mas a largura dela SIM é decidida aqui: `col.width` > `col.minWidth` >
+ * derivada do nº de ações que a célula vai renderizar (`utils/action-slots.ts`) >
+ * `ACTIONS_COLUMN_WIDTH`. Até 2026-08-18 este cabeçalho dizia *"essas mantêm o width
+ * explícito (consumer sempre passa)"* — errado nos dois pedaços: o ramo lia só
+ * `minWidth`, ignorando o `col.width` que o consumer passava, e o builder
+ * `actionColumn` nem sempre passa width.
  */
 
 import type { DataTableColumnDef } from "../data-table.types";
 import { columnTypeRegistry } from "../column-types";
 import { ACTIONS_COLUMN_WIDTH } from "../data-table.constants";
 import { measureTextWidth } from "./measure-text";
+import { measureActionsWidth } from "./action-slots";
 import { applyValueGetter, applyFormatter } from "./resolve-value";
 
 /** Largura default quando nem `col.width` nem `typeDef.defaultWidth` definem. */
@@ -113,10 +119,26 @@ export function calculateColumnWidths<T>(
   for (const col of columns) {
     const field = String(col.field);
 
-    // `actions`: largura fixa estreita (ícone/menu). Não mede conteúdo nem
+    // `actions`: largura fixa estreita (ícone/menu). Não mede conteúdo textual nem
     // entra no flex (Layer 3) — senão vira 160px e/ou estica.
+    //
+    // Precedência, e as duas primeiras são correções de defeito MEDIDO:
+    //
+    //   1. `col.width` — antes era IGNORADO aqui: o ramo lia só `col.minWidth`, então
+    //      `actionColumn({ width: 64 })` devolvia 120 em silêncio. As duas skills
+    //      `crud-builder` (repo e payload) instruíam justamente `width: 64` como "seguro".
+    //   2. `col.minWidth` — segue funcionando (era a única saída que funcionava).
+    //   3. Largura DERIVADA do número de slots que a célula vai renderizar, via o mesmo
+    //      `splitActionSlots` que ela usa. Antes era 120 fixo pra qualquer quantidade:
+    //      1 ação reservava espaço pra 3, e 4 ícones vazavam a coluna em 30px.
+    //   4. `ACTIONS_COLUMN_WIDTH` (120 = 3 slots) quando não há `getActions` ou rows
+    //      pra medir.
     if (col.type === "actions") {
-      const w = col.minWidth ?? ACTIONS_COLUMN_WIDTH;
+      const w =
+        col.width ??
+        col.minWidth ??
+        measureActionsWidth(col.getActions, rows.slice(0, sampleSize)) ??
+        ACTIONS_COLUMN_WIDTH;
       widths[field] = w;
       totalContentWidth += w;
       continue;

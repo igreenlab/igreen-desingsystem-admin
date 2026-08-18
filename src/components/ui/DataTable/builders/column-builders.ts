@@ -3,7 +3,6 @@ import type {
   DataTableColumnDef,
   DataTableActionItem,
 } from "../data-table.types";
-import { ACTIONS_COLUMN_WIDTH } from "../data-table.constants";
 
 /**
  * Column builders — reduzem boilerplate de `DataTableColumnDef` em casos comuns.
@@ -109,11 +108,16 @@ export function actionColumn<T>(opts: {
   getActions: (params: { row: T }) => DataTableActionItem<T>[];
   width?: number;
 }): DataTableColumnDef<T> {
+  // `width` só entra no objeto quando o consumer PEDE. Antes era
+  // `opts.width ?? ACTIONS_COLUMN_WIDTH`, o que gravava 120 sempre — e com o
+  // `calculate-column-widths` passando a honrar `col.width`, isso anularia a largura
+  // derivada do número de ações em 100% dos usos do builder. Omitir é o que deixa o
+  // default ser "do tamanho do que você renderiza".
   return {
     field: "_actions",
     headerName: "",
     type: "actions",
-    width: opts.width ?? ACTIONS_COLUMN_WIDTH,
+    ...(opts.width !== undefined ? { width: opts.width } : {}),
     pinned: "right",
     getActions: opts.getActions,
   };

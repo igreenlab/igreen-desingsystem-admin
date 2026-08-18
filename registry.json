@@ -2477,6 +2477,11 @@
           "target": "components/ui/DataTable/services/saved-views.types.ts"
         },
         {
+          "path": "src/components/ui/DataTable/utils/action-slots.ts",
+          "type": "registry:ui",
+          "target": "components/ui/DataTable/utils/action-slots.ts"
+        },
+        {
           "path": "src/components/ui/DataTable/utils/aggregate.ts",
           "type": "registry:ui",
           "target": "components/ui/DataTable/utils/aggregate.ts"

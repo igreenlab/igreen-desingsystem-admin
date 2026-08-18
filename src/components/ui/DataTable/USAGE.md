@@ -39,22 +39,21 @@ interface Client {
   createdAt: string;
 }
 
+// ⚠️ Nenhuma coluna fixa `width` de propósito: com `autoFit` (default) o DataTable
+// mede o conteúdo e distribui o espaço. `width` aqui seria PISO, não trava — fixar
+// em todas só desloca o ponto de partida do rateio. Trave uma coluna só quando
+// precisar, com `width` + `maxWidth` iguais.
 const columns = useMemo<DataTableColumnDef<Client>[]>(
   () => [
-    textColumn<Client>("id", "ID", { width: 80 }),
-    textColumn<Client>("name", "Nome", { width: 240, sortable: true }),
-    { field: "email", headerName: "Email", type: "email", width: 280 },
-    currencyColumn<Client>("value", "Valor", { width: 140, currency: "BRL" }),
-    dateColumn<Client>("createdAt", "Criado em", { width: 140 }),
-    statusColumn<Client>(
-      "status",
-      "Status",
-      [
-        { value: "active", label: "Ativo", color: "success" },
-        { value: "inactive", label: "Inativo", color: "muted" },
-      ],
-      { width: 140 },
-    ),
+    textColumn<Client>("id", "ID"),
+    textColumn<Client>("name", "Nome", { sortable: true }),
+    { field: "email", headerName: "Email", type: "email" },
+    currencyColumn<Client>("value", "Valor", { currency: "BRL" }),
+    dateColumn<Client>("createdAt", "Criado em"),
+    statusColumn<Client>("status", "Status", [
+      { value: "active", label: "Ativo", color: "success" },
+      { value: "inactive", label: "Inativo", color: "muted" },
+    ]),
     actionColumn<Client>({
       getActions: ({ row }) => [
         { label: "Editar", onClick: () => editClient(row) },
@@ -97,6 +96,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Visibility / pin / reorder**  | `toolbar.enableColumns: true` (default)                                                                                                                                                                                                                                                                                                                              |
 | **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |
 | **Column types registry**       | `type: "currency"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |
+| **Coluna de ações**             | `type: "actions"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |
 | **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |
 | **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |
 | **Copy célula**                 | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback "Copiado!" (~2s)                                                                                                                                                                                                                                                             |
@@ -112,7 +112,7 @@ const columns = useMemo<DataTableColumnDef<Client>[]>(
 | **Tree-data (hierarquia)**      | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente.                                                                                                                                                                                                          |
 | **Saved views**                 | `savedViewsService` (use `savedViewsMockService` em dev)                                                                                                                                                                                                                                                                                                             |
 | **State persistence**           | `persistId: "clients-table"` — workspace "Default" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |
-| **Auto-fit das colunas**        | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui espaço sobrando. Override com `col.width` mantém largura fixa. `autoFit={false}` desliga (comportamento legacy).                                                                                                                           |
+| **Auto-fit das colunas**        | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui a sobra. ⚠️ **`col.width` é PISO, não trava** — a coluna entra no rateio e cresce a partir dele (medido: pedir 80/240/280 num container de 1400px devolve 187/560/653). Pra travar de verdade: **`width` + `maxWidth` iguais**. Prefira não fixar `width`. `autoFit={false}` desliga (legacy). |
 | **Resize manual de colunas**    | Default ativo em todas as colunas exceto `type: "actions"` ou `purpose: "selection"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`.                                                                                      |
 | **Export**                      | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }`                                                                                                                                                                                                            |
 | **View Kanban (board)**         | `viewMode="kanban"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar                                                                                                                                                                                                           |
@@ -151,6 +151,61 @@ DS** — você só passa a prop pra substituir 100% do slot:
 CTA de **criar**; "seu filtro não achou" pede **limpar filtro** — e nesse segundo caso o
 default já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico
 **perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.
+
+### Coluna de ações (editar / excluir / "…")
+
+**Use `type: "actions"`.** É o `type` — não a posição no array, não `pinned` — que liga as
+três garantias, todas resolvidas no `use-data-table-columns.ts`:
+
+1. **Vai pro fim** da tabela, mesmo se você declarar a coluna no meio do array.
+2. **Ancora à direita** (`pinned: "right"` implícito) — fica visível com scroll horizontal.
+   Passar `pinned: "right"` na mão é redundante.
+3. **Não entra no rateio do autoFit** — largura fixa, não estica junto das outras.
+
+```tsx
+// builder (recomendado) — `field`/`headerName`/`type`/`pinned` já vêm certos
+actionColumn<Client>({
+  getActions: ({ row }) => [
+    { id: "edit", label: "Editar", icon: <Pencil />, onClick: () => edit(row) },
+    { id: "del", label: "Excluir", icon: <Trash2 />, destructive: true, onClick: () => del(row) },
+  ],
+}),
+```
+
+⛔ **Montar a coluna na unha perde as três.** `{ field: "acoes", headerName: "Ações",
+render: () => <><Button/><Button/></> }` não tem `type`, então: não vai pro fim, não ancora,
+**e entra no rateio** — medido, uma coluna assim com `width: 120` num container de 1400px
+termina com **220px**, e o conteúdo alinhado à esquerda deixa os botões ~100px longe da
+borda. É o sintoma "o botão de ação ficou no meio da tabela". Se precisa de render próprio,
+mantenha `type: "actions"` e use `getActions` — `customColumn` **não** serve pra isso.
+
+#### Quantas ações aparecem inline
+
+| ações visíveis na row | render | largura |
+|---|---|---|
+| 1 | 1 ícone, sem "…" | 44px |
+| 2 | 2 ícones | 74px |
+| 3 | 3 ícones | 104px |
+| **4+** | **só o "…"**, todas dentro | 44px |
+| qualquer nº, com `showInMenu` em algum item | **o seu split**, sem limite | derivada |
+
+O corte em 3 é a **capacidade geométrica** da coluna, não preferência: a célula usa
+`px-pad-md` na variante `actions` (8×2 — sobrescreve o `px-pad-2xl` das outras) + ícone
+`icon-2xs` (28px) + gap `gp-2xs` (2px) → `largura = 30n + 14`. Quatro ícones pedem 134px,
+contra os 120 que a coluna sempre teve. Antes da v0.42.0 a largura era 120px **fixos** pra
+qualquer quantidade: 1 ação reservava espaço pra 3, e 4 ícones vazavam a coluna.
+
+Pra forçar um split diferente, marque `showInMenu: true` nos itens que devem ir pro menu —
+isso desliga o automático e respeita você integralmente, inclusive com 5 ícones inline.
+
+`hidden` é resolvido **por row antes de contar**: uma row com 4 ações onde uma está oculta
+volta a renderizar 3 ícones inline. A largura reservada é o **máximo** entre as rows
+amostradas, senão a row mais completa ficaria cortada.
+
+**Largura:** `col.width` > `col.minWidth` > derivada da contagem. ⚠️ Até a v0.42.0 o
+`col.width` era **ignorado** nesta coluna (só `minWidth` funcionava) — se você tem
+`actionColumn({ width: 64 })` em código antigo, ele passa a valer de verdade agora, e 64px
+comporta **1** ícone.
 
 ### Server mode (refetch async + paginação remota)
 
@@ -706,7 +761,7 @@ const cols = [
   { field: "id", width: 80, maxWidth: 80 }, // travada em 80px
   { field: "code", width: 120 },             // base 120, cresce no flex
   { field: "name" },                          // sem width — flui pelo autoFit
-  { field: "actions", type: "actions", width: 60 }, // fixa (fora do flex)
+  { field: "actions", type: "actions", getActions }, // fora do flex; largura pelo nº de ações
 ];
 ```
 

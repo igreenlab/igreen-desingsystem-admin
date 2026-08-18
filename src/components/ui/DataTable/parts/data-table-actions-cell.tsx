@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
 } from "@/components/shadcn/dropdown-menu";
 import type { DataTableActionItem } from "../data-table.types";
+import { splitActionSlots } from "../utils/action-slots";
 
 export type DataTableActionsCellProps<T> = {
   /** Row da linha — passado pra disabled/hidden/onClick. */
@@ -16,9 +17,13 @@ export type DataTableActionsCellProps<T> = {
 };
 
 /**
- * Celula da coluna `type: "actions"` — renderiza icone-buttons inline
- * (items com `showInMenu` false ou undefined) e/ou dropdown 3-pontos
- * (items com `showInMenu: true`).
+ * Celula da coluna `type: "actions"` — renderiza icone-buttons inline e/ou o
+ * dropdown "…". Quem decide o split é `splitActionSlots` (ver `utils/action-slots.ts`
+ * pra a regra e a geometria que a justifica):
+ *
+ *   - algum item com `showInMenu` → o split do consumer manda, sem limite;
+ *   - até 3 itens, nenhum marcado → todos inline, sem "…";
+ *   - mais de 3, nenhum marcado → todos no "…" (4 ícones não cabem na coluna).
  *
  * Items com `hidden(row) === true` somem completamente. Items com
  * `disabled(row) === true` ficam atenuados e sem click.
@@ -30,15 +35,12 @@ export function DataTableActionsCell<T>({
   row,
   actions,
 }: DataTableActionsCellProps<T>) {
-  // Resolve hidden por row e separa inline vs menu
-  const visible = actions.filter((a) => {
-    if (typeof a.hidden === "function") return !a.hidden(row);
-    return !a.hidden;
-  });
-  const inlineActions = visible.filter((a) => !a.showInMenu);
-  const menuActions = visible.filter((a) => a.showInMenu);
+  // Split vem do módulo compartilhado — o `calculate-column-widths` chama o MESMO
+  // para dimensionar a coluna. Duas cópias da regra divergiriam no primeiro ajuste
+  // e a coluna passaria a reservar espaço pra um layout diferente do renderizado.
+  const { inline: inlineActions, menu: menuActions } = splitActionSlots(actions, row);
 
-  if (visible.length === 0) return null;
+  if (inlineActions.length === 0 && menuActions.length === 0) return null;
 
   const resolveDisabled = (a: DataTableActionItem<T>): boolean => {
     if (typeof a.disabled === "function") return a.disabled(row);
