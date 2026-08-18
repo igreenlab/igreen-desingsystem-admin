@@ -46,6 +46,32 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.40.0",
+    date: "2026-08-18",
+    tag: "release",
+    title: "O campo de código passou a ter a mesma altura do campo de texto",
+    summary:
+      "O campo de código de verificação (OTP / 2FA) era o único campo de formulário do sistema que não se parecia com os outros: altura fixa numa única medida, sem fundo, com uma borda de tom diferente e um anel de foco que nenhum outro campo usava. Num formulário que misturasse um código e um campo de texto, os dois ficavam visivelmente desalinhados. Agora ele tem **as mesmas quatro alturas** do campo de texto, o mesmo fundo, a mesma borda em repouso, a mesma borda verde ao receber foco e os mesmos quatro estados de validação. Junto vêm quatro aparências para escolher e uma página de documentação com os padrões de uso que antes cada um reinventava — reenvio com contagem, restrição a dígitos, agrupamento com separador. **Nada muda para quem já usa o componente:** a aparência antiga é o padrão.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Quatro alturas, iguais às do campo de texto** — 28, 32, 36 e 40 pixels, vindas dos mesmos tokens de altura de formulário. Um código e um campo de texto declarados no mesmo tamanho agora fecham na mesma linha. A igualdade não depende de ninguém lembrar: uma verificação automática compara as duas definições e reprova se qualquer uma das duas mudar de degrau.",
+          "**Quatro estados de validação** — normal, erro, aviso e sucesso, nas mesmas cores do campo de texto. Em erro, a borda vermelha **permanece enquanto a pessoa digita**: quem está corrigindo precisa continuar vendo que o campo está inválido, então só o anel de foco troca de cor.",
+          "**Quatro aparências** — emendada (o padrão, casas coladas), contornada (casas separadas), preenchida (com fundo) e sublinhada (só a linha de baixo).",
+          "**Página de documentação com os padrões de uso**, não só a API: reenvio com contagem regressiva anunciada para leitor de tela, restrição a dígitos (que é o que faz o teclado numérico aparecer no celular), alfanumérico, separador com símbolo trocável, e uma seção que mostra o código e o campo de texto lado a lado para conferir o alinhamento.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**A aparência do campo em repouso e em foco** — fundo e borda passaram a ser os do campo de texto, e o foco virou borda verde em vez do anel largo anterior. É a mudança que dá o alinhamento pedido; a estrutura das casas continua a mesma.",
+          "**As opções são declaradas uma vez no campo, não em cada casa.** Repetir a configuração casa por casa falha em silêncio quando uma fica de fora — ela aparece com tamanho diferente no meio da fileira.",
+        ],
+      },
+    ],
+  },
+  {
     version: "cli-0.24.0",
     date: "2026-08-18",
     tag: "release",

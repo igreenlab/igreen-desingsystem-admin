@@ -44,9 +44,15 @@ const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
 /**
  * Termos em backtick que são classe/prop/token/valor — não nome de componente.
  * Sem isso, `variant`, `single`, `gap-form-gap` etc. viram "nome inventado".
+ *
+ * ⚠️ Ao citar uma prop ou um valor de variante no vocabulário, acrescente aqui. O gate
+ * casa TODO token em backtick com 3+ caracteres, então `state` ou `outlined` numa linha
+ * nova reprovam como "componente inexistente" — foi o que aconteceu ao documentar a API
+ * nova do `input-otp` em 2026-08-18. O `size-` já estava na lista, mas só com hífen
+ * (`size-form-lg`); o `size` sozinho, como nome de prop, não.
  */
 const NAO_NOME =
-  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen)/i;
+  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|connected$|outlined$|filled$|underline$)/i;
 
 /** Deps npm citadas legitimamente (aparecem como "traz `d3-geo`"). */
 const DEPS_NPM = new Set(["d3-geo", "topojson-client", "recharts", "lucide-react"]);

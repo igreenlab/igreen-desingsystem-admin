@@ -49,7 +49,7 @@ label, helper, erro e do `htmlFor`).
 | data | `date-picker` — `mode`: `single` (default) · `range` · `multiple` |
 | só mês/ano | `month-year-picker` |
 | arquivo | `file-upload-field` |
-| código / OTP | `input-otp` |
+| código / OTP | `input-otp` — mesmos `size` (`xxs`/`xs`/`sm`/`md`) e `state` do `input`, então num form misto use o MESMO size dos dois. `variant`: `connected` (default) · `outlined` · `filled` · `underline` |
 | cor | `color-picker` |
 | faixa numérica | `slider` |
 | prefixo, sufixo, ícone ou botão **dentro** do campo | `input-group` — não componha na mão |
