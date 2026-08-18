@@ -261,7 +261,17 @@ export function AppShell(props: AppShellProps) {
            * do Header é a única entrada, então ele fica.
            */
           onCollapseMenu={sidebar === "single" && !isMobile ? undefined : handleToggleMenu}
-          menuCollapsed={menuCollapsed}
+          /**
+           * No mobile o botão do Header controla a VISIBILIDADE (`mobileMenuOpen`), não o
+           * collapse de desktop — o `handleToggleMenu` acima já ramifica assim. Mas o
+           * rótulo vinha só de `menuCollapsed`, então com o menu fechado no celular o
+           * leitor de tela anunciava "Colapsar menu": a ação oposta à que o clique faz.
+           *
+           * Medido no Chrome em 420px de largura: sidebar `display: none` e o botão
+           * dizendo "Colapsar". Defeito pré-existente (vale pras duas sidebars), achado ao
+           * validar o mobile da variante single.
+           */
+          menuCollapsed={isMobile ? !mobileMenuOpen : menuCollapsed}
           commandGroups={commandGroups}
           commandPlaceholder={commandPlaceholder}
           commandEmptyMessage={commandEmptyMessage}
