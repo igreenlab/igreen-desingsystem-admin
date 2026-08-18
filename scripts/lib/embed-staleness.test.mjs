@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { checkEmbedStaleness, parseStamps, summarize } from "./embed-staleness.mjs";
+import {
+  checkEmbedStaleness,
+  parseStamps,
+  summarize,
+  particionarPorSeveridade,
+} from "./embed-staleness.mjs";
 
 /** Monta um item de registry com carimbo no formato real do `registry-stamp.mjs`. */
 const item = (name, version, hash, date = "2026-07-28") => ({
@@ -183,5 +188,76 @@ describe("summarize", () => {
       versions: ["0.30.0", "0.30.1"],
       hashes: ["9f8e7d6", "ea1ef0d"],
     });
+  });
+});
+
+describe("particionarPorSeveridade", () => {
+  it("files-mismatch é TRANSITÓRIO (Regra 8: distribuição consolida no /ds-release)", () => {
+    const p = particionarPorSeveridade([{ id: "files-mismatch", name: "data-table", msg: "x" }]);
+    expect(p.transitorios).toHaveLength(1);
+    expect(p.bloqueantes).toEqual([]);
+  });
+
+  it("carimbo divergente e afins seguem BLOQUEANTES sempre", () => {
+    const p = particionarPorSeveridade([
+      { id: "stale", name: "a", msg: "x" },
+      { id: "no-registry-stamp", name: "b", msg: "x" },
+      { id: "absent-in-embed", name: "c", msg: "x" },
+    ]);
+    expect(p.bloqueantes.map((f) => f.id)).toEqual([
+      "stale",
+      "no-registry-stamp",
+      "absent-in-embed",
+    ]);
+    expect(p.transitorios).toEqual([]);
+  });
+
+  it("mistura: separa sem perder nenhum finding", () => {
+    const findings = [
+      { id: "files-mismatch", name: "a", msg: "x" },
+      { id: "stale", name: "b", msg: "x" },
+      { id: "files-mismatch", name: "c", msg: "x" },
+    ];
+    const p = particionarPorSeveridade(findings);
+    expect(p.transitorios).toHaveLength(2);
+    expect(p.bloqueantes).toHaveLength(1);
+    expect(p.transitorios.length + p.bloqueantes.length).toBe(findings.length);
+  });
+
+  it("lista vazia devolve as duas vazias", () => {
+    expect(particionarPorSeveridade([])).toEqual({ bloqueantes: [], transitorios: [] });
+  });
+
+  /*
+   * O caso da PR #211, montado pela FUNÇÃO DE PRODUÇÃO e não com objeto na mão (L-064):
+   * um arquivo novo entra no `files[]` do item — mudança authored, que o `registry:build`
+   * não gera porque não escaneia pasta — e o embed ainda não foi regenerado. O CI da PR
+   * reprovava isso, apesar de ser exatamente o estado que a Regra 8 manda deixar pro
+   * `/ds-release`.
+   */
+  it("o estado real da #211 cai em transitório, não em bloqueante", () => {
+    const stamp = stampOf("data-table", "0.41.0", "abc1234");
+    const items = [
+      {
+        name: "data-table",
+        meta: { stamp },
+        files: [
+          { path: "src/components/ui/DataTable/data-table.tsx" },
+          { path: "src/components/ui/DataTable/utils/action-slots.ts" }, // o arquivo novo
+        ],
+      },
+    ];
+    // Embed com o MESMO carimbo (ninguém re-carimbou) e sem o arquivo novo.
+    const embedText = `export const registry = ${JSON.stringify({
+      "data-table": {
+        meta: { stamp },
+        files: [{ path: "src/components/ui/DataTable/data-table.tsx" }],
+      },
+    })};`;
+    const findings = checkEmbedStaleness({ items, embedText });
+    expect(findings.map((f) => f.id)).toContain("files-mismatch");
+    const p = particionarPorSeveridade(findings);
+    expect(p.bloqueantes).toEqual([]);
+    expect(p.transitorios).toHaveLength(findings.length);
   });
 });

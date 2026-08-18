@@ -19,7 +19,12 @@
  */
 import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { join } from "node:path";
-import { checkEmbedStaleness, parseStamps, summarize } from "./lib/embed-staleness.mjs";
+import {
+  checkEmbedStaleness,
+  parseStamps,
+  summarize,
+  particionarPorSeveridade,
+} from "./lib/embed-staleness.mjs";
 import { compareEmbedContent, parseEmbed } from "./lib/embed-content.mjs";
 
 const isCi = process.argv.includes("--ci");
@@ -97,22 +102,43 @@ if (existsSync(EMBED)) {
   } else {
     const findings = checkEmbedStaleness({ items: r.items, embedText });
     if (findings.length) {
-      const stale = findings.filter((f) => f.id === "stale");
-      const noStamp = findings.filter((f) => f.id === "no-registry-stamp");
-      console.error(`✗ embed DEFASADO em ${findings.length}/${r.items.length} itens.`);
-      for (const f of findings.slice(0, 8)) console.error(`   ${f.msg}`);
-      if (findings.length > 8) console.error(`   … e ${findings.length - 8} outros.`);
-      const reg = summarize(parseStamps(r.items.map((i) => i.meta?.stamp ?? "").join("\n")));
-      const emb = summarize(parseStamps(embedText));
-      console.error(
-        `   registry.json: ${reg.count} carimbos, v[${reg.versions}] · embed: ${emb.count} carimbos, v[${emb.versions}]`,
-      );
-      if (stale.length && !noStamp.length) {
-        console.error(`   → regenere o embed:  cd registry-app && node scripts/copy-registry.mjs`);
-        console.error(`     (precisa do public/r local — rode \`npm run registry:build\` antes)`);
+      // `files-mismatch` é transitório POR DESIGN (Regra 8: distribuição consolida no
+      // /ds-release) — informativo sem `--ci`, igual ao bloco 2b logo abaixo, que já
+      // tinha esse tratamento pelo mesmo motivo. Carimbo divergente e afins seguem
+      // bloqueando sempre: release que esqueceu o copy-registry não é transitório.
+      // Ver `particionarPorSeveridade` em `lib/embed-staleness.mjs`.
+      const { bloqueantes, transitorios } = particionarPorSeveridade(findings);
+      const stale = bloqueantes.filter((f) => f.id === "stale");
+      const noStamp = bloqueantes.filter((f) => f.id === "no-registry-stamp");
+
+      const relata = (lista, marca, nivel) => {
+        nivel(`${marca} embed DEFASADO em ${lista.length}/${r.items.length} itens.`);
+        for (const f of lista.slice(0, 8)) nivel(`   ${f.msg}`);
+        if (lista.length > 8) nivel(`   … e ${lista.length - 8} outros.`);
+      };
+
+      if (bloqueantes.length) {
+        relata(bloqueantes, "✗", console.error);
+        const reg = summarize(parseStamps(r.items.map((i) => i.meta?.stamp ?? "").join("\n")));
+        const emb = summarize(parseStamps(embedText));
+        console.error(
+          `   registry.json: ${reg.count} carimbos, v[${reg.versions}] · embed: ${emb.count} carimbos, v[${emb.versions}]`,
+        );
+        if (stale.length && !noStamp.length) {
+          console.error(`   → regenere o embed:  cd registry-app && node scripts/copy-registry.mjs`);
+          console.error(`     (precisa do public/r local — rode \`npm run registry:build\` antes)`);
+        }
+        if (noStamp.length) console.error(`   → carimbe primeiro:  npm run registry:stamp`);
+        fail = 1;
       }
-      if (noStamp.length) console.error(`   → carimbe primeiro:  npm run registry:stamp`);
-      fail = 1;
+
+      if (transitorios.length) {
+        const nivel = isCi ? console.error : console.warn;
+        relata(transitorios, isCi ? "✗" : "⚠", nivel);
+        nivel(`   → npm run registry:build  &&  cd registry-app && node scripts/copy-registry.mjs`);
+        if (isCi) fail = 1;
+        else nivel(`   (informativo: consolide no /ds-release — Regra 8)`);
+      }
     } else {
       const { versions } = summarize(parseStamps(embedText));
       console.log(`✓ embed em sync (${r.items.length} itens, carimbo v${versions.join("/")}).`);
