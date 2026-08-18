@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.42.0",
+    date: "2026-08-18",
+    tag: "release",
+    title: "A coluna de ações agora tem o tamanho do que ela mostra",
+    summary:
+      "Duas queixas diferentes — o botão de editar aparecendo no meio da tabela, e a largura das colunas \"não respeitando\" o que foi pedido — tinham a **mesma origem, e não era o componente**. Ele já colocava a coluna de ações no fim e a mantinha visível na direita durante a rolagem; o que faltava era a documentação dizer que existe um jeito certo de declarar essa coluna, e que é ele que garante isso. Quem não sabia montava a coluna de botões à mão, e aí perdia as três garantias de uma vez. A mesma documentação também afirmava que uma largura definida à mão fica fixa — não fica, ela é um piso, e a tabela cresce a partir dela para preencher o espaço. Junto vão duas correções reais no componente e um comportamento novo: a coluna de ações passou a ter a largura do que de fato mostra, e acima de três ações elas se recolhem num menu.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Uma largura definida na coluna de ações era ignorada em silêncio.** Pedir 64 pixels devolvia 120, e pedir 240 também devolvia 120 — só uma segunda propriedade, menos óbvia, tinha efeito. Pior: as instruções que o assistente lê mandavam usar justamente a propriedade que não fazia nada, dizendo que era o caminho seguro. Agora a largura pedida vale.",
+          "**A documentação afirmava que uma largura definida à mão fica fixa.** Não fica: ela é um piso, e a tabela distribui o espaço sobrando a partir dela. Medido — pedir 80, 240 e 280 pixels numa área de 1400 devolve 187, 560 e 653. Era isso que parecia \"a largura automática falhando\", e não estava falhando: estava fazendo o que foi desenhado, enquanto a documentação descrevia outra coisa. Para travar de verdade, existe a combinação de largura e largura máxima iguais, agora documentada.",
+          "**Faltava explicar como se declara uma coluna de ações.** Ela aparecia só de passagem, em três notas de rodapé sobre outros assuntos. Quem seguia a documentação acabava montando os botões à mão — e uma coluna montada assim não vai para o fim, não fica ancorada na direita e cresce junto com as outras. Medido: a mesma coluna termina com 120 pixels declarada do jeito certo e **220** montada à mão, com os botões parando a uns 100 pixels da borda. É o \"botão de ação no meio da tabela\".",
+          "**Uma verificação automática reprovava trabalho por seguir a regra do projeto.** O projeto decide de propósito que a preparação para distribuição acontece no fechamento da versão, não em cada alteração — e uma das verificações barrava exatamente o estado intermediário que essa decisão cria. Bloqueou uma alteração legítima. Agora ela avisa durante o trabalho e só barra no fechamento da versão, onde o aviso deixa de ser transitório.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**A coluna de ações passou a ter a largura do que mostra.** Antes reservava o mesmo espaço para qualquer quantidade: uma única ação de editar ocupava lugar de três, e quatro ícones não caberem passava despercebido. Agora uma ação ocupa 44 pixels, duas 74, três 104 — e **acima de três, todas se recolhem no menu de três pontos**, porque quatro ícones não cabem na coluna. Quem quiser um arranjo diferente pode marcar quais ações vão para o menu, e aí a escolha manual prevalece sem limite de quantidade.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Nova verificação: quando um mecanismo muda, a documentação que o descreve acompanhou?** Duas vezes no mesmo dia eu alterei como algo funciona, corrigi uma das páginas que descreviam aquilo e não procurei as outras — e as versões erradas foram publicadas. Nada no projeto ligava um mecanismo às páginas que o explicam. Agora liga, e a checagem roda em toda alteração proposta.",
+          "**A documentação do componente de tabela ganhou uma seção própria sobre a coluna de ações** — como declarar, quantos ícones aparecem, o que acontece acima de três, e o que se perde montando à mão. O exemplo de partida também parou de definir largura em todas as colunas, o que ensinava justamente o hábito que o próprio projeto recomenda evitar.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.41.0",
     date: "2026-08-18",
     tag: "release",

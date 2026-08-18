@@ -2345,3 +2345,91 @@ mesmo padrão já havia acontecido com a skill `app-builder` no mesmo dia, e nad
 terceira vez. O gate `mechanism-surfaces` (entry anterior) é a resposta: hoje as duas
 superfícies desta tabela são cobradas juntas pelo `npm test`, e a versão quebrada da
 `ds-design.md` está no teste como fixture (`84515b4^`).
+
+---
+
+### 2026-08-18 | ds-dev | DataTable: a coluna de ações e o que a doc ensinava errado (v0.42.0) | CONCLUÍDO
+
+**Motivo.** O mantenedor relatou dois sintomas ao gerar CRUDs: o botão de ação aparecendo no
+meio da tabela em vez do fim, e o auto-width "falhando". Hipótese dele, aberta e correta:
+"não sei se é a skill, o pipeline, o USAGE, a IA implementando errado, ou o componente".
+
+**Medido: era o USAGE.** A colocação já funcionava desde `58e96a7` (2026-06-23) — o
+`use-data-table-columns.ts` move `type: "actions"` pro fim e ancora à direita, e o comentário
+diz que é pra "independer de onde a coluna foi declarada". Os 5 exemplos do showcase usam
+todos o `type`, e as duas skills `crud-builder` instruem certo. O que faltava era a `USAGE.md`
+— a doc que a IA lê quando NÃO carrega a skill — ensinar que o `type` existe pra isso. Ela o
+citava só em 3 notas de rodapé sobre outros assuntos, e oferecia `customColumn` como "override
+total". Medição do mecanismo: a mesma coluna com `width: 120` rende **120px com o type e 220px
+sem**, e com conteúdo à esquerda os botões param ~100px da borda.
+
+**Segunda afirmação falsa na mesma doc:** *"Override com `col.width` mantém largura fixa"*.
+É piso que entra no rateio — pedir 80/240/280 em 1400px devolve **187/560/653**. Era o
+"auto-width falhando": não falhava, a doc descrevia outra coisa.
+
+**2 defeitos de componente achados no caminho:** (1) `col.width` era **ignorado** na coluna de
+ações (o ramo lia só `minWidth`), e as duas skills instruíam justamente `width: 64` como
+"seguro" — prop que nunca valeu nada; (2) 120px fixos pra qualquer quantidade, então 1 ação
+reservava espaço pra 3 e 4 ícones vazavam.
+
+**Comportamento novo, especificado pelo mantenedor:** até 3 ações inline, **4+ colapsam no
+"…"**, largura pela contagem. `showInMenu` em qualquer item desliga o automático e respeita o
+split do consumer sem limite. Regra em `utils/action-slots.ts`, consumida pela célula E pelo
+cálculo de largura — duas cópias divergiriam (L-038).
+
+**A geometria que eu errei, e o que pegou.** Escrevi `30n + 30` assumindo `px-pad-2xl` (16px)
+na célula, e derivei que o `ACTIONS_COLUMN_WIDTH` legado (120) "era exatamente 3 slots".
+Falso: a variante `actions` usa `px-pad-md` (8px), a fórmula é `30n + 14` (1→44, 3→104) e 120
+fica entre 3 e 4. **Os 16 testes passavam porque saíam da mesma fórmula errada** — L-064
+literal. Quem pegou foi a medição no browser (`width: 44px` inline, padding 8/8, botão 28px,
+sticky preservado, zero vazamento). A asserção que amarrava a constante à fórmula virou uma
+que mede a capacidade real: 3 cabem em 120, 4 não.
+
+**Regressões:** nenhuma. tsc 0 · 47 arquivos / 570 testes (+16).
+
+**Assumption:** que **>3 → tudo no "…"** é o default certo. Muda o render de quem declara 4+
+ações sem `showInMenu` — mas esse caso **já estava quebrado** (vazava a coluna), então é
+conserto, não regressão. Se aparecer consumidor que dependia dos 120px fixos com 1 ação, o
+sintoma é coluna mais estreita e a saída é `width` explícito, que agora funciona.
+
+---
+
+### 2026-08-18 | ds-dev | O gate do embed reprovava PR por seguir a Regra 8 | CONCLUÍDO
+
+**Motivo.** O CI da PR #211 saiu 1 no `registry-check.mjs`. O mantenedor perguntou se era falha
+da PR. **Não era**: era o gate contradizendo a regra do próprio projeto.
+
+**A causa.** A #211 registrou `utils/action-slots.ts` no `registry.json` — mudança **authored**,
+que o `registry:build` não gera porque **não escaneia pasta**. Ou alguém escreve, ou o
+consumidor copy-in recebe import quebrado. Registrar fez o `files[]` do item divergir do embed,
+e o bloco 2a do check reprovou.
+
+**Por que é inconsistência.** O bloco **2b do mesmo arquivo** (conteúdo do embed defasado) já
+era informativo sem `--ci`, e o comentário ao lado explica textualmente que bloquear ali
+"reprovaria a PR justamente por seguir a regra do projeto" — com registro de que foi descoberto
+reprovando uma mudança de padding do AppShell. O 2a nasceu antes e bloqueava todos os seus
+findings sem distinguir: mesma situação, justificativa escrita 30 linhas abaixo, tratamento
+oposto.
+
+**Entregue.** `particionarPorSeveridade` em `lib/embed-staleness.mjs` (puro, 6 testes).
+`files-mismatch` → transitório (⚠ na PR, ✗ no `release:check`). `stale`, `no-registry-stamp` e
+`absent-in-embed` → bloqueantes sempre: carimbo divergente é release que serve código velho com
+número novo, não estado intermediário. Verificado nos DOIS estados reais — na branch da #211
+exit 0 sem `--ci` e 1 com; em `main` limpa 5× ✓.
+
+**Correção de afirmação minha na mesma sessão:** eu disse que `registry-check` sem `--ci` era
+informativo e saía 0. Valia só pro conteúdo (2b) — a divergência **estrutural** (2a) bloqueava
+sempre, e foi ela que reprovou a #211.
+
+**Erro de método, registrado porque custou uma rodada:** eu disse ao mantenedor que bastava
+"re-rodar o check da #211". Re-run reusa o **mesmo** merge commit, com a base antiga — o fix não
+entrava. O que resolve é atualizar a branch (merge da main), disparando evento novo. Também
+rodei localmente os **7 gates que o CI nunca alcançou** na run vermelha: o step que falha aborta
+os seguintes, então eles estavam não-executados, não aprovados.
+
+**Regressões:** nenhuma. 554 testes (+6) na branch isolada; `release:check` exit 0.
+
+**Assumption:** que `files-mismatch` é sempre transitório dentro de um ciclo. Se um item
+atravessar um release com `files[]` divergente, quem pega é o `release:check`, antes do publish.
+O risco residual é alguém ler o ⚠ como "ignorável pra sempre" — a mensagem diz onde ele deixa
+de ser.
