@@ -150,6 +150,38 @@ Pra conferir, no console do navegador:
 document.fonts.check("16px Geist")   // tem que ser true
 ```
 
+## Hook de integridade — 1 passo manual (e por que não é automático)
+
+O `ds:link` projeta `.claude/hooks/protect-ds.mjs`, mas **não registra** o hook: quem
+registra é o `.claude/settings.json`, que é **seu** — sobrescrevê-lo apagaria sua config.
+Então o script imprime o bloco pronto e você cola:
+
+```jsonc
+// .claude/settings.json — se o arquivo já existe, some só o "hooks"
+{
+  "hooks": {
+    "PreToolUse": [
+      { "matcher": "Edit|Write|MultiEdit", "hooks": [{ "type": "command", "command": "node .claude/hooks/protect-ds.mjs" }] },
+      { "matcher": "Bash",                 "hooks": [{ "type": "command", "command": "node .claude/hooks/protect-ds.mjs" }] }
+    ]
+  }
+}
+```
+
+Depois **reinicie o Claude Code** — hook é lido no início da sessão.
+
+**O que você perde sem colar** (e o `ds:link` avisa em cada run até colar):
+
+| sem o hook | com o hook |
+|---|---|
+| editar o tema/tokens **dentro do submódulo** passa em silêncio — e a edição vira conflito no próximo `git submodule update`, ou é apagada por um `checkout` | bloqueia (exit 2) e diz como restaurar |
+| `h-10`, `gap-4`, `rounded-lg`, `bg-[#0fff00]` no **seu** código passam sem aviso | avisa (exit 1) com a linha e o token DS correto |
+
+> Até 2026-08-18 o `ds:link` **excluía os hooks** deste canal, e a `ds-channels.md` marcava
+> "hook de integridade ✅" para submódulo. Ou seja: a doc dizia que havia rede de segurança
+> onde não havia nenhuma. O motivo da exclusão era real — os paths do hook casavam o `src/`
+> **do consumidor** — e foi resolvido tornando o hook ciente do `ds-config.json`.
+
 ## Validação — 4 checks, ~1 minuto
 
 Instalação por submódulo tem **três modos de falha silenciosos** — tema ausente, React
