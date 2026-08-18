@@ -21,15 +21,35 @@ Não presuma. Escolher a navegação errada só aparece quando o app já está m
 > *"O sistema vai ter áreas separadas — tipo Comercial, Financeiro, Suporte — cada uma com
 > o próprio menu? Ou é um sistema único com um menu só?"*
 
-| resposta | navegação | como montar |
+| resposta | `sidebar` do AppShell | dados que exige |
 |---|---|---|
-| **com áreas/módulos** | `menu-sidebar` (rail + painel) | é o que o `AppShell` já usa — siga o fluxo abaixo |
-| **sistema único** | `single-menu-sidebar` (nível único, `showSearch` opcional) | **não use o AppShell**: monte `single-menu-sidebar` (full-height, à esquerda) + `header` ao lado |
+| **com áreas/módulos** | `"menu"` (default) | `contexts` |
+| **sistema único** | `"single"` | `categories` + `sidebarLogo` + `sidebarTitle` |
 
-⛔ **O `AppShell` só monta com `menu-sidebar`.** O `single-menu-sidebar` não tem colapso nem
-drawer mobile — e é isso que o `AppShell` coordena com o hamburger do Header. Encaixá-lo
-entregaria um shell cujo menu não abre no celular. Diga isso ao usuário em vez de entregar
-um AppShell com rail de módulos vazio.
+```tsx
+<AppShell
+  sidebar="single"
+  categories={CATEGORIES}
+  sidebarLogo={<MinhaLogo />}
+  sidebarTitle="Meu Sistema"
+  activeItemId={ativo}
+  onSidebarItemClick={setAtivo}
+  breadcrumb={[{ label: "Sistema" }]}
+>…</AppShell>
+```
+
+**O AppShell monta as DUAS** (lib ≥ 0.41.0). O tipo é união discriminada: o TS cobra o
+conjunto certo pra cada escolha. O toggle do Header funciona nos dois sem cabeamento — e na
+variante `single` ele **sai** do Header no desktop, porque a sidebar tem o próprio botão (no
+mobile volta, senão não haveria como abrir).
+
+⚠️ **Não ligue `sidebarShowSearch`** se o Header já tem `commandGroups` — seriam duas buscas
+na mesma tela. O shell entrega a busca da sidebar **desligada** por default.
+
+> ⚠️ **Até o CLI 0.25.0 esta seção dizia o contrário** — que o AppShell só montava com
+> `menu-sidebar`, porque o `single-menu-sidebar` "não tem colapso nem drawer mobile". **Era
+> falso**: ele tem colapso controlado (`expanded`) e tem mobile. Se você montou layout na mão
+> por causa dessa instrução, agora dá pra usar o AppShell.
 
 **Item de menu com destino → declare `href`** (as duas sidebars emitem `<a>`: ctrl+clique e
 nova aba funcionam). Com router próprio, passe

@@ -2162,3 +2162,93 @@ Trabalho real começaria no ChatV2 — e **não é pra fazer agora**, por decis�
 **Assumption:** o ChatV2 continuar sendo tela de referência, não componente distribuído. Se
 algum dia um consumidor pedir "o MessageBubble do DS", a assumption caiu — e aí a saída (a)
 volta à mesa, começando pelo ChatV2 e descendo pela cadeia acima.
+
+---
+
+### 2026-08-18 | ds-dev | InputOTP em paridade com o Input (v0.40.0) | CONCLUÍDO
+
+**Input:** "maximizar o input-otp pra ter todas as variações do shadcn-studio e o mesmo
+tamanho/altura dos input text que consomem tokens de form-height".
+
+**Output (PR #202, release #203):** 4 sizes em paridade MEDIDA com o `Input`, 4 states e 4
+variantes visuais. Publicado como lib 0.40.0 + CLI 0.24.1.
+
+**As "10 variações" do shadcn-studio não são API.** Abri no browser e li o código de cada
+uma: são `className` no grupo com seletor de filho (`*:data-[slot=input-otp-slot]:rounded-lg`),
+usando `rounded-lg` literal e `bg-muted` da bridge — as duas proibidas pela L-039, porque não
+emitem CSS nos canais npm e submódulo. Copiar traria a aparência no showcase e NADA no
+consumidor. Das 10, só 4 são visuais; as outras 6 são composição e viraram exemplos na doc.
+
+**A paridade virou GATE, não promessa.** O teste compara os DOIS `cva` em vez de repetir
+valores: se alguém mudar os sizes de um dos dois, reprova nomeando os dois lados. Verificado
+alterando o `Input` pra `min-h-form-xl` e vendo falhar com `expected 'lg' to be 'xl'`.
+
+**O que o browser NÃO mostrou:** o estado de foco. O slot ativo depende de foco real no input
+escondido, e no browser do pane `.focus()` não registra. Daí exportar `slotVariants` e cobrir
+foco + states em teste puro — 17 asserções.
+
+**Assumption:** as 8 famílias do `dead-ds-classes` cobrem o vocabulário DS não-cor. Se um
+prefixo dobrado novo entrar no transform e ninguém adicionar a família, o gate segue verde
+sobre um eixo que não olha — e o teste "as 8 famílias acham uso real" não pega, porque confere
+as que existem, não as que faltam.
+
+---
+
+### 2026-08-18 | ds-dev | AppShell: altura, escolha de sidebar e o href morto (v0.41.0) | CONCLUÍDO
+
+**Input:** um print de conteúdo "colado no rodapé" + pedido de oferecer o `SingleMenuSidebar`
+no AppShell + suspeita de que ele recarregava a página como o `MenuSidebar` antigo.
+
+**Output (PR #204, release #205):** lib 0.41.0 + CLI 0.25.0, publicados e conferidos por
+dentro do tarball (tipos, runtime, e a união discriminada sobrevivendo ao build de `.d.ts`).
+
+| achado | o que era de verdade |
+|---|---|
+| conteúdo cortado | **não era padding** — `h-screen` ignorava a altura do pai; o shell media 720 numa caixa de 640 e o `overflow-hidden` cortava o rodapé COM o padding. Prop `fillHeight` |
+| `href` do Single | **prop morta** — tipo e USAGE prometiam, o componente renderizava `<button>` sempre. Não recarregava: nunca navegava |
+| escolher a sidebar | entregue: `sidebar="menu" \| "single"`, união discriminada |
+| nada perguntava sobre módulos | Passo 0 no `app-builder` das duas cópias + vocabulário |
+
+**⚠️ ERRATA de um bloqueador que eu reportei e que NÃO EXISTIA.** Ao receber o pedido, eu
+afirmei ao mantenedor — na conversa e no corpo inicial da PR #204 — que oferecer o
+`SingleMenuSidebar` no AppShell estava **bloqueado**, porque *"ele não tem `collapsed` nem
+`mobileOpen`"*, e que encaixá-lo entregaria um shell cujo menu não abre no celular. Cheguei a
+escrever isso na skill `app-builder` como ressalva permanente.
+
+**Falso, e pelo mesmo motivo que me pegou 3× nesta semana: procurei pelo nome errado.** O
+componente tem colapso controlado/não-controlado completo, chamado **`expanded`**
+(`defaultExpanded` · `expanded` · `onExpandedChange`, com hover-expand). E tem mobile também,
+com outro modelo: `< md` expandida ocupa 100% da largura, recolhida some.
+
+Registro aqui, e não como marcação numa entrada antiga, porque **a afirmação nunca chegou ao
+audit log** — ela viveu na conversa, na PR e por algumas horas na skill. Quem só lê este
+arquivo nunca a viu; quem leu a PR #204 antes do commit de correção, viu. O lugar honesto do
+registro é este, com o escopo do estrago declarado.
+
+Quem cobrou foi o mantenedor, com uma pergunta de uma linha: *"essa PR é da tarefa toda?"*.
+Sem isso o item 3 teria ficado como "impossível hoje" no pipeline, com justificativa técnica
+que soa boa e é verificavelmente errada — a pior categoria de doc, pela L-060.
+
+**Três defeitos extras, achados por medição e não por leitura:**
+
+1. Forcei `showToggleIndicator` argumentando que sem ele "não haveria como expandir" —
+   ignorando o hover-expand. O mantenedor apontou o botãozinho flutuante no print. Removido.
+2. `showSearch` do Single tem default **true** (correto standalone, onde não há Header).
+   Dentro do shell isso dava **duas buscas** na mesma tela. O shell inverte pra false.
+3. **Pré-existente, nas duas sidebars:** no celular o botão de menu anunciava "Colapsar" com
+   o menu fechado. O Header recebia `menuCollapsed` (estado de desktop) enquanto a
+   visibilidade mobile é `mobileMenuOpen`. Leitor de tela dizia a ação oposta à do toque.
+
+**A verificação visual só fechou no Chrome DevTools MCP**, e vale registrar por quê: o browser
+do pane deu 3 medições falsas — dev server com HMR quebrado servindo **transformação velha**
+(o `fetch` do módulo mostrou 0 ocorrências de uma prop que estava no disco), porta divergente
+entre a atribuída e a que o vite usou, e `document.timeline` **congelado em 0**, que mede errado
+qualquer elemento com transição. No Chrome real: timeline andando, e o ciclo fechou — clique
+280→80, hover 80→280 com o rótulo virando "Expandir sidebar", e no mobile `display:none` →
+`flex` 413px pelo botão do Header.
+
+**Assumption:** mapear o `expanded` do Single no `menuCollapsed` do shell faz o
+`onMenuCollapseChange` disparar **também no hover** — o hover é expansão temporária, mas de
+fora é indistinguível de um toggle. Quem persistir esse estado (localStorage) recebe escrita a
+cada passagem de mouse. Se incomodar, o caminho é o Single expor a origem da mudança; hoje
+ele não expõe.

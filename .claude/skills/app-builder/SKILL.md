@@ -19,24 +19,30 @@ leia e adapte o exemplo canônico, não gere de memória.
 Não presuma. As duas sidebars do DS resolvem problemas diferentes, e escolher errado só
 aparece quando o app já está montado:
 
-| resposta do usuário | navegação |
-|---|---|
-| **Tem áreas/módulos distintos** (ex.: Comercial, Financeiro, Suporte) — cada um com o próprio menu | `MenuSidebar` — rail de módulos + painel. É o que o `AppShell` usa. |
-| **Não tem módulos** — é um sistema só, menu único de categorias | `SingleMenuSidebar` — nível único, `showSearch` opcional |
+| resposta do usuário | `sidebar` do AppShell | dados |
+|---|---|---|
+| **Tem áreas/módulos distintos** (ex.: Comercial, Financeiro, Suporte) — cada um com o próprio menu | `"menu"` (default) | `contexts` |
+| **Não tem módulos** — é um sistema só, menu único de categorias | `"single"` | `categories` + `sidebarLogo` + `sidebarTitle` |
 
 Pergunta prática, que não exige o usuário conhecer os componentes:
 
 > *"O sistema vai ter áreas separadas — tipo Comercial, Financeiro, Suporte — cada uma com
 > o próprio menu? Ou é um sistema único com um menu só?"*
 
-⛔ **Hoje o `AppShell` só monta com `MenuSidebar`.** O `SingleMenuSidebar` **não tem**
-`collapsed` nem drawer mobile, e é exatamente isso que o `AppShell` coordena com o
-hamburger do Header — encaixá-lo entregaria um shell onde o menu não abre no mobile.
+**O `AppShell` monta as DUAS** (desde a v0.41.0). O tipo é união discriminada, então o TS
+cobra o conjunto certo pra cada escolha. O toggle do Header funciona nos dois casos sem
+cabeamento — e na variante `single` ele **sai** do Header no desktop, porque a sidebar tem o
+próprio botão (no mobile volta, senão não haveria como abrir).
 
-Então, se a resposta for "sem módulos", **não force o AppShell**: monte o layout com o
-`SingleMenuSidebar` direto (ele é full-height, à esquerda) + `Header` ao lado. Diga isso ao
-usuário em vez de entregar um AppShell com menu de módulos vazio — que é o que acontecia
-antes desta seção existir, porque nada perguntava.
+Na `single`, **não ligue `sidebarShowSearch`** se o Header já tem `commandGroups`: seriam
+duas buscas na mesma tela. O shell já entrega a da sidebar desligada por default.
+
+> ⚠️ **Até 2026-08-18 esta seção dizia o contrário** — que o AppShell "só monta com
+> MenuSidebar" porque o Single "não tem `collapsed` nem drawer mobile". **Era falso**: ele tem
+> colapso controlado completo, chamado **`expanded`**, e tem mobile (`< md`: expandida ocupa
+> 100% da largura, recolhida some). Eu havia procurado pelo nome errado e escrito a conclusão
+> como ressalva permanente. Quem seguisse a versão anterior montaria layout na mão sem
+> necessidade.
 
 ## Fluxo
 
