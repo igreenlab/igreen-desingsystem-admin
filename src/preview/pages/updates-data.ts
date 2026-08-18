@@ -46,6 +46,31 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.41.0",
+    date: "2026-08-18",
+    tag: "release",
+    title: "O esqueleto do app aceita o menu simples, e o conteúdo parou de aparecer cortado",
+    summary:
+      "Quatro correções na casca do aplicativo, todas descobertas a partir de um relato de que o conteúdo aparecia colado na borda de baixo. **Não era falta de espaçamento** — a casca se dimensionava pela janela do navegador e ignorava a altura da caixa onde estava colocada, então o rodapé transbordava e era cortado, levando o espaçamento junto. Junto vêm três coisas que já afetavam quem consome: o menu simples agora pode ser usado no esqueleto (antes só o menu com módulos era aceito), os itens dele passaram a ser **links de verdade** — dá para abrir em nova aba, copiar o endereço, e o leitor de tela anuncia como link —, e o botão de menu no celular deixou de anunciar a ação contrária à que executa.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O conteúdo aparecia cortado na base, e a causa não era espaçamento.** A casca do aplicativo se media pela janela do navegador, ignorando a altura do container em que foi colocada. Colocada dentro de qualquer caixa com altura definida — um layout com rodapé próprio, um painel de aba, uma prévia — ela transbordava, e a parte de baixo era recortada junto com o espaçamento interno. Medido: a casca ocupava 720 pixels dentro de uma caixa de 640, terminando 56 pixels abaixo da borda. Existe agora uma opção para a casca obedecer o container; o comportamento padrão continua o de antes, para não mexer em quem já usa.",
+          "**Os itens do menu simples não navegavam.** O endereço de destino era aceito na configuração e documentado — e nada o usava: o item era sempre um botão. Na prática isso significava não conseguir abrir uma seção em nova aba, não conseguir copiar o endereço, e o leitor de tela anunciando \"botão\" onde deveria dizer \"link\". Agora item com destino é link de verdade, com a página atual marcada para leitores de tela, e há um ponto de integração para quem usa biblioteca de rotas própria.",
+          "**No celular, o botão de menu anunciava a ação oposta.** Com o menu fechado, o leitor de tela dizia \"colapsar menu\" — o contrário do que o toque faz. Vale para os dois tipos de menu, e já era assim antes desta versão.",
+        ],
+      },
+      {
+        type: "added",
+        items: [
+          "**O esqueleto do aplicativo passou a aceitar os dois tipos de menu lateral.** Antes só montava com o menu de módulos (aquele com a faixa de ícones à esquerda e um painel por área). Agora aceita também o menu simples, de nível único, para sistemas que não se dividem em áreas. O botão de recolher do topo funciona nos dois, sem configuração extra — e na variação simples o botão sai da barra superior, porque o próprio menu já tem o dele. A página de documentação mostra os dois lado a lado.",
+          "**A escolha do menu passou a ser perguntada.** Nada, em momento algum, perguntava se o sistema teria áreas separadas ou seria um sistema único — e essa é a pergunta que decide qual menu usar. Agora o assistente pergunta antes de montar, em linguagem de quem está pedindo: *\"vai ter áreas separadas, tipo Comercial e Financeiro, ou é um sistema único?\"*",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.40.0",
     date: "2026-08-18",
     tag: "release",
