@@ -5,7 +5,9 @@
       "name": "showcase",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3100
+      "port": 3100,
+      "//autoPort": "true porque a 3100 costuma estar ocupada por um dev server já rodando; sem isso o preview recusa subir. E servidor alheio com HMR quebrado serve módulo VELHO — medir nele mente.",
+      "autoPort": true
     }
   ]
 }

@@ -178,12 +178,17 @@ export function AppShell(props: AppShellProps) {
         showSearch={sidebarShowSearch ?? false}
         searchPlaceholder={sidebarSearchPlaceholder}
         /**
-         * Forçado, não opcional: o shell REMOVE o botão de colapsar do Header quando monta
-         * esta sidebar (ver `onCollapseMenu` abaixo), então o toggle dela é o único
-         * controle. Sem `showToggleIndicator` o botão desaparece no estado recolhido e
-         * não haveria como expandir de novo.
+         * `showToggleIndicator` fica FALSE (o default dela) de propósito.
+         *
+         * Ele desenha um botãozinho flutuante grudado na borda externa da sidebar recolhida
+         * (`absolute right-0 translate-x-1/2`, 26×26) — ruído visual num rail que já responde
+         * a **hover**: passar o mouse expande, e aí o toggle interno aparece pra travar.
+         *
+         * ⚠️ Eu havia forçado esta prop, argumentando que sem ela "não haveria como expandir
+         * de novo". Errado: ignorei o hover-expand, que é o mecanismo primário de abertura
+         * no desktop. No mobile, onde não há hover, quem abre é o botão do Header — que é
+         * exatamente por isso que ele NÃO é removido lá (ver `onCollapseMenu`).
          */
-        showToggleIndicator
         expanded={isMobile ? mobileMenuOpen : !menuCollapsed}
         onExpandedChange={(next) => {
           if (isMobile) {
