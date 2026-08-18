@@ -166,8 +166,24 @@ export function AppShell(props: AppShellProps) {
         activeItemId={activeItemId}
         onItemClick={onSidebarItemClick}
         renderLink={renderLink as never}
-        showSearch={sidebarShowSearch}
+        /**
+         * ⚠️ `?? false` não é redundante: o `SingleMenuSidebar` tem `showSearch = true` como
+         * DEFAULT dele (faz sentido em uso standalone, onde não há Header). Dentro do shell
+         * há Header com `commandGroups`, então herdar esse default entrega **duas buscas na
+         * mesma tela** — pego na verificação visual, não na leitura.
+         *
+         * Aqui o default se inverte: desligada, e quem quiser uma busca de escopo próprio
+         * na sidebar liga com `sidebarShowSearch`.
+         */
+        showSearch={sidebarShowSearch ?? false}
         searchPlaceholder={sidebarSearchPlaceholder}
+        /**
+         * Forçado, não opcional: o shell REMOVE o botão de colapsar do Header quando monta
+         * esta sidebar (ver `onCollapseMenu` abaixo), então o toggle dela é o único
+         * controle. Sem `showToggleIndicator` o botão desaparece no estado recolhido e
+         * não haveria como expandir de novo.
+         */
+        showToggleIndicator
         expanded={isMobile ? mobileMenuOpen : !menuCollapsed}
         onExpandedChange={(next) => {
           if (isMobile) {
@@ -229,7 +245,17 @@ export function AppShell(props: AppShellProps) {
       <div className={s.main()}>
         <Header
           breadcrumb={breadcrumb}
-          onCollapseMenu={handleToggleMenu}
+          /**
+           * A sidebar single tem o próprio botão de recolher, no header dela (é o desenho
+           * dela — logo + título + toggle). Manter também o do Header dá DOIS controles
+           * pra mesma coisa, lado a lado. O Header esconde o botão quando `onCollapseMenu`
+           * é omitido, então basta não passar.
+           *
+           * ⚠️ **Menos no mobile.** Abaixo de 768px a single fica `hidden` quando recolhida
+           * — o toggle dela desaparece junto, e não haveria como abrir o menu. Ali o botão
+           * do Header é a única entrada, então ele fica.
+           */
+          onCollapseMenu={sidebar === "single" && !isMobile ? undefined : handleToggleMenu}
           menuCollapsed={menuCollapsed}
           commandGroups={commandGroups}
           commandPlaceholder={commandPlaceholder}

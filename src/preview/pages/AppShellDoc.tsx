@@ -281,17 +281,19 @@ export function AppShellDoc() {
       <ExampleSection
         id="ex-sidebar-single"
         title='sidebar="single" — sem módulos'
-        description="Menu de nível único: categorias com accordion, sem rail de módulos. Use quando o sistema não se divide em áreas. Clique no toggle do Header — colapsa igual."
+        description="Menu de nível único: logo e título no header da própria sidebar, com o toggle de recolher ali dentro. Sem rail de módulos e sem busca — o Header já tem a dele, e duplicar não faz sentido. O shell esconde o botão de colapsar do Header nesta variação, porque a sidebar tem o próprio (no mobile ele volta, senão não haveria como abrir)."
         code={`<AppShell
   sidebar="single"
   categories={CATEGORIES}
   sidebarLogo={<MinhaLogo />}
   sidebarTitle="Meu Sistema"
-  sidebarShowSearch
   activeItemId={ativo}
   onSidebarItemClick={setAtivo}
   breadcrumb={…}
->…</AppShell>`}
+>…</AppShell>
+
+{/* busca: NÃO passe sidebarShowSearch aqui — o Header já tem \`commandGroups\`.
+    Ligue só se a sidebar precisar de uma busca PRÓPRIA, de escopo diferente. */}`}
       >
         <div className="h-[420px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
           <AppShell
@@ -301,8 +303,6 @@ export function AppShellDoc() {
             categories={SINGLE_CATEGORIES}
             sidebarLogo={<LayoutGrid className="size-icon-md" />}
             sidebarTitle="Sistema Único"
-            sidebarShowSearch
-            sidebarSearchPlaceholder="Buscar no menu…"
             activeItemId={itemSingle}
             onSidebarItemClick={setItemSingle}
             breadcrumb={[{ label: "Sistema" }, { label: "Dashboard" }]}
