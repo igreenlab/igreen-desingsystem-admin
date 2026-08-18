@@ -132,7 +132,7 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 - `header` — barra superior de 60px (breadcrumb, busca, tema, usuário) dentro do shell.
 - **Menu lateral — a escolha depende de o app ter módulos, então PERGUNTE:**
   - **tem áreas separadas** (Comercial, Financeiro…), cada uma com menu próprio → `menu-sidebar` (rail + contextos). É o que o `app-shell` usa.
-  - **sistema único**, um menu só → `single-menu-sidebar` (nível único, `showSearch` opcional). ⛔ Este **não** encaixa no `app-shell`: não tem colapso nem drawer mobile, e é isso que o hamburger do header coordena. Monte-o direto + `header` ao lado.
+  - **sistema único**, um menu só → `single-menu-sidebar` (nível único). No `app-shell` passe `sidebar="single"` + `categories` + `sidebarLogo` + `sidebarTitle`. ⚠️ **Não** ligue `sidebarShowSearch` se o header já tem busca — o shell já entrega a da sidebar desligada. (Até o CLI 0.25.0 esta linha dizia que o `single-menu-sidebar` não encaixava no `app-shell`: era **falso**, ele tem colapso e mobile.)
   - Nas duas: item com destino declara `href` (vira `<a>`, então ctrl+clique e nova aba funcionam). Router próprio → `renderLink`.
 
   > 🧭 **O app tem router (react-router, Next, TanStack)? Passe `renderLink`.**
