@@ -1939,11 +1939,11 @@ canais**:
 `ds-channels.md` do payload (que o consumidor lê) e no `architecture.md`. Duas restrições:
 (1) o kit não pode chegar automático — pela L-056 o Claude Code só descobre `.claude/` na
 raiz do cwd, e pacote em `node_modules` não fornece um descobrível; o `--only-kit` resolve
-isso escrevendo na raiz. (2) Mas **23 arquivos** do payload referenciam `igreen:add`, e o
+isso escrevendo na raiz. (2) Mas **36 dos 38 arquivos** do payload referenciam `igreen:add` — e **35 já ramificam por modo** (leem `ds-config.json`, importam via `importBase`, não rodam o comando); o único que não ramifica é um hook. O
 método dos builders é "puxe o `example-*` e adapte" — quem consome só por npm não tem esse
 comando e recebe o exemplo buildado, sem poder editar.
 
-Fechar o npm exige `mode: "npm"` nas 23 referências. **Frente própria, com desenho antes de
+Fechar o npm **não** é desenhar o mecanismo do zero, como esta entrada afirmava com o número errado: o mecanismo existe e atende 2 modos. O que falta é que a ramificação é **exceção em prosa** repetida arquivo a arquivo, e um 3º modo replicaria a nota uma terceira vez. O trabalho certo é resolver o modo **num lugar só**. **Frente própria, com desenho antes de
 código** — entregar o kit sem isso seria dar instrução inaplicável, que é a classe de
 defeito que este pipeline existe pra impedir.
 
@@ -2060,3 +2060,58 @@ voltar a sair "2 lições novas" no fim de uma sessão, o loop está reiniciando
 respondidas de forma complacente pelo próprio autor ("sim, muda decisão") o filtro é teatro —
 o sinal de que caiu é o resumo do `ds-standards` voltar a crescer. Aferido uma vez: reprovou as
 2 do próprio autor na estreia.
+
+---
+
+### 2026-08-18 | ds-reviewer | Auditoria do canal submódulo — item 1 entregue, item 2 BLOQUEADO em decisão | PAUSADO
+
+**Input:** auditar o pipeline do consumidor com a lente "a IA acerta componente e tamanho a
+partir de prompt simples, sem correção manual?" — e aplicar as melhorias.
+
+**O canal está íntegro**, e vale registrar com a mesma ênfase dos gaps: 13/13 caminhos que as
+skills mandam ler existem, 9/9 exemplos do registry batem com o disco, 10 módulos de gate já
+cobrem `cli/templates/`, `color="critical"` confere com o `Button` real, e 0 classes DS
+não-cor mortas no payload.
+
+**Item 1 — ENTREGUE (PR #196).** O hook de integridade não chegava no canal submódulo, e a
+`ds-channels.md` (auto-carregada no consumidor) o listava como presente. A razão da exclusão
+era metade verdadeira: os paths casavam o `src/` DO CONSUMIDOR (medido: exit 2 onde devia ser
+0), mas o **lint de conteúdo** do mesmo hook não tem dependência de layout e foi excluído
+junto. Hook agora lê `ds-config.json`; sem config o comportamento é idêntico ao de antes.
+
+**Item 2 — BLOQUEADO, e a razão é que eu descrevi o achado errado.** Eu havia relatado "6
+componentes de chat que a IA não sabe que existem" e proposto 6 linhas no vocabulário. Medindo
+antes de escrever, achei **três** implementações de chat no repo:
+
+| onde | MessageBubble | quem usa |
+|---|---|---|
+| `src/components/ui/` (os 6) | 10,9 KB | **ninguém** — 0 usos fora da própria pasta |
+| `src/preview/pages/ChatV2/components/` | — | é o que o showcase renderiza |
+| `src/examples/chat/components/` | 1,0 KB | é o que o CONSUMIDOR recebe |
+
+Os 6 de `ui/` estão **exportados no barrel público** — viajam pro npm — com **0 usos**, **0
+no registry** e ausentes do vocabulário do consumidor. São órfãos distribuídos.
+
+Adicioná-los ao vocabulário criaria uma **terceira** implementação divergente e mandaria a IA
+usar componente que o `igreen:add` não consegue buscar. **Decisão do mantenedor**, porque as
+duas saídas têm custo assimétrico:
+
+  (a) os de ui/ são canônicos  → ChatV2 + example passam a usá-los (refactor real de 2
+                                 superfícies), e então entram em vocabulário + registry
+  (b) foram superados          → saem do barrel. É **breaking** pra quem importa por npm,
+                                 mesmo que ninguém importe: não há como saber daqui
+
+Minha leitura é **(b)**, porque a L-034 diz que `example-*` é extração 1:1 do showcase, e o
+showcase tem os seus próprios — os de `ui/` não são a fonte de nenhum dos dois. Mas remover do
+barrel é irreversível pra consumidor instalado, e essa não é minha chamada.
+
+**Errata da entrada de 2026-08-17 (E1), corrigida acima.** Ela dizia "23 arquivos do payload
+referenciam `igreen:add`". São **36 de 38**, e **35 já ramificam por modo**. O 23 era a
+contagem de arquivos em `skills/`, que eu confundi ao escrever. O número errado não era
+decorativo: ele sustentava a conclusão de que fechar o npm exige "desenhar `mode: npm` do
+zero". O mecanismo existe; o problema é ele ser prosa repetida, não ausência.
+
+**Assumption:** o item 1 fecha o buraco de proteção *se* o consumidor colar o bloco no
+`settings.json` dele. Não há como forçar — o arquivo é dele. O `ds:link` avisa em cada run e o
+summary mostra `○`, mas se ninguém colar, a proteção segue inativa e a assumption caiu. Sinal
+de que caiu: um consumidor com tema do DS editado dentro do submódulo.
