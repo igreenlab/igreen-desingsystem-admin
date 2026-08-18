@@ -82,15 +82,20 @@ export const FATOS = [
     nome: "appshell-monta-sidebar-single",
     afirmacao:
       'O `AppShell` aceita `sidebar="single"` (união discriminada), e o `SingleMenuSidebar` tem colapso controlado via `expanded`.',
+    // ⚠️ Sondas TOLERANTES A ESPAÇO. A primeira versão exigia `;` colado na aspa
+    // (`/sidebar:\s*"single";/`), e o smoke test mostrou que `sidebar: "single" ;` — que o
+    // `tsc` aceita sem reclamar — derrubava a premissa. Este repo não tem formatador (é
+    // decisão de 2026-07-29), então a formatação é manual e essa variação acontece. Um
+    // `premissa-sumiu` falso custa tempo de quem for investigar, sem defeito nenhum atrás.
     mecanismo: [
       {
         arquivo: "src/components/ui/AppShell/app-shell.types.ts",
-        presente: /sidebar:\s*"single";/,
+        presente: /sidebar\s*:\s*"single"\s*;/,
         o_que: 'o tipo do AppShell declara o ramo `sidebar: "single"`',
       },
       {
         arquivo: "src/components/ui/SingleMenuSidebar/single-menu-sidebar.types.ts",
-        presente: /expanded\?:\s*boolean;/,
+        presente: /expanded\s*\?\s*:\s*boolean\s*;/,
         o_que: "o Single declara colapso controlado (`expanded`)",
       },
     ],
