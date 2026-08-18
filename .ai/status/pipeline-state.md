@@ -2312,3 +2312,36 @@ só protege fato declarado em `FATOS` — não descobre superfície nova sozinho
 declarar um fato ao mudar um mecanismo é barato o bastante (1 regex por superfície) pra
 acontecer; se a lista ficar parada em 2 enquanto o pipeline muda, o gate passa a produzir
 ilusão de cobertura — e o sinal a observar é `verificados` parado enquanto o payload cresce.
+
+---
+
+### 2026-08-18 | ds-dev | #207 — `ds-design.md` afirmava que o submódulo não tem proteção | CONCLUÍDO
+
+**Registro atrasado.** Esta entry foi escrita **depois** da PR do gate `mechanism-surfaces`,
+porque a #207 mergeou e publicou sem passar por aqui — foi a única mudança da sessão que ficou
+fora do audit log. Registrada por completude, e porque o defeito dela é a razão de existir do
+gate.
+
+**O defeito.** A tabela "o que de fato te impede, por canal" da
+`cli/templates/default/_claude/rules/ds-design.md` marcava o submódulo como **"❌ nenhuma"**,
+justificando com *"o `ds-link` não projeta `hooks/`"*. Era verdade até a CLI 0.23.x e
+**deixou de ser na 0.24.0**: o `ds-link` projeta o `protect-ds.mjs`, e o hook reconhece o
+layout de submódulo (bloqueia `<dsPath>/src/styles/theme/**` e `<dsPath>/tokens/**` sem
+confundir com o `src/` do consumidor). Restava 1 passo manual — registrar o hook no
+`settings.json` do consumidor, que o `ds-link` imprime e não escreve.
+
+**Por que ficou 3 versões no ar.** Quando eu mudei o mecanismo, corrigi a `ds-channels.md` e
+não procurei as outras superfícies que descrevem a MESMA tabela de proteção por canal. A
+`ds-design.md` seguiu publicada errada nas CLI 0.25.0 e 0.25.1. Consequência concreta: o
+consumidor de submódulo lia que não havia rede de segurança e concluía que não valia colar o
+bloco — exatamente a L-060 (quem lê uma frase que afirma garantia para de investigar).
+
+**Entregue.** Correção da tabela + nota de retratação explicando o que a versão anterior dizia
+(convenção do repo: retratação fica no texto, não só no git log). Bump `cli/package.json`
+0.25.1 → **0.25.2**, publicado. PR #207, mergeada 2026-08-18T19:33:19Z.
+
+**Assumption:** que a correção do texto bastava. **Falsa, e é o que a sessão provou** — o
+mesmo padrão já havia acontecido com a skill `app-builder` no mesmo dia, e nada impedia a
+terceira vez. O gate `mechanism-surfaces` (entry anterior) é a resposta: hoje as duas
+superfícies desta tabela são cobradas juntas pelo `npm test`, e a versão quebrada da
+`ds-design.md` está no teste como fixture (`84515b4^`).
