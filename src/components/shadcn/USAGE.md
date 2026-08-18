@@ -18,7 +18,7 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 | `hover-card` | `openDelay` default = 200ms. Segue a receita flutuante (L-040). |
 | `context-menu`, `menubar`, `navigation-menu` | Superfície flutuante segue a **receita única** (L-040) — não reverter pros defaults shadcn. |
 | `carousel` | Usa o **DS `Button`** interno (não o button shadcn). Dep extra: `embla-carousel-react`. |
-| `input-otp` | Dep extra: `input-otp`. Foco usa `ring-ring-brand` (não `-primary`). |
+| `input-otp` | Dep extra: `input-otp`. **Irmão do `Input`**: mesmos `size` (`xxs`/`xs`/`sm`/`md` → form-xs/sm/md/lg) e `state` (default/error/warning/success), mesma superfície, foco por **borda verde + `shadow-sh-ring`** (não `ring-4`). `variant`: `connected` (default) · `outlined` · `filled` · `underline`. Declare no `<InputOTP>` — os slots herdam por contexto; repetir a prop em cada slot é o erro que deixa um slot de tamanho diferente no meio da fileira. |
 | `drawer` | Dep extra: `vaul`. Mobile dentro de overlay z-50 → wrapper a **z-60** (L-030). |
 | `tabs` | 2 variantes via prop **`variant` no `<Tabs>`** (propagada por contexto — NÃO em List/Trigger): `"segmented"` (default, pill) · `"line"` (underline, aba ativa com `border-border-brand`). |
 | `alert-dialog` | **ESC FECHA**, ao contrário do que o comentário do componente afirmava (medido no browser). Só o clique fora é bloqueado. Decisão inescapável exige `onEscapeKeyDown={(e) => e.preventDefault()}`. Header é **centralizado** (o do Dialog é à esquerda) e o Footer é `col-reverse` no mobile — ação em cima. Pra confirmação comum use o composto **`ui/AlertModal`**, que já monta tom + ícone + botões. |
