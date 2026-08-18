@@ -419,21 +419,41 @@ Resultado: label do drawer ficava com peso DIFERENTE e cor MAIS FORTE no dark vs
 
 | Form                                  | Gap usado antes     | Resultado visual                               |
 | ------------------------------------- | ------------------- | ---------------------------------------------- |
-| NovoClienteDrawer                     | `gap-gp-lg` (12px)  | Apertado, labels colando                       |
-| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (12px)  | Mesma queixa                                   |
-| ToolbarSimpleFilterDrawer             | `gap-gp-xl` (16px)  | Ainda curto pra 5+ filtros                     |
-| KPI cards grid (ClientesFinanceiro)   | `gap-gp-2xl` (24px) | OK pra cards, mas viraria solto demais em form |
+| NovoClienteDrawer                     | `gap-gp-lg` (10px)  | Apertado, labels colando                       |
+| SacarDialog form "Outra conta" v0.7.0 | `gap-gp-lg` (10px)  | Mesma queixa                                   |
+| ToolbarSimpleFilterDrawer             | `gap-gp-xl` (12px)  | Ainda curto pra 5+ filtros                     |
+| KPI cards grid (ClientesFinanceiro)   | `gap-gp-2xl` (16px) | OK pra cards, mas viraria solto demais em form |
 
 Sergio notou diretamente: _"o gap entre os inputs poderia ser 20px... deixar isso como padrão criar até um token para isso de componentes spacing"_.
 
-**Causa raiz:** os tokens `gap.*` semânticos (xs=4px / sm=6px / md=8px / lg=12px / xl=16px / 2xl=24px / 3xl=32px) **não têm tier exato em 20px**. Cada implementação escolhia o mais próximo conforme o gosto — gerava inconsistência horizontal entre forms do mesmo projeto.
+**Causa raiz:** nenhum token `gap.*` **nomeia o papel** "espaço entre campos de formulário", então cada implementação escolhia o degrau mais próximo conforme o gosto — inconsistência horizontal entre forms do mesmo projeto.
 
 20px é o sweet-spot:
 
-- 12px (gap-gp-lg) → label colando no campo de cima, leitura prejudicada
-- 16px (gap-gp-xl) → ainda apertado quando há helper text embaixo do field
+- 10px (gap-gp-lg) → label colando no campo de cima, leitura prejudicada
+- 12px (gap-gp-xl) → ainda apertado quando há helper text embaixo do field
 - 20px → respira sem inflar viewport
-- 24px (gap-gp-2xl) → desperdício vertical em drawers com 5+ fields
+- 16px (gap-gp-2xl) → curto pra form; 24px (gap-gp-4xl) → desperdício vertical em drawers com 5+ fields
+
+> ⚠️ **Corrigido em 2026-08-18 — dois erros de fato nesta lição, achados pelo `audit:token-docs`
+> no gate de pre-commit da release.** (1) A escala citada era `xs=4 / sm=6 / md=8 / lg=12 /
+> xl=16 / 2xl=24 / 3xl=32` — **essa escala nunca existiu**. A real, desde o commit inicial
+> (2026-05-18, anterior a esta lição), tem 13 degraus:
+> `2xs=2 xs=4 sm=6 md=8 lg=10 xl=12 2xl=16 3xl=20 4xl=24 5xl=28 6xl=32 7xl=48`.
+> (2) Daí saiu a afirmação de que os tokens *"**não têm tier exato em 20px**"* — **falsa**:
+> `gap-gp-3xl` **é** 20px, e sempre foi. Omitir os degraus intermediários deslocou todos os
+> nomes de `lg` pra cima e fez o 20px parecer ausente.
+>
+> **A conclusão da lição continua válida, por outro motivo.** `gap-form-gap` não existe pra
+> *fornecer* um valor que faltava — existe pra **nomear o papel**, que é o que a regra do DS
+> manda preferir ("prefira o token de COMPONENTE ao genérico"). Um `gap-gp-3xl` num form
+> comunica "degrau 3xl da escala"; `gap-form-gap` comunica "o espaçamento de formulário do
+> DS", e pode ser recalibrado sem tocar em quem usa 20px por outra razão.
+>
+> Os números errados também estavam no `ds-standards.md`, que é **auto-carregado** — corrigidos
+> na mesma passada. As fontes canônicas de spacing (`.ai/context/tokens/spacing.md`,
+> `coding-standards.md`, `spec-token.md`) sempre estiveram certas, e o resumo 1-linha da própria
+> L-024 no `ds-standards` também: o erro vivia só no texto longo daqui e na cópia que saiu dele.
 
 **Solução:** token dedicado `formGap = scale[5]` (20px) em `tokens/brands/default/components/spacing.ts`:
 
@@ -467,8 +487,8 @@ Classe resultante: `gap-form-gap` (20px).
 </div>
 
 // ❌ ERRADO — semântico genérico
-<form className="flex flex-col gap-gp-lg">    // 12px
-<form className="flex flex-col gap-gp-xl">    // 16px
+<form className="flex flex-col gap-gp-lg">    // 10px
+<form className="flex flex-col gap-gp-xl">    // 12px
 
 // ❌ ERRADO — Tailwind literal
 <form className="flex flex-col gap-5">        // 20px raw, sem token
