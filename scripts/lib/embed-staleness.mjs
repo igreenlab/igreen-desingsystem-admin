@@ -170,3 +170,44 @@ export function summarize(stamps) {
   const hashes = [...new Set([...stamps.values()].map((s) => s.hash))].sort();
   return { count: stamps.size, versions, hashes };
 }
+
+/**
+ * Separa os findings entre **bloqueantes sempre** e **transitórios por design**.
+ *
+ * ## Por que esta função existe
+ *
+ * O bloco 2b do `registry-check` (conteúdo do embed defasado) é informativo sem
+ * `--ci`, e o comentário dele explica que isso é load-bearing: a **Regra 8** manda a
+ * distribuição (registry + embed) consolidar no `/ds-release`, não por-PR-de-componente.
+ * Toda PR que toca componente distribuído deixa o embed defasado **por seguir a regra**,
+ * e um gate bloqueante ali reprovava a PR justamente por isso.
+ *
+ * O bloco 2a — este módulo — nasceu antes e bloqueava **todos** os seus findings, sem
+ * distinguir. Consequência medida em 2026-08-18, na PR #211: registrar
+ * `utils/action-slots.ts` no `registry.json` (mudança **authored**, que o
+ * `registry:build` não gera porque ele não escaneia pasta) fez o `files[]` do item
+ * divergir do embed, e o CI reprovou a PR — pelo mesmo motivo que já havia sido
+ * reconhecido como falso-positivo em 2b, com a mesma justificativa escrita ao lado, no
+ * mesmo arquivo.
+ *
+ * ## O critério
+ *
+ * - **`files-mismatch`** — a lista de arquivos do item mudou e o embed ainda não foi
+ *   regenerado. É exatamente o estado que a Regra 8 cria e que o `/ds-release` resolve:
+ *   **transitório**. Bloqueia com `--ci` (no `release:check`), onde "defasado" deixa de
+ *   ser transitório e passa a ser o que o consumidor recebe.
+ * - **`stale`** (carimbo divergente), **`no-registry-stamp`**, **`absent-in-embed`** —
+ *   seguem **bloqueantes sempre**. O `stale` é o defeito original que motivou o gate:
+ *   release que carimbou o `registry.json` e esqueceu o `copy-registry.mjs`, servindo
+ *   código velho com número novo. Isso não é transitório, é release quebrada.
+ *
+ * @param {Array<{id:string, name:string, msg:string}>} findings
+ * @returns {{bloqueantes: Array<object>, transitorios: Array<object>}}
+ */
+export function particionarPorSeveridade(findings) {
+  const TRANSITORIO = new Set(["files-mismatch"]);
+  return {
+    bloqueantes: findings.filter((f) => !TRANSITORIO.has(f.id)),
+    transitorios: findings.filter((f) => TRANSITORIO.has(f.id)),
+  };
+}
