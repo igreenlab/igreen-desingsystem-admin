@@ -14,6 +14,30 @@ O "chassi" onde as telas moram. Não é uma tela de conteúdo — é o shell + n
 roteamento. Conteúdo de cada tela vem depois dos builders (crud/list/dashboard).
 Não gere de memória: puxe e adapte o exemplo.
 
+## Passo 0 — PERGUNTE ao usuário: o app tem módulos?
+
+Não presuma. Escolher a navegação errada só aparece quando o app já está montado.
+
+> *"O sistema vai ter áreas separadas — tipo Comercial, Financeiro, Suporte — cada uma com
+> o próprio menu? Ou é um sistema único com um menu só?"*
+
+| resposta | navegação | como montar |
+|---|---|---|
+| **com áreas/módulos** | `menu-sidebar` (rail + painel) | é o que o `AppShell` já usa — siga o fluxo abaixo |
+| **sistema único** | `single-menu-sidebar` (nível único, `showSearch` opcional) | **não use o AppShell**: monte `single-menu-sidebar` (full-height, à esquerda) + `header` ao lado |
+
+⛔ **O `AppShell` só monta com `menu-sidebar`.** O `single-menu-sidebar` não tem colapso nem
+drawer mobile — e é isso que o `AppShell` coordena com o hamburger do Header. Encaixá-lo
+entregaria um shell cujo menu não abre no celular. Diga isso ao usuário em vez de entregar
+um AppShell com rail de módulos vazio.
+
+**Item de menu com destino → declare `href`** (as duas sidebars emitem `<a>`: ctrl+clique e
+nova aba funcionam). Com router próprio, passe
+`renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}`.
+
+**AppShell dentro de container com altura** (layout com footer seu, aba, preview) →
+`fillHeight`. Sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.
+
 ## Fluxo
 
 1. `npm run igreen:add -- example-app-shell` (traz o esqueleto + AppShell, MenuSidebar, Header, PageHeader).

@@ -67,6 +67,7 @@ export function AppShell({
   children,
   bodyClassName,
   mobileEdgeToEdge,
+  fillHeight,
   className,
 }: AppShellProps) {
   /**
@@ -131,7 +132,7 @@ export function AppShell({
   ) : undefined;
 
   return (
-    <div className={cn(s.root(), className)}>
+    <div className={cn(s.root({ fillHeight: fillHeight ?? false }), className)}>
       <MenuSidebar
         contexts={contexts}
         activeContextId={activeContextId}

@@ -7,7 +7,7 @@ import {
   sidebarItemText,
   sidebarPill,
 } from "./sidebar.styles";
-import { shouldPreventNavigation } from "./nav-link";
+import { shouldPreventNavigation } from "@/utils/nav-link";
 import type {
   SidebarMenuItem,
   SidebarBadgeKind,
@@ -77,7 +77,7 @@ export const SidebarItem = forwardRef<HTMLAnchorElement | HTMLButtonElement, Sid
     const handleClick = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
       // Cancela a navegação nativa do `<a>` quando o consumidor claramente trata o
       // clique — mas nunca em clique modificado, `target="_blank"`, link externo ou
-      // href de HASH. A regra e o porquê de cada exceção estão em `nav-link.ts`.
+      // href de HASH. A regra e o porquê de cada exceção estão em `@/utils/nav-link`.
       //
       // Só corre quando NÃO há `renderLink`: com ele, quem decide é o `<Link>` do router.
       if (!renderLink) {

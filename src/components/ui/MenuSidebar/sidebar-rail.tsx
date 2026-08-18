@@ -13,7 +13,7 @@ import {
   sidebarRailUserDefault,
 } from "./sidebar.styles";
 import { SidebarBrandIcon } from "./sidebar-brand";
-import { shouldPreventNavigation } from "./nav-link";
+import { shouldPreventNavigation } from "@/utils/nav-link";
 import type { SidebarContext, SidebarLinkRenderer } from "./sidebar.types";
 
 export type SidebarRailProps = {
@@ -99,7 +99,7 @@ export function SidebarRail({
 //
 // ⚠️ Era `<a href="/">` FIXO no JSX até 2026-08-08: recarregava pra raiz em qualquer
 // app, sem forma de configurar nem de rotear. Agora aceita `brandHref`, `onBrandClick`
-// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `nav-link.ts`).
+// e `renderLink`, e segue a mesma regra de cancelamento dos itens (ver `@/utils/nav-link`).
 function SidebarBrandLink({
   href,
   onClick,

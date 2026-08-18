@@ -117,8 +117,14 @@ export function AppShellDoc() {
         description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot (gap-gp-4xl + padding responsivo 18/24/32px).'
         code={CODE_FULL}
       >
+        {/* `fillHeight` é OBRIGATÓRIO aqui: sem ele o shell mede 100vh, transborda
+            esta caixa de 640px e o `overflow-hidden` corta o rodapé do body — o
+            padding-bottom de 24px desaparecia junto, e o resultado parecia (mas não
+            era) falta de padding. Medido em 2026-08-18: main de 660px numa caixa de
+            640, terminando 56px abaixo da borda. */}
         <div className="h-[640px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
           <AppShell
+            fillHeight
             contexts={APP_SHELL_CONTEXTS}
             defaultActiveContextId="inbox"
             defaultActiveItemHref="#atendimentos"

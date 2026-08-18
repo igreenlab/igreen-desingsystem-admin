@@ -1,6 +1,8 @@
 "use client";
 
+import type { MouseEvent } from "react";
 import { ChevronDown } from "lucide-react";
+import { shouldPreventNavigation } from "@/utils/nav-link";
 import { cn } from "@/lib/utils";
 import {
   Collapsible,
@@ -26,6 +28,8 @@ export function SingleMenuCategory({
   activeItemId,
   onItemClick,
   onCategoryClick,
+  href,
+  renderLink,
 }: SingleMenuCategoryProps) {
   const { expanded, openCategoryId, setOpenCategoryId } =
     useSingleMenuSidebar();
@@ -93,12 +97,41 @@ export function SingleMenuCategory({
     );
   }
 
-  // Sem sub-itens: botão simples (sem chevron — nada a expandir)
+  // Sem sub-itens: é link simples (o que o USAGE.md sempre prometeu) quando tem `href`,
+  // e botão quando não tem. Até 2026-08-18 era SEMPRE botão, e o `href` da categoria era
+  // prop morta igual à do sub-item.
   if (!hasItems) {
-    return (
-      <button type="button" onClick={handleToggle} className={s.root()}>
+    const conteudo = (
+      <>
         <span className={s.icon()}>{icon}</span>
         <span className={cn(s.text(), styles.textFadeIn)}>{label}</span>
+      </>
+    );
+
+    if (href) {
+      const linkProps = {
+        href,
+        className: s.root(),
+        onClick: (e: MouseEvent<HTMLAnchorElement>) => {
+          // `hasHandler: true` porque o `handleToggle` abaixo SEMPRE trata o clique
+          // (é como a categoria assume a marcação). As 5 exceções seguem valendo:
+          // clique modificado, target, href externo e href de hash não são cancelados.
+          if (!renderLink) {
+            const prevent = shouldPreventNavigation({ href, hasHandler: true, event: e });
+            if (prevent) e.preventDefault();
+          }
+          handleToggle();
+        },
+        "aria-current": selected ? ("page" as const) : undefined,
+        children: conteudo,
+      };
+      if (renderLink) return <>{renderLink(linkProps)}</>;
+      return <a {...linkProps} />;
+    }
+
+    return (
+      <button type="button" onClick={handleToggle} className={s.root()}>
+        {conteudo}
       </button>
     );
   }
@@ -124,6 +157,11 @@ export function SingleMenuCategory({
               key={item.id}
               label={item.label}
               selected={item.id === activeItemId}
+              href={item.href}
+              renderLink={renderLink}
+              // O container SEMPRE passa onClick (mantém a marcação), então inferir
+              // por "tem handler" cancelaria a navegação de quem não passou nada.
+              interceptNavigation={!!onItemClick}
               onClick={() => onItemClick?.(item.id)}
             />
           ))}

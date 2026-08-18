@@ -128,9 +128,12 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 
 ## Layout e chrome do app
 
-- `app-shell` — a casca (rail de módulos + header + área de conteúdo).
+- `app-shell` — a casca (rail de módulos + header + área de conteúdo). **Embutido em container com altura** (layout com footer, aba, preview) → passe `fillHeight`; sem isso ele mede 100vh, transborda e o conteúdo fica cortado na base.
 - `header` — barra superior de 60px (breadcrumb, busca, tema, usuário) dentro do shell.
-- `menu-sidebar` — menu lateral com rail + contextos · `single-menu-sidebar` — nível único.
+- **Menu lateral — a escolha depende de o app ter módulos, então PERGUNTE:**
+  - **tem áreas separadas** (Comercial, Financeiro…), cada uma com menu próprio → `menu-sidebar` (rail + contextos). É o que o `app-shell` usa.
+  - **sistema único**, um menu só → `single-menu-sidebar` (nível único, `showSearch` opcional). ⛔ Este **não** encaixa no `app-shell`: não tem colapso nem drawer mobile, e é isso que o hamburger do header coordena. Monte-o direto + `header` ao lado.
+  - Nas duas: item com destino declara `href` (vira `<a>`, então ctrl+clique e nova aba funcionam). Router próprio → `renderLink`.
 
   > 🧭 **O app tem router (react-router, Next, TanStack)? Passe `renderLink`.**
   > `<AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />`

@@ -165,5 +165,19 @@ export type AppShellProps = {
 
   /* ── Root ──────────────────────────────────────────────── */
   /** ClassName extra no root da AppShell (afeta toda a tela). */
+  /**
+   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.
+   *
+   * Default `false` = comportamento histórico (`h-screen`), preservado.
+   *
+   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout
+   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,
+   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o
+   * padding — o sintoma é "conteúdo colado na borda", e não é falta de padding.
+   *
+   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.
+   */
+  fillHeight?: boolean;
+
   className?: string;
 };

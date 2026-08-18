@@ -52,16 +52,22 @@ const TOC = [
 ];
 
 /* ── Mock data ───────────────────────────────────────────────────────────── */
+/**
+ * Os itens declaram `href` de HASH de propósito: exercita o caminho de link (o item
+ * vira `<a>`, com ctrl+clique e nova aba) sem tirar o visitante da página de doc — e
+ * hash é justamente a exceção que NÃO tem a navegação cancelada, então é o caso que mais
+ * fácil quebraria em silêncio se alguém mexesse na regra de `@/utils/nav-link`.
+ */
 const MOCK_CATEGORIES: SingleMenuCategory[] = [
-  { id: "dashboard", icon: <LayoutGrid />, label: "Dashboard", active: true },
+  { id: "dashboard", icon: <LayoutGrid />, label: "Dashboard", href: "#dashboard", active: true },
   {
     id: "instalacoes",
     icon: <Zap />,
     label: "Instalações",
     items: [
-      { id: "contratos-inst", label: "Contratos Instalação" },
-      { id: "vistorias", label: "Vistorias" },
-      { id: "ativacoes", label: "Ativações" },
+      { id: "contratos-inst", label: "Contratos Instalação", href: "#contratos-inst" },
+      { id: "vistorias", label: "Vistorias", href: "#vistorias" },
+      { id: "ativacoes", label: "Ativações", href: "#ativacoes" },
     ],
   },
   {
@@ -69,9 +75,9 @@ const MOCK_CATEGORIES: SingleMenuCategory[] = [
     icon: <FileText />,
     label: "Faturamento",
     items: [
-      { id: "faturas", label: "Faturas" },
-      { id: "boletos", label: "Boletos" },
-      { id: "conciliacao", label: "Conciliação" },
+      { id: "faturas", label: "Faturas", href: "#faturas" },
+      { id: "boletos", label: "Boletos", href: "#boletos" },
+      { id: "conciliacao", label: "Conciliação", href: "#conciliacao" },
     ],
   },
   {
