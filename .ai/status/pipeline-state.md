@@ -2433,3 +2433,50 @@ os seguintes, então eles estavam não-executados, não aprovados.
 atravessar um release com `files[]` divergente, quem pega é o `release:check`, antes do publish.
 O risco residual é alguém ler o ⚠ como "ignorável pra sempre" — a mensagem diz onde ele deixa
 de ser.
+
+---
+
+### 2026-08-18 | ds-dev | 2 imports que quebravam o consumidor + o gate que os pega (v0.42.1) | CONCLUÍDO
+
+**Como apareceram.** O mantenedor perguntou se o gate que eu havia proposto era pendência.
+Pra responder com número em vez de opinião, rodei **à mão** a checagem que nenhum gate faz —
+*"o que um item do registry importa está declarado?"*. Dois defeitos vivos, ambos silenciosos,
+ambos quebrando o build de quem consome por copy-in.
+
+1. **`app-shell` importava `SingleMenuSidebar` sem declarar.** O shell passou a montar as duas
+   sidebars na #206 e o item seguiu declarando só `@igreen/menu-sidebar`. Introduzido e
+   **publicado no mesmo dia** (registry da v0.42.0). `igreen:add -- app-shell` entregava um
+   arquivo importando componente que nunca foi copiado.
+2. **`color-picker` importava o BARREL do shadcn** (`from "@/components/shadcn"`), que não
+   existe no consumidor — lá os primitivos caem soltos em `components/ui/` e o rewrite só
+   traduz `@/components/shadcn/<x>`. O item também não declarava `@igreen/input`. O
+   `registry-check` aprovava porque só olha import **relativo** pra `shadcn/`.
+
+**Entregue.** `scripts/lib/registry-imports.mjs` + 17 testes, no `npm test` → CI em toda PR:
+todo import interno tem de cair no `files[]` do próprio item OU num item alcançável pelo fecho
+transitivo das `registryDependencies`. O `registry-check` valida a direção oposta ("todo
+`files[].path` existe no disco"), que pega entrada apontando pra arquivo removido — nunca o
+inverso.
+
+**As 3 armadilhas, e por que isto virou módulo testado em vez de grep.** Minha medição acusou
+**267** faltas, depois **96**, e a real era **2**. Cada redução foi defeito do instrumento:
+(1) `registryDependencies` são o mecanismo, não exceção — `data-table` importar `src/lib/utils.ts`
+é legítimo, e tratar como falta acusa o desenho inteiro; (2) `existeArquivo("<dir>")` é true pra
+diretório e nenhum item lista diretório — resolver `@/…/Table` pra pasta deu os 96; (3) um
+arquivo pode ter **vários donos** (`MenuSidebar/use-media-query.ts` está em `table`,
+`menu-sidebar` E `data-table`), e mapa `path → dono` único acusava o `app-shell` de não declarar
+`data-table`. As três estão codificadas com comentário e teste.
+
+**Provado no disco real** (L-064): removendo a dep do `app-shell` do `registry.json`, o gate
+reprova nomeando `"@igreen/single-menu-sidebar"`.
+
+**Por que virou 0.42.1 e não esperou.** O registry que o consumidor lê é servido pelo **embed**,
+não pelo `registry.json` — corrigir a fonte não regenera o embed. Com a 0.42.0 já publicada
+contendo o item quebrado, o conserto só chega com uma release.
+
+**Regressões:** nenhuma. tsc 0 · 48 arquivos / 587 testes (+17).
+
+**Assumption:** que **zero achados sem lista de exceção** é sustentável. Depois dos 2 consertos
+a varredura fecha em 0 sobre 86 itens e 444 imports cross-item, então nenhuma exceção foi
+necessária — e é a posição mais forte, porque exceção apodrece. Se aparecer caso legítimo que
+reprove, o certo é entender por que o registry não o cobre antes de isentar.
