@@ -168,17 +168,30 @@ describe("mechanism-surfaces — premissa do mecanismo", () => {
     ).toEqual([]);
   });
 
+  /*
+   * Os dois casos abaixo são SINTÉTICOS e usam leitor sintético — não o disco.
+   *
+   * A primeira versão deles usava `ler` real e apontava a sonda pro
+   * `app-shell.types.ts` de verdade. O smoke test expôs o acoplamento: uma mutação nesse
+   * arquivo quebrava 5 testes em vez de 1, e o caso de `superficie-sumiu` falhava
+   * recebendo `premissa-sumiu` — mensagem que aponta pra longe do defeito. Teste de
+   * comportamento sintético não deve depender de conteúdo real que outra pessoa pode
+   * mexer por motivo alheio.
+   */
+  const lerSintetico = (mapa) => (arquivo) =>
+    Object.prototype.hasOwnProperty.call(mapa, arquivo) ? mapa[arquivo] : null;
+
   it("acusa arquivo de mecanismo inexistente em vez de passar calado", () => {
     const { achados } = checkMechanismSurfaces(
       [
         {
           nome: "fato-orfao",
           afirmacao: "x",
-          mecanismo: [{ arquivo: "scripts/lib/nao-existe.mjs", presente: /x/, o_que: "x" }],
-          superficies: [{ arquivo: "CLAUDE.md", exige: /x/, dica: "x" }],
+          mecanismo: [{ arquivo: "mec/inexistente.mjs", presente: /x/, o_que: "x" }],
+          superficies: [{ arquivo: "sup/existe.md", exige: /x/, dica: "x" }],
         },
       ],
-      ler,
+      lerSintetico({ "sup/existe.md": "x" }),
     );
     expect(achados).toHaveLength(1);
     expect(achados[0].tipo).toBe("premissa-sumiu");
@@ -190,19 +203,43 @@ describe("mechanism-surfaces — premissa do mecanismo", () => {
         {
           nome: "fato-com-superficie-morta",
           afirmacao: "x",
-          mecanismo: [
-            {
-              arquivo: "src/components/ui/AppShell/app-shell.types.ts",
-              presente: /sidebar:\s*"single";/,
-              o_que: "x",
-            },
-          ],
-          superficies: [{ arquivo: ".claude/skills/nao-existe/SKILL.md", exige: /x/, dica: "x" }],
+          mecanismo: [{ arquivo: "mec/existe.ts", presente: /marcador/, o_que: "x" }],
+          superficies: [{ arquivo: "sup/inexistente.md", exige: /x/, dica: "x" }],
         },
       ],
-      ler,
+      lerSintetico({ "mec/existe.ts": "marcador presente" }),
     );
     expect(achados).toHaveLength(1);
     expect(achados[0].tipo).toBe("superficie-sumiu");
+  });
+
+  it("sonda tolera espaço em branco que o tsc aceita", () => {
+    /*
+     * `sidebar : "single" ;` compila. A sonda antiga exigia `;` colado na aspa e reportava
+     * premissa-sumiu num arquivo perfeitamente correto — achado do smoke test, num repo que
+     * de propósito não tem formatador (a formatação é manual, então a variação acontece).
+     *
+     * Sintético de novo, e por motivo medido: a primeira versão deste teste derivava as
+     * variantes do arquivo REAL, então ela mesma quebrava se o disco já estivesse na forma
+     * espaçada — foi o que aconteceu ao rodar o smoke test com o arquivo mutado. Teste de
+     * tolerância de regex não precisa do disco, e depender dele o torna dependente de ordem.
+     */
+    const sondas = FATOS.flatMap((f) => f.mecanismo).map((m) => m.presente);
+    const variantes = [
+      'sidebar: "single";',
+      'sidebar : "single" ;',
+      'sidebar:"single";',
+      "expanded?: boolean;",
+      "expanded ?: boolean ;",
+      'cfg.mode === "submodule"',
+      'cfg.mode==="submodule"',
+    ];
+    // Cada variante tem de casar ALGUMA sonda — nenhuma forma legítima fica órfã.
+    for (const v of variantes) {
+      expect(
+        sondas.some((s) => s.test(v)),
+        `nenhuma sonda casa a forma legítima: ${v}`,
+      ).toBe(true);
+    }
   });
 });
