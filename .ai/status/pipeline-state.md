@@ -2115,3 +2115,50 @@ zero". O mecanismo existe; o problema é ele ser prosa repetida, não ausência.
 `settings.json` dele. Não há como forçar — o arquivo é dele. O `ds:link` avisa em cada run e o
 summary mostra `○`, mas se ninguém colar, a proteção segue inativa e a assumption caiu. Sinal
 de que caiu: um consumidor com tema do DS editado dentro do submódulo.
+
+---
+
+### 2026-08-18 | ds-reviewer | Fecha a pendência do chat — NENHUMA das duas saídas | CONCLUÍDO
+
+**Input:** decidir o destino dos 6 componentes de chat em `src/components/ui/`, registrados
+como PAUSADO na entrada anterior com duas saídas: (a) torná-los canônicos ou (b) removê-los
+do barrel.
+
+**Output: nenhuma das duas — fica como está, e não é débito.** O mantenedor esclareceu o que
+eu não tinha entendido: o **ChatV2 é uma tela de REFERÊNCIA**, com composição própria. Não é
+um componente do DS que por acaso tem cópias; é um exemplo de tela. Nesse enquadramento a
+extração parcial é aceitável, e é justamente o que a exceção declarada descreve.
+
+**A exceção é formal, e eu não a tinha lido antes de propor mudança.** Os 6 estão em
+`scripts/lib/ds-exceptions.mjs` com motivo — *"interno do example-chat — distribuído junto do
+exemplo"* — e o `inventory.md` repete componente por componente. Ou seja, a ausência de doc
+page, registry e vocabulário é **por desenho**. Eu havia classificado como "órfãos
+distribuídos" e proposto remover do barrel: proposta baseada em não ter aberto o arquivo de
+exceções.
+
+**A cadeia de verdade, pra quem for mexer nisso algum dia** (medida no gate, não presumida):
+
+```
+scripts/examples-drift-check.mjs:29   chat: "src/preview/pages/ChatV2"
+
+ChatV2 (fonte)  →  examples/chat (cópia 1:1, imposta por gate)  →  consumidor
+os 6 de ui/     ficam FORA dessa cadeia — extraídos, documentados, não adotados
+```
+
+Mexer só no `examples/chat` faz o `examples-drift-check` acusar no CI: ele é cópia, não fonte.
+Trabalho real começaria no ChatV2 — e **não é pra fazer agora**, por decisão do mantenedor.
+
+**Errata de duas medidas minhas nesta análise:**
+
+1. Eu disse "1 KB contra 10,9 KB" pra descrever o que o consumidor recebe. Isso era **um
+   arquivo**, não o conjunto. Nos totais os três são comparáveis: `ui/` 28,3 KB em 6
+   componentes · `ChatV2/components` 30,0 KB em 14 · `examples/chat` 30,8 KB. Por componente
+   os de `ui/` são maiores, coerente com serem a versão generalizada — mas a comparação que eu
+   dei sugeria que o consumidor recebe uma versão raquítica, e não é o caso.
+2. Chamei os 6 de "órfãos distribuídos". Eles têm **3 das 8 superfícies** (USAGE.md,
+   inventory, barrel) e uma exceção declarada — não é abandono, é extração incompleta com o
+   escopo registrado.
+
+**Assumption:** o ChatV2 continuar sendo tela de referência, não componente distribuído. Se
+algum dia um consumidor pedir "o MessageBubble do DS", a assumption caiu — e aí a saída (a)
+volta à mesa, começando pelo ChatV2 e descendo pela cadeia acima.
