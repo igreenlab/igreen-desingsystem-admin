@@ -39,6 +39,22 @@
  * Falso positivo por parser preguiçoso é pior que gate nenhum: reprova código correto
  * e ensina o time a ignorar o gate. Por isso o `NOME` abaixo aceita hífen interno, e
  * há teste fixando exatamente o caso `p-pad-card-base`.
+ *
+ * ## ⚠️ A segunda armadilha: o CURINGA em documentação
+ *
+ * Medida em 2026-08-18, ao apontar este gate pro payload do consumidor: doc escreve
+ * **padrão**, não classe. O `ds-design.md` ensina `p-pad-card-*` e `px-pad-page-*`, e o
+ * gate acusou os dois como mortos — porque casou `p-pad-card` e parou no `-*`.
+ *
+ * Os dois eram FALSOS. O tema emite `pad-card-base`, `pad-card-sm`, `pad-page-{base,lg,sm}`:
+ * a doc estava certa, e "corrigir" o que o gate acusou teria quebrado documentação correta
+ * no arquivo que a IA do consumidor lê em 100% das sessões.
+ *
+ * Não basta um lookahead no fim do regex: com `(?!-?\*)`, o motor faz backtracking e casa um
+ * nome mais curto (`pad` a partir de `p-pad-card-*`), que também não existe — o falso
+ * positivo volta com outro nome. A checagem tem de ser sobre o **token inteiro no fonte**:
+ * `contemCuringa` abaixo caminha até o fim da sequência de caracteres de classe e reprova o
+ * match se houver `*` em qualquer ponto dela.
  */
 
 /** Segmento de nome de token: aceita hífen interno (`pad-card-base`, `radius-base`). */
@@ -80,6 +96,25 @@ export function tokensDoTema(cssText) {
  * @returns {{mortas: Array<{arquivo:string, linha:number, classe:string, familia:string}>, conferidos:number}}
  *   `mortas` = uso de classe DS cujo token não existe no namespace correspondente.
  */
+/**
+ * O match faz parte de um **padrão com curinga** (`p-pad-card-*`) em vez de uma classe?
+ *
+ * Caminha do fim do match até o fim da sequência de caracteres de classe. Se achar `*`,
+ * o fonte estava escrevendo um padrão — típico de doc — e não uma classe a validar.
+ *
+ * Olha o token INTEIRO, não só o caractere seguinte, porque o backtracking do regex casa
+ * nomes mais curtos: sem isso, `p-pad-card-*` deixa de reportar `pad-card` e passa a
+ * reportar `pad`, e o falso positivo só troca de nome.
+ */
+function contemCuringa(linha, fimDoMatch) {
+  for (let i = fimDoMatch; i < linha.length; i++) {
+    const c = linha[i];
+    if (c === "*") return true;
+    if (!/[a-z0-9-]/.test(c)) return false; // fim do token
+  }
+  return false;
+}
+
 export function checkDeadDsClasses({ arquivos, tokens }) {
   const mortas = [];
   let conferidos = 0;
@@ -92,9 +127,9 @@ export function checkDeadDsClasses({ arquivos, tokens }) {
         re.lastIndex = 0;
         for (const m of linha.matchAll(re)) {
           const token = m[1];
-          if (!tokens[ns]?.has(token)) {
-            mortas.push({ arquivo, linha: i + 1, classe: m[0], familia: nome });
-          }
+          if (tokens[ns]?.has(token)) continue;
+          if (contemCuringa(linha, m.index + m[0].length)) continue;
+          mortas.push({ arquivo, linha: i + 1, classe: m[0], familia: nome });
         }
       }
     });
