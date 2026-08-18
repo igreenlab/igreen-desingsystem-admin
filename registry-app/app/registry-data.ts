@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · accordion · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · alert-dialog · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · alert-modal · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · alert · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -136,6 +136,7 @@ export const registry: Record<string, unknown> = {
       "@igreen/tv",
       "@igreen/header",
       "@igreen/menu-sidebar",
+      "@igreen/single-menu-sidebar",
       "@igreen/avatar",
       "@igreen/dropdown-menu"
     ],
@@ -184,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · app-shell · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -206,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · aspect-ratio · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -258,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · avatar-ig · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -282,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · avatar · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -304,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · badge · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -329,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · breadcrumb · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -380,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · button-group · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -426,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · button · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -451,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · calendar · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -494,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · card-checkbox · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -516,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · card · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -542,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · carousel · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -578,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · chart · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -603,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · checkbox · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -652,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · chip · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -705,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · choropleth-map · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -727,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · collapsible · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -742,6 +743,7 @@ export const registry: Record<string, unknown> = {
     "registryDependencies": [
       "@igreen/button",
       "@igreen/form-field",
+      "@igreen/input",
       "@igreen/popover",
       "@igreen/separator",
       "@igreen/tv"
@@ -767,7 +769,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/ColorPicker/color-picker.tsx",
-        "content": "import { forwardRef, useId, useState } from \"react\";\r\nimport { Check } from \"lucide-react\";\r\n\r\nimport {\r\n  Popover,\r\n  PopoverContent,\r\n  PopoverTrigger,\r\n} from \"@/components/shadcn/popover\";\r\nimport { Separator } from \"@/components/shadcn/separator\";\r\nimport { Input } from \"@/components/shadcn\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\r\n\r\nimport { colorPickerStyles } from \"./color-picker.styles\";\r\nimport { DEFAULT_COLOR_PRESETS } from \"./color-picker.presets\";\r\nimport type { ColorPickerProps } from \"./color-picker.types\";\r\n\r\n/* ── Normalização de hex ──────────────────────────────────────────────────\r\n * Aceita 3 ou 6 dígitos (com/sem `#`), expande shorthand e devolve\r\n * `#RRGGBB` MAIÚSCULO. Retorna null se não casar 3/6 dígitos hex. */\r\nfunction normalizeHex(raw: string): string | null {\r\n  let h = raw.trim().replace(/^#/, \"\");\r\n  if (/^[0-9a-fA-F]{3}$/.test(h)) {\r\n    h = h\r\n      .split(\"\")\r\n      .map((c) => c + c)\r\n      .join(\"\");\r\n  }\r\n  if (/^[0-9a-fA-F]{6}$/.test(h)) {\r\n    return `#${h.toUpperCase()}`;\r\n  }\r\n  return null;\r\n}\r\n\r\n/** Compara dois hex ignorando caixa e shorthand. */\r\nfunction sameHex(a: string, b: string): boolean {\r\n  const na = normalizeHex(a);\r\n  const nb = normalizeHex(b);\r\n  return na !== null && nb !== null && na === nb;\r\n}\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags e Filas.\r\n *\r\n * Compõe `Popover` (mobileSheet) + `Input` (hex) + `Button` + `Separator`, e usa\r\n * `getContrastTextColor` (L-027) para o checkmark do preset selecionado. O swatch\r\n * é o anchor do Popover (forwardRef via `PopoverTrigger asChild`); o bg do swatch\r\n * e dos presets vem por INLINE STYLE — única exceção de hardcode permitida\r\n * (cor dinâmica externa, igual ao `colorHex` do Avatar).\r\n *\r\n * Fluxo: clique no swatch abre o grid de presets + (opcional) input hex livre.\r\n * Escolher um preset ou confirmar um hex válido → `onValueChange(\"#RRGGBB\")` e\r\n * fecha o popover. O input hex inline (fora do popover) também normaliza no blur.\r\n */\r\nexport const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>(\r\n  function ColorPicker(\r\n    {\r\n      value,\r\n      onValueChange,\r\n      presets = DEFAULT_COLOR_PRESETS,\r\n      id: idProp,\r\n      state = \"default\",\r\n      size = \"md\",\r\n      disabled = false,\r\n      allowCustomHex = true,\r\n      placeholder = \"#RRGGBB\",\r\n      open: openProp,\r\n      onOpenChange,\r\n      className,\r\n    },\r\n    ref,\r\n  ) {\r\n    const autoId = useId();\r\n    const id = idProp ?? autoId;\r\n\r\n    const [uncontrolledOpen, setUncontrolledOpen] = useState(false);\r\n    const isControlled = openProp !== undefined;\r\n    const open = isControlled ? openProp : uncontrolledOpen;\r\n    const setOpen = (next: boolean) => {\r\n      if (!isControlled) setUncontrolledOpen(next);\r\n      onOpenChange?.(next);\r\n    };\r\n\r\n    // Rascunho do input hex inline (fora do popover) e do input hex livre (dentro).\r\n    const [inlineDraft, setInlineDraft] = useState(value);\r\n    const [customDraft, setCustomDraft] = useState(value);\r\n\r\n    const styles = colorPickerStyles({ size, state, disabled });\r\n\r\n    const commit = (raw: string): boolean => {\r\n      const norm = normalizeHex(raw);\r\n      if (!norm) return false;\r\n      onValueChange(norm);\r\n      return true;\r\n    };\r\n\r\n    const handleInlineCommit = () => {\r\n      if (!commit(inlineDraft)) {\r\n        // hex inválido → restaura o valor atual\r\n        setInlineDraft(value);\r\n      }\r\n    };\r\n\r\n    const handlePreset = (hex: string) => {\r\n      const norm = normalizeHex(hex);\r\n      if (!norm) return;\r\n      onValueChange(norm);\r\n      setInlineDraft(norm);\r\n      setCustomDraft(norm);\r\n      setOpen(false);\r\n    };\r\n\r\n    const handleCustomConfirm = () => {\r\n      const norm = normalizeHex(customDraft);\r\n      if (!norm) return;\r\n      onValueChange(norm);\r\n      setInlineDraft(norm);\r\n      setOpen(false);\r\n    };\r\n\r\n    // bg do swatch: hex válido normalizado, senão transparente (mostra a borda).\r\n    const swatchBg = normalizeHex(value) ?? \"transparent\";\r\n\r\n    return (\r\n      <Popover open={open} onOpenChange={setOpen}>\r\n        <div className={styles.root({ className })}>\r\n          <PopoverTrigger asChild>\r\n            <button\r\n              ref={ref}\r\n              type=\"button\"\r\n              disabled={disabled}\r\n              aria-label=\"Selecionar cor\"\r\n              aria-haspopup=\"dialog\"\r\n              aria-expanded={open}\r\n              className={styles.swatch()}\r\n              style={{ backgroundColor: swatchBg }}\r\n            />\r\n          </PopoverTrigger>\r\n\r\n          <Input\r\n            id={id}\r\n            type=\"text\"\r\n            inputMode=\"text\"\r\n            size={size}\r\n            state={state}\r\n            disabled={disabled}\r\n            placeholder={placeholder}\r\n            aria-label=\"Cor hexadecimal\"\r\n            className={styles.hexInput()}\r\n            value={inlineDraft}\r\n            onChange={(e) => setInlineDraft(e.target.value)}\r\n            onBlur={handleInlineCommit}\r\n            onKeyDown={(e) => {\r\n              if (e.key === \"Enter\") {\r\n                e.preventDefault();\r\n                handleInlineCommit();\r\n              }\r\n            }}\r\n          />\r\n        </div>\r\n\r\n        <PopoverContent\r\n          align=\"start\"\r\n          mobileSheet\r\n          role=\"dialog\"\r\n          aria-label=\"Paleta de cores\"\r\n          className={styles.content()}\r\n        >\r\n          <div\r\n            className={styles.presetsGrid()}\r\n            role=\"group\"\r\n            aria-label=\"Cores predefinidas\"\r\n          >\r\n            {presets.map((hex) => {\r\n              const norm = normalizeHex(hex) ?? hex;\r\n              const selected = sameHex(hex, value);\r\n              const checkColor = getContrastTextColor(hex);\r\n              return (\r\n                <button\r\n                  key={norm}\r\n                  type=\"button\"\r\n                  aria-label={norm}\r\n                  aria-pressed={selected}\r\n                  className={styles.preset()}\r\n                  style={{ backgroundColor: norm }}\r\n                  onClick={() => handlePreset(hex)}\r\n                >\r\n                  {selected && (\r\n                    <Check\r\n                      className={styles.presetCheck()}\r\n                      style={{ color: checkColor }}\r\n                      aria-hidden=\"true\"\r\n                    />\r\n                  )}\r\n                </button>\r\n              );\r\n            })}\r\n          </div>\r\n\r\n          {allowCustomHex && (\r\n            <>\r\n              <Separator />\r\n              <div className={styles.customRow()}>\r\n                <FormField label=\"Cor personalizada\" id={`${id}-custom`}>\r\n                  {({ id: customId }) => (\r\n                    <Input\r\n                      id={customId}\r\n                      type=\"text\"\r\n                      size={size}\r\n                      placeholder={placeholder}\r\n                      aria-label=\"Cor hexadecimal\"\r\n                      value={customDraft}\r\n                      onChange={(e) => setCustomDraft(e.target.value)}\r\n                      onKeyDown={(e) => {\r\n                        if (e.key === \"Enter\") {\r\n                          e.preventDefault();\r\n                          handleCustomConfirm();\r\n                        }\r\n                      }}\r\n                    />\r\n                  )}\r\n                </FormField>\r\n                <Button\r\n                  type=\"button\"\r\n                  size=\"sm\"\r\n                  fullWidth\r\n                  disabled={normalizeHex(customDraft) === null}\r\n                  onClick={handleCustomConfirm}\r\n                >\r\n                  Aplicar\r\n                </Button>\r\n              </div>\r\n            </>\r\n          )}\r\n        </PopoverContent>\r\n      </Popover>\r\n    );\r\n  },\r\n);\r\n",
+        "content": "import { forwardRef, useId, useState } from \"react\";\r\nimport { Check } from \"lucide-react\";\r\n\r\nimport {\r\n  Popover,\r\n  PopoverContent,\r\n  PopoverTrigger,\r\n} from \"@/components/shadcn/popover\";\r\nimport { Separator } from \"@/components/shadcn/separator\";\r\n// Importa o ARQUIVO, não o barrel: `@/components/shadcn` não existe no consumidor —\r\n// no copy-in os primitivos caem soltos em `components/ui/`, e o rewrite só traduz a\r\n// forma `@/components/shadcn/<x>`. O barrel passava pelo `registry-check` porque ele\r\n// checa import RELATIVO pra shadcn, não o alias.\r\nimport { Input } from \"@/components/shadcn/input\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\r\n\r\nimport { colorPickerStyles } from \"./color-picker.styles\";\r\nimport { DEFAULT_COLOR_PRESETS } from \"./color-picker.presets\";\r\nimport type { ColorPickerProps } from \"./color-picker.types\";\r\n\r\n/* ── Normalização de hex ──────────────────────────────────────────────────\r\n * Aceita 3 ou 6 dígitos (com/sem `#`), expande shorthand e devolve\r\n * `#RRGGBB` MAIÚSCULO. Retorna null se não casar 3/6 dígitos hex. */\r\nfunction normalizeHex(raw: string): string | null {\r\n  let h = raw.trim().replace(/^#/, \"\");\r\n  if (/^[0-9a-fA-F]{3}$/.test(h)) {\r\n    h = h\r\n      .split(\"\")\r\n      .map((c) => c + c)\r\n      .join(\"\");\r\n  }\r\n  if (/^[0-9a-fA-F]{6}$/.test(h)) {\r\n    return `#${h.toUpperCase()}`;\r\n  }\r\n  return null;\r\n}\r\n\r\n/** Compara dois hex ignorando caixa e shorthand. */\r\nfunction sameHex(a: string, b: string): boolean {\r\n  const na = normalizeHex(a);\r\n  const nb = normalizeHex(b);\r\n  return na !== null && nb !== null && na === nb;\r\n}\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags e Filas.\r\n *\r\n * Compõe `Popover` (mobileSheet) + `Input` (hex) + `Button` + `Separator`, e usa\r\n * `getContrastTextColor` (L-027) para o checkmark do preset selecionado. O swatch\r\n * é o anchor do Popover (forwardRef via `PopoverTrigger asChild`); o bg do swatch\r\n * e dos presets vem por INLINE STYLE — única exceção de hardcode permitida\r\n * (cor dinâmica externa, igual ao `colorHex` do Avatar).\r\n *\r\n * Fluxo: clique no swatch abre o grid de presets + (opcional) input hex livre.\r\n * Escolher um preset ou confirmar um hex válido → `onValueChange(\"#RRGGBB\")` e\r\n * fecha o popover. O input hex inline (fora do popover) também normaliza no blur.\r\n */\r\nexport const ColorPicker = forwardRef<HTMLButtonElement, ColorPickerProps>(\r\n  function ColorPicker(\r\n    {\r\n      value,\r\n      onValueChange,\r\n      presets = DEFAULT_COLOR_PRESETS,\r\n      id: idProp,\r\n      state = \"default\",\r\n      size = \"md\",\r\n      disabled = false,\r\n      allowCustomHex = true,\r\n      placeholder = \"#RRGGBB\",\r\n      open: openProp,\r\n      onOpenChange,\r\n      className,\r\n    },\r\n    ref,\r\n  ) {\r\n    const autoId = useId();\r\n    const id = idProp ?? autoId;\r\n\r\n    const [uncontrolledOpen, setUncontrolledOpen] = useState(false);\r\n    const isControlled = openProp !== undefined;\r\n    const open = isControlled ? openProp : uncontrolledOpen;\r\n    const setOpen = (next: boolean) => {\r\n      if (!isControlled) setUncontrolledOpen(next);\r\n      onOpenChange?.(next);\r\n    };\r\n\r\n    // Rascunho do input hex inline (fora do popover) e do input hex livre (dentro).\r\n    const [inlineDraft, setInlineDraft] = useState(value);\r\n    const [customDraft, setCustomDraft] = useState(value);\r\n\r\n    const styles = colorPickerStyles({ size, state, disabled });\r\n\r\n    const commit = (raw: string): boolean => {\r\n      const norm = normalizeHex(raw);\r\n      if (!norm) return false;\r\n      onValueChange(norm);\r\n      return true;\r\n    };\r\n\r\n    const handleInlineCommit = () => {\r\n      if (!commit(inlineDraft)) {\r\n        // hex inválido → restaura o valor atual\r\n        setInlineDraft(value);\r\n      }\r\n    };\r\n\r\n    const handlePreset = (hex: string) => {\r\n      const norm = normalizeHex(hex);\r\n      if (!norm) return;\r\n      onValueChange(norm);\r\n      setInlineDraft(norm);\r\n      setCustomDraft(norm);\r\n      setOpen(false);\r\n    };\r\n\r\n    const handleCustomConfirm = () => {\r\n      const norm = normalizeHex(customDraft);\r\n      if (!norm) return;\r\n      onValueChange(norm);\r\n      setInlineDraft(norm);\r\n      setOpen(false);\r\n    };\r\n\r\n    // bg do swatch: hex válido normalizado, senão transparente (mostra a borda).\r\n    const swatchBg = normalizeHex(value) ?? \"transparent\";\r\n\r\n    return (\r\n      <Popover open={open} onOpenChange={setOpen}>\r\n        <div className={styles.root({ className })}>\r\n          <PopoverTrigger asChild>\r\n            <button\r\n              ref={ref}\r\n              type=\"button\"\r\n              disabled={disabled}\r\n              aria-label=\"Selecionar cor\"\r\n              aria-haspopup=\"dialog\"\r\n              aria-expanded={open}\r\n              className={styles.swatch()}\r\n              style={{ backgroundColor: swatchBg }}\r\n            />\r\n          </PopoverTrigger>\r\n\r\n          <Input\r\n            id={id}\r\n            type=\"text\"\r\n            inputMode=\"text\"\r\n            size={size}\r\n            state={state}\r\n            disabled={disabled}\r\n            placeholder={placeholder}\r\n            aria-label=\"Cor hexadecimal\"\r\n            className={styles.hexInput()}\r\n            value={inlineDraft}\r\n            onChange={(e) => setInlineDraft(e.target.value)}\r\n            onBlur={handleInlineCommit}\r\n            onKeyDown={(e) => {\r\n              if (e.key === \"Enter\") {\r\n                e.preventDefault();\r\n                handleInlineCommit();\r\n              }\r\n            }}\r\n          />\r\n        </div>\r\n\r\n        <PopoverContent\r\n          align=\"start\"\r\n          mobileSheet\r\n          role=\"dialog\"\r\n          aria-label=\"Paleta de cores\"\r\n          className={styles.content()}\r\n        >\r\n          <div\r\n            className={styles.presetsGrid()}\r\n            role=\"group\"\r\n            aria-label=\"Cores predefinidas\"\r\n          >\r\n            {presets.map((hex) => {\r\n              const norm = normalizeHex(hex) ?? hex;\r\n              const selected = sameHex(hex, value);\r\n              const checkColor = getContrastTextColor(hex);\r\n              return (\r\n                <button\r\n                  key={norm}\r\n                  type=\"button\"\r\n                  aria-label={norm}\r\n                  aria-pressed={selected}\r\n                  className={styles.preset()}\r\n                  style={{ backgroundColor: norm }}\r\n                  onClick={() => handlePreset(hex)}\r\n                >\r\n                  {selected && (\r\n                    <Check\r\n                      className={styles.presetCheck()}\r\n                      style={{ color: checkColor }}\r\n                      aria-hidden=\"true\"\r\n                    />\r\n                  )}\r\n                </button>\r\n              );\r\n            })}\r\n          </div>\r\n\r\n          {allowCustomHex && (\r\n            <>\r\n              <Separator />\r\n              <div className={styles.customRow()}>\r\n                <FormField label=\"Cor personalizada\" id={`${id}-custom`}>\r\n                  {({ id: customId }) => (\r\n                    <Input\r\n                      id={customId}\r\n                      type=\"text\"\r\n                      size={size}\r\n                      placeholder={placeholder}\r\n                      aria-label=\"Cor hexadecimal\"\r\n                      value={customDraft}\r\n                      onChange={(e) => setCustomDraft(e.target.value)}\r\n                      onKeyDown={(e) => {\r\n                        if (e.key === \"Enter\") {\r\n                          e.preventDefault();\r\n                          handleCustomConfirm();\r\n                        }\r\n                      }}\r\n                    />\r\n                  )}\r\n                </FormField>\r\n                <Button\r\n                  type=\"button\"\r\n                  size=\"sm\"\r\n                  fullWidth\r\n                  disabled={normalizeHex(customDraft) === null}\r\n                  onClick={handleCustomConfirm}\r\n                >\r\n                  Aplicar\r\n                </Button>\r\n              </div>\r\n            </>\r\n          )}\r\n        </PopoverContent>\r\n      </Popover>\r\n    );\r\n  },\r\n);\r\n",
         "type": "registry:ui",
         "target": "components/ui/ColorPicker/color-picker.tsx"
       },
@@ -791,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · color-picker · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -842,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · combobox · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -869,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · command · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -894,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · context-menu · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -971,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · data-list · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1656,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · data-table · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1694,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · date-picker · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1719,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · dialog · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1743,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · drawer · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1768,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · dropdown-menu · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · empty-state · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -1862,7 +1864,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-app-shell · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2164,7 +2166,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-chat · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2260,7 +2262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-clientes · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2306,7 +2308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-dashboard · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2357,7 +2359,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-edit-page · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-finance · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2523,7 +2525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-login · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2580,7 +2582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-mapa-rede · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2661,7 +2663,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · example-order-detail · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2711,7 +2713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · file-upload-field · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2779,7 +2781,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · floating-panel · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2821,7 +2823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · footer-table · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2907,7 +2909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · form-field · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -2998,7 +3000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · header · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3022,7 +3024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · hover-card · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3075,7 +3077,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · icon · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3099,7 +3101,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · input-group · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3124,7 +3126,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · input-otp · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3148,7 +3150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · input · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3207,7 +3209,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · kanban · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3269,7 +3271,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · kpi · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3294,7 +3296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · label · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3401,7 +3403,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · list · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3447,7 +3449,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · markdown-text · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3557,7 +3559,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · menu-sidebar · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3582,7 +3584,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · menubar · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3626,7 +3628,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · modal · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3675,7 +3677,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · month-year-picker · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3701,7 +3703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · navigation-menu · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3748,7 +3750,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · page-header · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3773,7 +3775,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · pagination · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3848,7 +3850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · panel · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3872,7 +3874,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · popover · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3896,7 +3898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · progress · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3920,7 +3922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · radio-group · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3944,7 +3946,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · scroll-area · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3969,7 +3971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · select · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -3993,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · separator · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4019,7 +4021,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · sheet · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4126,7 +4128,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4148,7 +4150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · skeleton · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4172,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · slider · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4195,7 +4197,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · sonner · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4241,7 +4243,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · spinner · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4265,7 +4267,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · switch · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4344,7 +4346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · table · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4368,7 +4370,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · tabs · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4392,7 +4394,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · textarea · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4410,7 +4412,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · theme-blue · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4428,7 +4430,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · theme-green · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4446,7 +4448,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · theme-pay · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4464,7 +4466,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · theme-vibrant · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4486,7 +4488,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · theme · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4537,7 +4539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · toast · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4563,7 +4565,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · toggle-group · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4588,7 +4590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · toggle · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4612,7 +4614,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · tooltip · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:ui"
   },
@@ -4633,7 +4635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · tv · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   },
@@ -4655,7 +4657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.42.0 · 074ba2f · 2026-08-18"
+      "stamp": "igreen-ds · utils · v0.42.1 · 9948e24 · 2026-08-18"
     },
     "type": "registry:file"
   }

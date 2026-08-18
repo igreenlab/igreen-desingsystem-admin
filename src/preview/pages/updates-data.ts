@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.42.1",
+    date: "2026-08-18",
+    tag: "patch",
+    title: "Dois componentes chegavam quebrados em quem instala por cópia",
+    summary:
+      "Nenhuma verificação do projeto perguntava, até agora, se o que um componente **importa** viaja junto com ele. Perguntando pela primeira vez, apareceram dois casos — e os dois já estavam publicados: o esqueleto do aplicativo puxava o menu simples sem pedir que ele fosse copiado, e o seletor de cor puxava um atalho interno que não existe do lado de quem instala. Nos dois, a instalação trazia o componente e o projeto não compilava, sem nenhum aviso antes. Junto vai a verificação que passa a perguntar isso em toda alteração.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O esqueleto do aplicativo não pedia o menu simples.** Ele passou a aceitar os dois tipos de menu na versão anterior, mas a lista do que precisa ser copiado junto continuou citando só o menu de módulos. Instalar o esqueleto trazia um arquivo que procurava o menu simples sem encontrá-lo. Introduzido e publicado no mesmo dia.",
+          "**O seletor de cor usava um atalho interno que não existe fora daqui.** No repositório do sistema de design os componentes básicos podem ser importados por um índice comum; em quem instala por cópia eles ficam soltos, cada um no seu arquivo, e esse índice não existe. O campo de texto que o seletor usa também não constava na lista do que vem junto.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Nova verificação: o que um componente importa vem junto com ele?** A verificação existente conferia o contrário — que todo arquivo declarado existe no disco. Ninguém conferia o inverso, e é o inverso que quebra o projeto de quem instala. Agora roda em toda alteração proposta, e aponta exatamente qual dependência declarar.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.42.0",
     date: "2026-08-18",
     tag: "release",
