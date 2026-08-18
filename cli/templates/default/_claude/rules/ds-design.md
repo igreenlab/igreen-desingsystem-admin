@@ -62,13 +62,19 @@ projeto e outro no resto do sistema, sem erro nenhum. Os `.woff2` do Geist, sim,
 ## ⛔ Arquivos protegidos — NÃO editar (integridade do DS)
 - **NUNCA edite** o tema/tokens (`src/styles/theme/**`) nem a fundação (`src/lib/utils.ts` = cn, `src/utils/tv.ts` = tv, `src/lib/lucide-types.ts`). São a base visual gerada pelo DS — editar quebra o sistema todo e some no próximo update.
 
-  > **O que de fato te impede, por canal** — a frase antiga aqui era só "(Um hook bloqueia isso.)", sem ressalva, e no submódulo isso é **falso**:
+  > **O que de fato te impede, por canal:**
   >
   > | canal | trava |
   > |---|---|
   > | copy-in / scaffold | ✅ hook `protect-ds.mjs` **bloqueia** (`Edit`/`Write`/`MultiEdit`) e **avisa** em `Bash` que escreve nesses paths |
-  > | **submódulo** | ❌ **nenhuma** — o `ds-link` não projeta `hooks/` (eles miram `src/components/**`, layout que o submódulo não tem). Vale por **disciplina**: o que você editar lá some no próximo `git pull` do submódulo |
+  > | **submódulo** | ✅ **desde o CLI 0.24.0** — o `ds-link` projeta o hook, e ele reconhece o layout de submódulo (bloqueia `<dsPath>/src/styles/theme/**` e `<dsPath>/tokens/**`, sem confundir com o **seu** `src/`). ⚠️ **1 passo manual:** hook só roda se estiver no seu `.claude/settings.json`, e o `ds-link` não escreve nesse arquivo (é seu) — ele **imprime o bloco pronto** e repete o aviso até você colar |
   > | npm install | ❌ nenhuma — o código vive em `node_modules` |
+  >
+  > ⚠️ **Até o CLI 0.25.1 esta tabela dizia "❌ nenhuma" no submódulo**, justificando com *"o
+  > `ds-link` não projeta `hooks/`"*. Era verdade até a 0.23.x e **deixou de ser na 0.24.0** —
+  > eu mudei o mecanismo e atualizei a `ds-channels.md`, mas não procurei as outras superfícies
+  > que descreviam a mesma coisa. Se você leu a versão anterior e concluiu que no submódulo não
+  > há rede de segurança: há, e vale colar o bloco.
 - **Não edite o `.styles.ts`/internals de um componente do DS** pra "ajustar visual" de uma tela. Isso vira edição local (drift) e diverge do padrão. **Customize na COMPOSIÇÃO**: escolha variantes/props do componente + classes DS na SUA tela.
 - Quer outra cor/tom? Use o **token/variante semântico** que já existe (`color="..."`, `bg-bg-*`). Não invente hex nem reescreva o token.
 - Pra evoluir o tema de fato → re-sincronize com o DS (`npm run igreen:add -- theme`), não edite à mão.
