@@ -15,7 +15,7 @@ import {
   sidebarChatAvatar,
   sidebarChatStatus,
 } from "./sidebar.styles";
-import { shouldPreventNavigation } from "./nav-link";
+import { shouldPreventNavigation } from "@/utils/nav-link";
 import type {
   SidebarSection as SidebarSectionData,
   SidebarLinkRenderer,
@@ -169,7 +169,7 @@ function SidebarSectionLink({
     }
     // COM href, a versão anterior não cancelava nada: com `href` de path o browser
     // navegava e recarregava a página, mesmo tendo `onClick`. Mesma causa do
-    // `sidebar-item.tsx`. Ver `nav-link.ts`.
+    // `sidebar-item.tsx`. Ver `@/utils/nav-link`.
     if (!renderLink) {
       const prevent = shouldPreventNavigation({
         href,

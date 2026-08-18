@@ -48,6 +48,7 @@ export function SingleMenuSidebar({
   categories,
   activeItemId,
   onItemClick,
+  renderLink,
   user,
   defaultExpanded = true,
   expanded: controlledExpanded,
@@ -196,6 +197,7 @@ export function SingleMenuSidebar({
                   {...cat}
                   activeItemId={activeItemId}
                   onItemClick={onItemClick}
+                  renderLink={renderLink}
                 />
               ))}
             </div>

@@ -9,6 +9,8 @@ import {
   PropsTable,
 } from "../components";
 import { AppShell } from "../../components/ui/AppShell";
+import type { SingleMenuCategory } from "../../components/ui/SingleMenuSidebar";
+import { LayoutGrid, Users, Wallet, Settings } from "lucide-react";
 import {
   APP_SHELL_CONTEXTS,
   APP_SHELL_COMMANDS,
@@ -23,8 +25,39 @@ import {
 
 const TOC = [
   { id: "preview", label: "Preview" },
+  { id: "sidebars", label: "Qual sidebar (menu × single)" },
   { id: "body-slot", label: "Body slot — gap + padding" },
   { id: "api", label: "API Reference" },
+];
+
+/**
+ * Categorias pro exemplo de `sidebar="single"`. Nível único, sem módulos — é justamente o
+ * caso que o `MenuSidebar` não atende: ele parte de um rail de módulos.
+ *
+ * Os `href` são de hash pra o exemplo navegar sem tirar o visitante da doc, e porque hash é
+ * a exceção que NÃO tem a navegação cancelada (ver `@/utils/nav-link`).
+ */
+const SINGLE_CATEGORIES: SingleMenuCategory[] = [
+  { id: "dashboard", icon: <LayoutGrid />, label: "Dashboard", href: "#s-dashboard" },
+  {
+    id: "clientes",
+    icon: <Users />,
+    label: "Clientes",
+    items: [
+      { id: "clientes-lista", label: "Todos", href: "#s-clientes" },
+      { id: "clientes-novos", label: "Novos", href: "#s-novos" },
+    ],
+  },
+  {
+    id: "financeiro",
+    icon: <Wallet />,
+    label: "Financeiro",
+    items: [
+      { id: "fin-extrato", label: "Extrato", href: "#s-extrato" },
+      { id: "fin-faturas", label: "Faturas", href: "#s-faturas" },
+    ],
+  },
+  { id: "config", icon: <Settings />, label: "Configurações", href: "#s-config" },
 ];
 
 /* ── Props tables ────────────────────────────────────────── */
@@ -91,6 +124,8 @@ const PROPS_APP_SHELL = [
 export function AppShellDoc() {
   const { theme, setTheme } = useTheme();
   const [layout, setLayout] = useState<string>("fluid");
+  /** Item ativo do exemplo de `sidebar="single"` — controlado, pra mostrar o callback. */
+  const [itemSingle, setItemSingle] = useState("dashboard");
 
   /* Body de exemplo — apenas placeholder demonstrando o slot. */
   const sampleBody = (
@@ -117,8 +152,14 @@ export function AppShellDoc() {
         description='Sidebar com 5 contextos (Inbox/CRM/Engajamento/IA/Configuração), Header full (breadcrumb + command + notif + messages + theme), e body com cards exemplo demonstrando o slot (gap-gp-4xl + padding responsivo 18/24/32px).'
         code={CODE_FULL}
       >
+        {/* `fillHeight` é OBRIGATÓRIO aqui: sem ele o shell mede 100vh, transborda
+            esta caixa de 640px e o `overflow-hidden` corta o rodapé do body — o
+            padding-bottom de 24px desaparecia junto, e o resultado parecia (mas não
+            era) falta de padding. Medido em 2026-08-18: main de 660px numa caixa de
+            640, terminando 56px abaixo da borda. */}
         <div className="h-[640px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
           <AppShell
+            fillHeight
             contexts={APP_SHELL_CONTEXTS}
             defaultActiveContextId="inbox"
             defaultActiveItemHref="#atendimentos"
@@ -150,6 +191,135 @@ export function AppShellDoc() {
           </AppShell>
         </div>
       </ExampleSection>
+
+      <SectionH2 id="sidebars" title="Qual sidebar — menu × single" />
+
+      <p className="text-body-lg text-fg-default mb-gp-lg max-w-[760px]">
+        O shell monta <strong>uma das duas</strong> sidebars, pela prop{" "}
+        <code className="font-mono">sidebar</code>. O default é{" "}
+        <code className="font-mono">&quot;menu&quot;</code> — o mesmo comportamento de
+        sempre, então nada muda pra quem já usa.
+      </p>
+
+      <div className="tw mb-gp-2xl max-w-[760px]">
+        <table>
+          <thead>
+            <tr>
+              <th>sidebar</th>
+              <th>quando usar</th>
+              <th>dados que exige</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code className="font-mono">&quot;menu&quot;</code> (default)
+              </td>
+              <td>
+                app com <strong>áreas distintas</strong> (Comercial, Financeiro…), cada uma
+                com menu próprio
+              </td>
+              <td>
+                <code className="font-mono">contexts</code>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code className="font-mono">&quot;single&quot;</code>
+              </td>
+              <td>
+                <strong>sistema único</strong>, um menu só — busca opcional
+              </td>
+              <td>
+                <code className="font-mono">categories</code> +{" "}
+                <code className="font-mono">sidebarLogo</code> +{" "}
+                <code className="font-mono">sidebarTitle</code>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p className="text-body-md text-fg-muted mb-gp-2xl max-w-[760px]">
+        O <strong>toggle do Header funciona nas duas</strong> sem o consumidor cabear nada. O
+        mapeamento interno difere porque os componentes modelam o estado de formas diferentes:
+        o MenuSidebar tem <code className="font-mono">panelCollapsed</code> + drawer no mobile;
+        a single tem <code className="font-mono">expanded</code>, e no mobile o{" "}
+        <code className="font-mono">expanded</code> <em>é</em> a visibilidade (expandida ocupa
+        100% da largura, recolhida some).
+      </p>
+
+      <ExampleSection
+        id="ex-sidebar-menu"
+        title='sidebar="menu" — com módulos (default)'
+        description="Rail de módulos à esquerda + painel do módulo ativo. É o que o shell monta quando você não passa a prop."
+        code={`<AppShell contexts={CONTEXTS} breadcrumb={…}>…</AppShell>
+
+{/* equivalente explícito */}
+<AppShell sidebar="menu" contexts={CONTEXTS} …>`}
+      >
+        <div className="h-[420px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
+          <AppShell
+            fillHeight
+            // Nasce expandido: o default do shell é RESPONSIVO (colapsa abaixo de 1536px), e
+            // numa caixa de exemplo isso esconderia justamente o que se quer mostrar.
+            defaultMenuCollapsed={false}
+            sidebar="menu"
+            contexts={APP_SHELL_CONTEXTS}
+            defaultActiveContextId="inbox"
+            defaultActiveItemHref="#atendimentos"
+            breadcrumb={[{ label: "Inbox" }, { label: "Atendimentos" }]}
+            user={APP_SHELL_USER}
+          >
+            <div className="flex-1 min-h-[120px] flex items-center justify-center bg-bg-surface border-2 border-dashed border-border-subtle rounded-radius-lg">
+              <span className="text-body-md text-fg-muted font-mono">children</span>
+            </div>
+          </AppShell>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-sidebar-single"
+        title='sidebar="single" — sem módulos'
+        description="Menu de nível único: logo e título no header da própria sidebar, com o toggle de recolher ali dentro. Sem rail de módulos e sem busca — o Header já tem a dele, e duplicar não faz sentido. O shell esconde o botão de colapsar do Header nesta variação, porque a sidebar tem o próprio (no mobile ele volta, senão não haveria como abrir)."
+        code={`<AppShell
+  sidebar="single"
+  categories={CATEGORIES}
+  sidebarLogo={<MinhaLogo />}
+  sidebarTitle="Meu Sistema"
+  activeItemId={ativo}
+  onSidebarItemClick={setAtivo}
+  breadcrumb={…}
+>…</AppShell>
+
+{/* busca: NÃO passe sidebarShowSearch aqui — o Header já tem \`commandGroups\`.
+    Ligue só se a sidebar precisar de uma busca PRÓPRIA, de escopo diferente. */}`}
+      >
+        <div className="h-[420px] w-full rounded-radius-base ring-1 ring-border-subtle overflow-hidden">
+          <AppShell
+            fillHeight
+            defaultMenuCollapsed={false}
+            sidebar="single"
+            categories={SINGLE_CATEGORIES}
+            sidebarLogo={<LayoutGrid className="size-icon-md" />}
+            sidebarTitle="Sistema Único"
+            activeItemId={itemSingle}
+            onSidebarItemClick={setItemSingle}
+            breadcrumb={[{ label: "Sistema" }, { label: "Dashboard" }]}
+            user={APP_SHELL_USER}
+            onSettings={() => alert("Configurações")}
+            onLogout={() => alert("Sair (mock)")}
+          >
+            <div className="flex-1 min-h-[120px] flex items-center justify-center bg-bg-surface border-2 border-dashed border-border-subtle rounded-radius-lg">
+              <span className="text-body-md text-fg-muted font-mono">
+                children — item ativo: {itemSingle}
+              </span>
+            </div>
+          </AppShell>
+        </div>
+      </ExampleSection>
+
+      <DocSeparator />
 
       <SectionH2 id="body-slot" title="Body slot — gap + padding" />
 

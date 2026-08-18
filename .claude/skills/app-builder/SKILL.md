@@ -14,6 +14,30 @@ O "chassi" onde as telas moram (shell + nav + roteamento). Não é conteúdo —
 conteúdo de cada tela vem dos builders (crud/list/dashboard). Skill focada:
 leia e adapte o exemplo canônico, não gere de memória.
 
+## Passo 0 — PERGUNTE: o app tem módulos?
+
+Não presuma. As duas sidebars do DS resolvem problemas diferentes, e escolher errado só
+aparece quando o app já está montado:
+
+| resposta do usuário | navegação |
+|---|---|
+| **Tem áreas/módulos distintos** (ex.: Comercial, Financeiro, Suporte) — cada um com o próprio menu | `MenuSidebar` — rail de módulos + painel. É o que o `AppShell` usa. |
+| **Não tem módulos** — é um sistema só, menu único de categorias | `SingleMenuSidebar` — nível único, `showSearch` opcional |
+
+Pergunta prática, que não exige o usuário conhecer os componentes:
+
+> *"O sistema vai ter áreas separadas — tipo Comercial, Financeiro, Suporte — cada uma com
+> o próprio menu? Ou é um sistema único com um menu só?"*
+
+⛔ **Hoje o `AppShell` só monta com `MenuSidebar`.** O `SingleMenuSidebar` **não tem**
+`collapsed` nem drawer mobile, e é exatamente isso que o `AppShell` coordena com o
+hamburger do Header — encaixá-lo entregaria um shell onde o menu não abre no mobile.
+
+Então, se a resposta for "sem módulos", **não force o AppShell**: monte o layout com o
+`SingleMenuSidebar` direto (ele é full-height, à esquerda) + `Header` ao lado. Diga isso ao
+usuário em vez de entregar um AppShell com menu de módulos vazio — que é o que acontecia
+antes desta seção existir, porque nada perguntava.
+
 ## Fluxo
 
 1. **Leia** `src/examples/app-shell/` (fonte única): `nav-data.ts` (contextos +
@@ -21,7 +45,12 @@ leia e adapte o exemplo canônico, não gere de memória.
    resolveRoute), `app-shell-example.tsx` (cabeamento do AppShell) +
    `src/components/ui/AppShell/USAGE.md`.
 2. Adapte: `nav-data.ts` (módulos/telas do app) + `routes.tsx` (1 linha por tela).
-3. `npx tsc --noEmit` limpo.
+3. **Item de menu com destino? Declare `href`** — nas duas sidebars ele emite `<a>`, o que
+   dá ctrl+clique e nova aba. Router próprio → `renderLink={({href,...r}) => <Link to={href} {...r} />}`.
+4. **AppShell embutido em container com altura** (layout com footer, aba, preview)? →
+   `fillHeight`. Sem isso ele mede 100vh, transborda o container e o conteúdo aparece
+   cortado na base — parece falta de padding e não é.
+5. `npx tsc --noEmit` limpo.
 
 ## Registro no showcase (app-shell = fullscreen puro, sem outro shell)
 

@@ -52,6 +52,31 @@ SingleMenuUser      = { name, email, avatar?, actions?, onAction? }
 SingleMenuUserAction= { id, label, icon?, variant?: "default" | "destructive" }
 ```
 
+## Navegação — `href` e `renderLink`
+
+Item **com `href`** vira `<a href>`: ctrl/cmd+clique abre em nova aba, "copiar endereço do
+link" funciona, e o leitor de tela anuncia **link** (com `aria-current="page"` no ativo).
+Sem `href`, continua `<button>`. Vale pro sub-item e pra **categoria-folha** (sem `items`).
+
+Pra integrar o router do consumidor, use **`renderLink`** — render-prop, não componente:
+
+```tsx
+<SingleMenuSidebar
+  categories={categories}
+  onItemClick={(id) => setAtivo(id)}
+  renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}
+/>
+```
+
+⚠️ **Sem `renderLink`**, o clique cancela a navegação nativa quando há handler — **exceto**
+em clique modificado, `target="_blank"`, href externo (`https:`, `mailto:`…) e **href de
+hash** (`#/rota`). A regra e o porquê de cada exceção estão em `@/utils/nav-link`, que é a
+MESMA lógica do `MenuSidebar` (util compartilhada, não cópia).
+
+> ⚠️ Até 2026-08-18 o `href` acima **não fazia nada**: o tipo o aceitava, este USAGE o
+> documentava, e o componente renderizava `<button>` sempre. Se você escreveu código
+> contando com navegação por `href` aqui, ele nunca navegou — agora navega.
+
 ## Exemplo mínimo
 
 ```tsx

@@ -11,11 +11,47 @@ import { tv } from "@/utils/tv";
  * as telas. Consumer customiza só os filhos.
  */
 
+/**
+ * Raiz do shell. A altura é o ponto sensível aqui.
+ *
+ * ## Por que `fillHeight` existe (medido em 2026-08-18)
+ *
+ * `h-screen` é 100vh **sempre**, ignorando a altura do container pai. Consequência
+ * medida na própria página de doc do AppShell, que o renderiza dentro de
+ * `<div class="h-[640px] … overflow-hidden">`:
+ *
+ *   container do exemplo   640px
+ *   <main> do shell        660px  (60 do header + 660 = 720 = 100vh)
+ *   → o shell termina 56px ABAIXO da borda, e o overflow-hidden do wrapper
+ *     corta esse pedaço — levando os 24px de padding-bottom do body junto
+ *
+ * O sintoma que aparece é "o conteúdo está colado na borda de baixo", e a leitura
+ * natural é "falta padding-bottom". **Não falta**: o padding existe e é simétrico
+ * (medido: 24px em cima e 24px embaixo). Ele está sendo *clipado*. Acrescentar mais
+ * padding não consertaria nada — só mudaria o quanto se perde.
+ *
+ * Vale para qualquer consumidor que embuta o shell em algo com altura definida:
+ * um layout com footer próprio, um painel de aba, um card de preview.
+ *
+ *   fillHeight=false (default)  h-screen  — o shell É a página. Comportamento atual,
+ *                                           preservado pra não mexer em quem já usa.
+ *   fillHeight=true             h-full    — o shell obedece o pai. **Exige que o pai
+ *                                           tenha altura**: `h-full` sem pai medido
+ *                                           colapsa pra zero, que é o modo de falhar
+ *                                           deste modo.
+ */
 export const root = tv({
   base: [
-    "flex h-screen w-full bg-bg-canvas",
-    "overflow-hidden", // garante que sidebar + main não vazem viewport
+    "flex w-full bg-bg-canvas",
+    "overflow-hidden", // garante que sidebar + main não vazem o container
   ],
+  variants: {
+    fillHeight: {
+      false: "h-screen",
+      true: "h-full",
+    },
+  },
+  defaultVariants: { fillHeight: false },
 });
 
 /** Wrapper da área principal (Header + Body). Ocupa o resto do flex row. */

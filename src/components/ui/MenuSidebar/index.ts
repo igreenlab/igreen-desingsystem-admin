@@ -31,8 +31,8 @@ export {
   isExternalHref,
   isHashHref,
   isModifiedClick,
-} from "./nav-link";
-export type { PreventNavigationInput } from "./nav-link";
+} from "@/utils/nav-link";
+export type { PreventNavigationInput } from "@/utils/nav-link";
 
 /* Tipos do data model */
 export type {

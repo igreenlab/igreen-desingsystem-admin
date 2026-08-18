@@ -1,6 +1,10 @@
 import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
 import type {
+  SingleMenuCategory,
+  SingleMenuModuleConfig,
+} from "@/components/ui/SingleMenuSidebar";
+import type {
   HeaderBreadcrumbItem,
   HeaderCommandGroup,
   HeaderMessagesConfig,
@@ -56,10 +60,8 @@ export type AppShellLayoutOption = {
  * - `theme` idem
  * - `children` é o body — gap 16px + padding 32px aplicados no slot
  */
-export type AppShellProps = {
+type AppShellBaseProps = {
   /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */
-  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório. */
-  contexts: SidebarContext[];
   /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */
   defaultActiveContextId?: string;
   /** Contexto ativo (controlled). */
@@ -163,7 +165,122 @@ export type AppShellProps = {
    */
   mobileEdgeToEdge?: boolean;
 
+  /* ── Qual sidebar ───────────────────────────────────────── */
+
+  /**
+   * Qual menu lateral o shell monta.
+   *
+   *   "menu"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas
+   *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.
+   *   "single"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema
+   *                      único, com busca opcional.
+   *
+   * Default preservado em `menu` de propósito: não muda nada de quem já usa.
+   *
+   * O shell coordena o colapso e o hamburger do Header nos DOIS casos. O mapeamento é
+   * diferente porque os componentes modelam o estado de formas diferentes:
+   *
+   *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)
+   *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade
+   *                 (< md: expandida ocupa 100% da largura; recolhida some)
+   */
+
   /* ── Root ──────────────────────────────────────────────── */
+
+  /**
+   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.
+   *
+   * Default `false` = comportamento histórico (`h-screen`), preservado.
+   *
+   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout
+   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,
+   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o
+   * padding — o sintoma é "conteúdo colado na borda", e não é falta de padding.
+   *
+   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.
+   */
+  fillHeight?: boolean;
+
   /** ClassName extra no root da AppShell (afeta toda a tela). */
   className?: string;
 };
+
+/**
+ * Qual menu lateral o shell monta — e **o que cada escolha exige**.
+ *
+ *   "menu"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas
+ *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.
+ *   "single"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema
+ *                      único, com busca opcional.
+ *
+ * Default preservado em `menu`: quem já usa não muda nada, e continua obrigado a passar
+ * `contexts` como antes.
+ *
+ * ## Por que UNIÃO DISCRIMINADA e não props opcionais
+ *
+ * A alternativa era deixar `contexts` opcional e documentar "obrigatório quando
+ * sidebar='menu'". Isso trocaria um erro de compilação por uma **falha silenciosa**:
+ * `contexts` ausente com a sidebar de menu renderiza um rail vazio, sem erro nenhum. Com a
+ * união, o TS exige exatamente o conjunto certo pra cada escolha — e o consumidor descobre
+ * no editor, não olhando a tela.
+ *
+ * ## O que o shell coordena nos dois casos
+ *
+ * O toggle do Header funciona igual pras duas, sem o consumidor cabear nada. O mapeamento
+ * interno difere porque os componentes modelam o estado de formas diferentes:
+ *
+ *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)
+ *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade
+ *                 (< md: expandida ocupa 100% da largura; recolhida some)
+ */
+type AppShellMenuSidebarProps = {
+  sidebar?: "menu";
+  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório nesta variante. */
+  contexts: SidebarContext[];
+};
+
+type AppShellSingleSidebarProps = {
+  sidebar: "single";
+  /** Categorias do menu de nível único. */
+  categories: SingleMenuCategory[];
+  /** Logo no header da sidebar. */
+  sidebarLogo: ReactNode;
+  /** Título ao lado do logo. */
+  sidebarTitle: string;
+  /** Item ativo (a variante `menu` usa `activeItemHref`). */
+  activeItemId?: string;
+  /**
+   * Clique em item. Prop SEPARADA do `onItemClick` de propósito: os dois modelos de dados
+   * são diferentes — o MenuSidebar entrega o ITEM (`SidebarMenuItem`), a single entrega o
+   * `id`. Reaproveitar o mesmo nome faria o consumidor receber um tipo e escrever pro outro.
+   */
+  onSidebarItemClick?: (id: string) => void;
+  /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */
+  sidebarModules?: SingleMenuModuleConfig[];
+  /** Mostra a busca no topo da sidebar. */
+  sidebarShowSearch?: boolean;
+  /**
+   * Placeholder da busca DA SIDEBAR — separado do `searchPlaceholder`, que é do Header.
+   * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.
+   */
+  sidebarSearchPlaceholder?: string;
+};
+
+export type AppShellProps = AppShellBaseProps &
+  (AppShellMenuSidebarProps | AppShellSingleSidebarProps);
+
+/**
+ * Uso **interno** do `app-shell.tsx`, não da API pública.
+ *
+ * Destruturar uma união não dá acesso a membro que existe em só um dos ramos (TS2339), e
+ * fazer `if (props.sidebar === "single")` antes de cada acesso espalharia narrowing por
+ * todo o componente. Então a fronteira pública é a união — é ela que guia o consumidor no
+ * editor — e a implementação lê deste shape relaxado, onde tudo é opcional.
+ *
+ * A correção de verdade fica no render: o ramo `sidebar === "single"` só usa as props da
+ * single, e o outro só as de menu. O `as` abaixo não esconde nada que a união já não
+ * garanta na entrada.
+ */
+export type AppShellInternalProps = AppShellBaseProps &
+  Partial<AppShellMenuSidebarProps> &
+  Partial<AppShellSingleSidebarProps>;

@@ -11,10 +11,55 @@ Template de aplicação completo: MenuSidebar (rail + panel) + Header sticky + b
 import { AppShell } from "@/components/ui/AppShell";
 ```
 
+## Qual sidebar — `menu` (default) × `single`
+
+O shell monta **uma das duas** sidebars. O tipo é **união discriminada**: cada escolha exige
+o seu próprio conjunto de dados, e o TS cobra no editor.
+
+| `sidebar` | quando | exige |
+|---|---|---|
+| `"menu"` (default) | app com **áreas distintas** (Comercial, Financeiro…), cada uma com menu próprio | `contexts` |
+| `"single"` | **sistema único**, um menu só — busca opcional | `categories` + `sidebarLogo` + `sidebarTitle` |
+
+```tsx
+<AppShell
+  sidebar="single"
+  categories={CATEGORIES}
+  sidebarLogo={<MinhaLogo />}
+  sidebarTitle="Meu Sistema"
+  sidebarShowSearch
+  activeItemId={ativo}
+  onSidebarItemClick={setAtivo}
+  breadcrumb={[{ label: "Sistema" }]}
+>…</AppShell>
+```
+
+**O toggle do Header funciona nas duas sem você cabear nada.** O mapeamento interno difere
+porque os componentes modelam o estado de formas diferentes — `MenuSidebar` tem
+`panelCollapsed` + drawer no mobile; a single tem `expanded`, e no mobile o `expanded` **é** a
+visibilidade (expandida ocupa 100% da largura, recolhida some).
+
+⚠️ **`onSidebarItemClick` é separado do `onItemClick`**, e não é redundância: o `MenuSidebar`
+entrega o **item** (`SidebarMenuItem`), a single entrega o **`id`**. Mesmo nome faria você
+receber um tipo e escrever pro outro.
+
+⚠️ **Por que união e não props opcionais:** deixar `contexts` opcional trocaria erro de
+compilação por falha silenciosa — ausente com a sidebar de menu, o rail renderiza **vazio**,
+sem erro nenhum.
+
 ## Props essenciais
 | Prop | Tipo | Default | Função |
 |---|---|---|---|
-| `contexts` | SidebarContext[] | — | Lista de workspaces no rail |
+| `sidebar` | `"menu" \| "single"` | `"menu"` | Qual menu lateral montar — ver a seção acima |
+| `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é "conteúdo colado na borda", e não é falta de padding. ⚠️ exige pai com altura |
+| `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar="menu"`) |
+| `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar="single"`) |
+| `sidebarLogo` / `sidebarTitle` | ReactNode / string | — | Header da sidebar single |
+| `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |
+| `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |
+| `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |
+| `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |
+| `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |
 | `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |
 | `activeContextId` | string | — | Workspace ativo (controlled) |
 | `onContextChange` | (id: string) => void | — | Callback de troca de workspace |

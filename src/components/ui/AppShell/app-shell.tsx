@@ -2,10 +2,11 @@ import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Header } from "@/components/ui/Header";
 import { MenuSidebar } from "@/components/ui/MenuSidebar";
+import { SingleMenuSidebar } from "@/components/ui/SingleMenuSidebar";
 import { useMediaQuery } from "@/components/ui/MenuSidebar/use-media-query";
 import { UserMenu } from "./user-menu";
 import * as s from "./app-shell.styles";
-import type { AppShellProps } from "./app-shell.types";
+import type { AppShellProps, AppShellInternalProps } from "./app-shell.types";
 
 /**
  * `<AppShell>` — template de aplicação (rail + panel + header + body).
@@ -28,7 +29,9 @@ import type { AppShellProps } from "./app-shell.types";
  * Pra uso real: declare um `MOCK_CONTEXTS`, `MOCK_COMMANDS`, etc compartilhados
  * num arquivo da app (ex: `src/config/app-shell-mocks.ts`) e passe nas pages.
  */
-export function AppShell({
+export function AppShell(props: AppShellProps) {
+  // Ver AppShellInternalProps: a união vale na fronteira pública; aqui destruturo tudo.
+  const {
   // Sidebar
   contexts,
   defaultActiveContextId,
@@ -67,8 +70,20 @@ export function AppShell({
   children,
   bodyClassName,
   mobileEdgeToEdge,
+  fillHeight,
+  // Escolha da sidebar. SEM default aqui: um default literal estreitaria o tipo pra
+  // "menu" e o TS marcaria a comparação com "single" como morta (TS2367).
+  sidebar,
+  categories,
+  sidebarLogo,
+  sidebarTitle,
+  activeItemId,
+  onSidebarItemClick,
+  sidebarModules,
+  sidebarShowSearch,
+  sidebarSearchPlaceholder,
   className,
-}: AppShellProps) {
+  } = props as AppShellInternalProps;
   /**
    * Default do collapse é RESPONSIVO: abaixo de 1536px o menu nasce colapsado.
    *
@@ -130,10 +145,84 @@ export function AppShell({
     />
   ) : undefined;
 
-  return (
-    <div className={cn(s.root(), className)}>
+  /**
+   * A sidebar single modela o estado como `expanded`, não `collapsed` — e no mobile o
+   * `expanded` É a visibilidade (< md: expandida ocupa 100% da largura, recolhida some).
+   * Então o hamburger do Header mapeia assim:
+   *
+   *   desktop  expanded = !menuCollapsed
+   *   mobile   expanded = mobileMenuOpen   (o mesmo state que abre o drawer do MenuSidebar)
+   *
+   * Com isso o mesmo `handleToggleMenu` serve pras duas, e quem consome não precisa saber
+   * qual das duas está montada pra o botão funcionar.
+   */
+  const sidebarNode =
+    sidebar === "single" ? (
+      <SingleMenuSidebar
+        logo={sidebarLogo}
+        title={sidebarTitle ?? ""}
+        categories={categories}
+        modules={sidebarModules}
+        activeItemId={activeItemId}
+        onItemClick={onSidebarItemClick}
+        renderLink={renderLink as never}
+        /**
+         * ⚠️ `?? false` não é redundante: o `SingleMenuSidebar` tem `showSearch = true` como
+         * DEFAULT dele (faz sentido em uso standalone, onde não há Header). Dentro do shell
+         * há Header com `commandGroups`, então herdar esse default entrega **duas buscas na
+         * mesma tela** — pego na verificação visual, não na leitura.
+         *
+         * Aqui o default se inverte: desligada, e quem quiser uma busca de escopo próprio
+         * na sidebar liga com `sidebarShowSearch`.
+         */
+        showSearch={sidebarShowSearch ?? false}
+        searchPlaceholder={sidebarSearchPlaceholder}
+        /**
+         * `showToggleIndicator` fica FALSE (o default dela) de propósito.
+         *
+         * Ele desenha um botãozinho flutuante grudado na borda externa da sidebar recolhida
+         * (`absolute right-0 translate-x-1/2`, 26×26) — ruído visual num rail que já responde
+         * a **hover**: passar o mouse expande, e aí o toggle interno aparece pra travar.
+         *
+         * ⚠️ Eu havia forçado esta prop, argumentando que sem ela "não haveria como expandir
+         * de novo". Errado: ignorei o hover-expand, que é o mecanismo primário de abertura
+         * no desktop. No mobile, onde não há hover, quem abre é o botão do Header — que é
+         * exatamente por isso que ele NÃO é removido lá (ver `onCollapseMenu`).
+         */
+        expanded={isMobile ? mobileMenuOpen : !menuCollapsed}
+        onExpandedChange={(next) => {
+          if (isMobile) {
+            setMobileMenuOpen(next);
+            return;
+          }
+          const nextCollapsed = !next;
+          if (controlledCollapsed === undefined) setInternalCollapsed(nextCollapsed);
+          onMenuCollapseChange?.(nextCollapsed);
+        }}
+        // O Single exige `user`; o AppShell o tem opcional e com outro shape. As ações do
+        // rodapé reaproveitam os callbacks que o shell já recebe pro user menu, pra não
+        // haver duas fontes de "Configurações"/"Sair" na mesma tela.
+        user={{
+          name: user?.name ?? "",
+          email: user?.email ?? "",
+          actions: [
+            ...(onSettings ? [{ id: "settings", label: "Configurações" }] : []),
+            ...(onLogout
+              ? [{ id: "logout", label: "Sair", variant: "destructive" as const }]
+              : []),
+          ],
+          onAction: (id) => {
+            if (id === "settings") onSettings?.();
+            if (id === "logout") onLogout?.();
+          },
+        }}
+      />
+    ) : (
       <MenuSidebar
-        contexts={contexts}
+        // A união pública EXIGE `contexts` quando a sidebar não é "single" — o shape
+        // interno é que relaxa. Um consumidor JS que burle os tipos quebra no
+        // MenuSidebar, alto e visível, em vez de renderizar um rail vazio em silêncio.
+        contexts={contexts as NonNullable<typeof contexts>}
         activeContextId={activeContextId}
         defaultActiveContextId={defaultActiveContextId}
         onContextChange={onContextChange}
@@ -152,12 +241,37 @@ export function AppShell({
         mobileOpen={mobileMenuOpen}
         onMobileOpenChange={setMobileMenuOpen}
       />
+    );
+
+  return (
+    <div className={cn(s.root({ fillHeight: fillHeight ?? false }), className)}>
+      {sidebarNode}
 
       <div className={s.main()}>
         <Header
           breadcrumb={breadcrumb}
-          onCollapseMenu={handleToggleMenu}
-          menuCollapsed={menuCollapsed}
+          /**
+           * A sidebar single tem o próprio botão de recolher, no header dela (é o desenho
+           * dela — logo + título + toggle). Manter também o do Header dá DOIS controles
+           * pra mesma coisa, lado a lado. O Header esconde o botão quando `onCollapseMenu`
+           * é omitido, então basta não passar.
+           *
+           * ⚠️ **Menos no mobile.** Abaixo de 768px a single fica `hidden` quando recolhida
+           * — o toggle dela desaparece junto, e não haveria como abrir o menu. Ali o botão
+           * do Header é a única entrada, então ele fica.
+           */
+          onCollapseMenu={sidebar === "single" && !isMobile ? undefined : handleToggleMenu}
+          /**
+           * No mobile o botão do Header controla a VISIBILIDADE (`mobileMenuOpen`), não o
+           * collapse de desktop — o `handleToggleMenu` acima já ramifica assim. Mas o
+           * rótulo vinha só de `menuCollapsed`, então com o menu fechado no celular o
+           * leitor de tela anunciava "Colapsar menu": a ação oposta à que o clique faz.
+           *
+           * Medido no Chrome em 420px de largura: sidebar `display: none` e o botão
+           * dizendo "Colapsar". Defeito pré-existente (vale pras duas sidebars), achado ao
+           * validar o mobile da variante single.
+           */
+          menuCollapsed={isMobile ? !mobileMenuOpen : menuCollapsed}
           commandGroups={commandGroups}
           commandPlaceholder={commandPlaceholder}
           commandEmptyMessage={commandEmptyMessage}

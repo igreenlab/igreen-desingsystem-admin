@@ -1,4 +1,8 @@
-import type { ReactNode, HTMLAttributes, Ref } from "react";
+// `MouseEvent` PRECISA vir do react: o global do DOM tem o mesmo nome e **não é
+// genérico**, então `MouseEvent<HTMLAnchorElement>` resolve pro global e falha com
+// TS2315 ("Type 'MouseEvent' is not generic") — mensagem que não diz que o problema é
+// import faltando.
+import type { ReactNode, HTMLAttributes, Ref, MouseEvent } from "react";
 
 /* ══════════════════════════════════════════════════════════════════════════
    SingleMenuSidebar — interfaces e tipos
@@ -123,6 +127,33 @@ export interface SingleMenuHeaderProps {
   showToggleIndicator?: boolean;
 }
 
+/**
+ * Props que o sidebar entrega pra quem vai renderizar o link. Mesmo contrato do
+ * `SidebarLinkRenderProps` do `MenuSidebar` — a **lógica** de quando cancelar a
+ * navegação é compartilhada de fato (`@/utils/nav-link`); só este alias estrutural é
+ * declarado nos dois, pra o `single-menu-sidebar` não passar a depender do item de
+ * registry do `menu-sidebar` inteiro.
+ */
+export type SingleMenuLinkRenderProps = {
+  href: string;
+  target?: string;
+  className?: string;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+  "aria-current"?: "page";
+  children?: ReactNode;
+};
+
+/**
+ * Substitui o `<a>` nativo pelo link do router do consumidor.
+ *
+ * **Render-prop, não `linkComponent`** — um componente escrito inline remonta a
+ * subárvore a cada render do pai (L-068).
+ *
+ * @example
+ * renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}
+ */
+export type SingleMenuLinkRenderer = (props: SingleMenuLinkRenderProps) => ReactNode;
+
 export interface SingleMenuCategoryProps extends SingleMenuCategory {
   /** Sub-item atualmente selecionado */
   activeItemId?: string;
@@ -130,12 +161,36 @@ export interface SingleMenuCategoryProps extends SingleMenuCategory {
   onItemClick?: (id: string) => void;
   /** Callback ao clicar no cabeçalho da categoria */
   onCategoryClick?: () => void;
+  /** Link do router do consumidor — repassado aos sub-itens e à categoria-folha. */
+  renderLink?: SingleMenuLinkRenderer;
 }
 
 export interface SingleMenuItemProps {
   label: string;
   selected?: boolean;
-  onClick?: () => void;
+  /**
+   * Destino. Com `href` o item vira `<a>` (ctrl+clique, nova aba, "copiar link",
+   * leitor de tela anunciando "link"); sem, continua `<button>`.
+   *
+   * Até 2026-08-18 esta prop existia no tipo `SingleMenuSubItem` e no `USAGE.md` — e
+   * **nada a lia**: o item era sempre `<button>`. Declarar o destino não fazia nada.
+   */
+  href?: string;
+  /** `_blank` etc. Desliga o cancelamento da navegação nativa. */
+  target?: string;
+  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
+  renderLink?: SingleMenuLinkRenderer;
+  /**
+   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.
+   *
+   * O `SingleMenuCategory` SEMPRE passa um `onClick` (é como o sidebar mantém o item
+   * marcado), então inferir por "tem onClick" cancelaria a navegação até de quem não
+   * passou handler nenhum — trocando "recarrega" por "não navega". É o mesmo motivo
+   * pelo qual o `MenuSidebar` tem esta prop.
+   *
+   * `undefined` → infere de `onClick`. `boolean` → o container decide.
+   */
+  interceptNavigation?: boolean;
 }
 
 export interface SingleMenuFooterProps extends SingleMenuUser {}
@@ -192,6 +247,13 @@ export interface SingleMenuSidebarProps extends Omit<
   activeItemId?: string;
   /** Callback ao clicar em qualquer sub-item */
   onItemClick?: (id: string) => void;
+
+  /**
+   * Substitui o `<a>` nativo pelo link do router do consumidor, em TODOS os itens e
+   * nas categorias-folha com `href`. Sem isso o sidebar emite `<a href>` puro e
+   * cancela a navegação nativa quando há handler — ver `@/utils/nav-link`.
+   */
+  renderLink?: SingleMenuLinkRenderer;
   /** Informações do usuário no rodapé (com dropdown opcional) */
   user: SingleMenuUser;
   /** Estado expandido inicial */
