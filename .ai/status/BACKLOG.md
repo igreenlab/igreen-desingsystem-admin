@@ -5,6 +5,48 @@
 
 ---
 
+## 🪟 Clamp de viewport em FloatingPanel e DropdownMenu — resgatado de branch apagada (2026-08-18)
+
+> **Não é defeito confirmado.** É uma defesa que existia numa branch não-mergeada
+> (`feat/finance-experiments`, PR #11 fechada em jun/2026) e que se perderia com ela. Registrado
+> aqui pra que a informação sobreviva à limpeza das branches, não pra ser aplicado às cegas.
+
+**O que a branch tinha** — 2 linhas, uma em cada arquivo:
+
+```
+src/components/ui/FloatingPanel/floating-panel.styles.ts
+src/components/shadcn/dropdown-menu.tsx
+    "max-w-[calc(100vw-32px)]"      // 16px de gutter simétrico em qualquer largura
+```
+
+**O raciocínio original** (do comentário da branch): acima do breakpoint `md` não há clamp
+nenhum, então um painel de 720px numa viewport de 800px vazaria. A main cobre **abaixo** de
+768px com o tratamento de bottom-sheet (`max-md:!w-auto` + `inset-x-0`), e a faixa acima fica
+descoberta.
+
+**O que eu MEDI, e por que não apliquei** (browser, viewport 800px, painel XL de 720px):
+
+```
+cssLeft 56px  +  width 720px  +  cssRight 24px  =  800px   → cabe EXATO, não vaza
+max-width computado: none                                   → confirmado que não há clamp
+```
+
+Não consegui reproduzir vazamento. O caso onde o clamp importaria é o **redimensionado** — o
+`FloatingPanel` é resizable e a largura vem de `style={{ width }}` inline, então uma largura
+arrastada (ou um `initialWidth` grande vindo do consumidor) pode exceder `viewport - 80px`. Não
+consegui exercitar esse estado: o override de largura não pegou no browser automatizado.
+
+⚠️ **Limite do ambiente, que vale registrar pra próxima medição:** o
+`document.timeline.currentTime` fica **em 0 e não avança** no browser automatizado — a animação
+de entrada (`enter`, 220ms) nunca progride e o painel fica preso no `translateX(48px)` inicial.
+Isso produz um "vazamento" de 24px que é **artefato, não defeito**: eu quase o reportei como
+bug antes de conferir o timeline. Medição de posição animada precisa de browser real (L-064).
+
+**Se algum dia for aplicar:** o clamp é **inerte** quando `width ≤ viewport − 32px`, então não
+pode alterar nenhum caso que funciona hoje — é `max-width` sobre uma largura menor. O que falta
+é demonstrar o caso que ele conserta, em browser real, com o painel redimensionado.
+---
+
 ## 📦 Peso do pacote npm — o barrel raiz não tree-shake (adiado em 2026-08-08)
 
 > Adiado **por decisão do mantenedor** na sessão da v0.37.2: primeiro garantir que os
