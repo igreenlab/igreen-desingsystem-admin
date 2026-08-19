@@ -219,7 +219,7 @@ Mudança em componente/token precisa refletir no registry, senão o consumidor r
   `cli/templates/default/_claude/rules/ds-components.md`, no grupo de tarefa a que serve, com o
   critério de escolha? Se NÃO → **ALTO**: a IA do consumidor não sabe que ele existe e compõe na
   unha. Adicionar ao vocabulário + bump `cli/package.json` + republicar CLI.
-  (Gap real: Toast distribuído na v0.12.0 mas fora do catálogo até v0.13.7. O hook
+  (Gap real: Toast distribuído na v0.12.0 mas fora do catálogo até a CLI 0.13.7. O hook
   `ds-inventory-check` acusa "no registry mas fora do catálogo".)
 - [ ] **Import cross-dir em componente distribuível?** Componente em `registry.json` que
   importa `../../shadcn/x` (relativo cross-dir) **quebra no copy-in** — tem que ser alias
