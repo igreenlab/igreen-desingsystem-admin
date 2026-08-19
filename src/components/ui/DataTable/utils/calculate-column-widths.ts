@@ -272,6 +272,22 @@ export function calculateColumnWidths<T>(
       // O resíduo (sub-pixel × nº de colunas) é absorvido pela ÚLTIMA coluna que
       // ainda pode crescer (sem maxWidth ou abaixo dele), pra a soma casar com o
       // container — preenchimento exato, sem 1-2px de vazio à direita.
+      //
+      // ⚠️ O alvo do snap é `containerWidth` MENOS as colunas fixas. `roundedTotal`
+      // soma apenas os `targets`, e `actions`/`checkbox` foram excluídos deles 60 linhas
+      // acima — então comparar direto com o container faz os targets preencherem a tela
+      // inteira e as fixas sobrarem POR CIMA, produzindo scroll horizontal com a largura
+      // exata delas. Medido em 2026-08-19 no `#/clientes-showcase`: 13 colunas somando
+      // 1950px num container de 1906 → 44px de scroll, e a coluna de ações mede 44px.
+      //
+      // A coluna de SELEÇÃO já era tratada certo, por outro caminho: ela não está em
+      // `columns` e é descontada antes do cálculo, via `reservedWidth` em
+      // `use-data-table-controller.ts`. Aqui fazemos o equivalente pras que ESTÃO em
+      // `columns` mas ficaram fora do rateio.
+      const larguraFixa = columns
+        .filter(isFixed)
+        .reduce((soma, col) => soma + (widths[String(col.field)] ?? 0), 0);
+
       let lastFlexField: string | undefined;
       let roundedTotal = 0;
       for (const col of targets) {
@@ -282,7 +298,7 @@ export function calculateColumnWidths<T>(
         if (!maxed) lastFlexField = f;
       }
       if (lastFlexField !== undefined) {
-        const residue = Math.round(containerWidth) - roundedTotal;
+        const residue = Math.round(containerWidth) - larguraFixa - roundedTotal;
         if (residue !== 0) {
           widths[lastFlexField] = Math.max(0, widths[lastFlexField] + residue);
         }
