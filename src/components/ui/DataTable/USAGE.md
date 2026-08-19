@@ -536,7 +536,7 @@ Service contract em `services/saved-views.types.ts` — `list / save / delete` (
 
 **`maxViewTabs`** — quantas abas de visão cabem na barra, **contando a "Default"**. Default `3`, ou seja **2 presets** de `defaultViews` viram aba.
 
-⚠️ O excedente é **cortado** (`.slice()` no `TableToolbarViews`): com 3 presets, o terceiro não aparece — sem erro e sem overflow. Em **DEV** sai um `console.warn` (vNEXT) nomeando o que foi cortado e o `maxViewTabs` que resolve; em produção o corte é silencioso. Precisa de N abas fixas? `maxViewTabs={N + 1}`. Lembre que a aba **Default já é a visão sem filtro** — preset "Todos"/"Todas" duplica ela e gasta um slot.
+⚠️ O excedente é **cortado** (`.slice()` no `TableToolbarViews`): com 3 presets, o terceiro não aparece — sem erro e sem overflow. Em **DEV** sai um `console.warn` (v0.43.1) nomeando o que foi cortado e o `maxViewTabs` que resolve; em produção o corte é silencioso. Precisa de N abas fixas? `maxViewTabs={N + 1}`. Lembre que a aba **Default já é a visão sem filtro** — preset "Todos"/"Todas" duplica ela e gasta um slot.
 
 **viewMode "sticky" ao trocar de visão (v0.23.0)** — aplicar uma visão (preset/Default) só troca o `viewMode` se a visão **definir um explicitamente** (ex.: preset salvo em Lista/Kanban). Presets sem `viewMode` (o caso comum) **mantêm** o que o usuário está vendo — alternar de visão não flipa Tabela↔Lista↔Kanban. Pra um preset abrir numa view específica, passe `viewMode` no `presetView({ ... })`.
 

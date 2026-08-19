@@ -3,6 +3,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import {
   RAIZES,
+  RAIZES_PLACEHOLDER,
   PLACEHOLDER,
   DONO_DA_CONVENCAO,
   versoesLancadas,
@@ -166,6 +167,24 @@ describe("version-claims — o placeholder da próxima release", () => {
     // Se alguém acrescentar raiz só num dos dois, o gate cobre metade do repo em silêncio.
     expect(RAIZES).toContain("cli/templates/default/_claude");
     expect(RAIZES.length).toBeGreaterThanOrEqual(4);
+  });
+
+  it("o placeholder é procurado no showcase também — quase escapou por ali", () => {
+    // A DocPage do DataTable recebeu um `vNEXT` na mesma sessão do gate, e a raiz de claims
+    // não olhava src/preview — o placeholder teria ido publicado pro showcase.
+    expect(RAIZES_PLACEHOLDER).toContain("src/preview/pages");
+    expect(RAIZES).not.toContain("src/preview/pages");
+    for (const r of RAIZES) expect(RAIZES_PLACEHOLDER).toContain(r);
+  });
+
+  it("…e o showcase fica FORA da checagem de claims, porque lá é ruído", () => {
+    // Medido: 5 achados em src/preview, 5 ruído. 4 são dados de mock de um gráfico de demo.
+    const mock = `const RELEASES = [{ v: "v2.4.0", date: "Jan 28, 2024" }, { v: "v2.3.1" }];`;
+    expect(checkVersionClaims([{ arquivo: "ChartShowcaseDoc.tsx", fonte: mock }], LANCADAS)
+      .achados.length).toBe(2); // reprovaria — e é exatamente por isso que a raiz não os varre
+    expect(checkPlaceholders([{ arquivo: "ChartShowcaseDoc.tsx", fonte: mock }]).achados).toEqual(
+      [],
+    ); // já o vNEXT não aparece em mock, então a raiz larga é segura
   });
 });
 
