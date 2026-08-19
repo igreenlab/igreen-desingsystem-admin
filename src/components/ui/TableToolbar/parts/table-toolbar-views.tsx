@@ -128,6 +128,45 @@ export function TableToolbarViews({
   );
   const [tabViewIds, setTabViewIds] = useState<string[]>(initialIds);
 
+  /**
+   * Aviso em DEV quando há mais visões candidatas a aba do que slots.
+   *
+   * O corte é por `.slice(0, maxCustomTabs)` no mount e por `break` no effect de sync —
+   * **sem nenhum sinal**: a visão simplesmente não aparece. Não há overflow, "+N" nem erro.
+   * Já custou caro: o audit log registra a própria página de doc do `DataTable` declarando
+   * 3 presets e renderizando 2, com "Pipeline (Kanban)" engolido em silêncio — descoberto
+   * medindo no browser, não lendo o código.
+   *
+   * A conta que confunde: `maxTabs` conta a aba **"Default"**, que é nativa e virtual. Com o
+   * default 3, sobram **2** slots pra visão própria — não 3.
+   *
+   * Só em dev, e uma vez por combinação (candidatas × slots): este componente re-renderiza a
+   * cada mudança de filtro/sort, e aviso repetido em console vira aviso ignorado.
+   */
+  const avisadoRef = useRef<string | null>(null);
+  useEffect(() => {
+    if (!import.meta.env?.DEV) return;
+    const candidatas = views.filter(
+      (v) => v.owner === myOwnerKey || v.owner === "preset",
+    );
+    if (candidatas.length <= maxCustomTabs) return;
+    const chave = `${candidatas.length}/${maxCustomTabs}`;
+    if (avisadoRef.current === chave) return;
+    avisadoRef.current = chave;
+    // `name` é ReactNode: só serve na mensagem se for string, senão cai no `id`.
+    // Sem isso, uma view com nome em JSX viraria "[object Object]" no aviso — o `tsc`
+    // aceita (ReactNode entra em array), e o texto sairia lixo.
+    const cortadas = candidatas
+      .slice(maxCustomTabs)
+      .map((v) => (typeof v.name === "string" ? v.name : v.id));
+    console.warn(
+      `[TableToolbar] ${candidatas.length} visões candidatas a aba e só ${maxCustomTabs} slot(s): ` +
+        `${cortadas.join(", ")} não vai(vão) aparecer. ` +
+        `\`maxTabs\` é ${maxTabs} e conta a aba "Default" (nativa), então sobram ${maxCustomTabs}. ` +
+        `Pra mostrar todas, passe maxViewTabs={${candidatas.length + 1}} no <DataTable> (o +1 é a Default).`,
+    );
+  }, [views, maxCustomTabs, maxTabs, myOwnerKey]);
+
   // Sync: quando uma view some, tira do state; quando nova chega, anexa se tem slot
   const prevIdsRef = useRef<string[]>(views.map((v) => v.id));
   useEffect(() => {
