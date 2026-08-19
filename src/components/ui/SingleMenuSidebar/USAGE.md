@@ -120,6 +120,16 @@ import { SingleMenuSidebar } from "@/components/ui/SingleMenuSidebar";
   manualmente, o hover-expand fica suprimido ~500ms (não "pisca" com o mouse por cima).
 - **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande
   temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.
+  ⚠️ **A espiada FLUTUA sobre o conteúdo — não empurra** (v0.42.2+). No desktop o
+  painel vira `absolute z-40` e o `<aside>` continua ocupando só a largura do rail,
+  então o que está ao lado não se mexe. **Só o clique** (travar aberta) ocupa espaço
+  no fluxo e empurra — é decisão de layout do usuário, e quem está com o menu
+  recolhido escolheu maximizar a área de conteúdo.
+  Antes disso a espiada animava a largura **dentro** do fluxo: numa tela com
+  `DataTable` isso disparava 5 recálculos completos de largura de coluna por gesto,
+  ~100ms de travada e **CLS 0,117**. É o mesmo desenho que o `MenuSidebar` sempre
+  teve (painel flutuante), agora aqui. Se você depende do empurrão no hover, use
+  `expanded` controlado e trave aberta.
 - **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou
   `defaultExpanded` (não-controlado).
 - **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da
