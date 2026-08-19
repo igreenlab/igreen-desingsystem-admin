@@ -1,7 +1,7 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-08-08
+> Última revisão: 2026-08-19
 
 ---
 
@@ -198,25 +198,6 @@ token" silencioso.
 
 ---
 
-## 🧹 140 MB de diretório não-versionado na árvore de trabalho (achado 2026-08-08, revisto 19/08)
-
-> **Eram 347 MB. O `design-tabela/` (207 MB) já foi apagado pelo mantenedor** — conferido em disco
-> em 2026-08-19: não existe mais. Sobra o `my-app/` e os PNGs.
-
-Diretório grande **gitignorado** (então não está no repo — é lixo de disco local, não débito de
-código). Não removi: apagar working tree alheia não é decisão de PR.
-
-| Dir | Tamanho | O que é | Veredito |
-|---|---|---|---|
-| ~~`design-tabela/`~~ | ~~207 MB~~ | clone de `backofficetable.git` que serviu de referência arquitetural pro `DataTable` | ✅ **removido** — conferido em disco em 19/08, não existe mais |
-| `my-app/` | **140 MB** | scaffold real do dogfood (`npm create`), commit único de 2026-08-08 | **descartável, mas recente e útil.** ⚠️ Hoje está **31 arquivos defasado** do `cli/templates/default/_claude` — se for reusar pra validar algo, **regere** em vez de confiar no que está lá |
-
-Também: `.ai/scratch/` (gitignorado) tem **856 KB de PNG** de validação de maio
-(`datatable-autofit-validation.png`, `datatable-column-types-validation.png`), parados há 3
-meses. O `hook-log.txt` do mesmo diretório é ativo e deve ficar.
-
----
-
 ## ✅ `alert-dialog` sem DocPage — FECHADO em 2026-08-19
 
 > **Estava vencido e ninguém riscou.** O `AlertDialogDoc.tsx` nasceu em **2026-08-12** (4 dias
@@ -314,10 +295,18 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
   plan mode (esquema do código, catálogo `blocks-catalog.json` derivado do
   `registry.json`, resolução determinística via skill `ds-kit` Passo 0, adoção de
   `registry:block` sem renomear os `example-*`, rollout em 5 fases). Só ficou como
-  plano — arquivo local em
-  `C:\Users\sergi\.claude\plans\mossy-wishing-sunset.md` (fora do repo). **Próximo
-  passo:** revisitar esse plano, confirmar que ainda reflete a intenção, e começar
-  pela Fase 0 (codificar os `example-*` existentes) antes de estruturar o resto.
+  plano, num arquivo local **fora do repo**.
+
+  ⛔ **O plano NÃO EXISTE MAIS — verificado em 2026-08-19.** O caminho que este item citava
+  (`~/.claude/plans/mossy-wishing-sunset.md`) não está lá; a pasta tem um único plano, de outro
+  assunto. E `DSGREEN` não aparece em nenhum arquivo do repo além desta linha. Ou seja: **o que
+  sobreviveu do desenho são as 8 linhas acima**, não o esquema, não o `blocks-catalog.json`, não
+  as 5 fases. O "próximo passo" que estava escrito aqui — *"revisitar esse plano"* — era
+  inexecutável, e apontar pra ele fazia o item parecer mais pronto do que está.
+
+  **Próximo passo real:** decidir, a partir do resumo acima, se a ideia ainda serve. Se sim, o
+  desenho é redesenho, não resgate. **Lição embutida:** decisão de arquitetura guardada só em
+  `~/.claude/plans/` não sobrevive — ou entra em `.ai/specs/`, ou não existe.
 
 ---
 
@@ -483,3 +472,4 @@ audit — popovers não são hot path; churn alto, valor marginal).
 | opensquad como framework | Squads dinâmicos vs fixos |
 | Responsive tokens | Responsividade no componente, não no token |
 | Fluid typography universal | clamp() só ≥ 32px tem ganho real |
+| Diretórios não-versionados na árvore (347 MB → 140 MB) | Nunca foi débito de código — é disco local, tudo gitignorado. O `design-tabela/` (207 MB) o mantenedor já apagou; o `my-app/` (140 MB, sandbox do dogfood) ele apaga na mão quando fechar os serviços abertos. Sobram 856 KB de PNG em `.ai/scratch/`, irrelevantes. Saiu do backlog em 2026-08-19 por decisão dele: rastrear limpeza de disco aqui só produz item que ninguém fecha. ⚠️ Se for reusar o `my-app/` pra validar algo, **regere** — em 19/08 estava 31 arquivos defasado do payload |
