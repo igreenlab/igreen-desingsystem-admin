@@ -372,8 +372,16 @@ Custo zero (é o módulo que já valida ID único) e evita a falha silenciosa de
   alguém "adiantar" um bloco por copiar e colar (§4).
 - **O que sobra do risco anterior:** bloco pode nascer errado por conta própria. Aí o que protege é
   a receita nomear a **intenção** (qual token, por quê) e não só entregar o trecho — quando receita
-  e código divergem, a divergência fica visível. Vale para os 34 gates também: bloco não escapa do
-  `ds-lint-styles` nem do `dead-theme-classes`, que valem para qualquer `.tsx` em `src/`.
+  e código divergem, a divergência fica visível.
+
+  ⚠️ **Correção de uma afirmação errada desta spec (2026-08-19).** Aqui estava escrito que "bloco
+  não escapa do `ds-lint-styles` nem do `dead-theme-classes`, que valem para qualquer `.tsx` em
+  `src/`". **Metade é falsa, e foi medida** — ver §12.2. O `dead-theme-classes` varre `"src/"` e
+  pega bloco; o `ds-lint-styles` tem `GLOB = ["src/components/**/*styles.ts",
+  "src/components/**/*.tsx"]` e **não pega**. Um `gap-4` em vez de `gap-gp-md` dentro de um bloco
+  passaria limpo hoje. Escrever "vale para qualquer `.tsx` em `src/`" sem conferir o glob é
+  exatamente a L-060 (afirmar garantia sem verificar a garantia) — e num arquivo que existe pra
+  orientar decisão, é o tipo de frase que faz alguém parar de investigar.
 
 ---
 
@@ -383,3 +391,100 @@ Blocos atacam **composição**, não correção. O defeito que mais custou nesta
 conteúdo, não de resolução: a IA achou o exemplo certo e copiou o hábito errado dele. Um ID
 determinístico teria levado ao **mesmo** exemplo defeituoso, mais rápido. Blocos melhoram o teto
 de qualidade da composição; não substituem os gates que garantem que o que se copia está certo.
+
+---
+
+## 12. Pré-voo — medido em 2026-08-19, antes de escrever a primeira linha
+
+> Levantamento pedido pelo mantenedor com 4 requisitos: **não impactar o que funciona · não inchar
+> · escalar suave e organizado · e não reagir quando o que mudou NÃO é bloco.** As três subseções
+> abaixo respondem cada um com medição, não com intenção.
+
+### 12.1 O requisito "não reage quando não é bloco" já está satisfeito — por construção
+
+Se os blocos morarem em **`src/blocks/`**, nada do pipeline de componente os vê. Medido arquivo por
+arquivo:
+
+| superfície | reage a `src/blocks/**`? | por quê |
+|---|---|---|
+| **5 hooks** (rodam em todo Edit/Write) | **nenhum** | `ds-lint-styles` casa `*src/components/*` · `ds-inventory-check` casa `src/components/ui/<Nome>/` · `ds-tokens-check` casa `tokens/**` · `block-rm-rf` e `block-sensitive-edit` são genéricos de segurança |
+| **19 gates com raiz declarada** | **1 só** — `dead-theme-classes`, que varre `"src/"` | os outros declaram `src/components`, `src/preview`, `src/examples`, `src/styles/theme`, `src/hooks`, `src/lib`, `src/utils` |
+| `new-component-folders` | **não** | varre `src/components` — não vai cobrar DocPage de bloco |
+| `distribution-debt` · `showcase-registration` · `barrel-completeness` · `registry-imports` | **não** | idem |
+| registry · barrel · npm | **não** | `src/components/index.ts` é o que define o canal npm; arquivo fora dele não viaja |
+
+**Consequência: não há exclusão a configurar.** A pasta nasce invisível pro rigor de componente —
+é o "pipeline menos rigoroso" saindo de graça, sem lista de exceção pra manter.
+
+⚠️ **As raízes de varredura moram nos arquivos `.test.mjs`, não nos módulos** (convenção do repo:
+módulo puro, teste lê disco). Quem for conferir isso de novo tem que olhar o teste — eu olhei o
+módulo primeiro e o levantamento saiu incompleto.
+
+### 12.2 O que NÃO cobre bloco, e é decisão pra tomar
+
+```
+dead-theme-classes  →  varre "src/"                                        ✅ pega bloco
+ds-lint-styles      →  GLOB ["src/components/**/*styles.ts",
+                              "src/components/**/*.tsx"]                    ❌ NÃO pega
+dead-ds-classes     →  "src/components"                                     ❌ NÃO pega
+```
+
+Ou seja: classe de cor morta em bloco reprova; **`gap-4` em vez de `gap-gp-md` passa limpo.**
+
+E `src/preview/**` / `src/examples/**` estão fora do lint **de propósito** — o comentário do
+`lint-styles.mjs` diz *"são cópias/demos, não a fonte do DS"*.
+
+**Recomendação: incluir `src/blocks/**/*.tsx` no GLOB.** Bloco não é demo — é **a fonte de um
+padrão** que vai ser copiado por quem confia nele. Bloco ensinando `gap-4` é literalmente o defeito
+que custou duas vezes em 2026-08-19 (§4, razão 2). Custo: **uma linha**, e zero enquanto não houver
+bloco.
+
+### 12.3 O custo de contexto — onde o risco está, e onde não está
+
+O custo por sessão hoje, já pago em toda sessão independentemente de blocos:
+
+```
+CLAUDE.md                       407 linhas ·  22 KB
+.claude/rules/ds-standards.md   591 linhas ·  53 KB
+                                ──────────────────
+                                ≈ 18.800 tokens em 100% das sessões
+```
+
+⚠️ **Isto NÃO é risco dos blocos — é o piso de hoje.** Se os blocos nunca existirem, o custo é o
+mesmo. O que os blocos podem causar é o **incremento**, e é só ele que esta spec precisa tratar.
+
+**Composição do `ds-standards`, pra saber onde o peso está:**
+
+```
+24 KB · 47%  →  resumo das 69 lições      ← o único com vetor de crescimento
+ 6 KB · 12%  →  anti-patterns
+ 6 KB · 12%  →  tabela de skills
+```
+
+**E já existe freio pro crescimento**, que não é boa intenção: o **Auto-update protocol** (as 4
+perguntas) reprova achado que dá gate, que já está no ponto de uso, que é erro de método, ou que não
+muda decisão. Criado em 2026-08-17 porque o mandato anterior era incondicional e **triplicou o
+arquivo em 4 meses**. Funcionou duas vezes no mesmo dia: reprovou "não cite versão antes do bump"
+(virou gate) e a linha do ESC no vocabulário do consumidor (não mudava decisão).
+
+**A regra pros blocos, então:**
+
+- ✅ o "como fazer bloco" vive na **skill** — carrega só quando invocada, como as outras 14
+- ✅ **1 linha** na tabela "Onde cada tarefa começa" do `CLAUDE.md` — é onde alguém procura, e é o
+  mínimo pra ser encontrável
+- ⛔ **nada de seção nova** no `ds-standards.md`. O cabeçalho dele já manda: *"ao acrescentar seção,
+  prefira 1 linha + ponteiro pro `.ai/` a 30 linhas de detalhe"*
+- ✅ o gate custa **zero contexto** — é código no `npm test`, não doc
+
+### 12.4 Ordem sugerida pra a Fase 0
+
+1. `src/blocks/chart/` com **um** arquivo, e a galeria renderizando ele. Nada mais.
+2. **`npx tsc --noEmit` + `npm test` e confirmar que NADA reagiu.** É a validação de que a §12.1
+   está certa na prática e não só na leitura — e se algum gate reclamar, se descobre agora, com 1
+   arquivo, não com 10.
+3. Só então: skill + command + a linha no `CLAUDE.md` + a linha no GLOB do lint (§12.2).
+4. O gate de ID/formato **depois do segundo bloco** — com um só não há unicidade a validar, e
+   escrever gate antes de existir o caso é o que a L-064 diz pra não fazer.
+
+O passo 2 é o que eu não deixaria de fora: custa dois comandos e é a única forma de saber que este
+pré-voo está correto.
