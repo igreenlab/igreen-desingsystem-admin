@@ -93,10 +93,17 @@ const AlertDialogFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)
-  // sm+: lado a lado horizontal
+  // sm+: lado a lado horizontal, dividindo a largura do footer em partes iguais.
+  //
+  // O `sm:[&>*]:flex-1` é o que faz os botões OCUPAREM o footer, e ele não é opcional:
+  // `items-stretch` age no eixo cruzado, então em `flex-row` ele não estica nada no eixo
+  // principal. Sem o flex-1, botão fica na largura do próprio texto e o par encosta à
+  // esquerda — que é o oposto do desenho do DS (compare com o `AlertModal`, que
+  // compensava passando `fullWidth` em cada Button). A opinião passou pra cá: montar um
+  // alert dialog na mão agora sai certo sem ninguém lembrar do `fullWidth`.
   <div
     className={cn(
-      "flex flex-col-reverse items-stretch gap-gp-md sm:flex-row",
+      "flex flex-col-reverse items-stretch gap-gp-md sm:flex-row sm:[&>*]:flex-1",
       "px-pad-3xl pb-pad-3xl",
       className,
     )}

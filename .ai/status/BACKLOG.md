@@ -159,7 +159,23 @@ dentro de `design-tabela/` — ele tem `.git` próprio, então `git status` da r
 
 ---
 
-## 📄 `alert-dialog` é o único componente do registry sem DocPage (achado 2026-08-08)
+## ✅ `alert-dialog` sem DocPage — FECHADO em 2026-08-19
+
+> **Estava vencido e ninguém riscou.** O `AlertDialogDoc.tsx` nasceu em **2026-08-12** (4 dias
+> depois deste registro), com rota no `App.tsx`, `DOC_PAGES` e `doc-nav-data.ts` — o gate
+> `showcase-registration` já passava verde. Mas **a 4ª peça listada no "Ao fazer" abaixo tinha
+> mesmo ficado atrás**: não havia card no `ComponentsOverviewDoc`. Adicionado agora, então o
+> item fecha de verdade, não por errata.
+>
+> **O que a revisita achou de novo, e não estava aqui:** o exemplo canônico da própria DocPage
+> renderizava os botões na largura do texto, encostados à esquerda — o oposto do desenho. Não
+> era o exemplo: o `AlertDialogFooter` não esticava os filhos no `sm+` (`items-stretch` age no
+> eixo cruzado, não no principal), e o `AlertModal` compensava passando `fullWidth` em cada
+> Button. A opinião passou pro primitivo (`sm:[&>*]:flex-1`), então montar um alert dialog na
+> mão sai certo sem ninguém lembrar do `fullWidth`. Mesma família do defeito da coluna de
+> ações: **o exemplo canônico ensinava o contrário da regra.**
+
+**Registro original (2026-08-08), mantido pelo que ele documenta sobre o congelamento visual:**
 
 Medido na auditoria: dos **75** componentes do `registry.json`, 74 têm rota de showcase.
 `alert-dialog` tem **zero** — `grep '"alert-dialog"' src/App.tsx src/preview/components/doc-nav-data.ts`

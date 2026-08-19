@@ -40,6 +40,7 @@ import {
   LayoutList,
   AlertTriangle,
   ShieldAlert,
+  OctagonAlert,
   BellRing,
   Bell,
   Percent,
@@ -152,6 +153,7 @@ const CATALOG: CompGroup[] = [
     items: [
       { name: "Alert", href: "alert", desc: "Aviso inline", icon: AlertTriangle },
       { name: "Alert Modal", href: "alert-modal", desc: "Confirmação destrutiva", icon: ShieldAlert },
+      { name: "Alert Dialog", href: "alert-dialog", desc: "Primitivo do Alert Modal (composição livre)", icon: OctagonAlert },
       { name: "Toast", href: "toast", desc: "Notificação temporária rica", icon: BellRing },
       { name: "Sonner", href: "sonner", desc: "Toaster base", icon: Bell },
       { name: "Progress", href: "progress", desc: "Barra de progresso", icon: Percent },

@@ -146,7 +146,7 @@ export function AlertDialogDoc() {
       <ExampleSection
         id="ex-destrutivo"
         title="Confirmação destrutiva"
-        description="O caso canônico: ação irreversível, com a consequência dita na descrição — não no título."
+        description="O caso canônico: ação irreversível, com a consequência dita na descrição — não no título. Os botões dividem o footer sem você fazer nada: o AlertDialogFooter estica os filhos no sm+."
         code={`<AlertDialog>
   <AlertDialogTrigger asChild>
     <Button color="critical" variant="outline" size="sm" iconLeft={<Trash2 />}>
@@ -155,6 +155,11 @@ export function AlertDialogDoc() {
   </AlertDialogTrigger>
   <AlertDialogContent>
     <AlertDialogHeader>
+      {/* Header é centralizado — ícone acima do título entra sem layout extra */}
+      <span aria-hidden className="grid size-[56px] place-items-center
+                                   rounded-radius-full bg-bg-danger-muted text-fg-danger">
+        <TriangleAlert className="size-icon-lg" />
+      </span>
       <AlertDialogTitle>Excluir contrato #4821?</AlertDialogTitle>
       <AlertDialogDescription>
         As 431 faturas vinculadas ficam sem contrato e o histórico de consumo
@@ -180,6 +185,12 @@ export function AlertDialogDoc() {
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
+              <span
+                aria-hidden
+                className="grid size-[56px] place-items-center rounded-radius-full bg-bg-danger-muted text-fg-danger"
+              >
+                <TriangleAlert className="size-icon-lg" />
+              </span>
               <AlertDialogTitle>Excluir contrato #4821?</AlertDialogTitle>
               <AlertDialogDescription>
                 As 431 faturas vinculadas ficam sem contrato e o histórico de consumo não
@@ -202,8 +213,8 @@ export function AlertDialogDoc() {
 
       <ExampleSection
         id="ex-icone"
-        title="Com ícone de tom"
-        description="O Header é centralizado, então um ícone acima do título entra sem layout extra. Círculo de 56px com bg do tom — o mesmo recipe que o AlertModal aplica sozinho."
+        title="Outro tom — e quando parar de montar na mão"
+        description="Mesmo recipe do exemplo acima com o tom trocado: círculo de 56px, bg-bg-{tom}-muted + text-fg-{tom}. Se o seu caso é exatamente ícone + título + descrição + 2 botões, pare aqui e use o AlertModal — ele monta isto sozinho, com tone como prop. Montar na mão só se paga quando o conteúdo sai desse formato."
         code={`<AlertDialogHeader>
   <span className="grid size-[56px] place-items-center rounded-radius-full
                    bg-bg-warning-muted text-fg-warning">
@@ -213,8 +224,9 @@ export function AlertDialogDoc() {
   <AlertDialogDescription>…</AlertDialogDescription>
 </AlertDialogHeader>
 
-{/* Se o seu caso é exatamente isto, use <AlertModal tone="warning"> — ele já
-    monta ícone + tom + botões. Este exemplo existe pra mostrar o encaixe. */}`}
+{/* Isto é <AlertModal tone="warning"> montado na mão — e é exatamente quando NÃO
+    montar na mão. Use o AlertModal; o primitivo é pra quando o conteúdo não cabe
+    em título + descrição (form no meio, lista de itens afetados, etc). */}`}
       >
         <AlertDialog>
           <AlertDialogTrigger asChild>

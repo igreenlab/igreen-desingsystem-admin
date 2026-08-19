@@ -2705,3 +2705,54 @@ que eu já tinha em memória: grep em artefato gerado mente. Errei mesmo tendo a
 o consumidor de npm precise saber será entregue por `console.warn`. Quebra no dia em que um
 defeito só detectável em runtime precisar alcançar quem consome pré-buildado — aí a saída não é
 aviso, é erro de verdade (throw ou estado de erro no componente).
+
+---
+
+### 2026-08-19 | ds-dev | AlertDialog — o footer passa a esticar, e o item do BACKLOG fecha de verdade | CONCLUÍDO
+
+**Input:** o mantenedor apontou, com dois prints lado a lado, que os botões do `alert-dialog`
+deviam ocupar o footer inteiro (como no `AlertModal`) e que o ícone podia vir no exemplo de
+referência. E perguntou se `alert-dialog` e `AlertModal` não fazem a mesma coisa.
+
+**A resposta da pergunta, porque ela orienta o resto.** A camada é a que ele descreveu: o
+registry mostra `alert-modal` declarando `@igreen/alert-dialog` como dependência — composto sobre
+primitivo, o mesmo par que `Modal` → `dialog`. Mas **não** é "só um dialog": `role="alertdialog"`
+(leitor de tela anuncia como interrupção), sem botão X de propósito, e o foco inicial vai pra
+ação segura — **medido no browser: `document.activeElement` é "Cancelar"**. O que é verdade é que
+o valor de expor o primitivo pro consumidor montar na mão é baixo, porque montar na mão era
+justamente como se chegava no layout errado.
+
+**O defeito não era o exemplo — era o primitivo.** O `AlertDialogFooter` era
+`flex flex-col-reverse items-stretch gap-gp-md sm:flex-row`. No `sm+`, `items-stretch` age no
+eixo **cruzado**, então não esticava nada no eixo principal: botão sem `fullWidth` ficava na
+largura do próprio texto, encostado à esquerda. O `AlertModal` acertava porque passa `fullWidth`
+nos dois Buttons — ou seja, **a opinião do DS morava no composto, não no primitivo**. Mesma
+família do defeito da coluna de ações: o exemplo canônico ensinando o contrário da regra.
+
+Agora o footer tem `sm:[&>*]:flex-1` e a opinião passou pro primitivo. Medido depois: footer de
+397px com botões de **176 + 176 + gap** nos dois — `alert-dialog` cru e `AlertModal` — que agora
+renderizam idênticos. O `fullWidth` do `AlertModal` virou redundante (não conflitante); deixei,
+porque explícito ali não custa.
+
+**O item do BACKLOG estava vencido — e ainda assim tinha uma peça aberta.** O `AlertDialogDoc`
+nasceu em 2026-08-12, 4 dias **depois** do registro de 08/08, com rota nas 3 superfícies e o gate
+`showcase-registration` verde. Ninguém voltou pra riscar. Mas a 4ª peça que o próprio item listava
+em "Ao fazer" — card no `ComponentsOverviewDoc` — **tinha mesmo ficado atrás**. Adicionada, então
+o item fecha por conclusão e não por errata. Vale como sinal: item de backlog que descreve N
+peças precisa ser conferido peça por peça antes de ser considerado vencido.
+
+**Também reenquadrei o 2º exemplo da DocPage.** Ele existia pra mostrar "que um ícone acima do
+título encaixa" — premissa que o 1º exemplo agora cobre. Passou a ser sobre trocar o tom **e**
+sobre quando parar: se o caso é ícone + título + descrição + 2 botões, o certo é `AlertModal`; o
+primitivo se paga quando o conteúdo não cabe nesse formato (form no meio, lista de itens
+afetados).
+
+**Distribuição pendente por desenho:** o `release:check` acusa `embed com CONTEÚDO defasado em
+1/486 — alert-dialog`. Correto: Regra 8 manda consolidar registry+embed no `/ds-release`, cujo
+passo 6.2b roda o `registry:build` **antes** do `release:check`.
+
+**Assumption:** que ninguém depende de botão de alert dialog na largura do conteúdo. Vale porque
+os únicos usos no repo são a DocPage e o `AlertModal`, e o `AlertModal` já pedia largura cheia —
+ou seja, o comportamento antigo nunca foi escolhido, era ausência de opinião. Quebra se um
+consumidor tiver 3+ ações no footer, onde dividir em partes iguais fica apertado; nesse caso o
+`className` do Footer continua sobrescrevendo (o `cn` mantém a precedência do consumidor).
