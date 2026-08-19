@@ -2,25 +2,22 @@ import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import {
+  RAIZES,
+  PLACEHOLDER,
+  DONO_DA_CONVENCAO,
   versoesLancadas,
   checkVersionClaims,
+  checkPlaceholders,
   formatar,
 } from "./version-claims.mjs";
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Leitura do estado REAL (só aqui — o módulo é puro)
-   ═══════════════════════════════════════════════════════════════════════════ */
 
-/**
- * Onde uma citação de versão é AFIRMAÇÃO pro leitor: USAGE de componente, skills do
- * pipeline, regras, e o payload que a IA do consumidor lê.
- */
-const RAIZES = [
-  "src/components",
-  ".claude/skills",
-  ".claude/rules",
-  "cli/templates/default/_claude",
-];
+   As RAIZES vêm do módulo, não daqui: o `scripts/version-claims-check.mjs` varre as
+   MESMAS, e duas listas divergem (é o defeito que metade dos gates deste repo existe
+   pra pegar).
+   ═══════════════════════════════════════════════════════════════════════════ */
 
 function arquivos(dir, out = []) {
   if (!existsSync(dir)) return out;
@@ -100,6 +97,66 @@ describe("version-claims — reprova o que estava no repo", () => {
   it("a forma corrigida passa", () => {
     const fonte = "Toast distribuído na v0.42.1 mas fora do catálogo até a CLI 0.13.7.";
     expect(checkVersionClaims([{ arquivo: "x.md", fonte }], lancadas).achados).toEqual([]);
+  });
+});
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   `vNEXT` — o número não existe quando a frase é escrita
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+describe("version-claims — o placeholder da próxima release", () => {
+  const fonte = `Em DEV sai um \`console.warn\` (${PLACEHOLDER}) nomeando o que foi cortado.`;
+
+  it("no npm test o `vNEXT` passa — é o estado correto de uma feature PR", () => {
+    expect(checkVersionClaims([{ arquivo: "USAGE.md", fonte }], new Set()).achados).toEqual([]);
+  });
+
+  it("no release:check ele reprova — aí o número já é conhecido", () => {
+    const r = checkPlaceholders([{ arquivo: "USAGE.md", fonte }]);
+    expect(r.achados).toHaveLength(1);
+    expect(r.achados[0]).toMatchObject({ arquivo: "USAGE.md", linha: 1, citada: PLACEHOLDER });
+  });
+
+  it("reprova o `vNEXT` no payload do consumidor também — é o que mais dói publicar", () => {
+    const r = checkPlaceholders([
+      { arquivo: "cli/templates/default/_claude/skills/crud-builder/generate.md", fonte },
+    ]);
+    expect(r.achados).toHaveLength(1);
+  });
+
+  it("sem placeholder, o modo release não inventa achado", () => {
+    const limpo = "Em DEV sai um `console.warn` (v0.43.0+) nomeando o que foi cortado.";
+    expect(checkPlaceholders([{ arquivo: "x.md", fonte: limpo }]).achados).toEqual([]);
+    expect(checkPlaceholders([]).achados).toEqual([]);
+    expect(checkPlaceholders(undefined).achados).toEqual([]);
+  });
+
+  it("a receita que MANDA substituir pode citar o placeholder", () => {
+    // Sem isso o gate reprovava a própria instrução que resolve o achado.
+    const r = checkPlaceholders([
+      { arquivo: DONO_DA_CONVENCAO, fonte: `### 6.2a Trocar \`${PLACEHOLDER}\` pelo número` },
+    ]);
+    expect(r.achados).toEqual([]);
+  });
+
+  it("…e a exceção é SÓ ela — outra skill citando o placeholder reprova", () => {
+    const r = checkPlaceholders([
+      { arquivo: ".claude/skills/crud-builder/generate.md", fonte: `avisa (${PLACEHOLDER})` },
+      { arquivo: ".claude/skills/ds-dev/impl-igreen.md", fonte: `desde ${PLACEHOLDER}` },
+    ]);
+    expect(r.achados).toHaveLength(2);
+  });
+
+  it("o dono da convenção existe de fato no disco", () => {
+    // Path que não existe = exceção que nunca casa; o gate reprovaria a receita em silêncio.
+    expect(existsSync(DONO_DA_CONVENCAO)).toBe(true);
+    expect(readFileSync(DONO_DA_CONVENCAO, "utf8")).toContain(PLACEHOLDER);
+  });
+
+  it("as RAIZES são as do módulo — o CLI do release varre as mesmas", () => {
+    // Se alguém acrescentar raiz só num dos dois, o gate cobre metade do repo em silêncio.
+    expect(RAIZES).toContain("cli/templates/default/_claude");
+    expect(RAIZES.length).toBeGreaterThanOrEqual(4);
   });
 });
 

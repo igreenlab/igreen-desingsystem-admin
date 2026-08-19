@@ -33,12 +33,39 @@
  * O gate flagra isso **de propósito**: a saída é escrever `CLI 0.13.7`, sem o `v`, que é como
  * o resto do repo já distingue.
  *
- * Módulo PURO: recebe `[{arquivo, fonte}]` e o conjunto de versões lançadas. Quem lê disco e
- * extrai o changelog é o `.test.mjs`.
+ * ## O número não existe na hora de escrever — por isso `vNEXT`
+ *
+ * Quem documenta um comportamento novo está numa feature PR: o bump só acontece na release, e
+ * qual será o número **ninguém sabe** (depende do que mais entrar na fila). Foi assim que erramos
+ * duas vezes em 12 horas — `0.42.2` virou 0.43.0, e o aviso do `maxViewTabs` foi documentado como
+ * `v0.43.1+` numa PR que este próprio gate reprovou.
+ *
+ * Escreva **`vNEXT`**. O `npm test` aceita (é o estado normal de uma feature PR); o
+ * `release:check` **reprova**, então a release não consegue sair com o placeholder — o
+ * `/ds-release` substitui pelo número real, que naquele momento já é conhecido. Ou seja: a
+ * substituição é lembrada por gate, não por disciplina.
+ *
+ * Módulo PURO: recebe `[{arquivo, fonte}]` e o conjunto de versões lançadas. Quem lê disco é o
+ * `.test.mjs` e o `scripts/version-claims-check.mjs`.
  */
 
 /** Citações que marcam release: `v0.42.0`, `v0.42.0+`. Sem `v` não é claim (ver header). */
 const CLAIM = /v(\d+\.\d+\.\d+)(\+?)/g;
+
+/** Placeholder pra "a próxima release, número ainda desconhecido". Ver header. */
+export const PLACEHOLDER = "vNEXT";
+
+/**
+ * Onde uma citação de versão é AFIRMAÇÃO pro leitor: USAGE de componente, skills do pipeline,
+ * regras, e o payload que a IA do consumidor lê. Fora daqui de propósito: `pipeline-state.md` e
+ * `lessons.md`, que são registro histórico e citam versões de qualquer época legitimamente.
+ */
+export const RAIZES = [
+  "src/components",
+  ".claude/skills",
+  ".claude/rules",
+  "cli/templates/default/_claude",
+];
 
 /**
  * Extrai as versões lançadas de `updates-data.ts`.
@@ -83,6 +110,45 @@ export function checkVersionClaims(arquivos, lancadas) {
   }
 
   return { citacoesConferidas, achados };
+}
+
+/**
+ * O único arquivo que PRECISA conter `vNEXT`: é o passo 6.2a do `/ds-release`, que manda
+ * substituí-lo. Sem esta exceção o gate reprovaria a própria instrução que o resolve — e a saída
+ * "tire a palavra da receita" deixaria a receita sem como se referir ao que ela troca.
+ *
+ * Não é override configurável (L-063 — resista a config pra 1 exceção): é o dono da definição,
+ * fixo aqui, e um `vNEXT` em qualquer outra skill continua reprovando.
+ */
+export const DONO_DA_CONVENCAO = ".claude/skills/ds-dev/release.md";
+
+/**
+ * Onde o placeholder `vNEXT` ainda está — só o `release:check` reprova isso.
+ *
+ * @param {Array<{arquivo: string, fonte: string}>} arquivos
+ * @returns {{achados: Array<object>}}
+ */
+export function checkPlaceholders(arquivos) {
+  const achados = [];
+  for (const { arquivo, fonte } of arquivos ?? []) {
+    if (String(arquivo).replace(/\\/g, "/").endsWith(DONO_DA_CONVENCAO)) continue;
+    String(fonte)
+      .split(/\r?\n/)
+      .forEach((linha, i) => {
+        if (!linha.includes(PLACEHOLDER)) return;
+        achados.push({
+          arquivo,
+          linha: i + 1,
+          citada: PLACEHOLDER,
+          contexto: linha.trim().slice(0, 120),
+          conserto:
+            `\`${PLACEHOLDER}\` é placeholder de feature PR e não pode ser publicado. ` +
+            `Agora o número É conhecido: troque pela versão desta release (a do bump em ` +
+            `package.json). Este check só roda no release:check, justamente pra isso.`,
+        });
+      });
+  }
+  return { achados };
 }
 
 /** Mensagens prontas pra reprovar. */
