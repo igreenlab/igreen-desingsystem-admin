@@ -2575,3 +2575,83 @@ durante todo o ciclo, inclusive na retração.
 **Assumption:** que ninguém depende do empurrão no hover. Ele nunca foi escolhido — era
 consequência de a sidebar animar a própria largura no fluxo, e o `MenuSidebar` (a sidebar de
 referência) sempre flutuou. Quem quiser o empurrão usa `expanded` controlado, travado aberto.
+
+---
+
+### 2026-08-19 | ds-dev | Release v0.43.0 + o aviso do corte de abas (#221 #222 #223) | CONCLUÍDO
+
+**#221 — a release.** MINOR e não patch: a fila tinha um `feat` (o overlay do hover) e a regra de
+bump em 0.x vai por prefixo. Sinalizei no gate que dava pra argumentar patch — o overlay é
+conserto de comportamento indesejado, não recurso novo — e o mantenedor manteve MINOR. Registry
+recarimbado + embed regenerado (91 itens, 486 arquivos em sync por conteúdo), CLI 0.25.3 → 0.25.4
+porque `cli/templates/**` mudou. Sem `cli:rebake`: nenhum foundational nem token no diff.
+
+**#222 — e o defeito que a própria release criou.** Enquanto escrevia a doc do #218 eu marquei
+três frases com `(lib 0.42.2+)`, esperando que o bump fosse patch. Saiu 0.43.0. **Duas dessas
+frases foram publicadas** antes de alguém notar — uma no payload do CLI, outra no embed.
+
+**#223 — `maxViewTabs` cortava abas em silêncio.** `maxTabs` default 3 conta a aba "Default"
+nativa, então sobram 2 slots; o excedente saía por `.slice()` sem erro, sem overflow e sem
+console. Quem passasse 3 presets perdia o terceiro e não tinha como saber por quê — foi o que o
+agente do dogfood viveu. Agora sai um `console.warn` em DEV nomeando as visões engolidas e o
+`maxViewTabs={N+1}` que resolve, guardado por ref pra não repetir a cada render, com `name`
+tratado como ReactNode (cai no `id` quando não é string). Em produção segue silencioso.
+Corrigidas também **5 docs** que afirmavam "cortado em SILÊNCIO" — virou falso no mesmo commit.
+
+**Assumption:** que `console.warn` em DEV é o canal certo pra isto. Não é erro de programação (o
+default 3 é deliberado — barra de visões não é menu), é um limite que surpreende. Se aparecer
+ruído em app com muitas tabelas, o próximo passo é uma única vez por instância, não remover.
+
+---
+
+### 2026-08-19 | ds-dev | O gate da versão citada, e por que ele virou `vNEXT` (#224) | CONCLUÍDO
+
+**O gate:** a versão que a doc cita existe no changelog? Nenhum dos 33 gates olhava — `tsc`,
+testes e `release:check` passam verdes com uma versão inventada na doc.
+
+**Medi o ruído antes de escrever a regra (L-059), e o número decidiu o desenho.** Nas 99 citações
+`X.Y.Z` em `src/components`, `.claude/` e no payload:
+
+    forma `vX.Y.Z` / `vX.Y.Z+`  →  3 achados, 3 LEGÍTIMOS
+    forma `X.Y.Z` (sem o `v`)   → 10 achados, 10 RUÍDO
+
+O ruído da forma nua é inteiro: `WCAG 4.1.2`, `SC 1.4.11`, e exemplos de semver das próprias
+tabelas de bump (`1.0.0 → 2.0.0`). Os 4 casos viraram testes que EXIGEM não reprovar, pra a
+medição não se perder.
+
+**O achado mais antigo justifica o gate melhor que o meu erro de ontem:** o `DataTable/USAGE.md`
+afirmava `(v0.19.2+)` pro `col.width` virar base/piso. **A 0.19.2 nunca existiu** — e a mesma
+afirmação aparece como `(v0.22.0+)` em outro ponto do repo, que é a certa. Quem lesse na 0.20 ou
+0.21 concluía que já tinha o comportamento. L-060 na prática.
+
+**Então o gate reprovou a minha PR anterior, e estava certo.** O #223 documentou o aviso como
+`v0.43.1+` em 4 arquivos, 2 no payload do consumidor. Repetir o erro do `0.42.2` com 12 horas de
+intervalo mudou o diagnóstico: **não é desatenção — quem escreve a frase não pode saber o
+número.** A doc nasce numa feature PR; o bump acontece na release, e depende do que mais entrar
+na fila. "Ter mais cuidado" não estava disponível como conserto. Dropar o pino perde informação
+real (o consumidor numa lib antiga precisa saber por que não vê o aviso); adivinhar é o defeito.
+
+**Sobrou o mecanismo:** escreve-se `vNEXT`. O `npm test` aceita — é o estado correto de uma
+feature PR. O `release:check` reprova (`version-claims-check --release`), e é ali que o número já
+existe: o passo **6.2a** novo do `/ds-release` manda substituir, logo depois do bump. Esquecer
+aborta a release antes do commit. O CI de PR não roda `release:check`, então o placeholder
+convive na `main` sem tropeço — é o ponto.
+
+**Dois defeitos meus, achados pelo gate na 1ª execução.** (1) Na explicação do 6.2a eu **citei**
+`v0.43.1+` como exemplo do erro, e o gate não distingue citação de retratação — mesmo problema
+que resolvi no `mechanism-surfaces` com asserção positiva; a saída foi descrever o erro sem
+escrever o literal. (2) O arquivo que **define** a convenção contém `vNEXT` por necessidade e era
+reprovado; tirar a palavra da receita a deixaria sem como se referir ao que ela troca, então
+`DONO_DA_CONVENCAO` isenta esse um arquivo, fixo no módulo, não configurável (L-063) — com teste
+de que o path **existe no disco**, senão a isenção nunca casaria e o gate reprovaria a receita em
+silêncio.
+
+**`RAIZES` saiu do teste pro módulo** porque o CLI novo varre as mesmas 4 — duas listas divergem,
+e é metade do que os gates deste repo existem pra pegar.
+
+**Estado:** 34 gates. tsc 0 · 53 arquivos / 654 testes. Provado nos dois modos: default limpo em
+473 arquivos / 62 citações; `--release` reprovando os 4 placeholders reais e liberando a receita.
+
+**Assumption:** que `vNEXT` sempre sobrevive até a release e nunca é publicado por outro caminho.
+Vale porque os 4 canais saem do `/ds-release`, e ele roda `release:check`. Quebraria se alguém
+publicasse o CLI fora do fluxo — nesse dia, o placeholder chega ao consumidor.

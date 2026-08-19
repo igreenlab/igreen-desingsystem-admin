@@ -94,6 +94,15 @@ describe("version-claims — reprova o que estava no repo", () => {
     expect(formatar(r.achados)[1]).toContain('escreva "CLI 0.13.7"');
   });
 
+  it("a mensagem oferece o `vNEXT` — senão manda fazer o impossível", () => {
+    // O caso que gerou os DOIS erros é documentar comportamento não lançado. "corrija o
+    // número" não tem saída aí: o número não existe. A mensagem tem de dar o placeholder.
+    const fonte = "Em DEV sai um `console.warn` (v0.43.1+) nomeando o que foi cortado.";
+    const r = checkVersionClaims([{ arquivo: "USAGE.md", fonte }], lancadas);
+    expect(r.achados[0].conserto).toContain(PLACEHOLDER);
+    expect(r.achados[0].conserto).toContain("ainda");
+  });
+
   it("a forma corrigida passa", () => {
     const fonte = "Toast distribuído na v0.42.1 mas fora do catálogo até a CLI 0.13.7.";
     expect(checkVersionClaims([{ arquivo: "x.md", fonte }], lancadas).achados).toEqual([]);
