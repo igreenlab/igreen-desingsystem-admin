@@ -101,9 +101,12 @@ export function checkVersionClaims(arquivos, lancadas) {
           versao,
           contexto: linha.trim().slice(0, 120),
           conserto:
-            `\`v${versao}\` não existe no changelog. Se é versão da LIB, corrija o número ` +
-            `(as vizinhas reais estão em updates-data.ts). Se é versão do CLI, escreva ` +
-            `"CLI ${versao}" sem o \`v\` — aqui o \`v\` significa release da lib.`,
+            `\`v${versao}\` não existe no changelog. Três casos: (a) o comportamento ainda ` +
+            `NÃO foi lançado — escreva \`${PLACEHOLDER}\`, que o /ds-release substitui pelo ` +
+            `número real no passo 6.2a (não tente adivinhar: o bump depende do que mais ` +
+            `entrar na fila); (b) já foi lançado e o número está errado — as versões reais ` +
+            `estão em updates-data.ts; (c) é versão do CLI — escreva "CLI ${versao}" sem o ` +
+            `\`v\`, que aqui significa release da lib.`,
         });
       }
     });
