@@ -2809,3 +2809,59 @@ controlado pelo consumidor e o contrato já é "você fecha após o async". Queb
 esquecer de zerar o `loading` num catch — aí o modal fica sem saída. Sinal de que caiu: relato de
 modal travado após erro de rede. Mitigação, se acontecer: timeout de segurança no próprio
 componente, não reabrir o ESC.
+
+---
+
+### 2026-08-19 | ds-dev | Clamp de viewport: o item nomeava os arquivos errados | CONCLUÍDO
+
+**Input:** aplicar o item "clamp de viewport em FloatingPanel e DropdownMenu" + sanear 4 itens do
+BACKLOG (descartar scrims, corrigir 347→140 MB, atualizar roadmap e refinamentos).
+
+**Eu recomendei o item com a premissa errada, e a investigação a derrubou.** Minha leitura foi: "o
+clamp está aplicado na unha em 5 call-sites, então a necessidade é real e a peça deveria carregar a
+regra — mesma forma do footer do alert-dialog". A primeira metade estava certa (o clamp existe em 5
+lugares), a conclusão não.
+
+**Os 5 remendos são INERTES.** São `max-w-[calc(100vw-32px)]` em painéis de 380px e 320px, logo só
+valeriam abaixo de 412px e 352px de viewport — que é abaixo do `md`, onde o `max-md:max-w-none` do
+próprio popover ganha o cascade. Conferido no browser com a combinação real de classes: `max-width`
+resolvida é `none`. Acima do `md`, `100vw-32` em 768 dá 736px, que nunca limita 320/380.
+
+**E os arquivos nomeados no item estavam errados.** Ele dizia "FloatingPanel e DropdownMenu"; os
+remendos estão em **3 usos de `Popover`** + o `hdDropdown` do Header (dropdown na unha, não Radix).
+O `dropdown-menu.tsx` não tinha remendo nenhum. Conclusão: **não** levar clamp pro `popover.tsx`
+nem pro `dropdown-menu.tsx` — Radix já resolve colisão de borda reposicionando, e abaixo do `md`
+os dois viram sheet full-width.
+
+**O defeito real estava no `FloatingPanel`, com props DEFAULT.** `side="right"` ancora a 24px da
+borda e `resizableMaxWidth` default é 800 → 824px de necessidade. Em qualquer janela entre 768 e
+824 (≥md, sem sheet mobile) a borda esquerda saía da tela. O `min`/`max` do hook de resize é em
+pixel e cego à viewport. Medido a 800px:
+
+    sem clamp:  largura 800 · esquerda -24 · estoura
+    com clamp:  largura 752 · esquerda  24 · direita 776 · simétrico
+
+Conserto: `md:max-w-[calc(100vw-48px)]` — os mesmos 24px de gutter dos dois lados, igual ao `Panel`
+irmão. Só age quando já estouraria.
+
+**Isto fecha a pergunta que a sessão de 18/08 deixou aberta, sem contradizê-la.** Ela mediu viewport
+800 com o preset **XL de 720px** (cabe exato) e registrou que o caso a demonstrar era o
+**redimensionado**, com largura inline, que ela não conseguiu exercitar. Foi esse estado que medi.
+Duas medições corretas em larguras diferentes.
+
+**E o -24px não é o vazamento fantasma que aquele registro avisa.** Lá o artefato vinha da animação
+de entrada presa no `translateX(48px)` inicial (o `document.timeline.currentTime` fica em 0 no
+browser automatizado). A sonda de hoje não tem classe de animação alguma, e o valor bate com a
+aritmética prevista ANTES de medir: `800 − 24 − 800 = −24`. Ler o registro original antes de
+reportar foi o que evitou eu repetir o erro dele.
+
+**Saneamento do BACKLOG — e o padrão que ele revela.** Terceira vez hoje que um item estava
+desatualizado por trabalho que aconteceu em outro caminho: o `alert-dialog` (DocPage nasceu 4 dias
+depois do registro), o gate de CI bloqueante dos "Refinamentos" (existe: `lint-styles --ratchet`,
+step falhado de verdade) e o `timingSafeEqual` do roadmap de registry (feito; falta só a lista CSV
+de tokens). Mais o `design-tabela/` (207 MB) que o mantenedor já apagou — 347 MB viraram 140.
+Scrims descartado por decisão dele, com a razão registrada em vez de apagada.
+
+**Assumption:** que nenhum consumidor depende de um FloatingPanel mais largo que a janela. Vale
+porque isso é sempre defeito visual, nunca escolha. Quebra se alguém usar o painel como canvas com
+scroll horizontal próprio — nesse caso o `className` do root ainda sobrescreve o `max-w`.

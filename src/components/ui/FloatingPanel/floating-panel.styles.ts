@@ -19,6 +19,16 @@ export const floatingPanelStyles = tv({
       "rounded-radius-xl border border-border-default outline-float shadow-sh-2xl",
       // Desktop (md+) — gutter top/bottom 24px
       "md:top-pad-4xl md:bottom-pad-4xl",
+      // …e o mesmo gutter de 24px como TETO de largura, simétrico (24+24=48).
+      //
+      // Sem isto o painel estoura a viewport com props DEFAULT: `side="right"` ancora a
+      // 24px da borda e `resizableMaxWidth` default é 800 → 800+24 = 824px de necessidade.
+      // Em qualquer janela entre 768 e 824 (≥md, então sem o sheet mobile) a borda esquerda
+      // ia pra fora da tela. Mesmo caso com `size={n}` grande num monitor pequeno.
+      //
+      // O `min`/`max` do hook de resize é em PIXEL e cego à viewport — quem clampa é isto.
+      // Não regride nada: `max-width` só age quando a largura já estouraria.
+      "md:max-w-[calc(100vw-48px)]",
       // Mobile (max-md) — sheet bottom-up colado nas bordas do device:
       // flush nas laterais + bottom, só top arredondado, sem outline/shadow, cap 92vh
       "max-md:inset-x-0 max-md:bottom-0 max-md:top-auto max-md:!w-auto",
