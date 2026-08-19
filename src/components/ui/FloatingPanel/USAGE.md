@@ -32,7 +32,7 @@ import {
 | `titleIcon` | LucideIcon | Ícone à esquerda do título |
 | `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |
 | `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |
-| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`) |
+| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |
 | `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |
 | `maximizable` | boolean | Botão de expandir pra fullscreen |
 | `headerActions` | ReactNode | Slots no header |

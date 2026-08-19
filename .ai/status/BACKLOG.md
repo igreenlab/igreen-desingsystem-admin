@@ -48,7 +48,52 @@ fonte — e para esses ela é verdadeira.
 
 ---
 
-## 🪟 Clamp de viewport em FloatingPanel e DropdownMenu — resgatado de branch apagada (2026-08-18)
+## ✅ Clamp de viewport — FECHADO em 2026-08-19, e não como estava escrito
+
+> **O item nomeava os dois arquivos errados, e o defeito real estava num terceiro.** Ele dizia
+> "FloatingPanel e DropdownMenu"; a varredura mostrou que os remendos manuais do mesmo clamp
+> estão em **3 usos de `Popover`** (`header-messages`, `header-notifications`,
+> `toolbar-settings-menu`) + o `hdDropdown` do Header, que é um dropdown na unha, não Radix.
+> O `dropdown-menu.tsx` não tinha remendo nenhum.
+>
+> **E os remendos são INERTES — medido, não deduzido.** Eles são `max-w-[calc(100vw-32px)]` em
+> painéis de 380px e 320px, então só passariam a valer abaixo de 412px e 352px de viewport. Isso
+> é abaixo do `md`, onde o `max-md:max-w-none` do próprio popover ganha o cascade — conferido no
+> browser com a combinação real de classes: a `max-width` resolvida é `none`. Acima do `md`,
+> `100vw-32` em 768 dá 736px, que nunca limita 320/380. **Nem ajudam nem atrapalham.**
+> Sozinhos, seriam candidatos a remoção; ficaram porque documentam a intenção e custam zero.
+>
+> Conclusão: **não** levar o clamp pro `popover.tsx` nem pro `dropdown-menu.tsx`. Radix já resolve
+> o caso comum (colisão de borda) reposicionando, e abaixo do `md` os dois viram sheet full-width.
+>
+> **O defeito real estava no `FloatingPanel`, com props DEFAULT.** `side="right"` ancora a 24px da
+> borda e `resizableMaxWidth` default é **800** → 824px de necessidade. Em qualquer janela entre
+> 768 e 824 (≥md, então sem sheet mobile) a borda esquerda saía da tela. O `min`/`max` do hook de
+> resize é em pixel e cego à viewport. Reproduzido e consertado, medido a 800px de viewport:
+>
+>     sem clamp:  largura 800 · esquerda **-24** · estoura ✗
+>     com clamp:  largura 752 · esquerda  24 · direita 776 · simétrico ✓
+>
+> Conserto: `md:max-w-[calc(100vw-48px)]` no root — 48 = os mesmos 24px de gutter dos dois lados,
+> igual ao que o `Panel` irmão já usava. Não regride: `max-width` só age quando já estouraria.
+>
+> **Isto FECHA a pergunta que o registro original deixou aberta, e não a contradiz.** Ele mediu
+> viewport 800 com o preset **XL de 720px** — que cabe exato (720+24+56=800) — e disse com todas as
+> letras que o caso a demonstrar era o **redimensionado**, com largura vinda de `style={{ width }}`
+> inline, e que não conseguiu exercitar esse estado. É exatamente esse estado que a medição de 19/08
+> exercita: largura inline de **800px**, o `resizableMaxWidth` default. Duas medições corretas em
+> larguras diferentes, não uma contradição.
+>
+> ⚠️ **E o meu -24px NÃO é o vazamento fantasma que aquele registro avisa.** Lá o artefato vinha da
+> animação de entrada presa no `translateX(48px)` inicial, porque `document.timeline.currentTime`
+> fica em 0 no browser automatizado. A sonda de 19/08 **não tem classe de animação nenhuma** — é um
+> `div` construído só com posicionamento e largura, sem `animate-in`. E o valor medido bate com a
+> aritmética exata: `right: 24px` + `width: 800px` numa viewport de 800 põe a borda esquerda em
+> `800 − 24 − 800 = −24`. Número previsto antes de medir, e confirmado pela medição.
+
+**Registro original (2026-08-18), mantido pelo que ele preserva da branch apagada:**
+
+### 🪟 (registro original) Clamp de viewport em FloatingPanel e DropdownMenu — branch apagada, 2026-08-18
 
 > **Não é defeito confirmado.** É uma defesa que existia numa branch não-mergeada
 > (`feat/finance-experiments`, PR #11 fechada em jun/2026) e que se perderia com ela. Registrado
@@ -88,6 +133,7 @@ bug antes de conferir o timeline. Medição de posição animada precisa de brow
 **Se algum dia for aplicar:** o clamp é **inerte** quando `width ≤ viewport − 32px`, então não
 pode alterar nenhum caso que funciona hoje — é `max-width` sobre uma largura menor. O que falta
 é demonstrar o caso que ele conserta, em browser real, com o painel redimensionado.
+
 ---
 
 ## 📦 Peso do pacote npm — o barrel raiz não tree-shake (adiado em 2026-08-08)
@@ -127,7 +173,19 @@ ser usado numa tela pública/landing (num admin autenticado 1,4 MB gzip cacheado
 menos). **Ao reabrir:** medir o "antes" com este mesmo método — app mínimo contra o pacote
 **publicado**, nunca contra o `dist-lib` local (L-065).
 
-## 🎨 Consistência dos scrims (adiado em 2026-08-08)
+## 🗑️ Consistência dos scrims — DESCARTADO em 2026-08-19
+
+> **Decisão do mantenedor:** *"já que é só overlay e hoje já funciona, pode ser ignorado — não é
+> algo estrutural ou de grande importância."*
+>
+> A razão fecha com o que o próprio item já dizia: reabrir exige gate com print antes/depois **de
+> cada** overlay afetado, porque 0.30 → 0.55 escurece e 0.80 → 0.55 clareia. Custo de revisão
+> visual alto, entrega estética. Fica registrado — se alguém for uniformizar scrim algum dia, os
+> três valores e a razão do descarte estão aqui.
+
+**Registro original:**
+
+### 🎨 (registro original) Consistência dos scrims — adiado em 2026-08-08
 
 Os fundos escurecidos de overlay (`bg-black/30`, `bg-black/80`) estão na unha em alguns
 flutuantes, enquanto existe o token `overlay.scrim` (0.55). São **três** valores diferentes
@@ -140,22 +198,22 @@ token" silencioso.
 
 ---
 
-## 🧹 347 MB de diretório não-versionado na árvore de trabalho (achado 2026-08-08)
+## 🧹 140 MB de diretório não-versionado na árvore de trabalho (achado 2026-08-08, revisto 19/08)
 
-Dois diretórios grandes, **gitignorados** (então não estão no repo — é lixo de disco local,
-não débito de código). Não removi nenhum: apagar working tree alheia não é decisão de PR.
+> **Eram 347 MB. O `design-tabela/` (207 MB) já foi apagado pelo mantenedor** — conferido em disco
+> em 2026-08-19: não existe mais. Sobra o `my-app/` e os PNGs.
+
+Diretório grande **gitignorado** (então não está no repo — é lixo de disco local, não débito de
+código). Não removi: apagar working tree alheia não é decisão de PR.
 
 | Dir | Tamanho | O que é | Veredito |
 |---|---|---|---|
-| `design-tabela/` | **207 MB** | clone de `github.com/snksergio/backofficetable.git` com `.git` próprio; serviu de referência arquitetural pro `DataTable`. Última alteração **2026-04-14**; referenciado só por specs já arquivadas | **removível** — `rm -rf design-tabela` recupera 207 MB. É um repo separado, nada aqui importa dele |
+| ~~`design-tabela/`~~ | ~~207 MB~~ | clone de `backofficetable.git` que serviu de referência arquitetural pro `DataTable` | ✅ **removido** — conferido em disco em 19/08, não existe mais |
 | `my-app/` | **140 MB** | scaffold real do dogfood (`npm create`), commit único de 2026-08-08 | **descartável, mas recente e útil.** ⚠️ Hoje está **31 arquivos defasado** do `cli/templates/default/_claude` — se for reusar pra validar algo, **regere** em vez de confiar no que está lá |
 
-Também: `.ai/scratch/` (gitignorado) tem **800 KB de PNG** de validação de maio
+Também: `.ai/scratch/` (gitignorado) tem **856 KB de PNG** de validação de maio
 (`datatable-autofit-validation.png`, `datatable-column-types-validation.png`), parados há 3
 meses. O `hook-log.txt` do mesmo diretório é ativo e deve ficar.
-
-**Ao reabrir:** confira antes se você (ou outra sessão) não tem trabalho não-commitado
-dentro de `design-tabela/` — ele tem `.git` próprio, então `git status` da raiz não mostra.
 
 ---
 
@@ -206,8 +264,11 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
 > Hoje (1 mantenedor, poucos consumidores) não valem o custo. Reabrir nos gatilhos.
 
 - **Multi-token / rotação no registry** (`registry-app/app/r/[name]/route.ts`): hoje 1
-  Bearer único compartilhado. Suportar `IGREEN_TOKENS` (lista CSV) + `crypto.timingSafeEqual`
-  permite revogar/rotacionar **por consumidor** sem quebrar os outros.
+  Bearer único compartilhado. Suportar `IGREEN_TOKENS` (lista CSV) permite revogar/rotacionar
+  **por consumidor** sem quebrar os outros.
+  ✅ **A metade `crypto.timingSafeEqual` JÁ FOI FEITA** (conferido em 19/08: `route.ts:12`, com
+  hash antes da comparação porque `timingSafeEqual` dá throw em tamanhos diferentes e o
+  early-return seria ele mesmo um oráculo). Falta só a lista CSV.
   **Reabrir quando:** houver ≥2–3 consumidores externos com o token, ou exigência de auditoria/rotação.
 - **Versão histórica por-componente** no registry (endpoints `/r/v0.10/<item>.json` +
   `components.json` pinado): hoje versão é global e rollback é via Git do consumidor.
@@ -225,6 +286,17 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
 > Itens que já funcionam de forma inicial/robusta mas precisam de mais uma rodada
 > antes de considerar "fechados". Levantados ao revisar o artigo público sobre o DS
 > — não são bugs, são lacunas conscientes a fechar quando houver tempo.
+
+- ✅ **FECHADO (verificado em 2026-08-19): o gate de CI bloqueante existe.** O "próximo passo"
+  descrito abaixo — *transformar os greps L-001..L-007 num check de CI que bloqueia* — é hoje o
+  `scripts/lint-styles.mjs --ratchet` no `ci.yml`, rodando contra a base ref e reprovando
+  violação **nova** (linha adicionada pelo diff). É step falhado de verdade, não
+  `continue-on-error` — o único `continue-on-error` do workflow está em outro step. Além dele
+  entraram **34 módulos de gate** no `npm test`, que roda em toda PR contra qualquer base. Duas
+  ressalvas que continuam valendo: L-004 e L-007 ficaram **de fora de propósito** (exigem
+  contexto cross-elemento ou julgamento de intenção — medido, davam 51 hits com 50 de ruído,
+  L-059), e débito **legado** é congelado pelo ratchet em vez de reprovado. Texto original abaixo,
+  pelo que ele registra do estado de julho:
 
 - **Review de terceiros / enforcement de PR não é 100% fechado.** O pipeline de
   agentes (designer → gate → dev → reviewer) é robusto pro fluxo guiado por IA
