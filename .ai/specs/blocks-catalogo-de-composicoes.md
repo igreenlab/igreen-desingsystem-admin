@@ -45,7 +45,7 @@ coexistirem sem ponteiro de uma pra outra, divergem.
 
 ## 3. O que JÁ existe (medido em 2026-08-19, não estimado)
 
-### 3.1 Os blocos já estão escritos — falta ID e endereço
+### 3.1 O material de referência existe — mas NÃO será migrado
 
 `src/preview/pages/ChartShowcaseDoc.tsx`, 1846 linhas:
 
@@ -57,17 +57,24 @@ cada um com seus dados IMEDIATAMENTE acima:
       FIN_DATA + finConfig  →  FinanceCard
 ```
 
-Cada card é praticamente **auto-contido**. Não é construir do zero — é destacar.
+⛔ **A primeira versão desta spec propunha extrair os 34. Foi descartado pelo mantenedor, e a razão
+é melhor que a minha proposta** (ver §4). Isto aqui fica registrado como **inventário de
+referência visual** — o que já foi provado que funciona e vale reproduzir — não como fila de
+migração. O `#/chart-showcase` **não é tocado**.
 
-### 3.2 Os 5 helpers compartilhados são o único acoplamento
+### 3.2 Os 5 helpers locais — e por que eles fundamentam a regra da §4.1
 
-`C` (paleta local) · `Panel` · `CardHead` · `SectionLabel` · `KPI_LABEL`.
+Os cards do showcase dependem de `C` (paleta local) · `Panel` · `CardHead` · `SectionLabel` ·
+`KPI_LABEL`.
 
 ⚠️ **`CardHead` e `SectionLabel` não existem como componente do DS**, e o `Panel` local é um
 `<section>` de 5 classes — nada a ver com o `Panel` do DS (que é drawer com header/body/footer).
-Um bloco extraído sem esses helpers **não compila**. É a L-037 (o item declara todas as deps
-reais) e a L-034 (extração reescreve imports) — foi assim que o `data-table` quebrou no consumidor
-por 2 imports não declarados.
+
+**Este é o achado que justifica não migrar.** Extraindo, eu teria acabado promovendo os dois a
+componente do DS ou fazendo eles viajarem junto com cada bloco — e essa decisão teria sido tomada
+**por acidente**, porque o código velho usava, não porque alguém achou que `CardHead` merece ser
+componente. Construindo do zero, a pergunta é feita de propósito, e a resposta virou regra
+(§4.1).
 
 ### 3.3 O `type` do registry é etiqueta, não comportamento
 
@@ -105,13 +112,50 @@ mecanismo novo.
 
 ---
 
-## 4. Decisão de arquitetura: inverter a fonte de verdade
+## 4. Decisão de arquitetura: linha nova, sem viés, e sem tocar no que funciona
+
+> **Esta seção foi reescrita em 2026-08-19.** A primeira versão propunha extrair os 34 cards e
+> reescrever o `ChartShowcaseDoc.tsx` (1846 linhas) pra importar dos arquivos de bloco. O
+> mantenedor descartou, e por três razões que derrubam a minha proposta:
+>
+> 1. **Extração deixaria o formato legado definir o formato novo.** O desenho do bloco viraria "o
+>    que a extração precisou", não "o que um bloco deve ser". O caso concreto está na §3.2.
+> 2. **Bloco herda os defeitos do exemplo que o originou.** Migrar 34 cards migra 34 conjuntos de
+>    hábitos, incluindo os errados — e em 2026-08-19 isso aconteceu **duas vezes** (o `width` fixo
+>    na coluna de ações e o footer do alert dialog sem largura cheia, os dois copiados por IA a
+>    partir do exemplo canônico). Escrevendo cada bloco, cada hábito é decisão.
+> 3. **Refactor de risco numa página que funciona, por zero ganho visível.** O `#/chart-showcase`
+>    resolve bem hoje.
+
+**A decisão:** os blocos são uma **linha nova**, construída do zero, um por vez. O
+`#/chart-showcase` **não é tocado**. O material dele é referência visual (§3.1), não fila de
+migração.
+
+⚠️ **"Replicar" significa reescrever chegando no mesmo resultado visual — NÃO copiar e colar.** Se
+for copiar, o viés que a decisão evita volta pela porta dos fundos.
+
+### 4.1 A regra que só o começo-do-zero permite impor
+
+> **Bloco usa exclusivamente a API pública do DS** — componentes exportados e classes de token.
+> Nada de helper local de página.
+
+Bloco que depende de helper do showcase **não pode ser entregue a ninguém**: o consumidor pede a
+referência e recebe código que não compila. É a L-037 (o item declara todas as deps reais) e a
+L-034 (extração reescreve imports) — foi assim que o `data-table` quebrou no consumidor por 2
+imports não declarados.
+
+Consequência prática, e é bom que apareça no primeiro bloco: se um arranjo precisar de algo como
+`CardHead`, a saída é **compor com `Panel` + presets de tipografia**, ou promover a peça a
+componente do DS pelo pipeline normal (com gate). O que não pode é o bloco carregar um helper
+próprio invisível.
+
+### 4.2 Dentro da linha nova, a fonte é o arquivo do bloco
 
 O modelo dos `example-*` é: **o showcase define, o exemplo é cópia extraída à mão** — e por isso
 precisa do `examples-drift-check` (hash da fonte) avisando quando divergem. Funciona, mas é
 vigilância sobre duplicação.
 
-Pra blocos, **inverter**:
+Na galeria de blocos, **inverter**:
 
 > o arquivo do bloco é a **fonte**; a página da galeria **importa e renderiza** ele.
 
@@ -125,6 +169,22 @@ Pra blocos, **inverter**:
 Isso serve direto o requisito **"blocos crescem esporadicamente"**: viu um arranjo novo, cria o
 arquivo, e ele aparece na galeria e no índice pelo mesmo ato.
 
+### 4.3 A duplicação que a decisão cria — e o gatilho pra resolvê-la
+
+Enquanto os blocos de chart crescem e o `#/chart-showcase` fica intacto, existem **duas galerias
+de chart**. Isso é aceitável durante o teste, e é o preço consciente de não migrar.
+
+Mas duas coisas paralelas sem ponto de decisão marcado **divergem em silêncio** — foi o que
+aconteceu, nesta mesma sessão, com 3 itens de backlog vencidos, com o plano dos Blocos que
+desapareceu e com duas versões inventadas na doc. Então o gatilho fica registrado agora, sem
+número fechado:
+
+> **Quando os blocos de chart cobrirem o que o `#/chart-showcase` demonstra, decidir o destino
+> dele: some · vira ponteiro pra galeria de blocos · ou fica como página de exemplo com papel
+> próprio declarado.**
+
+Não é dívida a pagar cedo — é decisão a não esquecer.
+
 ---
 
 ## 5. Os dois fluxos
@@ -133,9 +193,10 @@ arquivo, e ele aparece na galeria e no índice pelo mesmo ato.
 
 ```
 vê um arranjo novo que vale compartilhar
-  → cria src/blocks/<categoria>/<nome>.tsx
-  → declara ID + descrição de 1 linha + o que usa
-  → a galeria do showcase renderiza automaticamente (importa do arquivo)
+  → ESCREVE do zero em src/blocks/<categoria>/<nome>.tsx   (§4: não copia, não migra)
+  → só API pública do DS                                    (§4.1)
+  → declara id (dsgreen-<categoria>-<n>) + descrição de 1 linha + usa: [...]
+  → a galeria renderiza automaticamente (importa do arquivo — §4.2)
   → o índice é GERADO a partir das declarações
   → [opcional] item registry:block, SÓ se o bloco traz arquivo próprio (fixture/helper)
 ```
@@ -145,7 +206,7 @@ vê um arranjo novo que vale compartilhar
 ```
 navega a galeria pública por categoria
   → acha a composição que quer
-  → copia o ID (ou o botão "copiar prompt": «use a referência DSGREEN-B-0012 aqui»)
+  → copia o ID (ou o botão "copiar prompt": «use a referência dsgreen-chart-1 aqui»)
   → cita no chat
   → a IA resolve o ID pelo índice → lê o arquivo do bloco → adapta na tela dele
 ```
@@ -182,9 +243,10 @@ nasceu sem rota no orchestrator.
 
 **Precisa (1 módulo pequeno):**
 
-- **ID único e resolvível** — dois blocos com o mesmo ID, ou ID citado no índice sem arquivo
-  correspondente, reprova
-- **bloco compila sozinho** — deps declaradas de fato (o problema dos 5 helpers, §3.2)
+- **ID único, no formato, e resolvível** — dois blocos com o mesmo ID, ID fora do padrão da §9.2,
+  ou ID citado no índice sem arquivo correspondente: reprova
+- **bloco usa só a API pública do DS** (§4.1) — import de helper de página do showcase reprova. É
+  o que garante que o bloco compila no projeto de quem o pedir
 - **índice gerado, nunca escrito à mão** — se for lista manual, divergirá. Esta sessão teve 3
   itens de backlog vencidos, um plano desaparecido e 2 versões inventadas na doc, todos por
   divergência que ninguém forçava a fechar
@@ -205,54 +267,113 @@ convenção que alguém lembra:
 
 ## 8. Fases
 
+> **Reescrito em 2026-08-19 junto com a §4.** As fases não são mais "extrair os 34" — são
+> **construir um, testar, e ir populando aos poucos**, avaliando a cada passo se está dando certo.
+> A diferença não é de ritmo: é que cada bloco passa a ser decisão em vez de herança.
+
 | fase | o que | por que nesta ordem |
 |---|---|---|
-| **0** | decidir como o bloco declara o ID · criar `src/blocks/_shared/` com os 5 helpers · extrair **UM** bloco real (o mais complexo do chart-showcase) e provar o ciclo inteiro | provar o mecanismo num caso real antes de escalar — 34 extrações com o desenho errado é 34 retrabalhos |
-| **1** | inverter a fonte: a galeria passa a importar dos arquivos, para os 34 | mecânico depois que a Fase 0 fecha o formato |
-| **2** | índice gerado + o gate de §7 | só faz sentido com N blocos existindo |
+| **0** | menu/seção nova de Blocos, vazia · **UM** bloco escrito do zero, reproduzindo visualmente um card de chart · o ID declarado no próprio arquivo · a galeria renderizando ele | provar o ciclo inteiro num caso real antes de existir o segundo. É a disciplina da L-064: ver o mecanismo funcionar antes de confiar nele |
+| **1** | mais blocos de chart, **aos poucos**, avaliando a cada um: o formato aguenta? a regra da §4.1 se sustenta? a IA resolve pelo ID e monta certo? | é aqui que o desenho se prova ou se corrige — com 3 blocos o custo de mudar o formato é baixo; com 30 não |
+| **2** | índice gerado + o gate de §7 | só faz sentido com N blocos existindo, e antes de o índice virar grande demais pra manter à mão |
 | **3** | Passo 0 no `ds-kit` + payload do consumidor | é o que liga o vibe-coder ao catálogo |
 | **4** | `registry:block` para os blocos que trazem arquivo | exceção, não regra |
+| **∞** | novas categorias além de chart (KPI, listas, o que aparecer) | "crescem esporadicamente" é o modo normal de operação, não uma fase final |
 
-A Fase 0 é a única que exige decisão de desenho. As outras são execução.
+**Só a Fase 0 exige decisão de desenho. A Fase 1 é onde se descobre se a decisão foi boa** — e o
+critério de avaliação dela é o §5.2 funcionando de ponta a ponta: citar o ID e receber a
+composição certa, sem o humano corrigir depois.
 
 ---
 
-## 9. Decisões abertas — são do mantenedor
+## 9. Esquema do ID — DECIDIDO em 2026-08-19
 
-1. **Como o bloco declara o ID.** Recomendação: **no próprio arquivo**
-   (`export const BLOCK = { id: "DSGREEN-B-0012", nome, descricao, usa: [...] }`), pra o índice ser
+**Formato:** `dsgreen-<categoria>[-<qualificador>]-<n>`
+
+```
+dsgreen-chart-1
+dsgreen-chart-lines-1        ← qualificador opcional, quando ajuda a distinguir
+```
+
+**Substitui** os `DSGREEN-B-###` / `DSGREEN-U-###` do desenho perdido, que tinham dois espaços de
+numeração cuja distinção não sobreviveu.
+
+**Por que este é melhor pra quem consome — inclusive pra mim.** Com um código opaco eu **tenho** que
+resolver o índice pra saber do que se trata. Com `dsgreen-chart-1` eu já sei a família antes de abrir
+nada; e se o humano citar de memória e errar o número, eu erro **dentro da categoria certa**.
+
+**Alinhado ao que o repo já faz:** medido, **91 de 91** itens do registry estão em kebab minúsculo,
+zero fora do padrão, e 13 já usam segmento de família (`example-*`, `theme-*`). Todas as rotas do
+showcase também. O esquema não inventa vocabulário.
+
+### 9.1 As quatro regras que vêm com o esquema
+
+1. **O segmento nomeia a CATEGORIA da galeria, não os componentes usados.** É a única ambiguidade
+   real do formato: um chart-card com KPI dentro é `chart` ou `kpi`? Se o segmento fosse "o que
+   usa", todo bloco composto ficaria ambíguo — e composto é justamente o que é bloco. Sendo **onde
+   ele mora na galeria**, a resposta é sempre única e curatorial. Os componentes de fato usados vão
+   no campo `usa: [...]`, que é o que a IA lê pra montar.
+2. **Nunca re-segmentar depois de publicado.** O qualificador do meio tenta: ao criar o segundo tipo
+   de chart, dá vontade de renomear `dsgreen-chart-1` → `dsgreen-chart-bars-1` "pra ficar
+   simétrico". Isso quebra citação que vive **fora do repo** (ticket, Figma, conversa antiga).
+   Regra: especificidade nova = **ID novo**; o antigo fica, mesmo assimétrico.
+3. **A descrição continua obrigatória, 1 linha.** O nome carrega a **família**, não a composição —
+   `dsgreen-chart-1` não diz que tem KPI embutido e sparkline. O nome poupa a IA de resolver a
+   categoria, não de entender o arranjo.
+4. **O número não tem significado.** `chart-7` não é melhor nem mais novo que `chart-1` — é
+   identificador. A escolha acontece olhando a galeria, que é o fluxo pretendido. Não ordenar por
+   relevância depois.
+
+### 9.2 Validação — cabe no mesmo gate da §7
+
+```
+^dsgreen-[a-z0-9]+(-[a-z0-9]+)*-\d+$      + unicidade
+```
+
+Custo zero (é o módulo que já valida ID único) e evita a falha silenciosa de `DSGREEN-Chart-1` e
+`dsgreen-chart-1` sendo citados como se fossem o mesmo bloco.
+
+---
+
+### 9.3 O que ainda é decisão aberta
+
+1. **Como o bloco declara o ID no arquivo.** Recomendação: **no próprio arquivo**
+   (`export const BLOCK = { id: "dsgreen-chart-1", nome, descricao, usa: [...] }`), pra o índice ser
    **gerado**. A alternativa (lista à mão) exige sincronia humana, e esta sessão inteira foi sobre
    o que acontece quando ninguém força sincronia.
-2. **Esquema do ID.** O desenho perdido tinha **dois** espaços (`-B-` e `-U-`) e **o que distinguia
-   um do outro não sobreviveu**. Recomendação: começar com **um** espaço só; categoria vira campo,
-   não prefixo.
-3. **Onde a galeria mora.** Recomendação: **seção própria dentro do showcase**, com nav separada
+2. **Onde a galeria mora.** Recomendação: **seção própria dentro do showcase**, com nav separada
    dos componentes, uma página por categoria. Razão mecânica: o showcase é o único lugar onde
    render e código vivem juntos e passam por `tsc`. Página separada teria que duplicar o render
    (drift) ou usar **print** — e print não tem gate, envelhece em silêncio.
-4. **Descrição no índice.** Recomendação: **obrigatória, 1 linha.** `bloco-grafico-3` a IA resolve
-   por índice; `DSGREEN-B-0012 — chart-card com KPI embutido e sparkline` ela resolve **e entende o
-   que vai compor** antes de abrir o arquivo — e acerta mesmo quando o humano cita de memória e
-   erra o número.
-5. **`dashboard-patterns.md`** — adiado por decisão do mantenedor até o primeiro bloco real existir.
+3. **`dashboard-patterns.md`** — adiado por decisão do mantenedor até o primeiro bloco real existir;
+   aí ele avalia se cabe como bloco, exemplo ou ambos.
+4. **Qual card de chart vira o bloco 1.** Sugestão: um que exercite a regra da §4.1 de verdade —
+   ou seja, um que hoje dependa de `CardHead`/`SectionLabel`, pra a primeira resposta a "compor ou
+   promover?" ser dada logo, e não adiada.
 
 ---
 
 ## 10. Riscos
 
 - **Bloco que não compila sozinho é pior que bloco nenhum.** O consumidor pede a referência,
-  recebe código que quebra, e conclui que o DS está errado. Mitigação: o gate de deps declaradas
-  da Fase 2, e a Fase 0 provando com um caso real.
+  recebe código que quebra, e conclui que o DS está errado. Mitigação: a regra da §4.1 + o gate que
+  a checa, e a Fase 0 provando o ciclo num caso real.
 - **ID tem que ser estável pra sempre.** Renumerar quebra citação — inclusive citação que vive
-  fora do repo (ticket, Figma, conversa antiga). Nunca reordenar; bloco removido deixa o ID vago.
-- **Crescimento.** 34 hoje, 100+ depois. A galeria numa página só fica impraticável; a divisão por
-  categoria da Fase 1 precisa já nascer pensando nisso.
-- **O bloco herda os defeitos do exemplo que o originou.** Duas vezes em 2026-08-19 o exemplo
-  canônico ensinou o contrário da regra escrita (`width` fixo na coluna de ações; footer do alert
-  dialog sem largura cheia) e a IA copiou o hábito. **Um catálogo de blocos multiplica o alcance
-  disso** — se o bloco estiver errado, ele estará errado com endereço fixo e citado por muita
-  gente. É o argumento mais forte pra a receita nomear a **intenção** (qual token, por quê) e não
-  só entregar o trecho: quando receita e código divergem, a divergência fica visível.
+  fora do repo (ticket, Figma, conversa antiga). Nunca reordenar; nunca re-segmentar (§9.1 regra 2);
+  bloco removido deixa o ID vago.
+- **Crescimento.** A galeria numa página só fica impraticável rápido; a divisão por categoria
+  precisa já nascer na Fase 0, com um bloco só, e não ser retrofitada depois.
+- **~~O bloco herda os defeitos do exemplo que o originou.~~ MITIGADO pela decisão da §4.** Este era
+  o risco mais grave da primeira versão da spec: duas vezes em 2026-08-19 o exemplo canônico ensinou
+  o contrário da regra escrita (`width` fixo na coluna de ações; footer do alert dialog sem largura
+  cheia) e a IA copiou o hábito — e um catálogo multiplicaria o alcance disso, com endereço fixo e
+  citado por muita gente. **Escrever cada bloco do zero desarma isso na raiz**, porque cada hábito
+  passa a ser decisão em vez de herança. Fica registrado porque volta pela porta dos fundos se
+  alguém "adiantar" um bloco por copiar e colar (§4).
+- **O que sobra do risco anterior:** bloco pode nascer errado por conta própria. Aí o que protege é
+  a receita nomear a **intenção** (qual token, por quê) e não só entregar o trecho — quando receita
+  e código divergem, a divergência fica visível. Vale para os 34 gates também: bloco não escapa do
+  `ds-lint-styles` nem do `dead-theme-classes`, que valem para qualquer `.tsx` em `src/`.
 
 ---
 
