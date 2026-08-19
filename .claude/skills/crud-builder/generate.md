@@ -275,7 +275,7 @@ defaultViews={[
 > `TableToolbar/parts/table-toolbar-views.tsx`: `maxTabs` default é **3**,
 > `maxCustomTabs = maxTabs - 1` (a aba **Default**, nativa, consome 1 slot), e o
 > excedente é cortado por `.slice(0, maxCustomTabs)` — em DEV com `console.warn` nomeando
-> a visão engolida (vNEXT); em produção, silencioso.
+> a visão engolida (v0.43.1); em produção, silencioso.
 > Com 3 presets, o terceiro simplesmente não aparece na barra.
 > Precisa de mais? **`maxViewTabs={N + 1}`** no `<DataTable>` (o `+1` é a aba Default).
 > Até 2026-08-14 não havia saída — `maxTabs` existia só dentro do `TableToolbarViews`,

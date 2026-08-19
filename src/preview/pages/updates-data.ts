@@ -46,6 +46,32 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.43.1",
+    date: "2026-08-19",
+    tag: "patch",
+    title: "A barra de visões avisa quando engole uma aba, e a documentação para de citar versões que não existem",
+    summary:
+      "Duas coisas que passavam em silêncio deixaram de passar. Uma é de uso: a barra de visões da tabela mostra três abas por padrão, e quem declara mais perde as excedentes — **sem erro, sem reticências, sem nada**. Agora, durante o desenvolvimento, o console diz qual visão foi engolida e qual ajuste resolve; no ar, nada muda. A outra é de documentação, e foi um erro nosso: **três frases afirmavam \"disponível a partir da versão X\" citando versões que nunca existiram** — duas delas já publicadas. Passou a haver uma verificação automática, e ela encontrou uma quarta afirmação errada de meses atrás. Como o número da próxima versão é impossível de saber na hora de escrever a frase, a saída não foi pedir mais atenção: quem documenta agora escreve uma marca provisória, e o processo de publicação **não consegue publicar sem substituí-la**.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**A barra de visões engolia abas sem dizer nada.** Ela mostra três por padrão — e a primeira é sempre a visão sem filtro, então sobram duas para as visões que você declara. Quem declarava três recebia duas: a terceira simplesmente não existia na tela, sem mensagem, sem reticências e sem pista de que houvesse um limite. Foi o que aconteceu num teste real: o assistente montou uma tela com três abas, o resultado veio com duas, e não havia como descobrir o motivo a não ser lendo o código do componente. Agora, **em ambiente de desenvolvimento**, o console nomeia a visão que ficou de fora e informa o número exato para caber todas. Em produção o corte segue silencioso, porque o limite é deliberado: barra de abas não é menu.",
+          "**Três frases da documentação prometiam recursos em versões que nunca foram lançadas.** Escritas enquanto o trabalho estava em revisão, apostavam no número que a próxima publicação teria — e a publicação saiu com outro. Duas dessas frases chegaram a quem consome o sistema. Quem lesse concluiria \"já tenho essa versão, então já tenho o recurso\", e não tinha.",
+          "**Uma quarta afirmação errada estava lá desde maio, e ninguém tinha como saber.** A documentação de tabela dizia que a largura declarada de uma coluna passou a ser mínimo em vez de trava fixa a partir de uma versão que **não existe** — a real veio três versões depois. Quem lesse no intervalo acreditava ter um comportamento que ainda não havia, e o mesmo texto aparecia correto em outro ponto do projeto, o que tornava a contradição invisível.",
+          "**A página de documentação do próprio recurso continuou afirmando o que deixou de ser verdade.** O aviso novo foi anunciado em cinco arquivos e a página do showcase ficou de fora, ainda dizendo que o corte era silencioso. Texto que descreve garantia é lido como garantia: quem lê para de investigar.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Nova verificação: a versão que a documentação cita existe de fato?** Nenhuma das checagens automáticas olhava para isso — o projeto compilava, os testes passavam e a publicação seguia normalmente com um número inventado no texto. A regra examina só a forma que este projeto usa para falar de lançamento, uma decisão tomada medindo: nessa forma, **as três ocorrências encontradas eram reais**; na forma solta, as dez eram todas ruído (critérios de acessibilidade e exemplos de numeração nas próprias tabelas de referência). Ruído transforma verificação em alarme ignorado.",
+          "**E a saída para o problema de raiz: uma marca provisória no lugar do número.** Quem documenta um recurso novo não pode saber o número da publicação que virá — ele depende do que mais entrar na fila até lá. Então adivinhar não era descuido, era o único caminho disponível. Agora se escreve uma marca provisória, aceita durante o desenvolvimento e **recusada na publicação**, que é o momento em que o número já existe. Deixar de substituir não passa: a publicação para antes de acontecer. É lembrete por mecanismo, não por disciplina.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.43.0",
     date: "2026-08-19",
     tag: "release",

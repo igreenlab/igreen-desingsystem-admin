@@ -620,8 +620,11 @@ export function DataTableDoc() {
           </strong>{" "}
           — quantas abas cabem na barra, <strong>contando a "Default"</strong>.
           Default <code>3</code>, ou seja <strong>2 presets</strong> viram aba.
-          ⚠️ O excedente é cortado <strong>em silêncio</strong> — com 3 presets o
-          terceiro não aparece, sem erro e sem overflow. Precisa de N abas fixas?{" "}
+          ⚠️ O excedente é cortado — com 3 presets o terceiro não aparece, sem
+          erro e sem overflow. Em <strong>DEV</strong> sai um{" "}
+          <code>console.warn</code> (v0.43.1) nomeando a visão engolida e o valor
+          que resolve; em produção o corte é silencioso. Precisa de N abas
+          fixas?{" "}
           <code>maxViewTabs={"{N + 1}"}</code>. E lembre que a aba{" "}
           <strong>Default já é a visão sem filtro</strong>: um preset
           "Todos"/"Todas" duplica ela e gasta um slot.

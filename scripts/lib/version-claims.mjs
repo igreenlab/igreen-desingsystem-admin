@@ -68,6 +68,21 @@ export const RAIZES = [
 ];
 
 /**
+ * A varredura de `vNEXT` é MAIS LARGA que a de claims, e a razão é a taxa de ruído de cada uma.
+ *
+ * Medido em `src/preview` (243 arquivos, 30 citações com `v`): **5 achados, 5 ruído** — 4 são
+ * dados de mock de um gráfico de demo (uma timeline de releases fictícia, `v2.4.0`…) e 1 é uma
+ * menção de CLI num changelog histórico que o próprio contexto já desambigua. Incluir a pasta na
+ * checagem de claims custaria 5 falsos e ganharia zero (L-059).
+ *
+ * `vNEXT` não tem esse problema: é um token que só existe porque nós o escrevemos, nunca aparece
+ * em mock nem em histórico. Então ele pode — e deve — ser procurado no showcase também, que é doc
+ * humana publicada. Foi ali que ele quase escapou: a DocPage do DataTable recebeu um `vNEXT` na
+ * mesma sessão em que o gate nasceu, e a raiz de claims não a olhava.
+ */
+export const RAIZES_PLACEHOLDER = [...RAIZES, "src/preview/pages"];
+
+/**
  * Extrai as versões lançadas de `updates-data.ts`.
  * @param {string} updatesText conteúdo de `src/preview/pages/updates-data.ts`
  * @returns {Set<string>}

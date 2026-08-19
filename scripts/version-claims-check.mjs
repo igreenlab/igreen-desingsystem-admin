@@ -18,6 +18,7 @@ import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import {
   RAIZES,
+  RAIZES_PLACEHOLDER,
   versoesLancadas,
   checkVersionClaims,
   checkPlaceholders,
@@ -36,18 +37,24 @@ function arquivos(dir, out = []) {
   return out;
 }
 
-const fontes = RAIZES.flatMap((r) => arquivos(r)).map((arquivo) => ({
-  arquivo,
-  fonte: readFileSync(arquivo, "utf8"),
-}));
+const ler = (raizes) =>
+  [...new Set(raizes.flatMap((r) => arquivos(r)))].map((arquivo) => ({
+    arquivo,
+    fonte: readFileSync(arquivo, "utf8"),
+  }));
 
+const fontes = ler(RAIZES);
 const lancadas = versoesLancadas(readFileSync("src/preview/pages/updates-data.ts", "utf8"));
 const claims = checkVersionClaims(fontes, lancadas);
-const placeholders = isRelease ? checkPlaceholders(fontes).achados : [];
+
+// A varredura de placeholder é mais larga — inclui o showcase. Ver RAIZES_PLACEHOLDER.
+const fontesPlaceholder = isRelease ? ler(RAIZES_PLACEHOLDER) : [];
+const placeholders = isRelease ? checkPlaceholders(fontesPlaceholder).achados : [];
 
 console.log(
   `version-claims: ${fontes.length} arquivos · ${claims.citacoesConferidas} citações · ` +
-    `${lancadas.size} versões lançadas${isRelease ? " · modo release" : ""}`,
+    `${lancadas.size} versões lançadas` +
+    (isRelease ? ` · modo release (vNEXT em ${fontesPlaceholder.length} arquivos)` : ""),
 );
 
 const falhas = [...claims.achados, ...placeholders];
