@@ -807,7 +807,9 @@ export type DataTableProps<T> = {
    * Quantas abas de visão cabem na barra, **contando a "Default"**. Default `3`,
    * ou seja **2** presets de `defaultViews` viram aba.
    *
-   * ⚠️ O excedente é cortado em SILÊNCIO (`.slice()` em `TableToolbarViews`): com 3
+   * ⚠️ O excedente é CORTADO (`.slice()` em `TableToolbarViews`) — em DEV sai um
+   * `console.warn` nomeando as visões que não vão aparecer e o valor que resolve; em
+   * produção o corte é silencioso. Com 3
    * presets e o default, o terceiro simplesmente não aparece — sem erro, sem aviso.
    * Até 2026-08-14 esta prop não existia no `DataTable` (só dentro do
    * `TableToolbarViews`, inalcançável), então o consumidor não tinha como aumentar e
