@@ -98,3 +98,101 @@ describe("TableToolbarViews — maxTabs corta em silêncio", () => {
     expect(screen.getByText("Pendentes")).toBeTruthy();
   });
 });
+
+/* O corte deixou de ser silencioso (2026-08-19).
+   O `.slice()` continua cortando — mudar isso quebraria o layout da barra —, mas em DEV
+   agora avisa quais visões não vão aparecer e como aumentar o limite. Antes, a única
+   forma de descobrir era medir no browser: foi assim que o audit log registra a própria
+   página de doc do DataTable declarando 3 presets e renderizando 2. */
+describe("TableToolbarViews — o corte avisa em dev", () => {
+  const tresPresets = [
+    { id: "v1", name: "Ativos", owner: "preset" as const },
+    { id: "v2", name: "Pendentes", owner: "preset" as const },
+    { id: "v3", name: "Pipeline (Kanban)", owner: "preset" as const },
+  ];
+  const base = {
+    onApply: noop,
+    onApplyDefault: noop,
+    onDelete: noop,
+    onSave: noop,
+    allowCreate: false,
+  };
+
+  it("avisa nomeando a visão cortada e o valor que resolveria", () => {
+    const avisos: string[] = [];
+    const original = console.warn;
+    console.warn = (m: string) => avisos.push(String(m));
+    try {
+      render(<TableToolbarViews views={tresPresets} {...base} />);
+    } finally {
+      console.warn = original;
+    }
+    expect(avisos).toHaveLength(1);
+    // nomeia a que sumiu
+    expect(avisos[0]).toContain("Pipeline (Kanban)");
+    // e diz o número que resolve: 3 candidatas + a Default = 4
+    expect(avisos[0]).toContain("maxViewTabs={4}");
+    // e explica a conta que confunde
+    expect(avisos[0]).toContain("Default");
+  });
+
+  it("NÃO avisa quando tudo cabe", () => {
+    const avisos: string[] = [];
+    const original = console.warn;
+    console.warn = (m: string) => avisos.push(String(m));
+    try {
+      render(<TableToolbarViews views={tresPresets.slice(0, 2)} {...base} />);
+    } finally {
+      console.warn = original;
+    }
+    expect(avisos).toEqual([]);
+  });
+
+  it("NÃO avisa quando maxTabs acomoda todas", () => {
+    const avisos: string[] = [];
+    const original = console.warn;
+    console.warn = (m: string) => avisos.push(String(m));
+    try {
+      render(<TableToolbarViews views={tresPresets} maxTabs={4} {...base} />);
+    } finally {
+      console.warn = original;
+    }
+    expect(avisos).toEqual([]);
+  });
+
+  it("avisa UMA vez, não a cada render", () => {
+    const avisos: string[] = [];
+    const original = console.warn;
+    console.warn = (m: string) => avisos.push(String(m));
+    try {
+      const { rerender } = render(<TableToolbarViews views={tresPresets} {...base} />);
+      rerender(<TableToolbarViews views={tresPresets} {...base} />);
+      rerender(<TableToolbarViews views={tresPresets} {...base} />);
+    } finally {
+      console.warn = original;
+    }
+    expect(avisos).toHaveLength(1);
+  });
+
+  it("nome em JSX não vira [object Object] na mensagem", () => {
+    const avisos: string[] = [];
+    const original = console.warn;
+    console.warn = (m: string) => avisos.push(String(m));
+    try {
+      render(
+        <TableToolbarViews
+          views={[
+            ...tresPresets.slice(0, 2),
+            { id: "v-jsx", name: <span>Com ícone</span>, owner: "preset" as const },
+          ]}
+          {...base}
+        />,
+      );
+    } finally {
+      console.warn = original;
+    }
+    expect(avisos).toHaveLength(1);
+    expect(avisos[0]).not.toContain("[object Object]");
+    expect(avisos[0]).toContain("v-jsx"); // cai no id
+  });
+});
