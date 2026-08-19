@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.43.0",
+    date: "2026-08-19",
+    tag: "release",
+    title: "O menu recolhido para de empurrar a tabela, e a data volta a ter ano",
+    summary:
+      "Cinco correções que vieram de um único exercício: montar um projeto de verdade consumindo o sistema e pedir uma tela a um assistente, sem ajudá-lo. **O que ele fez de errado apontou para o que estava errado aqui** — e em dois casos o problema não era o componente, era o exemplo que ensinamos a copiar. Junto vai uma mudança de comportamento que dá espaço de volta: com o menu lateral recolhido, passar o mouse por cima **não empurra mais o conteúdo** — o menu abre flutuando sobre ele, como o menu de módulos sempre fez. Só quem clica para fixar o menu aberto continua cedendo espaço, porque aí a escolha é da pessoa.",
+    changes: [
+      {
+        type: "changed",
+        items: [
+          "**O menu lateral simples deixou de empurrar o conteúdo ao passar o mouse.** Com ele recolhido, aproximar o cursor abria o menu **empurrando** a tela ao lado, o que reorganizava tabelas inteiras a cada passagem de mouse. Agora ele abre **por cima**, e o que está do lado não se mexe — é o mesmo comportamento que o menu de módulos sempre teve. Clicar para fixá-lo aberto continua ocupando espaço, porque aí é decisão de quem está usando: quem deixou o menu recolhido quer a maior área possível para trabalhar. Medido antes da mudança, numa tela com tabela: cinco recálculos completos de largura de coluna por passagem de mouse, e uma travada visível de cerca de um décimo de segundo.",
+          "**Datas voltaram a mostrar o ano.** Uma coluna de data exibia \"14 de mar\" e uma de data-hora \"14 de mar 09:30\" — **sem o ano, e sem como mudar**. Numa carteira de geração, num histórico de contratos ou de faturas, um registro de 2015 e outro de 2024 apareciam idênticos. Agora são \"14/03/2023\" e \"14/03/2023 09:30\". Escolhemos o formato numérico justamente para o ano caber sem a coluna crescer.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**Toda tabela que caberia na tela ganhava uma barra de rolagem lateral — com a largura exata da coluna de botões.** O cálculo que distribui a largura entre as colunas fechava a conta ignorando as colunas de largura fixa (a de seleção e a de ações), então elas sobravam por fora. Medido na nossa própria tela de exemplo: as colunas somavam 1950 pixels numa área de 1906, e a coluna de ações media exatamente os 44 que sobravam. Curiosamente, a coluna de seleção nunca sofreu disso — ela já era descontada antes da conta, e agora as duas são.",
+          "**Pedir outro formato de data não funcionava.** Existia uma forma documentada de trocar o formato de uma coluna, e ela mudava a planilha exportada, o rodapé de totais e o texto copiado — **mas não mudava o que aparecia na tela**. Quem precisava de outro formato tinha de reescrever a célula inteira. Agora ela funciona onde se espera.",
+          "**Os exemplos que o assistente copia ensinavam o contrário do que a documentação dizia.** Cinco arquivos de referência fixavam a largura da coluna de ações — dois deles com um comentário explicando por quê, texto que havia deixado de ser verdade na versão anterior. E marcavam manualmente uma opção que o sistema já faz sozinho. Como as instruções mandam espelhar o exemplo, o assistente copiou o hábito antigo para um caso onde ele **inverte** o resultado: a pessoa pediu botões na linha e recebeu um menu. Existe agora uma verificação automática que reprova exemplo contradizendo regra.",
+          "**No exemplo do esqueleto de aplicação, o cabeçalho do menu mostrava o nome da variação em vez do nome do projeto.** Aparecia \"Sistema Único\" com um ícone genérico — \"único\" é o nome do tipo de menu, não de um sistema. Agora mostra a marca e o nome do projeto, igual à página do próprio componente.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Nova verificação: o que um componente importa viaja junto com ele?** A verificação que existia conferia o contrário — que todo arquivo declarado existe no disco. Ninguém conferia o inverso, e é o inverso que quebra o projeto de quem instala.",
+          "**Nova verificação: o exemplo de referência contradiz a regra escrita?** O projeto já checava se os exemplos estavam sincronizados com as telas de demonstração, mas nada checava se eles ensinavam o que a documentação manda. Era exatamente por aí que os dois casos acima passaram.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.42.1",
     date: "2026-08-18",
     tag: "patch",

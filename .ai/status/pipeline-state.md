@@ -2480,3 +2480,98 @@ contendo o item quebrado, o conserto só chega com uma release.
 a varredura fecha em 0 sobre 86 itens e 444 imports cross-item, então nenhuma exceção foi
 necessária — e é a posição mais forte, porque exceção apodrece. Se aparecer caso legítimo que
 reprove, o certo é entender por que o registry não o cobre antes de isentar.
+
+---
+
+### 2026-08-19 | ds-dev | Dogfood rodada 2 e os 3 consertos que ela gerou (#216 #217 #218) | CONCLUÍDO
+
+**Motivo.** Fechar a única pergunta que a sessão anterior deixou sem resposta: um agente, num
+projeto real, guiado **apenas** pelo payload publicado, produz o código certo? Rodada limpa em
+sandbox de submódulo, sessão nascida fora deste repo, prompt na voz de quem não é técnico.
+
+**Veredito: PASSOU** — e a evidência é melhor que o critério. Pedido de 3 ações virou
+`type: "actions"` sem `width`, renderizando **3 ícones inline** (104px, medido no DOM), que é
+literalmente o que o pedido dizia. Na rodada 1, o mesmo pedido virou menu de 3 pontos. E o
+comentário que o agente escreveu **parafraseia o comentário do exemplo corrigido** — não é o
+texto da regra que ele copia, é o comentário do arquivo que ele espelha. O exemplo canônico é,
+mesmo, a fonte de maior precedência.
+
+**Achado A → #216.** Os 5 arquivos canônicos passavam `width` na coluna de ações, 2 deles com
+comentário que **justificava** a escolha — texto que virou falso na v0.42.0. E os 4 itens do
+`example-clientes` marcavam `showInMenu` na mão, redundante desde que o colapso acima de 3
+virou automático. A skill manda espelhar o exemplo, então o agente copiou a marcação pra um
+caso de 3 ações, onde ela INVERTE o comportamento. Gate novo: `actions-column-canon`.
+
+**Achado B → #217.** O scroll horizontal que o mantenedor notou duas vezes tem a largura
+**exata** das colunas fixas. Medido no `#/clientes-showcase`: 13 colunas somando 1950px num
+container de 1906 → 44px de scroll, e a coluna de ações mede 44px. Causa: o snap final do
+rateio comparava a soma dos `targets` com o container inteiro, e `actions`/`checkbox` são
+excluídos dos targets. O desenho já tinha a resposta em outro lugar — a coluna de seleção é
+descontada antes, via `reservedWidth`.
+
+**Achado C → #218.** `type: "date"` formatava **sem ano** e `datetime` também, sem forma de
+mudar: `valueFormatter` não alcançava a célula porque o `renderCell` do registry vencia. Era o
+único achado da rodada 1 **sem documentação em lugar nenhum**. E o código prometia o contrário
+em dois pontos: `CellRenderProps.column` existe com o comentário "campos auxiliares como
+valueFormatter", e o JSDoc de `formatValue` diz "aplicado quando consumer não passa
+column.valueFormatter".
+
+**Uma otimização que eu tirei da PR porque a medição não sustentou.** Ia memoizar o
+`measureTextWidth` — a leitura do código dizia que era o custo dominante de cada tick do
+resize. A/B controlado, mesma tela, mesmo gesto, 4 amostras: cache off → gap mediano 96ms;
+cache on → 100ms. Dentro do ruído. E o memo introduzia superfície de invalidação (métrica
+congelada na fonte de fallback até `document.fonts.ready`). Revertido. **A medição de texto não
+é o gargalo** — sobra a reconciliação do body, e isso muda qual seria o conserto arquitetural:
+não é medir menos, é a largura deixar de passar por React.
+
+**Meus instrumentos erraram 4 vezes**, e vale registrar porque foi o método que salvou:
+267 → 96 → 2 achados no gate de imports (registryDependencies ignoradas, diretório resolvido
+como arquivo, dono único por arquivo); "12 ações onde havia 4" (janela fixa de 2600 chars em
+vez de brace-matching); 2 medições de animação zeradas (aba oculta não recebe rAF;
+`flex-basis` ignora `width` inline); e o teste do próprio gate pegou meu contador exigindo
+`id:` em início de linha, que daria zero num exemplo compacto.
+
+**Regressões:** nenhuma. tsc 0 · 51 arquivos / 617 testes.
+
+**Assumption:** que o dogfood da rodada 2 generaliza. Ele usou entidade que **nenhum
+`example-*` cobre** (usinas geradoras) de propósito, pra forçar aplicar em vez de copiar — se
+tivesse pedido clientes de novo, o agente poderia copiar o exemplo já corrigido e passaria
+trivialmente. Ainda assim é uma tela, num domínio, com 3 ações.
+
+---
+
+### 2026-08-19 | ds-dev | A espiada por hover deixou de empurrar o conteúdo (#219 #220) | CONCLUÍDO
+
+**O diagnóstico foi do mantenedor, e reenquadrou o problema.** Eu tinha ido medir QUANTO custa
+o recálculo de largura durante a animação do menu (5 recálculos por gesto, ~100ms de travada,
+CLS 0,117). Ele perguntou outra coisa: **o recálculo deveria acontecer?** Nos testes dele o
+`MenuSidebar` não empurrava a tabela, porque o painel dele é `absolute` sobre o conteúdo. O
+`SingleMenuSidebar` animava a **própria largura dentro do fluxo flex**.
+
+**Isso dissolve o custo na raiz, sem tocar no motor de largura de coluna:** se a espiada não
+muda a largura do container, o `ResizeObserver` do DataTable não dispara.
+
+**A distinção que é o desenho:** clique = decisão de layout do usuário (ocupa espaço, empurra,
+e deve); hover = espiada (flutua). Quem está com o menu recolhido escolheu maximizar a área de
+conteúdo.
+
+**Um defeito da minha 1ª implementação, pego medindo.** Amarrei o `overlay` ao `isHoverExpand`.
+Ao SAIR do hover, o `position` voltava a `static` **antes** de a largura terminar de animar:
+aos +400ms o painel estava `static` com 279px dentro de um `<aside>` de 80px, **sem
+z-index** — grande, no fluxo, passível de ser pintado atrás do conteúdo por ~300ms. Amarrando
+ao estado TRAVADO, o `position` nunca troca durante a animação, e a sombra virou
+`compoundVariant` pra a recolhida não ganhar sombra que seria ruído.
+
+**#220** — no exemplo do `#/app-shell` o header da sidebar mostrava um ícone lucide cru e
+"Sistema Único", que é o nome da *variante*. O header da sidebar é a identidade do projeto:
+agora usa a mesma caixa de marca do `#/single-menu-sidebar` e "iGreen System". No mesmo commit
+consertei um erro meu — minha 1ª versão inseriu a const do logo ENTRE o JSDoc do
+`SINGLE_CATEGORIES` e a const dele, deixando aquele comentário órfão.
+
+**Regressões:** nenhuma. tsc 0 · 52 arquivos / 626 testes (+9). Verificado no browser: os 4
+estados (recolhida / espiada / travada / hover-na-travada) e o vizinho imóvel em 1002/616
+durante todo o ciclo, inclusive na retração.
+
+**Assumption:** que ninguém depende do empurrão no hover. Ele nunca foi escolhido — era
+consequência de a sidebar animar a própria largura no fluxo, e o `MenuSidebar` (a sidebar de
+referência) sempre flutuou. Quem quiser o empurrão usa `expanded` controlado, travado aberto.
