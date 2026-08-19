@@ -9,6 +9,7 @@ import {
   PropsTable,
 } from "../components";
 import { AppShell } from "../../components/ui/AppShell";
+import { SidebarBrandIcon } from "../../components/ui/MenuSidebar";
 import type { SingleMenuCategory } from "../../components/ui/SingleMenuSidebar";
 import { LayoutGrid, Users, Wallet, Settings } from "lucide-react";
 import {
@@ -29,6 +30,21 @@ const TOC = [
   { id: "body-slot", label: "Body slot — gap + padding" },
   { id: "api", label: "API Reference" },
 ];
+
+/**
+ * Logo do header da sidebar — mesma caixa de marca do `#/single-menu-sidebar`.
+ *
+ * O header da sidebar é a **identidade do projeto**: logo + nome do sistema. Este
+ * exemplo mostrava um ícone lucide cru (`<LayoutGrid/>`) e o texto "Sistema Único",
+ * que é o nome da *variante* — quem olhava a página lia o rótulo da demo como se
+ * fosse o padrão de conteúdo. O `logo` é `ReactNode` e o slot só faz `shrink-0`,
+ * então o dimensionamento é de quem passa: caixa `size-form-lg` com o ícone dentro.
+ */
+const SIDEBAR_LOGO = (
+  <div className="grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand">
+    <SidebarBrandIcon size={18} />
+  </div>
+);
 
 /**
  * Categorias pro exemplo de `sidebar="single"`. Nível único, sem módulos — é justamente o
@@ -301,8 +317,8 @@ export function AppShellDoc() {
             defaultMenuCollapsed={false}
             sidebar="single"
             categories={SINGLE_CATEGORIES}
-            sidebarLogo={<LayoutGrid className="size-icon-md" />}
-            sidebarTitle="Sistema Único"
+            sidebarLogo={SIDEBAR_LOGO}
+            sidebarTitle="iGreen System"
             activeItemId={itemSingle}
             onSidebarItemClick={setItemSingle}
             breadcrumb={[{ label: "Sistema" }, { label: "Dashboard" }]}
