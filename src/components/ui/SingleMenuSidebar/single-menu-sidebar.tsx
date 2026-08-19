@@ -7,7 +7,7 @@ import {
   SingleMenuSidebarContext,
   useSingleMenuSidebarState,
 } from "./use-single-menu-sidebar";
-import { sidebarRoot, styles } from "./single-menu-sidebar.styles";
+import { sidebarRoot, sidebarPanel, styles } from "./single-menu-sidebar.styles";
 import { SingleMenuHeader } from "./header";
 import { SingleMenuModuleSelector } from "./module-selector";
 import { SingleMenuSearch } from "./search";
@@ -150,60 +150,80 @@ export function SingleMenuSidebar({
     ],
   );
 
+  /**
+   * Travada aberta = o usuário CLICOU pra expandir. É o único estado em que a
+   * sidebar ocupa espaço no fluxo e empurra o conteúdo — decisão dele.
+   * Recolhida ou em espiada por hover, ela flutua sobre o conteúdo.
+   */
+  const travadaAberta = expanded && !isHoverExpand;
+
   return (
     <SingleMenuSidebarContext.Provider value={contextValue}>
       <TooltipProvider delayDuration={0}>
         <aside
           aria-label="Navegação lateral"
-          className={cn(sidebarRoot({ expanded }), className)}
+          // A caixa de FLUXO. Fica na largura do rail quando recolhida E quando
+          // expandida por hover — é o que impede o conteúdo ao lado de ser
+          // empurrado durante a espiada. Só o clique (travada aberta) ocupa espaço.
+          className={cn(sidebarRoot({ flowWidth: travadaAberta ? "full" : "rail" }), className)}
           onMouseEnter={onMouseEnter}
           onMouseLeave={onMouseLeave}
           {...props}
         >
-          <SingleMenuHeader
-            logo={logo}
-            title={title}
-            showToggleIndicator={showToggleIndicator}
-          />
-
-          <div className={styles.divider} />
-
-          {expanded && (moduleDisplay || showSearch) && (
-            <div className={cn(styles.sectionPadding, styles.textFadeIn)}>
-              {moduleDisplay && <SingleMenuModuleSelector {...moduleDisplay} />}
-              {showSearch && (
-                <SingleMenuSearch
-                  placeholder={searchPlaceholder}
-                  onOpen={() => setCommandOpen(true)}
-                />
-              )}
-            </div>
-          )}
-
-          {expanded && <div className={styles.divider} />}
-
-          <nav
-            className={cn(
-              styles.navContainer,
-              expanded
-                ? styles.navContainerExpanded
-                : styles.navContainerCollapsed,
-            )}
+          {/* A caixa VISUAL. Fora do estado travado ela é absoluta e cobre o
+              conteúdo em vez de disputar espaço no flex row — e como o `position`
+              segue o travado (não o hover), ele não muda durante a animação. */}
+          <div
+            className={sidebarPanel({
+              overlay: !travadaAberta,
+              visualWidth: expanded ? "full" : "rail",
+            })}
           >
-            <div className={styles.navList}>
-              {effectiveCategories.map((cat) => (
-                <SingleMenuCategory
-                  key={cat.id}
-                  {...cat}
-                  activeItemId={activeItemId}
-                  onItemClick={onItemClick}
-                  renderLink={renderLink}
-                />
-              ))}
-            </div>
-          </nav>
+            <SingleMenuHeader
+              logo={logo}
+              title={title}
+              showToggleIndicator={showToggleIndicator}
+            />
 
-          <SingleMenuFooter {...user} />
+            <div className={styles.divider} />
+
+            {expanded && (moduleDisplay || showSearch) && (
+              <div className={cn(styles.sectionPadding, styles.textFadeIn)}>
+                {moduleDisplay && <SingleMenuModuleSelector {...moduleDisplay} />}
+                {showSearch && (
+                  <SingleMenuSearch
+                    placeholder={searchPlaceholder}
+                    onOpen={() => setCommandOpen(true)}
+                  />
+                )}
+              </div>
+            )}
+
+            {expanded && <div className={styles.divider} />}
+
+            <nav
+              className={cn(
+                styles.navContainer,
+                expanded
+                  ? styles.navContainerExpanded
+                  : styles.navContainerCollapsed,
+              )}
+            >
+              <div className={styles.navList}>
+                {effectiveCategories.map((cat) => (
+                  <SingleMenuCategory
+                    key={cat.id}
+                    {...cat}
+                    activeItemId={activeItemId}
+                    onItemClick={onItemClick}
+                    renderLink={renderLink}
+                  />
+                ))}
+              </div>
+            </nav>
+
+            <SingleMenuFooter {...user} />
+          </div>
         </aside>
       </TooltipProvider>
 

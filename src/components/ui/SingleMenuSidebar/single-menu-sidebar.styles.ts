@@ -9,23 +9,87 @@ import { tv } from "@/utils/tv";
    exceção visual válida (L-014), não há token DS equivalente.
    ══════════════════════════════════════════════════════════════════════════ */
 
-// ── Container ──
+/* ── Container: DUAS caixas, e a separação é o ponto ────────────────────────
+
+   `sidebarRoot` é a caixa que ocupa espaço no FLUXO (o flex row do AppShell).
+   `sidebarPanel` é a caixa VISUAL — bg, borda, o conteúdo, a animação de largura.
+
+   Por que separar. Antes havia uma caixa só, com `transition-[width]` no próprio
+   root: expandir por hover animava a largura DENTRO do fluxo, então o conteúdo ao
+   lado (a tabela) era empurrado e re-diagramado a cada frame. Medido em 2026-08-19
+   no `#/usinas`: 5 recálculos completos de largura de coluna por gesto, travada de
+   ~100ms e **CLS 0,117** — 7 layout shifts na janela da animação.
+
+   O `MenuSidebar` nunca teve isso porque o painel dele é `absolute` sobre o
+   conteúdo (`sidebar.styles.ts:177` — `absolute left-[64px] top-0 h-full z-40`).
+   Aqui aplicamos o mesmo, mas SÓ no peek por hover:
+
+     recolhida            → fluxo 80px  · painel 80px            (estático)
+     hover (peek)         → fluxo 80px  · painel 280px ABSOLUTO  ← passa por cima
+     clique (travada)     → fluxo 280px · painel 280px           (empurra, e deve)
+
+   A distinção clique-vs-hover é deliberada: o clique é decisão de layout do
+   usuário — ele quer o menu ocupando espaço. O hover é espiada, e quem está com o
+   menu recolhido escolheu maximizar a área de conteúdo. ── */
+
 export const sidebarRoot = tv({
+  base: "relative h-full shrink-0",
+  variants: {
+    // Largura NO FLUXO. `rail` cobre recolhida E peek por hover — é isso que
+    // impede o conteúdo ao lado de se mexer durante a espiada.
+    flowWidth: {
+      rail: "hidden md:block md:w-20",
+      full: "w-full md:w-[280px]",
+    },
+  },
+  defaultVariants: {
+    flowWidth: "full",
+  },
+});
+
+export const sidebarPanel = tv({
   base: [
-    "relative flex h-full flex-col overflow-x-hidden",
+    "flex h-full flex-col overflow-x-hidden",
     "border-r border-border-sidebar bg-bg-sidebar",
     "transition-[width] duration-300 ease-in-out",
   ],
   variants: {
-    // Mobile (< md): expandida = 100% da largura; recolhida = SOME (hidden).
-    // Desktop (md+): largura fixa, expandida (280px) ou recolhida (rail 80px).
-    expanded: {
-      true: "w-full md:w-[280px]",
-      false: "hidden md:flex md:w-20",
+    /**
+     * `overlay` segue o estado TRAVADO, não o hover — e isso é o que evita um
+     * defeito medido.
+     *
+     * A 1ª versão ligava `overlay` ao `isHoverExpand`. Ao sair do hover, o
+     * `position` voltava a `static` **antes** de a largura terminar de animar:
+     * aferido, aos +400ms o painel estava `static` com **279px** dentro de um
+     * `<aside>` de 80px, sem `z-index` — grande, no fluxo e passível de ser
+     * pintado atrás do conteúdo por ~300ms.
+     *
+     * Amarrando ao travado, o `position` **nunca troca durante a animação**:
+     * fora do estado travado o painel é sempre absoluto, e só a largura anima.
+     *
+     * `md:` em tudo porque overlay é comportamento de DESKTOP — abaixo de md a
+     * sidebar é drawer de largura cheia e não existe hover em touch.
+     */
+    overlay: {
+      true: "md:absolute md:inset-y-0 md:left-0 md:z-40",
+      false: "",
+    },
+    /** Largura VISUAL — independente da que o `<aside>` ocupa no fluxo. */
+    visualWidth: {
+      rail: "w-full md:w-20",
+      full: "w-full md:w-[280px]",
     },
   },
+  compoundVariants: [
+    // Sombra só na espiada: é ela que indica "isto está flutuando sobre o
+    // conteúdo". Recolhida, o painel também é absoluto (pra não trocar de
+    // `position` no meio da animação), mas ali ele coincide com o rail e uma
+    // sombra seria ruído.
+    { overlay: true, visualWidth: "full", class: "md:shadow-sh-lg" },
+  ],
   defaultVariants: {
-    expanded: true,
+    overlay: false,
+    visualWidth: "full",
   },
 });
 
