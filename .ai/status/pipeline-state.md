@@ -2655,3 +2655,53 @@ e é metade do que os gates deste repo existem pra pegar.
 **Assumption:** que `vNEXT` sempre sobrevive até a release e nunca é publicado por outro caminho.
 Vale porque os 4 canais saem do `/ds-release`, e ele roda `release:check`. Quebraria se alguém
 publicasse o CLI fora do fluxo — nesse dia, o placeholder chega ao consumidor.
+
+---
+
+### 2026-08-19 | ds-dev | Release v0.43.1 publicada, e o que a verificação do tarball achou | CONCLUÍDO
+
+**A release (#226).** O aviso do corte de abas de visão + os 2 gates de versão citada. PATCH e
+não MINOR: havia `feat(gate)` na fila, mas a convenção do repo põe gate em `improved` (foi assim
+na 0.43.0) e gate **não é distribuído** — sem `added`, a regra dá PATCH. O mantenedor manteve.
+Lib 0.43.1 · CLI 0.25.5 (porque `cli/templates/**` mudou) · registry recarimbado, 486 arquivos
+em sync por conteúdo. Publicadas as duas.
+
+**O passo 6.2a rodou pela primeira vez:** 5 × `vNEXT` → `v0.43.1`, e o `release:check` confirmou
+que não sobrou nenhum. O mecanismo funcionou no primeiro uso real — inclusive pegando um
+placeholder que eu tinha escrito na DocPage do showcase minutos antes.
+
+**O pre-commit pegou o que eu havia deixado passar no dia anterior:** a DocPage do showcase ficou
+fora dos 5 arquivos corrigidos no #223 e seguia afirmando "cortado em silêncio". Consertar isso
+revelou que `src/preview/pages` **não estava** na varredura do placeholder — o `vNEXT` iria
+publicado. Alarguei só a varredura de placeholder, não a de claims, e a razão é medida:
+`src/preview` daria **5 achados de claim, 5 ruído** (4 são dados de mock de um gráfico de demo,
+uma timeline fictícia `v2.4.0`). Duas checagens com perfis de ruído diferentes ganham escopos
+diferentes.
+
+**E o que a inspeção do tarball achou — não é regressão, é propriedade do canal.** O aviso novo
+**não existe** no bundle npm: o guard é `import.meta.env?.DEV`, que o nosso build resolve pra
+`false`, eliminando o bloco. Medido: 26 `console.warn` na fonte, **2** sobrevivem. Os 3
+dev-guarded (TableToolbarViews, columnTypeRegistry, DataList) somem; os 2 que ficam ou não têm
+guard ou avisam **em** produção de propósito.
+
+Três coisas fazem isso ser registro e não conserto:
+
+  1. Os outros **3 canais** entregam o `.tsx` fonte — quem resolve o `DEV` é o build do
+     consumidor, então o aviso dispara no dev dele. O canal primário do DS é copy-in, e o dogfood
+     (submódulo) é onde o defeito original apareceu. **Funciona onde importa.**
+  2. `USAGE.md` **não viaja no pacote** (`files` não o inclui), então a única superfície que um
+     consumidor de npm leria é a página do showcase — qualificada agora.
+  3. Trocar por `process.env.NODE_ENV` **não resolve**: o Vite substitui o mesmo pattern no build
+     de lib (conferido — o bundle publicado não tem uma ocorrência de `process.env`). As saídas
+     reais custam infra: dois outputs à la React, ou expressão que o bundler não reconheça. Está
+     no BACKLOG com a medição, porque decide o desenho de **todo aviso futuro**.
+
+**Um erro meu de instrumento, o quinto da semana.** Ao checar se o canal primário levava o aviso,
+grepei o `registry.json` e reportei "AUSENTE" — o `registry.json` só guarda `path`, o conteúdo
+mora no embed (`registry-app/app/registry-data.ts`), e lá o aviso **está**. É exatamente a nota
+que eu já tinha em memória: grep em artefato gerado mente. Errei mesmo tendo a nota.
+
+**Assumption:** que aviso de DEV é ferramenta suficiente para os canais de fonte, e que nada que
+o consumidor de npm precise saber será entregue por `console.warn`. Quebra no dia em que um
+defeito só detectável em runtime precisar alcançar quem consome pré-buildado — aí a saída não é
+aviso, é erro de verdade (throw ou estado de erro no componente).

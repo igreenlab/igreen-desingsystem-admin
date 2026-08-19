@@ -623,8 +623,11 @@ export function DataTableDoc() {
           ⚠️ O excedente é cortado — com 3 presets o terceiro não aparece, sem
           erro e sem overflow. Em <strong>DEV</strong> sai um{" "}
           <code>console.warn</code> (v0.43.1) nomeando a visão engolida e o valor
-          que resolve; em produção o corte é silencioso. Precisa de N abas
-          fixas?{" "}
+          que resolve; em produção o corte é silencioso. O aviso vale nos canais
+          em que <strong>você compila a fonte</strong> (copy-in/registry,
+          scaffold, submódulo) — no pacote <code>npm</code>, que é pré-buildado,
+          o bloco de dev é eliminado no nosso build e não dispara. Precisa de N
+          abas fixas?{" "}
           <code>maxViewTabs={"{N + 1}"}</code>. E lembre que a aba{" "}
           <strong>Default já é a visão sem filtro</strong>: um preset
           "Todos"/"Todas" duplica ela e gasta um slot.
