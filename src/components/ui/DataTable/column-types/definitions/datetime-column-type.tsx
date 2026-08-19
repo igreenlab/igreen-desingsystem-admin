@@ -14,23 +14,32 @@ const ptBrShort = new Intl.DateTimeFormat("pt-BR", {
   month: "short",
 });
 
-const ptBrShortTime = new Intl.DateTimeFormat("pt-BR", {
+/**
+ * Célula e export — **com ano**. Até 2026-08-19 era `{day, month, hour, minute}`, sem ano:
+ * "14 de mar 09:30". Mesmo defeito do `type: "date"` e pior, porque data-hora costuma ser
+ * registro de auditoria, onde o ano é o que separa um evento de outro. Numérico pra caber
+ * o ano sem estourar a coluna: "14/03/2023 09:30".
+ */
+const ptBrDataHora = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",
-  month: "short",
+  month: "2-digit",
+  year: "numeric",
   hour: "2-digit",
   minute: "2-digit",
 });
 
+/** Trigger do filtro — compacto, sem ano (ver a mesma nota em `date-column-type`). */
 function formatShort(v: unknown): string {
   const d = toDate(v);
   if (!d) return "";
   return ptBrShort.format(d).replace(".", "");
 }
 
-function formatShortTime(v: unknown): string {
+/** Célula / export / clipboard — com ano. */
+function formatDataHora(v: unknown): string {
   const d = toDate(v);
   if (!d) return "";
-  return ptBrShortTime.format(d).replace(".", "");
+  return ptBrDataHora.format(d).replace(",", "");
 }
 
 export const DatetimeColumnType: ColumnTypeDefinition = {
@@ -157,10 +166,13 @@ export const DatetimeColumnType: ColumnTypeDefinition = {
     return null;
   },
 
-  renderCell: ({ value }) => (
-    <span className="text-fg-muted tabular-nums">{formatShortTime(value)}</span>
+  // `column.valueFormatter` vence o formato do tipo — mesmo escape hatch do `date`.
+  renderCell: ({ value, column }) => (
+    <span className="text-fg-muted tabular-nums">
+      {column?.valueFormatter ? column.valueFormatter(value) : formatDataHora(value)}
+    </span>
   ),
-  formatValue: (v) => formatShortTime(v),
+  formatValue: (v) => formatDataHora(v),
   defaultAlign: "left",
   defaultWidth: 160,
   defaultSortable: true,

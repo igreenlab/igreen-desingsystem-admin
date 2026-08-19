@@ -11,15 +11,48 @@ import { toDateMs, dayStart, toDate, toIsoDate } from "../_shared";
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
 
-const ptBrShort = new Intl.DateTimeFormat("pt-BR", {
+/**
+ * Formato da CÉLULA e do export — **com ano**.
+ *
+ * Até 2026-08-19 era `{ day: "2-digit", month: "short" }` → "14 de mar", **sem ano**, e
+ * sem nenhuma forma de mudar. Numa tabela de registros que atravessa anos isso não é
+ * densidade, é perda de informação: uma usina conectada em 2015 e outra em 2024 apareciam
+ * idênticas. Foi achado por um agente consumidor, que escreveu `render` próprio pra
+ * recuperar o ano — e o defeito não estava documentado em lugar nenhum.
+ *
+ * Numérico em vez de mês abreviado porque **caiba o ano sem crescer**: "14/03/2023" tem
+ * 10 caracteres contra os 9 de "14 de mar", enquanto "14 de mar. de 2023" teria 18.
+ */
+const ptBrData = new Intl.DateTimeFormat("pt-BR", {
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+});
+
+/**
+ * Formato COMPACTO, só pro trigger do filtro — sem ano, de propósito.
+ *
+ * Ali o valor é um período que o usuário acabou de escolher no calendário, e o trigger
+ * mostra os dois lados ("14 mar → 28 mar") num campo estreito com `truncate`. Pôr o ano
+ * dobraria o texto e truncaria justamente o segundo lado do período.
+ */
+const ptBrCompacto = new Intl.DateTimeFormat("pt-BR", {
   day: "2-digit",
   month: "short",
 });
 
+/** Célula / export / clipboard — com ano. */
+function formatData(v: unknown): string {
+  const d = toDate(v);
+  if (!d) return "";
+  return ptBrData.format(d);
+}
+
+/** Trigger de filtro — compacto. */
 function formatShort(v: unknown): string {
   const d = toDate(v);
   if (!d) return "";
-  return ptBrShort.format(d).replace(".", "");
+  return ptBrCompacto.format(d).replace(".", "");
 }
 
 /* ── Column type ─────────────────────────────────────────────────── */
@@ -164,10 +197,20 @@ export const DateColumnType: ColumnTypeDefinition = {
   },
 
   /* G.2 slots */
-  renderCell: ({ value }) => (
-    <span className="text-fg-muted tabular-nums">{formatShort(value)}</span>
+  // `column.valueFormatter` vence o formato do tipo — é o escape hatch pra quem quer
+  // outro formato (mês escrito, ISO, relativo) sem escrever `render` inteiro.
+  //
+  // Isso é o que o próprio `CellRenderProps` já prometia: o campo `column` existe ali
+  // com o comentário "campos auxiliares como valueFormatter", e o JSDoc de `formatValue`
+  // diz "aplicado quando consumer não passa `column.valueFormatter`". Nenhum column-type
+  // lia esse campo, então na prática `valueFormatter` num `type: "date"` mudava export,
+  // totalizador e clipboard e **não mudava a célula** — a doc afirmava o contrário.
+  renderCell: ({ value, column }) => (
+    <span className="text-fg-muted tabular-nums">
+      {column?.valueFormatter ? column.valueFormatter(value) : formatData(value)}
+    </span>
   ),
-  formatValue: (v) => formatShort(v),
+  formatValue: (v) => formatData(v),
   defaultAlign: "left",
   defaultWidth: 130,
   defaultSortable: true,
