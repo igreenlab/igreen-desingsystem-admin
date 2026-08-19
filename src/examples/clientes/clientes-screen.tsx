@@ -152,40 +152,34 @@ function buildColumns(handlers: ColumnHandlers): DataTableColumnDef<ClientRow>[]
     field: "_actions",
     headerName: "",
     type: "actions",
-    // `width` fica: `actions` é tipo ESTRUTURAL e não está no registry, então não tem
-    // `defaultWidth` — sem isto a largura depende do autoFit. Já o `pinned: "right"` saiu
-    // por ser redundante: `use-data-table-columns.ts` resolve
-    // `col.pinned ?? (isActions ? "right" : undefined)`. O exemplo é a fonte de maior
-    // precedência das skills ("o exemplo vence tudo"), então prop redundante aqui vira
-    // prop copiada em toda tela gerada.
-    width: 64,
+    // Sem `width` e sem `pinned`, de propósito — o `type` já entrega os dois:
+    // a largura é DERIVADA do nº de ações (1→44px · 2→74 · 3→104) e acima de 3 elas
+    // colapsam no "…" sozinhas; o pin à direita sai de
+    // `col.pinned ?? (isActions ? "right" : undefined)`. Prop redundante aqui vira prop
+    // copiada em toda tela gerada — o exemplo é a fonte de maior precedência das skills.
     getActions: ({ row }) => [
       {
         id: "edit",
         label: "Editar",
         icon: <Pencil />,
-        showInMenu: true,
         onClick: () => console.log("Editar", row.id),
       },
       {
         id: "whatsapp",
         label: "Abrir atendimento (WhatsApp)",
         icon: <MessageSquare />,
-        showInMenu: true,
         onClick: () => console.log("Atendimento", row.id),
       },
       {
         id: "archive",
         label: "Arquivar",
         icon: <Archive />,
-        showInMenu: true,
         onClick: () => console.log("Arquivar", row.id),
       },
       {
         id: "delete",
         label: "Excluir cliente",
         icon: <Trash2 />,
-        showInMenu: true,
         destructive: true,
         onClick: () => handlers.onAskDelete(row),
       },
