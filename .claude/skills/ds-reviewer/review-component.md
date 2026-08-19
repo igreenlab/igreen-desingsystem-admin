@@ -106,7 +106,7 @@ gates mecânicos, não checklist lido por agente:
 
 Por que gate e não checklist: "está no vocabulário?" é fato **verificável
 mecanicamente**, sem julgamento — e a camada de checklist já falhou de forma medida.
-O `Toast` foi distribuído na v0.12.0 e ficou fora do vocabulário até a **v0.13.7**,
+O `Toast` foi distribuído na v0.12.0 e ficou fora do vocabulário até a **CLI 0.13.7**,
 com o item de checklist existindo o tempo todo (é o caso que gerou a L-042). L-059:
 gate mecânico pra regra independente de contexto; revisor pro que exige julgamento.
 

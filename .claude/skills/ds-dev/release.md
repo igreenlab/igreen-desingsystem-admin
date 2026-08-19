@@ -281,6 +281,22 @@ Insere novo objeto no TOPO do array `RELEASES`.
 ### 6.2 Edit `package.json`
 `"version": "<old>"` → `"version": "<new>"`.
 
+### 6.2a Trocar `vNEXT` pelo número desta release
+
+```bash
+grep -rn "vNEXT" src/components .claude/skills .claude/rules cli/templates/default/_claude
+```
+
+Cada ocorrência é uma frase de doc escrita numa feature PR, quando **este número ainda não
+existia** — trocar por `v<new>` (o mesmo do 6.2). Nenhuma → nada a fazer.
+
+> **Por que placeholder e não o número direto.** Quem documenta comportamento novo está numa
+> feature PR: o bump só acontece aqui, e qual será o número depende do que mais entrar na fila.
+> Adivinhar deu errado duas vezes em 12 horas — `0.42.2` saiu 0.43.0 (2 frases publicadas), e o
+> aviso do `maxViewTabs` saiu documentado com um número de patch que nunca existiu.
+> **Não é lembrança:** o
+> `version-claims-check --release` do 6.3 reprova `vNEXT`, então a release não sai sem este passo.
+
 ### 6.2b Distribuição (registry shadcn) — condicional
 
 Só roda se o diff da release tocou **componente** (`src/components/**`), **token**
@@ -336,7 +352,7 @@ npx tsc --noEmit
 npm test              # inclui dead-theme-classes, shadcn-vocab, orphan-utilities,
                       # runtime-base e vocab-surface
 npm run release:check # registry-check --ci + brand-check + distribution-debt --ci
-                      # + examples-drift + npm audit (high)
+                      # + examples-drift + version-claims --release + npm audit (high)
 ```
 Se qualquer um sair ≠ 0 → reportar erro + abortar. Deixar edits no working tree pra debug humano.
 
