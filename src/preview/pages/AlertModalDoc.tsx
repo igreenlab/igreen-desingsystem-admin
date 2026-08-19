@@ -262,7 +262,7 @@ export function AlertModalDoc() {
       <ExampleSection
         id="ex-loading"
         title="Loading async"
-        description="`loading` mostra spinner no botão de confirmação e desabilita o cancel. Quando vc controla o fechamento manualmente."
+        description="`loading` mostra spinner no botão de confirmação e trava os 4 caminhos de fechar — Confirmar, Cancelar, X e ESC — porque quem controla o fechamento é você, depois que o async terminar. O ESC era o que faltava: fechava o modal com a requisição em voo."
         code={`const [open, setOpen] = useState(false);
 const [loading, setLoading] = useState(false);
 

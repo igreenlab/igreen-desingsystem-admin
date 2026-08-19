@@ -79,7 +79,26 @@ export function AlertModal({
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
-      <AlertDialogContent className={className}>
+      <AlertDialogContent
+        className={className}
+        // O 4º caminho de dismiss. Os outros 3 já eram travados no `loading` — Confirmar
+        // por `preventDefault`, Cancelar e X por `disabled` — e o ESC escapava porque é o
+        // único que não passa por um botão: ia direto pro DismissableLayer do Radix.
+        //
+        // Sem isto, num delete assíncrono o usuário aperta ESC, o modal desaparece e a
+        // requisição segue em voo: a exclusão acontece depois, sem feedback ligado à ação.
+        // E quebrava duas promessas escritas do USAGE — "trava interação durante async" e
+        // "modal não fecha automaticamente".
+        //
+        // `preventDefault` no ESC (e não um guard no `onOpenChange`) é a saída idiomática:
+        // barra o dismiss na origem, então o `onOpenChange` do consumidor não é chamado —
+        // quem faz `onOpenChange={(o) => { setOpen(o); telemetria(o); }}` não recebe evento
+        // fantasma. É o mesmo mecanismo que o gotcha do `alert-dialog` já indicava para
+        // decisão inescapável.
+        onEscapeKeyDown={(e) => {
+          if (loading) e.preventDefault();
+        }}
+      >
         {!hideClose && (
           <button
             type="button"

@@ -2756,3 +2756,56 @@ os únicos usos no repo são a DocPage e o `AlertModal`, e o `AlertModal` já pe
 ou seja, o comportamento antigo nunca foi escolhido, era ausência de opinião. Quebra se um
 consumidor tiver 3+ ações no footer, onde dividir em partes iguais fica apertado; nesse caso o
 `className` do Footer continua sobrescrevendo (o `cn` mantém a precedência do consumidor).
+
+---
+
+### 2026-08-19 | ds-dev | ESC fechava o AlertModal durante o loading — o 4º caminho de dismiss | CONCLUÍDO
+
+**Como apareceu:** o mantenedor perguntou se valia levar o gotcha "ESC fecha o alert-dialog" pro
+vocabulário do consumidor. Fui responder que **não** — ESC numa confirmação equivale a cancelar,
+que é a saída segura, e o vocabulário custa contexto em 100% das sessões do consumidor (reprova na
+questão 4 do Auto-update protocol). Mas ao checar o caso em que ESC **não** é seguro, achei um
+defeito real.
+
+**O defeito.** O `AlertModal` travava 3 dos 4 caminhos de dismiss durante `loading`:
+
+    Confirmar → e.preventDefault() se loading
+    Cancelar  → disabled={loading}
+    X         → disabled={loading}
+    ESC       → passava DIRETO pro DismissableLayer do Radix        ← escapou
+
+Os três primeiros provam que o autor pensou no estado; o ESC escapou por ser o único que não passa
+por um botão. Num delete assíncrono: usuário aperta ESC, modal desaparece, requisição segue em voo,
+exclusão acontece depois sem feedback ligado à ação. E quebrava **duas promessas escritas** do
+`USAGE.md` — "trava interação durante async" e "modal não fecha automaticamente".
+
+**Conserto:** `onEscapeKeyDown` + `preventDefault` quando `loading`. Escolhido em vez de um guard no
+`onOpenChange` porque barra na origem: o `onOpenChange` do consumidor não é chamado, então quem
+encadeia telemetria nele não recebe evento fantasma. É o mesmo mecanismo que o gotcha do
+`alert-dialog` já indicava pra decisão inescapável — o composto passou a usar o que a doc do
+primitivo dele recomendava.
+
+**A medição no browser foi INCONCLUSIVA, e é a lição do dia.** Tentei reproduzir no showcase e
+obtive "ESC não fechou" — resultado que teria me feito fechar o caso como falso positivo. O
+controle salvou: ESC também não fechava **fora** do loading. Investiguei o instrumento e registrei
+um listener de `keydown` no document: **ZERO eventos**, enquanto a ferramenta reportava "pressed
+Escape x1". O painel do browser não estava sendo exibido, então não recebia input — mesma causa do
+screenshot que falhou antes. Terceira falha de instrumento da sessão, e a segunda do mesmo tipo
+(browser automatizado que responde OK sem ter feito nada).
+
+**O que funcionou:** jsdom + `userEvent.keyboard`, que não depende do painel. Escrito ANTES do
+conserto e visto reprovar (L-064): 2 de 5 falharam — o fechamento e a chamada indevida do
+`onOpenChange`. Com o conserto, 5/5. **O par de controle está no arquivo de propósito**: sem o
+teste "FECHA quando não está loading", o teste principal passaria por um ESC que nunca chega — que
+é exatamente como o browser me enganou.
+
+**Sobre a linha no vocabulário: não entrou, e a razão fica registrada.** ESC fechar confirmação é
+correto; o caso que exige `preventDefault` é decisão inescapável, raro, e quem constrói isso lê a
+doc do primitivo. O que o consumidor precisava não era saber do ESC — era o componente não ter o
+buraco. Gate > lição > doc, na ordem.
+
+**Assumption:** que travar o ESC durante `loading` nunca prende o usuário. Vale porque `loading` é
+controlado pelo consumidor e o contrato já é "você fecha após o async". Quebra se o consumidor
+esquecer de zerar o `loading` num catch — aí o modal fica sem saída. Sinal de que caiu: relato de
+modal travado após erro de rede. Mitigação, se acontecer: timeout de segurança no próprio
+componente, não reabrir o ESC.
