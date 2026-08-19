@@ -46,6 +46,22 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.43.3",
+    date: "2026-08-19",
+    tag: "patch",
+    title: "O painel lateral flutuante não passa mais da borda da janela",
+    summary:
+      "Uma correção só, e ela vale a publicação porque o componente é distribuído: o **painel lateral flutuante** — aquele que abre ao lado do conteúdo, sem escurecer o resto, e que pode ser arrastado para mudar de largura — **saía da tela em janelas menores**. Não era um caso exótico: bastavam as medidas padrão. Ele pode ser arrastado até 800 pixels e fica ancorado a 24 da borda direita, o que exige 824 de janela; abaixo disso a borda esquerda ficava fora da tela, levando com ela o começo de cada linha de conteúdo. Agora o painel respeita a janela e mantém a mesma folga de 24 dos dois lados, exatamente como já fazia em cima e embaixo.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**O painel lateral flutuante saía da tela em janelas menores, com as medidas padrão.** Ele pode ser arrastado até 800 pixels de largura e fica ancorado a 24 da borda direita — soma 824. Em qualquer janela menor que isso (uma janela dividida ao lado de outra, um notebook pequeno, o navegador não maximizado) a borda esquerda ficava fora da tela e cortava o início de cada linha do conteúdo. O limite de arraste era em pixels fixos e não sabia o tamanho da janela; agora existe um teto que acompanha a janela e preserva a mesma folga de 24 dos dois lados, igual à que ele já mantinha em cima e embaixo. Nada muda quando o painel cabe — o teto só age quando o conteúdo passaria da borda.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.43.2",
     date: "2026-08-19",
     tag: "patch",
