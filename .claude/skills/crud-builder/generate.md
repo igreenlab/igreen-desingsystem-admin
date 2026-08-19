@@ -184,6 +184,9 @@ todo campo substantivo leva `icon` no header.
    preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por
    algum motivo, quiser desabilitar.
 
+**Formato de data.** `type: "date"` renderiza `14/03/2023` e `type: "datetime"` renderiza `14/03/2023 09:30` — **com ano** (lib 0.42.2+). Precisa de outro formato (mês escrito, relativo, ISO)? Passe **`valueFormatter`** na coluna: ele vence o formato do tipo e vale na célula, no export e no clipboard. **NÃO** escreva `render` próprio só pra formatar data. ⚠️ Até a 0.42.1 esses tipos mostravam a data **sem ano** e o `valueFormatter` não chegava na célula — se você viu `render` de data em código antigo, era contorno disso.
+
+
 ## Padrões de CÉLULA (consistência finance — OBRIGATÓRIO)
 
 Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
