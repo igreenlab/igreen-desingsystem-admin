@@ -5,6 +5,49 @@
 
 ---
 
+## 🔇 Aviso de DEV não sobrevive ao pacote npm — exige build dev/prod (achado 2026-08-19)
+
+> **Não é defeito de componente, e não é regressão.** É uma propriedade do canal npm que vale
+> registrar porque decide o desenho de todo aviso futuro.
+
+**Medido no tarball publicado da v0.43.1:** `src/components/` tem **26** `console.warn`;
+**2** sobrevivem no bundle. Os que somem são os guardados por `import.meta.env?.DEV` —
+**o nosso** build resolve isso pra `false` e o bloco inteiro é eliminado:
+
+| aviso | guard | npm |
+|---|---|---|
+| `TableToolbarViews` — visão engolida por `maxTabs` | `import.meta.env?.DEV` | ❌ sumiu |
+| `columnTypeRegistry` — type não registrado | `import.meta.env?.DEV` | ❌ sumiu |
+| `DataList` — `virtualized` + `enableDnD` | `import.meta.env?.DEV` | ❌ sumiu |
+| `columnTypeRegistry` — type duplicado | sem guard | ✅ |
+| `DataTable` — saved-views mock em produção | `MODE === "production"` (avisa **em** prod) | ✅ |
+
+**Por que os outros 3 canais não sofrem:** copy-in/registry, scaffold e submódulo entregam o
+**`.tsx` fonte**, então quem resolve `import.meta.env.DEV` é o build do consumidor — o aviso
+dispara no dev dele. O canal primário do DS é copy-in, e foi por submódulo que o dogfood
+encontrou o defeito que gerou o aviso. Ou seja: **funciona onde importa.**
+
+**Trocar o guard por `process.env.NODE_ENV` NÃO resolve** — o Vite substitui esse pattern no
+build de lib do mesmo jeito (conferido: o bundle publicado não tem uma única ocorrência de
+`process.env`). As saídas reais são duas, ambas com custo de infra:
+
+  (a) **dois outputs** (`index.development.mjs` / `index.production.mjs` + `exports` condicional)
+      — é o que o React faz; dobra o build e o tamanho do tarball, que já é um item deste backlog
+  (b) **expressão que o bundler não reconhece** (`globalThis.process?.env?.NODE_ENV`) — 1 linha
+      por site, mas o código do aviso passa a viajar no bundle de produção do consumidor, e
+      precisa ser verificado empiricamente contra o nosso build antes de valer
+
+**Enquanto não houver decisão:** aviso de DEV é ferramenta dos canais de fonte. Se um aviso
+precisar alcançar o consumidor de npm, ele **não pode** ser dev-only — ou é erro de verdade
+(throw / estado de erro no componente), ou não existe.
+
+**O que já foi feito:** a página do showcase (única superfície pública que um consumidor de npm
+leria) passou a qualificar em quais canais o aviso vale. Os `USAGE.md` **não** viajam no pacote
+(`files` do `package.json` não os inclui), então lá a afirmação é lida só por quem compila a
+fonte — e para esses ela é verdadeira.
+
+---
+
 ## 🪟 Clamp de viewport em FloatingPanel e DropdownMenu — resgatado de branch apagada (2026-08-18)
 
 > **Não é defeito confirmado.** É uma defesa que existia numa branch não-mergeada
