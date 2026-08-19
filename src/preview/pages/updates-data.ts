@@ -46,6 +46,30 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.43.2",
+    date: "2026-08-19",
+    tag: "patch",
+    title: "Os botões da confirmação ocupam a caixa inteira, e ESC não abandona mais uma exclusão em andamento",
+    summary:
+      "Duas correções no mesmo lugar: a caixa de confirmação. A primeira é de desenho — os dois botões passam a **dividir a largura** da caixa em vez de ficarem encolhidos num canto. Isso já valia para a confirmação pronta do sistema, e agora vale também para quem monta a sua própria: a regra estava no atalho, não na peça, então quem montava na mão recebia o layout errado sem ter feito nada de errado. A segunda é de comportamento, e a mais séria: **apertar Esc durante uma exclusão em andamento fechava a caixa e deixava o pedido correndo por baixo** — a exclusão acontecia depois, sem nada na tela ligando o resultado à ação. Os outros três jeitos de fechar já estavam travados; o Esc era o único que não passava por um botão e escapou.",
+    changes: [
+      {
+        type: "fixed",
+        items: [
+          "**Os botões da caixa de confirmação passam a dividir a largura dela.** Antes ficavam do tamanho do próprio texto, encostados à esquerda — a confirmação pronta do sistema acertava porque pedia largura cheia em cada botão, um por um. Ou seja: a regra de desenho morava no atalho, e não na peça. Quem montasse uma confirmação própria recebia o layout torto sem ter feito nada de errado, e o exemplo da documentação — que é o que se copia — mostrava o layout torto também. Agora a peça carrega a regra: monta na mão e sai certo.",
+          "**Apertar Esc durante uma exclusão em andamento fechava a caixa e abandonava o pedido.** O pedido continuava correndo: a exclusão acontecia segundos depois, sem nada na tela ligando o resultado ao que a pessoa tinha feito — e sem chance de saber se deu certo. Os outros três jeitos de fechar (confirmar, cancelar e o X) já estavam travados enquanto o pedido corria; o Esc era o único que não passa por um botão, e por isso escapou. A documentação prometia que nada fechava a caixa nesse estado, o que tornava o desvio mais difícil de notar.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**A página de documentação da confirmação passou a mostrar o ícone e o layout finais** — a referência que se copia agora é igual ao desenho, e não uma versão simplificada dele. O exemplo vizinho, que existia só para mostrar que o ícone encaixa, passou a responder uma pergunta mais útil: quando parar de montar na mão e usar a confirmação pronta.",
+          "**Registrado um limite do pacote npm que não era conhecido:** avisos de desenvolvimento (aqueles que aparecem no console para apontar um uso equivocado) **não chegam** a quem instala o sistema pelo npm — eles são removidos quando o pacote é compilado aqui. Continuam funcionando nos outros três caminhos de instalação, que entregam o código-fonte, e é por eles que a maioria dos projetos consome. Medido no pacote publicado; a decisão de mudar isso custa infraestrutura e ficou registrada com os números.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.43.1",
     date: "2026-08-19",
     tag: "patch",

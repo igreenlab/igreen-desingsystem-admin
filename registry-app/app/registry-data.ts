@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · accordion · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -39,13 +39,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/alert-dialog.tsx",
-        "content": "import * as React from \"react\";\r\nimport * as AlertDialogPrimitive from \"@radix-ui/react-alert-dialog\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.\r\n *\r\n * Diferenças vs. Dialog, TODAS medidas no browser (2026-08-13) e não deduzidas:\r\n *   - `role=\"alertdialog\"` (assistive tech anuncia diferente) ✔ confirmado\r\n *   - Foco inicial no botão `Cancel`, que é o default seguro ✔ confirmado\r\n *   - **Não fecha ao clicar fora** ✔ confirmado — e o Dialog comum, no MESMO teste,\r\n *     fecha. A diferença é real.\r\n *\r\n * ⚠️ **ESC FECHA.** Este bloco afirmava \"não fecha ao clicar fora ou apertar ESC\"; a\r\n * segunda metade era falsa. O Radix trata as duas coisas em canais separados: o\r\n * pointer-down externo o AlertDialog bloqueia, o ESC não. Quem precisasse de uma decisão\r\n * inescapável (o caso que a frase prometia cobrir) sairia daqui acreditando estar\r\n * protegido. Pra travar de verdade, no consumidor:\r\n *\r\n *     <AlertDialogContent onEscapeKeyDown={(e) => e.preventDefault()}>\r\n *\r\n * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,\r\n * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.\r\n *\r\n * Pra um wrapper \"one-shot\" com tone + ícone + botões → use <AlertModal>. Doc e a\r\n * comparação dos três (AlertModal / AlertDialog / Dialog): página `#/alert-dialog`.\r\n */\r\n\r\nconst AlertDialog = AlertDialogPrimitive.Root;\r\nconst AlertDialogTrigger = AlertDialogPrimitive.Trigger;\r\nconst AlertDialogPortal = AlertDialogPrimitive.Portal;\r\n\r\nconst AlertDialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;\r\n\r\nconst AlertDialogContent = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPortal>\r\n    <AlertDialogOverlay />\r\n    <AlertDialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]\",\r\n        \"translate-x-[-50%] translate-y-[-50%]\",\r\n        \"rounded-radius-2xl bg-bg-surface text-fg-default\",\r\n        \"border border-border-default shadow-sh-2xl outline-float\",\r\n        \"duration-200\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  </AlertDialogPortal>\r\n));\r\nAlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;\r\n\r\nconst AlertDialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col items-center text-center gap-gp-lg\",\r\n      \"px-pad-4xl pt-[32px] pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogHeader.displayName = \"AlertDialogHeader\";\r\n\r\nconst AlertDialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)\r\n  // sm+: lado a lado horizontal\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse items-stretch gap-gp-md sm:flex-row\",\r\n      \"px-pad-3xl pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogFooter.displayName = \"AlertDialogFooter\";\r\n\r\nconst AlertDialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;\r\n\r\nconst AlertDialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogDescription.displayName =\r\n  AlertDialogPrimitive.Description.displayName;\r\n\r\nconst AlertDialogAction = AlertDialogPrimitive.Action;\r\nconst AlertDialogCancel = AlertDialogPrimitive.Cancel;\r\n\r\nexport {\r\n  AlertDialog,\r\n  AlertDialogTrigger,\r\n  AlertDialogPortal,\r\n  AlertDialogOverlay,\r\n  AlertDialogContent,\r\n  AlertDialogHeader,\r\n  AlertDialogFooter,\r\n  AlertDialogTitle,\r\n  AlertDialogDescription,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n};\r\n",
+        "content": "import * as React from \"react\";\r\nimport * as AlertDialogPrimitive from \"@radix-ui/react-alert-dialog\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * AlertDialog — variante do Dialog pra confirmação destrutiva/crítica.\r\n *\r\n * Diferenças vs. Dialog, TODAS medidas no browser (2026-08-13) e não deduzidas:\r\n *   - `role=\"alertdialog\"` (assistive tech anuncia diferente) ✔ confirmado\r\n *   - Foco inicial no botão `Cancel`, que é o default seguro ✔ confirmado\r\n *   - **Não fecha ao clicar fora** ✔ confirmado — e o Dialog comum, no MESMO teste,\r\n *     fecha. A diferença é real.\r\n *\r\n * ⚠️ **ESC FECHA.** Este bloco afirmava \"não fecha ao clicar fora ou apertar ESC\"; a\r\n * segunda metade era falsa. O Radix trata as duas coisas em canais separados: o\r\n * pointer-down externo o AlertDialog bloqueia, o ESC não. Quem precisasse de uma decisão\r\n * inescapável (o caso que a frase prometia cobrir) sairia daqui acreditando estar\r\n * protegido. Pra travar de verdade, no consumidor:\r\n *\r\n *     <AlertDialogContent onEscapeKeyDown={(e) => e.preventDefault()}>\r\n *\r\n * Estilo alinhado com `.tbl-confirm-dialog` do sandbox: 420px, body 32/28/24,\r\n * radius-2xl, shadow-2xl, outline halo, ícone 56x56 com bg-tone-muted.\r\n *\r\n * Pra um wrapper \"one-shot\" com tone + ícone + botões → use <AlertModal>. Doc e a\r\n * comparação dos três (AlertModal / AlertDialog / Dialog): página `#/alert-dialog`.\r\n */\r\n\r\nconst AlertDialog = AlertDialogPrimitive.Root;\r\nconst AlertDialogTrigger = AlertDialogPrimitive.Trigger;\r\nconst AlertDialogPortal = AlertDialogPrimitive.Portal;\r\n\r\nconst AlertDialogOverlay = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Overlay>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Overlay>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Overlay\r\n    ref={ref}\r\n    className={cn(\r\n      \"fixed inset-0 z-50 bg-black/30 supports-[backdrop-filter]:backdrop-blur-sm\",\r\n      \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n      \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogOverlay.displayName = AlertDialogPrimitive.Overlay.displayName;\r\n\r\nconst AlertDialogContent = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPortal>\r\n    <AlertDialogOverlay />\r\n    <AlertDialogPrimitive.Content\r\n      ref={ref}\r\n      className={cn(\r\n        \"fixed left-[50%] top-[50%] z-50 grid w-full max-w-[calc(100%-2rem)] sm:max-w-[420px]\",\r\n        \"translate-x-[-50%] translate-y-[-50%]\",\r\n        \"rounded-radius-2xl bg-bg-surface text-fg-default\",\r\n        \"border border-border-default shadow-sh-2xl outline-float\",\r\n        \"duration-200\",\r\n        \"data-[state=open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    />\r\n  </AlertDialogPortal>\r\n));\r\nAlertDialogContent.displayName = AlertDialogPrimitive.Content.displayName;\r\n\r\nconst AlertDialogHeader = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col items-center text-center gap-gp-lg\",\r\n      \"px-pad-4xl pt-[32px] pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogHeader.displayName = \"AlertDialogHeader\";\r\n\r\nconst AlertDialogFooter = ({\r\n  className,\r\n  ...props\r\n}: React.HTMLAttributes<HTMLDivElement>) => (\r\n  // Mobile: empilha vertical, confirm em cima (flex-col-reverse põe Cancel embaixo)\r\n  // sm+: lado a lado horizontal, dividindo a largura do footer em partes iguais.\r\n  //\r\n  // O `sm:[&>*]:flex-1` é o que faz os botões OCUPAREM o footer, e ele não é opcional:\r\n  // `items-stretch` age no eixo cruzado, então em `flex-row` ele não estica nada no eixo\r\n  // principal. Sem o flex-1, botão fica na largura do próprio texto e o par encosta à\r\n  // esquerda — que é o oposto do desenho do DS (compare com o `AlertModal`, que\r\n  // compensava passando `fullWidth` em cada Button). A opinião passou pra cá: montar um\r\n  // alert dialog na mão agora sai certo sem ninguém lembrar do `fullWidth`.\r\n  <div\r\n    className={cn(\r\n      \"flex flex-col-reverse items-stretch gap-gp-md sm:flex-row sm:[&>*]:flex-1\",\r\n      \"px-pad-3xl pb-pad-3xl\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n);\r\nAlertDialogFooter.displayName = \"AlertDialogFooter\";\r\n\r\nconst AlertDialogTitle = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Title>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Title>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Title\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-xl font-bold tracking-[-0.01em] text-fg-default leading-tight\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogTitle.displayName = AlertDialogPrimitive.Title.displayName;\r\n\r\nconst AlertDialogDescription = React.forwardRef<\r\n  React.ElementRef<typeof AlertDialogPrimitive.Description>,\r\n  React.ComponentPropsWithoutRef<typeof AlertDialogPrimitive.Description>\r\n>(({ className, ...props }, ref) => (\r\n  <AlertDialogPrimitive.Description\r\n    ref={ref}\r\n    className={cn(\r\n      \"text-body-sm font-normal leading-[1.5] text-fg-muted max-w-[340px]\",\r\n      className,\r\n    )}\r\n    {...props}\r\n  />\r\n));\r\nAlertDialogDescription.displayName =\r\n  AlertDialogPrimitive.Description.displayName;\r\n\r\nconst AlertDialogAction = AlertDialogPrimitive.Action;\r\nconst AlertDialogCancel = AlertDialogPrimitive.Cancel;\r\n\r\nexport {\r\n  AlertDialog,\r\n  AlertDialogTrigger,\r\n  AlertDialogPortal,\r\n  AlertDialogOverlay,\r\n  AlertDialogContent,\r\n  AlertDialogHeader,\r\n  AlertDialogFooter,\r\n  AlertDialogTitle,\r\n  AlertDialogDescription,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n};\r\n",
         "type": "registry:ui",
         "target": "components/ui/alert-dialog.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · alert-dialog · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -65,7 +65,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/AlertModal/USAGE.md",
-        "content": "# AlertModal — USAGE\r\n\r\nModal de confirmação destrutiva com tone semântico (danger/warning/success/neutral).\r\n\r\n## Quando usar\r\n- Confirmar ação destrutiva (excluir, arquivar, revogar)\r\n- Pedir confirmação de decisão crítica antes de executar\r\n\r\n## Import\r\n```tsx\r\nimport { AlertModal } from \"@/components/ui/AlertModal\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `open` | boolean | — | Controla visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | — | Callback de fechamento |\r\n| `tone` | \"default\" \\| \"neutral\" \\| \"danger\" \\| \"warning\" \\| \"success\" | \"default\" | Cor semântica |\r\n| `title` | ReactNode | — | Título do modal |\r\n| `description` | ReactNode | — | Texto explicativo |\r\n| `confirmLabel` | ReactNode | \"Confirmar\" | Conteúdo do botão primary |\r\n| `cancelLabel` | ReactNode | \"Cancelar\" | Conteúdo do botão secondary |\r\n| `hideCancel` | boolean | false | Esconde o botão Cancel (modal de aviso só com OK) |\r\n| `hideClose` | boolean | false | Esconde o botão X de fechar no canto superior direito |\r\n| `onConfirm` | () => void | — | Ação ao confirmar |\r\n| `loading` | boolean | false | Trava interação durante async |\r\n| `icon` | ReactNode \\| null | — | Ícone customizado; `null` esconde; omitir usa o default do tone |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AlertModal\r\n  open={confirmDelete}\r\n  onOpenChange={setConfirmDelete}\r\n  tone=\"danger\"\r\n  title=\"Excluir cliente?\"\r\n  description=\"Esta ação não pode ser desfeita\"\r\n  onConfirm={handleDelete}\r\n/>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Quando `loading=true`, modal **não fecha automaticamente** — consumer chama `onOpenChange(false)` após async terminar\r\n- `tone=\"danger\"` aplica cor critical ao botão de confirm\r\n- `icon={null}` esconde o ícone; **omitir** a prop usa o ícone default do tone (`tone=\"default\"` não tem ícone)\r\n- Pra forçar decisão explícita (sem escape pelo X), use `hideClose`; pra modal informativo só com OK, use `hideCancel`\r\n- Pra \"alert\" não-destrutivo, prefira `<Modal>` simples\r\n",
+        "content": "# AlertModal — USAGE\r\n\r\nModal de confirmação destrutiva com tone semântico (danger/warning/success/neutral).\r\n\r\n## Quando usar\r\n- Confirmar ação destrutiva (excluir, arquivar, revogar)\r\n- Pedir confirmação de decisão crítica antes de executar\r\n\r\n## Import\r\n```tsx\r\nimport { AlertModal } from \"@/components/ui/AlertModal\";\r\n```\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `open` | boolean | — | Controla visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | — | Callback de fechamento |\r\n| `tone` | \"default\" \\| \"neutral\" \\| \"danger\" \\| \"warning\" \\| \"success\" | \"default\" | Cor semântica |\r\n| `title` | ReactNode | — | Título do modal |\r\n| `description` | ReactNode | — | Texto explicativo |\r\n| `confirmLabel` | ReactNode | \"Confirmar\" | Conteúdo do botão primary |\r\n| `cancelLabel` | ReactNode | \"Cancelar\" | Conteúdo do botão secondary |\r\n| `hideCancel` | boolean | false | Esconde o botão Cancel (modal de aviso só com OK) |\r\n| `hideClose` | boolean | false | Esconde o botão X de fechar no canto superior direito |\r\n| `onConfirm` | () => void | — | Ação ao confirmar |\r\n| `loading` | boolean | false | Trava interação durante async — **os 4 caminhos de dismiss**, inclusive ESC |\r\n| `icon` | ReactNode \\| null | — | Ícone customizado; `null` esconde; omitir usa o default do tone |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AlertModal\r\n  open={confirmDelete}\r\n  onOpenChange={setConfirmDelete}\r\n  tone=\"danger\"\r\n  title=\"Excluir cliente?\"\r\n  description=\"Esta ação não pode ser desfeita\"\r\n  onConfirm={handleDelete}\r\n/>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Quando `loading=true`, modal **não fecha automaticamente** — consumer chama `onOpenChange(false)` após async terminar. Vale para **todos** os caminhos: Confirmar, Cancelar, X **e ESC**. O ESC era o que faltava (era o único que não passa por botão): num delete assíncrono ele fechava o modal com a requisição em voo, e o `onOpenChange` do consumidor era chamado. Consertado com `onEscapeKeyDown` + `preventDefault`, então nem o evento chega\r\n- `tone=\"danger\"` aplica cor critical ao botão de confirm\r\n- `icon={null}` esconde o ícone; **omitir** a prop usa o ícone default do tone (`tone=\"default\"` não tem ícone)\r\n- Pra forçar decisão explícita (sem escape pelo X), use `hideClose`; pra modal informativo só com OK, use `hideCancel`\r\n- Pra \"alert\" não-destrutivo, prefira `<Modal>` simples\r\n",
         "type": "registry:file",
         "target": "components/ui/AlertModal/USAGE.md"
       },
@@ -77,7 +77,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/AlertModal/alert-modal.tsx",
-        "content": "import { AlertTriangle, AlertCircle, CheckCircle2, Info, X } from \"lucide-react\";\r\nimport {\r\n  AlertDialog,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n  AlertDialogContent,\r\n  AlertDialogDescription,\r\n  AlertDialogFooter,\r\n  AlertDialogHeader,\r\n  AlertDialogTitle,\r\n} from \"@/components/shadcn/alert-dialog\";\r\nimport { Button } from \"@/components/ui/Button/button\";\r\nimport { alertModalIcon } from \"./alert-modal.styles\";\r\nimport type { AlertModalProps, AlertModalTone } from \"./alert-modal.types\";\r\n\r\n/**\r\n * AlertModal — wrapper \"one-shot\" pro AlertDialog do shadcn.\r\n *\r\n * Cobre o caso comum de \"confirmação destrutiva\" (ex: excluir cliente):\r\n *   <AlertModal\r\n *     open={confirmDelete}\r\n *     onOpenChange={setConfirmDelete}\r\n *     tone=\"danger\"\r\n *     title=\"Excluir cliente?\"\r\n *     description='Esta ação não pode ser desfeita. O cliente \"Maria Silva\" será removido permanentemente.'\r\n *     confirmLabel=\"Excluir cliente\"\r\n *     onConfirm={handleDelete}\r\n *   />\r\n *\r\n * Pra layouts customizados (sem ícone, com input dentro, etc), use o\r\n * <AlertDialog> primitive direto.\r\n */\r\n\r\nconst TONE_ICON: Record<AlertModalTone, React.ReactNode> = {\r\n  default: null,\r\n  neutral: <Info strokeWidth={2.2} />,\r\n  danger:  <AlertTriangle strokeWidth={2.2} />,\r\n  warning: <AlertCircle strokeWidth={2.2} />,\r\n  success: <CheckCircle2 strokeWidth={2.2} />,\r\n};\r\n\r\nconst TONE_BUTTON_COLOR: Record<\r\n  AlertModalTone,\r\n  \"primary\" | \"critical\" | \"warning\" | \"success\"\r\n> = {\r\n  default: \"primary\",\r\n  neutral: \"primary\",\r\n  danger:  \"critical\",\r\n  warning: \"warning\",\r\n  success: \"success\",\r\n};\r\n\r\nexport function AlertModal({\r\n  open,\r\n  onOpenChange,\r\n  tone = \"default\",\r\n  title,\r\n  description,\r\n  confirmLabel = \"Confirmar\",\r\n  cancelLabel = \"Cancelar\",\r\n  hideCancel,\r\n  hideClose,\r\n  onConfirm,\r\n  icon,\r\n  loading,\r\n  className,\r\n}: AlertModalProps) {\r\n  const iconNode = icon === undefined ? TONE_ICON[tone] : icon;\r\n\r\n  const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {\r\n    // Previne o close default do AlertDialogAction se loading — quem chamar\r\n    // controla onOpenChange após o async terminar.\r\n    if (loading) {\r\n      e.preventDefault();\r\n      return;\r\n    }\r\n    onConfirm?.();\r\n  };\r\n\r\n  return (\r\n    <AlertDialog open={open} onOpenChange={onOpenChange}>\r\n      <AlertDialogContent className={className}>\r\n        {!hideClose && (\r\n          <button\r\n            type=\"button\"\r\n            onClick={() => onOpenChange(false)}\r\n            disabled={loading}\r\n            aria-label=\"Fechar\"\r\n            className=\"absolute top-pad-lg right-pad-lg z-10 grid place-items-center size-form-sm rounded-radius-md bg-transparent text-fg-muted opacity-55 transition-[background-color,color,opacity] outline-none hover:bg-bg-muted hover:text-fg-default hover:opacity-100 focus-visible:opacity-100 focus-visible:shadow-sh-ring disabled:pointer-events-none\"\r\n          >\r\n            <X className=\"size-4\" />\r\n          </button>\r\n        )}\r\n        <AlertDialogHeader>\r\n          {iconNode && (\r\n            <div className={alertModalIcon({ tone })} aria-hidden=\"true\">\r\n              {iconNode}\r\n            </div>\r\n          )}\r\n          <AlertDialogTitle>{title}</AlertDialogTitle>\r\n          {description && (\r\n            <AlertDialogDescription>{description}</AlertDialogDescription>\r\n          )}\r\n        </AlertDialogHeader>\r\n        <AlertDialogFooter>\r\n          {!hideCancel && (\r\n            <AlertDialogCancel asChild>\r\n              <Button\r\n                type=\"button\"\r\n                color=\"secondary\"\r\n                variant=\"outline\"\r\n                size=\"md\"\r\n                fullWidth\r\n                disabled={loading}\r\n              >\r\n                {cancelLabel}\r\n              </Button>\r\n            </AlertDialogCancel>\r\n          )}\r\n          <AlertDialogAction asChild>\r\n            <Button\r\n              type=\"button\"\r\n              color={TONE_BUTTON_COLOR[tone]}\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              fullWidth\r\n              loading={loading}\r\n              onClick={handleConfirm}\r\n            >\r\n              {confirmLabel}\r\n            </Button>\r\n          </AlertDialogAction>\r\n        </AlertDialogFooter>\r\n      </AlertDialogContent>\r\n    </AlertDialog>\r\n  );\r\n}\r\n",
+        "content": "import { AlertTriangle, AlertCircle, CheckCircle2, Info, X } from \"lucide-react\";\r\nimport {\r\n  AlertDialog,\r\n  AlertDialogAction,\r\n  AlertDialogCancel,\r\n  AlertDialogContent,\r\n  AlertDialogDescription,\r\n  AlertDialogFooter,\r\n  AlertDialogHeader,\r\n  AlertDialogTitle,\r\n} from \"@/components/shadcn/alert-dialog\";\r\nimport { Button } from \"@/components/ui/Button/button\";\r\nimport { alertModalIcon } from \"./alert-modal.styles\";\r\nimport type { AlertModalProps, AlertModalTone } from \"./alert-modal.types\";\r\n\r\n/**\r\n * AlertModal — wrapper \"one-shot\" pro AlertDialog do shadcn.\r\n *\r\n * Cobre o caso comum de \"confirmação destrutiva\" (ex: excluir cliente):\r\n *   <AlertModal\r\n *     open={confirmDelete}\r\n *     onOpenChange={setConfirmDelete}\r\n *     tone=\"danger\"\r\n *     title=\"Excluir cliente?\"\r\n *     description='Esta ação não pode ser desfeita. O cliente \"Maria Silva\" será removido permanentemente.'\r\n *     confirmLabel=\"Excluir cliente\"\r\n *     onConfirm={handleDelete}\r\n *   />\r\n *\r\n * Pra layouts customizados (sem ícone, com input dentro, etc), use o\r\n * <AlertDialog> primitive direto.\r\n */\r\n\r\nconst TONE_ICON: Record<AlertModalTone, React.ReactNode> = {\r\n  default: null,\r\n  neutral: <Info strokeWidth={2.2} />,\r\n  danger:  <AlertTriangle strokeWidth={2.2} />,\r\n  warning: <AlertCircle strokeWidth={2.2} />,\r\n  success: <CheckCircle2 strokeWidth={2.2} />,\r\n};\r\n\r\nconst TONE_BUTTON_COLOR: Record<\r\n  AlertModalTone,\r\n  \"primary\" | \"critical\" | \"warning\" | \"success\"\r\n> = {\r\n  default: \"primary\",\r\n  neutral: \"primary\",\r\n  danger:  \"critical\",\r\n  warning: \"warning\",\r\n  success: \"success\",\r\n};\r\n\r\nexport function AlertModal({\r\n  open,\r\n  onOpenChange,\r\n  tone = \"default\",\r\n  title,\r\n  description,\r\n  confirmLabel = \"Confirmar\",\r\n  cancelLabel = \"Cancelar\",\r\n  hideCancel,\r\n  hideClose,\r\n  onConfirm,\r\n  icon,\r\n  loading,\r\n  className,\r\n}: AlertModalProps) {\r\n  const iconNode = icon === undefined ? TONE_ICON[tone] : icon;\r\n\r\n  const handleConfirm = (e: React.MouseEvent<HTMLButtonElement>) => {\r\n    // Previne o close default do AlertDialogAction se loading — quem chamar\r\n    // controla onOpenChange após o async terminar.\r\n    if (loading) {\r\n      e.preventDefault();\r\n      return;\r\n    }\r\n    onConfirm?.();\r\n  };\r\n\r\n  return (\r\n    <AlertDialog open={open} onOpenChange={onOpenChange}>\r\n      <AlertDialogContent\r\n        className={className}\r\n        // O 4º caminho de dismiss. Os outros 3 já eram travados no `loading` — Confirmar\r\n        // por `preventDefault`, Cancelar e X por `disabled` — e o ESC escapava porque é o\r\n        // único que não passa por um botão: ia direto pro DismissableLayer do Radix.\r\n        //\r\n        // Sem isto, num delete assíncrono o usuário aperta ESC, o modal desaparece e a\r\n        // requisição segue em voo: a exclusão acontece depois, sem feedback ligado à ação.\r\n        // E quebrava duas promessas escritas do USAGE — \"trava interação durante async\" e\r\n        // \"modal não fecha automaticamente\".\r\n        //\r\n        // `preventDefault` no ESC (e não um guard no `onOpenChange`) é a saída idiomática:\r\n        // barra o dismiss na origem, então o `onOpenChange` do consumidor não é chamado —\r\n        // quem faz `onOpenChange={(o) => { setOpen(o); telemetria(o); }}` não recebe evento\r\n        // fantasma. É o mesmo mecanismo que o gotcha do `alert-dialog` já indicava para\r\n        // decisão inescapável.\r\n        onEscapeKeyDown={(e) => {\r\n          if (loading) e.preventDefault();\r\n        }}\r\n      >\r\n        {!hideClose && (\r\n          <button\r\n            type=\"button\"\r\n            onClick={() => onOpenChange(false)}\r\n            disabled={loading}\r\n            aria-label=\"Fechar\"\r\n            className=\"absolute top-pad-lg right-pad-lg z-10 grid place-items-center size-form-sm rounded-radius-md bg-transparent text-fg-muted opacity-55 transition-[background-color,color,opacity] outline-none hover:bg-bg-muted hover:text-fg-default hover:opacity-100 focus-visible:opacity-100 focus-visible:shadow-sh-ring disabled:pointer-events-none\"\r\n          >\r\n            <X className=\"size-4\" />\r\n          </button>\r\n        )}\r\n        <AlertDialogHeader>\r\n          {iconNode && (\r\n            <div className={alertModalIcon({ tone })} aria-hidden=\"true\">\r\n              {iconNode}\r\n            </div>\r\n          )}\r\n          <AlertDialogTitle>{title}</AlertDialogTitle>\r\n          {description && (\r\n            <AlertDialogDescription>{description}</AlertDialogDescription>\r\n          )}\r\n        </AlertDialogHeader>\r\n        <AlertDialogFooter>\r\n          {!hideCancel && (\r\n            <AlertDialogCancel asChild>\r\n              <Button\r\n                type=\"button\"\r\n                color=\"secondary\"\r\n                variant=\"outline\"\r\n                size=\"md\"\r\n                fullWidth\r\n                disabled={loading}\r\n              >\r\n                {cancelLabel}\r\n              </Button>\r\n            </AlertDialogCancel>\r\n          )}\r\n          <AlertDialogAction asChild>\r\n            <Button\r\n              type=\"button\"\r\n              color={TONE_BUTTON_COLOR[tone]}\r\n              variant=\"filled\"\r\n              size=\"md\"\r\n              fullWidth\r\n              loading={loading}\r\n              onClick={handleConfirm}\r\n            >\r\n              {confirmLabel}\r\n            </Button>\r\n          </AlertDialogAction>\r\n        </AlertDialogFooter>\r\n      </AlertDialogContent>\r\n    </AlertDialog>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/AlertModal/alert-modal.tsx"
       },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · alert-modal · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · alert · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · app-shell · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · aspect-ratio · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · avatar-ig · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · avatar · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · badge · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · breadcrumb · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · button-group · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · button · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · calendar · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · card-checkbox · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · card · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · carousel · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · chart · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · checkbox · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · chip · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · choropleth-map · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · collapsible · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · color-picker · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · combobox · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · command · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · context-menu · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · data-list · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · data-table · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · date-picker · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · dialog · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · drawer · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · dropdown-menu · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1823,7 +1823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · empty-state · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -1864,7 +1864,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-app-shell · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2166,7 +2166,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-chat · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2262,7 +2262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-clientes · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2308,7 +2308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-dashboard · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2359,7 +2359,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-edit-page · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2495,7 +2495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-finance · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2525,7 +2525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-login · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2582,7 +2582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-mapa-rede · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2663,7 +2663,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · example-order-detail · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2713,7 +2713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · file-upload-field · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2781,7 +2781,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · floating-panel · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2823,7 +2823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · footer-table · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -2909,7 +2909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · form-field · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3000,7 +3000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · header · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3024,7 +3024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · hover-card · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3077,7 +3077,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · icon · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3101,7 +3101,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · input-group · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3126,7 +3126,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · input-otp · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3150,7 +3150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · input · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3209,7 +3209,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · kanban · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3271,7 +3271,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · kpi · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3296,7 +3296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · label · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3403,7 +3403,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · list · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3449,7 +3449,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · markdown-text · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3559,7 +3559,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · menu-sidebar · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3584,7 +3584,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · menubar · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3628,7 +3628,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · modal · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3677,7 +3677,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · month-year-picker · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3703,7 +3703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · navigation-menu · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3750,7 +3750,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · page-header · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3775,7 +3775,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · pagination · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3850,7 +3850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · panel · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3874,7 +3874,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · popover · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3898,7 +3898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · progress · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3922,7 +3922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · radio-group · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3946,7 +3946,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · scroll-area · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3971,7 +3971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · select · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -3995,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · separator · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4021,7 +4021,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · sheet · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4128,7 +4128,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4150,7 +4150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · skeleton · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · slider · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4197,7 +4197,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · sonner · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4243,7 +4243,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · spinner · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4267,7 +4267,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · switch · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4346,7 +4346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · table · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4370,7 +4370,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · tabs · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4394,7 +4394,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · textarea · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4412,7 +4412,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · theme-blue · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4430,7 +4430,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · theme-green · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4448,7 +4448,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · theme-pay · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4466,7 +4466,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · theme-vibrant · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4488,7 +4488,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · theme · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4539,7 +4539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · toast · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4565,7 +4565,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · toggle-group · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4590,7 +4590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · toggle · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4614,7 +4614,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · tooltip · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:ui"
   },
@@ -4635,7 +4635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · tv · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   },
@@ -4657,7 +4657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.43.1 · 5d4ec06 · 2026-08-19"
+      "stamp": "igreen-ds · utils · v0.43.2 · f40bcc0 · 2026-08-19"
     },
     "type": "registry:file"
   }
