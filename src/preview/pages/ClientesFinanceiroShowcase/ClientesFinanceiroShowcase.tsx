@@ -360,7 +360,11 @@ function buildColumns(
       field: "_actions",
       headerName: "",
       type: "actions",
-      width: 40,
+      // Sem `width` e sem `pinned`, de propósito — o `type` já entrega os dois:
+      // a largura é DERIVADA do nº de ações (1→44px · 2→74 · 3→104) e acima de 3 elas
+      // colapsam no "…" sozinhas; o pin à direita sai de
+      // `col.pinned ?? (isActions ? "right" : undefined)`. Prop redundante aqui vira prop
+      // copiada em toda tela gerada — o exemplo é a fonte de maior precedência das skills.
       pinned: "right",
       getActions: ({ row }) => {
         const blocked = row.accountStatus === "bloqueado";
@@ -369,14 +373,12 @@ function buildColumns(
             id: "edit",
             label: "Editar dados",
             icon: <Pencil />,
-            showInMenu: true,
             onClick: () => handlers.onEdit(row),
           },
           {
             id: "sacar",
             label: "Realizar saque",
             icon: <Banknote />,
-            showInMenu: true,
             disabled: blocked,
             onClick: () => handlers.onSacar(row),
           },
@@ -384,7 +386,6 @@ function buildColumns(
             id: "history",
             label: "Histórico de saques",
             icon: <History />,
-            showInMenu: true,
             onClick: () =>
               window.alert(`Histórico de ${row.name} — ${row.transactions.length} movimentações (mock).`),
           },
@@ -392,7 +393,6 @@ function buildColumns(
             id: "block",
             label: blocked ? "Desbloquear conta" : "Bloquear conta",
             icon: blocked ? <Unlock /> : <Lock />,
-            showInMenu: true,
             destructive: !blocked,
             onClick: () => handlers.onToggleBlock(row),
           },

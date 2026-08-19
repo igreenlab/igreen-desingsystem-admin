@@ -163,7 +163,11 @@ const COLUMNS: DataTableColumnDef<ClientRow>[] = [
     field: "_actions",
     headerName: "",
     type: "actions",
-    width: 120,
+    // Sem `width` e sem `pinned`, de propósito — o `type` já entrega os dois:
+    // a largura é DERIVADA do nº de ações (1→44px · 2→74 · 3→104) e acima de 3 elas
+    // colapsam no "…" sozinhas; o pin à direita sai de
+    // `col.pinned ?? (isActions ? "right" : undefined)`. Prop redundante aqui vira prop
+    // copiada em toda tela gerada — o exemplo é a fonte de maior precedência das skills.
     pinned: "right",
     getActions: ({ row }) => [
       {
