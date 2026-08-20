@@ -304,8 +304,11 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
   as 5 fases. O "próximo passo" que estava escrito aqui — *"revisitar esse plano"* — era
   inexecutável, e apontar pra ele fazia o item parecer mais pronto do que está.
 
-  **Próximo passo real:** decidir, a partir do resumo acima, se a ideia ainda serve. Se sim, o
-  desenho é redesenho, não resgate. **Lição embutida:** decisão de arquitetura guardada só em
+  ✅ **REDESENHADO em 2026-08-19 → [`.ai/specs/blocks-catalogo-de-composicoes.md`](../specs/blocks-catalogo-de-composicoes.md)**,
+  status `PROPOSTA`, aguardando avaliação do mantenedor. O redesenho não resgatou o plano perdido —
+  partiu do problema (a IA conhece componente e token, não conhece **composição**) e da medição do
+  que já existe: os 34 cards do `#/chart-showcase` já são blocos quase auto-contidos, e o `type` do
+  registry é etiqueta que ninguém lê. **Lição que fica:** decisão de arquitetura guardada só em
   `~/.claude/plans/` não sobrevive — ou entra em `.ai/specs/`, ou não existe.
 
 ---
