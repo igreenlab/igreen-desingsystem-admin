@@ -75,8 +75,30 @@ function citado(texto, nome) {
  *   `faltando` = distribuído mas não citado · `inventados` = citado mas inexistente
  */
 export function checkVocab(vocabText, registry) {
-  const nomes = (registry.items ?? []).map((i) => i.name);
-  const componentes = nomes.filter((n) => !NAO_COMPONENTE.test(n));
+  const itens = registry.items ?? [];
+  const nomes = itens.map((i) => i.name);
+
+  /**
+   * `registry:block` sai da COMPLETUDE — e isto não é exceção ao princípio do gate, é o
+   * princípio aplicado ao caso.
+   *
+   * O gate existe porque "item distribuído que o vocabulário não cita é mentira por omissão: a IA
+   * conclui que não existe e compõe na unha". Pra componente isso vale: a IA escolhe componente
+   * navegando o vocabulário. **Bloco não é escolhido — é citado por ID pelo humano**, e a lista
+   * dele vive num índice GERADO (`skills/ds-kit/blocks-index.md`) que o Passo 0 carrega sob
+   * demanda.
+   *
+   * Exigir linha por bloco aqui teria dois efeitos, os dois ruins: o `ds-components.md` é
+   * `alwaysApply`, então cada bloco novo custaria contexto em 100% das sessões do consumidor pra
+   * sempre; e o crescimento do catálogo (que é o plano — "vai crescer regularmente") passaria a
+   * depender de uma edição manual num arquivo que ninguém lembra de tocar.
+   *
+   * O que continua coberto: o vocabulário **precisa** citar o mecanismo (a seção "Blocos" que
+   * aponta pro índice). Se alguém apagar essa seção, os blocos ficam invisíveis — e é isso que o
+   * teste `vocab-surface` guarda, em vez de contar nomes.
+   */
+  const blocos = new Set(itens.filter((i) => i.type === "registry:block").map((i) => i.name));
+  const componentes = nomes.filter((n) => !NAO_COMPONENTE.test(n) && !blocos.has(n));
   const noRegistry = new Set(nomes);
 
   const faltando = componentes.filter((n) => !citado(vocabText, n)).sort();

@@ -1,50 +1,86 @@
+import type { ComponentType } from "react";
 import {
   DocLayout,
   DocHeader,
   DocSeparator,
   SectionH2,
 } from "../components";
-import {
-  BudgetBreakdownBlock,
-  BLOCK as BUDGET_BREAKDOWN,
-} from "@/blocks/chart/budget-breakdown";
 
 /**
  * Galeria de blocos — categoria Gráficos.
  *
- * Diferença em relação ao `#/chart-showcase`: lá as composições são **definidas na
- * própria página**, como inspiração. Aqui a página **importa** o arquivo do bloco e
- * só o renderiza — o arquivo é a fonte de verdade, então galeria e código não têm
- * como divergir. Ver `.ai/specs/blocks-catalogo-de-composicoes.md` §4.2.
+ * ## Auto-descoberta: criar o arquivo é o único passo
  *
- * Cada bloco expõe um `BLOCK` com `id`, `nome`, `descricao` e `usa` — é daqui que o
- * índice sai (gerado, não escrito à mão) e é o `id` que se cita pra IA reproduzir a
- * composição noutro projeto.
+ * Esta página **não importa bloco por bloco**. Ela varre `src/blocks/chart/*.tsx` com
+ * `import.meta.glob` e monta a galeria a partir do que achar. Bloco novo aparece aqui pelo
+ * simples ato de existir — sem import, sem render, sem entrada de TOC pra editar.
+ *
+ * Antes era manual, e eram 3 edições por bloco. Com o catálogo crescendo "regularmente" (é o
+ * plano), 3 edições por bloco vezes N é onde a divergência nasce: alguém cria o arquivo, esquece
+ * o render, e o bloco existe no registry e não existe na galeria — sem nada acusar.
+ *
+ * ## O contrato que o glob espera
+ *
+ * Cada arquivo exporta:
+ *   - `BLOCK` — `{ id, nome, descricao, usa }`, a identidade (é dela que sai o índice do
+ *     consumidor e o item de registry, via `npm run blocks:build`)
+ *   - **um** componente React, o bloco em si (qualquer nome; pegamos o primeiro export que é
+ *     função e não é `BLOCK`)
+ *
+ * `_shared/` e arquivos com prefixo `_` ficam de fora — são helpers, não blocos. O gate
+ * `blocks-index` reprova arquivo em `src/blocks/**` que não siga o contrato, então a galeria não
+ * precisa se defender de arquivo malformado: ele não chega até aqui.
+ *
+ * ## Diferença em relação ao `#/chart-showcase`
+ *
+ * Lá as composições são **definidas na própria página**. Aqui a página **importa** o arquivo do
+ * bloco — o arquivo é a fonte de verdade, então galeria e código não têm como divergir. Ver
+ * `.ai/specs/blocks-catalogo-de-composicoes.md` §4.2.
  */
+
+type BlockMeta = {
+  id: string;
+  nome: string;
+  descricao: string;
+  usa: readonly string[];
+};
+
+type BlockModule = Record<string, unknown> & { BLOCK?: BlockMeta };
+
+const MODULOS = import.meta.glob<BlockModule>("../../blocks/chart/*.tsx", {
+  eager: true,
+});
+
+/** Extrai `{ meta, Componente }` de cada módulo, ordenado pelo id. */
+const BLOCOS = Object.entries(MODULOS)
+  .flatMap(([caminho, mod]) => {
+    const meta = mod.BLOCK;
+    if (!meta) return [];
+    const Componente = Object.entries(mod).find(
+      ([nome, valor]) => nome !== "BLOCK" && typeof valor === "function",
+    )?.[1] as ComponentType | undefined;
+    if (!Componente) return [];
+    return [{ caminho, meta, Componente }];
+  })
+  .sort((a, b) => a.meta.id.localeCompare(b.meta.id, "en"));
 
 const TOC = [
   { id: "como-usar", label: "Como usar" },
-  { id: BUDGET_BREAKDOWN.id, label: BUDGET_BREAKDOWN.nome },
+  ...BLOCOS.map((b) => ({ id: b.meta.id, label: b.meta.nome })),
 ];
 
 /** Cartão de identificação do bloco — o ID é o que se cita. */
-function BlockMeta({
-  bloco,
-}: {
-  bloco: { id: string; nome: string; descricao: string; usa: readonly string[] };
-}) {
+function BlockMetaCard({ meta }: { meta: BlockMeta }) {
   return (
     <div className="flex flex-col gap-gp-md rounded-radius-lg border border-border-default bg-bg-subtle p-pad-3xl">
       <div className="flex flex-wrap items-center gap-gp-md">
         <code className="rounded-radius-sm bg-bg-muted px-pad-md py-pad-xs text-body-sm font-semibold text-fg-brand">
-          {bloco.id}
+          {meta.id}
         </code>
-        <span className="text-body-md font-medium text-fg-default">{bloco.nome}</span>
+        <span className="text-body-md font-medium text-fg-default">{meta.nome}</span>
       </div>
-      <p className="text-body-sm text-fg-muted">{bloco.descricao}</p>
-      <p className="text-caption-md text-fg-muted">
-        Usa: {bloco.usa.join(" · ")}
-      </p>
+      <p className="text-body-sm text-fg-muted">{meta.descricao}</p>
+      <p className="text-caption-md text-fg-muted">Usa: {meta.usa.join(" · ")}</p>
     </div>
   );
 }
@@ -78,16 +114,16 @@ export function BlocksChartsDoc() {
         composições de referência, feitas com componentes que você já tem.
       </p>
 
-      <DocSeparator />
-
-      <SectionH2
-        id={BUDGET_BREAKDOWN.id}
-        title={BUDGET_BREAKDOWN.nome}
-      />
-      <BlockMeta bloco={BUDGET_BREAKDOWN} />
-      <div className="mt-gp-2xl flex justify-center">
-        <BudgetBreakdownBlock />
-      </div>
+      {BLOCOS.map(({ meta, Componente }) => (
+        <div key={meta.id}>
+          <DocSeparator />
+          <SectionH2 id={meta.id} title={meta.nome} />
+          <BlockMetaCard meta={meta} />
+          <div className="mt-gp-2xl flex justify-center">
+            <Componente />
+          </div>
+        </div>
+      ))}
     </DocLayout>
   );
 }
