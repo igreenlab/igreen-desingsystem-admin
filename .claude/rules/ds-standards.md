@@ -386,7 +386,7 @@ className = "bg-white"; // Switch/Slider thumb (L-014)
 
 ---
 
-## 69 Lições (L-001 a L-069) — resumo
+## 70 Lições (L-001 a L-070) — resumo
 
 Formato completo em `.ai/status/lessons.md`; as absorvidas em gate automático (L-001/002/003/005 no lint, L-017 no `lib-verify`) vivem em `.ai/status/lessons-archive.md` — continuam valendo, o pipeline só já as aplica sozinho. Aqui é o atalho 1-linha de TODAS, ativas e arquivadas — e **isso agora é verificado**:
 `scripts/lib/lessons-index.mjs` (no `npm test`) reprova lição que existe na fonte e não é
@@ -541,6 +541,13 @@ presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.
 > `npm run brand:check` (5 marcas × 10 superfícies, no CI e no `release:check`) +
 > `brand:contrast`. Não reproduza a lista aqui: este arquivo custa em 100% das sessões
 > (item D1 do plano de fechamento).
+
+### Estado desabilitado (lição 2026-08-20)
+- **L-070** `disabled` vai na área que ele desabilita (o `field`), **nunca na raiz** que
+  também embrulha `banner`/aviso. No `MessageComposer` o `pointer-events-none` na raiz
+  apagava e inertizava o botão "Reabrir com template" — a única saída do estado — e o
+  atendente clicava sem efeito. Antes de pôr `pointer-events-none` num container: existe lá
+  dentro alguma ação cuja função é encerrar este estado?
 
 ### Padrão de chart (resumo)
 

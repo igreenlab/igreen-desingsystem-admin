@@ -1640,6 +1640,31 @@ não recebem base · `package.json` sem o ref chumbado.
 
 ---
 
+## [L-070] `disabled` na RAIZ mata a ação que existe para sair do estado
+
+**Erro cometido:** o `MessageComposer` aplicava `opacity-60` + `pointer-events-none` no
+slot `root` quando `state="disabled"`. O `root` é a coluna que contém os TRÊS slots —
+`replyPreview`, `banner` e `field` —, então o tratamento vazava para o banner. E o banner
+é, pelo docblock do próprio componente, o slot do aviso de "janela 24h": é lá que o
+consumidor põe o botão **"Reabrir com template"**, a única forma de sair do estado
+desabilitado. Em produção (20/08/2026, hub, canal OnBoarding), passadas 24h da última
+mensagem do cliente, o composer desabilitava, o aviso aparecia correto, o botão nascia
+**cinza** e o clique **não chegava nele** — em todos os canais e para todos os perfis. O
+caminho de INICIAR conversa é outro componente e seguia funcionando, então a contagem de
+templates enviados continuava saudável e o agregado escondia que metade do fluxo estava
+morta.
+
+**Regra derivada:** estado desabilitado se aplica à área que o estado desabilita — aqui o
+`field` (toolbars + textarea + enviar). NUNCA à raiz que também embrulha aviso, banner ou
+qualquer slot de AÇÃO. Antes de pôr `pointer-events-none` num container, perguntar: existe
+lá dentro alguma ação cuja função é justamente encerrar este estado? Se existe, o alvo está
+errado.
+
+**Contexto:** `MessageComposer/message-composer.styles.ts`. Parente de [[L-031]] — lá o
+`pointer-events` do backdrop matava o gesto; aqui mata a saída.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:

@@ -13,6 +13,7 @@
 - [Índice de componentes](#índice-de-componentes)
 - [Auditoria retroativa v0.3.0 — ARQUIVADA](#auditoria-retroativa-v030-arquivada)
 - [Índice de decisões arquiteturais](#índice-de-decisões-arquiteturais)
+- [2026-08-20 — MessageComposer: `disabled` sai da raiz e vai para o field — CONCLUÍDO](#2026-08-20-messagecomposer-disabled-sai-da-raiz-e-vai-para-o-field-concluído)
 
 <!-- doc-index:fim -->
 
@@ -2972,6 +2973,16 @@ release precisa de bump de CLI**. Embed defasado em `card` + `theme`, que consol
 `Card` nunca ofereceu escolha — 24 era o único valor, então quem usava não escolheu, herdou. Cai se
 alguma tela ficar visivelmente apertada em 20; sinal disso é reclamação sobre densidade, e a saída
 é `size="lg"` no caso específico, não voltar o default.
+
+## 2026-08-20 — MessageComposer: `disabled` sai da raiz e vai para o field — CONCLUÍDO
+- **Tarefa**: edição visual de componente existente (`message-composer.styles.ts` APENAS). `state="disabled"` aplicava `opacity-60` + `pointer-events-none` no slot `root`; passa a aplicar no slot `field`.
+- Gate: mantenedor autorizou explicitamente, com o defeito reproduzido em produção (print do botão cinza + vídeo do clique sem efeito).
+- **Por quê**: o `root` embrulha `replyPreview` + `banner` + `field`. O banner é o slot do aviso de janela de 24h e contém o botão "Reabrir com template" — a única saída do estado desabilitado. Com o tratamento na raiz, o botão nascia cinza e o clique não chegava nele.
+- **Escopo do efeito**: o `field` (toolbarStart + textarea/recording + toolbarEnd + send) mantém o comportamento de antes — textarea e enviar já têm `disabled` próprio, e emoji/anexo/microfone seguem dentro do field. O que muda é `banner` e `replyPreview` voltarem a receber clique.
+- Zero token novo, zero componente novo, zero dependência nova.
+- Assumption: nenhum consumidor depende de o banner ser inerte em `state="disabled"` — o banner existe justamente para oferecer a ação de saída, como o próprio docblock do componente declara.
+- Lição nova: **L-070**, com resumo em `ds-standards.md`.
+- Nota de contexto: o hub consome o DS num pin antigo (v0.5.1-164). O mesmo conserto foi aplicado em branch própria sobre esse pin (`fix/composer-banner-clicavel`) para o hub poder mover o ponteiro sem saltar 799 commits — a convergência das duas linhas é decisão à parte do mantenedor.
 
 ---
 
