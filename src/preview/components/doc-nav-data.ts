@@ -139,6 +139,14 @@ const BASE_NAV: DocNavSection[] = [
     ],
   },
   {
+    // Blocks é linha PRÓPRIA, separada de Components e de Charts de propósito:
+    // bloco não é componente (não tem props, versão nem instalação) e não é
+    // exemplo de tela. É composição referenciável por ID. Ver
+    // `.ai/specs/blocks-catalogo-de-composicoes.md` §2.
+    title: "Blocks",
+    items: [{ label: "Gráficos", href: "blocks-charts" }],
+  },
+  {
     title: "Data Table Components",
     items: [
       // Componentes da família data-display

@@ -44,7 +44,16 @@ import { resolveBaseRefFromGit } from "./lib/canonical-base-ref.mjs";
 // quem re-sincroniza um primitivo adapta pros tokens DS na MESMA passagem — que
 // já é a regra do repo (L-039/L-040), agora obrigatória. Se um dia atrapalhar um
 // re-sync grande, a saída não é afrouxar o pattern.
-const GLOB = ["src/components/**/*styles.ts", "src/components/**/*.tsx"];
+// `src/blocks/**` ENTRA (2026-08-19): bloco não é demo — é a fonte de um padrão que
+// alguém vai copiar confiando. Bloco ensinando `gap-4` em vez de `gap-gp-md` é o mesmo
+// defeito que custou duas vezes em 2026-08-19 (exemplo canônico ensinando o contrário
+// da regra). Medido antes de ligar: o glob de `src/components/**` NÃO alcançava
+// `src/blocks/`, então o lint passaria limpo por ausência, não por conformidade.
+const GLOB = [
+  "src/components/**/*styles.ts",
+  "src/components/**/*.tsx",
+  "src/blocks/**/*.tsx",
+];
 
 // Rodando dentro do GitHub Actions? Lá, além do log humano, emitimos workflow
 // commands (`::error file=…,line=…::`) — o GitHub transforma isso em anotação

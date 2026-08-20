@@ -2865,3 +2865,110 @@ Scrims descartado por decisão dele, com a razão registrada em vez de apagada.
 **Assumption:** que nenhum consumidor depende de um FloatingPanel mais largo que a janela. Vale
 porque isso é sempre defeito visual, nunca escolha. Quebra se alguém usar o painel como canvas com
 scroll horizontal próprio — nesse caso o `className` do root ainda sobrescreve o `max-w`.
+
+---
+
+### 2026-08-19 | ds-dev | Card ganha `size` e header em faixa — e 5 desvios que só apareceram comparando | CONCLUÍDO
+
+**Como começou:** o mantenedor pediu o primeiro bloco (Fase 0 da spec de Blocos) reproduzindo um
+card do `#/chart-showcase`. Ao comparar o bloco com o card original ele apontou *"o título e o
+subtítulo ficaram com gaps diferentes e também as cores"* — e essa comparação destravou tudo o
+que veio depois.
+
+**O que a comparação revelou, e nenhum era estético.** O `Card` do DS divergia do helper local do
+showcase em 5 pontos, e em 3 deles o **componente** era o desviante:
+
+    CardHeader gap        6px (gp-sm)     → 2px (gp-2xs)     decisão do mantenedor
+    padding               24px fixo       → size sm/md/lg    16 / 20 / 24, md default
+    header em faixa       não existia     → variant="banded" era composição local em 2 telas
+    CardTitle             font-medium     → (sem override)   ANULAVA o próprio preset
+    CardDescription       body-md 14px    → caption-md 12px  decisão do mantenedor
+
+**O do título é o mais grave, e eu escopei errado antes de medir.** `text-title-md` **já emite
+`font-weight: 600`** (conferido no tema gerado), o token declara *"title: 600 — mais usado no
+projeto"* e o `DESIGN.md:340` lista `title-md · 600 · Card title (default)`. O `font-medium` no
+`CardTitle` derrubava pra 500 — sem documentação, contra o spec, e o helper local do showcase
+estava **certo**. Minha primeira tentativa escopou o semibold só na faixa, com um
+`CardHeaderVariantContext` inteiro pra isso; ao ler o `DESIGN.md` a resposta virou "remover o
+override", e o contexto foi embora como código morto.
+
+**O token: a família existia PARA isto e o `Card` era quem não a usava.** `padCard` (`base` 24,
+`sm` 16) é a família dedicada a padding de card — consumida por `hover-card`, `Table` e 5 páginas
+do showcase. O `Card` usava `px-pad-4xl py-pad-4xl`, a escala genérica.
+
+Ao ganhar 3 densidades, `base` virou nome ruim (deveria significar "o default", e o default passou
+a ser 20). Três saídas foram medidas e o mantenedor escolheu a terceira:
+
+    (a) base=24 e mapear size="lg" → base          nome assimétrico pra sempre
+    (b) remover base, migrar tudo pra lg           QUEBRA consumidor: 2 usos vivem no embed do
+                                                   registry, ou seja no código de quem rodou
+                                                   `igreen:add hover-card`. Classe removida para
+                                                   de emitir CSS — falha silenciosa (L-019)
+    (c) base = md = 20px                            classe continua existindo, nada quebra, só
+                                                   muda pixel  ← ESCOLHIDA
+
+Alcance medido antes de decidir: 20 em `src/`, 5 em `cli/templates/`, 4 em `.claude/`, 5 em
+`.ai/`, **2 no embed**. Consequência aceita: tudo que usava `base` foi 24 → 20 (o `hover-card`, o
+corpo do `FloatingPanel` e 5 páginas do showcase).
+
+**O subtítulo: `caption-md` e não `body-xs`, por PESO.** Os dois são 12px. `body-xs` é 12/**500**,
+o que deixaria o subtítulo **mais pesado** que os 400 de antes e pediria um `font-normal` por cima
+— reintroduzindo exatamente o override de preset que acabou de sair do `CardTitle`. `caption-md` é
+12/400: só o tamanho muda. E é o que o `CardCheckbox.description` já usava, o análogo mais próximo.
+
+**Mecânica da faixa, pra quem for mexer.** Ela cancela o `py` do Card com `-mt-*` do mesmo `size`
+e arredonda as quinas de cima com `rounded-t-*` — **não** `overflow-hidden` no Card, que clipa
+qualquer coisa que precise vazar dele. Medido: `margin-top -20px`, distância ao topo **0**,
+largura 314/314 (full-bleed), raio 10px.
+
+**Tokens da faixa: o mantenedor manteve `bg-subtle`/`border-subtle` da referência, contra a minha
+medição — e provavelmente ele está certo.** Eu havia trocado pra `bg-muted` porque no dark o
+`subtle` é 1% de branco sobre surface 0.225 (~0,8pp, faixa quase invisível) e no light os dois são
+idênticos (0.973). Ele desenhou a tela de referência e aprovou aquele visual: é restrição
+intencional, não descuido meu ter achado, e a medição fica registrada no componente pra o próximo
+não achar que é bug.
+
+**As 7 superfícies de instrução que estavam desatualizadas.** A pior era
+`cli/templates/.../skills/cards/SKILL.md`, que a IA do consumidor lê: listava classes pra replicar
+o card **na unha**, e 3 delas divergiam do componente real (`radius-lg` vs `radius-base`, `border`
+vs `ring-1`, `sh-md` vs `sh-lg`). Mais `ds-design.md`, `DESIGN.md` (raiz e template),
+`doc-guide.md`, `chart-patterns.md` e `.ai/context/tokens/spacing.md`.
+
+**A última só apareceu porque ele perguntou** *"arrumamos as referências que constroem o card,
+correto?"*: minha varredura tinha mirado só em **padding**, e mudaram três coisas. O
+`chart-patterns.md` apresentava o `CardHead` **local** como *"padrão de header título+subtítulo"* —
+e agora divergente de verdade (subtítulo local é `body-sm`/13px, do componente é `caption-md`/12px).
+
+**Dois defeitos de carona, nenhum sobre Card**, achados no `doc-guide.md`:
+`p-pad-4xl` documentado como *"não existe"* (existe, **79 usos**), e `text-label-*`/
+`text-paragraph-*` mandados como presets canônicos — **nenhum emite CSS**, são a nomenclatura V2
+extinta. Classe inexistente falha em **silêncio**: sem erro de build, sem `tsc`, o texto renderiza
+no default do browser.
+
+**Não virou gate, e as duas hipóteses foram medidas.** Estender o `dead-ds-classes` pra `.ai/` e
+`.claude/`: **0 achados** em 54 arquivos. Família de tipografia no gate: 10 achados, **10 ruído**
+(todos `text-display-sm|xs`, que são o texto da L-032 avisando que não existem); nome extinto: 68,
+todos em `audits/`/`archive/`/planos antigos ou avisos, e a L-019 manda preservar essas pastas. O
+conhecimento já está no ponto de uso — `spec-component.md:42` já diz *"⛔ `text-label-*` NÃO
+existe"*. O `doc-guide.md` era o único lugar que contradizia.
+
+**Três erros meus no caminho, todos pegos por instrumento e não por revisão.** (1) O exemplo da
+faixa que eu escrevi passava `flex-row` sem `flex` — `flex-row` não troca `display`, o `CardHeader`
+seguia `grid` e o botão caía embaixo do título; **o mantenedor viu no browser antes de mim**, e o
+bloco de código que se copia ensinava o errado. (2) Backticks num comentário **dentro do template
+literal** do `code={...}` fecharam a string — `tsc` pegou na hora. (3) Comentário JSX antes do
+elemento raiz no bloco, mesma coisa.
+
+**O bloco `dsgreen-chart-1` entra junto**, e por dependência real: ele passou a consumir
+`size="md"` em vez de escrever `px-*`/`p-0` na mão. Eu havia recomendado duas PRs separadas; com o
+bloco consumindo a API nova, separar criaria pilha — e pilha de PR já é dor registrada aqui. Uma PR.
+
+**Estado:** tsc 0 · 54 arquivos / 662 testes · lint limpo no bloco e no card. `cli:rebake` rodado
+(9 foundationals, porque tema é foundational e o gate `runtime-base` reprovou até rodar) → **a
+release precisa de bump de CLI**. Embed defasado em `card` + `theme`, que consolida no
+`/ds-release` (Regra 8).
+
+**Assumption:** que ninguém dependia dos 24px como padding de card *por decisão*. Vale porque o
+`Card` nunca ofereceu escolha — 24 era o único valor, então quem usava não escolheu, herdou. Cai se
+alguma tela ficar visivelmente apertada em 20; sinal disso é reclamação sobre densidade, e a saída
+é `size="lg"` no caso específico, não voltar o default.

@@ -95,12 +95,16 @@ Radial "track" (faixa-guia atrás da barra parcial):
 
 ## 5. Composição (cards de dashboard)
 
-Catálogo em `ChartShowcaseDoc.tsx`. Blocos reutilizáveis dessa página:
+Catálogo em `ChartShowcaseDoc.tsx`. Os "blocos" abaixo são **helpers LOCAIS daquela página**, não componentes do DS — a tabela existe pra você entender o que está lendo lá, não pra replicar.
+
+⚠️ **Pra card novo, use o `Card` do DS** (`@/components/shadcn/card`), que desde 2026-08-19 cobre o que o `Panel`/`CardHead` locais faziam: `size` (`sm` 16 · `md` 20 · `lg` 24) escalando o padding de todas as partes, `CardHeader variant="banded"` pro header em faixa, título já semibold pelo preset e `CardDescription` em `caption-md`. Os helpers locais divergem dele em detalhe (o subtítulo deles é `body-sm`/13px, o do componente é `caption-md`/12px) — replicar na unha reintroduz a divergência.
+
+Blocos locais dessa página:
 
 | Bloco | O que é |
 |---|---|
-| `Panel` | wrapper do card (`rounded-radius-lg bg-bg-surface p-pad-4xl shadow-sh-lg ring-1`). Largura via `className="max-w-[NNNpx]"` |
-| `CardHead` | título (`text-title-md font-semibold`) + subtítulo (`text-body-sm text-fg-muted`) + ação opcional. **Padrão de header título+subtítulo** |
+| `Panel` | wrapper do card (`rounded-radius-lg bg-bg-surface p-pad-4xl shadow-sh-lg ring-1`) — **fork local do `Card`**, com radius e padding próprios. Largura via `className="max-w-[NNNpx]"` |
+| `CardHead` | título (`text-title-md font-semibold`) + subtítulo (`text-body-sm text-fg-muted`) + ação opcional. **Equivalente local do `CardHeader`+`CardTitle`+`CardDescription`** — em card novo prefira o componente |
 | `KPI_LABEL` + `KPI_VALUE` | header de KPI: label `caption-md` muted + valor **30px** bold. Para cards cujo cabeçalho é um número de destaque (ex: SaaS revenue, Revenue Performance, Crypto) |
 | `SectionLabel` | cabeçalho de categoria (full-width, `caption-md` uppercase muted + divider) |
 

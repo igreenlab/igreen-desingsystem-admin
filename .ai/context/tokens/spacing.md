@@ -63,8 +63,22 @@ Paddings recorrentes compartilhados por múltiplos componentes.
 
 | Token | Valor | Classe |
 |-------|-------|--------|
-| `padCard.base` | 24px | `p-pad-card-base` |
 | `padCard.sm` | 16px | `p-pad-card-sm` |
+| `padCard.md` | **20px** | `p-pad-card-md` |
+| `padCard.lg` | 24px | `p-pad-card-lg` |
+| ~~`padCard.base`~~ | 20px | `p-pad-card-base` |
+
+Mapeamento pro componente: `sm` → `<Card size="sm">` · `md` → **`size="md"`, o DEFAULT** ·
+`lg` → `size="lg"`.
+
+⚠️ **No `<Card>` a densidade vem da prop `size`, não da classe.** Ela escala `CardHeader`,
+`CardContent` e `CardFooter` juntos, por contexto. Escrever `p-pad-card-*` na mão dentro de um
+Card é o erro que deixa uma parte com densidade diferente do resto.
+
+⚠️ **`base` virou alias de `md` (20px) em 2026-08-19, não foi removido.** Tinha 36 referências,
+**2 delas no embed do registry** — ou seja, no código de quem já rodou `igreen:add hover-card`.
+Remover faria a classe parar de emitir CSS: falha silenciosa, sem erro de build nem de `tsc`
+(L-019). Quem usava `base` recebe 20 em vez de 24; nada quebra. Código novo usa `sm`/`md`/`lg`.
 
 ### `padPage` — padding de body/page content
 > CSS var: `--spacing-pad-page-*` → classe: `p-pad-page-*`, `px-pad-page-*`
@@ -123,7 +137,7 @@ KPI, listas de chip etc, continuar usando `gap-gp-*` semânticos.
 | Gap entre seções de página | `gap` | `gap-gp-3xl` |
 | **Gap entre fields de formulário** | **`formGap`** | **`gap-form-gap`** |
 | Padding interno de botão/input | `pad` | `px-pad-lg` |
-| Padding interno de card | `padCard` | `p-pad-card-base` |
+| Padding interno de card | `padCard` | prop `size` no `<Card>`; fora dele `p-pad-card-md` |
 | Padding lateral de página | `padPage` | `px-pad-page-base` |
 | Margin genérica, offset | `space` | `m-sp-md` |
 
