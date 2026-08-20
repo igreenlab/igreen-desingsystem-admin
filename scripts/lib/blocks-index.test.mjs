@@ -151,6 +151,26 @@ export function X() { return null; }
     expect(blocos[0].descricao).toContain("e pronto.");
   });
 
+  it("a ordem é NUMÉRICA — o 10º bloco não entra entre o 1º e o 2º", () => {
+    // O defeito que este teste guarda só apareceria no 10º bloco: em ordem lexicográfica
+    // "dsgreen-chart-10" < "dsgreen-chart-2", porque compara o caractere "1" com "2".
+    // Com 9 blocos tudo parece certo, e a partir do 10º a galeria e o índice ficam
+    // embaralhados pra sempre — sem ninguém ligar a ordem esquisita a uma linha de sort.
+    const fonte = (id) =>
+      `export const BLOCK = { id: "${id}", nome: "N", descricao: "D", usa: ["Card"] } as const;` +
+      ` export function X() { return null; }`;
+    const ids = ["dsgreen-chart-11", "dsgreen-chart-2", "dsgreen-chart-1", "dsgreen-chart-10"];
+    const { blocos, achados } = coletarBlocos(
+      ids.map((id, i) => ({ arquivo: `src/blocks/chart/x${i}.tsx`, fonte: fonte(id) })),
+    );
+    expect(achados).toEqual([]);
+    expect(blocos.map((b) => b.id)).toEqual([
+      "dsgreen-chart-1",
+      "dsgreen-chart-2",
+      "dsgreen-chart-10",
+      "dsgreen-chart-11",
+    ]);
+  });
   it("descrição em múltiplas linhas vira uma linha só (a tabela do índice é markdown)", () => {
     const fonte = `
 export const BLOCK = {

@@ -62,7 +62,10 @@ const BLOCOS = Object.entries(MODULOS)
     if (!Componente) return [];
     return [{ caminho, meta, Componente }];
   })
-  .sort((a, b) => a.meta.id.localeCompare(b.meta.id, "en"));
+  // `numeric: true` — sem ele o `dsgreen-chart-10` apareceria entre o 1 e o 2 (compara
+  // "1" com "2", não 10 com 2). Mesma ordenação do gerador do índice, de propósito:
+  // galeria e índice do consumidor listando em ordens diferentes é confusão gratuita.
+  .sort((a, b) => a.meta.id.localeCompare(b.meta.id, "en", { numeric: true }));
 
 const TOC = [
   { id: "como-usar", label: "Como usar" },
