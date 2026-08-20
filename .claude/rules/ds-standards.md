@@ -301,6 +301,13 @@ Formato completo em `.ai/status/lessons.md`. Aqui é o atalho 1-linha:
 ### Charts / Recharts 3 (lições v0.9.x)
 - **L-032** **Recharts 3 tem caveats que quebram mudo.** (1) `text-display-sm`/`text-display-xs` **não existem** (renderizam 14px) → KPI usa `heading-sm`/`heading-xs`/`display-md`. (2) Pizza: sem `activeIndex`/`activeShape` → prop `shape={(props,index)=><Sector/>}`. (3) Radial empilhado/gauge parcial → `<PolarAngleAxis type="number" domain={[0,total]} />`. (4) Eixo Y omite tick de borda (ex: `0`) → `interval={0}`; e `domain` máximo **= maior tick** (senão linha-guia duplicada no topo). (5) Grid via token `chart-grid` (`--color-chart-grid`), reescrito no `ChartContainer` — não passar `stroke`. Padrões completos: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md`.
 
+### Estado desabilitado (lição 2026-08-20)
+- **L-033** `disabled` vai na área que ele desabilita (o `field`), **nunca na raiz** que
+  também embrulha `banner`/aviso. No `MessageComposer` o `pointer-events-none` na raiz
+  apagava e inertizava o botão "Reabrir com template" — a única saída do estado — e o
+  atendente clicava sem efeito. Antes de pôr `pointer-events-none` num container: existe lá
+  dentro alguma ação cuja função é encerrar este estado?
+
 ### Padrão de chart (resumo)
 ```
 Gráfico SEMPRE em <ChartContainer config={...}>; cor SÓ por token (chart-1..5 / config keys).

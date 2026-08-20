@@ -2201,3 +2201,12 @@
 - Visual: camada flutuante unificada com Popover/DropdownMenu (`bg-bg-dropdown` + border-default + `before:backdrop-blur-2xl`), radius-md (8px, menor que os 12px dos menus), `text-body-xs`, sem seta, sem mobile-sheet (tooltip é hover/focus-only). Provider com delay 300ms default. Zero token novo.
 - Dep nova: `@radix-ui/react-tooltip` ^1.2.0. Exports nos 2 barrels; inventory.md atualizado (saiu de "planejados").
 - Assumption: não existia Tooltip equivalente no DS (inventário listava como planejado); o visual de camada flutuante existente serve tooltip sem token novo. Consumo no hub via DS-como-source (ui/ resolve a dep).
+
+## 2026-08-20 — MessageComposer: `disabled` sai da raiz e vai para o field — CONCLUÍDO
+- **Tarefa**: edição visual de componente existente (`message-composer.styles.ts` APENAS). `state="disabled"` aplicava `opacity-60` + `pointer-events-none` no slot `root`; passa a aplicar no slot `field`.
+- Gate: mantenedor autorizou explicitamente (defeito reportado em produção; escolheu o conserto no DS em vez do contorno no app).
+- **Por quê**: o `root` embrulha `replyPreview` + `banner` + `field`. O banner é o slot do aviso de janela de 24h e contém o botão "Reabrir com template" — a única saída do estado desabilitado. Com o tratamento na raiz o botão nascia cinza e o clique não chegava nele: o atendente via a saída e clicava sem efeito, no canal OnBoarding e em todos os outros.
+- **Escopo do efeito**: o `field` (toolbarStart + textarea/recording + toolbarEnd + send) mantém exatamente o comportamento de antes — textarea e enviar já tinham `disabled` próprio, e as ações de emoji/anexo/microfone continuam inertes por estarem dentro do field. O que muda é `banner` e `replyPreview` voltarem a receber clique.
+- Zero token novo, zero componente novo, zero dependência nova.
+- Assumption: nenhum consumidor depende de o banner ser inerte em `state="disabled"` — o banner existe justamente para oferecer a ação de saída (o próprio docblock do componente o define como slot do aviso de "janela 24h").
+- Lição nova: **L-033** registrada (`disabled` na raiz mata a ação que existe para sair do estado), com resumo em `ds-standards.md`.

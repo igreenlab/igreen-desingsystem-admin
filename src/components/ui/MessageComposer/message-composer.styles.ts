@@ -21,6 +21,12 @@ import { tv, type VariantProps } from "@/utils/tv";
  * `state` controla a aparência da moldura (open = editável, disabled = apagado,
  * read-only = sem campo, mostra banner). `disabled` é o ÚLTIMO compoundVariant
  * (L-006). `size` ajusta padding/min-height do field e da textarea.
+ *
+ * O `disabled` apaga e inertiza o **field**, NUNCA o root. O banner é o slot do
+ * aviso de janela de 24h, e é dentro dele que mora a ação de SAIR do estado
+ * desabilitado ("Reabrir com template"). Com `opacity-60` + `pointer-events-none`
+ * na raiz, esse botão nascia cinza e o clique não chegava nele — o composer
+ * desabilitava a única saída que oferecia. Ver [[L-033]].
  */
 export const messageComposerStyles = tv({
   slots: {
@@ -66,7 +72,7 @@ export const messageComposerStyles = tv({
     },
     state: {
       open: {},
-      disabled: { root: "opacity-60" },
+      disabled: { field: "opacity-60" },
       "read-only": {},
     },
   },
@@ -74,7 +80,7 @@ export const messageComposerStyles = tv({
     // disabled SEMPRE por último (L-006)
     {
       state: "disabled",
-      class: { root: "pointer-events-none" },
+      class: { field: "pointer-events-none" },
     },
   ],
   defaultVariants: {

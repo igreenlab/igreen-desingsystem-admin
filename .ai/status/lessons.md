@@ -780,6 +780,31 @@ diferente do maior tick desenhou uma linha-guia duplicada no topo; (6) o grid us
 
 ---
 
+## [L-033] `disabled` na RAIZ mata a ação que existe para sair do estado
+
+**Erro cometido:** o `MessageComposer` aplicava `opacity-60` + `pointer-events-none` no
+slot `root` quando `state="disabled"`. O `root` é a coluna que contém os TRÊS slots —
+`replyPreview`, `banner` e `field` —, então o tratamento vazava para o banner. E o banner
+é, por definição do próprio componente, o slot do aviso de "janela de 24h": é lá que mora
+o botão **"Reabrir com template"**, a única forma de sair do estado desabilitado.
+Resultado em produção (20/08/2026, canal OnBoarding): passadas 24h da última mensagem do
+cliente, o composer desabilitava, o aviso aparecia corretamente, o botão nascia **cinza** e
+o clique **não chegava nele**. O atendente via a saída, clicava, e nada acontecia — em
+todos os canais e para todos os perfis. O caminho de INICIAR conversa (outro componente)
+seguia funcionando, então as métricas de envio de template continuavam saudáveis: o número
+agregado escondia que metade do fluxo estava morta.
+
+**Regra derivada:** estado desabilitado se aplica à área que o estado desabilita — aqui o
+`field` (toolbars + textarea + enviar). NUNCA à raiz que também embrulha aviso, banner ou
+qualquer slot de AÇÃO. Antes de pôr `pointer-events-none` num container, perguntar: existe
+dentro dele alguma ação cuja função é justamente encerrar este estado? Se existe, o alvo
+está errado.
+
+**Contexto:** `MessageComposer/message-composer.styles.ts` (v0.9.x). Parente de [[L-031]] —
+lá o `pointer-events` do backdrop matava o gesto; aqui mata a saída.
+
+---
+
 ## Como adicionar nova lição
 
 Quando o Claude cometer um erro não listado aqui:
