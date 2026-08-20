@@ -14,6 +14,7 @@
 - [Auditoria retroativa v0.3.0 — ARQUIVADA](#auditoria-retroativa-v030-arquivada)
 - [Índice de decisões arquiteturais](#índice-de-decisões-arquiteturais)
 - [2026-08-20 — MessageComposer: `disabled` sai da raiz e vai para o field — CONCLUÍDO](#2026-08-20-messagecomposer-disabled-sai-da-raiz-e-vai-para-o-field-concluído)
+- [O achado da rodada: o gate de import relativo era cego a bloco](#o-achado-da-rodada-o-gate-de-import-relativo-era-cego-a-bloco)
 
 <!-- doc-index:fim -->
 
@@ -3100,3 +3101,56 @@ não o hook — confirmado com `String.fromCharCode(92)`.
 **Assumption:** que o hook é suficiente sem skill de bloco. Ele avisa no momento do Write, que é
 quando a informação vale; a skill ensinaria a **compor** o bloco, e pra isso ainda não há padrão —
 1 bloco não é amostra. Cai quando o 2º e o 3º bloco mostrarem o que repete.
+
+---
+
+### 2026-08-20 | ds-dev | CLI 0.25.8: o payload dos blocos ficou 1 commit atrás do publish | CONCLUÍDO
+
+**Input:** "pode finalizar para eu poder dar o publish?" — o mantenedor viu que o índice de blocos
+estava no repo mas não no CLI publicado.
+
+**Medido, não presumido.** `git log 6727555..HEAD -- cli/templates/` deu **1** commit depois do bump
+0.25.7: o `5136238` (infra dos blocos), tocando 3 arquivos do payload — `blocks-index.md` (o índice
+**inteiro**, que é o arquivo que o Passo 0 lê), `ds-kit/SKILL.md` (a versão do Passo 0 que aponta pro
+índice, contra a 0.25.7 que manda *procurar* em `src/blocks/**`) e `rules/ds-components.md` (a linha
+"Blocos"). Ou seja: quem instalasse hoje recebia a orientação **anterior** ao índice.
+
+**`cli:rebake` rodado antes do bump, e deu no-op de conteúdo** — a única modificação foi
+line-ending (o rebake escreve LF, o arquivo tracked é CRLF), `git diff --numstat` vazio. Revertido
+pra não entrar ruído de EOL no commit. Nenhum foundational mudou desde a 0.25.7; o que faltava era
+só a versão.
+
+**Verificado no tarball, não no `files` do package.json:** `npm pack --dry-run` lista os 3 arquivos
+(`blocks-index.md` 2.1kB · `ds-kit/SKILL.md` 13.3kB · `ds-components.md` 12.1kB), 74 arquivos, 253kB.
+E o item de registry resolve: `name: dsgreen-chart-1`, `target: blocks/chart/budget-breakdown.tsx` →
+o `localPath` do `igreen-add.mjs` prefixa `src/`, batendo com o caminho que o índice publica.
+
+## O achado da rodada: o gate de import relativo era cego a bloco
+
+Conferindo se o bloco sobrevive ao copy-in, caí no motivo pelo qual ele sobrevive: o comentário do
+check 0 do `registry-check` diz que **o copy-in só reescreve import por ALIAS**
+(`@/components/shadcn/X` → `ui/X`) e **preserva** o relativo — que então aponta pra uma pasta
+`shadcn/` que não existe no consumidor (o `components.json` do template só tem alias `ui`, e não há
+pasta `shadcn/`). O bloco usa alias, então passa.
+
+**Mas a varredura era só `src/components/ui`.** Bloco é item de registry (`registry:block`), chega
+pelo mesmo copy-in, e não estava coberto — porque quando o gate nasceu, bloco não existia. Pior: o
+padrão só casava `../` repetido seguido DIRETO de `shadcn/`, e do `src/blocks/chart/x.tsx` a forma relativa é
+`../../components/shadcn/card`, **com `components/` no meio** — o padrão antigo atravessaria a
+violação sem ver mesmo se a pasta estivesse na lista.
+
+Agora varre `["src/components/ui", "src/blocks"]` com `(components/)?` no padrão.
+
+**Provado com o defeito real (L-064), não com teste escrito do meu modelo mental:** troquei o import
+do bloco por `../../components/shadcn/card` e rodei — `exit 1`, apontando arquivo e o import literal.
+Restaurado: `exit 0`. Reproduzir primeiro é o que separa gate de decoração.
+
+**Estado:** tsc 0 · 55 arquivos / **682 testes**, 0 falha · `release:check` exit 0 ·
+`✓ ui/ + blocks/: sem import relativo pra shadcn/`.
+
+**Assumption:** que alias é o único jeito de import cross-dir sobreviver ao copy-in — é o que o
+comentário do gate afirma desde o bug do `Modal` (`"../../shadcn/dialog"`), e o `components.json` do
+template confirma (alias `ui`, sem pasta `shadcn/`). Cai se o transform do `shadcn add` passar a
+reescrever relativo; aí o gate fica conservador, não errado.
+
+**Publish:** fora do meu escopo (L-020). Entregue com o bump e os gates verdes pro mantenedor rodar.

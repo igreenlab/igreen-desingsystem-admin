@@ -31,11 +31,18 @@ const isCi = process.argv.includes("--ci");
 let fail = 0;
 const r = JSON.parse(readFileSync("registry.json", "utf8"));
 
-// 0. componentes ui/ NÃO importam shadcn/ por caminho RELATIVO. O copy-in só
+// 0. código distribuído NÃO importa shadcn/ por caminho RELATIVO. O copy-in só
 //    reescreve import por ALIAS (@/components/shadcn/X → ui/X); relativo é
 //    PRESERVADO → aponta pra shadcn/ que não existe no consumidor → crash do app
 //    inteiro (bug real: Modal importava "../../shadcn/dialog"). Gate standing — o
 //    warning do registry-add-item é propose-time e não pega débito legado.
+//
+//    ⚠️ `src/blocks/` entra aqui junto de `ui/`: bloco também é item de registry
+//    (`registry:block`), também chega no consumidor por copy-in, e o único jeito de o
+//    import dele sobreviver é pelo alias. A varredura era só de `ui/` porque quando o
+//    gate nasceu bloco não existia — e do `src/blocks/chart/x.tsx` a forma relativa é
+//    `../../components/shadcn/card`, com o segmento `components/` no meio, que o padrão
+//    antigo (`(\.\./)+shadcn/`) atravessava sem ver.
 function walkTsUi(d) {
   let out = [];
   for (const e of readdirSync(d, { withFileTypes: true })) {
@@ -45,19 +52,20 @@ function walkTsUi(d) {
   }
   return out;
 }
-const UI_DIR = "src/components/ui";
+const DIRS_DISTRIBUIDOS = ["src/components/ui", "src/blocks"];
 let relShadcn = 0;
-if (existsSync(UI_DIR)) {
-  for (const f of walkTsUi(UI_DIR)) {
-    const m = readFileSync(f, "utf8").match(/from\s+"(\.\.\/)+shadcn\/[^"]+"/);
+for (const dir of DIRS_DISTRIBUIDOS) {
+  if (!existsSync(dir)) continue;
+  for (const f of walkTsUi(dir)) {
+    const m = readFileSync(f, "utf8").match(/from\s+"(\.\.\/)+(components\/)?shadcn\/[^"]+"/);
     if (m) {
       console.error(`✗ ${f.split(/[\\/]/).join("/")}: import relativo pra shadcn (${m[0]}) → troque por "@/components/shadcn/…" (relativo quebra no copy-in).`);
       relShadcn++;
     }
   }
 }
-if (relShadcn) { console.error(`✗ ${relShadcn} componente(s) ui/ com import relativo pra shadcn/ — quebra o consumidor.`); fail = 1; }
-else console.log(`✓ ui/: sem import relativo pra shadcn/.`);
+if (relShadcn) { console.error(`✗ ${relShadcn} arquivo(s) distribuído(s) com import relativo pra shadcn/ — quebra o consumidor.`); fail = 1; }
+else console.log(`✓ ui/ + blocks/: sem import relativo pra shadcn/.`);
 
 // 1. paths existem
 let missing = 0;
