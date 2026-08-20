@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · accordion · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · alert-dialog · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · alert-modal · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · alert · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · app-shell · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · aspect-ratio · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · avatar-ig · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · avatar · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · badge · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · breadcrumb · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · button-group · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · button · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · calendar · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · card-checkbox · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -511,13 +511,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/card.tsx",
-        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface py-pad-4xl text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCard.displayName = \"Card\"\r\n\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\r\n      \"grid auto-rows-min items-start gap-gp-sm px-pad-4xl\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-title-md font-medium text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"text-body-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div ref={ref} className={cn(\"px-pad-4xl\", className)} {...props} />\r\n))\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    className={cn(\"flex items-center px-pad-4xl\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\n",
+        "content": "﻿import * as React from \"react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Card — superfície de conteúdo, com `size` que escala o padding interno de TODAS as\r\n * partes e um `variant` de header em faixa.\r\n *\r\n * ## `size` — 3 densidades, propagadas por contexto\r\n *\r\n *     lg  →  24px  (pad-4xl)\r\n *     md  →  20px  (pad-3xl)   ← DEFAULT\r\n *     sm  →  16px  (pad-2xl)\r\n *\r\n * O valor é declarado **uma vez no `<Card>`** e chega em `CardHeader`/`CardContent`/\r\n * `CardFooter` por `CardSizeContext` — o mesmo mecanismo que o `Tabs` usa pro\r\n * `variant`. Repetir `size` nas partes é o erro que deixa uma seção com densidade\r\n * diferente do resto do card.\r\n *\r\n * ⚠️ **`md` (20px) é o default, e antes era 24px.** Mudança deliberada de 2026-08-19:\r\n * 24 virou o `lg`. Card que dependia dos 24px passa `size=\"lg\"`.\r\n *\r\n * ⚠️ Não existe 18px na escala de `pad` (vai 16 → 20 → 24), então `sm` é **16px**.\r\n *\r\n * ## O padding é dividido entre o Card e as partes — e é de propósito\r\n *\r\n * O `Card` carrega o padding **vertical** (`py-*`); cada parte carrega o\r\n * **horizontal** (`px-*`). Assim o `gap` do Card controla o respiro ENTRE seções sem\r\n * somar com padding de cada uma, e uma parte pode ser full-bleed (tabela que encosta\r\n * nas bordas, imagem de topo) só zerando o próprio `px`.\r\n *\r\n * ## `CardHeader variant=\"banded\"` — header em faixa\r\n *\r\n * Fundo `bg-subtle` + borda embaixo, encostado nas bordas do card. Espelha o padrão\r\n * das seções de `#/order-detail` e `?app=edit-page`, que era composição local do\r\n * showcase e agora é variante do componente.\r\n *\r\n * Mecânica: a faixa precisa **cancelar o padding vertical do Card** pra encostar no\r\n * topo (`-mt-*` do mesmo tamanho do `size`) e arredondar as quinas de cima\r\n * (`rounded-t-*`) — em vez de `overflow-hidden` no Card, que clipa qualquer coisa que\r\n * precise vazar. Ela também troca o `px-*` por padding nos 4 lados, senão o texto\r\n * cola na borda de cima.\r\n */\r\n\r\n/* ── size: contexto ──────────────────────────────────────────────────────── */\r\n\r\ntype CardSize = \"sm\" | \"md\" | \"lg\"\r\n\r\nconst CardSizeContext = React.createContext<CardSize>(\"md\")\r\n\r\n/**\r\n * Padding interno por size — via `pad-card-*`, a família de token **dedicada a\r\n * padding de card** (`tokens/.../components/spacing.ts`), não a escala genérica\r\n * `pad-*`. Os valores são iguais (16/20/24), mas o semântico existe pra isto: mudar\r\n * a densidade de card no futuro é mexer em `padCard`, num lugar, sem caçar\r\n * `pad-3xl` espalhado.\r\n *\r\n * A família é simétrica desde 2026-08-19 (`sm`/`md`/`lg`). O nome antigo `pad-card-base`\r\n * continua existindo como **alias de `md`**, só pra não quebrar quem já o consome — não\r\n * usar aqui nem em código novo. Ver o cabeçalho de `components/spacing.ts`.\r\n */\r\nconst PAD_X: Record<CardSize, string> = {\r\n  sm: \"px-pad-card-sm\",\r\n  md: \"px-pad-card-md\",\r\n  lg: \"px-pad-card-lg\",\r\n}\r\nconst PAD_Y: Record<CardSize, string> = {\r\n  sm: \"py-pad-card-sm\",\r\n  md: \"py-pad-card-md\",\r\n  lg: \"py-pad-card-lg\",\r\n}\r\nconst PAD_ALL: Record<CardSize, string> = {\r\n  sm: \"p-pad-card-sm\",\r\n  md: \"p-pad-card-md\",\r\n  lg: \"p-pad-card-lg\",\r\n}\r\n/** Cancela o `py` do Card, pra faixa encostar no topo. */\r\nconst PULL_TOP: Record<CardSize, string> = {\r\n  sm: \"-mt-pad-card-sm\",\r\n  md: \"-mt-pad-card-md\",\r\n  lg: \"-mt-pad-card-lg\",\r\n}\r\n\r\n/* ── Card ────────────────────────────────────────────────────────────────── */\r\n\r\nconst Card = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { size?: CardSize }\r\n>(({ className, size = \"md\", ...props }, ref) => (\r\n  <CardSizeContext.Provider value={size}>\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        \"flex flex-col gap-gp-4xl rounded-radius-base bg-bg-surface text-body-md text-fg-default shadow-sh-lg ring-1 ring-fg-default/5 dark:ring-fg-default/10\",\r\n        PAD_Y[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  </CardSizeContext.Provider>\r\n))\r\nCard.displayName = \"Card\"\r\n\r\n/* ── CardHeader ──────────────────────────────────────────────────────────── */\r\n\r\ntype CardHeaderVariant = \"plain\" | \"banded\"\r\n\r\n/**\r\n * Não há contexto de variante aqui de propósito. Houve um, por ~20 minutos em\r\n * 2026-08-19, pra a faixa deixar o título semibold enquanto o header plano ficava\r\n * medium — até descobrir que o preset `text-title-md` **já é 600** e que o `medium`\r\n * era um override indevido no `CardTitle`. Removido o override, o peso é o mesmo nas\r\n * duas variantes e o contexto virou código morto.\r\n */\r\nconst CardHeader = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & { variant?: CardHeaderVariant }\r\n>(({ className, variant = \"plain\", ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\r\n        // `gap-gp-2xs` (2px) e não `gp-sm` (6px): título e subtítulo de card são UMA\r\n        // unidade de leitura, não dois blocos. Com 6px o subtítulo lê como parágrafo\r\n        // solto sob o título; com 2px lê como legenda dele. É o valor que o showcase\r\n        // já aplicava no helper local dos cards de gráfico — a diferença apareceu ao\r\n        // comparar o mesmo card montado com o helper e com este componente, e o\r\n        // mantenedor escolheu o compacto como padrão (2026-08-19).\r\n        //\r\n        // ⚠️ Divergência DELIBERADA do shadcn upstream, que usa 6px: ao re-sincronizar\r\n        // este primitivo, não reverter (mesma classe de cuidado da L-040).\r\n        \"grid auto-rows-min items-start gap-gp-2xs\",\r\n        variant === \"banded\"\r\n          ? cn(\r\n              // Faixa: padding nos 4 lados (o `px` sozinho deixaria o texto colado no\r\n              // topo), fundo, divisória, e o `-mt` que cancela o `py` do Card pra\r\n              // encostar na borda. `rounded-t` em vez de `overflow-hidden` no Card —\r\n              // clipar o Card quebraria qualquer coisa que precise vazar dele.\r\n              PAD_ALL[size],\r\n              PULL_TOP[size],\r\n              // `bg-subtle` + `border-subtle`: os mesmos tokens da referência\r\n              // (`SectionCard` do order-detail / `?app=edit-page`), escolhidos pelo\r\n              // mantenedor em 2026-08-19.\r\n              //\r\n              // ⚠️ Medido, pra quem for mexer não achar que é descuido: no **dark** o\r\n              // `bg-subtle` é 1% de branco sobre um surface de 0.225 — ~0,8pp de\r\n              // diferença, uma faixa **muito** discreta. No light são 0.973 sobre\r\n              // 1.0, que lê normalmente. É restrição intencional, não bug: a decisão\r\n              // veio de quem desenhou a tela de referência. Se um dia o dark precisar\r\n              // de mais presença, `bg-muted` é 3× (e no light é idêntico ao subtle).\r\n              \"rounded-t-radius-base border-b border-border-subtle bg-bg-subtle\"\r\n            )\r\n          : PAD_X[size],\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardHeader.displayName = \"CardHeader\"\r\n\r\nconst CardTitle = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // SEM `font-*`: o peso vem do preset. `text-title-md` já emite `font-weight: 600`\r\n    // (conferido no tema gerado), o token declara *\"title: 600 (semibold) — mais usado\r\n    // no projeto\"*, e o `DESIGN.md` lista `title-md · 600 · Card title (default)`.\r\n    //\r\n    // Aqui havia um `font-medium` que **anulava o próprio preset** e derrubava o título\r\n    // pra 500 — sem estar documentado em lugar nenhum, e contra o spec do DS. Foi achado\r\n    // em 2026-08-19 comparando o mesmo card montado com o helper local do showcase (que\r\n    // acertava, `font-semibold`) e com este componente. Não reintroduzir: quem quer outro\r\n    // peso passa `font-*` no `className`, que é o caminho de exceção.\r\n    className={cn(\"text-title-md text-fg-default\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardTitle.displayName = \"CardTitle\"\r\n\r\nconst CardDescription = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => (\r\n  <div\r\n    ref={ref}\r\n    // `caption-md` (12px/400) e não `body-md` (14/400) — decisão do mantenedor\r\n    // 2026-08-19: 14 competia com o conteúdo do card.\r\n    //\r\n    // Entre os dois presets de 12px, `caption-md` e não `body-xs`, por PESO: `body-xs`\r\n    // é 12/**500**, o que deixaria o subtítulo mais pesado que os 400 de hoje e pediria\r\n    // um `font-normal` por cima — reintroduzindo o override de preset que acabou de sair\r\n    // do `CardTitle`. `caption-md` é 12/400: só o tamanho muda. E é o que o\r\n    // `CardCheckbox.description` já usa, que é o análogo mais próximo no DS.\r\n    className={cn(\"text-caption-md text-fg-muted\", className)}\r\n    {...props}\r\n  />\r\n))\r\nCardDescription.displayName = \"CardDescription\"\r\n\r\n/* ── CardContent · CardFooter ────────────────────────────────────────────── */\r\n\r\nconst CardContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return <div ref={ref} className={cn(PAD_X[size], className)} {...props} />\r\n})\r\nCardContent.displayName = \"CardContent\"\r\n\r\nconst CardFooter = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const size = React.useContext(CardSizeContext)\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      className={cn(\"flex items-center\", PAD_X[size], className)}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCardFooter.displayName = \"CardFooter\"\r\n\r\nexport { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent }\r\nexport type { CardSize, CardHeaderVariant }\r\n",
         "type": "registry:ui",
         "target": "components/ui/card.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · card · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · carousel · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · chart · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · checkbox · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · chip · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · choropleth-map · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · collapsible · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · color-picker · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · combobox · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · command · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · context-menu · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · data-list · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · data-table · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · date-picker · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · dialog · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · drawer · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · dropdown-menu · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1823,7 +1823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · empty-state · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -1864,7 +1864,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-app-shell · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2166,7 +2166,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-chat · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2262,7 +2262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-clientes · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2308,7 +2308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-dashboard · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2359,7 +2359,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-edit-page · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2495,7 +2495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-finance · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2525,7 +2525,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-login · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2582,7 +2582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-mapa-rede · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2663,7 +2663,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · example-order-detail · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2713,7 +2713,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · file-upload-field · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2781,7 +2781,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · floating-panel · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2823,7 +2823,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · footer-table · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -2909,7 +2909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · form-field · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3000,7 +3000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · header · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3024,7 +3024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · hover-card · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3077,7 +3077,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · icon · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3101,7 +3101,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · input-group · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3126,7 +3126,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · input-otp · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3150,7 +3150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · input · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3209,7 +3209,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · kanban · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3271,7 +3271,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · kpi · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3296,7 +3296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · label · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3403,7 +3403,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · list · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3449,7 +3449,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · markdown-text · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3559,7 +3559,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · menu-sidebar · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3584,7 +3584,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · menubar · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3628,7 +3628,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · modal · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3677,7 +3677,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · month-year-picker · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3703,7 +3703,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · navigation-menu · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3750,7 +3750,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · page-header · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3775,7 +3775,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · pagination · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3850,7 +3850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · panel · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3874,7 +3874,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · popover · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3898,7 +3898,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · progress · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3922,7 +3922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · radio-group · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3946,7 +3946,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · scroll-area · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3971,7 +3971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · select · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -3995,7 +3995,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · separator · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4021,7 +4021,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · sheet · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4128,7 +4128,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4150,7 +4150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · skeleton · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · slider · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4197,7 +4197,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · sonner · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4243,7 +4243,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · spinner · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4267,7 +4267,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · switch · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4346,7 +4346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · table · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4370,7 +4370,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · tabs · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4394,7 +4394,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · textarea · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4412,7 +4412,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · theme-blue · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4430,7 +4430,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · theme-green · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4448,7 +4448,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · theme-pay · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4466,7 +4466,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · theme-vibrant · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4481,14 +4481,14 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/tailwind-theme.css",
-        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-base: 24px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
+        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-card-md: 20px;\n  --spacing-pad-card-lg: 24px;\n  --spacing-pad-card-base: 20px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
         "type": "registry:file",
         "target": "src/styles/theme/tailwind-theme.css"
       }
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · theme · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4539,7 +4539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · toast · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4565,7 +4565,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · toggle-group · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4590,7 +4590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · toggle · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4614,7 +4614,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · tooltip · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:ui"
   },
@@ -4635,7 +4635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · tv · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   },
@@ -4657,7 +4657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.43.3 · 21e4aa1 · 2026-08-19"
+      "stamp": "igreen-ds · utils · v0.44.0 · fecdec6 · 2026-08-20"
     },
     "type": "registry:file"
   }
