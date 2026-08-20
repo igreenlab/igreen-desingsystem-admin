@@ -1,13 +1,16 @@
 import { Cell, Pie, PieChart } from "recharts";
+// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel (`index.ts`) não é
+// distribuído por nenhum item do registry, então um bloco que o importasse chegaria no
+// consumidor de copy-in com import que não resolve. O gate `registry-imports` pega isso; foi
+// ele que reprovou a primeira versão deste arquivo (L-037).
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
-  Tabs,
-  TabsList,
-  TabsTrigger,
-} from "@/components/shadcn";
+  CardContent,
+} from "@/components/shadcn/card";
+import { Tabs, TabsList, TabsTrigger } from "@/components/shadcn/tabs";
 import { Chip } from "@/components/ui/Chip";
 import {
   ChartContainer,
@@ -87,21 +90,26 @@ export function BudgetBreakdownBlock() {
         </CardDescription>
       </CardHeader>
 
-      {/* Ver o JSDoc: abas de composição. Ligue a estado ou remova. */}
-      <Tabs defaultValue="area">
-        <TabsList className="w-full">
-          <TabsTrigger value="area" className="flex-1">
-            Por área
-          </TabsTrigger>
-          <TabsTrigger value="categoria" className="flex-1">
-            Por categoria
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
+      {/* Cada seção vai em `CardContent` porque é ELE que carrega o padding
+          horizontal — o `Card` só carrega o vertical. `<div>` cru como filho direto
+          do Card encosta nas bordas, que é o que este bloco fazia por engano. */}
+      <CardContent>
+        {/* Ver o JSDoc: abas de composição. Ligue a estado ou remova. */}
+        <Tabs defaultValue="area">
+          <TabsList className="w-full">
+            <TabsTrigger value="area" className="flex-1">
+              Por área
+            </TabsTrigger>
+            <TabsTrigger value="categoria" className="flex-1">
+              Por categoria
+            </TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </CardContent>
 
       {/* Donut + total no centro. O overlay é pointer-events-none pra não roubar o
           hover do setor — sem isso o tooltip do Recharts não abre no meio. */}
-      <div className="relative mx-auto flex items-center justify-center">
+      <CardContent className="relative mx-auto flex items-center justify-center">
         <ChartContainer config={{}} className="aspect-square h-[210px]">
           <PieChart>
             <ChartTooltip
@@ -129,9 +137,9 @@ export function BudgetBreakdownBlock() {
           </span>
           <span className="text-caption-sm text-fg-muted">gasto total</span>
         </div>
-      </div>
+      </CardContent>
 
-      <div>
+      <CardContent>
         <div className="mb-pad-md flex items-center justify-between text-caption-md text-fg-muted">
           <span>ÁREA</span>
           <span>VALOR / PARTICIPAÇÃO</span>
@@ -160,7 +168,7 @@ export function BudgetBreakdownBlock() {
             </div>
           ))}
         </div>
-      </div>
+      </CardContent>
     </Card>
   );
 }
