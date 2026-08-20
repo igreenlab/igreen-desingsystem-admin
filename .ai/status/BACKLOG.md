@@ -1,7 +1,33 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-08-19
+> Última revisão: 2026-08-20
+
+---
+
+## 🪧 Defasar o `#/chart-showcase` quando os blocos de chart cobrirem o que ele mostra
+
+> **Decisão já tomada pelo mantenedor** (2026-08-19/20): o `#/chart-showcase` é *"basicamente
+> blocos, com estrutura mais livre"*, e os blocos de chart nasceram separados **de propósito** —
+> pra corrigir os pontos dele sem carregar o legado. Quando cobrirem, o showcase antigo sai.
+> **Execução adiada por decisão dele: em outro dia.** Isto aqui existe pra não evaporar.
+
+**Estado hoje:** 1 bloco de chart (`dsgreen-chart-1`) contra **34** cards no `#/chart-showcase`.
+Não há o que defasar ainda — é o gatilho que falta, não a decisão.
+
+**Gatilho:** os blocos de chart cobrirem os arranjos que o showcase demonstra. Não é 1:1 pelos 34
+(a spec §4 decidiu **não** migrar: construir do zero é o que faz a pergunta *"compor ou promover
+esse helper?"* ser feita de propósito em vez de herdada). É cobertura de **arranjo**, não de card.
+
+**Quando disparar, o que a defasagem toca:** a rota + `DOC_PAGES` no `App.tsx` · `doc-nav-data.ts` ·
+o `ChartShowcaseDoc.tsx` · as citações a `#/chart-showcase` em `chart-patterns.md`, `Chart/USAGE.md`
+e `dashboard-patterns.md` (grepar antes — L-019: remover superfície sem grepar deixa ponteiro morto).
+
+⚠️ **O que NÃO é isto.** As páginas de **exemplo** (chat, crud, finance…) ficam — o mantenedor foi
+explícito: *"cumprem bem seu papel"*. Defasar vale só pro `#/chart-showcase`, que é o que os blocos
+de chart substituem.
+
+**Detalhe da decisão:** §4.3 da [`blocks-catalogo-de-composicoes.md`](../specs/blocks-catalogo-de-composicoes.md).
 
 ---
 
@@ -290,8 +316,16 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
   transformar os greps L-001..L-007 num check de CI que bloqueia (não só avisa),
   pelo menos pros arquivos mais sensíveis (`*.styles.ts`, tokens).
 
-- **Blocks com código de referência (`DSGREEN-B-###`/`DSGREEN-U-###`) — arquitetura
-  desenhada, nada implementado.** Toda a arquitetura foi projetada em sessão de
+- ✅ **FECHADO em 2026-08-20 — os blocos existem.** `src/blocks/` + `npm run blocks:build`
+  (índice do consumidor + item `registry:block`) + galeria auto-descoberta em `#/blocks-charts`
+  + Passo 0 do `ds-kit` resolvendo `dsgreen-<categoria>-<n>` + 4 gates + hook `ds-blocks-check`.
+  Distribuído no CLI **0.25.8**. Spec: [`blocks-catalogo-de-composicoes.md`](../specs/blocks-catalogo-de-composicoes.md),
+  status `IMPLEMENTADA`. **O código NÃO é `DSGREEN-B-###`** — ver o item aberto no TOPO deste arquivo (defasar o
+  `#/chart-showcase`) e a §4 da spec pra o que mudou em relação ao desenho. Registro original
+  preservado:
+
+- **(registro original) Blocks com código de referência (`DSGREEN-B-###`/`DSGREEN-U-###`) —
+  arquitetura desenhada, nada implementado.** Toda a arquitetura foi projetada em sessão de
   plan mode (esquema do código, catálogo `blocks-catalog.json` derivado do
   `registry.json`, resolução determinística via skill `ds-kit` Passo 0, adoção de
   `registry:block` sem renomear os `example-*`, rollout em 5 fases). Só ficou como
@@ -304,8 +338,8 @@ próxima rodada em que mudança visual estiver liberada. **Ao fazer:** `AlertDia
   as 5 fases. O "próximo passo" que estava escrito aqui — *"revisitar esse plano"* — era
   inexecutável, e apontar pra ele fazia o item parecer mais pronto do que está.
 
-  ✅ **REDESENHADO em 2026-08-19 → [`.ai/specs/blocks-catalogo-de-composicoes.md`](../specs/blocks-catalogo-de-composicoes.md)**,
-  status `PROPOSTA`, aguardando avaliação do mantenedor. O redesenho não resgatou o plano perdido —
+  ✅ **REDESENHADO em 2026-08-19 → [`.ai/specs/blocks-catalogo-de-composicoes.md`](../specs/blocks-catalogo-de-composicoes.md)**
+  (hoje `IMPLEMENTADA`; era `PROPOSTA` quando esta linha foi escrita). O redesenho não resgatou o plano perdido —
   partiu do problema (a IA conhece componente e token, não conhece **composição**) e da medição do
   que já existe: os 34 cards do `#/chart-showcase` já são blocos quase auto-contidos, e o `type` do
   registry é etiqueta que ninguém lê. **Lição que fica:** decisão de arquitetura guardada só em

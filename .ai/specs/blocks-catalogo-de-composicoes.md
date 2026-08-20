@@ -1,10 +1,23 @@
 # Blocos — catálogo de composições referenciáveis por ID
 
-> **Status: PROPOSTA (2026-08-19) — aguardando avaliação do mantenedor.** Nada implementado.
-> Este arquivo existe pra ser avaliado e para **não evaporar**: o desenho anterior desta mesma
-> ideia (códigos `DSGREEN-B-###`, `blocks-catalog.json`, 5 fases) foi feito em plan mode, morava
-> em `~/.claude/plans/` e **desapareceu** — sobraram 8 linhas de resumo num item de backlog.
-> Ver [`README.md`](./README.md) pra convenção de status.
+> **Status: IMPLEMENTADA (2026-08-20).** Virou código em `src/blocks/`, `scripts/lib/blocks-index.mjs`,
+> `scripts/blocks-build.mjs`, `src/preview/pages/BlocksChartsDoc.tsx` e o Passo 0 do `ds-kit`.
+> Aprovada e implementada no dia seguinte ao desenho. Fica aqui como **referência de decisão** — o
+> "por quê" que a diff não conta. Ver [`README.md`](./README.md) pra convenção de status.
+>
+> **O que a implementação mudou em relação ao desenho** (o desenho não estava todo certo):
+> os 34 cards do `#/chart-showcase` **não** foram migrados (§4 — decisão do mantenedor, e a razão
+> dele é melhor que a proposta); o código virou `dsgreen-<categoria>-<n>` em vez de `DSGREEN-B-###`;
+> e a lista de IDs, que o desenho não previa, virou **índice gerado** (`blocks:build`) porque sem ela
+> o Passo 0 mandava a IA *procurar* em `src/blocks/**` — trivial com 1 bloco, ruim com N.
+>
+> **Frente que continua aberta:** defasar o `#/chart-showcase` quando os blocos de chart cobrirem o
+> que ele mostra (§4.3). Decisão já tomada pelo mantenedor; execução em outro dia. Rastreada no
+> [`BACKLOG.md`](../status/BACKLOG.md).
+>
+> O desenho ANTERIOR desta mesma ideia (`DSGREEN-B-###`, `blocks-catalog.json`, 5 fases) foi feito
+> em plan mode, morava em `~/.claude/plans/` e **desapareceu** — sobraram 8 linhas num item de
+> backlog. É por isso que este arquivo existe.
 
 ---
 
