@@ -41,9 +41,22 @@
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/ds-lint-styles.sh" },
-          { "type": "command", "command": ".claude/hooks/ds-inventory-check.sh" },
-          { "type": "command", "command": ".claude/hooks/ds-tokens-check.sh" }
+          {
+            "type": "command",
+            "command": ".claude/hooks/ds-lint-styles.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/ds-inventory-check.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/ds-tokens-check.sh"
+          },
+          {
+            "type": "command",
+            "command": ".claude/hooks/ds-blocks-check.sh"
+          }
         ]
       }
     ],
@@ -51,13 +64,19 @@
       {
         "matcher": "Bash",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/block-rm-rf.sh" }
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-rm-rf.sh"
+          }
         ]
       },
       {
         "matcher": "Edit|Write",
         "hooks": [
-          { "type": "command", "command": ".claude/hooks/block-sensitive-edit.sh" }
+          {
+            "type": "command",
+            "command": ".claude/hooks/block-sensitive-edit.sh"
+          }
         ]
       }
     ]

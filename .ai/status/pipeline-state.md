@@ -3054,3 +3054,49 @@ da galeria + rota no `App.tsx` + `doc-nav-data`), e eu **não** automatizei — 
 caso pra generalizar, e generalizar antes do segundo caso é o que a L-064 diz pra não fazer. Cai se
 aparecerem 3+ categorias em sequência; aí o `import.meta.glob` por categoria vira glob por pasta e a
 página passa a ser uma só, parametrizada pela rota.
+
+---
+
+### 2026-08-20 | ds-dev | O que INSTRUI o `blocks:build` — o hook que faltava | CONCLUÍDO
+
+**Input:** a pergunta do mantenedor, que era a certa: *"amanhã, se eu pedir um bloco novo, o próprio
+pipeline vai conseguir identificar que tem que dar o comando pro bloco ficar visível?"*
+
+**Medido antes de responder, e a resposta era NÃO.** Varri as três superfícies que instruem um
+agente e nenhuma citava o comando: **nenhum hook** casava `src/blocks/**` (os globs eram
+`src/components/**`, `tokens/**` e `src/components/ui/<Nome>/**`), a tabela *"Onde cada tarefa
+começa"* do `CLAUDE.md` não tinha linha de bloco, e não existe skill de bloco (deliberado — fica
+pro 2º ou 3º caso). O único sinal era a mensagem de assert do `npm test`, que chega **depois**.
+
+E o modo de falhar é silencioso do jeito ruim: a galeria auto-descobre por `import.meta.glob`,
+então **o bloco aparece na tela sem gerar nada**. Você olha, vê o bloco renderizado, conclui que
+está pronto — e o consumidor não o alcança, porque índice e `registry:block` são gerados.
+
+**O que ficou:**
+
+- **`.claude/hooks/ds-blocks-check.sh`** — dispara em `src/blocks/**/*.tsx` (pula `_shared/`, `_*` e
+  `*.test.tsx`), manda rodar `npm run blocks:build` e diz explicitamente que o showcase mostrar o
+  bloco não significa que ele está distribuído
+- **`exit 2`, não 0** — medido nesta mesma sessão e reconfirmado: hook com `exit 0` não alcança o
+  agente por canal nenhum (nem stderr, nem stdout), fica só no `hook-log.txt`. O arquivo continua
+  escrito porque PostToolUse roda depois da tool
+- **silencioso quando já está em sync** — se o índice cita o arquivo E o `--check` passa, não fala
+  nada. Aviso que aparece em toda edição é aviso ignorado (L-059)
+- **`CLAUDE.md`** — 6ª linha na tabela de hooks, `ds-blocks-check` na tabela de canal (`exit 2` →
+  chega), "os **4** primeiros são informativos", e 2 linhas na tabela *"Onde cada tarefa começa"*:
+  **Bloco novo** e **Categoria nova de bloco**
+
+**`tr '\' '/' antes de qualquer matching** (L-044): o harness manda path do Windows com backslash, e
+sem normalizar o `case` nunca casa — a rede de segurança fica no-op em silêncio, que é exatamente
+como uma sessão inteira rodou com os hooks inertes.
+
+**Verificado disparando, não lendo.** Com path real de backslash: `exit 2` + mensagem completa. E
+**silêncio** nos 5 não-casos: componente, helper em `_shared/`, arquivo `_privado`, `.test.tsx` e
+bloco já em sync. Três "falhas" do meu teste eram o escaping do shell comendo a barra invertida,
+não o hook — confirmado com `String.fromCharCode(92)`.
+
+**Estado:** tsc 0 · 55 arquivos / **682 testes**, 0 falha · `release:check` exit 0.
+
+**Assumption:** que o hook é suficiente sem skill de bloco. Ele avisa no momento do Write, que é
+quando a informação vale; a skill ensinaria a **compor** o bloco, e pra isso ainda não há padrão —
+1 bloco não é amostra. Cai quando o 2º e o 3º bloco mostrarem o que repete.

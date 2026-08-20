@@ -174,15 +174,16 @@ Não precisam ser invocados. Rodam em todo Edit/Write:
 | `ds-lint-styles.sh` | `src/components/**/*styles.{ts,tsx}` **e qualquer `src/components/**/*.tsx`** (o glob real do hook é mais largo que esta coluna dizia até 2026-08-08) | delega pra `scripts/lib/ds-lint-patterns.mjs` (fonte única com o CI) — cobre L-001/L-002/L-003/L-005 + import de tv; L-004 e L-007 saíram (são semânticas, exigem contexto cross-elemento ou julgamento de intenção — ver L-059) — warning em stderr quando encontra anti-pattern. No CI, o mesmo módulo roda em modo ratchet e só reprova violação **nova** (linha adicionada pelo diff), nunca débito legado |
 | `ds-inventory-check.sh` | `src/components/ui/<Nome>/**` | alerta se USAGE.md ausente, inventory.md não menciona (L-016), não consta em `registry.json` (gap de distribuição), está no registry mas fora do **vocabulário do consumidor** (`_claude/rules/ds-components.md` ∪ `CLAUDE.md` do template — mesma união do `distribution-debt.mjs`), **ou a DocPage existe sem rota no `App.tsx`/`DOC_PAGES`+nav** (render em branco) — L-042. As duas últimas perguntas vêm dos MESMOS módulos do CI (`scripts/lib/ds-exceptions.mjs` + `showcase-registration.mjs`, via `node -e`) — hook e CI não podem divergir |
 | `ds-tokens-check.sh` | `tokens/**/*.ts` — ⚠️ **exclui `tokens/transforms/`**, justamente o arquivo que a tabela "Onde cada tarefa começa" manda editar pra regra CSS global; ali o lembrete não dispara (o gate `generated-artifacts` cobre) | alerta pra rodar `tokens:tw4` + que token novo só chega no consumidor via `registry:build` + bump (`/ds-release`) |
+| `ds-blocks-check.sh` | `src/blocks/**/*.tsx` (ignora `_shared/`, `_*` e `*.test.tsx`) | alerta pra rodar **`npm run blocks:build`**, que gera o índice do consumidor e o item `registry:block`. **Fica silencioso se o índice já estiver em sync** — não vira ruído a cada edição. Existe porque a galeria do showcase auto-descobre por `import.meta.glob`: o bloco **aparece na tela sem gerar**, e é isso que torna o esquecimento fácil de não notar |
 | `block-rm-rf.sh` | Bash | bloqueia `rm -rf` perigoso |
 | `block-sensitive-edit.sh` | Edit/Write | bloqueia .env, credentials, migrations |
 
-Os 3 primeiros são informativos: **nenhum desfaz o Edit** — são PostToolUse, rodam depois.
+Os 4 primeiros são informativos: **nenhum desfaz o Edit** — são PostToolUse, rodam depois.
 Mas o canal deles não é igual, e isso foi **medido em 2026-08-17**:
 
 | Hook | Sai com | Chega no agente? |
 |---|---|---|
-| `ds-inventory-check` · `ds-tokens-check` | **2** quando tem pendência | ✅ sim — o harness mostra como *"blocking error"*, e o arquivo **continua escrito** |
+| `ds-inventory-check` · `ds-tokens-check` · `ds-blocks-check` | **2** quando tem pendência | ✅ sim — o harness mostra como *"blocking error"*, e o arquivo **continua escrito** |
 | `ds-lint-styles` | sempre **0** | ❌ não — só no `hook-log.txt`. **Consulte o log após mexer em componente** |
 
 > ⚠️ Até 2026-08-17 os três saíam com `exit 0`, e esta linha afirmava que o aviso chegava
@@ -290,6 +291,8 @@ no `npm test`.
 | Tela dashboard/painel (KPIs + gráficos + rankings/resumos) | `src/preview/pages/<Nome>Showcase.tsx` + registro `App.tsx` + `doc-nav-data.ts` | `dashboard-builder/SKILL.md` via `/ds-create-dashboard` (ancora em `.ai/context/components/dashboard-patterns.md`) |
 | Tela de dados (não sabe se tabela, lista ou dashboard) | — | front-door `/ds-create-screen` (desambigua e roteia) |
 | Gráfico isolado (sem o resto do painel) | `src/components/ui/Chart` (wrapper) + página em `src/preview/pages/*ChartDoc.tsx` | Padrões: `.ai/context/components/chart-patterns.md` + `Chart/USAGE.md` (L-032) |
+| **Bloco novo** (composição referenciável por ID) | `src/blocks/<categoria>/<nome>.tsx` com `export const BLOCK = { id, nome, descricao, usa }` → **`npm run blocks:build`** | Spec: [`.ai/specs/blocks-catalogo-de-composicoes.md`](.ai/specs/blocks-catalogo-de-composicoes.md). Regras do arquivo: **só API pública do DS** (§4.1) · id `dsgreen-<categoria>-<n>`, e o segmento é a **pasta** (§9.1) · o JSDoc do topo é **instrução executável**, não comentário — foi ele que produziu o bom resultado no consumidor, com uma seção "Cuidado ao adaptar" dizendo o que ligar a estado e o que remover |
+| **Categoria nova de bloco** (kpi, listas…) | pasta em `src/blocks/<nova>/` + página `src/preview/pages/Blocks<Nova>Doc.tsx` (copie a de Gráficos: ela auto-descobre por `import.meta.glob`) + registro no `App.tsx` e `doc-nav-data.ts` | Raro de propósito — bloco novo dentro de categoria existente **não** pede nada disso |
 | **Marca/tema NOVO** (5ª, 6ª…) | `tokens/brands/<id>/` (3 arquivos) + **10 superfícies** | `.claude/rules/ds-standards.md` §"Sistema multi-marca" |
 | **Alterar cor de marca existente** | `tokens/brands/<id>/semantic/color-{light,dark}.ts` APENAS | idem — nunca editar `brand-*.css`, é gerado |
 | **Regra CSS global, `@utility`, `@font-face`, `@custom-variant`** | `tokens/transforms/to-tailwind-v4.ts` + `npm run tokens:tw4` — **nunca `globals.css`** | `.claude/rules/ds-standards.md` §"O tema gerado é a fonte única" |
