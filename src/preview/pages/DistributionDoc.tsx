@@ -93,7 +93,7 @@ export function DistributionDoc() {
         </p>
         <div className="rounded-radius-base border border-border-subtle p-pad-4xl font-mono text-code-sm text-fg-muted leading-loose">
           <p className="text-fg-default font-semibold">igreen-ds/</p>
-          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 91 itens + files + deps</span></p>
+          <p className="ml-sp-md">registry.json                      <span className="text-fg-subtle">← MANIFESTO canônico: lista os 92 itens + files + deps</span></p>
           <p className="ml-sp-md">public/r/                          <span className="text-fg-subtle">← JSON gerado por item (npx shadcn build) — gitignored</span></p>
           <p className="ml-sp-md">registry-app/                      <span className="text-fg-subtle">← app Next.js que SERVE o registry na Vercel</span></p>
           <p className="ml-sp-2xl">app/registry-data.ts            <span className="text-fg-subtle">← EMBED dos JSON (commitado — fonte do deploy)</span></p>

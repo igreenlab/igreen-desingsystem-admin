@@ -5,8 +5,12 @@ description: >
   que o usuário pedir pra montar/criar/fazer uma tela, página, layout, lista,
   tabela, CRUD, formulário, cadastro, edição, detalhamento, ficha, dashboard,
   painel, KPIs, gráfico/chart, financeiro/extrato, chat/inbox, drawer/painel,
-  cards, ou "uma tela igual ao exemplo X". Identifica a intenção e roteia pro
-  fluxo certo (skill guiada ou exemplo pra copiar), aplicando DESIGN.md.
+  cards, ou "uma tela igual ao exemplo X". Use TAMBÉM quando o usuário citar um
+  código de bloco no formato dsgreen-<categoria>-<n> (ex.: "aplica o
+  dsgreen-chart-1 aqui", "usa a referência dsgreen-chart-2") — nesse caso o
+  Passo 0 resolve o código antes de qualquer classificação. Identifica a intenção
+  e roteia pro fluxo certo (skill guiada, bloco de referência ou exemplo pra
+  copiar), aplicando DESIGN.md.
 ---
 
 # ds-kit — Orquestrador de telas (iGreen DS)
@@ -19,6 +23,40 @@ pra skill guiada OU puxa o **exemplo** canônico e adapta. Sempre seguindo
 > Por que skill e não subagente: roteamento por skill é **nativo e barato** (sem
 > custo de uma janela de contexto separada). Subagente só pra trabalho pesado em
 > paralelo (ex.: montar várias telas de uma vez) — não pra rotear.
+
+## Passo 0 — O usuário citou um código de BLOCO? Resolva antes de classificar
+
+Se a fala contém um código no formato **`dsgreen-<categoria>-<n>`** (ex.: `dsgreen-chart-1`,
+`dsgreen-chart-lines-2`), **pare aqui**: ele não quer que você decida a composição, quer **aquela**
+composição. Classificar intenção nesse caso é ignorar o que ele pediu.
+
+**Bloco não é componente.** É uma composição de referência — feita só com componentes que você já
+tem — que existe porque a IA sabe as peças e os tokens mas não sabe o **arranjo** que um designer
+escolheu. Ele não tem props nem versão própria: você lê a estrutura e reconstrói com os dados do
+usuário.
+
+**Como resolver, por modo de consumo:**
+
+| modo | onde o bloco está |
+|---|---|
+| **submódulo** (`.claude/ds-config.json` com `"mode": "submodule"`) | já no disco: `<dsPath>/src/blocks/<categoria>/*.tsx`. **Leia direto** |
+| **copy-in / scaffold** | não vem instalado. `npm run igreen:add -- <nome-do-bloco>` traz o arquivo |
+
+Em qualquer um dos dois, o arquivo do bloco exporta um `BLOCK` com o `id`, o `nome`, a `descricao`
+e o `usa` — confira que o `id` bate com o que o usuário citou antes de aplicar. Se não achar o
+código, **diga isso** em vez de adivinhar uma composição parecida: o valor do código é ser
+determinístico, e um palpite silencioso destrói exatamente isso.
+
+**Depois de achar:** leia o arquivo inteiro, incluindo o JSDoc no topo — ele carrega as regras que
+aquela composição embute (qual token de cor, por que `tabular-nums`, o que NÃO copiar). Adapte os
+dados e os rótulos ao caso do usuário **preservando a estrutura e o espaçamento**. Não "melhore" o
+arranjo: ele é o motivo pelo qual o código foi citado.
+
+**Catálogo visual:** a galeria fica na seção **Blocks** do showcase do DS (`#/blocks-charts` para
+gráficos), com o código ao lado de cada composição renderizada — é de lá que o usuário tira o
+código.
+
+---
 
 ## Passo 1 — Classifique a intenção → rota
 

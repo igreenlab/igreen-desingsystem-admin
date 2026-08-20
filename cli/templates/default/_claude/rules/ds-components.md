@@ -155,6 +155,24 @@ sem passar pela entrevista guiada** (é justamente aí que o erro aparece):
 - `chart` — wrapper do Recharts (barras, linha, área, pizza, radar, radial).
 - `choropleth-map` — mapa por região colorido por valor (traz `d3-geo` como dependência).
 
+## Blocos — composições de referência (não são componentes)
+
+Um **bloco** é um arranjo pronto, feito só com os componentes acima, que existe porque o arranjo é
+o que a IA não inventa: você sabe as peças e os tokens, mas não a disposição que um designer
+escolheu. Ele **não tem props nem versão própria** — você lê a estrutura e reconstrói com os dados
+do usuário.
+
+Cada bloco tem um código no formato `dsgreen-<categoria>-<n>`. **Quando o usuário citar um código,
+não classifique intenção** — resolva o código (é o Passo 0 da skill ds-kit).
+
+- `dsgreen-chart-1` — donut com o total ao centro + lista das fatias abaixo, onde a cor liga cada
+  linha ao seu setor. Para distribuição de um total por 3–5 categorias nomeadas. Usa `card`,
+  `tabs`, `chip`, `chart`.
+
+O catálogo visual fica na seção **Blocks** do showcase do DS — é de lá que o usuário tira o código.
+Em copy-in, `npm run igreen:add -- dsgreen-chart-1`; em submódulo o arquivo já está em
+`<dsPath>/src/blocks/`.
+
 ## Identidade, status e navegação
 
 - `avatar` — foto com fallback · `avatar-ig` — badge de iniciais com presets de cor do DS

@@ -139,10 +139,14 @@ describe("showcase-doc-facts — estado atual do repo", () => {
 
 describe("showcase-doc-facts — reproduz os defeitos que motivaram o gate", () => {
   it("contagem do registry: a página dizia 87, havia 91", () => {
-    const doc = lerDoc("DistributionDoc.tsx").replace(
-      "lista os 91 itens",
-      "lista os 87 itens",
-    );
+    // Fixture LITERAL, não o arquivo real. Antes este teste lia o
+    // `DistributionDoc.tsx` e fazia `.replace("lista os 91 itens", …)` pra sintetizar
+    // o defeito — então ele quebrava a cada item novo no registry, porque a âncora do
+    // replace carregava a contagem do dia. Aconteceu em 2026-08-20 ao entrar o 92º
+    // item: o replace não casou, o doc seguiu com "92" e a asserção falhou sem que
+    // nada estivesse errado. A função só precisa da frase, então o arquivo real não
+    // agrega nada aqui — e o teste do estado atual (acima) já usa o arquivo de verdade.
+    const doc = 'O registry <code>lista os 87 itens</code> versionados.';
     const achados = checarContagemRegistry(doc, 91);
     expect(achados).toHaveLength(1);
     expect(achados[0].o_que).toContain("afirma 87");
