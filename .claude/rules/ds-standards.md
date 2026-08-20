@@ -542,6 +542,13 @@ presets teriam que referenciar var — mudança no transform, afeta as 5 marcas.
 > `brand:contrast`. Não reproduza a lista aqui: este arquivo custa em 100% das sessões
 > (item D1 do plano de fechamento).
 
+### Estado desabilitado (lição 2026-08-20)
+- **L-070** `disabled` vai na área que ele desabilita (o `field`), **nunca na raiz** que
+  também embrulha `banner`/aviso. No `MessageComposer` o `pointer-events-none` na raiz
+  apagava e inertizava o botão "Reabrir com template" — a única saída do estado — e o
+  atendente clicava sem efeito. Antes de pôr `pointer-events-none` num container: existe lá
+  dentro alguma ação cuja função é encerrar este estado?
+
 ### Padrão de chart (resumo)
 
 ```
