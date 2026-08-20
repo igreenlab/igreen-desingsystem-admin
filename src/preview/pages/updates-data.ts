@@ -46,6 +46,41 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.44.0",
+    date: "2026-08-20",
+    tag: "release",
+    title: "O card agora tem três densidades e um cabeçalho em faixa — e o título dele voltou ao peso certo",
+    summary:
+      "O card ganhou **três densidades** (compacto, padrão e amplo) escolhidas por uma única propriedade, que ajusta o espaçamento interno de todas as partes de uma vez — cabeçalho, conteúdo e rodapé. O **padrão passou de 24 para 20 pixels**: 24 continua disponível como o tamanho amplo. Ganhou também um **cabeçalho em faixa** — fundo próprio e divisória, encostado nas bordas do card — que existia montado à mão em duas telas e agora é uma opção do componente. E três coisas que estavam erradas há tempo foram corrigidas: o **título do card estava mais leve do que o especificado** (o componente anulava a própria regra de tipografia), o **subtítulo estava grande demais** e competia com o conteúdo, e **sete documentos de referência descreviam um card diferente do que o sistema entrega** — incluindo o que orienta a IA de quem consome o sistema.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Três densidades de card, escolhidas por uma propriedade.** `size` aceita compacto (16px), padrão (20px) e amplo (24px), e ajusta o espaçamento interno de **todas** as partes juntas — cabeçalho, conteúdo e rodapé. Declara-se uma vez no card e vale para tudo dentro dele; antes era um valor fixo de 24, sem escolha. Quem precisa dos 24 de antes pede o tamanho amplo.",
+          "**Cabeçalho em faixa.** Fundo próprio e divisória embaixo, encostado nas bordas do card, aceitando qualquer conteúdo dentro (título, descrição, ícone, ação à direita) e acompanhando a densidade escolhida. Esse desenho já existia em duas telas do sistema, montado à mão em cada uma — agora é uma opção do componente, então quem precisar dele não precisa reconstruir.",
+          "**Nova seção Blocos no catálogo, com o primeiro exemplo.** Composições prontas de referência, cada uma com um código próprio para ser citada. A ideia: em vez de descrever uma tela do zero, você aponta o código da composição e recebe aquele arranjo com os seus dados. Começa com um gráfico de rosca com o total ao centro e a lista de fatias abaixo, onde a cor liga cada linha ao seu pedaço do gráfico.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O título do card estava mais leve do que a especificação manda.** O sistema define que título de card é semibold, e o componente aplicava um peso menor por cima — anulando a própria regra. Ninguém tinha documentado esse desvio, e ele aparecia sempre que o mesmo card era montado das duas formas: pelo componente ficava mais fraco, montado à mão ficava certo. Agora o peso vem da regra de tipografia, sem exceção no meio do caminho.",
+          "**O subtítulo do card era grande demais e competia com o conteúdo.** Estava no mesmo tamanho de texto de leitura (14px); passou para 12px, mantendo o mesmo peso — só o tamanho mudou, então nada fica mais pesado do que era.",
+          "**O espaço entre título e subtítulo era três vezes maior do que o desenho pede.** Com o espaço antigo o subtítulo lia como um parágrafo solto embaixo do título; agora lê como legenda dele, que é a intenção.",
+          "**Sete documentos de referência descreviam um card diferente do que o sistema entrega** — incluindo o guia que orienta a IA de quem consome o sistema. Ele listava um punhado de estilos para reconstruir a superfície do card à mão, e **três deles não correspondiam ao componente real**. Quem seguisse aquilo montava algo parecido, mas fora do padrão, em vez de usar a peça pronta.",
+          "**Um guia interno afirmava que um espaçamento existente \"não existe\"** — e ele é usado em 79 lugares do próprio sistema. O mesmo guia mandava usar dois nomes de tipografia que **foram removidos há meses**: nome de estilo que não existe não gera erro nenhum, o texto simplesmente aparece no tamanho padrão do navegador. Corrigidos, com os nomes atuais.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O espaçamento interno padrão do card passou de 24 para 20 pixels.** Vale para todo card que não escolhe densidade — e 24 continua a um pedido de distância, como tamanho amplo. Cards ficam um pouco mais densos, que é o que a tela de trabalho pede.",
+          "**O espaçamento de card chamado \"base\" agora vale 20 pixels** (era 24). Isso alcança quem já instalou peças que usam esse nome no próprio código — o cartão flutuante de informação, por exemplo. **Nada quebra**: o nome continua existindo e funcionando, só entrega o novo padrão. Se algum caso precisar dos 24 de antes, existe agora um nome específico para isso.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.43.3",
     date: "2026-08-19",
     tag: "patch",
