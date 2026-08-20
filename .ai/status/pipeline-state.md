@@ -2972,3 +2972,74 @@ release precisa de bump de CLI**. Embed defasado em `card` + `theme`, que consol
 `Card` nunca ofereceu escolha — 24 era o único valor, então quem usava não escolheu, herdou. Cai se
 alguma tela ficar visivelmente apertada em 20; sinal disso é reclamação sobre densidade, e a saída
 é `size="lg"` no caso específico, não voltar o default.
+
+---
+
+### 2026-08-20 | ds-dev | Infra de crescimento dos blocos: o fluxo virou 2 passos | CONCLUÍDO
+
+**Input:** o mantenedor não quer mais blocos agora, mas o catálogo *"é uma constância que irá
+crescer regularmente"* — então pediu o terreno pronto pra que o fluxo normal seja só desenvolver
+bloco novo, de um jeito fácil de atualizar e que o `ds:link` leve as referências.
+
+**A leitura dele estava quase certa, e a peça que faltava era a principal.** Ele descreveu *"cada
+referência é um id e tem um arquivo que tem esses ids em uma lista apontando a referência certa"* —
+**essa lista não existia**. O `BLOCK` era declarado dentro de cada arquivo e o Passo 0 mandava a IA
+**procurar** em `src/blocks/**`. Funcionou com 1 bloco porque procurar em 1 arquivo é trivial.
+
+**Medido: eram 4 toques manuais por bloco novo**, e o pior não era o óbvio:
+
+    1. criar o arquivo                        → é o trabalho, fica
+    2. import + render + TOC na galeria       → 3 edições por bloco
+    3. item no registry.json à mão            → errar aí quebra o igreen:add
+    4. linha no vocabulário do consumidor     → O PIOR
+
+O 4 é o pior porque o gate `vocab-surface` **exige** que todo item distribuído esteja citado no
+`ds-components.md`, e esse arquivo é `alwaysApply: true` — carrega em **100% das sessões do
+consumidor**. Com 20 blocos seriam 20 linhas de prosa lá pra sempre, num arquivo que a gente passou
+o dia cuidando pra não inflar.
+
+**O que ficou:**
+
+- **galeria auto-descobre** por `import.meta.glob("../../blocks/chart/*.tsx")` — bloco novo aparece
+  pelo simples ato de existir, com entrada de TOC
+- **`npm run blocks:build`** gera o índice (`_claude/skills/ds-kit/blocks-index.md`) e os itens
+  `registry:block`, a partir dos `export const BLOCK`
+- **`npm run blocks:check`** (no `release:check`) reprova ID malformado, duplicado, fora da pasta,
+  sem descrição — e índice/registry defasados
+- **vocabulário aponta pro índice**, 1 linha fixa
+- **`vocab-surface` pula `registry:block`**, com a razão escrita: o princípio dele é "item
+  distribuído que o vocabulário não cita é mentira por omissão", e isso vale pra COMPONENTE, que a
+  IA escolhe navegando. Bloco não é escolhido — é citado por ID pelo humano
+
+**Onde o índice mora, e por que não em `rules/`.** As 4 `rules/` do payload são `alwaysApply`.
+Índice de bloco lá faria o custo de contexto crescer a cada bloco — exatamente o que este desenho
+evita. Em `skills/ds-kit/` ele carrega sob demanda, quando o Passo 0 dispara. E o payload é copiado
+pros dois canais (CLI npm e `ds:link`), então **um arquivo serve os dois**.
+
+**Deps do item saem dos IMPORTS, não do `usa`.** O `usa` é prosa pra humano (e pra IA entender o
+arranjo antes de abrir o arquivo) — prosa desatualiza. A resolução import → item dono reusa
+`resolverImport`/`especificadores` do `registry-imports`, de propósito: gerador e gate discordando
+sobre o que está declarado seria pior que não ter gerador.
+
+**Provado com sonda, não presumido.** Criei um `dsgreen-chart-99` temporário: apareceu no índice, no
+registry **e na galeria renderizado com TOC**, sem eu tocar em nenhum dos três. Removi o arquivo e o
+`blocks:check` reprovou com `exit 1` apontando os dois artefatos defasados e o comando do conserto.
+
+**Três bugs meus, os três pegos por teste e não por revisão:**
+
+1. o índice prometia `<dsPath>/<arquivo>` e **não tinha coluna de arquivo** — a instrução de leitura
+   ficava sem alvo
+2. o balanceamento de chaves contava `{` **dentro de string**, então descrição com código (`"passe
+   { total } no config"`) cortava o literal cedo. O próprio teste do módulo pegou
+3. o gerador **apagava o `meta.stamp`** que o `registry:stamp` grava — o `--check` viveria num loop
+   em que gerar conserta e o stamp seguinte quebra. Só apareceu ao ligar o gate no `release:check`,
+   que roda o stamp antes
+
+**Estado:** 55 arquivos / **682 testes** (+20) · tsc 0 · `release:check` exit 0 com
+`✔ blocks: 1 bloco(s), índice e registry em sync`.
+
+**Assumption:** que categoria nova continua sendo raro. Ela ainda pede 3 edições manuais (a página
+da galeria + rota no `App.tsx` + `doc-nav-data`), e eu **não** automatizei — com 1 categoria não há
+caso pra generalizar, e generalizar antes do segundo caso é o que a L-064 diz pra não fazer. Cai se
+aparecerem 3+ categorias em sequência; aí o `import.meta.glob` por categoria vira glob por pasta e a
+página passa a ser uma só, parametrizada pela rota.

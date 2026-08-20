@@ -35,17 +35,17 @@ tem — que existe porque a IA sabe as peças e os tokens mas não sabe o **arra
 escolheu. Ele não tem props nem versão própria: você lê a estrutura e reconstrói com os dados do
 usuário.
 
-**Como resolver, por modo de consumo:**
+**Como resolver:** abra **`.claude/skills/ds-kit/blocks-index.md`** — é o índice do catálogo
+(gerado a partir dos arquivos, então nunca está defasado). Ele dá, por código: a composição, quando
+serve, o que usa, e o **caminho do arquivo**.
 
-| modo | onde o bloco está |
+| modo | onde o arquivo está |
 |---|---|
-| **submódulo** (`.claude/ds-config.json` com `"mode": "submodule"`) | já no disco: `<dsPath>/src/blocks/<categoria>/*.tsx`. **Leia direto** |
-| **copy-in / scaffold** | não vem instalado. `npm run igreen:add -- <nome-do-bloco>` traz o arquivo |
+| **submódulo** (`.claude/ds-config.json` com `"mode": "submodule"`) | já no disco: `<dsPath>/<arquivo do índice>`. **Leia direto** |
+| **copy-in / scaffold** | não vem instalado. `npm run igreen:add -- <código>` traz o arquivo |
 
-Em qualquer um dos dois, o arquivo do bloco exporta um `BLOCK` com o `id`, o `nome`, a `descricao`
-e o `usa` — confira que o `id` bate com o que o usuário citou antes de aplicar. Se não achar o
-código, **diga isso** em vez de adivinhar uma composição parecida: o valor do código é ser
-determinístico, e um palpite silencioso destrói exatamente isso.
+Se o código citado **não estiver no índice**, diga isso em vez de adivinhar uma composição
+parecida: o valor do código é ser determinístico, e um palpite silencioso destrói exatamente isso.
 
 **Depois de achar:** leia o arquivo inteiro, incluindo o JSDoc no topo — ele carrega as regras que
 aquela composição embute (qual token de cor, por que `tabular-nums`, o que NÃO copiar). Adapte os

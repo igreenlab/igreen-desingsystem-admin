@@ -165,13 +165,14 @@ do usuário.
 Cada bloco tem um código no formato `dsgreen-<categoria>-<n>`. **Quando o usuário citar um código,
 não classifique intenção** — resolva o código (é o Passo 0 da skill ds-kit).
 
-- `dsgreen-chart-1` — donut com o total ao centro + lista das fatias abaixo, onde a cor liga cada
-  linha ao seu setor. Para distribuição de um total por 3–5 categorias nomeadas. Usa `card`,
-  `tabs`, `chip`, `chart`.
+**A lista dos blocos NÃO está aqui**, de propósito: ela vive em
+`.claude/skills/ds-kit/blocks-index.md`, que é **gerado** a partir dos arquivos e carregado **só
+quando um código é citado**. Esta regra é `alwaysApply` — listar cada bloco aqui faria o custo de
+contexto crescer a cada bloco novo, e o catálogo é feito pra crescer. Bloco só entra em jogo quando
+o humano cita um ID, então não há caso em que você precise descobrir blocos sem ser provocada.
 
-O catálogo visual fica na seção **Blocks** do showcase do DS — é de lá que o usuário tira o código.
-Em copy-in, `npm run igreen:add -- dsgreen-chart-1`; em submódulo o arquivo já está em
-`<dsPath>/src/blocks/`.
+O catálogo **visual** fica na seção **Blocks** do showcase do DS — é de lá que o usuário tira o
+código.
 
 ## Identidade, status e navegação
 
