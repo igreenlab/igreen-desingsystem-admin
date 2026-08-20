@@ -161,7 +161,11 @@ export function coletarBlocos(arquivos) {
     blocos.push({ ...b, categoria, arquivo: String(arquivo).replace(/\\/g, "/") });
   }
 
-  blocos.sort((a, b) => String(a.id).localeCompare(String(b.id), "en"));
+  // `numeric: true` NÃO é detalhe de gosto: sem ele o 10º bloco entra ENTRE o 1º e o 2º
+// ("dsgreen-chart-10" < "dsgreen-chart-2" em ordem lexicográfica, porque compara "1" com
+// "2"). Mediria certo com 9 blocos e erraria pra sempre a partir do 10º — o tipo de defeito
+// que aparece meses depois, quando ninguém liga a ordem esquisita da galeria a esta linha.
+blocos.sort((a, b) => String(a.id).localeCompare(String(b.id), "en", { numeric: true }));
   return { blocos, achados };
 }
 

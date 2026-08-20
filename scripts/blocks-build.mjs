@@ -124,8 +124,21 @@ if (isCheck) {
   process.exit(0);
 }
 
-if (indiceDefasado) writeFileSync(INDICE, indiceNovo);
-if (registryDefasado) writeFileSync(REGISTRY, registryTexto);
+/**
+ * Escreve preservando o line-ending que o arquivo JÁ tem. Sem isto, gerar num clone Windows
+ * (onde os dois artefatos são CRLF no working tree) reescrevia tudo em LF: o `--check` continuava
+ * passando — ele normaliza antes de comparar — mas o `git status` acusava os dois arquivos como
+ * modificados SEM nenhuma mudança de conteúdo, depois de toda geração. Status que mente é o que
+ * esconde a mudança real na vez seguinte.
+ */
+function escreverPreservandoEol(caminho, texto, atual) {
+  const crlf = atual.includes("\r\n");
+  const lf = texto.replace(/\r?\n/g, "\n");
+  writeFileSync(caminho, crlf ? lf.replace(/\n/g, "\r\n") : lf);
+}
+
+if (indiceDefasado) escreverPreservandoEol(INDICE, indiceNovo, indiceAtual);
+if (registryDefasado) escreverPreservandoEol(REGISTRY, registryTexto, registryAtual);
 
 console.log(
   `✔ blocks-build: ${blocos.length} bloco(s) — ` +
