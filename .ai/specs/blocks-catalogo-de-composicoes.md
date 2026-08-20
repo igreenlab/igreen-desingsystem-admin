@@ -64,14 +64,21 @@ migração. O `#/chart-showcase` **não é tocado**.
 
 ### 3.2 Os 5 helpers locais — e por que eles fundamentam a regra da §4.1
 
-Os cards do showcase dependem de `C` (paleta local) · `Panel` · `CardHead` · `SectionLabel` ·
-`KPI_LABEL`.
+Os cards do showcase dependem de `C` (paleta local) · `Panel` · `CardHead` · `KPI_LABEL`.
 
-⚠️ **`CardHead` e `SectionLabel` não existem como componente do DS**, e o `Panel` local é um
-`<section>` de 5 classes — nada a ver com o `Panel` do DS (que é drawer com header/body/footer).
+⚠️ **`CardHead` não existe como componente do DS**, e o `Panel` local é um `<section>` de 5
+classes — nada a ver com o `Panel` do DS (que é drawer com header/body/footer).
 
-**Este é o achado que justifica não migrar.** Extraindo, eu teria acabado promovendo os dois a
-componente do DS ou fazendo eles viajarem junto com cada bloco — e essa decisão teria sido tomada
+> **Correção de 2026-08-20:** este parágrafo listava `SectionLabel` como 5ª dependência **dos
+> cards**, e não é. Medido no `ChartShowcaseDoc.tsx`: `CardHead` tem **20** usos, dentro dos cards;
+> `SectionLabel` tem **5**, todos no nível da PÁGINA (linhas 1806–1840), separando as categorias da
+> galeria — nenhum card o usa. Eu inventariei o **arquivo** e chamei de dependência do **card**, que
+> é a mesma classe de erro que a spec inteira existe pra evitar: herdar decisão por acidente porque
+> o código velho tinha aquilo perto. Não muda a conclusão da §4.1 — muda quem a fundamenta, e é
+> `CardHead` sozinho.
+
+**Este é o achado que justifica não migrar.** Extraindo, eu teria acabado promovendo o `CardHead` a
+componente do DS ou fazendo ele viajar junto com cada bloco — e essa decisão teria sido tomada
 **por acidente**, porque o código velho usava, não porque alguém achou que `CardHead` merece ser
 componente. Construindo do zero, a pergunta é feita de propósito, e a resposta virou regra
 (§4.1).
@@ -348,8 +355,9 @@ Custo zero (é o módulo que já valida ID único) e evita a falha silenciosa de
 3. **`dashboard-patterns.md`** — adiado por decisão do mantenedor até o primeiro bloco real existir;
    aí ele avalia se cabe como bloco, exemplo ou ambos.
 4. **Qual card de chart vira o bloco 1.** Sugestão: um que exercite a regra da §4.1 de verdade —
-   ou seja, um que hoje dependa de `CardHead`/`SectionLabel`, pra a primeira resposta a "compor ou
-   promover?" ser dada logo, e não adiada.
+   ou seja, um que hoje dependa de `CardHead`, pra a primeira resposta a "compor ou promover?" ser
+   dada logo, e não adiada. (Dizia `CardHead`/`SectionLabel` — ver a correção na §3.2: card nenhum
+   depende de `SectionLabel`.)
 
 ---
 
