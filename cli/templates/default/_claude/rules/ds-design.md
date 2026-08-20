@@ -22,7 +22,7 @@ contexto em `DESIGN.md` (raiz). API de cada componente em
 - **16px (`gap-gp-2xl`) entre o `PageHeader` e o próximo bloco** — nunca grudado.
 - Conteúdo que precisa preencher (tabela): `className="flex-1 min-h-0"` + pai com altura.
 - Forms: `<FormField>` (nunca `<label>` cru) + `gap-form-gap` (20px) entre campos.
-- Card: padding `p-pad-card-base` (24px); entre cards `gap-gp-md`/`gap-gp-lg`.
+- Card: densidade pela prop `size` do `<Card>` — `sm` 16 · **`md` 20 (default)** · `lg` 24 (tokens `p-pad-card-sm/md/lg`; `base` é alias depreciado de `md`); entre cards `gap-gp-md`/`gap-gp-lg`.
 
 ## Tokens (classe DS antes de Tailwind literal)
 ```

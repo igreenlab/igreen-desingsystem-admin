@@ -171,7 +171,7 @@ Agent accent colors (inline style only):
 
 ## Shared visual patterns
 
-### Content Card (padding: p-pad-card-base = 24px)
+### Content Card (padding: prop `size` do `<Card>` — `md`/20px default)
 
 ```tsx
 <div className="rounded-radius-base border border-border bg-bg-surface shadow-sh-sm p-pad-card-base">
@@ -303,9 +303,11 @@ The `mb-14` ensures consistent spacing between sections (Tailwind literal — no
 - **NO sidebar prop** on DocLayout — App.tsx renders the sidebar externally (persistent across pages)
 - **All text in English**
 - **DS classes only** — never raw Tailwind where a DS token exists
-  - Padding: use `p-pad-card-base` (24px) or `p-pad-card-sm` (16px) for cards — NOT `p-pad-4xl` (doesn't exist)
+  - Padding: in a `<Card>`, use the **`size` prop** (`sm` 16 · `md` 20, default · `lg` 24) — do not hand-write the class there. Outside it, `p-pad-card-sm|md|base`.
+    ⚠️ Corrected 2026-08-19: this line used to say `p-pad-4xl` **"doesn't exist"**. It does — `--spacing-pad-4xl: 24px` is emitted and **79 places in `src/` use it**. The real rule is preference, not existence: prefer the component-scoped token (`pad-card-*`) over the generic scale (`pad-*`).
   - Gap: use `gap-gp-*` classes
-  - Typography: use `text-label-*`, `text-paragraph-*`, `text-code-*` presets
+  - Typography: use the **7 roles** — `text-display-*`, `text-heading-*`, `text-title-*`, `text-body-*`, `text-caption-*`, `text-stat-*`, `text-code-*`.
+    ⚠️ Corrected 2026-08-19: this line said `text-label-*` and `text-paragraph-*`. **Neither emits CSS** — they are the extinct V2 naming (checked against the generated theme). A class that does not exist fails **silently**: no build error, no `tsc` error, the text just renders at the browser default. Body default in this project is `text-body-sm` (13/500).
 - **ExampleSection ids** start with `ex-`
 - **code prop** is a string, not JSX
 - **useState** for controlled examples — extract to named sub-components to keep hooks valid

@@ -63,6 +63,7 @@ import { RadarChartDoc } from "./preview/pages/RadarChartDoc";
 import { RadialChartDoc } from "./preview/pages/RadialChartDoc";
 import { MapChartDoc } from "./preview/pages/MapChartDoc";
 import { ChartShowcaseDoc } from "./preview/pages/ChartShowcaseDoc";
+import { BlocksChartsDoc } from "./preview/pages/BlocksChartsDoc";
 import { TabelaTesteDoc } from "./preview/pages/TabelaTesteDoc";
 import { KanbanDoc } from "./preview/pages/KanbanDoc";
 import { ListDoc } from "./preview/pages/ListDoc";
@@ -275,6 +276,7 @@ const DOC_PAGES = [
   "chart-radial",
   "chart-map",
   "chart-showcase",
+  "blocks-charts",
   "switch",
   "checkbox",
   "card-checkbox",
@@ -702,6 +704,7 @@ export function App() {
             {activePage === "chart-radial" && <RadialChartDoc />}
             {activePage === "chart-map" && <MapChartDoc />}
             {activePage === "chart-showcase" && <ChartShowcaseDoc />}
+            {activePage === "blocks-charts" && <BlocksChartsDoc />}
             {activePage === "showcase-v2" && <ShowcasePageV2 />}
             {activePage === "agents" && <AgentsPreview />}
             {activePage === "agents-overview" && <AgentsOverviewDoc />}

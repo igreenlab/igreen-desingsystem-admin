@@ -237,8 +237,10 @@ body {
   --container-modal-sm: 480px;
   --container-modal-md: 640px;
   --container-modal-lg: 800px;
-  --spacing-pad-card-base: 24px;
   --spacing-pad-card-sm: 16px;
+  --spacing-pad-card-md: 20px;
+  --spacing-pad-card-lg: 24px;
+  --spacing-pad-card-base: 20px;
   --spacing-pad-page-base: 24px;
   --spacing-pad-page-sm: 16px;
   --spacing-pad-page-lg: 40px;

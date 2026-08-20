@@ -47,7 +47,7 @@ Toda página segue este esqueleto (veja `FinanceScreen`/`ClientesScreen`):
 | PageHeader → conteúdo | `gap-gp-2xl` | 16px |
 | Entre fields de um form | `gap-form-gap` | 20px |
 | Entre cards / KPIs | `gap-gp-md` / `gap-gp-lg` | 8–10px |
-| Padding interno de card | `p-pad-card-base` (24px) / `p-pad-2xl` (16px, compacto) | — |
+| Padding interno de card | Prop `size` do `<Card>`: `sm` 16 · **`md` 20 (default)** · `lg` 24 — tokens `p-pad-card-sm/md/base`. Card montado na unha usa os mesmos tokens. | — |
 | Seção major | `gap-gp-6xl` | 32px |
 | Ícone → texto | `gap-gp-xs` / `gap-gp-sm` | 4–6px |
 
@@ -62,7 +62,7 @@ O DS tem tokens orientados a composição — prefira-os a `h-10`/`gap-4`/`size-
 | **Altura de form** | `min-h-form-xs`(28) `sm`(32) `md`(36) `lg`(40 ⭐) `xl`(44) | Botões, inputs, selects, chips. `lg`=desktop default · `xl`=touch WCAG mobile. Nunca `h-9`/`h-10`. |
 | **Gap de form** | `gap-form-gap`(20) | Entre fields de um formulário (vertical ou grid). Nunca `gap-gp-*` em form. |
 | **Ícone** | `size-icon-2xs`(8) `xs`(12) `sm`(16) `md`(20 ⭐) `lg`(24) `xl`(32) `2xl`(40) | Tamanho de ícone. Nunca `size-5`/`w-4 h-4`. |
-| **Padding de card** | `p-pad-card-base`(24 ⭐) `p-pad-card-sm`(16) | Padding interno de Card/Panel/Modal/Drawer. |
+| **Padding de card** | `p-pad-card-sm`(16) `p-pad-card-md`(20 ⭐) `p-pad-card-lg`(24) | Padding interno de Card/Panel/Modal/Drawer. No `<Card>` vem pela prop `size` (sm/md/lg) — não escreva a classe na mão ali. ⚠️ `p-pad-card-base` existe e é **alias de `md`** (20px) só por compatibilidade — era 24 até 2026-08-19. Não usar em código novo. |
 | **Gutter de página** | `px-pad-page-sm`(16, mobile) `base`(24) `lg`(40, wide) | Margem lateral do conteúdo (o AppShell normalmente já aplica). |
 | **Altura de chrome** | `h-layout-navbar`(64) `h-layout-toolbar`(48) `h-layout-tab-bar`(56) `h-layout-header-{sm,md,lg}` | Topbar, toolbar de tabela, tab-bar mobile, hero de página. |
 | **Largura/container** | `max-w-{lg,xl,2xl}`(1024/1280/1440) · `max-w-drawer-{sm,md,lg}` · `max-w-dropdown-*` · `max-w-modal-*` · `max-w-tooltip-*` | Cap de conteúdo / largura de drawer/dropdown. ⚠️ **`container` é o ÚNICO namespace que NÃO dobra o prefixo** — `max-w-container-*` **não existe** e não emite CSS. O transform emite `--container-md`, que **sobrescreve** a escala nativa do Tailwind: `max-w-md` já é os **768px do DS**, não os 448px do Tailwind. |

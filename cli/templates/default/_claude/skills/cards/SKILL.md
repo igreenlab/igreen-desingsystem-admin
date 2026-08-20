@@ -24,11 +24,13 @@ segue `DESIGN.md`. Para uma TELA inteira baseada em cards (dashboard), use a ski
 > e leia os `USAGE.md`/exemplos direto em `<dsPath>/src` — **NÃO** rode `igreen:add`.
 
 ## Gotchas do tipo
-- Card: `bg-bg-surface border border-border-default rounded-radius-lg shadow-sh-md`, padding `p-pad-card-base` (24px).
+- Card: use o componente **`<Card>`** (não replique a superfície na unha — a lista de classes que estava aqui divergia do componente real em 3 itens). Densidade pela prop **`size`**: `sm` 16px · **`md` 20px (default)** · `lg` 24px, e ela vale pro `CardHeader`/`CardContent`/`CardFooter` juntos (declare só no `<Card>`).
+- Header em faixa: **`<CardHeader variant="banded">`** — fundo `bg-bg-subtle` + divisória embaixo, encostado nas bordas. Aceita qualquer estrutura dentro e acompanha o `size`. Use quando a seção precisa de cabeçalho destacado (ficha, detalhe, formulário por etapas).
+- Título de card: **não passe `font-*`** — `text-title-md` já é semibold (600) por preset.
 - Grid de cards: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gp-md`.
 - KPI card: label `caption-md`/`uppercase` em `fg-muted` + valor grande **`text-stat-lg`/`text-stat-md` + `tabular-nums`** (nunca `display-*`/`heading-*`) + opcional `Chip` de tendência. (Ver `example-dashboard`.)
 - Card de seção (label/valor): título da seção `title`, linhas rótulo (`fg-muted`) + valor.
 - Dark mode: sombra vira borda hairline (automático via token).
-- **Don't:** não invente padding/gap avulso (`p-pad-card-base`, `gap-gp-md`); não use hex (cor por token); não empilhe cards "grudados" (`gap-gp-md` entre eles).
+- **Don't:** não invente padding/gap avulso — no `<Card>` a densidade é a prop `size`, e fora dele use `p-pad-card-*` e `gap-gp-*`; não use hex (cor por token); não empilhe cards "grudados" (`gap-gp-md` entre eles).
 
 Aplique `DESIGN.md`. Handoff: `CARDS_PRONTO`.
