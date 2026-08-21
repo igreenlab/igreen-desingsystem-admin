@@ -58,6 +58,10 @@ Princípios:
    - Default: **client**.
 4. **Volume estimado de linhas** (decide proposta de virtualização na Fase 4).
    Default: "< 1.000".
+> **Tem print / Figma / tela existente como referência?** Leia
+> **`.ai/context/referencia-visual.md`** antes de continuar (sob demanda, ~1k tokens): o que
+> a referência decide, o que é do DS, e por que "chrome na imagem" muda o escopo.
+
 5. **Envelope da tela (wrapper)** — **verifique antes de perguntar**: existe
    `AppShell` no projeto (grep em `src/`)? A referência que o usuário deu (print,
    Figma, tela existente) mostra rail/menu/header?

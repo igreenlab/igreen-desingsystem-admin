@@ -12,6 +12,8 @@ deixe o usuário confirmar/ajustar. Ancore tudo nas receitas de
   de categoria, financeiro consolidado).
 - Dados: mock (demo) ou vindo de API? Se API, anote o shape aproximado — a geração
   cria o mock tipado espelhando o shape.
+> Referência visual (print/Figma) em jogo? → **`.ai/context/referencia-visual.md`**.
+
 - **Envelope (wrapper)** — verifique antes de perguntar: existe `AppShell` no projeto?
   A referência (print/Figma) mostra rail/menu/header? Chrome na referência sem shell no
   projeto → ofereça `/ds-create-app` junto; recusado → registre no blueprint o que do
