@@ -111,7 +111,6 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       return features.map((f) => ({
         feature: f,
         d: pathGen(f as unknown as GeoPermissibleObjects) ?? "",
-        centroid: pathGen.centroid(f as unknown as GeoPermissibleObjects),
       }));
     }, [features, projection, width, height]);
 
@@ -156,105 +155,116 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       ((v: number) => new Intl.NumberFormat("pt-BR").format(v));
 
     const [hover, setHover] = useState<
-      (ChoroplethHoverInfo & { ax: number; ay: number; d: string }) | null
+      (ChoroplethHoverInfo & { d: string }) | null
     >(null);
+    // Posição do cursor em % da área do svg — o tooltip SEGUE o mouse.
+    // Ancorar no centroide da região não funciona: em região grande o
+    // centroide fica longe do cursor e o tooltip parece "perdido"/fixo.
+    const [pos, setPos] = useState<{ ax: number; ay: number } | null>(null);
 
     const legendGradient = `linear-gradient(to right, ${surfaceVar}, ${scaleVar})`;
 
     return (
       <div ref={ref} className={styles.root({ className })}>
-        <svg
-          viewBox={`0 0 ${width} ${height}`}
-          className={styles.svg()}
-          role="img"
-          aria-label={ariaLabel}
-          onMouseLeave={() => setHover(null)}
-        >
-          {geometry.map(({ feature, d, centroid }, index) => {
-            const id = getId(feature);
-            const value = values[id];
-            return (
+        <div className={styles.canvas()}>
+          <svg
+            viewBox={`0 0 ${width} ${height}`}
+            className={styles.svg()}
+            role="img"
+            aria-label={ariaLabel}
+            onMouseLeave={() => setHover(null)}
+            onMouseMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              setPos({
+                ax: ((e.clientX - r.left) / r.width) * 100,
+                ay: ((e.clientY - r.top) / r.height) * 100,
+              });
+            }}
+          >
+            {geometry.map(({ feature, d }, index) => {
+              const id = getId(feature);
+              const value = values[id];
+              return (
+                <path
+                  key={`${id}-${index}`}
+                  d={d}
+                  fill={fillFor(value)}
+                  strokeWidth={strokeWidth}
+                  className={styles.path()}
+                  style={onFeatureClick ? { cursor: "pointer" } : undefined}
+                  onMouseEnter={() =>
+                    setHover({ id, name: getName(feature), value, feature, d })
+                  }
+                  onClick={
+                    onFeatureClick
+                      ? () =>
+                          onFeatureClick({
+                            id,
+                            name: getName(feature),
+                            value,
+                            feature,
+                          })
+                      : undefined
+                  }
+                />
+              );
+            })}
+            {hover && (
               <path
-                key={`${id}-${index}`}
-                d={d}
-                fill={fillFor(value)}
-                strokeWidth={strokeWidth}
-                className={styles.path()}
-                style={onFeatureClick ? { cursor: "pointer" } : undefined}
-                onMouseEnter={() =>
-                  setHover({
-                    id,
-                    name: getName(feature),
-                    value,
-                    feature,
-                    d,
-                    ax: (centroid[0] / width) * 100,
-                    ay: (centroid[1] / height) * 100,
-                  })
-                }
-                onClick={
-                  onFeatureClick
-                    ? () =>
-                        onFeatureClick({
-                          id,
-                          name: getName(feature),
-                          value,
-                          feature,
-                        })
-                    : undefined
-                }
+                d={hover.d}
+                className={styles.pathHighlight()}
+                strokeWidth={Math.max(strokeWidth * 3, 1.5)}
+                style={{
+                  fill: `color-mix(in srgb, ${scaleVar} 18%, transparent)`,
+                }}
               />
-            );
-          })}
-          {hover && (
-            <path
-              d={hover.d}
-              className={styles.pathHighlight()}
-              strokeWidth={Math.max(strokeWidth * 3, 1.5)}
-              style={{
-                fill: `color-mix(in srgb, ${scaleVar} 18%, transparent)`,
-              }}
-            />
-          )}
-        </svg>
+            )}
+          </svg>
 
-        {/* Ancora do tooltip: um ponto 0×0 posicionado no centroide (em %) da
-            região sob o cursor. Reaproveita o Tooltip do DS de forma controlada
-            — um único tooltip que "segue" a região ativa (escala pra milhares
-            de paths, ao contrário de 1 Tooltip por região). */}
-        <div className={styles.tooltipLayer()}>
-          <Tooltip open={hover != null} onOpenChange={() => {}} disableHoverableContent>
-            <TooltipTrigger asChild>
-              <span
-                aria-hidden="true"
-                className={styles.tooltipAnchor()}
-                style={{ left: `${hover?.ax ?? 0}%`, top: `${hover?.ay ?? 0}%` }}
-              />
-            </TooltipTrigger>
-            {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro translúcido
-                (12% branco) no dark — sobre o mapa fica esbranquiçado/ilegível.
-                pointer-events-none: o conteúdo é portalado FORA do tooltipLayer;
-                se capturar o mouse, cursor perto do centroide entra no tooltip →
-                mouseleave do svg → fecha → reabre (flicker em loop). */}
-            <TooltipContent
-              showArrow={false}
-              className="pointer-events-none border border-border-default bg-bg-surface-elevated shadow-sh-lg"
+          {/* Ancora do tooltip: um ponto 0×0 que segue o CURSOR (em % da área
+              do svg). Reaproveita o Tooltip do DS de forma controlada — um
+              único tooltip pra todas as regiões (escala pra milhares de paths,
+              ao contrário de 1 Tooltip por região). */}
+          <div className={styles.tooltipLayer()}>
+            <Tooltip
+              open={hover != null && pos != null}
+              onOpenChange={() => {}}
+              disableHoverableContent
             >
-              {hover &&
-                (renderTooltip ? (
-                  renderTooltip(hover)
-                ) : (
-                  <div>
-                    <div className={styles.tooltipName()}>{hover.name}</div>
-                    <div className={styles.tooltipValue()}>
-                      {hover.value != null && Number.isFinite(hover.value)
-                        ? fmt(hover.value)
-                        : "Sem dados"}
+              <TooltipTrigger asChild>
+                <span
+                  aria-hidden="true"
+                  className={styles.tooltipAnchor()}
+                  style={{ left: `${pos?.ax ?? 0}%`, top: `${pos?.ay ?? 0}%` }}
+                />
+              </TooltipTrigger>
+              {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro
+                  translúcido (12% branco) no dark — sobre o mapa fica
+                  esbranquiçado/ilegível. pointer-events-none: o conteúdo é
+                  portalado FORA do tooltipLayer; se capturar o mouse, o cursor
+                  entra no tooltip → mouseleave do svg → fecha → reabre
+                  (flicker em loop). */}
+              <TooltipContent
+                showArrow={false}
+                sideOffset={12}
+                className="pointer-events-none border border-border-default bg-bg-surface-elevated shadow-sh-lg"
+              >
+                {hover &&
+                  (renderTooltip ? (
+                    renderTooltip(hover)
+                  ) : (
+                    <div>
+                      <div className={styles.tooltipName()}>{hover.name}</div>
+                      <div className={styles.tooltipValue()}>
+                        {hover.value != null && Number.isFinite(hover.value)
+                          ? fmt(hover.value)
+                          : "Sem dados"}
+                      </div>
                     </div>
-                  </div>
-                ))}
-            </TooltipContent>
-          </Tooltip>
+                  ))}
+              </TooltipContent>
+            </Tooltip>
+          </div>
         </div>
 
         {showLegend && numeric.length > 0 && (

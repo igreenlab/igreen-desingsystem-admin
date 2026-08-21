@@ -10,6 +10,10 @@ import { tv, type VariantProps } from "@/utils/tv";
 export const choroplethStyles = tv({
   slots: {
     root: "relative w-full",
+    // Wrapper do svg + camada de tooltip: garante que o inset-0 da camada
+    // cubra EXATAMENTE a área do mapa (sem ele, a camada cobria root inteiro
+    // — incluindo a legenda — e as % de posição saíam deslocadas).
+    canvas: "relative",
     svg: "block h-auto w-full",
     // Traço das divisas — `fg-muted` (mid-gray VISÍVEL nos DOIS temas: L≈0.50
     // no light, L≈0.70 no dark). `border-default` era L≈0.91 no light → as
