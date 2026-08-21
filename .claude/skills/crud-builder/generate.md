@@ -198,7 +198,8 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 | **Avatar**                | `size="md"` na tabela (não `sm`); `colorHex` p/ cor de marca, senão `color` semântico                  |
 | **Números / moeda / %**   | `tabular-nums`; moeda/percent via `type` (`currency`/`percentage`) + `align: "right"`                   |
 | **Tags / métodos**        | `type: "tags"` + `render` com `<Chip variant="soft" size="sm" shape="rounded">`                         |
-| **Datas**                 | `type: "date"`/`"datetime"` + formatter pt-BR                                                           |
+| **Datas**                 | `type: "date"`/`"datetime"` + formatter pt-BR
+| **Código / identificador / valor técnico** | preset **`text-code-sm`** (13px, Geist Mono, tracking 0) — chave de env, ID, hash, slug, token, path. **Nunca** compor na unha (`font-mono text-body-sm`, `tracking-widest`): o papel `code` é 1 dos 7 do DS e existe pra isto |                                                           |
 
 Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
 Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.

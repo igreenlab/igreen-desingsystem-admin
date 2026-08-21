@@ -32,6 +32,14 @@ são sempre explícitas:
 - Dados **client-side** (array em memória/mock) ou **server-side** (fetch paginado da API)?
   - Server: qual o endpoint/forma de buscar? (vira `fetchData` em `useCallback`).
 - Onde a página vai morar e como registra a rota? (`PAGES_DIR`/`REGISTRO`).
+- **Envelope (wrapper)** — verifique, não pergunte por padrão: existe `AppShell` no projeto
+  (grep em `src/`)? A referência (print/Figma) mostra rail/menu/header?
+  - shell existe + chrome na referência → `AppShell` + `PageHeader`
+  - chrome na referência e **sem** shell → **pare e ofereça `/ds-create-app` junto**;
+    recusado → o blueprint diz, em linha destacada, o que do print fica de fora
+  - sem referência visual → componente puro no seu `PAGES_DIR`
+  Sem esta pergunta o campo era preenchido por inferência: tela entregue sem o menu que
+  o print mostrava (dogfood 2026-08-20).
 
 ## Fase 1 — Colunas
 

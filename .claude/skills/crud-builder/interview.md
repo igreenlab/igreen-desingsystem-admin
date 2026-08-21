@@ -24,6 +24,9 @@ Modo expresso e inferência NÃO valem pra estas duas — sempre explícitas:
 - Excluir (action destructive) ⇒ confirmação via `AlertModal` — nunca deletar direto.
 - Os 3 estados sempre wirados: `renderLoading` (skeleton) · `renderEmpty` (+ CTA) ·
   `renderNoResults` (+ limpar filtros). Tabela sem estados = incompleta.
+  **O default embutido do `DataTable` CONTA como wirado — desde que declarado no
+  blueprint** (linha `Estados:`, ex.: `vazio=default`). Não é meio-termo: o que não
+  vale é o estado ficar fora do blueprint e a decisão nunca ter sido tomada.
 
 Princípios:
 
@@ -55,7 +58,22 @@ Princípios:
    - Default: **client**.
 4. **Volume estimado de linhas** (decide proposta de virtualização na Fase 4).
    Default: "< 1.000".
-5. **`getRowId`** — campo id único. Default: `id`. Server mode → confirmar
+5. **Envelope da tela (wrapper)** — **verifique antes de perguntar**: existe
+   `AppShell` no projeto (grep em `src/`)? A referência que o usuário deu (print,
+   Figma, tela existente) mostra rail/menu/header?
+   - existe shell **e** a referência mostra chrome → **(b) `AppShell` + `PageHeader`**
+   - referência mostra chrome e **não** existe shell → **PARE e ofereça**
+     `/ds-create-app` junto; se o usuário recusar, escreva no blueprint, em linha
+     destacada, **o que do print não vai ser entregue**
+   - sem referência visual → **(a) `ExamplePageLayout`** no DS · **(c) puro** no consumer
+   As 3 opções são as mesmas do `list-builder` (Fase 0 dele), de propósito.
+
+   ⚠️ Esta pergunta existia no `list-builder` e **não** aqui — e o `blueprint.md` deste
+   builder já imprime `wrapper <ExamplePageLayout|AppShell|puro>`. Ou seja: o campo era
+   preenchido por INFERÊNCIA e aprovado em pacote. Foi por esse buraco que uma tela
+   nasceu sem o menu que o print mostrava (dogfood 2026-08-20).
+
+6. **`getRowId`** — campo id único. Default: `id`. Server mode → confirmar
    explicitamente (exemplo canônico usa `getRowId`).
 
 ### Inferência de tipos (determinística)

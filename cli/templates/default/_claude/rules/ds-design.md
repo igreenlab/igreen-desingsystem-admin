@@ -42,6 +42,7 @@ shadow-md → shadow-sh-md    h-9/h-10 → min-h-form-md/lg    size-5 → size-i
 ## Tipografia
 - Default interativo: `text-body-sm` (13/500). **7 papéis**: display/heading/title/body/caption/**stat**/code.
 - **Número de KPI/métrica = `text-stat-{sm,md,lg,xl}`** (20/24/30/34px) + `tabular-nums`. Nunca `text-[Npx]` na unha, nunca `display-*`/`heading-*` pra valor de indicador.
+- **Código / identificador / valor técnico = `text-code-{sm,md}`** (13/14px, Geist Mono) — chave de env, ID, hash, slug, path. Nunca `font-mono text-body-*` + `tracking-*` na unha: `code` é 1 dos 7 papéis e existe pra isto.
 - Override de peso via `font-bold/semibold/medium/normal`. Nunca `text-xs font-semibold` avulso → use preset.
 
 ## ⛔ O tema já traz o runtime — não redeclare
@@ -53,6 +54,13 @@ O `tailwind-theme.css` importado no seu CSS de entrada **não é só CSS vars**.
 declaração de `@custom-variant` vence a primeira — você acaba com um comportamento no seu
 projeto e outro no resto do sistema, sem erro nenhum. Os `.woff2` do Geist, sim, são seus
 (o `@font-face` aponta pra `/fonts/`, raiz do site).
+
+## 🖼️ Trabalhando a partir de print / Figma / tela existente
+A referência decide **conteúdo**; o DS decide **pele e comportamento**.
+- **Dela**: copy, labels, nomenclatura, ordem dos campos. Copie e não "melhore" sem pedir — o jargão é do domínio do usuário.
+- **Do DS, sempre**: fonte/família, tamanho, peso, tracking, cor, espaçamento, radius, sombra, foco e **comportamento de componente**. Preset existe → use o preset; compor na unha porque "ficou igual ao print" é drift.
+- **Cor**: a referência escolhe o CONJUNTO (print escuro → `dark`; outra marca → `data-theme`), **nunca** o valor. Não derive hex do pixel.
+- **Chrome (rail/menu/header) na referência = shell no escopo.** Print de app + pedido de "uma tela" é `shell + tela`. Não vai entregar o shell? Avise em linha destacada **antes** de gerar.
 
 ## Antes de criar
 - Existe exemplo/skill pra isso? (tabela→`/ds-create-crud`; ver `DESIGN.md` mapa de intenção). Puxe e adapte em vez de escrever do zero.

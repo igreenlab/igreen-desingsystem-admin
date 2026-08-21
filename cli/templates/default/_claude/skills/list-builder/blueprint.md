@@ -42,6 +42,13 @@ Corrigir silenciosamente (ou reportar se exigir decisão):
 **Página**: <Título> · id `<page-id>` · wrapper <ExamplePageLayout|AppShell|puro> · nav "List Components"
 **Dados**: <client|server> mode · fonte: <sample|interface|endpoint|manual> · ~<N> itens · id: `<campo>`
 
+### ⚠️ Decisões inferidas — vete se discordar
+
+Só o que o usuário NÃO disse e você decidiu sozinho (wrapper, tema, tipo de campo com
+confiança baixa…) — uma linha cada, com o que muda se ele vetar. Sem inferência →
+`nenhuma`; não apague a seção: é a ausência dela que faz a decisão passar aprovada
+em pacote junto com o resto.
+
 ### Card (<slots|renderItem>)
 - leading: <avatar/ícone|—> · title: `<campo>` · subtitle: `<campo|—>`
 - meta: [<label:campo(align)>, ...] · trailing: <badge|—> · description: <campo|—>

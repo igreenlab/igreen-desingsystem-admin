@@ -192,6 +192,35 @@ cor cai em `currentColor` nos canais (L-039).
 
 ---
 
+## 🖼️ Referência visual (print, Figma, tela existente) — o que ela decide e o que não
+
+Input visual é o caso mais comum no consumo real, e as skills assumiam entrevista em
+texto: sem regra, cada agente escolhe sozinho o que copiar. A divisão é por CAMADA, não
+por elemento:
+
+| A referência decide | O DS decide, sempre |
+|---|---|
+| copy, labels, nomenclatura, ordem/agrupamento de campos, densidade percebida do domínio | fonte e família, tamanho, peso, tracking, cor, espaçamento, radius, sombra, foco, **comportamento de componente** |
+
+- **Conteúdo é do domínio** — você não tem como adivinhar que `prod/hml/dev` é o jargão
+  da casa. Copie e **não "melhore"** sem pedir.
+- **Pele e comportamento não são seus pra adaptar.** Preset existe → use o preset (o papel
+  `code` cobre chave/ID/hash: `text-code-sm`). Compor `font-mono text-body-sm` +
+  `tracking-widest` na unha porque "ficou parecido com o print" é drift — é exatamente o
+  que o DS existe pra impedir.
+- **Cor: a referência escolhe o CONJUNTO, nunca o valor.** Print escuro → `dark`; print de
+  outra marca → `data-theme="<id>"`. O que não se faz é derivar hex do pixel do print.
+- **Chrome na referência (rail/menu/header) = shell no escopo.** Print de app inteiro com
+  pedido de "uma tela" é `shell + tela`, não `tela`. Não dá pra entregar o shell? Diga em
+  **linha destacada** o que do print fica de fora — antes de gerar, não depois.
+
+> Medido no dogfood de 2026-08-20 (consumidor real, submódulo): dos desvios da tela
+> gerada, **nenhum** foi componente errado ou token inexistente — foram 6 pontos em que a
+> fidelidade ao print venceu a regra, e o mantenedor resumiu melhor que a spec:
+> *"conteúdo do print, pele e comportamento do DS"*.
+
+---
+
 ## ❌ Anti-patterns proibidos
 
 ### Tailwind literal com equivalente DS

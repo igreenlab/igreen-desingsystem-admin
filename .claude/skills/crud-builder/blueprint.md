@@ -70,6 +70,24 @@ chip=<f>, value=<f> · DnD <on|off>>
 - EDITAR src/App.tsx (import + DOC_PAGES + render)
 - EDITAR src/preview/components/doc-nav-data.ts (item "<label>")
 
+### ⚠️ Decisões inferidas — vete se discordar
+
+Liste aqui **só** o que o usuário NÃO disse e você decidiu sozinho, uma linha cada,
+com o que muda se ele vetar. Se não houve inferência, escreva `nenhuma` — não apague
+a seção (a ausência dela é que faz a decisão passar em pacote).
+
+```
+⚠️ Inferido (não perguntei):
+  • wrapper = <X>            → sem AppShell a tela nasce SEM rail/menu/header
+  • tema = <light|dark>      → a referência mostrava <Y>
+  • <coluna> = tipo <T>      → confiança baixa (só nome do campo)
+```
+
+Por que existe: o blueprint mistura o que o usuário escolheu com o que a IA deduziu,
+e "aprovar" cobre os dois de uma vez. Foi assim que "tela sem shell" foi aprovada sem
+ninguém perceber que era uma decisão (dogfood 2026-08-20). Custo: 3 linhas. Ganho:
+a classe inteira de atropelo-aprovado fica visível.
+
 ### Referências canônicas que serão lidas antes de gerar
 <lista da matriz do generate.md, só os cenários presentes>
 

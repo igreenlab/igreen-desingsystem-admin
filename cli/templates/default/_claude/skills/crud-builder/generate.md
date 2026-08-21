@@ -48,7 +48,7 @@ Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempr
 
 - **Coluna primária (nome)**: `isPrimary` + `render` com `<Avatar size="md">` + nome `text-body-sm font-medium` + secundária `text-caption-md text-fg-muted` (email/ID/doc) + ícone "abrir detalhe" (`<SquareArrowOutUpRight>` num `size-[24px] rounded-radius-sm border bg-bg-canvas shadow-sh-sm`) quando o row click abre painel.
 - **Status / badge**: `type: "badge"` + `render` com `<Chip variant="soft" size="sm" shape="pill">` (cor semântica). Nunca pill na unha com `<span>` estilizado.
-- **Avatar**: use **`avatar-ig`** (`@/components/ui/avatar-ig`), não o `avatar` (Radix puro, sem `colorHex`/`size`). `size="md"` na tabela (não `sm`). **Números/moeda/%**: `tabular-nums` + `type` (`currency`/`percentage`) + `align: "right"`. **Tags**: `type: "tags"` + `<Chip soft sm rounded>`.
+- **Avatar**: use **`avatar-ig`** (`@/components/ui/avatar-ig`), não o `avatar` (Radix puro, sem `colorHex`/`size`). `size="md"` na tabela (não `sm`). **Números/moeda/%**: `tabular-nums` + `type` (`currency`/`percentage`) + `align: "right"`. **Tags**: `type: "tags"` + `<Chip soft sm rounded>`. **Código/identificador/valor técnico** (chave de env, ID, hash, slug, path): preset **`text-code-sm`** — nunca `font-mono text-body-sm` + `tracking-*` na unha.
 
 ### Detail panel (row click → painel)
 
