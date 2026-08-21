@@ -51,7 +51,7 @@ export function InstallationDoc() {
           </code>
           . Vite + React 19 + Tailwind v4 + tema light/dark + exemplo funcional, tudo pré-configurado.
         </p>
-        <CodeBlock>{`npm create @snksergio/design-system my-app
+        <CodeBlock>{`npm create @snksergio/design-system@latest my-app
 cd my-app
 npm run dev
 # → http://localhost:3200`}</CodeBlock>
@@ -64,14 +64,14 @@ npm run dev
         <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl">
           <p className="text-body-md font-medium text-fg-default mb-gp-md">Variações de uso</p>
           <CodeBlock>{`# Sem args (CLI faz prompts pra tudo)
-npm create @snksergio/design-system
+npm create @snksergio/design-system@latest
 
 # Com pnpm ou yarn
-pnpm create @snksergio/design-system my-app
-yarn create @snksergio/design-system my-app
+pnpm create @snksergio/design-system@latest my-app
+yarn create @snksergio/design-system@latest my-app
 
-# Versão específica do CLI
-npm create @snksergio/design-system@0.1.0 my-app`}</CodeBlock>
+# Versão específica do CLI (placeholder — troque pelo número que você quer)
+npm create @snksergio/design-system@<x.y.z> my-app`}</CodeBlock>
         </div>
         <p className="text-body-md text-fg-muted">
           Se você prefere adicionar o DS num projeto JÁ existente, veja{" "}

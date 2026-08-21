@@ -17,6 +17,9 @@
 - [O achado da rodada: o gate de import relativo era cego a bloco](#o-achado-da-rodada-o-gate-de-import-relativo-era-cego-a-bloco)
 - [O que a medição derrubou](#o-que-a-medição-derrubou)
 - [O gate que SOBROU — e ele conserta uma afirmação errada minha](#o-gate-que-sobrou-e-ele-conserta-uma-afirmação-errada-minha)
+- [O diagnóstico — o log entregava a versão, não o defeito](#o-diagnóstico-o-log-entregava-a-versão-não-o-defeito)
+- [E aí o defeito NOSSO, que é o que importa](#e-aí-o-defeito-nosso-que-é-o-que-importa)
+- [O que teria cortado 20 minutos: o banner não dizia a versão](#o-que-teria-cortado-20-minutos-o-banner-não-dizia-a-versão)
 
 <!-- doc-index:fim -->
 
@@ -3439,3 +3442,62 @@ simétrica na entrada e na saída.
   fluxo da skill (Passo 7.3 "a IA pode rodar o publish") não vale neste ambiente;
   o publish é sempre do mantenedor.
 - Lições novas: nenhuma.
+
+---
+
+### 2026-08-21 | ds-dev | O scaffold que quebrou era a v0.1.0 — e a nossa doc mandava instalá-la | CONCLUÍDO
+
+**Input:** o mantenedor rodou `npx create-snksergio-design-system my-app` num diretório do
+OneDrive e o scaffold quebrou em três lugares: `npm install` com **ENOENT no package.json**,
+`git commit` virando `pathspec 'initial'`, e um **DEP0190** (aviso de `shell:true` com args).
+
+## O diagnóstico — o log entregava a versão, não o defeito
+
+Reproduzi a **0.25.10** com o pacote publicado, num caminho com espaço, sem TTY (driver com
+`prompts.inject`): `package.json` criado, **56 pacotes** instalados, `git log` com a mensagem
+inteira. **Não quebra.**
+
+A pista estava no banner dele: *"Bootstrap a project consuming the iGreen Design System"* —
+**em inglês**. Essa tagline virou português no commit `68179a2`, que é a **CLI 0.12.0**. Ou
+seja, rodou uma versão anterior à 0.12.0, com a 0.25.10 publicada.
+
+Confirmado no disco: o cache do `npx` da máquina dele tem **quatro** versões —
+`0.1.0`, `0.21.2`, `0.22.0`, `0.25.10`. Ele invocou pelo **nome do bin**
+(`create-snksergio-design-system`) em vez do pacote, e o npx resolveu contra o cache: pegou a
+**0.1.0**. Os três sintomas são dela — o `shell:true` que concatenava args sem escape saiu do
+código há muitas versões, e é exatamente ele que explica tanto o `pathspec` quanto o ENOENT num
+caminho com espaço.
+
+## E aí o defeito NOSSO, que é o que importa
+
+A página **Instalação do showcase** ensinava, como exemplo de "versão específica do CLI":
+
+    npm create @snksergio/design-system@0.1.0 my-app
+
+Literalmente a versão que quebrou. Quem copiasse aquele bloco instalava a primeira release de
+todas — e envenenava o cache do `npx`, que é como a 0.1.0 foi parar na máquina dele. O exemplo
+nasceu correto (era a versão atual quando foi escrito) e apodreceu em silêncio: **nenhum gate
+pega número pinado que envelhece**, porque a versão citada existe de verdade.
+
+**Conserto estrutural, não cosmético:** o exemplo virou placeholder `@<x.y.z>`, que não tem
+como apodrecer. E os comandos primários de scaffold ganharam **`@latest`** nas 4 superfícies do
+usuário (InstallationDoc, LandingDoc, README, cli/README) — sem ele, o `npm create` também pode
+reusar cache antigo.
+
+## O que teria cortado 20 minutos: o banner não dizia a versão
+
+Passei o diagnóstico inteiro deduzindo a versão por **tagline traduzida**. Agora o banner
+imprime `create-design-system v<x.y.z>`, lido do próprio `package.json`. É a L-060 aplicada ao
+contrário: não é doc que afirma demais, é ferramenta que informa de menos.
+
+**Estado:** tsc 0 · 58 arquivos / 709 testes, 0 falha · `release:check` exit 0 · CLI **0.25.11**.
+
+**Assumption:** que o `@latest` resolve pra quem copia o comando. Não resolve pra quem já tem
+cache envenenado — nesse caso o npx só obedece se o **pacote** for nomeado. Por isso o banner
+com versão é a rede de segurança real: o `@latest` conserta a instrução, o banner conserta o
+diagnóstico.
+
+**Não virou lição (L-NNN).** As 4 perguntas do protocolo: dá gate? não — "número pinado que
+envelheceu" exige saber que a citação era um comando executável e não histórico, o que é
+julgamento. Já está no ponto de uso? sim, o placeholder mata a classe inteira no lugar onde o
+erro nasceria. Reprovou na 2ª pergunta, então é conserto, não lição.
