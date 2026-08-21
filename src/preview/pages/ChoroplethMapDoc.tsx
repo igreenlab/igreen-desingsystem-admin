@@ -165,33 +165,32 @@ function PainelUf({ uf }: { uf: UfClicada }) {
       .findIndex((v) => v === uf.value) + 1;
   const fmtNum = new Intl.NumberFormat("pt-BR");
 
+  const linhas: Array<[string, string]> = [
+    ["Clientes", uf.value != null ? fmtNum.format(uf.value) : "—"],
+    [
+      "Participação",
+      uf.value != null
+        ? `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format((uf.value / total) * 100)}%`
+        : "—",
+    ],
+    ["Ranking", uf.value != null ? `${ranking}º de 27` : "—"],
+  ];
+
   return (
-    <div className="flex flex-col gap-gp-lg">
+    <div className="flex flex-col gap-gp-md">
       <div>
-        <h3 className="text-title-md font-semibold text-fg-default">{uf.name}</h3>
+        <h3 className="text-title-sm font-semibold text-fg-default">{uf.name}</h3>
         <p className="text-caption-sm text-fg-muted">Código IBGE {uf.id}</p>
       </div>
-      <div className="border-t border-border-subtle pt-gp-lg">
-        <p className="text-caption-md text-fg-muted">Clientes</p>
-        <p className="text-stat-sm leading-none tabular-nums text-fg-default">
-          {uf.value != null ? fmtNum.format(uf.value) : "—"}
-        </p>
-      </div>
-      <div className="flex gap-gp-2xl border-t border-border-subtle pt-gp-lg">
-        <div className="flex-1">
-          <p className="text-caption-md text-fg-muted">Participação</p>
-          <p className="text-body-md font-semibold tabular-nums text-fg-default">
-            {uf.value != null
-              ? `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format((uf.value / total) * 100)}%`
-              : "—"}
-          </p>
-        </div>
-        <div className="flex-1">
-          <p className="text-caption-md text-fg-muted">Ranking</p>
-          <p className="text-body-md font-semibold tabular-nums text-fg-default">
-            {uf.value != null ? `${ranking}º de 27` : "—"}
-          </p>
-        </div>
+      <div className="flex flex-col gap-gp-sm border-t border-border-subtle pt-gp-md">
+        {linhas.map(([label, valor]) => (
+          <div key={label} className="flex items-baseline justify-between gap-gp-md">
+            <span className="text-caption-md text-fg-muted">{label}</span>
+            <span className="text-body-sm font-semibold tabular-nums text-fg-default">
+              {valor}
+            </span>
+          </div>
+        ))}
       </div>
     </div>
   );
@@ -253,7 +252,7 @@ export function ChoroplethMapDoc() {
               legendTitle="Clique numa UF pra selecionar"
             />
           </div>
-          <div className="shrink-0 rounded-radius-lg border border-border-default bg-bg-surface p-pad-card-sm md:w-[280px]">
+          <div className="h-fit shrink-0 rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl md:w-[220px]">
             {selecionada ? (
               <PainelUf uf={selecionada} />
             ) : (
