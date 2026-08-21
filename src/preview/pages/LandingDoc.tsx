@@ -2400,13 +2400,18 @@ function InstalacaoSection() {
    Prompts — o atalho de quem usa Claude Code
 
    Dois trabalhos diferentes, dois prompts: INSTALAR (uma vez) e CONSTRUIR (o
-   primeiro pedido de verdade). O de construir é um PEDIDO-EXEMPLO — shell com 3
-   categorias de menu + um CRUD completo — e não um dump de regras: as regras
-   (tokens, prefixos dobrados, tipografia) chegam no projeto pelo próprio kit
-   (ds:link / scaffold copiam .claude/rules), então repeti-las aqui só assustava
-   quem chegava. Até 2026-08-21 este card carregava o dump técnico inteiro; o
-   operador não-técnico colava e recebia perguntas sobre alias e tv() em vez de
-   uma tela.
+   primeiro pedido de verdade). O de construir é um PEDIDO-EXEMPLO — menu com 3
+   categorias + um cadastro completo — escrito NA VOZ DE UM USUÁRIO, de
+   propósito: zero nome de componente (nada de AppShell/DataTable/drawer) e
+   zero seção "como fazer". As nuances que guiam a IA ficam em linguagem de
+   gente ("sem recarregar a página" → renderLink; "dá pra filtrar por status"
+   → filtro nativo; "painel lateral com o formulário" → drawer + FormField), e
+   o COMO é papel do kit (ds:link / scaffold copiam .claude/) — a única menção
+   técnica é o próprio ds:link, pra IA saber que os comandos e padrões vêm
+   dele. Até 2026-08-21 este card carregava o dump técnico inteiro; o operador
+   não-técnico colava e recebia perguntas sobre alias e tv() em vez de uma
+   tela. Não reintroduza nomes de componente aqui: quem sabe o nome não
+   precisa do prompt, e quem precisa do prompt não sabe o nome.
    ═════════════════════════════════════════════════════════════════════════════ */
 
 const PROMPT_INSTALAR = `Instale o iGreen Design System neste projeto como submódulo git e configure tudo. Não me pergunte nada que você possa verificar no repositório.
@@ -2467,42 +2472,34 @@ Regras: nunca edite arquivos dentro de design-system/ — é submódulo, e custo
 acontece na composição, no meu projeto. Ao atualizar (git pull --recurse-submodules),
 re-rode o ds:link.`;
 
-const PROMPT_CONSTRUIR = `Monte um app com o iGreen Design System: o esqueleto de navegação e uma primeira tela funcionando de verdade.
+const PROMPT_CONSTRUIR = `Monte um sistema com o iGreen Design System: a estrutura de navegação e uma primeira tela funcionando de verdade.
 
 O que eu quero ver:
 
-1. Shell do app (AppShell + MenuSidebar) com 3 categorias no menu lateral,
-   cada uma com 2 ou 3 itens:
+1. Um menu lateral com 3 categorias, cada uma com 2 ou 3 itens:
    - Cadastros: Clientes · Fornecedores · Produtos
    - Operações: Pedidos · Faturas
    - Relatórios: Visão geral · Exportações
-   (troque os nomes pelo meu domínio se eu disser qual é)
+   (pode trocar os nomes pelo meu negócio se eu disser qual é)
 
-2. Cada item de menu abre uma rota própria. Só a tela de CLIENTES nasce
-   completa — as outras ficam com um placeholder padrão (EmptyState com o
-   nome da tela), pra eu ir pedindo uma por vez depois.
+2. Cada item do menu abre uma tela própria, sem recarregar a página.
+   Só a tela de CLIENTES nasce pronta — as outras ficam com um aviso
+   simples de "em construção", pra eu ir pedindo uma por vez depois.
 
-3. Clientes = um CRUD completo com o DataTable do DS:
-   - colunas: nome, e-mail, cidade, status (badge) e criado em
-   - filtro nativo por status (chip do próprio componente, nada de select
-     solto acima da tabela), busca e paginação
-   - "Novo cliente" abre um drawer com formulário do DS (FormField)
-   - editar e excluir por linha
-   - dados mockados (~30 registros) num arquivo separado, pra trocar por
-     API depois
+3. Clientes é uma tela de cadastro completa:
+   - uma tabela com as colunas nome, e-mail, cidade, status e criado em
+   - dá pra filtrar por status, buscar e passar de página
+   - um botão "Novo cliente" abre um painel lateral com o formulário
+   - cada linha tem ações de editar e excluir
+   - use dados de exemplo (uns 30 registros), que depois eu troco pelos reais
 
-Como fazer:
-- Este projeto tem o kit do DS instalado (.claude/ com regras e slash
-  commands). Use /ds-create-app pro shell e /ds-create-crud pra tela de
-  Clientes — eles entrevistam e geram no padrão. Sem os commands, siga os
-  exemplos canônicos do DS (example-app-shell e example-clientes).
-- Navegação integrada ao roteador do projeto (renderLink no MenuSidebar) —
-  clique de menu não pode recarregar a página.
-- Use só componentes que existem no catálogo do DS. Faltando algum,
-  componha com os que existem — não crie componente novo sem me perguntar.
+Observação: este projeto deve ter o kit de IA do design system instalado —
+se ainda não tiver, rode o ds:link dele antes de começar. Com o kit, os
+comandos e padrões do sistema já vêm prontos: siga o que ele manda e não
+invente componente ou estilo por fora.
 
-No final, me mostre o app rodando: menu navegável nas 3 categorias e o
-CRUD de Clientes criando, editando e excluindo.`;
+No final, me mostre o sistema rodando: o menu navegando nas 3 categorias e
+o cadastro de Clientes criando, editando e excluindo.`;
 
 const PROMPTS = [
   {
