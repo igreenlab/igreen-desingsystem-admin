@@ -10,7 +10,8 @@ export type MapFeature = Feature<Geometry, GeoJsonProperties>;
  * Fonte geográfica aceita pelo mapa:
  *  - `FeatureCollection` GeoJSON (usado direto),
  *  - array de `Feature` GeoJSON,
- *  - `Topology` TopoJSON (requer `topologyObject` apontando o objeto a extrair).
+ *  - `Topology` TopoJSON (objeto único é extraído automaticamente; com 2+
+ *    objetos, `topologyObject` aponta qual extrair).
  */
 export type ChoroplethGeography = FeatureCollection | MapFeature[] | Topology;
 
@@ -41,7 +42,9 @@ export interface ChoroplethMapProps {
   geography: ChoroplethGeography;
   /**
    * Nome do objeto a extrair quando `geography` é um `Topology` TopoJSON
-   * (ex.: `"municipios"`). Ignorado para GeoJSON.
+   * (ex.: `"municipios"`). Se a Topology tem UM único objeto, ele é usado
+   * automaticamente; com 2+ objetos a prop é obrigatória (senão o mapa fica
+   * vazio). Ignorado para GeoJSON.
    */
   topologyObject?: string;
   /** Mapa `id → número` que colore as regiões. Ids devem casar com `getFeatureId`. */
@@ -84,6 +87,12 @@ export interface ChoroplethMapProps {
   renderTooltip?: (info: ChoroplethHoverInfo) => ReactNode;
   /** Disparado ao clicar numa região. */
   onFeatureClick?: (info: ChoroplethHoverInfo) => void;
+  /**
+   * Id da região destacada de forma PERSISTENTE (contorno + tinta mais fortes
+   * que o hover). Controlado pelo consumidor — o par natural de
+   * `onFeatureClick` pra seleção por clique. `null`/`undefined` = nenhuma.
+   */
+  selectedId?: string | number | null;
   /** Rótulo acessível do mapa (`role="img"`/`figure`). */
   ariaLabel?: string;
   /** className do container raiz. */

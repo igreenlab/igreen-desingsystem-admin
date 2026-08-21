@@ -9,11 +9,6 @@ import { feature as topojsonFeature } from "topojson-client";
 import type { FeatureCollection, Feature } from "geojson";
 import type { Topology, GeometryObject } from "topojson-specification";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/shadcn/tooltip";
 import { choroplethStyles } from "./choropleth-map.styles";
 import type {
   ChoroplethGeography,
@@ -37,8 +32,12 @@ function normalizeFeatures(
 ): MapFeature[] {
   if (Array.isArray(geography)) return geography;
   if (isTopology(geography)) {
-    if (!topologyObject) return [];
-    const obj = geography.objects[topologyObject] as GeometryObject | undefined;
+    // Sem topologyObject: uma Topology com objeto único (caso IBGE: "BRUF") é
+    // inequívoca — usá-lo em vez de devolver [] mudo. Com 2+ objetos é ambíguo.
+    const keys = Object.keys(geography.objects);
+    const objectName = topologyObject ?? (keys.length === 1 ? keys[0] : undefined);
+    if (!objectName) return [];
+    const obj = geography.objects[objectName] as GeometryObject | undefined;
     if (!obj) return [];
     const out = topojsonFeature(geography, obj) as unknown as
       | Feature
@@ -80,6 +79,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       formatValue,
       renderTooltip,
       onFeatureClick,
+      selectedId,
       ariaLabel = "Mapa",
       className,
     },
@@ -107,7 +107,6 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       return features.map((f) => ({
         feature: f,
         d: pathGen(f as unknown as GeoPermissibleObjects) ?? "",
-        centroid: pathGen.centroid(f as unknown as GeoPermissibleObjects),
       }));
     }, [features, projection, width, height]);
 
@@ -131,6 +130,9 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
     const max = domain ? domain[1] : numeric.length ? Math.max(...numeric) : 0;
 
     const scaleVar = `var(--color-bg-${scaleToken})`;
+    // Contorno de hover/seleção na MESMA família do mapa (fg-warning num mapa
+    // warning, fg-info num info...) — nunca fg-brand fixo.
+    const strokeVar = `var(--color-fg-${scaleToken})`;
     const surfaceVar = "var(--color-bg-surface)";
     const noDataVar = "var(--color-bg-muted)";
 
@@ -152,78 +154,109 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       ((v: number) => new Intl.NumberFormat("pt-BR").format(v));
 
     const [hover, setHover] = useState<
-      (ChoroplethHoverInfo & { ax: number; ay: number }) | null
+      (ChoroplethHoverInfo & { d: string }) | null
     >(null);
+    // Posição do cursor em % da área do svg — o tooltip SEGUE o mouse.
+    // Ancorar no centroide da região não funciona: em região grande o
+    // centroide fica longe do cursor e o tooltip parece "perdido"/fixo.
+    const [pos, setPos] = useState<{ ax: number; ay: number } | null>(null);
 
     const legendGradient = `linear-gradient(to right, ${surfaceVar}, ${scaleVar})`;
 
     return (
       <div ref={ref} className={styles.root({ className })}>
-        <svg
-          viewBox={`0 0 ${width} ${height}`}
-          className={styles.svg()}
-          role="img"
-          aria-label={ariaLabel}
-          onMouseLeave={() => setHover(null)}
-        >
-          {geometry.map(({ feature, d, centroid }, index) => {
-            const id = getId(feature);
-            const value = values[id];
-            return (
+        <div className={styles.canvas()}>
+          <svg
+            viewBox={`0 0 ${width} ${height}`}
+            className={styles.svg()}
+            role="img"
+            aria-label={ariaLabel}
+            onMouseLeave={() => setHover(null)}
+            onMouseMove={(e) => {
+              const r = e.currentTarget.getBoundingClientRect();
+              setPos({
+                ax: ((e.clientX - r.left) / r.width) * 100,
+                ay: ((e.clientY - r.top) / r.height) * 100,
+              });
+            }}
+          >
+            {geometry.map(({ feature, d }, index) => {
+              const id = getId(feature);
+              const value = values[id];
+              return (
+                <path
+                  key={`${id}-${index}`}
+                  d={d}
+                  fill={fillFor(value)}
+                  strokeWidth={strokeWidth}
+                  className={styles.path()}
+                  style={onFeatureClick ? { cursor: "pointer" } : undefined}
+                  onMouseEnter={() =>
+                    setHover({ id, name: getName(feature), value, feature, d })
+                  }
+                  onClick={
+                    onFeatureClick
+                      ? () =>
+                          onFeatureClick({
+                            id,
+                            name: getName(feature),
+                            value,
+                            feature,
+                          })
+                      : undefined
+                  }
+                />
+              );
+            })}
+            {selectedId != null &&
+              (() => {
+                const sel = geometry.find(
+                  (g) => getId(g.feature) === selectedId,
+                );
+                return sel ? (
+                  <path
+                    d={sel.d}
+                    className={styles.pathSelected()}
+                    strokeWidth={Math.max(strokeWidth * 3, 1.5)}
+                    style={{
+                      stroke: strokeVar,
+                      fill: `color-mix(in srgb, ${scaleVar} 32%, transparent)`,
+                    }}
+                  />
+                ) : null;
+              })()}
+            {hover && (
               <path
-                key={`${id}-${index}`}
-                d={d}
-                fill={fillFor(value)}
-                strokeWidth={strokeWidth}
-                className={styles.path()}
-                style={onFeatureClick ? { cursor: "pointer" } : undefined}
-                onMouseEnter={() =>
-                  setHover({
-                    id,
-                    name: getName(feature),
-                    value,
-                    feature,
-                    ax: (centroid[0] / width) * 100,
-                    ay: (centroid[1] / height) * 100,
-                  })
-                }
-                onClick={
-                  onFeatureClick
-                    ? () =>
-                        onFeatureClick({
-                          id,
-                          name: getName(feature),
-                          value,
-                          feature,
-                        })
-                    : undefined
-                }
+                d={hover.d}
+                className={styles.pathHighlight()}
+                strokeWidth={Math.max(strokeWidth * 3, 1.5)}
+                style={{
+                  stroke: strokeVar,
+                  fill: `color-mix(in srgb, ${scaleVar} 18%, transparent)`,
+                }}
               />
-            );
-          })}
-        </svg>
+            )}
+          </svg>
 
-        {/* Ancora do tooltip: um ponto 0×0 posicionado no centroide (em %) da
-            região sob o cursor. Reaproveita o Tooltip do DS de forma controlada
-            — um único tooltip que "segue" a região ativa (escala pra milhares
-            de paths, ao contrário de 1 Tooltip por região). */}
-        <div className={styles.tooltipLayer()}>
-          <Tooltip open={hover != null} onOpenChange={() => {}} disableHoverableContent>
-            <TooltipTrigger asChild>
-              <span
-                aria-hidden="true"
-                className={styles.tooltipAnchor()}
-                style={{ left: `${hover?.ax ?? 0}%`, top: `${hover?.ay ?? 0}%` }}
-              />
-            </TooltipTrigger>
-            {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro translúcido
-                (12% branco) no dark — sobre o mapa fica esbranquiçado/ilegível. */}
-            <TooltipContent
-              showArrow={false}
-              className="border border-border-default bg-bg-surface-elevated shadow-sh-lg"
-            >
-              {hover &&
-                (renderTooltip ? (
+          {/* Tooltip PRÓPRIO (não Radix), dentro da camada pointer-events-none:
+              segue o cursor e só troca o conteúdo. Nada aqui captura o mouse —
+              não existe portal/wrapper pra alcançar, então não há estado
+              aberto/fechado pra piscar. Flip: abre acima do cursor; perto da
+              borda superior abre abaixo, e perto das laterais desloca a
+              ancoragem horizontal pra não estourar o mapa. */}
+          <div className={styles.tooltipLayer()}>
+            {hover && pos && (
+              <div
+                className={styles.tooltip()}
+                style={{
+                  left: `${pos.ax}%`,
+                  top: `${pos.ay}%`,
+                  transform: `translate(${
+                    pos.ax < 12 ? "0%" : pos.ax > 88 ? "-100%" : "-50%"
+                  }, ${pos.ay < 18 ? "16px" : "calc(-100% - 12px)"})`,
+                }}
+              >
+                {renderTooltip ? (
                   renderTooltip(hover)
                 ) : (
                   <div>
@@ -234,9 +267,10 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                         : "Sem dados"}
                     </div>
                   </div>
-                ))}
-            </TooltipContent>
-          </Tooltip>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
         {showLegend && numeric.length > 0 && (

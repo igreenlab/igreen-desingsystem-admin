@@ -10,6 +10,10 @@ import { tv, type VariantProps } from "@/utils/tv";
 export const choroplethStyles = tv({
   slots: {
     root: "relative w-full",
+    // Wrapper do svg + camada de tooltip: garante que o inset-0 da camada
+    // cubra EXATAMENTE a área do mapa (sem ele, a camada cobria root inteiro
+    // — incluindo a legenda — e as % de posição saíam deslocadas).
+    canvas: "relative",
     svg: "block h-auto w-full",
     // Traço das divisas — `fg-muted` (mid-gray VISÍVEL nos DOIS temas: L≈0.50
     // no light, L≈0.70 no dark). `border-default` era L≈0.91 no light → as
@@ -18,11 +22,30 @@ export const choroplethStyles = tv({
     path: [
       "stroke-fg-muted",
       "transition-[fill,stroke] duration-150",
-      "hover:stroke-fg-brand",
     ],
-    // Camada de ancoragem do tooltip (não intercepta o mouse).
+    // Realce da região sob hover — uma CÓPIA do path desenhada por cima de
+    // todas as outras. Necessário porque stroke de path SVG é coberto pelos
+    // vizinhos desenhados depois: no próprio path, o contorno nunca fecha a
+    // região inteira ("mal delimitada"). Não intercepta o mouse. Stroke E fill
+    // vão inline, derivados do scaleToken (fg-{token} / bg-{token}) — o
+    // contorno acompanha a família de cor do mapa (amarelo em warning, roxo
+    // em info...), nunca verde fixo.
+    pathHighlight: "pointer-events-none",
+    // Seleção persistente (selectedId) — mesma técnica do hover (cópia por
+    // cima), tinta mais forte pra diferenciar do transitório.
+    pathSelected: "pointer-events-none",
+    // Camada do tooltip (não intercepta o mouse — nem ela nem o filho).
     tooltipLayer: "pointer-events-none absolute inset-0",
-    tooltipAnchor: "absolute",
+    // Tooltip PRÓPRIO, não Radix: renderizado dentro da camada acima, segue o
+    // cursor e só troca o conteúdo. O Tooltip do DS portala o conteúdo num
+    // wrapper do popper que captura o mouse — cursor movendo NA DIREÇÃO do
+    // tooltip o alcançava → mouseleave do svg → fecha/reabre em loop (flicker
+    // dependente de direção). Superfície = mesma receita sólida de antes.
+    tooltip: [
+      "pointer-events-none absolute z-10 w-max max-w-[16rem] select-none",
+      "rounded-radius-md border border-border-default bg-bg-surface-elevated",
+      "px-pad-lg py-pad-xs text-caption-sm shadow-sh-lg",
+    ],
     tooltipName: "font-semibold text-fg-default",
     tooltipValue: "text-fg-muted",
     legend: "mt-gp-md flex flex-col gap-gp-xs",

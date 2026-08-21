@@ -16,13 +16,14 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-brand", label: "Escala brand" },
   { id: "ex-token", label: "Outros tokens de escala" },
-  { id: "ex-interaction", label: "Tooltip + clique" },
+  { id: "ex-empty", label: "Regiões sem dados" },
+  { id: "ex-interaction", label: "Seleção por clique" },
   { id: "api", label: "API Reference" },
 ];
 
 const PROPS = [
   { name: "geography", type: "FeatureCollection | MapFeature[] | Topology", defaultVal: "—" },
-  { name: "topologyObject", type: "string", defaultVal: "—" },
+  { name: "topologyObject", type: "string", defaultVal: "objeto único da Topology" },
   { name: "values", type: "Record<string | number, number>", defaultVal: "—" },
   { name: "getFeatureId", type: "(feature) => string | number", defaultVal: "id → properties.id" },
   { name: "getFeatureName", type: "(feature) => string", defaultVal: "name → nome → NOME → id" },
@@ -37,6 +38,7 @@ const PROPS = [
   { name: "formatValue", type: "(value: number) => string", defaultVal: "Intl pt-BR" },
   { name: "renderTooltip", type: "(info) => ReactNode", defaultVal: "nome + valor" },
   { name: "onFeatureClick", type: "(info) => void", defaultVal: "—" },
+  { name: "selectedId", type: "string | number | null", defaultVal: "—" },
   { name: "ariaLabel", type: "string", defaultVal: "—" },
 ];
 
@@ -50,12 +52,36 @@ const PROPS = [
 const IBGE_UF_TOPO =
   "https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/json&qualidade=minima&intrarregiao=UF";
 
+/** Código IBGE → nome da UF (a malha `qualidade=minima` só traz `codarea`). */
+const UF_NOMES: Record<string, string> = {
+  "11": "Rondônia", "12": "Acre", "13": "Amazonas", "14": "Roraima",
+  "15": "Pará", "16": "Amapá", "17": "Tocantins", "21": "Maranhão",
+  "22": "Piauí", "23": "Ceará", "24": "Rio Grande do Norte", "25": "Paraíba",
+  "26": "Pernambuco", "27": "Alagoas", "28": "Sergipe", "29": "Bahia",
+  "31": "Minas Gerais", "32": "Espírito Santo", "33": "Rio de Janeiro",
+  "35": "São Paulo", "41": "Paraná", "42": "Santa Catarina",
+  "43": "Rio Grande do Sul", "50": "Mato Grosso do Sul", "51": "Mato Grosso",
+  "52": "Goiás", "53": "Distrito Federal",
+};
+
 /** Mock: "clientes por UF" (código IBGE da UF → valor). */
 const VALORES: Record<string, number> = {
   "35": 612, "31": 388, "41": 241, "43": 178, "33": 164, "29": 143, "42": 121,
   "26": 98, "52": 87, "23": 76, "51": 71, "53": 66, "21": 54, "50": 48,
   "24": 41, "25": 39, "32": 34, "13": 28, "15": 26, "22": 24, "27": 21,
   "28": 17, "17": 15, "11": 12, "12": 9, "16": 7, "14": 5,
+};
+
+/**
+ * Mock PARCIAL: operação só no Sul/Sudeste + GO/DF. UF ausente de `values`
+ * fica NEUTRA (`bg-muted`) — "vazia", como se não tivesse nada — e o tooltip
+ * mostra "Sem dados". É o estado natural de cobertura incompleta: não precisa
+ * de prop, basta não mandar a chave.
+ */
+const VALORES_PARCIAIS: Record<string, number> = {
+  "35": 612, "31": 388, "33": 164, "32": 34,
+  "41": 241, "42": 121, "43": 178,
+  "52": 87, "53": 66,
 };
 
 function useIbgeUf() {
@@ -74,13 +100,19 @@ function useIbgeUf() {
   return { geo, erro };
 }
 
+type UfClicada = { id: string | number; name: string; value: number | undefined };
+
 function MapaDemo({
   scaleToken = "brand" as const,
+  values = VALORES,
   onFeatureClick,
+  selectedId,
   legendTitle,
 }: {
   scaleToken?: "brand" | "success" | "info" | "warning" | "danger";
-  onFeatureClick?: (nome: string) => void;
+  values?: Record<string, number>;
+  onFeatureClick?: (info: UfClicada) => void;
+  selectedId?: string | number | null;
   legendTitle?: string;
 }) {
   const { geo, erro } = useIbgeUf();
@@ -101,18 +133,73 @@ function MapaDemo({
   return (
     <ChoroplethMap
       geography={geo}
-      values={VALORES}
+      topologyObject="BRUF"
+      values={values}
       scaleToken={scaleToken}
       legendTitle={legendTitle}
       ariaLabel="Clientes por unidade federativa"
       getFeatureId={(f) => String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "")}
-      onFeatureClick={onFeatureClick ? (info) => onFeatureClick(info.name) : undefined}
+      getFeatureName={(f) => {
+        const id = String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "");
+        return UF_NOMES[id] ?? id;
+      }}
+      onFeatureClick={
+        onFeatureClick
+          ? ({ id, name, value }) => onFeatureClick({ id, name, value })
+          : undefined
+      }
+      selectedId={selectedId}
     />
   );
 }
 
+/**
+ * Painel de detalhe do master-detail (dados derivados do mock VALORES:
+ * participação = valor/total, ranking = posição por valor desc).
+ */
+function PainelUf({ uf }: { uf: UfClicada }) {
+  const total = Object.values(VALORES).reduce((s, v) => s + v, 0);
+  const ranking =
+    Object.values(VALORES)
+      .sort((a, b) => b - a)
+      .findIndex((v) => v === uf.value) + 1;
+  const fmtNum = new Intl.NumberFormat("pt-BR");
+
+  const linhas: Array<[string, string]> = [
+    ["Clientes", uf.value != null ? fmtNum.format(uf.value) : "—"],
+    [
+      "Participação",
+      uf.value != null
+        ? `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format((uf.value / total) * 100)}%`
+        : "—",
+    ],
+    ["Ranking", uf.value != null ? `${ranking}º de 27` : "—"],
+  ];
+
+  return (
+    <div className="flex flex-col gap-gp-md">
+      {/* Título + subtítulo num card interno de bg mais forte que a surface
+          (muted — o subtle mal aparece sobre ela); infos soltas abaixo. */}
+      <div className="rounded-radius-md bg-bg-muted px-pad-xl py-pad-lg">
+        <h3 className="text-title-sm font-semibold text-fg-default">{uf.name}</h3>
+        <p className="text-caption-sm text-fg-muted">Código IBGE {uf.id}</p>
+      </div>
+      <div className="flex flex-col gap-gp-sm px-pad-xs">
+        {linhas.map(([label, valor]) => (
+          <div key={label} className="flex items-baseline justify-between gap-gp-md">
+            <span className="text-caption-md text-fg-muted">{label}</span>
+            <span className="text-body-sm font-semibold tabular-nums text-fg-default">
+              {valor}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function ChoroplethMapDoc() {
-  const [clicada, setClicada] = useState<string | null>(null);
+  const [selecionada, setSelecionada] = useState<UfClicada | null>(null);
 
   return (
     <DocLayout toc={TOC}>
@@ -145,14 +232,39 @@ export function ChoroplethMapDoc() {
       </ExampleSection>
 
       <ExampleSection
-        id="ex-interaction"
-        title="Tooltip + clique"
-        description="onFeatureClick recebe { id, name, value, feature } — é o gancho de drill-down (ex.: UF → municípios)."
+        id="ex-empty"
+        title="Regiões sem dados"
+        description="UF ausente de values fica neutra (token bg-bg-muted), como se estivesse vazia, e o tooltip mostra 'Sem dados'. Não precisa de prop — basta não mandar a chave. Aqui: operação só no Sul/Sudeste + GO/DF."
       >
-        <MapaDemo onFeatureClick={setClicada} legendTitle="Clique numa UF" />
-        <p className="mt-gp-2xl text-body-sm text-fg-muted">
-          {clicada ? `Última região clicada: ${clicada}` : "Nenhuma região clicada ainda."}
-        </p>
+        <MapaDemo values={VALORES_PARCIAIS} legendTitle="Clientes por UF (cobertura parcial)" />
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-interaction"
+        title="Seleção por clique"
+        description="Master-detail: onFeatureClick + selectedId — clicar seleciona a UF (destaque persistente, mais forte que o hover), clicar de novo desmarca. O painel lateral tem LARGURA FIXA de propósito: painel que cresce com o conteúdo redimensiona o mapa a cada clique."
+      >
+        {/* Mapa em largura total; o painel FLUTUA no canto superior direito
+            (área de oceano) em vez de dividir a linha — largura fixa continua
+            valendo, então seleção nenhuma redimensiona o mapa. */}
+        <div className="relative w-full">
+          <MapaDemo
+            onFeatureClick={(info) =>
+              setSelecionada((atual) => (atual?.id === info.id ? null : info))
+            }
+            selectedId={selecionada?.id ?? null}
+            legendTitle="Clique numa UF pra selecionar"
+          />
+          <div className="mt-gp-2xl rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl md:absolute md:right-0 md:top-0 md:mt-0 md:w-[220px] md:shadow-sh-md">
+            {selecionada ? (
+              <PainelUf uf={selecionada} />
+            ) : (
+              <p className="text-center text-body-sm text-fg-muted">
+                Clique numa UF do mapa pra ver o detalhe.
+              </p>
+            )}
+          </div>
+        </div>
       </ExampleSection>
 
       <DocSeparator />
