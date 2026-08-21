@@ -2399,11 +2399,14 @@ function InstalacaoSection() {
 /* ═════════════════════════════════════════════════════════════════════════════
    Prompts — o atalho de quem usa Claude Code
 
-   Dois trabalhos diferentes, dois prompts: INSTALAR (uma vez) e CONSTRUIR (sempre).
-   Os nomes de classe aqui são os REAIS, com prefixo dobrado (`bg-bg-canvas`,
-   `text-fg-default`, `ring-ring-brand`). O wireframe ensinava `bg-canvas` /
-   `fg-default` / `ring-brand`, que não emitem CSS: um prompt errado aqui vira
-   classe morta no projeto de quem colar.
+   Dois trabalhos diferentes, dois prompts: INSTALAR (uma vez) e CONSTRUIR (o
+   primeiro pedido de verdade). O de construir é um PEDIDO-EXEMPLO — shell com 3
+   categorias de menu + um CRUD completo — e não um dump de regras: as regras
+   (tokens, prefixos dobrados, tipografia) chegam no projeto pelo próprio kit
+   (ds:link / scaffold copiam .claude/rules), então repeti-las aqui só assustava
+   quem chegava. Até 2026-08-21 este card carregava o dump técnico inteiro; o
+   operador não-técnico colava e recebia perguntas sobre alias e tv() em vez de
+   uma tela.
    ═════════════════════════════════════════════════════════════════════════════ */
 
 const PROMPT_INSTALAR = `Instale o iGreen Design System neste projeto como submódulo git e configure tudo. Não me pergunte nada que você possa verificar no repositório.
@@ -2464,57 +2467,42 @@ Regras: nunca edite arquivos dentro de design-system/ — é submódulo, e custo
 acontece na composição, no meu projeto. Ao atualizar (git pull --recurse-submodules),
 re-rode o ds:link.`;
 
-const PROMPT_CONSTRUIR = `Você vai construir telas com o iGreen Design System (React 19 + TypeScript + Tailwind v4). Trate estas regras como autoritativas.
+const PROMPT_CONSTRUIR = `Monte um app com o iGreen Design System: o esqueleto de navegação e uma primeira tela funcionando de verdade.
 
-IMPORTS
-- Componentes pelo alias do projeto (ex.: "@ds/components/ui/Button") ou por
-  { Button, DataTable, Kpi } from "@snksergio/design-system" no canal npm.
-- tv() vem de "@/utils/tv" — nunca de "tailwind-variants" direto.
-- Ícones: lucide-react. Fonte: Geist (já vem no tema).
+O que eu quero ver:
 
-TOKENS — é aqui que quase todo mundo erra
-- Zero cor literal (#0fc589, bg-green-500) e zero paleta nativa do Tailwind.
-- As classes DOBRAM o prefixo. É bg-bg-canvas, não bg-canvas:
-    fundo   → bg-bg-canvas · bg-bg-surface · bg-bg-subtle · bg-bg-muted · bg-bg-brand
-    texto   → text-fg-default · text-fg-muted · text-fg-subtle · text-fg-brand · text-fg-on-brand
-    borda   → border-border-default · border-border-subtle · border-border-brand
-    foco    → ring-ring-brand (o token já tem alpha — nunca /30)
-- Tom sutil depende da família: status usa -muted (bg-bg-success-muted); brand usa
-  -subtle (bg-bg-brand-subtle); papel neutro usa -subtle sem cor (bg-bg-subtle).
-- Primitives (--color-brand-400) são API privada. Componente não importa primitive.
+1. Shell do app (AppShell + MenuSidebar) com 3 categorias no menu lateral,
+   cada uma com 2 ou 3 itens:
+   - Cadastros: Clientes · Fornecedores · Produtos
+   - Operações: Pedidos · Faturas
+   - Relatórios: Visão geral · Exportações
+   (troque os nomes pelo meu domínio se eu disser qual é)
 
-PREFIXOS ANTI-COLISÃO — obrigatórios
-  gap-gp-md (não gap-4) · p-sp-md (não p-4) · px-pad-lg (não px-3)
-  rounded-radius-base (não rounded-md) · shadow-sh-md (não shadow-md)
-  min-h-form-lg = 40px · min-h-form-md = 36px · min-h-form-xl = 44px
-  size-icon-md (não size-5)
+2. Cada item de menu abre uma rota própria. Só a tela de CLIENTES nasce
+   completa — as outras ficam com um placeholder padrão (EmptyState com o
+   nome da tela), pra eu ir pedindo uma por vez depois.
 
-TIPOGRAFIA
-- 27 presets em 7 papéis: display / heading / title / body / caption / stat / code.
-- Valor de KPI ou métrica → text-stat-{sm|md|lg|xl} + tabular-nums. Nunca text-[30px].
-- Body padrão do projeto é text-body-sm (13/500).
+3. Clientes = um CRUD completo com o DataTable do DS:
+   - colunas: nome, e-mail, cidade, status (badge) e criado em
+   - filtro nativo por status (chip do próprio componente, nada de select
+     solto acima da tabela), busca e paginação
+   - "Novo cliente" abre um drawer com formulário do DS (FormField)
+   - editar e excluir por linha
+   - dados mockados (~30 registros) num arquivo separado, pra trocar por
+     API depois
 
-FORMULÁRIO
-- Sempre <FormField> (ou FormFieldInput/Select/Textarea). Nunca <label> na mão.
-- Espaço entre campos: gap-form-gap (20px), não gap-gp-*.
+Como fazer:
+- Este projeto tem o kit do DS instalado (.claude/ com regras e slash
+  commands). Use /ds-create-app pro shell e /ds-create-crud pra tela de
+  Clientes — eles entrevistam e geram no padrão. Sem os commands, siga os
+  exemplos canônicos do DS (example-app-shell e example-clientes).
+- Navegação integrada ao roteador do projeto (renderLink no MenuSidebar) —
+  clique de menu não pode recarregar a página.
+- Use só componentes que existem no catálogo do DS. Faltando algum,
+  componha com os que existem — não crie componente novo sem me perguntar.
 
-DENSIDADE — o que este DS é
-- Feito pra SaaS admin denso: tabela grande, filtro, form complexo, kanban, modal
-  multi-step. Prefira DataTable a montar tabela na mão, e AppShell + MenuSidebar +
-  PageHeader pro esqueleto.
-- Filtro de tabela/lista é NATIVO do componente (enableColumnFilter, filterFields,
-  defaultViews). Não gere selects soltos acima da grade.
-- Componente de navegação com roteador: passe renderLink pro MenuSidebar/AppShell,
-  senão o clique de menu recarrega a página inteira.
-
-ACESSIBILIDADE
-- Alvo de toque ≥ 44px (min-h-form-xl) — WCAG 2.5.5.
-- focus-visible:outline-none + focus-visible:ring-4 ring-ring-{cor}. Nunca outline-none só.
-
-ANTES DE CODAR
-Liste os componentes do DS que você vai usar e confirme que cada um existe no
-catálogo. Faltando algum, componha com os que existem — não crie componente novo
-sem me perguntar.`;
+No final, me mostre o app rodando: menu navegável nas 3 categorias e o
+CRUD de Clientes criando, editando e excluindo.`;
 
 const PROMPTS = [
   {
@@ -2526,7 +2514,7 @@ const PROMPTS = [
   {
     id: "construir",
     label: "Construir telas",
-    resumo: "Cole no começo de cada sessão",
+    resumo: "Pedido-exemplo: shell + CRUD",
     texto: PROMPT_CONSTRUIR,
   },
 ] as const;
@@ -3081,8 +3069,9 @@ export function LandingDoc() {
                 em="Copie e cole no Claude Code."
               >
                 Dois prompts com trabalhos diferentes: um instala o sistema no projeto, o
-                outro ensina a construir dentro das regras. Nenhum dos dois inventa
-                comando — saíram da doc deste repo.
+                outro é um pedido-exemplo — menu com 3 categorias e um CRUD completo —
+                pra ver o sistema de pé em minutos. As regras técnicas a IA já recebe
+                pelo kit instalado; você só descreve a tela.
               </SectionHead>
             </div>
           </Reveal>
