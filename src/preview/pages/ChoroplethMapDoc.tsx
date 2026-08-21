@@ -16,6 +16,7 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-brand", label: "Escala brand" },
   { id: "ex-token", label: "Outros tokens de escala" },
+  { id: "ex-empty", label: "Regiões sem dados" },
   { id: "ex-interaction", label: "Tooltip + clique" },
   { id: "api", label: "API Reference" },
 ];
@@ -70,6 +71,18 @@ const VALORES: Record<string, number> = {
   "28": 17, "17": 15, "11": 12, "12": 9, "16": 7, "14": 5,
 };
 
+/**
+ * Mock PARCIAL: operação só no Sul/Sudeste + GO/DF. UF ausente de `values`
+ * fica NEUTRA (`bg-muted`) — "vazia", como se não tivesse nada — e o tooltip
+ * mostra "Sem dados". É o estado natural de cobertura incompleta: não precisa
+ * de prop, basta não mandar a chave.
+ */
+const VALORES_PARCIAIS: Record<string, number> = {
+  "35": 612, "31": 388, "33": 164, "32": 34,
+  "41": 241, "42": 121, "43": 178,
+  "52": 87, "53": 66,
+};
+
 function useIbgeUf() {
   const [geo, setGeo] = useState<ChoroplethGeography | null>(null);
   const [erro, setErro] = useState(false);
@@ -88,10 +101,12 @@ function useIbgeUf() {
 
 function MapaDemo({
   scaleToken = "brand" as const,
+  values = VALORES,
   onFeatureClick,
   legendTitle,
 }: {
   scaleToken?: "brand" | "success" | "info" | "warning" | "danger";
+  values?: Record<string, number>;
   onFeatureClick?: (nome: string) => void;
   legendTitle?: string;
 }) {
@@ -114,7 +129,7 @@ function MapaDemo({
     <ChoroplethMap
       geography={geo}
       topologyObject="BRUF"
-      values={VALORES}
+      values={values}
       scaleToken={scaleToken}
       legendTitle={legendTitle}
       ariaLabel="Clientes por unidade federativa"
@@ -159,6 +174,14 @@ export function ChoroplethMapDoc() {
           <MapaDemo scaleToken="info" legendTitle="info" />
           <MapaDemo scaleToken="warning" legendTitle="warning" />
         </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-empty"
+        title="Regiões sem dados"
+        description="UF ausente de values fica neutra (token bg-bg-muted), como se estivesse vazia, e o tooltip mostra 'Sem dados'. Não precisa de prop — basta não mandar a chave. Aqui: operação só no Sul/Sudeste + GO/DF."
+      >
+        <MapaDemo values={VALORES_PARCIAIS} legendTitle="Clientes por UF (cobertura parcial)" />
       </ExampleSection>
 
       <ExampleSection
