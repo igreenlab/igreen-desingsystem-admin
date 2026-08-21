@@ -153,6 +153,50 @@ function MapaDemo({
   );
 }
 
+/**
+ * Painel de detalhe do master-detail (dados derivados do mock VALORES:
+ * participação = valor/total, ranking = posição por valor desc).
+ */
+function PainelUf({ uf }: { uf: UfClicada }) {
+  const total = Object.values(VALORES).reduce((s, v) => s + v, 0);
+  const ranking =
+    Object.values(VALORES)
+      .sort((a, b) => b - a)
+      .findIndex((v) => v === uf.value) + 1;
+  const fmtNum = new Intl.NumberFormat("pt-BR");
+
+  return (
+    <div className="flex flex-col gap-gp-lg">
+      <div>
+        <h3 className="text-title-md font-semibold text-fg-default">{uf.name}</h3>
+        <p className="text-caption-sm text-fg-muted">Código IBGE {uf.id}</p>
+      </div>
+      <div className="border-t border-border-subtle pt-gp-lg">
+        <p className="text-caption-md text-fg-muted">Clientes</p>
+        <p className="text-stat-sm leading-none tabular-nums text-fg-default">
+          {uf.value != null ? fmtNum.format(uf.value) : "—"}
+        </p>
+      </div>
+      <div className="flex gap-gp-2xl border-t border-border-subtle pt-gp-lg">
+        <div className="flex-1">
+          <p className="text-caption-md text-fg-muted">Participação</p>
+          <p className="text-body-md font-semibold tabular-nums text-fg-default">
+            {uf.value != null
+              ? `${new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 1 }).format((uf.value / total) * 100)}%`
+              : "—"}
+          </p>
+        </div>
+        <div className="flex-1">
+          <p className="text-caption-md text-fg-muted">Ranking</p>
+          <p className="text-body-md font-semibold tabular-nums text-fg-default">
+            {uf.value != null ? `${ranking}º de 27` : "—"}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ChoroplethMapDoc() {
   const [selecionada, setSelecionada] = useState<UfClicada | null>(null);
 
@@ -197,22 +241,30 @@ export function ChoroplethMapDoc() {
       <ExampleSection
         id="ex-interaction"
         title="Seleção por clique"
-        description="onFeatureClick + selectedId: clicar seleciona a região (destaque persistente, mais forte que o hover), clicar de novo desmarca. O feedback fica no próprio mapa — a linha de status abaixo tem tamanho estável, sem quebra de layout."
+        description="Master-detail: onFeatureClick + selectedId — clicar seleciona a UF (destaque persistente, mais forte que o hover), clicar de novo desmarca. O painel lateral tem LARGURA FIXA de propósito: painel que cresce com o conteúdo redimensiona o mapa a cada clique."
       >
-        <MapaDemo
-          onFeatureClick={(info) =>
-            setSelecionada((atual) => (atual?.id === info.id ? null : info))
-          }
-          selectedId={selecionada?.id ?? null}
-          legendTitle="Clique numa UF pra selecionar"
-        />
-        <p className="mt-gp-2xl text-body-sm text-fg-muted tabular-nums">
-          {selecionada
-            ? `${selecionada.name} — ${
-                selecionada.value != null ? `${selecionada.value} clientes` : "sem dados"
-              }`
-            : "Nenhuma região selecionada."}
-        </p>
+        <div className="flex flex-col gap-gp-2xl md:flex-row">
+          <div className="min-w-0 flex-1">
+            <MapaDemo
+              onFeatureClick={(info) =>
+                setSelecionada((atual) => (atual?.id === info.id ? null : info))
+              }
+              selectedId={selecionada?.id ?? null}
+              legendTitle="Clique numa UF pra selecionar"
+            />
+          </div>
+          <div className="shrink-0 rounded-radius-lg border border-border-default bg-bg-surface p-pad-card-sm md:w-[280px]">
+            {selecionada ? (
+              <PainelUf uf={selecionada} />
+            ) : (
+              <div className="flex h-full items-center justify-center py-sp-4xl md:py-0">
+                <p className="text-center text-body-sm text-fg-muted">
+                  Clique numa UF do mapa pra ver o detalhe.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
       </ExampleSection>
 
       <DocSeparator />
