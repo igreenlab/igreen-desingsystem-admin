@@ -192,6 +192,21 @@ cor cai em `currentColor` nos canais (L-039).
 
 ---
 
+## 🖼️ Referência visual (print, Figma, tela existente)
+
+**Conteúdo é da referência; pele e comportamento são do DS.** Dela: copy, labels,
+nomenclatura, ordem dos campos — copie e não "melhore" sem pedir. Do DS, sempre: fonte,
+tamanho, peso, tracking, cor, espaçamento, radius, sombra, foco e comportamento de
+componente — preset existe → use o preset. **Cor:** a referência escolhe o CONJUNTO
+(`dark`, `data-theme="<id>"`), **nunca** o valor. **Chrome (rail/menu/header) na referência
+= shell no escopo** → ofereça `/ds-create-app` junto, ou diga em linha destacada o que fica
+de fora.
+
+→ Detalhe, casos de borda e a evidência do dogfood: **`.ai/context/referencia-visual.md`**
+(sob demanda). Mecanismo: Fase 0 dos builders + seção de decisões inferidas no gate.
+
+---
+
 ## ❌ Anti-patterns proibidos
 
 ### Tailwind literal com equivalente DS

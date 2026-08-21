@@ -54,6 +54,8 @@ Princípios:
 | Page id (kebab-case)   | derivado do nome — **verificar colisão com `DOC_PAGES` (src/App.tsx)** |
 | Seção da nav           | "List Components" (prefixo `Example:`)                                 |
 
+> Referência visual (print/Figma) em jogo? → **`.ai/context/referencia-visual.md`**.
+
 **Wrapper — 3 opções:**
 
 - **(a) `ExamplePageLayout`** (default neste repo) — standalone, padrão dos

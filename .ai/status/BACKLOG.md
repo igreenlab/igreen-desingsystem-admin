@@ -5,6 +5,67 @@
 
 ---
 
+## 🔍 Dois furos de gate achados ao corrigir as skills a partir do dogfood (2026-08-20)
+
+> Os dois saíram da MESMA rodada e ficaram de fora dela de propósito: a correção das skills
+> foi só `.md`, e gate é código. Registrados com a medição em mão pra não virarem "eu acho".
+
+### a) Nenhum gate valida NOME DE PRESET TIPOGRÁFICO citado em doc
+
+**Medido, com o defeito plantado:** troquei `text-code-sm` por `text-code-xxl` (preset que não
+existe) no `cli/templates/default/_claude/skills/crud-builder/generate.md` — arquivo que ENSINA
+a IA do consumidor — e rodei os dois gates de classe morta: **14/14 passaram**. Depois plantei
+`text-codigo-{sm,md}` no `ds-design.md`, que é `alwaysApply`: passou também.
+
+Por que escapa, e não é descuido de ninguém:
+
+| gate | cobre | não cobre |
+|---|---|---|
+| `dead-theme-classes` | só `--color-*` (o próprio módulo declara: estender exige defeito real em mão) | tipografia |
+| `dead-ds-classes` | 8 famílias: `shadow-sh` `rounded-radius` `form` `size-icon` `size-comp` `gap-gp` `pad` `sp` | tipografia |
+| `typography-merge-sync` | os 27 presets chegam em `tv.ts` **e** `utils.ts` | não olha doc nem payload |
+
+É a mesma classe de defeito que gerou os dois módulos (`max-w-container-*` na L-057,
+`shadow-sh-xs` no dogfood de 17/08): classe que não emite CSS, `tsc` limpo, teste verde, e no
+consumidor o texto cai em `system-ui`/tamanho errado sem sinal nenhum. E o alvo é pior que o de
+`src/`: doc errada **ensina** o erro a toda IA que a ler.
+
+**O caminho já está aberto:** `typography-merge-sync.mjs` exporta `presetsDoTema(cssTema)`, que
+extrai `@utility text-<nome>` do tema gerado — a fonte que decide o que existe. Falta cruzar
+isso com os `text-<role>-<tier>` citados em `.claude/**` + `cli/templates/default/**`, com o
+mesmo tratamento de curinga que o `dead-ds-classes` já tem (`text-code-*` em doc é padrão, não
+classe). Estimativa: módulo puro + teste, na casa de 1 hora.
+
+⚠️ Antes de ligar, **medir o ruído** (L-059): doc cita preset dentro de prosa e de bloco de
+código, e `text-body-sm` aparece em dezenas de lugares. Se a contagem de falso positivo passar
+de ~2, o gate entra em modo ratchet (só linha adicionada), como o `lint-styles`.
+
+### b) Repo e payload das skills são versões independentes, sem nenhum gate de paridade
+
+As skills existem em dois registros, e o consumidor só vê o segundo:
+
+```
+.claude/skills/crud-builder/            generate.md 348L   interview.md 244L   + kanban-design.md
+cli/templates/default/_claude/skills/…  generate.md  80L   interview.md  99L   (sem kanban)
+```
+
+A condensação é **por decisão** (a DoD da L-047 manda adaptar pro copy-in), então o critério
+não pode ser "arquivos iguais". Mas nada garante que uma correção feita num lado chegue no
+outro — e o efeito já era visível antes desta rodada: a pergunta do wrapper existia no
+`list-builder` e não no `crud-builder`, nos dois registros.
+
+Os 3 gates de paridade existentes cobrem outra coisa: `rules-parity` (as 8 regras numeradas),
+`contributor-parity` (CONTRIBUTING × PR template), `skills-routing` (alcançabilidade e caminhos
+citados, não conteúdo).
+
+⚠️ **Não é candidato óbvio a gate mecânico.** "Cobrem os mesmos tópicos" é julgamento, e a
+L-059 diz pra não transformar julgamento em gate — os greps de julgamento medidos neste repo
+deram 51 hits com 50 de ruído. Uma forma defensável: exigir que **guardrails numerados** e
+**headings de fase** existam nos dois lados (estrutura, não prosa), deixando o corpo livre.
+Decidir antes de implementar.
+
+---
+
 ## 🪧 Defasar o `#/chart-showcase` quando os blocos de chart cobrirem o que ele mostra
 
 > **Decisão já tomada pelo mantenedor** (2026-08-19/20): o `#/chart-showcase` é *"basicamente

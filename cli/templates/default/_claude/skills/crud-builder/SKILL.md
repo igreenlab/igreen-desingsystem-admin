@@ -75,7 +75,9 @@ Se USAGE.md divergir do exemplo/types, o exemplo + types vencem.
 10. LER o exemplo canônico ANTES de gerar — nunca de memória.
 11. Ação destrutiva (excluir) ⇒ **confirmação via `AlertModal`** — nunca deletar direto.
 12. Sempre wire os 3 estados: `loading`/`renderLoading` (skeleton), `renderEmpty` (sem
-    registros + CTA _Adicionar_), `renderNoResults` (filtro sem match). Faltou = incompleto.
+    registros + CTA _Adicionar_), `renderNoResults` (filtro sem match). **O default
+    embutido conta como wirado — desde que declarado no blueprint** (linha `Estados:`).
+    Faltou = incompleto: o que não vale é o estado nunca ter sido decidido.
 
 ## Drawers (criar/editar/detalhe) — ligado ao CRUD
 

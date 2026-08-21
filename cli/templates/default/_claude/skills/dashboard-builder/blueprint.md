@@ -12,6 +12,10 @@ Consolide a entrevista num preview de uma tela só e **pare** — ⛔ zero ediç
 
 ```
 PAINEL: <nome>  ·  rota <definir com o usuário>  ·  fonte: mock | API(<shape>)
+Wrapper: AppShell + PageHeader | puro     (chrome do print entregue? sim/não)
+
+⚠️ Inferido (não perguntei) — vete se discordar:
+  • <decisão> → <o que muda se vetar>       [ou: nenhuma]
 
 MAPA DE ROWS (top → bottom):
   Row 1 — [hero/insight?]                         (opcional)

@@ -15,6 +15,7 @@ em disco antes do "aprovar".
 Entidade:        <Nome>   (tipo <NomeRow>)
 Modo:            client | server (endpoint: ...)
 Onde:            <PAGES_DIR>/<Arquivo>.tsx  · registro: <REGISTRO>
+Wrapper:         AppShell + PageHeader | puro   (chrome do print entregue? sim/não)
 Colunas:         <campo:tipo[:sortable][:editável]>, ... (primária: <campo>)
 Busca/Filtros:   busca=<sim/não> · filtros=<col:tipo, ...>
 Ações linha:     <editar, excluir(confirm AlertModal), ...>   · seleção/bulk: <...>
@@ -25,6 +26,19 @@ Drawers:         criar/editar=<sim/não> · campos=<campo:obrigatório?:máscara
 Estados:         loading=<skeleton> · vazio=<msg + CTA> · sem-resultado=<msg + limpar>
 Kanban:          <não | campo de agrupamento>
 Componentes a puxar: data-table[, example-finance p/ drawers][, alert-modal p/ excluir][, ...]
+```
+
+## ⚠️ Decisões inferidas — vete se discordar
+
+Depois do bloco acima, liste **só** o que o usuário não disse e você decidiu sozinho —
+uma linha cada, com o que muda se ele vetar. Sem inferência → `nenhuma`; não apague a
+seção: é a ausência dela que faz a decisão passar aprovada em pacote.
+
+```
+⚠️ Inferido (não perguntei):
+  • wrapper = puro       → a tela nasce SEM rail/menu/header
+  • tema = light         → a referência mostrava dark
+  • <coluna> = <tipo>    → confiança baixa (inferido só pelo nome do campo)
 ```
 
 ## Pré-validações (rode ANTES de pedir aprovação)

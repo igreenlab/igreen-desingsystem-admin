@@ -8,6 +8,10 @@ disco antes do "aprovar".
 ```
 PAINEL: <nome>  ·  rota #/<page-id>  ·  fonte: mock | API(<shape>)
 Ambiente: DS (src/preview/pages) | consumer (<PAGES_DIR>)
+Wrapper:  ExamplePageLayout | AppShell + PageHeader | puro
+
+⚠️ Inferido (não perguntei) — vete se discordar:
+  • <decisão> → <o que muda se vetar>        [ou: nenhuma]
 
 MAPA DE ROWS (top → bottom):
   Row 1 — [hero/insight?]                         (§ / opcional)
@@ -21,6 +25,10 @@ MAPA DE ROWS (top → bottom):
 Primitivos: Kpi/KpiGroup/KpiDelta · Chart · Panel · <DataTable|DataList?>
 Receitas usadas: §1 §2 §3 §4 §5 §6 (as que se aplicam)
 ```
+
+A linha `⚠️ Inferido` lista **só** o que o usuário não disse e você decidiu sozinho, com
+o que muda se ele vetar. Sem inferência → `nenhuma`. Não apague: é a ausência dela que
+faz a decisão passar aprovada em pacote (caso real: tela aprovada sem shell, 2026-08-20).
 
 ## Pré-validações (rodar antes de mostrar o gate)
 

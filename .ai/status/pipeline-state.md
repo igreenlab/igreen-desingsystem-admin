@@ -3154,3 +3154,81 @@ template confirma (alias `ui`, sem pasta `shadcn/`). Cai se o transform do `shad
 reescrever relativo; aí o gate fica conservador, não errado.
 
 **Publish:** fora do meu escopo (L-020). Entregue com o bump e os gates verdes pro mantenedor rodar.
+
+---
+
+### 2026-08-20 | ds-dev | O dogfood virou regra: o print não manda no visual | CONCLUÍDO
+
+**Input:** o mantenedor rodou o DS num consumidor real por submódulo, gerou uma tela de tabela
+a partir de um **print**, e o agente de lá acertou o grosso e escorregou em nuance. O
+enquadramento dele foi melhor que o diagnóstico que o próprio agente tinha feito:
+*"copy e nomenclatura você acertou em respeitar o print — não tinha como adivinhar o domínio.
+Mas font, font-size, tracking, comportamento de tabela você não devia ter adaptado."*
+
+**Checadas as 5 sugestões daquele agente antes de aceitar** (relato de outro agente não é
+evidência):
+
+| # | Sugestão | Veredito medido |
+|---|---|---|
+| 1 | pergunta do shell na Fase 0 | ✅ e **mais forte**: o `list-builder` JÁ pergunta (3 opções), `crud` e `dashboard` não |
+| 2 | protocolo de referência visual | ✅ zero menções a print/screenshot em qualquer builder, nos 2 registros |
+| 3 | separar escolhido de inferido no gate | ✅ e o `blueprint.md` do repo **já imprimia** `wrapper <…>` sem a entrevista perguntar |
+| 4 | `text-code-*` nos padrões de célula | ✅ preset existe (13px/1.6/400/Geist Mono), a linha de padrões não o citava |
+| 5 | ambiguidade dos 3 estados | ⚠️ **em boa parte falsa** — ver abaixo |
+
+**A #1 é a mais interessante, e o achado real é outro:** o `blueprint.md` do `crud-builder`
+imprime `wrapper <ExamplePageLayout|AppShell|puro>` desde sempre, e a Fase 0 **nunca perguntou**.
+Campo de gate preenchido por inferência e aprovado em pacote — não é "faltou uma pergunta", é um
+formulário com um campo que ninguém preenche e todo mundo assina.
+
+**A #5 o agente usou contra si mesmo sem precisar.** O `blueprint.md` do payload já diz, em
+letra: *"os 3 estados estão definidos **(mesmo que com default)**"*. O comportamento dele era
+**sancionado**; o que existia era divergência de tom com o item 12 do `SKILL.md` ("Faltou =
+incompleto"). Alinhei a frase nos dois — não endureci a regra.
+
+**Correção de formulação na #2, que estava absoluta demais.** "Cores → 100% DS, ignorar o
+print" está errado: o DS tem 5 marcas e dark mode, e o próprio agente listou o "entreguei light
+com print dark" como erro. A regra que ficou: **a referência escolhe o CONJUNTO de tokens
+(marca/modo); nunca o valor.** Derivar hex do pixel é que é proibido.
+
+**O que ficou, nos DOIS registros** (`.claude/skills/` e `cli/templates/default/_claude/`, que
+são versões independentes — 348L vs 80L no `generate.md`):
+
+- **envelope na Fase 0** do `crud` e do `dashboard`, como **verificação e não pergunta** (existe
+  `AppShell`? a referência mostra chrome?) — só sobe como pergunta quando as duas respostas se
+  contradizem. É o estilo do próprio prompt do mantenedor: *"não me pergunte nada que você possa
+  verificar no repositório"*
+- **`⚠️ Decisões inferidas — vete se discordar`** no gate dos 3 builders, com `nenhuma` explícito
+  quando não houve inferência (apagar a seção é o que faz a decisão passar em pacote)
+- **bloco de referência visual**: no repo em `ds-standards.md`; no consumidor em `ds-design.md`,
+  em **8 linhas** — o arquivo é `alwaysApply`, e as 4 rules já custam ~8.900 tokens em 100% das
+  sessões dele. O protocolo longo mora na Fase 0 dos builders, que carrega sob demanda
+- **`text-code-{sm,md}`** como padrão de célula pra chave/ID/hash/slug/path, simétrico à linha
+  do `stat` que já existia
+
+**Uma afirmação minha que a medição derrubou, e ela importa.** Eu disse ao mantenedor que a
+mudança caía "dentro da cobertura que já existe — se eu citar uma classe que não emite CSS, o
+`npm test` reprova". **Falso.** Plantei `text-code-xxl` no `generate.md` do payload: **14/14**
+testes verdes. `dead-theme-classes` cobre só `--color-*`; `dead-ds-classes` cobre 8 famílias e
+nenhuma é tipografia; `typography-merge-sync` olha `tv.ts`/`utils.ts` e não doc. Nome de preset
+citado em doc **não tem gate nenhum** — e doc errada ensina o erro. Virou item de BACKLOG com a
+medição e o caminho (`presetsDoTema` já existe e exporta o extractor).
+
+**Erro de execução meu, e o pior tipo: reversível que quase não foi visto.** Rodei `git checkout
+--` num arquivo pra restaurar uma sonda e **apaguei as duas edições que já estavam nele**;
+depois re-rodei o script inteiro e **dupliquei** o bloco em outros 3. Achei por contagem de
+marcador (`grep -c` de cada bloco, esperando exatamente 1) — não por leitura. Os scripts de
+edição agora abortam se o marcador já existe, em vez de casar a âncora de novo.
+
+**Estado:** 55 arquivos / **683 testes**, 0 falha · `release:check` exit 0 · 15 arquivos de doc
+nos 2 registros + 2 itens de BACKLOG.
+
+**Assumption:** que verificação bate pergunta. As duas checagens do envelope (existe shell? a
+referência mostra chrome?) são respondíveis por grep e por olhar a imagem — se um agente não
+conseguir responder sozinho, ele volta a inferir em silêncio e o campo do gate mente de novo,
+só que agora com uma seção dizendo que não houve inferência. Cai se o próximo dogfood mostrar
+"Inferido: nenhuma" num caso onde houve.
+
+**Entrega ao consumidor:** submódulo não precisa de publish — `git pull --recurse-submodules` +
+`npm --prefix design-system run ds:link`. Scaffold/copy-in precisam de bump + publish do CLI
+(payload mudou), a consolidar no próximo `/ds-release`.

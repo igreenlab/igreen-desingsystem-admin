@@ -16,6 +16,10 @@ As receitas de cada seção estão no `generate.md` (§1–§6) + no `example-da
 - Dados: mock ou API? Se API, anote o shape → a geração cria mock tipado espelhando.
 - Período/segmentação no topo? (quase sempre → PeriodSelector no `actions` do PageHeader).
 
+- **Envelope (wrapper)** — verifique antes de perguntar: existe `AppShell`? A referência
+  mostra rail/menu/header? Chrome sem shell → ofereça `/ds-create-app` junto; recusado →
+  registre no blueprint o que do print fica de fora.
+
 ## Fase 1 — KPIs rápidos ("Painel do Líder", §1)
 - Quais métricas rápidas? (label + valor + tom do ícone).
 - Delta? O sinal é literalmente bom/ruim → `signed`. Senão, tom explícito (tempo ↓ = success).
