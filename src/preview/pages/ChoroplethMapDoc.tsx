@@ -22,7 +22,7 @@ const TOC = [
 
 const PROPS = [
   { name: "geography", type: "FeatureCollection | MapFeature[] | Topology", defaultVal: "—" },
-  { name: "topologyObject", type: "string", defaultVal: "—" },
+  { name: "topologyObject", type: "string", defaultVal: "objeto único da Topology" },
   { name: "values", type: "Record<string | number, number>", defaultVal: "—" },
   { name: "getFeatureId", type: "(feature) => string | number", defaultVal: "id → properties.id" },
   { name: "getFeatureName", type: "(feature) => string", defaultVal: "name → nome → NOME → id" },
@@ -101,6 +101,7 @@ function MapaDemo({
   return (
     <ChoroplethMap
       geography={geo}
+      topologyObject="BRUF"
       values={VALORES}
       scaleToken={scaleToken}
       legendTitle={legendTitle}

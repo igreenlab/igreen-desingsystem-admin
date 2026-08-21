@@ -13,8 +13,8 @@ Não é acoplado a nenhum dataset: você passa a geografia (GeoJSON/TopoJSON) + 
 
 | Prop | Tipo | Default | Descrição |
 |------|------|---------|-----------|
-| `geography` | `FeatureCollection \| Feature[] \| Topology` | — | Fonte geográfica. TopoJSON exige `topologyObject`. |
-| `topologyObject` | `string` | — | Nome do objeto a extrair do `Topology` (ex.: `"municipios"`). |
+| `geography` | `FeatureCollection \| Feature[] \| Topology` | — | Fonte geográfica. TopoJSON com 2+ objetos exige `topologyObject`. |
+| `topologyObject` | `string` | objeto único da `Topology` | Nome do objeto a extrair do `Topology` (ex.: `"municipios"`). Obrigatório só quando há 2+ objetos — com 2+ e sem a prop, o mapa renderiza **vazio** (sem erro). |
 | `values` | `Record<string \| number, number>` | — | Mapa `id → valor`. Ids casam com `getFeatureId`. |
 | `getFeatureId` | `(f) => string \| number` | `f.id` → `f.properties.id` | Como obter o id de uma feature. |
 | `getFeatureName` | `(f) => string` | `properties.name/nome/NOME` → id | Nome exibido no tooltip. |

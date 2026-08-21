@@ -37,8 +37,12 @@ function normalizeFeatures(
 ): MapFeature[] {
   if (Array.isArray(geography)) return geography;
   if (isTopology(geography)) {
-    if (!topologyObject) return [];
-    const obj = geography.objects[topologyObject] as GeometryObject | undefined;
+    // Sem topologyObject: uma Topology com objeto único (caso IBGE: "BRUF") é
+    // inequívoca — usá-lo em vez de devolver [] mudo. Com 2+ objetos é ambíguo.
+    const keys = Object.keys(geography.objects);
+    const objectName = topologyObject ?? (keys.length === 1 ? keys[0] : undefined);
+    if (!objectName) return [];
+    const obj = geography.objects[objectName] as GeometryObject | undefined;
     if (!obj) return [];
     const out = topojsonFeature(geography, obj) as unknown as
       | Feature
