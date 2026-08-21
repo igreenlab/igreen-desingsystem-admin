@@ -112,6 +112,70 @@ invente componente ou estilo por fora.
 No final, me mostre o sistema rodando: o menu navegando nas 3 categorias e
 o cadastro de Clientes criando, editando e excluindo.`;
 
+/**
+ * ATUALIZAR — o 3º prompt, e o que mais precisava existir.
+ *
+ * Atualizar é a operação que quebra projeto, não a de instalar: você troca código que já
+ * está em uso. Então o prompt é escrito como AUDITORIA — mede antes, lê o changelog, mede
+ * depois e compara. Sem a medição ANTES, qualquer erro que já existia no projeto vira
+ * suspeita de ter vindo da atualização, e a pessoa reverte um update que estava correto.
+ *
+ * Duas regras que o prompt carrega de propósito, porque são as que a IA quebra sozinha:
+ * (1) nunca editar arquivo dentro do DS pra fazer o app compilar — o conserto é na
+ * composição, e no submódulo a edição some no próximo pull; (2) parar e relatar quando o
+ * changelog diz BREAKING, em vez de adaptar por conta.
+ */
+export const PROMPT_ATUALIZAR = `Atualize o iGreen Design System neste projeto, com auditoria. Não me pergunte nada que você possa verificar no repositório, e não altere nada antes de terminar o passo 2.
+
+1. DESCUBRA o canal (pode ser mais de um):
+   - existe .igreen-ds/manifest.json na raiz?      -> copy-in
+   - .gitmodules aponta pro igreen-desingsystem?   -> submódulo
+   - @snksergio/design-system no package.json?     -> npm
+
+2. MEÇA O ANTES e me mostre a tabela (isto é o passo mais importante — sem ele, erro que já
+   existia vai parecer causado pela atualização):
+   - versão/rev atual de cada canal:
+       copy-in    -> npm run igreen:drift        (e npm run doctor)
+       npm        -> npm ls @snksergio/design-system  +  npm view @snksergio/design-system version
+       submódulo  -> git submodule status  +  git -C <dsPath> log --oneline -1
+   - baseline de saúde: npx tsc --noEmit e npm run build. ANOTE os erros que JÁ existem.
+     Se algo já está quebrado, diga isso agora — não conserte junto com a atualização.
+
+3. LEIA O CHANGELOG antes de tocar em qualquer coisa, e me diga o que muda entre a minha
+   versão e a última:
+   - submódulo -> <dsPath>/src/preview/pages/updates-data.ts (está no disco, leia direto)
+   - npm/copy-in -> https://igreen-desingsystem-admin.vercel.app/#/updates
+   Liste só o que me afeta: componente que eu uso, token renomeado, prop removida, mudança
+   de comportamento. Se houver BREAKING no caminho, PARE aqui e me mostre — eu decido.
+
+4. ATUALIZE, um canal por vez, na ordem que você achou:
+   copy-in:    npm run igreen:update -- --all        (pula o que EU editei; não use --force
+               sem me perguntar) e depois npm run doctor; se o doctor acusar cn/tv defasado,
+               npm run igreen:update -- utils tv --force
+   npm:        npm i @snksergio/design-system@latest
+   submódulo:  git pull --recurse-submodules e depois npm --prefix <dsPath> run ds:link
+               (o ds:link é obrigatório: sem ele o código novo entra e as skills continuam
+                ensinando o padrão antigo)
+
+5. VALIDE e COMPARE com o baseline do passo 2:
+   - npx tsc --noEmit  -> me mostre só os erros NOVOS
+   - npm run build
+   - suba o dev server e confira no browser: um componente com hook (AppShell, DataTable ou
+     FloatingPanel) renderizando sem Invalid hook call, e document.fonts.check("16px Geist")
+     === true
+   - se eu uso marca não-default, confirme que o data-theme continua no <html> e que o
+     overlay entra DEPOIS do theme.css
+
+REGRAS:
+- NUNCA edite arquivo dentro do DS (submódulo ou node_modules) pra fazer o app compilar. O
+  conserto é no MEU código; no submódulo a sua edição some no próximo pull.
+- Se algo quebrar por mudança do DS, PARE e me mostre o que quebrou e o que o changelog diz.
+  Não adapte por conta própria.
+- Reinicie o Claude Code no fim se o kit de IA mudou: slash command só registra no início da
+  sessão.
+
+No fim, me dê uma linha por canal: versão antes -> versão depois, e o que mudou que me afeta.`;
+
 export const PROMPTS = [
   {
     id: "instalar",
@@ -124,5 +188,11 @@ export const PROMPTS = [
     label: "Construir telas",
     resumo: "Pedido-exemplo: shell + CRUD",
     texto: PROMPT_CONSTRUIR,
+  },
+  {
+    id: "atualizar",
+    label: "Atualizar o DS",
+    resumo: "Auditoria: mede, lê o changelog, valida",
+    texto: PROMPT_ATUALIZAR,
   },
 ] as const;

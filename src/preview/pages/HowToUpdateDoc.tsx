@@ -1,4 +1,7 @@
 import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
+import { useState } from "react";
+import { Button } from "../../components/ui/Button";
+import { PROMPT_ATUALIZAR } from "../data/install-prompts";
 
 /**
  * Como atualizar — uma página por CANAL, porque atualizar significa coisa diferente em
@@ -9,6 +12,7 @@ import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 
 const TOC = [
   { id: "qual", label: "Qual canal você usa?" },
+  { id: "prompt", label: "Atalho: prompt com auditoria" },
   { id: "cli", label: "1. CLI / scaffold" },
   { id: "copyin", label: "2. Componentes (copy-in)" },
   { id: "npm", label: "3. Biblioteca npm" },
@@ -57,6 +61,28 @@ function Cenario({
   );
 }
 
+/** Copiar o prompt — simples de propósito, sem o CSS de animação da Landing. */
+function CopiarPrompt({ texto }: { texto: string }) {
+  const [copiado, setCopiado] = useState(false);
+  return (
+    <Button
+      color="primary"
+      size="md"
+      onClick={() => {
+        navigator.clipboard.writeText(texto).then(
+          () => {
+            setCopiado(true);
+            setTimeout(() => setCopiado(false), 2000);
+          },
+          () => setCopiado(false),
+        );
+      }}
+    >
+      {copiado ? "Copiado!" : "Copiar prompt"}
+    </Button>
+  );
+}
+
 export function HowToUpdateDoc() {
   return (
     <DocLayout toc={TOC}>
@@ -76,7 +102,7 @@ export function HowToUpdateDoc() {
         </p>
 
         <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <div className="grid grid-cols-[150px_1fr_200px] gap-0 bg-bg-subtle border-b border-border-subtle">
+          <div className="grid grid-cols-[140px_1fr_300px] gap-0 bg-bg-subtle border-b border-border-subtle">
             <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Você tem</div>
             <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Como sei</div>
             <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Atualiza com</div>
@@ -85,36 +111,70 @@ export function HowToUpdateDoc() {
             {
               canal: "CLI / scaffold",
               sinal: "você cria projetos novos com npm create",
-              cmd: "@latest no comando",
+              cmd: "npx @snksergio/create-design-system@latest",
             },
             {
               canal: "Copy-in",
               sinal: ".igreen-ds/manifest.json na raiz",
-              cmd: "npm run igreen:update",
+              cmd: "npm run igreen:update -- --all",
             },
             {
               canal: "Biblioteca npm",
               sinal: "@snksergio/design-system no package.json",
-              cmd: "npm update",
+              cmd: "npm i @snksergio/design-system@latest",
             },
             {
               canal: "Submódulo",
               sinal: ".gitmodules aponta pro DS",
-              cmd: "git pull + ds:link",
+              cmd: "git pull --recurse-submodules && npm --prefix design-system run ds:link",
             },
           ].map((r) => (
             <div
               key={r.canal}
-              className="grid grid-cols-[150px_1fr_200px] gap-0 border-t border-border-subtle"
+              className="grid grid-cols-[140px_1fr_300px] gap-0 border-t border-border-subtle"
             >
               <div className="py-pad-md px-pad-xl text-body-md font-medium text-fg-default">{r.canal}</div>
               <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">{r.sinal}</div>
               <div className="py-pad-md px-pad-xl">
-                <code className="font-mono text-code-sm text-fg-brand">{r.cmd}</code>
+                <code className="font-mono text-code-sm text-fg-brand break-words">{r.cmd}</code>
               </div>
             </div>
           ))}
         </div>
+      </div>
+
+      <SectionH2 id="prompt" title="Atalho: deixe a IA atualizar, com auditoria" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-body-md text-fg-muted">
+          Atualizar é o que quebra projeto — você troca código que já está em uso. Este prompt
+          faz na ordem certa: <strong className="text-fg-default">mede antes</strong>, lê o
+          changelog da página <strong className="text-fg-default">Updates</strong>, atualiza,
+          e só então compara — reportando apenas o que quebrou <em>de novo</em>. Sem a medição
+          inicial, um erro que já existia no seu projeto parece ter vindo da atualização, e você
+          reverte um update que estava certo.
+        </p>
+        <div className="flex flex-col gap-gp-xl rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
+          <div className="flex flex-wrap items-center justify-between gap-gp-md">
+            <div className="flex flex-col gap-gp-2xs">
+              <span className="text-title-md text-fg-default">Atualizar com auditoria</span>
+              <span className="text-caption-md text-fg-muted">
+                Descobre seus canais, mede o antes, lê o changelog e valida no fim.
+              </span>
+            </div>
+            <CopiarPrompt texto={PROMPT_ATUALIZAR} />
+          </div>
+          <div className="rounded-radius-base border border-border-subtle bg-bg-canvas p-pad-3xl max-h-[340px] overflow-y-auto">
+            <pre className="whitespace-pre-wrap font-mono text-code-sm text-fg-muted leading-relaxed">
+              {PROMPT_ATUALIZAR}
+            </pre>
+          </div>
+        </div>
+        <p className="text-body-md text-fg-muted">
+          Duas coisas que ele NÃO faz, de propósito: não usa <Code>--force</Code> sem perguntar
+          (isso sobrescreveria o que <strong className="text-fg-default">você</strong>{" "}
+          editou), e não adapta o seu código quando o changelog diz BREAKING — para e mostra,
+          porque essa decisão é sua. As seções abaixo são a mesma coisa, na mão.
+        </p>
       </div>
 
       {/* ── 1. CLI ─────────────────────────────────────────────────────── */}
