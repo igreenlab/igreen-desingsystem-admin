@@ -3232,3 +3232,35 @@ só que agora com uma seção dizendo que não houve inferência. Cai se o próx
 **Entrega ao consumidor:** submódulo não precisa de publish — `git pull --recurse-submodules` +
 `npm --prefix design-system run ds:link`. Scaffold/copy-in precisam de bump + publish do CLI
 (payload mudou), a consolidar no próximo `/ds-release`.
+
+---
+
+### 2026-08-20 | ds-dev | CLI 0.25.9 — o protocolo de referência visual chega no scaffold | CONCLUÍDO
+
+**Input:** fechar o canal que o #247 deixou aberto. A correção das skills entrou nos dois
+registros, mas quem consome por **scaffold** ou **copy-in** só recebe o payload pela versão
+publicada do CLI — e a última era a 0.25.8, anterior ao #247.
+
+**Medido:** `git log <bump 0.25.8>..HEAD -- cli/templates/` → 1 commit (`a65cc2f`), **8 arquivos**
+do payload. Quem rodasse `npm create` hoje receberia o kit **sem** o protocolo de referência
+visual, sem a verificação do envelope, sem a seção de decisões inferidas e sem a linha do
+`text-code-sm` — ou seja, exatamente os 4 desvios que o dogfood expôs continuariam possíveis em
+projeto novo.
+
+**Conferido no que vai no pacote, não no diff:** `npm pack --dry-run` lista os 8 arquivos (74
+arquivos, `version: 0.25.9`), e os 10 marcadores novos aparecem **1× cada** nos arquivos-fonte do
+template — contagem, não leitura, porque nesta mesma sessão eu já dupliquei bloco por re-rodar um
+script de edição.
+
+**`cli:rebake` rodado antes do bump:** 9 foundational re-bakeados, **nenhuma** mudança de
+conteúdo (`git diff --numstat` vazio; só line-ending, revertido). Nada de fundação mudou no #247
+— era doc — então o que faltava era só a versão.
+
+**Estado:** tsc 0 · 55 arquivos / 683 testes, 0 falha · `release:check` exit 0.
+
+**Assumption:** que os 4 canais continuam lendo o MESMO payload. Se um dia o scaffold passar a
+ter kit próprio, este bump deixa de ser suficiente e a conta de "1 commit atrás" mente. Hoje
+vale: `cli/templates/default/_claude/` serve npm-scaffold e `ds:link` sem bifurcação.
+
+**Publish:** do mantenedor (L-020). Submódulo não depende disto — pega com
+`git pull --recurse-submodules` + `npm --prefix design-system run ds:link`.
