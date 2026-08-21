@@ -1,5 +1,8 @@
 import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 import { Badge } from "../../components/shadcn/badge";
+import { useState } from "react";
+import { Button } from "../../components/ui/Button";
+import { PROMPT_INSTALAR } from "../data/install-prompts";
 
 /**
  * Installation — organizada por CASO DE USO, não por assunto técnico.
@@ -17,6 +20,7 @@ import { Badge } from "../../components/shadcn/badge";
 
 const TOC = [
   { id: "escolha", label: "Qual é o seu caso?" },
+  { id: "prompt", label: "Atalho: cole um prompt" },
   { id: "novo", label: "1. Projeto novo" },
   { id: "existente", label: "2. Projeto existente" },
   { id: "submodulo", label: "3. Monorepo / submódulo" },
@@ -58,6 +62,31 @@ function Silencioso({ titulo, children }: { titulo: string; children: React.Reac
       <p className="text-body-md font-medium text-fg-default">⚠ {titulo}</p>
       {children}
     </div>
+  );
+}
+
+/**
+ * Copiar o prompt. Deliberadamente simples: o CopyButton da Landing carrega animação de
+ * pulso e o CSS dela, que não existe nesta página.
+ */
+function CopiarPrompt({ texto }: { texto: string }) {
+  const [copiado, setCopiado] = useState(false);
+  return (
+    <Button
+      color="primary"
+      size="md"
+      onClick={() => {
+        navigator.clipboard.writeText(texto).then(
+          () => {
+            setCopiado(true);
+            setTimeout(() => setCopiado(false), 2000);
+          },
+          () => setCopiado(false),
+        );
+      }}
+    >
+      {copiado ? "Copiado!" : "Copiar prompt"}
+    </Button>
   );
 }
 
@@ -129,6 +158,39 @@ export function InstallationDoc() {
         <p className="text-body-md text-fg-muted">
           Já instalado e quer subir de versão? →{" "}
           <strong className="text-fg-default">Como atualizar</strong> (<Code>#/how-to-update</Code>).
+        </p>
+      </div>
+
+      {/* ── atalho: o prompt ──────────────────────────────────────────── */}
+      <SectionH2 id="prompt" title="Atalho: cole um prompt no Claude Code" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-body-md text-fg-muted">
+          Se você usa Claude Code, não precisa seguir os passos na mão. Este prompt instala o DS
+          como submódulo, configura os <strong className="text-fg-default">dois</strong> aliases,
+          importa o tema, copia as fontes, roda o <Code>ds:link</Code> e
+          <strong className="text-fg-default"> valida</strong> com os 4 checks antes de dizer
+          que acabou. É o mesmo da página <strong className="text-fg-default">Início</strong> —
+          as duas leem o mesmo arquivo, então não divergem.
+        </p>
+        <div className="flex flex-col gap-gp-xl rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
+          <div className="flex flex-wrap items-center justify-between gap-gp-md">
+            <div className="flex flex-col gap-gp-2xs">
+              <span className="text-title-md text-fg-default">Instalar o DS</span>
+              <span className="text-caption-md text-fg-muted">
+                Cole uma vez, na raiz do projeto — vazio ou já existente.
+              </span>
+            </div>
+            <CopiarPrompt texto={PROMPT_INSTALAR} />
+          </div>
+          <div className="rounded-radius-base border border-border-subtle bg-bg-canvas p-pad-3xl max-h-[320px] overflow-y-auto">
+            <pre className="whitespace-pre-wrap font-mono text-code-sm text-fg-muted leading-relaxed">
+              {PROMPT_INSTALAR}
+            </pre>
+          </div>
+        </div>
+        <p className="text-body-md text-fg-muted">
+          O prompt de <strong className="text-fg-default">construir</strong> a primeira tela
+          fica na Início, na aba ao lado deste.
         </p>
       </div>
 
