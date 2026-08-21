@@ -117,9 +117,37 @@ function MessageMediaRenderer({
         </div>
       );
 
-    case "document":
+    case "document": {
+      /**
+       * O CARD INTEIRO abre o documento.
+       *
+       * Ate 20/08/2026 so um botao de 16px na ponta direita tinha `onClick`, e
+       * o card dizia "Toque para baixar" — uma promessa que ele nao cumpria.
+       * Em coluna estreita (o atendimento do Hub) esse botao fica fora da area
+       * visivel, entao o gesto que o proprio card ensina nao existia: tocar
+       * nele nao fazia nada, sem erro nenhum.
+       *
+       * Alvo grande e o desenho certo aqui, e resolve os dois casos de uma vez.
+       * Sem o botao aninhado tambem some um `<button>` dentro de `<button>`,
+       * que era HTML invalido assim que o card virasse clicavel.
+       *
+       * Sem `onMediaClick` o card continua sendo um `<div>` inerte: componente
+       * dumb nao inventa navegacao, e o rotulo abaixo deixa de prometer um
+       * gesto que ninguem ligou.
+       */
+      const abrivel = Boolean(onMediaClick);
+      const Moldura = abrivel ? "button" : "div";
       return (
-        <div className={styles.mediaDoc()}>
+        <Moldura
+          {...(abrivel
+            ? {
+                type: "button" as const,
+                onClick: onMediaClick,
+                "aria-label": `Abrir documento${body ? `: ${body}` : ""}`,
+              }
+            : {})}
+          className={styles.mediaDoc()}
+        >
           <Icon
             name="line-file"
             size="lg"
@@ -127,22 +155,20 @@ function MessageMediaRenderer({
           />
           <div className={styles.mediaDocInfo()}>
             <span className={styles.mediaDocName()}>{body || "Documento"}</span>
-            <span className={styles.mediaDocHint()}>Toque para baixar</span>
+            <span className={styles.mediaDocHint()}>
+              {abrivel ? "Toque para abrir" : "Documento recebido"}
+            </span>
           </div>
-          {mediaUrl ? (
-            <Button
-              type="button"
-              size="xs"
-              variant="ghost"
-              color="primary"
-              aria-label="Baixar documento"
-              onClick={onMediaClick}
-            >
-              <Icon name="line-download-01" size="sm" />
-            </Button>
+          {abrivel ? (
+            <Icon
+              name="line-download-01"
+              size="sm"
+              className={styles.mediaDocIcon()}
+            />
           ) : null}
-        </div>
+        </Moldura>
       );
+    }
 
     case "location":
       return mediaUrl ? (
