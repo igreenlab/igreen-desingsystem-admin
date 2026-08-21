@@ -3418,3 +3418,24 @@ simétrica na entrada e na saída.
   (anotado no PR body).
 - Lições novas: nenhuma registrada (candidata: "portal/popper captura mouse mesmo com
   conteúdo pointer-events-none" — decidir com o mantenedor se vira L-070).
+
+---
+
+### [2026-08-21] | DS DEV | Release v0.45.0 — publicada e no npm | CONCLUÍDO
+
+- Input: `/ds-release` autorizado pelo mantenedor após o merge do trabalho acumulado
+  pós-v0.44.0 (ChoroplethMap #252/#253, Select/MessageBubble #249, MessageComposer
+  #240, blocos, gates, CLI 0.25.7→0.25.10).
+- Output: PR #254 mergiado (entry na timeline + bump 0.44.0→0.45.0 + registry rebuild,
+  92 itens carimbados + lock sync). Publish no npm feito PELO MANTENEDOR no terminal
+  dele — o classificador de permissões do agente bloqueou `npm publish` (correto:
+  ação irreversível pra fora). Confirmado: `npm view` = 0.45.0. CLI: 0.25.10 local ==
+  0.25.10 npm, nada a publicar (nenhum foundational mudou).
+- Decisões: caminho de autenticação = granular access token com bypass 2FA instalado
+  pelo mantenedor no terminal dele (a conta recusa token clássico — E403 conhecido da
+  v0.39.x); nenhum segredo passou pela conversa além de um prefixo truncado, com
+  orientação de revogar por precaução.
+- Assumption: o gate de permissão do agente continua bloqueando `npm publish` — o
+  fluxo da skill (Passo 7.3 "a IA pode rodar o publish") não vale neste ambiente;
+  o publish é sempre do mantenedor.
+- Lições novas: nenhuma.
