@@ -32,23 +32,42 @@ são sempre explícitas:
 - Dados **client-side** (array em memória/mock) ou **server-side** (fetch paginado da API)?
   - Server: qual o endpoint/forma de buscar? (vira `fetchData` em `useCallback`).
 - Onde a página vai morar e como registra a rota? (`PAGES_DIR`/`REGISTRO`).
-- **Envelope (wrapper)** — verifique, não pergunte por padrão: existe `AppShell` no projeto
-  (grep em `src/`)? A referência (print/Figma) mostra rail/menu/header?
-  - shell existe + chrome na referência → `AppShell` + `PageHeader`
-  - chrome na referência e **sem** shell → **pare e ofereça `/ds-create-app` junto**;
-    recusado → o blueprint diz, em linha destacada, o que do print fica de fora
-  - sem referência visual → componente puro no seu `PAGES_DIR`
-  Sem esta pergunta o campo era preenchido por inferência: tela entregue sem o menu que
-  o print mostrava (dogfood 2026-08-20).
 
-## Fase 1 — Colunas
+## Fase 1 — Página e shell
+
+| Pergunta | Default |
+| --- | --- |
+| Título da página | plural da entidade |
+| Descrição (1-2 frases) | gerada do domínio, confirmar |
+| **Wrapper** | ver abaixo |
+| Onde mora + como registra a rota | `PAGES_DIR` / `REGISTRO` do seu projeto |
+
+**Antes de perguntar o wrapper, VERIFIQUE** — as duas respostas costumam decidir sozinhas:
+
+1. existe `AppShell` no projeto? (grep em `src/`)
+2. a referência que o usuário deu — print, Figma, tela existente — mostra rail/menu/header?
+
+- **`AppShell` + `PageHeader`** → chrome na referência **e** shell disponível. Sem perguntar.
+- **componente puro** (no seu `PAGES_DIR`) → sem referência visual, ou app sem shell e sem
+  chrome na referência.
+- **chrome na referência e SEM shell no projeto** → **pare e ofereça `/ds-create-app` junto**.
+  Se o usuário recusar, o blueprint diz em **linha destacada** o que do print não vai ser
+  entregue.
+
+> Print de app inteiro + pedido de "uma tela" é **`shell + tela`**, não `tela`. Foi este
+> recorte que fez uma tela nascer sem o menu que o print mostrava. A regra de o que é da
+> referência e o que é do DS está em `_claude/rules/ds-design.md`.
+
+---
+
+## Fase 2 — Colunas
 
 Pra cada coluna: campo, rótulo, **tipo** (text, number, currency, percentage, date,
 datetime, email, phone, url, status/badge, boolean, user, tags, actions), e se é
 sortable / editável (inline). Pergunte quais colunas o usuário quer e em que ordem.
 Marque a coluna "primária" (a que abre detalhe / leva avatar).
 
-## Fase 2 — Busca, filtros & ações
+## Fase 3 — Busca, filtros & ações
 
 > ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Intenção de
 > "adicionar filtro" (select de status em cima, campo de período, "filtrar por X") →
@@ -75,7 +94,7 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - Export: escopo (tudo / filtrado / selecionado) + formato (csv)? (`toolbar.enableExport`).
 - Ação custom no toolbar (ex.: seletor de período/mês, botão extra)? `toolbar.actions: ToolbarAction[]` (`button`/`dropdown`/`input`) — inline no desktop, colapsa no ⋯ no mobile. Oferecer só se o usuário pedir.
 
-## Fase 3 — Views, paginação & densidade
+## Fase 4 — Views, paginação & densidade
 
 - Views (ver bloco obrigatório). Dois sabores, pergunte os dois:
   - **Presets fixos** que VOCÊ define (`defaultViews`/`presetView`, ex.: "Ativos", "Alto valor").
@@ -83,7 +102,7 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - Paginação (tamanho inicial, opções) ou virtualização (10k+ linhas)?
 - Totalizadores no rodapé? (`showTotalizers` + `aggregate`).
 
-## Fase 4 — Criar/editar/detalhe (drawers)
+## Fase 5 — Criar/editar/detalhe (drawers)
 
 - Precisa criar/editar registro? → drawer estilo `NovoClienteDrawer` (Panel + FormField).
   - **Quais campos no form?** (default: espelha as colunas editáveis). Pra cada campo:
@@ -92,12 +111,12 @@ Marque a coluna "primária" (a que abre detalhe / leva avatar).
 - Precisa ver detalhe ao clicar na linha? → `FinanceDetailPanel` (FloatingPanel).
 - (Puxar `example-finance` na geração pra reusar esses padrões.)
 
-## Fase 5 — Kanban (opcional)
+## Fase 6 — Kanban (opcional)
 
 - Quer alternar tabela↔kanban? Se sim: qual campo agrupa as colunas (ex.: status)?
   Cada lane = uma option desse campo. (`viewMode` controlado + `kanbanConfig`.)
 
-## Fase 6 — Estados (SEMPRE perguntar — sai faltando se não)
+## Fase 7 — Estados (SEMPRE perguntar — sai faltando se não)
 
 - **Loading** (`loading` + `renderLoading`): skeleton enquanto carrega — obrigatório em server mode.
 - **Vazio** (`renderEmpty`): sem nenhum registro → "Nenhuma `<entidade>` ainda" + CTA _Adicionar_.

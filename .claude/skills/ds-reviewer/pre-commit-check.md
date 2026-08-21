@@ -249,6 +249,7 @@ O que cada gate pega, e **por que o checklist manual não pega**:
 | `orphan-utilities` | `@utility` que um componente usa e que **não está no tema gerado** — era o buraco por onde o `outline-float` passou meses |
 | `runtime-base.test` | as 7 peças de runtime ausentes do tema · cópia do CLI divergente · `globals.css` **redeclarando** alguma delas |
 | `shadcn-vocab` | vocabulário da bridge (`bg-popover`, `ring-foreground`…) em componente/exemplo/showcase — só existe no `globals.css`/`index.css` e não viaja pros canais npm e submódulo · e cor da **paleta nativa** do Tailwind (`bg-red-500`), que renderiza mas fica fora do sistema de tokens |
+| `dead-typography-presets` | **preset tipográfico** citado em doc/skill/kit que o tema não emite. Existe porque os outros dois de classe morta cobrem cor e 8 famílias não-cor, e **nenhum** cobre tipografia: `text-code-xxl` plantado numa skill do payload passou por 14/14 testes em 2026-08-20. Papéis extintos da V2 (`paragraph`/`label`/`subheading`) entram no padrão. Curinga (`text-code-*`) não conta; citação deliberada declara-se em `CITACOES` |
 | `dead-theme-classes` | classe de cor sem CSS var — em `src/` **e** nas docs/skills/kit que ensinam a IA. Foi por só olhar `src/` que 44 usos de V2 sobreviveram nas skills. Citação deliberada declara-se em `CITACOES` com motivo |
 
 ⚠️ **Mexeu em doc que ensina classe?** `npm test` já cobre classe INEXISTENTE. O que ele

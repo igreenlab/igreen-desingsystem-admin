@@ -15,6 +15,8 @@
 - [Índice de decisões arquiteturais](#índice-de-decisões-arquiteturais)
 - [2026-08-20 — MessageComposer: `disabled` sai da raiz e vai para o field — CONCLUÍDO](#2026-08-20-messagecomposer-disabled-sai-da-raiz-e-vai-para-o-field-concluído)
 - [O achado da rodada: o gate de import relativo era cego a bloco](#o-achado-da-rodada-o-gate-de-import-relativo-era-cego-a-bloco)
+- [O que a medição derrubou](#o-que-a-medição-derrubou)
+- [O gate que SOBROU — e ele conserta uma afirmação errada minha](#o-gate-que-sobrou-e-ele-conserta-uma-afirmação-errada-minha)
 
 <!-- doc-index:fim -->
 
@@ -3264,3 +3266,72 @@ vale: `cli/templates/default/_claude/` serve npm-scaffold e `ds:link` sem bifurc
 
 **Publish:** do mantenedor (L-020). Submódulo não depende disto — pega com
 `git pull --recurse-submodules` + `npm --prefix design-system run ds:link`.
+
+---
+
+### 2026-08-20 | ds-dev | O gate que eu disse que existia (e não existia) + o crud alinhado | CONCLUÍDO
+
+**Input:** o mantenedor desconfiou da minha recomendação de construir um gate de paridade e
+perguntou *"você está olhando isso só no crud ou de forma geral?"*. Medi, e a desconfiança dele
+estava certa em cheio — a resposta mudou as duas decisões.
+
+## O que a medição derrubou
+
+**Era só o crud.** `list-builder` e `dashboard-builder` têm as **7 fases idênticas** nos dois
+registros, nome por nome. O crud era o único divergente — e o que faltava no payload era a
+**fase inteira `Página e shell`**, que existe no repo desde antes. Ou seja: o gate de paridade
+que eu tinha recomendado estaria guardando **uma** divergência conhecida, de **um** builder.
+Conserto pontual > gate. Alinhado: o payload ganhou a fase (`Fase 1`), as demais renumeraram
+(1..6 → 2..7) e a citação "a Fase 5 configura as lanes" no `SKILL.md` virou Fase 6.
+
+**Paridade total não é alcançável, e isso encerra a discussão do gate (b).** Do `Fase 3` em
+diante o agrupamento diverge de propósito (repo agrupa "Comportamento"; payload separa "Views"
+de "Drawers"). Um gate de numeração reprovaria diferença legítima; um de "mesmos tópicos" é
+julgamento (L-059). O item sai do backlog como **descartado com motivo**, não como adiado.
+
+**O que o mantenedor queria evitar também não dá gate.** O padrão que vazou do print era mono
+composto na unha. Medido em `src/`: **449** ocorrências de `font-mono`, dezenas junto de
+`text-*`, quase todas em DocPages legítimas. Gate = ruído puro, L-059 pela terceira vez na
+sessão. O que trava isso é a regra no ponto de uso, que já entrou no #247.
+
+## O gate que SOBROU — e ele conserta uma afirmação errada minha
+
+`scripts/lib/dead-typography-presets.mjs`: preset tipográfico citado em doc/skill/kit que o tema
+não emite. Existe porque eu havia afirmado ao mantenedor que a mudança das skills estava coberta
+("classe que não emite CSS reprova no `npm test`") e **não estava**: `text-code-xxl` plantado no
+`generate.md` do payload passou por 14/14 testes.
+
+Fechado com as três coisas que os irmãos dele já fazem: fonte única (`@utility text-<nome>` do
+tema, o mesmo extractor do `typography-merge-sync`), tratamento de **curinga** (`text-code-*` e
+`text-{sm,md}` são padrão de doc, não classe) e **citação declarada** por par (arquivo, preset)
+com motivo escrito.
+
+**Ruído medido antes de escrever:** 6 achados, **todos** citações deliberadas da L-032
+(`text-display-sm`/`-xs` nomeados justamente pra dizer que não existem). Declarados.
+
+**Três coisas que o meu próprio teste pegou, e as três eram reais:**
+
+1. **papel extinto era invisível** — o padrão só conhecia os 7 vivos, então `text-label-md` numa
+   skill não era nem reconhecido como preset. `paragraph`/`label`/`subheading` entraram: o defeito
+   provável não é errar o tier, é a doc ficar uma revisão atrás e ensinar o papel que morreu.
+2. **eu tinha posto `text-body-smx` do lado errado do teste** — classifiquei como "palavra que só
+   parece preset", e é preset com tier inválido. Tem que reprovar.
+3. **"idem" não é motivo** — o teste de honestidade do `CITACOES` reprovou duas exceções minhas
+   escritas como `idem`.
+
+**E ele pegou a si mesmo na 1ª execução completa:** a linha que eu escrevi na tabela do
+`pre-commit-check.md` cita `text-code-xxl` pra explicar o que o gate pega. Declarado — mesmo
+sinal que o `dead-theme-classes` deu no dia em que nasceu, e a mesma leitura: o escopo está certo.
+
+**Prova ponta-a-ponta (L-064), não só fixture:** plantei a sonda no arquivo REAL e o gate
+reprovou com arquivo, linha e o conserto (`o papel code tem md · sm`). Restaurado, verde.
+
+**Estado:** tsc 0 · **56 arquivos / 699 testes** (+16), 0 falha · `release:check` exit 0.
+
+**Assumption:** que citação deliberada é rara. Hoje são 4 pares em 3 arquivos, todos da L-032
+mais a auto-citação. Se a lista passar de ~10, o mecanismo virou escape hatch e o gate está
+medindo a coisa errada — aí a pergunta é por que tanta doc precisa nomear preset inexistente.
+
+**CLI 0.25.10:** o alinhamento tocou 2 arquivos do payload (`crud-builder/interview.md` e
+`SKILL.md`), então bump na mesma PR. Segundo publish em sequência, e o motivo é legítimo: a fase
+que faltava é justamente a que evita a tela sem shell.

@@ -187,6 +187,7 @@ cor cai em `currentColor` nos canais (L-039).
 > estão descritos em `.ai/context/architecture.md` §"O que o transform emite" e no cabeçalho
 > de cada módulo — cada um com **teste que reprova**: `runtime-base` · `orphan-utilities` ·
 > `shadcn-vocab` · `generated-artifacts` · `deps-declared` · `dead-theme-classes` ·
+> `dead-typography-presets` ·
 > `barrel-completeness`. Todos no `npm test`. Não reproduza a explicação aqui: este arquivo é
 > project instruction e custa em 100% das sessões (item D1 do plano de fechamento).
 

@@ -16,7 +16,7 @@ código de memória, NÃO toca em arquivo antes do gate aprovado.
 
 > **Kanban / board / funil / pipeline de vendas** caem AQUI: kanban é uma `viewMode`
 > do DataTable (mesmos dados/colunas/filtros, só muda a exibição). "Quero um kanban/
-> funil" → esta skill; a Fase 5 do interview configura as lanes pela coluna de
+> funil" → esta skill; a Fase 6 do interview configura as lanes pela coluna de
 > status/etapa. Funil = board agrupado por etapa. Ref. visual: `example-finance`.
 
 ## Ambiente (este é um projeto CONSUMIDOR, copy-in)

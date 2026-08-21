@@ -5,12 +5,28 @@
 
 ---
 
-## 🔍 Dois furos de gate achados ao corrigir as skills a partir do dogfood (2026-08-20)
+## ✅ Dois furos de gate achados no dogfood (2026-08-20) — um virou gate, o outro foi DESCARTADO
 
+> **Um terceiro candidato foi medido e recusado na hora:** o padrão que de fato vazou do print
+> era mono composto na unha (`font-mono` + tamanho literal). Em `src/` são **449** ocorrências
+> de `font-mono`, dezenas junto de `text-*`, quase todas em DocPages legítimas — gate seria
+> ruído puro. Isso é regra no ponto de uso, não gate; entrou no #247.
+>
 > Os dois saíram da MESMA rodada e ficaram de fora dela de propósito: a correção das skills
 > foi só `.md`, e gate é código. Registrados com a medição em mão pra não virarem "eu acho".
 
-### a) Nenhum gate valida NOME DE PRESET TIPOGRÁFICO citado em doc
+### ✅ a) FECHADO — `dead-typography-presets` (2026-08-20)
+
+`scripts/lib/dead-typography-presets.mjs` + teste. 16 casos, no `npm test`. Fonte única: o
+`@utility text-<nome>` do tema (mesmo extractor do `typography-merge-sync`). Trata curinga
+(`text-code-*` é padrão de doc) e citação deliberada por par (arquivo, preset) com motivo.
+Papéis extintos da V2 (`paragraph`/`label`/`subheading`) entram no padrão — o defeito provável
+é a doc ficar uma revisão atrás, não errar o tier de um papel vivo.
+
+Provado com a sonda real: `text-code-xxl` no `generate.md` do payload → reprova com arquivo,
+linha e conserto. Registro original abaixo:
+
+### a) (registro original) Nenhum gate valida NOME DE PRESET TIPOGRÁFICO citado em doc
 
 **Medido, com o defeito plantado:** troquei `text-code-sm` por `text-code-xxl` (preset que não
 existe) no `cli/templates/default/_claude/skills/crud-builder/generate.md` — arquivo que ENSINA
@@ -40,7 +56,30 @@ classe). Estimativa: módulo puro + teste, na casa de 1 hora.
 código, e `text-body-sm` aparece em dezenas de lugares. Se a contagem de falso positivo passar
 de ~2, o gate entra em modo ratchet (só linha adicionada), como o `lint-styles`.
 
-### b) Repo e payload das skills são versões independentes, sem nenhum gate de paridade
+### ⛔ b) DESCARTADO em 2026-08-20 — medido, e a premissa era falsa
+
+Eu tinha recomendado um gate de paridade entre os dois registros de skill. O mantenedor
+perguntou se o problema era geral ou só do crud. **Medido: era só o crud.**
+
+```
+list-builder        7 fases nos dois registros, nome por nome   → em sync
+dashboard-builder   7 fases nos dois registros, nome por nome   → em sync
+crud-builder        payload sem a fase `Página e shell`         → ÚNICO divergente
+```
+
+Ou seja, o gate guardaria **uma** divergência conhecida de **um** builder — e ela foi
+**consertada** no mesmo dia (o payload ganhou a fase, as demais renumeraram). Conserto
+pontual venceu o gate.
+
+E paridade **total** não é alcançável: do `Fase 3` em diante o agrupamento diverge de
+propósito (o repo agrupa "Comportamento"; o payload separa "Views" de "Drawers"). Gate por
+numeração reprovaria diferença legítima; gate por "mesmos tópicos" é julgamento semântico, que
+a L-059 diz pra não mecanizar. **Fica descartado, não adiado** — se voltar a divergir, o
+conserto é editar os dois lados, como se fez aqui.
+
+Registro original abaixo, pelo diagnóstico que ele carrega:
+
+### b) (registro original) Repo e payload das skills são versões independentes
 
 As skills existem em dois registros, e o consumidor só vê o segundo:
 
