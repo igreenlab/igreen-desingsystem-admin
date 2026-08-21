@@ -178,9 +178,9 @@ function PainelUf({ uf }: { uf: UfClicada }) {
 
   return (
     <div className="flex flex-col gap-gp-md">
-      {/* Título + subtítulo num card interno de bg mais fraco (subtle > surface
-          na hierarquia), como um header destacado; as infos ficam soltas abaixo. */}
-      <div className="rounded-radius-md bg-bg-subtle px-pad-xl py-pad-lg">
+      {/* Título + subtítulo num card interno de bg mais forte que a surface
+          (muted — o subtle mal aparece sobre ela); infos soltas abaixo. */}
+      <div className="rounded-radius-md bg-bg-muted px-pad-xl py-pad-lg">
         <h3 className="text-title-sm font-semibold text-fg-default">{uf.name}</h3>
         <p className="text-caption-sm text-fg-muted">Código IBGE {uf.id}</p>
       </div>

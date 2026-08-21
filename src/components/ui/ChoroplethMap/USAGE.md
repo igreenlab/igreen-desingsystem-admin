@@ -89,10 +89,11 @@ Espelhe a seção "Seleção por clique" da doc page (`ChoroplethMapDoc.tsx`):
   border-border-default bg-bg-surface p-pad-xl`. Mobile: empilha (`mt-gp-2xl`).
 - ⚠️ **Largura do painel SEMPRE fixa** — painel que cresce com o conteúdo
   redimensiona o svg (que é `w-full` do espaço restante) a cada seleção.
-- Dentro: título + subtítulo num card interno `rounded-radius-md bg-bg-subtle
-  px-pad-xl py-pad-lg` (hierarquia surface < subtle); métricas abaixo, UMA por
-  linha (`flex justify-between`, label `text-caption-md text-fg-muted`, valor
-  `text-body-sm font-semibold tabular-nums`).
+- Dentro: título + subtítulo num card interno `rounded-radius-md bg-bg-muted
+  px-pad-xl py-pad-lg` (`subtle` sobre `surface` mal aparece; `muted` dá o
+  contraste do header); métricas abaixo, UMA por linha (`flex justify-between`,
+  label `text-caption-md text-fg-muted`, valor `text-body-sm font-semibold
+  tabular-nums`).
 - Cobertura parcial: UF fora de `values` fica neutra (`bg-bg-muted`) — estado
   "vazio" de graça, sem prop.
 
