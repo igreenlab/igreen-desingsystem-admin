@@ -156,7 +156,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       ((v: number) => new Intl.NumberFormat("pt-BR").format(v));
 
     const [hover, setHover] = useState<
-      (ChoroplethHoverInfo & { ax: number; ay: number }) | null
+      (ChoroplethHoverInfo & { ax: number; ay: number; d: string }) | null
     >(null);
 
     const legendGradient = `linear-gradient(to right, ${surfaceVar}, ${scaleVar})`;
@@ -187,6 +187,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                     name: getName(feature),
                     value,
                     feature,
+                    d,
                     ax: (centroid[0] / width) * 100,
                     ay: (centroid[1] / height) * 100,
                   })
@@ -205,6 +206,16 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
               />
             );
           })}
+          {hover && (
+            <path
+              d={hover.d}
+              className={styles.pathHighlight()}
+              strokeWidth={Math.max(strokeWidth * 3, 1.5)}
+              style={{
+                fill: `color-mix(in srgb, ${scaleVar} 18%, transparent)`,
+              }}
+            />
+          )}
         </svg>
 
         {/* Ancora do tooltip: um ponto 0×0 posicionado no centroide (em %) da
@@ -221,10 +232,13 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
               />
             </TooltipTrigger>
             {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro translúcido
-                (12% branco) no dark — sobre o mapa fica esbranquiçado/ilegível. */}
+                (12% branco) no dark — sobre o mapa fica esbranquiçado/ilegível.
+                pointer-events-none: o conteúdo é portalado FORA do tooltipLayer;
+                se capturar o mouse, cursor perto do centroide entra no tooltip →
+                mouseleave do svg → fecha → reabre (flicker em loop). */}
             <TooltipContent
               showArrow={false}
-              className="border border-border-default bg-bg-surface-elevated shadow-sh-lg"
+              className="pointer-events-none border border-border-default bg-bg-surface-elevated shadow-sh-lg"
             >
               {hover &&
                 (renderTooltip ? (

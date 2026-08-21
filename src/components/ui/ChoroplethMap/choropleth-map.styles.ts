@@ -18,8 +18,13 @@ export const choroplethStyles = tv({
     path: [
       "stroke-fg-muted",
       "transition-[fill,stroke] duration-150",
-      "hover:stroke-fg-brand",
     ],
+    // Realce da região sob hover — uma CÓPIA do path desenhada por cima de
+    // todas as outras. Necessário porque stroke de path SVG é coberto pelos
+    // vizinhos desenhados depois: no próprio path, o contorno nunca fecha a
+    // região inteira ("mal delimitada"). Não intercepta o mouse (o fill de
+    // tinta vai inline, derivado do scaleToken via color-mix).
+    pathHighlight: "pointer-events-none stroke-fg-brand",
     // Camada de ancoragem do tooltip (não intercepta o mouse).
     tooltipLayer: "pointer-events-none absolute inset-0",
     tooltipAnchor: "absolute",

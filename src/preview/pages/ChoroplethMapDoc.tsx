@@ -50,6 +50,18 @@ const PROPS = [
 const IBGE_UF_TOPO =
   "https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/json&qualidade=minima&intrarregiao=UF";
 
+/** Código IBGE → nome da UF (a malha `qualidade=minima` só traz `codarea`). */
+const UF_NOMES: Record<string, string> = {
+  "11": "Rondônia", "12": "Acre", "13": "Amazonas", "14": "Roraima",
+  "15": "Pará", "16": "Amapá", "17": "Tocantins", "21": "Maranhão",
+  "22": "Piauí", "23": "Ceará", "24": "Rio Grande do Norte", "25": "Paraíba",
+  "26": "Pernambuco", "27": "Alagoas", "28": "Sergipe", "29": "Bahia",
+  "31": "Minas Gerais", "32": "Espírito Santo", "33": "Rio de Janeiro",
+  "35": "São Paulo", "41": "Paraná", "42": "Santa Catarina",
+  "43": "Rio Grande do Sul", "50": "Mato Grosso do Sul", "51": "Mato Grosso",
+  "52": "Goiás", "53": "Distrito Federal",
+};
+
 /** Mock: "clientes por UF" (código IBGE da UF → valor). */
 const VALORES: Record<string, number> = {
   "35": 612, "31": 388, "41": 241, "43": 178, "33": 164, "29": 143, "42": 121,
@@ -107,6 +119,10 @@ function MapaDemo({
       legendTitle={legendTitle}
       ariaLabel="Clientes por unidade federativa"
       getFeatureId={(f) => String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "")}
+      getFeatureName={(f) => {
+        const id = String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "");
+        return UF_NOMES[id] ?? id;
+      }}
       onFeatureClick={onFeatureClick ? (info) => onFeatureClick(info.name) : undefined}
     />
   );
