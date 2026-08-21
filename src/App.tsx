@@ -131,6 +131,7 @@ import { StructureDoc } from "./preview/pages/StructureDoc";
 import { DistributionDoc } from "./preview/pages/DistributionDoc";
 import { TransformTokensDoc } from "./preview/pages/TransformTokensDoc";
 import { InstallationDoc } from "./preview/pages/InstallationDoc";
+import { HowToUpdateDoc } from "./preview/pages/HowToUpdateDoc";
 import { ThemesDoc } from "./preview/pages/ThemesDoc";
 import { UpdatesDoc } from "./preview/pages/UpdatesDoc";
 import { PipelineSkillsDoc } from "./preview/pages/PipelineSkillsDoc";
@@ -154,6 +155,7 @@ import {
 import {
   Zap,
   Download,
+  RefreshCw,
   Bot,
   Palette,
   Type,
@@ -187,6 +189,7 @@ const NAV_SECTIONS: NavSection[] = [
       { id: "structure", label: "Structure", icon: Layers },
       { id: "distribution", label: "Distribution", icon: Box },
       { id: "installation", label: "Installation", icon: Download },
+      { id: "how-to-update", label: "Como atualizar", icon: RefreshCw },
       { id: "transform-tokens", label: "Transform Tokens", icon: Box },
     ],
   },
@@ -246,6 +249,7 @@ const DOC_PAGES = [
   "distribution",
   "themes",
   "installation",
+  "how-to-update",
   "transform-tokens",
   "updates",
   "agents",
@@ -718,6 +722,7 @@ export function App() {
             {activePage === "distribution" && <DistributionDoc />}
             {activePage === "transform-tokens" && <TransformTokensDoc />}
             {activePage === "installation" && <InstallationDoc />}
+            {activePage === "how-to-update" && <HowToUpdateDoc />}
             {activePage === "themes" && <ThemesDoc />}
             {activePage === "updates" && <UpdatesDoc />}
             {activePage === "pipeline-skills" && <PipelineSkillsDoc />}

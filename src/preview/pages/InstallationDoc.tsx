@@ -1,18 +1,38 @@
 import { DocLayout, DocHeader, DocSeparator, SectionH2 } from "../components";
 import { Badge } from "../../components/shadcn/badge";
 
+/**
+ * Installation — organizada por CASO DE USO, não por assunto técnico.
+ *
+ * Até 2026-08-21 esta página tinha 10 seções misturando três públicos: quem consome o DS,
+ * quem desenvolve NO DS, e infra do pipeline. A 2ª seção que o leitor batia era
+ * "Requirements (para desenvolver NO DS)" — ruído pra 90% de quem chega aqui querendo
+ * instalar. Agora as 4 primeiras seções são os 4 canais de consumo, e tudo de contribuidor
+ * mora no fim, sob um único cabeçalho que diz pra quem é.
+ *
+ * Todo comando de EXECUTÁVEL leva `@latest`. Sem isso o `npx`/`npm create` resolve contra o
+ * cache e pode rodar qualquer versão — em 2026-08-21 rodou a 0.1.0 numa máquina, com a
+ * 0.25.10 publicada, e quebrou por um bug que não existe mais no código.
+ */
+
 const TOC = [
-  { id: "quickstart", label: "Quick start (CLI)" },
-  { id: "requirements", label: "Requirements" },
-  { id: "clone", label: "Clone & Install" },
-  { id: "scripts", label: "Scripts" },
-  { id: "first-run", label: "First Run" },
-  { id: "install-npm", label: "Install via NPM" },
-  { id: "consume", label: "Consume in App" },
-  { id: "submodule", label: "Submodule + ds-link" },
-  { id: "pipeline", label: "AI Pipeline" },
-  { id: "troubleshoot", label: "Troubleshooting" },
+  { id: "escolha", label: "Qual é o seu caso?" },
+  { id: "novo", label: "1. Projeto novo" },
+  { id: "existente", label: "2. Projeto existente" },
+  { id: "submodulo", label: "3. Monorepo / submódulo" },
+  { id: "npm", label: "4. Biblioteca npm" },
+  { id: "validar", label: "Validar a instalação" },
+  { id: "problemas", label: "Problemas comuns" },
+  { id: "contribuir", label: "Desenvolver no DS" },
 ];
+
+function Code({ children }: { children: string }) {
+  return (
+    <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">
+      {children}
+    </code>
+  );
+}
 
 function CmdRow({ cmd, desc }: { cmd: string; desc: string }) {
   return (
@@ -31,342 +51,166 @@ function CodeBlock({ children }: { children: string }) {
   );
 }
 
+/** Aviso de falha SILENCIOSA — o tipo que não dá erro e por isso precisa de destaque. */
+function Silencioso({ titulo, children }: { titulo: string; children: React.ReactNode }) {
+  return (
+    <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl flex flex-col gap-gp-md">
+      <p className="text-body-md font-medium text-fg-default">⚠ {titulo}</p>
+      {children}
+    </div>
+  );
+}
+
 export function InstallationDoc() {
   return (
     <DocLayout toc={TOC}>
       <DocHeader
         category="Get Started"
         title="Installation"
-        description="Clone, install, run, and consume iGreen DS in your project."
+        description="Quatro caminhos, um por tipo de projeto. Ache o seu na tabela e siga só aquela seção."
       />
       <DocSeparator />
 
-      {/* Quick start with CLI */}
-      <SectionH2 id="quickstart" title="Quick start (CLI)" />
+      {/* ── escolha ────────────────────────────────────────────────────── */}
+      <SectionH2 id="escolha" title="Qual é o seu caso?" />
       <div className="flex flex-col gap-gp-2xl mb-14">
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <div className="grid grid-cols-[190px_1fr] gap-0 bg-bg-subtle border-b border-border-subtle">
+            <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Seu projeto</div>
+            <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Comando</div>
+          </div>
+          {[
+            {
+              caso: "Não existe ainda",
+              cmd: "npx @snksergio/create-design-system@latest my-app",
+              secao: "1",
+            },
+            {
+              caso: "Já existe",
+              cmd: "npx @snksergio/create-design-system@latest --only-kit",
+              secao: "2",
+            },
+            {
+              caso: "Monorepo / submódulo",
+              cmd: "git submodule add … && npm --prefix design-system run ds:link",
+              secao: "3",
+            },
+            {
+              caso: "Só quero a lib",
+              cmd: "npm install @snksergio/design-system@latest",
+              secao: "4",
+            },
+          ].map((r) => (
+            <div key={r.caso} className="grid grid-cols-[190px_1fr] gap-0 border-t border-border-subtle">
+              <div className="py-pad-xl px-pad-xl flex items-center gap-gp-sm">
+                <Badge color="secondary" variant="outline" size="sm">{r.secao}</Badge>
+                <span className="text-body-md font-medium text-fg-default">{r.caso}</span>
+              </div>
+              <div className="py-pad-xl px-pad-xl">
+                <code className="font-mono text-code-sm text-fg-brand">{r.cmd}</code>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rounded-radius-base border border-border-danger-muted bg-bg-danger-muted p-pad-3xl flex flex-col gap-gp-md">
+          <p className="text-body-md font-medium text-fg-default">
+            ⛔ Sempre <Code>@latest</Code>, e sempre pelo nome do PACOTE
+          </p>
+          <p className="text-body-md text-fg-muted">
+            <Code>npx create-snksergio-design-system</Code> (o nome do binário) resolve contra o
+            cache do npx e pode rodar qualquer versão que já passou pela sua máquina. Em
+            2026-08-21 rodou a <strong className="text-fg-default">0.1.0</strong> com a 0.25.10
+            publicada, e o scaffold quebrou por um bug que já não existe. O banner imprime a
+            versão na 2ª linha — confira.
+          </p>
+        </div>
+
         <p className="text-body-md text-fg-muted">
-          Pra criar um projeto novo do zero já consumindo o DS, use o CLI{" "}
-          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">
-            @snksergio/create-design-system
-          </code>
-          . Vite + React 19 + Tailwind v4 + tema light/dark + exemplo funcional, tudo pré-configurado.
+          Já instalado e quer subir de versão? →{" "}
+          <strong className="text-fg-default">Como atualizar</strong> (<Code>#/how-to-update</Code>).
         </p>
-        <CodeBlock>{`npm create @snksergio/design-system@latest my-app
+      </div>
+
+      {/* ── 1. projeto novo ────────────────────────────────────────────── */}
+      <SectionH2 id="novo" title="1. Projeto novo (scaffold)" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <CodeBlock>{`npx @snksergio/create-design-system@latest my-app
 cd my-app
 npm run dev
 # → http://localhost:3200`}</CodeBlock>
         <p className="text-body-md text-fg-muted">
-          O CLI pergunta o nome do projeto, package manager, se quer instalar deps e iniciar git.
-          Em ~30 segundos você tem um app rodando com 4 componentes do DS demonstrados (Button, Chip,
-          Avatar/Badge, AlertModal) e toggle dark/light funcionando. Sem precisar configurar nada
-          manualmente, sem gotcha do <code className="font-mono text-code-sm">@source</code> do Tailwind v4.
+          Vite + React 19 + Tailwind v4, tema light/dark, as 5 marcas, o kit de IA e uma tela de
+          exemplo — já configurados. O CLI pergunta nome, marca, package manager, token do
+          registry e se instala deps/git.
         </p>
         <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">Variações de uso</p>
-          <CodeBlock>{`# Sem args (CLI faz prompts pra tudo)
-npm create @snksergio/design-system@latest
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">Variações</p>
+          <CodeBlock>{`# sem args (o CLI pergunta tudo, inclusive o nome)
+npx @snksergio/create-design-system@latest
 
-# Com pnpm ou yarn
+# pnpm / yarn
 pnpm create @snksergio/design-system@latest my-app
 yarn create @snksergio/design-system@latest my-app
 
-# Versão específica do CLI (placeholder — troque pelo número que você quer)
+# versão específica (placeholder — troque pelo número que você quer)
 npm create @snksergio/design-system@<x.y.z> my-app`}</CodeBlock>
         </div>
+      </div>
+
+      {/* ── 2. projeto existente ───────────────────────────────────────── */}
+      <SectionH2 id="existente" title="2. Projeto existente (copy-in)" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          Se você prefere adicionar o DS num projeto JÁ existente, veja{" "}
-          <strong className="text-fg-default">Install via NPM</strong> mais abaixo.
+          No copy-in cada componente entra como <strong className="text-fg-default">código seu</strong>,
+          no seu repo — do jeito shadcn. Nada em <Code>node_modules</Code>, nada de versão de
+          pacote pra casar.
+        </p>
+        <CodeBlock>{`# 1. o kit de IA + os scripts, na raiz do seu projeto
+npx @snksergio/create-design-system@latest --only-kit
+
+# 2. o token do registry
+cp .env.local.example .env.local     # cole o IGREEN_TOKEN
+
+# 3. puxe o que precisar
+npm run igreen:add -- button data-table form-field`}</CodeBlock>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run igreen:add -- <nome>" desc="Traz o componente e registra no manifesto (.igreen-ds/manifest.json)" />
+          <CmdRow cmd="npm run igreen:drift" desc="O que está defasado, e o que VOCÊ editou desde que instalou" />
+          <CmdRow cmd="npm run igreen:update -- --all" desc="Atualiza o defasado, pulando o que você editou" />
+          <CmdRow cmd="npm run doctor" desc="Valida cn/tv contra o registry — o drift que não dá erro nenhum" />
+        </div>
+        <p className="text-body-md text-fg-muted">
+          O <Code>--only-kit</Code> não sobrescreve arquivo seu que colida. Detalhe de atualização
+          em <strong className="text-fg-default">Como atualizar</strong>.
         </p>
       </div>
 
-      {/* Requirements */}
-      <SectionH2 id="requirements" title="Requirements (para desenvolver NO DS)" />
+      {/* ── 3. submódulo ───────────────────────────────────────────────── */}
+      <SectionH2 id="submodulo" title="3. Monorepo / submódulo" />
       <div className="flex flex-col gap-gp-2xl mb-14">
         <p className="text-body-md text-fg-muted">
-          Minimum versions for the DS to build, generate tokens and run the preview app.
+          O DS inteiro como pasta do seu projeto. Você lê o código-fonte direto — sem registry,
+          sem pacote. O <Code>ds:link</Code> projeta o kit de IA no seu <Code>.claude/</Code>,
+          que o Claude Code não alcança dentro de submódulo.
         </p>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">Node.js</span>
-            <Badge color="secondary" variant="outline" size="sm">≥ 20.x</Badge>
-            <span className="text-body-md text-fg-muted">Required by Vite 6 and tsx</span>
-          </div>
-          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">npm</span>
-            <Badge color="secondary" variant="outline" size="sm">≥ 10.x</Badge>
-            <span className="text-body-md text-fg-muted">Or pnpm/yarn — package.json works with either</span>
-          </div>
-          <div className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle">
-            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">TypeScript</span>
-            <Badge color="secondary" variant="outline" size="sm">≥ 5.6</Badge>
-            <span className="text-body-md text-fg-muted">Bundled as dev dependency — no global install needed</span>
-          </div>
-          <div className="flex items-start gap-gp-xl py-pad-xl px-pad-3xl">
-            <span className="text-body-md font-medium text-fg-default min-w-0 sm:min-w-[140px]">Tailwind CSS</span>
-            <Badge color="primary" variant="soft" size="sm">v4</Badge>
-            <span className="text-body-md text-fg-muted">v3 is not supported — anti-collision prefixes depend on @theme</span>
-          </div>
-        </div>
-      </div>
+        <CodeBlock>{`git submodule add https://github.com/igreenlab/igreen-desingsystem-admin design-system
+git submodule update --init --recursive
 
-      {/* Clone & Install */}
-      <SectionH2 id="clone" title="Clone & Install" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">
-          The DS lives in a single Git repository. Clone, install dependencies, generate the theme CSS,
-          and you're ready to run the preview app.
-        </p>
-        <CodeBlock>{`# 1. Clone the repo
-git clone https://github.com/igreenlab/igreen-desingsystem-admin.git
-cd igreen-desingsystem-admin
+# deps de runtime vão na RAIZ (o submódulo entrega fonte, não pacote)
+npm i tailwind-variants tailwind-merge clsx lucide-react
 
-# 2. Install dependencies
-npm install
+# o kit de IA
+npm --prefix design-system run ds:link`}</CodeBlock>
 
-# 3. Generate the Tailwind v4 theme CSS
-npm run tokens:tw4
-
-# 4. Start the preview app
-npm run dev
-# → http://localhost:3100`}</CodeBlock>
-        <p className="text-body-md text-fg-muted">
-          The <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">npm run dev</code> script
-          runs <code className="font-mono text-code-sm">tokens:tw4</code> automatically before starting Vite — so step 3 is
-          optional after the first install. Run it manually only when you change a token file.
-        </p>
-      </div>
-
-      {/* Scripts */}
-      <SectionH2 id="scripts" title="Scripts" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">Available npm scripts:</p>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <CmdRow cmd="npm run dev" desc="Generate tokens + start Vite dev server (port 3100)" />
-          <CmdRow cmd="npm run build" desc="Generate tokens + tsc -b + vite production build" />
-          <CmdRow cmd="npm run preview" desc="Serve the production build locally" />
-          <CmdRow cmd="npm run tokens:tw4" desc="Regenerate Tailwind v4 theme CSS (primary transform)" />
-          <CmdRow cmd="npm run tokens:css" desc="Generate vanilla CSS custom properties" />
-          <CmdRow cmd="npm run tokens:dtcg" desc="Generate JSON tokens for Figma import" />
-          <CmdRow cmd="npm run tokens:all" desc="Run all transforms in sequence" />
-          <CmdRow cmd="npm run tokens:check" desc="tsc --noEmit over the tokens/ folder" />
-          <CmdRow cmd="npm test" desc="Run the Vitest test suite once" />
-          <CmdRow cmd="npm run test:watch" desc="Run Vitest in watch mode" />
-          <CmdRow cmd="npm run test:ui" desc="Open the Vitest UI in the browser" />
-          <CmdRow cmd="npm run sync:agents" desc="Mirror .claude/agents/ to .cursor/rules/" />
-        </div>
-        <p className="text-body-md font-medium text-fg-default">Marcas (temas de cor)</p>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <CmdRow cmd="npm run tokens:brand:blue" desc="Regenera src/styles/theme/brand-blue.css (idem green, pay, vibrant)" />
-          <CmdRow cmd="npm run brand:check" desc="Gate das 10 superfícies de uma marca — 8 delas falham em silêncio sem ele" />
-          <CmdRow cmd="npm run brand:contrast" desc="Mede contraste WCAG dos pares de cor de cada marca" />
-        </div>
-        <p className="text-body-md font-medium text-fg-default">Distribuição (registry, npm, CLI)</p>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <CmdRow cmd="npm run registry:build" desc="drift dos examples + tokens:tw4 + carimba o stamp + shadcn build → public/r/" />
-          <CmdRow cmd="npm run registry:stamp" desc="Carimba meta.stamp (versão + hash git) em cada item do registry" />
-          <CmdRow cmd="npm run release:check" desc="Gate de release: registry-check + brand-check + débito de distribuição" />
-          <CmdRow cmd="npm run distribution:debt" desc="Componente fora do registry.json ou do vocabulário do consumidor" />
-          <CmdRow cmd="npm run examples:drift" desc="example-* defasado vs o showcase que é sua fonte (L-035)" />
-          <CmdRow cmd="npm run build:lib" desc="Builda o pacote npm (vite.lib.config.ts)" />
-          <CmdRow cmd="npm run lib:verify" desc="Integridade do tarball antes do publish — .d.ts fechado sob imports relativos (L-017)" />
-          <CmdRow cmd="npm run cli:rebake" desc="Rebakeia os foundationals do template do CLI (descobre os overlays por diretório)" />
-          <CmdRow cmd="npm run ds:link" desc="Projeta o kit de IA no .claude/ do projeto pai — paridade pro canal submódulo (L-056)" />
-        </div>
-        <p className="text-body-md font-medium text-fg-default">Gates e auditoria</p>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <CmdRow cmd="npm run lint:styles" desc="Anti-patterns de estilo em modo ratchet — reprova só violação NOVA (linha que o diff adicionou)" />
-          <CmdRow cmd="npm run audit:token-docs" desc="Compara o VALOR de cada token afirmado na doc contra o CSS. Não é CI: a saída é candidato, exige triagem" />
-        </div>
-        <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl">
+        <Silencioso titulo="Pré-requisito: DOIS aliases, não um">
           <p className="text-body-md text-fg-muted">
-            <code className="font-mono text-code-sm">npm run lib:publish:*</code> existe e{" "}
-            <strong className="text-fg-default">recusa rodar</strong> de propósito: publicar passa pelo{" "}
-            <code className="font-mono text-code-sm">/ds-release</code>, que bumpa, valida com{" "}
-            <code className="font-mono text-code-sm">lib:verify</code> e PARA pedindo o token do
-            mantenedor (L-020).
+            As skills geram imports <Code>@ds/components/ui/DataTable</Code>, mas os arquivos do
+            DS importam entre si por <Code>@/</Code> — <strong className="text-fg-default">700 imports</strong> —
+            e no submódulo ninguém mapeia esse alias por você. Sem o segundo, o build morre no
+            primeiro componente: <Code>Cannot find module '@/utils/tv'</Code>.
           </p>
-        </div>
-      </div>
-
-      {/* First Run */}
-      <SectionH2 id="first-run" title="First Run" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">
-          What happens the first time you run <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">npm run dev</code>:
-        </p>
-        <ol className="list-decimal pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
-          <li><strong className="text-fg-default">Transform</strong> — <code className="font-mono text-code-sm">tsx tokens/transforms/to-tailwind-v4.ts</code> reads every token file under <code className="font-mono text-code-sm">tokens/brands/default/</code>.</li>
-          <li><strong className="text-fg-default">Output</strong> — writes a fresh <code className="font-mono text-code-sm">src/styles/theme/tailwind-theme.css</code> with the <code className="font-mono text-code-sm">@theme</code> block, <code className="font-mono text-code-sm">.dark</code> overrides, the 27 typography <code className="font-mono text-code-sm">@utility</code> presets AND the runtime base: Geist <code className="font-mono text-code-sm">@font-face</code>, <code className="font-mono text-code-sm">@custom-variant dark</code>, <code className="font-mono text-code-sm">html</code>/<code className="font-mono text-code-sm">body</code> rules, <code className="font-mono text-code-sm">outline-float</code> and <code className="font-mono text-code-sm">scrollbar-*</code>. Consumers get all of it for free — and must not redeclare it.</li>
-          <li><strong className="text-fg-default">Vite</strong> — starts the dev server, imports the generated CSS, and serves the preview app at <code className="font-mono text-code-sm">localhost:3100</code>.</li>
-          <li><strong className="text-fg-default">Sidebar</strong> — navigate by section (Get Started, Agents, Foundations, Components, Templates, Examples).</li>
-        </ol>
-      </div>
-
-      {/* Install via NPM */}
-      <SectionH2 id="install-npm" title="Install via NPM" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">
-          O DS é publicado como pacote público no NPM. Apps externos consomem via{" "}
-          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">npm install</code> — modelo
-          "evergreen": <code className="font-mono text-code-sm">npm update</code> sempre puxa a versão mais recente.
-        </p>
-        <p className="text-body-md text-fg-muted">
-          <strong className="text-fg-default">Pre-requisitos no app consumidor:</strong>
-        </p>
-        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
-          <li>React 19+ (peer dep)</li>
-          <li>Tailwind CSS v4 instalado e configurado</li>
-          <li>Importar <code className="font-mono text-code-sm">@snksergio/design-system/theme.css</code> uma vez no entry CSS</li>
-          <li>
-            <strong className="text-fg-default">Adicionar <code className="font-mono text-code-sm">@source</code></strong>{" "}
-            apontando pro <code className="font-mono text-code-sm">dist-lib/</code> do pacote — sem isso, os componentes
-            ficam sem estilo (cores aparecem, mas spacing/radius/shadow somem)
-          </li>
-        </ul>
-        <CodeBlock>{`# instala
-npm install @snksergio/design-system
-
-# atualiza pra última versão
-npm update @snksergio/design-system`}</CodeBlock>
-
-        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚠ Configuração obrigatória do CSS de entrada</p>
-          <p className="text-body-md text-fg-muted mb-gp-md">
-            Tailwind v4 ignora <code className="font-mono text-code-sm">node_modules</code> por default ao escanear classes.
-            Como os componentes do DS estão lá, você precisa instruir o Tailwind a escaneá-los — caso contrário,
-            classes como <code className="font-mono text-code-sm">gap-gp-md</code>,{" "}
-            <code className="font-mono text-code-sm">rounded-radius-base</code>,{" "}
-            <code className="font-mono text-code-sm">min-h-form-lg</code> ficam órfãs.
-          </p>
-          <CodeBlock>{`/* app/index.css ou globals.css */
-@import "tailwindcss";
-
-/* Obrigatório — escaneia os bundles do DS pra gerar utilities */
-@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
-
-@import "@snksergio/design-system/theme.css";`}</CodeBlock>
-        </div>
-        <p className="text-body-md text-fg-muted">
-          Importar componentes, theme, tokens e showcases:
-        </p>
-        <CodeBlock>{`// app.tsx — entry CSS
-import "@snksergio/design-system/theme.css";
-
-// componentes
-import { Button, AppShell, Chip, DataTable } from "@snksergio/design-system";
-
-// tokens (acesso programático)
-import { colorLight, spacing } from "@snksergio/design-system/tokens";
-
-// showcases prontas (com mocks)
-import ChatV2 from "@snksergio/design-system/preview/chat";
-import ClientesShowcase from "@snksergio/design-system/preview/clientes";
-
-// mocks reutilizáveis
-import {
-  APP_SHELL_CONTEXTS,
-  chatMocks,
-  clientesMocks,
-} from "@snksergio/design-system/preview/mocks";`}</CodeBlock>
-        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
-          <div className="grid grid-cols-[200px_1fr] gap-0 bg-bg-subtle border-b border-border-subtle">
-            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">Sub-path</div>
-            <div className="py-pad-md px-pad-xl text-body-xs text-fg-default font-medium">O que exporta</div>
-          </div>
-          {[
-            { path: ".", desc: "Componentes iGreen + Shadcn adaptados (Button, AppShell, DataTable, etc)" },
-            { path: "/theme.css", desc: "CSS gerado: @theme + dark mode + 27 presets + fonte Geist + @custom-variant dark + regras de html/body + outline-float + scrollbar-*" },
-            { path: "/theme/brand-<id>.css", desc: "Overlay de cor de uma marca (blue, green, pay, vibrant) — escopado em [data-theme]. Importe DEPOIS do theme.css" },
-            { path: "/tokens", desc: "Objetos de tokens semânticos (colorLight, spacing, sizing, etc)" },
-            { path: "/preview/chat", desc: "ChatV2 showcase completa + types" },
-            { path: "/preview/clientes", desc: "ClientesShowcase (CRUD com DataTable + Drawer)" },
-            { path: "/preview/dashboard", desc: "DashboardShowcase com KPIs e charts" },
-            { path: "/preview/mocks", desc: "Mocks reutilizáveis: APP_SHELL_*, chatMocks, clientesMocks" },
-          ].map((row) => (
-            <div key={row.path} className="grid grid-cols-[200px_1fr] gap-0 border-t border-border-subtle">
-              <div className="py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">{row.path}</code></div>
-              <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">{row.desc}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Consume in App */}
-      <SectionH2 id="consume" title="Alternative: Consume Directly from Source" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">
-          Caso queira referenciar o DS direto desta pasta (dev local, sem publish), importe o tema CSS direto e use o repo como dependência local.
-        </p>
-        <CodeBlock>{`/* app.css in your project */
-@import "tailwindcss";
-@import "../path/to/igreen-ds/src/styles/theme/tailwind-theme.css";`}</CodeBlock>
-        <p className="text-body-md text-fg-muted">
-          All DS utility classes are now available (anti-collision prefixes: <code className="font-mono text-code-sm">gap-gp-*</code>,{" "}
-          <code className="font-mono text-code-sm">px-pad-*</code>, <code className="font-mono text-code-sm">rounded-radius-*</code>,{" "}
-          <code className="font-mono text-code-sm">shadow-sh-*</code>, <code className="font-mono text-code-sm">min-h-form-*</code>).
-        </p>
-        <CodeBlock>{`<button class="min-h-form-lg px-pad-3xl rounded-radius-base bg-bg-brand text-fg-on-brand shadow-sh-sm">
-  Primary CTA
-</button>`}</CodeBlock>
-        <p className="text-body-md text-fg-muted">
-          For dark mode, toggle the <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.dark</code> class
-          on the root element — CSS vars resolve to the correct values automatically.
-        </p>
-      </div>
-
-      {/* Submodule + ds-link */}
-      <SectionH2 id="submodule" title="Consume as Git Submodule (ds-link)" />
-      <div className="flex flex-col gap-gp-2xl mb-14">
-        <p className="text-body-md text-fg-muted">
-          Se você aponta o DS como <strong className="text-fg-default">git submódulo</strong> (uma
-          subpasta do seu projeto), o Claude Code <strong className="text-fg-default">não enxerga</strong>{" "}
-          as skills/commands do DS sozinho — ele só auto-descobre{" "}
-          <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/</code>{" "}
-          na raiz do seu projeto, não desce pra{" "}
-          <code className="font-mono text-code-sm">&lt;submódulo&gt;/.claude/</code>. É normal: submódulo é
-          um apontamento externo. O <code className="font-mono text-code-sm">ds-link</code> resolve isso.
-        </p>
-        <p className="text-body-md text-fg-muted">
-          Ele projeta o mesmo kit de IA que o CLI npm instala (skills{" "}
-          <code className="font-mono text-code-sm">crud-builder</code>/<code className="font-mono text-code-sm">list-builder</code>/<code className="font-mono text-code-sm">dashboard-builder</code>,
-          commands, rules) pra dentro do{" "}
-          <code className="font-mono text-code-sm">.claude/</code> do seu projeto. Depois disso você tem{" "}
-          <code className="font-mono text-code-sm">/ds-create-crud</code>,{" "}
-          <code className="font-mono text-code-sm">/ds-create-dashboard</code> etc. descobríveis nativamente.
-        </p>
-        <div className="rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">
-            ⚡ Atalho: deixe a IA fazer os 6 passos
-          </p>
-          <p className="text-body-md text-fg-muted">
-            A página <strong className="text-fg-default">Início</strong> (
-            <code className="font-mono text-code-sm">#/inicio</code>) tem um prompt pronto pra
-            colar no Claude Code, na aba <strong className="text-fg-default">Instalar o DS</strong>:
-            ele adiciona o submódulo, configura o alias nos dois lugares, importa o tema, roda o{" "}
-            <code className="font-mono text-code-sm">ds:link</code> e valida o resultado antes de
-            dizer que acabou. O passo a passo abaixo é a mesma coisa, na mão.
-          </p>
-        </div>
-        <p className="text-body-md font-medium text-fg-default">Setup (uma vez, na raiz do seu projeto):</p>
-        <CodeBlock>{`# ajuste "design-system" pro caminho real do submódulo
-npm --prefix design-system run ds:link
-# ou:  node design-system/scripts/ds-link.mjs`}</CodeBlock>
-        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
-          <li>Copia <code className="font-mono text-code-sm">commands</code> + <code className="font-mono text-code-sm">skills</code> + <code className="font-mono text-code-sm">rules</code> pro seu <code className="font-mono text-code-sm">.claude/</code> (não sobrescreve arquivos seus que colidam).</li>
-          <li>Escreve <code className="font-mono text-code-sm">.claude/ds-config.json</code> (<code className="font-mono text-code-sm">mode: "submodule"</code>) — as skills leem componentes/exemplos direto de <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>, sem <code className="font-mono text-code-sm">igreen:add</code>/registry.</li>
-          <li>Detecta o alias de import no seu <code className="font-mono text-code-sm">tsconfig</code>/<code className="font-mono text-code-sm">vite</code> (que aponta pra <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>); fallback <code className="font-mono text-code-sm">@ds</code>.</li>
-          <li>Adiciona um bloco gerenciado no seu <code className="font-mono text-code-sm">CLAUDE.md</code>.</li>
-        </ul>
-        <div className="rounded-radius-base border border-border-warning-muted bg-bg-warning-muted p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚠ Pré-requisito — DOIS aliases, não um</p>
-          <p className="text-body-md text-fg-muted mb-gp-md">
-            As skills geram imports tipo <code className="font-mono text-code-sm">@ds/components/ui/DataTable</code> — mas os
-            arquivos do DS importam entre si por <code className="font-mono text-code-sm">@/</code> (700 imports), e no
-            submódulo <strong className="text-fg-default">ninguém mapeia esse alias por você</strong>. Sem o segundo, o build
-            quebra no primeiro componente com <code className="font-mono text-code-sm">Cannot find module '@/utils/tv'</code>.
-            Os dois apontam pra <code className="font-mono text-code-sm">&lt;submódulo&gt;/src</code>:
-          </p>
-          <CodeBlock>{`// tsconfig.json — paths RELATIVOS e sem baseUrl (removido no TypeScript 7)
+          <CodeBlock>{`// tsconfig.json — paths RELATIVOS, sem baseUrl (removido no TypeScript 7)
 { "compilerOptions": { "paths": {
   "@ds/*": ["./design-system/src/*"],
   "@/*":   ["./design-system/src/*"]
@@ -380,95 +224,220 @@ resolve: {
     "@":   path.resolve(import.meta.dirname, "design-system/src"),
   },
 }`}</CodeBlock>
-        </div>
+        </Silencioso>
+
+        <Silencioso titulo="⛔ NÃO rode npm install dentro do submódulo">
+          <p className="text-body-md text-fg-muted">
+            Um segundo <Code>node_modules</Code> cria uma cópia extra do React —{" "}
+            <Code>Invalid hook call</Code> em qualquer componente com hook, mais erro de tipo por
+            dois <Code>@types/react</Code> no mesmo programa. As deps vão na raiz.
+          </p>
+        </Silencioso>
+
+        <CodeBlock>{`/* src/index.css — o tema, UMA vez, depois do tailwindcss */
+@import "tailwindcss";
+@import "../design-system/src/styles/theme/tailwind-theme.css";`}</CodeBlock>
         <p className="text-body-md text-fg-muted">
-          Ao atualizar o submódulo (<code className="font-mono text-code-sm">git pull --recurse-submodules</code>),{" "}
-          <strong className="text-fg-default">re-rode</strong> pra ressincronizar as skills — é idempotente e limpa
-          skills removidas upstream. <code className="font-mono text-code-sm">--unlink</code> desfaz tudo;{" "}
-          <code className="font-mono text-code-sm">--dry</code> mostra sem escrever. Guia completo em{" "}
-          <code className="font-mono text-code-sm">SUBMODULE-SETUP.md</code> (raiz do repo).
+          Não precisa de <Code>@source</Code>: o submódulo fica dentro da raiz, então o scan do
+          Tailwind já o alcança. Copie as fontes uma vez —{" "}
+          <Code>cp design-system/public/fonts/*.woff2 public/fonts/</Code> — senão os 27 presets
+          caem em <Code>system-ui</Code> sem nenhum erro. Guia completo em{" "}
+          <Code>SUBMODULE-SETUP.md</Code>.
         </p>
+        <div className="rounded-radius-base border border-border-brand-subtle bg-bg-brand-subtle p-pad-3xl">
+          <p className="text-body-md font-medium text-fg-default mb-gp-md">⚡ Atalho</p>
+          <p className="text-body-md text-fg-muted">
+            A página <strong className="text-fg-default">Início</strong> tem um prompt pronto pra
+            colar no Claude Code (aba <strong className="text-fg-default">Instalar o DS</strong>):
+            ele faz os passos acima e <strong className="text-fg-default">valida</strong> antes de
+            dizer que acabou.
+          </p>
+        </div>
       </div>
 
-      {/* AI Pipeline */}
-      <SectionH2 id="pipeline" title="AI Pipeline (Optional)" />
+      {/* ── 4. npm ─────────────────────────────────────────────────────── */}
+      <SectionH2 id="npm" title="4. Biblioteca npm" />
       <div className="flex flex-col gap-gp-2xl mb-14">
+        <CodeBlock>{`npm install @snksergio/design-system@latest`}</CodeBlock>
         <p className="text-body-md text-fg-muted">
-          The repo ships a full Claude Code pipeline in <code className="font-mono text-code-sm bg-bg-subtle px-pad-sm rounded-radius-sm">.claude/</code>.
-          It activates automatically when you open the project with Claude Code. No setup needed beyond a recent CLI version.
+          Pré-requisitos: React 19+, Tailwind v4 configurado, e o <Code>theme.css</Code> importado
+          uma vez no CSS de entrada.
         </p>
-        <ul className="list-disc pl-sp-md flex flex-col gap-gp-md text-body-md text-fg-muted">
-          <li><strong className="text-fg-default">CLAUDE.md</strong> — project-wide rules, loaded automatically on every session</li>
-          <li><strong className="text-fg-default">.claude/rules/ds-standards.md</strong> — loaded on <em>every</em> session, like CLAUDE.md. There is no per-folder scoping: the <code className="font-mono text-code-sm">globs:</code> field in the frontmatter is Cursor syntax and is inert here</li>
-          <li><strong className="text-fg-default">.claude/agents/</strong> — 4 active agents (orchestrator, designer, dev, reviewer) + 2 pending for the app domain</li>
-          <li><strong className="text-fg-default">.claude/skills/</strong> — 15 skills por agente + 9 builders de pipeline (crud, list, dashboard, brand, app, login, screen, replicate, frontend), via SkillTool ou slash command</li>
-          <li><strong className="text-fg-default">.claude/hooks/</strong> — ds-lint-styles, ds-inventory-check, ds-tokens-check (informativos) + block-rm-rf, block-sensitive-edit (bloqueiam)</li>
-          <li><strong className="text-fg-default">.claude/output-styles/terse.md</strong> — keeps responses tight</li>
-        </ul>
-        <p className="text-body-md text-fg-muted">
-          See the <strong className="text-fg-default">Agents</strong> section in the sidebar for the full pipeline diagram and per-agent docs.
-        </p>
+
+        <Silencioso titulo="A diretiva @source é OBRIGATÓRIA">
+          <p className="text-body-md text-fg-muted">
+            O Tailwind v4 não escaneia <Code>node_modules</Code>. Sem o <Code>@source</Code>,{" "}
+            <strong className="text-fg-default">nenhuma</strong> classe do DS é gerada — e não há
+            erro: o componente renderiza cru (a cor aparece, spacing/radius/shadow somem).
+          </p>
+          <CodeBlock>{`/* src/index.css */
+@import "tailwindcss";
+
+@source "../node_modules/@snksergio/design-system/dist-lib/**/*.{mjs,cjs,js}";
+
+@import "@snksergio/design-system/theme.css";`}</CodeBlock>
+        </Silencioso>
+
+        <CodeBlock>{`import { Button, AppShell, DataTable } from "@snksergio/design-system";
+import { colorLight, spacing } from "@snksergio/design-system/tokens";
+import ClientesShowcase from "@snksergio/design-system/preview/clientes";`}</CodeBlock>
+
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <div className="grid grid-cols-[210px_1fr] gap-0 bg-bg-subtle border-b border-border-subtle">
+            <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Sub-path</div>
+            <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">O que exporta</div>
+          </div>
+          {[
+            { path: ".", desc: "Componentes iGreen + Shadcn adaptados" },
+            { path: "/theme.css", desc: "Tema gerado: @theme, dark mode, 27 presets, fonte Geist, @custom-variant, regras de html/body, outline-float, scrollbar-*" },
+            { path: "/theme/brand-<id>.css", desc: "Overlay de uma marca (blue, green, pay, vibrant) — importe DEPOIS do theme.css e aplique data-theme no <html>" },
+            { path: "/tokens", desc: "Tokens semânticos como objeto (colorLight, spacing, sizing…)" },
+            { path: "/preview/<nome>", desc: "Showcases prontas: chat, clientes, dashboard" },
+            { path: "/preview/mocks", desc: "Mocks reutilizáveis (APP_SHELL_*, chatMocks, clientesMocks)" },
+          ].map((row) => (
+            <div key={row.path} className="grid grid-cols-[210px_1fr] gap-0 border-t border-border-subtle">
+              <div className="py-pad-md px-pad-xl"><code className="font-mono text-code-sm text-fg-brand">{row.path}</code></div>
+              <div className="py-pad-md px-pad-xl text-body-md text-fg-muted">{row.desc}</div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Troubleshoot */}
-      <SectionH2 id="troubleshoot" title="Troubleshooting" />
+      {/* ── validar ────────────────────────────────────────────────────── */}
+      <SectionH2 id="validar" title="Validar a instalação" />
       <div className="flex flex-col gap-gp-2xl mb-14">
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">Theme CSS shows up empty</p>
+        <p className="text-body-md text-fg-muted">
+          Quatro checagens, nesta ordem. O <Code>Button</Code> sozinho{" "}
+          <strong className="text-fg-default">não basta</strong>: ele não usa hook nenhum, então
+          renderiza certo mesmo com React duplicado no bundle.
+        </p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          {[
+            {
+              n: "1",
+              o: "Button: cor E spacing/radius",
+              p: "só a cor certa = tema não importado (as CSS vars de cor caem em currentColor, mas o spacing simplesmente não existe)",
+            },
+            {
+              n: "2",
+              o: "Um componente com hook/context",
+              p: "AppShell, FloatingPanel ou DataTable renderizando sem Invalid hook call — é este check que prova que não há React duplicado",
+            },
+            {
+              n: "3",
+              o: 'document.fonts.check("16px Geist") === true',
+              p: "status HTTP não serve: o dev server devolve 200 com o index.html pra arquivo inexistente",
+            },
+            { n: "4", o: "npx tsc --noEmit", p: "limpo na raiz" },
+          ].map((c) => (
+            <div key={c.n} className="flex flex-col sm:flex-row items-start gap-gp-sm sm:gap-gp-xl py-pad-xl px-pad-3xl border-b border-border-subtle last:border-b-0">
+              <div className="flex items-center gap-gp-sm shrink-0 sm:min-w-[280px]">
+                <Badge color="secondary" variant="outline" size="sm">{c.n}</Badge>
+                <span className="text-body-md font-medium text-fg-default">{c.o}</span>
+              </div>
+              <span className="text-body-md text-fg-muted flex-1">{c.p}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── problemas ──────────────────────────────────────────────────── */}
+      <SectionH2 id="problemas" title="Problemas comuns" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        {[
+          {
+            t: "Componentes sem estilo depois do npm install",
+            d: "Falta a diretiva @source apontando pro dist-lib/** do pacote. O Tailwind v4 não escaneia node_modules, então nenhuma classe do DS é gerada — e não há erro. Receita na seção 4. Submódulo não sofre: fica dentro da raiz.",
+          },
+          {
+            t: "Invalid hook call",
+            d: "Duas cópias do React. No submódulo, é npm install rodado DENTRO da pasta do DS — apague o node_modules dele e deixe as deps na raiz, com resolve.dedupe: [\"react\", \"react-dom\"] no vite.",
+          },
+          {
+            t: "Cannot find module '@/utils/tv'",
+            d: "Falta o SEGUNDO alias. Os arquivos do DS importam entre si por @/ — mapeie @/ e @ds/ pra <submódulo>/src, no tsconfig E no bundler.",
+          },
+          {
+            t: "A fonte parece errada, sem erro no console",
+            d: "As .woff2 do Geist não estão em public/fonts/. O dev server devolve o index.html no lugar do arquivo e os 27 presets caem em system-ui. Confira com document.fonts.check(\"16px Geist\").",
+          },
+          {
+            t: "gap-4 funciona mas gap-gp-md não",
+            d: "As classes do DS usam prefixo anti-colisão. gap-gp-md, px-pad-lg, rounded-radius-base, shadow-sh-md, min-h-form-lg. Mapa completo em Foundations → Tokens.",
+          },
+          {
+            t: "O overlay de marca não faz nada",
+            d: "Importar o brand-<id>.css sem pôr data-theme=\"<id>\" no <html> é no-op silencioso. E o overlay entra DEPOIS do theme.css.",
+          },
+          {
+            t: "/ds-create-crud não aparece",
+            d: "Slash command só é registrado no início da sessão. Reinicie o Claude Code depois de instalar ou re-projetar o kit.",
+          },
+        ].map((p) => (
+          <div key={p.t} className="rounded-radius-base border border-border-subtle p-pad-3xl">
+            <p className="text-body-md font-medium text-fg-default mb-gp-md">{p.t}</p>
+            <p className="text-body-md text-fg-muted">{p.d}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* ── contribuir ─────────────────────────────────────────────────── */}
+      <SectionH2 id="contribuir" title="Desenvolver no DS (contribuir)" />
+      <div className="flex flex-col gap-gp-2xl mb-14">
+        <p className="text-body-md text-fg-muted">
+          Daqui pra baixo é pra quem vai <strong className="text-fg-default">mexer no DS</strong>,
+          não pra quem consome. Se você só quer usar os componentes, as seções acima já bastam.
+        </p>
+
+        <CodeBlock>{`git clone https://github.com/igreenlab/igreen-desingsystem-admin.git
+cd igreen-desingsystem-admin
+npm install
+npm run dev
+# → http://localhost:3100`}</CodeBlock>
+        <p className="text-body-md text-fg-muted">
+          O <Code>dev</Code> roda <Code>tokens:tw4</Code> antes de subir o Vite — o tema é
+          regenerado a cada start. Requisitos: Node ≥ 20, npm ≥ 10, Tailwind{" "}
+          <strong className="text-fg-default">v4</strong> (v3 não é suportado: os prefixos
+          anti-colisão dependem do <Code>@theme</Code>).
+        </p>
+
+        <p className="text-body-md font-medium text-fg-default">Scripts do dia a dia</p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run dev" desc="Tokens + Vite na 3100" />
+          <CmdRow cmd="npm test" desc="A suíte inteira, incluindo os gates mecânicos" />
+          <CmdRow cmd="npm run tokens:tw4" desc="Regenera o tema (rode após mexer em token)" />
+          <CmdRow cmd="npm run release:check" desc="Gate de release: registry, marcas, débito de distribuição, blocos" />
+          <CmdRow cmd="npm run lint:styles" desc="Anti-patterns de estilo em modo ratchet — reprova só violação NOVA" />
+        </div>
+
+        <p className="text-body-md font-medium text-fg-default">Marcas e distribuição</p>
+        <div className="rounded-radius-base border border-border-subtle overflow-hidden">
+          <CmdRow cmd="npm run tokens:brand:<id>" desc="Regenera o overlay de uma marca (blue, green, pay, vibrant)" />
+          <CmdRow cmd="npm run brand:check" desc="As 10 superfícies de cada marca — 8 falham em silêncio sem ele" />
+          <CmdRow cmd="npm run registry:build" desc="Drift dos examples + tokens + stamp + shadcn build" />
+          <CmdRow cmd="npm run blocks:build" desc="Índice de blocos do consumidor + itens registry:block" />
+          <CmdRow cmd="npm run cli:rebake" desc="Rebakeia os foundationals do template do CLI" />
+          <CmdRow cmd="npm run ds:link" desc="Projeta o kit de IA no .claude/ do projeto pai (canal submódulo)" />
+        </div>
+
+        <div className="rounded-radius-base border border-border-subtle bg-bg-subtle p-pad-3xl">
           <p className="text-body-md text-fg-muted">
-            Re-run <code className="font-mono text-code-sm">npm run tokens:tw4</code>. The file is committed only because it's
-            the published export — but it must be regenerated whenever you change a token.
+            <Code>npm run lib:publish:*</Code> existe e{" "}
+            <strong className="text-fg-default">recusa rodar</strong> de propósito: publicar passa
+            pelo <Code>/ds-release</Code>, que bumpa, valida com <Code>lib:verify</Code> e PARA
+            pedindo o mantenedor.
           </p>
         </div>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">Classes like <code className="font-mono text-code-sm">gap-4</code> render but DS classes don't</p>
-          <p className="text-body-md text-fg-muted">
-            DS classes use anti-collision prefixes: <code className="font-mono text-code-sm">gap-gp-md</code>, not <code className="font-mono text-code-sm">gap-4</code>.
-            See Foundations → Tokens Overview for the full mapping.
-          </p>
-        </div>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">Port 3100 already in use</p>
-          <p className="text-body-md text-fg-muted">
-            Edit <code className="font-mono text-code-sm">vite.config.ts</code> and change the <code className="font-mono text-code-sm">server.port</code> value, or pass <code className="font-mono text-code-sm">--port</code> on the CLI.
-          </p>
-        </div>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">TypeScript errors</p>
-          <p className="text-body-md text-fg-muted">
-            <code className="font-mono text-code-sm">npx tsc --noEmit</code> is expected to return{" "}
-            <strong className="text-fg-default">zero</strong> errors — the CI blocks on it. Até 2026-08-11
-            esta página documentava erros de <code className="font-mono text-code-sm">GridRowId</code> e{" "}
-            <code className="font-mono text-code-sm">sidebarRailUserDefault</code> como
-            &ldquo;pré-existentes, não bloqueiam o dev&rdquo;. Foram corrigidos, e a frase ficou —
-            ensinando a ignorar erro de tipo. Se você vê erro, é regressão: conserte, não contorne.
-          </p>
-        </div>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">
-            Componentes sem estilo depois de <code className="font-mono text-code-sm">npm install</code>
-          </p>
-          <p className="text-body-md text-fg-muted">
-            Falta a diretiva <code className="font-mono text-code-sm">@source</code> apontando pro{" "}
-            <code className="font-mono text-code-sm">dist-lib/**</code> do pacote. O Tailwind v4 não
-            escaneia <code className="font-mono text-code-sm">node_modules</code>, então{" "}
-            <strong className="text-fg-default">nenhuma</strong> classe do DS é gerada — e não há erro
-            nenhum, o componente só renderiza cru. Receita em &ldquo;Install via NPM&rdquo;. Submódulo
-            não sofre: fica dentro da raiz, o scan já o alcança.
-          </p>
-        </div>
-        <div className="rounded-radius-base border border-border-subtle p-pad-3xl">
-          <p className="text-body-md font-medium text-fg-default mb-gp-md">
-            Um gate acusa violação que não existe na sua branch
-          </p>
-          <p className="text-body-md text-fg-muted">
-            Provavelmente a base do diff. Os gates com ratchet resolvem o remote canônico{" "}
-            <strong className="text-fg-default">por URL</strong>, não por nome — se{" "}
-            <code className="font-mono text-code-sm">origin</code> no seu clone for um fork parado,
-            medir contra ele acusa débito legado como se fosse novo (L-069). Cada gate imprime a base
-            que resolveu: confira a primeira linha da saída.
-          </p>
-        </div>
+
+        <p className="text-body-md text-fg-muted">
+          O pipeline de IA (<Code>.claude/</Code>) ativa sozinho ao abrir o repo no Claude Code:
+          4 agentes, as skills por tarefa, 6 hooks e as rules auto-carregadas. Diagrama e doc por
+          agente na seção <strong className="text-fg-default">Agents</strong> da sidebar.
+        </p>
+        <p className="text-body-md text-fg-muted">
+          <Code>npx tsc --noEmit</Code> deve retornar <strong className="text-fg-default">zero</strong>{" "}
+          — o CI bloqueia nisso. Se você vê erro de tipo, é regressão: conserte, não contorne.
+        </p>
       </div>
     </DocLayout>
   );

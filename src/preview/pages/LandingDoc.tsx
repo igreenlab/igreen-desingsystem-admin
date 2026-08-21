@@ -2287,7 +2287,7 @@ npm --prefix design-system run ds:link
         desc: "O overlay entra DEPOIS do tema base, e o data-theme tem que estar no <html>. Importar o CSS sozinho é no-op silencioso.",
       },
     ],
-    codigo: `npm install @snksergio/design-system
+    codigo: `npm install @snksergio/design-system@latest
 
 /* src/index.css */
 @import "tailwindcss";

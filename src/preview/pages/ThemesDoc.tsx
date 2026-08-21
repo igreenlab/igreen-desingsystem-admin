@@ -131,7 +131,7 @@ export function ThemesDoc() {
 
       <SectionH2 id="npm" title="Trocar — via npm" />
       <Canal
-        nome="npm install @snksergio/design-system"
+        nome="npm install @snksergio/design-system@latest"
         quando="Projeto que consome o DS como pacote. Disponível a partir da v0.31.1 — antes disso o pacote levava só o tema-base."
         entrega="sim"
       >
@@ -181,7 +181,7 @@ export function ThemesDoc() {
       <SectionH2 id="copy-in" title="Trocar — via registry (copy-in)" />
       <Canal
         nome="npm run igreen:add"
-        quando="Projeto criado pelo scaffold (npm create @snksergio/design-system) que traz componentes por copy-in."
+        quando="Projeto criado pelo scaffold (npm create @snksergio/design-system@latest) que traz componentes por copy-in."
         entrega="sim"
       >
         <p className="text-body-md text-fg-muted">

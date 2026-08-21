@@ -1,6 +1,6 @@
 # Projeto consome o iGreen Design System (via registry shadcn)
 
-Bootstrappado via `npx @snksergio/create-design-system`. Contexto pro Claude
+Bootstrappado via `npx @snksergio/create-design-system@latest`. Contexto pro Claude
 Code / Cursor / agentes gerarem UI nos padrões do iGreen DS.
 
 ## Modelo de consumo DESTE projeto — registry shadcn (copy-in)
