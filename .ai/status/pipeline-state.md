@@ -20,6 +20,9 @@
 - [O diagnóstico — o log entregava a versão, não o defeito](#o-diagnóstico-o-log-entregava-a-versão-não-o-defeito)
 - [E aí o defeito NOSSO, que é o que importa](#e-aí-o-defeito-nosso-que-é-o-que-importa)
 - [O que teria cortado 20 minutos: o banner não dizia a versão](#o-que-teria-cortado-20-minutos-o-banner-não-dizia-a-versão)
+- [O que estava errado na Installation, e não era "prolixa"](#o-que-estava-errado-na-installation-e-não-era-prolixa)
+- [A página nova: uma seção por canal, porque atualizar é diferente em cada um](#a-página-nova-uma-seção-por-canal-porque-atualizar-é-diferente-em-cada-um)
+- [O `@latest` que faltava — auditoria, não conserto pontual](#o-latest-que-faltava-auditoria-não-conserto-pontual)
 
 <!-- doc-index:fim -->
 
@@ -3501,3 +3504,72 @@ diagnóstico.
 envelheceu" exige saber que a citação era um comando executável e não histórico, o que é
 julgamento. Já está no ponto de uso? sim, o placeholder mata a classe inteira no lugar onde o
 erro nasceria. Reprovou na 2ª pergunta, então é conserto, não lição.
+
+---
+
+### 2026-08-21 | ds-dev | Installation reorganizada por CASO + página "Como atualizar" | CONCLUÍDO
+
+**Input:** depois do episódio da CLI 0.1.0, o mantenedor pediu duas coisas: simplificar a
+Installation pra leitura direta, e criar uma página de **como atualizar** cobrindo cada cenário.
+No meio da execução ele apontou uma terceira: *"no próprio Início a instalação via npm não usa o
+@latest"*.
+
+## O que estava errado na Installation, e não era "prolixa"
+
+Eram **10 seções misturando três públicos**. A 2ª que o leitor batia era
+`Requirements (para desenvolver NO DS)` — o próprio título avisava que era pra outro público, e
+ainda assim vinha antes de metade do conteúdo de consumo:
+
+```
+quickstart      CONSOME          install-npm     CONSOME
+requirements    DESENVOLVE ←     consume         CONSOME
+clone           DESENVOLVE ←     submodule       CONSOME
+scripts         DESENVOLVE ←     pipeline        DESENVOLVE ←
+first-run       DESENVOLVE ←     troubleshoot    misturado
+```
+
+Reorganizada por **caso de uso**: uma tabela de decisão no topo (4 linhas, o comando de cada
+uma), as 4 seções dos 4 canais, `Validar a instalação` (os 4 checks, com o porquê de o Button
+sozinho não bastar), `Problemas comuns` só do consumidor, e **tudo de contribuidor no fim**, sob
+um cabeçalho que diz pra quem é. Nada foi apagado — o `@source`, os dois aliases, a tabela de
+sub-paths e os scripts continuam, no lugar de quem os procura.
+
+## A página nova: uma seção por canal, porque atualizar é diferente em cada um
+
+`#/how-to-update`. O que ela documenta e que **não existia em lugar nenhum**:
+
+- **CLI** — `@latest` + nomear o pacote, com a armadilha do cache do npx escrita (é onde ela
+  pertence), e como conferir a versão no banner
+- **copy-in** — `igreen:drift` → `igreen:update -- --all` → `doctor`, com a tabela de o que o
+  update faz em cada situação do arquivo (editado por você = PULA)
+- **npm** — `npm ls` / `npm view` pra comparar, e o lembrete de reconferir `@source` e
+  `theme.css` depois de minor
+- **submódulo** — `git pull --recurse-submodules` + **re-rodar o `ds:link`**, senão o código
+  novo entra e as skills continuam ensinando o padrão antigo
+- **o kit de IA** — por canal, e o reinício do Claude Code (slash command só registra no início
+  da sessão)
+- **"estou desatualizado?"** — 4 comandos, nenhum escreve nada
+
+## O `@latest` que faltava — auditoria, não conserto pontual
+
+O mantenedor achou 1 caso (a Início). Varri **todas** as superfícies e eram **7**, incluindo
+3 no **payload do consumidor** (`CLAUDE.md` do template e `ds-channels.md`), que é o pior lugar:
+viaja pro projeto de outra pessoa.
+
+Distinção que mantive de propósito: `npx`/`npm create` **precisam** de `@latest`, porque
+resolvem **executável** pelo cache — é a falha real de ontem. `npm install` é menos crítico (o
+npm resolve no registry), mas ganhou `@latest` também por ser copy-paste-safe. O que **não**
+recebeu foi citação em prosa/tabela que **nomeia o canal** em vez de mandar rodar: ali o `@latest`
+seria ruído.
+
+**Verificado no browser**, não só no tsc: as duas páginas renderizam, TOC e sidebar com a entrada
+nova, zero erro de console, sem estouro horizontal, e o callout de perigo legível no dark
+(`oklch(0.6368 0.2078 25.33 / 0.14)` sob texto `0.98`).
+
+**Estado:** tsc 0 · 58 arquivos / 709 testes, 0 falha · `release:check` exit 0 · CLI **0.25.12**
+(o payload mudou em 2 arquivos).
+
+**Assumption:** que "organizar por caso" bate "organizar por assunto" nesta página. Vale porque
+o leitor chega sabendo qual é o projeto dele e não sabendo o vocabulário do DS (copy-in, registry,
+overlay). Cai se aparecer alguém que precisa de dois canais ao mesmo tempo e a tabela de decisão
+obrigar a ler duas seções sem dizer como combiná-las.

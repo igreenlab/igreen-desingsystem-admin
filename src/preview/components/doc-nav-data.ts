@@ -18,6 +18,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Structure", href: "structure" },
       { label: "Distribution", href: "distribution" },
       { label: "Installation", href: "installation" },
+      { label: "Como atualizar", href: "how-to-update" },
       { label: "Temas de marca", href: "themes" },
       { label: "Transform Tokens", href: "transform-tokens" },
       { label: "Updates", href: "updates" },

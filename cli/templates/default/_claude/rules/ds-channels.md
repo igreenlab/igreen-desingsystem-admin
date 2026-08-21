@@ -12,9 +12,9 @@ submódulo estão descontinuados, está errado — e vale corrigir a fonte.
 | canal | como | alcance |
 |---|---|---|
 | **copy-in** (registry shadcn) | `npm run igreen:add -- <nome>` | **tudo** — o código vira seu |
-| **npm** | `npm i @snksergio/design-system` | **41 dos 42** componentes `ui/` + **os 41** primitivos shadcn (subpath `/shadcn`) |
+| **npm** | `npm i @snksergio/design-system@latest` | **41 dos 42** componentes `ui/` + **os 41** primitivos shadcn (subpath `/shadcn`) |
 | **submódulo git** | `git submodule add` + **dois** aliases no tsconfig/vite | **tudo** — o repo inteiro está no disco (ver os 3 passos abaixo) |
-| **scaffold** | `npm create @snksergio/design-system` | gera projeto copy-in já configurado (+ prompt "Tema de cor?") |
+| **scaffold** | `npm create @snksergio/design-system@latest` | gera projeto copy-in já configurado (+ prompt "Tema de cor?") |
 
 ### E o kit de IA — qual canal traz o `.claude/`
 
@@ -25,7 +25,7 @@ skills de tela, rules auto-carregadas, hook de integridade). Ele **não** vem po
 |---|:---:|:---:|---|
 | **scaffold** | ✅ | ✅ | já vem no projeto gerado (com `settings.json`) |
 | **submódulo** | ✅ | ⚠️ 1 passo | `npm --prefix <submodulo> run ds:link` — projeta no `.claude/` do pai; o hook vem, mas **você registra** (o `ds:link` imprime o snippet) |
-| **copy-in** | ⚠️ | ✅ | `npx @snksergio/create-design-system --only-kit` na raiz do projeto |
+| **copy-in** | ⚠️ | ✅ | `npx @snksergio/create-design-system@latest --only-kit` na raiz do projeto |
 | **npm** | ⚠️ | ✅ | mesmo comando acima, **mas leia a ressalva** |
 
 ⚠️ **Por que o submódulo tem coluna própria pro hook.** O `settings.json` — que é o que
