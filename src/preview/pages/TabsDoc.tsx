@@ -15,6 +15,7 @@ const TOC = [
 ];
 const PROPS = [
   { name: "variant", type: '"segmented" | "line"', defaultVal: '"segmented"' },
+  { name: "fullWidth", type: "boolean", defaultVal: "false" },
   { name: "defaultValue", type: "string", defaultVal: "—" },
   { name: "value", type: "string", defaultVal: "—" },
   { name: "onValueChange", type: "(value: string) => void", defaultVal: "—" },
@@ -99,16 +100,16 @@ export function TabsDoc() {
       <ExampleSection
         id="ex-line-icons"
         title="Line — ícones + full width"
-        description="A variant line combina com ícones e full width (flex-1) — comum em headers de página."
-        code={`<Tabs defaultValue="preview" variant="line" className="w-full">\n  <TabsList className="w-full">\n    <TabsTrigger value="preview" className="flex-1"><Eye /> Preview</TabsTrigger>\n    <TabsTrigger value="code" className="flex-1"><Code /> Code</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
+        description="A variant line combina com ícones e `fullWidth` — comum em headers de página."
+        code={`<Tabs defaultValue="preview" variant="line" fullWidth>\n  <TabsList>\n    <TabsTrigger value="preview"><Eye /> Preview</TabsTrigger>\n    <TabsTrigger value="code"><Code /> Code</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="preview" variant="line" className="w-full max-w-lg">
-          <TabsList className="w-full">
-            <TabsTrigger value="preview" className="flex-1">
+        <Tabs defaultValue="preview" variant="line" fullWidth className="max-w-lg">
+          <TabsList>
+            <TabsTrigger value="preview">
               <Eye className="size-4" />
               Preview
             </TabsTrigger>
-            <TabsTrigger value="code" className="flex-1">
+            <TabsTrigger value="code">
               <Code className="size-4" />
               Code
             </TabsTrigger>
@@ -187,14 +188,14 @@ export function TabsDoc() {
       <ExampleSection
         id="ex-fullwidth"
         title="Full Width"
-        description="Make the tab list span the full width with each trigger taking equal space."
-        code={`<Tabs defaultValue="overview" className="w-full">\n  <TabsList className="w-full">\n    <TabsTrigger value="overview" className="flex-1">Overview</TabsTrigger>\n    <TabsTrigger value="analytics" className="flex-1">Analytics</TabsTrigger>\n    <TabsTrigger value="reports" className="flex-1">Reports</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
+        description="`fullWidth` no <Tabs> faz as três camadas de uma vez: root, list e triggers. Use em superfície compacta — Panel, FloatingPanel, Modal até lg, card, bloco. Em toolbar ou página livre, deixe hug (o DataTable usa hug de propósito)."
+        code={`<Tabs defaultValue="overview" fullWidth>\n  <TabsList>\n    <TabsTrigger value="overview">Overview</TabsTrigger>\n    <TabsTrigger value="analytics">Analytics</TabsTrigger>\n    <TabsTrigger value="reports">Reports</TabsTrigger>\n  </TabsList>\n  ...\n</Tabs>`}
       >
-        <Tabs defaultValue="overview" className="w-full max-w-lg">
-          <TabsList className="w-full">
-            <TabsTrigger value="overview" className="flex-1">Overview</TabsTrigger>
-            <TabsTrigger value="analytics" className="flex-1">Analytics</TabsTrigger>
-            <TabsTrigger value="reports" className="flex-1">Reports</TabsTrigger>
+        <Tabs defaultValue="overview" fullWidth className="max-w-lg">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
+            <TabsTrigger value="reports">Reports</TabsTrigger>
           </TabsList>
           <TabsContent value="overview">
             <div className="p-pad-3xl rounded-radius-base bg-bg-muted">

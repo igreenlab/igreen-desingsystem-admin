@@ -66,6 +66,8 @@ type ModalAction = {
 ```
 
 ## Cuidados / Gotchas
+- **Aba dentro do Modal** → `<Tabs fullWidth>` com a variante **default** (`segmented`) até o size `lg` (720px). No `xl` (1100px) **não** use `fullWidth`: cada aba fica enorme e o grupo passa a ler como barra de segmented control, não como aba.
+
 - Footer aparece só quando há `footer` OU alguma action estruturada — sem nada disso, o modal não renderiza footer
 - `tertiaryAction` à esquerda é o padrão pra ações destrutivas (ex: "Deletar") ou neutras (ajuda); o grupo cancel/save fica à direita
 - **Body scrolla sozinho — não faça na mão.** O painel tem teto de altura

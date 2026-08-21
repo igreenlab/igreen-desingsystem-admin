@@ -214,16 +214,16 @@ export function SacarDialog({
          *  herda o label padrão do DS sem replicar classes na unha. */}
         <FormField label="Conta de destino">
           {() => (
-            <Tabs
+            <Tabs fullWidth
               value={activeTab}
               onValueChange={(v) => setActiveTab(v as AccountTab)}
               className="w-full"
             >
-              <TabsList className="w-full">
-                <TabsTrigger value="cadastradas" className="flex-1">
+              <TabsList>
+                <TabsTrigger value="cadastradas">
                   Contas cadastradas
                 </TabsTrigger>
-                <TabsTrigger value="outra" className="flex-1">
+                <TabsTrigger value="outra">
                   Outra conta
                 </TabsTrigger>
               </TabsList>

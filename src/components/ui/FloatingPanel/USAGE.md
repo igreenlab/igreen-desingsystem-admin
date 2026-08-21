@@ -78,6 +78,8 @@ Clientes. Use `bodyPadded={false}` (as sections têm padding + divisória própr
 - `FloatingPanelField` — props: `label`, `value` (fallback "—" quando vazio).
 
 ## Cuidados / Gotchas
+- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.
+
 - Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais
 - Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`
 - **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`

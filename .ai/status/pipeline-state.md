@@ -23,6 +23,9 @@
 - [O que estava errado na Installation, e não era "prolixa"](#o-que-estava-errado-na-installation-e-não-era-prolixa)
 - [A página nova: uma seção por canal, porque atualizar é diferente em cada um](#a-página-nova-uma-seção-por-canal-porque-atualizar-é-diferente-em-cada-um)
 - [O `@latest` que faltava — auditoria, não conserto pontual](#o-latest-que-faltava-auditoria-não-conserto-pontual)
+- [A análise dele estava certa, com duas correções](#a-análise-dele-estava-certa-com-duas-correções)
+- [O achado que muda a conclusão: não era a IA que errou, era o DS](#o-achado-que-muda-a-conclusão-não-era-a-ia-que-errou-era-o-ds)
+- [O que ficou](#o-que-ficou)
 
 <!-- doc-index:fim -->
 
@@ -3573,3 +3576,87 @@ nova, zero erro de console, sem estouro horizontal, e o callout de perigo legív
 o leitor chega sabendo qual é o projeto dele e não sabendo o vocabulário do DS (copy-in, registry,
 overlay). Cai se aparecer alguém que precisa de dois canais ao mesmo tempo e a tabela de decisão
 obrigar a ler duas seções sem dizer como combiná-las.
+
+---
+
+### 2026-08-21 | ds-dev | Tabs ganha `fullWidth` — o DS obrigava a compor na unha | CONCLUÍDO
+
+**Input:** o mantenedor gerou telas via npm e trouxe o 1º de vários ajustes de UI. Pediu aba
+dentro de um `Panel`; a IA escolheu `variant="line"`, ficou apertado num container estreito, e
+ele teve que pedir a troca pra default + largura fluida. A pergunta dele foi a certa: *"essa
+análise de UI/UX está correta, e como fazer as IAs consumirem o componente do jeito certo?"*
+
+## A análise dele estava certa, com duas correções
+
+**Certo:** `segmented` (default) pra trocar conteúdo DENTRO de uma superfície; `line` pra seções
+de página ou 2º nível abaixo de um segmented; hug na tabela (lá é controle entre controles).
+
+**Correção 1 — o `line` "ir pro canto" não era regra de uso, era BUG.** O `border-b` dele era
+`w-fit`, então o trilho parava onde as abas paravam. Um divisor que não alcança as bordas lê como
+fragmento, em container estreito **ou** largo. Em toda referência (Material, Carbon, Ant) o
+trilho do underline é full-bleed e só o indicador acompanha a aba ativa. Consertado no
+componente, não na doc.
+
+**Correção 2 — "fluido em panel/drawer/modal" está certo, mas o motivo não é a superfície, é a
+LARGURA.** Medido: `Panel` 560px fixo · `FloatingPanel` 320/400/560/720 **e redimensionável em
+runtime** · `Modal` 440/540/720/**1100**. Full-width em 1100px vira barra de segmented control
+gigante e para de ler como aba. A regra virou *"superfície compacta (≤ ~720px)"*, não *"modal"*.
+
+## O achado que muda a conclusão: não era a IA que errou, era o DS
+
+Encher a largura exigia **três** coisas na mão — `w-full` no `<Tabs>`, `w-full` no `<TabsList>` e
+`flex-1` em **cada** `<TabsTrigger>`. Medido no próprio repo: **11** `TabsList w-full`, **20**
+`TabsTrigger flex-1`, e 1 uso de `[&>*]:flex-1` (variante arbitrária, pra não repetir por
+trigger). Um dos usos é o bloco `dsgreen-chart-1` que **eu** escrevi; outro é o `SacarDialog`,
+que é um modal — exatamente o caso dele.
+
+E o modo de errar era silencioso: **`w-full` só no List estica o container e agrupa as abas na
+esquerda** — o que 6 dos 7 usos manuais faziam. Ou seja, a IA fez o que o código do DS fazia.
+Enquanto a única forma de dizer "encha a largura" fosse escrever 3 classes, todo consumidor
+(humano incluído) ia acertar metade das vezes.
+
+## O que ficou
+
+- **`fullWidth` no `<Tabs>`**, propagado pelo MESMO contexto do `variant` — precisa alcançar o
+  `TabsTrigger`, que é neto do root. Uma prop no lugar de três classes.
+- **trilho do `line` atravessa o container por padrão**; distribuir as abas segue opt-in.
+- **7 sites migrados** pra prop (incluindo as duas cópias do `SacarDialog`, que o
+  `examples-drift` exige idênticas — re-baselinado depois de conferir que ficaram).
+- **teste com 7 casos** que olha as TRÊS camadas. Provado contra o defeito real: removi o
+  `flex-1` do trigger e 2 casos reprovam. Testar só o List passaria com o bug de volta — que é
+  literalmente o erro que o bug original era.
+- **a regra onde se decide**: `shadcn/USAGE.md` (índice de gotchas), `ds-components.md` do
+  consumidor (4 linhas — comprimi a entrada antiga, o arquivo ficou **menor** que antes: 2.958
+  contra 2.985 tokens), e o `USAGE.md` de `Panel`/`FloatingPanel`/`Modal`, cada um com a largura
+  dele. A skill `drawers` ganhou ponteiro, não a regra.
+
+**Por que a regra foi pro USAGE de cada superfície, e não só na skill:** a pergunta dele foi
+*"dentro de drawers está contemplando panels?"* — e estava: a skill `drawers` é construída em
+cima de `Panel` (criar/editar) e `FloatingPanel` (detalhe). O **nome** é que esconde. Quem
+pergunta "aba dentro de um Panel" não pensa numa skill chamada `drawers`, então a regra tem que
+estar no `USAGE.md` do componente.
+
+**Dois erros meus nesta rodada, os dois pegos medindo:**
+
+1. **contei 3 usos de `[&>*]:flex-1` e era 1** — os outros dois são do `alert-dialog` (footer de
+   botões), caso diferente. Greppei o padrão sem checar o contexto. Corrigido no JSDoc, com o
+   motivo do erro escrito. É a mesma classe do `SectionLabel`: inventariar uma parte e afirmar
+   sobre o todo.
+2. **li a indentação errada** ao montar âncora (12/14 em vez de 10/12) e o script abortou. Medir
+   com `l.length - l.trimStart().length` resolveu — contar espaço no olho em saída de terminal
+   truncada não funciona. Antes disso eu também li `cat -A` truncado por `cut -c1-90` e concluí
+   que o arquivo era LF quando é CRLF inteiro.
+
+**Gate do `vocab-surface` fez o trabalho dele:** citar ⛔ *"nunca `w-full`/`flex-1` na mão"* no
+vocabulário fez o gate ler as duas classes como nome de componente inventado. Declarei `w-` e
+`flex-` na lista de "não é nome", com o motivo — que é o que o próprio módulo manda fazer.
+
+**Estado:** tsc 0 · 59 arquivos / **716 testes** (+7), 0 falha · `release:check` exit 0 ·
+registry + embed rebuildados (o `tabs` é item distribuído) · CLI **0.25.13**.
+
+**Assumption:** que `fullWidth` booleano basta. Ele distribui igualmente; se aparecer caso de
+aba com peso diferente (uma larga + duas estreitas), a prop não cobre e o consumidor volta pro
+`flex-1` na mão. Cai no primeiro pedido de distribuição desigual — aí a discussão é `grid-cols`
+no List, não booleano.
+
+**Changelog:** fica pro `/ds-release` (o `updates-data.ts` não entra em PR de componente).

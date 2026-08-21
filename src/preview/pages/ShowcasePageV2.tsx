@@ -462,8 +462,8 @@ export function ShowcasePageV2() {
       {/* ── 12. FAQ ─────────────────────────────────────────────────────── */}
       <Card>
         <CardContent>
-          <Tabs defaultValue="general">
-            <TabsList className="w-full [&>*]:flex-1">
+          <Tabs fullWidth defaultValue="general">
+            <TabsList>
               <TabsTrigger value="general">General</TabsTrigger>
               <TabsTrigger value="billing">Billing</TabsTrigger>
               <TabsTrigger value="goals">Goals</TabsTrigger>
