@@ -178,11 +178,13 @@ function PainelUf({ uf }: { uf: UfClicada }) {
 
   return (
     <div className="flex flex-col gap-gp-md">
-      <div>
+      {/* Título + subtítulo num card interno de bg mais fraco (subtle > surface
+          na hierarquia), como um header destacado; as infos ficam soltas abaixo. */}
+      <div className="rounded-radius-md bg-bg-subtle px-pad-xl py-pad-lg">
         <h3 className="text-title-sm font-semibold text-fg-default">{uf.name}</h3>
         <p className="text-caption-sm text-fg-muted">Código IBGE {uf.id}</p>
       </div>
-      <div className="flex flex-col gap-gp-sm border-t border-border-subtle pt-gp-md">
+      <div className="flex flex-col gap-gp-sm px-pad-xs">
         {linhas.map(([label, valor]) => (
           <div key={label} className="flex items-baseline justify-between gap-gp-md">
             <span className="text-caption-md text-fg-muted">{label}</span>
@@ -242,25 +244,24 @@ export function ChoroplethMapDoc() {
         title="Seleção por clique"
         description="Master-detail: onFeatureClick + selectedId — clicar seleciona a UF (destaque persistente, mais forte que o hover), clicar de novo desmarca. O painel lateral tem LARGURA FIXA de propósito: painel que cresce com o conteúdo redimensiona o mapa a cada clique."
       >
-        <div className="flex flex-col gap-gp-2xl md:flex-row">
-          <div className="min-w-0 flex-1">
-            <MapaDemo
-              onFeatureClick={(info) =>
-                setSelecionada((atual) => (atual?.id === info.id ? null : info))
-              }
-              selectedId={selecionada?.id ?? null}
-              legendTitle="Clique numa UF pra selecionar"
-            />
-          </div>
-          <div className="h-fit shrink-0 rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl md:w-[220px]">
+        {/* Mapa em largura total; o painel FLUTUA no canto superior direito
+            (área de oceano) em vez de dividir a linha — largura fixa continua
+            valendo, então seleção nenhuma redimensiona o mapa. */}
+        <div className="relative w-full">
+          <MapaDemo
+            onFeatureClick={(info) =>
+              setSelecionada((atual) => (atual?.id === info.id ? null : info))
+            }
+            selectedId={selecionada?.id ?? null}
+            legendTitle="Clique numa UF pra selecionar"
+          />
+          <div className="mt-gp-2xl rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl md:absolute md:right-0 md:top-0 md:mt-0 md:w-[220px] md:shadow-sh-md">
             {selecionada ? (
               <PainelUf uf={selecionada} />
             ) : (
-              <div className="flex h-full items-center justify-center py-sp-4xl md:py-0">
-                <p className="text-center text-body-sm text-fg-muted">
-                  Clique numa UF do mapa pra ver o detalhe.
-                </p>
-              </div>
+              <p className="text-center text-body-sm text-fg-muted">
+                Clique numa UF do mapa pra ver o detalhe.
+              </p>
             )}
           </div>
         </div>
