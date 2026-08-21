@@ -54,6 +54,8 @@ import { Panel } from "@/components/ui/Panel";
 ```
 
 ## Cuidados / Gotchas
+- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.
+
 - **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel
 - **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`
 - **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua

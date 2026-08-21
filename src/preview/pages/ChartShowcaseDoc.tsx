@@ -999,10 +999,10 @@ function BudgetBreakdownCard() {
   return (
     <Panel id="budget" className="max-w-[450px]">
       <CardHead title="Budget Breakdown" subtitle="Spend distribution across teams and cost categories." />
-      <Tabs defaultValue="team" className="mt-pad-3xl">
-        <TabsList className="w-full">
-          <TabsTrigger value="team" className="flex-1">By Team</TabsTrigger>
-          <TabsTrigger value="category" className="flex-1">By Category</TabsTrigger>
+      <Tabs fullWidth defaultValue="team" className="mt-pad-3xl">
+        <TabsList>
+          <TabsTrigger value="team">By Team</TabsTrigger>
+          <TabsTrigger value="category">By Category</TabsTrigger>
         </TabsList>
       </Tabs>
 
@@ -1077,10 +1077,10 @@ function CryptoPortfolioCard() {
         <span className="font-medium text-fg-danger">-$612.40 (-1.57%)</span>{" "}
         <span className="text-fg-muted">Today</span>
       </p>
-      <Tabs defaultValue="trending" className="mt-pad-3xl">
-        <TabsList className="w-full">
-          <TabsTrigger value="trending" className="flex-1">Trending</TabsTrigger>
-          <TabsTrigger value="altcoins" className="flex-1">Altcoins</TabsTrigger>
+      <Tabs fullWidth defaultValue="trending" className="mt-pad-3xl">
+        <TabsList>
+          <TabsTrigger value="trending">Trending</TabsTrigger>
+          <TabsTrigger value="altcoins">Altcoins</TabsTrigger>
         </TabsList>
       </Tabs>
       <div className="mt-pad-2xl flex flex-col">
@@ -1445,11 +1445,11 @@ function UserAcquisitionCard() {
   return (
     <Panel id="user-acquisition" className="max-w-[440px]">
       <CardHead title="User Acquisition by Channel" action={moreBtn} className="mb-pad-2xl" />
-      <Tabs defaultValue="organic" className="mb-pad-2xl">
-        <TabsList className="w-full">
-          <TabsTrigger value="organic" className="flex-1">Organic</TabsTrigger>
-          <TabsTrigger value="paid" className="flex-1">Paid</TabsTrigger>
-          <TabsTrigger value="referral" className="flex-1">Referral</TabsTrigger>
+      <Tabs fullWidth defaultValue="organic" className="mb-pad-2xl">
+        <TabsList>
+          <TabsTrigger value="organic">Organic</TabsTrigger>
+          <TabsTrigger value="paid">Paid</TabsTrigger>
+          <TabsTrigger value="referral">Referral</TabsTrigger>
         </TabsList>
       </Tabs>
       <ChartContainer config={acqConfig} className="h-[220px] w-full">

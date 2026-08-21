@@ -95,12 +95,12 @@ export function BudgetBreakdownBlock() {
           do Card encosta nas bordas, que é o que este bloco fazia por engano. */}
       <CardContent>
         {/* Ver o JSDoc: abas de composição. Ligue a estado ou remova. */}
-        <Tabs defaultValue="area">
-          <TabsList className="w-full">
-            <TabsTrigger value="area" className="flex-1">
+        <Tabs fullWidth defaultValue="area">
+          <TabsList>
+            <TabsTrigger value="area">
               Por área
             </TabsTrigger>
-            <TabsTrigger value="categoria" className="flex-1">
+            <TabsTrigger value="categoria">
               Por categoria
             </TabsTrigger>
           </TabsList>

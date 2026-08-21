@@ -32,3 +32,12 @@ Padrão de drawer do DS, ligado ao CRUD/detalhe. Três variantes, mesma família
 - Abrir detalhe no click da linha (`onRowClick`); abrir editar via ação da linha.
 
 Aplique `DESIGN.md` + regras. Handoff: `DRAWER_PRONTO: <criar|editar|detalhe> de <Entidade>`.
+
+## Aba dentro do drawer/painel
+
+`<Tabs fullWidth>` com a variante **default** (`segmented`) — nunca `line`. Estas superfícies
+são estreitas por construção (`Panel` 560px, `FloatingPanel` 320–720 e **redimensionável**),
+e ali o `line` vira um trilho curto que lê como fragmento. Sem `fullWidth` as abas ficam num
+canto. ⛔ Não escreva `w-full` no `TabsList` nem `flex-1` nos triggers: a prop faz as três
+camadas (root + list + triggers), e `w-full` só no list estica o container e agrupa as abas
+na esquerda.

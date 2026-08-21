@@ -56,8 +56,10 @@ label, helper, erro e do `htmlFor`).
 
 ## Abas e alternância de visão
 
-- `tabs` — navegar entre **seções de conteúdo**. `variant` no `<Tabs>` (propagada por
-  contexto, não no List/Trigger): `"segmented"` (default, pill) · `"line"` (underline).
+- `tabs` — seções de conteúdo. Duas props no `<Tabs>` (propagadas por contexto, nunca no
+  List/Trigger): **`variant`** `"segmented"` (default) dentro de superfície — card, bloco,
+  Panel, FloatingPanel, Modal, drawer · `"line"` para seções de página. **`fullWidth`** em
+  superfície compacta; hug em toolbar/página. ⛔ nunca `w-full`/`flex-1` na mão.
 - `button-group` — ações relacionadas lado a lado; uma dispara, **não guarda estado**.
 - `toggle-group` — modo ou filtro que **persiste** · `toggle` para um só, on/off.
 - ⚠️ Alternar tabela ↔ cards dos **mesmos dados** não é nenhum dos três: é `viewMode`

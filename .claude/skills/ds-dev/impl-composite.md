@@ -122,3 +122,12 @@ consolidam no `/ds-release` (Regra 8). Anote no corpo da PR o que ficou pendente
 
 Componente interno de propósito (sem showcase) → declare em
 `scripts/lib/ds-exceptions.mjs` com o motivo.
+
+## Aba dentro do drawer/painel
+
+`<Tabs fullWidth>` com a variante **default** (`segmented`) — nunca `line`. Estas superfícies
+são estreitas por construção (`Panel` 560px, `FloatingPanel` 320–720 e **redimensionável**),
+e ali o `line` vira um trilho curto que lê como fragmento. Sem `fullWidth` as abas ficam num
+canto. ⛔ Não escreva `w-full` no `TabsList` nem `flex-1` nos triggers: a prop faz as três
+camadas (root + list + triggers), e `w-full` só no list estica o container e agrupa as abas
+na esquerda.
