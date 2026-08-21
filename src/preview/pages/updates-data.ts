@@ -46,6 +46,43 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.45.0",
+    date: "2026-08-21",
+    tag: "release",
+    title: "O mapa do Brasil voltou a aparecer — com hover, tooltip e seleção que se comportam",
+    summary:
+      "O mapa coroplético (regiões coloridas por valor) estava renderizando **vazio** na página de documentação — localmente e no site publicado — porque a malha do IBGE chega num formato que o componente recebia e descartava em silêncio, com a legenda aparecendo normal por cima do nada. Consertado isso, a interação inteira foi refeita a partir de uso real: a região sob o mouse ganha um **contorno completo na cor do próprio mapa** com um reforço de tinta, o **tooltip segue o cursor** sem piscar (antes ele brigava com o mouse e abria-fechava em loop dependendo da direção do movimento), e **clicar numa região a seleciona** com destaque persistente — a base para telas de \"mapa + painel de detalhe\", que a documentação agora demonstra. De carona, dois consertos que doíam em tela real: o campo de seleção **parou de apagar valor que ninguém tocou** quando as opções chegam depois dele, e o cartão de documento no chat ficou **inteiro clicável** — antes só um ícone minúsculo baixava o arquivo.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Seleção por clique no mapa.** Nova propriedade `selectedId`: a região clicada fica destacada de forma persistente — contorno e tinta mais fortes que o hover, para dar para distinguir \"selecionada\" de \"sob o mouse\" — e clicar de novo desmarca. É o gancho para telas de mapa com painel de detalhe, e a documentação demonstra o padrão completo: mapa em largura total com um painel flutuante de **largura fixa** (fixa de propósito — painel que cresce com o conteúdo redimensionava o mapa a cada clique).",
+          "**Dois exemplos novos na página do mapa, e o guia de uso reescrito.** \"Regiões sem dados\" mostra o estado neutro de cobertura parcial — região fora dos dados fica apagada, sem configuração nenhuma. E o guia de uso do componente agora traz as receitas completas (malha de UFs do IBGE com os nomes dos estados, painel de detalhe, o que nunca fazer com o tooltip) para uma IA replicar o padrão sem redescobrir os erros.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O mapa coroplético renderizava vazio — na documentação local E no site publicado.** A malha de UFs do IBGE chega como TopoJSON com um único objeto interno, e o componente exigia que esse objeto fosse nomeado à mão; sem o nome, devolvia lista vazia **em silêncio** — o desenho ficava em branco enquanto a legenda aparecia normal, disfarçando o defeito. Agora topologia de objeto único é extraída automaticamente; com dois ou mais objetos o nome continua necessário, porque aí é ambíguo.",
+          "**O destaque de hover mal aparecia — e a região parecia mal delimitada.** Era só a troca de cor de um traço de meio pixel, e contorno de região em SVG é coberto pelas regiões vizinhas desenhadas depois: nunca fechava o desenho inteiro. Agora a região sob o mouse é **redesenhada por cima de todas**, com contorno de três vezes a espessura das divisas e uma tinta da própria escala.",
+          "**O tooltip do mapa piscava — e o defeito dependia da direção do movimento.** Movendo o mouse na direção do tooltip (de baixo para cima, por exemplo), o cursor o alcançava e ele fechava e reabria em loop; entrando na região por outro lado, funcionava. A causa: o tooltip era montado por uma camada flutuante que **captura o mouse**. Virou um tooltip próprio, numa camada transparente ao mouse, que segue o cursor e só troca o conteúdo — a classe inteira de defeito deixa de existir, e região sem valor mostra \"Sem dados\".",
+          "**Num mapa amarelo ou roxo, o contorno do hover ficava verde.** O destaque usava a cor da marca, fixa, em qualquer mapa. Agora acompanha a família de cor da escala escolhida: contorno amarelo forte no mapa amarelo, roxo forte no roxo.",
+          "**O campo de seleção apagava valor que ninguém tocou.** Quando as opções chegam depois do valor já gravado (dado vindo de API), um eco interno voltava vazio e o formulário \"esquecia\" a escolha — uma tela real passou 19 horas sem conseguir salvar. Consertado com uma guarda estreita; nada muda para quem usa o componente.",
+          "**O cartão de documento no chat dizia \"Toque para baixar\" — mas só um ícone de 16 pixels na borda respondia ao toque.** Em coluna estreita o ícone nem aparecia. O cartão inteiro virou o botão.",
+          "**O compositor de mensagens desabilitado acinzentava a moldura inteira** em vez de desabilitar só o campo de digitação.",
+          "**A galeria de blocos ordenava por texto, não por número** — o décimo bloco aparecia entre o primeiro e o segundo. Ordem numérica de verdade.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "**Criar um bloco novo virou um fluxo de dois passos.** O índice da galeria é gerado por script e a galeria se descobre sozinha — e um lembrete automático avisa quando alguém esquece de rodar a geração. O kit de quem consome o sistema ganhou o índice de blocos no scaffold e o protocolo de referência visual — quando há um print de referência, **o print manda no conteúdo e o sistema manda na pele e no comportamento** (CLI 0.25.7 → 0.25.9).",
+          "**Nome de estilo de texto extinto agora reprova no teste.** Citar um preset de tipografia que o tema não emite não quebra nada — o texto só sai no tamanho errado, em silêncio; um nome inventado passou por 14 verificações sem disparar nenhuma. Ganhou verificação própria, cobrindo também os documentos e guias que ensinam a IA. E as regras carregadas em toda sessão emagreceram: o detalhe virou contexto sob demanda, que custa menos e diverge menos.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.44.0",
     date: "2026-08-20",
     tag: "release",
