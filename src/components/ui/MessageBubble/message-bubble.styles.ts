@@ -55,9 +55,14 @@ export const messageBubbleStyles = tv({
       "max-w-full rounded-radius-sm focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     mediaAudio: "w-full",
     mediaDoc: [
-      "flex items-center gap-gp-md",
+      "flex w-full items-center gap-gp-md text-left",
       "rounded-radius-sm bg-bg-muted",
       "px-pad-lg py-pad-md",
+      // O card INTEIRO e o alvo do clique (ver o docblock do branch
+      // `document`), entao ele precisa do estado de foco e do afeto de hover
+      // que qualquer alvo clicavel tem.
+      "transition-colors hover:bg-bg-subtle",
+      "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     mediaDocIcon: "shrink-0 text-fg-brand",
     mediaDocInfo: "flex min-w-0 flex-col",
