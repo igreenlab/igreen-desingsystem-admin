@@ -3384,3 +3384,37 @@ dropdown era o estado fechado.
 **Assumption:** que `""` continua sendo a sentinela do Radix. Se uma versão
 futura mudar isso, a sentinela interna vira ruído — mas não quebra: ela é
 simétrica na entrada e na saída.
+
+---
+
+### [2026-08-21] | DS DEV | ChoroplethMap — showcase quebrado, hover/tooltip e master-detail | CONCLUÍDO
+
+- Input: `#/choropleth-map` renderizava o mapa VAZIO (local E Vercel — o "#/chart-map
+  funcional" da comparação era outra página, a receita inline); depois, série de
+  refinamentos de interação pedidos pelo mantenedor com print/observação a cada rodada.
+- Output: PR #252 (10 commits, mergiado). (1) Topology de objeto único extraída sem
+  `topologyObject` — a malha do IBGE (`formato=application/json`) devolve TopoJSON
+  `objects.BRUF` e a doc não passava a prop → `normalizeFeatures` devolvia `[]` mudo com
+  a legenda normal (derivada de `values`), disfarçando o defeito. (2) Hover com realce
+  real: a região é REDESENHADA por cima de todas (stroke de path SVG é coberto pelos
+  vizinhos desenhados depois — no próprio path o contorno nunca fecha). (3) Tooltip
+  PRÓPRIO em camada `pointer-events-none` seguindo o cursor — dois flickers distintos
+  antes disso: o conteúdo portalado capturava o mouse, e depois o WRAPPER do popper
+  (`data-radix-popper-content-wrapper`) continuava capturando mesmo com o conteúdo em
+  `pointer-events-none`; cursor movendo NA DIREÇÃO do tooltip o alcançava → mouseleave
+  do svg → fecha/reabre em loop (bug dependente de direção). (4) Prop `selectedId`
+  (destaque persistente, tinta 32% vs 18% do hover). (5) Stroke de hover/seleção segue a
+  família do mapa: `var(--color-fg-{scaleToken})` inline, não `fg-brand` fixo (verde em
+  mapa amarelo/roxo). (6) Doc: exemplo master-detail (mapa largura total + painel
+  FLUTUANTE de largura fixa 220px — painel elástico redimensionava o svg a cada clique),
+  exemplo "Regiões sem dados", nomes de UF (malha `qualidade=minima` só traz `codarea`).
+  USAGE.md reescrito com as receitas pra IA replicar.
+- Decisões: tooltip de chart NÃO usa Radix (portal captura mouse por construção); cor
+  data-driven inline é a exceção L-027 estendida ao stroke; largura de painel lateral
+  de mapa é sempre fixa.
+- Assumption: o wrapper do popper do Radix continua com pointer-events ativo (se o Radix
+  mudar isso um dia, o tooltip próprio segue correto — só deixa de ser obrigatório).
+- Distribuição: registry:build + bump PENDENTES — consolidar no próximo `/ds-release`
+  (anotado no PR body).
+- Lições novas: nenhuma registrada (candidata: "portal/popper captura mouse mesmo com
+  conteúdo pointer-events-none" — decidir com o mantenedor se vira L-070).
