@@ -29,9 +29,18 @@ export const choroplethStyles = tv({
     // região inteira ("mal delimitada"). Não intercepta o mouse (o fill de
     // tinta vai inline, derivado do scaleToken via color-mix).
     pathHighlight: "pointer-events-none stroke-fg-brand",
-    // Camada de ancoragem do tooltip (não intercepta o mouse).
+    // Camada do tooltip (não intercepta o mouse — nem ela nem o filho).
     tooltipLayer: "pointer-events-none absolute inset-0",
-    tooltipAnchor: "absolute",
+    // Tooltip PRÓPRIO, não Radix: renderizado dentro da camada acima, segue o
+    // cursor e só troca o conteúdo. O Tooltip do DS portala o conteúdo num
+    // wrapper do popper que captura o mouse — cursor movendo NA DIREÇÃO do
+    // tooltip o alcançava → mouseleave do svg → fecha/reabre em loop (flicker
+    // dependente de direção). Superfície = mesma receita sólida de antes.
+    tooltip: [
+      "pointer-events-none absolute z-10 w-max max-w-[16rem] select-none",
+      "rounded-radius-md border border-border-default bg-bg-surface-elevated",
+      "px-pad-lg py-pad-xs text-caption-sm shadow-sh-lg",
+    ],
     tooltipName: "font-semibold text-fg-default",
     tooltipValue: "text-fg-muted",
     legend: "mt-gp-md flex flex-col gap-gp-xs",

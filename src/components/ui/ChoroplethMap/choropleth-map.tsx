@@ -9,11 +9,6 @@ import { feature as topojsonFeature } from "topojson-client";
 import type { FeatureCollection, Feature } from "geojson";
 import type { Topology, GeometryObject } from "topojson-specification";
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/shadcn/tooltip";
 import { choroplethStyles } from "./choropleth-map.styles";
 import type {
   ChoroplethGeography,
@@ -221,49 +216,38 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
             )}
           </svg>
 
-          {/* Ancora do tooltip: um ponto 0×0 que segue o CURSOR (em % da área
-              do svg). Reaproveita o Tooltip do DS de forma controlada — um
-              único tooltip pra todas as regiões (escala pra milhares de paths,
-              ao contrário de 1 Tooltip por região). */}
+          {/* Tooltip PRÓPRIO (não Radix), dentro da camada pointer-events-none:
+              segue o cursor e só troca o conteúdo. Nada aqui captura o mouse —
+              não existe portal/wrapper pra alcançar, então não há estado
+              aberto/fechado pra piscar. Flip: abre acima do cursor; perto da
+              borda superior abre abaixo, e perto das laterais desloca a
+              ancoragem horizontal pra não estourar o mapa. */}
           <div className={styles.tooltipLayer()}>
-            <Tooltip
-              open={hover != null && pos != null}
-              onOpenChange={() => {}}
-              disableHoverableContent
-            >
-              <TooltipTrigger asChild>
-                <span
-                  aria-hidden="true"
-                  className={styles.tooltipAnchor()}
-                  style={{ left: `${pos?.ax ?? 0}%`, top: `${pos?.ay ?? 0}%` }}
-                />
-              </TooltipTrigger>
-              {/* bg sólido: o bg-bg-emphasis default do Tooltip é vidro
-                  translúcido (12% branco) no dark — sobre o mapa fica
-                  esbranquiçado/ilegível. pointer-events-none: o conteúdo é
-                  portalado FORA do tooltipLayer; se capturar o mouse, o cursor
-                  entra no tooltip → mouseleave do svg → fecha → reabre
-                  (flicker em loop). */}
-              <TooltipContent
-                showArrow={false}
-                sideOffset={12}
-                className="pointer-events-none border border-border-default bg-bg-surface-elevated shadow-sh-lg"
+            {hover && pos && (
+              <div
+                className={styles.tooltip()}
+                style={{
+                  left: `${pos.ax}%`,
+                  top: `${pos.ay}%`,
+                  transform: `translate(${
+                    pos.ax < 12 ? "0%" : pos.ax > 88 ? "-100%" : "-50%"
+                  }, ${pos.ay < 18 ? "16px" : "calc(-100% - 12px)"})`,
+                }}
               >
-                {hover &&
-                  (renderTooltip ? (
-                    renderTooltip(hover)
-                  ) : (
-                    <div>
-                      <div className={styles.tooltipName()}>{hover.name}</div>
-                      <div className={styles.tooltipValue()}>
-                        {hover.value != null && Number.isFinite(hover.value)
-                          ? fmt(hover.value)
-                          : "Sem dados"}
-                      </div>
+                {renderTooltip ? (
+                  renderTooltip(hover)
+                ) : (
+                  <div>
+                    <div className={styles.tooltipName()}>{hover.name}</div>
+                    <div className={styles.tooltipValue()}>
+                      {hover.value != null && Number.isFinite(hover.value)
+                        ? fmt(hover.value)
+                        : "Sem dados"}
                     </div>
-                  ))}
-              </TooltipContent>
-            </Tooltip>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

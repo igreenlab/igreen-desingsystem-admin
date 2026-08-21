@@ -16,7 +16,6 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-brand", label: "Escala brand" },
   { id: "ex-token", label: "Outros tokens de escala" },
-  { id: "ex-status", label: "3 cores (status)" },
   { id: "ex-interaction", label: "Tooltip + clique" },
   { id: "api", label: "API Reference" },
 ];
@@ -87,35 +86,12 @@ function useIbgeUf() {
   return { geo, erro };
 }
 
-/**
- * Escala CATEGÓRICA por faixas — 3 cores de status simultâneas (posicionamento
- * ruim/médio/bom). `colorScale` custom vence o gradiente sequencial default;
- * a cor sai SEMPRE de token DS (nunca hex). A legenda embutida é do gradiente,
- * então o exemplo desliga `showLegend` e desenha chips próprios.
- */
-function scaleStatus(value: number, { min, max }: { min: number; max: number }) {
-  const t = (value - min) / (max - min || 1);
-  if (t < 1 / 3) return "var(--color-bg-danger)";
-  if (t < 2 / 3) return "var(--color-bg-warning)";
-  return "var(--color-bg-success)";
-}
-
-const STATUS_LEGENDA = [
-  { label: "Ruim", cls: "bg-bg-danger" },
-  { label: "Médio", cls: "bg-bg-warning" },
-  { label: "Bom", cls: "bg-bg-success" },
-] as const;
-
 function MapaDemo({
   scaleToken = "brand" as const,
-  colorScale,
-  showLegend,
   onFeatureClick,
   legendTitle,
 }: {
   scaleToken?: "brand" | "success" | "info" | "warning" | "danger";
-  colorScale?: (value: number, ctx: { min: number; max: number }) => string;
-  showLegend?: boolean;
   onFeatureClick?: (nome: string) => void;
   legendTitle?: string;
 }) {
@@ -140,8 +116,6 @@ function MapaDemo({
       topologyObject="BRUF"
       values={VALORES}
       scaleToken={scaleToken}
-      colorScale={colorScale}
-      showLegend={showLegend}
       legendTitle={legendTitle}
       ariaLabel="Clientes por unidade federativa"
       getFeatureId={(f) => String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "")}
@@ -184,28 +158,6 @@ export function ChoroplethMapDoc() {
         <div className="grid gap-gp-2xl md:grid-cols-2">
           <MapaDemo scaleToken="info" legendTitle="info" />
           <MapaDemo scaleToken="warning" legendTitle="warning" />
-        </div>
-      </ExampleSection>
-
-      <ExampleSection
-        id="ex-status"
-        title="3 cores (status)"
-        description="colorScale custom por faixas — as 3 cores de status simultâneas mostram onde o posicionamento está bom, médio ou ruim. A cor sai sempre de token DS; a legenda embutida (gradiente) é desligada e substituída por chips."
-      >
-        <MapaDemo colorScale={scaleStatus} showLegend={false} />
-        <div className="mt-gp-md flex items-center gap-gp-lg">
-          {STATUS_LEGENDA.map(({ label, cls }) => (
-            <span
-              key={label}
-              className="flex items-center gap-gp-xs text-caption-sm text-fg-muted"
-            >
-              <span
-                className={`size-gp-md rounded-radius-sm ${cls}`}
-                aria-hidden="true"
-              />
-              {label}
-            </span>
-          ))}
         </div>
       </ExampleSection>
 
