@@ -33,6 +33,23 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const CLI_ROOT = resolve(__dirname, "..");
 const TEMPLATES_DIR = join(CLI_ROOT, "templates");
+/**
+ * Versao do proprio CLI, lida do package.json ao lado. Impressa no banner.
+ *
+ * Nao e enfeite: em 2026-08-21 um scaffold quebrou na maquina do mantenedor (npm install
+ * ENOENT no package.json, git commit virando pathspec) e levou ~20 min pra diagnosticar,
+ * porque a saida nao dizia qual versao estava rodando. Era a 0.1.0, pega do cache do npx
+ * por ter sido invocada pelo nome do BIN em vez do pacote. Com o numero impresso, quem le
+ * o log ve na primeira linha que a versao esta errada.
+ */
+const CLI_VERSION = (() => {
+  try {
+    return JSON.parse(readFileSync(join(CLI_ROOT, "package.json"), "utf8")).version;
+  } catch {
+    return "?";
+  }
+})();
+
 const DEFAULT_TEMPLATE = "default";
 
 /* ──────────────────────────────────────────────────────────────────────────────
@@ -509,7 +526,7 @@ async function main() {
   console.log(pc.green(pc.bold(BANNER.join("\n"))));
   console.log(
     pc.green(pc.bold("  iGreen Design System")) +
-      pc.dim("  ·  create-design-system"),
+      pc.dim(`  ·  create-design-system v${CLI_VERSION}`),
   );
   console.log(
     pc.dim(

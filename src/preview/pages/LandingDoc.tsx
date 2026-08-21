@@ -2224,7 +2224,7 @@ const CANAIS = [
       },
     ],
     codigo: `# projeto novo, tudo configurado
-npm create @snksergio/design-system my-app
+npm create @snksergio/design-system@latest my-app
 cd my-app
 npm run dev
 # → http://localhost:3200`,

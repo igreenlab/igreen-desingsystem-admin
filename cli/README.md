@@ -10,7 +10,7 @@ then pull components on demand with `npm run igreen:add -- <name>` (the wrapper 
 ## Quick start
 
 ```bash
-npm create @snksergio/design-system my-app
+npm create @snksergio/design-system@latest my-app
 cd my-app
 cp .env.local.example .env.local              # paste the IGREEN_TOKEN (ask the maintainer)
 npm run igreen:add -- button form-field       # pull components + register in manifest

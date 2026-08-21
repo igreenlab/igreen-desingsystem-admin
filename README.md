@@ -96,7 +96,7 @@ tokens/brands/default/
 Para criar um projeto novo do zero já consumindo o DS, com tudo configurado (Vite + React 19 + Tailwind v4 + tema light/dark + exemplo funcional):
 
 ```bash
-npm create @snksergio/design-system my-app
+npm create @snksergio/design-system@latest my-app
 cd my-app
 npm run dev
 ```
