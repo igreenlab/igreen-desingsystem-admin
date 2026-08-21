@@ -26,12 +26,14 @@ export const choroplethStyles = tv({
     // Realce da região sob hover — uma CÓPIA do path desenhada por cima de
     // todas as outras. Necessário porque stroke de path SVG é coberto pelos
     // vizinhos desenhados depois: no próprio path, o contorno nunca fecha a
-    // região inteira ("mal delimitada"). Não intercepta o mouse (o fill de
-    // tinta vai inline, derivado do scaleToken via color-mix).
-    pathHighlight: "pointer-events-none stroke-fg-brand",
+    // região inteira ("mal delimitada"). Não intercepta o mouse. Stroke E fill
+    // vão inline, derivados do scaleToken (fg-{token} / bg-{token}) — o
+    // contorno acompanha a família de cor do mapa (amarelo em warning, roxo
+    // em info...), nunca verde fixo.
+    pathHighlight: "pointer-events-none",
     // Seleção persistente (selectedId) — mesma técnica do hover (cópia por
     // cima), tinta mais forte pra diferenciar do transitório.
-    pathSelected: "pointer-events-none stroke-fg-brand",
+    pathSelected: "pointer-events-none",
     // Camada do tooltip (não intercepta o mouse — nem ela nem o filho).
     tooltipLayer: "pointer-events-none absolute inset-0",
     // Tooltip PRÓPRIO, não Radix: renderizado dentro da camada acima, segue o

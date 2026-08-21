@@ -50,13 +50,60 @@ import brasilMunicipios from "./geo/br-municipios.topo.json"; // TopoJSON IBGE
 />
 ```
 
+## Interação (comportamento embutido — não reimplemente)
+
+- **Hover**: a região sob o cursor é REDESENHADA por cima de todas (contorno
+  `fg-{scaleToken}` com 3× a espessura das divisas + tinta de 18% do token).
+  O contorno acompanha a família de cor do mapa — amarelo forte num mapa
+  `warning`, roxo forte num `info` — nunca verde fixo.
+- **Tooltip**: próprio (NÃO Radix), vive numa camada `pointer-events-none` e
+  SEGUE o cursor, trocando só o conteúdo. Nunca captura o mouse (era a causa
+  de flicker direcional com o Tooltip portalado). Flip automático perto das
+  bordas. Região sem valor mostra "Sem dados".
+- **Seleção** (`selectedId`, controlado): destaque persistente com a mesma
+  técnica do hover, tinta mais forte (32% vs 18%). Toggle é responsabilidade
+  do consumer: `onFeatureClick={(i) => setSel(s => s?.id === i.id ? null : i)}`.
+
+## Receita: UFs do Brasil (malha IBGE em runtime)
+
+```tsx
+const IBGE_UF = "https://servicodados.ibge.gov.br/api/v3/malhas/paises/BR?formato=application/json&qualidade=minima&intrarregiao=UF";
+// devolve TopoJSON { objects: { BRUF } } — objeto único, extraído automaticamente
+// qualidade=minima NÃO traz nome — só properties.codarea. Mapeie código → nome:
+<ChoroplethMap
+  geography={geo}                       // fetch da URL acima
+  topologyObject="BRUF"                 // explícito por clareza (opcional: é único)
+  values={clientesPorUf}                // { "35": 612, "31": 388, ... } (código IBGE)
+  getFeatureId={(f) => String((f.properties as { codarea?: string })?.codarea ?? f.id ?? "")}
+  getFeatureName={(f) => UF_NOMES[id] ?? id}  // tabela código → "São Paulo"...
+/>
+```
+
+## Receita: master-detail (mapa + painel de detalhe)
+
+Espelhe a seção "Seleção por clique" da doc page (`ChoroplethMapDoc.tsx`):
+
+- Wrapper `relative w-full` com o mapa em largura total; painel FLUTUANDO no
+  canto superior direito (área de oceano): `md:absolute md:right-0 md:top-0
+  md:w-[220px] md:shadow-sh-md` + card `rounded-radius-lg border
+  border-border-default bg-bg-surface p-pad-xl`. Mobile: empilha (`mt-gp-2xl`).
+- ⚠️ **Largura do painel SEMPRE fixa** — painel que cresce com o conteúdo
+  redimensiona o svg (que é `w-full` do espaço restante) a cada seleção.
+- Dentro: título + subtítulo num card interno `rounded-radius-md bg-bg-subtle
+  px-pad-xl py-pad-lg` (hierarquia surface < subtle); métricas abaixo, UMA por
+  linha (`flex justify-between`, label `text-caption-md text-fg-muted`, valor
+  `text-body-sm font-semibold tabular-nums`).
+- Cobertura parcial: UF fora de `values` fica neutra (`bg-bg-muted`) — estado
+  "vazio" de graça, sem prop.
+
 ## Gotchas
 
 - **Dependências:** usa `d3-geo` (projeção + path) e `topojson-client` (TopoJSON → features) — as MESMAS primitivas que a `react-simple-maps` embrulha. Não usamos `react-simple-maps` porque ela trava peer em React ≤18 (o DS é React 19) — usar `--legacy-peer-deps` seria hack e contaminaria a árvore de todos os consumidores.
-- **Cor data-driven é inline:** o `fill` de cada região é `color-mix(... var(--color-bg-{scaleToken}) ...)` (derivado de tokens, % vem do dado) — não dá pra virar classe utilitária (valor contínuo/infinito). Mesma exceção justificada do `Avatar.colorHex` (L-027). Todo o resto (shell/legenda/tooltip) é classe token.
-- **Sem superfície escura no DS:** o tooltip reaproveita o `Tooltip` (bolha `bg-bg-emphasis`), ancorado no centroide da região — 1 tooltip controlado que segue o cursor (não 1 por path; escala pra milhares de municípios).
-- **Ids precisam casar:** as chaves de `values` têm que bater com o retorno de `getFeatureId`. TopoJSON do IBGE costuma trazer o código do município em `feature.id` — confira a fonte e ajuste `getFeatureId`.
-- **Performance:** milhares de `<path>` renderizam bem em SVG, mas re-render pesado; passe `values`/`geography` estáveis (memoize no consumer). A geometria (paths/centroides) é memoizada por `geography/projection/width/height`.
+- **Cor data-driven é inline:** o `fill` de cada região é `color-mix(... var(--color-bg-{scaleToken}) ...)` e o contorno de hover/seleção é `var(--color-fg-{scaleToken})` (derivados de tokens, valor vem do dado) — não dá pra virar classe utilitária (valor contínuo/infinito). Mesma exceção justificada do `Avatar.colorHex` (L-027). Todo o resto (shell/legenda/tooltip) é classe token.
+- **Não envolva o tooltip em Radix/portal:** qualquer wrapper portalado captura o mouse e reintroduz o flicker direcional (cursor persegue o tooltip → mouseleave do svg → fecha/reabre em loop).
+- **Ids precisam casar:** as chaves de `values` têm que bater com o retorno de `getFeatureId`. TopoJSON do IBGE costuma trazer o código em `properties.codarea` (malhas v3) ou `feature.id` — confira a fonte e ajuste `getFeatureId`.
+- **Dentro de container flex centrado** (ex.: preview de ExampleSection): dê `w-full` ao wrapper do mapa — sem ele o svg cai na largura intrínseca default (300px).
+- **Performance:** milhares de `<path>` renderizam bem em SVG, mas re-render pesado; passe `values`/`geography` estáveis (memoize no consumer). A geometria (paths) é memoizada por `geography/projection/width/height`.
 
 ## Quando NÃO usar
 

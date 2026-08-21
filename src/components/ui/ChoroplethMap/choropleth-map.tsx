@@ -130,6 +130,9 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
     const max = domain ? domain[1] : numeric.length ? Math.max(...numeric) : 0;
 
     const scaleVar = `var(--color-bg-${scaleToken})`;
+    // Contorno de hover/seleção na MESMA família do mapa (fg-warning num mapa
+    // warning, fg-info num info...) — nunca fg-brand fixo.
+    const strokeVar = `var(--color-fg-${scaleToken})`;
     const surfaceVar = "var(--color-bg-surface)";
     const noDataVar = "var(--color-bg-muted)";
 
@@ -216,6 +219,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                     className={styles.pathSelected()}
                     strokeWidth={Math.max(strokeWidth * 3, 1.5)}
                     style={{
+                      stroke: strokeVar,
                       fill: `color-mix(in srgb, ${scaleVar} 32%, transparent)`,
                     }}
                   />
@@ -227,6 +231,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                 className={styles.pathHighlight()}
                 strokeWidth={Math.max(strokeWidth * 3, 1.5)}
                 style={{
+                  stroke: strokeVar,
                   fill: `color-mix(in srgb, ${scaleVar} 18%, transparent)`,
                 }}
               />
