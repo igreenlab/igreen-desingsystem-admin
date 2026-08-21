@@ -3264,3 +3264,53 @@ vale: `cli/templates/default/_claude/` serve npm-scaffold e `ds:link` sem bifurc
 
 **Publish:** do mantenedor (L-020). Submódulo não depende disto — pega com
 `git pull --recurse-submodules` + `npm --prefix design-system run ds:link`.
+
+---
+
+### [2026-08-21] | DS DEV | Select que apaga valor + card de documento inerte | CONCLUÍDO
+
+Dois defeitos achados por consumidor (Hub) em produção, ambos de componente
+existente — sem gate de token/componente novo.
+
+**1. `FormFieldSelect` apagava o valor controlado.** O Radix usa `""` como
+sentinela de "nada selecionado" e, dentro de `<form>`, ECOA o valor pelo
+`<select>` nativo do `SelectBubbleInput`:
+
+```
+setValue.call(select, selectValue);          // select.value = "24"
+select.dispatchEvent(new Event("change"));   // change de verdade
+onChange: (e) => onValueChange(e.target.value)
+```
+
+Sem `<option>` correspondente o DOM recusa a atribuição e o eco volta `""` —
+que chega ao consumidor indistinguível de uma escolha. Morde sempre que as
+opções chegam DEPOIS do valor. Efeito medido no Hub: a tela de Conexões parou
+de salvar, a fila gravada era apagada na abertura da modal, a validação
+reprovava por campo que ninguém esvaziou, e **19 horas de access log sem um
+único PUT**.
+
+Junto vinha um terceiro sintoma da mesma raiz: opção com `value: ""` — o idioma
+que este componente sempre convidou a escrever — nunca mostrava o rótulo, e
+**lança** no Radix 2.2.6 (erro que o 2.3.1 REMOVEU, trocando quebra alta por
+silêncio).
+
+Conserto: sentinela interna (`__ds_select_vazio__`) + guarda estreita do eco
+(só engole vazio com dropdown fechado e valor órfão). API pública intacta.
+
+**2. `MessageBubble` — card de documento sem clique.** Dizia "Toque para
+baixar" e só o ícone de ~16px na borda direita tinha `onClick`; em coluna
+estreita ele fica fora da área visível. O card inteiro virou `<button>`, o
+ícone virou decoração (botão dentro de botão seria HTML inválido), e sem
+`onMediaClick` o rótulo deixa de prometer gesto.
+
+**Gates:** tsc 0 · 57 arquivos / 693 testes, 0 falha. Os 10 testes novos foram
+provados VERMELHOS contra o código de antes (6/6 e 4/4) — L-064.
+
+**Achado de infra:** o `vitest.setup.ts` ganhou polyfill de Pointer Capture e
+`scrollIntoView`. jsdom não os implementa e o Radix os usa em TODO flutuante:
+sem isso nenhum teste conseguia ABRIR um Select, e a única coisa testável de um
+dropdown era o estado fechado.
+
+**Assumption:** que `""` continua sendo a sentinela do Radix. Se uma versão
+futura mudar isso, a sentinela interna vira ruído — mas não quebra: ela é
+simétrica na entrada e na saída.
