@@ -29,6 +29,9 @@ export const choroplethStyles = tv({
     // região inteira ("mal delimitada"). Não intercepta o mouse (o fill de
     // tinta vai inline, derivado do scaleToken via color-mix).
     pathHighlight: "pointer-events-none stroke-fg-brand",
+    // Seleção persistente (selectedId) — mesma técnica do hover (cópia por
+    // cima), tinta mais forte pra diferenciar do transitório.
+    pathSelected: "pointer-events-none stroke-fg-brand",
     // Camada do tooltip (não intercepta o mouse — nem ela nem o filho).
     tooltipLayer: "pointer-events-none absolute inset-0",
     // Tooltip PRÓPRIO, não Radix: renderizado dentro da camada acima, segue o

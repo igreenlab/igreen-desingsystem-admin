@@ -29,6 +29,7 @@ Não é acoplado a nenhum dataset: você passa a geografia (GeoJSON/TopoJSON) + 
 | `formatValue` | `(v) => string` | `Intl.NumberFormat("pt-BR")` | Formata legenda + tooltip. |
 | `renderTooltip` | `(info) => ReactNode` | nome + valor | Conteúdo custom do tooltip. |
 | `onFeatureClick` | `(info) => void` | — | Clique numa região. |
+| `selectedId` | `string \| number \| null` | — | Destaque PERSISTENTE de uma região (controlado; par natural de `onFeatureClick` pra seleção por clique). |
 | `ariaLabel` | `string` | `"Mapa"` | Rótulo acessível (`role="img"`). |
 
 ## Exemplo mínimo (municípios do Brasil, IBGE TopoJSON)

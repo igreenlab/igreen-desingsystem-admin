@@ -87,6 +87,12 @@ export interface ChoroplethMapProps {
   renderTooltip?: (info: ChoroplethHoverInfo) => ReactNode;
   /** Disparado ao clicar numa região. */
   onFeatureClick?: (info: ChoroplethHoverInfo) => void;
+  /**
+   * Id da região destacada de forma PERSISTENTE (contorno + tinta mais fortes
+   * que o hover). Controlado pelo consumidor — o par natural de
+   * `onFeatureClick` pra seleção por clique. `null`/`undefined` = nenhuma.
+   */
+  selectedId?: string | number | null;
   /** Rótulo acessível do mapa (`role="img"`/`figure`). */
   ariaLabel?: string;
   /** className do container raiz. */

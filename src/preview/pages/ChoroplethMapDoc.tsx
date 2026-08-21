@@ -17,7 +17,7 @@ const TOC = [
   { id: "ex-brand", label: "Escala brand" },
   { id: "ex-token", label: "Outros tokens de escala" },
   { id: "ex-empty", label: "Regiões sem dados" },
-  { id: "ex-interaction", label: "Tooltip + clique" },
+  { id: "ex-interaction", label: "Seleção por clique" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -38,6 +38,7 @@ const PROPS = [
   { name: "formatValue", type: "(value: number) => string", defaultVal: "Intl pt-BR" },
   { name: "renderTooltip", type: "(info) => ReactNode", defaultVal: "nome + valor" },
   { name: "onFeatureClick", type: "(info) => void", defaultVal: "—" },
+  { name: "selectedId", type: "string | number | null", defaultVal: "—" },
   { name: "ariaLabel", type: "string", defaultVal: "—" },
 ];
 
@@ -99,15 +100,19 @@ function useIbgeUf() {
   return { geo, erro };
 }
 
+type UfClicada = { id: string | number; name: string; value: number | undefined };
+
 function MapaDemo({
   scaleToken = "brand" as const,
   values = VALORES,
   onFeatureClick,
+  selectedId,
   legendTitle,
 }: {
   scaleToken?: "brand" | "success" | "info" | "warning" | "danger";
   values?: Record<string, number>;
-  onFeatureClick?: (nome: string) => void;
+  onFeatureClick?: (info: UfClicada) => void;
+  selectedId?: string | number | null;
   legendTitle?: string;
 }) {
   const { geo, erro } = useIbgeUf();
@@ -138,13 +143,18 @@ function MapaDemo({
         const id = String((f.properties as { codarea?: string } | null)?.codarea ?? f.id ?? "");
         return UF_NOMES[id] ?? id;
       }}
-      onFeatureClick={onFeatureClick ? (info) => onFeatureClick(info.name) : undefined}
+      onFeatureClick={
+        onFeatureClick
+          ? ({ id, name, value }) => onFeatureClick({ id, name, value })
+          : undefined
+      }
+      selectedId={selectedId}
     />
   );
 }
 
 export function ChoroplethMapDoc() {
-  const [clicada, setClicada] = useState<string | null>(null);
+  const [selecionada, setSelecionada] = useState<UfClicada | null>(null);
 
   return (
     <DocLayout toc={TOC}>
@@ -186,12 +196,22 @@ export function ChoroplethMapDoc() {
 
       <ExampleSection
         id="ex-interaction"
-        title="Tooltip + clique"
-        description="onFeatureClick recebe { id, name, value, feature } — é o gancho de drill-down (ex.: UF → municípios)."
+        title="Seleção por clique"
+        description="onFeatureClick + selectedId: clicar seleciona a região (destaque persistente, mais forte que o hover), clicar de novo desmarca. O feedback fica no próprio mapa — a linha de status abaixo tem tamanho estável, sem quebra de layout."
       >
-        <MapaDemo onFeatureClick={setClicada} legendTitle="Clique numa UF" />
-        <p className="mt-gp-2xl text-body-sm text-fg-muted">
-          {clicada ? `Última região clicada: ${clicada}` : "Nenhuma região clicada ainda."}
+        <MapaDemo
+          onFeatureClick={(info) =>
+            setSelecionada((atual) => (atual?.id === info.id ? null : info))
+          }
+          selectedId={selecionada?.id ?? null}
+          legendTitle="Clique numa UF pra selecionar"
+        />
+        <p className="mt-gp-2xl text-body-sm text-fg-muted tabular-nums">
+          {selecionada
+            ? `${selecionada.name} — ${
+                selecionada.value != null ? `${selecionada.value} clientes` : "sem dados"
+              }`
+            : "Nenhuma região selecionada."}
         </p>
       </ExampleSection>
 

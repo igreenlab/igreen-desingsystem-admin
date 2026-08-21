@@ -79,6 +79,7 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
       formatValue,
       renderTooltip,
       onFeatureClick,
+      selectedId,
       ariaLabel = "Mapa",
       className,
     },
@@ -204,6 +205,22 @@ export const ChoroplethMap = forwardRef<HTMLDivElement, ChoroplethMapProps>(
                 />
               );
             })}
+            {selectedId != null &&
+              (() => {
+                const sel = geometry.find(
+                  (g) => getId(g.feature) === selectedId,
+                );
+                return sel ? (
+                  <path
+                    d={sel.d}
+                    className={styles.pathSelected()}
+                    strokeWidth={Math.max(strokeWidth * 3, 1.5)}
+                    style={{
+                      fill: `color-mix(in srgb, ${scaleVar} 32%, transparent)`,
+                    }}
+                  />
+                ) : null;
+              })()}
             {hover && (
               <path
                 d={hover.d}
