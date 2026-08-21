@@ -7,6 +7,11 @@ description: >
 
 # CRUD Builder — Entrevista
 
+> **O usuário deu print, Figma ou tela existente como referência?** Leia
+> **`.ai/context/referencia-visual.md`** antes da Fase 0 (sob demanda, ~1k tokens): o que a
+> referência decide (conteúdo), o que é do DS sempre (pele e comportamento) e por que chrome
+> na imagem muda o **escopo** da tarefa, não só o visual.
+
 ## ⛔ Perguntas obrigatórias (NUNCA pular, mesmo que dê pra inferir)
 
 Modo expresso e inferência NÃO valem pra estas duas — sempre explícitas:
@@ -58,26 +63,7 @@ Princípios:
    - Default: **client**.
 4. **Volume estimado de linhas** (decide proposta de virtualização na Fase 4).
    Default: "< 1.000".
-> **Tem print / Figma / tela existente como referência?** Leia
-> **`.ai/context/referencia-visual.md`** antes de continuar (sob demanda, ~1k tokens): o que
-> a referência decide, o que é do DS, e por que "chrome na imagem" muda o escopo.
-
-5. **Envelope da tela (wrapper)** — **verifique antes de perguntar**: existe
-   `AppShell` no projeto (grep em `src/`)? A referência que o usuário deu (print,
-   Figma, tela existente) mostra rail/menu/header?
-   - existe shell **e** a referência mostra chrome → **(b) `AppShell` + `PageHeader`**
-   - referência mostra chrome e **não** existe shell → **PARE e ofereça**
-     `/ds-create-app` junto; se o usuário recusar, escreva no blueprint, em linha
-     destacada, **o que do print não vai ser entregue**
-   - sem referência visual → **(a) `ExamplePageLayout`** no DS · **(c) puro** no consumer
-   As 3 opções são as mesmas do `list-builder` (Fase 0 dele), de propósito.
-
-   ⚠️ Esta pergunta existia no `list-builder` e **não** aqui — e o `blueprint.md` deste
-   builder já imprime `wrapper <ExamplePageLayout|AppShell|puro>`. Ou seja: o campo era
-   preenchido por INFERÊNCIA e aprovado em pacote. Foi por esse buraco que uma tela
-   nasceu sem o menu que o print mostrava (dogfood 2026-08-20).
-
-6. **`getRowId`** — campo id único. Default: `id`. Server mode → confirmar
+5. **`getRowId`** — campo id único. Default: `id`. Server mode → confirmar
    explicitamente (exemplo canônico usa `getRowId`).
 
 ### Inferência de tipos (determinística)
@@ -122,6 +108,21 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 | **Wrapper**                    | ver abaixo                                                                         |
 | Page id (kebab-case)           | derivado do nome — **verificar colisão com `DOC_PAGES` em `src/App.tsx`**          |
 | Seção da nav                   | "Data Table Components" (prefixo `Example:`) p/ standalone; "Examples" p/ AppShell |
+
+**Antes de perguntar, VERIFIQUE** (as duas respostas costumam decidir sozinhas):
+
+1. existe `AppShell` no projeto? (grep em `src/`)
+2. a referência que o usuário deu — print, Figma, tela existente — mostra rail/menu/header?
+
+- chrome na referência **e** shell disponível → **(b)**, sem perguntar
+- chrome na referência e **sem** shell → **pare e ofereça `/ds-create-app` junto**; se ele
+  recusar, o blueprint diz em **linha destacada** o que do print não vai ser entregue
+- sem referência visual → o default do ambiente ((a) no DS, (c) no consumer)
+
+> Print de app inteiro + pedido de "uma tela" é **`shell + tela`**, não `tela`. Foi este o
+> recorte que fez uma tela nascer sem o menu que o print mostrava (dogfood 2026-08-20) — a
+> pergunta do Wrapper existia, o que faltava era ligar a referência visual a ela.
+> Detalhe: `.ai/context/referencia-visual.md`.
 
 **Wrapper — 3 opções:**
 
