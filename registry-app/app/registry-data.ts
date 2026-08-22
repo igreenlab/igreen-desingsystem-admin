@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · accordion · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · alert-modal · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · alert · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · app-shell · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · avatar · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · badge · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · button-group · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · button · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · calendar · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · card · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · carousel · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · chart · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · checkbox · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · chip · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · collapsible · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · color-picker · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · combobox · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · command · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · context-menu · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · data-list · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1016,7 +1016,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/DataTable/USAGE.md",
-        "content": "# DataTable — Guia de uso\r\n\r\nWrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.\r\n\r\n> **Princípio**: o DataTable é smart, mas cada primitive (Table, TableToolbar, FooterTable) é dumb e standalone. Veja `Table/USAGE.md` e `TableToolbar/USAGE.md` se quiser montar uma tabela custom fora do DataTable.\r\n\r\n---\r\n\r\n## Imports\r\n\r\n```tsx\r\nimport {\r\n  DataTable,\r\n  type DataTableColumnDef,\r\n  type DataTableRef,\r\n  // builders pra reduzir boilerplate:\r\n  textColumn,\r\n  currencyColumn,\r\n  dateColumn,\r\n  statusColumn,\r\n  actionColumn,\r\n  // registry pra tipos custom:\r\n  columnTypeRegistry,\r\n  type ColumnTypeDefinition,\r\n} from \"@/components/ui/DataTable\";\r\n```\r\n\r\n---\r\n\r\n## Quick start — client mode (CRUD)\r\n\r\n```tsx\r\ninterface Client {\r\n  id: number;\r\n  name: string;\r\n  email: string;\r\n  status: \"active\" | \"inactive\";\r\n  value: number;\r\n  createdAt: string;\r\n}\r\n\r\n// ⚠️ Nenhuma coluna fixa `width` de propósito: com `autoFit` (default) o DataTable\r\n// mede o conteúdo e distribui o espaço. `width` aqui seria PISO, não trava — fixar\r\n// em todas só desloca o ponto de partida do rateio. Trave uma coluna só quando\r\n// precisar, com `width` + `maxWidth` iguais.\r\nconst columns = useMemo<DataTableColumnDef<Client>[]>(\r\n  () => [\r\n    textColumn<Client>(\"id\", \"ID\"),\r\n    textColumn<Client>(\"name\", \"Nome\", { sortable: true }),\r\n    { field: \"email\", headerName: \"Email\", type: \"email\" },\r\n    currencyColumn<Client>(\"value\", \"Valor\", { currency: \"BRL\" }),\r\n    dateColumn<Client>(\"createdAt\", \"Criado em\"),\r\n    statusColumn<Client>(\"status\", \"Status\", [\r\n      { value: \"active\", label: \"Ativo\", color: \"success\" },\r\n      { value: \"inactive\", label: \"Inativo\", color: \"muted\" },\r\n    ]),\r\n    actionColumn<Client>({\r\n      getActions: ({ row }) => [\r\n        { label: \"Editar\", onClick: () => editClient(row) },\r\n        {\r\n          label: \"Excluir\",\r\n          onClick: () => removeClient(row),\r\n          destructive: true,\r\n        },\r\n      ],\r\n    }),\r\n  ],\r\n  [editClient, removeClient],\r\n);\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  toolbar={{ title: \"Clientes\", enableSearch: true, enableFilters: true }}\r\n  paginationConfig={{ enabled: true, initialPageSize: 25 }}\r\n  selectionConfig={{ enabled: true, enableGlobal: true }}\r\n  onRowClick={(row) => router.push(`/clients/${row.id}`)}\r\n/>;\r\n```\r\n\r\n> `columns` **deve** ser memoizado — o processor reage à identidade do array, não ao conteúdo.\r\n\r\n---\r\n\r\n## Capacidades\r\n\r\n| Capability                      | Como ativar                                                                                                                                                                                                                                                                                                                                                          |\r\n| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\r\n| **Sort multi**                  | `sortable: true` na coluna; toolbar Sort popover surge automaticamente                                                                                                                                                                                                                                                                                               |\r\n| **Filter chip rápido**          | `enableColumnFilter: true` + `filterType: \"text\"\\|\"number\"\\|\"date\"\\|\"select\"\\|\"multiSelect\"\\|\"boolean\"`                                                                                                                                                                                                                                                              |\r\n| **Filter avançado (AND/OR)**    | Habilitado por default se houver coluna com `enableColumnFilter`                                                                                                                                                                                                                                                                                                     |\r\n| **Filter chips placeholder**    | `showEmptyFilterChips={[\"status\", \"categoria\"]}` — chips nativos visíveis desde o load inicial, mesmo sem valor preenchido (user clica e preenche)                                                                                                                                                                                                                   |\r\n| **Search global**               | `toolbar.enableSearch: true` (default). Client mode busca em todos os fields; server mode recebe `search` (debounced) + `searchField?` no `GridFetchParams`                                                                                                                                                                                                          |\r\n| **Pagination**                  | `paginationConfig.enabled: true` (default)                                                                                                                                                                                                                                                                                                                           |\r\n| **Selection (bulk)**            | `selectionConfig.enabled: true`                                                                                                                                                                                                                                                                                                                                      |\r\n| **Visibility / pin / reorder**  | `toolbar.enableColumns: true` (default)                                                                                                                                                                                                                                                                                                                              |\r\n| **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |\r\n| **Column types registry**       | `type: \"currency\"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |\r\n| **Formato de data**             | `type: \"date\"` → `14/03/2023` · `type: \"datetime\"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** (\"14 de mar\") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |\r\n| **Coluna de ações**             | `type: \"actions\"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |\r\n| **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |\r\n| **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |\r\n| **Copy célula**                 | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback \"Copiado!\" (~2s)                                                                                                                                                                                                                                                             |\r\n| **Grab-to-scroll horizontal**   | **nativo (default `true`)** — arrastar o corpo (mouse/pen) rola lateralmente; `grabToScroll={false}` desliga                                                                                                                                                                                                                                                          |\r\n| **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |\r\n| **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |\r\n| **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |\r\n| **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **\"Exibição\" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |\r\n| **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |\r\n| **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |\r\n| **Row grouping**                | `groupBy: \"status\"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form                                                                                                                                                                                                                                                               |\r\n| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`                                                                                                                                                                                                                                                                               |\r\n| **Tree-data (hierarquia)**      | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente.                                                                                                                                                                                                          |\r\n| **Saved views**                 | `savedViewsService` (use `savedViewsMockService` em dev)                                                                                                                                                                                                                                                                                                             |\r\n| **State persistence**           | `persistId: \"clients-table\"` — workspace \"Default\" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |\r\n| **Auto-fit das colunas**        | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui a sobra. ⚠️ **`col.width` é PISO, não trava** — a coluna entra no rateio e cresce a partir dele (medido: pedir 80/240/280 num container de 1400px devolve 187/560/653). Pra travar de verdade: **`width` + `maxWidth` iguais**. Prefira não fixar `width`. `autoFit={false}` desliga (legacy). |\r\n| **Resize manual de colunas**    | Default ativo em todas as colunas exceto `type: \"actions\"` ou `purpose: \"selection\"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`.                                                                                      |\r\n| **Export**                      | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }`                                                                                                                                                                                                            |\r\n| **View Kanban (board)**         | `viewMode=\"kanban\"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar                                                                                                                                                                                                           |\r\n| **View Lista (cards)**          | `viewMode=\"list\"` + `listConfig={{ renderItem(row) }}` — toggle Tabela/Lista auto na toolbar; mesma toolbar, corpo vira `<List>`. `hierarchical: true` + `getTreeDataPath` = lista em árvore. Showcase `#/clients-list-view`                                                                                                                                            |\r\n| **Totalizer row**               | `showTotalizers` na DataTable + `aggregate: \"sum\"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow`                                                                                                                                                                                                                              |\r\n| **Keyboard navigation**         | Auto — setas, Home/End, PgUp/PgDn no body                                                                                                                                                                                                                                                                                                                            |\r\n| **Estados (vazio / carregando / sem resultado)** | Já vêm com default embutido; `loading: boolean` + `renderEmpty` / `renderLoading` / `renderNoResults` **substituem** (são `ReactNode`, não função). Ver §Estados abaixo                                                                                                                                                                       |\r\n\r\n---\r\n\r\n## Receitas comuns\r\n\r\n### Estados: vazio, carregando, sem resultado\r\n\r\nAs três telas que aparecem quando não há linha pra mostrar. **Os três já têm default do\r\nDS** — você só passa a prop pra substituir 100% do slot:\r\n\r\n| Prop | Dispara quando | Default embutido |\r\n|---|---|---|\r\n| `renderLoading` | `loading` é `true` | spinner do DS |\r\n| `renderEmpty` | o dataset não tem **nenhum** registro | `<DataTableEmpty />` — ilustração + título + descrição + ação opcional |\r\n| `renderNoResults` | há linhas, mas **filtro/busca zerou** o resultado | `<DataTableNoResults />` com **`onClearFilters` já cabeado** pelo DataTable (limpa `filterModel` + `search`) |\r\n\r\n```tsx\r\n<DataTable\r\n  rows={rows}\r\n  columns={columns}\r\n  loading={isFetching}                 // prop SEPARADA, boolean\r\n  renderLoading={<MeuSkeleton />}      // ReactNode — não é função, não recebe props\r\n  renderEmpty={<EmptyState title=\"Nenhum cliente ainda\" action={<Button>Novo</Button>} />}\r\n  renderNoResults={<EmptyState title=\"Nada encontrado\" description=\"Ajuste os filtros.\" />}\r\n/>\r\n```\r\n\r\n⚠️ **Empty ≠ NoResults, e trocar os dois é o erro comum.** \"Não existe nada ainda\" pede\r\nCTA de **criar**; \"seu filtro não achou\" pede **limpar filtro** — e nesse segundo caso o\r\ndefault já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico\r\n**perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.\r\n\r\n### Coluna de ações (editar / excluir / \"…\")\r\n\r\n**Use `type: \"actions\"`.** É o `type` — não a posição no array, não `pinned` — que liga as\r\ntrês garantias, todas resolvidas no `use-data-table-columns.ts`:\r\n\r\n1. **Vai pro fim** da tabela, mesmo se você declarar a coluna no meio do array.\r\n2. **Ancora à direita** (`pinned: \"right\"` implícito) — fica visível com scroll horizontal.\r\n   Passar `pinned: \"right\"` na mão é redundante.\r\n3. **Não entra no rateio do autoFit** — largura fixa, não estica junto das outras.\r\n\r\n```tsx\r\n// builder (recomendado) — `field`/`headerName`/`type`/`pinned` já vêm certos\r\nactionColumn<Client>({\r\n  getActions: ({ row }) => [\r\n    { id: \"edit\", label: \"Editar\", icon: <Pencil />, onClick: () => edit(row) },\r\n    { id: \"del\", label: \"Excluir\", icon: <Trash2 />, destructive: true, onClick: () => del(row) },\r\n  ],\r\n}),\r\n```\r\n\r\n⛔ **Montar a coluna na unha perde as três.** `{ field: \"acoes\", headerName: \"Ações\",\r\nrender: () => <><Button/><Button/></> }` não tem `type`, então: não vai pro fim, não ancora,\r\n**e entra no rateio** — medido, uma coluna assim com `width: 120` num container de 1400px\r\ntermina com **220px**, e o conteúdo alinhado à esquerda deixa os botões ~100px longe da\r\nborda. É o sintoma \"o botão de ação ficou no meio da tabela\". Se precisa de render próprio,\r\nmantenha `type: \"actions\"` e use `getActions` — `customColumn` **não** serve pra isso.\r\n\r\n#### Quantas ações aparecem inline\r\n\r\n| ações visíveis na row | render | largura |\r\n|---|---|---|\r\n| 1 | 1 ícone, sem \"…\" | 44px |\r\n| 2 | 2 ícones | 74px |\r\n| 3 | 3 ícones | 104px |\r\n| **4+** | **só o \"…\"**, todas dentro | 44px |\r\n| qualquer nº, com `showInMenu` em algum item | **o seu split**, sem limite | derivada |\r\n\r\nO corte em 3 é a **capacidade geométrica** da coluna, não preferência: a célula usa\r\n`px-pad-md` na variante `actions` (8×2 — sobrescreve o `px-pad-2xl` das outras) + ícone\r\n`icon-2xs` (28px) + gap `gp-2xs` (2px) → `largura = 30n + 14`. Quatro ícones pedem 134px,\r\ncontra os 120 que a coluna sempre teve. Antes da v0.42.0 a largura era 120px **fixos** pra\r\nqualquer quantidade: 1 ação reservava espaço pra 3, e 4 ícones vazavam a coluna.\r\n\r\nPra forçar um split diferente, marque `showInMenu: true` nos itens que devem ir pro menu —\r\nisso desliga o automático e respeita você integralmente, inclusive com 5 ícones inline.\r\n\r\n`hidden` é resolvido **por row antes de contar**: uma row com 4 ações onde uma está oculta\r\nvolta a renderizar 3 ícones inline. A largura reservada é o **máximo** entre as rows\r\namostradas, senão a row mais completa ficaria cortada.\r\n\r\n**Largura:** `col.width` > `col.minWidth` > derivada da contagem. ⚠️ Até a v0.42.0 o\r\n`col.width` era **ignorado** nesta coluna (só `minWidth` funcionava) — se você tem\r\n`actionColumn({ width: 64 })` em código antigo, ele passa a valer de verdade agora, e 64px\r\ncomporta **1** ícone.\r\n\r\n### Server mode (refetch async + paginação remota)\r\n\r\n```tsx\r\nconst fetchData = useCallback(\r\n  async ({ pagination, sort, filters, search }: GridFetchParams) => {\r\n    const res = await api.get(\"/clients\", {\r\n      params: serialize({ pagination, sort, filters, search }),\r\n    });\r\n    return { data: res.data.items, total: res.data.total }; // GridFetchResult<T>\r\n  },\r\n  [],\r\n);\r\n\r\n<DataTable<Client>\r\n  fetchData={fetchData}\r\n  columns={columns}\r\n  toolbar={{ enableSearch: true, enableFilters: true }}\r\n  paginationConfig={{ enabled: true, initialPageSize: 25 }}\r\n/>;\r\n```\r\n\r\n`fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller (skeleton no body).\r\n\r\n### Inline edit (commit no submit / Enter)\r\n\r\n```tsx\r\nconst columns: DataTableColumnDef<Client>[] = [\r\n  { field: \"name\", headerName: \"Nome\", editable: true, sortable: true },\r\n  // ...\r\n];\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  onCellEditCommit={async ({ id, field, value, oldValue, row }) => {\r\n    await api.patch(`/clients/${id}`, { [field]: value });\r\n    refreshClients();\r\n  }}\r\n/>;\r\n```\r\n\r\nDouble-click numa cell `editable` → input inline; Enter commita; Esc cancela; loading bloqueia outras edições.\r\n\r\n### Mobile auto-switch para card\r\n\r\nPor default, viewports `< 768px` rendem cada row como `<TableCardRow>` no lugar de `<TableRow>`. O toolbar (search/filter/sort) e o footer (paginação) continuam intactos — só o body que troca.\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  cardBreakpoint={768} // default — abaixo deste pixel, vira card\r\n  // cardBreakpoint={false} // desabilita o auto-switch (mantém table sempre)\r\n  // cardBreakpoint={640}   // breakpoint custom\r\n/>\r\n```\r\n\r\n**Mapeamento automático das colunas → card:**\r\n\r\n- Coluna `isPrimary: true` (ou primeira coluna não-actions) → vai pro **header** do card como título\r\n- Coluna `type=\"actions\"` → vai pro **headerActions** (canto sup. direito)\r\n- Checkbox de selection → vai pro header (esquerda do título)\r\n- Demais colunas visíveis → viram `items` label/value no body do card\r\n\r\n**Pra eleger qual coluna é o título do card:**\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"id\", headerName: \"ID\", ... },\r\n  { field: \"name\", headerName: \"Nome\", isPrimary: true, ... }, // ← vira título do card\r\n  // ...\r\n];\r\n```\r\n\r\n**Degradações intencionais no card mode** (silenciosas — não quebram):\r\n\r\n- Virtualização desligada (renderiza `rowsToRender` integral, paginação ainda limita)\r\n- Row expansion / Inline editing / Column resize → desativados (sem sentido em card vertical)\r\n- Group rows → ainda não suportadas (TODO futuro)\r\n\r\n### Virtualização (10k+ linhas)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={tenThousandClients}\r\n  columns={columns}\r\n  virtualize\r\n  estimateRowHeight={56} // opcional — default deriva da density (40/56/64)\r\n  overscan={10} // opcional — rows extras fora da viewport\r\n  paginationConfig={{ enabled: false }} // virtualização geralmente exclui paginação\r\n/>\r\n```\r\n\r\nUsa `@tanstack/react-virtual`. Sticky header e seleção mantêm-se. Performance fica linear até ~100k rows. Requer container com altura definida (`flex-1 min-h-0` ou height fixa).\r\n\r\n### Row grouping\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  groupBy=\"status\" // controlled (string, 1 field na V1) — ou defaultGroupBy uncontrolled\r\n  onGroupByChange={setGroupBy}\r\n  // Default (sem overrides): header column-aligned com chevron + label + count + subtotals.\r\n  // Free-form: passe os 2 overrides abaixo.\r\n  renderGroupHeader={({ group, toggle }) => (\r\n    <span onClick={toggle}>\r\n      {group.label} ({group.count})\r\n    </span>\r\n  )}\r\n  renderGroupContent={({ group }) => <CardsGrid rows={group.rows} />}\r\n/>\r\n```\r\n\r\nPagination é desligada **automaticamente** quando `groupBy` está ativo. Sem os overrides, o default é column-aligned (mantém grid layout); com `renderGroupHeader`/`renderGroupContent`, o grupo vira free-form (full-width, ideal pra hierarquias complexas). Referência: `src/preview/pages/ClientsGroupedPreview.tsx` (2 modos).\r\n\r\n### Row expansion (painel detalhe)\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"id\", headerName: \"ID\", expandable: true }, // ← chevron + click trigger\r\n  // ...\r\n];\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  renderRowExpansion={({ row }) => <ClientDetailPanel client={row} />}\r\n  singleExpand // opcional — default false (múltiplas rows abertas)\r\n/>;\r\n```\r\n\r\nO chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.\r\n\r\n### Tree-data (hierarquia multi-nível)\r\n\r\nHierarquia tipo AG Grid: cada linha continua **FLAT** em `rows` e o **caminho** (`getTreeDataPath`) define a árvore. O DataTable reconstrói os níveis a partir dos caminhos e renderiza indentação + chevron na coluna primária.\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"name\", headerName: \"Licenciado\", treeColumn: true }, // ← coluna primária da árvore\r\n  // ...\r\n];\r\n\r\n// O path sobe a cadeia de patrocinador até a raiz: [\"L-001\", \"L-010\", \"L-100\"]\r\nconst byId = new Map(rows.map((r) => [r.id, r]));\r\nconst getTreeDataPath = (row: NetworkRow): string[] => {\r\n  const path: string[] = [];\r\n  let cur: NetworkRow | undefined = row;\r\n  while (cur) {\r\n    path.unshift(cur.id);\r\n    cur = cur.parentId ? byId.get(cur.parentId) : undefined;\r\n  }\r\n  return path;\r\n};\r\n\r\n<DataTable<NetworkRow>\r\n  rows={rows} // ← FLAT (não aninhadas)\r\n  columns={columns}\r\n  getRowId={(r) => r.id}\r\n  getTreeDataPath={getTreeDataPath}\r\n  treeData={{\r\n    defaultExpanded: true, // árvore começa aberta (default true)\r\n    showDescendantCount: true, // mostra \"(N)\" descendentes ao lado do nome\r\n  }}\r\n/>;\r\n```\r\n\r\nRegras:\r\n\r\n- `getTreeDataPath(row)` retorna o array do caminho (`[raiz, ..., self]`). Linhas com path vazio são ignoradas da árvore.\r\n- Se **nenhuma** coluna marcar `treeColumn: true`, o DataTable usa a primeira coluna não-`actions`.\r\n- Estado de expansão reusa a máquina de row-expansion (`expandedRowIds` / `defaultExpandedRowIds` / `onExpandedRowIdsChange`). O Set guarda os ids que **divergem** do `defaultExpanded`.\r\n- **Pagination desliga automaticamente** (paginar cortaria ramos). Não suportado em server mode — passe todas as rows do escopo + `virtualize` se necessário.\r\n- Precedência quando mais de um modo é passado: `groupBy` > `getTreeDataPath` > `renderRowExpansion`.\r\n- Search/sort operam sobre as rows; a árvore é reconstruída do resultado.\r\n- **Expand-all / collapse-all** programático via imperative ref: `ref.current.expandAllTree()` / `ref.current.collapseAllTree()` (ver seção [Imperative ref](#imperative-ref)). No-op fora do modo tree-data. Respeita `treeData.defaultExpanded` e opera sobre todas as rows pós-filtro/sort. O DS não embute botões na toolbar — o consumer fia os botões e chama via ref.\r\n\r\n```tsx\r\nconst tableRef = useRef<DataTableRef>(null);\r\n\r\n<button onClick={() => tableRef.current?.expandAllTree()}>Expandir tudo</button>\r\n<button onClick={() => tableRef.current?.collapseAllTree()}>Recolher tudo</button>\r\n\r\n<DataTable<NetworkRow> ref={tableRef} getTreeDataPath={getTreeDataPath} /* ... */ />\r\n```\r\n\r\nReferência: `src/preview/pages/ClientsTreePreview.tsx`.\r\n\r\n### Polish de célula — Read-more (Ler mais)\r\n\r\nTrunca conteúdo longo e abre o texto completo num popover ao clicar em \"Ler mais\". Equivalente DS do `ReadMoreCell` legado (que usava tooltip).\r\n\r\n```tsx\r\nconst columns = [\r\n  // 1 linha + reticências + gatilho \"Ler mais\" (default)\r\n  { field: \"obs\", headerName: \"Observação\", readMore: true },\r\n  // N linhas antes de truncar + label custom\r\n  {\r\n    field: \"bio\",\r\n    headerName: \"Bio\",\r\n    readMore: { lines: 2, label: \"Ver tudo\" },\r\n  },\r\n];\r\n```\r\n\r\n- `readMore: true` → 1 linha, label \"Ler mais\". `readMore: { lines?, label? }` customiza.\r\n- Desativa o `ellipsis` da cell automaticamente (a add-on gerencia o próprio truncate).\r\n- Aplica-se ao render default **ou** ao `render` custom (o nó é envolvido). Ignorado em `type: \"actions\"`, células em edição e na coluna primária de tree-data.\r\n- O texto do popover deriva do `valueFormatter`/`formatValue`/value (string) — pra HTML rico, passe um `render` que retorna o nó; ele é exibido no popover.\r\n\r\n### Polish de célula — Copy (copiar valor)\r\n\r\nÍcone de copiar revelado no hover/foco da célula, com feedback \"Copiado!\" por ~2s. Usa `navigator.clipboard` — **sem dependência nova**.\r\n\r\n```tsx\r\nconst columns = [\r\n  // copia o texto renderizado da célula\r\n  { field: \"email\", headerName: \"E-mail\", copyable: true },\r\n  // copia um valor derivado da row (ex: id puro) + aria-label custom\r\n  {\r\n    field: \"doc\",\r\n    headerName: \"CPF\",\r\n    copyable: { value: (row) => row.cpfRaw, label: \"Copiar CPF\" },\r\n  },\r\n];\r\n```\r\n\r\n- `copyable: true` → copia o texto da célula. `copyable: { value?, label? }` customiza: `value` aceita string ou `(row) => string`; `label` é o aria-label/title do botão.\r\n- O ícone só aparece no hover/foco (não polui a célula). O click não dispara `onRowClick`/seleção.\r\n- `readMore` tem precedência: se ambos forem definidos na mesma coluna, vale `readMore`.\r\n\r\n### Grab-to-scroll horizontal\r\n\r\nArrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao `useGrabToScroll` legado.\r\n\r\n```tsx\r\n{/* nativo — nada a fazer; pra desligar: */}\r\n<DataTable<Client> rows={clients} columns={columns} grabToScroll={false} />\r\n```\r\n\r\n- Prop raiz `grabToScroll: boolean` — **nativo, default `true`** (todas as tabelas já vêm com ele; passe `false` pra desabilitar).\r\n- Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.\r\n- **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).\r\n\r\n### Tela cheia (fullscreen)\r\n\r\nToggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo clique ou **Esc** volta.\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  toolbar={{ enableFullscreen: true }}\r\n/>\r\n```\r\n\r\n- `toolbar.enableFullscreen: true` (default `false`) renderiza o tool button entre Filtros e Configurações.\r\n- O container raiz vira overlay `fixed inset-0` (z-index `--z-index-modal`) com bg do canvas. Estado interno uncontrolled.\r\n\r\n### View Kanban (table ⇄ board)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  defaultViewMode=\"kanban\" // uncontrolled — ou viewMode + onViewModeChange (controlled)\r\n  kanbanConfig={{\r\n    groupByField: \"status\", // valor do field define a coluna do board\r\n    renderCard: ({ row }) => ({\r\n      // slots do card — id/columnId são derivados automaticamente\r\n      title: row.name,\r\n      subtitle: row.email,\r\n      value: formatBRL(row.value),\r\n    }),\r\n    enableDnD: true,\r\n    onCardMove: (cardId, from, to) => patchStatus(cardId, to),\r\n  }}\r\n/>\r\n```\r\n\r\nQuando `viewMode`/`defaultViewMode` + `kanbanConfig` estão definidos, a toolbar auto-renderiza o segmented table/kanban (override/esconda via `toolbar.viewToggle`). Filter/search/sort/selection continuam aplicados às rows; paginação, density toggle e columns popover são desligados automaticamente no board. `kanbanConfig.columns` (opcional, `KanbanColumn[]`) fixa ordem/label/dotColor das colunas — sem ele, as colunas derivam dos valores únicos de `groupByField`. Outras opções do `kanbanConfig`: `renderCardContent` (override total do miolo do card), `getCardMenuItems`/`getColumnMenuItems` (menus \"⋯\"), `onAddCard`/`onAddInFooter`, `emptyLabel`/`addLabel`.\r\n\r\n### View Lista (table ⇄ list)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  viewMode={viewMode}            // \"table\" | \"list\" | \"kanban\"\r\n  onViewModeChange={setViewMode} // ou defaultViewMode (uncontrolled)\r\n  listConfig={{\r\n    renderItem: (row, { depth }) => (\r\n      <div className=\"flex w-full items-center gap-gp-lg\">\r\n        <Avatar size=\"md\" colorHex={row.avatarColor}>{row.initials}</Avatar>\r\n        <div className=\"flex min-w-0 flex-1 flex-col\">\r\n          <span className=\"truncate text-body-md font-semibold\">{row.name}</span>\r\n          <span className=\"truncate text-caption-md text-fg-muted\">{row.email}</span>\r\n        </div>\r\n        <Chip color=\"success\" variant=\"soft\" size=\"sm\" shape=\"pill\">Ativo</Chip>\r\n      </div>\r\n    ),\r\n    // hierarchical: true,  // + getTreeDataPath → lista em ÁRVORE (conectores)\r\n    // getMenuItems: (row) => [...],  // menu \"⋯\" por item\r\n  }}\r\n/>\r\n```\r\n\r\n`listConfig` habilita a 3ª view: o toggle vira **Tabela / Lista** (+ Kanban se `kanbanConfig`). O DataTable mantém a **MESMA toolbar** (busca/filtros/views/ações/totalizadores) e só troca o corpo por um `<List>` do DS, alimentado pelas rows processadas (`filter+search+sort`; por padrão **sem paginação** — mostra todas, igual ao kanban). Passe `listConfig.paginated: true` pra **paginar a lista flat** (usa a mesma paginação da tabela + mostra o footer; ignorado em `hierarchical`). `listConfig.renderItem(row, { depth, open })` desenha o card de cada item. Com `hierarchical: true`, a lista aninha em árvore com indentação/conectores e `depth` por nível, usando `listConfig.getPath` (caminho raiz→self) — ou, se ausente, o `getTreeDataPath` do DataTable. **Use `listConfig.getPath` quando quiser tabela FLAT (paginada) + lista em ÁRVORE** no mesmo DataTable (o `getTreeDataPath` ligaria o tree-data na tabela e desligaria a paginação). Showcase: `#/clients-list-view`.\r\n\r\n### Saved views\r\n\r\n```tsx\r\nimport { savedViewsMockService } from \"@/components/ui/DataTable\";\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  savedViewsService={savedViewsMockService} // troque pelo seu service em prod\r\n/>;\r\n```\r\n\r\nService contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds) como JSON — `search` e paginação são voláteis e NÃO entram na view.\r\n\r\n**`allowCreateView` (v0.23.0)** — `allowCreateView={false}` esconde o botão \"+\" das visões (exibe SÓ os `defaultViews` + Default, read-only; o usuário não cria/salva visões). Default `true`.\r\n\r\n**`maxViewTabs`** — quantas abas de visão cabem na barra, **contando a \"Default\"**. Default `3`, ou seja **2 presets** de `defaultViews` viram aba.\r\n\r\n⚠️ O excedente é **cortado** (`.slice()` no `TableToolbarViews`): com 3 presets, o terceiro não aparece — sem erro e sem overflow. Em **DEV** sai um `console.warn` (v0.43.1) nomeando o que foi cortado e o `maxViewTabs` que resolve; em produção o corte é silencioso. Precisa de N abas fixas? `maxViewTabs={N + 1}`. Lembre que a aba **Default já é a visão sem filtro** — preset \"Todos\"/\"Todas\" duplica ela e gasta um slot.\r\n\r\n**viewMode \"sticky\" ao trocar de visão (v0.23.0)** — aplicar uma visão (preset/Default) só troca o `viewMode` se a visão **definir um explicitamente** (ex.: preset salvo em Lista/Kanban). Presets sem `viewMode` (o caso comum) **mantêm** o que o usuário está vendo — alternar de visão não flipa Tabela↔Lista↔Kanban. Pra um preset abrir numa view específica, passe `viewMode` no `presetView({ ... })`.\r\n\r\n### Tipo de coluna custom (registry)\r\n\r\n```tsx\r\nconst RatingColumnType: ColumnTypeDefinition = {\r\n  type: \"rating\",\r\n  // operators: array de { id, label } — id usa nomes canônicos do FilterOperator\r\n  // (equals, neq, contains, notContains, startsWith, endsWith, gt, lt, gte, lte,\r\n  // isAnyOf, isNoneOf, between, isEmpty, isNotEmpty). Label aparece no dropdown\r\n  // de operadores do popover Filtros + chip toolbar (via DEFAULT_OP_LABELS).\r\n  operators: [\r\n    { id: \"equals\", label: \"é\" },\r\n    { id: \"gt\",     label: \"maior que\" },\r\n    { id: \"lt\",     label: \"menor que\" },\r\n  ],\r\n  renderCell: ({ value }) => <Stars n={Number(value) || 0} />,\r\n  renderFilterInput: ({ value, onChange }) =>\r\n    <NumberInput min={0} max={5} value={value} onChange={onChange} />,\r\n  // obrigatório (sem `?` no type) — input do popover do chip rápido.\r\n  // Pode reusar o mesmo widget do renderFilterInput.\r\n  renderFastFilterInput: ({ value, onChange }) =>\r\n    <NumberInput min={0} max={5} value={value} onChange={onChange} />,\r\n  matchesFilter: (cellValue, filterValue, operator) => {\r\n    const n = Number(cellValue) || 0;\r\n    const f = Number(filterValue) || 0;\r\n    if (operator === \"equals\") return n === f;\r\n    if (operator === \"gt\") return n > f;\r\n    if (operator === \"lt\") return n < f;\r\n    return null;\r\n  },\r\n};\r\n\r\n// Registro feito uma vez na boot:\r\ncolumnTypeRegistry.register(RatingColumnType);\r\n\r\n// Uso:\r\n{ field: \"rating\", headerName: \"Rating\", type: \"rating\" as any }\r\n```\r\n\r\n---\r\n\r\n## Filtros — funil (drawer simple) + avançado (Configurações)\r\n\r\nA toolbar separa dois níveis de filtro, sempre disponíveis (gated por\r\n`toolbar.enableFilters !== false` + colunas filtráveis):\r\n\r\n- **Funil** → abre um **drawer lateral** com TODOS os filtros em form vertical.\r\n  Aplicação LIVE, operator inferido do `filterType` (multiSelect → isAnyOf,\r\n  text → contains, date → between, etc). O caminho simples pro user típico.\r\n- **Configurações → Filtros avançados** → query builder completo: modo **Visual**\r\n  (AND/OR + operadores explícitos + Adicionar condição) e modo **Avançado** (SQL-like,\r\n  round-trip-safe pra todos os operadores).\r\n\r\nA prop `simpleFilter` é **opcional** — só customiza o drawer do funil:\r\n\r\n```tsx\r\n{/* Funil + avançado vêm de graça — sem configuração */}\r\n<DataTable rows={...} columns={...} />\r\n\r\n{/* Customizar o drawer do funil */}\r\n<DataTable\r\n  simpleFilter={{\r\n    hiddenFields: [\"internal\"],   // não mostra no drawer (só no avançado)\r\n    title: \"Refinar busca\",\r\n    size: \"lg\",                   // 560px (default md = 400px)\r\n  }}\r\n/>\r\n```\r\n\r\n### `simpleFilter` (opcional)\r\n\r\n| Prop                        | Tipo                           | Default        | Quando usar                                                                            |\r\n| --------------------------- | ------------------------------ | -------------- | -------------------------------------------------------------------------------------- |\r\n| `simpleFilter.hiddenFields` | `string[]`                     | `[]`           | Fields que NÃO aparecem no drawer do funil (só no avançado). Útil pra filtros técnicos |\r\n| `simpleFilter.title`        | `string`                       | `\"Filtros\"`    | Override do título do header do drawer                                                 |\r\n| `simpleFilter.size`         | `\"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"` | `\"md\"` (400px) | Use `\"lg\"` (560px) se há muitos campos com widgets largos (dates/multi-select)         |\r\n\r\n---\r\n\r\n## ⚠️ filterModel controlado — operator correto por filterType\r\n\r\n**Quando passar `filterModel` como prop controlada (em vez de uncontrolled), use o operator\r\ncorreto pro `filterType` da coluna.** Operator errado = popover Filtros mostra o Select de\r\noperador **vazio** porque o operator não está nos `operators` do column-type.\r\n\r\n| `filterType` da coluna | Operators válidos                                                                             | Default sugerido |\r\n| ---------------------- | --------------------------------------------------------------------------------------------- | ---------------- |\r\n| `multiSelect`          | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                                                | `isAnyOf`        |\r\n| `select`               | `equals`, `neq`, `isEmpty`, `isNotEmpty`                                                      | `equals`         |\r\n| `text` (default)       | `contains`, `notContains`, `equals`, `neq`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty` | `contains`       |\r\n| `number`               | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`                                                     | `equals`         |\r\n| `date`                 | `between`, `equals`, `gt`, `lt`, `gte`, `lte`                                                 | `between`        |\r\n| `boolean`              | `equals`                                                                                      | `equals`         |\r\n\r\n```tsx\r\n// ❌ ERRADO — Status é multiSelect mas operator é \"equals\"\r\n// → Popover Filtros mostra Select operador VAZIO\r\nconst INITIAL_FILTERS: FilterModel = {\r\n  items: [{ id: \"f1\", field: \"statusId\", operator: \"equals\", value: \"active\" }],\r\n  logicOperator: \"AND\",\r\n};\r\n\r\n// ✅ CORRETO — operator bate com filterType=multiSelect\r\nconst INITIAL_FILTERS: FilterModel = {\r\n  items: [\r\n    { id: \"f1\", field: \"statusId\", operator: \"isAnyOf\", value: \"active\" },\r\n  ],\r\n  logicOperator: \"AND\",\r\n};\r\n```\r\n\r\n**Defesa em profundidade:** `FilterRowEditor` detecta operator inválido e faz fallback pro\r\nprimeiro operator do column-type + auto-normaliza via `onChange`. Mas é melhor declarar\r\ncorreto desde o início.\r\n\r\n**Atalho pra presets uncontrolled:** se você usar `defaultViews={[presetView({...})]}` em\r\nvez de filterModel controlled, o controller normaliza automaticamente via\r\n`normalizeFilterModelForColumns` na hidratação. Só recomendado se você não precisa de\r\ncontrole externo do filterModel.\r\n\r\n---\r\n\r\n## Imperative ref\r\n\r\n```tsx\r\nconst tableRef = useRef<DataTableRef>(null);\r\n\r\n<DataTable ref={tableRef} ... />\r\n\r\ntableRef.current?.getSelectedIds();   // (string | number)[]\r\ntableRef.current?.getSelectedCount(); // number\r\ntableRef.current?.clearSelection();\r\ntableRef.current?.getState();         // DataTableState snapshot\r\ntableRef.current?.refresh();          // server mode: re-disparar fetchData\r\ntableRef.current?.exportCsv(\"filtered\");  // download CSV — escopo \"all\" | \"filtered\" | \"selected\"\r\ntableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem persistId)\r\ntableRef.current?.expandAllTree();        // tree-data: expande todos os nós (no-op fora de tree-data)\r\ntableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (no-op fora de tree-data)\r\n```\r\n\r\n`expandAllTree` / `collapseAllTree` só fazem efeito em modo tree-data (`getTreeDataPath`). Operam sobre todas as rows pós-filtro/sort (tree-data desliga paginação) via `collectExpandableTreeIds` e respeitam `treeData.defaultExpanded` — escrevem o Set de divergência correto (`[]` ou todos os ids expansíveis).\r\n\r\n---\r\n\r\n## Configs detalhadas\r\n\r\n### `toolbar` (DataTableToolbarConfig)\r\n\r\n- `title?` — string no canto esquerdo\r\n- `enableSearch?` (true) — ToolbarSearch slot\r\n- `enableRefresh?` (true) — botão Refresh após o search (server mode refetch; client mode spinner)\r\n- `enableFilters?` (true) — controle de filtros (só aparece se ao menos uma coluna tem `enableColumnFilter`)\r\n- `enableColumns?` (true) — ColsPopover (show/hide, pin, reorder via drag)\r\n- `enableDensity?` (true) — ToolbarSegmented compact/standard/comfortable\r\n- `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom\r\n- `enableFullscreen?` (false) — botão ⤢ na toolbar (entre Filtros e Configurações) que expande a tabela pra viewport inteira; Esc volta\r\n- `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito\r\n- `customLeft?` — ReactNode livre após search/refresh (controls custom)\r\n- `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado\r\n\r\n> Bulk actions vão em `selectionConfig.actions` (não no toolbar). Preset views vão na prop\r\n> `defaultViews` da DataTable (não no toolbar).\r\n\r\n### `paginationConfig`\r\n\r\n- `enabled` (true)\r\n- `initialPageSize` (25)\r\n- `pageSizeOptions` ([10, 25, 50, 100])\r\n\r\n> O modo client/server **não é prop** — é derivado automaticamente de `rows` vs `fetchData`.\r\n\r\n### `selectionConfig`\r\n\r\n- `enabled` (false)\r\n- `enableGlobal` (false) — \"selecionar todos\" com modo include/exclude\r\n- `actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode` — render-prop chamada dentro do BulkActionsBar (NÃO é ReactNode direto)\r\n\r\n### `getRowId?: (row: T) => GridRowId` (prop raiz)\r\n\r\nExtrai o id da row — default `row.id`. É prop top-level da DataTable, **não** vai dentro de `selectionConfig`.\r\n\r\n### `densityItems?: ToolbarSegmentedItem<TableDensity>[]`\r\n\r\nCustomiza os 3 botões do segmented. Default: compact / standard / comfortable.\r\n\r\n### `cardBreakpoint?: number | false`\r\n\r\n- `number` (default `768`) — viewport `< N px` ativa o card mode (rows viram `<TableCardRow>`)\r\n- `false` — desabilita o auto-switch (mantém table view em qualquer viewport)\r\n\r\nUse `false` em telas onde o card mode não faz sentido (ex: tabela dentro de modal pequeno que já é mobile-friendly de outra forma).\r\n\r\n### `autoFit?: boolean` (default `true`)\r\n\r\nAuto-distribui as colunas para ocupar todo o container, em 3 camadas:\r\n\r\n1. **Type Heuristics** — cada `column.type` tem `defaultWidth` do registry. Se a coluna define `width`, esse vira a **base/mínimo** da coluna (ver Flex Distribution).\r\n2. **Smart Content Sampling** — mede o texto do header + primeiras 20 rows via canvas (`measureText`) e ajusta width pra caber o conteúdo. Respeita `col.minWidth` e `col.maxWidth`.\r\n3. **Flex Distribution (proporcional)** — sobrando espaço no container, distribui **proporcionalmente** entre as colunas (peso = largura-base de cada uma), como uma tabela flex faz naturalmente. Colunas pequenas crescem pouco, largas crescem mais — sem \"coluna gigante\" puxando 100% do espaço. Funciona pra qualquer nº de colunas.\r\n\r\n**Header nunca trunca (`...`):** toda coluna tem como piso a largura necessária pra mostrar o `headerName` inteiro (texto + ícone de tipo + reserva de sort/menu). Isso vale **inclusive** pra colunas com `width` explícito menor que o header — a width do consumer não pode esconder o título (só `maxWidth` menor que o header trunca, e aí é decisão explícita do consumer).\r\n\r\n**`col.width` é base, não trava fixa (v0.22.0+):** colunas com `width` explícito entram na distribuição proporcional usando a width como piso (crescem pra preencher, nunca encolhem abaixo dela). Antes a width era 100% fixa, o que jogava todo o espaço sobrando na única coluna sem width (virava \"coluna gigante\"). Pra travar uma coluna de fato, use `width` + `maxWidth` iguais (ou um `type` fixo como `actions`/`checkbox`, que ficam fora do flex). Se **todas** as colunas têm `width` explícito, o layout fixo do consumer é respeitado e o espaço sobrando fica vazio à direita.\r\n\r\nObservado via `ResizeObserver` no container — recalcula quando viewport muda. Re-mede e re-aplica de forma consistente ao alternar **Tabela ↔ Lista** (o corpo da tabela desmonta na view Lista; ao voltar, o autoFit reata o observer no node novo — mesma distribuição da 1ª carga).\r\n\r\n**Precedência de width:** resize manual (drag pelo user) > autoFit > `col.width` > `typeDef.defaultWidth`.\r\n\r\n**Para desligar:** `autoFit={false}` mantém comportamento legacy (cada coluna usa `col.width` ou default fixo; espaço sobrando vira vazio à direita). Resize manual continua disponível em ambos os modos.\r\n\r\n```tsx\r\n// Default — fluid automático\r\n<DataTable rows={rows} columns={cols} />\r\n\r\n// Opt-out\r\n<DataTable rows={rows} columns={cols} autoFit={false} />\r\n\r\n// width = BASE/mínimo (cresce proporcional p/ preencher). Pra TRAVAR de fato,\r\n// use width + maxWidth iguais, ou um type fixo (actions/checkbox).\r\nconst cols = [\r\n  { field: \"id\", width: 80, maxWidth: 80 }, // travada em 80px\r\n  { field: \"code\", width: 120 },             // base 120, cresce no flex\r\n  { field: \"name\" },                          // sem width — flui pelo autoFit\r\n  { field: \"actions\", type: \"actions\", getActions }, // fora do flex; largura pelo nº de ações\r\n];\r\n```\r\n\r\n> Nota: o melhor padrão é **não** setar `width` nas colunas de dados e deixar o autoFit\r\n> distribuir (as skills `crud-builder`/`list-builder` geram assim). Setar `width` em\r\n> todas as colunas trava o layout e deixa espaço vazio à direita.\r\n\r\n### `grabToScroll?: boolean` (**nativo — default `true`**)\r\n\r\nGrab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. **Já vem ligado em todas as tabelas** — não precisa configurar. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Passe `grabToScroll={false}` só se quiser desabilitar.\r\n\r\n```tsx\r\n{/* nativo — nada a fazer. Pra desligar: */}\r\n<DataTable rows={rows} columns={cols} grabToScroll={false} />\r\n```\r\n\r\n### `persistId?: string` (workspace \"Default\" persistente — schema v4)\r\n\r\nQuando definido, **todo** o workspace \"Default\" é salvo em localStorage:\r\n\r\n- `density`, `sortModel`, `pageSize`, `currentPage`\r\n- `columnWidths` (resize manual), `pinnedColumns`, `hiddenColumns`, `columnOrder`\r\n- `filterModel`, `search` (texto debounced)\r\n- `viewMode`, `groupBy`, `expandedRowIds`\r\n- `lastActiveViewId` — qual view estava aplicada no último uso\r\n\r\n**Como views custom interagem com Default:**\r\n\r\n- User filtra/busca/etc → snapshot da Default é atualizado em tempo real\r\n- User aplica view custom (preset ou saved) → snapshot da Default fica **congelado** (não polui)\r\n- User volta para Default → `applyDefault` restaura tudo (filter, search, page, etc) do snapshot intacto\r\n- User precisa **limpar manualmente** (clear search input, remover filtros via UI) para resetar\r\n\r\n**Reset programático:**\r\n\r\n```ts\r\nref.current?.resetPersistedState(); // remove entry inteira do localStorage\r\n```\r\n\r\n**Schema versionado:** entries antigos (v3 ou menor) são descartados silenciosamente — DataTable cai no comportamento default sem erro. Schema atual `v4`.\r\n\r\n---\r\n\r\n## Performance\r\n\r\n- `columns` **deve** ser memoizado com `useMemo` no pai\r\n- O processor (filter → search → sort → paginate) usa useMemo cascateado — mudar só de página NÃO re-roda filter/search/sort\r\n- Provider value é memoizado — re-render do pai não dispara cascade em rows\r\n- Use `virtualize` para > ~500 rows visíveis (ou desde sempre se UX permite)\r\n- Saved views + persistId: ambos consomem o mesmo `DataTableState`, podem coexistir\r\n\r\n---\r\n\r\n## ARIA\r\n\r\nTudo proveniente do `<Table>` primitive: `role=\"grid\"`, `role=\"row\"`, `role=\"columnheader\"` com `aria-sort`, `role=\"gridcell\"`. Keyboard navigation segue WAI-ARIA grid pattern. Bulk bar tem `role=\"region\"` com aria-label.\r\n\r\n---\r\n\r\n## Troubleshooting\r\n\r\n| Sintoma                                  | Causa provável                               | Fix                                                                              |\r\n| ---------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |\r\n| Tabela re-renderiza inteira a cada digit | `columns` não memoizado                      | `useMemo(() => [...], [deps])`                                                   |\r\n| Filter chip não aparece                  | Coluna sem `enableColumnFilter: true`        | Adicionar flag                                                                   |\r\n| Filter popover vazio                     | Nenhuma coluna com `enableColumnFilter`      | Adicionar a pelo menos 1 coluna                                                  |\r\n| Sort não funciona                        | Coluna sem `sortable: true`                  | Adicionar flag                                                                   |\r\n| Density não persiste                     | `persistId` ausente                          | Adicionar `persistId=\"meu-table\"`                                                |\r\n| Server mode loop infinito                | `fetchData` não memoizado                    | `useCallback(fetchData, [deps])`                                                 |\r\n| Virtualização \"pula\"                     | `estimateRowHeight` muito diferente do real  | Ajustar pro height médio observado                                               |\r\n| Inline edit não salva                    | `onCellEditCommit` retorna sem await         | Retornar Promise; controller aguarda                                             |\r\n| Saved views não persiste                 | `savedViewsMockService` em prod              | Implementar `SavedViewsService` real                                             |\r\n| Group header sem totalizer               | Coluna sem `aggregate` declarado             | Definir `aggregate: \"sum\" \\| \"avg\" \\| \"count\" \\| \"min\" \\| \"max\" \\| fn` na coluna |\r\n| Coluna actions com filter chip           | `type: \"actions\"` deveria desabilitar filter | Reportar — esse type bloqueia sort/filter por design                             |\r\n\r\n---\r\n\r\n## Padrões internos (referência rápida)\r\n\r\n- **God component evitado** — DataTable orquestra; lógica pesada em hooks (`use-filter-popover-adapter`, `use-sort-popover-adapter`, `use-cols-popover-adapter`, `use-data-table-processor`, etc)\r\n- **Vocabulário único de operador** — ids longos do `FilterModel` (`equals`, `neq`, `gt`, `gte`…) em todo o fluxo (popover, parser SQL, chips, adapter). Sem tradução curto↔longo. Label do chip vem do registry do column-type (`opLabel`), com `DEFAULT_OP_LABELS` como fallback\r\n- **Value resolution shared** — `utils/resolve-value.ts` (`getFieldValue / applyValueGetter / applyFormatter`) usado por processor, group-rows e cell render\r\n- **Column types via registry** — `column-types/column-type-registry.ts`; `console.warn` em duplicate (não throw, suporta hot reload)\r\n- **Row variants discriminadas** — `groupRow / groupContentRow / expansionRow / dataRow` via Symbol-as-discriminator (type-safe)\r\n- **Sortable head cell renomeado** — `DataTableSortableHeadCell` (consistência com prefixo)\r\n\r\n---\r\n\r\n## V2 (planejado, não V1)\r\n\r\n- Extração final do `<DataTableBody>` para componente próprio\r\n- Hooks dedicados pra inline-edit, keyboard-nav, grouping, expansion (atualmente inline no orquestrador)\r\n- Migration helper auto-aplicado para saved views quando colunas removidas\r\n- Unit tests cobertura ≥ 80% nos hooks críticos (`use-column-resize`, `group-rows`, `expand-rows`, `use-data-table-processor`)\r\n- Mobile parts da toolbar (`ToolbarMobileDialog` etc) decidir mantém ou remove\r\n",
+        "content": "# DataTable — Guia de uso\r\n\r\nWrapper smart sobre `<TableToolbar>` + `<Table>` + `<FooterTable>` que orquestra **17 hooks SRP** (sort, filter, search, pagination, selection, visibility, density, processor, query, export, saved views, persistence, etc) e renderiza body com suporte a virtualização, agrupamento e expansão.\r\n\r\n> **Princípio**: o DataTable é smart, mas cada primitive (Table, TableToolbar, FooterTable) é dumb e standalone. Veja `Table/USAGE.md` e `TableToolbar/USAGE.md` se quiser montar uma tabela custom fora do DataTable.\r\n\r\n---\r\n\r\n## Imports\r\n\r\n```tsx\r\nimport {\r\n  DataTable,\r\n  type DataTableColumnDef,\r\n  type DataTableRef,\r\n  // builders pra reduzir boilerplate:\r\n  textColumn,\r\n  currencyColumn,\r\n  dateColumn,\r\n  statusColumn,\r\n  actionColumn,\r\n  // registry pra tipos custom:\r\n  columnTypeRegistry,\r\n  type ColumnTypeDefinition,\r\n} from \"@/components/ui/DataTable\";\r\n```\r\n\r\n---\r\n\r\n## Quick start — client mode (CRUD)\r\n\r\n```tsx\r\ninterface Client {\r\n  id: number;\r\n  name: string;\r\n  email: string;\r\n  status: \"active\" | \"inactive\";\r\n  value: number;\r\n  createdAt: string;\r\n}\r\n\r\n// ⚠️ Nenhuma coluna fixa `width` de propósito: com `autoFit` (default) o DataTable\r\n// mede o conteúdo e distribui o espaço. `width` aqui seria PISO, não trava — fixar\r\n// em todas só desloca o ponto de partida do rateio. Trave uma coluna só quando\r\n// precisar, com `width` + `maxWidth` iguais.\r\nconst columns = useMemo<DataTableColumnDef<Client>[]>(\r\n  () => [\r\n    textColumn<Client>(\"id\", \"ID\"),\r\n    textColumn<Client>(\"name\", \"Nome\", { sortable: true }),\r\n    { field: \"email\", headerName: \"Email\", type: \"email\" },\r\n    currencyColumn<Client>(\"value\", \"Valor\", { currency: \"BRL\" }),\r\n    dateColumn<Client>(\"createdAt\", \"Criado em\"),\r\n    statusColumn<Client>(\"status\", \"Status\", [\r\n      { value: \"active\", label: \"Ativo\", color: \"success\" },\r\n      { value: \"inactive\", label: \"Inativo\", color: \"muted\" },\r\n    ]),\r\n    actionColumn<Client>({\r\n      getActions: ({ row }) => [\r\n        { label: \"Editar\", onClick: () => editClient(row) },\r\n        {\r\n          label: \"Excluir\",\r\n          onClick: () => removeClient(row),\r\n          destructive: true,\r\n        },\r\n      ],\r\n    }),\r\n  ],\r\n  [editClient, removeClient],\r\n);\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  toolbar={{ title: \"Clientes\", enableSearch: true, enableFilters: true }}\r\n  paginationConfig={{ enabled: true, initialPageSize: 25 }}\r\n  selectionConfig={{ enabled: true, enableGlobal: true }}\r\n  onRowClick={(row) => router.push(`/clients/${row.id}`)}\r\n/>;\r\n```\r\n\r\n> `columns` **deve** ser memoizado — o processor reage à identidade do array, não ao conteúdo.\r\n\r\n---\r\n\r\n## Capacidades\r\n\r\n| Capability                      | Como ativar                                                                                                                                                                                                                                                                                                                                                          |\r\n| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\r\n| **Sort multi**                  | `sortable: true` na coluna; toolbar Sort popover surge automaticamente                                                                                                                                                                                                                                                                                               |\r\n| **Filter chip rápido**          | `enableColumnFilter: true` + `filterType: \"text\"\\|\"number\"\\|\"date\"\\|\"select\"\\|\"multiSelect\"\\|\"boolean\"`                                                                                                                                                                                                                                                              |\r\n| **Filter avançado (AND/OR)**    | Habilitado por default se houver coluna com `enableColumnFilter`                                                                                                                                                                                                                                                                                                     |\r\n| **Filter chips placeholder**    | `showEmptyFilterChips={[\"status\", \"categoria\"]}` — chips nativos visíveis desde o load inicial, mesmo sem valor preenchido (user clica e preenche)                                                                                                                                                                                                                   |\r\n| **Search global**               | `toolbar.enableSearch: true` (default). Client mode busca em todos os fields; server mode recebe `search` (debounced) + `searchField?` no `GridFetchParams`                                                                                                                                                                                                          |\r\n| **Pagination**                  | `paginationConfig.enabled: true` (default)                                                                                                                                                                                                                                                                                                                           |\r\n| **Selection (bulk)**            | `selectionConfig.enabled: true`                                                                                                                                                                                                                                                                                                                                      |\r\n| **Visibility / pin / reorder**  | `toolbar.enableColumns: true` (default)                                                                                                                                                                                                                                                                                                                              |\r\n| **Density toggle**              | `toolbar.enableDensity: true` (default). Override items via `densityItems` prop                                                                                                                                                                                                                                                                                      |\r\n| **Column types registry**       | `type: \"currency\"` etc — renderiza display + filter input via registry                                                                                                                                                                                                                                                                                               |\r\n| **Formato de data**             | `type: \"date\"` → `14/03/2023` · `type: \"datetime\"` → `14/03/2023 09:30`. Outro formato? **`valueFormatter`** — ele vence o do tipo e vale na célula, no export e no clipboard. Não precisa de `render`. ⚠️ Até a v0.42.1 esses tipos formatavam **sem ano** (\"14 de mar\") e o `valueFormatter` **não alcançava a célula** (mudava só export/totalizador). |\r\n| **Coluna de ações**             | `type: \"actions\"` + `getActions` (ou o builder `actionColumn`). **É o `type` que dá as 3 garantias** — última coluna, ancorada à direita, largura fixa. Coluna montada na unha com botões não recebe nenhuma delas. Ver §Coluna de ações abaixo.                                                                                                                        |\r\n| **Inline edit**                 | `editable: true` na coluna + `onCellEditCommit`                                                                                                                                                                                                                                                                                                                      |\r\n| **Read-more (Ler mais)**        | `readMore: true` na coluna (ou `{ lines?, label? }`) — trunca + popover com texto completo                                                                                                                                                                                                                                                                           |\r\n| **Copy célula**                 | `copyable: true` na coluna (ou `{ value?, label? }`) — ícone copiar no hover + feedback \"Copiado!\" (~2s)                                                                                                                                                                                                                                                             |\r\n| **Grab-to-scroll horizontal**   | **nativo (default `true`)** — arrastar o corpo (mouse/pen) rola lateralmente; `grabToScroll={false}` desliga                                                                                                                                                                                                                                                          |\r\n| **Tela cheia (fullscreen)**     | `toolbar.enableFullscreen: true` — botão ⤢ na toolbar expande a tabela pra viewport inteira (Esc volta)                                                                                                                                                                                                                                                              |\r\n| **Ações custom no toolbar**     | `toolbar.actions: ToolbarAction[]` — `button`/`dropdown`/`input` (ex.: seletor de período). Inline no desktop (entre Filtros e ⋯); no mobile colapsam num ⋯ próprio. Ver `<ToolbarActions>` no TableToolbar                                                                                                                                                          |\r\n| **Server mode**                 | passe `fetchData` em vez de `rows`                                                                                                                                                                                                                                                                                                                                   |\r\n| **Card responsivo (mobile)**    | `cardBreakpoint` (default 768). Abaixo desse valor o **default é tabela** (densidade > cards pra power user); o usuário alterna pra cards via toggle **\"Exibição\" (Linhas/Cards)** que aparece na ToolbarSettingsMenu (`mobileDisplayToggle`). `cardBreakpoint={false}` desabilita o card mode por completo.                                                         |\r\n| **Toolbar responsiva (mobile)** | Em viewports `<md` (768px), controles secundários (sort / cols / density / refresh / view toggle / saved views / export / more menu) colapsam automaticamente num icon-button dropdown `...` via `ToolbarMobileDialog`. Search e Filter continuam sempre visíveis na linha principal. Comportamento built-in — sem prop necessária.                                  |\r\n| **Virtualização**               | `virtualize: true` (+ `estimateRowHeight` / `overscan` opcionais)                                                                                                                                                                                                                                                                                                    |\r\n| **Row grouping**                | `groupBy: \"status\"` (1 field na V1) + opcionais `renderGroupHeader`/`renderGroupContent` pra free-form                                                                                                                                                                                                                                                               |\r\n| **Row expansion**               | `expandable: true` na coluna + `renderRowExpansion: ({ row }) => <Detail row={row} />`                                                                                                                                                                                                                                                                               |\r\n| **Tree-data (hierarquia)**      | `getTreeDataPath: (row) => [...]` + `treeColumn: true` na coluna primária. Rows continuam FLAT; o path define a árvore. Pagination desliga automaticamente.                                                                                                                                                                                                          |\r\n| **Saved views**                 | `savedViewsService` (use `savedViewsMockService` em dev)                                                                                                                                                                                                                                                                                                             |\r\n| **State persistence**           | `persistId: \"clients-table\"` — workspace \"Default\" completo persiste em localStorage (sort, filter, search, page, density, column widths/pin/hide/order, viewMode, groupBy, expanded rows). Quando view custom está ativa, o snapshot da Default fica congelado — voltar para Default restaura tudo intacto. Limpeza manual via `ref.current.resetPersistedState()`. |\r\n| **Auto-fit das colunas**        | `autoFit: true` (default) — observa container via ResizeObserver, mede conteúdo das primeiras N rows (canvas) e distribui a sobra. ⚠️ **`col.width` é PISO, não trava** — a coluna entra no rateio e cresce a partir dele (medido: pedir 80/240/280 num container de 1400px devolve 187/560/653). Pra travar de verdade: **`width` + `maxWidth` iguais**. Prefira não fixar `width`. `autoFit={false}` desliga (legacy). |\r\n| **Resize manual de colunas**    | Default ativo em todas as colunas exceto `type: \"actions\"` ou `purpose: \"selection\"`. Drag handle aparece no edge direito do header. Limites hard `60–800px`; respeita `col.minWidth/maxWidth` quando definidos. Para desabilitar em uma coluna específica: `resizable: false`.                                                                                      |\r\n| **Export**                      | `toolbar.enableExport: true` (CSV default com escopos all/filtered/selected) — formatos custom via `enableExport: { formats: [{ id, label, onSelect }] }`                                                                                                                                                                                                            |\r\n| **View Kanban (board)**         | `viewMode=\"kanban\"` (controlled) ou `defaultViewMode` (uncontrolled) + `kanbanConfig={{ groupByField, renderCard }}` — toggle table/kanban auto na toolbar                                                                                                                                                                                                           |\r\n| **View Lista (cards)**          | `viewMode=\"list\"` + `listConfig={{ renderItem(row) }}` — toggle Tabela/Lista auto na toolbar; mesma toolbar, corpo vira `<List>`. `hierarchical: true` + `getTreeDataPath` = lista em árvore. Showcase `#/clients-list-view`                                                                                                                                            |\r\n| **Totalizer row**               | `showTotalizers` na DataTable + `aggregate: \"sum\"` (+ `aggregateFormatter`) na coluna; server mode pode sobrescrever via `aggregateRow`                                                                                                                                                                                                                              |\r\n| **Keyboard navigation**         | Auto — setas, Home/End, PgUp/PgDn no body                                                                                                                                                                                                                                                                                                                            |\r\n| **Estados (vazio / carregando / sem resultado)** | Já vêm com default embutido; `loading: boolean` + `renderEmpty` / `renderLoading` / `renderNoResults` **substituem** (são `ReactNode`, não função). Ver §Estados abaixo                                                                                                                                                                       |\r\n\r\n---\r\n\r\n## Receitas comuns\r\n\r\n### Estados: vazio, carregando, sem resultado\r\n\r\nAs três telas que aparecem quando não há linha pra mostrar. **Os três já têm default do\r\nDS** — você só passa a prop pra substituir 100% do slot:\r\n\r\n| Prop | Dispara quando | Default embutido |\r\n|---|---|---|\r\n| `renderLoading` | `loading` é `true` | spinner do DS |\r\n| `renderEmpty` | o dataset não tem **nenhum** registro | `<DataTableEmpty />` — ilustração + título + descrição + ação opcional |\r\n| `renderNoResults` | há linhas, mas **filtro/busca zerou** o resultado | `<DataTableNoResults />` com **`onClearFilters` já cabeado** pelo DataTable (limpa `filterModel` + `search`) |\r\n\r\n```tsx\r\n<DataTable\r\n  rows={rows}\r\n  columns={columns}\r\n  loading={isFetching}                 // prop SEPARADA, boolean\r\n  renderLoading={<MeuSkeleton />}      // ReactNode — não é função, não recebe props\r\n  renderEmpty={<EmptyState title=\"Nenhum cliente ainda\" action={<Button>Novo</Button>} />}\r\n  renderNoResults={<EmptyState title=\"Nada encontrado\" description=\"Ajuste os filtros.\" />}\r\n/>\r\n```\r\n\r\n⚠️ **Empty ≠ NoResults, e trocar os dois é o erro comum.** \"Não existe nada ainda\" pede\r\nCTA de **criar**; \"seu filtro não achou\" pede **limpar filtro** — e nesse segundo caso o\r\ndefault já entrega o botão certo, cabeado. Substituir por um `EmptyState` genérico\r\n**perde** esse wiring: se for substituir o `renderNoResults`, cabeie você mesmo o clear.\r\n\r\n### Coluna de ações (editar / excluir / \"…\")\r\n\r\n**Use `type: \"actions\"`.** É o `type` — não a posição no array, não `pinned` — que liga as\r\ntrês garantias, todas resolvidas no `use-data-table-columns.ts`:\r\n\r\n1. **Vai pro fim** da tabela, mesmo se você declarar a coluna no meio do array.\r\n2. **Ancora à direita** (`pinned: \"right\"` implícito) — fica visível com scroll horizontal.\r\n   Passar `pinned: \"right\"` na mão é redundante.\r\n3. **Não entra no rateio do autoFit** — largura fixa, não estica junto das outras.\r\n\r\n```tsx\r\n// builder (recomendado) — `field`/`headerName`/`type`/`pinned` já vêm certos\r\nactionColumn<Client>({\r\n  getActions: ({ row }) => [\r\n    { id: \"edit\", label: \"Editar\", icon: <Pencil />, onClick: () => edit(row) },\r\n    { id: \"del\", label: \"Excluir\", icon: <Trash2 />, destructive: true, onClick: () => del(row) },\r\n  ],\r\n}),\r\n```\r\n\r\n⛔ **Montar a coluna na unha perde as três.** `{ field: \"acoes\", headerName: \"Ações\",\r\nrender: () => <><Button/><Button/></> }` não tem `type`, então: não vai pro fim, não ancora,\r\n**e entra no rateio** — medido, uma coluna assim com `width: 120` num container de 1400px\r\ntermina com **220px**, e o conteúdo alinhado à esquerda deixa os botões ~100px longe da\r\nborda. É o sintoma \"o botão de ação ficou no meio da tabela\". Se precisa de render próprio,\r\nmantenha `type: \"actions\"` e use `getActions` — `customColumn` **não** serve pra isso.\r\n\r\n#### Quantas ações aparecem inline\r\n\r\n| ações visíveis na row | render | largura |\r\n|---|---|---|\r\n| 1 | 1 ícone, sem \"…\" | 44px |\r\n| 2 | 2 ícones | 74px |\r\n| 3 | 3 ícones | 104px |\r\n| **4+** | **só o \"…\"**, todas dentro | 44px |\r\n| qualquer nº, com `showInMenu` em algum item | **o seu split**, sem limite | derivada |\r\n\r\nO corte em 3 é a **capacidade geométrica** da coluna, não preferência: a célula usa\r\n`px-pad-md` na variante `actions` (8×2 — sobrescreve o `px-pad-2xl` das outras) + ícone\r\n`icon-2xs` (28px) + gap `gp-2xs` (2px) → `largura = 30n + 14`. Quatro ícones pedem 134px,\r\ncontra os 120 que a coluna sempre teve. Antes da v0.42.0 a largura era 120px **fixos** pra\r\nqualquer quantidade: 1 ação reservava espaço pra 3, e 4 ícones vazavam a coluna.\r\n\r\nPra forçar um split diferente, marque `showInMenu: true` nos itens que devem ir pro menu —\r\nisso desliga o automático e respeita você integralmente, inclusive com 5 ícones inline.\r\n\r\n`hidden` é resolvido **por row antes de contar**: uma row com 4 ações onde uma está oculta\r\nvolta a renderizar 3 ícones inline. A largura reservada é o **máximo** entre as rows\r\namostradas, senão a row mais completa ficaria cortada.\r\n\r\n**Largura:** `col.width` > `col.minWidth` > derivada da contagem. ⚠️ Até a v0.42.0 o\r\n`col.width` era **ignorado** nesta coluna (só `minWidth` funcionava) — se você tem\r\n`actionColumn({ width: 64 })` em código antigo, ele passa a valer de verdade agora, e 64px\r\ncomporta **1** ícone.\r\n\r\n### Server mode (refetch async + paginação remota)\r\n\r\n```tsx\r\nconst fetchData = useCallback(\r\n  async ({ pagination, sort, filters, search }: GridFetchParams) => {\r\n    const res = await api.get(\"/clients\", {\r\n      params: serialize({ pagination, sort, filters, search }),\r\n    });\r\n    return { data: res.data.items, total: res.data.total }; // GridFetchResult<T>\r\n  },\r\n  [],\r\n);\r\n\r\n<DataTable<Client>\r\n  fetchData={fetchData}\r\n  columns={columns}\r\n  toolbar={{ enableSearch: true, enableFilters: true }}\r\n  paginationConfig={{ enabled: true, initialPageSize: 25 }}\r\n/>;\r\n```\r\n\r\n`fetchData` é re-disparado quando muda `pagination | sort | filter | search`. Use ref/AbortController interno se precisar cancelar. Loading state é managed pelo controller (skeleton no body).\r\n\r\n### Inline edit (commit no submit / Enter)\r\n\r\n```tsx\r\nconst columns: DataTableColumnDef<Client>[] = [\r\n  { field: \"name\", headerName: \"Nome\", editable: true, sortable: true },\r\n  // ...\r\n];\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  onCellEditCommit={async ({ id, field, value, oldValue, row }) => {\r\n    await api.patch(`/clients/${id}`, { [field]: value });\r\n    refreshClients();\r\n  }}\r\n/>;\r\n```\r\n\r\nDouble-click numa cell `editable` → input inline; Enter commita; Esc cancela; loading bloqueia outras edições.\r\n\r\n### Mobile auto-switch para card\r\n\r\nPor default, viewports `< 768px` rendem cada row como `<TableCardRow>` no lugar de `<TableRow>`. O toolbar (search/filter/sort) e o footer (paginação) continuam intactos — só o body que troca.\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  cardBreakpoint={768} // default — abaixo deste pixel, vira card\r\n  // cardBreakpoint={false} // desabilita o auto-switch (mantém table sempre)\r\n  // cardBreakpoint={640}   // breakpoint custom\r\n/>\r\n```\r\n\r\n**Mapeamento automático das colunas → card:**\r\n\r\n- Coluna `isPrimary: true` (ou primeira coluna não-actions) → vai pro **header** do card como título\r\n- Coluna `type=\"actions\"` → vai pro **headerActions** (canto sup. direito)\r\n- Checkbox de selection → vai pro header (esquerda do título)\r\n- Demais colunas visíveis → viram `items` label/value no body do card\r\n\r\n**Pra eleger qual coluna é o título do card:**\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"id\", headerName: \"ID\", ... },\r\n  { field: \"name\", headerName: \"Nome\", isPrimary: true, ... }, // ← vira título do card\r\n  // ...\r\n];\r\n```\r\n\r\n**Degradações intencionais no card mode** (silenciosas — não quebram):\r\n\r\n- Virtualização desligada (renderiza `rowsToRender` integral, paginação ainda limita)\r\n- Row expansion / Inline editing / Column resize → desativados (sem sentido em card vertical)\r\n- Group rows → ainda não suportadas (TODO futuro)\r\n\r\n### Virtualização (10k+ linhas)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={tenThousandClients}\r\n  columns={columns}\r\n  virtualize\r\n  estimateRowHeight={56} // opcional — default deriva da density (40/56/64)\r\n  overscan={10} // opcional — rows extras fora da viewport\r\n  paginationConfig={{ enabled: false }} // virtualização geralmente exclui paginação\r\n/>\r\n```\r\n\r\nUsa `@tanstack/react-virtual`. Sticky header e seleção mantêm-se. Performance fica linear até ~100k rows. Requer container com altura definida (`flex-1 min-h-0` ou height fixa).\r\n\r\n### Row grouping\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  groupBy=\"status\" // controlled (string, 1 field na V1) — ou defaultGroupBy uncontrolled\r\n  onGroupByChange={setGroupBy}\r\n  // Default (sem overrides): header column-aligned com chevron + label + count + subtotals.\r\n  // Free-form: passe os 2 overrides abaixo.\r\n  renderGroupHeader={({ group, toggle }) => (\r\n    <span onClick={toggle}>\r\n      {group.label} ({group.count})\r\n    </span>\r\n  )}\r\n  renderGroupContent={({ group }) => <CardsGrid rows={group.rows} />}\r\n/>\r\n```\r\n\r\nPagination é desligada **automaticamente** quando `groupBy` está ativo. Sem os overrides, o default é column-aligned (mantém grid layout); com `renderGroupHeader`/`renderGroupContent`, o grupo vira free-form (full-width, ideal pra hierarquias complexas). Referência: `src/preview/pages/ClientsGroupedPreview.tsx` (2 modos).\r\n\r\n### Row expansion (painel detalhe)\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"id\", headerName: \"ID\", expandable: true }, // ← chevron + click trigger\r\n  // ...\r\n];\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  renderRowExpansion={({ row }) => <ClientDetailPanel client={row} />}\r\n  singleExpand // opcional — default false (múltiplas rows abertas)\r\n/>;\r\n```\r\n\r\nO chevron aparece na coluna marcada `expandable: true`. Controlled opcional via `expandedRowIds` + `onExpandedRowIdsChange` (ou `defaultExpandedRowIds` uncontrolled). Mutuamente exclusivo com `groupBy` (groupBy tem precedência). Referência: `src/preview/pages/ClientsExpandablePreview.tsx`.\r\n\r\n### Tree-data (hierarquia multi-nível)\r\n\r\nHierarquia tipo AG Grid: cada linha continua **FLAT** em `rows` e o **caminho** (`getTreeDataPath`) define a árvore. O DataTable reconstrói os níveis a partir dos caminhos e renderiza indentação + chevron na coluna primária.\r\n\r\n```tsx\r\nconst columns = [\r\n  { field: \"name\", headerName: \"Licenciado\", treeColumn: true }, // ← coluna primária da árvore\r\n  // ...\r\n];\r\n\r\n// O path sobe a cadeia de patrocinador até a raiz: [\"L-001\", \"L-010\", \"L-100\"]\r\nconst byId = new Map(rows.map((r) => [r.id, r]));\r\nconst getTreeDataPath = (row: NetworkRow): string[] => {\r\n  const path: string[] = [];\r\n  let cur: NetworkRow | undefined = row;\r\n  while (cur) {\r\n    path.unshift(cur.id);\r\n    cur = cur.parentId ? byId.get(cur.parentId) : undefined;\r\n  }\r\n  return path;\r\n};\r\n\r\n<DataTable<NetworkRow>\r\n  rows={rows} // ← FLAT (não aninhadas)\r\n  columns={columns}\r\n  getRowId={(r) => r.id}\r\n  getTreeDataPath={getTreeDataPath}\r\n  treeData={{\r\n    defaultExpanded: true, // árvore começa aberta (default true)\r\n    showDescendantCount: true, // mostra \"(N)\" descendentes ao lado do nome\r\n  }}\r\n/>;\r\n```\r\n\r\nRegras:\r\n\r\n- `getTreeDataPath(row)` retorna o array do caminho (`[raiz, ..., self]`). Linhas com path vazio são ignoradas da árvore.\r\n- Se **nenhuma** coluna marcar `treeColumn: true`, o DataTable usa a primeira coluna não-`actions`.\r\n- Estado de expansão reusa a máquina de row-expansion (`expandedRowIds` / `defaultExpandedRowIds` / `onExpandedRowIdsChange`). O Set guarda os ids que **divergem** do `defaultExpanded`.\r\n- **Pagination desliga automaticamente** (paginar cortaria ramos). Não suportado em server mode — passe todas as rows do escopo + `virtualize` se necessário.\r\n- Precedência quando mais de um modo é passado: `groupBy` > `getTreeDataPath` > `renderRowExpansion`.\r\n- Search/sort operam sobre as rows; a árvore é reconstruída do resultado.\r\n- **Expand-all / collapse-all** programático via imperative ref: `ref.current.expandAllTree()` / `ref.current.collapseAllTree()` (ver seção [Imperative ref](#imperative-ref)). No-op fora do modo tree-data. Respeita `treeData.defaultExpanded` e opera sobre todas as rows pós-filtro/sort. O DS não embute botões na toolbar — o consumer fia os botões e chama via ref.\r\n\r\n```tsx\r\nconst tableRef = useRef<DataTableRef>(null);\r\n\r\n<button onClick={() => tableRef.current?.expandAllTree()}>Expandir tudo</button>\r\n<button onClick={() => tableRef.current?.collapseAllTree()}>Recolher tudo</button>\r\n\r\n<DataTable<NetworkRow> ref={tableRef} getTreeDataPath={getTreeDataPath} /* ... */ />\r\n```\r\n\r\nReferência: `src/preview/pages/ClientsTreePreview.tsx`.\r\n\r\n### Polish de célula — Read-more (Ler mais)\r\n\r\nTrunca conteúdo longo e abre o texto completo num popover ao clicar em \"Ler mais\". Equivalente DS do `ReadMoreCell` legado (que usava tooltip).\r\n\r\n```tsx\r\nconst columns = [\r\n  // 1 linha + reticências + gatilho \"Ler mais\" (default)\r\n  { field: \"obs\", headerName: \"Observação\", readMore: true },\r\n  // N linhas antes de truncar + label custom\r\n  {\r\n    field: \"bio\",\r\n    headerName: \"Bio\",\r\n    readMore: { lines: 2, label: \"Ver tudo\" },\r\n  },\r\n];\r\n```\r\n\r\n- `readMore: true` → 1 linha, label \"Ler mais\". `readMore: { lines?, label? }` customiza.\r\n- Desativa o `ellipsis` da cell automaticamente (a add-on gerencia o próprio truncate).\r\n- Aplica-se ao render default **ou** ao `render` custom (o nó é envolvido). Ignorado em `type: \"actions\"`, células em edição e na coluna primária de tree-data.\r\n- O texto do popover deriva do `valueFormatter`/`formatValue`/value (string) — pra HTML rico, passe um `render` que retorna o nó; ele é exibido no popover.\r\n\r\n### Polish de célula — Copy (copiar valor)\r\n\r\nÍcone de copiar revelado no hover/foco da célula, com feedback \"Copiado!\" por ~2s. Usa `navigator.clipboard` — **sem dependência nova**.\r\n\r\n```tsx\r\nconst columns = [\r\n  // copia o texto renderizado da célula\r\n  { field: \"email\", headerName: \"E-mail\", copyable: true },\r\n  // copia um valor derivado da row (ex: id puro) + aria-label custom\r\n  {\r\n    field: \"doc\",\r\n    headerName: \"CPF\",\r\n    copyable: { value: (row) => row.cpfRaw, label: \"Copiar CPF\" },\r\n  },\r\n];\r\n```\r\n\r\n- `copyable: true` → copia o texto da célula. `copyable: { value?, label? }` customiza: `value` aceita string ou `(row) => string`; `label` é o aria-label/title do botão.\r\n- O ícone só aparece no hover/foco (não polui a célula). O click não dispara `onRowClick`/seleção.\r\n- `readMore` tem precedência: se ambos forem definidos na mesma coluna, vale `readMore`.\r\n\r\n### Grab-to-scroll horizontal\r\n\r\nArrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao `useGrabToScroll` legado.\r\n\r\n```tsx\r\n{/* nativo — nada a fazer; pra desligar: */}\r\n<DataTable<Client> rows={clients} columns={columns} grabToScroll={false} />\r\n```\r\n\r\n- Prop raiz `grabToScroll: boolean` — **nativo, default `true`** (todas as tabelas já vêm com ele; passe `false` pra desabilitar).\r\n- Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.\r\n- **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).\r\n- **O cursor `grab` só aparece quando há overflow** — tabela que cabe na tela não mostra a mãozinha, e volta a mostrar se uma coluna crescer, a view trocar ou o container encolher (re-medido por `ResizeObserver`). Até 2026-08-21 a mãozinha era incondicional e prometia um gesto que o handler recusava: se você viu isso num projeto, é versão anterior.\r\n\r\n### Tela cheia (fullscreen)\r\n\r\nToggle ⤢ na toolbar expande a DataTable pra ocupar a viewport inteira; segundo clique ou **Esc** volta.\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  toolbar={{ enableFullscreen: true }}\r\n/>\r\n```\r\n\r\n- `toolbar.enableFullscreen: true` (default `false`) renderiza o tool button entre Filtros e Configurações.\r\n- O container raiz vira overlay `fixed inset-0` (z-index `--z-index-modal`) com bg do canvas. Estado interno uncontrolled.\r\n\r\n### View Kanban (table ⇄ board)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  defaultViewMode=\"kanban\" // uncontrolled — ou viewMode + onViewModeChange (controlled)\r\n  kanbanConfig={{\r\n    groupByField: \"status\", // valor do field define a coluna do board\r\n    renderCard: ({ row }) => ({\r\n      // slots do card — id/columnId são derivados automaticamente\r\n      title: row.name,\r\n      subtitle: row.email,\r\n      value: formatBRL(row.value),\r\n    }),\r\n    enableDnD: true,\r\n    onCardMove: (cardId, from, to) => patchStatus(cardId, to),\r\n  }}\r\n/>\r\n```\r\n\r\nQuando `viewMode`/`defaultViewMode` + `kanbanConfig` estão definidos, a toolbar auto-renderiza o segmented table/kanban (override/esconda via `toolbar.viewToggle`). Filter/search/sort/selection continuam aplicados às rows; paginação, density toggle e columns popover são desligados automaticamente no board. `kanbanConfig.columns` (opcional, `KanbanColumn[]`) fixa ordem/label/dotColor das colunas — sem ele, as colunas derivam dos valores únicos de `groupByField`. Outras opções do `kanbanConfig`: `renderCardContent` (override total do miolo do card), `getCardMenuItems`/`getColumnMenuItems` (menus \"⋯\"), `onAddCard`/`onAddInFooter`, `emptyLabel`/`addLabel`.\r\n\r\n### View Lista (table ⇄ list)\r\n\r\n```tsx\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  viewMode={viewMode}            // \"table\" | \"list\" | \"kanban\"\r\n  onViewModeChange={setViewMode} // ou defaultViewMode (uncontrolled)\r\n  listConfig={{\r\n    renderItem: (row, { depth }) => (\r\n      <div className=\"flex w-full items-center gap-gp-lg\">\r\n        <Avatar size=\"md\" colorHex={row.avatarColor}>{row.initials}</Avatar>\r\n        <div className=\"flex min-w-0 flex-1 flex-col\">\r\n          <span className=\"truncate text-body-md font-semibold\">{row.name}</span>\r\n          <span className=\"truncate text-caption-md text-fg-muted\">{row.email}</span>\r\n        </div>\r\n        <Chip color=\"success\" variant=\"soft\" size=\"sm\" shape=\"pill\">Ativo</Chip>\r\n      </div>\r\n    ),\r\n    // hierarchical: true,  // + getTreeDataPath → lista em ÁRVORE (conectores)\r\n    // getMenuItems: (row) => [...],  // menu \"⋯\" por item\r\n  }}\r\n/>\r\n```\r\n\r\n`listConfig` habilita a 3ª view: o toggle vira **Tabela / Lista** (+ Kanban se `kanbanConfig`). O DataTable mantém a **MESMA toolbar** (busca/filtros/views/ações/totalizadores) e só troca o corpo por um `<List>` do DS, alimentado pelas rows processadas (`filter+search+sort`; por padrão **sem paginação** — mostra todas, igual ao kanban). Passe `listConfig.paginated: true` pra **paginar a lista flat** (usa a mesma paginação da tabela + mostra o footer; ignorado em `hierarchical`). `listConfig.renderItem(row, { depth, open })` desenha o card de cada item. Com `hierarchical: true`, a lista aninha em árvore com indentação/conectores e `depth` por nível, usando `listConfig.getPath` (caminho raiz→self) — ou, se ausente, o `getTreeDataPath` do DataTable. **Use `listConfig.getPath` quando quiser tabela FLAT (paginada) + lista em ÁRVORE** no mesmo DataTable (o `getTreeDataPath` ligaria o tree-data na tabela e desligaria a paginação). Showcase: `#/clients-list-view`.\r\n\r\n### Saved views\r\n\r\n```tsx\r\nimport { savedViewsMockService } from \"@/components/ui/DataTable\";\r\n\r\n<DataTable<Client>\r\n  rows={clients}\r\n  columns={columns}\r\n  savedViewsService={savedViewsMockService} // troque pelo seu service em prod\r\n/>;\r\n```\r\n\r\nService contract em `services/saved-views.types.ts` — `list / save / delete` (todos recebem `persistId` como primeiro arg). Persiste o `DataTableSavedViewState` (filterModel, sortModel, density, layout de colunas, viewMode, groupBy, expandedRowIds) como JSON — `search` e paginação são voláteis e NÃO entram na view.\r\n\r\n**`allowCreateView` (v0.23.0)** — `allowCreateView={false}` esconde o botão \"+\" das visões (exibe SÓ os `defaultViews` + Default, read-only; o usuário não cria/salva visões). Default `true`.\r\n\r\n**`maxViewTabs`** — quantas abas de visão cabem na barra, **contando a \"Default\"**. Default `3`, ou seja **2 presets** de `defaultViews` viram aba.\r\n\r\n⚠️ O excedente é **cortado** (`.slice()` no `TableToolbarViews`): com 3 presets, o terceiro não aparece — sem erro e sem overflow. Em **DEV** sai um `console.warn` (v0.43.1) nomeando o que foi cortado e o `maxViewTabs` que resolve; em produção o corte é silencioso. Precisa de N abas fixas? `maxViewTabs={N + 1}`. Lembre que a aba **Default já é a visão sem filtro** — preset \"Todos\"/\"Todas\" duplica ela e gasta um slot.\r\n\r\n**viewMode \"sticky\" ao trocar de visão (v0.23.0)** — aplicar uma visão (preset/Default) só troca o `viewMode` se a visão **definir um explicitamente** (ex.: preset salvo em Lista/Kanban). Presets sem `viewMode` (o caso comum) **mantêm** o que o usuário está vendo — alternar de visão não flipa Tabela↔Lista↔Kanban. Pra um preset abrir numa view específica, passe `viewMode` no `presetView({ ... })`.\r\n\r\n### Tipo de coluna custom (registry)\r\n\r\n```tsx\r\nconst RatingColumnType: ColumnTypeDefinition = {\r\n  type: \"rating\",\r\n  // operators: array de { id, label } — id usa nomes canônicos do FilterOperator\r\n  // (equals, neq, contains, notContains, startsWith, endsWith, gt, lt, gte, lte,\r\n  // isAnyOf, isNoneOf, between, isEmpty, isNotEmpty). Label aparece no dropdown\r\n  // de operadores do popover Filtros + chip toolbar (via DEFAULT_OP_LABELS).\r\n  operators: [\r\n    { id: \"equals\", label: \"é\" },\r\n    { id: \"gt\",     label: \"maior que\" },\r\n    { id: \"lt\",     label: \"menor que\" },\r\n  ],\r\n  renderCell: ({ value }) => <Stars n={Number(value) || 0} />,\r\n  renderFilterInput: ({ value, onChange }) =>\r\n    <NumberInput min={0} max={5} value={value} onChange={onChange} />,\r\n  // obrigatório (sem `?` no type) — input do popover do chip rápido.\r\n  // Pode reusar o mesmo widget do renderFilterInput.\r\n  renderFastFilterInput: ({ value, onChange }) =>\r\n    <NumberInput min={0} max={5} value={value} onChange={onChange} />,\r\n  matchesFilter: (cellValue, filterValue, operator) => {\r\n    const n = Number(cellValue) || 0;\r\n    const f = Number(filterValue) || 0;\r\n    if (operator === \"equals\") return n === f;\r\n    if (operator === \"gt\") return n > f;\r\n    if (operator === \"lt\") return n < f;\r\n    return null;\r\n  },\r\n};\r\n\r\n// Registro feito uma vez na boot:\r\ncolumnTypeRegistry.register(RatingColumnType);\r\n\r\n// Uso:\r\n{ field: \"rating\", headerName: \"Rating\", type: \"rating\" as any }\r\n```\r\n\r\n---\r\n\r\n## Filtros — funil (drawer simple) + avançado (Configurações)\r\n\r\nA toolbar separa dois níveis de filtro, sempre disponíveis (gated por\r\n`toolbar.enableFilters !== false` + colunas filtráveis):\r\n\r\n- **Funil** → abre um **drawer lateral** com TODOS os filtros em form vertical.\r\n  Aplicação LIVE, operator inferido do `filterType` (multiSelect → isAnyOf,\r\n  text → contains, date → between, etc). O caminho simples pro user típico.\r\n- **Configurações → Filtros avançados** → query builder completo: modo **Visual**\r\n  (AND/OR + operadores explícitos + Adicionar condição) e modo **Avançado** (SQL-like,\r\n  round-trip-safe pra todos os operadores).\r\n\r\nA prop `simpleFilter` é **opcional** — só customiza o drawer do funil:\r\n\r\n```tsx\r\n{/* Funil + avançado vêm de graça — sem configuração */}\r\n<DataTable rows={...} columns={...} />\r\n\r\n{/* Customizar o drawer do funil */}\r\n<DataTable\r\n  simpleFilter={{\r\n    hiddenFields: [\"internal\"],   // não mostra no drawer (só no avançado)\r\n    title: \"Refinar busca\",\r\n    size: \"lg\",                   // 560px (default md = 400px)\r\n  }}\r\n/>\r\n```\r\n\r\n### `simpleFilter` (opcional)\r\n\r\n| Prop                        | Tipo                           | Default        | Quando usar                                                                            |\r\n| --------------------------- | ------------------------------ | -------------- | -------------------------------------------------------------------------------------- |\r\n| `simpleFilter.hiddenFields` | `string[]`                     | `[]`           | Fields que NÃO aparecem no drawer do funil (só no avançado). Útil pra filtros técnicos |\r\n| `simpleFilter.title`        | `string`                       | `\"Filtros\"`    | Override do título do header do drawer                                                 |\r\n| `simpleFilter.size`         | `\"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"` | `\"md\"` (400px) | Use `\"lg\"` (560px) se há muitos campos com widgets largos (dates/multi-select)         |\r\n\r\n---\r\n\r\n## ⚠️ filterModel controlado — operator correto por filterType\r\n\r\n**Quando passar `filterModel` como prop controlada (em vez de uncontrolled), use o operator\r\ncorreto pro `filterType` da coluna.** Operator errado = popover Filtros mostra o Select de\r\noperador **vazio** porque o operator não está nos `operators` do column-type.\r\n\r\n| `filterType` da coluna | Operators válidos                                                                             | Default sugerido |\r\n| ---------------------- | --------------------------------------------------------------------------------------------- | ---------------- |\r\n| `multiSelect`          | `isAnyOf`, `isNoneOf`, `isEmpty`, `isNotEmpty`                                                | `isAnyOf`        |\r\n| `select`               | `equals`, `neq`, `isEmpty`, `isNotEmpty`                                                      | `equals`         |\r\n| `text` (default)       | `contains`, `notContains`, `equals`, `neq`, `startsWith`, `endsWith`, `isEmpty`, `isNotEmpty` | `contains`       |\r\n| `number`               | `equals`, `neq`, `gt`, `lt`, `gte`, `lte`                                                     | `equals`         |\r\n| `date`                 | `between`, `equals`, `gt`, `lt`, `gte`, `lte`                                                 | `between`        |\r\n| `boolean`              | `equals`                                                                                      | `equals`         |\r\n\r\n```tsx\r\n// ❌ ERRADO — Status é multiSelect mas operator é \"equals\"\r\n// → Popover Filtros mostra Select operador VAZIO\r\nconst INITIAL_FILTERS: FilterModel = {\r\n  items: [{ id: \"f1\", field: \"statusId\", operator: \"equals\", value: \"active\" }],\r\n  logicOperator: \"AND\",\r\n};\r\n\r\n// ✅ CORRETO — operator bate com filterType=multiSelect\r\nconst INITIAL_FILTERS: FilterModel = {\r\n  items: [\r\n    { id: \"f1\", field: \"statusId\", operator: \"isAnyOf\", value: \"active\" },\r\n  ],\r\n  logicOperator: \"AND\",\r\n};\r\n```\r\n\r\n**Defesa em profundidade:** `FilterRowEditor` detecta operator inválido e faz fallback pro\r\nprimeiro operator do column-type + auto-normaliza via `onChange`. Mas é melhor declarar\r\ncorreto desde o início.\r\n\r\n**Atalho pra presets uncontrolled:** se você usar `defaultViews={[presetView({...})]}` em\r\nvez de filterModel controlled, o controller normaliza automaticamente via\r\n`normalizeFilterModelForColumns` na hidratação. Só recomendado se você não precisa de\r\ncontrole externo do filterModel.\r\n\r\n---\r\n\r\n## Imperative ref\r\n\r\n```tsx\r\nconst tableRef = useRef<DataTableRef>(null);\r\n\r\n<DataTable ref={tableRef} ... />\r\n\r\ntableRef.current?.getSelectedIds();   // (string | number)[]\r\ntableRef.current?.getSelectedCount(); // number\r\ntableRef.current?.clearSelection();\r\ntableRef.current?.getState();         // DataTableState snapshot\r\ntableRef.current?.refresh();          // server mode: re-disparar fetchData\r\ntableRef.current?.exportCsv(\"filtered\");  // download CSV — escopo \"all\" | \"filtered\" | \"selected\"\r\ntableRef.current?.resetPersistedState();  // limpa o localStorage (no-op sem persistId)\r\ntableRef.current?.expandAllTree();        // tree-data: expande todos os nós (no-op fora de tree-data)\r\ntableRef.current?.collapseAllTree();      // tree-data: recolhe todos os nós (no-op fora de tree-data)\r\n```\r\n\r\n`expandAllTree` / `collapseAllTree` só fazem efeito em modo tree-data (`getTreeDataPath`). Operam sobre todas as rows pós-filtro/sort (tree-data desliga paginação) via `collectExpandableTreeIds` e respeitam `treeData.defaultExpanded` — escrevem o Set de divergência correto (`[]` ou todos os ids expansíveis).\r\n\r\n---\r\n\r\n## Configs detalhadas\r\n\r\n### `toolbar` (DataTableToolbarConfig)\r\n\r\n- `title?` — string no canto esquerdo\r\n- `enableSearch?` (true) — ToolbarSearch slot\r\n- `enableRefresh?` (true) — botão Refresh após o search (server mode refetch; client mode spinner)\r\n- `enableFilters?` (true) — controle de filtros (só aparece se ao menos uma coluna tem `enableColumnFilter`)\r\n- `enableColumns?` (true) — ColsPopover (show/hide, pin, reorder via drag)\r\n- `enableDensity?` (true) — ToolbarSegmented compact/standard/comfortable\r\n- `enableExport?` (false) — `true` = dropdown Exportar com CSV default; objeto `{ formats?, items? }` pra formatos custom\r\n- `enableFullscreen?` (false) — botão ⤢ na toolbar (entre Filtros e Configurações) que expande a tabela pra viewport inteira; Esc volta\r\n- `moreMenu?` — `{ items: DataTableMoreMenuItem[] }` — MoreMenu (⋯) no canto direito\r\n- `customLeft?` — ReactNode livre após search/refresh (controls custom)\r\n- `viewToggle?` — override/esconde o segmented table/kanban auto-renderizado\r\n\r\n> Bulk actions vão em `selectionConfig.actions` (não no toolbar). Preset views vão na prop\r\n> `defaultViews` da DataTable (não no toolbar).\r\n\r\n### `paginationConfig`\r\n\r\n- `enabled` (true)\r\n- `initialPageSize` (25)\r\n- `pageSizeOptions` ([10, 25, 50, 100])\r\n\r\n> O modo client/server **não é prop** — é derivado automaticamente de `rows` vs `fetchData`.\r\n\r\n### `selectionConfig`\r\n\r\n- `enabled` (false)\r\n- `enableGlobal` (false) — \"selecionar todos\" com modo include/exclude\r\n- `actions?: (selectedIds: GridRowId[], clearSelection: () => void) => ReactNode` — render-prop chamada dentro do BulkActionsBar (NÃO é ReactNode direto)\r\n\r\n### `getRowId?: (row: T) => GridRowId` (prop raiz)\r\n\r\nExtrai o id da row — default `row.id`. É prop top-level da DataTable, **não** vai dentro de `selectionConfig`.\r\n\r\n### `densityItems?: ToolbarSegmentedItem<TableDensity>[]`\r\n\r\nCustomiza os 3 botões do segmented. Default: compact / standard / comfortable.\r\n\r\n### `cardBreakpoint?: number | false`\r\n\r\n- `number` (default `768`) — viewport `< N px` ativa o card mode (rows viram `<TableCardRow>`)\r\n- `false` — desabilita o auto-switch (mantém table view em qualquer viewport)\r\n\r\nUse `false` em telas onde o card mode não faz sentido (ex: tabela dentro de modal pequeno que já é mobile-friendly de outra forma).\r\n\r\n### `autoFit?: boolean` (default `true`)\r\n\r\nAuto-distribui as colunas para ocupar todo o container, em 3 camadas:\r\n\r\n1. **Type Heuristics** — cada `column.type` tem `defaultWidth` do registry. Se a coluna define `width`, esse vira a **base/mínimo** da coluna (ver Flex Distribution).\r\n2. **Smart Content Sampling** — mede o texto do header + primeiras 20 rows via canvas (`measureText`) e ajusta width pra caber o conteúdo. Respeita `col.minWidth` e `col.maxWidth`.\r\n3. **Flex Distribution (proporcional)** — sobrando espaço no container, distribui **proporcionalmente** entre as colunas (peso = largura-base de cada uma), como uma tabela flex faz naturalmente. Colunas pequenas crescem pouco, largas crescem mais — sem \"coluna gigante\" puxando 100% do espaço. Funciona pra qualquer nº de colunas.\r\n\r\n**Header nunca trunca (`...`):** toda coluna tem como piso a largura necessária pra mostrar o `headerName` inteiro (texto + ícone de tipo + reserva de sort/menu). Isso vale **inclusive** pra colunas com `width` explícito menor que o header — a width do consumer não pode esconder o título (só `maxWidth` menor que o header trunca, e aí é decisão explícita do consumer).\r\n\r\n**`col.width` é base, não trava fixa (v0.22.0+):** colunas com `width` explícito entram na distribuição proporcional usando a width como piso (crescem pra preencher, nunca encolhem abaixo dela). Antes a width era 100% fixa, o que jogava todo o espaço sobrando na única coluna sem width (virava \"coluna gigante\"). Pra travar uma coluna de fato, use `width` + `maxWidth` iguais (ou um `type` fixo como `actions`/`checkbox`, que ficam fora do flex). Se **todas** as colunas têm `width` explícito, o layout fixo do consumer é respeitado e o espaço sobrando fica vazio à direita.\r\n\r\nObservado via `ResizeObserver` no container — recalcula quando viewport muda. Re-mede e re-aplica de forma consistente ao alternar **Tabela ↔ Lista** (o corpo da tabela desmonta na view Lista; ao voltar, o autoFit reata o observer no node novo — mesma distribuição da 1ª carga).\r\n\r\n**Precedência de width:** resize manual (drag pelo user) > autoFit > `col.width` > `typeDef.defaultWidth`.\r\n\r\n**Para desligar:** `autoFit={false}` mantém comportamento legacy (cada coluna usa `col.width` ou default fixo; espaço sobrando vira vazio à direita). Resize manual continua disponível em ambos os modos.\r\n\r\n```tsx\r\n// Default — fluid automático\r\n<DataTable rows={rows} columns={cols} />\r\n\r\n// Opt-out\r\n<DataTable rows={rows} columns={cols} autoFit={false} />\r\n\r\n// width = BASE/mínimo (cresce proporcional p/ preencher). Pra TRAVAR de fato,\r\n// use width + maxWidth iguais, ou um type fixo (actions/checkbox).\r\nconst cols = [\r\n  { field: \"id\", width: 80, maxWidth: 80 }, // travada em 80px\r\n  { field: \"code\", width: 120 },             // base 120, cresce no flex\r\n  { field: \"name\" },                          // sem width — flui pelo autoFit\r\n  { field: \"actions\", type: \"actions\", getActions }, // fora do flex; largura pelo nº de ações\r\n];\r\n```\r\n\r\n> Nota: o melhor padrão é **não** setar `width` nas colunas de dados e deixar o autoFit\r\n> distribuir (as skills `crud-builder`/`list-builder` geram assim). Setar `width` em\r\n> todas as colunas trava o layout e deixa espaço vazio à direita.\r\n\r\n### `grabToScroll?: boolean` (**nativo — default `true`**)\r\n\r\nGrab-to-scroll horizontal: arrastar o corpo da tabela (mouse/pen) rola lateralmente. **Já vem ligado em todas as tabelas** — não precisa configurar. Threshold de ~6px separa arrasto de clique (seleção/click de célula preservados; o clique pós-arrasto é suprimido). Scroll por roda intacto; pulado em touch e alvos interativos. Passe `grabToScroll={false}` só se quiser desabilitar.\r\n\r\n```tsx\r\n{/* nativo — nada a fazer. Pra desligar: */}\r\n<DataTable rows={rows} columns={cols} grabToScroll={false} />\r\n```\r\n\r\n### `persistId?: string` (workspace \"Default\" persistente — schema v4)\r\n\r\nQuando definido, **todo** o workspace \"Default\" é salvo em localStorage:\r\n\r\n- `density`, `sortModel`, `pageSize`, `currentPage`\r\n- `columnWidths` (resize manual), `pinnedColumns`, `hiddenColumns`, `columnOrder`\r\n- `filterModel`, `search` (texto debounced)\r\n- `viewMode`, `groupBy`, `expandedRowIds`\r\n- `lastActiveViewId` — qual view estava aplicada no último uso\r\n\r\n**Como views custom interagem com Default:**\r\n\r\n- User filtra/busca/etc → snapshot da Default é atualizado em tempo real\r\n- User aplica view custom (preset ou saved) → snapshot da Default fica **congelado** (não polui)\r\n- User volta para Default → `applyDefault` restaura tudo (filter, search, page, etc) do snapshot intacto\r\n- User precisa **limpar manualmente** (clear search input, remover filtros via UI) para resetar\r\n\r\n**Reset programático:**\r\n\r\n```ts\r\nref.current?.resetPersistedState(); // remove entry inteira do localStorage\r\n```\r\n\r\n**Schema versionado:** entries antigos (v3 ou menor) são descartados silenciosamente — DataTable cai no comportamento default sem erro. Schema atual `v4`.\r\n\r\n---\r\n\r\n## Performance\r\n\r\n- `columns` **deve** ser memoizado com `useMemo` no pai\r\n- O processor (filter → search → sort → paginate) usa useMemo cascateado — mudar só de página NÃO re-roda filter/search/sort\r\n- Provider value é memoizado — re-render do pai não dispara cascade em rows\r\n- Use `virtualize` para > ~500 rows visíveis (ou desde sempre se UX permite)\r\n- Saved views + persistId: ambos consomem o mesmo `DataTableState`, podem coexistir\r\n\r\n---\r\n\r\n## ARIA\r\n\r\nTudo proveniente do `<Table>` primitive: `role=\"grid\"`, `role=\"row\"`, `role=\"columnheader\"` com `aria-sort`, `role=\"gridcell\"`. Keyboard navigation segue WAI-ARIA grid pattern. Bulk bar tem `role=\"region\"` com aria-label.\r\n\r\n---\r\n\r\n## Troubleshooting\r\n\r\n| Sintoma                                  | Causa provável                               | Fix                                                                              |\r\n| ---------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |\r\n| Tabela re-renderiza inteira a cada digit | `columns` não memoizado                      | `useMemo(() => [...], [deps])`                                                   |\r\n| Filter chip não aparece                  | Coluna sem `enableColumnFilter: true`        | Adicionar flag                                                                   |\r\n| Filter popover vazio                     | Nenhuma coluna com `enableColumnFilter`      | Adicionar a pelo menos 1 coluna                                                  |\r\n| Sort não funciona                        | Coluna sem `sortable: true`                  | Adicionar flag                                                                   |\r\n| Density não persiste                     | `persistId` ausente                          | Adicionar `persistId=\"meu-table\"`                                                |\r\n| Server mode loop infinito                | `fetchData` não memoizado                    | `useCallback(fetchData, [deps])`                                                 |\r\n| Virtualização \"pula\"                     | `estimateRowHeight` muito diferente do real  | Ajustar pro height médio observado                                               |\r\n| Inline edit não salva                    | `onCellEditCommit` retorna sem await         | Retornar Promise; controller aguarda                                             |\r\n| Saved views não persiste                 | `savedViewsMockService` em prod              | Implementar `SavedViewsService` real                                             |\r\n| Group header sem totalizer               | Coluna sem `aggregate` declarado             | Definir `aggregate: \"sum\" \\| \"avg\" \\| \"count\" \\| \"min\" \\| \"max\" \\| fn` na coluna |\r\n| Coluna actions com filter chip           | `type: \"actions\"` deveria desabilitar filter | Reportar — esse type bloqueia sort/filter por design                             |\r\n\r\n---\r\n\r\n## Padrões internos (referência rápida)\r\n\r\n- **God component evitado** — DataTable orquestra; lógica pesada em hooks (`use-filter-popover-adapter`, `use-sort-popover-adapter`, `use-cols-popover-adapter`, `use-data-table-processor`, etc)\r\n- **Vocabulário único de operador** — ids longos do `FilterModel` (`equals`, `neq`, `gt`, `gte`…) em todo o fluxo (popover, parser SQL, chips, adapter). Sem tradução curto↔longo. Label do chip vem do registry do column-type (`opLabel`), com `DEFAULT_OP_LABELS` como fallback\r\n- **Value resolution shared** — `utils/resolve-value.ts` (`getFieldValue / applyValueGetter / applyFormatter`) usado por processor, group-rows e cell render\r\n- **Column types via registry** — `column-types/column-type-registry.ts`; `console.warn` em duplicate (não throw, suporta hot reload)\r\n- **Row variants discriminadas** — `groupRow / groupContentRow / expansionRow / dataRow` via Symbol-as-discriminator (type-safe)\r\n- **Sortable head cell renomeado** — `DataTableSortableHeadCell` (consistência com prefixo)\r\n\r\n---\r\n\r\n## V2 (planejado, não V1)\r\n\r\n- Extração final do `<DataTableBody>` para componente próprio\r\n- Hooks dedicados pra inline-edit, keyboard-nav, grouping, expansion (atualmente inline no orquestrador)\r\n- Migration helper auto-aplicado para saved views quando colunas removidas\r\n- Unit tests cobertura ≥ 80% nos hooks críticos (`use-column-resize`, `group-rows`, `expand-rows`, `use-data-table-processor`)\r\n- Mobile parts da toolbar (`ToolbarMobileDialog` etc) decidir mantém ou remove\r\n",
         "type": "registry:file",
         "target": "components/ui/DataTable/USAGE.md"
       },
@@ -1292,7 +1292,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/DataTable/hooks/use-grab-to-scroll.ts",
-        "content": "import { useEffect, useRef, type RefObject } from \"react\";\r\n\r\n/**\r\n * `useGrabToScroll` — arrastar o corpo da tabela (\"grab\") pra rolar\r\n * horizontalmente, equivalente ao hook legado do DataGrid MUI.\r\n *\r\n * Anexa pointer listeners ao elemento de scroll (`scrollContainerRef`). Um\r\n * arrasto só começa após o ponteiro passar de `thresholdPx` (default 6px) —\r\n * abaixo disso o gesto é tratado como clique normal (seleção/click de célula\r\n * preservados). Quando um arrasto de fato acontece, o `click` subsequente é\r\n * suprimido (capture-phase) pra não disparar `onRowClick` ou seleção acidental.\r\n *\r\n * Não interfere no scroll por roda (wheel) — apenas posiciona `scrollLeft` via\r\n * pointermove. Pula:\r\n *   - dispositivos touch (`pointer: coarse`) — lá o scroll nativo já funciona;\r\n *   - alvos interativos (button/input/a/checkbox/[role=button]/etc) e células\r\n *     editáveis/expansíveis/de seleção, pra não roubar o gesto deles.\r\n *\r\n * @param scrollContainerRef ref ao elemento com `overflow-x` (o mesmo\r\n *   `scrollRef` passado ao `<Table>`).\r\n * @param enabled liga/desliga o comportamento sem desmontar o hook.\r\n * @param thresholdPx distância mínima (px) pra um movimento virar arrasto.\r\n */\r\nexport function useGrabToScroll(\r\n  scrollContainerRef: RefObject<HTMLElement | null>,\r\n  enabled: boolean,\r\n  thresholdPx = 6,\r\n): void {\r\n  // Persiste entre renders: sinaliza ao click-capture que o último gesto foi\r\n  // um arrasto e o clique deve ser engolido.\r\n  const suppressClickRef = useRef(false);\r\n\r\n  useEffect(() => {\r\n    if (!enabled) return;\r\n    const scroller = scrollContainerRef.current;\r\n    if (!scroller) return;\r\n\r\n    // Touch já rola nativamente — grab-to-scroll é só desktop (mouse/pen).\r\n    if (\r\n      typeof window !== \"undefined\" &&\r\n      typeof window.matchMedia === \"function\" &&\r\n      window.matchMedia(\"(pointer: coarse)\").matches\r\n    ) {\r\n      return;\r\n    }\r\n\r\n    // Alvos que NÃO devem iniciar um arrasto (têm gesto próprio).\r\n    const INTERACTIVE_SELECTOR = [\r\n      \"a\",\r\n      \"button\",\r\n      \"input\",\r\n      \"textarea\",\r\n      \"select\",\r\n      '[role=\"button\"]',\r\n      '[role=\"menuitem\"]',\r\n      '[role=\"checkbox\"]',\r\n      '[role=\"switch\"]',\r\n      '[contenteditable=\"true\"]',\r\n      \"[data-editable]\",\r\n      \"[data-expandable]\",\r\n      '[data-purpose=\"selection\"]',\r\n      '[data-purpose=\"actions\"]',\r\n    ].join(\",\");\r\n\r\n    const prevCursor = scroller.style.cursor;\r\n    const prevUserSelect = scroller.style.userSelect;\r\n    scroller.style.cursor = \"grab\";\r\n\r\n    let isPointerDown = false;\r\n    let isDragging = false;\r\n    let activePointerId: number | null = null;\r\n    let startClientX = 0;\r\n    let startScrollLeft = 0;\r\n\r\n    const shouldIgnoreTarget = (target: EventTarget | null): boolean => {\r\n      const el = target instanceof Element ? target : null;\r\n      if (!el) return true;\r\n      return el.closest(INTERACTIVE_SELECTOR) != null;\r\n    };\r\n\r\n    const onClickCapture = (event: MouseEvent) => {\r\n      if (!suppressClickRef.current) return;\r\n      suppressClickRef.current = false;\r\n      event.preventDefault();\r\n      event.stopPropagation();\r\n    };\r\n\r\n    const onPointerDown = (event: PointerEvent) => {\r\n      // Só botão primário do mouse; ignora touch (já tratado pelo skip acima,\r\n      // mas defensivo) — pen é permitido.\r\n      if (event.pointerType === \"mouse\" && event.button !== 0) return;\r\n      if (event.pointerType === \"touch\") return;\r\n      if (shouldIgnoreTarget(event.target)) return;\r\n      // Nada a rolar — não inicia.\r\n      if (scroller.scrollWidth <= scroller.clientWidth) return;\r\n\r\n      isPointerDown = true;\r\n      isDragging = false;\r\n      activePointerId = event.pointerId;\r\n      startClientX = event.clientX;\r\n      startScrollLeft = scroller.scrollLeft;\r\n    };\r\n\r\n    const onPointerMove = (event: PointerEvent) => {\r\n      if (!isPointerDown || activePointerId !== event.pointerId) return;\r\n      const deltaX = event.clientX - startClientX;\r\n      if (!isDragging) {\r\n        if (Math.abs(deltaX) < thresholdPx) return;\r\n        // Cruzou o threshold → vira arrasto de verdade.\r\n        isDragging = true;\r\n        scroller.style.cursor = \"grabbing\";\r\n        scroller.style.userSelect = \"none\";\r\n        try {\r\n          scroller.setPointerCapture(event.pointerId);\r\n        } catch {\r\n          /* setPointerCapture pode falhar em alguns browsers — no-op */\r\n        }\r\n      }\r\n      scroller.scrollLeft = startScrollLeft - deltaX;\r\n      event.preventDefault();\r\n    };\r\n\r\n    const finish = (event: PointerEvent) => {\r\n      if (activePointerId !== event.pointerId) return;\r\n      if (isDragging) {\r\n        // Suprime o `click` que o browser dispara após o pointerup do arrasto.\r\n        suppressClickRef.current = true;\r\n      }\r\n      isPointerDown = false;\r\n      isDragging = false;\r\n      activePointerId = null;\r\n      scroller.style.cursor = \"grab\";\r\n      scroller.style.userSelect = prevUserSelect;\r\n      try {\r\n        scroller.releasePointerCapture(event.pointerId);\r\n      } catch {\r\n        /* releasePointerCapture pode falhar se já liberado — no-op */\r\n      }\r\n    };\r\n\r\n    scroller.addEventListener(\"click\", onClickCapture, true);\r\n    scroller.addEventListener(\"pointerdown\", onPointerDown);\r\n    scroller.addEventListener(\"pointermove\", onPointerMove, { passive: false });\r\n    scroller.addEventListener(\"pointerup\", finish);\r\n    scroller.addEventListener(\"pointercancel\", finish);\r\n\r\n    return () => {\r\n      scroller.removeEventListener(\"click\", onClickCapture, true);\r\n      scroller.removeEventListener(\"pointerdown\", onPointerDown);\r\n      scroller.removeEventListener(\"pointermove\", onPointerMove);\r\n      scroller.removeEventListener(\"pointerup\", finish);\r\n      scroller.removeEventListener(\"pointercancel\", finish);\r\n      scroller.style.cursor = prevCursor;\r\n      scroller.style.userSelect = prevUserSelect;\r\n    };\r\n  }, [scrollContainerRef, enabled, thresholdPx]);\r\n}\r\n",
+        "content": "import { useEffect, useRef, type RefObject } from \"react\";\r\n\r\n/**\r\n * `useGrabToScroll` — arrastar o corpo da tabela (\"grab\") pra rolar\r\n * horizontalmente, equivalente ao hook legado do DataGrid MUI.\r\n *\r\n * Anexa pointer listeners ao elemento de scroll (`scrollContainerRef`). Um\r\n * arrasto só começa após o ponteiro passar de `thresholdPx` (default 6px) —\r\n * abaixo disso o gesto é tratado como clique normal (seleção/click de célula\r\n * preservados). Quando um arrasto de fato acontece, o `click` subsequente é\r\n * suprimido (capture-phase) pra não disparar `onRowClick` ou seleção acidental.\r\n *\r\n * Não interfere no scroll por roda (wheel) — apenas posiciona `scrollLeft` via\r\n * pointermove. Pula:\r\n *   - dispositivos touch (`pointer: coarse`) — lá o scroll nativo já funciona;\r\n *   - alvos interativos (button/input/a/checkbox/[role=button]/etc) e células\r\n *     editáveis/expansíveis/de seleção, pra não roubar o gesto deles.\r\n *\r\n * @param scrollContainerRef ref ao elemento com `overflow-x` (o mesmo\r\n *   `scrollRef` passado ao `<Table>`).\r\n * @param enabled liga/desliga o comportamento sem desmontar o hook.\r\n * @param thresholdPx distância mínima (px) pra um movimento virar arrasto.\r\n */\r\nexport function useGrabToScroll(\r\n  scrollContainerRef: RefObject<HTMLElement | null>,\r\n  enabled: boolean,\r\n  thresholdPx = 6,\r\n): void {\r\n  // Persiste entre renders: sinaliza ao click-capture que o último gesto foi\r\n  // um arrasto e o clique deve ser engolido.\r\n  const suppressClickRef = useRef(false);\r\n\r\n  useEffect(() => {\r\n    if (!enabled) return;\r\n    const scroller = scrollContainerRef.current;\r\n    if (!scroller) return;\r\n\r\n    // Touch já rola nativamente — grab-to-scroll é só desktop (mouse/pen).\r\n    if (\r\n      typeof window !== \"undefined\" &&\r\n      typeof window.matchMedia === \"function\" &&\r\n      window.matchMedia(\"(pointer: coarse)\").matches\r\n    ) {\r\n      return;\r\n    }\r\n\r\n    // Alvos que NÃO devem iniciar um arrasto (têm gesto próprio).\r\n    const INTERACTIVE_SELECTOR = [\r\n      \"a\",\r\n      \"button\",\r\n      \"input\",\r\n      \"textarea\",\r\n      \"select\",\r\n      '[role=\"button\"]',\r\n      '[role=\"menuitem\"]',\r\n      '[role=\"checkbox\"]',\r\n      '[role=\"switch\"]',\r\n      '[contenteditable=\"true\"]',\r\n      \"[data-editable]\",\r\n      \"[data-expandable]\",\r\n      '[data-purpose=\"selection\"]',\r\n      '[data-purpose=\"actions\"]',\r\n    ].join(\",\");\r\n\r\n    const prevCursor = scroller.style.cursor;\r\n    const prevUserSelect = scroller.style.userSelect;\r\n\r\n    /**\r\n     * `cursor: grab` SÓ quando há o que arrastar.\r\n     *\r\n     * Até 2026-08-21 a mãozinha era aplicada sem condição, e o `pointerdown` recusava o\r\n     * arrasto depois (`scrollWidth <= clientWidth`, abaixo). Resultado: em toda tabela que\r\n     * cabia na tela — a maioria — o cursor prometia um gesto que não existia, e o usuário\r\n     * clicava e arrastava sem nada acontecer. Affordance mentindo é pior que affordance\r\n     * ausente: ela ensina um gesto errado.\r\n     */\r\n    const syncCursor = () => {\r\n      const rolavel = scroller.scrollWidth > scroller.clientWidth;\r\n      scroller.style.cursor = rolavel ? \"grab\" : prevCursor;\r\n    };\r\n    syncCursor();\r\n\r\n    /*\r\n     * `window.resize` não basta: largura de coluna (autoFit, resize manual), troca de view\r\n     * (tabela ↔ lista ↔ kanban) e chegada de dados mudam o `scrollWidth` sem a janela mudar\r\n     * de tamanho. O observer vai no scroller E no conteúdo dele — o 1º pega o container\r\n     * encolhendo, o 2º pega a tabela crescendo por dentro.\r\n     */\r\n    const ro =\r\n      typeof ResizeObserver === \"function\" ? new ResizeObserver(syncCursor) : null;\r\n    if (ro) {\r\n      ro.observe(scroller);\r\n      if (scroller.firstElementChild) ro.observe(scroller.firstElementChild);\r\n    }\r\n\r\n    let isPointerDown = false;\r\n    let isDragging = false;\r\n    let activePointerId: number | null = null;\r\n    let startClientX = 0;\r\n    let startScrollLeft = 0;\r\n\r\n    const shouldIgnoreTarget = (target: EventTarget | null): boolean => {\r\n      const el = target instanceof Element ? target : null;\r\n      if (!el) return true;\r\n      return el.closest(INTERACTIVE_SELECTOR) != null;\r\n    };\r\n\r\n    const onClickCapture = (event: MouseEvent) => {\r\n      if (!suppressClickRef.current) return;\r\n      suppressClickRef.current = false;\r\n      event.preventDefault();\r\n      event.stopPropagation();\r\n    };\r\n\r\n    const onPointerDown = (event: PointerEvent) => {\r\n      // Só botão primário do mouse; ignora touch (já tratado pelo skip acima,\r\n      // mas defensivo) — pen é permitido.\r\n      if (event.pointerType === \"mouse\" && event.button !== 0) return;\r\n      if (event.pointerType === \"touch\") return;\r\n      if (shouldIgnoreTarget(event.target)) return;\r\n      // Nada a rolar — não inicia.\r\n      if (scroller.scrollWidth <= scroller.clientWidth) return;\r\n\r\n      isPointerDown = true;\r\n      isDragging = false;\r\n      activePointerId = event.pointerId;\r\n      startClientX = event.clientX;\r\n      startScrollLeft = scroller.scrollLeft;\r\n    };\r\n\r\n    const onPointerMove = (event: PointerEvent) => {\r\n      if (!isPointerDown || activePointerId !== event.pointerId) return;\r\n      const deltaX = event.clientX - startClientX;\r\n      if (!isDragging) {\r\n        if (Math.abs(deltaX) < thresholdPx) return;\r\n        // Cruzou o threshold → vira arrasto de verdade.\r\n        isDragging = true;\r\n        scroller.style.cursor = \"grabbing\";\r\n        scroller.style.userSelect = \"none\";\r\n        try {\r\n          scroller.setPointerCapture(event.pointerId);\r\n        } catch {\r\n          /* setPointerCapture pode falhar em alguns browsers — no-op */\r\n        }\r\n      }\r\n      scroller.scrollLeft = startScrollLeft - deltaX;\r\n      event.preventDefault();\r\n    };\r\n\r\n    const finish = (event: PointerEvent) => {\r\n      if (activePointerId !== event.pointerId) return;\r\n      if (isDragging) {\r\n        // Suprime o `click` que o browser dispara após o pointerup do arrasto.\r\n        suppressClickRef.current = true;\r\n      }\r\n      isPointerDown = false;\r\n      isDragging = false;\r\n      activePointerId = null;\r\n      // Re-sincroniza em vez de fixar \"grab\": o conteúdo pode ter mudado durante o arrasto\r\n      // (troca de view, coluna redimensionada) e aí a tabela já não rola mais.\r\n      syncCursor();\r\n      scroller.style.userSelect = prevUserSelect;\r\n      try {\r\n        scroller.releasePointerCapture(event.pointerId);\r\n      } catch {\r\n        /* releasePointerCapture pode falhar se já liberado — no-op */\r\n      }\r\n    };\r\n\r\n    scroller.addEventListener(\"click\", onClickCapture, true);\r\n    scroller.addEventListener(\"pointerdown\", onPointerDown);\r\n    scroller.addEventListener(\"pointermove\", onPointerMove, { passive: false });\r\n    scroller.addEventListener(\"pointerup\", finish);\r\n    scroller.addEventListener(\"pointercancel\", finish);\r\n\r\n    return () => {\r\n      scroller.removeEventListener(\"click\", onClickCapture, true);\r\n      scroller.removeEventListener(\"pointerdown\", onPointerDown);\r\n      scroller.removeEventListener(\"pointermove\", onPointerMove);\r\n      scroller.removeEventListener(\"pointerup\", finish);\r\n      scroller.removeEventListener(\"pointercancel\", finish);\r\n      ro?.disconnect();\r\n      scroller.style.cursor = prevCursor;\r\n      scroller.style.userSelect = prevUserSelect;\r\n    };\r\n  }, [scrollContainerRef, enabled, thresholdPx]);\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/DataTable/hooks/use-grab-to-scroll.ts"
       },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · data-table · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · date-picker · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · dialog · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · drawer · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · empty-state · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-chat · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-clientes · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-finance · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-login · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · floating-panel · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · footer-table · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · form-field · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · header · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · hover-card · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · icon · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · input-group · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · input-otp · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · input · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · kanban · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · kpi · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · label · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · list · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · markdown-text · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · menubar · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · modal · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · page-header · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · pagination · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · panel · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · popover · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · progress · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · radio-group · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3975,7 +3975,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · scroll-area · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · select · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4024,7 +4024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · separator · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · sheet · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4157,7 +4157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4179,7 +4179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · skeleton · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4203,7 +4203,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · slider · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4226,7 +4226,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · sonner · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4272,7 +4272,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · spinner · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4296,7 +4296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · switch · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4375,7 +4375,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · table · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4399,7 +4399,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · tabs · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4423,7 +4423,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · textarea · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4441,7 +4441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · theme-blue · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4459,7 +4459,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · theme-green · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4477,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · theme-pay · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4517,7 +4517,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · theme · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4568,7 +4568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · toast · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · toggle-group · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4619,7 +4619,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · toggle · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · tooltip · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4664,7 +4664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · tv · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4686,7 +4686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.45.0 · 3638566 · 2026-08-22"
+      "stamp": "igreen-ds · utils · v0.45.0 · 1552cd1 · 2026-08-22"
     },
     "type": "registry:file"
   }
