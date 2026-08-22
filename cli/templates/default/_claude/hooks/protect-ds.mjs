@@ -264,6 +264,47 @@ for (const { n, text } of linhasNum) {
   }
 }
 
+/* ── regras do componente que está sendo escrito ───────────────────────────────
+ * Não pede leitura: entrega. O gatilho é o componente APARECER no código, então quem
+ * não usa aquele componente nunca vê uma linha sobre ele. Silêncio absoluto até alguém
+ * declarar um bloco `ds:regras` no USAGE — é o que torna isto progressivo.
+ * ────────────────────────────────────────────────────────────────────────────── */
+let regras = [];
+let regrasTexto = "";
+try {
+  const aqui2 = dirname(fileURLToPath(import.meta.url));
+  const { regrasAplicaveis, formatar } = await import(
+    pathToFileURL(join(aqui2, "component-rules.mjs")).href
+  );
+  /* Resolve o USAGE nos DOIS canais: copy-in grava em `src/components/ui/<Nome>/`, e em
+     submódulo o componente vive em `<dsPath>/src/components/ui/<Nome>/`. Falha = null,
+     e null é silêncio — nunca erro no caminho de um Write. */
+  const raizes = dsPath
+    ? [join(dsPath, "src/components/ui"), "src/components/ui"]
+    : ["src/components/ui"];
+  const lerUsage = (nome) => {
+    for (const r of raizes) {
+      try {
+        return readFileSync(join(r, nome, "USAGE.md"), "utf8");
+      } catch {
+        /* próxima raiz */
+      }
+    }
+    return null;
+  };
+  regras = regrasAplicaveis(novo, lerUsage);
+  if (regras.length) {
+    regrasTexto = formatar(regras, achados.length ? "" : raw);
+    if (!achados.length) {
+      /* Sem anti-pattern de estilo: informa e libera aqui mesmo. */
+      process.stderr.write(regrasTexto);
+      process.exit(1);
+    }
+  }
+} catch {
+  /* módulo ausente (payload antigo) → segue como antes, sem dizer nada */
+}
+
 if (achados.length) {
   const linhas = achados
     .slice(0, 6)
@@ -274,7 +315,11 @@ if (achados.length) {
       `   ${raw}\n${linhas}\n` +
       (achados.length > 6 ? `   … e mais ${achados.length - 6}.\n` : "") +
       "   Tabela: .claude/rules/ds-design.md · DESIGN.md · .claude/rules/ds-components.md\n" +
-      "   (aviso, não bloqueio — se o valor fora do sistema é intencional, siga.)\n",
+      "   (aviso, não bloqueio — se o valor fora do sistema é intencional, siga.)\n" +
+      /* As regras do componente vão NO MESMO relatório. Dois blocos pro mesmo Write seria
+         ruído — e descartá-las (o que este hook fazia na 1ª versão, contrariando o próprio
+         comentário) perdia justamente o sinal mais valioso: o de arquitetura. */
+      (regrasTexto ? `${regrasTexto}` : ""),
   );
   process.exit(1);
 }

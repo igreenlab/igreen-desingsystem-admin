@@ -1,5 +1,10 @@
 # Modal — USAGE
 
+<!-- ds:regras
+- aba dentro dele → `<Tabs fullWidth>` até o size `lg`; no `xl` (1100px) use hug
+- ação destrutiva → `AlertModal`, não confirmação montada na mão
+-->
+
 Dialog modal centrado com header (icon + title + description), body livre via `children` e footer estruturado por props de action (até 3 botões) — não há subcomponentes de composição.
 
 ## Quando usar
