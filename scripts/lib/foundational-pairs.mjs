@@ -27,6 +27,16 @@ const FIXOS = [
   // foundational (e não como cópia manual) pra que o `check-foundationals` cobre o
   // sync: tabela do consumidor divergindo da do CI é o defeito que a L-060 descreve.
   ["scripts/lib/ds-lint-patterns.mjs", "cli/templates/default/_claude/hooks/ds-lint-patterns.mjs"],
+  // O índice de gotchas dos primitivos shadcn. Entrou em 2026-08-21: ele NÃO chegava em
+  // consumidor nenhum — nenhum item do registry o distribui e o payload tinha ZERO
+  // USAGE.md. Só quem consome por submódulo o lia (está no disco). Consequência: todo
+  // gotcha de primitivo (o `value=""` do select, o `<Toaster/>` no root, a receita
+  // flutuante, e agora a regra de largura do tabs) existia pro consumidor apenas se
+  // estivesse repetido no vocabulário `alwaysApply` — que é justamente o arquivo que a
+  // gente cuida pra não inflar. Como foundational, ele chega nos 4 canais, carrega SOB
+  // DEMANDA (é arquivo de skill, não rule) e o sync fica gated em vez de depender de
+  // alguém lembrar de copiar.
+  ["src/components/shadcn/USAGE.md", "cli/templates/default/_claude/skills/ds-kit/shadcn-gotchas.md"],
 ];
 
 const THEME_DIR = "src/styles/theme";
