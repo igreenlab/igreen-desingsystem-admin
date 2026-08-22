@@ -149,6 +149,7 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 | 1 | id        | ID         | text     | —           | width estreito |
 | 2 | name      | Nome       | text ?   | text        | isPrimary      |
 | 3 | valor     | Valor      | currency?| number      | align right    |
+| 4 | cnpj      | CNPJ       | text     | text        | copyable       |
 ...
 ```
 
@@ -166,6 +167,17 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
      §Regras de coluna.
    - **`width` NÃO setado** nas colunas de dados — `autoFit` (default ON) distribui
      pra preencher (sem 1ª coluna esticada). Fixar só id/código curto.
+   - **`copyable: true` inferido** nas colunas cujo valor a pessoa **cola em outro
+     lugar** — e SÓ nelas. Critério: é um identificador que sai da tela (documento
+     CPF/CNPJ/IE, e-mail, telefone/WhatsApp, conta/agência/chave PIX, código de
+     rastreio/protocolo/contrato/NF/pedido, token/hash, ID **externo**).
+     **Não** inferir em: nome de pessoa ou empresa, status, data, valor monetário,
+     quantidade, percentual, endereço em prosa — copiar não é o que se faz com eles.
+     ⚠️ `id` sequencial curto (1, 2, 3) **não** entra; UUID/protocolo/NF entra — o que
+     decide é ser útil fora da tela, não a coluna se chamar "id".
+     Declarar na coluna `flags` da tabela como `copyable`, pra o usuário poder tirar
+     em lote junto do resto ("6 sem copyable"). Detalhe e limites: `generate.md`
+     §Regras de coluna item 4.
    - Coluna **`actions`** oferecida por default (Editar / Excluir destructive)
      via `actionColumn`/`getActions` — padrão `ClientsCRUDServerPreview`. Vai por
      **último**; o DataTable **ancora à direita sozinho** — `pinned` é redundante. (`width`
@@ -175,10 +187,15 @@ multiSelect, user, tags, actions. Na dúvida entre dois, pergunte.
 
 3. Drill-down individual SÓ nas colunas que o usuário citar:
    `pinned` ("left"/"right") · `width` fixo (senão autoFit resolve) ·
-   `editable` (+`editType`) · `ellipsis` · `readMore` · `copyable` (ícone copiar no
-   hover — pra CNPJ/doc/e-mail/ID/conta) · `aggregate` (+`aggregateFormatter`) ·
-   `valueGetter` (dot-path/lookup) · `render` custom (último recurso — preferir
-   type do registry). Grab-to-scroll lateral é **nativo** (não precisa citar).
+   `editable` (+`editType`) · `ellipsis` · `readMore` · `aggregate`
+   (+`aggregateFormatter`) · `valueGetter` (dot-path/lookup) · `render` custom
+   (último recurso — preferir type do registry). Grab-to-scroll lateral é
+   **nativo** (não precisa citar).
+
+   > `copyable` **saiu desta lista** em 2026-08-22: ficava aqui *"só se o usuário
+   > citar"* enquanto o `generate.md` mandava marcar naturalmente — a skill se
+   > contradizia, e na prática ninguém cita um recurso que não sabe que existe.
+   > Agora é inferido no item 2 e declarado no gate, onde dá pra recusar.
 
 ---
 
