@@ -21,11 +21,11 @@ variação **"Sem módulo / sem busca"** (omita `module`/`modules`, passe `showS
 Ela **também** aceita módulos, mas aí eles ficam atrás de um botão acima da busca — por isso
 não é a recomendação quando a divisão existe.
 
-**A logo é a da iGreen por default** — `logo` é opcional desde vNEXT e cai em
+**A logo é a da iGreen por default** — `logo` é opcional desde a 0.46.0 e cai em
 `SidebarBrandMark`. Só passe quando o app tem marca própria; `title` é o **nome do projeto**,
 exibido à direita dela.
 
-> ⚠️ Até vNEXT `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`
+> ⚠️ Até a 0.46.0 `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`
 > sempre foi opcional. Trocar pra esta sidebar portanto *forçava* quem montava a inventar uma
 > logo — e foi assim que a marca da iGreen sumiu num app de consumidor (2026-08-22).
 

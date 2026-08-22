@@ -46,6 +46,46 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.46.0",
+    date: "2026-08-22",
+    tag: "preview",
+    title:
+      "O componente entrega as próprias regras — e duas affordances param de mentir",
+    summary:
+      "O USAGE.md chegava no ponto de uso, mas ler era decisão do modelo: medido num consumidor real, a IA abriu 6 de 14. Agora o hook detecta o componente no código que está sendo escrito e ENTREGA as regras dele — sem arquivo novo, sem custo pra quem não usa aquele componente. Na mesma rodada, duas affordances que prometiam o que não existia: o cursor de arrastar aparecia em tabela que cabia na tela, e a logo da iGreen desaparecia ao trocar de sidebar (a API exigia uma nova, não era a IA removendo).",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "Hook entrega as regras do componente no instante em que a IA escreve a tag — bloco `ds:regras` no `USAGE.md`, teto de 3 componentes e 8 linhas por escrita. Componente sem bloco = silêncio absoluto, então a adoção é por componente e reversível. Cobre também os primitivos shadcn, por bloco nomeado no índice de gotchas.",
+          "`Tabs` ganha `fullWidth`: as abas dividem a largura do container e o trilho da variante `line` atravessa a superfície inteira — antes só dava compondo `w-full`/`flex-1` na mão.",
+          "**Logo iGreen por default** nas duas sidebars: `logo` (SingleMenuSidebar) e `sidebarLogo` (AppShell) viraram opcionais e caem na marca. Eram obrigatórias sem fallback, e por isso trocar pra sidebar única forçava quem montava a inventar outra logo.",
+          'Página **Como atualizar** no showcase — um caminho por canal (npm, copy-in/registry, scaffold, submódulo), a armadilha do cache do `npx` e um prompt de atualização que audita o `#/updates` antes de mexer em nada.',
+          "Prompts coláveis de **instalar** e **construir** na página de Instalação, de fonte única com a landing.",
+        ],
+      },
+      {
+        type: "improved",
+        items: [
+          "`crud-builder` **infere `copyable`** em vez de esperar que peçam: critério escrito (identificador que a pessoa cola em outro lugar — documento, e-mail, conta/PIX, protocolo/NF, token, ID externo) e declaração na tabela de colunas do gate, pra recusar em lote. A skill se contradizia — o `generate.md` mandava marcar, o `interview.md` listava como \"só se o usuário citar\".",
+          "`app-builder` pergunta as duas sidebars sem induzir erro: aviso de vocabulário (na API da sidebar única `categories` são os GRUPOS DO MENU, então a palavra nomeava os dois lados da escolha), duas opções descritas pela tela, links do showcase pra ver antes de decidir, desempate pronto pra quando o usuário diz \"categoria\", e recomendação explícita em vez de pergunta neutra.",
+          "Página de **Instalação** reorganizada por caso de uso — tabela de decisão, os 4 canais, validação em 4 checagens e problemas comuns — com `@latest` nos comandos primários.",
+          "O índice de gotchas do shadcn passou a ser distribuído (`ds-kit/shadcn-gotchas.md`), com a regra de escolha de variante das abas.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Cursor `grab` da DataTable só aparece **quando há o que arrastar**. Desde que o `grabToScroll` virou default, a mãozinha era aplicada sem condição e a checagem de overflow só existia no `pointerdown` — em toda tabela que cabia na tela o cursor convidava a um gesto que o handler recusava. Re-medido por `ResizeObserver` (resize de coluna, troca de view, chegada de dados).",
+          "A página de Instalação mandava instalar a **CLI 0.1.0** — um pacote homônimo de outra pessoa no npm, que falhava no `npx`.",
+          "O índice de gotchas do shadcn não chegava a **canal nenhum**: existia só no repo.",
+          "A tabela da página Como atualizar tinha célula que parecia comando e não era.",
+          "O hook de regras ficava calado justamente pro `<Tabs>` — primitivo shadcn no copy-in cai como arquivo solto, sem `USAGE.md` próprio.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.45.0",
     date: "2026-08-21",
     tag: "release",
