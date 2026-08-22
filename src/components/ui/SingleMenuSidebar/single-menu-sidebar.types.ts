@@ -122,7 +122,8 @@ export interface SingleMenuSearchProps {
 }
 
 export interface SingleMenuHeaderProps {
-  logo: ReactNode;
+  /** Omitido → marca iGreen (`SidebarBrandMark`). */
+  logo?: ReactNode;
   title: string;
   showToggleIndicator?: boolean;
 }
@@ -215,9 +216,12 @@ export interface SingleMenuSidebarProps extends Omit<
   HTMLAttributes<HTMLElement>,
   "title"
 > {
-  /** Ícone/logo do header */
-  logo: ReactNode;
-  /** Título do app exibido quando expandido */
+  /**
+   * Ícone/logo do header. **Omita pra ficar com a marca iGreen** — é o default, igual ao
+   * `brand` do `MenuSidebar`. Passe só quando o app tem marca própria e alguém pediu.
+   */
+  logo?: ReactNode;
+  /** Nome do projeto/app, exibido à direita da logo quando expandido */
   title: string;
   /** Config do seletor de módulo (com dropdown opcional). Ignorado se `modules`. */
   module?: SingleMenuModule;

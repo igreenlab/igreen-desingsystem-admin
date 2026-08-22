@@ -1,5 +1,11 @@
 # SingleMenuSidebar
 
+<!-- ds:regras
+- NÃO passe `logo`: o default é a marca iGreen. Só com marca própria pedida explicitamente
+- `title` = nome do projeto (vai à direita da logo) — pergunte, não invente
+- é a escolha quando NÃO há divisão em áreas: `showSearch={false}`, sem `module`/`modules`
+-->
+
 **O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em
 accordion (1 aberto por vez). Categoria sem `items` é link simples.
 **Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).
@@ -9,11 +15,25 @@ alternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +
 badges). Sem variantes — escolha o componente pela necessidade, não por props.
 Precisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.
 
+**Qual das duas** — o critério é *o sistema tem áreas grandes e separadas, cada uma com o
+menu dela?* Sim → `MenuSidebar` (as áreas ficam todas visíveis no rail). Não → esta, na
+variação **"Sem módulo / sem busca"** (omita `module`/`modules`, passe `showSearch={false}`).
+Ela **também** aceita módulos, mas aí eles ficam atrás de um botão acima da busca — por isso
+não é a recomendação quando a divisão existe.
+
+**A logo é a da iGreen por default** — `logo` é opcional desde vNEXT e cai em
+`SidebarBrandMark`. Só passe quando o app tem marca própria; `title` é o **nome do projeto**,
+exibido à direita dela.
+
+> ⚠️ Até vNEXT `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`
+> sempre foi opcional. Trocar pra esta sidebar portanto *forçava* quem montava a inventar uma
+> logo — e foi assim que a marca da iGreen sumiu num app de consumidor (2026-08-22).
+
 ## Props essenciais
 
 | Prop                            | Tipo                          | Default | Obrigatório |
 | ------------------------------- | ----------------------------- | ------- | ----------- |
-| `logo`                          | `ReactNode`                   | —       | ✅          |
+| `logo`                          | `ReactNode`                   | **marca iGreen** | — (omita p/ ficar com a marca) |
 | `title`                         | `string`                      | —       | ✅          |
 | `user`                          | `SingleMenuUser`              | —       | ✅          |
 | `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |

@@ -3715,3 +3715,73 @@ teste existe e reprova) e o defeito 2 é doc no ponto de uso. Nenhum dos dois co
 100% das sessões.
 
 **Changelog:** fica pro `/ds-release`.
+
+---
+
+### 2026-08-22 | ds-dev | A pergunta das duas sidebars induzia erro — e a logo da iGreen sumia na troca | CONCLUÍDO
+
+**Input:** consumidor (submódulo e copy-in via npx) relatou que a IA perguntou "MenuSidebar ou
+SingleMenuSidebar?" *"de uma forma estranha de entender, induzindo a um erro sem querer"* — a
+funcionalidade funcionou, a **pergunta** não. E, ao montar a sidebar única, a **logo da iGreen
+desapareceu** do header.
+
+**Causa 1 — a palavra "categoria" nomeia os DOIS lados da escolha.** O `Passo 0` da skill
+perguntava *"áreas separadas… ou sistema único?"*, mas na API da variante `single` a prop se
+chama `categories` e significa **os grupos do menu**. Quem chama módulo de "categoria" (o
+vocabulário do time: módulo = workspace = categoria) lê a pergunta invertida. A skill também
+usava nome de componente, que não diz nada a quem não conhece o DS.
+
+**Causa 2 — a escolha é genuinamente ambígua no código.** `AppShell` em `single` aceita
+`sidebarModules` (`app-shell.tsx:165`): "sidebar única COM módulos" é estado alcançável, e
+nenhuma das duas skills dizia qual preferir. Sem regra de tendência, é cara-coroa.
+
+**Causa 3 — a IA não removeu a logo; a API pediu outra.** Assimetria medida:
+`MenuSidebar.brand` é **opcional** e cai em `brand ?? <SidebarBrandIcon />`;
+`SingleMenuSidebar.logo` era **obrigatória e sem fallback**, e o `AppShell` repassava direto
+(`logo={sidebarLogo}`, com `sidebarLogo` obrigatória). Trocar de sidebar **forçava** quem
+montava a produzir uma logo nova.
+
+**O que foi feito:**
+
+1. **Componente (o durável).** `logo` e `sidebarLogo` viraram **opcionais**, caindo em
+   `SidebarBrandMark` — a marca iGreen no quadrado de brand, o mesmo tratamento que a página
+   de doc já fazia na mão. Relaxamento de tipo, não-breaking. Escolhido em vez de instrução
+   porque **default não depende de a IA lembrar** (pergunta 1 do auto-update protocol).
+   `sidebarTitle` **segue obrigatória de propósito**: é o nome do projeto, a única coisa que o
+   DS não adivinha, e o TS cobrando é o que força a pergunta no builder.
+2. **Distribuição do arquivo compartilhado.** `MenuSidebar/sidebar-brand.tsx` entrou nos
+   `files` do item `single-menu-sidebar` — padrão já existente no registry (4 arquivos em 2+
+   itens, incluindo `nav-link.ts` entre estes mesmos dois). A alternativa,
+   `registryDependency` em `menu-sidebar`, arrastaria o componente grande inteiro pra quem
+   quer só a sidebar simples (e L-049 é sobre dep que não resolve).
+3. **Skill (repo + payload).** `Passo 0` virou **duas perguntas**: nome do projeto, e módulos.
+   Com aviso de vocabulário explícito (não use "categoria", não use nome de componente,
+   descreva o que aparece na tela), **duas** opções e só duas, **links do showcase** pro
+   usuário ver antes de decidir, regra de tendência escrita (divisão → `menu`; sem divisão →
+   `single` na variação "Sem módulo / sem busca"), e "outras variações → mande a página do
+   componente" em vez de ampliar o leque na entrevista.
+4. **`ds:regras` em `AppShell` e `SingleMenuSidebar`** — o mecanismo progressivo de ontem
+   entrega essas 3 linhas no momento em que a IA escreve a tag, sem custo pra quem não usa.
+5. **A página de doc passou a MOSTRAR o default** (o exemplo "Sem módulo / sem busca" não
+   passa mais `logo`). Ela é justamente a página que as skills agora linkam — descrever o
+   default numa página que exibe o contrário seria a L-060 de novo.
+
+**Estado:** tsc 0 · 62 arquivos / **754 testes** (+4), 0 falha · `blocks:check`,
+`registry-app:audit` e `check-foundationals` verdes · registry + embed rebuildados (488
+arquivos) · verificado no browser: marca 40×40, `bg-bg-brand`, nome à direita.
+
+⚠️ **`release:check` reprova de propósito**: 3 citações de `vNEXT` (2 no USAGE da
+`SingleMenuSidebar`, 1 no payload do `app-builder`) aguardam o número real. É o
+`version-claims --release` funcionando — `npm test` aceita, a release cobra.
+
+**Assumption:** que "sem divisão em áreas → sidebar única enxuta" cobre o caso comum. Se
+aparecer app sem módulos que ainda queira busca na sidebar, a regra não cobre — mas aí é
+`sidebarShowSearch` explícito, não outra sidebar. E que o tratamento do quadrado
+(`size-form-lg` + `rounded-radius-xl`) é o certo pro header da única: é o que a doc já usava,
+não uma escolha nova. Se o Header do app tiver logo própria em cima, as duas convivem na tela
+— não medi esse caso.
+
+**Não virou lição:** o defeito da logo **dá gate** (o teste reprova sem o fallback, medido) e o
+resto é doc no ponto de uso.
+
+**Changelog + bump:** ficam pro `/ds-release`, que também resolve os `vNEXT`.

@@ -115,12 +115,24 @@ dele). O catálogo visual hospedado mostra como cada um fica:
 | "login", "autenticação", "tela de entrar", "recuperar senha"                              | skill `auth-builder` (`/ds-create-login`) → `example-login` | FormField + AppShell-less |
 | "tabela + detalhe ao lado", "clicar abre o detalhe", "filtro no topo que muda tudo"       | skill `screen-composer` (`/ds-create-screen`) | composição de 2+ peças |
 | "shell do app", "layout com menu lateral", "casca", "estrutura base" (só a casca)         | `app-shell` (template)           | AppShell                    |
-| "menu lateral", "sidebar", "navegação lateral" (rail + contextos)                         | `menu-sidebar` (template)        | MenuSidebar                 |
-| "menu lateral simples", "sidebar de nível único", "menu sem rail/contextos"               | `single-menu-sidebar` (template) | SingleMenuSidebar           |
+| "menu lateral", "sidebar" — sistema **dividido em áreas** (Comercial, Financeiro…), cada uma com o menu dela | `menu-sidebar` (template)        | MenuSidebar                 |
+| "menu lateral simples", "um menu só" — **sem** divisão em áreas                           | `single-menu-sidebar` (template) | SingleMenuSidebar (variação "Sem módulo / sem busca") |
 | "kpi", "card de métrica", "indicador", "stat card", "row de métricas/dashboard cards"     | `kpi` (componente)               | Kpi / KpiGroup / KpiDelta   |
 | "cabeçalho do app", "topbar", "header com usuário"                                        | `header` (template)              | Header                      |
 | "cabeçalho de página", "título + ações + breadcrumb"                                      | `page-header` (template)         | PageHeader                  |
 | "gráfico de barras/linha/área/pizza"                                                      | `chart` (componente)             | ChartContainer              |
+
+> **As duas sidebars — como perguntar sem induzir erro.** O critério é *o sistema tem áreas
+> grandes e separadas, cada uma com o menu dela?* Sim → `menu-sidebar`. Não →
+> `single-menu-sidebar` enxuta. ⚠️ **Não pergunte pelo nome do componente** e **não use a
+> palavra "categoria"**: na API da sidebar única, `categories` são os *grupos do menu*, não os
+> módulos — a palavra nomeia os dois lados da escolha, e é isso que faz o usuário responder
+> invertido. Descreva o que aparece na tela e ofereça os dois links pra ele ver:
+> [menu-sidebar](https://igreen-desingsystem-admin.vercel.app/#/menu-sidebar) ·
+> [single-menu-sidebar](https://igreen-desingsystem-admin.vercel.app/#/single-menu-sidebar).
+> A **logo é a da iGreen por default** (não passe `logo`/`sidebarLogo`; só troque se pedirem
+> marca própria) e **o nome do projeto vai à direita dela**. Roteiro completo: skill
+> `app-builder`.
 
 > **Regra pra IA**: "quero igual ao exemplo de Finance" / "seguir a estrutura do Finance"
 > → `npm run igreen:add -- example-finance` e adapte. Combine livremente: um dashboard com

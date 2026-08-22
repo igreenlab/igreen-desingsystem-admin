@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · accordion · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · alert-modal · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · alert · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -143,7 +143,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/AppShell/USAGE.md",
-        "content": "# AppShell — USAGE\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Qual sidebar — `menu` (default) × `single`\r\n\r\nO shell monta **uma das duas** sidebars. O tipo é **união discriminada**: cada escolha exige\r\no seu próprio conjunto de dados, e o TS cobra no editor.\r\n\r\n| `sidebar` | quando | exige |\r\n|---|---|---|\r\n| `\"menu\"` (default) | app com **áreas distintas** (Comercial, Financeiro…), cada uma com menu próprio | `contexts` |\r\n| `\"single\"` | **sistema único**, um menu só — busca opcional | `categories` + `sidebarLogo` + `sidebarTitle` |\r\n\r\n```tsx\r\n<AppShell\r\n  sidebar=\"single\"\r\n  categories={CATEGORIES}\r\n  sidebarLogo={<MinhaLogo />}\r\n  sidebarTitle=\"Meu Sistema\"\r\n  sidebarShowSearch\r\n  activeItemId={ativo}\r\n  onSidebarItemClick={setAtivo}\r\n  breadcrumb={[{ label: \"Sistema\" }]}\r\n>…</AppShell>\r\n```\r\n\r\n**O toggle do Header funciona nas duas sem você cabear nada.** O mapeamento interno difere\r\nporque os componentes modelam o estado de formas diferentes — `MenuSidebar` tem\r\n`panelCollapsed` + drawer no mobile; a single tem `expanded`, e no mobile o `expanded` **é** a\r\nvisibilidade (expandida ocupa 100% da largura, recolhida some).\r\n\r\n⚠️ **`onSidebarItemClick` é separado do `onItemClick`**, e não é redundância: o `MenuSidebar`\r\nentrega o **item** (`SidebarMenuItem`), a single entrega o **`id`**. Mesmo nome faria você\r\nreceber um tipo e escrever pro outro.\r\n\r\n⚠️ **Por que união e não props opcionais:** deixar `contexts` opcional trocaria erro de\r\ncompilação por falha silenciosa — ausente com a sidebar de menu, o rail renderiza **vazio**,\r\nsem erro nenhum.\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `sidebar` | `\"menu\" \\| \"single\"` | `\"menu\"` | Qual menu lateral montar — ver a seção acima |\r\n| `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding. ⚠️ exige pai com altura |\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar=\"menu\"`) |\r\n| `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar=\"single\"`) |\r\n| `sidebarLogo` / `sidebarTitle` | ReactNode / string | — | Header da sidebar single |\r\n| `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |\r\n| `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |\r\n| `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |\r\n| `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |\r\n| `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |\r\n| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |\r\n| `brandHref` | string | `\"/\"` | Destino do brand no rail; `\"\"` torna não-navegável |\r\n| `onBrandClick` | (e) => void | — | Clique no brand |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router\r\n",
+        "content": "# AppShell — USAGE\r\n\r\n<!-- ds:regras\r\n- tem áreas separadas (Comercial, Financeiro…)? → `sidebar=\"menu\"` + `contexts`. Não tem? → `\"single\"` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`\r\n- NÃO passe `sidebarLogo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `sidebarTitle` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n-->\r\n\r\nTemplate de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.\r\n\r\n## Quando usar\r\n- Páginas full-app (Showcases, CRUD, Chat, Dashboard)\r\n- Quando precisar de contexts (workspace switcher) + breadcrumb + user menu unificados\r\n\r\n## Import\r\n```tsx\r\nimport { AppShell } from \"@/components/ui/AppShell\";\r\n```\r\n\r\n## Qual sidebar — `menu` (default) × `single`\r\n\r\nO shell monta **uma das duas** sidebars. O tipo é **união discriminada**: cada escolha exige\r\no seu próprio conjunto de dados, e o TS cobra no editor.\r\n\r\n| `sidebar` | quando | exige |\r\n|---|---|---|\r\n| `\"menu\"` (default) | app com **áreas distintas** (Comercial, Financeiro…), cada uma com menu próprio | `contexts` |\r\n| `\"single\"` | **sistema único**, um menu só — busca opcional | `categories` + `sidebarLogo` + `sidebarTitle` |\r\n\r\n```tsx\r\n<AppShell\r\n  sidebar=\"single\"\r\n  categories={CATEGORIES}\r\n  sidebarLogo={<MinhaLogo />}\r\n  sidebarTitle=\"Meu Sistema\"\r\n  sidebarShowSearch\r\n  activeItemId={ativo}\r\n  onSidebarItemClick={setAtivo}\r\n  breadcrumb={[{ label: \"Sistema\" }]}\r\n>…</AppShell>\r\n```\r\n\r\n**O toggle do Header funciona nas duas sem você cabear nada.** O mapeamento interno difere\r\nporque os componentes modelam o estado de formas diferentes — `MenuSidebar` tem\r\n`panelCollapsed` + drawer no mobile; a single tem `expanded`, e no mobile o `expanded` **é** a\r\nvisibilidade (expandida ocupa 100% da largura, recolhida some).\r\n\r\n⚠️ **`onSidebarItemClick` é separado do `onItemClick`**, e não é redundância: o `MenuSidebar`\r\nentrega o **item** (`SidebarMenuItem`), a single entrega o **`id`**. Mesmo nome faria você\r\nreceber um tipo e escrever pro outro.\r\n\r\n⚠️ **Por que união e não props opcionais:** deixar `contexts` opcional trocaria erro de\r\ncompilação por falha silenciosa — ausente com a sidebar de menu, o rail renderiza **vazio**,\r\nsem erro nenhum.\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `sidebar` | `\"menu\" \\| \"single\"` | `\"menu\"` | Qual menu lateral montar — ver a seção acima |\r\n| `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding. ⚠️ exige pai com altura |\r\n| `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar=\"menu\"`) |\r\n| `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar=\"single\"`) |\r\n| `sidebarLogo` | ReactNode | **marca iGreen** | Logo do header da sidebar single. **Omita** pra ficar com a marca — só passe se o app tem marca própria |\r\n| `sidebarTitle` | string | — | **Nome do projeto**, à direita da logo. Obrigatória de propósito: é o que o DS não adivinha |\r\n| `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |\r\n| `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |\r\n| `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |\r\n| `sidebarShowSearch` | boolean | — | Busca no topo da sidebar (é um botão que abre command palette, não um input) |\r\n| `sidebarSearchPlaceholder` | string | — | Placeholder da busca **da sidebar** — distinto do `searchPlaceholder`, que é do Header |\r\n| `defaultActiveContextId` | string | primeiro do array | Workspace inicial (uncontrolled) |\r\n| `activeContextId` | string | — | Workspace ativo (controlled) |\r\n| `onContextChange` | (id: string) => void | — | Callback de troca de workspace |\r\n| `defaultActiveItemHref` | string | — | Item do panel ativo inicial (uncontrolled) |\r\n| `activeItemHref` | string | — | Item do panel ativo (controlled) |\r\n| `onItemClick` | (item, event?) => void | — | Clique em item do panel. **2º arg é o `MouseEvent`** |\r\n| `renderLink` | (props) => ReactNode | — | ⭐ **Integração com router** — troca o `<a>` interno pelo `<Link>`. Ver `MenuSidebar/USAGE.md` §Integração com router |\r\n| `brandHref` | string | `\"/\"` | Destino do brand no rail; `\"\"` torna não-navegável |\r\n| `onBrandClick` | (e) => void | — | Clique no brand |\r\n| `breadcrumb` | HeaderBreadcrumbItem[] | — | Caminho atual exibido no Header |\r\n| `commandGroups` | HeaderCommandGroup[] | — | Command palette (⌘K) |\r\n| `notifications` | { items, onMarkAllRead, onViewAll } | — | Dropdown de notificações |\r\n| `messages` | { items, onNewMessage, onExpand, onViewAll } | — | Dropdown de mensagens |\r\n| `theme` | string | — | Tema atual (light/dark) |\r\n| `onThemeChange` | (id: string) => void | — | Callback de troca de tema |\r\n| `themeOptions` | HeaderThemeOption[] | — | Opções de tema disponíveis |\r\n| `headerRightSlot` | ReactNode | — | Slot extra no canto direito do Header |\r\n| `user` | AppShellUser | — | Avatar + user menu no rail bottom |\r\n| `layout` | string (\"fluid\" \\| \"compact\") | comportamento \"fluid\" | Densidade do body (qualquer valor ≠ \"compact\" cai em fluid) |\r\n| `onLayoutChange` | (id: string) => void | — | Callback do switcher Fluido/Compacto do user menu |\r\n| `layoutOptions` | AppShellLayoutOption[] | — | Opções do switcher de layout |\r\n| `onSettings` | () => void | — | Ação \"Configurações\" do user menu (item escondido se omitido) |\r\n| `onLogout` | () => void | — | Ação \"Sair\" do user menu (item escondido se omitido) |\r\n| `menuCollapsed` | boolean | — | Sidebar colapsado (controlled) |\r\n| `defaultMenuCollapsed` | boolean | **responsivo** | Estado inicial do collapse (uncontrolled). Omitido: colapsado `<1536px`, expandido acima. Valor explícito vence — inclusive `false`. Só no mount, resize não re-colapsa |\r\n| `onMenuCollapseChange` | (collapsed: boolean) => void | — | Callback no toggle do collapse (persistir entre sessões) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<AppShell\r\n  contexts={APP_SHELL_CONTEXTS}\r\n  defaultActiveContextId=\"inbox\"\r\n  breadcrumb={[{ label: \"Clientes\" }]}\r\n  theme={theme}\r\n  onThemeChange={setTheme}\r\n>\r\n  <YourPageContent />\r\n</AppShell>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- Body interno tem `gap-gp-4xl` (24px) fixo e padding **responsivo em 3 patamares**: 18px `<768`, **24px `768–1535` (notebook)**, 32px `≥1536`. Customize spacing dentro do `children`, não aqui\r\n- `contexts` mínimo 1; sem isso o rail fica vazio\r\n- Mobile: `mobileEdgeToEdge` remove padding do body\r\n- User menu (layout + tema + settings + logout) só renderiza quando `user` é passado; sem ele o rail mantém o avatar default\r\n- `layout` é controlled-only: sem `onLayoutChange` o switcher Fluido/Compacto do user menu não tem efeito — guarde o valor em state e devolva via `layout`\r\n- Pra navegação real, use `activeItemHref` + `onItemClick` (controlled) ligados ao router — os `default*` servem só pro modo uncontrolled/preview\r\n- ⚠️ **Com react-router (ou qualquer router de history), passe `renderLink`**: `renderLink={(p) => <Link {...p} to={p.href} />}`. Sem isso, `href` de path fazia o browser recarregar a página inteira a cada clique de menu — bug real reportado em 2026-08-08, corrigido na v0.38.0. Detalhe e as 5 exceções em `MenuSidebar/USAGE.md` §Integração com router\r\n",
         "type": "registry:file",
         "target": "components/ui/AppShell/USAGE.md"
       },
@@ -161,7 +161,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/AppShell/app-shell.types.ts",
-        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  SingleMenuCategory,\r\n  SingleMenuModuleConfig,\r\n} from \"@/components/ui/SingleMenuSidebar\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\ntype AppShellBaseProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  /**\r\n   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`\r\n   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu\r\n   * router — é o que faz a navegação ser client-side em vez de recarregar a página.\r\n   *\r\n   * ```tsx\r\n   * import { Link } from \"react-router-dom\";\r\n   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />\r\n   * ```\r\n   *\r\n   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —\r\n   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /** Destino do brand no topo do rail. Default `\"/\"`; `\"\"` torna não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Qual sidebar ───────────────────────────────────────── */\r\n\r\n  /**\r\n   * Qual menu lateral o shell monta.\r\n   *\r\n   *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n   *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n   *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n   *                      único, com busca opcional.\r\n   *\r\n   * Default preservado em `menu` de propósito: não muda nada de quem já usa.\r\n   *\r\n   * O shell coordena o colapso e o hamburger do Header nos DOIS casos. O mapeamento é\r\n   * diferente porque os componentes modelam o estado de formas diferentes:\r\n   *\r\n   *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n   *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n   *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n   */\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n\r\n  /**\r\n   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.\r\n   *\r\n   * Default `false` = comportamento histórico (`h-screen`), preservado.\r\n   *\r\n   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout\r\n   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,\r\n   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o\r\n   * padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding.\r\n   *\r\n   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.\r\n   */\r\n  fillHeight?: boolean;\r\n\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * Qual menu lateral o shell monta — e **o que cada escolha exige**.\r\n *\r\n *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n *                      único, com busca opcional.\r\n *\r\n * Default preservado em `menu`: quem já usa não muda nada, e continua obrigado a passar\r\n * `contexts` como antes.\r\n *\r\n * ## Por que UNIÃO DISCRIMINADA e não props opcionais\r\n *\r\n * A alternativa era deixar `contexts` opcional e documentar \"obrigatório quando\r\n * sidebar='menu'\". Isso trocaria um erro de compilação por uma **falha silenciosa**:\r\n * `contexts` ausente com a sidebar de menu renderiza um rail vazio, sem erro nenhum. Com a\r\n * união, o TS exige exatamente o conjunto certo pra cada escolha — e o consumidor descobre\r\n * no editor, não olhando a tela.\r\n *\r\n * ## O que o shell coordena nos dois casos\r\n *\r\n * O toggle do Header funciona igual pras duas, sem o consumidor cabear nada. O mapeamento\r\n * interno difere porque os componentes modelam o estado de formas diferentes:\r\n *\r\n *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n */\r\ntype AppShellMenuSidebarProps = {\r\n  sidebar?: \"menu\";\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório nesta variante. */\r\n  contexts: SidebarContext[];\r\n};\r\n\r\ntype AppShellSingleSidebarProps = {\r\n  sidebar: \"single\";\r\n  /** Categorias do menu de nível único. */\r\n  categories: SingleMenuCategory[];\r\n  /** Logo no header da sidebar. */\r\n  sidebarLogo: ReactNode;\r\n  /** Título ao lado do logo. */\r\n  sidebarTitle: string;\r\n  /** Item ativo (a variante `menu` usa `activeItemHref`). */\r\n  activeItemId?: string;\r\n  /**\r\n   * Clique em item. Prop SEPARADA do `onItemClick` de propósito: os dois modelos de dados\r\n   * são diferentes — o MenuSidebar entrega o ITEM (`SidebarMenuItem`), a single entrega o\r\n   * `id`. Reaproveitar o mesmo nome faria o consumidor receber um tipo e escrever pro outro.\r\n   */\r\n  onSidebarItemClick?: (id: string) => void;\r\n  /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */\r\n  sidebarModules?: SingleMenuModuleConfig[];\r\n  /** Mostra a busca no topo da sidebar. */\r\n  sidebarShowSearch?: boolean;\r\n  /**\r\n   * Placeholder da busca DA SIDEBAR — separado do `searchPlaceholder`, que é do Header.\r\n   * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.\r\n   */\r\n  sidebarSearchPlaceholder?: string;\r\n};\r\n\r\nexport type AppShellProps = AppShellBaseProps &\r\n  (AppShellMenuSidebarProps | AppShellSingleSidebarProps);\r\n\r\n/**\r\n * Uso **interno** do `app-shell.tsx`, não da API pública.\r\n *\r\n * Destruturar uma união não dá acesso a membro que existe em só um dos ramos (TS2339), e\r\n * fazer `if (props.sidebar === \"single\")` antes de cada acesso espalharia narrowing por\r\n * todo o componente. Então a fronteira pública é a união — é ela que guia o consumidor no\r\n * editor — e a implementação lê deste shape relaxado, onde tudo é opcional.\r\n *\r\n * A correção de verdade fica no render: o ramo `sidebar === \"single\"` só usa as props da\r\n * single, e o outro só as de menu. O `as` abaixo não esconde nada que a união já não\r\n * garanta na entrada.\r\n */\r\nexport type AppShellInternalProps = AppShellBaseProps &\r\n  Partial<AppShellMenuSidebarProps> &\r\n  Partial<AppShellSingleSidebarProps>;\r\n",
+        "content": "import type { ReactNode, MouseEvent } from \"react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport type {\r\n  SingleMenuCategory,\r\n  SingleMenuModuleConfig,\r\n} from \"@/components/ui/SingleMenuSidebar\";\r\nimport type {\r\n  HeaderBreadcrumbItem,\r\n  HeaderCommandGroup,\r\n  HeaderMessagesConfig,\r\n  HeaderNotificationsConfig,\r\n  HeaderThemeOption,\r\n} from \"@/components/ui/Header\";\r\nimport type {\r\n  SidebarContext,\r\n  SidebarMenuItem,\r\n  SidebarLinkRenderer,\r\n} from \"@/components/ui/MenuSidebar\";\r\n\r\n/**\r\n * Identidade do usuário logado — exibida no avatar do rail (com DropdownMenu)\r\n * e no cabeçalho do user menu.\r\n */\r\nexport type AppShellUser = {\r\n  /** Nome completo (linha 1 do header do user menu). */\r\n  name: string;\r\n  /** Email (linha 2 do header do user menu). */\r\n  email?: string;\r\n  /** URL da imagem do avatar. Fallback usa `initials`. */\r\n  avatarSrc?: string;\r\n  /** Iniciais (fallback do avatar). Default: 2 primeiras letras do `name`. */\r\n  initials?: string;\r\n  /** Cor de fundo do avatar (fallback). Default: token `bg-bg-brand`. */\r\n  avatarColor?: string;\r\n};\r\n\r\n/** Opção do switcher de layout (Fluido / Compacto). Mesmo shape do tema. */\r\nexport type AppShellLayoutOption = {\r\n  id: string;\r\n  label: string;\r\n  icon: LucideIcon;\r\n};\r\n\r\n/**\r\n * Props do `<AppShell>` — template de aplicação que compõe MenuSidebar + Header\r\n * + slot livre pro body. Pensado pra ser a \"casca\" reutilizável de todas as\r\n * telas do CRM iGreen.\r\n *\r\n * Layout:\r\n *  ┌─────────────────────────────────────────────────────────┐\r\n *  │ rail │ panel │  Header (sticky no top do main area)     │\r\n *  │      │       ├────────────────────────────────────────────┤\r\n *  │      │       │                                            │\r\n *  │      │       │  body (children) — gap-gp-4xl p-pad-6xl    │\r\n *  │      │       │                                            │\r\n *  └──────┴───────┴────────────────────────────────────────────┘\r\n *\r\n * - Sidebar e Header são passthrough 1:1 das props do `<MenuSidebar>` e `<Header>`\r\n * - `menuCollapsed` é gerenciado internamente (uncontrolled) ou via prop (controlled)\r\n * - `theme` idem\r\n * - `children` é o body — gap 16px + padding 32px aplicados no slot\r\n */\r\ntype AppShellBaseProps = {\r\n  /* ── Sidebar (MenuSidebar passthrough) ─────────────────── */\r\n  /** Contexto inicialmente ativo (uncontrolled). Default: primeiro do array. */\r\n  defaultActiveContextId?: string;\r\n  /** Contexto ativo (controlled). */\r\n  activeContextId?: string;\r\n  onContextChange?: (id: string) => void;\r\n  /** Item inicialmente ativo (href, uncontrolled). */\r\n  defaultActiveItemHref?: string;\r\n  /** Item ativo (controlled). */\r\n  activeItemHref?: string;\r\n  /**\r\n   * Clique num item do menu. O 2º argumento é o evento — use pra `preventDefault()`\r\n   * quando você roteia na mão. Parâmetro opcional novo em 2026-08-08 (retrocompatível).\r\n   */\r\n  onItemClick?: (\r\n    item: SidebarMenuItem,\r\n    event?: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,\r\n  ) => void;\r\n\r\n  /**\r\n   * ⭐ **Integração com router.** Substitui o `<a>` interno do menu pelo link do seu\r\n   * router — é o que faz a navegação ser client-side em vez de recarregar a página.\r\n   *\r\n   * ```tsx\r\n   * import { Link } from \"react-router-dom\";\r\n   * <AppShell renderLink={(p) => <Link {...p} to={p.href} />} … />\r\n   * ```\r\n   *\r\n   * Sem isto, o menu cancela a navegação nativa quando você passa `onItemClick` —\r\n   * funciona, mas o `<Link>` do router é o caminho canônico. Ver MenuSidebar/USAGE.md.\r\n   */\r\n  renderLink?: SidebarLinkRenderer;\r\n\r\n  /** Destino do brand no topo do rail. Default `\"/\"`; `\"\"` torna não-navegável. */\r\n  brandHref?: string;\r\n  onBrandClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /* ── Header (Header passthrough) ───────────────────────── */\r\n  /** Breadcrumb do header (último item = página atual). Obrigatório. */\r\n  breadcrumb: HeaderBreadcrumbItem[];\r\n  /** Search/Command palette. Quando omitido, search é escondido. */\r\n  commandGroups?: HeaderCommandGroup[];\r\n  commandPlaceholder?: string;\r\n  commandEmptyMessage?: string;\r\n  searchPlaceholder?: string;\r\n  /** Notificações (dropdown direito). */\r\n  notifications?: HeaderNotificationsConfig;\r\n  /** Mensagens (dropdown direito). */\r\n  messages?: HeaderMessagesConfig;\r\n  /** Theme switcher. Quando omitido, switcher é escondido. */\r\n  theme?: string;\r\n  onThemeChange?: (id: string) => void;\r\n  themeOptions?: HeaderThemeOption[];\r\n  /** Slot extra no canto direito do header. */\r\n  headerRightSlot?: ReactNode;\r\n\r\n  /* ── User menu (avatar do rail com DropdownMenu) ──────── */\r\n  /**\r\n   * Usuário logado. Quando passado, renderiza Avatar clicável no rail que\r\n   * abre um DropdownMenu com nome/email + layout + tema + settings + logout.\r\n   * Quando omitido, mantém o avatar default (\"SV\" estático).\r\n   */\r\n  user?: AppShellUser;\r\n  /** Layout atual (\"fluid\" | \"compact\" | string custom). */\r\n  layout?: string;\r\n  onLayoutChange?: (id: string) => void;\r\n  layoutOptions?: AppShellLayoutOption[];\r\n  /** Callback \"Configurações\" no user menu. Item escondido se omitido. */\r\n  onSettings?: () => void;\r\n  /** Callback \"Sair\" no user menu. Item escondido se omitido. */\r\n  onLogout?: () => void;\r\n\r\n  /* ── Estado de collapse do sidebar ─────────────────────── */\r\n  /**\r\n   * Sidebar collapsed (controlled). Quando ausente, AppShell gerencia state\r\n   * interno (uncontrolled) — toggle do header dispara setInternal.\r\n   */\r\n  menuCollapsed?: boolean;\r\n  /**\r\n   * Estado inicial do collapse (uncontrolled). **Omitido, o default é responsivo:**\r\n   * colapsado abaixo de 1536px (mesma fronteira do padding do body), expandido\r\n   * acima — notebook perde ~200px de largura útil com o painel aberto.\r\n   *\r\n   * Passar valor explícito **vence** a regra responsiva, inclusive `false`.\r\n   * Aplicado só no mount: resize não re-colapsa, pra não brigar com quem abriu o\r\n   * menu na mão.\r\n   */\r\n  defaultMenuCollapsed?: boolean;\r\n  onMenuCollapseChange?: (collapsed: boolean) => void;\r\n\r\n  /* ── Body ──────────────────────────────────────────────── */\r\n  /** Conteúdo do body — o que muda entre telas. Aplicado dentro de slot com\r\n   *  gap 24px (`gap-gp-4xl`) e padding responsivo em 3 patamares:\r\n   *  **18px** < 768px · **24px** 768–1535px (notebook) · **32px** ≥ 1536px. */\r\n  children: ReactNode;\r\n  /** ClassName extra no body slot (raro — use só pra ajustes pontuais). */\r\n  bodyClassName?: string;\r\n  /**\r\n   * Em mobile (<md), zera o padding interno do body — útil pra telas que\r\n   * controlam o próprio padding (chat com overlays fullscreen, mapas, etc).\r\n   * Default: false (18px mobile · 24px notebook · 32px desktop).\r\n   */\r\n  mobileEdgeToEdge?: boolean;\r\n\r\n  /* ── Qual sidebar ───────────────────────────────────────── */\r\n\r\n  /**\r\n   * Qual menu lateral o shell monta.\r\n   *\r\n   *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n   *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n   *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n   *                      único, com busca opcional.\r\n   *\r\n   * Default preservado em `menu` de propósito: não muda nada de quem já usa.\r\n   *\r\n   * O shell coordena o colapso e o hamburger do Header nos DOIS casos. O mapeamento é\r\n   * diferente porque os componentes modelam o estado de formas diferentes:\r\n   *\r\n   *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n   *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n   *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n   */\r\n\r\n  /* ── Root ──────────────────────────────────────────────── */\r\n\r\n  /**\r\n   * O shell obedece a altura do CONTAINER PAI em vez de ocupar 100vh.\r\n   *\r\n   * Default `false` = comportamento histórico (`h-screen`), preservado.\r\n   *\r\n   * Ligue quando o AppShell estiver embutido em algo com altura definida — um layout\r\n   * com footer próprio, um painel de aba, um preview. Sem isso o shell mede 100vh,\r\n   * transborda o container e o `overflow-hidden` corta o rodapé do body junto com o\r\n   * padding — o sintoma é \"conteúdo colado na borda\", e não é falta de padding.\r\n   *\r\n   * ⚠️ Exige que o pai tenha altura. `h-full` sem pai medido colapsa pra zero.\r\n   */\r\n  fillHeight?: boolean;\r\n\r\n  /** ClassName extra no root da AppShell (afeta toda a tela). */\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * Qual menu lateral o shell monta — e **o que cada escolha exige**.\r\n *\r\n *   \"menu\"   (default) `MenuSidebar` — rail de MÓDULOS + painel. Para apps com áreas\r\n *                      distintas (Comercial, Financeiro…), cada uma com menu próprio.\r\n *   \"single\"           `SingleMenuSidebar` — nível único, sem módulos. Para sistema\r\n *                      único, com busca opcional.\r\n *\r\n * Default preservado em `menu`: quem já usa não muda nada, e continua obrigado a passar\r\n * `contexts` como antes.\r\n *\r\n * ## Por que UNIÃO DISCRIMINADA e não props opcionais\r\n *\r\n * A alternativa era deixar `contexts` opcional e documentar \"obrigatório quando\r\n * sidebar='menu'\". Isso trocaria um erro de compilação por uma **falha silenciosa**:\r\n * `contexts` ausente com a sidebar de menu renderiza um rail vazio, sem erro nenhum. Com a\r\n * união, o TS exige exatamente o conjunto certo pra cada escolha — e o consumidor descobre\r\n * no editor, não olhando a tela.\r\n *\r\n * ## O que o shell coordena nos dois casos\r\n *\r\n * O toggle do Header funciona igual pras duas, sem o consumidor cabear nada. O mapeamento\r\n * interno difere porque os componentes modelam o estado de formas diferentes:\r\n *\r\n *   MenuSidebar   desktop → panelCollapsed · mobile → drawer (mobileOpen + backdrop)\r\n *   Single        desktop → expanded (invertido) · mobile → expanded É a visibilidade\r\n *                 (< md: expandida ocupa 100% da largura; recolhida some)\r\n */\r\ntype AppShellMenuSidebarProps = {\r\n  sidebar?: \"menu\";\r\n  /** Contextos do MenuSidebar (rail + panel data-driven). Obrigatório nesta variante. */\r\n  contexts: SidebarContext[];\r\n};\r\n\r\ntype AppShellSingleSidebarProps = {\r\n  sidebar: \"single\";\r\n  /** Categorias do menu de nível único. */\r\n  categories: SingleMenuCategory[];\r\n  /**\r\n   * Logo no header da sidebar. **Omita pra ficar com a marca iGreen** (default da\r\n   * `SingleMenuSidebar`). Era obrigatória até 2026-08-22, e por isso trocar pra sidebar\r\n   * única forçava quem montava a inventar uma logo — a da iGreen sumia na troca.\r\n   */\r\n  sidebarLogo?: ReactNode;\r\n  /**\r\n   * **Nome do projeto**, exibido à direita da logo. Segue obrigatório de propósito: é a\r\n   * única coisa aqui que o DS não tem como adivinhar, e o TS cobrando força a pergunta.\r\n   */\r\n  sidebarTitle: string;\r\n  /** Item ativo (a variante `menu` usa `activeItemHref`). */\r\n  activeItemId?: string;\r\n  /**\r\n   * Clique em item. Prop SEPARADA do `onItemClick` de propósito: os dois modelos de dados\r\n   * são diferentes — o MenuSidebar entrega o ITEM (`SidebarMenuItem`), a single entrega o\r\n   * `id`. Reaproveitar o mesmo nome faria o consumidor receber um tipo e escrever pro outro.\r\n   */\r\n  onSidebarItemClick?: (id: string) => void;\r\n  /** Módulos com menu próprio — o seletor troca o conjunto de categorias. */\r\n  sidebarModules?: SingleMenuModuleConfig[];\r\n  /** Mostra a busca no topo da sidebar. */\r\n  sidebarShowSearch?: boolean;\r\n  /**\r\n   * Placeholder da busca DA SIDEBAR — separado do `searchPlaceholder`, que é do Header.\r\n   * Nomes distintos de propósito: são dois campos de busca diferentes na mesma tela.\r\n   */\r\n  sidebarSearchPlaceholder?: string;\r\n};\r\n\r\nexport type AppShellProps = AppShellBaseProps &\r\n  (AppShellMenuSidebarProps | AppShellSingleSidebarProps);\r\n\r\n/**\r\n * Uso **interno** do `app-shell.tsx`, não da API pública.\r\n *\r\n * Destruturar uma união não dá acesso a membro que existe em só um dos ramos (TS2339), e\r\n * fazer `if (props.sidebar === \"single\")` antes de cada acesso espalharia narrowing por\r\n * todo o componente. Então a fronteira pública é a união — é ela que guia o consumidor no\r\n * editor — e a implementação lê deste shape relaxado, onde tudo é opcional.\r\n *\r\n * A correção de verdade fica no render: o ramo `sidebar === \"single\"` só usa as props da\r\n * single, e o outro só as de menu. O `as` abaixo não esconde nada que a união já não\r\n * garanta na entrada.\r\n */\r\nexport type AppShellInternalProps = AppShellBaseProps &\r\n  Partial<AppShellMenuSidebarProps> &\r\n  Partial<AppShellSingleSidebarProps>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/AppShell/app-shell.types.ts"
       },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · app-shell · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · avatar · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · badge · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · button-group · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · button · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · calendar · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · card · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · carousel · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · chart · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · checkbox · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · chip · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · collapsible · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · color-picker · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · combobox · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · command · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · context-menu · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · data-list · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · data-table · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · date-picker · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · dialog · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · drawer · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · empty-state · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-chat · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-clientes · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-finance · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-login · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · floating-panel · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · footer-table · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · form-field · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · header · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · hover-card · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · icon · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · input-group · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · input-otp · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · input · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · kanban · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · kpi · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · label · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · list · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · markdown-text · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3510,7 +3510,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
-        "content": "/**\n * Logo iGreen — default usado no rail.\n * Single-color (currentColor) pra herdar o fg-on-brand.\n */\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\n  return (\n    <svg\n      width={size}\n      height={size * (25 / 18)}\n      viewBox=\"0 0 46 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-label=\"iGreen\"\n    >\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\n        fill=\"currentColor\"\n      />\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\n        fill=\"currentColor\"\n      />\n    </svg>\n  );\n}\n",
+        "content": "/**\n * A marca iGreen dentro do quadrado de brand — o default do header da\n * `SingleMenuSidebar`.\n *\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\n *\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\n * doc já usava na mão — aqui ele só passou a ter um nome.\n */\nexport function SidebarBrandMark() {\n  return (\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\n      <SidebarBrandIcon size={18} />\n    </div>\n  );\n}\n\n/**\n * Logo iGreen — default usado no rail.\n * Single-color (currentColor) pra herdar o fg-on-brand.\n */\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\n  return (\n    <svg\n      width={size}\n      height={size * (25 / 18)}\n      viewBox=\"0 0 46 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-label=\"iGreen\"\n    >\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\n        fill=\"currentColor\"\n      />\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\n        fill=\"currentColor\"\n      />\n    </svg>\n  );\n}\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-brand.tsx"
       },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · menubar · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · modal · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · page-header · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · pagination · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · panel · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · popover · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · progress · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · radio-group · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3975,7 +3975,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · scroll-area · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · select · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4024,7 +4024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · separator · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · sheet · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4072,6 +4072,12 @@ export const registry: Record<string, unknown> = {
     ],
     "files": [
       {
+        "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
+        "content": "/**\n * A marca iGreen dentro do quadrado de brand — o default do header da\n * `SingleMenuSidebar`.\n *\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\n *\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\n * doc já usava na mão — aqui ele só passou a ter um nome.\n */\nexport function SidebarBrandMark() {\n  return (\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\n      <SidebarBrandIcon size={18} />\n    </div>\n  );\n}\n\n/**\n * Logo iGreen — default usado no rail.\n * Single-color (currentColor) pra herdar o fg-on-brand.\n */\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\n  return (\n    <svg\n      width={size}\n      height={size * (25 / 18)}\n      viewBox=\"0 0 46 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-label=\"iGreen\"\n    >\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\n        fill=\"currentColor\"\n      />\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\n        fill=\"currentColor\"\n      />\n    </svg>\n  );\n}\n",
+        "type": "registry:ui",
+        "target": "components/ui/MenuSidebar/sidebar-brand.tsx"
+      },
+      {
         "path": "src/components/ui/SingleMenuSidebar/category.tsx",
         "content": "\"use client\";\r\n\r\nimport type { MouseEvent } from \"react\";\r\nimport { ChevronDown } from \"lucide-react\";\r\nimport { shouldPreventNavigation } from \"@/utils/nav-link\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport {\r\n  Collapsible,\r\n  CollapsibleTrigger,\r\n  CollapsibleContent,\r\n} from \"@/components/shadcn/collapsible\";\r\nimport {\r\n  Tooltip,\r\n  TooltipTrigger,\r\n  TooltipContent,\r\n} from \"@/components/shadcn/tooltip\";\r\nimport { useSingleMenuSidebar } from \"./use-single-menu-sidebar\";\r\nimport { category, styles } from \"./single-menu-sidebar.styles\";\r\nimport { SingleMenuItem } from \"./menu-item\";\r\nimport type { SingleMenuCategoryProps } from \"./single-menu-sidebar.types\";\r\n\r\nexport function SingleMenuCategory({\r\n  id,\r\n  icon,\r\n  label,\r\n  active = false,\r\n  items,\r\n  activeItemId,\r\n  onItemClick,\r\n  onCategoryClick,\r\n  href,\r\n  renderLink,\r\n}: SingleMenuCategoryProps) {\r\n  const { expanded, openCategoryId, setOpenCategoryId } =\r\n    useSingleMenuSidebar();\r\n  const hasItems = !!items && items.length > 0;\r\n\r\n  // Accordion: esta categoria abre só se for a selecionada\r\n  const isOpen = hasItems ? openCategoryId === id : false;\r\n\r\n  // Marcação com fonte única — sempre 1 item marcado:\r\n  // • Pai aberto É o marcado (abrir = marcar; suprime a folha enquanto aberto).\r\n  // • Folha marcada quando é a ativa E nenhum pai está aberto.\r\n  // No rail (recolhido) não há expansão → o pai marca quando CONTÉM o ativo.\r\n  const isLeafActive =\r\n    !hasItems && (activeItemId !== undefined ? activeItemId === id : !!active);\r\n  const containsActive =\r\n    hasItems && items!.some((item) => item.id === activeItemId);\r\n\r\n  const selected = !expanded\r\n    ? hasItems\r\n      ? isOpen || containsActive\r\n      : isLeafActive\r\n    : hasItems\r\n      ? isOpen\r\n      : isLeafActive && openCategoryId == null;\r\n\r\n  const state = selected ? \"selected\" : \"default\";\r\n\r\n  const s = category({ state, collapsed: !expanded });\r\n\r\n  const handleToggle = () => {\r\n    if (hasItems) {\r\n      // Pai: alterna o accordion — abrir vira o marcado (suprime a folha)\r\n      setOpenCategoryId(isOpen ? null : id);\r\n      onCategoryClick?.();\r\n    } else {\r\n      // Folha: vira a seleção e fecha qualquer pai aberto (assume a marca)\r\n      onItemClick?.(id);\r\n      setOpenCategoryId(null);\r\n      onCategoryClick?.();\r\n    }\r\n  };\r\n\r\n  // Sidebar recolhida: só ícone com tooltip, centralizado\r\n  if (!expanded) {\r\n    return (\r\n      <Tooltip>\r\n        <TooltipTrigger\r\n          role=\"button\"\r\n          tabIndex={0}\r\n          onClick={handleToggle}\r\n          onKeyDown={(e) => {\r\n            if (e.key === \"Enter\" || e.key === \" \") {\r\n              e.preventDefault();\r\n              handleToggle();\r\n            }\r\n          }}\r\n          className={s.root()}\r\n        >\r\n          <span className={s.icon()}>{icon}</span>\r\n        </TooltipTrigger>\r\n        <TooltipContent side=\"right\" sideOffset={8}>\r\n          {label}\r\n        </TooltipContent>\r\n      </Tooltip>\r\n    );\r\n  }\r\n\r\n  // Sem sub-itens: é link simples (o que o USAGE.md sempre prometeu) quando tem `href`,\r\n  // e botão quando não tem. Até 2026-08-18 era SEMPRE botão, e o `href` da categoria era\r\n  // prop morta igual à do sub-item.\r\n  if (!hasItems) {\r\n    const conteudo = (\r\n      <>\r\n        <span className={s.icon()}>{icon}</span>\r\n        <span className={cn(s.text(), styles.textFadeIn)}>{label}</span>\r\n      </>\r\n    );\r\n\r\n    if (href) {\r\n      const linkProps = {\r\n        href,\r\n        className: s.root(),\r\n        onClick: (e: MouseEvent<HTMLAnchorElement>) => {\r\n          // `hasHandler: true` porque o `handleToggle` abaixo SEMPRE trata o clique\r\n          // (é como a categoria assume a marcação). As 5 exceções seguem valendo:\r\n          // clique modificado, target, href externo e href de hash não são cancelados.\r\n          if (!renderLink) {\r\n            const prevent = shouldPreventNavigation({ href, hasHandler: true, event: e });\r\n            if (prevent) e.preventDefault();\r\n          }\r\n          handleToggle();\r\n        },\r\n        \"aria-current\": selected ? (\"page\" as const) : undefined,\r\n        children: conteudo,\r\n      };\r\n      if (renderLink) return <>{renderLink(linkProps)}</>;\r\n      return <a {...linkProps} />;\r\n    }\r\n\r\n    return (\r\n      <button type=\"button\" onClick={handleToggle} className={s.root()}>\r\n        {conteudo}\r\n      </button>\r\n    );\r\n  }\r\n\r\n  // Com sub-itens: collapsible controlado pelo accordion\r\n  return (\r\n    <Collapsible\r\n      open={isOpen}\r\n      onOpenChange={(open) => {\r\n        setOpenCategoryId(open ? id : null);\r\n        onCategoryClick?.();\r\n      }}\r\n    >\r\n      <CollapsibleTrigger className={s.root()}>\r\n        <span className={s.icon()}>{icon}</span>\r\n        <span className={cn(s.text(), styles.textFadeIn)}>{label}</span>\r\n        <ChevronDown className={cn(s.chevron(), isOpen && \"rotate-180\")} />\r\n      </CollapsibleTrigger>\r\n      <CollapsibleContent>\r\n        <div className={styles.subItemList}>\r\n          {items!.map((item) => (\r\n            <SingleMenuItem\r\n              key={item.id}\r\n              label={item.label}\r\n              selected={item.id === activeItemId}\r\n              href={item.href}\r\n              renderLink={renderLink}\r\n              // O container SEMPRE passa onClick (mantém a marcação), então inferir\r\n              // por \"tem handler\" cancelaria a navegação de quem não passou nada.\r\n              interceptNavigation={!!onItemClick}\r\n              onClick={() => onItemClick?.(item.id)}\r\n            />\r\n          ))}\r\n        </div>\r\n      </CollapsibleContent>\r\n    </Collapsible>\r\n  );\r\n}\r\n\r\nSingleMenuCategory.displayName = \"SingleMenuCategory\";\r\n",
         "type": "registry:ui",
@@ -4091,7 +4097,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/SingleMenuSidebar/header.tsx",
-        "content": "\"use client\";\r\n\r\nimport { PanelLeftClose } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { useSingleMenuSidebar } from \"./use-single-menu-sidebar\";\r\nimport { styles } from \"./single-menu-sidebar.styles\";\r\nimport type { SingleMenuHeaderProps } from \"./single-menu-sidebar.types\";\r\n\r\nexport function SingleMenuHeader({\r\n  logo,\r\n  title,\r\n  showToggleIndicator = false,\r\n}: SingleMenuHeaderProps) {\r\n  const { expanded, isHoverExpand, toggle } = useSingleMenuSidebar();\r\n\r\n  // Ícone invertido = sidebar foi recolhida manualmente (toggle).\r\n  // Permanece invertido mesmo quando o hover expande temporariamente.\r\n  const isFlipped = isHoverExpand || !expanded;\r\n\r\n  return (\r\n    <div\r\n      className={cn(\r\n        styles.header.wrapper,\r\n        !expanded && styles.header.wrapperCollapsed,\r\n      )}\r\n    >\r\n      <div className={styles.header.inner}>\r\n        <div className={styles.header.logo}>{logo}</div>\r\n        {expanded && (\r\n          <span className={cn(styles.header.title, styles.textFadeIn)}>\r\n            {title}\r\n          </span>\r\n        )}\r\n      </div>\r\n\r\n      {expanded ? (\r\n        <button\r\n          type=\"button\"\r\n          onClick={toggle}\r\n          className={styles.header.collapseBtn}\r\n          aria-label={isFlipped ? \"Expandir sidebar\" : \"Recolher sidebar\"}\r\n        >\r\n          <PanelLeftClose\r\n            className={cn(\r\n              \"size-icon-sm transition-transform duration-300\",\r\n              isFlipped && \"rotate-180\",\r\n            )}\r\n          />\r\n        </button>\r\n      ) : showToggleIndicator ? (\r\n        <button\r\n          type=\"button\"\r\n          onClick={toggle}\r\n          className={styles.header.expandBtn}\r\n          aria-label=\"Expandir sidebar\"\r\n        >\r\n          <PanelLeftClose\r\n            className={cn(\r\n              styles.header.expandBtnIcon,\r\n              \"transition-transform duration-300 rotate-180\",\r\n            )}\r\n          />\r\n        </button>\r\n      ) : null}\r\n    </div>\r\n  );\r\n}\r\n\r\nSingleMenuHeader.displayName = \"SingleMenuHeader\";\r\n",
+        "content": "\"use client\";\r\n\r\nimport { PanelLeftClose } from \"lucide-react\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { SidebarBrandMark } from \"@/components/ui/MenuSidebar/sidebar-brand\";\r\nimport { useSingleMenuSidebar } from \"./use-single-menu-sidebar\";\r\nimport { styles } from \"./single-menu-sidebar.styles\";\r\nimport type { SingleMenuHeaderProps } from \"./single-menu-sidebar.types\";\r\n\r\nexport function SingleMenuHeader({\r\n  logo,\r\n  title,\r\n  showToggleIndicator = false,\r\n}: SingleMenuHeaderProps) {\r\n  const { expanded, isHoverExpand, toggle } = useSingleMenuSidebar();\r\n\r\n  // Ícone invertido = sidebar foi recolhida manualmente (toggle).\r\n  // Permanece invertido mesmo quando o hover expande temporariamente.\r\n  const isFlipped = isHoverExpand || !expanded;\r\n\r\n  return (\r\n    <div\r\n      className={cn(\r\n        styles.header.wrapper,\r\n        !expanded && styles.header.wrapperCollapsed,\r\n      )}\r\n    >\r\n      <div className={styles.header.inner}>\r\n        {/* Sem `logo` explícito, a marca iGreen entra sozinha (ver `SidebarBrandMark`).\r\n            É o mesmo contrato do `brand` do MenuSidebar — antes só esta sidebar cobrava. */}\r\n        <div className={styles.header.logo}>{logo ?? <SidebarBrandMark />}</div>\r\n        {expanded && (\r\n          <span className={cn(styles.header.title, styles.textFadeIn)}>\r\n            {title}\r\n          </span>\r\n        )}\r\n      </div>\r\n\r\n      {expanded ? (\r\n        <button\r\n          type=\"button\"\r\n          onClick={toggle}\r\n          className={styles.header.collapseBtn}\r\n          aria-label={isFlipped ? \"Expandir sidebar\" : \"Recolher sidebar\"}\r\n        >\r\n          <PanelLeftClose\r\n            className={cn(\r\n              \"size-icon-sm transition-transform duration-300\",\r\n              isFlipped && \"rotate-180\",\r\n            )}\r\n          />\r\n        </button>\r\n      ) : showToggleIndicator ? (\r\n        <button\r\n          type=\"button\"\r\n          onClick={toggle}\r\n          className={styles.header.expandBtn}\r\n          aria-label=\"Expandir sidebar\"\r\n        >\r\n          <PanelLeftClose\r\n            className={cn(\r\n              styles.header.expandBtnIcon,\r\n              \"transition-transform duration-300 rotate-180\",\r\n            )}\r\n          />\r\n        </button>\r\n      ) : null}\r\n    </div>\r\n  );\r\n}\r\n\r\nSingleMenuHeader.displayName = \"SingleMenuHeader\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/SingleMenuSidebar/header.tsx"
       },
@@ -4133,13 +4139,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/SingleMenuSidebar/single-menu-sidebar.types.ts",
-        "content": "// `MouseEvent` PRECISA vir do react: o global do DOM tem o mesmo nome e **não é\r\n// genérico**, então `MouseEvent<HTMLAnchorElement>` resolve pro global e falha com\r\n// TS2315 (\"Type 'MouseEvent' is not generic\") — mensagem que não diz que o problema é\r\n// import faltando.\r\nimport type { ReactNode, HTMLAttributes, Ref, MouseEvent } from \"react\";\r\n\r\n/* ══════════════════════════════════════════════════════════════════════════\r\n   SingleMenuSidebar — interfaces e tipos\r\n\r\n   Sidebar de navegação de nível único (categoria → sub-itens em accordion).\r\n   Componente apresentacional: recebe os dados via props, renderiza a UI.\r\n   Sem variantes de aparência — é uma alternativa enxuta ao MenuSidebar.\r\n   ══════════════════════════════════════════════════════════════════════════ */\r\n\r\n/** Sub-item dentro de uma categoria (ex.: \"Contratos Instalação\"). */\r\nexport interface SingleMenuSubItem {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Href opcional de navegação */\r\n  href?: string;\r\n}\r\n\r\n/**\r\n * Categoria de navegação (ex.: \"Instalações\", \"Faturamento\").\r\n * Link simples (sem `items`) ou grupo accordion (com `items`).\r\n */\r\nexport interface SingleMenuCategory {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Ícone da categoria (qualquer ReactNode/ícone) */\r\n  icon: ReactNode;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Href opcional (categorias sem sub-itens) */\r\n  href?: string;\r\n  /** Sub-itens exibidos quando a categoria está aberta */\r\n  items?: SingleMenuSubItem[];\r\n  /** Marca a categoria como visualmente ativa (link sem sub-itens) */\r\n  active?: boolean;\r\n}\r\n\r\n/** Opção do dropdown do seletor de módulo. */\r\nexport interface SingleMenuModuleOption {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Ícone do módulo */\r\n  icon: ReactNode;\r\n}\r\n\r\n/**\r\n * Configuração do seletor de módulo.\r\n * Com `options`, o clique abre um dropdown para trocar de módulo.\r\n * Sem `options`, é apenas display (sem dropdown).\r\n */\r\nexport interface SingleMenuModule {\r\n  /** Ícone do módulo selecionado */\r\n  icon: ReactNode;\r\n  /** Nome do módulo selecionado */\r\n  title: string;\r\n  /** Subtítulo / descrição */\r\n  subtitle: string;\r\n  /** Módulos disponíveis para troca (renderiza dropdown quando presente) */\r\n  options?: SingleMenuModuleOption[];\r\n  /** Callback ao selecionar um módulo no dropdown */\r\n  onModuleChange?: (id: string) => void;\r\n}\r\n\r\n/**\r\n * Módulo com menu próprio. Quando `modules` é passado à sidebar, trocar de\r\n * módulo no seletor atualiza o módulo ativo E o conjunto de categorias exibido.\r\n */\r\nexport interface SingleMenuModuleConfig {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Ícone do módulo */\r\n  icon: ReactNode;\r\n  /** Nome do módulo (vira o título do seletor) */\r\n  title: string;\r\n  /** Subtítulo / descrição */\r\n  subtitle?: string;\r\n  /** Categorias deste módulo (o menu exibido quando ele está ativo) */\r\n  categories: SingleMenuCategory[];\r\n}\r\n\r\n/** Ação no dropdown do usuário (ex.: \"Perfil\", \"Sair\"). */\r\nexport interface SingleMenuUserAction {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Ícone opcional */\r\n  icon?: ReactNode;\r\n  /** Variante visual — `destructive` renderiza em danger (ex.: Sair) */\r\n  variant?: \"default\" | \"destructive\";\r\n}\r\n\r\n/** Informações do usuário no rodapé. */\r\nexport interface SingleMenuUser {\r\n  /** Nome exibido */\r\n  name: string;\r\n  /** E-mail */\r\n  email: string;\r\n  /** Avatar customizado (default: ícone genérico de usuário) */\r\n  avatar?: ReactNode;\r\n  /** Ações do dropdown (renderiza dropdown quando presente) */\r\n  actions?: SingleMenuUserAction[];\r\n  /** Callback ao clicar numa ação */\r\n  onAction?: (id: string) => void;\r\n}\r\n\r\n/* ── Props das sub-partes (internas) ── */\r\n\r\nexport interface SingleMenuSearchProps {\r\n  placeholder?: string;\r\n  value?: string;\r\n  onChange?: (value: string) => void;\r\n  inputRef?: Ref<HTMLInputElement>;\r\n}\r\n\r\nexport interface SingleMenuHeaderProps {\r\n  logo: ReactNode;\r\n  title: string;\r\n  showToggleIndicator?: boolean;\r\n}\r\n\r\n/**\r\n * Props que o sidebar entrega pra quem vai renderizar o link. Mesmo contrato do\r\n * `SidebarLinkRenderProps` do `MenuSidebar` — a **lógica** de quando cancelar a\r\n * navegação é compartilhada de fato (`@/utils/nav-link`); só este alias estrutural é\r\n * declarado nos dois, pra o `single-menu-sidebar` não passar a depender do item de\r\n * registry do `menu-sidebar` inteiro.\r\n */\r\nexport type SingleMenuLinkRenderProps = {\r\n  href: string;\r\n  target?: string;\r\n  className?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  \"aria-current\"?: \"page\";\r\n  children?: ReactNode;\r\n};\r\n\r\n/**\r\n * Substitui o `<a>` nativo pelo link do router do consumidor.\r\n *\r\n * **Render-prop, não `linkComponent`** — um componente escrito inline remonta a\r\n * subárvore a cada render do pai (L-068).\r\n *\r\n * @example\r\n * renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n */\r\nexport type SingleMenuLinkRenderer = (props: SingleMenuLinkRenderProps) => ReactNode;\r\n\r\nexport interface SingleMenuCategoryProps extends SingleMenuCategory {\r\n  /** Sub-item atualmente selecionado */\r\n  activeItemId?: string;\r\n  /** Callback ao clicar num sub-item */\r\n  onItemClick?: (id: string) => void;\r\n  /** Callback ao clicar no cabeçalho da categoria */\r\n  onCategoryClick?: () => void;\r\n  /** Link do router do consumidor — repassado aos sub-itens e à categoria-folha. */\r\n  renderLink?: SingleMenuLinkRenderer;\r\n}\r\n\r\nexport interface SingleMenuItemProps {\r\n  label: string;\r\n  selected?: boolean;\r\n  /**\r\n   * Destino. Com `href` o item vira `<a>` (ctrl+clique, nova aba, \"copiar link\",\r\n   * leitor de tela anunciando \"link\"); sem, continua `<button>`.\r\n   *\r\n   * Até 2026-08-18 esta prop existia no tipo `SingleMenuSubItem` e no `USAGE.md` — e\r\n   * **nada a lia**: o item era sempre `<button>`. Declarar o destino não fazia nada.\r\n   */\r\n  href?: string;\r\n  /** `_blank` etc. Desliga o cancelamento da navegação nativa. */\r\n  target?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\r\n  renderLink?: SingleMenuLinkRenderer;\r\n  /**\r\n   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.\r\n   *\r\n   * O `SingleMenuCategory` SEMPRE passa um `onClick` (é como o sidebar mantém o item\r\n   * marcado), então inferir por \"tem onClick\" cancelaria a navegação até de quem não\r\n   * passou handler nenhum — trocando \"recarrega\" por \"não navega\". É o mesmo motivo\r\n   * pelo qual o `MenuSidebar` tem esta prop.\r\n   *\r\n   * `undefined` → infere de `onClick`. `boolean` → o container decide.\r\n   */\r\n  interceptNavigation?: boolean;\r\n}\r\n\r\nexport interface SingleMenuFooterProps extends SingleMenuUser {}\r\n\r\nexport interface SingleMenuModuleSelectorProps extends SingleMenuModule {}\r\n\r\n/**\r\n * SingleMenuSidebar — props do container.\r\n *\r\n * @example\r\n * <SingleMenuSidebar\r\n *   logo={<IgreenLogo />}\r\n *   title=\"Sólis iGreen\"\r\n *   categories={categories}\r\n *   user={{ name: \"Sérgio\", email: \"sergio@igreen.com\", actions: userActions }}\r\n *   module={{ icon, title: \"Créditos\", subtitle: \"Módulo\", options: modules }}\r\n *   activeItemId=\"central\"\r\n *   onItemClick={(id) => setActiveItem(id)}\r\n * />\r\n */\r\nexport interface SingleMenuSidebarProps extends Omit<\r\n  HTMLAttributes<HTMLElement>,\r\n  \"title\"\r\n> {\r\n  /** Ícone/logo do header */\r\n  logo: ReactNode;\r\n  /** Título do app exibido quando expandido */\r\n  title: string;\r\n  /** Config do seletor de módulo (com dropdown opcional). Ignorado se `modules`. */\r\n  module?: SingleMenuModule;\r\n  /**\r\n   * Módulos com menu próprio. Quando presente, o seletor lista os módulos e\r\n   * trocar atualiza o módulo ativo + as categorias exibidas (sobrepõe `categories`).\r\n   */\r\n  modules?: SingleMenuModuleConfig[];\r\n  /** Módulo ativo (controlado) */\r\n  activeModuleId?: string;\r\n  /** Módulo ativo inicial (não-controlado). Default: 1º de `modules` */\r\n  defaultModuleId?: string;\r\n  /** Callback ao trocar de módulo */\r\n  onModuleChange?: (id: string) => void;\r\n  /** Exibe o campo de busca */\r\n  showSearch?: boolean;\r\n  /**\r\n   * Conteúdo customizado do CommandDialog da busca (dentro do `<CommandList>`).\r\n   * Default: lista os itens do menu (categorias + sub-itens).\r\n   */\r\n  searchCommand?: ReactNode;\r\n  /** Placeholder do campo de busca / da paleta Command */\r\n  searchPlaceholder?: string;\r\n  /** Array de categorias de navegação. Opcional se `modules` for usado. */\r\n  categories?: SingleMenuCategory[];\r\n  /** Sub-item selecionado (global, entre todas as categorias) */\r\n  activeItemId?: string;\r\n  /** Callback ao clicar em qualquer sub-item */\r\n  onItemClick?: (id: string) => void;\r\n\r\n  /**\r\n   * Substitui o `<a>` nativo pelo link do router do consumidor, em TODOS os itens e\r\n   * nas categorias-folha com `href`. Sem isso o sidebar emite `<a href>` puro e\r\n   * cancela a navegação nativa quando há handler — ver `@/utils/nav-link`.\r\n   */\r\n  renderLink?: SingleMenuLinkRenderer;\r\n  /** Informações do usuário no rodapé (com dropdown opcional) */\r\n  user: SingleMenuUser;\r\n  /** Estado expandido inicial */\r\n  defaultExpanded?: boolean;\r\n  /** Estado expandido controlado */\r\n  expanded?: boolean;\r\n  /** Callback na mudança de expandido */\r\n  onExpandedChange?: (expanded: boolean) => void;\r\n  /** Exibe o indicador flutuante de toggle quando recolhido (default: false) */\r\n  showToggleIndicator?: boolean;\r\n}\r\n",
+        "content": "// `MouseEvent` PRECISA vir do react: o global do DOM tem o mesmo nome e **não é\r\n// genérico**, então `MouseEvent<HTMLAnchorElement>` resolve pro global e falha com\r\n// TS2315 (\"Type 'MouseEvent' is not generic\") — mensagem que não diz que o problema é\r\n// import faltando.\r\nimport type { ReactNode, HTMLAttributes, Ref, MouseEvent } from \"react\";\r\n\r\n/* ══════════════════════════════════════════════════════════════════════════\r\n   SingleMenuSidebar — interfaces e tipos\r\n\r\n   Sidebar de navegação de nível único (categoria → sub-itens em accordion).\r\n   Componente apresentacional: recebe os dados via props, renderiza a UI.\r\n   Sem variantes de aparência — é uma alternativa enxuta ao MenuSidebar.\r\n   ══════════════════════════════════════════════════════════════════════════ */\r\n\r\n/** Sub-item dentro de uma categoria (ex.: \"Contratos Instalação\"). */\r\nexport interface SingleMenuSubItem {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Href opcional de navegação */\r\n  href?: string;\r\n}\r\n\r\n/**\r\n * Categoria de navegação (ex.: \"Instalações\", \"Faturamento\").\r\n * Link simples (sem `items`) ou grupo accordion (com `items`).\r\n */\r\nexport interface SingleMenuCategory {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Ícone da categoria (qualquer ReactNode/ícone) */\r\n  icon: ReactNode;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Href opcional (categorias sem sub-itens) */\r\n  href?: string;\r\n  /** Sub-itens exibidos quando a categoria está aberta */\r\n  items?: SingleMenuSubItem[];\r\n  /** Marca a categoria como visualmente ativa (link sem sub-itens) */\r\n  active?: boolean;\r\n}\r\n\r\n/** Opção do dropdown do seletor de módulo. */\r\nexport interface SingleMenuModuleOption {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Ícone do módulo */\r\n  icon: ReactNode;\r\n}\r\n\r\n/**\r\n * Configuração do seletor de módulo.\r\n * Com `options`, o clique abre um dropdown para trocar de módulo.\r\n * Sem `options`, é apenas display (sem dropdown).\r\n */\r\nexport interface SingleMenuModule {\r\n  /** Ícone do módulo selecionado */\r\n  icon: ReactNode;\r\n  /** Nome do módulo selecionado */\r\n  title: string;\r\n  /** Subtítulo / descrição */\r\n  subtitle: string;\r\n  /** Módulos disponíveis para troca (renderiza dropdown quando presente) */\r\n  options?: SingleMenuModuleOption[];\r\n  /** Callback ao selecionar um módulo no dropdown */\r\n  onModuleChange?: (id: string) => void;\r\n}\r\n\r\n/**\r\n * Módulo com menu próprio. Quando `modules` é passado à sidebar, trocar de\r\n * módulo no seletor atualiza o módulo ativo E o conjunto de categorias exibido.\r\n */\r\nexport interface SingleMenuModuleConfig {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Ícone do módulo */\r\n  icon: ReactNode;\r\n  /** Nome do módulo (vira o título do seletor) */\r\n  title: string;\r\n  /** Subtítulo / descrição */\r\n  subtitle?: string;\r\n  /** Categorias deste módulo (o menu exibido quando ele está ativo) */\r\n  categories: SingleMenuCategory[];\r\n}\r\n\r\n/** Ação no dropdown do usuário (ex.: \"Perfil\", \"Sair\"). */\r\nexport interface SingleMenuUserAction {\r\n  /** Identificador único */\r\n  id: string;\r\n  /** Rótulo exibido */\r\n  label: string;\r\n  /** Ícone opcional */\r\n  icon?: ReactNode;\r\n  /** Variante visual — `destructive` renderiza em danger (ex.: Sair) */\r\n  variant?: \"default\" | \"destructive\";\r\n}\r\n\r\n/** Informações do usuário no rodapé. */\r\nexport interface SingleMenuUser {\r\n  /** Nome exibido */\r\n  name: string;\r\n  /** E-mail */\r\n  email: string;\r\n  /** Avatar customizado (default: ícone genérico de usuário) */\r\n  avatar?: ReactNode;\r\n  /** Ações do dropdown (renderiza dropdown quando presente) */\r\n  actions?: SingleMenuUserAction[];\r\n  /** Callback ao clicar numa ação */\r\n  onAction?: (id: string) => void;\r\n}\r\n\r\n/* ── Props das sub-partes (internas) ── */\r\n\r\nexport interface SingleMenuSearchProps {\r\n  placeholder?: string;\r\n  value?: string;\r\n  onChange?: (value: string) => void;\r\n  inputRef?: Ref<HTMLInputElement>;\r\n}\r\n\r\nexport interface SingleMenuHeaderProps {\r\n  /** Omitido → marca iGreen (`SidebarBrandMark`). */\r\n  logo?: ReactNode;\r\n  title: string;\r\n  showToggleIndicator?: boolean;\r\n}\r\n\r\n/**\r\n * Props que o sidebar entrega pra quem vai renderizar o link. Mesmo contrato do\r\n * `SidebarLinkRenderProps` do `MenuSidebar` — a **lógica** de quando cancelar a\r\n * navegação é compartilhada de fato (`@/utils/nav-link`); só este alias estrutural é\r\n * declarado nos dois, pra o `single-menu-sidebar` não passar a depender do item de\r\n * registry do `menu-sidebar` inteiro.\r\n */\r\nexport type SingleMenuLinkRenderProps = {\r\n  href: string;\r\n  target?: string;\r\n  className?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n  \"aria-current\"?: \"page\";\r\n  children?: ReactNode;\r\n};\r\n\r\n/**\r\n * Substitui o `<a>` nativo pelo link do router do consumidor.\r\n *\r\n * **Render-prop, não `linkComponent`** — um componente escrito inline remonta a\r\n * subárvore a cada render do pai (L-068).\r\n *\r\n * @example\r\n * renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n */\r\nexport type SingleMenuLinkRenderer = (props: SingleMenuLinkRenderProps) => ReactNode;\r\n\r\nexport interface SingleMenuCategoryProps extends SingleMenuCategory {\r\n  /** Sub-item atualmente selecionado */\r\n  activeItemId?: string;\r\n  /** Callback ao clicar num sub-item */\r\n  onItemClick?: (id: string) => void;\r\n  /** Callback ao clicar no cabeçalho da categoria */\r\n  onCategoryClick?: () => void;\r\n  /** Link do router do consumidor — repassado aos sub-itens e à categoria-folha. */\r\n  renderLink?: SingleMenuLinkRenderer;\r\n}\r\n\r\nexport interface SingleMenuItemProps {\r\n  label: string;\r\n  selected?: boolean;\r\n  /**\r\n   * Destino. Com `href` o item vira `<a>` (ctrl+clique, nova aba, \"copiar link\",\r\n   * leitor de tela anunciando \"link\"); sem, continua `<button>`.\r\n   *\r\n   * Até 2026-08-18 esta prop existia no tipo `SingleMenuSubItem` e no `USAGE.md` — e\r\n   * **nada a lia**: o item era sempre `<button>`. Declarar o destino não fazia nada.\r\n   */\r\n  href?: string;\r\n  /** `_blank` etc. Desliga o cancelamento da navegação nativa. */\r\n  target?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;\r\n  renderLink?: SingleMenuLinkRenderer;\r\n  /**\r\n   * O consumidor trata a navegação? Decide se o clique cancela o `<a>` nativo.\r\n   *\r\n   * O `SingleMenuCategory` SEMPRE passa um `onClick` (é como o sidebar mantém o item\r\n   * marcado), então inferir por \"tem onClick\" cancelaria a navegação até de quem não\r\n   * passou handler nenhum — trocando \"recarrega\" por \"não navega\". É o mesmo motivo\r\n   * pelo qual o `MenuSidebar` tem esta prop.\r\n   *\r\n   * `undefined` → infere de `onClick`. `boolean` → o container decide.\r\n   */\r\n  interceptNavigation?: boolean;\r\n}\r\n\r\nexport interface SingleMenuFooterProps extends SingleMenuUser {}\r\n\r\nexport interface SingleMenuModuleSelectorProps extends SingleMenuModule {}\r\n\r\n/**\r\n * SingleMenuSidebar — props do container.\r\n *\r\n * @example\r\n * <SingleMenuSidebar\r\n *   logo={<IgreenLogo />}\r\n *   title=\"Sólis iGreen\"\r\n *   categories={categories}\r\n *   user={{ name: \"Sérgio\", email: \"sergio@igreen.com\", actions: userActions }}\r\n *   module={{ icon, title: \"Créditos\", subtitle: \"Módulo\", options: modules }}\r\n *   activeItemId=\"central\"\r\n *   onItemClick={(id) => setActiveItem(id)}\r\n * />\r\n */\r\nexport interface SingleMenuSidebarProps extends Omit<\r\n  HTMLAttributes<HTMLElement>,\r\n  \"title\"\r\n> {\r\n  /**\r\n   * Ícone/logo do header. **Omita pra ficar com a marca iGreen** — é o default, igual ao\r\n   * `brand` do `MenuSidebar`. Passe só quando o app tem marca própria e alguém pediu.\r\n   */\r\n  logo?: ReactNode;\r\n  /** Nome do projeto/app, exibido à direita da logo quando expandido */\r\n  title: string;\r\n  /** Config do seletor de módulo (com dropdown opcional). Ignorado se `modules`. */\r\n  module?: SingleMenuModule;\r\n  /**\r\n   * Módulos com menu próprio. Quando presente, o seletor lista os módulos e\r\n   * trocar atualiza o módulo ativo + as categorias exibidas (sobrepõe `categories`).\r\n   */\r\n  modules?: SingleMenuModuleConfig[];\r\n  /** Módulo ativo (controlado) */\r\n  activeModuleId?: string;\r\n  /** Módulo ativo inicial (não-controlado). Default: 1º de `modules` */\r\n  defaultModuleId?: string;\r\n  /** Callback ao trocar de módulo */\r\n  onModuleChange?: (id: string) => void;\r\n  /** Exibe o campo de busca */\r\n  showSearch?: boolean;\r\n  /**\r\n   * Conteúdo customizado do CommandDialog da busca (dentro do `<CommandList>`).\r\n   * Default: lista os itens do menu (categorias + sub-itens).\r\n   */\r\n  searchCommand?: ReactNode;\r\n  /** Placeholder do campo de busca / da paleta Command */\r\n  searchPlaceholder?: string;\r\n  /** Array de categorias de navegação. Opcional se `modules` for usado. */\r\n  categories?: SingleMenuCategory[];\r\n  /** Sub-item selecionado (global, entre todas as categorias) */\r\n  activeItemId?: string;\r\n  /** Callback ao clicar em qualquer sub-item */\r\n  onItemClick?: (id: string) => void;\r\n\r\n  /**\r\n   * Substitui o `<a>` nativo pelo link do router do consumidor, em TODOS os itens e\r\n   * nas categorias-folha com `href`. Sem isso o sidebar emite `<a href>` puro e\r\n   * cancela a navegação nativa quando há handler — ver `@/utils/nav-link`.\r\n   */\r\n  renderLink?: SingleMenuLinkRenderer;\r\n  /** Informações do usuário no rodapé (com dropdown opcional) */\r\n  user: SingleMenuUser;\r\n  /** Estado expandido inicial */\r\n  defaultExpanded?: boolean;\r\n  /** Estado expandido controlado */\r\n  expanded?: boolean;\r\n  /** Callback na mudança de expandido */\r\n  onExpandedChange?: (expanded: boolean) => void;\r\n  /** Exibe o indicador flutuante de toggle quando recolhido (default: false) */\r\n  showToggleIndicator?: boolean;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/SingleMenuSidebar/single-menu-sidebar.types.ts"
       },
       {
         "path": "src/components/ui/SingleMenuSidebar/USAGE.md",
-        "content": "# SingleMenuSidebar\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n## Props essenciais\r\n\r\n| Prop                            | Tipo                          | Default | Obrigatório |\r\n| ------------------------------- | ----------------------------- | ------- | ----------- |\r\n| `logo`                          | `ReactNode`                   | —       | ✅          |\r\n| `title`                         | `string`                      | —       | ✅          |\r\n| `user`                          | `SingleMenuUser`              | —       | ✅          |\r\n| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |\r\n| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |\r\n| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |\r\n| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |\r\n| `showSearch`                    | `boolean`                     | `true`  |             |\r\n| `searchCommand`                 | `ReactNode`                   | —       |             |\r\n| `searchPlaceholder`             | `string`                      | —       |             |\r\n| `activeItemId`                  | `string`                      | —       |             |\r\n| `onItemClick`                   | `(id: string) => void`        | —       |             |\r\n| `defaultExpanded`               | `boolean`                     | `true`  |             |\r\n| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |\r\n| `showToggleIndicator`           | `boolean`                     | `false` |             |\r\n\r\n⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não\r\nexistem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca\r\nabre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o\r\ntexto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem\r\nem `SingleMenuSearchProps`, que é subcomponente interno.\r\n\r\n### Multi-módulo\r\n\r\n`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas\r\npróprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando\r\n`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira\r\nopcional.\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Navegação — `href` e `renderLink`\r\n\r\nItem **com `href`** vira `<a href>`: ctrl/cmd+clique abre em nova aba, \"copiar endereço do\r\nlink\" funciona, e o leitor de tela anuncia **link** (com `aria-current=\"page\"` no ativo).\r\nSem `href`, continua `<button>`. Vale pro sub-item e pra **categoria-folha** (sem `items`).\r\n\r\nPra integrar o router do consumidor, use **`renderLink`** — render-prop, não componente:\r\n\r\n```tsx\r\n<SingleMenuSidebar\r\n  categories={categories}\r\n  onItemClick={(id) => setAtivo(id)}\r\n  renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n/>\r\n```\r\n\r\n⚠️ **Sem `renderLink`**, o clique cancela a navegação nativa quando há handler — **exceto**\r\nem clique modificado, `target=\"_blank\"`, href externo (`https:`, `mailto:`…) e **href de\r\nhash** (`#/rota`). A regra e o porquê de cada exceção estão em `@/utils/nav-link`, que é a\r\nMESMA lógica do `MenuSidebar` (util compartilhada, não cópia).\r\n\r\n> ⚠️ Até 2026-08-18 o `href` acima **não fazia nada**: o tipo o aceitava, este USAGE o\r\n> documentava, e o componente renderizava `<button>` sempre. Se você escreveu código\r\n> contando com navegação por `href` aqui, ele nunca navegou — agora navega.\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n  ⚠️ **A espiada FLUTUA sobre o conteúdo — não empurra** (v0.43.0+). No desktop o\r\n  painel vira `absolute z-40` e o `<aside>` continua ocupando só a largura do rail,\r\n  então o que está ao lado não se mexe. **Só o clique** (travar aberta) ocupa espaço\r\n  no fluxo e empurra — é decisão de layout do usuário, e quem está com o menu\r\n  recolhido escolheu maximizar a área de conteúdo.\r\n  Antes disso a espiada animava a largura **dentro** do fluxo: numa tela com\r\n  `DataTable` isso disparava 5 recálculos completos de largura de coluna por gesto,\r\n  ~100ms de travada e **CLS 0,117**. É o mesmo desenho que o `MenuSidebar` sempre\r\n  teve (painel flutuante), agora aqui. Se você depende do empurrão no hover, use\r\n  `expanded` controlado e trave aberta.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
+        "content": "# SingleMenuSidebar\r\n\r\n<!-- ds:regras\r\n- NÃO passe `logo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `title` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n- é a escolha quando NÃO há divisão em áreas: `showSearch={false}`, sem `module`/`modules`\r\n-->\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n**Qual das duas** — o critério é *o sistema tem áreas grandes e separadas, cada uma com o\r\nmenu dela?* Sim → `MenuSidebar` (as áreas ficam todas visíveis no rail). Não → esta, na\r\nvariação **\"Sem módulo / sem busca\"** (omita `module`/`modules`, passe `showSearch={false}`).\r\nEla **também** aceita módulos, mas aí eles ficam atrás de um botão acima da busca — por isso\r\nnão é a recomendação quando a divisão existe.\r\n\r\n**A logo é a da iGreen por default** — `logo` é opcional desde vNEXT e cai em\r\n`SidebarBrandMark`. Só passe quando o app tem marca própria; `title` é o **nome do projeto**,\r\nexibido à direita dela.\r\n\r\n> ⚠️ Até vNEXT `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`\r\n> sempre foi opcional. Trocar pra esta sidebar portanto *forçava* quem montava a inventar uma\r\n> logo — e foi assim que a marca da iGreen sumiu num app de consumidor (2026-08-22).\r\n\r\n## Props essenciais\r\n\r\n| Prop                            | Tipo                          | Default | Obrigatório |\r\n| ------------------------------- | ----------------------------- | ------- | ----------- |\r\n| `logo`                          | `ReactNode`                   | **marca iGreen** | — (omita p/ ficar com a marca) |\r\n| `title`                         | `string`                      | —       | ✅          |\r\n| `user`                          | `SingleMenuUser`              | —       | ✅          |\r\n| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |\r\n| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |\r\n| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |\r\n| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |\r\n| `showSearch`                    | `boolean`                     | `true`  |             |\r\n| `searchCommand`                 | `ReactNode`                   | —       |             |\r\n| `searchPlaceholder`             | `string`                      | —       |             |\r\n| `activeItemId`                  | `string`                      | —       |             |\r\n| `onItemClick`                   | `(id: string) => void`        | —       |             |\r\n| `defaultExpanded`               | `boolean`                     | `true`  |             |\r\n| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |\r\n| `showToggleIndicator`           | `boolean`                     | `false` |             |\r\n\r\n⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não\r\nexistem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca\r\nabre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o\r\ntexto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem\r\nem `SingleMenuSearchProps`, que é subcomponente interno.\r\n\r\n### Multi-módulo\r\n\r\n`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas\r\npróprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando\r\n`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira\r\nopcional.\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Navegação — `href` e `renderLink`\r\n\r\nItem **com `href`** vira `<a href>`: ctrl/cmd+clique abre em nova aba, \"copiar endereço do\r\nlink\" funciona, e o leitor de tela anuncia **link** (com `aria-current=\"page\"` no ativo).\r\nSem `href`, continua `<button>`. Vale pro sub-item e pra **categoria-folha** (sem `items`).\r\n\r\nPra integrar o router do consumidor, use **`renderLink`** — render-prop, não componente:\r\n\r\n```tsx\r\n<SingleMenuSidebar\r\n  categories={categories}\r\n  onItemClick={(id) => setAtivo(id)}\r\n  renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n/>\r\n```\r\n\r\n⚠️ **Sem `renderLink`**, o clique cancela a navegação nativa quando há handler — **exceto**\r\nem clique modificado, `target=\"_blank\"`, href externo (`https:`, `mailto:`…) e **href de\r\nhash** (`#/rota`). A regra e o porquê de cada exceção estão em `@/utils/nav-link`, que é a\r\nMESMA lógica do `MenuSidebar` (util compartilhada, não cópia).\r\n\r\n> ⚠️ Até 2026-08-18 o `href` acima **não fazia nada**: o tipo o aceitava, este USAGE o\r\n> documentava, e o componente renderizava `<button>` sempre. Se você escreveu código\r\n> contando com navegação por `href` aqui, ele nunca navegou — agora navega.\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n  ⚠️ **A espiada FLUTUA sobre o conteúdo — não empurra** (v0.43.0+). No desktop o\r\n  painel vira `absolute z-40` e o `<aside>` continua ocupando só a largura do rail,\r\n  então o que está ao lado não se mexe. **Só o clique** (travar aberta) ocupa espaço\r\n  no fluxo e empurra — é decisão de layout do usuário, e quem está com o menu\r\n  recolhido escolheu maximizar a área de conteúdo.\r\n  Antes disso a espiada animava a largura **dentro** do fluxo: numa tela com\r\n  `DataTable` isso disparava 5 recálculos completos de largura de coluna por gesto,\r\n  ~100ms de travada e **CLS 0,117**. É o mesmo desenho que o `MenuSidebar` sempre\r\n  teve (painel flutuante), agora aqui. Se você depende do empurrão no hover, use\r\n  `expanded` controlado e trave aberta.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
         "type": "registry:file",
         "target": "components/ui/SingleMenuSidebar/USAGE.md"
       },
@@ -4157,7 +4163,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4179,7 +4185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · skeleton · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4203,7 +4209,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · slider · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4226,7 +4232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · sonner · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4272,7 +4278,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · spinner · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4296,7 +4302,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · switch · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4375,7 +4381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · table · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4399,7 +4405,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · tabs · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4423,7 +4429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · textarea · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4441,7 +4447,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · theme-blue · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4459,7 +4465,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · theme-green · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4477,7 +4483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · theme-pay · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4495,7 +4501,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4517,7 +4523,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · theme · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4568,7 +4574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · toast · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · toggle-group · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4619,7 +4625,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · toggle · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4643,7 +4649,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · tooltip · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4664,7 +4670,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · tv · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4686,7 +4692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.45.0 · 1552cd1 · 2026-08-22"
+      "stamp": "igreen-ds · utils · v0.45.0 · 64e868e · 2026-08-22"
     },
     "type": "registry:file"
   }

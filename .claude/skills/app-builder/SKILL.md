@@ -14,20 +14,59 @@ O "chassi" onde as telas moram (shell + nav + roteamento). Não é conteúdo —
 conteúdo de cada tela vem dos builders (crud/list/dashboard). Skill focada:
 leia e adapte o exemplo canônico, não gere de memória.
 
-## Passo 0 — PERGUNTE: o app tem módulos?
+## Passo 0 — duas perguntas, nesta ordem
 
-Não presuma. As duas sidebars do DS resolvem problemas diferentes, e escolher errado só
-aparece quando o app já está montado:
+### 1. Como o projeto se chama?
 
-| resposta do usuário | `sidebar` do AppShell | dados |
-|---|---|---|
-| **Tem áreas/módulos distintos** (ex.: Comercial, Financeiro, Suporte) — cada um com o próprio menu | `"menu"` (default) | `contexts` |
-| **Não tem módulos** — é um sistema só, menu único de categorias | `"single"` | `categories` + `sidebarLogo` + `sidebarTitle` |
+Vai **à direita da logo** na sidebar (`sidebarTitle`), na raiz do breadcrumb e no título da
+aba. É a única coisa deste passo que o DS não tem como adivinhar — e `sidebarTitle` segue
+obrigatória de propósito, pra o TS cobrar a pergunta.
 
-Pergunta prática, que não exige o usuário conhecer os componentes:
+### 2. O app tem módulos?
 
-> *"O sistema vai ter áreas separadas — tipo Comercial, Financeiro, Suporte — cada uma com
-> o próprio menu? Ou é um sistema único com um menu só?"*
+⚠️ **Vocabulário — leia ANTES de formular a pergunta.** A mesma coisa tem três nomes na boca
+do usuário: **módulo**, **workspace** e, às vezes, **categoria**. E "categoria" é armadilha:
+na API da sidebar única, `categories` são os **grupos do menu** — não os módulos. A palavra
+nomeia os dois lados da escolha ao mesmo tempo. Então:
+
+- **não** use a palavra "categoria" na pergunta;
+- **não** use nome de componente (`MenuSidebar`/`SingleMenuSidebar`) — não diz nada a quem
+  não conhece o DS. Descreva **o que aparece na tela**.
+
+Ofereça **duas** opções, e só essas duas:
+
+> *"Seu sistema é dividido em áreas grandes e separadas — tipo Comercial, Financeiro,
+> Suporte — cada uma com o menu dela? Ou é um sistema só, com um menu único?*
+>
+> *1. **Tem áreas separadas** — cada área vira um ícone numa coluna estreita à esquerda, e o
+> menu dela abre ao lado:
+> https://igreen-desingsystem-admin.vercel.app/#/menu-sidebar*
+>
+> *2. **É um sistema só** — um menu único, sem a coluna de ícones:
+> https://igreen-desingsystem-admin.vercel.app/#/single-menu-sidebar*
+>
+> *Se quiser, abra os dois links antes de decidir."*
+
+| resposta | `sidebar` | dados | o que NÃO passar |
+|---|---|---|---|
+| **tem áreas/módulos** | `"menu"` (default) | `contexts` | — |
+| **é um sistema só** | `"single"` | `categories` | `sidebarModules` e `sidebarShowSearch` — é a variação **"Sem módulo / sem busca"** do showcase |
+
+**Regra de tendência:** existe divisão → `"menu"`. Não existe → `"single"` enxuta.
+
+A sidebar única **também** aceita módulos (`sidebarModules`) — e é exatamente o que não
+oferecer na entrevista. Quando existe divisão, o rail da `"menu"` mostra as áreas todas de
+uma vez; na única elas ficam atrás de um botão acima da busca. Se o usuário quiser conhecer
+as outras variações, mande a página do componente: ampliar o leque na entrevista é o que
+produz escolha errada.
+
+### Logo e nome — aplique, não pergunte
+
+- **A logo é a da iGreen, sempre.** **Não passe `sidebarLogo`** — o default já é a marca
+  (desde 2026-08-22; antes a prop era obrigatória e trocar pra sidebar única fazia a logo
+  desaparecer). Só troque se o usuário pedir marca própria **explicitamente**, e aí ele
+  fornece o arquivo. **Nunca pergunte "qual logo?"**.
+- **O nome do projeto vai à direita dela** — é a resposta da pergunta 1.
 
 **O `AppShell` monta as DUAS** (desde a v0.41.0). O tipo é união discriminada, então o TS
 cobra o conjunto certo pra cada escolha. O toggle do Header funciona nos dois casos sem

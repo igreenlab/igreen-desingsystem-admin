@@ -2,6 +2,7 @@
 
 import { PanelLeftClose } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SidebarBrandMark } from "@/components/ui/MenuSidebar/sidebar-brand";
 import { useSingleMenuSidebar } from "./use-single-menu-sidebar";
 import { styles } from "./single-menu-sidebar.styles";
 import type { SingleMenuHeaderProps } from "./single-menu-sidebar.types";
@@ -25,7 +26,9 @@ export function SingleMenuHeader({
       )}
     >
       <div className={styles.header.inner}>
-        <div className={styles.header.logo}>{logo}</div>
+        {/* Sem `logo` explícito, a marca iGreen entra sozinha (ver `SidebarBrandMark`).
+            É o mesmo contrato do `brand` do MenuSidebar — antes só esta sidebar cobrava. */}
+        <div className={styles.header.logo}>{logo ?? <SidebarBrandMark />}</div>
         {expanded && (
           <span className={cn(styles.header.title, styles.textFadeIn)}>
             {title}
