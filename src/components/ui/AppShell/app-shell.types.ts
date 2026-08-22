@@ -243,9 +243,16 @@ type AppShellSingleSidebarProps = {
   sidebar: "single";
   /** Categorias do menu de nível único. */
   categories: SingleMenuCategory[];
-  /** Logo no header da sidebar. */
-  sidebarLogo: ReactNode;
-  /** Título ao lado do logo. */
+  /**
+   * Logo no header da sidebar. **Omita pra ficar com a marca iGreen** (default da
+   * `SingleMenuSidebar`). Era obrigatória até 2026-08-22, e por isso trocar pra sidebar
+   * única forçava quem montava a inventar uma logo — a da iGreen sumia na troca.
+   */
+  sidebarLogo?: ReactNode;
+  /**
+   * **Nome do projeto**, exibido à direita da logo. Segue obrigatório de propósito: é a
+   * única coisa aqui que o DS não tem como adivinhar, e o TS cobrando força a pergunta.
+   */
   sidebarTitle: string;
   /** Item ativo (a variante `menu` usa `activeItemHref`). */
   activeItemId?: string;

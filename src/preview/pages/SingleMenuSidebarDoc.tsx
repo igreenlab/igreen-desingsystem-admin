@@ -480,18 +480,18 @@ function AppNav({ mobileOpen, onClose, ...props }) {
       <ExampleSection
         id="ex-minimal"
         title="Sem módulo / sem busca"
-        description="Omita `module` e passe `showSearch={false}` para uma navegação minimalista — só logo, categorias e usuário."
+        description="A recomendação quando o sistema NÃO se divide em áreas: omita `module` e passe `showSearch={false}`. A logo vem por default (marca iGreen) — só o `title`, que é o nome do projeto, precisa ser passado."
         code={`<SingleMenuSidebar
-  logo={<Logo />}
-  title="iGreen System"
+  title="iGreen System"   /* logo omitida = marca iGreen */
   showSearch={false}
   categories={CATEGORIES}
   user={USER}
 />`}
       >
         <SidebarDemo>
+          {/* Sem `logo` de propósito: esta é a página que as skills linkam, então ela
+              precisa MOSTRAR o default em vez de descrevê-lo. */}
           <SingleMenuSidebar
-            logo={LOGO}
             title="iGreen System"
             showSearch={false}
             categories={MOCK_CATEGORIES}

@@ -1,5 +1,11 @@
 # AppShell — USAGE
 
+<!-- ds:regras
+- tem áreas separadas (Comercial, Financeiro…)? → `sidebar="menu"` + `contexts`. Não tem? → `"single"` + `categories`, sem `sidebarModules` nem `sidebarShowSearch`
+- NÃO passe `sidebarLogo`: o default é a marca iGreen. Só com marca própria pedida explicitamente
+- `sidebarTitle` = nome do projeto (vai à direita da logo) — pergunte, não invente
+-->
+
 Template de aplicação completo: MenuSidebar (rail + panel) + Header sticky + body com slot livre.
 
 ## Quando usar
@@ -54,7 +60,8 @@ sem erro nenhum.
 | `fillHeight` | boolean | `false` | O shell obedece a altura do **pai** (`h-full`) em vez de 100vh. **Ligue quando embutir o shell em algo com altura** (layout com footer, aba, preview): sem isso ele transborda e o `overflow-hidden` do container corta o rodapé do body junto com o padding — o sintoma é "conteúdo colado na borda", e não é falta de padding. ⚠️ exige pai com altura |
 | `contexts` | SidebarContext[] | — | Lista de workspaces no rail (**só** com `sidebar="menu"`) |
 | `categories` | SingleMenuCategory[] | — | Categorias do menu (**só** com `sidebar="single"`) |
-| `sidebarLogo` / `sidebarTitle` | ReactNode / string | — | Header da sidebar single |
+| `sidebarLogo` | ReactNode | **marca iGreen** | Logo do header da sidebar single. **Omita** pra ficar com a marca — só passe se o app tem marca própria |
+| `sidebarTitle` | string | — | **Nome do projeto**, à direita da logo. Obrigatória de propósito: é o que o DS não adivinha |
 | `activeItemId` | string | — | Item ativo da single (a variante `menu` usa `activeItemHref`) |
 | `onSidebarItemClick` | (id: string) => void | — | Clique em item da single |
 | `sidebarModules` | SingleMenuModuleConfig[] | — | Módulos com menu próprio — o seletor troca o conjunto de categorias |

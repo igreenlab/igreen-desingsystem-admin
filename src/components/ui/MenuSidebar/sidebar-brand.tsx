@@ -1,4 +1,26 @@
 /**
+ * A marca iGreen dentro do quadrado de brand — o default do header da
+ * `SingleMenuSidebar`.
+ *
+ * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da
+ * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do
+ * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única
+ * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor
+ * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a
+ * API pediu outra. Com o default, a marca não depende de ninguém lembrar.
+ *
+ * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de
+ * doc já usava na mão — aqui ele só passou a ter um nome.
+ */
+export function SidebarBrandMark() {
+  return (
+    <div className="grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand">
+      <SidebarBrandIcon size={18} />
+    </div>
+  );
+}
+
+/**
  * Logo iGreen — default usado no rail.
  * Single-color (currentColor) pra herdar o fg-on-brand.
  */
