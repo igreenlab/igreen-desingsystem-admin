@@ -3785,3 +3785,51 @@ não uma escolha nova. Se o Header do app tiver logo própria em cima, as duas c
 resto é doc no ponto de uso.
 
 **Changelog + bump:** ficam pro `/ds-release`, que também resolve os `vNEXT`.
+
+---
+
+### 2026-08-22 | ds-dev | v0.46.0 publicada — lib 0.46.0 + CLI 0.25.16 | CONCLUÍDO
+
+**Input:** fechar a rodada acumulada desde a v0.45.0 (16 commits) via `/ds-release`.
+
+**Output (PR #265, mergeada):** entry no `updates-data.ts` · bump lib 0.45.0 → **0.46.0** (MINOR:
+`added` presente, nenhum breaking) · bump CLI 0.25.15 → **0.25.16** · 3 `vNEXT` resolvidos ·
+registry + embed recarimbados em v0.46.0 (92 itens, 488 arquivos em sync por conteúdo).
+
+**O que entrou:** hook que entrega as regras do componente no momento em que a IA escreve a tag
+(bloco `ds:regras`, inclui primitivos shadcn) · `Tabs.fullWidth` · logo iGreen por default nas
+duas sidebars · página "Como atualizar" + prompts coláveis · `crud-builder` inferindo `copyable`
+· `app-builder` perguntando as sidebars sem induzir erro · cursor `grab` só com overflow · e os
+fixes de doc de instalação.
+
+**Duas decisões do fluxo que valem registro:**
+
+1. **O bump do CLI foi decidido por MEDIÇÃO, não por suposição.** Extraí o tarball publicado da
+   0.25.15: ela **já levava** o hook `component-rules`, mas **não** o `copyable` inferido, o
+   `Passo 0` novo das sidebars nem as linhas de roteamento do `CLAUDE.md` — 7 arquivos de
+   `cli/templates/**` mudaram depois daquele publish. Sem `cli:rebake`: nenhum foundational
+   mudou nesta release.
+2. **O `version-claims --release` cobrou os 3 `vNEXT` três vezes** antes do número existir. É o
+   comportamento desenhado (o `npm test` aceita o placeholder; a release cobra), e foi ele que
+   impediu doc publicada citando versão inventada.
+
+**Publicação (mantenedor):** os dois pacotes no ar. Conferido no **conteúdo dos tarballs**, não
+só no `npm view` — 8/8 marcadores no CLI 0.25.16, e `logo?: ReactNode` (opcional) no
+`.d.ts` da lib 0.46.0. Antes disso o publish falhava com `E404`: o `~/.npmrc` tinha
+`_authToken`, mas o `whoami` devolvia **401** — token inválido, e o npm mascara 401/403 como 404
+em pacote com escopo. Descartei `.npmrc` no repo e redirecionamento de escopo antes de concluir
+isso. **Os 4 tokens que passaram pelo chat ao longo da sessão foram revogados pelo mantenedor.**
+
+**Armadilha de verificação, registrada porque me pegou 2× seguidas na mesma checagem:** grep de
+conferência em tarball falhou por **caixa** (`não` vs `Não`) e por **forma do nome** (`kebab` vs
+`PascalCase`), acusando ausente o que estava presente. Falso negativo em verificação de publish
+é pior que não verificar: leva a republicar ou a caçar defeito que não existe. Ancorar em
+trecho **copiado do arquivo**, não redigitado.
+
+**Assumption:** que a `main` mergeada é o que foi publicado. Verdadeiro nesta rodada porque o
+publish saiu depois do merge e o carimbo do registry (v0.46.0) bate com o `package.json` da
+`main`. Se um dia alguém publicar de uma branch, essa igualdade quebra em silêncio — o
+`registry-check` compara embed × fonte, não pacote publicado × main.
+
+**Pendência aberta (higiene, não bloqueia):** 39 branches mergeadas sobrando no remote
+canônico. Apagar exige decisão do mantenedor.
