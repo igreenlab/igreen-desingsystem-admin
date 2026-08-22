@@ -32,3 +32,24 @@ tabela = API shadcn padrão, sem gotcha → use direto e veja o showcase.
 `progress`, `radio-group`, `scroll-area`, `select`, `separator`, `sheet`,
 `skeleton`, `slider`, `switch`, `table`, `textarea`, `toggle`,
 `toggle-group`, `combobox`.
+
+## Payload de injeção (lido pelo hook, não por você)
+
+Os blocos abaixo são o que o `protect-ds.mjs` imprime quando a IA **escreve** aquele
+primitivo. A tabela acima é a doc completa; aqui vai só o que decide, curto de propósito —
+a célula do `tabs` tem 816 chars e não cabe num aviso. Primitivo sem bloco = silêncio.
+
+<!-- ds:regras tabs
+- `variant` default (segmented) dentro de superfície (card, bloco, Panel, Modal, drawer); `line` só pra seção de página
+- `fullWidth` em superfície compacta; ⛔ nunca `w-full` no List nem `flex-1` no trigger na mão
+-->
+
+<!-- ds:regras select
+- ⛔ nunca `<SelectItem value="">` — é a sentinela do Radix e apaga valor em silêncio
+- em form, prefira `FormFieldSelect` (já trata a sentinela e o eco do valor)
+-->
+
+<!-- ds:regras sonner
+- `<Toaster/>` **1× no root**, senão o toast não aparece e não há erro
+- card ergonômico (title/description/action) → use o composto `ui/Toast`
+-->

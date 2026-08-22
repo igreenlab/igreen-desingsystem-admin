@@ -292,7 +292,15 @@ try {
     }
     return null;
   };
-  regras = regrasAplicaveis(novo, lerUsage);
+  /* Tabela dos primitivos: o `<Tabs>`/`<Select>` do copy-in é arquivo solto sem USAGE,
+     então a regra dele vive nesta tabela global. Ausente = silêncio, como tudo aqui. */
+  let tabela = null;
+  try {
+    tabela = readFileSync(".claude/skills/ds-kit/shadcn-gotchas.md", "utf8");
+  } catch {
+    /* payload antigo ou kit não instalado → só compostos */
+  }
+  regras = regrasAplicaveis(novo, lerUsage, tabela);
   if (regras.length) {
     regrasTexto = formatar(regras, achados.length ? "" : raw);
     if (!achados.length) {

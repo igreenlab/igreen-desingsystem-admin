@@ -44,7 +44,13 @@
  * E nunca bloqueia: o dono da decisão é quem está escrevendo.
  */
 
-/** Abre o bloco no USAGE. Comentário HTML: invisível no markdown renderizado. */
+/**
+ * Abre o bloco. Comentário HTML: invisível no markdown renderizado.
+ *
+ * Duas formas, uma convenção:
+ *   `<!-- ds:regras`        no `USAGE.md` de um COMPOSTO — o arquivo já é daquele componente
+ *   `<!-- ds:regras tabs`   na tabela global dos PRIMITIVOS — um arquivo, N componentes
+ */
 const ABRE = "<!-- ds:regras";
 const FECHA = "-->";
 
@@ -68,29 +74,61 @@ export function componentesUsados(conteudo) {
 }
 
 /**
- * Extrai as linhas do bloco `ds:regras` de um USAGE.md.
+ * Extrai as linhas de um bloco `ds:regras`.
  *
- * Formato:
- *
- *     <!-- ds:regras
+ *     <!-- ds:regras                 ← anônimo, no USAGE do próprio componente
  *     - aba dentro dele → <Tabs fullWidth>, variante default
- *     - bodyPadded={false} quando usar FloatingPanelSection
+ *     -->
+ *
+ *     <!-- ds:regras tabs            ← nomeado, na tabela global dos primitivos
+ *     - variante default dentro de superfície; `line` só pra seção de página
  *     -->
  *
  * Sem bloco → `[]`, e o chamador fica em silêncio. Linha vazia e `-` inicial são
  * normalizados; o resto do arquivo é prosa livre e não é lido por ninguém aqui.
+ *
+ * ⚠️ Varredura por `indexOf`, sem RegExp montada em runtime, de propósito: a 1ª versão
+ * escapava `ABRE` pra dentro de um `new RegExp` e o escaping morreu no caminho (o arquivo
+ * virou `SyntaxError`). Comparação de string não tem esse modo de falha.
  */
-export function regrasDoUsage(texto) {
+export function regrasDoUsage(texto, nome = null) {
   const s = String(texto ?? "");
-  const i = s.indexOf(ABRE);
-  if (i < 0) return [];
-  const j = s.indexOf(FECHA, i + ABRE.length);
-  if (j < 0) return []; // bloco não fechado: ignora em silêncio, nunca quebra o Write
-  return s
-    .slice(i + ABRE.length, j)
-    .split(/\r?\n/)
-    .map((l) => l.trim().replace(/^-\s*/, ""))
-    .filter(Boolean);
+  const querido = nome ? String(nome).toLowerCase() : null;
+
+  for (let i = s.indexOf(ABRE); i >= 0; i = s.indexOf(ABRE, i + 1)) {
+    const fimDaLinha = s.indexOf("\n", i);
+    if (fimDaLinha < 0) return [];
+    // o que sobra na linha do abre é o nome (vazio no bloco anônimo)
+    const rotulo = s.slice(i + ABRE.length, fimDaLinha).trim().toLowerCase();
+    if (querido ? rotulo !== querido : rotulo !== "") continue;
+
+    const j = s.indexOf(FECHA, fimDaLinha);
+    if (j < 0) return []; // bloco não fechado: ignora em silêncio, nunca quebra o Write
+    return s
+      .slice(fimDaLinha, j)
+      .split(/\r?\n/)
+      .map((l) => l.trim().replace(/^-\s*/, ""))
+      .filter(Boolean);
+  }
+  return [];
+}
+
+/**
+ * As regras de um PRIMITIVO, pelo bloco nomeado na tabela global.
+ *
+ * Converte a tag JSX pro id do registry (`<InputOTP>` → `input-otp`), que é como o arquivo
+ * global nomeia. Sem bloco pro componente → `[]`, e `[]` é silêncio.
+ *
+ * ⚠️ **Não** lê a CÉLULA da tabela, de propósito. Medido: a célula do `tabs` tem 816 chars
+ * (~204 tokens) e truncar em 240 perde exatamente o `fullWidth`, que é a parte decisiva. A
+ * célula é doc pra humano; injeção precisa de payload curto e **escolhido** por quem
+ * escreve. Daí o bloco nomeado ao lado dela, em vez de recorte automático.
+ */
+export function regrasDoPrimitivo(texto, nome) {
+  const id = String(nome ?? "")
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .toLowerCase();
+  return regrasDoUsage(texto, id);
 }
 
 const MAX_COMPONENTES = 3;
@@ -100,9 +138,12 @@ const MAX_LINHAS = 8;
  * @param {string} conteudo  o que está sendo escrito (content/new_string)
  * @param {(nome: string) => string|null} lerUsage  devolve o texto do USAGE do componente,
  *   ou `null` se não existir. Quem chama resolve o caminho (copy-in × submódulo).
+ * @param {string|null} tabelaPrimitivos  texto do `shadcn-gotchas.md`, ou `null`. Consultado
+ *   só quando o componente NÃO tem USAGE próprio — é a família dos primitivos, que no
+ *   copy-in cai como arquivo solto (`ui/tabs.tsx`) e não tem USAGE por arquivo.
  * @returns {Array<{componente: string, regras: string[]}>} vazio = silêncio
  */
-export function regrasAplicaveis(conteudo, lerUsage) {
+export function regrasAplicaveis(conteudo, lerUsage, tabelaPrimitivos = null) {
   const out = [];
   let linhas = 0;
   for (const nome of componentesUsados(conteudo)) {
@@ -113,8 +154,11 @@ export function regrasAplicaveis(conteudo, lerUsage) {
     } catch {
       texto = null; // USAGE ilegível é silêncio, nunca erro no caminho de um Write
     }
-    if (!texto) continue;
-    const regras = regrasDoUsage(texto);
+    /* Composto primeiro, primitivo depois. A ordem importa: se um dia um composto e um
+       primitivo tiverem o mesmo nome, o USAGE específico ganha da tabela global. */
+    const regras = texto
+      ? regrasDoUsage(texto)
+      : regrasDoPrimitivo(tabelaPrimitivos, nome);
     if (!regras.length) continue;
     const cabem = regras.slice(0, MAX_LINHAS - linhas);
     out.push({ componente: nome, regras: cabem });

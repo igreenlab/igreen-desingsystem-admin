@@ -4,6 +4,7 @@ import {
   componentesUsados,
   regrasDoUsage,
   regrasAplicaveis,
+  regrasDoPrimitivo,
   formatar,
 } from "./component-rules.mjs";
 
@@ -120,6 +121,78 @@ describe("component-rules — as travas anti-ruído", () => {
     expect(msg).toContain("src/pages/X.tsx");
     expect(msg).toContain("não bloqueio");
     expect(msg).toContain("FOI escrito");
+  });
+});
+
+describe("component-rules — primitivo shadcn, pela tabela global", () => {
+  /*
+   * Esta família ficou de fora da 1ª versão — e o furo era grave: o `<Tabs>` é o componente
+   * que MOTIVOU o mecanismo, e o hook ficava calado pra ele. Motivo estrutural: primitivo no
+   * copy-in cai como arquivo solto (`ui/tabs.tsx`), sem pasta e sem USAGE próprio.
+   */
+  const GLOBAL = [
+    "# Shadcn — índice de gotchas",
+    "",
+    "| `tabs` | doc longa pra humano, 800+ chars, com tudo detalhado… |",
+    "",
+    "<!-- ds:regras tabs",
+    "- variante default (segmented) dentro de superfície; `line` só pra seção de página",
+    "- `fullWidth` em superfície compacta; nunca `w-full`/`flex-1` na mão",
+    "-->",
+    "",
+    "<!-- ds:regras tab",
+    "- regra de um componente chamado `tab`, que NÃO deve casar com `tabs`",
+    "-->",
+    "",
+    "<!-- ds:regras input-otp",
+    "- regra do input-otp",
+    "-->",
+  ].join("\n");
+
+  it("acha o bloco nomeado do primitivo", () => {
+    expect(regrasDoPrimitivo(GLOBAL, "Tabs")).toEqual([
+      "variante default (segmented) dentro de superfície; `line` só pra seção de página",
+      "`fullWidth` em superfície compacta; nunca `w-full`/`flex-1` na mão",
+    ]);
+  });
+
+  it("fronteira de nome: `tab` não pega o bloco de `tabs`", () => {
+    // Sem a fronteira, `indexOf` casaria o prefixo e entregaria a regra errada — silencioso.
+    expect(regrasDoPrimitivo(GLOBAL, "Tab")).toEqual([
+      "regra de um componente chamado `tab`, que NÃO deve casar com `tabs`",
+    ]);
+  });
+
+  it("PascalCase vira o id do registry (InputOTP → input-otp)", () => {
+    expect(regrasDoPrimitivo(GLOBAL, "InputOTP")).toEqual(["regra do input-otp"]);
+  });
+
+  it("primitivo sem bloco → silêncio (não despeja a célula da tabela)", () => {
+    expect(regrasDoPrimitivo(GLOBAL, "Select")).toEqual([]);
+  });
+
+  it("tabela ausente → silêncio", () => {
+    expect(regrasDoPrimitivo(null, "Tabs")).toEqual([]);
+  });
+
+  it("no fluxo completo: componente sem USAGE cai na tabela", () => {
+    const r = regrasAplicaveis("<Tabs variant='line' />", () => null, GLOBAL);
+    expect(r).toHaveLength(1);
+    expect(r[0].componente).toBe("Tabs");
+    expect(r[0].regras[1]).toContain("fullWidth");
+  });
+
+  it("USAGE do composto GANHA da tabela quando os dois existem", () => {
+    const usage = "# Tabs\n<!-- ds:regras\n- regra do composto\n-->\n";
+    const r = regrasAplicaveis("<Tabs />", () => usage, GLOBAL);
+    expect(r[0].regras).toEqual(["regra do composto"]);
+  });
+
+  it("bloco anônimo não é confundido com nomeado, e vice-versa", () => {
+    const anon = "# X\n<!-- ds:regras\n- do composto\n-->\n";
+    expect(regrasDoUsage(anon)).toEqual(["do composto"]);
+    expect(regrasDoUsage(anon, "tabs")).toEqual([]);
+    expect(regrasDoUsage(GLOBAL)).toEqual([]); // global não tem bloco anônimo
   });
 });
 
