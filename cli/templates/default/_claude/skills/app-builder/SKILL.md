@@ -87,7 +87,7 @@ componente — ampliar o leque na entrevista é o que produz escolha errada.
 ### Logo e nome — aplique, não pergunte
 
 - **A logo é a da iGreen, sempre.** **Não passe `sidebarLogo`** — o default já é a marca
-  (lib vNEXT+; antes a prop era obrigatória, e trocar pra sidebar única fazia a logo da
+  (lib 0.46.0+; antes a prop era obrigatória, e trocar pra sidebar única fazia a logo da
   iGreen desaparecer, porque a API pedia outra). Só troque se o usuário pedir marca própria
   **explicitamente**, e aí ele fornece o arquivo. **Nunca pergunte "qual logo?"**.
 - **O nome do projeto vai à direita dela** — é a resposta da pergunta 1.

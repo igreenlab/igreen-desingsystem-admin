@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · accordion · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · alert-dialog · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · alert-modal · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · alert · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · app-shell · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · aspect-ratio · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · avatar-ig · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · avatar · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · badge · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · breadcrumb · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · button-group · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · button · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · calendar · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · card-checkbox · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · card · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · carousel · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · chart · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · checkbox · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · chip · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · choropleth-map · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · collapsible · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · color-picker · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · combobox · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · command · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · context-menu · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · data-list · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · data-table · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · date-picker · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · dialog · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · drawer · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · dropdown-menu · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · empty-state · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-app-shell · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-chat · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-clientes · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-dashboard · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-edit-page · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-finance · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-login · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-mapa-rede · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · example-order-detail · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · file-upload-field · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · floating-panel · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · footer-table · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · form-field · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · header · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · hover-card · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · icon · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · input-group · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · input-otp · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · input · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · kanban · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · kpi · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · label · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · list · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · markdown-text · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3510,7 +3510,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
-        "content": "/**\n * A marca iGreen dentro do quadrado de brand — o default do header da\n * `SingleMenuSidebar`.\n *\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\n *\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\n * doc já usava na mão — aqui ele só passou a ter um nome.\n */\nexport function SidebarBrandMark() {\n  return (\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\n      <SidebarBrandIcon size={18} />\n    </div>\n  );\n}\n\n/**\n * Logo iGreen — default usado no rail.\n * Single-color (currentColor) pra herdar o fg-on-brand.\n */\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\n  return (\n    <svg\n      width={size}\n      height={size * (25 / 18)}\n      viewBox=\"0 0 46 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-label=\"iGreen\"\n    >\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\n        fill=\"currentColor\"\n      />\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\n        fill=\"currentColor\"\n      />\n    </svg>\n  );\n}\n",
+        "content": "/**\r\n * A marca iGreen dentro do quadrado de brand — o default do header da\r\n * `SingleMenuSidebar`.\r\n *\r\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\r\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\r\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\r\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\r\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\r\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\r\n *\r\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\r\n * doc já usava na mão — aqui ele só passou a ter um nome.\r\n */\r\nexport function SidebarBrandMark() {\r\n  return (\r\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\r\n      <SidebarBrandIcon size={18} />\r\n    </div>\r\n  );\r\n}\r\n\r\n/**\r\n * Logo iGreen — default usado no rail.\r\n * Single-color (currentColor) pra herdar o fg-on-brand.\r\n */\r\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\r\n  return (\r\n    <svg\r\n      width={size}\r\n      height={size * (25 / 18)}\r\n      viewBox=\"0 0 46 64\"\r\n      fill=\"none\"\r\n      xmlns=\"http://www.w3.org/2000/svg\"\r\n      aria-label=\"iGreen\"\r\n    >\r\n      <path\r\n        fillRule=\"evenodd\"\r\n        clipRule=\"evenodd\"\r\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\r\n        fill=\"currentColor\"\r\n      />\r\n      <path\r\n        fillRule=\"evenodd\"\r\n        clipRule=\"evenodd\"\r\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\r\n        fill=\"currentColor\"\r\n      />\r\n    </svg>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-brand.tsx"
       },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · menu-sidebar · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · menubar · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · modal · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · month-year-picker · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · navigation-menu · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · page-header · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · pagination · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · panel · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · popover · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · progress · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · radio-group · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3975,7 +3975,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · scroll-area · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · select · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4024,7 +4024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · separator · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · sheet · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4073,7 +4073,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/MenuSidebar/sidebar-brand.tsx",
-        "content": "/**\n * A marca iGreen dentro do quadrado de brand — o default do header da\n * `SingleMenuSidebar`.\n *\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\n *\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\n * doc já usava na mão — aqui ele só passou a ter um nome.\n */\nexport function SidebarBrandMark() {\n  return (\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\n      <SidebarBrandIcon size={18} />\n    </div>\n  );\n}\n\n/**\n * Logo iGreen — default usado no rail.\n * Single-color (currentColor) pra herdar o fg-on-brand.\n */\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\n  return (\n    <svg\n      width={size}\n      height={size * (25 / 18)}\n      viewBox=\"0 0 46 64\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      aria-label=\"iGreen\"\n    >\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\n        fill=\"currentColor\"\n      />\n      <path\n        fillRule=\"evenodd\"\n        clipRule=\"evenodd\"\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\n        fill=\"currentColor\"\n      />\n    </svg>\n  );\n}\n",
+        "content": "/**\r\n * A marca iGreen dentro do quadrado de brand — o default do header da\r\n * `SingleMenuSidebar`.\r\n *\r\n * Por que ela existe aqui, e não como markup solto em quem monta: o `logo` da\r\n * `SingleMenuSidebar` era **obrigatório e sem fallback**, enquanto o `brand` do\r\n * `MenuSidebar` é opcional e cai em `<SidebarBrandIcon />`. Trocar pra sidebar única\r\n * portanto **forçava** quem montava a inventar uma logo — e em 2026-08-22 um consumidor\r\n * relatou justamente a logo da iGreen desaparecendo na troca. A IA não removeu nada: a\r\n * API pediu outra. Com o default, a marca não depende de ninguém lembrar.\r\n *\r\n * O tratamento (quadrado `bg-bg-brand` + ícone `fg-on-brand`) é o mesmo que a página de\r\n * doc já usava na mão — aqui ele só passou a ter um nome.\r\n */\r\nexport function SidebarBrandMark() {\r\n  return (\r\n    <div className=\"grid size-form-lg place-items-center rounded-radius-xl bg-bg-brand text-fg-on-brand\">\r\n      <SidebarBrandIcon size={18} />\r\n    </div>\r\n  );\r\n}\r\n\r\n/**\r\n * Logo iGreen — default usado no rail.\r\n * Single-color (currentColor) pra herdar o fg-on-brand.\r\n */\r\nexport function SidebarBrandIcon({ size = 18 }: { size?: number }) {\r\n  return (\r\n    <svg\r\n      width={size}\r\n      height={size * (25 / 18)}\r\n      viewBox=\"0 0 46 64\"\r\n      fill=\"none\"\r\n      xmlns=\"http://www.w3.org/2000/svg\"\r\n      aria-label=\"iGreen\"\r\n    >\r\n      <path\r\n        fillRule=\"evenodd\"\r\n        clipRule=\"evenodd\"\r\n        d=\"M23.164 30.3908C18.9426 33.9472 15.488 37.9995 14.4032 43.8429H14.4073C14.5406 43.8429 14.6469 43.8482 14.7351 43.8526C14.8818 43.86 14.9789 43.8649 15.068 43.8386C15.8605 43.5936 16.6564 43.3583 17.4522 43.123C19.3184 42.5713 21.1848 42.0195 23.009 41.3416C32.3202 37.8861 35.2732 29.344 32.2837 19.9864C32.2369 19.9956 32.1889 20.0014 32.1404 20.0072C32.0324 20.0204 31.9238 20.0336 31.8309 20.083C30.7722 20.6536 29.7117 21.2208 28.6512 21.7879C25.7732 23.3269 22.8951 24.8663 20.0519 26.4727C17.0665 28.1586 14.8314 30.5925 13.7466 34.006C13.7044 34.1395 13.5982 34.2516 13.5398 34.3134C13.5245 34.3293 13.5127 34.342 13.5059 34.3507C13.1946 34.0579 12.9032 33.742 12.6157 33.4305C11.9956 32.7583 11.395 32.1074 10.6591 31.7569C8.30519 30.6325 5.89307 29.6329 3.45529 28.6228C2.48425 28.2202 1.50909 27.8162 0.532006 27.4018C-0.683422 31.5972 0.20163 35.225 3.0036 38.3864C5.54867 41.2617 8.72989 42.485 12.6372 42.279C11.9072 38.8362 10.1329 36.2047 7.93458 33.8001C9.89561 34.8394 10.9816 36.6237 12.1043 38.469C12.6255 39.3256 13.1549 40.1952 13.7832 41.0095C15.5819 36.0574 18.5797 32.4674 23.164 30.3908ZM18.3593 48.1644C17.3457 48.1644 16.524 49.0113 16.524 50.0562C16.524 51.1009 17.3457 51.9478 18.3593 51.9478H33.6948C34.7084 51.9478 35.5301 51.1009 35.5301 50.0562C35.5301 49.0113 34.7084 48.1644 33.6948 48.1644H18.3593ZM18.2779 54.7121C18.2779 53.6673 19.0996 52.8204 20.1132 52.8204H31.8593C32.8731 52.8204 33.6948 53.6673 33.6948 54.7121C33.6948 55.7568 32.8731 56.6039 31.8593 56.6039H20.1132C19.0996 56.6039 18.2779 55.7568 18.2779 54.7121ZM21.4161 57.3921C20.5164 57.3921 19.7869 58.144 19.7869 59.0716C19.7869 59.8346 20.2376 60.5206 20.9249 60.8039L22.4227 61.4216C22.7004 61.536 22.946 61.72 23.1376 61.9567C24.5776 63.7379 27.2319 63.7379 28.6719 61.9567C28.8634 61.72 29.109 61.536 29.3867 61.4216L30.8846 60.8039C31.5719 60.5206 32.0226 59.8346 32.0226 59.0716C32.0226 58.144 31.2931 57.3921 30.3933 57.3921H21.4161Z\"\r\n        fill=\"currentColor\"\r\n      />\r\n      <path\r\n        fillRule=\"evenodd\"\r\n        clipRule=\"evenodd\"\r\n        d=\"M44.6078 8.96738C45.0034 8.58801 45.3999 8.20795 45.7978 7.82772H45.7937C45.7145 7.72076 45.6474 7.62532 45.5867 7.53882C45.4751 7.38013 45.3846 7.25152 45.2788 7.13705C45.2014 7.05134 45.1245 6.96498 45.0476 6.87858C44.7386 6.53188 44.4293 6.18462 44.0858 5.87783C39.8486 2.08758 34.8311 0.289299 29.3028 0.0366203C23.2801 -0.237139 17.5271 0.992601 12.6525 4.78709C5.81257 10.1145 3.26295 17.4129 4.20688 26.101C4.313 27.0907 4.86457 27.5708 5.73095 27.8193C8.29274 28.5562 10.7771 29.4659 12.9181 31.2853C12.9839 31.2072 13.0497 31.1297 13.1153 31.0521C14.3138 29.6385 15.4412 28.3083 14.7323 26.2401C14.6277 25.9331 14.5969 25.6008 14.5662 25.268C14.5502 25.0939 14.5342 24.9198 14.5076 24.7493C13.2041 16.499 18.8019 9.38173 26.9165 8.92689C31.4397 8.67 35.3295 10.144 38.6923 13.2268C38.9498 13.4626 39.6035 13.6774 39.7588 13.5342C41.3958 12.0464 42.9959 10.5126 44.6078 8.96738ZM19.2274 44.0715C19.0668 44.13 18.88 44.1982 18.6507 44.2775C18.8702 44.3799 19.0457 44.4679 19.1938 44.5423C19.454 44.6729 19.6304 44.7615 19.8153 44.8124C28.404 47.1833 36.4696 45.8736 43.9797 41.0264C44.4986 40.6935 44.9806 39.8177 44.9889 39.1901C45.0334 35.5838 45.021 31.9754 45.0085 28.3664C45.0029 26.6821 44.997 24.9976 44.997 23.313C44.997 22.5592 44.7111 22.294 43.9674 22.3066C41.6833 22.3488 39.3952 22.3697 37.1111 22.2982C36.0651 22.2644 35.7872 22.6435 35.8036 23.6711C35.8302 25.2672 35.826 26.8634 35.8221 28.4595C35.8179 30.0556 35.8138 31.6517 35.8404 33.2478C35.8607 34.5828 35.4726 35.4294 34.1855 35.9642C33.0701 36.4274 31.9097 37.0424 31.0721 37.9014C27.9422 41.1064 24.1136 42.8162 19.9173 43.8438C19.7115 43.8947 19.5103 43.9682 19.2274 44.0715Z\"\r\n        fill=\"currentColor\"\r\n      />\r\n    </svg>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/MenuSidebar/sidebar-brand.tsx"
       },
@@ -4145,7 +4145,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/SingleMenuSidebar/USAGE.md",
-        "content": "# SingleMenuSidebar\r\n\r\n<!-- ds:regras\r\n- NÃO passe `logo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `title` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n- é a escolha quando NÃO há divisão em áreas: `showSearch={false}`, sem `module`/`modules`\r\n-->\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n**Qual das duas** — o critério é *o sistema tem áreas grandes e separadas, cada uma com o\r\nmenu dela?* Sim → `MenuSidebar` (as áreas ficam todas visíveis no rail). Não → esta, na\r\nvariação **\"Sem módulo / sem busca\"** (omita `module`/`modules`, passe `showSearch={false}`).\r\nEla **também** aceita módulos, mas aí eles ficam atrás de um botão acima da busca — por isso\r\nnão é a recomendação quando a divisão existe.\r\n\r\n**A logo é a da iGreen por default** — `logo` é opcional desde vNEXT e cai em\r\n`SidebarBrandMark`. Só passe quando o app tem marca própria; `title` é o **nome do projeto**,\r\nexibido à direita dela.\r\n\r\n> ⚠️ Até vNEXT `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`\r\n> sempre foi opcional. Trocar pra esta sidebar portanto *forçava* quem montava a inventar uma\r\n> logo — e foi assim que a marca da iGreen sumiu num app de consumidor (2026-08-22).\r\n\r\n## Props essenciais\r\n\r\n| Prop                            | Tipo                          | Default | Obrigatório |\r\n| ------------------------------- | ----------------------------- | ------- | ----------- |\r\n| `logo`                          | `ReactNode`                   | **marca iGreen** | — (omita p/ ficar com a marca) |\r\n| `title`                         | `string`                      | —       | ✅          |\r\n| `user`                          | `SingleMenuUser`              | —       | ✅          |\r\n| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |\r\n| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |\r\n| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |\r\n| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |\r\n| `showSearch`                    | `boolean`                     | `true`  |             |\r\n| `searchCommand`                 | `ReactNode`                   | —       |             |\r\n| `searchPlaceholder`             | `string`                      | —       |             |\r\n| `activeItemId`                  | `string`                      | —       |             |\r\n| `onItemClick`                   | `(id: string) => void`        | —       |             |\r\n| `defaultExpanded`               | `boolean`                     | `true`  |             |\r\n| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |\r\n| `showToggleIndicator`           | `boolean`                     | `false` |             |\r\n\r\n⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não\r\nexistem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca\r\nabre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o\r\ntexto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem\r\nem `SingleMenuSearchProps`, que é subcomponente interno.\r\n\r\n### Multi-módulo\r\n\r\n`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas\r\npróprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando\r\n`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira\r\nopcional.\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Navegação — `href` e `renderLink`\r\n\r\nItem **com `href`** vira `<a href>`: ctrl/cmd+clique abre em nova aba, \"copiar endereço do\r\nlink\" funciona, e o leitor de tela anuncia **link** (com `aria-current=\"page\"` no ativo).\r\nSem `href`, continua `<button>`. Vale pro sub-item e pra **categoria-folha** (sem `items`).\r\n\r\nPra integrar o router do consumidor, use **`renderLink`** — render-prop, não componente:\r\n\r\n```tsx\r\n<SingleMenuSidebar\r\n  categories={categories}\r\n  onItemClick={(id) => setAtivo(id)}\r\n  renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n/>\r\n```\r\n\r\n⚠️ **Sem `renderLink`**, o clique cancela a navegação nativa quando há handler — **exceto**\r\nem clique modificado, `target=\"_blank\"`, href externo (`https:`, `mailto:`…) e **href de\r\nhash** (`#/rota`). A regra e o porquê de cada exceção estão em `@/utils/nav-link`, que é a\r\nMESMA lógica do `MenuSidebar` (util compartilhada, não cópia).\r\n\r\n> ⚠️ Até 2026-08-18 o `href` acima **não fazia nada**: o tipo o aceitava, este USAGE o\r\n> documentava, e o componente renderizava `<button>` sempre. Se você escreveu código\r\n> contando com navegação por `href` aqui, ele nunca navegou — agora navega.\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n  ⚠️ **A espiada FLUTUA sobre o conteúdo — não empurra** (v0.43.0+). No desktop o\r\n  painel vira `absolute z-40` e o `<aside>` continua ocupando só a largura do rail,\r\n  então o que está ao lado não se mexe. **Só o clique** (travar aberta) ocupa espaço\r\n  no fluxo e empurra — é decisão de layout do usuário, e quem está com o menu\r\n  recolhido escolheu maximizar a área de conteúdo.\r\n  Antes disso a espiada animava a largura **dentro** do fluxo: numa tela com\r\n  `DataTable` isso disparava 5 recálculos completos de largura de coluna por gesto,\r\n  ~100ms de travada e **CLS 0,117**. É o mesmo desenho que o `MenuSidebar` sempre\r\n  teve (painel flutuante), agora aqui. Se você depende do empurrão no hover, use\r\n  `expanded` controlado e trave aberta.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
+        "content": "# SingleMenuSidebar\r\n\r\n<!-- ds:regras\r\n- NÃO passe `logo`: o default é a marca iGreen. Só com marca própria pedida explicitamente\r\n- `title` = nome do projeto (vai à direita da logo) — pergunte, não invente\r\n- é a escolha quando NÃO há divisão em áreas: `showSearch={false}`, sem `module`/`modules`\r\n-->\r\n\r\n**O que é** — Sidebar de navegação de **nível único**: categoria → sub-itens em\r\naccordion (1 aberto por vez). Categoria sem `items` é link simples.\r\n**Categoria**: Templates / App-level (mesma família de `MenuSidebar`, `Header`, `AppShell`).\r\n\r\n**Quando usar** — App com navegação plana, sem múltiplos contextos/rail. É a\r\nalternativa **enxuta** ao `MenuSidebar` (que tem rail + painel + sections +\r\nbadges). Sem variantes — escolha o componente pela necessidade, não por props.\r\nPrecisa de rail + contextos + bookmarks/chats? → use `MenuSidebar`.\r\n\r\n**Qual das duas** — o critério é *o sistema tem áreas grandes e separadas, cada uma com o\r\nmenu dela?* Sim → `MenuSidebar` (as áreas ficam todas visíveis no rail). Não → esta, na\r\nvariação **\"Sem módulo / sem busca\"** (omita `module`/`modules`, passe `showSearch={false}`).\r\nEla **também** aceita módulos, mas aí eles ficam atrás de um botão acima da busca — por isso\r\nnão é a recomendação quando a divisão existe.\r\n\r\n**A logo é a da iGreen por default** — `logo` é opcional desde a 0.46.0 e cai em\r\n`SidebarBrandMark`. Só passe quando o app tem marca própria; `title` é o **nome do projeto**,\r\nexibido à direita dela.\r\n\r\n> ⚠️ Até a 0.46.0 `logo` era **obrigatória e sem fallback**, enquanto o `brand` do `MenuSidebar`\r\n> sempre foi opcional. Trocar pra esta sidebar portanto *forçava* quem montava a inventar uma\r\n> logo — e foi assim que a marca da iGreen sumiu num app de consumidor (2026-08-22).\r\n\r\n## Props essenciais\r\n\r\n| Prop                            | Tipo                          | Default | Obrigatório |\r\n| ------------------------------- | ----------------------------- | ------- | ----------- |\r\n| `logo`                          | `ReactNode`                   | **marca iGreen** | — (omita p/ ficar com a marca) |\r\n| `title`                         | `string`                      | —       | ✅          |\r\n| `user`                          | `SingleMenuUser`              | —       | ✅          |\r\n| `categories`                    | `SingleMenuCategory[]`        | —       | opcional se usar `modules` |\r\n| `modules`                       | `SingleMenuModuleConfig[]`    | —       |             |\r\n| `activeModuleId` / `defaultModuleId` / `onModuleChange` | multi-módulo (controlado / inicial / callback) | — | |\r\n| `module`                        | `SingleMenuModule`            | —       | **ignorado se `modules`** |\r\n| `showSearch`                    | `boolean`                     | `true`  |             |\r\n| `searchCommand`                 | `ReactNode`                   | —       |             |\r\n| `searchPlaceholder`             | `string`                      | —       |             |\r\n| `activeItemId`                  | `string`                      | —       |             |\r\n| `onItemClick`                   | `(id: string) => void`        | —       |             |\r\n| `defaultExpanded`               | `boolean`                     | `true`  |             |\r\n| `expanded` / `onExpandedChange` | toggle controlado             | —       |             |\r\n| `showToggleIndicator`           | `boolean`                     | `false` |             |\r\n\r\n⚠️ **A busca NÃO é input controlado.** `searchValue`/`onSearchChange`/`searchRef` **não\r\nexistem** nesta API (estavam documentados aqui e nunca foram props do componente). A busca\r\nabre um `CommandDialog`: você passa o **conteúdo** dele em `searchCommand` e, se quiser, o\r\ntexto do placeholder em `searchPlaceholder`. As props `value`/`onChange`/`inputRef` existem\r\nem `SingleMenuSearchProps`, que é subcomponente interno.\r\n\r\n### Multi-módulo\r\n\r\n`modules` é a API pra sidebar que troca de contexto: cada `SingleMenuModuleConfig` traz suas\r\npróprias `categories`, e trocar de módulo **sobrepõe** as categorias exibidas. Quando\r\n`modules` é passado, `module` (singular) é ignorado e `categories` no nível raiz vira\r\nopcional.\r\n\r\n## Data model\r\n\r\n```ts\r\nSingleMenuCategory  = { id, icon, label, href?, items?, active? }\r\nSingleMenuSubItem   = { id, label, href? }\r\nSingleMenuModule    = { icon, title, subtitle, options?, onModuleChange? }\r\nSingleMenuUser      = { name, email, avatar?, actions?, onAction? }\r\nSingleMenuUserAction= { id, label, icon?, variant?: \"default\" | \"destructive\" }\r\n```\r\n\r\n## Navegação — `href` e `renderLink`\r\n\r\nItem **com `href`** vira `<a href>`: ctrl/cmd+clique abre em nova aba, \"copiar endereço do\r\nlink\" funciona, e o leitor de tela anuncia **link** (com `aria-current=\"page\"` no ativo).\r\nSem `href`, continua `<button>`. Vale pro sub-item e pra **categoria-folha** (sem `items`).\r\n\r\nPra integrar o router do consumidor, use **`renderLink`** — render-prop, não componente:\r\n\r\n```tsx\r\n<SingleMenuSidebar\r\n  categories={categories}\r\n  onItemClick={(id) => setAtivo(id)}\r\n  renderLink={({ href, ...rest }) => <Link to={href} {...rest} />}\r\n/>\r\n```\r\n\r\n⚠️ **Sem `renderLink`**, o clique cancela a navegação nativa quando há handler — **exceto**\r\nem clique modificado, `target=\"_blank\"`, href externo (`https:`, `mailto:`…) e **href de\r\nhash** (`#/rota`). A regra e o porquê de cada exceção estão em `@/utils/nav-link`, que é a\r\nMESMA lógica do `MenuSidebar` (util compartilhada, não cópia).\r\n\r\n> ⚠️ Até 2026-08-18 o `href` acima **não fazia nada**: o tipo o aceitava, este USAGE o\r\n> documentava, e o componente renderizava `<button>` sempre. Se você escreveu código\r\n> contando com navegação por `href` aqui, ele nunca navegou — agora navega.\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { SingleMenuSidebar } from \"@/components/ui/SingleMenuSidebar\";\r\n\r\n<SingleMenuSidebar\r\n  logo={<Logo />}\r\n  title=\"Sólis iGreen\"\r\n  module={{\r\n    icon: <Zap />,\r\n    title: \"Créditos\",\r\n    subtitle: \"MÓDULO ATIVO\",\r\n    options,\r\n  }}\r\n  categories={[\r\n    { id: \"dashboard\", icon: <LayoutGrid />, label: \"Dashboard\", active: true },\r\n    {\r\n      id: \"instalacoes\",\r\n      icon: <Zap />,\r\n      label: \"Instalações\",\r\n      items: [\r\n        { id: \"contratos\", label: \"Contratos\" },\r\n        { id: \"vistorias\", label: \"Vistorias\" },\r\n      ],\r\n    },\r\n  ]}\r\n  user={{ name: \"Sérgio\", email: \"sergio@igreen.com.br\", actions }}\r\n  activeItemId={activeItemId}\r\n  onItemClick={setActiveItemId}\r\n/>;\r\n```\r\n\r\n## Comportamentos\r\n\r\n- **Accordion** — apenas 1 categoria aberta por vez. Definir `activeItemId` abre\r\n  automaticamente a categoria que contém o item.\r\n- **Seleção única** — sempre 1 item marcado: folha ativa OU pai aberto (abrir um\r\n  pai o marca e suprime a folha) OU pai que contém o sub-item ativo. Clicar numa\r\n  folha fecha o pai aberto e assume a marca.\r\n- **Toggle** — botão no header trava/destrava o estado expandido. Após recolher\r\n  manualmente, o hover-expand fica suprimido ~500ms (não \"pisca\" com o mouse por cima).\r\n- **Hover-to-expand** — recolhida, o hover sobre a sidebar a expande\r\n  temporariamente; sai o mouse, recolhe (~200ms). Categorias mostram tooltip.\r\n  ⚠️ **A espiada FLUTUA sobre o conteúdo — não empurra** (v0.43.0+). No desktop o\r\n  painel vira `absolute z-40` e o `<aside>` continua ocupando só a largura do rail,\r\n  então o que está ao lado não se mexe. **Só o clique** (travar aberta) ocupa espaço\r\n  no fluxo e empurra — é decisão de layout do usuário, e quem está com o menu\r\n  recolhido escolheu maximizar a área de conteúdo.\r\n  Antes disso a espiada animava a largura **dentro** do fluxo: numa tela com\r\n  `DataTable` isso disparava 5 recálculos completos de largura de coluna por gesto,\r\n  ~100ms de travada e **CLS 0,117**. É o mesmo desenho que o `MenuSidebar` sempre\r\n  teve (painel flutuante), agora aqui. Se você depende do empurrão no hover, use\r\n  `expanded` controlado e trave aberta.\r\n- **Controlado/não-controlado** — `expanded` + `onExpandedChange` (controlado) ou\r\n  `defaultExpanded` (não-controlado).\r\n- **Responsivo (mobile)** — abaixo de `md` (768px) a sidebar ocupa **100% da\r\n  largura** (pronta pra drawer); no desktop mantém a largura fixa (280px/80px). A\r\n  sidebar é **dumb**: exibir/ocultar no mobile é responsabilidade do consumidor\r\n  (um toggle/drawer controlado pelo seu app — veja o exemplo \"Responsivo (mobile)\").\r\n\r\n## Gotchas\r\n\r\n- **Sem variantes (por design).** Não há `variant`/`size`. Mudança visual = editar\r\n  `single-menu-sidebar.styles.ts`. Outra forma de navegação = outro componente.\r\n- **Dá altura ao container.** O `<aside>` é `h-full` — o pai precisa ter altura\r\n  (ex.: `h-[680px]` ou `flex-1 min-h-0` num pai `h-full`).\r\n- **`logo` e `avatar` são ReactNode** — você controla o tamanho; o slot do logo só\r\n  faz `shrink-0`. Passe um elemento já dimensionado (ex.: caixa `size-form-lg`).\r\n- **Cores 100% via tokens DS.** Estado marcado = `fg-brand` + `bg-sidebar-accent`;\r\n  rodapé/hover = `bg-sidebar-accent`. Não usa palette própria `sidebar-*`.\r\n- **`<TooltipProvider>` embutido** — o componente já envolve a árvore; não precisa\r\n  de provider externo só pra ele.\r\n",
         "type": "registry:file",
         "target": "components/ui/SingleMenuSidebar/USAGE.md"
       },
@@ -4163,7 +4163,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4185,7 +4185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · skeleton · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4209,7 +4209,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · slider · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4232,7 +4232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · sonner · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4278,7 +4278,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · spinner · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4302,7 +4302,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · switch · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4381,7 +4381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · table · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4405,7 +4405,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · tabs · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4429,7 +4429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · textarea · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4447,7 +4447,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · theme-blue · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4465,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · theme-green · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4483,7 +4483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · theme-pay · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4501,7 +4501,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · theme-vibrant · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4523,7 +4523,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · theme · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4574,7 +4574,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · toast · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · toggle-group · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4625,7 +4625,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · toggle · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4649,7 +4649,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · tooltip · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4670,7 +4670,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · tv · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4692,7 +4692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.45.0 · 64e868e · 2026-08-22"
+      "stamp": "igreen-ds · utils · v0.46.0 · d266a42 · 2026-08-22"
     },
     "type": "registry:file"
   }
