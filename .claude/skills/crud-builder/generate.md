@@ -173,12 +173,36 @@ todo campo substantivo leva `icon` no header.
    - **Título do header nunca trunca**: a largura mínima de cada coluna já inclui o
      texto do `headerName` + ícone/sort/menu. Não precisa fixar `width` só pra caber
      o título.
-4. **Copiar valor da célula** (`copyable`): em colunas cujo valor o usuário costuma
-   copiar (documento/CNPJ, e-mail, ID, número de conta, chave), marque
-   `copyable: true` — o DataTable revela um ícone de copiar no **hover/foco** da
-   célula, com feedback "Copiado!" (~2s, `navigator.clipboard`, sem dep nova). Pra
-   copiar um texto diferente do exibido (ex.: só o número da conta) use
-   `copyable: { value: (row) => "...", label: "Copiar conta" }`.
+4. **Copiar valor da célula** (`copyable`) — **inferir, não esperar que peçam.** O
+   DataTable revela um ícone de copiar no **hover/foco** da célula, com feedback
+   "Copiado!" (~2s, `navigator.clipboard`, sem dep nova).
+
+   **Critério: o valor é um identificador que a pessoa cola em outro lugar.**
+
+   | Marque `copyable: true` | Deixe sem |
+   |---|---|
+   | documento (CPF/CNPJ/RG/IE) · e-mail · telefone/WhatsApp · conta/agência/chave PIX · código de rastreio/protocolo/contrato/NF/pedido · token/hash · ID **externo** | nome de pessoa/empresa · status · data · valor monetário · quantidade · percentual · endereço em prosa |
+
+   ⚠️ `id` sequencial curto (1, 2, 3) **não** ganha; UUID/protocolo/NF ganha. O que
+   decide é servir fora da tela — não a coluna se chamar "id".
+
+   **Limites, verificados no `parts/data-table-row.tsx`** (não presumidos):
+
+   - **Inerte** em coluna `actions`, na coluna de árvore e na célula em edição
+     (`addonsEligible = !isActionsCol && !isEditingThisCell && !isTreeCol`). Marcar
+     lá não dá erro — simplesmente não aparece, o que é pior: parece configurado.
+   - **`readMore` vence `copyable`** quando os dois estão na mesma coluna (ternário,
+     nessa ordem). Escolha um.
+   - Copia o texto **formatado** (`valueFormatter` → `formatValue` do type → valor).
+     Numa coluna `currency` isso copia `R$ 1.234,56`, não `1234.56`. Quando o que se
+     cola é o valor cru, passe `copyable: { value: (row) => String(row.x) }`.
+   - Texto diferente do exibido (ex.: só o número da conta, sem a agência):
+     `copyable: { value: (row) => "...", label: "Copiar conta" }` — `label` é o
+     aria-label.
+
+   **Declare no gate** o que você inferiu (linha `copyable` na tabela de colunas), pra
+   o usuário poder recusar em lote. Inferência silenciosa em recurso que ele não sabe
+   que existe não é conveniência, é surpresa.
 5. **Grab-to-scroll é NATIVO** (`grabToScroll` default `true`, v0.26.0+): toda tabela
    já rola lateralmente ao arrastar o corpo (mouse/pen, threshold ~6px, clique/seleção
    preservados). **Não precisa configurar** — só passe `grabToScroll={false}` se, por

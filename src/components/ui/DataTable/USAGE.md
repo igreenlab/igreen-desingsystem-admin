@@ -452,6 +452,7 @@ Arrastar o corpo da tabela (mouse/pen) pra rolar lateralmente — equivalente ao
 - Prop raiz `grabToScroll: boolean` — **nativo, default `true`** (todas as tabelas já vêm com ele; passe `false` pra desabilitar).
 - Um arrasto só inicia após ~6px de movimento → clique/seleção de célula preservados; o clique pós-arrasto é suprimido.
 - **Scroll por roda do mouse permanece intacto.** Pulado em touch (scroll nativo já funciona) e em alvos interativos (botões, inputs, células editáveis/expansíveis/de seleção/ações).
+- **O cursor `grab` só aparece quando há overflow** — tabela que cabe na tela não mostra a mãozinha, e volta a mostrar se uma coluna crescer, a view trocar ou o container encolher (re-medido por `ResizeObserver`). Até 2026-08-21 a mãozinha era incondicional e prometia um gesto que o handler recusava: se você viu isso num projeto, é versão anterior.
 
 ### Tela cheia (fullscreen)
 

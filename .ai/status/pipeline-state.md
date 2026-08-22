@@ -3660,3 +3660,58 @@ aba com peso diferente (uma larga + duas estreitas), a prop não cobre e o consu
 no List, não booleano.
 
 **Changelog:** fica pro `/ds-release` (o `updates-data.ts` não entra em PR de componente).
+
+---
+
+### 2026-08-22 | ds-dev | Cursor `grab` prometia arrasto que não existia + `copyable` inferido no crud-builder | CONCLUÍDO
+
+**Input:** consumidor relatou que a tabela mostra a mãozinha de arrastar *"mesmo não tendo
+scroll nem nada"*, em telas sem `onRowClick`. Depois, no mesmo PR: fazer o `crud-builder`
+considerar `copyable` em vez de esperar que o usuário peça.
+
+**Defeito 1 — a affordance mentia.** `grabToScroll` virou default `true` na v0.26.0 e o hook
+passou a aplicar `cursor: grab` **sem condição**; a checagem `scrollWidth <= clientWidth`
+existia só dentro do `pointerdown`. Ou seja: o cursor convidava, o usuário arrastava, o handler
+recusava calado. Pior justamente nas tabelas sem row-click, onde o cursor é o único sinal.
+
+Fix: `syncCursor()` condicional + `ResizeObserver` no scroller **e** no conteúdo (resize de
+coluna, troca de view e chegada de dados mudam `scrollWidth` sem a janela mudar) + `finish()`
+re-sincronizando em vez de fixar `"grab"`.
+
+**Defeito 2 — a skill se contradizia.** O `generate.md` do `crud-builder` mandava marcar
+`copyable` naturalmente; o `interview.md` listava `copyable` sob *"drill-down individual SÓ nas
+colunas que o usuário citar"*. Duas instruções da MESMA skill em desacordo — e na prática
+ninguém cita um recurso que não sabe que existe, então o ramo restritivo ganhava por omissão.
+Agora `copyable` é **inferido** (critério: identificador que a pessoa cola fora da tela) e
+**declarado** na tabela de colunas do gate, onde dá pra recusar em lote. Repo + payload.
+
+**Limites do `copyable` medidos no código, não presumidos** (`parts/data-table-row.tsx`):
+inerte em `actions`, na coluna de árvore e na célula em edição — marcar lá não dá erro, só não
+aparece, o que é pior porque parece configurado; `readMore` **vence** `copyable` na mesma
+coluna; e o texto copiado é o **formatado**, então numa coluna `currency` sai `R$ 1.234,56` e
+não `1234.56` (pro valor cru, `copyable: { value }`). Os três foram pra skill.
+
+**Duas armadilhas de instrumento, registradas porque custaram medição errada:**
+1. `cursor` é propriedade **herdada** → a 1ª varredura no browser acusou 7 falsos positivos,
+   porque `getComputedStyle` devolve `grab` em todo descendente do scroller (304 elementos).
+   Só o `style.cursor` **inline** vale — é o único que o hook escreve.
+2. jsdom não faz layout: `scrollWidth`/`clientWidth` são 0, e `0 > 0 === false` faria o teste
+   passar **por vacuidade**, medindo o jsdom em vez da regra. As métricas são definidas à mão.
+
+**Estado:** tsc 0 · 61 arquivos / **746 testes** (+6), 0 falha · `release:check` exit 0 ·
+`check-foundationals` 11 em sync · registry + embed rebuildados **duas** vezes (o
+`registry-check` pegou o código e depois o `USAGE.md`, que também é distribuído) · CLI
+**0.25.15**, sem bump — o payload do `crud-builder` mudou e **só chega no consumidor com bump
++ publish**, que exige autorização do mantenedor (L-020).
+
+**Assumption:** que a lista positiva de campos "copiáveis" (documento, e-mail, telefone,
+conta/PIX, protocolo/NF/rastreio, token, ID externo) cobre o caso comum sem virar ruído. Se
+começar a aparecer ícone de copiar onde ninguém copia, o critério está largo demais — a
+correção é encurtar a lista positiva, não abrir pergunta na entrevista (pergunta por flag de
+coluna é exatamente o que a Fase 2 evita com a confirmação em lote).
+
+**Não virou lição:** pelas 4 perguntas do auto-update protocol, o defeito 1 **dá gate** (o
+teste existe e reprova) e o defeito 2 é doc no ponto de uso. Nenhum dos dois cobra token de
+100% das sessões.
+
+**Changelog:** fica pro `/ds-release`.

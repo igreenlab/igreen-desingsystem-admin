@@ -67,6 +67,13 @@ datetime, email, phone, url, status/badge, boolean, user, tags, actions), e se �
 sortable / editável (inline). Pergunte quais colunas o usuário quer e em que ordem.
 Marque a coluna "primária" (a que abre detalhe / leva avatar).
 
+**`copyable` é inferido, não perguntado** — marque nas colunas cujo valor a pessoa
+**cola em outro lugar** (documento, e-mail, telefone, conta/chave PIX, protocolo/NF/
+rastreio, token, ID externo) e **só** nelas; nome, status, data, valor e quantidade
+ficam de fora. Não abra pergunta própria pra isso: **declare** as colunas marcadas
+quando apresentar a lista de colunas, junto do tipo e do filtro, pra o usuário tirar
+em lote ("CNPJ sem copyable"). Critério completo e limites: `generate.md` item 4.
+
 ## Fase 3 — Busca, filtros & ações
 
 > ⛔ **Anti-pattern — NUNCA gerar form/selects soltos ACIMA da tabela.** Intenção de

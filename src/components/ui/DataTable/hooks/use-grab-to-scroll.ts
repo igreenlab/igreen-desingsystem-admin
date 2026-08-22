@@ -64,7 +64,34 @@ export function useGrabToScroll(
 
     const prevCursor = scroller.style.cursor;
     const prevUserSelect = scroller.style.userSelect;
-    scroller.style.cursor = "grab";
+
+    /**
+     * `cursor: grab` SÓ quando há o que arrastar.
+     *
+     * Até 2026-08-21 a mãozinha era aplicada sem condição, e o `pointerdown` recusava o
+     * arrasto depois (`scrollWidth <= clientWidth`, abaixo). Resultado: em toda tabela que
+     * cabia na tela — a maioria — o cursor prometia um gesto que não existia, e o usuário
+     * clicava e arrastava sem nada acontecer. Affordance mentindo é pior que affordance
+     * ausente: ela ensina um gesto errado.
+     */
+    const syncCursor = () => {
+      const rolavel = scroller.scrollWidth > scroller.clientWidth;
+      scroller.style.cursor = rolavel ? "grab" : prevCursor;
+    };
+    syncCursor();
+
+    /*
+     * `window.resize` não basta: largura de coluna (autoFit, resize manual), troca de view
+     * (tabela ↔ lista ↔ kanban) e chegada de dados mudam o `scrollWidth` sem a janela mudar
+     * de tamanho. O observer vai no scroller E no conteúdo dele — o 1º pega o container
+     * encolhendo, o 2º pega a tabela crescendo por dentro.
+     */
+    const ro =
+      typeof ResizeObserver === "function" ? new ResizeObserver(syncCursor) : null;
+    if (ro) {
+      ro.observe(scroller);
+      if (scroller.firstElementChild) ro.observe(scroller.firstElementChild);
+    }
 
     let isPointerDown = false;
     let isDragging = false;
@@ -129,7 +156,9 @@ export function useGrabToScroll(
       isPointerDown = false;
       isDragging = false;
       activePointerId = null;
-      scroller.style.cursor = "grab";
+      // Re-sincroniza em vez de fixar "grab": o conteúdo pode ter mudado durante o arrasto
+      // (troca de view, coluna redimensionada) e aí a tabela já não rola mais.
+      syncCursor();
       scroller.style.userSelect = prevUserSelect;
       try {
         scroller.releasePointerCapture(event.pointerId);
@@ -150,6 +179,7 @@ export function useGrabToScroll(
       scroller.removeEventListener("pointermove", onPointerMove);
       scroller.removeEventListener("pointerup", finish);
       scroller.removeEventListener("pointercancel", finish);
+      ro?.disconnect();
       scroller.style.cursor = prevCursor;
       scroller.style.userSelect = prevUserSelect;
     };
