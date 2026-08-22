@@ -30,19 +30,37 @@ na API da sidebar única, `categories` são os **grupos do menu**, não os módu
 nomeia os dois lados da escolha. Então **não** use "categoria" na pergunta, e **não** use
 nome de componente (`MenuSidebar`/`SingleMenuSidebar`): descreva **o que aparece na tela**.
 
-Ofereça **duas** opções, e só essas duas:
+**Espelhe a palavra do usuário** — se ele disse "módulo" ou "workspace", use a dele. **Exceto
+"categoria"**: essa é ambígua e você **não pode** adivinhar. Se ele disse "categorias",
+desambigue antes de qualquer coisa:
+
+> *"Quando você fala 'categorias', são **áreas grandes**, cada uma com o menu dela — tipo
+> Comercial, Financeiro, Suporte? Ou são os **grupos dentro de um menu só** — tipo Cadastros,
+> Relatórios, Configurações?"*
+
+**Se ele JÁ listou as áreas** ("tenho Comercial, Financeiro e Suporte"), **não pergunte do
+zero** — recomende e confirme numa linha: *"Como você tem 3 áreas separadas, vou de menu com
+a coluna de módulos à esquerda (é o link X). Confirma?"*.
+
+Fora isso, ofereça **duas** opções, e só essas duas — **com recomendação**, não neutro:
 
 > *"Seu sistema é dividido em áreas grandes e separadas — tipo Comercial, Financeiro,
 > Suporte — cada uma com o menu dela? Ou é um sistema só, com um menu único?*
 >
 > *1. **Tem áreas separadas** — cada área vira um ícone numa coluna estreita à esquerda, e o
-> menu dela abre ao lado:
+> menu dela (com submenus) abre ao lado:
 > https://igreen-desingsystem-admin.vercel.app/#/menu-sidebar*
 >
-> *2. **É um sistema só** — um menu único, sem a coluna de ícones:
+> *2. **É um sistema só** — sem a coluna de ícones: só o nome do projeto no topo e, abaixo, os
+> grupos do menu com seus submenus:
 > https://igreen-desingsystem-admin.vercel.app/#/single-menu-sidebar*
 >
-> *Se quiser, abra os dois links antes de decidir."*
+> *Pelo que você me contou, eu iria de **<a que você inferiu>** — mas abra os dois links e me
+> diga."*
+
+⚠️ **Recomende sempre uma das duas**, com o motivo em meia linha ("porque você tem 3 áreas
+distintas" / "porque é um sistema só"). Pergunta neutra devolve a decisão pra quem não conhece
+os componentes — e foi assim que um consumidor escolheu errado sem querer (2026-08-22).
 
 | resposta | `sidebar` | dados | o que NÃO passar |
 |---|---|---|---|
