@@ -1,7 +1,83 @@
 # Backlog de features — iGreen DS
 
 > Atualizar sempre que criar, concluir ou descartar uma feature.
-> Última revisão: 2026-08-20
+> Última revisão: 2026-08-21
+
+---
+
+## ⛔ Reorganizar as skills do consumidor — DESCARTADO em 2026-08-21, com gatilho
+
+> Registrado **pela decisão**, não pelo conserto. Sem isto, em três meses isso volta como
+> *"alguém deveria reorganizar essas skills"* e a análise é refeita do zero — foi exatamente o
+> que aconteceu com o desenho dos blocos que morreu em `~/.claude/plans/`.
+
+**A observação do mantenedor estava certa:** boa parte das "skills" do payload não é skill no
+sentido de procedimento. Medido nas 14:
+
+```
+procedimento (entrevista → blueprint → GATE → gerar)   3   crud 355L · list 433L · dashboard 270L
+roteador                                               1   ds-kit 220L
+receita curta (0 fase, 0 gate, 32–101 linhas)         10   6 delas SEM command — só matching
+```
+
+**Mas "virar rule" seria pior.** Rule é o que vale sem ser pedido e custa contexto em **100%**
+das sessões; as 10 curtas só valem quando a tarefa é aquela. No mecanismo elas estão do lado
+certo (custo zero até casar) — o que está frouxo é a **semântica**, não a engenharia.
+
+### Por que foi descartado, e não adiado
+
+O desenho proposto era: as receitas viram arquivos de referência sob o `ds-kit`, citados pelo
+roteador — de 14 descriptions competindo por matching pra 4. Zero linha de conteúdo mudaria.
+
+1. **O ganho não existe hoje.** O único benefício é precisão de escolha, e há **um** caso pra
+   sustentá-lo: a `drawers` não aparecer pra quem pergunta "aba dentro de um Panel". Esse caso
+   já está resolvido por outro caminho — a regra entrou nos `USAGE.md` de `Panel`,
+   `FloatingPanel` e `Modal` (2026-08-21, PR #259).
+2. **A conversão TROCA alcance por precisão, e isso não é ganho óbvio.** Hoje "faz um gráfico"
+   pode disparar a skill `charts` sozinha, por matching. Sem `SKILL.md`, só dispara se o
+   roteador for consultado. Num sistema que está funcionando, perder ativação automática pra
+   ganhar determinismo é troca ruim.
+3. **O custo é concreto:** as 4 superfícies de roteamento da L-047 × 2 registros, 8 commands
+   reapontados, e quem já instalou fica no layout antigo até re-rodar `--only-kit`/`ds:link`.
+
+### O gatilho que inverte a conta
+
+Qualquer um dos dois, observado de verdade (não suposto):
+
+- **a IA escolher a receita curta existindo builder** — ex.: montar um cadastro pelo `page-edit`
+  (32L) em vez do `crud-builder` (355L). O modelo escolhe por semelhança de description, não por
+  profundidade, então os dois parecem igualmente autoritativos na hora de escolher;
+- **não achar uma skill que existia** — a classe do `drawers`, mas num caso que a description não
+  resolva.
+
+### E se o gatilho vier, o desenho é MENOR do que o proposto
+
+Não converter as 10. Só as **3** que competem com um builder existente:
+
+| skill | tem builder cobrindo a intenção? | ação |
+| --- | --- | --- |
+| `page-edit` · `cards` · `page-detail` | sim (crud / dashboard) | converter em referência |
+| `charts` · `chat` · `drawers` | não — são intenções próprias | **manter** `SKILL.md` |
+| `app-builder` · `auth-builder` · `screen-composer` · `module-replicator` | têm command | **manter** |
+
+Ou seja: 11 skills, não 4. Ganho menor, risco quase nulo.
+
+### O que já sabemos do mecanismo (medido, pra não re-descobrir)
+
+- **O que registra uma skill é a pasta ter `SKILL.md`** — nada mais. `.md` sem frontmatter
+  dentro da pasta é só arquivo: não entra no matching, não compete, é lido quando alguém aponta.
+  Já roda assim em 4 arquivos: `blocks-index.md`, `shadcn-gotchas.md` e os
+  `interview/blueprint/generate` dos builders.
+- Ficar sob `skills/` (e não num `_claude/referencia/` novo) é de propósito: ponteiro curto e o
+  arquivo viaja com quem o lê. Pasta nova seria conceito novo no `.claude/` do consumidor por
+  zero ganho funcional.
+- Precedente da mesma família: a skill `igreen-page` foi **removida** em 2026-08-08 porque dizia
+  *"quando carregar: nunca"* — e a justificativa registrada foi *"uma skill sem conteúdo continua
+  competindo por matching de description"*. O repo já reconheceu esta falha uma vez.
+
+**Conserto barato, se algum dia incomodar sem chegar ao gatilho:** revisar as **6 descriptions**
+das skills sem command (`cards` `charts` `chat` `drawers` `page-detail` `page-edit`) — elas são o
+único índice daquele conteúdo. Uma linha cada, zero risco, nenhuma superfície de roteamento.
 
 ---
 
