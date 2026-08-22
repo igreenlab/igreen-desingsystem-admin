@@ -14,8 +14,10 @@ onde tudo já está no disco em `<dsPath>/src` e você só importa pelo `importB
 
 - **Compostos do iGreen** (`components/ui/<Nome>/`) vêm com **`USAGE.md` ao lado** — props,
   variants, gotchas. Leia antes de compor.
-- **Primitivos** **não** têm USAGE: a API é a padrão shadcn/Radix, e eles já chegam
-  re-estilizados nos tokens do DS. Consulte o catálogo visual.
+- **Primitivos** não têm USAGE por arquivo (a API é a padrão shadcn/Radix, e eles já chegam
+  re-estilizados nos tokens do DS) — mas **têm índice de pegadinhas**:
+  **`.claude/skills/ds-kit/shadcn-gotchas.md`**. Leia antes de montar `select`, `sonner`,
+  `tabs`, `tooltip` e os flutuantes: são gotchas que não dão erro, só resultado errado.
   ⚠️ No copy-in eles caem em **`components/ui/` como arquivo solto** (`ui/badge.tsx`,
   `ui/input.tsx`, `ui/avatar.tsx`), não numa pasta `components/shadcn/` — os itens de
   COMPONENTE do registry apontam para `components/ui/` (os demais vão pra `src/lib`,

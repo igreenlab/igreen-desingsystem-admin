@@ -35,6 +35,11 @@ tem — que existe porque a IA sabe as peças e os tokens mas não sabe o **arra
 escolheu. Ele não tem props nem versão própria: você lê a estrutura e reconstrói com os dados do
 usuário.
 
+> **Vai montar um primitivo shadcn?** (`select`, `sonner`, `tabs`, `tooltip`, dropdown,
+> popover…) Leia **`.claude/skills/ds-kit/shadcn-gotchas.md`** primeiro — são pegadinhas
+> que não dão erro, só resultado errado: `<SelectItem value="">` apagando valor, `<Toaster/>`
+> faltando no root, largura de `tabs` composta na mão.
+
 **Como resolver:** abra **`.claude/skills/ds-kit/blocks-index.md`** — é o índice do catálogo
 (gerado a partir dos arquivos, então nunca está defasado). Ele dá, por código: a composição, quando
 serve, o que usa, e o **caminho do arquivo**.
