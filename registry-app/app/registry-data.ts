@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · accordion · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · alert-dialog · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · alert-modal · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · alert · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · app-shell · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · aspect-ratio · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · avatar-ig · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · avatar · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · badge · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · breadcrumb · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · button-group · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · button · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · calendar · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · card-checkbox · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · card · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · carousel · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · chart · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · checkbox · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · chip · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · choropleth-map · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · collapsible · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · color-picker · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · combobox · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · command · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · context-menu · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · data-list · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · data-table · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · date-picker · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · dialog · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · drawer · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · dropdown-menu · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · empty-state · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-app-shell · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-chat · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-clientes · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-dashboard · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-edit-page · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-finance · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-login · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-mapa-rede · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · example-order-detail · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · file-upload-field · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2762,7 +2762,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/FloatingPanel/USAGE.md",
-        "content": "# FloatingPanel — USAGE\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão (sections colapsáveis)\r\nPattern canônico de painel de detalhe — espelha o DetailDrawer da showcase de\r\nClientes. Use `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
+        "content": "# FloatingPanel — USAGE\r\n\r\n<!-- ds:regras\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto\r\n- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto\r\n- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia o padding)\r\n-->\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão (sections colapsáveis)\r\nPattern canônico de painel de detalhe — espelha o DetailDrawer da showcase de\r\nClientes. Use `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
         "type": "registry:file",
         "target": "components/ui/FloatingPanel/USAGE.md"
       },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · floating-panel · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · footer-table · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · form-field · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · header · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · hover-card · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · icon · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · input-group · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · input-otp · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · input · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · kanban · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · kpi · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · label · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · list · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · markdown-text · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · menu-sidebar · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · menubar · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3633,7 +3633,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Modal/USAGE.md",
-        "content": "# Modal — USAGE\r\n\r\nDialog modal centrado com header (icon + title + description), body livre via `children` e footer estruturado por props de action (até 3 botões) — não há subcomponentes de composição.\r\n\r\n## Quando usar\r\n- Confirmação ou input que **interrompe** o fluxo (ex: editar dados, formulário curto)\r\n- Ação destrutiva → preferir `<AlertModal>` (mais explícito sobre tone)\r\n- Side-drawer → preferir `<Panel>` ou `<FloatingPanel>`\r\n\r\n## Import\r\n```tsx\r\nimport { Modal } from \"@/components/ui/Modal\";\r\n// types: import type { ModalProps, ModalAction, ModalSize } from \"@/components/ui/Modal\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `size` | sm / md / lg / xl / full | md | 440 / 540 / 720 / 1100px / min(1400px, 92vw) max-width |\r\n\r\nO layout do footer NÃO é prop: com `tertiaryAction` presente o footer vira\r\n`justify-between` (tertiary à esquerda, secondary+primary à direita);\r\nsem tertiary, tudo fica à direita (`justify-end`).\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `open` | boolean | — | Controlled open (obrigatória) |\r\n| `onClose` | () => void | — | Callback quando o modal pede pra fechar — X, ESC, overlay click ou ação (obrigatória) |\r\n| `title` | ReactNode | — | Header title |\r\n| `description` | ReactNode | — | Header subtitle (opcional) |\r\n| `icon` | ReactNode | — | Icon decorativo no header (container 40×40) |\r\n| `children` | ReactNode | — | Conteúdo do body (flex-col, gap 18px) |\r\n| `primaryAction` | ModalAction | — | Botão filled à direita (critical quando `danger: true`) |\r\n| `secondaryAction` | ModalAction | — | Botão outline secondary. `onClick` default = `onClose` |\r\n| `tertiaryAction` | ModalAction | — | Botão ghost à ESQUERDA (ativa justify-between). Ghost critical quando `danger: true` |\r\n| `footer` | ReactNode | — | Escape hatch — substitui inteiramente as 3 actions estruturadas |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" | \"md\" | Largura máxima (xl = 1100px p/ modais de dados; full = min(1400px, 92vw)) |\r\n| `hideClose` | boolean | false | Esconde o X de fechar |\r\n| `closeOnOverlay` | boolean | true | Click no overlay fecha o modal |\r\n\r\nShape de `ModalAction`:\r\n```ts\r\ntype ModalAction = {\r\n  label: ReactNode;\r\n  onClick?: () => void;\r\n  disabled?: boolean;\r\n  loading?: boolean;\r\n  danger?: boolean; // pinta o botão com cor critical (destrutivo)\r\n};\r\n```\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Modal\r\n  open={open}\r\n  onClose={() => setOpen(false)}\r\n  size=\"md\"\r\n  title=\"Editar cliente\"\r\n  description=\"Alterações são salvas automaticamente\"\r\n  primaryAction={{ label: \"Salvar\", onClick: handleSave }}\r\n  secondaryAction={{ label: \"Cancelar\" }}\r\n>\r\n  <FormFields />\r\n</Modal>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Modal** → `<Tabs fullWidth>` com a variante **default** (`segmented`) até o size `lg` (720px). No `xl` (1100px) **não** use `fullWidth`: cada aba fica enorme e o grupo passa a ler como barra de segmented control, não como aba.\r\n\r\n- Footer aparece só quando há `footer` OU alguma action estruturada — sem nada disso, o modal não renderiza footer\r\n- `tertiaryAction` à esquerda é o padrão pra ações destrutivas (ex: \"Deletar\") ou neutras (ajuda); o grupo cancel/save fica à direita\r\n- **Body scrolla sozinho — não faça na mão.** O painel tem teto de altura\r\n  (`max-h-[calc(100dvh-32px)]`, `dvh` por causa da barra do navegador no mobile) e o body é\r\n  `min-h-0 flex-1 overflow-y-auto`. Conteúdo longo (form grande, lista) rola dentro do\r\n  modal, com header e footer fixos. O `min-h-0` é o que permite o flex item encolher — sem\r\n  ele o `overflow-y-auto` não tem efeito nenhum e o conteúdo empurra o container pra fora\r\n  da tela. Não replique altura/scroll no `children`: vira scroll duplo.\r\n  <br>Até v0.30.0 o body **não** scrollava (`overflow-hidden` clipava e não se chegava aos\r\n  botões do footer num form longo); corrigido em v0.30.1.\r\n- `closeOnOverlay={false}` ignora fechamento por overlay E por ESC (Radix dispara o mesmo callback) — pra prevenção fina, controle externamente\r\n- Render via portal — escapa de overflow/transform ancestrais\r\n- Pra confirmação destrutiva, use `<AlertModal>` (tem `tone=\"danger\"` semântico)\r\n",
+        "content": "# Modal — USAGE\r\n\r\n<!-- ds:regras\r\n- aba dentro dele → `<Tabs fullWidth>` até o size `lg`; no `xl` (1100px) use hug\r\n- ação destrutiva → `AlertModal`, não confirmação montada na mão\r\n-->\r\n\r\nDialog modal centrado com header (icon + title + description), body livre via `children` e footer estruturado por props de action (até 3 botões) — não há subcomponentes de composição.\r\n\r\n## Quando usar\r\n- Confirmação ou input que **interrompe** o fluxo (ex: editar dados, formulário curto)\r\n- Ação destrutiva → preferir `<AlertModal>` (mais explícito sobre tone)\r\n- Side-drawer → preferir `<Panel>` ou `<FloatingPanel>`\r\n\r\n## Import\r\n```tsx\r\nimport { Modal } from \"@/components/ui/Modal\";\r\n// types: import type { ModalProps, ModalAction, ModalSize } from \"@/components/ui/Modal\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `size` | sm / md / lg / xl / full | md | 440 / 540 / 720 / 1100px / min(1400px, 92vw) max-width |\r\n\r\nO layout do footer NÃO é prop: com `tertiaryAction` presente o footer vira\r\n`justify-between` (tertiary à esquerda, secondary+primary à direita);\r\nsem tertiary, tudo fica à direita (`justify-end`).\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Default | Função |\r\n|---|---|---|---|\r\n| `open` | boolean | — | Controlled open (obrigatória) |\r\n| `onClose` | () => void | — | Callback quando o modal pede pra fechar — X, ESC, overlay click ou ação (obrigatória) |\r\n| `title` | ReactNode | — | Header title |\r\n| `description` | ReactNode | — | Header subtitle (opcional) |\r\n| `icon` | ReactNode | — | Icon decorativo no header (container 40×40) |\r\n| `children` | ReactNode | — | Conteúdo do body (flex-col, gap 18px) |\r\n| `primaryAction` | ModalAction | — | Botão filled à direita (critical quando `danger: true`) |\r\n| `secondaryAction` | ModalAction | — | Botão outline secondary. `onClick` default = `onClose` |\r\n| `tertiaryAction` | ModalAction | — | Botão ghost à ESQUERDA (ativa justify-between). Ghost critical quando `danger: true` |\r\n| `footer` | ReactNode | — | Escape hatch — substitui inteiramente as 3 actions estruturadas |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" | \"md\" | Largura máxima (xl = 1100px p/ modais de dados; full = min(1400px, 92vw)) |\r\n| `hideClose` | boolean | false | Esconde o X de fechar |\r\n| `closeOnOverlay` | boolean | true | Click no overlay fecha o modal |\r\n\r\nShape de `ModalAction`:\r\n```ts\r\ntype ModalAction = {\r\n  label: ReactNode;\r\n  onClick?: () => void;\r\n  disabled?: boolean;\r\n  loading?: boolean;\r\n  danger?: boolean; // pinta o botão com cor critical (destrutivo)\r\n};\r\n```\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Modal\r\n  open={open}\r\n  onClose={() => setOpen(false)}\r\n  size=\"md\"\r\n  title=\"Editar cliente\"\r\n  description=\"Alterações são salvas automaticamente\"\r\n  primaryAction={{ label: \"Salvar\", onClick: handleSave }}\r\n  secondaryAction={{ label: \"Cancelar\" }}\r\n>\r\n  <FormFields />\r\n</Modal>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Modal** → `<Tabs fullWidth>` com a variante **default** (`segmented`) até o size `lg` (720px). No `xl` (1100px) **não** use `fullWidth`: cada aba fica enorme e o grupo passa a ler como barra de segmented control, não como aba.\r\n\r\n- Footer aparece só quando há `footer` OU alguma action estruturada — sem nada disso, o modal não renderiza footer\r\n- `tertiaryAction` à esquerda é o padrão pra ações destrutivas (ex: \"Deletar\") ou neutras (ajuda); o grupo cancel/save fica à direita\r\n- **Body scrolla sozinho — não faça na mão.** O painel tem teto de altura\r\n  (`max-h-[calc(100dvh-32px)]`, `dvh` por causa da barra do navegador no mobile) e o body é\r\n  `min-h-0 flex-1 overflow-y-auto`. Conteúdo longo (form grande, lista) rola dentro do\r\n  modal, com header e footer fixos. O `min-h-0` é o que permite o flex item encolher — sem\r\n  ele o `overflow-y-auto` não tem efeito nenhum e o conteúdo empurra o container pra fora\r\n  da tela. Não replique altura/scroll no `children`: vira scroll duplo.\r\n  <br>Até v0.30.0 o body **não** scrollava (`overflow-hidden` clipava e não se chegava aos\r\n  botões do footer num form longo); corrigido em v0.30.1.\r\n- `closeOnOverlay={false}` ignora fechamento por overlay E por ESC (Radix dispara o mesmo callback) — pra prevenção fina, controle externamente\r\n- Render via portal — escapa de overflow/transform ancestrais\r\n- Pra confirmação destrutiva, use `<AlertModal>` (tem `tone=\"danger\"` semântico)\r\n",
         "type": "registry:file",
         "target": "components/ui/Modal/USAGE.md"
       },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · modal · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · month-year-picker · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · navigation-menu · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · page-header · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · pagination · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3825,7 +3825,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Panel/USAGE.md",
-        "content": "# Panel — USAGE\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
+        "content": "# Panel — USAGE\r\n\r\n<!-- ds:regras\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)\r\n- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru\r\n-->\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
         "type": "registry:file",
         "target": "components/ui/Panel/USAGE.md"
       },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · panel · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · popover · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · progress · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · radio-group · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -3975,7 +3975,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · scroll-area · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4000,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · select · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4024,7 +4024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · separator · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · sheet · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4157,7 +4157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4179,7 +4179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · skeleton · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4203,7 +4203,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · slider · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4226,7 +4226,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · sonner · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4272,7 +4272,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · spinner · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4296,7 +4296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · switch · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4375,7 +4375,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · table · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4393,13 +4393,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/tabs.tsx",
-        "content": "import * as React from \"react\"\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Tabs — 2 variantes + largura, tudo propagado por contexto a partir do `<Tabs>`.\n *\n * ## Qual variante\n *\n *  - **\"segmented\" (default)** — pill group sobre `bg-muted`. Container `h-form-lg` (40px),\n *    `p-[3px]`, `radius-lg`; tab `h-[34px] px-[14px] radius-md`; ativo = `bg-accent` +\n *    `font-semibold` + `shadow-sm`. É a variante de **trocar conteúdo dentro de uma\n *    superfície**: card, bloco, `Panel`, `FloatingPanel`, `Modal`, drawer.\n *  - **\"line\"** — underline, pra **navegar seções de uma página** (nível de tela) ou pro 2º\n *    nível abaixo de um `segmented`. O trilho (`border-b`) **atravessa o container**; o realce\n *    de 2px fica só na aba ativa e sobrepõe o trilho via `-mb-px`.\n *\n * ⚠️ Não empilhe a MESMA variante em dois níveis — os dois passam a ler como o mesmo nível.\n *\n * ## `fullWidth` — por que isso é prop, e não classe\n *\n * Sem ela, encher a largura exigia **três** coisas escritas na mão: `w-full` no `<Tabs>`,\n * `w-full` no `<TabsList>` e `flex-1` em **cada** `<TabsTrigger>`. Medido em 2026-08-21, no\n * próprio DS: **11** `TabsList w-full`, **20** `TabsTrigger flex-1` e **1** uso de\n * `[&>*]:flex-1` (variante arbitrária, escrita justamente pra não repetir `flex-1` por\n * trigger — `ShowcasePageV2`). Contei 3 dessas na primeira medição e estava errado: as outras\n * duas são do `alert-dialog`, no footer de botões, que é outro caso.\n *\n * E o modo de errar era silencioso: `w-full` só no List **estica o container e deixa os\n * triggers agrupados na esquerda**. Era o que 6 dos 7 usos manuais faziam. Ou seja, o DS\n * obrigava a compor na unha o que ele deveria resolver, e quem consumia — IA inclusive —\n * acertava metade das vezes.\n *\n * **Use** em superfície compacta: `Panel` (560px), `FloatingPanel` (320–720 e\n * **redimensionável**), `Modal` até `lg` (720px), card, bloco.\n *\n * **Não use** em toolbar (é um controle entre controles — o `DataTable` usa hug de propósito),\n * em página livre, nem em `Modal` `xl` (1100px): full-width ali viraria uma barra de segmented\n * control gigante e pararia de ler como aba.\n *\n * O caso que a prop resolve e a doc não resolveria: o `FloatingPanel` é **redimensionável em\n * runtime**. Nenhuma regra estática de largura acerta ali — `flex-1` nos triggers acompanha o\n * arrasto do usuário.\n */\ntype TabsVariant = \"segmented\" | \"line\"\n\n/**\n * Variante + largura num contexto só. O `variant` já vinha por contexto; a largura entra pelo\n * mesmo caminho porque precisa alcançar o `TabsTrigger`, que é **neto** do `Tabs` — passar por\n * prop obrigaria a repetir em cada trigger, que é exatamente o problema que a prop resolve.\n */\ntype TabsCtx = { variant: TabsVariant; fullWidth: boolean }\nconst TabsVariantContext = React.createContext<TabsCtx>({\n  variant: \"segmented\",\n  fullWidth: false,\n})\n\nconst Tabs = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> & {\n    variant?: TabsVariant\n    /** Abas ocupam a largura do container e se distribuem igualmente. Ver o cabeçalho. */\n    fullWidth?: boolean\n  }\n>(({ variant = \"segmented\", fullWidth = false, className, ...props }, ref) => {\n  const ctx = React.useMemo(() => ({ variant, fullWidth }), [variant, fullWidth])\n  return (\n    <TabsVariantContext.Provider value={ctx}>\n      <TabsPrimitive.Root\n        ref={ref}\n        className={cn(fullWidth && \"w-full\", className)}\n        {...props}\n      />\n    </TabsVariantContext.Provider>\n  )\n})\nTabs.displayName = \"Tabs\"\n\nconst TabsList = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.List>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>\n>(({ className, ...props }, ref) => {\n  const { variant, fullWidth } = React.useContext(TabsVariantContext)\n  return (\n    <TabsPrimitive.List\n      ref={ref}\n      className={cn(\n        variant === \"line\"\n          ? /* O trilho atravessa o container por PADRÃO. Era `w-fit`, e aí o `border-b` parava\n               onde as abas paravam — um divisor que não alcança as bordas lê como fragmento, não\n               como divisória. Em toda referência (Material, Carbon, Ant) o trilho do underline é\n               full-bleed e só o indicador acompanha a aba ativa. */\n            \"inline-flex w-full items-center gap-gp-xl border-b border-border-subtle\"\n          : \"inline-flex h-form-lg items-center bg-bg-muted p-[3px] gap-gp-2xs rounded-radius-lg\",\n        variant === \"segmented\" && (fullWidth ? \"w-full\" : \"w-fit\"),\n        className\n      )}\n      {...props}\n    />\n  )\n})\nTabsList.displayName = TabsPrimitive.List.displayName\n\nconst TabsTrigger = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.Trigger>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>\n>(({ className, ...props }, ref) => {\n  const { variant, fullWidth } = React.useContext(TabsVariantContext)\n  return (\n    <TabsPrimitive.Trigger\n      ref={ref}\n      className={cn(\n        \"inline-flex items-center justify-center gap-gp-sm whitespace-nowrap text-body-sm font-medium text-fg-muted transition-colors\",\n        \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary\",\n        \"hover:text-fg-default\",\n        \"disabled:pointer-events-none disabled:opacity-50\",\n        variant === \"line\"\n          ? \"-mb-px h-[38px] px-[2px] pb-[8px] border-b-2 border-transparent data-[state=active]:border-border-brand data-[state=active]:text-fg-default data-[state=active]:font-semibold\"\n          : \"h-[34px] px-[14px] rounded-radius-md data-[state=active]:bg-bg-accent data-[state=active]:text-fg-default data-[state=active]:font-semibold data-[state=active]:shadow-sh-sm\",\n        /* Sem isto, `w-full` no List estica o container e agrupa os triggers na esquerda — o\n           defeito que 6 dos 7 usos manuais tinham. */\n        fullWidth && \"flex-1\",\n        className\n      )}\n      {...props}\n    />\n  )\n})\nTabsTrigger.displayName = TabsPrimitive.Trigger.displayName\n\nconst TabsContent = React.forwardRef<\n  React.ElementRef<typeof TabsPrimitive.Content>,\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>\n>(({ className, ...props }, ref) => (\n  <TabsPrimitive.Content\n    ref={ref}\n    className={cn(\n      \"mt-sp-md flex-1 text-body-md outline-none\",\n      className\n    )}\n    {...props}\n  />\n))\nTabsContent.displayName = TabsPrimitive.Content.displayName\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent }\n",
+        "content": "import * as React from \"react\"\r\nimport * as TabsPrimitive from \"@radix-ui/react-tabs\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Tabs — 2 variantes + largura, tudo propagado por contexto a partir do `<Tabs>`.\r\n *\r\n * ## Qual variante\r\n *\r\n *  - **\"segmented\" (default)** — pill group sobre `bg-muted`. Container `h-form-lg` (40px),\r\n *    `p-[3px]`, `radius-lg`; tab `h-[34px] px-[14px] radius-md`; ativo = `bg-accent` +\r\n *    `font-semibold` + `shadow-sm`. É a variante de **trocar conteúdo dentro de uma\r\n *    superfície**: card, bloco, `Panel`, `FloatingPanel`, `Modal`, drawer.\r\n *  - **\"line\"** — underline, pra **navegar seções de uma página** (nível de tela) ou pro 2º\r\n *    nível abaixo de um `segmented`. O trilho (`border-b`) **atravessa o container**; o realce\r\n *    de 2px fica só na aba ativa e sobrepõe o trilho via `-mb-px`.\r\n *\r\n * ⚠️ Não empilhe a MESMA variante em dois níveis — os dois passam a ler como o mesmo nível.\r\n *\r\n * ## `fullWidth` — por que isso é prop, e não classe\r\n *\r\n * Sem ela, encher a largura exigia **três** coisas escritas na mão: `w-full` no `<Tabs>`,\r\n * `w-full` no `<TabsList>` e `flex-1` em **cada** `<TabsTrigger>`. Medido em 2026-08-21, no\r\n * próprio DS: **11** `TabsList w-full`, **20** `TabsTrigger flex-1` e **1** uso de\r\n * `[&>*]:flex-1` (variante arbitrária, escrita justamente pra não repetir `flex-1` por\r\n * trigger — `ShowcasePageV2`). Contei 3 dessas na primeira medição e estava errado: as outras\r\n * duas são do `alert-dialog`, no footer de botões, que é outro caso.\r\n *\r\n * E o modo de errar era silencioso: `w-full` só no List **estica o container e deixa os\r\n * triggers agrupados na esquerda**. Era o que 6 dos 7 usos manuais faziam. Ou seja, o DS\r\n * obrigava a compor na unha o que ele deveria resolver, e quem consumia — IA inclusive —\r\n * acertava metade das vezes.\r\n *\r\n * **Use** em superfície compacta: `Panel` (560px), `FloatingPanel` (320–720 e\r\n * **redimensionável**), `Modal` até `lg` (720px), card, bloco.\r\n *\r\n * **Não use** em toolbar (é um controle entre controles — o `DataTable` usa hug de propósito),\r\n * em página livre, nem em `Modal` `xl` (1100px): full-width ali viraria uma barra de segmented\r\n * control gigante e pararia de ler como aba.\r\n *\r\n * O caso que a prop resolve e a doc não resolveria: o `FloatingPanel` é **redimensionável em\r\n * runtime**. Nenhuma regra estática de largura acerta ali — `flex-1` nos triggers acompanha o\r\n * arrasto do usuário.\r\n */\r\ntype TabsVariant = \"segmented\" | \"line\"\r\n\r\n/**\r\n * Variante + largura num contexto só. O `variant` já vinha por contexto; a largura entra pelo\r\n * mesmo caminho porque precisa alcançar o `TabsTrigger`, que é **neto** do `Tabs` — passar por\r\n * prop obrigaria a repetir em cada trigger, que é exatamente o problema que a prop resolve.\r\n */\r\ntype TabsCtx = { variant: TabsVariant; fullWidth: boolean }\r\nconst TabsVariantContext = React.createContext<TabsCtx>({\r\n  variant: \"segmented\",\r\n  fullWidth: false,\r\n})\r\n\r\nconst Tabs = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Root> & {\r\n    variant?: TabsVariant\r\n    /** Abas ocupam a largura do container e se distribuem igualmente. Ver o cabeçalho. */\r\n    fullWidth?: boolean\r\n  }\r\n>(({ variant = \"segmented\", fullWidth = false, className, ...props }, ref) => {\r\n  const ctx = React.useMemo(() => ({ variant, fullWidth }), [variant, fullWidth])\r\n  return (\r\n    <TabsVariantContext.Provider value={ctx}>\r\n      <TabsPrimitive.Root\r\n        ref={ref}\r\n        className={cn(fullWidth && \"w-full\", className)}\r\n        {...props}\r\n      />\r\n    </TabsVariantContext.Provider>\r\n  )\r\n})\r\nTabs.displayName = \"Tabs\"\r\n\r\nconst TabsList = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.List>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.List>\r\n>(({ className, ...props }, ref) => {\r\n  const { variant, fullWidth } = React.useContext(TabsVariantContext)\r\n  return (\r\n    <TabsPrimitive.List\r\n      ref={ref}\r\n      className={cn(\r\n        variant === \"line\"\r\n          ? /* O trilho atravessa o container por PADRÃO. Era `w-fit`, e aí o `border-b` parava\r\n               onde as abas paravam — um divisor que não alcança as bordas lê como fragmento, não\r\n               como divisória. Em toda referência (Material, Carbon, Ant) o trilho do underline é\r\n               full-bleed e só o indicador acompanha a aba ativa. */\r\n            \"inline-flex w-full items-center gap-gp-xl border-b border-border-subtle\"\r\n          : \"inline-flex h-form-lg items-center bg-bg-muted p-[3px] gap-gp-2xs rounded-radius-lg\",\r\n        variant === \"segmented\" && (fullWidth ? \"w-full\" : \"w-fit\"),\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nTabsList.displayName = TabsPrimitive.List.displayName\r\n\r\nconst TabsTrigger = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.Trigger>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger>\r\n>(({ className, ...props }, ref) => {\r\n  const { variant, fullWidth } = React.useContext(TabsVariantContext)\r\n  return (\r\n    <TabsPrimitive.Trigger\r\n      ref={ref}\r\n      className={cn(\r\n        \"inline-flex items-center justify-center gap-gp-sm whitespace-nowrap text-body-sm font-medium text-fg-muted transition-colors\",\r\n        \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-secondary\",\r\n        \"hover:text-fg-default\",\r\n        \"disabled:pointer-events-none disabled:opacity-50\",\r\n        variant === \"line\"\r\n          ? \"-mb-px h-[38px] px-[2px] pb-[8px] border-b-2 border-transparent data-[state=active]:border-border-brand data-[state=active]:text-fg-default data-[state=active]:font-semibold\"\r\n          : \"h-[34px] px-[14px] rounded-radius-md data-[state=active]:bg-bg-accent data-[state=active]:text-fg-default data-[state=active]:font-semibold data-[state=active]:shadow-sh-sm\",\r\n        /* Sem isto, `w-full` no List estica o container e agrupa os triggers na esquerda — o\r\n           defeito que 6 dos 7 usos manuais tinham. */\r\n        fullWidth && \"flex-1\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nTabsTrigger.displayName = TabsPrimitive.Trigger.displayName\r\n\r\nconst TabsContent = React.forwardRef<\r\n  React.ElementRef<typeof TabsPrimitive.Content>,\r\n  React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>\r\n>(({ className, ...props }, ref) => (\r\n  <TabsPrimitive.Content\r\n    ref={ref}\r\n    className={cn(\r\n      \"mt-sp-md flex-1 text-body-md outline-none\",\r\n      className\r\n    )}\r\n    {...props}\r\n  />\r\n))\r\nTabsContent.displayName = TabsPrimitive.Content.displayName\r\n\r\nexport { Tabs, TabsList, TabsTrigger, TabsContent }\r\n",
         "type": "registry:ui",
         "target": "components/ui/tabs.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · tabs · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4423,7 +4423,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · textarea · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4441,7 +4441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · theme-blue · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4459,7 +4459,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · theme-green · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4477,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · theme-pay · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · theme-vibrant · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4517,7 +4517,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · theme · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4568,7 +4568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · toast · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · toggle-group · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4619,7 +4619,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · toggle · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4643,7 +4643,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · tooltip · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:ui"
   },
@@ -4664,7 +4664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · tv · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   },
@@ -4686,7 +4686,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.45.0 · b6c86b4 · 2026-08-21"
+      "stamp": "igreen-ds · utils · v0.45.0 · 3638566 · 2026-08-22"
     },
     "type": "registry:file"
   }

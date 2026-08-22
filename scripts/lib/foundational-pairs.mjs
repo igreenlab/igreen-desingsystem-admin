@@ -37,6 +37,13 @@ const FIXOS = [
   // DEMANDA (é arquivo de skill, não rule) e o sync fica gated em vez de depender de
   // alguém lembrar de copiar.
   ["src/components/shadcn/USAGE.md", "cli/templates/default/_claude/skills/ds-kit/shadcn-gotchas.md"],
+  // Entrega as regras do componente no momento em que a IA o escreve. Entrou em
+  // 2026-08-21, depois de medir num consumidor real que a IA abre ~6 de 14 USAGE — ela
+  // le onde precisa decidir arquitetura e pula onde acha que sabe a API, que e justo onde
+  // a memoria dela esta velha. Escrever mais doc nao conserta: o arquivo pulado ja estava
+  // certo. Entao o hook PARA DE PEDIR leitura e ENTREGA a regra. Foundational (e nao copia
+  // manual) pelo mesmo motivo do ds-lint-patterns: o check-foundationals cobre o sync.
+  ["scripts/lib/component-rules.mjs", "cli/templates/default/_claude/hooks/component-rules.mjs"],
 ];
 
 const THEME_DIR = "src/styles/theme";

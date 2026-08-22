@@ -1,5 +1,11 @@
 # FloatingPanel — USAGE
 
+<!-- ds:regras
+- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto
+- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto
+- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia o padding)
+-->
+
 Drawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).
 
 ## Quando usar

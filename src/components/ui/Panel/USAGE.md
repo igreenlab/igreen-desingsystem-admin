@@ -1,5 +1,10 @@
 # Panel — USAGE
 
+<!-- ds:regras
+- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)
+- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru
+-->
+
 Drawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.
 
 ## Quando usar
