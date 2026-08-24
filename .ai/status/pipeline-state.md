@@ -3918,3 +3918,31 @@ publish saiu depois do merge e o carimbo do registry (v0.46.0) bate com o `packa
 
 **Pendência aberta (higiene, não bloqueia):** 39 branches mergeadas sobrando no remote
 canônico. Apagar exige decisão do mantenedor.
+
+---
+
+### 2026-08-24 | DS DEV | Release v0.47.0 — ScreenLoader distribuído | CONCLUÍDO (PR #268 aberto)
+
+**Input:** fechar as superfícies 5/6/7 do ScreenLoader (PR #267, mergeado) via `/ds-release`.
+
+**Output (PR #268, aguardando merge):** entry v0.47.0 no `updates-data.ts` · bump lib
+0.46.0 → 0.47.0 (MINOR) · item `@igreen/screen-loader` no registry (93 itens, USAGE.md
+incluso no copy-in) + embed recarimbado · vocabulário do consumidor ganhou a linha
+"página/área inteira carregando" (grupo Feedback e estado) → bump CLI 0.25.16 → 0.25.17
+(publish manual do mantenedor) · DistributionDoc 92 → 93.
+
+**Gates que reprovaram e o que pegaram (ambos defeito real das minhas edições):**
+`showcase-doc-facts` cobrou o "92 itens" da DistributionDoc; `vocab-surface` acusou
+`page`/`dashboard`/`kpis` em crase como componente inexistente — valores de prop em
+vocabulário não vão em crase (a crase é lida como nome de item do registry).
+
+**Estado medido:** tsc 0 · 62 files / 750 pass · `release:check` inteiro verde
+(distribution-debt zerado). main local == empresa/main; commit só na branch release/v0.47.0.
+
+**Assumption:** que a linha única no vocabulário ("página/área inteira carregando") basta
+pra IA do consumidor escolher o screen-loader vs skeleton/spinner — o critério de
+delimitação (área inteira vs pedaço conhecido vs pontual) está na própria linha e o
+USAGE.md viaja no copy-in.
+
+**Pendências pós-merge (mantenedor):** merge do PR #268 · `cd cli && npm publish` (0.25.17)
+· publish opcional da lib no npm (Passo 7 — `lib:verify` antes; conta exige 2FA).
