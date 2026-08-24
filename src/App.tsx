@@ -14,6 +14,7 @@ import { IconLibraryDoc } from "./preview/pages/IconLibraryDoc";
 import { TooltipDoc } from "./preview/pages/TooltipDoc";
 import { SkeletonDoc } from "./preview/pages/SkeletonDoc";
 import { SpinnerDoc } from "./preview/pages/SpinnerDoc";
+import { ScreenLoaderDoc } from "./preview/pages/ScreenLoaderDoc";
 import { ChoroplethMapDoc } from "./preview/pages/ChoroplethMapDoc";
 import { EmptyStateDoc } from "./preview/pages/EmptyStateDoc";
 import { MarkdownTextDoc } from "./preview/pages/MarkdownTextDoc";
@@ -294,6 +295,7 @@ const DOC_PAGES = [
   "tooltip",
   "skeleton",
   "spinner",
+  "screen-loader",
   "choropleth-map",
   "empty-state",
   "markdown-text",
@@ -597,6 +599,7 @@ export function App() {
             {activePage === "tooltip" && <TooltipDoc />}
             {activePage === "skeleton" && <SkeletonDoc />}
             {activePage === "spinner" && <SpinnerDoc />}
+            {activePage === "screen-loader" && <ScreenLoaderDoc />}
             {activePage === "choropleth-map" && <ChoroplethMapDoc />}
             {activePage === "empty-state" && <EmptyStateDoc />}
             {activePage === "markdown-text" && <MarkdownTextDoc />}

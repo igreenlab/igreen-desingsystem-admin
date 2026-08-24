@@ -3785,3 +3785,85 @@ não uma escolha nova. Se o Header do app tiver logo própria em cima, as duas c
 resto é doc no ponto de uso.
 
 **Changelog + bump:** ficam pro `/ds-release`, que também resolve os `vNEXT`.
+
+---
+
+### 2026-08-24 | DS DESIGNER | ScreenLoader | PAUSADO (gate)
+
+Spec de componente novo apresentada ao usuário — aguardando aprovação.
+
+**O que é:** loading de página/área — Spinner centralizado no slot de conteúdo
+(AppShell ou qualquer container com altura), com label opcional. Irmão do EmptyState
+(mesma família de "estado de área": um pro vazio, um pro carregando).
+
+**Verificações da Regra 2:** inventory.md consultado — não existe (Spinner é o átomo,
+o USAGE dele manda "compor com seu próprio layout", que é exatamente a repetição que
+este componente elimina). Sem lógica interativa → iGreen tv(), não shadcn. Tokens:
+todos existentes (size-icon-*, gap-gp-*, presets body/caption, fg-muted) — sem cascata.
+
+**Assumption:** o caso dominante é "conteúdo carregando DENTRO do slot de conteúdo" —
+o componente preenche o PAI (que precisa ter altura), nunca `position: fixed` por
+default. Se o consumidor precisar cobrir o viewport inteiro, é composição dele.
+
+**Retomada:** usuário aprova → ds-dev/impl-igreen.md (ui/ScreenLoader/, 8 superfícies
+L-042) → ds-reviewer → PR (Regra 8).
+
+---
+
+### 2026-08-24 | DS REVIEWER | ScreenLoader | REPROVADO (3 correções pontuais)
+
+- Spec verificada: sim — entrada PAUSADO (gate) 2026-08-24 acima; escopo ajustado pelo
+  usuário para 2 variantes (spinner|skeleton), refletido na implementação.
+- Assumption verificada: **sim, ainda válida** — root é `flex h-full min-h-0 w-full flex-1`
+  (preenche o pai, sem `position: fixed`); USAGE e DocPage repetem "o pai precisa ter
+  altura" e declaram viewport como composição do consumidor.
+- Critique genuína: examinei (1) redundância — Spinner é átomo, DataTable/DataList têm
+  skeletons próprios e o USAGE delimita contra ambos; não é redundante; (2) paridade com o
+  irmão EmptyState token por token — title/description/gap/h3 idênticos (`text-fg-strong`,
+  `title-sm/md`, `body-sm fg-muted max-w-[360px]`, `gap-gp-md`), paridade real; (3) API do
+  Spinner — sizes md/lg existem, `color="brand"` existe, `aria-hidden` vira decorativo
+  (sem role duplicado); (4) `fg-strong` emite CSS (tailwind-theme.css:100/368); (5) L-060
+  no USAGE — **achou defeito**: a garantia de prefers-reduced-motion é falsa pra metade
+  skeleton (item 2 abaixo). Nada muda a direção do componente.
+- Regressões: nenhuma — `lint-styles.mjs --file` limpo nos 2 arquivos; greps L-004/L-007/
+  L-007b/`any` sem match; heights arbitrários do skeleton têm precedente
+  (data-list-infinite.tsx:13-14).
+- Superfícies L-042: 1-4 e 8 fechadas (código, USAGE, inventory:172, showcase completo
+  App.tsx:17/298/602 + nav, barrel index.ts:44); 5/6/7 deferidas pro `/ds-release`
+  corretamente (anotar no corpo do PR).
+- Correções exigidas: (1) entrada IMPL do DS Dev ausente neste arquivo — o audit log
+  termina no gate; (2) USAGE.md:45 afirma que Skeleton respeita prefers-reduced-motion —
+  `animate-pulse` em shadcn/skeleton.tsx:15 não tem `motion-reduce:` (L-060, reescrever);
+  (3) doc-nav-data.ts:118 "Screen Loader" fora da ordem alfabética (deveria vir antes de
+  "Scroll Area", linha 111).
+- Lições novas: nenhuma — item 2 é instância da L-060 existente.
+
+---
+
+### 2026-08-24 | DS DEV | ScreenLoader | CONCLUÍDO
+
+Gate de 2026-08-24 **aprovado pelo usuário com escopo ajustado**: em vez de só o
+spinner centrado, o componente ganhou **2 variantes** — `variant="spinner"` (default:
+Spinner centrado + título + descrição) e `variant="skeleton"` (silhueta genérica de
+página: header + bloco de conteúdo, deliberadamente sem prever o layout final — o
+usuário apontou que skeleton que "prevê a página" nem sempre é o melhor).
+
+**Entrega:** `ui/ScreenLoader/` (5 arquivos: styles tv() com slots, tsx forwardRef
+`role="status"`, types com Omit "color"|"title", index, USAGE.md) · barrel
+(`src/components/index.ts`) · inventory.md · showcase completo (`ScreenLoaderDoc` +
+App.tsx import/DOC_PAGES/render + doc-nav-data) — L-042 superfícies 1-4 e 8.
+Superfícies 5/6/7 (registry, vocabulário do consumidor, changelog) → `/ds-release`.
+
+**Review:** REPROVADO na 1ª rodada (3 itens: esta entrada ausente; garantia falsa de
+`prefers-reduced-motion` no Skeleton em USAGE.md — L-060; nav fora de ordem
+alfabética). Os 3 corrigidos na mesma sessão.
+
+**Estado medido:** tsc 0 · npm test 62 files / 750 pass + 4 todo, 0 falha ·
+ds-lint-styles OK · browser (#/screen-loader): 4 instâncias renderizam, spinner
+geometricamente centrado, skeleton com 4 blocos, root preenche o pai, 0 erro de console.
+
+**Assumption:** o caso dominante é conteúdo carregando DENTRO do slot de conteúdo —
+o componente preenche o PAI (que precisa ter altura), nunca `position: fixed`;
+cobrir o viewport (splash/auth) é composição do consumidor. E que a silhueta
+genérica (header + 1 bloco) é útil sem prever layout: quando o layout é conhecido,
+o caminho é compor `Skeleton` na mão (DataTable/DataList já têm os próprios).
