@@ -4065,3 +4065,49 @@ instância continua existindo.
 **Não virou lição:** o caso do Slider é L-012 aplicada (Radix usa data attribute), já
 catalogada; o do Tooltip é L-060 (doc que afirma garantia que o código não dá), também
 catalogada. Nenhuma das duas gera regra nova.
+
+---
+
+### 2026-08-24 | ds-dev | Carousel ganha indicador de posição; ColorPicker fecha a escala do Input | CONCLUÍDO
+
+**Input:** dois pedidos do mantenedor — (1) Carousel com dots de paginação indicando qual card
+está visível; (2) ColorPicker com variações de tamanho iguais às do input normal.
+
+**1. `CarouselDots`.** O contexto do Carousel não expunha índice nem paradas, então entraram
+`selectedIndex`, `scrollSnaps` e `scrollTo`. Três decisões que não são óbvias:
+
+- **Um ponto por PARADA, não por slide** (`api.scrollSnapList()`). Com `slidesToScroll` ou
+  vários slides visíveis, o número de paradas é menor que o de slides — contar `CarouselItem`
+  daria bolinhas que não levam a lugar nenhum. Verificado no browser com o exemplo novo: 6
+  slides + `slidesToScroll: 2` = **3 pontos**.
+- **Alvo de 24px com bolinha de 8px dentro.** A bolinha sozinha seria alvo de toque de 8px; o
+  botão dá os 24px do WCAG 2.5.8. Os 8px seguem a receita do `groupDot` da `List` (não há
+  token de size abaixo de 16px).
+- **`aria-current`, não `role="tab"`.** Tab implica `tabpanel` associado por id, que este
+  carrossel não tem — declarar a relação sem ela é pior que não declarar.
+- Some sozinho com 1 parada (`return null`): indicador de posição única não informa nada.
+
+Aproveitado no caminho: o `useEffect` só tinha `off("select")`. Com os dois listeners novos
+seriam **três** órfãos por remontagem; agora todos têm `off`.
+
+**2. `ColorPicker` size.** Ele tinha `sm`/`md`; o `Input` tem **quatro** (`xxs` 28 · `xs` 32 ·
+`sm` 36 · `md` 40). E o `size` já era **repassado ao Input interno** — ou seja, existia
+combinação válida no Input inalcançável pelo ColorPicker. Fechada a escala; medido no browser:
+swatch e campo hex sobem juntos em 28/32/36/40.
+
+**Medição que evitou trabalho fora de escopo:** fui checar se o `CarouselDots` precisava entrar
+no barrel público (superfície 8 da L-042) e o Carousel **inteiro** não está lá. Antes de
+"consertar", contei: **26 dos 41** primitivos shadcn estão fora do barrel — Slider, Tooltip,
+Select, Accordion. É a norma (primitivo chega por copy-in; o barrel expõe subconjunto curado),
+não esquecimento. Nada mudado.
+
+**Estado:** tsc 0 · 63 arquivos / 766 testes · `release:check` exit 0 · `check-foundationals`
+11 em sync (o `shadcn/USAGE.md` é par foundational — rebakeado) · registry + embed
+recarimbados (carousel e color-picker são distribuídos).
+
+**Assumption:** que ponto ativo diferenciado só por COR basta. Não fiz o ativo virar pílula
+mais larga, que é comum — se em fundo colorido ou pra quem tem baixa visão a distinção ficar
+fraca, o próximo passo é largura, não mudar a cor.
+
+**Não virou lição:** nenhum defeito novo de método aqui; o cuidado do "um ponto por parada" é
+específico do Embla e vive no JSDoc do componente, que é o ponto de uso.

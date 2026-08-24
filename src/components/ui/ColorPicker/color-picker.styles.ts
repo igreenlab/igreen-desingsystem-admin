@@ -45,7 +45,12 @@ export const colorPickerStyles = tv({
     customRow: "flex flex-col gap-gp-md",
   },
   variants: {
+    /* Espelha a escala do Input (`shadcn/input.tsx`) degrau por degrau. O `size` é
+       repassado pro Input interno, então uma escala menor aqui deixava combinação válida
+       no Input inalcançável pelo ColorPicker — era o caso de `xxs` e `xs`. */
     size: {
+      xxs: { swatch: "size-form-xs" },
+      xs: { swatch: "size-form-sm" },
       sm: { swatch: "size-form-md" },
       md: { swatch: "size-form-lg" },
     },

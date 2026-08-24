@@ -31,7 +31,7 @@ Não use para escolha semântica (sucesso/erro/aviso) — isso são tokens DS, n
 | `presets` | `string[]` | `DEFAULT_COLOR_PRESETS` | Cores do grid (paleta iGreen + neutras, ~26 hex). |
 | `id` | `string` | auto | id do input hex (linka label externo via `htmlFor`). |
 | `state` | `"default" \| "error" \| "warning" \| "success"` | `"default"` | Colore **só a borda** do trigger. **Não** é color variant. |
-| `size` | `"sm" \| "md"` | `"md"` | `sm` = form-md (36px) · `md` = form-lg (40px). |
+| `size` | `"xxs" \| "xs" \| "sm" \| "md"` | `"md"` | Mesma escala do `Input`, e repassado a ele: `xxs` 28px · `xs` 32px · `sm` 36px · `md` 40px. |
 | `disabled` | `boolean` | `false` | Desabilita o seletor inteiro. |
 | `allowCustomHex` | `boolean` | `true` | Mostra o input hex livre + botão Aplicar no popover. |
 | `placeholder` | `string` | `"#RRGGBB"` | Placeholder dos inputs hex. |
@@ -56,7 +56,7 @@ const [color, setColor] = useState("#16A34A");
 
 | Variant | Valores | Efeito |
 |---------|---------|--------|
-| `size` | `sm` · `md` | altura do trigger (swatch + input) |
+| `size` | `xxs` · `xs` · `sm` · `md` | altura do trigger (swatch + input) — escala do `Input` |
 | `state` | `default` · `error` · `warning` · `success` | cor da borda do swatch |
 | `disabled` | — | último compoundVariant (L-006); desabilita tudo |
 
