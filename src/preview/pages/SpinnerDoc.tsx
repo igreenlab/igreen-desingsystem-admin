@@ -20,7 +20,7 @@ const TOC = [
 ];
 
 const PROPS = [
-  { name: "size", type: `"sm" | "md" | "lg"`, defaultVal: `"md"` },
+  { name: "size", type: `"sm" | "md" | "lg" | "xl" | "2xl"`, defaultVal: `"md"` },
   {
     name: "color",
     type: `"current" | "default" | "muted" | "brand" | "on-brand"`,
@@ -63,15 +63,19 @@ export function SpinnerDoc() {
       <ExampleSection
         id="ex-sizes"
         title="Tamanhos"
-        description="Três tamanhos alinhados aos tokens de ícone: sm, md (default), lg."
+        description="Cinco tamanhos alinhados aos tokens de ícone: sm, md (default), lg, xl e 2xl — os dois maiores pra loading de área/página (ScreenLoader)."
         code={`<Spinner size="sm" />
 <Spinner size="md" />
-<Spinner size="lg" />`}
+<Spinner size="lg" />
+<Spinner size="xl" />
+<Spinner size="2xl" />`}
       >
         <div className="flex items-center gap-gp-xl">
           <Spinner size="sm" />
           <Spinner size="md" />
           <Spinner size="lg" />
+          <Spinner size="xl" />
+          <Spinner size="2xl" />
         </div>
       </ExampleSection>
 
