@@ -201,7 +201,38 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    /**
+     * A folga de 4px existe pra borda do slide não ser comida pelo corte.
+     *
+     * O Embla posiciona o trilho com `translate` em pixel FRACIONÁRIO, e no padrão de
+     * gutter do shadcn (`-ml-4` no trilho + `pl-4` no item) a borda esquerda do conteúdo
+     * cai **exatamente** sobre o limite do `overflow-hidden`. Medido em 2026-08-24, no
+     * slide 3: limite do clip em 651.5px e a borda do card em 649.99px — 1.5px inteiros
+     * do lado de fora, então a borda de 1px desaparecia. E variava entre medições, porque
+     * depende de onde o Embla para no sub-pixel: às vezes 2px dentro, às vezes fora. Só o
+     * primeiro slide era imune (translate 0, sem fração) — o relato foi exatamente "do
+     * card 2 pra frente".
+     *
+     * `overflow` corta no limite do PADDING box, então o padding dá a folga; a margem
+     * negativa devolve a posição, pra geometria externa não mudar. Não revela o slide
+     * vizinho: o que aparece nessa faixa é o gutter transparente de 16px do item.
+     *
+     * **4px e não 2px** porque o gutter do shadcn é só do lado ESQUERDO (`-ml`/`pl`): a
+     * direita do último card visível encosta no limite por construção. Com 2px, o caso de
+     * `slidesToScroll: 2` media −0.06px de folga na direita na última parada — o mesmo
+     * defeito, menor. Com 4px as duas bordas ficam positivas em todas as paradas.
+     */
+    <div
+      ref={carouselRef}
+      className={cn(
+        "overflow-hidden",
+        // A folga vai no EIXO que rola: no vertical o gutter é `-mt`/`pt` e quem encosta
+        // no corte é a borda de cima. Padding no eixo errado não conserta nada.
+        orientation === "horizontal"
+          ? "px-sp-xs -mx-sp-xs"
+          : "py-sp-xs -my-sp-xs"
+      )}
+    >
       <div
         ref={ref}
         className={cn(
