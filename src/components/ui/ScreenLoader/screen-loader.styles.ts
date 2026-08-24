@@ -27,6 +27,8 @@ export const screenLoaderStyles = tv({
     description: "text-body-sm text-fg-muted max-w-[360px]",
     skeletonHeader: "flex w-full items-start justify-between gap-gp-2xl",
     skeletonHeaderText: "flex w-full flex-col gap-gp-md",
+    skeletonKpis: "grid w-full grid-cols-2 gap-gp-xl lg:grid-cols-4",
+    skeletonKpiCard: "min-h-[96px] w-full",
     skeletonBody: "min-h-[240px] w-full flex-1",
   },
   variants: {

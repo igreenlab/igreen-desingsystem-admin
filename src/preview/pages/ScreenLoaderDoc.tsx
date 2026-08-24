@@ -12,6 +12,7 @@ const TOC = [
   { id: "examples", label: "Examples" },
   { id: "ex-spinner", label: "Spinner centrado" },
   { id: "ex-skeleton", label: "Skeleton genérico" },
+  { id: "ex-skeleton-layouts", label: "Skeleton com KPIs" },
   { id: "ex-sizes", label: "Tamanhos" },
   { id: "api", label: "API Reference" },
 ];
@@ -22,7 +23,14 @@ const PROPS = [
     type: `"spinner" | "skeleton"`,
     defaultVal: `"spinner"`,
     description:
-      "spinner = Spinner centrado + título + descrição. skeleton = silhueta genérica de página (header + bloco), sem prever o layout final.",
+      "spinner = Spinner centrado + título + descrição. skeleton = silhueta genérica de página, sem prever o layout final.",
+  },
+  {
+    name: "skeletonLayout",
+    type: `"page" | "dashboard" | "kpis"`,
+    defaultVal: `"page"`,
+    description:
+      "Blocos da silhueta (só na variante skeleton): page = header + conteúdo · dashboard = header + linha de 4 KPIs + conteúdo · kpis = KPIs + conteúdo, sem header.",
   },
   {
     name: "title",
@@ -42,7 +50,7 @@ const PROPS = [
     type: `"sm" | "md" | "lg"`,
     defaultVal: `"md"`,
     description:
-      "Escala o Spinner e a tipografia do título. Sem efeito na variante skeleton.",
+      "Escala o Spinner e a tipografia do título. Sem efeito na variante skeleton. md é o padrão de uso — omita a menos que a área destoe.",
   },
   {
     name: "color",
@@ -104,6 +112,23 @@ export function ScreenLoaderDoc() {
         <SlotFrame>
           <ScreenLoader variant="skeleton" />
         </SlotFrame>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-skeleton-layouts"
+        title="Skeleton com KPIs"
+        description="skeletonLayout escolhe os blocos da silhueta: dashboard = header + linha de 4 KPIs + conteúdo; kpis = só KPIs + conteúdo (quando o header da página já está renderizado fora da área que carrega)."
+        code={`<ScreenLoader variant="skeleton" skeletonLayout="dashboard" />
+<ScreenLoader variant="skeleton" skeletonLayout="kpis" />`}
+      >
+        <div className="flex w-full flex-col gap-gp-2xl">
+          <SlotFrame>
+            <ScreenLoader variant="skeleton" skeletonLayout="dashboard" />
+          </SlotFrame>
+          <SlotFrame>
+            <ScreenLoader variant="skeleton" skeletonLayout="kpis" />
+          </SlotFrame>
+        </div>
       </ExampleSection>
 
       <ExampleSection

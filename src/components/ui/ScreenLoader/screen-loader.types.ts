@@ -23,4 +23,10 @@ export interface ScreenLoaderProps
   description?: string;
   /** Cor do Spinner (repassada). Default `"brand"`. Só na variante `spinner`. */
   color?: SpinnerProps["color"];
+  /**
+   * Blocos da silhueta (só na variante `skeleton`): `"page"` (header +
+   * conteúdo, default), `"dashboard"` (header + linha de 4 KPIs + conteúdo)
+   * ou `"kpis"` (linha de 4 KPIs + conteúdo, sem header).
+   */
+  skeletonLayout?: "page" | "dashboard" | "kpis";
 }

@@ -21,9 +21,11 @@ const SPINNER_SIZE = {
  * Duas variações:
  *   - `spinner` (default): Spinner centrado + título + descrição — primeira
  *     carga genérica, quando o layout final não é conhecido.
- *   - `skeleton`: silhueta genérica de página (header + bloco de conteúdo)
- *     deliberadamente sem prever o layout final. Layout conhecido → componha
- *     `Skeleton` na mão em vez desta variante.
+ *   - `skeleton`: silhueta genérica de página, deliberadamente sem prever o
+ *     layout final. `skeletonLayout` escolhe os blocos: "page" (header +
+ *     conteúdo, default), "dashboard" (header + linha de KPIs + conteúdo) e
+ *     "kpis" (linha de KPIs + conteúdo, sem header). Layout conhecido →
+ *     componha `Skeleton` na mão em vez desta variante.
  *
  * A11y: o root anuncia via `role="status"`; o Spinner interno vai `aria-hidden`
  * (o título já anuncia — evita leitura duplicada) e a silhueta skeleton é
@@ -37,6 +39,7 @@ export const ScreenLoader = forwardRef<HTMLDivElement, ScreenLoaderProps>(
       color = "brand",
       title = "Carregando…",
       description,
+      skeletonLayout = "page",
       className,
       ...rest
     },
@@ -65,13 +68,22 @@ export const ScreenLoader = forwardRef<HTMLDivElement, ScreenLoaderProps>(
         ) : (
           <>
             <span className="sr-only">{title}</span>
-            <div aria-hidden="true" className={styles.skeletonHeader()}>
-              <div className={styles.skeletonHeaderText()}>
-                <Skeleton className="h-[20px] w-1/3 max-w-[240px]" />
-                <Skeleton className="h-[12px] w-1/2 max-w-[360px]" />
+            {skeletonLayout !== "kpis" && (
+              <div aria-hidden="true" className={styles.skeletonHeader()}>
+                <div className={styles.skeletonHeaderText()}>
+                  <Skeleton className="h-[20px] w-1/3 max-w-[240px]" />
+                  <Skeleton className="h-[12px] w-1/2 max-w-[360px]" />
+                </div>
+                <Skeleton className="min-h-form-md w-[120px] shrink-0" />
               </div>
-              <Skeleton className="min-h-form-md w-[120px] shrink-0" />
-            </div>
+            )}
+            {skeletonLayout !== "page" && (
+              <div aria-hidden="true" className={styles.skeletonKpis()}>
+                {Array.from({ length: 4 }, (_, i) => (
+                  <Skeleton key={i} className={styles.skeletonKpiCard()} />
+                ))}
+              </div>
+            )}
             <Skeleton aria-hidden="true" className={styles.skeletonBody()} />
           </>
         )}
