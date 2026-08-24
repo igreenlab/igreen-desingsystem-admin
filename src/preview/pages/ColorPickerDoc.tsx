@@ -17,6 +17,7 @@ const TOC = [
   { id: "ex-form", label: "Com FormField" },
   { id: "ex-presets", label: "Presets custom" },
   { id: "ex-states", label: "Sem input livre / states" },
+  { id: "ex-sizes", label: "Tamanhos" },
   { id: "api", label: "API Reference" },
 ];
 
@@ -26,7 +27,7 @@ const PROPS = [
   { name: "presets", type: "string[]", defaultVal: "DEFAULT_COLOR_PRESETS" },
   { name: "id", type: "string", defaultVal: "auto (useId)" },
   { name: "state", type: '"default" | "error" | "warning" | "success"', defaultVal: '"default"' },
-  { name: "size", type: '"sm" | "md"', defaultVal: '"md"' },
+  { name: "size", type: '"xxs" | "xs" | "sm" | "md"', defaultVal: '"md"' },
   { name: "disabled", type: "boolean", defaultVal: "false" },
   { name: "allowCustomHex", type: "boolean", defaultVal: "true" },
   { name: "placeholder", type: "string", defaultVal: '"#RRGGBB"' },
@@ -82,6 +83,21 @@ function PresetsExample() {
       <span className="text-body-sm text-fg-muted">
         Grid reduzido a 10 cores de marca.
       </span>
+    </div>
+  );
+}
+
+function SizesExample() {
+  const [v, setV] = useState("#00803C");
+  return (
+    <div className="flex flex-col gap-form-gap w-full max-w-[320px]">
+      {(["xxs", "xs", "sm", "md"] as const).map((s) => (
+        <FormField key={s} label={`size="${s}"${s === "md" ? " (default)" : ""}`} id={`cp-size-${s}`}>
+          {({ id }) => (
+            <ColorPicker id={id} value={v} onValueChange={setV} size={s} />
+          )}
+        </FormField>
+      ))}
     </div>
   );
 }
@@ -174,6 +190,18 @@ export function ColorPickerDoc() {
 <ColorPicker value={c} onValueChange={setC} disabled />`}
       >
         <StatesExample />
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-sizes"
+        title="Tamanhos"
+        description="Mesma escala do Input, e o size é repassado a ele — então o swatch e o campo hex sobem juntos. xxs 28px · xs 32px · sm 36px · md 40px (default)."
+        code={`<ColorPicker value={v} onValueChange={setV} size="xxs" />
+<ColorPicker value={v} onValueChange={setV} size="xs" />
+<ColorPicker value={v} onValueChange={setV} size="sm" />
+<ColorPicker value={v} onValueChange={setV} />`}
+      >
+        <SizesExample />
       </ExampleSection>
 
       <DocSeparator />

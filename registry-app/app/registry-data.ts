@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · accordion · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · alert-dialog · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · alert-modal · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · alert · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · app-shell · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · aspect-ratio · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · avatar-ig · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · avatar · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · badge · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · breadcrumb · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · button-group · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · button · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · calendar · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · card-checkbox · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · card · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -537,13 +537,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/carousel.tsx",
-        "content": "import * as React from \"react\"\r\nimport useEmblaCarousel, {\r\n  type UseEmblaCarouselType,\r\n} from \"embla-carousel-react\"\r\nimport { ArrowLeft, ArrowRight } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Button } from \"@/components/ui/Button\"\r\n\r\ntype CarouselApi = UseEmblaCarouselType[1]\r\ntype UseCarouselParameters = Parameters<typeof useEmblaCarousel>\r\ntype CarouselOptions = UseCarouselParameters[0]\r\ntype CarouselPlugin = UseCarouselParameters[1]\r\n\r\ntype CarouselProps = {\r\n  opts?: CarouselOptions\r\n  plugins?: CarouselPlugin\r\n  orientation?: \"horizontal\" | \"vertical\"\r\n  setApi?: (api: CarouselApi) => void\r\n}\r\n\r\ntype CarouselContextProps = {\r\n  carouselRef: ReturnType<typeof useEmblaCarousel>[0]\r\n  api: ReturnType<typeof useEmblaCarousel>[1]\r\n  scrollPrev: () => void\r\n  scrollNext: () => void\r\n  canScrollPrev: boolean\r\n  canScrollNext: boolean\r\n} & CarouselProps\r\n\r\nconst CarouselContext = React.createContext<CarouselContextProps | null>(null)\r\n\r\nfunction useCarousel() {\r\n  const context = React.useContext(CarouselContext)\r\n\r\n  if (!context) {\r\n    throw new Error(\"useCarousel must be used within a <Carousel />\")\r\n  }\r\n\r\n  return context\r\n}\r\n\r\nconst Carousel = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & CarouselProps\r\n>(\r\n  (\r\n    {\r\n      orientation = \"horizontal\",\r\n      opts,\r\n      setApi,\r\n      plugins,\r\n      className,\r\n      children,\r\n      ...props\r\n    },\r\n    ref\r\n  ) => {\r\n    const [carouselRef, api] = useEmblaCarousel(\r\n      {\r\n        ...opts,\r\n        axis: orientation === \"horizontal\" ? \"x\" : \"y\",\r\n      },\r\n      plugins\r\n    )\r\n    const [canScrollPrev, setCanScrollPrev] = React.useState(false)\r\n    const [canScrollNext, setCanScrollNext] = React.useState(false)\r\n\r\n    const onSelect = React.useCallback((api: CarouselApi) => {\r\n      if (!api) {\r\n        return\r\n      }\r\n\r\n      setCanScrollPrev(api.canScrollPrev())\r\n      setCanScrollNext(api.canScrollNext())\r\n    }, [])\r\n\r\n    const scrollPrev = React.useCallback(() => {\r\n      api?.scrollPrev()\r\n    }, [api])\r\n\r\n    const scrollNext = React.useCallback(() => {\r\n      api?.scrollNext()\r\n    }, [api])\r\n\r\n    const handleKeyDown = React.useCallback(\r\n      (event: React.KeyboardEvent<HTMLDivElement>) => {\r\n        if (event.key === \"ArrowLeft\") {\r\n          event.preventDefault()\r\n          scrollPrev()\r\n        } else if (event.key === \"ArrowRight\") {\r\n          event.preventDefault()\r\n          scrollNext()\r\n        }\r\n      },\r\n      [scrollPrev, scrollNext]\r\n    )\r\n\r\n    React.useEffect(() => {\r\n      if (!api || !setApi) {\r\n        return\r\n      }\r\n\r\n      setApi(api)\r\n    }, [api, setApi])\r\n\r\n    React.useEffect(() => {\r\n      if (!api) {\r\n        return\r\n      }\r\n\r\n      onSelect(api)\r\n      api.on(\"reInit\", onSelect)\r\n      api.on(\"select\", onSelect)\r\n\r\n      return () => {\r\n        api?.off(\"select\", onSelect)\r\n      }\r\n    }, [api, onSelect])\r\n\r\n    return (\r\n      <CarouselContext.Provider\r\n        value={{\r\n          carouselRef,\r\n          api: api,\r\n          opts,\r\n          orientation:\r\n            orientation || (opts?.axis === \"y\" ? \"vertical\" : \"horizontal\"),\r\n          scrollPrev,\r\n          scrollNext,\r\n          canScrollPrev,\r\n          canScrollNext,\r\n        }}\r\n      >\r\n        <div\r\n          ref={ref}\r\n          onKeyDownCapture={handleKeyDown}\r\n          className={cn(\"relative\", className)}\r\n          role=\"region\"\r\n          aria-roledescription=\"carousel\"\r\n          {...props}\r\n        >\r\n          {children}\r\n        </div>\r\n      </CarouselContext.Provider>\r\n    )\r\n  }\r\n)\r\nCarousel.displayName = \"Carousel\"\r\n\r\nconst CarouselContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const { carouselRef, orientation } = useCarousel()\r\n\r\n  return (\r\n    <div ref={carouselRef} className=\"overflow-hidden\">\r\n      <div\r\n        ref={ref}\r\n        className={cn(\r\n          \"flex\",\r\n          orientation === \"horizontal\" ? \"-ml-4\" : \"-mt-4 flex-col\",\r\n          className\r\n        )}\r\n        {...props}\r\n      />\r\n    </div>\r\n  )\r\n})\r\nCarouselContent.displayName = \"CarouselContent\"\r\n\r\nconst CarouselItem = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation } = useCarousel()\r\n\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      role=\"group\"\r\n      aria-roledescription=\"slide\"\r\n      className={cn(\r\n        \"min-w-0 shrink-0 grow-0 basis-full\",\r\n        orientation === \"horizontal\" ? \"pl-4\" : \"pt-4\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCarouselItem.displayName = \"CarouselItem\"\r\n\r\nconst CarouselPrevious = React.forwardRef<\r\n  HTMLButtonElement,\r\n  React.ComponentProps<typeof Button>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation, scrollPrev, canScrollPrev } = useCarousel()\r\n\r\n  return (\r\n    <Button\r\n      ref={ref}\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"icon-xs\"\r\n      className={cn(\r\n        \"absolute rounded-radius-full\",\r\n        orientation === \"horizontal\"\r\n          ? \"-left-12 top-1/2 -translate-y-1/2\"\r\n          : \"-top-12 left-1/2 -translate-x-1/2 rotate-90\",\r\n        className\r\n      )}\r\n      disabled={!canScrollPrev}\r\n      onClick={scrollPrev}\r\n      {...props}\r\n    >\r\n      <ArrowLeft />\r\n      <span className=\"sr-only\">Previous slide</span>\r\n    </Button>\r\n  )\r\n})\r\nCarouselPrevious.displayName = \"CarouselPrevious\"\r\n\r\nconst CarouselNext = React.forwardRef<\r\n  HTMLButtonElement,\r\n  React.ComponentProps<typeof Button>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation, scrollNext, canScrollNext } = useCarousel()\r\n\r\n  return (\r\n    <Button\r\n      ref={ref}\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"icon-xs\"\r\n      className={cn(\r\n        \"absolute rounded-radius-full\",\r\n        orientation === \"horizontal\"\r\n          ? \"-right-12 top-1/2 -translate-y-1/2\"\r\n          : \"-bottom-12 left-1/2 -translate-x-1/2 rotate-90\",\r\n        className\r\n      )}\r\n      disabled={!canScrollNext}\r\n      onClick={scrollNext}\r\n      {...props}\r\n    >\r\n      <ArrowRight />\r\n      <span className=\"sr-only\">Next slide</span>\r\n    </Button>\r\n  )\r\n})\r\nCarouselNext.displayName = \"CarouselNext\"\r\n\r\nexport {\r\n  type CarouselApi,\r\n  Carousel,\r\n  CarouselContent,\r\n  CarouselItem,\r\n  CarouselPrevious,\r\n  CarouselNext,\r\n}\r\n",
+        "content": "import * as React from \"react\"\r\nimport useEmblaCarousel, {\r\n  type UseEmblaCarouselType,\r\n} from \"embla-carousel-react\"\r\nimport { ArrowLeft, ArrowRight } from \"lucide-react\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\nimport { Button } from \"@/components/ui/Button\"\r\n\r\ntype CarouselApi = UseEmblaCarouselType[1]\r\ntype UseCarouselParameters = Parameters<typeof useEmblaCarousel>\r\ntype CarouselOptions = UseCarouselParameters[0]\r\ntype CarouselPlugin = UseCarouselParameters[1]\r\n\r\ntype CarouselProps = {\r\n  opts?: CarouselOptions\r\n  plugins?: CarouselPlugin\r\n  orientation?: \"horizontal\" | \"vertical\"\r\n  setApi?: (api: CarouselApi) => void\r\n}\r\n\r\ntype CarouselContextProps = {\r\n  carouselRef: ReturnType<typeof useEmblaCarousel>[0]\r\n  api: ReturnType<typeof useEmblaCarousel>[1]\r\n  scrollPrev: () => void\r\n  scrollNext: () => void\r\n  canScrollPrev: boolean\r\n  canScrollNext: boolean\r\n  /** Índice do snap visível — o que o `CarouselDots` marca como atual. */\r\n  selectedIndex: number\r\n  /**\r\n   * Um item por PONTO DE PARADA, não por slide.\r\n   *\r\n   * Vem do `api.scrollSnapList()` de propósito: com `slidesToScroll` ou vários slides\r\n   * visíveis por vez, o número de paradas é menor que o de slides — contar\r\n   * `CarouselItem` daria mais bolinhas do que posições alcançáveis, e clicar nas\r\n   * últimas não iria a lugar nenhum.\r\n   */\r\n  scrollSnaps: number[]\r\n  scrollTo: (index: number) => void\r\n} & CarouselProps\r\n\r\nconst CarouselContext = React.createContext<CarouselContextProps | null>(null)\r\n\r\nfunction useCarousel() {\r\n  const context = React.useContext(CarouselContext)\r\n\r\n  if (!context) {\r\n    throw new Error(\"useCarousel must be used within a <Carousel />\")\r\n  }\r\n\r\n  return context\r\n}\r\n\r\nconst Carousel = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement> & CarouselProps\r\n>(\r\n  (\r\n    {\r\n      orientation = \"horizontal\",\r\n      opts,\r\n      setApi,\r\n      plugins,\r\n      className,\r\n      children,\r\n      ...props\r\n    },\r\n    ref\r\n  ) => {\r\n    const [carouselRef, api] = useEmblaCarousel(\r\n      {\r\n        ...opts,\r\n        axis: orientation === \"horizontal\" ? \"x\" : \"y\",\r\n      },\r\n      plugins\r\n    )\r\n    const [canScrollPrev, setCanScrollPrev] = React.useState(false)\r\n    const [canScrollNext, setCanScrollNext] = React.useState(false)\r\n    const [selectedIndex, setSelectedIndex] = React.useState(0)\r\n    const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])\r\n\r\n    const onSelect = React.useCallback((api: CarouselApi) => {\r\n      if (!api) {\r\n        return\r\n      }\r\n\r\n      setCanScrollPrev(api.canScrollPrev())\r\n      setCanScrollNext(api.canScrollNext())\r\n      setSelectedIndex(api.selectedScrollSnap())\r\n    }, [])\r\n\r\n    /**\r\n     * A lista de paradas muda em `reInit`, não em `select`.\r\n     *\r\n     * Separada do `onSelect` porque os gatilhos são outros: slide adicionado/removido,\r\n     * resize que muda quantos cabem, troca de `slidesToScroll`. Calcular no `select`\r\n     * também funcionaria e recomputaria a cada arraste, sem motivo.\r\n     */\r\n    const onInit = React.useCallback((api: CarouselApi) => {\r\n      if (!api) {\r\n        return\r\n      }\r\n\r\n      setScrollSnaps(api.scrollSnapList())\r\n    }, [])\r\n\r\n    const scrollPrev = React.useCallback(() => {\r\n      api?.scrollPrev()\r\n    }, [api])\r\n\r\n    const scrollNext = React.useCallback(() => {\r\n      api?.scrollNext()\r\n    }, [api])\r\n\r\n    const scrollTo = React.useCallback(\r\n      (index: number) => {\r\n        api?.scrollTo(index)\r\n      },\r\n      [api]\r\n    )\r\n\r\n    const handleKeyDown = React.useCallback(\r\n      (event: React.KeyboardEvent<HTMLDivElement>) => {\r\n        if (event.key === \"ArrowLeft\") {\r\n          event.preventDefault()\r\n          scrollPrev()\r\n        } else if (event.key === \"ArrowRight\") {\r\n          event.preventDefault()\r\n          scrollNext()\r\n        }\r\n      },\r\n      [scrollPrev, scrollNext]\r\n    )\r\n\r\n    React.useEffect(() => {\r\n      if (!api || !setApi) {\r\n        return\r\n      }\r\n\r\n      setApi(api)\r\n    }, [api, setApi])\r\n\r\n    React.useEffect(() => {\r\n      if (!api) {\r\n        return\r\n      }\r\n\r\n      onInit(api)\r\n      onSelect(api)\r\n      api.on(\"reInit\", onInit)\r\n      api.on(\"reInit\", onSelect)\r\n      api.on(\"select\", onSelect)\r\n\r\n      return () => {\r\n        // O `off(\"reInit\")` não existia aqui — só o de \"select\". Somando os dois\r\n        // listeners novos, ficariam três órfãos por remontagem.\r\n        api?.off(\"reInit\", onInit)\r\n        api?.off(\"reInit\", onSelect)\r\n        api?.off(\"select\", onSelect)\r\n      }\r\n    }, [api, onInit, onSelect])\r\n\r\n    return (\r\n      <CarouselContext.Provider\r\n        value={{\r\n          carouselRef,\r\n          api: api,\r\n          opts,\r\n          orientation:\r\n            orientation || (opts?.axis === \"y\" ? \"vertical\" : \"horizontal\"),\r\n          scrollPrev,\r\n          scrollNext,\r\n          canScrollPrev,\r\n          canScrollNext,\r\n          selectedIndex,\r\n          scrollSnaps,\r\n          scrollTo,\r\n        }}\r\n      >\r\n        <div\r\n          ref={ref}\r\n          onKeyDownCapture={handleKeyDown}\r\n          className={cn(\"relative\", className)}\r\n          role=\"region\"\r\n          aria-roledescription=\"carousel\"\r\n          {...props}\r\n        >\r\n          {children}\r\n        </div>\r\n      </CarouselContext.Provider>\r\n    )\r\n  }\r\n)\r\nCarousel.displayName = \"Carousel\"\r\n\r\nconst CarouselContent = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const { carouselRef, orientation } = useCarousel()\r\n\r\n  return (\r\n    /**\r\n     * A folga de 4px existe pra borda do slide não ser comida pelo corte.\r\n     *\r\n     * O Embla posiciona o trilho com `translate` em pixel FRACIONÁRIO, e no padrão de\r\n     * gutter do shadcn (`-ml-4` no trilho + `pl-4` no item) a borda esquerda do conteúdo\r\n     * cai **exatamente** sobre o limite do `overflow-hidden`. Medido em 2026-08-24, no\r\n     * slide 3: limite do clip em 651.5px e a borda do card em 649.99px — 1.5px inteiros\r\n     * do lado de fora, então a borda de 1px desaparecia. E variava entre medições, porque\r\n     * depende de onde o Embla para no sub-pixel: às vezes 2px dentro, às vezes fora. Só o\r\n     * primeiro slide era imune (translate 0, sem fração) — o relato foi exatamente \"do\r\n     * card 2 pra frente\".\r\n     *\r\n     * `overflow` corta no limite do PADDING box, então o padding dá a folga; a margem\r\n     * negativa devolve a posição, pra geometria externa não mudar. Não revela o slide\r\n     * vizinho: o que aparece nessa faixa é o gutter transparente de 16px do item.\r\n     *\r\n     * **4px e não 2px** porque o gutter do shadcn é só do lado ESQUERDO (`-ml`/`pl`): a\r\n     * direita do último card visível encosta no limite por construção. Com 2px, o caso de\r\n     * `slidesToScroll: 2` media −0.06px de folga na direita na última parada — o mesmo\r\n     * defeito, menor. Com 4px as duas bordas ficam positivas em todas as paradas.\r\n     */\r\n    <div\r\n      ref={carouselRef}\r\n      className={cn(\r\n        \"overflow-hidden\",\r\n        // A folga vai no EIXO que rola: no vertical o gutter é `-mt`/`pt` e quem encosta\r\n        // no corte é a borda de cima. Padding no eixo errado não conserta nada.\r\n        orientation === \"horizontal\"\r\n          ? \"px-sp-xs -mx-sp-xs\"\r\n          : \"py-sp-xs -my-sp-xs\"\r\n      )}\r\n    >\r\n      <div\r\n        ref={ref}\r\n        className={cn(\r\n          \"flex\",\r\n          orientation === \"horizontal\" ? \"-ml-4\" : \"-mt-4 flex-col\",\r\n          className\r\n        )}\r\n        {...props}\r\n      />\r\n    </div>\r\n  )\r\n})\r\nCarouselContent.displayName = \"CarouselContent\"\r\n\r\nconst CarouselItem = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation } = useCarousel()\r\n\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      role=\"group\"\r\n      aria-roledescription=\"slide\"\r\n      className={cn(\r\n        \"min-w-0 shrink-0 grow-0 basis-full\",\r\n        orientation === \"horizontal\" ? \"pl-4\" : \"pt-4\",\r\n        className\r\n      )}\r\n      {...props}\r\n    />\r\n  )\r\n})\r\nCarouselItem.displayName = \"CarouselItem\"\r\n\r\nconst CarouselPrevious = React.forwardRef<\r\n  HTMLButtonElement,\r\n  React.ComponentProps<typeof Button>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation, scrollPrev, canScrollPrev } = useCarousel()\r\n\r\n  return (\r\n    <Button\r\n      ref={ref}\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"icon-xs\"\r\n      className={cn(\r\n        \"absolute rounded-radius-full\",\r\n        orientation === \"horizontal\"\r\n          ? \"-left-12 top-1/2 -translate-y-1/2\"\r\n          : \"-top-12 left-1/2 -translate-x-1/2 rotate-90\",\r\n        className\r\n      )}\r\n      disabled={!canScrollPrev}\r\n      onClick={scrollPrev}\r\n      {...props}\r\n    >\r\n      <ArrowLeft />\r\n      <span className=\"sr-only\">Previous slide</span>\r\n    </Button>\r\n  )\r\n})\r\nCarouselPrevious.displayName = \"CarouselPrevious\"\r\n\r\nconst CarouselNext = React.forwardRef<\r\n  HTMLButtonElement,\r\n  React.ComponentProps<typeof Button>\r\n>(({ className, ...props }, ref) => {\r\n  const { orientation, scrollNext, canScrollNext } = useCarousel()\r\n\r\n  return (\r\n    <Button\r\n      ref={ref}\r\n      color=\"secondary\"\r\n      variant=\"outline\"\r\n      size=\"icon-xs\"\r\n      className={cn(\r\n        \"absolute rounded-radius-full\",\r\n        orientation === \"horizontal\"\r\n          ? \"-right-12 top-1/2 -translate-y-1/2\"\r\n          : \"-bottom-12 left-1/2 -translate-x-1/2 rotate-90\",\r\n        className\r\n      )}\r\n      disabled={!canScrollNext}\r\n      onClick={scrollNext}\r\n      {...props}\r\n    >\r\n      <ArrowRight />\r\n      <span className=\"sr-only\">Next slide</span>\r\n    </Button>\r\n  )\r\n})\r\nCarouselNext.displayName = \"CarouselNext\"\r\n\r\n/**\r\n * `CarouselDots` — indicador de posição, clicável.\r\n *\r\n * Decisões que não são óbvias no código:\r\n *\r\n * - **Um ponto por PARADA, não por slide** (`scrollSnapList()`). Com vários slides\r\n *   visíveis por vez ou `slidesToScroll`, contar `CarouselItem` daria bolinhas que não\r\n *   levam a lugar nenhum.\r\n * - **Some com 1 parada só.** Indicador de posição única não informa nada e ainda ocupa\r\n *   linha — o `return null` é o comportamento certo, não um caso não tratado.\r\n * - **Alvo de 16px com bolinha de 8px dentro.** A bolinha sozinha seria um alvo de toque\r\n *   de 8px; o botão amplia sem crescer o ponto (`place-items-center`). Os 8px seguem a\r\n *   receita do `groupDot` da `List` — não há token de size abaixo de 16px.\r\n *\r\n *   ⚠️ **Era 24px, e o espaçamento medido explicou a troca.** Com alvo de 24px e\r\n *   `gap-gp-xs`, o espaço VISÍVEL entre pontos era **20px** — e só 4px vinham do gap: os\r\n *   outros 16 eram sobra dos dois alvos. Baixar só o gap levaria a 18px, quase nada. Com\r\n *   16px de alvo e `gap-gp-2xs`, o espaço visível cai pra **10px**, metade.\r\n *\r\n *   O custo é real e a escolha é deliberada: 16px fica abaixo dos 24px do WCAG 2.5.8.\r\n *   Aceitável AQUI porque é indicador de posição, não ação destrutiva — errar o toque leva\r\n *   ao slide vizinho e se desfaz com um toque. Não use este raciocínio pra encolher alvo de\r\n *   ação com consequência.\r\n * - **`aria-current`, não `role=\"tab\"`.** Tab implica `tabpanel` associado por id, o que\r\n *   este carrossel não tem — declarar a relação sem ela é pior que não declarar.\r\n */\r\nconst CarouselDots = React.forwardRef<\r\n  HTMLDivElement,\r\n  React.HTMLAttributes<HTMLDivElement>\r\n>(({ className, ...props }, ref) => {\r\n  const { scrollSnaps, selectedIndex, scrollTo, orientation } = useCarousel()\r\n\r\n  if (scrollSnaps.length <= 1) {\r\n    return null\r\n  }\r\n\r\n  return (\r\n    <div\r\n      ref={ref}\r\n      role=\"group\"\r\n      aria-label=\"Posição no carrossel\"\r\n      className={cn(\r\n        \"flex items-center justify-center gap-gp-2xs\",\r\n        orientation === \"vertical\" && \"flex-col\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      {scrollSnaps.map((_, i) => {\r\n        const atual = i === selectedIndex\r\n        return (\r\n          <button\r\n            key={i}\r\n            type=\"button\"\r\n            onClick={() => scrollTo(i)}\r\n            aria-label={`Ir para ${i + 1} de ${scrollSnaps.length}`}\r\n            aria-current={atual ? \"true\" : undefined}\r\n            className={cn(\r\n              \"grid size-comp-3xs shrink-0 cursor-pointer place-items-center\",\r\n              \"rounded-radius-full\",\r\n              // Padrão 1 — focus estático\r\n              \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\"\r\n            )}\r\n          >\r\n            <span\r\n              className={cn(\r\n                \"size-[8px] rounded-radius-full transition-colors\",\r\n                atual ? \"bg-bg-brand\" : \"bg-bg-emphasis hover:bg-bg-accent\"\r\n              )}\r\n            />\r\n          </button>\r\n        )\r\n      })}\r\n    </div>\r\n  )\r\n})\r\nCarouselDots.displayName = \"CarouselDots\"\r\n\r\nexport {\r\n  type CarouselApi,\r\n  Carousel,\r\n  CarouselContent,\r\n  CarouselDots,\r\n  CarouselItem,\r\n  CarouselPrevious,\r\n  CarouselNext,\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/carousel.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · carousel · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · chart · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · checkbox · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · chip · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · choropleth-map · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · collapsible · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -751,7 +751,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/ColorPicker/USAGE.md",
-        "content": "# ColorPicker\r\n\r\n**Categoria:** composto (Popover + Input + FormField + Button + Separator). Seletor de cor **hex `#RRGGBB`** controlado, pensado para **Tags** e **Filas**.\r\n\r\n## Quando usar\r\n\r\n- Escolher uma cor de marca/identidade para uma entidade (tag, fila, etiqueta, status custom).\r\n- Quando o usuário precisa **ver e digitar** o hex E ter atalho para uma **paleta curada**.\r\n\r\nNão use para escolha semântica (sucesso/erro/aviso) — isso são tokens DS, não cor livre.\r\n\r\n## Anatomia\r\n\r\n```\r\n[ swatch ]  [ Input hex (#RRGGBB) ]      ← trigger inline (swatch abre o popover)\r\n            ▼ (clique no swatch)\r\n┌─────────────────────────────┐\r\n│  grid 10-col de presets      │          ← swatch selecionado = checkmark (contraste auto)\r\n│  ───────── Separator ─────── │\r\n│  Cor personalizada  [input]  │          ← allowCustomHex (default true)\r\n│  [ Aplicar ]                 │\r\n└─────────────────────────────┘\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `value` | `string` | — | **Obrigatório.** Hex controlado `#RRGGBB`. |\r\n| `onValueChange` | `(hex: string) => void` | — | **Obrigatório.** Recebe sempre `#RRGGBB` maiúsculo normalizado. |\r\n| `presets` | `string[]` | `DEFAULT_COLOR_PRESETS` | Cores do grid (paleta iGreen + neutras, ~26 hex). |\r\n| `id` | `string` | auto | id do input hex (linka label externo via `htmlFor`). |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Colore **só a borda** do trigger. **Não** é color variant. |\r\n| `size` | `\"sm\" \\| \"md\"` | `\"md\"` | `sm` = form-md (36px) · `md` = form-lg (40px). |\r\n| `disabled` | `boolean` | `false` | Desabilita o seletor inteiro. |\r\n| `allowCustomHex` | `boolean` | `true` | Mostra o input hex livre + botão Aplicar no popover. |\r\n| `placeholder` | `string` | `\"#RRGGBB\"` | Placeholder dos inputs hex. |\r\n| `open` / `onOpenChange` | — | — | Controle externo de abertura do popover. |\r\n| `className` | `string` | — | className do container (root). |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ColorPicker } from \"@snksergio/design-system\";\r\n\r\nconst [color, setColor] = useState(\"#16A34A\");\r\n\r\n<FormField label=\"Cor da tag\" id=\"tag-color\">\r\n  {({ id }) => (\r\n    <ColorPicker id={id} value={color} onValueChange={setColor} />\r\n  )}\r\n</FormField>\r\n```\r\n\r\n## Variants\r\n\r\n| Variant | Valores | Efeito |\r\n|---------|---------|--------|\r\n| `size` | `sm` · `md` | altura do trigger (swatch + input) |\r\n| `state` | `default` · `error` · `warning` · `success` | cor da borda do swatch |\r\n| `disabled` | — | último compoundVariant (L-006); desabilita tudo |\r\n\r\n## Gotchas\r\n\r\n- **Normalização:** aceita `3` ou `6` dígitos com/sem `#` (`fff`, `#FFF`, `00ff00`) → sempre emite `#RRGGBB` **maiúsculo**. Hex inválido no input inline restaura o `value` atual no blur.\r\n- **bg dinâmico = exceção L-027:** o fundo do swatch e dos presets vem por `style={{ backgroundColor }}` (cor externa). É a única exceção de hardcode permitida; todo o resto é token DS.\r\n- **Checkmark com contraste auto:** o preset selecionado usa `getContrastTextColor(hex)` para escolher branco/preto — não cor cega.\r\n- **Anchor do Popover:** o swatch é `forwardRef` via `PopoverTrigger asChild` (L-021). O `ref` encaminhado vai para o botão do swatch.\r\n- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-brand`); o input hex herda o foco animado do `Input` do DS (Padrão 2).\r\n- Para parear visualmente com outros campos de um form, envolva em `<FormField>` (render-prop) — o `state` do ColorPicker espelha o do Input para casar a borda.\r\n",
+        "content": "# ColorPicker\r\n\r\n**Categoria:** composto (Popover + Input + FormField + Button + Separator). Seletor de cor **hex `#RRGGBB`** controlado, pensado para **Tags** e **Filas**.\r\n\r\n## Quando usar\r\n\r\n- Escolher uma cor de marca/identidade para uma entidade (tag, fila, etiqueta, status custom).\r\n- Quando o usuário precisa **ver e digitar** o hex E ter atalho para uma **paleta curada**.\r\n\r\nNão use para escolha semântica (sucesso/erro/aviso) — isso são tokens DS, não cor livre.\r\n\r\n## Anatomia\r\n\r\n```\r\n[ swatch ]  [ Input hex (#RRGGBB) ]      ← trigger inline (swatch abre o popover)\r\n            ▼ (clique no swatch)\r\n┌─────────────────────────────┐\r\n│  grid 10-col de presets      │          ← swatch selecionado = checkmark (contraste auto)\r\n│  ───────── Separator ─────── │\r\n│  Cor personalizada  [input]  │          ← allowCustomHex (default true)\r\n│  [ Aplicar ]                 │\r\n└─────────────────────────────┘\r\n```\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `value` | `string` | — | **Obrigatório.** Hex controlado `#RRGGBB`. |\r\n| `onValueChange` | `(hex: string) => void` | — | **Obrigatório.** Recebe sempre `#RRGGBB` maiúsculo normalizado. |\r\n| `presets` | `string[]` | `DEFAULT_COLOR_PRESETS` | Cores do grid (paleta iGreen + neutras, ~26 hex). |\r\n| `id` | `string` | auto | id do input hex (linka label externo via `htmlFor`). |\r\n| `state` | `\"default\" \\| \"error\" \\| \"warning\" \\| \"success\"` | `\"default\"` | Colore **só a borda** do trigger. **Não** é color variant. |\r\n| `size` | `\"xxs\" \\| \"xs\" \\| \"sm\" \\| \"md\"` | `\"md\"` | Mesma escala do `Input`, e repassado a ele: `xxs` 28px · `xs` 32px · `sm` 36px · `md` 40px. |\r\n| `disabled` | `boolean` | `false` | Desabilita o seletor inteiro. |\r\n| `allowCustomHex` | `boolean` | `true` | Mostra o input hex livre + botão Aplicar no popover. |\r\n| `placeholder` | `string` | `\"#RRGGBB\"` | Placeholder dos inputs hex. |\r\n| `open` / `onOpenChange` | — | — | Controle externo de abertura do popover. |\r\n| `className` | `string` | — | className do container (root). |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ColorPicker } from \"@snksergio/design-system\";\r\n\r\nconst [color, setColor] = useState(\"#16A34A\");\r\n\r\n<FormField label=\"Cor da tag\" id=\"tag-color\">\r\n  {({ id }) => (\r\n    <ColorPicker id={id} value={color} onValueChange={setColor} />\r\n  )}\r\n</FormField>\r\n```\r\n\r\n## Variants\r\n\r\n| Variant | Valores | Efeito |\r\n|---------|---------|--------|\r\n| `size` | `xxs` · `xs` · `sm` · `md` | altura do trigger (swatch + input) — escala do `Input` |\r\n| `state` | `default` · `error` · `warning` · `success` | cor da borda do swatch |\r\n| `disabled` | — | último compoundVariant (L-006); desabilita tudo |\r\n\r\n## Gotchas\r\n\r\n- **Normalização:** aceita `3` ou `6` dígitos com/sem `#` (`fff`, `#FFF`, `00ff00`) → sempre emite `#RRGGBB` **maiúsculo**. Hex inválido no input inline restaura o `value` atual no blur.\r\n- **bg dinâmico = exceção L-027:** o fundo do swatch e dos presets vem por `style={{ backgroundColor }}` (cor externa). É a única exceção de hardcode permitida; todo o resto é token DS.\r\n- **Checkmark com contraste auto:** o preset selecionado usa `getContrastTextColor(hex)` para escolher branco/preto — não cor cega.\r\n- **Anchor do Popover:** o swatch é `forwardRef` via `PopoverTrigger asChild` (L-021). O `ref` encaminhado vai para o botão do swatch.\r\n- **Foco:** swatch + presets seguem Padrão 1 (botão, `ring-4 ring-ring-brand`); o input hex herda o foco animado do `Input` do DS (Padrão 2).\r\n- Para parear visualmente com outros campos de um form, envolva em `<FormField>` (render-prop) — o `state` do ColorPicker espelha o do Input para casar a borda.\r\n",
         "type": "registry:file",
         "target": "components/ui/ColorPicker/USAGE.md"
       },
@@ -763,7 +763,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/ColorPicker/color-picker.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags / Filas.\r\n *\r\n * Anatomia visual (só o wrapper; Input/Button/Popover trazem os próprios estilos):\r\n *   trigger        = linha [swatch button] + [Input hex flex-1]\r\n *   swatch         = quadrado clicável que abre o popover; bg vem por INLINE\r\n *                    STYLE (exceção L-027 — cor dinâmica externa), aqui só\r\n *                    altura/borda/radius/foco tokenizados\r\n *   content        = grid de presets + separator + input hex livre\r\n *   presetsGrid    = grid-cols-10 de swatches dos presets\r\n *   preset         = swatch de preset (size-comp-xs); checkmark colorido via\r\n *                    getContrastTextColor no .tsx (inline)\r\n *\r\n * Foco:\r\n *   - swatch + preset → Padrão 1 (botão): focus-visible:outline-none + ring-4 brand\r\n *   - Input hex → herda o Input do DS (Padrão 2, animado)\r\n *\r\n * `state` controla SÓ a borda do trigger swatch (espelha os states do Input),\r\n * NÃO é uma color variant. `disabled` é o ÚLTIMO compoundVariant (L-006).\r\n */\r\nexport const colorPickerStyles = tv({\r\n  slots: {\r\n    root: \"inline-flex w-full items-center gap-gp-md\",\r\n    swatch: [\r\n      \"relative inline-flex shrink-0 items-center justify-center\",\r\n      \"rounded-radius-md border\",\r\n      \"transition-[border-color,box-shadow]\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n      // opacity do disabled vem do slot root (cobre tudo uniformemente) — não duplicar aqui\r\n      \"disabled:cursor-not-allowed\",\r\n    ],\r\n    hexInput: \"flex-1\",\r\n    content: \"flex flex-col gap-gp-lg p-sp-md min-w-container-dropdown-lg\",\r\n    presetsGrid: \"grid grid-cols-10 gap-gp-sm\",\r\n    preset: [\r\n      \"relative inline-flex items-center justify-center\",\r\n      \"size-comp-xs rounded-radius-md border border-border-input\",\r\n      \"transition-[box-shadow,border-color]\",\r\n      \"hover:border-border-brand\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    presetCheck: \"size-icon-sm\",\r\n    customRow: \"flex flex-col gap-gp-md\",\r\n  },\r\n  variants: {\r\n    size: {\r\n      sm: { swatch: \"size-form-md\" },\r\n      md: { swatch: \"size-form-lg\" },\r\n    },\r\n    state: {\r\n      default: { swatch: \"border-border-input hover:border-border-brand\" },\r\n      error: { swatch: \"border-border-danger-muted\" },\r\n      warning: { swatch: \"border-border-warning-muted\" },\r\n      success: { swatch: \"border-border-success-muted\" },\r\n    },\r\n    disabled: {\r\n      true: { root: \"pointer-events-none opacity-50\" },\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // disabled SEMPRE por último (L-006)\r\n    {\r\n      disabled: true,\r\n      class: { swatch: \"border-border-input hover:border-border-input\" },\r\n    },\r\n  ],\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    state: \"default\",\r\n    disabled: false,\r\n  },\r\n});\r\n\r\nexport type ColorPickerVariantProps = VariantProps<typeof colorPickerStyles>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ColorPicker — seletor de cor hex (#RRGGBB) controlado para Tags / Filas.\r\n *\r\n * Anatomia visual (só o wrapper; Input/Button/Popover trazem os próprios estilos):\r\n *   trigger        = linha [swatch button] + [Input hex flex-1]\r\n *   swatch         = quadrado clicável que abre o popover; bg vem por INLINE\r\n *                    STYLE (exceção L-027 — cor dinâmica externa), aqui só\r\n *                    altura/borda/radius/foco tokenizados\r\n *   content        = grid de presets + separator + input hex livre\r\n *   presetsGrid    = grid-cols-10 de swatches dos presets\r\n *   preset         = swatch de preset (size-comp-xs); checkmark colorido via\r\n *                    getContrastTextColor no .tsx (inline)\r\n *\r\n * Foco:\r\n *   - swatch + preset → Padrão 1 (botão): focus-visible:outline-none + ring-4 brand\r\n *   - Input hex → herda o Input do DS (Padrão 2, animado)\r\n *\r\n * `state` controla SÓ a borda do trigger swatch (espelha os states do Input),\r\n * NÃO é uma color variant. `disabled` é o ÚLTIMO compoundVariant (L-006).\r\n */\r\nexport const colorPickerStyles = tv({\r\n  slots: {\r\n    root: \"inline-flex w-full items-center gap-gp-md\",\r\n    swatch: [\r\n      \"relative inline-flex shrink-0 items-center justify-center\",\r\n      \"rounded-radius-md border\",\r\n      \"transition-[border-color,box-shadow]\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n      // opacity do disabled vem do slot root (cobre tudo uniformemente) — não duplicar aqui\r\n      \"disabled:cursor-not-allowed\",\r\n    ],\r\n    hexInput: \"flex-1\",\r\n    content: \"flex flex-col gap-gp-lg p-sp-md min-w-container-dropdown-lg\",\r\n    presetsGrid: \"grid grid-cols-10 gap-gp-sm\",\r\n    preset: [\r\n      \"relative inline-flex items-center justify-center\",\r\n      \"size-comp-xs rounded-radius-md border border-border-input\",\r\n      \"transition-[box-shadow,border-color]\",\r\n      \"hover:border-border-brand\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    presetCheck: \"size-icon-sm\",\r\n    customRow: \"flex flex-col gap-gp-md\",\r\n  },\r\n  variants: {\r\n    /* Espelha a escala do Input (`shadcn/input.tsx`) degrau por degrau. O `size` é\r\n       repassado pro Input interno, então uma escala menor aqui deixava combinação válida\r\n       no Input inalcançável pelo ColorPicker — era o caso de `xxs` e `xs`. */\r\n    size: {\r\n      xxs: { swatch: \"size-form-xs\" },\r\n      xs: { swatch: \"size-form-sm\" },\r\n      sm: { swatch: \"size-form-md\" },\r\n      md: { swatch: \"size-form-lg\" },\r\n    },\r\n    state: {\r\n      default: { swatch: \"border-border-input hover:border-border-brand\" },\r\n      error: { swatch: \"border-border-danger-muted\" },\r\n      warning: { swatch: \"border-border-warning-muted\" },\r\n      success: { swatch: \"border-border-success-muted\" },\r\n    },\r\n    disabled: {\r\n      true: { root: \"pointer-events-none opacity-50\" },\r\n    },\r\n  },\r\n  compoundVariants: [\r\n    // disabled SEMPRE por último (L-006)\r\n    {\r\n      disabled: true,\r\n      class: { swatch: \"border-border-input hover:border-border-input\" },\r\n    },\r\n  ],\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    state: \"default\",\r\n    disabled: false,\r\n  },\r\n});\r\n\r\nexport type ColorPickerVariantProps = VariantProps<typeof colorPickerStyles>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/ColorPicker/color-picker.styles.ts"
       },
@@ -775,7 +775,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/ColorPicker/color-picker.types.ts",
-        "content": "import type { ColorPickerVariantProps } from \"./color-picker.styles\";\r\n\r\n/** Estado visual da borda do trigger — NÃO é color variant. */\r\nexport type ColorPickerState = NonNullable<ColorPickerVariantProps[\"state\"]>;\r\n\r\n/** Tamanho do trigger (altura do input + swatch). */\r\nexport type ColorPickerSize = NonNullable<ColorPickerVariantProps[\"size\"]>;\r\n\r\nexport interface ColorPickerProps {\r\n  /** Valor controlado em hex `#RRGGBB` (maiúsculo). Obrigatório. */\r\n  value: string;\r\n  /** Chamado com o hex normalizado `#RRGGBB` ao escolher preset ou confirmar. */\r\n  onValueChange: (hex: string) => void;\r\n  /**\r\n   * Cores oferecidas no grid do popover. Default: `DEFAULT_COLOR_PRESETS`\r\n   * (paleta curada iGreen + neutras).\r\n   */\r\n  presets?: string[];\r\n  /** id do input hex (linka com label externo via htmlFor). */\r\n  id?: string;\r\n  /** Estado semântico — colore SÓ a borda do trigger swatch. Default `\"default\"`. */\r\n  state?: ColorPickerState;\r\n  /** Tamanho do trigger. `sm` = form-md (36px) · `md` = form-lg (40px, default). */\r\n  size?: ColorPickerSize;\r\n  /** Desabilita o seletor inteiro. */\r\n  disabled?: boolean;\r\n  /** Permite digitar um hex livre no popover. Default `true`. */\r\n  allowCustomHex?: boolean;\r\n  /** Placeholder do input hex. Default `\"#RRGGBB\"`. */\r\n  placeholder?: string;\r\n  /** Controle externo de abertura do popover. */\r\n  open?: boolean;\r\n  /** Notifica abertura/fechamento do popover. */\r\n  onOpenChange?: (open: boolean) => void;\r\n  /** className do container (root). */\r\n  className?: string;\r\n}\r\n",
+        "content": "import type { ColorPickerVariantProps } from \"./color-picker.styles\";\r\n\r\n/** Estado visual da borda do trigger — NÃO é color variant. */\r\nexport type ColorPickerState = NonNullable<ColorPickerVariantProps[\"state\"]>;\r\n\r\n/** Tamanho do trigger (altura do input + swatch). */\r\nexport type ColorPickerSize = NonNullable<ColorPickerVariantProps[\"size\"]>;\r\n\r\nexport interface ColorPickerProps {\r\n  /** Valor controlado em hex `#RRGGBB` (maiúsculo). Obrigatório. */\r\n  value: string;\r\n  /** Chamado com o hex normalizado `#RRGGBB` ao escolher preset ou confirmar. */\r\n  onValueChange: (hex: string) => void;\r\n  /**\r\n   * Cores oferecidas no grid do popover. Default: `DEFAULT_COLOR_PRESETS`\r\n   * (paleta curada iGreen + neutras).\r\n   */\r\n  presets?: string[];\r\n  /** id do input hex (linka com label externo via htmlFor). */\r\n  id?: string;\r\n  /** Estado semântico — colore SÓ a borda do trigger swatch. Default `\"default\"`. */\r\n  state?: ColorPickerState;\r\n  /**\r\n   * Tamanho do trigger — **mesma escala do `Input`**, e repassado a ele:\r\n   * `xxs` 28px · `xs` 32px · `sm` 36px · `md` 40px (default).\r\n   */\r\n  size?: ColorPickerSize;\r\n  /** Desabilita o seletor inteiro. */\r\n  disabled?: boolean;\r\n  /** Permite digitar um hex livre no popover. Default `true`. */\r\n  allowCustomHex?: boolean;\r\n  /** Placeholder do input hex. Default `\"#RRGGBB\"`. */\r\n  placeholder?: string;\r\n  /** Controle externo de abertura do popover. */\r\n  open?: boolean;\r\n  /** Notifica abertura/fechamento do popover. */\r\n  onOpenChange?: (open: boolean) => void;\r\n  /** className do container (root). */\r\n  className?: string;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/ColorPicker/color-picker.types.ts"
       },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · color-picker · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · combobox · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · command · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · context-menu · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · data-list · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · data-table · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · date-picker · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · dialog · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · drawer · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · dropdown-menu · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · empty-state · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-app-shell · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-chat · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-clientes · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-dashboard · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-edit-page · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-finance · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-login · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-mapa-rede · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · example-order-detail · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · file-upload-field · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · floating-panel · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · footer-table · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · form-field · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · header · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · hover-card · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · icon · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · input-group · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · input-otp · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · input · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · kanban · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · kpi · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · label · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · list · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · markdown-text · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · menu-sidebar · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · menubar · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · modal · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · month-year-picker · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · navigation-menu · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · page-header · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · pagination · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · panel · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · popover · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · progress · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · radio-group · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3999,7 +3999,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · screen-loader · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4023,7 +4023,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · scroll-area · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4048,7 +4048,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · select · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4072,7 +4072,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · separator · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4098,7 +4098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · sheet · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4211,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4233,7 +4233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · skeleton · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4257,7 +4257,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · slider · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4280,7 +4280,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · sonner · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4326,7 +4326,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · spinner · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4350,7 +4350,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · switch · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4429,7 +4429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · table · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4453,7 +4453,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · tabs · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4477,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · textarea · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · theme-blue · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4513,7 +4513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · theme-green · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4531,7 +4531,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · theme-pay · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4549,7 +4549,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · theme-vibrant · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4571,7 +4571,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · theme · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4622,7 +4622,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · toast · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4648,7 +4648,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · toggle-group · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4673,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · toggle · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4697,7 +4697,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · tooltip · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4718,7 +4718,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · tv · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4740,7 +4740,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.48.0 · 9d9ab81 · 2026-08-24"
+      "stamp": "igreen-ds · utils · v0.48.0 · 8c3c5a2 · 2026-08-24"
     },
     "type": "registry:file"
   }

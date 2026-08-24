@@ -26,6 +26,18 @@ type CarouselContextProps = {
   scrollNext: () => void
   canScrollPrev: boolean
   canScrollNext: boolean
+  /** Índice do snap visível — o que o `CarouselDots` marca como atual. */
+  selectedIndex: number
+  /**
+   * Um item por PONTO DE PARADA, não por slide.
+   *
+   * Vem do `api.scrollSnapList()` de propósito: com `slidesToScroll` ou vários slides
+   * visíveis por vez, o número de paradas é menor que o de slides — contar
+   * `CarouselItem` daria mais bolinhas do que posições alcançáveis, e clicar nas
+   * últimas não iria a lugar nenhum.
+   */
+  scrollSnaps: number[]
+  scrollTo: (index: number) => void
 } & CarouselProps
 
 const CarouselContext = React.createContext<CarouselContextProps | null>(null)
@@ -65,6 +77,8 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [selectedIndex, setSelectedIndex] = React.useState(0)
+    const [scrollSnaps, setScrollSnaps] = React.useState<number[]>([])
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -73,6 +87,22 @@ const Carousel = React.forwardRef<
 
       setCanScrollPrev(api.canScrollPrev())
       setCanScrollNext(api.canScrollNext())
+      setSelectedIndex(api.selectedScrollSnap())
+    }, [])
+
+    /**
+     * A lista de paradas muda em `reInit`, não em `select`.
+     *
+     * Separada do `onSelect` porque os gatilhos são outros: slide adicionado/removido,
+     * resize que muda quantos cabem, troca de `slidesToScroll`. Calcular no `select`
+     * também funcionaria e recomputaria a cada arraste, sem motivo.
+     */
+    const onInit = React.useCallback((api: CarouselApi) => {
+      if (!api) {
+        return
+      }
+
+      setScrollSnaps(api.scrollSnapList())
     }, [])
 
     const scrollPrev = React.useCallback(() => {
@@ -82,6 +112,13 @@ const Carousel = React.forwardRef<
     const scrollNext = React.useCallback(() => {
       api?.scrollNext()
     }, [api])
+
+    const scrollTo = React.useCallback(
+      (index: number) => {
+        api?.scrollTo(index)
+      },
+      [api]
+    )
 
     const handleKeyDown = React.useCallback(
       (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -109,14 +146,20 @@ const Carousel = React.forwardRef<
         return
       }
 
+      onInit(api)
       onSelect(api)
+      api.on("reInit", onInit)
       api.on("reInit", onSelect)
       api.on("select", onSelect)
 
       return () => {
+        // O `off("reInit")` não existia aqui — só o de "select". Somando os dois
+        // listeners novos, ficariam três órfãos por remontagem.
+        api?.off("reInit", onInit)
+        api?.off("reInit", onSelect)
         api?.off("select", onSelect)
       }
-    }, [api, onSelect])
+    }, [api, onInit, onSelect])
 
     return (
       <CarouselContext.Provider
@@ -130,6 +173,9 @@ const Carousel = React.forwardRef<
           scrollNext,
           canScrollPrev,
           canScrollNext,
+          selectedIndex,
+          scrollSnaps,
+          scrollTo,
         }}
       >
         <div
@@ -155,7 +201,38 @@ const CarouselContent = React.forwardRef<
   const { carouselRef, orientation } = useCarousel()
 
   return (
-    <div ref={carouselRef} className="overflow-hidden">
+    /**
+     * A folga de 4px existe pra borda do slide não ser comida pelo corte.
+     *
+     * O Embla posiciona o trilho com `translate` em pixel FRACIONÁRIO, e no padrão de
+     * gutter do shadcn (`-ml-4` no trilho + `pl-4` no item) a borda esquerda do conteúdo
+     * cai **exatamente** sobre o limite do `overflow-hidden`. Medido em 2026-08-24, no
+     * slide 3: limite do clip em 651.5px e a borda do card em 649.99px — 1.5px inteiros
+     * do lado de fora, então a borda de 1px desaparecia. E variava entre medições, porque
+     * depende de onde o Embla para no sub-pixel: às vezes 2px dentro, às vezes fora. Só o
+     * primeiro slide era imune (translate 0, sem fração) — o relato foi exatamente "do
+     * card 2 pra frente".
+     *
+     * `overflow` corta no limite do PADDING box, então o padding dá a folga; a margem
+     * negativa devolve a posição, pra geometria externa não mudar. Não revela o slide
+     * vizinho: o que aparece nessa faixa é o gutter transparente de 16px do item.
+     *
+     * **4px e não 2px** porque o gutter do shadcn é só do lado ESQUERDO (`-ml`/`pl`): a
+     * direita do último card visível encosta no limite por construção. Com 2px, o caso de
+     * `slidesToScroll: 2` media −0.06px de folga na direita na última parada — o mesmo
+     * defeito, menor. Com 4px as duas bordas ficam positivas em todas as paradas.
+     */
+    <div
+      ref={carouselRef}
+      className={cn(
+        "overflow-hidden",
+        // A folga vai no EIXO que rola: no vertical o gutter é `-mt`/`pt` e quem encosta
+        // no corte é a borda de cima. Padding no eixo errado não conserta nada.
+        orientation === "horizontal"
+          ? "px-sp-xs -mx-sp-xs"
+          : "py-sp-xs -my-sp-xs"
+      )}
+    >
       <div
         ref={ref}
         className={cn(
@@ -252,10 +329,89 @@ const CarouselNext = React.forwardRef<
 })
 CarouselNext.displayName = "CarouselNext"
 
+/**
+ * `CarouselDots` — indicador de posição, clicável.
+ *
+ * Decisões que não são óbvias no código:
+ *
+ * - **Um ponto por PARADA, não por slide** (`scrollSnapList()`). Com vários slides
+ *   visíveis por vez ou `slidesToScroll`, contar `CarouselItem` daria bolinhas que não
+ *   levam a lugar nenhum.
+ * - **Some com 1 parada só.** Indicador de posição única não informa nada e ainda ocupa
+ *   linha — o `return null` é o comportamento certo, não um caso não tratado.
+ * - **Alvo de 16px com bolinha de 8px dentro.** A bolinha sozinha seria um alvo de toque
+ *   de 8px; o botão amplia sem crescer o ponto (`place-items-center`). Os 8px seguem a
+ *   receita do `groupDot` da `List` — não há token de size abaixo de 16px.
+ *
+ *   ⚠️ **Era 24px, e o espaçamento medido explicou a troca.** Com alvo de 24px e
+ *   `gap-gp-xs`, o espaço VISÍVEL entre pontos era **20px** — e só 4px vinham do gap: os
+ *   outros 16 eram sobra dos dois alvos. Baixar só o gap levaria a 18px, quase nada. Com
+ *   16px de alvo e `gap-gp-2xs`, o espaço visível cai pra **10px**, metade.
+ *
+ *   O custo é real e a escolha é deliberada: 16px fica abaixo dos 24px do WCAG 2.5.8.
+ *   Aceitável AQUI porque é indicador de posição, não ação destrutiva — errar o toque leva
+ *   ao slide vizinho e se desfaz com um toque. Não use este raciocínio pra encolher alvo de
+ *   ação com consequência.
+ * - **`aria-current`, não `role="tab"`.** Tab implica `tabpanel` associado por id, o que
+ *   este carrossel não tem — declarar a relação sem ela é pior que não declarar.
+ */
+const CarouselDots = React.forwardRef<
+  HTMLDivElement,
+  React.HTMLAttributes<HTMLDivElement>
+>(({ className, ...props }, ref) => {
+  const { scrollSnaps, selectedIndex, scrollTo, orientation } = useCarousel()
+
+  if (scrollSnaps.length <= 1) {
+    return null
+  }
+
+  return (
+    <div
+      ref={ref}
+      role="group"
+      aria-label="Posição no carrossel"
+      className={cn(
+        "flex items-center justify-center gap-gp-2xs",
+        orientation === "vertical" && "flex-col",
+        className
+      )}
+      {...props}
+    >
+      {scrollSnaps.map((_, i) => {
+        const atual = i === selectedIndex
+        return (
+          <button
+            key={i}
+            type="button"
+            onClick={() => scrollTo(i)}
+            aria-label={`Ir para ${i + 1} de ${scrollSnaps.length}`}
+            aria-current={atual ? "true" : undefined}
+            className={cn(
+              "grid size-comp-3xs shrink-0 cursor-pointer place-items-center",
+              "rounded-radius-full",
+              // Padrão 1 — focus estático
+              "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
+            )}
+          >
+            <span
+              className={cn(
+                "size-[8px] rounded-radius-full transition-colors",
+                atual ? "bg-bg-brand" : "bg-bg-emphasis hover:bg-bg-accent"
+              )}
+            />
+          </button>
+        )
+      })}
+    </div>
+  )
+})
+CarouselDots.displayName = "CarouselDots"
+
 export {
   type CarouselApi,
   Carousel,
   CarouselContent,
+  CarouselDots,
   CarouselItem,
   CarouselPrevious,
   CarouselNext,

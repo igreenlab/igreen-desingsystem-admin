@@ -20,7 +20,10 @@ export interface ColorPickerProps {
   id?: string;
   /** Estado semântico — colore SÓ a borda do trigger swatch. Default `"default"`. */
   state?: ColorPickerState;
-  /** Tamanho do trigger. `sm` = form-md (36px) · `md` = form-lg (40px, default). */
+  /**
+   * Tamanho do trigger — **mesma escala do `Input`**, e repassado a ele:
+   * `xxs` 28px · `xs` 32px · `sm` 36px · `md` 40px (default).
+   */
   size?: ColorPickerSize;
   /** Desabilita o seletor inteiro. */
   disabled?: boolean;
