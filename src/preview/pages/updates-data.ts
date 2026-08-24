@@ -46,6 +46,42 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.48.0",
+    date: "2026-08-24",
+    tag: "preview",
+    title:
+      "Tooltip instantâneo, Slider que parece desabilitado, e regra de uso com cobrança",
+    summary:
+      "Dois componentes prometiam coisas que não entregavam: o Tooltip fazia esperar 700ms (com três arquivos de doc afirmando 200) e o Slider desabilitado não mudava de aparência nem recusava o gesto — o `disabled:` estava num `<span>`, que não aceita esse atributo. No pipeline, o mecanismo que entrega a regra de uso do componente na hora em que a IA escreve a tag passou a ter checklist e gate: até agora ele existia no código e não era mencionado em nenhuma skill, então nenhum agente tinha como saber que aquela superfície existia.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Regra de comportamento agora tem superfícies declaradas** — prosa (o porquê), bloco `ds:regras` (o payload injetado na hora de escrever) e linha do vocabulário do consumidor (alcança 100% das sessões). Receita e critério do que entra em cada uma no `handoff-pr.md`, alcançável pela tabela do `CLAUDE.md` e pelo `impl-igreen.md`.",
+          "Gate `rule-surfaces`: primitivo shadcn com bloco `ds:regras` que não chega no vocabulário do consumidor **reprova**. A família `ui/` já era coberta pelo `distribution-debt` — o escopo foi decidido medindo os dois, não desenhando.",
+          "Aviso no `api-doc-check`: componente **novo** cujo USAGE não declara bloco de regras. Avisa, não reprova — componente pode legitimamente não ter regra de default.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**`Tooltip` aparece na hora** — `delayDuration` default `0`, sobrescritível por instância (`<Tooltip delayDuration={400}>`). Antes o componente não passava nada e valia o default do Radix, **700ms**.",
+          "**`FileUploadField`**: dropzone com **24px** de padding vertical (era 10px, menor que os 16px laterais — apertado justo no eixo que dá leitura de \"zona\") e **2px** entre o título e a linha de hint, que agora formam um bloco próprio.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**`Slider` desabilitado não existia visualmente.** O thumb carregava `disabled:pointer-events-none disabled:opacity-50`, mas thumb é um `<span>`: não aceita o atributo `disabled`, e Radix marca estado por data attribute (L-012). Medido antes do fix: `opacity: 1` e `pointer-events: auto` — o gesto seguia aceito. Agora o `data-[disabled]` vai no Root e escurece trilho, faixa e thumb juntos.",
+          "**`Slider` sem affordance de arrasto**: thumb ganhou `cursor-grab` / `active:cursor-grabbing`, o mesmo par do grab-to-scroll da DataTable.",
+          "Três arquivos afirmavam \"`delayDuration` default = 200ms\" para o Tooltip — `ds-standards.md`, `shadcn/USAGE.md` e o `shadcn-gotchas.md` **distribuído**. Nunca foi verdade: o 200 era do `HoverCard`. Corrigidos dizendo o que era falso, não só trocando o número.",
+          "A página do Tooltip afirmava \"Requer um `TooltipProvider` no root\" em três pontos — falso desde sempre, o `<Tooltip>` embrulha o próprio provider.",
+          "Hook `component-rules.mjs` defasado no template do CLI: é par foundational, e o `check-foundationals` (que roda **só no CI**) pegou.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.47.0",
     date: "2026-08-24",
     tag: "preview",

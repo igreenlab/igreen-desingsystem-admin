@@ -1,6 +1,6 @@
 {
   "name": "@snksergio/design-system",
-  "version": "0.47.0",
+  "version": "0.48.0",
   "//distribuicao": "Canal PRIMARIO = registry shadcn (copy-in) + CLI @snksergio/create-design-system; sobe sozinho no merge (Vercel). Canal SECUNDARIO = este pacote npm (@snksergio/design-system), publicado por passo MANUAL do mantenedor, entao costuma ficar atras do registry. SECUNDARIO descreve a ORDEM DE PUBLICACAO, nao o nivel de suporte: NAO e depreciado, e desde a 0.37.0 entrega 41 dos 42 componentes ui/ no barrel raiz + os 41 primitivos shadcn no subpath ./shadcn (so TabelaTeste, demo interno, fica de fora). Publish so pelo Passo 7 do .claude/skills/ds-dev/release.md (valida com `npm run lib:verify`, pede o token, publica, revoga). Ver DISTRIBUICAO.md.",
   "description": "iGreen Design System — internal library for SaaS CRM, admin panels and dashboards. React 19 + Tailwind v4 + Shadcn + Radix.",
   "license": "UNLICENSED",
