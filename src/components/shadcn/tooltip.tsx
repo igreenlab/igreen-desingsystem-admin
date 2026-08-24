@@ -27,9 +27,30 @@ const TooltipTrigger = TooltipPrimitive.Trigger;
 
 type TooltipProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>;
 
-const Tooltip = ({ children, ...props }: TooltipProps) => (
-  <TooltipProvider>
-    <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>
+/**
+ * Sem espera, por default.
+ *
+ * ⚠️ Até 2026-08-24 este componente **não passava `delayDuration`**, então valia o default do
+ * Radix — `DEFAULT_DELAY_DURATION = 700` (conferido no pacote instalado, não de memória).
+ * Três arquivos de doc afirmavam "delayDuration default = 200ms", incluindo o
+ * `shadcn-gotchas.md` que é distribuído: a afirmação nunca foi verdade pro Tooltip. O que
+ * tinha 200 de fato era o `HoverCard`, que passa `openDelay={200}` explícito.
+ *
+ * 700ms numa dica curta é tempo de a pessoa desistir e ir clicar pra descobrir. `0` deixa a
+ * dica instantânea, que é o comportamento esperado de tooltip de ícone.
+ *
+ * O `delayDuration` vai no Provider **e** no Root porque cada um governa uma coisa: o Provider
+ * define o padrão do grupo (e o `skipDelayDuration` entre triggers vizinhos), o Root vence pra
+ * esta tooltip. Continua sobrescritível — `<Tooltip delayDuration={400}>`.
+ *
+ * A animação de entrada não regride: com delay 0 o Radix emite `data-state="instant-open"` em
+ * vez de `delayed-open`, e as classes já cobrem os dois estados (ver `TooltipContent`).
+ */
+const Tooltip = ({ children, delayDuration = 0, ...props }: TooltipProps) => (
+  <TooltipProvider delayDuration={delayDuration}>
+    <TooltipPrimitive.Root delayDuration={delayDuration} {...props}>
+      {children}
+    </TooltipPrimitive.Root>
   </TooltipProvider>
 );
 Tooltip.displayName = "Tooltip";

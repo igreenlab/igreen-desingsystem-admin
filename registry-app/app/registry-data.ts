@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · accordion · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · alert-dialog · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · alert-modal · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · alert · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · app-shell · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · aspect-ratio · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · avatar-ig · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · avatar · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · badge · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · breadcrumb · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · button-group · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · button · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · calendar · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · card-checkbox · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · card · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · carousel · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · chart · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · checkbox · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · chip · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · choropleth-map · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · collapsible · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · color-picker · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · combobox · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · command · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · context-menu · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · data-list · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · data-table · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · date-picker · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · dialog · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · drawer · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · dropdown-menu · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · empty-state · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-app-shell · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-chat · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-clientes · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-dashboard · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-edit-page · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-finance · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-login · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-mapa-rede · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · example-order-detail · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2718,13 +2718,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/FileUploadField/file-upload-field.styles.ts",
-        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * FileUploadField styles — slots do widget renderizado dentro do FormField.\r\n *\r\n * - `dropzone`: estado VAZIO (value == null) — botão full-width clicável.\r\n * - `dropIcon` / `dropText` / `dropHint`: conteúdo do dropzone.\r\n * - `fileRow`: estado COM-ARQUIVO — preview + ação de remover.\r\n * - `thumb`: preview de imagem.\r\n * - `fileName`: nome do arquivo (truncate) no Chip de fallback.\r\n *\r\n * Focus do dropzone = Padrão 1 (botão estático): outline-none + ring-4.\r\n * `disabled` é o último variant declarado (L-006) — vence na cascata de slots.\r\n */\r\nexport const fileUploadFieldStyles = tv({\r\n  slots: {\r\n    dropzone: [\r\n      \"flex w-full flex-col items-center justify-center text-center\",\r\n      \"min-h-form-xl gap-gp-xs px-pad-2xl py-pad-lg\",\r\n      \"rounded-radius-xl bg-bg-muted\",\r\n      \"border border-dashed border-border-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] duration-200 ease-out\",\r\n      \"cursor-pointer hover:border-border-brand\",\r\n      // Padrão 1 — focus estático\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    dropIcon: \"text-fg-subtle\",\r\n    dropText: \"text-body-sm text-fg-muted\",\r\n    dropHint: \"text-caption-md text-fg-subtle\",\r\n    fileRow: [\r\n      \"flex w-full items-center gap-gp-sm\",\r\n      \"min-h-form-xl px-pad-xl py-pad-md\",\r\n      \"rounded-radius-xl bg-bg-muted border border-border-subtle\",\r\n    ],\r\n    thumb: [\r\n      \"size-icon-2xl shrink-0 rounded-radius-md object-cover\",\r\n      \"border border-border-subtle\",\r\n    ],\r\n    fileChipWrap: \"flex min-w-0 flex-1 items-center\",\r\n    fileName: \"min-w-0 truncate\",\r\n    removeWrap: \"ml-auto shrink-0\",\r\n  },\r\n  variants: {\r\n    disabled: {\r\n      // DS v3 não tem token bg-disabled/border-disabled → padrão Button = opacity-50 (L-006)\r\n      true: {\r\n        dropzone: \"pointer-events-none opacity-50\",\r\n        fileRow: \"opacity-50\",\r\n      },\r\n    },\r\n  },\r\n  defaultVariants: { disabled: false },\r\n});\r\n\r\nexport type FileUploadFieldVariantProps = Parameters<typeof fileUploadFieldStyles>[0];\r\n",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * FileUploadField styles — slots do widget renderizado dentro do FormField.\r\n *\r\n * - `dropzone`: estado VAZIO (value == null) — botão full-width clicável.\r\n * - `dropIcon` / `dropText` / `dropHint`: conteúdo do dropzone.\r\n * - `fileRow`: estado COM-ARQUIVO — preview + ação de remover.\r\n * - `thumb`: preview de imagem.\r\n * - `fileName`: nome do arquivo (truncate) no Chip de fallback.\r\n *\r\n * Focus do dropzone = Padrão 1 (botão estático): outline-none + ring-4.\r\n * `disabled` é o último variant declarado (L-006) — vence na cascata de slots.\r\n */\r\nexport const fileUploadFieldStyles = tv({\r\n  slots: {\r\n    dropzone: [\r\n      \"flex w-full flex-col items-center justify-center text-center\",\r\n      // Vertical MAIOR que o horizontal de propósito: é uma área de soltar, não uma linha de\r\n      // form. Estava `py-pad-lg` (10px) contra `px-pad-2xl` (16px) — apertado justamente no\r\n      // eixo que dá a leitura de \"zona\", e o conteúdo ficava colado na borda tracejada.\r\n      \"min-h-form-xl gap-gp-xs px-pad-2xl py-pad-4xl\",\r\n      \"rounded-radius-xl bg-bg-muted\",\r\n      \"border border-dashed border-border-default\",\r\n      \"transition-[color,box-shadow,background-color,border-color] duration-200 ease-out\",\r\n      \"cursor-pointer hover:border-border-brand\",\r\n      // Padrão 1 — focus estático\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    dropIcon: \"text-fg-subtle\",\r\n    /**\r\n     * Título e hint num bloco próprio, com gap de 2px.\r\n     *\r\n     * Antes os três (ícone, título, hint) eram irmãos sob o `gap-gp-xs` (4px) do dropzone —\r\n     * um gap só governando duas relações diferentes. Título↔hint são a MESMA informação em\r\n     * dois níveis e querem ficar juntos; o ícone é outro elemento e quer respiro. Agrupar é o\r\n     * que permite os dois valores.\r\n     */\r\n    dropTexts: \"flex flex-col items-center gap-gp-2xs\",\r\n    dropText: \"text-body-sm text-fg-muted\",\r\n    dropHint: \"text-caption-md text-fg-subtle\",\r\n    fileRow: [\r\n      \"flex w-full items-center gap-gp-sm\",\r\n      \"min-h-form-xl px-pad-xl py-pad-md\",\r\n      \"rounded-radius-xl bg-bg-muted border border-border-subtle\",\r\n    ],\r\n    thumb: [\r\n      \"size-icon-2xl shrink-0 rounded-radius-md object-cover\",\r\n      \"border border-border-subtle\",\r\n    ],\r\n    fileChipWrap: \"flex min-w-0 flex-1 items-center\",\r\n    fileName: \"min-w-0 truncate\",\r\n    removeWrap: \"ml-auto shrink-0\",\r\n  },\r\n  variants: {\r\n    disabled: {\r\n      // DS v3 não tem token bg-disabled/border-disabled → padrão Button = opacity-50 (L-006)\r\n      true: {\r\n        dropzone: \"pointer-events-none opacity-50\",\r\n        fileRow: \"opacity-50\",\r\n      },\r\n    },\r\n  },\r\n  defaultVariants: { disabled: false },\r\n});\r\n\r\nexport type FileUploadFieldVariantProps = Parameters<typeof fileUploadFieldStyles>[0];\r\n",
         "type": "registry:ui",
         "target": "components/ui/FileUploadField/file-upload-field.styles.ts"
       },
       {
         "path": "src/components/ui/FileUploadField/file-upload-field.tsx",
-        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { Icon } from \"@/components/ui/Icon\";\r\nimport { fileUploadFieldStyles } from \"./file-upload-field.styles\";\r\nimport type {\r\n  FileUploadFieldProps,\r\n  FileUploadPreview,\r\n} from \"./file-upload-field.types\";\r\n\r\n/** Decide se o value deve ser exibido como imagem (thumbnail) ou como chip de arquivo. */\r\nfunction resolveIsImage(\r\n  value: File | string,\r\n  preview: FileUploadPreview,\r\n  accept?: string,\r\n): boolean {\r\n  if (preview === \"image\") return true;\r\n  if (preview === \"file\") return false;\r\n  // auto — infere por MIME (File) ou por accept (URL string)\r\n  if (value instanceof File) return value.type.startsWith(\"image/\");\r\n  if (accept) return /image\\//.test(accept) || /\\.(png|jpe?g|gif|webp|svg|avif)/i.test(accept);\r\n  return /\\.(png|jpe?g|gif|webp|svg|avif)(\\?|$)/i.test(value);\r\n}\r\n\r\n/** Valida tipo contra `accept` (suporta `image/*`, `image/png`, `.pdf`). */\r\nfunction matchesAccept(file: File, accept?: string): boolean {\r\n  if (!accept) return true;\r\n  const tokens = accept.split(\",\").map((t) => t.trim().toLowerCase());\r\n  const name = file.name.toLowerCase();\r\n  const mime = file.type.toLowerCase();\r\n  return tokens.some((token) => {\r\n    if (!token) return false;\r\n    if (token.startsWith(\".\")) return name.endsWith(token);\r\n    if (token.endsWith(\"/*\")) return mime.startsWith(token.slice(0, token.length - 1));\r\n    return mime === token;\r\n  });\r\n}\r\n\r\n/**\r\n * FileUploadField — captura de UM arquivo (dumb: só captura File + preview).\r\n * O consumidor é responsável pelo upload. Composto de FormField + Button + Chip + Icon.\r\n *\r\n * - Estado VAZIO (`value == null`): dropzone `<button>` que abre o seletor nativo.\r\n * - Estado COM-ARQUIVO: preview (thumbnail de imagem ou Chip de arquivo) + remover.\r\n * - Rejeição por tipo/tamanho: arquivo NÃO vira value; dispara `onError(\"type\"|\"size\")`.\r\n *\r\n * A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden\r\n * com id linkado ao FormField; thumbnail com `alt`; remover icon-only com aria-label.\r\n * Drag & drop é fase 2 (não implementado — API preservada).\r\n */\r\nexport function FileUploadField({\r\n  value,\r\n  onChange,\r\n  accept,\r\n  maxSizeMB,\r\n  preview = \"auto\",\r\n  fileName,\r\n  label,\r\n  required,\r\n  state,\r\n  errorMessage,\r\n  helperText,\r\n  onError,\r\n  disabled,\r\n  id,\r\n  className,\r\n}: FileUploadFieldProps) {\r\n  const inputRef = useRef<HTMLInputElement>(null);\r\n  const styles = fileUploadFieldStyles({ disabled });\r\n\r\n  // Object URL pra preview de File (revogado ao trocar/desmontar).\r\n  const [objectUrl, setObjectUrl] = useState<string | null>(null);\r\n  useEffect(() => {\r\n    if (value instanceof File) {\r\n      const url = URL.createObjectURL(value);\r\n      setObjectUrl(url);\r\n      return () => URL.revokeObjectURL(url);\r\n    }\r\n    setObjectUrl(null);\r\n    return undefined;\r\n  }, [value]);\r\n\r\n  const openPicker = () => {\r\n    if (disabled) return;\r\n    inputRef.current?.click();\r\n  };\r\n\r\n  const handleFiles = (file: File | undefined) => {\r\n    if (!file) return;\r\n    if (!matchesAccept(file, accept)) {\r\n      onError?.(\"type\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    if (maxSizeMB != null && file.size > maxSizeMB * 1024 * 1024) {\r\n      onError?.(\"size\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    onChange(file);\r\n  };\r\n\r\n  const resetInput = () => {\r\n    if (inputRef.current) inputRef.current.value = \"\";\r\n  };\r\n\r\n  const handleRemove = () => {\r\n    onChange(null);\r\n    resetInput();\r\n  };\r\n\r\n  const hint = [\r\n    accept ? accept : null,\r\n    maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null,\r\n  ]\r\n    .filter(Boolean)\r\n    .join(\" · \");\r\n\r\n  const displayName =\r\n    value instanceof File ? value.name : (fileName ?? \"Arquivo\");\r\n  const isImage = value != null && resolveIsImage(value, preview, accept);\r\n  const imageSrc = value instanceof File ? objectUrl : (value as string | null);\r\n\r\n  return (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      helperText={helperText}\r\n      className={className}\r\n      id={id}\r\n      disabled={disabled}\r\n    >\r\n      {({ id: fieldId }) => (\r\n        <div>\r\n          <input\r\n            ref={inputRef}\r\n            id={fieldId}\r\n            type=\"file\"\r\n            accept={accept}\r\n            disabled={disabled}\r\n            className=\"hidden\"\r\n            onChange={(e) => handleFiles(e.target.files?.[0])}\r\n          />\r\n\r\n          {value == null ? (\r\n            <button\r\n              type=\"button\"\r\n              onClick={openPicker}\r\n              disabled={disabled}\r\n              aria-label={label ? `${label}: clique para anexar` : \"Clique para anexar\"}\r\n              className={styles.dropzone()}\r\n            >\r\n              <Icon name=\"line-cloud-upload\" size=\"lg\" className={styles.dropIcon()} />\r\n              <span className={styles.dropText()}>Clique para anexar</span>\r\n              {hint && <span className={styles.dropHint()}>{hint}</span>}\r\n            </button>\r\n          ) : (\r\n            <div className={styles.fileRow()}>\r\n              {isImage && imageSrc ? (\r\n                <img src={imageSrc} alt={displayName} className={styles.thumb()} />\r\n              ) : (\r\n                <div className={styles.fileChipWrap()}>\r\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"lg\" className=\"max-w-full\">\r\n                    <Icon name=\"line-file\" size=\"sm\" />\r\n                    <span className={styles.fileName()}>{displayName}</span>\r\n                  </Chip>\r\n                </div>\r\n              )}\r\n              <div className={styles.removeWrap()}>\r\n                <Button\r\n                  type=\"button\"\r\n                  color=\"critical\"\r\n                  variant=\"ghost\"\r\n                  size=\"icon-sm\"\r\n                  disabled={disabled}\r\n                  aria-label=\"Remover arquivo\"\r\n                  onClick={handleRemove}\r\n                >\r\n                  <Icon name=\"line-bin\" size=\"sm\" />\r\n                </Button>\r\n              </div>\r\n            </div>\r\n          )}\r\n        </div>\r\n      )}\r\n    </FormField>\r\n  );\r\n}\r\n",
+        "content": "import { useEffect, useRef, useState } from \"react\";\r\nimport { FormField } from \"@/components/ui/FormField\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { Icon } from \"@/components/ui/Icon\";\r\nimport { fileUploadFieldStyles } from \"./file-upload-field.styles\";\r\nimport type {\r\n  FileUploadFieldProps,\r\n  FileUploadPreview,\r\n} from \"./file-upload-field.types\";\r\n\r\n/** Decide se o value deve ser exibido como imagem (thumbnail) ou como chip de arquivo. */\r\nfunction resolveIsImage(\r\n  value: File | string,\r\n  preview: FileUploadPreview,\r\n  accept?: string,\r\n): boolean {\r\n  if (preview === \"image\") return true;\r\n  if (preview === \"file\") return false;\r\n  // auto — infere por MIME (File) ou por accept (URL string)\r\n  if (value instanceof File) return value.type.startsWith(\"image/\");\r\n  if (accept) return /image\\//.test(accept) || /\\.(png|jpe?g|gif|webp|svg|avif)/i.test(accept);\r\n  return /\\.(png|jpe?g|gif|webp|svg|avif)(\\?|$)/i.test(value);\r\n}\r\n\r\n/** Valida tipo contra `accept` (suporta `image/*`, `image/png`, `.pdf`). */\r\nfunction matchesAccept(file: File, accept?: string): boolean {\r\n  if (!accept) return true;\r\n  const tokens = accept.split(\",\").map((t) => t.trim().toLowerCase());\r\n  const name = file.name.toLowerCase();\r\n  const mime = file.type.toLowerCase();\r\n  return tokens.some((token) => {\r\n    if (!token) return false;\r\n    if (token.startsWith(\".\")) return name.endsWith(token);\r\n    if (token.endsWith(\"/*\")) return mime.startsWith(token.slice(0, token.length - 1));\r\n    return mime === token;\r\n  });\r\n}\r\n\r\n/**\r\n * FileUploadField — captura de UM arquivo (dumb: só captura File + preview).\r\n * O consumidor é responsável pelo upload. Composto de FormField + Button + Chip + Icon.\r\n *\r\n * - Estado VAZIO (`value == null`): dropzone `<button>` que abre o seletor nativo.\r\n * - Estado COM-ARQUIVO: preview (thumbnail de imagem ou Chip de arquivo) + remover.\r\n * - Rejeição por tipo/tamanho: arquivo NÃO vira value; dispara `onError(\"type\"|\"size\")`.\r\n *\r\n * A11y: dropzone é `<button>` (Enter/Space abrem o seletor); input file hidden\r\n * com id linkado ao FormField; thumbnail com `alt`; remover icon-only com aria-label.\r\n * Drag & drop é fase 2 (não implementado — API preservada).\r\n */\r\nexport function FileUploadField({\r\n  value,\r\n  onChange,\r\n  accept,\r\n  maxSizeMB,\r\n  preview = \"auto\",\r\n  fileName,\r\n  label,\r\n  required,\r\n  state,\r\n  errorMessage,\r\n  helperText,\r\n  onError,\r\n  disabled,\r\n  id,\r\n  className,\r\n}: FileUploadFieldProps) {\r\n  const inputRef = useRef<HTMLInputElement>(null);\r\n  const styles = fileUploadFieldStyles({ disabled });\r\n\r\n  // Object URL pra preview de File (revogado ao trocar/desmontar).\r\n  const [objectUrl, setObjectUrl] = useState<string | null>(null);\r\n  useEffect(() => {\r\n    if (value instanceof File) {\r\n      const url = URL.createObjectURL(value);\r\n      setObjectUrl(url);\r\n      return () => URL.revokeObjectURL(url);\r\n    }\r\n    setObjectUrl(null);\r\n    return undefined;\r\n  }, [value]);\r\n\r\n  const openPicker = () => {\r\n    if (disabled) return;\r\n    inputRef.current?.click();\r\n  };\r\n\r\n  const handleFiles = (file: File | undefined) => {\r\n    if (!file) return;\r\n    if (!matchesAccept(file, accept)) {\r\n      onError?.(\"type\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    if (maxSizeMB != null && file.size > maxSizeMB * 1024 * 1024) {\r\n      onError?.(\"size\");\r\n      resetInput();\r\n      return;\r\n    }\r\n    onChange(file);\r\n  };\r\n\r\n  const resetInput = () => {\r\n    if (inputRef.current) inputRef.current.value = \"\";\r\n  };\r\n\r\n  const handleRemove = () => {\r\n    onChange(null);\r\n    resetInput();\r\n  };\r\n\r\n  const hint = [\r\n    accept ? accept : null,\r\n    maxSizeMB != null ? `máx. ${maxSizeMB}MB` : null,\r\n  ]\r\n    .filter(Boolean)\r\n    .join(\" · \");\r\n\r\n  const displayName =\r\n    value instanceof File ? value.name : (fileName ?? \"Arquivo\");\r\n  const isImage = value != null && resolveIsImage(value, preview, accept);\r\n  const imageSrc = value instanceof File ? objectUrl : (value as string | null);\r\n\r\n  return (\r\n    <FormField\r\n      label={label}\r\n      required={required}\r\n      state={state}\r\n      errorMessage={errorMessage}\r\n      helperText={helperText}\r\n      className={className}\r\n      id={id}\r\n      disabled={disabled}\r\n    >\r\n      {({ id: fieldId }) => (\r\n        <div>\r\n          <input\r\n            ref={inputRef}\r\n            id={fieldId}\r\n            type=\"file\"\r\n            accept={accept}\r\n            disabled={disabled}\r\n            className=\"hidden\"\r\n            onChange={(e) => handleFiles(e.target.files?.[0])}\r\n          />\r\n\r\n          {value == null ? (\r\n            <button\r\n              type=\"button\"\r\n              onClick={openPicker}\r\n              disabled={disabled}\r\n              aria-label={label ? `${label}: clique para anexar` : \"Clique para anexar\"}\r\n              className={styles.dropzone()}\r\n            >\r\n              <Icon name=\"line-cloud-upload\" size=\"lg\" className={styles.dropIcon()} />\r\n              <span className={styles.dropTexts()}>\r\n                <span className={styles.dropText()}>Clique para anexar</span>\r\n                {hint && <span className={styles.dropHint()}>{hint}</span>}\r\n              </span>\r\n            </button>\r\n          ) : (\r\n            <div className={styles.fileRow()}>\r\n              {isImage && imageSrc ? (\r\n                <img src={imageSrc} alt={displayName} className={styles.thumb()} />\r\n              ) : (\r\n                <div className={styles.fileChipWrap()}>\r\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"lg\" className=\"max-w-full\">\r\n                    <Icon name=\"line-file\" size=\"sm\" />\r\n                    <span className={styles.fileName()}>{displayName}</span>\r\n                  </Chip>\r\n                </div>\r\n              )}\r\n              <div className={styles.removeWrap()}>\r\n                <Button\r\n                  type=\"button\"\r\n                  color=\"critical\"\r\n                  variant=\"ghost\"\r\n                  size=\"icon-sm\"\r\n                  disabled={disabled}\r\n                  aria-label=\"Remover arquivo\"\r\n                  onClick={handleRemove}\r\n                >\r\n                  <Icon name=\"line-bin\" size=\"sm\" />\r\n                </Button>\r\n              </div>\r\n            </div>\r\n          )}\r\n        </div>\r\n      )}\r\n    </FormField>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/FileUploadField/file-upload-field.tsx"
       },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · file-upload-field · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · floating-panel · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · footer-table · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · form-field · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · header · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · hover-card · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · icon · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · input-group · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · input-otp · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · input · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · kanban · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · kpi · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · label · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · list · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · markdown-text · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · menu-sidebar · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · menubar · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · modal · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · month-year-picker · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · navigation-menu · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · page-header · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · pagination · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · panel · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · popover · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · progress · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · radio-group · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3999,7 +3999,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · screen-loader · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4023,7 +4023,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · scroll-area · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4048,7 +4048,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · select · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4072,7 +4072,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · separator · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4098,7 +4098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · sheet · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4211,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4233,7 +4233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · skeleton · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4251,13 +4251,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/slider.tsx",
-        "content": "\"use client\"\n\nimport * as React from \"react\"\nimport * as SliderPrimitive from \"@radix-ui/react-slider\"\n\nimport { cn } from \"@/lib/utils\"\n\n/**\n * Slider — alinhado com tokens v3.\n *\n * Specs:\n *   - Track: h:8px (h-2), bg-emphasis (light, gray[100]) / bg-accent (dark, alpha 16%), radius-full\n *   - Range: bg-brand (filled portion)\n *   - Thumb: 24x16 (oval), white com shadow-sh-md\n *     - hover/focus: shadow-sh-ring (brand glow)\n */\nconst THUMB_CLASS = cn(\n  \"block h-4 w-6 shrink-0 rounded-radius-full bg-white\",\n  \"shadow-sh-md\",\n  \"transition-[box-shadow] select-none outline-none\",\n  \"hover:shadow-sh-ring\",\n  \"focus-visible:shadow-sh-ring\",\n  \"disabled:pointer-events-none disabled:opacity-50\"\n);\n\nconst Slider = React.forwardRef<\n  React.ElementRef<typeof SliderPrimitive.Root>,\n  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>\n>(({ className, defaultValue, value, ...props }, ref) => {\n  const thumbCount = (value ?? defaultValue ?? [0]).length;\n\n  return (\n    <SliderPrimitive.Root\n      ref={ref}\n      defaultValue={defaultValue}\n      value={value}\n      className={cn(\n        \"relative flex w-full touch-none select-none items-center\",\n        className\n      )}\n      {...props}\n    >\n      <SliderPrimitive.Track className=\"relative h-2 w-full grow overflow-hidden rounded-radius-full bg-bg-emphasis dark:bg-bg-accent\">\n        <SliderPrimitive.Range className=\"absolute h-full bg-bg-brand\" />\n      </SliderPrimitive.Track>\n      {Array.from({ length: thumbCount }, (_, i) => (\n        <SliderPrimitive.Thumb key={i} className={THUMB_CLASS} />\n      ))}\n    </SliderPrimitive.Root>\n  );\n})\nSlider.displayName = SliderPrimitive.Root.displayName\n\nexport { Slider }\n",
+        "content": "\"use client\"\r\n\r\nimport * as React from \"react\"\r\nimport * as SliderPrimitive from \"@radix-ui/react-slider\"\r\n\r\nimport { cn } from \"@/lib/utils\"\r\n\r\n/**\r\n * Slider — alinhado com tokens v3.\r\n *\r\n * Specs:\r\n *   - Track: h:8px (h-2), bg-emphasis (light, gray[100]) / bg-accent (dark, alpha 16%), radius-full\r\n *   - Range: bg-brand (filled portion)\r\n *   - Thumb: 24x16 (oval), white com shadow-sh-md\r\n *     - hover/focus: shadow-sh-ring (brand glow)\r\n */\r\nconst THUMB_CLASS = cn(\r\n  \"block h-4 w-6 shrink-0 rounded-radius-full bg-white\",\r\n  \"shadow-sh-md\",\r\n  \"transition-[box-shadow] select-none outline-none\",\r\n  \"hover:shadow-sh-ring\",\r\n  \"focus-visible:shadow-sh-ring\",\r\n  // A affordance do gesto: a mãozinha aberta convida a arrastar, a fechada confirma que\r\n  // está arrastando. Mesmo par que o grab-to-scroll da DataTable usa.\r\n  \"cursor-grab active:cursor-grabbing\",\r\n  \"data-[disabled]:cursor-default\"\r\n);\r\n\r\nconst Slider = React.forwardRef<\r\n  React.ElementRef<typeof SliderPrimitive.Root>,\r\n  React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>\r\n>(({ className, defaultValue, value, ...props }, ref) => {\r\n  const thumbCount = (value ?? defaultValue ?? [0]).length;\r\n\r\n  return (\r\n    <SliderPrimitive.Root\r\n      ref={ref}\r\n      defaultValue={defaultValue}\r\n      value={value}\r\n      className={cn(\r\n        \"relative flex w-full touch-none select-none items-center\",\r\n        /**\r\n         * Desabilitado escurece o COMPONENTE, não só o thumb — trilho, faixa preenchida e\r\n         * thumb juntos, que é o que dá o aspecto de desabilitado.\r\n         *\r\n         * ⚠️ Tem que ser `data-[disabled]`. Até 2026-08-24 o thumb carregava\r\n         * `disabled:pointer-events-none disabled:opacity-50` e isso era **código morto**: o\r\n         * thumb é um `<span>`, não aceita o atributo `disabled`, e o Radix marca estado por\r\n         * data attribute (L-012). Medido no browser antes de trocar — o thumb desabilitado\r\n         * estava com `opacity: 1` e `pointer-events: auto`, ou seja, o estado não existia\r\n         * visualmente e o gesto seguia aceito.\r\n         */\r\n        \"data-[disabled]:pointer-events-none data-[disabled]:opacity-50\",\r\n        className\r\n      )}\r\n      {...props}\r\n    >\r\n      <SliderPrimitive.Track className=\"relative h-2 w-full grow overflow-hidden rounded-radius-full bg-bg-emphasis dark:bg-bg-accent\">\r\n        <SliderPrimitive.Range className=\"absolute h-full bg-bg-brand\" />\r\n      </SliderPrimitive.Track>\r\n      {Array.from({ length: thumbCount }, (_, i) => (\r\n        <SliderPrimitive.Thumb key={i} className={THUMB_CLASS} />\r\n      ))}\r\n    </SliderPrimitive.Root>\r\n  );\r\n})\r\nSlider.displayName = SliderPrimitive.Root.displayName\r\n\r\nexport { Slider }\r\n",
         "type": "registry:ui",
         "target": "components/ui/slider.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · slider · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4280,7 +4280,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · sonner · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4326,7 +4326,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · spinner · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4350,7 +4350,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · switch · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4429,7 +4429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · table · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4453,7 +4453,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · tabs · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4477,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · textarea · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · theme-blue · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4513,7 +4513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · theme-green · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4531,7 +4531,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · theme-pay · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4549,7 +4549,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · theme-vibrant · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4571,7 +4571,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · theme · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4622,7 +4622,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · toast · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4648,7 +4648,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · toggle-group · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4673,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · toggle · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4691,13 +4691,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/shadcn/tooltip.tsx",
-        "content": "import * as React from \"react\";\r\nimport * as TooltipPrimitive from \"@radix-ui/react-tooltip\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * Tooltip — dica flutuante curta (Radix Tooltip) remapeada para tokens DS.\r\n *\r\n * Visual: bolha neutra de ênfase (`bg-bg-emphasis` — theme-aware, mais visível\r\n * que `muted` e diferente das superfícies brancas de Popover/Dropdown), texto\r\n * `caption-sm`, `rounded-radius-md`, `shadow-sh-md`. A seta reaproveita o mesmo\r\n * fundo via `fill-bg-emphasis`.\r\n *\r\n * O DS **não tem** superfície escura invertida (`surface-inverted`), então a\r\n * tooltip é uma bolha neutra clara (light) / clara-sobre-escuro (dark) — em vez\r\n * do bubble preto clássico. É a escolha token-nativa: nenhum token novo.\r\n *\r\n * `<Tooltip>` já embrulha um `<TooltipProvider>` internamente, então uma tooltip\r\n * avulsa funciona sem provider no topo da app. Provider aninhado é seguro no\r\n * Radix (o mais interno vence) — se quiser um `delayDuration` global, monte um\r\n * `<TooltipProvider>` você mesmo em volta de vários `<Tooltip>`.\r\n */\r\n\r\nconst TooltipProvider = TooltipPrimitive.Provider;\r\n\r\nconst TooltipTrigger = TooltipPrimitive.Trigger;\r\n\r\ntype TooltipProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>;\r\n\r\nconst Tooltip = ({ children, ...props }: TooltipProps) => (\r\n  <TooltipProvider>\r\n    <TooltipPrimitive.Root {...props}>{children}</TooltipPrimitive.Root>\r\n  </TooltipProvider>\r\n);\r\nTooltip.displayName = \"Tooltip\";\r\n\r\ntype TooltipContentProps = React.ComponentPropsWithoutRef<\r\n  typeof TooltipPrimitive.Content\r\n> & {\r\n  /** Renderiza a seta apontando pro trigger. Default `true`. */\r\n  showArrow?: boolean;\r\n};\r\n\r\nconst TooltipContent = React.forwardRef<\r\n  React.ElementRef<typeof TooltipPrimitive.Content>,\r\n  TooltipContentProps\r\n>(({ className, sideOffset = 6, showArrow = true, children, ...props }, ref) => (\r\n  <TooltipPrimitive.Portal>\r\n    <TooltipPrimitive.Content\r\n      ref={ref}\r\n      sideOffset={sideOffset}\r\n      className={cn(\r\n        \"z-50 max-w-[16rem] select-none\",\r\n        \"bg-bg-emphasis text-fg-default\",\r\n        \"rounded-radius-md px-pad-lg py-pad-xs\",\r\n        \"text-caption-sm\",\r\n        \"shadow-sh-md\",\r\n        \"origin-[--radix-tooltip-content-transform-origin]\",\r\n        \"data-[state=delayed-open]:animate-in data-[state=instant-open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=instant-open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=delayed-open]:zoom-in-95 data-[state=instant-open]:zoom-in-95\",\r\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\r\n        \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {showArrow && (\r\n        <TooltipPrimitive.Arrow\r\n          width={11}\r\n          height={5}\r\n          className=\"fill-bg-emphasis\"\r\n        />\r\n      )}\r\n    </TooltipPrimitive.Content>\r\n  </TooltipPrimitive.Portal>\r\n));\r\nTooltipContent.displayName = TooltipPrimitive.Content.displayName;\r\n\r\nexport { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };\r\n",
+        "content": "import * as React from \"react\";\r\nimport * as TooltipPrimitive from \"@radix-ui/react-tooltip\";\r\n\r\nimport { cn } from \"@/lib/utils\";\r\n\r\n/**\r\n * Tooltip — dica flutuante curta (Radix Tooltip) remapeada para tokens DS.\r\n *\r\n * Visual: bolha neutra de ênfase (`bg-bg-emphasis` — theme-aware, mais visível\r\n * que `muted` e diferente das superfícies brancas de Popover/Dropdown), texto\r\n * `caption-sm`, `rounded-radius-md`, `shadow-sh-md`. A seta reaproveita o mesmo\r\n * fundo via `fill-bg-emphasis`.\r\n *\r\n * O DS **não tem** superfície escura invertida (`surface-inverted`), então a\r\n * tooltip é uma bolha neutra clara (light) / clara-sobre-escuro (dark) — em vez\r\n * do bubble preto clássico. É a escolha token-nativa: nenhum token novo.\r\n *\r\n * `<Tooltip>` já embrulha um `<TooltipProvider>` internamente, então uma tooltip\r\n * avulsa funciona sem provider no topo da app. Provider aninhado é seguro no\r\n * Radix (o mais interno vence) — se quiser um `delayDuration` global, monte um\r\n * `<TooltipProvider>` você mesmo em volta de vários `<Tooltip>`.\r\n */\r\n\r\nconst TooltipProvider = TooltipPrimitive.Provider;\r\n\r\nconst TooltipTrigger = TooltipPrimitive.Trigger;\r\n\r\ntype TooltipProps = React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Root>;\r\n\r\n/**\r\n * Sem espera, por default.\r\n *\r\n * ⚠️ Até 2026-08-24 este componente **não passava `delayDuration`**, então valia o default do\r\n * Radix — `DEFAULT_DELAY_DURATION = 700` (conferido no pacote instalado, não de memória).\r\n * Três arquivos de doc afirmavam \"delayDuration default = 200ms\", incluindo o\r\n * `shadcn-gotchas.md` que é distribuído: a afirmação nunca foi verdade pro Tooltip. O que\r\n * tinha 200 de fato era o `HoverCard`, que passa `openDelay={200}` explícito.\r\n *\r\n * 700ms numa dica curta é tempo de a pessoa desistir e ir clicar pra descobrir. `0` deixa a\r\n * dica instantânea, que é o comportamento esperado de tooltip de ícone.\r\n *\r\n * O `delayDuration` vai no Provider **e** no Root porque cada um governa uma coisa: o Provider\r\n * define o padrão do grupo (e o `skipDelayDuration` entre triggers vizinhos), o Root vence pra\r\n * esta tooltip. Continua sobrescritível — `<Tooltip delayDuration={400}>`.\r\n *\r\n * A animação de entrada não regride: com delay 0 o Radix emite `data-state=\"instant-open\"` em\r\n * vez de `delayed-open`, e as classes já cobrem os dois estados (ver `TooltipContent`).\r\n */\r\nconst Tooltip = ({ children, delayDuration = 0, ...props }: TooltipProps) => (\r\n  <TooltipProvider delayDuration={delayDuration}>\r\n    <TooltipPrimitive.Root delayDuration={delayDuration} {...props}>\r\n      {children}\r\n    </TooltipPrimitive.Root>\r\n  </TooltipProvider>\r\n);\r\nTooltip.displayName = \"Tooltip\";\r\n\r\ntype TooltipContentProps = React.ComponentPropsWithoutRef<\r\n  typeof TooltipPrimitive.Content\r\n> & {\r\n  /** Renderiza a seta apontando pro trigger. Default `true`. */\r\n  showArrow?: boolean;\r\n};\r\n\r\nconst TooltipContent = React.forwardRef<\r\n  React.ElementRef<typeof TooltipPrimitive.Content>,\r\n  TooltipContentProps\r\n>(({ className, sideOffset = 6, showArrow = true, children, ...props }, ref) => (\r\n  <TooltipPrimitive.Portal>\r\n    <TooltipPrimitive.Content\r\n      ref={ref}\r\n      sideOffset={sideOffset}\r\n      className={cn(\r\n        \"z-50 max-w-[16rem] select-none\",\r\n        \"bg-bg-emphasis text-fg-default\",\r\n        \"rounded-radius-md px-pad-lg py-pad-xs\",\r\n        \"text-caption-sm\",\r\n        \"shadow-sh-md\",\r\n        \"origin-[--radix-tooltip-content-transform-origin]\",\r\n        \"data-[state=delayed-open]:animate-in data-[state=instant-open]:animate-in data-[state=closed]:animate-out\",\r\n        \"data-[state=closed]:fade-out-0 data-[state=delayed-open]:fade-in-0 data-[state=instant-open]:fade-in-0\",\r\n        \"data-[state=closed]:zoom-out-95 data-[state=delayed-open]:zoom-in-95 data-[state=instant-open]:zoom-in-95\",\r\n        \"data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2\",\r\n        \"data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2\",\r\n        className,\r\n      )}\r\n      {...props}\r\n    >\r\n      {children}\r\n      {showArrow && (\r\n        <TooltipPrimitive.Arrow\r\n          width={11}\r\n          height={5}\r\n          className=\"fill-bg-emphasis\"\r\n        />\r\n      )}\r\n    </TooltipPrimitive.Content>\r\n  </TooltipPrimitive.Portal>\r\n));\r\nTooltipContent.displayName = TooltipPrimitive.Content.displayName;\r\n\r\nexport { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };\r\n",
         "type": "registry:ui",
         "target": "components/ui/tooltip.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · tooltip · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4718,7 +4718,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · tv · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4740,7 +4740,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.47.0 · 462e3f5 · 2026-08-24"
+      "stamp": "igreen-ds · utils · v0.47.0 · a22ae2e · 2026-08-24"
     },
     "type": "registry:file"
   }

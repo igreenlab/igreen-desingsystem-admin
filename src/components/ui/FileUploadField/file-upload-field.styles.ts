@@ -16,7 +16,10 @@ export const fileUploadFieldStyles = tv({
   slots: {
     dropzone: [
       "flex w-full flex-col items-center justify-center text-center",
-      "min-h-form-xl gap-gp-xs px-pad-2xl py-pad-lg",
+      // Vertical MAIOR que o horizontal de propósito: é uma área de soltar, não uma linha de
+      // form. Estava `py-pad-lg` (10px) contra `px-pad-2xl` (16px) — apertado justamente no
+      // eixo que dá a leitura de "zona", e o conteúdo ficava colado na borda tracejada.
+      "min-h-form-xl gap-gp-xs px-pad-2xl py-pad-4xl",
       "rounded-radius-xl bg-bg-muted",
       "border border-dashed border-border-default",
       "transition-[color,box-shadow,background-color,border-color] duration-200 ease-out",
@@ -25,6 +28,15 @@ export const fileUploadFieldStyles = tv({
       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     dropIcon: "text-fg-subtle",
+    /**
+     * Título e hint num bloco próprio, com gap de 2px.
+     *
+     * Antes os três (ícone, título, hint) eram irmãos sob o `gap-gp-xs` (4px) do dropzone —
+     * um gap só governando duas relações diferentes. Título↔hint são a MESMA informação em
+     * dois níveis e querem ficar juntos; o ícone é outro elemento e quer respiro. Agrupar é o
+     * que permite os dois valores.
+     */
+    dropTexts: "flex flex-col items-center gap-gp-2xs",
     dropText: "text-body-sm text-fg-muted",
     dropHint: "text-caption-md text-fg-subtle",
     fileRow: [
