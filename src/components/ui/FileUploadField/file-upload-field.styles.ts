@@ -28,6 +28,15 @@ export const fileUploadFieldStyles = tv({
       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
     ],
     dropIcon: "text-fg-subtle",
+    /**
+     * Título e hint num bloco próprio, com gap de 2px.
+     *
+     * Antes os três (ícone, título, hint) eram irmãos sob o `gap-gp-xs` (4px) do dropzone —
+     * um gap só governando duas relações diferentes. Título↔hint são a MESMA informação em
+     * dois níveis e querem ficar juntos; o ícone é outro elemento e quer respiro. Agrupar é o
+     * que permite os dois valores.
+     */
+    dropTexts: "flex flex-col items-center gap-gp-2xs",
     dropText: "text-body-sm text-fg-muted",
     dropHint: "text-caption-md text-fg-subtle",
     fileRow: [

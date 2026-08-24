@@ -154,8 +154,10 @@ export function FileUploadField({
               className={styles.dropzone()}
             >
               <Icon name="line-cloud-upload" size="lg" className={styles.dropIcon()} />
-              <span className={styles.dropText()}>Clique para anexar</span>
-              {hint && <span className={styles.dropHint()}>{hint}</span>}
+              <span className={styles.dropTexts()}>
+                <span className={styles.dropText()}>Clique para anexar</span>
+                {hint && <span className={styles.dropHint()}>{hint}</span>}
+              </span>
             </button>
           ) : (
             <div className={styles.fileRow()}>
