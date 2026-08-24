@@ -29,7 +29,10 @@ export const screenLoaderStyles = tv({
     skeletonHeaderText: "flex w-full flex-col gap-gp-md",
     skeletonKpis: "grid w-full grid-cols-2 gap-gp-xl lg:grid-cols-4",
     skeletonKpiCard: "min-h-[96px] w-full",
-    skeletonBody: "min-h-[240px] w-full flex-1",
+    // basis-[240px] + grow/shrink em vez de min-h: em pai SEM altura o bloco
+    // vale 240px (fallback); em pai COM altura ele cresce/encolhe pra caber —
+    // min-h fixo estourava o container quando header + KPIs + bloco > pai
+    skeletonBody: "w-full grow shrink basis-[240px]",
   },
   variants: {
     variant: {

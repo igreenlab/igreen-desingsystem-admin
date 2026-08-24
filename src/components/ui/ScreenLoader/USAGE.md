@@ -44,7 +44,7 @@ import { ScreenLoader } from "@snksergio/design-system";
 ## Gotchas
 
 - **Padrão de uso: omita `size` (= `md`).** É o calibrado pro slot de conteúdo do AppShell. `sm` só pra área comprovadamente pequena (card baixo, painel lateral); `lg` só pra tela cheia vazia sem chrome. Não escolha `lg` "pra dar destaque".
-- **Qual `skeletonLayout`?** A tela alvo tem KPIs no topo → `dashboard` (com header de página) ou `kpis` (quando o header já está renderizado fora da área que carrega). Tela comum de conteúdo → `page` (default). Não invente combinação além dessas três: layout mais específico que isso = compor `Skeleton` na mão.
+- **Padrão do skeleton: omita `skeletonLayout` (= `page`, header + conteúdo).** É a silhueta genérica que serve pra qualquer tela — só saia dela quando a tela alvo COMPROVADAMENTE tem KPIs no topo: `dashboard` (com header de página) ou `kpis` (quando o header já está renderizado fora da área que carrega). Não invente combinação além dessas três: layout mais específico que isso = compor `Skeleton` na mão.
 
 - **O pai precisa ter altura.** O componente preenche o container (`h-full flex-1`) — num pai sem altura definida, a variante `spinner` colapsa no topo (o `skeleton` tem `min-h` próprio de fallback). No AppShell o slot de conteúdo já tem altura.
 - **Nunca `position: fixed`** — cobrir o viewport inteiro (splash, auth guard) é composição do consumidor, de propósito.
