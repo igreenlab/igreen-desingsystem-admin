@@ -13,7 +13,7 @@ Não é barra de progresso determinística — para isso use `Progress`.
 
 | Prop | Tipo | Default | Descrição |
 |------|------|---------|-----------|
-| `size` | `"sm" \| "md" \| "lg"` | `"md"` | Tamanho via `size-icon-sm/md/lg`. |
+| `size` | `"sm" \| "md" \| "lg" \| "xl" \| "2xl"` | `"md"` | Tamanho via `size-icon-*` (16/20/24/32/40px). `xl`/`2xl` são pra loading de área/página (é o que o `ScreenLoader` usa). |
 | `color` | `"current" \| "default" \| "muted" \| "brand" \| "on-brand"` | `"muted"` | Cor via `text-fg-*`. `current` herda a cor do texto do pai. |
 | `label` | `string` | `"Carregando"` | Rótulo acessível (`role="status"`). |
 | `className` | `string` | — | Overrides (o SVG é o próprio nó — aceita `ref` para `SVGSVGElement`). |
@@ -24,7 +24,7 @@ Aceita qualquer prop de `<svg>` (menos `color`, sobrescrita pela variante).
 
 | Variante | Valores |
 |----------|---------|
-| `size` | `sm` · `md` · `lg` |
+| `size` | `sm` · `md` · `lg` · `xl` · `2xl` |
 | `color` | `current` · `default` · `muted` · `brand` · `on-brand` |
 
 ## Exemplo mínimo

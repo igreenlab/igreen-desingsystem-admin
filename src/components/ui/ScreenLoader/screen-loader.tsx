@@ -8,9 +8,9 @@ import type { ScreenLoaderProps } from "./screen-loader.types";
 
 /** Mapeia o size do ScreenLoader para o size do Spinner interno. */
 const SPINNER_SIZE = {
-  sm: "md",
-  md: "lg",
-  lg: "lg",
+  sm: "lg",
+  md: "xl",
+  lg: "2xl",
 } as const;
 
 /**
@@ -55,10 +55,12 @@ export const ScreenLoader = forwardRef<HTMLDivElement, ScreenLoaderProps>(
         {variant === "spinner" ? (
           <>
             <Spinner size={SPINNER_SIZE[size]} color={color} aria-hidden />
-            <h3 className={styles.title()}>{title}</h3>
-            {description && (
-              <p className={styles.description()}>{description}</p>
-            )}
+            <div className={styles.text()}>
+              <h3 className={styles.title()}>{title}</h3>
+              {description && (
+                <p className={styles.description()}>{description}</p>
+              )}
+            </div>
           </>
         ) : (
           <>

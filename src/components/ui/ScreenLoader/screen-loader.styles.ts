@@ -20,6 +20,9 @@ import { tv, type VariantProps } from "@/utils/tv";
 export const screenLoaderStyles = tv({
   slots: {
     root: "flex h-full min-h-0 w-full flex-1 flex-col",
+    // título + descrição colados (gp-2xs = 2px); o respiro maior (gp-md do
+    // root) fica entre o Spinner e o bloco de texto
+    text: "flex flex-col items-center gap-gp-2xs",
     title: "text-fg-strong",
     description: "text-body-sm text-fg-muted max-w-[360px]",
     skeletonHeader: "flex w-full items-start justify-between gap-gp-2xl",

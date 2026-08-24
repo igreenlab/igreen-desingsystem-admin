@@ -10,6 +10,9 @@ import { tv, type VariantProps } from "@/utils/tv";
  *
  * Variantes:
  *   - size:  sm (size-icon-sm) | md (size-icon-md) | lg (size-icon-lg)
+ *            | xl (size-icon-xl, 32px) | 2xl (size-icon-2xl, 40px) — os dois
+ *            maiores existem pra loading de área/página (ScreenLoader), onde
+ *            os 24px do lg somem no espaço
  *   - color: current (herda o texto do pai) | default | muted | brand | on-brand
  */
 export const spinnerStyles = tv({
@@ -19,6 +22,8 @@ export const spinnerStyles = tv({
       sm: "size-icon-sm",
       md: "size-icon-md",
       lg: "size-icon-lg",
+      xl: "size-icon-xl",
+      "2xl": "size-icon-2xl",
     },
     color: {
       current: "text-current",
