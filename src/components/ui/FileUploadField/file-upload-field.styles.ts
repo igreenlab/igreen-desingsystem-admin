@@ -16,7 +16,10 @@ export const fileUploadFieldStyles = tv({
   slots: {
     dropzone: [
       "flex w-full flex-col items-center justify-center text-center",
-      "min-h-form-xl gap-gp-xs px-pad-2xl py-pad-lg",
+      // Vertical MAIOR que o horizontal de propósito: é uma área de soltar, não uma linha de
+      // form. Estava `py-pad-lg` (10px) contra `px-pad-2xl` (16px) — apertado justamente no
+      // eixo que dá a leitura de "zona", e o conteúdo ficava colado na borda tracejada.
+      "min-h-form-xl gap-gp-xs px-pad-2xl py-pad-4xl",
       "rounded-radius-xl bg-bg-muted",
       "border border-dashed border-border-default",
       "transition-[color,box-shadow,background-color,border-color] duration-200 ease-out",

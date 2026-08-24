@@ -4020,3 +4020,48 @@ sessões além da linha na tabela do `CLAUDE.md`.
 
 **Changelog + bump:** o bloco do ScreenLoader muda arquivo distribuído; entra no próximo
 `/ds-release` (o vocabulário dele já estava lá, então não há bump de CLI pendente por isto).
+
+---
+
+### 2026-08-24 | ds-dev | Tooltip instantâneo, disabled do Slider que era código morto, dropzone com respiro | CONCLUÍDO
+
+**Input:** três ajustes pedidos pelo mantenedor em componentes existentes — delay do Tooltip
+alto, thumb do Slider sem affordance de arrasto e disabled fraco, dropzone do FileUploadField
+apertado no topo/base.
+
+**Um dos três não era o que parecia.**
+
+1. **Tooltip — a doc mentia em três lugares.** O componente **não passava** `delayDuration`,
+   então valia o default do Radix: `DEFAULT_DELAY_DURATION = 700` (conferido no pacote
+   instalado, não de memória). E `ds-standards.md`, `shadcn/USAGE.md` e o `shadcn-gotchas.md`
+   **distribuído** afirmavam "default = 200ms" — nunca foi verdade pro Tooltip; o 200 real era
+   do `HoverCard`, que passa `openDelay` explícito. Agora `delayDuration = 0`
+   (sobrescritível), no Provider **e** no Root, e as três docs corrigidas dizendo o que era
+   falso. Medido no browser: **5ms** do `pointerover` até a dica aparecer.
+2. **Slider — o disabled era código morto.** O thumb carregava
+   `disabled:pointer-events-none disabled:opacity-50`, mas thumb é um `<span>`: não aceita o
+   atributo `disabled`, e Radix marca estado por **data attribute** (L-012). Medido ANTES de
+   trocar: thumb desabilitado com `opacity: 1` e `pointer-events: auto` — o estado não existia
+   visualmente e o gesto seguia aceito. Fix: `data-[disabled]` no **Root**, pra escurecer
+   trilho + faixa + thumb juntos. E `cursor-grab`/`active:cursor-grabbing` no thumb, o mesmo
+   par do grab-to-scroll da DataTable.
+3. **FileUploadField — vertical menor que horizontal.** `py-pad-lg` (10px) contra `px-pad-2xl`
+   (16px): apertado justamente no eixo que dá leitura de "zona". Foi pra `py-pad-4xl` (24px).
+   Medido: dropzone de 68px→96px, e 88px→116px com a linha de hint.
+
+**Bônus de doc:** a `TooltipDoc` afirmava "Requer um TooltipProvider no root" em três lugares
+(descrição, exemplo e tabela de API) — falso desde sempre, o `<Tooltip>` embrulha o próprio
+provider. Corrigido.
+
+**Estado:** tsc 0 · 63 arquivos / 766 testes · `release:check` exit 0 · `check-foundationals`
+11 em sync (o `shadcn-gotchas.md` é par foundational — rebakeado) · registry + embed
+recarimbados (os três componentes são distribuídos).
+
+**Assumption:** que `delayDuration = 0` não incomoda ao atravessar uma fileira de botões de
+ícone. Radix abre instantâneo em cada trigger que o cursor cruzar, e numa toolbar densa isso
+pode piscar. Se acontecer, o conserto é `100`, não voltar pros 700 — e o override por
+instância continua existindo.
+
+**Não virou lição:** o caso do Slider é L-012 aplicada (Radix usa data attribute), já
+catalogada; o do Tooltip é L-060 (doc que afirma garantia que o código não dá), também
+catalogada. Nenhuma das duas gera regra nova.

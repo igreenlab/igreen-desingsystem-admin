@@ -20,7 +20,10 @@ const THUMB_CLASS = cn(
   "transition-[box-shadow] select-none outline-none",
   "hover:shadow-sh-ring",
   "focus-visible:shadow-sh-ring",
-  "disabled:pointer-events-none disabled:opacity-50"
+  // A affordance do gesto: a mãozinha aberta convida a arrastar, a fechada confirma que
+  // está arrastando. Mesmo par que o grab-to-scroll da DataTable usa.
+  "cursor-grab active:cursor-grabbing",
+  "data-[disabled]:cursor-default"
 );
 
 const Slider = React.forwardRef<
@@ -36,6 +39,18 @@ const Slider = React.forwardRef<
       value={value}
       className={cn(
         "relative flex w-full touch-none select-none items-center",
+        /**
+         * Desabilitado escurece o COMPONENTE, não só o thumb — trilho, faixa preenchida e
+         * thumb juntos, que é o que dá o aspecto de desabilitado.
+         *
+         * ⚠️ Tem que ser `data-[disabled]`. Até 2026-08-24 o thumb carregava
+         * `disabled:pointer-events-none disabled:opacity-50` e isso era **código morto**: o
+         * thumb é um `<span>`, não aceita o atributo `disabled`, e o Radix marca estado por
+         * data attribute (L-012). Medido no browser antes de trocar — o thumb desabilitado
+         * estava com `opacity: 1` e `pointer-events: auto`, ou seja, o estado não existia
+         * visualmente e o gesto seguia aceito.
+         */
+        "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
         className
       )}
       {...props}

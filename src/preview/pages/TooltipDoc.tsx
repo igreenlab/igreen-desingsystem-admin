@@ -24,7 +24,7 @@ const TOC = [
 ];
 
 const PROPS = [
-  { name: "TooltipProvider", type: "wrapper (1× no root) — controla delay global", defaultVal: "—" },
+  { name: "TooltipProvider", type: "wrapper opcional — só pra agrupar delay de vários triggers; o <Tooltip> já traz o seu", defaultVal: "—" },
   { name: "Tooltip", type: "raiz (open/defaultOpen/onOpenChange)", defaultVal: "—" },
   { name: "TooltipTrigger", type: "gatilho — use `asChild` pra herdar o elemento", defaultVal: "—" },
   { name: "TooltipContent", type: "conteúdo — `side` / `sideOffset` / `align`", defaultVal: 'side="top"' },
@@ -36,7 +36,7 @@ export function TooltipDoc() {
       <DocHeader
         category="Components"
         title="Tooltip"
-        description="Dica contextual on-hover/focus (Radix). Tokenizada iGreen: surface + border + radius/shadow do DS, texto body-sm. Requer um TooltipProvider no root."
+        description="Dica contextual on-hover/focus (Radix). Tokenizada iGreen: surface + border + radius/shadow do DS, texto caption-sm. Aparece na hora (delayDuration 0) e NÃO precisa de TooltipProvider no root — o <Tooltip> embrulha o seu."
         dependency="@radix-ui/react-tooltip"
       />
       <DocSeparator />
@@ -46,7 +46,7 @@ export function TooltipDoc() {
       <ExampleSection
         id="ex-basic"
         title="Básico"
-        description="Envolva a app com TooltipProvider (1×). Trigger via asChild herda o elemento."
+        description="Não precisa de provider: o <Tooltip> já traz o seu. Trigger via asChild herda o elemento."
         code={`<TooltipProvider>
   <Tooltip>
     <TooltipTrigger asChild>
