@@ -28,6 +28,14 @@ src/components/ui/NomeComponente/
 └── USAGE.md                   # OBRIGATÓRIO
 ```
 
+> ⚠️ **O componente tem regra de comportamento?** (qual variante usar em cada contexto, qual
+> default NÃO passar, o que o pai precisa ter). Então o `USAGE.md` precisa de **duas** coisas,
+> não uma: a prosa com o porquê **e** um bloco `<!-- ds:regras -->` curto no topo — é o bloco
+> que o hook do consumidor injeta no instante em que a IA escreve a tag, sem ela abrir arquivo
+> nenhum. Só prosa alcança quem abre o arquivo, e medido num consumidor real ela abre **6 de
+> 14**. Receita completa (3 superfícies + o critério do que entra no bloco):
+> [`handoff-pr.md`](./handoff-pr.md) §Regra de comportamento.
+
 ---
 
 ## Template `.styles.ts` completo

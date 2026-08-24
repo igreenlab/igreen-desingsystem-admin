@@ -3946,3 +3946,66 @@ USAGE.md viaja no copy-in.
 
 **Pendências pós-merge (mantenedor):** merge do PR #268 · `cd cli && npm publish` (0.25.17)
 · publish opcional da lib no npm (Passo 7 — `lib:verify` antes; conta exige 2FA).
+
+---
+
+### 2026-08-24 | ds-dev | "Adicionei uma regra" não tinha checklist — e o mecanismo era invisível pro pipeline | CONCLUÍDO
+
+**Input:** o mantenedor pediu, em outra sessão, regras de default explícitas pro `ScreenLoader`
+(`md` é o padrão, skeleton `page` é o padrão). O agente respondeu que aplicou. Ao validar aqui,
+o bloco `ds:regras` não existia — e a pergunta dele foi a certa: *"o pipeline falhou?"*.
+
+**Diagnóstico, em três camadas — e as duas primeiras me corrigiram:**
+
+1. **A regra ESCALOU.** Minha primeira validação olhou só o canal de injeção e concluiu que
+   "quem escreve `<ScreenLoader>` não recebe nada". **Falso.** O vocabulário do consumidor
+   (`ds-components.md`, `alwaysApply`) já carregava as três regras — `md`, `page` e "o pai
+   precisa ter altura" — e alcança 100% das sessões. O agente acertou 2 dos 3 canais, e usou o
+   mais forte. Corrigido na conversa.
+2. **A distribuição não tem lacuna.** Medi: **36 de 36** componentes levam o próprio `USAGE.md`
+   nos `files` do item do registry, então o bloco viaja de graça no copy-in. As 3 "faltas" da
+   primeira varredura eram falso positivo meu — itens que pegam arquivo COMPARTILHADO da pasta
+   `MenuSidebar` (`use-media-query`, `sidebar-brand`) e obviamente não levam o USAGE dela.
+3. **O buraco real era outro, e maior:** `ds:regras` tinha **0 menções** em `.claude/skills/`,
+   `.claude/rules/` e `.claude/commands/`. O mecanismo existia no código, no hook e em 24
+   testes desde 21/08 — e nenhum agente tinha como saber que aquela superfície existia. Não foi
+   checklist ignorado: **era checklist ausente.** Mesmo modo de falha da L-042 e da L-047, que
+   existem justamente por isso, e eu repeti três dias depois de escrever o mecanismo.
+
+**Output:**
+
+- **`lib/rule-surfaces.mjs` + 18 testes.** Dois checks, com escopos deliberadamente
+  diferentes: `auditar` (no `npm test`) **reprova** bloco declarado sem linha no vocabulário —
+  regra que existe e não sai daqui; `novosSemBloco` (no `api-doc-check`, CI) **avisa** quando
+  componente novo não declara bloco. Aviso, não reprovação: componente pode legitimamente não
+  ter regra de default, e julgar "esta prosa deveria ser bloco" exige contexto (L-059).
+- **`nomesDeBlocos` exportada do `component-rules.mjs`** em vez de redeclarar o marcador no
+  gate novo. Duas definições de `ABRE` divergiriam no primeiro ajuste, e o sintoma seria o gate
+  parando de ver bloco que o hook vê — silencioso nos dois sentidos.
+- **3 superfícies de "regra de comportamento"** escritas no `handoff-pr.md`, com a divisão de
+  trabalho entre elas (prosa = o porquê, sem limite · bloco = só decisão de default, ~4 linhas
+  · linha do vocabulário = a mesma coisa comprimida) e o motivo do teto.
+- **Registrado onde um agente olha:** linha na tabela "Onde cada tarefa começa" do `CLAUDE.md`
+  e um aviso no `impl-igreen.md`, que é a skill que escreve componente.
+- **O bloco aplicado no `ScreenLoader`** — 4 linhas, só as decisões de default (dos 7 gotchas
+  dele, 3 mudam decisão).
+
+**Prova nos dois sentidos (L-064):** rodei o `api-doc-check` com base no commit anterior ao
+trabalho do ScreenLoader (`252cf47`) **antes** do bloco existir — o aviso disparou nomeando o
+componente. Depois do bloco, silêncio. E confirmei pelo módulo real que o hook agora entrega as
+4 linhas ao escrever a tag.
+
+**Estado:** tsc 0 · 63 arquivos / **772 testes** (+18) · `release:check` exit 0 · registry +
+embed recarimbados (o USAGE do ScreenLoader é distribuído).
+
+**Assumption:** que "decisão de default" é critério suficiente pra decidir o que entra no
+bloco. Se começar a aparecer bloco de 8 linhas em componente simples, o critério está largo — e
+a correção é apertar o critério, não subir o teto: o teto é o que impede o aviso de virar ruído
+permanente.
+
+**Não virou lição:** as duas metades **dão gate** (um reprova, um avisa) e o resto é checklist
+no ponto de uso. Pelas 4 perguntas do auto-update protocol, nada aqui cobra token de 100% das
+sessões além da linha na tabela do `CLAUDE.md`.
+
+**Changelog + bump:** o bloco do ScreenLoader muda arquivo distribuído; entra no próximo
+`/ds-release` (o vocabulário dele já estava lá, então não há bump de CLI pendente por isto).

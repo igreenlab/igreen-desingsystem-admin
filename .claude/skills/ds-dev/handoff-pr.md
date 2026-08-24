@@ -58,6 +58,54 @@ consolidam no **`/ds-release`** — mas **anote no PR body** que faltam, pra nã
 No `/ds-release`, o passo 6.2b cobre 5; **6 (vocabulário do consumidor) e 7 entram junto**. Componente
 distribuído (no registry) **sem** estar no vocabulário do consumidor = gap real (caso Toast v0.12.0).
 
+## ✅ Regra de comportamento — as 3 superfícies
+
+> Pedido do tipo *"a aba dentro de painel tem que vir `fullWidth`"*, *"`md` é o padrão, não
+> passe `size`"*, *"esse componente precisa que o pai tenha altura"* **não é código**: é
+> **regra**. E regra tem superfícies próprias, que não são as 8 do componente.
+
+| # | Superfície | Onde | O que ela alcança |
+|---|---|---|---|
+| 1 | **Prosa** | `ui/<Nome>/USAGE.md`, seção Gotchas | quem **abre** o arquivo — é onde vive o **porquê**, sem limite de tamanho |
+| 2 | **Bloco `ds:regras`** | mesmo `USAGE.md`, comentário HTML no topo | quem **escreve a tag** e não abre nada — o hook do consumidor injeta na hora |
+| 3 | **Linha do vocabulário** | `cli/templates/default/_claude/rules/ds-components.md` **+ bump `cli/package.json`** | **100% das sessões** do consumidor (é `alwaysApply`) |
+
+**A divisão de trabalho entre elas não é opcional** — cada uma tem um limite diferente:
+
+```markdown
+<!-- ds:regras
+- omita `size`: `md` é o calibrado pro slot do AppShell; `lg` não é "pra dar destaque"
+- omita `skeletonLayout`: `page` serve pra qualquer tela — só mude se ela tem KPIs no topo
+- o pai precisa ter altura, senão a variante spinner colapsa no topo
+-->
+```
+
+- **No bloco vai só o que muda uma DECISÃO DE DEFAULT**, no imperativo, ~4 linhas. O teto é
+  duro: **3 componentes e 8 linhas por escrita**. O `ScreenLoader` tem 7 gotchas e só 3 são
+  decisão de default — despejar os 7 faz o teto cortar em silêncio e o aviso passar a aparecer
+  sempre, que é o mesmo que aviso desligado (L-059).
+- **O porquê fica na prosa.** Bloco não é resumo do USAGE, é payload.
+- **A linha do vocabulário é a mesma regra comprimida numa frase**, junto do critério de
+  escolha do componente.
+
+**Cadência:** 1 e 2 vão no PR do componente. 3 consolida no `/ds-release` (muda
+`cli/templates/**` → força bump do CLI, que o release já sabe fazer).
+
+**Gates que cobrem isto:**
+
+| gate | pega |
+|---|---|
+| `rule-surfaces` (`npm test`) | bloco declarado **sem** linha no vocabulário — a regra existe e não sai daqui. Reprova. |
+| `api-doc-check` (CI) | componente **novo** cujo USAGE não declara bloco. **Avisa**, não reprova: componente pode não ter regra de default. |
+
+> **Por que estas 3 superfícies foram escritas em 2026-08-24.** O mecanismo de injeção existia
+> no código, no hook do consumidor e em 24 testes desde 2026-08-21 — e **não era mencionado em
+> nenhuma skill, regra ou command**. O mantenedor pediu regras de default explicitamente pro
+> `ScreenLoader`; o agente escreveu prosa + vocabulário (2 de 3) e nada avisou da terceira.
+> Não foi checklist ignorado: era **checklist ausente**. Mesmo modo de falha da L-042 (8
+> superfícies) e da L-047 (4 superfícies de roteamento) — construir o mecanismo e não
+> registrá-lo onde um agente olha.
+
 ## Fechar o loop do pipeline (OBRIGATÓRIO — vai no MESMO commit)
 
 Antes do commit, atualize o audit/aprendizado — senão a próxima sessão começa cega

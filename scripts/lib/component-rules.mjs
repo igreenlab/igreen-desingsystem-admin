@@ -114,6 +114,24 @@ export function regrasDoUsage(texto, nome = null) {
 }
 
 /**
+ * Os rótulos de TODOS os blocos de um arquivo, na ordem — `""` para o anônimo.
+ *
+ * Existe para o gate `rule-surfaces` poder perguntar "quem tem bloco?" sem redeclarar o
+ * marcador. Duas definições de `ABRE` divergiriam no primeiro ajuste, e o sintoma seria o
+ * gate parando de ver blocos que o hook vê (ou o contrário) — silencioso nos dois sentidos.
+ */
+export function nomesDeBlocos(texto) {
+  const s = String(texto ?? "");
+  const out = [];
+  for (let i = s.indexOf(ABRE); i >= 0; i = s.indexOf(ABRE, i + 1)) {
+    const fim = s.indexOf("\n", i);
+    if (fim < 0) break;
+    out.push(s.slice(i + ABRE.length, fim).trim().toLowerCase());
+  }
+  return out;
+}
+
+/**
  * As regras de um PRIMITIVO, pelo bloco nomeado na tabela global.
  *
  * Converte a tag JSX pro id do registry (`<InputOTP>` → `input-otp`), que é como o arquivo
