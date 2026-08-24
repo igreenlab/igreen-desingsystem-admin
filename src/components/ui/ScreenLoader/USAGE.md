@@ -1,5 +1,12 @@
 # ScreenLoader
 
+<!-- ds:regras
+- omita `size`: `md` é o calibrado pro slot do AppShell; `lg` não é "pra dar destaque"
+- omita `skeletonLayout`: `page` serve pra qualquer tela — só mude se ela TEM KPIs no topo
+- o pai precisa ter altura, senão a variante spinner colapsa no topo
+- loading inline (botão, célula) → `Spinner` direto; overlay é composição do consumidor
+-->
+
 **Categoria:** iGreen (tv()). Estado de **carregamento de página/área** — preenche o container pai e mostra um indicador enquanto o conteúdo processa. Irmão do `EmptyState` (mesma família de "estado de área").
 
 ## Quando usar

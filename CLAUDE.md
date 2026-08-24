@@ -282,6 +282,7 @@ no `npm test`.
 | Componente Shadcn | `shadcn/[nome].tsx` | `ds-dev/impl-shadcn.md` |
 | Componente composto | `ui/[Nome]/` | `ds-dev/impl-composite.md` |
 | Editar visual existente | `[nome].styles.ts` APENAS | `ds-dev/impl-igreen.md` |
+| **Regra de comportamento** de componente ("`md` é o padrão", "aba dentro de painel vem `fullWidth`", "o pai precisa ter altura") | `ui/<Nome>/USAGE.md` — **prosa + bloco `ds:regras`** — e a linha do vocabulário do consumidor | `ds-dev/handoff-pr.md` §Regra de comportamento (3 superfícies). Gates: `rule-surfaces` + aviso do `api-doc-check` |
 | Revisar token | — | `ds-reviewer/SKILL.md` |
 | Revisar componente | — | `ds-reviewer/review-component.md` |
 | Atualizar Updates timeline | `src/preview/pages/updates-data.ts` | `ds-dev/update-changelog.md` |

@@ -19,9 +19,11 @@
  * Lógica pura + testes: `scripts/lib/api-doc-surface.mjs`.
  */
 import { execFileSync } from "node:child_process";
+import { readFileSync } from "node:fs";
 import { parseAddedLines } from "./lib/diff-added-lines.mjs";
 import { checkApiDocs } from "./lib/api-doc-surface.mjs";
 import { newComponentFolders } from "./lib/new-component-folders.mjs";
+import { novosSemBloco } from "./lib/rule-surfaces.mjs";
 import { resolveBaseRefFromGit } from "./lib/canonical-base-ref.mjs";
 
 const baseRef = process.argv[2] ?? resolveBaseRefFromGit().ref;
@@ -83,6 +85,39 @@ const findings = checkApiDocs({
   changedFiles,
   isNewComponent: (n) => novos.has(n),
 });
+
+/*
+ * Componente NOVO cujo USAGE não declara bloco `ds:regras`.
+ *
+ * Roda ANTES do early-exit de propósito: o caso comum é exatamente "nenhum export novo em
+ * componente existente" (findings vazio) + um componente novo na PR. Depois do exit, o aviso
+ * só sairia em PR que TAMBÉM ampliou a API de outro componente — que é raro.
+ *
+ * Motivação: o `ScreenLoader` (2026-08-24) nasceu com as regras de default escritas em prosa
+ * e sem bloco. Nada avisou, porque o mecanismo de injeção é opt-in e silêncio é
+ * indistinguível de "não optei". Detalhe e as travas anti-ruído: `lib/rule-surfaces.mjs`.
+ */
+const semBloco = novosSemBloco(
+  [...novos].map((nome) => `src/components/ui/${nome}`),
+  (caminho) => {
+    try {
+      return readFileSync(caminho, "utf8");
+    } catch {
+      return null;
+    }
+  },
+);
+for (const c of semBloco) {
+  const msg =
+    `${c.componente}: componente novo cujo USAGE não declara bloco ds:regras. ` +
+    `Tem regra de comportamento (qual variante usar, qual default omitir, o que o pai ` +
+    `precisa)? Então ela precisa do bloco — é o que faz a regra chegar na IA que escreve a ` +
+    `tag SEM abrir o arquivo. Receita: .claude/skills/ds-dev/handoff-pr.md ` +
+    `§Regra de comportamento. Se o componente não tem regra de default (Separator, ` +
+    `AspectRatio), ignore este aviso.`;
+  console.log(`⚠ ${msg}`);
+  annotate("warning", `api-doc-check: ${c.componente}`, msg);
+}
 
 if (!findings.length) {
   console.log("✓ api-doc-check: nenhum componente ampliou API sem tocar o USAGE.");
