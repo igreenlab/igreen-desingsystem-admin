@@ -46,6 +46,29 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.47.0",
+    date: "2026-08-24",
+    tag: "preview",
+    title: "ScreenLoader — loading de página/área",
+    summary:
+      "Novo estado de área pro caso 'página carregando': preenche o container pai (slot de conteúdo do AppShell, card, section) — irmão do EmptyState, um pro vazio e um pro carregando. Existe porque o USAGE do Spinner mandava cada tela compor o próprio layout centralizado, e a repetição divergia. Distribuído como @igreen/screen-loader com o USAGE.md junto e linha no vocabulário do consumidor.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "ScreenLoader (ui/ScreenLoader): variant='spinner' (default — Spinner centrado + título + subtítulo colados a 2px) e variant='skeleton' (silhueta genérica que NÃO tenta prever o layout final — layout conhecido é caso de compor Skeleton na mão). skeletonLayout escolhe os blocos: 'page' (header + conteúdo, default) · 'dashboard' (header + linha de 4 KPIs + conteúdo) · 'kpis' (KPIs sem header). Preenche o pai (que precisa ter altura), nunca position:fixed; size='md' é o padrão de uso declarado no USAGE. Doc em #/screen-loader.",
+          "Spinner: sizes xl (32px) e 2xl (40px) — os tokens size-icon-xl/2xl já existiam, faltava o degrau na API; é o que o ScreenLoader usa pra loading de área.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "Skeleton do ScreenLoader não estoura container apertado: o bloco de conteúdo usa basis-[240px] com grow/shrink em vez de min-h fixo — pai sem altura segue vendo 240px de fallback, pai com altura ganha um bloco que cabe.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.46.0",
     date: "2026-08-22",
     tag: "preview",

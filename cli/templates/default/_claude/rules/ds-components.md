@@ -76,7 +76,8 @@ label, helper, erro e do `htmlFor`).
 | aviso fixo dentro da página | `alert` |
 | confirmar ação destrutiva | `alert-modal` — **obrigatório** antes de excluir, nunca delete direto |
 | sem dados / primeira vez | `empty-state` |
-| carregando layout / ação | `skeleton` (silhueta) · `spinner` (pontual) |
+| **página/área inteira carregando** (slot de conteúdo, card, section) | `screen-loader` — spinner centrado + título/subtítulo (default) ou `variant="skeleton"` genérico (skeletonLayout: page default · dashboard · kpis). Preenche o PAI (que precisa ter altura); omita size (md é o padrão). NÃO é overlay nem loading inline |
+| carregando pedaço com layout conhecido / ação pontual | `skeleton` (silhueta custom composta na mão) · `spinner` (pontual, inline em botão) |
 | progresso conhecido | `progress` |
 
 ## Sobreposição (o que cobre a tela)

@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · accordion · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · alert-dialog · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · alert-modal · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · alert · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · app-shell · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · aspect-ratio · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · avatar-ig · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · avatar · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · badge · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · breadcrumb · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · button-group · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · button · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · calendar · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -495,7 +495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · card-checkbox · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -517,7 +517,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · card · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -543,7 +543,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · carousel · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -579,7 +579,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · chart · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · checkbox · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -653,7 +653,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · chip · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -706,7 +706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · choropleth-map · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -728,7 +728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · collapsible · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -793,7 +793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · color-picker · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · combobox · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -871,7 +871,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · command · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -896,7 +896,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · context-menu · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -973,7 +973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · data-list · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1658,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · data-table · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1696,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · date-picker · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1721,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · dialog · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · drawer · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · dropdown-menu · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · empty-state · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-app-shell · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2195,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-chat · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-clientes · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-dashboard · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-edit-page · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2524,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-finance · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2554,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-login · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-mapa-rede · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2692,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · example-order-detail · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2742,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · file-upload-field · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2810,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · floating-panel · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2852,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · footer-table · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2938,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · form-field · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3029,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · header · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3053,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · hover-card · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · icon · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · input-group · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3155,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · input-otp · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3179,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · input · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3238,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · kanban · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3300,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · kpi · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3325,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · label · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · list · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · markdown-text · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3588,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · menu-sidebar · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · menubar · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3657,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · modal · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3706,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · month-year-picker · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3732,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · navigation-menu · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · page-header · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3804,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · pagination · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · panel · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · popover · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3927,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · progress · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +3951,55 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · radio-group · v0.47.0 · 0a37d57 · 2026-08-24"
+    },
+    "type": "registry:ui"
+  },
+  "screen-loader": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "screen-loader",
+    "title": "ScreenLoader",
+    "description": "Loading de página/área que preenche o container pai — variantes spinner (centrado + título/descrição) e skeleton (silhueta genérica: page/dashboard/kpis).",
+    "dependencies": [],
+    "registryDependencies": [
+      "@igreen/skeleton",
+      "@igreen/spinner",
+      "@igreen/tv"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/ScreenLoader/USAGE.md",
+        "content": "# ScreenLoader\r\n\r\n**Categoria:** iGreen (tv()). Estado de **carregamento de página/área** — preenche o container pai e mostra um indicador enquanto o conteúdo processa. Irmão do `EmptyState` (mesma família de \"estado de área\").\r\n\r\n## Quando usar\r\n\r\n- Conteúdo de uma página inteira carregando dentro do slot de conteúdo do AppShell.\r\n- Área grande (card, section, painel) aguardando primeira carga de dados.\r\n- **Não** é pra loading inline (botão, célula) — aí use `Spinner` direto.\r\n- **Não** é overlay sobre conteúdo já renderizado — cobre o slot vazio; sobrepor é composição do consumidor.\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `variant` | `\"spinner\" \\| \"skeleton\"` | `\"spinner\"` | `spinner` = Spinner centrado + título + descrição. `skeleton` = silhueta genérica de página, sem prever o layout final. |\r\n| `skeletonLayout` | `\"page\" \\| \"dashboard\" \\| \"kpis\"` | `\"page\"` | Blocos da silhueta (só `skeleton`): `page` = header + conteúdo · `dashboard` = header + linha de 4 KPIs + conteúdo · `kpis` = KPIs + conteúdo, sem header. |\r\n| `title` | `string` | `\"Carregando…\"` | Visível no `spinner`; sr-only no `skeleton` (leitores anunciam via `role=\"status\"`). |\r\n| `description` | `string` | — | Linha auxiliar sob o título (só `spinner`). |\r\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | Escala spinner + tipografia do título. Sem efeito no `skeleton`. **`md` é o padrão de uso** — não passe `size` a menos que a área destoe (ver Gotchas). |\r\n| `color` | cores do Spinner | `\"brand\"` | Repassada ao Spinner (só `spinner`). |\r\n| `className` | `string` | — | Overrides no root (aceita `ref` de `HTMLDivElement`). |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { ScreenLoader } from \"@snksergio/design-system\";\r\n\r\n// dentro do slot de conteúdo (o pai precisa ter altura)\r\n{isLoading ? (\r\n  <ScreenLoader title=\"Carregando clientes\" description=\"Buscando os dados mais recentes…\" />\r\n) : (\r\n  <ClientesPage />\r\n)}\r\n\r\n// variação skeleton — silhueta genérica em vez de spinner\r\n{isLoading ? <ScreenLoader variant=\"skeleton\" /> : <ClientesPage />}\r\n\r\n// tela de painel: skeleton com linha de KPIs (com ou sem header)\r\n{isLoading ? <ScreenLoader variant=\"skeleton\" skeletonLayout=\"dashboard\" /> : <Dashboard />}\r\n{isLoading ? <ScreenLoader variant=\"skeleton\" skeletonLayout=\"kpis\" /> : <KpiSection />}\r\n```\r\n\r\n## Gotchas\r\n\r\n- **Padrão de uso: omita `size` (= `md`).** É o calibrado pro slot de conteúdo do AppShell. `sm` só pra área comprovadamente pequena (card baixo, painel lateral); `lg` só pra tela cheia vazia sem chrome. Não escolha `lg` \"pra dar destaque\".\r\n- **Padrão do skeleton: omita `skeletonLayout` (= `page`, header + conteúdo).** É a silhueta genérica que serve pra qualquer tela — só saia dela quando a tela alvo COMPROVADAMENTE tem KPIs no topo: `dashboard` (com header de página) ou `kpis` (quando o header já está renderizado fora da área que carrega). Não invente combinação além dessas três: layout mais específico que isso = compor `Skeleton` na mão.\r\n\r\n- **O pai precisa ter altura.** O componente preenche o container (`h-full flex-1`) — num pai sem altura definida, a variante `spinner` colapsa no topo (o `skeleton` tem `min-h` próprio de fallback). No AppShell o slot de conteúdo já tem altura.\r\n- **Nunca `position: fixed`** — cobrir o viewport inteiro (splash, auth guard) é composição do consumidor, de propósito.\r\n- **Skeleton genérico de propósito**: quando o layout final é conhecido (tabela, lista de cards), componha `<Skeleton>` na mão desenhando a silhueta real — o `DataTable`/`DataList` já trazem os próprios skeletons; não empilhe este por cima.\r\n- **A11y sem duplicação**: o root tem `role=\"status\"` + `aria-live=\"polite\"`; o Spinner interno vai `aria-hidden`. Não embrulhe em outro `role=\"status\"`.\r\n- A rotação do Spinner para sob `prefers-reduced-motion` (`motion-reduce:animate-none`); o pulse do Skeleton (só opacidade, sem deslocamento) **não** é gated — é o comportamento do `shadcn/skeleton.tsx`.\r\n",
+        "type": "registry:file",
+        "target": "components/ui/ScreenLoader/USAGE.md"
+      },
+      {
+        "path": "src/components/ui/ScreenLoader/index.ts",
+        "content": "export { ScreenLoader } from \"./screen-loader\";\r\nexport type {\r\n  ScreenLoaderProps,\r\n  ScreenLoaderSize,\r\n  ScreenLoaderVariant,\r\n} from \"./screen-loader.types\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/ScreenLoader/index.ts"
+      },
+      {
+        "path": "src/components/ui/ScreenLoader/screen-loader.styles.ts",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ScreenLoader — estado de carregamento de página/área. Preenche o PAI (que\r\n * precisa ter altura), nunca o viewport — irmão do EmptyState (mesma família\r\n * de \"estado de área\": um pro vazio, um pro carregando).\r\n *\r\n * Anatomia (só o wrapper; Spinner/Skeleton trazem os próprios estilos):\r\n *   root        = preenche o container (h-full w-full flex-1); a variante\r\n *                 decide o arranjo (centrado vs coluna de silhueta)\r\n *   title       = título forte (text-title-sm/md, fg-strong) — só `spinner`\r\n *   description = texto auxiliar (body-sm, fg-muted) — só `spinner`\r\n *   skeleton*   = silhueta genérica de página (header + bloco de conteúdo),\r\n *                 deliberadamente SEM prever o layout final — quando o layout\r\n *                 é conhecido, componha `Skeleton` na mão\r\n *\r\n * Sem color variants nem foco próprio: componente declarativo de display, sem\r\n * nada interativo — por isso não há ring nem compoundVariant de disabled.\r\n */\r\nexport const screenLoaderStyles = tv({\r\n  slots: {\r\n    root: \"flex h-full min-h-0 w-full flex-1 flex-col\",\r\n    // título + descrição colados (gp-2xs = 2px); o respiro maior (gp-md do\r\n    // root) fica entre o Spinner e o bloco de texto\r\n    text: \"flex flex-col items-center gap-gp-2xs\",\r\n    title: \"text-fg-strong\",\r\n    description: \"text-body-sm text-fg-muted max-w-[360px]\",\r\n    skeletonHeader: \"flex w-full items-start justify-between gap-gp-2xl\",\r\n    skeletonHeaderText: \"flex w-full flex-col gap-gp-md\",\r\n    skeletonKpis: \"grid w-full grid-cols-2 gap-gp-xl lg:grid-cols-4\",\r\n    skeletonKpiCard: \"min-h-[96px] w-full\",\r\n    // basis-[240px] + grow/shrink em vez de min-h: em pai SEM altura o bloco\r\n    // vale 240px (fallback); em pai COM altura ele cresce/encolhe pra caber —\r\n    // min-h fixo estourava o container quando header + KPIs + bloco > pai\r\n    skeletonBody: \"w-full grow shrink basis-[240px]\",\r\n  },\r\n  variants: {\r\n    variant: {\r\n      spinner: {\r\n        root: \"items-center justify-center gap-gp-md text-center\",\r\n      },\r\n      skeleton: {\r\n        root: \"gap-gp-2xl\",\r\n      },\r\n    },\r\n    size: {\r\n      sm: { title: \"text-title-sm\" },\r\n      md: { title: \"text-title-sm\" },\r\n      lg: { title: \"text-title-md\" },\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    variant: \"spinner\",\r\n    size: \"md\",\r\n  },\r\n});\r\n\r\nexport type ScreenLoaderVariantProps = VariantProps<typeof screenLoaderStyles>;\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/ScreenLoader/screen-loader.styles.ts"
+      },
+      {
+        "path": "src/components/ui/ScreenLoader/screen-loader.tsx",
+        "content": "import { forwardRef } from \"react\";\r\n\r\nimport { Skeleton } from \"@/components/shadcn/skeleton\";\r\nimport { Spinner } from \"@/components/ui/Spinner\";\r\n\r\nimport { screenLoaderStyles } from \"./screen-loader.styles\";\r\nimport type { ScreenLoaderProps } from \"./screen-loader.types\";\r\n\r\n/** Mapeia o size do ScreenLoader para o size do Spinner interno. */\r\nconst SPINNER_SIZE = {\r\n  sm: \"lg\",\r\n  md: \"xl\",\r\n  lg: \"2xl\",\r\n} as const;\r\n\r\n/**\r\n * ScreenLoader — estado de carregamento de página/área. Coloque DENTRO do\r\n * container que está carregando (slot de conteúdo do AppShell, card, section):\r\n * ele preenche o pai e centraliza o indicador — nunca `position: fixed`.\r\n *\r\n * Duas variações:\r\n *   - `spinner` (default): Spinner centrado + título + descrição — primeira\r\n *     carga genérica, quando o layout final não é conhecido.\r\n *   - `skeleton`: silhueta genérica de página, deliberadamente sem prever o\r\n *     layout final. `skeletonLayout` escolhe os blocos: \"page\" (header +\r\n *     conteúdo, default), \"dashboard\" (header + linha de KPIs + conteúdo) e\r\n *     \"kpis\" (linha de KPIs + conteúdo, sem header). Layout conhecido →\r\n *     componha `Skeleton` na mão em vez desta variante.\r\n *\r\n * A11y: o root anuncia via `role=\"status\"`; o Spinner interno vai `aria-hidden`\r\n * (o título já anuncia — evita leitura duplicada) e a silhueta skeleton é\r\n * decorativa (o título vira sr-only).\r\n */\r\nexport const ScreenLoader = forwardRef<HTMLDivElement, ScreenLoaderProps>(\r\n  function ScreenLoader(\r\n    {\r\n      variant = \"spinner\",\r\n      size = \"md\",\r\n      color = \"brand\",\r\n      title = \"Carregando…\",\r\n      description,\r\n      skeletonLayout = \"page\",\r\n      className,\r\n      ...rest\r\n    },\r\n    ref,\r\n  ) {\r\n    const styles = screenLoaderStyles({ variant, size });\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        role=\"status\"\r\n        aria-live=\"polite\"\r\n        className={styles.root({ className })}\r\n        {...rest}\r\n      >\r\n        {variant === \"spinner\" ? (\r\n          <>\r\n            <Spinner size={SPINNER_SIZE[size]} color={color} aria-hidden />\r\n            <div className={styles.text()}>\r\n              <h3 className={styles.title()}>{title}</h3>\r\n              {description && (\r\n                <p className={styles.description()}>{description}</p>\r\n              )}\r\n            </div>\r\n          </>\r\n        ) : (\r\n          <>\r\n            <span className=\"sr-only\">{title}</span>\r\n            {skeletonLayout !== \"kpis\" && (\r\n              <div aria-hidden=\"true\" className={styles.skeletonHeader()}>\r\n                <div className={styles.skeletonHeaderText()}>\r\n                  <Skeleton className=\"h-[20px] w-1/3 max-w-[240px]\" />\r\n                  <Skeleton className=\"h-[12px] w-1/2 max-w-[360px]\" />\r\n                </div>\r\n                <Skeleton className=\"min-h-form-md w-[120px] shrink-0\" />\r\n              </div>\r\n            )}\r\n            {skeletonLayout !== \"page\" && (\r\n              <div aria-hidden=\"true\" className={styles.skeletonKpis()}>\r\n                {Array.from({ length: 4 }, (_, i) => (\r\n                  <Skeleton key={i} className={styles.skeletonKpiCard()} />\r\n                ))}\r\n              </div>\r\n            )}\r\n            <Skeleton aria-hidden=\"true\" className={styles.skeletonBody()} />\r\n          </>\r\n        )}\r\n      </div>\r\n    );\r\n  },\r\n);\r\nScreenLoader.displayName = \"ScreenLoader\";\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/ScreenLoader/screen-loader.tsx"
+      },
+      {
+        "path": "src/components/ui/ScreenLoader/screen-loader.types.ts",
+        "content": "import type { ComponentPropsWithoutRef } from \"react\";\r\n\r\nimport type { SpinnerProps } from \"@/components/ui/Spinner\";\r\n\r\nimport type { ScreenLoaderVariantProps } from \"./screen-loader.styles\";\r\n\r\n/** Variação visual: spinner centrado com texto, ou silhueta skeleton genérica. */\r\nexport type ScreenLoaderVariant = NonNullable<ScreenLoaderVariantProps[\"variant\"]>;\r\n\r\n/** Tamanho (spinner + tipografia do título). Sem efeito na variante skeleton. */\r\nexport type ScreenLoaderSize = NonNullable<ScreenLoaderVariantProps[\"size\"]>;\r\n\r\nexport interface ScreenLoaderProps\r\n  extends Omit<ComponentPropsWithoutRef<\"div\">, \"color\" | \"title\">,\r\n    ScreenLoaderVariantProps {\r\n  /**\r\n   * Título do estado de carregamento. Visível na variante `spinner`; na\r\n   * `skeleton` vira texto sr-only (leitores de tela anunciam, a tela mostra\r\n   * só a silhueta). Default `\"Carregando…\"`.\r\n   */\r\n  title?: string;\r\n  /** Texto auxiliar opcional sob o título (só na variante `spinner`). */\r\n  description?: string;\r\n  /** Cor do Spinner (repassada). Default `\"brand\"`. Só na variante `spinner`. */\r\n  color?: SpinnerProps[\"color\"];\r\n  /**\r\n   * Blocos da silhueta (só na variante `skeleton`): `\"page\"` (header +\r\n   * conteúdo, default), `\"dashboard\"` (header + linha de 4 KPIs + conteúdo)\r\n   * ou `\"kpis\"` (linha de 4 KPIs + conteúdo, sem header).\r\n   */\r\n  skeletonLayout?: \"page\" | \"dashboard\" | \"kpis\";\r\n}\r\n",
+        "type": "registry:ui",
+        "target": "components/ui/ScreenLoader/screen-loader.types.ts"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · screen-loader · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -3975,7 +4023,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · scroll-area · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4000,7 +4048,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · select · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4024,7 +4072,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · separator · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4098,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · sheet · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4163,7 +4211,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4185,7 +4233,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · skeleton · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4209,7 +4257,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · slider · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4232,7 +4280,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · sonner · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4248,7 +4296,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Spinner/USAGE.md",
-        "content": "# Spinner\r\n\r\n**Categoria:** iGreen (tv()). Indicador de **loading** (SVG que gira).\r\n\r\n## Quando usar\r\n\r\n- Estado de carregamento inline: dentro de botões (`Salvando…`), ao lado de um label, em placeholders de área que ainda vai popular.\r\n- Para um bloco de página inteiro carregando, componha com o seu próprio layout (ex.: centralizar `<Spinner size=\"lg\" />`).\r\n\r\nNão é barra de progresso determinística — para isso use `Progress`.\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | Tamanho via `size-icon-sm/md/lg`. |\r\n| `color` | `\"current\" \\| \"default\" \\| \"muted\" \\| \"brand\" \\| \"on-brand\"` | `\"muted\"` | Cor via `text-fg-*`. `current` herda a cor do texto do pai. |\r\n| `label` | `string` | `\"Carregando\"` | Rótulo acessível (`role=\"status\"`). |\r\n| `className` | `string` | — | Overrides (o SVG é o próprio nó — aceita `ref` para `SVGSVGElement`). |\r\n\r\nAceita qualquer prop de `<svg>` (menos `color`, sobrescrita pela variante).\r\n\r\n## Variantes\r\n\r\n| Variante | Valores |\r\n|----------|---------|\r\n| `size` | `sm` · `md` · `lg` |\r\n| `color` | `current` · `default` · `muted` · `brand` · `on-brand` |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { Spinner } from \"@snksergio/design-system\";\r\n\r\n// standalone, neutro\r\n<Spinner />\r\n\r\n// dentro de um botão primário (herda o branco do texto do botão)\r\n<Button disabled>\r\n  <Spinner size=\"sm\" color=\"current\" aria-hidden />\r\n  Salvando…\r\n</Button>\r\n\r\n// destaque de marca, maior\r\n<Spinner size=\"lg\" color=\"brand\" label=\"Carregando ranking\" />\r\n```\r\n\r\n## Gotchas\r\n\r\n- **Respeita `prefers-reduced-motion`**: quando o usuário pede menos movimento, a rotação para (`motion-reduce:animate-none`) — o spinner fica estático mas ainda comunica \"carregando\" via `role=\"status\"`.\r\n- **Decorativo dentro de botões**: passe `aria-hidden` — aí o `label`/`role=\"status\"` são omitidos (o texto do botão já anuncia o estado) e evita anúncio duplicado no leitor de tela.\r\n- O traço usa `currentColor`; `color=\"current\"` é o caminho para casar com a cor do container.\r\n",
+        "content": "# Spinner\r\n\r\n**Categoria:** iGreen (tv()). Indicador de **loading** (SVG que gira).\r\n\r\n## Quando usar\r\n\r\n- Estado de carregamento inline: dentro de botões (`Salvando…`), ao lado de um label, em placeholders de área que ainda vai popular.\r\n- Para um bloco de página inteiro carregando, componha com o seu próprio layout (ex.: centralizar `<Spinner size=\"lg\" />`).\r\n\r\nNão é barra de progresso determinística — para isso use `Progress`.\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"2xl\"` | `\"md\"` | Tamanho via `size-icon-*` (16/20/24/32/40px). `xl`/`2xl` são pra loading de área/página (é o que o `ScreenLoader` usa). |\r\n| `color` | `\"current\" \\| \"default\" \\| \"muted\" \\| \"brand\" \\| \"on-brand\"` | `\"muted\"` | Cor via `text-fg-*`. `current` herda a cor do texto do pai. |\r\n| `label` | `string` | `\"Carregando\"` | Rótulo acessível (`role=\"status\"`). |\r\n| `className` | `string` | — | Overrides (o SVG é o próprio nó — aceita `ref` para `SVGSVGElement`). |\r\n\r\nAceita qualquer prop de `<svg>` (menos `color`, sobrescrita pela variante).\r\n\r\n## Variantes\r\n\r\n| Variante | Valores |\r\n|----------|---------|\r\n| `size` | `sm` · `md` · `lg` · `xl` · `2xl` |\r\n| `color` | `current` · `default` · `muted` · `brand` · `on-brand` |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nimport { Spinner } from \"@snksergio/design-system\";\r\n\r\n// standalone, neutro\r\n<Spinner />\r\n\r\n// dentro de um botão primário (herda o branco do texto do botão)\r\n<Button disabled>\r\n  <Spinner size=\"sm\" color=\"current\" aria-hidden />\r\n  Salvando…\r\n</Button>\r\n\r\n// destaque de marca, maior\r\n<Spinner size=\"lg\" color=\"brand\" label=\"Carregando ranking\" />\r\n```\r\n\r\n## Gotchas\r\n\r\n- **Respeita `prefers-reduced-motion`**: quando o usuário pede menos movimento, a rotação para (`motion-reduce:animate-none`) — o spinner fica estático mas ainda comunica \"carregando\" via `role=\"status\"`.\r\n- **Decorativo dentro de botões**: passe `aria-hidden` — aí o `label`/`role=\"status\"` são omitidos (o texto do botão já anuncia o estado) e evita anúncio duplicado no leitor de tela.\r\n- O traço usa `currentColor`; `color=\"current\"` é o caminho para casar com a cor do container.\r\n",
         "type": "registry:file",
         "target": "components/ui/Spinner/USAGE.md"
       },
@@ -4260,7 +4308,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Spinner/spinner.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Spinner — indicador de carregamento (loading) puramente decorativo/visual.\r\n *\r\n * Desenha um SVG que gira via `animate-spin`. Respeita `prefers-reduced-motion`\r\n * (a animação para via `motion-reduce:animate-none`). Tamanho pelos tokens de\r\n * ícone (`size-icon-*`) e cor pelos tokens de texto (`text-fg-*` / `currentColor`),\r\n * já que o traço usa `stroke=\"currentColor\"`.\r\n *\r\n * Variantes:\r\n *   - size:  sm (size-icon-sm) | md (size-icon-md) | lg (size-icon-lg)\r\n *   - color: current (herda o texto do pai) | default | muted | brand | on-brand\r\n */\r\nexport const spinnerStyles = tv({\r\n  base: [\"inline-block shrink-0\", \"animate-spin motion-reduce:animate-none\"],\r\n  variants: {\r\n    size: {\r\n      sm: \"size-icon-sm\",\r\n      md: \"size-icon-md\",\r\n      lg: \"size-icon-lg\",\r\n    },\r\n    color: {\r\n      current: \"text-current\",\r\n      default: \"text-fg-default\",\r\n      muted: \"text-fg-muted\",\r\n      brand: \"text-fg-brand\",\r\n      \"on-brand\": \"text-fg-on-brand\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    color: \"muted\",\r\n  },\r\n});\r\n\r\nexport type SpinnerVariantProps = VariantProps<typeof spinnerStyles>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Spinner — indicador de carregamento (loading) puramente decorativo/visual.\r\n *\r\n * Desenha um SVG que gira via `animate-spin`. Respeita `prefers-reduced-motion`\r\n * (a animação para via `motion-reduce:animate-none`). Tamanho pelos tokens de\r\n * ícone (`size-icon-*`) e cor pelos tokens de texto (`text-fg-*` / `currentColor`),\r\n * já que o traço usa `stroke=\"currentColor\"`.\r\n *\r\n * Variantes:\r\n *   - size:  sm (size-icon-sm) | md (size-icon-md) | lg (size-icon-lg)\r\n *            | xl (size-icon-xl, 32px) | 2xl (size-icon-2xl, 40px) — os dois\r\n *            maiores existem pra loading de área/página (ScreenLoader), onde\r\n *            os 24px do lg somem no espaço\r\n *   - color: current (herda o texto do pai) | default | muted | brand | on-brand\r\n */\r\nexport const spinnerStyles = tv({\r\n  base: [\"inline-block shrink-0\", \"animate-spin motion-reduce:animate-none\"],\r\n  variants: {\r\n    size: {\r\n      sm: \"size-icon-sm\",\r\n      md: \"size-icon-md\",\r\n      lg: \"size-icon-lg\",\r\n      xl: \"size-icon-xl\",\r\n      \"2xl\": \"size-icon-2xl\",\r\n    },\r\n    color: {\r\n      current: \"text-current\",\r\n      default: \"text-fg-default\",\r\n      muted: \"text-fg-muted\",\r\n      brand: \"text-fg-brand\",\r\n      \"on-brand\": \"text-fg-on-brand\",\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    color: \"muted\",\r\n  },\r\n});\r\n\r\nexport type SpinnerVariantProps = VariantProps<typeof spinnerStyles>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/Spinner/spinner.styles.ts"
       },
@@ -4278,7 +4326,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · spinner · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4302,7 +4350,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · switch · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4381,7 +4429,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · table · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4405,7 +4453,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · tabs · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4429,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · textarea · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4447,7 +4495,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · theme-blue · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4465,7 +4513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · theme-green · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4483,7 +4531,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · theme-pay · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4501,7 +4549,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · theme-vibrant · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4523,7 +4571,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · theme · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4574,7 +4622,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · toast · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4600,7 +4648,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · toggle-group · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4625,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · toggle · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4649,7 +4697,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · tooltip · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:ui"
   },
@@ -4670,7 +4718,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · tv · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   },
@@ -4692,7 +4740,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.46.0 · d266a42 · 2026-08-22"
+      "stamp": "igreen-ds · utils · v0.47.0 · 0a37d57 · 2026-08-24"
     },
     "type": "registry:file"
   }
