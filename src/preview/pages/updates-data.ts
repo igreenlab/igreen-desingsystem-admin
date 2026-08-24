@@ -46,6 +46,31 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.49.0",
+    date: "2026-08-24",
+    tag: "preview",
+    title:
+      "Carrossel com indicador de posição — e a borda do slide para de ser cortada",
+    summary:
+      "O Carousel ganhou `<CarouselDots />`: indicador clicável que mostra em qual card você está. No caminho apareceu um defeito antigo — a borda esquerda do slide era comida pelo corte a partir do segundo card, porque o Embla posiciona o trilho em pixel fracionário e o gutter do shadcn deixa a borda exatamente sobre o limite do `overflow-hidden`. O ColorPicker também fechou a escala de tamanhos do Input.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`<CarouselDots />`** — indicador de posição clicável. **Um ponto por PARADA, não por slide**: com `slidesToScroll` ou vários cards visíveis, as paradas são menos que os slides, e contar `CarouselItem` daria bolinhas que não levam a lugar nenhum (6 slides + `slidesToScroll: 2` = 3 pontos). Some sozinho quando há uma parada só.",
+          "**`ColorPicker` fechou a escala do `Input`** — `xxs` 28px · `xs` 32px · `sm` 36px · `md` 40px. Ele tinha só `sm`/`md`, mas já repassava o `size` ao Input interno: existia combinação válida no Input que o ColorPicker não alcançava. Swatch e campo hex sobem juntos.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**A borda do slide do `Carousel` era cortada a partir do 2º card.** O Embla posiciona o trilho com `translate` em pixel **fracionário**, e no padrão de gutter do shadcn (`-ml-4` no trilho + `pl-4` no item) a borda esquerda do conteúdo cai exatamente sobre o limite do `overflow-hidden` — medido: limite em 651.5px e borda em 649.99px, 1.5px inteiros do lado de fora. O 1º slide era imune porque ali o translate é 0. Corrigido com folga de 4px **no eixo que rola** (`overflow` corta no padding box; a margem negativa devolve a posição). Não revela o slide vizinho — o que aparece na faixa é o gutter transparente do item.",
+          "`Carousel`: o `useEffect` removia só um dos listeners do Embla no unmount. Com os dois novos seriam três órfãos por remontagem.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.48.0",
     date: "2026-08-24",
     tag: "preview",
