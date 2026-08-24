@@ -1,98 +1,63 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync, existsSync, readdirSync } from "node:fs";
-import {
-  auditar,
-  idDoItem,
-  citadoNoVocabulario,
-  novosSemBloco,
-  formatar,
-} from "./rule-surfaces.mjs";
+import { readFileSync, existsSync } from "node:fs";
+import { auditar, citadoNoVocabulario, novosSemBloco, formatar } from "./rule-surfaces.mjs";
 
 /**
- * O caso que originou o gate está no primeiro `describe`: bloco declarado e nenhuma linha no
- * vocabulário. É o estado em que a regra existe, parece entregue, e alcança só quem abrir o
- * arquivo — 6 de 14, medido num consumidor real.
+ * O escopo destes dois checks foi decidido por MEDIÇÃO contra o gate vizinho, não por desenho.
  *
- * O segundo `describe` é o que impede o gate de virar ruído: a direção inversa (linha sem
- * bloco) é o estado normal de 37 dos 43 componentes e **não** pode reprovar.
+ * A 1ª versão cobrava a linha do vocabulário para todo componente com bloco. Rodando o
+ * `distribution-debt` no mesmo cenário (linha do `screen-loader` removida à mão), ele já
+ * reprovava com `exit 1`. Metade deste módulo era cópia de regra com dono — e o repo é
+ * explícito: duas cópias da mesma regra divergem.
+ *
+ * O mesmo teste achou a fatia que ele NÃO cobre: removendo `tabs`, o `distribution-debt` saiu
+ * **0**. Ele varre só `src/components/ui/`, e os primitivos shadcn ficam fora. É só isso que
+ * `auditar` cobra hoje.
  */
-
-const ITENS = [
-  { name: "panel", files: [{ path: "src/components/ui/Panel/USAGE.md" }, { path: "src/components/ui/Panel/panel.tsx" }] },
-  { name: "screen-loader", files: [{ path: "src/components/ui/ScreenLoader/USAGE.md" }] },
-  { name: "avatar-ig", files: [{ path: "src/components/ui/avatar-ig/USAGE.md" }] },
-  { name: "tabela-teste", files: [{ path: "src/components/ui/TabelaTeste/tabela-teste.tsx" }] },
-];
 
 const COM_BLOCO = "# X\n\n<!-- ds:regras\n- omita `size`: md é o padrão\n-->\n\n## Quando usar\nprosa\n";
 const SEM_BLOCO = "# X\n\n## Gotchas\n- omita `size`: md é o padrão (só prosa)\n";
 
-describe("rule-surfaces — bloco declarado tem que chegar no consumidor", () => {
-  it("bloco sem linha no vocabulário REPROVA", () => {
-    const r = auditar({
-      usages: [{ caminho: "src/components/ui/ScreenLoader/USAGE.md", texto: COM_BLOCO }],
-      itens: ITENS,
-      vocabulario: "| carregando | `spinner` |",
-    });
+const GLOBAL = [
+  "# Shadcn — índice de gotchas",
+  "",
+  "<!-- ds:regras tabs",
+  "- variante default dentro de superfície; `line` só pra seção de página",
+  "-->",
+  "",
+  "<!-- ds:regras sonner",
+  "- precisa do <Toaster/> no root",
+  "-->",
+].join("\n");
+
+describe("rule-surfaces — primitivo shadcn com bloco tem que chegar no vocabulário", () => {
+  it("bloco nomeado sem linha no vocabulário REPROVA", () => {
+    const r = auditar({ tabelaGlobal: GLOBAL, vocabulario: "| abas | `tabs` |" });
+    expect(r.ok).toEqual(["tabs"]);
     expect(r.faltando).toEqual([
-      { id: "screen-loader", onde: "src/components/ui/ScreenLoader/USAGE.md" },
+      { id: "sonner", onde: "src/components/shadcn/USAGE.md" },
     ]);
   });
 
-  it("bloco COM linha no vocabulário passa", () => {
+  it("todos com linha → silêncio", () => {
     const r = auditar({
-      usages: [{ caminho: "src/components/ui/ScreenLoader/USAGE.md", texto: COM_BLOCO }],
-      itens: ITENS,
-      vocabulario: "| página inteira carregando | `screen-loader` — omita size |",
+      tabelaGlobal: GLOBAL,
+      vocabulario: "| abas | `tabs` | · | toast | `sonner` |",
     });
     expect(r.faltando).toEqual([]);
-    expect(r.ok).toEqual(["screen-loader"]);
   });
 
-  it("a mensagem diz o que fazer, não só que falhou", () => {
-    const msg = formatar({
-      faltando: [{ id: "screen-loader", onde: "src/components/ui/ScreenLoader/USAGE.md" }],
-    });
+  it("tabela ausente não quebra", () => {
+    expect(auditar({ vocabulario: "" }).faltando).toEqual([]);
+    expect(auditar({ tabelaGlobal: null, vocabulario: "" }).ok).toEqual([]);
+  });
+
+  it("a mensagem diz o que fazer E que ui/ não é escopo dela", () => {
+    const msg = formatar({ faltando: [{ id: "sonner", onde: "src/components/shadcn/USAGE.md" }] });
     expect(msg).toContain("ds-components.md");
     expect(msg).toContain("bump do CLI");
+    expect(msg).toContain("distribution-debt"); // aponta o dono da outra metade
     expect(msg).toContain("handoff-pr.md");
-  });
-});
-
-describe("rule-surfaces — as travas anti-ruído", () => {
-  it("linha no vocabulário SEM bloco não reprova (é o estado normal)", () => {
-    const r = auditar({
-      usages: [{ caminho: "src/components/ui/Panel/USAGE.md", texto: SEM_BLOCO }],
-      itens: ITENS,
-      vocabulario: "nada aqui",
-    });
-    expect(r.faltando).toEqual([]);
-    expect(r.ok).toEqual([]);
-  });
-
-  it("componente fora do registry é PULADO, não reprovado", () => {
-    const r = auditar({
-      usages: [{ caminho: "src/components/ui/TabelaTeste/USAGE.md", texto: COM_BLOCO }],
-      itens: ITENS,
-      vocabulario: "",
-    });
-    expect(r.faltando).toEqual([]);
-    expect(r.pulados).toHaveLength(1);
-    expect(r.pulados[0].motivo).toContain("registry");
-  });
-});
-
-describe("rule-surfaces — o id vem do registry, não do nome da pasta", () => {
-  it("acha o id pelo caminho do USAGE", () => {
-    expect(idDoItem("src/components/ui/Panel/USAGE.md", ITENS)).toBe("panel");
-  });
-
-  it("pasta que não é PascalCase resolve certo (L-063: avatar-ig existia e reprovava)", () => {
-    expect(idDoItem("src/components/ui/avatar-ig/USAGE.md", ITENS)).toBe("avatar-ig");
-  });
-
-  it("USAGE que não viaja em item nenhum → null", () => {
-    expect(idDoItem("src/components/ui/Nada/USAGE.md", ITENS)).toBeNull();
   });
 });
 
@@ -108,46 +73,25 @@ describe("rule-surfaces — a crase é a fronteira do nome", () => {
   });
 });
 
-describe("rule-surfaces — primitivos shadcn, pelos blocos nomeados", () => {
-  const GLOBAL = [
-    "# Shadcn — gotchas",
-    "<!-- ds:regras tabs",
-    "- variante default dentro de superfície",
-    "-->",
-    "<!-- ds:regras sonner",
-    "- precisa do <Toaster/> no root",
-    "-->",
-  ].join("\n");
-
-  it("o rótulo do bloco JÁ é o id — cobra a linha de cada um", () => {
-    const r = auditar({ tabelaGlobal: GLOBAL, itens: ITENS, vocabulario: "| abas | `tabs` |" });
-    expect(r.ok).toContain("tabs");
-    expect(r.faltando.map((f) => f.id)).toEqual(["sonner"]);
-    expect(r.faltando[0].onde).toContain("shadcn/USAGE.md");
-  });
-
-  it("tabela ausente não quebra", () => {
-    expect(auditar({ itens: ITENS, vocabulario: "" }).faltando).toEqual([]);
-  });
-});
-
 describe("rule-surfaces — componente novo sem bloco (o caso ScreenLoader)", () => {
   const ler = (mapa) => (caminho) => (caminho in mapa ? mapa[caminho] : null);
 
   it("novo com regra em PROSA e sem bloco → avisa", () => {
-    // Reprodução do defeito real: regras de default escritas nos Gotchas, bloco ausente.
-    const r = novosSemBloco(["src/components/ui/ScreenLoader"], ler({
-      "src/components/ui/ScreenLoader/USAGE.md": SEM_BLOCO,
-    }));
+    // Reprodução do defeito real: regras de default nos Gotchas, bloco ausente.
+    const r = novosSemBloco(
+      ["src/components/ui/ScreenLoader"],
+      ler({ "src/components/ui/ScreenLoader/USAGE.md": SEM_BLOCO }),
+    );
     expect(r).toEqual([
       { componente: "ScreenLoader", caminho: "src/components/ui/ScreenLoader/USAGE.md" },
     ]);
   });
 
   it("novo COM bloco → silêncio", () => {
-    const r = novosSemBloco(["src/components/ui/Panel"], ler({
-      "src/components/ui/Panel/USAGE.md": COM_BLOCO,
-    }));
+    const r = novosSemBloco(
+      ["src/components/ui/Panel"],
+      ler({ "src/components/ui/Panel/USAGE.md": COM_BLOCO }),
+    );
     expect(r).toEqual([]);
   });
 
@@ -169,20 +113,10 @@ describe("rule-surfaces — componente novo sem bloco (o caso ScreenLoader)", ()
 });
 
 describe("rule-surfaces — estado do repo", () => {
-  it("todo bloco ds:regras do repo chega no vocabulário do consumidor", () => {
-    const dir = "src/components/ui";
-    const usages = [];
-    if (existsSync(dir)) {
-      for (const nome of readdirSync(dir)) {
-        const p = `${dir}/${nome}/USAGE.md`;
-        if (existsSync(p)) usages.push({ caminho: p, texto: readFileSync(p, "utf8") });
-      }
-    }
+  it("todo bloco nomeado do shadcn chega no vocabulário do consumidor", () => {
     const tg = "src/components/shadcn/USAGE.md";
     const r = auditar({
-      usages,
       tabelaGlobal: existsSync(tg) ? readFileSync(tg, "utf8") : null,
-      itens: JSON.parse(readFileSync("registry.json", "utf8")).items,
       vocabulario: readFileSync("cli/templates/default/_claude/rules/ds-components.md", "utf8"),
     });
     expect(r.faltando, formatar(r)).toEqual([]);

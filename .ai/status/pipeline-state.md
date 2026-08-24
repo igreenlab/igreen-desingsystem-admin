@@ -3974,11 +3974,22 @@ o bloco `ds:regras` não existia — e a pergunta dele foi a certa: *"o pipeline
 
 **Output:**
 
-- **`lib/rule-surfaces.mjs` + 18 testes.** Dois checks, com escopos deliberadamente
-  diferentes: `auditar` (no `npm test`) **reprova** bloco declarado sem linha no vocabulário —
-  regra que existe e não sai daqui; `novosSemBloco` (no `api-doc-check`, CI) **avisa** quando
-  componente novo não declara bloco. Aviso, não reprovação: componente pode legitimamente não
-  ter regra de default, e julgar "esta prosa deveria ser bloco" exige contexto (L-059).
+- **`lib/rule-surfaces.mjs` + 12 testes.** Dois checks, e **o escopo de cada um saiu de
+  medição contra o gate vizinho, não de desenho** — o mantenedor pediu teste antes do merge, e
+  o teste derrubou metade da 1ª versão:
+  - a 1ª versão cobrava a linha do vocabulário para **todo** componente com bloco. Rodei o
+    `distribution-debt` no mesmo cenário (linha do `screen-loader` removida à mão): ele **já
+    reprovava**, `exit 1`, com a mensagem certa. Metade do gate novo era **cópia de regra que
+    já tinha dono** — e duas cópias divergem no primeiro ajuste. Removida.
+  - o mesmo teste achou a fatia órfã: removendo `tabs` do vocabulário, o `distribution-debt`
+    saiu **0**. Ele varre só `src/components/ui/`, e os **primitivos shadcn ficam fora**. É só
+    essa fatia que o `auditar` cobra hoje.
+  - `novosSemBloco` (no `api-doc-check`, CI) **avisa** quando componente novo não declara
+    bloco. Aviso e não reprovação: componente pode legitimamente não ter regra de default, e
+    julgar "esta prosa deveria ser bloco" exige contexto (L-059). É o único dos três que pega
+    o caso do `ScreenLoader`.
+
+  Resultado: cada um dos 3 casos tem **exatamente um** dono, verificado nos dois sentidos.
 - **`nomesDeBlocos` exportada do `component-rules.mjs`** em vez de redeclarar o marcador no
   gate novo. Duas definições de `ABRE` divergiriam no primeiro ajuste, e o sintoma seria o gate
   parando de ver bloco que o hook vê — silencioso nos dois sentidos.

@@ -1,58 +1,42 @@
 /**
- * rule-surfaces — regra de comportamento declarada no `USAGE.md` tem que CHEGAR no
- * consumidor. Puro, zero I/O (o scan do repo vive no teste).
+ * rule-surfaces — as superfícies de uma REGRA de comportamento de componente. Puro, zero I/O
+ * (o scan do repo vive no teste e no CLI).
  *
  * ## O defeito que originou isto
  *
  * Em 2026-08-24 o mantenedor pediu, explicitamente, regras de default para o `ScreenLoader`
- * ("`md` é o padrão", "skeleton `page` é o padrão"). O agente escreveu as regras — em prosa
- * nos Gotchas e na linha do vocabulário do consumidor — e **nenhum sinal** disse que o
- * terceiro canal, o bloco `ds:regras`, tinha ficado de fora.
+ * ("`md` é o padrão", "skeleton `page` é o padrão"). O agente escreveu as regras em prosa nos
+ * Gotchas **e** na linha do vocabulário do consumidor — 2 dos 3 canais, incluindo o mais forte
+ * — e **nenhum sinal** disse que o terceiro, o bloco `ds:regras`, tinha ficado de fora.
  *
- * Investigando, o buraco era maior que o componente: o mecanismo de injeção existia no
- * código, no hook do consumidor e em 24 testes, e **não era mencionado em nenhuma skill,
- * regra ou command**. Nenhum agente tinha como saber que aquela superfície existia. Não foi
- * checklist ignorado — era checklist ausente. Mesmo modo de falha das L-042 e L-047.
+ * Investigando, o buraco era maior que o componente: `ds:regras` tinha **0 menções** em
+ * `.claude/skills/`, `.claude/rules/` e `.claude/commands/`. O mecanismo existia no código, no
+ * hook do consumidor e em 24 testes — e nenhum agente tinha como saber que a superfície
+ * existia. Não foi checklist ignorado: era checklist **ausente**. Mesmo modo de falha das
+ * L-042 e L-047.
  *
- * ## O que este gate checa, e por que só isto
+ * ## Dois checks, e o escopo de cada um foi MEDIDO
  *
- * **Componente com bloco `ds:regras` → tem linha no vocabulário do consumidor?**
+ * A primeira versão deste módulo cobrava a linha do vocabulário para **todo** componente com
+ * bloco. Testando contra o `distribution-debt` no mesmo cenário (linha removida à mão), ele
+ * **já reprovava** — `exit 1`, com a mensagem certa. Ou seja: metade deste gate era cópia de
+ * uma regra que já tinha dono, e duas cópias divergem no primeiro ajuste.
  *
- * Uma direção só, e mecânica: os dois lados são grepáveis, nenhum exige julgamento sobre se
- * a regra "deveria" existir. Bloco sem linha no vocabulário = a regra está escrita e não sai
- * daqui: só alcança a IA que ABRIR o arquivo, e medido num consumidor real ela abre 6 de 14.
+ * O mesmo teste mostrou o que ele **não** cobre: o `distribution-debt` varre só
+ * `src/components/ui/`. Removendo `tabs` do vocabulário, ele saiu **0** e não viu nada — os
+ * primitivos shadcn ficam fora da varredura dele. É essa a fatia que sobrou aqui:
  *
- * ⚠️ **A direção inversa NÃO é gate, de propósito.** Linha no vocabulário sem bloco é o
- * estado normal — hoje são 43 componentes com linha e 6 com bloco. Cobrar o bloco de todos
- * inundaria (L-059: aviso que aparece sempre é aviso desligado), e há componente que
- * legitimamente não tem regra de default nenhuma.
+ *   `auditar`        → bloco NOMEADO em `shadcn/USAGE.md` sem linha no vocabulário. REPROVA.
+ *                      (a família `ui/` é do `distribution-debt`, que já faz isto)
+ *   `novosSemBloco`  → componente NOVO cujo USAGE não declara bloco. AVISA, não reprova.
  *
- * ⚠️ **Componente fora do registry é pulado, não reprovado.** O vocabulário existe para a IA
- * do consumidor saber o que existe; componente que não é distribuído não tem o que constar
- * lá. Reprovar seria cobrar superfície inaplicável.
+ * ⚠️ **A direção inversa NÃO é gate, de propósito.** Linha no vocabulário sem bloco é o estado
+ * normal — hoje 43 componentes têm linha e 6 têm bloco. Cobrar bloco de todos inundaria
+ * (L-059: aviso que aparece sempre é aviso desligado), e há componente que legitimamente não
+ * tem regra de default nenhuma.
  */
 
 import { nomesDeBlocos } from "./component-rules.mjs";
-
-/**
- * O id de registry de um `USAGE.md` de composto.
- *
- * Derivado do **registry**, não do nome da pasta, de propósito: `AvatarIg` mora em
- * `ui/avatar-ig/` e a derivação PascalCase→kebab já reprovou caso correto antes (L-063).
- * O registry é a fonte que decide o nome pelo qual o consumidor pede o componente.
- *
- * @param {string} caminhoUsage  ex.: "src/components/ui/Panel/USAGE.md"
- * @param {Array<{name: string, files?: Array<{path: string}>}>} itens
- * @returns {string|null} o id, ou `null` se o USAGE não viaja em item nenhum
- */
-export function idDoItem(caminhoUsage, itens) {
-  for (const it of itens ?? []) {
-    for (const f of it.files ?? []) {
-      if (f?.path === caminhoUsage) return it.name;
-    }
-  }
-  return null;
-}
 
 /**
  * O vocabulário cita o id?
@@ -66,58 +50,39 @@ export function citadoNoVocabulario(vocabulario, id) {
 }
 
 /**
- * @param {object} entrada
- * @param {Array<{caminho: string, texto: string}>} entrada.usages  USAGE.md de compostos
- * @param {string|null} entrada.tabelaGlobal  texto do `shadcn/USAGE.md` (blocos nomeados)
- * @param {Array} entrada.itens  `registry.json` → items
- * @param {string} entrada.vocabulario  texto do `_claude/rules/ds-components.md`
- * @returns {{faltando: Array<{id: string, onde: string}>, ok: string[], pulados: Array<{onde: string, motivo: string}>}}
+ * Blocos nomeados na tabela global dos primitivos que não chegam no vocabulário.
+ *
+ * O rótulo do bloco **já é** o id do registry (`<!-- ds:regras tabs`), então não há derivação
+ * de nome aqui — e é de propósito: derivar pasta→id já reprovou caso correto antes (L-063).
+ *
+ * @param {string|null} tabelaGlobal  texto do `src/components/shadcn/USAGE.md`
+ * @param {string} vocabulario  texto do `_claude/rules/ds-components.md`
+ * @returns {{faltando: Array<{id: string, onde: string}>, ok: string[]}}
  */
-export function auditar({ usages = [], tabelaGlobal = null, itens = [], vocabulario = "" }) {
+export function auditar({ tabelaGlobal = null, vocabulario = "" }) {
   const faltando = [];
   const ok = [];
-  const pulados = [];
-
-  const registrar = (id, onde) => {
-    if (citadoNoVocabulario(vocabulario, id)) ok.push(id);
-    else faltando.push({ id, onde });
-  };
-
-  // 1) compostos: bloco anônimo no USAGE do próprio componente
-  for (const { caminho, texto } of usages) {
-    if (!nomesDeBlocos(texto).includes("")) continue; // sem bloco anônimo → nada a cobrar
-    const id = idDoItem(caminho, itens);
-    if (!id) {
-      pulados.push({ onde: caminho, motivo: "USAGE não viaja em nenhum item do registry" });
-      continue;
-    }
-    registrar(id, caminho);
-  }
-
-  // 2) primitivos: blocos NOMEADOS na tabela global — o rótulo já é o id do registry
   for (const nome of nomesDeBlocos(tabelaGlobal).filter(Boolean)) {
-    registrar(nome, "src/components/shadcn/USAGE.md");
+    if (citadoNoVocabulario(vocabulario, nome)) ok.push(nome);
+    else faltando.push({ id: nome, onde: "src/components/shadcn/USAGE.md" });
   }
-
-  return { faltando, ok, pulados };
+  return { faltando, ok };
 }
 
 /**
  * Componente **novo** cujo `USAGE.md` não declara bloco `ds:regras`.
  *
- * É o outro lado, e é o que o `auditar` acima NÃO alcança: ele cobra que um bloco existente
- * chegue no consumidor, mas não tem como saber que um bloco *deveria* existir. Foi exatamente
- * esse o caso do `ScreenLoader` (2026-08-24): o mantenedor pediu regras de default, elas foram
- * escritas em prosa, e o bloco ficou de fora sem nenhum sinal.
+ * É o check que pega o caso do `ScreenLoader`: o `auditar` acima cobra que um bloco existente
+ * chegue no consumidor, mas não tem como saber que um bloco *deveria* existir.
  *
- * **AVISO, nunca reprovação** — e por dois motivos independentes:
+ * **AVISO, nunca reprovação** — por dois motivos independentes:
  *   1. componente pode legitimamente não ter regra de default (`Separator`, `AspectRatio`);
  *   2. julgar "esta prosa deveria ser bloco" exige contexto, e gate assim vira ruído (L-059).
  *
- * **Só em componente NOVO, nunca em varredura.** Medido em 2026-08: 34 dos 43 USAGE têm
- * seção de gotcha, então uma varredura retroativa acusaria quase todos. E o ritmo de
- * componente novo caiu — 17 em maio, 22 em junho, 3 em julho, 1 em agosto: o aviso dispara
- * 1 a 3 vezes por mês, no momento em que o autor está presente pra responder.
+ * **Só em componente NOVO, nunca em varredura.** Medido em 2026-08: 34 dos 43 USAGE têm seção
+ * de gotcha, então varredura retroativa acusaria quase todos. E o ritmo de componente novo
+ * caiu — 17 em maio, 22 em junho, 3 em julho, 1 em agosto: o aviso dispara 1 a 3 vezes por
+ * mês, no momento em que o autor está presente pra responder.
  *
  * @param {string[]} pastasNovas  ex.: ["src/components/ui/ScreenLoader"]
  * @param {(caminho: string) => string|null} lerUsage  devolve o texto ou `null`
@@ -139,16 +104,17 @@ export function novosSemBloco(pastasNovas, lerUsage) {
   return out;
 }
 
-/** A mensagem de reprovação. Vazia quando não há nada a dizer. */
+/** A mensagem de reprovação do `auditar`. Vazia quando não há nada a dizer. */
 export function formatar({ faltando }) {
   if (!faltando.length) return "";
   return (
-    `Regra declarada que NÃO chega no consumidor (${faltando.length}):\n` +
-    faltando.map((f) => `  • \`${f.id}\` — bloco ds:regras em ${f.onde}`).join("\n") +
+    `Primitivo com bloco ds:regras que NÃO chega no consumidor (${faltando.length}):\n` +
+    faltando.map((f) => `  • \`${f.id}\` — declarado em ${f.onde}`).join("\n") +
     "\n\n" +
-    "O bloco só alcança quem ABRE o arquivo. Pra alcançar toda sessão, o componente precisa\n" +
-    "de linha em cli/templates/default/_claude/rules/ds-components.md (grupo de tarefa +\n" +
-    "critério de escolha) — e isso muda cli/templates/**, logo pede bump do CLI.\n" +
+    "O bloco só alcança quem ABRE o arquivo. Pra alcançar toda sessão, o primitivo precisa de\n" +
+    "linha em cli/templates/default/_claude/rules/ds-components.md (grupo de tarefa + critério\n" +
+    "de escolha) — e isso muda cli/templates/**, logo pede bump do CLI.\n" +
+    "⚠️ A família ui/ NÃO é checada aqui: quem cobra a linha dela é o distribution-debt.\n" +
     "Receita: .claude/skills/ds-dev/handoff-pr.md §Regra de comportamento.\n"
   );
 }

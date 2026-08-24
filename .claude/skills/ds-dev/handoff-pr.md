@@ -93,10 +93,19 @@ distribuído (no registry) **sem** estar no vocabulário do consumidor = gap rea
 
 **Gates que cobrem isto:**
 
-| gate | pega |
-|---|---|
-| `rule-surfaces` (`npm test`) | bloco declarado **sem** linha no vocabulário — a regra existe e não sai daqui. Reprova. |
-| `api-doc-check` (CI) | componente **novo** cujo USAGE não declara bloco. **Avisa**, não reprova: componente pode não ter regra de default. |
+| gate | pega | escopo |
+|---|---|---|
+| `distribution-debt` (`release:check`) | componente de `ui/` no registry **sem** linha no vocabulário. **Reprova** (`exit 1`) | família `ui/` |
+| `rule-surfaces` (`npm test`) | primitivo com bloco NOMEADO em `shadcn/USAGE.md` sem linha no vocabulário. **Reprova** | família `shadcn/` |
+| `api-doc-check` (CI) | componente **novo** cujo USAGE não declara bloco. **Avisa**, não reprova — componente pode não ter regra de default | componente novo |
+
+> **A divisão entre os dois primeiros foi medida, não desenhada.** A 1ª versão do
+> `rule-surfaces` cobrava a linha do vocabulário para **todo** componente com bloco. Rodando o
+> `distribution-debt` no mesmo cenário (linha do `screen-loader` removida à mão), ele **já
+> reprovava** com `exit 1` — metade do gate novo era cópia de regra que já tinha dono. O mesmo
+> teste achou a fatia órfã: removendo `tabs`, o `distribution-debt` saiu **0**, porque ele
+> varre só `src/components/ui/` e os primitivos shadcn ficam fora. Hoje cada caso tem
+> exatamente um dono.
 
 > **Por que estas 3 superfícies foram escritas em 2026-08-24.** O mecanismo de injeção existia
 > no código, no hook do consumidor e em 24 testes desde 2026-08-21 — e **não era mencionado em
