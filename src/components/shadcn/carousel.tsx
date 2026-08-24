@@ -308,9 +308,19 @@ CarouselNext.displayName = "CarouselNext"
  *   levam a lugar nenhum.
  * - **Some com 1 parada só.** Indicador de posição única não informa nada e ainda ocupa
  *   linha — o `return null` é o comportamento certo, não um caso não tratado.
- * - **Alvo de 24px com bolinha de 8px dentro.** A bolinha sozinha seria um alvo de toque
- *   de 8px; o botão dá os 24px que o WCAG 2.5.8 pede, e o `place-items-center` mantém o
- *   ponto visualmente pequeno. Os 8px seguem a receita do `groupDot` da `List`.
+ * - **Alvo de 16px com bolinha de 8px dentro.** A bolinha sozinha seria um alvo de toque
+ *   de 8px; o botão amplia sem crescer o ponto (`place-items-center`). Os 8px seguem a
+ *   receita do `groupDot` da `List` — não há token de size abaixo de 16px.
+ *
+ *   ⚠️ **Era 24px, e o espaçamento medido explicou a troca.** Com alvo de 24px e
+ *   `gap-gp-xs`, o espaço VISÍVEL entre pontos era **20px** — e só 4px vinham do gap: os
+ *   outros 16 eram sobra dos dois alvos. Baixar só o gap levaria a 18px, quase nada. Com
+ *   16px de alvo e `gap-gp-2xs`, o espaço visível cai pra **10px**, metade.
+ *
+ *   O custo é real e a escolha é deliberada: 16px fica abaixo dos 24px do WCAG 2.5.8.
+ *   Aceitável AQUI porque é indicador de posição, não ação destrutiva — errar o toque leva
+ *   ao slide vizinho e se desfaz com um toque. Não use este raciocínio pra encolher alvo de
+ *   ação com consequência.
  * - **`aria-current`, não `role="tab"`.** Tab implica `tabpanel` associado por id, o que
  *   este carrossel não tem — declarar a relação sem ela é pior que não declarar.
  */
@@ -330,7 +340,7 @@ const CarouselDots = React.forwardRef<
       role="group"
       aria-label="Posição no carrossel"
       className={cn(
-        "flex items-center justify-center gap-gp-xs",
+        "flex items-center justify-center gap-gp-2xs",
         orientation === "vertical" && "flex-col",
         className
       )}
@@ -346,7 +356,7 @@ const CarouselDots = React.forwardRef<
             aria-label={`Ir para ${i + 1} de ${scrollSnaps.length}`}
             aria-current={atual ? "true" : undefined}
             className={cn(
-              "grid size-comp-xs shrink-0 cursor-pointer place-items-center",
+              "grid size-comp-3xs shrink-0 cursor-pointer place-items-center",
               "rounded-radius-full",
               // Padrão 1 — focus estático
               "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand"
