@@ -46,6 +46,39 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.52.0",
+    date: "2026-08-27",
+    tag: "preview",
+    title: "Painel de detalhe em três arranjos — e a regra que escolhe entre eles",
+    summary:
+      "Um painel de detalhe não tem uma forma só, e escolher errado é o que faz o resultado parecer improvisado. Agora são três arranjos referenciáveis por ID, e a diferença entre eles não é estética — é **o que o detalhe contém**: registro com muitos campos, tarefa com conteúdo que cresce, ou registro com uma série de linhas. O critério de escolha chega junto, na hora em que a IA escreve a tag.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`dsgreen-paneldetail-2` — detalhe de tarefa com abas.** Contexto (projeto/coluna) no header e título GRANDE no corpo, invertendo o `-1`: título de tarefa é uma frase e não cabe numa linha de header. Propriedades em lista plana com ícone, e abas pra Subtarefas (timeline), Anexos, Comentários e Atividade (log agrupado por dia). **Aqui aba está certa, e no `-1` estava errada** — a regra é: aba serve pra *tipo de conteúdo*, não pra mais campos; num corpo que já colapsa, os dois juntos fazem o usuário procurar o dado em dois lugares.",
+          "**`dsgreen-paneldetail-3` — detalhe largo (720px) com métricas e tabela.** Ficha em duas colunas, faixa de 4 métricas e tabela `density=\"compact\"` (linha de 40px) com navegação de período. **A largura é requisito, não gosto:** 6 colunas precisam de ~678px úteis e em 560px a mesma tabela entra em scroll horizontal — que dentro de painel é pior que abrir a tela cheia. E é `Table`, não `DataTable`: o segundo traz toolbar, filtros e paginação, que competem com o painel.",
+          "**O `ds:regras` passou a rotear a FAMÍLIA.** Ele apontava pro `-1`; com três arranjos isso mandaria quem monta detalhe de tarefa pro errado. `Panel`, `FloatingPanel` e `Drawer` agora entregam o critério de escolha em uma linha, no momento em que a tag é escrita.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "`Panel`, `FloatingPanel`, `Drawer` e o vocabulário do consumidor apontam pra família `dsgreen-paneldetail-*` com o critério, em vez de um bloco fixo.",
+          "Cinco decisões dos blocos vieram de **medição no browser**, e cada uma virou nota no arquivo: o body do `FloatingPanel` **não tem gap entre filhos** (as distâncias saíam em 0px) · linha de propriedade alternava 30 e 36px por causa do `Chip` · `bg-bg-subtle` no dark é 1% de branco, invisível · a tabela deixava 34px vazios e truncava o header \"Distribuidora\" · e o `Table` do DS **já é um card**, então envolvê-lo criava dois raios concêntricos (14px dentro de 10px) com o canto de dentro estourando — a L-050 aplicada.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "A afirmação de que o `FinanceDetailPanel` \"não existe no projeto do consumidor\" era **falsa** — o `example-finance` o distribui. Corrigida na skill (repo + payload) e no changelog da v0.51.0, sem apagar o texto original.",
+          "Separador de dia do log de atividade tinha `aria-hidden` no container inteiro e **escondia a data** — no leitor de tela os eventos viravam lista corrida sem agrupamento. Agora só os fios decorativos são escondidos.",
+          "`DistributionDoc` afirmava 95 itens no registry; os dois blocos novos levaram a 97. Cobrado **2×** pelo gate `showcase-doc-facts`.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.51.0",
     date: "2026-08-27",
     tag: "preview",

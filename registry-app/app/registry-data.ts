@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1879,7 +1879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1904,13 +1904,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/blocks/paneldetail/detalhe-de-tarefa-com-abas.tsx",
-        "content": "import { useState } from \"react\";\nimport {\n  Calendar,\n  Check,\n  CircleDot,\n  Clock,\n  Download,\n  FileText,\n  Flag,\n  Link2,\n  Paperclip,\n  Pencil,\n  Plus,\n  SendHorizontal,\n  Tag,\n  Users,\n} from \"lucide-react\";\nimport type { LucideIcon } from \"@/lib/lucide-types\";\n// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel não é distribuído por\n// nenhum item do registry, então um bloco que o importasse chegaria no consumidor de copy-in\n// com import que não resolve (L-037, gate `registry-imports`).\nimport { Input } from \"@/components/shadcn/input\";\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/shadcn/tabs\";\nimport { Avatar } from \"@/components/ui/avatar-ig\";\nimport { Button } from \"@/components/ui/Button\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport { FloatingPanel } from \"@/components/ui/FloatingPanel\";\n\nexport const BLOCK = {\n  id: \"dsgreen-paneldetail-2\",\n  nome: \"Detalhe de tarefa com abas\",\n  descricao:\n    \"Painel de detalhe de uma TAREFA: contexto (projeto/coluna) no header, título grande no corpo, propriedades em lista plana com ícone à esquerda e valor à direita, descrição, e abas pros conteúdos que crescem — subtarefas, anexos, comentários e atividade.\",\n  usa: [\n    \"FloatingPanel (side=\\\"right\\\", size=\\\"lg\\\", titleSlot + headerActions + maximizable + resizable; body PADDED, sem Section)\",\n    \"Tabs (fullWidth, variante default) + TabsContent\",\n    \"Avatar (pilha com sobreposição) · Chip (soft) · Input · Button\",\n  ],\n} as const;\n\n/**\n * dsgreen-paneldetail-2 — detalhe de TAREFA, com abas.\n *\n * ## Por que existe, tendo o `dsgreen-paneldetail-1`\n *\n * Os dois são painel de detalhe e param aí a semelhança. O que muda é **o que o registro é**:\n *\n * | | `-1` registro (cliente, pedido) | `-2` tarefa (esta) |\n * |---|---|---|\n * | identidade | nome curto → cabe no header | título é uma FRASE → vai no corpo, grande; o header leva o **contexto** (projeto / coluna) |\n * | dados | 20+ campos, agrupáveis por assunto | ~6 propriedades, e nenhuma agrupável |\n * | estrutura | `FloatingPanelSection` colapsável | **lista plana** com ícone à esquerda |\n * | abas | ⛔ não — o colapso já esconde | ✅ **sim** — ver abaixo |\n *\n * ## Aqui aba está certa, e no `-1` estava errada\n *\n * A regra não é \"aba é ruim\". É: **aba serve pra tipo de conteúdo, não pra mais campos.**\n *\n * No `-1` as abas escondiam seções de campos — e um corpo que já é pilha de seções\n * colapsáveis já tem mecanismo de esconder; os dois juntos fazem o usuário procurar o dado em\n * dois lugares.\n *\n * Aqui cada aba é uma **natureza diferente**: subtarefa é checklist, anexo é arquivo,\n * comentário é conversa, atividade é log. Nenhuma é campo, nenhuma cabe na lista de\n * propriedades, e todas **crescem sem limite** — 40 comentários não podem empurrar o próximo\n * dado 40 linhas pra baixo. É exatamente o caso pra aba.\n *\n * ## O body é PADDED aqui — o oposto do `-1`\n *\n * ⚠️ Não copie o `bodyPadded={false}` do `-1`. Lá ele é obrigatório porque as\n * `FloatingPanelSection` trazem padding próprio e divisória de ponta a ponta. **Aqui não há\n * Section nenhuma**, então o default (`bodyPadded` = true, gutter de 18px) é o certo, e some a\n * necessidade de qualquer margem negativa. Ligar `false` aqui colaria todo o conteúdo na borda.\n *\n * ## A lista de propriedades: por que grid e não `justify-between`\n *\n * `grid-cols-[132px_1fr]` alinha os valores numa **coluna única**, que é o que dá a leitura de\n * ficha. Com `justify-between` cada valor encostaria na borda direita numa distância diferente\n * (depende do tamanho do label), e a coluna desapareceria.\n *\n * Também não é `FloatingPanelField`: ele é `label ... valor` **sem ícone** e com o valor\n * alinhado à direita. Aqui o ícone à esquerda do label é parte do desenho — ele é o que\n * permite varrer a lista por tipo de propriedade sem ler.\n *\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\n *\n * - **Aba dentro de painel vem `fullWidth`, na variante default (`segmented`).** Regra\n *   declarada no `USAGE.md` do `FloatingPanel`: em 560px o `line` vira um trilho curto que lê\n *   como fragmento. Com 4 abas o `fullWidth` dá ~130px cada — cabe.\n * - **Ação de ícone é `variant=\"soft\"` + `aria-label`.** O maximize e o close que o\n *   componente renderiza são `soft`+`secondary`; `ghost` no meio da fileira fica sem container\n *   e lê como desabilitada. E botão de ícone sem `aria-label` é anunciado só como \"button\".\n * - **Status/prioridade/tag são `Chip`**, nunca `<span>` estilizado — o Chip já resolve tom,\n *   contraste e altura de linha.\n * - **Data com `tabular-nums`**, senão os dígitos dançam entre as linhas da lista.\n * - **Pilha de avatares:** `-ml-sp-sm` (6px, token) + `ring-2 ring-bg-surface` pra separar um\n *   do outro. O DS **não tem** `AvatarGroup` — se passar a ter, troque por ele.\n * - **Subtarefa concluída = disco CHEIO**, feito com `<span bg-bg-success>` + `<Check>`, não\n *   com o `CircleCheck` do lucide: ele desenha o círculo com `stroke=\"currentColor\"`, e no\n *   dark o traço (preto, porque `fg-on-success` inverte) fica por cima do preenchimento e come\n *   ~2px de verde de cada lado. Medido no `-1`, mesma solução aqui.\n *\n * ## Cuidado ao adaptar\n *\n * - **O botão daqui é do EXEMPLO.** No board real quem abre o painel é o card clicado:\n *   `open={!!tarefaSelecionada}`.\n * - **Contagem na aba** (`Comentários 3`) só quando o número informa. \"Atividade 47\" não\n *   ajuda ninguém a decidir se clica.\n * - **O campo de mensagem aqui é `Input` + botão.** O DS tem um `MessageComposer` bem mais\n *   completo (anexo, menção, template), mas ele **não está no registry** — um bloco que o\n *   importasse não resolveria no consumidor de copy-in. Se ele entrar no registry, troque.\n * - **Não empilhe as 4 abas em telas estreitas.** Em mobile o `FloatingPanel` vira sheet e 4\n *   triggers de ~80px ficam ilegíveis: ali o certo é reduzir pra 2 (Comentários + resto num\n *   menu) ou virar tela própria.\n */\n\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\n *  forma do dado esperado sem inferir do render. */\nconst TAREFA = {\n  contexto: \"Projeto UI/UX\",\n  coluna: \"Em revisão\",\n  titulo: \"Redesenhar o painel de analytics do dashboard\",\n  descricao:\n    \"Revisar a hierarquia dos KPIs e trocar os quatro cards do topo por uma faixa única. O gráfico de barras precisa caber ao lado do ranking sem quebrar em 1280px.\",\n};\n\nconst PROPRIEDADES: {\n  icone: LucideIcon;\n  label: string;\n  valor: React.ReactNode;\n}[] = [\n  {\n    icone: CircleDot,\n    label: \"Status\",\n    valor: (\n      <Chip color=\"info\" variant=\"soft\" size=\"sm\">\n        Em revisão\n      </Chip>\n    ),\n  },\n  {\n    icone: Flag,\n    label: \"Prioridade\",\n    valor: (\n      <Chip color=\"warning\" variant=\"soft\" size=\"sm\">\n        Alta\n      </Chip>\n    ),\n  },\n  {\n    icone: Calendar,\n    label: \"Prazo\",\n    valor: <span className=\"tabular-nums\">3 out 2026 — 12 out 2026</span>,\n  },\n  {\n    icone: Tag,\n    label: \"Tags\",\n    valor: (\n      <span className=\"flex flex-wrap items-center gap-gp-sm\">\n        {[\"Dashboard\", \"Analytics\", \"Frontend\"].map((t) => (\n          <Chip key={t} color=\"neutral\" variant=\"soft\" size=\"sm\">\n            {t}\n          </Chip>\n        ))}\n      </span>\n    ),\n  },\n  {\n    icone: Users,\n    label: \"Responsáveis\",\n    valor: (\n      /* Pilha com sobreposição: `-ml-sp-sm` (6px, token) no 2º em diante + `ring` da cor da\n         superfície, que é o que separa um avatar do outro. Sem AvatarGroup no DS. */\n      <span className=\"flex items-center\">\n        {[\n          { ini: \"MD\", hex: \"#2563EB\" },\n          { ini: \"AC\", hex: \"#CC092F\" },\n          { ini: \"JS\", hex: \"#7C3AED\" },\n        ].map((p, i) => (\n          <Avatar\n            key={p.ini}\n            size=\"sm\"\n            colorHex={p.hex}\n            aria-label={p.ini}\n            className={i > 0 ? \"-ml-sp-sm ring-2 ring-bg-surface\" : \"ring-2 ring-bg-surface\"}\n          >\n            {p.ini}\n          </Avatar>\n        ))}\n      </span>\n    ),\n  },\n  {\n    icone: Clock,\n    label: \"Criada em\",\n    valor: <span className=\"tabular-nums\">20 set 2026, 10:35</span>,\n  },\n];\n\nconst SUBTAREFAS = [\n  { label: \"Levantar os KPIs que o time realmente usa\", feita: true },\n  { label: \"Definir a faixa única no lugar dos 4 cards\", feita: true },\n  { label: \"Validar o gráfico ao lado do ranking em 1280px\", feita: false },\n  { label: \"Revisar com o time de dados\", feita: false },\n];\n\nconst ANEXOS = [\n  { nome: \"Briefing do redesign.pdf\", tamanho: \"1,5 MB\", quando: \"24 set 2026\" },\n  { nome: \"Medições de 1280px.png\", tamanho: \"820 KB\", quando: \"26 set 2026\" },\n];\n\nconst COMENTARIOS = [\n  {\n    autor: \"Terry James\",\n    iniciais: \"TJ\",\n    hex: \"#2563EB\",\n    quando: \"sex, 14:20\",\n    texto:\n      \"A faixa única resolve a hierarquia, mas o ranking fica sem respiro em 1280px. Consegue medir antes de fechar?\",\n    reacoes: \"2\",\n  },\n  {\n    autor: \"Aline Castro\",\n    iniciais: \"AC\",\n    hex: \"#CC092F\",\n    quando: \"sex, 15:02\",\n    texto: \"Medido: 148px pro ranking. Cabe, mas com o título em duas linhas.\",\n    reacoes: null,\n  },\n];\n\n/** Log agrupado por DIA. O agrupamento é do dado, não do render: quem monta a lista já sabe\n *  a que dia cada evento pertence, e derivar isso no componente esconderia a regra de fuso. */\nconst ATIVIDADE = [\n  {\n    dia: \"Hoje\",\n    eventos: [\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"mudou o status de Em progresso para Em revisão\", quando: \"10:45\" },\n      { autor: \"Davis Donin\", iniciais: \"DD\", hex: \"#0891B2\", texto: \"anexou Medições de 1280px.png\", quando: \"10:20\" },\n      { autor: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\", texto: \"concluiu a subtarefa Definir a faixa única\", quando: \"09:58\" },\n    ],\n  },\n  {\n    dia: \"Ontem\",\n    eventos: [\n      { autor: \"Terry James\", iniciais: \"TJ\", hex: \"#2563EB\", texto: \"comentou sobre o respiro do ranking em 1280px\", quando: \"14:20\" },\n      { autor: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\", texto: \"adicionou a tag Analytics\", quando: \"11:07\" },\n    ],\n  },\n  {\n    dia: \"24 set 2026\",\n    eventos: [\n      { autor: \"Davis Donin\", iniciais: \"DD\", hex: \"#0891B2\", texto: \"anexou Briefing do redesign.pdf\", quando: \"16:32\" },\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"definiu o prazo para 12 out 2026\", quando: \"16:10\" },\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"criou a tarefa\", quando: \"16:04\" },\n    ],\n  },\n];\n\n/** Linha da lista de propriedades: ícone à esquerda, label, e o valor na coluna da direita. */\nfunction Propriedade({\n  icone: Icone,\n  label,\n  valor,\n}: {\n  icone: LucideIcon;\n  label: string;\n  valor: React.ReactNode;\n}) {\n  return (\n    <>\n      {/* `min-h-form-md` (36px) nas DUAS células. Sem isso a linha tem altura do conteúdo, e\n          medido dá 30px na de texto puro contra 36px na que tem `Chip` — a lista fica com\n          ritmo irregular. 36 é o piso natural: é a altura que o Chip já impõe, então nada\n          cresce, só as menores igualam. */}\n      <div className=\"flex min-h-form-md items-center gap-gp-md text-body-sm text-fg-muted\">\n        <Icone className=\"size-icon-sm shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\n        <span className=\"truncate\">{label}</span>\n      </div>\n      <div className=\"flex min-h-form-md min-w-0 items-center text-body-sm text-fg-default\">\n        {valor}\n      </div>\n    </>\n  );\n}\n\nexport function DetalheDeTarefaComAbas() {\n  const [aberto, setAberto] = useState(false);\n  const [aba, setAba] = useState(\"subtarefas\");\n  const feitas = SUBTAREFAS.filter((s) => s.feita).length;\n\n  return (\n    <>\n      {/* No board real este botão não existe: quem abre o painel é o card clicado. */}\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\n        Abrir detalhe da tarefa\n      </Button>\n\n      <FloatingPanel\n        open={aberto}\n        onOpenChange={setAberto}\n        side=\"right\"\n        size=\"lg\"\n        resizable\n        maximizable\n        resizableStorageKey=\"dsgreen-paneldetail-2.width\"\n        /* Header leva o CONTEXTO, não a identidade: título de tarefa é uma frase e não cabe\n           numa linha de header. Quem identifica aqui é \"onde a tarefa está\". */\n        titleSlot={\n          <div className=\"flex min-w-0 items-center gap-gp-sm text-body-sm text-fg-muted\">\n            <span className=\"truncate\">{TAREFA.contexto}</span>\n            <span className=\"opacity-50\">/</span>\n            <span className=\"truncate font-medium text-fg-default\">{TAREFA.coluna}</span>\n          </div>\n        }\n        headerActions={\n          <>\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Editar tarefa\">\n              <Pencil />\n            </Button>\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Copiar link\">\n              <Link2 />\n            </Button>\n          </>\n        }\n        footer={\n          <>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"sm\"\n              onClick={() => setAberto(false)}\n            >\n              Fechar\n            </Button>\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Check />}>\n              Concluir tarefa\n            </Button>\n          </>\n        }\n      >\n        {/* ⚠️ Este wrapper de gap é OBRIGATÓRIO, e não é preferência: o body do\n            `FloatingPanel` **não tem gap entre filhos** (`row-gap: normal`, medido) — só\n            padding. Sem ele, título, lista, descrição e abas ficam com **0px** entre si, todos\n            colados. Não confunda com o `PanelBody` do `Panel`, que tem `gap-gp-3xl` embutido:\n            é a diferença que fez a 1ª versão deste bloco sair grudada. */}\n        <div className=\"flex flex-col gap-gp-2xl\">\n          {/* Título no CORPO, grande. `text-balance` evita a última linha órfã de uma palavra. */}\n          <h2 className=\"text-title-lg text-balance text-fg-default\">{TAREFA.titulo}</h2>\n\n          {/* Lista plana de propriedades. O grid alinha todos os valores numa coluna só — é\n              isso que dá leitura de ficha; `justify-between` desalinharia por tamanho de\n              label. */}\n          <div className=\"grid grid-cols-[132px_1fr] items-center gap-x-gp-md\">\n            {PROPRIEDADES.map((p) => (\n              <Propriedade key={p.label} {...p} />\n            ))}\n          </div>\n\n          {/* `bg-bg-surface`, não `bg-bg-subtle`: medido no dark, o subtle dá\n              `oklch(1 0 0 / 0.01)` — 1% de branco sobre o painel, invisível. O surface é\n              superfície de verdade e destaca o bloco de texto do resto da ficha. */}\n          <div className=\"flex flex-col gap-gp-md rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl\">\n            <span className=\"text-body-xs font-semibold text-fg-muted\">Descrição</span>\n            <p className=\"text-body-sm text-fg-default\">{TAREFA.descricao}</p>\n          </div>\n        </div>\n\n        {/* Abas: cada uma é uma NATUREZA de conteúdo que cresce sem limite — não são campos.\n            É a diferença que justifica aba aqui e a proíbe no `dsgreen-paneldetail-1`. */}\n        <Tabs value={aba} onValueChange={setAba} fullWidth className=\"mt-gp-2xl\">\n          <TabsList>\n            <TabsTrigger value=\"subtarefas\">Subtarefas</TabsTrigger>\n            <TabsTrigger value=\"anexos\">Anexos</TabsTrigger>\n            <TabsTrigger value=\"comentarios\">Comentários</TabsTrigger>\n            <TabsTrigger value=\"atividade\">Atividade</TabsTrigger>\n          </TabsList>\n\n          <TabsContent value=\"subtarefas\" className=\"flex flex-col gap-gp-lg pt-pad-xl\">\n            <div className=\"flex items-center justify-between text-body-xs text-fg-muted\">\n              <span className=\"font-semibold text-fg-default\">Progresso</span>\n              <span className=\"tabular-nums\">\n                {feitas}/{SUBTAREFAS.length}\n              </span>\n            </div>\n            {/* Timeline: a linha vertical liga um marcador ao próximo. Ela é um `<span>` que\n                cresce (`flex-1`) numa coluna ao lado do marcador — NÃO um `before:` com\n                `left-[7px]`, que seria valor na unha e desalinharia se o marcador mudar de\n                tamanho. O `gap-0` no `<ul>` é o que mantém a linha contínua; o respiro entre\n                itens vem do `pb` do texto. */}\n            <ul className=\"flex flex-col gap-0\">\n              {SUBTAREFAS.map((s, i) => {\n                const ultima = i === SUBTAREFAS.length - 1;\n                return (\n                  <li key={s.label} className=\"flex gap-gp-md text-body-sm\">\n                    <div className=\"flex flex-col items-center\">\n                      {s.feita ? (\n                        /* Disco CHEIO: `<span>` + `<Check>`, não o `CircleCheck` do lucide — o\n                           stroke dele fica por cima do fill e come o disco no dark. */\n                        <span\n                          className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full bg-bg-success text-fg-on-success\"\n                          aria-hidden=\"true\"\n                        >\n                          <Check className=\"size-icon-2xs\" strokeWidth={3} />\n                        </span>\n                      ) : (\n                        <span\n                          className=\"size-icon-sm shrink-0 rounded-radius-full border border-border-input\"\n                          aria-hidden=\"true\"\n                        />\n                      )}\n                      {!ultima && (\n                        <span\n                          className=\"mt-gp-2xs w-px flex-1 bg-border-default\"\n                          aria-hidden=\"true\"\n                        />\n                      )}\n                    </div>\n                    <span\n                      className={`${ultima ? \"\" : \"pb-pad-xl\"} ${\n                        s.feita ? \"text-fg-muted line-through\" : \"text-fg-default\"\n                      }`}\n                    >\n                      {s.label}\n                    </span>\n                  </li>\n                );\n              })}\n            </ul>\n          </TabsContent>\n\n          <TabsContent value=\"anexos\" className=\"flex flex-col gap-gp-md pt-pad-xl\">\n            {ANEXOS.map((a) => (\n              <div\n                key={a.nome}\n                className=\"flex items-center gap-gp-md rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl\"\n              >\n                <FileText className=\"size-icon-md shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\n                <div className=\"flex min-w-0 flex-1 flex-col\">\n                  <span className=\"truncate text-body-sm text-fg-default\">{a.nome}</span>\n                  {/* Tamanho e data na MESMA linha secundária, separados por `·`. Duas linhas\n                      aqui esticariam a altura do anexo sem ganhar leitura — os dois são\n                      metadado do mesmo arquivo. */}\n                  <span className=\"text-caption-sm tabular-nums text-fg-muted\">\n                    {a.tamanho} · {a.quando}\n                  </span>\n                </div>\n                <Button\n                  variant=\"ghost\"\n                  color=\"secondary\"\n                  size=\"icon-sm\"\n                  aria-label={`Baixar ${a.nome}`}\n                >\n                  <Download />\n                </Button>\n              </div>\n            ))}\n            <Button variant=\"outline\" color=\"secondary\" size=\"sm\" iconLeft={<Plus />}>\n              Anexar arquivo\n            </Button>\n          </TabsContent>\n\n          <TabsContent value=\"comentarios\" className=\"flex flex-col gap-gp-2xl pt-pad-xl\">\n            <ul className=\"flex flex-col gap-gp-2xl\">\n              {COMENTARIOS.map((c) => (\n                <li key={c.quando} className=\"flex gap-gp-md\">\n                  <Avatar\n                    size=\"md\"\n                    colorHex={c.hex}\n                    className=\"shrink-0\"\n                    aria-label={c.autor}\n                  >\n                    {c.iniciais}\n                  </Avatar>\n                  <div className=\"flex min-w-0 flex-col gap-gp-2xs\">\n                    <span className=\"flex flex-wrap items-baseline gap-gp-sm\">\n                      <span className=\"text-body-sm font-semibold text-fg-default\">\n                        {c.autor}\n                      </span>\n                      <span className=\"text-caption-sm tabular-nums text-fg-muted\">\n                        {c.quando}\n                      </span>\n                    </span>\n                    <p className=\"text-body-sm text-fg-default\">{c.texto}</p>\n                    {c.reacoes && (\n                      <span className=\"mt-gp-2xs w-fit\">\n                        <Chip color=\"neutral\" variant=\"soft\" size=\"sm\">\n                          👍 {c.reacoes}\n                        </Chip>\n                      </span>\n                    )}\n                  </div>\n                </li>\n              ))}\n            </ul>\n            {/* Campo de mensagem: `Input` + botão de enviar. O `MessageComposer` do DS é mais\n                completo mas NÃO está no registry — ver \"Cuidado ao adaptar\". */}\n            <div className=\"flex items-center gap-gp-md\">\n              <Input placeholder=\"Escreva um comentário…\" aria-label=\"Novo comentário\" />\n              <Button\n                variant=\"soft\"\n                color=\"secondary\"\n                size=\"icon-sm\"\n                aria-label=\"Anexar ao comentário\"\n              >\n                <Paperclip />\n              </Button>\n              <Button variant=\"filled\" size=\"icon-sm\" aria-label=\"Enviar comentário\">\n                <SendHorizontal />\n              </Button>\n            </div>\n          </TabsContent>\n\n          <TabsContent value=\"atividade\" className=\"flex flex-col gap-gp-2xl pt-pad-xl\">\n            {ATIVIDADE.map((grupo) => (\n              <div key={grupo.dia} className=\"flex flex-col gap-gp-md\">\n                {/* Separador de dia no padrão de conversa: fio · badge · fio. Centralizado\n                    porque ele divide o fluxo, não rotula o item de baixo — encostado à\n                    esquerda ele leria como título do primeiro evento.\n\n                    O dia é um `Chip`, não texto solto: com 3 grupos na mesma rolagem, texto\n                    fino do mesmo tamanho do resto some no meio do log. O badge dá o degrau\n                    visual que separa bloco de bloco.\n\n                    ⚠️ Os fios são `aria-hidden`, o Chip NÃO. A 1ª versão tinha `aria-hidden`\n                    no container inteiro e escondia a data — e é ela que agrupa o log: sem\n                    ela, no leitor de tela os 8 eventos viram uma lista corrida sem dia. */}\n                <div className=\"flex items-center gap-gp-md\">\n                  <span className=\"h-px flex-1 bg-border-subtle\" aria-hidden=\"true\" />\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"sm\">\n                    {grupo.dia}\n                  </Chip>\n                  <span className=\"h-px flex-1 bg-border-subtle\" aria-hidden=\"true\" />\n                </div>\n\n                <ul className=\"flex flex-col\">\n                  {grupo.eventos.map((a) => (\n                    <li\n                      key={a.autor + a.quando}\n                      /* Divisória por evento: log é lista de linhas parecidas, e sem\n                         separação elas viram parágrafo corrido. A última do grupo não leva,\n                         porque o separador de dia já fecha o bloco. */\n                      className=\"flex items-start gap-gp-md border-b border-border-subtle py-pad-lg first:pt-0 last:border-b-0 last:pb-0\"\n                    >\n                      <Avatar\n                        size=\"sm\"\n                        colorHex={a.hex}\n                        className=\"shrink-0\"\n                        aria-label={a.autor}\n                      >\n                        {a.iniciais}\n                      </Avatar>\n                      <p className=\"min-w-0 flex-1 text-body-sm text-fg-muted\">\n                        <span className=\"font-semibold text-fg-default\">{a.autor}</span>{\" \"}\n                        {a.texto}\n                      </p>\n                      <span className=\"shrink-0 text-caption-sm tabular-nums text-fg-muted\">\n                        {a.quando}\n                      </span>\n                    </li>\n                  ))}\n                </ul>\n              </div>\n            ))}\n          </TabsContent>\n        </Tabs>\n      </FloatingPanel>\n    </>\n  );\n}\n",
+        "content": "import { useState } from \"react\";\r\nimport {\r\n  Calendar,\r\n  Check,\r\n  CircleDot,\r\n  Clock,\r\n  Download,\r\n  FileText,\r\n  Flag,\r\n  Link2,\r\n  Paperclip,\r\n  Pencil,\r\n  Plus,\r\n  SendHorizontal,\r\n  Tag,\r\n  Users,\r\n} from \"lucide-react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\n// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel não é distribuído por\r\n// nenhum item do registry, então um bloco que o importasse chegaria no consumidor de copy-in\r\n// com import que não resolve (L-037, gate `registry-imports`).\r\nimport { Input } from \"@/components/shadcn/input\";\r\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/shadcn/tabs\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport { FloatingPanel } from \"@/components/ui/FloatingPanel\";\r\n\r\nexport const BLOCK = {\r\n  id: \"dsgreen-paneldetail-2\",\r\n  nome: \"Detalhe de tarefa com abas\",\r\n  descricao:\r\n    \"Painel de detalhe de uma TAREFA: contexto (projeto/coluna) no header, título grande no corpo, propriedades em lista plana com ícone à esquerda e valor à direita, descrição, e abas pros conteúdos que crescem — subtarefas, anexos, comentários e atividade.\",\r\n  usa: [\r\n    \"FloatingPanel (side=\\\"right\\\", size=\\\"lg\\\", titleSlot + headerActions + maximizable + resizable; body PADDED, sem Section)\",\r\n    \"Tabs (fullWidth, variante default) + TabsContent\",\r\n    \"Avatar (pilha com sobreposição) · Chip (soft) · Input · Button\",\r\n  ],\r\n} as const;\r\n\r\n/**\r\n * dsgreen-paneldetail-2 — detalhe de TAREFA, com abas.\r\n *\r\n * ## Por que existe, tendo o `dsgreen-paneldetail-1`\r\n *\r\n * Os dois são painel de detalhe e param aí a semelhança. O que muda é **o que o registro é**:\r\n *\r\n * | | `-1` registro (cliente, pedido) | `-2` tarefa (esta) |\r\n * |---|---|---|\r\n * | identidade | nome curto → cabe no header | título é uma FRASE → vai no corpo, grande; o header leva o **contexto** (projeto / coluna) |\r\n * | dados | 20+ campos, agrupáveis por assunto | ~6 propriedades, e nenhuma agrupável |\r\n * | estrutura | `FloatingPanelSection` colapsável | **lista plana** com ícone à esquerda |\r\n * | abas | ⛔ não — o colapso já esconde | ✅ **sim** — ver abaixo |\r\n *\r\n * ## Aqui aba está certa, e no `-1` estava errada\r\n *\r\n * A regra não é \"aba é ruim\". É: **aba serve pra tipo de conteúdo, não pra mais campos.**\r\n *\r\n * No `-1` as abas escondiam seções de campos — e um corpo que já é pilha de seções\r\n * colapsáveis já tem mecanismo de esconder; os dois juntos fazem o usuário procurar o dado em\r\n * dois lugares.\r\n *\r\n * Aqui cada aba é uma **natureza diferente**: subtarefa é checklist, anexo é arquivo,\r\n * comentário é conversa, atividade é log. Nenhuma é campo, nenhuma cabe na lista de\r\n * propriedades, e todas **crescem sem limite** — 40 comentários não podem empurrar o próximo\r\n * dado 40 linhas pra baixo. É exatamente o caso pra aba.\r\n *\r\n * ## O body é PADDED aqui — o oposto do `-1`\r\n *\r\n * ⚠️ Não copie o `bodyPadded={false}` do `-1`. Lá ele é obrigatório porque as\r\n * `FloatingPanelSection` trazem padding próprio e divisória de ponta a ponta. **Aqui não há\r\n * Section nenhuma**, então o default (`bodyPadded` = true, gutter de 18px) é o certo, e some a\r\n * necessidade de qualquer margem negativa. Ligar `false` aqui colaria todo o conteúdo na borda.\r\n *\r\n * ## A lista de propriedades: por que grid e não `justify-between`\r\n *\r\n * `grid-cols-[132px_1fr]` alinha os valores numa **coluna única**, que é o que dá a leitura de\r\n * ficha. Com `justify-between` cada valor encostaria na borda direita numa distância diferente\r\n * (depende do tamanho do label), e a coluna desapareceria.\r\n *\r\n * Também não é `FloatingPanelField`: ele é `label ... valor` **sem ícone** e com o valor\r\n * alinhado à direita. Aqui o ícone à esquerda do label é parte do desenho — ele é o que\r\n * permite varrer a lista por tipo de propriedade sem ler.\r\n *\r\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\r\n *\r\n * - **Aba dentro de painel vem `fullWidth`, na variante default (`segmented`).** Regra\r\n *   declarada no `USAGE.md` do `FloatingPanel`: em 560px o `line` vira um trilho curto que lê\r\n *   como fragmento. Com 4 abas o `fullWidth` dá ~130px cada — cabe.\r\n * - **Ação de ícone é `variant=\"soft\"` + `aria-label`.** O maximize e o close que o\r\n *   componente renderiza são `soft`+`secondary`; `ghost` no meio da fileira fica sem container\r\n *   e lê como desabilitada. E botão de ícone sem `aria-label` é anunciado só como \"button\".\r\n * - **Status/prioridade/tag são `Chip`**, nunca `<span>` estilizado — o Chip já resolve tom,\r\n *   contraste e altura de linha.\r\n * - **Data com `tabular-nums`**, senão os dígitos dançam entre as linhas da lista.\r\n * - **Pilha de avatares:** `-ml-sp-sm` (6px, token) + `ring-2 ring-bg-surface` pra separar um\r\n *   do outro. O DS **não tem** `AvatarGroup` — se passar a ter, troque por ele.\r\n * - **Subtarefa concluída = disco CHEIO**, feito com `<span bg-bg-success>` + `<Check>`, não\r\n *   com o `CircleCheck` do lucide: ele desenha o círculo com `stroke=\"currentColor\"`, e no\r\n *   dark o traço (preto, porque `fg-on-success` inverte) fica por cima do preenchimento e come\r\n *   ~2px de verde de cada lado. Medido no `-1`, mesma solução aqui.\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * - **O botão daqui é do EXEMPLO.** No board real quem abre o painel é o card clicado:\r\n *   `open={!!tarefaSelecionada}`.\r\n * - **Contagem na aba** (`Comentários 3`) só quando o número informa. \"Atividade 47\" não\r\n *   ajuda ninguém a decidir se clica.\r\n * - **O campo de mensagem aqui é `Input` + botão.** O DS tem um `MessageComposer` bem mais\r\n *   completo (anexo, menção, template), mas ele **não está no registry** — um bloco que o\r\n *   importasse não resolveria no consumidor de copy-in. Se ele entrar no registry, troque.\r\n * - **Não empilhe as 4 abas em telas estreitas.** Em mobile o `FloatingPanel` vira sheet e 4\r\n *   triggers de ~80px ficam ilegíveis: ali o certo é reduzir pra 2 (Comentários + resto num\r\n *   menu) ou virar tela própria.\r\n */\r\n\r\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\r\n *  forma do dado esperado sem inferir do render. */\r\nconst TAREFA = {\r\n  contexto: \"Projeto UI/UX\",\r\n  coluna: \"Em revisão\",\r\n  titulo: \"Redesenhar o painel de analytics do dashboard\",\r\n  descricao:\r\n    \"Revisar a hierarquia dos KPIs e trocar os quatro cards do topo por uma faixa única. O gráfico de barras precisa caber ao lado do ranking sem quebrar em 1280px.\",\r\n};\r\n\r\nconst PROPRIEDADES: {\r\n  icone: LucideIcon;\r\n  label: string;\r\n  valor: React.ReactNode;\r\n}[] = [\r\n  {\r\n    icone: CircleDot,\r\n    label: \"Status\",\r\n    valor: (\r\n      <Chip color=\"info\" variant=\"soft\" size=\"sm\">\r\n        Em revisão\r\n      </Chip>\r\n    ),\r\n  },\r\n  {\r\n    icone: Flag,\r\n    label: \"Prioridade\",\r\n    valor: (\r\n      <Chip color=\"warning\" variant=\"soft\" size=\"sm\">\r\n        Alta\r\n      </Chip>\r\n    ),\r\n  },\r\n  {\r\n    icone: Calendar,\r\n    label: \"Prazo\",\r\n    valor: <span className=\"tabular-nums\">3 out 2026 — 12 out 2026</span>,\r\n  },\r\n  {\r\n    icone: Tag,\r\n    label: \"Tags\",\r\n    valor: (\r\n      <span className=\"flex flex-wrap items-center gap-gp-sm\">\r\n        {[\"Dashboard\", \"Analytics\", \"Frontend\"].map((t) => (\r\n          <Chip key={t} color=\"neutral\" variant=\"soft\" size=\"sm\">\r\n            {t}\r\n          </Chip>\r\n        ))}\r\n      </span>\r\n    ),\r\n  },\r\n  {\r\n    icone: Users,\r\n    label: \"Responsáveis\",\r\n    valor: (\r\n      /* Pilha com sobreposição: `-ml-sp-sm` (6px, token) no 2º em diante + `ring` da cor da\r\n         superfície, que é o que separa um avatar do outro. Sem AvatarGroup no DS. */\r\n      <span className=\"flex items-center\">\r\n        {[\r\n          { ini: \"MD\", hex: \"#2563EB\" },\r\n          { ini: \"AC\", hex: \"#CC092F\" },\r\n          { ini: \"JS\", hex: \"#7C3AED\" },\r\n        ].map((p, i) => (\r\n          <Avatar\r\n            key={p.ini}\r\n            size=\"sm\"\r\n            colorHex={p.hex}\r\n            aria-label={p.ini}\r\n            className={i > 0 ? \"-ml-sp-sm ring-2 ring-bg-surface\" : \"ring-2 ring-bg-surface\"}\r\n          >\r\n            {p.ini}\r\n          </Avatar>\r\n        ))}\r\n      </span>\r\n    ),\r\n  },\r\n  {\r\n    icone: Clock,\r\n    label: \"Criada em\",\r\n    valor: <span className=\"tabular-nums\">20 set 2026, 10:35</span>,\r\n  },\r\n];\r\n\r\nconst SUBTAREFAS = [\r\n  { label: \"Levantar os KPIs que o time realmente usa\", feita: true },\r\n  { label: \"Definir a faixa única no lugar dos 4 cards\", feita: true },\r\n  { label: \"Validar o gráfico ao lado do ranking em 1280px\", feita: false },\r\n  { label: \"Revisar com o time de dados\", feita: false },\r\n];\r\n\r\nconst ANEXOS = [\r\n  { nome: \"Briefing do redesign.pdf\", tamanho: \"1,5 MB\", quando: \"24 set 2026\" },\r\n  { nome: \"Medições de 1280px.png\", tamanho: \"820 KB\", quando: \"26 set 2026\" },\r\n];\r\n\r\nconst COMENTARIOS = [\r\n  {\r\n    autor: \"Terry James\",\r\n    iniciais: \"TJ\",\r\n    hex: \"#2563EB\",\r\n    quando: \"sex, 14:20\",\r\n    texto:\r\n      \"A faixa única resolve a hierarquia, mas o ranking fica sem respiro em 1280px. Consegue medir antes de fechar?\",\r\n    reacoes: \"2\",\r\n  },\r\n  {\r\n    autor: \"Aline Castro\",\r\n    iniciais: \"AC\",\r\n    hex: \"#CC092F\",\r\n    quando: \"sex, 15:02\",\r\n    texto: \"Medido: 148px pro ranking. Cabe, mas com o título em duas linhas.\",\r\n    reacoes: null,\r\n  },\r\n];\r\n\r\n/** Log agrupado por DIA. O agrupamento é do dado, não do render: quem monta a lista já sabe\r\n *  a que dia cada evento pertence, e derivar isso no componente esconderia a regra de fuso. */\r\nconst ATIVIDADE = [\r\n  {\r\n    dia: \"Hoje\",\r\n    eventos: [\r\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"mudou o status de Em progresso para Em revisão\", quando: \"10:45\" },\r\n      { autor: \"Davis Donin\", iniciais: \"DD\", hex: \"#0891B2\", texto: \"anexou Medições de 1280px.png\", quando: \"10:20\" },\r\n      { autor: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\", texto: \"concluiu a subtarefa Definir a faixa única\", quando: \"09:58\" },\r\n    ],\r\n  },\r\n  {\r\n    dia: \"Ontem\",\r\n    eventos: [\r\n      { autor: \"Terry James\", iniciais: \"TJ\", hex: \"#2563EB\", texto: \"comentou sobre o respiro do ranking em 1280px\", quando: \"14:20\" },\r\n      { autor: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\", texto: \"adicionou a tag Analytics\", quando: \"11:07\" },\r\n    ],\r\n  },\r\n  {\r\n    dia: \"24 set 2026\",\r\n    eventos: [\r\n      { autor: \"Davis Donin\", iniciais: \"DD\", hex: \"#0891B2\", texto: \"anexou Briefing do redesign.pdf\", quando: \"16:32\" },\r\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"definiu o prazo para 12 out 2026\", quando: \"16:10\" },\r\n      { autor: \"Talan Korsgaard\", iniciais: \"TK\", hex: \"#7C3AED\", texto: \"criou a tarefa\", quando: \"16:04\" },\r\n    ],\r\n  },\r\n];\r\n\r\n/** Linha da lista de propriedades: ícone à esquerda, label, e o valor na coluna da direita. */\r\nfunction Propriedade({\r\n  icone: Icone,\r\n  label,\r\n  valor,\r\n}: {\r\n  icone: LucideIcon;\r\n  label: string;\r\n  valor: React.ReactNode;\r\n}) {\r\n  return (\r\n    <>\r\n      {/* `min-h-form-md` (36px) nas DUAS células. Sem isso a linha tem altura do conteúdo, e\r\n          medido dá 30px na de texto puro contra 36px na que tem `Chip` — a lista fica com\r\n          ritmo irregular. 36 é o piso natural: é a altura que o Chip já impõe, então nada\r\n          cresce, só as menores igualam. */}\r\n      <div className=\"flex min-h-form-md items-center gap-gp-md text-body-sm text-fg-muted\">\r\n        <Icone className=\"size-icon-sm shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\r\n        <span className=\"truncate\">{label}</span>\r\n      </div>\r\n      <div className=\"flex min-h-form-md min-w-0 items-center text-body-sm text-fg-default\">\r\n        {valor}\r\n      </div>\r\n    </>\r\n  );\r\n}\r\n\r\nexport function DetalheDeTarefaComAbas() {\r\n  const [aberto, setAberto] = useState(false);\r\n  const [aba, setAba] = useState(\"subtarefas\");\r\n  const feitas = SUBTAREFAS.filter((s) => s.feita).length;\r\n\r\n  return (\r\n    <>\r\n      {/* No board real este botão não existe: quem abre o painel é o card clicado. */}\r\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\r\n        Abrir detalhe da tarefa\r\n      </Button>\r\n\r\n      <FloatingPanel\r\n        open={aberto}\r\n        onOpenChange={setAberto}\r\n        side=\"right\"\r\n        size=\"lg\"\r\n        resizable\r\n        maximizable\r\n        resizableStorageKey=\"dsgreen-paneldetail-2.width\"\r\n        /* Header leva o CONTEXTO, não a identidade: título de tarefa é uma frase e não cabe\r\n           numa linha de header. Quem identifica aqui é \"onde a tarefa está\". */\r\n        titleSlot={\r\n          <div className=\"flex min-w-0 items-center gap-gp-sm text-body-sm text-fg-muted\">\r\n            <span className=\"truncate\">{TAREFA.contexto}</span>\r\n            <span className=\"opacity-50\">/</span>\r\n            <span className=\"truncate font-medium text-fg-default\">{TAREFA.coluna}</span>\r\n          </div>\r\n        }\r\n        headerActions={\r\n          <>\r\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Editar tarefa\">\r\n              <Pencil />\r\n            </Button>\r\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Copiar link\">\r\n              <Link2 />\r\n            </Button>\r\n          </>\r\n        }\r\n        footer={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"sm\"\r\n              onClick={() => setAberto(false)}\r\n            >\r\n              Fechar\r\n            </Button>\r\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Check />}>\r\n              Concluir tarefa\r\n            </Button>\r\n          </>\r\n        }\r\n      >\r\n        {/* ⚠️ Este wrapper de gap é OBRIGATÓRIO, e não é preferência: o body do\r\n            `FloatingPanel` **não tem gap entre filhos** (`row-gap: normal`, medido) — só\r\n            padding. Sem ele, título, lista, descrição e abas ficam com **0px** entre si, todos\r\n            colados. Não confunda com o `PanelBody` do `Panel`, que tem `gap-gp-3xl` embutido:\r\n            é a diferença que fez a 1ª versão deste bloco sair grudada. */}\r\n        <div className=\"flex flex-col gap-gp-2xl\">\r\n          {/* Título no CORPO, grande. `text-balance` evita a última linha órfã de uma palavra. */}\r\n          <h2 className=\"text-title-lg text-balance text-fg-default\">{TAREFA.titulo}</h2>\r\n\r\n          {/* Lista plana de propriedades. O grid alinha todos os valores numa coluna só — é\r\n              isso que dá leitura de ficha; `justify-between` desalinharia por tamanho de\r\n              label. */}\r\n          <div className=\"grid grid-cols-[132px_1fr] items-center gap-x-gp-md\">\r\n            {PROPRIEDADES.map((p) => (\r\n              <Propriedade key={p.label} {...p} />\r\n            ))}\r\n          </div>\r\n\r\n          {/* `bg-bg-surface`, não `bg-bg-subtle`: medido no dark, o subtle dá\r\n              `oklch(1 0 0 / 0.01)` — 1% de branco sobre o painel, invisível. O surface é\r\n              superfície de verdade e destaca o bloco de texto do resto da ficha. */}\r\n          <div className=\"flex flex-col gap-gp-md rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl\">\r\n            <span className=\"text-body-xs font-semibold text-fg-muted\">Descrição</span>\r\n            <p className=\"text-body-sm text-fg-default\">{TAREFA.descricao}</p>\r\n          </div>\r\n        </div>\r\n\r\n        {/* Abas: cada uma é uma NATUREZA de conteúdo que cresce sem limite — não são campos.\r\n            É a diferença que justifica aba aqui e a proíbe no `dsgreen-paneldetail-1`. */}\r\n        <Tabs value={aba} onValueChange={setAba} fullWidth className=\"mt-gp-2xl\">\r\n          <TabsList>\r\n            <TabsTrigger value=\"subtarefas\">Subtarefas</TabsTrigger>\r\n            <TabsTrigger value=\"anexos\">Anexos</TabsTrigger>\r\n            <TabsTrigger value=\"comentarios\">Comentários</TabsTrigger>\r\n            <TabsTrigger value=\"atividade\">Atividade</TabsTrigger>\r\n          </TabsList>\r\n\r\n          <TabsContent value=\"subtarefas\" className=\"flex flex-col gap-gp-lg pt-pad-xl\">\r\n            <div className=\"flex items-center justify-between text-body-xs text-fg-muted\">\r\n              <span className=\"font-semibold text-fg-default\">Progresso</span>\r\n              <span className=\"tabular-nums\">\r\n                {feitas}/{SUBTAREFAS.length}\r\n              </span>\r\n            </div>\r\n            {/* Timeline: a linha vertical liga um marcador ao próximo. Ela é um `<span>` que\r\n                cresce (`flex-1`) numa coluna ao lado do marcador — NÃO um `before:` com\r\n                `left-[7px]`, que seria valor na unha e desalinharia se o marcador mudar de\r\n                tamanho. O `gap-0` no `<ul>` é o que mantém a linha contínua; o respiro entre\r\n                itens vem do `pb` do texto. */}\r\n            <ul className=\"flex flex-col gap-0\">\r\n              {SUBTAREFAS.map((s, i) => {\r\n                const ultima = i === SUBTAREFAS.length - 1;\r\n                return (\r\n                  <li key={s.label} className=\"flex gap-gp-md text-body-sm\">\r\n                    <div className=\"flex flex-col items-center\">\r\n                      {s.feita ? (\r\n                        /* Disco CHEIO: `<span>` + `<Check>`, não o `CircleCheck` do lucide — o\r\n                           stroke dele fica por cima do fill e come o disco no dark. */\r\n                        <span\r\n                          className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full bg-bg-success text-fg-on-success\"\r\n                          aria-hidden=\"true\"\r\n                        >\r\n                          <Check className=\"size-icon-2xs\" strokeWidth={3} />\r\n                        </span>\r\n                      ) : (\r\n                        <span\r\n                          className=\"size-icon-sm shrink-0 rounded-radius-full border border-border-input\"\r\n                          aria-hidden=\"true\"\r\n                        />\r\n                      )}\r\n                      {!ultima && (\r\n                        <span\r\n                          className=\"mt-gp-2xs w-px flex-1 bg-border-default\"\r\n                          aria-hidden=\"true\"\r\n                        />\r\n                      )}\r\n                    </div>\r\n                    <span\r\n                      className={`${ultima ? \"\" : \"pb-pad-xl\"} ${\r\n                        s.feita ? \"text-fg-muted line-through\" : \"text-fg-default\"\r\n                      }`}\r\n                    >\r\n                      {s.label}\r\n                    </span>\r\n                  </li>\r\n                );\r\n              })}\r\n            </ul>\r\n          </TabsContent>\r\n\r\n          <TabsContent value=\"anexos\" className=\"flex flex-col gap-gp-md pt-pad-xl\">\r\n            {ANEXOS.map((a) => (\r\n              <div\r\n                key={a.nome}\r\n                className=\"flex items-center gap-gp-md rounded-radius-lg border border-border-default bg-bg-surface p-pad-xl\"\r\n              >\r\n                <FileText className=\"size-icon-md shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\r\n                <div className=\"flex min-w-0 flex-1 flex-col\">\r\n                  <span className=\"truncate text-body-sm text-fg-default\">{a.nome}</span>\r\n                  {/* Tamanho e data na MESMA linha secundária, separados por `·`. Duas linhas\r\n                      aqui esticariam a altura do anexo sem ganhar leitura — os dois são\r\n                      metadado do mesmo arquivo. */}\r\n                  <span className=\"text-caption-sm tabular-nums text-fg-muted\">\r\n                    {a.tamanho} · {a.quando}\r\n                  </span>\r\n                </div>\r\n                <Button\r\n                  variant=\"ghost\"\r\n                  color=\"secondary\"\r\n                  size=\"icon-sm\"\r\n                  aria-label={`Baixar ${a.nome}`}\r\n                >\r\n                  <Download />\r\n                </Button>\r\n              </div>\r\n            ))}\r\n            <Button variant=\"outline\" color=\"secondary\" size=\"sm\" iconLeft={<Plus />}>\r\n              Anexar arquivo\r\n            </Button>\r\n          </TabsContent>\r\n\r\n          <TabsContent value=\"comentarios\" className=\"flex flex-col gap-gp-2xl pt-pad-xl\">\r\n            <ul className=\"flex flex-col gap-gp-2xl\">\r\n              {COMENTARIOS.map((c) => (\r\n                <li key={c.quando} className=\"flex gap-gp-md\">\r\n                  <Avatar\r\n                    size=\"md\"\r\n                    colorHex={c.hex}\r\n                    className=\"shrink-0\"\r\n                    aria-label={c.autor}\r\n                  >\r\n                    {c.iniciais}\r\n                  </Avatar>\r\n                  <div className=\"flex min-w-0 flex-col gap-gp-2xs\">\r\n                    <span className=\"flex flex-wrap items-baseline gap-gp-sm\">\r\n                      <span className=\"text-body-sm font-semibold text-fg-default\">\r\n                        {c.autor}\r\n                      </span>\r\n                      <span className=\"text-caption-sm tabular-nums text-fg-muted\">\r\n                        {c.quando}\r\n                      </span>\r\n                    </span>\r\n                    <p className=\"text-body-sm text-fg-default\">{c.texto}</p>\r\n                    {c.reacoes && (\r\n                      <span className=\"mt-gp-2xs w-fit\">\r\n                        <Chip color=\"neutral\" variant=\"soft\" size=\"sm\">\r\n                          👍 {c.reacoes}\r\n                        </Chip>\r\n                      </span>\r\n                    )}\r\n                  </div>\r\n                </li>\r\n              ))}\r\n            </ul>\r\n            {/* Campo de mensagem: `Input` + botão de enviar. O `MessageComposer` do DS é mais\r\n                completo mas NÃO está no registry — ver \"Cuidado ao adaptar\". */}\r\n            <div className=\"flex items-center gap-gp-md\">\r\n              <Input placeholder=\"Escreva um comentário…\" aria-label=\"Novo comentário\" />\r\n              <Button\r\n                variant=\"soft\"\r\n                color=\"secondary\"\r\n                size=\"icon-sm\"\r\n                aria-label=\"Anexar ao comentário\"\r\n              >\r\n                <Paperclip />\r\n              </Button>\r\n              <Button variant=\"filled\" size=\"icon-sm\" aria-label=\"Enviar comentário\">\r\n                <SendHorizontal />\r\n              </Button>\r\n            </div>\r\n          </TabsContent>\r\n\r\n          <TabsContent value=\"atividade\" className=\"flex flex-col gap-gp-2xl pt-pad-xl\">\r\n            {ATIVIDADE.map((grupo) => (\r\n              <div key={grupo.dia} className=\"flex flex-col gap-gp-md\">\r\n                {/* Separador de dia no padrão de conversa: fio · badge · fio. Centralizado\r\n                    porque ele divide o fluxo, não rotula o item de baixo — encostado à\r\n                    esquerda ele leria como título do primeiro evento.\r\n\r\n                    O dia é um `Chip`, não texto solto: com 3 grupos na mesma rolagem, texto\r\n                    fino do mesmo tamanho do resto some no meio do log. O badge dá o degrau\r\n                    visual que separa bloco de bloco.\r\n\r\n                    ⚠️ Os fios são `aria-hidden`, o Chip NÃO. A 1ª versão tinha `aria-hidden`\r\n                    no container inteiro e escondia a data — e é ela que agrupa o log: sem\r\n                    ela, no leitor de tela os 8 eventos viram uma lista corrida sem dia. */}\r\n                <div className=\"flex items-center gap-gp-md\">\r\n                  <span className=\"h-px flex-1 bg-border-subtle\" aria-hidden=\"true\" />\r\n                  <Chip color=\"neutral\" variant=\"soft\" size=\"sm\">\r\n                    {grupo.dia}\r\n                  </Chip>\r\n                  <span className=\"h-px flex-1 bg-border-subtle\" aria-hidden=\"true\" />\r\n                </div>\r\n\r\n                <ul className=\"flex flex-col\">\r\n                  {grupo.eventos.map((a) => (\r\n                    <li\r\n                      key={a.autor + a.quando}\r\n                      /* Divisória por evento: log é lista de linhas parecidas, e sem\r\n                         separação elas viram parágrafo corrido. A última do grupo não leva,\r\n                         porque o separador de dia já fecha o bloco. */\r\n                      className=\"flex items-start gap-gp-md border-b border-border-subtle py-pad-lg first:pt-0 last:border-b-0 last:pb-0\"\r\n                    >\r\n                      <Avatar\r\n                        size=\"sm\"\r\n                        colorHex={a.hex}\r\n                        className=\"shrink-0\"\r\n                        aria-label={a.autor}\r\n                      >\r\n                        {a.iniciais}\r\n                      </Avatar>\r\n                      <p className=\"min-w-0 flex-1 text-body-sm text-fg-muted\">\r\n                        <span className=\"font-semibold text-fg-default\">{a.autor}</span>{\" \"}\r\n                        {a.texto}\r\n                      </p>\r\n                      <span className=\"shrink-0 text-caption-sm tabular-nums text-fg-muted\">\r\n                        {a.quando}\r\n                      </span>\r\n                    </li>\r\n                  ))}\r\n                </ul>\r\n              </div>\r\n            ))}\r\n          </TabsContent>\r\n        </Tabs>\r\n      </FloatingPanel>\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:block",
         "target": "blocks/paneldetail/detalhe-de-tarefa-com-abas.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1993,7 +1993,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2034,7 +2034,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2336,7 +2336,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2432,7 +2432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2478,7 +2478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2529,7 +2529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2665,7 +2665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2695,7 +2695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2752,7 +2752,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2833,7 +2833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2883,7 +2883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2951,7 +2951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2993,7 +2993,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3079,7 +3079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3170,7 +3170,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3194,7 +3194,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3247,7 +3247,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3271,7 +3271,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3296,7 +3296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3320,7 +3320,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3379,7 +3379,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3466,7 +3466,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3573,7 +3573,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3619,7 +3619,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3729,7 +3729,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3754,7 +3754,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3798,7 +3798,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3847,7 +3847,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3873,7 +3873,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3920,7 +3920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3945,7 +3945,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4020,7 +4020,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4044,7 +4044,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4068,7 +4068,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4092,7 +4092,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4140,7 +4140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4164,7 +4164,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4189,7 +4189,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4213,7 +4213,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4239,7 +4239,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4352,7 +4352,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4374,7 +4374,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4421,7 +4421,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4467,7 +4467,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4491,7 +4491,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4618,7 +4618,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4636,7 +4636,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4654,7 +4654,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4672,7 +4672,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4690,7 +4690,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4712,7 +4712,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4763,7 +4763,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4789,7 +4789,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4814,7 +4814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4838,7 +4838,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4859,7 +4859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4881,7 +4881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.51.0 · 67a0ce9 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.52.0 · 05b1790 · 2026-08-27"
     },
     "type": "registry:file"
   }
