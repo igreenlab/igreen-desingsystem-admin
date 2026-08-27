@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -516,7 +516,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/CardOption/USAGE.md",
-        "content": "# CardOption\n\n<!-- ds:regras\n- `type=\"radio\"` EXIGE `<CardOptionGroup type=\"radio\">` em volta; checkbox e switch funcionam soltos\n- omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)\n- lista (settings, permissões, planos) → `<CardOptionGroup layout=\"list\">`; vale pros 3 tipos\n- em lista o selecionado NÃO pinta por default (a borda ali é a divisória) — queira pintado? `highlightSelected` no grupo\n- omita `size`: `md` é o padrão calibrado\n-->\n\n**O que é** — controle de formulário apresentado como **card clicável** (área grande, label +\ndescrição visíveis), com o controle trocável por prop: `checkbox`, `radio` ou `switch`.\n**Categoria**: Form Controls.\n\n**Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha\nde plano/frete, lista de permissões, painel de configurações. Para campo compacto em\nformulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`\ndireto.\n\n## Props essenciais\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | `\"checkbox\" \\| \"radio\" \\| \"switch\"` | herda do grupo, ou `\"checkbox\"` | qual controle o card embrulha |\n| `value` | `string` | — | **obrigatório com `type=\"radio\"`** |\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | 8 / 12 / 16px de padding |\n| `orientation` | `\"left\" \\| \"right\"` | **derivado do `type`** | lado do controle |\n| `highlightSelected` | `boolean` | do `type`; **em lista: `false`** | fundo + cor de borda no selecionado |\n| `label` | `ReactNode` | — | obrigatório |\n| `description` | `ReactNode` | — | texto de apoio |\n| `icon` | `ReactNode` | — | **sempre à esquerda**, mesmo com `orientation=\"right\"`. Piso de 20×20px |\n| `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |\n| `disabled` | `boolean` | — | |\n\n### `CardOptionGroup`\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | igual ao item | `\"checkbox\"` | `\"radio\"` faz o grupo **ser** o `RadioGroup` do Radix |\n| `layout` | `\"spaced\" \\| \"list\"` | `\"spaced\"` | `list` = contorno no grupo + divisória entre linhas, sem gap. Vale pros **3 tipos** |\n| `highlightSelected` | `boolean` | — | liga/desliga o destaque em todos os filhos de uma vez |\n| `size` / `orientation` | | | aplicados a todos os filhos |\n| `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type=\"radio\"` |\n\n## Exemplo mínimo\n\n```tsx\n// checkbox solto\n<CardOption\n  label=\"Salvar essa conta pra usar depois\"\n  description=\"Aparece na lista de contas favoritas\"\n  checked={salvar}\n  onCheckedChange={setSalvar}\n/>\n\n// radio — o grupo é obrigatório\n<CardOptionGroup type=\"radio\" value={frete} onValueChange={setFrete}>\n  <CardOption value=\"standard\" label=\"Standard\" description=\"4 a 10 dias úteis\" />\n  <CardOption value=\"express\" label=\"Express\" description=\"2 a 3 dias úteis\" />\n</CardOptionGroup>\n\n// lista de settings — switch, à direita, sem destaque de selecionado\n<CardOptionGroup type=\"switch\" layout=\"list\">\n  <CardOption label=\"Wi-Fi\" description=\"Conectar a redes sem fio\" checked={wifi} onCheckedChange={setWifi} />\n  <CardOption label=\"Bluetooth\" description=\"Permitir conexões Bluetooth\" checked={bt} onCheckedChange={setBt} />\n</CardOptionGroup>\n```\n\n## Gotchas / cuidados\n\n- **`type=\"radio\"` sem `CardOptionGroup` não funciona direito.** É o `RadioGroup` do Radix que\n  dá navegação por seta e agrupamento por `name`. Checkbox e switch são autônomos.\n- **Não passe `orientation` nem `highlightSelected` sem motivo.** Eles derivam do `type`, e o\n  default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de\n  selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de\n  verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.\n- **`layout=\"list\"` não é exclusivo do switch.** Com radio vira seletor de linha única; com\n  checkbox, lista de permissões. No modo lista o contorno é do grupo e a divisória é a borda\n  de baixo de cada item (a última suprimida) — não force borda no item.\n- **Em lista, o destaque de selecionado vem desligado — inclusive em checkbox e radio.** É\n  consequência de onde a borda mora: em lista a única borda do item é a de baixo, ou seja a\n  **divisória**, então o `border-brand` não contorna o selecionado — pinta a linha que o separa\n  do vizinho — e o fundo vira faixa colorida no meio da lista (medido em 2026-08-27, antes do\n  ajuste: linha verde com divisória verde). Quem quer o pintado liga `highlightSelected` no\n  grupo ou no item; a prop vence nas duas direções, e em lista a sombra do destaque sai (dentro\n  do `overflow-hidden` do grupo ela não eleva, só vaza).\n- **O ícone fica sempre à esquerda**, inclusive com `orientation=\"right\"`: o `order-last` move\n  só o controle. Ele identifica a opção e pertence ao lado do texto. Piso de 20×20px.\n- **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem\n  ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra\n  o leitor de tela (\"button\" em vez de checkbox) e o submit nativo.\n- **O anel de foco é do CARD**, via `has-[:focus-visible]`. O `CardCheckbox` antigo declarava\n  `focus-visible:ring-4` no próprio `<label>` — inerte, porque label não recebe foco (medido\n  em 2026-08-27: o único anel visível era o do controle de 16px).\n- **`CardCheckbox` continua existindo** como atalho de `type=\"checkbox\"`. Componente novo\n  deve usar `CardOption`.\n",
+        "content": "# CardOption\r\n\r\n<!-- ds:regras\r\n- switch = efeito IMEDIATO, sem Salvar, e só em `layout=\"list\"`; tela com botão Salvar → `type=\"checkbox\"`\r\n- opções que se COMPARAM (plano, tier, preço, descrição longa) → cards espaçados; itens do mesmo tipo com rótulo curto (settings, permissões, pagamento, endereço) → `layout=\"list\"`\r\n- mais de ~5 opções → não é CardOption: `Select`/`Combobox`. E on/off de UMA coisa nunca são 2 radios\r\n- `type=\"radio\"` EXIGE `<CardOptionGroup type=\"radio\">` em volta; checkbox e switch funcionam soltos\r\n- em lista o selecionado NÃO pinta por default (a borda ali é a divisória) — queira pintado? `highlightSelected` no grupo\r\n- omita `orientation`, `highlightSelected` e `size`: derivam do type · `md` é o calibrado\r\n-->\r\n\r\n**O que é** — controle de formulário apresentado como **card clicável** (área grande, label +\r\ndescrição visíveis), com o controle trocável por prop: `checkbox`, `radio` ou `switch`.\r\n**Categoria**: Form Controls.\r\n\r\n**Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha\r\nde plano/frete, lista de permissões, painel de configurações. Para campo compacto em\r\nformulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`\r\ndireto. **Acima de ~5 opções, não use CardOption**: vira parede de cards — é `Select` ou\r\n`Combobox` ([Soul DS](https://soul.emplifi.io/latest/components/in-progress/radio-button-card-Pnx3WsEU)).\r\n\r\n## Escolhendo: duas perguntas\r\n\r\n### 1. Qual `type`? — depende da DECISÃO, não da aparência\r\n\r\n| Use | Quando | Fonte |\r\n|---|---|---|\r\n| `switch` | liga/desliga uma funcionalidade **com efeito imediato**, sem Salvar | [NN/g](https://www.nngroup.com/articles/toggle-switch-guidelines/) |\r\n| `radio` | uma entre várias mutuamente exclusivas, e o usuário precisa **ver todas** pra decidir | [NN/g](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/) |\r\n| `checkbox` | combinação livre (zero, uma ou várias) — **e** o substituto do switch quando há Salvar | idem |\r\n\r\nOs dois erros que essa tabela evita, os dois de fonte externa:\r\n\r\n- **Switch em tela com botão Salvar.** O switch promete efeito imediato — \"should take\r\n  immediate effect and should not require the user to click Save or Submit\" (NN/g). Num form\r\n  com submit, o usuário não sabe se já valeu. Ali o controle é `type=\"checkbox\"`.\r\n- **Dois radios pra on/off de uma coisa.** Um par \"Ativado / Desativado\" é um switch (se\r\n  imediato) ou **um** checkbox (se tem submit) — nunca dois radios.\r\n\r\n### 2. Lista ou cards espaçados? — depende de quanta COMPARAÇÃO a decisão pede\r\n\r\n| Use | Quando |\r\n|---|---|\r\n| `layout=\"list\"` | itens **do mesmo tipo**, rótulo curto, decisão já conhecida: configurações (switch), permissões (checkbox), meio de pagamento / endereço / forma de entrega (radio). Densidade > destaque |\r\n| `spaced` (default) | cada opção precisa ser **comparada** — preço, descrição longa, ícone, badge: plano, tier, onboarding. O gap é o que separa as unidades de comparação |\r\n\r\n**Switch vive em lista, não em card solto.** É literal na Apple HIG: *\"Use the switch toggle\r\nstyle only in a list row\"* — e a razão é que o switch tem mais peso visual que um checkbox, o\r\nque só se justifica quando a linha inteira lhe dá contexto\r\n([HIG](https://developers.apple.com/design/human-interface-guidelines/components/selection-and-input/toggles/)).\r\n\r\nMeio de pagamento é o caso clássico de **radio em lista**: alvo grande e indicador visível\r\nresolvem o problema do radio nativo, e o logo/ícone entra à esquerda, junto do nome\r\n([Baymard](https://baymard.com/blog/payment-method-selection)) — o que o `icon` do CardOption\r\njá faz por construção.\r\n\r\n## Props essenciais\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `type` | `\"checkbox\" \\| \"radio\" \\| \"switch\"` | herda do grupo, ou `\"checkbox\"` | qual controle o card embrulha |\r\n| `value` | `string` | — | **obrigatório com `type=\"radio\"`** |\r\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | 8 / 12 / 16px de padding |\r\n| `orientation` | `\"left\" \\| \"right\"` | **derivado do `type`** | lado do controle |\r\n| `highlightSelected` | `boolean` | do `type`; **em lista: `false`** | fundo + cor de borda no selecionado |\r\n| `label` | `ReactNode` | — | obrigatório |\r\n| `description` | `ReactNode` | — | texto de apoio |\r\n| `icon` | `ReactNode` | — | **sempre à esquerda**, mesmo com `orientation=\"right\"`. Piso de 20×20px |\r\n| `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |\r\n| `disabled` | `boolean` | — | |\r\n\r\n### `CardOptionGroup`\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `type` | igual ao item | `\"checkbox\"` | `\"radio\"` faz o grupo **ser** o `RadioGroup` do Radix |\r\n| `layout` | `\"spaced\" \\| \"list\"` | `\"spaced\"` | `list` = contorno no grupo + divisória entre linhas, sem gap. Vale pros **3 tipos** |\r\n| `highlightSelected` | `boolean` | — | liga/desliga o destaque em todos os filhos de uma vez |\r\n| `size` / `orientation` | | | aplicados a todos os filhos |\r\n| `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type=\"radio\"` |\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n// checkbox solto\r\n<CardOption\r\n  label=\"Salvar essa conta pra usar depois\"\r\n  description=\"Aparece na lista de contas favoritas\"\r\n  checked={salvar}\r\n  onCheckedChange={setSalvar}\r\n/>\r\n\r\n// radio — o grupo é obrigatório\r\n<CardOptionGroup type=\"radio\" value={frete} onValueChange={setFrete}>\r\n  <CardOption value=\"standard\" label=\"Standard\" description=\"4 a 10 dias úteis\" />\r\n  <CardOption value=\"express\" label=\"Express\" description=\"2 a 3 dias úteis\" />\r\n</CardOptionGroup>\r\n\r\n// lista de settings — switch, à direita, sem destaque de selecionado\r\n<CardOptionGroup type=\"switch\" layout=\"list\">\r\n  <CardOption label=\"Wi-Fi\" description=\"Conectar a redes sem fio\" checked={wifi} onCheckedChange={setWifi} />\r\n  <CardOption label=\"Bluetooth\" description=\"Permitir conexões Bluetooth\" checked={bt} onCheckedChange={setBt} />\r\n</CardOptionGroup>\r\n```\r\n\r\n## Gotchas / cuidados\r\n\r\n- **`type=\"radio\"` sem `CardOptionGroup` não funciona direito.** É o `RadioGroup` do Radix que\r\n  dá navegação por seta e agrupamento por `name`. Checkbox e switch são autônomos.\r\n- **Não passe `orientation` nem `highlightSelected` sem motivo.** Eles derivam do `type`, e o\r\n  default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de\r\n  selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de\r\n  verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.\r\n- **`layout=\"list\"` não é exclusivo do switch.** Com radio vira seletor de linha única; com\r\n  checkbox, lista de permissões. No modo lista o contorno é do grupo e a divisória é a borda\r\n  de baixo de cada item (a última suprimida) — não force borda no item.\r\n- **Em lista, o destaque de selecionado vem desligado — inclusive em checkbox e radio.** É\r\n  consequência de onde a borda mora: em lista a única borda do item é a de baixo, ou seja a\r\n  **divisória**, então o `border-brand` não contorna o selecionado — pinta a linha que o separa\r\n  do vizinho — e o fundo vira faixa colorida no meio da lista (medido em 2026-08-27, antes do\r\n  ajuste: linha verde com divisória verde). Quem quer o pintado liga `highlightSelected` no\r\n  grupo ou no item; a prop vence nas duas direções, e em lista a sombra do destaque sai (dentro\r\n  do `overflow-hidden` do grupo ela não eleva, só vaza).\r\n- **O ícone fica sempre à esquerda**, inclusive com `orientation=\"right\"`: o `order-last` move\r\n  só o controle. Ele identifica a opção e pertence ao lado do texto. Piso de 20×20px.\r\n- **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem\r\n  ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra\r\n  o leitor de tela (\"button\" em vez de checkbox) e o submit nativo.\r\n- **O anel de foco é do CARD**, via `has-[:focus-visible]`. O `CardCheckbox` antigo declarava\r\n  `focus-visible:ring-4` no próprio `<label>` — inerte, porque label não recebe foco (medido\r\n  em 2026-08-27: o único anel visível era o do controle de 16px).\r\n- **`CardCheckbox` continua existindo** como atalho de `type=\"checkbox\"`. Componente novo\r\n  deve usar `CardOption`.\r\n",
         "type": "registry:file",
         "target": "components/ui/CardOption/USAGE.md"
       },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1903,7 +1903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1944,7 +1944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2246,7 +2246,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2342,7 +2342,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2439,7 +2439,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2575,7 +2575,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2605,7 +2605,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2662,7 +2662,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2743,7 +2743,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2793,7 +2793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2861,7 +2861,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2903,7 +2903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3080,7 +3080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3104,7 +3104,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3157,7 +3157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3181,7 +3181,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3206,7 +3206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3230,7 +3230,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3289,7 +3289,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3351,7 +3351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3376,7 +3376,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3483,7 +3483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3529,7 +3529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3639,7 +3639,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3664,7 +3664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3708,7 +3708,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3757,7 +3757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3783,7 +3783,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3830,7 +3830,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3855,7 +3855,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3930,7 +3930,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4002,7 +4002,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4074,7 +4074,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4099,7 +4099,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4123,7 +4123,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4149,7 +4149,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4262,7 +4262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4284,7 +4284,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4308,7 +4308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4331,7 +4331,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4377,7 +4377,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4401,7 +4401,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4480,7 +4480,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4504,7 +4504,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4528,7 +4528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4546,7 +4546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4564,7 +4564,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4582,7 +4582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4622,7 +4622,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4673,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4699,7 +4699,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4724,7 +4724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4748,7 +4748,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4769,7 +4769,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4791,7 +4791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.49.0 · 2e35cdb · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.49.0 · bbe8074 · 2026-08-27"
     },
     "type": "registry:file"
   }

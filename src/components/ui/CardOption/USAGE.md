@@ -1,11 +1,12 @@
 # CardOption
 
 <!-- ds:regras
+- switch = efeito IMEDIATO, sem Salvar, e só em `layout="list"`; tela com botão Salvar → `type="checkbox"`
+- opções que se COMPARAM (plano, tier, preço, descrição longa) → cards espaçados; itens do mesmo tipo com rótulo curto (settings, permissões, pagamento, endereço) → `layout="list"`
+- mais de ~5 opções → não é CardOption: `Select`/`Combobox`. E on/off de UMA coisa nunca são 2 radios
 - `type="radio"` EXIGE `<CardOptionGroup type="radio">` em volta; checkbox e switch funcionam soltos
-- omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)
-- lista (settings, permissões, planos) → `<CardOptionGroup layout="list">`; vale pros 3 tipos
 - em lista o selecionado NÃO pinta por default (a borda ali é a divisória) — queira pintado? `highlightSelected` no grupo
-- omita `size`: `md` é o padrão calibrado
+- omita `orientation`, `highlightSelected` e `size`: derivam do type · `md` é o calibrado
 -->
 
 **O que é** — controle de formulário apresentado como **card clicável** (área grande, label +
@@ -15,7 +16,43 @@ descrição visíveis), com o controle trocável por prop: `checkbox`, `radio` o
 **Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha
 de plano/frete, lista de permissões, painel de configurações. Para campo compacto em
 formulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`
-direto.
+direto. **Acima de ~5 opções, não use CardOption**: vira parede de cards — é `Select` ou
+`Combobox` ([Soul DS](https://soul.emplifi.io/latest/components/in-progress/radio-button-card-Pnx3WsEU)).
+
+## Escolhendo: duas perguntas
+
+### 1. Qual `type`? — depende da DECISÃO, não da aparência
+
+| Use | Quando | Fonte |
+|---|---|---|
+| `switch` | liga/desliga uma funcionalidade **com efeito imediato**, sem Salvar | [NN/g](https://www.nngroup.com/articles/toggle-switch-guidelines/) |
+| `radio` | uma entre várias mutuamente exclusivas, e o usuário precisa **ver todas** pra decidir | [NN/g](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/) |
+| `checkbox` | combinação livre (zero, uma ou várias) — **e** o substituto do switch quando há Salvar | idem |
+
+Os dois erros que essa tabela evita, os dois de fonte externa:
+
+- **Switch em tela com botão Salvar.** O switch promete efeito imediato — "should take
+  immediate effect and should not require the user to click Save or Submit" (NN/g). Num form
+  com submit, o usuário não sabe se já valeu. Ali o controle é `type="checkbox"`.
+- **Dois radios pra on/off de uma coisa.** Um par "Ativado / Desativado" é um switch (se
+  imediato) ou **um** checkbox (se tem submit) — nunca dois radios.
+
+### 2. Lista ou cards espaçados? — depende de quanta COMPARAÇÃO a decisão pede
+
+| Use | Quando |
+|---|---|
+| `layout="list"` | itens **do mesmo tipo**, rótulo curto, decisão já conhecida: configurações (switch), permissões (checkbox), meio de pagamento / endereço / forma de entrega (radio). Densidade > destaque |
+| `spaced` (default) | cada opção precisa ser **comparada** — preço, descrição longa, ícone, badge: plano, tier, onboarding. O gap é o que separa as unidades de comparação |
+
+**Switch vive em lista, não em card solto.** É literal na Apple HIG: *"Use the switch toggle
+style only in a list row"* — e a razão é que o switch tem mais peso visual que um checkbox, o
+que só se justifica quando a linha inteira lhe dá contexto
+([HIG](https://developers.apple.com/design/human-interface-guidelines/components/selection-and-input/toggles/)).
+
+Meio de pagamento é o caso clássico de **radio em lista**: alvo grande e indicador visível
+resolvem o problema do radio nativo, e o logo/ícone entra à esquerda, junto do nome
+([Baymard](https://baymard.com/blog/payment-method-selection)) — o que o `icon` do CardOption
+já faz por construção.
 
 ## Props essenciais
 
