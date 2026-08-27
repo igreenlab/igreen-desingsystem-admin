@@ -4225,3 +4225,78 @@ defeitos).
 **Assumption:** que a regra de uso chega onde a decisão é tomada. Ela vive em 3 superfícies + showcase, e a que realmente alcança é o bloco `ds:regras`, que só dispara quando a IA escreve a tag — ou seja, **depois** de já ter escolhido o componente. Se aparecer tela onde a escolha errada foi feita antes (switch em form com Salvar, plano em lista), a assumption quebrou: o lugar da regra passa a ser o vocabulário do consumidor, que é lido antes de compor.
 
 **Não virou lição:** o achado do escopo do gate é da mesma família da L-062/L-069 (base de medição incompleta mentindo verde) e virou **gate**, que é o que a pergunta 1 do auto-update protocol manda fazer. O resto é registro.
+
+---
+
+### 2026-08-27 | ds-designer + ds-dev | `dsgreen-paneldetail-1` + a regra chegando por injeção (PRs #279, #280) | CONCLUÍDO
+
+**Input:** pedido de "exemplos de composição de Panel/Drawer/FloatingPanel para mostrar
+detalhamento", com a hipótese de que a categoria certa era Blocks. Confirmada pelo critério da
+própria spec (§2: bloco responde "como o UX **combinou** essas peças"). Evoluiu em 6 rodadas de
+revisão visual do mantenedor até virar, no fim, um pedido de **mecanismo**: "que todo
+Panel/Drawer novo já siga esse modelo automaticamente".
+
+**Output:** categoria `paneldetail` + bloco `dsgreen-paneldetail-1` + a estrutura entregue nas
+3 superfícies de regra · lib **0.51.0** e CLI **0.25.22** publicados · registry em 95 itens.
+
+**As 4 correções que vieram de MEDIÇÃO, não de preferência** — vale registrar porque cada uma
+mudou o desenho:
+
+1. **`Panel` → `FloatingPanel`, e foi o HEADER que decidiu.** Duas versões saíram com `Panel` e
+   o header ficava fora do padrão dos painéis reais. A causa é de API: `title`/`description`
+   são **string**, e o header de referência tem avatar, `Chip` de status inline e ações de
+   ícone. Bônus não previsto: `bodyPadded={false}` eliminou, com uma prop, o `-mx-pad-3xl` que
+   a versão em `Panel` precisava pra divisória da seção alcançar a borda.
+2. **Métrica não é `Kpi`.** 172×144px por célula, três delas comendo a primeira dobra antes de
+   qualquer campo. Virou card compacto próprio (257×68px). E o caminho até lá deu duas
+   descobertas: **`KpiGroup columns` é responsivo ao VIEWPORT, não ao container** (num painel
+   de 560px em desktop, `columns={3}` continua 3 colunas), e o `delta` quebrava linha em valor
+   longo e não em curto, produzindo faixa de alturas desiguais.
+3. **Abas removidas.** Num corpo que já é pilha de seções colapsáveis, o colapso **é** o
+   mecanismo de esconder; os dois juntos fazem o usuário procurar o dado em dois lugares.
+4. **Disco de "concluído" virou `<span>` + `<Check>`.** Com `<CircleCheck fill-bg-success
+   text-fg-on-success />` o disco saía visivelmente menor que o anel do pendente: o lucide
+   desenha o círculo com `stroke="currentColor"`, e o traço (preto no dark, porque
+   `fg-on-success` inverte) fica **por cima** do preenchimento. Não existe classe que remova só
+   aquele stroke — círculo e check compartilham o `currentColor`.
+
+**O mecanismo, que é o que o pedido virou:** o bloco `ds:regras` do `USAGE.md` é injetado por
+PreToolUse quando a IA **escreve a tag**. `Panel`, `FloatingPanel` e `Drawer` (que era silêncio
+total) passaram a rotear pro bloco, com a linha de roteamento em **primeiro** lugar porque o
+teto é 8 linhas por Write e num arquivo com 3 componentes o excedente é cortado. Verificado
+chamando `regrasAplicaveis` com código real das três tags.
+
+**⚠️ Uma afirmação minha foi publicada errada, e a correção é o registro mais importante
+desta entry.** Escrevi — no commit, no PR #279, no changelog da v0.51.0 e no payload do CLI
+0.25.22 — que o `FinanceDetailPanel` "não existe no projeto do consumidor" e que a instrução
+"espelhe o FinanceDetailPanel" era **inexequível**. É falso: o `example-finance` distribui
+`src/examples/finance/components/FinanceDetailPanel/`, e o **passo 3 da própria skill** manda
+puxar o exemplo. Eu inferi a partir de "é arquivo do showcase" sem checar o registry, e a
+inferência era verificável em um comando.
+
+O que sobrevive é a decisão, não a justificativa: o bloco **é** referência melhor — não exige
+puxar uma tela inteira e carrega o porquê de cada escolha. Mas o texto disparava uma instrução
+que funcionava, e isso é pior que ausência de doc (L-060: quem lê para de investigar). Corrigido
+nos três lugares, inclusive com nota explícita no changelog publicado.
+
+**Alcance por canal — medido nos artefatos, não presumido:** copy-in recebe a regra de `panel` e
+`floating-panel` (os dois itens levam o próprio `USAGE.md`) mas **não** a do `Drawer`, porque
+nenhum item distribui `shadcn/USAGE.md` · scaffold recebe tudo · submodule idem via `ds:link`,
+que hoje projeta hooks (mudou em 2026-08-18; só o `settings.json` fica fora, e é ele que ativa)
+· **npm não alcança nada**: tarball 0.51.0 com 0 `USAGE.md`, 0 `.claude`, 0 `blocks/`.
+
+**Estado:** tsc 0 · 785 testes · `release:check` verde (95 itens, carimbo v0.51.0) · npm
+0.51.0 e CLI 0.25.22 verificados nos bytes do tarball.
+
+**Assumption:** que a injeção alcança a decisão. Ela dispara quando a IA **escreve a tag** — ou
+seja, depois de já ter escolhido o componente. Se aparecer tela onde o erro foi anterior
+(montar detalhe com markup solto, sem nunca escrever `<FloatingPanel>`), a assumption quebrou:
+o lugar da regra passa a ser o vocabulário do consumidor, que é lido antes de compor.
+
+**Dívida deixada explícita:** (1) `Drawer` fora do copy-in — fechar é criar item de registry pro
+`shadcn/USAGE.md`, mesma família da L-042; (2) o texto corrigido acima só chega em projeto novo
+com bump do CLI pra 0.25.23 e republish.
+
+**Não virou lição:** o erro da afirmação é a L-060 aplicada, já catalogada. A descoberta do
+`KpiGroup columns` ser viewport-based e a do stroke do lucide comendo o `fill` viraram
+documentação no ponto de uso (JSDoc do bloco), que é onde alguém tropeçaria nelas.

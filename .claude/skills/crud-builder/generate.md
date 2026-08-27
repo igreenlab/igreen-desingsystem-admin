@@ -232,8 +232,14 @@ Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
 
 **A estrutura é o bloco `dsgreen-paneldetail-1`** (`src/blocks/paneldetail/`, renderizado em
 `#/blocks-paneldetail`). Ele é a fonte: tem fixture, as medições e o porquê de cada decisão no
-JSDoc. Leia o arquivo antes de compor — e no consumidor, cite o ID, que é o que viaja
-(`FinanceDetailPanel` é do showcase e **não existe lá**).
+JSDoc. Leia o arquivo antes de compor, e no consumidor cite o ID.
+
+> ⚠️ Esta seção dizia que o `FinanceDetailPanel` "não existe no consumidor". **É falso** — o
+> `example-finance` distribui `src/examples/finance/components/FinanceDetailPanel/`, e o passo
+> 3 da própria skill manda puxar o exemplo. O bloco é preferível por não exigir uma tela
+> inteira e por carregar o raciocínio, não porque o outro não funcione. Corrigido em
+> 2026-08-27, depois de a afirmação ter ido pro changelog e pro payload publicado (L-060: quem
+> lê para de investigar, então afirmação errada custa mais que ausência de doc).
 
 **Sempre** `<FloatingPanel>`, nunca markup solto:
 

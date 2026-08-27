@@ -65,7 +65,7 @@ export const RELEASES: ReleaseEntry[] = [
       {
         type: "changed",
         items: [
-          "**A `crud-builder` deixou de mandar \"espelhe o `FinanceDetailPanel`\"** — esse arquivo vive no showcase do DS e **não existe no projeto do consumidor**, então a instrução era inexequível justamente onde mais importava. Agora cita o ID do bloco, que viaja (item de registry + linha no índice do payload). Corrigido nas duas cópias da skill.",
+          "**A `crud-builder` passou a citar o ID do bloco** em vez de mandar \"espelhe o `FinanceDetailPanel`\", nas duas cópias da skill. ⚠️ **Correção do texto original desta entry**, que foi publicado antes de eu verificar: eu afirmei que o `FinanceDetailPanel` \"não existe no projeto do consumidor\" e que a instrução era inexequível — **é falso**. O `example-finance` distribui `src/examples/finance/components/FinanceDetailPanel/`, e o passo 3 da própria skill manda puxar o exemplo. O bloco é preferível por dois motivos reais: não exige puxar uma tela inteira só pra ver um painel, e o arquivo dele carrega o porquê de cada decisão (com as medições) em vez de só o resultado.",
           "`Panel` e `FloatingPanel` ganharam no `USAGE.md` a seção das **4 zonas** do painel de detalhe (header · métricas · seções · footer) com o porquê de cada uma — o que a IA erra quando compõe do zero é jogar tudo no corpo.",
         ],
       },
