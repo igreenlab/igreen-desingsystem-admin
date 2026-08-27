@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.51.0",
+    date: "2026-08-27",
+    tag: "preview",
+    title:
+      "Painel de detalhe referenciável por ID — e todo Panel/Drawer novo já nasce nele",
+    summary:
+      "Painel de detalhe (o que abre ao clicar na linha da tabela) tinha estrutura conhecida e nenhum lugar onde ela morasse: cada tela recompunha, e o que saía era uma pilha de `label: valor`. Agora é um bloco citável por ID, e — mais importante — a estrutura é **entregue no momento em que a IA escreve `<Panel>`, `<FloatingPanel>` ou `<Drawer>`**, pelo bloco `ds:regras` que o hook injeta. O `Drawer` não tinha regra nenhuma até aqui.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**Bloco `dsgreen-paneldetail-1`** e a categoria `paneldetail` na galeria (`#/blocks-paneldetail`). O arquivo é a fonte: header com avatar + código + status e ações de ícone, métricas em cards compactos, campos em seções colapsáveis por assunto, checklist de metas, ação primária no footer. Cada decisão tem a medição que a causou no JSDoc — inclusive as **3 variações de métrica** testadas e a razão de a escolhida ter ficado.",
+          "**A regra chega sozinha.** O bloco `ds:regras` do `USAGE.md` é injetado por PreToolUse quando a IA escreve a tag; agora `Panel`, `FloatingPanel` e **`Drawer`** (que era silêncio total) roteiam pro bloco. A linha de roteamento vai em **primeiro** lugar de propósito: o teto de injeção é 8 linhas por Write, e num arquivo com 3 componentes o excedente é cortado.",
+          "Linha nova no **vocabulário do consumidor** pro caso \"painel de detalhe de um registro\", com o critério de quando é `floating-panel` e não `panel` (o header do `Panel` é só string).",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**A `crud-builder` deixou de mandar \"espelhe o `FinanceDetailPanel`\"** — esse arquivo vive no showcase do DS e **não existe no projeto do consumidor**, então a instrução era inexequível justamente onde mais importava. Agora cita o ID do bloco, que viaja (item de registry + linha no índice do payload). Corrigido nas duas cópias da skill.",
+          "`Panel` e `FloatingPanel` ganharam no `USAGE.md` a seção das **4 zonas** do painel de detalhe (header · métricas · seções · footer) com o porquê de cada uma — o que a IA erra quando compõe do zero é jogar tudo no corpo.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "`DistributionDoc` afirmava que o `registry.json` lista 94 itens; o bloco novo levou a 95. Pego pelo gate `showcase-doc-facts`, que existe exatamente pra isso.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.50.0",
     date: "2026-08-27",
     tag: "preview",
