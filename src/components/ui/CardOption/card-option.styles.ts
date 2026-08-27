@@ -96,6 +96,11 @@ export const cardOption = tv({
      * `has-[[data-state=checked]]` resolve os três tipos de uma vez e funciona também em uso
      * NÃO-CONTROLADO (`defaultValue`/`defaultChecked`), onde nenhuma prop diz o estado. É a
      * L-012: Radix marca estado por data attribute, não por atributo HTML.
+     *
+     * ⚠️ Quem decide se esta variante entra é o `card-option.tsx`, e o default DEPENDE DO
+     * CONTEXTO: em card solto vem do `type`; **em lista vem desligado**, porque a única borda
+     * do item ali é a de baixo — a divisória — e pintá-la colore a linha que separa o
+     * selecionado do vizinho, não o contorno dele.
      */
     highlight: {
       true: {
@@ -131,6 +136,19 @@ export const cardOption = tv({
     },
   },
   compoundVariants: [
+    /**
+     * Em LISTA com destaque ligado, a sombra sai.
+     *
+     * `shadow-sh-sm` num card solto o levanta da página; numa linha de lista ele vaza por
+     * cima da linha vizinha e some atrás do `overflow-hidden` do grupo — sombra dentro de
+     * caixa cortada é ruído, não elevação. Fundo e cor de borda continuam (é justamente o que
+     * o `highlightSelected` promete); só a elevação não faz sentido aqui.
+     */
+    {
+      inList: true,
+      highlight: true,
+      class: { root: "has-[[data-state=checked]]:shadow-sh-none" },
+    },
     // disabled SEMPRE por último (L-006), senão as classes de selected/hover o sobrescrevem
     {
       disabled: true,
@@ -160,8 +178,14 @@ export const cardOptionGroup = tv({
        *
        * Vale pros TRÊS tipos, não só switch — radio em lista é um seletor de linha única, e
        * checkbox em lista é uma lista de permissões.
+       *
+       * ⚠️ O `gap-0` é obrigatório e não é redundante: com `type="radio"` o grupo É o
+       * `RadioGroup` do DS, que traz `grid w-full gap-gp-xl` no base. Sem declarar gap aqui,
+       * o `gap-gp-xl` (12px) sobrevivia e a lista de radio saía com 12px entre as linhas —
+       * medido. (A 1ª tentativa foi um `grid-none` que eu inventei; classe inexistente é
+       * inerte e não zera nada.)
        */
-      list: "overflow-hidden border border-border-default",
+      list: "gap-0 overflow-hidden border border-border-default",
     },
     size: {
       // O radius do grupo acompanha o do item, senão o canto da lista destoa do card solto.

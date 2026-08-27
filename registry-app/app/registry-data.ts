@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -516,25 +516,25 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/CardOption/USAGE.md",
-        "content": "# CardOption\n\n<!-- ds:regras\n- `type=\"radio\"` EXIGE `<CardOptionGroup type=\"radio\">` em volta; checkbox e switch funcionam soltos\n- omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)\n- lista (settings, permissões, planos) → `<CardOptionGroup layout=\"list\">`; vale pros 3 tipos\n- omita `size`: `md` é o padrão calibrado\n-->\n\n**O que é** — controle de formulário apresentado como **card clicável** (área grande, label +\ndescrição visíveis), com o controle trocável por prop: `checkbox`, `radio` ou `switch`.\n**Categoria**: Form Controls.\n\n**Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha\nde plano/frete, lista de permissões, painel de configurações. Para campo compacto em\nformulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`\ndireto.\n\n## Props essenciais\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | `\"checkbox\" \\| \"radio\" \\| \"switch\"` | herda do grupo, ou `\"checkbox\"` | qual controle o card embrulha |\n| `value` | `string` | — | **obrigatório com `type=\"radio\"`** |\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | 8 / 12 / 16px de padding |\n| `orientation` | `\"left\" \\| \"right\"` | **derivado do `type`** | lado do controle |\n| `highlightSelected` | `boolean` | **derivado do `type`** | pinta o card quando selecionado |\n| `label` | `ReactNode` | — | obrigatório |\n| `description` | `ReactNode` | — | texto de apoio |\n| `icon` | `ReactNode` | — | **sempre à esquerda**, mesmo com `orientation=\"right\"`. Piso de 20×20px |\n| `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |\n| `disabled` | `boolean` | — | |\n\n### `CardOptionGroup`\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | igual ao item | `\"checkbox\"` | `\"radio\"` faz o grupo **ser** o `RadioGroup` do Radix |\n| `layout` | `\"spaced\" \\| \"list\"` | `\"spaced\"` | `list` = contorno no grupo + divisória entre linhas, sem gap. Vale pros **3 tipos** |\n| `size` / `orientation` | | | aplicados a todos os filhos |\n| `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type=\"radio\"` |\n\n## Exemplo mínimo\n\n```tsx\n// checkbox solto\n<CardOption\n  label=\"Salvar essa conta pra usar depois\"\n  description=\"Aparece na lista de contas favoritas\"\n  checked={salvar}\n  onCheckedChange={setSalvar}\n/>\n\n// radio — o grupo é obrigatório\n<CardOptionGroup type=\"radio\" value={frete} onValueChange={setFrete}>\n  <CardOption value=\"standard\" label=\"Standard\" description=\"4 a 10 dias úteis\" />\n  <CardOption value=\"express\" label=\"Express\" description=\"2 a 3 dias úteis\" />\n</CardOptionGroup>\n\n// lista de settings — switch, à direita, sem destaque de selecionado\n<CardOptionGroup type=\"switch\" layout=\"list\">\n  <CardOption label=\"Wi-Fi\" description=\"Conectar a redes sem fio\" checked={wifi} onCheckedChange={setWifi} />\n  <CardOption label=\"Bluetooth\" description=\"Permitir conexões Bluetooth\" checked={bt} onCheckedChange={setBt} />\n</CardOptionGroup>\n```\n\n## Gotchas / cuidados\n\n- **`type=\"radio\"` sem `CardOptionGroup` não funciona direito.** É o `RadioGroup` do Radix que\n  dá navegação por seta e agrupamento por `name`. Checkbox e switch são autônomos.\n- **Não passe `orientation` nem `highlightSelected` sem motivo.** Eles derivam do `type`, e o\n  default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de\n  selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de\n  verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.\n- **`layout=\"list\"` não é exclusivo do switch.** Com radio vira seletor de linha única; com\n  checkbox, lista de permissões. No modo lista o contorno é do grupo e a divisória é a borda\n  de baixo de cada item (a última suprimida) — não force borda no item.\n- **O ícone fica sempre à esquerda**, inclusive com `orientation=\"right\"`: o `order-last` move\n  só o controle. Ele identifica a opção e pertence ao lado do texto. Piso de 20×20px.\n- **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem\n  ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra\n  o leitor de tela (\"button\" em vez de checkbox) e o submit nativo.\n- **O anel de foco é do CARD**, via `has-[:focus-visible]`. O `CardCheckbox` antigo declarava\n  `focus-visible:ring-4` no próprio `<label>` — inerte, porque label não recebe foco (medido\n  em 2026-08-27: o único anel visível era o do controle de 16px).\n- **`CardCheckbox` continua existindo** como atalho de `type=\"checkbox\"`. Componente novo\n  deve usar `CardOption`.\n",
+        "content": "# CardOption\n\n<!-- ds:regras\n- `type=\"radio\"` EXIGE `<CardOptionGroup type=\"radio\">` em volta; checkbox e switch funcionam soltos\n- omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)\n- lista (settings, permissões, planos) → `<CardOptionGroup layout=\"list\">`; vale pros 3 tipos\n- em lista o selecionado NÃO pinta por default (a borda ali é a divisória) — queira pintado? `highlightSelected` no grupo\n- omita `size`: `md` é o padrão calibrado\n-->\n\n**O que é** — controle de formulário apresentado como **card clicável** (área grande, label +\ndescrição visíveis), com o controle trocável por prop: `checkbox`, `radio` ou `switch`.\n**Categoria**: Form Controls.\n\n**Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha\nde plano/frete, lista de permissões, painel de configurações. Para campo compacto em\nformulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`\ndireto.\n\n## Props essenciais\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | `\"checkbox\" \\| \"radio\" \\| \"switch\"` | herda do grupo, ou `\"checkbox\"` | qual controle o card embrulha |\n| `value` | `string` | — | **obrigatório com `type=\"radio\"`** |\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | 8 / 12 / 16px de padding |\n| `orientation` | `\"left\" \\| \"right\"` | **derivado do `type`** | lado do controle |\n| `highlightSelected` | `boolean` | do `type`; **em lista: `false`** | fundo + cor de borda no selecionado |\n| `label` | `ReactNode` | — | obrigatório |\n| `description` | `ReactNode` | — | texto de apoio |\n| `icon` | `ReactNode` | — | **sempre à esquerda**, mesmo com `orientation=\"right\"`. Piso de 20×20px |\n| `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |\n| `disabled` | `boolean` | — | |\n\n### `CardOptionGroup`\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | igual ao item | `\"checkbox\"` | `\"radio\"` faz o grupo **ser** o `RadioGroup` do Radix |\n| `layout` | `\"spaced\" \\| \"list\"` | `\"spaced\"` | `list` = contorno no grupo + divisória entre linhas, sem gap. Vale pros **3 tipos** |\n| `highlightSelected` | `boolean` | — | liga/desliga o destaque em todos os filhos de uma vez |\n| `size` / `orientation` | | | aplicados a todos os filhos |\n| `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type=\"radio\"` |\n\n## Exemplo mínimo\n\n```tsx\n// checkbox solto\n<CardOption\n  label=\"Salvar essa conta pra usar depois\"\n  description=\"Aparece na lista de contas favoritas\"\n  checked={salvar}\n  onCheckedChange={setSalvar}\n/>\n\n// radio — o grupo é obrigatório\n<CardOptionGroup type=\"radio\" value={frete} onValueChange={setFrete}>\n  <CardOption value=\"standard\" label=\"Standard\" description=\"4 a 10 dias úteis\" />\n  <CardOption value=\"express\" label=\"Express\" description=\"2 a 3 dias úteis\" />\n</CardOptionGroup>\n\n// lista de settings — switch, à direita, sem destaque de selecionado\n<CardOptionGroup type=\"switch\" layout=\"list\">\n  <CardOption label=\"Wi-Fi\" description=\"Conectar a redes sem fio\" checked={wifi} onCheckedChange={setWifi} />\n  <CardOption label=\"Bluetooth\" description=\"Permitir conexões Bluetooth\" checked={bt} onCheckedChange={setBt} />\n</CardOptionGroup>\n```\n\n## Gotchas / cuidados\n\n- **`type=\"radio\"` sem `CardOptionGroup` não funciona direito.** É o `RadioGroup` do Radix que\n  dá navegação por seta e agrupamento por `name`. Checkbox e switch são autônomos.\n- **Não passe `orientation` nem `highlightSelected` sem motivo.** Eles derivam do `type`, e o\n  default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de\n  selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de\n  verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.\n- **`layout=\"list\"` não é exclusivo do switch.** Com radio vira seletor de linha única; com\n  checkbox, lista de permissões. No modo lista o contorno é do grupo e a divisória é a borda\n  de baixo de cada item (a última suprimida) — não force borda no item.\n- **Em lista, o destaque de selecionado vem desligado — inclusive em checkbox e radio.** É\n  consequência de onde a borda mora: em lista a única borda do item é a de baixo, ou seja a\n  **divisória**, então o `border-brand` não contorna o selecionado — pinta a linha que o separa\n  do vizinho — e o fundo vira faixa colorida no meio da lista (medido em 2026-08-27, antes do\n  ajuste: linha verde com divisória verde). Quem quer o pintado liga `highlightSelected` no\n  grupo ou no item; a prop vence nas duas direções, e em lista a sombra do destaque sai (dentro\n  do `overflow-hidden` do grupo ela não eleva, só vaza).\n- **O ícone fica sempre à esquerda**, inclusive com `orientation=\"right\"`: o `order-last` move\n  só o controle. Ele identifica a opção e pertence ao lado do texto. Piso de 20×20px.\n- **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem\n  ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra\n  o leitor de tela (\"button\" em vez de checkbox) e o submit nativo.\n- **O anel de foco é do CARD**, via `has-[:focus-visible]`. O `CardCheckbox` antigo declarava\n  `focus-visible:ring-4` no próprio `<label>` — inerte, porque label não recebe foco (medido\n  em 2026-08-27: o único anel visível era o do controle de 16px).\n- **`CardCheckbox` continua existindo** como atalho de `type=\"checkbox\"`. Componente novo\n  deve usar `CardOption`.\n",
         "type": "registry:file",
         "target": "components/ui/CardOption/USAGE.md"
       },
       {
         "path": "src/components/ui/CardOption/card-option.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\n\n/**\n * CardOption — controle de formulário apresentado como card clicável, com o controle\n * (checkbox, radio ou switch) trocável por prop.\n *\n * ## Por que um componente e não três\n *\n * Medido em 2026-08-27: dos três padrões de \"card com controle\" que o DS mostrava, **só um\n * era componente** (`CardCheckbox`). O \"Card Selection\" do radio e o \"Card Toggle\" do switch\n * eram markup solto dentro das páginas de doc — e por isso divergiam em 11 dimensões:\n * alinhamento (`items-start` vs `items-center`), padding (20px vs 12px), radius, preset do\n * label (`body-md medium` vs `body-sm semibold`), preset da descrição (`body-md` onde devia\n * ser `caption`), cor do selecionado, lado do input, e por aí.\n *\n * O que produziu a divergência foi a ausência de componente, não falta de disciplina: cada\n * exemplo foi escrito à mão, em momentos diferentes, e quem copiasse da doc levava a versão\n * daquele dia. `has-[[data-state=checked]]` aparecia 5× no repo, **todas** em página de doc e\n * nenhuma em tela real — ou seja, a janela pra unificar era esta, sem migração.\n *\n * ## As duas assimetrias que o `type` carrega\n *\n * Não é \"o mesmo card com controle diferente\" em tudo:\n *\n *   1. **Lado do controle.** Checkbox/radio à esquerda, switch à direita — convenção de linha\n *      de configuração. Um default único erraria metade dos casos, então o default deriva do\n *      `type` (ver `card-option.tsx`).\n *   2. **Destaque de selecionado.** Radio/checkbox SELECIONAM uma opção e ganham o destaque\n *      (`bg-success-muted` + `border-brand`). Switch é ESTADO, não seleção: uma lista de\n *      settings toda verde é ruído, e é exatamente por isso que o exemplo antigo do switch\n *      não tinha estado nenhum. Daí `highlightSelected` derivar do `type`.\n *\n * ## Foco — corrige defeito do CardCheckbox\n *\n * O anel vai no card por **`has-[:focus-visible]`**, não por `focus-visible:` no root. O\n * `CardCheckbox` declarava `focus-visible:ring-4` no `<label>`, e **label não recebe foco**:\n * era CSS morto (verificado no browser em 2026-08-27 — o anel que aparecia era só o do\n * controle de 16px, do `shadcn/checkbox`). Com `has-`, o card inteiro reage ao foco do\n * controle interno, que é o que a área clicável grande promete.\n */\nexport const cardOption = tv({\n  slots: {\n    root: [\n      \"flex w-full items-center\",\n      \"border text-left cursor-pointer\",\n      \"transition-[border-color,background-color,box-shadow] duration-150\",\n      // O anel é do CARD, disparado pelo foco do controle dentro dele.\n      \"has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand\",\n    ],\n    control: \"shrink-0\",\n    // Piso de 20px nos dois eixos: ícone menor que isso não se lê ao lado de um texto de\n    // 13px, e o `place-items-center` mantém centrado quando o conteúdo é menor que a caixa.\n    iconWrap: \"grid shrink-0 place-items-center min-h-comp-2xs min-w-comp-2xs\",\n    body: \"flex min-w-0 flex-1 flex-col gap-gp-2xs\",\n    label: \"truncate font-semibold leading-tight text-fg-default\",\n    description: \"text-fg-muted\",\n  },\n  variants: {\n    size: {\n      sm: {\n        root: \"p-pad-md gap-gp-md rounded-radius-md\",\n        label: \"text-body-sm\",\n        description: \"text-caption-sm\",\n      },\n      md: {\n        root: \"p-pad-xl gap-gp-lg rounded-radius-lg\",\n        label: \"text-body-sm\",\n        description: \"text-caption-md\",\n      },\n      lg: {\n        root: \"p-pad-2xl gap-gp-xl rounded-radius-xl\",\n        label: \"text-body-md\",\n        description: \"text-caption-md\",\n      },\n    },\n    /**\n     * Onde o CONTROLE fica — e só ele.\n     *\n     * ⚠️ Era `flex-row-reverse` no root, que invertia TODOS os filhos e levava o ícone pra\n     * direita junto. O ícone tem de ficar sempre à esquerda: ele identifica a opção (junto do\n     * texto), enquanto o controle é a ação. `order-last` move apenas o controle, mantendo\n     * ícone → texto na ordem de leitura em qualquer orientação.\n     */\n    orientation: {\n      left: {},\n      right: { control: \"order-last\" },\n    },\n    /**\n     * O destaque de selecionado vem do **data attribute do controle**, não de prop.\n     *\n     * ⚠️ A 1ª versão derivava de `checked === true` em JS e o card de **radio nunca\n     * destacava** — a seleção do radio mora no `value` do grupo, não numa prop do item, então\n     * a condição era falsa por construção. Pego no browser: o item com\n     * `data-state=\"checked\"` seguia branco.\n     *\n     * `has-[[data-state=checked]]` resolve os três tipos de uma vez e funciona também em uso\n     * NÃO-CONTROLADO (`defaultValue`/`defaultChecked`), onde nenhuma prop diz o estado. É a\n     * L-012: Radix marca estado por data attribute, não por atributo HTML.\n     */\n    highlight: {\n      true: {\n        root: [\n          \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n          \"has-[[data-state=checked]]:border-border-brand\",\n          \"has-[[data-state=checked]]:bg-bg-success-muted\",\n          \"has-[[data-state=checked]]:shadow-sh-sm\",\n        ],\n      },\n      false: {\n        root: \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n      },\n    },\n    /**\n     * Dentro de um grupo `layout=\"list\"`: sem cantos e sem borda em volta — quem desenha o\n     * contorno é o grupo. O que sobra é a **linha divisória**, feita pela borda de baixo de\n     * cada item, com o último suprimido.\n     *\n     * ⚠️ A 1ª versão era `border-0` no item + `divide-y` no grupo, e **não desenhava divisória\n     * nenhuma**: o `divide-y` funciona pondo `border-top` nos filhos a partir do 2º, e o\n     * `border-0` do item zerava justamente essa borda. Medido no browser — `border-top: 0px`\n     * nos três itens. Desenhar a borda no próprio item não depende dessa ordem de cascata.\n     */\n    inList: {\n      true: {\n        root: \"rounded-radius-none border-x-0 border-t-0 border-b last:border-b-0\",\n      },\n    },\n    disabled: {\n      // Não existe token bg/border de disabled no DS — o padrão é opacidade.\n      true: { root: \"opacity-50 cursor-not-allowed pointer-events-none\" },\n    },\n  },\n  compoundVariants: [\n    // disabled SEMPRE por último (L-006), senão as classes de selected/hover o sobrescrevem\n    {\n      disabled: true,\n      class: { root: \"border-border-default bg-bg-surface hover:bg-bg-surface\" },\n    },\n  ],\n  defaultVariants: {\n    size: \"md\",\n    orientation: \"left\",\n    highlight: true,\n  },\n});\n\n/**\n * O container. Guarda a borda e o arredondamento quando `layout=\"list\"`, porque nesse modo\n * os itens não têm os seus.\n */\nexport const cardOptionGroup = tv({\n  base: \"flex w-full flex-col\",\n  variants: {\n    layout: {\n      spaced: \"gap-gp-lg\",\n      /**\n       * O grupo desenha só o contorno; a divisória entre linhas é a borda de baixo de cada\n       * item (ver `inList`). Não usa `divide-y`: ele põe `border-top` nos filhos e brigava\n       * com o reset de borda do item.\n       *\n       * Vale pros TRÊS tipos, não só switch — radio em lista é um seletor de linha única, e\n       * checkbox em lista é uma lista de permissões.\n       */\n      list: \"overflow-hidden border border-border-default\",\n    },\n    size: {\n      // O radius do grupo acompanha o do item, senão o canto da lista destoa do card solto.\n      sm: \"\",\n      md: \"\",\n      lg: \"\",\n    },\n    disabled: {\n      true: \"opacity-50 pointer-events-none\",\n    },\n  },\n  compoundVariants: [\n    { layout: \"list\", size: \"sm\", class: \"rounded-radius-md\" },\n    { layout: \"list\", size: \"md\", class: \"rounded-radius-lg\" },\n    { layout: \"list\", size: \"lg\", class: \"rounded-radius-xl\" },\n  ],\n  defaultVariants: {\n    layout: \"spaced\",\n    size: \"md\",\n  },\n});\n\nexport type CardOptionVariants = VariantProps<typeof cardOption>;\nexport type CardOptionGroupVariants = VariantProps<typeof cardOptionGroup>;\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\n\n/**\n * CardOption — controle de formulário apresentado como card clicável, com o controle\n * (checkbox, radio ou switch) trocável por prop.\n *\n * ## Por que um componente e não três\n *\n * Medido em 2026-08-27: dos três padrões de \"card com controle\" que o DS mostrava, **só um\n * era componente** (`CardCheckbox`). O \"Card Selection\" do radio e o \"Card Toggle\" do switch\n * eram markup solto dentro das páginas de doc — e por isso divergiam em 11 dimensões:\n * alinhamento (`items-start` vs `items-center`), padding (20px vs 12px), radius, preset do\n * label (`body-md medium` vs `body-sm semibold`), preset da descrição (`body-md` onde devia\n * ser `caption`), cor do selecionado, lado do input, e por aí.\n *\n * O que produziu a divergência foi a ausência de componente, não falta de disciplina: cada\n * exemplo foi escrito à mão, em momentos diferentes, e quem copiasse da doc levava a versão\n * daquele dia. `has-[[data-state=checked]]` aparecia 5× no repo, **todas** em página de doc e\n * nenhuma em tela real — ou seja, a janela pra unificar era esta, sem migração.\n *\n * ## As duas assimetrias que o `type` carrega\n *\n * Não é \"o mesmo card com controle diferente\" em tudo:\n *\n *   1. **Lado do controle.** Checkbox/radio à esquerda, switch à direita — convenção de linha\n *      de configuração. Um default único erraria metade dos casos, então o default deriva do\n *      `type` (ver `card-option.tsx`).\n *   2. **Destaque de selecionado.** Radio/checkbox SELECIONAM uma opção e ganham o destaque\n *      (`bg-success-muted` + `border-brand`). Switch é ESTADO, não seleção: uma lista de\n *      settings toda verde é ruído, e é exatamente por isso que o exemplo antigo do switch\n *      não tinha estado nenhum. Daí `highlightSelected` derivar do `type`.\n *\n * ## Foco — corrige defeito do CardCheckbox\n *\n * O anel vai no card por **`has-[:focus-visible]`**, não por `focus-visible:` no root. O\n * `CardCheckbox` declarava `focus-visible:ring-4` no `<label>`, e **label não recebe foco**:\n * era CSS morto (verificado no browser em 2026-08-27 — o anel que aparecia era só o do\n * controle de 16px, do `shadcn/checkbox`). Com `has-`, o card inteiro reage ao foco do\n * controle interno, que é o que a área clicável grande promete.\n */\nexport const cardOption = tv({\n  slots: {\n    root: [\n      \"flex w-full items-center\",\n      \"border text-left cursor-pointer\",\n      \"transition-[border-color,background-color,box-shadow] duration-150\",\n      // O anel é do CARD, disparado pelo foco do controle dentro dele.\n      \"has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand\",\n    ],\n    control: \"shrink-0\",\n    // Piso de 20px nos dois eixos: ícone menor que isso não se lê ao lado de um texto de\n    // 13px, e o `place-items-center` mantém centrado quando o conteúdo é menor que a caixa.\n    iconWrap: \"grid shrink-0 place-items-center min-h-comp-2xs min-w-comp-2xs\",\n    body: \"flex min-w-0 flex-1 flex-col gap-gp-2xs\",\n    label: \"truncate font-semibold leading-tight text-fg-default\",\n    description: \"text-fg-muted\",\n  },\n  variants: {\n    size: {\n      sm: {\n        root: \"p-pad-md gap-gp-md rounded-radius-md\",\n        label: \"text-body-sm\",\n        description: \"text-caption-sm\",\n      },\n      md: {\n        root: \"p-pad-xl gap-gp-lg rounded-radius-lg\",\n        label: \"text-body-sm\",\n        description: \"text-caption-md\",\n      },\n      lg: {\n        root: \"p-pad-2xl gap-gp-xl rounded-radius-xl\",\n        label: \"text-body-md\",\n        description: \"text-caption-md\",\n      },\n    },\n    /**\n     * Onde o CONTROLE fica — e só ele.\n     *\n     * ⚠️ Era `flex-row-reverse` no root, que invertia TODOS os filhos e levava o ícone pra\n     * direita junto. O ícone tem de ficar sempre à esquerda: ele identifica a opção (junto do\n     * texto), enquanto o controle é a ação. `order-last` move apenas o controle, mantendo\n     * ícone → texto na ordem de leitura em qualquer orientação.\n     */\n    orientation: {\n      left: {},\n      right: { control: \"order-last\" },\n    },\n    /**\n     * O destaque de selecionado vem do **data attribute do controle**, não de prop.\n     *\n     * ⚠️ A 1ª versão derivava de `checked === true` em JS e o card de **radio nunca\n     * destacava** — a seleção do radio mora no `value` do grupo, não numa prop do item, então\n     * a condição era falsa por construção. Pego no browser: o item com\n     * `data-state=\"checked\"` seguia branco.\n     *\n     * `has-[[data-state=checked]]` resolve os três tipos de uma vez e funciona também em uso\n     * NÃO-CONTROLADO (`defaultValue`/`defaultChecked`), onde nenhuma prop diz o estado. É a\n     * L-012: Radix marca estado por data attribute, não por atributo HTML.\n     *\n     * ⚠️ Quem decide se esta variante entra é o `card-option.tsx`, e o default DEPENDE DO\n     * CONTEXTO: em card solto vem do `type`; **em lista vem desligado**, porque a única borda\n     * do item ali é a de baixo — a divisória — e pintá-la colore a linha que separa o\n     * selecionado do vizinho, não o contorno dele.\n     */\n    highlight: {\n      true: {\n        root: [\n          \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n          \"has-[[data-state=checked]]:border-border-brand\",\n          \"has-[[data-state=checked]]:bg-bg-success-muted\",\n          \"has-[[data-state=checked]]:shadow-sh-sm\",\n        ],\n      },\n      false: {\n        root: \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n      },\n    },\n    /**\n     * Dentro de um grupo `layout=\"list\"`: sem cantos e sem borda em volta — quem desenha o\n     * contorno é o grupo. O que sobra é a **linha divisória**, feita pela borda de baixo de\n     * cada item, com o último suprimido.\n     *\n     * ⚠️ A 1ª versão era `border-0` no item + `divide-y` no grupo, e **não desenhava divisória\n     * nenhuma**: o `divide-y` funciona pondo `border-top` nos filhos a partir do 2º, e o\n     * `border-0` do item zerava justamente essa borda. Medido no browser — `border-top: 0px`\n     * nos três itens. Desenhar a borda no próprio item não depende dessa ordem de cascata.\n     */\n    inList: {\n      true: {\n        root: \"rounded-radius-none border-x-0 border-t-0 border-b last:border-b-0\",\n      },\n    },\n    disabled: {\n      // Não existe token bg/border de disabled no DS — o padrão é opacidade.\n      true: { root: \"opacity-50 cursor-not-allowed pointer-events-none\" },\n    },\n  },\n  compoundVariants: [\n    /**\n     * Em LISTA com destaque ligado, a sombra sai.\n     *\n     * `shadow-sh-sm` num card solto o levanta da página; numa linha de lista ele vaza por\n     * cima da linha vizinha e some atrás do `overflow-hidden` do grupo — sombra dentro de\n     * caixa cortada é ruído, não elevação. Fundo e cor de borda continuam (é justamente o que\n     * o `highlightSelected` promete); só a elevação não faz sentido aqui.\n     */\n    {\n      inList: true,\n      highlight: true,\n      class: { root: \"has-[[data-state=checked]]:shadow-sh-none\" },\n    },\n    // disabled SEMPRE por último (L-006), senão as classes de selected/hover o sobrescrevem\n    {\n      disabled: true,\n      class: { root: \"border-border-default bg-bg-surface hover:bg-bg-surface\" },\n    },\n  ],\n  defaultVariants: {\n    size: \"md\",\n    orientation: \"left\",\n    highlight: true,\n  },\n});\n\n/**\n * O container. Guarda a borda e o arredondamento quando `layout=\"list\"`, porque nesse modo\n * os itens não têm os seus.\n */\nexport const cardOptionGroup = tv({\n  base: \"flex w-full flex-col\",\n  variants: {\n    layout: {\n      spaced: \"gap-gp-lg\",\n      /**\n       * O grupo desenha só o contorno; a divisória entre linhas é a borda de baixo de cada\n       * item (ver `inList`). Não usa `divide-y`: ele põe `border-top` nos filhos e brigava\n       * com o reset de borda do item.\n       *\n       * Vale pros TRÊS tipos, não só switch — radio em lista é um seletor de linha única, e\n       * checkbox em lista é uma lista de permissões.\n       *\n       * ⚠️ O `gap-0` é obrigatório e não é redundante: com `type=\"radio\"` o grupo É o\n       * `RadioGroup` do DS, que traz `grid w-full gap-gp-xl` no base. Sem declarar gap aqui,\n       * o `gap-gp-xl` (12px) sobrevivia e a lista de radio saía com 12px entre as linhas —\n       * medido. (A 1ª tentativa foi um `grid-none` que eu inventei; classe inexistente é\n       * inerte e não zera nada.)\n       */\n      list: \"gap-0 overflow-hidden border border-border-default\",\n    },\n    size: {\n      // O radius do grupo acompanha o do item, senão o canto da lista destoa do card solto.\n      sm: \"\",\n      md: \"\",\n      lg: \"\",\n    },\n    disabled: {\n      true: \"opacity-50 pointer-events-none\",\n    },\n  },\n  compoundVariants: [\n    { layout: \"list\", size: \"sm\", class: \"rounded-radius-md\" },\n    { layout: \"list\", size: \"md\", class: \"rounded-radius-lg\" },\n    { layout: \"list\", size: \"lg\", class: \"rounded-radius-xl\" },\n  ],\n  defaultVariants: {\n    layout: \"spaced\",\n    size: \"md\",\n  },\n});\n\nexport type CardOptionVariants = VariantProps<typeof cardOption>;\nexport type CardOptionGroupVariants = VariantProps<typeof cardOptionGroup>;\n",
         "type": "registry:ui",
         "target": "components/ui/CardOption/card-option.styles.ts"
       },
       {
         "path": "src/components/ui/CardOption/card-option.tsx",
-        "content": "\"use client\";\n\nimport { createContext, forwardRef, useContext, useId } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Checkbox } from \"@/components/shadcn/checkbox\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/shadcn/radio-group\";\nimport { Switch } from \"@/components/shadcn/switch\";\nimport { cardOption, cardOptionGroup } from \"./card-option.styles\";\nimport type {\n  CardOptionGroupProps,\n  CardOptionLayout,\n  CardOptionOrientation,\n  CardOptionProps,\n  CardOptionSize,\n  CardOptionType,\n} from \"./card-option.types\";\n\n/**\n * Os defaults que dependem do `type` — a assimetria da família, num lugar só.\n *\n * Um default único erraria metade dos casos: switch mora à direita (linha de configuração) e\n * não ganha destaque de selecionado, porque switch é ESTADO e não seleção — lista de settings\n * toda pintada de verde é ruído. Foi por isso que o exemplo antigo do switch não tinha estado\n * visual nenhum, e é o que este mapa preserva.\n */\nconst PADRAO_POR_TIPO: Record<\n  CardOptionType,\n  { orientation: CardOptionOrientation; highlightSelected: boolean }\n> = {\n  checkbox: { orientation: \"left\", highlightSelected: true },\n  radio: { orientation: \"left\", highlightSelected: true },\n  switch: { orientation: \"right\", highlightSelected: false },\n};\n\ntype Ctx = {\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  disabled?: boolean;\n};\n\nconst CardOptionCtx = createContext<Ctx | null>(null);\n\n/**\n * `CardOptionGroup` — o container.\n *\n * Existe por dois motivos que se somam:\n *\n *   1. **`type=\"radio\"` PRECISA de um pai.** É o `RadioGroup` do Radix que dá navegação por\n *      seta e agrupamento por `name`. Checkbox e switch são autônomos — nesses casos o grupo\n *      é só um `<div>`.\n *   2. **O modo lista mora aqui.** Em `layout=\"list\"` a borda e o arredondamento são do\n *      GRUPO e a separação é `divide-y`; o item perde os seus (`inList`). Se cada item\n *      mantivesse a borda, a lista sairia com borda dupla entre linhas.\n */\nexport const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(\n  function CardOptionGroup(\n    {\n      type = \"checkbox\",\n      size = \"md\",\n      orientation,\n      layout = \"spaced\",\n      value,\n      defaultValue,\n      onValueChange,\n      name,\n      disabled,\n      children,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const classes = cardOptionGroup({ layout, size, disabled: disabled ? true : undefined });\n    const ctx: Ctx = { type, size, orientation, layout, disabled };\n\n    if (type === \"radio\") {\n      return (\n        <CardOptionCtx.Provider value={ctx}>\n          <RadioGroup\n            ref={ref}\n            value={value}\n            defaultValue={defaultValue}\n            onValueChange={onValueChange}\n            name={name}\n            disabled={disabled}\n            /* O RadioGroup do DS traz `grid gap-gp-xl` no base; aqui o espaçamento é do\n               layout (gap no spaced, divide-y no list), então ele é sobrescrito. */\n            className={cn(classes, \"grid-none\", className)}\n            {...rest}\n          >\n            {children}\n          </RadioGroup>\n        </CardOptionCtx.Provider>\n      );\n    }\n\n    return (\n      <CardOptionCtx.Provider value={ctx}>\n        <div ref={ref} className={cn(classes, className)} {...rest}>\n          {children}\n        </div>\n      </CardOptionCtx.Provider>\n    );\n  },\n);\n\n/**\n * `CardOption` — o item.\n *\n * ⚠️ **É um `<label htmlFor>` nativo, nunca `<button onClick>` (L-025).** Com `button`, o\n * leitor de tela anuncia \"button\" em vez de checkbox/radio, o submit nativo perde\n * `name`/`value`, e o `stopPropagation` do controle interno faz o clique no card não chegar\n * nele. O label nativo propaga o clique pro controle real e preserva a semântica — foi a\n * lição que o `CardCheckbox` já carregava e que esta implementação mantém.\n */\nexport const CardOption = forwardRef<HTMLButtonElement, CardOptionProps>(\n  function CardOption(\n    {\n      type: typeProp,\n      value,\n      size: sizeProp,\n      orientation: orientationProp,\n      highlightSelected: highlightProp,\n      label,\n      description,\n      icon,\n      checked,\n      defaultChecked,\n      onCheckedChange,\n      disabled: disabledProp,\n      id: idProp,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const ctx = useContext(CardOptionCtx);\n    const autoId = useId();\n    const id = idProp ?? autoId;\n\n    const type = typeProp ?? ctx?.type ?? \"checkbox\";\n    const size = sizeProp ?? ctx?.size ?? \"md\";\n    const disabled = disabledProp ?? ctx?.disabled;\n    const padroes = PADRAO_POR_TIPO[type];\n    const orientation = orientationProp ?? ctx?.orientation ?? padroes.orientation;\n    const highlight = highlightProp ?? padroes.highlightSelected;\n\n    const styles = cardOption({\n      size,\n      orientation,\n      highlight,\n      inList: ctx?.layout === \"list\" ? true : undefined,\n      disabled: disabled ? true : undefined,\n    });\n\n    const controle =\n      type === \"radio\" ? (\n        <RadioGroupItem\n          ref={ref}\n          id={id}\n          value={value ?? \"\"}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : type === \"switch\" ? (\n        <Switch\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : (\n        <Checkbox\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      );\n\n    return (\n      <label htmlFor={id} className={cn(styles.root(), className)}>\n        {controle}\n        {icon && (\n          <span className={styles.iconWrap()} aria-hidden=\"true\">\n            {icon}\n          </span>\n        )}\n        <div className={styles.body()}>\n          <span className={styles.label()}>{label}</span>\n          {description && (\n            <span className={styles.description()}>{description}</span>\n          )}\n        </div>\n      </label>\n    );\n  },\n);\n",
+        "content": "\"use client\";\n\nimport { createContext, forwardRef, useContext, useId } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Checkbox } from \"@/components/shadcn/checkbox\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/shadcn/radio-group\";\nimport { Switch } from \"@/components/shadcn/switch\";\nimport { cardOption, cardOptionGroup } from \"./card-option.styles\";\nimport type {\n  CardOptionGroupProps,\n  CardOptionLayout,\n  CardOptionOrientation,\n  CardOptionProps,\n  CardOptionSize,\n  CardOptionType,\n} from \"./card-option.types\";\n\n/**\n * Os defaults que dependem do `type` — a assimetria da família, num lugar só.\n *\n * Um default único erraria metade dos casos: switch mora à direita (linha de configuração) e\n * não ganha destaque de selecionado, porque switch é ESTADO e não seleção — lista de settings\n * toda pintada de verde é ruído. Foi por isso que o exemplo antigo do switch não tinha estado\n * visual nenhum, e é o que este mapa preserva.\n */\nconst PADRAO_POR_TIPO: Record<\n  CardOptionType,\n  { orientation: CardOptionOrientation; highlightSelected: boolean }\n> = {\n  checkbox: { orientation: \"left\", highlightSelected: true },\n  radio: { orientation: \"left\", highlightSelected: true },\n  switch: { orientation: \"right\", highlightSelected: false },\n};\n\ntype Ctx = {\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  /** Ligado/desligado no grupo inteiro; `undefined` = cada item usa o default do contexto. */\n  highlightSelected?: boolean;\n  disabled?: boolean;\n};\n\nconst CardOptionCtx = createContext<Ctx | null>(null);\n\n/**\n * `CardOptionGroup` — o container.\n *\n * Existe por dois motivos que se somam:\n *\n *   1. **`type=\"radio\"` PRECISA de um pai.** É o `RadioGroup` do Radix que dá navegação por\n *      seta e agrupamento por `name`. Checkbox e switch são autônomos — nesses casos o grupo\n *      é só um `<div>`.\n *   2. **O modo lista mora aqui.** Em `layout=\"list\"` a borda e o arredondamento são do\n *      GRUPO e o item perde os seus (`inList`) — a divisória é a borda de baixo de cada item,\n *      com a última suprimida. Se cada item mantivesse a borda inteira, a lista sairia com\n *      borda dupla entre linhas. (Não é `divide-y`: ele põe `border-top` nos filhos e brigava\n *      com o reset de borda do item — resultado medido era ZERO divisória.)\n */\nexport const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(\n  function CardOptionGroup(\n    {\n      type = \"checkbox\",\n      size = \"md\",\n      orientation,\n      layout = \"spaced\",\n      highlightSelected,\n      value,\n      defaultValue,\n      onValueChange,\n      name,\n      disabled,\n      children,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const classes = cardOptionGroup({ layout, size, disabled: disabled ? true : undefined });\n    const ctx: Ctx = { type, size, orientation, layout, highlightSelected, disabled };\n\n    if (type === \"radio\") {\n      return (\n        <CardOptionCtx.Provider value={ctx}>\n          <RadioGroup\n            ref={ref}\n            value={value}\n            defaultValue={defaultValue}\n            onValueChange={onValueChange}\n            name={name}\n            disabled={disabled}\n            /* O espaçamento é do layout, não do RadioGroup — e quem sobrescreve o\n               `grid gap-gp-xl` do base dele são as classes de `cardOptionGroup`, que vêm\n               depois no cn(). ⚠️ Havia um `\"grid-none\"` aqui: classe que eu inventei, que não\n               existe no Tailwind e portanto não zerava nada — o `gap-gp-xl` sobrevivia e a\n               lista de radio saía 12px mais espaçada que a de checkbox/switch. Por isso o\n               layout `list` declara `gap-0` explícito. */\n            className={cn(classes, className)}\n            {...rest}\n          >\n            {children}\n          </RadioGroup>\n        </CardOptionCtx.Provider>\n      );\n    }\n\n    return (\n      <CardOptionCtx.Provider value={ctx}>\n        <div ref={ref} className={cn(classes, className)} {...rest}>\n          {children}\n        </div>\n      </CardOptionCtx.Provider>\n    );\n  },\n);\n\n/**\n * `CardOption` — o item.\n *\n * ⚠️ **É um `<label htmlFor>` nativo, nunca `<button onClick>` (L-025).** Com `button`, o\n * leitor de tela anuncia \"button\" em vez de checkbox/radio, o submit nativo perde\n * `name`/`value`, e o `stopPropagation` do controle interno faz o clique no card não chegar\n * nele. O label nativo propaga o clique pro controle real e preserva a semântica — foi a\n * lição que o `CardCheckbox` já carregava e que esta implementação mantém.\n */\nexport const CardOption = forwardRef<HTMLButtonElement, CardOptionProps>(\n  function CardOption(\n    {\n      type: typeProp,\n      value,\n      size: sizeProp,\n      orientation: orientationProp,\n      highlightSelected: highlightProp,\n      label,\n      description,\n      icon,\n      checked,\n      defaultChecked,\n      onCheckedChange,\n      disabled: disabledProp,\n      id: idProp,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const ctx = useContext(CardOptionCtx);\n    const autoId = useId();\n    const id = idProp ?? autoId;\n\n    const type = typeProp ?? ctx?.type ?? \"checkbox\";\n    const size = sizeProp ?? ctx?.size ?? \"md\";\n    const disabled = disabledProp ?? ctx?.disabled;\n    const padroes = PADRAO_POR_TIPO[type];\n    const orientation = orientationProp ?? ctx?.orientation ?? padroes.orientation;\n    const emLista = ctx?.layout === \"list\";\n\n    /**\n     * O destaque é uma OPÇÃO com default por contexto, não uma regra fixa.\n     *\n     * Em card solto, pintar comunica escolha e o default vem do `type` (ver\n     * `PADRAO_POR_TIPO`). **Em lista o default é desligado**, inclusive pra checkbox e radio:\n     * ali a única borda do item é a de baixo — a **divisória** —, então o `border-brand` não\n     * pinta o contorno do selecionado, pinta a linha que separa ele do vizinho, e o fundo vira\n     * faixa colorida no meio da lista. Medido em 2026-08-27, antes deste ajuste: a linha\n     * selecionada saía com fundo verde e divisória verde.\n     *\n     * Quem quiser o comportamento pintado em lista liga explicitamente — no item ou no grupo\n     * (`highlightSelected`), e a prop vence nas duas direções.\n     */\n    const highlight =\n      highlightProp ?? ctx?.highlightSelected ?? (emLista ? false : padroes.highlightSelected);\n\n    const styles = cardOption({\n      size,\n      orientation,\n      highlight,\n      inList: emLista ? true : undefined,\n      disabled: disabled ? true : undefined,\n    });\n\n    const controle =\n      type === \"radio\" ? (\n        <RadioGroupItem\n          ref={ref}\n          id={id}\n          value={value ?? \"\"}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : type === \"switch\" ? (\n        <Switch\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : (\n        <Checkbox\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      );\n\n    return (\n      <label htmlFor={id} className={cn(styles.root(), className)}>\n        {controle}\n        {icon && (\n          <span className={styles.iconWrap()} aria-hidden=\"true\">\n            {icon}\n          </span>\n        )}\n        <div className={styles.body()}>\n          <span className={styles.label()}>{label}</span>\n          {description && (\n            <span className={styles.description()}>{description}</span>\n          )}\n        </div>\n      </label>\n    );\n  },\n);\n",
         "type": "registry:ui",
         "target": "components/ui/CardOption/card-option.tsx"
       },
       {
         "path": "src/components/ui/CardOption/card-option.types.ts",
-        "content": "import type { ReactNode } from \"react\";\nimport type { CardOptionVariants } from \"./card-option.styles\";\n\n/** Qual controle o card embrulha. Ponto de extensão pra tipos futuros. */\nexport type CardOptionType = \"checkbox\" | \"radio\" | \"switch\";\n\nexport type CardOptionSize = NonNullable<CardOptionVariants[\"size\"]>;\n\n/** Lado em que o controle fica. Omitido → derivado do `type`. */\nexport type CardOptionOrientation = NonNullable<CardOptionVariants[\"orientation\"]>;\n\n/** `spaced` = cards separados · `list` = uma lista com divisórias, sem gap. */\nexport type CardOptionLayout = \"spaced\" | \"list\";\n\nexport interface CardOptionProps {\n  /**\n   * Controle embrulhado pelo card. Default: herda do grupo, ou `\"checkbox\"`.\n   *\n   * ⚠️ `\"radio\"` exige um `CardOptionGroup` em volta — é ele que vira o `RadioGroup` do\n   * Radix e dá navegação por seta + agrupamento por `name`. Checkbox e switch funcionam\n   * soltos.\n   */\n  type?: CardOptionType;\n  /** Obrigatório quando `type=\"radio\"` — é o valor que o grupo seleciona. */\n  value?: string;\n  size?: CardOptionSize;\n  /**\n   * Lado do controle. **Omita**: o default deriva do `type` — `left` pra checkbox/radio,\n   * `right` pro switch (convenção de linha de configuração).\n   */\n  orientation?: CardOptionOrientation;\n  /**\n   * Pinta o card quando selecionado (`bg-success-muted` + `border-brand`). **Omita**: deriva\n   * do `type` — ligado em checkbox/radio, desligado no switch, porque switch é estado e não\n   * seleção (lista de settings toda verde é ruído).\n   */\n  highlightSelected?: boolean;\n  label: ReactNode;\n  description?: ReactNode;\n  /** Ícone entre o controle e o texto. */\n  icon?: ReactNode;\n  /** Controlado. No `radio`, quem manda é o `value` do grupo. */\n  checked?: boolean;\n  /** Não-controlado. Funciona com o destaque, porque ele vem do data-state e não de prop. */\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n  /** id do controle — gerado se omitido (o `<label htmlFor>` precisa dele). */\n  id?: string;\n  className?: string;\n}\n\nexport interface CardOptionGroupProps {\n  /** Aplicado a todos os filhos. `radio` faz o grupo virar `RadioGroup` do Radix. */\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  /** Só `type=\"radio\"`: valor selecionado (controlado). */\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n  /** Só `type=\"radio\"`: nome do campo no submit nativo. */\n  name?: string;\n  disabled?: boolean;\n  children?: ReactNode;\n  className?: string;\n}\n",
+        "content": "import type { ReactNode } from \"react\";\nimport type { CardOptionVariants } from \"./card-option.styles\";\n\n/** Qual controle o card embrulha. Ponto de extensão pra tipos futuros. */\nexport type CardOptionType = \"checkbox\" | \"radio\" | \"switch\";\n\nexport type CardOptionSize = NonNullable<CardOptionVariants[\"size\"]>;\n\n/** Lado em que o controle fica. Omitido → derivado do `type`. */\nexport type CardOptionOrientation = NonNullable<CardOptionVariants[\"orientation\"]>;\n\n/** `spaced` = cards separados · `list` = uma lista com divisórias, sem gap. */\nexport type CardOptionLayout = \"spaced\" | \"list\";\n\nexport interface CardOptionProps {\n  /**\n   * Controle embrulhado pelo card. Default: herda do grupo, ou `\"checkbox\"`.\n   *\n   * ⚠️ `\"radio\"` exige um `CardOptionGroup` em volta — é ele que vira o `RadioGroup` do\n   * Radix e dá navegação por seta + agrupamento por `name`. Checkbox e switch funcionam\n   * soltos.\n   */\n  type?: CardOptionType;\n  /** Obrigatório quando `type=\"radio\"` — é o valor que o grupo seleciona. */\n  value?: string;\n  size?: CardOptionSize;\n  /**\n   * Lado do controle. **Omita**: o default deriva do `type` — `left` pra checkbox/radio,\n   * `right` pro switch (convenção de linha de configuração).\n   */\n  orientation?: CardOptionOrientation;\n  /**\n   * Pinta o card quando selecionado — fundo (`bg-success-muted`) + borda (`border-brand`).\n   *\n   * **Omita**: o default deriva do contexto.\n   * - card solto → do `type`: ligado em checkbox/radio, desligado no switch (switch é estado,\n   *   não seleção — lista de settings toda verde é ruído);\n   * - dentro de `layout=\"list\"` → **desligado**, inclusive pra checkbox e radio: em lista a\n   *   única borda do item é a de baixo, a **divisória**, então a cor não contorna o\n   *   selecionado, pinta a linha que o separa do vizinho.\n   *\n   * Ligue explicitamente (aqui ou no grupo) se quiser a linha pintada em lista.\n   */\n  highlightSelected?: boolean;\n  label: ReactNode;\n  description?: ReactNode;\n  /** Ícone entre o controle e o texto. */\n  icon?: ReactNode;\n  /** Controlado. No `radio`, quem manda é o `value` do grupo. */\n  checked?: boolean;\n  /** Não-controlado. Funciona com o destaque, porque ele vem do data-state e não de prop. */\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n  /** id do controle — gerado se omitido (o `<label htmlFor>` precisa dele). */\n  id?: string;\n  className?: string;\n}\n\nexport interface CardOptionGroupProps {\n  /** Aplicado a todos os filhos. `radio` faz o grupo virar `RadioGroup` do Radix. */\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  /**\n   * Liga/desliga o destaque de selecionado (fundo + cor de borda) em todos os filhos de uma\n   * vez. Omitido → cada item usa o default do contexto (ver `CardOptionProps`); em\n   * `layout=\"list\"` esse default é **desligado**, e é aqui que se liga.\n   */\n  highlightSelected?: boolean;\n  /** Só `type=\"radio\"`: valor selecionado (controlado). */\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n  /** Só `type=\"radio\"`: nome do campo no submit nativo. */\n  name?: string;\n  disabled?: boolean;\n  children?: ReactNode;\n  className?: string;\n}\n",
         "type": "registry:ui",
         "target": "components/ui/CardOption/card-option.types.ts"
       },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1903,7 +1903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1944,7 +1944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2246,7 +2246,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2342,7 +2342,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2439,7 +2439,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2575,7 +2575,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2605,7 +2605,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2662,7 +2662,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2743,7 +2743,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2793,7 +2793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2861,7 +2861,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2903,7 +2903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2989,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3080,7 +3080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3104,7 +3104,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3157,7 +3157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3181,7 +3181,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3206,7 +3206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3230,7 +3230,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3289,7 +3289,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3351,7 +3351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3376,7 +3376,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3483,7 +3483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3529,7 +3529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3639,7 +3639,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3664,7 +3664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3708,7 +3708,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3757,7 +3757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3783,7 +3783,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3830,7 +3830,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3855,7 +3855,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3930,7 +3930,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3954,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3978,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4002,7 +4002,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4050,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4074,7 +4074,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4099,7 +4099,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4123,7 +4123,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4149,7 +4149,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4262,7 +4262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4284,7 +4284,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4308,7 +4308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4331,7 +4331,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4377,7 +4377,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4401,7 +4401,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4480,7 +4480,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4504,7 +4504,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4528,7 +4528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4546,7 +4546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4564,7 +4564,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4582,7 +4582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4600,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4622,7 +4622,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4673,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4699,7 +4699,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4724,7 +4724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4748,7 +4748,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4769,7 +4769,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4791,7 +4791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.49.0 · 9541d24 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.49.0 · 2e35cdb · 2026-08-27"
     },
     "type": "registry:file"
   }

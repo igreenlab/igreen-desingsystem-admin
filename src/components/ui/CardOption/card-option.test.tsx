@@ -198,6 +198,95 @@ describe("CardOptionGroup", () => {
     }
   });
 
+  it("layout=list NÃO deixa passar o gap do RadioGroup", () => {
+    // A 1ª versão tentava zerar com `grid-none`, classe que não existe no Tailwind: inerte.
+    // O `grid w-full gap-gp-xl` do base do RadioGroup sobrevivia e a lista de RADIO saía com
+    // 12px entre as linhas, enquanto checkbox e switch saíam com 0 (medido no browser).
+    const grupoDe = (type: "checkbox" | "radio" | "switch") => {
+      const { container } = render(
+        <CardOptionGroup type={type} layout="list" defaultValue="a">
+          <CardOption value="a" label="A" />
+          <CardOption value="b" label="B" />
+        </CardOptionGroup>,
+      );
+      return (container.firstElementChild as HTMLElement).className;
+    };
+    for (const type of ["checkbox", "radio", "switch"] as const) {
+      expect(grupoDe(type), `type=${type} não deveria ter gap em lista`).toContain("gap-0");
+      expect(grupoDe(type), "classe inventada não zera nada").not.toContain("grid-none");
+    }
+    // e o gap do RadioGroup não pode ter sobrado
+    expect(grupoDe("radio")).not.toContain("gap-gp-xl");
+  });
+});
+
+describe("CardOption — destaque em lista é OPÇÃO, com default desligado", () => {
+  const classesDoItem = (ui: Parameters<typeof render>[0]) =>
+    render(ui).container.querySelector("label")!.className;
+
+  const PINTA = "has-[[data-state=checked]]:bg-bg-success-muted";
+  const COLORE_BORDA = "has-[[data-state=checked]]:border-border-brand";
+
+  it("em lista, checkbox e radio NÃO pintam por default", () => {
+    // Em lista a única borda do item é a de baixo — a DIVISÓRIA. O border-brand não
+    // contornava o selecionado: pintava a linha que separa ele do vizinho, e o fundo virava
+    // faixa colorida. Medido no browser em 2026-08-27 antes do ajuste.
+    for (const type of ["checkbox", "radio"] as const) {
+      const classes = classesDoItem(
+        <CardOptionGroup type={type} layout="list" defaultValue="a">
+          <CardOption value="a" label="A" defaultChecked />
+        </CardOptionGroup>,
+      );
+      expect(classes, `type=${type} não deveria pintar em lista`).not.toContain(PINTA);
+      expect(classes, `type=${type} não deveria colorir a divisória`).not.toContain(COLORE_BORDA);
+    }
+  });
+
+  it("card SOLTO segue pintando — o default só muda em lista", () => {
+    const classes = classesDoItem(<CardOption type="checkbox" label="A" />);
+    expect(classes).toContain(PINTA);
+    expect(classes).toContain(COLORE_BORDA);
+  });
+
+  it("highlightSelected no GRUPO liga a pintura em lista", () => {
+    const classes = classesDoItem(
+      <CardOptionGroup type="radio" layout="list" highlightSelected defaultValue="a">
+        <CardOption value="a" label="A" />
+      </CardOptionGroup>,
+    );
+    expect(classes).toContain(PINTA);
+    expect(classes).toContain(COLORE_BORDA);
+    // dentro do overflow-hidden do grupo a sombra não eleva, só vaza
+    expect(classes).toContain("has-[[data-state=checked]]:shadow-sh-none");
+  });
+
+  it("a prop do ITEM vence o grupo nas duas direções", () => {
+    const ligadoNoItem = classesDoItem(
+      <CardOptionGroup type="checkbox" layout="list">
+        <CardOption label="A" highlightSelected />
+      </CardOptionGroup>,
+    );
+    expect(ligadoNoItem).toContain(PINTA);
+
+    const desligadoNoItem = classesDoItem(
+      <CardOptionGroup type="checkbox" layout="list" highlightSelected>
+        <CardOption label="A" highlightSelected={false} />
+      </CardOptionGroup>,
+    );
+    expect(desligadoNoItem).not.toContain(PINTA);
+  });
+
+  it("switch em lista continua sem pintar, mesmo com o grupo ligando nada", () => {
+    const classes = classesDoItem(
+      <CardOptionGroup type="switch" layout="list">
+        <CardOption label="Wi-Fi" defaultChecked />
+      </CardOptionGroup>,
+    );
+    expect(classes).not.toContain(PINTA);
+  });
+});
+
+describe("CardOptionGroup — herança", () => {
   it("disabled no grupo desce pro item", () => {
     const { container } = render(
       <CardOptionGroup disabled>

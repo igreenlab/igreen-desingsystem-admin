@@ -37,6 +37,8 @@ type Ctx = {
   size?: CardOptionSize;
   orientation?: CardOptionOrientation;
   layout?: CardOptionLayout;
+  /** Ligado/desligado no grupo inteiro; `undefined` = cada item usa o default do contexto. */
+  highlightSelected?: boolean;
   disabled?: boolean;
 };
 
@@ -51,8 +53,10 @@ const CardOptionCtx = createContext<Ctx | null>(null);
  *      seta e agrupamento por `name`. Checkbox e switch são autônomos — nesses casos o grupo
  *      é só um `<div>`.
  *   2. **O modo lista mora aqui.** Em `layout="list"` a borda e o arredondamento são do
- *      GRUPO e a separação é `divide-y`; o item perde os seus (`inList`). Se cada item
- *      mantivesse a borda, a lista sairia com borda dupla entre linhas.
+ *      GRUPO e o item perde os seus (`inList`) — a divisória é a borda de baixo de cada item,
+ *      com a última suprimida. Se cada item mantivesse a borda inteira, a lista sairia com
+ *      borda dupla entre linhas. (Não é `divide-y`: ele põe `border-top` nos filhos e brigava
+ *      com o reset de borda do item — resultado medido era ZERO divisória.)
  */
 export const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(
   function CardOptionGroup(
@@ -61,6 +65,7 @@ export const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(
       size = "md",
       orientation,
       layout = "spaced",
+      highlightSelected,
       value,
       defaultValue,
       onValueChange,
@@ -73,7 +78,7 @@ export const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(
     ref,
   ) {
     const classes = cardOptionGroup({ layout, size, disabled: disabled ? true : undefined });
-    const ctx: Ctx = { type, size, orientation, layout, disabled };
+    const ctx: Ctx = { type, size, orientation, layout, highlightSelected, disabled };
 
     if (type === "radio") {
       return (
@@ -85,9 +90,13 @@ export const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(
             onValueChange={onValueChange}
             name={name}
             disabled={disabled}
-            /* O RadioGroup do DS traz `grid gap-gp-xl` no base; aqui o espaçamento é do
-               layout (gap no spaced, divide-y no list), então ele é sobrescrito. */
-            className={cn(classes, "grid-none", className)}
+            /* O espaçamento é do layout, não do RadioGroup — e quem sobrescreve o
+               `grid gap-gp-xl` do base dele são as classes de `cardOptionGroup`, que vêm
+               depois no cn(). ⚠️ Havia um `"grid-none"` aqui: classe que eu inventei, que não
+               existe no Tailwind e portanto não zerava nada — o `gap-gp-xl` sobrevivia e a
+               lista de radio saía 12px mais espaçada que a de checkbox/switch. Por isso o
+               layout `list` declara `gap-0` explícito. */
+            className={cn(classes, className)}
             {...rest}
           >
             {children}
@@ -145,13 +154,29 @@ export const CardOption = forwardRef<HTMLButtonElement, CardOptionProps>(
     const disabled = disabledProp ?? ctx?.disabled;
     const padroes = PADRAO_POR_TIPO[type];
     const orientation = orientationProp ?? ctx?.orientation ?? padroes.orientation;
-    const highlight = highlightProp ?? padroes.highlightSelected;
+    const emLista = ctx?.layout === "list";
+
+    /**
+     * O destaque é uma OPÇÃO com default por contexto, não uma regra fixa.
+     *
+     * Em card solto, pintar comunica escolha e o default vem do `type` (ver
+     * `PADRAO_POR_TIPO`). **Em lista o default é desligado**, inclusive pra checkbox e radio:
+     * ali a única borda do item é a de baixo — a **divisória** —, então o `border-brand` não
+     * pinta o contorno do selecionado, pinta a linha que separa ele do vizinho, e o fundo vira
+     * faixa colorida no meio da lista. Medido em 2026-08-27, antes deste ajuste: a linha
+     * selecionada saía com fundo verde e divisória verde.
+     *
+     * Quem quiser o comportamento pintado em lista liga explicitamente — no item ou no grupo
+     * (`highlightSelected`), e a prop vence nas duas direções.
+     */
+    const highlight =
+      highlightProp ?? ctx?.highlightSelected ?? (emLista ? false : padroes.highlightSelected);
 
     const styles = cardOption({
       size,
       orientation,
       highlight,
-      inList: ctx?.layout === "list" ? true : undefined,
+      inList: emLista ? true : undefined,
       disabled: disabled ? true : undefined,
     });
 

@@ -20,6 +20,7 @@ const TOC = [
   { id: "ex-radio", label: "Radio (grupo obrigatório)" },
   { id: "ex-switch", label: "Switch em lista" },
   { id: "ex-list-radio", label: "Lista serve pros três tipos" },
+  { id: "ex-list-highlight", label: "Lista com destaque (opcional)" },
   { id: "ex-sizes", label: "Tamanhos" },
   { id: "ex-icon", label: "Com ícone" },
   { id: "ex-disabled", label: "Disabled" },
@@ -31,13 +32,14 @@ const PROPS = [
   { name: "value", type: "string — obrigatório com type=\"radio\"", defaultVal: "—" },
   { name: "size", type: '"sm" | "md" | "lg"', defaultVal: '"md"' },
   { name: "orientation", type: '"left" | "right" — omita, deriva do type', defaultVal: "left · switch: right" },
-  { name: "highlightSelected", type: "boolean — omita, deriva do type", defaultVal: "true · switch: false" },
+  { name: "highlightSelected", type: "boolean — fundo + cor de borda no selecionado", defaultVal: "deriva do type · em lista: false" },
   { name: "label", type: "ReactNode (obrigatório)", defaultVal: "—" },
   { name: "description", type: "ReactNode", defaultVal: "—" },
   { name: "icon", type: "ReactNode (decorativo, aria-hidden)", defaultVal: "—" },
   { name: "checked / onCheckedChange", type: "controlado (no radio, manda o grupo)", defaultVal: "—" },
   { name: "disabled", type: "boolean", defaultVal: "—" },
   { name: "CardOptionGroup.layout", type: '"spaced" | "list"', defaultVal: '"spaced"' },
+  { name: "CardOptionGroup.highlightSelected", type: "boolean — liga/desliga em todos os filhos", defaultVal: "—" },
   { name: "CardOptionGroup (radio)", type: "value · defaultValue · onValueChange · name", defaultVal: "—" },
 ];
 
@@ -51,6 +53,7 @@ export function CardOptionDoc() {
   const [tamanho, setTamanho] = useState(true);
   const [comIcone, setComIcone] = useState(true);
   const [plano, setPlano] = useState("pro");
+  const [planoPintado, setPlanoPintado] = useState("anual");
 
   return (
     <DocLayout toc={TOC}>
@@ -147,7 +150,7 @@ export function CardOptionDoc() {
       <ExampleSection
         id="ex-list-radio"
         title="Lista serve pros três tipos"
-        description="layout='list' não é exclusivo do switch: com radio vira um seletor de linha única; com checkbox, uma lista de permissões. O contorno é do grupo e a divisória é a borda de baixo de cada item, com a última suprimida."
+        description="layout='list' não é exclusivo do switch: com radio vira um seletor de linha única; com checkbox, uma lista de permissões. O contorno é do grupo e a divisória é a borda de baixo de cada item, com a última suprimida. Em lista o destaque de selecionado vem DESLIGADO por default — quem mostra o estado é o controle (ver o exemplo seguinte pra ligar)."
         code={`<CardOptionGroup type="radio" layout="list" value={plano} onValueChange={setPlano}>
   <CardOption value="free" label="Gratuito" description="Até 3 projetos" />
   <CardOption value="pro" label="Pro" description="Projetos ilimitados" />
@@ -163,6 +166,31 @@ export function CardOptionDoc() {
             <CardOption label="Ler" description="Ver registros e relatórios" defaultChecked />
             <CardOption label="Escrever" description="Criar e editar registros" defaultChecked />
             <CardOption label="Excluir" description="Remover registros em definitivo" />
+          </CardOptionGroup>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-list-highlight"
+        title="Lista com destaque (opcional)"
+        description="highlightSelected liga o fundo + a cor de borda na linha selecionada. Em lista o default é desligado, porque a única borda do item é a de baixo — a divisória — então a cor não contorna o selecionado, pinta a linha que separa ele do vizinho. Compare com o exemplo acima e escolha: linha limpa (default) ou linha pintada."
+        code={`{/* default em lista: sem pintura, o estado é do controle */}
+<CardOptionGroup type="radio" layout="list">…</CardOptionGroup>
+
+{/* pintado: liga no grupo (ou item por item) */}
+<CardOptionGroup type="radio" layout="list" highlightSelected>…</CardOptionGroup>`}
+      >
+        <div className="w-full max-w-md">
+          <CardOptionGroup
+            type="radio"
+            layout="list"
+            highlightSelected
+            value={planoPintado}
+            onValueChange={setPlanoPintado}
+          >
+            <CardOption value="mensal" label="Mensal" description="Cobrado todo mês" />
+            <CardOption value="anual" label="Anual" description="Dois meses de desconto" />
+            <CardOption value="vitalicio" label="Vitalício" description="Pagamento único" />
           </CardOptionGroup>
         </div>
       </ExampleSection>

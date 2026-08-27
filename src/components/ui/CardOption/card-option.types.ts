@@ -30,9 +30,16 @@ export interface CardOptionProps {
    */
   orientation?: CardOptionOrientation;
   /**
-   * Pinta o card quando selecionado (`bg-success-muted` + `border-brand`). **Omita**: deriva
-   * do `type` — ligado em checkbox/radio, desligado no switch, porque switch é estado e não
-   * seleção (lista de settings toda verde é ruído).
+   * Pinta o card quando selecionado — fundo (`bg-success-muted`) + borda (`border-brand`).
+   *
+   * **Omita**: o default deriva do contexto.
+   * - card solto → do `type`: ligado em checkbox/radio, desligado no switch (switch é estado,
+   *   não seleção — lista de settings toda verde é ruído);
+   * - dentro de `layout="list"` → **desligado**, inclusive pra checkbox e radio: em lista a
+   *   única borda do item é a de baixo, a **divisória**, então a cor não contorna o
+   *   selecionado, pinta a linha que o separa do vizinho.
+   *
+   * Ligue explicitamente (aqui ou no grupo) se quiser a linha pintada em lista.
    */
   highlightSelected?: boolean;
   label: ReactNode;
@@ -56,6 +63,12 @@ export interface CardOptionGroupProps {
   size?: CardOptionSize;
   orientation?: CardOptionOrientation;
   layout?: CardOptionLayout;
+  /**
+   * Liga/desliga o destaque de selecionado (fundo + cor de borda) em todos os filhos de uma
+   * vez. Omitido → cada item usa o default do contexto (ver `CardOptionProps`); em
+   * `layout="list"` esse default é **desligado**, e é aqui que se liga.
+   */
+  highlightSelected?: boolean;
   /** Só `type="radio"`: valor selecionado (controlado). */
   value?: string;
   defaultValue?: string;
