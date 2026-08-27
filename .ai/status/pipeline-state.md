@@ -4300,3 +4300,71 @@ com bump do CLI pra 0.25.23 e republish.
 **Não virou lição:** o erro da afirmação é a L-060 aplicada, já catalogada. A descoberta do
 `KpiGroup columns` ser viewport-based e a do stroke do lucide comendo o `fill` viraram
 documentação no ponto de uso (JSDoc do bloco), que é onde alguém tropeçaria nelas.
+
+---
+
+### 2026-08-27 | ds-designer + ds-dev | Família `dsgreen-paneldetail-*` fecha em 3, e o padrão volta pro `-1` (PRs #283, #284, #285) | CONCLUÍDO
+
+**Input:** pedido de mais dois exemplos de painel — um de tarefa com abas (com prints de
+referência de ferramentas de board) e um mais largo com métricas e tabela.
+
+**Output:** `dsgreen-paneldetail-2` e `-3` · lib **0.52.0** e CLI **0.25.24** publicados ·
+registry em 97 itens · e uma correção de intenção no PR #285.
+
+**A regra que separa os três, e que é o valor real da família:** não é estética, é **o que o
+detalhe contém**. `-1` registro com muitos campos (seções colapsáveis, sem aba, 560px) · `-2`
+tarefa (título grande no corpo, propriedades planas, abas, 560px) · `-3` registro com série de
+linhas (ficha + métricas + tabela, **720px**).
+
+**Cinco defeitos que só apareceram medindo no browser** — todos viraram nota no JSDoc do bloco,
+porque são os que qualquer um repete:
+
+1. **O body do `FloatingPanel` não tem gap entre filhos** (`row-gap: normal`) — só padding. As
+   três distâncias do `-2` saíam em **0px**, tudo colado. Eu compus assumindo gap porque o
+   `PanelBody` do `Panel` tem `gap-gp-3xl` embutido. Dois componentes da mesma família com
+   contrato diferente no mesmo lugar.
+2. **Linha de propriedade alternava 30 e 36px** — quem tem `Chip` fica 36, texto puro 30.
+   `min-h-form-md` iguala em 36, que é o piso que o Chip já impõe.
+3. **`bg-bg-subtle` no dark é `oklch(1 0 0 / 0.01)`** — 1% de branco sobre o painel, ou seja
+   invisível. Card de descrição foi pra `bg-bg-surface`.
+4. **Tabela deixava 34px vazios** (colunas somando 644 num container de 678), e o header
+   "Distribuidora" **truncava** a 112px. Regras extraídas: a folga vai pra coluna de TEXTO,
+   nunca de número; e dimensione a coluna pelo MAIOR entre header e conteúdo.
+5. **O `Table` do DS já É um card** (`bg-bg-table` + border + raio 14px + `overflow-hidden`).
+   Eu o envolvi num `rounded-radius-lg border` (10px) → dois raios concêntricos, 14 dentro de
+   10, com o canto de dentro estourando. Lê como bug de render, e é a L-050. Virou regra geral
+   no arquivo: **antes de embrulhar componente do DS numa superfície, verifique se ele já tem a
+   sua.**
+
+**⚠️ A correção do PR #285 é o registro mais importante desta entry.** No #283 eu troquei o
+apontamento fixo pro `-1` por roteamento da família e classifiquei isso como bug ("com 3 blocos
+o agente seria mandado pro errado"). Era **mudança de intenção**: a instrução do mantenedor era
+`-1` como padrão automático e as variações **opt-in por citação do ID**. E a instrução dele é
+melhor pelo motivo que os blocos existem — com três pares e um critério, a IA **escolhe**, e
+escolher composição é justamente o que ela faz mal. Padrão único + opt-in é previsível.
+
+O padrão de erro é o mesmo já registrado na memória de sessão: eu tratei divergência da minha
+expectativa como defeito, sem confrontar com a instrução original. Custo: um ciclo de release
+publicado com o texto errado.
+
+**Também corrigido:** um `aria-hidden` que eu tinha posto no separador de dia do log de
+atividade e que **escondia a data** — e é ela que agrupa: no leitor de tela os 8 eventos viravam
+lista corrida.
+
+**O gate cobrou 3× nesta frente, e nas 3 estava certo:** `showcase-doc-facts` na contagem do
+registry (95 → 96 → 97), e `registry-check` no embed defasado por conteúdo (2 de 501 arquivos,
+porque mexi no `USAGE.md` de dois itens distribuídos sem recarimbar).
+
+**Estado:** tsc 0 · 785 testes · `release:check` verde (97 itens, carimbo v0.52.0, 501 arquivos
+idênticos à fonte) · npm 0.52.0 e CLI 0.25.24 conferidos.
+
+**Assumption:** que padrão único + opt-in produz resultado mais consistente que três opções com
+critério. Falsificável: se aparecer tela onde a IA montou o `-1` num caso que pedia tabela (e o
+usuário não sabia que o `-3` existia pra citar), a assumption quebrou — e aí o certo é o
+critério de escolha voltar, mas na superfície lida ANTES de compor (vocabulário), não na
+injetada no momento da tag.
+
+**Dívida deixada explícita:** o texto do payload (vocabulário + regra do `Drawer`) só chega em
+projeto novo com CLI **0.25.25** + republish — decisão do mantenedor se vale um patch agora ou
+se acumula. O `USAGE.md` de `panel`/`floating-panel` não tem essa dívida: viaja com o
+componente, então `igreen:update` o traz em projeto existente.
