@@ -79,8 +79,15 @@ export const RAIZES = [
  * em mock nem em histórico. Então ele pode — e deve — ser procurado no showcase também, que é doc
  * humana publicada. Foi ali que ele quase escapou: a DocPage do DataTable recebeu um `vNEXT` na
  * mesma sessão em que o gate nasceu, e a raiz de claims não a olhava.
+ *
+ * ⚠️ `.ai/context` entrou em 2026-08-27, pelo mesmo modo de falha, no release da v0.50.0: o
+ * `inventory.md` carregava **2** `vNEXT` e o `release:check` passou verde. Ele não é registro
+ * histórico como o `pipeline-state` — é o arquivo que a Regra 2 manda ler antes de criar
+ * componente, ou seja afirmação pro leitor. Note que só entra na varredura de PLACEHOLDER, não
+ * na de claims: ali há citação legítima de versão antiga (v0.7.1 na linha do CardCheckbox), e
+ * incluí-lo custaria ruído sem ganho (L-059).
  */
-export const RAIZES_PLACEHOLDER = [...RAIZES, "src/preview/pages"];
+export const RAIZES_PLACEHOLDER = [...RAIZES, "src/preview/pages", ".ai/context"];
 
 /**
  * Extrai as versões lançadas de `updates-data.ts`.
