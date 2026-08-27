@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { Switch } from "../../components/shadcn/switch";
+import { CardOption, CardOptionGroup } from "../../components/ui/CardOption";
 import { Label } from "../../components/shadcn/label";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
@@ -71,37 +72,20 @@ export function SwitchDoc() {
         id="ex-card-toggle"
         title="Card Toggle"
         description="Switches inside a card-like container, similar to a settings panel."
-        code={`<div className="rounded-radius-base border border-border-default divide-y divide-border-default w-full max-w-sm">
-  <div className="flex items-center justify-between p-pad-3xl">
-    <div className="flex flex-col gap-gp-xs">
-      <span className="text-body-md font-medium">Wi-Fi</span>
-      <span className="text-body-md text-fg-muted">Connect to wireless networks.</span>
-    </div>
-    <Switch id="sw-wifi" defaultChecked />
-  </div>
-  <div className="flex items-center justify-between p-pad-3xl">
-    <div className="flex flex-col gap-gp-xs">
-      <span className="text-body-md font-medium">Bluetooth</span>
-      <span className="text-body-md text-fg-muted">Allow Bluetooth connections.</span>
-    </div>
-    <Switch id="sw-bt" />
-  </div>
-</div>`}
+        code={`<CardOptionGroup type="switch" layout="list">
+  <CardOption label="Wi-Fi" description="Connect to wireless networks." defaultChecked />
+  <CardOption label="Bluetooth" description="Allow Bluetooth connections." />
+</CardOptionGroup>`}
       >
-        <div className="rounded-radius-base border border-border-default divide-y divide-border-default w-full max-w-sm">
-          {[
-            { id: "sw-wifi", label: "Wi-Fi", desc: "Connect to wireless networks.", on: true },
-            { id: "sw-bt", label: "Bluetooth", desc: "Allow Bluetooth connections.", on: false },
-            { id: "sw-airdrop", label: "AirDrop", desc: "Share files with nearby devices.", on: true },
-          ].map((item) => (
-            <div key={item.id} className="flex items-center justify-between p-pad-3xl">
-              <div className="flex flex-col gap-gp-xs">
-                <span className="text-body-md font-medium text-fg-default">{item.label}</span>
-                <span className="text-body-md text-fg-muted">{item.desc}</span>
-              </div>
-              <Switch id={item.id} defaultChecked={item.on} />
-            </div>
-          ))}
+        {/* Consome o CardOption: este markup solto era uma das 3 versões divergentes do mesmo
+            padrão. `layout="list"` traz borda e divisórias; o switch vai à direita e sem
+            destaque de selecionado porque os dois derivam do type. */}
+        <div className="w-full max-w-sm">
+          <CardOptionGroup type="switch" layout="list">
+            <CardOption label="Wi-Fi" description="Connect to wireless networks." defaultChecked />
+            <CardOption label="Bluetooth" description="Allow Bluetooth connections." />
+            <CardOption label="AirDrop" description="Share files with nearby devices." defaultChecked />
+          </CardOptionGroup>
         </div>
       </ExampleSection>
 

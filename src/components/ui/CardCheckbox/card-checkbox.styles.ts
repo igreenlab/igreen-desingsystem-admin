@@ -1,6 +1,11 @@
 import { tv, type VariantProps } from "@/utils/tv";
 
 /**
+ * ⚠️ SUPERSEDIDO pelo `cardOption` (ui/CardOption) em 2026-08-27 — a implementação foi
+ * unificada porque os três padrões de card-com-controle divergiam em 11 dimensões. Este
+ * `tv()` não é mais consumido por componente nenhum; segue exportado porque está no barrel
+ * público e remover seria breaking sem ganho. Não escreva componente novo sobre ele.
+ *
  * CardCheckbox — checkbox apresentado como card clicável (área grande,
  * label + description visíveis). Mesma estética dos radio cards (border +
  * bg + padding + selected state com bg-success-muted + border-brand).

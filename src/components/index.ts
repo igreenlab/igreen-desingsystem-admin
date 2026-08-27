@@ -15,6 +15,7 @@ export * from "./ui/avatar-ig";
 export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
+export * from "./ui/CardOption";
 export * from "./ui/Chip";
 export * from "./ui/ColorPicker";
 export * from "./ui/Combobox";

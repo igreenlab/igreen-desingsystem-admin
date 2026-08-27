@@ -261,7 +261,7 @@ npm --prefix design-system run ds:link
 Escreve `.claude/ds-config.json` (`mode: submodule`) — as skills leem componentes/
 exemplos direto de `<submódulo>/src` (sem `igreen:add`/registry) e importam pelo
 alias detectado no seu `tsconfig`/`vite` (fallback `@ds`). Re-rode após
-`git pull --recurse-submodules` (idempotente); `--unlink` desfaz. Guia completo:
+`git submodule update --remote --merge` (idempotente); `--unlink` desfaz. Guia completo:
 [`SUBMODULE-SETUP.md`](SUBMODULE-SETUP.md).
 
 > Sem poder rodar o script? O caminho **manual** (apontar por prompt) abaixo

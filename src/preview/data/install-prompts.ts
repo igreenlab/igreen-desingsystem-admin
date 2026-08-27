@@ -80,8 +80,9 @@ export const PROMPT_INSTALAR = `Instale o iGreen Design System neste projeto com
    d) npx tsc --noEmit limpo na raiz.
 
 Regras: nunca edite arquivos dentro de design-system/ — é submódulo, e customização
-acontece na composição, no meu projeto. Ao atualizar (git pull --recurse-submodules),
-re-rode o ds:link.`;
+acontece na composição, no meu projeto. Ao atualizar, use git submodule update --remote
+--merge e commite o ponteiro — NÃO git pull --recurse-submodules, que só refaz o checkout
+do commit que o pai já registra. Depois re-rode o ds:link.`;
 
 export const PROMPT_CONSTRUIR = `Monte um sistema com o iGreen Design System: a estrutura de navegação e uma primeira tela funcionando de verdade.
 
@@ -153,7 +154,9 @@ export const PROMPT_ATUALIZAR = `Atualize o iGreen Design System neste projeto, 
                sem me perguntar) e depois npm run doctor; se o doctor acusar cn/tv defasado,
                npm run igreen:update -- utils tv --force
    npm:        npm i @snksergio/design-system@latest
-   submódulo:  git pull --recurse-submodules e depois npm --prefix <dsPath> run ds:link
+   submódulo:  git submodule update --remote --merge, commitar o ponteiro, e depois
+               npm --prefix <dsPath> run ds:link. NÃO use git pull --recurse-submodules:
+               ele só refaz o checkout do commit que o pai já registra
                (o ds:link é obrigatório: sem ele o código novo entra e as skills continuam
                 ensinando o padrão antigo)
 

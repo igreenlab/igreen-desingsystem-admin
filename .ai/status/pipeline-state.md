@@ -4111,3 +4111,93 @@ fraca, o próximo passo é largura, não mudar a cor.
 
 **Não virou lição:** nenhum defeito novo de método aqui; o cuidado do "um ponto por parada" é
 específico do Embla e vive no JSDoc do componente, que é o ponto de uso.
+
+---
+
+### 2026-08-24 | DASHBOARD-BUILDER | FinanceDashboardShowcase | DESCARTADO (teste)
+
+Página `#/finance-dashboard` foi criada via /ds-create-dashboard (gate aprovado,
+gerada, verificada no browser, depois embrulhada em AppShell) e **apagada na mesma
+sessão a pedido do usuário** — era um teste pra validar o fluxo/visualização, não
+uma frente de trabalho. Nada foi commitado; working tree voltou limpo (arquivo
+removido + App.tsx/doc-nav restaurados).
+
+**O que o teste validou:** o fluxo interview→gate→generate funciona de ponta a
+ponta; e a decisão "showcase sem AppShell" (inferida e aprovada em pacote) se provou
+ruim na prática — showcase de página se compara visualmente ao DashboardShowcase,
+que embrulha em AppShell. Pra próxima página de showcase: default = COM AppShell.
+
+**Assumption:** nenhum consumidor referenciava a rota (existiu só neste working tree).
+
+---
+
+### 2026-08-27 | ds-designer + ds-dev | `CardOption` unifica os 3 padrões de card-com-controle | CONCLUÍDO
+
+**Input:** o mantenedor notou que o radio "Card Selection" tem o controle desalinhado e
+espaçamento maior que o `CardCheckbox`, e que o "Card Toggle" do switch é feito na mão. Propôs
+um componente coringa com `type`, `orientation`, modo lista e `size`. Pediu avaliação antes de
+qualquer código — gate da Regra 4 cumprido em conversa, spec aprovada.
+
+**O achado que reenquadrou o pedido:** dos três padrões, **só um era componente**. O card de
+radio e o de switch eram markup solto dentro das páginas de doc. Ou seja, "ajustar visualmente
+cada um" seria *criar dois componentes e ajustar um* — e a divergência existia justamente
+porque não havia componente: cada exemplo foi escrito à mão, em momentos diferentes.
+
+Divergência medida, 11 dimensões: alinhamento (`items-start` no radio × `items-center`),
+padding (20px × 12px), radius (`base` × `lg`), gap do corpo (4px × 2px), preset do label
+(`body-md medium` × `body-sm semibold`), preset da descrição (`body-md` onde devia ser
+`caption`), cor do selecionado (`bg-subtle` × `bg-success-muted` × nenhuma), lado do input,
+modo lista, ícone.
+
+**O número que decidiu o timing:** `has-[[data-state=checked]]` aparecia **5×** no repo,
+**todas** em página de doc e **zero** em tela real. Os padrões de radio/switch card não tinham
+consumidor — unificar agora custou zero migração. Em três meses seria refactor.
+
+**Duas assimetrias que o desenho tinha de absorver** (e que um "mesmo card, controle
+diferente" ingênuo erraria):
+
+1. **Lado do controle** — checkbox/radio à esquerda, switch à direita (linha de configuração).
+   Default único erraria metade dos casos, então deriva do `type`.
+2. **Destaque de selecionado** — radio/checkbox SELECIONAM e ganham `bg-success-muted`; switch
+   é ESTADO, e uma lista de settings toda verde é ruído. Era por isso que o Card Toggle antigo
+   não tinha estado visual nenhum. `highlightSelected` também deriva do `type`.
+
+**Dois defeitos consertados no caminho, os dois achados por medição no browser:**
+
+- **O destaque do radio nunca aparecia.** Minha 1ª implementação derivava de
+  `checked === true` em JS, e a seleção do radio mora no `value` do GRUPO, não numa prop do
+  item — a condição era falsa por construção. Medido: o item com `data-state="checked"` seguia
+  branco. Trocado por `has-[[data-state=checked]]`, que resolve os três tipos de uma vez e
+  funciona também em uso **não-controlado** (L-012).
+- **O anel de foco do `CardCheckbox` era CSS morto.** `focus-visible:ring-4` estava no
+  `<label>`, e label não recebe foco: o único anel visível era o do controle de 16px. Agora é
+  `has-[:focus-visible]` no card.
+
+**Migração sem breaking:** `CardCheckbox` virou wrapper fino de `type="checkbox"`. Está no
+registry, no barrel do npm, no vocabulário e em 2 telas reais (uma é o `example-finance`,
+distribuído) — trocar a API seria breaking sem ganho. O `tv()` antigo ficou exportado, com nota
+de supersessão, porque removê-lo do barrel também seria breaking.
+
+**As duas páginas de doc passaram a CONSUMIR o componente** — é isso que mata a divergência na
+origem, já que eram markup copiável. Verificado nas três páginas: 12px de padding, 10px de gap
+e `items-center` idênticos.
+
+**Estado:** tsc 0 · 64 arquivos / **780 testes** (+14) · `release:check` exit 0 ·
+`check-foundationals` 11 em sync · registry 94 itens + embed (498 arquivos).
+
+**8 superfícies fechadas:** código · USAGE (com bloco `ds:regras`) · inventory · showcase
+(`CardOptionDoc` + `App.tsx` import/DOC_PAGES/render + `doc-nav-data`) · registry (item novo +
+`card-checkbox` passou a depender dele) · vocabulário do consumidor · changelog (no
+`/ds-release`) · barrel.
+
+**Assumption:** que os três compartilham ESTRUTURA e o que difere é o controle mais duas
+decisões. Se aparecer tipo que precise de outra anatomia — dois controles, ou conteúdo rico no
+lugar de label+descrição — a assumption quebra e o certo é componente separado, não uma quarta
+variante do `type`.
+
+**Risco a monitorar:** `type="switch"` é o membro mais estranho da família (estado, não
+seleção). Pedido de "switch card selecionável" é sinal de que o desenho está sendo esticado.
+
+**Não virou lição:** o defeito do destaque é L-012 aplicada e o do foco é a mesma família; as
+duas já estão catalogadas. O que era novo virou **teste** (14 casos, incluindo os dois
+defeitos).
