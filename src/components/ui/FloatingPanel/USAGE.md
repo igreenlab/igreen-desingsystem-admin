@@ -1,7 +1,8 @@
 # FloatingPanel — USAGE
 
 <!-- ds:regras
-- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (identidade no `titleSlot`, ações `soft` no `headerActions`, métricas em cards, seções colapsáveis, ação primária no footer)
+- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*`: registro com muitos campos → `-1` · tarefa com anexo/comentário/log → `-2` · com tabela dentro → `-3` (e aí `size="xl"`)
+- em todos: identidade ou contexto no `titleSlot`, ações de ícone `soft` + `aria-label` no `headerActions`, ação primária no `footer` — nunca botão de ação solto no corpo
 - `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)
 - é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto
 - aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto

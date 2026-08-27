@@ -1,7 +1,7 @@
 # Panel — USAGE
 
 <!-- ds:regras
-- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (estrutura: identidade no header, métricas em cards, seções colapsáveis, ação primária no footer)
+- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*` (`-1` registro · `-2` tarefa com abas · `-3` com tabela, em 720px)
 - header aqui é só STRING (`title`/`description`): precisa de avatar, Chip de status ou ação de ícone? → `FloatingPanel`
 - form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru
 - aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)
