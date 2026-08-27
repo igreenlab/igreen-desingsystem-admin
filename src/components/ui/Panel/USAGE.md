@@ -1,8 +1,10 @@
 # Panel — USAGE
 
 <!-- ds:regras
-- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)
+- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (estrutura: identidade no header, métricas em cards, seções colapsáveis, ação primária no footer)
+- header aqui é só STRING (`title`/`description`): precisa de avatar, Chip de status ou ação de ícone? → `FloatingPanel`
 - form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru
+- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)
 -->
 
 Drawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.
@@ -57,6 +59,19 @@ import { Panel } from "@/components/ui/Panel";
   <ClientForm />
 </Panel>
 ```
+
+## Painel de DETALHE de registro → o bloco `dsgreen-paneldetail-1`
+
+Detalhe de registro tem estrutura definida e referenciável por ID: a composição inteira mora
+em `src/blocks/paneldetail/` e renderiza em `#/blocks-paneldetail`. Cite o ID em vez de
+recompor — `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`. As zonas
+(identidade no header · métricas em cards · seções colapsáveis · ação primária no footer) e o
+porquê de cada uma estão documentados no arquivo do bloco.
+
+⚠️ **O bloco usa `FloatingPanel`, e a razão é este componente aqui:** o header do `Panel`
+aceita `title`/`description` como **string**, então avatar, `Chip` de status inline e ação de
+ícone não cabem nele. Precisa desse header → `FloatingPanel` (`titleSlot` + `headerActions`).
+Escolha o `Panel` quando o que importa é **bloquear** a tela atrás e o header é texto simples.
 
 ## Cuidados / Gotchas
 - **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.

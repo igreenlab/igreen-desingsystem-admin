@@ -228,19 +228,34 @@ Espelhar `finance-screen.tsx`. Não inventar tamanhos/pesos por célula:
 Regra geral: **componente do DS sempre antes de markup manual** (Avatar, Chip,
 Switch...). Se precisar de pill/badge → `<Chip>`, nunca `<span>` estilizado.
 
-## Padrões de DETAIL PANEL (consistência finance — quando há row click → painel)
+## Padrões de DETAIL PANEL (quando há row click → painel)
 
-Espelhar `FinanceDetailPanel`. **Sempre** que o blueprint tiver "row click →
-painel de detalhe", usar `<FloatingPanel>` (não markup solto):
+**A estrutura é o bloco `dsgreen-paneldetail-1`** (`src/blocks/paneldetail/`, renderizado em
+`#/blocks-paneldetail`). Ele é a fonte: tem fixture, as medições e o porquê de cada decisão no
+JSDoc. Leia o arquivo antes de compor — e no consumidor, cite o ID, que é o que viaja
+(`FinanceDetailPanel` é do showcase e **não existe lá**).
 
-- `titleSlot`: `<Avatar size="lg">` + nome (`text-body-md font-semibold`) +
-  linha `ID · <Chip status>`.
-- `headerActions` (ícones) + `footer` (ações primárias) — `<Button>` do DS.
-- `bodyPadded={false}` + **agrupar por categoria** em `<FloatingPanelSection title="...">`.
-- Cada dado simples = **uma linha** `<FloatingPanelField label value />` (formato lista).
-- Destaque (saldo/progresso) = bloco próprio com gutter `px-[18px]`.
+**Sempre** `<FloatingPanel>`, nunca markup solto:
+
+- `titleSlot`: `<Avatar size="lg">` + nome (`text-body-md font-semibold`) + linha
+  `código · <Chip status>`. ⚠️ `Panel` não faz esse header — lá `title`/`description` são
+  **string**. Foi o header que decidiu a casca do bloco.
+- `headerActions`: 1–2 ações de ícone, **todas `variant="soft"`** (`secondary` neutro,
+  `success` contato, `critical` destrutivo) + `aria-label`. `ghost` fica sem container e lê
+  como desabilitada ao lado do maximize/close, que o componente renderiza `soft`.
+- `bodyPadded={false}` + **agrupar por assunto** em `<FloatingPanelSection title="...">`.
+- 1ª seção = **métricas do registro** em cards compactos (ícone + valor 18px + rótulo), 2 por
+  linha. ⛔ **Não use `Kpi`** — 144px de altura por célula come a primeira dobra do painel
+  antes de qualquer campo; no painel a métrica é contexto, não o assunto.
+- Cada dado simples = **uma linha** `<FloatingPanelField label value />`.
+- Dado que **não é** `label: valor` sai do Field: entidade com marca (banco, gestor) vira linha
+  de largura cheia com `Avatar`; vários valores viram `<Chip>`; e-mail/telefone viram
+  `mailto:`/`tel:` com cor de link.
 - Conteúdo rico não-tabular (checklist, timeline, extrato) **mantém o formato visual
   próprio** dentro de uma `FloatingPanelSection` — NÃO forçar em `FloatingPanelField`.
+- `footer`: Fechar + ação primária.
+- ⛔ **Sem aba.** O corpo já é pilha de seções colapsáveis, e o colapso **é** o mecanismo de
+  esconder — os dois juntos fazem o usuário procurar o dado em dois lugares.
 
 Imports: `FloatingPanel, FloatingPanelSection, FloatingPanelField` de
 `@/components/ui/FloatingPanel`.

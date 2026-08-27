@@ -44,6 +44,11 @@ a célula do `tabs` tem 816 chars e não cabe num aviso. Primitivo sem bloco = s
 - `fullWidth` em superfície compacta; ⛔ nunca `w-full` no List nem `flex-1` no trigger na mão
 -->
 
+<!-- ds:regras drawer
+- é bottom-sheet (vaul): mobile ou gesto de arrastar. Detalhe lateral em desktop → `Panel` (bloqueia) ou `FloatingPanel` (coexiste com a lista)
+- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (identidade no header, métricas em cards, seções colapsáveis, ação primária no footer)
+-->
+
 <!-- ds:regras select
 - ⛔ nunca `<SelectItem value="">` — é a sentinela do Radix e apaga valor em silêncio
 - em form, prefira `FormFieldSelect` (já trata a sentinela e o eco do valor)

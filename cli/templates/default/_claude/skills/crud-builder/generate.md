@@ -52,8 +52,32 @@ Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempr
 
 ### Detail panel (row click → painel)
 
-Espelhe `FinanceDetailPanel` — **sempre** `<FloatingPanel>` (não markup solto):
-`titleSlot` (Avatar lg + nome + `ID · Chip status`) · `headerActions`/`footer` com `<Button>` · `bodyPadded={false}` · **agrupar por categoria** em `<FloatingPanelSection title>` · cada dado simples = **uma linha** `<FloatingPanelField label value/>` (lista) · destaque (saldo/progresso) = bloco próprio · conteúdo rico (checklist/extrato) mantém formato próprio dentro da Section (NÃO forçar em Field).
+**Cite o bloco `dsgreen-paneldetail-1`** — a estrutura inteira já está resolvida e
+referenciável por ID (`npm run igreen:add -- dsgreen-paneldetail-1`, ou peça
+*"use a referência dsgreen-paneldetail-1"*). A referência anterior era "espelhe o
+`FinanceDetailPanel`", e ela não servia aqui: aquele arquivo vive no showcase do DS e **não
+existe no seu projeto** — não havia o que espelhar.
+
+**Sempre** `<FloatingPanel>`, nunca markup solto. O que o bloco carrega:
+
+- `titleSlot`: `<Avatar size="lg">` + nome (`text-body-md font-semibold`) + linha
+  `código · <Chip status>`. ⚠️ Se você usar `Panel` em vez de `FloatingPanel`, esse header é
+  impossível: lá `title`/`description` são **string**.
+- `headerActions`: 1–2 ações de ícone, **todas `variant="soft"`** (`secondary` neutro,
+  `success` contato, `critical` destrutivo). `ghost` no meio da fileira fica sem container e lê
+  como desabilitada ao lado do maximize/close, que o componente renderiza como `soft`.
+  `aria-label` obrigatório — botão de ícone não tem texto.
+- `bodyPadded={false}` + **agrupar por assunto** em `<FloatingPanelSection title>`.
+- 1ª seção = **métricas do registro**, em cards compactos (ícone + valor 18px + rótulo), 2 por
+  linha. ⛔ **Não use `Kpi`**: ele é card de dashboard (144px de altura por célula) e come a
+  primeira dobra do painel antes de qualquer campo.
+- Cada dado simples = **uma linha** `<FloatingPanelField label value/>`.
+- Dado que **não é** `label: valor` sai do Field: entidade com marca (banco, gestor) vira linha
+  de largura cheia com `Avatar`; vários valores viram `<Chip>`; e-mail/telefone viram
+  `mailto:`/`tel:` com cor de link.
+- `footer`: Fechar + ação primária.
+- ⛔ **Sem aba.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o mecanismo de
+  esconder — ter os dois faz o usuário procurar o dado em dois lugares.
 
 - **Tabela + Lista (toggle)**: se o usuário quer alternar entre tabela e uma **lista de cards** (não kanban), use `viewMode` + `listConfig={{ renderItem(row), paginated?, hierarchical?, getPath?, getMenuItems? }}` no próprio `<DataTable>` — mesma toolbar, toggle Tabela/Lista automático. NÃO monte um `<DataList>` paralelo + toggle na mão.
   - **Lista flat paginada**: `listConfig.paginated: true` — a lista usa a MESMA paginação da tabela + mostra o footer. Default `false` (mostra todas, sem footer); ignorado em `hierarchical`. Use quando a lista flat puder ter muitas linhas.

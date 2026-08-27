@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,38 +1850,36 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:block"
   },
   "dsgreen-paneldetail-1": {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "dsgreen-paneldetail-1",
-    "title": "Bloco dsgreen-paneldetail-1 — Painel de detalhe do registro com métricas e abas",
-    "description": "Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.",
+    "title": "Bloco dsgreen-paneldetail-1 — Painel de detalhe do registro",
+    "description": "Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.",
     "dependencies": [
       "lucide-react"
     ],
     "registryDependencies": [
+      "@igreen/avatar-ig",
       "@igreen/button",
       "@igreen/chip",
       "@igreen/floating-panel",
-      "@igreen/kpi",
-      "@igreen/panel",
-      "@igreen/tabs",
       "@igreen/tv",
       "@igreen/utils"
     ],
     "files": [
       {
-        "path": "src/blocks/paneldetail/registro-com-metricas-e-abas.tsx",
-        "content": "import { useState } from \"react\";\r\nimport { Building2, FileText, Pencil, Receipt } from \"lucide-react\";\r\n// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel (`index.ts`) não é\r\n// distribuído por nenhum item do registry, então um bloco que o importasse chegaria no\r\n// consumidor de copy-in com import que não resolve (L-037, gate `registry-imports`).\r\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/shadcn/tabs\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport {\r\n  FloatingPanelField,\r\n  FloatingPanelSection,\r\n} from \"@/components/ui/FloatingPanel\";\r\nimport { Kpi, KpiGroup } from \"@/components/ui/Kpi\";\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\nexport const BLOCK = {\r\n  id: \"dsgreen-paneldetail-1\",\r\n  nome: \"Painel de detalhe do registro com métricas e abas\",\r\n  descricao:\r\n    \"Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.\",\r\n  usa: [\r\n    \"Panel (side=\\\"right\\\", size=\\\"md\\\", title + description + footer)\",\r\n    \"KpiGroup (columns=3, divided) + Kpi (size=\\\"sm\\\")\",\r\n    \"FloatingPanelSection + FloatingPanelField\",\r\n    \"Tabs (fullWidth, variante default)\",\r\n    \"Chip · Button\",\r\n  ],\r\n} as const;\r\n\r\n/**\r\n * dsgreen-paneldetail-1 — painel de detalhe de um registro, aberto da linha da tabela.\r\n *\r\n * ## O que este bloco resolve\r\n *\r\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\r\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**, e\r\n * **onde cada coisa mora**: o painel tem header, corpo e footer com papéis distintos, e\r\n * jogar tudo no corpo é o erro que faz o resultado parecer improvisado.\r\n *\r\n * | zona | o que vai | por que |\r\n * |---|---|---|\r\n * | **header** (`title`/`description`) | nome do registro + identificador | é o que responde \"de quem é este painel\"; fica fixo no scroll |\r\n * | corpo, 1ª faixa | **métricas** do registro | responde \"como este registro está?\", que é a pergunta de quem abriu — vem antes dos campos, que respondem \"quais são os dados dele\" |\r\n * | corpo, 2ª faixa | campos em **seções colapsáveis** | é o colapso que permite ter 20 campos sem obrigar a rolar 20 |\r\n * | corpo, 3ª faixa | **abas internas** | depois do geral, porque aba esconde conteúdo: o que está sempre visível é o que sempre se olha |\r\n * | **footer** | Fechar + ação primária | ações do registro inteiro, sempre alcançáveis (o footer é sticky) |\r\n *\r\n * Isso espelha os painéis de detalhe reais: `MapaClienteDetailPanel` e `DetailPanel` do\r\n * Virtual Office, e o `DetailDrawer` do `clientes-showcase`. Nos três a identidade está no\r\n * header e as ações no footer — **nenhum** deles põe botão de ação solto no corpo.\r\n *\r\n * ## As três cascas, e por que esta usa `Panel`\r\n *\r\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral; a diferença é\r\n * **comportamento**, não desenho — o corpo daqui é o mesmo nos três:\r\n *\r\n * | casca | comportamento | quando |\r\n * |---|---|---|\r\n * | **`Panel`** (esta) | modal, com backdrop | o detalhe é a tarefa; a lista atrás pode esperar |\r\n * | `FloatingPanel` | non-modal, resizável, maximizável | o usuário compara com a lista atrás, ou percorre linha por linha. Ganha `titleSlot` (avatar + chip no header) e `headerActions` |\r\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\r\n *\r\n * Pra trocar pelo `FloatingPanel`: `bodyPadded={false}` no lugar do `-mx-pad-3xl` de baixo,\r\n * e a identidade sobe pro `titleSlot` (avatar + chip no header) com as ações de ícone em\r\n * `headerActions` — é o desenho do `MapaClienteDetailPanel`.\r\n *\r\n * ## A única classe de ajuste, e por que ela existe\r\n *\r\n * `-mx-pad-3xl` no bloco das seções. O `PanelBody` tem `py-pad-4xl px-pad-3xl` (24/20px),\r\n * calibrado pra **seções de formulário**; as seções de DETALHE\r\n * (`FloatingPanelSection`) trazem o próprio padding de 18px e uma **divisória de ponta a\r\n * ponta**, que dentro de um body com 20px pararia a 20px da borda. A margem negativa\r\n * devolve a borda pro limite do painel; as outras faixas (métricas, abas) ficam com o\r\n * padding do body, que é o que elas querem.\r\n *\r\n * ⚠️ **Não use composição manual (`PanelRoot`/`PanelContent`) pra resolver isso.** O\r\n * `<Panel>` all-in-one monta `SheetPrimitive.Content` direto, com as classes de container,\r\n * o mapa de largura e a animação de slide por `side` — reproduzir aquilo num bloco seria\r\n * copiar internals do componente, exatamente o que a §4.1 proíbe. É por esse motivo que o\r\n * `FloatingPanel` ganhou `bodyPadded` como prop: no `Panel` o equivalente é esta margem.\r\n *\r\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\r\n *\r\n * - **Aba dentro de painel vem `fullWidth`, na variante default (`segmented`).** Regra\r\n *   declarada no `USAGE.md` do `Panel` e do `FloatingPanel`: em 560px o `line` vira um\r\n *   trilho curto que lê como fragmento, e sem `fullWidth` as abas se encolhem num canto.\r\n * - **`KpiGroup divided`, não três cards soltos.** O painel já é uma superfície; três cards\r\n *   dentro dele é card-dentro-de-card (a mesma L-050 que proíbe `PropsTable` dentro de\r\n *   `ExampleSection`). `divided` faz uma faixa só, com divisórias.\r\n * - **`Kpi size=\"sm\"`** (valor em `stat-sm`, 20px). O `md` de dashboard tem 24px e briga com\r\n *   o título do header.\r\n * - **Métrica em painel vai SEM `delta`** — e isto é medido, não gosto. Em `size=\"md\"` (560px)\r\n *   com `columns={3}`, cada célula fica com **172px** e `p-pad-3xl` de cada lado deixa\r\n *   **132px de conteúdo**: `R$ 3.180` + a pílula do delta não cabe e quebra pra segunda\r\n *   linha, enquanto `1.240` cabe — o resultado é uma faixa com alturas desiguais, que foi\r\n *   exatamente o que reprovou a primeira versão deste bloco. Quem precisa do delta usa\r\n *   **`columns={2}`**. A unidade vai no `hint`, que sempre cabe.\r\n * - ⚠️ **`KpiGroup columns` é responsivo ao VIEWPORT, não ao container.** As classes são\r\n *   `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` — breakpoint de tela. Dentro de um painel de\r\n *   560px em desktop, `columns={3}` continua dando 3 colunas: a estreiteza do painel é\r\n *   invisível pro grid. Não conte com adaptação automática aqui; escolha o número de colunas\r\n *   pela largura do PAINEL.\r\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam entre as colunas do KPI e\r\n *   entre as linhas de fatura.\r\n * - **Status é `Chip`** dentro de um `FloatingPanelField`, igual ao `MapaClienteDetailPanel`.\r\n *   Não é texto colorido na unha.\r\n * - **Footer não precisa de `fullWidth` nos botões** — o `PanelFooter` já faz os botões\r\n *   crescerem lado a lado e empilharem quando não cabem.\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * - **O botão daqui é do EXEMPLO.** No seu CRUD quem abre o painel é a linha selecionada da\r\n *   tabela: `open={!!linhaSelecionada}` e `onOpenChange={(o) => !o && limparSelecao()}`.\r\n * - **As abas trocam conteúdo de verdade** (`TabsContent`), diferente do `dsgreen-chart-1`,\r\n *   onde eram só composição visual. Um recorte só → **remova as abas**: aba com um item é\r\n *   moldura sem função.\r\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\r\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao dashboard\r\n *   ou ao topo da lista.\r\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\r\n *   condicione a linha; passe o valor e deixe o componente resolver.\r\n */\r\n\r\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\r\n *  forma do dado esperado sem inferir do render. */\r\nconst REGISTRO = {\r\n  nome: \"Padaria Estrela do Sul\",\r\n  documento: \"12.345.678/0001-90\",\r\n  desde: \"Março de 2024\",\r\n};\r\n\r\nconst METRICAS = [\r\n  { label: \"Consumo médio\", value: \"1.240\", hint: \"kWh/mês\" },\r\n  { label: \"Economia\", value: \"R$ 3.180\", hint: \"acumulada no ano\" },\r\n  { label: \"Em aberto\", value: \"R$ 892\", hint: \"2 faturas\" },\r\n];\r\n\r\nconst FATURAS = [\r\n  { competencia: \"Ago/2026\", valor: \"R$ 446,20\", situacao: \"Em aberto\", color: \"warning\" as const },\r\n  { competencia: \"Jul/2026\", valor: \"R$ 445,80\", situacao: \"Em aberto\", color: \"warning\" as const },\r\n  { competencia: \"Jun/2026\", valor: \"R$ 431,10\", situacao: \"Paga\", color: \"success\" as const },\r\n];\r\n\r\nconst HISTORICO = [\r\n  { quando: \"24/08/2026\", oque: \"Fatura de julho gerada\" },\r\n  { quando: \"02/08/2026\", oque: \"Titularidade confirmada pela distribuidora\" },\r\n  { quando: \"18/07/2026\", oque: \"Plano alterado para Compensação 100%\" },\r\n];\r\n\r\nexport function PainelDeDetalheDoRegistro() {\r\n  const [aberto, setAberto] = useState(false);\r\n  const [aba, setAba] = useState(\"faturas\");\r\n\r\n  return (\r\n    <>\r\n      {/* No CRUD real este botão não existe: quem abre o painel é a linha selecionada. */}\r\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\r\n        Ver detalhe do cliente\r\n      </Button>\r\n\r\n      <Panel\r\n        open={aberto}\r\n        onOpenChange={setAberto}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title={REGISTRO.nome}\r\n        description={`${REGISTRO.documento} · cliente desde ${REGISTRO.desde}`}\r\n        titleIcon={Building2}\r\n        footer={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"sm\"\r\n              onClick={() => setAberto(false)}\r\n            >\r\n              Fechar\r\n            </Button>\r\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Pencil />}>\r\n              Editar\r\n            </Button>\r\n          </>\r\n        }\r\n      >\r\n        {/* 1. Métricas do REGISTRO — faixa única com divisórias, nunca 3 cards soltos */}\r\n        <KpiGroup columns={3} divided>\r\n          {METRICAS.map((m) => (\r\n            <Kpi\r\n              key={m.label}\r\n              size=\"sm\"\r\n              label={m.label}\r\n              value={<span className=\"tabular-nums\">{m.value}</span>}\r\n              hint={m.hint}\r\n            />\r\n          ))}\r\n        </KpiGroup>\r\n\r\n        {/* 2. Campos em seções colapsáveis — o padrão de detalhe do DS.\r\n               `-mx-pad-3xl` cancela o padding horizontal do PanelBody: a divisória da seção\r\n               é de ponta a ponta por desenho, e dentro do body padded ela pararia a 20px da\r\n               borda. Ver o bloco \"A única classe de ajuste\" no JSDoc. */}\r\n        <div className=\"-mx-pad-3xl border-t border-border-default\">\r\n          <FloatingPanelSection title=\"Dados do contrato\">\r\n            <FloatingPanelField\r\n              label=\"Status\"\r\n              value={\r\n                <Chip color=\"success\" variant=\"soft\" size=\"sm\">\r\n                  Ativo\r\n                </Chip>\r\n              }\r\n            />\r\n            <FloatingPanelField label=\"Plano\" value=\"Compensação 100%\" />\r\n            <FloatingPanelField label=\"Distribuidora\" value=\"Cemig\" />\r\n            <FloatingPanelField label=\"Titular\" value=\"Marina Duarte\" />\r\n            <FloatingPanelField\r\n              label=\"Início\"\r\n              value={<span className=\"tabular-nums\">12/03/2024</span>}\r\n            />\r\n          </FloatingPanelSection>\r\n\r\n          <FloatingPanelSection title=\"Endereço da unidade\">\r\n            <FloatingPanelField label=\"Logradouro\" value=\"Rua das Acácias, 412\" />\r\n            <FloatingPanelField label=\"Bairro\" value=\"Santa Efigênia\" />\r\n            <FloatingPanelField label=\"Cidade\" value=\"Belo Horizonte — MG\" />\r\n            <FloatingPanelField\r\n              label=\"CEP\"\r\n              value={<span className=\"tabular-nums\">30240-070</span>}\r\n            />\r\n          </FloatingPanelSection>\r\n        </div>\r\n\r\n        {/* 3. Abas internas — DEPOIS do geral, porque aba esconde conteúdo */}\r\n        <div>\r\n          <Tabs value={aba} onValueChange={setAba} fullWidth>\r\n            <TabsList>\r\n              <TabsTrigger value=\"faturas\">Faturas</TabsTrigger>\r\n              <TabsTrigger value=\"historico\">Histórico</TabsTrigger>\r\n              <TabsTrigger value=\"documentos\">Documentos</TabsTrigger>\r\n            </TabsList>\r\n\r\n            <TabsContent value=\"faturas\" className=\"flex flex-col gap-gp-md pt-pad-xl\">\r\n              {FATURAS.map((f) => (\r\n                <div\r\n                  key={f.competencia}\r\n                  className=\"flex items-center justify-between gap-gp-md border-b border-border-subtle pb-pad-md last:border-b-0 last:pb-0\"\r\n                >\r\n                  <div className=\"flex min-w-0 items-center gap-gp-md\">\r\n                    <Receipt className=\"size-icon-sm shrink-0 text-fg-subtle\" />\r\n                    <span className=\"truncate text-body-sm text-fg-default\">\r\n                      {f.competencia}\r\n                    </span>\r\n                  </div>\r\n                  <div className=\"flex shrink-0 items-center gap-gp-lg\">\r\n                    <span className=\"text-body-sm tabular-nums text-fg-default\">\r\n                      {f.valor}\r\n                    </span>\r\n                    <Chip color={f.color} variant=\"soft\" size=\"sm\">\r\n                      {f.situacao}\r\n                    </Chip>\r\n                  </div>\r\n                </div>\r\n              ))}\r\n            </TabsContent>\r\n\r\n            <TabsContent value=\"historico\" className=\"flex flex-col gap-gp-lg pt-pad-xl\">\r\n              {HISTORICO.map((h) => (\r\n                <div key={h.quando} className=\"flex gap-gp-lg text-body-sm\">\r\n                  <span className=\"shrink-0 tabular-nums text-fg-muted\">{h.quando}</span>\r\n                  <span className=\"min-w-0 text-fg-default\">{h.oque}</span>\r\n                </div>\r\n              ))}\r\n            </TabsContent>\r\n\r\n            <TabsContent value=\"documentos\" className=\"pt-pad-xl\">\r\n              <div className=\"flex flex-col items-center gap-gp-md py-pad-4xl text-center\">\r\n                <FileText className=\"size-icon-lg text-fg-subtle\" />\r\n                <span className=\"text-body-sm text-fg-default\">\r\n                  Nenhum documento anexado\r\n                </span>\r\n                <span className=\"text-caption-md text-fg-muted\">\r\n                  Contrato e conta de energia aparecem aqui quando enviados\r\n                </span>\r\n              </div>\r\n            </TabsContent>\r\n          </Tabs>\r\n        </div>\r\n      </Panel>\r\n    </>\r\n  );\r\n}\r\n",
+        "path": "src/blocks/paneldetail/detalhe-do-registro.tsx",
+        "content": "import { useState } from \"react\";\nimport { Check, Circle, MessageCircle, Pencil, PiggyBank, Receipt } from \"lucide-react\";\nimport type { LucideIcon } from \"@/lib/lucide-types\";\nimport { Avatar } from \"@/components/ui/avatar-ig\";\nimport { Button } from \"@/components/ui/Button\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport {\n  FloatingPanel,\n  FloatingPanelField,\n  FloatingPanelSection,\n} from \"@/components/ui/FloatingPanel\";\n\nexport const BLOCK = {\n  id: \"dsgreen-paneldetail-1\",\n  nome: \"Painel de detalhe do registro\",\n  descricao:\n    \"Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.\",\n  usa: [\n    \"FloatingPanel (side=\\\"right\\\", size=\\\"lg\\\", titleSlot + headerActions + maximizable + resizable + bodyPadded={false})\",\n    \"FloatingPanelSection + FloatingPanelField\",\n    \"MetricaCartoes — cards compactos próprios (ícone + valor + rótulo); NÃO o Kpi\",\n    \"Avatar (colorHex, contraste WCAG automático)\",\n    \"Chip (soft) · Button (icon-sm no header, sm no footer)\",\n  ],\n} as const;\n\n/**\n * dsgreen-paneldetail-1 — painel de detalhe de um registro, aberto da linha da tabela.\n *\n * ## O que este bloco resolve\n *\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**, e\n * **onde cada coisa mora**: o painel tem header, corpo e footer com papéis distintos, e\n * jogar tudo no corpo é o erro que faz o resultado parecer improvisado.\n *\n * | zona | o que vai | por que |\n * |---|---|---|\n * | **header** (`titleSlot`) | avatar + nome + código · status | responde \"de quem é este painel\", e fica fixo no scroll |\n * | **header** (`headerActions`) | ações de ícone (editar, contatar) | ações frequentes e sem rótulo, à mão sem rolar |\n * | corpo, 1ª faixa | **métricas** do registro | responde \"como este registro está?\", que é a pergunta de quem abriu — vem antes dos campos, que respondem \"quais são os dados dele\" |\n * | corpo, resto | campos em **seções colapsáveis** por assunto | é o colapso que permite ter 20 campos sem obrigar a rolar 20 |\n * | **footer** | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável (footer é sticky) |\n *\n * **Não há abas.** Elas estavam aqui e saíram: aba esconde conteúdo, e num painel onde o corpo\n * já é uma pilha de seções colapsáveis, o colapso **é** o mecanismo de esconder. Ter os dois é\n * dizer a mesma coisa de duas formas, e o usuário passa a ter que descobrir em qual das duas o\n * dado está. Se um recorte for volumoso de verdade (extrato com 200 linhas), ele não é seção\n * nem aba: é outra tela.\n *\n * ## Por que `FloatingPanel` e não `Panel` — foi o HEADER que decidiu\n *\n * As duas primeiras versões deste bloco usaram `Panel`, e o header saía fora do padrão dos\n * painéis reais. A causa é de API, não de estilo: o `Panel` aceita `title` e `description`\n * como **string**, e o header dos painéis de referência tem avatar, `Chip` de status inline e\n * botões de ícone — nada disso cabe numa string. O `FloatingPanel` expõe exatamente isso:\n *\n * | o que o header precisa | prop |\n * |---|---|\n * | avatar + nome + código · status | `titleSlot` (JSX, substitui title/description) |\n * | 1–2 ações de ícone | `headerActions` (entram à esquerda do maximize/close) |\n * | expandir | `maximizable` — o botão é do componente, não se escreve |\n * | fechar | nativo (o X sempre está lá; `hideClose` remove) |\n *\n * **Bônus:** `bodyPadded={false}` resolveu, com uma prop, o `-mx-pad-3xl` que a versão em\n * `Panel` precisava pra fazer a divisória das seções chegar na borda. A prop existe justamente\n * pra este caso — seção de detalhe é edge-to-edge por desenho.\n *\n * ### E as outras duas cascas\n *\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral; a diferença é\n * **comportamento** — o corpo é o mesmo nos três:\n *\n * | casca | comportamento | quando |\n * |---|---|---|\n * | **`FloatingPanel`** (esta) | non-modal, resizável, maximizável, sem backdrop | detalhe que coexiste com a lista atrás: o usuário compara, ou percorre linha por linha |\n * | `Panel` | modal, com backdrop | o detalhe é a tarefa e a lista pode esperar. ⚠️ header só com strings |\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\n *\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\n *\n * - **`bodyPadded={false}` é obrigatório com `FloatingPanelSection`.** É regra declarada no\n *   `USAGE.md` do componente: a seção traz o próprio padding de 18px e uma divisória de ponta\n *   a ponta; com o body padded o padding soma e a divisória para longe da borda.\n * - **Campo que não é `label: valor` sai do `FloatingPanelField`.** Três casos aqui, e cada um\n *   tem um motivo medido: a **conta bancária** é entidade (marca + nome + agência/conta) e\n *   comprimida na coluna da direita ela trunca — vai numa linha de largura cheia; os\n *   **métodos** são itens discretos e viram `Chip`, não texto com vírgula; **e-mail e\n *   telefone** são ações (`mailto:`/`tel:`) e por isso levam cor de link.\n * - **`Avatar` com `colorHex` escolhe a cor do texto por contraste WCAG** (L-027). `#820AD1`\n *   do Nubank dá branco (6.2 : 1); `#FAE128` do BB daria preto (16.3 : 1). Nunca escreva\n *   `text-white` na unha num avatar de marca — em marca clara isso vira texto ilegível.\n * - **Ação de ícone precisa de `aria-label`.** Botão `size=\"icon-sm\"` não tem texto: sem o\n *   label o leitor de tela anuncia \"button\" e pronto.\n * - **Toda ação do header é `variant=\"soft\"`, nunca `ghost`.** O maximize e o close que o\n *   `FloatingPanel` renderiza são `soft`+`secondary`; uma ação `ghost` no meio da fileira fica\n *   sem container e lê como desabilitada ao lado das outras. O que diferencia é a **cor**\n *   (`secondary` neutro, `success` contato, `critical` destrutivo), não a ausência de fundo.\n * - **Métrica em painel NÃO é o `Kpi` do DS** — ver o JSDoc do `MetricaCartoes`. O `Kpi` é card\n *   de dashboard: medido aqui, 172×144px por célula, três delas comendo a primeira dobra do\n *   painel antes de qualquer campo. No painel a métrica é contexto, não o assunto.\n * - ⚠️ Se ainda assim usar `KpiGroup`: **`columns` é responsivo ao VIEWPORT, não ao\n *   container** (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`). Num painel de 560px em desktop,\n *   `columns={3}` continua dando 3 colunas — a estreiteza do painel é invisível pro grid.\n * - **A métrica também é seção colapsável.** Uma gramática só no corpo: métricas, campos e\n *   tudo mais entram como `FloatingPanelSection`. Faixa solta acima das seções criava uma\n *   segunda gramática visual no mesmo painel.\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam de um campo pro outro.\n * - **Se um dia voltar a ter aba aqui: `fullWidth`, variante default (`segmented`).** Regra do\n *   `USAGE.md` do `Panel` e do `FloatingPanel` — em 560px o `line` vira um trilho curto que lê\n *   como fragmento. (Este bloco não tem aba; ver a nota acima.)\n *\n * ## Cuidado ao adaptar\n *\n * - **O botão daqui é do EXEMPLO.** No seu CRUD quem abre o painel é a linha selecionada da\n *   tabela: `open={!!linhaSelecionada}` e `onOpenChange={(o) => !o && limparSelecao()}`.\n * - **`resizableStorageKey` só se o painel for recorrente.** Ele persiste a largura no\n *   `localStorage` — ótimo num painel que o usuário abre 50× por dia, ruído num painel raro.\n *   Use chave namespaced (`clientes.detail-panel.width`), senão dois painéis diferentes\n *   dividem a mesma largura.\n * - **As seções são por ASSUNTO, e o assunto é do seu domínio.** Empresa / Conta bancária /\n *   Financeiro / Contato / Gestão é o recorte de um cliente de energia; num painel de pedido\n *   seria Itens / Entrega / Pagamento. Não herde estes títulos — herde o critério: cada seção\n *   responde uma pergunta, e campo que não responde a pergunta da seção está na seção errada.\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao dashboard\n *   ou ao topo da lista.\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\n *   condicione a linha; passe o valor e deixe o componente resolver.\n */\n\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\n *  forma do dado esperado sem inferir do render. */\nconst REGISTRO = {\n  nome: \"Padaria Estrela do Sul\",\n  iniciais: \"PE\",\n  codigo: \"CLI-2478\",\n  status: \"Ativo\",\n  documento: \"12.345.678/0001-90\",\n};\n\nconst METRICAS = [\n  { icone: PiggyBank, label: \"Economia no ano\", value: \"R$ 3.180\", tom: \"brand\" as const },\n  { icone: Receipt, label: \"Em aberto\", value: \"R$ 892\", tom: \"danger\" as const },\n];\n\nconst CONTA = {\n  banco: \"Nubank\",\n  iniciais: \"NU\",\n  hex: \"#820AD1\",\n  agencia: \"3849\",\n  conta: \"18701-9\",\n};\n\nconst METODOS = [\"PIX\", \"Boleto\"];\n\nconst CONTATO = {\n  email: \"contato@estreladosul.com.br\",\n  telefone: \"+55 31 98901-2345\",\n  local: \"Belo Horizonte, MG\",\n};\n\nconst GESTOR = { nome: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\" };\n\nconst CONSTRUCAO = {\n  situacao: \"Em construção\",\n  itens: [\n    { label: \"Clientes do mês (green/telecom/seguro)\", feitos: 3, total: 5 },\n    { label: \"Conexão livre\", feitos: 1, total: 1 },\n    { label: \"Placa\", feitos: 0, total: 1 },\n    { label: \"Solar\", feitos: 1, total: 1 },\n    { label: \"Licenciados cadastrados\", feitos: 1, total: 2 },\n    { label: \"Club\", feitos: 0, total: 1 },\n  ],\n};\n\ntype MetricaItem = {\n  icone: LucideIcon;\n  label: string;\n  value: string;\n  tom: \"brand\" | \"danger\" | \"neutro\";\n};\n\n/** Cor do valor por tom. Fora do componente porque o tom é decisão de leitura, não de sinal. */\nconst COR_DO_TOM: Record<MetricaItem[\"tom\"], string> = {\n  brand: \"text-fg-brand\",\n  danger: \"text-fg-danger\",\n  neutro: \"text-fg-default\",\n};\n\n/**\n * **Métrica de painel — cards compactos, um por métrica.**\n *\n * ## Por que não é o `Kpi` do DS\n *\n * Não é rejeição do componente: é escala errada pro lugar. O `Kpi` é card de **dashboard** —\n * `p-pad-3xl` (20px), label de 14px, slot pra sparkline, `hint` e `delta`. Num painel de\n * detalhe a métrica é **contexto**, não o assunto: quem abriu quer os dados do registro, e a\n * métrica só emoldura.\n *\n * Medido no browser, antes e depois:\n *\n * | | por item | conjunto |\n * |---|---|---|\n * | `Kpi size=\"sm\"`, `columns={3}` | 172 × **144px** | 146px (3 métricas) |\n * | este | 257 × **68px** | 68px (2 métricas) |\n *\n * ## Card próprio, e não uma faixa dividida\n *\n * A alternativa testada foi uma superfície única com `divide-x` (mesma altura, coluna 3px mais\n * larga). A diferença entre as duas é **só o container**, e é isso que ela comunica: a faixa\n * afirma que as métricas formam um conjunto; os cards afirmam que cada uma é independente.\n * Economia e inadimplência são dois assuntos → cards. Total/pago/em aberto são três faces do\n * mesmo número → faixa.\n *\n * ## Duas travas de layout\n *\n * 1. **O número de colunas segue o número de métricas** (`grid-cols-2` com duas). Não é\n *    responsivo de propósito: num painel de 560px a decisão é fixa. Acima de 3 não cabe, e a\n *    resposta é cortar métrica, não encolher coluna — em 4 colunas cada uma fica com ~127px e\n *    o par ícone + valor quebra linha.\n * 2. **Ícone + valor na mesma linha depende do valor ser 18px.** Com `stat-sm` (20px) o par\n *    não cabia em 3 colunas e a 1ª versão saiu sem ícone; o ícone voltou junto com a redução.\n *    Se o valor crescer, **o ícone é a primeira coisa que quebra**.\n *\n * O 18px vem de `body-xl`, não de `stat-*`: o role `stat` começa em 20px (sm) e não tem tier\n * abaixo. Com `font-bold` + `tabular-nums` a leitura de valor se mantém. Se precisar disso em\n * mais lugares, o certo é um `stat-xs` no `typography.ts` via cascata — não repetir esta\n * combinação por aí.\n */\nfunction MetricaCartoes({ itens }: { itens: MetricaItem[] }) {\n  return (\n    <div className=\"grid grid-cols-2 gap-gp-md\">\n      {itens.map(({ icone: Icone, ...m }) => (\n        <div\n          key={m.label}\n          className=\"flex flex-col gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl\"\n        >\n          <div className={`flex items-center gap-gp-sm ${COR_DO_TOM[m.tom]}`}>\n            <Icone className=\"size-icon-sm shrink-0\" aria-hidden=\"true\" />\n            <span className=\"text-body-xl font-bold tabular-nums leading-none\">{m.value}</span>\n          </div>\n          <span className=\"text-caption-sm text-fg-muted\">{m.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n/**\n * **Checklist de progresso** — a lista de metas do registro, com o que já fechou.\n *\n * ## O que ela resolve, e por que não é `Progress`\n *\n * O dado aqui não é \"quanto por cento\" — é **quais itens faltam**. Uma barra de `Progress`\n * responde a primeira pergunta e apaga a segunda: 4 de 11 não diz que o que falta é Placa e\n * Club. A lista mantém as duas leituras (o contador por item e o quadro geral) e é ela que\n * permite agir.\n *\n * ## A faixa de situação é uma FAIXA, não um `Chip`\n *\n * `Chip` é rótulo inline — o que ele faz bem é caber ao lado de um texto. Aqui a situação é o\n * cabeçalho do bloco: largura cheia, centralizada, `rounded-radius-full`. Forçar um Chip a\n * `w-full` deforma um componente pra fazer o trabalho de outro. Tom em `warning` porque\n * \"em construção\" é estado transitório com prazo, não erro nem sucesso.\n *\n * ## Estado não fica só no ícone (WCAG 1.4.1)\n *\n * O ✔ verde e o círculo vazio são **redundantes** — quem lê a informação é o contador\n * `(1/1)` vs `(0/1)`, que é texto e é anunciado pelo leitor de tela. Por isso os ícones são\n * `aria-hidden`. Se um dia o contador sair, o estado passa a viver só em cor + forma, e aí\n * precisa de texto alternativo: **não remova o contador sem repor a informação.**\n *\n * ## Cuidado ao adaptar\n *\n * - `concluido` deriva de `feitos >= total`, não de um booleano à parte. Dois campos que podem\n *   discordar (\"feito\" true com 1 de 3) é bug esperando acontecer.\n * - Lista longa (15+) some dentro do painel — aí ela não é seção, é tela própria com filtro.\n */\nfunction ListaDeProgresso({\n  situacao,\n  itens,\n}: {\n  situacao: string;\n  itens: { label: string; feitos: number; total: number }[];\n}) {\n  return (\n    <div className=\"flex flex-col gap-gp-lg\">\n      <div className=\"rounded-radius-full bg-bg-warning-muted py-pad-md text-center text-body-sm font-semibold text-fg-warning\">\n        {situacao}\n      </div>\n\n      <ul className=\"flex flex-col gap-gp-md\">\n        {itens.map((i) => {\n          const concluido = i.feitos >= i.total;\n          return (\n            <li key={i.label} className=\"flex items-center gap-gp-md text-body-sm\">\n              {/* Concluído = disco CHEIO, e ele é um `<span>` com `bg-bg-success`, não o\n                  `CircleCheck` do lucide.\n\n                  ⚠️ A tentativa anterior foi `<CircleCheck className=\"fill-bg-success\n                  text-fg-on-success\" />`, e o disco saía **visivelmente menor** que o anel do\n                  pendente: o lucide desenha o círculo com `stroke=\"currentColor\"`, então o\n                  traço (preto no dark, porque `fg-on-success` inverte) fica POR CIMA do\n                  preenchimento e come ~2px de verde de cada lado. Não há classe que tire só\n                  aquele stroke — círculo e check compartilham o `currentColor`.\n\n                  Com `<span>` + `<Check>` dentro, o disco é os 16px inteiros e o traço existe\n                  só no check. `fg-on-success` é o par validado do `bg-success` em\n                  `color-light/dark.ts` (branco no light, preto no dark) — não use `text-white`\n                  na unha, que não é dark-aware.\n\n                  O pendente fica de anel vazio de propósito: é o contraste cheio-vs-vazio que\n                  carrega o estado. Preencher os dois apagaria a distinção. */}\n              {concluido ? (\n                <span\n                  className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full bg-bg-success text-fg-on-success\"\n                  aria-hidden=\"true\"\n                >\n                  <Check className=\"size-icon-2xs\" strokeWidth={3} />\n                </span>\n              ) : (\n                <Circle className=\"size-icon-sm shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\n              )}\n              <span\n                className={\n                  concluido ? \"font-semibold text-fg-default\" : \"text-fg-muted\"\n                }\n              >\n                {i.label}{\" \"}\n                <span className=\"tabular-nums\">\n                  ({i.feitos}/{i.total})\n                </span>\n              </span>\n            </li>\n          );\n        })}\n      </ul>\n    </div>\n  );\n}\n\n/**\n * Linha de seção que NÃO é `label: valor` — entidade com identidade própria.\n *\n * A conta bancária e o gestor não são um valor: são uma coisa com nome, marca e um dado\n * secundário. Forçá-los no `FloatingPanelField` deixaria \"Nubank · Ag 3849 · 18701-9\"\n * comprimido na coluna da direita e truncando. Aqui a linha usa a largura toda.\n */\nfunction LinhaDeEntidade({\n  hex,\n  iniciais,\n  nome,\n  detalhe,\n}: {\n  hex: string;\n  iniciais: string;\n  nome: string;\n  detalhe: string;\n}) {\n  return (\n    <div className=\"flex items-center gap-gp-lg\">\n      <Avatar size=\"lg\" colorHex={hex} className=\"shrink-0\" aria-label={nome}>\n        {iniciais}\n      </Avatar>\n      <div className=\"flex min-w-0 flex-col\">\n        <span className=\"truncate text-body-sm font-semibold text-fg-default\">{nome}</span>\n        <span className=\"truncate text-body-xs tabular-nums text-fg-muted\">{detalhe}</span>\n      </div>\n    </div>\n  );\n}\n\nexport function PainelDeDetalheDoRegistro() {\n  const [aberto, setAberto] = useState(false);\n\n  return (\n    <>\n      {/* No CRUD real este botão não existe: quem abre o painel é a linha selecionada. */}\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\n        Ver detalhe do cliente\n      </Button>\n\n      <FloatingPanel\n        open={aberto}\n        onOpenChange={setAberto}\n        side=\"right\"\n        size=\"lg\"\n        resizable\n        maximizable\n        bodyPadded={false}\n        resizableStorageKey=\"dsgreen-paneldetail-1.width\"\n        /* Header: avatar + nome + (código · status). É o `titleSlot` que permite isso — com\n           `title`/`description` string não há como pôr avatar nem Chip. O `truncate` +\n           `min-w-0` são obrigatórios: nome longo empurraria as ações fora do painel. */\n        titleSlot={\n          <div className=\"flex min-w-0 items-center gap-gp-md\">\n            <Avatar color=\"brand\" size=\"lg\" className=\"shrink-0\" aria-label={REGISTRO.nome}>\n              {REGISTRO.iniciais}\n            </Avatar>\n            <div className=\"flex min-w-0 flex-col\">\n              <span className=\"truncate text-body-md font-semibold text-fg-default\">\n                {REGISTRO.nome}\n              </span>\n              <span className=\"mt-[2px] flex items-center gap-gp-sm text-body-xs text-fg-muted\">\n                <span className=\"tabular-nums\">{REGISTRO.codigo}</span>\n                <span className=\"opacity-50\">·</span>\n                <Chip color=\"success\" variant=\"soft\" size=\"sm\">\n                  {REGISTRO.status}\n                </Chip>\n              </span>\n            </div>\n          </div>\n        }\n        /* Ações de ícone frequentes. O maximize e o X vêm do componente — não se escreve.\n           `aria-label` não é opcional aqui: botão de ícone não tem texto.\n\n           ⚠️ **`variant=\"soft\"` em TODAS, não `ghost`.** O maximize e o close que o\n           `FloatingPanel` renderiza são `soft` + `secondary` — é o que dá a caixinha com fundo.\n           Uma ação `ghost` no meio da fileira fica sem container e lê como se estivesse\n           desabilitada ao lado das outras três. A cor é o que diferencia: `secondary` pro\n           neutro, `success` pra ação de contato. (O JSDoc do próprio componente mostra\n           `headerActions` com `soft`/`secondary` — foi de lá que a receita saiu.) */\n        headerActions={\n          <>\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Editar cliente\">\n              <Pencil />\n            </Button>\n            <Button variant=\"soft\" color=\"success\" size=\"icon-sm\" aria-label=\"WhatsApp\">\n              <MessageCircle />\n            </Button>\n          </>\n        }\n        footer={\n          <>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"sm\"\n              onClick={() => setAberto(false)}\n            >\n              Fechar\n            </Button>\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Receipt />}>\n              Registrar pagamento\n            </Button>\n          </>\n        }\n      >\n        {/* Métricas do REGISTRO. Ver o JSDoc do `MetricaCartoes` pro porquê de não ser `Kpi`\n            e pra alternativa em faixa dividida que foi testada e descartada aqui. */}\n        <FloatingPanelSection title=\"Métricas\">\n          <MetricaCartoes itens={METRICAS} />\n        </FloatingPanelSection>\n\n        {/* Metas do registro. Fica junto das métricas porque as duas respondem \"como este\n            registro está?\" — os campos abaixo respondem \"quais são os dados dele\". */}\n        <FloatingPanelSection title=\"Construção PRO (mês)\">\n          <ListaDeProgresso situacao={CONSTRUCAO.situacao} itens={CONSTRUCAO.itens} />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Empresa\">\n          <FloatingPanelField label=\"Razão Social\" value=\"Estrela do Sul Alimentos S.A.\" />\n          <FloatingPanelField\n            label=\"CNPJ\"\n            value={<span className=\"tabular-nums\">{REGISTRO.documento}</span>}\n          />\n        </FloatingPanelSection>\n\n        {/* Entidade, não campo: banco tem marca, nome e agência/conta. Ver LinhaDeEntidade. */}\n        <FloatingPanelSection title=\"Conta bancária\">\n          <LinhaDeEntidade\n            hex={CONTA.hex}\n            iniciais={CONTA.iniciais}\n            nome={CONTA.banco}\n            detalhe={`Ag ${CONTA.agencia} · ${CONTA.conta}`}\n          />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Financeiro\">\n          <FloatingPanelField\n            label=\"Volume mensal\"\n            value={<span className=\"tabular-nums\">R$ 72.147,00</span>}\n          />\n          <FloatingPanelField\n            label=\"Comissão\"\n            value={<span className=\"tabular-nums\">8,9%</span>}\n          />\n          <FloatingPanelField label=\"Saque automático\" value=\"Ativado\" />\n          {/* Vários valores num campo → Chips, não texto separado por vírgula: cada método é\n              um item discreto, e a pílula é o que comunica isso. */}\n          <FloatingPanelField\n            label=\"Métodos\"\n            value={\n              <span className=\"flex flex-wrap items-center justify-end gap-gp-sm\">\n                {METODOS.map((m) => (\n                  <Chip key={m} color=\"neutral\" variant=\"soft\" size=\"sm\">\n                    {m}\n                  </Chip>\n                ))}\n              </span>\n            }\n          />\n        </FloatingPanelSection>\n\n        {/* E-mail e telefone são AÇÕES, não texto: `mailto:`/`tel:` com cor de link.\n            `break-all` no e-mail porque endereço longo não tem onde quebrar e estouraria\n            a coluna da direita. */}\n        <FloatingPanelSection title=\"Contato\">\n          <FloatingPanelField\n            label=\"Email\"\n            value={\n              <a\n                href={`mailto:${CONTATO.email}`}\n                className=\"break-all text-fg-brand hover:underline\"\n              >\n                {CONTATO.email}\n              </a>\n            }\n          />\n          <FloatingPanelField\n            label=\"Telefone\"\n            value={\n              <a\n                href={`tel:${CONTATO.telefone.replace(/\\D/g, \"\")}`}\n                className=\"tabular-nums text-fg-brand hover:underline\"\n              >\n                {CONTATO.telefone}\n              </a>\n            }\n          />\n          <FloatingPanelField label=\"Localização\" value={CONTATO.local} />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Gestão\">\n          {/* Pessoa dentro de um campo: avatar `xs` (20px) cabe na linha do valor sem esticar\n              a altura — o `lg` da LinhaDeEntidade quebraria o ritmo dos campos. */}\n          <FloatingPanelField\n            label=\"Gestor da conta\"\n            value={\n              <span className=\"flex items-center justify-end gap-gp-sm\">\n                <Avatar size=\"xs\" colorHex={GESTOR.hex} aria-label={GESTOR.nome}>\n                  {GESTOR.iniciais}\n                </Avatar>\n                {GESTOR.nome}\n              </span>\n            }\n          />\n          <FloatingPanelField label=\"Cliente desde\" value=\"12 de março de 2024\" />\n          <FloatingPanelField label=\"Última movimentação\" value=\"há 3 dias\" />\n        </FloatingPanelSection>\n      </FloatingPanel>\n    </>\n  );\n}\n",
         "type": "registry:block",
-        "target": "blocks/paneldetail/registro-com-metricas-e-abas.tsx"
+        "target": "blocks/paneldetail/detalhe-do-registro.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1934,7 +1932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1975,7 +1973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2277,7 +2275,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2373,7 +2371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2419,7 +2417,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2470,7 +2468,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2606,7 +2604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2636,7 +2634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2693,7 +2691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2774,7 +2772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2824,7 +2822,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2844,7 +2842,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/FloatingPanel/USAGE.md",
-        "content": "# FloatingPanel — USAGE\r\n\r\n<!-- ds:regras\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto\r\n- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto\r\n- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia o padding)\r\n-->\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão (sections colapsáveis)\r\nPattern canônico de painel de detalhe — espelha o DetailDrawer da showcase de\r\nClientes. Use `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
+        "content": "# FloatingPanel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (identidade no `titleSlot`, ações `soft` no `headerActions`, métricas em cards, seções colapsáveis, ação primária no footer)\r\n- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)\r\n- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto\r\n-->\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão → o bloco `dsgreen-paneldetail-1`\r\n\r\n**Painel de detalhe de registro tem estrutura definida, e ela é referenciável por ID.** A\r\ncomposição inteira (com fixture, medições e o porquê de cada decisão) vive em\r\n`src/blocks/paneldetail/` e é renderizada em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor: `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`.\r\n\r\nAs quatro zonas, que são o que a IA erra quando compõe do zero — ela joga tudo no corpo:\r\n\r\n| zona | o que vai | por que |\r\n|---|---|---|\r\n| `titleSlot` | avatar + nome + código · Chip de status | responde \"de quem é este painel\"; fica fixo no scroll |\r\n| `headerActions` | 1–2 ações de ícone, **sempre `variant=\"soft\"`** | `ghost` no meio da fileira fica sem container e lê como desabilitada ao lado do maximize/close, que são `soft` |\r\n| corpo, 1ª seção | métricas em **cards compactos** (não `Kpi`) | responde \"como este registro está?\" — vem antes dos campos, que respondem \"quais são os dados\" |\r\n| corpo, resto | campos em `FloatingPanelSection` por assunto | o colapso é o que permite 20 campos sem obrigar a rolar 20 |\r\n| `footer` | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável |\r\n\r\n⛔ **Não use aba aqui.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o\r\nmecanismo de esconder — ter os dois faz o usuário procurar o dado em dois lugares. Recorte\r\nvolumoso de verdade (extrato de 200 linhas) não é aba nem seção: é outra tela.\r\n\r\n### Anatomia mínima\r\n\r\nUse `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
         "type": "registry:file",
         "target": "components/ui/FloatingPanel/USAGE.md"
       },
@@ -2892,7 +2890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2934,7 +2932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3020,7 +3018,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3111,7 +3109,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3135,7 +3133,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3188,7 +3186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3212,7 +3210,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3237,7 +3235,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3261,7 +3259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3320,7 +3318,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3382,7 +3380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3407,7 +3405,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3514,7 +3512,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3560,7 +3558,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3670,7 +3668,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3695,7 +3693,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3739,7 +3737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3788,7 +3786,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3814,7 +3812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3861,7 +3859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3886,7 +3884,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3907,7 +3905,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Panel/USAGE.md",
-        "content": "# Panel — USAGE\r\n\r\n<!-- ds:regras\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)\r\n- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru\r\n-->\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
+        "content": "# Panel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (estrutura: identidade no header, métricas em cards, seções colapsáveis, ação primária no footer)\r\n- header aqui é só STRING (`title`/`description`): precisa de avatar, Chip de status ou ação de ícone? → `FloatingPanel`\r\n- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)\r\n-->\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Painel de DETALHE de registro → o bloco `dsgreen-paneldetail-1`\r\n\r\nDetalhe de registro tem estrutura definida e referenciável por ID: a composição inteira mora\r\nem `src/blocks/paneldetail/` e renderiza em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor — `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`. As zonas\r\n(identidade no header · métricas em cards · seções colapsáveis · ação primária no footer) e o\r\nporquê de cada uma estão documentados no arquivo do bloco.\r\n\r\n⚠️ **O bloco usa `FloatingPanel`, e a razão é este componente aqui:** o header do `Panel`\r\naceita `title`/`description` como **string**, então avatar, `Chip` de status inline e ação de\r\nícone não cabem nele. Precisa desse header → `FloatingPanel` (`titleSlot` + `headerActions`).\r\nEscolha o `Panel` quando o que importa é **bloquear** a tela atrás e o header é texto simples.\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
         "type": "registry:file",
         "target": "components/ui/Panel/USAGE.md"
       },
@@ -3961,7 +3959,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3985,7 +3983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4009,7 +4007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4033,7 +4031,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4081,7 +4079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4105,7 +4103,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4130,7 +4128,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4154,7 +4152,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4180,7 +4178,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4293,7 +4291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4315,7 +4313,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4339,7 +4337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4362,7 +4360,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4408,7 +4406,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4432,7 +4430,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4511,7 +4509,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4535,7 +4533,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4559,7 +4557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4577,7 +4575,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4595,7 +4593,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4613,7 +4611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4631,7 +4629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4653,7 +4651,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4704,7 +4702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4730,7 +4728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4755,7 +4753,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4779,7 +4777,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4800,7 +4798,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4822,7 +4820,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.50.0 · b30b0bc · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.50.0 · 97fded3 · 2026-08-27"
     },
     "type": "registry:file"
   }

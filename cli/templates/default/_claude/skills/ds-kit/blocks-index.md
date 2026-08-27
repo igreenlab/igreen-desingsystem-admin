@@ -20,7 +20,7 @@ Este índice é lido pelo **Passo 0** da skill `ds-kit`, quando o usuário cita 
 
 | Código | Composição | Quando serve | Usa | Arquivo |
 |---|---|---|---|---|
-| `dsgreen-paneldetail-1` | Painel de detalhe do registro com métricas e abas | Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes. | Panel (side="right", size="md", title + description + footer) · KpiGroup (columns=3, divided) + Kpi (size="sm") · FloatingPanelSection + FloatingPanelField · Tabs (fullWidth, variante default) · Chip · Button | `src/blocks/paneldetail/registro-com-metricas-e-abas.tsx` |
+| `dsgreen-paneldetail-1` | Painel de detalhe do registro | Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes. | FloatingPanel (side="right", size="lg", titleSlot + headerActions + maximizable + resizable + bodyPadded={false}) · FloatingPanelSection + FloatingPanelField · MetricaCartoes — cards compactos próprios (ícone + valor + rótulo); NÃO o Kpi · Avatar (colorHex, contraste WCAG automático) · Chip (soft) · Button (icon-sm no header, sm no footer) | `src/blocks/paneldetail/detalhe-do-registro.tsx` |
 
 ## Como pegar o código do bloco
 
