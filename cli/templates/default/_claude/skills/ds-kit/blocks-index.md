@@ -20,7 +20,7 @@ Este índice é lido pelo **Passo 0** da skill `ds-kit`, quando o usuário cita 
 
 | Código | Composição | Quando serve | Usa | Arquivo |
 |---|---|---|---|---|
-| `dsgreen-paneldetail-1` | Detalhe do registro com métricas e abas internas | Conteúdo de painel de detalhe aberto a partir de uma linha de tabela: identidade + ações, faixa de métricas do registro, campos gerais e abas internas pros recortes profundos. Serve em Panel, FloatingPanel ou Drawer — a casca muda o comportamento, não o arranjo. | KpiGroup (columns=3, divided) + Kpi (size="sm") + KpiDelta · FloatingPanelSection + FloatingPanelField · Tabs (fullWidth, variante default) · Chip · Button (variant ghost/outline, size sm) | `src/blocks/paneldetail/registro-com-metricas-e-abas.tsx` |
+| `dsgreen-paneldetail-1` | Painel de detalhe do registro com métricas e abas | Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes. | Panel (side="right", size="md", title + description + footer) · KpiGroup (columns=3, divided) + Kpi (size="sm") · FloatingPanelSection + FloatingPanelField · Tabs (fullWidth, variante default) · Chip · Button | `src/blocks/paneldetail/registro-com-metricas-e-abas.tsx` |
 
 ## Como pegar o código do bloco
 

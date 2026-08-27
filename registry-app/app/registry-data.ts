@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,15 +1850,15 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:block"
   },
   "dsgreen-paneldetail-1": {
     "$schema": "https://ui.shadcn.com/schema/registry-item.json",
     "name": "dsgreen-paneldetail-1",
-    "title": "Bloco dsgreen-paneldetail-1 — Detalhe do registro com métricas e abas internas",
-    "description": "Conteúdo de painel de detalhe aberto a partir de uma linha de tabela: identidade + ações, faixa de métricas do registro, campos gerais e abas internas pros recortes profundos. Serve em Panel, FloatingPanel ou Drawer — a casca muda o comportamento, não o arranjo.",
+    "title": "Bloco dsgreen-paneldetail-1 — Painel de detalhe do registro com métricas e abas",
+    "description": "Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.",
     "dependencies": [
       "lucide-react"
     ],
@@ -1867,6 +1867,7 @@ export const registry: Record<string, unknown> = {
       "@igreen/chip",
       "@igreen/floating-panel",
       "@igreen/kpi",
+      "@igreen/panel",
       "@igreen/tabs",
       "@igreen/tv",
       "@igreen/utils"
@@ -1874,13 +1875,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/blocks/paneldetail/registro-com-metricas-e-abas.tsx",
-        "content": "import { useState } from \"react\";\nimport { FileText, Pencil, Receipt, Trash2 } from \"lucide-react\";\n// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel (`index.ts`) não é\n// distribuído por nenhum item do registry, então um bloco que o importasse chegaria no\n// consumidor de copy-in com import que não resolve (L-037, gate `registry-imports`).\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/shadcn/tabs\";\nimport { Button } from \"@/components/ui/Button\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport {\n  FloatingPanelField,\n  FloatingPanelSection,\n} from \"@/components/ui/FloatingPanel\";\nimport { Kpi, KpiDelta, KpiGroup } from \"@/components/ui/Kpi\";\n\nexport const BLOCK = {\n  id: \"dsgreen-paneldetail-1\",\n  nome: \"Detalhe do registro com métricas e abas internas\",\n  descricao:\n    \"Conteúdo de painel de detalhe aberto a partir de uma linha de tabela: identidade + ações, faixa de métricas do registro, campos gerais e abas internas pros recortes profundos. Serve em Panel, FloatingPanel ou Drawer — a casca muda o comportamento, não o arranjo.\",\n  usa: [\n    \"KpiGroup (columns=3, divided) + Kpi (size=\\\"sm\\\") + KpiDelta\",\n    \"FloatingPanelSection + FloatingPanelField\",\n    \"Tabs (fullWidth, variante default)\",\n    \"Chip\",\n    \"Button (variant ghost/outline, size sm)\",\n  ],\n} as const;\n\n/**\n * dsgreen-paneldetail-1 — o conteúdo do painel de detalhe de um registro.\n *\n * ## O que este bloco resolve\n *\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**:\n * o painel tem quatro faixas com papéis diferentes, e a sequência é a informação.\n *\n *   1. **identidade + ações** — quem é este registro e o que dá pra fazer com ele. Ações\n *      no topo, à direita: são do registro inteiro, não de nenhuma seção.\n *   2. **métricas** — o resumo numérico. Vem ANTES dos campos porque responde \"como este\n *      registro está?\", que é a pergunta de quem abriu o painel; os campos respondem\n *      \"quais são os dados dele?\", que é a segunda.\n *   3. **detalhamento geral** — os campos, em seções colapsáveis. Colapsável importa: é o\n *      que permite ter 20 campos sem obrigar a rolar 20 campos.\n *   4. **abas internas** — os recortes profundos (faturas, histórico, documentos). Ficam\n *      DEPOIS do detalhamento geral porque aba esconde conteúdo: o que está sempre visível\n *      é o que sempre se olha, e o que é eventual vai pra aba.\n *\n * ## As três casas onde este conteúdo mora\n *\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral, e a diferença é\n * **comportamento**, não desenho — então o conteúdo é o mesmo nos três:\n *\n * | casca | comportamento | quando |\n * |---|---|---|\n * | `Panel` (`size=\"md\"`, 560px) | modal, com backdrop | o detalhe é a tarefa; a lista atrás pode esperar |\n * | `FloatingPanel` (`size=\"lg\"`, 560px) | non-modal, resizável, coexiste | o usuário compara com a lista atrás, ou percorre linha por linha |\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\n *\n * Em qualquer um: `title`/`description`/`titleIcon` são props da casca — o header de\n * identidade daqui é o **corpo**, não o header do painel. Se a casca já mostra o nome no\n * título, corte a primeira linha deste bloco em vez de repetir.\n *\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\n *\n * - **Aba dentro de painel vem `fullWidth`, na variante default (`segmented`).** É regra\n *   declarada no `USAGE.md` do `Panel` e do `FloatingPanel`: em 560px a variante `line`\n *   vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas se encolhem num\n *   canto. `line` só se houver um `segmented` num nível acima.\n * - **`KpiGroup divided`, não três cards soltos.** O painel já é uma superfície; três\n *   cards dentro dele é card-dentro-de-card (a mesma L-050 que proíbe `PropsTable` dentro\n *   de `ExampleSection`). `divided` faz uma faixa só, com divisórias.\n * - **`Kpi size=\"sm\"`** (valor em `stat-sm`, 20px). O `md` de dashboard tem 24px e some a\n *   hierarquia contra o nome do registro, que é `title`. Painel é estreito: 3 colunas de\n *   20px cabem, 3 de 24px começam a quebrar número.\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam entre as três colunas e\n *   entre as linhas da tabela de faturas.\n * - **`tone` do delta é decisão sua, não do sinal.** Aqui `Em aberto` subindo é ruim, então o\n *   delta `+1` vai `tone=\"danger\"`. `signed` derivaria o tom do sinal, pintaria verde e\n *   mentiria — o mesmo gotcha que o `USAGE.md` do `Kpi` registra (\"subir nem sempre é bom\").\n * - **Status é `Chip`**, não texto colorido na unha: ele já resolve tom, contraste e\n *   altura de linha.\n *\n * ## Cuidado ao adaptar\n *\n * - **As abas aqui trocam conteúdo de verdade** (`TabsContent`), diferente do\n *   `dsgreen-chart-1`, onde elas eram só composição visual. Se o seu caso tem um recorte\n *   só, **remova as abas** — aba com um item é moldura sem função.\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao\n *   dashboard ou ao topo da lista.\n * - **Ligue ao estado real:** `open`/`onOpenChange` da casca vêm da linha selecionada da\n *   tabela, e `onEditar`/`onExcluir` são handlers seus. As `SECOES` e as métricas viram\n *   derivação do registro carregado. O `useState` daqui é só da aba ativa e sobrevive à\n *   adaptação.\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\n *   condicione a linha; passe o valor e deixe o componente resolver.\n */\n\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\n *  forma do dado esperado sem inferir do render. */\nconst REGISTRO = {\n  nome: \"Padaria Estrela do Sul\",\n  documento: \"12.345.678/0001-90\",\n  status: { label: \"Ativo\", tone: \"success\" as const },\n  desde: \"Março de 2024\",\n};\n\nconst METRICAS = [\n  { label: \"Consumo médio\", value: \"1.240\", hint: \"kWh/mês\", delta: \"+8%\", tone: \"success\" as const },\n  { label: \"Economia\", value: \"R$ 3.180\", hint: \"acumulada\", delta: \"+12%\", tone: \"success\" as const },\n  { label: \"Em aberto\", value: \"R$ 892\", hint: \"2 faturas\", delta: \"+1\", tone: \"danger\" as const },\n];\n\nconst SECOES = [\n  {\n    titulo: \"Dados do contrato\",\n    campos: [\n      { label: \"Plano\", value: \"Compensação 100%\" },\n      { label: \"Distribuidora\", value: \"Cemig\" },\n      { label: \"Titular\", value: \"Marina Duarte\" },\n      { label: \"Início\", value: \"12/03/2024\" },\n    ],\n  },\n  {\n    titulo: \"Endereço da unidade\",\n    campos: [\n      { label: \"Logradouro\", value: \"Rua das Acácias, 412\" },\n      { label: \"Bairro\", value: \"Santa Efigênia\" },\n      { label: \"Cidade\", value: \"Belo Horizonte — MG\" },\n      { label: \"CEP\", value: \"30240-070\" },\n    ],\n  },\n];\n\nconst FATURAS = [\n  { competencia: \"Ago/2026\", valor: \"R$ 446,20\", situacao: \"Em aberto\", tone: \"warning\" as const },\n  { competencia: \"Jul/2026\", valor: \"R$ 445,80\", situacao: \"Em aberto\", tone: \"warning\" as const },\n  { competencia: \"Jun/2026\", valor: \"R$ 431,10\", situacao: \"Paga\", tone: \"success\" as const },\n];\n\nconst HISTORICO = [\n  { quando: \"24/08/2026\", oque: \"Fatura de julho gerada\" },\n  { quando: \"02/08/2026\", oque: \"Titularidade confirmada pela distribuidora\" },\n  { quando: \"18/07/2026\", oque: \"Plano alterado para Compensação 100%\" },\n];\n\nexport function RegistroComMetricasEAbas() {\n  const [aba, setAba] = useState(\"faturas\");\n\n  return (\n    // A largura é a da casca: `Panel size=\"md\"` e `FloatingPanel size=\"lg\"` dão 560px, e o\n    // token mais próximo do DS é `drawer-lg` (640px). Dentro do painel real este wrapper\n    // não existe — o conteúdo herda a largura de lá.\n    <div className=\"flex w-full max-w-drawer-lg flex-col gap-gp-2xl rounded-radius-xl border border-border-default bg-bg-surface p-pad-3xl\">\n      {/* 1. Identidade + ações do registro inteiro */}\n      <div className=\"flex flex-wrap items-start justify-between gap-gp-lg\">\n        <div className=\"flex min-w-0 flex-col gap-gp-xs\">\n          <div className=\"flex flex-wrap items-center gap-gp-md\">\n            <span className=\"text-title-md text-fg-default\">{REGISTRO.nome}</span>\n            <Chip color={REGISTRO.status.tone} size=\"sm\">\n              {REGISTRO.status.label}\n            </Chip>\n          </div>\n          <span className=\"text-body-sm tabular-nums text-fg-muted\">\n            {REGISTRO.documento} · cliente desde {REGISTRO.desde}\n          </span>\n        </div>\n        <div className=\"flex shrink-0 items-center gap-gp-md\">\n          <Button variant=\"outline\" size=\"sm\" iconLeft={<Pencil />}>\n            Editar\n          </Button>\n          <Button variant=\"ghost\" size=\"sm\" color=\"critical\" iconLeft={<Trash2 />}>\n            Excluir\n          </Button>\n        </div>\n      </div>\n\n      {/* 2. Métricas do REGISTRO — faixa única com divisórias, nunca 3 cards soltos */}\n      <KpiGroup columns={3} divided>\n        {METRICAS.map((m) => (\n          <Kpi\n            key={m.label}\n            size=\"sm\"\n            label={m.label}\n            value={<span className=\"tabular-nums\">{m.value}</span>}\n            hint={m.hint}\n            delta={<KpiDelta value={m.delta} tone={m.tone} direction=\"up\" />}\n          />\n        ))}\n      </KpiGroup>\n\n      {/* 3. Detalhamento geral — seções colapsáveis é o que deixa ter muitos campos */}\n      <div className=\"flex flex-col\">\n        {SECOES.map((s) => (\n          <FloatingPanelSection key={s.titulo} title={s.titulo}>\n            {s.campos.map((c) => (\n              <FloatingPanelField key={c.label} label={c.label} value={c.value} />\n            ))}\n          </FloatingPanelSection>\n        ))}\n      </div>\n\n      {/* 4. Abas internas — DEPOIS do geral, porque aba esconde conteúdo */}\n      <Tabs value={aba} onValueChange={setAba} fullWidth>\n        <TabsList>\n          <TabsTrigger value=\"faturas\">Faturas</TabsTrigger>\n          <TabsTrigger value=\"historico\">Histórico</TabsTrigger>\n          <TabsTrigger value=\"documentos\">Documentos</TabsTrigger>\n        </TabsList>\n\n        <TabsContent value=\"faturas\" className=\"flex flex-col gap-gp-md pt-pad-xl\">\n          {FATURAS.map((f) => (\n            <div\n              key={f.competencia}\n              className=\"flex items-center justify-between gap-gp-md border-b border-border-subtle pb-pad-md last:border-b-0 last:pb-0\"\n            >\n              <div className=\"flex min-w-0 items-center gap-gp-md\">\n                <Receipt className=\"size-icon-sm shrink-0 text-fg-subtle\" />\n                <span className=\"truncate text-body-sm text-fg-default\">{f.competencia}</span>\n              </div>\n              <div className=\"flex shrink-0 items-center gap-gp-lg\">\n                <span className=\"text-body-sm tabular-nums text-fg-default\">{f.valor}</span>\n                <Chip color={f.tone} size=\"sm\">\n                  {f.situacao}\n                </Chip>\n              </div>\n            </div>\n          ))}\n        </TabsContent>\n\n        <TabsContent value=\"historico\" className=\"flex flex-col gap-gp-lg pt-pad-xl\">\n          {HISTORICO.map((h) => (\n            <div key={h.quando} className=\"flex gap-gp-lg text-body-sm\">\n              <span className=\"shrink-0 tabular-nums text-fg-muted\">{h.quando}</span>\n              <span className=\"min-w-0 text-fg-default\">{h.oque}</span>\n            </div>\n          ))}\n        </TabsContent>\n\n        <TabsContent value=\"documentos\" className=\"pt-pad-xl\">\n          <div className=\"flex flex-col items-center gap-gp-md py-pad-4xl text-center\">\n            <FileText className=\"size-icon-lg text-fg-subtle\" />\n            <span className=\"text-body-sm text-fg-default\">Nenhum documento anexado</span>\n            <span className=\"text-caption-md text-fg-muted\">\n              Contrato e conta de energia aparecem aqui quando enviados\n            </span>\n          </div>\n        </TabsContent>\n      </Tabs>\n    </div>\n  );\n}\n",
+        "content": "import { useState } from \"react\";\r\nimport { Building2, FileText, Pencil, Receipt } from \"lucide-react\";\r\n// Import por ARQUIVO, não pelo barrel `@/components/shadcn` — o barrel (`index.ts`) não é\r\n// distribuído por nenhum item do registry, então um bloco que o importasse chegaria no\r\n// consumidor de copy-in com import que não resolve (L-037, gate `registry-imports`).\r\nimport { Tabs, TabsContent, TabsList, TabsTrigger } from \"@/components/shadcn/tabs\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport {\r\n  FloatingPanelField,\r\n  FloatingPanelSection,\r\n} from \"@/components/ui/FloatingPanel\";\r\nimport { Kpi, KpiGroup } from \"@/components/ui/Kpi\";\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\nexport const BLOCK = {\r\n  id: \"dsgreen-paneldetail-1\",\r\n  nome: \"Painel de detalhe do registro com métricas e abas\",\r\n  descricao:\r\n    \"Painel lateral aberto a partir de uma linha de tabela: identidade no header, métricas do registro, campos em seções colapsáveis, abas internas pros recortes profundos e ações no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.\",\r\n  usa: [\r\n    \"Panel (side=\\\"right\\\", size=\\\"md\\\", title + description + footer)\",\r\n    \"KpiGroup (columns=3, divided) + Kpi (size=\\\"sm\\\")\",\r\n    \"FloatingPanelSection + FloatingPanelField\",\r\n    \"Tabs (fullWidth, variante default)\",\r\n    \"Chip · Button\",\r\n  ],\r\n} as const;\r\n\r\n/**\r\n * dsgreen-paneldetail-1 — painel de detalhe de um registro, aberto da linha da tabela.\r\n *\r\n * ## O que este bloco resolve\r\n *\r\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\r\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**, e\r\n * **onde cada coisa mora**: o painel tem header, corpo e footer com papéis distintos, e\r\n * jogar tudo no corpo é o erro que faz o resultado parecer improvisado.\r\n *\r\n * | zona | o que vai | por que |\r\n * |---|---|---|\r\n * | **header** (`title`/`description`) | nome do registro + identificador | é o que responde \"de quem é este painel\"; fica fixo no scroll |\r\n * | corpo, 1ª faixa | **métricas** do registro | responde \"como este registro está?\", que é a pergunta de quem abriu — vem antes dos campos, que respondem \"quais são os dados dele\" |\r\n * | corpo, 2ª faixa | campos em **seções colapsáveis** | é o colapso que permite ter 20 campos sem obrigar a rolar 20 |\r\n * | corpo, 3ª faixa | **abas internas** | depois do geral, porque aba esconde conteúdo: o que está sempre visível é o que sempre se olha |\r\n * | **footer** | Fechar + ação primária | ações do registro inteiro, sempre alcançáveis (o footer é sticky) |\r\n *\r\n * Isso espelha os painéis de detalhe reais: `MapaClienteDetailPanel` e `DetailPanel` do\r\n * Virtual Office, e o `DetailDrawer` do `clientes-showcase`. Nos três a identidade está no\r\n * header e as ações no footer — **nenhum** deles põe botão de ação solto no corpo.\r\n *\r\n * ## As três cascas, e por que esta usa `Panel`\r\n *\r\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral; a diferença é\r\n * **comportamento**, não desenho — o corpo daqui é o mesmo nos três:\r\n *\r\n * | casca | comportamento | quando |\r\n * |---|---|---|\r\n * | **`Panel`** (esta) | modal, com backdrop | o detalhe é a tarefa; a lista atrás pode esperar |\r\n * | `FloatingPanel` | non-modal, resizável, maximizável | o usuário compara com a lista atrás, ou percorre linha por linha. Ganha `titleSlot` (avatar + chip no header) e `headerActions` |\r\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\r\n *\r\n * Pra trocar pelo `FloatingPanel`: `bodyPadded={false}` no lugar do `-mx-pad-3xl` de baixo,\r\n * e a identidade sobe pro `titleSlot` (avatar + chip no header) com as ações de ícone em\r\n * `headerActions` — é o desenho do `MapaClienteDetailPanel`.\r\n *\r\n * ## A única classe de ajuste, e por que ela existe\r\n *\r\n * `-mx-pad-3xl` no bloco das seções. O `PanelBody` tem `py-pad-4xl px-pad-3xl` (24/20px),\r\n * calibrado pra **seções de formulário**; as seções de DETALHE\r\n * (`FloatingPanelSection`) trazem o próprio padding de 18px e uma **divisória de ponta a\r\n * ponta**, que dentro de um body com 20px pararia a 20px da borda. A margem negativa\r\n * devolve a borda pro limite do painel; as outras faixas (métricas, abas) ficam com o\r\n * padding do body, que é o que elas querem.\r\n *\r\n * ⚠️ **Não use composição manual (`PanelRoot`/`PanelContent`) pra resolver isso.** O\r\n * `<Panel>` all-in-one monta `SheetPrimitive.Content` direto, com as classes de container,\r\n * o mapa de largura e a animação de slide por `side` — reproduzir aquilo num bloco seria\r\n * copiar internals do componente, exatamente o que a §4.1 proíbe. É por esse motivo que o\r\n * `FloatingPanel` ganhou `bodyPadded` como prop: no `Panel` o equivalente é esta margem.\r\n *\r\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\r\n *\r\n * - **Aba dentro de painel vem `fullWidth`, na variante default (`segmented`).** Regra\r\n *   declarada no `USAGE.md` do `Panel` e do `FloatingPanel`: em 560px o `line` vira um\r\n *   trilho curto que lê como fragmento, e sem `fullWidth` as abas se encolhem num canto.\r\n * - **`KpiGroup divided`, não três cards soltos.** O painel já é uma superfície; três cards\r\n *   dentro dele é card-dentro-de-card (a mesma L-050 que proíbe `PropsTable` dentro de\r\n *   `ExampleSection`). `divided` faz uma faixa só, com divisórias.\r\n * - **`Kpi size=\"sm\"`** (valor em `stat-sm`, 20px). O `md` de dashboard tem 24px e briga com\r\n *   o título do header.\r\n * - **Métrica em painel vai SEM `delta`** — e isto é medido, não gosto. Em `size=\"md\"` (560px)\r\n *   com `columns={3}`, cada célula fica com **172px** e `p-pad-3xl` de cada lado deixa\r\n *   **132px de conteúdo**: `R$ 3.180` + a pílula do delta não cabe e quebra pra segunda\r\n *   linha, enquanto `1.240` cabe — o resultado é uma faixa com alturas desiguais, que foi\r\n *   exatamente o que reprovou a primeira versão deste bloco. Quem precisa do delta usa\r\n *   **`columns={2}`**. A unidade vai no `hint`, que sempre cabe.\r\n * - ⚠️ **`KpiGroup columns` é responsivo ao VIEWPORT, não ao container.** As classes são\r\n *   `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` — breakpoint de tela. Dentro de um painel de\r\n *   560px em desktop, `columns={3}` continua dando 3 colunas: a estreiteza do painel é\r\n *   invisível pro grid. Não conte com adaptação automática aqui; escolha o número de colunas\r\n *   pela largura do PAINEL.\r\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam entre as colunas do KPI e\r\n *   entre as linhas de fatura.\r\n * - **Status é `Chip`** dentro de um `FloatingPanelField`, igual ao `MapaClienteDetailPanel`.\r\n *   Não é texto colorido na unha.\r\n * - **Footer não precisa de `fullWidth` nos botões** — o `PanelFooter` já faz os botões\r\n *   crescerem lado a lado e empilharem quando não cabem.\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * - **O botão daqui é do EXEMPLO.** No seu CRUD quem abre o painel é a linha selecionada da\r\n *   tabela: `open={!!linhaSelecionada}` e `onOpenChange={(o) => !o && limparSelecao()}`.\r\n * - **As abas trocam conteúdo de verdade** (`TabsContent`), diferente do `dsgreen-chart-1`,\r\n *   onde eram só composição visual. Um recorte só → **remova as abas**: aba com um item é\r\n *   moldura sem função.\r\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\r\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao dashboard\r\n *   ou ao topo da lista.\r\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\r\n *   condicione a linha; passe o valor e deixe o componente resolver.\r\n */\r\n\r\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\r\n *  forma do dado esperado sem inferir do render. */\r\nconst REGISTRO = {\r\n  nome: \"Padaria Estrela do Sul\",\r\n  documento: \"12.345.678/0001-90\",\r\n  desde: \"Março de 2024\",\r\n};\r\n\r\nconst METRICAS = [\r\n  { label: \"Consumo médio\", value: \"1.240\", hint: \"kWh/mês\" },\r\n  { label: \"Economia\", value: \"R$ 3.180\", hint: \"acumulada no ano\" },\r\n  { label: \"Em aberto\", value: \"R$ 892\", hint: \"2 faturas\" },\r\n];\r\n\r\nconst FATURAS = [\r\n  { competencia: \"Ago/2026\", valor: \"R$ 446,20\", situacao: \"Em aberto\", color: \"warning\" as const },\r\n  { competencia: \"Jul/2026\", valor: \"R$ 445,80\", situacao: \"Em aberto\", color: \"warning\" as const },\r\n  { competencia: \"Jun/2026\", valor: \"R$ 431,10\", situacao: \"Paga\", color: \"success\" as const },\r\n];\r\n\r\nconst HISTORICO = [\r\n  { quando: \"24/08/2026\", oque: \"Fatura de julho gerada\" },\r\n  { quando: \"02/08/2026\", oque: \"Titularidade confirmada pela distribuidora\" },\r\n  { quando: \"18/07/2026\", oque: \"Plano alterado para Compensação 100%\" },\r\n];\r\n\r\nexport function PainelDeDetalheDoRegistro() {\r\n  const [aberto, setAberto] = useState(false);\r\n  const [aba, setAba] = useState(\"faturas\");\r\n\r\n  return (\r\n    <>\r\n      {/* No CRUD real este botão não existe: quem abre o painel é a linha selecionada. */}\r\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\r\n        Ver detalhe do cliente\r\n      </Button>\r\n\r\n      <Panel\r\n        open={aberto}\r\n        onOpenChange={setAberto}\r\n        side=\"right\"\r\n        size=\"md\"\r\n        title={REGISTRO.nome}\r\n        description={`${REGISTRO.documento} · cliente desde ${REGISTRO.desde}`}\r\n        titleIcon={Building2}\r\n        footer={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"sm\"\r\n              onClick={() => setAberto(false)}\r\n            >\r\n              Fechar\r\n            </Button>\r\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Pencil />}>\r\n              Editar\r\n            </Button>\r\n          </>\r\n        }\r\n      >\r\n        {/* 1. Métricas do REGISTRO — faixa única com divisórias, nunca 3 cards soltos */}\r\n        <KpiGroup columns={3} divided>\r\n          {METRICAS.map((m) => (\r\n            <Kpi\r\n              key={m.label}\r\n              size=\"sm\"\r\n              label={m.label}\r\n              value={<span className=\"tabular-nums\">{m.value}</span>}\r\n              hint={m.hint}\r\n            />\r\n          ))}\r\n        </KpiGroup>\r\n\r\n        {/* 2. Campos em seções colapsáveis — o padrão de detalhe do DS.\r\n               `-mx-pad-3xl` cancela o padding horizontal do PanelBody: a divisória da seção\r\n               é de ponta a ponta por desenho, e dentro do body padded ela pararia a 20px da\r\n               borda. Ver o bloco \"A única classe de ajuste\" no JSDoc. */}\r\n        <div className=\"-mx-pad-3xl border-t border-border-default\">\r\n          <FloatingPanelSection title=\"Dados do contrato\">\r\n            <FloatingPanelField\r\n              label=\"Status\"\r\n              value={\r\n                <Chip color=\"success\" variant=\"soft\" size=\"sm\">\r\n                  Ativo\r\n                </Chip>\r\n              }\r\n            />\r\n            <FloatingPanelField label=\"Plano\" value=\"Compensação 100%\" />\r\n            <FloatingPanelField label=\"Distribuidora\" value=\"Cemig\" />\r\n            <FloatingPanelField label=\"Titular\" value=\"Marina Duarte\" />\r\n            <FloatingPanelField\r\n              label=\"Início\"\r\n              value={<span className=\"tabular-nums\">12/03/2024</span>}\r\n            />\r\n          </FloatingPanelSection>\r\n\r\n          <FloatingPanelSection title=\"Endereço da unidade\">\r\n            <FloatingPanelField label=\"Logradouro\" value=\"Rua das Acácias, 412\" />\r\n            <FloatingPanelField label=\"Bairro\" value=\"Santa Efigênia\" />\r\n            <FloatingPanelField label=\"Cidade\" value=\"Belo Horizonte — MG\" />\r\n            <FloatingPanelField\r\n              label=\"CEP\"\r\n              value={<span className=\"tabular-nums\">30240-070</span>}\r\n            />\r\n          </FloatingPanelSection>\r\n        </div>\r\n\r\n        {/* 3. Abas internas — DEPOIS do geral, porque aba esconde conteúdo */}\r\n        <div>\r\n          <Tabs value={aba} onValueChange={setAba} fullWidth>\r\n            <TabsList>\r\n              <TabsTrigger value=\"faturas\">Faturas</TabsTrigger>\r\n              <TabsTrigger value=\"historico\">Histórico</TabsTrigger>\r\n              <TabsTrigger value=\"documentos\">Documentos</TabsTrigger>\r\n            </TabsList>\r\n\r\n            <TabsContent value=\"faturas\" className=\"flex flex-col gap-gp-md pt-pad-xl\">\r\n              {FATURAS.map((f) => (\r\n                <div\r\n                  key={f.competencia}\r\n                  className=\"flex items-center justify-between gap-gp-md border-b border-border-subtle pb-pad-md last:border-b-0 last:pb-0\"\r\n                >\r\n                  <div className=\"flex min-w-0 items-center gap-gp-md\">\r\n                    <Receipt className=\"size-icon-sm shrink-0 text-fg-subtle\" />\r\n                    <span className=\"truncate text-body-sm text-fg-default\">\r\n                      {f.competencia}\r\n                    </span>\r\n                  </div>\r\n                  <div className=\"flex shrink-0 items-center gap-gp-lg\">\r\n                    <span className=\"text-body-sm tabular-nums text-fg-default\">\r\n                      {f.valor}\r\n                    </span>\r\n                    <Chip color={f.color} variant=\"soft\" size=\"sm\">\r\n                      {f.situacao}\r\n                    </Chip>\r\n                  </div>\r\n                </div>\r\n              ))}\r\n            </TabsContent>\r\n\r\n            <TabsContent value=\"historico\" className=\"flex flex-col gap-gp-lg pt-pad-xl\">\r\n              {HISTORICO.map((h) => (\r\n                <div key={h.quando} className=\"flex gap-gp-lg text-body-sm\">\r\n                  <span className=\"shrink-0 tabular-nums text-fg-muted\">{h.quando}</span>\r\n                  <span className=\"min-w-0 text-fg-default\">{h.oque}</span>\r\n                </div>\r\n              ))}\r\n            </TabsContent>\r\n\r\n            <TabsContent value=\"documentos\" className=\"pt-pad-xl\">\r\n              <div className=\"flex flex-col items-center gap-gp-md py-pad-4xl text-center\">\r\n                <FileText className=\"size-icon-lg text-fg-subtle\" />\r\n                <span className=\"text-body-sm text-fg-default\">\r\n                  Nenhum documento anexado\r\n                </span>\r\n                <span className=\"text-caption-md text-fg-muted\">\r\n                  Contrato e conta de energia aparecem aqui quando enviados\r\n                </span>\r\n              </div>\r\n            </TabsContent>\r\n          </Tabs>\r\n        </div>\r\n      </Panel>\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:block",
         "target": "blocks/paneldetail/registro-com-metricas-e-abas.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1933,7 +1934,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1974,7 +1975,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2276,7 +2277,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2372,7 +2373,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2418,7 +2419,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2469,7 +2470,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2605,7 +2606,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2635,7 +2636,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2693,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2773,7 +2774,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2823,7 +2824,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2891,7 +2892,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2933,7 +2934,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3019,7 +3020,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3110,7 +3111,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3134,7 +3135,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3187,7 +3188,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3211,7 +3212,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3236,7 +3237,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3260,7 +3261,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3319,7 +3320,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3381,7 +3382,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3406,7 +3407,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3513,7 +3514,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3559,7 +3560,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3669,7 +3670,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3694,7 +3695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3738,7 +3739,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3787,7 +3788,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3813,7 +3814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3861,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3885,7 +3886,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3960,7 +3961,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3984,7 +3985,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4008,7 +4009,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4032,7 +4033,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4080,7 +4081,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4104,7 +4105,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4129,7 +4130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4153,7 +4154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4179,7 +4180,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4292,7 +4293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4314,7 +4315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4338,7 +4339,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4361,7 +4362,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4407,7 +4408,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4431,7 +4432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4510,7 +4511,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4534,7 +4535,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4558,7 +4559,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4576,7 +4577,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4594,7 +4595,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4612,7 +4613,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4630,7 +4631,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4652,7 +4653,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4703,7 +4704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4729,7 +4730,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4754,7 +4755,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4778,7 +4779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4799,7 +4800,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4821,7 +4822,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.50.0 · a4b8b15 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.50.0 · b30b0bc · 2026-08-27"
     },
     "type": "registry:file"
   }
