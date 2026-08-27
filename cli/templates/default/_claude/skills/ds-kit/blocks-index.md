@@ -16,6 +16,12 @@ Este índice é lido pelo **Passo 0** da skill `ds-kit`, quando o usuário cita 
 |---|---|---|---|---|
 | `dsgreen-chart-1` | Donut de distribuição com rateio | Donut com total no centro + lista das fatias abaixo, onde a cor liga linha e setor. Para distribuição de um total por 3–5 categorias nomeadas. | Card (size="md") · Tabs · Chip · ChartContainer · PieChart (recharts) | `src/blocks/chart/budget-breakdown.tsx` |
 
+## paneldetail
+
+| Código | Composição | Quando serve | Usa | Arquivo |
+|---|---|---|---|---|
+| `dsgreen-paneldetail-1` | Detalhe do registro com métricas e abas internas | Conteúdo de painel de detalhe aberto a partir de uma linha de tabela: identidade + ações, faixa de métricas do registro, campos gerais e abas internas pros recortes profundos. Serve em Panel, FloatingPanel ou Drawer — a casca muda o comportamento, não o arranjo. | KpiGroup (columns=3, divided) + Kpi (size="sm") + KpiDelta · FloatingPanelSection + FloatingPanelField · Tabs (fullWidth, variante default) · Chip · Button (variant ghost/outline, size sm) | `src/blocks/paneldetail/registro-com-metricas-e-abas.tsx` |
+
 ## Como pegar o código do bloco
 
 | modo de consumo | onde o arquivo está |
