@@ -284,8 +284,12 @@ Insere novo objeto no TOPO do array `RELEASES`.
 ### 6.2a Trocar `vNEXT` pelo número desta release
 
 ```bash
-grep -rn "vNEXT" src/components .claude/skills .claude/rules cli/templates/default/_claude
+grep -rn "vNEXT" src/components src/preview/pages .ai/context .claude/skills .claude/rules cli/templates/default/_claude
 ```
+
+⚠️ Esta lista já esteve **menor que a do gate**, e por isso não servia pra encontrar o que o
+gate cobrava: faltavam `src/preview/pages` e `.ai/context`. Ela tem que espelhar
+`RAIZES_PLACEHOLDER` em `scripts/lib/version-claims.mjs` — se divergir, é bug de doc.
 
 Cada ocorrência é uma frase de doc escrita numa feature PR, quando **este número ainda não
 existia** — trocar por `v<new>` (o mesmo do 6.2). Nenhuma → nada a fazer.

@@ -46,6 +46,41 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.50.0",
+    date: "2026-08-27",
+    tag: "preview",
+    title:
+      "CardOption — um componente para os 3 padrões de card-com-controle, e a regra de quando usar cada um",
+    summary:
+      "O DS mostrava três jeitos de fazer \"card com controle\" e só um era componente: o `CardCheckbox`. O card de radio e o card de switch eram markup solto dentro das páginas de doc — e por isso divergiam em 11 dimensões, de alinhamento a preset de label. Quem copiasse da doc levava a versão daquele dia. Agora é um componente com `type` trocável, e junto dele veio o que faltava mais: a regra de QUANDO usar cada um, com fonte externa em vez de opinião.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`CardOption`** — checkbox, radio ou switch apresentado como card clicável (área grande, label + descrição), com o controle trocável por prop. `orientation` e `highlightSelected` **derivam do `type`**: switch vai à direita e sem destaque de selecionado, porque switch é *estado* e não seleção. `CardOptionGroup layout=\"list\"` faz lista com divisórias e vale pros **três** tipos — settings com switch, permissões com checkbox, seletor de linha única com radio. Tamanhos `sm`/`md`/`lg`.",
+          "**A regra de QUANDO usar, com fonte externa.** As duas que mudam decisão não são adivinháveis olhando o componente: **switch = efeito imediato** — \"should take immediate effect and should not require the user to click Save or Submit\" (NN/g), logo tela com botão Salvar leva `type=\"checkbox\"` — e **switch mora em linha de lista**, literal na Apple HIG (\"Use the switch toggle style only in a list row\"). Mais o critério que separa os layouts: opções que se **comparam** (plano, tier, preço) → cards espaçados; itens do mesmo tipo com rótulo curto (settings, permissões, meio de pagamento, endereço) → lista. Acima de ~5 opções não é CardOption, é `Select`/`Combobox`. Entregue nas 3 superfícies (prosa, bloco `ds:regras` injetado na hora de escrever a tag, vocabulário do consumidor) + seção de decisão no showcase.",
+          "**`highlightSelected` no `CardOptionGroup`** — liga ou desliga o destaque de selecionado no grupo inteiro, sem repetir a prop item por item. A do item continua vencendo, nas duas direções.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**`CardCheckbox` virou atalho de `CardOption type=\"checkbox\"`** — API idêntica, **zero migração**. Não foi depreciado porque está no registry, no barrel, no vocabulário do consumidor e em 2 telas reais; componente novo deve usar `CardOption`.",
+          "**Em `layout=\"list\"` o selecionado não pinta por default** — nem com checkbox, nem com radio. É consequência de onde a borda mora: em lista a única borda do item é a de baixo, ou seja a **divisória**, então pintar não contorna o selecionado — colore a linha que o separa do vizinho, e o fundo vira faixa colorida no meio da lista. Quem quer o pintado liga `highlightSelected`.",
+          "`RadioGroupDoc` e `SwitchDoc` passaram a usar o componente em vez do markup à mão. Era ali que a divergência nascia: `has-[[data-state=checked]]` aparecia 5× no repo, **todas** em página de doc e nenhuma em tela real.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "**O comando de atualizar o submódulo estava errado em 5 lugares.** `git pull --recurse-submodules` **não** traz a última versão do submódulo — provado num superprojeto de teste: `--recursive` manteve a v1 e só `git submodule update --remote --merge` avançou pra v2. A página \"Como atualizar\" do showcase, o `README`, o `SUBMODULE-SETUP`, o `ds-link.mjs` e os prompts de instalação todos prescreviam o comando que não faz o trabalho — e quem seguia ficava com o DS velho sem nenhum erro aparecer.",
+          "`CardCheckbox`: o anel de foco era **CSS morto**. Ele declarava `focus-visible:ring-4` no próprio `<label>`, e label não recebe foco — medido no browser, o único anel visível era o do controle de 16px. Agora o anel é do **card**, disparado pelo foco do controle interno via `has-[:focus-visible]`.",
+          "Gate `version-claims --release` não varria `.ai/context/`, onde vive o inventário de componentes que os agentes leem antes de criar qualquer coisa. Dois placeholders de versão desta release teriam sido publicados literais, com o gate verde. E o `grep` que a skill de release manda rodar listava menos pastas que o próprio gate cobrava — as duas listas agora têm que espelhar uma à outra.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.49.0",
     date: "2026-08-24",
     tag: "preview",
