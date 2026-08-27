@@ -46,7 +46,7 @@ a célula do `tabs` tem 816 chars e não cabe num aviso. Primitivo sem bloco = s
 
 <!-- ds:regras drawer
 - é bottom-sheet (vaul): mobile ou gesto de arrastar. Detalhe lateral em desktop → `Panel` (bloqueia) ou `FloatingPanel` (coexiste com a lista)
-- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*` (`-1` registro · `-2` tarefa com abas · `-3` com tabela)
+- painel de DETALHE → siga o bloco `dsgreen-paneldetail-1` (o **padrão**). `-2` (tarefa com abas) e `-3` (com tabela) só se o usuário citar o ID
 -->
 
 <!-- ds:regras select

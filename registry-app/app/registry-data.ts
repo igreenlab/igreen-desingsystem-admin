@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1879,7 +1879,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1910,7 +1910,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1993,7 +1993,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2034,7 +2034,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2336,7 +2336,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2432,7 +2432,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2478,7 +2478,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2529,7 +2529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2665,7 +2665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2695,7 +2695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2752,7 +2752,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2833,7 +2833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2883,7 +2883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2903,7 +2903,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/FloatingPanel/USAGE.md",
-        "content": "# FloatingPanel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*`: registro com muitos campos → `-1` · tarefa com anexo/comentário/log → `-2` · com tabela dentro → `-3` (e aí `size=\"xl\"`)\r\n- em todos: identidade ou contexto no `titleSlot`, ações de ícone `soft` + `aria-label` no `headerActions`, ação primária no `footer` — nunca botão de ação solto no corpo\r\n- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)\r\n- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto\r\n-->\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão → o bloco `dsgreen-paneldetail-1`\r\n\r\n**Painel de detalhe de registro tem estrutura definida, e ela é referenciável por ID.** A\r\ncomposição inteira (com fixture, medições e o porquê de cada decisão) vive em\r\n`src/blocks/paneldetail/` e é renderizada em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor: `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`.\r\n\r\nAs quatro zonas, que são o que a IA erra quando compõe do zero — ela joga tudo no corpo:\r\n\r\n| zona | o que vai | por que |\r\n|---|---|---|\r\n| `titleSlot` | avatar + nome + código · Chip de status | responde \"de quem é este painel\"; fica fixo no scroll |\r\n| `headerActions` | 1–2 ações de ícone, **sempre `variant=\"soft\"`** | `ghost` no meio da fileira fica sem container e lê como desabilitada ao lado do maximize/close, que são `soft` |\r\n| corpo, 1ª seção | métricas em **cards compactos** (não `Kpi`) | responde \"como este registro está?\" — vem antes dos campos, que respondem \"quais são os dados\" |\r\n| corpo, resto | campos em `FloatingPanelSection` por assunto | o colapso é o que permite 20 campos sem obrigar a rolar 20 |\r\n| `footer` | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável |\r\n\r\n⛔ **Não use aba aqui.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o\r\nmecanismo de esconder — ter os dois faz o usuário procurar o dado em dois lugares. Recorte\r\nvolumoso de verdade (extrato de 200 linhas) não é aba nem seção: é outra tela.\r\n\r\n### Anatomia mínima\r\n\r\nUse `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
+        "content": "# FloatingPanel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE → siga o bloco `dsgreen-paneldetail-1`, que é o **padrão**. As variações são opt-in: use `-2` (tarefa com abas) ou `-3` (com tabela, `size=\"xl\"`) **só se o usuário citar o ID**\r\n- em todos: identidade ou contexto no `titleSlot`, ações de ícone `soft` + `aria-label` no `headerActions`, ação primária no `footer` — nunca botão de ação solto no corpo\r\n- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)\r\n- é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto\r\n-->\r\n\r\nDrawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).\r\n\r\n## Quando usar\r\n- Detail panel que precisa ficar visível enquanto user interage com lista atrás\r\n- Side-drawer leve sem bloquear navegação\r\n- Painel de propriedades estilo Figma/Notion\r\n\r\n## Import\r\n```tsx\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelSection, // seção colapsável (detail panel)\r\n  FloatingPanelField,   // linha label : valor\r\n} from \"@/components/ui/FloatingPanel\";\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Quando |\r\n|---|---|---|---|\r\n| `side` | left / right | right | Lado de ancoragem |\r\n| `size` | sm / md / lg / xl / number (px) | md | sm=320, md=400, lg=560, xl=720px. `number` = largura custom em px; com `resizable`, vira a largura inicial |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade |\r\n| `onOpenChange` | (open: boolean) => void | Callback de fechamento |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título |\r\n| `hideClose` | boolean | Esconde o botão X de fechar (default `false`) |\r\n| `resizable` | boolean | Habilita drag-resize (desabilitado em mobile) |\r\n| `resizableMinWidth` / `resizableMaxWidth` | number | Bounds do resize em px (defaults `320` / `800`). São **px cegos à viewport** — quem impede o estouro é o teto `md:max-w-[calc(100vw-48px)]` do próprio painel, que mantém o gutter de 24px dos dois lados. Antes dele, props default numa janela de 800px punham a borda esquerda em **-24px** (800 de largura + 24 de gutter = 824 necessários) |\r\n| `resizableStorageKey` | string | Chave do localStorage pra persistir width entre sessões |\r\n| `maximizable` | boolean | Botão de expandir pra fullscreen |\r\n| `headerActions` | ReactNode | Slots no header |\r\n| `footer` | ReactNode | Slot do footer sticky |\r\n| `titleSlot` | ReactNode | Override total do header (avatar + nome custom) |\r\n| `bodyPadded` | boolean | Padding interno padrão do body (gutter 18px). **Default `true`** — conteúdo livre já respira. Use `false` com `<FloatingPanelSection>` (sections gerenciam o próprio padding edge-to-edge) |\r\n\r\n## Exemplo mínimo (conteúdo livre — padding automático)\r\n```tsx\r\n<FloatingPanel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  size=\"md\"\r\n  title=\"Detalhes do cliente\"\r\n  description=\"Última edição há 2h\"\r\n  resizable\r\n  maximizable\r\n  footer={<><Button variant=\"ghost\">Cancelar</Button><Button>Salvar</Button></>}\r\n>\r\n  {/* bodyPadded=true (default) → conteúdo já tem gutter, não precisa de p-* manual */}\r\n  <ClientDetails />\r\n</FloatingPanel>\r\n```\r\n\r\n## Detail panel padrão → o bloco `dsgreen-paneldetail-1`\r\n\r\n**Painel de detalhe de registro tem estrutura definida, e ela é referenciável por ID.** A\r\ncomposição inteira (com fixture, medições e o porquê de cada decisão) vive em\r\n`src/blocks/paneldetail/` e é renderizada em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor: `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`.\r\n\r\nAs quatro zonas, que são o que a IA erra quando compõe do zero — ela joga tudo no corpo:\r\n\r\n| zona | o que vai | por que |\r\n|---|---|---|\r\n| `titleSlot` | avatar + nome + código · Chip de status | responde \"de quem é este painel\"; fica fixo no scroll |\r\n| `headerActions` | 1–2 ações de ícone, **sempre `variant=\"soft\"`** | `ghost` no meio da fileira fica sem container e lê como desabilitada ao lado do maximize/close, que são `soft` |\r\n| corpo, 1ª seção | métricas em **cards compactos** (não `Kpi`) | responde \"como este registro está?\" — vem antes dos campos, que respondem \"quais são os dados\" |\r\n| corpo, resto | campos em `FloatingPanelSection` por assunto | o colapso é o que permite 20 campos sem obrigar a rolar 20 |\r\n| `footer` | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável |\r\n\r\n⛔ **Não use aba aqui.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o\r\nmecanismo de esconder — ter os dois faz o usuário procurar o dado em dois lugares. Recorte\r\nvolumoso de verdade (extrato de 200 linhas) não é aba nem seção: é outra tela.\r\n\r\n### Anatomia mínima\r\n\r\nUse `bodyPadded={false}` (as sections têm padding + divisória própria):\r\n\r\n```tsx\r\n<FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>\r\n  <FloatingPanelSection title=\"Contato\">          {/* colapsável (default) */}\r\n    <FloatingPanelField label=\"Email\" value={<a href={...}>{email}</a>} />\r\n    <FloatingPanelField label=\"Telefone\" value={phone} />\r\n  </FloatingPanelSection>\r\n  <FloatingPanelSection title=\"Financeiro\" defaultOpen={false}>\r\n    <FloatingPanelField label=\"Saldo\" value={formatBRL(saldo)} />\r\n  </FloatingPanelSection>\r\n</FloatingPanel>\r\n```\r\n\r\n- `FloatingPanelSection` — props: `title`, `collapsible` (default `true`), `defaultOpen` (default `true`).\r\n- `FloatingPanelField` — props: `label`, `value` (fallback \"—\" quando vazio).\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do FloatingPanel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). Aqui é o caso mais forte da prop: o painel é **redimensionável em runtime** (`sm` 320 · `md` 400 · `lg` 560 · `xl` 720, e o usuário arrasta), então nenhuma largura escrita na mão acompanha — `fullWidth` distribui os triggers e a aba segue o arrasto.\r\n\r\n- Renderizado via **portal em document.body** — escapa de overflow/transform ancestrais\r\n- Em mobile (<md) vira **sheet bottom-up colado nas bordas** do device: flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`\r\n- **Backdrop só em mobile** — scrim suave (toque fora fecha). No **desktop segue non-modal** (sem backdrop, página atrás clicável). Pra modal full use `<Modal>` ou `<AlertModal>`\r\n- **Body com scroll automático** (`overflow-y-auto` + `min-h-0`) — header/footer ficam fixos, conteúdo longo rola\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- `maximizable=true` adiciona botão de expandir; estado controlado internamente — `defaultMaximized` (default `false`) inicia maximizado\r\n- **ESC fecha por padrão** (`closeOnEscape` default `true`) — passe `false` pra desativar\r\n",
         "type": "registry:file",
         "target": "components/ui/FloatingPanel/USAGE.md"
       },
@@ -2951,7 +2951,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2993,7 +2993,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3079,7 +3079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3170,7 +3170,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3194,7 +3194,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3247,7 +3247,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3271,7 +3271,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3296,7 +3296,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3320,7 +3320,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3379,7 +3379,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3466,7 +3466,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3573,7 +3573,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3619,7 +3619,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3729,7 +3729,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3754,7 +3754,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3798,7 +3798,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3847,7 +3847,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3873,7 +3873,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3920,7 +3920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3945,7 +3945,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3966,7 +3966,7 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/Panel/USAGE.md",
-        "content": "# Panel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*` (`-1` registro · `-2` tarefa com abas · `-3` com tabela, em 720px)\r\n- header aqui é só STRING (`title`/`description`): precisa de avatar, Chip de status ou ação de ícone? → `FloatingPanel`\r\n- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)\r\n-->\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Painel de DETALHE de registro → o bloco `dsgreen-paneldetail-1`\r\n\r\nDetalhe de registro tem estrutura definida e referenciável por ID: a composição inteira mora\r\nem `src/blocks/paneldetail/` e renderiza em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor — `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`. As zonas\r\n(identidade no header · métricas em cards · seções colapsáveis · ação primária no footer) e o\r\nporquê de cada uma estão documentados no arquivo do bloco.\r\n\r\n⚠️ **O bloco usa `FloatingPanel`, e a razão é este componente aqui:** o header do `Panel`\r\naceita `title`/`description` como **string**, então avatar, `Chip` de status inline e ação de\r\nícone não cabem nele. Precisa desse header → `FloatingPanel` (`titleSlot` + `headerActions`).\r\nEscolha o `Panel` quando o que importa é **bloquear** a tela atrás e o header é texto simples.\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
+        "content": "# Panel — USAGE\r\n\r\n<!-- ds:regras\r\n- painel de DETALHE → siga o bloco `dsgreen-paneldetail-1` (o **padrão**). `-2` (tarefa com abas) e `-3` (com tabela) só se o usuário citar o ID\r\n- header aqui é só STRING (`title`/`description`): precisa de avatar, Chip de status ou ação de ícone? → `FloatingPanel`\r\n- form dentro dele → `<FormField>` + `gap-form-gap`, nunca `<label>` cru\r\n- aba dentro dele → `<Tabs fullWidth>` na variante default (560px é estreito pro `line`)\r\n-->\r\n\r\nDrawer flutuante lateral (right/left/top/bottom) — default `md` (560px) com header + body scrollável + footer sticky.\r\n\r\n## Quando usar\r\n- Detail/edit panel que precisa de mais espaço que `<Modal>`\r\n- Forms longos com seções (preferível a Modal large)\r\n- Quando user precisa ver conteúdo ao lado enquanto interage\r\n\r\n## Import\r\n```tsx\r\nimport { Panel } from \"@/components/ui/Panel\";\r\n\r\n// Composição manual (avançado): PanelRoot, PanelTrigger, PanelContent,\r\n// PanelHeader, PanelBody, PanelFooter, PanelCloseAction\r\n```\r\n\r\n## Variants\r\n| Variant | Valores | Default | Tamanho |\r\n|---|---|---|---|\r\n| `side` | right / left / top / bottom | right | right/left: largura via `size`, altura full (gutter 24px); top/bottom: largura via inset, altura conforme conteúdo |\r\n| `size` | sm / md / lg / xl / full \\| string CSS | md | 320 / 560 / 720 / 920px / full (viewport − gutter). Aceita CSS arbitrário: `\"720px\"`, `\"60vw\"` |\r\n\r\n## Props essenciais\r\n| Prop | Tipo | Função |\r\n|---|---|---|\r\n| `open` | boolean | Visibilidade (controlled) |\r\n| `onOpenChange` | (open: boolean) => void | Callback de abertura/fechamento (o X do header fecha por aqui) |\r\n| `trigger` | ReactNode | Elemento que abre o panel sem state externo (vira `<SheetTrigger asChild>`) |\r\n| `side` | \"right\" \\| \"left\" \\| \"top\" \\| \"bottom\" | Lado de ancoragem (default: \"right\") |\r\n| `size` | \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\" \\| \"full\" \\| string | Largura (default: \"md\" = 560px) |\r\n| `title` | string | Header title |\r\n| `description` | string | Header subtitle |\r\n| `titleIcon` | LucideIcon | Ícone à esquerda do título (cor brand) |\r\n| `footer` | ReactNode | Footer sticky — geralmente botões de ação (único caminho pro footer no modo all-in-one) |\r\n\r\n## Exemplo mínimo\r\n```tsx\r\n<Panel\r\n  open={panelOpen}\r\n  onOpenChange={setPanelOpen}\r\n  side=\"right\"\r\n  title=\"Editar cliente\"\r\n  description=\"Salvo automaticamente\"\r\n  footer={\r\n    <>\r\n      <Button variant=\"ghost\" onClick={() => setPanelOpen(false)}>Cancelar</Button>\r\n      <Button onClick={handleSave}>Salvar</Button>\r\n    </>\r\n  }\r\n>\r\n  <ClientForm />\r\n</Panel>\r\n```\r\n\r\n## Painel de DETALHE de registro → o bloco `dsgreen-paneldetail-1`\r\n\r\nDetalhe de registro tem estrutura definida e referenciável por ID: a composição inteira mora\r\nem `src/blocks/paneldetail/` e renderiza em `#/blocks-paneldetail`. Cite o ID em vez de\r\nrecompor — `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`. As zonas\r\n(identidade no header · métricas em cards · seções colapsáveis · ação primária no footer) e o\r\nporquê de cada uma estão documentados no arquivo do bloco.\r\n\r\n⚠️ **O bloco usa `FloatingPanel`, e a razão é este componente aqui:** o header do `Panel`\r\naceita `title`/`description` como **string**, então avatar, `Chip` de status inline e ação de\r\nícone não cabem nele. Precisa desse header → `FloatingPanel` (`titleSlot` + `headerActions`).\r\nEscolha o `Panel` quando o que importa é **bloquear** a tela atrás e o header é texto simples.\r\n\r\n## Cuidados / Gotchas\r\n- **Aba dentro do Panel** → `<Tabs fullWidth>` com a variante **default** (`segmented`). O Panel tem 560px: `line` aqui vira um trilho curto que lê como fragmento, e sem `fullWidth` as abas ficam num canto. `line` só se houver um `segmented` num nível acima.\r\n\r\n- **Children são auto-embrulhados em `<PanelBody>`** — NÃO passar `<PanelBody>`/`<PanelFooter>` como filhos do `<Panel>` (duplica o body e o footer perde o sticky). Footer vai SEMPRE via prop `footer`. Pra composição manual, usar `PanelRoot`/`PanelTrigger`/`PanelContent` do barrel\r\n- **Modal** (com backdrop suave / `SheetOverlay`) — bloqueia interação com página atrás. Pra non-modal, usar `<FloatingPanel>`\r\n- **Mobile (<md)**: independente do `side`, vira **sheet bottom-up colado nas bordas** do device — flush nas laterais + bottom, só cantos superiores arredondados, sem outline/shadow, `max-height: 92vh`, slide bottom-up. O backdrop (modal) continua\r\n- Body é único elemento scrollável (`overflow-y-auto` + `min-h-0`) — header e footer ficam fixos; conteúdo longo rola automaticamente\r\n- **Footer fluido**: botões crescem lado a lado e **empilham quando não cabem** (`flex-wrap` + `flex-1` + `min-w-140px`). Não precisa passar `fullWidth` nos Buttons\r\n- No desktop o `side` controla orientação/slide normalmente (right/left/top/bottom)\r\n",
         "type": "registry:file",
         "target": "components/ui/Panel/USAGE.md"
       },
@@ -4020,7 +4020,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4044,7 +4044,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4068,7 +4068,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4092,7 +4092,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4140,7 +4140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4164,7 +4164,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4189,7 +4189,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4213,7 +4213,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4239,7 +4239,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4352,7 +4352,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4374,7 +4374,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4398,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4421,7 +4421,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4467,7 +4467,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4491,7 +4491,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4570,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4618,7 +4618,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4636,7 +4636,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4654,7 +4654,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4672,7 +4672,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4690,7 +4690,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4712,7 +4712,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4763,7 +4763,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4789,7 +4789,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4814,7 +4814,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4838,7 +4838,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4859,7 +4859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4881,7 +4881,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.52.0 · 05b1790 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.52.0 · 8479dd1 · 2026-08-27"
     },
     "type": "registry:file"
   }

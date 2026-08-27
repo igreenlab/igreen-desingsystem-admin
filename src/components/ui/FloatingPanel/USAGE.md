@@ -1,7 +1,7 @@
 # FloatingPanel — USAGE
 
 <!-- ds:regras
-- painel de DETALHE → siga um bloco da família `dsgreen-paneldetail-*`: registro com muitos campos → `-1` · tarefa com anexo/comentário/log → `-2` · com tabela dentro → `-3` (e aí `size="xl"`)
+- painel de DETALHE → siga o bloco `dsgreen-paneldetail-1`, que é o **padrão**. As variações são opt-in: use `-2` (tarefa com abas) ou `-3` (com tabela, `size="xl"`) **só se o usuário citar o ID**
 - em todos: identidade ou contexto no `titleSlot`, ações de ícone `soft` + `aria-label` no `headerActions`, ação primária no `footer` — nunca botão de ação solto no corpo
 - `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)
 - é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto
