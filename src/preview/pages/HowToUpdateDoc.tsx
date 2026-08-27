@@ -126,7 +126,7 @@ export function HowToUpdateDoc() {
             {
               canal: "Submódulo",
               sinal: ".gitmodules aponta pro DS",
-              cmd: "git pull --recurse-submodules && npm --prefix design-system run ds:link",
+              cmd: "git submodule update --remote --merge && npm --prefix design-system run ds:link",
             },
           ].map((r) => (
             <div
@@ -322,14 +322,33 @@ npm i @snksergio/design-system@latest`}
         <Cenario
           titulo="Puxar e re-projetar o kit"
           quando="o DS é uma pasta do seu projeto (.gitmodules)"
-          comando={`git pull --recurse-submodules
+          comando={`git submodule update --remote --merge
+git add . && git commit -m "chore: atualiza o design system"
 npm --prefix design-system run ds:link`}
         />
         <p className="text-body-md text-fg-muted">
+          ⚠️ <strong className="text-fg-default">É <Code>--remote</Code>, não <Code>git pull --recurse-submodules</Code>.</strong>{" "}
+          Esta página prescrevia o <Code>pull</Code> até 27/08/2026, e estava errado: o{" "}
+          <Code>--recurse-submodules</Code> refaz o checkout do commit que o repositório{" "}
+          <strong className="text-fg-default">pai já registra</strong> — quem quer a versão nova
+          do DS não recebe nada. Medido com superprojeto de teste: com o ponteiro numa versão
+          antiga, o <Code>--recursive</Code> a manteve e só o <Code>--remote</Code> foi pro topo
+          do branch. O <Code>commit</Code> da segunda linha também é necessário — o{" "}
+          <Code>--remote</Code> deixa o ponteiro do pai modificado, e sem commitar ele volta
+          atrás no próximo checkout.
+        </p>
+        <p className="text-body-md text-fg-muted">
           O <Code>ds:link</Code> é <strong className="text-fg-default">idempotente</strong> e
-          limpa o que foi removido upstream — rode sempre depois do pull. Sem ele o código novo
-          entra mas o kit de IA fica na versão anterior:{" "}
+          limpa o que foi removido upstream — rode sempre depois de atualizar. Sem ele o código
+          novo entra mas o kit de IA fica na versão anterior:{" "}
           <strong className="text-fg-default">as skills continuam ensinando o padrão antigo</strong>.
+        </p>
+        <p className="text-body-md text-fg-muted">
+          <strong className="text-fg-default">Leia a saída do <Code>ds:link</Code>.</strong> Ele{" "}
+          <strong className="text-fg-default">pula</strong> arquivo do seu projeto que colide com
+          o do kit, avisando <Code>colisão (arquivo do consumidor) — pulado</Code>. Se o pulado
+          não foi você que escreveu, re-rode com <Code>--force</Code>. Linkou de verdade quando
+          existem <Code>.claude/.ds-linked.json</Code> e <Code>.claude/ds-config.json</Code>.
         </p>
         <p className="text-body-md text-fg-muted">
           Este canal <strong className="text-fg-default">não</strong> depende de publish do npm:
@@ -352,7 +371,7 @@ npm --prefix design-system run ds:link`}
             <div className="py-pad-md px-pad-xl text-body-xs font-medium text-fg-default">Como o kit atualiza</div>
           </div>
           {[
-            { c: "Submódulo", a: "git pull --recurse-submodules + npm --prefix design-system run ds:link" },
+            { c: "Submódulo", a: "git submodule update --remote --merge + commit do ponteiro + npm --prefix design-system run ds:link" },
             { c: "Copy-in", a: "npx @snksergio/create-design-system@latest --only-kit --force na raiz" },
             { c: "Scaffold", a: "projeto novo já nasce com o kit da versão que você rodou" },
           ].map((r) => (

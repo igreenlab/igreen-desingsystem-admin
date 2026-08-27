@@ -219,7 +219,8 @@ git -c core.longpaths=true submodule add <url> design-system
 
 ## Depois de atualizar o submódulo
 
-Ao dar `git submodule update --remote` (ou `git pull --recurse-submodules`), **re-rode** o
+Ao dar `git submodule update --remote --merge` — e **não** `git pull --recurse-submodules`,
+que só refaz o checkout do commit que o repo pai já registra —, **re-rode** o
 link pra ressincronizar as skills com a versão nova:
 
 ```bash

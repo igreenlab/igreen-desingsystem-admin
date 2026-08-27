@@ -8,7 +8,13 @@
  * numa subpasta, todo o kit fica invisível. Este script copia o payload
  * consumidor (`cli/templates/default/_claude`) — o mesmo que o CLI npm usa — para
  * o `.claude/` do pai, tornando `/ds-create-crud`, `/ds-create-dashboard`, etc.
- * descobríveis nativamente. Idempotente: re-rode após `git pull --recurse-submodules`.
+ * descobríveis nativamente. Idempotente: re-rode após atualizar o submódulo.
+ *
+ * ⚠️ Atualizar o submódulo é `git submodule update --remote`, NÃO `git pull
+ * --recurse-submodules`. Este comentário dizia o segundo até 2026-08-27, e está errado: o
+ * `--recurse-submodules` refaz o checkout do commit que o repo PAI já registra, então quem
+ * quer a versão nova do DS não recebe nada. Medido com superprojeto de teste — com o
+ * ponteiro em v1, o `--recursive` manteve v1 e só o `--remote` foi pro topo do branch.
  *
  * Uso (a partir da RAIZ do repo pai):
  *   node <submodulo>/scripts/ds-link.mjs [opções]
