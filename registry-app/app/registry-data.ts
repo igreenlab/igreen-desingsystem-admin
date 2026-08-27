@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -496,7 +496,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -546,7 +546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -568,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -594,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -630,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -704,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -757,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -779,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -895,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -922,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -947,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1873,13 +1873,13 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/blocks/paneldetail/detalhe-do-registro.tsx",
-        "content": "import { useState } from \"react\";\nimport { Check, Circle, MessageCircle, Pencil, PiggyBank, Receipt } from \"lucide-react\";\nimport type { LucideIcon } from \"@/lib/lucide-types\";\nimport { Avatar } from \"@/components/ui/avatar-ig\";\nimport { Button } from \"@/components/ui/Button\";\nimport { Chip } from \"@/components/ui/Chip\";\nimport {\n  FloatingPanel,\n  FloatingPanelField,\n  FloatingPanelSection,\n} from \"@/components/ui/FloatingPanel\";\n\nexport const BLOCK = {\n  id: \"dsgreen-paneldetail-1\",\n  nome: \"Painel de detalhe do registro\",\n  descricao:\n    \"Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.\",\n  usa: [\n    \"FloatingPanel (side=\\\"right\\\", size=\\\"lg\\\", titleSlot + headerActions + maximizable + resizable + bodyPadded={false})\",\n    \"FloatingPanelSection + FloatingPanelField\",\n    \"MetricaCartoes — cards compactos próprios (ícone + valor + rótulo); NÃO o Kpi\",\n    \"Avatar (colorHex, contraste WCAG automático)\",\n    \"Chip (soft) · Button (icon-sm no header, sm no footer)\",\n  ],\n} as const;\n\n/**\n * dsgreen-paneldetail-1 — painel de detalhe de um registro, aberto da linha da tabela.\n *\n * ## O que este bloco resolve\n *\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**, e\n * **onde cada coisa mora**: o painel tem header, corpo e footer com papéis distintos, e\n * jogar tudo no corpo é o erro que faz o resultado parecer improvisado.\n *\n * | zona | o que vai | por que |\n * |---|---|---|\n * | **header** (`titleSlot`) | avatar + nome + código · status | responde \"de quem é este painel\", e fica fixo no scroll |\n * | **header** (`headerActions`) | ações de ícone (editar, contatar) | ações frequentes e sem rótulo, à mão sem rolar |\n * | corpo, 1ª faixa | **métricas** do registro | responde \"como este registro está?\", que é a pergunta de quem abriu — vem antes dos campos, que respondem \"quais são os dados dele\" |\n * | corpo, resto | campos em **seções colapsáveis** por assunto | é o colapso que permite ter 20 campos sem obrigar a rolar 20 |\n * | **footer** | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável (footer é sticky) |\n *\n * **Não há abas.** Elas estavam aqui e saíram: aba esconde conteúdo, e num painel onde o corpo\n * já é uma pilha de seções colapsáveis, o colapso **é** o mecanismo de esconder. Ter os dois é\n * dizer a mesma coisa de duas formas, e o usuário passa a ter que descobrir em qual das duas o\n * dado está. Se um recorte for volumoso de verdade (extrato com 200 linhas), ele não é seção\n * nem aba: é outra tela.\n *\n * ## Por que `FloatingPanel` e não `Panel` — foi o HEADER que decidiu\n *\n * As duas primeiras versões deste bloco usaram `Panel`, e o header saía fora do padrão dos\n * painéis reais. A causa é de API, não de estilo: o `Panel` aceita `title` e `description`\n * como **string**, e o header dos painéis de referência tem avatar, `Chip` de status inline e\n * botões de ícone — nada disso cabe numa string. O `FloatingPanel` expõe exatamente isso:\n *\n * | o que o header precisa | prop |\n * |---|---|\n * | avatar + nome + código · status | `titleSlot` (JSX, substitui title/description) |\n * | 1–2 ações de ícone | `headerActions` (entram à esquerda do maximize/close) |\n * | expandir | `maximizable` — o botão é do componente, não se escreve |\n * | fechar | nativo (o X sempre está lá; `hideClose` remove) |\n *\n * **Bônus:** `bodyPadded={false}` resolveu, com uma prop, o `-mx-pad-3xl` que a versão em\n * `Panel` precisava pra fazer a divisória das seções chegar na borda. A prop existe justamente\n * pra este caso — seção de detalhe é edge-to-edge por desenho.\n *\n * ### E as outras duas cascas\n *\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral; a diferença é\n * **comportamento** — o corpo é o mesmo nos três:\n *\n * | casca | comportamento | quando |\n * |---|---|---|\n * | **`FloatingPanel`** (esta) | non-modal, resizável, maximizável, sem backdrop | detalhe que coexiste com a lista atrás: o usuário compara, ou percorre linha por linha |\n * | `Panel` | modal, com backdrop | o detalhe é a tarefa e a lista pode esperar. ⚠️ header só com strings |\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\n *\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\n *\n * - **`bodyPadded={false}` é obrigatório com `FloatingPanelSection`.** É regra declarada no\n *   `USAGE.md` do componente: a seção traz o próprio padding de 18px e uma divisória de ponta\n *   a ponta; com o body padded o padding soma e a divisória para longe da borda.\n * - **Campo que não é `label: valor` sai do `FloatingPanelField`.** Três casos aqui, e cada um\n *   tem um motivo medido: a **conta bancária** é entidade (marca + nome + agência/conta) e\n *   comprimida na coluna da direita ela trunca — vai numa linha de largura cheia; os\n *   **métodos** são itens discretos e viram `Chip`, não texto com vírgula; **e-mail e\n *   telefone** são ações (`mailto:`/`tel:`) e por isso levam cor de link.\n * - **`Avatar` com `colorHex` escolhe a cor do texto por contraste WCAG** (L-027). `#820AD1`\n *   do Nubank dá branco (6.2 : 1); `#FAE128` do BB daria preto (16.3 : 1). Nunca escreva\n *   `text-white` na unha num avatar de marca — em marca clara isso vira texto ilegível.\n * - **Ação de ícone precisa de `aria-label`.** Botão `size=\"icon-sm\"` não tem texto: sem o\n *   label o leitor de tela anuncia \"button\" e pronto.\n * - **Toda ação do header é `variant=\"soft\"`, nunca `ghost`.** O maximize e o close que o\n *   `FloatingPanel` renderiza são `soft`+`secondary`; uma ação `ghost` no meio da fileira fica\n *   sem container e lê como desabilitada ao lado das outras. O que diferencia é a **cor**\n *   (`secondary` neutro, `success` contato, `critical` destrutivo), não a ausência de fundo.\n * - **Métrica em painel NÃO é o `Kpi` do DS** — ver o JSDoc do `MetricaCartoes`. O `Kpi` é card\n *   de dashboard: medido aqui, 172×144px por célula, três delas comendo a primeira dobra do\n *   painel antes de qualquer campo. No painel a métrica é contexto, não o assunto.\n * - ⚠️ Se ainda assim usar `KpiGroup`: **`columns` é responsivo ao VIEWPORT, não ao\n *   container** (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`). Num painel de 560px em desktop,\n *   `columns={3}` continua dando 3 colunas — a estreiteza do painel é invisível pro grid.\n * - **A métrica também é seção colapsável.** Uma gramática só no corpo: métricas, campos e\n *   tudo mais entram como `FloatingPanelSection`. Faixa solta acima das seções criava uma\n *   segunda gramática visual no mesmo painel.\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam de um campo pro outro.\n * - **Se um dia voltar a ter aba aqui: `fullWidth`, variante default (`segmented`).** Regra do\n *   `USAGE.md` do `Panel` e do `FloatingPanel` — em 560px o `line` vira um trilho curto que lê\n *   como fragmento. (Este bloco não tem aba; ver a nota acima.)\n *\n * ## Cuidado ao adaptar\n *\n * - **O botão daqui é do EXEMPLO.** No seu CRUD quem abre o painel é a linha selecionada da\n *   tabela: `open={!!linhaSelecionada}` e `onOpenChange={(o) => !o && limparSelecao()}`.\n * - **`resizableStorageKey` só se o painel for recorrente.** Ele persiste a largura no\n *   `localStorage` — ótimo num painel que o usuário abre 50× por dia, ruído num painel raro.\n *   Use chave namespaced (`clientes.detail-panel.width`), senão dois painéis diferentes\n *   dividem a mesma largura.\n * - **As seções são por ASSUNTO, e o assunto é do seu domínio.** Empresa / Conta bancária /\n *   Financeiro / Contato / Gestão é o recorte de um cliente de energia; num painel de pedido\n *   seria Itens / Entrega / Pagamento. Não herde estes títulos — herde o critério: cada seção\n *   responde uma pergunta, e campo que não responde a pergunta da seção está na seção errada.\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao dashboard\n *   ou ao topo da lista.\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\n *   condicione a linha; passe o valor e deixe o componente resolver.\n */\n\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\n *  forma do dado esperado sem inferir do render. */\nconst REGISTRO = {\n  nome: \"Padaria Estrela do Sul\",\n  iniciais: \"PE\",\n  codigo: \"CLI-2478\",\n  status: \"Ativo\",\n  documento: \"12.345.678/0001-90\",\n};\n\nconst METRICAS = [\n  { icone: PiggyBank, label: \"Economia no ano\", value: \"R$ 3.180\", tom: \"brand\" as const },\n  { icone: Receipt, label: \"Em aberto\", value: \"R$ 892\", tom: \"danger\" as const },\n];\n\nconst CONTA = {\n  banco: \"Nubank\",\n  iniciais: \"NU\",\n  hex: \"#820AD1\",\n  agencia: \"3849\",\n  conta: \"18701-9\",\n};\n\nconst METODOS = [\"PIX\", \"Boleto\"];\n\nconst CONTATO = {\n  email: \"contato@estreladosul.com.br\",\n  telefone: \"+55 31 98901-2345\",\n  local: \"Belo Horizonte, MG\",\n};\n\nconst GESTOR = { nome: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\" };\n\nconst CONSTRUCAO = {\n  situacao: \"Em construção\",\n  itens: [\n    { label: \"Clientes do mês (green/telecom/seguro)\", feitos: 3, total: 5 },\n    { label: \"Conexão livre\", feitos: 1, total: 1 },\n    { label: \"Placa\", feitos: 0, total: 1 },\n    { label: \"Solar\", feitos: 1, total: 1 },\n    { label: \"Licenciados cadastrados\", feitos: 1, total: 2 },\n    { label: \"Club\", feitos: 0, total: 1 },\n  ],\n};\n\ntype MetricaItem = {\n  icone: LucideIcon;\n  label: string;\n  value: string;\n  tom: \"brand\" | \"danger\" | \"neutro\";\n};\n\n/** Cor do valor por tom. Fora do componente porque o tom é decisão de leitura, não de sinal. */\nconst COR_DO_TOM: Record<MetricaItem[\"tom\"], string> = {\n  brand: \"text-fg-brand\",\n  danger: \"text-fg-danger\",\n  neutro: \"text-fg-default\",\n};\n\n/**\n * **Métrica de painel — cards compactos, um por métrica.**\n *\n * ## Por que não é o `Kpi` do DS\n *\n * Não é rejeição do componente: é escala errada pro lugar. O `Kpi` é card de **dashboard** —\n * `p-pad-3xl` (20px), label de 14px, slot pra sparkline, `hint` e `delta`. Num painel de\n * detalhe a métrica é **contexto**, não o assunto: quem abriu quer os dados do registro, e a\n * métrica só emoldura.\n *\n * Medido no browser, antes e depois:\n *\n * | | por item | conjunto |\n * |---|---|---|\n * | `Kpi size=\"sm\"`, `columns={3}` | 172 × **144px** | 146px (3 métricas) |\n * | este | 257 × **68px** | 68px (2 métricas) |\n *\n * ## Card próprio, e não uma faixa dividida\n *\n * A alternativa testada foi uma superfície única com `divide-x` (mesma altura, coluna 3px mais\n * larga). A diferença entre as duas é **só o container**, e é isso que ela comunica: a faixa\n * afirma que as métricas formam um conjunto; os cards afirmam que cada uma é independente.\n * Economia e inadimplência são dois assuntos → cards. Total/pago/em aberto são três faces do\n * mesmo número → faixa.\n *\n * ## Duas travas de layout\n *\n * 1. **O número de colunas segue o número de métricas** (`grid-cols-2` com duas). Não é\n *    responsivo de propósito: num painel de 560px a decisão é fixa. Acima de 3 não cabe, e a\n *    resposta é cortar métrica, não encolher coluna — em 4 colunas cada uma fica com ~127px e\n *    o par ícone + valor quebra linha.\n * 2. **Ícone + valor na mesma linha depende do valor ser 18px.** Com `stat-sm` (20px) o par\n *    não cabia em 3 colunas e a 1ª versão saiu sem ícone; o ícone voltou junto com a redução.\n *    Se o valor crescer, **o ícone é a primeira coisa que quebra**.\n *\n * O 18px vem de `body-xl`, não de `stat-*`: o role `stat` começa em 20px (sm) e não tem tier\n * abaixo. Com `font-bold` + `tabular-nums` a leitura de valor se mantém. Se precisar disso em\n * mais lugares, o certo é um `stat-xs` no `typography.ts` via cascata — não repetir esta\n * combinação por aí.\n */\nfunction MetricaCartoes({ itens }: { itens: MetricaItem[] }) {\n  return (\n    <div className=\"grid grid-cols-2 gap-gp-md\">\n      {itens.map(({ icone: Icone, ...m }) => (\n        <div\n          key={m.label}\n          className=\"flex flex-col gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl\"\n        >\n          <div className={`flex items-center gap-gp-sm ${COR_DO_TOM[m.tom]}`}>\n            <Icone className=\"size-icon-sm shrink-0\" aria-hidden=\"true\" />\n            <span className=\"text-body-xl font-bold tabular-nums leading-none\">{m.value}</span>\n          </div>\n          <span className=\"text-caption-sm text-fg-muted\">{m.label}</span>\n        </div>\n      ))}\n    </div>\n  );\n}\n\n/**\n * **Checklist de progresso** — a lista de metas do registro, com o que já fechou.\n *\n * ## O que ela resolve, e por que não é `Progress`\n *\n * O dado aqui não é \"quanto por cento\" — é **quais itens faltam**. Uma barra de `Progress`\n * responde a primeira pergunta e apaga a segunda: 4 de 11 não diz que o que falta é Placa e\n * Club. A lista mantém as duas leituras (o contador por item e o quadro geral) e é ela que\n * permite agir.\n *\n * ## A faixa de situação é uma FAIXA, não um `Chip`\n *\n * `Chip` é rótulo inline — o que ele faz bem é caber ao lado de um texto. Aqui a situação é o\n * cabeçalho do bloco: largura cheia, centralizada, `rounded-radius-full`. Forçar um Chip a\n * `w-full` deforma um componente pra fazer o trabalho de outro. Tom em `warning` porque\n * \"em construção\" é estado transitório com prazo, não erro nem sucesso.\n *\n * ## Estado não fica só no ícone (WCAG 1.4.1)\n *\n * O ✔ verde e o círculo vazio são **redundantes** — quem lê a informação é o contador\n * `(1/1)` vs `(0/1)`, que é texto e é anunciado pelo leitor de tela. Por isso os ícones são\n * `aria-hidden`. Se um dia o contador sair, o estado passa a viver só em cor + forma, e aí\n * precisa de texto alternativo: **não remova o contador sem repor a informação.**\n *\n * ## Cuidado ao adaptar\n *\n * - `concluido` deriva de `feitos >= total`, não de um booleano à parte. Dois campos que podem\n *   discordar (\"feito\" true com 1 de 3) é bug esperando acontecer.\n * - Lista longa (15+) some dentro do painel — aí ela não é seção, é tela própria com filtro.\n */\nfunction ListaDeProgresso({\n  situacao,\n  itens,\n}: {\n  situacao: string;\n  itens: { label: string; feitos: number; total: number }[];\n}) {\n  return (\n    <div className=\"flex flex-col gap-gp-lg\">\n      <div className=\"rounded-radius-full bg-bg-warning-muted py-pad-md text-center text-body-sm font-semibold text-fg-warning\">\n        {situacao}\n      </div>\n\n      <ul className=\"flex flex-col gap-gp-md\">\n        {itens.map((i) => {\n          const concluido = i.feitos >= i.total;\n          return (\n            <li key={i.label} className=\"flex items-center gap-gp-md text-body-sm\">\n              {/* Concluído = disco CHEIO, e ele é um `<span>` com `bg-bg-success`, não o\n                  `CircleCheck` do lucide.\n\n                  ⚠️ A tentativa anterior foi `<CircleCheck className=\"fill-bg-success\n                  text-fg-on-success\" />`, e o disco saía **visivelmente menor** que o anel do\n                  pendente: o lucide desenha o círculo com `stroke=\"currentColor\"`, então o\n                  traço (preto no dark, porque `fg-on-success` inverte) fica POR CIMA do\n                  preenchimento e come ~2px de verde de cada lado. Não há classe que tire só\n                  aquele stroke — círculo e check compartilham o `currentColor`.\n\n                  Com `<span>` + `<Check>` dentro, o disco é os 16px inteiros e o traço existe\n                  só no check. `fg-on-success` é o par validado do `bg-success` em\n                  `color-light/dark.ts` (branco no light, preto no dark) — não use `text-white`\n                  na unha, que não é dark-aware.\n\n                  O pendente fica de anel vazio de propósito: é o contraste cheio-vs-vazio que\n                  carrega o estado. Preencher os dois apagaria a distinção. */}\n              {concluido ? (\n                <span\n                  className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full bg-bg-success text-fg-on-success\"\n                  aria-hidden=\"true\"\n                >\n                  <Check className=\"size-icon-2xs\" strokeWidth={3} />\n                </span>\n              ) : (\n                <Circle className=\"size-icon-sm shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\n              )}\n              <span\n                className={\n                  concluido ? \"font-semibold text-fg-default\" : \"text-fg-muted\"\n                }\n              >\n                {i.label}{\" \"}\n                <span className=\"tabular-nums\">\n                  ({i.feitos}/{i.total})\n                </span>\n              </span>\n            </li>\n          );\n        })}\n      </ul>\n    </div>\n  );\n}\n\n/**\n * Linha de seção que NÃO é `label: valor` — entidade com identidade própria.\n *\n * A conta bancária e o gestor não são um valor: são uma coisa com nome, marca e um dado\n * secundário. Forçá-los no `FloatingPanelField` deixaria \"Nubank · Ag 3849 · 18701-9\"\n * comprimido na coluna da direita e truncando. Aqui a linha usa a largura toda.\n */\nfunction LinhaDeEntidade({\n  hex,\n  iniciais,\n  nome,\n  detalhe,\n}: {\n  hex: string;\n  iniciais: string;\n  nome: string;\n  detalhe: string;\n}) {\n  return (\n    <div className=\"flex items-center gap-gp-lg\">\n      <Avatar size=\"lg\" colorHex={hex} className=\"shrink-0\" aria-label={nome}>\n        {iniciais}\n      </Avatar>\n      <div className=\"flex min-w-0 flex-col\">\n        <span className=\"truncate text-body-sm font-semibold text-fg-default\">{nome}</span>\n        <span className=\"truncate text-body-xs tabular-nums text-fg-muted\">{detalhe}</span>\n      </div>\n    </div>\n  );\n}\n\nexport function PainelDeDetalheDoRegistro() {\n  const [aberto, setAberto] = useState(false);\n\n  return (\n    <>\n      {/* No CRUD real este botão não existe: quem abre o painel é a linha selecionada. */}\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\n        Ver detalhe do cliente\n      </Button>\n\n      <FloatingPanel\n        open={aberto}\n        onOpenChange={setAberto}\n        side=\"right\"\n        size=\"lg\"\n        resizable\n        maximizable\n        bodyPadded={false}\n        resizableStorageKey=\"dsgreen-paneldetail-1.width\"\n        /* Header: avatar + nome + (código · status). É o `titleSlot` que permite isso — com\n           `title`/`description` string não há como pôr avatar nem Chip. O `truncate` +\n           `min-w-0` são obrigatórios: nome longo empurraria as ações fora do painel. */\n        titleSlot={\n          <div className=\"flex min-w-0 items-center gap-gp-md\">\n            <Avatar color=\"brand\" size=\"lg\" className=\"shrink-0\" aria-label={REGISTRO.nome}>\n              {REGISTRO.iniciais}\n            </Avatar>\n            <div className=\"flex min-w-0 flex-col\">\n              <span className=\"truncate text-body-md font-semibold text-fg-default\">\n                {REGISTRO.nome}\n              </span>\n              <span className=\"mt-[2px] flex items-center gap-gp-sm text-body-xs text-fg-muted\">\n                <span className=\"tabular-nums\">{REGISTRO.codigo}</span>\n                <span className=\"opacity-50\">·</span>\n                <Chip color=\"success\" variant=\"soft\" size=\"sm\">\n                  {REGISTRO.status}\n                </Chip>\n              </span>\n            </div>\n          </div>\n        }\n        /* Ações de ícone frequentes. O maximize e o X vêm do componente — não se escreve.\n           `aria-label` não é opcional aqui: botão de ícone não tem texto.\n\n           ⚠️ **`variant=\"soft\"` em TODAS, não `ghost`.** O maximize e o close que o\n           `FloatingPanel` renderiza são `soft` + `secondary` — é o que dá a caixinha com fundo.\n           Uma ação `ghost` no meio da fileira fica sem container e lê como se estivesse\n           desabilitada ao lado das outras três. A cor é o que diferencia: `secondary` pro\n           neutro, `success` pra ação de contato. (O JSDoc do próprio componente mostra\n           `headerActions` com `soft`/`secondary` — foi de lá que a receita saiu.) */\n        headerActions={\n          <>\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Editar cliente\">\n              <Pencil />\n            </Button>\n            <Button variant=\"soft\" color=\"success\" size=\"icon-sm\" aria-label=\"WhatsApp\">\n              <MessageCircle />\n            </Button>\n          </>\n        }\n        footer={\n          <>\n            <Button\n              variant=\"outline\"\n              color=\"secondary\"\n              size=\"sm\"\n              onClick={() => setAberto(false)}\n            >\n              Fechar\n            </Button>\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Receipt />}>\n              Registrar pagamento\n            </Button>\n          </>\n        }\n      >\n        {/* Métricas do REGISTRO. Ver o JSDoc do `MetricaCartoes` pro porquê de não ser `Kpi`\n            e pra alternativa em faixa dividida que foi testada e descartada aqui. */}\n        <FloatingPanelSection title=\"Métricas\">\n          <MetricaCartoes itens={METRICAS} />\n        </FloatingPanelSection>\n\n        {/* Metas do registro. Fica junto das métricas porque as duas respondem \"como este\n            registro está?\" — os campos abaixo respondem \"quais são os dados dele\". */}\n        <FloatingPanelSection title=\"Construção PRO (mês)\">\n          <ListaDeProgresso situacao={CONSTRUCAO.situacao} itens={CONSTRUCAO.itens} />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Empresa\">\n          <FloatingPanelField label=\"Razão Social\" value=\"Estrela do Sul Alimentos S.A.\" />\n          <FloatingPanelField\n            label=\"CNPJ\"\n            value={<span className=\"tabular-nums\">{REGISTRO.documento}</span>}\n          />\n        </FloatingPanelSection>\n\n        {/* Entidade, não campo: banco tem marca, nome e agência/conta. Ver LinhaDeEntidade. */}\n        <FloatingPanelSection title=\"Conta bancária\">\n          <LinhaDeEntidade\n            hex={CONTA.hex}\n            iniciais={CONTA.iniciais}\n            nome={CONTA.banco}\n            detalhe={`Ag ${CONTA.agencia} · ${CONTA.conta}`}\n          />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Financeiro\">\n          <FloatingPanelField\n            label=\"Volume mensal\"\n            value={<span className=\"tabular-nums\">R$ 72.147,00</span>}\n          />\n          <FloatingPanelField\n            label=\"Comissão\"\n            value={<span className=\"tabular-nums\">8,9%</span>}\n          />\n          <FloatingPanelField label=\"Saque automático\" value=\"Ativado\" />\n          {/* Vários valores num campo → Chips, não texto separado por vírgula: cada método é\n              um item discreto, e a pílula é o que comunica isso. */}\n          <FloatingPanelField\n            label=\"Métodos\"\n            value={\n              <span className=\"flex flex-wrap items-center justify-end gap-gp-sm\">\n                {METODOS.map((m) => (\n                  <Chip key={m} color=\"neutral\" variant=\"soft\" size=\"sm\">\n                    {m}\n                  </Chip>\n                ))}\n              </span>\n            }\n          />\n        </FloatingPanelSection>\n\n        {/* E-mail e telefone são AÇÕES, não texto: `mailto:`/`tel:` com cor de link.\n            `break-all` no e-mail porque endereço longo não tem onde quebrar e estouraria\n            a coluna da direita. */}\n        <FloatingPanelSection title=\"Contato\">\n          <FloatingPanelField\n            label=\"Email\"\n            value={\n              <a\n                href={`mailto:${CONTATO.email}`}\n                className=\"break-all text-fg-brand hover:underline\"\n              >\n                {CONTATO.email}\n              </a>\n            }\n          />\n          <FloatingPanelField\n            label=\"Telefone\"\n            value={\n              <a\n                href={`tel:${CONTATO.telefone.replace(/\\D/g, \"\")}`}\n                className=\"tabular-nums text-fg-brand hover:underline\"\n              >\n                {CONTATO.telefone}\n              </a>\n            }\n          />\n          <FloatingPanelField label=\"Localização\" value={CONTATO.local} />\n        </FloatingPanelSection>\n\n        <FloatingPanelSection title=\"Gestão\">\n          {/* Pessoa dentro de um campo: avatar `xs` (20px) cabe na linha do valor sem esticar\n              a altura — o `lg` da LinhaDeEntidade quebraria o ritmo dos campos. */}\n          <FloatingPanelField\n            label=\"Gestor da conta\"\n            value={\n              <span className=\"flex items-center justify-end gap-gp-sm\">\n                <Avatar size=\"xs\" colorHex={GESTOR.hex} aria-label={GESTOR.nome}>\n                  {GESTOR.iniciais}\n                </Avatar>\n                {GESTOR.nome}\n              </span>\n            }\n          />\n          <FloatingPanelField label=\"Cliente desde\" value=\"12 de março de 2024\" />\n          <FloatingPanelField label=\"Última movimentação\" value=\"há 3 dias\" />\n        </FloatingPanelSection>\n      </FloatingPanel>\n    </>\n  );\n}\n",
+        "content": "import { useState } from \"react\";\r\nimport { Check, Circle, MessageCircle, Pencil, PiggyBank, Receipt } from \"lucide-react\";\r\nimport type { LucideIcon } from \"@/lib/lucide-types\";\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport { Chip } from \"@/components/ui/Chip\";\r\nimport {\r\n  FloatingPanel,\r\n  FloatingPanelField,\r\n  FloatingPanelSection,\r\n} from \"@/components/ui/FloatingPanel\";\r\n\r\nexport const BLOCK = {\r\n  id: \"dsgreen-paneldetail-1\",\r\n  nome: \"Painel de detalhe do registro\",\r\n  descricao:\r\n    \"Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes.\",\r\n  usa: [\r\n    \"FloatingPanel (side=\\\"right\\\", size=\\\"lg\\\", titleSlot + headerActions + maximizable + resizable + bodyPadded={false})\",\r\n    \"FloatingPanelSection + FloatingPanelField\",\r\n    \"MetricaCartoes — cards compactos próprios (ícone + valor + rótulo); NÃO o Kpi\",\r\n    \"Avatar (colorHex, contraste WCAG automático)\",\r\n    \"Chip (soft) · Button (icon-sm no header, sm no footer)\",\r\n  ],\r\n} as const;\r\n\r\n/**\r\n * dsgreen-paneldetail-1 — painel de detalhe de um registro, aberto da linha da tabela.\r\n *\r\n * ## O que este bloco resolve\r\n *\r\n * Pedindo \"abre um painel com o detalhe do cliente\", sai uma pilha de `label: valor` —\r\n * correta e ilegível a partir do 12º campo. O que falta não é componente, é **ordem**, e\r\n * **onde cada coisa mora**: o painel tem header, corpo e footer com papéis distintos, e\r\n * jogar tudo no corpo é o erro que faz o resultado parecer improvisado.\r\n *\r\n * | zona | o que vai | por que |\r\n * |---|---|---|\r\n * | **header** (`titleSlot`) | avatar + nome + código · status | responde \"de quem é este painel\", e fica fixo no scroll |\r\n * | **header** (`headerActions`) | ações de ícone (editar, contatar) | ações frequentes e sem rótulo, à mão sem rolar |\r\n * | corpo, 1ª faixa | **métricas** do registro | responde \"como este registro está?\", que é a pergunta de quem abriu — vem antes dos campos, que respondem \"quais são os dados dele\" |\r\n * | corpo, resto | campos em **seções colapsáveis** por assunto | é o colapso que permite ter 20 campos sem obrigar a rolar 20 |\r\n * | **footer** | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável (footer é sticky) |\r\n *\r\n * **Não há abas.** Elas estavam aqui e saíram: aba esconde conteúdo, e num painel onde o corpo\r\n * já é uma pilha de seções colapsáveis, o colapso **é** o mecanismo de esconder. Ter os dois é\r\n * dizer a mesma coisa de duas formas, e o usuário passa a ter que descobrir em qual das duas o\r\n * dado está. Se um recorte for volumoso de verdade (extrato com 200 linhas), ele não é seção\r\n * nem aba: é outra tela.\r\n *\r\n * ## Por que `FloatingPanel` e não `Panel` — foi o HEADER que decidiu\r\n *\r\n * As duas primeiras versões deste bloco usaram `Panel`, e o header saía fora do padrão dos\r\n * painéis reais. A causa é de API, não de estilo: o `Panel` aceita `title` e `description`\r\n * como **string**, e o header dos painéis de referência tem avatar, `Chip` de status inline e\r\n * botões de ícone — nada disso cabe numa string. O `FloatingPanel` expõe exatamente isso:\r\n *\r\n * | o que o header precisa | prop |\r\n * |---|---|\r\n * | avatar + nome + código · status | `titleSlot` (JSX, substitui title/description) |\r\n * | 1–2 ações de ícone | `headerActions` (entram à esquerda do maximize/close) |\r\n * | expandir | `maximizable` — o botão é do componente, não se escreve |\r\n * | fechar | nativo (o X sempre está lá; `hideClose` remove) |\r\n *\r\n * **Bônus:** `bodyPadded={false}` resolveu, com uma prop, o `-mx-pad-3xl` que a versão em\r\n * `Panel` precisava pra fazer a divisória das seções chegar na borda. A prop existe justamente\r\n * pra este caso — seção de detalhe é edge-to-edge por desenho.\r\n *\r\n * ### E as outras duas cascas\r\n *\r\n * `Panel`, `FloatingPanel` e `Drawer` são todos superfície lateral; a diferença é\r\n * **comportamento** — o corpo é o mesmo nos três:\r\n *\r\n * | casca | comportamento | quando |\r\n * |---|---|---|\r\n * | **`FloatingPanel`** (esta) | non-modal, resizável, maximizável, sem backdrop | detalhe que coexiste com a lista atrás: o usuário compara, ou percorre linha por linha |\r\n * | `Panel` | modal, com backdrop | o detalhe é a tarefa e a lista pode esperar. ⚠️ header só com strings |\r\n * | `Drawer` | bottom-sheet (vaul) | mobile-first, ou gesto de arrastar |\r\n *\r\n * ## Regras do DS que este bloco carrega (e que copiar sem elas quebra)\r\n *\r\n * - **`bodyPadded={false}` é obrigatório com `FloatingPanelSection`.** É regra declarada no\r\n *   `USAGE.md` do componente: a seção traz o próprio padding de 18px e uma divisória de ponta\r\n *   a ponta; com o body padded o padding soma e a divisória para longe da borda.\r\n * - **Campo que não é `label: valor` sai do `FloatingPanelField`.** Três casos aqui, e cada um\r\n *   tem um motivo medido: a **conta bancária** é entidade (marca + nome + agência/conta) e\r\n *   comprimida na coluna da direita ela trunca — vai numa linha de largura cheia; os\r\n *   **métodos** são itens discretos e viram `Chip`, não texto com vírgula; **e-mail e\r\n *   telefone** são ações (`mailto:`/`tel:`) e por isso levam cor de link.\r\n * - **`Avatar` com `colorHex` escolhe a cor do texto por contraste WCAG** (L-027). `#820AD1`\r\n *   do Nubank dá branco (6.2 : 1); `#FAE128` do BB daria preto (16.3 : 1). Nunca escreva\r\n *   `text-white` na unha num avatar de marca — em marca clara isso vira texto ilegível.\r\n * - **Ação de ícone precisa de `aria-label`.** Botão `size=\"icon-sm\"` não tem texto: sem o\r\n *   label o leitor de tela anuncia \"button\" e pronto.\r\n * - **Toda ação do header é `variant=\"soft\"`, nunca `ghost`.** O maximize e o close que o\r\n *   `FloatingPanel` renderiza são `soft`+`secondary`; uma ação `ghost` no meio da fileira fica\r\n *   sem container e lê como desabilitada ao lado das outras. O que diferencia é a **cor**\r\n *   (`secondary` neutro, `success` contato, `critical` destrutivo), não a ausência de fundo.\r\n * - **Métrica em painel NÃO é o `Kpi` do DS** — ver o JSDoc do `MetricaCartoes`. O `Kpi` é card\r\n *   de dashboard: medido aqui, 172×144px por célula, três delas comendo a primeira dobra do\r\n *   painel antes de qualquer campo. No painel a métrica é contexto, não o assunto.\r\n * - ⚠️ Se ainda assim usar `KpiGroup`: **`columns` é responsivo ao VIEWPORT, não ao\r\n *   container** (`grid-cols-1 sm:grid-cols-2 lg:grid-cols-3`). Num painel de 560px em desktop,\r\n *   `columns={3}` continua dando 3 colunas — a estreiteza do painel é invisível pro grid.\r\n * - **A métrica também é seção colapsável.** Uma gramática só no corpo: métricas, campos e\r\n *   tudo mais entram como `FloatingPanelSection`. Faixa solta acima das seções criava uma\r\n *   segunda gramática visual no mesmo painel.\r\n * - **Número com `tabular-nums`** — sem isso os dígitos dançam de um campo pro outro.\r\n * - **Se um dia voltar a ter aba aqui: `fullWidth`, variante default (`segmented`).** Regra do\r\n *   `USAGE.md` do `Panel` e do `FloatingPanel` — em 560px o `line` vira um trilho curto que lê\r\n *   como fragmento. (Este bloco não tem aba; ver a nota acima.)\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * - **O botão daqui é do EXEMPLO.** No seu CRUD quem abre o painel é a linha selecionada da\r\n *   tabela: `open={!!linhaSelecionada}` e `onOpenChange={(o) => !o && limparSelecao()}`.\r\n * - **`resizableStorageKey` só se o painel for recorrente.** Ele persiste a largura no\r\n *   `localStorage` — ótimo num painel que o usuário abre 50× por dia, ruído num painel raro.\r\n *   Use chave namespaced (`clientes.detail-panel.width`), senão dois painéis diferentes\r\n *   dividem a mesma largura.\r\n * - **As seções são por ASSUNTO, e o assunto é do seu domínio.** Empresa / Conta bancária /\r\n *   Financeiro / Contato / Gestão é o recorte de um cliente de energia; num painel de pedido\r\n *   seria Itens / Entrega / Pagamento. Não herde estes títulos — herde o critério: cada seção\r\n *   responde uma pergunta, e campo que não responde a pergunta da seção está na seção errada.\r\n * - **As métricas têm que ser do REGISTRO**, não da tela. \"Total de clientes\" não é métrica\r\n *   deste painel; \"faturas em aberto deste cliente\" é. Métrica de tela pertence ao dashboard\r\n *   ou ao topo da lista.\r\n * - **`FloatingPanelField` cai pra `—` quando o valor é vazio** — não escreva \"N/A\" nem\r\n *   condicione a linha; passe o valor e deixe o componente resolver.\r\n */\r\n\r\n/** Fixture do bloco. Fica aqui de propósito: bloco é auto-contido, então quem copia vê a\r\n *  forma do dado esperado sem inferir do render. */\r\nconst REGISTRO = {\r\n  nome: \"Padaria Estrela do Sul\",\r\n  iniciais: \"PE\",\r\n  codigo: \"CLI-2478\",\r\n  status: \"Ativo\",\r\n  documento: \"12.345.678/0001-90\",\r\n};\r\n\r\nconst METRICAS = [\r\n  { icone: PiggyBank, label: \"Economia no ano\", value: \"R$ 3.180\", tom: \"brand\" as const },\r\n  { icone: Receipt, label: \"Em aberto\", value: \"R$ 892\", tom: \"danger\" as const },\r\n];\r\n\r\nconst CONTA = {\r\n  banco: \"Nubank\",\r\n  iniciais: \"NU\",\r\n  hex: \"#820AD1\",\r\n  agencia: \"3849\",\r\n  conta: \"18701-9\",\r\n};\r\n\r\nconst METODOS = [\"PIX\", \"Boleto\"];\r\n\r\nconst CONTATO = {\r\n  email: \"contato@estreladosul.com.br\",\r\n  telefone: \"+55 31 98901-2345\",\r\n  local: \"Belo Horizonte, MG\",\r\n};\r\n\r\nconst GESTOR = { nome: \"Aline Castro\", iniciais: \"AC\", hex: \"#CC092F\" };\r\n\r\nconst CONSTRUCAO = {\r\n  situacao: \"Em construção\",\r\n  itens: [\r\n    { label: \"Clientes do mês (green/telecom/seguro)\", feitos: 3, total: 5 },\r\n    { label: \"Conexão livre\", feitos: 1, total: 1 },\r\n    { label: \"Placa\", feitos: 0, total: 1 },\r\n    { label: \"Solar\", feitos: 1, total: 1 },\r\n    { label: \"Licenciados cadastrados\", feitos: 1, total: 2 },\r\n    { label: \"Club\", feitos: 0, total: 1 },\r\n  ],\r\n};\r\n\r\ntype MetricaItem = {\r\n  icone: LucideIcon;\r\n  label: string;\r\n  value: string;\r\n  tom: \"brand\" | \"danger\" | \"neutro\";\r\n};\r\n\r\n/** Cor do valor por tom. Fora do componente porque o tom é decisão de leitura, não de sinal. */\r\nconst COR_DO_TOM: Record<MetricaItem[\"tom\"], string> = {\r\n  brand: \"text-fg-brand\",\r\n  danger: \"text-fg-danger\",\r\n  neutro: \"text-fg-default\",\r\n};\r\n\r\n/**\r\n * **Métrica de painel — cards compactos, um por métrica.**\r\n *\r\n * ## Por que não é o `Kpi` do DS\r\n *\r\n * Não é rejeição do componente: é escala errada pro lugar. O `Kpi` é card de **dashboard** —\r\n * `p-pad-3xl` (20px), label de 14px, slot pra sparkline, `hint` e `delta`. Num painel de\r\n * detalhe a métrica é **contexto**, não o assunto: quem abriu quer os dados do registro, e a\r\n * métrica só emoldura.\r\n *\r\n * Medido no browser, antes e depois:\r\n *\r\n * | | por item | conjunto |\r\n * |---|---|---|\r\n * | `Kpi size=\"sm\"`, `columns={3}` | 172 × **144px** | 146px (3 métricas) |\r\n * | este | 257 × **68px** | 68px (2 métricas) |\r\n *\r\n * ## Card próprio, e não uma faixa dividida\r\n *\r\n * A alternativa testada foi uma superfície única com `divide-x` (mesma altura, coluna 3px mais\r\n * larga). A diferença entre as duas é **só o container**, e é isso que ela comunica: a faixa\r\n * afirma que as métricas formam um conjunto; os cards afirmam que cada uma é independente.\r\n * Economia e inadimplência são dois assuntos → cards. Total/pago/em aberto são três faces do\r\n * mesmo número → faixa.\r\n *\r\n * ## Duas travas de layout\r\n *\r\n * 1. **O número de colunas segue o número de métricas** (`grid-cols-2` com duas). Não é\r\n *    responsivo de propósito: num painel de 560px a decisão é fixa. Acima de 3 não cabe, e a\r\n *    resposta é cortar métrica, não encolher coluna — em 4 colunas cada uma fica com ~127px e\r\n *    o par ícone + valor quebra linha.\r\n * 2. **Ícone + valor na mesma linha depende do valor ser 18px.** Com `stat-sm` (20px) o par\r\n *    não cabia em 3 colunas e a 1ª versão saiu sem ícone; o ícone voltou junto com a redução.\r\n *    Se o valor crescer, **o ícone é a primeira coisa que quebra**.\r\n *\r\n * O 18px vem de `body-xl`, não de `stat-*`: o role `stat` começa em 20px (sm) e não tem tier\r\n * abaixo. Com `font-bold` + `tabular-nums` a leitura de valor se mantém. Se precisar disso em\r\n * mais lugares, o certo é um `stat-xs` no `typography.ts` via cascata — não repetir esta\r\n * combinação por aí.\r\n */\r\nfunction MetricaCartoes({ itens }: { itens: MetricaItem[] }) {\r\n  return (\r\n    <div className=\"grid grid-cols-2 gap-gp-md\">\r\n      {itens.map(({ icone: Icone, ...m }) => (\r\n        <div\r\n          key={m.label}\r\n          className=\"flex flex-col gap-gp-2xs rounded-radius-lg border border-border-default bg-bg-surface p-pad-2xl\"\r\n        >\r\n          <div className={`flex items-center gap-gp-sm ${COR_DO_TOM[m.tom]}`}>\r\n            <Icone className=\"size-icon-sm shrink-0\" aria-hidden=\"true\" />\r\n            <span className=\"text-body-xl font-bold tabular-nums leading-none\">{m.value}</span>\r\n          </div>\r\n          <span className=\"text-caption-sm text-fg-muted\">{m.label}</span>\r\n        </div>\r\n      ))}\r\n    </div>\r\n  );\r\n}\r\n\r\n/**\r\n * **Checklist de progresso** — a lista de metas do registro, com o que já fechou.\r\n *\r\n * ## O que ela resolve, e por que não é `Progress`\r\n *\r\n * O dado aqui não é \"quanto por cento\" — é **quais itens faltam**. Uma barra de `Progress`\r\n * responde a primeira pergunta e apaga a segunda: 4 de 11 não diz que o que falta é Placa e\r\n * Club. A lista mantém as duas leituras (o contador por item e o quadro geral) e é ela que\r\n * permite agir.\r\n *\r\n * ## A faixa de situação é uma FAIXA, não um `Chip`\r\n *\r\n * `Chip` é rótulo inline — o que ele faz bem é caber ao lado de um texto. Aqui a situação é o\r\n * cabeçalho do bloco: largura cheia, centralizada, `rounded-radius-full`. Forçar um Chip a\r\n * `w-full` deforma um componente pra fazer o trabalho de outro. Tom em `warning` porque\r\n * \"em construção\" é estado transitório com prazo, não erro nem sucesso.\r\n *\r\n * ## Estado não fica só no ícone (WCAG 1.4.1)\r\n *\r\n * O ✔ verde e o círculo vazio são **redundantes** — quem lê a informação é o contador\r\n * `(1/1)` vs `(0/1)`, que é texto e é anunciado pelo leitor de tela. Por isso os ícones são\r\n * `aria-hidden`. Se um dia o contador sair, o estado passa a viver só em cor + forma, e aí\r\n * precisa de texto alternativo: **não remova o contador sem repor a informação.**\r\n *\r\n * ## Cuidado ao adaptar\r\n *\r\n * - `concluido` deriva de `feitos >= total`, não de um booleano à parte. Dois campos que podem\r\n *   discordar (\"feito\" true com 1 de 3) é bug esperando acontecer.\r\n * - Lista longa (15+) some dentro do painel — aí ela não é seção, é tela própria com filtro.\r\n */\r\nfunction ListaDeProgresso({\r\n  situacao,\r\n  itens,\r\n}: {\r\n  situacao: string;\r\n  itens: { label: string; feitos: number; total: number }[];\r\n}) {\r\n  return (\r\n    <div className=\"flex flex-col gap-gp-lg\">\r\n      <div className=\"rounded-radius-full bg-bg-warning-muted py-pad-md text-center text-body-sm font-semibold text-fg-warning\">\r\n        {situacao}\r\n      </div>\r\n\r\n      <ul className=\"flex flex-col gap-gp-md\">\r\n        {itens.map((i) => {\r\n          const concluido = i.feitos >= i.total;\r\n          return (\r\n            <li key={i.label} className=\"flex items-center gap-gp-md text-body-sm\">\r\n              {/* Concluído = disco CHEIO, e ele é um `<span>` com `bg-bg-success`, não o\r\n                  `CircleCheck` do lucide.\r\n\r\n                  ⚠️ A tentativa anterior foi `<CircleCheck className=\"fill-bg-success\r\n                  text-fg-on-success\" />`, e o disco saía **visivelmente menor** que o anel do\r\n                  pendente: o lucide desenha o círculo com `stroke=\"currentColor\"`, então o\r\n                  traço (preto no dark, porque `fg-on-success` inverte) fica POR CIMA do\r\n                  preenchimento e come ~2px de verde de cada lado. Não há classe que tire só\r\n                  aquele stroke — círculo e check compartilham o `currentColor`.\r\n\r\n                  Com `<span>` + `<Check>` dentro, o disco é os 16px inteiros e o traço existe\r\n                  só no check. `fg-on-success` é o par validado do `bg-success` em\r\n                  `color-light/dark.ts` (branco no light, preto no dark) — não use `text-white`\r\n                  na unha, que não é dark-aware.\r\n\r\n                  O pendente fica de anel vazio de propósito: é o contraste cheio-vs-vazio que\r\n                  carrega o estado. Preencher os dois apagaria a distinção. */}\r\n              {concluido ? (\r\n                <span\r\n                  className=\"grid size-icon-sm shrink-0 place-items-center rounded-radius-full bg-bg-success text-fg-on-success\"\r\n                  aria-hidden=\"true\"\r\n                >\r\n                  <Check className=\"size-icon-2xs\" strokeWidth={3} />\r\n                </span>\r\n              ) : (\r\n                <Circle className=\"size-icon-sm shrink-0 text-fg-subtle\" aria-hidden=\"true\" />\r\n              )}\r\n              <span\r\n                className={\r\n                  concluido ? \"font-semibold text-fg-default\" : \"text-fg-muted\"\r\n                }\r\n              >\r\n                {i.label}{\" \"}\r\n                <span className=\"tabular-nums\">\r\n                  ({i.feitos}/{i.total})\r\n                </span>\r\n              </span>\r\n            </li>\r\n          );\r\n        })}\r\n      </ul>\r\n    </div>\r\n  );\r\n}\r\n\r\n/**\r\n * Linha de seção que NÃO é `label: valor` — entidade com identidade própria.\r\n *\r\n * A conta bancária e o gestor não são um valor: são uma coisa com nome, marca e um dado\r\n * secundário. Forçá-los no `FloatingPanelField` deixaria \"Nubank · Ag 3849 · 18701-9\"\r\n * comprimido na coluna da direita e truncando. Aqui a linha usa a largura toda.\r\n */\r\nfunction LinhaDeEntidade({\r\n  hex,\r\n  iniciais,\r\n  nome,\r\n  detalhe,\r\n}: {\r\n  hex: string;\r\n  iniciais: string;\r\n  nome: string;\r\n  detalhe: string;\r\n}) {\r\n  return (\r\n    <div className=\"flex items-center gap-gp-lg\">\r\n      <Avatar size=\"lg\" colorHex={hex} className=\"shrink-0\" aria-label={nome}>\r\n        {iniciais}\r\n      </Avatar>\r\n      <div className=\"flex min-w-0 flex-col\">\r\n        <span className=\"truncate text-body-sm font-semibold text-fg-default\">{nome}</span>\r\n        <span className=\"truncate text-body-xs tabular-nums text-fg-muted\">{detalhe}</span>\r\n      </div>\r\n    </div>\r\n  );\r\n}\r\n\r\nexport function PainelDeDetalheDoRegistro() {\r\n  const [aberto, setAberto] = useState(false);\r\n\r\n  return (\r\n    <>\r\n      {/* No CRUD real este botão não existe: quem abre o painel é a linha selecionada. */}\r\n      <Button variant=\"outline\" color=\"secondary\" onClick={() => setAberto(true)}>\r\n        Ver detalhe do cliente\r\n      </Button>\r\n\r\n      <FloatingPanel\r\n        open={aberto}\r\n        onOpenChange={setAberto}\r\n        side=\"right\"\r\n        size=\"lg\"\r\n        resizable\r\n        maximizable\r\n        bodyPadded={false}\r\n        resizableStorageKey=\"dsgreen-paneldetail-1.width\"\r\n        /* Header: avatar + nome + (código · status). É o `titleSlot` que permite isso — com\r\n           `title`/`description` string não há como pôr avatar nem Chip. O `truncate` +\r\n           `min-w-0` são obrigatórios: nome longo empurraria as ações fora do painel. */\r\n        titleSlot={\r\n          <div className=\"flex min-w-0 items-center gap-gp-md\">\r\n            <Avatar color=\"brand\" size=\"lg\" className=\"shrink-0\" aria-label={REGISTRO.nome}>\r\n              {REGISTRO.iniciais}\r\n            </Avatar>\r\n            <div className=\"flex min-w-0 flex-col\">\r\n              <span className=\"truncate text-body-md font-semibold text-fg-default\">\r\n                {REGISTRO.nome}\r\n              </span>\r\n              <span className=\"mt-[2px] flex items-center gap-gp-sm text-body-xs text-fg-muted\">\r\n                <span className=\"tabular-nums\">{REGISTRO.codigo}</span>\r\n                <span className=\"opacity-50\">·</span>\r\n                <Chip color=\"success\" variant=\"soft\" size=\"sm\">\r\n                  {REGISTRO.status}\r\n                </Chip>\r\n              </span>\r\n            </div>\r\n          </div>\r\n        }\r\n        /* Ações de ícone frequentes. O maximize e o X vêm do componente — não se escreve.\r\n           `aria-label` não é opcional aqui: botão de ícone não tem texto.\r\n\r\n           ⚠️ **`variant=\"soft\"` em TODAS, não `ghost`.** O maximize e o close que o\r\n           `FloatingPanel` renderiza são `soft` + `secondary` — é o que dá a caixinha com fundo.\r\n           Uma ação `ghost` no meio da fileira fica sem container e lê como se estivesse\r\n           desabilitada ao lado das outras três. A cor é o que diferencia: `secondary` pro\r\n           neutro, `success` pra ação de contato. (O JSDoc do próprio componente mostra\r\n           `headerActions` com `soft`/`secondary` — foi de lá que a receita saiu.) */\r\n        headerActions={\r\n          <>\r\n            <Button variant=\"soft\" color=\"secondary\" size=\"icon-sm\" aria-label=\"Editar cliente\">\r\n              <Pencil />\r\n            </Button>\r\n            <Button variant=\"soft\" color=\"success\" size=\"icon-sm\" aria-label=\"WhatsApp\">\r\n              <MessageCircle />\r\n            </Button>\r\n          </>\r\n        }\r\n        footer={\r\n          <>\r\n            <Button\r\n              variant=\"outline\"\r\n              color=\"secondary\"\r\n              size=\"sm\"\r\n              onClick={() => setAberto(false)}\r\n            >\r\n              Fechar\r\n            </Button>\r\n            <Button variant=\"filled\" size=\"sm\" iconLeft={<Receipt />}>\r\n              Registrar pagamento\r\n            </Button>\r\n          </>\r\n        }\r\n      >\r\n        {/* Métricas do REGISTRO. Ver o JSDoc do `MetricaCartoes` pro porquê de não ser `Kpi`\r\n            e pra alternativa em faixa dividida que foi testada e descartada aqui. */}\r\n        <FloatingPanelSection title=\"Métricas\">\r\n          <MetricaCartoes itens={METRICAS} />\r\n        </FloatingPanelSection>\r\n\r\n        {/* Metas do registro. Fica junto das métricas porque as duas respondem \"como este\r\n            registro está?\" — os campos abaixo respondem \"quais são os dados dele\". */}\r\n        <FloatingPanelSection title=\"Construção PRO (mês)\">\r\n          <ListaDeProgresso situacao={CONSTRUCAO.situacao} itens={CONSTRUCAO.itens} />\r\n        </FloatingPanelSection>\r\n\r\n        <FloatingPanelSection title=\"Empresa\">\r\n          <FloatingPanelField label=\"Razão Social\" value=\"Estrela do Sul Alimentos S.A.\" />\r\n          <FloatingPanelField\r\n            label=\"CNPJ\"\r\n            value={<span className=\"tabular-nums\">{REGISTRO.documento}</span>}\r\n          />\r\n        </FloatingPanelSection>\r\n\r\n        {/* Entidade, não campo: banco tem marca, nome e agência/conta. Ver LinhaDeEntidade. */}\r\n        <FloatingPanelSection title=\"Conta bancária\">\r\n          <LinhaDeEntidade\r\n            hex={CONTA.hex}\r\n            iniciais={CONTA.iniciais}\r\n            nome={CONTA.banco}\r\n            detalhe={`Ag ${CONTA.agencia} · ${CONTA.conta}`}\r\n          />\r\n        </FloatingPanelSection>\r\n\r\n        <FloatingPanelSection title=\"Financeiro\">\r\n          <FloatingPanelField\r\n            label=\"Volume mensal\"\r\n            value={<span className=\"tabular-nums\">R$ 72.147,00</span>}\r\n          />\r\n          <FloatingPanelField\r\n            label=\"Comissão\"\r\n            value={<span className=\"tabular-nums\">8,9%</span>}\r\n          />\r\n          <FloatingPanelField label=\"Saque automático\" value=\"Ativado\" />\r\n          {/* Vários valores num campo → Chips, não texto separado por vírgula: cada método é\r\n              um item discreto, e a pílula é o que comunica isso. */}\r\n          <FloatingPanelField\r\n            label=\"Métodos\"\r\n            value={\r\n              <span className=\"flex flex-wrap items-center justify-end gap-gp-sm\">\r\n                {METODOS.map((m) => (\r\n                  <Chip key={m} color=\"neutral\" variant=\"soft\" size=\"sm\">\r\n                    {m}\r\n                  </Chip>\r\n                ))}\r\n              </span>\r\n            }\r\n          />\r\n        </FloatingPanelSection>\r\n\r\n        {/* E-mail e telefone são AÇÕES, não texto: `mailto:`/`tel:` com cor de link.\r\n            `break-all` no e-mail porque endereço longo não tem onde quebrar e estouraria\r\n            a coluna da direita. */}\r\n        <FloatingPanelSection title=\"Contato\">\r\n          <FloatingPanelField\r\n            label=\"Email\"\r\n            value={\r\n              <a\r\n                href={`mailto:${CONTATO.email}`}\r\n                className=\"break-all text-fg-brand hover:underline\"\r\n              >\r\n                {CONTATO.email}\r\n              </a>\r\n            }\r\n          />\r\n          <FloatingPanelField\r\n            label=\"Telefone\"\r\n            value={\r\n              <a\r\n                href={`tel:${CONTATO.telefone.replace(/\\D/g, \"\")}`}\r\n                className=\"tabular-nums text-fg-brand hover:underline\"\r\n              >\r\n                {CONTATO.telefone}\r\n              </a>\r\n            }\r\n          />\r\n          <FloatingPanelField label=\"Localização\" value={CONTATO.local} />\r\n        </FloatingPanelSection>\r\n\r\n        <FloatingPanelSection title=\"Gestão\">\r\n          {/* Pessoa dentro de um campo: avatar `xs` (20px) cabe na linha do valor sem esticar\r\n              a altura — o `lg` da LinhaDeEntidade quebraria o ritmo dos campos. */}\r\n          <FloatingPanelField\r\n            label=\"Gestor da conta\"\r\n            value={\r\n              <span className=\"flex items-center justify-end gap-gp-sm\">\r\n                <Avatar size=\"xs\" colorHex={GESTOR.hex} aria-label={GESTOR.nome}>\r\n                  {GESTOR.iniciais}\r\n                </Avatar>\r\n                {GESTOR.nome}\r\n              </span>\r\n            }\r\n          />\r\n          <FloatingPanelField label=\"Cliente desde\" value=\"12 de março de 2024\" />\r\n          <FloatingPanelField label=\"Última movimentação\" value=\"há 3 dias\" />\r\n        </FloatingPanelSection>\r\n      </FloatingPanel>\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:block",
         "target": "blocks/paneldetail/detalhe-do-registro.tsx"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1932,7 +1932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1973,7 +1973,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2275,7 +2275,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2371,7 +2371,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2417,7 +2417,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2468,7 +2468,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2604,7 +2604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2634,7 +2634,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2691,7 +2691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2772,7 +2772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2822,7 +2822,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2890,7 +2890,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2932,7 +2932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3018,7 +3018,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3109,7 +3109,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3133,7 +3133,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3186,7 +3186,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3210,7 +3210,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3235,7 +3235,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3259,7 +3259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3318,7 +3318,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3380,7 +3380,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3405,7 +3405,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3512,7 +3512,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3558,7 +3558,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3668,7 +3668,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3693,7 +3693,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3737,7 +3737,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3786,7 +3786,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3812,7 +3812,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3859,7 +3859,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3884,7 +3884,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3959,7 +3959,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3983,7 +3983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4007,7 +4007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4031,7 +4031,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4079,7 +4079,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4103,7 +4103,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4128,7 +4128,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4152,7 +4152,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4178,7 +4178,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4291,7 +4291,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4313,7 +4313,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4337,7 +4337,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4360,7 +4360,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4406,7 +4406,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4430,7 +4430,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4509,7 +4509,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4533,7 +4533,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4557,7 +4557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4575,7 +4575,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4593,7 +4593,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4611,7 +4611,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4629,7 +4629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4651,7 +4651,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4702,7 +4702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4728,7 +4728,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4753,7 +4753,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4777,7 +4777,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4798,7 +4798,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4820,7 +4820,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.50.0 · 97fded3 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.51.0 · 41175b1 · 2026-08-27"
     },
     "type": "registry:file"
   }
