@@ -48,7 +48,9 @@ export const cardOption = tv({
       "has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand",
     ],
     control: "shrink-0",
-    iconWrap: "grid shrink-0 place-items-center",
+    // Piso de 20px nos dois eixos: ícone menor que isso não se lê ao lado de um texto de
+    // 13px, e o `place-items-center` mantém centrado quando o conteúdo é menor que a caixa.
+    iconWrap: "grid shrink-0 place-items-center min-h-comp-2xs min-w-comp-2xs",
     body: "flex min-w-0 flex-1 flex-col gap-gp-2xs",
     label: "truncate font-semibold leading-tight text-fg-default",
     description: "text-fg-muted",
@@ -71,10 +73,17 @@ export const cardOption = tv({
         description: "text-caption-md",
       },
     },
-    /** Onde o controle fica. `right` empurra o corpo, não reordena o DOM. */
+    /**
+     * Onde o CONTROLE fica — e só ele.
+     *
+     * ⚠️ Era `flex-row-reverse` no root, que invertia TODOS os filhos e levava o ícone pra
+     * direita junto. O ícone tem de ficar sempre à esquerda: ele identifica a opção (junto do
+     * texto), enquanto o controle é a ação. `order-last` move apenas o controle, mantendo
+     * ícone → texto na ordem de leitura em qualquer orientação.
+     */
     orientation: {
       left: {},
-      right: { root: "flex-row-reverse" },
+      right: { control: "order-last" },
     },
     /**
      * O destaque de selecionado vem do **data attribute do controle**, não de prop.
@@ -102,12 +111,19 @@ export const cardOption = tv({
       },
     },
     /**
-     * Dentro de um grupo `layout="list"` o item perde borda e cantos — quem os desenha é o
-     * grupo, e o `divide-y` faz a separação. Sem isso, lista = cards empilhados com borda
-     * dupla entre eles.
+     * Dentro de um grupo `layout="list"`: sem cantos e sem borda em volta — quem desenha o
+     * contorno é o grupo. O que sobra é a **linha divisória**, feita pela borda de baixo de
+     * cada item, com o último suprimido.
+     *
+     * ⚠️ A 1ª versão era `border-0` no item + `divide-y` no grupo, e **não desenhava divisória
+     * nenhuma**: o `divide-y` funciona pondo `border-top` nos filhos a partir do 2º, e o
+     * `border-0` do item zerava justamente essa borda. Medido no browser — `border-top: 0px`
+     * nos três itens. Desenhar a borda no próprio item não depende dessa ordem de cascata.
      */
     inList: {
-      true: { root: "rounded-radius-none border-0" },
+      true: {
+        root: "rounded-radius-none border-x-0 border-t-0 border-b last:border-b-0",
+      },
     },
     disabled: {
       // Não existe token bg/border de disabled no DS — o padrão é opacidade.
@@ -137,10 +153,15 @@ export const cardOptionGroup = tv({
   variants: {
     layout: {
       spaced: "gap-gp-lg",
-      list: [
-        "overflow-hidden border border-border-default",
-        "divide-y divide-border-default",
-      ],
+      /**
+       * O grupo desenha só o contorno; a divisória entre linhas é a borda de baixo de cada
+       * item (ver `inList`). Não usa `divide-y`: ele põe `border-top` nos filhos e brigava
+       * com o reset de borda do item.
+       *
+       * Vale pros TRÊS tipos, não só switch — radio em lista é um seletor de linha única, e
+       * checkbox em lista é uma lista de permissões.
+       */
+      list: "overflow-hidden border border-border-default",
     },
     size: {
       // O radius do grupo acompanha o do item, senão o canto da lista destoa do card solto.

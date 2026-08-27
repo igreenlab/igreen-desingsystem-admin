@@ -19,6 +19,7 @@ const TOC = [
   { id: "ex-checkbox", label: "Checkbox" },
   { id: "ex-radio", label: "Radio (grupo obrigatório)" },
   { id: "ex-switch", label: "Switch em lista" },
+  { id: "ex-list-radio", label: "Lista serve pros três tipos" },
   { id: "ex-sizes", label: "Tamanhos" },
   { id: "ex-icon", label: "Com ícone" },
   { id: "ex-disabled", label: "Disabled" },
@@ -49,6 +50,7 @@ export function CardOptionDoc() {
   const [airdrop, setAirdrop] = useState(true);
   const [tamanho, setTamanho] = useState(true);
   const [comIcone, setComIcone] = useState(true);
+  const [plano, setPlano] = useState("pro");
 
   return (
     <DocLayout toc={TOC}>
@@ -109,7 +111,7 @@ export function CardOptionDoc() {
       <ExampleSection
         id="ex-switch"
         title="Switch em lista"
-        description="Switch vai à DIREITA e SEM destaque de selecionado — os dois derivam do type. Switch é estado, não seleção: uma lista de settings toda pintada de verde é ruído. E layout='list' põe borda e cantos no grupo, com divisórias entre as linhas."
+        description="Switch vai à DIREITA e SEM destaque de selecionado — os dois derivam do type. Switch é estado, não seleção: uma lista de settings toda pintada de verde é ruído. O ícone, quando existe, permanece à esquerda. E layout='list' vale pros três tipos, não só switch (ver o exemplo abaixo)."
         code={`<CardOptionGroup type="switch" layout="list">
   <CardOption label="Wi-Fi" description="Conectar a redes sem fio" checked={wifi} onCheckedChange={setWifi} />
   <CardOption label="Bluetooth" description="Permitir conexões Bluetooth" checked={bt} onCheckedChange={setBt} />
@@ -138,6 +140,29 @@ export function CardOptionDoc() {
               checked={airdrop}
               onCheckedChange={setAirdrop}
             />
+          </CardOptionGroup>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-list-radio"
+        title="Lista serve pros três tipos"
+        description="layout='list' não é exclusivo do switch: com radio vira um seletor de linha única; com checkbox, uma lista de permissões. O contorno é do grupo e a divisória é a borda de baixo de cada item, com a última suprimida."
+        code={`<CardOptionGroup type="radio" layout="list" value={plano} onValueChange={setPlano}>
+  <CardOption value="free" label="Gratuito" description="Até 3 projetos" />
+  <CardOption value="pro" label="Pro" description="Projetos ilimitados" />
+</CardOptionGroup>`}
+      >
+        <div className="flex w-full max-w-md flex-col gap-gp-2xl">
+          <CardOptionGroup type="radio" layout="list" value={plano} onValueChange={setPlano}>
+            <CardOption value="free" label="Gratuito" description="Até 3 projetos" />
+            <CardOption value="pro" label="Pro" description="Projetos ilimitados" />
+            <CardOption value="empresa" label="Empresa" description="SSO e auditoria" />
+          </CardOptionGroup>
+          <CardOptionGroup type="checkbox" layout="list">
+            <CardOption label="Ler" description="Ver registros e relatórios" defaultChecked />
+            <CardOption label="Escrever" description="Criar e editar registros" defaultChecked />
+            <CardOption label="Excluir" description="Remover registros em definitivo" />
           </CardOptionGroup>
         </div>
       </ExampleSection>

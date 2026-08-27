@@ -3,7 +3,7 @@
 <!-- ds:regras
 - `type="radio"` EXIGE `<CardOptionGroup type="radio">` em volta; checkbox e switch funcionam soltos
 - omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)
-- lista de settings → `<CardOptionGroup layout="list">`, não cards espaçados
+- lista (settings, permissões, planos) → `<CardOptionGroup layout="list">`; vale pros 3 tipos
 - omita `size`: `md` é o padrão calibrado
 -->
 
@@ -27,7 +27,7 @@ direto.
 | `highlightSelected` | `boolean` | **derivado do `type`** | pinta o card quando selecionado |
 | `label` | `ReactNode` | — | obrigatório |
 | `description` | `ReactNode` | — | texto de apoio |
-| `icon` | `ReactNode` | — | entre o controle e o texto |
+| `icon` | `ReactNode` | — | **sempre à esquerda**, mesmo com `orientation="right"`. Piso de 20×20px |
 | `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |
 | `disabled` | `boolean` | — | |
 
@@ -36,7 +36,7 @@ direto.
 | Prop | Tipo | Default | Descrição |
 |------|------|---------|-----------|
 | `type` | igual ao item | `"checkbox"` | `"radio"` faz o grupo **ser** o `RadioGroup` do Radix |
-| `layout` | `"spaced" \| "list"` | `"spaced"` | `list` = divisórias, sem gap, borda no grupo |
+| `layout` | `"spaced" \| "list"` | `"spaced"` | `list` = contorno no grupo + divisória entre linhas, sem gap. Vale pros **3 tipos** |
 | `size` / `orientation` | | | aplicados a todos os filhos |
 | `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type="radio"` |
 
@@ -72,9 +72,11 @@ direto.
   default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de
   selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de
   verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.
-- **Lista de configurações é `layout="list"`**, não cards espaçados. No modo lista a borda e o
-  arredondamento são do grupo, e o item perde os seus — se você forçar borda no item, sai
-  borda dupla entre as linhas.
+- **`layout="list"` não é exclusivo do switch.** Com radio vira seletor de linha única; com
+  checkbox, lista de permissões. No modo lista o contorno é do grupo e a divisória é a borda
+  de baixo de cada item (a última suprimida) — não force borda no item.
+- **O ícone fica sempre à esquerda**, inclusive com `orientation="right"`: o `order-last` move
+  só o controle. Ele identifica a opção e pertence ao lado do texto. Piso de 20×20px.
 - **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem
   ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra
   o leitor de tela ("button" em vez de checkbox) e o submit nativo.

@@ -40,10 +40,12 @@ describe("CardOption — semântica nativa (L-025)", () => {
 
 describe("CardOption — os defaults derivam do type", () => {
   const classesDoCard = (c: HTMLElement) => c.querySelector("label")!.className;
+  const classesDoControle = (c: HTMLElement) =>
+    c.querySelector('[role="checkbox"],[role="radio"],[role="switch"]')!.className;
 
   it("checkbox: controle à esquerda e destaque quando selecionado", () => {
     const { container } = render(<CardOption type="checkbox" checked label="x" />);
-    expect(classesDoCard(container)).not.toContain("flex-row-reverse");
+    expect(classesDoControle(container)).not.toContain("order-last");
     // o destaque é condicional ao data-state do controle, não classe fixa
     expect(classesDoCard(container)).toContain("has-[[data-state=checked]]:bg-bg-success-muted");
   });
@@ -52,7 +54,9 @@ describe("CardOption — os defaults derivam do type", () => {
     // É a decisão central da spec: switch é estado, não seleção — lista de settings toda
     // verde é ruído. Se este teste cair, o switch virou seleção sem ninguém decidir.
     const { container } = render(<CardOption type="switch" checked label="Wi-Fi" />);
-    expect(classesDoCard(container)).toContain("flex-row-reverse");
+    // order-last no CONTROLE, não flex-row-reverse no root: o root inverteria todos os
+    // filhos e levaria o ícone pra direita junto.
+    expect(classesDoControle(container)).toContain("order-last");
     expect(classesDoCard(container)).not.toContain("has-[[data-state=checked]]:bg-bg-success-muted");
   });
 
@@ -63,7 +67,42 @@ describe("CardOption — os defaults derivam do type", () => {
     expect(classesDoCard(a)).toContain("has-[[data-state=checked]]:bg-bg-success-muted");
 
     const { container: b } = render(<CardOption type="checkbox" orientation="right" label="x" />);
-    expect(classesDoCard(b)).toContain("flex-row-reverse");
+    expect(classesDoControle(b)).toContain("order-last");
+  });
+});
+
+describe("CardOption — o ícone fica SEMPRE à esquerda", () => {
+  /**
+   * ⚠️ Estes testes leem CLASSE, não `getComputedStyle`.
+   *
+   * jsdom não carrega o CSS do Tailwind: `order-last` fica como nome de classe e o `order`
+   * computado é sempre `0`. Uma versão anterior deste teste comparava o `order` computado e
+   * passava/falhava por vacuidade. A prova de que o ícone fica de fato à esquerda é a medição
+   * no browser (feita em 2026-08-27, com posição real na tela).
+   */
+  it("com orientation=right, só o CONTROLE recebe order-last", () => {
+    // Era `flex-row-reverse` no root, que invertia TODOS os filhos e mandava o ícone pra
+    // direita junto. O ícone identifica a opção e pertence ao lado do texto.
+    const { container } = render(
+      <CardOption type="switch" icon={<span>ic</span>} label="Wi-Fi" />,
+    );
+    const card = container.querySelector("label")!;
+    const ctrl = card.querySelector('[role="switch"]')!;
+    const icone = card.querySelector('[aria-hidden="true"]')!;
+    const corpo = card.querySelector('[class*="flex-col"]')!;
+
+    expect(ctrl.className).toContain("order-last");
+    expect(icone.className).not.toContain("order-last");
+    expect(corpo.className).not.toContain("order-last");
+    // e o root NÃO inverte mais
+    expect(card.className).not.toContain("flex-row-reverse");
+  });
+
+  it("o ícone tem piso de 20px nos dois eixos", () => {
+    const { container } = render(<CardOption icon={<span>ic</span>} label="x" />);
+    const wrap = container.querySelector('[aria-hidden="true"]')!;
+    expect(wrap.className).toContain("min-h-comp-2xs");
+    expect(wrap.className).toContain("min-w-comp-2xs");
   });
 });
 
@@ -119,11 +158,16 @@ describe("CardOptionGroup", () => {
       </CardOptionGroup>,
     );
     const grupo = container.firstElementChild as HTMLElement;
-    expect(grupo.className).toContain("divide-y");
     expect(grupo.className).toContain("border");
+    // NÃO usa divide-y: ele põe border-top nos filhos e brigava com o reset do item —
+    // resultado medido no browser era ZERO divisória.
+    expect(grupo.className).not.toContain("divide-y");
     const item = container.querySelector("label")!;
-    expect(item.className).toContain("border-0");
     expect(item.className).toContain("rounded-radius-none");
+    // a divisória é a borda de baixo do item, com o último suprimido
+    expect(item.className).toContain("border-b");
+    expect(item.className).toContain("last:border-b-0");
+    expect(item.className).not.toMatch(/(^|s)border-0(s|$)/);
   });
 
   it("layout=spaced (default): item com borda e cantos próprios", () => {
@@ -135,6 +179,23 @@ describe("CardOptionGroup", () => {
     const item = container.querySelector("label")!;
     expect(item.className).not.toContain("border-0");
     expect(item.className).toContain("rounded-radius-lg");
+  });
+
+  it("layout=list vale pros TRÊS tipos, não só switch", () => {
+    // A 1ª versão da doc só mostrava lista com switch, e o texto dizia "lista de settings" —
+    // o que fazia parecer exclusivo dele. Radio em lista é seletor de linha única; checkbox
+    // em lista é lista de permissões.
+    for (const type of ["checkbox", "radio", "switch"] as const) {
+      const { container } = render(
+        <CardOptionGroup type={type} layout="list" defaultValue="a">
+          <CardOption value="a" label="A" />
+          <CardOption value="b" label="B" />
+        </CardOptionGroup>,
+      );
+      const item = container.querySelector("label")!;
+      expect(item.className, `type=${type} deveria ter divisória`).toContain("border-b");
+      expect(item.className, `type=${type}`).toContain("rounded-radius-none");
+    }
   });
 
   it("disabled no grupo desce pro item", () => {
