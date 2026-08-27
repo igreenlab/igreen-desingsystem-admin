@@ -15,6 +15,7 @@ import {
    ═══════════════════════════════════════════════════════════════════════════ */
 
 const TOC = [
+  { id: "quando", label: "Qual type, e lista ou cards" },
   { id: "examples", label: "Examples" },
   { id: "ex-checkbox", label: "Checkbox" },
   { id: "ex-radio", label: "Radio (grupo obrigatório)" },
@@ -43,6 +44,46 @@ const PROPS = [
   { name: "CardOptionGroup (radio)", type: "value · defaultValue · onValueChange · name", defaultVal: "—" },
 ];
 
+/**
+ * Tabela de decisão — mesmo desenho da que o `AlertDialogDoc` usa pra separar
+ * AlertModal/AlertDialog/Dialog. Fica local porque são duas na página e o markup repetido
+ * três vezes já é a hora de nomear.
+ */
+function DecisionTable({
+  titulo,
+  coluna,
+  linhas,
+}: {
+  titulo: string;
+  coluna: string;
+  linhas: string[][];
+}) {
+  return (
+    <div className="flex flex-col gap-gp-lg">
+      <p className="text-body-md font-medium text-fg-default">{titulo}</p>
+      <div className="overflow-hidden rounded-radius-base border border-border-subtle">
+        <div className="grid grid-cols-[180px_1fr] gap-0 border-b border-border-subtle bg-bg-subtle">
+          <div className="px-pad-xl py-pad-md text-body-xs font-medium text-fg-default">
+            {coluna}
+          </div>
+          <div className="px-pad-xl py-pad-md text-body-xs font-medium text-fg-default">Quando</div>
+        </div>
+        {linhas.map(([chave, quando]) => (
+          <div
+            key={chave}
+            className="grid grid-cols-[180px_1fr] gap-0 border-t border-border-subtle"
+          >
+            <div className="px-pad-xl py-pad-md">
+              <code className="font-mono text-code-sm text-fg-brand">{chave}</code>
+            </div>
+            <div className="px-pad-xl py-pad-md text-body-md text-fg-muted">{quando}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function CardOptionDoc() {
   const [salvar, setSalvar] = useState(true);
   const [notificar, setNotificar] = useState(false);
@@ -62,6 +103,92 @@ export function CardOptionDoc() {
         title="CardOption"
         description="Checkbox, radio ou switch apresentado como card clicável — área grande, label + descrição. Substitui os três padrões que antes divergiam: o CardCheckbox, o Card Selection do radio e o Card Toggle do switch."
       />
+
+      <SectionH2 id="quando" title="Qual type, e lista ou cards" />
+      <div className="mb-14 flex flex-col gap-gp-2xl">
+        <p className="text-body-md text-fg-muted">
+          O componente é um só, mas duas decisões vêm antes de escrevê-lo — e as duas são{" "}
+          <strong className="text-fg-default">sobre a decisão do usuário</strong>, não sobre
+          aparência.
+        </p>
+
+        <DecisionTable
+          coluna="Qual type"
+          titulo="1. O que o usuário está decidindo"
+          linhas={[
+            [
+              'type="switch"',
+              "Liga/desliga uma funcionalidade com efeito IMEDIATO — sem Salvar. A NN/g é literal: o switch “should take immediate effect and should not require the user to click Save or Submit”. Numa tela com botão Salvar o usuário não sabe se já valeu: ali o controle é checkbox.",
+            ],
+            [
+              'type="radio"',
+              "Uma entre várias mutuamente exclusivas, e o usuário precisa ver todas pra decidir: meio de pagamento, endereço, forma de entrega, plano.",
+            ],
+            [
+              'type="checkbox"',
+              "Combinação livre — zero, uma ou várias (permissões, o que incluir). E é o substituto do switch quando a tela tem submit.",
+            ],
+            [
+              "nenhum dos três",
+              "Acima de ~5 opções, CardOption vira parede de cards: use Select ou Combobox. E on/off de UMA coisa nunca são dois radios — é um switch (imediato) ou um checkbox (com submit).",
+            ],
+          ]}
+        />
+
+        <DecisionTable
+          coluna="Qual layout"
+          titulo="2. Quanta comparação a decisão pede"
+          linhas={[
+            [
+              'layout="list"',
+              "Itens do mesmo tipo, rótulo curto, decisão já conhecida: configurações (switch), permissões (checkbox), meio de pagamento / endereço / entrega (radio). Densidade vale mais que destaque. O switch vive AQUI — a Apple HIG manda usar o switch “only in a list row”, porque ele tem mais peso visual que um checkbox e isso só se justifica quando a linha inteira lhe dá contexto.",
+            ],
+            [
+              "spaced (default)",
+              "Cada opção precisa ser COMPARADA — preço, descrição longa, ícone, badge: plano, tier, onboarding. O gap é justamente o que separa as unidades de comparação.",
+            ],
+          ]}
+        />
+
+        <p className="text-body-sm text-fg-subtle">
+          Fontes:{" "}
+          <a
+            className="underline hover:text-fg-default"
+            href="https://www.nngroup.com/articles/toggle-switch-guidelines/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            NN/g — Toggle-Switch Guidelines
+          </a>
+          {" · "}
+          <a
+            className="underline hover:text-fg-default"
+            href="https://developers.apple.com/design/human-interface-guidelines/components/selection-and-input/toggles/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Apple HIG — Toggles
+          </a>
+          {" · "}
+          <a
+            className="underline hover:text-fg-default"
+            href="https://baymard.com/blog/payment-method-selection"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Baymard — Payment Method Selection
+          </a>
+          {" · "}
+          <a
+            className="underline hover:text-fg-default"
+            href="https://soul.emplifi.io/latest/components/in-progress/radio-button-card-Pnx3WsEU"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Soul DS — Radio button card
+          </a>
+        </p>
+      </div>
 
       <SectionH2 id="examples" title="Examples" />
 
