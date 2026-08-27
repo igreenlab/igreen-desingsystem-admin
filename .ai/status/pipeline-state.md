@@ -4201,3 +4201,27 @@ seleção). Pedido de "switch card selecionável" é sinal de que o desenho est�
 **Não virou lição:** o defeito do destaque é L-012 aplicada e o do foco é a mesma família; as
 duas já estão catalogadas. O que era novo virou **teste** (14 casos, incluindo os dois
 defeitos).
+
+---
+
+### 2026-08-27 | ds-dev | release v0.50.0 — CardOption + regra de uso com fonte externa (PRs #275, #276, #277) | CONCLUÍDO
+
+**Input:** `/ds-release` sobre 5 commits desde a v0.49.0 — o componente `CardOption` (#275, com 3 rodadas de ajuste medido), a correção do comando de submódulo em 5 lugares (#275) e a regra de QUANDO usar cada type/layout (#276).
+
+**Output:** lib **0.49.0 → 0.50.0** (MINOR, `added` presente) · CLI **0.25.20 → 0.25.21** (`cli/templates/**` mudou) · PR #277 mergeado · publicado nos dois pacotes pelo mantenedor.
+
+**Verificação da publicação foi nos BYTES, não no console do publish:** `npm pack` das duas versões publicadas → `exports.CardOption` e `exports.CardOptionGroup` presentes no `.cjs` **e** no `.mjs`, `CardCheckbox` delegando (`jsx(CardOption, { type: "checkbox" })`), e o payload do CLI carregando a linha da regra de switch. É o hábito que a L-042 pede: a 8ª superfície (barrel) só se prova assim — foi ela que deixou `Chart`/`DataList`/`List`/`Toast` meses com `import` estourando "not exported" no consumidor.
+
+**Decisões de conteúdo da release:**
+
+1. **O destaque em lista virou OPÇÃO, não regra.** A 1ª correção suprimia o destaque em `layout="list"` por compoundVariant. O usuário pediu que fosse escolha — então o default passou a depender do contexto (card solto pinta, lista não) e a prop vence nas duas direções, no item ou no grupo. Regra fixa teria fechado um caso legítimo.
+2. **A regra de uso é de fonte externa, não de opinião.** NN/g (switch = efeito imediato, sem Salvar) · Apple HIG (switch só em linha de lista) · Baymard (pagamento em lista com radio) · Soul DS (>5 opções → Select). Escrever isso como preferência do DS teria a mesma forma e nenhuma autoridade — e a 1ª pergunta de quem discorda é "por quê".
+3. **O `ds:regras` foi ordenado por impacto de decisão** porque a injeção tem teto de 8 linhas (`MAX_LINHAS`, `component-rules.mjs`). Se o arquivo do consumidor usar outro componente com bloco, o excedente é cortado — então a 1ª linha tem que ser a que mais muda o resultado. Verificado chamando `regrasAplicaveis` com um trecho real: as 6 chegam.
+
+**Achado de infra (o passo 6.2a pagou o próprio custo):** os 2 placeholders de versão que ele resolveu viviam em `.ai/context/components/inventory.md`, e **`RAIZES_PLACEHOLDER` não incluía `.ai/context`** — o `release:check` passava verde com eles lá, e sairiam literais. Esse arquivo não é registro histórico como este `pipeline-state`; é o que a Regra 2 manda ler antes de criar componente, ou seja afirmação pro leitor. Escopo corrigido e **verificado plantando o placeholder e vendo reprovar** (L-064). Entrou só na varredura de placeholder, não na de claims: ali há citação legítima de versão antiga (`v0.7.1` na linha do `CardCheckbox`), e incluí-lo custaria ruído sem ganho (L-059). O `grep` que o próprio passo 6.2a manda rodar também listava menos pastas que o gate cobrava — as duas listas agora espelham uma à outra, com a exigência escrita no lugar onde divergiriam (L-060).
+
+**Estado:** tsc 0 · 64 arquivos / **785 testes** · `release:check` exit 0 · registry 94 itens com carimbo v0.50.0 (498 arquivos idênticos à fonte) · 5 marcas × 10 superfícies · 36 componentes de `ui/` no registry e no vocabulário.
+
+**Assumption:** que a regra de uso chega onde a decisão é tomada. Ela vive em 3 superfícies + showcase, e a que realmente alcança é o bloco `ds:regras`, que só dispara quando a IA escreve a tag — ou seja, **depois** de já ter escolhido o componente. Se aparecer tela onde a escolha errada foi feita antes (switch em form com Salvar, plano em lista), a assumption quebrou: o lugar da regra passa a ser o vocabulário do consumidor, que é lido antes de compor.
+
+**Não virou lição:** o achado do escopo do gate é da mesma família da L-062/L-069 (base de medição incompleta mentindo verde) e virou **gate**, que é o que a pergunta 1 do auto-update protocol manda fazer. O resto é registro.
