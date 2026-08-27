@@ -46,8 +46,9 @@ label, helper, erro e do `htmlFor`).
 | texto curto / longo | `input` · `textarea` |
 | escolher de uma lista | `select` — muitas opções + busca → `combobox` |
 | liga/desliga | `switch` (aplica na hora) · `checkbox` (confirma no submit) |
-| escolha em bloco visual | `card-checkbox` (label nativo envolvendo o checkbox) |
-| uma entre várias | `radio-group` |
+| **escolha em CARD** (área grande, label + descrição) — plano, frete, permissão, lista de settings | **`card-option`** — o controle é prop: type = checkbox \| radio \| switch. Omita orientation e highlightSelected: derivam do type (switch vai à direita e SEM destaque de selecionado, porque switch é estado e não seleção). type=radio exige CardOptionGroup em volta. Lista de configurações → CardOptionGroup com layout=list, não cards espaçados. Omita size (md é o padrão) |
+| escolha em bloco visual, só checkbox | `card-checkbox` — atalho de `card-option` com `type="checkbox"`; componente novo usa `card-option` |
+| uma entre várias | `radio-group` (campo compacto) — em card, `card-option` com `type="radio"` |
 | data | `date-picker` — `mode`: `single` (default) · `range` · `multiple` |
 | só mês/ano | `month-year-picker` |
 | arquivo | `file-upload-field` |

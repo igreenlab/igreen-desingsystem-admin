@@ -76,6 +76,7 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Calendar", href: "calendar" },
       { label: "Card", href: "card" },
       { label: "Card Checkbox", href: "card-checkbox" },
+      { label: "Card Option", href: "card-option" },
       { label: "Carousel", href: "carousel" },
       { label: "Checkbox", href: "checkbox" },
       { label: "Chip", href: "chip" },

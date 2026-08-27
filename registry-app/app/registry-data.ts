@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · accordion · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · alert-dialog · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · alert-modal · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · alert · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · app-shell · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · aspect-ratio · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -259,7 +259,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · avatar-ig · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -283,7 +283,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · avatar · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -305,7 +305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · badge · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -330,7 +330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · breadcrumb · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -381,7 +381,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · button-group · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -427,7 +427,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · button · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -452,7 +452,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · calendar · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -465,8 +465,9 @@ export const registry: Record<string, unknown> = {
       "@radix-ui/react-checkbox@^1.3.3"
     ],
     "registryDependencies": [
-      "@igreen/tv",
-      "@igreen/checkbox"
+      "@igreen/card-option",
+      "@igreen/checkbox",
+      "@igreen/tv"
     ],
     "files": [
       {
@@ -477,13 +478,13 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/CardCheckbox/card-checkbox.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * CardCheckbox — checkbox apresentado como card clicável (área grande,\r\n * label + description visíveis). Mesma estética dos radio cards (border +\r\n * bg + padding + selected state com bg-success-muted + border-brand).\r\n *\r\n * Estados:\r\n *   - default: surface + border-default\r\n *   - hover (não-selected): border-input + bg-muted\r\n *   - selected (checked): bg-success-muted + border-brand + shadow-sh-sm\r\n *   - disabled: opacity-50\r\n */\r\nexport const cardCheckbox = tv({\r\n  slots: {\r\n    root: [\r\n      \"flex items-center gap-gp-lg w-full\",\r\n      \"p-pad-xl rounded-radius-lg border text-left cursor-pointer\",\r\n      \"transition-[border-color,background-color,box-shadow] duration-150\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    body: \"flex flex-col flex-1 min-w-0 gap-gp-2xs\",\r\n    label:\r\n      \"text-body-sm font-semibold text-fg-default leading-tight truncate\",\r\n    description: \"text-caption-md text-fg-muted\",\r\n  },\r\n  variants: {\r\n    selected: {\r\n      true:  { root: \"border-border-brand bg-bg-success-muted shadow-sh-sm\" },\r\n      false: {\r\n        root: \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\r\n      },\r\n    },\r\n    disabled: {\r\n      true: { root: \"opacity-50 cursor-not-allowed pointer-events-none\" },\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    selected: false,\r\n  },\r\n});\r\n\r\nexport type CardCheckboxVariants = VariantProps<typeof cardCheckbox>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * ⚠️ SUPERSEDIDO pelo `cardOption` (ui/CardOption) em 2026-08-27 — a implementação foi\n * unificada porque os três padrões de card-com-controle divergiam em 11 dimensões. Este\n * `tv()` não é mais consumido por componente nenhum; segue exportado porque está no barrel\n * público e remover seria breaking sem ganho. Não escreva componente novo sobre ele.\n *\n * CardCheckbox — checkbox apresentado como card clicável (área grande,\r\n * label + description visíveis). Mesma estética dos radio cards (border +\r\n * bg + padding + selected state com bg-success-muted + border-brand).\r\n *\r\n * Estados:\r\n *   - default: surface + border-default\r\n *   - hover (não-selected): border-input + bg-muted\r\n *   - selected (checked): bg-success-muted + border-brand + shadow-sh-sm\r\n *   - disabled: opacity-50\r\n */\r\nexport const cardCheckbox = tv({\r\n  slots: {\r\n    root: [\r\n      \"flex items-center gap-gp-lg w-full\",\r\n      \"p-pad-xl rounded-radius-lg border text-left cursor-pointer\",\r\n      \"transition-[border-color,background-color,box-shadow] duration-150\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n    ],\r\n    body: \"flex flex-col flex-1 min-w-0 gap-gp-2xs\",\r\n    label:\r\n      \"text-body-sm font-semibold text-fg-default leading-tight truncate\",\r\n    description: \"text-caption-md text-fg-muted\",\r\n  },\r\n  variants: {\r\n    selected: {\r\n      true:  { root: \"border-border-brand bg-bg-success-muted shadow-sh-sm\" },\r\n      false: {\r\n        root: \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\r\n      },\r\n    },\r\n    disabled: {\r\n      true: { root: \"opacity-50 cursor-not-allowed pointer-events-none\" },\r\n    },\r\n  },\r\n  defaultVariants: {\r\n    selected: false,\r\n  },\r\n});\r\n\r\nexport type CardCheckboxVariants = VariantProps<typeof cardCheckbox>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/CardCheckbox/card-checkbox.styles.ts"
       },
       {
         "path": "src/components/ui/CardCheckbox/card-checkbox.tsx",
-        "content": "import { forwardRef, useId, type ReactNode } from \"react\";\r\nimport type { ComponentPropsWithoutRef, ElementRef } from \"react\";\r\nimport * as CheckboxPrimitive from \"@radix-ui/react-checkbox\";\r\nimport { Checkbox } from \"@/components/shadcn/checkbox\";\r\nimport { cardCheckbox, type CardCheckboxVariants } from \"./card-checkbox.styles\";\r\n\r\nexport type CardCheckboxProps = Omit<\r\n  ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,\r\n  \"id\" | \"className\"\r\n> & {\r\n  /** Label principal — chamada do card */\r\n  label: ReactNode;\r\n  /** Texto secundário abaixo do label */\r\n  description?: ReactNode;\r\n  /** ReactNode opcional renderizado à esquerda (antes do checkbox) — ex: <Save /> */\r\n  icon?: ReactNode;\r\n  /** className aplicado ao card root (sobrescreve background/border se necessário) */\r\n  className?: string;\r\n} & Omit<CardCheckboxVariants, \"selected\">;\r\n\r\n/**\r\n * CardCheckbox — checkbox apresentado como card clicável.\r\n *\r\n * Mesma estética dos radio cards (bg-bg-success-muted + border-brand no\r\n * selected). Diferente do FormFieldCheckbox que é layout horizontal compact —\r\n * CardCheckbox é UI de \"opção destacada\" com label + description visíveis.\r\n *\r\n * Uso:\r\n *   <CardCheckbox\r\n *     label=\"Salvar essa conta pra usar depois\"\r\n *     description=\"A conta aparecerá nas próximas vezes em 'Contas cadastradas'.\"\r\n *     checked={save}\r\n *     onCheckedChange={(v) => setSave(v === true)}\r\n *   />\r\n *\r\n * O card inteiro é clicável (não só o checkbox) — toggle dispara\r\n * onCheckedChange via clique no <label> wrapper.\r\n */\r\nexport const CardCheckbox = forwardRef<\r\n  ElementRef<typeof CheckboxPrimitive.Root>,\r\n  CardCheckboxProps\r\n>(\r\n  (\r\n    {\r\n      label,\r\n      description,\r\n      icon,\r\n      checked,\r\n      disabled,\r\n      className,\r\n      ...checkboxProps\r\n    },\r\n    ref,\r\n  ) => {\r\n    const autoId = useId();\r\n    const isSelected = checked === true;\r\n    const styles = cardCheckbox({\r\n      selected: isSelected,\r\n      disabled: disabled ? true : undefined,\r\n    });\r\n\r\n    return (\r\n      <label\r\n        htmlFor={autoId}\r\n        className={[styles.root(), className].filter(Boolean).join(\" \")}\r\n      >\r\n        <Checkbox\r\n          ref={ref}\r\n          id={autoId}\r\n          checked={checked}\r\n          disabled={disabled}\r\n          {...checkboxProps}\r\n        />\r\n        {icon && (\r\n          <span className=\"grid place-items-center shrink-0\" aria-hidden=\"true\">\r\n            {icon}\r\n          </span>\r\n        )}\r\n        <div className={styles.body()}>\r\n          <span className={styles.label()}>{label}</span>\r\n          {description && (\r\n            <span className={styles.description()}>{description}</span>\r\n          )}\r\n        </div>\r\n      </label>\r\n    );\r\n  },\r\n);\r\nCardCheckbox.displayName = \"CardCheckbox\";\r\n",
+        "content": "\"use client\";\n\nimport { forwardRef, type ReactNode } from \"react\";\nimport { CardOption } from \"@/components/ui/CardOption\";\nimport type { CardOptionSize } from \"@/components/ui/CardOption\";\n\nexport type CardCheckboxProps = {\n  label: ReactNode;\n  /** Texto secundário abaixo do label */\n  description?: ReactNode;\n  /** Ícone à esquerda, entre o checkbox e o texto */\n  icon?: ReactNode;\n  checked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n  id?: string;\n  size?: CardOptionSize;\n  className?: string;\n};\n\n/**\n * CardCheckbox — atalho de `<CardOption type=\"checkbox\">`.\n *\n * ## Por que virou wrapper em 2026-08-27\n *\n * Este componente era o ÚNICO dos três padrões de \"card com controle\" que existia de fato: o\n * card de radio e o de switch eram markup solto dentro das páginas de doc, e por isso os três\n * divergiam em 11 dimensões (alinhamento, padding, radius, presets do label e da descrição,\n * cor do selecionado, lado do input…). A implementação foi unificada no `CardOption`, e este\n * arquivo ficou como atalho.\n *\n * **Não foi deprecado nem removido**, e isso é deliberado: ele está no `registry.json`, no\n * barrel do npm, no vocabulário do consumidor e em **duas telas reais** — uma delas o\n * `example-finance`, que é distribuído. Trocar a API aqui seria breaking pra quem consome por\n * npm sem ganho nenhum: o comportamento é idêntico.\n *\n * Componente NOVO deve usar `CardOption` direto — é lá que estão `type`, `orientation`,\n * `layout=\"list\"` e a matriz de tamanhos.\n *\n * ⚠️ Uma diferença de comportamento, e ela é CONSERTO: o anel de foco agora é do card, via\n * `has-[:focus-visible]`. A versão anterior declarava `focus-visible:ring-4` no próprio\n * `<label>`, que não recebe foco — era CSS morto, e o único anel visível era o do checkbox de\n * 16px (medido no browser).\n */\nexport const CardCheckbox = forwardRef<HTMLButtonElement, CardCheckboxProps>(\n  function CardCheckbox(props, ref) {\n    return <CardOption ref={ref} type=\"checkbox\" {...props} />;\n  },\n);\n",
         "type": "registry:ui",
         "target": "components/ui/CardCheckbox/card-checkbox.tsx"
       },
@@ -495,7 +496,57 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · card-checkbox · v0.49.0 · 08048d3 · 2026-08-27"
+    },
+    "type": "registry:ui"
+  },
+  "card-option": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "card-option",
+    "title": "CardOption",
+    "description": "Checkbox, radio ou switch apresentado como card clicável (label + descrição). Grupo com modo lista.",
+    "dependencies": [],
+    "registryDependencies": [
+      "@igreen/checkbox",
+      "@igreen/radio-group",
+      "@igreen/switch",
+      "@igreen/tv",
+      "@igreen/utils"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/CardOption/USAGE.md",
+        "content": "# CardOption\n\n<!-- ds:regras\n- `type=\"radio\"` EXIGE `<CardOptionGroup type=\"radio\">` em volta; checkbox e switch funcionam soltos\n- omita `orientation` e `highlightSelected`: derivam do type (switch = direita, sem destaque)\n- lista de settings → `<CardOptionGroup layout=\"list\">`, não cards espaçados\n- omita `size`: `md` é o padrão calibrado\n-->\n\n**O que é** — controle de formulário apresentado como **card clicável** (área grande, label +\ndescrição visíveis), com o controle trocável por prop: `checkbox`, `radio` ou `switch`.\n**Categoria**: Form Controls.\n\n**Quando usar** — opção destacada que merece área de clique grande e texto de apoio: escolha\nde plano/frete, lista de permissões, painel de configurações. Para campo compacto em\nformulário, use `FormFieldCheckbox` / `RadioGroup` cru. Para um único toggle inline, `Switch`\ndireto.\n\n## Props essenciais\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | `\"checkbox\" \\| \"radio\" \\| \"switch\"` | herda do grupo, ou `\"checkbox\"` | qual controle o card embrulha |\n| `value` | `string` | — | **obrigatório com `type=\"radio\"`** |\n| `size` | `\"sm\" \\| \"md\" \\| \"lg\"` | `\"md\"` | 8 / 12 / 16px de padding |\n| `orientation` | `\"left\" \\| \"right\"` | **derivado do `type`** | lado do controle |\n| `highlightSelected` | `boolean` | **derivado do `type`** | pinta o card quando selecionado |\n| `label` | `ReactNode` | — | obrigatório |\n| `description` | `ReactNode` | — | texto de apoio |\n| `icon` | `ReactNode` | — | entre o controle e o texto |\n| `checked` / `onCheckedChange` | | — | controlado (no radio, quem manda é o grupo) |\n| `disabled` | `boolean` | — | |\n\n### `CardOptionGroup`\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `type` | igual ao item | `\"checkbox\"` | `\"radio\"` faz o grupo **ser** o `RadioGroup` do Radix |\n| `layout` | `\"spaced\" \\| \"list\"` | `\"spaced\"` | `list` = divisórias, sem gap, borda no grupo |\n| `size` / `orientation` | | | aplicados a todos os filhos |\n| `value` / `defaultValue` / `onValueChange` / `name` | | — | só `type=\"radio\"` |\n\n## Exemplo mínimo\n\n```tsx\n// checkbox solto\n<CardOption\n  label=\"Salvar essa conta pra usar depois\"\n  description=\"Aparece na lista de contas favoritas\"\n  checked={salvar}\n  onCheckedChange={setSalvar}\n/>\n\n// radio — o grupo é obrigatório\n<CardOptionGroup type=\"radio\" value={frete} onValueChange={setFrete}>\n  <CardOption value=\"standard\" label=\"Standard\" description=\"4 a 10 dias úteis\" />\n  <CardOption value=\"express\" label=\"Express\" description=\"2 a 3 dias úteis\" />\n</CardOptionGroup>\n\n// lista de settings — switch, à direita, sem destaque de selecionado\n<CardOptionGroup type=\"switch\" layout=\"list\">\n  <CardOption label=\"Wi-Fi\" description=\"Conectar a redes sem fio\" checked={wifi} onCheckedChange={setWifi} />\n  <CardOption label=\"Bluetooth\" description=\"Permitir conexões Bluetooth\" checked={bt} onCheckedChange={setBt} />\n</CardOptionGroup>\n```\n\n## Gotchas / cuidados\n\n- **`type=\"radio\"` sem `CardOptionGroup` não funciona direito.** É o `RadioGroup` do Radix que\n  dá navegação por seta e agrupamento por `name`. Checkbox e switch são autônomos.\n- **Não passe `orientation` nem `highlightSelected` sem motivo.** Eles derivam do `type`, e o\n  default é a convenção: switch fica **à direita** (linha de configuração) e **sem destaque de\n  selecionado**, porque switch é *estado*, não seleção — uma lista de settings toda pintada de\n  verde é ruído. Foi por isso que o exemplo antigo do Card Toggle não tinha estado visual.\n- **Lista de configurações é `layout=\"list\"`**, não cards espaçados. No modo lista a borda e o\n  arredondamento são do grupo, e o item perde os seus — se você forçar borda no item, sai\n  borda dupla entre as linhas.\n- **É um `<label htmlFor>` nativo, nunca `<button>` (L-025).** Não embrulhe em outro botão nem\n  ponha `onClick` no card: o clique já chega ao controle real pelo label, e trocar isso quebra\n  o leitor de tela (\"button\" em vez de checkbox) e o submit nativo.\n- **O anel de foco é do CARD**, via `has-[:focus-visible]`. O `CardCheckbox` antigo declarava\n  `focus-visible:ring-4` no próprio `<label>` — inerte, porque label não recebe foco (medido\n  em 2026-08-27: o único anel visível era o do controle de 16px).\n- **`CardCheckbox` continua existindo** como atalho de `type=\"checkbox\"`. Componente novo\n  deve usar `CardOption`.\n",
+        "type": "registry:file",
+        "target": "components/ui/CardOption/USAGE.md"
+      },
+      {
+        "path": "src/components/ui/CardOption/card-option.styles.ts",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\n\n/**\n * CardOption — controle de formulário apresentado como card clicável, com o controle\n * (checkbox, radio ou switch) trocável por prop.\n *\n * ## Por que um componente e não três\n *\n * Medido em 2026-08-27: dos três padrões de \"card com controle\" que o DS mostrava, **só um\n * era componente** (`CardCheckbox`). O \"Card Selection\" do radio e o \"Card Toggle\" do switch\n * eram markup solto dentro das páginas de doc — e por isso divergiam em 11 dimensões:\n * alinhamento (`items-start` vs `items-center`), padding (20px vs 12px), radius, preset do\n * label (`body-md medium` vs `body-sm semibold`), preset da descrição (`body-md` onde devia\n * ser `caption`), cor do selecionado, lado do input, e por aí.\n *\n * O que produziu a divergência foi a ausência de componente, não falta de disciplina: cada\n * exemplo foi escrito à mão, em momentos diferentes, e quem copiasse da doc levava a versão\n * daquele dia. `has-[[data-state=checked]]` aparecia 5× no repo, **todas** em página de doc e\n * nenhuma em tela real — ou seja, a janela pra unificar era esta, sem migração.\n *\n * ## As duas assimetrias que o `type` carrega\n *\n * Não é \"o mesmo card com controle diferente\" em tudo:\n *\n *   1. **Lado do controle.** Checkbox/radio à esquerda, switch à direita — convenção de linha\n *      de configuração. Um default único erraria metade dos casos, então o default deriva do\n *      `type` (ver `card-option.tsx`).\n *   2. **Destaque de selecionado.** Radio/checkbox SELECIONAM uma opção e ganham o destaque\n *      (`bg-success-muted` + `border-brand`). Switch é ESTADO, não seleção: uma lista de\n *      settings toda verde é ruído, e é exatamente por isso que o exemplo antigo do switch\n *      não tinha estado nenhum. Daí `highlightSelected` derivar do `type`.\n *\n * ## Foco — corrige defeito do CardCheckbox\n *\n * O anel vai no card por **`has-[:focus-visible]`**, não por `focus-visible:` no root. O\n * `CardCheckbox` declarava `focus-visible:ring-4` no `<label>`, e **label não recebe foco**:\n * era CSS morto (verificado no browser em 2026-08-27 — o anel que aparecia era só o do\n * controle de 16px, do `shadcn/checkbox`). Com `has-`, o card inteiro reage ao foco do\n * controle interno, que é o que a área clicável grande promete.\n */\nexport const cardOption = tv({\n  slots: {\n    root: [\n      \"flex w-full items-center\",\n      \"border text-left cursor-pointer\",\n      \"transition-[border-color,background-color,box-shadow] duration-150\",\n      // O anel é do CARD, disparado pelo foco do controle dentro dele.\n      \"has-[:focus-visible]:ring-4 has-[:focus-visible]:ring-ring-brand\",\n    ],\n    control: \"shrink-0\",\n    iconWrap: \"grid shrink-0 place-items-center\",\n    body: \"flex min-w-0 flex-1 flex-col gap-gp-2xs\",\n    label: \"truncate font-semibold leading-tight text-fg-default\",\n    description: \"text-fg-muted\",\n  },\n  variants: {\n    size: {\n      sm: {\n        root: \"p-pad-md gap-gp-md rounded-radius-md\",\n        label: \"text-body-sm\",\n        description: \"text-caption-sm\",\n      },\n      md: {\n        root: \"p-pad-xl gap-gp-lg rounded-radius-lg\",\n        label: \"text-body-sm\",\n        description: \"text-caption-md\",\n      },\n      lg: {\n        root: \"p-pad-2xl gap-gp-xl rounded-radius-xl\",\n        label: \"text-body-md\",\n        description: \"text-caption-md\",\n      },\n    },\n    /** Onde o controle fica. `right` empurra o corpo, não reordena o DOM. */\n    orientation: {\n      left: {},\n      right: { root: \"flex-row-reverse\" },\n    },\n    /**\n     * O destaque de selecionado vem do **data attribute do controle**, não de prop.\n     *\n     * ⚠️ A 1ª versão derivava de `checked === true` em JS e o card de **radio nunca\n     * destacava** — a seleção do radio mora no `value` do grupo, não numa prop do item, então\n     * a condição era falsa por construção. Pego no browser: o item com\n     * `data-state=\"checked\"` seguia branco.\n     *\n     * `has-[[data-state=checked]]` resolve os três tipos de uma vez e funciona também em uso\n     * NÃO-CONTROLADO (`defaultValue`/`defaultChecked`), onde nenhuma prop diz o estado. É a\n     * L-012: Radix marca estado por data attribute, não por atributo HTML.\n     */\n    highlight: {\n      true: {\n        root: [\n          \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n          \"has-[[data-state=checked]]:border-border-brand\",\n          \"has-[[data-state=checked]]:bg-bg-success-muted\",\n          \"has-[[data-state=checked]]:shadow-sh-sm\",\n        ],\n      },\n      false: {\n        root: \"border-border-default bg-bg-surface hover:border-border-input hover:bg-bg-muted\",\n      },\n    },\n    /**\n     * Dentro de um grupo `layout=\"list\"` o item perde borda e cantos — quem os desenha é o\n     * grupo, e o `divide-y` faz a separação. Sem isso, lista = cards empilhados com borda\n     * dupla entre eles.\n     */\n    inList: {\n      true: { root: \"rounded-radius-none border-0\" },\n    },\n    disabled: {\n      // Não existe token bg/border de disabled no DS — o padrão é opacidade.\n      true: { root: \"opacity-50 cursor-not-allowed pointer-events-none\" },\n    },\n  },\n  compoundVariants: [\n    // disabled SEMPRE por último (L-006), senão as classes de selected/hover o sobrescrevem\n    {\n      disabled: true,\n      class: { root: \"border-border-default bg-bg-surface hover:bg-bg-surface\" },\n    },\n  ],\n  defaultVariants: {\n    size: \"md\",\n    orientation: \"left\",\n    highlight: true,\n  },\n});\n\n/**\n * O container. Guarda a borda e o arredondamento quando `layout=\"list\"`, porque nesse modo\n * os itens não têm os seus.\n */\nexport const cardOptionGroup = tv({\n  base: \"flex w-full flex-col\",\n  variants: {\n    layout: {\n      spaced: \"gap-gp-lg\",\n      list: [\n        \"overflow-hidden border border-border-default\",\n        \"divide-y divide-border-default\",\n      ],\n    },\n    size: {\n      // O radius do grupo acompanha o do item, senão o canto da lista destoa do card solto.\n      sm: \"\",\n      md: \"\",\n      lg: \"\",\n    },\n    disabled: {\n      true: \"opacity-50 pointer-events-none\",\n    },\n  },\n  compoundVariants: [\n    { layout: \"list\", size: \"sm\", class: \"rounded-radius-md\" },\n    { layout: \"list\", size: \"md\", class: \"rounded-radius-lg\" },\n    { layout: \"list\", size: \"lg\", class: \"rounded-radius-xl\" },\n  ],\n  defaultVariants: {\n    layout: \"spaced\",\n    size: \"md\",\n  },\n});\n\nexport type CardOptionVariants = VariantProps<typeof cardOption>;\nexport type CardOptionGroupVariants = VariantProps<typeof cardOptionGroup>;\n",
+        "type": "registry:ui",
+        "target": "components/ui/CardOption/card-option.styles.ts"
+      },
+      {
+        "path": "src/components/ui/CardOption/card-option.tsx",
+        "content": "\"use client\";\n\nimport { createContext, forwardRef, useContext, useId } from \"react\";\nimport { cn } from \"@/lib/utils\";\nimport { Checkbox } from \"@/components/shadcn/checkbox\";\nimport { RadioGroup, RadioGroupItem } from \"@/components/shadcn/radio-group\";\nimport { Switch } from \"@/components/shadcn/switch\";\nimport { cardOption, cardOptionGroup } from \"./card-option.styles\";\nimport type {\n  CardOptionGroupProps,\n  CardOptionLayout,\n  CardOptionOrientation,\n  CardOptionProps,\n  CardOptionSize,\n  CardOptionType,\n} from \"./card-option.types\";\n\n/**\n * Os defaults que dependem do `type` — a assimetria da família, num lugar só.\n *\n * Um default único erraria metade dos casos: switch mora à direita (linha de configuração) e\n * não ganha destaque de selecionado, porque switch é ESTADO e não seleção — lista de settings\n * toda pintada de verde é ruído. Foi por isso que o exemplo antigo do switch não tinha estado\n * visual nenhum, e é o que este mapa preserva.\n */\nconst PADRAO_POR_TIPO: Record<\n  CardOptionType,\n  { orientation: CardOptionOrientation; highlightSelected: boolean }\n> = {\n  checkbox: { orientation: \"left\", highlightSelected: true },\n  radio: { orientation: \"left\", highlightSelected: true },\n  switch: { orientation: \"right\", highlightSelected: false },\n};\n\ntype Ctx = {\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  disabled?: boolean;\n};\n\nconst CardOptionCtx = createContext<Ctx | null>(null);\n\n/**\n * `CardOptionGroup` — o container.\n *\n * Existe por dois motivos que se somam:\n *\n *   1. **`type=\"radio\"` PRECISA de um pai.** É o `RadioGroup` do Radix que dá navegação por\n *      seta e agrupamento por `name`. Checkbox e switch são autônomos — nesses casos o grupo\n *      é só um `<div>`.\n *   2. **O modo lista mora aqui.** Em `layout=\"list\"` a borda e o arredondamento são do\n *      GRUPO e a separação é `divide-y`; o item perde os seus (`inList`). Se cada item\n *      mantivesse a borda, a lista sairia com borda dupla entre linhas.\n */\nexport const CardOptionGroup = forwardRef<HTMLDivElement, CardOptionGroupProps>(\n  function CardOptionGroup(\n    {\n      type = \"checkbox\",\n      size = \"md\",\n      orientation,\n      layout = \"spaced\",\n      value,\n      defaultValue,\n      onValueChange,\n      name,\n      disabled,\n      children,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const classes = cardOptionGroup({ layout, size, disabled: disabled ? true : undefined });\n    const ctx: Ctx = { type, size, orientation, layout, disabled };\n\n    if (type === \"radio\") {\n      return (\n        <CardOptionCtx.Provider value={ctx}>\n          <RadioGroup\n            ref={ref}\n            value={value}\n            defaultValue={defaultValue}\n            onValueChange={onValueChange}\n            name={name}\n            disabled={disabled}\n            /* O RadioGroup do DS traz `grid gap-gp-xl` no base; aqui o espaçamento é do\n               layout (gap no spaced, divide-y no list), então ele é sobrescrito. */\n            className={cn(classes, \"grid-none\", className)}\n            {...rest}\n          >\n            {children}\n          </RadioGroup>\n        </CardOptionCtx.Provider>\n      );\n    }\n\n    return (\n      <CardOptionCtx.Provider value={ctx}>\n        <div ref={ref} className={cn(classes, className)} {...rest}>\n          {children}\n        </div>\n      </CardOptionCtx.Provider>\n    );\n  },\n);\n\n/**\n * `CardOption` — o item.\n *\n * ⚠️ **É um `<label htmlFor>` nativo, nunca `<button onClick>` (L-025).** Com `button`, o\n * leitor de tela anuncia \"button\" em vez de checkbox/radio, o submit nativo perde\n * `name`/`value`, e o `stopPropagation` do controle interno faz o clique no card não chegar\n * nele. O label nativo propaga o clique pro controle real e preserva a semântica — foi a\n * lição que o `CardCheckbox` já carregava e que esta implementação mantém.\n */\nexport const CardOption = forwardRef<HTMLButtonElement, CardOptionProps>(\n  function CardOption(\n    {\n      type: typeProp,\n      value,\n      size: sizeProp,\n      orientation: orientationProp,\n      highlightSelected: highlightProp,\n      label,\n      description,\n      icon,\n      checked,\n      defaultChecked,\n      onCheckedChange,\n      disabled: disabledProp,\n      id: idProp,\n      className,\n      ...rest\n    },\n    ref,\n  ) {\n    const ctx = useContext(CardOptionCtx);\n    const autoId = useId();\n    const id = idProp ?? autoId;\n\n    const type = typeProp ?? ctx?.type ?? \"checkbox\";\n    const size = sizeProp ?? ctx?.size ?? \"md\";\n    const disabled = disabledProp ?? ctx?.disabled;\n    const padroes = PADRAO_POR_TIPO[type];\n    const orientation = orientationProp ?? ctx?.orientation ?? padroes.orientation;\n    const highlight = highlightProp ?? padroes.highlightSelected;\n\n    const styles = cardOption({\n      size,\n      orientation,\n      highlight,\n      inList: ctx?.layout === \"list\" ? true : undefined,\n      disabled: disabled ? true : undefined,\n    });\n\n    const controle =\n      type === \"radio\" ? (\n        <RadioGroupItem\n          ref={ref}\n          id={id}\n          value={value ?? \"\"}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : type === \"switch\" ? (\n        <Switch\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      ) : (\n        <Checkbox\n          ref={ref}\n          id={id}\n          checked={checked}\n          defaultChecked={defaultChecked}\n          onCheckedChange={onCheckedChange}\n          disabled={disabled}\n          className={styles.control()}\n          {...rest}\n        />\n      );\n\n    return (\n      <label htmlFor={id} className={cn(styles.root(), className)}>\n        {controle}\n        {icon && (\n          <span className={styles.iconWrap()} aria-hidden=\"true\">\n            {icon}\n          </span>\n        )}\n        <div className={styles.body()}>\n          <span className={styles.label()}>{label}</span>\n          {description && (\n            <span className={styles.description()}>{description}</span>\n          )}\n        </div>\n      </label>\n    );\n  },\n);\n",
+        "type": "registry:ui",
+        "target": "components/ui/CardOption/card-option.tsx"
+      },
+      {
+        "path": "src/components/ui/CardOption/card-option.types.ts",
+        "content": "import type { ReactNode } from \"react\";\nimport type { CardOptionVariants } from \"./card-option.styles\";\n\n/** Qual controle o card embrulha. Ponto de extensão pra tipos futuros. */\nexport type CardOptionType = \"checkbox\" | \"radio\" | \"switch\";\n\nexport type CardOptionSize = NonNullable<CardOptionVariants[\"size\"]>;\n\n/** Lado em que o controle fica. Omitido → derivado do `type`. */\nexport type CardOptionOrientation = NonNullable<CardOptionVariants[\"orientation\"]>;\n\n/** `spaced` = cards separados · `list` = uma lista com divisórias, sem gap. */\nexport type CardOptionLayout = \"spaced\" | \"list\";\n\nexport interface CardOptionProps {\n  /**\n   * Controle embrulhado pelo card. Default: herda do grupo, ou `\"checkbox\"`.\n   *\n   * ⚠️ `\"radio\"` exige um `CardOptionGroup` em volta — é ele que vira o `RadioGroup` do\n   * Radix e dá navegação por seta + agrupamento por `name`. Checkbox e switch funcionam\n   * soltos.\n   */\n  type?: CardOptionType;\n  /** Obrigatório quando `type=\"radio\"` — é o valor que o grupo seleciona. */\n  value?: string;\n  size?: CardOptionSize;\n  /**\n   * Lado do controle. **Omita**: o default deriva do `type` — `left` pra checkbox/radio,\n   * `right` pro switch (convenção de linha de configuração).\n   */\n  orientation?: CardOptionOrientation;\n  /**\n   * Pinta o card quando selecionado (`bg-success-muted` + `border-brand`). **Omita**: deriva\n   * do `type` — ligado em checkbox/radio, desligado no switch, porque switch é estado e não\n   * seleção (lista de settings toda verde é ruído).\n   */\n  highlightSelected?: boolean;\n  label: ReactNode;\n  description?: ReactNode;\n  /** Ícone entre o controle e o texto. */\n  icon?: ReactNode;\n  /** Controlado. No `radio`, quem manda é o `value` do grupo. */\n  checked?: boolean;\n  /** Não-controlado. Funciona com o destaque, porque ele vem do data-state e não de prop. */\n  defaultChecked?: boolean;\n  onCheckedChange?: (checked: boolean) => void;\n  disabled?: boolean;\n  /** id do controle — gerado se omitido (o `<label htmlFor>` precisa dele). */\n  id?: string;\n  className?: string;\n}\n\nexport interface CardOptionGroupProps {\n  /** Aplicado a todos os filhos. `radio` faz o grupo virar `RadioGroup` do Radix. */\n  type?: CardOptionType;\n  size?: CardOptionSize;\n  orientation?: CardOptionOrientation;\n  layout?: CardOptionLayout;\n  /** Só `type=\"radio\"`: valor selecionado (controlado). */\n  value?: string;\n  defaultValue?: string;\n  onValueChange?: (value: string) => void;\n  /** Só `type=\"radio\"`: nome do campo no submit nativo. */\n  name?: string;\n  disabled?: boolean;\n  children?: ReactNode;\n  className?: string;\n}\n",
+        "type": "registry:ui",
+        "target": "components/ui/CardOption/card-option.types.ts"
+      },
+      {
+        "path": "src/components/ui/CardOption/index.ts",
+        "content": "export { CardOption, CardOptionGroup } from \"./card-option\";\nexport { cardOption, cardOptionGroup } from \"./card-option.styles\";\nexport type {\n  CardOptionProps,\n  CardOptionGroupProps,\n  CardOptionType,\n  CardOptionSize,\n  CardOptionOrientation,\n  CardOptionLayout,\n} from \"./card-option.types\";\n",
+        "type": "registry:ui",
+        "target": "components/ui/CardOption/index.ts"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · card-option · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -517,7 +568,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · card · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -543,7 +594,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · carousel · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -579,7 +630,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · chart · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -604,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · checkbox · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -653,7 +704,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · chip · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -706,7 +757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · choropleth-map · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -728,7 +779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · collapsible · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -793,7 +844,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · color-picker · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -844,7 +895,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · combobox · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -871,7 +922,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · command · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -896,7 +947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · context-menu · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -973,7 +1024,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · data-list · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1658,7 +1709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · data-table · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1696,7 +1747,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · date-picker · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1721,7 +1772,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · dialog · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1745,7 +1796,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · drawer · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1821,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · dropdown-menu · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1799,7 +1850,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:block"
   },
@@ -1852,7 +1903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · empty-state · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -1893,7 +1944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-app-shell · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2195,7 +2246,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-chat · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2291,7 +2342,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-clientes · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2337,7 +2388,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-dashboard · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2388,7 +2439,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-edit-page · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2524,7 +2575,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-finance · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2554,7 +2605,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-login · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2611,7 +2662,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-mapa-rede · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2692,7 +2743,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · example-order-detail · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2742,7 +2793,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · file-upload-field · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2810,7 +2861,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · floating-panel · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2852,7 +2903,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · footer-table · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -2938,7 +2989,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · form-field · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3029,7 +3080,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · header · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3053,7 +3104,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · hover-card · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3106,7 +3157,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · icon · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3130,7 +3181,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · input-group · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3155,7 +3206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · input-otp · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3179,7 +3230,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · input · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3238,7 +3289,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · kanban · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3300,7 +3351,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · kpi · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3325,7 +3376,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · label · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3432,7 +3483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · list · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3478,7 +3529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · markdown-text · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3588,7 +3639,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · menu-sidebar · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3613,7 +3664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · menubar · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3657,7 +3708,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · modal · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3706,7 +3757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · month-year-picker · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3732,7 +3783,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · navigation-menu · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3779,7 +3830,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · page-header · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3804,7 +3855,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · pagination · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3879,7 +3930,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · panel · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3903,7 +3954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · popover · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3927,7 +3978,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · progress · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3951,7 +4002,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · radio-group · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -3999,7 +4050,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · screen-loader · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4023,7 +4074,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · scroll-area · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4048,7 +4099,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · select · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4072,7 +4123,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · separator · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4098,7 +4149,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · sheet · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4211,7 +4262,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4233,7 +4284,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · skeleton · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4257,7 +4308,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · slider · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4280,7 +4331,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · sonner · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4326,7 +4377,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · spinner · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4350,7 +4401,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · switch · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4429,7 +4480,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · table · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4453,7 +4504,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · tabs · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4477,7 +4528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · textarea · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4495,7 +4546,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · theme-blue · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4513,7 +4564,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · theme-green · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4531,7 +4582,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · theme-pay · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4549,7 +4600,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · theme-vibrant · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4571,7 +4622,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · theme · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4622,7 +4673,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · toast · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4648,7 +4699,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · toggle-group · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4673,7 +4724,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · toggle · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4697,7 +4748,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · tooltip · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:ui"
   },
@@ -4718,7 +4769,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · tv · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   },
@@ -4740,7 +4791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.49.0 · 7870d02 · 2026-08-24"
+      "stamp": "igreen-ds · utils · v0.49.0 · 08048d3 · 2026-08-27"
     },
     "type": "registry:file"
   }

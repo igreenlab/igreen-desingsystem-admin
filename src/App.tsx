@@ -48,6 +48,7 @@ import { CardDoc } from "./preview/pages/CardDoc";
 import { SwitchDoc } from "./preview/pages/SwitchDoc";
 import { CheckboxDoc } from "./preview/pages/CheckboxDoc";
 import { CardCheckboxDoc } from "./preview/pages/CardCheckboxDoc";
+import { CardOptionDoc } from "./preview/pages/CardOptionDoc";
 import { RadioGroupDoc } from "./preview/pages/RadioGroupDoc";
 import { SliderDoc } from "./preview/pages/SliderDoc";
 import { ProgressDoc } from "./preview/pages/ProgressDoc";
@@ -285,6 +286,7 @@ const DOC_PAGES = [
   "switch",
   "checkbox",
   "card-checkbox",
+  "card-option",
   "radio-group",
   "slider",
   "progress",
@@ -632,6 +634,7 @@ export function App() {
             {activePage === "switch" && <SwitchDoc />}
             {activePage === "checkbox" && <CheckboxDoc />}
             {activePage === "card-checkbox" && <CardCheckboxDoc />}
+            {activePage === "card-option" && <CardOptionDoc />}
             {activePage === "radio-group" && <RadioGroupDoc />}
             {activePage === "slider" && <SliderDoc />}
             {activePage === "progress" && <ProgressDoc />}

@@ -1,89 +1,49 @@
-import { forwardRef, useId, type ReactNode } from "react";
-import type { ComponentPropsWithoutRef, ElementRef } from "react";
-import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Checkbox } from "@/components/shadcn/checkbox";
-import { cardCheckbox, type CardCheckboxVariants } from "./card-checkbox.styles";
+"use client";
 
-export type CardCheckboxProps = Omit<
-  ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>,
-  "id" | "className"
-> & {
-  /** Label principal — chamada do card */
+import { forwardRef, type ReactNode } from "react";
+import { CardOption } from "@/components/ui/CardOption";
+import type { CardOptionSize } from "@/components/ui/CardOption";
+
+export type CardCheckboxProps = {
   label: ReactNode;
   /** Texto secundário abaixo do label */
   description?: ReactNode;
-  /** ReactNode opcional renderizado à esquerda (antes do checkbox) — ex: <Save /> */
+  /** Ícone à esquerda, entre o checkbox e o texto */
   icon?: ReactNode;
-  /** className aplicado ao card root (sobrescreve background/border se necessário) */
+  checked?: boolean;
+  onCheckedChange?: (checked: boolean) => void;
+  disabled?: boolean;
+  id?: string;
+  size?: CardOptionSize;
   className?: string;
-} & Omit<CardCheckboxVariants, "selected">;
+};
 
 /**
- * CardCheckbox — checkbox apresentado como card clicável.
+ * CardCheckbox — atalho de `<CardOption type="checkbox">`.
  *
- * Mesma estética dos radio cards (bg-bg-success-muted + border-brand no
- * selected). Diferente do FormFieldCheckbox que é layout horizontal compact —
- * CardCheckbox é UI de "opção destacada" com label + description visíveis.
+ * ## Por que virou wrapper em 2026-08-27
  *
- * Uso:
- *   <CardCheckbox
- *     label="Salvar essa conta pra usar depois"
- *     description="A conta aparecerá nas próximas vezes em 'Contas cadastradas'."
- *     checked={save}
- *     onCheckedChange={(v) => setSave(v === true)}
- *   />
+ * Este componente era o ÚNICO dos três padrões de "card com controle" que existia de fato: o
+ * card de radio e o de switch eram markup solto dentro das páginas de doc, e por isso os três
+ * divergiam em 11 dimensões (alinhamento, padding, radius, presets do label e da descrição,
+ * cor do selecionado, lado do input…). A implementação foi unificada no `CardOption`, e este
+ * arquivo ficou como atalho.
  *
- * O card inteiro é clicável (não só o checkbox) — toggle dispara
- * onCheckedChange via clique no <label> wrapper.
+ * **Não foi deprecado nem removido**, e isso é deliberado: ele está no `registry.json`, no
+ * barrel do npm, no vocabulário do consumidor e em **duas telas reais** — uma delas o
+ * `example-finance`, que é distribuído. Trocar a API aqui seria breaking pra quem consome por
+ * npm sem ganho nenhum: o comportamento é idêntico.
+ *
+ * Componente NOVO deve usar `CardOption` direto — é lá que estão `type`, `orientation`,
+ * `layout="list"` e a matriz de tamanhos.
+ *
+ * ⚠️ Uma diferença de comportamento, e ela é CONSERTO: o anel de foco agora é do card, via
+ * `has-[:focus-visible]`. A versão anterior declarava `focus-visible:ring-4` no próprio
+ * `<label>`, que não recebe foco — era CSS morto, e o único anel visível era o do checkbox de
+ * 16px (medido no browser).
  */
-export const CardCheckbox = forwardRef<
-  ElementRef<typeof CheckboxPrimitive.Root>,
-  CardCheckboxProps
->(
-  (
-    {
-      label,
-      description,
-      icon,
-      checked,
-      disabled,
-      className,
-      ...checkboxProps
-    },
-    ref,
-  ) => {
-    const autoId = useId();
-    const isSelected = checked === true;
-    const styles = cardCheckbox({
-      selected: isSelected,
-      disabled: disabled ? true : undefined,
-    });
-
-    return (
-      <label
-        htmlFor={autoId}
-        className={[styles.root(), className].filter(Boolean).join(" ")}
-      >
-        <Checkbox
-          ref={ref}
-          id={autoId}
-          checked={checked}
-          disabled={disabled}
-          {...checkboxProps}
-        />
-        {icon && (
-          <span className="grid place-items-center shrink-0" aria-hidden="true">
-            {icon}
-          </span>
-        )}
-        <div className={styles.body()}>
-          <span className={styles.label()}>{label}</span>
-          {description && (
-            <span className={styles.description()}>{description}</span>
-          )}
-        </div>
-      </label>
-    );
+export const CardCheckbox = forwardRef<HTMLButtonElement, CardCheckboxProps>(
+  function CardCheckbox(props, ref) {
+    return <CardOption ref={ref} type="checkbox" {...props} />;
   },
 );
-CardCheckbox.displayName = "CardCheckbox";

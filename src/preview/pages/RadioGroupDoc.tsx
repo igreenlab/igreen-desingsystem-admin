@@ -1,4 +1,5 @@
 ﻿import { RadioGroup, RadioGroupItem } from "../../components/shadcn/radio-group";
+import { CardOption, CardOptionGroup } from "../../components/ui/CardOption";
 import { Label } from "../../components/shadcn/label";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
@@ -94,36 +95,22 @@ export function RadioGroupDoc() {
       <ExampleSection
         id="ex-card-selection"
         title="Card Selection"
-        description="Radio items styled as selectable cards with border highlight."
-        code={`<RadioGroup defaultValue="standard">
-  <label className="rounded-radius-base border border-border-subtle p-pad-3xl flex items-start gap-gp-xl cursor-pointer has-[[data-state=checked]]:bg-bg-subtle">
-    <RadioGroupItem value="standard" id="r-card-standard" />
-    <div className="flex flex-col gap-gp-xs">
-      <span className="text-body-md font-medium">Standard</span>
-      <span className="text-body-md text-fg-muted">4-10 business days</span>
-    </div>
-  </label>
-  ...
-</RadioGroup>`}
+        description="Cards selecionáveis via CardOption. O type radio exige o CardOptionGroup em volta, que é o RadioGroup do Radix por baixo."
+        code={`<CardOptionGroup type="radio" defaultValue="standard">
+  <CardOption value="standard" label="Standard" description="4-10 business days" />
+  <CardOption value="express" label="Express" description="2-3 business days" />
+  <CardOption value="overnight" label="Overnight" description="Next business day" />
+</CardOptionGroup>`}
       >
-        <RadioGroup defaultValue="standard" className="flex flex-col gap-gp-2xl w-full max-w-sm">
-          {[
-            { value: "standard", label: "Standard", desc: "4-10 business days" },
-            { value: "express", label: "Express", desc: "2-3 business days" },
-            { value: "overnight", label: "Overnight", desc: "Next business day" },
-          ].map((item) => (
-            <label
-              key={item.value}
-              className="rounded-radius-base border border-border-subtle p-pad-3xl flex items-start gap-gp-xl cursor-pointer transition-colors has-[[data-state=checked]]:bg-bg-subtle"
-            >
-              <RadioGroupItem value={item.value} id={`r-card-${item.value}`} />
-              <div className="flex flex-col gap-gp-xs">
-                <span className="text-body-md font-medium text-fg-default">{item.label}</span>
-                <span className="text-body-md text-fg-muted">{item.desc}</span>
-              </div>
-            </label>
-          ))}
-        </RadioGroup>
+        {/* Consome o CardOption em vez de repetir markup: era esta cópia solta que divergia
+            do CardCheckbox em 11 dimensões (items-start, padding 20px, presets errados…). */}
+        <div className="w-full max-w-sm">
+          <CardOptionGroup type="radio" defaultValue="standard">
+            <CardOption value="standard" label="Standard" description="4-10 business days" />
+            <CardOption value="express" label="Express" description="2-3 business days" />
+            <CardOption value="overnight" label="Overnight" description="Next business day" />
+          </CardOptionGroup>
+        </div>
       </ExampleSection>
 
       {/* Horizontal */}
