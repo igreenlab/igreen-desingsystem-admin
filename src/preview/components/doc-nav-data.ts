@@ -147,7 +147,10 @@ const BASE_NAV: DocNavSection[] = [
     // exemplo de tela. É composição referenciável por ID. Ver
     // `.ai/specs/blocks-catalogo-de-composicoes.md` §2.
     title: "Blocks",
-    items: [{ label: "Gráficos", href: "blocks-charts" }],
+    items: [
+      { label: "Gráficos", href: "blocks-charts" },
+      { label: "Painel de detalhe", href: "blocks-paneldetail" },
+    ],
   },
   {
     title: "Data Table Components",

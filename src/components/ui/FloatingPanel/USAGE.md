@@ -1,9 +1,10 @@
 # FloatingPanel — USAGE
 
 <!-- ds:regras
-- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto
+- painel de DETALHE de registro → siga o bloco `dsgreen-paneldetail-1` (identidade no `titleSlot`, ações `soft` no `headerActions`, métricas em cards, seções colapsáveis, ação primária no footer)
+- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia padding e divisória full-width)
 - é REDIMENSIONÁVEL em runtime — nenhuma largura escrita na mão acompanha o arrasto
-- `bodyPadded={false}` quando usar `FloatingPanelSection` (a section gerencia o padding)
+- aba dentro dele → `<Tabs fullWidth>` na variante default; `line` aqui vira trilho curto
 -->
 
 Drawer card flutuante non-modal — resizável, maximizável, coexiste com página atrás (sem backdrop).
@@ -64,9 +65,30 @@ import {
 </FloatingPanel>
 ```
 
-## Detail panel padrão (sections colapsáveis)
-Pattern canônico de painel de detalhe — espelha o DetailDrawer da showcase de
-Clientes. Use `bodyPadded={false}` (as sections têm padding + divisória própria):
+## Detail panel padrão → o bloco `dsgreen-paneldetail-1`
+
+**Painel de detalhe de registro tem estrutura definida, e ela é referenciável por ID.** A
+composição inteira (com fixture, medições e o porquê de cada decisão) vive em
+`src/blocks/paneldetail/` e é renderizada em `#/blocks-paneldetail`. Cite o ID em vez de
+recompor: `use a referência dsgreen-paneldetail-1 no painel de detalhe do pedido`.
+
+As quatro zonas, que são o que a IA erra quando compõe do zero — ela joga tudo no corpo:
+
+| zona | o que vai | por que |
+|---|---|---|
+| `titleSlot` | avatar + nome + código · Chip de status | responde "de quem é este painel"; fica fixo no scroll |
+| `headerActions` | 1–2 ações de ícone, **sempre `variant="soft"`** | `ghost` no meio da fileira fica sem container e lê como desabilitada ao lado do maximize/close, que são `soft` |
+| corpo, 1ª seção | métricas em **cards compactos** (não `Kpi`) | responde "como este registro está?" — vem antes dos campos, que respondem "quais são os dados" |
+| corpo, resto | campos em `FloatingPanelSection` por assunto | o colapso é o que permite 20 campos sem obrigar a rolar 20 |
+| `footer` | Fechar + ação primária | a ação que fecha a tarefa, sempre alcançável |
+
+⛔ **Não use aba aqui.** Se o corpo já é pilha de seções colapsáveis, o colapso **é** o
+mecanismo de esconder — ter os dois faz o usuário procurar o dado em dois lugares. Recorte
+volumoso de verdade (extrato de 200 linhas) não é aba nem seção: é outra tela.
+
+### Anatomia mínima
+
+Use `bodyPadded={false}` (as sections têm padding + divisória própria):
 
 ```tsx
 <FloatingPanel open={open} onOpenChange={setOpen} bodyPadded={false} titleSlot={<HeaderCustom />}>

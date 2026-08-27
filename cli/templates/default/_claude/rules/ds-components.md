@@ -92,6 +92,7 @@ label, helper, erro e do `htmlFor`).
 | **bloqueia** a página, centralizado | `modal` (body já rola sozinho — não trate scroll no children) |
 | **bloqueia**, lateral, mais espaço que o modal | `panel` (560px default) · `sheet` · `drawer` (mobile, gesto) |
 | **não** bloqueia — coexiste com a lista atrás, resizável | `floating-panel` |
+| **painel de DETALHE de um registro** (o que abre ao clicar na linha da tabela) | **cite o bloco `dsgreen-paneldetail-1`** — a estrutura já está resolvida ali: identidade no header (avatar + nome + código + status), ações de ícone soft, métricas em cards compactos, campos em seções colapsáveis por assunto, ação primária no footer. Sem aba: o colapso já é o mecanismo de esconder. Precisa de avatar/chip/ação no header → é `floating-panel`, porque no `panel` o header é só string |
 | diálogo cru, sem o chrome do DS | `dialog` · `alert-dialog` |
 
 Todo flutuante já segue a mesma receita visual (superfície frosted, radius 12,

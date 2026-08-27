@@ -16,6 +16,12 @@ Este índice é lido pelo **Passo 0** da skill `ds-kit`, quando o usuário cita 
 |---|---|---|---|---|
 | `dsgreen-chart-1` | Donut de distribuição com rateio | Donut com total no centro + lista das fatias abaixo, onde a cor liga linha e setor. Para distribuição de um total por 3–5 categorias nomeadas. | Card (size="md") · Tabs · Chip · ChartContainer · PieChart (recharts) | `src/blocks/chart/budget-breakdown.tsx` |
 
+## paneldetail
+
+| Código | Composição | Quando serve | Usa | Arquivo |
+|---|---|---|---|---|
+| `dsgreen-paneldetail-1` | Painel de detalhe do registro | Painel lateral aberto a partir de uma linha de tabela: header com avatar + nome + código e status, ações de ícone e maximizar; métricas em cards compactos; e os dados em seções colapsáveis — inclusive as que não são label:valor (conta bancária com marca, métodos em chips, e-mail e telefone acionáveis, gestor com avatar). Ação primária no footer. Mesmo padrão dos painéis de detalhe do Virtual Office e do CRUD de clientes. | FloatingPanel (side="right", size="lg", titleSlot + headerActions + maximizable + resizable + bodyPadded={false}) · FloatingPanelSection + FloatingPanelField · MetricaCartoes — cards compactos próprios (ícone + valor + rótulo); NÃO o Kpi · Avatar (colorHex, contraste WCAG automático) · Chip (soft) · Button (icon-sm no header, sm no footer) | `src/blocks/paneldetail/detalhe-do-registro.tsx` |
+
 ## Como pegar o código do bloco
 
 | modo de consumo | onde o arquivo está |
