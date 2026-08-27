@@ -54,9 +54,12 @@ Espelhar `finance-screen.tsx` (puxe `example-finance`). **Componente do DS sempr
 
 **Cite o bloco `dsgreen-paneldetail-1`** — a estrutura inteira já está resolvida e
 referenciável por ID (`npm run igreen:add -- dsgreen-paneldetail-1`, ou peça
-*"use a referência dsgreen-paneldetail-1"*). A referência anterior era "espelhe o
-`FinanceDetailPanel`", e ela não servia aqui: aquele arquivo vive no showcase do DS e **não
-existe no seu projeto** — não havia o que espelhar.
+*"use a referência dsgreen-paneldetail-1"*).
+
+A referência anterior era "espelhe o `FinanceDetailPanel`", e ela funciona — o
+`example-finance` distribui esse arquivo. O bloco é melhor por dois motivos, não porque o
+outro esteja quebrado: **não exige puxar uma tela inteira** só pra ver um painel, e o arquivo
+dele traz **o porquê de cada decisão** (com as medições) em vez de só o resultado.
 
 **Sempre** `<FloatingPanel>`, nunca markup solto. O que o bloco carrega:
 
