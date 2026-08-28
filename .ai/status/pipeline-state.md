@@ -4433,3 +4433,79 @@ onde metade dos avatares precisa de tamanho próprio, o contexto vira ruído e o
 **Dívida quitada nesta rodada:** o CLI **0.25.25** (pendente desde a v0.52.0) foi publicado
 junto — o payload agora carrega a linha do vocabulário corrigida do `Drawer`/detail panel **e** a
 do `avatar-ig` com foto.
+
+---
+
+### 2026-08-28 | ds-designer + ds-dev | `TabsNavigation` — abas de navegador, nascidas de uma demo (PRs #290, #291) | CONCLUÍDO
+
+**Input:** *"quero criar um componente de abas diferenciado como abas de navegação… inicialmente
+poderia fazer a visão de uma demo para podermos depois fazer ele transformar em componente?"* —
+e, 6 rodadas de ajuste depois, *"agora poderia transformar isso em componente?"*.
+
+**Output:** `TabsNavigation` (8 arquivos) · lib **0.54.0** e CLI **0.25.27** publicados e
+conferidos por extração do tarball · registry em 98 itens · `@utility scrollbar-none` no tema.
+
+**O método é o registro mais importante desta entry: a demo veio ANTES do componente, e por
+isso a spec começou com as respostas em vez de com as perguntas.** A página `#/nav-tabs-demo`
+existiu por 6 rodadas de ajuste do mantenedor (overflow, gap do ponto, área das ações,
+variação compacta, altura total, alinhamento) e cada rodada virou uma decisão registrada. Na
+hora de escrever o componente, o gate da Regra 4 não teve que adivinhar nada: a API caiu de
+uma spec que já sabia o que era prop, o que era default e o que era caso de borda. Vale
+repetir em componente cujo comportamento é o produto — não em componente cuja API é óbvia.
+
+**A decisão que define a API:** o componente é a **tira**, não o roteador. Controlado
+(`value`/`onValueChange`) e sem hospedar conteúdo, porque o pedido era explícito — *"o conteúdo
+que muda pode estar fora da estrutura"*. `panelId` emite `aria-controls` pro container externo;
+`<Panel>` fecha o par quando o conteúdo está dentro; sem nenhum dos dois o componente **não
+inventa** wiring, que é mais honesto que fingir acessibilidade.
+
+**Composição em vez de configuração:** `leading`, `children`, `status`, `badge` e `actions`
+aceitam qualquer nó, e `actions` SUBSTITUI as ações padrão. Foi o que permitiu o caso de
+chamados (✓/✗ de aceitar/recusar) sem prop nova no componente.
+
+**Seis defeitos que só a medição no browser pegou** — nenhum apareceu em tsc, teste ou revisão
+de código:
+
+1. **A barra de rolagem ocupa 11px DENTRO do trilho** e empurrava as abas pra cima da régua,
+   matando a união da aba ativa com o conteúdo — que é o componente inteiro. Virou a
+   `@utility scrollbar-none` no tema gerado (não no `globals.css`: utility que componente
+   distribuído usa tem que chegar nos 4 canais).
+2. **As ações com `opacity-0` ocupavam 48px invisíveis**, truncando um título que cabia em
+   149px. A coluna passou a crescer de `0fr` a `1fr`.
+3. **Em `fill` o truque do `-mb-px` não serve**: a aba parava 2px antes da régua (1px do
+   padding do trilho + 1px da borda da faixa). Ali a tira perde a régua e a união vira
+   continuidade de cor.
+4. **A faixa de controles com altura fixa** deixava botões e divisórias 4px fora do eixo.
+5. **375px mostrava 0,4 aba** — os três controles comiam 204px dos 375.
+6. **Selecionar o texto do `hoverCard` arrastava a fila**: o `HoverCardContent` do DS **não usa
+   Portal**, então o card é renderizado dentro do trilho (com `position: fixed`, por isso não é
+   clipado) e o `pointerdown` borbulhava até o gesto de arrasto.
+
+**⚠️ `gap-gp-3xs` NÃO EXISTE — e passou por tudo.** Usei em 5 lugares: a escala de gap vai
+`2xs` (2px) → `xs` (4px), sem `3xs`. Classe inexistente não emite CSS, então o gap era **zero**,
+sem erro de build, de `tsc` ou de teste. O gate `dead-theme-classes` cobre classe de **cor**;
+**spacing não tem gate equivalente**. É a L-057 (`max-w-container-*`) repetida noutra família —
+candidata a gate, não a lição: a lista de prefixos válidos é derivável do tema gerado.
+
+**Dois tropeços de rename, ambos com gate:** `public/r/nav-tabs.json` ficou **órfão** (o
+`shadcn build` gera um arquivo por item mas não apaga o do nome antigo, e o embed seguiu
+citando os 6 caminhos velhos — `embed-content` pegou); e o barrel ganhou uma linha duplicada
+fora de ordem, que o `tsc` não reclama.
+
+**Token que NÃO foi criado, e por quê.** Cheguei a criar `bg.chrome` nas 5 marcas × 2 modos pra
+o recuo da tira ter um token único; o mantenedor decidiu usar a escala existente com o par por
+modo (`bg-emphasis` claro / `bg-canvas` escuro), dizendo que a diferença entre os modos é
+intencional. Revertido antes do commit. **Registro porque a inclinação de criar token pra
+"limpar" um par condicional é forte e nem sempre é a leitura certa** — quem decide o que é
+sistema é o mantenedor.
+
+**Estado:** tsc 0 · 826 testes (20 do componente) · `release:check` verde · npm 0.54.0 e CLI
+0.25.27 conferidos **por extração do tarball** (`TabsNavigation` no bundle, os `.d.ts` do
+componente e do hook, `scrollbar-none` no `theme.css`, vocabulário e tema baked no payload).
+
+**Assumption:** que o consumidor controla o estado e hospeda o conteúdo — o componente é a
+tira. Falsificável: se toda tela consumidora acabar reimplementando o mesmo `useState` + mapa
+de painéis, o certo passa a ser um modo não-controlado com `Panel` obrigatório.
+
+**Dívida:** nenhuma aberta. O CLI 0.25.26, que nunca chegou a ser publicado, foi coberto pela
+0.25.27.
