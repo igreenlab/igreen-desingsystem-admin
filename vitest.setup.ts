@@ -21,3 +21,21 @@ if (!Element.prototype.hasPointerCapture) {
 if (!Element.prototype.scrollIntoView) {
   Element.prototype.scrollIntoView = () => undefined;
 }
+
+/**
+ * `ResizeObserver` — mesma categoria: jsdom não implementa, e o **cmdk** o instancia no mount
+ * de qualquer `<Command>`. Isso derruba o teste com `ReferenceError` antes de qualquer
+ * asserção, e atinge tudo que usa busca em lista: `Command`, `Combobox`, o ⌘K do `Header` e o
+ * `BreadcrumbSwitcher`. Não dá pra guardar por dentro como fazemos no nosso código (o
+ * `TabsNavigation` checa `typeof ResizeObserver`) — a chamada é da dependência.
+ *
+ * O stub não observa nada: os testes verificam comportamento (o que abre, o que filtra, o que
+ * volta no callback), não medida de layout — que em jsdom seria 0 de qualquer forma.
+ */
+if (typeof globalThis.ResizeObserver === "undefined") {
+  globalThis.ResizeObserver = class {
+    observe() {}
+    unobserve() {}
+    disconnect() {}
+  } as unknown as typeof ResizeObserver;
+}

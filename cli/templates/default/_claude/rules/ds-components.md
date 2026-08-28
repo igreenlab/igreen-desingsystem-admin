@@ -193,7 +193,13 @@ código.
   (escolhe preto/branco por contraste WCAG quando recebe hex).
 - `badge` — rótulo estático · `chip` — pílula de status/tag/filtro, pode ser interativa.
 - `icon` — ícones do DS, incluindo o set de marca `igreen-*`.
-- `breadcrumb` · `menubar` (barra de menus estilo desktop) · `navigation-menu` (mega-menu).
+- `breadcrumb` — caminho de navegação. Em página de **detalhe**, o item do registro aberto
+  pode virar seletor: `<BreadcrumbSwitcher>` (vem no mesmo item) transforma o nome do que está
+  aberto em gatilho de uma lista com busca — quem está numa ficha quer pular pra outra, não
+  voltar à lista. É controlado e **não navega** (`onValueChange` devolve o valor; rota é sua),
+  e no `header` o item do breadcrumb vira seletor com `switcher`+`value`+`onValueChange`
+  juntos. ⛔ escolher valor de formulário não é isto: é `combobox`.
+- `menubar` (barra de menus estilo desktop) · `navigation-menu` (mega-menu).
 - `label` — só fora de formulário; **dentro** de form quem cuida é o `form-field`.
 
 ## Comando e texto

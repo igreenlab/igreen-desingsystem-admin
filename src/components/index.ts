@@ -12,6 +12,7 @@
 export * from "./ui/AlertModal";
 export * from "./ui/AppShell";
 export * from "./ui/avatar-ig";
+export * from "./ui/Breadcrumb";
 export * from "./ui/Button";
 export * from "./ui/ButtonGroup";
 export * from "./ui/CardCheckbox";
