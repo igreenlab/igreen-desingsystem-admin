@@ -16,4 +16,49 @@ export interface AvatarProps
    * Takes precedence over `color`.
    */
   colorHex?: string;
+
+  /**
+   * Foto da pessoa. Quando carrega, cobre o círculo inteiro; quando **falha**, o avatar
+   * volta pras iniciais (`children`) com a cor de sempre — por isso continue passando as
+   * iniciais mesmo com `src`.
+   *
+   * Não há prop `alt`: o nome mora no `aria-label` do avatar (a imagem interna é
+   * `alt=""`). Dois rótulos no mesmo elemento fariam o leitor de tela anunciar a pessoa
+   * duas vezes.
+   */
+  src?: string;
+}
+
+/** Tamanhos do avatar — reusado pelo grupo, que os propaga por contexto. */
+export type AvatarSize = NonNullable<AvatarVariantProps["size"]>;
+
+/**
+ * Superfície ATRÁS do grupo — define a cor do anel que separa um avatar do outro.
+ * Errar aqui é o defeito clássico da pilha: anel `surface` numa linha de tabela vira halo.
+ */
+export type AvatarSurface = "surface" | "canvas" | "subtle" | "muted" | "table";
+
+export interface AvatarGroupProps
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
+  /**
+   * Tamanho de TODOS os avatares do grupo, propagado por contexto.
+   * `size` no filho vence — escape hatch pro caso de um destacado.
+   * @default "md"
+   */
+  size?: AvatarSize;
+
+  /** Acima disso, corta e mostra `+N` no fim. Sem `max`, mostra todos. */
+  max?: number;
+
+  /**
+   * Contagem REAL, quando ela não é o número de filhos renderizados.
+   * Sem isso, uma lista paginada em 5 mostraria `+0` tendo 40 pessoas.
+   */
+  total?: number;
+
+  /**
+   * Superfície atrás do grupo — cor do anel de separação.
+   * @default "surface"
+   */
+  surface?: AvatarSurface;
 }
