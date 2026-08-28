@@ -40,6 +40,7 @@ export * from "./ui/MessageComposer";
 export * from "./ui/MessageVariablesPicker";
 export * from "./ui/Modal";
 export * from "./ui/MonthYearPicker";
+export * from "./ui/NavTabs";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
 export * from "./ui/ScreenLoader";

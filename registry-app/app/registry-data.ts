@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · accordion · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · alert-dialog · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · alert-modal · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · alert · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · app-shell · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · aspect-ratio · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -239,7 +239,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/avatar-ig/avatar.tsx",
-        "content": "import { forwardRef, useContext, useState } from \"react\";\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\nimport { AvatarGroupContext } from \"./avatar-group-context\";\nimport { avatarVariants } from \"./avatar.styles\";\nimport type { AvatarProps } from \"./avatar.types\";\n\n/**\n * Avatar — circular badge with initials.\n *\n * Supports semantic `color` presets (brand, success, warning, critical, info, muted)\n * and a `colorHex` override for person-specific hex colors.\n *\n * Auto contrast (v0.7.1, L-027): quando `colorHex` é fornecido, calcula o\n * contraste WCAG entre branco/preto e o bg, escolhendo a cor de texto com\n * MAIOR ratio. Antes aplicava `text-white` cego — quebrava em cores claras\n * (ex: BB amarelo #FAE128 → ratio 1.29:1, falha WCAG AA). Agora respeita\n * o threshold dinâmico baseado em luminância (Y > 0.5 → preto, else branco).\n *\n * Override: pra forçar uma cor específica (caso de marca que exige X), passe\n * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada\n * pela ordem de cascade.\n *\n * Foto (v0.53.0): passe `src` e mantenha as iniciais em `children` — elas são o\n * **fallback** quando a URL falha. A imagem interna é `alt=\"\"`; o nome da pessoa mora no\n * `aria-label` do avatar, pra não ser anunciado duas vezes.\n *\n * ⚠️ Quando usar o `Avatar` compound do shadcn (`avatar`, com `AvatarImage`/`AvatarFallback`)\n * em vez deste: quando o fallback não é iniciais (ícone, skeleton) ou você precisa controlar\n * o estado de carregamento. Pra foto de pessoa dentro do DS — e sempre dentro de\n * `AvatarGroup`, que propaga `size` por contexto — o certo é este.\n *\n * Accessibility:\n * - With `aria-label` → role=\"img\" (semantic avatar)\n * - Without `aria-label` → aria-hidden=\"true\" (decorative, inside a card/cell)\n */\nexport const Avatar = forwardRef<HTMLDivElement, AvatarProps>(\n  function Avatar(\n    {\n      size,\n      color,\n      colorHex,\n      src,\n      children,\n      className,\n      style,\n      \"aria-label\": ariaLabel,\n      ...rest\n    },\n    ref,\n  ) {\n    /**\n     * Dentro de um `<AvatarGroup>`, o tamanho vem do grupo — mas o `size` passado aqui\n     * VENCE. É escape hatch: sem ele não haveria como destacar um avatar do conjunto.\n     * Fora do grupo o contexto é `undefined` e nada muda (o default `md` do tv() vale).\n     */\n    const grupo = useContext(AvatarGroupContext);\n    const sizeEfetivo = size ?? grupo?.size;\n\n    /**\n     * Foto que falha volta pras iniciais — e é por isso que o estado existe: `onError` do\n     * `<img>` não desmonta nada sozinho, ele só avisa. Sem o fallback, URL quebrada deixa\n     * um buraco na pilha (o alt de uma imagem quebrada não se parece com um avatar).\n     *\n     * O estado guarda QUAL url falhou, não um booleano: com booleano, trocar a `src` por\n     * uma boa manteria o avatar em modo iniciais pro resto da vida do componente (o React\n     * reusa a instância) — e daria pra \"consertar\" isso só com um `useEffect` de reset,\n     * que é uma renderização a mais pra guardar a mesma informação.\n     */\n    const [urlQueFalhou, setUrlQueFalhou] = useState<string | null>(null);\n    const mostraFoto = typeof src === \"string\" && src !== \"\" && urlQueFalhou !== src;\n\n    const isHex = typeof colorHex === \"string\" && colorHex.startsWith(\"#\");\n\n    // Cor de texto auto-calculada quando hex é fornecido — sempre o maior\n    // contraste WCAG entre white/black. Fallback \"white\" pra hex inválido\n    // (preserva comportamento legado).\n    const autoTextClass = isHex\n      ? getContrastTextColor(colorHex) === \"black\"\n        ? \"text-black\"\n        : \"text-white\"\n      : null;\n\n    const computedClassName = avatarVariants({\n      size: sizeEfetivo,\n      color: isHex ? \"_custom\" : color,\n      className: isHex\n        ? [autoTextClass, className].filter(Boolean).join(\" \")\n        : className,\n    });\n\n    const computedStyle = isHex\n      ? { ...style, backgroundColor: colorHex }\n      : style;\n\n    return (\n      <div\n        ref={ref}\n        className={computedClassName}\n        style={computedStyle}\n        {...(ariaLabel\n          ? { role: \"img\", \"aria-label\": ariaLabel }\n          : { \"aria-hidden\": true as const })}\n        {...rest}\n      >\n        {mostraFoto ? (\n          <img\n            src={src}\n            /* `alt=\"\"`: o nome da pessoa está no `aria-label` do avatar. Repetir aqui faria\n               o leitor de tela anunciar duas vezes. */\n            alt=\"\"\n            className=\"size-full object-cover\"\n            draggable={false}\n            onError={() => setUrlQueFalhou(src ?? null)}\n          />\n        ) : (\n          children\n        )}\n      </div>\n    );\n  },\n);\n\nAvatar.displayName = \"Avatar\";\n",
+        "content": "import { forwardRef, useContext, useState } from \"react\";\r\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\r\nimport { AvatarGroupContext } from \"./avatar-group-context\";\r\nimport { avatarVariants } from \"./avatar.styles\";\r\nimport type { AvatarProps } from \"./avatar.types\";\r\n\r\n/**\r\n * Avatar — circular badge with initials.\r\n *\r\n * Supports semantic `color` presets (brand, success, warning, critical, info, muted)\r\n * and a `colorHex` override for person-specific hex colors.\r\n *\r\n * Auto contrast (v0.7.1, L-027): quando `colorHex` é fornecido, calcula o\r\n * contraste WCAG entre branco/preto e o bg, escolhendo a cor de texto com\r\n * MAIOR ratio. Antes aplicava `text-white` cego — quebrava em cores claras\r\n * (ex: BB amarelo #FAE128 → ratio 1.29:1, falha WCAG AA). Agora respeita\r\n * o threshold dinâmico baseado em luminância (Y > 0.5 → preto, else branco).\r\n *\r\n * Override: pra forçar uma cor específica (caso de marca que exige X), passe\r\n * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada\r\n * pela ordem de cascade.\r\n *\r\n * Foto (v0.53.0): passe `src` e mantenha as iniciais em `children` — elas são o\r\n * **fallback** quando a URL falha. A imagem interna é `alt=\"\"`; o nome da pessoa mora no\r\n * `aria-label` do avatar, pra não ser anunciado duas vezes.\r\n *\r\n * ⚠️ Quando usar o `Avatar` compound do shadcn (`avatar`, com `AvatarImage`/`AvatarFallback`)\r\n * em vez deste: quando o fallback não é iniciais (ícone, skeleton) ou você precisa controlar\r\n * o estado de carregamento. Pra foto de pessoa dentro do DS — e sempre dentro de\r\n * `AvatarGroup`, que propaga `size` por contexto — o certo é este.\r\n *\r\n * Accessibility:\r\n * - With `aria-label` → role=\"img\" (semantic avatar)\r\n * - Without `aria-label` → aria-hidden=\"true\" (decorative, inside a card/cell)\r\n */\r\nexport const Avatar = forwardRef<HTMLDivElement, AvatarProps>(\r\n  function Avatar(\r\n    {\r\n      size,\r\n      color,\r\n      colorHex,\r\n      src,\r\n      children,\r\n      className,\r\n      style,\r\n      \"aria-label\": ariaLabel,\r\n      ...rest\r\n    },\r\n    ref,\r\n  ) {\r\n    /**\r\n     * Dentro de um `<AvatarGroup>`, o tamanho vem do grupo — mas o `size` passado aqui\r\n     * VENCE. É escape hatch: sem ele não haveria como destacar um avatar do conjunto.\r\n     * Fora do grupo o contexto é `undefined` e nada muda (o default `md` do tv() vale).\r\n     */\r\n    const grupo = useContext(AvatarGroupContext);\r\n    const sizeEfetivo = size ?? grupo?.size;\r\n\r\n    /**\r\n     * Foto que falha volta pras iniciais — e é por isso que o estado existe: `onError` do\r\n     * `<img>` não desmonta nada sozinho, ele só avisa. Sem o fallback, URL quebrada deixa\r\n     * um buraco na pilha (o alt de uma imagem quebrada não se parece com um avatar).\r\n     *\r\n     * O estado guarda QUAL url falhou, não um booleano: com booleano, trocar a `src` por\r\n     * uma boa manteria o avatar em modo iniciais pro resto da vida do componente (o React\r\n     * reusa a instância) — e daria pra \"consertar\" isso só com um `useEffect` de reset,\r\n     * que é uma renderização a mais pra guardar a mesma informação.\r\n     */\r\n    const [urlQueFalhou, setUrlQueFalhou] = useState<string | null>(null);\r\n    const mostraFoto = typeof src === \"string\" && src !== \"\" && urlQueFalhou !== src;\r\n\r\n    const isHex = typeof colorHex === \"string\" && colorHex.startsWith(\"#\");\r\n\r\n    // Cor de texto auto-calculada quando hex é fornecido — sempre o maior\r\n    // contraste WCAG entre white/black. Fallback \"white\" pra hex inválido\r\n    // (preserva comportamento legado).\r\n    const autoTextClass = isHex\r\n      ? getContrastTextColor(colorHex) === \"black\"\r\n        ? \"text-black\"\r\n        : \"text-white\"\r\n      : null;\r\n\r\n    const computedClassName = avatarVariants({\r\n      size: sizeEfetivo,\r\n      color: isHex ? \"_custom\" : color,\r\n      className: isHex\r\n        ? [autoTextClass, className].filter(Boolean).join(\" \")\r\n        : className,\r\n    });\r\n\r\n    const computedStyle = isHex\r\n      ? { ...style, backgroundColor: colorHex }\r\n      : style;\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        className={computedClassName}\r\n        style={computedStyle}\r\n        {...(ariaLabel\r\n          ? { role: \"img\", \"aria-label\": ariaLabel }\r\n          : { \"aria-hidden\": true as const })}\r\n        {...rest}\r\n      >\r\n        {mostraFoto ? (\r\n          <img\r\n            src={src}\r\n            /* `alt=\"\"`: o nome da pessoa está no `aria-label` do avatar. Repetir aqui faria\r\n               o leitor de tela anunciar duas vezes. */\r\n            alt=\"\"\r\n            className=\"size-full object-cover\"\r\n            draggable={false}\r\n            onError={() => setUrlQueFalhou(src ?? null)}\r\n          />\r\n        ) : (\r\n          children\r\n        )}\r\n      </div>\r\n    );\r\n  },\r\n);\r\n\r\nAvatar.displayName = \"Avatar\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/avatar-ig/avatar.tsx"
       },
@@ -257,7 +257,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/avatar-ig/USAGE.md",
-        "content": "# Avatar\n\n<!-- ds:regras\n- vários avatares juntos → `<AvatarGroup>`, nunca `-ml-*` + `ring` na mão: ele resolve sobreposição por tamanho, cor do anel e excedente\n- `<AvatarGroup surface=\"...\">` = a superfície ATRÁS do grupo (`table` numa linha de tabela). Errar isso põe um halo claro em volta de cada avatar\n- `max` + `total`: o `+N` conta pelo `total` (o do servidor), senão uma lista paginada mostra `+0` tendo 40 pessoas\n- `colorHex` escolhe a cor do texto por contraste WCAG (L-027) — nunca `text-white` na unha\n- foto de pessoa → `<Avatar src=\"…\">` com as iniciais em `children` (são o fallback da URL que falha), nunca `<img>` solto nem o compound do shadcn dentro do grupo\n-->\n\nCircular badge displaying user initials. Supports semantic colors and per-person hex overrides.\nPara **vários avatares juntos**, use `AvatarGroup` (seção no fim).\n\n## Basic usage\n\n```tsx\nimport { Avatar } from \"@/components/ui/avatar-ig\";\n\n// Semantic color (default: muted)\n<Avatar size=\"md\" color=\"brand\">MS</Avatar>\n\n// Person-specific hex color\n<Avatar size=\"sm\" colorHex=\"#8754ec\">CO</Avatar>\n\n// Foto — as iniciais continuam sendo o FALLBACK\n<Avatar size=\"lg\" src=\"/fotos/maria.jpg\" aria-label=\"Maria Silva\">MS</Avatar>\n```\n\n## Foto (`src`, v0.53.0+)\n\nA imagem cobre o círculo (`object-cover`, sem distorcer) e escala pelos mesmos `size` das\niniciais — inclusive dentro do `AvatarGroup`, que propaga o tamanho por contexto.\n\n- **Mantenha as iniciais em `children`.** Elas são o fallback quando a URL falha; sem elas,\n  uma foto quebrada deixa um buraco na fila. O fallback herda a cor (`color`/`colorHex`).\n- **Trocar a `src` depois de uma falha tenta de novo** — o componente guarda *qual* URL\n  falhou, não um booleano.\n- **Não há prop `alt`.** A imagem interna é `alt=\"\"` e o nome mora no `aria-label` do avatar;\n  dois rótulos no mesmo elemento fazem o leitor de tela anunciar a pessoa duas vezes.\n- **Quando usar o compound do shadcn** (`avatar`, com `AvatarImage`/`AvatarFallback`): quando\n  o fallback não é iniciais (ícone, skeleton) ou você precisa do estado de carregamento. Pra\n  foto de pessoa no DS — e sempre dentro de `AvatarGroup` — o certo é este.\n\n## Sizes\n\n| Size | Pixels | Typography preset |\n|------|--------|-------------------|\n| `xs` | 20px   | caption-sm (11px) |\n| `sm` | 24px   | caption-sm (11px) |\n| `md` | 28px   | caption-sm (11px) |\n| `lg` | 32px   | body-sm font-normal (13px) |\n| `xl` | 40px   | body-md font-medium (14px) |\n\n## Colors\n\n| Color      | Background         | Foreground          |\n|------------|--------------------|--------------------|\n| `brand`    | `bg-bg-brand`      | `fg-on-brand`      |\n| `success`  | `bg-bg-success`    | `fg-on-success`    |\n| `warning`  | `bg-bg-warning`    | `fg-on-warning`    |\n| `critical` | `bg-bg-danger`     | `fg-on-danger`     |\n| `info`     | `bg-bg-info`       | `fg-on-info`       |\n| `muted`    | `bg-bg-muted`      | `fg-muted`         |\n\n## colorHex override + auto contrast (v0.7.1+)\n\nWhen `colorHex` is provided (string starting with `#`), the background is set\nvia inline style and **a cor de texto é escolhida automaticamente** pra ter\no maior contraste WCAG entre `white` ou `black`. O prop `color` é ignorado.\n\n| Hex bg               | Texto auto-pickado | Motivo (WCAG ratio)                    |\n|----------------------|--------------------|----------------------------------------|\n| `#FAE128` (BB)       | `black`            | white 1.29 vs black 16.3 → preto vence |\n| `#820AD1` (Nubank)   | `white`            | white 6.2 vs black 3.4 → branco vence  |\n| `#EC7000` (Itaú)     | `black`            | white 2.7 vs black 7.8 → preto vence   |\n| `#CC092F` (Bradesco) | `white`            | white 6.5 vs black 3.2 → branco vence  |\n| `#FFFFFF`            | `black`            | óbvio                                   |\n| `#000000`            | `white`            | óbvio                                   |\n\nA escolha vem de `getContrastTextColor()` em `@/utils/color-contrast.ts`\n(WCAG 2.x relative luminance + contrast ratio).\n\n```tsx\n<Avatar colorHex=\"#FAE128\">BB</Avatar>      // texto preto auto\n<Avatar colorHex=\"#820AD1\">NU</Avatar>      // texto branco auto\n```\n\n**Override manual:** se precisar forçar uma cor específica (caso raro de\nbrand guideline), passe via `className`:\n\n```tsx\n<Avatar colorHex=\"#FAE128\" className=\"text-white\">BB</Avatar>\n// (não recomendado — quebra WCAG AA)\n```\n\n## Accessibility\n\n- With `aria-label`: renders `role=\"img\"` (semantic avatar).\n- Without `aria-label`: renders `aria-hidden=\"true\"` (decorative).\n\n```tsx\n// Semantic — standalone avatar with meaning\n<Avatar aria-label=\"Maria Silva\">MS</Avatar>\n\n// Decorative — inside a card/cell that already provides context\n<Avatar colorHex=\"#8754ec\">CO</Avatar>\n```\n\n## Props\n\n| Prop         | Type                                                        | Default   |\n|--------------|-------------------------------------------------------------|-----------|\n| `size`       | `\"xs\" \\| \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"`                     | `\"md\"`    |\n| `color`      | `\"brand\" \\| \"success\" \\| \"warning\" \\| \"critical\" \\| \"info\" \\| \"muted\"` | `\"muted\"` |\n| `colorHex`   | `string` (hex starting with `#`)                            | —         |\n| `src`        | `string` — foto; URL que falha volta pras iniciais           | —         |\n| `children`   | `ReactNode` (initials) — também o fallback da foto           | —         |\n| `className`  | `string`                                                    | —         |\n| `aria-label` | `string`                                                    | —         |\n\n---\n\n# AvatarGroup\n\nPilha de avatares sobrepostos, com `size` propagado e excedente resumido em `+N`.\n\n## Quando usar\n\nConjunto de pessoas onde **o grupo importa mais que cada uma**: responsáveis de uma tarefa,\nparticipantes, membros de um time. Para 2 avatares que devem ser lidos individualmente, use\n`flex gap-gp-sm` comum — a sobreposição comunica \"muitos\".\n\n## Props\n\n| Prop | Tipo | Default | Descrição |\n|------|------|---------|-----------|\n| `size` | `xs \\| sm \\| md \\| lg \\| xl` | `md` | **propagado por contexto** a todos os filhos |\n| `max` | `number` | — | acima disso, corta e mostra `+N` |\n| `total` | `number` | nº de filhos | contagem REAL, pro `+N` refletir o servidor |\n| `surface` | `surface \\| canvas \\| subtle \\| muted \\| table` | `surface` | superfície **atrás** do grupo — define a cor do anel |\n| `aria-label` | `string` | — | rótulo do grupo, ex.: `\"12 responsáveis\"` |\n\n## Exemplo\n\n```tsx\nimport { Avatar, AvatarGroup } from \"@/components/ui/avatar-ig\";\n\n{/* foto e iniciais misturadas: o size vem do container, ninguém sai de escala */}\n<AvatarGroup size=\"sm\" max={3} total={12} aria-label=\"12 responsáveis\">\n  <Avatar src=\"/fotos/ana.jpg\" aria-label=\"Ana\">AN</Avatar>\n  <Avatar src=\"/fotos/bruno.jpg\" aria-label=\"Bruno\">BR</Avatar>\n  <Avatar colorHex=\"#7C3AED\" aria-label=\"Júlia\">JS</Avatar>\n  <Avatar colorHex=\"#0891B2\" aria-label=\"Tiago\">TK</Avatar>\n</AvatarGroup>\n```\n\n## Gotchas / cuidados\n\n- **`surface` é a cor do que está ATRÁS, e é o erro clássico.** O anel separa um avatar do\n  outro pintando a cor da superfície de trás; com o token errado ele deixa de separar e vira um\n  halo. Sobre `bg-bg-muted` ou `bg-bg-canvas`, declare o token correspondente.\n  ⚠️ **`table` e `surface` resolvem pro mesmo valor hoje** — `oklch(1 0 0)` no claro e\n  `oklch(0.225 0 0)` no escuro (medido). Dentro de tabela a escolha é **semântica**, não\n  visual: declare `table` mesmo assim, pra que a pilha continue certa se um dia os dois\n  divergirem, sem ninguém ter que caçar o call site.\n- **`total` não é opcional quando a lista é paginada.** Sem ele o `+N` conta só o que foi\n  renderizado — 4 filhos com `max={2}` mostram `+2`, mesmo que existam 40 pessoas.\n- **`size` no filho vence o do grupo.** É escape hatch pra destacar um avatar; sem passar nada,\n  todos herdam o do grupo.\n- **A sobreposição escala com o tamanho** (~25% do diâmetro): `xs` desloca 4px e `xl` desloca\n  10px. Não é constante de propósito — 6px num avatar de 20px é 30% de sobreposição e num de\n  40px é 15%, que são arranjos visuais diferentes.\n- **O primeiro fica por cima** (z-index decrescente), invertendo o empilhamento natural do DOM.\n  A leitura é da esquerda pra direita e o primeiro é o principal.\n- **O grupo fala, os avatares calam.** O container é `role=\"group\"` com `aria-label`; o `+N` é\n  `aria-hidden` porque a contagem real já está no rótulo. Sem o `aria-label`, o leitor de tela\n  lê N nomes soltos sem dizer que são um conjunto.\n- **Foto e iniciais convivem na mesma pilha.** A foto obedece ao mesmo `size` de contexto, e o\n  anel importa mais com foto: sem ele, duas fotos escuras encostadas viram uma mancha só.\n- **O anel mora no wrapper, não no `Avatar`.** `ring` acompanha o `border-radius` do elemento —\n  num wrapper quadrado traçaria um quadrado. `Avatar` fora de grupo continua sem anel.\n",
+        "content": "# Avatar\r\n\r\n<!-- ds:regras\r\n- vários avatares juntos → `<AvatarGroup>`, nunca `-ml-*` + `ring` na mão: ele resolve sobreposição por tamanho, cor do anel e excedente\r\n- `<AvatarGroup surface=\"...\">` = a superfície ATRÁS do grupo (`table` numa linha de tabela). Errar isso põe um halo claro em volta de cada avatar\r\n- `max` + `total`: o `+N` conta pelo `total` (o do servidor), senão uma lista paginada mostra `+0` tendo 40 pessoas\r\n- `colorHex` escolhe a cor do texto por contraste WCAG (L-027) — nunca `text-white` na unha\r\n- foto de pessoa → `<Avatar src=\"…\">` com as iniciais em `children` (são o fallback da URL que falha), nunca `<img>` solto nem o compound do shadcn dentro do grupo\r\n-->\r\n\r\nCircular badge displaying user initials. Supports semantic colors and per-person hex overrides.\r\nPara **vários avatares juntos**, use `AvatarGroup` (seção no fim).\r\n\r\n## Basic usage\r\n\r\n```tsx\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\n\r\n// Semantic color (default: muted)\r\n<Avatar size=\"md\" color=\"brand\">MS</Avatar>\r\n\r\n// Person-specific hex color\r\n<Avatar size=\"sm\" colorHex=\"#8754ec\">CO</Avatar>\r\n\r\n// Foto — as iniciais continuam sendo o FALLBACK\r\n<Avatar size=\"lg\" src=\"/fotos/maria.jpg\" aria-label=\"Maria Silva\">MS</Avatar>\r\n```\r\n\r\n## Foto (`src`, v0.53.0+)\r\n\r\nA imagem cobre o círculo (`object-cover`, sem distorcer) e escala pelos mesmos `size` das\r\niniciais — inclusive dentro do `AvatarGroup`, que propaga o tamanho por contexto.\r\n\r\n- **Mantenha as iniciais em `children`.** Elas são o fallback quando a URL falha; sem elas,\r\n  uma foto quebrada deixa um buraco na fila. O fallback herda a cor (`color`/`colorHex`).\r\n- **Trocar a `src` depois de uma falha tenta de novo** — o componente guarda *qual* URL\r\n  falhou, não um booleano.\r\n- **Não há prop `alt`.** A imagem interna é `alt=\"\"` e o nome mora no `aria-label` do avatar;\r\n  dois rótulos no mesmo elemento fazem o leitor de tela anunciar a pessoa duas vezes.\r\n- **Quando usar o compound do shadcn** (`avatar`, com `AvatarImage`/`AvatarFallback`): quando\r\n  o fallback não é iniciais (ícone, skeleton) ou você precisa do estado de carregamento. Pra\r\n  foto de pessoa no DS — e sempre dentro de `AvatarGroup` — o certo é este.\r\n\r\n## Sizes\r\n\r\n| Size | Pixels | Typography preset |\r\n|------|--------|-------------------|\r\n| `xs` | 20px   | caption-sm (11px) |\r\n| `sm` | 24px   | caption-sm (11px) |\r\n| `md` | 28px   | caption-sm (11px) |\r\n| `lg` | 32px   | body-sm font-normal (13px) |\r\n| `xl` | 40px   | body-md font-medium (14px) |\r\n\r\n## Colors\r\n\r\n| Color      | Background         | Foreground          |\r\n|------------|--------------------|--------------------|\r\n| `brand`    | `bg-bg-brand`      | `fg-on-brand`      |\r\n| `success`  | `bg-bg-success`    | `fg-on-success`    |\r\n| `warning`  | `bg-bg-warning`    | `fg-on-warning`    |\r\n| `critical` | `bg-bg-danger`     | `fg-on-danger`     |\r\n| `info`     | `bg-bg-info`       | `fg-on-info`       |\r\n| `muted`    | `bg-bg-muted`      | `fg-muted`         |\r\n\r\n## colorHex override + auto contrast (v0.7.1+)\r\n\r\nWhen `colorHex` is provided (string starting with `#`), the background is set\r\nvia inline style and **a cor de texto é escolhida automaticamente** pra ter\r\no maior contraste WCAG entre `white` ou `black`. O prop `color` é ignorado.\r\n\r\n| Hex bg               | Texto auto-pickado | Motivo (WCAG ratio)                    |\r\n|----------------------|--------------------|----------------------------------------|\r\n| `#FAE128` (BB)       | `black`            | white 1.29 vs black 16.3 → preto vence |\r\n| `#820AD1` (Nubank)   | `white`            | white 6.2 vs black 3.4 → branco vence  |\r\n| `#EC7000` (Itaú)     | `black`            | white 2.7 vs black 7.8 → preto vence   |\r\n| `#CC092F` (Bradesco) | `white`            | white 6.5 vs black 3.2 → branco vence  |\r\n| `#FFFFFF`            | `black`            | óbvio                                   |\r\n| `#000000`            | `white`            | óbvio                                   |\r\n\r\nA escolha vem de `getContrastTextColor()` em `@/utils/color-contrast.ts`\r\n(WCAG 2.x relative luminance + contrast ratio).\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\">BB</Avatar>      // texto preto auto\r\n<Avatar colorHex=\"#820AD1\">NU</Avatar>      // texto branco auto\r\n```\r\n\r\n**Override manual:** se precisar forçar uma cor específica (caso raro de\r\nbrand guideline), passe via `className`:\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\" className=\"text-white\">BB</Avatar>\r\n// (não recomendado — quebra WCAG AA)\r\n```\r\n\r\n## Accessibility\r\n\r\n- With `aria-label`: renders `role=\"img\"` (semantic avatar).\r\n- Without `aria-label`: renders `aria-hidden=\"true\"` (decorative).\r\n\r\n```tsx\r\n// Semantic — standalone avatar with meaning\r\n<Avatar aria-label=\"Maria Silva\">MS</Avatar>\r\n\r\n// Decorative — inside a card/cell that already provides context\r\n<Avatar colorHex=\"#8754ec\">CO</Avatar>\r\n```\r\n\r\n## Props\r\n\r\n| Prop         | Type                                                        | Default   |\r\n|--------------|-------------------------------------------------------------|-----------|\r\n| `size`       | `\"xs\" \\| \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"`                     | `\"md\"`    |\r\n| `color`      | `\"brand\" \\| \"success\" \\| \"warning\" \\| \"critical\" \\| \"info\" \\| \"muted\"` | `\"muted\"` |\r\n| `colorHex`   | `string` (hex starting with `#`)                            | —         |\r\n| `src`        | `string` — foto; URL que falha volta pras iniciais           | —         |\r\n| `children`   | `ReactNode` (initials) — também o fallback da foto           | —         |\r\n| `className`  | `string`                                                    | —         |\r\n| `aria-label` | `string`                                                    | —         |\r\n\r\n---\r\n\r\n# AvatarGroup\r\n\r\nPilha de avatares sobrepostos, com `size` propagado e excedente resumido em `+N`.\r\n\r\n## Quando usar\r\n\r\nConjunto de pessoas onde **o grupo importa mais que cada uma**: responsáveis de uma tarefa,\r\nparticipantes, membros de um time. Para 2 avatares que devem ser lidos individualmente, use\r\n`flex gap-gp-sm` comum — a sobreposição comunica \"muitos\".\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `size` | `xs \\| sm \\| md \\| lg \\| xl` | `md` | **propagado por contexto** a todos os filhos |\r\n| `max` | `number` | — | acima disso, corta e mostra `+N` |\r\n| `total` | `number` | nº de filhos | contagem REAL, pro `+N` refletir o servidor |\r\n| `surface` | `surface \\| canvas \\| subtle \\| muted \\| table` | `surface` | superfície **atrás** do grupo — define a cor do anel |\r\n| `aria-label` | `string` | — | rótulo do grupo, ex.: `\"12 responsáveis\"` |\r\n\r\n## Exemplo\r\n\r\n```tsx\r\nimport { Avatar, AvatarGroup } from \"@/components/ui/avatar-ig\";\r\n\r\n{/* foto e iniciais misturadas: o size vem do container, ninguém sai de escala */}\r\n<AvatarGroup size=\"sm\" max={3} total={12} aria-label=\"12 responsáveis\">\r\n  <Avatar src=\"/fotos/ana.jpg\" aria-label=\"Ana\">AN</Avatar>\r\n  <Avatar src=\"/fotos/bruno.jpg\" aria-label=\"Bruno\">BR</Avatar>\r\n  <Avatar colorHex=\"#7C3AED\" aria-label=\"Júlia\">JS</Avatar>\r\n  <Avatar colorHex=\"#0891B2\" aria-label=\"Tiago\">TK</Avatar>\r\n</AvatarGroup>\r\n```\r\n\r\n## Gotchas / cuidados\r\n\r\n- **`surface` é a cor do que está ATRÁS, e é o erro clássico.** O anel separa um avatar do\r\n  outro pintando a cor da superfície de trás; com o token errado ele deixa de separar e vira um\r\n  halo. Sobre `bg-bg-muted` ou `bg-bg-canvas`, declare o token correspondente.\r\n  ⚠️ **`table` e `surface` resolvem pro mesmo valor hoje** — `oklch(1 0 0)` no claro e\r\n  `oklch(0.225 0 0)` no escuro (medido). Dentro de tabela a escolha é **semântica**, não\r\n  visual: declare `table` mesmo assim, pra que a pilha continue certa se um dia os dois\r\n  divergirem, sem ninguém ter que caçar o call site.\r\n- **`total` não é opcional quando a lista é paginada.** Sem ele o `+N` conta só o que foi\r\n  renderizado — 4 filhos com `max={2}` mostram `+2`, mesmo que existam 40 pessoas.\r\n- **`size` no filho vence o do grupo.** É escape hatch pra destacar um avatar; sem passar nada,\r\n  todos herdam o do grupo.\r\n- **A sobreposição escala com o tamanho** (~25% do diâmetro): `xs` desloca 4px e `xl` desloca\r\n  10px. Não é constante de propósito — 6px num avatar de 20px é 30% de sobreposição e num de\r\n  40px é 15%, que são arranjos visuais diferentes.\r\n- **O primeiro fica por cima** (z-index decrescente), invertendo o empilhamento natural do DOM.\r\n  A leitura é da esquerda pra direita e o primeiro é o principal.\r\n- **O grupo fala, os avatares calam.** O container é `role=\"group\"` com `aria-label`; o `+N` é\r\n  `aria-hidden` porque a contagem real já está no rótulo. Sem o `aria-label`, o leitor de tela\r\n  lê N nomes soltos sem dizer que são um conjunto.\r\n- **Foto e iniciais convivem na mesma pilha.** A foto obedece ao mesmo `size` de contexto, e o\r\n  anel importa mais com foto: sem ele, duas fotos escuras encostadas viram uma mancha só.\r\n- **O anel mora no wrapper, não no `Avatar`.** `ring` acompanha o `border-radius` do elemento —\r\n  num wrapper quadrado traçaria um quadrado. `Avatar` fora de grupo continua sem anel.\r\n",
         "type": "registry:file",
         "target": "components/ui/avatar-ig/USAGE.md"
       },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · avatar-ig · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · avatar · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · badge · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -340,7 +340,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · breadcrumb · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · button-group · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -437,7 +437,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · button · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -462,7 +462,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · calendar · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -506,7 +506,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · card-checkbox · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -556,7 +556,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · card-option · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · card · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · carousel · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -640,7 +640,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · chart · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -665,7 +665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · checkbox · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -714,7 +714,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · chip · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -767,7 +767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · choropleth-map · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -789,7 +789,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · collapsible · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -854,7 +854,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · color-picker · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · combobox · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -932,7 +932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · command · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -957,7 +957,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · context-menu · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1034,7 +1034,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · data-list · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1719,7 +1719,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · data-table · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1757,7 +1757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · date-picker · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1782,7 +1782,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dialog · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1806,7 +1806,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · drawer · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1831,7 +1831,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dropdown-menu · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1860,7 +1860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1889,7 +1889,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1920,7 +1920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1950,7 +1950,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -2003,7 +2003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · empty-state · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2044,7 +2044,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-app-shell · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2346,7 +2346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-chat · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2442,7 +2442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-clientes · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2488,7 +2488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-dashboard · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-edit-page · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2675,7 +2675,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-finance · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-login · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2762,7 +2762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-mapa-rede · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2843,7 +2843,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · example-order-detail · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2893,7 +2893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · file-upload-field · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2961,7 +2961,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · floating-panel · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3003,7 +3003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · footer-table · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3089,7 +3089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · form-field · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3180,7 +3180,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · header · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3204,7 +3204,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · hover-card · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3257,7 +3257,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · icon · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3281,7 +3281,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · input-group · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3306,7 +3306,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · input-otp · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3330,7 +3330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · input · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3389,7 +3389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · kanban · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3451,7 +3451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · kpi · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3476,7 +3476,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · label · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3583,7 +3583,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · list · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3629,7 +3629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · markdown-text · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3739,7 +3739,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · menu-sidebar · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3764,7 +3764,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · menubar · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3808,7 +3808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · modal · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,63 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · month-year-picker · v0.53.0 · adbec3f · 2026-08-28"
+    },
+    "type": "registry:ui"
+  },
+  "nav-tabs": {
+    "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+    "name": "nav-tabs",
+    "title": "NavTabs",
+    "description": "Abas de NAVEGAÇÃO estilo navegador: cada aba é uma sessão aberta (conversa, chamado, registro) com identidade, status e ações próprias. Controlado; o conteúdo pode morar fora do componente.",
+    "dependencies": [
+      "lucide-react@^1.7.0"
+    ],
+    "registryDependencies": [
+      "@igreen/button",
+      "@igreen/dropdown-menu",
+      "@igreen/tv"
+    ],
+    "files": [
+      {
+        "path": "src/components/ui/NavTabs/USAGE.md",
+        "content": "# NavTabs\n\n<!-- ds:regras\n- aba de NAVEGADOR (sessão que abre/fecha: conversa, chamado, registro) → `<NavTabs>`; filtro de conteúdo dentro da tela → `tabs` do shadcn\n- `<NavTabs>` é SEMPRE controlado (`value` + `onValueChange`) e NÃO hospeda conteúdo — o painel pode morar fora, e aí a aba leva `panelId`\n- `surface` = a superfície do conteúdo ABAIXO da tira (`surface` num card, `canvas` na página). Errar quebra a união da aba ativa, que é o componente\n- `actions` na aba SUBSTITUI o `⋯`+`×` — é por ele que entram ✓/✗ de aceitar/recusar; sem `actions` e sem `onClose` a aba não tem ação\n-->\n\nTira de abas de **navegação**, estilo navegador: cada aba é uma **sessão aberta** — com\nidentidade, status e ações próprias — que o usuário abre, troca e fecha.\n\n## Quando usar\n\n| Situação | Componente |\n|---|---|\n| Conversas, chamados, registros abertos ao mesmo tempo; o usuário abre e fecha | **`NavTabs`** |\n| Alternar seções DENTRO de uma tela (Detalhes / Anexos / Histórico) | `tabs` (shadcn) |\n| Alternar visão de uma mesma lista (Tabela / Kanban) | `toggle-group` ou o `viewMode` do DataTable |\n\nOs dois convivem: uma aba de conversa pode conter um `Tabs` de Mensagens/Notas dentro.\n\n## Import\n\n```tsx\nimport { NavTabs } from \"@/components/ui/NavTabs\";\n```\n\n## Exemplo mínimo\n\n```tsx\nconst [ativa, setAtiva] = useState(\"c1\");\n\n<NavTabs value={ativa} onValueChange={setAtiva} aria-label=\"Conversas abertas\" onNewTab={abrir}>\n  <NavTabs.Tab\n    value=\"c1\"\n    leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\n    status=\"success\"\n    badge={3}\n    onClose={() => fechar(\"c1\")}\n  >\n    <NavTabs.Title>Maria Silva</NavTabs.Title>\n    <NavTabs.Subtitle>Fatura de julho</NavTabs.Subtitle>\n  </NavTabs.Tab>\n</NavTabs>\n```\n\n## O conteúdo mora onde você quiser\n\nO componente é a **tira**, não o roteador: ele diz qual aba está ativa e você troca o que\nquiser, onde quiser.\n\n```tsx\n{/* tira aqui… */}\n<NavTabs value={id} onValueChange={setId}>\n  <NavTabs.Tab value=\"c1\" panelId=\"painel-detalhe\">…</NavTabs.Tab>\n</NavTabs>\n\n{/* …e o conteúdo em outra coluna, outra rota, outro componente */}\n<section id=\"painel-detalhe\">{conteudoDe(id)}</section>\n```\n\n- **Painel FORA** → `panelId` na aba (emite `aria-controls`).\n- **Painel DENTRO** → `<NavTabs.Panel value=\"c1\">`, que faz o par `role=\"tabpanel\"` +\n  `aria-labelledby` e renderiza só a ativa.\n- Sem nenhum dos dois o componente **não inventa** wiring — fica só `role=\"tab\"` +\n  `aria-selected`, que é honesto.\n\n## Props — `NavTabs`\n\n| Prop | Tipo | Default | Descrição |\n|---|---|---|---|\n| `value` / `onValueChange` | `string` / `(v) => void` | — | sempre controlado |\n| `surface` | `surface \\| canvas` | `surface` | superfície do **conteúdo abaixo** — a aba ativa é pintada com ela |\n| `density` | `comfortable \\| compact` | `comfortable` | 48px com subtítulo · 40px sem |\n| `fill` | `boolean` | `false` | aba ocupa a faixa inteira; a tira perde a régua |\n| `actionsMode` | `hover \\| persistent` | `hover` | ações reveladas no hover ou sempre visíveis |\n| `chrome` | `boolean` | `true` | pinta o fundo recuado da tira |\n| `onNewTab` | `() => void` | — | rende o `+` fora do trilho |\n| `aria-label` | `string` | — | rótulo do conjunto |\n\n## Props — `NavTabs.Tab`\n\n| Prop | Tipo | Descrição |\n|---|---|---|\n| `value` | `string` | volta em `onValueChange` |\n| `leading` | `ReactNode` | Avatar, `Icon`, imagem — qualquer nó |\n| `status` | `success \\| warning \\| danger \\| info \\| neutral \\| ReactNode` | ponto pronto, ou o seu |\n| `badge` | `number \\| ReactNode` | some na aba ativa |\n| `actions` | `ReactNode` | **substitui** as ações padrão |\n| `onClose` | `() => void` | sem `actions`, liga o `⋯` + `×` |\n| `menu` | `ReactNode` | itens extras do `⋯` |\n| `panelId` | `string` | id do container externo |\n| `actionsAlwaysVisible` | `boolean` | ações fixas só nesta aba |\n\nPeças: `NavTabs.Title` · `NavTabs.Subtitle` (some sozinho em `compact`) · `NavTabs.Action`\n(botão de 24px, já com `stopPropagation`) · `NavTabs.Actions` (ações globais à direita) ·\n`NavTabs.Panel`.\n\n## Gotchas / cuidados\n\n- **`surface` é a cor do que está EMBAIXO, e é o erro clássico.** A aba ativa precisa ser a\n  mesma superfície do conteúdo — é isso que as une. Num card `surface`; se o conteúdo for a\n  página, `canvas`. Com o token errado a aba parece pousada em cima de outra coisa.\n- **`fill` troca o mecanismo da união, não só a altura.** No modo pousado a aba desce 1px e\n  apaga a régua; em `fill` a tira **não tem régua** e a união é por continuidade de cor.\n  Medido: manter o truque em `fill` deixava a aba 2px antes da régua — uma fresta, pior que\n  linha nenhuma.\n- **O fundo recuado usa dois tokens, um por modo** (`bg-subtle` no claro, `bg-canvas` no\n  escuro) — medido: no claro `canvas` é branco igual à `surface`, no escuro `subtle` é branco\n  a 1% sobre o card. Cada modo tem o seu token de recuo; não procure um único.\n- **Ação que exige decisão não vai no hover.** `hover` é certo pra `⋯`/`×`; pra aceitar/recusar\n  um chamado use `actions` + `actionsAlwaysVisible` — o usuário precisa **ver** pra decidir, e\n  recusar por engano tem custo.\n- **As ações não reservam espaço** (coluna de grid `0fr → 1fr`): em repouso o título usa a aba\n  inteira. Se você passar `actions`, mantenha-as pequenas — a coluna abre por cima do título.\n- **`density=\"compact\"` é escolha de conteúdo.** Sem subtítulo, duas conversas do mesmo cliente\n  ficam idênticas.\n- **Teclado:** ←/→/Home/End movem seleção e foco juntos; só a aba ativa fica na ordem de\n  tabulação. Não recrie isso por fora.\n- **jsdom não tem `ResizeObserver`** — o componente checa antes de instanciar, então ele não\n  derruba a suíte de quem consome. Em teste, os controles de overflow ficam ocultos (não há\n  medição de layout); teste o comportamento, não a seta.\n",
+        "type": "registry:file",
+        "target": "components/ui/NavTabs/USAGE.md"
+      },
+      {
+        "path": "src/components/ui/NavTabs/index.ts",
+        "content": "export {\n  NavTabs,\n  NavTabsRoot,\n  NavTab,\n  NavTabTitle,\n  NavTabSubtitle,\n  NavTabAction,\n  NavTabsActions,\n  NavTabsPanel,\n} from \"./nav-tabs\";\nexport { NavTabsContext, type NavTabsContexto } from \"./nav-tabs-context\";\nexport {\n  navTabsRoot,\n  navTabsTrilho,\n  navTab,\n  navTabsDivisoria,\n  navTabsControles,\n  navTabAcao,\n  navTabAcoes,\n  navTabStatus,\n  type NavTabVariantProps,\n} from \"./nav-tabs.styles\";\nexport type {\n  NavTabsProps,\n  NavTabProps,\n  NavTabsPanelProps,\n  NavTabsSurface,\n  NavTabsDensity,\n  NavTabStatus,\n} from \"./nav-tabs.types\";\n",
+        "type": "registry:ui",
+        "target": "components/ui/NavTabs/index.ts"
+      },
+      {
+        "path": "src/components/ui/NavTabs/nav-tabs-context.ts",
+        "content": "import { createContext } from \"react\";\nimport type { NavTabsDensity, NavTabsSurface } from \"./nav-tabs.types\";\n\n/**\n * Contexto em arquivo próprio pelo mesmo motivo do `AvatarGroup`: `nav-tabs.tsx` define a raiz\n * E a aba, e a aba precisa ler o que a raiz decidiu (`density`, `fill`, `surface`, qual está\n * ativa). Com o contexto dentro do mesmo módulo isso é trivial, mas quem quisesse importar só\n * a aba puxaria a raiz junto — e no copy-in o arquivo viaja inteiro.\n */\nexport interface NavTabsContexto {\n  value: string;\n  onValueChange: (value: string) => void;\n  surface: NavTabsSurface;\n  density: NavTabsDensity;\n  fill: boolean;\n  actionsMode: \"hover\" | \"persistent\";\n  /** Registrado pela raiz pra o `Panel` saber o `id` da aba que o rotula. */\n  idTab: (value: string) => string;\n}\n\nexport const NavTabsContext = createContext<NavTabsContexto | null>(null);\n",
+        "type": "registry:ui",
+        "target": "components/ui/NavTabs/nav-tabs-context.ts"
+      },
+      {
+        "path": "src/components/ui/NavTabs/nav-tabs.styles.ts",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\n\n/**\n * NavTabs styles — iGreen DS\n *\n * Tira de abas de NAVEGAÇÃO (estilo navegador): cada aba é uma sessão aberta, não um filtro\n * de conteúdo dentro da tela. A diferença pro `Tabs` do shadcn não é estética — é que aqui a\n * aba ativa **se une fisicamente** ao conteúdo, e é esse detalhe que carrega o componente.\n *\n * ## Os dois mecanismos de união, e por que são dois\n *\n * - **`fill: false` (aba pousada).** A tira tem uma régua de 1px embaixo; a aba ativa desce\n *   1px (`-mb-px`) e pinta essa régua com a própria cor de fundo. Sem o truque ela vira um\n *   botão pousado sobre uma linha — que é exatamente o `Tabs` variante `line` que já existe.\n * - **`fill: true` (altura total).** A aba ocupa a faixa inteira e a tira **não tem régua**:\n *   a união vira continuidade de cor. O truque do `-mb-px` foi medido aqui e não serve — a\n *   aba parava 2px antes da régua (1px do `pb-px` do trilho + 1px da borda da faixa), e\n *   fresta é pior que linha nenhuma.\n *\n * ## A superfície é prop, não constante\n *\n * A aba ativa TEM que ser a mesma cor do conteúdo abaixo dela. Num card é `bg-surface`; se o\n * conteúdo for a página, é `bg-canvas`. Errar isso quebra a união, que é o componente inteiro.\n *\n * ## O fundo recuado usa DOIS tokens, um por modo — e isso é deliberado\n *\n * `bg-subtle` no claro, `bg-canvas` no escuro. Medido: no claro `canvas` é branco IGUAL a\n * `surface` (recuo zero) e quem recua é `subtle` (0.973); no escuro `subtle` é branco a 1%\n * sobre o card (invisível) e quem recua é `canvas` (0.205 contra 0.225). Cada modo tem o seu\n * token de recuo, e o par existente cobre o papel — não há token novo aqui.\n */\n\nexport const navTabsRoot = tv({\n  base: \"flex gap-gp-2xs px-pad-lg\",\n\n  variants: {\n    /**\n     * `items-stretch` é o que faz a aba de altura total valer: com `items-end` ela encolheria\n     * pro próprio conteúdo e o `h-full` não teria contra o que medir. A régua some junto.\n     */\n    fill: {\n      true: \"items-stretch\",\n      false: \"items-end border-b border-border-default\",\n    },\n    /** Fundo recuado da tira — o par por modo explicado no cabeçalho deste arquivo. */\n    chrome: {\n      true: \"bg-bg-subtle dark:bg-bg-canvas\",\n      false: \"\",\n    },\n  },\n\n  defaultVariants: { fill: false, chrome: true },\n});\n\nexport const navTabsTrilho = tv({\n  /**\n   * `scrollbar-none` não é preferência: a barra ocupa 11px DENTRO do trilho e empurra as abas\n   * pra cima da régua, matando a união. A affordance de navegação são as setas + a lista.\n   */\n  base: \"flex min-w-0 flex-1 gap-gp-2xs overflow-x-auto scrollbar-none\",\n\n  variants: {\n    /** o `pb-px` só existe pra o `-mb-px` da aba não ser cortado pelo overflow. */\n    fill: {\n      true: \"items-stretch\",\n      false: \"items-end pb-px\",\n    },\n  },\n\n  defaultVariants: { fill: false },\n});\n\nexport const navTab = tv({\n  base: [\n    \"group/aba relative flex shrink-0 cursor-pointer select-none\",\n    \"items-center gap-gp-sm border border-transparent px-pad-xl\",\n    \"text-fg-muted transition-colors\",\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n  ],\n\n  variants: {\n    density: {\n      comfortable: \"w-[228px]\",\n      compact: \"w-[196px]\",\n    },\n    fill: {\n      true: \"h-full self-stretch\",\n      false: \"-mb-px rounded-t-radius-lg\",\n    },\n    /**\n     * A superfície da aba ATIVA — tem que casar com o conteúdo de baixo. No modo pousado a\n     * borda de baixo recebe a mesma cor, e é ela que apaga a régua.\n     */\n    surface: {\n      surface: \"\",\n      canvas: \"\",\n    },\n    ativa: {\n      true: \"border-border-default\",\n      false: \"hover:bg-bg-subtle\",\n    },\n  },\n\n  compoundVariants: [\n    { fill: false, density: \"comfortable\", class: \"min-h-comp-3xl\" },\n    { fill: false, density: \"compact\", class: \"min-h-comp-xl\" },\n    { ativa: true, surface: \"surface\", class: \"bg-bg-surface border-b-bg-surface\" },\n    { ativa: true, surface: \"canvas\", class: \"bg-bg-canvas border-b-bg-canvas\" },\n  ],\n\n  defaultVariants: { density: \"comfortable\", fill: false, surface: \"surface\", ativa: false },\n});\n\n/**\n * Divisória curta entre abas — 20px, não altura cheia: altura cheia transformaria a tira num\n * toolbar segmentado, que é outra leitura. Centrar depende do modo, porque o eixo do flex\n * muda: `items-end` no pousado (daí a margem), `items-stretch` no cheio (daí `self-center`).\n */\nexport const navTabsDivisoria = tv({\n  base: \"w-px shrink-0 bg-border-default\",\n\n  variants: {\n    fill: {\n      true: \"h-[20px] self-center\",\n      false: \"h-[20px] mb-[14px]\",\n    },\n    /** Ao lado da aba ativa some: encostada na borda dela vira uma sombra falsa. */\n    oculta: {\n      true: \"bg-transparent\",\n      false: \"\",\n    },\n  },\n\n  defaultVariants: { fill: false, oculta: false },\n});\n\n/**\n * A faixa dos controles (setas, `+`, lista, ações globais) tem a MESMA altura da aba e\n * centraliza — é isso que alinha a fileira. Medido: com 48px fixos ao lado de abas de 40px,\n * ou dentro de uma faixa de 56px no modo cheio, tudo descia 4px do eixo.\n */\nexport const navTabsControles = tv({\n  base: \"flex shrink-0 items-center gap-gp-2xs\",\n\n  variants: {\n    fill: { true: \"h-full\", false: \"\" },\n    density: { comfortable: \"h-comp-3xl\", compact: \"h-comp-xl\" },\n  },\n\n  compoundVariants: [\n    { fill: true, density: \"comfortable\", class: \"h-full\" },\n    { fill: true, density: \"compact\", class: \"h-full\" },\n  ],\n\n  defaultVariants: { fill: false, density: \"comfortable\" },\n});\n\n/** Ação inline da aba (`⋯`, `×`, ✓/✗). 24px — o menor `icon-*` do Button é 32px e não cabe. */\nexport const navTabAcao = tv({\n  base: [\n    \"inline-flex size-comp-xs items-center justify-center rounded-radius-sm\",\n    \"transition-colors focus-visible:outline-none focus-visible:ring-4\",\n  ],\n\n  variants: {\n    tom: {\n      neutro: \"text-fg-muted hover:bg-bg-muted hover:text-fg-default focus-visible:ring-ring-brand\",\n      success: \"text-fg-success hover:bg-bg-success-muted focus-visible:ring-ring-success\",\n      danger: \"text-fg-danger hover:bg-bg-danger-muted focus-visible:ring-ring-danger\",\n    },\n  },\n\n  defaultVariants: { tom: \"neutro\" },\n});\n\n/**\n * A coluna de ações CRESCE de 0fr a 1fr em vez de ficar reservada com `opacity-0`.\n *\n * Com opacidade os botões ocupavam 48px invisíveis e o título truncava por causa de espaço\n * que ninguém usava (medido: um título que cabia em 149px vinha cortado). `0fr → 1fr` é\n * interpolável em qualquer engine — `interpolate-size`/`calc-size()` fariam isso direto, mas\n * ainda não são Baseline e o DS entrega pra navegador que não escolhemos.\n */\nexport const navTabAcoes = tv({\n  base: \"grid transition-[grid-template-columns,opacity] duration-150 ease-out\",\n\n  variants: {\n    visivel: {\n      true: \"grid-cols-[1fr] opacity-100\",\n      false:\n        \"grid-cols-[0fr] opacity-0 group-hover/aba:grid-cols-[1fr] group-hover/aba:opacity-100 group-focus-within/aba:grid-cols-[1fr] group-focus-within/aba:opacity-100\",\n    },\n  },\n\n  defaultVariants: { visivel: false },\n});\n\n/** O ponto de status. Ponto, não Chip: 5 abas abertas = 5 chips brigando com os títulos. */\nexport const navTabStatus = tv({\n  base: \"size-icon-2xs shrink-0\",\n\n  variants: {\n    status: {\n      success: \"fill-bg-success text-bg-success\",\n      warning: \"fill-bg-warning text-bg-warning\",\n      danger: \"fill-bg-danger text-bg-danger\",\n      info: \"fill-bg-info text-bg-info\",\n      neutral: \"fill-fg-subtle text-fg-subtle\",\n    },\n  },\n\n  defaultVariants: { status: \"neutral\" },\n});\n\nexport type NavTabVariantProps = VariantProps<typeof navTab>;\n",
+        "type": "registry:ui",
+        "target": "components/ui/NavTabs/nav-tabs.styles.ts"
+      },
+      {
+        "path": "src/components/ui/NavTabs/nav-tabs.tsx",
+        "content": "import {\n  Children,\n  forwardRef,\n  isValidElement,\n  useCallback,\n  useContext,\n  useEffect,\n  useId,\n  useMemo,\n  useRef,\n  useState,\n  type ReactElement,\n  type ReactNode,\n} from \"react\";\nimport { ChevronDown, ChevronLeft, ChevronRight, Circle, MoreHorizontal, Plus, X } from \"lucide-react\";\nimport { Button } from \"@/components/ui/Button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/shadcn/dropdown-menu\";\nimport { NavTabsContext } from \"./nav-tabs-context\";\nimport {\n  navTab,\n  navTabAcao,\n  navTabAcoes,\n  navTabStatus,\n  navTabsControles,\n  navTabsDivisoria,\n  navTabsRoot,\n  navTabsTrilho,\n} from \"./nav-tabs.styles\";\nimport type {\n  NavTabProps,\n  NavTabsPanelProps,\n  NavTabsProps,\n  NavTabStatus,\n} from \"./nav-tabs.types\";\n\nconst STATUS_CONHECIDOS: NavTabStatus[] = [\"success\", \"warning\", \"danger\", \"info\", \"neutral\"];\nconst ehStatusConhecido = (s: unknown): s is NavTabStatus =>\n  typeof s === \"string\" && (STATUS_CONHECIDOS as string[]).includes(s);\n\n/* ─────────────────────────── peças de composição ─────────────────────────── */\n\n/** Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm`. */\nexport function NavTabTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\n  return (\n    <span className={[\"block truncate text-body-sm\", className ?? \"\"].join(\" \")} {...rest}>\n      {children}\n    </span>\n  );\n}\nNavTabTitle.displayName = \"NavTabs.Title\";\n\n/** Subtítulo — some sozinho quando a tira é `density=\"compact\"`. */\nexport function NavTabSubtitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\n  const ctx = useContext(NavTabsContext);\n  if (ctx?.density === \"compact\") return null;\n  return (\n    <span\n      className={[\"block truncate text-caption-md text-fg-subtle\", className ?? \"\"].join(\" \")}\n      {...rest}\n    >\n      {children}\n    </span>\n  );\n}\nNavTabSubtitle.displayName = \"NavTabs.Subtitle\";\n\n/**\n * Ação inline da aba. 24px porque o menor `size=\"icon-*\"` do `Button` é 32px e não cabe numa\n * aba de 40px sem espremer o título — é o mesmo motivo de o `+` da tira usar `Button` e este\n * não. `stopPropagation` embutido: clique na ação não pode selecionar a aba.\n */\nexport const NavTabAction = forwardRef<\n  HTMLButtonElement,\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { tom?: \"neutro\" | \"success\" | \"danger\" }\n>(function NavTabAction({ tom = \"neutro\", className, onClick, ...rest }, ref) {\n  return (\n    <button\n      ref={ref}\n      type=\"button\"\n      className={navTabAcao({ tom, className })}\n      onClick={(e) => {\n        e.stopPropagation();\n        onClick?.(e);\n      }}\n      {...rest}\n    />\n  );\n});\nNavTabAction.displayName = \"NavTabs.Action\";\n\n/** Ações GLOBAIS da tira (busca, preferências) — ficam à direita, depois de uma divisória. */\nexport function NavTabsActions({ children }: { children?: ReactNode }) {\n  return <>{children}</>;\n}\nNavTabsActions.displayName = \"NavTabs.Actions\";\n\n/**\n * Painel de conteúdo — opcional. Só faz sentido quando o conteúdo mora DENTRO da árvore do\n * componente; quando mora fora (outra coluna, outra rota), use `panelId` na aba.\n */\nexport function NavTabsPanel({ value, children, className, ...rest }: NavTabsPanelProps) {\n  const ctx = useContext(NavTabsContext);\n  if (!ctx || ctx.value !== value) return null;\n  return (\n    <div\n      role=\"tabpanel\"\n      aria-labelledby={ctx.idTab(value)}\n      tabIndex={0}\n      className={className}\n      {...rest}\n    >\n      {children}\n    </div>\n  );\n}\nNavTabsPanel.displayName = \"NavTabs.Panel\";\n\n/* ─────────────────────────────── a aba ─────────────────────────────── */\n\nexport const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(\n  {\n    value,\n    leading,\n    status,\n    badge,\n    actions,\n    onClose,\n    menu,\n    panelId,\n    actionsAlwaysVisible = false,\n    children,\n    className,\n    ...rest\n  },\n  ref,\n) {\n  const ctx = useContext(NavTabsContext);\n  if (!ctx) throw new Error(\"<NavTabs.Tab> só funciona dentro de <NavTabs>.\");\n\n  const ativa = ctx.value === value;\n  const temAcoesPadrao = !actions && typeof onClose === \"function\";\n  const conteudoAcoes = actions ?? (temAcoesPadrao ? <AcoesPadrao onClose={onClose!} menu={menu} /> : null);\n\n  return (\n    <div\n      ref={ref}\n      role=\"tab\"\n      id={ctx.idTab(value)}\n      data-value={value}\n      aria-selected={ativa}\n      aria-controls={panelId}\n      /* Roving tabindex: só a aba ativa entra na ordem de tabulação; as vizinhas se alcançam\n         pelas setas, que é o padrão ARIA de tablist. Sem isso, 12 abas viram 12 paradas de Tab\n         antes do conteúdo. */\n      tabIndex={ativa ? 0 : -1}\n      onClick={() => ctx.onValueChange(value)}\n      onKeyDown={(e) => {\n        if (e.key === \"Enter\" || e.key === \" \") {\n          e.preventDefault();\n          ctx.onValueChange(value);\n        }\n      }}\n      className={navTab({\n        density: ctx.density,\n        fill: ctx.fill,\n        surface: ctx.surface,\n        ativa,\n        className,\n      })}\n      {...rest}\n    >\n      {leading}\n\n      <div className=\"min-w-0 flex-1\">\n        {status !== undefined ? (\n          <div className=\"flex items-center gap-gp-sm\">\n            {ehStatusConhecido(status) ? (\n              <Circle className={navTabStatus({ status })} aria-hidden />\n            ) : (\n              status\n            )}\n            <div className=\"min-w-0 flex-1\">{children}</div>\n          </div>\n        ) : (\n          children\n        )}\n      </div>\n\n      {/* Badge some na aba ativa: o usuário está lendo, o contador não tem o que contar. */}\n      {!ativa && badge !== undefined && badge !== null && badge !== 0 ? (\n        typeof badge === \"number\" ? (\n          <span\n            className=\"inline-flex min-w-[18px] items-center justify-center rounded-radius-full bg-bg-brand px-pad-xs text-caption-sm font-semibold text-fg-on-brand\"\n            aria-hidden\n          >\n            {badge}\n          </span>\n        ) : (\n          badge\n        )\n      ) : null}\n\n      {conteudoAcoes ? (\n        <div\n          className={navTabAcoes({\n            visivel: ativa || actionsAlwaysVisible || ctx.actionsMode === \"persistent\",\n          })}\n        >\n          <div className=\"flex min-w-0 items-center gap-gp-2xs overflow-hidden\">{conteudoAcoes}</div>\n        </div>\n      ) : null}\n    </div>\n  );\n});\nNavTab.displayName = \"NavTabs.Tab\";\n\nfunction AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode }) {\n  return (\n    <>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <NavTabAction aria-label=\"Opções da aba\">\n            <MoreHorizontal className=\"size-icon-sm\" />\n          </NavTabAction>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"start\" className=\"w-[196px]\">\n          {menu}\n          {menu ? <DropdownMenuSeparator /> : null}\n          <DropdownMenuItem\n            onSelect={onClose}\n            className=\"text-fg-danger focus:bg-bg-danger-muted focus:text-fg-danger\"\n          >\n            <X className=\"size-icon-sm\" /> Fechar aba\n          </DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n\n      <NavTabAction aria-label=\"Fechar aba\" onClick={onClose}>\n        <X className=\"size-icon-sm\" />\n      </NavTabAction>\n    </>\n  );\n}\n\n/* ──────────────────────────────── a tira ──────────────────────────────── */\n\n/**\n * `NavTabs` — tira de abas de navegação, no estilo das abas de um navegador.\n *\n * ## O conteúdo mora onde você quiser\n *\n * O componente é **sempre controlado** e não hospeda o conteúdo: ele diz qual aba está ativa\n * (`value` / `onValueChange`) e o consumidor troca o que quiser, onde quiser — outra coluna,\n * outra rota, outro componente. Pra fechar a acessibilidade com o painel fora, dê `panelId` à\n * aba (vira `aria-controls`); com o painel dentro, use `<NavTabs.Panel>`.\n *\n * ## Composição, não configuração\n *\n * `leading`, `children`, `status`, `badge` e `actions` aceitam qualquer nó. `actions`\n * **substitui** as ações padrão — é por ele que entram ✓/✗ de aceitar/recusar um chamado, ou\n * cinco botões, ou nenhum.\n *\n * @example\n * <NavTabs value={id} onValueChange={setId} aria-label=\"Conversas abertas\" onNewTab={abrir}>\n *   <NavTabs.Tab\n *     value=\"c1\"\n *     leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\n *     status=\"success\"\n *     badge={3}\n *     panelId=\"painel\"\n *     onClose={() => fechar(\"c1\")}\n *   >\n *     <NavTabs.Title>Maria Silva</NavTabs.Title>\n *     <NavTabs.Subtitle>Fatura de julho</NavTabs.Subtitle>\n *   </NavTabs.Tab>\n * </NavTabs>\n */\nexport const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function NavTabs(\n  {\n    value,\n    onValueChange,\n    surface = \"surface\",\n    density = \"comfortable\",\n    fill = false,\n    actionsMode = \"hover\",\n    chrome = true,\n    onNewTab,\n    children,\n    className,\n    \"aria-label\": ariaLabel,\n    ...rest\n  },\n  ref,\n) {\n  const prefixo = useId();\n  const trilho = useRef<HTMLDivElement>(null);\n\n  const ctx = useMemo(\n    () => ({\n      value,\n      onValueChange,\n      surface,\n      density,\n      fill,\n      actionsMode,\n      idTab: (v: string) => `${prefixo}-${v}`,\n    }),\n    [value, onValueChange, surface, density, fill, actionsMode, prefixo],\n  );\n\n  /** Separa as abas das ações globais: as duas coisas moram em lugares diferentes da tira. */\n  const { abas, acoesGlobais } = useMemo(() => {\n    const abas: ReactElement<NavTabProps>[] = [];\n    let acoesGlobais: ReactNode = null;\n    for (const filho of Children.toArray(children)) {\n      if (!isValidElement(filho)) continue;\n      if (filho.type === NavTabsActions) acoesGlobais = filho;\n      else abas.push(filho as ReactElement<NavTabProps>);\n    }\n    return { abas, acoesGlobais };\n  }, [children]);\n\n  /**\n   * Estado do overflow — três coisas, não uma: **se** transborda (mostra os controles) e se dá\n   * pra rolar pra cada lado (habilita cada seta). Seta que não faz nada é pior que ausente.\n   */\n  const [rolagem, setRolagem] = useState({ transborda: false, esq: false, dir: false });\n\n  const medir = useCallback(() => {\n    const el = trilho.current;\n    if (!el) return;\n    // 1px de tolerância: os valores são inteiros arredondados e empatam por fração fora do\n    // zoom 100% — sem isso a seta pisca em 110%.\n    const max = el.scrollWidth - el.clientWidth;\n    setRolagem({ transborda: max > 1, esq: el.scrollLeft > 1, dir: el.scrollLeft < max - 1 });\n  }, []);\n\n  /**\n   * `ResizeObserver` no trilho e nos filhos, não `window.resize`: a tira também transborda\n   * quando um painel ao lado abre ou a sidebar colapsa — nenhum desses dispara resize.\n   */\n  useEffect(() => {\n    const el = trilho.current;\n    if (!el) return;\n    medir();\n    // SSR / jsdom safe — mesmo guarda do `use-column-auto-width` do DataTable. Sem ele o\n    // componente derruba a suíte de quem consome (jsdom não implementa ResizeObserver), e a\n    // medição inicial + o `onScroll` já dão o comportamento básico.\n    if (typeof ResizeObserver === \"undefined\") return;\n    const ro = new ResizeObserver(medir);\n    ro.observe(el);\n    for (const filho of Array.from(el.children)) ro.observe(filho);\n    return () => ro.disconnect();\n  }, [medir, abas.length]);\n\n  /** Trocar de aba por fora (lista, teclado, aba nova) tem que trazer a aba pro campo de visão. */\n  useEffect(() => {\n    const el = trilho.current;\n    const alvo = el?.querySelector<HTMLElement>(`[data-value=\"${CSS.escape(value)}\"]`);\n    alvo?.scrollIntoView({ inline: \"nearest\", block: \"nearest\", behavior: \"smooth\" });\n\n    /**\n     * O foco acompanha a seleção — mas SÓ quando já estava na tira. Sem a condição, o\n     * componente roubaria o foco do usuário toda vez que o app trocasse de aba por conta\n     * própria (uma notificação abrindo a conversa, uma rota mudando). Sem o foco, o leitor de\n     * tela continua anunciando a aba antiga enquanto a tela mostra outra.\n     */\n    if (el?.contains(document.activeElement) && alvo !== document.activeElement) alvo?.focus();\n  }, [value]);\n\n  const rolar = (dir: -1 | 1) => trilho.current?.scrollBy({ left: dir * 240, behavior: \"smooth\" });\n\n  /** Setas ←/→/Home/End: padrão ARIA de tablist, e o que faz o roving tabindex ter saída. */\n  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {\n    const valores = abas.map((a) => a.props.value);\n    const i = valores.indexOf(value);\n    if (i < 0) return;\n    const proximo =\n      e.key === \"ArrowRight\"\n        ? valores[(i + 1) % valores.length]\n        : e.key === \"ArrowLeft\"\n          ? valores[(i - 1 + valores.length) % valores.length]\n          : e.key === \"Home\"\n            ? valores[0]\n            : e.key === \"End\"\n              ? valores[valores.length - 1]\n              : null;\n    if (!proximo) return;\n    e.preventDefault();\n    onValueChange(proximo);\n    /* O foco vai junto — mas no efeito abaixo, não aqui: o componente é controlado, então na\n       hora deste handler a aba nova ainda nem existe como ativa. A primeira versão usava\n       `requestAnimationFrame`, e isso amarra o foco a haver FRAME: em ambiente que não compõe\n       (o painel de automação, um teste headless) a seleção mudava e o foco ficava pra trás. */\n  };\n\n  const controles = navTabsControles({ fill, density });\n\n  return (\n    <NavTabsContext.Provider value={ctx}>\n      <div\n        ref={ref}\n        role=\"tablist\"\n        aria-label={ariaLabel}\n        aria-orientation=\"horizontal\"\n        onKeyDown={onKeyDown}\n        className={navTabsRoot({ fill, chrome, className })}\n        {...rest}\n      >\n        {rolagem.transborda ? (\n          <div className={`${controles} pr-pad-xs`}>\n            <Button\n              variant=\"ghost\"\n              color=\"secondary\"\n              size=\"icon-sm\"\n              aria-label=\"Abas anteriores\"\n              disabled={!rolagem.esq}\n              onClick={() => rolar(-1)}\n            >\n              <ChevronLeft />\n            </Button>\n            <span aria-hidden className={navTabsDivisoria({ fill })} />\n          </div>\n        ) : null}\n\n        <div ref={trilho} onScroll={medir} className={navTabsTrilho({ fill })}>\n          {abas.map((aba, i) => {\n            /* Divisória só entre DUAS inativas: ao lado da ativa ela encosta na borda e vira\n               uma sombra falsa. É o que o navegador faz. */\n            const vizinhaDaAtiva =\n              aba.props.value === value || abas[i + 1]?.props.value === value;\n            return (\n              <div\n                key={aba.props.value}\n                className={[\"flex shrink-0\", fill ? \"items-stretch\" : \"items-end\"].join(\" \")}\n              >\n                {aba}\n                {i < abas.length - 1 ? (\n                  <span aria-hidden className={navTabsDivisoria({ fill, oculta: vizinhaDaAtiva })} />\n                ) : null}\n              </div>\n            );\n          })}\n        </div>\n\n        {rolagem.transborda ? (\n          <div className={`${controles} pl-pad-xs`}>\n            <span aria-hidden className={navTabsDivisoria({ fill })} />\n            <Button\n              variant=\"ghost\"\n              color=\"secondary\"\n              size=\"icon-sm\"\n              aria-label=\"Próximas abas\"\n              disabled={!rolagem.dir}\n              onClick={() => rolar(1)}\n            >\n              <ChevronRight />\n            </Button>\n          </div>\n        ) : null}\n\n        {/* ⚠️ O `+` e a lista moram FORA do trilho de propósito: dentro, eles rolavam junto com\n            as abas e sumiam da tela justamente quando havia abas demais — que é quando servem. */}\n        {onNewTab || (rolagem.transborda && abas.length) || acoesGlobais ? (\n          <div className={controles}>\n            {onNewTab ? (\n              <Button\n                variant=\"ghost\"\n                color=\"secondary\"\n                size=\"icon-sm\"\n                aria-label=\"Abrir nova aba\"\n                onClick={onNewTab}\n              >\n                <Plus />\n              </Button>\n            ) : null}\n\n            {/* A seta resolve \"a vizinha\"; ela não resolve \"aquela ali\". Por isso a lista — e\n                só quando transborda: com 3 abas visíveis, um menu pra escolher entre 3 é ruído. */}\n            {rolagem.transborda && abas.length ? (\n              <DropdownMenu>\n                <DropdownMenuTrigger asChild>\n                  <Button\n                    variant=\"ghost\"\n                    color=\"secondary\"\n                    size=\"icon-sm\"\n                    aria-label={`Listar as ${abas.length} abas abertas`}\n                  >\n                    <ChevronDown />\n                  </Button>\n                </DropdownMenuTrigger>\n                <DropdownMenuContent\n                  align=\"end\"\n                  className=\"max-h-[320px] w-[264px] overflow-y-auto scrollbar-thin\"\n                >\n                  <DropdownMenuLabel>{abas.length} abas abertas</DropdownMenuLabel>\n                  <DropdownMenuSeparator />\n                  {abas.map((aba) => {\n                    const p = aba.props;\n                    return (\n                      <DropdownMenuItem\n                        key={p.value}\n                        onSelect={() => onValueChange(p.value)}\n                        className={p.value === value ? \"bg-bg-brand-subtle text-fg-brand\" : undefined}\n                      >\n                        {ehStatusConhecido(p.status) ? (\n                          <Circle className={navTabStatus({ status: p.status })} aria-hidden />\n                        ) : null}\n                        <span className=\"min-w-0 flex-1\">{p.children}</span>\n                      </DropdownMenuItem>\n                    );\n                  })}\n                </DropdownMenuContent>\n              </DropdownMenu>\n            ) : null}\n\n            {acoesGlobais ? (\n              <>\n                <span aria-hidden className={navTabsDivisoria({ fill, className: \"mx-pad-xs\" })} />\n                <div className=\"flex items-center gap-gp-2xs\">{acoesGlobais}</div>\n              </>\n            ) : null}\n          </div>\n        ) : null}\n      </div>\n    </NavTabsContext.Provider>\n  );\n});\n\ntype NavTabsCompound = typeof NavTabsRoot & {\n  Tab: typeof NavTab;\n  Title: typeof NavTabTitle;\n  Subtitle: typeof NavTabSubtitle;\n  Action: typeof NavTabAction;\n  Actions: typeof NavTabsActions;\n  Panel: typeof NavTabsPanel;\n};\n\nexport const NavTabs = Object.assign(NavTabsRoot, {\n  Tab: NavTab,\n  Title: NavTabTitle,\n  Subtitle: NavTabSubtitle,\n  Action: NavTabAction,\n  Actions: NavTabsActions,\n  Panel: NavTabsPanel,\n}) as NavTabsCompound;\n",
+        "type": "registry:ui",
+        "target": "components/ui/NavTabs/nav-tabs.tsx"
+      },
+      {
+        "path": "src/components/ui/NavTabs/nav-tabs.types.ts",
+        "content": "import type { ReactNode } from \"react\";\n\n/** Superfície do CONTEÚDO abaixo da tira — a aba ativa precisa ser a mesma cor pra unir. */\nexport type NavTabsSurface = \"surface\" | \"canvas\";\n\n/** `comfortable` = título + subtítulo (48px) · `compact` = só título (40px). */\nexport type NavTabsDensity = \"comfortable\" | \"compact\";\n\n/** Tom do ponto de status. Passe um `ReactNode` em `status` pra desenhar o seu. */\nexport type NavTabStatus = \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\";\n\nexport interface NavTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  /** `value` da aba ativa. O componente é SEMPRE controlado — ver `NavTabsProps.onValueChange`. */\n  value: string;\n\n  /**\n   * Chamado quando o usuário escolhe outra aba (clique, teclado ou lista de overflow).\n   *\n   * O componente **não hospeda o conteúdo**: ele diz qual aba está ativa e o consumidor\n   * decide o que trocar. É o que permite o painel morar fora — outra coluna, outra rota,\n   * outro componente. Pra fechar a acessibilidade nesse caso, passe `panelId` na aba.\n   */\n  onValueChange: (value: string) => void;\n\n  /**\n   * Superfície do conteúdo logo abaixo da tira. A aba ativa é pintada com ela — é o que a\n   * une ao conteúdo. Num card `surface`; se o conteúdo for a própria página, `canvas`.\n   * @default \"surface\"\n   */\n  surface?: NavTabsSurface;\n\n  /**\n   * `compact` remove o subtítulo e baixa a aba pra 40px. É escolha de CONTEÚDO, não de\n   * densidade: sem subtítulo, duas conversas do mesmo cliente ficam idênticas.\n   * @default \"comfortable\"\n   */\n  density?: NavTabsDensity;\n\n  /**\n   * `true` = a aba ocupa a faixa inteira (lê como segmento, não como aba de navegador) e a\n   * tira perde a régua — a união passa a ser por continuidade de cor.\n   * @default false\n   */\n  fill?: boolean;\n\n  /**\n   * `persistent` mantém as ações da aba sempre visíveis. Use quando a ação exige decisão\n   * (aceitar/recusar um chamado): revelar no hover esconde justamente o que precisa ser visto.\n   * @default \"hover\"\n   */\n  actionsMode?: \"hover\" | \"persistent\";\n\n  /**\n   * Pinta o fundo recuado da tira (`bg-subtle` no claro, `bg-canvas` no escuro — cada modo tem\n   * o seu token de recuo). Desligue quando o container já pinta o fundo.\n   * @default true\n   */\n  chrome?: boolean;\n\n  /** Com isto, o `+` aparece — fora do trilho, pra não sair de alcance quando as abas rolam. */\n  onNewTab?: () => void;\n\n  /** Rótulo do conjunto pro leitor de tela, ex.: `\"Conversas abertas\"`. */\n  \"aria-label\"?: string;\n\n  /** `<NavTabs.Tab>`s e, opcionalmente, um `<NavTabs.Actions>`. */\n  children?: ReactNode;\n}\n\nexport interface NavTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onSelect\"> {\n  /** Identidade da aba — é o que volta em `onValueChange`. */\n  value: string;\n\n  /** Qualquer nó à esquerda: `Avatar`, `Icon`, imagem, sigla. */\n  leading?: ReactNode;\n\n  /** Ponto de status pronto, ou o seu próprio nó. */\n  status?: NavTabStatus | ReactNode;\n\n  /** Contador (número) ou qualquer nó. Some quando a aba está ativa — o usuário já está lendo. */\n  badge?: number | ReactNode;\n\n  /**\n   * SUBSTITUI as ações padrão. Passe quantas quiser (`<NavTabs.Action>` ou qualquer botão) —\n   * é aqui que entram ✓/✗ de aceitar/recusar, \"fixar\", \"duplicar\".\n   */\n  actions?: ReactNode;\n\n  /** Sem `actions`, declarar `onClose` liga as ações padrão (`⋯` de opções + `×` de fechar). */\n  onClose?: () => void;\n\n  /** Itens extras do menu `⋯` das ações padrão. Ignorado quando `actions` é passado. */\n  menu?: ReactNode;\n\n  /**\n   * `id` do elemento que esta aba controla, quando o conteúdo mora FORA do componente.\n   * Emite `aria-controls`. Dentro, prefira `<NavTabs.Panel value=\"…\">`.\n   */\n  panelId?: string;\n\n  /** Mantém as ações visíveis só nesta aba (o `pendente` do caso de chamados). */\n  actionsAlwaysVisible?: boolean;\n\n  /** `<NavTabs.Title>` + `<NavTabs.Subtitle>`, ou a composição que você quiser. */\n  children?: ReactNode;\n}\n\nexport interface NavTabsPanelProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Casa com o `value` da aba. Renderiza apenas quando ela está ativa. */\n  value: string;\n  children?: ReactNode;\n}\n",
+        "type": "registry:ui",
+        "target": "components/ui/NavTabs/nav-tabs.types.ts"
+      }
+    ],
+    "meta": {
+      "stamp": "igreen-ds · nav-tabs · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3883,7 +3939,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · navigation-menu · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3930,7 +3986,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · page-header · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3955,7 +4011,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · pagination · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4030,7 +4086,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · panel · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4054,7 +4110,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · popover · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4078,7 +4134,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · progress · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4102,7 +4158,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · radio-group · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4150,7 +4206,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · screen-loader · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4230,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · scroll-area · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4199,7 +4255,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · select · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4223,7 +4279,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · separator · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4249,7 +4305,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · sheet · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4362,7 +4418,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4384,7 +4440,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · skeleton · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4408,7 +4464,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · slider · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4431,7 +4487,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · sonner · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4477,7 +4533,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · spinner · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4501,7 +4557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · switch · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4580,7 +4636,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · table · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4604,7 +4660,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · tabs · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4628,7 +4684,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · textarea · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4646,7 +4702,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · theme-blue · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4664,7 +4720,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · theme-green · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4682,7 +4738,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · theme-pay · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4700,7 +4756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · theme-vibrant · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4715,14 +4771,14 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/styles/theme/tailwind-theme.css",
-        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-card-md: 20px;\n  --spacing-pad-card-lg: 24px;\n  --spacing-pad-card-base: 20px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
+        "content": "/**\n * tailwind-theme.css — Auto-gerado. Não editar manualmente.\n * Source of truth (repo do DS): tokens/brands/default/semantic/*.ts\n * Regenerar (só no repo do DS): npm run tokens:tw4\n *\n * No seu projeto: este arquivo é gerenciado pelo DS — edição some no próximo update.\n * Customize na composição da tela (props/variantes + classes DS), não nos tokens.\n */\n\n/* ── Runtime base (fonte, dark-variant, body) — ver buildRuntimeBase ──────── */\n\n@font-face {\n  font-family: 'Geist';\n  src: url('/fonts/Geist-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@font-face {\n  font-family: 'Geist Mono';\n  src: url('/fonts/GeistMono-Variable.woff2') format('woff2');\n  font-weight: 100 900;\n  font-style: normal;\n  font-display: swap;\n}\n\n@theme inline {\n  --font-sans: 'Geist', system-ui, -apple-system, sans-serif;\n  --font-mono: 'Geist Mono', 'Fira Code', monospace;\n}\n\n/* Dark por CLASSE, nunca por prefers-color-scheme: sem isto o tema do SO vaza\n * pro app nos dois sentidos (app claro com SO escuro dispara `dark:`). */\n@custom-variant dark (&:where(.dark, .dark *));\n\nhtml {\n  font-family: var(--font-sans);\n}\n\nbody {\n  min-height: 100vh;\n  background-color: var(--color-bg-canvas);\n  color: var(--color-fg-default);\n  transition: background-color 0.2s ease, color 0.2s ease;\n}\n\n@layer base {\n  button {\n    cursor: pointer;\n  }\n}\n\n@theme {\n  --color-bg-canvas: oklch(1 0 0);\n  --color-bg-surface: oklch(1 0 0);\n  --color-bg-surface-elevated: oklch(1 0 0);\n  --color-bg-surface-panels: oklch(1 0 0);\n  --color-bg-sidebar: oklch(0.9516 0.0027 106.45);\n  --color-bg-subtle: oklch(0.973 0 0);\n  --color-bg-muted: oklch(0.973 0 0);\n  --color-bg-emphasis: oklch(0.94 0 0);\n  --color-bg-input: oklch(1 0 0);\n  --color-bg-accent: oklch(1 0 0);\n  --color-bg-brand: oklch(0.5248 0.1415 150.9);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, black);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, black);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, black);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, black);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(0.95 0 0);\n  --color-bg-scrollbar-thumb: oklch(0 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(0 0 0 / 0.32);\n  --color-bg-input-hover: oklch(0.973 0 0);\n  --color-bg-accent-hover: oklch(0.84 0 0);\n  --color-bg-sidebar-accent: oklch(1 0 0);\n  --color-bg-sidebar-accent-hover: oklch(0.92 0.0068 115.72);\n  --color-bg-table: oklch(1 0 0);\n  --color-bg-table-head: oklch(0.973 0 0);\n  --color-bg-table-row-hover: oklch(0.973 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 6%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 10%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 6%, oklch(1 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.5248 0.1415 150.9) 10%, oklch(1 0 0));\n  --color-bg-dropdown: var(--color-bg-canvas);\n  --color-fg-strong: oklch(0.15 0 0);\n  --color-fg-default: oklch(0.15 0 0);\n  --color-fg-muted: oklch(0.4997 0 0);\n  --color-fg-subtle: oklch(0.7025 0 0);\n  --color-fg-disabled: oklch(0.7025 0 0);\n  --color-fg-brand: oklch(0.5248 0.1415 150.9);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(1 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(1 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.9076 0 0);\n  --color-border-subtle: oklch(0.931 0 0);\n  --color-border-input: oklch(0.8761 0 0);\n  --color-border-sidebar: oklch(0.9076 0.0068 115.72);\n  --color-border-brand: oklch(0.5248 0.1415 150.9);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.931 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(0.55 0 0 / 0.12);\n  --color-chart-1: oklch(0.58 0.140 151);\n  --color-chart-2: oklch(0.66 0.12 195);\n  --color-chart-3: oklch(0.55 0.15 250);\n  --color-chart-4: oklch(0.76 0.15 80);\n  --color-chart-5: oklch(0.56 0.18 300);\n  --color-chart-grid: oklch(0.9076 0 0);\n  --spacing-sp-0: 0px;\n  --spacing-sp-base: 16px;\n  --spacing-sp-px: 1px;\n  --spacing-sp-2xs: 2px;\n  --spacing-sp-xs: 4px;\n  --spacing-sp-sm: 6px;\n  --spacing-sp-md: 8px;\n  --spacing-sp-lg: 10px;\n  --spacing-sp-xl: 12px;\n  --spacing-sp-2xl: 16px;\n  --spacing-sp-3xl: 20px;\n  --spacing-sp-4xl: 24px;\n  --spacing-sp-5xl: 28px;\n  --spacing-sp-6xl: 32px;\n  --spacing-sp-7xl: 48px;\n  --spacing-gp-base: 24px;\n  --spacing-gp-2xs: 2px;\n  --spacing-gp-xs: 4px;\n  --spacing-gp-sm: 6px;\n  --spacing-gp-md: 8px;\n  --spacing-gp-lg: 10px;\n  --spacing-gp-xl: 12px;\n  --spacing-gp-2xl: 16px;\n  --spacing-gp-3xl: 20px;\n  --spacing-gp-4xl: 24px;\n  --spacing-gp-5xl: 28px;\n  --spacing-gp-6xl: 32px;\n  --spacing-gp-7xl: 48px;\n  --spacing-pad-base: 12px;\n  --spacing-pad-2xs: 2px;\n  --spacing-pad-xs: 4px;\n  --spacing-pad-sm: 6px;\n  --spacing-pad-md: 8px;\n  --spacing-pad-lg: 10px;\n  --spacing-pad-xl: 12px;\n  --spacing-pad-2xl: 16px;\n  --spacing-pad-3xl: 20px;\n  --spacing-pad-4xl: 24px;\n  --spacing-pad-5xl: 28px;\n  --spacing-pad-6xl: 32px;\n  --spacing-pad-7xl: 48px;\n  --spacing-comp-base: 40px;\n  --spacing-comp-3xs: 16px;\n  --spacing-comp-2xs: 20px;\n  --spacing-comp-xs: 24px;\n  --spacing-comp-sm: 28px;\n  --spacing-comp-md: 32px;\n  --spacing-comp-lg: 36px;\n  --spacing-comp-xl: 40px;\n  --spacing-comp-2xl: 44px;\n  --spacing-comp-3xl: 48px;\n  --spacing-comp-4xl: 56px;\n  --spacing-form-base: 40px;\n  --spacing-form-3xs: 20px;\n  --spacing-form-2xs: 24px;\n  --spacing-form-xs: 28px;\n  --spacing-form-sm: 32px;\n  --spacing-form-md: 36px;\n  --spacing-form-lg: 40px;\n  --spacing-form-xl: 44px;\n  --spacing-layout-navbar: 64px;\n  --spacing-layout-toolbar: 48px;\n  --spacing-layout-tab-bar: 56px;\n  --spacing-layout-header-sm: 80px;\n  --spacing-layout-header-md: 96px;\n  --spacing-layout-header-lg: 128px;\n  --spacing-icon-base: 20px;\n  --spacing-icon-2xs: 8px;\n  --spacing-icon-xs: 12px;\n  --spacing-icon-sm: 16px;\n  --spacing-icon-md: 20px;\n  --spacing-icon-lg: 24px;\n  --spacing-icon-xl: 32px;\n  --spacing-icon-2xl: 40px;\n  --spacing-icon-3xl: 48px;\n  --container-xs: 480px;\n  --container-sm: 640px;\n  --container-md: 768px;\n  --container-lg: 1024px;\n  --container-xl: 1280px;\n  --container-2xl: 1440px;\n  --container-3xl: 1920px;\n  --container-full: 100%;\n  --container-prose: 65ch;\n  --container-main-content-max: 1368px;\n  --container-tooltip-sm: 160px;\n  --container-tooltip-md: 240px;\n  --container-tooltip-lg: 320px;\n  --container-dropdown-sm: 160px;\n  --container-dropdown-md: 240px;\n  --container-dropdown-lg: 320px;\n  --container-sidebar-sm: 240px;\n  --container-sidebar-md: 280px;\n  --container-sidebar-lg: 320px;\n  --container-drawer-sm: 320px;\n  --container-drawer-md: 480px;\n  --container-drawer-lg: 640px;\n  --container-modal-sm: 480px;\n  --container-modal-md: 640px;\n  --container-modal-lg: 800px;\n  --spacing-pad-card-sm: 16px;\n  --spacing-pad-card-md: 20px;\n  --spacing-pad-card-lg: 24px;\n  --spacing-pad-card-base: 20px;\n  --spacing-pad-page-base: 24px;\n  --spacing-pad-page-sm: 16px;\n  --spacing-pad-page-lg: 40px;\n  --spacing-form-gap: 20px;\n  --radius: 0.625rem;\n  --radius-radius-base: 0.625rem;\n  --radius-radius-none: 0px;\n  --radius-radius-xs: calc(0.625rem * 0.4);\n  --radius-radius-sm: calc(0.625rem * 0.6);\n  --radius-radius-md: calc(0.625rem * 0.8);\n  --radius-radius-lg: 0.625rem;\n  --radius-radius-xl: calc(0.625rem * 1.4);\n  --radius-radius-2xl: calc(0.625rem * 1.8);\n  --radius-radius-3xl: calc(0.625rem * 2.2);\n  --radius-radius-4xl: calc(0.625rem * 2.6);\n  --radius-radius-full: 9999px;\n  --border-width-none: 0px;\n  --border-width-xs: 1px;\n  --border-width-sm: 2px;\n  --border-width-md: 4px;\n  --opacity-disabled: 0.38;\n  --opacity-hover: 0.08;\n  --opacity-focus: 0.12;\n  --opacity-pressed: 0.12;\n  --opacity-dragged: 0.16;\n  --opacity-invisible: 0;\n  --opacity-muted: 0.5;\n  --opacity-subtle: 0.7;\n  --opacity-full: 1;\n  --opacity-scrim-light: 0.32;\n  --opacity-scrim-dark: 0.64;\n  --z-index-hide: -1;\n  --z-index-base: 0;\n  --z-index-dropdown: 100;\n  --z-index-sticky: 200;\n  --z-index-overlay: 300;\n  --z-index-modal: 400;\n  --z-index-popover: 500;\n  --z-index-toast: 600;\n  --z-index-tooltip: 700;\n  --scrollbar-width-thin: 6px;\n  --scrollbar-width-default: 8px;\n}\n\n/* ── Shadows: utilities apontam pra vars de indireção (dark-aware) ─────────── */\n\n@theme inline {\n  --shadow-sh-none: var(--ds-sh-none);\n  --shadow-sh-sm: var(--ds-sh-sm);\n  --shadow-sh-md: var(--ds-sh-md);\n  --shadow-sh-lg: var(--ds-sh-lg);\n  --shadow-sh-xl: var(--ds-sh-xl);\n  --shadow-sh-2xl: var(--ds-sh-2xl);\n  --shadow-sh-aside: var(--ds-sh-aside);\n  --shadow-sh-ring: var(--ds-sh-ring);\n  --shadow-sh-ring-danger: var(--ds-sh-ring-danger);\n  --shadow-sh-ring-warning: var(--ds-sh-ring-warning);\n  --shadow-sh-ring-success: var(--ds-sh-ring-success);\n  --shadow-sh-ring-info: var(--ds-sh-ring-info);\n}\n\n:root {\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.04);\n  --ds-sh-md: rgba(145, 158, 171, 0.18) 0 0 2px 0, rgba(145, 158, 171, 0.12) 0 12px 24px -4px;\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.08);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.08);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.16);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.12);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.5248 0.1415 150.9) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Dark mode overrides (via .dark class — toggle manual) ────────────────── */\n\n.dark {\n  --color-bg-canvas: oklch(0.205 0 0);\n  --color-bg-surface: oklch(0.225 0 0);\n  --color-bg-surface-elevated: oklch(0.225 0 0);\n  --color-bg-surface-panels: oklch(0.205 0 0);\n  --color-bg-sidebar: oklch(0.225 0 0);\n  --color-bg-subtle: oklch(1 0 0 / 0.01);\n  --color-bg-muted: oklch(1 0 0 / 0.03);\n  --color-bg-emphasis: color-mix(in oklch, oklch(1 0 0) 12%, transparent);\n  --color-bg-input: oklch(1 0 0 / 0.04);\n  --color-bg-accent: oklch(1 0 0 / 0.12);\n  --color-bg-brand: oklch(0.7289 0.1571 162.3);\n  --color-bg-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-brand-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 90%, black);\n  --color-bg-brand-subtle-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-bg-danger: oklch(0.6368 0.2078 25.33);\n  --color-bg-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 14%, transparent);\n  --color-bg-danger-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 90%, white);\n  --color-bg-danger-muted-hover: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-bg-success: oklch(0.66 0.135 161);\n  --color-bg-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 14%, transparent);\n  --color-bg-success-hover: color-mix(in oklch, oklch(0.66 0.135 161) 90%, white);\n  --color-bg-success-muted-hover: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-bg-warning: oklch(0.81 0.160 81);\n  --color-bg-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 14%, transparent);\n  --color-bg-warning-hover: color-mix(in oklch, oklch(0.81 0.160 81) 90%, white);\n  --color-bg-warning-muted-hover: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-bg-info: oklch(0.62 0.210 280);\n  --color-bg-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 14%, transparent);\n  --color-bg-info-hover: color-mix(in oklch, oklch(0.62 0.210 280) 90%, white);\n  --color-bg-info-muted-hover: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-bg-muted-hover: oklch(1 0 0 / 0.08);\n  --color-bg-scrollbar-thumb: oklch(1 0 0 / 0.24);\n  --color-bg-scrollbar-thumb-hover: oklch(1 0 0 / 0.32);\n  --color-bg-input-hover: oklch(1 0 0 / 0.08);\n  --color-bg-accent-hover: oklch(1 0 0 / 0.16);\n  --color-bg-sidebar-accent: oklch(1 0 0 / 0.08);\n  --color-bg-sidebar-accent-hover: oklch(1 0 0 / 0.12);\n  --color-bg-table: oklch(0.225 0 0);\n  --color-bg-table-head: oklch(0.252 0 0);\n  --color-bg-table-row-hover: oklch(0.252 0 0);\n  --color-bg-table-row-selected: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 10%, transparent);\n  --color-bg-table-row-selected-hover: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 14%, transparent);\n  --color-bg-table-row-selected-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 10%, oklch(0.225 0 0));\n  --color-bg-table-row-selected-hover-solid: color-mix(in srgb, oklch(0.7289 0.1571 162.3) 14%, oklch(0.225 0 0));\n  --color-bg-dropdown: color-mix(in oklab, var(--color-bg-canvas) 70%, transparent);\n  --color-fg-strong: oklch(1 0 0);\n  --color-fg-default: oklch(0.98 0 0);\n  --color-fg-muted: oklch(0.7025 0 0);\n  --color-fg-subtle: color-mix(in oklch, oklch(0.7025 0 0) 70%, transparent);\n  --color-fg-disabled: oklch(0.36 0 0);\n  --color-fg-brand: oklch(0.7289 0.1571 162.3);\n  --color-fg-danger: oklch(0.6368 0.2078 25.33);\n  --color-fg-success: oklch(0.66 0.135 161);\n  --color-fg-warning: oklch(0.81 0.160 81);\n  --color-fg-info: oklch(0.62 0.210 280);\n  --color-fg-on-brand: oklch(0 0 0);\n  --color-fg-on-danger: oklch(1 0 0);\n  --color-fg-on-success: oklch(0 0 0);\n  --color-fg-on-warning: oklch(0 0 0);\n  --color-fg-on-info: oklch(1 0 0);\n  --color-border-default: oklch(0.2645 0 0);\n  --color-border-subtle: oklch(1 0 0 / 0.04);\n  --color-border-input: oklch(1 0 0 / 0.08);\n  --color-border-sidebar: oklch(0.2645 0 0);\n  --color-border-brand: oklch(0.7289 0.1571 162.3);\n  --color-border-brand-subtle: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 36%, transparent);\n  --color-border-danger-muted: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 36%, transparent);\n  --color-border-success-muted: color-mix(in oklch, oklch(0.66 0.135 161) 36%, transparent);\n  --color-border-warning-muted: color-mix(in oklch, oklch(0.81 0.160 81) 36%, transparent);\n  --color-border-info-muted: color-mix(in oklch, oklch(0.62 0.210 280) 36%, transparent);\n  --color-border-table: oklch(0.2645 0 0);\n  --color-ring-brand: color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --color-ring-danger: color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --color-ring-success: color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --color-ring-warning: color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --color-ring-info: color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n  --color-ring-secondary: color-mix(in oklch, oklch(0.4997 0 0) 22%, transparent);\n  --color-overlay-scrim: oklch(0 0 0 / 0.55);\n  --color-overlay-float: oklch(1 0 0 / 0.08);\n  --color-chart-1: oklch(0.7289 0.1571 162.3);\n  --color-chart-2: oklch(0.72 0.13 195);\n  --color-chart-3: oklch(0.68 0.15 250);\n  --color-chart-4: oklch(0.80 0.15 80);\n  --color-chart-5: oklch(0.70 0.17 300);\n  --color-chart-grid: oklch(1 0 0 / 0.12);\n  --ds-sh-none: none;\n  --ds-sh-sm: 0 1px 2px oklch(0 0 0 / 0.15);\n  --ds-sh-md: 0 1px 2px oklch(0 0 0 / 0.30), 0 8px 18px -4px oklch(0 0 0 / 0.42);\n  --ds-sh-lg: 0 8px 24px oklch(0 0 0 / 0.30);\n  --ds-sh-xl: 0 12px 32px oklch(0 0 0 / 0.40);\n  --ds-sh-2xl: 0 24px 56px oklch(0 0 0 / 0.45);\n  --ds-sh-aside: -8px 0 24px oklch(0 0 0 / 0.40);\n  --ds-sh-ring: 0 0 0 3px color-mix(in oklch, oklch(0.7289 0.1571 162.3) 22%, transparent);\n  --ds-sh-ring-danger: 0 0 0 3px color-mix(in oklch, oklch(0.6368 0.2078 25.33) 22%, transparent);\n  --ds-sh-ring-warning: 0 0 0 3px color-mix(in oklch, oklch(0.81 0.160 81) 22%, transparent);\n  --ds-sh-ring-success: 0 0 0 3px color-mix(in oklch, oklch(0.66 0.135 161) 22%, transparent);\n  --ds-sh-ring-info: 0 0 0 3px color-mix(in oklch, oklch(0.62 0.210 280) 22%, transparent);\n}\n\n/* ── Typography utilities (composite presets) ─────────────────────────────── */\n\n@utility text-display-2xl {\n  font-size: clamp(2.5rem, calc(1.568rem + 3.978vw), 4.75rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-xl {\n  font-size: clamp(2.25rem, calc(1.603rem + 2.762vw), 3.8125rem);\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-lg {\n  font-size: clamp(2rem, calc(1.560rem + 1.878vw), 3.0625rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-display-md {\n  font-size: clamp(1.75rem, calc(1.465rem + 1.215vw), 2.4375rem);\n  line-height: 1.15;\n  font-weight: 600;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xl {\n  font-size: clamp(2.25rem, calc(1.732rem + 2.210vw), 3.5rem);\n  line-height: 1.15;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-lg {\n  font-size: clamp(2rem, calc(1.586rem + 1.768vw), 3rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-md {\n  font-size: clamp(1.75rem, calc(1.439rem + 1.326vw), 2.5rem);\n  line-height: 1.2;\n  font-weight: 500;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-sm {\n  font-size: clamp(1.5rem, calc(1.293rem + 0.884vw), 2rem);\n  line-height: 1.25;\n  font-weight: 500;\n  letter-spacing: -0.005em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-heading-xs {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-lg {\n  font-size: 1.25rem;\n  line-height: 1.75rem;\n  font-weight: 600;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-md {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 600;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-title-sm {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 600;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-2xl {\n  font-size: 1.5rem;\n  line-height: 2rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xl {\n  font-size: 1.125rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-lg {\n  font-size: 1rem;\n  line-height: 1.5rem;\n  font-weight: 400;\n  letter-spacing: -0.011em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-md {\n  font-size: 0.875rem;\n  line-height: 1.25rem;\n  font-weight: 400;\n  letter-spacing: -0.006em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-sm {\n  font-size: 0.8125rem;\n  line-height: 1.125rem;\n  font-weight: 500;\n  letter-spacing: -0.003em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-body-xs {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 500;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-md {\n  font-size: 0.75rem;\n  line-height: 1rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-sm {\n  font-size: 0.6875rem;\n  line-height: 0.875rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-caption-xs {\n  font-size: 0.625rem;\n  line-height: 0.75rem;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-xl {\n  font-size: 2.125rem;\n  line-height: 1.05;\n  font-weight: 700;\n  letter-spacing: -0.02em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-lg {\n  font-size: 1.875rem;\n  line-height: 1.1;\n  font-weight: 700;\n  letter-spacing: -0.015em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-md {\n  font-size: 1.5rem;\n  line-height: 1.15;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-stat-sm {\n  font-size: 1.25rem;\n  line-height: 1.2;\n  font-weight: 700;\n  letter-spacing: -0.01em;\n  font-family: var(--font-sans, 'Geist', system-ui, -apple-system, sans-serif);\n}\n\n@utility text-code-md {\n  font-size: 1rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n@utility text-code-sm {\n  font-size: 0.8125rem;\n  line-height: 1.6;\n  font-weight: 400;\n  letter-spacing: 0em;\n  font-family: var(--font-mono, 'Geist Mono', 'Fira Code', monospace);\n}\n\n/* ── Scrollbar utilities (token-driven) ───────────────────────────────────── */\n\n@utility scrollbar-thin {\n  scrollbar-width: thin;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-thin);\n    height: var(--scrollbar-width-thin);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n@utility scrollbar-default {\n  scrollbar-width: auto;\n  scrollbar-color: var(--color-bg-scrollbar-thumb) transparent;\n\n  &::-webkit-scrollbar {\n    width: var(--scrollbar-width-default);\n    height: var(--scrollbar-width-default);\n  }\n\n  &::-webkit-scrollbar-track {\n    background: transparent;\n  }\n\n  &::-webkit-scrollbar-thumb {\n    background-color: var(--color-bg-scrollbar-thumb);\n    border-radius: var(--radius-radius-full);\n  }\n\n  &::-webkit-scrollbar-thumb:hover {\n    background-color: var(--color-bg-scrollbar-thumb-hover);\n  }\n}\n\n/* Rola, mas sem barra visível. Existe pro caso em que a barra QUEBRA o layout, não por\n   estética: na tira do NavTabs ela ocupa 11px DENTRO do trilho e empurra as abas 11px pra\n   cima da régua — a união da aba ativa com o conteúdo, que é o componente inteiro, some.\n   Medido antes de existir esta utility; a alternativa era `[scrollbar-width:none]` +\n   `[&::-webkit-scrollbar]:hidden` na unha, em componente distribuído.\n   ⚠️ Só use quando houver outra affordance de navegação (setas, arrastar, teclado): barra\n   escondida sem substituto é conteúdo inalcançável pra quem só tem mouse. */\n@utility scrollbar-none {\n  scrollbar-width: none;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n}\n\n/* ── Superfície flutuante (usadas por 14 componentes distribuídos) ────────── */\n\n@utility outline-float {\n  outline: 6px solid var(--color-overlay-float);\n  outline-offset: 0;\n}\n\n/* Bottom-sheet mobile de DropdownMenu/Popover (L-030/L-031).\n *\n * O Radix Popper envolve o Content num wrapper posicionado por `transform`\n * inline, fora do alcance do className do Content — só dá pra alcançá-lo por\n * seletor global. Sem este bloco, um menu marcado `mobileSheet` abre flutuando\n * na posição calculada pelo Popper em vez de colar no rodapé.\n *\n * z-60 é load-bearing: acima de qualquer surface z-50 (drawer do sidebar mobile,\n * dialog, sheet). Sem isso, um sheet aberto DE DENTRO do drawer empata em z-50 e\n * renderiza atrás de forma intermitente, e o backdrop não captura o clique-fora. */\n@media (width < 768px) {\n  [data-radix-popper-content-wrapper]:has(> [data-mobile-sheet]) {\n    position: fixed !important;\n    inset: auto 0 0 0 !important;\n    transform: none !important;\n    min-width: 0 !important;\n    width: 100% !important;\n    max-width: 100% !important;\n    z-index: 60 !important;\n  }\n}",
         "type": "registry:file",
         "target": "src/styles/theme/tailwind-theme.css"
       }
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · theme · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4773,7 +4829,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · toast · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4799,7 +4855,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · toggle-group · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4824,7 +4880,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · toggle · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4848,7 +4904,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · tooltip · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4869,7 +4925,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · tv · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4891,7 +4947,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.53.0 · ca2f12e · 2026-08-28"
+      "stamp": "igreen-ds · utils · v0.53.0 · adbec3f · 2026-08-28"
     },
     "type": "registry:file"
   }
