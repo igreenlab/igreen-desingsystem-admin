@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.55.0",
+    date: "2026-08-28",
+    tag: "preview",
+    title: "Breadcrumb: o caminho vira componente, e o item pode trocar o registro aberto",
+    summary:
+      "Duas coisas na mesma peça. A cadeia deixa de ser montada na unha em cada tela — passa a sair de `items` — e o item de detalhe ganha a opção de **trocar o registro aberto**: o nome do que está aberto vira gatilho de uma lista com busca, que é o padrão do seletor de repositório do GitHub. Quem está numa ficha quase nunca quer voltar à lista; quer abrir outra ficha.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`<Breadcrumb items={…} />`** — dados entram, cadeia sai: último item não vira link (é a página atual, e o `href` dele é ignorado), separador entre itens, truncagem. **Sem `items`**, o componente renderiza `children` no primitivo — o modo de composição continua inteiro, pra quem precisa interpor um `Chip` no meio do caminho ou estilizar item a item.",
+          "**`BreadcrumbSwitcher`** — o item que **troca o registro aberto**. Busca por `label` + `keywords` (o CPF/CNPJ que o usuário sabe de cor e a tela não mostra), `leading`/`description`/`group` por opção e `footer` fixo fora da área que rola. É **controlado e não navega**: devolve o valor e o consumidor decide rota, fetch ou estado — a mesma peça serve pro app com router e pro painel que só troca estado local.",
+          "**No `Header`**: o item do breadcrumb vira seletor quando recebe `switcher` + `value` + `onValueChange` **juntos**; faltando um, continua texto. No celular, onde a cadeia colapsa e sobra só o último item, o seletor fica — é onde voltar à lista dói mais.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "**O `Header` deixou de ter breadcrumb próprio — e a medição explica por quê: o DS tinha DOIS.** O primitivo desenhava 14px; o `HeaderBreadcrumb` tinha estilo próprio em `header.styles.ts` e desenhava 13px na cadeia, 16px/600 em item único. O mesmo elemento com dois tamanhos dependendo de onde nascia, e quem compunha um caminho fora do Header pegava o outro sem perceber. Agora é um componente só, e os dois tamanhos viraram a variante `size` — unificar num valor mudaria o visual de 15 telas. Medido antes e depois: gap 6px · cadeia 13/400 · item único 16/600, **sem desvio**. O que mudou foi a semântica, pra melhor: `<ol><li>`, como manda o padrão.",
+          "`vitest.setup.ts` ganhou stub de `ResizeObserver`. O cmdk o instancia no mount de todo `<Command>`, e sem ele **qualquer** teste de busca em lista morre com `ReferenceError` antes da primeira asserção — o que provavelmente explica `Command`, `Combobox` e o ⌘K nunca terem tido teste. Mesma categoria dos stubs de Pointer Capture e `scrollIntoView` que já estavam lá.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "O gatilho do seletor ficava **13px fixo** no meio de irmãos de 14px (medido na doc). Ganhou `size`, que o caminho repassa: o item que troca é o MESMO item do caminho, não pode ter corpo próprio.",
+          "Dois testes presumiam que “o item atual não é link” se afirma por `getByRole(\"link\")`. Não se afirma: o `BreadcrumbPage` do shadcn expõe `role=\"link\" aria-disabled aria-current=\"page\"` (padrão upstream). Passaram a checar ausência de `href` + `aria-current`, e o `USAGE` registra a pegadinha.",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.54.0",
     date: "2026-08-28",
     tag: "preview",
