@@ -183,7 +183,7 @@ código.
 
 ## Identidade, status e navegação
 
-- `avatar` — foto com fallback · `avatar-ig` — badge de iniciais com presets de cor do DS. **Vários avatares juntos → `AvatarGroup` (do mesmo item `avatar-ig`), nunca `-ml-*`+`ring` na mão:** ele resolve sobreposição por tamanho, cor do anel (`surface` = o que está ATRÁS) e excedente (`max`+`total`, sendo `total` a contagem do servidor)
+- `avatar` — compound Radix, pra fallback que NÃO é iniciais (ícone, skeleton) · `avatar-ig` — o avatar do DS: iniciais com presets de cor **e foto** (`src`, com as iniciais de `children` como fallback da URL que falha). Foto de pessoa → `avatar-ig`. **Vários avatares juntos → `AvatarGroup` (do mesmo item `avatar-ig`), nunca `-ml-*`+`ring` na mão:** ele resolve sobreposição por tamanho, cor do anel (`surface` = o que está ATRÁS) e excedente (`max`+`total`, sendo `total` a contagem do servidor)
   (escolhe preto/branco por contraste WCAG quando recebe hex).
 - `badge` — rótulo estático · `chip` — pílula de status/tag/filtro, pode ser interativa.
 - `icon` — ícones do DS, incluindo o set de marca `igreen-*`.

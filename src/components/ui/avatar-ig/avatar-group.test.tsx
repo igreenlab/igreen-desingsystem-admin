@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, fireEvent } from "@testing-library/react";
 import { Avatar } from "./avatar";
 import { AvatarGroup } from "./avatar-group";
 
@@ -174,6 +174,90 @@ describe("AvatarGroup — anel da superfície de trás", () => {
     expect(classesDo(wrapper)).toContain("ring-2");
     // e o Avatar solto continua sem anel
     expect(classesDo(screen.getByLabelText("A"))).not.toContain("ring-2");
+  });
+});
+
+describe("Avatar — foto", () => {
+  const FOTO = "https://exemplo.test/maria.jpg";
+
+  it("com `src`, mostra a imagem no lugar das iniciais", () => {
+    const { container } = render(
+      <Avatar src={FOTO} aria-label="Maria">
+        MS
+      </Avatar>,
+    );
+    const img = container.querySelector("img")!;
+    expect(img.getAttribute("src")).toBe(FOTO);
+    expect(screen.queryByText("MS")).toBeNull();
+  });
+
+  it("a imagem é `alt=\"\"` — o nome está no aria-label do avatar", () => {
+    // Dois rótulos no mesmo elemento fazem o leitor de tela anunciar a pessoa duas vezes.
+    const { container } = render(
+      <Avatar src={FOTO} aria-label="Maria Silva">
+        MS
+      </Avatar>,
+    );
+    expect(container.querySelector("img")!.getAttribute("alt")).toBe("");
+    expect(screen.getByRole("img", { name: "Maria Silva" })).toBeTruthy();
+  });
+
+  it("URL que falha volta pras INICIAIS, não deixa buraco", () => {
+    const { container } = render(
+      <Avatar src={FOTO} aria-label="Maria">
+        MS
+      </Avatar>,
+    );
+    fireEvent.error(container.querySelector("img")!);
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.getByText("MS")).toBeTruthy();
+  });
+
+  it("trocar a `src` depois de uma falha TENTA de novo", () => {
+    // O estado guarda qual URL falhou, não um booleano — com booleano o avatar ficaria em
+    // modo iniciais pra sempre, mesmo com uma URL boa.
+    const { container, rerender } = render(
+      <Avatar src={FOTO} aria-label="Maria">
+        MS
+      </Avatar>,
+    );
+    fireEvent.error(container.querySelector("img")!);
+    expect(container.querySelector("img")).toBeNull();
+
+    rerender(
+      <Avatar src="https://exemplo.test/maria-2.jpg" aria-label="Maria">
+        MS
+      </Avatar>,
+    );
+    expect(container.querySelector("img")!.getAttribute("src")).toBe(
+      "https://exemplo.test/maria-2.jpg",
+    );
+  });
+
+  it("`src` vazia não vira imagem quebrada", () => {
+    const { container } = render(
+      <Avatar src="" aria-label="Maria">
+        MS
+      </Avatar>,
+    );
+    expect(container.querySelector("img")).toBeNull();
+    expect(screen.getByText("MS")).toBeTruthy();
+  });
+
+  it("dentro do grupo, a foto herda o size e ganha o anel", () => {
+    const { container } = render(
+      <AvatarGroup size="lg" aria-label="dois">
+        <Avatar src={FOTO} aria-label="A">
+          A
+        </Avatar>
+        <Avatar aria-label="B">B</Avatar>
+      </AvatarGroup>,
+    );
+    // lg = size-comp-md (32px) — o avatar com foto escala igual ao de iniciais
+    expect(classesDo(screen.getByLabelText("A"))).toContain("size-comp-md");
+    expect(container.querySelector("img")).not.toBeNull();
+    const spans = [...container.querySelectorAll<HTMLElement>(":scope > div > span")];
+    expect(classesDo(spans[0])).toContain("ring-2");
   });
 });
 

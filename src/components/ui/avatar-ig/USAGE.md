@@ -5,6 +5,7 @@
 - `<AvatarGroup surface="...">` = a superfície ATRÁS do grupo (`table` numa linha de tabela). Errar isso põe um halo claro em volta de cada avatar
 - `max` + `total`: o `+N` conta pelo `total` (o do servidor), senão uma lista paginada mostra `+0` tendo 40 pessoas
 - `colorHex` escolhe a cor do texto por contraste WCAG (L-027) — nunca `text-white` na unha
+- foto de pessoa → `<Avatar src="…">` com as iniciais em `children` (são o fallback da URL que falha), nunca `<img>` solto nem o compound do shadcn dentro do grupo
 -->
 
 Circular badge displaying user initials. Supports semantic colors and per-person hex overrides.
@@ -20,7 +21,25 @@ import { Avatar } from "@/components/ui/avatar-ig";
 
 // Person-specific hex color
 <Avatar size="sm" colorHex="#8754ec">CO</Avatar>
+
+// Foto — as iniciais continuam sendo o FALLBACK
+<Avatar size="lg" src="/fotos/maria.jpg" aria-label="Maria Silva">MS</Avatar>
 ```
+
+## Foto (`src`, vNEXT+)
+
+A imagem cobre o círculo (`object-cover`, sem distorcer) e escala pelos mesmos `size` das
+iniciais — inclusive dentro do `AvatarGroup`, que propaga o tamanho por contexto.
+
+- **Mantenha as iniciais em `children`.** Elas são o fallback quando a URL falha; sem elas,
+  uma foto quebrada deixa um buraco na fila. O fallback herda a cor (`color`/`colorHex`).
+- **Trocar a `src` depois de uma falha tenta de novo** — o componente guarda *qual* URL
+  falhou, não um booleano.
+- **Não há prop `alt`.** A imagem interna é `alt=""` e o nome mora no `aria-label` do avatar;
+  dois rótulos no mesmo elemento fazem o leitor de tela anunciar a pessoa duas vezes.
+- **Quando usar o compound do shadcn** (`avatar`, com `AvatarImage`/`AvatarFallback`): quando
+  o fallback não é iniciais (ícone, skeleton) ou você precisa do estado de carregamento. Pra
+  foto de pessoa no DS — e sempre dentro de `AvatarGroup` — o certo é este.
 
 ## Sizes
 
@@ -94,7 +113,8 @@ brand guideline), passe via `className`:
 | `size`       | `"xs" \| "sm" \| "md" \| "lg" \| "xl"`                     | `"md"`    |
 | `color`      | `"brand" \| "success" \| "warning" \| "critical" \| "info" \| "muted"` | `"muted"` |
 | `colorHex`   | `string` (hex starting with `#`)                            | —         |
-| `children`   | `ReactNode` (initials)                                      | —         |
+| `src`        | `string` — foto; URL que falha volta pras iniciais           | —         |
+| `children`   | `ReactNode` (initials) — também o fallback da foto           | —         |
 | `className`  | `string`                                                    | —         |
 | `aria-label` | `string`                                                    | —         |
 
@@ -125,11 +145,12 @@ participantes, membros de um time. Para 2 avatares que devem ser lidos individua
 ```tsx
 import { Avatar, AvatarGroup } from "@/components/ui/avatar-ig";
 
+{/* foto e iniciais misturadas: o size vem do container, ninguém sai de escala */}
 <AvatarGroup size="sm" max={3} total={12} aria-label="12 responsáveis">
-  <Avatar colorHex="#2563EB">MD</Avatar>
-  <Avatar colorHex="#CC092F">AC</Avatar>
-  <Avatar colorHex="#7C3AED">JS</Avatar>
-  <Avatar colorHex="#0891B2">TK</Avatar>
+  <Avatar src="/fotos/ana.jpg" aria-label="Ana">AN</Avatar>
+  <Avatar src="/fotos/bruno.jpg" aria-label="Bruno">BR</Avatar>
+  <Avatar colorHex="#7C3AED" aria-label="Júlia">JS</Avatar>
+  <Avatar colorHex="#0891B2" aria-label="Tiago">TK</Avatar>
 </AvatarGroup>
 ```
 
@@ -154,5 +175,7 @@ import { Avatar, AvatarGroup } from "@/components/ui/avatar-ig";
 - **O grupo fala, os avatares calam.** O container é `role="group"` com `aria-label`; o `+N` é
   `aria-hidden` porque a contagem real já está no rótulo. Sem o `aria-label`, o leitor de tela
   lê N nomes soltos sem dizer que são um conjunto.
+- **Foto e iniciais convivem na mesma pilha.** A foto obedece ao mesmo `size` de contexto, e o
+  anel importa mais com foto: sem ele, duas fotos escuras encostadas viram uma mancha só.
 - **O anel mora no wrapper, não no `Avatar`.** `ring` acompanha o `border-radius` do elemento —
   num wrapper quadrado traçaria um quadrado. `Avatar` fora de grupo continua sem anel.

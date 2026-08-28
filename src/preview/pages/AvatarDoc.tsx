@@ -10,8 +10,10 @@ const TOC = [
   { id: "ex-ds-sizes", label: "DS Sizes" },
   { id: "ex-ds-colors", label: "DS Colors" },
   { id: "ex-ds-colorhex", label: "colorHex + auto contraste" },
+  { id: "ex-ds-foto", label: "src (foto) + fallback" },
   { id: "grupo", label: "AvatarGroup" },
   { id: "ex-grupo", label: "Pilha e tamanhos" },
+  { id: "ex-grupo-foto", label: "Grupo com foto" },
   { id: "ex-grupo-max", label: "max + total" },
   { id: "ex-grupo-surface", label: "surface (cor do anel)" },
   { id: "api", label: "API Reference" },
@@ -25,7 +27,8 @@ const DS_PROPS = [
   { name: "size", type: '"xs" | "sm" | "md" | "lg" | "xl"', defaultVal: '"md"' },
   { name: "color", type: '"brand" | "success" | "warning" | "critical" | "info" | "muted"', defaultVal: '"muted"' },
   { name: "colorHex", type: 'string (hex iniciando com "#") — bg inline + texto auto via contraste WCAG', defaultVal: "—" },
-  { name: "children", type: "ReactNode (iniciais)", defaultVal: "—" },
+  { name: "src", type: "string — foto da pessoa; URL que falha volta pras iniciais de children", defaultVal: "—" },
+  { name: "children", type: "ReactNode (iniciais) — também o fallback da foto", defaultVal: "—" },
   { name: "aria-label", type: 'string — presente: role="img"; ausente: aria-hidden (decorativo)', defaultVal: "—" },
   { name: "className", type: "string", defaultVal: "—" },
 ];
@@ -103,6 +106,45 @@ export function AvatarDoc() {
         </div>
       </ExampleSection>
 
+      <ExampleSection
+        id="ex-ds-foto"
+        title="src (foto) + fallback"
+        description="A foto cobre o círculo (object-cover, sem distorcer) e escala pelos mesmos sizes das iniciais. Continue passando as iniciais em children: elas são o fallback quando a URL falha — o terceiro avatar abaixo aponta pra uma URL inexistente de propósito. A imagem interna é alt=&quot;&quot;; o nome mora no aria-label do avatar, senão o leitor de tela anuncia a pessoa duas vezes."
+        code={`<Avatar src="/fotos/maria.jpg" aria-label="Maria Silva">MS</Avatar>
+
+{/* URL quebrada cai nas iniciais, com a cor de sempre */}
+<Avatar src="/nao-existe.jpg" colorHex="#7C3AED" aria-label="João Costa">JC</Avatar>`}
+      >
+        <div className="flex flex-col gap-gp-2xl">
+          <div className="flex items-center gap-gp-2xl">
+            <code className="w-[120px] shrink-0 text-code-sm text-fg-muted">sizes</code>
+            <div className="flex items-center gap-gp-xl">
+              {(["xs", "sm", "md", "lg", "xl"] as const).map((s) => (
+                <DSAvatar key={s} size={s} src="https://github.com/shadcn.png" aria-label={`Foto, tamanho ${s}`}>
+                  SC
+                </DSAvatar>
+              ))}
+            </div>
+          </div>
+          <div className="flex items-center gap-gp-2xl">
+            <code className="w-[120px] shrink-0 text-code-sm text-fg-muted">URL quebrada</code>
+            <div className="flex items-center gap-gp-xl">
+              <DSAvatar size="lg" src="https://github.com/vercel.png" aria-label="Foto que carrega">
+                VC
+              </DSAvatar>
+              <DSAvatar
+                size="lg"
+                src="https://exemplo.invalido/nao-existe.jpg"
+                colorHex="#7C3AED"
+                aria-label="Foto que falhou — caiu nas iniciais"
+              >
+                JC
+              </DSAvatar>
+            </div>
+          </div>
+        </div>
+      </ExampleSection>
+
       <SectionH2 id="grupo" title="AvatarGroup" />
 
       <ExampleSection
@@ -125,6 +167,32 @@ export function AvatarDoc() {
                 <DSAvatar colorHex="#CC092F">AC</DSAvatar>
                 <DSAvatar colorHex="#7C3AED">JS</DSAvatar>
                 <DSAvatar colorHex="#0891B2">TK</DSAvatar>
+              </AvatarGroup>
+            </div>
+          ))}
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-grupo-foto"
+        title="Grupo com foto"
+        description="O caso mais comum da pilha: responsáveis com foto. O size continua vindo do container — a foto obedece ao mesmo contexto das iniciais, então dá pra misturar quem tem foto e quem não tem na mesma pilha sem nenhum avatar sair de escala. O anel importa mais aqui: sem ele, duas fotos escuras encostadas viram uma mancha só."
+        code={`<AvatarGroup size="md" max={4} total={12} aria-label="12 responsáveis">
+  <Avatar src="/fotos/ana.jpg" aria-label="Ana">AN</Avatar>
+  <Avatar src="/fotos/bruno.jpg" aria-label="Bruno">BR</Avatar>
+  <Avatar colorHex="#7C3AED" aria-label="Júlia (sem foto)">JS</Avatar>
+</AvatarGroup>`}
+      >
+        <div className="flex flex-col gap-gp-2xl">
+          {(["sm", "md", "lg", "xl"] as const).map((s) => (
+            <div key={s} className="flex items-center gap-gp-2xl">
+              <code className="w-[32px] shrink-0 text-code-sm text-fg-muted">{s}</code>
+              <AvatarGroup size={s} max={4} total={12} aria-label={`12 responsáveis, tamanho ${s}`}>
+                <DSAvatar src="https://github.com/shadcn.png" aria-label="Ana">AN</DSAvatar>
+                <DSAvatar src="https://github.com/vercel.png" aria-label="Bruno">BR</DSAvatar>
+                <DSAvatar src="https://github.com/facebook.png" aria-label="Caio">CA</DSAvatar>
+                <DSAvatar colorHex="#7C3AED" aria-label="Júlia, sem foto">JS</DSAvatar>
+                <DSAvatar colorHex="#0891B2" aria-label="Tiago, sem foto">TK</DSAvatar>
               </AvatarGroup>
             </div>
           ))}

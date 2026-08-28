@@ -16,6 +16,17 @@ export interface AvatarProps
    * Takes precedence over `color`.
    */
   colorHex?: string;
+
+  /**
+   * Foto da pessoa. Quando carrega, cobre o círculo inteiro; quando **falha**, o avatar
+   * volta pras iniciais (`children`) com a cor de sempre — por isso continue passando as
+   * iniciais mesmo com `src`.
+   *
+   * Não há prop `alt`: o nome mora no `aria-label` do avatar (a imagem interna é
+   * `alt=""`). Dois rótulos no mesmo elemento fariam o leitor de tela anunciar a pessoa
+   * duas vezes.
+   */
+  src?: string;
 }
 
 /** Tamanhos do avatar — reusado pelo grupo, que os propaga por contexto. */
