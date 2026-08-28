@@ -4368,3 +4368,68 @@ injetada no momento da tag.
 projeto novo com CLI **0.25.25** + republish — decisão do mantenedor se vale um patch agora ou
 se acumula. O `USAGE.md` de `panel`/`floating-panel` não tem essa dívida: viaja com o
 componente, então `igreen:update` o traz em projeto existente.
+
+---
+
+### 2026-08-28 | ds-designer + ds-dev | `AvatarGroup` + foto no `Avatar` — release v0.53.0 (PRs #287, #288) | CONCLUÍDO
+
+**Input:** *"poderia criar o avatar group entao onde o container aceita prop do sizes e faça o
+avatar reagi a este size pra firmar o componente mais organizado?"* — e, depois de entregue,
+*"faltou representar o grupo com imagem"*.
+
+**Output:** `AvatarGroup` + prop `src` no `Avatar` · lib **0.53.0** e CLI **0.25.25**
+publicados e conferidos por extração do tarball · registry em 97 itens, carimbo v0.53.0.
+
+**A decisão que dá nome ao pedido:** o `size` mora no **container** e chega nos filhos por
+contexto; o `size` do filho vence, como escape hatch. Sem isso cada `Avatar` repetia o tamanho e
+um esquecido quebrava o alinhamento da fila **em silêncio**.
+
+**Três decisões que o componente passou a fixar** — são as que saíam diferentes toda vez que
+alguém montava a pilha na unha:
+
+1. **A sobreposição escala com o tamanho** (~25% do diâmetro: xs 4px … xl 10px). Constante não
+   serve: 6px num avatar de 20px é 30% de sobreposição e num de 40px é 15% — visualmente são
+   arranjos diferentes.
+2. **O anel é da cor da superfície de TRÁS** (`surface`), não do avatar. Com o token errado ele
+   deixa de separar e vira halo. Por isso é prop.
+3. **O `+N` conta pelo `total`**, a contagem do servidor. Sem ele, lista paginada em 4 mostra
+   `+0` tendo 40 pessoas.
+
+**A foto veio depois, e o motivo de ela morar no `avatar-ig` e não no compound do shadcn é
+mecânico:** o compound não lê o contexto de `size` (nasce `size-8` fixo), então uma pilha com
+fotos quebraria a escala **justamente no arranjo que o grupo existe pra resolver**. As iniciais
+viraram o fallback da URL que falha — num grupo, imagem quebrada deixa um buraco na fila. O
+estado guarda **qual** URL falhou, não um booleano: com booleano, trocar a `src` por uma boa
+manteria o avatar em modo iniciais pra sempre (o React reusa a instância).
+
+**Dois gates cobraram, e nos dois estavam certos:**
+
+- `registry-imports` — o `cn` de `@/lib/utils` acrescentaria uma `registryDependency` ao item
+  `avatar-ig` **por causa de duas classes**. Virou `tv()` de uma linha, que ainda resolve
+  conflito de classe do consumidor. A pasta inteira volta a depender só de `@igreen/tv`.
+- `vocab-surface` — `max`/`total`/`surface`/`ring`/`src`/`children` em backtick na regra do
+  consumidor eram lidos como nome de componente inexistente. Entraram no `NAO_NOME`, que é a
+  manutenção que o próprio módulo documenta no cabeçalho.
+
+**⚠️ O defeito que só a medição pegou: um exemplo que não demonstrava nada.** A seção de
+`surface` do showcase comparava `surface="surface"` contra `surface="table"` sobre `bg-bg-table`
+— e os dois tokens **resolvem pro mesmo valor** (`oklch(1 0 0)` no claro, `oklch(0.225 0 0)` no
+escuro). Eu escrevi "errado vs certo" e os dois eram idênticos na tela. Refeito sobre
+`bg-bg-muted`, onde a diferença existe. **A regra que fica:** exemplo de "token errado vs token
+certo" só é exemplo se os dois valores forem medidos — nome diferente não garante valor
+diferente. Dentro de tabela declarar `table` segue certo, mas por razão **semântica**, e isso
+está escrito nas três superfícies pra ninguém "simplificar" depois.
+
+**Estado:** tsc 0 · 806 testes · `release:check` verde · npm 0.53.0 e CLI 0.25.25 conferidos
+**por extração do tarball** (o `AvatarGroup` exportado no bundle `.mjs`, os 6 `.d.ts` do
+`avatar-ig` presentes, `src?: string` no tipo, e a linha nova do vocabulário dentro do payload
+do CLI) — não pelo console do publish.
+
+**Assumption:** que `size` no container com override no filho é o arranjo certo pra pilha. É a
+convenção de Material e Ant, e o escape hatch cobre o destaque. Falsificável: se aparecer tela
+onde metade dos avatares precisa de tamanho próprio, o contexto vira ruído e o certo passa a ser
+`size` só no filho.
+
+**Dívida quitada nesta rodada:** o CLI **0.25.25** (pendente desde a v0.52.0) foi publicado
+junto — o payload agora carrega a linha do vocabulário corrigida do `Drawer`/detail panel **e** a
+do `avatar-ig` com foto.
