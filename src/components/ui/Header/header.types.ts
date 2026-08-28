@@ -1,5 +1,6 @@
 import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
+import type { BreadcrumbSwitcherOption } from "@/components/ui/BreadcrumbSwitcher";
 
 /* ── Breadcrumb ────────────────────────────────────────────────────────────── */
 
@@ -8,6 +9,23 @@ export type HeaderBreadcrumbItem = {
   /** Quando presente, vira link clicável. Último item da array nunca é link (página atual). */
   href?: string;
   onClick?: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
+
+  /**
+   * Torna ESTE item um seletor: o rótulo vira gatilho e abre uma lista com busca pra trocar o
+   * registro aberto (o padrão do seletor de repositório do GitHub). Precisa dos três juntos —
+   * `switcher`, `value` e `onValueChange`; faltando algum, o item renderiza como texto normal.
+   *
+   * Serve pro item de detalhe ("Clientes / **Maria Silva**"): quem está numa ficha
+   * normalmente quer pular pra outra, não voltar à lista e procurar de novo.
+   */
+  switcher?: BreadcrumbSwitcherOption[];
+  /** Registro aberto, quando `switcher` está presente. */
+  value?: string;
+  onValueChange?: (value: string) => void;
+  /** Repassados ao dropdown do seletor. */
+  switcherTitle?: ReactNode;
+  switcherSearchPlaceholder?: string;
+  switcherFooter?: ReactNode;
 };
 
 /* ── Command palette (search) ─────────────────────────────────────────────── */

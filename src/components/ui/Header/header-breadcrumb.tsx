@@ -1,12 +1,32 @@
 import { Fragment } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BreadcrumbSwitcher } from "@/components/ui/BreadcrumbSwitcher";
 import {
   breadcrumbRoot,
   breadcrumbItem,
   breadcrumbSeparator,
 } from "./header.styles";
 import type { HeaderBreadcrumbItem } from "./header.types";
+
+/**
+ * Só vira seletor com os TRÊS: lista, valor e callback. Faltando um, o item cai no caminho
+ * normal — um gatilho que abre lista vazia, ou que não sabe avisar a escolha, é pior que texto.
+ */
+function ehSwitcher(
+  item: HeaderBreadcrumbItem,
+): item is HeaderBreadcrumbItem & {
+  switcher: NonNullable<HeaderBreadcrumbItem["switcher"]>;
+  value: string;
+  onValueChange: (value: string) => void;
+} {
+  return (
+    Array.isArray(item.switcher) &&
+    item.switcher.length > 0 &&
+    typeof item.value === "string" &&
+    typeof item.onValueChange === "function"
+  );
+}
 
 export type HeaderBreadcrumbProps = {
   items: HeaderBreadcrumbItem[];
@@ -60,7 +80,19 @@ export function HeaderBreadcrumb({
                   aria-hidden="true"
                 />
               )}
-              {isClickable ? (
+              {ehSwitcher(item) ? (
+                /* Item que troca o registro aberto. Vem ANTES do teste de link porque um
+                   seletor com `href` continua sendo seletor — o clique abre a lista. */
+                <BreadcrumbSwitcher
+                  value={item.value}
+                  onValueChange={item.onValueChange}
+                  options={item.switcher}
+                  title={item.switcherTitle}
+                  searchPlaceholder={item.switcherSearchPlaceholder}
+                  footer={item.switcherFooter}
+                  aria-label={`Trocar: ${item.label}`}
+                />
+              ) : isClickable ? (
                 <a
                   href={item.href ?? "#"}
                   className={breadcrumbItem({
@@ -96,12 +128,27 @@ export function HeaderBreadcrumb({
           className={cn(breadcrumbRoot(), "md:hidden", className)}
           aria-label="Seção atual"
         >
-          <span
-            className={breadcrumbItem({ current: true, standalone: true })}
-            aria-current="page"
-          >
-            {lastItem.label}
-          </span>
+          {/* No celular a cadeia some e sobra só este item — então é AQUI que o seletor mais
+              importa: sem ele, trocar de registro no telefone significa voltar à lista e
+              procurar de novo. */}
+          {ehSwitcher(lastItem) ? (
+            <BreadcrumbSwitcher
+              value={lastItem.value}
+              onValueChange={lastItem.onValueChange}
+              options={lastItem.switcher}
+              title={lastItem.switcherTitle}
+              searchPlaceholder={lastItem.switcherSearchPlaceholder}
+              footer={lastItem.switcherFooter}
+              aria-label={`Trocar: ${lastItem.label}`}
+            />
+          ) : (
+            <span
+              className={breadcrumbItem({ current: true, standalone: true })}
+              aria-current="page"
+            >
+              {lastItem.label}
+            </span>
+          )}
         </nav>
       )}
     </>
