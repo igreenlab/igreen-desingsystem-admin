@@ -46,6 +46,38 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.53.0",
+    date: "2026-08-28",
+    tag: "preview",
+    title: "AvatarGroup, e o avatar do DS ganhando foto",
+    summary:
+      "A pilha de avatares era feita na unha em cada tela, e três decisões saíam diferentes toda vez: quanto sobrepor, qual a cor do anel, e o que fazer quando são 12 pessoas. As três viraram decisão do componente — e o `size` mora no container, não repetido em cada filho.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`AvatarGroup` — pilha com `size` propagado por contexto.** O tamanho vai no container e chega nos filhos; o `size` do filho vence, como escape hatch. `max` corta a pilha e `total` manda no `+N` (a contagem do **servidor**: sem ele, uma lista paginada em 4 mostra `+0` tendo 40 pessoas). A **sobreposição escala com o tamanho** (~25% do diâmetro: xs desloca 4px, xl desloca 10px) — 6px fixo daria 30% de sobreposição no xs e 15% no xl, que são arranjos visuais diferentes. E o **primeiro fica por cima**, invertendo o empilhamento natural do DOM, porque a leitura é da esquerda pra direita.",
+          "**`surface` — o anel é da cor do que está ATRÁS**, e é o erro clássico da pilha: o anel separa um avatar do outro pintando a superfície de trás, e com o token errado ele deixa de separar e vira um halo. Por isso é prop, não constante.",
+          "**`Avatar` aceita `src` (foto), com as iniciais como fallback.** Sem isso, uma pilha com fotos precisaria do compound do shadcn dentro do grupo — que **não lê o contexto de `size`** (nasce `size-8` fixo) e quebraria a escala justamente no arranjo que o grupo existe pra resolver. URL que falha volta pras iniciais com a cor de sempre; o estado guarda **qual** URL falhou, não um booleano, senão trocar a `src` por uma boa não tentaria de novo. Não há prop `alt`: a imagem é `alt=\"\"` e o nome mora no `aria-label` do avatar — dois rótulos no mesmo elemento fazem o leitor de tela anunciar a pessoa duas vezes.",
+        ],
+      },
+      {
+        type: "changed",
+        items: [
+          "O vocabulário do consumidor deixou de dizer que `avatar` é \"foto com fallback\" e `avatar-ig` é \"badge de iniciais\": agora **foto de pessoa é `avatar-ig`**, e o compound do shadcn fica pro fallback que NÃO é iniciais (ícone, skeleton) ou pra quando se precisa do estado de carregamento.",
+          "O gate `vocab-surface` passou a conhecer `max`, `total`, `surface`, `ring`, `src` e `children` como props/classe — ele lê todo termo em backtick como nome de componente, e reprovava a regra nova como \"componente inexistente\". É a manutenção que o próprio módulo documenta no cabeçalho.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "O `cn` de `@/lib/utils` no container acrescentaria uma `registryDependency` ao item `avatar-ig` por causa de **duas classes** — pego pelo gate `registry-imports`, virou um `tv()` de uma linha, que ainda resolve conflito de classe do consumidor.",
+          "O exemplo de `surface` no showcase comparava `surface=\"surface\"` contra `surface=\"table\"` sobre `bg-bg-table` — e os dois tokens **resolvem pro mesmo valor** (`oklch(1 0 0)` no claro, `oklch(0.225 0 0)` no escuro, medido no browser). O exemplo não demonstrava nada; refeito sobre `bg-bg-muted`, e a equivalência está escrita nas três superfícies (dentro de tabela declarar `table` segue certo por razão **semântica**).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.52.0",
     date: "2026-08-27",
     tag: "preview",
