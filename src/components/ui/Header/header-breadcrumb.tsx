@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BreadcrumbSwitcher } from "@/components/ui/BreadcrumbSwitcher";
+import { BreadcrumbSwitcher } from "@/components/ui/Breadcrumb";
 import {
   breadcrumbRoot,
   breadcrumbItem,

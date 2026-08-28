@@ -69,12 +69,6 @@ label, helper, erro e do `htmlFor`).
   são fixas dentro da tela → `tabs`. É controlado (`value`/`onValueChange`) e **não hospeda o
   conteúdo** — o painel pode morar em outra coluna ou rota (aí a aba leva `panelId`). ⛔ nunca
   monte a tira na mão com margem negativa: a união da aba ativa com o conteúdo é o componente.
-- `breadcrumb-switcher` — **o item do caminho que troca o REGISTRO aberto**: numa página de
-  detalhe (ficha de cliente, UC, contrato), o nome do que está aberto vira gatilho e abre uma
-  lista com busca — quem está numa ficha quer pular pra outra, não voltar à lista. Controlado e
-  **não navega** (`onValueChange` devolve o valor; rota é sua). No `header`, o item do
-  breadcrumb vira seletor com `switcher`+`value`+`onValueChange` juntos. ⛔ não confunda com
-  `combobox`, que tem cara de campo porque coleta valor de formulário.
 - `button-group` — ações relacionadas lado a lado; uma dispara, **não guarda estado**.
 - `toggle-group` — modo ou filtro que **persiste** · `toggle` para um só, on/off.
 - ⚠️ Alternar tabela ↔ cards dos **mesmos dados** não é nenhum dos três: é `viewMode`
@@ -199,7 +193,13 @@ código.
   (escolhe preto/branco por contraste WCAG quando recebe hex).
 - `badge` — rótulo estático · `chip` — pílula de status/tag/filtro, pode ser interativa.
 - `icon` — ícones do DS, incluindo o set de marca `igreen-*`.
-- `breadcrumb` · `menubar` (barra de menus estilo desktop) · `navigation-menu` (mega-menu).
+- `breadcrumb` — caminho de navegação. Em página de **detalhe**, o item do registro aberto
+  pode virar seletor: `<BreadcrumbSwitcher>` (vem no mesmo item) transforma o nome do que está
+  aberto em gatilho de uma lista com busca — quem está numa ficha quer pular pra outra, não
+  voltar à lista. É controlado e **não navega** (`onValueChange` devolve o valor; rota é sua),
+  e no `header` o item do breadcrumb vira seletor com `switcher`+`value`+`onValueChange`
+  juntos. ⛔ escolher valor de formulário não é isto: é `combobox`.
+- `menubar` (barra de menus estilo desktop) · `navigation-menu` (mega-menu).
 - `label` — só fora de formulário; **dentro** de form quem cuida é o `form-field`.
 
 ## Comando e texto

@@ -45,7 +45,6 @@ import { InputGroupDoc } from "./preview/pages/InputGroupDoc";
 import { SelectDoc } from "./preview/pages/SelectDoc";
 import { TabsDoc } from "./preview/pages/TabsDoc";
 import { TabsNavigationDoc } from "./preview/pages/TabsNavigationDoc";
-import { BreadcrumbSwitcherDoc } from "./preview/pages/BreadcrumbSwitcherDoc";
 import { CardDoc } from "./preview/pages/CardDoc";
 import { SwitchDoc } from "./preview/pages/SwitchDoc";
 import { CheckboxDoc } from "./preview/pages/CheckboxDoc";
@@ -246,7 +245,6 @@ const DOC_PAGES = [
   "input",
   "tabs",
   "tabs-navigation",
-  "breadcrumb-switcher",
   "card",
   "docs",
   "docs-template",
@@ -637,7 +635,6 @@ export function App() {
             {activePage === "select" && <SelectDoc />}
             {activePage === "tabs" && <TabsDoc />}
             {activePage === "tabs-navigation" && <TabsNavigationDoc />}
-            {activePage === "breadcrumb-switcher" && <BreadcrumbSwitcherDoc />}
             {activePage === "card" && <CardDoc />}
             {activePage === "switch" && <SwitchDoc />}
             {activePage === "checkbox" && <CheckboxDoc />}

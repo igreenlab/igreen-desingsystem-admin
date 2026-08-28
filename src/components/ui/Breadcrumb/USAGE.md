@@ -1,11 +1,20 @@
-# BreadcrumbSwitcher
+# Breadcrumb
 
 <!-- ds:regras
+- o caminho e o seletor vêm do MESMO item: `import { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from "@/components/ui/Breadcrumb"`
 - página de DETALHE (ficha de cliente, UC, contrato, chamado) → o item do registro no breadcrumb é `<BreadcrumbSwitcher>`, não texto: quem está numa ficha quer pular pra outra, não voltar à lista
 - é controlado e **não navega**: `onValueChange` devolve o `value` e quem decide rota/fetch é você
 - no `Header`, o item vira seletor com os TRÊS juntos — `switcher` + `value` + `onValueChange`; faltando um, fica texto
 - escolher valor de FORMULÁRIO não é isto: é `combobox` (o trigger dele tem cara de campo de propósito)
 -->
+
+Caminho de navegação — e a variação em que **o item troca o registro aberto**.
+
+Os primitivos (`Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`,
+`BreadcrumbPage`, `BreadcrumbSeparator`, `BreadcrumbEllipsis`) e o `BreadcrumbSwitcher` saem
+do mesmo lugar: são a mesma peça, com e sem troca.
+
+## BreadcrumbSwitcher
 
 O item do caminho que **troca o registro aberto**: o nome do que está aberto vira gatilho e
 abre uma lista com busca. É o seletor de repositório do GitHub aplicado a cliente, UC,
@@ -23,7 +32,7 @@ contrato — qualquer coisa de que existam muitos.
 ## Import
 
 ```tsx
-import { BreadcrumbSwitcher } from "@/components/ui/BreadcrumbSwitcher";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from "@/components/ui/Breadcrumb";
 ```
 
 ## Exemplo mínimo

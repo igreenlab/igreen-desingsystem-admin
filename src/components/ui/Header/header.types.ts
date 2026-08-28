@@ -1,6 +1,6 @@
 import type { ReactNode, MouseEvent } from "react";
 import type { LucideIcon } from "@/lib/lucide-types";
-import type { BreadcrumbSwitcherOption } from "@/components/ui/BreadcrumbSwitcher";
+import type { BreadcrumbSwitcherOption } from "@/components/ui/Breadcrumb";
 
 /* ── Breadcrumb ────────────────────────────────────────────────────────────── */
 
