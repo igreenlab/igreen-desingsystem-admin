@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · accordion · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · alert-dialog · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · alert-modal · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · alert · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · app-shell · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · aspect-ratio · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · avatar-ig · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · avatar · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · badge · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -343,55 +343,55 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb-switcher.styles.ts",
-        "content": "import { tv } from \"@/utils/tv\";\n\n/**\n * BreadcrumbSwitcher styles — iGreen DS\n *\n * ## O gatilho é o CAMINHO, não um campo\n *\n * A diferença pro `Combobox` mora aqui e é o motivo de o componente existir: o `Combobox`\n * desenha um campo de formulário (borda, altura `form-*`, fundo de input) porque ele coleta\n * um valor. Este gatilho é **o texto do breadcrumb** — mesma tipografia dos irmãos, sem borda\n * e sem fundo em repouso — e só ganha superfície no hover/aberto, pra dizer \"isto é\n * clicável\". Um campo de formulário no meio da trilha faria a página parecer um formulário.\n */\nexport const breadcrumbSwitcher = tv({\n  slots: {\n    trigger: [\n      \"inline-flex max-w-[240px] items-center gap-gp-xs rounded-radius-sm\",\n      \"px-pad-xs py-pad-2xs -mx-pad-xs\",\n      \"font-medium text-fg-default\",\n      \"transition-colors hover:bg-bg-muted\",\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n      \"disabled:pointer-events-none disabled:opacity-60\",\n      // aberto fica marcado: sem isso, com o dropdown na tela, o gatilho some do olhar\n      \"data-[state=open]:bg-bg-muted\",\n    ],\n    /** O rótulo trunca; o chevron nunca — ele é o que anuncia que dá pra trocar. */\n    label: \"truncate\",\n    chevron: \"size-icon-xs shrink-0 text-fg-muted\",\n\n    content: \"w-[300px] p-0\",\n    title: \"px-pad-xl pt-pad-lg pb-pad-sm text-caption-md font-semibold text-fg-subtle\",\n    /** O rodapé fica FORA da área que rola — “ver todos” não pode fugir com a lista. */\n    footer: \"border-t border-border-default p-pad-sm\",\n\n    item: \"flex items-center gap-gp-md\",\n    itemTexto: \"flex min-w-0 flex-1 flex-col\",\n    itemLabel: \"truncate\",\n    itemDescricao: \"truncate text-caption-md text-fg-subtle\",\n  },\n\n  variants: {\n    /**\n     * Acompanha o tamanho do caminho. Sem isto o gatilho ficava 13px fixo no meio de irmãos de\n     * 14px (medido na doc) — o item que troca é o MESMO item do caminho, não pode ter corpo\n     * próprio.\n     */\n    size: {\n      sm: { trigger: \"text-body-sm\" },\n      md: { trigger: \"text-body-md\" },\n    },\n  },\n\n  defaultVariants: { size: \"md\" },\n});\n",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * BreadcrumbSwitcher styles — iGreen DS\r\n *\r\n * ## O gatilho é o CAMINHO, não um campo\r\n *\r\n * A diferença pro `Combobox` mora aqui e é o motivo de o componente existir: o `Combobox`\r\n * desenha um campo de formulário (borda, altura `form-*`, fundo de input) porque ele coleta\r\n * um valor. Este gatilho é **o texto do breadcrumb** — mesma tipografia dos irmãos, sem borda\r\n * e sem fundo em repouso — e só ganha superfície no hover/aberto, pra dizer \"isto é\r\n * clicável\". Um campo de formulário no meio da trilha faria a página parecer um formulário.\r\n */\r\nexport const breadcrumbSwitcher = tv({\r\n  slots: {\r\n    trigger: [\r\n      \"inline-flex max-w-[240px] items-center gap-gp-xs rounded-radius-sm\",\r\n      \"px-pad-xs py-pad-2xs -mx-pad-xs\",\r\n      \"font-medium text-fg-default\",\r\n      \"transition-colors hover:bg-bg-muted\",\r\n      \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n      \"disabled:pointer-events-none disabled:opacity-60\",\r\n      // aberto fica marcado: sem isso, com o dropdown na tela, o gatilho some do olhar\r\n      \"data-[state=open]:bg-bg-muted\",\r\n    ],\r\n    /** O rótulo trunca; o chevron nunca — ele é o que anuncia que dá pra trocar. */\r\n    label: \"truncate\",\r\n    chevron: \"size-icon-xs shrink-0 text-fg-muted\",\r\n\r\n    content: \"w-[300px] p-0\",\r\n    title: \"px-pad-xl pt-pad-lg pb-pad-sm text-caption-md font-semibold text-fg-subtle\",\r\n    /** O rodapé fica FORA da área que rola — “ver todos” não pode fugir com a lista. */\r\n    footer: \"border-t border-border-default p-pad-sm\",\r\n\r\n    item: \"flex items-center gap-gp-md\",\r\n    itemTexto: \"flex min-w-0 flex-1 flex-col\",\r\n    itemLabel: \"truncate\",\r\n    itemDescricao: \"truncate text-caption-md text-fg-subtle\",\r\n  },\r\n\r\n  variants: {\r\n    /**\r\n     * Acompanha o tamanho do caminho. Sem isto o gatilho ficava 13px fixo no meio de irmãos de\r\n     * 14px (medido na doc) — o item que troca é o MESMO item do caminho, não pode ter corpo\r\n     * próprio.\r\n     */\r\n    size: {\r\n      sm: { trigger: \"text-body-sm\" },\r\n      md: { trigger: \"text-body-md\" },\r\n    },\r\n  },\r\n\r\n  defaultVariants: { size: \"md\" },\r\n});\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb-switcher.styles.ts"
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb-switcher.tsx",
-        "content": "import { forwardRef, useMemo, useState } from \"react\";\nimport { Check, ChevronsUpDown } from \"lucide-react\";\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/shadcn/popover\";\nimport {\n  Command,\n  CommandEmpty,\n  CommandGroup,\n  CommandInput,\n  CommandItem,\n  CommandList,\n} from \"@/components/shadcn/command\";\nimport { cn } from \"@/lib/utils\";\nimport { breadcrumbSwitcher } from \"./breadcrumb-switcher.styles\";\nimport type { BreadcrumbSwitcherProps } from \"./breadcrumb-switcher.types\";\n\n/**\n * `BreadcrumbSwitcher` — o item do breadcrumb que **troca o registro aberto**.\n *\n * É o seletor de repositório do GitHub aplicado a qualquer domínio: o nome do que está aberto\n * fica no caminho, e clicar nele abre uma lista com busca pra pular direto pra outro registro.\n *\n * ## Por que não é o `Combobox`\n *\n * Por dentro é a mesma receita (Popover + `Command`), e é de propósito: busca, teclado e\n * estado vazio já estão resolvidos ali e não se reescrevem. O que muda é o **gatilho** — o\n * `Combobox` desenha um campo de formulário porque coleta um valor; aqui o gatilho é o texto\n * do caminho, com a tipografia dos irmãos e sem borda. Trocar o registro aberto é\n * **navegação**, não preenchimento de campo, e o componente precisa parecer o que é.\n *\n * ## O que ele NÃO faz\n *\n * Não navega: `onValueChange` devolve o `value` e o consumidor decide (rota, fetch, estado).\n * Não hospeda o conteúdo da página. E não busca no servidor — o `Command` filtra a lista que\n * você passou; pra milhares de registros o certo é paginar antes de entregar as opções.\n *\n * @example\n * <BreadcrumbItem>\n *   <BreadcrumbSwitcher\n *     value={clienteId}\n *     onValueChange={abrirCliente}\n *     options={clientes}\n *     title=\"Trocar cliente\"\n *     searchPlaceholder=\"Buscar cliente…\"\n *     aria-label=\"Trocar cliente\"\n *   />\n * </BreadcrumbItem>\n */\nexport const BreadcrumbSwitcher = forwardRef<HTMLButtonElement, BreadcrumbSwitcherProps>(\n  function BreadcrumbSwitcher(\n    {\n      value,\n      onValueChange,\n      options,\n      placeholder,\n      title,\n      searchPlaceholder = \"Buscar…\",\n      emptyMessage = \"Nada encontrado.\",\n      footer,\n      open: openProp,\n      onOpenChange,\n      align = \"start\",\n      size = \"md\",\n      disabled,\n      className,\n      contentClassName,\n      \"aria-label\": ariaLabel = \"Trocar registro aberto\",\n    },\n    ref,\n  ) {\n    const [openInterno, setOpenInterno] = useState(false);\n    const open = openProp ?? openInterno;\n    const setOpen = (proximo: boolean) => {\n      setOpenInterno(proximo);\n      onOpenChange?.(proximo);\n    };\n\n    const estilos = breadcrumbSwitcher({ size });\n    const atual = options.find((o) => o.value === value);\n\n    /**\n     * Agrupa preservando a ORDEM em que os grupos aparecem em `options` — não alfabética.\n     * \"Recentes\" antes de \"Todos\" é informação que quem montou a lista quis dar.\n     */\n    const grupos = useMemo(() => {\n      const mapa = new Map<string, typeof options>();\n      for (const opcao of options) {\n        const chave = opcao.group ?? \"\";\n        const atual = mapa.get(chave);\n        if (atual) atual.push(opcao);\n        else mapa.set(chave, [opcao]);\n      }\n      return [...mapa.entries()];\n    }, [options]);\n\n    return (\n      <Popover open={open} onOpenChange={setOpen}>\n        <PopoverTrigger asChild>\n          <button\n            ref={ref}\n            type=\"button\"\n            aria-label={ariaLabel}\n            aria-expanded={open}\n            disabled={disabled}\n            className={estilos.trigger({ className })}\n          >\n            <span className={estilos.label()}>{atual?.label ?? placeholder ?? value}</span>\n            {/* `ChevronsUpDown`, não `ChevronDown`: a seta dupla é o sinal de \"troca\", e é o que\n                distingue o gatilho de um link do caminho — que também abre algo ao clicar. */}\n            <ChevronsUpDown className={estilos.chevron()} aria-hidden />\n          </button>\n        </PopoverTrigger>\n\n        <PopoverContent\n          align={align}\n          className={estilos.content({ className: contentClassName })}\n        >\n          <Command>\n            {title ? <div className={estilos.title()}>{title}</div> : null}\n            <CommandInput placeholder={searchPlaceholder} />\n            <CommandList>\n              <CommandEmpty>{emptyMessage}</CommandEmpty>\n              {grupos.map(([nomeGrupo, opcoes]) => (\n                <CommandGroup key={nomeGrupo || \"_\"} heading={nomeGrupo || undefined}>\n                  {opcoes.map((opcao) => {\n                    const selecionada = opcao.value === value;\n                    return (\n                      <CommandItem\n                        key={opcao.value}\n                        /* `data-atual` marca o registro ABERTO no DOM. O `data-selected` do\n                           cmdk é outra coisa — ele segue o item ativo do teclado — e o ícone\n                           de check não serve de sinal: `leading` também é um svg, então\n                           \"tem svg\" não distingue nada. */\n                        data-atual={selecionada || undefined}\n                        value={opcao.label}\n                        /* O `value` entra como keyword: o usuário costuma saber o código/id do\n                           registro, e ele nem sempre aparece no rótulo. */\n                        keywords={[opcao.value, ...(opcao.keywords ?? [])]}\n                        onSelect={() => {\n                          onValueChange(opcao.value);\n                          setOpen(false);\n                        }}\n                        className={cn(selecionada && \"font-medium text-fg-default\")}\n                      >\n                        <span className={estilos.item()}>\n                          {opcao.leading}\n                          <span className={estilos.itemTexto()}>\n                            <span className={estilos.itemLabel()}>{opcao.label}</span>\n                            {opcao.description ? (\n                              <span className={estilos.itemDescricao()}>{opcao.description}</span>\n                            ) : null}\n                          </span>\n                          {selecionada ? (\n                            <Check className=\"size-icon-sm shrink-0 text-fg-brand\" aria-hidden />\n                          ) : null}\n                        </span>\n                      </CommandItem>\n                    );\n                  })}\n                </CommandGroup>\n              ))}\n            </CommandList>\n            {footer ? <div className={estilos.footer()}>{footer}</div> : null}\n          </Command>\n        </PopoverContent>\n      </Popover>\n    );\n  },\n);\n\nBreadcrumbSwitcher.displayName = \"BreadcrumbSwitcher\";\n",
+        "content": "import { forwardRef, useMemo, useState } from \"react\";\r\nimport { Check, ChevronsUpDown } from \"lucide-react\";\r\nimport { Popover, PopoverContent, PopoverTrigger } from \"@/components/shadcn/popover\";\r\nimport {\r\n  Command,\r\n  CommandEmpty,\r\n  CommandGroup,\r\n  CommandInput,\r\n  CommandItem,\r\n  CommandList,\r\n} from \"@/components/shadcn/command\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { breadcrumbSwitcher } from \"./breadcrumb-switcher.styles\";\r\nimport type { BreadcrumbSwitcherProps } from \"./breadcrumb-switcher.types\";\r\n\r\n/**\r\n * `BreadcrumbSwitcher` — o item do breadcrumb que **troca o registro aberto**.\r\n *\r\n * É o seletor de repositório do GitHub aplicado a qualquer domínio: o nome do que está aberto\r\n * fica no caminho, e clicar nele abre uma lista com busca pra pular direto pra outro registro.\r\n *\r\n * ## Por que não é o `Combobox`\r\n *\r\n * Por dentro é a mesma receita (Popover + `Command`), e é de propósito: busca, teclado e\r\n * estado vazio já estão resolvidos ali e não se reescrevem. O que muda é o **gatilho** — o\r\n * `Combobox` desenha um campo de formulário porque coleta um valor; aqui o gatilho é o texto\r\n * do caminho, com a tipografia dos irmãos e sem borda. Trocar o registro aberto é\r\n * **navegação**, não preenchimento de campo, e o componente precisa parecer o que é.\r\n *\r\n * ## O que ele NÃO faz\r\n *\r\n * Não navega: `onValueChange` devolve o `value` e o consumidor decide (rota, fetch, estado).\r\n * Não hospeda o conteúdo da página. E não busca no servidor — o `Command` filtra a lista que\r\n * você passou; pra milhares de registros o certo é paginar antes de entregar as opções.\r\n *\r\n * @example\r\n * <BreadcrumbItem>\r\n *   <BreadcrumbSwitcher\r\n *     value={clienteId}\r\n *     onValueChange={abrirCliente}\r\n *     options={clientes}\r\n *     title=\"Trocar cliente\"\r\n *     searchPlaceholder=\"Buscar cliente…\"\r\n *     aria-label=\"Trocar cliente\"\r\n *   />\r\n * </BreadcrumbItem>\r\n */\r\nexport const BreadcrumbSwitcher = forwardRef<HTMLButtonElement, BreadcrumbSwitcherProps>(\r\n  function BreadcrumbSwitcher(\r\n    {\r\n      value,\r\n      onValueChange,\r\n      options,\r\n      placeholder,\r\n      title,\r\n      searchPlaceholder = \"Buscar…\",\r\n      emptyMessage = \"Nada encontrado.\",\r\n      footer,\r\n      open: openProp,\r\n      onOpenChange,\r\n      align = \"start\",\r\n      size = \"md\",\r\n      disabled,\r\n      className,\r\n      contentClassName,\r\n      \"aria-label\": ariaLabel = \"Trocar registro aberto\",\r\n    },\r\n    ref,\r\n  ) {\r\n    const [openInterno, setOpenInterno] = useState(false);\r\n    const open = openProp ?? openInterno;\r\n    const setOpen = (proximo: boolean) => {\r\n      setOpenInterno(proximo);\r\n      onOpenChange?.(proximo);\r\n    };\r\n\r\n    const estilos = breadcrumbSwitcher({ size });\r\n    const atual = options.find((o) => o.value === value);\r\n\r\n    /**\r\n     * Agrupa preservando a ORDEM em que os grupos aparecem em `options` — não alfabética.\r\n     * \"Recentes\" antes de \"Todos\" é informação que quem montou a lista quis dar.\r\n     */\r\n    const grupos = useMemo(() => {\r\n      const mapa = new Map<string, typeof options>();\r\n      for (const opcao of options) {\r\n        const chave = opcao.group ?? \"\";\r\n        const atual = mapa.get(chave);\r\n        if (atual) atual.push(opcao);\r\n        else mapa.set(chave, [opcao]);\r\n      }\r\n      return [...mapa.entries()];\r\n    }, [options]);\r\n\r\n    return (\r\n      <Popover open={open} onOpenChange={setOpen}>\r\n        <PopoverTrigger asChild>\r\n          <button\r\n            ref={ref}\r\n            type=\"button\"\r\n            aria-label={ariaLabel}\r\n            aria-expanded={open}\r\n            disabled={disabled}\r\n            className={estilos.trigger({ className })}\r\n          >\r\n            <span className={estilos.label()}>{atual?.label ?? placeholder ?? value}</span>\r\n            {/* `ChevronsUpDown`, não `ChevronDown`: a seta dupla é o sinal de \"troca\", e é o que\r\n                distingue o gatilho de um link do caminho — que também abre algo ao clicar. */}\r\n            <ChevronsUpDown className={estilos.chevron()} aria-hidden />\r\n          </button>\r\n        </PopoverTrigger>\r\n\r\n        <PopoverContent\r\n          align={align}\r\n          className={estilos.content({ className: contentClassName })}\r\n        >\r\n          <Command>\r\n            {title ? <div className={estilos.title()}>{title}</div> : null}\r\n            <CommandInput placeholder={searchPlaceholder} />\r\n            <CommandList>\r\n              <CommandEmpty>{emptyMessage}</CommandEmpty>\r\n              {grupos.map(([nomeGrupo, opcoes]) => (\r\n                <CommandGroup key={nomeGrupo || \"_\"} heading={nomeGrupo || undefined}>\r\n                  {opcoes.map((opcao) => {\r\n                    const selecionada = opcao.value === value;\r\n                    return (\r\n                      <CommandItem\r\n                        key={opcao.value}\r\n                        /* `data-atual` marca o registro ABERTO no DOM. O `data-selected` do\r\n                           cmdk é outra coisa — ele segue o item ativo do teclado — e o ícone\r\n                           de check não serve de sinal: `leading` também é um svg, então\r\n                           \"tem svg\" não distingue nada. */\r\n                        data-atual={selecionada || undefined}\r\n                        value={opcao.label}\r\n                        /* O `value` entra como keyword: o usuário costuma saber o código/id do\r\n                           registro, e ele nem sempre aparece no rótulo. */\r\n                        keywords={[opcao.value, ...(opcao.keywords ?? [])]}\r\n                        onSelect={() => {\r\n                          onValueChange(opcao.value);\r\n                          setOpen(false);\r\n                        }}\r\n                        className={cn(selecionada && \"font-medium text-fg-default\")}\r\n                      >\r\n                        <span className={estilos.item()}>\r\n                          {opcao.leading}\r\n                          <span className={estilos.itemTexto()}>\r\n                            <span className={estilos.itemLabel()}>{opcao.label}</span>\r\n                            {opcao.description ? (\r\n                              <span className={estilos.itemDescricao()}>{opcao.description}</span>\r\n                            ) : null}\r\n                          </span>\r\n                          {selecionada ? (\r\n                            <Check className=\"size-icon-sm shrink-0 text-fg-brand\" aria-hidden />\r\n                          ) : null}\r\n                        </span>\r\n                      </CommandItem>\r\n                    );\r\n                  })}\r\n                </CommandGroup>\r\n              ))}\r\n            </CommandList>\r\n            {footer ? <div className={estilos.footer()}>{footer}</div> : null}\r\n          </Command>\r\n        </PopoverContent>\r\n      </Popover>\r\n    );\r\n  },\r\n);\r\n\r\nBreadcrumbSwitcher.displayName = \"BreadcrumbSwitcher\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb-switcher.tsx"
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb-switcher.types.ts",
-        "content": "import type { ReactNode } from \"react\";\n\nexport type BreadcrumbSwitcherOption = {\n  /** Identidade do registro — é o que volta em `onValueChange`. */\n  value: string;\n  /** Texto da opção. É por ele que a busca filtra. */\n  label: string;\n  /** Ícone/avatar à esquerda: no seletor do GitHub é o cadeado do repo privado. */\n  leading?: ReactNode;\n  /** Linha secundária — código, dono, data. Não entra na busca; use `keywords` pra isso. */\n  description?: ReactNode;\n  /** Termos extras de busca (documento, apelido, id) que não aparecem no rótulo. */\n  keywords?: string[];\n  /** Agrupa opções sob um cabeçalho (ex.: \"Recentes\" · \"Todos\"). */\n  group?: string;\n};\n\nexport interface BreadcrumbSwitcherProps {\n  /** Registro aberto agora — aparece no caminho e vem marcado na lista. */\n  value: string;\n  /** Escolher outra opção. Trocar de registro é navegação: o consumidor decide o que fazer. */\n  onValueChange: (value: string) => void;\n\n  /** As opções. A busca filtra por `label` + `keywords`. */\n  options: BreadcrumbSwitcherOption[];\n\n  /**\n   * Texto do gatilho quando `value` não está em `options` — carregando, ou registro que saiu\n   * da lista. Sem isso o caminho apareceria vazio, que lê como bug.\n   */\n  placeholder?: ReactNode;\n\n  /** Cabeçalho do dropdown (\"Trocar cliente\"). Omita e o dropdown abre direto na busca. */\n  title?: ReactNode;\n  searchPlaceholder?: string;\n  emptyMessage?: ReactNode;\n\n  /** Rodapé fixo do dropdown — \"Ver todos\", \"Criar novo\". Fica fora da área que rola. */\n  footer?: ReactNode;\n\n  /** Abertura controlada, pro caso de abrir por atalho de teclado. */\n  open?: boolean;\n  onOpenChange?: (open: boolean) => void;\n\n  /** Alinhamento do dropdown em relação ao gatilho. @default \"start\" */\n  align?: \"start\" | \"center\" | \"end\";\n\n  /**\n   * Rótulo do gatilho pro leitor de tela. Default: `\"Trocar registro aberto\"` — troque pelo\n   * nome do domínio (\"Trocar cliente\"), que é o que faz sentido pra quem ouve.\n   */\n  \"aria-label\"?: string;\n\n  /** Acompanha o `size` do caminho. @default \"md\" */\n  size?: \"sm\" | \"md\";\n\n  disabled?: boolean;\n  className?: string;\n  contentClassName?: string;\n}\n",
+        "content": "import type { ReactNode } from \"react\";\r\n\r\nexport type BreadcrumbSwitcherOption = {\r\n  /** Identidade do registro — é o que volta em `onValueChange`. */\r\n  value: string;\r\n  /** Texto da opção. É por ele que a busca filtra. */\r\n  label: string;\r\n  /** Ícone/avatar à esquerda: no seletor do GitHub é o cadeado do repo privado. */\r\n  leading?: ReactNode;\r\n  /** Linha secundária — código, dono, data. Não entra na busca; use `keywords` pra isso. */\r\n  description?: ReactNode;\r\n  /** Termos extras de busca (documento, apelido, id) que não aparecem no rótulo. */\r\n  keywords?: string[];\r\n  /** Agrupa opções sob um cabeçalho (ex.: \"Recentes\" · \"Todos\"). */\r\n  group?: string;\r\n};\r\n\r\nexport interface BreadcrumbSwitcherProps {\r\n  /** Registro aberto agora — aparece no caminho e vem marcado na lista. */\r\n  value: string;\r\n  /** Escolher outra opção. Trocar de registro é navegação: o consumidor decide o que fazer. */\r\n  onValueChange: (value: string) => void;\r\n\r\n  /** As opções. A busca filtra por `label` + `keywords`. */\r\n  options: BreadcrumbSwitcherOption[];\r\n\r\n  /**\r\n   * Texto do gatilho quando `value` não está em `options` — carregando, ou registro que saiu\r\n   * da lista. Sem isso o caminho apareceria vazio, que lê como bug.\r\n   */\r\n  placeholder?: ReactNode;\r\n\r\n  /** Cabeçalho do dropdown (\"Trocar cliente\"). Omita e o dropdown abre direto na busca. */\r\n  title?: ReactNode;\r\n  searchPlaceholder?: string;\r\n  emptyMessage?: ReactNode;\r\n\r\n  /** Rodapé fixo do dropdown — \"Ver todos\", \"Criar novo\". Fica fora da área que rola. */\r\n  footer?: ReactNode;\r\n\r\n  /** Abertura controlada, pro caso de abrir por atalho de teclado. */\r\n  open?: boolean;\r\n  onOpenChange?: (open: boolean) => void;\r\n\r\n  /** Alinhamento do dropdown em relação ao gatilho. @default \"start\" */\r\n  align?: \"start\" | \"center\" | \"end\";\r\n\r\n  /**\r\n   * Rótulo do gatilho pro leitor de tela. Default: `\"Trocar registro aberto\"` — troque pelo\r\n   * nome do domínio (\"Trocar cliente\"), que é o que faz sentido pra quem ouve.\r\n   */\r\n  \"aria-label\"?: string;\r\n\r\n  /** Acompanha o `size` do caminho. @default \"md\" */\r\n  size?: \"sm\" | \"md\";\r\n\r\n  disabled?: boolean;\r\n  className?: string;\r\n  contentClassName?: string;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb-switcher.types.ts"
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb.styles.ts",
-        "content": "import { tv } from \"@/utils/tv\";\n\n/**\n * Estilos do caminho montado por dados (`<Breadcrumb items={…} />`).\n *\n * ## Os dois tamanhos existem porque o DS já tinha dois — medidos, não escolhidos\n *\n * Até esta versão havia DUAS implementações de breadcrumb no repo, com aparências\n * diferentes: o primitivo shadcn (`text-body-md`, 14px) e o do `Header`, que tinha estilo\n * próprio em `header.styles.ts` — 13px na cadeia e 16px/600 quando havia um item só. O mesmo\n * elemento, dois tamanhos, dependendo de onde nascia.\n *\n * Unificar num tamanho só mudaria o visual de 15 telas, e o pedido foi explícito: nada muda de\n * aparência. Então os dois viraram variante — `sm` reproduz o Header (é o que o\n * `HeaderBreadcrumb` usa agora, no lugar do estilo duplicado) e `md` é o do primitivo.\n * Medido antes da troca: gap 6px · cadeia 13px/400 com `fg-muted` e o último em `fg-default`\n * · item único 16px/600.\n */\nexport const breadcrumbCaminho = tv({\n  slots: {\n    lista: \"gap-gp-sm sm:gap-gp-sm\",\n    separador: \"shrink-0 text-fg-subtle [&>svg]:size-[14px]\",\n    item: \"truncate transition-colors leading-none\",\n  },\n\n  variants: {\n    size: {\n      sm: { item: \"text-body-sm font-normal\" },\n      md: { item: \"text-body-md font-normal\" },\n    },\n    /**\n     * Item único = título da página. O `HeaderBreadcrumb` fazia isso e é o que mantém o Header\n     * pixel a pixel: 16px/600 em vez do 13px da cadeia.\n     */\n    sozinho: {\n      true: { item: \"text-body-lg font-semibold\" },\n      false: {},\n    },\n    atual: {\n      true: { item: \"text-fg-default\" },\n      false: { item: \"text-fg-muted hover:text-fg-default\" },\n    },\n  },\n\n  defaultVariants: { size: \"md\", sozinho: false, atual: false },\n});\n",
+        "content": "import { tv } from \"@/utils/tv\";\r\n\r\n/**\r\n * Estilos do caminho montado por dados (`<Breadcrumb items={…} />`).\r\n *\r\n * ## Os dois tamanhos existem porque o DS já tinha dois — medidos, não escolhidos\r\n *\r\n * Até esta versão havia DUAS implementações de breadcrumb no repo, com aparências\r\n * diferentes: o primitivo shadcn (`text-body-md`, 14px) e o do `Header`, que tinha estilo\r\n * próprio em `header.styles.ts` — 13px na cadeia e 16px/600 quando havia um item só. O mesmo\r\n * elemento, dois tamanhos, dependendo de onde nascia.\r\n *\r\n * Unificar num tamanho só mudaria o visual de 15 telas, e o pedido foi explícito: nada muda de\r\n * aparência. Então os dois viraram variante — `sm` reproduz o Header (é o que o\r\n * `HeaderBreadcrumb` usa agora, no lugar do estilo duplicado) e `md` é o do primitivo.\r\n * Medido antes da troca: gap 6px · cadeia 13px/400 com `fg-muted` e o último em `fg-default`\r\n * · item único 16px/600.\r\n */\r\nexport const breadcrumbCaminho = tv({\r\n  slots: {\r\n    lista: \"gap-gp-sm sm:gap-gp-sm\",\r\n    separador: \"shrink-0 text-fg-subtle [&>svg]:size-[14px]\",\r\n    item: \"truncate transition-colors leading-none\",\r\n  },\r\n\r\n  variants: {\r\n    size: {\r\n      sm: { item: \"text-body-sm font-normal\" },\r\n      md: { item: \"text-body-md font-normal\" },\r\n    },\r\n    /**\r\n     * Item único = título da página. O `HeaderBreadcrumb` fazia isso e é o que mantém o Header\r\n     * pixel a pixel: 16px/600 em vez do 13px da cadeia.\r\n     */\r\n    sozinho: {\r\n      true: { item: \"text-body-lg font-semibold\" },\r\n      false: {},\r\n    },\r\n    atual: {\r\n      true: { item: \"text-fg-default\" },\r\n      false: { item: \"text-fg-muted hover:text-fg-default\" },\r\n    },\r\n  },\r\n\r\n  defaultVariants: { size: \"md\", sozinho: false, atual: false },\r\n});\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb.styles.ts"
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb.tsx",
-        "content": "import { Fragment, forwardRef } from \"react\";\nimport { ChevronRight } from \"lucide-react\";\nimport {\n  Breadcrumb as BreadcrumbRaiz,\n  BreadcrumbList,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n} from \"@/components/shadcn/breadcrumb\";\nimport { cn } from \"@/lib/utils\";\nimport { BreadcrumbSwitcher } from \"./breadcrumb-switcher\";\nimport { breadcrumbCaminho } from \"./breadcrumb.styles\";\nimport type { BreadcrumbProps, BreadcrumbItemData } from \"./breadcrumb.types\";\n\n/** Só vira seletor com os TRÊS: lista, valor e callback (ver `breadcrumb.types.ts`). */\nfunction ehSwitcher(\n  item: BreadcrumbItemData,\n): item is BreadcrumbItemData & {\n  switcher: NonNullable<BreadcrumbItemData[\"switcher\"]>;\n  value: string;\n  onValueChange: (value: string) => void;\n} {\n  return (\n    Array.isArray(item.switcher) &&\n    item.switcher.length > 0 &&\n    typeof item.value === \"string\" &&\n    typeof item.onValueChange === \"function\"\n  );\n}\n\n/**\n * `Breadcrumb` — o caminho, nos dois modos que o DS precisa servir.\n *\n * ## Com `items`: dados entram, cadeia sai\n *\n * É o modo de 95% das telas. O componente resolve o que quase todo consumidor reescrevia na\n * unha: último item não é link, separador entre itens, truncagem, e o item que **troca o\n * registro aberto** (`switcher`) — tudo a partir de um array.\n *\n * ## Sem `items`: composição\n *\n * Renderiza `children` direto no primitivo. É a saída pra quem precisa interpor algo no meio\n * do caminho (um `Chip` de ambiente, um ícone) ou estilizar item a item. O primitivo continua\n * existindo em `shadcn/breadcrumb` — este arquivo não o substitui, embrulha.\n *\n * ## Por que os dois no mesmo nome\n *\n * Porque é a mesma peça. Dois componentes fariam a escolha aparecer no catálogo, no menu e no\n * vocabulário — e a pergunta \"qual dos dois?\" não tem resposta útil: é o mesmo caminho, com e\n * sem dados prontos.\n *\n * @example\n * <Breadcrumb\n *   items={[\n *     { label: \"Clientes\", href: \"/clientes\" },\n *     { label: cliente.nome, switcher: clientes, value: id, onValueChange: abrir },\n *   ]}\n * />\n */\nexport const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(function Breadcrumb(\n  { items, size = \"md\", separator, className, children, ...rest },\n  ref,\n) {\n  if (!items) {\n    return (\n      <BreadcrumbRaiz ref={ref} className={className} {...rest}>\n        {children}\n      </BreadcrumbRaiz>\n    );\n  }\n\n  if (items.length === 0) return null;\n\n  /**\n   * Item único = TÍTULO da página, não caminho — e por isso sobe pra 16px/600 no `size=\"sm\"`.\n   * Não é exceção estética: uma cadeia de um elemento só não é uma cadeia, é o nome da tela.\n   * Esse comportamento vinha do `HeaderBreadcrumb` e é o que mantém o Header idêntico.\n   */\n  const sozinho = items.length === 1;\n  const estilos = breadcrumbCaminho({ size, sozinho });\n\n  return (\n    <BreadcrumbRaiz ref={ref} className={className} {...rest}>\n      <BreadcrumbList className={estilos.lista()}>\n        {items.map((item, i) => {\n          const ultimo = i === items.length - 1;\n          const clicavel = !ultimo && (item.href !== undefined || item.onClick !== undefined);\n\n          return (\n            <Fragment key={`${item.label}-${i}`}>\n              {i > 0 ? (\n                <BreadcrumbSeparator className={estilos.separador()}>\n                  {separator ?? <ChevronRight strokeWidth={1.7} />}\n                </BreadcrumbSeparator>\n              ) : null}\n\n              <BreadcrumbItem className=\"min-w-0\">\n                {ehSwitcher(item) ? (\n                  /* Vem ANTES do teste de link: um seletor com `href` continua sendo seletor —\n                     o clique abre a lista. */\n                  <BreadcrumbSwitcher\n                    value={item.value}\n                    onValueChange={item.onValueChange}\n                    options={item.switcher}\n                    size={size}\n                    title={item.switcherTitle}\n                    searchPlaceholder={item.switcherSearchPlaceholder}\n                    emptyMessage={item.switcherEmptyMessage}\n                    footer={item.switcherFooter}\n                    aria-label={item.switcherAriaLabel ?? `Trocar: ${item.label}`}\n                  />\n                ) : clicavel ? (\n                  <BreadcrumbLink\n                    href={item.href ?? \"#\"}\n                    className={estilos.item({ atual: false })}\n                    onClick={(e) => {\n                      if (!item.href) e.preventDefault();\n                      item.onClick?.(e);\n                    }}\n                  >\n                    {item.label}\n                  </BreadcrumbLink>\n                ) : ultimo ? (\n                  <BreadcrumbPage className={estilos.item({ atual: true })}>\n                    {item.label}\n                  </BreadcrumbPage>\n                ) : (\n                  <span className={cn(estilos.item({ atual: false }), \"cursor-default\")}>\n                    {item.label}\n                  </span>\n                )}\n              </BreadcrumbItem>\n            </Fragment>\n          );\n        })}\n      </BreadcrumbList>\n    </BreadcrumbRaiz>\n  );\n});\n\nBreadcrumb.displayName = \"Breadcrumb\";\n",
+        "content": "import { Fragment, forwardRef } from \"react\";\r\nimport { ChevronRight } from \"lucide-react\";\r\nimport {\r\n  Breadcrumb as BreadcrumbRaiz,\r\n  BreadcrumbList,\r\n  BreadcrumbItem,\r\n  BreadcrumbLink,\r\n  BreadcrumbPage,\r\n  BreadcrumbSeparator,\r\n} from \"@/components/shadcn/breadcrumb\";\r\nimport { cn } from \"@/lib/utils\";\r\nimport { BreadcrumbSwitcher } from \"./breadcrumb-switcher\";\r\nimport { breadcrumbCaminho } from \"./breadcrumb.styles\";\r\nimport type { BreadcrumbProps, BreadcrumbItemData } from \"./breadcrumb.types\";\r\n\r\n/** Só vira seletor com os TRÊS: lista, valor e callback (ver `breadcrumb.types.ts`). */\r\nfunction ehSwitcher(\r\n  item: BreadcrumbItemData,\r\n): item is BreadcrumbItemData & {\r\n  switcher: NonNullable<BreadcrumbItemData[\"switcher\"]>;\r\n  value: string;\r\n  onValueChange: (value: string) => void;\r\n} {\r\n  return (\r\n    Array.isArray(item.switcher) &&\r\n    item.switcher.length > 0 &&\r\n    typeof item.value === \"string\" &&\r\n    typeof item.onValueChange === \"function\"\r\n  );\r\n}\r\n\r\n/**\r\n * `Breadcrumb` — o caminho, nos dois modos que o DS precisa servir.\r\n *\r\n * ## Com `items`: dados entram, cadeia sai\r\n *\r\n * É o modo de 95% das telas. O componente resolve o que quase todo consumidor reescrevia na\r\n * unha: último item não é link, separador entre itens, truncagem, e o item que **troca o\r\n * registro aberto** (`switcher`) — tudo a partir de um array.\r\n *\r\n * ## Sem `items`: composição\r\n *\r\n * Renderiza `children` direto no primitivo. É a saída pra quem precisa interpor algo no meio\r\n * do caminho (um `Chip` de ambiente, um ícone) ou estilizar item a item. O primitivo continua\r\n * existindo em `shadcn/breadcrumb` — este arquivo não o substitui, embrulha.\r\n *\r\n * ## Por que os dois no mesmo nome\r\n *\r\n * Porque é a mesma peça. Dois componentes fariam a escolha aparecer no catálogo, no menu e no\r\n * vocabulário — e a pergunta \"qual dos dois?\" não tem resposta útil: é o mesmo caminho, com e\r\n * sem dados prontos.\r\n *\r\n * @example\r\n * <Breadcrumb\r\n *   items={[\r\n *     { label: \"Clientes\", href: \"/clientes\" },\r\n *     { label: cliente.nome, switcher: clientes, value: id, onValueChange: abrir },\r\n *   ]}\r\n * />\r\n */\r\nexport const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(function Breadcrumb(\r\n  { items, size = \"md\", separator, className, children, ...rest },\r\n  ref,\r\n) {\r\n  if (!items) {\r\n    return (\r\n      <BreadcrumbRaiz ref={ref} className={className} {...rest}>\r\n        {children}\r\n      </BreadcrumbRaiz>\r\n    );\r\n  }\r\n\r\n  if (items.length === 0) return null;\r\n\r\n  /**\r\n   * Item único = TÍTULO da página, não caminho — e por isso sobe pra 16px/600 no `size=\"sm\"`.\r\n   * Não é exceção estética: uma cadeia de um elemento só não é uma cadeia, é o nome da tela.\r\n   * Esse comportamento vinha do `HeaderBreadcrumb` e é o que mantém o Header idêntico.\r\n   */\r\n  const sozinho = items.length === 1;\r\n  const estilos = breadcrumbCaminho({ size, sozinho });\r\n\r\n  return (\r\n    <BreadcrumbRaiz ref={ref} className={className} {...rest}>\r\n      <BreadcrumbList className={estilos.lista()}>\r\n        {items.map((item, i) => {\r\n          const ultimo = i === items.length - 1;\r\n          const clicavel = !ultimo && (item.href !== undefined || item.onClick !== undefined);\r\n\r\n          return (\r\n            <Fragment key={`${item.label}-${i}`}>\r\n              {i > 0 ? (\r\n                <BreadcrumbSeparator className={estilos.separador()}>\r\n                  {separator ?? <ChevronRight strokeWidth={1.7} />}\r\n                </BreadcrumbSeparator>\r\n              ) : null}\r\n\r\n              <BreadcrumbItem className=\"min-w-0\">\r\n                {ehSwitcher(item) ? (\r\n                  /* Vem ANTES do teste de link: um seletor com `href` continua sendo seletor —\r\n                     o clique abre a lista. */\r\n                  <BreadcrumbSwitcher\r\n                    value={item.value}\r\n                    onValueChange={item.onValueChange}\r\n                    options={item.switcher}\r\n                    size={size}\r\n                    title={item.switcherTitle}\r\n                    searchPlaceholder={item.switcherSearchPlaceholder}\r\n                    emptyMessage={item.switcherEmptyMessage}\r\n                    footer={item.switcherFooter}\r\n                    aria-label={item.switcherAriaLabel ?? `Trocar: ${item.label}`}\r\n                  />\r\n                ) : clicavel ? (\r\n                  <BreadcrumbLink\r\n                    href={item.href ?? \"#\"}\r\n                    className={estilos.item({ atual: false })}\r\n                    onClick={(e) => {\r\n                      if (!item.href) e.preventDefault();\r\n                      item.onClick?.(e);\r\n                    }}\r\n                  >\r\n                    {item.label}\r\n                  </BreadcrumbLink>\r\n                ) : ultimo ? (\r\n                  <BreadcrumbPage className={estilos.item({ atual: true })}>\r\n                    {item.label}\r\n                  </BreadcrumbPage>\r\n                ) : (\r\n                  <span className={cn(estilos.item({ atual: false }), \"cursor-default\")}>\r\n                    {item.label}\r\n                  </span>\r\n                )}\r\n              </BreadcrumbItem>\r\n            </Fragment>\r\n          );\r\n        })}\r\n      </BreadcrumbList>\r\n    </BreadcrumbRaiz>\r\n  );\r\n});\r\n\r\nBreadcrumb.displayName = \"Breadcrumb\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb.tsx"
       },
       {
         "path": "src/components/ui/Breadcrumb/breadcrumb.types.ts",
-        "content": "import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from \"react\";\nimport type { BreadcrumbSwitcherOption } from \"./breadcrumb-switcher.types\";\n\nexport type BreadcrumbItemData = {\n  label: string;\n  /** Vira link. O ÚLTIMO item nunca é link — ele é a página atual. */\n  href?: string;\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\n\n  /**\n   * Torna este item um seletor: o rótulo vira gatilho e abre uma lista com busca pra trocar o\n   * registro aberto. Precisa dos três juntos — `switcher`, `value` e `onValueChange`;\n   * faltando um, o item renderiza como texto (gatilho que abre lista vazia, ou que não sabe\n   * avisar a escolha, é pior que texto).\n   */\n  switcher?: BreadcrumbSwitcherOption[];\n  value?: string;\n  onValueChange?: (value: string) => void;\n  switcherTitle?: ReactNode;\n  switcherSearchPlaceholder?: string;\n  switcherEmptyMessage?: ReactNode;\n  switcherFooter?: ReactNode;\n  /** Rótulo acessível do gatilho. Default: `\"Trocar: <label>\"`. */\n  switcherAriaLabel?: string;\n};\n\nexport interface BreadcrumbProps extends ComponentPropsWithoutRef<\"nav\"> {\n  /**\n   * Monta a cadeia a partir de dados. **Sem isso**, o componente renderiza `children` no\n   * primitivo — é o modo de composição, pra quem precisa interpor ou estilizar item a item.\n   */\n  items?: BreadcrumbItemData[];\n\n  /**\n   * `sm` (13px na cadeia, 16px quando há um item só) é o tamanho do `Header`. `md` (14px) é o\n   * do primitivo shadcn. Os dois existem porque o DS já tinha os dois antes desta unificação —\n   * ver o cabeçalho de `breadcrumb.styles.ts`.\n   * @default \"md\"\n   */\n  size?: \"sm\" | \"md\";\n\n  /** Separador custom. Default: `ChevronRight` de 14px. */\n  separator?: ReactNode;\n}\n",
+        "content": "import type { ComponentPropsWithoutRef, MouseEvent, ReactNode } from \"react\";\r\nimport type { BreadcrumbSwitcherOption } from \"./breadcrumb-switcher.types\";\r\n\r\nexport type BreadcrumbItemData = {\r\n  label: string;\r\n  /** Vira link. O ÚLTIMO item nunca é link — ele é a página atual. */\r\n  href?: string;\r\n  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;\r\n\r\n  /**\r\n   * Torna este item um seletor: o rótulo vira gatilho e abre uma lista com busca pra trocar o\r\n   * registro aberto. Precisa dos três juntos — `switcher`, `value` e `onValueChange`;\r\n   * faltando um, o item renderiza como texto (gatilho que abre lista vazia, ou que não sabe\r\n   * avisar a escolha, é pior que texto).\r\n   */\r\n  switcher?: BreadcrumbSwitcherOption[];\r\n  value?: string;\r\n  onValueChange?: (value: string) => void;\r\n  switcherTitle?: ReactNode;\r\n  switcherSearchPlaceholder?: string;\r\n  switcherEmptyMessage?: ReactNode;\r\n  switcherFooter?: ReactNode;\r\n  /** Rótulo acessível do gatilho. Default: `\"Trocar: <label>\"`. */\r\n  switcherAriaLabel?: string;\r\n};\r\n\r\nexport interface BreadcrumbProps extends ComponentPropsWithoutRef<\"nav\"> {\r\n  /**\r\n   * Monta a cadeia a partir de dados. **Sem isso**, o componente renderiza `children` no\r\n   * primitivo — é o modo de composição, pra quem precisa interpor ou estilizar item a item.\r\n   */\r\n  items?: BreadcrumbItemData[];\r\n\r\n  /**\r\n   * `sm` (13px na cadeia, 16px quando há um item só) é o tamanho do `Header`. `md` (14px) é o\r\n   * do primitivo shadcn. Os dois existem porque o DS já tinha os dois antes desta unificação —\r\n   * ver o cabeçalho de `breadcrumb.styles.ts`.\r\n   * @default \"md\"\r\n   */\r\n  size?: \"sm\" | \"md\";\r\n\r\n  /** Separador custom. Default: `ChevronRight` de 14px. */\r\n  separator?: ReactNode;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/breadcrumb.types.ts"
       },
       {
         "path": "src/components/ui/Breadcrumb/index.ts",
-        "content": "/**\n * Breadcrumb — o caminho e as suas variações, num lugar só.\n *\n * Os primitivos (`Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, …) continuam morando em\n * `shadcn/breadcrumb.tsx`, que é onde a API padrão do shadcn deve ficar; aqui eles são\n * **re-exportados** junto com o `BreadcrumbSwitcher`. Assim o consumidor importa a peça\n * inteira de um endereço só e não precisa saber que uma metade nasceu no shadcn.\n *\n * ⚠️ O switcher não é \"outro componente\": é o item do caminho quando ele **troca o registro\n * aberto** em vez de linkar. Manter os dois separados fazia a mesma peça aparecer duas vezes\n * no catálogo, no menu e no vocabulário — foi o que o mantenedor apontou.\n */\n/** O `Breadcrumb` daqui é o WRAPPER (aceita `items`); o cru continua em `shadcn/breadcrumb`. */\nexport { Breadcrumb } from \"./breadcrumb\";\nexport { breadcrumbCaminho } from \"./breadcrumb.styles\";\nexport type { BreadcrumbProps, BreadcrumbItemData } from \"./breadcrumb.types\";\n\nexport {\n  BreadcrumbList,\n  BreadcrumbItem,\n  BreadcrumbLink,\n  BreadcrumbPage,\n  BreadcrumbSeparator,\n  BreadcrumbEllipsis,\n} from \"@/components/shadcn/breadcrumb\";\n\nexport { BreadcrumbSwitcher } from \"./breadcrumb-switcher\";\nexport { breadcrumbSwitcher } from \"./breadcrumb-switcher.styles\";\nexport type {\n  BreadcrumbSwitcherProps,\n  BreadcrumbSwitcherOption,\n} from \"./breadcrumb-switcher.types\";\n",
+        "content": "/**\r\n * Breadcrumb — o caminho e as suas variações, num lugar só.\r\n *\r\n * Os primitivos (`Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, …) continuam morando em\r\n * `shadcn/breadcrumb.tsx`, que é onde a API padrão do shadcn deve ficar; aqui eles são\r\n * **re-exportados** junto com o `BreadcrumbSwitcher`. Assim o consumidor importa a peça\r\n * inteira de um endereço só e não precisa saber que uma metade nasceu no shadcn.\r\n *\r\n * ⚠️ O switcher não é \"outro componente\": é o item do caminho quando ele **troca o registro\r\n * aberto** em vez de linkar. Manter os dois separados fazia a mesma peça aparecer duas vezes\r\n * no catálogo, no menu e no vocabulário — foi o que o mantenedor apontou.\r\n */\r\n/** O `Breadcrumb` daqui é o WRAPPER (aceita `items`); o cru continua em `shadcn/breadcrumb`. */\r\nexport { Breadcrumb } from \"./breadcrumb\";\r\nexport { breadcrumbCaminho } from \"./breadcrumb.styles\";\r\nexport type { BreadcrumbProps, BreadcrumbItemData } from \"./breadcrumb.types\";\r\n\r\nexport {\r\n  BreadcrumbList,\r\n  BreadcrumbItem,\r\n  BreadcrumbLink,\r\n  BreadcrumbPage,\r\n  BreadcrumbSeparator,\r\n  BreadcrumbEllipsis,\r\n} from \"@/components/shadcn/breadcrumb\";\r\n\r\nexport { BreadcrumbSwitcher } from \"./breadcrumb-switcher\";\r\nexport { breadcrumbSwitcher } from \"./breadcrumb-switcher.styles\";\r\nexport type {\r\n  BreadcrumbSwitcherProps,\r\n  BreadcrumbSwitcherOption,\r\n} from \"./breadcrumb-switcher.types\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/Breadcrumb/index.ts"
       },
       {
         "path": "src/components/ui/Breadcrumb/USAGE.md",
-        "content": "# Breadcrumb\n\n<!-- ds:regras\n- o caminho e o seletor vêm do MESMO item: `import { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from \"@/components/ui/Breadcrumb\"`\n- página de DETALHE (ficha de cliente, UC, contrato, chamado) → o item do registro no breadcrumb é `<BreadcrumbSwitcher>`, não texto: quem está numa ficha quer pular pra outra, não voltar à lista\n- é controlado e **não navega**: `onValueChange` devolve o `value` e quem decide rota/fetch é você\n- no `Header`, o item vira seletor com os TRÊS juntos — `switcher` + `value` + `onValueChange`; faltando um, fica texto\n- escolher valor de FORMULÁRIO não é isto: é `combobox` (o trigger dele tem cara de campo de propósito)\n-->\n\nCaminho de navegação — e a variação em que **o item troca o registro aberto**.\n\nOs primitivos (`Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`,\n`BreadcrumbPage`, `BreadcrumbSeparator`, `BreadcrumbEllipsis`) e o `BreadcrumbSwitcher` saem\ndo mesmo lugar: são a mesma peça, com e sem troca.\n\n## BreadcrumbSwitcher\n\nO item do caminho que **troca o registro aberto**: o nome do que está aberto vira gatilho e\nabre uma lista com busca. É o seletor de repositório do GitHub aplicado a cliente, UC,\ncontrato — qualquer coisa de que existam muitos.\n\n## Quando usar\n\n| Situação | Componente |\n|---|---|\n| Página de detalhe de UM registro entre muitos parecidos | **`BreadcrumbSwitcher`** |\n| Navegar entre seções fixas do caminho | `BreadcrumbLink` (o breadcrumb normal) |\n| Escolher um valor num formulário | `combobox` |\n| Trocar entre sessões abertas ao mesmo tempo | `tabs-navigation` |\n\n## Os dois modos\n\n```tsx\n// 1) pronto — dados entram, cadeia sai (95% das telas)\n<Breadcrumb items={[\n  { label: \"Clientes\", href: \"/clientes\" },\n  { label: cliente.nome },                 // sem href = página atual\n]} />\n\n// 2) composição — pra interpor algo ou estilizar item a item\n<Breadcrumb>\n  <BreadcrumbList>\n    <BreadcrumbItem><BreadcrumbLink href=\"/clientes\">Clientes</BreadcrumbLink></BreadcrumbItem>\n    <BreadcrumbSeparator />\n    <BreadcrumbItem><Chip size=\"sm\">homologação</Chip></BreadcrumbItem>\n  </BreadcrumbList>\n</Breadcrumb>\n```\n\n| Prop da raiz | | |\n|---|---|---|\n| `items` | `BreadcrumbItemData[]` | sem ele, renderiza `children` no primitivo |\n| `size` | `sm` | `md` | `sm` = 13px na cadeia e 16px em item único (é o do `Header`); `md` = 14px (o do primitivo) |\n| `separator` | `ReactNode` | default `ChevronRight` de 14px |\n\n## Import\n\n```tsx\nimport { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from \"@/components/ui/Breadcrumb\";\n```\n\n## Exemplo mínimo\n\n```tsx\n<BreadcrumbItem>\n  <BreadcrumbSwitcher\n    value={clienteId}\n    onValueChange={abrirCliente}\n    options={clientes}            // { value, label, leading?, description?, keywords?, group? }\n    title=\"Trocar cliente\"\n    searchPlaceholder=\"Buscar por nome ou documento…\"\n    aria-label=\"Trocar cliente\"\n  />\n</BreadcrumbItem>\n```\n\n## No `Header`\n\nO item do breadcrumb do `Header` vira seletor sozinho:\n\n```tsx\n<Header\n  breadcrumb={[\n    { label: \"Clientes\", href: \"/clientes\" },\n    {\n      label: cliente.nome,\n      switcher: clientes,\n      value: cliente.id,\n      onValueChange: abrirCliente,\n      switcherTitle: \"Trocar cliente\",\n    },\n  ]}\n/>\n```\n\nPrecisa dos **três** (`switcher` + `value` + `onValueChange`). Faltando um, o item renderiza\ncomo texto normal. No celular, onde a cadeia colapsa e sobra só o último item, o seletor\ncontinua ali.\n\n## Props\n\n| Prop | Tipo | Default |\n|---|---|---|\n| `value` / `onValueChange` | `string` / `(v: string) => void` | — (controlado) |\n| `options` | `BreadcrumbSwitcherOption[]` | — |\n| `placeholder` | `ReactNode` — quando o `value` não está na lista | o próprio `value` |\n| `title` | `ReactNode` — cabeçalho do dropdown | — |\n| `searchPlaceholder` | `string` | `\"Buscar…\"` |\n| `emptyMessage` | `ReactNode` | `\"Nada encontrado.\"` |\n| `footer` | `ReactNode` — fora da área que rola | — |\n| `open` / `onOpenChange` | abertura controlada | — |\n| `align` | `start \\| center \\| end` | `\"start\"` |\n| `aria-label` | `string` | `\"Trocar registro aberto\"` |\n\n`BreadcrumbSwitcherOption`: `{ value, label, leading?, description?, keywords?, group? }`.\n\n## Gotchas / cuidados\n\n- **Ele não navega.** `onValueChange` devolve o valor; rota, fetch e estado são seus. É o que\n  faz o mesmo componente servir pro app com router e pro painel que só troca estado local.\n- **`keywords` é pra o que o usuário sabe de cor e a tela não mostra** — CPF/CNPJ, código\n  interno, apelido. A busca filtra por `label` + `keywords`, e o `value` já entra\n  automaticamente.\n- **A busca é local E fuzzy.** O `Command` filtra por subsequência com score, não por prefixo:\n  procurar um CPF pode trazer junto um CNPJ que compartilha dígitos, com score menor. O certo\n  vem em primeiro; não prometa \"resultado único\" na sua tela. E acima de ~1.000 registros,\n  pagine ou busque no servidor antes de montar `options`.\n- **A opção do registro aberto sai com `data-atual`** no DOM — use isso pra estilizar ou\n  testar. O `data-selected` do cmdk é outra coisa (o item ativo do teclado), e \"tem svg\" não\n  serve de sinal porque `leading` também é svg.\n- **Grupos saem na ordem de `options`**, não alfabética — “Recentes” antes de “Todos” é\n  informação, não acaso.\n- **Passe `aria-label` com o nome do domínio** (“Trocar cliente”). O default genérico funciona,\n  mas quem ouve a tela merece o termo certo.\n- **Use `placeholder` quando a lista chega assíncrona**: sem ele, enquanto as opções não\n  carregam, o caminho mostra o `value` cru (um id), que lê como bug.\n- **Item único é TÍTULO, não caminho.** Com um item só e `size=\"sm\"`, ele sobe pra 16px/600 —\n  uma cadeia de um elemento é o nome da tela. É o comportamento que o `Header` sempre teve.\n- **O `href` do ÚLTIMO item é ignorado**: página atual não navega pra si. E o atual é um\n  `BreadcrumbPage`, que o shadcn expõe como `role=\"link\" aria-disabled aria-current=\"page\"` —\n  se você testar \"não é link\" por `getByRole(\"link\")`, vai achar que quebrou.\n- **Não empilhe com um link no mesmo item.** Se o item tem `switcher`, o clique abre a lista —\n  um `href` ali seria uma segunda intenção que nunca dispara.\n",
+        "content": "# Breadcrumb\r\n\r\n<!-- ds:regras\r\n- o caminho e o seletor vêm do MESMO item: `import { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from \"@/components/ui/Breadcrumb\"`\r\n- página de DETALHE (ficha de cliente, UC, contrato, chamado) → o item do registro no breadcrumb é `<BreadcrumbSwitcher>`, não texto: quem está numa ficha quer pular pra outra, não voltar à lista\r\n- é controlado e **não navega**: `onValueChange` devolve o `value` e quem decide rota/fetch é você\r\n- no `Header`, o item vira seletor com os TRÊS juntos — `switcher` + `value` + `onValueChange`; faltando um, fica texto\r\n- escolher valor de FORMULÁRIO não é isto: é `combobox` (o trigger dele tem cara de campo de propósito)\r\n-->\r\n\r\nCaminho de navegação — e a variação em que **o item troca o registro aberto**.\r\n\r\nOs primitivos (`Breadcrumb`, `BreadcrumbList`, `BreadcrumbItem`, `BreadcrumbLink`,\r\n`BreadcrumbPage`, `BreadcrumbSeparator`, `BreadcrumbEllipsis`) e o `BreadcrumbSwitcher` saem\r\ndo mesmo lugar: são a mesma peça, com e sem troca.\r\n\r\n## BreadcrumbSwitcher\r\n\r\nO item do caminho que **troca o registro aberto**: o nome do que está aberto vira gatilho e\r\nabre uma lista com busca. É o seletor de repositório do GitHub aplicado a cliente, UC,\r\ncontrato — qualquer coisa de que existam muitos.\r\n\r\n## Quando usar\r\n\r\n| Situação | Componente |\r\n|---|---|\r\n| Página de detalhe de UM registro entre muitos parecidos | **`BreadcrumbSwitcher`** |\r\n| Navegar entre seções fixas do caminho | `BreadcrumbLink` (o breadcrumb normal) |\r\n| Escolher um valor num formulário | `combobox` |\r\n| Trocar entre sessões abertas ao mesmo tempo | `tabs-navigation` |\r\n\r\n## Os dois modos\r\n\r\n```tsx\r\n// 1) pronto — dados entram, cadeia sai (95% das telas)\r\n<Breadcrumb items={[\r\n  { label: \"Clientes\", href: \"/clientes\" },\r\n  { label: cliente.nome },                 // sem href = página atual\r\n]} />\r\n\r\n// 2) composição — pra interpor algo ou estilizar item a item\r\n<Breadcrumb>\r\n  <BreadcrumbList>\r\n    <BreadcrumbItem><BreadcrumbLink href=\"/clientes\">Clientes</BreadcrumbLink></BreadcrumbItem>\r\n    <BreadcrumbSeparator />\r\n    <BreadcrumbItem><Chip size=\"sm\">homologação</Chip></BreadcrumbItem>\r\n  </BreadcrumbList>\r\n</Breadcrumb>\r\n```\r\n\r\n| Prop da raiz | | |\r\n|---|---|---|\r\n| `items` | `BreadcrumbItemData[]` | sem ele, renderiza `children` no primitivo |\r\n| `size` | `sm` | `md` | `sm` = 13px na cadeia e 16px em item único (é o do `Header`); `md` = 14px (o do primitivo) |\r\n| `separator` | `ReactNode` | default `ChevronRight` de 14px |\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { Breadcrumb, BreadcrumbItem, BreadcrumbSwitcher } from \"@/components/ui/Breadcrumb\";\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\n<BreadcrumbItem>\r\n  <BreadcrumbSwitcher\r\n    value={clienteId}\r\n    onValueChange={abrirCliente}\r\n    options={clientes}            // { value, label, leading?, description?, keywords?, group? }\r\n    title=\"Trocar cliente\"\r\n    searchPlaceholder=\"Buscar por nome ou documento…\"\r\n    aria-label=\"Trocar cliente\"\r\n  />\r\n</BreadcrumbItem>\r\n```\r\n\r\n## No `Header`\r\n\r\nO item do breadcrumb do `Header` vira seletor sozinho:\r\n\r\n```tsx\r\n<Header\r\n  breadcrumb={[\r\n    { label: \"Clientes\", href: \"/clientes\" },\r\n    {\r\n      label: cliente.nome,\r\n      switcher: clientes,\r\n      value: cliente.id,\r\n      onValueChange: abrirCliente,\r\n      switcherTitle: \"Trocar cliente\",\r\n    },\r\n  ]}\r\n/>\r\n```\r\n\r\nPrecisa dos **três** (`switcher` + `value` + `onValueChange`). Faltando um, o item renderiza\r\ncomo texto normal. No celular, onde a cadeia colapsa e sobra só o último item, o seletor\r\ncontinua ali.\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Default |\r\n|---|---|---|\r\n| `value` / `onValueChange` | `string` / `(v: string) => void` | — (controlado) |\r\n| `options` | `BreadcrumbSwitcherOption[]` | — |\r\n| `placeholder` | `ReactNode` — quando o `value` não está na lista | o próprio `value` |\r\n| `title` | `ReactNode` — cabeçalho do dropdown | — |\r\n| `searchPlaceholder` | `string` | `\"Buscar…\"` |\r\n| `emptyMessage` | `ReactNode` | `\"Nada encontrado.\"` |\r\n| `footer` | `ReactNode` — fora da área que rola | — |\r\n| `open` / `onOpenChange` | abertura controlada | — |\r\n| `align` | `start \\| center \\| end` | `\"start\"` |\r\n| `aria-label` | `string` | `\"Trocar registro aberto\"` |\r\n\r\n`BreadcrumbSwitcherOption`: `{ value, label, leading?, description?, keywords?, group? }`.\r\n\r\n## Gotchas / cuidados\r\n\r\n- **Ele não navega.** `onValueChange` devolve o valor; rota, fetch e estado são seus. É o que\r\n  faz o mesmo componente servir pro app com router e pro painel que só troca estado local.\r\n- **`keywords` é pra o que o usuário sabe de cor e a tela não mostra** — CPF/CNPJ, código\r\n  interno, apelido. A busca filtra por `label` + `keywords`, e o `value` já entra\r\n  automaticamente.\r\n- **A busca é local E fuzzy.** O `Command` filtra por subsequência com score, não por prefixo:\r\n  procurar um CPF pode trazer junto um CNPJ que compartilha dígitos, com score menor. O certo\r\n  vem em primeiro; não prometa \"resultado único\" na sua tela. E acima de ~1.000 registros,\r\n  pagine ou busque no servidor antes de montar `options`.\r\n- **A opção do registro aberto sai com `data-atual`** no DOM — use isso pra estilizar ou\r\n  testar. O `data-selected` do cmdk é outra coisa (o item ativo do teclado), e \"tem svg\" não\r\n  serve de sinal porque `leading` também é svg.\r\n- **Grupos saem na ordem de `options`**, não alfabética — “Recentes” antes de “Todos” é\r\n  informação, não acaso.\r\n- **Passe `aria-label` com o nome do domínio** (“Trocar cliente”). O default genérico funciona,\r\n  mas quem ouve a tela merece o termo certo.\r\n- **Use `placeholder` quando a lista chega assíncrona**: sem ele, enquanto as opções não\r\n  carregam, o caminho mostra o `value` cru (um id), que lê como bug.\r\n- **Item único é TÍTULO, não caminho.** Com um item só e `size=\"sm\"`, ele sobe pra 16px/600 —\r\n  uma cadeia de um elemento é o nome da tela. É o comportamento que o `Header` sempre teve.\r\n- **O `href` do ÚLTIMO item é ignorado**: página atual não navega pra si. E o atual é um\r\n  `BreadcrumbPage`, que o shadcn expõe como `role=\"link\" aria-disabled aria-current=\"page\"` —\r\n  se você testar \"não é link\" por `getByRole(\"link\")`, vai achar que quebrou.\r\n- **Não empilhe com um link no mesmo item.** Se o item tem `switcher`, o clique abre a lista —\r\n  um `href` ali seria uma segunda intenção que nunca dispara.\r\n",
         "type": "registry:file",
         "target": "components/ui/Breadcrumb/USAGE.md"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · breadcrumb · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -442,7 +442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · button-group · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -488,7 +488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · button · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -513,7 +513,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · calendar · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -557,7 +557,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · card-checkbox · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -607,7 +607,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · card-option · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -629,7 +629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · card · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -655,7 +655,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · carousel · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -691,7 +691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · chart · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -716,7 +716,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · checkbox · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -765,7 +765,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · chip · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -818,7 +818,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · choropleth-map · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -840,7 +840,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · collapsible · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · color-picker · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -956,7 +956,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · combobox · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -983,7 +983,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · command · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1008,7 +1008,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · context-menu · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1085,7 +1085,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · data-list · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1770,7 +1770,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · data-table · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1808,7 +1808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · date-picker · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1833,7 +1833,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dialog · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1857,7 +1857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · drawer · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1882,7 +1882,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dropdown-menu · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1911,7 +1911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1940,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1971,7 +1971,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -2001,7 +2001,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -2054,7 +2054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · empty-state · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2095,7 +2095,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-app-shell · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2397,7 +2397,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-chat · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2493,7 +2493,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-clientes · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-dashboard · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2590,7 +2590,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-edit-page · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2726,7 +2726,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-finance · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2756,7 +2756,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-login · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2813,7 +2813,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-mapa-rede · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2894,7 +2894,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · example-order-detail · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2944,7 +2944,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · file-upload-field · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3012,7 +3012,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · floating-panel · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3054,7 +3054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · footer-table · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3140,7 +3140,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · form-field · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3172,7 +3172,7 @@ export const registry: Record<string, unknown> = {
       },
       {
         "path": "src/components/ui/Header/header-breadcrumb.tsx",
-        "content": "import { cn } from \"@/lib/utils\";\nimport { Breadcrumb } from \"@/components/ui/Breadcrumb\";\nimport type { HeaderBreadcrumbItem } from \"./header.types\";\n\nexport type HeaderBreadcrumbProps = {\n  items: HeaderBreadcrumbItem[];\n  /**\n   * Quando true, em mobile (< md) mostra apenas o último item (título da seção\n   * atual). Em desktop continua mostrando a cadeia completa.\n   */\n  mobileShowLastOnly?: boolean;\n  className?: string;\n};\n\n/**\n * Breadcrumb do Header — hoje é uma casca fina sobre o `<Breadcrumb>` de `ui/`.\n *\n * ## Por que isto encolheu\n *\n * Este arquivo tinha a própria montagem da cadeia E o próprio estilo (`breadcrumbRoot`,\n * `breadcrumbItem`, `breadcrumbSeparator` em `header.styles.ts`), o que fazia o DS ter DOIS\n * breadcrumbs com aparências diferentes: 13px aqui, 14px no primitivo. Quem compunha um\n * caminho fora do Header pegava o outro tamanho sem perceber.\n *\n * Agora a montagem é do componente e o Header só escolhe o tamanho (`size=\"sm\"`, que é\n * exatamente o que estava aqui: 13px na cadeia, 16px/600 quando há um item só) e o\n * comportamento mobile. Medido antes e depois da troca: gap 6px, cadeia 13px/400 com\n * `fg-muted` e o último em `fg-default`, item único 16px/600 — sem desvio.\n */\nexport function HeaderBreadcrumb({\n  items,\n  mobileShowLastOnly,\n  className,\n}: HeaderBreadcrumbProps) {\n  if (items.length === 0) return null;\n\n  const ultimo = items[items.length - 1];\n\n  return (\n    <>\n      {/* Desktop: cadeia completa */}\n      <Breadcrumb\n        items={items}\n        size=\"sm\"\n        className={cn(\"min-w-0\", mobileShowLastOnly && \"hidden md:block\", className)}\n      />\n\n      {/* Mobile: só o último item — que continua sendo seletor, se for o caso. É onde mais\n          importa: sem ele, trocar de registro no telefone significa voltar à lista. */}\n      {mobileShowLastOnly ? (\n        <Breadcrumb\n          items={[ultimo]}\n          size=\"sm\"\n          aria-label=\"Seção atual\"\n          className={cn(\"min-w-0 md:hidden\", className)}\n        />\n      ) : null}\n    </>\n  );\n}\n",
+        "content": "import { cn } from \"@/lib/utils\";\r\nimport { Breadcrumb } from \"@/components/ui/Breadcrumb\";\r\nimport type { HeaderBreadcrumbItem } from \"./header.types\";\r\n\r\nexport type HeaderBreadcrumbProps = {\r\n  items: HeaderBreadcrumbItem[];\r\n  /**\r\n   * Quando true, em mobile (< md) mostra apenas o último item (título da seção\r\n   * atual). Em desktop continua mostrando a cadeia completa.\r\n   */\r\n  mobileShowLastOnly?: boolean;\r\n  className?: string;\r\n};\r\n\r\n/**\r\n * Breadcrumb do Header — hoje é uma casca fina sobre o `<Breadcrumb>` de `ui/`.\r\n *\r\n * ## Por que isto encolheu\r\n *\r\n * Este arquivo tinha a própria montagem da cadeia E o próprio estilo (`breadcrumbRoot`,\r\n * `breadcrumbItem`, `breadcrumbSeparator` em `header.styles.ts`), o que fazia o DS ter DOIS\r\n * breadcrumbs com aparências diferentes: 13px aqui, 14px no primitivo. Quem compunha um\r\n * caminho fora do Header pegava o outro tamanho sem perceber.\r\n *\r\n * Agora a montagem é do componente e o Header só escolhe o tamanho (`size=\"sm\"`, que é\r\n * exatamente o que estava aqui: 13px na cadeia, 16px/600 quando há um item só) e o\r\n * comportamento mobile. Medido antes e depois da troca: gap 6px, cadeia 13px/400 com\r\n * `fg-muted` e o último em `fg-default`, item único 16px/600 — sem desvio.\r\n */\r\nexport function HeaderBreadcrumb({\r\n  items,\r\n  mobileShowLastOnly,\r\n  className,\r\n}: HeaderBreadcrumbProps) {\r\n  if (items.length === 0) return null;\r\n\r\n  const ultimo = items[items.length - 1];\r\n\r\n  return (\r\n    <>\r\n      {/* Desktop: cadeia completa */}\r\n      <Breadcrumb\r\n        items={items}\r\n        size=\"sm\"\r\n        className={cn(\"min-w-0\", mobileShowLastOnly && \"hidden md:block\", className)}\r\n      />\r\n\r\n      {/* Mobile: só o último item — que continua sendo seletor, se for o caso. É onde mais\r\n          importa: sem ele, trocar de registro no telefone significa voltar à lista. */}\r\n      {mobileShowLastOnly ? (\r\n        <Breadcrumb\r\n          items={[ultimo]}\r\n          size=\"sm\"\r\n          aria-label=\"Seção atual\"\r\n          className={cn(\"min-w-0 md:hidden\", className)}\r\n        />\r\n      ) : null}\r\n    </>\r\n  );\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/Header/header-breadcrumb.tsx"
       },
@@ -3232,7 +3232,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · header · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3256,7 +3256,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · hover-card · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3309,7 +3309,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · icon · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3333,7 +3333,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · input-group · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3358,7 +3358,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · input-otp · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3382,7 +3382,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · input · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3441,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · kanban · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3503,7 +3503,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · kpi · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3528,7 +3528,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · label · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3635,7 +3635,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · list · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3681,7 +3681,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · markdown-text · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3791,7 +3791,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · menu-sidebar · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3816,7 +3816,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · menubar · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3860,7 +3860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · modal · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3909,7 +3909,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · month-year-picker · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3935,7 +3935,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · navigation-menu · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3982,7 +3982,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · page-header · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4007,7 +4007,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · pagination · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4082,7 +4082,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · panel · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4106,7 +4106,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · popover · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4130,7 +4130,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · progress · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4154,7 +4154,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · radio-group · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4202,7 +4202,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · screen-loader · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4226,7 +4226,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · scroll-area · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4251,7 +4251,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · select · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4275,7 +4275,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · separator · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4301,7 +4301,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · sheet · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4414,7 +4414,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4436,7 +4436,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · skeleton · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4460,7 +4460,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · slider · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4483,7 +4483,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · sonner · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4529,7 +4529,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · spinner · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4553,7 +4553,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · switch · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4632,7 +4632,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · table · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4695,7 +4695,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · tabs-navigation · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4719,7 +4719,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · tabs · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4743,7 +4743,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · textarea · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4761,7 +4761,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · theme-blue · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4779,7 +4779,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · theme-green · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4797,7 +4797,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · theme-pay · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4815,7 +4815,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · theme-vibrant · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4837,7 +4837,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · theme · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4888,7 +4888,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · toast · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4914,7 +4914,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · toggle-group · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4939,7 +4939,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · toggle · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4963,7 +4963,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · tooltip · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4984,7 +4984,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · tv · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -5006,7 +5006,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.54.0 · 0ab2b9a · 2026-08-28"
+      "stamp": "igreen-ds · utils · v0.55.0 · 3ffb31b · 2026-08-28"
     },
     "type": "registry:file"
   }
