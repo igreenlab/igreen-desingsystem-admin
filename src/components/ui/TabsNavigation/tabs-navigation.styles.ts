@@ -57,9 +57,17 @@ export const tabsNavigationRoot = tv({
       true: "items-stretch",
       false: "items-end border-b border-border-default",
     },
-    /** Fundo recuado da tira — o par por modo explicado no cabeçalho deste arquivo. */
+    /**
+     * Fundo recuado da tira — o par por modo explicado no cabeçalho deste arquivo.
+     *
+     * No claro é `bg-emphasis` (0.94), não `bg-subtle` (0.973): contra a aba ativa branca, o
+     * delta de 0.027 do subtle quase não se lia. Com `emphasis` o recuo é 0.06 e a aba
+     * selecionada salta. No escuro `emphasis` é branco a 12% **sobre** o que está atrás, ou
+     * seja mais CLARO que a superfície (0.28 contra 0.225) — inverteria a hierarquia; ali quem
+     * recua continua sendo `canvas`, e o reforço vem da sombra na aba ativa.
+     */
     chrome: {
-      true: "bg-bg-subtle dark:bg-bg-canvas",
+      true: "bg-bg-emphasis dark:bg-bg-canvas",
       false: "",
     },
   },
@@ -111,7 +119,13 @@ export const tabsNavigationTab = tv({
       canvas: "",
     },
     ativa: {
-      true: "border-border-default",
+      /**
+       * `shadow-sh-sm` faz o trabalho que a cor não consegue no escuro: ali a ativa (0.225) e
+       * o recuo (0.205) distam 0.02, e mudar a cor da ativa quebraria a união com o conteúdo,
+       * que é o ponto do componente. A sombra separa sem mexer na cor — e no dark ela vem
+       * amplificada por token (L-011).
+       */
+      true: "border-border-default text-fg-strong shadow-sh-sm",
       false: "hover:bg-bg-subtle",
     },
   },

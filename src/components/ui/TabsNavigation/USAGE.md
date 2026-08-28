@@ -122,6 +122,10 @@ Peças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `co
   inteira. Se você passar `actions`, mantenha-as pequenas — a coluna abre por cima do título.
 - **`density="compact"` é escolha de conteúdo.** Sem subtítulo, duas conversas do mesmo cliente
   ficam idênticas.
+- **As setas de overflow somem, não desabilitam.** Cada uma só existe enquanto houver o que
+  rolar naquele sentido; com a fila inteira visível não aparece nenhuma, e a lista `⌄` também
+  some. Botão apagado ocupa espaço e ainda lê como "tem algo aqui" — desabilitar faz sentido
+  quando a ação volta a valer no mesmo lugar, e aqui o gatilho é a largura da tira.
 - **Teclado:** ←/→/Home/End movem seleção e foco juntos; só a aba ativa fica na ordem de
   tabulação. Não recrie isso por fora.
 - **jsdom não tem `ResizeObserver`** — o componente checa antes de instanciar, então ele não

@@ -46,10 +46,22 @@ const ehStatusConhecido = (s: unknown): s is TabsNavigationStatus =>
 
 /* ─────────────────────────── peças de composição ─────────────────────────── */
 
-/** Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm`. */
+/**
+ * Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm` — e pra o
+ * peso acompanhar a seleção: na aba ativa o título vai a `font-semibold` e herda o
+ * `text-fg-strong` da aba (branco puro no escuro, o tom mais escuro no claro). Nas inativas
+ * fica `font-medium` sobre `fg-muted`, que é o contraste de "aberta, mas não é esta".
+ */
 export function TabsNavigationTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <span className={["block truncate text-body-sm", className ?? ""].join(" ")} {...rest}>
+    <span
+      className={[
+        "block truncate text-body-sm font-medium",
+        "group-aria-selected/aba:font-semibold",
+        className ?? "",
+      ].join(" ")}
+      {...rest}
+    >
       {children}
     </span>
   );
@@ -420,14 +432,19 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
         })}
         {...rest}
       >
-        {rolagem.transborda ? (
+        {/* ⚠️ A seta SOME quando não há pra onde rolar — não fica desabilitada.
+            Botão apagado ainda ocupa espaço e ainda é um alvo que o olho lê como "existe algo
+            aqui"; com a fila inteira visível, ou já no começo dela, não existe. Desabilitado
+            faz sentido quando a ação volta a valer no mesmo lugar — aqui o gatilho é a largura
+            da tira, e a resposta honesta é sumir. Sai com a divisória junto, senão sobra uma
+            linha solta no canto. */}
+        {rolagem.esq ? (
           <div className={`${controles} pr-pad-xs`}>
             <Button
               variant="ghost"
               color="secondary"
               size="icon-sm"
               aria-label="Abas anteriores"
-              disabled={!rolagem.esq}
               onClick={() => rolar(-1)}
             >
               <ChevronLeft />
@@ -456,7 +473,7 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
           })}
         </div>
 
-        {rolagem.transborda ? (
+        {rolagem.dir ? (
           <div className={`${controles} pl-pad-xs`}>
             <span aria-hidden className={tabsNavigationDivisoria({ fill })} />
             <Button
@@ -464,7 +481,6 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
               color="secondary"
               size="icon-sm"
               aria-label="Próximas abas"
-              disabled={!rolagem.dir}
               onClick={() => rolar(1)}
             >
               <ChevronRight />

@@ -484,6 +484,24 @@ export function TabsNavigationDoc() {
             são Baseline.
           </li>
           <li>
+            <strong className="text-fg-default">A aba ativa se destaca sem quebrar a união.</strong>{" "}
+            Mudar a COR dela não era opção — ela precisa ser a superfície do conteúdo. Então o
+            contraste vem do outro lado: no claro a tira recua pra{" "}
+            <code className="text-code-sm">bg-emphasis</code> (0.94 contra a aba branca; o{" "}
+            <code className="text-code-sm">subtle</code> anterior dava só 0.027 de delta), e nos
+            dois modos a ativa ganha <code className="text-code-sm">shadow-sh-sm</code> — no
+            escuro, onde a distância de cor é 0.02, é a sombra que faz a leitura. O título ativo
+            usa <code className="text-code-sm">fg-strong</code>: branco puro no escuro, o tom
+            mais escuro no claro.
+          </li>
+          <li>
+            <strong className="text-fg-default">As setas somem, não desabilitam.</strong> Cada
+            uma existe só enquanto há o que rolar naquele sentido — no começo da fila só a
+            direita, no fim só a esquerda, e com tudo visível nenhuma. Botão apagado continua
+            ocupando espaço e ainda lê como “tem algo aqui”; desabilitar cabe quando a ação
+            volta a valer no mesmo lugar, e aqui o gatilho é a largura da tira.
+          </li>
+          <li>
             <strong className="text-fg-default">O “+” e a lista moram fora do trilho.</strong>{" "}
             Dentro, sumiam da tela justamente quando havia abas demais — que é quando servem.
           </li>
