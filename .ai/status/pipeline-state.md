@@ -4509,3 +4509,37 @@ de painéis, o certo passa a ser um modo não-controlado com `Panel` obrigatóri
 
 **Dívida:** nenhuma aberta. O CLI 0.25.26, que nunca chegou a ser publicado, foi coberto pela
 0.25.27.
+
+---
+
+### 2026-08-28 | ds-designer + ds-dev | `Breadcrumb` vira componente e absorve o seletor — v0.55.0 (PRs #293, #294) | CONCLUÍDO
+
+**Input:** *"criar variações no componente do breadcrumb onde o último elemento pode ser algo
+mudável… o GIT faz isso no repositório"* → *"fica muito estranho separado"* → *"promover pra UI
+mantendo o primitivo"*.
+
+**Output:** `ui/Breadcrumb` (caminho por `items` + `BreadcrumbSwitcher` + primitivos
+re-exportados) · lib **0.55.0** e CLI **0.25.28** publicados e conferidos por extração do
+tarball. Detalhe do que mudou: changelog da v0.55.0 — aqui ficam só as decisões.
+
+**As três decisões que a próxima pessoa precisa conhecer:**
+
+1. **Um nome, dois modos.** `items` monta a cadeia; sem `items`, renderiza `children` no
+   primitivo. Dois componentes fariam a escolha aparecer no catálogo, no menu e no
+   vocabulário — e "qual dos dois?" não tem resposta útil.
+2. **O primitivo fica em `shadcn/`, o composto em `ui/`, e o `ui/` re-exporta os dois.** Trazer
+   o primitivo pra `ui/` seria churn; injetar `items` NELE arrastaria cmdk e popover pra dentro
+   da camada que precisa continuar parecida com o upstream.
+3. **Os dois tamanhos viraram variante (`size`), não dívida.** O DS tinha dois breadcrumbs
+   (primitivo 14px, Header 13/16px). Unificar num valor mudaria o visual de 15 telas, e a
+   instrução era não mudar nada — então o `sm` reproduz o Header e é o que ele usa agora.
+
+**Assumption:** que os dois tamanhos são intenção de contexto (topo do app é mais discreto que
+uma página), não acidente histórico. Falsificável: se alguém pedir "por que o breadcrumb do
+Header é menor?", a resposta certa passa a ser unificar em 14px e aceitar o diff visual — e aí
+o `size` some em vez de virar API permanente.
+
+**Rastro do que foi medido** (browser, antes e depois da troca do `HeaderBreadcrumb`): gap 6px ·
+cadeia 13/400 com `fg-muted` e o último em `fg-default` · item único 16/600 — zero desvio.
+
+**Dívida:** nenhuma aberta.
