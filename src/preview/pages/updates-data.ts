@@ -46,6 +46,35 @@ export interface ReleaseEntry {
  */
 export const RELEASES: ReleaseEntry[] = [
   {
+    version: "0.54.0",
+    date: "2026-08-28",
+    tag: "preview",
+    title: "TabsNavigation — abas de navegador, com o conteúdo morando fora",
+    summary:
+      "Cada aba é uma **sessão aberta** — conversa, chamado, registro — que o usuário abre, troca e fecha, com identidade, status e ações próprias. O componente é a **tira**, não o roteador: é controlado e não hospeda conteúdo, então o painel pode estar em outra coluna, outra rota, outro componente.",
+    changes: [
+      {
+        type: "added",
+        items: [
+          "**`TabsNavigation`** — compound (`.Tab` · `.Title` · `.Subtitle` · `.Action` · `.Actions` · `.Panel`). O conteúdo mora onde você quiser: `panelId` na aba emite `aria-controls` pro container externo, e `<TabsNavigation.Panel>` faz o par `role=\"tabpanel\"` + `aria-labelledby` quando ele está dentro. Sem nenhum dos dois, o componente **não inventa** wiring.",
+          "**Composição em vez de configuração.** `leading`, `children`, `status`, `badge` e `actions` aceitam qualquer nó — e `actions` **substitui** as ações padrão, que é por onde entram ✓/✗ de aceitar/recusar um chamado, cinco botões, ou nenhum. Sem `actions` e sem `onClose`, a aba não tem ação.",
+          "**`density`** (48px com subtítulo · 40px sem) · **`fill`** (aba ocupa a faixa inteira) · **`actionsMode`** (`hover` · `persistent`) · **`hoverCard`** (resumo ao pousar o ponteiro, 500ms, que a aba ativa não mostra) · **`onNewTab`**.",
+          "**Overflow resolvido em três frentes:** setas que aparecem só quando há pra onde rolar, lista `⌄` de todas as abas (a seta resolve “a vizinha”, não “aquela ali”) e **arrastar pra rolar** no desktop. Teclado ARIA completo: ←/→/Home/End movem seleção e foco juntos, com roving tabindex.",
+          "**`@utility scrollbar-none`** no tema gerado (chega nos 4 canais). Existe porque a barra ocupa **11px DENTRO** do trilho e empurrava as abas pra cima da régua — a união da aba ativa com o conteúdo, que é o componente inteiro, sumia.",
+        ],
+      },
+      {
+        type: "fixed",
+        items: [
+          "A borda de baixo da aba ativa passou a ser **transparente**, não “da cor do conteúdo”: pintá-la de `bg-surface` só funcionava quando o conteúdo logo abaixo era exatamente aquela cor, e nos demais casos sobrava um traço claro. Agora é o fundo da aba que cobre a régua, igual em qualquer superfície.",
+          "**Selecionar o texto do `hoverCard` arrastava a fila de abas.** O `HoverCardContent` do DS não usa Portal, então o card é renderizado dentro do trilho (com `position: fixed`, por isso não é clipado) e o `pointerdown` dele borbulhava até o gesto de arrasto.",
+          "**Mobile media, não estimada:** em 375px a tira mostrava **0,4 aba** — os três controles comiam 204px dos 375. A aba caiu pra 168px e as setas somem no toque (lá a navegação é o swipe nativo + a lista), fechando em 1,2 aba visível.",
+          "Dois defeitos silenciosos achados no caminho: **`gap-gp-3xs` não existe** (a escala vai 2xs → xs) e vinha sendo usado em 5 lugares como gap zero, sem erro de build/tsc/teste — o gate de classe morta cobre cor, não spacing; e **`public/r/nav-tabs.json` ficou órfão** no rename do componente, porque o `shadcn build` gera um arquivo por item mas não apaga o do nome antigo (pego pelo gate `embed-content`).",
+        ],
+      },
+    ],
+  },
+  {
     version: "0.53.0",
     date: "2026-08-28",
     tag: "preview",

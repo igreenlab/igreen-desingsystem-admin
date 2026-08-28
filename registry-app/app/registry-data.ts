@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · accordion · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · alert-dialog · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · alert-modal · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · alert · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · app-shell · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · aspect-ratio · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -269,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · avatar-ig · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -293,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · avatar · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -315,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · badge · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -340,7 +340,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · breadcrumb · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -391,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · button-group · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -437,7 +437,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · button · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -462,7 +462,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · calendar · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -506,7 +506,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · card-checkbox · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -556,7 +556,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · card-option · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -578,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · card · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -604,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · carousel · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -640,7 +640,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · chart · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -665,7 +665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · checkbox · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -714,7 +714,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · chip · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -767,7 +767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · choropleth-map · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -789,7 +789,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · collapsible · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -854,7 +854,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · color-picker · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -905,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · combobox · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -932,7 +932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · command · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -957,7 +957,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · context-menu · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1034,7 +1034,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · data-list · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1719,7 +1719,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · data-table · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1757,7 +1757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · date-picker · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1782,7 +1782,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dialog · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1806,7 +1806,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · drawer · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1831,7 +1831,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dropdown-menu · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1860,7 +1860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1889,7 +1889,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1920,7 +1920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1950,7 +1950,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -2003,7 +2003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · empty-state · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2044,7 +2044,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-app-shell · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2346,7 +2346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-chat · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2442,7 +2442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-clientes · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2488,7 +2488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-dashboard · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2539,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-edit-page · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2675,7 +2675,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-finance · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2705,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-login · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2762,7 +2762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-mapa-rede · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2843,7 +2843,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · example-order-detail · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2893,7 +2893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · file-upload-field · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2961,7 +2961,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · floating-panel · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3003,7 +3003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · footer-table · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3089,7 +3089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · form-field · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3180,7 +3180,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · header · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3204,7 +3204,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · hover-card · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3257,7 +3257,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · icon · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3281,7 +3281,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · input-group · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3306,7 +3306,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · input-otp · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3330,7 +3330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · input · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3389,7 +3389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · kanban · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3451,7 +3451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · kpi · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3476,7 +3476,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · label · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3583,7 +3583,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · list · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3629,7 +3629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · markdown-text · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3739,7 +3739,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · menu-sidebar · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3764,7 +3764,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · menubar · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3808,7 +3808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · modal · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3857,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · month-year-picker · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3883,7 +3883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · navigation-menu · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3930,7 +3930,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · page-header · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3955,7 +3955,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · pagination · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4030,7 +4030,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · panel · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4054,7 +4054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · popover · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4078,7 +4078,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · progress · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4102,7 +4102,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · radio-group · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4150,7 +4150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · screen-loader · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4174,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · scroll-area · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4199,7 +4199,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · select · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4223,7 +4223,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · separator · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4249,7 +4249,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · sheet · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4362,7 +4362,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4384,7 +4384,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · skeleton · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4408,7 +4408,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · slider · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4431,7 +4431,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · sonner · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4477,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · spinner · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4501,7 +4501,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · switch · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4580,7 +4580,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · table · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4601,49 +4601,49 @@ export const registry: Record<string, unknown> = {
     "files": [
       {
         "path": "src/components/ui/TabsNavigation/index.ts",
-        "content": "export {\n  TabsNavigation,\n  TabsNavigationRoot,\n  TabsNavigationTab,\n  TabsNavigationTitle,\n  TabsNavigationSubtitle,\n  TabsNavigationAction,\n  TabsNavigationActions,\n  TabsNavigationPanel,\n} from \"./tabs-navigation\";\nexport { TabsNavigationContext, type TabsNavigationContexto } from \"./tabs-navigation-context\";\nexport {\n  tabsNavigationRoot,\n  tabsNavigationTrilho,\n  tabsNavigationTab,\n  tabsNavigationDivisoria,\n  tabsNavigationControles,\n  tabsNavigationAcao,\n  tabsNavigationAcoes,\n  tabsNavigationStatus,\n  type TabsNavigationVariantProps,\n} from \"./tabs-navigation.styles\";\nexport type {\n  TabsNavigationProps,\n  TabsNavigationTabProps,\n  TabsNavigationPanelProps,\n  TabsNavigationSurface,\n  TabsNavigationDensity,\n  TabsNavigationStatus,\n} from \"./tabs-navigation.types\";\n",
+        "content": "export {\r\n  TabsNavigation,\r\n  TabsNavigationRoot,\r\n  TabsNavigationTab,\r\n  TabsNavigationTitle,\r\n  TabsNavigationSubtitle,\r\n  TabsNavigationAction,\r\n  TabsNavigationActions,\r\n  TabsNavigationPanel,\r\n} from \"./tabs-navigation\";\r\nexport { TabsNavigationContext, type TabsNavigationContexto } from \"./tabs-navigation-context\";\r\nexport {\r\n  tabsNavigationRoot,\r\n  tabsNavigationTrilho,\r\n  tabsNavigationTab,\r\n  tabsNavigationDivisoria,\r\n  tabsNavigationControles,\r\n  tabsNavigationAcao,\r\n  tabsNavigationAcoes,\r\n  tabsNavigationStatus,\r\n  type TabsNavigationVariantProps,\r\n} from \"./tabs-navigation.styles\";\r\nexport type {\r\n  TabsNavigationProps,\r\n  TabsNavigationTabProps,\r\n  TabsNavigationPanelProps,\r\n  TabsNavigationSurface,\r\n  TabsNavigationDensity,\r\n  TabsNavigationStatus,\r\n} from \"./tabs-navigation.types\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/index.ts"
       },
       {
         "path": "src/components/ui/TabsNavigation/tabs-navigation-context.ts",
-        "content": "import { createContext } from \"react\";\nimport type { TabsNavigationDensity, TabsNavigationSurface } from \"./tabs-navigation.types\";\n\n/**\n * Contexto em arquivo próprio pelo mesmo motivo do `AvatarGroup`: `tabs-navigation.tsx` define a raiz\n * E a aba, e a aba precisa ler o que a raiz decidiu (`density`, `fill`, `surface`, qual está\n * ativa). Com o contexto dentro do mesmo módulo isso é trivial, mas quem quisesse importar só\n * a aba puxaria a raiz junto — e no copy-in o arquivo viaja inteiro.\n */\nexport interface TabsNavigationContexto {\n  value: string;\n  onValueChange: (value: string) => void;\n  surface: TabsNavigationSurface;\n  density: TabsNavigationDensity;\n  fill: boolean;\n  actionsMode: \"hover\" | \"persistent\";\n  /** Registrado pela raiz pra o `Panel` saber o `id` da aba que o rotula. */\n  idTab: (value: string) => string;\n}\n\nexport const TabsNavigationContext = createContext<TabsNavigationContexto | null>(null);\n",
+        "content": "import { createContext } from \"react\";\r\nimport type { TabsNavigationDensity, TabsNavigationSurface } from \"./tabs-navigation.types\";\r\n\r\n/**\r\n * Contexto em arquivo próprio pelo mesmo motivo do `AvatarGroup`: `tabs-navigation.tsx` define a raiz\r\n * E a aba, e a aba precisa ler o que a raiz decidiu (`density`, `fill`, `surface`, qual está\r\n * ativa). Com o contexto dentro do mesmo módulo isso é trivial, mas quem quisesse importar só\r\n * a aba puxaria a raiz junto — e no copy-in o arquivo viaja inteiro.\r\n */\r\nexport interface TabsNavigationContexto {\r\n  value: string;\r\n  onValueChange: (value: string) => void;\r\n  surface: TabsNavigationSurface;\r\n  density: TabsNavigationDensity;\r\n  fill: boolean;\r\n  actionsMode: \"hover\" | \"persistent\";\r\n  /** Registrado pela raiz pra o `Panel` saber o `id` da aba que o rotula. */\r\n  idTab: (value: string) => string;\r\n}\r\n\r\nexport const TabsNavigationContext = createContext<TabsNavigationContexto | null>(null);\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/tabs-navigation-context.ts"
       },
       {
         "path": "src/components/ui/TabsNavigation/tabs-navigation.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\n\n/**\n * TabsNavigation styles — iGreen DS\n *\n * Tira de abas de NAVEGAÇÃO (estilo navegador): cada aba é uma sessão aberta, não um filtro\n * de conteúdo dentro da tela. A diferença pro `Tabs` do shadcn não é estética — é que aqui a\n * aba ativa **se une fisicamente** ao conteúdo, e é esse detalhe que carrega o componente.\n *\n * ## Os dois mecanismos de união, e por que são dois\n *\n * - **`fill: false` (aba pousada).** A tira tem uma régua de 1px embaixo; a aba ativa desce\n *   1px (`-mb-px`) e pinta essa régua com a própria cor de fundo. Sem o truque ela vira um\n *   botão pousado sobre uma linha — que é exatamente o `Tabs` variante `line` que já existe.\n * - **`fill: true` (altura total).** A aba ocupa a faixa inteira e a tira **não tem régua**:\n *   a união vira continuidade de cor. O truque do `-mb-px` foi medido aqui e não serve — a\n *   aba parava 2px antes da régua (1px do `pb-px` do trilho + 1px da borda da faixa), e\n *   fresta é pior que linha nenhuma.\n *\n * ## A superfície é prop, não constante\n *\n * A aba ativa TEM que ser a mesma cor do conteúdo abaixo dela. Num card é `bg-surface`; se o\n * conteúdo for a página, é `bg-canvas`. Errar isso quebra a união, que é o componente inteiro.\n *\n * ## O fundo recuado usa DOIS tokens, um por modo — e isso é deliberado\n *\n * `bg-subtle` no claro, `bg-canvas` no escuro. Medido: no claro `canvas` é branco IGUAL a\n * `surface` (recuo zero) e quem recua é `subtle` (0.973); no escuro `subtle` é branco a 1%\n * sobre o card (invisível) e quem recua é `canvas` (0.205 contra 0.225). Cada modo tem o seu\n * token de recuo, e o par existente cobre o papel — não há token novo aqui.\n */\n\nexport const tabsNavigationRoot = tv({\n  base: \"flex gap-gp-2xs px-pad-lg\",\n\n  variants: {\n    /**\n     * O RESPIRO DO TOPO É DO COMPONENTE, não do consumidor — e isso é o que torna a peça\n     * independente da superfície onde ela cai.\n     *\n     * Enquanto o padding vinha de um wrapper por fora, aquela faixa de 8px acima das abas\n     * ficava com a cor do container (a superfície do card) enquanto a tira ficava com o\n     * recuo: duas cores na mesma banda, e a aba inativa parecia \"um botão de outra cor\n     * pousado num fundo diferente\". Trazendo o padding pra cá, o recuo cobre a banda inteira\n     * e a ÚNICA coisa com fundo próprio passa a ser a aba ativa.\n     */\n    respiro: {\n      comfortable: \"pt-pad-md\",\n      compact: \"pt-pad-sm\",\n      nenhum: \"\",\n    },\n    /**\n     * `items-stretch` é o que faz a aba de altura total valer: com `items-end` ela encolheria\n     * pro próprio conteúdo e o `h-full` não teria contra o que medir. A régua some junto.\n     */\n    fill: {\n      true: \"items-stretch\",\n      false: \"items-end border-b border-border-default\",\n    },\n    /**\n     * Fundo recuado da tira — o par por modo explicado no cabeçalho deste arquivo.\n     *\n     * No claro é `bg-emphasis` (0.94), não `bg-subtle` (0.973): contra a aba ativa branca, o\n     * delta de 0.027 do subtle quase não se lia. Com `emphasis` o recuo é 0.06 e a aba\n     * selecionada salta. No escuro `emphasis` é branco a 12% **sobre** o que está atrás, ou\n     * seja mais CLARO que a superfície (0.28 contra 0.225) — inverteria a hierarquia; ali quem\n     * recua continua sendo `canvas`, e o reforço vem da sombra na aba ativa.\n     */\n    chrome: {\n      true: \"bg-bg-emphasis dark:bg-bg-canvas\",\n      false: \"\",\n    },\n  },\n\n  defaultVariants: { fill: false, chrome: true, respiro: \"comfortable\" },\n});\n\nexport const tabsNavigationTrilho = tv({\n  /**\n   * `scrollbar-none` não é preferência: a barra ocupa 11px DENTRO do trilho e empurra as abas\n   * pra cima da régua, matando a união. A affordance de navegação são as setas + a lista.\n   */\n  base: \"flex min-w-0 flex-1 gap-gp-2xs overflow-x-auto scrollbar-none\",\n\n  variants: {\n    /** o `pb-px` só existe pra o `-mb-px` da aba não ser cortado pelo overflow. */\n    fill: {\n      true: \"items-stretch\",\n      false: \"items-end pb-px\",\n    },\n  },\n\n  defaultVariants: { fill: false },\n});\n\nexport const tabsNavigationTab = tv({\n  base: [\n    \"group/aba relative flex shrink-0 cursor-pointer select-none\",\n    \"items-center gap-gp-sm border border-transparent px-pad-xl\",\n    \"text-fg-muted transition-colors\",\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\n  ],\n\n  variants: {\n    /**\n     * A largura é fixa (aba que cresce com o título faz a fila dançar a cada troca) — mas\n     * fixa em DOIS degraus: no celular, 228px é quase a tela inteira e o usuário vê uma aba\n     * e meia, sem noção de que há uma fila. Abaixo de `sm` a aba cai pra ~168/148px, que\n     * mostra duas e meia e deixa o gesto de arrastar fazer sentido.\n     */\n    density: {\n      comfortable: \"w-[168px] sm:w-[228px]\",\n      compact: \"w-[148px] sm:w-[196px]\",\n    },\n    fill: {\n      true: \"h-full self-stretch\",\n      false: \"-mb-px rounded-t-radius-lg\",\n    },\n    /** A superfície da aba ATIVA — tem que casar com o conteúdo logo abaixo dela. */\n    surface: {\n      surface: \"\",\n      canvas: \"\",\n    },\n    ativa: {\n      /**\n       * `shadow-sh-sm` faz o trabalho que a cor não consegue no escuro: ali a ativa (0.225) e\n       * o recuo (0.205) distam 0.02, e mudar a cor da ativa quebraria a união com o conteúdo,\n       * que é o ponto do componente. A sombra separa sem mexer na cor — e no dark ela vem\n       * amplificada por token (L-011).\n       */\n      true: \"border-border-default text-fg-strong shadow-sh-sm\",\n      false: \"hover:bg-bg-subtle\",\n    },\n  },\n\n  compoundVariants: [\n    { fill: false, density: \"comfortable\", class: \"min-h-comp-3xl\" },\n    { fill: false, density: \"compact\", class: \"min-h-comp-xl\" },\n    /**\n     * ⚠️ A borda de baixo da aba ativa é **transparente**, não \"da cor do conteúdo\".\n     *\n     * A primeira versão pintava `border-b-bg-surface` pra apagar a régua. Funcionava só quando\n     * o conteúdo logo abaixo era exatamente aquela cor — nos exemplos em que a tira ficava\n     * sobre container transparente, ou separada do painel por um gap, sobrava um traço claro\n     * embaixo da aba selecionada. Com a borda transparente é o **fundo da aba** que cobre a\n     * régua (o background pinta sob a border-box, e o `-mb-px` a coloca por cima da linha):\n     * funciona igual em qualquer superfície, que é o comportamento que se espera por padrão —\n     * a aba emenda no conteúdo, sem linha entre os dois.\n     */\n    { ativa: true, surface: \"surface\", class: \"bg-bg-surface border-b-transparent\" },\n    { ativa: true, surface: \"canvas\", class: \"bg-bg-canvas border-b-transparent\" },\n  ],\n\n  defaultVariants: { density: \"comfortable\", fill: false, surface: \"surface\", ativa: false },\n});\n\n/**\n * Divisória curta entre abas — 20px, não altura cheia: altura cheia transformaria a tira num\n * toolbar segmentado, que é outra leitura. Centrar depende do modo, porque o eixo do flex\n * muda: `items-end` no pousado (daí a margem), `items-stretch` no cheio (daí `self-center`).\n */\nexport const tabsNavigationDivisoria = tv({\n  base: \"w-px shrink-0 bg-border-default\",\n\n  variants: {\n    fill: {\n      true: \"h-[20px] self-center\",\n      false: \"h-[20px] mb-[14px]\",\n    },\n    /** Ao lado da aba ativa some: encostada na borda dela vira uma sombra falsa. */\n    oculta: {\n      true: \"bg-transparent\",\n      false: \"\",\n    },\n  },\n\n  defaultVariants: { fill: false, oculta: false },\n});\n\n/**\n * A faixa dos controles (setas, `+`, lista, ações globais) tem a MESMA altura da aba e\n * centraliza — é isso que alinha a fileira. Medido: com 48px fixos ao lado de abas de 40px,\n * ou dentro de uma faixa de 56px no modo cheio, tudo descia 4px do eixo.\n */\nexport const tabsNavigationControles = tv({\n  base: \"flex shrink-0 items-center gap-gp-2xs\",\n\n  variants: {\n    fill: { true: \"h-full\", false: \"\" },\n    density: { comfortable: \"h-comp-3xl\", compact: \"h-comp-xl\" },\n  },\n\n  compoundVariants: [\n    { fill: true, density: \"comfortable\", class: \"h-full\" },\n    { fill: true, density: \"compact\", class: \"h-full\" },\n  ],\n\n  defaultVariants: { fill: false, density: \"comfortable\" },\n});\n\n/** Ação inline da aba (`⋯`, `×`, ✓/✗). 24px — o menor `icon-*` do Button é 32px e não cabe. */\nexport const tabsNavigationAcao = tv({\n  base: [\n    \"inline-flex size-comp-xs items-center justify-center rounded-radius-sm\",\n    \"transition-colors focus-visible:outline-none focus-visible:ring-4\",\n  ],\n\n  variants: {\n    tom: {\n      neutro: \"text-fg-muted hover:bg-bg-muted hover:text-fg-default focus-visible:ring-ring-brand\",\n      success: \"text-fg-success hover:bg-bg-success-muted focus-visible:ring-ring-success\",\n      danger: \"text-fg-danger hover:bg-bg-danger-muted focus-visible:ring-ring-danger\",\n    },\n  },\n\n  defaultVariants: { tom: \"neutro\" },\n});\n\n/**\n * A coluna de ações CRESCE de 0fr a 1fr em vez de ficar reservada com `opacity-0`.\n *\n * Com opacidade os botões ocupavam 48px invisíveis e o título truncava por causa de espaço\n * que ninguém usava (medido: um título que cabia em 149px vinha cortado). `0fr → 1fr` é\n * interpolável em qualquer engine — `interpolate-size`/`calc-size()` fariam isso direto, mas\n * ainda não são Baseline e o DS entrega pra navegador que não escolhemos.\n */\nexport const tabsNavigationAcoes = tv({\n  base: \"grid transition-[grid-template-columns,opacity] duration-150 ease-out\",\n\n  variants: {\n    visivel: {\n      true: \"grid-cols-[1fr] opacity-100\",\n      false:\n        \"grid-cols-[0fr] opacity-0 group-hover/aba:grid-cols-[1fr] group-hover/aba:opacity-100 group-focus-within/aba:grid-cols-[1fr] group-focus-within/aba:opacity-100\",\n    },\n  },\n\n  defaultVariants: { visivel: false },\n});\n\n/** O ponto de status. Ponto, não Chip: 5 abas abertas = 5 chips brigando com os títulos. */\nexport const tabsNavigationStatus = tv({\n  base: \"size-icon-2xs shrink-0\",\n\n  variants: {\n    status: {\n      success: \"fill-bg-success text-bg-success\",\n      warning: \"fill-bg-warning text-bg-warning\",\n      danger: \"fill-bg-danger text-bg-danger\",\n      info: \"fill-bg-info text-bg-info\",\n      neutral: \"fill-fg-subtle text-fg-subtle\",\n    },\n  },\n\n  defaultVariants: { status: \"neutral\" },\n});\n\nexport type TabsNavigationVariantProps = VariantProps<typeof tabsNavigationTab>;\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * TabsNavigation styles — iGreen DS\r\n *\r\n * Tira de abas de NAVEGAÇÃO (estilo navegador): cada aba é uma sessão aberta, não um filtro\r\n * de conteúdo dentro da tela. A diferença pro `Tabs` do shadcn não é estética — é que aqui a\r\n * aba ativa **se une fisicamente** ao conteúdo, e é esse detalhe que carrega o componente.\r\n *\r\n * ## Os dois mecanismos de união, e por que são dois\r\n *\r\n * - **`fill: false` (aba pousada).** A tira tem uma régua de 1px embaixo; a aba ativa desce\r\n *   1px (`-mb-px`) e pinta essa régua com a própria cor de fundo. Sem o truque ela vira um\r\n *   botão pousado sobre uma linha — que é exatamente o `Tabs` variante `line` que já existe.\r\n * - **`fill: true` (altura total).** A aba ocupa a faixa inteira e a tira **não tem régua**:\r\n *   a união vira continuidade de cor. O truque do `-mb-px` foi medido aqui e não serve — a\r\n *   aba parava 2px antes da régua (1px do `pb-px` do trilho + 1px da borda da faixa), e\r\n *   fresta é pior que linha nenhuma.\r\n *\r\n * ## A superfície é prop, não constante\r\n *\r\n * A aba ativa TEM que ser a mesma cor do conteúdo abaixo dela. Num card é `bg-surface`; se o\r\n * conteúdo for a página, é `bg-canvas`. Errar isso quebra a união, que é o componente inteiro.\r\n *\r\n * ## O fundo recuado usa DOIS tokens, um por modo — e isso é deliberado\r\n *\r\n * `bg-subtle` no claro, `bg-canvas` no escuro. Medido: no claro `canvas` é branco IGUAL a\r\n * `surface` (recuo zero) e quem recua é `subtle` (0.973); no escuro `subtle` é branco a 1%\r\n * sobre o card (invisível) e quem recua é `canvas` (0.205 contra 0.225). Cada modo tem o seu\r\n * token de recuo, e o par existente cobre o papel — não há token novo aqui.\r\n */\r\n\r\nexport const tabsNavigationRoot = tv({\r\n  base: \"flex gap-gp-2xs px-pad-lg\",\r\n\r\n  variants: {\r\n    /**\r\n     * O RESPIRO DO TOPO É DO COMPONENTE, não do consumidor — e isso é o que torna a peça\r\n     * independente da superfície onde ela cai.\r\n     *\r\n     * Enquanto o padding vinha de um wrapper por fora, aquela faixa de 8px acima das abas\r\n     * ficava com a cor do container (a superfície do card) enquanto a tira ficava com o\r\n     * recuo: duas cores na mesma banda, e a aba inativa parecia \"um botão de outra cor\r\n     * pousado num fundo diferente\". Trazendo o padding pra cá, o recuo cobre a banda inteira\r\n     * e a ÚNICA coisa com fundo próprio passa a ser a aba ativa.\r\n     */\r\n    respiro: {\r\n      comfortable: \"pt-pad-md\",\r\n      compact: \"pt-pad-sm\",\r\n      nenhum: \"\",\r\n    },\r\n    /**\r\n     * `items-stretch` é o que faz a aba de altura total valer: com `items-end` ela encolheria\r\n     * pro próprio conteúdo e o `h-full` não teria contra o que medir. A régua some junto.\r\n     */\r\n    fill: {\r\n      true: \"items-stretch\",\r\n      false: \"items-end border-b border-border-default\",\r\n    },\r\n    /**\r\n     * Fundo recuado da tira — o par por modo explicado no cabeçalho deste arquivo.\r\n     *\r\n     * No claro é `bg-emphasis` (0.94), não `bg-subtle` (0.973): contra a aba ativa branca, o\r\n     * delta de 0.027 do subtle quase não se lia. Com `emphasis` o recuo é 0.06 e a aba\r\n     * selecionada salta. No escuro `emphasis` é branco a 12% **sobre** o que está atrás, ou\r\n     * seja mais CLARO que a superfície (0.28 contra 0.225) — inverteria a hierarquia; ali quem\r\n     * recua continua sendo `canvas`, e o reforço vem da sombra na aba ativa.\r\n     */\r\n    chrome: {\r\n      true: \"bg-bg-emphasis dark:bg-bg-canvas\",\r\n      false: \"\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { fill: false, chrome: true, respiro: \"comfortable\" },\r\n});\r\n\r\nexport const tabsNavigationTrilho = tv({\r\n  /**\r\n   * `scrollbar-none` não é preferência: a barra ocupa 11px DENTRO do trilho e empurra as abas\r\n   * pra cima da régua, matando a união. A affordance de navegação são as setas + a lista.\r\n   */\r\n  base: \"flex min-w-0 flex-1 gap-gp-2xs overflow-x-auto scrollbar-none\",\r\n\r\n  variants: {\r\n    /** o `pb-px` só existe pra o `-mb-px` da aba não ser cortado pelo overflow. */\r\n    fill: {\r\n      true: \"items-stretch\",\r\n      false: \"items-end pb-px\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { fill: false },\r\n});\r\n\r\nexport const tabsNavigationTab = tv({\r\n  base: [\r\n    \"group/aba relative flex shrink-0 cursor-pointer select-none\",\r\n    \"items-center gap-gp-sm border border-transparent px-pad-xl\",\r\n    \"text-fg-muted transition-colors\",\r\n    \"focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand\",\r\n  ],\r\n\r\n  variants: {\r\n    /**\r\n     * A largura é fixa (aba que cresce com o título faz a fila dançar a cada troca) — mas\r\n     * fixa em DOIS degraus: no celular, 228px é quase a tela inteira e o usuário vê uma aba\r\n     * e meia, sem noção de que há uma fila. Abaixo de `sm` a aba cai pra ~168/148px, que\r\n     * mostra duas e meia e deixa o gesto de arrastar fazer sentido.\r\n     */\r\n    density: {\r\n      comfortable: \"w-[168px] sm:w-[228px]\",\r\n      compact: \"w-[148px] sm:w-[196px]\",\r\n    },\r\n    fill: {\r\n      true: \"h-full self-stretch\",\r\n      false: \"-mb-px rounded-t-radius-lg\",\r\n    },\r\n    /** A superfície da aba ATIVA — tem que casar com o conteúdo logo abaixo dela. */\r\n    surface: {\r\n      surface: \"\",\r\n      canvas: \"\",\r\n    },\r\n    ativa: {\r\n      /**\r\n       * `shadow-sh-sm` faz o trabalho que a cor não consegue no escuro: ali a ativa (0.225) e\r\n       * o recuo (0.205) distam 0.02, e mudar a cor da ativa quebraria a união com o conteúdo,\r\n       * que é o ponto do componente. A sombra separa sem mexer na cor — e no dark ela vem\r\n       * amplificada por token (L-011).\r\n       */\r\n      true: \"border-border-default text-fg-strong shadow-sh-sm\",\r\n      false: \"hover:bg-bg-subtle\",\r\n    },\r\n  },\r\n\r\n  compoundVariants: [\r\n    { fill: false, density: \"comfortable\", class: \"min-h-comp-3xl\" },\r\n    { fill: false, density: \"compact\", class: \"min-h-comp-xl\" },\r\n    /**\r\n     * ⚠️ A borda de baixo da aba ativa é **transparente**, não \"da cor do conteúdo\".\r\n     *\r\n     * A primeira versão pintava `border-b-bg-surface` pra apagar a régua. Funcionava só quando\r\n     * o conteúdo logo abaixo era exatamente aquela cor — nos exemplos em que a tira ficava\r\n     * sobre container transparente, ou separada do painel por um gap, sobrava um traço claro\r\n     * embaixo da aba selecionada. Com a borda transparente é o **fundo da aba** que cobre a\r\n     * régua (o background pinta sob a border-box, e o `-mb-px` a coloca por cima da linha):\r\n     * funciona igual em qualquer superfície, que é o comportamento que se espera por padrão —\r\n     * a aba emenda no conteúdo, sem linha entre os dois.\r\n     */\r\n    { ativa: true, surface: \"surface\", class: \"bg-bg-surface border-b-transparent\" },\r\n    { ativa: true, surface: \"canvas\", class: \"bg-bg-canvas border-b-transparent\" },\r\n  ],\r\n\r\n  defaultVariants: { density: \"comfortable\", fill: false, surface: \"surface\", ativa: false },\r\n});\r\n\r\n/**\r\n * Divisória curta entre abas — 20px, não altura cheia: altura cheia transformaria a tira num\r\n * toolbar segmentado, que é outra leitura. Centrar depende do modo, porque o eixo do flex\r\n * muda: `items-end` no pousado (daí a margem), `items-stretch` no cheio (daí `self-center`).\r\n */\r\nexport const tabsNavigationDivisoria = tv({\r\n  base: \"w-px shrink-0 bg-border-default\",\r\n\r\n  variants: {\r\n    fill: {\r\n      true: \"h-[20px] self-center\",\r\n      false: \"h-[20px] mb-[14px]\",\r\n    },\r\n    /** Ao lado da aba ativa some: encostada na borda dela vira uma sombra falsa. */\r\n    oculta: {\r\n      true: \"bg-transparent\",\r\n      false: \"\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { fill: false, oculta: false },\r\n});\r\n\r\n/**\r\n * A faixa dos controles (setas, `+`, lista, ações globais) tem a MESMA altura da aba e\r\n * centraliza — é isso que alinha a fileira. Medido: com 48px fixos ao lado de abas de 40px,\r\n * ou dentro de uma faixa de 56px no modo cheio, tudo descia 4px do eixo.\r\n */\r\nexport const tabsNavigationControles = tv({\r\n  base: \"flex shrink-0 items-center gap-gp-2xs\",\r\n\r\n  variants: {\r\n    fill: { true: \"h-full\", false: \"\" },\r\n    density: { comfortable: \"h-comp-3xl\", compact: \"h-comp-xl\" },\r\n  },\r\n\r\n  compoundVariants: [\r\n    { fill: true, density: \"comfortable\", class: \"h-full\" },\r\n    { fill: true, density: \"compact\", class: \"h-full\" },\r\n  ],\r\n\r\n  defaultVariants: { fill: false, density: \"comfortable\" },\r\n});\r\n\r\n/** Ação inline da aba (`⋯`, `×`, ✓/✗). 24px — o menor `icon-*` do Button é 32px e não cabe. */\r\nexport const tabsNavigationAcao = tv({\r\n  base: [\r\n    \"inline-flex size-comp-xs items-center justify-center rounded-radius-sm\",\r\n    \"transition-colors focus-visible:outline-none focus-visible:ring-4\",\r\n  ],\r\n\r\n  variants: {\r\n    tom: {\r\n      neutro: \"text-fg-muted hover:bg-bg-muted hover:text-fg-default focus-visible:ring-ring-brand\",\r\n      success: \"text-fg-success hover:bg-bg-success-muted focus-visible:ring-ring-success\",\r\n      danger: \"text-fg-danger hover:bg-bg-danger-muted focus-visible:ring-ring-danger\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { tom: \"neutro\" },\r\n});\r\n\r\n/**\r\n * A coluna de ações CRESCE de 0fr a 1fr em vez de ficar reservada com `opacity-0`.\r\n *\r\n * Com opacidade os botões ocupavam 48px invisíveis e o título truncava por causa de espaço\r\n * que ninguém usava (medido: um título que cabia em 149px vinha cortado). `0fr → 1fr` é\r\n * interpolável em qualquer engine — `interpolate-size`/`calc-size()` fariam isso direto, mas\r\n * ainda não são Baseline e o DS entrega pra navegador que não escolhemos.\r\n */\r\nexport const tabsNavigationAcoes = tv({\r\n  base: \"grid transition-[grid-template-columns,opacity] duration-150 ease-out\",\r\n\r\n  variants: {\r\n    visivel: {\r\n      true: \"grid-cols-[1fr] opacity-100\",\r\n      false:\r\n        \"grid-cols-[0fr] opacity-0 group-hover/aba:grid-cols-[1fr] group-hover/aba:opacity-100 group-focus-within/aba:grid-cols-[1fr] group-focus-within/aba:opacity-100\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { visivel: false },\r\n});\r\n\r\n/** O ponto de status. Ponto, não Chip: 5 abas abertas = 5 chips brigando com os títulos. */\r\nexport const tabsNavigationStatus = tv({\r\n  base: \"size-icon-2xs shrink-0\",\r\n\r\n  variants: {\r\n    status: {\r\n      success: \"fill-bg-success text-bg-success\",\r\n      warning: \"fill-bg-warning text-bg-warning\",\r\n      danger: \"fill-bg-danger text-bg-danger\",\r\n      info: \"fill-bg-info text-bg-info\",\r\n      neutral: \"fill-fg-subtle text-fg-subtle\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: { status: \"neutral\" },\r\n});\r\n\r\nexport type TabsNavigationVariantProps = VariantProps<typeof tabsNavigationTab>;\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/tabs-navigation.styles.ts"
       },
       {
         "path": "src/components/ui/TabsNavigation/tabs-navigation.tsx",
-        "content": "import {\n  Children,\n  forwardRef,\n  isValidElement,\n  useCallback,\n  useContext,\n  useEffect,\n  useId,\n  useMemo,\n  useRef,\n  useState,\n  type ReactElement,\n  type ReactNode,\n} from \"react\";\nimport { ChevronDown, ChevronLeft, ChevronRight, Circle, MoreHorizontal, Plus, X } from \"lucide-react\";\nimport { Button } from \"@/components/ui/Button\";\nimport {\n  DropdownMenu,\n  DropdownMenuContent,\n  DropdownMenuItem,\n  DropdownMenuLabel,\n  DropdownMenuSeparator,\n  DropdownMenuTrigger,\n} from \"@/components/shadcn/dropdown-menu\";\nimport {\n  HoverCard,\n  HoverCardContent,\n  HoverCardTrigger,\n} from \"@/components/shadcn/hover-card\";\nimport { TabsNavigationContext } from \"./tabs-navigation-context\";\nimport { useArrastarParaRolar } from \"./use-arrastar-para-rolar\";\nimport {\n  tabsNavigationTab,\n  tabsNavigationAcao,\n  tabsNavigationAcoes,\n  tabsNavigationStatus,\n  tabsNavigationControles,\n  tabsNavigationDivisoria,\n  tabsNavigationRoot,\n  tabsNavigationTrilho,\n} from \"./tabs-navigation.styles\";\nimport type {\n  TabsNavigationTabProps,\n  TabsNavigationPanelProps,\n  TabsNavigationProps,\n  TabsNavigationStatus,\n} from \"./tabs-navigation.types\";\n\nconst STATUS_CONHECIDOS: TabsNavigationStatus[] = [\"success\", \"warning\", \"danger\", \"info\", \"neutral\"];\nconst ehStatusConhecido = (s: unknown): s is TabsNavigationStatus =>\n  typeof s === \"string\" && (STATUS_CONHECIDOS as string[]).includes(s);\n\n/* ─────────────────────────── peças de composição ─────────────────────────── */\n\n/**\n * Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm` — e pra o\n * peso acompanhar a seleção: na aba ativa o título vai a `font-semibold` e herda o\n * `text-fg-strong` da aba (branco puro no escuro, o tom mais escuro no claro). Nas inativas\n * fica `font-medium` sobre `fg-muted`, que é o contraste de \"aberta, mas não é esta\".\n */\nexport function TabsNavigationTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\n  return (\n    <span\n      className={[\n        \"block truncate text-body-sm font-medium\",\n        \"group-aria-selected/aba:font-semibold\",\n        className ?? \"\",\n      ].join(\" \")}\n      {...rest}\n    >\n      {children}\n    </span>\n  );\n}\nTabsNavigationTitle.displayName = \"TabsNavigation.Title\";\n\n/** Subtítulo — some sozinho quando a tira é `density=\"compact\"`. */\nexport function TabsNavigationSubtitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\n  const ctx = useContext(TabsNavigationContext);\n  if (ctx?.density === \"compact\") return null;\n  return (\n    <span\n      className={[\"block truncate text-caption-md text-fg-subtle\", className ?? \"\"].join(\" \")}\n      {...rest}\n    >\n      {children}\n    </span>\n  );\n}\nTabsNavigationSubtitle.displayName = \"TabsNavigation.Subtitle\";\n\n/**\n * Ação inline da aba. 24px porque o menor `size=\"icon-*\"` do `Button` é 32px e não cabe numa\n * aba de 40px sem espremer o título — é o mesmo motivo de o `+` da tira usar `Button` e este\n * não. `stopPropagation` embutido: clique na ação não pode selecionar a aba.\n */\nexport const TabsNavigationAction = forwardRef<\n  HTMLButtonElement,\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { tom?: \"neutro\" | \"success\" | \"danger\" }\n>(function TabsNavigationAction({ tom = \"neutro\", className, onClick, ...rest }, ref) {\n  return (\n    <button\n      ref={ref}\n      type=\"button\"\n      className={tabsNavigationAcao({ tom, className })}\n      onClick={(e) => {\n        e.stopPropagation();\n        onClick?.(e);\n      }}\n      {...rest}\n    />\n  );\n});\nTabsNavigationAction.displayName = \"TabsNavigation.Action\";\n\n/** Ações GLOBAIS da tira (busca, preferências) — ficam à direita, depois de uma divisória. */\nexport function TabsNavigationActions({ children }: { children?: ReactNode }) {\n  return <>{children}</>;\n}\nTabsNavigationActions.displayName = \"TabsNavigation.Actions\";\n\n/**\n * Painel de conteúdo — opcional. Só faz sentido quando o conteúdo mora DENTRO da árvore do\n * componente; quando mora fora (outra coluna, outra rota), use `panelId` na aba.\n */\nexport function TabsNavigationPanel({ value, children, className, ...rest }: TabsNavigationPanelProps) {\n  const ctx = useContext(TabsNavigationContext);\n  if (!ctx || ctx.value !== value) return null;\n  return (\n    <div\n      role=\"tabpanel\"\n      aria-labelledby={ctx.idTab(value)}\n      tabIndex={0}\n      className={className}\n      {...rest}\n    >\n      {children}\n    </div>\n  );\n}\nTabsNavigationPanel.displayName = \"TabsNavigation.Panel\";\n\n/* ─────────────────────────────── a aba ─────────────────────────────── */\n\nexport const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabProps>(function TabsNavigationTab(\n  {\n    value,\n    leading,\n    status,\n    badge,\n    actions,\n    onClose,\n    menu,\n    panelId,\n    actionsAlwaysVisible = false,\n    hoverCard,\n    children,\n    className,\n    ...rest\n  },\n  ref,\n) {\n  const ctx = useContext(TabsNavigationContext);\n  if (!ctx) throw new Error(\"<TabsNavigation.Tab> só funciona dentro de <TabsNavigation>.\");\n\n  const ativa = ctx.value === value;\n  const temAcoesPadrao = !actions && typeof onClose === \"function\";\n  const conteudoAcoes = actions ?? (temAcoesPadrao ? <AcoesPadrao onClose={onClose!} menu={menu} /> : null);\n\n  const aba = (\n    <div\n      ref={ref}\n      role=\"tab\"\n      id={ctx.idTab(value)}\n      data-value={value}\n      aria-selected={ativa}\n      aria-controls={panelId}\n      /* Roving tabindex: só a aba ativa entra na ordem de tabulação; as vizinhas se alcançam\n         pelas setas, que é o padrão ARIA de tablist. Sem isso, 12 abas viram 12 paradas de Tab\n         antes do conteúdo. */\n      tabIndex={ativa ? 0 : -1}\n      onClick={() => ctx.onValueChange(value)}\n      onKeyDown={(e) => {\n        if (e.key === \"Enter\" || e.key === \" \") {\n          e.preventDefault();\n          ctx.onValueChange(value);\n        }\n      }}\n      className={tabsNavigationTab({\n        density: ctx.density,\n        fill: ctx.fill,\n        surface: ctx.surface,\n        ativa,\n        className,\n      })}\n      {...rest}\n    >\n      {leading}\n\n      <div className=\"min-w-0 flex-1\">\n        {status !== undefined ? (\n          <div className=\"flex items-center gap-gp-sm\">\n            {ehStatusConhecido(status) ? (\n              <Circle className={tabsNavigationStatus({ status })} aria-hidden />\n            ) : (\n              status\n            )}\n            <div className=\"min-w-0 flex-1\">{children}</div>\n          </div>\n        ) : (\n          children\n        )}\n      </div>\n\n      {/* Badge some na aba ativa: o usuário está lendo, o contador não tem o que contar. */}\n      {!ativa && badge !== undefined && badge !== null && badge !== 0 ? (\n        typeof badge === \"number\" ? (\n          <span\n            className=\"inline-flex min-w-[18px] items-center justify-center rounded-radius-full bg-bg-brand px-pad-xs text-caption-sm font-semibold text-fg-on-brand\"\n            aria-hidden\n          >\n            {badge}\n          </span>\n        ) : (\n          badge\n        )\n      ) : null}\n\n      {conteudoAcoes ? (\n        <div\n          className={tabsNavigationAcoes({\n            visivel: ativa || actionsAlwaysVisible || ctx.actionsMode === \"persistent\",\n          })}\n        >\n          <div className=\"flex min-w-0 items-center gap-gp-2xs overflow-hidden\">{conteudoAcoes}</div>\n        </div>\n      ) : null}\n    </div>\n  );\n\n  /**\n   * O resumo em hover é OPCIONAL e mora aqui dentro — não no consumidor envolvendo a aba.\n   *\n   * Envolver por fora quebraria a tira: a raiz separa os filhos por tipo pra saber quais são\n   * abas (e pra montar a lista de overflow e a navegação por seta). Com um `<HoverCard>` no\n   * lugar do `<Tab>`, ela veria um elemento sem `value` e a navegação por teclado pararia de\n   * achar a aba. Como prop, a composição continua livre — o conteúdo do card é seu — e a\n   * estrutura continua íntegra.\n   *\n   * ⚠️ Sem `openDelay`, o card abriria em qualquer roçada do ponteiro ao percorrer a fila: são\n   * abas lado a lado, o mouse passa por cima de todas pra chegar na última. 500ms é intenção.\n   *\n   * ⚠️ E a aba ATIVA não mostra resumo: o conteúdo dela está aberto na tela inteira logo\n   * abaixo. Um card cobrindo parte do que ele resume é ruído — e atrapalha justamente quem\n   * está lendo aquela conversa.\n   */\n  if (!hoverCard || ativa) return aba;\n\n  return (\n    <HoverCard openDelay={500} closeDelay={120}>\n      <HoverCardTrigger asChild>{aba}</HoverCardTrigger>\n      <HoverCardContent align=\"start\" className=\"w-[300px]\">\n        {hoverCard}\n      </HoverCardContent>\n    </HoverCard>\n  );\n});\nTabsNavigationTab.displayName = \"TabsNavigation.Tab\";\n\nfunction AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode }) {\n  return (\n    <>\n      <DropdownMenu>\n        <DropdownMenuTrigger asChild>\n          <TabsNavigationAction aria-label=\"Opções da aba\">\n            <MoreHorizontal className=\"size-icon-sm\" />\n          </TabsNavigationAction>\n        </DropdownMenuTrigger>\n        <DropdownMenuContent align=\"start\" className=\"w-[196px]\">\n          {menu}\n          {menu ? <DropdownMenuSeparator /> : null}\n          <DropdownMenuItem\n            onSelect={onClose}\n            className=\"text-fg-danger focus:bg-bg-danger-muted focus:text-fg-danger\"\n          >\n            <X className=\"size-icon-sm\" /> Fechar aba\n          </DropdownMenuItem>\n        </DropdownMenuContent>\n      </DropdownMenu>\n\n      <TabsNavigationAction aria-label=\"Fechar aba\" onClick={onClose}>\n        <X className=\"size-icon-sm\" />\n      </TabsNavigationAction>\n    </>\n  );\n}\n\n/* ──────────────────────────────── a tira ──────────────────────────────── */\n\n/**\n * `TabsNavigation` — tira de abas de navegação, no estilo das abas de um navegador.\n *\n * ## O conteúdo mora onde você quiser\n *\n * O componente é **sempre controlado** e não hospeda o conteúdo: ele diz qual aba está ativa\n * (`value` / `onValueChange`) e o consumidor troca o que quiser, onde quiser — outra coluna,\n * outra rota, outro componente. Pra fechar a acessibilidade com o painel fora, dê `panelId` à\n * aba (vira `aria-controls`); com o painel dentro, use `<TabsNavigation.Panel>`.\n *\n * ## Composição, não configuração\n *\n * `leading`, `children`, `status`, `badge` e `actions` aceitam qualquer nó. `actions`\n * **substitui** as ações padrão — é por ele que entram ✓/✗ de aceitar/recusar um chamado, ou\n * cinco botões, ou nenhum.\n *\n * @example\n * <TabsNavigation value={id} onValueChange={setId} aria-label=\"Conversas abertas\" onNewTab={abrir}>\n *   <TabsNavigation.Tab\n *     value=\"c1\"\n *     leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\n *     status=\"success\"\n *     badge={3}\n *     panelId=\"painel\"\n *     onClose={() => fechar(\"c1\")}\n *   >\n *     <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>\n *     <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>\n *   </TabsNavigation.Tab>\n * </TabsNavigation>\n */\nexport const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps>(function TabsNavigation(\n  {\n    value,\n    onValueChange,\n    surface = \"surface\",\n    density = \"comfortable\",\n    fill = false,\n    actionsMode = \"hover\",\n    chrome = true,\n    onNewTab,\n    children,\n    className,\n    \"aria-label\": ariaLabel,\n    ...rest\n  },\n  ref,\n) {\n  const prefixo = useId();\n  const trilho = useRef<HTMLDivElement>(null);\n\n  const ctx = useMemo(\n    () => ({\n      value,\n      onValueChange,\n      surface,\n      density,\n      fill,\n      actionsMode,\n      idTab: (v: string) => `${prefixo}-${v}`,\n    }),\n    [value, onValueChange, surface, density, fill, actionsMode, prefixo],\n  );\n\n  /** Separa as abas das ações globais: as duas coisas moram em lugares diferentes da tira. */\n  const { abas, acoesGlobais } = useMemo(() => {\n    const abas: ReactElement<TabsNavigationTabProps>[] = [];\n    let acoesGlobais: ReactNode = null;\n    for (const filho of Children.toArray(children)) {\n      if (!isValidElement(filho)) continue;\n      if (filho.type === TabsNavigationActions) acoesGlobais = filho;\n      else abas.push(filho as ReactElement<TabsNavigationTabProps>);\n    }\n    return { abas, acoesGlobais };\n  }, [children]);\n\n  /**\n   * Estado do overflow — três coisas, não uma: **se** transborda (mostra os controles) e se dá\n   * pra rolar pra cada lado (habilita cada seta). Seta que não faz nada é pior que ausente.\n   */\n  const [rolagem, setRolagem] = useState({ transborda: false, esq: false, dir: false });\n\n  const medir = useCallback(() => {\n    const el = trilho.current;\n    if (!el) return;\n    // 1px de tolerância: os valores são inteiros arredondados e empatam por fração fora do\n    // zoom 100% — sem isso a seta pisca em 110%.\n    const max = el.scrollWidth - el.clientWidth;\n    setRolagem({ transborda: max > 1, esq: el.scrollLeft > 1, dir: el.scrollLeft < max - 1 });\n  }, []);\n\n  /**\n   * `ResizeObserver` no trilho e nos filhos, não `window.resize`: a tira também transborda\n   * quando um painel ao lado abre ou a sidebar colapsa — nenhum desses dispara resize.\n   */\n  useEffect(() => {\n    const el = trilho.current;\n    if (!el) return;\n    medir();\n    // SSR / jsdom safe — mesmo guarda do `use-column-auto-width` do DataTable. Sem ele o\n    // componente derruba a suíte de quem consome (jsdom não implementa ResizeObserver), e a\n    // medição inicial + o `onScroll` já dão o comportamento básico.\n    if (typeof ResizeObserver === \"undefined\") return;\n    const ro = new ResizeObserver(medir);\n    ro.observe(el);\n    for (const filho of Array.from(el.children)) ro.observe(filho);\n    return () => ro.disconnect();\n  }, [medir, abas.length]);\n\n  /** Trocar de aba por fora (lista, teclado, aba nova) tem que trazer a aba pro campo de visão. */\n  useEffect(() => {\n    const el = trilho.current;\n    const alvo = el?.querySelector<HTMLElement>(`[data-value=\"${CSS.escape(value)}\"]`);\n    alvo?.scrollIntoView({ inline: \"nearest\", block: \"nearest\", behavior: \"smooth\" });\n\n    /**\n     * O foco acompanha a seleção — mas SÓ quando já estava na tira. Sem a condição, o\n     * componente roubaria o foco do usuário toda vez que o app trocasse de aba por conta\n     * própria (uma notificação abrindo a conversa, uma rota mudando). Sem o foco, o leitor de\n     * tela continua anunciando a aba antiga enquanto a tela mostra outra.\n     */\n    if (el?.contains(document.activeElement) && alvo !== document.activeElement) alvo?.focus();\n  }, [value]);\n\n  /** Segurar e arrastar rola a tira (mouse/pen). No touch o swipe nativo já faz melhor. */\n  useArrastarParaRolar(trilho);\n\n  const rolar = (dir: -1 | 1) => trilho.current?.scrollBy({ left: dir * 240, behavior: \"smooth\" });\n\n  /** Setas ←/→/Home/End: padrão ARIA de tablist, e o que faz o roving tabindex ter saída. */\n  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {\n    const valores = abas.map((a) => a.props.value);\n    const i = valores.indexOf(value);\n    if (i < 0) return;\n    const proximo =\n      e.key === \"ArrowRight\"\n        ? valores[(i + 1) % valores.length]\n        : e.key === \"ArrowLeft\"\n          ? valores[(i - 1 + valores.length) % valores.length]\n          : e.key === \"Home\"\n            ? valores[0]\n            : e.key === \"End\"\n              ? valores[valores.length - 1]\n              : null;\n    if (!proximo) return;\n    e.preventDefault();\n    onValueChange(proximo);\n    /* O foco vai junto — mas no efeito abaixo, não aqui: o componente é controlado, então na\n       hora deste handler a aba nova ainda nem existe como ativa. A primeira versão usava\n       `requestAnimationFrame`, e isso amarra o foco a haver FRAME: em ambiente que não compõe\n       (o painel de automação, um teste headless) a seleção mudava e o foco ficava pra trás. */\n  };\n\n  const controles = tabsNavigationControles({ fill, density });\n\n  return (\n    <TabsNavigationContext.Provider value={ctx}>\n      <div\n        ref={ref}\n        role=\"tablist\"\n        aria-label={ariaLabel}\n        aria-orientation=\"horizontal\"\n        onKeyDown={onKeyDown}\n        className={tabsNavigationRoot({\n          fill,\n          chrome,\n          // em `fill` a aba vai de ponta a ponta: respiro no topo desmontaria justamente isso\n          respiro: fill ? \"nenhum\" : density,\n          className,\n        })}\n        {...rest}\n      >\n        {/* ⚠️ No CELULAR as setas não aparecem (`hidden sm:flex`): medido em 375px, os três\n            controles comiam 204px dos 375 e sobrava menos de MEIA aba no trilho. No toque a\n            navegação é o swipe (nativo) e a lista `⌄`, que resolve \"aquela ali\" melhor que\n            uma seta de 36px. No desktop elas voltam.\n\n            ⚠️ A seta SOME quando não há pra onde rolar — não fica desabilitada.\n            Botão apagado ainda ocupa espaço e ainda é um alvo que o olho lê como \"existe algo\n            aqui\"; com a fila inteira visível, ou já no começo dela, não existe. Desabilitado\n            faz sentido quando a ação volta a valer no mesmo lugar — aqui o gatilho é a largura\n            da tira, e a resposta honesta é sumir. Sai com a divisória junto, senão sobra uma\n            linha solta no canto. */}\n        {rolagem.esq ? (\n          <div className={`${controles} hidden pr-pad-xs sm:flex`}>\n            <Button\n              variant=\"ghost\"\n              color=\"secondary\"\n              size=\"icon-sm\"\n              aria-label=\"Abas anteriores\"\n              onClick={() => rolar(-1)}\n            >\n              <ChevronLeft />\n            </Button>\n            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />\n          </div>\n        ) : null}\n\n        <div ref={trilho} onScroll={medir} className={tabsNavigationTrilho({ fill })}>\n          {abas.map((aba, i) => {\n            /* Divisória só entre DUAS inativas: ao lado da ativa ela encosta na borda e vira\n               uma sombra falsa. É o que o navegador faz. */\n            const vizinhaDaAtiva =\n              aba.props.value === value || abas[i + 1]?.props.value === value;\n            return (\n              <div\n                key={aba.props.value}\n                className={[\"flex shrink-0\", fill ? \"items-stretch\" : \"items-end\"].join(\" \")}\n              >\n                {aba}\n                {i < abas.length - 1 ? (\n                  <span aria-hidden className={tabsNavigationDivisoria({ fill, oculta: vizinhaDaAtiva })} />\n                ) : null}\n              </div>\n            );\n          })}\n        </div>\n\n        {rolagem.dir ? (\n          <div className={`${controles} hidden pl-pad-xs sm:flex`}>\n            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />\n            <Button\n              variant=\"ghost\"\n              color=\"secondary\"\n              size=\"icon-sm\"\n              aria-label=\"Próximas abas\"\n              onClick={() => rolar(1)}\n            >\n              <ChevronRight />\n            </Button>\n          </div>\n        ) : null}\n\n        {/* ⚠️ O `+` e a lista moram FORA do trilho de propósito: dentro, eles rolavam junto com\n            as abas e sumiam da tela justamente quando havia abas demais — que é quando servem. */}\n        {onNewTab || (rolagem.transborda && abas.length) || acoesGlobais ? (\n          <div className={controles}>\n            {onNewTab ? (\n              <Button\n                variant=\"ghost\"\n                color=\"secondary\"\n                size=\"icon-sm\"\n                aria-label=\"Abrir nova aba\"\n                onClick={onNewTab}\n              >\n                <Plus />\n              </Button>\n            ) : null}\n\n            {/* A seta resolve \"a vizinha\"; ela não resolve \"aquela ali\". Por isso a lista — e\n                só quando transborda: com 3 abas visíveis, um menu pra escolher entre 3 é ruído. */}\n            {rolagem.transborda && abas.length ? (\n              <DropdownMenu>\n                <DropdownMenuTrigger asChild>\n                  <Button\n                    variant=\"ghost\"\n                    color=\"secondary\"\n                    size=\"icon-sm\"\n                    aria-label={`Listar as ${abas.length} abas abertas`}\n                  >\n                    <ChevronDown />\n                  </Button>\n                </DropdownMenuTrigger>\n                <DropdownMenuContent\n                  align=\"end\"\n                  className=\"max-h-[320px] w-[264px] overflow-y-auto scrollbar-thin\"\n                >\n                  <DropdownMenuLabel>{abas.length} abas abertas</DropdownMenuLabel>\n                  <DropdownMenuSeparator />\n                  {abas.map((aba) => {\n                    const p = aba.props;\n                    return (\n                      <DropdownMenuItem\n                        key={p.value}\n                        onSelect={() => onValueChange(p.value)}\n                        className={p.value === value ? \"bg-bg-brand-subtle text-fg-brand\" : undefined}\n                      >\n                        {ehStatusConhecido(p.status) ? (\n                          <Circle className={tabsNavigationStatus({ status: p.status })} aria-hidden />\n                        ) : null}\n                        <span className=\"min-w-0 flex-1\">{p.children}</span>\n                      </DropdownMenuItem>\n                    );\n                  })}\n                </DropdownMenuContent>\n              </DropdownMenu>\n            ) : null}\n\n            {acoesGlobais ? (\n              <>\n                <span aria-hidden className={tabsNavigationDivisoria({ fill, className: \"mx-pad-xs\" })} />\n                <div className=\"flex items-center gap-gp-2xs\">{acoesGlobais}</div>\n              </>\n            ) : null}\n          </div>\n        ) : null}\n      </div>\n    </TabsNavigationContext.Provider>\n  );\n});\n\ntype TabsNavigationCompound = typeof TabsNavigationRoot & {\n  Tab: typeof TabsNavigationTab;\n  Title: typeof TabsNavigationTitle;\n  Subtitle: typeof TabsNavigationSubtitle;\n  Action: typeof TabsNavigationAction;\n  Actions: typeof TabsNavigationActions;\n  Panel: typeof TabsNavigationPanel;\n};\n\nexport const TabsNavigation = Object.assign(TabsNavigationRoot, {\n  Tab: TabsNavigationTab,\n  Title: TabsNavigationTitle,\n  Subtitle: TabsNavigationSubtitle,\n  Action: TabsNavigationAction,\n  Actions: TabsNavigationActions,\n  Panel: TabsNavigationPanel,\n}) as TabsNavigationCompound;\n",
+        "content": "import {\r\n  Children,\r\n  forwardRef,\r\n  isValidElement,\r\n  useCallback,\r\n  useContext,\r\n  useEffect,\r\n  useId,\r\n  useMemo,\r\n  useRef,\r\n  useState,\r\n  type ReactElement,\r\n  type ReactNode,\r\n} from \"react\";\r\nimport { ChevronDown, ChevronLeft, ChevronRight, Circle, MoreHorizontal, Plus, X } from \"lucide-react\";\r\nimport { Button } from \"@/components/ui/Button\";\r\nimport {\r\n  DropdownMenu,\r\n  DropdownMenuContent,\r\n  DropdownMenuItem,\r\n  DropdownMenuLabel,\r\n  DropdownMenuSeparator,\r\n  DropdownMenuTrigger,\r\n} from \"@/components/shadcn/dropdown-menu\";\r\nimport {\r\n  HoverCard,\r\n  HoverCardContent,\r\n  HoverCardTrigger,\r\n} from \"@/components/shadcn/hover-card\";\r\nimport { TabsNavigationContext } from \"./tabs-navigation-context\";\r\nimport { useArrastarParaRolar } from \"./use-arrastar-para-rolar\";\r\nimport {\r\n  tabsNavigationTab,\r\n  tabsNavigationAcao,\r\n  tabsNavigationAcoes,\r\n  tabsNavigationStatus,\r\n  tabsNavigationControles,\r\n  tabsNavigationDivisoria,\r\n  tabsNavigationRoot,\r\n  tabsNavigationTrilho,\r\n} from \"./tabs-navigation.styles\";\r\nimport type {\r\n  TabsNavigationTabProps,\r\n  TabsNavigationPanelProps,\r\n  TabsNavigationProps,\r\n  TabsNavigationStatus,\r\n} from \"./tabs-navigation.types\";\r\n\r\nconst STATUS_CONHECIDOS: TabsNavigationStatus[] = [\"success\", \"warning\", \"danger\", \"info\", \"neutral\"];\r\nconst ehStatusConhecido = (s: unknown): s is TabsNavigationStatus =>\r\n  typeof s === \"string\" && (STATUS_CONHECIDOS as string[]).includes(s);\r\n\r\n/* ─────────────────────────── peças de composição ─────────────────────────── */\r\n\r\n/**\r\n * Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm` — e pra o\r\n * peso acompanhar a seleção: na aba ativa o título vai a `font-semibold` e herda o\r\n * `text-fg-strong` da aba (branco puro no escuro, o tom mais escuro no claro). Nas inativas\r\n * fica `font-medium` sobre `fg-muted`, que é o contraste de \"aberta, mas não é esta\".\r\n */\r\nexport function TabsNavigationTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\r\n  return (\r\n    <span\r\n      className={[\r\n        \"block truncate text-body-sm font-medium\",\r\n        \"group-aria-selected/aba:font-semibold\",\r\n        className ?? \"\",\r\n      ].join(\" \")}\r\n      {...rest}\r\n    >\r\n      {children}\r\n    </span>\r\n  );\r\n}\r\nTabsNavigationTitle.displayName = \"TabsNavigation.Title\";\r\n\r\n/** Subtítulo — some sozinho quando a tira é `density=\"compact\"`. */\r\nexport function TabsNavigationSubtitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {\r\n  const ctx = useContext(TabsNavigationContext);\r\n  if (ctx?.density === \"compact\") return null;\r\n  return (\r\n    <span\r\n      className={[\"block truncate text-caption-md text-fg-subtle\", className ?? \"\"].join(\" \")}\r\n      {...rest}\r\n    >\r\n      {children}\r\n    </span>\r\n  );\r\n}\r\nTabsNavigationSubtitle.displayName = \"TabsNavigation.Subtitle\";\r\n\r\n/**\r\n * Ação inline da aba. 24px porque o menor `size=\"icon-*\"` do `Button` é 32px e não cabe numa\r\n * aba de 40px sem espremer o título — é o mesmo motivo de o `+` da tira usar `Button` e este\r\n * não. `stopPropagation` embutido: clique na ação não pode selecionar a aba.\r\n */\r\nexport const TabsNavigationAction = forwardRef<\r\n  HTMLButtonElement,\r\n  React.ButtonHTMLAttributes<HTMLButtonElement> & { tom?: \"neutro\" | \"success\" | \"danger\" }\r\n>(function TabsNavigationAction({ tom = \"neutro\", className, onClick, ...rest }, ref) {\r\n  return (\r\n    <button\r\n      ref={ref}\r\n      type=\"button\"\r\n      className={tabsNavigationAcao({ tom, className })}\r\n      onClick={(e) => {\r\n        e.stopPropagation();\r\n        onClick?.(e);\r\n      }}\r\n      {...rest}\r\n    />\r\n  );\r\n});\r\nTabsNavigationAction.displayName = \"TabsNavigation.Action\";\r\n\r\n/** Ações GLOBAIS da tira (busca, preferências) — ficam à direita, depois de uma divisória. */\r\nexport function TabsNavigationActions({ children }: { children?: ReactNode }) {\r\n  return <>{children}</>;\r\n}\r\nTabsNavigationActions.displayName = \"TabsNavigation.Actions\";\r\n\r\n/**\r\n * Painel de conteúdo — opcional. Só faz sentido quando o conteúdo mora DENTRO da árvore do\r\n * componente; quando mora fora (outra coluna, outra rota), use `panelId` na aba.\r\n */\r\nexport function TabsNavigationPanel({ value, children, className, ...rest }: TabsNavigationPanelProps) {\r\n  const ctx = useContext(TabsNavigationContext);\r\n  if (!ctx || ctx.value !== value) return null;\r\n  return (\r\n    <div\r\n      role=\"tabpanel\"\r\n      aria-labelledby={ctx.idTab(value)}\r\n      tabIndex={0}\r\n      className={className}\r\n      {...rest}\r\n    >\r\n      {children}\r\n    </div>\r\n  );\r\n}\r\nTabsNavigationPanel.displayName = \"TabsNavigation.Panel\";\r\n\r\n/* ─────────────────────────────── a aba ─────────────────────────────── */\r\n\r\nexport const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabProps>(function TabsNavigationTab(\r\n  {\r\n    value,\r\n    leading,\r\n    status,\r\n    badge,\r\n    actions,\r\n    onClose,\r\n    menu,\r\n    panelId,\r\n    actionsAlwaysVisible = false,\r\n    hoverCard,\r\n    children,\r\n    className,\r\n    ...rest\r\n  },\r\n  ref,\r\n) {\r\n  const ctx = useContext(TabsNavigationContext);\r\n  if (!ctx) throw new Error(\"<TabsNavigation.Tab> só funciona dentro de <TabsNavigation>.\");\r\n\r\n  const ativa = ctx.value === value;\r\n  const temAcoesPadrao = !actions && typeof onClose === \"function\";\r\n  const conteudoAcoes = actions ?? (temAcoesPadrao ? <AcoesPadrao onClose={onClose!} menu={menu} /> : null);\r\n\r\n  const aba = (\r\n    <div\r\n      ref={ref}\r\n      role=\"tab\"\r\n      id={ctx.idTab(value)}\r\n      data-value={value}\r\n      aria-selected={ativa}\r\n      aria-controls={panelId}\r\n      /* Roving tabindex: só a aba ativa entra na ordem de tabulação; as vizinhas se alcançam\r\n         pelas setas, que é o padrão ARIA de tablist. Sem isso, 12 abas viram 12 paradas de Tab\r\n         antes do conteúdo. */\r\n      tabIndex={ativa ? 0 : -1}\r\n      onClick={() => ctx.onValueChange(value)}\r\n      onKeyDown={(e) => {\r\n        if (e.key === \"Enter\" || e.key === \" \") {\r\n          e.preventDefault();\r\n          ctx.onValueChange(value);\r\n        }\r\n      }}\r\n      className={tabsNavigationTab({\r\n        density: ctx.density,\r\n        fill: ctx.fill,\r\n        surface: ctx.surface,\r\n        ativa,\r\n        className,\r\n      })}\r\n      {...rest}\r\n    >\r\n      {leading}\r\n\r\n      <div className=\"min-w-0 flex-1\">\r\n        {status !== undefined ? (\r\n          <div className=\"flex items-center gap-gp-sm\">\r\n            {ehStatusConhecido(status) ? (\r\n              <Circle className={tabsNavigationStatus({ status })} aria-hidden />\r\n            ) : (\r\n              status\r\n            )}\r\n            <div className=\"min-w-0 flex-1\">{children}</div>\r\n          </div>\r\n        ) : (\r\n          children\r\n        )}\r\n      </div>\r\n\r\n      {/* Badge some na aba ativa: o usuário está lendo, o contador não tem o que contar. */}\r\n      {!ativa && badge !== undefined && badge !== null && badge !== 0 ? (\r\n        typeof badge === \"number\" ? (\r\n          <span\r\n            className=\"inline-flex min-w-[18px] items-center justify-center rounded-radius-full bg-bg-brand px-pad-xs text-caption-sm font-semibold text-fg-on-brand\"\r\n            aria-hidden\r\n          >\r\n            {badge}\r\n          </span>\r\n        ) : (\r\n          badge\r\n        )\r\n      ) : null}\r\n\r\n      {conteudoAcoes ? (\r\n        <div\r\n          className={tabsNavigationAcoes({\r\n            visivel: ativa || actionsAlwaysVisible || ctx.actionsMode === \"persistent\",\r\n          })}\r\n        >\r\n          <div className=\"flex min-w-0 items-center gap-gp-2xs overflow-hidden\">{conteudoAcoes}</div>\r\n        </div>\r\n      ) : null}\r\n    </div>\r\n  );\r\n\r\n  /**\r\n   * O resumo em hover é OPCIONAL e mora aqui dentro — não no consumidor envolvendo a aba.\r\n   *\r\n   * Envolver por fora quebraria a tira: a raiz separa os filhos por tipo pra saber quais são\r\n   * abas (e pra montar a lista de overflow e a navegação por seta). Com um `<HoverCard>` no\r\n   * lugar do `<Tab>`, ela veria um elemento sem `value` e a navegação por teclado pararia de\r\n   * achar a aba. Como prop, a composição continua livre — o conteúdo do card é seu — e a\r\n   * estrutura continua íntegra.\r\n   *\r\n   * ⚠️ Sem `openDelay`, o card abriria em qualquer roçada do ponteiro ao percorrer a fila: são\r\n   * abas lado a lado, o mouse passa por cima de todas pra chegar na última. 500ms é intenção.\r\n   *\r\n   * ⚠️ E a aba ATIVA não mostra resumo: o conteúdo dela está aberto na tela inteira logo\r\n   * abaixo. Um card cobrindo parte do que ele resume é ruído — e atrapalha justamente quem\r\n   * está lendo aquela conversa.\r\n   */\r\n  if (!hoverCard || ativa) return aba;\r\n\r\n  return (\r\n    <HoverCard openDelay={500} closeDelay={120}>\r\n      <HoverCardTrigger asChild>{aba}</HoverCardTrigger>\r\n      <HoverCardContent align=\"start\" className=\"w-[300px]\">\r\n        {hoverCard}\r\n      </HoverCardContent>\r\n    </HoverCard>\r\n  );\r\n});\r\nTabsNavigationTab.displayName = \"TabsNavigation.Tab\";\r\n\r\nfunction AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode }) {\r\n  return (\r\n    <>\r\n      <DropdownMenu>\r\n        <DropdownMenuTrigger asChild>\r\n          <TabsNavigationAction aria-label=\"Opções da aba\">\r\n            <MoreHorizontal className=\"size-icon-sm\" />\r\n          </TabsNavigationAction>\r\n        </DropdownMenuTrigger>\r\n        <DropdownMenuContent align=\"start\" className=\"w-[196px]\">\r\n          {menu}\r\n          {menu ? <DropdownMenuSeparator /> : null}\r\n          <DropdownMenuItem\r\n            onSelect={onClose}\r\n            className=\"text-fg-danger focus:bg-bg-danger-muted focus:text-fg-danger\"\r\n          >\r\n            <X className=\"size-icon-sm\" /> Fechar aba\r\n          </DropdownMenuItem>\r\n        </DropdownMenuContent>\r\n      </DropdownMenu>\r\n\r\n      <TabsNavigationAction aria-label=\"Fechar aba\" onClick={onClose}>\r\n        <X className=\"size-icon-sm\" />\r\n      </TabsNavigationAction>\r\n    </>\r\n  );\r\n}\r\n\r\n/* ──────────────────────────────── a tira ──────────────────────────────── */\r\n\r\n/**\r\n * `TabsNavigation` — tira de abas de navegação, no estilo das abas de um navegador.\r\n *\r\n * ## O conteúdo mora onde você quiser\r\n *\r\n * O componente é **sempre controlado** e não hospeda o conteúdo: ele diz qual aba está ativa\r\n * (`value` / `onValueChange`) e o consumidor troca o que quiser, onde quiser — outra coluna,\r\n * outra rota, outro componente. Pra fechar a acessibilidade com o painel fora, dê `panelId` à\r\n * aba (vira `aria-controls`); com o painel dentro, use `<TabsNavigation.Panel>`.\r\n *\r\n * ## Composição, não configuração\r\n *\r\n * `leading`, `children`, `status`, `badge` e `actions` aceitam qualquer nó. `actions`\r\n * **substitui** as ações padrão — é por ele que entram ✓/✗ de aceitar/recusar um chamado, ou\r\n * cinco botões, ou nenhum.\r\n *\r\n * @example\r\n * <TabsNavigation value={id} onValueChange={setId} aria-label=\"Conversas abertas\" onNewTab={abrir}>\r\n *   <TabsNavigation.Tab\r\n *     value=\"c1\"\r\n *     leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\r\n *     status=\"success\"\r\n *     badge={3}\r\n *     panelId=\"painel\"\r\n *     onClose={() => fechar(\"c1\")}\r\n *   >\r\n *     <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>\r\n *     <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>\r\n *   </TabsNavigation.Tab>\r\n * </TabsNavigation>\r\n */\r\nexport const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps>(function TabsNavigation(\r\n  {\r\n    value,\r\n    onValueChange,\r\n    surface = \"surface\",\r\n    density = \"comfortable\",\r\n    fill = false,\r\n    actionsMode = \"hover\",\r\n    chrome = true,\r\n    onNewTab,\r\n    children,\r\n    className,\r\n    \"aria-label\": ariaLabel,\r\n    ...rest\r\n  },\r\n  ref,\r\n) {\r\n  const prefixo = useId();\r\n  const trilho = useRef<HTMLDivElement>(null);\r\n\r\n  const ctx = useMemo(\r\n    () => ({\r\n      value,\r\n      onValueChange,\r\n      surface,\r\n      density,\r\n      fill,\r\n      actionsMode,\r\n      idTab: (v: string) => `${prefixo}-${v}`,\r\n    }),\r\n    [value, onValueChange, surface, density, fill, actionsMode, prefixo],\r\n  );\r\n\r\n  /** Separa as abas das ações globais: as duas coisas moram em lugares diferentes da tira. */\r\n  const { abas, acoesGlobais } = useMemo(() => {\r\n    const abas: ReactElement<TabsNavigationTabProps>[] = [];\r\n    let acoesGlobais: ReactNode = null;\r\n    for (const filho of Children.toArray(children)) {\r\n      if (!isValidElement(filho)) continue;\r\n      if (filho.type === TabsNavigationActions) acoesGlobais = filho;\r\n      else abas.push(filho as ReactElement<TabsNavigationTabProps>);\r\n    }\r\n    return { abas, acoesGlobais };\r\n  }, [children]);\r\n\r\n  /**\r\n   * Estado do overflow — três coisas, não uma: **se** transborda (mostra os controles) e se dá\r\n   * pra rolar pra cada lado (habilita cada seta). Seta que não faz nada é pior que ausente.\r\n   */\r\n  const [rolagem, setRolagem] = useState({ transborda: false, esq: false, dir: false });\r\n\r\n  const medir = useCallback(() => {\r\n    const el = trilho.current;\r\n    if (!el) return;\r\n    // 1px de tolerância: os valores são inteiros arredondados e empatam por fração fora do\r\n    // zoom 100% — sem isso a seta pisca em 110%.\r\n    const max = el.scrollWidth - el.clientWidth;\r\n    setRolagem({ transborda: max > 1, esq: el.scrollLeft > 1, dir: el.scrollLeft < max - 1 });\r\n  }, []);\r\n\r\n  /**\r\n   * `ResizeObserver` no trilho e nos filhos, não `window.resize`: a tira também transborda\r\n   * quando um painel ao lado abre ou a sidebar colapsa — nenhum desses dispara resize.\r\n   */\r\n  useEffect(() => {\r\n    const el = trilho.current;\r\n    if (!el) return;\r\n    medir();\r\n    // SSR / jsdom safe — mesmo guarda do `use-column-auto-width` do DataTable. Sem ele o\r\n    // componente derruba a suíte de quem consome (jsdom não implementa ResizeObserver), e a\r\n    // medição inicial + o `onScroll` já dão o comportamento básico.\r\n    if (typeof ResizeObserver === \"undefined\") return;\r\n    const ro = new ResizeObserver(medir);\r\n    ro.observe(el);\r\n    for (const filho of Array.from(el.children)) ro.observe(filho);\r\n    return () => ro.disconnect();\r\n  }, [medir, abas.length]);\r\n\r\n  /** Trocar de aba por fora (lista, teclado, aba nova) tem que trazer a aba pro campo de visão. */\r\n  useEffect(() => {\r\n    const el = trilho.current;\r\n    const alvo = el?.querySelector<HTMLElement>(`[data-value=\"${CSS.escape(value)}\"]`);\r\n    alvo?.scrollIntoView({ inline: \"nearest\", block: \"nearest\", behavior: \"smooth\" });\r\n\r\n    /**\r\n     * O foco acompanha a seleção — mas SÓ quando já estava na tira. Sem a condição, o\r\n     * componente roubaria o foco do usuário toda vez que o app trocasse de aba por conta\r\n     * própria (uma notificação abrindo a conversa, uma rota mudando). Sem o foco, o leitor de\r\n     * tela continua anunciando a aba antiga enquanto a tela mostra outra.\r\n     */\r\n    if (el?.contains(document.activeElement) && alvo !== document.activeElement) alvo?.focus();\r\n  }, [value]);\r\n\r\n  /** Segurar e arrastar rola a tira (mouse/pen). No touch o swipe nativo já faz melhor. */\r\n  useArrastarParaRolar(trilho);\r\n\r\n  const rolar = (dir: -1 | 1) => trilho.current?.scrollBy({ left: dir * 240, behavior: \"smooth\" });\r\n\r\n  /** Setas ←/→/Home/End: padrão ARIA de tablist, e o que faz o roving tabindex ter saída. */\r\n  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {\r\n    const valores = abas.map((a) => a.props.value);\r\n    const i = valores.indexOf(value);\r\n    if (i < 0) return;\r\n    const proximo =\r\n      e.key === \"ArrowRight\"\r\n        ? valores[(i + 1) % valores.length]\r\n        : e.key === \"ArrowLeft\"\r\n          ? valores[(i - 1 + valores.length) % valores.length]\r\n          : e.key === \"Home\"\r\n            ? valores[0]\r\n            : e.key === \"End\"\r\n              ? valores[valores.length - 1]\r\n              : null;\r\n    if (!proximo) return;\r\n    e.preventDefault();\r\n    onValueChange(proximo);\r\n    /* O foco vai junto — mas no efeito abaixo, não aqui: o componente é controlado, então na\r\n       hora deste handler a aba nova ainda nem existe como ativa. A primeira versão usava\r\n       `requestAnimationFrame`, e isso amarra o foco a haver FRAME: em ambiente que não compõe\r\n       (o painel de automação, um teste headless) a seleção mudava e o foco ficava pra trás. */\r\n  };\r\n\r\n  const controles = tabsNavigationControles({ fill, density });\r\n\r\n  return (\r\n    <TabsNavigationContext.Provider value={ctx}>\r\n      <div\r\n        ref={ref}\r\n        role=\"tablist\"\r\n        aria-label={ariaLabel}\r\n        aria-orientation=\"horizontal\"\r\n        onKeyDown={onKeyDown}\r\n        className={tabsNavigationRoot({\r\n          fill,\r\n          chrome,\r\n          // em `fill` a aba vai de ponta a ponta: respiro no topo desmontaria justamente isso\r\n          respiro: fill ? \"nenhum\" : density,\r\n          className,\r\n        })}\r\n        {...rest}\r\n      >\r\n        {/* ⚠️ No CELULAR as setas não aparecem (`hidden sm:flex`): medido em 375px, os três\r\n            controles comiam 204px dos 375 e sobrava menos de MEIA aba no trilho. No toque a\r\n            navegação é o swipe (nativo) e a lista `⌄`, que resolve \"aquela ali\" melhor que\r\n            uma seta de 36px. No desktop elas voltam.\r\n\r\n            ⚠️ A seta SOME quando não há pra onde rolar — não fica desabilitada.\r\n            Botão apagado ainda ocupa espaço e ainda é um alvo que o olho lê como \"existe algo\r\n            aqui\"; com a fila inteira visível, ou já no começo dela, não existe. Desabilitado\r\n            faz sentido quando a ação volta a valer no mesmo lugar — aqui o gatilho é a largura\r\n            da tira, e a resposta honesta é sumir. Sai com a divisória junto, senão sobra uma\r\n            linha solta no canto. */}\r\n        {rolagem.esq ? (\r\n          <div className={`${controles} hidden pr-pad-xs sm:flex`}>\r\n            <Button\r\n              variant=\"ghost\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              aria-label=\"Abas anteriores\"\r\n              onClick={() => rolar(-1)}\r\n            >\r\n              <ChevronLeft />\r\n            </Button>\r\n            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />\r\n          </div>\r\n        ) : null}\r\n\r\n        <div ref={trilho} onScroll={medir} className={tabsNavigationTrilho({ fill })}>\r\n          {abas.map((aba, i) => {\r\n            /* Divisória só entre DUAS inativas: ao lado da ativa ela encosta na borda e vira\r\n               uma sombra falsa. É o que o navegador faz. */\r\n            const vizinhaDaAtiva =\r\n              aba.props.value === value || abas[i + 1]?.props.value === value;\r\n            return (\r\n              <div\r\n                key={aba.props.value}\r\n                className={[\"flex shrink-0\", fill ? \"items-stretch\" : \"items-end\"].join(\" \")}\r\n              >\r\n                {aba}\r\n                {i < abas.length - 1 ? (\r\n                  <span aria-hidden className={tabsNavigationDivisoria({ fill, oculta: vizinhaDaAtiva })} />\r\n                ) : null}\r\n              </div>\r\n            );\r\n          })}\r\n        </div>\r\n\r\n        {rolagem.dir ? (\r\n          <div className={`${controles} hidden pl-pad-xs sm:flex`}>\r\n            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />\r\n            <Button\r\n              variant=\"ghost\"\r\n              color=\"secondary\"\r\n              size=\"icon-sm\"\r\n              aria-label=\"Próximas abas\"\r\n              onClick={() => rolar(1)}\r\n            >\r\n              <ChevronRight />\r\n            </Button>\r\n          </div>\r\n        ) : null}\r\n\r\n        {/* ⚠️ O `+` e a lista moram FORA do trilho de propósito: dentro, eles rolavam junto com\r\n            as abas e sumiam da tela justamente quando havia abas demais — que é quando servem. */}\r\n        {onNewTab || (rolagem.transborda && abas.length) || acoesGlobais ? (\r\n          <div className={controles}>\r\n            {onNewTab ? (\r\n              <Button\r\n                variant=\"ghost\"\r\n                color=\"secondary\"\r\n                size=\"icon-sm\"\r\n                aria-label=\"Abrir nova aba\"\r\n                onClick={onNewTab}\r\n              >\r\n                <Plus />\r\n              </Button>\r\n            ) : null}\r\n\r\n            {/* A seta resolve \"a vizinha\"; ela não resolve \"aquela ali\". Por isso a lista — e\r\n                só quando transborda: com 3 abas visíveis, um menu pra escolher entre 3 é ruído. */}\r\n            {rolagem.transborda && abas.length ? (\r\n              <DropdownMenu>\r\n                <DropdownMenuTrigger asChild>\r\n                  <Button\r\n                    variant=\"ghost\"\r\n                    color=\"secondary\"\r\n                    size=\"icon-sm\"\r\n                    aria-label={`Listar as ${abas.length} abas abertas`}\r\n                  >\r\n                    <ChevronDown />\r\n                  </Button>\r\n                </DropdownMenuTrigger>\r\n                <DropdownMenuContent\r\n                  align=\"end\"\r\n                  className=\"max-h-[320px] w-[264px] overflow-y-auto scrollbar-thin\"\r\n                >\r\n                  <DropdownMenuLabel>{abas.length} abas abertas</DropdownMenuLabel>\r\n                  <DropdownMenuSeparator />\r\n                  {abas.map((aba) => {\r\n                    const p = aba.props;\r\n                    return (\r\n                      <DropdownMenuItem\r\n                        key={p.value}\r\n                        onSelect={() => onValueChange(p.value)}\r\n                        className={p.value === value ? \"bg-bg-brand-subtle text-fg-brand\" : undefined}\r\n                      >\r\n                        {ehStatusConhecido(p.status) ? (\r\n                          <Circle className={tabsNavigationStatus({ status: p.status })} aria-hidden />\r\n                        ) : null}\r\n                        <span className=\"min-w-0 flex-1\">{p.children}</span>\r\n                      </DropdownMenuItem>\r\n                    );\r\n                  })}\r\n                </DropdownMenuContent>\r\n              </DropdownMenu>\r\n            ) : null}\r\n\r\n            {acoesGlobais ? (\r\n              <>\r\n                <span aria-hidden className={tabsNavigationDivisoria({ fill, className: \"mx-pad-xs\" })} />\r\n                <div className=\"flex items-center gap-gp-2xs\">{acoesGlobais}</div>\r\n              </>\r\n            ) : null}\r\n          </div>\r\n        ) : null}\r\n      </div>\r\n    </TabsNavigationContext.Provider>\r\n  );\r\n});\r\n\r\ntype TabsNavigationCompound = typeof TabsNavigationRoot & {\r\n  Tab: typeof TabsNavigationTab;\r\n  Title: typeof TabsNavigationTitle;\r\n  Subtitle: typeof TabsNavigationSubtitle;\r\n  Action: typeof TabsNavigationAction;\r\n  Actions: typeof TabsNavigationActions;\r\n  Panel: typeof TabsNavigationPanel;\r\n};\r\n\r\nexport const TabsNavigation = Object.assign(TabsNavigationRoot, {\r\n  Tab: TabsNavigationTab,\r\n  Title: TabsNavigationTitle,\r\n  Subtitle: TabsNavigationSubtitle,\r\n  Action: TabsNavigationAction,\r\n  Actions: TabsNavigationActions,\r\n  Panel: TabsNavigationPanel,\r\n}) as TabsNavigationCompound;\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/tabs-navigation.tsx"
       },
       {
         "path": "src/components/ui/TabsNavigation/tabs-navigation.types.ts",
-        "content": "import type { ReactNode } from \"react\";\n\n/** Superfície do CONTEÚDO abaixo da tira — a aba ativa precisa ser a mesma cor pra unir. */\nexport type TabsNavigationSurface = \"surface\" | \"canvas\";\n\n/** `comfortable` = título + subtítulo (48px) · `compact` = só título (40px). */\nexport type TabsNavigationDensity = \"comfortable\" | \"compact\";\n\n/** Tom do ponto de status. Passe um `ReactNode` em `status` pra desenhar o seu. */\nexport type TabsNavigationStatus = \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\";\n\nexport interface TabsNavigationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\n  /** `value` da aba ativa. O componente é SEMPRE controlado — ver `TabsNavigationProps.onValueChange`. */\n  value: string;\n\n  /**\n   * Chamado quando o usuário escolhe outra aba (clique, teclado ou lista de overflow).\n   *\n   * O componente **não hospeda o conteúdo**: ele diz qual aba está ativa e o consumidor\n   * decide o que trocar. É o que permite o painel morar fora — outra coluna, outra rota,\n   * outro componente. Pra fechar a acessibilidade nesse caso, passe `panelId` na aba.\n   */\n  onValueChange: (value: string) => void;\n\n  /**\n   * Superfície do conteúdo logo abaixo da tira. A aba ativa é pintada com ela — é o que a\n   * une ao conteúdo. Num card `surface`; se o conteúdo for a própria página, `canvas`.\n   * @default \"surface\"\n   */\n  surface?: TabsNavigationSurface;\n\n  /**\n   * `compact` remove o subtítulo e baixa a aba pra 40px. É escolha de CONTEÚDO, não de\n   * densidade: sem subtítulo, duas conversas do mesmo cliente ficam idênticas.\n   * @default \"comfortable\"\n   */\n  density?: TabsNavigationDensity;\n\n  /**\n   * `true` = a aba ocupa a faixa inteira (lê como segmento, não como aba de navegador) e a\n   * tira perde a régua — a união passa a ser por continuidade de cor.\n   * @default false\n   */\n  fill?: boolean;\n\n  /**\n   * `persistent` mantém as ações da aba sempre visíveis. Use quando a ação exige decisão\n   * (aceitar/recusar um chamado): revelar no hover esconde justamente o que precisa ser visto.\n   * @default \"hover\"\n   */\n  actionsMode?: \"hover\" | \"persistent\";\n\n  /**\n   * Pinta o fundo recuado da tira (`bg-subtle` no claro, `bg-canvas` no escuro — cada modo tem\n   * o seu token de recuo). Desligue quando o container já pinta o fundo.\n   * @default true\n   */\n  chrome?: boolean;\n\n  /** Com isto, o `+` aparece — fora do trilho, pra não sair de alcance quando as abas rolam. */\n  onNewTab?: () => void;\n\n  /** Rótulo do conjunto pro leitor de tela, ex.: `\"Conversas abertas\"`. */\n  \"aria-label\"?: string;\n\n  /** `<TabsNavigation.Tab>`s e, opcionalmente, um `<TabsNavigation.Actions>`. */\n  children?: ReactNode;\n}\n\nexport interface TabsNavigationTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onSelect\"> {\n  /** Identidade da aba — é o que volta em `onValueChange`. */\n  value: string;\n\n  /** Qualquer nó à esquerda: `Avatar`, `Icon`, imagem, sigla. */\n  leading?: ReactNode;\n\n  /** Ponto de status pronto, ou o seu próprio nó. */\n  status?: TabsNavigationStatus | ReactNode;\n\n  /** Contador (número) ou qualquer nó. Some quando a aba está ativa — o usuário já está lendo. */\n  badge?: number | ReactNode;\n\n  /**\n   * SUBSTITUI as ações padrão. Passe quantas quiser (`<TabsNavigation.Action>` ou qualquer botão) —\n   * é aqui que entram ✓/✗ de aceitar/recusar, \"fixar\", \"duplicar\".\n   */\n  actions?: ReactNode;\n\n  /** Sem `actions`, declarar `onClose` liga as ações padrão (`⋯` de opções + `×` de fechar). */\n  onClose?: () => void;\n\n  /** Itens extras do menu `⋯` das ações padrão. Ignorado quando `actions` é passado. */\n  menu?: ReactNode;\n\n  /**\n   * `id` do elemento que esta aba controla, quando o conteúdo mora FORA do componente.\n   * Emite `aria-controls`. Dentro, prefira `<TabsNavigation.Panel value=\"…\">`.\n   */\n  panelId?: string;\n\n  /** Mantém as ações visíveis só nesta aba (o `pendente` do caso de chamados). */\n  actionsAlwaysVisible?: boolean;\n\n  /**\n   * Resumo mostrado ao pousar o ponteiro (500ms) — foto maior, contato, últimas informações.\n   * Qualquer nó; o conteúdo é seu.\n   *\n   * Existe como prop, e não envolvendo a aba num `HoverCard` por fora, porque a raiz separa os\n   * filhos por tipo pra montar a lista de overflow e a navegação por seta: um wrapper no lugar\n   * do `Tab` a faria perder a aba. ⚠️ Não é o lugar de ação nem de informação essencial —\n   * hover não existe no toque.\n   */\n  hoverCard?: ReactNode;\n\n  /** `<TabsNavigation.Title>` + `<TabsNavigation.Subtitle>`, ou a composição que você quiser. */\n  children?: ReactNode;\n}\n\nexport interface TabsNavigationPanelProps extends React.HTMLAttributes<HTMLDivElement> {\n  /** Casa com o `value` da aba. Renderiza apenas quando ela está ativa. */\n  value: string;\n  children?: ReactNode;\n}\n",
+        "content": "import type { ReactNode } from \"react\";\r\n\r\n/** Superfície do CONTEÚDO abaixo da tira — a aba ativa precisa ser a mesma cor pra unir. */\r\nexport type TabsNavigationSurface = \"surface\" | \"canvas\";\r\n\r\n/** `comfortable` = título + subtítulo (48px) · `compact` = só título (40px). */\r\nexport type TabsNavigationDensity = \"comfortable\" | \"compact\";\r\n\r\n/** Tom do ponto de status. Passe um `ReactNode` em `status` pra desenhar o seu. */\r\nexport type TabsNavigationStatus = \"success\" | \"warning\" | \"danger\" | \"info\" | \"neutral\";\r\n\r\nexport interface TabsNavigationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onChange\"> {\r\n  /** `value` da aba ativa. O componente é SEMPRE controlado — ver `TabsNavigationProps.onValueChange`. */\r\n  value: string;\r\n\r\n  /**\r\n   * Chamado quando o usuário escolhe outra aba (clique, teclado ou lista de overflow).\r\n   *\r\n   * O componente **não hospeda o conteúdo**: ele diz qual aba está ativa e o consumidor\r\n   * decide o que trocar. É o que permite o painel morar fora — outra coluna, outra rota,\r\n   * outro componente. Pra fechar a acessibilidade nesse caso, passe `panelId` na aba.\r\n   */\r\n  onValueChange: (value: string) => void;\r\n\r\n  /**\r\n   * Superfície do conteúdo logo abaixo da tira. A aba ativa é pintada com ela — é o que a\r\n   * une ao conteúdo. Num card `surface`; se o conteúdo for a própria página, `canvas`.\r\n   * @default \"surface\"\r\n   */\r\n  surface?: TabsNavigationSurface;\r\n\r\n  /**\r\n   * `compact` remove o subtítulo e baixa a aba pra 40px. É escolha de CONTEÚDO, não de\r\n   * densidade: sem subtítulo, duas conversas do mesmo cliente ficam idênticas.\r\n   * @default \"comfortable\"\r\n   */\r\n  density?: TabsNavigationDensity;\r\n\r\n  /**\r\n   * `true` = a aba ocupa a faixa inteira (lê como segmento, não como aba de navegador) e a\r\n   * tira perde a régua — a união passa a ser por continuidade de cor.\r\n   * @default false\r\n   */\r\n  fill?: boolean;\r\n\r\n  /**\r\n   * `persistent` mantém as ações da aba sempre visíveis. Use quando a ação exige decisão\r\n   * (aceitar/recusar um chamado): revelar no hover esconde justamente o que precisa ser visto.\r\n   * @default \"hover\"\r\n   */\r\n  actionsMode?: \"hover\" | \"persistent\";\r\n\r\n  /**\r\n   * Pinta o fundo recuado da tira (`bg-subtle` no claro, `bg-canvas` no escuro — cada modo tem\r\n   * o seu token de recuo). Desligue quando o container já pinta o fundo.\r\n   * @default true\r\n   */\r\n  chrome?: boolean;\r\n\r\n  /** Com isto, o `+` aparece — fora do trilho, pra não sair de alcance quando as abas rolam. */\r\n  onNewTab?: () => void;\r\n\r\n  /** Rótulo do conjunto pro leitor de tela, ex.: `\"Conversas abertas\"`. */\r\n  \"aria-label\"?: string;\r\n\r\n  /** `<TabsNavigation.Tab>`s e, opcionalmente, um `<TabsNavigation.Actions>`. */\r\n  children?: ReactNode;\r\n}\r\n\r\nexport interface TabsNavigationTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, \"onSelect\"> {\r\n  /** Identidade da aba — é o que volta em `onValueChange`. */\r\n  value: string;\r\n\r\n  /** Qualquer nó à esquerda: `Avatar`, `Icon`, imagem, sigla. */\r\n  leading?: ReactNode;\r\n\r\n  /** Ponto de status pronto, ou o seu próprio nó. */\r\n  status?: TabsNavigationStatus | ReactNode;\r\n\r\n  /** Contador (número) ou qualquer nó. Some quando a aba está ativa — o usuário já está lendo. */\r\n  badge?: number | ReactNode;\r\n\r\n  /**\r\n   * SUBSTITUI as ações padrão. Passe quantas quiser (`<TabsNavigation.Action>` ou qualquer botão) —\r\n   * é aqui que entram ✓/✗ de aceitar/recusar, \"fixar\", \"duplicar\".\r\n   */\r\n  actions?: ReactNode;\r\n\r\n  /** Sem `actions`, declarar `onClose` liga as ações padrão (`⋯` de opções + `×` de fechar). */\r\n  onClose?: () => void;\r\n\r\n  /** Itens extras do menu `⋯` das ações padrão. Ignorado quando `actions` é passado. */\r\n  menu?: ReactNode;\r\n\r\n  /**\r\n   * `id` do elemento que esta aba controla, quando o conteúdo mora FORA do componente.\r\n   * Emite `aria-controls`. Dentro, prefira `<TabsNavigation.Panel value=\"…\">`.\r\n   */\r\n  panelId?: string;\r\n\r\n  /** Mantém as ações visíveis só nesta aba (o `pendente` do caso de chamados). */\r\n  actionsAlwaysVisible?: boolean;\r\n\r\n  /**\r\n   * Resumo mostrado ao pousar o ponteiro (500ms) — foto maior, contato, últimas informações.\r\n   * Qualquer nó; o conteúdo é seu.\r\n   *\r\n   * Existe como prop, e não envolvendo a aba num `HoverCard` por fora, porque a raiz separa os\r\n   * filhos por tipo pra montar a lista de overflow e a navegação por seta: um wrapper no lugar\r\n   * do `Tab` a faria perder a aba. ⚠️ Não é o lugar de ação nem de informação essencial —\r\n   * hover não existe no toque.\r\n   */\r\n  hoverCard?: ReactNode;\r\n\r\n  /** `<TabsNavigation.Title>` + `<TabsNavigation.Subtitle>`, ou a composição que você quiser. */\r\n  children?: ReactNode;\r\n}\r\n\r\nexport interface TabsNavigationPanelProps extends React.HTMLAttributes<HTMLDivElement> {\r\n  /** Casa com o `value` da aba. Renderiza apenas quando ela está ativa. */\r\n  value: string;\r\n  children?: ReactNode;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/tabs-navigation.types.ts"
       },
       {
         "path": "src/components/ui/TabsNavigation/USAGE.md",
-        "content": "# TabsNavigation\n\n<!-- ds:regras\n- aba de NAVEGADOR (sessão que abre/fecha: conversa, chamado, registro) → `<TabsNavigation>`; filtro de conteúdo dentro da tela → `tabs` do shadcn\n- `<TabsNavigation>` é SEMPRE controlado (`value` + `onValueChange`) e NÃO hospeda conteúdo — o painel pode morar fora, e aí a aba leva `panelId`\n- `surface` = a superfície do conteúdo ABAIXO da tira (`surface` num card, `canvas` na página). Errar quebra a união da aba ativa, que é o componente\n- `actions` na aba SUBSTITUI o `⋯`+`×` — é por ele que entram ✓/✗ de aceitar/recusar; sem `actions` e sem `onClose` a aba não tem ação\n-->\n\nTira de abas de **navegação**, estilo navegador: cada aba é uma **sessão aberta** — com\nidentidade, status e ações próprias — que o usuário abre, troca e fecha.\n\n## Quando usar\n\n| Situação | Componente |\n|---|---|\n| Conversas, chamados, registros abertos ao mesmo tempo; o usuário abre e fecha | **`TabsNavigation`** |\n| Alternar seções DENTRO de uma tela (Detalhes / Anexos / Histórico) | `tabs` (shadcn) |\n| Alternar visão de uma mesma lista (Tabela / Kanban) | `toggle-group` ou o `viewMode` do DataTable |\n\nOs dois convivem: uma aba de conversa pode conter um `Tabs` de Mensagens/Notas dentro.\n\n## Import\n\n```tsx\nimport { TabsNavigation } from \"@/components/ui/TabsNavigation\";\n```\n\n## Exemplo mínimo\n\n```tsx\nconst [ativa, setAtiva] = useState(\"c1\");\n\n<TabsNavigation value={ativa} onValueChange={setAtiva} aria-label=\"Conversas abertas\" onNewTab={abrir}>\n  <TabsNavigation.Tab\n    value=\"c1\"\n    leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\n    status=\"success\"\n    badge={3}\n    onClose={() => fechar(\"c1\")}\n  >\n    <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>\n    <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>\n  </TabsNavigation.Tab>\n</TabsNavigation>\n```\n\n## O conteúdo mora onde você quiser\n\nO componente é a **tira**, não o roteador: ele diz qual aba está ativa e você troca o que\nquiser, onde quiser.\n\n```tsx\n{/* tira aqui… */}\n<TabsNavigation value={id} onValueChange={setId}>\n  <TabsNavigation.Tab value=\"c1\" panelId=\"painel-detalhe\">…</TabsNavigation.Tab>\n</TabsNavigation>\n\n{/* …e o conteúdo em outra coluna, outra rota, outro componente */}\n<section id=\"painel-detalhe\">{conteudoDe(id)}</section>\n```\n\n- **Painel FORA** → `panelId` na aba (emite `aria-controls`).\n- **Painel DENTRO** → `<TabsNavigation.Panel value=\"c1\">`, que faz o par `role=\"tabpanel\"` +\n  `aria-labelledby` e renderiza só a ativa.\n- Sem nenhum dos dois o componente **não inventa** wiring — fica só `role=\"tab\"` +\n  `aria-selected`, que é honesto.\n\n## Props — `TabsNavigation`\n\n| Prop | Tipo | Default | Descrição |\n|---|---|---|---|\n| `value` / `onValueChange` | `string` / `(v) => void` | — | sempre controlado |\n| `surface` | `surface \\| canvas` | `surface` | superfície do **conteúdo abaixo** — a aba ativa é pintada com ela |\n| `density` | `comfortable \\| compact` | `comfortable` | 48px com subtítulo · 40px sem |\n| `fill` | `boolean` | `false` | aba ocupa a faixa inteira; a tira perde a régua |\n| `actionsMode` | `hover \\| persistent` | `hover` | ações reveladas no hover ou sempre visíveis |\n| `chrome` | `boolean` | `true` | pinta o fundo recuado da tira |\n| `onNewTab` | `() => void` | — | rende o `+` fora do trilho |\n| `aria-label` | `string` | — | rótulo do conjunto |\n\n## Props — `TabsNavigation.Tab`\n\n| Prop | Tipo | Descrição |\n|---|---|---|\n| `value` | `string` | volta em `onValueChange` |\n| `leading` | `ReactNode` | Avatar, `Icon`, imagem — qualquer nó |\n| `status` | `success \\| warning \\| danger \\| info \\| neutral \\| ReactNode` | ponto pronto, ou o seu |\n| `badge` | `number \\| ReactNode` | some na aba ativa |\n| `actions` | `ReactNode` | **substitui** as ações padrão |\n| `onClose` | `() => void` | sem `actions`, liga o `⋯` + `×` |\n| `menu` | `ReactNode` | itens extras do `⋯` |\n| `panelId` | `string` | id do container externo |\n| `actionsAlwaysVisible` | `boolean` | ações fixas só nesta aba |\n| `hoverCard` | `ReactNode` | resumo ao pousar o ponteiro (500ms); a aba ATIVA não mostra |\n\nPeças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `compact`) · `TabsNavigation.Action`\n(botão de 24px, já com `stopPropagation`) · `TabsNavigation.Actions` (ações globais à direita) ·\n`TabsNavigation.Panel`.\n\n## Gotchas / cuidados\n\n- **`surface` é a cor do que está EMBAIXO, e é o erro clássico.** A aba ativa precisa ser a\n  mesma superfície do conteúdo — é isso que as une. Num card `surface`; se o conteúdo for a\n  página, `canvas`. Com o token errado a aba parece pousada em cima de outra coisa.\n- **`fill` troca o mecanismo da união, não só a altura.** No modo pousado a aba desce 1px e\n  apaga a régua; em `fill` a tira **não tem régua** e a união é por continuidade de cor.\n  Medido: manter o truque em `fill` deixava a aba 2px antes da régua — uma fresta, pior que\n  linha nenhuma.\n- **O fundo recuado usa dois tokens, um por modo** (`bg-emphasis` no claro, `bg-canvas` no\n  escuro) — medido: no claro `canvas` é branco igual à `surface` e `subtle` quase não se lê\n  contra a aba branca; no escuro `emphasis` é branco a 12% SOBRE o fundo, mais claro que a\n  superfície. Cada modo tem o seu token de recuo; não procure um único.\n- **⛔ Não envolva a tira num wrapper com padding.** O respiro do topo é do componente, e é\n  isso que a torna independente da superfície: quando o padding vinha de fora, aquela faixa\n  acima das abas ficava com a cor do container enquanto a tira ficava com o recuo — duas cores\n  na mesma banda, e a aba inativa parecia um botão de outra cor pousado num fundo diferente.\n  **A única coisa com fundo próprio é a aba ativa**, e ela é a superfície do conteúdo. Se o\n  container já pinta o recuo, desligue com `chrome={false}` em vez de compensar por fora.\n- **Ação que exige decisão não vai no hover.** `hover` é certo pra `⋯`/`×`; pra aceitar/recusar\n  um chamado use `actions` + `actionsAlwaysVisible` — o usuário precisa **ver** pra decidir, e\n  recusar por engano tem custo.\n- **As ações não reservam espaço** (coluna de grid `0fr → 1fr`): em repouso o título usa a aba\n  inteira. Se você passar `actions`, mantenha-as pequenas — a coluna abre por cima do título.\n- **`density=\"compact\"` é escolha de conteúdo.** Sem subtítulo, duas conversas do mesmo cliente\n  ficam idênticas.\n- **As setas de overflow somem, não desabilitam.** Cada uma só existe enquanto houver o que\n  rolar naquele sentido; com a fila inteira visível não aparece nenhuma, e a lista `⌄` também\n  some. Botão apagado ocupa espaço e ainda lê como \"tem algo aqui\" — desabilitar faz sentido\n  quando a ação volta a valer no mesmo lugar, e aqui o gatilho é a largura da tira.\n- **Teclado:** ←/→/Home/End movem seleção e foco juntos; só a aba ativa fica na ordem de\n  tabulação. Não recrie isso por fora.\n- **jsdom não tem `ResizeObserver`** — o componente checa antes de instanciar, então ele não\n  derruba a suíte de quem consome. Em teste, os controles de overflow ficam ocultos (não há\n  medição de layout); teste o comportamento, não a seta.\n\n## Resumo em hover (`hoverCard`) e gesto de arrastar\n\n```tsx\n<TabsNavigation.Tab value=\"c1\" hoverCard={<ResumoDoContato item={c} />}>…</TabsNavigation.Tab>\n```\n\n- **A aba ATIVA não mostra o resumo** — o conteúdo dela já está aberto na tela; um card por\n  cima seria ruído justamente pra quem está lendo aquilo.\n- **Abre com 500ms de espera.** Sem isso, percorrer a fila com o mouse dispararia o card de\n  todas as abas do caminho.\n- **Não coloque ação nem informação essencial ali** — hover não existe no toque.\n- **A tira rola arrastando** (mouse/pen, limiar de 6px, clique preservado). No celular não há\n  hook: o swipe nativo já faz melhor, com inércia.\n- **No celular as setas `‹ ›` somem** e ficam só o `+` e a lista `⌄`: medido em 375px, os três\n  controles comiam 204px e sobrava menos de meia aba visível. A aba também encolhe (168px em\n  vez de 228px) pra caber mais de uma na tela.\n",
+        "content": "# TabsNavigation\r\n\r\n<!-- ds:regras\r\n- aba de NAVEGADOR (sessão que abre/fecha: conversa, chamado, registro) → `<TabsNavigation>`; filtro de conteúdo dentro da tela → `tabs` do shadcn\r\n- `<TabsNavigation>` é SEMPRE controlado (`value` + `onValueChange`) e NÃO hospeda conteúdo — o painel pode morar fora, e aí a aba leva `panelId`\r\n- `surface` = a superfície do conteúdo ABAIXO da tira (`surface` num card, `canvas` na página). Errar quebra a união da aba ativa, que é o componente\r\n- `actions` na aba SUBSTITUI o `⋯`+`×` — é por ele que entram ✓/✗ de aceitar/recusar; sem `actions` e sem `onClose` a aba não tem ação\r\n-->\r\n\r\nTira de abas de **navegação**, estilo navegador: cada aba é uma **sessão aberta** — com\r\nidentidade, status e ações próprias — que o usuário abre, troca e fecha.\r\n\r\n## Quando usar\r\n\r\n| Situação | Componente |\r\n|---|---|\r\n| Conversas, chamados, registros abertos ao mesmo tempo; o usuário abre e fecha | **`TabsNavigation`** |\r\n| Alternar seções DENTRO de uma tela (Detalhes / Anexos / Histórico) | `tabs` (shadcn) |\r\n| Alternar visão de uma mesma lista (Tabela / Kanban) | `toggle-group` ou o `viewMode` do DataTable |\r\n\r\nOs dois convivem: uma aba de conversa pode conter um `Tabs` de Mensagens/Notas dentro.\r\n\r\n## Import\r\n\r\n```tsx\r\nimport { TabsNavigation } from \"@/components/ui/TabsNavigation\";\r\n```\r\n\r\n## Exemplo mínimo\r\n\r\n```tsx\r\nconst [ativa, setAtiva] = useState(\"c1\");\r\n\r\n<TabsNavigation value={ativa} onValueChange={setAtiva} aria-label=\"Conversas abertas\" onNewTab={abrir}>\r\n  <TabsNavigation.Tab\r\n    value=\"c1\"\r\n    leading={<Avatar size=\"sm\" colorHex=\"#2563EB\">MS</Avatar>}\r\n    status=\"success\"\r\n    badge={3}\r\n    onClose={() => fechar(\"c1\")}\r\n  >\r\n    <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>\r\n    <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>\r\n  </TabsNavigation.Tab>\r\n</TabsNavigation>\r\n```\r\n\r\n## O conteúdo mora onde você quiser\r\n\r\nO componente é a **tira**, não o roteador: ele diz qual aba está ativa e você troca o que\r\nquiser, onde quiser.\r\n\r\n```tsx\r\n{/* tira aqui… */}\r\n<TabsNavigation value={id} onValueChange={setId}>\r\n  <TabsNavigation.Tab value=\"c1\" panelId=\"painel-detalhe\">…</TabsNavigation.Tab>\r\n</TabsNavigation>\r\n\r\n{/* …e o conteúdo em outra coluna, outra rota, outro componente */}\r\n<section id=\"painel-detalhe\">{conteudoDe(id)}</section>\r\n```\r\n\r\n- **Painel FORA** → `panelId` na aba (emite `aria-controls`).\r\n- **Painel DENTRO** → `<TabsNavigation.Panel value=\"c1\">`, que faz o par `role=\"tabpanel\"` +\r\n  `aria-labelledby` e renderiza só a ativa.\r\n- Sem nenhum dos dois o componente **não inventa** wiring — fica só `role=\"tab\"` +\r\n  `aria-selected`, que é honesto.\r\n\r\n## Props — `TabsNavigation`\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|---|---|---|---|\r\n| `value` / `onValueChange` | `string` / `(v) => void` | — | sempre controlado |\r\n| `surface` | `surface \\| canvas` | `surface` | superfície do **conteúdo abaixo** — a aba ativa é pintada com ela |\r\n| `density` | `comfortable \\| compact` | `comfortable` | 48px com subtítulo · 40px sem |\r\n| `fill` | `boolean` | `false` | aba ocupa a faixa inteira; a tira perde a régua |\r\n| `actionsMode` | `hover \\| persistent` | `hover` | ações reveladas no hover ou sempre visíveis |\r\n| `chrome` | `boolean` | `true` | pinta o fundo recuado da tira |\r\n| `onNewTab` | `() => void` | — | rende o `+` fora do trilho |\r\n| `aria-label` | `string` | — | rótulo do conjunto |\r\n\r\n## Props — `TabsNavigation.Tab`\r\n\r\n| Prop | Tipo | Descrição |\r\n|---|---|---|\r\n| `value` | `string` | volta em `onValueChange` |\r\n| `leading` | `ReactNode` | Avatar, `Icon`, imagem — qualquer nó |\r\n| `status` | `success \\| warning \\| danger \\| info \\| neutral \\| ReactNode` | ponto pronto, ou o seu |\r\n| `badge` | `number \\| ReactNode` | some na aba ativa |\r\n| `actions` | `ReactNode` | **substitui** as ações padrão |\r\n| `onClose` | `() => void` | sem `actions`, liga o `⋯` + `×` |\r\n| `menu` | `ReactNode` | itens extras do `⋯` |\r\n| `panelId` | `string` | id do container externo |\r\n| `actionsAlwaysVisible` | `boolean` | ações fixas só nesta aba |\r\n| `hoverCard` | `ReactNode` | resumo ao pousar o ponteiro (500ms); a aba ATIVA não mostra |\r\n\r\nPeças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `compact`) · `TabsNavigation.Action`\r\n(botão de 24px, já com `stopPropagation`) · `TabsNavigation.Actions` (ações globais à direita) ·\r\n`TabsNavigation.Panel`.\r\n\r\n## Gotchas / cuidados\r\n\r\n- **`surface` é a cor do que está EMBAIXO, e é o erro clássico.** A aba ativa precisa ser a\r\n  mesma superfície do conteúdo — é isso que as une. Num card `surface`; se o conteúdo for a\r\n  página, `canvas`. Com o token errado a aba parece pousada em cima de outra coisa.\r\n- **`fill` troca o mecanismo da união, não só a altura.** No modo pousado a aba desce 1px e\r\n  apaga a régua; em `fill` a tira **não tem régua** e a união é por continuidade de cor.\r\n  Medido: manter o truque em `fill` deixava a aba 2px antes da régua — uma fresta, pior que\r\n  linha nenhuma.\r\n- **O fundo recuado usa dois tokens, um por modo** (`bg-emphasis` no claro, `bg-canvas` no\r\n  escuro) — medido: no claro `canvas` é branco igual à `surface` e `subtle` quase não se lê\r\n  contra a aba branca; no escuro `emphasis` é branco a 12% SOBRE o fundo, mais claro que a\r\n  superfície. Cada modo tem o seu token de recuo; não procure um único.\r\n- **⛔ Não envolva a tira num wrapper com padding.** O respiro do topo é do componente, e é\r\n  isso que a torna independente da superfície: quando o padding vinha de fora, aquela faixa\r\n  acima das abas ficava com a cor do container enquanto a tira ficava com o recuo — duas cores\r\n  na mesma banda, e a aba inativa parecia um botão de outra cor pousado num fundo diferente.\r\n  **A única coisa com fundo próprio é a aba ativa**, e ela é a superfície do conteúdo. Se o\r\n  container já pinta o recuo, desligue com `chrome={false}` em vez de compensar por fora.\r\n- **Ação que exige decisão não vai no hover.** `hover` é certo pra `⋯`/`×`; pra aceitar/recusar\r\n  um chamado use `actions` + `actionsAlwaysVisible` — o usuário precisa **ver** pra decidir, e\r\n  recusar por engano tem custo.\r\n- **As ações não reservam espaço** (coluna de grid `0fr → 1fr`): em repouso o título usa a aba\r\n  inteira. Se você passar `actions`, mantenha-as pequenas — a coluna abre por cima do título.\r\n- **`density=\"compact\"` é escolha de conteúdo.** Sem subtítulo, duas conversas do mesmo cliente\r\n  ficam idênticas.\r\n- **As setas de overflow somem, não desabilitam.** Cada uma só existe enquanto houver o que\r\n  rolar naquele sentido; com a fila inteira visível não aparece nenhuma, e a lista `⌄` também\r\n  some. Botão apagado ocupa espaço e ainda lê como \"tem algo aqui\" — desabilitar faz sentido\r\n  quando a ação volta a valer no mesmo lugar, e aqui o gatilho é a largura da tira.\r\n- **Teclado:** ←/→/Home/End movem seleção e foco juntos; só a aba ativa fica na ordem de\r\n  tabulação. Não recrie isso por fora.\r\n- **jsdom não tem `ResizeObserver`** — o componente checa antes de instanciar, então ele não\r\n  derruba a suíte de quem consome. Em teste, os controles de overflow ficam ocultos (não há\r\n  medição de layout); teste o comportamento, não a seta.\r\n\r\n## Resumo em hover (`hoverCard`) e gesto de arrastar\r\n\r\n```tsx\r\n<TabsNavigation.Tab value=\"c1\" hoverCard={<ResumoDoContato item={c} />}>…</TabsNavigation.Tab>\r\n```\r\n\r\n- **A aba ATIVA não mostra o resumo** — o conteúdo dela já está aberto na tela; um card por\r\n  cima seria ruído justamente pra quem está lendo aquilo.\r\n- **Abre com 500ms de espera.** Sem isso, percorrer a fila com o mouse dispararia o card de\r\n  todas as abas do caminho.\r\n- **Não coloque ação nem informação essencial ali** — hover não existe no toque.\r\n- **A tira rola arrastando** (mouse/pen, limiar de 6px, clique preservado). No celular não há\r\n  hook: o swipe nativo já faz melhor, com inércia.\r\n- **No celular as setas `‹ ›` somem** e ficam só o `+` e a lista `⌄`: medido em 375px, os três\r\n  controles comiam 204px e sobrava menos de meia aba visível. A aba também encolhe (168px em\r\n  vez de 228px) pra caber mais de uma na tela.\r\n",
         "type": "registry:file",
         "target": "components/ui/TabsNavigation/USAGE.md"
       },
       {
         "path": "src/components/ui/TabsNavigation/use-arrastar-para-rolar.ts",
-        "content": "import { useEffect, useRef, type RefObject } from \"react\";\n\n/**\n * `useArrastarParaRolar` — segurar e arrastar a tira pra rolar horizontalmente.\n *\n * ## Por que não importei o `useGrabToScroll` do DataTable\n *\n * Ele existe (`ui/DataTable/hooks/use-grab-to-scroll.ts`) e resolve o mesmo gesto, mas está\n * dentro do item `data-table` do registry: importá-lo faria o `tabs-navigation` **depender da\n * tabela inteira** no copy-in — o consumidor puxaria DataTable + TableToolbar + virtual pra\n * ter aba. Metade daquele hook também é específica de tabela (pula célula editável,\n * expansível, de seleção), coisas que não existem aqui. Esta versão é o mesmo comportamento\n * sem a parte que não se aplica.\n *\n * ## O que ele faz, e o que deliberadamente NÃO faz\n *\n * - **Só mouse/pen.** Em `pointer: coarse` (celular, tablet) o navegador já rola a tira no\n *   swipe, nativamente e com inércia. Interceptar ali seria trocar um gesto bom por um pior.\n * - **Limiar de 6px** antes de virar arrasto: abaixo disso o gesto continua sendo um clique, e\n *   selecionar aba arrastando 2px por acidente não acontece.\n * - **Engole o clique seguinte** ao arrasto (fase de captura) — senão soltar o ponteiro em\n *   cima de uma aba a selecionaria no fim de todo arrasto.\n * - **Não toca em alvo interativo** (botão, link, menu): ali o gesto é do controle, não da\n *   tira. Sem isso, arrastar 6px começando no `×` fecharia a aba errada ou nenhuma.\n */\nexport function useArrastarParaRolar(\n  trilho: RefObject<HTMLElement | null>,\n  ativo = true,\n  limiarPx = 6,\n): void {\n  /** Persiste entre renders: avisa o click-capture que o último gesto foi arrasto. */\n  const engolirClique = useRef(false);\n\n  useEffect(() => {\n    if (!ativo) return;\n    const el = trilho.current;\n    if (!el) return;\n    if (typeof window === \"undefined\") return;\n    // touch já rola sozinho — e melhor\n    if (window.matchMedia?.(\"(pointer: coarse)\").matches) return;\n\n    let arrastando = false;\n    let passouLimiar = false;\n    let xInicial = 0;\n    let scrollInicial = 0;\n\n    /**\n     * O gesto não é da tira quando começa num controle — nem quando começa dentro de algo\n     * FLUTUANTE aberto a partir dela.\n     *\n     * ⚠️ O segundo caso não é teórico: o `HoverCardContent` do DS não usa Portal, então o\n     * resumo da aba é renderizado **dentro do trilho** no DOM (com `position: fixed`, por isso\n     * não é clipado). Sem esta guarda, tentar SELECIONAR O TEXTO do resumo arrastava a fila de\n     * abas — o pointerdown do card borbulhava até aqui. Vale pro dropdown de opções pela mesma\n     * razão.\n     */\n    const ehInterativo = (alvo: EventTarget | null) =>\n      alvo instanceof Element &&\n      !!alvo.closest(\n        'button, a, input, select, textarea, [role=\"button\"], [role=\"menuitem\"], ' +\n          '[data-radix-popper-content-wrapper], [role=\"dialog\"], [role=\"menu\"], [role=\"tooltip\"]',\n      );\n\n    const onPointerDown = (e: PointerEvent) => {\n      if (e.button !== 0 || ehInterativo(e.target)) return;\n      arrastando = true;\n      passouLimiar = false;\n      xInicial = e.clientX;\n      scrollInicial = el.scrollLeft;\n    };\n\n    const onPointerMove = (e: PointerEvent) => {\n      if (!arrastando) return;\n      const delta = e.clientX - xInicial;\n      if (!passouLimiar) {\n        if (Math.abs(delta) < limiarPx) return;\n        passouLimiar = true;\n        engolirClique.current = true;\n        el.setPointerCapture?.(e.pointerId);\n        el.style.cursor = \"grabbing\";\n        // sem isto o arrasto seleciona o texto dos títulos enquanto rola\n        el.style.userSelect = \"none\";\n      }\n      el.scrollLeft = scrollInicial - delta;\n    };\n\n    const encerrar = (e: PointerEvent) => {\n      if (!arrastando) return;\n      arrastando = false;\n      el.releasePointerCapture?.(e.pointerId);\n      el.style.cursor = \"\";\n      el.style.userSelect = \"\";\n      // o clique só é engolido se houve arrasto de verdade; o flag zera no próprio handler\n    };\n\n    const onClickCapture = (e: MouseEvent) => {\n      if (!engolirClique.current) return;\n      engolirClique.current = false;\n      e.stopPropagation();\n      e.preventDefault();\n    };\n\n    el.addEventListener(\"pointerdown\", onPointerDown);\n    el.addEventListener(\"pointermove\", onPointerMove);\n    el.addEventListener(\"pointerup\", encerrar);\n    el.addEventListener(\"pointercancel\", encerrar);\n    el.addEventListener(\"click\", onClickCapture, true);\n\n    return () => {\n      el.removeEventListener(\"pointerdown\", onPointerDown);\n      el.removeEventListener(\"pointermove\", onPointerMove);\n      el.removeEventListener(\"pointerup\", encerrar);\n      el.removeEventListener(\"pointercancel\", encerrar);\n      el.removeEventListener(\"click\", onClickCapture, true);\n      el.style.cursor = \"\";\n      el.style.userSelect = \"\";\n    };\n  }, [trilho, ativo, limiarPx]);\n}\n",
+        "content": "import { useEffect, useRef, type RefObject } from \"react\";\r\n\r\n/**\r\n * `useArrastarParaRolar` — segurar e arrastar a tira pra rolar horizontalmente.\r\n *\r\n * ## Por que não importei o `useGrabToScroll` do DataTable\r\n *\r\n * Ele existe (`ui/DataTable/hooks/use-grab-to-scroll.ts`) e resolve o mesmo gesto, mas está\r\n * dentro do item `data-table` do registry: importá-lo faria o `tabs-navigation` **depender da\r\n * tabela inteira** no copy-in — o consumidor puxaria DataTable + TableToolbar + virtual pra\r\n * ter aba. Metade daquele hook também é específica de tabela (pula célula editável,\r\n * expansível, de seleção), coisas que não existem aqui. Esta versão é o mesmo comportamento\r\n * sem a parte que não se aplica.\r\n *\r\n * ## O que ele faz, e o que deliberadamente NÃO faz\r\n *\r\n * - **Só mouse/pen.** Em `pointer: coarse` (celular, tablet) o navegador já rola a tira no\r\n *   swipe, nativamente e com inércia. Interceptar ali seria trocar um gesto bom por um pior.\r\n * - **Limiar de 6px** antes de virar arrasto: abaixo disso o gesto continua sendo um clique, e\r\n *   selecionar aba arrastando 2px por acidente não acontece.\r\n * - **Engole o clique seguinte** ao arrasto (fase de captura) — senão soltar o ponteiro em\r\n *   cima de uma aba a selecionaria no fim de todo arrasto.\r\n * - **Não toca em alvo interativo** (botão, link, menu): ali o gesto é do controle, não da\r\n *   tira. Sem isso, arrastar 6px começando no `×` fecharia a aba errada ou nenhuma.\r\n */\r\nexport function useArrastarParaRolar(\r\n  trilho: RefObject<HTMLElement | null>,\r\n  ativo = true,\r\n  limiarPx = 6,\r\n): void {\r\n  /** Persiste entre renders: avisa o click-capture que o último gesto foi arrasto. */\r\n  const engolirClique = useRef(false);\r\n\r\n  useEffect(() => {\r\n    if (!ativo) return;\r\n    const el = trilho.current;\r\n    if (!el) return;\r\n    if (typeof window === \"undefined\") return;\r\n    // touch já rola sozinho — e melhor\r\n    if (window.matchMedia?.(\"(pointer: coarse)\").matches) return;\r\n\r\n    let arrastando = false;\r\n    let passouLimiar = false;\r\n    let xInicial = 0;\r\n    let scrollInicial = 0;\r\n\r\n    /**\r\n     * O gesto não é da tira quando começa num controle — nem quando começa dentro de algo\r\n     * FLUTUANTE aberto a partir dela.\r\n     *\r\n     * ⚠️ O segundo caso não é teórico: o `HoverCardContent` do DS não usa Portal, então o\r\n     * resumo da aba é renderizado **dentro do trilho** no DOM (com `position: fixed`, por isso\r\n     * não é clipado). Sem esta guarda, tentar SELECIONAR O TEXTO do resumo arrastava a fila de\r\n     * abas — o pointerdown do card borbulhava até aqui. Vale pro dropdown de opções pela mesma\r\n     * razão.\r\n     */\r\n    const ehInterativo = (alvo: EventTarget | null) =>\r\n      alvo instanceof Element &&\r\n      !!alvo.closest(\r\n        'button, a, input, select, textarea, [role=\"button\"], [role=\"menuitem\"], ' +\r\n          '[data-radix-popper-content-wrapper], [role=\"dialog\"], [role=\"menu\"], [role=\"tooltip\"]',\r\n      );\r\n\r\n    const onPointerDown = (e: PointerEvent) => {\r\n      if (e.button !== 0 || ehInterativo(e.target)) return;\r\n      arrastando = true;\r\n      passouLimiar = false;\r\n      xInicial = e.clientX;\r\n      scrollInicial = el.scrollLeft;\r\n    };\r\n\r\n    const onPointerMove = (e: PointerEvent) => {\r\n      if (!arrastando) return;\r\n      const delta = e.clientX - xInicial;\r\n      if (!passouLimiar) {\r\n        if (Math.abs(delta) < limiarPx) return;\r\n        passouLimiar = true;\r\n        engolirClique.current = true;\r\n        el.setPointerCapture?.(e.pointerId);\r\n        el.style.cursor = \"grabbing\";\r\n        // sem isto o arrasto seleciona o texto dos títulos enquanto rola\r\n        el.style.userSelect = \"none\";\r\n      }\r\n      el.scrollLeft = scrollInicial - delta;\r\n    };\r\n\r\n    const encerrar = (e: PointerEvent) => {\r\n      if (!arrastando) return;\r\n      arrastando = false;\r\n      el.releasePointerCapture?.(e.pointerId);\r\n      el.style.cursor = \"\";\r\n      el.style.userSelect = \"\";\r\n      // o clique só é engolido se houve arrasto de verdade; o flag zera no próprio handler\r\n    };\r\n\r\n    const onClickCapture = (e: MouseEvent) => {\r\n      if (!engolirClique.current) return;\r\n      engolirClique.current = false;\r\n      e.stopPropagation();\r\n      e.preventDefault();\r\n    };\r\n\r\n    el.addEventListener(\"pointerdown\", onPointerDown);\r\n    el.addEventListener(\"pointermove\", onPointerMove);\r\n    el.addEventListener(\"pointerup\", encerrar);\r\n    el.addEventListener(\"pointercancel\", encerrar);\r\n    el.addEventListener(\"click\", onClickCapture, true);\r\n\r\n    return () => {\r\n      el.removeEventListener(\"pointerdown\", onPointerDown);\r\n      el.removeEventListener(\"pointermove\", onPointerMove);\r\n      el.removeEventListener(\"pointerup\", encerrar);\r\n      el.removeEventListener(\"pointercancel\", encerrar);\r\n      el.removeEventListener(\"click\", onClickCapture, true);\r\n      el.style.cursor = \"\";\r\n      el.style.userSelect = \"\";\r\n    };\r\n  }, [trilho, ativo, limiarPx]);\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/TabsNavigation/use-arrastar-para-rolar.ts"
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs-navigation · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · tabs-navigation · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4667,7 +4667,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · tabs · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4691,7 +4691,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · textarea · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4709,7 +4709,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · theme-blue · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4727,7 +4727,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · theme-green · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4745,7 +4745,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · theme-pay · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4763,7 +4763,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · theme-vibrant · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4785,7 +4785,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · theme · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4836,7 +4836,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · toast · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4862,7 +4862,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · toggle-group · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4887,7 +4887,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · toggle · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4911,7 +4911,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · tooltip · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4932,7 +4932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · tv · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4954,7 +4954,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.53.0 · 269aeba · 2026-08-28"
+      "stamp": "igreen-ds · utils · v0.54.0 · 02ff1c8 · 2026-08-28"
     },
     "type": "registry:file"
   }
