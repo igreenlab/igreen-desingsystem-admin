@@ -1,8 +1,8 @@
-# NavTabs
+# TabsNavigation
 
 <!-- ds:regras
-- aba de NAVEGADOR (sessão que abre/fecha: conversa, chamado, registro) → `<NavTabs>`; filtro de conteúdo dentro da tela → `tabs` do shadcn
-- `<NavTabs>` é SEMPRE controlado (`value` + `onValueChange`) e NÃO hospeda conteúdo — o painel pode morar fora, e aí a aba leva `panelId`
+- aba de NAVEGADOR (sessão que abre/fecha: conversa, chamado, registro) → `<TabsNavigation>`; filtro de conteúdo dentro da tela → `tabs` do shadcn
+- `<TabsNavigation>` é SEMPRE controlado (`value` + `onValueChange`) e NÃO hospeda conteúdo — o painel pode morar fora, e aí a aba leva `panelId`
 - `surface` = a superfície do conteúdo ABAIXO da tira (`surface` num card, `canvas` na página). Errar quebra a união da aba ativa, que é o componente
 - `actions` na aba SUBSTITUI o `⋯`+`×` — é por ele que entram ✓/✗ de aceitar/recusar; sem `actions` e sem `onClose` a aba não tem ação
 -->
@@ -14,7 +14,7 @@ identidade, status e ações próprias — que o usuário abre, troca e fecha.
 
 | Situação | Componente |
 |---|---|
-| Conversas, chamados, registros abertos ao mesmo tempo; o usuário abre e fecha | **`NavTabs`** |
+| Conversas, chamados, registros abertos ao mesmo tempo; o usuário abre e fecha | **`TabsNavigation`** |
 | Alternar seções DENTRO de uma tela (Detalhes / Anexos / Histórico) | `tabs` (shadcn) |
 | Alternar visão de uma mesma lista (Tabela / Kanban) | `toggle-group` ou o `viewMode` do DataTable |
 
@@ -23,7 +23,7 @@ Os dois convivem: uma aba de conversa pode conter um `Tabs` de Mensagens/Notas d
 ## Import
 
 ```tsx
-import { NavTabs } from "@/components/ui/NavTabs";
+import { TabsNavigation } from "@/components/ui/TabsNavigation";
 ```
 
 ## Exemplo mínimo
@@ -31,18 +31,18 @@ import { NavTabs } from "@/components/ui/NavTabs";
 ```tsx
 const [ativa, setAtiva] = useState("c1");
 
-<NavTabs value={ativa} onValueChange={setAtiva} aria-label="Conversas abertas" onNewTab={abrir}>
-  <NavTabs.Tab
+<TabsNavigation value={ativa} onValueChange={setAtiva} aria-label="Conversas abertas" onNewTab={abrir}>
+  <TabsNavigation.Tab
     value="c1"
     leading={<Avatar size="sm" colorHex="#2563EB">MS</Avatar>}
     status="success"
     badge={3}
     onClose={() => fechar("c1")}
   >
-    <NavTabs.Title>Maria Silva</NavTabs.Title>
-    <NavTabs.Subtitle>Fatura de julho</NavTabs.Subtitle>
-  </NavTabs.Tab>
-</NavTabs>
+    <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>
+    <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>
+  </TabsNavigation.Tab>
+</TabsNavigation>
 ```
 
 ## O conteúdo mora onde você quiser
@@ -52,21 +52,21 @@ quiser, onde quiser.
 
 ```tsx
 {/* tira aqui… */}
-<NavTabs value={id} onValueChange={setId}>
-  <NavTabs.Tab value="c1" panelId="painel-detalhe">…</NavTabs.Tab>
-</NavTabs>
+<TabsNavigation value={id} onValueChange={setId}>
+  <TabsNavigation.Tab value="c1" panelId="painel-detalhe">…</TabsNavigation.Tab>
+</TabsNavigation>
 
 {/* …e o conteúdo em outra coluna, outra rota, outro componente */}
 <section id="painel-detalhe">{conteudoDe(id)}</section>
 ```
 
 - **Painel FORA** → `panelId` na aba (emite `aria-controls`).
-- **Painel DENTRO** → `<NavTabs.Panel value="c1">`, que faz o par `role="tabpanel"` +
+- **Painel DENTRO** → `<TabsNavigation.Panel value="c1">`, que faz o par `role="tabpanel"` +
   `aria-labelledby` e renderiza só a ativa.
 - Sem nenhum dos dois o componente **não inventa** wiring — fica só `role="tab"` +
   `aria-selected`, que é honesto.
 
-## Props — `NavTabs`
+## Props — `TabsNavigation`
 
 | Prop | Tipo | Default | Descrição |
 |---|---|---|---|
@@ -79,7 +79,7 @@ quiser, onde quiser.
 | `onNewTab` | `() => void` | — | rende o `+` fora do trilho |
 | `aria-label` | `string` | — | rótulo do conjunto |
 
-## Props — `NavTabs.Tab`
+## Props — `TabsNavigation.Tab`
 
 | Prop | Tipo | Descrição |
 |---|---|---|
@@ -93,9 +93,9 @@ quiser, onde quiser.
 | `panelId` | `string` | id do container externo |
 | `actionsAlwaysVisible` | `boolean` | ações fixas só nesta aba |
 
-Peças: `NavTabs.Title` · `NavTabs.Subtitle` (some sozinho em `compact`) · `NavTabs.Action`
-(botão de 24px, já com `stopPropagation`) · `NavTabs.Actions` (ações globais à direita) ·
-`NavTabs.Panel`.
+Peças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `compact`) · `TabsNavigation.Action`
+(botão de 24px, já com `stopPropagation`) · `TabsNavigation.Actions` (ações globais à direita) ·
+`TabsNavigation.Panel`.
 
 ## Gotchas / cuidados
 
@@ -109,6 +109,12 @@ Peças: `NavTabs.Title` · `NavTabs.Subtitle` (some sozinho em `compact`) · `Na
 - **O fundo recuado usa dois tokens, um por modo** (`bg-subtle` no claro, `bg-canvas` no
   escuro) — medido: no claro `canvas` é branco igual à `surface`, no escuro `subtle` é branco
   a 1% sobre o card. Cada modo tem o seu token de recuo; não procure um único.
+- **⛔ Não envolva a tira num wrapper com padding.** O respiro do topo é do componente, e é
+  isso que a torna independente da superfície: quando o padding vinha de fora, aquela faixa
+  acima das abas ficava com a cor do container enquanto a tira ficava com o recuo — duas cores
+  na mesma banda, e a aba inativa parecia um botão de outra cor pousado num fundo diferente.
+  **A única coisa com fundo próprio é a aba ativa**, e ela é a superfície do conteúdo. Se o
+  container já pinta o recuo, desligue com `chrome={false}` em vez de compensar por fora.
 - **Ação que exige decisão não vai no hover.** `hover` é certo pra `⋯`/`×`; pra aceitar/recusar
   um chamado use `actions` + `actionsAlwaysVisible` — o usuário precisa **ver** pra decidir, e
   recusar por engano tem custo.

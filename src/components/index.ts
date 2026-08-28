@@ -40,13 +40,13 @@ export * from "./ui/MessageComposer";
 export * from "./ui/MessageVariablesPicker";
 export * from "./ui/Modal";
 export * from "./ui/MonthYearPicker";
-export * from "./ui/NavTabs";
 export * from "./ui/PageHeader";
 export * from "./ui/Panel";
 export * from "./ui/ScreenLoader";
 export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
+export * from "./ui/TabsNavigation";
 export * from "./ui/ChoroplethMap";
 /**
  * Entraram no barrel em 0.37.0. Existiam desde antes e simplesmente nunca foram

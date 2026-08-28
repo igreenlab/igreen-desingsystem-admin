@@ -3,7 +3,7 @@ import { Check, MessageSquare, Pin, Search, Settings2, X } from "lucide-react";
 import { Avatar } from "../../components/ui/avatar-ig";
 import { Button } from "../../components/ui/Button";
 import { Chip } from "../../components/ui/Chip";
-import { NavTabs } from "../../components/ui/NavTabs";
+import { TabsNavigation } from "../../components/ui/TabsNavigation";
 import { DropdownMenuItem } from "../../components/shadcn/dropdown-menu";
 import {
   DocLayout,
@@ -15,7 +15,7 @@ import {
 } from "../components";
 
 /**
- * Doc do `NavTabs`. Nasceu como demo (`#/nav-tabs-demo`) pra decidir a API antes de existir
+ * Doc do `TabsNavigation`. Nasceu como demo (`#/tabs-navigation-demo`) pra decidir a API antes de existir
  * componente; agora consome o componente real e a seção de decisões continua aqui, porque é
  * ela que explica por que a API é essa.
  */
@@ -90,7 +90,7 @@ function Conteudo({ item }: { item?: Conversa }) {
       </div>
       <div className="rounded-radius-lg bg-bg-subtle p-pad-2xl text-body-sm text-fg-muted">
         Conteúdo de <strong className="text-fg-default">{item.titulo}</strong>. Trocar de aba troca{" "}
-        <em>tudo</em> daqui pra baixo — é o que distingue o `NavTabs` do `Tabs`, que troca só um
+        <em>tudo</em> daqui pra baixo — é o que distingue o `TabsNavigation` do `Tabs`, que troca só um
         miolo dentro da tela.
       </div>
     </div>
@@ -100,7 +100,7 @@ function Conteudo({ item }: { item?: Conversa }) {
 /** Uma aba padrão a partir do nosso registro — a composição toda vive aqui, no consumidor. */
 function abaDe(item: Conversa, aoFechar: (id: string) => void) {
   return (
-    <NavTabs.Tab
+    <TabsNavigation.Tab
       key={item.id}
       value={item.id}
       leading={
@@ -117,9 +117,9 @@ function abaDe(item: Conversa, aoFechar: (id: string) => void) {
         </DropdownMenuItem>
       }
     >
-      <NavTabs.Title>{item.titulo}</NavTabs.Title>
-      <NavTabs.Subtitle>{item.subtitulo}</NavTabs.Subtitle>
-    </NavTabs.Tab>
+      <TabsNavigation.Title>{item.titulo}</TabsNavigation.Title>
+      <TabsNavigation.Subtitle>{item.subtitulo}</TabsNavigation.Subtitle>
+    </TabsNavigation.Tab>
   );
 }
 
@@ -157,7 +157,7 @@ const PROPS_TAB = [
   { name: "actionsAlwaysVisible", type: "boolean — ações fixas só nesta aba", defaultVal: "false" },
 ];
 
-export function NavTabsDoc() {
+export function TabsNavigationDoc() {
   const [abasA, setAbasA] = useState(MUITAS);
   const [ativaA, setAtivaA] = useState("c1");
   const [abasB, setAbasB] = useState(CONVERSAS);
@@ -209,7 +209,7 @@ export function NavTabsDoc() {
     <DocLayout toc={TOC}>
       <DocHeader
         category="Navigation"
-        title="NavTabs"
+        title="TabsNavigation"
         description="Abas de navegação estilo navegador: cada aba é uma SESSÃO aberta — com identidade, status e ações próprias — que o usuário abre, troca e fecha. O componente é a tira; o conteúdo mora onde você quiser."
       />
       <DocSeparator />
@@ -219,37 +219,35 @@ export function NavTabsDoc() {
       <ExampleSection
         id="ex-header"
         title="A — ocupando o espaço do Header"
-        description="A tira toma a faixa do Header (60px) e as abas encostam na régua, como o chrome de um navegador. A aba ativa é bg-surface — a mesma superfície do conteúdo — então ela vira a página de baixo. Ações globais entram por <NavTabs.Actions> e ficam fixas, fora do trilho que rola."
-        code={`<NavTabs value={id} onValueChange={setId} aria-label="Conversas abertas" onNewTab={abrir}>
-  <NavTabs.Tab value="c1" leading={<Avatar size="sm" colorHex="#2563EB">MS</Avatar>}
+        description="A tira toma a faixa do Header (60px) e as abas encostam na régua, como o chrome de um navegador. A aba ativa é bg-surface — a mesma superfície do conteúdo — então ela vira a página de baixo. Ações globais entram por <TabsNavigation.Actions> e ficam fixas, fora do trilho que rola."
+        code={`<TabsNavigation value={id} onValueChange={setId} aria-label="Conversas abertas" onNewTab={abrir}>
+  <TabsNavigation.Tab value="c1" leading={<Avatar size="sm" colorHex="#2563EB">MS</Avatar>}
                status="success" badge={3} onClose={() => fechar("c1")}>
-    <NavTabs.Title>Maria Silva</NavTabs.Title>
-    <NavTabs.Subtitle>Fatura de julho</NavTabs.Subtitle>
-  </NavTabs.Tab>
-  <NavTabs.Actions>
+    <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>
+    <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>
+  </TabsNavigation.Tab>
+  <TabsNavigation.Actions>
     <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Buscar"><Search /></Button>
-  </NavTabs.Actions>
-</NavTabs>`}
+  </TabsNavigation.Actions>
+</TabsNavigation>`}
       >
         <div className="w-full overflow-hidden rounded-radius-lg border border-border-default">
-          <div className="pt-pad-md">
-            <NavTabs
-              value={ativaA}
-              onValueChange={setAtivaA}
-              aria-label="Conversas abertas"
-              onNewTab={() => abrir(abasA, setAbasA, setAtivaA)}
-            >
-              {abasA.map((c) => abaDe(c, (id) => fechar(id, abasA, ativaA, setAbasA, setAtivaA)))}
-              <NavTabs.Actions>
-                <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Buscar">
-                  <Search />
-                </Button>
-                <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Preferências">
-                  <Settings2 />
-                </Button>
-              </NavTabs.Actions>
-            </NavTabs>
-          </div>
+          <TabsNavigation
+            value={ativaA}
+            onValueChange={setAtivaA}
+            aria-label="Conversas abertas"
+            onNewTab={() => abrir(abasA, setAbasA, setAtivaA)}
+          >
+            {abasA.map((c) => abaDe(c, (id) => fechar(id, abasA, ativaA, setAbasA, setAtivaA)))}
+            <TabsNavigation.Actions>
+              <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Buscar">
+                <Search />
+              </Button>
+              <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Preferências">
+                <Settings2 />
+              </Button>
+            </TabsNavigation.Actions>
+          </TabsNavigation>
           <div className="min-h-[220px] bg-bg-surface">
             <Conteudo item={achar(abasA, ativaA)} />
           </div>
@@ -262,11 +260,9 @@ export function NavTabsDoc() {
         description="Mesma peça, dentro de um card. O que importa é o PAR de fundos: a tira recua (bg-subtle no claro, bg-canvas no escuro — cada modo tem o seu token de recuo) e a ativa é a superfície do card. Errar o par é o que faz a aba parecer solta em cima do card em vez de fazer parte dele."
       >
         <div className="w-full overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface shadow-sh-sm">
-          <div className="pt-pad-sm">
-            <NavTabs value={ativaB} onValueChange={setAtivaB} aria-label="Abas do card">
-              {abasB.map((c) => abaDe(c, (id) => fechar(id, abasB, ativaB, setAbasB, setAtivaB)))}
-            </NavTabs>
-          </div>
+          <TabsNavigation value={ativaB} onValueChange={setAtivaB} aria-label="Abas do card">
+            {abasB.map((c) => abaDe(c, (id) => fechar(id, abasB, ativaB, setAbasB, setAtivaB)))}
+          </TabsNavigation>
           <Conteudo item={achar(abasB, ativaB)} />
         </div>
       </ExampleSection>
@@ -274,21 +270,19 @@ export function NavTabsDoc() {
       <ExampleSection
         id="ex-compacta"
         title="density=compact — só avatar + título"
-        description="Sem subtítulo a aba cai de 48px pra 40px e de 228px pra 196px. O <NavTabs.Subtitle> some sozinho — o consumidor não precisa condicionar nada. É escolha de CONTEÚDO: em conversa, duas do mesmo cliente ficam idênticas sem o subtítulo."
-        code={`<NavTabs value={id} onValueChange={setId} density="compact">…</NavTabs>`}
+        description="Sem subtítulo a aba cai de 48px pra 40px e de 228px pra 196px. O <TabsNavigation.Subtitle> some sozinho — o consumidor não precisa condicionar nada. É escolha de CONTEÚDO: em conversa, duas do mesmo cliente ficam idênticas sem o subtítulo."
+        code={`<TabsNavigation value={id} onValueChange={setId} density="compact">…</TabsNavigation>`}
       >
         <div className="w-full overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface shadow-sh-sm">
-          <div className="pt-pad-sm">
-            <NavTabs
-              value={ativaC}
-              onValueChange={setAtivaC}
-              density="compact"
-              aria-label="Abas compactas"
-              onNewTab={() => abrir(abasC, setAbasC, setAtivaC)}
-            >
-              {abasC.map((c) => abaDe(c, (id) => fechar(id, abasC, ativaC, setAbasC, setAtivaC)))}
-            </NavTabs>
-          </div>
+          <TabsNavigation
+            value={ativaC}
+            onValueChange={setAtivaC}
+            density="compact"
+            aria-label="Abas compactas"
+            onNewTab={() => abrir(abasC, setAbasC, setAtivaC)}
+          >
+            {abasC.map((c) => abaDe(c, (id) => fechar(id, abasC, ativaC, setAbasC, setAtivaC)))}
+          </TabsNavigation>
           <Conteudo item={achar(abasC, ativaC)} />
         </div>
       </ExampleSection>
@@ -297,19 +291,19 @@ export function NavTabsDoc() {
         id="ex-chamados"
         title="fill + ações persistentes (fila de chamados)"
         description="Duas mudanças que andam juntas. fill faz a aba ocupar a faixa inteira: some o respiro de chrome no topo, a tira perde a régua e a união vira continuidade de cor — lê como segmento, não como aba de navegador. E as ações não escondem: os dois primeiros chamados usam `actions` próprio com ✓/✗, porque ação que exige decisão precisa ser vista pra ser feita."
-        code={`<NavTabs value={id} onValueChange={setId} fill actionsMode="persistent">
-  <NavTabs.Tab value="t1" actions={
+        code={`<TabsNavigation value={id} onValueChange={setId} fill actionsMode="persistent">
+  <TabsNavigation.Tab value="t1" actions={
     <>
-      <NavTabs.Action tom="success" aria-label="Aceitar" onClick={aceitar}><Check /></NavTabs.Action>
-      <NavTabs.Action tom="danger"  aria-label="Recusar" onClick={recusar}><X /></NavTabs.Action>
+      <TabsNavigation.Action tom="success" aria-label="Aceitar" onClick={aceitar}><Check /></TabsNavigation.Action>
+      <TabsNavigation.Action tom="danger"  aria-label="Recusar" onClick={recusar}><X /></TabsNavigation.Action>
     </>
-  }>…</NavTabs.Tab>
-</NavTabs>`}
+  }>…</TabsNavigation.Tab>
+</TabsNavigation>`}
       >
         <div className="flex w-full flex-col gap-gp-xl">
           <div className="overflow-hidden rounded-radius-lg border border-border-default bg-bg-surface shadow-sh-sm">
             <div className="h-comp-4xl">
-              <NavTabs
+              <TabsNavigation
                 value={ativaD}
                 onValueChange={setAtivaD}
                 fill
@@ -319,7 +313,7 @@ export function NavTabsDoc() {
                 onNewTab={() => abrir(abasD, setAbasD, setAtivaD)}
               >
                 {abasD.map((c) => (
-                  <NavTabs.Tab
+                  <TabsNavigation.Tab
                     key={c.id}
                     value={c.id}
                     leading={
@@ -334,7 +328,7 @@ export function NavTabsDoc() {
                     actions={
                       c.pendente ? (
                         <>
-                          <NavTabs.Action
+                          <TabsNavigation.Action
                             tom="success"
                             aria-label={`Aceitar ${c.titulo}`}
                             onClick={() =>
@@ -342,23 +336,23 @@ export function NavTabsDoc() {
                             }
                           >
                             <Check className="size-icon-sm" />
-                          </NavTabs.Action>
-                          <NavTabs.Action
+                          </TabsNavigation.Action>
+                          <TabsNavigation.Action
                             tom="danger"
                             aria-label={`Recusar ${c.titulo}`}
                             onClick={() => fechar(c.id, abasD, ativaD, setAbasD, setAtivaD)}
                           >
                             <X className="size-icon-sm" />
-                          </NavTabs.Action>
+                          </TabsNavigation.Action>
                         </>
                       ) : undefined
                     }
                   >
-                    <NavTabs.Title>{c.titulo}</NavTabs.Title>
-                    <NavTabs.Subtitle>{c.subtitulo}</NavTabs.Subtitle>
-                  </NavTabs.Tab>
+                    <TabsNavigation.Title>{c.titulo}</TabsNavigation.Title>
+                    <TabsNavigation.Subtitle>{c.subtitulo}</TabsNavigation.Subtitle>
+                  </TabsNavigation.Tab>
                 ))}
-              </NavTabs>
+              </TabsNavigation>
             </div>
             <Conteudo item={achar(abasD, ativaD)} />
           </div>
@@ -378,20 +372,20 @@ export function NavTabsDoc() {
       <ExampleSection
         id="ex-fora"
         title="Conteúdo FORA do componente"
-        description="O caso que define a API: a tira fica aqui e o conteúdo mora em qualquer lugar — outra coluna, outra rota, outro componente. O componente é controlado e não hospeda nada; panelId fecha a acessibilidade emitindo aria-controls pro container externo. Quando o conteúdo está dentro, <NavTabs.Panel> faz o par role=tabpanel + aria-labelledby."
+        description="O caso que define a API: a tira fica aqui e o conteúdo mora em qualquer lugar — outra coluna, outra rota, outro componente. O componente é controlado e não hospeda nada; panelId fecha a acessibilidade emitindo aria-controls pro container externo. Quando o conteúdo está dentro, <TabsNavigation.Panel> faz o par role=tabpanel + aria-labelledby."
         code={`// tira aqui…
-<NavTabs value={id} onValueChange={setId}>
-  <NavTabs.Tab value="c1" panelId="painel-detalhe">…</NavTabs.Tab>
-</NavTabs>
+<TabsNavigation value={id} onValueChange={setId}>
+  <TabsNavigation.Tab value="c1" panelId="painel-detalhe">…</TabsNavigation.Tab>
+</TabsNavigation>
 
 // …e o conteúdo onde você quiser
 <section id="painel-detalhe">{conteudoDe(id)}</section>`}
       >
         <div className="flex w-full flex-col gap-gp-2xl">
           <div className="overflow-hidden rounded-radius-lg border border-border-default">
-            <NavTabs value={ativaE} onValueChange={setAtivaE} aria-label="Seções">
+            <TabsNavigation value={ativaE} onValueChange={setAtivaE} aria-label="Seções">
               {CONVERSAS.map((c) => (
-                <NavTabs.Tab
+                <TabsNavigation.Tab
                   key={c.id}
                   value={c.id}
                   panelId="painel-externo"
@@ -402,11 +396,11 @@ export function NavTabsDoc() {
                   }
                   status={c.status}
                 >
-                  <NavTabs.Title>{c.titulo}</NavTabs.Title>
-                  <NavTabs.Subtitle>{c.subtitulo}</NavTabs.Subtitle>
-                </NavTabs.Tab>
+                  <TabsNavigation.Title>{c.titulo}</TabsNavigation.Title>
+                  <TabsNavigation.Subtitle>{c.subtitulo}</TabsNavigation.Subtitle>
+                </TabsNavigation.Tab>
               ))}
-            </NavTabs>
+            </TabsNavigation>
           </div>
 
           {/* Repare: este container é IRMÃO da tira, não filho. */}
@@ -421,7 +415,7 @@ export function NavTabsDoc() {
 
       <SectionH2 id="api" title="API" />
       <PropsTable items={PROPS_ROOT} />
-      <SectionH2 id="api-tab" title="NavTabs.Tab" />
+      <SectionH2 id="api-tab" title="TabsNavigation.Tab" />
       <PropsTable items={PROPS_TAB} />
 
       <SectionH2 id="decisoes" title="Decisões" />
@@ -450,6 +444,17 @@ export function NavTabsDoc() {
               a cor do que está embaixo.
             </strong>{" "}
             É o mesmo erro clássico do anel do `AvatarGroup`.
+          </li>
+          <li>
+            <strong className="text-fg-default">
+              Só a aba ATIVA tem fundo próprio — e o respiro do topo é do componente.
+            </strong>{" "}
+            Enquanto o padding vinha de um wrapper por fora, a faixa acima das abas ficava com a
+            cor do container enquanto a tira ficava com o recuo: duas cores na mesma banda, e a
+            aba inativa lia como “um botão de outra cor pousado num fundo diferente”. Com o
+            respiro dentro do componente, o recuo cobre a banda inteira, as inativas são
+            transparentes (herdam a tira) e a única superfície própria é a da aba ativa — que é
+            a do conteúdo. Resultado: a peça fica <strong>independente de onde é colocada</strong>.
           </li>
           <li>
             <strong className="text-fg-default">

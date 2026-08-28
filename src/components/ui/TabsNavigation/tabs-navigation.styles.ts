@@ -1,7 +1,7 @@
 import { tv, type VariantProps } from "@/utils/tv";
 
 /**
- * NavTabs styles — iGreen DS
+ * TabsNavigation styles — iGreen DS
  *
  * Tira de abas de NAVEGAÇÃO (estilo navegador): cada aba é uma sessão aberta, não um filtro
  * de conteúdo dentro da tela. A diferença pro `Tabs` do shadcn não é estética — é que aqui a
@@ -30,10 +30,25 @@ import { tv, type VariantProps } from "@/utils/tv";
  * token de recuo, e o par existente cobre o papel — não há token novo aqui.
  */
 
-export const navTabsRoot = tv({
+export const tabsNavigationRoot = tv({
   base: "flex gap-gp-2xs px-pad-lg",
 
   variants: {
+    /**
+     * O RESPIRO DO TOPO É DO COMPONENTE, não do consumidor — e isso é o que torna a peça
+     * independente da superfície onde ela cai.
+     *
+     * Enquanto o padding vinha de um wrapper por fora, aquela faixa de 8px acima das abas
+     * ficava com a cor do container (a superfície do card) enquanto a tira ficava com o
+     * recuo: duas cores na mesma banda, e a aba inativa parecia "um botão de outra cor
+     * pousado num fundo diferente". Trazendo o padding pra cá, o recuo cobre a banda inteira
+     * e a ÚNICA coisa com fundo próprio passa a ser a aba ativa.
+     */
+    respiro: {
+      comfortable: "pt-pad-md",
+      compact: "pt-pad-sm",
+      nenhum: "",
+    },
     /**
      * `items-stretch` é o que faz a aba de altura total valer: com `items-end` ela encolheria
      * pro próprio conteúdo e o `h-full` não teria contra o que medir. A régua some junto.
@@ -49,10 +64,10 @@ export const navTabsRoot = tv({
     },
   },
 
-  defaultVariants: { fill: false, chrome: true },
+  defaultVariants: { fill: false, chrome: true, respiro: "comfortable" },
 });
 
-export const navTabsTrilho = tv({
+export const tabsNavigationTrilho = tv({
   /**
    * `scrollbar-none` não é preferência: a barra ocupa 11px DENTRO do trilho e empurra as abas
    * pra cima da régua, matando a união. A affordance de navegação são as setas + a lista.
@@ -70,7 +85,7 @@ export const navTabsTrilho = tv({
   defaultVariants: { fill: false },
 });
 
-export const navTab = tv({
+export const tabsNavigationTab = tv({
   base: [
     "group/aba relative flex shrink-0 cursor-pointer select-none",
     "items-center gap-gp-sm border border-transparent px-pad-xl",
@@ -116,7 +131,7 @@ export const navTab = tv({
  * toolbar segmentado, que é outra leitura. Centrar depende do modo, porque o eixo do flex
  * muda: `items-end` no pousado (daí a margem), `items-stretch` no cheio (daí `self-center`).
  */
-export const navTabsDivisoria = tv({
+export const tabsNavigationDivisoria = tv({
   base: "w-px shrink-0 bg-border-default",
 
   variants: {
@@ -139,7 +154,7 @@ export const navTabsDivisoria = tv({
  * centraliza — é isso que alinha a fileira. Medido: com 48px fixos ao lado de abas de 40px,
  * ou dentro de uma faixa de 56px no modo cheio, tudo descia 4px do eixo.
  */
-export const navTabsControles = tv({
+export const tabsNavigationControles = tv({
   base: "flex shrink-0 items-center gap-gp-2xs",
 
   variants: {
@@ -156,7 +171,7 @@ export const navTabsControles = tv({
 });
 
 /** Ação inline da aba (`⋯`, `×`, ✓/✗). 24px — o menor `icon-*` do Button é 32px e não cabe. */
-export const navTabAcao = tv({
+export const tabsNavigationAcao = tv({
   base: [
     "inline-flex size-comp-xs items-center justify-center rounded-radius-sm",
     "transition-colors focus-visible:outline-none focus-visible:ring-4",
@@ -181,7 +196,7 @@ export const navTabAcao = tv({
  * interpolável em qualquer engine — `interpolate-size`/`calc-size()` fariam isso direto, mas
  * ainda não são Baseline e o DS entrega pra navegador que não escolhemos.
  */
-export const navTabAcoes = tv({
+export const tabsNavigationAcoes = tv({
   base: "grid transition-[grid-template-columns,opacity] duration-150 ease-out",
 
   variants: {
@@ -196,7 +211,7 @@ export const navTabAcoes = tv({
 });
 
 /** O ponto de status. Ponto, não Chip: 5 abas abertas = 5 chips brigando com os títulos. */
-export const navTabStatus = tv({
+export const tabsNavigationStatus = tv({
   base: "size-icon-2xs shrink-0",
 
   variants: {
@@ -212,4 +227,4 @@ export const navTabStatus = tv({
   defaultVariants: { status: "neutral" },
 });
 
-export type NavTabVariantProps = VariantProps<typeof navTab>;
+export type TabsNavigationVariantProps = VariantProps<typeof tabsNavigationTab>;

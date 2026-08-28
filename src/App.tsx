@@ -44,7 +44,7 @@ import { InputDoc } from "./preview/pages/InputDoc";
 import { InputGroupDoc } from "./preview/pages/InputGroupDoc";
 import { SelectDoc } from "./preview/pages/SelectDoc";
 import { TabsDoc } from "./preview/pages/TabsDoc";
-import { NavTabsDoc } from "./preview/pages/NavTabsDoc";
+import { TabsNavigationDoc } from "./preview/pages/TabsNavigationDoc";
 import { CardDoc } from "./preview/pages/CardDoc";
 import { SwitchDoc } from "./preview/pages/SwitchDoc";
 import { CheckboxDoc } from "./preview/pages/CheckboxDoc";
@@ -244,7 +244,7 @@ const DOC_PAGES = [
   "icon",
   "input",
   "tabs",
-  "nav-tabs",
+  "tabs-navigation",
   "card",
   "docs",
   "docs-template",
@@ -634,7 +634,7 @@ export function App() {
             {activePage === "input-group" && <InputGroupDoc />}
             {activePage === "select" && <SelectDoc />}
             {activePage === "tabs" && <TabsDoc />}
-            {activePage === "nav-tabs" && <NavTabsDoc />}
+            {activePage === "tabs-navigation" && <TabsNavigationDoc />}
             {activePage === "card" && <CardDoc />}
             {activePage === "switch" && <SwitchDoc />}
             {activePage === "checkbox" && <CheckboxDoc />}

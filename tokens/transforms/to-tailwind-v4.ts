@@ -282,7 +282,7 @@ function buildScrollbarUtilities(): string {
 }
 
 /* Rola, mas sem barra visível. Existe pro caso em que a barra QUEBRA o layout, não por
-   estética: na tira do NavTabs ela ocupa 11px DENTRO do trilho e empurra as abas 11px pra
+   estética: na tira do TabsNavigation ela ocupa 11px DENTRO do trilho e empurra as abas 11px pra
    cima da régua — a união da aba ativa com o conteúdo, que é o componente inteiro, some.
    Medido antes de existir esta utility; a alternativa era \`[scrollbar-width:none]\` +
    \`[&::-webkit-scrollbar]:hidden\` na unha, em componente distribuído.

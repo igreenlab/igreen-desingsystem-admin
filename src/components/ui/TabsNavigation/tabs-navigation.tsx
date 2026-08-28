@@ -22,43 +22,43 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
-import { NavTabsContext } from "./nav-tabs-context";
+import { TabsNavigationContext } from "./tabs-navigation-context";
 import {
-  navTab,
-  navTabAcao,
-  navTabAcoes,
-  navTabStatus,
-  navTabsControles,
-  navTabsDivisoria,
-  navTabsRoot,
-  navTabsTrilho,
-} from "./nav-tabs.styles";
+  tabsNavigationTab,
+  tabsNavigationAcao,
+  tabsNavigationAcoes,
+  tabsNavigationStatus,
+  tabsNavigationControles,
+  tabsNavigationDivisoria,
+  tabsNavigationRoot,
+  tabsNavigationTrilho,
+} from "./tabs-navigation.styles";
 import type {
-  NavTabProps,
-  NavTabsPanelProps,
-  NavTabsProps,
-  NavTabStatus,
-} from "./nav-tabs.types";
+  TabsNavigationTabProps,
+  TabsNavigationPanelProps,
+  TabsNavigationProps,
+  TabsNavigationStatus,
+} from "./tabs-navigation.types";
 
-const STATUS_CONHECIDOS: NavTabStatus[] = ["success", "warning", "danger", "info", "neutral"];
-const ehStatusConhecido = (s: unknown): s is NavTabStatus =>
+const STATUS_CONHECIDOS: TabsNavigationStatus[] = ["success", "warning", "danger", "info", "neutral"];
+const ehStatusConhecido = (s: unknown): s is TabsNavigationStatus =>
   typeof s === "string" && (STATUS_CONHECIDOS as string[]).includes(s);
 
 /* ─────────────────────────── peças de composição ─────────────────────────── */
 
 /** Título da aba. Existe pra não obrigar ninguém a decorar `truncate text-body-sm`. */
-export function NavTabTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {
+export function TabsNavigationTitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {
   return (
     <span className={["block truncate text-body-sm", className ?? ""].join(" ")} {...rest}>
       {children}
     </span>
   );
 }
-NavTabTitle.displayName = "NavTabs.Title";
+TabsNavigationTitle.displayName = "TabsNavigation.Title";
 
 /** Subtítulo — some sozinho quando a tira é `density="compact"`. */
-export function NavTabSubtitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {
-  const ctx = useContext(NavTabsContext);
+export function TabsNavigationSubtitle({ children, className, ...rest }: React.HTMLAttributes<HTMLSpanElement>) {
+  const ctx = useContext(TabsNavigationContext);
   if (ctx?.density === "compact") return null;
   return (
     <span
@@ -69,22 +69,22 @@ export function NavTabSubtitle({ children, className, ...rest }: React.HTMLAttri
     </span>
   );
 }
-NavTabSubtitle.displayName = "NavTabs.Subtitle";
+TabsNavigationSubtitle.displayName = "TabsNavigation.Subtitle";
 
 /**
  * Ação inline da aba. 24px porque o menor `size="icon-*"` do `Button` é 32px e não cabe numa
  * aba de 40px sem espremer o título — é o mesmo motivo de o `+` da tira usar `Button` e este
  * não. `stopPropagation` embutido: clique na ação não pode selecionar a aba.
  */
-export const NavTabAction = forwardRef<
+export const TabsNavigationAction = forwardRef<
   HTMLButtonElement,
   React.ButtonHTMLAttributes<HTMLButtonElement> & { tom?: "neutro" | "success" | "danger" }
->(function NavTabAction({ tom = "neutro", className, onClick, ...rest }, ref) {
+>(function TabsNavigationAction({ tom = "neutro", className, onClick, ...rest }, ref) {
   return (
     <button
       ref={ref}
       type="button"
-      className={navTabAcao({ tom, className })}
+      className={tabsNavigationAcao({ tom, className })}
       onClick={(e) => {
         e.stopPropagation();
         onClick?.(e);
@@ -93,20 +93,20 @@ export const NavTabAction = forwardRef<
     />
   );
 });
-NavTabAction.displayName = "NavTabs.Action";
+TabsNavigationAction.displayName = "TabsNavigation.Action";
 
 /** Ações GLOBAIS da tira (busca, preferências) — ficam à direita, depois de uma divisória. */
-export function NavTabsActions({ children }: { children?: ReactNode }) {
+export function TabsNavigationActions({ children }: { children?: ReactNode }) {
   return <>{children}</>;
 }
-NavTabsActions.displayName = "NavTabs.Actions";
+TabsNavigationActions.displayName = "TabsNavigation.Actions";
 
 /**
  * Painel de conteúdo — opcional. Só faz sentido quando o conteúdo mora DENTRO da árvore do
  * componente; quando mora fora (outra coluna, outra rota), use `panelId` na aba.
  */
-export function NavTabsPanel({ value, children, className, ...rest }: NavTabsPanelProps) {
-  const ctx = useContext(NavTabsContext);
+export function TabsNavigationPanel({ value, children, className, ...rest }: TabsNavigationPanelProps) {
+  const ctx = useContext(TabsNavigationContext);
   if (!ctx || ctx.value !== value) return null;
   return (
     <div
@@ -120,11 +120,11 @@ export function NavTabsPanel({ value, children, className, ...rest }: NavTabsPan
     </div>
   );
 }
-NavTabsPanel.displayName = "NavTabs.Panel";
+TabsNavigationPanel.displayName = "TabsNavigation.Panel";
 
 /* ─────────────────────────────── a aba ─────────────────────────────── */
 
-export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
+export const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabProps>(function TabsNavigationTab(
   {
     value,
     leading,
@@ -141,8 +141,8 @@ export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
   },
   ref,
 ) {
-  const ctx = useContext(NavTabsContext);
-  if (!ctx) throw new Error("<NavTabs.Tab> só funciona dentro de <NavTabs>.");
+  const ctx = useContext(TabsNavigationContext);
+  if (!ctx) throw new Error("<TabsNavigation.Tab> só funciona dentro de <TabsNavigation>.");
 
   const ativa = ctx.value === value;
   const temAcoesPadrao = !actions && typeof onClose === "function";
@@ -167,7 +167,7 @@ export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
           ctx.onValueChange(value);
         }
       }}
-      className={navTab({
+      className={tabsNavigationTab({
         density: ctx.density,
         fill: ctx.fill,
         surface: ctx.surface,
@@ -182,7 +182,7 @@ export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
         {status !== undefined ? (
           <div className="flex items-center gap-gp-sm">
             {ehStatusConhecido(status) ? (
-              <Circle className={navTabStatus({ status })} aria-hidden />
+              <Circle className={tabsNavigationStatus({ status })} aria-hidden />
             ) : (
               status
             )}
@@ -209,7 +209,7 @@ export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
 
       {conteudoAcoes ? (
         <div
-          className={navTabAcoes({
+          className={tabsNavigationAcoes({
             visivel: ativa || actionsAlwaysVisible || ctx.actionsMode === "persistent",
           })}
         >
@@ -219,16 +219,16 @@ export const NavTab = forwardRef<HTMLDivElement, NavTabProps>(function NavTab(
     </div>
   );
 });
-NavTab.displayName = "NavTabs.Tab";
+TabsNavigationTab.displayName = "TabsNavigation.Tab";
 
 function AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode }) {
   return (
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <NavTabAction aria-label="Opções da aba">
+          <TabsNavigationAction aria-label="Opções da aba">
             <MoreHorizontal className="size-icon-sm" />
-          </NavTabAction>
+          </TabsNavigationAction>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="start" className="w-[196px]">
           {menu}
@@ -242,9 +242,9 @@ function AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode 
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <NavTabAction aria-label="Fechar aba" onClick={onClose}>
+      <TabsNavigationAction aria-label="Fechar aba" onClick={onClose}>
         <X className="size-icon-sm" />
-      </NavTabAction>
+      </TabsNavigationAction>
     </>
   );
 }
@@ -252,14 +252,14 @@ function AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode 
 /* ──────────────────────────────── a tira ──────────────────────────────── */
 
 /**
- * `NavTabs` — tira de abas de navegação, no estilo das abas de um navegador.
+ * `TabsNavigation` — tira de abas de navegação, no estilo das abas de um navegador.
  *
  * ## O conteúdo mora onde você quiser
  *
  * O componente é **sempre controlado** e não hospeda o conteúdo: ele diz qual aba está ativa
  * (`value` / `onValueChange`) e o consumidor troca o que quiser, onde quiser — outra coluna,
  * outra rota, outro componente. Pra fechar a acessibilidade com o painel fora, dê `panelId` à
- * aba (vira `aria-controls`); com o painel dentro, use `<NavTabs.Panel>`.
+ * aba (vira `aria-controls`); com o painel dentro, use `<TabsNavigation.Panel>`.
  *
  * ## Composição, não configuração
  *
@@ -268,8 +268,8 @@ function AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode 
  * cinco botões, ou nenhum.
  *
  * @example
- * <NavTabs value={id} onValueChange={setId} aria-label="Conversas abertas" onNewTab={abrir}>
- *   <NavTabs.Tab
+ * <TabsNavigation value={id} onValueChange={setId} aria-label="Conversas abertas" onNewTab={abrir}>
+ *   <TabsNavigation.Tab
  *     value="c1"
  *     leading={<Avatar size="sm" colorHex="#2563EB">MS</Avatar>}
  *     status="success"
@@ -277,12 +277,12 @@ function AcoesPadrao({ onClose, menu }: { onClose: () => void; menu?: ReactNode 
  *     panelId="painel"
  *     onClose={() => fechar("c1")}
  *   >
- *     <NavTabs.Title>Maria Silva</NavTabs.Title>
- *     <NavTabs.Subtitle>Fatura de julho</NavTabs.Subtitle>
- *   </NavTabs.Tab>
- * </NavTabs>
+ *     <TabsNavigation.Title>Maria Silva</TabsNavigation.Title>
+ *     <TabsNavigation.Subtitle>Fatura de julho</TabsNavigation.Subtitle>
+ *   </TabsNavigation.Tab>
+ * </TabsNavigation>
  */
-export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function NavTabs(
+export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps>(function TabsNavigation(
   {
     value,
     onValueChange,
@@ -317,12 +317,12 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
 
   /** Separa as abas das ações globais: as duas coisas moram em lugares diferentes da tira. */
   const { abas, acoesGlobais } = useMemo(() => {
-    const abas: ReactElement<NavTabProps>[] = [];
+    const abas: ReactElement<TabsNavigationTabProps>[] = [];
     let acoesGlobais: ReactNode = null;
     for (const filho of Children.toArray(children)) {
       if (!isValidElement(filho)) continue;
-      if (filho.type === NavTabsActions) acoesGlobais = filho;
-      else abas.push(filho as ReactElement<NavTabProps>);
+      if (filho.type === TabsNavigationActions) acoesGlobais = filho;
+      else abas.push(filho as ReactElement<TabsNavigationTabProps>);
     }
     return { abas, acoesGlobais };
   }, [children]);
@@ -401,17 +401,23 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
        (o painel de automação, um teste headless) a seleção mudava e o foco ficava pra trás. */
   };
 
-  const controles = navTabsControles({ fill, density });
+  const controles = tabsNavigationControles({ fill, density });
 
   return (
-    <NavTabsContext.Provider value={ctx}>
+    <TabsNavigationContext.Provider value={ctx}>
       <div
         ref={ref}
         role="tablist"
         aria-label={ariaLabel}
         aria-orientation="horizontal"
         onKeyDown={onKeyDown}
-        className={navTabsRoot({ fill, chrome, className })}
+        className={tabsNavigationRoot({
+          fill,
+          chrome,
+          // em `fill` a aba vai de ponta a ponta: respiro no topo desmontaria justamente isso
+          respiro: fill ? "nenhum" : density,
+          className,
+        })}
         {...rest}
       >
         {rolagem.transborda ? (
@@ -426,11 +432,11 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
             >
               <ChevronLeft />
             </Button>
-            <span aria-hidden className={navTabsDivisoria({ fill })} />
+            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />
           </div>
         ) : null}
 
-        <div ref={trilho} onScroll={medir} className={navTabsTrilho({ fill })}>
+        <div ref={trilho} onScroll={medir} className={tabsNavigationTrilho({ fill })}>
           {abas.map((aba, i) => {
             /* Divisória só entre DUAS inativas: ao lado da ativa ela encosta na borda e vira
                uma sombra falsa. É o que o navegador faz. */
@@ -443,7 +449,7 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
               >
                 {aba}
                 {i < abas.length - 1 ? (
-                  <span aria-hidden className={navTabsDivisoria({ fill, oculta: vizinhaDaAtiva })} />
+                  <span aria-hidden className={tabsNavigationDivisoria({ fill, oculta: vizinhaDaAtiva })} />
                 ) : null}
               </div>
             );
@@ -452,7 +458,7 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
 
         {rolagem.transborda ? (
           <div className={`${controles} pl-pad-xs`}>
-            <span aria-hidden className={navTabsDivisoria({ fill })} />
+            <span aria-hidden className={tabsNavigationDivisoria({ fill })} />
             <Button
               variant="ghost"
               color="secondary"
@@ -511,7 +517,7 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
                         className={p.value === value ? "bg-bg-brand-subtle text-fg-brand" : undefined}
                       >
                         {ehStatusConhecido(p.status) ? (
-                          <Circle className={navTabStatus({ status: p.status })} aria-hidden />
+                          <Circle className={tabsNavigationStatus({ status: p.status })} aria-hidden />
                         ) : null}
                         <span className="min-w-0 flex-1">{p.children}</span>
                       </DropdownMenuItem>
@@ -523,31 +529,31 @@ export const NavTabsRoot = forwardRef<HTMLDivElement, NavTabsProps>(function Nav
 
             {acoesGlobais ? (
               <>
-                <span aria-hidden className={navTabsDivisoria({ fill, className: "mx-pad-xs" })} />
+                <span aria-hidden className={tabsNavigationDivisoria({ fill, className: "mx-pad-xs" })} />
                 <div className="flex items-center gap-gp-2xs">{acoesGlobais}</div>
               </>
             ) : null}
           </div>
         ) : null}
       </div>
-    </NavTabsContext.Provider>
+    </TabsNavigationContext.Provider>
   );
 });
 
-type NavTabsCompound = typeof NavTabsRoot & {
-  Tab: typeof NavTab;
-  Title: typeof NavTabTitle;
-  Subtitle: typeof NavTabSubtitle;
-  Action: typeof NavTabAction;
-  Actions: typeof NavTabsActions;
-  Panel: typeof NavTabsPanel;
+type TabsNavigationCompound = typeof TabsNavigationRoot & {
+  Tab: typeof TabsNavigationTab;
+  Title: typeof TabsNavigationTitle;
+  Subtitle: typeof TabsNavigationSubtitle;
+  Action: typeof TabsNavigationAction;
+  Actions: typeof TabsNavigationActions;
+  Panel: typeof TabsNavigationPanel;
 };
 
-export const NavTabs = Object.assign(NavTabsRoot, {
-  Tab: NavTab,
-  Title: NavTabTitle,
-  Subtitle: NavTabSubtitle,
-  Action: NavTabAction,
-  Actions: NavTabsActions,
-  Panel: NavTabsPanel,
-}) as NavTabsCompound;
+export const TabsNavigation = Object.assign(TabsNavigationRoot, {
+  Tab: TabsNavigationTab,
+  Title: TabsNavigationTitle,
+  Subtitle: TabsNavigationSubtitle,
+  Action: TabsNavigationAction,
+  Actions: TabsNavigationActions,
+  Panel: TabsNavigationPanel,
+}) as TabsNavigationCompound;

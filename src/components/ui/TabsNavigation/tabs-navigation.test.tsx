@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { NavTabs } from "./nav-tabs";
+import { TabsNavigation } from "./tabs-navigation";
 
 /**
  * Os testes são das DECISÕES da spec, não de estilo — são elas que um refactor futuro desfaz
@@ -19,26 +19,26 @@ import { NavTabs } from "./nav-tabs";
 
 const classes = (el: Element | null) => String(el?.className ?? "");
 
-function Tira(props: Partial<React.ComponentProps<typeof NavTabs>> = {}) {
+function Tira(props: Partial<React.ComponentProps<typeof TabsNavigation>> = {}) {
   const { value = "a", onValueChange = () => {}, ...resto } = props;
   return (
-    <NavTabs value={value} onValueChange={onValueChange} aria-label="Abas" {...resto}>
-      <NavTabs.Tab value="a">
-        <NavTabs.Title>Primeira</NavTabs.Title>
-        <NavTabs.Subtitle>sub A</NavTabs.Subtitle>
-      </NavTabs.Tab>
-      <NavTabs.Tab value="b">
-        <NavTabs.Title>Segunda</NavTabs.Title>
-        <NavTabs.Subtitle>sub B</NavTabs.Subtitle>
-      </NavTabs.Tab>
-      <NavTabs.Tab value="c">
-        <NavTabs.Title>Terceira</NavTabs.Title>
-      </NavTabs.Tab>
-    </NavTabs>
+    <TabsNavigation value={value} onValueChange={onValueChange} aria-label="Abas" {...resto}>
+      <TabsNavigation.Tab value="a">
+        <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        <TabsNavigation.Subtitle>sub A</TabsNavigation.Subtitle>
+      </TabsNavigation.Tab>
+      <TabsNavigation.Tab value="b">
+        <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+        <TabsNavigation.Subtitle>sub B</TabsNavigation.Subtitle>
+      </TabsNavigation.Tab>
+      <TabsNavigation.Tab value="c">
+        <TabsNavigation.Title>Terceira</TabsNavigation.Title>
+      </TabsNavigation.Tab>
+    </TabsNavigation>
   );
 }
 
-describe("NavTabs — controle e conteúdo fora", () => {
+describe("TabsNavigation — controle e conteúdo fora", () => {
   it("é controlado: clicar avisa, mas quem troca é o consumidor", () => {
     const onValueChange = vi.fn();
     render(<Tira value="a" onValueChange={onValueChange} />);
@@ -51,11 +51,11 @@ describe("NavTabs — controle e conteúdo fora", () => {
 
   it("`panelId` vira aria-controls — é o que fecha a a11y com o painel FORA", () => {
     render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab value="a" panelId="painel-externo">
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab value="a" panelId="painel-externo">
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     expect(screen.getByRole("tab").getAttribute("aria-controls")).toBe("painel-externo");
   });
@@ -63,16 +63,16 @@ describe("NavTabs — controle e conteúdo fora", () => {
   it("`Panel` renderiza só a ativa e é rotulado pela aba", () => {
     const { rerender } = render(
       <>
-        <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-          <NavTabs.Tab value="a">
-            <NavTabs.Title>Primeira</NavTabs.Title>
-          </NavTabs.Tab>
-          <NavTabs.Tab value="b">
-            <NavTabs.Title>Segunda</NavTabs.Title>
-          </NavTabs.Tab>
-          <NavTabs.Panel value="a">conteúdo A</NavTabs.Panel>
-          <NavTabs.Panel value="b">conteúdo B</NavTabs.Panel>
-        </NavTabs>
+        <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+          <TabsNavigation.Tab value="a">
+            <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+          </TabsNavigation.Tab>
+          <TabsNavigation.Tab value="b">
+            <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+          </TabsNavigation.Tab>
+          <TabsNavigation.Panel value="a">conteúdo A</TabsNavigation.Panel>
+          <TabsNavigation.Panel value="b">conteúdo B</TabsNavigation.Panel>
+        </TabsNavigation>
       </>,
     );
     expect(screen.getByText("conteúdo A")).toBeTruthy();
@@ -83,35 +83,35 @@ describe("NavTabs — controle e conteúdo fora", () => {
     expect(painel.getAttribute("aria-labelledby")).toBe(aba.id);
 
     rerender(
-      <NavTabs value="b" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab value="a">
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-        <NavTabs.Tab value="b">
-          <NavTabs.Title>Segunda</NavTabs.Title>
-        </NavTabs.Tab>
-        <NavTabs.Panel value="a">conteúdo A</NavTabs.Panel>
-        <NavTabs.Panel value="b">conteúdo B</NavTabs.Panel>
-      </NavTabs>,
+      <TabsNavigation value="b" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab value="a">
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+        <TabsNavigation.Tab value="b">
+          <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+        <TabsNavigation.Panel value="a">conteúdo A</TabsNavigation.Panel>
+        <TabsNavigation.Panel value="b">conteúdo B</TabsNavigation.Panel>
+      </TabsNavigation>,
     );
     expect(screen.getByText("conteúdo B")).toBeTruthy();
   });
 
   it("`Panel` não aparece dentro do tablist — ele é filho lógico, não item da tira", () => {
     render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab value="a">
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-        <NavTabs.Panel value="a">conteúdo</NavTabs.Panel>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab value="a">
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+        <TabsNavigation.Panel value="a">conteúdo</TabsNavigation.Panel>
+      </TabsNavigation>,
     );
     // o painel é renderizado, mas não vira uma "aba" a mais
     expect(screen.getAllByRole("tab")).toHaveLength(1);
   });
 });
 
-describe("NavTabs — composição das ações", () => {
+describe("TabsNavigation — composição das ações", () => {
   it("sem `onClose` e sem `actions`, a aba não tem ação nenhuma", () => {
     render(<Tira />);
     expect(screen.queryByLabelText("Fechar aba")).toBeNull();
@@ -120,11 +120,11 @@ describe("NavTabs — composição das ações", () => {
   it("`onClose` liga as ações padrão (⋯ + ×)", () => {
     const onClose = vi.fn();
     render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab value="a" onClose={onClose}>
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab value="a" onClose={onClose}>
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     expect(screen.getByLabelText("Opções da aba")).toBeTruthy();
     fireEvent.click(screen.getByLabelText("Fechar aba"));
@@ -134,19 +134,19 @@ describe("NavTabs — composição das ações", () => {
   it("`actions` SUBSTITUI as padrão — é o escape hatch de ✓/✗", () => {
     const aceitar = vi.fn();
     render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab
           value="a"
           onClose={() => {}}
           actions={
-            <NavTabs.Action aria-label="Aceitar" tom="success" onClick={aceitar}>
+            <TabsNavigation.Action aria-label="Aceitar" tom="success" onClick={aceitar}>
               ok
-            </NavTabs.Action>
+            </TabsNavigation.Action>
           }
         >
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     expect(screen.queryByLabelText("Fechar aba")).toBeNull();
     fireEvent.click(screen.getByLabelText("Aceitar"));
@@ -156,25 +156,25 @@ describe("NavTabs — composição das ações", () => {
   it("clique na ação NÃO seleciona a aba", () => {
     const onValueChange = vi.fn();
     render(
-      <NavTabs value="a" onValueChange={onValueChange} aria-label="Abas">
-        <NavTabs.Tab value="b" onClose={() => {}}>
-          <NavTabs.Title>Segunda</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={onValueChange} aria-label="Abas">
+        <TabsNavigation.Tab value="b" onClose={() => {}}>
+          <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     fireEvent.click(screen.getByLabelText("Fechar aba"));
     expect(onValueChange).not.toHaveBeenCalled();
   });
 });
 
-describe("NavTabs — a coluna de ações não reserva espaço", () => {
-  const comAcoes = (props: Partial<React.ComponentProps<typeof NavTabs.Tab>> = {}) => {
+describe("TabsNavigation — a coluna de ações não reserva espaço", () => {
+  const comAcoes = (props: Partial<React.ComponentProps<typeof TabsNavigation.Tab>> = {}) => {
     const { container } = render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas" {...(props.value ? {} : {})}>
-        <NavTabs.Tab value="b" onClose={() => {}} {...props}>
-          <NavTabs.Title>Segunda</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas" {...(props.value ? {} : {})}>
+        <TabsNavigation.Tab value="b" onClose={() => {}} {...props}>
+          <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     return classes(container.querySelector('[role="tab"] .grid'));
   };
@@ -189,28 +189,28 @@ describe("NavTabs — a coluna de ações não reserva espaço", () => {
 
   it("aba ATIVA sempre mostra as ações", () => {
     const { container } = render(
-      <NavTabs value="a" onValueChange={() => {}} aria-label="Abas">
-        <NavTabs.Tab value="a" onClose={() => {}}>
-          <NavTabs.Title>Primeira</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} aria-label="Abas">
+        <TabsNavigation.Tab value="a" onClose={() => {}}>
+          <TabsNavigation.Title>Primeira</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     expect(classes(container.querySelector('[role="tab"] .grid'))).toContain("grid-cols-[1fr]");
   });
 
   it("`actionsMode=persistent` abre a coluna de todas", () => {
     const { container } = render(
-      <NavTabs value="a" onValueChange={() => {}} actionsMode="persistent" aria-label="Abas">
-        <NavTabs.Tab value="b" onClose={() => {}}>
-          <NavTabs.Title>Segunda</NavTabs.Title>
-        </NavTabs.Tab>
-      </NavTabs>,
+      <TabsNavigation value="a" onValueChange={() => {}} actionsMode="persistent" aria-label="Abas">
+        <TabsNavigation.Tab value="b" onClose={() => {}}>
+          <TabsNavigation.Title>Segunda</TabsNavigation.Title>
+        </TabsNavigation.Tab>
+      </TabsNavigation>,
     );
     expect(classes(container.querySelector('[role="tab"] .grid'))).toContain("grid-cols-[1fr]");
   });
 });
 
-describe("NavTabs — teclado", () => {
+describe("TabsNavigation — teclado", () => {
   it("só a aba ativa entra na ordem de tabulação (roving tabindex)", () => {
     render(<Tira value="b" />);
     const abas = screen.getAllByRole("tab");
@@ -271,7 +271,7 @@ describe("NavTabs — teclado", () => {
   });
 });
 
-describe("NavTabs — densidade, fill e superfície", () => {
+describe("TabsNavigation — densidade, fill e superfície", () => {
   it("`compact` esconde o subtítulo sem o consumidor condicionar nada", () => {
     const { rerender } = render(<Tira />);
     expect(screen.getByText("sub A")).toBeTruthy();

@@ -57,7 +57,7 @@ const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
  *
  * Em 2026-08-28 entraram `max`, `total`, `surface`, `ring`, `src` e `children` — as props do
  * `AvatarGroup`/`Avatar`, e a classe que a regra deles proíbe escrever na mão. E `value`, do
- * `NavTabs`, que é controlado.
+ * `TabsNavigation`, que é controlado.
  */
 const NAO_NOME =
   /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|value$|src$|children$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;

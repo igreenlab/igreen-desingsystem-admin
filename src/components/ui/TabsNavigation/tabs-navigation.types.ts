@@ -1,16 +1,16 @@
 import type { ReactNode } from "react";
 
 /** Superfície do CONTEÚDO abaixo da tira — a aba ativa precisa ser a mesma cor pra unir. */
-export type NavTabsSurface = "surface" | "canvas";
+export type TabsNavigationSurface = "surface" | "canvas";
 
 /** `comfortable` = título + subtítulo (48px) · `compact` = só título (40px). */
-export type NavTabsDensity = "comfortable" | "compact";
+export type TabsNavigationDensity = "comfortable" | "compact";
 
 /** Tom do ponto de status. Passe um `ReactNode` em `status` pra desenhar o seu. */
-export type NavTabStatus = "success" | "warning" | "danger" | "info" | "neutral";
+export type TabsNavigationStatus = "success" | "warning" | "danger" | "info" | "neutral";
 
-export interface NavTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
-  /** `value` da aba ativa. O componente é SEMPRE controlado — ver `NavTabsProps.onValueChange`. */
+export interface TabsNavigationProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  /** `value` da aba ativa. O componente é SEMPRE controlado — ver `TabsNavigationProps.onValueChange`. */
   value: string;
 
   /**
@@ -27,14 +27,14 @@ export interface NavTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
    * une ao conteúdo. Num card `surface`; se o conteúdo for a própria página, `canvas`.
    * @default "surface"
    */
-  surface?: NavTabsSurface;
+  surface?: TabsNavigationSurface;
 
   /**
    * `compact` remove o subtítulo e baixa a aba pra 40px. É escolha de CONTEÚDO, não de
    * densidade: sem subtítulo, duas conversas do mesmo cliente ficam idênticas.
    * @default "comfortable"
    */
-  density?: NavTabsDensity;
+  density?: TabsNavigationDensity;
 
   /**
    * `true` = a aba ocupa a faixa inteira (lê como segmento, não como aba de navegador) e a
@@ -63,11 +63,11 @@ export interface NavTabsProps extends Omit<React.HTMLAttributes<HTMLDivElement>,
   /** Rótulo do conjunto pro leitor de tela, ex.: `"Conversas abertas"`. */
   "aria-label"?: string;
 
-  /** `<NavTabs.Tab>`s e, opcionalmente, um `<NavTabs.Actions>`. */
+  /** `<TabsNavigation.Tab>`s e, opcionalmente, um `<TabsNavigation.Actions>`. */
   children?: ReactNode;
 }
 
-export interface NavTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSelect"> {
+export interface TabsNavigationTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onSelect"> {
   /** Identidade da aba — é o que volta em `onValueChange`. */
   value: string;
 
@@ -75,13 +75,13 @@ export interface NavTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
   leading?: ReactNode;
 
   /** Ponto de status pronto, ou o seu próprio nó. */
-  status?: NavTabStatus | ReactNode;
+  status?: TabsNavigationStatus | ReactNode;
 
   /** Contador (número) ou qualquer nó. Some quando a aba está ativa — o usuário já está lendo. */
   badge?: number | ReactNode;
 
   /**
-   * SUBSTITUI as ações padrão. Passe quantas quiser (`<NavTabs.Action>` ou qualquer botão) —
+   * SUBSTITUI as ações padrão. Passe quantas quiser (`<TabsNavigation.Action>` ou qualquer botão) —
    * é aqui que entram ✓/✗ de aceitar/recusar, "fixar", "duplicar".
    */
   actions?: ReactNode;
@@ -94,18 +94,18 @@ export interface NavTabProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 
 
   /**
    * `id` do elemento que esta aba controla, quando o conteúdo mora FORA do componente.
-   * Emite `aria-controls`. Dentro, prefira `<NavTabs.Panel value="…">`.
+   * Emite `aria-controls`. Dentro, prefira `<TabsNavigation.Panel value="…">`.
    */
   panelId?: string;
 
   /** Mantém as ações visíveis só nesta aba (o `pendente` do caso de chamados). */
   actionsAlwaysVisible?: boolean;
 
-  /** `<NavTabs.Title>` + `<NavTabs.Subtitle>`, ou a composição que você quiser. */
+  /** `<TabsNavigation.Title>` + `<TabsNavigation.Subtitle>`, ou a composição que você quiser. */
   children?: ReactNode;
 }
 
-export interface NavTabsPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TabsNavigationPanelProps extends React.HTMLAttributes<HTMLDivElement> {
   /** Casa com o `value` da aba. Renderiza apenas quando ela está ativa. */
   value: string;
   children?: ReactNode;
