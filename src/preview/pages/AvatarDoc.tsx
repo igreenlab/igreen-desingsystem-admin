@@ -1,5 +1,5 @@
 import { Avatar, AvatarImage, AvatarFallback } from "../../components/shadcn/avatar";
-import { Avatar as DSAvatar } from "../../components/ui/avatar-ig";
+import { Avatar as DSAvatar, AvatarGroup } from "../../components/ui/avatar-ig";
 import { DocLayout, DocHeader, DocSeparator, SectionH2, ExampleSection, PropsTable } from "../components";
 
 const TOC = [
@@ -10,6 +10,10 @@ const TOC = [
   { id: "ex-ds-sizes", label: "DS Sizes" },
   { id: "ex-ds-colors", label: "DS Colors" },
   { id: "ex-ds-colorhex", label: "colorHex + auto contraste" },
+  { id: "grupo", label: "AvatarGroup" },
+  { id: "ex-grupo", label: "Pilha e tamanhos" },
+  { id: "ex-grupo-max", label: "max + total" },
+  { id: "ex-grupo-surface", label: "surface (cor do anel)" },
   { id: "api", label: "API Reference" },
 ];
 const PROPS = [
@@ -96,6 +100,100 @@ export function AvatarDoc() {
           <DSAvatar size="lg" colorHex="#820AD1">NU</DSAvatar>
           <DSAvatar size="lg" colorHex="#EC7000">IT</DSAvatar>
           <DSAvatar size="lg" colorHex="#CC092F">BR</DSAvatar>
+        </div>
+      </ExampleSection>
+
+      <SectionH2 id="grupo" title="AvatarGroup" />
+
+      <ExampleSection
+        id="ex-grupo"
+        title="Pilha e tamanhos"
+        description="O size vai no CONTAINER e é propagado por contexto — não se repete em cada filho. A sobreposição escala junto: xs desloca 4px e xl desloca 10px, mantendo ~25% do diâmetro em toda a escala (6px fixo daria 30% no xs e 15% no xl, que são arranjos diferentes). O primeiro fica por cima, invertendo o empilhamento natural do DOM: a leitura é da esquerda pra direita."
+        code={`<AvatarGroup size="sm" aria-label="4 responsáveis">
+  <Avatar colorHex="#2563EB">MD</Avatar>
+  <Avatar colorHex="#CC092F">AC</Avatar>
+  <Avatar colorHex="#7C3AED">JS</Avatar>
+  <Avatar colorHex="#0891B2">TK</Avatar>
+</AvatarGroup>`}
+      >
+        <div className="flex flex-col gap-gp-2xl">
+          {(["xs", "sm", "md", "lg", "xl"] as const).map((s) => (
+            <div key={s} className="flex items-center gap-gp-2xl">
+              <code className="w-[32px] shrink-0 text-code-sm text-fg-muted">{s}</code>
+              <AvatarGroup size={s} aria-label={`4 pessoas, tamanho ${s}`}>
+                <DSAvatar colorHex="#2563EB">MD</DSAvatar>
+                <DSAvatar colorHex="#CC092F">AC</DSAvatar>
+                <DSAvatar colorHex="#7C3AED">JS</DSAvatar>
+                <DSAvatar colorHex="#0891B2">TK</DSAvatar>
+              </AvatarGroup>
+            </div>
+          ))}
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-grupo-max"
+        title="max + total"
+        description="max corta a pilha; total é a contagem REAL. Sem total, o +N conta só o que foi renderizado — uma lista paginada em 4 mostraria +1 tendo 40 pessoas. O +N é aria-hidden porque a contagem já está no aria-label do grupo."
+        code={`{/* sem total: conta os filhos renderizados */}
+<AvatarGroup max={3} aria-label="5 responsáveis">…5 filhos…</AvatarGroup>
+
+{/* com total: reflete o servidor */}
+<AvatarGroup max={3} total={40} aria-label="40 responsáveis">…5 filhos…</AvatarGroup>`}
+      >
+        <div className="flex flex-col gap-gp-2xl">
+          {[
+            { rotulo: "max={3}", total: undefined },
+            { rotulo: "max={3} total={40}", total: 40 },
+          ].map(({ rotulo, total }) => (
+            <div key={rotulo} className="flex items-center gap-gp-2xl">
+              <code className="w-[160px] shrink-0 text-code-sm text-fg-muted">{rotulo}</code>
+              <AvatarGroup max={3} total={total} aria-label={`${total ?? 5} responsáveis`}>
+                <DSAvatar colorHex="#2563EB">MD</DSAvatar>
+                <DSAvatar colorHex="#CC092F">AC</DSAvatar>
+                <DSAvatar colorHex="#7C3AED">JS</DSAvatar>
+                <DSAvatar colorHex="#0891B2">TK</DSAvatar>
+                <DSAvatar colorHex="#EA580C">LP</DSAvatar>
+              </AvatarGroup>
+            </div>
+          ))}
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-grupo-surface"
+        title="surface — o anel é da cor do que está ATRÁS"
+        description="É o erro clássico da pilha. O anel separa um avatar do outro pintando a cor da superfície de trás — com o token errado ele deixa de separar e vira um halo. Os dois grupos abaixo estão sobre bg-bg-muted: o de cima usa o default (surface), o de baixo declara o token certo."
+        code={`{/* o token acompanha o fundo de trás */}
+<AvatarGroup surface="muted" aria-label="3 responsáveis">…</AvatarGroup>`}
+      >
+        <div className="flex flex-col gap-gp-xl">
+          {[
+            { rotulo: 'surface="surface" (errado aqui)', surface: "surface" as const },
+            { rotulo: 'surface="muted" (certo)', surface: "muted" as const },
+          ].map(({ rotulo, surface }) => (
+            <div
+              key={rotulo}
+              className="flex items-center gap-gp-2xl rounded-radius-lg bg-bg-muted p-pad-2xl"
+            >
+              <code className="w-[220px] shrink-0 text-code-sm text-fg-muted">{rotulo}</code>
+              <AvatarGroup surface={surface} aria-label="3 responsáveis">
+                <DSAvatar colorHex="#2563EB">MD</DSAvatar>
+                <DSAvatar colorHex="#CC092F">AC</DSAvatar>
+                <DSAvatar colorHex="#7C3AED">JS</DSAvatar>
+              </AvatarGroup>
+            </div>
+          ))}
+          <p className="text-body-sm text-fg-muted">
+            ⚠️ <code className="text-code-sm">table</code> e{" "}
+            <code className="text-code-sm">surface</code> resolvem pro{" "}
+            <strong>mesmo valor hoje</strong> (
+            <code className="text-code-sm">oklch(1 0 0)</code> no claro,{" "}
+            <code className="text-code-sm">oklch(0.225 0 0)</code> no escuro) — dentro de tabela
+            a escolha é <strong>semântica</strong>, não visual. Declare{" "}
+            <code className="text-code-sm">table</code> mesmo assim: se um dia os dois
+            divergirem, a pilha continua certa sem ninguém precisar caçar o call site.
+          </p>
         </div>
       </ExampleSection>
 

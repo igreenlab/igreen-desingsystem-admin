@@ -1,5 +1,6 @@
-import { forwardRef } from "react";
+import { forwardRef, useContext } from "react";
 import { getContrastTextColor } from "@/utils/color-contrast";
+import { AvatarGroupContext } from "./avatar-group-context";
 import { avatarVariants } from "./avatar.styles";
 import type { AvatarProps } from "./avatar.types";
 
@@ -37,6 +38,14 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
     },
     ref,
   ) {
+    /**
+     * Dentro de um `<AvatarGroup>`, o tamanho vem do grupo — mas o `size` passado aqui
+     * VENCE. É escape hatch: sem ele não haveria como destacar um avatar do conjunto.
+     * Fora do grupo o contexto é `undefined` e nada muda (o default `md` do tv() vale).
+     */
+    const grupo = useContext(AvatarGroupContext);
+    const sizeEfetivo = size ?? grupo?.size;
+
     const isHex = typeof colorHex === "string" && colorHex.startsWith("#");
 
     // Cor de texto auto-calculada quando hex é fornecido — sempre o maior
@@ -49,7 +58,7 @@ export const Avatar = forwardRef<HTMLDivElement, AvatarProps>(
       : null;
 
     const computedClassName = avatarVariants({
-      size,
+      size: sizeEfetivo,
       color: isHex ? "_custom" : color,
       className: isHex
         ? [autoTextClass, className].filter(Boolean).join(" ")

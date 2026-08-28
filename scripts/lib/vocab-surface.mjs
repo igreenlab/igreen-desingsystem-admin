@@ -54,9 +54,12 @@ const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
  * Em 2026-08-21 entraram `w-` e `flex-`: a regra do `tabs` precisa dizer ⛔ *"nunca `w-full`
  * nem `flex-1` na mão"*, e citar a classe proibida em backtick é o jeito natural de escrever
  * isso. O gate leu as duas como nome de componente inventado.
+ *
+ * Em 2026-08-28 entraram `max`, `total`, `surface` e `ring` — as props do `AvatarGroup` e a
+ * classe que a regra dele proíbe escrever na mão.
  */
 const NAO_NOME =
-  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;
+  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;
 
 /** Deps npm citadas legitimamente (aparecem como "traz `d3-geo`"). */
 const DEPS_NPM = new Set(["d3-geo", "topojson-client", "recharts", "lucide-react"]);

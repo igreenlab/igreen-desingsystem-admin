@@ -21,7 +21,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · accordion · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · accordion · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -45,7 +45,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-dialog · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · alert-dialog · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -95,7 +95,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert-modal · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · alert-modal · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -119,7 +119,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · alert · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · alert · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -185,7 +185,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · app-shell · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · app-shell · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -207,7 +207,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · aspect-ratio · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · aspect-ratio · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -222,34 +222,44 @@ export const registry: Record<string, unknown> = {
     ],
     "files": [
       {
-        "path": "src/components/ui/avatar-ig/USAGE.md",
-        "content": "# Avatar\r\n\r\nCircular badge displaying user initials. Supports semantic colors and per-person hex overrides.\r\n\r\n## Basic usage\r\n\r\n```tsx\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\n\r\n// Semantic color (default: muted)\r\n<Avatar size=\"md\" color=\"brand\">MS</Avatar>\r\n\r\n// Person-specific hex color\r\n<Avatar size=\"sm\" colorHex=\"#8754ec\">CO</Avatar>\r\n```\r\n\r\n## Sizes\r\n\r\n| Size | Pixels | Typography preset |\r\n|------|--------|-------------------|\r\n| `xs` | 20px   | caption-sm (11px) |\r\n| `sm` | 24px   | caption-sm (11px) |\r\n| `md` | 28px   | caption-sm (11px) |\r\n| `lg` | 32px   | body-sm font-normal (13px) |\r\n| `xl` | 40px   | body-md font-medium (14px) |\r\n\r\n## Colors\r\n\r\n| Color      | Background         | Foreground          |\r\n|------------|--------------------|--------------------|\r\n| `brand`    | `bg-bg-brand`      | `fg-on-brand`      |\r\n| `success`  | `bg-bg-success`    | `fg-on-success`    |\r\n| `warning`  | `bg-bg-warning`    | `fg-on-warning`    |\r\n| `critical` | `bg-bg-danger`     | `fg-on-danger`     |\r\n| `info`     | `bg-bg-info`       | `fg-on-info`       |\r\n| `muted`    | `bg-bg-muted`      | `fg-muted`         |\r\n\r\n## colorHex override + auto contrast (v0.7.1+)\r\n\r\nWhen `colorHex` is provided (string starting with `#`), the background is set\r\nvia inline style and **a cor de texto é escolhida automaticamente** pra ter\r\no maior contraste WCAG entre `white` ou `black`. O prop `color` é ignorado.\r\n\r\n| Hex bg               | Texto auto-pickado | Motivo (WCAG ratio)                    |\r\n|----------------------|--------------------|----------------------------------------|\r\n| `#FAE128` (BB)       | `black`            | white 1.29 vs black 16.3 → preto vence |\r\n| `#820AD1` (Nubank)   | `white`            | white 6.2 vs black 3.4 → branco vence  |\r\n| `#EC7000` (Itaú)     | `black`            | white 2.7 vs black 7.8 → preto vence   |\r\n| `#CC092F` (Bradesco) | `white`            | white 6.5 vs black 3.2 → branco vence  |\r\n| `#FFFFFF`            | `black`            | óbvio                                   |\r\n| `#000000`            | `white`            | óbvio                                   |\r\n\r\nA escolha vem de `getContrastTextColor()` em `@/utils/color-contrast.ts`\r\n(WCAG 2.x relative luminance + contrast ratio).\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\">BB</Avatar>      // texto preto auto\r\n<Avatar colorHex=\"#820AD1\">NU</Avatar>      // texto branco auto\r\n```\r\n\r\n**Override manual:** se precisar forçar uma cor específica (caso raro de\r\nbrand guideline), passe via `className`:\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\" className=\"text-white\">BB</Avatar>\r\n// (não recomendado — quebra WCAG AA)\r\n```\r\n\r\n## Accessibility\r\n\r\n- With `aria-label`: renders `role=\"img\"` (semantic avatar).\r\n- Without `aria-label`: renders `aria-hidden=\"true\"` (decorative).\r\n\r\n```tsx\r\n// Semantic — standalone avatar with meaning\r\n<Avatar aria-label=\"Maria Silva\">MS</Avatar>\r\n\r\n// Decorative — inside a card/cell that already provides context\r\n<Avatar colorHex=\"#8754ec\">CO</Avatar>\r\n```\r\n\r\n## Props\r\n\r\n| Prop         | Type                                                        | Default   |\r\n|--------------|-------------------------------------------------------------|-----------|\r\n| `size`       | `\"xs\" \\| \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"`                     | `\"md\"`    |\r\n| `color`      | `\"brand\" \\| \"success\" \\| \"warning\" \\| \"critical\" \\| \"info\" \\| \"muted\"` | `\"muted\"` |\r\n| `colorHex`   | `string` (hex starting with `#`)                            | —         |\r\n| `children`   | `ReactNode` (initials)                                      | —         |\r\n| `className`  | `string`                                                    | —         |\r\n| `aria-label` | `string`                                                    | —         |\r\n",
-        "type": "registry:file",
-        "target": "components/ui/avatar-ig/USAGE.md"
+        "path": "src/components/ui/avatar-ig/avatar-group-context.ts",
+        "content": "import { createContext } from \"react\";\nimport type { AvatarSize, AvatarSurface } from \"./avatar.types\";\n\n/**\n * Contexto do `AvatarGroup` — é assim que o `size` chega nos filhos.\n *\n * ## Por que num arquivo só dele\n *\n * Evita ciclo de import: o `AvatarGroup` precisa do `Avatar` (renderiza o `+N`) e o `Avatar`\n * precisa do contexto (lê o `size`). Com o contexto dentro do `avatar-group.tsx`, os dois\n * módulos se importariam mutuamente — funciona em ESM na maioria dos casos, mas depende da\n * ordem de avaliação e alguns bundlers avisam. Arquivo próprio corta a dependência.\n *\n * ## Por que contexto e não `cloneElement`\n *\n * Mesmo mecanismo do `ChipGroup`, do `KpiGroup` e do `CardOptionGroup`. Clonar filhos quebra\n * quando eles vêm de um `map`, de um fragmento ou de um wrapper — que é exatamente como uma\n * lista de responsáveis costuma ser montada.\n *\n * `undefined` = sem grupo em volta, e aí o `Avatar` mantém o default dele (`md`).\n */\nexport const AvatarGroupContext = createContext<\n  { size?: AvatarSize; surface: AvatarSurface } | undefined\n>(undefined);\n",
+        "type": "registry:component"
+      },
+      {
+        "path": "src/components/ui/avatar-ig/avatar-group.tsx",
+        "content": "import { Children, forwardRef, isValidElement } from \"react\";\nimport { Avatar } from \"./avatar\";\nimport { AvatarGroupContext } from \"./avatar-group-context\";\nimport { avatarGroupItem, avatarGroupRoot } from \"./avatar.styles\";\nimport type { AvatarGroupProps } from \"./avatar.types\";\n\n/**\n * `AvatarGroup` — pilha de avatares sobrepostos, com `size` propagado e excedente resumido.\n *\n * ## Por que existe\n *\n * A pilha era feita na mão em cada tela (`-ml-…` + `ring` escolhidos no olho), e três coisas\n * saíam diferentes toda vez: quanto sobrepor, qual cor de anel, e o que fazer quando são 12\n * pessoas. As três viram decisão do componente aqui.\n *\n * ## As quatro decisões, e por quê\n *\n * **1. A sobreposição escala com o tamanho.** Não é constante: 6px num avatar de 20px é 30% de\n * sobreposição, e no de 40px é 15% — visualmente são arranjos diferentes. O mapa em\n * `avatar.styles.ts` mantém ~25% em toda a escala.\n *\n * **2. O anel é da cor da SUPERFÍCIE DE TRÁS**, e é aqui que se erra. O anel separa um avatar\n * do outro pintando o que está atrás; com o token errado ele deixa de separar e vira um halo.\n * Por isso `surface` é **prop**, não constante.\n *\n * ⚠️ `table` e `surface` resolvem pro MESMO valor hoje (medido: `oklch(1 0 0)` no claro,\n * `oklch(0.225 0 0)` no escuro). Dentro de tabela a escolha é **semântica**, não visual —\n * declare `table` assim mesmo, pra a pilha seguir certa se um dia divergirem. Onde a diferença\n * é visível hoje é em `canvas`, `subtle` e `muted`.\n *\n * **3. O primeiro fica por cima.** O empilhamento natural do DOM põe o último por cima; aqui o\n * z-index é decrescente, porque a leitura é da esquerda pra direita e o primeiro avatar é o\n * principal. É a convenção de Material e Ant, e é o que faz a pilha parecer uma fila.\n *\n * **4. O grupo fala, os avatares calam.** Três avatares soltos fazem o leitor de tela ler três\n * nomes sem dizer que são um conjunto. O container leva `role=\"group\"` + `aria-label`, e o\n * `+N` é `aria-hidden` — o número já está no rótulo do grupo.\n *\n * ## Gotchas\n *\n * - **`size` no filho vence o do grupo.** É escape hatch pro caso de um avatar destacado; sem\n *   ele, não haveria como quebrar a uniformidade quando o desenho pede.\n * - **`total` existe pra contagem do SERVIDOR.** Sem ele o `+N` conta só o que foi renderizado\n *   — e uma lista paginada em 5 mostraria `+0` tendo 40 pessoas.\n * - **Não use pra 2 avatares sem sobreposição.** Aí é um `flex gap-gp-sm` comum: a pilha\n *   comunica \"muitos, e o conjunto importa mais que cada um\".\n *\n * @example\n * <AvatarGroup size=\"sm\" max={3} total={12} aria-label=\"12 responsáveis\">\n *   <Avatar colorHex=\"#2563EB\">MD</Avatar>\n *   <Avatar colorHex=\"#CC092F\">AC</Avatar>\n *   <Avatar colorHex=\"#7C3AED\">JS</Avatar>\n *   <Avatar colorHex=\"#0891B2\">TK</Avatar>\n * </AvatarGroup>\n */\nexport const AvatarGroup = forwardRef<HTMLDivElement, AvatarGroupProps>(\n  function AvatarGroup(\n    {\n      size = \"md\",\n      max,\n      total,\n      surface = \"surface\",\n      children,\n      className,\n      \"aria-label\": ariaLabel,\n      ...rest\n    },\n    ref,\n  ) {\n    const itens = Children.toArray(children).filter(isValidElement);\n    const visiveis = typeof max === \"number\" ? itens.slice(0, max) : itens;\n    const escondidos = (total ?? itens.length) - visiveis.length;\n\n    return (\n      <AvatarGroupContext.Provider value={{ size, surface }}>\n        <div\n          ref={ref}\n          className={avatarGroupRoot({ className })}\n          role=\"group\"\n          aria-label={ariaLabel}\n          {...rest}\n        >\n          {visiveis.map((filho, i) => (\n            <span\n              key={i}\n              /* z-index decrescente: o primeiro por cima (decisão 3). O wrapper existe pra\n                 não depender de o filho aceitar `style` — `Avatar` aceita, mas um consumidor\n                 pode passar outro elemento aqui. */\n              className={avatarGroupItem({ size, surface, primeiro: i === 0 })}\n              style={{ zIndex: visiveis.length - i }}\n            >\n              {filho}\n            </span>\n          ))}\n\n          {escondidos > 0 && (\n            /* O `+N` é `aria-hidden`: a contagem real já está no `aria-label` do grupo, e\n               anunciar \"mais 9\" solto não diz de quê. */\n            <span\n              className={avatarGroupItem({ size, surface, primeiro: false })}\n              style={{ zIndex: 0 }}\n            >\n              <Avatar size={size} color=\"muted\" aria-hidden>\n                +{escondidos}\n              </Avatar>\n            </span>\n          )}\n        </div>\n      </AvatarGroupContext.Provider>\n    );\n  },\n);\n\nAvatarGroup.displayName = \"AvatarGroup\";\n",
+        "type": "registry:component"
       },
       {
         "path": "src/components/ui/avatar-ig/avatar.styles.ts",
-        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Avatar styles — iGreen DS\r\n *\r\n * Circular badge with initials. No interactive states (no hover, no focus, no disabled).\r\n *\r\n * Size uses `size-comp-*` tokens (square: width = height):\r\n *   xs = 20px (comp-2xs)  |  sm = 24px (comp-xs)  |  md = 28px (comp-sm)\r\n *   lg = 32px (comp-md)   |  xl = 40px (comp-xl)\r\n *\r\n * Color applies bg + fg pairs from semantic tokens.\r\n * `_custom` is an internal-only variant used when `colorHex` overrides the\r\n * background via inline style — it intentionally applies no bg/fg so the\r\n * component can set them manually.\r\n *\r\n * Typography scales with size to keep initials proportional inside the circle.\r\n */\r\nexport const avatarVariants = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center\",\r\n    \"shrink-0\",\r\n    \"rounded-radius-full\",\r\n    \"overflow-hidden\",\r\n    \"leading-none\",\r\n    \"font-bold\",\r\n    \"select-none\",\r\n  ],\r\n\r\n  variants: {\r\n    size: {\r\n      xs: \"size-comp-2xs text-caption-sm\",  // 20px / 11px\r\n      sm: \"size-comp-xs  text-caption-sm\",  // 24px / 11px\r\n      md: \"size-comp-sm  text-caption-sm\",  // 28px / 11px — default\r\n      lg: \"size-comp-md  text-body-sm font-normal\",  // 32px / 13px\r\n      xl: \"size-comp-xl  text-body-md font-medium\",    // 40px / 14px\r\n    },\r\n\r\n    color: {\r\n      brand:    \"bg-bg-brand    text-fg-on-brand\",\r\n      success:  \"bg-bg-success  text-fg-on-success\",\r\n      warning:  \"bg-bg-warning  text-fg-on-warning\",\r\n      critical: \"bg-bg-danger   text-fg-on-danger\",\r\n      info:     \"bg-bg-info     text-fg-on-info\",\r\n      muted:    \"bg-bg-muted    text-fg-muted\",\r\n      /** Internal: used by colorHex override — no bg/fg applied. */\r\n      _custom:  \"\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    color: \"muted\",\r\n  },\r\n});\r\n\r\nexport type AvatarVariantProps = VariantProps<typeof avatarVariants>;\r\n",
+        "content": "import { tv, type VariantProps } from \"@/utils/tv\";\r\n\r\n/**\r\n * Avatar styles — iGreen DS\r\n *\r\n * Circular badge with initials. No interactive states (no hover, no focus, no disabled).\r\n *\r\n * Size uses `size-comp-*` tokens (square: width = height):\r\n *   xs = 20px (comp-2xs)  |  sm = 24px (comp-xs)  |  md = 28px (comp-sm)\r\n *   lg = 32px (comp-md)   |  xl = 40px (comp-xl)\r\n *\r\n * Color applies bg + fg pairs from semantic tokens.\r\n * `_custom` is an internal-only variant used when `colorHex` overrides the\r\n * background via inline style — it intentionally applies no bg/fg so the\r\n * component can set them manually.\r\n *\r\n * Typography scales with size to keep initials proportional inside the circle.\r\n */\r\nexport const avatarVariants = tv({\r\n  base: [\r\n    \"inline-flex items-center justify-center\",\r\n    \"shrink-0\",\r\n    \"rounded-radius-full\",\r\n    \"overflow-hidden\",\r\n    \"leading-none\",\r\n    \"font-bold\",\r\n    \"select-none\",\r\n  ],\r\n\r\n  variants: {\r\n    size: {\r\n      xs: \"size-comp-2xs text-caption-sm\",  // 20px / 11px\r\n      sm: \"size-comp-xs  text-caption-sm\",  // 24px / 11px\r\n      md: \"size-comp-sm  text-caption-sm\",  // 28px / 11px — default\r\n      lg: \"size-comp-md  text-body-sm font-normal\",  // 32px / 13px\r\n      xl: \"size-comp-xl  text-body-md font-medium\",    // 40px / 14px\r\n    },\r\n\r\n    color: {\r\n      brand:    \"bg-bg-brand    text-fg-on-brand\",\r\n      success:  \"bg-bg-success  text-fg-on-success\",\r\n      warning:  \"bg-bg-warning  text-fg-on-warning\",\r\n      critical: \"bg-bg-danger   text-fg-on-danger\",\r\n      info:     \"bg-bg-info     text-fg-on-info\",\r\n      muted:    \"bg-bg-muted    text-fg-muted\",\r\n      /** Internal: used by colorHex override — no bg/fg applied. */\r\n      _custom:  \"\",\r\n    },\r\n  },\r\n\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    color: \"muted\",\r\n  },\r\n});\r\n\r\nexport type AvatarVariantProps = VariantProps<typeof avatarVariants>;\r\n\r\n/**\r\n * Item da pilha do `AvatarGroup` — o wrapper que sobrepõe e desenha o anel de separação.\r\n *\r\n * ## Por que o anel mora AQUI e não no `Avatar`\r\n *\r\n * `ring` acompanha o `border-radius` do elemento em que está. Num wrapper quadrado ele\r\n * traçaria um quadrado em volta do círculo — daí o `rounded-radius-full` no próprio wrapper.\r\n * E ficar no wrapper (e não no `Avatar`) mantém o `Avatar` solto sem anel nenhum: o anel só\r\n * existe porque há sobreposição.\r\n *\r\n * ## A sobreposição escala com o tamanho\r\n *\r\n * Não é constante: 6px num avatar de 20px é **30%** de sobreposição, e no de 40px é **15%** —\r\n * visualmente são arranjos diferentes. O mapa abaixo mantém ~25% em toda a escala, e cada\r\n * valor é token de spacing (`sp-*`), não px na unha.\r\n *\r\n * ## O `surface` existe porque o anel é da cor do que está ATRÁS\r\n *\r\n * `ring-bg-surface` num painel funciona; na linha de uma tabela (`bg-bg-table`) apareceria um\r\n * halo claro em volta de cada avatar. Quem sabe o que está atrás é quem compõe — daí ser prop.\r\n */\r\n/**\r\n * Container da pilha. É um `tv()` de uma linha só de propósito: sem ele o `className` do\r\n * consumidor entraria por concatenação crua, e `items-start` não venceria o `items-center`\r\n * daqui (é o `twMerge` embutido no `tv` que resolve conflito de classe). Também mantém o\r\n * `avatar-ig` dependendo só de `@igreen/tv` — usar o `cn` de `@/lib/utils` acrescentaria uma\r\n * `registryDependency` ao item por causa de duas classes.\r\n */\r\nexport const avatarGroupRoot = tv({ base: \"flex items-center\" });\r\n\r\nexport const avatarGroupItem = tv({\r\n  base: [\"relative inline-flex rounded-radius-full ring-2\"],\r\n\r\n  variants: {\r\n    /** Deslocamento negativo ≈ 25% do diâmetro, em token. Ver o bloco acima. */\r\n    size: {\r\n      xs: \"-ml-sp-xs\", //  20px → 4\r\n      sm: \"-ml-sp-sm\", //  24px → 6\r\n      md: \"-ml-sp-sm\", //  28px → 6\r\n      lg: \"-ml-sp-md\", //  32px → 8\r\n      xl: \"-ml-sp-lg\", //  40px → 10\r\n    },\r\n\r\n    /** Cor do anel = superfície de trás. */\r\n    surface: {\r\n      surface: \"ring-bg-surface\",\r\n      canvas: \"ring-bg-canvas\",\r\n      subtle: \"ring-bg-subtle\",\r\n      muted: \"ring-bg-muted\",\r\n      table: \"ring-bg-table\",\r\n    },\r\n\r\n    /** O primeiro não desloca — senão a pilha inteira sai da margem esquerda. */\r\n    primeiro: { true: \"ml-0\" },\r\n  },\r\n\r\n  defaultVariants: {\r\n    size: \"md\",\r\n    surface: \"surface\",\r\n  },\r\n});\r\n",
         "type": "registry:ui",
         "target": "components/ui/avatar-ig/avatar.styles.ts"
       },
       {
         "path": "src/components/ui/avatar-ig/avatar.tsx",
-        "content": "import { forwardRef } from \"react\";\r\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\r\nimport { avatarVariants } from \"./avatar.styles\";\r\nimport type { AvatarProps } from \"./avatar.types\";\r\n\r\n/**\r\n * Avatar — circular badge with initials.\r\n *\r\n * Supports semantic `color` presets (brand, success, warning, critical, info, muted)\r\n * and a `colorHex` override for person-specific hex colors.\r\n *\r\n * Auto contrast (v0.7.1, L-027): quando `colorHex` é fornecido, calcula o\r\n * contraste WCAG entre branco/preto e o bg, escolhendo a cor de texto com\r\n * MAIOR ratio. Antes aplicava `text-white` cego — quebrava em cores claras\r\n * (ex: BB amarelo #FAE128 → ratio 1.29:1, falha WCAG AA). Agora respeita\r\n * o threshold dinâmico baseado em luminância (Y > 0.5 → preto, else branco).\r\n *\r\n * Override: pra forçar uma cor específica (caso de marca que exige X), passe\r\n * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada\r\n * pela ordem de cascade.\r\n *\r\n * Accessibility:\r\n * - With `aria-label` → role=\"img\" (semantic avatar)\r\n * - Without `aria-label` → aria-hidden=\"true\" (decorative, inside a card/cell)\r\n */\r\nexport const Avatar = forwardRef<HTMLDivElement, AvatarProps>(\r\n  function Avatar(\r\n    {\r\n      size,\r\n      color,\r\n      colorHex,\r\n      children,\r\n      className,\r\n      style,\r\n      \"aria-label\": ariaLabel,\r\n      ...rest\r\n    },\r\n    ref,\r\n  ) {\r\n    const isHex = typeof colorHex === \"string\" && colorHex.startsWith(\"#\");\r\n\r\n    // Cor de texto auto-calculada quando hex é fornecido — sempre o maior\r\n    // contraste WCAG entre white/black. Fallback \"white\" pra hex inválido\r\n    // (preserva comportamento legado).\r\n    const autoTextClass = isHex\r\n      ? getContrastTextColor(colorHex) === \"black\"\r\n        ? \"text-black\"\r\n        : \"text-white\"\r\n      : null;\r\n\r\n    const computedClassName = avatarVariants({\r\n      size,\r\n      color: isHex ? \"_custom\" : color,\r\n      className: isHex\r\n        ? [autoTextClass, className].filter(Boolean).join(\" \")\r\n        : className,\r\n    });\r\n\r\n    const computedStyle = isHex\r\n      ? { ...style, backgroundColor: colorHex }\r\n      : style;\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        className={computedClassName}\r\n        style={computedStyle}\r\n        {...(ariaLabel\r\n          ? { role: \"img\", \"aria-label\": ariaLabel }\r\n          : { \"aria-hidden\": true as const })}\r\n        {...rest}\r\n      >\r\n        {children}\r\n      </div>\r\n    );\r\n  },\r\n);\r\n\r\nAvatar.displayName = \"Avatar\";\r\n",
+        "content": "import { forwardRef, useContext } from \"react\";\r\nimport { getContrastTextColor } from \"@/utils/color-contrast\";\r\nimport { AvatarGroupContext } from \"./avatar-group-context\";\r\nimport { avatarVariants } from \"./avatar.styles\";\r\nimport type { AvatarProps } from \"./avatar.types\";\r\n\r\n/**\r\n * Avatar — circular badge with initials.\r\n *\r\n * Supports semantic `color` presets (brand, success, warning, critical, info, muted)\r\n * and a `colorHex` override for person-specific hex colors.\r\n *\r\n * Auto contrast (v0.7.1, L-027): quando `colorHex` é fornecido, calcula o\r\n * contraste WCAG entre branco/preto e o bg, escolhendo a cor de texto com\r\n * MAIOR ratio. Antes aplicava `text-white` cego — quebrava em cores claras\r\n * (ex: BB amarelo #FAE128 → ratio 1.29:1, falha WCAG AA). Agora respeita\r\n * o threshold dinâmico baseado em luminância (Y > 0.5 → preto, else branco).\r\n *\r\n * Override: pra forçar uma cor específica (caso de marca que exige X), passe\r\n * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada\r\n * pela ordem de cascade.\r\n *\r\n * Accessibility:\r\n * - With `aria-label` → role=\"img\" (semantic avatar)\r\n * - Without `aria-label` → aria-hidden=\"true\" (decorative, inside a card/cell)\r\n */\r\nexport const Avatar = forwardRef<HTMLDivElement, AvatarProps>(\r\n  function Avatar(\r\n    {\r\n      size,\r\n      color,\r\n      colorHex,\r\n      children,\r\n      className,\r\n      style,\r\n      \"aria-label\": ariaLabel,\r\n      ...rest\r\n    },\r\n    ref,\r\n  ) {\r\n    /**\r\n     * Dentro de um `<AvatarGroup>`, o tamanho vem do grupo — mas o `size` passado aqui\r\n     * VENCE. É escape hatch: sem ele não haveria como destacar um avatar do conjunto.\r\n     * Fora do grupo o contexto é `undefined` e nada muda (o default `md` do tv() vale).\r\n     */\r\n    const grupo = useContext(AvatarGroupContext);\r\n    const sizeEfetivo = size ?? grupo?.size;\r\n\r\n    const isHex = typeof colorHex === \"string\" && colorHex.startsWith(\"#\");\r\n\r\n    // Cor de texto auto-calculada quando hex é fornecido — sempre o maior\r\n    // contraste WCAG entre white/black. Fallback \"white\" pra hex inválido\r\n    // (preserva comportamento legado).\r\n    const autoTextClass = isHex\r\n      ? getContrastTextColor(colorHex) === \"black\"\r\n        ? \"text-black\"\r\n        : \"text-white\"\r\n      : null;\r\n\r\n    const computedClassName = avatarVariants({\r\n      size: sizeEfetivo,\r\n      color: isHex ? \"_custom\" : color,\r\n      className: isHex\r\n        ? [autoTextClass, className].filter(Boolean).join(\" \")\r\n        : className,\r\n    });\r\n\r\n    const computedStyle = isHex\r\n      ? { ...style, backgroundColor: colorHex }\r\n      : style;\r\n\r\n    return (\r\n      <div\r\n        ref={ref}\r\n        className={computedClassName}\r\n        style={computedStyle}\r\n        {...(ariaLabel\r\n          ? { role: \"img\", \"aria-label\": ariaLabel }\r\n          : { \"aria-hidden\": true as const })}\r\n        {...rest}\r\n      >\r\n        {children}\r\n      </div>\r\n    );\r\n  },\r\n);\r\n\r\nAvatar.displayName = \"Avatar\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/avatar-ig/avatar.tsx"
       },
       {
         "path": "src/components/ui/avatar-ig/avatar.types.ts",
-        "content": "import type { AvatarVariantProps } from \"./avatar.styles\";\r\n\r\nexport interface AvatarProps\r\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"color\">,\r\n    Omit<AvatarVariantProps, \"color\"> {\r\n  /**\r\n   * Semantic color preset for bg + fg pairing.\r\n   * Ignored when `colorHex` is provided.\r\n   * @default \"muted\"\r\n   */\r\n  color?: \"brand\" | \"success\" | \"warning\" | \"critical\" | \"info\" | \"muted\";\r\n\r\n  /**\r\n   * Hex color override (e.g. person-specific color).\r\n   * When provided, background is set via inline style and text becomes white.\r\n   * Takes precedence over `color`.\r\n   */\r\n  colorHex?: string;\r\n}\r\n",
+        "content": "import type { AvatarVariantProps } from \"./avatar.styles\";\r\n\r\nexport interface AvatarProps\r\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"color\">,\r\n    Omit<AvatarVariantProps, \"color\"> {\r\n  /**\r\n   * Semantic color preset for bg + fg pairing.\r\n   * Ignored when `colorHex` is provided.\r\n   * @default \"muted\"\r\n   */\r\n  color?: \"brand\" | \"success\" | \"warning\" | \"critical\" | \"info\" | \"muted\";\r\n\r\n  /**\r\n   * Hex color override (e.g. person-specific color).\r\n   * When provided, background is set via inline style and text becomes white.\r\n   * Takes precedence over `color`.\r\n   */\r\n  colorHex?: string;\r\n}\r\n\r\n/** Tamanhos do avatar — reusado pelo grupo, que os propaga por contexto. */\r\nexport type AvatarSize = NonNullable<AvatarVariantProps[\"size\"]>;\r\n\r\n/**\r\n * Superfície ATRÁS do grupo — define a cor do anel que separa um avatar do outro.\r\n * Errar aqui é o defeito clássico da pilha: anel `surface` numa linha de tabela vira halo.\r\n */\r\nexport type AvatarSurface = \"surface\" | \"canvas\" | \"subtle\" | \"muted\" | \"table\";\r\n\r\nexport interface AvatarGroupProps\r\n  extends Omit<React.HTMLAttributes<HTMLDivElement>, \"color\"> {\r\n  /**\r\n   * Tamanho de TODOS os avatares do grupo, propagado por contexto.\r\n   * `size` no filho vence — escape hatch pro caso de um destacado.\r\n   * @default \"md\"\r\n   */\r\n  size?: AvatarSize;\r\n\r\n  /** Acima disso, corta e mostra `+N` no fim. Sem `max`, mostra todos. */\r\n  max?: number;\r\n\r\n  /**\r\n   * Contagem REAL, quando ela não é o número de filhos renderizados.\r\n   * Sem isso, uma lista paginada em 5 mostraria `+0` tendo 40 pessoas.\r\n   */\r\n  total?: number;\r\n\r\n  /**\r\n   * Superfície atrás do grupo — cor do anel de separação.\r\n   * @default \"surface\"\r\n   */\r\n  surface?: AvatarSurface;\r\n}\r\n",
         "type": "registry:ui",
         "target": "components/ui/avatar-ig/avatar.types.ts"
       },
       {
         "path": "src/components/ui/avatar-ig/index.ts",
-        "content": "export { Avatar } from \"./avatar\";\r\nexport { avatarVariants, type AvatarVariantProps } from \"./avatar.styles\";\r\nexport type { AvatarProps } from \"./avatar.types\";\r\n",
+        "content": "export { Avatar } from \"./avatar\";\r\nexport { AvatarGroup } from \"./avatar-group\";\r\nexport {\r\n  avatarVariants,\r\n  avatarGroupRoot,\r\n  avatarGroupItem,\r\n  type AvatarVariantProps,\r\n} from \"./avatar.styles\";\r\nexport type {\r\n  AvatarProps,\r\n  AvatarGroupProps,\r\n  AvatarSize,\r\n  AvatarSurface,\r\n} from \"./avatar.types\";\r\n",
         "type": "registry:ui",
         "target": "components/ui/avatar-ig/index.ts"
+      },
+      {
+        "path": "src/components/ui/avatar-ig/USAGE.md",
+        "content": "# Avatar\r\n\r\n<!-- ds:regras\r\n- vários avatares juntos → `<AvatarGroup>`, nunca `-ml-*` + `ring` na mão: ele resolve sobreposição por tamanho, cor do anel e excedente\r\n- `<AvatarGroup surface=\"...\">` = a superfície ATRÁS do grupo (`table` numa linha de tabela). Errar isso põe um halo claro em volta de cada avatar\r\n- `max` + `total`: o `+N` conta pelo `total` (o do servidor), senão uma lista paginada mostra `+0` tendo 40 pessoas\r\n- `colorHex` escolhe a cor do texto por contraste WCAG (L-027) — nunca `text-white` na unha\r\n-->\r\n\r\nCircular badge displaying user initials. Supports semantic colors and per-person hex overrides.\r\nPara **vários avatares juntos**, use `AvatarGroup` (seção no fim).\r\n\r\n## Basic usage\r\n\r\n```tsx\r\nimport { Avatar } from \"@/components/ui/avatar-ig\";\r\n\r\n// Semantic color (default: muted)\r\n<Avatar size=\"md\" color=\"brand\">MS</Avatar>\r\n\r\n// Person-specific hex color\r\n<Avatar size=\"sm\" colorHex=\"#8754ec\">CO</Avatar>\r\n```\r\n\r\n## Sizes\r\n\r\n| Size | Pixels | Typography preset |\r\n|------|--------|-------------------|\r\n| `xs` | 20px   | caption-sm (11px) |\r\n| `sm` | 24px   | caption-sm (11px) |\r\n| `md` | 28px   | caption-sm (11px) |\r\n| `lg` | 32px   | body-sm font-normal (13px) |\r\n| `xl` | 40px   | body-md font-medium (14px) |\r\n\r\n## Colors\r\n\r\n| Color      | Background         | Foreground          |\r\n|------------|--------------------|--------------------|\r\n| `brand`    | `bg-bg-brand`      | `fg-on-brand`      |\r\n| `success`  | `bg-bg-success`    | `fg-on-success`    |\r\n| `warning`  | `bg-bg-warning`    | `fg-on-warning`    |\r\n| `critical` | `bg-bg-danger`     | `fg-on-danger`     |\r\n| `info`     | `bg-bg-info`       | `fg-on-info`       |\r\n| `muted`    | `bg-bg-muted`      | `fg-muted`         |\r\n\r\n## colorHex override + auto contrast (v0.7.1+)\r\n\r\nWhen `colorHex` is provided (string starting with `#`), the background is set\r\nvia inline style and **a cor de texto é escolhida automaticamente** pra ter\r\no maior contraste WCAG entre `white` ou `black`. O prop `color` é ignorado.\r\n\r\n| Hex bg               | Texto auto-pickado | Motivo (WCAG ratio)                    |\r\n|----------------------|--------------------|----------------------------------------|\r\n| `#FAE128` (BB)       | `black`            | white 1.29 vs black 16.3 → preto vence |\r\n| `#820AD1` (Nubank)   | `white`            | white 6.2 vs black 3.4 → branco vence  |\r\n| `#EC7000` (Itaú)     | `black`            | white 2.7 vs black 7.8 → preto vence   |\r\n| `#CC092F` (Bradesco) | `white`            | white 6.5 vs black 3.2 → branco vence  |\r\n| `#FFFFFF`            | `black`            | óbvio                                   |\r\n| `#000000`            | `white`            | óbvio                                   |\r\n\r\nA escolha vem de `getContrastTextColor()` em `@/utils/color-contrast.ts`\r\n(WCAG 2.x relative luminance + contrast ratio).\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\">BB</Avatar>      // texto preto auto\r\n<Avatar colorHex=\"#820AD1\">NU</Avatar>      // texto branco auto\r\n```\r\n\r\n**Override manual:** se precisar forçar uma cor específica (caso raro de\r\nbrand guideline), passe via `className`:\r\n\r\n```tsx\r\n<Avatar colorHex=\"#FAE128\" className=\"text-white\">BB</Avatar>\r\n// (não recomendado — quebra WCAG AA)\r\n```\r\n\r\n## Accessibility\r\n\r\n- With `aria-label`: renders `role=\"img\"` (semantic avatar).\r\n- Without `aria-label`: renders `aria-hidden=\"true\"` (decorative).\r\n\r\n```tsx\r\n// Semantic — standalone avatar with meaning\r\n<Avatar aria-label=\"Maria Silva\">MS</Avatar>\r\n\r\n// Decorative — inside a card/cell that already provides context\r\n<Avatar colorHex=\"#8754ec\">CO</Avatar>\r\n```\r\n\r\n## Props\r\n\r\n| Prop         | Type                                                        | Default   |\r\n|--------------|-------------------------------------------------------------|-----------|\r\n| `size`       | `\"xs\" \\| \"sm\" \\| \"md\" \\| \"lg\" \\| \"xl\"`                     | `\"md\"`    |\r\n| `color`      | `\"brand\" \\| \"success\" \\| \"warning\" \\| \"critical\" \\| \"info\" \\| \"muted\"` | `\"muted\"` |\r\n| `colorHex`   | `string` (hex starting with `#`)                            | —         |\r\n| `children`   | `ReactNode` (initials)                                      | —         |\r\n| `className`  | `string`                                                    | —         |\r\n| `aria-label` | `string`                                                    | —         |\r\n\r\n---\r\n\r\n# AvatarGroup\r\n\r\nPilha de avatares sobrepostos, com `size` propagado e excedente resumido em `+N`.\r\n\r\n## Quando usar\r\n\r\nConjunto de pessoas onde **o grupo importa mais que cada uma**: responsáveis de uma tarefa,\r\nparticipantes, membros de um time. Para 2 avatares que devem ser lidos individualmente, use\r\n`flex gap-gp-sm` comum — a sobreposição comunica \"muitos\".\r\n\r\n## Props\r\n\r\n| Prop | Tipo | Default | Descrição |\r\n|------|------|---------|-----------|\r\n| `size` | `xs \\| sm \\| md \\| lg \\| xl` | `md` | **propagado por contexto** a todos os filhos |\r\n| `max` | `number` | — | acima disso, corta e mostra `+N` |\r\n| `total` | `number` | nº de filhos | contagem REAL, pro `+N` refletir o servidor |\r\n| `surface` | `surface \\| canvas \\| subtle \\| muted \\| table` | `surface` | superfície **atrás** do grupo — define a cor do anel |\r\n| `aria-label` | `string` | — | rótulo do grupo, ex.: `\"12 responsáveis\"` |\r\n\r\n## Exemplo\r\n\r\n```tsx\r\nimport { Avatar, AvatarGroup } from \"@/components/ui/avatar-ig\";\r\n\r\n<AvatarGroup size=\"sm\" max={3} total={12} aria-label=\"12 responsáveis\">\r\n  <Avatar colorHex=\"#2563EB\">MD</Avatar>\r\n  <Avatar colorHex=\"#CC092F\">AC</Avatar>\r\n  <Avatar colorHex=\"#7C3AED\">JS</Avatar>\r\n  <Avatar colorHex=\"#0891B2\">TK</Avatar>\r\n</AvatarGroup>\r\n```\r\n\r\n## Gotchas / cuidados\r\n\r\n- **`surface` é a cor do que está ATRÁS, e é o erro clássico.** O anel separa um avatar do\r\n  outro pintando a cor da superfície de trás; com o token errado ele deixa de separar e vira um\r\n  halo. Sobre `bg-bg-muted` ou `bg-bg-canvas`, declare o token correspondente.\r\n  ⚠️ **`table` e `surface` resolvem pro mesmo valor hoje** — `oklch(1 0 0)` no claro e\r\n  `oklch(0.225 0 0)` no escuro (medido). Dentro de tabela a escolha é **semântica**, não\r\n  visual: declare `table` mesmo assim, pra que a pilha continue certa se um dia os dois\r\n  divergirem, sem ninguém ter que caçar o call site.\r\n- **`total` não é opcional quando a lista é paginada.** Sem ele o `+N` conta só o que foi\r\n  renderizado — 4 filhos com `max={2}` mostram `+2`, mesmo que existam 40 pessoas.\r\n- **`size` no filho vence o do grupo.** É escape hatch pra destacar um avatar; sem passar nada,\r\n  todos herdam o do grupo.\r\n- **A sobreposição escala com o tamanho** (~25% do diâmetro): `xs` desloca 4px e `xl` desloca\r\n  10px. Não é constante de propósito — 6px num avatar de 20px é 30% de sobreposição e num de\r\n  40px é 15%, que são arranjos visuais diferentes.\r\n- **O primeiro fica por cima** (z-index decrescente), invertendo o empilhamento natural do DOM.\r\n  A leitura é da esquerda pra direita e o primeiro é o principal.\r\n- **O grupo fala, os avatares calam.** O container é `role=\"group\"` com `aria-label`; o `+N` é\r\n  `aria-hidden` porque a contagem real já está no rótulo. Sem o `aria-label`, o leitor de tela\r\n  lê N nomes soltos sem dizer que são um conjunto.\r\n- **O anel mora no wrapper, não no `Avatar`.** `ring` acompanha o `border-radius` do elemento —\r\n  num wrapper quadrado traçaria um quadrado. `Avatar` fora de grupo continua sem anel.\r\n",
+        "type": "registry:file",
+        "target": "components/ui/avatar-ig/USAGE.md"
       },
       {
         "path": "src/utils/color-contrast.ts",
@@ -259,7 +269,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar-ig · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · avatar-ig · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -283,7 +293,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · avatar · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · avatar · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -305,7 +315,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · badge · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · badge · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -330,7 +340,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · breadcrumb · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · breadcrumb · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -381,7 +391,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button-group · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · button-group · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -427,7 +437,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · button · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · button · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -452,7 +462,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · calendar · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · calendar · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -496,7 +506,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-checkbox · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · card-checkbox · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -546,7 +556,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card-option · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · card-option · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -568,7 +578,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · card · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · card · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -594,7 +604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · carousel · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · carousel · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -630,7 +640,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chart · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · chart · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -655,7 +665,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · checkbox · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · checkbox · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -704,7 +714,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · chip · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · chip · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -757,7 +767,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · choropleth-map · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · choropleth-map · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -779,7 +789,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · collapsible · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · collapsible · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -844,7 +854,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · color-picker · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · color-picker · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -895,7 +905,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · combobox · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · combobox · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -922,7 +932,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · command · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · command · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -947,7 +957,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · context-menu · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · context-menu · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1024,7 +1034,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-list · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · data-list · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1709,7 +1719,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · data-table · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · data-table · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1747,7 +1757,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · date-picker · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · date-picker · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1772,7 +1782,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dialog · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dialog · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1796,7 +1806,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · drawer · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · drawer · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1821,7 +1831,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dropdown-menu · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dropdown-menu · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -1850,7 +1860,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-chart-1 · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-chart-1 · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1879,7 +1889,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-1 · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1910,7 +1920,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-2 · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1940,7 +1950,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · dsgreen-paneldetail-3 · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:block"
   },
@@ -1993,7 +2003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · empty-state · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · empty-state · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2034,7 +2044,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-app-shell · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-app-shell · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2336,7 +2346,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-chat · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-chat · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2432,7 +2442,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-clientes · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-clientes · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2478,7 +2488,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-dashboard · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-dashboard · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2529,7 +2539,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-edit-page · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-edit-page · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2665,7 +2675,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-finance · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-finance · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2695,7 +2705,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-login · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-login · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2752,7 +2762,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-mapa-rede · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-mapa-rede · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2833,7 +2843,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · example-order-detail · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · example-order-detail · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2883,7 +2893,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · file-upload-field · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · file-upload-field · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2951,7 +2961,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · floating-panel · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · floating-panel · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -2993,7 +3003,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · footer-table · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · footer-table · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3079,7 +3089,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · form-field · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · form-field · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3170,7 +3180,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · header · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · header · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3194,7 +3204,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · hover-card · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · hover-card · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3247,7 +3257,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · icon · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · icon · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3271,7 +3281,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-group · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · input-group · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3296,7 +3306,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input-otp · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · input-otp · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3320,7 +3330,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · input · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · input · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3379,7 +3389,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kanban · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · kanban · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3441,7 +3451,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · kpi · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · kpi · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3466,7 +3476,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · label · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · label · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3573,7 +3583,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · list · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · list · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3619,7 +3629,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · markdown-text · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · markdown-text · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3729,7 +3739,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menu-sidebar · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · menu-sidebar · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3754,7 +3764,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · menubar · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · menubar · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3798,7 +3808,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · modal · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · modal · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3847,7 +3857,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · month-year-picker · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · month-year-picker · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3873,7 +3883,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · navigation-menu · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · navigation-menu · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3920,7 +3930,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · page-header · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · page-header · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -3945,7 +3955,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · pagination · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · pagination · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4020,7 +4030,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · panel · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · panel · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4044,7 +4054,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · popover · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · popover · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4068,7 +4078,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · progress · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · progress · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4092,7 +4102,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · radio-group · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · radio-group · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4140,7 +4150,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · screen-loader · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · screen-loader · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4164,7 +4174,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · scroll-area · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · scroll-area · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4189,7 +4199,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · select · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · select · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4213,7 +4223,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · separator · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · separator · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4239,7 +4249,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sheet · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · sheet · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4352,7 +4362,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · single-menu-sidebar · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · single-menu-sidebar · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4374,7 +4384,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · skeleton · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · skeleton · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4398,7 +4408,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · slider · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · slider · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4421,7 +4431,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · sonner · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · sonner · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4467,7 +4477,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · spinner · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · spinner · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4491,7 +4501,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · switch · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · switch · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4570,7 +4580,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · table · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · table · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4594,7 +4604,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tabs · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · tabs · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4618,7 +4628,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · textarea · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · textarea · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4636,7 +4646,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-blue · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · theme-blue · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4654,7 +4664,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-green · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · theme-green · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4672,7 +4682,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-pay · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · theme-pay · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4690,7 +4700,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · theme-vibrant · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · theme-vibrant · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4712,7 +4722,7 @@ export const registry: Record<string, unknown> = {
     ],
     "meta": {
       "importOrder": "tailwindcss -> tw-animate-css -> ./theme/tailwind-theme.css -> componentes",
-      "stamp": "igreen-ds · theme · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · theme · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4763,7 +4773,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toast · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · toast · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4789,7 +4799,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle-group · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · toggle-group · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4814,7 +4824,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · toggle · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · toggle · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4838,7 +4848,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tooltip · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · tooltip · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:ui"
   },
@@ -4859,7 +4869,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · tv · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · tv · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   },
@@ -4881,7 +4891,7 @@ export const registry: Record<string, unknown> = {
       }
     ],
     "meta": {
-      "stamp": "igreen-ds · utils · v0.52.0 · 8479dd1 · 2026-08-27"
+      "stamp": "igreen-ds · utils · v0.52.0 · fe94a02 · 2026-08-28"
     },
     "type": "registry:file"
   }

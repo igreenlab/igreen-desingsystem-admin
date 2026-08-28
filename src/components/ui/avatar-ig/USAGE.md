@@ -1,6 +1,14 @@
 # Avatar
 
+<!-- ds:regras
+- vários avatares juntos → `<AvatarGroup>`, nunca `-ml-*` + `ring` na mão: ele resolve sobreposição por tamanho, cor do anel e excedente
+- `<AvatarGroup surface="...">` = a superfície ATRÁS do grupo (`table` numa linha de tabela). Errar isso põe um halo claro em volta de cada avatar
+- `max` + `total`: o `+N` conta pelo `total` (o do servidor), senão uma lista paginada mostra `+0` tendo 40 pessoas
+- `colorHex` escolhe a cor do texto por contraste WCAG (L-027) — nunca `text-white` na unha
+-->
+
 Circular badge displaying user initials. Supports semantic colors and per-person hex overrides.
+Para **vários avatares juntos**, use `AvatarGroup` (seção no fim).
 
 ## Basic usage
 
@@ -89,3 +97,62 @@ brand guideline), passe via `className`:
 | `children`   | `ReactNode` (initials)                                      | —         |
 | `className`  | `string`                                                    | —         |
 | `aria-label` | `string`                                                    | —         |
+
+---
+
+# AvatarGroup
+
+Pilha de avatares sobrepostos, com `size` propagado e excedente resumido em `+N`.
+
+## Quando usar
+
+Conjunto de pessoas onde **o grupo importa mais que cada uma**: responsáveis de uma tarefa,
+participantes, membros de um time. Para 2 avatares que devem ser lidos individualmente, use
+`flex gap-gp-sm` comum — a sobreposição comunica "muitos".
+
+## Props
+
+| Prop | Tipo | Default | Descrição |
+|------|------|---------|-----------|
+| `size` | `xs \| sm \| md \| lg \| xl` | `md` | **propagado por contexto** a todos os filhos |
+| `max` | `number` | — | acima disso, corta e mostra `+N` |
+| `total` | `number` | nº de filhos | contagem REAL, pro `+N` refletir o servidor |
+| `surface` | `surface \| canvas \| subtle \| muted \| table` | `surface` | superfície **atrás** do grupo — define a cor do anel |
+| `aria-label` | `string` | — | rótulo do grupo, ex.: `"12 responsáveis"` |
+
+## Exemplo
+
+```tsx
+import { Avatar, AvatarGroup } from "@/components/ui/avatar-ig";
+
+<AvatarGroup size="sm" max={3} total={12} aria-label="12 responsáveis">
+  <Avatar colorHex="#2563EB">MD</Avatar>
+  <Avatar colorHex="#CC092F">AC</Avatar>
+  <Avatar colorHex="#7C3AED">JS</Avatar>
+  <Avatar colorHex="#0891B2">TK</Avatar>
+</AvatarGroup>
+```
+
+## Gotchas / cuidados
+
+- **`surface` é a cor do que está ATRÁS, e é o erro clássico.** O anel separa um avatar do
+  outro pintando a cor da superfície de trás; com o token errado ele deixa de separar e vira um
+  halo. Sobre `bg-bg-muted` ou `bg-bg-canvas`, declare o token correspondente.
+  ⚠️ **`table` e `surface` resolvem pro mesmo valor hoje** — `oklch(1 0 0)` no claro e
+  `oklch(0.225 0 0)` no escuro (medido). Dentro de tabela a escolha é **semântica**, não
+  visual: declare `table` mesmo assim, pra que a pilha continue certa se um dia os dois
+  divergirem, sem ninguém ter que caçar o call site.
+- **`total` não é opcional quando a lista é paginada.** Sem ele o `+N` conta só o que foi
+  renderizado — 4 filhos com `max={2}` mostram `+2`, mesmo que existam 40 pessoas.
+- **`size` no filho vence o do grupo.** É escape hatch pra destacar um avatar; sem passar nada,
+  todos herdam o do grupo.
+- **A sobreposição escala com o tamanho** (~25% do diâmetro): `xs` desloca 4px e `xl` desloca
+  10px. Não é constante de propósito — 6px num avatar de 20px é 30% de sobreposição e num de
+  40px é 15%, que são arranjos visuais diferentes.
+- **O primeiro fica por cima** (z-index decrescente), invertendo o empilhamento natural do DOM.
+  A leitura é da esquerda pra direita e o primeiro é o principal.
+- **O grupo fala, os avatares calam.** O container é `role="group"` com `aria-label`; o `+N` é
+  `aria-hidden` porque a contagem real já está no rótulo. Sem o `aria-label`, o leitor de tela
+  lê N nomes soltos sem dizer que são um conjunto.
+- **O anel mora no wrapper, não no `Avatar`.** `ring` acompanha o `border-radius` do elemento —
+  num wrapper quadrado traçaria um quadrado. `Avatar` fora de grupo continua sem anel.
