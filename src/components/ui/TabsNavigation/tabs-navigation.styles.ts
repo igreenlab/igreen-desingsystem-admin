@@ -102,18 +102,21 @@ export const tabsNavigationTab = tv({
   ],
 
   variants: {
+    /**
+     * A largura é fixa (aba que cresce com o título faz a fila dançar a cada troca) — mas
+     * fixa em DOIS degraus: no celular, 228px é quase a tela inteira e o usuário vê uma aba
+     * e meia, sem noção de que há uma fila. Abaixo de `sm` a aba cai pra ~168/148px, que
+     * mostra duas e meia e deixa o gesto de arrastar fazer sentido.
+     */
     density: {
-      comfortable: "w-[228px]",
-      compact: "w-[196px]",
+      comfortable: "w-[168px] sm:w-[228px]",
+      compact: "w-[148px] sm:w-[196px]",
     },
     fill: {
       true: "h-full self-stretch",
       false: "-mb-px rounded-t-radius-lg",
     },
-    /**
-     * A superfície da aba ATIVA — tem que casar com o conteúdo de baixo. No modo pousado a
-     * borda de baixo recebe a mesma cor, e é ela que apaga a régua.
-     */
+    /** A superfície da aba ATIVA — tem que casar com o conteúdo logo abaixo dela. */
     surface: {
       surface: "",
       canvas: "",
@@ -133,8 +136,19 @@ export const tabsNavigationTab = tv({
   compoundVariants: [
     { fill: false, density: "comfortable", class: "min-h-comp-3xl" },
     { fill: false, density: "compact", class: "min-h-comp-xl" },
-    { ativa: true, surface: "surface", class: "bg-bg-surface border-b-bg-surface" },
-    { ativa: true, surface: "canvas", class: "bg-bg-canvas border-b-bg-canvas" },
+    /**
+     * ⚠️ A borda de baixo da aba ativa é **transparente**, não "da cor do conteúdo".
+     *
+     * A primeira versão pintava `border-b-bg-surface` pra apagar a régua. Funcionava só quando
+     * o conteúdo logo abaixo era exatamente aquela cor — nos exemplos em que a tira ficava
+     * sobre container transparente, ou separada do painel por um gap, sobrava um traço claro
+     * embaixo da aba selecionada. Com a borda transparente é o **fundo da aba** que cobre a
+     * régua (o background pinta sob a border-box, e o `-mb-px` a coloca por cima da linha):
+     * funciona igual em qualquer superfície, que é o comportamento que se espera por padrão —
+     * a aba emenda no conteúdo, sem linha entre os dois.
+     */
+    { ativa: true, surface: "surface", class: "bg-bg-surface border-b-transparent" },
+    { ativa: true, surface: "canvas", class: "bg-bg-canvas border-b-transparent" },
   ],
 
   defaultVariants: { density: "comfortable", fill: false, surface: "surface", ativa: false },

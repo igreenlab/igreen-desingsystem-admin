@@ -15,7 +15,7 @@ import {
 } from "../components";
 
 /**
- * Doc do `TabsNavigation`. Nasceu como demo (`#/tabs-navigation-demo`) pra decidir a API antes de existir
+ * Doc do `TabsNavigation`. Nasceu como demo pra decidir a API antes de existir
  * componente; agora consome o componente real e a seção de decisões continua aqui, porque é
  * ela que explica por que a API é essa.
  */
@@ -97,12 +97,55 @@ function Conteudo({ item }: { item?: Conversa }) {
   );
 }
 
+/** Resumo do contato — o que aparece ao pousar o ponteiro sobre a aba, no exemplo A. */
+function ResumoDoContato({ item }: { item: Conversa }) {
+  return (
+    /* Um degrau ABAIXO da tipografia da tela: título em `body-sm` (13) e o resto em `body-xs`
+       (12). Card de hover é leitura rápida sobre outro conteúdo — no mesmo corpo do texto da
+       página ele compete com o que está atrás em vez de complementar. */
+    <div className="flex flex-col gap-gp-lg">
+      <div className="flex items-center gap-gp-md">
+        <Avatar size="lg" colorHex={item.cor} aria-hidden>
+          {item.iniciais}
+        </Avatar>
+        <div className="min-w-0">
+          <p className="truncate text-body-sm font-semibold text-fg-default">{item.titulo}</p>
+          <p className="truncate text-body-xs text-fg-muted">{item.subtitulo}</p>
+        </div>
+      </div>
+
+      <dl className="grid grid-cols-[84px_1fr] gap-x-gp-md gap-y-gp-sm text-body-xs">
+        <dt className="text-fg-subtle">Situação</dt>
+        <dd>
+          <Chip size="sm" color={item.status === "neutral" ? "neutral" : item.status} variant="soft">
+            {ROTULO[item.status]}
+          </Chip>
+        </dd>
+        <dt className="text-fg-subtle">Contato</dt>
+        <dd className="truncate text-fg-default">(11) 98812-4407</dd>
+        <dt className="text-fg-subtle">Cliente desde</dt>
+        <dd className="text-fg-default tabular-nums">mar/2023</dd>
+        <dt className="text-fg-subtle">Última msg</dt>
+        <dd className="text-fg-default">há 12 min</dd>
+      </dl>
+
+      {/* A citação num container próprio: é fala de outra pessoa, não continuação da ficha.
+          `bg-muted` + borda, não `bg-subtle`: medido, dentro do card `subtle` é branco a 1% no
+          escuro — invisível. A borda garante o contorno nos dois modos. */}
+      <p className="rounded-radius-md border border-border-default bg-bg-muted p-pad-lg text-body-xs italic text-fg-muted">
+        “Consegui abrir o boleto, mas o valor está diferente do combinado…”
+      </p>
+    </div>
+  );
+}
+
 /** Uma aba padrão a partir do nosso registro — a composição toda vive aqui, no consumidor. */
-function abaDe(item: Conversa, aoFechar: (id: string) => void) {
+function abaDe(item: Conversa, aoFechar: (id: string) => void, comResumo = false) {
   return (
     <TabsNavigation.Tab
       key={item.id}
       value={item.id}
+      hoverCard={comResumo ? <ResumoDoContato item={item} /> : undefined}
       leading={
         <Avatar size="sm" colorHex={item.cor} aria-hidden>
           {item.iniciais}
@@ -155,6 +198,7 @@ const PROPS_TAB = [
   { name: "menu", type: "ReactNode — itens extras do ⋯", defaultVal: "—" },
   { name: "panelId", type: "string — id do container externo; emite aria-controls", defaultVal: "—" },
   { name: "actionsAlwaysVisible", type: "boolean — ações fixas só nesta aba", defaultVal: "false" },
+  { name: "hoverCard", type: "ReactNode — resumo ao pousar o ponteiro (500ms). Não use pra ação nem info essencial: hover não existe no toque", defaultVal: "—" },
 ];
 
 export function TabsNavigationDoc() {
@@ -219,7 +263,7 @@ export function TabsNavigationDoc() {
       <ExampleSection
         id="ex-header"
         title="A — ocupando o espaço do Header"
-        description="A tira toma a faixa do Header (60px) e as abas encostam na régua, como o chrome de um navegador. A aba ativa é bg-surface — a mesma superfície do conteúdo — então ela vira a página de baixo. Ações globais entram por <TabsNavigation.Actions> e ficam fixas, fora do trilho que rola."
+        description="A tira toma a faixa do Header (60px) e as abas encostam na régua, como o chrome de um navegador. A aba ativa é bg-surface — a mesma superfície do conteúdo — então ela vira a página de baixo. Ações globais entram por <TabsNavigation.Actions> e ficam fixas, fora do trilho que rola. Aqui as abas também têm hoverCard: pouse o ponteiro por meio segundo sobre uma delas e vem o resumo do contato — e a tira rola segurando e arrastando (no toque, o swipe nativo já faz isso)."
         code={`<TabsNavigation value={id} onValueChange={setId} aria-label="Conversas abertas" onNewTab={abrir}>
   <TabsNavigation.Tab value="c1" leading={<Avatar size="sm" colorHex="#2563EB">MS</Avatar>}
                status="success" badge={3} onClose={() => fechar("c1")}>
@@ -238,7 +282,7 @@ export function TabsNavigationDoc() {
             aria-label="Conversas abertas"
             onNewTab={() => abrir(abasA, setAbasA, setAtivaA)}
           >
-            {abasA.map((c) => abaDe(c, (id) => fechar(id, abasA, ativaA, setAbasA, setAtivaA)))}
+            {abasA.map((c) => abaDe(c, (id) => fechar(id, abasA, ativaA, setAbasA, setAtivaA), true))}
             <TabsNavigation.Actions>
               <Button variant="ghost" color="secondary" size="icon-sm" aria-label="Buscar">
                 <Search />

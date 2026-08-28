@@ -92,6 +92,7 @@ quiser, onde quiser.
 | `menu` | `ReactNode` | itens extras do `⋯` |
 | `panelId` | `string` | id do container externo |
 | `actionsAlwaysVisible` | `boolean` | ações fixas só nesta aba |
+| `hoverCard` | `ReactNode` | resumo ao pousar o ponteiro (500ms); a aba ATIVA não mostra |
 
 Peças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `compact`) · `TabsNavigation.Action`
 (botão de 24px, já com `stopPropagation`) · `TabsNavigation.Actions` (ações globais à direita) ·
@@ -106,9 +107,10 @@ Peças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `co
   apaga a régua; em `fill` a tira **não tem régua** e a união é por continuidade de cor.
   Medido: manter o truque em `fill` deixava a aba 2px antes da régua — uma fresta, pior que
   linha nenhuma.
-- **O fundo recuado usa dois tokens, um por modo** (`bg-subtle` no claro, `bg-canvas` no
-  escuro) — medido: no claro `canvas` é branco igual à `surface`, no escuro `subtle` é branco
-  a 1% sobre o card. Cada modo tem o seu token de recuo; não procure um único.
+- **O fundo recuado usa dois tokens, um por modo** (`bg-emphasis` no claro, `bg-canvas` no
+  escuro) — medido: no claro `canvas` é branco igual à `surface` e `subtle` quase não se lê
+  contra a aba branca; no escuro `emphasis` é branco a 12% SOBRE o fundo, mais claro que a
+  superfície. Cada modo tem o seu token de recuo; não procure um único.
 - **⛔ Não envolva a tira num wrapper com padding.** O respiro do topo é do componente, e é
   isso que a torna independente da superfície: quando o padding vinha de fora, aquela faixa
   acima das abas ficava com a cor do container enquanto a tira ficava com o recuo — duas cores
@@ -131,3 +133,20 @@ Peças: `TabsNavigation.Title` · `TabsNavigation.Subtitle` (some sozinho em `co
 - **jsdom não tem `ResizeObserver`** — o componente checa antes de instanciar, então ele não
   derruba a suíte de quem consome. Em teste, os controles de overflow ficam ocultos (não há
   medição de layout); teste o comportamento, não a seta.
+
+## Resumo em hover (`hoverCard`) e gesto de arrastar
+
+```tsx
+<TabsNavigation.Tab value="c1" hoverCard={<ResumoDoContato item={c} />}>…</TabsNavigation.Tab>
+```
+
+- **A aba ATIVA não mostra o resumo** — o conteúdo dela já está aberto na tela; um card por
+  cima seria ruído justamente pra quem está lendo aquilo.
+- **Abre com 500ms de espera.** Sem isso, percorrer a fila com o mouse dispararia o card de
+  todas as abas do caminho.
+- **Não coloque ação nem informação essencial ali** — hover não existe no toque.
+- **A tira rola arrastando** (mouse/pen, limiar de 6px, clique preservado). No celular não há
+  hook: o swipe nativo já faz melhor, com inércia.
+- **No celular as setas `‹ ›` somem** e ficam só o `+` e a lista `⌄`: medido em 375px, os três
+  controles comiam 204px e sobrava menos de meia aba visível. A aba também encolhe (168px em
+  vez de 228px) pra caber mais de uma na tela.

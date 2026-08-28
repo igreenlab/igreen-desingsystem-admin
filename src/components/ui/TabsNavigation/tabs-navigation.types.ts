@@ -101,6 +101,17 @@ export interface TabsNavigationTabProps extends Omit<React.HTMLAttributes<HTMLDi
   /** Mantém as ações visíveis só nesta aba (o `pendente` do caso de chamados). */
   actionsAlwaysVisible?: boolean;
 
+  /**
+   * Resumo mostrado ao pousar o ponteiro (500ms) — foto maior, contato, últimas informações.
+   * Qualquer nó; o conteúdo é seu.
+   *
+   * Existe como prop, e não envolvendo a aba num `HoverCard` por fora, porque a raiz separa os
+   * filhos por tipo pra montar a lista de overflow e a navegação por seta: um wrapper no lugar
+   * do `Tab` a faria perder a aba. ⚠️ Não é o lugar de ação nem de informação essencial —
+   * hover não existe no toque.
+   */
+  hoverCard?: ReactNode;
+
   /** `<TabsNavigation.Title>` + `<TabsNavigation.Subtitle>`, ou a composição que você quiser. */
   children?: ReactNode;
 }

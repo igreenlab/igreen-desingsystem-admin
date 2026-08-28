@@ -22,7 +22,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/shadcn/dropdown-menu";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "@/components/shadcn/hover-card";
 import { TabsNavigationContext } from "./tabs-navigation-context";
+import { useArrastarParaRolar } from "./use-arrastar-para-rolar";
 import {
   tabsNavigationTab,
   tabsNavigationAcao,
@@ -147,6 +153,7 @@ export const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabPro
     menu,
     panelId,
     actionsAlwaysVisible = false,
+    hoverCard,
     children,
     className,
     ...rest
@@ -160,7 +167,7 @@ export const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabPro
   const temAcoesPadrao = !actions && typeof onClose === "function";
   const conteudoAcoes = actions ?? (temAcoesPadrao ? <AcoesPadrao onClose={onClose!} menu={menu} /> : null);
 
-  return (
+  const aba = (
     <div
       ref={ref}
       role="tab"
@@ -229,6 +236,33 @@ export const TabsNavigationTab = forwardRef<HTMLDivElement, TabsNavigationTabPro
         </div>
       ) : null}
     </div>
+  );
+
+  /**
+   * O resumo em hover é OPCIONAL e mora aqui dentro — não no consumidor envolvendo a aba.
+   *
+   * Envolver por fora quebraria a tira: a raiz separa os filhos por tipo pra saber quais são
+   * abas (e pra montar a lista de overflow e a navegação por seta). Com um `<HoverCard>` no
+   * lugar do `<Tab>`, ela veria um elemento sem `value` e a navegação por teclado pararia de
+   * achar a aba. Como prop, a composição continua livre — o conteúdo do card é seu — e a
+   * estrutura continua íntegra.
+   *
+   * ⚠️ Sem `openDelay`, o card abriria em qualquer roçada do ponteiro ao percorrer a fila: são
+   * abas lado a lado, o mouse passa por cima de todas pra chegar na última. 500ms é intenção.
+   *
+   * ⚠️ E a aba ATIVA não mostra resumo: o conteúdo dela está aberto na tela inteira logo
+   * abaixo. Um card cobrindo parte do que ele resume é ruído — e atrapalha justamente quem
+   * está lendo aquela conversa.
+   */
+  if (!hoverCard || ativa) return aba;
+
+  return (
+    <HoverCard openDelay={500} closeDelay={120}>
+      <HoverCardTrigger asChild>{aba}</HoverCardTrigger>
+      <HoverCardContent align="start" className="w-[300px]">
+        {hoverCard}
+      </HoverCardContent>
+    </HoverCard>
   );
 });
 TabsNavigationTab.displayName = "TabsNavigation.Tab";
@@ -387,6 +421,9 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
     if (el?.contains(document.activeElement) && alvo !== document.activeElement) alvo?.focus();
   }, [value]);
 
+  /** Segurar e arrastar rola a tira (mouse/pen). No touch o swipe nativo já faz melhor. */
+  useArrastarParaRolar(trilho);
+
   const rolar = (dir: -1 | 1) => trilho.current?.scrollBy({ left: dir * 240, behavior: "smooth" });
 
   /** Setas ←/→/Home/End: padrão ARIA de tablist, e o que faz o roving tabindex ter saída. */
@@ -432,14 +469,19 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
         })}
         {...rest}
       >
-        {/* ⚠️ A seta SOME quando não há pra onde rolar — não fica desabilitada.
+        {/* ⚠️ No CELULAR as setas não aparecem (`hidden sm:flex`): medido em 375px, os três
+            controles comiam 204px dos 375 e sobrava menos de MEIA aba no trilho. No toque a
+            navegação é o swipe (nativo) e a lista `⌄`, que resolve "aquela ali" melhor que
+            uma seta de 36px. No desktop elas voltam.
+
+            ⚠️ A seta SOME quando não há pra onde rolar — não fica desabilitada.
             Botão apagado ainda ocupa espaço e ainda é um alvo que o olho lê como "existe algo
             aqui"; com a fila inteira visível, ou já no começo dela, não existe. Desabilitado
             faz sentido quando a ação volta a valer no mesmo lugar — aqui o gatilho é a largura
             da tira, e a resposta honesta é sumir. Sai com a divisória junto, senão sobra uma
             linha solta no canto. */}
         {rolagem.esq ? (
-          <div className={`${controles} pr-pad-xs`}>
+          <div className={`${controles} hidden pr-pad-xs sm:flex`}>
             <Button
               variant="ghost"
               color="secondary"
@@ -474,7 +516,7 @@ export const TabsNavigationRoot = forwardRef<HTMLDivElement, TabsNavigationProps
         </div>
 
         {rolagem.dir ? (
-          <div className={`${controles} pl-pad-xs`}>
+          <div className={`${controles} hidden pl-pad-xs sm:flex`}>
             <span aria-hidden className={tabsNavigationDivisoria({ fill })} />
             <Button
               variant="ghost"
