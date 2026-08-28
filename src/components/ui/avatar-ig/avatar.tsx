@@ -20,7 +20,7 @@ import type { AvatarProps } from "./avatar.types";
  * `className` com classe Tailwind `text-X` — ela sobrescreve a auto-pickada
  * pela ordem de cascade.
  *
- * Foto (vNEXT): passe `src` e mantenha as iniciais em `children` — elas são o
+ * Foto (v0.53.0): passe `src` e mantenha as iniciais em `children` — elas são o
  * **fallback** quando a URL falha. A imagem interna é `alt=""`; o nome da pessoa mora no
  * `aria-label` do avatar, pra não ser anunciado duas vezes.
  *

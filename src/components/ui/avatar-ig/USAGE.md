@@ -26,7 +26,7 @@ import { Avatar } from "@/components/ui/avatar-ig";
 <Avatar size="lg" src="/fotos/maria.jpg" aria-label="Maria Silva">MS</Avatar>
 ```
 
-## Foto (`src`, vNEXT+)
+## Foto (`src`, v0.53.0+)
 
 A imagem cobre o círculo (`object-cover`, sem distorcer) e escala pelos mesmos `size` das
 iniciais — inclusive dentro do `AvatarGroup`, que propaga o tamanho por contexto.
