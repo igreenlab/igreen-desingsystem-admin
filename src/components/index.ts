@@ -46,6 +46,7 @@ export * from "./ui/ScreenLoader";
 export * from "./ui/SingleMenuSidebar";
 export * from "./ui/Spinner";
 export * from "./ui/Table";
+export * from "./ui/TabsNavigation";
 export * from "./ui/ChoroplethMap";
 /**
  * Entraram no barrel em 0.37.0. Existiam desde antes e simplesmente nunca foram

@@ -56,10 +56,11 @@ const NAO_COMPONENTE = /^example-|^theme(-|$)|^(tv|utils)$/;
  * isso. O gate leu as duas como nome de componente inventado.
  *
  * Em 2026-08-28 entraram `max`, `total`, `surface`, `ring`, `src` e `children` — as props do
- * `AvatarGroup`/`Avatar`, e a classe que a regra deles proíbe escrever na mão.
+ * `AvatarGroup`/`Avatar`, e a classe que a regra deles proíbe escrever na mão. E `value`, do
+ * `TabsNavigation`, que é controlado.
  */
 const NAO_NOME =
-  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|src$|children$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;
+  /^(gap-|p-|px-|py-|min-h-|max-w-|size-|shadow-|rounded-|text-|bg-|border-|chart-|stat-|tabular-|w-|flex-|listconfig|viewmode|variant|mode|single|range|multiple|segmented|line|color|npm|igreen|size$|state$|xxs$|value$|src$|children$|max$|total$|surface$|ring$|connected$|outlined$|filled$|underline$|href$|renderlink$|fillheight$|showsearch$|categories$|contexts$|sidebar$|sidebarlogo$|sidebartitle$|sidebarshowsearch$|activeitemid$|onsidebaritemclick$)/i;
 
 /** Deps npm citadas legitimamente (aparecem como "traz `d3-geo`"). */
 const DEPS_NPM = new Set(["d3-geo", "topojson-client", "recharts", "lucide-react"]);

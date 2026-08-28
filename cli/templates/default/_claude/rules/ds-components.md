@@ -63,6 +63,12 @@ label, helper, erro e do `htmlFor`).
   List/Trigger): **`variant`** `"segmented"` (default) dentro de superfície — card, bloco,
   Panel, FloatingPanel, Modal, drawer · `"line"` para seções de página. **`fullWidth`** em
   superfície compacta; hug em toolbar/página. ⛔ nunca `w-full`/`flex-1` na mão.
+- `tabs-navigation` — **abas de NAVEGADOR**, não de conteúdo: cada aba é uma **sessão aberta**
+  (conversa, chamado, registro) que o usuário abre, troca e fecha, com avatar/ícone, status e
+  ações próprias. Critério: se o usuário **abre e fecha** as abas → `tabs-navigation`; se as seções
+  são fixas dentro da tela → `tabs`. É controlado (`value`/`onValueChange`) e **não hospeda o
+  conteúdo** — o painel pode morar em outra coluna ou rota (aí a aba leva `panelId`). ⛔ nunca
+  monte a tira na mão com margem negativa: a união da aba ativa com o conteúdo é o componente.
 - `button-group` — ações relacionadas lado a lado; uma dispara, **não guarda estado**.
 - `toggle-group` — modo ou filtro que **persiste** · `toggle` para um só, on/off.
 - ⚠️ Alternar tabela ↔ cards dos **mesmos dados** não é nenhum dos três: é `viewMode`
