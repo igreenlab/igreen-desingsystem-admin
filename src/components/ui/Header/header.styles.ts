@@ -72,29 +72,18 @@ export const headerIconBtnBadge = tv({
 });
 
 /* ── Breadcrumb ───────────────────────────────────────────────────────────── */
-export const breadcrumbRoot = tv({
-  base: "flex items-center gap-gp-sm min-w-0",
-});
-
-export const breadcrumbItem = tv({
-  base: "font-medium truncate transition-colors leading-none",
-  variants: {
-    current: {
-      true: "text-fg-default font-semibold",
-      false: "text-fg-muted hover:text-fg-default cursor-pointer",
-    },
-    /** Quando único item no breadcrumb (= título da página), font-size sobe pra 16px */
-    standalone: {
-      true: "text-body-lg",
-      false: "text-body-sm font-normal",
-    },
-  },
-  defaultVariants: { current: false, standalone: false },
-});
-
-export const breadcrumbSeparator = tv({
-  base: "text-fg-subtle shrink-0",
-});
+/**
+ * ⚠️ `breadcrumbRoot`, `breadcrumbItem` e `breadcrumbSeparator` SAÍRAM daqui.
+ *
+ * Eram a segunda implementação visual de breadcrumb do DS — 13px na cadeia e 16px em item
+ * único, contra os 14px do primitivo — e é por isso que um caminho montado fora do Header
+ * saía com outro tamanho. Agora quem desenha é o `<Breadcrumb>` de `ui/Breadcrumb`, e o
+ * Header só pede `size="sm"`, que reproduz exatamente estes valores (medido antes e depois:
+ * gap 6px · cadeia 13/400 · item único 16/600).
+ *
+ * Não os traga de volta pra "ajustar o Header": ajuste a variante `sm` no componente, senão
+ * a divergência volta.
+ */
 
 /* ── Search (fake input) ──────────────────────────────────────────────────── */
 export const searchFakeInput = tv({

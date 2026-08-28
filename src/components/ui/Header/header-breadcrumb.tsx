@@ -1,32 +1,6 @@
-import { Fragment } from "react";
-import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BreadcrumbSwitcher } from "@/components/ui/Breadcrumb";
-import {
-  breadcrumbRoot,
-  breadcrumbItem,
-  breadcrumbSeparator,
-} from "./header.styles";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import type { HeaderBreadcrumbItem } from "./header.types";
-
-/**
- * Só vira seletor com os TRÊS: lista, valor e callback. Faltando um, o item cai no caminho
- * normal — um gatilho que abre lista vazia, ou que não sabe avisar a escolha, é pior que texto.
- */
-function ehSwitcher(
-  item: HeaderBreadcrumbItem,
-): item is HeaderBreadcrumbItem & {
-  switcher: NonNullable<HeaderBreadcrumbItem["switcher"]>;
-  value: string;
-  onValueChange: (value: string) => void;
-} {
-  return (
-    Array.isArray(item.switcher) &&
-    item.switcher.length > 0 &&
-    typeof item.value === "string" &&
-    typeof item.onValueChange === "function"
-  );
-}
 
 export type HeaderBreadcrumbProps = {
   items: HeaderBreadcrumbItem[];
@@ -39,9 +13,19 @@ export type HeaderBreadcrumbProps = {
 };
 
 /**
- * Breadcrumb / title — auto-renderiza como string única quando 1 item,
- * ou como cadeia "Item / Item / Item" quando 2+. Último item nunca é link
- * (representa página atual).
+ * Breadcrumb do Header — hoje é uma casca fina sobre o `<Breadcrumb>` de `ui/`.
+ *
+ * ## Por que isto encolheu
+ *
+ * Este arquivo tinha a própria montagem da cadeia E o próprio estilo (`breadcrumbRoot`,
+ * `breadcrumbItem`, `breadcrumbSeparator` em `header.styles.ts`), o que fazia o DS ter DOIS
+ * breadcrumbs com aparências diferentes: 13px aqui, 14px no primitivo. Quem compunha um
+ * caminho fora do Header pegava o outro tamanho sem perceber.
+ *
+ * Agora a montagem é do componente e o Header só escolhe o tamanho (`size="sm"`, que é
+ * exatamente o que estava aqui: 13px na cadeia, 16px/600 quando há um item só) e o
+ * comportamento mobile. Medido antes e depois da troca: gap 6px, cadeia 13px/400 com
+ * `fg-muted` e o último em `fg-default`, item único 16px/600 — sem desvio.
  */
 export function HeaderBreadcrumb({
   items,
@@ -50,107 +34,27 @@ export function HeaderBreadcrumb({
 }: HeaderBreadcrumbProps) {
   if (items.length === 0) return null;
 
-  /** Quando há 1 só item, renderiza como título (15px). 2+ → cadeia breadcrumb (13px). */
-  const isStandalone = items.length === 1;
-  const lastItem = items[items.length - 1];
+  const ultimo = items[items.length - 1];
 
   return (
     <>
       {/* Desktop: cadeia completa */}
-      <nav
-        className={cn(
-          breadcrumbRoot(),
-          mobileShowLastOnly && "hidden md:flex",
-          className,
-        )}
-        aria-label="Breadcrumb"
-      >
-        {items.map((item, idx) => {
-          const isLast = idx === items.length - 1;
-          const isClickable =
-            !isLast && (item.href !== undefined || item.onClick !== undefined);
+      <Breadcrumb
+        items={items}
+        size="sm"
+        className={cn("min-w-0", mobileShowLastOnly && "hidden md:block", className)}
+      />
 
-          return (
-            <Fragment key={`${item.label}-${idx}`}>
-              {idx > 0 && (
-                <ChevronRight
-                  size={14}
-                  strokeWidth={1.7}
-                  className={breadcrumbSeparator()}
-                  aria-hidden="true"
-                />
-              )}
-              {ehSwitcher(item) ? (
-                /* Item que troca o registro aberto. Vem ANTES do teste de link porque um
-                   seletor com `href` continua sendo seletor — o clique abre a lista. */
-                <BreadcrumbSwitcher
-                  value={item.value}
-                  onValueChange={item.onValueChange}
-                  options={item.switcher}
-                  title={item.switcherTitle}
-                  searchPlaceholder={item.switcherSearchPlaceholder}
-                  footer={item.switcherFooter}
-                  aria-label={`Trocar: ${item.label}`}
-                />
-              ) : isClickable ? (
-                <a
-                  href={item.href ?? "#"}
-                  className={breadcrumbItem({
-                    current: false,
-                    standalone: isStandalone,
-                  })}
-                  onClick={(e) => {
-                    if (!item.href) e.preventDefault();
-                    item.onClick?.(e);
-                  }}
-                >
-                  {item.label}
-                </a>
-              ) : (
-                <span
-                  className={breadcrumbItem({
-                    current: isLast,
-                    standalone: isStandalone,
-                  })}
-                  aria-current={isLast ? "page" : undefined}
-                >
-                  {item.label}
-                </span>
-              )}
-            </Fragment>
-          );
-        })}
-      </nav>
-
-      {/* Mobile: só o último item (título da seção atual) */}
-      {mobileShowLastOnly && (
-        <nav
-          className={cn(breadcrumbRoot(), "md:hidden", className)}
+      {/* Mobile: só o último item — que continua sendo seletor, se for o caso. É onde mais
+          importa: sem ele, trocar de registro no telefone significa voltar à lista. */}
+      {mobileShowLastOnly ? (
+        <Breadcrumb
+          items={[ultimo]}
+          size="sm"
           aria-label="Seção atual"
-        >
-          {/* No celular a cadeia some e sobra só este item — então é AQUI que o seletor mais
-              importa: sem ele, trocar de registro no telefone significa voltar à lista e
-              procurar de novo. */}
-          {ehSwitcher(lastItem) ? (
-            <BreadcrumbSwitcher
-              value={lastItem.value}
-              onValueChange={lastItem.onValueChange}
-              options={lastItem.switcher}
-              title={lastItem.switcherTitle}
-              searchPlaceholder={lastItem.switcherSearchPlaceholder}
-              footer={lastItem.switcherFooter}
-              aria-label={`Trocar: ${lastItem.label}`}
-            />
-          ) : (
-            <span
-              className={breadcrumbItem({ current: true, standalone: true })}
-              aria-current="page"
-            >
-              {lastItem.label}
-            </span>
-          )}
-        </nav>
-      )}
+          className={cn("min-w-0 md:hidden", className)}
+        />
+      ) : null}
     </>
   );
 }

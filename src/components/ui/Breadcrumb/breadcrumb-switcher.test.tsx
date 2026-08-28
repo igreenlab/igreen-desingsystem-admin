@@ -2,6 +2,7 @@ import { useState } from "react";
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BreadcrumbSwitcher } from "./breadcrumb-switcher";
+import { Breadcrumb } from "./breadcrumb";
 import { HeaderBreadcrumb } from "../Header/header-breadcrumb";
 
 /**
@@ -200,5 +201,68 @@ describe("HeaderBreadcrumb — o item só vira seletor com os três", () => {
       />,
     );
     expect(screen.queryByRole("button", { name: /Trocar/ })).toBeNull();
+  });
+});
+
+describe("Breadcrumb — os dois modos", () => {
+  it("com `items`, monta a cadeia e o ÚLTIMO não é link", () => {
+    render(
+      <Breadcrumb
+        items={[
+          { label: "Início", href: "/" },
+          { label: "Clientes", href: "/clientes" },
+          { label: "Maria Silva" },
+        ]}
+      />,
+    );
+    expect(screen.getByRole("link", { name: "Início" })).toBeTruthy();
+    expect(screen.getByRole("link", { name: "Clientes" })).toBeTruthy();
+    /* ⚠️ O atual NÃO é um `<a>` — mas o `BreadcrumbPage` do shadcn o expõe como
+       `role="link" aria-disabled aria-current="page"` (padrão upstream). Então "não é link"
+       se afirma pela ausência de `href` e pelo `aria-current`, não por `queryByRole("link")`. */
+    const atual = screen.getByText("Maria Silva");
+    expect(atual.getAttribute("aria-current")).toBe("page");
+    expect(atual.getAttribute("aria-disabled")).toBe("true");
+    expect(atual.hasAttribute("href")).toBe(false);
+  });
+
+  it("item com `href` NA ÚLTIMA posição também não vira link — é a página atual", () => {
+    render(<Breadcrumb items={[{ label: "Clientes", href: "/clientes" }]} />);
+    // o `href` é ignorado: o último item é a página atual, e página atual não navega pra si
+    expect(screen.getByText("Clientes").hasAttribute("href")).toBe(false);
+    expect(document.querySelector("a")).toBeNull();
+  });
+
+  it("um item com `switcher` vira seletor no meio da cadeia", () => {
+    render(
+      <Breadcrumb
+        items={[
+          { label: "Clientes", href: "/clientes" },
+          { label: "Maria Silva", switcher: OPCOES, value: "c1", onValueChange: () => {} },
+        ]}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Trocar: Maria Silva" })).toBeTruthy();
+  });
+
+  it("sem `items`, renderiza os children — é o modo de composição", () => {
+    render(
+      <Breadcrumb>
+        <span data-testid="livre">qualquer coisa</span>
+      </Breadcrumb>,
+    );
+    expect(screen.getByTestId("livre")).toBeTruthy();
+  });
+
+  it("`items` vazio não renderiza nada (nem o nav vazio)", () => {
+    const { container } = render(<Breadcrumb items={[]} />);
+    expect(container.querySelector("nav")).toBeNull();
+  });
+
+  it("um item só = título da página, não cadeia — e é o que o Header usa", () => {
+    const { container } = render(<Breadcrumb size="sm" items={[{ label: "Dashboard" }]} />);
+    // sem separador: não há entre o que separar
+    expect(container.querySelectorAll("li")).toHaveLength(1);
+    expect(screen.getByText("Dashboard").className).toContain("text-body-lg");
   });
 });

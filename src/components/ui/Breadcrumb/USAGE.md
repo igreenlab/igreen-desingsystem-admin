@@ -29,6 +29,31 @@ contrato — qualquer coisa de que existam muitos.
 | Escolher um valor num formulário | `combobox` |
 | Trocar entre sessões abertas ao mesmo tempo | `tabs-navigation` |
 
+## Os dois modos
+
+```tsx
+// 1) pronto — dados entram, cadeia sai (95% das telas)
+<Breadcrumb items={[
+  { label: "Clientes", href: "/clientes" },
+  { label: cliente.nome },                 // sem href = página atual
+]} />
+
+// 2) composição — pra interpor algo ou estilizar item a item
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem><BreadcrumbLink href="/clientes">Clientes</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem><Chip size="sm">homologação</Chip></BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>
+```
+
+| Prop da raiz | | |
+|---|---|---|
+| `items` | `BreadcrumbItemData[]` | sem ele, renderiza `children` no primitivo |
+| `size` | `sm` | `md` | `sm` = 13px na cadeia e 16px em item único (é o do `Header`); `md` = 14px (o do primitivo) |
+| `separator` | `ReactNode` | default `ChevronRight` de 14px |
+
 ## Import
 
 ```tsx
@@ -110,5 +135,10 @@ continua ali.
   mas quem ouve a tela merece o termo certo.
 - **Use `placeholder` quando a lista chega assíncrona**: sem ele, enquanto as opções não
   carregam, o caminho mostra o `value` cru (um id), que lê como bug.
+- **Item único é TÍTULO, não caminho.** Com um item só e `size="sm"`, ele sobe pra 16px/600 —
+  uma cadeia de um elemento é o nome da tela. É o comportamento que o `Header` sempre teve.
+- **O `href` do ÚLTIMO item é ignorado**: página atual não navega pra si. E o atual é um
+  `BreadcrumbPage`, que o shadcn expõe como `role="link" aria-disabled aria-current="page"` —
+  se você testar "não é link" por `getByRole("link")`, vai achar que quebrou.
 - **Não empilhe com um link no mesmo item.** Se o item tem `switcher`, o clique abre a lista —
   um `href` ali seria uma segunda intenção que nunca dispara.

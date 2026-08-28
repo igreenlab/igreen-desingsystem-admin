@@ -10,8 +10,12 @@
  * aberto** em vez de linkar. Manter os dois separados fazia a mesma peça aparecer duas vezes
  * no catálogo, no menu e no vocabulário — foi o que o mantenedor apontou.
  */
+/** O `Breadcrumb` daqui é o WRAPPER (aceita `items`); o cru continua em `shadcn/breadcrumb`. */
+export { Breadcrumb } from "./breadcrumb";
+export { breadcrumbCaminho } from "./breadcrumb.styles";
+export type { BreadcrumbProps, BreadcrumbItemData } from "./breadcrumb.types";
+
 export {
-  Breadcrumb,
   BreadcrumbList,
   BreadcrumbItem,
   BreadcrumbLink,

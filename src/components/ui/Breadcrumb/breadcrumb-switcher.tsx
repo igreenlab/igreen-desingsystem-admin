@@ -59,6 +59,7 @@ export const BreadcrumbSwitcher = forwardRef<HTMLButtonElement, BreadcrumbSwitch
       open: openProp,
       onOpenChange,
       align = "start",
+      size = "md",
       disabled,
       className,
       contentClassName,
@@ -73,7 +74,7 @@ export const BreadcrumbSwitcher = forwardRef<HTMLButtonElement, BreadcrumbSwitch
       onOpenChange?.(proximo);
     };
 
-    const estilos = breadcrumbSwitcher();
+    const estilos = breadcrumbSwitcher({ size });
     const atual = options.find((o) => o.value === value);
 
     /**

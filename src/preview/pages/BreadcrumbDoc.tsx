@@ -68,7 +68,8 @@ const UCS = [
 ];
 
 const TOC = [
-  { id: "ex-caminho", label: "O caminho" },
+  { id: "ex-caminho", label: "O caminho (items)" },
+  { id: "ex-composto", label: "Composição" },
   { id: "quando", label: "Quando o item vira seletor" },
   { id: "ex-basico", label: "No breadcrumb" },
   { id: "ex-header", label: "No Header do app" },
@@ -91,7 +92,9 @@ const PROPS = [
 ];
 
 const PROPS_CAMINHO = [
-  { name: "separator", type: "ReactNode — separador entre itens", defaultVal: "ChevronRight" },
+  { name: "items", type: "BreadcrumbItemData[] — { label, href?, onClick?, switcher?, value?, onValueChange? }. SEM isto, renderiza children no primitivo", defaultVal: "—" },
+  { name: "size", type: '"sm" (13px cadeia / 16px item único — o do Header) | "md" (14px — o do primitivo)', defaultVal: '"md"' },
+  { name: "separator", type: "ReactNode — separador entre itens", defaultVal: "ChevronRight 14px" },
 ];
 
 export function BreadcrumbDoc() {
@@ -113,13 +116,53 @@ export function BreadcrumbDoc() {
 
       <ExampleSection
         id="ex-caminho"
-        title="O caminho"
-        description="A cadeia normal: links até o penúltimo, página atual no último (que nunca é link)."
+        title="O caminho — dados entram, cadeia sai"
+        description="É o modo de 95% das telas: passe items e o componente resolve o resto — último item não vira link (é a página atual), separador entre itens, truncagem. size=sm é o do Header (13px na cadeia, 16px quando há um item só); md é o do primitivo."
+        code={`<Breadcrumb
+  items={[
+    { label: "Início", href: "/" },
+    { label: "Clientes", href: "/clientes" },
+    { label: "Maria Silva" },   // sem href = página atual
+  ]}
+/>`}
+      >
+        <div className="flex w-full flex-col gap-gp-2xl">
+          <Breadcrumb
+            items={[
+              { label: "Início", href: "#" },
+              { label: "Clientes", href: "#" },
+              { label: "Maria Silva" },
+            ]}
+          />
+          <div className="flex flex-col gap-gp-md">
+            <span className="text-caption-md text-fg-subtle">size="sm" (o do Header)</span>
+            <Breadcrumb
+              size="sm"
+              items={[
+                { label: "Início", href: "#" },
+                { label: "Clientes", href: "#" },
+                { label: "Maria Silva" },
+              ]}
+            />
+            <span className="text-caption-md text-fg-subtle">
+              um item só = título da página (16px)
+            </span>
+            <Breadcrumb size="sm" items={[{ label: "Dashboard" }]} />
+          </div>
+        </div>
+      </ExampleSection>
+
+      <ExampleSection
+        id="ex-composto"
+        title="Composição — quando `items` não dá conta"
+        description="Sem items, o componente renderiza children no primitivo. É a saída pra interpor algo no meio do caminho (um Chip de ambiente, um ícone) ou estilizar item a item. Os primitivos saem do MESMO import; quem quiser o cru, sem o wrapper, importa de shadcn/breadcrumb."
         code={`<Breadcrumb>
   <BreadcrumbList>
-    <BreadcrumbItem><BreadcrumbLink href="#">Início</BreadcrumbLink></BreadcrumbItem>
-    <BreadcrumbSeparator />
     <BreadcrumbItem><BreadcrumbLink href="#">Clientes</BreadcrumbLink></BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <Chip size="sm" color="warning" variant="soft">homologação</Chip>
+    </BreadcrumbItem>
     <BreadcrumbSeparator />
     <BreadcrumbItem><BreadcrumbPage>Maria Silva</BreadcrumbPage></BreadcrumbItem>
   </BreadcrumbList>
@@ -128,11 +171,13 @@ export function BreadcrumbDoc() {
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Início</BreadcrumbLink>
+              <BreadcrumbLink href="#">Clientes</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="#">Clientes</BreadcrumbLink>
+              <Chip size="sm" color="warning" variant="soft">
+                homologação
+              </Chip>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>

@@ -16,7 +16,7 @@ export const breadcrumbSwitcher = tv({
     trigger: [
       "inline-flex max-w-[240px] items-center gap-gp-xs rounded-radius-sm",
       "px-pad-xs py-pad-2xs -mx-pad-xs",
-      "text-body-sm font-medium text-fg-default",
+      "font-medium text-fg-default",
       "transition-colors hover:bg-bg-muted",
       "focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring-brand",
       "disabled:pointer-events-none disabled:opacity-60",
@@ -37,4 +37,18 @@ export const breadcrumbSwitcher = tv({
     itemLabel: "truncate",
     itemDescricao: "truncate text-caption-md text-fg-subtle",
   },
+
+  variants: {
+    /**
+     * Acompanha o tamanho do caminho. Sem isto o gatilho ficava 13px fixo no meio de irmãos de
+     * 14px (medido na doc) — o item que troca é o MESMO item do caminho, não pode ter corpo
+     * próprio.
+     */
+    size: {
+      sm: { trigger: "text-body-sm" },
+      md: { trigger: "text-body-md" },
+    },
+  },
+
+  defaultVariants: { size: "md" },
 });

@@ -51,6 +51,9 @@ export interface BreadcrumbSwitcherProps {
    */
   "aria-label"?: string;
 
+  /** Acompanha o `size` do caminho. @default "md" */
+  size?: "sm" | "md";
+
   disabled?: boolean;
   className?: string;
   contentClassName?: string;
