@@ -494,9 +494,12 @@ export function SchedulerDoc() {
         id="filtro-isolado"
         title="O card sozinho, sem a grade"
         description="O mesmo SchedulerFilterPanel que o Scheduler monta como coluna, aqui isolado pra a estrutura ficar visível: cabeçalho sticky (Filtros / Limpar / ×), mini-calendário pra saltar de data, e um grupo por campo de filtro com caixas coloridas na mesma cor que o evento tem na grade — o que dispensa legenda. Cada seção é inteiriça, com padding próprio e divisória de ponta a ponta; o painel em si não tem padding, é a seção que paga o respiro. Ele é exportado pelo barrel (mesmo padrão do TableToolbar, que expõe ToolbarSearch e as outras partes) pra uma tela poder posicioná-lo em outro lugar do próprio layout — em uso normal você não precisa dele."
-        plain
       >
-        <div className="flex h-[560px] justify-start">
+        {/* SEM `plain`: este é o único exemplo pequeno da página, e o container
+            centralizado do `ExampleSection` é justamente o padrão do showcase
+            pra componente que não precisa de largura cheia. `h-[560px]` dá ao
+            card a altura em que ele rola por dentro, como na coluna real. */}
+        <div className="flex h-[560px]">
           <SchedulerFilterPanel
             filterFields={FILTER_FIELDS}
             filterModel={filtroIsolado}

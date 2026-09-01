@@ -109,8 +109,6 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Popover", href: "popover" },
       { label: "Progress", href: "progress" },
       { label: "Radio Group", href: "radio-group" },
-      { label: "Scheduler", href: "scheduler" },
-      { label: "Example: Scheduler tela cheia", href: "scheduler-full" },
       { label: "Screen Loader", href: "screen-loader" },
       { label: "Scroll Area", href: "scroll-area" },
       { label: "Select", href: "select" },
@@ -176,6 +174,16 @@ const BASE_NAV: DocNavSection[] = [
       { label: "Example: Column types", href: "clients-typed" },
       { label: "Example: Kanban view", href: "clients-kanban" },
       { label: "Example: List view (toggle)", href: "clients-list-view" },
+    ],
+  },
+  {
+    // Seção própria, no padrão de "Data Table Components" e "List Components":
+    // um "Example:" solto no meio da lista alfabética de Components ficava
+    // impossível de achar — era vizinho de "Screen Loader" por acidente de nome.
+    title: "Scheduler",
+    items: [
+      { label: "Scheduler", href: "scheduler" },
+      { label: "Example: Tela cheia", href: "scheduler-full" },
     ],
   },
   {

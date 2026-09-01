@@ -19,7 +19,19 @@ export type PropItem = {
 
 export function PropsTable({ items }: { items: PropItem[] }) {
   return (
-    <div className="rounded-radius-3xl ring-1 ring-border-subtle overflow-hidden">
+    /* `mb-14` espelha o do `ExampleSection`.
+     *
+     * Existe porque o `SectionH2` tem `pb-5 border-b mb-12` e **nenhum**
+     * `margin-top`: um heading logo depois de uma tabela colava nela, com a
+     * régua do heading a 0px da borda do card. É a segunda metade da L-050, que
+     * já registrava o sintoma ("`SectionH2` tem `mb` sem `margin-top`: tabela
+     * seguida de heading cola") sem que nada no código o resolvesse — cada
+     * página que empilhava duas tabelas de props reproduzia o defeito.
+     *
+     * Fica aqui e não no `SectionH2` porque o problema é a AUSÊNCIA de espaço
+     * DEPOIS da tabela: pôr `margin-top` no heading dobraria o respiro nos
+     * casos em que ele vem depois de um `ExampleSection`, que já tem `mb-14`. */
+    <div className="mb-14 rounded-radius-3xl ring-1 ring-border-subtle overflow-hidden">
       <table className="w-full text-left">
         <thead className="bg-bg-muted">
           <tr>
